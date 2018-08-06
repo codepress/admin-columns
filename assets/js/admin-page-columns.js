@@ -98,6 +98,8 @@
 
 var _form = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.js"));
 
+var _modals = _interopRequireDefault(__webpack_require__(/*! ./modules/modals */ "./js/modules/modals.js"));
+
 var _initiator = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/initiator */ "./js/admin/columns/initiator.js"));
 
 var _modal = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/modal */ "./js/admin/columns/modal.js"));
@@ -148,6 +150,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var jQuery = $ = __webpack_require__(/*! jquery */ "jquery");
 
 AC.Column = new _initiator.default();
+AC.Modals = new _modals.default();
 jQuery(document).on('AC.form.loaded', function () {
   /** Register Events **/
   AC.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
@@ -156,7 +159,7 @@ jQuery(document).on('AC.form.loaded', function () {
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#cpac .ac-columns form');
-  new _modal.default().init();
+  AC.Modals.register(new _modal.default(document.querySelector('#ac-modal-pro')), 'pro');
   new _menu.default().init();
   new _feedback.default('.sidebox#direct-feedback');
 });
@@ -1109,33 +1112,89 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Modal =
 /*#__PURE__*/
 function () {
-  function Modal() {
+  function Modal(el) {
     _classCallCheck(this, Modal);
+
+    this.el = el;
+    this.dialog = el.querySelector('.ac-modal__dialog');
+    this.initEvents();
   }
 
   _createClass(Modal, [{
-    key: "init",
-    value: function init() {
-      $(document).on('click', '[data-ac-open-modal]', function (e) {
-        e.preventDefault();
-        $($(this).data('ac-open-modal')).addClass('-active');
-      });
-      $('.ac-modal__dialog__close').on('click', function (e) {
-        e.preventDefault();
-        $(this).closest('.ac-modal').removeClass('-active');
-      });
-      $('.ac-modal').on('click', function (e) {
-        $(this).removeClass('-active');
-      }); // Prevent bubbling
+    key: "initEvents",
+    value: function initEvents() {
+      var _this = this;
 
-      $('.ac-modal__dialog').on('click', function (e) {
-        e.stopPropagation();
-      });
-      $(document).keyup(function (e) {
-        if (e.keyCode === 27) {
-          $('.ac-modal').removeClass('-active');
+      var self = this;
+      document.addEventListener('keydown', function (e) {
+        var keyName = event.key;
+
+        if (!_this.isOpen()) {
+          return;
+        }
+
+        if ('Escape' === keyName) {
+          _this.close();
         }
       });
+      var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"]');
+
+      if (dismissButtons.length > 0) {
+        dismissButtons.forEach(function (b) {
+          b.addEventListener('click', function (e) {
+            e.preventDefault();
+            self.close();
+          });
+        });
+      }
+
+      this.el.addEventListener('click', function () {
+        self.close();
+      });
+      this.el.querySelector('.ac-modal__dialog').addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+
+      if (typeof document.querySelector('body').dataset.ac_modal_init === 'undefined') {
+        Modal.initGlobalEvents();
+        document.querySelector('body').dataset.ac_modal_init = 1;
+      }
+
+      this.el.AC_MODAL = self;
+    }
+  }, {
+    key: "isOpen",
+    value: function isOpen() {
+      return this.el.classList.contains('-active');
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.el.classList.remove('-active');
+    }
+  }, {
+    key: "open",
+    value: function open() {
+      this.el.classList.add('-active');
+    }
+  }], [{
+    key: "initGlobalEvents",
+    value: function initGlobalEvents() {
+      var buttons = document.querySelectorAll('[data-ac-open-modal]');
+
+      if (buttons.length) {
+        buttons.forEach(function (button) {
+          button.addEventListener('click', function (e) {
+            var target = e.target.dataset.acOpenModal;
+            var el = document.querySelector(target);
+
+            if (el && el.AC_MODAL) {
+              el.AC_MODAL.open();
+            }
+          });
+        });
+      } //document.addEventListener( 'click' )
+
     }
   }]);
 
@@ -1523,6 +1582,60 @@ var width = function width(column) {
 };
 
 module.exports = width;
+
+/***/ }),
+
+/***/ "./js/modules/modals.js":
+/*!******************************!*\
+  !*** ./js/modules/modals.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Modals =
+/*#__PURE__*/
+function () {
+  function Modals() {
+    _classCallCheck(this, Modals);
+
+    this.modals = [];
+  }
+
+  _createClass(Modals, [{
+    key: "register",
+    value: function register(modal) {
+      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      if (!key) {
+        key = Math.random();
+      }
+
+      this.modals[key] = modal;
+    }
+  }, {
+    key: "get",
+    value: function get(key) {
+      if (this.modals[key]) {
+        return this.modals[key];
+      }
+
+      return false;
+    }
+  }]);
+
+  return Modals;
+}();
+
+module.exports = Modals;
 
 /***/ }),
 
