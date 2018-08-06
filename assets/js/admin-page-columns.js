@@ -186,6 +186,8 @@ function () {
     _classCallCheck(this, Column);
 
     this.$el = $el;
+    this.el = $el[0];
+    this.settings = [];
     this._type = this.$el.data('type');
   }
 
@@ -243,14 +245,20 @@ function () {
           column.bind(key);
         }
       });
+      this.bindSettings();
+      $(document).trigger('AC.initSettings', this.$el);
+      return this;
+    }
+  }, {
+    key: "bindSettings",
+    value: function bindSettings() {
+      var column = this;
       Object.keys(AC.Column.settings).forEach(function (key) {
         if (!column.isBound(key)) {
           AC.Column.settings[key](column);
           column.bind(key);
         }
       });
-      $(document).trigger('AC.initSettings', this.$el);
-      return this;
     }
   }, {
     key: "isBound",
@@ -283,12 +291,24 @@ function () {
     key: "toggle",
     value: function toggle() {
       var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 150;
-      this.$el.toggleClass('opened').find('.ac-column-body').slideToggle(duration);
+
+      if (this.$el.hasClass('opened')) {
+        this.close(duration);
+      } else {
+        this.open(duration);
+      }
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      this.$el.removeClass('opened').find('.ac-column-body').slideUp(duration);
     }
   }, {
     key: "open",
     value: function open() {
-      this.$el.addClass('opened').find('.ac-column-body').show();
+      var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      this.$el.addClass('opened').find('.ac-column-body').slideDown(duration);
     }
   }, {
     key: "showMessage",
@@ -317,6 +337,7 @@ function () {
             var column = jQuery(response.data);
             self.$el.replaceWith(column);
             self.$el = column;
+            self.el = column[0];
             self._type = type;
             self.initNewInstance();
             self.bindEvents();
@@ -355,8 +376,8 @@ function () {
           if (true === response.success) {
             var column = jQuery(response.data);
             self.$el.replaceWith(column);
-            self.$el = column; //self.initNewInstance();
-
+            self.$el = column;
+            self.el = column[0];
             self.bindEvents();
             self.open();
             jQuery(document).trigger('AC.column.refresh', self);
@@ -1229,23 +1250,111 @@ module.exports = date;
 "use strict";
 
 
-var image = function image(column) {
-  function initState($setting, $select) {
-    if ('cpac-custom' === $select.val()) {
-      $setting.find('.ac-column-setting').show();
-    } else {
-      $setting.find('.ac-column-setting').hide();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Image =
+/*#__PURE__*/
+function () {
+  function Image(column) {
+    _classCallCheck(this, Image);
+
+    this.column = column;
+    this.setting = column.$el[0].querySelector('.ac-column-setting--image');
+
+    if (!this.setting) {
+      return;
     }
+
+    this.field = this.setting.querySelector('.ac-setting-input select');
+    this.initState();
+    this.bindEvents();
   }
 
-  column.$el.find('.ac-column-setting--image').each(function () {
-    var $setting = $(this);
-    var $select = $(this).find('.ac-setting-input select');
-    initState($setting, $select);
-    $select.on('change', function () {
-      initState($setting, $(this));
-    });
-  });
+  _createClass(Image, [{
+    key: "getValue",
+    value: function getValue() {
+      return this.field.value;
+    }
+  }, {
+    key: "bindEvents",
+    value: function bindEvents() {
+      var self = this;
+      this.field.addEventListener('change', function (e) {
+        self.initState();
+      });
+    }
+  }, {
+    key: "initState",
+    value: function initState() {
+      if ('cpac-custom' === this.getValue()) {
+        this.showSubsettings();
+      } else {
+        this.hideSubsettings();
+      }
+    }
+  }, {
+    key: "hideSubsettings",
+    value: function hideSubsettings() {
+      var subsetting = this.setting.querySelectorAll('.ac-column-setting');
+      subsetting.forEach(function (setting) {
+        setting.style.display = 'none';
+      });
+    }
+  }, {
+    key: "showSubsettings",
+    value: function showSubsettings() {
+      var subsetting = this.setting.querySelectorAll('.ac-column-setting');
+      subsetting.forEach(function (setting) {
+        setting.style.display = 'table';
+      });
+    }
+  }, {
+    key: "setValue",
+    value: function setValue(value) {
+      this.field.value = value;
+      this.trigger(this.field, 'change');
+      return this;
+    }
+  }, {
+    key: "setWidth",
+    value: function setWidth(width) {
+      var field = this.setting.querySelector('.ac-column-setting [name*="image_size_w"]');
+      field.value = width;
+      this.trigger(field, 'change');
+      return this;
+    }
+  }, {
+    key: "setHeight",
+    value: function setHeight(height) {
+      var field = this.setting.querySelector('.ac-column-setting [name*="image_size_h"]');
+      field.value = height;
+      this.trigger(field, 'change');
+      return this;
+    }
+  }, {
+    key: "setSize",
+    value: function setSize(width, height) {
+      this.setWidth(width);
+      this.setHeight(height);
+      return this;
+    }
+  }, {
+    key: "trigger",
+    value: function trigger(el, event) {
+      el.dispatchEvent(new Event(event));
+      return this;
+    }
+  }]);
+
+  return Image;
+}();
+
+var image = function image(column) {
+  column.settings.image = new Image(column);
 };
 
 module.exports = image;
