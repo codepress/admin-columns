@@ -6,6 +6,7 @@
  * @param AC.i81n {String}
  */
 import Form from "./admin/columns/form";
+import Modals from "./modules/modals";
 import Initiator from "./admin/columns/initiator";
 import Modal from "./admin/columns/modal";
 import Menu from "./admin/columns/menu";
@@ -32,6 +33,7 @@ import SettingLabel from './admin/columns/settings/label';
 let jQuery = $ = require( 'jquery' );
 
 AC.Column = new Initiator();
+AC.Modals = new Modals();
 
 jQuery( document ).on( 'AC.form.loaded', function() {
 	/** Register Events **/
@@ -57,8 +59,8 @@ jQuery( document ).on( 'AC.form.loaded', function() {
 
 jQuery( document ).ready( function() {
 	AC.Form = new Form( '#cpac .ac-columns form' );
+	AC.Modals.register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
 
-	new Modal( document.querySelector( '#ac-modal-pro' ) );
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );
 } );

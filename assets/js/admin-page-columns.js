@@ -98,6 +98,8 @@
 
 var _form = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.js"));
 
+var _modals = _interopRequireDefault(__webpack_require__(/*! ./modules/modals */ "./js/modules/modals.js"));
+
 var _initiator = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/initiator */ "./js/admin/columns/initiator.js"));
 
 var _modal = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/modal */ "./js/admin/columns/modal.js"));
@@ -150,6 +152,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var jQuery = $ = __webpack_require__(/*! jquery */ "jquery");
 
 AC.Column = new _initiator.default();
+AC.Modals = new _modals.default();
 jQuery(document).on('AC.form.loaded', function () {
   /** Register Events **/
   AC.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
@@ -158,7 +161,7 @@ jQuery(document).on('AC.form.loaded', function () {
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#cpac .ac-columns form');
-  new _modal.default(document.querySelector('#ac-modal-pro'));
+  AC.Modals.register(new _modal.default(document.querySelector('#ac-modal-pro')), 'pro');
   new _menu.default().init();
   new _feedback.default('.sidebox#direct-feedback');
 });
@@ -1445,7 +1448,7 @@ function () {
     this.column = column;
     this.setting = column.el.querySelector('.ac-column-setting--label');
     this.iconpicker = this.setting.querySelector('.-iconpicker');
-    this.modal = new _modal.default(this.setting.querySelector('.-iconpicker'));
+    this.modal = AC.Modals.register(new _modal.default(this.setting.querySelector('.-iconpicker')));
     this._dashicon = false;
     this.field = this.setting.querySelector('.ac-setting-input_label');
     this.initValue();
@@ -1715,6 +1718,62 @@ var width = function width(column) {
 };
 
 module.exports = width;
+
+/***/ }),
+
+/***/ "./js/modules/modals.js":
+/*!******************************!*\
+  !*** ./js/modules/modals.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Modals =
+/*#__PURE__*/
+function () {
+  function Modals() {
+    _classCallCheck(this, Modals);
+
+    this.modals = [];
+    this.number = 1;
+  }
+
+  _createClass(Modals, [{
+    key: "register",
+    value: function register(modal) {
+      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      if (!key) {
+        key = 'm' + this.number;
+      }
+
+      this.modals[key] = modal;
+      this.number++;
+    }
+  }, {
+    key: "get",
+    value: function get(key) {
+      if (this.modals[key]) {
+        return this.modals[key];
+      }
+
+      return false;
+    }
+  }]);
+
+  return Modals;
+}();
+
+module.exports = Modals;
 
 /***/ }),
 
