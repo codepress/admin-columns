@@ -7,7 +7,7 @@ class Form {
 		this.$container = jQuery( '#cpac .ac-admin' );
 		this.columns = {};
 
-		jQuery( document ).trigger( 'AC.Form.loaded', this.$container.data( 'type' ) );
+		jQuery( document ).trigger( 'AC.form.loaded', this.$container.data( 'type' ) );
 
 		this.init();
 	}
@@ -16,7 +16,7 @@ class Form {
 		this.initColumns();
 		this.bindFormEvents();
 		this.bindOrdering();
-		jQuery( document ).trigger( 'AC.Form.ready', this.$container.data( 'type' ) );
+		jQuery( document ).trigger( 'AC.form.ready', this.$container.data( 'type' ) );
 	}
 
 	bindOrdering() {
@@ -37,12 +37,12 @@ class Form {
 		let self = this;
 		let columns = [];
 
-		Object.keys( self.columns ).forEach( function( key ){
-			let column = self.columns[key];
+		Object.keys( self.columns ).forEach( function( key ) {
+			let column = self.columns[ key ];
 			if ( column.isOriginal() ) {
 				columns.push( column.type );
 			}
-		});
+		} );
 
 		return columns;
 	}
@@ -148,7 +148,7 @@ class Form {
 			// been saved correctly despite of PHP notices/errors from plugin or themes.
 		} );
 
-		jQuery( document ).trigger( 'cac_update', self.$container );
+		jQuery( document ).trigger( 'AC.form.afterUpdate', self.$container );
 		return xhr;
 	}
 
@@ -186,11 +186,12 @@ class Form {
 		if ( open ) {
 			column.open();
 		}
-		
+
 		column.$el.hide().slideDown();
 
 		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
-		jQuery( document ).trigger( 'column_add', column );
+
+		jQuery( document ).trigger( 'AC.column.added', column );
 
 		return column;
 	}

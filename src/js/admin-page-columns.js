@@ -7,6 +7,7 @@
  */
 
 import Form from "./admin/columns/form";
+import Modals from "./modules/modals";
 import Initiator from "./admin/columns/initiator";
 import Modal from "./admin/columns/modal";
 import Menu from "./admin/columns/menu";
@@ -29,35 +30,36 @@ import SettingDate from './admin/columns/settings/date';
 import SettingPro from './admin/columns/settings/pro';
 import SettingWidth from './admin/columns/settings/width';
 
-let jQuery = $ = require('jquery');
+let jQuery = $ = require( 'jquery' );
 
 AC.Column = new Initiator();
+AC.Modals = new Modals();
 
-jQuery(document).on('AC.Form.loaded', function () {
-    /** Register Events **/
-    AC.Column
-        .registerEvent('toggle', EventToggle)
-        .registerEvent('remove', EventRemove)
-        .registerEvent('clone', EventClone)
-        .registerEvent('refresh', EventRefresh)
-        .registerEvent('type_selector', EventTypeSelector)
-        .registerEvent('indicator', EventIndicator)
-        .registerEvent('label', EventLabel.label)
-        .registerEvent('label_setting', EventLabel.setting)
-        .registerEvent('addons', EventAddons)
+jQuery( document ).on( 'AC.form.loaded', function() {
+	/** Register Events **/
+	AC.Column
+		.registerEvent( 'toggle', EventToggle )
+		.registerEvent( 'remove', EventRemove )
+		.registerEvent( 'clone', EventClone )
+		.registerEvent( 'refresh', EventRefresh )
+		.registerEvent( 'type_selector', EventTypeSelector )
+		.registerEvent( 'indicator', EventIndicator )
+		.registerEvent( 'label', EventLabel.label )
+		.registerEvent( 'label_setting', EventLabel.setting )
+		.registerEvent( 'addons', EventAddons )
 
-        /** Register Settings **/
-        .registerSetting('date', SettingDate)
-        .registerSetting('image_size', SettingImageSize)
-        .registerSetting('pro', SettingPro)
-        .registerSetting('sub_setting_toggle', SettingSubSettingToggle)
-        .registerSetting('width', SettingWidth);
-});
+		/** Register Settings **/
+		.registerSetting( 'date', SettingDate )
+		.registerSetting( 'image_size', SettingImageSize )
+		.registerSetting( 'pro', SettingPro )
+		.registerSetting( 'sub_setting_toggle', SettingSubSettingToggle )
+		.registerSetting( 'width', SettingWidth );
+} );
 
-jQuery(document).ready(function () {
-    AC.Form = new Form('#cpac .ac-columns form');
+jQuery( document ).ready( function() {
+	AC.Form = new Form( '#cpac .ac-columns form' );
+	AC.Modals.register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
 
-    new Modal().init();
-    new Menu().init();
-    new Feedback('.sidebox#direct-feedback');
-});
+	new Menu().init();
+	new Feedback( '.sidebox#direct-feedback' );
+} );
