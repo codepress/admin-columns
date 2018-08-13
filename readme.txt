@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: TBD
+
+* [Added] New JS API for column settings page. (Accessible through AC.Form)
+
 = 3.2.4 =
 
 Release Date: July 11th, 2018
