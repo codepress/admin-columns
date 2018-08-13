@@ -70,6 +70,10 @@ class Column {
 		return this;
 	}
 
+	/**
+	 *
+	 * @returns {Column}
+	 */
 	bindEvents() {
 		let column = this;
 		column.$el.data( 'column', column );
@@ -99,6 +103,11 @@ class Column {
 		} );
 	}
 
+	/**
+	 *
+	 * @param key
+	 * @returns {bool}
+	 */
 	isBound( key ) {
 		return this.$el.data( key );
 	}
@@ -218,6 +227,9 @@ class Column {
 		} );
 	}
 
+	/**
+	 * @returns {Column}
+	 */
 	create() {
 		this.initNewInstance();
 		this.bindEvents();
@@ -226,6 +238,9 @@ class Column {
 		return this;
 	}
 
+	/**
+	 * @returns {Column}
+	 */
 	clone() {
 		let $clone = this.$el.clone();
 		$clone.data( 'column-name', this.$el.data( 'column-name' ) );

@@ -237,6 +237,11 @@ function () {
       AC.incremental_column_name++;
       return this;
     }
+    /**
+     *
+     * @returns {Column}
+     */
+
   }, {
     key: "bindEvents",
     value: function bindEvents() {
@@ -267,6 +272,12 @@ function () {
         }
       });
     }
+    /**
+     *
+     * @param key
+     * @returns {bool}
+     */
+
   }, {
     key: "isBound",
     value: function isBound(key) {
@@ -400,6 +411,10 @@ function () {
         }
       });
     }
+    /**
+     * @returns {Column}
+     */
+
   }, {
     key: "create",
     value: function create() {
@@ -412,6 +427,10 @@ function () {
       }));
       return this;
     }
+    /**
+     * @returns {Column}
+     */
+
   }, {
     key: "clone",
     value: function clone() {
