@@ -157,7 +157,7 @@ final class AC_Dependencies {
 
 		$parts[] = sprintf( __( 'This plugin requires at least PHP %s to function properly.', 'codepress-admin-columns' ), $version );
 		$parts[] = sprintf( __( 'Your server currently runs PHP %s.', 'codepress-admin-columns' ), PHP_VERSION );
-		$parts[] = sprintf( __( 'Read more about <a href="%s" target="_blank">requirements</a>a> in our documentation.', 'codepress-admin-columns' ), esc_url( $documentation_url ) );
+		$parts[] = sprintf( __( 'Read more about <a href="%s" target="_blank">requirements</a> in our documentation.', 'codepress-admin-columns' ), esc_url( $documentation_url ) );
 
 		$this->add_missing( implode( ' ', $parts ) );
 
