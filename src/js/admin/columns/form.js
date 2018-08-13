@@ -7,7 +7,7 @@ class Form {
 		this.$container = jQuery( '#cpac .ac-admin' );
 		this.columns = {};
 
-		jQuery( document ).trigger( 'AC.form.loaded', this.$container.data( 'type' ) );
+		document.dispatchEvent( new CustomEvent( 'AC_Form_Loaded' ) );
 
 		this.init();
 	}
@@ -16,7 +16,8 @@ class Form {
 		this.initColumns();
 		this.bindFormEvents();
 		this.bindOrdering();
-		jQuery( document ).trigger( 'AC.form.ready', this.$container.data( 'type' ) );
+
+		document.dispatchEvent( new CustomEvent( 'AC_Form_Ready' ) );
 	}
 
 	bindOrdering() {
@@ -148,7 +149,8 @@ class Form {
 			// been saved correctly despite of PHP notices/errors from plugin or themes.
 		} );
 
-		jQuery( document ).trigger( 'AC.form.afterUpdate', self.$container );
+		document.dispatchEvent( new CustomEvent( 'AC_Form_AfterUpdate', { detail : { container : self.$container } } ) );
+
 		return xhr;
 	}
 
@@ -191,7 +193,7 @@ class Form {
 
 		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
 
-		jQuery( document ).trigger( 'AC.column.added', column );
+		document.dispatchEvent( new CustomEvent( 'AC_Column_Added', { detail : { column : column } } ) );
 
 		return column;
 	}

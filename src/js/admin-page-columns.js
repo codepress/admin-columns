@@ -35,7 +35,7 @@ let jQuery = $ = require( 'jquery' );
 AC.Column = new Initiator();
 AC.Modals = new Modals();
 
-jQuery( document ).on( 'AC.form.loaded', function() {
+document.addEventListener( 'AC_Form_Loaded', function() {
 	/** Register Events **/
 	AC.Column
 		.registerEvent( 'toggle', EventToggle )

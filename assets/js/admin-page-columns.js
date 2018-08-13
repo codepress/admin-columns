@@ -151,7 +151,7 @@ var jQuery = $ = __webpack_require__(/*! jquery */ "jquery");
 
 AC.Column = new _initiator.default();
 AC.Modals = new _modals.default();
-jQuery(document).on('AC.form.loaded', function () {
+document.addEventListener('AC_Form_Loaded', function () {
   /** Register Events **/
   AC.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
   /** Register Settings **/
@@ -249,7 +249,11 @@ function () {
         }
       });
       this.bindSettings();
-      $(document).trigger('AC.initSettings', this.$el);
+      document.dispatchEvent(new CustomEvent('AC_Column_InitSettings', {
+        detail: {
+          column: self
+        }
+      }));
       return this;
     }
   }, {
@@ -345,7 +349,11 @@ function () {
             self.initNewInstance();
             self.bindEvents();
             self.open();
-            jQuery(document).trigger('AC.column.change', self);
+            document.dispatchEvent(new CustomEvent('AC_Column_Change', {
+              detail: {
+                column: self
+              }
+            }));
           } else {
             self.showMessage(response.data.error);
           }
@@ -383,7 +391,11 @@ function () {
             self.el = column[0];
             self.bindEvents();
             self.open();
-            jQuery(document).trigger('AC.column.refresh', self);
+            document.dispatchEvent(new CustomEvent('AC_Column_Refresh', {
+              detail: {
+                column: self
+              }
+            }));
           }
         }
       });
@@ -393,7 +405,11 @@ function () {
     value: function create() {
       this.initNewInstance();
       this.bindEvents();
-      jQuery(document).trigger('AC.column.create', self);
+      document.dispatchEvent(new CustomEvent('AC_Column_Created', {
+        detail: {
+          column: self
+        }
+      }));
       return this;
     }
   }, {
@@ -797,7 +813,7 @@ function () {
     this.$form = jQuery(el);
     this.$container = jQuery('#cpac .ac-admin');
     this.columns = {};
-    jQuery(document).trigger('AC.form.loaded', this.$container.data('type'));
+    document.dispatchEvent(new CustomEvent('AC_Form_Loaded'));
     this.init();
   }
 
@@ -807,7 +823,7 @@ function () {
       this.initColumns();
       this.bindFormEvents();
       this.bindOrdering();
-      jQuery(document).trigger('AC.form.ready', this.$container.data('type'));
+      document.dispatchEvent(new CustomEvent('AC_Form_Ready'));
     }
   }, {
     key: "bindOrdering",
@@ -925,7 +941,11 @@ function () {
       xhr.fail(function (error) {// We choose not to notify the user of errors, because the settings will have
         // been saved correctly despite of PHP notices/errors from plugin or themes.
       });
-      jQuery(document).trigger('AC.form.afterUpdate', self.$container);
+      document.dispatchEvent(new CustomEvent('AC_Form_AfterUpdate', {
+        detail: {
+          container: self.$container
+        }
+      }));
       return xhr;
     }
   }, {
@@ -972,7 +992,11 @@ function () {
       jQuery('html, body').animate({
         scrollTop: column.$el.offset().top - 58
       }, 300);
-      jQuery(document).trigger('AC.column.added', column);
+      document.dispatchEvent(new CustomEvent('AC_Column_Added', {
+        detail: {
+          column: column
+        }
+      }));
       return column;
     }
   }]);
@@ -1185,6 +1209,7 @@ function () {
       if (buttons.length) {
         buttons.forEach(function (button) {
           button.addEventListener('click', function (e) {
+            e.preventDefault();
             var target = e.target.dataset.acOpenModal;
             var el = document.querySelector(target);
 
@@ -1193,8 +1218,7 @@ function () {
             }
           });
         });
-      } //document.addEventListener( 'click' )
-
+      }
     }
   }]);
 

@@ -7,11 +7,13 @@ class Modal {
 	}
 
 	static initGlobalEvents() {
+
 		let buttons = document.querySelectorAll( '[data-ac-open-modal]' );
 		if ( buttons.length ) {
 			buttons.forEach( ( button ) => {
 
 				button.addEventListener( 'click', ( e ) => {
+					e.preventDefault();
 					let target = e.target.dataset.acOpenModal;
 					let el = document.querySelector( target );
 
@@ -22,7 +24,6 @@ class Modal {
 
 			} );
 		}
-		//document.addEventListener( 'click' )
 	}
 
 	initEvents() {

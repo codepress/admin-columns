@@ -83,7 +83,7 @@ class Column {
 
 		this.bindSettings();
 
-		$( document ).trigger( 'AC.initSettings', this.$el );
+		document.dispatchEvent( new CustomEvent( 'AC_Column_InitSettings', { detail : { column : self } } ) );
 
 		return this;
 	}
@@ -167,7 +167,7 @@ class Column {
 					self.bindEvents();
 					self.open();
 
-					jQuery( document ).trigger( 'AC.column.change', self );
+					document.dispatchEvent( new CustomEvent( 'AC_Column_Change', { detail : { column : self } } ) );
 				} else {
 					self.showMessage( response.data.error )
 				}
@@ -211,7 +211,7 @@ class Column {
 					self.bindEvents();
 					self.open();
 
-					jQuery( document ).trigger( 'AC.column.refresh', self );
+					document.dispatchEvent( new CustomEvent( 'AC_Column_Refresh', { detail : { column : self } } ) );
 				}
 			}
 
@@ -222,7 +222,7 @@ class Column {
 		this.initNewInstance();
 		this.bindEvents();
 
-		jQuery( document ).trigger( 'AC.column.create', self );
+		document.dispatchEvent( new CustomEvent( 'AC_Column_Created', { detail : { column : self } } ) );
 		return this;
 	}
 
