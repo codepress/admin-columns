@@ -841,6 +841,7 @@ div.cpac-color span {
 	float: left;
 	white-space: nowrap;
 	margin-right: 5px;
+	margin-left: 1px;
 
 	.ac-table-actions-buttons {
 		white-space: nowrap;
@@ -922,5 +923,80 @@ div.cpac-color span {
 				margin-left: -2px;
 			}
 		}
+
+		&.-toggle {
+			background: none;
+			border: 1px solid transparent;
+			padding-left:4px;
+			padding-right: 4px;
+			transform: translateY(-1px);
+
+			.ac-toggle__switch {
+				vertical-align: middle;
+				margin-top: -3px;
+				margin-right: 1px;
+				color: #888;
+			}
+		}
 	}
+}
+
+.ac-toggle {
+	display: inline-block;
+	white-space: nowrap;
+
+	input {
+		position: absolute;
+		left: -3000em;
+	}
+
+	&__switch {
+		display: inline-block;
+		background: #ccc;
+		border-radius: 8px;
+		width: 30px;
+		height: 16px;
+		position: relative;
+		transition: background-color .3s;
+
+		&__on,
+		&__off {
+			font-size: 11px;
+			font-weight: bold;
+			color: #fff;
+			position: absolute;
+			top: 5px;
+			line-height: 11px;
+		}
+		&__off {
+			right: 6px;
+			color: #555;
+		}
+		&__on {
+			left: 8px;
+		}
+
+		&__track {
+			border-radius: 50%;
+			display: inline-block;
+			background: #fff;
+			position: absolute;
+			left: 3px;
+			top: 3px;
+			height: 10px;
+			width: 10px;
+			transition: all .1s;
+		}
+
+	}
+
+	input:checked {
+		+ .ac-toggle__switch {
+			background: #1e8cbe;
+			.ac-toggle__switch__track {
+				left: calc(100% - 15px);
+			}
+		}
+	}
+
 }
