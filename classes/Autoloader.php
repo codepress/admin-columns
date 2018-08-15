@@ -133,8 +133,8 @@ class Autoloader {
 
 		/* @var \DirectoryIterator $leaf */
 		foreach ( $iterator as $leaf ) {
-			// Check for system files
-			if ( 0 === strpos( $leaf->getBasename(), '._' ) ) {
+			// Exclude system files
+			if ( 0 === strpos( $leaf->getBasename(), '.' ) ) {
 				continue;
 			}
 
