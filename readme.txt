@@ -217,6 +217,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: August 15th, 2018
 
 * [Added] New JS API for column settings page. (Accessible through AC.Form)
+* [Improved] Exclude system files in Autoloader
 
 = 3.2.4 =
 
