@@ -69,8 +69,8 @@ class API {
 	}
 
 	/**
-	 * @param string|array $list_screen_key List screen key or keys
-	 * @param array        $column_data
+	 * @param $list_screen_keys
+	 * @param $columndata
 	 */
 	public function load_columndata( $list_screen_keys, $columndata ) {
 		foreach ( (array) $list_screen_keys as $list_screen_key ) {
@@ -80,7 +80,7 @@ class API {
 
 	/**
 	 * @param string $list_screen_key List screen key
-	 * @param array  $column_data
+	 * @param        $columndata
 	 */
 	private function add_columndata( $list_screen_key, $columndata ) {
 		$columndata = $this->convert_old_format_to_current( $columndata );

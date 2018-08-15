@@ -18,7 +18,7 @@ class NumberOfItems extends Settings\Column {
 
 	protected function define_options() {
 		return array(
-			'number_of_items' => 10
+			'number_of_items' => 10,
 		);
 	}
 

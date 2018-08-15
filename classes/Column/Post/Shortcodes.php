@@ -6,7 +6,6 @@ use AC\Column;
 
 /**
  * Display used shortcodes
- *
  * @since 2.3.5
  */
 class Shortcodes extends Column {

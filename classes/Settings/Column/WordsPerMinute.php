@@ -93,7 +93,7 @@ class WordsPerMinute extends Settings\Column
 	/**
 	 * Return the seconds required to read this string based on average words per minute
 	 *
-	 * @param string $content
+	 * @param $string
 	 *
 	 * @return int
 	 */

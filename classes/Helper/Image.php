@@ -2,6 +2,8 @@
 
 namespace AC\Helper;
 
+use DOMDocument;
+
 class Image {
 
 	/**
@@ -161,6 +163,7 @@ class Image {
 	/**
 	 * @param int|string $image ID of Url
 	 * @param string     $size
+	 * @param bool       $skip_image_check
 	 *
 	 * @return string
 	 */
@@ -246,7 +249,6 @@ class Image {
 
 	/**
 	 * Return dimensions and file type
-	 *
 	 * @see filesize
 	 *
 	 * @param string $url
@@ -307,7 +309,7 @@ class Image {
 			return array();
 		}
 
-		$dom = new \DOMDocument;
+		$dom = new DOMDocument;
 		@$dom->loadHTML( $string );
 		$dom->preserveWhiteSpace = false;
 

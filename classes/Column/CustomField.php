@@ -8,10 +8,8 @@ use AC\Settings;
 /**
  * Custom field column, displaying the contents of meta fields.
  * Suited for all list screens supporting WordPress' default way of handling meta data.
- *
  * Supports different types of meta fields, including dates, serialized data, linked content,
  * and boolean values.
- *
  * @since 1.0
  */
 class CustomField extends Column\Meta {

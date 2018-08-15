@@ -10,7 +10,6 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Admin Columns settings class instance
-	 *
 	 * @since  2.2
 	 * @access private
 	 * @var Admin
@@ -180,12 +179,11 @@ class AdminColumns extends Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.2.4';
+		return '3.2.5';
 	}
 
 	/**
 	 * Initialize current user and make sure any administrator user can use Admin Columns
-	 *
 	 * @since 3.2
 	 */
 	public function init_capabilities() {
@@ -200,9 +198,13 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
-	 *
 	 * @since 1.0
 	 * @see   filter:plugin_action_links
+	 *
+	 * @param array  $links
+	 * @param string $file
+	 *
+	 * @return array
 	 */
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->get_basename() ) {
@@ -310,9 +312,7 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Get a list of post types for which Admin Columns is active
-	 *
 	 * @since 1.0
-	 *
 	 * @return array List of post type keys (e.g. post, page)
 	 */
 	public function get_post_types() {
@@ -329,7 +329,6 @@ class AdminColumns extends Plugin {
 
 		/**
 		 * Filter the post types for which Admin Columns is active
-		 *
 		 * @since 2.0
 		 *
 		 * @param array $post_types List of active post type names
@@ -347,6 +346,8 @@ class AdminColumns extends Plugin {
 	/**
 	 * @deprecated 3.1.5
 	 * @since      3.0
+	 *
+	 * @param $file
 	 */
 	public function get_plugin_version( $file ) {
 		_deprecated_function( __METHOD__, '3.1.5' );
@@ -354,7 +355,6 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Returns the default list screen when no choice is made by the user
-	 *
 	 * @deprecated 3.1.5
 	 * @since      3.0
 	 */
@@ -388,7 +388,6 @@ class AdminColumns extends Plugin {
 	 * @param string $key
 	 *
 	 * @deprecated 3.2
-	 *
 	 * @return bool
 	 */
 	public function list_screen_exists( $key ) {
@@ -399,7 +398,6 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * @deprecated 3.2
-	 *
 	 * @return Groups
 	 */
 	public function list_screen_groups() {
@@ -420,10 +418,8 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Contains simple helper methods
-	 *
 	 * @since      3.0
 	 * @deprecated 3.2
-	 *
 	 * @return Helper
 	 */
 	public function helper() {

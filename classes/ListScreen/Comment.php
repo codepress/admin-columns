@@ -3,6 +3,7 @@
 namespace AC\ListScreen;
 
 use AC;
+use WP_Comments_List_Table;
 
 /**
  * @since 2.0
@@ -30,12 +31,12 @@ class Comment extends AC\ListScreenWP {
 	}
 
 	/**
-	 * @return \WP_Comments_List_Table
+	 * @return WP_Comments_List_Table
 	 */
 	public function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php' );
 
-		$table = new \WP_Comments_List_Table( array( 'screen' => $this->get_screen_id() ) );
+		$table = new WP_Comments_List_Table( array( 'screen' => $this->get_screen_id() ) );
 
 		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `\WP_Comments_List_Table` class.
 		// Here we remove the filter from the constructor.
@@ -65,6 +66,7 @@ class Comment extends AC\ListScreenWP {
 
 	/**
 	 * Register column types
+	 * @throws \ReflectionException
 	 */
 	protected function register_column_types() {
 		$this->register_column_type( new AC\Column\CustomField );

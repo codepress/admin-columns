@@ -10,6 +10,9 @@ class Button {
 	/** @var string $label */
 	private $label;
 
+	/** @var string $text */
+	private $text;
+
 	/** @var string $dashicon */
 	private $dashicon;
 
@@ -136,7 +139,29 @@ class Button {
 	/**
 	 * @return string
 	 */
+	public function get_text() {
+		return $this->text;
+	}
+
+	/**
+	 * @param string $text
+	 *
+	 * @return Button
+	 */
+	public function set_text( $text ) {
+		$this->text = $text;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function get_dashicon() {
+		if ( ! $this->dashicon ) {
+			return '';
+		}
+
 		return ac_helper()->icon->dashicon( array(
 			'icon' => $this->dashicon,
 		) );
@@ -168,9 +193,9 @@ class Button {
 		$attributes = $this->get_attributes();
 		$attributes['data-ac-tip'] = $this->get_label();
 
-		$template = '<a %s>%s</a>';
+		$template = '<a %s>%s%s</a>';
 
-		echo sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->get_dashicon() );
+		echo sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->get_dashicon(), $this->get_text() );
 	}
 
 }

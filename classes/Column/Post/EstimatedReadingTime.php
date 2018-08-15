@@ -19,6 +19,8 @@ class EstimatedReadingTime extends Column {
 	 * Estimate read time in seconds
 	 * @since 2.3.3
 	 *
+	 * @param $post_id
+	 *
 	 * @return string Raw Post Content
 	 */
 	public function get_raw_value( $post_id ) {

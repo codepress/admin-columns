@@ -42,7 +42,7 @@ class StatusIcon extends Settings\Column
 	}
 
 	/**
-	 * @param int $use_icons
+	 * @param $use_icon
 	 *
 	 * @return bool
 	 */

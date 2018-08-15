@@ -70,6 +70,10 @@ class Column {
 		return this;
 	}
 
+	/**
+	 *
+	 * @returns {Column}
+	 */
 	bindEvents() {
 		let column = this;
 		column.$el.data( 'column', column );
@@ -83,7 +87,7 @@ class Column {
 
 		this.bindSettings();
 
-		$( document ).trigger( 'AC.initSettings', this.$el );
+		$( document ).trigger( 'AC_Column_InitSettings', [ column ] );
 
 		return this;
 	}
@@ -99,6 +103,11 @@ class Column {
 		} );
 	}
 
+	/**
+	 *
+	 * @param key
+	 * @returns {bool}
+	 */
 	isBound( key ) {
 		return this.$el.data( key );
 	}
@@ -167,7 +176,7 @@ class Column {
 					self.bindEvents();
 					self.open();
 
-					jQuery( document ).trigger( 'AC.column.change', self );
+					$( document ).trigger( 'AC_Column_Change', [ self ] );
 				} else {
 					self.showMessage( response.data.error )
 				}
@@ -211,21 +220,27 @@ class Column {
 					self.bindEvents();
 					self.open();
 
-					jQuery( document ).trigger( 'AC.column.refresh', self );
+					$( document ).trigger( 'AC_Column_Refresh', [ self ] );
 				}
 			}
 
 		} );
 	}
 
+	/**
+	 * @returns {Column}
+	 */
 	create() {
 		this.initNewInstance();
 		this.bindEvents();
 
-		jQuery( document ).trigger( 'AC.column.create', self );
+		$( document ).trigger( 'AC_Column_Created', [ self ] );
 		return this;
 	}
 
+	/**
+	 * @returns {Column}
+	 */
 	clone() {
 		let $clone = this.$el.clone();
 		$clone.data( 'column-name', this.$el.data( 'column-name' ) );

@@ -48,6 +48,9 @@ class Transient
 	/**
 	 * @param mixed $data
 	 * @param int   $expiration Time until expiration in seconds. Default 0 (no expiration).
+	 *
+	 * @return bool
+	 * @throws \Exception
 	 */
 	public function save( $data, $expiration ) {
 		return $this->option->save( $data ) && $this->timestamp->save( time() + intval( $expiration ) );

@@ -7,7 +7,7 @@ class Form {
 		this.$container = jQuery( '#cpac .ac-admin' );
 		this.columns = {};
 
-		jQuery( document ).trigger( 'AC.form.loaded', this.$container.data( 'type' ) );
+		$( document ).trigger( 'AC_Form_Loaded' );
 
 		this.init();
 	}
@@ -16,7 +16,8 @@ class Form {
 		this.initColumns();
 		this.bindFormEvents();
 		this.bindOrdering();
-		jQuery( document ).trigger( 'AC.form.ready', this.$container.data( 'type' ) );
+
+		$( document ).trigger( 'AC_Form_Ready' );
 	}
 
 	bindOrdering() {
@@ -64,8 +65,8 @@ class Form {
 
 		let $boxes = jQuery( '#cpac .ac-boxes' );
 		if ( $boxes.hasClass( 'disabled' ) ) {
-
 			$boxes.find( '.ac-column' ).each( function( i, col ) {
+				jQuery( col ).data( 'column' ).disable();
 				jQuery( col ).find( 'input, select' ).prop( 'disabled', true );
 			} );
 		}
@@ -148,7 +149,9 @@ class Form {
 			// been saved correctly despite of PHP notices/errors from plugin or themes.
 		} );
 
-		jQuery( document ).trigger( 'AC.form.afterUpdate', self.$container );
+		//document.dispatchEvent( new CustomEvent( 'AC_Form_AfterUpdate', { detail : { container : self.$container } } ) );
+		$( document ).trigger( 'AC_Form_AfterUpdate', [ self.$container ] );
+
 		return xhr;
 	}
 
@@ -191,7 +194,7 @@ class Form {
 
 		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
 
-		jQuery( document ).trigger( 'AC.column.added', column );
+		$( document ).trigger( 'AC_Column_Added', [ column ] );
 
 		return column;
 	}

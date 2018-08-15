@@ -8,7 +8,6 @@ use AC\Settings;
 /**
  * Taxonomy column, displaying terms from a taxonomy for any object type (i.e. posts)
  * supporting WordPress' native way of handling terms.
- *
  * @since 2.0
  */
 class Taxonomy extends Column {

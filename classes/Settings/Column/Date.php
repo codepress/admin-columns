@@ -43,6 +43,7 @@ class Date extends Settings\Column\DateTimeFormat {
 
 	/**
 	 * @param string $date
+	 * @param        $original_value
 	 *
 	 * @return string
 	 */
