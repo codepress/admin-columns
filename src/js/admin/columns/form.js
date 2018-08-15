@@ -65,8 +65,8 @@ class Form {
 
 		let $boxes = jQuery( '#cpac .ac-boxes' );
 		if ( $boxes.hasClass( 'disabled' ) ) {
-
 			$boxes.find( '.ac-column' ).each( function( i, col ) {
+				jQuery( col ).data( 'column' ).disable();
 				jQuery( col ).find( 'input, select' ).prop( 'disabled', true );
 			} );
 		}
