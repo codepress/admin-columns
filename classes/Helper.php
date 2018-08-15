@@ -6,9 +6,7 @@ use AC;
 
 /**
  * Class AC\Helper
- *
  * Implements __call to work around any keyword restrictions for PHP versions > 7
- *
  * @property Helper\Arrays   array
  * @property Helper\Date     date
  * @property Helper\Image    image

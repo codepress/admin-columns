@@ -61,11 +61,8 @@ class ExifData extends Settings\Column
 
 	/**
 	 * Get EXIF data
-	 *
 	 * Get extended image metadata
-	 *
 	 * @since 2.0
-	 *
 	 * @return array EXIF data types
 	 */
 	private function get_exif_types() {

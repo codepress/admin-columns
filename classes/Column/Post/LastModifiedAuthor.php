@@ -8,7 +8,6 @@ use AC\Settings;
 /**
  * Column displaying information about the author of a post, such as the
  * author's display name, user ID and email address.
- *
  * @since 2.0
  */
 class LastModifiedAuthor extends Column\Meta {
@@ -21,7 +20,7 @@ class LastModifiedAuthor extends Column\Meta {
 	public function get_value( $id ) {
 		$raw_value = $this->get_raw_value( $id );
 
-		if( ! $raw_value ){
+		if ( ! $raw_value ) {
 			return $this->get_empty_char();
 		}
 

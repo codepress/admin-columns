@@ -14,7 +14,6 @@ class Admin {
 
 	/**
 	 * Settings Page hook suffix
-	 *
 	 * @since 2.0
 	 */
 	private $hook_suffix;
@@ -90,7 +89,7 @@ class Admin {
 	}
 
 	/**
-	 * @param string $tab_slug
+	 * @param $slug
 	 *
 	 * @return false|string URL
 	 */

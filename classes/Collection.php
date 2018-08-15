@@ -2,11 +2,13 @@
 
 namespace AC;
 
+use Iterator;
+
 /**
  * Used to hold values from the same type
  */
 class Collection
-	implements \Iterator {
+	implements Iterator {
 
 	/**
 	 * @var array
@@ -75,7 +77,6 @@ class Collection
 
 	/**
 	 * Filter collection items
-	 *
 	 * @return Collection
 	 */
 	public function filter() {

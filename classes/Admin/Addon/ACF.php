@@ -35,10 +35,16 @@ class ACF extends Addon {
 		return parent::get_plugin();
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function is_plugin_active() {
 		return class_exists( 'acf', false );
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function is_notice_screen() {
 		global $pagenow;
 

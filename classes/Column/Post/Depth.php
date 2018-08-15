@@ -6,10 +6,9 @@ use AC\Column;
 
 /**
  * Depth of the current page (number of ancestors + 1)
- *
  * @since 2.3.4
  */
-class Depth extends Column  {
+class Depth extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-depth' );

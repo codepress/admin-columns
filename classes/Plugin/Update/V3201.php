@@ -4,6 +4,9 @@ namespace AC\Plugin\Update;
 
 use AC\Plugin\Update;
 use AC\Preferences;
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 class V3201 extends Update {
 
@@ -23,8 +26,8 @@ class V3201 extends Update {
 	 * @param string Directory
 	 */
 	protected function uppercase_class_files( $directory ) {
-		$iterator = new \RecursiveIteratorIterator(
-			new \RecursiveDirectoryIterator( $directory, \FilesystemIterator::SKIP_DOTS )
+		$iterator = new RecursiveIteratorIterator(
+			new RecursiveDirectoryIterator( $directory, FilesystemIterator::SKIP_DOTS )
 		);
 
 		/** @var \DirectoryIterator $leaf */

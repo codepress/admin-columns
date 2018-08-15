@@ -2,6 +2,8 @@
 
 namespace AC\Autoloader;
 
+use Exception;
+
 class Underscore {
 
 	/**
@@ -11,7 +13,6 @@ class Underscore {
 
 	/**
 	 * Register aliases that point to a namespace
-	 *
 	 * @var string[]
 	 */
 	protected $aliases;
@@ -33,18 +34,19 @@ class Underscore {
 	/**
 	 * Add a class alias
 	 *
-	 * @param string $class
+	 * @param        $original
 	 * @param string $alias
 	 *
-	 * return $this
+	 * @return Underscore
+	 * @throws Exception
 	 */
 	public function add_alias( $original, $alias ) {
 		if ( strpos( $original, '/' ) ) {
-			throw new \Exception( 'Namespaces use \ instead of /.' );
+			throw new Exception( 'Namespaces use \ instead of /.' );
 		}
 
 		if ( ! $this->register_alias( $original, $alias ) ) {
-			throw new \Exception( sprintf( 'Failed to register alias for %s', $original ) );
+			throw new Exception( sprintf( 'Failed to register alias for %s', $original ) );
 		}
 
 		$this->aliases[ $alias ] = $original;

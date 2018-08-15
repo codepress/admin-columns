@@ -6,7 +6,6 @@ use AC\Column;
 
 /**
  * Column displaying full item permalink (including URL).
- *
  * @since 2.0
  */
 class Permalink extends Column {

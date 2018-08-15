@@ -4,7 +4,6 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Groups;
-use AC\ListScreen;
 use AC\Settings\Column;
 use AC\View;
 
@@ -84,8 +83,6 @@ class Type extends Column {
 	}
 
 	/**
-	 * @param ListScreen $list_screen
-	 *
 	 * @return array
 	 */
 	private function get_grouped_columns() {

@@ -11,7 +11,6 @@ final class Pages {
 
 	/**
 	 * Reference that points to default tab
-	 *
 	 * @var string
 	 */
 	private $default_slug;

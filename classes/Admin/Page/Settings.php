@@ -152,7 +152,7 @@ class Settings extends Page {
 	}
 
 	/**
-	 * @param bool $type
+	 * @param string $type
 	 *
 	 * @return string
 	 */

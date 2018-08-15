@@ -71,7 +71,7 @@ class CustomField extends Meta {
 		}
 
 		/**
-		 * @param array                          $keys Distinct meta keys from DB
+		 * @param array                       $keys Distinct meta keys from DB
 		 * @param Settings\Column\CustomField $this
 		 */
 		return apply_filters( 'ac/column/custom_field/meta_keys', $keys, $this );
