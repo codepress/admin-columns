@@ -393,7 +393,7 @@ final class Screen {
 	 *
 	 * @param $columns
 	 *
-	 * @return array|mixed|void
+	 * @return array
 	 */
 	public function add_headings( $columns ) {
 		if ( empty( $columns ) ) {
