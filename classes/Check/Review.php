@@ -4,10 +4,10 @@ namespace AC\Check;
 
 use AC\Ajax;
 use AC\Capabilities;
-use AC\Registrable;
-use AC\Screen;
 use AC\Message;
 use AC\Preferences;
+use AC\Registrable;
+use AC\Screen;
 
 class Review
 	implements Registrable {
@@ -24,6 +24,9 @@ class Review
 		$this->show_after = absint( $show_after_days );
 	}
 
+	/**
+	 * @throws \Exception
+	 */
 	public function register() {
 		add_action( 'ac/screen', array( $this, 'display' ) );
 
@@ -82,7 +85,6 @@ class Review
 
 	/**
 	 * Check if the amount of days is larger then the first login
-	 *
 	 * @return bool
 	 */
 	protected function first_login_compare() {
@@ -91,7 +93,6 @@ class Review
 
 	/**
 	 * Return the Unix timestamp of first login
-	 *
 	 * @return integer
 	 */
 	protected function get_first_login() {

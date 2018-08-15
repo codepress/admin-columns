@@ -10,7 +10,6 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Admin Columns settings class instance
-	 *
 	 * @since  2.2
 	 * @access private
 	 * @var Admin
@@ -65,7 +64,7 @@ class AdminColumns extends Plugin {
 
 		// Init
 		$this->addons = new Admin\Addons();
-		$this->table_screen = new Table\Screen();
+
 		$this->api = new API();
 
 		$this->admin = new Admin();
@@ -74,11 +73,78 @@ class AdminColumns extends Plugin {
 		$screen = new Screen();
 		$screen->register();
 
+		$screen = new Screen\QuickEdit();
+		$screen->register();
+
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'plugins_loaded', array( $this, 'localize' ) );
+
+		add_action( 'ac/screen', array( $this, 'init_table_on_screen' ) );
+		add_action( 'ac/screen/quick_edit', array( $this, 'init_table_on_quick_edit' ) );
+		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
+	}
+
+	/**
+	 * @param Screen $screen
+	 */
+	public function init_table_on_screen( Screen $screen ) {
+		$this->load_table( $screen->get_list_screen() );
+	}
+
+	/**
+	 * @param Screen\QuickEdit $screen
+	 */
+	public function init_table_on_quick_edit( Screen\QuickEdit $screen ) {
+		$this->load_table( $screen->get_list_screen() );
+	}
+
+	/**
+	 * Get column value by ajax.
+	 */
+	public function table_ajax_value() {
+		check_ajax_referer( 'ac-ajax' );
+
+		// Get ID of entry to edit
+		$id = intval( filter_input( INPUT_POST, 'pk' ) );
+
+		if ( ! $id ) {
+			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );
+		}
+
+		$list_screen = ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
+
+		if ( ! $list_screen ) {
+			wp_die( __( 'Invalid list screen.', 'codepress-admin-columns' ), null, 400 );
+		}
+
+		$column = $list_screen->get_column_by_name( filter_input( INPUT_POST, 'column' ) );
+
+		if ( ! $column ) {
+			wp_die( __( 'Invalid column.', 'codepress-admin-columns' ), null, 400 );
+		}
+
+		if ( ! $column instanceof Column\AjaxValue ) {
+			wp_die( __( 'Invalid method.', 'codepress-admin-columns' ), null, 400 );
+		}
+
+		// Trigger ajax callback
+		echo $column->get_ajax_value( $id );
+		exit;
+	}
+
+	/**
+	 * @param ListScreen $list_screen
+	 */
+	private function load_table( $list_screen ) {
+		if ( ! $list_screen instanceof ListScreen ) {
+			return;
+		}
+
+		$this->table_screen = new Table\Screen( $list_screen );
+		$this->table_screen->register();
 	}
 
 	/**
@@ -113,12 +179,11 @@ class AdminColumns extends Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.2.4';
+		return '3.2.5';
 	}
 
 	/**
 	 * Initialize current user and make sure any administrator user can use Admin Columns
-	 *
 	 * @since 3.2
 	 */
 	public function init_capabilities() {
@@ -133,9 +198,13 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
-	 *
 	 * @since 1.0
 	 * @see   filter:plugin_action_links
+	 *
+	 * @param array  $links
+	 * @param string $file
+	 *
+	 * @return array
 	 */
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->get_basename() ) {
@@ -243,9 +312,7 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Get a list of post types for which Admin Columns is active
-	 *
 	 * @since 1.0
-	 *
 	 * @return array List of post type keys (e.g. post, page)
 	 */
 	public function get_post_types() {
@@ -262,7 +329,6 @@ class AdminColumns extends Plugin {
 
 		/**
 		 * Filter the post types for which Admin Columns is active
-		 *
 		 * @since 2.0
 		 *
 		 * @param array $post_types List of active post type names
@@ -280,6 +346,8 @@ class AdminColumns extends Plugin {
 	/**
 	 * @deprecated 3.1.5
 	 * @since      3.0
+	 *
+	 * @param $file
 	 */
 	public function get_plugin_version( $file ) {
 		_deprecated_function( __METHOD__, '3.1.5' );
@@ -287,7 +355,6 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Returns the default list screen when no choice is made by the user
-	 *
 	 * @deprecated 3.1.5
 	 * @since      3.0
 	 */
@@ -321,7 +388,6 @@ class AdminColumns extends Plugin {
 	 * @param string $key
 	 *
 	 * @deprecated 3.2
-	 *
 	 * @return bool
 	 */
 	public function list_screen_exists( $key ) {
@@ -332,7 +398,6 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * @deprecated 3.2
-	 *
 	 * @return Groups
 	 */
 	public function list_screen_groups() {
@@ -353,10 +418,8 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Contains simple helper methods
-	 *
 	 * @since      3.0
 	 * @deprecated 3.2
-	 *
 	 * @return Helper
 	 */
 	public function helper() {

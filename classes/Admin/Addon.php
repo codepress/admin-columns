@@ -23,35 +23,30 @@ class Addon {
 
 	/**
 	 * Icon is a small version of the logo. Mainly used on the promo banner.
-	 *
 	 * @var string
 	 */
 	private $icon;
 
 	/**
 	 * Plugin folder name
-	 *
 	 * @var AC\PluginInformation
 	 */
 	private $addon;
 
 	/**
 	 * Plugin basename. Example: plugin/plugin.php
-	 *
 	 * @var AC\PluginInformation[]
 	 */
 	private $plugins;
 
 	/**
 	 * External website link
-	 *
 	 * @var string
 	 */
 	private $link;
 
 	/**
 	 * Plugin URL. Place where the plugin can be downloaded from. Default is install plugin screen.
-	 *
 	 * @var string Url
 	 */
 	private $plugin_url;
@@ -69,6 +64,8 @@ class Addon {
 
 	/**
 	 * @param string $title
+	 *
+	 * @return $this
 	 */
 	protected function set_title( $title ) {
 		$this->title = $title;
@@ -78,7 +75,6 @@ class Addon {
 
 	/**
 	 * Plugin folder name
-	 *
 	 * @return AC\PluginInformation[]
 	 */
 	public function get_plugins() {
@@ -86,7 +82,9 @@ class Addon {
 	}
 
 	/**
-	 * @param string $slug Plugin folder name. Example: 'plugin/init.php' then directory name is 'plugin'.
+	 * @param string $plugin
+	 *
+	 * @return $this
 	 */
 	protected function add_plugin( $plugin ) {
 		$this->plugins[] = new AC\PluginInformation( $plugin );
@@ -113,7 +111,9 @@ class Addon {
 	}
 
 	/**
-	 * @param string $link
+	 * @param string $url
+	 *
+	 * @return $this
 	 */
 	protected function set_link( $url ) {
 		if ( ac_helper()->string->is_valid_url( $url ) ) {
@@ -132,6 +132,8 @@ class Addon {
 
 	/**
 	 * @param string $description
+	 *
+	 * @return $this
 	 */
 	protected function set_description( $description ) {
 		$this->description = $description;
@@ -148,6 +150,8 @@ class Addon {
 
 	/**
 	 * @param string $logo
+	 *
+	 * @return $this
 	 */
 	protected function set_logo( $logo ) {
 		$this->logo = $logo;
@@ -164,6 +168,8 @@ class Addon {
 
 	/**
 	 * @param string $icon
+	 *
+	 * @return $this
 	 */
 	protected function set_icon( $icon ) {
 		$this->icon = $icon;
@@ -173,7 +179,6 @@ class Addon {
 
 	/**
 	 * Plugin folder name
-	 *
 	 * @return string
 	 */
 	public function get_slug() {
@@ -277,6 +282,8 @@ class Addon {
 	/**
 	 * Activate plugin
 	 *
+	 * @param $basename
+	 *
 	 * @return string
 	 */
 	public function get_activation_url( $basename ) {
@@ -285,6 +292,8 @@ class Addon {
 
 	/**
 	 * Deactivate plugin
+	 *
+	 * @param $basename
 	 *
 	 * @return string
 	 */
@@ -296,6 +305,7 @@ class Addon {
 	 * Activate or Deactivate plugin
 	 *
 	 * @param string $action
+	 * @param        $basename
 	 *
 	 * @return string
 	 */
@@ -321,8 +331,6 @@ class Addon {
 	}
 
 	/**
-	 * @param string $search_term
-	 *
 	 * @return string
 	 */
 	public function get_plugin_url() {

@@ -38,7 +38,7 @@ class Post extends Settings\Column
 	}
 
 	/**
-	 * @param int $id
+	 * @param int   $id
 	 * @param mixed $original_value
 	 *
 	 * @return string|int

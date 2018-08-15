@@ -2,6 +2,8 @@
 
 namespace AC\Storage;
 
+use Exception;
+
 class UserMeta
 	implements KeyValuePair {
 
@@ -18,6 +20,8 @@ class UserMeta
 	/**
 	 * @param int    $user_id
 	 * @param string $key
+	 *
+	 * @throws Exception
 	 */
 	public function __construct( $key, $user_id = null ) {
 		if ( null === $user_id ) {
@@ -25,7 +29,7 @@ class UserMeta
 		}
 
 		if ( ! preg_match( '/^[1-9][0-9]*$/', $user_id ) ) {
-			throw new \Exception( 'Storage cannot be initialized without a valid user id.' );
+			throw new Exception( 'Storage cannot be initialized without a valid user id.' );
 		}
 
 		$this->user_id = $user_id;

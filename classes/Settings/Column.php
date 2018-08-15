@@ -10,14 +10,12 @@ abstract class Column {
 
 	/**
 	 * A (short) reference to this setting
-	 *
 	 * @var string
 	 */
 	protected $name;
 
 	/**
 	 * The options this field manages (optionally with default values)
-	 *
 	 * @var array
 	 */
 	protected $options = array();
@@ -29,13 +27,12 @@ abstract class Column {
 
 	/**
 	 * Options that are set by the user and should not be overwritten with defaults
-	 *
 	 * @var array
 	 */
 	private $user_set = array();
 
 	/**
-	 * @param Column $column
+	 * @param AC\Column $column
 	 */
 	public function __construct( AC\Column $column ) {
 		$this->column = $column;
@@ -52,14 +49,12 @@ abstract class Column {
 
 	/**
 	 * Create a string representation of this setting
-	 *
 	 * @return View|false
 	 */
 	public abstract function create_view();
 
 	/**
 	 * Get settings that depend on this setting
-	 *
 	 * @return Column[]
 	 */
 	public function get_dependent_settings() {
@@ -94,9 +89,6 @@ abstract class Column {
 
 	/**
 	 * Get a managed option
-	 *
-	 * @param null|string $option
-	 *
 	 * @return false|string
 	 */
 	protected function get_default_option() {
@@ -107,7 +99,6 @@ abstract class Column {
 
 	/**
 	 * Return the value of all options
-	 *
 	 * @return array
 	 */
 	public function get_values() {
@@ -122,7 +113,6 @@ abstract class Column {
 
 	/**
 	 * Get value of this setting, optionally specified with a key
-	 *
 	 * Will return the value of the default option
 	 *
 	 * @param string|null $option
@@ -150,7 +140,7 @@ abstract class Column {
 	/**
 	 * Set the values of this setting
 	 *
-	 * @param array $options
+	 * @param array $values
 	 */
 	public function set_values( array $values ) {
 		foreach ( $values as $option => $value ) {
@@ -306,7 +296,6 @@ abstract class Column {
 
 	/**
 	 * Render the output of self::create_header()
-	 *
 	 * @return false|string
 	 */
 	public function render_header() {
@@ -334,7 +323,6 @@ abstract class Column {
 
 	/**
 	 * Render the output of self::create_view()
-	 *
 	 * @return false|string
 	 */
 	public function render() {

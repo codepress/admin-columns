@@ -42,7 +42,7 @@ class PostFormatIcon extends Settings\Column
 	}
 
 	/**
-	 * @param int $use_icons
+	 * @param $use_icon
 	 *
 	 * @return bool
 	 */
@@ -57,8 +57,8 @@ class PostFormatIcon extends Settings\Column
 	}
 
 	/**
-	 * @param string $status
-	 * @param int    $post_id
+	 * @param     $format
+	 * @param int $post_id
 	 *
 	 * @return string
 	 */

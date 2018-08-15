@@ -120,6 +120,8 @@ class User {
 	 *
 	 * @param int    $user_id
 	 * @param string $post_type
+	 *
+	 * @return string
 	 */
 	public function get_postcount( $user_id, $post_type ) {
 		global $wpdb;

@@ -7,10 +7,9 @@ use AC\Column;
 /**
  * Column displaying whether an item is open for comments, i.e. whether users can
  * comment on this item.
- *
  * @since 2.0
  */
-class CommentStatus extends Column  {
+class CommentStatus extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-comment_status' );

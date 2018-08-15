@@ -183,7 +183,6 @@ class Columns extends Page {
 
 	/**
 	 * Check is the ajax request is valid and user is allowed to make it
-	 *
 	 * @since 3.0
 	 * @return ListScreen
 	 */
@@ -219,7 +218,6 @@ class Columns extends Page {
 
 	/**
 	 * Display HTML markup for column type
-	 *
 	 * @since 3.0
 	 */
 	public function ajax_column_select() {
@@ -373,7 +371,8 @@ class Columns extends Page {
 	}
 
 	/**
-	 * @param string $main_label
+	 * @param        $label
+	 * @param string $mainlabel
 	 *
 	 * @return string
 	 */
@@ -719,18 +718,11 @@ class Columns extends Page {
 
 					<div class="column-footer">
 						<?php if ( ! $list_screen->is_read_only() ) : ?>
-							<div class="order-message">
-								<svg class="order-message__icon" width="18" height="18">
-									<use xlink:href="<?php echo esc_url( AC()->get_url() ); ?>/assets/images/symbols.svg#arrow-left-top"/>
-								</svg>
-								<?php _e( 'Drag and drop to reorder', 'codepress-admin-columns' ); ?>
-							</div>
 							<div class="button-container">
 								<?php
 
 								/**
 								 * Display a clear button below the column settings. The clear button removes all column settings from the current page.
-								 *
 								 * @since 3.0
 								 *
 								 * @param bool
@@ -769,7 +761,7 @@ class Columns extends Page {
 
 	/**
 	 * @param ListScreen $list_screen
-	 * @param string     $group
+	 * @param bool       $group
 	 *
 	 * @return Column|false
 	 */
@@ -801,6 +793,8 @@ class Columns extends Page {
 
 	/**
 	 * Get first custom group column
+	 *
+	 * @param ListScreen $list_screen
 	 */
 	private function display_column_template( ListScreen $list_screen ) {
 		$column = $this->get_column_template_by_group( $list_screen, 'custom' );
@@ -814,6 +808,8 @@ class Columns extends Page {
 
 	/**
 	 * @since 2.0
+	 *
+	 * @param Column $column
 	 */
 	public function display_column( Column $column ) { ?>
 
@@ -842,7 +838,6 @@ class Columns extends Page {
 
 									/**
 									 * Fires in the meta-element for column options, which is displayed right after the column label
-									 *
 									 * @since 2.0
 									 *
 									 * @param Column $column_instance Column class instance

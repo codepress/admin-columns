@@ -39,7 +39,6 @@ class Addons {
 
 	/**
 	 * All addons where 3d party is installed but integration is not installed
-	 *
 	 * @return Addon[]
 	 */
 	public function get_missing_addons() {
@@ -71,7 +70,6 @@ class Addons {
 
 	/**
 	 * Get add-on details from the available add-ons list
-	 *
 	 * @since 2.2
 	 *
 	 * @param string $slug Addon slug

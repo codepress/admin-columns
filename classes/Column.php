@@ -51,14 +51,12 @@ class Column {
 
 	/**
 	 * The options managed by the settings
-	 *
 	 * @var array
 	 */
 	protected $options = array();
 
 	/**
 	 * Get the unique name of the column
-	 *
 	 * @since 2.3.4
 	 * @return string Column name
 	 */
@@ -79,7 +77,6 @@ class Column {
 
 	/**
 	 * Get the type of the column.
-	 *
 	 * @since 2.3.4
 	 * @return string Type
 	 */
@@ -118,7 +115,6 @@ class Column {
 
 	/**
 	 * Get the type of the column.
-	 *
 	 * @since 2.4.9
 	 * @return string Label of column's type
 	 */
@@ -185,7 +181,6 @@ class Column {
 	/**
 	 * Return true when a default column has been replaced by a custom column.
 	 * An original column will then use the original label and value.
-	 *
 	 * @since 3.0
 	 */
 	public function is_original() {
@@ -206,9 +201,7 @@ class Column {
 	/**
 	 * Overwrite this function in child class.
 	 * Determine whether this column type should be available
-	 *
 	 * @since 2.2
-	 *
 	 * @return bool Whether the column type should be available
 	 */
 	public function is_valid() {
@@ -260,6 +253,21 @@ class Column {
 		}
 
 		return $this->formatters;
+	}
+
+	/**
+	 * @since 3.2.5
+	 * @return string
+	 */
+	public function get_custom_label() {
+
+		/**
+		 * @since 3.0
+		 *
+		 * @param string $label
+		 * @param Column $column
+		 */
+		return apply_filters( 'ac/headings/label', $this->get_setting( 'label' )->get_value(), $this );
 	}
 
 	/**
@@ -316,7 +324,6 @@ class Column {
 
 	/**
 	 * Get the current options
-	 *
 	 * @return array
 	 */
 	public function get_options() {
@@ -325,10 +332,8 @@ class Column {
 
 	/**
 	 * Enqueue CSS + JavaScript on the admin listings screen!
-	 *
 	 * This action is called in the admin_head action on the listings screen where your column values are displayed.
 	 * Use this action to add CSS + JavaScript
-	 *
 	 * @since 3.3.4
 	 */
 	public function scripts() {
@@ -381,7 +386,6 @@ class Column {
 	/**
 	 * Get the raw, underlying value for the column
 	 * Not suitable for direct display, use get_value() for that
-	 *
 	 * @since 2.0.3
 	 *
 	 * @param int $id

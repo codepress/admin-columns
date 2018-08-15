@@ -88,7 +88,7 @@ class Date {
 	/**
 	 * @since 3.0
 	 *
-	 * @param string $date           PHP Date format
+	 * @param        $timestamp
 	 * @param string $display_format Date display format
 	 *
 	 * @return string Formatted date
@@ -127,6 +127,7 @@ class Date {
 	 * @since 1.3.1
 	 *
 	 * @param string $date
+	 * @param string $format
 	 *
 	 * @return string Formatted time
 	 */
@@ -146,7 +147,6 @@ class Date {
 
 	/**
 	 * Translate a jQuery date format to the PHP date format
-	 *
 	 * @since 1.1
 	 *
 	 * @param string $format jQuery date format

@@ -23,7 +23,23 @@ msgstr ""
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/AdminColumns.php:142, classes/Admin/Page/Settings.php:19
+#: classes/AdminColumns.php:114
+msgid "Invalid item ID."
+msgstr ""
+
+#: classes/AdminColumns.php:120
+msgid "Invalid list screen."
+msgstr ""
+
+#: classes/AdminColumns.php:126
+msgid "Invalid column."
+msgstr ""
+
+#: classes/AdminColumns.php:130
+msgid "Invalid method."
+msgstr ""
+
+#: classes/AdminColumns.php:206, classes/Admin/Page/Settings.php:19
 msgid "Settings"
 msgstr ""
 
@@ -183,27 +199,11 @@ msgstr ""
 msgid "Run the updater"
 msgstr ""
 
-#: classes/Table/Screen.php:45
-msgid "Invalid item ID."
-msgstr ""
-
-#: classes/Table/Screen.php:51
-msgid "Invalid list screen."
-msgstr ""
-
-#: classes/Table/Screen.php:57
-msgid "Invalid column."
-msgstr ""
-
-#: classes/Table/Screen.php:61
-msgid "Invalid method."
-msgstr ""
-
-#: classes/Table/Screen.php:122, classes/Table/Screen.php:124
+#: classes/Table/Screen.php:159, classes/Table/Screen.php:161
 msgid "Download"
 msgstr ""
 
-#: classes/Table/Screen.php:200, classes/Admin/Page/Settings.php:185
+#: classes/Table/Screen.php:215, classes/Admin/Page/Settings.php:185
 msgid "Edit columns"
 msgstr ""
 
@@ -665,67 +665,63 @@ msgstr ""
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:726
-msgid "Drag and drop to reorder"
-msgstr ""
-
-#: classes/Admin/Page/Columns.php:740
+#: classes/Admin/Page/Columns.php:734
 msgid "Clear all columns "
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:746
+#: classes/Admin/Page/Columns.php:740
 msgid "Add Column"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:857
+#: classes/Admin/Page/Columns.php:851
 msgid "Edit"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:858, classes/Admin/Page/Columns.php:893
+#: classes/Admin/Page/Columns.php:852, classes/Admin/Page/Columns.php:887
 msgid "Close"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:860, classes/Admin/Page/Columns.php:895
+#: classes/Admin/Page/Columns.php:854, classes/Admin/Page/Columns.php:889
 msgid "Clone"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:862
+#: classes/Admin/Page/Columns.php:856
 msgid "Remove"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:918
+#: classes/Admin/Page/Columns.php:912
 msgid "Do you like Admin Columns?"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:925
+#: classes/Admin/Page/Columns.php:919
 msgid "Upgrade to PRO, and take Admin Columns to the next level:"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:928
+#: classes/Admin/Page/Columns.php:922
 msgid "Sort & Filter on all your content"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:929
+#: classes/Admin/Page/Columns.php:923
 msgid "Directly edit your content from the overview"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:930
+#: classes/Admin/Page/Columns.php:924
 msgid "Export all column data to CSV"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:931
+#: classes/Admin/Page/Columns.php:925
 msgid "Create multiple column groups per overview"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:932
+#: classes/Admin/Page/Columns.php:926
 msgid "Get add-ons for ACF, WooCommerce and many more"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:936
+#: classes/Admin/Page/Columns.php:930
 msgid "Upgrade"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:937
+#: classes/Admin/Page/Columns.php:931
 msgid "Only %s for 1 site"
 msgstr ""
 
