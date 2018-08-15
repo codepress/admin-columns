@@ -3,6 +3,7 @@
 namespace AC\ListScreen;
 
 use AC;
+use WP_Media_List_Table;
 
 class Media extends AC\ListScreenPost {
 
@@ -21,12 +22,12 @@ class Media extends AC\ListScreenPost {
 	}
 
 	/**
-	 * @return \WP_Media_List_Table
+	 * @return WP_Media_List_Table
 	 */
 	public function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php' );
 
-		return new \WP_Media_List_Table( array( 'screen' => $this->get_screen_id() ) );
+		return new WP_Media_List_Table( array( 'screen' => $this->get_screen_id() ) );
 	}
 
 	/**
