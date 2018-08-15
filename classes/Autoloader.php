@@ -11,7 +11,6 @@ class Autoloader {
 
 	/**
 	 * Register prefixes and their path
-	 *
 	 * @var string[]
 	 */
 	protected $prefixes;
@@ -134,6 +133,11 @@ class Autoloader {
 
 		/* @var \DirectoryIterator $leaf */
 		foreach ( $iterator as $leaf ) {
+			// Exclude system files
+			if ( 0 === strpos( $leaf->getBasename(), '.' ) ) {
+				continue;
+			}
+
 			if ( 'php' === $leaf->getExtension() ) {
 				$classes[] = $namespace . '\\' . pathinfo( $leaf->getBasename(), PATHINFO_FILENAME );
 			}
