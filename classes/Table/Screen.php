@@ -75,7 +75,7 @@ final class Screen {
 		do_action( 'ac/table/list_screen', $this->list_screen, $this );
 
 		/**
-		 * @since NEWVERSION
+		 * @since 3.2.5
 		 */
 		do_action( 'ac/table', $this );
 	}
@@ -202,7 +202,7 @@ final class Screen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.2.5
 	 */
 	public function register_settings_button() {
 		$edit_link = $this->get_edit_link();
@@ -279,11 +279,11 @@ final class Screen {
 	}
 
 	/**
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.2.5
 	 * @return ListScreen
 	 */
 	public function get_current_list_screen() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC\Table\Screen::get_list_screen()' );
+		_deprecated_function( __METHOD__, '3.2.5', 'AC\Table\Screen::get_list_screen()' );
 
 		return $this->get_list_screen();
 	}
@@ -430,7 +430,7 @@ final class Screen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.2.5
 	 */
 	public function render_actions() {
 		?>
