@@ -1,1 +1,379 @@
-!function(t){var n={};function e(i){if(n[i])return n[i].exports;var o=n[i]={i:i,l:!1,exports:{}};return t[i].call(o.exports,o,o.exports,e),o.l=!0,o.exports}e.m=t,e.c=n,e.d=function(t,n,i){e.o(t,n)||Object.defineProperty(t,n,{enumerable:!0,get:i})},e.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},e.t=function(t,n){if(1&n&&(t=e(t)),8&n)return t;if(4&n&&"object"==typeof t&&t&&t.__esModule)return t;var i=Object.create(null);if(e.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:t}),2&n&&"string"!=typeof t)for(var o in t)e.d(i,o,function(n){return t[n]}.bind(null,o));return i},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,n){return Object.prototype.hasOwnProperty.call(t,n)},e.p="",e(e.s=25)}({25:function(t,n,e){"use strict";var i=a(e(26)),o=a(e(28));function a(t){return t&&t.__esModule?t:{default:t}}function r(t){t(".ac-more-link-show").click(function(n){n.preventDefault(),t(this).hide().closest("td").find(".ac-show-more-block").show()}),t(".ac-more-link-hide").click(function(n){n.preventDefault();var e=t(this).closest("td");e.find(".ac-more-link-show").show(),e.find(".ac-show-more-block").hide()})}function c(t,n){t(n).each(function(){var n=t(this);n.find(".cpac_use_icons").length>0&&n.addClass("cpac_use_icons")}),t(n).find(".cpac_use_icons + .hidden + .row-actions > span").each(function(){var n=t(this).find("a");n.attr("data-ac-tip",n.text()).addClass("ac-tip")})}function u(t){for(var n in AC.column_types)if(AC.column_types.hasOwnProperty(n)){var e=AC.column_types[n];t(".wp-list-table td."+n).addClass(e)}}jQuery(document).ready(function(t){!function(t){t(document).ajaxComplete(function(n,e){var i=document.implementation.createHTMLDocument("quickeditevents"),o=t("<div>",i);if(o.append(e.responseText),1===o.find("tr.iedit").length){var a=o.find("tr.iedit").attr("id");t("tr#"+a).trigger("updated")}})}(t),u(t),c(t,t(".column-actions")),r(t),function(t){t(".ac-toggle-box-link").click(function(n){n.preventDefault(),t(this).next(".ac-toggle-box-contents").toggle()})}(t),function(t){var n=function(n){n.preventDefault(),t(this).next(".ac-toggle-box-contents-ajax").toggle()};t("a[data-ajax-populate=1]").bind("click",function e(i){i.preventDefault();var o=t(this),a={action:"ac_get_column_value",list_screen:AC.list_screen,layout:AC.layout,column:o.data("column"),pk:o.attr("data-item-id"),_ajax_nonce:AC.ajax_nonce};o.addClass("loading"),t.post(ajaxurl,a,function(i){i&&(o.after('<div class="ac-toggle-box-contents-ajax">'+i+"</div>"),o.unbind("click",e).bind("click",n),t(o.parent("td")).trigger("ajax_column_value_ready"),AC.Tooltips().init())}).always(function(){o.removeClass("loading")})})}(t),function(t){t(".row-actions a").qtip({content:{text:function(){return t(this).text()}},position:{my:"top center",at:"bottom center"},style:{tip:!0,classes:"qtip-tipsy"}})}(t),AC.Table=new i.default(".wp-list-table"),AC.Tooltips=new o.default,t(".wp-list-table").on("updated","tr",function(){u(t),c(t,t(this).find(".column-actions")),r(t)})})},26:function(t,n,e){"use strict";var i=function(t){return t&&t.__esModule?t:{default:t}}(e(27));t.exports=function t(n){!function(t,n){if(!(t instanceof n))throw new TypeError("Cannot call a class as a function")}(this,t),this.$table=jQuery(n),this.Buttons=new i.default("#ac-table-actions")}},27:function(t,n,e){"use strict";function i(t,n){for(var e=0;e<n.length;e++){var i=n[e];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}var o=function(){function t(n){!function(t,n){if(!(t instanceof n))throw new TypeError("Cannot call a class as a function")}(this,t),this.$el=jQuery(n),this.init()}return function(t,n,e){n&&i(t.prototype,n),e&&i(t,e)}(t,[{key:"init",value:function(){var t=this;this.$el.on("update",function(){t.refresh()}).appendTo(jQuery(".tablenav.top .actions:last")).trigger("update")}},{key:"refresh",value:function(){var t=this.$el.find(".ac-table-actions-buttons");t.find("> a").removeClass("last"),t.find("> a:visible:last").addClass("last")}}]),t}();t.exports=o},28:function(t,n,e){"use strict";function i(t,n){for(var e=0;e<n.length;e++){var i=n[e];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}var o=function(){function t(){!function(t,n){if(!(t instanceof n))throw new TypeError("Cannot call a class as a function")}(this,t),this.isEnabled=void 0!==jQuery.fn.qtip,this.init()}return function(t,n,e){n&&i(t.prototype,n),e&&i(t,e)}(t,[{key:"init",value:function(){this.isEnabled?jQuery("[data-ac-tip]").qtip({content:{attr:"data-ac-tip"},position:{my:"top center",at:"bottom center"},style:{tip:!0,classes:"qtip-tipsy"}}):console.log("Tooltips not loaded!")}}]),t}();t.exports=o}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./js/table.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./js/table.js":
+/*!*********************!*\
+  !*** ./js/table.js ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _table = _interopRequireDefault(__webpack_require__(/*! ./table/table */ "./js/table/table.js"));
+
+var _tooltips = _interopRequireDefault(__webpack_require__(/*! ./table/tooltips */ "./js/table/tooltips.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+jQuery(document).ready(function ($) {
+  ac_quickedit_events($);
+  ac_set_column_classes($);
+  ac_actions_column($, $('.column-actions'));
+  ac_show_more($);
+  ac_toggle_box($);
+  ac_toggle_box_ajax_init($);
+  ac_actions_tooltips($);
+  AC.Table = new _table.default('.wp-list-table');
+  AC.Tooltips = new _tooltips.default();
+  $('.wp-list-table').on('updated', 'tr', function () {
+    ac_set_column_classes($);
+    ac_actions_column($, $(this).find('.column-actions'));
+    ac_show_more($);
+  });
+});
+
+function ac_actions_tooltips($) {
+  $('.row-actions a').qtip({
+    content: {
+      text: function text() {
+        return $(this).text();
+      }
+    },
+    position: {
+      my: 'top center',
+      at: 'bottom center'
+    },
+    style: {
+      tip: true,
+      classes: 'qtip-tipsy'
+    }
+  });
+}
+
+function ac_toggle_box($) {
+  $('.ac-toggle-box-link').click(function (e) {
+    e.preventDefault();
+    $(this).next('.ac-toggle-box-contents').toggle();
+  });
+}
+
+function ac_toggle_box_ajax_init($) {
+  /**
+   * Toggle box
+   */
+  var do_toggle_value = function do_toggle_value(e) {
+    e.preventDefault();
+    $(this).next('.ac-toggle-box-contents-ajax').toggle();
+  };
+  /**
+   * Retrieves the contents from the column through ajax
+   */
+
+
+  var do_retrieve_ajax_value = function do_retrieve_ajax_value(e) {
+    e.preventDefault();
+    var $this = $(this);
+    var data = {
+      action: 'ac_get_column_value',
+      list_screen: AC.list_screen,
+      layout: AC.layout,
+      column: $this.data('column'),
+      pk: $this.attr('data-item-id'),
+      _ajax_nonce: AC.ajax_nonce
+    };
+    $this.addClass('loading');
+    var xhr = $.post(ajaxurl, data, function (response) {
+      if (response) {
+        $this.after('<div class="ac-toggle-box-contents-ajax">' + response + '</div>'); // We only need to run the ajax request once. Unbind the event, and replace with a Toggle Box.
+
+        $this.unbind('click', do_retrieve_ajax_value).bind('click', do_toggle_value); // Added hook on Table Cell
+
+        $($this.parent('td')).trigger('ajax_column_value_ready'); // Re-init tooltips
+
+        AC.Tooltips().init();
+      }
+    });
+    xhr.always(function () {
+      $this.removeClass('loading');
+    });
+  }; // Click event
+
+
+  $('a[data-ajax-populate=1]').bind('click', do_retrieve_ajax_value);
+}
+
+function ac_show_more($) {
+  $('.ac-more-link-show').click(function (e) {
+    e.preventDefault();
+    var td = $(this).hide().closest('td');
+    td.find('.ac-show-more-block').show();
+  });
+  $('.ac-more-link-hide').click(function (e) {
+    e.preventDefault();
+    var td = $(this).closest('td');
+    td.find('.ac-more-link-show').show();
+    td.find('.ac-show-more-block').hide();
+  });
+}
+
+function ac_actions_column($, $selector) {
+  $($selector).each(function () {
+    var $column = $(this);
+
+    if ($column.find('.cpac_use_icons').length > 0) {
+      $column.addClass('cpac_use_icons');
+    }
+  });
+  $($selector).find('.cpac_use_icons + .hidden + .row-actions > span').each(function () {
+    var $link = $(this).find('a');
+    $link.attr('data-ac-tip', $link.text()).addClass('ac-tip');
+  });
+}
+
+function ac_set_column_classes($) {
+  for (var name in AC.column_types) {
+    if (AC.column_types.hasOwnProperty(name)) {
+      var type = AC.column_types[name];
+      $('.wp-list-table td.' + name).addClass(type);
+    }
+  }
+}
+
+function ac_quickedit_events($) {
+  $(document).ajaxComplete(function (event, request) {
+    var ownerDocument = document.implementation.createHTMLDocument('quickeditevents');
+    var $result = $('<div>', ownerDocument);
+    $result.append(request.responseText);
+
+    if ($result.find('tr.iedit').length === 1) {
+      var id = $result.find('tr.iedit').attr('id');
+      $('tr#' + id).trigger('updated');
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./js/table/actions.js":
+/*!*****************************!*\
+  !*** ./js/table/actions.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Actions =
+/*#__PURE__*/
+function () {
+  function Actions(el) {
+    _classCallCheck(this, Actions);
+
+    this.$el = jQuery(el);
+    this.init();
+  }
+
+  _createClass(Actions, [{
+    key: "init",
+    value: function init() {
+      var self = this;
+      this.$el.on('update', function () {
+        self.refresh();
+      }).appendTo(jQuery('.tablenav.top .actions:last')).trigger('update');
+    }
+  }, {
+    key: "refresh",
+    value: function refresh() {
+      var $buttons = this.$el.find('.ac-table-actions-buttons');
+      $buttons.find('> a').removeClass('last');
+      $buttons.find('> a:visible:last').addClass('last');
+    }
+  }]);
+
+  return Actions;
+}();
+
+module.exports = Actions;
+
+/***/ }),
+
+/***/ "./js/table/table.js":
+/*!***************************!*\
+  !*** ./js/table/table.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _actions = _interopRequireDefault(__webpack_require__(/*! ./actions */ "./js/table/actions.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Table = function Table(el) {
+  _classCallCheck(this, Table);
+
+  this.$table = jQuery(el);
+  this.Buttons = new _actions.default('#ac-table-actions');
+};
+
+module.exports = Table;
+
+/***/ }),
+
+/***/ "./js/table/tooltips.js":
+/*!******************************!*\
+  !*** ./js/table/tooltips.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Tooltips =
+/*#__PURE__*/
+function () {
+  function Tooltips() {
+    _classCallCheck(this, Tooltips);
+
+    this.isEnabled = typeof jQuery.fn.qtip !== 'undefined';
+    this.init();
+  }
+
+  _createClass(Tooltips, [{
+    key: "init",
+    value: function init() {
+      if (!this.isEnabled) {
+        console.log('Tooltips not loaded!');
+        return;
+      }
+
+      jQuery('[data-ac-tip]').qtip({
+        content: {
+          attr: 'data-ac-tip'
+        },
+        position: {
+          my: 'top center',
+          at: 'bottom center'
+        },
+        style: {
+          tip: true,
+          classes: 'qtip-tipsy'
+        }
+      });
+    }
+  }]);
+
+  return Tooltips;
+}();
+
+module.exports = Tooltips;
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=table.js.map

@@ -22,8 +22,9 @@ let config = {
 					options : {
 						presets : [ [ "@babel/preset-env", {
 							"targets" : {
-								"browsers" : [ "ie 11" ]
-							}
+								"browsers" : [ "IE >= 11" ]
+							},
+							"useBuiltIns": "usage",
 
 						} ] ]
 					}
