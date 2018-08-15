@@ -35,6 +35,7 @@
   "dependencies": {
     "@babel/core": "^7.0.0-beta.54",
     "@babel/preset-env": "^7.0.0-beta.54",
+    "@babel/polyfill": "^7.0.0-rc.1",
     "babel-loader": "^8.0.0-beta.4",
     "webpack": "^4.16.1"
   }

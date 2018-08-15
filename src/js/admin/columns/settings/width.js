@@ -1,4 +1,3 @@
-
 // Settings fields: Width
 jQuery.fn.column_width_slider = function() {
 

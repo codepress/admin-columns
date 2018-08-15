@@ -36,17 +36,19 @@ class Image {
 
 	hideSubsettings() {
 		let subsetting = this.setting.querySelectorAll( '.ac-column-setting' );
-		subsetting.forEach( setting => {
-			setting.style.display = 'none';
-		} );
+
+		for ( let i = 0; i < subsetting.length; ++i ) {
+			subsetting[ i ].style.display = 'none';
+		}
 
 	}
 
 	showSubsettings() {
 		let subsetting = this.setting.querySelectorAll( '.ac-column-setting' );
-		subsetting.forEach( setting => {
-			setting.style.display = 'table';
-		} );
+
+		for ( let i = 0; i < subsetting.length; ++i ) {
+			subsetting[ i ].style.display = 'table';
+		}
 	}
 
 	setValue( value ) {

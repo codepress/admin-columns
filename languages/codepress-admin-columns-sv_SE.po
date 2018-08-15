@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-08-06 16:40:28+0000\n"
+"PO-Revision-Date: 2018-08-14 14:55:44+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:72
 msgid "Uses one or more %s IDs to display information about it."
-msgstr ""
+msgstr "Använder ett eller flera %s ID för att visa information om det."
 
 #: classes/Dependencies.php:193
 msgid "This plugin failed to load:"
@@ -287,11 +287,11 @@ msgstr "Vi behöver uppdatera din databas till den senaste versionen."
 
 #: classes/Helper/Post.php:142
 msgid "Missed schedule"
-msgstr ""
+msgstr "Missat schema"
 
 #: classes/Helper/Post.php:138
 msgid "Scheduled"
-msgstr "Schemalagt"
+msgstr "Schemalagd"
 
 #: classes/Column/Post/TitleRaw.php:15
 msgid "Title Only"
@@ -743,7 +743,7 @@ msgstr ""
 
 #: classes/Admin/Page/Columns.php:574 classes/Admin/Promo.php:132
 msgid "Get %s Off!"
-msgstr ""
+msgstr "Få %s rabatt!"
 
 #: classes/Admin/Page/Columns.php:541
 msgid "Extra Columns for:"
@@ -1288,7 +1288,7 @@ msgstr "Användarens e-post"
 
 #: classes/Settings/Column/User.php:68
 msgid "User Login"
-msgstr "Användare Loggin"
+msgstr "Användarinloggning"
 
 #: classes/Column/User/LastName.php:14 classes/Settings/Column/User.php:66
 msgid "Last Name"
@@ -1440,7 +1440,7 @@ msgstr "Senast ändrad"
 
 #: classes/Column/Post/LastModifiedAuthor.php:18
 msgid "Last Modified Author"
-msgstr "Senast modifierad författare"
+msgstr "Senast ändrad författare"
 
 #: classes/Column/Post/Formats.php:15
 msgid "Post Format"

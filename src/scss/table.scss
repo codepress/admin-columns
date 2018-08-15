@@ -864,6 +864,10 @@ div.cpac-color span {
 				&.active {
 					border-right: 1px solid #008EC2;
 				}
+
+				&:first-child {
+					border-radius: 3px;
+				}
 			}
 		}
 

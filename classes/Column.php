@@ -256,7 +256,7 @@ class Column {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.2.5
 	 * @return string
 	 */
 	public function get_custom_label() {

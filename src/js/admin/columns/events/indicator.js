@@ -9,6 +9,11 @@ let indicator = function( column ) {
 
 		$indicator.unbind( 'click' ).on( 'click', function( e ) {
 			e.preventDefault();
+
+			if ( $column.hasClass( 'disabled' ) ) {
+				return;
+			}
+
 			$indicator.toggleClass( 'on' );
 			if ( $( this ).hasClass( 'on' ) ) {
 				$input.filter( '[value=on]' ).prop( 'checked', true ).trigger( 'click' ).trigger( 'change' );
@@ -19,6 +24,10 @@ let indicator = function( column ) {
 		} );
 
 		$input.on( 'change', function() {
+			if ( $column.hasClass( 'disabled' ) ) {
+				return;
+			}
+
 			let value = $input.filter( ':checked' ).val();
 			if ( 'on' === value ) {
 				$indicator.addClass( 'on' );
