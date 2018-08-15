@@ -23,23 +23,23 @@ msgstr ""
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/AdminColumns.php:115
+#: classes/AdminColumns.php:114
 msgid "Invalid item ID."
 msgstr ""
 
-#: classes/AdminColumns.php:121
+#: classes/AdminColumns.php:120
 msgid "Invalid list screen."
 msgstr ""
 
-#: classes/AdminColumns.php:127
+#: classes/AdminColumns.php:126
 msgid "Invalid column."
 msgstr ""
 
-#: classes/AdminColumns.php:131
+#: classes/AdminColumns.php:130
 msgid "Invalid method."
 msgstr ""
 
-#: classes/AdminColumns.php:209, classes/Admin/Page/Settings.php:19
+#: classes/AdminColumns.php:206, classes/Admin/Page/Settings.php:19
 msgid "Settings"
 msgstr ""
 
