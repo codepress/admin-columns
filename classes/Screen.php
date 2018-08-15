@@ -2,10 +2,12 @@
 
 namespace AC;
 
+use WP_Screen;
+
 class Screen {
 
 	/**
-	 * @var \WP_Screen
+	 * @var WP_Screen
 	 */
 	protected $screen;
 
@@ -14,9 +16,9 @@ class Screen {
 	}
 
 	/**
-	 * @param \WP_Screen $screen
+	 * @param WP_Screen $screen
 	 */
-	public function init( \WP_Screen $screen ) {
+	public function init( WP_Screen $screen ) {
 		$this->set_screen( $screen );
 
 		do_action( 'ac/screen', $this, $this->screen->id );
@@ -32,18 +34,18 @@ class Screen {
 	}
 
 	/**
-	 * @param \WP_Screen $screen
+	 * @param WP_Screen $screen
 	 *
 	 * @return $this
 	 */
-	public function set_screen( \WP_Screen $screen ) {
+	public function set_screen( WP_Screen $screen ) {
 		$this->screen = $screen;
 
 		return $this;
 	}
 
 	/**
-	 * @return \WP_Screen
+	 * @return WP_Screen
 	 */
 	public function get_screen() {
 		return $this->screen;
@@ -82,7 +84,6 @@ class Screen {
 
 	/**
 	 * Check if current screen is plugins screen
-	 *
 	 * @return bool
 	 */
 	public function is_plugin_screen() {

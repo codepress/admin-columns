@@ -8,14 +8,12 @@ abstract class Meta extends Column {
 
 	/**
 	 * Return the meta_key of this column
-	 *
 	 * @return string
 	 */
 	abstract public function get_meta_key();
 
 	/**
 	 * Is data stored serialized?
-	 *
 	 * @var bool
 	 */
 	private $serialized = false;
@@ -37,6 +35,10 @@ abstract class Meta extends Column {
 	/**
 	 * @see   Column::get_raw_value()
 	 * @since 2.0.3
+	 *
+	 * @param $id
+	 *
+	 * @return bool|mixed
 	 */
 	public function get_raw_value( $id ) {
 		$value = $this->get_meta_value( $id, $this->get_meta_key(), true );
@@ -50,7 +52,6 @@ abstract class Meta extends Column {
 
 	/**
 	 * Retrieve metadata object type (e.g., comment, post, or user)
-	 *
 	 * @since 3.0
 	 * @return bool
 	 */

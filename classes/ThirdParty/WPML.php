@@ -2,8 +2,6 @@
 
 namespace AC\ThirdParty;
 
-use AC\Column;
-
 /**
  * WPML compatibility
  */
@@ -57,7 +55,6 @@ class WPML {
 
 	/**
 	 * @param string $label
-	 * @param Column $column
 	 *
 	 * @return string
 	 */

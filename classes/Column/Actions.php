@@ -7,7 +7,6 @@ use AC\Settings;
 
 /**
  * Base class for columns containing action links for items.
- *
  * @since 2.2.6
  */
 class Actions extends Column {
@@ -22,6 +21,10 @@ class Actions extends Column {
 
 	/**
 	 * @since 2.2.6
+	 *
+	 * @param $id
+	 *
+	 * @return string
 	 */
 	public function get_value( $id ) {
 		if ( $this->get_setting( 'use_icons' )->get_value() ) {

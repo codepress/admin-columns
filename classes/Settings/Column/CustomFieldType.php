@@ -94,7 +94,6 @@ class CustomFieldType extends Settings\Column
 
 	/**
 	 * Get possible field types
-	 *
 	 * @return array
 	 */
 	protected function get_field_type_options() {
@@ -124,7 +123,6 @@ class CustomFieldType extends Settings\Column
 
 		/**
 		 * Filter the available custom field types for the meta (custom field) field
-		 *
 		 * @since 3.0
 		 *
 		 * @param array $field_types Available custom field types ([type] => [label])

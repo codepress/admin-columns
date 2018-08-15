@@ -19,8 +19,6 @@ class Plugin extends Message {
 
 	/**
 	 * @param string $plugin_basename
-	 * @param string $message
-	 * @param string $type
 	 */
 	public function __construct( $plugin_basename ) {
 		parent::__construct();

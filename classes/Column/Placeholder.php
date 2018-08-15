@@ -7,7 +7,6 @@ use AC\Column;
 
 /**
  * ACF Placeholder column, holding a CTA for Admin Columns Pro.
- *
  * @since 2.2
  */
 class Placeholder extends Column {

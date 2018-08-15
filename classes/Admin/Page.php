@@ -6,7 +6,6 @@ abstract class Page {
 
 	/**
 	 * Should this page be displayed when no page is selected
-	 *
 	 * @var bool
 	 */
 	private $default;
@@ -28,14 +27,12 @@ abstract class Page {
 
 	/**
 	 * Display pages
-	 *
 	 * @return void
 	 */
 	public abstract function display();
 
 	/**
 	 * Is this the default to to display when no active page is present
-	 *
 	 * @return bool
 	 */
 	public function is_default() {
@@ -91,7 +88,6 @@ abstract class Page {
 
 	/**
 	 * Cast page to an array
-	 *
 	 * @return array
 	 */
 	public function to_array() {
@@ -104,7 +100,6 @@ abstract class Page {
 
 	/**
 	 * Show the label of the page
-	 *
 	 * @return string
 	 */
 	public function __toString() {

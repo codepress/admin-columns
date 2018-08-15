@@ -10,8 +10,9 @@ class ACF {
 
 	/**
 	 * Fix which remove the Advanced Custom Fields Type (acf) from the admin columns settings page
-	 *
 	 * @since 2.0
+	 *
+	 * @param $post_types
 	 *
 	 * @return array Post Types
 	 */

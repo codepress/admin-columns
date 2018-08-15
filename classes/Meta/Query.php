@@ -2,10 +2,12 @@
 
 namespace AC\Meta;
 
+use WP_Meta_Query;
+
 class Query {
 
 	/**
-	 * @var \WP_Meta_Query
+	 * @var WP_Meta_Query
 	 */
 	private $query;
 
@@ -98,7 +100,6 @@ class Query {
 
 	/**
 	 * Group by an aggregated column.
-	 *
 	 * Supports: count
 	 *
 	 * @param string $field
@@ -123,6 +124,11 @@ class Query {
 
 	/**
 	 * @see get_where_clause()
+	 *
+	 * @param        $field
+	 * @param null   $operator
+	 * @param null   $value
+	 * @param string $boolean
 	 *
 	 * @return $this
 	 */
@@ -166,7 +172,7 @@ class Query {
 	 * @param string|array     $field
 	 * @param string           $operator
 	 * @param string|int|array $value
-	 * @param string           $type
+	 * @param string           $boolean
 	 *
 	 * @return array
 	 */
@@ -209,6 +215,11 @@ class Query {
 	/**
 	 * @see get_where_clause()
 	 *
+	 * @param        $field
+	 * @param null   $operator
+	 * @param null   $value
+	 * @param string $boolean
+	 *
 	 * @return $this
 	 */
 	public function remove_where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
@@ -226,6 +237,11 @@ class Query {
 	/**
 	 * @see get_where_clause()
 	 *
+	 * @param        $field
+	 * @param null   $operator
+	 * @param null   $value
+	 * @param string $boolean
+	 *
 	 * @return $this
 	 */
 	public function where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
@@ -236,6 +252,10 @@ class Query {
 
 	/**
 	 * @see get_where_clause()
+	 *
+	 * @param      $field
+	 * @param null $operator
+	 * @param null $value
 	 *
 	 * @return $this
 	 */
@@ -424,7 +444,6 @@ class Query {
 
 	/**
 	 * Return last sql that was queried
-	 *
 	 * @return string
 	 */
 	public function get_sql() {
@@ -439,12 +458,17 @@ class Query {
 	}
 
 	/**
-	 * @return \WP_Meta_Query
+	 * @return WP_Meta_Query
 	 */
 	public function get_query() {
 		return $this->query;
 	}
 
+	/**
+	 * @param string $type
+	 *
+	 * @return bool
+	 */
 	private function set_query( $type ) {
 		global $wpdb;
 
@@ -474,7 +498,7 @@ class Query {
 				return false;
 		}
 
-		$this->query = new \WP_Meta_Query();
+		$this->query = new WP_Meta_Query();
 		$this->query->get_sql( $type, $table, $id );
 
 		return true;

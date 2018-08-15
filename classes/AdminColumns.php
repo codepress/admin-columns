@@ -200,6 +200,11 @@ class AdminColumns extends Plugin {
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
 	 * @since 1.0
 	 * @see   filter:plugin_action_links
+	 *
+	 * @param array  $links
+	 * @param string $file
+	 *
+	 * @return array
 	 */
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->get_basename() ) {
@@ -341,6 +346,8 @@ class AdminColumns extends Plugin {
 	/**
 	 * @deprecated 3.1.5
 	 * @since      3.0
+	 *
+	 * @param $file
 	 */
 	public function get_plugin_version( $file ) {
 		_deprecated_function( __METHOD__, '3.1.5' );

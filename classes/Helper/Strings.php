@@ -6,6 +6,10 @@ class Strings {
 
 	/**
 	 * @since 1.3.1
+	 *
+	 * @param $url
+	 *
+	 * @return bool|false|string
 	 */
 	public function shorten_url( $url ) {
 		if ( ! $url ) {
@@ -17,6 +21,10 @@ class Strings {
 
 	/**
 	 * @since 1.3
+	 *
+	 * @param $string
+	 *
+	 * @return string
 	 */
 	public function strip_trim( $string ) {
 		return trim( strip_tags( $string ) );
@@ -24,7 +32,6 @@ class Strings {
 
 	/**
 	 * Count the number of words in a string (multibyte-compatible)
-	 *
 	 * @since 3.0
 	 *
 	 * @param $string
@@ -62,8 +69,11 @@ class Strings {
 
 	/**
 	 * @see   wp_trim_words();
-	 *
 	 * @since 3.0
+	 *
+	 * @param string $string
+	 * @param int    $num_words
+	 * @param null   $more
 	 *
 	 * @return false|string
 	 */
@@ -84,6 +94,7 @@ class Strings {
 	 *
 	 * @param string $string
 	 * @param int    $limit
+	 * @param null   $trail
 	 *
 	 * @return string
 	 */
@@ -109,7 +120,6 @@ class Strings {
 
 	/**
 	 * Formats a valid hex color to a 6 digit string, optionally prefixed with a #
-	 *
 	 * Example: #FF0 will be fff000 based on the $prefix parameter
 	 *
 	 * @param string $hex    Valid hex color
@@ -133,7 +143,6 @@ class Strings {
 
 	/**
 	 * Get RGB values from a hex color string
-	 *
 	 * @since 3.0
 	 *
 	 * @param string $hex Valid hex color
@@ -148,7 +157,6 @@ class Strings {
 
 	/**
 	 * Get contrasting hex color based on given hex color
-	 *
 	 * @since 3.0
 	 *
 	 * @param string $hex Valid hex color
@@ -218,6 +226,8 @@ class Strings {
 	 * @since 3.0
 	 *
 	 * @param string $hex Color Hex Code
+	 *
+	 * @return string
 	 */
 	public function get_color_block( $hex ) {
 		if ( ! $hex ) {
@@ -228,6 +238,8 @@ class Strings {
 	}
 
 	/**
+	 * @param $url
+	 *
 	 * @return bool
 	 */
 	public function is_valid_url( $url ) {
@@ -273,7 +285,8 @@ class Strings {
 	/**
 	 * Return an array into a comma separated sentence. For example [minute, hours, days] becomes: "minute, hours or days".
 	 *
-	 * @param array $words
+	 * @param array  $words
+	 * @param string $compound
 	 *
 	 * @return string
 	 */

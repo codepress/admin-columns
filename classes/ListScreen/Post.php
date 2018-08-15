@@ -54,11 +54,17 @@ class Post extends ListScreenPost {
 
 	/**
 	 * @since 2.4.7
+	 *
+	 * @param $column_name
+	 * @param $id
 	 */
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
+	/**
+	 * @throws \ReflectionException
+	 */
 	protected function register_column_types() {
 		parent::register_column_types();
 

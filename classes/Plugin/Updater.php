@@ -49,7 +49,6 @@ class Updater {
 
 	/**
 	 * Checks conditions like user permissions
-	 *
 	 */
 	public function check_update_conditions() {
 		if ( ! current_user_can( Capabilities::MANAGE ) ) {

@@ -2,6 +2,8 @@
 
 namespace AC\Ajax;
 
+use Exception;
+
 class Handler {
 
 	const NONCE_ACTION = 'ac-ajax';
@@ -21,15 +23,15 @@ class Handler {
 	}
 
 	/**
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function register() {
 		if ( ! $this->get_action() ) {
-			throw new \Exception( 'Action parameter is missing.' );
+			throw new Exception( 'Action parameter is missing.' );
 		}
 
 		if ( ! $this->get_callback() ) {
-			throw new \Exception( 'Callback is missing.' );
+			throw new Exception( 'Callback is missing.' );
 		}
 
 		add_action( 'wp_ajax_' . $this->get_action(), $this->get_callback() );

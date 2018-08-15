@@ -2,6 +2,8 @@
 
 namespace AC\Helper;
 
+use DOMDocument;
+
 class Html {
 
 	/**
@@ -34,6 +36,7 @@ class Html {
 	/**
 	 * @param string $url
 	 * @param string $label
+	 * @param array  $attributes
 	 *
 	 * @return string|false HTML Anchor element
 	 */
@@ -91,8 +94,9 @@ class Html {
 	}
 
 	/**
-	 * @param $label
-	 * @param $tooltip
+	 * @param       $label
+	 * @param       $tooltip
+	 * @param array $attributes
 	 *
 	 * @return string
 	 */
@@ -118,7 +122,7 @@ class Html {
 		if ( $contents ) : ?>
 			<a class="ac-toggle-box-link" href="#"><?php echo $label; ?></a>
 			<div class="ac-toggle-box-contents"><?php echo $contents; ?></div>
-			<?php
+		<?php
 		else :
 			echo $label;
 		endif;
@@ -198,7 +202,7 @@ class Html {
 		$internal_links = array();
 		$external_links = array();
 
-		$dom = new \DOMDocument();
+		$dom = new DOMDocument();
 		$dom->loadHTML( $string );
 
 		$links = $dom->getElementsByTagName( 'a' );
@@ -247,7 +251,9 @@ class Html {
 	/**
 	 * Display indicator icon in the column settings header
 	 *
-	 * @param string $name
+	 * @param      $class
+	 * @param      $id
+	 * @param bool $title
 	 */
 	public function indicator( $class, $id, $title = false ) { ?>
 		<span class="indicator-<?php echo esc_attr( $class ); ?>" data-indicator-id="<?php echo esc_attr( $id ); ?>" title="<?php echo esc_attr( $title ); ?>"></span>
@@ -257,7 +263,8 @@ class Html {
 	/**
 	 * Adds a divider to the implode
 	 *
-	 * @param $array
+	 * @param      $array
+	 * @param bool $divider
 	 *
 	 * @return string
 	 */
@@ -283,8 +290,8 @@ class Html {
 	/**
 	 * Remove attribute from an html tag
 	 *
-	 * @param string       $html      HTML tag
-	 * @param string|array $attribute Attribute: style, class, alt, data etc.
+	 * @param string $html HTML tag
+	 * @param        $attributes
 	 *
 	 * @return mixed
 	 */
@@ -464,7 +471,7 @@ class Html {
 
 	/**
 	 * @param string $value HTML
-	 * @param int    $removed
+	 * @param bool   $removed
 	 *
 	 * @return string
 	 */

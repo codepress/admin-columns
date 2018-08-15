@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use Exception;
+
 abstract class Message {
 
 	const SUCCESS = 'updated';
@@ -33,26 +35,24 @@ abstract class Message {
 
 	/**
 	 * Create a view that can be rendered
-	 *
 	 * @return View
 	 */
 	abstract protected function create_view();
 
 	/**
 	 * Render an View
-	 *
 	 * @return string
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function render() {
 		if ( empty( $this->message ) ) {
-			throw new \Exception( 'Message cannot be empty' );
+			throw new Exception( 'Message cannot be empty' );
 		}
 
 		$view = $this->create_view();
 
 		if ( ! ( $view instanceof View ) ) {
-			throw new \Exception( 'AC\Notice::create_view should return an instance of View' );
+			throw new Exception( 'AC\Notice::create_view should return an instance of View' );
 		}
 
 		return $view->render();
@@ -60,6 +60,7 @@ abstract class Message {
 
 	/**
 	 * Display self::render to the screen
+	 * @throws Exception
 	 */
 	public function display() {
 		echo $this->render();

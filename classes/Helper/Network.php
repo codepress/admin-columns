@@ -5,7 +5,7 @@ namespace AC\Helper;
 class Network {
 
 	/**
-	 * @param int $blog_id
+	 * @param int    $blog_id
 	 * @param string $option Option name
 	 *
 	 * @return null|string
@@ -21,7 +21,7 @@ class Network {
 			WHERE option_name = %s
 		";
 
-		return (string) $wpdb->get_var( $wpdb->prepare( $sql, $option) );
+		return (string) $wpdb->get_var( $wpdb->prepare( $sql, $option ) );
 	}
 
 	/**

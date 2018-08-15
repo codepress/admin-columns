@@ -165,6 +165,7 @@ abstract class DateTimeFormat extends Settings\Column
 
 	/**
 	 * @param string $date
+	 * @param        $original_value
 	 *
 	 * @return string
 	 */

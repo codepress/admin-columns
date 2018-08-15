@@ -8,7 +8,6 @@ use AC\Settings;
 /**
  * Column displaying the menus the item is used in. Supported by all object types that
  * can be referenced in menus (i.e. posts).
- *
  * @since 2.2.5
  */
 abstract class Menu extends Column {
@@ -20,6 +19,10 @@ abstract class Menu extends Column {
 
 	/**
 	 * @since 2.2.5
+	 *
+	 * @param $object_id
+	 *
+	 * @return array
 	 */
 	public function get_raw_value( $object_id ) {
 		return $this->get_menus( $object_id, array( 'fields' => 'ids' ) );
