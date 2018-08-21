@@ -40,6 +40,9 @@ class Capabilities {
 	 * Add the capability to manage admin columns.
 	 */
 	public function add_manage() {
-		$this->user->add_cap( self::MANAGE );
+		/** @var \WP_Roles $wp_roles */
+		global $wp_roles;
+
+		$wp_roles->add_cap( 'administrator', self::MANAGE );
 	}
 }

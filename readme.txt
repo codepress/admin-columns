@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Improved] Set Admin Columns Capability on role instead of User
+
 = 3.2.5 =
 Release Date: August 15th, 2018
 
