@@ -103,16 +103,32 @@ class User {
 	 * @return array Role nice names
 	 */
 	public function get_roles_names( $roles ) {
-		$translated = $this->get_roles();
-
 		$role_names = array();
+
 		foreach ( $roles as $role ) {
-			if ( isset( $translated[ $role ] ) ) {
-				$role_names[ $role ] = $translated[ $role ];
+			$name = $this->get_role_name( $role );
+
+			if ( $name ) {
+				$role_names[ $role ] = $name;
 			}
 		}
 
 		return $role_names;
+	}
+
+	/**
+	 * @param string $role
+	 *
+	 * @return string
+	 */
+	public function get_role_name( $role ) {
+		$roles = $this->get_roles();
+
+		if ( ! array_key_exists( $role, $roles ) ) {
+			return false;
+		}
+
+		return $roles[ $role ];
 	}
 
 	/**
