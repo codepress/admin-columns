@@ -7,7 +7,7 @@ class Form {
 		this.$container = jQuery( '#cpac .ac-admin' );
 		this.columns = {};
 
-		$( document ).trigger( 'AC_Form_Loaded' );
+		jQuery( document ).trigger( 'AC_Form_Loaded' );
 
 		this.init();
 	}
@@ -17,7 +17,7 @@ class Form {
 		this.bindFormEvents();
 		this.bindOrdering();
 
-		$( document ).trigger( 'AC_Form_Ready' );
+		jQuery( document ).trigger( 'AC_Form_Ready' );
 	}
 
 	bindOrdering() {
@@ -150,7 +150,7 @@ class Form {
 		} );
 
 		//document.dispatchEvent( new CustomEvent( 'AC_Form_AfterUpdate', { detail : { container : self.$container } } ) );
-		$( document ).trigger( 'AC_Form_AfterUpdate', [ self.$container ] );
+		jQuery( document ).trigger( 'AC_Form_AfterUpdate', [ self.$container ] );
 
 		return xhr;
 	}
@@ -194,7 +194,7 @@ class Form {
 
 		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
 
-		$( document ).trigger( 'AC_Column_Added', [ column ] );
+		jQuery( document ).trigger( 'AC_Column_Added', [ column ] );
 
 		return column;
 	}
