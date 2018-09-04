@@ -87,7 +87,7 @@ class Column {
 
 		this.bindSettings();
 
-		$( document ).trigger( 'AC_Column_InitSettings', [ column ] );
+		jQuery( document ).trigger( 'AC_Column_InitSettings', [ column ] );
 
 		return this;
 	}
@@ -176,7 +176,7 @@ class Column {
 					self.bindEvents();
 					self.open();
 
-					$( document ).trigger( 'AC_Column_Change', [ self ] );
+					jQuery( document ).trigger( 'AC_Column_Change', [ self ] );
 				} else {
 					self.showMessage( response.data.error )
 				}
@@ -220,7 +220,7 @@ class Column {
 					self.bindEvents();
 					self.open();
 
-					$( document ).trigger( 'AC_Column_Refresh', [ self ] );
+					jQuery( document ).trigger( 'AC_Column_Refresh', [ self ] );
 				}
 			}
 
@@ -234,7 +234,7 @@ class Column {
 		this.initNewInstance();
 		this.bindEvents();
 
-		$( document ).trigger( 'AC_Column_Created', [ self ] );
+		jQuery( document ).trigger( 'AC_Column_Created', [ self ] );
 		return this;
 	}
 

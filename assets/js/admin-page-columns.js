@@ -266,7 +266,7 @@ function () {
         }
       });
       this.bindSettings();
-      $(document).trigger('AC_Column_InitSettings', [column]);
+      jQuery(document).trigger('AC_Column_InitSettings', [column]);
       return this;
     }
   }, {
@@ -368,7 +368,7 @@ function () {
             self.initNewInstance();
             self.bindEvents();
             self.open();
-            $(document).trigger('AC_Column_Change', [self]);
+            jQuery(document).trigger('AC_Column_Change', [self]);
           } else {
             self.showMessage(response.data.error);
           }
@@ -406,7 +406,7 @@ function () {
             self.el = column[0];
             self.bindEvents();
             self.open();
-            $(document).trigger('AC_Column_Refresh', [self]);
+            jQuery(document).trigger('AC_Column_Refresh', [self]);
           }
         }
       });
@@ -420,7 +420,7 @@ function () {
     value: function create() {
       this.initNewInstance();
       this.bindEvents();
-      $(document).trigger('AC_Column_Created', [self]);
+      jQuery(document).trigger('AC_Column_Created', [self]);
       return this;
     }
     /**
@@ -479,6 +479,7 @@ __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-j
  * TODO: Is not used anymore?
  */
 var addons = function addons(column) {
+  var $ = jQuery;
   var $column = column.$el;
   var inputs = $column.find('[data-trigger] label');
   inputs.on('click', function () {
@@ -562,6 +563,7 @@ __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-j
 var indicator = function indicator(column) {
   var $column = column.$el;
   $column.find('.ac-column-header [data-indicator-toggle]').each(function () {
+    var $ = jQuery;
     var $indicator = $(this);
     var setting = $(this).data('setting');
     var $setting = $column.find('.ac-column-setting[data-setting=' + setting + ']');
@@ -674,6 +676,7 @@ module.exports = {
 __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
 
 var refresh = function refresh(column) {
+  var $ = jQuery;
   column.$el.find('[data-refresh="column"]').on('change', function () {
     // Allow plugins to hook into this event
     $(document).trigger('AC.column.prerefresh', column.$el);
@@ -763,6 +766,7 @@ module.exports = toggle;
 __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
 
 var selector = function selector(column) {
+  var $ = jQuery;
   column.$el.find('select.ac-setting-input_type').change(function () {
     column.$el.addClass('loading');
     column.switchToType($(this).val()).always(function () {
@@ -867,7 +871,7 @@ function () {
     this.$form = jQuery(el);
     this.$container = jQuery('#cpac .ac-admin');
     this.columns = {};
-    $(document).trigger('AC_Form_Loaded');
+    jQuery(document).trigger('AC_Form_Loaded');
     this.init();
   }
 
@@ -877,7 +881,7 @@ function () {
       this.initColumns();
       this.bindFormEvents();
       this.bindOrdering();
-      $(document).trigger('AC_Form_Ready');
+      jQuery(document).trigger('AC_Form_Ready');
     }
   }, {
     key: "bindOrdering",
@@ -997,7 +1001,7 @@ function () {
         // been saved correctly despite of PHP notices/errors from plugin or themes.
       }); //document.dispatchEvent( new CustomEvent( 'AC_Form_AfterUpdate', { detail : { container : self.$container } } ) );
 
-      $(document).trigger('AC_Form_AfterUpdate', [self.$container]);
+      jQuery(document).trigger('AC_Form_AfterUpdate', [self.$container]);
       return xhr;
     }
   }, {
@@ -1044,7 +1048,7 @@ function () {
       jQuery('html, body').animate({
         scrollTop: column.$el.offset().top - 58
       }, 300);
-      $(document).trigger('AC_Column_Added', [column]);
+      jQuery(document).trigger('AC_Column_Added', [column]);
       return column;
     }
   }]);
@@ -1211,7 +1215,7 @@ function () {
           _this.close();
         }
       });
-      var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"]');
+      var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
 
       if (dismissButtons.length > 0) {
         dismissButtons.forEach(function (b) {
@@ -1254,21 +1258,15 @@ function () {
   }], [{
     key: "initGlobalEvents",
     value: function initGlobalEvents() {
-      var buttons = document.querySelectorAll('[data-ac-open-modal]');
+      jQuery(document).on('click', '[data-ac-open-modal]', function (e) {
+        e.preventDefault();
+        var target = e.target.dataset.acOpenModal;
+        var el = document.querySelector(target);
 
-      if (buttons.length) {
-        buttons.forEach(function (button) {
-          button.addEventListener('click', function (e) {
-            e.preventDefault();
-            var target = e.target.dataset.acOpenModal;
-            var el = document.querySelector(target);
-
-            if (el && el.AC_MODAL) {
-              el.AC_MODAL.open();
-            }
-          });
-        });
-      }
+        if (el && el.AC_MODAL) {
+          el.AC_MODAL.open();
+        }
+      });
     }
   }]);
 
@@ -1292,6 +1290,7 @@ module.exports = Modal;
 __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
 
 var date = function date(column) {
+  var $ = jQuery;
   var $column = column.$el;
   var $setting = $column.find('.ac-column-setting--date');
   $setting.each(function () {
@@ -1536,6 +1535,7 @@ module.exports = pro;
 __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
 
 var subsetting = function subsetting(column) {
+  var $ = jQuery;
   var settings = {
     value_show: "on",
     subfield: '.ac-column-setting'
@@ -1584,6 +1584,7 @@ __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-j
 
 // Settings fields: Width
 jQuery.fn.column_width_slider = function () {
+  var $ = jQuery;
   var $column_width = $(this).find('.ac-setting-input-width');
   var input_width = $column_width.find('.description input'),
       input_unit = $column_width.find('.unit-select input'),

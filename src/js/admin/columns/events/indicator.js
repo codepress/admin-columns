@@ -2,6 +2,7 @@ let indicator = function( column ) {
 	let $column = column.$el;
 
 	$column.find( '.ac-column-header [data-indicator-toggle]' ).each( function() {
+		let $ = jQuery;
 		let $indicator = $( this );
 		let setting = $( this ).data( 'setting' );
 		let $setting = $column.find( '.ac-column-setting[data-setting=' + setting + ']' );

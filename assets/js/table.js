@@ -279,7 +279,11 @@ function () {
       var self = this;
       this.$el.on('update', function () {
         self.refresh();
+<<<<<<< HEAD
       }).insertAfter(jQuery('.tablenav.top .actions:last')).trigger('update');
+=======
+      }).appendTo(jQuery('.tablenav.top .actions:last')).trigger('update');
+>>>>>>> develop
     }
   }, {
     key: "refresh",
