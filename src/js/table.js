@@ -11,7 +11,7 @@ jQuery( document ).ready( function( $ ) {
 	ac_toggle_box_ajax_init( $ );
 	ac_actions_tooltips( $ );
 
-	AC.Table = new Table( '.wp-list-table' );
+	AC.Table = new Table( document.getElementById( 'the-list' ).parentElement );
 	AC.Tooltips = new Tooltip();
 
 	$( '.wp-list-table' ).on( 'updated', 'tr', function() {
@@ -158,3 +158,22 @@ function ac_quickedit_events( $ ) {
 	} );
 
 }
+
+/** CustomEvent Polyfill */
+(function() {
+
+	if ( typeof window.CustomEvent === "function" ) {
+		return false;
+	}
+
+	function CustomEvent( event, params ) {
+		params = params || { bubbles : false, cancelable : false, detail : undefined };
+		let evt = document.createEvent( 'CustomEvent' );
+		evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+		return evt;
+	}
+
+	CustomEvent.prototype = window.Event.prototype;
+
+	window.CustomEvent = CustomEvent;
+})();
