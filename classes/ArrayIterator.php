@@ -75,6 +75,13 @@ abstract class ArrayIterator
 	}
 
 	/**
+	 * @return int
+	 */
+	public function count() {
+		return count( $this->array );
+	}
+
+	/**
 	 * @return array
 	 */
 	public function get_copy() {
