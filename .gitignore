@@ -10,6 +10,7 @@ Thumbs.d*
 
 # Project specific
 *.scssc
+*.map
 
 # Development
 node_modules
