@@ -114,7 +114,7 @@ jQuery(document).ready(function ($) {
   ac_toggle_box($);
   ac_toggle_box_ajax_init($);
   ac_actions_tooltips($);
-  var table = document.querySelector('#the-list, #the-comment-list');
+  var table = document.querySelector(AC.table_id);
 
   if (table) {
     AC.Table = new _table.default(table.parentElement);
