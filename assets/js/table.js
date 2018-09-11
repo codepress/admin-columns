@@ -114,7 +114,12 @@ jQuery(document).ready(function ($) {
   ac_toggle_box($);
   ac_toggle_box_ajax_init($);
   ac_actions_tooltips($);
-  AC.Table = new _table.default(document.getElementById('the-list').parentElement);
+  var table = document.querySelector('#the-list, #the-comment-list');
+
+  if (table) {
+    AC.Table = new _table.default(table.parentElement);
+  }
+
   AC.Tooltips = new _tooltips.default();
   $('.wp-list-table').on('updated', 'tr', function () {
     ac_set_column_classes($);

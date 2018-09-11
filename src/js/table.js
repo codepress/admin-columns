@@ -11,7 +11,12 @@ jQuery( document ).ready( function( $ ) {
 	ac_toggle_box_ajax_init( $ );
 	ac_actions_tooltips( $ );
 
-	AC.Table = new Table( document.getElementById( 'the-list' ).parentElement );
+	let table = document.querySelector('#the-list, #the-comment-list' );
+	if( table ){
+		AC.Table = new Table( table.parentElement );
+	}
+
+
 	AC.Tooltips = new Tooltip();
 
 	$( '.wp-list-table' ).on( 'updated', 'tr', function() {
