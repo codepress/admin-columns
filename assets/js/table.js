@@ -324,6 +324,117 @@ module.exports = Actions;
 
 /***/ }),
 
+/***/ "./js/table/cells.js":
+/*!***************************!*\
+  !*** ./js/table/cells.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/es6.regexp.to-string */ "./node_modules/core-js/modules/es6.regexp.to-string.js");
+
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
+__webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
+
+__webpack_require__(/*! core-js/modules/es6.map */ "./node_modules/core-js/modules/es6.map.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Cells =
+/*#__PURE__*/
+function () {
+  function Cells() {
+    _classCallCheck(this, Cells);
+
+    this._cells = new Map();
+  }
+
+  _createClass(Cells, [{
+    key: "add",
+    value: function add(id, column) {
+      if (!this._cells.has(id)) {
+        this._cells.set(id, new Map());
+      }
+
+      this._cells.get(id).set(column.getName(), column);
+    }
+  }, {
+    key: "getByID",
+    value: function getByID(id) {
+      var result = [];
+      var key = id.toString();
+
+      if (!this._cells.has(key)) {
+        return result;
+      }
+
+      this._cells.get(id.toString()).forEach(function (column) {
+        result.push(column);
+      });
+
+      return result;
+    }
+  }, {
+    key: "getAll",
+    value: function getAll() {
+      var results = [];
+
+      this._cells.forEach(function (columns) {
+        columns.forEach(function (column) {
+          results.push(column);
+        });
+      });
+
+      return results;
+    }
+  }, {
+    key: "getByType",
+    value: function getByType(type) {
+      var results = [];
+
+      this._cells.forEach(function (columns) {
+        columns.forEach(function (column, name) {
+          if (name === type) {
+            results.push(column);
+          }
+        });
+      });
+
+      return results;
+    }
+  }, {
+    key: "get",
+    value: function get(id, type) {
+      var row = this._cells.get(id.toString());
+
+      if (!row) {
+        return false;
+      }
+
+      return row.get(type);
+    }
+  }]);
+
+  return Cells;
+}();
+
+exports.default = Cells;
+
+/***/ }),
+
 /***/ "./js/table/column.js":
 /*!****************************!*\
   !*** ./js/table/column.js ***!
@@ -377,6 +488,11 @@ function () {
       return this.el.parentElement;
     }
   }, {
+    key: "getSettings",
+    value: function getSettings() {
+      return AC.Table.Columns._types[this.getName()];
+    }
+  }, {
     key: "setValue",
     value: function setValue(value) {
       var el = this.getElement();
@@ -407,15 +523,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-__webpack_require__(/*! core-js/modules/es6.regexp.to-string */ "./node_modules/core-js/modules/es6.regexp.to-string.js");
-
-__webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
-
 __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 
 __webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
 
-__webpack_require__(/*! core-js/modules/es6.map */ "./node_modules/core-js/modules/es6.map.js");
+__webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -430,104 +542,49 @@ function () {
     _classCallCheck(this, Columns);
 
     this.table = table;
-    this._columns = new Map();
-    this._types = {};
+    this._columns = {};
     this.init();
   }
 
   _createClass(Columns, [{
     key: "init",
     value: function init() {
-      this._initColumnTypes();
-    }
-  }, {
-    key: "_initColumnTypes",
-    value: function _initColumnTypes() {
       var self = this;
       var thead = this.table.querySelector('thead');
       var headers = thead.querySelectorAll('th');
 
       for (var i = 0; i < headers.length; i++) {
-        self._types[headers[i].id] = {};
+        self._columns[headers[i].id] = {};
       }
     }
   }, {
-    key: "addColumn",
-    value: function addColumn(id, column) {
-      if (!this._columns.has(id)) {
-        this._columns.set(id, new Map());
-      }
-
-      this._columns.get(id).set(column.getName(), column);
+    key: "getColumns",
+    value: function getColumns() {
+      return this._columns;
     }
+    /**
+     * @returns {string[]}
+     */
+
   }, {
-    key: "getColumnTypes",
-    value: function getColumnTypes() {
-      return Object.keys(this._types);
+    key: "getColumnNames",
+    value: function getColumnNames() {
+      return Object.keys(this._columns);
     }
-  }, {
-    key: "getColumnSettings",
-    value: function getColumnSettings(column_type) {
-      if (!this._types[column_type]) {
-        return false;
-      }
+    /**
+     *
+     * @param {String} column_name
+     * @returns {Object}
+     */
 
-      return this._types[column_type];
-    }
-  }, {
-    key: "getByID",
-    value: function getByID(id) {
-      var result = [];
-      var key = id.toString();
-
-      if (!this._columns.has(key)) {
-        return result;
-      }
-
-      this._columns.get(id.toString()).forEach(function (column) {
-        result.push(column);
-      });
-
-      return result;
-    }
-  }, {
-    key: "getAll",
-    value: function getAll() {
-      var results = [];
-
-      this._columns.forEach(function (columns) {
-        columns.forEach(function (column) {
-          results.push(column);
-        });
-      });
-
-      return results;
-    }
-  }, {
-    key: "getByType",
-    value: function getByType(type) {
-      var results = [];
-
-      this._columns.forEach(function (columns) {
-        columns.forEach(function (column, name) {
-          if (name === type) {
-            results.push(column);
-          }
-        });
-      });
-
-      return results;
-    }
   }, {
     key: "get",
-    value: function get(id, type) {
-      var row = this._columns.get(id.toString());
-
-      if (!row) {
+    value: function get(column_name) {
+      if (!this._columns[column_name]) {
         return false;
       }
 
-      return row.get(type);
+      return this._columns[column_name];
     }
   }]);
 
@@ -535,6 +592,76 @@ function () {
 }();
 
 exports.default = Columns;
+
+/***/ }),
+
+/***/ "./js/table/helper.js":
+/*!****************************!*\
+  !*** ./js/table/helper.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/es6.regexp.constructor */ "./node_modules/core-js/modules/es6.regexp.constructor.js");
+
+__webpack_require__(/*! core-js/modules/es6.regexp.replace */ "./node_modules/core-js/modules/es6.regexp.replace.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Helper =
+/*#__PURE__*/
+function () {
+  function Helper() {
+    _classCallCheck(this, Helper);
+  }
+
+  _createClass(Helper, null, [{
+    key: "getParamFromUrl",
+
+    /**
+     * Get query param from url
+     *
+     * @param param
+     * @param url
+     * @returns {*}
+     */
+    value: function getParamFromUrl(param, url) {
+      if (!url) {
+        return null;
+      }
+
+      param = param.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + param + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+
+      if (!results) {
+        return null;
+      }
+
+      if (!results[2]) {
+        return '';
+      }
+
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+  }]);
+
+  return Helper;
+}();
+
+exports.default = Helper;
 
 /***/ }),
 
@@ -559,9 +686,13 @@ __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core
 
 var _actions = _interopRequireDefault(__webpack_require__(/*! ./actions */ "./js/table/actions.js"));
 
+var _cells = _interopRequireDefault(__webpack_require__(/*! ./cells */ "./js/table/cells.js"));
+
 var _columns = _interopRequireDefault(__webpack_require__(/*! ./columns */ "./js/table/columns.js"));
 
 var _column = _interopRequireDefault(__webpack_require__(/*! ./column */ "./js/table/column.js"));
+
+var _helper = _interopRequireDefault(__webpack_require__(/*! ./helper */ "./js/table/helper.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -582,7 +713,9 @@ function () {
     _classCallCheck(this, Table);
 
     this.el = el;
+    this.Helper = _helper.default;
     this.Columns = new _columns.default(el);
+    this.Cells = new _cells.default();
     this.Buttons = new _actions.default('#ac-table-actions');
     this.init();
   }
@@ -593,6 +726,8 @@ function () {
       var self = this;
 
       this._initTable();
+
+      this._addCellMethods();
 
       document.dispatchEvent(new CustomEvent('AC_Table_Ready', {
         detail: {
@@ -610,6 +745,8 @@ function () {
   }, {
     key: "_initTable",
     value: function _initTable() {
+      var _this = this;
+
       var self = this;
       var el = this.el.getElementsByTagName('tbody');
       var rows = el[0].getElementsByTagName('tr');
@@ -617,14 +754,14 @@ function () {
       var _loop = function _loop(i) {
         var row = rows[i];
 
-        var id = Table._getIDFromRow(row);
+        var id = _this._getIDFromRow(row);
 
         row.dataset.id = id;
-        self.Columns.getColumnTypes().forEach(function (name) {
+        self.Columns.getColumnNames().forEach(function (name) {
           var td = row.querySelector(".column-".concat(name));
 
           if (td) {
-            self.Columns.addColumn(id, new _column.default(id, name, td));
+            self.Cells.add(id, new _column.default(id, name, td));
           }
         });
       };
@@ -632,6 +769,16 @@ function () {
       for (var i = 0; i < rows.length; i++) {
         _loop(i);
       }
+    }
+  }, {
+    key: "_addCellMethods",
+    value: function _addCellMethods() {
+      // Attach method to retrieve the column reference
+      this.Cells.getAll().forEach(function (column) {
+        column.el.getCell = function () {
+          return column;
+        };
+      });
     }
     /**
      * Get the Post ID from a table row based on it's attributes or columns
@@ -642,11 +789,6 @@ function () {
      */
 
   }, {
-    key: "getRow",
-    value: function getRow(id) {
-      return this.el.querySelector("tr#".concat(id));
-    }
-  }], [{
     key: "_getIDFromRow",
     value: function _getIDFromRow(row) {
       var id = row.id;
@@ -661,11 +803,26 @@ function () {
           id_parts = id.split('_');
           item_id = id_parts[id_parts.length - 1];
         }
+      } // Try to get the ID from the edit URL (MS Sites)
+
+
+      if (!item_id) {
+        var link = row.parentElement.querySelector('.edit a');
+        var href = link.getAttribute('href');
+
+        if (href) {
+          item_id = this.Helper.getParamFromUrl('id', href);
+        }
       }
 
       return item_id;
     }
   }, {
+    key: "getRow",
+    value: function getRow(id) {
+      return this.el.querySelector("tr#".concat(id));
+    }
+  }], [{
     key: "getTable",
     value: function getTable() {
       var jQuery = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
@@ -2101,6 +2258,24 @@ exports.f = __webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/mo
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/_object-gopn.js":
+/*!******************************************************!*\
+  !*** ./node_modules/core-js/modules/_object-gopn.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
+var $keys = __webpack_require__(/*! ./_object-keys-internal */ "./node_modules/core-js/modules/_object-keys-internal.js");
+var hiddenKeys = __webpack_require__(/*! ./_enum-bug-keys */ "./node_modules/core-js/modules/_enum-bug-keys.js").concat('length', 'prototype');
+
+exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+  return $keys(O, hiddenKeys);
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/_object-gpo.js":
 /*!*****************************************************!*\
   !*** ./node_modules/core-js/modules/_object-gpo.js ***!
@@ -2730,6 +2905,60 @@ __webpack_require__(/*! ./_object-sap */ "./node_modules/core-js/modules/_object
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es6.regexp.constructor.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/core-js/modules/es6.regexp.constructor.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js");
+var inheritIfRequired = __webpack_require__(/*! ./_inherit-if-required */ "./node_modules/core-js/modules/_inherit-if-required.js");
+var dP = __webpack_require__(/*! ./_object-dp */ "./node_modules/core-js/modules/_object-dp.js").f;
+var gOPN = __webpack_require__(/*! ./_object-gopn */ "./node_modules/core-js/modules/_object-gopn.js").f;
+var isRegExp = __webpack_require__(/*! ./_is-regexp */ "./node_modules/core-js/modules/_is-regexp.js");
+var $flags = __webpack_require__(/*! ./_flags */ "./node_modules/core-js/modules/_flags.js");
+var $RegExp = global.RegExp;
+var Base = $RegExp;
+var proto = $RegExp.prototype;
+var re1 = /a/g;
+var re2 = /a/g;
+// "new" creates a new object, old webkit buggy here
+var CORRECT_NEW = new $RegExp(re1) !== re1;
+
+if (__webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/modules/_descriptors.js") && (!CORRECT_NEW || __webpack_require__(/*! ./_fails */ "./node_modules/core-js/modules/_fails.js")(function () {
+  re2[__webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js")('match')] = false;
+  // RegExp constructor can alter flags and IsRegExp works correct with @@match
+  return $RegExp(re1) != re1 || $RegExp(re2) == re2 || $RegExp(re1, 'i') != '/a/i';
+}))) {
+  $RegExp = function RegExp(p, f) {
+    var tiRE = this instanceof $RegExp;
+    var piRE = isRegExp(p);
+    var fiU = f === undefined;
+    return !tiRE && piRE && p.constructor === $RegExp && fiU ? p
+      : inheritIfRequired(CORRECT_NEW
+        ? new Base(piRE && !fiU ? p.source : p, f)
+        : Base((piRE = p instanceof $RegExp) ? p.source : p, piRE && fiU ? $flags.call(p) : f)
+      , tiRE ? this : proto, $RegExp);
+  };
+  var proxy = function (key) {
+    key in $RegExp || dP($RegExp, key, {
+      configurable: true,
+      get: function () { return Base[key]; },
+      set: function (it) { Base[key] = it; }
+    });
+  };
+  for (var keys = gOPN(Base), i = 0; keys.length > i;) proxy(keys[i++]);
+  proto.constructor = $RegExp;
+  $RegExp.prototype = proto;
+  __webpack_require__(/*! ./_redefine */ "./node_modules/core-js/modules/_redefine.js")(global, 'RegExp', $RegExp);
+}
+
+__webpack_require__(/*! ./_set-species */ "./node_modules/core-js/modules/_set-species.js")('RegExp');
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es6.regexp.flags.js":
 /*!**********************************************************!*\
   !*** ./node_modules/core-js/modules/es6.regexp.flags.js ***!
@@ -2741,6 +2970,29 @@ __webpack_require__(/*! ./_object-sap */ "./node_modules/core-js/modules/_object
 if (__webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/modules/_descriptors.js") && /./g.flags != 'g') __webpack_require__(/*! ./_object-dp */ "./node_modules/core-js/modules/_object-dp.js").f(RegExp.prototype, 'flags', {
   configurable: true,
   get: __webpack_require__(/*! ./_flags */ "./node_modules/core-js/modules/_flags.js")
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es6.regexp.replace.js":
+/*!************************************************************!*\
+  !*** ./node_modules/core-js/modules/es6.regexp.replace.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// @@replace logic
+__webpack_require__(/*! ./_fix-re-wks */ "./node_modules/core-js/modules/_fix-re-wks.js")('replace', 2, function (defined, REPLACE, $replace) {
+  // 21.1.3.14 String.prototype.replace(searchValue, replaceValue)
+  return [function replace(searchValue, replaceValue) {
+    'use strict';
+    var O = defined(this);
+    var fn = searchValue == undefined ? undefined : searchValue[REPLACE];
+    return fn !== undefined
+      ? fn.call(searchValue, O, replaceValue)
+      : $replace.call(String(O), searchValue, replaceValue);
+  }, $replace];
 });
 
 

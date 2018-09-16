@@ -1,6 +1,8 @@
 import Actions from "./actions";
+import Cells from "./cells";
 import Columns from "./columns";
 import Column from "./column";
+import Helper from "./helper";
 
 export default class Table {
 
@@ -10,7 +12,9 @@ export default class Table {
 	 */
 	constructor( el ) {
 		this.el = el;
+		this.Helper = Helper;
 		this.Columns = new Columns( el );
+		this.Cells = new Cells();
 		this.Buttons = new Actions( '#ac-table-actions' );
 
 		this.init();
@@ -18,7 +22,9 @@ export default class Table {
 
 	init() {
 		let self = this;
+
 		this._initTable();
+		this._addCellMethods();
 
 		document.dispatchEvent( new CustomEvent( 'AC_Table_Ready', { detail : { self } } ) );
 	}
@@ -36,19 +42,28 @@ export default class Table {
 
 		for ( let i = 0; i < rows.length; i++ ) {
 			let row = rows[ i ];
-			let id = Table._getIDFromRow( row );
+			let id = this._getIDFromRow( row );
 
 			row.dataset.id = id;
 
-			self.Columns.getColumnTypes().forEach( function( name ) {
+			self.Columns.getColumnNames().forEach( function( name ) {
 				let td = row.querySelector( `.column-${name}` );
 
 				if ( td ) {
-					self.Columns.addColumn( id, new Column( id, name, td ) );
+					self.Cells.add( id, new Column( id, name, td ) );
 				}
 			} );
 		}
 
+	}
+
+	_addCellMethods() {
+		// Attach method to retrieve the column reference
+		this.Cells.getAll().forEach( function( column ) {
+			column.el.getCell = function() {
+				return column;
+			}
+		} );
 	}
 
 	/**
@@ -58,7 +73,7 @@ export default class Table {
 	 * @returns {int}
 	 * @private
 	 */
-	static _getIDFromRow( row ) {
+	_getIDFromRow( row ) {
 		let id = row.id;
 		let id_parts = id.split( '-' );
 		let item_id = id_parts[ id_parts.length - 1 ];
@@ -72,6 +87,16 @@ export default class Table {
 				item_id = id_parts[ id_parts.length - 1 ];
 			}
 
+		}
+
+		// Try to get the ID from the edit URL (MS Sites)
+		if ( !item_id ) {
+			let link = row.parentElement.querySelector( '.edit a' );
+			let href = link.getAttribute( 'href' );
+
+			if ( href ) {
+				item_id = this.Helper.getParamFromUrl( 'id', href );
+			}
 		}
 
 		return item_id;

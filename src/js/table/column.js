@@ -23,6 +23,10 @@ export default class Column {
 		return this.el.parentElement;
 	}
 
+	getSettings() {
+		return AC.Table.Columns._types[ this.getName() ];
+	}
+
 	setValue( value ) {
 		let el = this.getElement();
 

@@ -2,98 +2,43 @@ export default class Columns {
 
 	constructor( table ) {
 		this.table = table;
-		this._columns = new Map();
-		this._types = {};
+		this._columns = {};
 
 		this.init();
 	}
 
 	init() {
-		this._initColumnTypes();
-	}
-
-	_initColumnTypes() {
 		let self = this;
 		let thead = this.table.querySelector( 'thead' );
 		let headers = thead.querySelectorAll( 'th' );
 
 		for ( let i = 0; i < headers.length; i++ ) {
-			self._types[ headers[ i ].id ] = {};
+			self._columns[ headers[ i ].id ] = {};
 		}
 	}
 
-	addColumn( id, column ) {
-		if ( !this._columns.has( id ) ) {
-			this._columns.set( id, new Map() );
-		}
-
-		this._columns.get( id ).set( column.getName(), column );
+	getColumns() {
+		return this._columns;
 	}
 
-	getColumnTypes() {
-		return Object.keys( this._types );
+	/**
+	 * @returns {string[]}
+	 */
+	getColumnNames() {
+		return Object.keys( this._columns );
 	}
 
-	getColumnSettings( column_type ) {
-		if ( !this._types[ column_type ] ) {
+	/**
+	 *
+	 * @param {String} column_name
+	 * @returns {Object}
+	 */
+	get( column_name ) {
+		if ( !this._columns[ column_name ] ) {
 			return false;
 		}
 
-		return this._types[ column_type ];
-	}
-
-	getByID( id ) {
-		let result = [];
-		let key = id.toString();
-		if ( !this._columns.has( key ) ) {
-			return result;
-		}
-
-		this._columns.get( id.toString() ).forEach( function( column ) {
-			result.push( column );
-		} );
-
-		return result;
-	}
-
-	getAll() {
-		let results = [];
-
-		this._columns.forEach( function( columns ) {
-
-			columns.forEach( function( column ) {
-				results.push( column );
-			} )
-
-		} );
-
-		return results;
-	}
-
-	getByType( type ) {
-		let results = [];
-
-		this._columns.forEach( function( columns ) {
-
-			columns.forEach( function( column, name ) {
-				if ( name === type ) {
-					results.push( column );
-				}
-			} );
-
-		} );
-
-		return results;
-	}
-
-	get( id, type ) {
-		let row = this._columns.get( id.toString() );
-
-		if ( !row ) {
-			return false;
-		}
-
-		return row.get( type );
+		return this._columns[ column_name ];
 	}
 
 }
