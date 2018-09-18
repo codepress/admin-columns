@@ -78,6 +78,10 @@ export default class Table {
 		let id_parts = id.split( '-' );
 		let item_id = id_parts[ id_parts.length - 1 ];
 
+		if ( row.classList.contains( 'no-items' ) ) {
+			return 0;
+		}
+
 		if ( !item_id ) {
 			let input = row.querySelector( '.check-column input[type=checkbox]' );
 
@@ -92,11 +96,15 @@ export default class Table {
 		// Try to get the ID from the edit URL (MS Sites)
 		if ( !item_id ) {
 			let link = row.parentElement.querySelector( '.edit a' );
-			let href = link.getAttribute( 'href' );
 
-			if ( href ) {
-				item_id = this.Helper.getParamFromUrl( 'id', href );
+			if ( link ) {
+				let href = link.getAttribute( 'href' );
+
+				if ( href ) {
+					item_id = this.Helper.getParamFromUrl( 'id', href );
+				}
 			}
+
 		}
 
 		return item_id;

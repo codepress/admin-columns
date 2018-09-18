@@ -795,6 +795,10 @@ function () {
       var id_parts = id.split('-');
       var item_id = id_parts[id_parts.length - 1];
 
+      if (row.classList.contains('no-items')) {
+        return 0;
+      }
+
       if (!item_id) {
         var input = row.querySelector('.check-column input[type=checkbox]');
 
@@ -808,10 +812,13 @@ function () {
 
       if (!item_id) {
         var link = row.parentElement.querySelector('.edit a');
-        var href = link.getAttribute('href');
 
-        if (href) {
-          item_id = this.Helper.getParamFromUrl('id', href);
+        if (link) {
+          var href = link.getAttribute('href');
+
+          if (href) {
+            item_id = this.Helper.getParamFromUrl('id', href);
+          }
         }
       }
 
