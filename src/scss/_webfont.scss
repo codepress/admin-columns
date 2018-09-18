@@ -1,5 +1,6 @@
 $cpacicon-draft: "\ea01";
 $cpacicon-move: "\ea02";
+$cpacicon-segment: "\ea03";
 
 @font-face {
     font-family: "cpac_icons";
@@ -30,4 +31,8 @@ $cpacicon-move: "\ea02";
 
 .cpacicon-move::before {
     content: $cpacicon-move;
+}
+
+.cpacicon-segment::before {
+    content: $cpacicon-segment;
 }
