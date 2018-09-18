@@ -198,7 +198,8 @@ class CustomFieldType extends Settings\Column
 		switch ( $this->get_field_type() ) {
 
 			case 'date' :
-				if ( $timestamp = ac_helper()->date->strtotime( $value ) ) {
+				$timestamp = ac_helper()->date->strtotime( $value );
+				if ( $timestamp ) {
 					$value = date( 'c', $timestamp );
 				}
 
