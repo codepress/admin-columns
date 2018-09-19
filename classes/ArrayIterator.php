@@ -2,7 +2,7 @@
 
 namespace AC;
 
-abstract class ArrayIterator
+class ArrayIterator
 	implements \Iterator {
 
 	/**
