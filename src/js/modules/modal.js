@@ -1,6 +1,10 @@
 class Modal {
 	constructor( el ) {
+		if( ! el ){
+			return;
+		}
 		this.el = el;
+
 		this.dialog = el.querySelector( '.ac-modal__dialog' );
 
 		this.initEvents();

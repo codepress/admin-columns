@@ -1588,6 +1588,10 @@ function () {
   function Modal(el) {
     _classCallCheck(this, Modal);
 
+    if (!el) {
+      return;
+    }
+
     this.el = el;
     this.dialog = el.querySelector('.ac-modal__dialog');
     this.initEvents();
