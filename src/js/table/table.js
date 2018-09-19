@@ -15,7 +15,7 @@ export default class Table {
 		this.Helper = Helper;
 		this.Columns = new Columns( el );
 		this.Cells = new Cells();
-		this.Buttons = new Actions( '#ac-table-actions' );
+		this.Actions = new Actions( 'ac-table-actions' );
 
 		this.init();
 	}

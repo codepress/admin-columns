@@ -9,7 +9,7 @@
 import Form from "./admin/columns/form";
 import Modals from "./modules/modals";
 import Initiator from "./admin/columns/initiator";
-import Modal from "./admin/columns/modal";
+import Modal from "./modules/modal";
 import Menu from "./admin/columns/menu";
 import Feedback from "./admin/columns/feedback";
 

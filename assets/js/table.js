@@ -86,6 +86,62 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./js/modules/modals.js":
+/*!******************************!*\
+  !*** ./js/modules/modals.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Modals =
+/*#__PURE__*/
+function () {
+  function Modals() {
+    _classCallCheck(this, Modals);
+
+    this.modals = [];
+    this.number = 1;
+  }
+
+  _createClass(Modals, [{
+    key: "register",
+    value: function register(modal) {
+      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      if (!key) {
+        key = 'm' + this.number;
+      }
+
+      this.modals[key] = modal;
+      this.number++;
+    }
+  }, {
+    key: "get",
+    value: function get(key) {
+      if (this.modals[key]) {
+        return this.modals[key];
+      }
+
+      return false;
+    }
+  }]);
+
+  return Modals;
+}();
+
+module.exports = Modals;
+
+/***/ }),
+
 /***/ "./js/table.js":
 /*!*********************!*\
   !*** ./js/table.js ***!
@@ -104,6 +160,8 @@ var _table = _interopRequireDefault(__webpack_require__(/*! ./table/table */ "./
 
 var _tooltips = _interopRequireDefault(__webpack_require__(/*! ./table/tooltips */ "./js/table/tooltips.js"));
 
+var _modals = _interopRequireDefault(__webpack_require__(/*! ./modules/modals */ "./js/modules/modals.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 jQuery(document).ready(function ($) {
@@ -121,6 +179,7 @@ jQuery(document).ready(function ($) {
   }
 
   AC.Tooltips = new _tooltips.default();
+  AC.Modals = new _modals.default();
   $('.wp-list-table').on('updated', 'tr', function () {
     ac_set_column_classes($);
     ac_actions_column($, $(this).find('.column-actions'));
@@ -293,10 +352,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Actions =
 /*#__PURE__*/
 function () {
-  function Actions(el) {
+  function Actions(id) {
     _classCallCheck(this, Actions);
 
-    this.$el = jQuery(el);
+    this.container = document.getElementById(id);
+    this.buttons = this.container.querySelector('.ac-table-actions-buttons');
     this.init();
   }
 
@@ -304,16 +364,24 @@ function () {
     key: "init",
     value: function init() {
       var self = this;
-      this.$el.on('update', function () {
+      this.dropDownEvents();
+      jQuery(this.container).on('update', function () {
         self.refresh();
-      }).insertAfter(jQuery('.tablenav.top .actions:last')).trigger('update');
+      }).insertAfter(jQuery('.tablenav.top .actions:last')).addClass('-init').trigger('update');
     }
   }, {
     key: "refresh",
     value: function refresh() {
-      var $buttons = this.$el.find('.ac-table-actions-buttons');
+      var $buttons = jQuery(this.buttons);
       $buttons.find('> a').removeClass('last');
       $buttons.find('> a:visible:last').addClass('last');
+    }
+  }, {
+    key: "dropDownEvents",
+    value: function dropDownEvents() {
+      jQuery(this.buttons).on('click', '[data-dropdown]', function () {
+        jQuery(this).toggleClass('-open');
+      });
     }
   }]);
 
@@ -716,7 +784,7 @@ function () {
     this.Helper = _helper.default;
     this.Columns = new _columns.default(el);
     this.Cells = new _cells.default();
-    this.Buttons = new _actions.default('#ac-table-actions');
+    this.Actions = new _actions.default('ac-table-actions');
     this.init();
   }
 
