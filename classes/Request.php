@@ -15,8 +15,8 @@ class Request {
 	protected $request;
 
 	public function __construct() {
-		$this->query = $_GET;
-		$this->request = $_POST;
+		$this->query = filter_input_array( INPUT_GET );
+		$this->request = filter_input_array( INPUT_POST );
 	}
 
 	/**
@@ -34,39 +34,37 @@ class Request {
 	}
 
 	/**
+	 * Wrapper around filter_input for INPUT_POST
+	 *
 	 * @param string|null $key
-	 * @param mixed       $default
+	 * @param int         $filter
+	 * @param array|null  $options
 	 *
 	 * @return mixed
 	 */
-	public function get_request( $key = null, $default = null ) {
+	public function get_request( $key = null, $filter = FILTER_DEFAULT, $options = null ) {
 		if ( null === $key ) {
 			return $this->request;
 		}
 
-		if ( ! isset( $this->request[ $key ] ) ) {
-			return $default;
-		}
-
-		return $this->request[ $key ];
+		return filter_input( INPUT_POST, $key, $filter, $options );
 	}
 
 	/**
+	 * Wrapper around filter_input for INPUT_GET
+	 *
 	 * @param string|null $key
-	 * @param mixed       $default
+	 * @param int         $filter
+	 * @param array|null  $options
 	 *
 	 * @return mixed
 	 */
-	public function get_query( $key = null, $default = null ) {
+	public function get_query( $key = null, $filter = FILTER_DEFAULT, $options = null ) {
 		if ( null === $key ) {
-			return $this->query;
+			return $this->request;
 		}
 
-		if ( ! isset( $this->query[ $key ] ) ) {
-			return $default;
-		}
-
-		return $this->query[ $key ];
+		return filter_input( INPUT_GET, $key, $filter, $options );
 	}
 
 }
