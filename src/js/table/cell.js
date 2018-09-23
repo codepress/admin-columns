@@ -1,4 +1,4 @@
-export default class Column {
+export default class Cell {
 
 	constructor( id, name, el ) {
 		this._object_id = id;

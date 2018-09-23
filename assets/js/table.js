@@ -392,6 +392,79 @@ module.exports = Actions;
 
 /***/ }),
 
+/***/ "./js/table/cell.js":
+/*!**************************!*\
+  !*** ./js/table/cell.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Cell =
+/*#__PURE__*/
+function () {
+  function Cell(id, name, el) {
+    _classCallCheck(this, Cell);
+
+    this._object_id = id;
+    this._column_name = name;
+    this.el = el;
+  }
+
+  _createClass(Cell, [{
+    key: "getObjectID",
+    value: function getObjectID() {
+      return this._object_id;
+    }
+  }, {
+    key: "getName",
+    value: function getName() {
+      return this._column_name;
+    }
+  }, {
+    key: "getElement",
+    value: function getElement() {
+      return this.el;
+    }
+  }, {
+    key: "getRow",
+    value: function getRow() {
+      return this.el.parentElement;
+    }
+  }, {
+    key: "getSettings",
+    value: function getSettings() {
+      return AC.Table.Columns._types[this.getName()];
+    }
+  }, {
+    key: "setValue",
+    value: function setValue(value) {
+      var el = this.getElement();
+      el.innerHTML = value;
+      return this;
+    }
+  }]);
+
+  return Cell;
+}();
+
+exports.default = Cell;
+
+/***/ }),
+
 /***/ "./js/table/cells.js":
 /*!***************************!*\
   !*** ./js/table/cells.js ***!
@@ -469,13 +542,13 @@ function () {
       return results;
     }
   }, {
-    key: "getByType",
-    value: function getByType(type) {
+    key: "getByName",
+    value: function getByName(name) {
       var results = [];
 
       this._cells.forEach(function (columns) {
-        columns.forEach(function (column, name) {
-          if (name === type) {
+        columns.forEach(function (column, column_name) {
+          if (name === column_name) {
             results.push(column);
           }
         });
@@ -500,79 +573,6 @@ function () {
 }();
 
 exports.default = Cells;
-
-/***/ }),
-
-/***/ "./js/table/column.js":
-/*!****************************!*\
-  !*** ./js/table/column.js ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Column =
-/*#__PURE__*/
-function () {
-  function Column(id, name, el) {
-    _classCallCheck(this, Column);
-
-    this._object_id = id;
-    this._column_name = name;
-    this.el = el;
-  }
-
-  _createClass(Column, [{
-    key: "getObjectID",
-    value: function getObjectID() {
-      return this._object_id;
-    }
-  }, {
-    key: "getName",
-    value: function getName() {
-      return this._column_name;
-    }
-  }, {
-    key: "getElement",
-    value: function getElement() {
-      return this.el;
-    }
-  }, {
-    key: "getRow",
-    value: function getRow() {
-      return this.el.parentElement;
-    }
-  }, {
-    key: "getSettings",
-    value: function getSettings() {
-      return AC.Table.Columns._types[this.getName()];
-    }
-  }, {
-    key: "setValue",
-    value: function setValue(value) {
-      var el = this.getElement();
-      el.innerHTML = value;
-      return this;
-    }
-  }]);
-
-  return Column;
-}();
-
-exports.default = Column;
 
 /***/ }),
 
@@ -622,7 +622,9 @@ function () {
       var headers = thead.querySelectorAll('th');
 
       for (var i = 0; i < headers.length; i++) {
-        self._columns[headers[i].id] = {};
+        var column = {};
+        column.name = headers[i].id;
+        self._columns[headers[i].id] = column;
       }
     }
   }, {
@@ -758,7 +760,7 @@ var _cells = _interopRequireDefault(__webpack_require__(/*! ./cells */ "./js/tab
 
 var _columns = _interopRequireDefault(__webpack_require__(/*! ./columns */ "./js/table/columns.js"));
 
-var _column = _interopRequireDefault(__webpack_require__(/*! ./column */ "./js/table/column.js"));
+var _cell = _interopRequireDefault(__webpack_require__(/*! ./cell */ "./js/table/cell.js"));
 
 var _helper = _interopRequireDefault(__webpack_require__(/*! ./helper */ "./js/table/helper.js"));
 
@@ -829,7 +831,7 @@ function () {
           var td = row.querySelector(".column-".concat(name));
 
           if (td) {
-            self.Cells.add(id, new _column.default(id, name, td));
+            self.Cells.add(id, new _cell.default(id, name, td));
           }
         });
       };

@@ -40,13 +40,13 @@ export default class Cells {
 		return results;
 	}
 
-	getByType( type ) {
+	getByName( name ) {
 		let results = [];
 
 		this._cells.forEach( function( columns ) {
 
-			columns.forEach( function( column, name ) {
-				if ( name === type ) {
+			columns.forEach( function( column, column_name ) {
+				if ( name === column_name ) {
 					results.push( column );
 				}
 			} );

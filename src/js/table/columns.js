@@ -13,7 +13,9 @@ export default class Columns {
 		let headers = thead.querySelectorAll( 'th' );
 
 		for ( let i = 0; i < headers.length; i++ ) {
-			self._columns[ headers[ i ].id ] = {};
+			let column = {};
+			column.name = headers[ i ].id;
+			self._columns[ headers[ i ].id ] = column;
 		}
 	}
 

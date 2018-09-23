@@ -1,7 +1,7 @@
 import Actions from "./actions";
 import Cells from "./cells";
 import Columns from "./columns";
-import Column from "./column";
+import Cell from "./cell";
 import Helper from "./helper";
 
 export default class Table {
@@ -50,7 +50,7 @@ export default class Table {
 				let td = row.querySelector( `.column-${name}` );
 
 				if ( td ) {
-					self.Cells.add( id, new Column( id, name, td ) );
+					self.Cells.add( id, new Cell( id, name, td ) );
 				}
 			} );
 		}
