@@ -123,7 +123,7 @@ abstract class Plugin extends Addon {
 			$version = $this->get_version();
 		}
 
-		return update_option( $this->get_version_key(), $version );
+		return update_option( $this->get_version_key(), $version, false );
 	}
 
 	/**

@@ -744,14 +744,16 @@ abstract class ListScreen {
 			}
 
 			// Encode site url
-			if ( $setting = $column->get_setting( 'label' ) ) {
+			$setting = $column->get_setting( 'label' );
+
+			if ( $setting ) {
 				$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
 			}
 
 			$settings[ $column_name ] = array_merge( $options, $sanitized );
 		}
 
-		$result = update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings );
+		$result = update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings, false );
 
 		if ( ! $result ) {
 			return new WP_Error( 'same-settings' );
@@ -820,7 +822,7 @@ abstract class ListScreen {
 	 * @return bool
 	 */
 	public function save_default_headings( $column_headings ) {
-		return update_option( $this->get_default_key(), $column_headings );
+		return update_option( $this->get_default_key(), $column_headings, false );
 	}
 
 	/**
