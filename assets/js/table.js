@@ -380,7 +380,14 @@ function () {
     key: "dropDownEvents",
     value: function dropDownEvents() {
       jQuery(this.buttons).on('click', '[data-dropdown]', function () {
-        jQuery(this).toggleClass('-open');
+        var $button = jQuery(this);
+        $button.toggleClass('-open');
+
+        if ($button.hasClass('-open')) {
+          $button[0].dispatchEvent(new CustomEvent('open'));
+        } else {
+          $button[0].dispatchEvent(new CustomEvent('closed'));
+        }
       });
     }
   }]);
