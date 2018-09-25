@@ -179,7 +179,7 @@ class AdminColumns extends Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.2.6';
+		return '3.2.7';
 	}
 
 	/**
