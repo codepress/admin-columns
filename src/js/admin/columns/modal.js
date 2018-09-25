@@ -8,7 +8,7 @@ class Modal {
 
 	static initGlobalEvents() {
 
-		$( document ).on( 'click', '[data-ac-open-modal]', function( e ) {
+		jQuery( document ).on( 'click', '[data-ac-open-modal]', function( e ) {
 			e.preventDefault();
 			let target = e.target.dataset.acOpenModal;
 			let el = document.querySelector( target );

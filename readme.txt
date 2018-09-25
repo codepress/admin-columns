@@ -4,8 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.5
 Tested up to: 4.9.8
-Requires PHP: 5.3
-Stable tag: 3.2.6
+Requires PHP: 5.3.6
+Stable tag: 3.2.7
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -206,12 +206,19 @@ You can find a list of the available actions and filters (and examples on how to
 2. Posts Screen with the customized sortable columns.
 3. Settings page for the Media Library columns.
 4. Media Screen with the customized sortable columns.
-5. Settings page for Users columns.
+5. Settings page for Users columns../ch
 6. Users Screen with the customized sortable columns.
 7. Settings page showing the different displaying types for custom field.
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 3.2.7 =
+Release Date: September 25th, 2018
+
+* [Fixed] jQuery noConflict fixes for column settings page
+* [Improved] Post title column is now always available
+* [Improved] Disable autoloading for ACP options
 
 = 3.2.6 =
 Release Date: August 21th, 2018

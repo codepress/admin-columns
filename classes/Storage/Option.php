@@ -18,6 +18,8 @@ class Option
 	 * @return mixed
 	 */
 	public function get() {
+		wp_cache_delete( $this->key, 'options' );
+
 		return get_option( $this->key );
 	}
 

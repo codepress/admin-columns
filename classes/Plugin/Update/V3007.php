@@ -55,7 +55,7 @@ class V3007 extends Update {
 			}
 
 			if ( $update ) {
-				update_option( $row->option_name, $options );
+				update_option( $row->option_name, $options, false );
 			}
 		}
 	}
