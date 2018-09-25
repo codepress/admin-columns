@@ -213,6 +213,13 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 3.2.7 =
+Release Date: TBD
+
+* [Fixed] jQuery noConflict fixes for column settings page
+* [Improved] Post title column is now always available
+* [Improved] Disable autoloading for ACP options
+
 = 3.2.6 =
 Release Date: August 21th, 2018
 
