@@ -75,6 +75,15 @@ class ArrayIterator
 	}
 
 	/**
+	 * @param $value
+	 *
+	 * @return false|int|string
+	 */
+	public function search( $value ) {
+		return array_search( $value, $this->array );
+	}
+
+	/**
 	 * @return int
 	 */
 	public function count() {
