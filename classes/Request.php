@@ -92,7 +92,7 @@ class Request {
 			$target = 'request';
 		}
 
-		$this->$$target = array_merge( $this->$$target, $input );
+		$this->$target = array_merge( $this->$target, $input );
 	}
 
 	/**
