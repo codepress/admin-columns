@@ -11,7 +11,7 @@ class ArrayIterator
 	protected $array;
 
 	/**
-	 * @param array $collection
+	 * @param array $array
 	 */
 	public function __construct( array $array ) {
 		$this->array = $array;
