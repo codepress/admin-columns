@@ -1,16 +1,24 @@
 <?php
+
 namespace AC;
 
-class MetaType {
+use LogicException;
+
+final class MetaType {
 
 	const POST = 'post';
 	const USER = 'user';
 	const COMMENT = 'comment';
 	const TERM = 'term';
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $meta_type;
 
+	/**
+	 * @param string $meta_type
+	 */
 	public function __construct( $meta_type ) {
 		$this->meta_type = $meta_type;
 
@@ -25,7 +33,7 @@ class MetaType {
 	}
 
 	/**
-	 * @throws \Exception
+	 * @throws LogicException
 	 */
 	private function validate() {
 		$types = array(
@@ -36,7 +44,7 @@ class MetaType {
 		);
 
 		if ( ! in_array( $this->meta_type, $types ) ) {
-			throw new \Exception( 'Invalid meta type.' );
+			throw new LogicException( 'Invalid meta type.' );
 		}
 	}
 
