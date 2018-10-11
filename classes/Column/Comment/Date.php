@@ -10,8 +10,8 @@ use AC\Column;
 class Date extends Column {
 
 	public function __construct() {
-		$this->set_original( true );
-		$this->set_type( 'date' );
+		$this->set_original( true )
+		     ->set_type( 'date' );
 	}
 
 	public function register_settings() {

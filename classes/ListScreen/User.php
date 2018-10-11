@@ -11,7 +11,7 @@ class User extends AC\ListScreenWP {
 
 		$this->set_label( __( 'Users' ) )
 		     ->set_singular_label( __( 'User' ) )
-		     ->set_meta_type( 'user' )
+		     ->set_meta_type( AC\MetaType::USER )
 		     ->set_screen_base( 'users' )
 		     ->set_screen_id( 'users' )
 		     ->set_key( 'wp-users' )
