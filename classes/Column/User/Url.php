@@ -19,9 +19,7 @@ class Url extends Column {
 	}
 
 	public function get_raw_value( $user_id ) {
-		$userdata = get_userdata( $user_id );
-
-		return $userdata->user_url;
+		return get_userdata( $user_id )->user_url;
 	}
 
 }
