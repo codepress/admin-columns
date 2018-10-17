@@ -13,8 +13,8 @@ abstract class ListScreenPost extends ListScreenWP {
 	 * @param string $post_type
 	 */
 	public function __construct( $post_type ) {
-		$this->set_meta_type( MetaType::POST );
-		$this->set_post_type( $post_type );
+		$this->set_post_type( $post_type )
+		     ->set_meta_type( MetaType::POST );
 	}
 
 	/**
