@@ -279,9 +279,13 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * @param ListScreen $list_screen
+	 *
+	 * @return self
 	 */
 	public function register_list_screen( ListScreen $list_screen ) {
 		$this->list_screens[ $list_screen->get_key() ] = $list_screen;
+
+		return $this;
 	}
 
 	/**
