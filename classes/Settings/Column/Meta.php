@@ -3,6 +3,7 @@
 namespace AC\Settings\Column;
 
 use AC\Form\Element\Select;
+use AC\MetaType;
 use AC\Settings\Column;
 use AC\View;
 
@@ -121,7 +122,7 @@ abstract class Meta extends Column {
 		);
 
 		// User only
-		if ( 'user' === $this->get_meta_type() ) {
+		if ( MetaType::USER === $this->get_meta_type() ) {
 
 			if ( is_multisite() ) {
 				foreach ( get_sites() as $site ) {
