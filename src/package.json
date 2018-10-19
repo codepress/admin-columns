@@ -25,7 +25,10 @@
     "ac:svgsymbols": "svgstore ./svg-symbols/*.svg -o ../assets/images/symbols.svg"
   },
   "webfont": {
-    "formats": ["woff2","woff"],
+    "formats": [
+      "woff2",
+      "woff"
+    ],
     "template": "./webfont/template.scss.njk",
     "fontName": "cpac_icons",
     "fontHeight": "1000",
