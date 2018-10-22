@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: TBD
+
+* [Improved] Extra display for Path column to show the local path of a file
+
 = 3.2.7 =
 Release Date: September 25th, 2018
 
