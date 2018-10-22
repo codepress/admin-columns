@@ -7,6 +7,10 @@ class Label {
 		this.setting = column.el.querySelector( '.ac-column-setting--label' );
 		this.iconpicker = this.setting.querySelector( '.-iconpicker' );
 
+		if( ! this.iconpicker ){
+			return;
+		}
+
 		this.modal = AC.Modals.register( new Modal( this.setting.querySelector( '.-iconpicker' ) ) );
 		this._dashicon = false;
 		this.field = this.setting.querySelector( '.ac-setting-input_label' );
