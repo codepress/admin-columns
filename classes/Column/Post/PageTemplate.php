@@ -19,7 +19,13 @@ class PageTemplate extends Column\Meta {
 	}
 
 	function get_value( $post_id ) {
-		return array_search( $this->get_raw_value( $post_id ), $this->get_page_templates() );
+		$template = array_search( $this->get_raw_value( $post_id ), $this->get_page_templates() );
+
+		if ( ! $template ) {
+			return $this->get_empty_char();
+		}
+
+		return $template;
 	}
 
 	function is_valid() {
