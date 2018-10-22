@@ -2,21 +2,18 @@
 
 /**
  * Show a notice when plugin dependencies are not met
- *
  * @version 1.4
  */
 final class AC_Dependencies {
 
 	/**
 	 * Missing dependency messages
-	 *
 	 * @var string[]
 	 */
 	private $messages;
 
 	/**
 	 * Basename of this plugin
-	 *
 	 * @var string
 	 */
 	private $basename;

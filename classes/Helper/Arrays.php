@@ -6,7 +6,6 @@ class Arrays {
 
 	/**
 	 * Implode for multi dimensional array
-	 *
 	 * @since 3.0
 	 *
 	 * @param string       $glue
@@ -37,12 +36,13 @@ class Arrays {
 
 	/**
 	 * Replace a single key in an associative array
-	 *
 	 * @since 2.2.7
 	 *
 	 * @param array      $input   Input array.
 	 * @param int|string $old_key Key to replace.
 	 * @param int|string $new_key Key to replace $old_key with
+	 *
+	 * @return array
 	 */
 	public function key_replace( $input, $old_key, $new_key ) {
 		$keys = array_keys( $input );
@@ -59,7 +59,6 @@ class Arrays {
 
 	/**
 	 * Indents any object as long as it has a unique id and that of its parent.
-	 *
 	 * @since 1.0
 	 *
 	 * @param array  $array

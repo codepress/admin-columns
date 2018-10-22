@@ -2,9 +2,11 @@
 
 namespace AC;
 
+use ReflectionClass;
+use WP_Error;
+
 /**
  * List Screen
- *
  * @since 2.0
  */
 abstract class ListScreen {
@@ -13,7 +15,6 @@ abstract class ListScreen {
 
 	/**
 	 * Unique Identifier for List Screen.
-	 *
 	 * @since 2.0
 	 * @var string
 	 */
@@ -33,7 +34,6 @@ abstract class ListScreen {
 
 	/**
 	 * Meta type of list screen; post, user, comment. Mostly used for fetching meta data.
-	 *
 	 * @since 3.0
 	 * @var string
 	 */
@@ -41,7 +41,6 @@ abstract class ListScreen {
 
 	/**
 	 * Page menu slug. Applies only when a menu page is used.
-	 *
 	 * @since 2.4.10
 	 * @var string
 	 */
@@ -55,9 +54,7 @@ abstract class ListScreen {
 
 	/**
 	 * Name of the base PHP file (without extension).
-	 *
 	 * @see   \WP_Screen::base
-	 *
 	 * @since 2.0
 	 * @var string
 	 */
@@ -65,9 +62,7 @@ abstract class ListScreen {
 
 	/**
 	 * The unique ID of the screen.
-	 *
 	 * @see   \WP_Screen::id
-	 *
 	 * @since 2.5
 	 * @var string
 	 */
@@ -117,7 +112,6 @@ abstract class ListScreen {
 
 	/**
 	 * Contains the hook that contains the manage_value callback
-	 *
 	 * @return void
 	 */
 	abstract public function set_manage_value_callback();
@@ -318,7 +312,6 @@ abstract class ListScreen {
 
 	/**
 	 * ID attribute of targeted list table
-	 *
 	 * @since 3.0
 	 * @return string
 	 */
@@ -329,7 +322,7 @@ abstract class ListScreen {
 	/**
 	 * @since 2.0.3
 	 *
-	 * @param \WP_Screen $screen
+	 * @param $wp_screen
 	 *
 	 * @return boolean
 	 */
@@ -389,7 +382,6 @@ abstract class ListScreen {
 
 	/**
 	 * @since 3.0
-	 *
 	 * @return Column[]
 	 */
 	public function get_columns() {
@@ -413,7 +405,6 @@ abstract class ListScreen {
 
 	/**
 	 * Clears columns variable, which allow it to be repopulated by get_columns().
-	 *
 	 * @since 2.5
 	 */
 	public function reset() {
@@ -424,6 +415,9 @@ abstract class ListScreen {
 
 	/**
 	 * @since 2.0
+	 *
+	 * @param $name
+	 *
 	 * @return false|Column
 	 */
 	public function get_column_by_name( $name ) {
@@ -585,12 +579,14 @@ abstract class ListScreen {
 
 	/**
 	 * @param string $namespace Namespace from the current path
+	 *
+	 * @throws \ReflectionException
 	 */
 	public function register_column_types_from_dir( $namespace ) {
 		$classes = Autoloader::instance()->get_class_names_from_dir( $namespace );
 
 		foreach ( $classes as $class ) {
-			$reflection = new \ReflectionClass( $class );
+			$reflection = new ReflectionClass( $class );
 
 			if ( $reflection->isInstantiable() ) {
 				$this->register_column_type( new $class );
@@ -659,7 +655,7 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @param array $data Column options
+	 * @param Column $column
 	 */
 	protected function register_column( Column $column ) {
 		$this->columns[ $column->get_name() ] = $column;
@@ -667,7 +663,6 @@ abstract class ListScreen {
 		/**
 		 * Fires when a column is registered to a list screen, i.e. when it is created. Can be used
 		 * to attach additional functionality to a column, such as exporting, sorting or filtering
-		 *
 		 * @since 3.0.5
 		 *
 		 * @param Column     $column      Column type object
@@ -707,11 +702,11 @@ abstract class ListScreen {
 	 *
 	 * @param array $column_data
 	 *
-	 * @return \WP_Error|true
+	 * @return WP_Error|true
 	 */
 	public function store( $column_data ) {
 		if ( ! $column_data ) {
-			return new \WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
+			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
 		}
 
 		$settings = array();
@@ -749,23 +744,24 @@ abstract class ListScreen {
 			}
 
 			// Encode site url
-			if ( $setting = $column->get_setting( 'label' ) ) {
+			$setting = $column->get_setting( 'label' );
+
+			if ( $setting ) {
 				$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
 			}
 
 			$settings[ $column_name ] = array_merge( $options, $sanitized );
 		}
 
-		$result = update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings );
+		$result = update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings, false );
 
 		if ( ! $result ) {
-			return new \WP_Error( 'same-settings' );
+			return new WP_Error( 'same-settings' );
 		}
 
 		/**
 		 * Fires after a new column setup is stored in the database
 		 * Primarily used when columns are saved through the Admin Columns settings screen
-		 *
 		 * @since 3.0
 		 *
 		 * @param ListScreen $list_screen
@@ -789,6 +785,8 @@ abstract class ListScreen {
 
 	/**
 	 * @param array $settings Column settings
+	 *
+	 * @return ListScreen
 	 */
 	public function set_settings( $settings ) {
 		if ( ! is_array( $settings ) ) {
@@ -824,7 +822,7 @@ abstract class ListScreen {
 	 * @return bool
 	 */
 	public function save_default_headings( $column_headings ) {
-		return update_option( $this->get_default_key(), $column_headings );
+		return update_option( $this->get_default_key(), $column_headings, false );
 	}
 
 	/**
@@ -849,7 +847,6 @@ abstract class ListScreen {
 		/**
 		 * Fires before a column setup is removed from the database
 		 * Primarily used when columns are deleted through the Admin Columns settings screen
-		 *
 		 * @since 3.0.8
 		 *
 		 * @param ListScreen $list_screen
@@ -882,7 +879,6 @@ abstract class ListScreen {
 
 		/**
 		 * Column display value
-		 *
 		 * @since 3.0
 		 *
 		 * @param string $value  Column display value
@@ -896,7 +892,6 @@ abstract class ListScreen {
 
 	/**
 	 * Get default column headers
-	 *
 	 * @return array
 	 */
 	public function get_default_column_headers() {

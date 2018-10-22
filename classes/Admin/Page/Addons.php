@@ -65,7 +65,6 @@ class Addons extends Page {
 
 	/**
 	 * Display an activation/deactivation message on the addons page if applicable
-	 *
 	 * @since 2.2
 	 */
 	public function handle_request() {
@@ -150,7 +149,6 @@ class Addons extends Page {
 
 	/**
 	 * Handles the installation of the add-on
-	 *
 	 * @since 2.2
 	 */
 	public function handle_install_request() {
@@ -190,8 +188,11 @@ class Addons extends Page {
 
 	/**
 	 * Redirect the user to the Admin Columns add-ons page after activation/deactivation of an add-on from the add-ons page
-	 *
 	 * @since 2.2
+	 *
+	 * @param $location
+	 *
+	 * @return string
 	 */
 	public function redirect_after_status_change( $location ) {
 		global $pagenow;
@@ -230,9 +231,7 @@ class Addons extends Page {
 
 	/**
 	 * Addons are grouped into addon groups by providing the group an addon belongs to.
-	 *
 	 * @since 2.2
-	 *
 	 * @return array Available addon groups ([group_name] => [label])
 	 */
 	public function get_addon_groups() {
@@ -244,7 +243,6 @@ class Addons extends Page {
 
 		/**
 		 * Filter the addon groups
-		 *
 		 * @since 2.2
 		 *
 		 * @param array $addon_groups Available addon groups ([group_name] => [label])
@@ -269,9 +267,7 @@ class Addons extends Page {
 
 	/**
 	 * Group a list of add-ons
-	 *
 	 * @since 3.0
-	 *
 	 * @return array A list of addons per group: [group_name] => (array) [group_addons], where [group_addons] is an array ([addon_name] => (array) [addon_details])
 	 */
 	private function get_grouped_addons() {

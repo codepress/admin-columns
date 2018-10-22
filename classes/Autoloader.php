@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use FilesystemIterator;
+
 class Autoloader {
 
 	/**
@@ -11,7 +13,6 @@ class Autoloader {
 
 	/**
 	 * Register prefixes and their path
-	 *
 	 * @var string[]
 	 */
 	protected $prefixes;
@@ -48,8 +49,7 @@ class Autoloader {
 	}
 
 	/**
-	 * @param $haystack
-	 * @param $needle
+	 * @param $class
 	 *
 	 * @return false|string
 	 */
@@ -117,7 +117,7 @@ class Autoloader {
 	/**
 	 * Get list of all auto-loadable class names from a directory
 	 *
-	 * @param string $dir
+	 * @param $namespace
 	 *
 	 * @return array
 	 */
@@ -129,11 +129,16 @@ class Autoloader {
 			return array();
 		}
 
-		$iterator = new \FilesystemIterator( $path, \FilesystemIterator::SKIP_DOTS );
+		$iterator = new FilesystemIterator( $path, FilesystemIterator::SKIP_DOTS );
 		$classes = array();
 
 		/* @var \DirectoryIterator $leaf */
 		foreach ( $iterator as $leaf ) {
+			// Exclude system files
+			if ( 0 === strpos( $leaf->getBasename(), '.' ) ) {
+				continue;
+			}
+
 			if ( 'php' === $leaf->getExtension() ) {
 				$classes[] = $namespace . '\\' . pathinfo( $leaf->getBasename(), PATHINFO_FILENAME );
 			}

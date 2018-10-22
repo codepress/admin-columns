@@ -21,7 +21,6 @@ abstract class Update {
 
 	/**
 	 * Check if this update needs to be applied
-	 *
 	 * @return bool
 	 */
 	public function needs_update() {
@@ -37,7 +36,6 @@ abstract class Update {
 
 	/**
 	 * Apply this update
-	 *
 	 * @return void
 	 */
 	public abstract function apply_update();
@@ -51,7 +49,6 @@ abstract class Update {
 
 	/**
 	 * Set the version this update applies to
-	 *
 	 * @return void
 	 */
 	protected abstract function set_version();

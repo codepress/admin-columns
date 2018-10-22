@@ -21,8 +21,8 @@ if ( 'on' == $this->state ) {
 
 ?>
 <span class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>"
-	title="<?php echo esc_attr( $this->title ); ?>"
-	data-setting="<?php echo esc_attr( $this->setting ); ?>"
-	data-indicator-toggle=""
+		title="<?php echo esc_attr( $this->title ); ?>"
+		data-setting="<?php echo esc_attr( $this->setting ); ?>"
+		data-indicator-toggle=""
 >
 </span>

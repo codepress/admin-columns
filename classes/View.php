@@ -60,7 +60,6 @@ class View {
 
 	/**
 	 * Will try to resolve the current template to a file
-	 *
 	 * @return false|string
 	 */
 	private function resolve_template() {
@@ -68,7 +67,7 @@ class View {
 		/**
 		 * Returns the available template paths for column settings
 		 *
-		 * @param array $paths Template paths
+		 * @param array  $paths    Template paths
 		 * @param string $template Current template path
 		 */
 		$paths = apply_filters( 'ac/view/templates', array( AC()->get_dir() . 'templates' ), $this->template );
@@ -88,7 +87,6 @@ class View {
 
 	/**
 	 * Get a string representation of this object
-	 *
 	 * @return string
 	 */
 	public function render() {
@@ -119,7 +117,6 @@ class View {
 
 	/**
 	 * Should call self::render when treated as a string
-	 *
 	 * @return string
 	 */
 	public function __toString() {

@@ -4,6 +4,7 @@
  */
 
 let addons = function( column ) {
+	let $ = jQuery;
 	let $column = column.$el;
 	let inputs = $column.find( '[data-trigger] label' );
 

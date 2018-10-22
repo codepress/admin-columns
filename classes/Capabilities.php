@@ -2,16 +2,18 @@
 
 namespace AC;
 
+use WP_User;
+
 class Capabilities {
 
 	const MANAGE = 'manage_admin_columns';
 
 	/**
-	 * @var \WP_User
+	 * @var WP_User
 	 */
 	protected $user;
 
-	public function __construct( \WP_User $user = null ) {
+	public function __construct( WP_User $user = null ) {
 		if ( null === $user ) {
 			$user = wp_get_current_user();
 		}
@@ -28,7 +30,6 @@ class Capabilities {
 
 	/**
 	 * Check if user can manage Admin Columns
-	 *
 	 * @return bool
 	 */
 	public function has_manage() {
@@ -39,6 +40,9 @@ class Capabilities {
 	 * Add the capability to manage admin columns.
 	 */
 	public function add_manage() {
-		$this->user->add_cap( self::MANAGE );
+		/** @var \WP_Roles $wp_roles */
+		global $wp_roles;
+
+		$wp_roles->add_cap( 'administrator', self::MANAGE );
 	}
 }

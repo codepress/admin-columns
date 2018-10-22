@@ -311,6 +311,19 @@
 		.column-footer {
 			display: none;
 		}
+
+		.ac-column-body {
+			&:before {
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background: #FFF;
+				z-index: 100;
+				opacity: 0.3;
+				cursor: not-allowed;
+			}
+		}
 	}
 
 }

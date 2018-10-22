@@ -9,12 +9,9 @@ abstract class ListScreenWP extends ListScreen {
 
 	/**
 	 * Class name of the \WP_List_Table instance
-	 *
 	 * @see        \WP_List_Table
-	 *
 	 * @since      3.0
 	 * @deprecated 3.1
-	 *
 	 * @var string
 	 */
 	private $list_table_class;
@@ -64,9 +61,7 @@ abstract class ListScreenWP extends ListScreen {
 
 	/**
 	 * Get default column headers
-	 *
 	 * @see \WP_List_Table::get_columns()
-	 *
 	 * @return array
 	 */
 	public function get_default_column_headers() {
@@ -77,7 +72,6 @@ abstract class ListScreenWP extends ListScreen {
 
 	/**
 	 * @deprecated 3.1
-	 *
 	 * @return string
 	 */
 	public function get_list_table_class() {

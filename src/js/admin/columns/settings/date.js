@@ -1,4 +1,5 @@
 let date = function( column ) {
+	let $ = jQuery;
 	let $column = column.$el;
 	let $setting = $column.find( '.ac-column-setting--date' );
 

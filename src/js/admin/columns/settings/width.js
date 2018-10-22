@@ -1,7 +1,6 @@
-
 // Settings fields: Width
 jQuery.fn.column_width_slider = function() {
-
+	let $ = jQuery;
 	let $column_width = $( this ).find( '.ac-setting-input-width' );
 	let input_width = $column_width.find( '.description input' ),
 		input_unit = $column_width.find( '.unit-select input' ),

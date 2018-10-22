@@ -26,6 +26,7 @@ class Post {
 	 * @since 1.0
 	 *
 	 * @param int $post_id Post ID
+	 * @param int $words
 	 *
 	 * @return string Post Excerpt.
 	 */

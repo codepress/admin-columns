@@ -75,7 +75,7 @@ class Width extends Settings\Column
 	}
 
 	/**
-	 * @param int $width
+	 * @param $value
 	 *
 	 * @return bool
 	 */

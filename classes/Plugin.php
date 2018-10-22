@@ -2,11 +2,12 @@
 
 namespace AC;
 
+use ReflectionObject;
+
 abstract class Plugin extends Addon {
 
 	/**
 	 * Check if plugin is network activated
-	 *
 	 * @return bool
 	 */
 	public function is_network_active() {
@@ -15,7 +16,6 @@ abstract class Plugin extends Addon {
 
 	/**
 	 * Calls get_plugin_data() for this plugin
-	 *
 	 * @see get_plugin_data()
 	 * @return array
 	 */
@@ -52,8 +52,6 @@ abstract class Plugin extends Addon {
 
 	/**
 	 * Apply updates to the database
-	 *
-	 * @param null|string $updates_dir
 	 */
 	public function install() {
 		if ( 0 === version_compare( $this->get_version(), $this->get_stored_version() ) ) {
@@ -66,7 +64,7 @@ abstract class Plugin extends Addon {
 			return;
 		}
 
-		$reflection = new \ReflectionObject( $this );
+		$reflection = new ReflectionObject( $this );
 		$classes = Autoloader::instance()->get_class_names_from_dir( $reflection->getNamespaceName() . '\Plugin\Update' );
 
 		foreach ( $classes as $class ) {
@@ -78,7 +76,6 @@ abstract class Plugin extends Addon {
 
 	/**
 	 * Check if a plugin is in beta
-	 *
 	 * @since 3.2
 	 * @return bool
 	 */
@@ -116,13 +113,17 @@ abstract class Plugin extends Addon {
 
 	/**
 	 * Update the stored version to match the (current) version
+	 *
+	 * @param null $version
+	 *
+	 * @return bool
 	 */
 	public function update_stored_version( $version = null ) {
 		if ( null === $version ) {
 			$version = $this->get_version();
 		}
 
-		return update_option( $this->get_version_key(), $version );
+		return update_option( $this->get_version_key(), $version, false );
 	}
 
 	/**
@@ -159,7 +160,6 @@ abstract class Plugin extends Addon {
 
 	/**
 	 * Calls get_plugin_data() for this plugin
-	 *
 	 * @deprecated
 	 * @see get_plugin_data()
 	 * @return array

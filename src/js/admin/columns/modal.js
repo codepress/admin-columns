@@ -7,22 +7,17 @@ class Modal {
 	}
 
 	static initGlobalEvents() {
-		let buttons = document.querySelectorAll( '[data-ac-open-modal]' );
-		if ( buttons.length ) {
-			buttons.forEach( ( button ) => {
 
-				button.addEventListener( 'click', ( e ) => {
-					let target = e.target.dataset.acOpenModal;
-					let el = document.querySelector( target );
+		jQuery( document ).on( 'click', '[data-ac-open-modal]', function( e ) {
+			e.preventDefault();
+			let target = e.target.dataset.acOpenModal;
+			let el = document.querySelector( target );
 
-					if ( el && el.AC_MODAL ) {
-						el.AC_MODAL.open();
-					}
-				} );
+			if ( el && el.AC_MODAL ) {
+				el.AC_MODAL.open();
+			}
+		} );
 
-			} );
-		}
-		//document.addEventListener( 'click' )
 	}
 
 	initEvents() {
@@ -40,7 +35,7 @@ class Modal {
 			}
 		} );
 
-		let dismissButtons = this.el.querySelectorAll( '[data-dismiss="modal"]' );
+		let dismissButtons = this.el.querySelectorAll( '[data-dismiss="modal"], .ac-modal__dialog__close' );
 		if ( dismissButtons.length > 0 ) {
 			dismissButtons.forEach( ( b ) => {
 				b.addEventListener( 'click', ( e ) => {

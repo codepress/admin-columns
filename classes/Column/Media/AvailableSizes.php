@@ -30,7 +30,9 @@ class AvailableSizes extends Column\Media\MetaValue {
 
 		$paths = array();
 
-		if ( $available_sizes = $this->get_available_sizes( $sizes ) ) {
+		$available_sizes = $this->get_available_sizes( $sizes );
+
+		if ( $available_sizes ) {
 
 			$url = wp_get_attachment_url( $id );
 			$paths[] = ac_helper()->html->tooltip( ac_helper()->html->link( $url, __( 'original', 'codepress-admin-columns' ) ), basename( $url ) );
@@ -47,7 +49,9 @@ class AvailableSizes extends Column\Media\MetaValue {
 		// include missing image sizes?
 		if ( '1' === $this->get_setting( 'include_missing_sizes' )->get_value() ) {
 
-			if ( $missing = $this->get_missing_sizes( $sizes ) ) {
+			$missing = $this->get_missing_sizes( $sizes );
+
+			if ( $missing ) {
 				foreach ( $missing as $size ) {
 					$paths[] = ac_helper()->html->tooltip( $size, sprintf( __( 'Missing image file for size %s.', 'codepress-admin-columns' ), '<em>"' . $size . '"</em>' ), array( 'class' => 'ac-missing-size' ) );
 				}

@@ -6,7 +6,6 @@ abstract class Addon {
 
 	/**
 	 * Return the file from this plugin
-	 *
 	 * @return string
 	 */
 	abstract protected function get_file();
@@ -34,7 +33,6 @@ abstract class Addon {
 
 	/**
 	 * @return string
-	 *
 	 * @deprecated
 	 */
 	public function get_plugin_url() {
@@ -45,7 +43,6 @@ abstract class Addon {
 
 	/**
 	 * @return string
-	 *
 	 * @deprecated
 	 */
 	public function get_plugin_dir() {

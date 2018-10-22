@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.2.3
+Version: 3.2.7
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
 Plugin URI: https://www.admincolumns.com
-Requires PHP: 5.3
+Requires PHP: 5.3.6
 Text Domain: codepress-admin-columns
 Domain Path: /languages
 License: GPL v3

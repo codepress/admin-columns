@@ -55,7 +55,6 @@ final class Screen {
 	}
 
 	/**
-	 * @param ListScreen $list_screen
 	 */
 	public function init() {
 		// Init Values
@@ -75,7 +74,7 @@ final class Screen {
 		do_action( 'ac/table/list_screen', $this->list_screen, $this );
 
 		/**
-		 * @since NEWVERSION
+		 * @since 3.2.5
 		 */
 		do_action( 'ac/table', $this );
 	}
@@ -109,8 +108,11 @@ final class Screen {
 
 	/**
 	 * Set the primary columns for the Admin Columns columns. Used to place the actions bar.
-	 *
 	 * @since 2.5.5
+	 *
+	 * @param $default
+	 *
+	 * @return int|null|string
 	 */
 	public function set_primary_column( $default ) {
 		if ( $this->list_screen ) {
@@ -152,6 +154,8 @@ final class Screen {
 	 *
 	 * @param array    $actions
 	 * @param \WP_Post $post
+	 *
+	 * @return array
 	 */
 	public function set_media_row_actions( $actions, $post ) {
 		$link_attributes = array(
@@ -168,6 +172,8 @@ final class Screen {
 	 *
 	 * @param array    $actions
 	 * @param \WP_Post $post
+	 *
+	 * @return array
 	 */
 	public function set_inline_edit_data( $actions, $post ) {
 		get_inline_data( $post );
@@ -179,6 +185,8 @@ final class Screen {
 	 * Remove quick edit from actions
 	 *
 	 * @param array $actions
+	 *
+	 * @return array
 	 */
 	public function remove_quick_edit_from_actions( $actions ) {
 		unset( $actions['quickedit'] );
@@ -188,7 +196,6 @@ final class Screen {
 
 	/**
 	 * Adds a body class which is used to set individual column widths
-	 *
 	 * @since 1.4.0
 	 *
 	 * @param string $classes body classes
@@ -202,7 +209,7 @@ final class Screen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.2.5
 	 */
 	public function register_settings_button() {
 		$edit_link = $this->get_edit_link();
@@ -279,11 +286,11 @@ final class Screen {
 	}
 
 	/**
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.2.5
 	 * @return ListScreen
 	 */
 	public function get_current_list_screen() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC\Table\Screen::get_list_screen()' );
+		_deprecated_function( __METHOD__, '3.2.5', 'AC\Table\Screen::get_list_screen()' );
 
 		return $this->get_list_screen();
 	}
@@ -332,8 +339,6 @@ final class Screen {
 	}
 
 	/**
-	 * @param ListScreen $list_screen
-	 *
 	 * @return string|false
 	 */
 	private function get_edit_link() {
@@ -353,7 +358,6 @@ final class Screen {
 
 	/**
 	 * Admin header scripts
-	 *
 	 * @since 3.1.4
 	 */
 	public function admin_head_scripts() {
@@ -361,7 +365,6 @@ final class Screen {
 
 		/**
 		 * Add header scripts that only apply to column screens.
-		 *
 		 * @since 3.1.4
 		 *
 		 * @param ListScreen
@@ -372,13 +375,11 @@ final class Screen {
 
 	/**
 	 * Admin footer scripts
-	 *
 	 * @since 1.4.0
 	 */
 	public function admin_footer_scripts() {
 		/**
 		 * Add footer scripts that only apply to column screens.
-		 *
 		 * @since 2.3.5
 		 *
 		 * @param ListScreen
@@ -389,6 +390,10 @@ final class Screen {
 
 	/**
 	 * @since 2.0
+	 *
+	 * @param $columns
+	 *
+	 * @return array
 	 */
 	public function add_headings( $columns ) {
 		if ( empty( $columns ) ) {
@@ -430,7 +435,7 @@ final class Screen {
 	}
 
 	/**
-	 * @since NEWVERSION
+	 * @since 3.2.5
 	 */
 	public function render_actions() {
 		?>

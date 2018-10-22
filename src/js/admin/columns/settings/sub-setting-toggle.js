@@ -1,4 +1,5 @@
 let subsetting = function( column ) {
+	let $ = jQuery;
 	let settings = {
 		value_show : "on",
 		subfield : '.ac-column-setting'

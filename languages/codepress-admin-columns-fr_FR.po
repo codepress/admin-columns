@@ -2,7 +2,11 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
+<<<<<<< HEAD
 "PO-Revision-Date: 2018-08-03 15:25:40+0000\n"
+=======
+"PO-Revision-Date: 2018-08-10 16:40:32+0000\n"
+>>>>>>> develop
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -66,7 +70,7 @@ msgstr "URL"
 
 #: classes/Admin/Help/CustomField.php:63
 msgid "Value: Should contain one or more Post IDs, separated by commas."
-msgstr "Valeur : doit contenir un ou plusieurs ID de contenus, séparés par des virgule."
+msgstr "Valeur : doit contenir un ou plusieurs ID de publications, séparés par des virgule."
 
 #: classes/Admin/Help/CustomField.php:51
 msgid "Value: Should contain one or more Attachment IDs, separated by commas."
@@ -893,7 +897,7 @@ msgstr "AdminColumns.com"
 
 #. Description of the plugin/theme
 msgid "Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface."
-msgstr "Personnalisez les colonnes sur les écrans d’administration des articles, types de contenu, pages, médias, commentaires, liens et utilisateurs grâce à une interface glisser-déposer facile à utiliser."
+msgstr "Personnalisez les colonnes sur les écrans d’administration des articles, types de publications, pages, médias, commentaires, liens et utilisateurs grâce à une interface glisser-déposer facile à utiliser."
 
 #. #-#-#-#-#  codepress-admin-columns-code.pot (Admin Columns 3.2.3)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
@@ -978,7 +982,7 @@ msgstr "Vous pouvez modifier l’ordre."
 
 #: classes/Admin/Page/Columns.php:672
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>."
-msgstr ""
+msgstr "Pour la documentation complète, les rapports de bug, les suggestions de fonctionnalités et autres astuces <a href='%s'>visitez le site web d’Admin Columns</a>."
 
 #: classes/Admin/Page/Columns.php:668
 msgid "Check the <strong>Help</strong> section in the top-right screen."
@@ -1088,11 +1092,11 @@ msgstr "Valeur : Cela peut être une chaîne ou un tableau. Cela affichera le n
 
 #: classes/Admin/Help/CustomField.php:27
 msgid "Value: Hex value color, such as #808080."
-msgstr ""
+msgstr "Valeur : couleur en valeur hexadécimale, tel que #808080."
 
 #: classes/Admin/Help/CustomField.php:67
 msgid "Value: Should be a 1 (one) or 0 (zero)."
-msgstr ""
+msgstr "Valeur : doit être la valeur 1 (un) ou 0 (zéro)."
 
 #: classes/Admin/Help/CustomField.php:35
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
@@ -1104,7 +1108,7 @@ msgstr "Valeur : entiers uniquement.<br/>Si vous avez accès à la fonctionnali
 
 #: classes/Admin/Help/CustomField.php:55
 msgid "Value: Should be an array. This will flatten any ( multi dimensional ) array."
-msgstr ""
+msgstr "Valeur : doit être un tableau. Cela aplatira tout tableau (multidimensionnel)."
 
 #: classes/Admin/Help/CustomField.php:39
 msgid "Value: This will show the first 20 words of the Post content."
@@ -1112,7 +1116,7 @@ msgstr "Valeur : cela affichera les 20 premiers mots du contenu de l’article.
 
 #: classes/Admin/Help/CustomField.php:23
 msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by commas."
-msgstr ""
+msgstr "Valeur : peut être une chaîne ou un tableau. Les tableaux seront aplatis et leurs valeurs séparées par une virgule « , »."
 
 #: classes/Admin/Help/CustomField.php:18
 msgid "The custom field column uses the custom fields from posts and users. There are 14 types which you can set."
@@ -1148,7 +1152,7 @@ msgstr "Notions de base"
 
 #: classes/Admin/Help/Introduction.php:18
 msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
-msgstr "Cette extension permet d’ajouter ou supprimer des colonnes dans les écrans d’administration pour les articles, types de contenu, pages, médias, commentaires, liens et utilisateurs. Modifiez le libellé des colonnes et réorganisez les."
+msgstr "Cette extension permet d’ajouter ou supprimer des colonnes dans les écrans d’administration pour les articles, types de publications, pages, médias, commentaires, liens et utilisateurs. Modifiez le libellé des colonnes et réorganisez les."
 
 #: classes/Admin/Help/Introduction.php:10
 msgid "Overview"
@@ -1156,7 +1160,7 @@ msgstr "Vue d’ensemble"
 
 #: classes/Admin/Page/Settings.php:114
 msgid "Default settings successfully restored."
-msgstr ""
+msgstr "Les réglages par défaut ont bien été restaurés."
 
 #: classes/Admin/Page/Columns.php:81 classes/Admin/Page/Columns.php:244
 msgid "%s column is already present and can not be duplicated."
@@ -1172,11 +1176,11 @@ msgstr "%s bien désactivé."
 
 #: classes/Check/Review.php:164
 msgid "find answers to frequently asked questions"
-msgstr ""
+msgstr "trouver des réponses dans la foire aux questions"
 
 #: classes/Check/Review.php:163
 msgid "Admin Columns forum on WordPress.org"
-msgstr ""
+msgstr "forums d’Admin Columns sur WordPress.org"
 
 #: classes/Check/Review.php:162
 msgid "You can also find help on the %s, and %s."
@@ -1184,7 +1188,7 @@ msgstr "Vous pouvez également trouver de l’aide dans les %s, et %s."
 
 #: classes/Check/Review.php:158
 msgid "our forum"
-msgstr ""
+msgstr "notre forum"
 
 #: classes/Check/Review.php:152
 msgid "documentation page"
@@ -1355,7 +1359,7 @@ msgstr "Enregistré"
 #: classes/Settings/Column/CustomFieldType.php:83
 #: classes/Settings/Column/PostType.php:25
 msgid "Post Type"
-msgstr "Type de contenu"
+msgstr "Type de publication"
 
 #: classes/Column/User/PostCount.php:15
 msgid "Post Count"
@@ -1448,7 +1452,7 @@ msgstr "Format d’article"
 
 #: classes/Column/Post/FeaturedImage.php:15
 msgid "Featured Image"
-msgstr "Image à la une"
+msgstr "Image mise en avant"
 
 #: classes/Settings/Column/WordsPerMinute.php:33
 msgid "Estimated reading time in words per minute."
@@ -1529,7 +1533,7 @@ msgstr "Lien vers"
 
 #: classes/Column/Post/Attachment.php:15
 msgid "Attachments"
-msgstr "Pièces jointes"
+msgstr "Fichiers joints"
 
 #: classes/Column/Media/Width.php:16 classes/Settings/Column/Image.php:41
 #: classes/Settings/Column/Width.php:53
@@ -1546,7 +1550,7 @@ msgstr "Hauteur"
 
 #: classes/Settings/Column/PathScope.php:27
 msgid "Relative to main uploads folder"
-msgstr ""
+msgstr "Relatif au dossier de téléversement principal (uploads) "
 
 #: classes/Settings/Column/PathScope.php:26
 msgid "Relative to domain"
@@ -1733,7 +1737,7 @@ msgstr "Auteur"
 
 #: classes/Column/Comment/AuthorUrl.php:14
 msgid "Author URL"
-msgstr ""
+msgstr "URL de l’auteur·e"
 
 #: classes/Column/Comment/AuthorName.php:14
 msgid "Author Name"

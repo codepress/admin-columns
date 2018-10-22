@@ -26,8 +26,8 @@ class WordLimit extends Settings\Column
 	public function create_view() {
 		$setting = $this->create_element( 'number' )
 		                ->set_attributes( array(
-			                'min'         => 0,
-			                'step'        => 1,
+			                'min'  => 0,
+			                'step' => 1,
 		                ) );
 
 		$view = new View( array(
