@@ -14,7 +14,8 @@ class Label extends Settings\Column {
 
 	protected function define_options() {
 		return array(
-			'label' => $this->column->get_label(),
+			'label'      => $this->column->get_label(),
+			'label_type' => 'text',
 		);
 	}
 
@@ -29,6 +30,8 @@ class Label extends Settings\Column {
 			'tooltip' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
 			'setting' => $setting,
 		) );
+
+		$view->set_template( 'settings/setting-label' );
 
 		return $view;
 	}
