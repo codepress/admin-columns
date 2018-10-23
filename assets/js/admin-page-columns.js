@@ -1826,6 +1826,14 @@ function () {
           el.AC_MODAL.open();
         }
       });
+      jQuery(document).on('click', '[data-ac-modal]', function (e) {
+        e.preventDefault();
+        var modal_key = jQuery(this).data('ac-modal');
+
+        if (AC.Modals.get(modal_key)) {
+          AC.Modals.get(modal_key).open();
+        }
+      });
     }
   }]);
 

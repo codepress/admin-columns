@@ -21,6 +21,15 @@ class Modal {
 			}
 		} );
 
+		jQuery( document ).on( 'click', '[data-ac-modal]', function( e ) {
+			e.preventDefault();
+			let modal_key = jQuery( this ).data( 'ac-modal' );
+
+			if( AC.Modals.get( modal_key ) ){
+				AC.Modals.get( modal_key ).open();
+			}
+		} );
+
 	}
 
 	initEvents() {
