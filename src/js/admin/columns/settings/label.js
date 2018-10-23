@@ -7,12 +7,12 @@ class Label {
 		this.setting = column.el.querySelector( '.ac-column-setting--label' );
 		this.iconpicker = this.setting.querySelector( '.-iconpicker' );
 
-		if( ! this.iconpicker ){
+		if ( !this.iconpicker ) {
 			return;
 		}
 
-		this.modal = AC.Modals.register( new Modal( this.setting.querySelector( '.-iconpicker' ) ) );
 		this._dashicon = false;
+		this.modal = AC.Modals.register( new Modal( this.setting.querySelector( '.-iconpicker' ) ) );
 		this.field = this.setting.querySelector( '.ac-setting-input_label' );
 
 		this.initValue();
@@ -38,6 +38,8 @@ class Label {
 					}
 				}
 			} );
+		} else {
+			self.setIconSelection( false );
 		}
 
 	}
@@ -93,8 +95,15 @@ class Label {
 	}
 
 	setIconSelection( dashicon ) {
+		let selection = this.setting.querySelector( '.ac-ipicker__selection' );
 		this._dashicon = dashicon;
-		this.setting.querySelector('.ac-ipicker__selection').innerHTML = `<span class="dashicons dashicons-${dashicon}"></span>`;
+		selection.innerHTML = `<span class="dashicons dashicons-${dashicon}"></span>`;
+
+		if ( !dashicon ) {
+			selection.style.visibility = 'hidden';
+		} else {
+			selection.style.visibility = 'visible';
+		}
 	}
 
 	getIconSelection() {
