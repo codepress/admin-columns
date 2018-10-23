@@ -32,8 +32,9 @@ import SettingLabel from './admin/columns/settings/label';
 
 let jQuery = $ = require( 'jquery' );
 
+Modals.init();
+
 AC.Column = new Initiator();
-AC.Modals = new Modals();
 
 jQuery( document ).on( 'AC_Form_Loaded', function() {
 

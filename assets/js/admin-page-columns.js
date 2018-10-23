@@ -151,8 +151,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /** Settings */
 var jQuery = $ = __webpack_require__(/*! jquery */ "jquery");
 
+_modals.default.init();
+
 AC.Column = new _initiator.default();
-AC.Modals = new _modals.default();
 jQuery(document).on('AC_Form_Loaded', function () {
   /** Register Events **/
   AC.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
@@ -1852,7 +1853,7 @@ module.exports = Modal;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(global) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1891,6 +1892,20 @@ function () {
       }
 
       return false;
+    } // Bind self to global AC if exist
+
+  }], [{
+    key: "init",
+    value: function init() {
+      var modals = new this();
+
+      if (typeof AC === 'undefined') {
+        var newAC = {};
+        newAC.Modals = modals;
+        global.AC = newAC;
+      } else {
+        AC.Modals = modals;
+      }
     }
   }]);
 
@@ -1898,6 +1913,7 @@ function () {
 }();
 
 module.exports = Modals;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -3253,6 +3269,37 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
     if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),

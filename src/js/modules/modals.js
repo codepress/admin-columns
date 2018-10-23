@@ -23,6 +23,20 @@ class Modals {
 
 		return false;
 	}
+
+	// Bind self to global AC if exist
+	static init() {
+		let modals = new this();
+
+		if ( typeof AC === 'undefined' ) {
+			let newAC = {};
+			newAC.Modals = modals;
+
+			global.AC = newAC;
+		} else {
+			AC.Modals = modals;
+		}
+	}
 }
 
 module.exports = Modals;
