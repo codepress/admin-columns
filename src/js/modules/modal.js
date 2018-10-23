@@ -1,10 +1,9 @@
 class Modal {
 	constructor( el ) {
-		if( ! el ){
+		if ( !el ) {
 			return;
 		}
 		this.el = el;
-
 		this.dialog = el.querySelector( '.ac-modal__dialog' );
 
 		this.initEvents();
@@ -82,6 +81,7 @@ class Modal {
 	onClose() {}
 
 	onOpen() {}
+
 }
 
 module.exports = Modal;

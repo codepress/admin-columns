@@ -4,24 +4,24 @@
 .ac-modal {
 	position: fixed;
 	overflow: auto;
-	height: 100%;
-	width: 100%;
 	z-index: 100000;
+	left: 0;
 	top: 0;
+	right: 0;
+	bottom: 0;
 	background: rgba(0, 0, 0, .5);
 	display: none;
 
 	&.-active {
-		display: block;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	&__dialog {
 		border: 1px solid #C8C8C8;
 		background: #fff;
 		position: fixed;
-		top: 200px;
-		left: 50%;
-		transform: translateX(-50%);
 		width: 650px;
 		max-width: 90%;
 
@@ -54,6 +54,8 @@
 
 		&__content {
 			padding: 25px;
+			max-height: calc(100vh - 200px);
+			overflow: scroll;
 
 			&__lead {
 				font-weight: bold;
@@ -98,13 +100,6 @@
 				margin-left: 0;
 				padding-left: 15px;
 				padding-right: 15px;
-			}
-
-			span {
-				display: inline-block;
-				margin-top: 4px;
-				margin-left: 10px;
-				font-size: 14px;
 			}
 		}
 	}

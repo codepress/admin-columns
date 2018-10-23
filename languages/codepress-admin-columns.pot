@@ -211,6 +211,10 @@ msgstr ""
 msgid "View more"
 msgstr ""
 
+#: templates/settings/setting-label.php:24
+msgid "Select Icon"
+msgstr ""
+
 #: classes/Admin/Addon/ACF.php:13
 msgid "Advanced Custom Fields"
 msgstr ""
@@ -1327,11 +1331,11 @@ msgstr ""
 msgid "Custom Size"
 msgstr ""
 
-#: classes/Settings/Column/Label.php:28
+#: classes/Settings/Column/Label.php:29
 msgid "Label"
 msgstr ""
 
-#: classes/Settings/Column/Label.php:29
+#: classes/Settings/Column/Label.php:30
 msgid "This is the name which will appear as the column header."
 msgstr ""
 

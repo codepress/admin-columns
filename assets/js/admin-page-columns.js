@@ -134,6 +134,8 @@ var _pro = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settin
 
 var _width = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/width */ "./js/admin/columns/settings/width.js"));
 
+var _label2 = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/label */ "./js/admin/columns/settings/label.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -155,7 +157,7 @@ jQuery(document).on('AC_Form_Loaded', function () {
   /** Register Events **/
   AC.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
   /** Register Settings **/
-  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default);
+  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default).registerSetting('label', _label2.default);
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#cpac .ac-columns form');
@@ -1386,6 +1388,156 @@ module.exports = image;
 
 /***/ }),
 
+/***/ "./js/admin/columns/settings/label.js":
+/*!********************************************!*\
+  !*** ./js/admin/columns/settings/label.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
+var _modal = _interopRequireDefault(__webpack_require__(/*! ../../../modules/modal */ "./js/modules/modal.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Label =
+/*#__PURE__*/
+function () {
+  function Label(column) {
+    _classCallCheck(this, Label);
+
+    this.column = column;
+    this.setting = column.el.querySelector('.ac-column-setting--label');
+    this.iconpicker = this.setting.querySelector('.-iconpicker');
+
+    if (!this.iconpicker) {
+      return;
+    }
+
+    this._dashicon = false;
+    this.modal = AC.Modals.register(new _modal.default(this.setting.querySelector('.-iconpicker')));
+    this.field = this.setting.querySelector('.ac-setting-input_label');
+    this.initValue();
+    this.bindEvents();
+  }
+
+  _createClass(Label, [{
+    key: "initValue",
+    value: function initValue() {
+      var self = this;
+      var html = document.createRange().createContextualFragment(this.getValue());
+      var dashicon = html.querySelector('.dashicons');
+
+      if (dashicon) {
+        var classList = dashicon.classList;
+        classList.forEach(function (cls) {
+          if (cls.indexOf('dashicons-') !== -1) {
+            var selector = '.' + cls;
+            var icon = self.iconpicker.querySelector(selector);
+
+            if (icon) {
+              icon.parentElement.classList.add('active');
+              self.setIconSelection(icon.parentElement.dataset.dashicon);
+            }
+          }
+        });
+      } else {
+        self.setIconSelection(false);
+      }
+    }
+  }, {
+    key: "bindEvents",
+    value: function bindEvents() {
+      var self = this;
+      this.setting.querySelector('.ac-setting-label-icon').addEventListener('click', function (e) {
+        e.preventDefault();
+        self.modal.open();
+      });
+      this.setting.querySelector('[data-action="submit"]').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        if (self.getIconSelection()) {
+          self.setDashicon(self.getIconSelection());
+        }
+
+        self.modal.close();
+      });
+      var icons = this.iconpicker.querySelectorAll('.ac-ipicker__icon');
+      icons.forEach(function (icon) {
+        icon.addEventListener('click', function (e) {
+          e.preventDefault();
+          var dashicon = this.dataset.dashicon;
+
+          if (dashicon) {
+            self.setIconSelection(dashicon);
+          }
+
+          var icons = self.setting.querySelectorAll('.ac-ipicker__icon');
+          icons.forEach(function (icon) {
+            icon.classList.remove('active');
+          });
+          icon.classList.add('active');
+        });
+      });
+    }
+  }, {
+    key: "getValue",
+    value: function getValue() {
+      return this.field.value;
+    }
+  }, {
+    key: "setValue",
+    value: function setValue(value) {
+      this.field.value = value;
+      var event = new Event('change');
+      this.field.dispatchEvent(event);
+    }
+  }, {
+    key: "setIconSelection",
+    value: function setIconSelection(dashicon) {
+      var selection = this.setting.querySelector('.ac-ipicker__selection');
+      this._dashicon = dashicon;
+      selection.innerHTML = "<span class=\"dashicons dashicons-".concat(dashicon, "\"></span>");
+
+      if (!dashicon) {
+        selection.style.visibility = 'hidden';
+      } else {
+        selection.style.visibility = 'visible';
+      }
+    }
+  }, {
+    key: "getIconSelection",
+    value: function getIconSelection() {
+      return this._dashicon;
+    }
+  }, {
+    key: "setDashicon",
+    value: function setDashicon(dashicon) {
+      this.setValue("<span class=\"dashicons dashicons-".concat(dashicon, "\"></span>"));
+    }
+  }]);
+
+  return Label;
+}();
+
+var label = function label(column) {
+  column.settings.label = new Label(column);
+};
+
+module.exports = label;
+
+/***/ }),
+
 /***/ "./js/admin/columns/settings/pro.js":
 /*!******************************************!*\
   !*** ./js/admin/columns/settings/pro.js ***!
@@ -1721,6 +1873,7 @@ function () {
 
       this.modals[key] = modal;
       this.number++;
+      return modal;
     }
   }, {
     key: "get",

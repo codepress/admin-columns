@@ -1364,10 +1364,151 @@
 }
 
 /**
- * Modal Pro
+ * Label Settings
+ * ----------------------------------------------------------------------------
  */
-.ac-modal {
-	&__dialog {
+.ac-column-setting--label {
+	.ac-setting-input__container {
+		position: relative;
+
+		input {
+			height: 28px;
+			line-height: 28px;
+			padding-right: 34px;
+		}
+
+		.ac-setting-label-icon {
+			background: #fff;
+			position: absolute;
+			top: 4px;
+			height: 22px;
+			color: #ccc;
+			right: 0;
+			border: none;
+			cursor: pointer;
+			outline: none !important;
+			transition: color .5s;
+
+			&:hover, &:focus {
+				color: #999;
+			}
+			&:active {
+				color: $blue;
+			}
+		}
+	}
+}
+
+.ac-ipicker {
+
+	&__modal {
+		background: #fff;
+		max-width: 90%;
+		width: 770px;
+		height: 450px;
+		display: flex;
+		padding: 20px;
+	}
+
+	&.fixed {
+		position: fixed;
+		z-index: 99999;
+		background: rgba(0, 0, 0, .8);
+		display: flex;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: auto;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&__icons {
+		flex: 1 1 auto;
+		overflow: scroll;
+
+		&__group {
+			display: block;
+			clear: both;
+			padding-top: 15px;
+			margin-top: 20px;
+			margin-bottom: 10px;
+			font-size: 16px;
+			font-weight: normal;
+
+			&:first-child {
+				border-top: none;
+				padding-top: 0;
+				margin-top: 0;
+			}
+		}
+	}
+
+	&__icon {
+		display: inline-block;
+		width: 49px;
+		height: 49px;
+		text-align: center;
+		white-space: nowrap;
+		cursor: pointer;
+
+		.dashicons {
+			width: 49px;
+			height: 49px;
+			line-height: 49px;
+			font-size: 28px;
+		}
+
+		&:hover, &:focus {
+			color: $blue;
+		}
+
+		&.active {
+			background: $blue;
+			color: #fff;
+		}
+
+	}
+
+	&__handles {
+		flex: 0 0 100px;
+		text-align: center;
+		padding-top: 20px;
+	}
+}
+
+/**
+ * Modal
+ */
+.ac-modal.-pro {
+	$e: '.ac-modal';
+
+	#{$e}__dialog {
+		&__list {
+			li {
+				&:before {
+					content: '\f147';
+					font-family: Dashicons;
+					position: absolute;
+					left: 0;
+					top: 0;
+					color: #3D4350;
+				}
+
+				&:nth-child(2n) {
+					color: $ac-pink;
+				}
+
+				position: relative;
+				padding-left: 25px;
+				font-weight: 400;
+				font-size: 16px;
+				letter-spacing: 0.5px;
+				margin-bottom: 10px;
+			}
+		}
+
 		&__mascot {
 			position: absolute;
 			right: 20px;
@@ -1375,14 +1516,65 @@
 			width: 150px;
 			height: 225px;
 			z-index: 4;
+
+		}
+
+		&__footer {
+			.button {
+				margin-left: 0;
+				padding-left: 15px;
+				padding-right: 15px;
+			}
+
+			span {
+				display: inline-block;
+				margin-top: 4px;
+				margin-left: 10px;
+				font-size: 14px;
+			}
 		}
 	}
 
-	@media only screen and (max-width: 720px) {
-		&__dialog {
-			&__mascot {
-				display: none;
+}
+
+.ac-modal.-setting {
+	$e: '.ac-modal';
+
+	#{$e}__dialog {
+		width: 970px;
+		&__content {
+			max-height: 400px;
+		}
+		&__footer {
+			text-align: right;
+			padding: 0 15px;
+
+			.button {
+				display: inline-block;
+				vertical-align: middle;
+				padding-left: 30px;
+				padding-right: 30px;
 			}
+
+			.ac-ipicker__selection {
+				display: inline-block;
+				vertical-align: middle;
+				text-align: center;
+				width: 68px;
+				height: 68px;
+				line-height: 58px;
+				background: #E5E5E5;
+				margin-right: 15px;
+				color: #404040;
+
+				.dashicons {
+					width: 68px;
+					height: 68px;
+					line-height: 68px;
+					font-size: 30px;
+				}
+			}
+
 		}
 	}
 }

@@ -12,6 +12,8 @@ class Modals {
 
 		this.modals[ key ] = modal;
 		this.number++;
+
+		return modal;
 	}
 
 	get( key ) {
