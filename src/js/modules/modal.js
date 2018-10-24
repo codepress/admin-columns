@@ -25,8 +25,8 @@ class Modal {
 			e.preventDefault();
 			let modal_key = jQuery( this ).data( 'ac-modal' );
 
-			if( AC.Modals.get( modal_key ) ){
-				AC.Modals.get( modal_key ).open();
+			if( AC_Modals.get( modal_key ) ){
+				AC_Modals.get( modal_key ).open();
 			}
 		} );
 

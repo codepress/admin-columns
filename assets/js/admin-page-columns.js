@@ -162,7 +162,7 @@ jQuery(document).on('AC_Form_Loaded', function () {
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#cpac .ac-columns form');
-  AC.Modals.register(new _modal.default(document.querySelector('#ac-modal-pro')), 'pro');
+  AC_Modals.register(new _modal.default(document.querySelector('#ac-modal-pro')), 'pro');
   new _menu.default().init();
   new _feedback.default('.sidebox#direct-feedback');
 });
@@ -1426,7 +1426,7 @@ function () {
     }
 
     this._dashicon = false;
-    this.modal = AC.Modals.register(new _modal.default(this.setting.querySelector('.-iconpicker')));
+    this.modal = AC_Modals.register(new _modal.default(this.setting.querySelector('.-iconpicker')));
     this.field = this.setting.querySelector('.ac-setting-input_label');
     this.initValue();
     this.bindEvents();
@@ -1831,8 +1831,8 @@ function () {
         e.preventDefault();
         var modal_key = jQuery(this).data('ac-modal');
 
-        if (AC.Modals.get(modal_key)) {
-          AC.Modals.get(modal_key).open();
+        if (AC_Modals.get(modal_key)) {
+          AC_Modals.get(modal_key).open();
         }
       });
     }
@@ -1897,14 +1897,8 @@ function () {
   }], [{
     key: "init",
     value: function init() {
-      var modals = new this();
-
-      if (typeof AC === 'undefined') {
-        var newAC = {};
-        newAC.Modals = modals;
-        global.AC = newAC;
-      } else {
-        AC.Modals = modals;
+      if (typeof AC_Modals === 'undefined') {
+        global.AC_Modals = new this();
       }
     }
   }]);

@@ -61,7 +61,7 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 
 jQuery( document ).ready( function() {
 	AC.Form = new Form( '#cpac .ac-columns form' );
-	AC.Modals.register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
+	AC_Modals.register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
 
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );

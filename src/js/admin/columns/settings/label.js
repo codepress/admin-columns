@@ -12,7 +12,7 @@ class Label {
 		}
 
 		this._dashicon = false;
-		this.modal = AC.Modals.register( new Modal( this.setting.querySelector( '.-iconpicker' ) ) );
+		this.modal = AC_Modals.register( new Modal( this.setting.querySelector( '.-iconpicker' ) ) );
 		this.field = this.setting.querySelector( '.ac-setting-input_label' );
 
 		this.initValue();

@@ -138,14 +138,8 @@ function () {
   }], [{
     key: "init",
     value: function init() {
-      var modals = new this();
-
-      if (typeof AC === 'undefined') {
-        var newAC = {};
-        newAC.Modals = modals;
-        global.AC = newAC;
-      } else {
-        AC.Modals = modals;
+      if (typeof AC_Modals === 'undefined') {
+        global.AC_Modals = new this();
       }
     }
   }]);
@@ -180,6 +174,8 @@ var _modals = _interopRequireDefault(__webpack_require__(/*! ./modules/modals */
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+_modals.default.init();
+
 jQuery(document).ready(function ($) {
   ac_quickedit_events($);
   ac_set_column_classes($);
@@ -195,7 +191,7 @@ jQuery(document).ready(function ($) {
   }
 
   AC.Tooltips = new _tooltips.default();
-  AC.Modals = new _modals.default();
+  AC.Modals = AC_Modals;
   $('.wp-list-table').on('updated', 'tr', function () {
     ac_set_column_classes($);
     ac_actions_column($, $(this).find('.column-actions'));

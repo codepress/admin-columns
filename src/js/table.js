@@ -2,6 +2,8 @@ import Table from "./table/table";
 import Tooltip from "./table/tooltips";
 import Modals from "./modules/modals";
 
+Modals.init();
+
 jQuery( document ).ready( function( $ ) {
 	ac_quickedit_events( $ );
 	ac_set_column_classes( $ );
@@ -18,7 +20,7 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	AC.Tooltips = new Tooltip();
-	AC.Modals = new Modals();
+	AC.Modals = AC_Modals;
 
 	$( '.wp-list-table' ).on( 'updated', 'tr', function() {
 		ac_set_column_classes( $ );
