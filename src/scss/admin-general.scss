@@ -289,3 +289,12 @@ body.rtl {
 		float: left;
 	}
 }
+
+.ac-wp-pointer {
+	img {
+		max-width: calc(100% - 20px);
+		height: auto;
+		margin: 10px;
+		margin-top: 0;
+	}
+}
