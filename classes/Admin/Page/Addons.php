@@ -80,7 +80,7 @@ class Addons extends Page {
 			return;
 		}
 
-		$plugin = new PluginInformation( dirname( $basename ) );
+		$plugin = new PluginInformation( $basename );
 
 		switch ( $status ) {
 			case 'activate' :
