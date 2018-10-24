@@ -41,7 +41,7 @@ require_once 'classes/Dependencies.php';
 
 function ac_init() {
 	$dependencies = new AC_Dependencies( plugin_basename( AC_FILE ) );
-	$dependencies->check_php_version( '5.3' );
+	$dependencies->check_php_version( '5.3.6' );
 
 	if ( $dependencies->has_missing() ) {
 		return;
