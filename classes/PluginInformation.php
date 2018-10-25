@@ -76,13 +76,13 @@ class PluginInformation {
 	 * @return array|false
 	 */
 	private function get_plugin_info() {
-		foreach ( (array) get_plugins() as $basename => $info ) {
-			if ( $this->basename === $basename ) {
-				return $info;
-			}
+		$plugins = (array) get_plugins();
+
+		if ( ! array_key_exists( $this->basename, $plugins ) ) {
+			return false;
 		}
 
-		return false;
+		return $plugins[ $this->basename ];
 	}
 
 	/**
