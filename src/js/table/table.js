@@ -25,6 +25,7 @@ export default class Table {
 
 		this._initTable();
 		this._addCellMethods();
+		this.addCellClasses();
 
 		document.dispatchEvent( new CustomEvent( 'AC_Table_Ready', { detail : { self } } ) );
 	}
@@ -108,6 +109,18 @@ export default class Table {
 		}
 
 		return item_id;
+	}
+
+	addCellClasses() {
+		let self = this;
+		this.Columns.getColumnNames().forEach( ( name ) => {
+			let type = self.Columns.get( name ).type;
+			let cells = self.Cells.getByName( name );
+
+			cells.forEach( ( cell ) => {
+				cell.el.classList.add( type );
+			} );
+		} );
 	}
 
 	static getTable( jQuery = false ) {

@@ -15,6 +15,7 @@ export default class Columns {
 		for ( let i = 0; i < headers.length; i++ ) {
 			let column = {};
 			column.name = headers[ i ].id;
+			column.type = AC.column_types[ column.name ];
 			self._columns[ headers[ i ].id ] = column;
 		}
 	}

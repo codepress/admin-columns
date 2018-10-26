@@ -6,7 +6,7 @@ Modals.init();
 
 jQuery( document ).ready( function( $ ) {
 	ac_quickedit_events( $ );
-	ac_set_column_classes( $ );
+
 	ac_actions_column( $, $( '.column-actions' ) );
 
 	ac_show_more( $ );
@@ -139,16 +139,6 @@ function ac_actions_column( $, $selector ) {
 		let $link = $( this ).find( 'a' );
 		$link.attr( 'data-ac-tip', $link.text() ).addClass( 'ac-tip' );
 	} );
-}
-
-function ac_set_column_classes( $ ) {
-	for ( let name in AC.column_types ) {
-		if ( AC.column_types.hasOwnProperty( name ) ) {
-			let type = AC.column_types[ name ];
-
-			$( '.wp-list-table td.' + name ).addClass( type );
-		}
-	}
 }
 
 function ac_quickedit_events( $ ) {

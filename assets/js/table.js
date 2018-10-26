@@ -163,8 +163,6 @@ module.exports = Modals;
 "use strict";
 
 
-__webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
-
 __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
 
 var _table = _interopRequireDefault(__webpack_require__(/*! ./table/table */ "./js/table/table.js"));
@@ -179,7 +177,6 @@ _modals.default.init();
 
 jQuery(document).ready(function ($) {
   ac_quickedit_events($);
-  ac_set_column_classes($);
   ac_actions_column($, $('.column-actions'));
   ac_show_more($);
   ac_toggle_box($);
@@ -296,15 +293,6 @@ function ac_actions_column($, $selector) {
     var $link = $(this).find('a');
     $link.attr('data-ac-tip', $link.text()).addClass('ac-tip');
   });
-}
-
-function ac_set_column_classes($) {
-  for (var name in AC.column_types) {
-    if (AC.column_types.hasOwnProperty(name)) {
-      var type = AC.column_types[name];
-      $('.wp-list-table td.' + name).addClass(type);
-    }
-  }
 }
 
 function ac_quickedit_events($) {
@@ -644,6 +632,7 @@ function () {
       for (var i = 0; i < headers.length; i++) {
         var column = {};
         column.name = headers[i].id;
+        column.type = AC.column_types[column.name];
         self._columns[headers[i].id] = column;
       }
     }
@@ -819,6 +808,7 @@ function () {
 
       this._addCellMethods();
 
+      this.addCellClasses();
       document.dispatchEvent(new CustomEvent('AC_Table_Ready', {
         detail: {
           self: self
@@ -913,6 +903,18 @@ function () {
       }
 
       return item_id;
+    }
+  }, {
+    key: "addCellClasses",
+    value: function addCellClasses() {
+      var self = this;
+      this.Columns.getColumnNames().forEach(function (name) {
+        var type = self.Columns.get(name).type;
+        var cells = self.Cells.getByName(name);
+        cells.forEach(function (cell) {
+          cell.el.classList.add(type);
+        });
+      });
     }
   }, {
     key: "getRow",
@@ -2920,33 +2922,6 @@ Iterators.Arguments = Iterators.Array;
 addToUnscopables('keys');
 addToUnscopables('values');
 addToUnscopables('entries');
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/es6.function.name.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/core-js/modules/es6.function.name.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var dP = __webpack_require__(/*! ./_object-dp */ "./node_modules/core-js/modules/_object-dp.js").f;
-var FProto = Function.prototype;
-var nameRE = /^\s*function ([^ (]*)/;
-var NAME = 'name';
-
-// 19.2.4.2 name
-NAME in FProto || __webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/modules/_descriptors.js") && dP(FProto, NAME, {
-  configurable: true,
-  get: function () {
-    try {
-      return ('' + this).match(nameRE)[1];
-    } catch (e) {
-      return '';
-    }
-  }
-});
 
 
 /***/ }),
