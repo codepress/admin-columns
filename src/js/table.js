@@ -16,11 +16,11 @@ jQuery( document ).ready( function( $ ) {
 
 	let table = document.querySelector( AC.table_id );
 	if ( table ) {
-		AC.Table = new Table( table.parentElement );
+		AdminColumns.Table = new Table( table.parentElement );
+		AC.Table = AdminColumns.Table; // TODO use AdminColumns instead of AC
 	}
 
-	AC.Tooltips = new Tooltip();
-	AC.Modals = AC_Modals;
+	AdminColumns.Tooltips = new Tooltip();
 
 	$( '.wp-list-table' ).on( 'updated', 'tr', function() {
 		ac_set_column_classes( $ );
@@ -96,7 +96,7 @@ function ac_toggle_box_ajax_init( $ ) {
 				$( $this.parent( 'td' ) ).trigger( 'ajax_column_value_ready' );
 
 				// Re-init tooltips
-				AC.Tooltips().init();
+				AdminColumns.Tooltips().init();
 			}
 		} );
 

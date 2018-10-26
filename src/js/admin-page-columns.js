@@ -11,7 +11,6 @@ import Initiator from "./admin/columns/initiator";
 import Modal from "./modules/modal";
 import Menu from "./admin/columns/menu";
 import Feedback from "./admin/columns/feedback";
-
 /** Events */
 import EventToggle from './admin/columns/events/toggle';
 import EventRemove from './admin/columns/events/remove';
@@ -21,7 +20,6 @@ import EventTypeSelector from './admin/columns/events/type-selector';
 import EventIndicator from './admin/columns/events/indicator';
 import EventLabel from './admin/columns/events/label';
 import EventAddons from './admin/columns/events/addons';
-
 /** Settings */
 import SettingImageSize from './admin/columns/settings/image-size';
 import SettingSubSettingToggle from './admin/columns/settings/sub-setting-toggle';
@@ -31,8 +29,6 @@ import SettingWidth from './admin/columns/settings/width';
 import SettingLabel from './admin/columns/settings/label';
 
 let jQuery = $ = require( 'jquery' );
-
-Modals.init();
 
 AC.Column = new Initiator();
 
@@ -61,7 +57,7 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 
 jQuery( document ).ready( function() {
 	AC.Form = new Form( '#cpac .ac-columns form' );
-	AC_Modals.register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
+	Modals.init().register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
 
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );

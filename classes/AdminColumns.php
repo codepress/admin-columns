@@ -85,6 +85,8 @@ class AdminColumns extends Plugin {
 		add_action( 'ac/screen', array( $this, 'init_table_on_screen' ) );
 		add_action( 'ac/screen/quick_edit', array( $this, 'init_table_on_quick_edit' ) );
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ),1 );
 	}
 
 	/**
@@ -432,4 +434,14 @@ class AdminColumns extends Plugin {
 		return ac_helper();
 	}
 
+	/**
+	 * Add a global JS var that ideally contains all AC and ACP API methods
+	 */
+	public function add_global_javascript_var() {
+		?>
+		<script>
+			var AdminColumns = {};
+		</script>
+		<?php
+	}
 }
