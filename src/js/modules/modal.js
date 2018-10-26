@@ -1,3 +1,5 @@
+import Modals from './modals'
+
 class Modal {
 	constructor( el ) {
 		if ( !el ) {
@@ -25,8 +27,8 @@ class Modal {
 			e.preventDefault();
 			let modal_key = jQuery( this ).data( 'ac-modal' );
 
-			if( AC_Modals.get( modal_key ) ){
-				AC_Modals.get( modal_key ).open();
+			if ( Modals.init().get( modal_key ) ) {
+				Modals.init().get( modal_key ).open();
 			}
 		} );
 

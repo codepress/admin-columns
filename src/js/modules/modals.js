@@ -24,12 +24,15 @@ class Modals {
 		return false;
 	}
 
-	// Bind self to global AC if exist
+	// Bind self to global AdminColumns if exist
 	static init() {
-		if ( typeof AC_Modals === 'undefined' ) {
-			global.AC_Modals = new this();
+		if ( typeof AdminColumns.Modals === 'undefined' ) {
+			AdminColumns.Modals = new this();
 		}
+
+		return AdminColumns.Modals;
 	}
+
 }
 
 module.exports = Modals;
