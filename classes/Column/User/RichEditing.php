@@ -7,8 +7,8 @@ use AC\Column;
 class RichEditing extends Column {
 
 	public function __construct() {
-		$this->set_type( 'column-rich_editing' );
-		$this->set_label( __( 'Visual Editor', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-rich_editing' )
+		     ->set_label( __( 'Visual Editor', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $user_id ) {
@@ -20,9 +20,7 @@ class RichEditing extends Column {
 	}
 
 	private function has_rich_editing( $user_id ) {
-		$userdata = get_userdata( $user_id );
-
-		return $userdata->rich_editing == 'true' ? true : false;
+		return 'true' == get_userdata( $user_id )->rich_editing;
 	}
 
 }

@@ -211,7 +211,7 @@ msgstr ""
 msgid "View more"
 msgstr ""
 
-#: templates/settings/setting-label.php:24
+#: templates/settings/setting-label-icons.php:24
 msgid "Select Icon"
 msgstr ""
 
@@ -1355,31 +1355,31 @@ msgstr ""
 msgid "This will make the title link to the menu."
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:29
+#: classes/Settings/Column/Meta.php:30
 msgid "No fields available."
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:72
+#: classes/Settings/Column/Meta.php:73
 msgid "Field"
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:119
+#: classes/Settings/Column/Meta.php:120
 msgid "Public"
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:120
+#: classes/Settings/Column/Meta.php:121
 msgid "Hidden"
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:128
+#: classes/Settings/Column/Meta.php:129
 msgid "Network Site:"
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:131
+#: classes/Settings/Column/Meta.php:132
 msgid "current"
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:137
+#: classes/Settings/Column/Meta.php:138
 msgid "Site Options"
 msgstr ""
 
@@ -1415,11 +1415,15 @@ msgstr ""
 msgid "Relative to main uploads folder"
 msgstr ""
 
-#: classes/Settings/Column/PathScope.php:31
-msgid "Path scope"
+#: classes/Settings/Column/PathScope.php:28
+msgid "Local Path"
 msgstr ""
 
 #: classes/Settings/Column/PathScope.php:32
+msgid "Path scope"
+msgstr ""
+
+#: classes/Settings/Column/PathScope.php:33
 msgid "Part of the file path to display"
 msgstr ""
 

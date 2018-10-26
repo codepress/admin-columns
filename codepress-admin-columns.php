@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 3.2.7
+Version: 3.4beta
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -41,7 +41,7 @@ require_once 'classes/Dependencies.php';
 
 function ac_init() {
 	$dependencies = new AC_Dependencies( plugin_basename( AC_FILE ) );
-	$dependencies->check_php_version( '5.3' );
+	$dependencies->check_php_version( '5.3.6' );
 
 	if ( $dependencies->has_missing() ) {
 		return;

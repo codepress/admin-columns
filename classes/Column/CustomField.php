@@ -34,7 +34,6 @@ class CustomField extends Column\Meta {
 			     ->add_setting( new Settings\Column\Pro\Filtering( $this ) )
 			     ->add_setting( new Settings\Column\Pro\Export( $this ) );
 		}
-
 	}
 
 	/**

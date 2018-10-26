@@ -102,7 +102,7 @@ var _modals = _interopRequireDefault(__webpack_require__(/*! ./modules/modals */
 
 var _initiator = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/initiator */ "./js/admin/columns/initiator.js"));
 
-var _modal = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/modal */ "./js/admin/columns/modal.js"));
+var _modal = _interopRequireDefault(__webpack_require__(/*! ./modules/modal */ "./js/modules/modal.js"));
 
 var _menu = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/menu */ "./js/admin/columns/menu.js"));
 
@@ -152,7 +152,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var jQuery = $ = __webpack_require__(/*! jquery */ "jquery");
 
 AC.Column = new _initiator.default();
-AC.Modals = new _modals.default();
 jQuery(document).on('AC_Form_Loaded', function () {
   /** Register Events **/
   AC.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
@@ -161,7 +160,9 @@ jQuery(document).on('AC_Form_Loaded', function () {
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#cpac .ac-columns form');
-  AC.Modals.register(new _modal.default(document.querySelector('#ac-modal-pro')), 'pro');
+
+  _modals.default.init().register(new _modal.default(document.querySelector('#ac-modal-pro')), 'pro');
+
   new _menu.default().init();
   new _feedback.default('.sidebox#direct-feedback');
 });
@@ -1171,114 +1172,6 @@ module.exports = Menu;
 
 /***/ }),
 
-/***/ "./js/admin/columns/modal.js":
-/*!***********************************!*\
-  !*** ./js/admin/columns/modal.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Modal =
-/*#__PURE__*/
-function () {
-  function Modal(el) {
-    _classCallCheck(this, Modal);
-
-    this.el = el;
-    this.dialog = el.querySelector('.ac-modal__dialog');
-    this.initEvents();
-  }
-
-  _createClass(Modal, [{
-    key: "initEvents",
-    value: function initEvents() {
-      var _this = this;
-
-      var self = this;
-      document.addEventListener('keydown', function (e) {
-        var keyName = event.key;
-
-        if (!_this.isOpen()) {
-          return;
-        }
-
-        if ('Escape' === keyName) {
-          _this.close();
-        }
-      });
-      var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
-
-      if (dismissButtons.length > 0) {
-        dismissButtons.forEach(function (b) {
-          b.addEventListener('click', function (e) {
-            e.preventDefault();
-            self.close();
-          });
-        });
-      }
-
-      this.el.addEventListener('click', function () {
-        self.close();
-      });
-      this.el.querySelector('.ac-modal__dialog').addEventListener('click', function (e) {
-        e.stopPropagation();
-      });
-
-      if (typeof document.querySelector('body').dataset.ac_modal_init === 'undefined') {
-        Modal.initGlobalEvents();
-        document.querySelector('body').dataset.ac_modal_init = 1;
-      }
-
-      this.el.AC_MODAL = self;
-    }
-  }, {
-    key: "isOpen",
-    value: function isOpen() {
-      return this.el.classList.contains('-active');
-    }
-  }, {
-    key: "close",
-    value: function close() {
-      this.el.classList.remove('-active');
-    }
-  }, {
-    key: "open",
-    value: function open() {
-      this.el.classList.add('-active');
-    }
-  }], [{
-    key: "initGlobalEvents",
-    value: function initGlobalEvents() {
-      jQuery(document).on('click', '[data-ac-open-modal]', function (e) {
-        e.preventDefault();
-        var target = e.target.dataset.acOpenModal;
-        var el = document.querySelector(target);
-
-        if (el && el.AC_MODAL) {
-          el.AC_MODAL.open();
-        }
-      });
-    }
-  }]);
-
-  return Modal;
-}();
-
-module.exports = Modal;
-
-/***/ }),
-
 /***/ "./js/admin/columns/settings/date.js":
 /*!*******************************************!*\
   !*** ./js/admin/columns/settings/date.js ***!
@@ -1508,7 +1401,9 @@ module.exports = image;
 
 __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 
-var _modal = _interopRequireDefault(__webpack_require__(/*! ./../modal */ "./js/admin/columns/modal.js"));
+var _modals = _interopRequireDefault(__webpack_require__(/*! ../../../modules/modals */ "./js/modules/modals.js"));
+
+var _modal = _interopRequireDefault(__webpack_require__(/*! ../../../modules/modal */ "./js/modules/modal.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1533,7 +1428,7 @@ function () {
     }
 
     this._dashicon = false;
-    this.modal = AC.Modals.register(new _modal.default(this.setting.querySelector('.-iconpicker')));
+    this.modal = _modals.default.init().register(new _modal.default(this.setting.querySelector('.-iconpicker')));
     this.field = this.setting.querySelector('.ac-setting-input_label');
     this.initValue();
     this.bindEvents();
@@ -1824,6 +1719,138 @@ module.exports = width;
 
 /***/ }),
 
+/***/ "./js/modules/modal.js":
+/*!*****************************!*\
+  !*** ./js/modules/modal.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
+var _modals = _interopRequireDefault(__webpack_require__(/*! ./modals */ "./js/modules/modals.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Modal =
+/*#__PURE__*/
+function () {
+  function Modal(el) {
+    _classCallCheck(this, Modal);
+
+    if (!el) {
+      return;
+    }
+
+    this.el = el;
+    this.dialog = el.querySelector('.ac-modal__dialog');
+    this.initEvents();
+  }
+
+  _createClass(Modal, [{
+    key: "initEvents",
+    value: function initEvents() {
+      var _this = this;
+
+      var self = this;
+      document.addEventListener('keydown', function (e) {
+        var keyName = event.key;
+
+        if (!_this.isOpen()) {
+          return;
+        }
+
+        if ('Escape' === keyName) {
+          _this.close();
+        }
+      });
+      var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
+
+      if (dismissButtons.length > 0) {
+        dismissButtons.forEach(function (b) {
+          b.addEventListener('click', function (e) {
+            e.preventDefault();
+            self.close();
+          });
+        });
+      }
+
+      this.el.addEventListener('click', function () {
+        self.close();
+      });
+      this.el.querySelector('.ac-modal__dialog').addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+
+      if (typeof document.querySelector('body').dataset.ac_modal_init === 'undefined') {
+        Modal.initGlobalEvents();
+        document.querySelector('body').dataset.ac_modal_init = 1;
+      }
+
+      this.el.AC_MODAL = self;
+    }
+  }, {
+    key: "isOpen",
+    value: function isOpen() {
+      return this.el.classList.contains('-active');
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.onClose();
+      this.el.classList.remove('-active');
+    }
+  }, {
+    key: "open",
+    value: function open() {
+      this.onOpen();
+      this.el.classList.add('-active');
+    }
+  }, {
+    key: "onClose",
+    value: function onClose() {}
+  }, {
+    key: "onOpen",
+    value: function onOpen() {}
+  }], [{
+    key: "initGlobalEvents",
+    value: function initGlobalEvents() {
+      jQuery(document).on('click', '[data-ac-open-modal]', function (e) {
+        e.preventDefault();
+        var target = e.target.dataset.acOpenModal;
+        var el = document.querySelector(target);
+
+        if (el && el.AC_MODAL) {
+          el.AC_MODAL.open();
+        }
+      });
+      jQuery(document).on('click', '[data-ac-modal]', function (e) {
+        e.preventDefault();
+        var modal_key = jQuery(this).data('ac-modal');
+
+        if (_modals.default.init().get(modal_key)) {
+          _modals.default.init().get(modal_key).open();
+        }
+      });
+    }
+  }]);
+
+  return Modal;
+}();
+
+module.exports = Modal;
+
+/***/ }),
+
 /***/ "./js/modules/modals.js":
 /*!******************************!*\
   !*** ./js/modules/modals.js ***!
@@ -1871,6 +1898,16 @@ function () {
       }
 
       return false;
+    } // Bind self to global AdminColumns if exist
+
+  }], [{
+    key: "init",
+    value: function init() {
+      if (typeof AdminColumns.Modals === 'undefined') {
+        AdminColumns.Modals = new this();
+      }
+
+      return AdminColumns.Modals;
     }
   }]);
 

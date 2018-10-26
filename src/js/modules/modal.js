@@ -1,5 +1,10 @@
+import Modals from './modals'
+
 class Modal {
 	constructor( el ) {
+		if ( !el ) {
+			return;
+		}
 		this.el = el;
 		this.dialog = el.querySelector( '.ac-modal__dialog' );
 
@@ -15,6 +20,15 @@ class Modal {
 
 			if ( el && el.AC_MODAL ) {
 				el.AC_MODAL.open();
+			}
+		} );
+
+		jQuery( document ).on( 'click', '[data-ac-modal]', function( e ) {
+			e.preventDefault();
+			let modal_key = jQuery( this ).data( 'ac-modal' );
+
+			if ( Modals.init().get( modal_key ) ) {
+				Modals.init().get( modal_key ).open();
 			}
 		} );
 
@@ -66,12 +80,19 @@ class Modal {
 	}
 
 	close() {
+		this.onClose();
 		this.el.classList.remove( '-active' );
 	}
 
 	open() {
+		this.onOpen();
 		this.el.classList.add( '-active' );
 	}
+
+	onClose() {}
+
+	onOpen() {}
+
 }
 
 module.exports = Modal;

@@ -29,9 +29,9 @@ class Addon {
 
 	/**
 	 * Plugin folder name
-	 * @var AC\PluginInformation
+	 * @var string
 	 */
-	private $addon;
+	private $addon_dirname;
 
 	/**
 	 * Plugin basename. Example: plugin/plugin.php
@@ -52,7 +52,7 @@ class Addon {
 	private $plugin_url;
 
 	public function __construct( $addon_dirname ) {
-		$this->addon = new AC\PluginInformation( $addon_dirname );
+		$this->addon_dirname = $addon_dirname;
 	}
 
 	/**
@@ -82,12 +82,12 @@ class Addon {
 	}
 
 	/**
-	 * @param string $plugin
+	 * @param string $basename
 	 *
 	 * @return $this
 	 */
-	protected function add_plugin( $plugin ) {
-		$this->plugins[] = new AC\PluginInformation( $plugin );
+	protected function add_plugin( $basename ) {
+		$this->plugins[] = new AC\PluginInformation( $basename );
 
 		return $this;
 	}
@@ -104,7 +104,7 @@ class Addon {
 	 */
 	public function get_link() {
 		if ( null === $this->link ) {
-			$this->set_link( ac_get_site_utm_url( 'pricing-purchase', 'addon', $this->addon->get_dirname() ) );
+			$this->set_link( ac_get_site_utm_url( 'pricing-purchase', 'addon', $this->addon_dirname ) );
 		}
 
 		return $this->link;
@@ -177,40 +177,44 @@ class Addon {
 		return $this;
 	}
 
+	private function get_addon() {
+		return AC\PluginInformation::create_by_dirname( $this->addon_dirname );
+	}
+
 	/**
 	 * Plugin folder name
 	 * @return string
 	 */
 	public function get_slug() {
-		return $this->addon->get_dirname();
+		return $this->get_addon()->get_dirname();
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function is_installed() {
-		return $this->addon->is_installed();
+		return $this->get_addon()->is_installed();
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function is_active() {
-		return $this->addon->is_active();
+		return $this->get_addon()->is_active();
 	}
 
 	/**
 	 * @return string|false Returns the plugin version if the plugin is installed, false otherwise
 	 */
 	public function get_version() {
-		return $this->addon->get_version();
+		return $this->get_addon()->get_version();
 	}
 
 	/**
 	 * @return string Basename
 	 */
 	public function get_basename() {
-		return $this->addon->get_basename();
+		return $this->get_addon()->get_basename();
 	}
 
 	/**
@@ -305,11 +309,11 @@ class Addon {
 	 * Activate or Deactivate plugin
 	 *
 	 * @param string $action
-	 * @param        $basename
+	 * @param string $basename
 	 *
 	 * @return string
 	 */
-	private function get_plugin_action_url( $action = 'activate', $basename ) {
+	private function get_plugin_action_url( $action, $basename ) {
 		$plugin_url = add_query_arg( array(
 			'action'      => $action,
 			'plugin'      => $basename,

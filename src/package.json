@@ -12,7 +12,7 @@
     "rimraf": "latest",
     "svg-symbols": "1.0.4",
     "svgstore-cli": "1.3.1",
-    "webfont": "8.1.2",
+    "webfont": "8.1.4",
     "webpack-cli": "^3.0.8",
     "wp-pot": "latest"
   },
@@ -20,16 +20,20 @@
     "ac:build:production": "nps build.production && npm run ac:languages",
     "ac:build:development": "nps build.development",
     "ac:languages": "nps languages.production",
-    "ac:webfont": "nps webfont.build",
+    "ac:webfont": "webfont svg/*.svg --dest webfont/fonts --dest-template webfont/scss & nps webfont.build",
+    "ac:webfont2": "nps webfont.build",
     "ac:svgsymbols": "svgstore ./svg-symbols/*.svg -o ../assets/images/symbols.svg"
   },
   "webfont": {
-    "formats": "woff",
+    "formats": [
+      "woff2",
+      "woff"
+    ],
     "template": "./webfont/template.scss.njk",
     "fontName": "cpac_icons",
     "fontHeight": "1000",
-    "cssTemplateFontPath": "../fonts/",
-    "cssTemplateClassName": "cpacicon",
+    "templateFontPath": "../fonts/",
+    "templateClassName": "cpacicon",
     "normalize": true
   },
   "dependencies": {

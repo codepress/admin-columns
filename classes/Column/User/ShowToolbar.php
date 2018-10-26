@@ -19,13 +19,11 @@ class ShowToolbar extends Column {
 	}
 
 	public function get_raw_value( $user_id ) {
-		return 'true' == $this->show_admin_bar_front( $user_id );
+		return $this->show_admin_bar_front( $user_id );
 	}
 
 	private function show_admin_bar_front( $user_id ) {
-		$userdata = get_userdata( $user_id );
-
-		return $userdata->show_admin_bar_front;
+		return 'true' == get_userdata( $user_id )->show_admin_bar_front;
 	}
 
 }

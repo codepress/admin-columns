@@ -93,8 +93,8 @@ function ac_helper() {
  * Starter-kit: https://github.com/codepress/ac-column-template/
  * @since 2.2
  *
- * @param array $list_screen_keys
- * @param array $column_data
+ * @param array|string $list_screen_keys
+ * @param array        $column_data
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	AC()->api()->load_columndata( $list_screen_keys, $column_data );

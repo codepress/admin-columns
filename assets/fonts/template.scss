@@ -1,5 +1,6 @@
 $cpac_icons-draft: "\ea01";
 $cpac_icons-move: "\ea02";
+$cpac_icons-segment: "\ea03";
 
 @font-face {
     font-family: "cpac_icons";
@@ -30,4 +31,8 @@ $cpac_icons-move: "\ea02";
 
 .cpac_icons-move::before {
     content: $cpac_icons-move;
+}
+
+.cpac_icons-segment::before {
+    content: $cpac_icons-segment;
 }

@@ -18,15 +18,11 @@ class Role extends Column\Meta {
 		return null;
 	}
 
-	// Meta
-
 	public function get_meta_key() {
 		global $wpdb;
 
 		return $wpdb->get_blog_prefix() . 'capabilities'; // WPMU compatible
 	}
-
-	// Settings
 
 	public function register_settings() {
 		$this->get_setting( 'width' )->set_default( 15 );

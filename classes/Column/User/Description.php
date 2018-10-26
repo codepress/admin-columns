@@ -8,11 +8,15 @@ use AC\Settings;
 /**
  * @since 2.0
  */
-class Description extends Column {
+class Description extends Column\Meta {
 
 	public function __construct() {
 		$this->set_type( 'column-user_description' );
 		$this->set_label( __( 'Description', 'codepress-admin-columns' ) );
+	}
+
+	public function get_meta_key() {
+		return 'description';
 	}
 
 	public function get_raw_value( $user_id ) {

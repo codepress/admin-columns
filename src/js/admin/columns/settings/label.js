@@ -1,4 +1,5 @@
-import Modal from "./../modal";
+import Modals from "../../../modules/modals";
+import Modal from "../../../modules/modal";
 
 class Label {
 	constructor( column ) {
@@ -12,7 +13,7 @@ class Label {
 		}
 
 		this._dashicon = false;
-		this.modal = AC.Modals.register( new Modal( this.setting.querySelector( '.-iconpicker' ) ) );
+		this.modal = Modals.init().register( new Modal( this.setting.querySelector( '.-iconpicker' ) ) );
 		this.field = this.setting.querySelector( '.ac-setting-input_label' );
 
 		this.initValue();
