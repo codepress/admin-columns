@@ -23,7 +23,7 @@ jQuery( document ).ready( function( $ ) {
 	AdminColumns.Tooltips = new Tooltip();
 
 	$( '.wp-list-table' ).on( 'updated', 'tr', function() {
-		ac_set_column_classes( $ );
+		AdminColumns.Table.addCellClasses();
 		ac_actions_column( $, $( this ).find( '.column-actions' ) );
 		ac_show_more( $ );
 	} );
@@ -96,7 +96,7 @@ function ac_toggle_box_ajax_init( $ ) {
 				$( $this.parent( 'td' ) ).trigger( 'ajax_column_value_ready' );
 
 				// Re-init tooltips
-				AdminColumns.Tooltips().init();
+				AdminColumns.Tooltips.init();
 			}
 		} );
 
