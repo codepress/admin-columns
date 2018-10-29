@@ -1,5 +1,6 @@
 /**
  * AC variables. Defined in DOM.
+ * @param AdminColumns {Object}
  * @param AC {Object}
  * @param AC.list_screen {String}
  * @param AC.layout {String}
@@ -30,12 +31,13 @@ import SettingLabel from './admin/columns/settings/label';
 
 let jQuery = $ = require( 'jquery' );
 
-AC.Column = new Initiator();
+AC.Column = new Initiator(); // Todo remove from
+AdminColumns.Column = AC.Column;
 
 jQuery( document ).on( 'AC_Form_Loaded', function() {
 
 	/** Register Events **/
-	AC.Column
+	AdminColumns.Column
 		.registerEvent( 'toggle', EventToggle )
 		.registerEvent( 'remove', EventRemove )
 		.registerEvent( 'clone', EventClone )

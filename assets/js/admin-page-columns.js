@@ -140,6 +140,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /**
  * AC variables. Defined in DOM.
+ * @param AdminColumns {Object}
  * @param AC {Object}
  * @param AC.list_screen {String}
  * @param AC.layout {String}
@@ -151,10 +152,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /** Settings */
 var jQuery = $ = __webpack_require__(/*! jquery */ "jquery");
 
-AC.Column = new _initiator.default();
+AC.Column = new _initiator.default(); // Todo remove from
+
+AdminColumns.Column = AC.Column;
 jQuery(document).on('AC_Form_Loaded', function () {
   /** Register Events **/
-  AC.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
+  AdminColumns.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
   /** Register Settings **/
   .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default).registerSetting('label', _label2.default);
 });
