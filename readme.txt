@@ -213,7 +213,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= 3.4beta =
+= 3.3beta =
 Release Date: October 24th, 2018
 
 * [Improved] Extra display for Path column to show the local path of a file
