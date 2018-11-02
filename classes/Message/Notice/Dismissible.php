@@ -18,13 +18,13 @@ class Dismissible extends Notice {
 	 * @param Handler|null $handler
 	 */
 	public function __construct( $message, Handler $handler = null ) {
-		parent::__construct( $message );
-
 		if ( null === $handler ) {
 			$handler = new NullHandler();
 		}
 
 		$this->handler = $handler;
+
+		parent::__construct( $message );
 	}
 
 	public function create_view() {
