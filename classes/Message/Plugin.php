@@ -18,10 +18,10 @@ class Plugin extends Message {
 	protected $icon;
 
 	/**
-	 * @param string $plugin_basename
 	 * @param string $message
+	 * @param string $plugin_basename
 	 */
-	public function __construct( $plugin_basename, $message ) {
+	public function __construct( $message, $plugin_basename ) {
 		parent::__construct( $message );
 
 		$this->plugin_basename = $plugin_basename;

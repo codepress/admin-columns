@@ -7,18 +7,6 @@ use AC\View;
 
 class Notice extends Message {
 
-	/**
-	 * @param string $message
-	 *
-	 * @return Notice
-	 */
-	public static function with_register( $message ) {
-		$notice = new static( $message );
-		$notice->register();
-
-		return $notice;
-	}
-
 	public function create_view() {
 		$data = array(
 			'message' => $this->message,
