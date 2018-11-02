@@ -168,7 +168,7 @@ class Addons extends Page {
 			$error = apply_filters( 'ac/addons/install_request/maybe_error', false, $addon->get_slug() );
 		}
 
-		if ( false !== $error ) {
+		if ( $error ) {
 			Notice::with_register()
 			      ->set_message( $error )
 			      ->set_type( Notice::ERROR );
