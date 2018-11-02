@@ -86,7 +86,7 @@ class AdminColumns extends Plugin {
 		add_action( 'ac/screen/quick_edit', array( $this, 'init_table_on_quick_edit' ) );
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ),1 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ), 1 );
 	}
 
 	/**
@@ -181,7 +181,7 @@ class AdminColumns extends Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.2.7';
+		return '3.3';
 	}
 
 	/**

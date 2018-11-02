@@ -23,23 +23,23 @@ msgstr ""
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/AdminColumns.php:114
+#: classes/AdminColumns.php:116
 msgid "Invalid item ID."
 msgstr ""
 
-#: classes/AdminColumns.php:120
+#: classes/AdminColumns.php:122
 msgid "Invalid list screen."
 msgstr ""
 
-#: classes/AdminColumns.php:126
+#: classes/AdminColumns.php:128
 msgid "Invalid column."
 msgstr ""
 
-#: classes/AdminColumns.php:130
+#: classes/AdminColumns.php:132
 msgid "Invalid method."
 msgstr ""
 
-#: classes/AdminColumns.php:211, classes/Admin/Page/Settings.php:19
+#: classes/AdminColumns.php:213, classes/Admin/Page/Settings.php:19
 msgid "Settings"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: classes/Admin/Addon.php:279
+#: classes/Admin/Addon.php:283
 msgid "Display and edit %s fields in the posts overview in seconds!"
 msgstr ""
 
