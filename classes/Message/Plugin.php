@@ -19,9 +19,10 @@ class Plugin extends Message {
 
 	/**
 	 * @param string $plugin_basename
+	 * @param string $message
 	 */
-	public function __construct( $plugin_basename ) {
-		parent::__construct();
+	public function __construct( $plugin_basename, $message ) {
+		parent::__construct( $message );
 
 		$this->plugin_basename = $plugin_basename;
 		$this->type = self::WARNING;
@@ -81,17 +82,6 @@ class Plugin extends Message {
 		}
 
 		return $mapping[ $this->type ];
-	}
-
-	/**
-	 * @param string $type
-	 *
-	 * @return $this
-	 */
-	public function set_type( $type ) {
-		$this->type = $type;
-
-		return $this;
 	}
 
 	/**

@@ -7,8 +7,13 @@ use AC\View;
 
 class Notice extends Message {
 
-	public static function with_register() {
-		$notice = new self();
+	/**
+	 * @param string $message
+	 *
+	 * @return Notice
+	 */
+	public static function with_register( $message ) {
+		$notice = new static( $message );
 		$notice->register();
 
 		return $notice;

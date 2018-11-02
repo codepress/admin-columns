@@ -3,15 +3,13 @@
 namespace AC;
 
 use Exception;
+use LogicException;
 
 abstract class Message {
 
 	const SUCCESS = 'updated';
-
 	const ERROR = 'notice-error';
-
 	const WARNING = 'notice-warning';
-
 	const INFO = 'notice-info';
 
 	/**
@@ -29,8 +27,30 @@ abstract class Message {
 	 */
 	protected $id;
 
-	public function __construct() {
+	/**
+	 * @var View
+	 */
+	protected $view;
+
+	/**
+	 * @param string $message
+	 */
+	public function __construct( $message ) {
 		$this->type = self::SUCCESS;
+		$this->message = trim( $message );
+		$this->view = $this->create_view();
+
+		$this->validate();
+	}
+
+	private function validate() {
+		if ( empty( $this->message ) ) {
+			throw new LogicException( 'Message cannot be empty' );
+		}
+
+		if ( ! $this->view instanceof View ) {
+			throw new LogicException( 'AC\Notice::create_view should return an instance of View' );
+		}
 	}
 
 	/**
@@ -41,21 +61,11 @@ abstract class Message {
 
 	/**
 	 * Render an View
+	 *
 	 * @return string
-	 * @throws Exception
 	 */
 	public function render() {
-		if ( empty( $this->message ) ) {
-			throw new Exception( 'Message cannot be empty' );
-		}
-
-		$view = $this->create_view();
-
-		if ( ! ( $view instanceof View ) ) {
-			throw new Exception( 'AC\Notice::create_view should return an instance of View' );
-		}
-
-		return $view->render();
+		return $this->view->render();
 	}
 
 	/**
@@ -71,17 +81,6 @@ abstract class Message {
 	 */
 	public function get_message() {
 		return $this->message;
-	}
-
-	/**
-	 * @param string $message
-	 *
-	 * @return $this
-	 */
-	public function set_message( $message ) {
-		$this->message = $message;
-
-		return $this;
 	}
 
 	/**

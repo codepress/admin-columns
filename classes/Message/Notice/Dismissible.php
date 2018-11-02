@@ -13,8 +13,12 @@ class Dismissible extends Notice {
 	 */
 	protected $handler;
 
-	public function __construct( Handler $handler = null ) {
-		parent::__construct();
+	/**
+	 * @param string       $message
+	 * @param Handler|null $handler
+	 */
+	public function __construct( $message, Handler $handler = null ) {
+		parent::__construct( $message );
 
 		if ( null === $handler ) {
 			$handler = new NullHandler();
@@ -24,12 +28,9 @@ class Dismissible extends Notice {
 	}
 
 	public function create_view() {
-		$view = parent::create_view();
-
-		$view->set_template( 'message/notice/dismissible' )
-		     ->set( 'dismissible_callback', $this->handler->get_params() );
-
-		return $view;
+		return parent::create_view()
+			->set_template( 'message/notice/dismissible' )
+			->set( 'dismissible_callback', $this->handler->get_params() );
 	}
 
 	/**
