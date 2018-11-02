@@ -1,6 +1,8 @@
 //@import 'webfont';
 //@import 'iconfont';
 @import '_colors';
+@import '_webfont';
+@import '_modals';
 
 /* =Status icons
 -------------------------------------------------------------- */
@@ -838,10 +840,19 @@ div.cpac-color span {
 }
 
 .ac-table-actions {
+	display: none;
+	position: relative;
+	z-index: 20;
 	float: left;
 	white-space: nowrap;
 	margin-right: 5px;
 	margin-left: 1px;
+	margin-top: 3px;
+	margin-bottom: 5px;
+
+	&.-init {
+		display: block;
+	}
 
 	.ac-table-actions-buttons {
 		white-space: nowrap;
@@ -876,7 +887,7 @@ div.cpac-color span {
 	.ac-table-button {
 		display: inline-block;
 		padding: 2px 12px;
-
+		cursor: pointer;
 		color: #555;
 		background: #f7f7f7;
 		text-decoration: none;
@@ -942,6 +953,29 @@ div.cpac-color span {
 				color: #888;
 			}
 		}
+
+		&.-segment {
+
+		}
+
+		&__caret {
+			display: inline-block;
+			vertical-align: middle;
+			width: 0;
+			height: 0;
+			border-left: 3px solid transparent;
+			border-right: 3px solid transparent;
+			border-top: 4px solid #6F6F6F;
+			transition: transform .2s;
+		}
+
+		&.-open {
+			color: #0072AA;
+			.ac-table-button__caret {
+				transform: rotate(180deg);
+
+			}
+		}
 	}
 }
 
@@ -997,6 +1031,7 @@ div.cpac-color span {
 	input:checked {
 		+ .ac-toggle__switch {
 			background: #1e8cbe;
+
 			.ac-toggle__switch__track {
 				left: calc(100% - 13px);
 			}

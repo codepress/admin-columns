@@ -12,6 +12,8 @@ class Modals {
 
 		this.modals[ key ] = modal;
 		this.number++;
+
+		return modal;
 	}
 
 	get( key ) {
@@ -21,6 +23,16 @@ class Modals {
 
 		return false;
 	}
+
+	// Bind self to global AdminColumns if exist
+	static init() {
+		if ( typeof AdminColumns.Modals === 'undefined' ) {
+			AdminColumns.Modals = new this();
+		}
+
+		return AdminColumns.Modals;
+	}
+
 }
 
 module.exports = Modals;

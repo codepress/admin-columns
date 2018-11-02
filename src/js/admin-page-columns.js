@@ -1,18 +1,17 @@
 /**
  * AC variables. Defined in DOM.
+ * @param AdminColumns {Object}
  * @param AC {Object}
  * @param AC.list_screen {String}
  * @param AC.layout {String}
  * @param AC.i81n {String}
  */
-
 import Form from "./admin/columns/form";
 import Modals from "./modules/modals";
 import Initiator from "./admin/columns/initiator";
-import Modal from "./admin/columns/modal";
+import Modal from "./modules/modal";
 import Menu from "./admin/columns/menu";
 import Feedback from "./admin/columns/feedback";
-
 /** Events */
 import EventToggle from './admin/columns/events/toggle';
 import EventRemove from './admin/columns/events/remove';
@@ -22,23 +21,23 @@ import EventTypeSelector from './admin/columns/events/type-selector';
 import EventIndicator from './admin/columns/events/indicator';
 import EventLabel from './admin/columns/events/label';
 import EventAddons from './admin/columns/events/addons';
-
 /** Settings */
 import SettingImageSize from './admin/columns/settings/image-size';
 import SettingSubSettingToggle from './admin/columns/settings/sub-setting-toggle';
 import SettingDate from './admin/columns/settings/date';
 import SettingPro from './admin/columns/settings/pro';
 import SettingWidth from './admin/columns/settings/width';
+import SettingLabel from './admin/columns/settings/label';
 
 let jQuery = $ = require( 'jquery' );
 
-AC.Column = new Initiator();
-AC.Modals = new Modals();
+AC.Column = new Initiator(); // Todo remove from
+AdminColumns.Column = AC.Column;
 
 jQuery( document ).on( 'AC_Form_Loaded', function() {
 
 	/** Register Events **/
-	AC.Column
+	AdminColumns.Column
 		.registerEvent( 'toggle', EventToggle )
 		.registerEvent( 'remove', EventRemove )
 		.registerEvent( 'clone', EventClone )
@@ -54,12 +53,13 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 		.registerSetting( 'image_size', SettingImageSize )
 		.registerSetting( 'pro', SettingPro )
 		.registerSetting( 'sub_setting_toggle', SettingSubSettingToggle )
-		.registerSetting( 'width', SettingWidth );
+		.registerSetting( 'width', SettingWidth )
+		.registerSetting( 'label', SettingLabel );
 } );
 
 jQuery( document ).ready( function() {
 	AC.Form = new Form( '#cpac .ac-columns form' );
-	AC.Modals.register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
+	Modals.init().register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
 
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );

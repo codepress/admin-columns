@@ -15,7 +15,7 @@ module.exports = {
 			development : `webpack --mode=development`,
 		},
 		webfont : {
-			build : `nps "webfont.create_fonts" & nps "webfont.copy_fonts" & nps "webfont.copy_scss"`,
+			build : `nps "webfont.copy_fonts" & nps "webfont.copy_scss" & nps "styles.production"`,
 			create_fonts : `webfont svg/*.svg --dest webfont/fonts --dest-styles webfont/scss`,
 			copy_fonts : `cp -a webfont/fonts/. ${core_path}fonts/`,
 			copy_scss : `cp webfont/scss/template.scss scss/_webfont.scss`,

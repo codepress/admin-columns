@@ -1,6 +1,7 @@
 class Actions {
-	constructor( el ) {
-		this.$el = jQuery( el );
+	constructor( id ) {
+		this.container = document.getElementById( id );
+		this.buttons = this.container.querySelector( '.ac-table-actions-buttons' );
 
 		this.init();
 	}
@@ -8,17 +9,33 @@ class Actions {
 	init() {
 		let self = this;
 
-		this.$el.on( 'update', function() {
+		this.dropDownEvents();
+
+		jQuery( this.container ).on( 'update', function() {
 			self.refresh();
-		} ).appendTo( jQuery( '.tablenav.top .actions:last' ) ).trigger( 'update' );
+		} ).insertAfter( jQuery( '.tablenav.top .actions:last' ) ).addClass( '-init' ).trigger( 'update' );
 	}
 
 	refresh() {
-		let $buttons = this.$el.find( '.ac-table-actions-buttons' );
+		let $buttons = jQuery( this.buttons );
 
 		$buttons.find( '> a' ).removeClass( 'last' );
 		$buttons.find( '> a:visible:last' ).addClass( 'last' );
 	}
+
+	dropDownEvents() {
+		jQuery( this.buttons ).on( 'click', '[data-dropdown]', function() {
+			let $button = jQuery( this );
+			$button.toggleClass( '-open' );
+
+			if ( $button.hasClass( '-open' ) ) {
+				$button[ 0 ].dispatchEvent( new CustomEvent( 'open' ) );
+			} else {
+				$button[ 0 ].dispatchEvent( new CustomEvent( 'closed' ) );
+			}
+		} );
+	}
+
 }
 
 module.exports = Actions;

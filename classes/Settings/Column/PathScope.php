@@ -25,6 +25,7 @@ class PathScope extends Settings\Column
 			               'full'             => __( 'Full Path', 'codepress-admin-columns' ),
 			               'relative-domain'  => __( 'Relative to domain', 'codepress-admin-columns' ),
 			               'relative-uploads' => __( 'Relative to main uploads folder', 'codepress-admin-columns' ),
+			               'local'            => __( 'Local Path', 'codepress-admin-columns' ),
 		               ) );
 
 		$view = new View( array(
@@ -78,6 +79,10 @@ class PathScope extends Settings\Column
 					if ( strpos( $file, $url ) === 0 ) {
 						$file = substr( $file, strlen( $url ) );
 					}
+
+					break;
+				case 'local' :
+					$file = get_attached_file( $original_value );
 
 					break;
 			}

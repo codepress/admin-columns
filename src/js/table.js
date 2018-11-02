@@ -1,9 +1,12 @@
 import Table from "./table/table";
 import Tooltip from "./table/tooltips";
+import Modals from "./modules/modals";
+
+Modals.init();
 
 jQuery( document ).ready( function( $ ) {
 	ac_quickedit_events( $ );
-	ac_set_column_classes( $ );
+
 	ac_actions_column( $, $( '.column-actions' ) );
 
 	ac_show_more( $ );
@@ -11,11 +14,16 @@ jQuery( document ).ready( function( $ ) {
 	ac_toggle_box_ajax_init( $ );
 	ac_actions_tooltips( $ );
 
-	AC.Table = new Table( '.wp-list-table' );
-	AC.Tooltips = new Tooltip();
+	let table = document.querySelector( AC.table_id );
+	if ( table ) {
+		AdminColumns.Table = new Table( table.parentElement );
+		AC.Table = AdminColumns.Table; // TODO use AdminColumns instead of AC
+	}
+
+	AdminColumns.Tooltips = new Tooltip();
 
 	$( '.wp-list-table' ).on( 'updated', 'tr', function() {
-		ac_set_column_classes( $ );
+		AdminColumns.Table.addCellClasses();
 		ac_actions_column( $, $( this ).find( '.column-actions' ) );
 		ac_show_more( $ );
 	} );
@@ -88,7 +96,7 @@ function ac_toggle_box_ajax_init( $ ) {
 				$( $this.parent( 'td' ) ).trigger( 'ajax_column_value_ready' );
 
 				// Re-init tooltips
-				AC.Tooltips().init();
+				AdminColumns.Tooltips.init();
 			}
 		} );
 
@@ -133,16 +141,6 @@ function ac_actions_column( $, $selector ) {
 	} );
 }
 
-function ac_set_column_classes( $ ) {
-	for ( let name in AC.column_types ) {
-		if ( AC.column_types.hasOwnProperty( name ) ) {
-			let type = AC.column_types[ name ];
-
-			$( '.wp-list-table td.' + name ).addClass( type );
-		}
-	}
-}
-
 function ac_quickedit_events( $ ) {
 
 	$( document ).ajaxComplete( function( event, request ) {
@@ -158,3 +156,22 @@ function ac_quickedit_events( $ ) {
 	} );
 
 }
+
+/** CustomEvent Polyfill */
+(function() {
+
+	if ( typeof window.CustomEvent === "function" ) {
+		return false;
+	}
+
+	function CustomEvent( event, params ) {
+		params = params || { bubbles : false, cancelable : false, detail : undefined };
+		let evt = document.createEvent( 'CustomEvent' );
+		evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+		return evt;
+	}
+
+	CustomEvent.prototype = window.Event.prototype;
+
+	window.CustomEvent = CustomEvent;
+})();

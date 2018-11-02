@@ -11,8 +11,8 @@ use AC\Column;
 class Excerpt extends Column {
 
 	public function __construct() {
-		$this->set_type( 'column-excerpt' );
-		$this->set_label( __( 'Content', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-excerpt' )
+		     ->set_label( __( 'Content', 'codepress-admin-columns' ) );
 	}
 
 	public function get_raw_value( $id ) {

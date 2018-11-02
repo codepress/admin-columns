@@ -246,6 +246,7 @@ final class Screen {
 				'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
 				'table_id'     => $this->list_screen->get_table_attr_id(),
 				'screen'       => $this->get_current_screen_id(),
+				'meta_type'    => $this->list_screen->get_meta_type(),
 			)
 		);
 
