@@ -161,7 +161,6 @@ class Addons extends Page {
 			return;
 		}
 
-		// todo: basename
 		$error_message = apply_filters( 'ac/addons/install_request/maybe_error', false, $integration->get_slug() );
 
 		if ( $error_message ) {
