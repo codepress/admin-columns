@@ -27,11 +27,6 @@ class AdminColumns extends Plugin {
 	private $api;
 
 	/**
-	 * @var Admin\Addons
-	 */
-	private $addons;
-
-	/**
 	 * @var ListScreen[]
 	 */
 	private $list_screens;
@@ -56,14 +51,10 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
-		// Third Party
 		new ThirdParty\ACF();
 		new ThirdParty\NinjaForms();
 		new ThirdParty\WooCommerce();
 		new ThirdParty\WPML();
-
-		// Init
-		$this->addons = new Admin\Addons();
 
 		$this->api = new API();
 
@@ -155,8 +146,11 @@ class AdminColumns extends Plugin {
 	public function notice_checks() {
 		$checks = array(
 			new Check\Review(),
-			new Check\AddonAvailable(),
 		);
+
+		foreach ( Integrations::get() as $integration ) {
+			$checks[] = new Check\AddonAvailable( $integration );
+		}
 
 		foreach ( $checks as $check ) {
 			$check->register();
@@ -237,14 +231,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function admin() {
 		return $this->admin;
-	}
-
-	/**
-	 * @since 2.2
-	 * @return Admin\Addons Add-ons class instance
-	 */
-	public function addons() {
-		return $this->addons;
 	}
 
 	/**

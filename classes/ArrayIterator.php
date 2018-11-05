@@ -2,8 +2,10 @@
 
 namespace AC;
 
+use Iterator;
+
 class ArrayIterator
-	implements \Iterator {
+	implements Iterator {
 
 	/**
 	 * @var array
@@ -53,7 +55,7 @@ class ArrayIterator
 	}
 
 	/**
-	 * @param $key
+	 * @param string $offset
 	 *
 	 * @return false|mixed
 	 */
@@ -66,7 +68,7 @@ class ArrayIterator
 	}
 
 	/**
-	 * @param $key
+	 * @param string $offset
 	 *
 	 * @return bool
 	 */

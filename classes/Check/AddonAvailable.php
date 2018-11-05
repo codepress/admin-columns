@@ -4,13 +4,22 @@ namespace AC\Check;
 
 use AC\Ajax;
 use AC\Capabilities;
+use AC\Integration;
 use AC\Message\Notice;
+use AC\PluginInformation;
 use AC\Preferences;
 use AC\Registrable;
 use AC\Screen;
 
 class AddonAvailable
 	implements Registrable {
+
+	/** @var Integration */
+	private $integration;
+
+	public function __construct( Integration $integration ) {
+		$this->integration = $integration;
+	}
 
 	/**
 	 * @throws \Exception
@@ -27,7 +36,7 @@ class AddonAvailable
 	private function get_ajax_handler() {
 		$handler = new Ajax\Handler();
 
-		$handler->set_action( 'ac_dismiss_notice_addon_available' )
+		$handler->set_action( 'ac_dismiss_notice_addon_' . $this->integration->get_slug() )
 		        ->set_callback( array( $this, 'ajax_dismiss_notice' ) );
 
 		return $handler;
@@ -37,7 +46,7 @@ class AddonAvailable
 	 * @return Preferences\User
 	 */
 	protected function get_preferences() {
-		return new Preferences\User( 'check-addon-available' );
+		return new Preferences\User( 'check-addon-available-' . $this->integration->get_slug() );
 	}
 
 	/**
@@ -45,6 +54,7 @@ class AddonAvailable
 	 */
 	public function ajax_dismiss_notice() {
 		$this->get_ajax_handler()->verify_request();
+
 		$this->get_preferences()->set( 'dismiss-notice', true );
 	}
 
@@ -56,33 +66,32 @@ class AddonAvailable
 			return;
 		}
 
+		if ( ! $this->integration->show_notice( $screen ) ) {
+			return;
+		}
+
+		if ( ! $this->integration->is_plugin_active() ) {
+			return;
+		}
+
 		if ( $this->get_preferences()->get( 'dismiss-notice' ) ) {
 			return;
 		}
 
-		$titles = array();
+		$integration_info = new PluginInformation( $this->integration->get_basename() );
 
-		foreach ( AC()->addons()->get_addons() as $addon ) {
-			if ( ! $addon->is_plugin_active() ) {
-				continue;
-			}
-
-			if ( $addon->is_active() ) {
-				continue;
-			}
-
-			if ( ! $screen->is_list_screen() && ! $screen->is_admin_screen() && ! $addon->is_notice_screen() ) {
-				continue;
-			}
-
-			$titles[] = '<strong>' . $addon->get_title() . '</strong>';
-		}
-
-		if ( ! $titles ) {
+		if ( $integration_info->is_active() ) {
 			return;
 		}
 
-		$message = sprintf( __( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ), ac_helper()->string->enumeration_list( $titles, 'and' ), ac_helper()->html->link( AC()->admin()->get_link( 'addons' ), __( 'the addons page', 'codepress-admin-columns' ) ) );
+		$message = sprintf(
+			__( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ),
+			sprintf( '<strong>%s</strong>', $this->integration->get_title() ),
+			ac_helper()->html->link(
+				AC()->admin()->get_link( 'addons' ),
+				__( 'the addons page', 'codepress-admin-columns' )
+			)
+		);
 
 		$notice = new Notice\Dismissible( $this->get_ajax_handler() );
 		$notice->set_message( $message )

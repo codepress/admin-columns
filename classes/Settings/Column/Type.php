@@ -63,6 +63,23 @@ class Type extends Column {
 	}
 
 	/**
+	 * @return \AC\Integration[]
+	 */
+	private function get_missing_integrations() {
+		$integrations = AC\Integrations::get();
+
+		foreach ( $integrations as $name => $integration ) {
+			$plugin_info = new AC\PluginInformation( $integration->get_basename() );
+
+			if ( ! $integration->is_plugin_active() || $plugin_info->is_active() ) {
+				unset( $integrations[ $name ] );
+			}
+		}
+
+		return $integrations;
+	}
+
+	/**
 	 * @return Groups
 	 */
 	private function column_groups() {
@@ -73,8 +90,8 @@ class Type extends Column {
 		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 30 );
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
 
-		foreach ( AC()->addons()->get_missing_addons() as $addon ) {
-			$groups->register_group( $addon->get_slug(), $addon->get_title(), 11 );
+		foreach ( $this->get_missing_integrations() as $integration ) {
+			$groups->register_group( $integration->get_slug(), $integration->get_title(), 11 );
 		}
 
 		do_action( 'ac/column_groups', $groups );

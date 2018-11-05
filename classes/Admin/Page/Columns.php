@@ -8,9 +8,11 @@ use AC\Admin\Promo;
 use AC\Autoloader;
 use AC\Capabilities;
 use AC\Column;
+use AC\Integrations;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenGroups;
+use AC\PluginInformation;
 use AC\Preferences;
 use AC\Settings;
 
@@ -429,6 +431,23 @@ class Columns extends Page {
 	}
 
 	/**
+	 * @return \AC\Integration[]
+	 */
+	private function get_missing_integrations() {
+		$integrations = Integrations::get();
+
+		foreach ( $integrations as $name => $integration ) {
+			$plugin_info = new PluginInformation( $integration->get_basename() );
+
+			if ( ! $integration->is_plugin_active() || $plugin_info->is_active() ) {
+				unset( $integrations[ $name ] );
+			}
+		}
+
+		return $integrations;
+	}
+
+	/**
 	 * Display
 	 */
 	public function display() {
@@ -536,12 +555,17 @@ class Columns extends Page {
 
 									</ul>
 
-									<?php if ( $promos = AC()->addons()->get_missing_addons() ) : ?>
+									<?php
+									$integrations = $this->get_missing_integrations();
+
+									if ( $integrations ) : ?>
 										<strong><?php _e( 'Extra Columns for:', 'codepress-admin-columns' ); ?></strong>
 										<ul>
-											<?php foreach ( $promos as $addon ) : ?>
+											<?php foreach ( $integrations as $integration ) : ?>
 												<li class="acp-integration">
-													<a href="<?php echo esc_url( $addon->get_link() ); ?>" target="_blank"><?php $addon->display_promo(); ?></a>
+													<a href="<?php echo esc_url( $integration->get_link() ); ?>" target="_blank">
+														<strong><?php echo $integration->get_title(); ?></strong>
+													</a>
 												</li>
 											<?php endforeach; ?>
 										</ul>

@@ -29,6 +29,7 @@ abstract class Message {
 	 */
 	protected $id;
 
+	// todo: add message to construct
 	public function __construct() {
 		$this->type = self::SUCCESS;
 	}
