@@ -55,7 +55,7 @@ class Screen {
 	 * @return bool
 	 */
 	public function has_screen() {
-		return ! empty( $this->screen );
+		return $this->screen instanceof WP_Screen;
 	}
 
 	/**
