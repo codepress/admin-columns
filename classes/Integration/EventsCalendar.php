@@ -36,8 +36,8 @@ class EventsCalendar extends Integration {
 	}
 
 	public function show_notice( Screen $screen ) {
-		return 'edit' === $screen->get_screen()->base &&
-		       in_array( $screen->get_screen()->post_type, $this->get_post_types() );
+		return 'edit' === $screen->get_base() &&
+		       in_array( $screen->get_post_type(), $this->get_post_types() );
 	}
 
 	public function show_placeholder( ListScreen $list_screen ) {

@@ -11,7 +11,7 @@ class WooCommerce extends Integration {
 
 	public function __construct() {
 		parent::__construct(
-			'ac-addon-types/ac-addon-woocommerce.php',
+			'ac-addon-woocommerce/ac-addon-woocommerce.php',
 			__( 'WooCommerce', 'codepress-admin-columns' ),
 			'assets/images/addons/woocommerce.png',
 			null,
@@ -37,8 +37,8 @@ class WooCommerce extends Integration {
 
 	public function show_notice( Screen $screen ) {
 		$is_user_screen = 'users' === $screen->get_id();
-		$is_post_screen = 'edit' === $screen->get_screen()->base &&
-		                  in_array( $screen->get_screen()->post_type, $this->get_post_types() );
+		$is_post_screen = 'edit' === $screen->get_base() &&
+		                  in_array( $screen->get_post_type(), $this->get_post_types() );
 
 		return $is_user_screen || $is_post_screen;
 	}
