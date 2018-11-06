@@ -182,13 +182,9 @@ class Strings {
 			return false;
 		}
 
-		$query_string_pos = strpos( $url, "?" );
+		$ext = pathinfo( strtok( $url, '?' ), PATHINFO_EXTENSION );
 
-		if ( $query_string_pos !== false ) {
-			$url = substr( $url, 0, $query_string_pos );
-		}
-
-		return in_array( pathinfo( $url, PATHINFO_EXTENSION ), array( 'jpg', 'jpeg', 'gif', 'png', 'bmp' ) );
+		return in_array( $ext, array( 'jpg', 'jpeg', 'gif', 'png', 'bmp' ) );
 	}
 
 	/**
