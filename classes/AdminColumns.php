@@ -148,7 +148,7 @@ class AdminColumns extends Plugin {
 			new Check\Review(),
 		);
 
-		foreach ( Integrations::get() as $integration ) {
+		foreach ( new Integrations() as $integration ) {
 			$checks[] = new Check\AddonAvailable( $integration );
 		}
 

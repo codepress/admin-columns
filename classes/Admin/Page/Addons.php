@@ -45,7 +45,7 @@ class Addons extends Page {
 			return;
 		}
 
-		foreach ( AC\Integrations::get() as $integration ) {
+		foreach ( new AC\Integrations() as $integration ) {
 			$plugin = new PluginInformation( $integration->get_basename() );
 
 			if ( ! $plugin->is_active() ) {
@@ -203,7 +203,7 @@ class Addons extends Page {
 		$addon = false;
 
 		// Check if either the addon is installed or it's plugin
-		foreach ( AC\Integrations::get() as $integration ) {
+		foreach ( new AC\Integrations() as $integration ) {
 			if ( filter_input( INPUT_GET, 'plugin' ) === $integration->get_basename() ) {
 				$addon = $integration;
 			}
@@ -276,7 +276,7 @@ class Addons extends Page {
 		$active = array();
 		$inactive = array();
 
-		foreach ( AC\Integrations::get() as $integration ) {
+		foreach ( new AC\Integrations() as $integration ) {
 			if ( $this->get_plugin_info( $integration->get_basename() )->is_active() ) {
 				$active[] = $integration;
 			} else {

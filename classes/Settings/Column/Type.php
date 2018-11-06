@@ -66,17 +66,17 @@ class Type extends Column {
 	 * @return \AC\Integration[]
 	 */
 	private function get_missing_integrations() {
-		$integrations = AC\Integrations::get();
+		$missing = array();
 
-		foreach ( $integrations as $name => $integration ) {
-			$plugin_info = new AC\PluginInformation( $integration->get_basename() );
+		foreach ( new AC\Integrations() as $integration ) {
+			$integration_plugin = new AC\PluginInformation( $integration->get_basename() );
 
-			if ( ! $integration->is_plugin_active() || $plugin_info->is_active() ) {
-				unset( $integrations[ $name ] );
+			if ( $integration->is_plugin_active() && ! $integration_plugin->is_active() ) {
+				$missing[] = $integration;
 			}
 		}
 
-		return $integrations;
+		return $missing;
 	}
 
 	/**

@@ -561,7 +561,7 @@ abstract class ListScreen {
 		}
 
 		// Placeholder columns
-		foreach ( Integrations::get() as $integration ) {
+		foreach ( new Integrations() as $integration ) {
 			if ( ! $integration->show_placeholder( $this ) ) {
 				continue;
 			}

@@ -434,17 +434,17 @@ class Columns extends Page {
 	 * @return \AC\Integration[]
 	 */
 	private function get_missing_integrations() {
-		$integrations = Integrations::get();
+		$missing = array();
 
-		foreach ( $integrations as $name => $integration ) {
-			$plugin_info = new PluginInformation( $integration->get_basename() );
+		foreach ( new Integrations() as $integration ) {
+			$integration_plugin = new PluginInformation( $integration->get_basename() );
 
-			if ( ! $integration->is_plugin_active() || $plugin_info->is_active() ) {
-				unset( $integrations[ $name ] );
+			if ( $integration->is_plugin_active() && ! $integration_plugin->is_active() ) {
+				$missing[] = $integration;
 			}
 		}
 
-		return $integrations;
+		return $missing;
 	}
 
 	/**
