@@ -174,11 +174,11 @@ class Addons extends Page {
 			return;
 		}
 
-		$install_url = add_query_arg( array(
+		$install_url = wp_nonce_url( add_query_arg( array(
 			'action'      => 'install-plugin',
 			'plugin'      => $integration->get_slug(),
 			'ac-redirect' => true,
-		), wp_nonce_url( network_admin_url( 'update.php' ), 'install-plugin_' . $integration->get_slug() ) );
+		), self_admin_url( 'update.php' ) ), 'install-plugin_' . $integration->get_slug() );
 
 		wp_redirect( $install_url );
 		exit;
@@ -363,6 +363,13 @@ class Addons extends Page {
 		return wp_nonce_url( $plugin_url, $action . '-plugin_' . $basename );
 	}
 
+	private function get_plugin_install_url( $slug ) {
+		return wp_nonce_url( add_query_arg( array(
+			'action' => 'install',
+			'plugin' => $slug,
+		), $this->get_link() ), 'install-ac-addon' );
+	}
+
 	public function display() {
 		$user_has_rights = current_user_can( 'activate_plugins' );
 
@@ -408,7 +415,7 @@ class Addons extends Page {
 
 								// Not installed...
 								elseif ( $user_has_rights && ac_is_pro_active() ) : ?>
-									<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), $this->get_link() ), 'install-ac-addon' ) ); ?>" class="button">
+									<a href="<?php echo esc_url( $this->get_plugin_install_url( $addon->get_slug() ) ); ?>" class="button">
 										<?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?>
 									</a>
 								<?php else : ?>
