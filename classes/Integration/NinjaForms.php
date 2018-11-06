@@ -32,13 +32,13 @@ class NinjaForms extends Integration {
 	}
 
 	public function show_notice( Screen $screen ) {
-		return 'edit' === $screen->get_base() &&
-		       in_array( $screen->get_post_type(), $this->get_post_types() );
+		return 'edit' === $screen->get_base()
+		       && in_array( $screen->get_post_type(), $this->get_post_types() );
 	}
 
 	public function show_placeholder( ListScreen $list_screen ) {
-		return $list_screen instanceof ListScreenPost &&
-		       in_array( $list_screen->get_post_type(), $this->get_post_types() );
+		return $list_screen instanceof ListScreenPost
+		       && in_array( $list_screen->get_post_type(), $this->get_post_types() );
 	}
 
 }

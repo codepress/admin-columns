@@ -35,9 +35,8 @@ class AddonAvailable
 	 */
 	private function get_ajax_handler() {
 		$handler = new Ajax\Handler();
-
 		$handler->set_action( 'ac_dismiss_notice_addon_' . $this->integration->get_slug() )
-		        ->set_callback( array( $this, 'ajax_dismiss_notice' ) );
+			->set_callback( array( $this, 'ajax_dismiss_notice' ) );
 
 		return $handler;
 	}
@@ -54,7 +53,6 @@ class AddonAvailable
 	 */
 	public function ajax_dismiss_notice() {
 		$this->get_ajax_handler()->verify_request();
-
 		$this->get_preferences()->set( 'dismiss-notice', true );
 	}
 
@@ -85,7 +83,7 @@ class AddonAvailable
 		}
 
 		$message = sprintf(
-			__( "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!", 'codepress-admin-columns' ),
+			__( 'Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!', 'codepress-admin-columns' ),
 			sprintf( '<strong>%s</strong>', $this->integration->get_title() ),
 			ac_helper()->html->link(
 				AC()->admin()->get_link( 'addons' ),
@@ -95,7 +93,7 @@ class AddonAvailable
 
 		$notice = new Notice\Dismissible( $this->get_ajax_handler() );
 		$notice->set_message( $message )
-		       ->register();
+			->register();
 	}
 
 }

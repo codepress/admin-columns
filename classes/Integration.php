@@ -20,21 +20,22 @@ abstract class Integration {
 	private $plugin_link;
 
 	/**
-	 * @return bool
+	 * @var string
 	 */
-	abstract public function is_plugin_active();
+	private $description;
 
 	/**
-	 * @param Screen $screen
-	 *
-	 * @return bool
+	 * @param string      $basename
+	 * @param string      $title
+	 * @param string      $logo
+	 * @param string|null $plugin_link
+	 * @param string|null $page
 	 */
-	abstract public function show_notice( Screen $screen );
-
 	public function __construct( $basename, $title, $logo, $plugin_link = null, $page = null ) {
 		if ( null === $plugin_link ) {
 			$plugin_link = $this->search_plugin( $title );
 		}
+
 		if ( null === $page ) {
 			$page = 'pricing-purchase';
 		}
@@ -45,6 +46,18 @@ abstract class Integration {
 		$this->logo = $logo;
 		$this->page = $page;
 	}
+
+	/**
+	 * @return bool
+	 */
+	abstract public function is_plugin_active();
+
+	/**
+	 * @param Screen $screen
+	 *
+	 * @return bool
+	 */
+	abstract public function show_notice( Screen $screen );
 
 	/**
 	 * @param string $name
@@ -94,14 +107,25 @@ abstract class Integration {
 	 * @return string
 	 */
 	public function get_description() {
-		return sprintf( __( 'Display and edit %s fields in the posts overview in seconds!', 'codepress-admin-columns' ), $this->title );
+		return $this->description;
+	}
+
+	/**
+	 * @param $description
+	 *
+	 * @return $this
+	 */
+	public function set_description( $description ) {
+		$this->description = $description;
+
+		return $this;
 	}
 
 	/**
 	 * @return string
 	 */
 	public function get_link() {
-		return ac_get_site_utm_url( $this->page, 'addon', dirname( $this->basename ) );
+		return ac_get_site_utm_url( $this->page, 'addon', $this->get_logo() );
 	}
 
 	/**
