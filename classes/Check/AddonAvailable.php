@@ -87,6 +87,7 @@ final class AddonAvailable
 			)
 		);
 
+
 		$notice = new Dismissible( $message, $this->get_ajax_handler() );
 		$notice->register();
 	}
