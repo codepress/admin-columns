@@ -33,7 +33,7 @@ class Plugin extends Message {
 		add_action( 'after_plugin_row_' . $this->plugin_basename, array( $this, 'display' ), 11 );
 	}
 
-	public function create_view() {
+	public function render() {
 		switch ( $this->type ) {
 			case self::SUCCESS :
 				$class = 'updated-message notice-success';
@@ -63,7 +63,7 @@ class Plugin extends Message {
 		$view = new View( $data );
 		$view->set_template( 'message/plugin' );
 
-		return $view;
+		return $view->render();
 	}
 
 	/**

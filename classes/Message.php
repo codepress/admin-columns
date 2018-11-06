@@ -28,17 +28,11 @@ abstract class Message {
 	protected $id;
 
 	/**
-	 * @var View
-	 */
-	protected $view;
-
-	/**
 	 * @param string $message
 	 */
 	public function __construct( $message ) {
 		$this->type = self::SUCCESS;
 		$this->message = trim( $message );
-		$this->view = $this->create_view();
 
 		$this->validate();
 	}
@@ -47,25 +41,14 @@ abstract class Message {
 		if ( empty( $this->message ) ) {
 			throw new LogicException( 'Message cannot be empty' );
 		}
-
-		if ( ! $this->view instanceof View ) {
-			throw new LogicException( 'AC\Notice::create_view should return an instance of View' );
-		}
 	}
-
-	/**
-	 * Create a view that can be rendered
-	 * @return View
-	 */
-	abstract protected function create_view();
 
 	/**
 	 * Render an View
+	 *
 	 * @return string
 	 */
-	public function render() {
-		return $this->view->render();
-	}
+	abstract public function render();
 
 	/**
 	 * Display self::render to the screen

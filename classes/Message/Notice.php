@@ -7,7 +7,7 @@ use AC\View;
 
 class Notice extends Message {
 
-	public function create_view() {
+	public function render() {
 		$data = array(
 			'message' => $this->message,
 			'type'    => $this->type,
@@ -17,7 +17,7 @@ class Notice extends Message {
 		$view = new View( $data );
 		$view->set_template( 'message/notice' );
 
-		return $view;
+		return $view->render();
 	}
 
 	public function register() {

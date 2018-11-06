@@ -5,6 +5,7 @@ namespace AC\Message\Notice;
 use AC\Ajax\Handler;
 use AC\Ajax\NullHandler;
 use AC\Message\Notice;
+use AC\View;
 
 class Dismissible extends Notice {
 
@@ -27,10 +28,18 @@ class Dismissible extends Notice {
 		parent::__construct( $message );
 	}
 
-	public function create_view() {
-		return parent::create_view()
-			->set_template( 'message/notice/dismissible' )
-			->set( 'dismissible_callback', $this->handler->get_params() );
+	public function render() {
+		$data = array(
+			'message'              => $this->message,
+			'type'                 => $this->type,
+			'id'                   => $this->id,
+			'dismissible_callback' => $this->handler->get_params(),
+		);
+
+		$view = new View( $data );
+		$view->set_template( 'message/notice/dismissible' );
+
+		return $view->render();
 	}
 
 	/**
