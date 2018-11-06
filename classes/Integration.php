@@ -25,18 +25,6 @@ abstract class Integration {
 	private $description;
 
 	/**
-	 * @return bool
-	 */
-	abstract public function is_plugin_active();
-
-	/**
-	 * @param Screen $screen
-	 *
-	 * @return bool
-	 */
-	abstract public function show_notice( Screen $screen );
-
-	/**
 	 * @param string      $basename
 	 * @param string      $title
 	 * @param string      $logo
@@ -58,6 +46,18 @@ abstract class Integration {
 		$this->logo = $logo;
 		$this->page = $page;
 	}
+
+	/**
+	 * @return bool
+	 */
+	abstract public function is_plugin_active();
+
+	/**
+	 * @param Screen $screen
+	 *
+	 * @return bool
+	 */
+	abstract public function show_notice( Screen $screen );
 
 	/**
 	 * @param string $name
