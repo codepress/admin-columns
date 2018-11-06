@@ -14,6 +14,7 @@ class EventsCalendar extends Integration {
 			'ac-addon-events-calendar/ac-addon-events-calendar.php',
 			__( 'Events Calendar', 'codepress-admin-columns' ),
 			'assets/images/addons/events-calendar.png',
+			__( 'Manage columns for your event, organizer or venue overviews.', 'codepress-admin-columns' ),
 			null,
 			'events-calendar'
 		);
@@ -21,10 +22,6 @@ class EventsCalendar extends Integration {
 
 	public function is_plugin_active() {
 		return class_exists( 'Tribe__Events__Main' );
-	}
-
-	public function get_description() {
-		return __( 'Manage columns for your event, organizer or venue overviews.', 'codepress-admin-columns' );
 	}
 
 	private function get_post_types() {

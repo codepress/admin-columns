@@ -12,6 +12,7 @@ class Pods extends Integration {
 			'ac-addon-pods/ac-addon-pods.php',
 			__( 'Pods', 'codepress-admin-columns' ),
 			'assets/images/addons/pods.png',
+			__( 'Display and edit Pods fields in the posts overview in seconds!', 'codepress-admin-columns' ),
 			null,
 			'pods'
 		);

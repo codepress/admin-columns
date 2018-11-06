@@ -14,6 +14,7 @@ class NinjaForms extends Integration {
 			'ac-addon-ninjaforms/ac-addon-ninjaforms.php',
 			__( 'Ninja Forms', 'codepress-admin-columns' ),
 			'assets/images/addons/ninja-forms.png',
+			__( 'Add Ninja Forms columns that can be sorted, filtered and directly edited!', 'codepress-admin-columns' ),
 			null,
 			'ninja-forms'
 		);
@@ -21,10 +22,6 @@ class NinjaForms extends Integration {
 
 	public function is_plugin_active() {
 		return class_exists( 'Ninja_Forms' );
-	}
-
-	public function get_description() {
-		return __( 'Add Ninja Forms columns that can be sorted, filtered and directly edited!', 'codepress-admin-columns' );
 	}
 
 	private function get_post_types() {

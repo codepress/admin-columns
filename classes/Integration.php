@@ -28,10 +28,11 @@ abstract class Integration {
 	 * @param string      $basename
 	 * @param string      $title
 	 * @param string      $logo
+	 * @param string      $description
 	 * @param string|null $plugin_link
 	 * @param string|null $page
 	 */
-	public function __construct( $basename, $title, $logo, $plugin_link = null, $page = null ) {
+	public function __construct( $basename, $title, $logo, $description, $plugin_link = null, $page = null ) {
 		if ( null === $plugin_link ) {
 			$plugin_link = $this->search_plugin( $title );
 		}
@@ -44,6 +45,7 @@ abstract class Integration {
 		$this->title = $title;
 		$this->plugin_link = $plugin_link;
 		$this->logo = $logo;
+		$this->description = $description;
 		$this->page = $page;
 	}
 
@@ -108,17 +110,6 @@ abstract class Integration {
 	 */
 	public function get_description() {
 		return $this->description;
-	}
-
-	/**
-	 * @param $description
-	 *
-	 * @return $this
-	 */
-	public function set_description( $description ) {
-		$this->description = $description;
-
-		return $this;
 	}
 
 	/**

@@ -14,13 +14,10 @@ class WooCommerce extends Integration {
 			'ac-addon-woocommerce/ac-addon-woocommerce.php',
 			__( 'WooCommerce', 'codepress-admin-columns' ),
 			'assets/images/addons/woocommerce.png',
+			__( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' ),
 			null,
 			'woocommerce'
 		);
-	}
-
-	public function get_description() {
-		return __( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' );
 	}
 
 	public function is_plugin_active() {

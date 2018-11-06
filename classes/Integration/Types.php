@@ -12,6 +12,7 @@ class Types extends Integration {
 			'ac-addon-types/ac-addon-types.php',
 			__( 'Toolset Types', 'codepress-admin-columns' ),
 			'assets/images/addons/toolset-types.png',
+			__( 'Display and edit Toolset Types fields in the posts overview in seconds!', 'codepress-admin-columns' ),
 			null,
 			'toolset-types'
 		);

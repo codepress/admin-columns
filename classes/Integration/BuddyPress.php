@@ -12,16 +12,13 @@ class BuddyPress extends Integration {
 		parent::__construct(
 			'ac-addon-buddypress/ac-addon-buddypress.php',
 			__( 'BuddyPress', 'codepress-admin-columns' ),
-			'assets/images/addons/buddypress.png'
+			'assets/images/addons/buddypress.png',
+			__( 'Display any of your Profile Fields for BuddyPress on your users overview.', 'codepress-admin-columns' )
 		);
 	}
 
 	public function is_plugin_active() {
 		return class_exists( 'BuddyPress', false );
-	}
-
-	public function get_description() {
-		return __( 'Display any of your Profile Fields for BuddyPress on your users overview.', 'codepress-admin-columns' );
 	}
 
 	public function show_notice( Screen $screen ) {

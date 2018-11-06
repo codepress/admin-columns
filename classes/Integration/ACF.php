@@ -12,6 +12,7 @@ class ACF extends Integration {
 			'ac-addon-acf/ac-addon-acf.php',
 			__( 'Advanced Custom Fields', 'codepress-admin-columns' ),
 			'assets/images/addons/acf.png',
+			__( 'Display and edit ACF fields in the posts overview in seconds!', 'codepress-admin-columns' ),
 			'https://www.advancedcustomfields.com/'
 		);
 	}
