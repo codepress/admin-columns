@@ -212,8 +212,6 @@ class Image {
 		return pathinfo( $this->get_file_name( $attachment_id ), PATHINFO_EXTENSION );
 	}
 
-	// Helpers
-
 	private function get_file_tooltip_attr( $media_id ) {
 		return ac_helper()->html->get_tooltip_attr( $this->get_file_name( $media_id ) );
 	}
