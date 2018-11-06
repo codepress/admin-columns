@@ -13,16 +13,16 @@ abstract class Integration {
 	/** @var string */
 	private $logo;
 
-	/**
-	 * @var string
-	 */
-	private $description;
+	/** @var string */
+	private $page;
 
 	/** @var string */
 	private $plugin_link;
 
-	/** @var string */
-	private $page;
+	/**
+	 * @var string
+	 */
+	private $description;
 
 	/**
 	 * @param string $basename

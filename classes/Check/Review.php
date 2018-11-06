@@ -59,10 +59,10 @@ class Review
 
 		wp_enqueue_script( 'ac-notice-review', AC()->get_url() . 'assets/js/message-review.js', array( 'jquery' ), AC()->get_version() );
 
-		$notice = new Message\Notice\Dismissible( $this->get_ajax_handler() );
-		$notice->set_message( $this->get_message() )
-		       ->set_id( 'review' )
-		       ->register();
+		$notice = new Message\Notice\Dismissible( $this->get_message(), $this->get_ajax_handler() );
+		$notice
+			->set_id( 'review' )
+			->register();
 	}
 
 	/**
@@ -70,8 +70,9 @@ class Review
 	 */
 	protected function get_ajax_handler() {
 		$handler = new Ajax\Handler();
-		$handler->set_action( 'ac_check_review_dismiss_notice' )
-		        ->set_callback( array( $this, 'ajax_dismiss_notice' ) );
+		$handler
+			->set_action( 'ac_check_review_dismiss_notice' )
+			->set_callback( array( $this, 'ajax_dismiss_notice' ) );
 
 		return $handler;
 	}

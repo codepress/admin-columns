@@ -5,7 +5,7 @@ namespace AC\Check;
 use AC\Ajax;
 use AC\Capabilities;
 use AC\Integration;
-use AC\Message\Notice;
+use AC\Message\Notice\Dismissible;
 use AC\PluginInformation;
 use AC\Preferences;
 use AC\Registrable;
@@ -87,10 +87,9 @@ final class AddonAvailable
 			)
 		);
 
-		$notice = new Notice\Dismissible( $this->get_ajax_handler() );
-		$notice
-			->set_message( $message )
-			->register();
+
+		$notice = new Dismissible( $message, $this->get_ajax_handler() );
+		$notice->register();
 	}
 
 }

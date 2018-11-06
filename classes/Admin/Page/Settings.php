@@ -10,7 +10,6 @@ use AC\Message;
 class Settings extends Page {
 
 	const SETTINGS_NAME = 'cpac_general_options';
-
 	const SETTINGS_GROUP = 'cpac-general-settings';
 
 	public function __construct() {
@@ -110,9 +109,8 @@ class Settings extends Page {
 				if ( $this->verify_nonce( 'restore-all' ) ) {
 					$this->delete_all_column_settings();
 
-					$notice = new Message\Notice();
-					$notice->set_message( __( 'Default settings successfully restored.', 'codepress-admin-columns' ) )
-					       ->register();
+					$notice = new Message\Notice( __( 'Default settings successfully restored.', 'codepress-admin-columns' ) );
+					$notice->register();
 				}
 
 				break;
