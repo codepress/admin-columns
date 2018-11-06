@@ -365,7 +365,7 @@ class Addons extends Page {
 		return add_query_arg( array(
 			'action' => 'install',
 			'plugin' => $slug,
-		), wp_nonce_url( $this->get_link() ), 'install-ac-addon' );
+		), wp_nonce_url( $this->get_link(), 'install-ac-addon' ) );
 	}
 
 	public function display() {
