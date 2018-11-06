@@ -17,6 +17,9 @@ class AddonAvailable
 	/** @var Integration */
 	private $integration;
 
+	/**
+	 * @param Integration $integration
+	 */
 	public function __construct( Integration $integration ) {
 		$this->integration = $integration;
 	}
@@ -35,7 +38,8 @@ class AddonAvailable
 	 */
 	private function get_ajax_handler() {
 		$handler = new Ajax\Handler();
-		$handler->set_action( 'ac_dismiss_notice_addon_' . $this->integration->get_slug() )
+		$handler
+			->set_action( 'ac_dismiss_notice_addon_' . $this->integration->get_slug() )
 			->set_callback( array( $this, 'ajax_dismiss_notice' ) );
 
 		return $handler;
