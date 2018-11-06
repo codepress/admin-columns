@@ -24,12 +24,6 @@ abstract class Integration {
 	 */
 	private $description;
 
-	/** @var string */
-	private $plugin_link;
-
-	/** @var string */
-	private $page;
-
 	/**
 	 * @param string $basename
 	 * @param string $title
