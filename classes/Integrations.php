@@ -2,12 +2,9 @@
 
 namespace AC;
 
-class Integrations {
+class Integrations extends ArrayIterator {
 
-	/**
-	 * @return Integration[]
-	 */
-	public static function get() {
+	public function __construct() {
 		$integrations = array();
 
 		$classes = Autoloader::instance()->get_class_names_from_dir( __NAMESPACE__ . '\Integration' );
@@ -16,7 +13,14 @@ class Integrations {
 			$integrations[] = new $class;
 		}
 
-		return $integrations;
+		parent::__construct( $integrations );
+	}
+
+	/**
+	 * @return Integration
+	 */
+	public function current() {
+		return parent::current();
 	}
 
 }
