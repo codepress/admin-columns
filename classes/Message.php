@@ -37,7 +37,7 @@ abstract class Message {
 		$this->validate();
 	}
 
-	private function validate() {
+	protected function validate() {
 		if ( empty( $this->message ) ) {
 			throw new LogicException( 'Message cannot be empty' );
 		}
