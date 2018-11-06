@@ -64,19 +64,11 @@ class AddonAvailable
 	 * @param Screen $screen
 	 */
 	public function display( Screen $screen ) {
-		if ( ! current_user_can( Capabilities::MANAGE ) ) {
-			return;
-		}
-
-		if ( ! $this->integration->show_notice( $screen ) ) {
-			return;
-		}
-
-		if ( ! $this->integration->is_plugin_active() ) {
-			return;
-		}
-
-		if ( $this->get_preferences()->get( 'dismiss-notice' ) ) {
+		if ( ! current_user_can( Capabilities::MANAGE )
+		     || ! $this->integration->show_notice( $screen )
+		     || ! $this->integration->is_plugin_active()
+		     || $this->get_preferences()->get( 'dismiss-notice' )
+		) {
 			return;
 		}
 
@@ -96,7 +88,8 @@ class AddonAvailable
 		);
 
 		$notice = new Notice\Dismissible( $this->get_ajax_handler() );
-		$notice->set_message( $message )
+		$notice
+			->set_message( $message )
 			->register();
 	}
 
