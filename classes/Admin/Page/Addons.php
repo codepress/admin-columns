@@ -174,11 +174,11 @@ class Addons extends Page {
 			return;
 		}
 
-		$install_url = wp_nonce_url( add_query_arg( array(
+		$install_url = add_query_arg( array(
 			'action'      => 'install-plugin',
 			'plugin'      => $integration->get_slug(),
 			'ac-redirect' => true,
-		), self_admin_url( 'update.php' ) ), 'install-plugin_' . $integration->get_slug() );
+		), wp_nonce_url( self_admin_url( 'update.php' ), 'install-plugin_' . $integration->get_slug() ) );
 
 		wp_redirect( $install_url );
 		exit;
@@ -354,20 +354,18 @@ class Addons extends Page {
 	 * @return string
 	 */
 	private function get_plugin_action_url( $action, $basename ) {
-		$plugin_url = add_query_arg( array(
+		return add_query_arg( array(
 			'action'      => $action,
 			'plugin'      => $basename,
 			'ac-redirect' => true,
-		), admin_url( 'plugins.php' ) );
-
-		return wp_nonce_url( $plugin_url, $action . '-plugin_' . $basename );
+		), wp_nonce_url( admin_url( 'plugins.php' ), $action . '-plugin_' . $basename ) );
 	}
 
 	private function get_plugin_install_url( $slug ) {
-		return wp_nonce_url( add_query_arg( array(
+		return add_query_arg( array(
 			'action' => 'install',
 			'plugin' => $slug,
-		), $this->get_link() ), 'install-ac-addon' );
+		), wp_nonce_url( $this->get_link() ), 'install-ac-addon' );
 	}
 
 	public function display() {
