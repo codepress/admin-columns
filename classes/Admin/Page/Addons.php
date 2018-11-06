@@ -74,7 +74,7 @@ class Addons extends Page {
 		$basename = filter_input( INPUT_GET, 'plugin' );
 		$status = filter_input( INPUT_GET, 'status' );
 
-		if ( ! wp_verify_nonce( $nonce, 'ac-plugin-status-change' ) || ! $basename || ! $status ) {
+		if ( ! $basename || ! $status || ! wp_verify_nonce( $nonce, 'ac-plugin-status-change' ) ) {
 			return;
 		}
 
@@ -132,8 +132,9 @@ class Addons extends Page {
 	 */
 	private function register_notice_error( $message ) {
 		$notice = new Notice( $message );
-		$notice->set_type( Notice::ERROR )
-		       ->register();
+		$notice
+			->set_type( Notice::ERROR )
+			->register();
 	}
 
 	/**
@@ -363,6 +364,7 @@ class Addons extends Page {
 	}
 
 	public function display() {
+		$user_has_rights = current_user_can( 'activate_plugins' );
 
 		foreach ( $this->get_grouped_addons() as $group_slug => $group ) : ?>
 			<div class="ac-addon group-<?php echo esc_attr( $group_slug ); ?>">
@@ -396,24 +398,23 @@ class Addons extends Page {
 									if ( $this->get_plugin_info( $addon->get_basename() )->is_active() ) : ?>
 										<span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
 
-										<?php if ( current_user_can( 'activate_plugins' ) ) : ?>
+										<?php if ( $user_has_rights ) : ?>
 											<a href="<?php echo esc_url( $this->get_deactivation_url( $addon->get_basename() ) ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
 										<?php endif;
 									// Not active
-									elseif ( current_user_can( 'activate_plugins' ) ) : ?>
+									elseif ( $user_has_rights ) : ?>
 										<a href="<?php echo esc_url( $this->get_activation_url( $addon->get_basename() ) ); ?>" class="button button-primary right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
 									<?php endif;
 
 								// Not installed...
-								else :
-									if ( ac_is_pro_active() && current_user_can( 'install_plugins' ) ) : ?>
-										<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), $this->get_link() ), 'install-ac-addon' ) ); ?>" class="button">
-											<?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?>
-										</a>
-									<?php else : ?>
-										<a target="_blank" href="<?php echo esc_url( $addon->get_link() ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
-									<?php endif;
-								endif;
+								elseif ( $user_has_rights && ac_is_pro_active() ) : ?>
+									<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'install', 'plugin' => $addon->get_slug() ), $this->get_link() ), 'install-ac-addon' ) ); ?>" class="button">
+										<?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?>
+									</a>
+								<?php else : ?>
+									<a target="_blank" href="<?php echo esc_url( $addon->get_link() ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
+								<?php endif;
+
 								?>
 							</div>
 						</li>
