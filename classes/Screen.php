@@ -51,8 +51,11 @@ class Screen {
 		return $this->screen;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function has_screen() {
-		return ! empty( $this->screen );
+		return $this->screen instanceof WP_Screen;
 	}
 
 	/**
@@ -60,6 +63,20 @@ class Screen {
 	 */
 	public function get_id() {
 		return $this->screen->id;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_base() {
+		return $this->screen->base;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_post_type() {
+		return $this->screen->post_type;
 	}
 
 	/**
