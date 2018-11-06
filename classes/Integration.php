@@ -13,24 +13,24 @@ abstract class Integration {
 	/** @var string */
 	private $logo;
 
-	/** @var string */
-	private $page;
-
-	/** @var string */
-	private $plugin_link;
-
 	/**
 	 * @var string
 	 */
 	private $description;
 
+	/** @var string */
+	private $plugin_link;
+
+	/** @var string */
+	private $page;
+
 	/**
-	 * @param string      $basename
-	 * @param string      $title
-	 * @param string      $logo
-	 * @param string      $description
-	 * @param string|null $plugin_link
-	 * @param string|null $page
+	 * @param string $basename
+	 * @param string $title
+	 * @param string $logo
+	 * @param string $description
+	 * @param string $plugin_link
+	 * @param string $page
 	 */
 	public function __construct( $basename, $title, $logo, $description, $plugin_link = null, $page = null ) {
 		if ( null === $plugin_link ) {
@@ -43,9 +43,9 @@ abstract class Integration {
 
 		$this->basename = $basename;
 		$this->title = $title;
-		$this->plugin_link = $plugin_link;
 		$this->logo = $logo;
 		$this->description = $description;
+		$this->plugin_link = $plugin_link;
 		$this->page = $page;
 	}
 
