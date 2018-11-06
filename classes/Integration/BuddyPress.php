@@ -6,7 +6,7 @@ use AC\Integration;
 use AC\ListScreen;
 use AC\Screen;
 
-class BuddyPress extends Integration {
+final class BuddyPress extends Integration {
 
 	public function __construct() {
 		parent::__construct(

@@ -7,7 +7,7 @@ use AC\ListScreen;
 use AC\ListScreenPost;
 use AC\Screen;
 
-class NinjaForms extends Integration {
+final class NinjaForms extends Integration {
 
 	public function __construct() {
 		parent::__construct(

@@ -7,7 +7,7 @@ use AC\ListScreen;
 use AC\ListScreenPost;
 use AC\Screen;
 
-class WooCommerce extends Integration {
+final class WooCommerce extends Integration {
 
 	public function __construct() {
 		parent::__construct(

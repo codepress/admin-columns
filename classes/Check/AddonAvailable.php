@@ -11,7 +11,7 @@ use AC\Preferences;
 use AC\Registrable;
 use AC\Screen;
 
-class AddonAvailable
+final class AddonAvailable
 	implements Registrable {
 
 	/** @var Integration */
@@ -48,7 +48,7 @@ class AddonAvailable
 	/**
 	 * @return Preferences\User
 	 */
-	protected function get_preferences() {
+	private function get_preferences() {
 		return new Preferences\User( 'check-addon-available-' . $this->integration->get_slug() );
 	}
 

@@ -5,7 +5,7 @@ namespace AC\Integration;
 use AC\Integration;
 use AC\Screen;
 
-class Pods extends Integration {
+final class Pods extends Integration {
 
 	public function __construct() {
 		parent::__construct(

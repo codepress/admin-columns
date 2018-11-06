@@ -5,7 +5,7 @@ namespace AC\Integration;
 use AC\Integration;
 use AC\Screen;
 
-class ACF extends Integration {
+final class ACF extends Integration {
 
 	public function __construct() {
 		parent::__construct(
