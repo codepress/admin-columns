@@ -37,16 +37,16 @@ class WooCommerce extends Integration {
 
 	public function show_notice( Screen $screen ) {
 		$is_user_screen = 'users' === $screen->get_id();
-		$is_post_screen = 'edit' === $screen->get_screen()->base &&
-		                  in_array( $screen->get_screen()->post_type, $this->get_post_types() );
+		$is_post_screen = 'edit' === $screen->get_screen()->base
+		                  && in_array( $screen->get_screen()->post_type, $this->get_post_types() );
 
 		return $is_user_screen || $is_post_screen;
 	}
 
 	public function show_placeholder( ListScreen $list_screen ) {
 		$is_user_screen = $list_screen instanceof ListScreen\User;
-		$is_post_screen = $list_screen instanceof ListScreenPost &&
-		                  in_array( $list_screen->get_post_type(), $this->get_post_types() );
+		$is_post_screen = $list_screen instanceof ListScreenPost
+		                  && in_array( $list_screen->get_post_type(), $this->get_post_types() );
 
 		return $is_user_screen || $is_post_screen;
 	}
