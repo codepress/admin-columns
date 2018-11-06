@@ -1,16 +1,14 @@
 <?php
 
+namespace AC;
+
 /**
  * Show a notice when plugin dependencies are not met
- * @version 1.4
+ * @version 1.5
  */
-final class AC_Dependencies {
+final class Dependencies {
 
-	/**
-	 * Missing dependency messages
-	 * @var string[]
-	 */
-	private $messages;
+	const ACP_PLUGIN = 'Admin Columns Pro';
 
 	/**
 	 * Basename of this plugin
@@ -19,18 +17,37 @@ final class AC_Dependencies {
 	private $basename;
 
 	/**
-	 * @var string Minimal required version of Admin Columns Pro
+	 * @var string
 	 */
-	private $acp_version;
+	private $version;
 
 	/**
-	 * @param string $basename Plugin basename
+	 * Missing dependency messages
+	 * @var string[]
 	 */
-	public function __construct( $basename ) {
-		$this->messages = array();
-		$this->basename = $basename;
+	private $messages = array();
 
-		$this->load_data();
+	/**
+	 * @param string $basename
+	 * @param string $version
+	 */
+	public function __construct( $basename, $version ) {
+		$this->basename = $basename;
+		$this->version = $version;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_basename() {
+		return $this->basename;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_version() {
+		return $this->version;
 	}
 
 	/**
@@ -42,58 +59,17 @@ final class AC_Dependencies {
 	}
 
 	/**
-	 * Increments the version if it's higher than the
-	 *
-	 * @param string $version
-	 *
-	 * @return $this
-	 */
-	public function increment_acp_version( $version ) {
-		if ( version_compare( $version, $this->acp_version, '>=' ) ) {
-			$this->acp_version = $version;
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Load dependency parameters set outside this plugin
-	 */
-	private function load_data() {
-		$data = get_option( 'ac_dependency_data', array() );
-
-		foreach ( $data as $k => $v ) {
-			if ( 0 !== strpos( $k, dirname( $this->basename ) ) ) {
-				continue;
-			}
-
-			if ( isset( $v['acp_version'] ) ) {
-				$this->increment_acp_version( $v['acp_version'] );
-			}
-
-			break;
-		}
-	}
-
-	/**
 	 * Add missing dependency
 	 *
 	 * @param string $message
+	 * @param string $key
 	 */
-	public function add_missing( $message ) {
-		// Register on first missing dependency
-		if ( ! $this->messages ) {
+	public function add_missing( $message, $key ) {
+		if ( ! $this->has_missing() ) {
 			$this->register();
 		}
 
-		$this->messages[] = $message;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function has_missing() {
-		return ! empty( $this->messages );
+		$this->messages[ $key ] = $this->sanitize_message( $message );
 	}
 
 	/**
@@ -104,6 +80,20 @@ final class AC_Dependencies {
 	 * @param string $version
 	 */
 	public function add_missing_plugin( $plugin, $url = null, $version = null ) {
+		$this->add_missing(
+			$this->get_missing_plugin_message( $plugin, $url, $version ),
+			$plugin
+		);
+	}
+
+	/**
+	 * @param string $plugin
+	 * @param null   $url
+	 * @param null   $version
+	 *
+	 * @return string
+	 */
+	private function get_missing_plugin_message( $plugin, $url = null, $version = null ) {
 		$plugin = esc_html( $plugin );
 
 		if ( $url ) {
@@ -111,31 +101,72 @@ final class AC_Dependencies {
 		}
 
 		if ( $version ) {
-			$plugin .= ' (' . sprintf( __( 'version %s or later', 'codepress-admin-columns' ), esc_html( $version ) ) . ')';
+			$plugin .= ' ' . sprintf( 'version %s+', esc_html( $version ) );
 		}
 
-		$message = sprintf( __( '%s needs to be installed and activated.', 'codepress-admin-columns' ), $plugin );
-
-		$this->add_missing( $message );
+		return sprintf( '%s needs to be installed and activated.', $plugin );
 	}
 
 	/**
-	 * Check if Admin Columns Pro is installed and meets the minimum required version
+	 * @return bool
+	 */
+	public function has_missing() {
+		return ! empty( $this->messages );
+	}
+
+	/**
+	 * @param string $message
 	 *
-	 * @param string $version
+	 * @return string
+	 */
+	private function sanitize_message( $message ) {
+		return wp_kses( $message, array(
+			'a' => array(
+				'href'   => true,
+				'target' => true,
+			),
+		) );
+	}
+
+	/**
+	 * @return string
+	 */
+	private function get_download_acp_message() {
+		return sprintf(
+			'Download the latest version from <a target="_blank" href="%s">your account.</a>',
+			esc_url( 'https://www.admincolumns.com/my-account' )
+		);
+	}
+
+	/**
+	 * Check if Admin Columns Pro is installed
+	 *
+	 * @param $version
 	 *
 	 * @return bool
 	 */
-	public function check_acp( $version ) {
-		$this->increment_acp_version( $version );
+	public function requires_acp( $version ) {
+		if ( ! function_exists( 'ACP' ) ) {
+			$this->add_missing(
+				$this->get_missing_plugin_message( self::ACP_PLUGIN ) . ' ' . $this->get_download_acp_message(),
+				self::ACP_PLUGIN
+			);
 
-		if ( function_exists( 'ACP' ) && ACP()->is_version_gte( $version ) ) {
-			return true;
+			return false;
 		}
 
-		$this->add_missing_plugin( 'Admin Column Pro', 'https://www.admincolumns.com', $this->acp_version );
+		if ( ! ACP()->is_version_gte( $version ) || ! acp_is_addon_compatible( __NAMESPACE__, $this->version ) ) {
+			$message = sprintf(
+				'this plugin is not compatible with the current version of %1$s. Make sure this plugin and %1$s are updated to the most recent version.',
+				self::ACP_PLUGIN
+			);
 
-		return false;
+			$this->add_missing( $message, self::ACP_PLUGIN );
+
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -145,20 +176,21 @@ final class AC_Dependencies {
 	 *
 	 * @return bool
 	 */
-	public function check_php_version( $version ) {
-		if ( version_compare( PHP_VERSION, $version, '>=' ) ) {
-			return true;
+	public function requires_php( $version ) {
+		if ( ! version_compare( PHP_VERSION, $version, '>=' ) ) {
+			$message = sprintf(
+				'PHP %s+ is required. Your server currently runs PHP %s. <a href="%s" target="_blank">Learn more about requirements.</a>',
+				$version,
+				PHP_VERSION,
+				esc_url( 'https://www.admincolumns.com/documentation/getting-started/requirements/' )
+			);
+
+			$this->add_missing( $message, 'PHP Version' );
+
+			return false;
 		}
 
-		$documentation_url = 'https://www.admincolumns.com/documentation/getting-started/requirements/';
-
-		$parts[] = sprintf( __( 'This plugin requires at least PHP %s to function properly.', 'codepress-admin-columns' ), $version );
-		$parts[] = sprintf( __( 'Your server currently runs PHP %s.', 'codepress-admin-columns' ), PHP_VERSION );
-		$parts[] = sprintf( __( 'Read more about <a href="%s" target="_blank">requirements</a>a> in our documentation.', 'codepress-admin-columns' ), esc_url( $documentation_url ) );
-
-		$this->add_missing( implode( ' ', $parts ) );
-
-		return false;
+		return true;
 	}
 
 	/**
@@ -181,20 +213,28 @@ final class AC_Dependencies {
 	 * Show a warning when dependencies are not met
 	 */
 	public function display_notice() {
+		$intro = "This plugin can't load because";
+
 		?>
 
 		<tr class="plugin-update-tr active">
 			<td colspan="3" class="plugin-update colspanchange">
 				<div class="update-message notice inline notice-error notice-alt">
-					<p>
-						<?php _e( 'This plugin failed to load:', 'codepress-admin-columns' ); ?>
-					</p>
+					<?php if ( count( $this->messages ) > 1 )  : ?>
+						<p>
+							<?php echo $intro . ':' ?>
+						</p>
 
-					<ul>
-						<?php foreach ( $this->messages as $message ) : ?>
-							<li><?php echo $message; ?></li>
-						<?php endforeach; ?>
-					</ul>
+						<ul>
+							<?php foreach ( $this->messages as $message ) : ?>
+								<li><?php echo $message; ?></li>
+							<?php endforeach; ?>
+						</ul>
+					<?php else : ?>
+						<p>
+							<?php echo $intro . ' ' . current( $this->messages ); ?>
+						</p>
+					<?php endif; ?>
 				</div>
 			</td>
 		</tr>
