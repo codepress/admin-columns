@@ -12,7 +12,7 @@ abstract class TypedArrayIterator extends ArrayIterator {
 	protected $type;
 
 	/**
-	 * @param array  $collection
+	 * @param array  $array
 	 * @param string $type Type to validate the collection against
 	 */
 	public function __construct( array $array, $type ) {
@@ -23,7 +23,6 @@ abstract class TypedArrayIterator extends ArrayIterator {
 
 	/**
 	 * Optional validation when a type was set
-	 *
 	 * @throws LogicException
 	 */
 	protected function validate() {

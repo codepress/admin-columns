@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 3.3.1 =
+Release Date: October 31st, 2018
+
+* [Improved] Better external image support for Custom Field column
+
 = 3.3 =
 Release Date: October 31st, 2018
 

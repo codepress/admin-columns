@@ -14,23 +14,6 @@ class PluginInformation {
 	}
 
 	/**
-	 * @param string $dirname
-	 *
-	 * @return PluginInformation
-	 */
-	public static function create_by_dirname( $dirname ) {
-		$plugins = (array) get_plugins();
-
-		foreach ( array_keys( $plugins ) as $basename ) {
-			if ( dirname( $basename ) === $dirname ) {
-				return new self( $basename );
-			}
-		}
-
-		return new self( '' );
-	}
-
-	/**
 	 * @return string
 	 */
 	public function get_dirname() {

@@ -6,6 +6,9 @@ use ReflectionObject;
 
 abstract class Plugin extends Addon {
 
+	/** @var array */
+	private $data;
+
 	/**
 	 * Check if plugin is network activated
 	 * @return bool
@@ -22,7 +25,11 @@ abstract class Plugin extends Addon {
 	protected function get_data() {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-		return get_plugin_data( $this->get_file(), false, false );
+		if ( null === $this->data ) {
+			$this->data = get_plugin_data( $this->get_file(), false, false );
+		}
+
+		return $this->data;
 	}
 
 	/**

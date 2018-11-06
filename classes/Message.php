@@ -61,7 +61,6 @@ abstract class Message {
 
 	/**
 	 * Render an View
-	 *
 	 * @return string
 	 */
 	public function render() {

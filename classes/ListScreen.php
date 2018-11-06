@@ -2,6 +2,7 @@
 
 namespace AC;
 
+use AC\Column\Placeholder;
 use ReflectionClass;
 use WP_Error;
 
@@ -560,9 +561,18 @@ abstract class ListScreen {
 		}
 
 		// Placeholder columns
-		foreach ( AC()->addons()->get_addons() as $addon ) {
-			if ( $addon->is_plugin_active() && ! $addon->is_active() ) {
-				$this->register_column_type( $addon->get_placeholder_column() );
+		foreach ( new Integrations() as $integration ) {
+			if ( ! $integration->show_placeholder( $this ) ) {
+				continue;
+			}
+
+			$plugin_info = new PluginInformation( $integration->get_basename() );
+
+			if ( $integration->is_plugin_active() && ! $plugin_info->is_active() ) {
+				$column = new Placeholder();
+				$column->set_integration( $integration );
+
+				$this->register_column_type( $column );
 			}
 		}
 

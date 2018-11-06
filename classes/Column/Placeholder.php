@@ -2,8 +2,8 @@
 
 namespace AC\Column;
 
-use AC\Admin\Addon;
 use AC\Column;
+use AC\Integration;
 
 /**
  * ACF Placeholder column, holding a CTA for Admin Columns Pro.
@@ -12,19 +12,23 @@ use AC\Column;
 class Placeholder extends Column {
 
 	/**
-	 * @var Addon
+	 * @var Integration
 	 */
-	private $addon;
+	private $integration;
 
 	/**
-	 * @param Addon $addon
+	 * @param Integration $integration
+	 *
+	 * @return $this
 	 */
-	public function set_addon( Addon $addon ) {
-		$this->addon = $addon;
+	public function set_integration( Integration $integration ) {
+		$this->set_type( 'placeholder-' . $integration->get_slug() )
+		     ->set_group( $integration->get_slug() )
+		     ->set_label( $integration->get_title() );
 
-		$this->set_type( 'placeholder-' . $addon->get_slug() );
-		$this->set_group( $addon->get_slug() );
-		$this->set_label( $addon->get_title() );
+		$this->integration = $integration;
+
+		return $this;
 	}
 
 	public function get_message() {
@@ -42,8 +46,9 @@ class Placeholder extends Column {
 		<p>
 			<?php printf( __( "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview.", 'codepress-admin-columns' ), $this->get_label(), $this->get_label() ); ?>
 		</p>
-		<a target="_blank" href="<?php echo $this->addon->get_link(); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
-
+		<a target="_blank" href="<?php echo $this->integration->get_link(); ?>" class="button button-primary">
+			<?php _e( 'Find out more', 'codepress-admin-columns' ); ?>
+		</a>
 		<?php
 
 		return ob_get_clean();
