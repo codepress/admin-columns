@@ -49,8 +49,10 @@ class Addons extends Page {
 				continue;
 			}
 
+			$link = sprintf( '<a href="%s">%s</a>', $integration->get_plugin_link(), $integration->get_title() );
+
 			$this->register_notice(
-				sprintf( __( '%s needs to be installed and active for the add-on to work.', 'codepress-admin-columns' ), $integration->get_title() ),
+				sprintf( __( '%s needs to be installed and active for the add-on to work.', 'codepress-admin-columns' ), $link ),
 				Notice::WARNING
 			);
 		}
