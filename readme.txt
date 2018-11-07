@@ -214,7 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 3.3.1 =
-Release Date: TBD
+Release Date: November 7th, 2018
 
 * [Improved] Better external image support for Custom Field column
 
