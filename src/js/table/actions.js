@@ -1,4 +1,4 @@
-class Actions {
+export default class Actions {
 	constructor( id ) {
 		this.container = document.getElementById( id );
 		this.buttons = this.container.querySelector( '.ac-table-actions-buttons' );
@@ -37,5 +37,3 @@ class Actions {
 	}
 
 }
-
-module.exports = Actions;

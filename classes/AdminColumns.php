@@ -175,7 +175,7 @@ class AdminColumns extends Plugin {
 	 * @return string
 	 */
 	public function get_version() {
-		return '3.3';
+		return AC_VERSION;
 	}
 
 	/**
@@ -430,4 +430,5 @@ class AdminColumns extends Plugin {
 		</script>
 		<?php
 	}
+
 }
