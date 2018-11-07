@@ -4,7 +4,6 @@ namespace AC\Admin\Page;
 
 use AC;
 use AC\Admin\Page;
-use AC\Message;
 use AC\Message\Notice;
 use AC\PluginInformation;
 
@@ -28,36 +27,32 @@ class Addons extends Page {
 	}
 
 	public function page_notices() {
-		if ( ! $this->is_current_screen() ) {
-			return;
-		}
-
-		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) || ! $this->is_current_screen() ) {
 			return;
 		}
 
 		if ( ! ac_is_pro_active() ) {
 			$link = ac_helper()->html->link( ac_get_site_utm_url( false, 'addon' ), __( 'Admin Columns Pro', 'codepress-admin-columns' ), array( 'target' => '_blank' ) );
 
-			$notice = new Notice( sprintf( __( 'All add-ons require %s.', 'codepress-admin-columns' ), $link ) );
-			$notice
-				->set_type( Notice::WARNING )
-				->register();
+			$this->register_notice(
+				sprintf( __( 'All add-ons require %s.', 'codepress-admin-columns' ), $link ),
+				Notice::INFO
+			);
+
+			return;
 		}
 
 		foreach ( new AC\Integrations() as $integration ) {
 			$plugin = new PluginInformation( $integration->get_basename() );
 
-			if ( ! $plugin->is_active() ) {
+			if ( ! $plugin->is_active() || $integration->is_plugin_active() ) {
 				continue;
 			}
 
-			if ( $integration->is_plugin_active() ) {
-				continue;
-			}
-
-			$notice = new Notice( sprintf( __( '%s needs to be installed and active for the add-on to work.', 'codepress-admin-columns' ), $integration->get_title() ) );
-			$notice->register();
+			$this->register_notice(
+				sprintf( __( '%s needs to be installed and active for the add-on to work.', 'codepress-admin-columns' ), $integration->get_title() ),
+				Notice::WARNING
+			);
 		}
 	}
 
@@ -71,51 +66,74 @@ class Addons extends Page {
 		}
 
 		$nonce = filter_input( INPUT_GET, '_ac_nonce' );
-		$basename = filter_input( INPUT_GET, 'plugin' );
+		$slug = filter_input( INPUT_GET, 'plugin' );
 		$status = filter_input( INPUT_GET, 'status' );
 
-		if ( ! $basename || ! $status || ! wp_verify_nonce( $nonce, 'ac-plugin-status-change' ) ) {
+		if ( ! $slug || ! $status || ! wp_verify_nonce( $nonce, 'ac-plugin-status-change' ) ) {
 			return;
 		}
 
-		$plugin = new PluginInformation( $basename );
-
 		switch ( $status ) {
 			case 'activate' :
-				$this->show_activation_notice( $plugin );
+				$this->show_activation_notice( $slug );
 
 				break;
 			case 'deactivate' :
-				$this->show_deactivation_notice( $plugin );
+				$this->show_deactivation_notice( $slug );
 
 				break;
 		}
 	}
 
-	protected function show_activation_notice( PluginInformation $plugin ) {
-		$plugin_name = '<strong>' . $plugin->get_name() . '</strong>';
+	/**
+	 * @param string $slug Plugin dirname
+	 */
+	private function show_activation_notice( $slug ) {
+		$integration = AC\IntegrationFactory::create_by_dirname( $slug );
 
-		if ( $plugin->is_active() ) {
-			$message = sprintf( __( '%s successfully activated.', 'codepress-admin-columns' ), $plugin_name );
-			$type = Message::SUCCESS;
-		} else {
-			$plugins_link = ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) );
-
-			$message = sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), $plugin_name ) . ' ' . sprintf( __( 'Please visit the %s page.', 'codepress-admin-columns' ), $plugins_link );
-			$type = Message::ERROR;
+		if ( ! $integration ) {
+			return;
 		}
 
-		$notice = new Notice( $message );
-		$notice
-			->set_type( $type )
-			->register();
+		$plugin = new PluginInformation( $integration->get_basename() );
+
+		$plugin_name = '<strong>' . sprintf( __( '%s add-on', 'codepress-admin-columns' ), $integration->get_title() ) . '</strong>';
+
+		if ( $plugin->is_active() ) {
+			$this->register_notice(
+				sprintf( __( '%s successfully activated.', 'codepress-admin-columns' ), $plugin_name ),
+				Notice::SUCCESS
+			);
+
+			return;
+		}
+
+		$this->register_notice(
+			sprintf( __( '%s could not be activated.', 'codepress-admin-columns' ), $plugin_name ) . ' ' . sprintf( __( 'Please visit the %s page.', 'codepress-admin-columns' ), $this->get_plugins_link() ),
+			Notice::ERROR
+		);
 	}
 
-	protected function show_deactivation_notice( PluginInformation $plugin ) {
-		$message = sprintf( __( '%s successfully deactivated.', 'codepress-admin-columns' ), '<strong>' . $plugin->get_name() . '</strong>' );
+	/**
+	 * @return string
+	 */
+	private function get_plugins_link() {
+		return ac_helper()->html->link( admin_url( 'plugins.php' ), strtolower( __( 'Plugins' ) ) );
+	}
 
-		$notice = new Notice( $message );
-		$notice->register();
+	/**
+	 * @param string $slug Plugin dirname
+	 */
+	private function show_deactivation_notice( $slug ) {
+		$integration = AC\IntegrationFactory::create_by_dirname( $slug );
+
+		if ( ! $integration ) {
+			return;
+		}
+
+		$this->register_notice(
+			sprintf( __( '%s successfully deactivated.', 'codepress-admin-columns' ), '<strong>' . $integration->get_title() . '</strong>' )
+		);
 	}
 
 	/**
@@ -129,12 +147,16 @@ class Addons extends Page {
 
 	/**
 	 * @param string $message
+	 * @param string $type
 	 */
-	private function register_notice_error( $message ) {
+	private function register_notice( $message, $type = '' ) {
 		$notice = new Notice( $message );
-		$notice
-			->set_type( Notice::ERROR )
-			->register();
+
+		if ( $type ) {
+			$notice->set_type( $type );
+		}
+
+		$notice->register();
 	}
 
 	/**
@@ -153,7 +175,7 @@ class Addons extends Page {
 		}
 
 		if ( ! ac_is_pro_active() ) {
-			$this->register_notice_error( __( 'You need Admin Columns Pro.', 'codepress-admin-columns' ) );
+			$this->register_notice( __( 'You need Admin Columns Pro.', 'codepress-admin-columns' ), Notice::ERROR );
 
 			return;
 		}
@@ -161,7 +183,7 @@ class Addons extends Page {
 		$integration = AC\IntegrationFactory::create_by_dirname( $dirname );
 
 		if ( ! $integration ) {
-			$this->register_notice_error( __( 'Addon does not exist.', 'codepress-admin-columns' ) );
+			$this->register_notice( __( 'Addon does not exist.', 'codepress-admin-columns' ), Notice::ERROR );
 
 			return;
 		}
@@ -169,7 +191,7 @@ class Addons extends Page {
 		$error_message = apply_filters( 'ac/addons/install_request/maybe_error', false, $integration->get_slug() );
 
 		if ( $error_message ) {
-			$this->register_notice_error( $error_message );
+			$this->register_notice( $error_message, Notice::ERROR );
 
 			return;
 		}
@@ -205,23 +227,15 @@ class Addons extends Page {
 			return $location;
 		}
 
-		$addon = false;
-		$plugin = filter_input( INPUT_GET, 'plugin' );
+		$integration = AC\IntegrationFactory::create( filter_input( INPUT_GET, 'plugin' ) );
 
-		// Check if either the addon is installed or it's plugin
-		foreach ( new AC\Integrations() as $integration ) {
-			if ( filter_input( INPUT_GET, 'plugin' ) === $integration->get_basename() ) {
-				$addon = $integration;
-			}
-		}
-
-		if ( ! $addon ) {
+		if ( ! $integration ) {
 			return $location;
 		}
 
 		$location = add_query_arg( array(
 			'status'    => $status,
-			'plugin'    => $plugin,
+			'plugin'    => $integration->get_slug(),
 			'_ac_nonce' => wp_create_nonce( 'ac-plugin-status-change' ),
 		), $this->get_link() );
 
@@ -330,7 +344,7 @@ class Addons extends Page {
 	 *
 	 * @return string
 	 */
-	public function get_activation_url( $basename ) {
+	private function get_activation_url( $basename ) {
 		return $this->get_plugin_action_url( 'activate', $basename );
 	}
 
@@ -341,7 +355,7 @@ class Addons extends Page {
 	 *
 	 * @return string
 	 */
-	public function get_deactivation_url( $basename ) {
+	private function get_deactivation_url( $basename ) {
 		return $this->get_plugin_action_url( 'deactivate', $basename );
 	}
 
@@ -361,6 +375,11 @@ class Addons extends Page {
 		), wp_nonce_url( admin_url( 'plugins.php' ), $action . '-plugin_' . $basename ) );
 	}
 
+	/**
+	 * @param string $slug
+	 *
+	 * @return string
+	 */
 	private function get_plugin_install_url( $slug ) {
 		return add_query_arg( array(
 			'action' => 'install',
