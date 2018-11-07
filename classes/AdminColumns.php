@@ -430,4 +430,5 @@ class AdminColumns extends Plugin {
 		</script>
 		<?php
 	}
+
 }
