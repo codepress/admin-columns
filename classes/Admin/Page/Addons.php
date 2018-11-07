@@ -433,7 +433,7 @@ class Addons extends Page {
 									<?php endif;
 
 								// Not installed...
-								elseif ( $user_has_rights && ac_is_pro_active() ) : ?>
+								elseif ( ac_is_pro_active() && current_user_can( 'install_plugins' ) ) : ?>
 									<a href="<?php echo esc_url( $this->get_plugin_install_url( $addon->get_slug() ) ); ?>" class="button">
 										<?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?>
 									</a>
