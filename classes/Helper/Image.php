@@ -212,15 +212,13 @@ class Image {
 		return pathinfo( $this->get_file_name( $attachment_id ), PATHINFO_EXTENSION );
 	}
 
-	// Helpers
-
 	private function get_file_tooltip_attr( $media_id ) {
 		return ac_helper()->html->get_tooltip_attr( $this->get_file_name( $media_id ) );
 	}
 
 	private function markup_cover( $src, $width, $height, $media_id = null ) {
 		ob_start(); ?>
-		<span class="ac-image cpac-cover" data-media-id="<?php echo esc_attr( $media_id ); ?>" style="width:<?php echo esc_attr( $width ); ?>px;height:<?php echo esc_attr( $height ); ?>px;background-size:cover;background-image:url(<?php echo esc_attr( $src ); ?>);background-position:center;"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>></span>
+		<span class="ac-image cpac-cover" data-media-id="<?php echo esc_attr( $media_id ); ?>" style="width:<?php echo esc_attr( $width ); ?>px;height:<?php echo esc_attr( $height ); ?>px;background-size:cover;background-image:url('<?php echo esc_attr( $src ); ?>');background-position:center;"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>></span>
 
 		<?php
 		return ob_get_clean();

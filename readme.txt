@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.5
 Tested up to: 5.0
 Requires PHP: 5.3.6
-Stable tag: 3.3
+Stable tag: 3.3.1
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -212,6 +212,11 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 3.3.1 =
+Release Date: November 7th, 2018
+
+* [Improved] Better external image support for Custom Field column
 
 = 3.3 =
 Release Date: October 31st, 2018

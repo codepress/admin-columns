@@ -18,10 +18,11 @@ class Plugin extends Message {
 	protected $icon;
 
 	/**
+	 * @param string $message
 	 * @param string $plugin_basename
 	 */
-	public function __construct( $plugin_basename ) {
-		parent::__construct();
+	public function __construct( $message, $plugin_basename ) {
+		parent::__construct( $message );
 
 		$this->plugin_basename = $plugin_basename;
 		$this->type = self::WARNING;
@@ -32,7 +33,7 @@ class Plugin extends Message {
 		add_action( 'after_plugin_row_' . $this->plugin_basename, array( $this, 'display' ), 11 );
 	}
 
-	public function create_view() {
+	public function render() {
 		switch ( $this->type ) {
 			case self::SUCCESS :
 				$class = 'updated-message notice-success';
@@ -62,7 +63,7 @@ class Plugin extends Message {
 		$view = new View( $data );
 		$view->set_template( 'message/plugin' );
 
-		return $view;
+		return $view->render();
 	}
 
 	/**
@@ -81,17 +82,6 @@ class Plugin extends Message {
 		}
 
 		return $mapping[ $this->type ];
-	}
-
-	/**
-	 * @param string $type
-	 *
-	 * @return $this
-	 */
-	public function set_type( $type ) {
-		$this->type = $type;
-
-		return $this;
 	}
 
 	/**

@@ -178,7 +178,13 @@ class Strings {
 	 * @return bool
 	 */
 	public function is_image( $url ) {
-		return $url && is_string( $url ) && in_array( strrchr( $url, '.' ), array( '.jpg', '.jpeg', '.gif', '.png', '.bmp' ) );
+		if ( ! $url || ! is_string( $url ) ) {
+			return false;
+		}
+
+		$ext = pathinfo( strtok( $url, '?' ), PATHINFO_EXTENSION );
+
+		return in_array( $ext, array( 'jpg', 'jpeg', 'gif', 'png', 'bmp' ) );
 	}
 
 	/**

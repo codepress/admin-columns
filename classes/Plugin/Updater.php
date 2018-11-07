@@ -106,14 +106,12 @@ class Updater {
 			esc_html__( 'Your database is up to date. You are awesome.', 'codepress-admin-columns' )
 		);
 
-		$notice = new Message\Notice();
-		$notice->set_message( $message )
-		       ->register();
+		$notice = new Message\Notice( $message );
+		$notice->register();
 	}
 
 	protected function show_update_notice() {
 		$url = add_query_arg( array( 'ac_do_update' => 'true' ), AC()->admin()->get_settings_url() );
-
 		$message = sprintf( '<strong>%s</strong> &ndash; %s <a href="%s" class="button ac-update-now">%s</a>',
 			esc_html__( 'Admin Columns', 'codepress-admin-columns' ),
 			esc_html__( 'We need to update your database to the latest version.', 'codepress-admin-columns' ),
@@ -121,10 +119,10 @@ class Updater {
 			esc_html__( 'Run the updater', 'codepress-admin-columns' )
 		);
 
-		$notice = new Message\Notice();
-		$notice->set_message( $message )
-		       ->set_type( $notice::INFO )
-		       ->register();
+		$notice = new Message\Notice( $message );
+		$notice
+			->set_type( $notice::INFO )
+			->register();
 	}
 
 }

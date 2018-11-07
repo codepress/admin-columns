@@ -4,6 +4,7 @@ namespace AC\Storage;
 
 use AC\Expirable;
 use Exception;
+use LogicException;
 
 final class Timestamp
 	implements KeyValuePair, Expirable {
@@ -11,7 +12,7 @@ final class Timestamp
 	/**
 	 * @var KeyValuePair
 	 */
-	protected $storage;
+	private $storage;
 
 	public function __construct( KeyValuePair $storage ) {
 		$this->storage = $storage;
@@ -61,7 +62,7 @@ final class Timestamp
 	 */
 	public function save( $value ) {
 		if ( ! $this->validate( $value ) ) {
-			throw new Exception( 'Value needs to be a positive integer' );
+			throw new LogicException( 'Value needs to be a positive integer' );
 		}
 
 		return $this->storage->save( $value );

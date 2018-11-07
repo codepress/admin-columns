@@ -2,7 +2,7 @@
 
 namespace AC\Ajax;
 
-use Exception;
+use LogicException;
 
 class Handler {
 
@@ -23,15 +23,15 @@ class Handler {
 	}
 
 	/**
-	 * @throws Exception
+	 * @throws LogicException
 	 */
 	public function register() {
 		if ( ! $this->get_action() ) {
-			throw new Exception( 'Action parameter is missing.' );
+			throw new LogicException( 'Action parameter is missing.' );
 		}
 
 		if ( ! $this->get_callback() ) {
-			throw new Exception( 'Callback is missing.' );
+			throw new LogicException( 'Callback is missing.' );
 		}
 
 		add_action( 'wp_ajax_' . $this->get_action(), $this->get_callback() );
