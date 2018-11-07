@@ -427,43 +427,43 @@ msgstr ""
 msgid "%s successfully deactivated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:155
+#: classes/Admin/Page/Addons.php:156
 msgid "You need Admin Columns Pro."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:163
+#: classes/Admin/Page/Addons.php:164
 msgid "Addon does not exist."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:237
+#: classes/Admin/Page/Addons.php:238
 msgid "Installed"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:238
+#: classes/Admin/Page/Addons.php:239
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:239
+#: classes/Admin/Page/Addons.php:240
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:397
+#: classes/Admin/Page/Addons.php:404
 msgid "Active"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:400
+#: classes/Admin/Page/Addons.php:407
 msgid "Deactivate"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:404
+#: classes/Admin/Page/Addons.php:411
 msgid "Activate"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:411
+#: classes/Admin/Page/Addons.php:417
 msgid "Download & Install"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:414
+#: classes/Admin/Page/Addons.php:420
 msgid "Get this add-on"
 msgstr ""
 
