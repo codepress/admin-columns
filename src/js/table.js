@@ -15,9 +15,9 @@ jQuery( document ).ready( function( $ ) {
 	ac_actions_tooltips( $ );
 
 	let table = document.querySelector( AC.table_id );
+
 	if ( table ) {
-		AdminColumns.Table = new Table( table.parentElement );
-		AC.Table = AdminColumns.Table; // TODO use AdminColumns instead of AC
+		ac_load_table( table.parentElement );
 	}
 
 	AdminColumns.Tooltips = new Tooltip();
@@ -29,6 +29,11 @@ jQuery( document ).ready( function( $ ) {
 	} );
 
 } );
+
+global.ac_load_table = function( el ) {
+	AdminColumns.Table = new Table( el );
+	AC.Table = AdminColumns.Table; // TODO use AdminColumns instead of AC
+};
 
 function ac_actions_tooltips( $ ) {
 	$( '.row-actions a' ).qtip( {
