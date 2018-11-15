@@ -182,7 +182,7 @@ class Strings {
 			return false;
 		}
 
-		$ext = pathinfo( strtok( $url, '?' ), PATHINFO_EXTENSION );
+		$ext = strtolower( pathinfo( strtok( $url, '?' ), PATHINFO_EXTENSION ) );
 
 		return in_array( $ext, array( 'jpg', 'jpeg', 'gif', 'png', 'bmp' ) );
 	}
