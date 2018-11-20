@@ -942,7 +942,7 @@ div.cpac-color span {
 		&.-toggle {
 			background: none;
 			border: 1px solid transparent;
-			padding-left:4px;
+			padding-left: 4px;
 			padding-right: 4px;
 			transform: translateY(-1px);
 
@@ -1038,4 +1038,11 @@ div.cpac-color span {
 		}
 	}
 
+}
+
+.hide-column-tog + span {
+	.dashicons {
+		transform: translateY(5px);
+		margin-left: 3px;
+	}
 }

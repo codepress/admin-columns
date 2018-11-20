@@ -1,6 +1,7 @@
 import Table from "./table/table";
 import Tooltip from "./table/tooltips";
 import Modals from "./modules/modals";
+import ScreenOptionsColumns from "./table/screen-options-columns";
 
 Modals.init();
 
@@ -18,6 +19,8 @@ jQuery( document ).ready( function( $ ) {
 
 	if ( table ) {
 		ac_load_table( table.parentElement );
+
+		AdminColumns.ScreenOptionsColumns = new ScreenOptionsColumns( AdminColumns.Table.Columns );
 	}
 
 	AdminColumns.Tooltips = new Tooltip();
