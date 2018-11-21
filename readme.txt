@@ -216,6 +216,7 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: tbd
 
+* [Fixed] Show icons for Action column works again
 * [Improved] Show icon labels in the Screen Options menu when necessary
 
 = 3.3.1 =

@@ -697,7 +697,8 @@ div.cpac-color span {
 		position: relative;
 	}
 
-	&.cpac_use_icons .row-actions {
+	.cpac_use_icons + .hidden + .row-actions,
+	.cpac_use_icons + .row-actions {
 		> span {
 			color: transparent;
 			margin-right: -8px;
