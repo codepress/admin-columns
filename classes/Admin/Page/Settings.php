@@ -4,30 +4,32 @@ namespace AC\Admin\Page;
 
 use AC;
 use AC\Admin\Page;
+use AC\Admin\Section;
 
 class Settings extends Page {
 
+	// todo: static or non-static
+
 	/**
-	 * @var AC\Admin\Section[]
+	 * @var Section[]
 	 */
 	private static $sections;
 
+	public function __construct() {
+		parent::__construct( 'settings', __( 'Settings', 'codepress-admin-columns' ) );
+	}
 	/**
-	 * @param AC\Admin\Section $section
+	 * @param Section $section
 	 */
-	public static function register_section( AC\Admin\Section $section ) {
+	public static function register_section( Section $section ) {
 		self::$sections[] = $section;
 	}
 
 	/**
-	 * @return AC\Admin\Section[]
+	 * @return Section[]
 	 */
 	public static function get_sections() {
 		return self::$sections;
-	}
-
-	public function __construct() {
-		parent::__construct( 'settings', __( 'Settings', 'codepress-admin-columns' ) );
 	}
 
 	/**

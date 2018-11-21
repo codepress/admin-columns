@@ -60,6 +60,7 @@ class AdminColumns extends Plugin {
 
 		$this->api = new API();
 
+		// todo: move
 		Settings::register_setting( new ShowEditButton );
 
 		Page\Settings::register_section( new General );
