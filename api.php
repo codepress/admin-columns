@@ -1,5 +1,7 @@
 <?php
 
+use AC\Admin;
+
 /**
  * @since 3.0
  * @return AC\AdminColumns
@@ -98,4 +100,21 @@ function ac_helper() {
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	AC()->api()->load_columndata( $list_screen_keys, $column_data );
+}
+
+/**
+ * @param string $slug
+ *
+ * @return string
+ */
+function ac_get_admin_url( $slug = false ) {
+	$args = array(
+		'page' => Admin::MENU_SLUG,
+	);
+
+	if ( $slug ) {
+		$args['tab'] = $slug;
+	}
+
+	return add_query_arg( $args, 'options-general.php' );
 }

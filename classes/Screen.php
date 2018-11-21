@@ -2,6 +2,7 @@
 
 namespace AC;
 
+use AC\Admin;
 use WP_Screen;
 
 class Screen {
@@ -114,10 +115,17 @@ class Screen {
 	 */
 	public function is_admin_screen( $slug = null ) {
 		if ( null !== $slug ) {
-			return AC()->admin()->is_current_page( $slug );
+			return $this->is_main_admin_screen() && $slug === filter_input( INPUT_GET, 'tab' );
 		}
 
-		return AC()->admin()->is_admin_screen();
+		return $this->is_main_admin_screen();
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function is_main_admin_screen() {
+		return $this->get_id() === 'settings_page_' . Admin::MENU_SLUG;
 	}
 
 }

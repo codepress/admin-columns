@@ -378,7 +378,10 @@ abstract class ListScreen {
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		return add_query_arg( array( 'list_screen' => $this->key, 'layout_id' => $this->get_layout_id() ), AC()->admin_columns_screen()->get_link() );
+		return add_query_arg( array(
+			'list_screen' => $this->key,
+			'layout_id' => $this->get_layout_id()
+		), ac_get_admin_url() );
 	}
 
 	/**

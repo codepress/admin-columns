@@ -2,6 +2,9 @@
 
 namespace AC;
 
+use AC\Admin\Page\Columns;
+use AC\Admin\PageFactory;
+use AC\Admin\Pages;
 use AC\Check;
 use AC\Table;
 use AC\ThirdParty;
@@ -9,9 +12,6 @@ use AC\ThirdParty;
 class AdminColumns extends Plugin {
 
 	/**
-	 * Admin Columns settings class instance
-	 * @since  2.2
-	 * @access private
 	 * @var Admin
 	 */
 	private $admin;
@@ -58,14 +58,7 @@ class AdminColumns extends Plugin {
 
 		$this->api = new API();
 
-		$this->admin = new Admin();
-		$this->admin->register();
-
-		$screen = new Screen();
-		$screen->register();
-
-		$screen = new Screen\QuickEdit();
-		$screen->register();
+		$this->load_admin_pages();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
@@ -78,6 +71,17 @@ class AdminColumns extends Plugin {
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ), 1 );
+	}
+
+	private function load_admin_pages() {
+		$pages = new Pages();
+
+		foreach ( $pages->get_copy() as $page ) {
+			$page->register_ajax();
+		}
+
+		$this->admin = new Admin( $pages );
+		$this->admin->register();
 	}
 
 	/**
@@ -204,7 +208,7 @@ class AdminColumns extends Plugin {
 	 */
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->get_basename() ) {
-			array_unshift( $links, ac_helper()->html->link( AC()->admin()->get_link( 'columns' ), __( 'Settings', 'codepress-admin-columns' ) ) );
+			array_unshift( $links, ac_helper()->html->link( ac_get_admin_url( 'columns' ), __( 'Settings', 'codepress-admin-columns' ) ) );
 		}
 
 		return $links;
@@ -244,7 +248,7 @@ class AdminColumns extends Plugin {
 	 * @return Admin\Page\Columns
 	 */
 	public function admin_columns_screen() {
-		return $this->admin()->get_page( 'columns' );
+		return new Columns();
 	}
 
 	/**
