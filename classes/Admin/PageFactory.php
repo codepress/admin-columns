@@ -9,9 +9,7 @@ class PageFactory {
 	 * @return Page|false
 	 */
 	public static function create( $slug ) {
-		$pages = new Pages();
-
-		foreach ( $pages->get_copy() as $page ) {
+		foreach ( Pages::get_pages() as $page ) {
 			if ( $page->get_slug() === $slug ) {
 				return $page;
 			}

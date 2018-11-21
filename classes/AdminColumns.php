@@ -60,6 +60,11 @@ class AdminColumns extends Plugin {
 
 		$this->api = new API();
 
+		Pages::register_page( new Page\Columns() );
+		Pages::register_page( new Page\Settings() );
+		Pages::register_page( new Page\Addons() );
+		Pages::register_page( new Page\Help() );
+
 		// todo: move
 		Settings::register_setting( new ShowEditButton );
 
@@ -85,13 +90,11 @@ class AdminColumns extends Plugin {
 	}
 
 	private function load_admin_pages() {
-		$pages = new Pages();
-
-		foreach ( $pages->get_copy() as $page ) {
+		foreach ( Pages::get_pages() as $page ) {
 			$page->register_ajax();
 		}
 
-		$this->admin = new Admin( $pages );
+		$this->admin = new Admin();
 		$this->admin->register();
 	}
 

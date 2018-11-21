@@ -17,10 +17,9 @@ class Addons extends Page {
 	 * Register Hooks
 	 */
 	public function register() {
-		$this->handle_request();
-		$this->handle_install_request();
-		$this->page_notices();
-
+		add_action( 'admin_init', array( $this, 'handle_request' ) );
+		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
+		add_action( 'admin_init', array( $this, 'page_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 

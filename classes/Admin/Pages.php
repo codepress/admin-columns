@@ -1,24 +1,17 @@
 <?php
 namespace AC\Admin;
 
-use AC\ArrayIterator;
+class Pages {
 
-class Pages extends ArrayIterator {
+	/** @var Page[] */
+	private static $pages;
 
-	public function __construct() {
-		parent::__construct( array(
-			new Page\Columns(),
-			new Page\Settings(),
-			new Page\Addons(),
-			new Page\Help(),
-		) );
+	public static function register_page( Page $page  ) {
+		self::$pages[] = $page;
 	}
 
-	/**
-	 * @return Page[]
-	 */
-	public function get_copy() {
-		return parent::get_copy();
+	public static function get_pages() {
+		return self::$pages;
 	}
 
 }

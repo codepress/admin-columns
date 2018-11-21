@@ -9,15 +9,10 @@ class Admin {
 
 	const MENU_SLUG = 'codepress-admin-columns';
 
-	/** @var Pages */
-	private $pages;
-
 	/** @var Page */
 	private $current_page;
 
-	public function __construct( Pages $pages ) {
-		$this->pages = $pages;
-
+	public function __construct() {
 		$this->set_current_page();
 	}
 
@@ -56,7 +51,8 @@ class Admin {
 		$page = PageFactory::create( filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_STRING ) );
 
 		if ( ! $page ) {
-			$page = $this->pages->current();
+			$pages = Pages::get_pages();
+			$page = current( $pages );
 		}
 
 		$this->current_page = $page;
@@ -94,7 +90,7 @@ class Admin {
 	 * @return void
 	 */
 	private function menu( $current_tab ) {
-		foreach ( $this->pages->get_copy() as $page ) {
+		foreach ( Pages::get_pages() as $page ) {
 			if ( $page->show_in_menu() ) {
 				echo sprintf( '<a href="%s" class="nav-tab %s">%s</a>', ac_get_admin_url( $page->get_slug() ), $page->get_slug() === $current_tab ? 'nav-tab-active' : '', $page->get_label() );
 			}
