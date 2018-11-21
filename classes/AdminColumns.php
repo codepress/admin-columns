@@ -2,8 +2,10 @@
 
 namespace AC;
 
-use AC\Admin\Page\Columns;
+use AC\Admin\Page;
 use AC\Admin\Pages;
+use AC\Admin\Section\General;
+use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Settings\Admin\ShowEditButton;
 use AC\Table;
@@ -59,6 +61,9 @@ class AdminColumns extends Plugin {
 		$this->api = new API();
 
 		Settings::register_setting( new ShowEditButton );
+
+		Page\Settings::register_section( new General );
+		Page\Settings::register_section( new Restore );
 
 		$settings = new Settings\General();
 		$settings->register();
@@ -253,7 +258,7 @@ class AdminColumns extends Plugin {
 	 * @return Admin\Page\Columns
 	 */
 	public function admin_columns_screen() {
-		return new Columns();
+		return new Page\Columns();
 	}
 
 	/**
