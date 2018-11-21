@@ -3,9 +3,9 @@
 namespace AC;
 
 use AC\Admin\Page\Columns;
-use AC\Admin\PageFactory;
 use AC\Admin\Pages;
 use AC\Check;
+use AC\Settings\Admin\ShowEditButton;
 use AC\Table;
 use AC\ThirdParty;
 
@@ -57,6 +57,11 @@ class AdminColumns extends Plugin {
 		new ThirdParty\WPML();
 
 		$this->api = new API();
+
+		Settings::register_setting( new ShowEditButton );
+
+		$settings = new Settings\General();
+		$settings->register();
 
 		$this->load_admin_pages();
 

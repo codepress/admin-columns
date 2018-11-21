@@ -17,6 +17,8 @@ class Admin {
 
 	public function __construct( Pages $pages ) {
 		$this->pages = $pages;
+
+		$this->set_current_page();
 	}
 
 	/**
@@ -24,6 +26,10 @@ class Admin {
 	 */
 	public function register() {
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
+
+		if ( $this->current_page ) {
+			$this->current_page->register();
+		}
 	}
 
 	/**
@@ -40,22 +46,26 @@ class Admin {
 		);
 
 		add_action( "admin_print_scripts-" . $settings_page, array( $this, 'admin_scripts' ) );
-		add_action( 'load-' . $settings_page, array( $this, 'init' ) );
 	}
 
-	public function init() {
+	private function set_current_page() {
+		if ( self::MENU_SLUG !== filter_input( INPUT_GET, 'page' ) ) {
+			return;
+		}
+
 		$page = PageFactory::create( filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_STRING ) );
 
 		if ( ! $page ) {
-			$pages = new Pages();
-			$page = $pages->current();
+			$page = $this->pages->current();
 		}
-
-		$page->register();
 
 		$this->current_page = $page;
 	}
 
+	/**
+	 * Scripts
+	 * @return void
+	 */
 	public function admin_scripts() {
 		wp_enqueue_script( 'ac-admin-general', AC()->get_url() . "assets/js/admin-general.js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
 		wp_enqueue_style( 'wp-pointer' );

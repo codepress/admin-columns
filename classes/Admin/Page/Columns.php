@@ -27,10 +27,8 @@ class Columns extends Admin\Page {
 	}
 
 	public function register() {
-		$this->handle_request();
-
-		$this->register_help( get_current_screen() );
-
+		add_action( 'admin_init', array( $this, 'handle_request' ) );
+		add_action( 'current_screen', array( $this, 'register_help' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_footer', array( $this, 'display_modal' ) );
 	}

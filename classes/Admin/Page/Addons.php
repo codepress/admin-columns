@@ -17,10 +17,16 @@ class Addons extends Page {
 	 * Register Hooks
 	 */
 	public function register() {
-		add_action( 'admin_init', array( $this, 'handle_request' ) );
-		add_action( 'admin_init', array( $this, 'handle_install_request' ) );
-		add_action( 'admin_init', array( $this, 'page_notices' ) );
+		$this->handle_request();
+		$this->handle_install_request();
+		$this->page_notices();
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	}
+
+	public function register_ajax() {
+
+		// todo: register globally
 		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
 	}
 
@@ -61,21 +67,17 @@ class Addons extends Page {
 	 * @since 2.2
 	 */
 	public function handle_request() {
-		$nonce = filter_input( INPUT_GET, '_ac_nonce' );
-		$slug = filter_input( INPUT_GET, 'plugin' );
-		$status = filter_input( INPUT_GET, 'status' );
-
-		if ( ! $slug || ! $status || ! wp_verify_nonce( $nonce, 'ac-plugin-status-change' ) ) {
+		if ( ! wp_verify_nonce( filter_input( INPUT_GET, '_ac_nonce' ), 'ac-plugin-status-change' ) ) {
 			return;
 		}
 
-		switch ( $status ) {
+		switch ( filter_input( INPUT_GET, 'status' ) ) {
 			case 'activate' :
-				$this->show_activation_notice( $slug );
+				$this->show_activation_notice( filter_input( INPUT_GET, 'plugin' ) );
 
 				break;
 			case 'deactivate' :
-				$this->show_deactivation_notice( $slug );
+				$this->show_deactivation_notice( filter_input( INPUT_GET, 'plugin' ) );
 
 				break;
 		}

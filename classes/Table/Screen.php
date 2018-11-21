@@ -347,10 +347,9 @@ final class Screen {
 			return false;
 		}
 
-		/* @var Admin\Page\Settings $settings */
-		$settings = AC()->admin()->get_page( 'settings' );
+		$setting = new Settings\Admin\ShowEditButton();
 
-		if ( ! $settings->show_edit_button() ) {
+		if ( ! $setting->show_button() ) {
 			return false;
 		}
 
