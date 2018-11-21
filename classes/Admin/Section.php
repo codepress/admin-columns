@@ -43,6 +43,9 @@ abstract class Section {
 		// Run hooks
 	}
 
+	/**
+	 * @return void
+	 */
 	abstract public function render();
 
 }

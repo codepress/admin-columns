@@ -39,17 +39,4 @@ class ShowEditButton extends Admin {
 		return $checkbox->render();
 	}
 
-	// todo
-	private function render_instructions( $instructions ) {
-		?>
-		<a class="ac-pointer instructions" rel="pointer-<?php echo $this->name; ?>" data-pos="right">
-			<?php _e( 'Instructions', 'codepress-admin-columns' ); ?>
-		</a>
-		<div id="pointer-<?php echo $this->name; ?>" style="display:none;">
-			<h3><?php _e( 'Notice', 'codepress-admin-columns' ); ?></h3>
-			<?php echo $instructions; ?>
-		</div>
-		<?php
-	}
-
 }

@@ -116,5 +116,7 @@ function ac_get_admin_url( $slug = false ) {
 		$args['tab'] = $slug;
 	}
 
+	// todo: works on a network site?
+
 	return add_query_arg( $args, 'options-general.php' );
 }

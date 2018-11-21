@@ -59,6 +59,13 @@ class Admin {
 	}
 
 	/**
+	 * @return Page
+	 */
+	public function get_current_page() {
+		return $this->current_page;
+	}
+
+	/**
 	 * Scripts
 	 * @return void
 	 */
@@ -87,6 +94,8 @@ class Admin {
 	}
 
 	/**
+	 * @param string $current_tab
+	 *
 	 * @return void
 	 */
 	private function menu( $current_tab ) {

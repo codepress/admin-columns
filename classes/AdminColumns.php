@@ -60,22 +60,25 @@ class AdminColumns extends Plugin {
 
 		$this->api = new API();
 
-		Pages::register_page( new Page\Columns() );
-		Pages::register_page( new Page\Settings() );
-		Pages::register_page( new Page\Addons() );
-		Pages::register_page( new Page\Help() );
+		Page\Settings::register_section( new General );
+		Page\Settings::register_section( new Restore );
+
+		Pages::register_page( new Page\Columns );
+		Pages::register_page( new Page\Settings );
+		Pages::register_page( new Page\Addons );
+		Pages::register_page( new Page\Help );
+
+		foreach ( Pages::get_pages() as $page ) {
+			$page->register_ajax();
+		}
 
 		// todo: move
 		Settings::register_setting( new ShowEditButton );
 
-		Page\Settings::register_section( new General );
-		Page\Settings::register_section( new Restore );
-
 		$settings = new Settings\General();
 		$settings->register();
 
-		$this->load_admin_pages();
-
+		add_action( 'init', array( $this, 'init_admin' ) );
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
@@ -89,11 +92,7 @@ class AdminColumns extends Plugin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ), 1 );
 	}
 
-	private function load_admin_pages() {
-		foreach ( Pages::get_pages() as $page ) {
-			$page->register_ajax();
-		}
-
+	public function init_admin() {
 		$this->admin = new Admin();
 		$this->admin->register();
 	}
