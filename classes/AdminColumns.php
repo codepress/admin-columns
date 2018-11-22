@@ -2,7 +2,9 @@
 
 namespace AC;
 
+use AC\Admin\Menu;
 use AC\Admin\Page;
+use AC\Admin\PageFactory;
 use AC\Admin\Pages;
 use AC\Admin\Section\General;
 use AC\Admin\Section\Restore;
@@ -78,7 +80,13 @@ class AdminColumns extends Plugin {
 		$settings = new Settings\General();
 		$settings->register();
 
-		add_action( 'init', array( $this, 'init_admin' ) );
+		$menu = new Menu();
+		$menu->register();
+
+		new Page\Columns();
+
+		$this->handle_admin_request();
+
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
@@ -92,9 +100,34 @@ class AdminColumns extends Plugin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ), 1 );
 	}
 
-	public function init_admin() {
-		$this->admin = new Admin();
-		$this->admin->register();
+	private function get_requested_page() {
+		global $pagenow;
+
+		if ( 'options-general.php' !== $pagenow ) {
+			return false;
+		}
+
+		if ( Admin::MENU_SLUG !== filter_input( INPUT_GET, 'page' ) ) {
+			return false;
+		}
+
+		$page = PageFactory::create( filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_STRING ) );
+
+		if ( ! $page ) {
+			$pages = Pages::get_pages();
+			$page = current( $pages );
+		}
+
+		return $page;
+	}
+
+	public function handle_admin_request() {
+		$admin = new Admin();
+		$admin->register();
+
+		if ( $page = $this->get_requested_page() ) {
+			$admin->set_page( $page );
+		}
 	}
 
 	/**

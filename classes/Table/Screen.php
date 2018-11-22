@@ -3,7 +3,6 @@
 namespace AC\Table;
 
 use AC;
-use AC\Admin;
 use AC\Capabilities;
 use AC\Form;
 use AC\ListScreen;

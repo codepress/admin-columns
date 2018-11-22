@@ -107,7 +107,7 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
  *
  * @return string
  */
-function ac_get_admin_url( $slug = false ) {
+function ac_get_admin_url( $slug = '' ) {
 	$args = array(
 		'page' => Admin::MENU_SLUG,
 	);
@@ -115,8 +115,6 @@ function ac_get_admin_url( $slug = false ) {
 	if ( $slug ) {
 		$args['tab'] = $slug;
 	}
-
-	// todo: works on a network site?
 
 	return add_query_arg( $args, 'options-general.php' );
 }

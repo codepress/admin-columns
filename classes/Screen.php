@@ -2,7 +2,6 @@
 
 namespace AC;
 
-use AC\Admin;
 use WP_Screen;
 
 class Screen {
