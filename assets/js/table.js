@@ -468,7 +468,7 @@ function () {
   }, {
     key: "getSettings",
     value: function getSettings() {
-      return AC.Table.Columns._types[this.getName()];
+      return AdminColumns.Table.Columns.get(this.getName());
     }
   }, {
     key: "setValue",
