@@ -8,28 +8,31 @@ use AC\Admin\Section;
 
 class Settings extends Page {
 
-	// todo: static or non-static
-
 	/**
 	 * @var Section[]
 	 */
-	private static $sections;
+	private $sections = array();
 
 	public function __construct() {
 		parent::__construct( 'settings', __( 'Settings', 'codepress-admin-columns' ) );
 	}
+
 	/**
 	 * @param Section $section
+	 *
+	 * @return $this
 	 */
-	public static function register_section( Section $section ) {
-		self::$sections[] = $section;
+	public function register_section( Section $section ) {
+		$this->sections[] = $section;
+
+		return $this;
 	}
 
 	/**
 	 * @return Section[]
 	 */
-	public static function get_sections() {
-		return self::$sections;
+	public function get_sections() {
+		return $this->sections;
 	}
 
 	/**
@@ -38,33 +41,26 @@ class Settings extends Page {
 	public function register() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
-		foreach ( $this->get_sections() as $section ) {
-			$section->register();
+		foreach ( $this->sections as $section ) {
+			if ( $section instanceof AC\Registrable ) {
+				$section->register();
+			}
 		}
+
 	}
 
 	public function admin_scripts() {
 		wp_enqueue_style( 'ac-admin-page-settings', AC()->get_url() . 'assets/css/admin-page-settings.css', array(), AC()->get_version() );
 	}
 
-
 	public function display() { ?>
 		<table class="form-table ac-form-table settings">
 			<tbody>
 
-			<?php foreach ( self::get_sections() as $section ) : ?>
-
-				<tr class="<?php echo esc_attr( $section->get_id() ); ?>">
-					<th scope="row">
-						<h2><?php echo $section->get_title(); ?></h2>
-						<p><?php echo $section->get_description(); ?></p>
-					</th>
-					<td>
-						<?php $section->render(); ?>
-					</td>
-				</tr>
-
-			<?php endforeach; ?>
+			<?php foreach ( $this->sections as $section ) {
+				$section->render();
+			}
+			?>
 
 			</tbody>
 		</table>

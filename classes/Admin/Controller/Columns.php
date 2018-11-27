@@ -6,16 +6,18 @@ use AC\Capabilities;
 use AC\Column;
 use AC\ListScreen;
 use AC\ListScreenFactory;
+use AC\Message\Notice;
 use AC\Registrable;
 use AC\View;
 
 class Columns implements Registrable {
 
 	public function register() {
-		// separate ajax handlers
+		// todo: separate ajax handlers
 		add_action( 'wp_ajax_ac_column_select', array( $this, 'ajax_column_select' ) );
 		add_action( 'wp_ajax_ac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 		add_action( 'wp_ajax_ac_columns_save', array( $this, 'ajax_columns_save' ) );
+		add_action( 'admin_init', array( $this, 'handle_request' ) );
 	}
 
 	/**
@@ -29,11 +31,10 @@ class Columns implements Registrable {
 
 	/**
 	 * @param ListScreen $list_screen
-	 *
-	 * @return string
+	 * @return string $label
 	 */
-	private function get_error_message_visit_list_screen( $list_screen ) {
-		return sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $list_screen->get_screen_link(), $list_screen->get_label() ) );
+	private function get_list_screen_message_label( ListScreen $list_screen ) {
+		return apply_filters( 'ac/settings/list_screen_message_label', $list_screen->get_label(), $list_screen );
 	}
 
 	/**
@@ -45,7 +46,7 @@ class Columns implements Registrable {
 		}
 
 		// Handle requests
-		switch ( filter_input( INPUT_POST, 'cpac_action' ) ) {
+		switch ( filter_input( INPUT_POST, 'action' ) ) {
 
 			case 'restore_by_type' :
 				if ( $this->verify_nonce( 'restore-type' ) ) {
@@ -53,9 +54,8 @@ class Columns implements Registrable {
 					$list_screen = ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 					$list_screen->delete();
 
-					// call column page for notice
-					// todo: use Notice object
-					//$this->notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ), 'updated' );
+					$notice = new Notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ) );
+					$notice->register();
 				}
 				break;
 		}
@@ -75,7 +75,7 @@ class Columns implements Registrable {
 		if ( ! $column ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
-				'error' => $this->get_error_message_visit_list_screen( $list_screen ),
+				'error' => sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $list_screen->get_screen_link(), $list_screen->get_label() ) )
 			) );
 		}
 
@@ -99,7 +99,7 @@ class Columns implements Registrable {
 			) );
 		}
 
-		wp_send_json_success( $this->get_column_display( $column ) );
+		wp_send_json_success( $this->render_column( $column ) );
 	}
 
 	/**
@@ -125,7 +125,7 @@ class Columns implements Registrable {
 			wp_die();
 		}
 
-		wp_send_json_success( $this->get_column_display( $column ) );
+		wp_send_json_success( $this->render_column( $column ) );
 	}
 
 	/**
@@ -196,27 +196,14 @@ class Columns implements Registrable {
 	 *
 	 * @return string
 	 */
-	private function get_column_display( Column $column ) {
-		ob_start();
-
-		$this->display_column( $column );
-
-		return ob_get_clean();
-	}
-
-	/**
-	 * @since 2.0
-	 *
-	 * @param Column $column
-	 */
-	private function display_column( Column $column ) {
+	private function render_column( Column $column ) {
 		$view = new View( array(
 			'column' => $column,
 		) );
 
-		$view->set_template( 'admin/column' );
+		$view->set_template( 'admin/edit-column' );
 
-		echo $view;
+		return $view->render();
 	}
 
 }

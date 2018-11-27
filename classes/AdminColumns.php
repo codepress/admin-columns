@@ -3,8 +3,8 @@
 namespace AC;
 
 use AC\Admin\Controller\Columns;
+use AC\Admin\Menu;
 use AC\Admin\Page;
-use AC\Admin\PageFactory;
 use AC\Admin\Pages;
 use AC\Admin\Section\General;
 use AC\Admin\Section\Restore;
@@ -55,6 +55,9 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
+		$screen = new Screen();
+		$screen->register();
+
 		new ThirdParty\ACF();
 		new ThirdParty\NinjaForms();
 		new ThirdParty\WooCommerce();
@@ -62,17 +65,12 @@ class AdminColumns extends Plugin {
 
 		$this->api = new API();
 
-		Page\Settings::register_section( new General );
-		Page\Settings::register_section( new Restore );
+		// Settings Init
+		$settings = new Settings\General();
+		$settings->register();
 
-
-
-		$controller = new Columns();
-		$controller->register();
-
-		$columns = new Page\Columns();
-
-		Pages::register_page( $columns );
+		// todo: non-static?
+		Pages::register_page( new Page\Columns );
 		Pages::register_page( new Page\Settings );
 		Pages::register_page( new Page\Addons );
 		Pages::register_page( new Page\Help );
@@ -81,15 +79,11 @@ class AdminColumns extends Plugin {
 			$page->register_ajax();
 		}
 
-		// todo: move
-		Settings::register_setting( new ShowEditButton );
+		$controller = new Columns();
+		$controller->register();
 
-		$settings = new Settings\General();
-		$settings->register();
-
-
-		$admin = new Admin( filter_input( INPUT_GET, 'tab' ) );
-		$admin->register();
+		$menu = new Admin();
+		$menu->register();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
@@ -102,15 +96,6 @@ class AdminColumns extends Plugin {
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ), 1 );
-	}
-
-	public function handle_admin_request() {
-		//				$factory = new PageFactory();
-		//				$page = $factory->create_from_url( $_SERVER['REQUEST_URI'] );
-		//
-		//				$admin = new Admin( $page );
-		//				$admin->register();
-
 	}
 
 	/**

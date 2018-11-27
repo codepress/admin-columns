@@ -20,7 +20,7 @@ $items = $this->items;
 		<?php // todo: do we need nonce + page? ?>
 		<?php wp_nonce_field( 'select-list-screen', '_ac_nonce', false ); ?>
 
-		<input type="hidden" name="page" value="<?php echo esc_attr( \AC\Admin::MENU_SLUG ); ?>">
+		<input type="hidden" name="page" value="<?php echo esc_attr( \AC\Admin::PLUGIN_PAGE ); ?>">
 
 		<select name="list_screen" title="<?php esc_attr_e( 'Select type', 'codepress-admin-columns' ); ?>" id="ac_list_screen">
 			<?php foreach ( $items as $group ) : ?>

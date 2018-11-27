@@ -31,6 +31,10 @@ class General {
 		return get_option( self::SETTINGS_NAME );
 	}
 
+	public function get_name() {
+		return self::SETTINGS_NAME;
+	}
+
 	/**
 	 * @return bool
 	 */

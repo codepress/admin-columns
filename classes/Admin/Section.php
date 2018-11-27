@@ -4,7 +4,7 @@ namespace AC\Admin;
 abstract class Section {
 
 	/** @var string */
-	private $id;
+	protected $id;
 
 	/** @var string */
 	private $title;
@@ -39,13 +39,23 @@ abstract class Section {
 		return $this->id;
 	}
 
-	public function register() {
-		// Run hooks
-	}
-
 	/**
 	 * @return void
 	 */
-	abstract public function render();
+	abstract protected function display_fields();
+
+	public function render() {
+		?>
+		<tr class="<?php echo esc_attr( $this->get_id() ); ?>">
+			<th scope="row">
+				<h2><?php echo $this->get_title(); ?></h2>
+				<p><?php echo $this->get_description(); ?></p>
+			</th>
+			<td>
+				<?php $this->display_fields(); ?>
+			</td>
+		</tr>
+		<?php
+	}
 
 }

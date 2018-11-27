@@ -124,7 +124,7 @@ class Screen {
 	 * @return bool
 	 */
 	private function is_main_admin_screen() {
-		return $this->get_id() === 'settings_page_' . Admin::MENU_SLUG;
+		return $this->get_id() === 'settings_page_' . Admin::PLUGIN_PAGE;
 	}
 
 }

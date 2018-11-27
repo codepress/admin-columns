@@ -109,12 +109,12 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
  */
 function ac_get_admin_url( $slug = '' ) {
 	$args = array(
-		'page' => Admin::MENU_SLUG,
+		'page' => Admin::PLUGIN_PAGE,
 	);
 
 	if ( $slug ) {
 		$args['tab'] = $slug;
 	}
 
-	return add_query_arg( $args, 'options-general.php' );
+	return add_query_arg( $args, Admin::PARENT_PAGE );
 }

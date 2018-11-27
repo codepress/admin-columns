@@ -2,23 +2,37 @@
 
 namespace AC\Admin\Section;
 
-use AC\Settings;
 use AC\Admin\Section;
+use AC\Settings;
 
 class General extends Section {
+
+	/** @var Settings\Admin\General[] */
+	protected $settings;
 
 	public function __construct() {
 		parent::__construct( 'general', __( 'General Settings', 'codepress-admin-columns' ), __( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ) );
 	}
 
-	public function render() {
+	/**
+	 * @param Settings\Admin $setting
+	 *
+	 * @return $this
+	 */
+	public function register_setting( Settings\Admin\General $setting ) {
+		$this->settings[] = $setting;
+
+		return $this;
+	}
+
+	protected function display_fields() {
 		?>
 		<form method="post" action="options.php">
 
 			<?php settings_fields( Settings\General::SETTINGS_GROUP ); ?>
 
 			<?php
-			foreach ( Settings::get_settings() as $setting ) {
+			foreach ( $this->settings as $setting ) {
 				echo sprintf( '<p>%s</p>', $setting->render() );
 			}
 			?>
