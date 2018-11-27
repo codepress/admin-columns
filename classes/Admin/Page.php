@@ -36,22 +36,15 @@ abstract class Page {
 	/**
 	 * @return void
 	 */
-	public function register() {
-		// Run hooks
-	}
+//	public function register() {
+//		// Run hooks
+//	}
 
 	/**
 	 * @return void
 	 */
 	public function register_ajax() {
 		// Run ajax hooks
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function show_in_menu() {
-		return true;
 	}
 
 }

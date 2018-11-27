@@ -2,7 +2,7 @@
 
 namespace AC;
 
-use AC\Admin\Menu;
+use AC\Admin\Controller\Columns;
 use AC\Admin\Page;
 use AC\Admin\PageFactory;
 use AC\Admin\Pages;
@@ -65,7 +65,14 @@ class AdminColumns extends Plugin {
 		Page\Settings::register_section( new General );
 		Page\Settings::register_section( new Restore );
 
-		Pages::register_page( new Page\Columns );
+
+
+		$controller = new Columns();
+		$controller->register();
+
+		$columns = new Page\Columns();
+
+		Pages::register_page( $columns );
 		Pages::register_page( new Page\Settings );
 		Pages::register_page( new Page\Addons );
 		Pages::register_page( new Page\Help );
@@ -80,12 +87,9 @@ class AdminColumns extends Plugin {
 		$settings = new Settings\General();
 		$settings->register();
 
-		$menu = new Menu();
-		$menu->register();
 
-		new Page\Columns();
-
-		$this->handle_admin_request();
+		$admin = new Admin( filter_input( INPUT_GET, 'tab' ) );
+		$admin->register();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
@@ -100,34 +104,13 @@ class AdminColumns extends Plugin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ), 1 );
 	}
 
-	private function get_requested_page() {
-		global $pagenow;
-
-		if ( 'options-general.php' !== $pagenow ) {
-			return false;
-		}
-
-		if ( Admin::MENU_SLUG !== filter_input( INPUT_GET, 'page' ) ) {
-			return false;
-		}
-
-		$page = PageFactory::create( filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_STRING ) );
-
-		if ( ! $page ) {
-			$pages = Pages::get_pages();
-			$page = current( $pages );
-		}
-
-		return $page;
-	}
-
 	public function handle_admin_request() {
-		$admin = new Admin();
-		$admin->register();
+		//				$factory = new PageFactory();
+		//				$page = $factory->create_from_url( $_SERVER['REQUEST_URI'] );
+		//
+		//				$admin = new Admin( $page );
+		//				$admin->register();
 
-		if ( $page = $this->get_requested_page() ) {
-			$admin->set_page( $page );
-		}
 	}
 
 	/**
@@ -329,6 +312,7 @@ class AdminColumns extends Plugin {
 	/**
 	 * Register List Screens
 	 */
+	// todo: move to ListScreens
 	public function register_list_screens() {
 		$list_screens = array();
 

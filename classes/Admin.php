@@ -1,18 +1,19 @@
 <?php
 namespace AC;
 
-use AC\Admin\Page;
+use AC\Admin\Helpable;
+use AC\Admin\PageFactory;
 use AC\Admin\Pages;
 
 class Admin {
 
 	const MENU_SLUG = 'codepress-admin-columns';
 
-	/** @var Page */
-	private $page;
+	/** @var string */
+	private $tab;
 
-	public function set_page( Page $page ) {
-		$this->page = $page;
+	public function __construct( $tab ) {
+		$this->tab = $tab;
 	}
 
 	/**
@@ -36,6 +37,32 @@ class Admin {
 		);
 
 		add_action( "admin_print_scripts-" . $hook_suffix, array( $this, 'admin_scripts' ) );
+		add_action( "load-" . $hook_suffix, array( $this, 'register_page' ) );
+		add_action( "load-" . $hook_suffix, array( $this, 'register_help' ) );
+	}
+
+	/**
+	 * Show help screen options
+	 */
+	public function register_help() {
+		$page = PageFactory::create( $this->tab );
+
+		if ( ! $page instanceof Helpable ) {
+			return;
+		}
+
+		foreach ( $page->get_help_tabs() as $help ) {
+			get_current_screen()->add_help_tab( array(
+				'id'      => $help->get_id(),
+				'content' => $help->get_content(),
+				'title'   => $help->get_title(),
+			) );
+		}
+	}
+
+	public function register_page() {
+		$page = PageFactory::create( $this->tab );
+		$page->register();
 	}
 
 	/**
@@ -54,17 +81,15 @@ class Admin {
 	 * @return void
 	 */
 	public function render() {
-		if ( ! $this->page ) {
-			return;
-		}
+		$page = PageFactory::create( $this->tab );
 
 		?>
 		<div id="cpac" class="wrap">
 			<h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
-				<?php $this->menu( $this->page->get_slug() ); ?>
+				<?php $this->menu( $page->get_slug() ); ?>
 			</h1>
 
-			<?php $this->page->display(); ?>
+			<?php $page->display(); ?>
 		</div>
 
 		<?php
@@ -76,10 +101,10 @@ class Admin {
 	 * @return void
 	 */
 	private function menu( $current_tab ) {
+
+		// todo: make register for menu items
 		foreach ( Pages::get_pages() as $page ) {
-			if ( $page->show_in_menu() ) {
-				echo sprintf( '<a href="%s" class="nav-tab %s">%s</a>', ac_get_admin_url( $page->get_slug() ), $page->get_slug() === $current_tab ? 'nav-tab-active' : '', $page->get_label() );
-			}
+			echo sprintf( '<a href="%s" class="nav-tab %s">%s</a>', ac_get_admin_url( $page->get_slug() ), $page->get_slug() === $current_tab ? 'nav-tab-active' : '', $page->get_label() );
 		}
 	}
 
