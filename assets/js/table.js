@@ -786,6 +786,95 @@ exports.default = Helper;
 
 /***/ }),
 
+/***/ "./js/table/row-selection.js":
+/*!***********************************!*\
+  !*** ./js/table/row-selection.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Selection =
+/*#__PURE__*/
+function () {
+  function Selection(table) {
+    _classCallCheck(this, Selection);
+
+    this.table = table;
+  }
+  /**
+   * Get the selected IDs in the table
+   *
+   * @returns {Array}
+   */
+
+
+  _createClass(Selection, [{
+    key: "getIDs",
+    value: function getIDs() {
+      var ids = [];
+      var checked = this.table.el.querySelectorAll('tbody th.check-column input[type=checkbox]:checked');
+
+      if (checked.length === 0) {
+        return ids;
+      }
+
+      for (var i = 0; i < checked.length; i++) {
+        ids.push(checked[i].value);
+      }
+
+      return ids;
+    }
+    /**
+     * Get selected cells for specific column
+     *
+     * @param name
+     */
+
+  }, {
+    key: "getSelectedCells",
+    value: function getSelectedCells(name) {
+      var self = this;
+      var ids = this.getIDs();
+
+      if (ids.length === 0) {
+        return false;
+      }
+
+      var cells = [];
+      ids.forEach(function (id) {
+        var cell = self.table.Cells.get(id, name);
+
+        if (cell) {
+          cells.push(cell);
+        }
+      });
+      return cells;
+    }
+  }]);
+
+  return Selection;
+}();
+
+exports.default = Selection;
+
+/***/ }),
+
 /***/ "./js/table/screen-options-columns.js":
 /*!********************************************!*\
   !*** ./js/table/screen-options-columns.js ***!
@@ -874,6 +963,8 @@ var _cell = _interopRequireDefault(__webpack_require__(/*! ./cell */ "./js/table
 
 var _helper = _interopRequireDefault(__webpack_require__(/*! ./helper */ "./js/table/helper.js"));
 
+var _rowSelection = _interopRequireDefault(__webpack_require__(/*! ./row-selection */ "./js/table/row-selection.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -897,6 +988,7 @@ function () {
     this.Columns = new _columns.default(el);
     this.Cells = new _cells.default();
     this.Actions = new _actions.default('ac-table-actions');
+    this.Selection = new _rowSelection.default(this);
     this.init();
   }
 
