@@ -14,6 +14,10 @@ class Restore extends Custom {
 		);
 	}
 
+	public function register() {
+		add_action( 'admin_init', array( $this, 'request' ) );
+	}
+
 	public function request() {
 		global $wpdb;
 

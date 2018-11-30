@@ -346,9 +346,9 @@ final class Screen {
 			return false;
 		}
 
-		$setting = new Settings\Admin\ShowEditButton();
+		$button = new Settings\Admin\General\ShowEditButton();
 
-		if ( ! $setting->show_button() ) {
+		if ( ! $button->show_button() ) {
 			return false;
 		}
 

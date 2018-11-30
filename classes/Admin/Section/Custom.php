@@ -8,12 +8,6 @@ use AC\Registrable;
 abstract class Custom extends Section
 	implements Registrable {
 
-	public function register() {
-		$this->request();
-	}
-
-	abstract public function request();
-
 	/**
 	 * Validate request
 	 * @return bool

@@ -4,6 +4,7 @@ namespace AC\Admin\Page;
 
 use AC\Admin;
 use AC\Autoloader;
+use AC\Capabilities;
 use AC\Column;
 use AC\Integrations;
 use AC\ListScreen;
@@ -12,10 +13,11 @@ use AC\ListScreenGroups;
 use AC\Message\Notice;
 use AC\PluginInformation;
 use AC\Preferences;
+use AC\Registrable;
 use AC\View;
 
 class Columns extends Admin\Page
-	implements Admin\Helpable {
+	implements Admin\Helpable, Registrable {
 
 	/**
 	 * @var array
@@ -28,6 +30,7 @@ class Columns extends Admin\Page
 
 	public function register() {
 		$this->maybe_show_notice();
+		$this->handle_request();
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
@@ -48,6 +51,37 @@ class Columns extends Admin\Page
 				->set_type( Notice::INFO )
 				->register();
 		}
+	}
+
+	/**
+	 * @param string $action
+	 *
+	 * @return bool
+	 */
+	private function verify_nonce( $action ) {
+		return wp_verify_nonce( filter_input( INPUT_POST, '_ac_nonce' ), $action );
+	}
+
+	private function handle_request() {
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
+			return;
+		}
+
+		switch ( filter_input( INPUT_POST, 'action' ) ) {
+
+			case 'restore_by_type' :
+				if ( $this->verify_nonce( 'restore-type' ) ) {
+
+					$list_screen = ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
+					$list_screen->delete();
+
+					$notice = new Notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ) );
+					$notice->register();
+				}
+				break;
+		}
+
+		do_action( 'ac/settings/handle_request', $this );
 	}
 
 	private function preferences() {

@@ -7,7 +7,8 @@ use AC\Admin\Page;
 use AC\Message\Notice;
 use AC\PluginInformation;
 
-class Addons extends Page {
+class Addons extends Page
+	implements AC\Registrable {
 
 	public function __construct() {
 		parent::__construct( 'addons', __( 'Add-ons', 'codepress-admin-columns' ) );
@@ -400,11 +401,7 @@ class Addons extends Page {
 						<li class="<?php echo esc_attr( $addon->get_slug() ); ?>">
 							<div class="addon-header">
 								<div class="inner">
-									<?php if ( $addon->get_logo() ) : ?>
-										<img src="<?php echo AC()->get_url() . esc_attr( $addon->get_logo() ); ?>"/>
-									<?php else : ?>
-										<h2><?php echo esc_html( $addon->get_title() ); ?></h2>
-									<?php endif; ?>
+									<img src="<?php echo esc_url( AC()->get_url() . $addon->get_logo() ); ?>"/>
 								</div>
 							</div>
 							<div class="addon-content">

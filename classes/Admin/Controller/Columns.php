@@ -6,7 +6,6 @@ use AC\Capabilities;
 use AC\Column;
 use AC\ListScreen;
 use AC\ListScreenFactory;
-use AC\Message\Notice;
 use AC\Registrable;
 use AC\View;
 
@@ -17,50 +16,15 @@ class Columns implements Registrable {
 		add_action( 'wp_ajax_ac_column_select', array( $this, 'ajax_column_select' ) );
 		add_action( 'wp_ajax_ac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 		add_action( 'wp_ajax_ac_columns_save', array( $this, 'ajax_columns_save' ) );
-		add_action( 'admin_init', array( $this, 'handle_request' ) );
-	}
-
-	/**
-	 * @param string $action
-	 *
-	 * @return bool
-	 */
-	private function verify_nonce( $action ) {
-		return wp_verify_nonce( filter_input( INPUT_POST, '_ac_nonce' ), $action );
 	}
 
 	/**
 	 * @param ListScreen $list_screen
+	 *
 	 * @return string $label
 	 */
 	private function get_list_screen_message_label( ListScreen $list_screen ) {
 		return apply_filters( 'ac/settings/list_screen_message_label', $list_screen->get_label(), $list_screen );
-	}
-
-	/**
-	 * Handle request
-	 */
-	public function handle_request() {
-		if ( ! current_user_can( Capabilities::MANAGE ) ) {
-			return;
-		}
-
-		// Handle requests
-		switch ( filter_input( INPUT_POST, 'action' ) ) {
-
-			case 'restore_by_type' :
-				if ( $this->verify_nonce( 'restore-type' ) ) {
-
-					$list_screen = ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
-					$list_screen->delete();
-
-					$notice = new Notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ) );
-					$notice->register();
-				}
-				break;
-		}
-
-		do_action( 'ac/settings/handle_request', $this );
 	}
 
 	/**
@@ -75,7 +39,7 @@ class Columns implements Registrable {
 		if ( ! $column ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
-				'error' => sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $list_screen->get_screen_link(), $list_screen->get_label() ) )
+				'error' => sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $list_screen->get_screen_link(), $list_screen->get_label() ) ),
 			) );
 		}
 

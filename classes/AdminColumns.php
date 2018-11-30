@@ -3,13 +3,10 @@
 namespace AC;
 
 use AC\Admin\Controller\Columns;
-use AC\Admin\Menu;
 use AC\Admin\Page;
 use AC\Admin\Pages;
-use AC\Admin\Section\General;
-use AC\Admin\Section\Restore;
 use AC\Check;
-use AC\Settings\Admin\ShowEditButton;
+use AC\Settings\Admin\General\ShowEditButton;
 use AC\Table;
 use AC\ThirdParty;
 
@@ -65,20 +62,9 @@ class AdminColumns extends Plugin {
 
 		$this->api = new API();
 
-		// Settings Init
-		$settings = new Settings\General();
-		$settings->register();
+		$this->register_pages();
 
-		// todo: non-static?
-		Pages::register_page( new Page\Columns );
-		Pages::register_page( new Page\Settings );
-		Pages::register_page( new Page\Addons );
-		Pages::register_page( new Page\Help );
-
-		foreach ( Pages::get_pages() as $page ) {
-			$page->register_ajax();
-		}
-
+		// todo
 		$controller = new Columns();
 		$controller->register();
 
@@ -96,6 +82,13 @@ class AdminColumns extends Plugin {
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ), 1 );
+	}
+
+	private function register_pages() {
+		Pages::register_page( new Page\Columns );
+		Pages::register_page( $this->create_setttings_page() );
+		Pages::register_page( new Page\Addons );
+		Pages::register_page( new Page\Help );
 	}
 
 	/**
@@ -448,6 +441,20 @@ class AdminColumns extends Plugin {
 			var AdminColumns = {};
 		</script>
 		<?php
+	}
+
+	/**
+	 * @return Page\Settings
+	 */
+	private function create_setttings_page() {
+		$general = new Admin\Section\General();
+		$general->register_setting( new ShowEditButton );
+
+		$settings = new Page\Settings();
+		$settings->register_section( $general )
+		         ->register_section( new Admin\Section\Restore );
+
+		return $settings;
 	}
 
 }

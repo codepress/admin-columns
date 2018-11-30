@@ -39,7 +39,10 @@ class Admin {
 	 */
 	public function init() {
 		$page = PageFactory::create( filter_input( INPUT_GET, 'tab' ) );
-		$page->register();
+
+		if ( $page instanceof Registrable ) {
+			$page->register();
+		}
 
 		// Register help tabs
 		if ( $page instanceof Helpable ) {

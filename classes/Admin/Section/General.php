@@ -25,6 +25,9 @@ class General extends Section {
 		return $this;
 	}
 
+	/**
+	 * @return void
+	 */
 	protected function display_fields() {
 		?>
 		<form method="post" action="options.php">
@@ -38,7 +41,7 @@ class General extends Section {
 			?>
 
 			<p>
-				<input type="submit" class="button" value="<?php _e( 'Save' ); ?>"/>
+				<input type="submit" class="button" value="<?php echo esc_attr( __( 'Save' ) ); ?>"/>
 			</p>
 		</form>
 		<?php

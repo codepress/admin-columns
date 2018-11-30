@@ -35,20 +35,6 @@ abstract class Page {
 		return $this->label;
 	}
 
-	/**
-	 * @return void
-	 */
-	//	public function register() {
-	//		// Run hooks
-	//	}
-
-	/**
-	 * @return void
-	 */
-	public function register_ajax() {
-		// Run ajax hooks
-	}
-
 	private function render_menu() {
 		$items = array();
 
