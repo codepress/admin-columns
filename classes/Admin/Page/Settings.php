@@ -53,7 +53,7 @@ class Settings extends Page {
 		wp_enqueue_style( 'ac-admin-page-settings', AC()->get_url() . 'assets/css/admin-page-settings.css', array(), AC()->get_version() );
 	}
 
-	public function display() { ?>
+	public function render() { ?>
 		<table class="form-table ac-form-table settings">
 			<tbody>
 

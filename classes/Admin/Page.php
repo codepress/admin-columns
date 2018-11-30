@@ -1,8 +1,6 @@
 <?php
 namespace AC\Admin;
 
-use AC\View;
-
 abstract class Page {
 
 	/** @var string */
@@ -19,7 +17,7 @@ abstract class Page {
 	/**
 	 * @return void
 	 */
-	abstract protected function display();
+	abstract public function render();
 
 	/**
 	 * @return string
@@ -33,34 +31,6 @@ abstract class Page {
 	 */
 	public function get_label() {
 		return $this->label;
-	}
-
-	/**
-	 * @return void
-	 */
-	private function render_menu() {
-		$items = array();
-
-		foreach ( Pages::get_pages() as $page ) {
-			$items[ $page->get_slug() ] = $page->get_label();
-		}
-
-		$menu = new View( array(
-			'items'   => $items,
-			'current' => $this->get_slug(),
-		) );
-
-		echo $menu->set_template( 'admin/edit-tabmenu' );
-	}
-
-	public function render() {
-		?>
-		<div id="cpac" class="wrap">
-			<?php $this->render_menu(); ?>
-			<?php $this->display(); ?>
-		</div>
-
-		<?php
 	}
 
 }

@@ -3,6 +3,11 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/**
+ * @global array $menu_items
+ */
+
 ?>
 
 <h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">

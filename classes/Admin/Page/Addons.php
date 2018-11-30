@@ -387,7 +387,7 @@ class Addons extends Page
 		), wp_nonce_url( $this->get_link(), 'install-ac-addon' ) );
 	}
 
-	public function display() {
+	public function render() {
 		$user_has_rights = current_user_can( 'activate_plugins' );
 
 		foreach ( $this->get_grouped_addons() as $group_slug => $group ) : ?>

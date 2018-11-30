@@ -2,9 +2,8 @@
 
 namespace AC;
 
-use AC\Admin\Controller\Columns;
 use AC\Admin\Page;
-use AC\Admin\Pages;
+use AC\Admin\PageFactory;
 use AC\Check;
 use AC\Settings\Admin\General\ShowEditButton;
 use AC\Table;
@@ -62,10 +61,11 @@ class AdminColumns extends Plugin {
 
 		$this->api = new API();
 
-		$this->register_pages();
+		$columns = new Page\Columns;
+		$columns->register_ajax();
 
-		$menu = new Admin();
-		$menu->register();
+		$this->admin = new Admin\Site( new PageFactory );
+		$this->admin->register();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
@@ -78,16 +78,6 @@ class AdminColumns extends Plugin {
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ), 1 );
-	}
-
-	private function register_pages() {
-		$columns = new Page\Columns;
-		$columns->register_ajax();
-
-		Pages::register_page( $columns );
-		Pages::register_page( $this->create_setttings_page() );
-		Pages::register_page( new Page\Addons );
-		Pages::register_page( new Page\Help );
 	}
 
 	/**
@@ -445,7 +435,7 @@ class AdminColumns extends Plugin {
 	/**
 	 * @return Page\Settings
 	 */
-	private function create_setttings_page() {
+	private function create_settings_page() {
 		$general = new Admin\Section\General();
 		$general->register_setting( new ShowEditButton );
 

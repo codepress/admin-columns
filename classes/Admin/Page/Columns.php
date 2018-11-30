@@ -323,7 +323,7 @@ class Columns extends Admin\Page
 	/**
 	 * Display
 	 */
-	public function display() {
+	public function render() {
 
 		$list_screen = $this->get_list_screen();
 		?>

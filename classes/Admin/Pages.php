@@ -4,14 +4,21 @@ namespace AC\Admin;
 class Pages {
 
 	/** @var Page[] */
-	private static $pages;
+	private $pages;
 
-	public static function register_page( Page $page  ) {
-		self::$pages[] = $page;
+	/**
+	 * @param Page $page
+	 *
+	 * @return $this
+	 */
+	public function register_page( Page $page  ) {
+		$this->pages[] = $page;
+
+		return $this;
 	}
 
-	public static function get_pages() {
-		return self::$pages;
+	public function get_pages() {
+		return $this->pages;
 	}
 
 }

@@ -2,18 +2,45 @@
 namespace AC;
 
 use AC\Admin\Helpable;
+use AC\Admin\Page;
 use AC\Admin\PageFactory;
 
-class Admin {
+abstract class Admin {
 
 	const PLUGIN_PAGE = 'codepress-admin-columns';
-	const PARENT_PAGE = 'options-general.php';
 
 	/** @var string */
 	private $hook_suffix;
 
-	public function register() {
-		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
+	/** @var string */
+	private $parent_page;
+
+	/** @var Page */
+	private $page;
+
+	/** @var PageFactory */
+	protected $page_factory;
+
+	public function __construct( $parent_page, PageFactory $page_factory ) {
+		$this->parent_page = $parent_page;
+		$this->page_factory = $page_factory;
+	}
+
+	/**
+	 * @return array
+	 */
+	abstract public function menu_items();
+
+	/**
+	 * @return void
+	 */
+	abstract public function register();
+
+	/**
+	 * @return string
+	 */
+	public function get_parent_page() {
+		return $this->parent_page;
 	}
 
 	/**
@@ -21,7 +48,7 @@ class Admin {
 	 */
 	public function settings_menu() {
 		$this->hook_suffix = add_submenu_page(
-			self::PARENT_PAGE,
+			$this->parent_page,
 			__( 'Admin Columns Settings', 'codepress-admin-columns' ),
 			__( 'Admin Columns', 'codepress-admin-columns' ),
 			Capabilities::MANAGE,
@@ -38,13 +65,12 @@ class Admin {
 	 * @return void
 	 */
 	public function init() {
-		$page = PageFactory::create( filter_input( INPUT_GET, 'tab' ) );
+		$page = $this->page_factory->create( filter_input( INPUT_GET, 'tab' ) );
 
 		if ( $page instanceof Registrable ) {
 			$page->register();
 		}
 
-		// Register help tabs
 		if ( $page instanceof Helpable ) {
 			foreach ( $page->get_help_tabs() as $help ) {
 				get_current_screen()->add_help_tab( array(
@@ -55,8 +81,39 @@ class Admin {
 			}
 		}
 
-		// Page render callback
-		add_action( $this->hook_suffix, array( $page, 'render' ) );
+		$this->page = $page;
+
+		add_action( $this->hook_suffix, array( $this, 'render' ) );
+	}
+
+	private function items() {
+		// todo
+		$items = array();
+		foreach ( $this->menu_items() as $slug ) {
+			$page = $this->page_factory->create( $slug );
+
+			$items[ $slug ] = $page->get_label();
+		}
+
+		return $items;
+	}
+
+	public function render() {
+		?>
+		<div id="cpac" class="wrap">
+			<?php
+
+			$menu = new View( array(
+				'items'   => $this->items(),
+				'current' => $this->page->get_slug(),
+			) );
+
+			echo $menu->set_template( 'admin/edit-tabmenu' );
+
+			$this->page->render();
+			?>
+		</div>
+		<?php
 	}
 
 	/**

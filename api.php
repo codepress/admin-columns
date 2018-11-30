@@ -103,11 +103,12 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
 }
 
 /**
- * @param string $slug
+ * @param string $slug   Page slug
+ * @param string $parent Parent slug
  *
  * @return string
  */
-function ac_get_admin_url( $slug = '' ) {
+function ac_get_admin_url( $slug = null ) {
 	$args = array(
 		'page' => Admin::PLUGIN_PAGE,
 	);
@@ -116,5 +117,11 @@ function ac_get_admin_url( $slug = '' ) {
 		$args['tab'] = $slug;
 	}
 
-	return add_query_arg( $args, Admin::PARENT_PAGE );
+	if ( is_network_admin() ) {
+		$parent = network_admin_url( 'settings.php' );
+	} else {
+		$parent = admin_url( 'options-general.php' );
+	}
+
+	return add_query_arg( $args, $parent );
 }

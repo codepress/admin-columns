@@ -1,21 +1,40 @@
 <?php
 namespace AC\Admin;
 
+use AC\Settings\Admin\General\ShowEditButton;
+
 class PageFactory {
 
 	/**
-	 * @param $slug
+	 * @param string $slug
 	 *
-	 * @return Page
+	 * @return Page|false
 	 */
-	public static function create( $slug ) {
-		foreach ( Pages::get_pages() as $page ) {
-			if ( $page->get_slug() === $slug ) {
-				return $page;
-			}
-		}
+	public function create( $slug = false ) {
+		switch ( $slug ) {
 
-		return current( Pages::get_pages() );
+			case 'addons' :
+				return new Page\Addons();
+
+			case 'help' :
+				return new Page\Help();
+
+			case 'settings' :
+				$general = new Section\General();
+				$general->register_setting( new ShowEditButton() );
+
+				$settings = new Page\Settings();
+				$settings->register_section( $general )
+				         ->register_section( new Section\Restore() );
+
+				return $settings;
+
+			case 'columns' :
+				return new Page\Columns();
+
+			default :
+				return false;
+		}
 	}
 
 }

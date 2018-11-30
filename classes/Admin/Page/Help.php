@@ -311,7 +311,7 @@ class Help extends Page {
 	/**
 	 * Render help page
 	 */
-	public function display() {
+	public function render() {
 		?>
 		<h2><?php _e( 'Help', 'codepress-admin-columns' ); ?></h2>
 		<p>
