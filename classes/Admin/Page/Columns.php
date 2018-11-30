@@ -3,6 +3,7 @@
 namespace AC\Admin\Page;
 
 use AC\Admin;
+use AC\Ajax;
 use AC\Autoloader;
 use AC\Capabilities;
 use AC\Column;
@@ -14,6 +15,7 @@ use AC\Message\Notice;
 use AC\PluginInformation;
 use AC\Preferences;
 use AC\Registrable;
+use AC\Request;
 use AC\View;
 
 class Columns extends Admin\Page
@@ -26,6 +28,10 @@ class Columns extends Admin\Page
 
 	public function __construct() {
 		parent::__construct( 'columns', __( 'Admin Columns', 'codepress-admin-columns' ) );
+	}
+
+	public function register_ajax() {
+		$this->get_ajax_handler()->register();
 	}
 
 	public function register() {
@@ -107,18 +113,52 @@ class Columns extends Admin\Page
 
 		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_url() . 'assets/css/admin-page-columns.css', array(), AC()->get_version() );
 
-		wp_localize_script( 'ac-admin-page-columns', 'AC', array(
-			'_ajax_nonce'      => wp_create_nonce( 'ac-settings' ),
-			'list_screen'      => $list_screen->get_key(),
-			'layout'           => $list_screen->get_layout_id(),
-			'original_columns' => $list_screen->get_original_columns(),
-			'i18n'             => array(
-				'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-				'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
-			),
-		) );
+		$ajax_handler = $this->get_ajax_handler();
+
+		$ajax_handler->set_param( 'list_screen', $list_screen->get_key() )
+		             ->set_param( 'layout', $list_screen->get_layout_id() )
+		             ->set_param( 'original_columns', $list_screen->get_original_columns() );
+
+		$params = $ajax_handler->get_params();
+
+		$params['i18n'] = array(
+			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+			'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
+		);
+
+		wp_localize_script( 'ac-admin-page-columns', 'AC', $params );
 
 		do_action( 'ac/settings/scripts' );
+	}
+
+	/**
+	 * @return Ajax\Handler
+	 */
+	private function get_ajax_handler() {
+		$handler = new Ajax\Handler();
+		$handler
+			->set_action( 'ac-columns' )
+			->set_callback( array( $this, 'handle_ajax_request' ) );
+
+		return $handler;
+	}
+
+	public function handle_ajax_request() {
+		$this->get_ajax_handler()->verify_request();
+
+		$request = new Request();
+
+		$requests = array(
+			new Admin\Request\Column\Save(),
+			new Admin\Request\Column\Refresh(),
+			new Admin\Request\Column\Select(),
+		);
+
+		foreach ( $requests as $handler ) {
+			if ( $handler->get_id() === $request->get( 'id' ) ) {
+				$handler->request( $request );
+			}
+		}
 	}
 
 	public function get_list_screen() {

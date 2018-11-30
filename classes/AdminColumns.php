@@ -64,10 +64,6 @@ class AdminColumns extends Plugin {
 
 		$this->register_pages();
 
-		// todo
-		$controller = new Columns();
-		$controller->register();
-
 		$menu = new Admin();
 		$menu->register();
 
@@ -85,7 +81,10 @@ class AdminColumns extends Plugin {
 	}
 
 	private function register_pages() {
-		Pages::register_page( new Page\Columns );
+		$columns = new Page\Columns;
+		$columns->register_ajax();
+
+		Pages::register_page( $columns );
 		Pages::register_page( $this->create_setttings_page() );
 		Pages::register_page( new Page\Addons );
 		Pages::register_page( new Page\Help );

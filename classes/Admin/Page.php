@@ -35,6 +35,9 @@ abstract class Page {
 		return $this->label;
 	}
 
+	/**
+	 * @return void
+	 */
 	private function render_menu() {
 		$items = array();
 
