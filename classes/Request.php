@@ -31,8 +31,8 @@ class Request {
 
 	public function __construct() {
 		$this->method = $_SERVER['REQUEST_METHOD'];
-		$this->query = new Parameters( filter_input_array( INPUT_GET ) );
-		$this->request = new Parameters( filter_input_array( INPUT_POST ) );
+		$this->query = new Parameters( (array) filter_input_array( INPUT_GET ) );
+		$this->request = new Parameters( (array) filter_input_array( INPUT_POST ) );
 	}
 
 	/**
