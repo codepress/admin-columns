@@ -23,7 +23,7 @@ class ShowEditButton extends General {
 	}
 
 	public function show_button() {
-		return 'yes' === $this->get_value();
+		return '1' === $this->get_value();
 	}
 
 	/**
