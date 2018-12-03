@@ -86,6 +86,9 @@ class AdminColumns extends Plugin {
 		$this->admin = new Admin\Site( new AbstractPageFactory, $menu );
 		$this->admin->register();
 
+		$check_deprecated = new Check\DeprecatedCount();
+		$check_deprecated->register();
+
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );

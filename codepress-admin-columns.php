@@ -35,6 +35,10 @@ if ( ! is_admin() ) {
 	return;
 }
 
+add_action( 'cac/admin_head', 'acp_editing' );
+add_action( 'cac/admin_head', 'get_current_screen' );
+add_action( 'cac/loaded', 'acp_editing' );
+
 define( 'AC_FILE', __FILE__ );
 define( 'AC_VERSION', '3.3.1' );
 
