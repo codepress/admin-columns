@@ -11,9 +11,8 @@ class ShowEditButton extends General {
 		parent::__construct( 'show_edit_button' );
 	}
 
-	// todo: check if stored value is 'yes' or '1'
 	protected function get_value() {
-		return $this->settings->is_empty() ? 'yes' : parent::get_value();
+		return $this->settings->is_empty() ? '1' : parent::get_value();
 	}
 
 	private function get_label() {
@@ -35,7 +34,7 @@ class ShowEditButton extends General {
 
 		$checkbox = new Checkbox( $name );
 
-		$checkbox->set_options( array( 'yes' => $this->get_label() ) )
+		$checkbox->set_options( array( '1' => $this->get_label() ) )
 		         ->set_value( $this->get_value() );
 
 		return $checkbox->render();
