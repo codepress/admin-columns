@@ -6,10 +6,11 @@ use AC\Capabilities;
 class General {
 
 	const SETTINGS_NAME = 'cpac_general_options';
-	const SETTINGS_GROUP = 'cpac-general-settings';
+	const SETTINGS_GROUP = 'admin-columns-general-settings';
 
 	public function register() {
-		add_action( 'admin_init', array( $this, 'register_setting' ) );
+		$this->register_setting();
+
 		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, array( $this, 'set_capability' ) );
 	}
 

@@ -2,10 +2,12 @@
 
 namespace AC;
 
+use AC\Admin\AbstractPageFactory;
+use AC\Admin\Menu;
 use AC\Admin\Page;
 use AC\Admin\PageFactory;
 use AC\Check;
-use AC\Settings\Admin\General\ShowEditButton;
+use AC\Settings\General;
 use AC\Table;
 use AC\ThirdParty;
 
@@ -61,15 +63,33 @@ class AdminColumns extends Plugin {
 
 		$this->api = new API();
 
+		AbstractPageFactory::register( new PageFactory );
+
 		$columns = new Page\Columns;
 		$columns->register_ajax();
 
-		$this->admin = new Admin\Site( new PageFactory );
+		$menu = Menu\Site::instance();
+
+		$menu->register( new Page\Columns() )
+		     ->register( new Page\Settings() )
+		     ->register( new Page\Addons() );
+
+		$help = new Page\Help();
+
+		if ( $help->show_in_menu() ) {
+			$menu->register( $help );
+		}
+
+		$settings = new General();
+		$settings->register();
+
+		$this->admin = new Admin\Site( new AbstractPageFactory, $menu );
 		$this->admin->register();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
+
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'plugins_loaded', array( $this, 'localize' ) );
 
@@ -78,6 +98,8 @@ class AdminColumns extends Plugin {
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ), 1 );
+
+		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
 	}
 
 	/**
@@ -279,7 +301,6 @@ class AdminColumns extends Plugin {
 	/**
 	 * Register List Screens
 	 */
-	// todo: move to ListScreens
 	public function register_list_screens() {
 		$list_screens = array();
 
@@ -433,17 +454,39 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return Page\Settings
+	 * Redirect the user to the Admin Columns add-ons page after activation/deactivation of an add-on from the add-ons page
+	 * @since 2.2
+	 *
+	 * @param $location
+	 *
+	 * @return string
 	 */
-	private function create_settings_page() {
-		$general = new Admin\Section\General();
-		$general->register_setting( new ShowEditButton );
+	public function redirect_after_status_change( $location ) {
+		global $pagenow;
 
-		$settings = new Page\Settings();
-		$settings->register_section( $general )
-		         ->register_section( new Admin\Section\Restore );
+		if ( 'plugins.php' !== $pagenow || ! filter_input( INPUT_GET, 'ac-redirect' ) || filter_input( INPUT_GET, 'error' ) ) {
+			return $location;
+		}
 
-		return $settings;
+		$status = filter_input( INPUT_GET, 'action' );
+
+		if ( ! $status ) {
+			return $location;
+		}
+
+		$integration = IntegrationFactory::create( filter_input( INPUT_GET, 'plugin' ) );
+
+		if ( ! $integration ) {
+			return $location;
+		}
+
+		$location = add_query_arg( array(
+			'status'    => $status,
+			'plugin'    => $integration->get_slug(),
+			'_ac_nonce' => wp_create_nonce( 'ac-plugin-status-change' ),
+		), $this->admin()->get_url( 'addons' ) );
+
+		return $location;
 	}
 
 }

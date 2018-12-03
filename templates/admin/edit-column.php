@@ -30,9 +30,8 @@ $column = $this->column;
 								<?php
 
 								foreach ( $column->get_settings() as $setting ) {
-									// todo: does this run
 									if ( $setting instanceof \AC\Settings\Header ) {
-										echo $setting->render_header();
+										echo $setting->render_header() . "\n";
 									}
 								}
 

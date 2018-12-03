@@ -5,14 +5,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @global array $menu_items
+ * @global \AC\Admin\MenuItem[] $items
  */
+
+$items = $this->items;
 
 ?>
 
 <h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
-	<?php foreach ( $this->items as $slug => $label ) {
-		echo sprintf( '<a href="%s" class="nav-tab %s">%s</a>', ac_get_admin_url( $slug ), $this->current === $slug ? 'nav-tab-active' : '', $label );
+	<?php foreach ( $items as $item ) {
+		echo sprintf( '<a href="%s" class="nav-tab %s">%s</a>', $item->get_url(), $this->current === $item->get_slug() ? 'nav-tab-active' : '', $item->get_label() );
 	}
 	?>
 </h1>

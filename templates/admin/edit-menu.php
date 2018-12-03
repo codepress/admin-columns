@@ -16,21 +16,19 @@ $items = $this->items;
 
 <div class="menu">
 	<form>
-
-		<?php // todo: do we need nonce + page? ?>
-		<?php wp_nonce_field( 'select-list-screen', '_ac_nonce', false ); ?>
-
 		<input type="hidden" name="page" value="<?php echo esc_attr( \AC\Admin::PLUGIN_PAGE ); ?>">
 
-		<select name="list_screen" title="<?php esc_attr_e( 'Select type', 'codepress-admin-columns' ); ?>" id="ac_list_screen">
-			<?php foreach ( $items as $group ) : ?>
-				<optgroup label="<?php echo esc_attr( $group['title'] ); ?>">
-					<?php foreach ( $group['options'] as $key => $label ) : ?>
-						<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $key, $this->current ); ?>><?php echo esc_html( $label ); ?></option>
-					<?php endforeach; ?>
-				</optgroup>
-			<?php endforeach; ?>
-		</select>
+		<?php
+		$select = new \AC\Form\Element\Select( 'list_screen', $items );
+
+		$select->set_value( $this->current )
+			   ->set_attribute( 'title', __( 'Select type', 'codepress-admin-columns' ) )
+			   ->set_attribute( 'id', 'ac_list_screen' );
+
+		echo $select->render();
+
+		?>
+
 		<span class="spinner"></span>
 
 		<?php if ( $this->screen_link ) : ?>

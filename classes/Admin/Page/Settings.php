@@ -6,7 +6,8 @@ use AC;
 use AC\Admin\Page;
 use AC\Admin\Section;
 
-class Settings extends Page {
+class Settings extends Page
+	implements AC\Registrable {
 
 	/**
 	 * @var Section[]

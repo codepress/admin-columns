@@ -1,7 +1,5 @@
 <?php
 
-use AC\Admin;
-
 /**
  * @since 3.0
  * @return AC\AdminColumns
@@ -103,25 +101,14 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
 }
 
 /**
- * @param string $slug   Page slug
- * @param string $parent Parent slug
+ * @param string $slug Page slug
  *
  * @return string
  */
 function ac_get_admin_url( $slug = null ) {
-	$args = array(
-		'page' => Admin::PLUGIN_PAGE,
-	);
-
-	if ( $slug ) {
-		$args['tab'] = $slug;
+	if ( null === $slug ) {
+		$slug = 'columns';
 	}
 
-	if ( is_network_admin() ) {
-		$parent = network_admin_url( 'settings.php' );
-	} else {
-		$parent = admin_url( 'options-general.php' );
-	}
-
-	return add_query_arg( $args, $parent );
+	return AC()->admin()->get_url( $slug );
 }

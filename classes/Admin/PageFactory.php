@@ -1,9 +1,13 @@
 <?php
 namespace AC\Admin;
 
+use AC\Admin\Page\Settings;
 use AC\Settings\Admin\General\ShowEditButton;
 
 class PageFactory {
+
+	/** @var Settings */
+	private $settings = null;
 
 	/**
 	 * @param string $slug
@@ -11,6 +15,7 @@ class PageFactory {
 	 * @return Page|false
 	 */
 	public function create( $slug = false ) {
+
 		switch ( $slug ) {
 
 			case 'addons' :
@@ -20,14 +25,19 @@ class PageFactory {
 				return new Page\Help();
 
 			case 'settings' :
-				$general = new Section\General();
-				$general->register_setting( new ShowEditButton() );
+				if ( null === $this->settings ) {
 
-				$settings = new Page\Settings();
-				$settings->register_section( $general )
-				         ->register_section( new Section\Restore() );
+					$general = new Section\General();
+					$general->register_setting( new ShowEditButton );
 
-				return $settings;
+					$settings = new Page\Settings();
+					$settings->register_section( $general )
+					         ->register_section( new Section\Restore );
+
+					$this->settings = $settings;
+				}
+
+				return $this->settings;
 
 			case 'columns' :
 				return new Page\Columns();

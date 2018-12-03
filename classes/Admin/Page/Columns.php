@@ -337,7 +337,9 @@ class Columns extends Admin\Page
 					'current'     => $list_screen->get_key(),
 					'screen_link' => $list_screen->get_screen_link(),
 				) );
+
 				echo $menu->set_template( 'admin/edit-menu' );
+
 				?>
 
 				<?php do_action( 'ac/settings/after_title', $list_screen ); ?>

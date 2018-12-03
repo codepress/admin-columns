@@ -1,9 +1,11 @@
 <?php
 namespace AC;
 
+use AC\Admin\AbstractPageFactory;
 use AC\Admin\Helpable;
+use AC\Admin\Menu;
+use AC\Admin\MenuItem;
 use AC\Admin\Page;
-use AC\Admin\PageFactory;
 
 abstract class Admin {
 
@@ -18,18 +20,17 @@ abstract class Admin {
 	/** @var Page */
 	private $page;
 
-	/** @var PageFactory */
+	/** @var AbstractPageFactory */
 	protected $page_factory;
 
-	public function __construct( $parent_page, PageFactory $page_factory ) {
+	/** @var Menu */
+	protected $menu;
+
+	public function __construct( $parent_page, AbstractPageFactory $page_factory, Menu $menu ) {
 		$this->parent_page = $parent_page;
 		$this->page_factory = $page_factory;
+		$this->menu = $menu;
 	}
-
-	/**
-	 * @return array
-	 */
-	abstract public function menu_items();
 
 	/**
 	 * @return void
@@ -62,10 +63,23 @@ abstract class Admin {
 	}
 
 	/**
+	 * @return string
+	 */
+	private function get_tab() {
+		return filter_input( INPUT_GET, 'tab' );
+	}
+
+	/**
 	 * @return void
 	 */
 	public function init() {
-		$page = $this->page_factory->create( filter_input( INPUT_GET, 'tab' ) );
+		$tab = $this->get_tab();
+
+		if ( ! $tab ) {
+			$tab = 'columns';
+		}
+
+		$page = $this->page_factory->create( $tab );
 
 		if ( $page instanceof Registrable ) {
 			$page->register();
@@ -86,25 +100,43 @@ abstract class Admin {
 		add_action( $this->hook_suffix, array( $this, 'render' ) );
 	}
 
-	private function items() {
-		// todo
-		$items = array();
-		foreach ( $this->menu_items() as $slug ) {
-			$page = $this->page_factory->create( $slug );
+	/**
+	 * @param string $tab
+	 *
+	 * @return string
+	 */
+	public function get_url( $tab ) {
+		$args = array(
+			'tab'  => $tab,
+			'page' => self::PLUGIN_PAGE,
+		);
 
-			$items[ $slug ] = $page->get_label();
+		return add_query_arg( $args, $this->get_parent_page() );
+	}
+
+	/**
+	 * @return MenuItem[]
+	 */
+	private function get_menu_items() {
+		$items = array();
+
+		foreach ( $this->menu->get_items() as $page ) {
+			$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ) );
 		}
 
 		return $items;
 	}
 
+	/**
+	 * @return void
+	 */
 	public function render() {
 		?>
 		<div id="cpac" class="wrap">
 			<?php
 
 			$menu = new View( array(
-				'items'   => $this->items(),
+				'items'   => $this->get_menu_items(),
 				'current' => $this->page->get_slug(),
 			) );
 
