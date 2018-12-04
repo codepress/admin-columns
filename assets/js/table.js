@@ -812,10 +812,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Selection =
 /*#__PURE__*/
 function () {
-  function Selection(table) {
+  function Selection(Table) {
     _classCallCheck(this, Selection);
 
-    this.table = table;
+    this.Table = Table;
   }
   /**
    * Get the selected IDs in the table
@@ -828,7 +828,7 @@ function () {
     key: "getIDs",
     value: function getIDs() {
       var ids = [];
-      var checked = this.table.el.querySelectorAll('tbody th.check-column input[type=checkbox]:checked');
+      var checked = this.Table.el.querySelectorAll('tbody th.check-column input[type=checkbox]:checked');
 
       if (checked.length === 0) {
         return ids;
@@ -865,6 +865,21 @@ function () {
         }
       });
       return cells;
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "getCount",
+    value: function getCount() {
+      return this.getIDs().length;
+    }
+  }, {
+    key: "isAllSelected",
+    value: function isAllSelected() {
+      return !!this.Table.el.querySelector('thead #cb input:checked');
     }
   }]);
 
