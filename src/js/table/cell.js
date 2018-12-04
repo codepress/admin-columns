@@ -24,7 +24,7 @@ export default class Cell {
 	}
 
 	getSettings() {
-		return AC.Table.Columns._types[ this.getName() ];
+		return AdminColumns.Table.Columns.get( this.getName() );
 	}
 
 	setValue( value ) {

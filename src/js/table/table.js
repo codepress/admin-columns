@@ -3,6 +3,7 @@ import Cells from "./cells";
 import Columns from "./columns";
 import Cell from "./cell";
 import Helper from "./helper";
+import Selection from "./row-selection";
 
 export default class Table {
 
@@ -16,6 +17,7 @@ export default class Table {
 		this.Columns = new Columns( el );
 		this.Cells = new Cells();
 		this.Actions = new Actions( 'ac-table-actions' );
+		this.Selection = new Selection( this );
 
 		this.init();
 	}

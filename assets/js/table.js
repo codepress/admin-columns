@@ -171,6 +171,8 @@ var _tooltips = _interopRequireDefault(__webpack_require__(/*! ./table/tooltips 
 
 var _modals = _interopRequireDefault(__webpack_require__(/*! ./modules/modals */ "./js/modules/modals.js"));
 
+var _screenOptionsColumns = _interopRequireDefault(__webpack_require__(/*! ./table/screen-options-columns */ "./js/table/screen-options-columns.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _modals.default.init();
@@ -186,6 +188,7 @@ jQuery(document).ready(function ($) {
 
   if (table) {
     ac_load_table(table.parentElement);
+    AdminColumns.ScreenOptionsColumns = new _screenOptionsColumns.default(AdminColumns.Table.Columns);
   }
 
   AdminColumns.Tooltips = new _tooltips.default();
@@ -465,7 +468,7 @@ function () {
   }, {
     key: "getSettings",
     value: function getSettings() {
-      return AC.Table.Columns._types[this.getName()];
+      return AdminColumns.Table.Columns.get(this.getName());
     }
   }, {
     key: "setValue",
@@ -609,11 +612,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+__webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
+
 __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 
 __webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
 
-__webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
+__webpack_require__(/*! core-js/modules/es6.map */ "./node_modules/core-js/modules/es6.map.js");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -643,6 +648,7 @@ function () {
         var column = {};
         column.name = headers[i].id;
         column.type = AC.column_types[column.name];
+        column.label = this.sanitizeLabel(headers[i]);
         self._columns[headers[i].id] = column;
       }
     }
@@ -650,6 +656,16 @@ function () {
     key: "getColumns",
     value: function getColumns() {
       return this._columns;
+    }
+  }, {
+    key: "getColumnsMap",
+    value: function getColumnsMap() {
+      var map = new Map();
+      var columns = this.getColumns();
+      Object.keys(columns).forEach(function (k) {
+        map.set(k, columns[k]);
+      });
+      return map;
     }
     /**
      * @returns {string[]}
@@ -674,6 +690,22 @@ function () {
       }
 
       return this._columns[column_name];
+    }
+  }, {
+    key: "sanitizeLabel",
+    value: function sanitizeLabel(header) {
+      var link = header.querySelector('a');
+      var label = header.innerHTML; // If it contains a link, we presume that it is because of sorting
+
+      if (link) {
+        var elements = link.getElementsByTagName('span');
+
+        if (elements.length > 0) {
+          label = elements[0].innerHTML;
+        }
+      }
+
+      return label;
     }
   }]);
 
@@ -754,6 +786,154 @@ exports.default = Helper;
 
 /***/ }),
 
+/***/ "./js/table/row-selection.js":
+/*!***********************************!*\
+  !*** ./js/table/row-selection.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Selection =
+/*#__PURE__*/
+function () {
+  function Selection(table) {
+    _classCallCheck(this, Selection);
+
+    this.table = table;
+  }
+  /**
+   * Get the selected IDs in the table
+   *
+   * @returns {Array}
+   */
+
+
+  _createClass(Selection, [{
+    key: "getIDs",
+    value: function getIDs() {
+      var ids = [];
+      var checked = this.table.el.querySelectorAll('tbody th.check-column input[type=checkbox]:checked');
+
+      if (checked.length === 0) {
+        return ids;
+      }
+
+      for (var i = 0; i < checked.length; i++) {
+        ids.push(checked[i].value);
+      }
+
+      return ids;
+    }
+    /**
+     * Get selected cells for specific column
+     *
+     * @param name
+     */
+
+  }, {
+    key: "getSelectedCells",
+    value: function getSelectedCells(name) {
+      var self = this;
+      var ids = this.getIDs();
+
+      if (ids.length === 0) {
+        return false;
+      }
+
+      var cells = [];
+      ids.forEach(function (id) {
+        var cell = self.table.Cells.get(id, name);
+
+        if (cell) {
+          cells.push(cell);
+        }
+      });
+      return cells;
+    }
+  }]);
+
+  return Selection;
+}();
+
+exports.default = Selection;
+
+/***/ }),
+
+/***/ "./js/table/screen-options-columns.js":
+/*!********************************************!*\
+  !*** ./js/table/screen-options-columns.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ScreenOptionsColumns =
+/*#__PURE__*/
+function () {
+  function ScreenOptionsColumns(columns) {
+    _classCallCheck(this, ScreenOptionsColumns);
+
+    this.columns = columns;
+    columns.getColumnNames().forEach(function (column_name) {
+      var column = columns.get(column_name);
+      var input = ScreenOptionsColumns.getInputByName(column.name);
+
+      if (input && input.parentElement.textContent.length === 0) {
+        var label = document.createElement('span');
+        label.innerHTML = column.label;
+        input.parentElement.appendChild(label);
+      }
+    });
+  }
+
+  _createClass(ScreenOptionsColumns, null, [{
+    key: "getInputByName",
+    value: function getInputByName(name) {
+      var input = document.querySelector("input[name='".concat(name, "-hide']"));
+      return input ? input : false;
+    }
+  }]);
+
+  return ScreenOptionsColumns;
+}();
+
+exports.default = ScreenOptionsColumns;
+
+/***/ }),
+
 /***/ "./js/table/table.js":
 /*!***************************!*\
   !*** ./js/table/table.js ***!
@@ -783,6 +963,8 @@ var _cell = _interopRequireDefault(__webpack_require__(/*! ./cell */ "./js/table
 
 var _helper = _interopRequireDefault(__webpack_require__(/*! ./helper */ "./js/table/helper.js"));
 
+var _rowSelection = _interopRequireDefault(__webpack_require__(/*! ./row-selection */ "./js/table/row-selection.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -806,6 +988,7 @@ function () {
     this.Columns = new _columns.default(el);
     this.Cells = new _cells.default();
     this.Actions = new _actions.default('ac-table-actions');
+    this.Selection = new _rowSelection.default(this);
     this.init();
   }
 
@@ -2932,6 +3115,33 @@ Iterators.Arguments = Iterators.Array;
 addToUnscopables('keys');
 addToUnscopables('values');
 addToUnscopables('entries');
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es6.function.name.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/core-js/modules/es6.function.name.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP = __webpack_require__(/*! ./_object-dp */ "./node_modules/core-js/modules/_object-dp.js").f;
+var FProto = Function.prototype;
+var nameRE = /^\s*function ([^ (]*)/;
+var NAME = 'name';
+
+// 19.2.4.2 name
+NAME in FProto || __webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/modules/_descriptors.js") && dP(FProto, NAME, {
+  configurable: true,
+  get: function () {
+    try {
+      return ('' + this).match(nameRE)[1];
+    } catch (e) {
+      return '';
+    }
+  }
+});
 
 
 /***/ }),

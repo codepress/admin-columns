@@ -213,6 +213,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Fixed] Show icons for Action column works again
+* [Improved] Show icon labels in the Screen Options menu when necessary
+
 = 3.3.1 =
 Release Date: November 7th, 2018
 
