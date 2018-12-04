@@ -4,25 +4,26 @@ namespace AC\Admin\Page;
 
 use AC;
 use AC\Admin\Page;
+use AC\Deprecated\Counter;
+use AC\Deprecated\Hooks;
 
-class Help extends Page implements AC\Registrable {
+class Help extends Page
+	implements AC\Registrable {
 
-	const TRANSIENT_COUNT_KEY = 'ac-deprecated-message-count';
+	/** @var Counter */
+	private $counter;
 
-	/** @var AC\Check\DeprecatedCount */
-	private $count;
-
-	/** @var AC\Deprecated */
-	private $deprecated;
+	/** @var Hooks */
+	private $hooks;
 
 	public function __construct() {
-		$this->count = new AC\Check\DeprecatedCount();
-		$this->deprecated = new AC\Deprecated();
+		$this->counter = new Counter();
+		$this->hooks = new Hooks();
 
 		$label = __( 'Help', 'codepress-admin-columns' );
 
 		if ( $this->show_in_menu() ) {
-			$label .= '<span class="ac-badge">' . $this->count->get_count() . '</span>';
+			$label .= '<span class="ac-badge">' . $this->counter->get() . '</span>';
 		}
 
 		parent::__construct( 'help', $label );
@@ -32,16 +33,20 @@ class Help extends Page implements AC\Registrable {
 	 * Register Hooks
 	 */
 	public function register() {
-		$this->count->update_deprecated_count();
+		$this->update_count();
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	}
+
+	public function update_count() {
+		$this->counter->update( $this->hooks->get_deprecated_count() );
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function show_in_menu() {
-		return $this->count->get_count() > 0;
+		return absint( $this->counter->get() ) > 0;
 	}
 
 	/**
@@ -77,7 +82,7 @@ class Help extends Page implements AC\Registrable {
 	 * @return void
 	 */
 	private function render_actions() {
-		$hooks = $this->deprecated->get_deprecated_actions();
+		$hooks = $this->hooks->get_deprecated_actions();
 
 		if ( ! $hooks ) {
 			return;
@@ -106,7 +111,7 @@ class Help extends Page implements AC\Registrable {
 	 * @return void
 	 */
 	private function render_filters() {
-		$hooks = $this->deprecated->get_deprecated_filters();
+		$hooks = $this->hooks->get_deprecated_filters();
 
 		if ( ! $hooks ) {
 			return;

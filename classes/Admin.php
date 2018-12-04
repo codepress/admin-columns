@@ -33,6 +33,8 @@ abstract class Admin {
 	}
 
 	/**
+	 * Register hooks
+	 *
 	 * @return void
 	 */
 	abstract public function register();

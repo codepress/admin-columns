@@ -1,7 +1,7 @@
 <?php
-namespace AC;
+namespace AC\Deprecated;
 
-abstract class DeprecatedHook {
+abstract class Hook {
 
 	/** @var string */
 	private $name;

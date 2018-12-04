@@ -1,13 +1,13 @@
 <?php
-namespace AC;
+namespace AC\Deprecated;
 
-use AC\DeprecatedHook\Action;
-use AC\DeprecatedHook\Filter;
+use AC\Deprecated\Hook\Action;
+use AC\Deprecated\Hook\Filter;
 
-class Deprecated {
+class Hooks {
 
 	/**
-	 * @return DeprecatedHook[]
+	 * @return Filter[]
 	 */
 	private function get_filters() {
 		$hooks = array(
@@ -83,7 +83,7 @@ class Deprecated {
 	}
 
 	/**
-	 * @return DeprecatedHook[]
+	 * @return Action[]
 	 */
 	private function get_actions() {
 		$hooks = array(
@@ -105,7 +105,7 @@ class Deprecated {
 	}
 
 	/**
-	 * @return Action[]
+	 * @return Filter[]
 	 */
 	public function get_deprecated_filters() {
 		return $this->check_deprecated_hooks( $this->get_filters() );
@@ -119,7 +119,7 @@ class Deprecated {
 	}
 
 	/**
-	 * @param DeprecatedHook[] $hooks
+	 * @param array $hooks
 	 *
 	 * @return array
 	 */
@@ -133,6 +133,13 @@ class Deprecated {
 		}
 
 		return $deprecated;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function get_deprecated_count() {
+		return count( $this->get_deprecated_actions() ) + count( $this->get_deprecated_filters() );
 	}
 
 }

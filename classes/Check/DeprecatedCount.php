@@ -2,36 +2,24 @@
 namespace AC\Check;
 
 use AC;
+use AC\Deprecated\Counter;
 
 final class DeprecatedCount implements AC\Registrable {
 
-	const TRANSIENT_COUNT_KEY = 'ac-deprecated-message-count';
-
 	public function register() {
-		if ( false === $this->get_count() ) {
-			add_action( 'admin_init', array( $this, 'update_deprecated_count' ) );
-		}
-	}
-
-	public function get_count() {
-		return get_transient( self::TRANSIENT_COUNT_KEY );
-	}
-
-	public function delete_count() {
-		delete_transient( self::TRANSIENT_COUNT_KEY );
-	}
-
-	private function update_count( $count ) {
-		set_transient( self::TRANSIENT_COUNT_KEY, $count, WEEK_IN_SECONDS );
+		add_action( 'admin_init', array( $this, 'update_deprecated_count' ) );
 	}
 
 	public function update_deprecated_count() {
-		$deprecated = new AC\Deprecated();
+		$counter = new Counter();
 
-		$actions = $deprecated->get_deprecated_actions();
-		$filters = $deprecated->get_deprecated_filters();
+		if ( false !== $counter->get() ) {
+			return;
+		}
 
-		$this->update_count( count( $actions ) + count( $filters ) );
+		$hooks = new AC\Deprecated\Hooks();
+
+		$counter->update( $hooks->get_deprecated_count() );
 	}
 
 }
