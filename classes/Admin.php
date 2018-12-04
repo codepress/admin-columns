@@ -79,7 +79,7 @@ abstract class Admin implements Registrable {
 		$tab = filter_input( INPUT_GET, 'tab' );
 
 		if ( ! $tab ) {
-			$tab = 'columns';
+			$tab = current( $this->menu_items );
 		}
 
 		$page = $this->page_factory->create( $tab );
@@ -96,6 +96,10 @@ abstract class Admin implements Registrable {
 					'title'   => $help->get_title(),
 				) );
 			}
+		}
+
+		if ( ! $page ) {
+			return;
 		}
 
 		$this->page = $page;
