@@ -68,22 +68,15 @@ abstract class Admin implements Registrable {
 			}
 		);
 
-		add_action( "load-" . $this->hook_suffix, array( $this, 'init' ) );
+		add_action( "load-" . $this->hook_suffix, array( $this, 'on_load' ) );
 		add_action( "admin_print_scripts-" . $this->hook_suffix, array( $this, 'admin_scripts' ) );
-	}
-
-	/**
-	 * @return string
-	 */
-	private function get_tab() {
-		return filter_input( INPUT_GET, 'tab' );
 	}
 
 	/**
 	 * @return void
 	 */
-	public function init() {
-		$tab = $this->get_tab();
+	public function on_load() {
+		$tab = filter_input( INPUT_GET, 'tab' );
 
 		if ( ! $tab ) {
 			$tab = 'columns';
