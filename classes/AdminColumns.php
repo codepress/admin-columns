@@ -3,7 +3,6 @@
 namespace AC;
 
 use AC\Admin\AbstractPageFactory;
-use AC\Admin\Menu;
 use AC\Admin\Page;
 use AC\Admin\PageFactory;
 use AC\Check;
@@ -57,6 +56,12 @@ class AdminColumns extends Plugin {
 		$screen = new Screen();
 		$screen->register();
 
+		$settings = new General();
+		$settings->register();
+
+		$hooks = new Deprecated\Hooks();
+		$hooks->register();
+
 		new ThirdParty\ACF();
 		new ThirdParty\NinjaForms();
 		new ThirdParty\WooCommerce();
@@ -69,26 +74,22 @@ class AdminColumns extends Plugin {
 		$columns = new Page\Columns;
 		$columns->register_ajax();
 
-		$menu = Menu\Site::instance();
+		// Admin Pages
+		$admin = new Admin\Site( new AbstractPageFactory );
+		$admin
+			->add_menu_item( 'columns' )
+			->add_menu_item( 'settings' )
+			->add_menu_item( 'addons' );
 
-		$menu->register( new Page\Columns() )
-		     ->register( new Page\Settings() )
-		     ->register( new Page\Addons() );
+		$counter = new Deprecated\Counter();
 
-		$help = new Page\Help();
-
-		if ( $help->show_in_menu() ) {
-			$menu->register( $help );
+		if ( $counter->get() > 0 ) {
+			$admin->add_menu_item( 'help' );
 		}
 
-		$settings = new General();
-		$settings->register();
+		$admin->register();
 
-		$this->admin = new Admin\Site( new AbstractPageFactory, $menu );
-		$this->admin->register();
-
-		$hooks = new Deprecated\Hooks();
-		$hooks->register();
+		$this->admin = $admin;
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );

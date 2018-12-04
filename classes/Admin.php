@@ -3,11 +3,10 @@ namespace AC;
 
 use AC\Admin\AbstractPageFactory;
 use AC\Admin\Helpable;
-use AC\Admin\Menu;
 use AC\Admin\MenuItem;
 use AC\Admin\Page;
 
-abstract class Admin {
+abstract class Admin implements Registrable {
 
 	const PLUGIN_PAGE = 'codepress-admin-columns';
 
@@ -23,18 +22,27 @@ abstract class Admin {
 	/** @var AbstractPageFactory */
 	protected $page_factory;
 
-	/** @var Menu */
-	protected $menu;
+	/** @var array */
+	private $menu_items;
 
-	public function __construct( $parent_page, AbstractPageFactory $page_factory, Menu $menu ) {
+	public function __construct( $parent_page, AbstractPageFactory $page_factory ) {
 		$this->parent_page = $parent_page;
 		$this->page_factory = $page_factory;
-		$this->menu = $menu;
+	}
+
+	/**
+	 * @param string $menu_item
+	 *
+	 * @return $this
+	 */
+	public function add_menu_item( $menu_item ) {
+		$this->menu_items[] = $menu_item;
+
+		return $this;
 	}
 
 	/**
 	 * Register hooks
-	 *
 	 * @return void
 	 */
 	abstract public function register();
@@ -122,8 +130,12 @@ abstract class Admin {
 	private function get_menu_items() {
 		$items = array();
 
-		foreach ( $this->menu->get_items() as $page ) {
-			$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ) );
+		foreach ( $this->menu_items as $slug ) {
+			$page = $this->page_factory->create( $slug );
+
+			if ( $page ) {
+				$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ) );
+			}
 		}
 
 		return $items;

@@ -372,6 +372,7 @@ class Columns extends Admin\Page
 							'list_screen_id'              => $list_screen->get_layout_id(),
 							'delete_confirmation_message' => $delete_confirmation_message,
 						) );
+
 						echo $actions->set_template( 'admin/edit-actions' );
 
 					endif; ?>
@@ -381,25 +382,28 @@ class Columns extends Admin\Page
 					<?php if ( apply_filters( 'ac/show_banner', true ) ) : ?>
 
 						<?php
+
 						$banner = new View( array(
 							'promo'        => $this->get_active_promotion(),
 							'integrations' => $this->get_missing_integrations(),
 							'discount'     => $this->get_discount_percentage(),
 							'price'        => $this->get_lowest_pro_price(),
 						) );
+
 						echo $banner->set_template( 'admin/side-banner' );
-						?>
 
-						<?php
 						$feedback = new View();
-						echo $feedback->set_template( 'admin/side-feedback' );
-						?>
 
-					<?php endif; ?>
+						echo $feedback->set_template( 'admin/side-feedback' );
+
+					endif; ?>
 
 					<?php
+
 					$support = new View();
+
 					echo $support->set_template( 'admin/side-support' );
+
 					?>
 
 				</div><!--.ac-right-inner-->
@@ -416,10 +420,12 @@ class Columns extends Admin\Page
 					'show_actions'   => ! $list_screen->is_read_only(),
 					'show_clear_all' => apply_filters( 'ac/enable_clear_columns_button', false ),
 				) );
-				echo $columns->set_template( 'admin/edit-columns' );
-				?>
 
-				<?php do_action( 'ac/settings/after_columns', $list_screen ); ?>
+				echo $columns->set_template( 'admin/edit-columns' );
+
+				do_action( 'ac/settings/after_columns', $list_screen );
+
+				?>
 
 			</div><!--.ac-left-->
 			<div class="clear"></div>
