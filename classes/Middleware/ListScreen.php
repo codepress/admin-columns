@@ -2,6 +2,7 @@
 
 namespace AC\Middleware;
 
+use AC;
 use AC\ListScreenFactory;
 use AC\Middleware;
 use AC\Request;
@@ -9,7 +10,7 @@ use AC\Request;
 class ListScreen
 	implements Middleware {
 
-	const LIST_SCREEN = 'list_screen';
+	const LIST_SCREEN = 'list_screen_instance';
 
 	public function handle( Request $request ) {
 		$list_screen = ListScreenFactory::create(
@@ -17,8 +18,9 @@ class ListScreen
 			$request->filter( 'layout', null, FILTER_SANITIZE_STRING )
 		);
 
-		$request->get_parameters()->set( 'list_screen', $list_screen );
-		$request->get_parameters()->remove( 'layout' );
+		if ( $list_screen instanceof AC\ListScreen ) {
+			$request->get_parameters()->set( self::LIST_SCREEN, $list_screen );
+		}
 	}
 
 }
