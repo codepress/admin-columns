@@ -231,7 +231,7 @@ class AdminColumns extends Plugin {
 	 */
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->get_basename() ) {
-			array_unshift( $links, ac_helper()->html->link( ac_get_admin_url( 'columns' ), __( 'Settings', 'codepress-admin-columns' ) ) );
+			array_unshift( $links, sprintf( '<a href="%s">%s</a>', $this->admin->get_url( 'columns' ), __( 'Settings', 'codepress-admin-columns' ) ) );
 		}
 
 		return $links;
