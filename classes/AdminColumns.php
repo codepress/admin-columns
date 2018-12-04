@@ -71,7 +71,8 @@ class AdminColumns extends Plugin {
 
 		AbstractPageFactory::register( new PageFactory );
 
-		$columns = new Page\Columns;
+		/** @var Page\Columns $columns */
+		$columns = AbstractPageFactory::create( 'columns' );
 		$columns->register_ajax();
 
 		// Admin Pages
@@ -363,6 +364,53 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
+	 * Add a global JS var that ideally contains all AC and ACP API methods
+	 */
+	public function add_global_javascript_var() {
+		?>
+		<script>
+			var AdminColumns = {};
+		</script>
+		<?php
+	}
+
+	/**
+	 * Redirect the user to the Admin Columns add-ons page after activation/deactivation of an add-on from the add-ons page
+	 * @since 2.2
+	 *
+	 * @param $location
+	 *
+	 * @return string
+	 */
+	public function redirect_after_status_change( $location ) {
+		global $pagenow;
+
+		if ( 'plugins.php' !== $pagenow || ! filter_input( INPUT_GET, 'ac-redirect' ) || filter_input( INPUT_GET, 'error' ) ) {
+			return $location;
+		}
+
+		$status = filter_input( INPUT_GET, 'action' );
+
+		if ( ! $status ) {
+			return $location;
+		}
+
+		$integration = IntegrationFactory::create( filter_input( INPUT_GET, 'plugin' ) );
+
+		if ( ! $integration ) {
+			return $location;
+		}
+
+		$location = add_query_arg( array(
+			'status'    => $status,
+			'plugin'    => $integration->get_slug(),
+			'_ac_nonce' => wp_create_nonce( 'ac-plugin-status-change' ),
+		), $this->admin()->get_url( 'addons' ) );
+
+		return $location;
+	}
+
+	/**
 	 * @deprecated 3.1.5
 	 * @since      3.0
 	 *
@@ -445,53 +493,6 @@ class AdminColumns extends Plugin {
 		_deprecated_function( __METHOD__, '3.2', 'ac_helper()' );
 
 		return ac_helper();
-	}
-
-	/**
-	 * Add a global JS var that ideally contains all AC and ACP API methods
-	 */
-	public function add_global_javascript_var() {
-		?>
-		<script>
-			var AdminColumns = {};
-		</script>
-		<?php
-	}
-
-	/**
-	 * Redirect the user to the Admin Columns add-ons page after activation/deactivation of an add-on from the add-ons page
-	 * @since 2.2
-	 *
-	 * @param $location
-	 *
-	 * @return string
-	 */
-	public function redirect_after_status_change( $location ) {
-		global $pagenow;
-
-		if ( 'plugins.php' !== $pagenow || ! filter_input( INPUT_GET, 'ac-redirect' ) || filter_input( INPUT_GET, 'error' ) ) {
-			return $location;
-		}
-
-		$status = filter_input( INPUT_GET, 'action' );
-
-		if ( ! $status ) {
-			return $location;
-		}
-
-		$integration = IntegrationFactory::create( filter_input( INPUT_GET, 'plugin' ) );
-
-		if ( ! $integration ) {
-			return $location;
-		}
-
-		$location = add_query_arg( array(
-			'status'    => $status,
-			'plugin'    => $integration->get_slug(),
-			'_ac_nonce' => wp_create_nonce( 'ac-plugin-status-change' ),
-		), $this->admin()->get_url( 'addons' ) );
-
-		return $location;
 	}
 
 }
