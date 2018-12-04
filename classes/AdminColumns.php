@@ -7,6 +7,7 @@ use AC\Admin\Menu;
 use AC\Admin\Page;
 use AC\Admin\PageFactory;
 use AC\Check;
+use AC\Deprecated;
 use AC\Settings\General;
 use AC\Table;
 use AC\ThirdParty;
@@ -86,8 +87,8 @@ class AdminColumns extends Plugin {
 		$this->admin = new Admin\Site( new AbstractPageFactory, $menu );
 		$this->admin->register();
 
-		$check_deprecated = new Check\DeprecatedCount();
-		$check_deprecated->register();
+		$hooks = new Deprecated\Hooks();
+		$hooks->register();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );

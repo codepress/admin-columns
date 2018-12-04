@@ -3,8 +3,13 @@ namespace AC\Deprecated;
 
 use AC\Deprecated\Hook\Action;
 use AC\Deprecated\Hook\Filter;
+use AC\Registrable;
 
-class Hooks {
+class Hooks implements Registrable {
+
+	public function register() {
+		add_action( 'admin_init', array( $this, 'update_count' ) );
+	}
 
 	/**
 	 * @return Filter[]
@@ -123,7 +128,7 @@ class Hooks {
 	 *
 	 * @return array
 	 */
-	public function check_deprecated_hooks( $hooks ) {
+	private function check_deprecated_hooks( $hooks ) {
 		$deprecated = array();
 
 		foreach ( $hooks as $hook ) {
@@ -133,6 +138,19 @@ class Hooks {
 		}
 
 		return $deprecated;
+	}
+
+	/**
+	 * Update total deprecated hooks count
+	 */
+	public function update_count() {
+		$counter = new Counter();
+
+		if ( false !== $counter->get() ) {
+			return;
+		}
+
+		$counter->update( $this->get_deprecated_count() );
 	}
 
 	/**
