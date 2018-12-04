@@ -4,15 +4,12 @@ namespace AC\Admin\Page;
 
 use AC\Admin;
 use AC\Ajax;
-use AC\Autoloader;
 use AC\Capabilities;
 use AC\Column;
-use AC\Integrations;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenGroups;
 use AC\Message\Notice;
-use AC\PluginInformation;
 use AC\Preferences;
 use AC\Registrable;
 use AC\Request;
@@ -260,39 +257,6 @@ class Columns extends Admin\Page
 	}
 
 	/**
-	 * @return Admin\Promo|false
-	 */
-	public function get_active_promotion() {
-		$classes = Autoloader::instance()->get_class_names_from_dir( 'AC\Admin\Promo' );
-
-		foreach ( $classes as $class ) {
-
-			/* @var Admin\Promo $promo */
-			$promo = new $class;
-
-			if ( $promo->is_active() ) {
-				return $promo;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * @return int
-	 */
-	private function get_discount_percentage() {
-		return 10;
-	}
-
-	/**
-	 * @return int
-	 */
-	private function get_lowest_pro_price() {
-		return 49;
-	}
-
-	/**
 	 * @param ListScreen $list_screen
 	 *
 	 * @return string
@@ -301,23 +265,6 @@ class Columns extends Admin\Page
 		$message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
 
 		return apply_filters( 'ac/read_only_message', $message, $list_screen );
-	}
-
-	/**
-	 * @return \AC\Integration[]
-	 */
-	private function get_missing_integrations() {
-		$missing = array();
-
-		foreach ( new Integrations() as $integration ) {
-			$integration_plugin = new PluginInformation( $integration->get_basename() );
-
-			if ( $integration->is_plugin_active() && ! $integration_plugin->is_active() ) {
-				$missing[] = $integration;
-			}
-		}
-
-		return $missing;
 	}
 
 	/**
@@ -383,14 +330,7 @@ class Columns extends Admin\Page
 
 						<?php
 
-						$banner = new View( array(
-							'promo'        => $this->get_active_promotion(),
-							'integrations' => $this->get_missing_integrations(),
-							'discount'     => $this->get_discount_percentage(),
-							'price'        => $this->get_lowest_pro_price(),
-						) );
-
-						echo $banner->set_template( 'admin/side-banner' );
+						echo new Admin\Parts\Banner();
 
 						$feedback = new View();
 
@@ -441,7 +381,11 @@ class Columns extends Admin\Page
 
 		<?php
 
-		$this->display_modal();
+		$modal = new View( array(
+			'price' => ac_get_lowest_price(),
+		) );
+
+		echo $modal->set_template( 'admin/modal-pro' );
 	}
 
 	/**
@@ -484,28 +428,11 @@ class Columns extends Admin\Page
 			$column = $this->get_column_template_by_group( $list_screen->get_column_types() );
 		}
 
-		$this->display_column( $column );
-	}
-
-	/**
-	 * @since 2.0
-	 *
-	 * @param Column $column
-	 */
-	private function display_column( Column $column ) {
 		$view = new View( array(
 			'column' => $column,
 		) );
 
 		echo $view->set_template( 'admin/edit-column' );
-	}
-
-	public function display_modal() {
-		$view = new View( array(
-			'price' => $this->get_lowest_pro_price(),
-		) );
-
-		echo $view->set_template( 'admin/modal-pro' );
 	}
 
 	/**

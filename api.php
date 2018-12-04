@@ -112,3 +112,10 @@ function ac_get_admin_url( $slug = null ) {
 
 	return AC()->admin()->get_url( $slug );
 }
+
+/**
+ * @return int
+ */
+function ac_get_lowest_price() {
+	return 49;
+}
