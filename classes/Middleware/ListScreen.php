@@ -13,6 +13,8 @@ class ListScreen
 	const LIST_SCREEN = 'list_screen_instance';
 
 	public function handle( Request $request ) {
+		return;
+
 		$list_screen = ListScreenFactory::create(
 			$request->filter( 'list_screen', '', FILTER_SANITIZE_STRING ),
 			$request->filter( 'layout', null, FILTER_SANITIZE_STRING )
