@@ -47,7 +47,6 @@ class Settings extends Page
 				$section->register();
 			}
 		}
-
 	}
 
 	public function admin_scripts() {

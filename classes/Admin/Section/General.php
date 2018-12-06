@@ -8,7 +8,7 @@ use AC\Settings;
 class General extends Section {
 
 	/** @var Settings\Admin\General[] */
-	protected $settings;
+	private $settings;
 
 	public function __construct() {
 		parent::__construct( 'general', __( 'General Settings', 'codepress-admin-columns' ), __( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ) );
