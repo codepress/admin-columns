@@ -148,6 +148,8 @@ class Admin {
 			?>
 		</div>
 		<?php
+
+		do_action( 'ac/admin/render', $this );
 	}
 
 	/**
