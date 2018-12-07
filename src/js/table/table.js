@@ -18,6 +18,7 @@ export default class Table {
 		this.Cells = new Cells();
 		this.Actions = new Actions( 'ac-table-actions' );
 		this.Selection = new Selection( this );
+		this._ids = [];
 
 		this.init();
 	}
@@ -46,6 +47,8 @@ export default class Table {
 		for ( let i = 0; i < rows.length; i++ ) {
 			let row = rows[ i ];
 			let id = this._getIDFromRow( row );
+
+			self._ids.push( id );
 
 			row.dataset.id = id;
 

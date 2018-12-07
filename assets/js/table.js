@@ -1004,6 +1004,7 @@ function () {
     this.Cells = new _cells.default();
     this.Actions = new _actions.default('ac-table-actions');
     this.Selection = new _rowSelection.default(this);
+    this._ids = [];
     this.init();
   }
 
@@ -1043,6 +1044,8 @@ function () {
         var row = rows[i];
 
         var id = _this._getIDFromRow(row);
+
+        self._ids.push(id);
 
         row.dataset.id = id;
         self.Columns.getColumnNames().forEach(function (name) {
