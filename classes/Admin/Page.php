@@ -33,4 +33,11 @@ abstract class Page {
 		return $this->label;
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function show_in_menu() {
+		return true;
+	}
+
 }

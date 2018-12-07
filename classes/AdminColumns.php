@@ -73,10 +73,7 @@ class AdminColumns extends Plugin {
 		$site_factory = new SiteFactory();
 		$site_factory->register();
 
-		$page_factory = new PageFactory();
-
 		$this->admin = $site_factory->create();
-		$this->admin->register_page_factory( $page_factory );
 
 		/** @var Page\Columns $columns */
 		$page = new Page\Columns();

@@ -23,22 +23,8 @@ class Admin {
 	/** @var PageFactory */
 	protected $page_factory;
 
-	/** @var array */
-	private $menu_items;
-
 	public function __construct( $parent_page ) {
 		$this->parent_page = $parent_page;
-	}
-
-	/**
-	 * @param string $menu_item
-	 *
-	 * @return $this
-	 */
-	public function add_menu_item( $menu_item ) {
-		$this->menu_items[] = $menu_item;
-
-		return $this;
 	}
 
 	/**
@@ -84,7 +70,7 @@ class Admin {
 		$tab = filter_input( INPUT_GET, 'tab' );
 
 		if ( ! $tab ) {
-			$tab = current( $this->menu_items );
+			$tab = current( $this->get_menu_items() )->get_slug();
 		}
 
 		$page = $this->page_factory->create( $tab );
@@ -132,10 +118,10 @@ class Admin {
 	private function get_menu_items() {
 		$items = array();
 
-		foreach ( $this->menu_items as $slug ) {
+		foreach ( $this->page_factory->get_slugs() as $slug ) {
 			$page = $this->page_factory->create( $slug );
 
-			if ( $page ) {
+			if ( $page && $page->show_in_menu() ) {
 				$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ) );
 			}
 		}

@@ -46,4 +46,16 @@ class PageFactory {
 		}
 	}
 
+	/**
+	 * @return array
+	 */
+	public function get_slugs() {
+		return array(
+			Columns::NAME,
+			Settings::NAME,
+			Addons::NAME,
+			Help::NAME,
+		);
+	}
+
 }
