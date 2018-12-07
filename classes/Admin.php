@@ -5,8 +5,9 @@ use AC\Admin\AbstractPageFactory;
 use AC\Admin\Helpable;
 use AC\Admin\MenuItem;
 use AC\Admin\Page;
+use AC\Admin\PageFactory;
 
-abstract class Admin implements Registrable {
+class Admin {
 
 	const PLUGIN_PAGE = 'codepress-admin-columns';
 
@@ -19,15 +20,14 @@ abstract class Admin implements Registrable {
 	/** @var Page */
 	private $page;
 
-	/** @var AbstractPageFactory */
+	/** @var PageFactory */
 	protected $page_factory;
 
 	/** @var array */
 	private $menu_items;
 
-	public function __construct( $parent_page, AbstractPageFactory $page_factory ) {
+	public function __construct( $parent_page ) {
 		$this->parent_page = $parent_page;
-		$this->page_factory = $page_factory;
 	}
 
 	/**
@@ -42,10 +42,15 @@ abstract class Admin implements Registrable {
 	}
 
 	/**
-	 * Register hooks
-	 * @return void
+	 * @param AbstractPageFactory $page_factory
+	 *
+	 * @return Admin
 	 */
-	abstract public function register();
+	public function register_page_factory( PageFactory $page_factory ) {
+		$this->page_factory = $page_factory;
+
+		return $this;
+	}
 
 	/**
 	 * @return string

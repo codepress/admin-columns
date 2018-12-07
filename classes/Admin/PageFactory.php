@@ -1,8 +1,10 @@
 <?php
 namespace AC\Admin;
 
+use AC\Admin\Page\Addons;
+use AC\Admin\Page\Columns;
+use AC\Admin\Page\Help;
 use AC\Admin\Page\Settings;
-use AC\Settings\Admin\General\ShowEditButton;
 
 class PageFactory {
 
@@ -18,20 +20,17 @@ class PageFactory {
 
 		switch ( $slug ) {
 
-			case 'addons' :
+			case Addons::NAME :
 				return new Page\Addons();
 
-			case 'help' :
+			case Help::NAME :
 				return new Page\Help();
 
-			case 'settings' :
+			case Settings::NAME :
 				if ( null === $this->settings ) {
 
-					$general = new Section\General();
-					$general->register_setting( new ShowEditButton );
-
 					$settings = new Page\Settings();
-					$settings->register_section( $general )
+					$settings->register_section( GeneralSectionFactory::create() )
 					         ->register_section( new Section\Restore );
 
 					$this->settings = $settings;
@@ -39,7 +38,7 @@ class PageFactory {
 
 				return $this->settings;
 
-			case 'columns' :
+			case Columns::NAME :
 				return new Page\Columns();
 
 			default :

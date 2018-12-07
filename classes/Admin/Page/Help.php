@@ -10,6 +10,8 @@ use AC\Deprecated\Hooks;
 class Help extends Page
 	implements AC\Registrable {
 
+	const NAME = 'help';
+
 	/** @var Counter */
 	private $counter;
 
@@ -26,7 +28,7 @@ class Help extends Page
 			$label .= '<span class="ac-badge">' . $this->counter->get() . '</span>';
 		}
 
-		parent::__construct( 'help', $label );
+		parent::__construct( self::NAME, $label );
 	}
 
 	/**

@@ -5,6 +5,7 @@ namespace AC;
 use AC\Admin\AbstractPageFactory;
 use AC\Admin\Page;
 use AC\Admin\PageFactory;
+use AC\Admin\SiteFactory;
 use AC\Check;
 use AC\Deprecated;
 use AC\Settings\General;
@@ -69,28 +70,17 @@ class AdminColumns extends Plugin {
 
 		$this->api = new API();
 
-		AbstractPageFactory::register( new PageFactory );
+		$site_factory = new SiteFactory();
+		$site_factory->register();
+
+		$page_factory = new PageFactory();
+
+		$this->admin = $site_factory->create();
+		$this->admin->register_page_factory( $page_factory );
 
 		/** @var Page\Columns $columns */
-		$columns = AbstractPageFactory::create( 'columns' );
-		$columns->register_ajax();
-
-		// Admin Pages
-		$admin = new Admin\Site( new AbstractPageFactory );
-		$admin
-			->add_menu_item( 'columns' )
-			->add_menu_item( 'settings' )
-			->add_menu_item( 'addons' );
-
-		$counter = new Deprecated\Counter();
-
-		if ( $counter->get() > 0 ) {
-			$admin->add_menu_item( 'help' );
-		}
-
-		$admin->register();
-
-		$this->admin = $admin;
+		$page = new Page\Columns();
+		$page->register_ajax();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );

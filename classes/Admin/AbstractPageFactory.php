@@ -3,10 +3,10 @@ namespace AC\Admin;
 
 class AbstractPageFactory {
 
-	private static $factories = array();
+	private $factories = array();
 
-	public static function register( PageFactory $factory ) {
-		self::$factories[] = $factory;
+	public function register( PageFactory $factory ) {
+		$this->factories[] = $factory;
 	}
 
 	/**
@@ -14,9 +14,9 @@ class AbstractPageFactory {
 	 *
 	 * @return Page|false
 	 */
-	public static function create( $slug ) {
+	public function create( $slug ) {
 
-		foreach( self::$factories as $factory ) {
+		foreach( $this->factories as $factory ) {
 			$page = $factory->create( $slug );
 
 			if ( $page ) {

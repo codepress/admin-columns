@@ -9,13 +9,15 @@ use AC\Admin\Section;
 class Settings extends Page
 	implements AC\Registrable {
 
+	const NAME = 'settings';
+
 	/**
 	 * @var Section[]
 	 */
 	private $sections = array();
 
 	public function __construct() {
-		parent::__construct( 'settings', __( 'Settings', 'codepress-admin-columns' ) );
+		parent::__construct( self::NAME, __( 'Settings', 'codepress-admin-columns' ) );
 	}
 
 	/**

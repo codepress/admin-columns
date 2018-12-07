@@ -18,13 +18,15 @@ use AC\View;
 class Columns extends Admin\Page
 	implements Admin\Helpable, Registrable {
 
+	const NAME = 'columns';
+
 	/**
 	 * @var array
 	 */
 	private $notices = array();
 
 	public function __construct() {
-		parent::__construct( 'columns', __( 'Admin Columns', 'codepress-admin-columns' ) );
+		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 	}
 
 	public function register_ajax() {
