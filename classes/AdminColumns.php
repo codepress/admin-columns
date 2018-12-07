@@ -2,9 +2,7 @@
 
 namespace AC;
 
-use AC\Admin\AbstractPageFactory;
 use AC\Admin\Page;
-use AC\Admin\PageFactory;
 use AC\Admin\SiteFactory;
 use AC\Check;
 use AC\Deprecated;
