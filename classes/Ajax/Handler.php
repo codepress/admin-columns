@@ -18,7 +18,22 @@ class Handler {
 	 */
 	protected $callback;
 
-	public function __construct() {
+	/**
+	 * @var bool
+	 */
+	protected $wp_ajax;
+
+	/**
+	 * @var int
+	 */
+	protected $priority = 10;
+
+	/**
+	 * @param bool|null $wp_ajax Using the WP Ajax endpoint or custom
+	 */
+	public function __construct( $wp_ajax = null ) {
+		$this->wp_ajax = $wp_ajax === null;
+
 		$this->set_nonce();
 	}
 
@@ -34,7 +49,13 @@ class Handler {
 			throw new LogicException( 'Callback is missing.' );
 		}
 
-		add_action( 'wp_ajax_' . $this->get_action(), $this->get_callback() );
+		$action = $this->get_action();
+
+		if ( $this->wp_ajax ) {
+			$action = 'wp_ajax_' . $action;
+		}
+
+		add_action( $action, $this->get_callback(), $this->priority );
 	}
 
 	/**
@@ -51,6 +72,21 @@ class Handler {
 	 */
 	public function set_action( $action ) {
 		$this->params['action'] = $action;
+
+		return $this;
+	}
+
+	/**
+	 * @param int $priority
+	 *
+	 * @return Handler
+	 */
+	public function set_priority( $priority ) {
+		if ( ! is_int( $priority ) ) {
+			throw new LogicException( 'Priority can only be of type integer.' );
+		}
+
+		$this->priority = $priority;
 
 		return $this;
 	}
