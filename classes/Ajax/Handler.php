@@ -49,20 +49,24 @@ class Handler {
 			throw new LogicException( 'Callback is missing.' );
 		}
 
-		$action = $this->get_action();
+		add_action( $this->get_action(), $this->get_callback(), $this->priority );
+	}
 
-		if ( $this->wp_ajax ) {
-			$action = 'wp_ajax_' . $action;
-		}
-
-		add_action( $action, $this->get_callback(), $this->priority );
+	public function deregister() {
+		remove_action( $this->get_action(), $this->get_callback(), $this->priority );
 	}
 
 	/**
 	 * @return string|null
 	 */
 	public function get_action() {
-		return $this->get_param( 'action' );
+		$action = $this->get_param( 'action' );
+
+		if ( $this->wp_ajax ) {
+			$action = 'wp_ajax_' . $action;
+		}
+
+		return $action;
 	}
 
 	/**
@@ -89,6 +93,13 @@ class Handler {
 		$this->priority = $priority;
 
 		return $this;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function get_priority() {
+		return $this->priority;
 	}
 
 	/**
