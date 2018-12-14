@@ -97,14 +97,27 @@ class AdminColumns extends Plugin {
 	 * @param Screen $screen
 	 */
 	public function init_table_on_screen( Screen $screen ) {
-		$this->load_table( $screen->get_list_screen() );
+		$list_screen = $screen->get_list_screen();
+
+		if ( ! $list_screen instanceof ListScreen ) {
+			return;
+		}
+
+		$this->table_screen = new Table\Screen( $list_screen );
+		$this->table_screen->register();
+
+		do_action( 'ac/table', $this->table_screen );
 	}
 
 	/**
 	 * @param Screen\QuickEdit $screen
 	 */
 	public function init_table_on_quick_edit( Screen\QuickEdit $screen ) {
-		$this->load_table( $screen->get_list_screen() );
+		$list_screen = $screen->get_list_screen();
+
+		if ( $list_screen instanceof ListScreen ) {
+			new ScreenController( $list_screen );
+		}
 	}
 
 	/**
@@ -144,14 +157,16 @@ class AdminColumns extends Plugin {
 	/**
 	 * @param ListScreen $list_screen
 	 */
-	private function load_table( $list_screen ) {
-		if ( ! $list_screen instanceof ListScreen ) {
-			return;
-		}
-
-		$this->table_screen = new Table\Screen( $list_screen );
-		$this->table_screen->register();
-	}
+//	private function load_table( $list_screen ) {
+//		if ( ! $list_screen instanceof ListScreen ) {
+//			return;
+//		}
+//
+//		$this->table_screen = new Table\Screen( $list_screen );
+//		$this->table_screen->register();
+//
+//		do_action( 'ac/table', $this->table_screen );
+//	}
 
 	/**
 	 * Init checks
