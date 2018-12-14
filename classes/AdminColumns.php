@@ -4,7 +4,6 @@ namespace AC;
 
 use AC\Check;
 use AC\Deprecated;
-use AC\Settings\General;
 use AC\Table;
 use AC\ThirdParty;
 
@@ -50,9 +49,9 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
-		$registrables = array(
+		$modules = array(
 			new Screen,
-			new General,
+			new Settings\General,
 			new Deprecated\Hooks,
 			new ThirdParty\ACF,
 			new ThirdParty\NinjaForms,
@@ -60,9 +59,9 @@ class AdminColumns extends Plugin {
 			new ThirdParty\WPML,
 		);
 
-		foreach ( $registrables as $registrable ) {
-			if ( $registrable instanceof Registrable ) {
-				$registrable->register();
+		foreach ( $modules as $module ) {
+			if ( $module instanceof Registrable ) {
+				$module->register();
 			}
 		}
 
