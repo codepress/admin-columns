@@ -142,18 +142,6 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @param ListScreen $list_screen
-	 */
-	private function load_table( $list_screen ) {
-		if ( ! $list_screen instanceof ListScreen ) {
-			return;
-		}
-
-		$this->table_screen = new Table\Screen( $list_screen );
-		$this->table_screen->register();
-	}
-
-	/**
 	 * Init checks
 	 */
 	public function notice_checks() {
