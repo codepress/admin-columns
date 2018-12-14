@@ -235,13 +235,6 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return Table\Screen Returns the screen manager for the list table
-	 */
-	public function table_screen() {
-		return $this->table_screen;
-	}
-
-	/**
 	 * @return Admin\Page\Columns
 	 */
 	public function admin_columns_screen() {
@@ -419,6 +412,16 @@ class AdminColumns extends Plugin {
 		_deprecated_function( __METHOD__, '3.2', 'ac_helper()' );
 
 		return ac_helper();
+	}
+
+	/**
+	 * @return Table\Screen Returns the screen manager for the list table
+	 * @deprecated NEWVERSION
+	 */
+	public function table_screen() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
+		return $this->table_screen;
 	}
 
 	/**
