@@ -1,11 +1,11 @@
 <?php
 namespace AC;
 
-use AC\Admin\AbstractPageFactory;
 use AC\Admin\Helpable;
 use AC\Admin\MenuItem;
 use AC\Admin\Page;
 use AC\Admin\PageFactory;
+use AC\Admin\PageFactoryInterface;
 
 class Admin {
 
@@ -28,11 +28,11 @@ class Admin {
 	}
 
 	/**
-	 * @param AbstractPageFactory $page_factory
+	 * @param PageFactoryInterface $page_factory
 	 *
 	 * @return Admin
 	 */
-	public function register_page_factory( PageFactory $page_factory ) {
+	public function register_page_factory( PageFactoryInterface $page_factory ) {
 		$this->page_factory = $page_factory;
 
 		return $this;

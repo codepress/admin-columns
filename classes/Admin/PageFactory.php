@@ -6,7 +6,7 @@ use AC\Admin\Page\Columns;
 use AC\Admin\Page\Help;
 use AC\Admin\Page\Settings;
 
-class PageFactory {
+class PageFactory implements PageFactoryInterface {
 
 	/** @var Settings */
 	private $settings = null;
