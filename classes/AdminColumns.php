@@ -103,10 +103,12 @@ class AdminColumns extends Plugin {
 			return;
 		}
 
-		$this->table_screen = new Table\Screen( $list_screen );
-		$this->table_screen->register();
+		$table_screen = new Table\Screen( $list_screen );
+		$table_screen->register();
 
-		do_action( 'ac/table', $this->table_screen );
+		do_action( 'ac/table', $table_screen );
+
+		$this->table_screen = $table_screen;
 	}
 
 	/**
@@ -153,20 +155,6 @@ class AdminColumns extends Plugin {
 		echo $column->get_ajax_value( $id );
 		exit;
 	}
-
-	/**
-	 * @param ListScreen $list_screen
-	 */
-//	private function load_table( $list_screen ) {
-//		if ( ! $list_screen instanceof ListScreen ) {
-//			return;
-//		}
-//
-//		$this->table_screen = new Table\Screen( $list_screen );
-//		$this->table_screen->register();
-//
-//		do_action( 'ac/table', $this->table_screen );
-//	}
 
 	/**
 	 * Init checks
@@ -259,13 +247,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function admin() {
 		return $this->admin;
-	}
-
-	/**
-	 * @return Table\Screen Returns the screen manager for the list table
-	 */
-	public function table_screen() {
-		return $this->table_screen;
 	}
 
 	/**
@@ -493,6 +474,15 @@ class AdminColumns extends Plugin {
 		_deprecated_function( __METHOD__, '3.2', 'ac_helper()' );
 
 		return ac_helper();
+	}
+
+	/**
+	 * @return Table\Screen Returns the screen manager for the list table
+	 */
+	public function table_screen() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
+		return $this->table_screen;
 	}
 
 }
