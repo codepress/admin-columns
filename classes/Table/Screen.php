@@ -27,23 +27,18 @@ final class Screen {
 	private $buttons = array();
 
 	/**
-	 * @var array $column_headings
-	 */
-	private $column_headings = array();
-
-	/**
 	 * @param ListScreen $list_screen
 	 */
 	public function __construct( ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
-
-		$this->init();
 	}
 
 	/**
 	 * Register hooks
 	 */
 	public function register() {
+		new AC\ScreenController( $this->list_screen );
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_footer', array( $this, 'admin_footer_scripts' ) );
 		add_action( 'admin_head', array( $this, 'admin_head_scripts' ) );
@@ -52,31 +47,6 @@ final class Screen {
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20 );
 		add_action( 'admin_footer', array( $this, 'render_actions' ) );
 		add_filter( 'screen_settings', array( $this, 'screen_options' ) );
-	}
-
-	/**
-	 */
-	public function init() {
-		// Init Values
-		$this->list_screen->set_manage_value_callback();
-
-		/**
-		 * Init Headings
-		 * @see get_column_headers() for filter location
-		 */
-		add_filter( "manage_" . $this->list_screen->get_screen_id() . "_columns", array( $this, 'add_headings' ), 200 );
-
-		/**
-		 * @since 3.0
-		 *
-		 * @param ListScreen
-		 */
-		do_action( 'ac/table/list_screen', $this->list_screen, $this );
-
-		/**
-		 * @since 3.2.5
-		 */
-		do_action( 'ac/table', $this );
 	}
 
 	/**
@@ -318,7 +288,9 @@ final class Screen {
 			/* @var Settings\Column\Width $setting */
 			$setting = $column->get_setting( 'width' );
 
-			if ( $width = $setting->get_display_width() ) {
+			$width = $setting->get_display_width();
+
+			if ( $width ) {
 				$css_column_width .= ".ac-" . esc_attr( $this->list_screen->get_key() ) . " .wrap table th.column-" . esc_attr( $column->get_name() ) . " { width: " . $width . " !important; }";
 				$css_column_width .= "body.acp-overflow-table.ac-" . esc_attr( $this->list_screen->get_key() ) . " .wrap th.column-" . esc_attr( $column->get_name() ) . " { min-width: " . $width . " !important; }";
 			}
@@ -387,52 +359,6 @@ final class Screen {
 		 * @param self
 		 */
 		do_action( 'ac/admin_footer', $this->list_screen, $this );
-	}
-
-	/**
-	 * @since 2.0
-	 *
-	 * @param $columns
-	 *
-	 * @return array
-	 */
-	public function add_headings( $columns ) {
-		if ( empty( $columns ) ) {
-			return $columns;
-		}
-
-		// Store default headings
-		if ( ! AC()->is_doing_ajax() ) {
-			$this->list_screen->save_default_headings( $columns );
-		}
-
-		// Run once
-		if ( $this->column_headings ) {
-			return $this->column_headings;
-		}
-
-		// Nothing stored. Show default columns on screen.
-		if ( ! $this->list_screen->get_settings() ) {
-			return $columns;
-		}
-
-		// Add mandatory checkbox
-		if ( isset( $columns['cb'] ) ) {
-			$this->column_headings['cb'] = $columns['cb'];
-		}
-
-		// On first visit 'columns' can be empty, because they were put in memory before 'default headings'
-		// were stored. We force get_columns() to be re-populated.
-		if ( ! $this->list_screen->get_columns() ) {
-			$this->list_screen->reset();
-			$this->list_screen->reset_original_columns();
-		}
-
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			$this->column_headings[ $column->get_name() ] = $column->get_custom_label();
-		}
-
-		return apply_filters( 'ac/headings', $this->column_headings, $this->list_screen );
 	}
 
 	/**
