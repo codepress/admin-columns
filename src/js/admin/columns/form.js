@@ -119,7 +119,8 @@ class Form {
 		let self = this;
 
 		let xhr = jQuery.post( ajaxurl, {
-				action : 'ac_columns_save',
+				action : 'ac-columns',
+				id : 'save',
 				data : this.serialize(),
 				_ajax_nonce : AC._ajax_nonce,
 				list_screen : AC.list_screen,

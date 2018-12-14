@@ -82,7 +82,7 @@ final class AddonAvailable
 			__( 'Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!', 'codepress-admin-columns' ),
 			sprintf( '<strong>%s</strong>', $this->integration->get_title() ),
 			ac_helper()->html->link(
-				AC()->admin()->get_link( 'addons' ),
+				ac_get_admin_url( 'addons' ),
 				__( 'the addons page', 'codepress-admin-columns' )
 			)
 		);

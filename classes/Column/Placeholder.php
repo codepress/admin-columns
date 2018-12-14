@@ -40,7 +40,7 @@ class Placeholder extends Column {
 		</p>
 
 		<p>
-			<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $this->get_label(), AC()->admin()->get_link( 'addons' ) ); ?>
+			<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $this->get_label(), ac_get_admin_url( 'addons' ) ); ?>
 		</p>
 
 		<p>

@@ -2,8 +2,6 @@
 
 namespace AC;
 
-use AC\Settings;
-
 /**
  * @since 3.0
  */
