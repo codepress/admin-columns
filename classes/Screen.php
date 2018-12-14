@@ -4,7 +4,7 @@ namespace AC;
 
 use WP_Screen;
 
-class Screen {
+class Screen implements Registrable {
 
 	/**
 	 * @var WP_Screen

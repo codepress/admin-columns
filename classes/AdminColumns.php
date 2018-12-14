@@ -2,8 +2,6 @@
 
 namespace AC;
 
-use AC\Admin\Page;
-use AC\Admin\SiteFactory;
 use AC\Check;
 use AC\Deprecated;
 use AC\Settings\General;
@@ -52,29 +50,30 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
-		$screen = new Screen();
-		$screen->register();
+		$registrables = array(
+			new Screen,
+			new General,
+			new Deprecated\Hooks,
+			new ThirdParty\ACF,
+			new ThirdParty\NinjaForms,
+			new ThirdParty\WooCommerce,
+			new ThirdParty\WPML,
+		);
 
-		$settings = new General();
-		$settings->register();
-
-		$hooks = new Deprecated\Hooks();
-		$hooks->register();
-
-		new ThirdParty\ACF();
-		new ThirdParty\NinjaForms();
-		new ThirdParty\WooCommerce();
-		new ThirdParty\WPML();
+		foreach ( $registrables as $registrable ) {
+			if ( $registrable instanceof Registrable ) {
+				$registrable->register();
+			}
+		}
 
 		$this->api = new API();
 
-		$site_factory = new SiteFactory();
+		$site_factory = new Admin\SiteFactory();
 		$site_factory->register();
 
 		$this->admin = $site_factory->create();
 
-		/** @var Page\Columns $columns */
-		$page = new Page\Columns();
+		$page = new Admin\Page\Columns();
 		$page->register_ajax();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
@@ -247,13 +246,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function admin() {
 		return $this->admin;
-	}
-
-	/**
-	 * @return Admin\Page\Columns
-	 */
-	public function admin_columns_screen() {
-		return new Page\Columns();
 	}
 
 	/**
@@ -477,12 +469,23 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return Table\Screen Returns the screen manager for the list table
+	 * @deprecated NEWVERSION
+	 * @return Table\Screen
 	 */
 	public function table_screen() {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
 
 		return $this->table_screen;
+	}
+
+	/**
+	 * @deprecated NEWVERSION
+	 * @return Admin\Page\Columns
+	 */
+	public function admin_columns_screen() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
+		return new Admin\Page\Columns();
 	}
 
 }

@@ -2,12 +2,14 @@
 
 namespace AC\ThirdParty;
 
+use AC\Registrable;
+
 /**
  * WPML compatibility
  */
-class WPML {
+class WPML implements Registrable {
 
-	function __construct() {
+	function register() {
 
 		// display correct flags on the overview screens
 		add_action( 'ac/table/list_screen', array( $this, 'replace_flags' ) );

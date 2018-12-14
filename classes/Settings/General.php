@@ -2,8 +2,9 @@
 namespace AC\Settings;
 
 use AC\Capabilities;
+use AC\Registrable;
 
-class General {
+class General implements Registrable {
 
 	const SETTINGS_NAME = 'cpac_general_options';
 	const SETTINGS_GROUP = 'admin-columns-general-settings';
