@@ -1,10 +1,10 @@
 <?php
 
-namespace AC\Admin\Help;
+namespace AC\Admin\HelpTab;
 
-use AC\Admin\Help;
+use AC\Admin\HelpTab;
 
-class Basics extends Help {
+class Basics extends HelpTab {
 
 	public function get_title() {
 		return __( "Basics", 'codepress-admin-columns' );

@@ -356,7 +356,8 @@ function () {
         method: 'post',
         dataType: 'json',
         data: {
-          action: 'ac_column_select',
+          action: 'ac-columns',
+          id: 'select',
           type: type,
           current_original_columns: AC.Form.originalColumns(),
           original_columns: AC.original_columns,
@@ -387,7 +388,8 @@ function () {
       var self = this;
       var data = this.$el.find(':input').serializeArray();
       var request_data = {
-        action: 'ac_column_refresh',
+        action: 'ac-columns',
+        id: 'refresh',
         _ajax_nonce: AC._ajax_nonce,
         list_screen: AC.list_screen,
         layout: AC.layout,
@@ -985,7 +987,8 @@ function () {
     value: function submitForm() {
       var self = this;
       var xhr = jQuery.post(ajaxurl, {
-        action: 'ac_columns_save',
+        action: 'ac-columns',
+        id: 'save',
         data: this.serialize(),
         _ajax_nonce: AC._ajax_nonce,
         list_screen: AC.list_screen,

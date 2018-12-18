@@ -3,15 +3,13 @@
 namespace AC;
 
 use AC\Check;
+use AC\Deprecated;
 use AC\Table;
 use AC\ThirdParty;
 
 class AdminColumns extends Plugin {
 
 	/**
-	 * Admin Columns settings class instance
-	 * @since  2.2
-	 * @access private
 	 * @var Admin
 	 */
 	private $admin;
@@ -51,25 +49,36 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
-		new ThirdParty\ACF();
-		new ThirdParty\NinjaForms();
-		new ThirdParty\WooCommerce();
-		new ThirdParty\WPML();
+		$modules = array(
+			new Screen,
+			new Settings\General,
+			new Deprecated\Hooks,
+			new ThirdParty\ACF,
+			new ThirdParty\NinjaForms,
+			new ThirdParty\WooCommerce,
+			new ThirdParty\WPML,
+		);
+
+		foreach ( $modules as $module ) {
+			if ( $module instanceof Registrable ) {
+				$module->register();
+			}
+		}
 
 		$this->api = new API();
 
-		$this->admin = new Admin();
-		$this->admin->register();
+		$site_factory = new Admin\SiteFactory();
+		$site_factory->register();
 
-		$screen = new Screen();
-		$screen->register();
+		$this->admin = $site_factory->create();
 
-		$screen = new Screen\QuickEdit();
-		$screen->register();
+		$page = new Admin\Page\Columns();
+		$page->register_ajax();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
+
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 		add_action( 'plugins_loaded', array( $this, 'localize' ) );
 
@@ -78,6 +87,8 @@ class AdminColumns extends Plugin {
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_global_javascript_var' ), 1 );
+
+		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
 	}
 
 	/**
@@ -90,10 +101,12 @@ class AdminColumns extends Plugin {
 			return;
 		}
 
-		$this->table_screen = new Table\Screen( $list_screen );
-		$this->table_screen->register();
+		$table_screen = new Table\Screen( $list_screen );
+		$table_screen->register();
 
-		do_action( 'ac/table', $this->table_screen );
+		do_action( 'ac/table', $table_screen );
+
+		$this->table_screen = $table_screen;
 	}
 
 	/**
@@ -205,7 +218,7 @@ class AdminColumns extends Plugin {
 	 */
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->get_basename() ) {
-			array_unshift( $links, ac_helper()->html->link( AC()->admin()->get_link( 'columns' ), __( 'Settings', 'codepress-admin-columns' ) ) );
+			array_unshift( $links, sprintf( '<a href="%s">%s</a>', $this->admin->get_url( 'columns' ), __( 'Settings', 'codepress-admin-columns' ) ) );
 		}
 
 		return $links;
@@ -232,13 +245,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function admin() {
 		return $this->admin;
-	}
-
-	/**
-	 * @return Admin\Page\Columns
-	 */
-	public function admin_columns_screen() {
-		return $this->admin()->get_page( 'columns' );
 	}
 
 	/**
@@ -327,6 +333,53 @@ class AdminColumns extends Plugin {
 	 */
 	public function localize() {
 		load_plugin_textdomain( 'codepress-admin-columns', false, $this->get_dir() . '/languages/' );
+	}
+
+	/**
+	 * Add a global JS var that ideally contains all AC and ACP API methods
+	 */
+	public function add_global_javascript_var() {
+		?>
+		<script>
+			var AdminColumns = {};
+		</script>
+		<?php
+	}
+
+	/**
+	 * Redirect the user to the Admin Columns add-ons page after activation/deactivation of an add-on from the add-ons page
+	 * @since 2.2
+	 *
+	 * @param $location
+	 *
+	 * @return string
+	 */
+	public function redirect_after_status_change( $location ) {
+		global $pagenow;
+
+		if ( 'plugins.php' !== $pagenow || ! filter_input( INPUT_GET, 'ac-redirect' ) || filter_input( INPUT_GET, 'error' ) ) {
+			return $location;
+		}
+
+		$status = filter_input( INPUT_GET, 'action' );
+
+		if ( ! $status ) {
+			return $location;
+		}
+
+		$integration = IntegrationFactory::create( filter_input( INPUT_GET, 'plugin' ) );
+
+		if ( ! $integration ) {
+			return $location;
+		}
+
+		$location = add_query_arg( array(
+			'status'    => $status,
+			'plugin'    => $integration->get_slug(),
+			'_ac_nonce' => wp_create_nonce( 'ac-plugin-status-change' ),
+		), $this->admin()->get_url( 'addons' ) );
+
+		return $location;
 	}
 
 	/**
@@ -425,14 +478,13 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * Add a global JS var that ideally contains all AC and ACP API methods
+	 * @deprecated NEWVERSION
+	 * @return Admin\Page\Columns
 	 */
-	public function add_global_javascript_var() {
-		?>
-		<script>
-			var AdminColumns = {};
-		</script>
-		<?php
+	public function admin_columns_screen() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
+		return new Admin\Page\Columns();
 	}
 
 }

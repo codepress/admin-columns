@@ -1,10 +1,10 @@
 <?php
 
-namespace AC\Admin\Help;
+namespace AC\Admin\HelpTab;
 
-use AC\Admin\Help;
+use AC\Admin\HelpTab;
 
-class Introduction extends Help {
+class Introduction extends HelpTab {
 
 	public function get_title() {
 		return __( "Overview", 'codepress-admin-columns' );
@@ -19,7 +19,6 @@ class Introduction extends Help {
 		</p>
 
 		<?php
-
 		return ob_get_clean();
 	}
 

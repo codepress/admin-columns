@@ -3,7 +3,6 @@
 namespace AC\Table;
 
 use AC;
-use AC\Admin;
 use AC\Capabilities;
 use AC\Form;
 use AC\ListScreen;
@@ -319,10 +318,9 @@ final class Screen {
 			return false;
 		}
 
-		/* @var Admin\Page\Settings $settings */
-		$settings = AC()->admin()->get_page( 'settings' );
+		$button = new Settings\Admin\General\ShowEditButton();
 
-		if ( ! $settings->show_edit_button() ) {
+		if ( ! $button->show_button() ) {
 			return false;
 		}
 
