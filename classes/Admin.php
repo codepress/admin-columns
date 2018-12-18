@@ -1,13 +1,13 @@
 <?php
 namespace AC;
 
+use AC\Admin\AbstractPageFactory;
 use AC\Admin\Helpable;
 use AC\Admin\MenuItem;
 use AC\Admin\Page;
-use AC\Admin\PageFactory;
 use AC\Admin\PageFactoryInterface;
 
-class Admin {
+class Admin implements Registrable {
 
 	const PLUGIN_PAGE = 'codepress-admin-columns';
 
@@ -20,20 +20,27 @@ class Admin {
 	/** @var Page */
 	private $page;
 
-	/** @var PageFactory */
-	protected $page_factory;
+	/** @var string */
+	private $menu_hook;
 
-	public function __construct( $parent_page ) {
+	/** @var AbstractPageFactory */
+	private $page_factory;
+
+	public function __construct( $parent_page, $menu_hook ) {
 		$this->parent_page = $parent_page;
+		$this->menu_hook = $menu_hook;
+		$this->page_factory = new AbstractPageFactory();
+	}
+
+	public function register() {
+		add_action( $this->menu_hook, array( $this, 'settings_menu' ) );
 	}
 
 	/**
-	 * @param PageFactoryInterface $page_factory
-	 *
 	 * @return Admin
 	 */
-	public function register_page_factory( PageFactoryInterface $page_factory ) {
-		$this->page_factory = $page_factory;
+	public function register_page_factory( PageFactoryInterface $pageFactory ) {
+		$this->page_factory->register_factory( $pageFactory );
 
 		return $this;
 	}
@@ -73,7 +80,7 @@ class Admin {
 			$tab = current( $this->get_menu_items() )->get_slug();
 		}
 
-		$page = $this->page_factory->create( $tab );
+		$page = $this->page_factory->get( $tab );
 
 		if ( $page instanceof Registrable ) {
 			$page->register();
@@ -113,14 +120,21 @@ class Admin {
 	}
 
 	/**
+	 * @param string $slug
+	 *
+	 * @return Page|false
+	 */
+	public function get_page( $slug ) {
+		return $this->page_factory->get( $slug );
+	}
+
+	/**
 	 * @return MenuItem[]
 	 */
 	private function get_menu_items() {
 		$items = array();
 
-		foreach ( $this->page_factory->get_slugs() as $slug ) {
-			$page = $this->page_factory->create( $slug );
-
+		foreach ( $this->page_factory->get_pages() as $page ) {
 			if ( $page && $page->show_in_menu() ) {
 				$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ) );
 			}

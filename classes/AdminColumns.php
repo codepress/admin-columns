@@ -2,6 +2,10 @@
 
 namespace AC;
 
+use AC\Admin\GeneralSectionFactory;
+use AC\Admin\Page;
+use AC\Admin\PageFactory;
+use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
 use AC\Table;
@@ -67,13 +71,7 @@ class AdminColumns extends Plugin {
 
 		$this->api = new API();
 
-		$site_factory = new Admin\SiteFactory();
-		$site_factory->register();
-
-		$this->admin = $site_factory->create();
-
-		$page = new Admin\Page\Columns();
-		$page->register_ajax();
+		$this->register_admin();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
@@ -344,6 +342,39 @@ class AdminColumns extends Plugin {
 			var AdminColumns = {};
 		</script>
 		<?php
+	}
+
+	/**
+	 * @return void
+	 */
+	private function register_admin() {
+		$is_network = is_network_admin();
+
+		$site_factory = new Admin\AdminFactory();
+		$this->admin = $site_factory->create( $is_network );
+
+		if ( ! $is_network ) {
+
+			$page_settings = new Page\Settings();
+			$page_settings
+				->register_section( GeneralSectionFactory::create() )
+				->register_section( new Restore() );
+
+			$page_columns = new Page\Columns();
+			$page_columns->register_ajax();
+
+			$page_factory = new PageFactory();
+
+			$page_factory
+				->register_page( $page_columns )
+				->register_page( $page_settings )
+				->register_page( new Page\Addons() )
+				->register_page( new Page\Help() );
+
+			$this->admin
+				->register_page_factory( $page_factory )
+				->register();
+		}
 	}
 
 	/**

@@ -8,11 +8,12 @@ interface PageFactoryInterface {
 	 *
 	 * @return Page|false
 	 */
-	public function create( $slug = false );
+	public function get( $slug );
 
 	/**
-	 * @return array
+	 * @return Page[]
 	 */
-	public function get_slugs();
+	public function get_pages();
+
 
 }
