@@ -53,6 +53,8 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
+		$this->api = new API();
+
 		$modules = array(
 			new Screen,
 			new Settings\General,
@@ -68,8 +70,6 @@ class AdminColumns extends Plugin {
 				$module->register();
 			}
 		}
-
-		$this->api = new API();
 
 		$this->register_admin();
 
