@@ -1,7 +1,7 @@
 <?php
 namespace AC\Admin;
 
-class PageFactory implements PageFactoryInterface {
+class PageFactory {
 
 	/** @var Page[] */
 	private $pages = array();

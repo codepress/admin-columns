@@ -3,13 +3,13 @@ namespace AC\Admin;
 
 class AbstractPageFactory {
 
-	/** @var PageFactoryInterface[] */
+	/** @var PageFactory[] */
 	private $factories = array();
 
 	/**
-	 * @param PageFactoryInterface $factory
+	 * @param PageFactory $factory
 	 */
-	public function register_factory( PageFactoryInterface $factory ) {
+	public function register_factory( PageFactory $factory ) {
 		$this->factories[] = $factory;
 	}
 

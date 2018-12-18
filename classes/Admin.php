@@ -5,7 +5,7 @@ use AC\Admin\AbstractPageFactory;
 use AC\Admin\Helpable;
 use AC\Admin\MenuItem;
 use AC\Admin\Page;
-use AC\Admin\PageFactoryInterface;
+use AC\Admin\PageFactory;
 
 class Admin implements Registrable {
 
@@ -37,9 +37,11 @@ class Admin implements Registrable {
 	}
 
 	/**
+	 * @param PageFactory $pageFactory
+	 *
 	 * @return Admin
 	 */
-	public function register_page_factory( PageFactoryInterface $pageFactory ) {
+	public function register_page_factory( PageFactory $pageFactory ) {
 		$this->page_factory->register_factory( $pageFactory );
 
 		return $this;
