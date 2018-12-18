@@ -1,3 +1,5 @@
+import Modal from './modal';
+
 class Modals {
 
 	constructor() {
@@ -28,8 +30,11 @@ class Modals {
 	static init() {
 		if ( typeof AdminColumns.Modals === 'undefined' ) {
 			AdminColumns.Modals = new this();
+			AdminColumns.Modals._abstract = {
+				modal : Modal
+			}
 		}
-
+		
 		return AdminColumns.Modals;
 	}
 

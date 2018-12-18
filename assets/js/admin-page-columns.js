@@ -1867,6 +1867,10 @@ module.exports = Modal;
 "use strict";
 
 
+var _modal = _interopRequireDefault(__webpack_require__(/*! ./modal */ "./js/modules/modal.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1911,6 +1915,9 @@ function () {
     value: function init() {
       if (typeof AdminColumns.Modals === 'undefined') {
         AdminColumns.Modals = new this();
+        AdminColumns.Modals._abstract = {
+          modal: _modal.default
+        };
       }
 
       return AdminColumns.Modals;
