@@ -363,17 +363,11 @@ class AdminColumns extends Plugin {
 			$page_columns = new Page\Columns();
 			$page_columns->register_ajax();
 
-			$page_factory = new Pages();
-
-			$page_factory
-				->register_page( $page_columns )
-				->register_page( $page_settings )
-				->register_page( new Page\Addons() )
-				->register_page( new Page\Help() );
-
-			$this->admin
-				->register_pages( $page_factory )
-				->register();
+			$this->admin->register_page( $page_columns )
+			            ->register_page( $page_settings )
+			            ->register_page( new Page\Addons() )
+			            ->register_page( new Page\Help() )
+			            ->register();
 		}
 	}
 

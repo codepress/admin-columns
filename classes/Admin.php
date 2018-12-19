@@ -1,11 +1,9 @@
 <?php
 namespace AC;
 
-use AC\Admin\PagesFactory;
 use AC\Admin\Helpable;
 use AC\Admin\MenuItem;
 use AC\Admin\Page;
-use AC\Admin\Pages;
 
 class Admin implements Registrable {
 
@@ -23,26 +21,28 @@ class Admin implements Registrable {
 	/** @var string */
 	private $menu_hook;
 
-	/** @var PagesFactory */
-	private $pages_factory;
+	/** @var Page[] */
+	private $pages = array();
 
 	public function __construct( $parent_page, $menu_hook ) {
 		$this->parent_page = $parent_page;
 		$this->menu_hook = $menu_hook;
-		$this->pages_factory = new PagesFactory();
 	}
 
+	/**
+	 * Menu hook
+	 */
 	public function register() {
 		add_action( $this->menu_hook, array( $this, 'settings_menu' ) );
 	}
 
 	/**
-	 * @param Pages $pages
+	 * @param Page $page
 	 *
-	 * @return Admin
+	 * @return $this
 	 */
-	public function register_pages( Pages $pages ) {
-		$this->pages_factory->register_factory( $pages );
+	public function register_page( Page $page ) {
+		$this->pages[ $page->get_slug() ] = $page;
 
 		return $this;
 	}
@@ -82,7 +82,7 @@ class Admin implements Registrable {
 			$tab = current( $this->get_menu_items() )->get_slug();
 		}
 
-		$page = $this->pages_factory->get( $tab );
+		$page = $this->get_page( $tab );
 
 		if ( $page instanceof Registrable ) {
 			$page->register();
@@ -127,7 +127,11 @@ class Admin implements Registrable {
 	 * @return Page|false
 	 */
 	public function get_page( $slug ) {
-		return $this->pages_factory->get( $slug );
+		if ( ! array_key_exists( $slug, $this->pages ) ) {
+			return false;
+		}
+
+		return $this->pages[ $slug ];
 	}
 
 	/**
@@ -136,9 +140,9 @@ class Admin implements Registrable {
 	private function get_menu_items() {
 		$items = array();
 
-		foreach ( $this->pages_factory->get_pages() as $page ) {
+		foreach ( $this->pages as $page ) {
 			if ( $page && $page->show_in_menu() ) {
-				$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ) );
+				$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ), $page->get_slug() === $this->page->get_slug() );
 			}
 		}
 
@@ -154,8 +158,7 @@ class Admin implements Registrable {
 			<?php
 
 			$menu = new View( array(
-				'items'   => $this->get_menu_items(),
-				'current' => $this->page->get_slug(),
+				'items' => $this->get_menu_items(),
 			) );
 
 			echo $menu->set_template( 'admin/edit-tabmenu' );
