@@ -4,7 +4,6 @@ namespace AC;
 
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
-use AC\Admin\Pages;
 use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
