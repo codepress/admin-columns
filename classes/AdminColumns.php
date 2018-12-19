@@ -4,7 +4,7 @@ namespace AC;
 
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
-use AC\Admin\PageFactory;
+use AC\Admin\Pages;
 use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
@@ -363,7 +363,7 @@ class AdminColumns extends Plugin {
 			$page_columns = new Page\Columns();
 			$page_columns->register_ajax();
 
-			$page_factory = new PageFactory();
+			$page_factory = new Pages();
 
 			$page_factory
 				->register_page( $page_columns )
@@ -372,7 +372,7 @@ class AdminColumns extends Plugin {
 				->register_page( new Page\Help() );
 
 			$this->admin
-				->register_page_factory( $page_factory )
+				->register_pages( $page_factory )
 				->register();
 		}
 	}

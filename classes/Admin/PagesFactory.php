@@ -1,15 +1,15 @@
 <?php
 namespace AC\Admin;
 
-class AbstractPageFactory {
+class PagesFactory {
 
-	/** @var PageFactory[] */
+	/** @var Pages[] */
 	private $factories = array();
 
 	/**
-	 * @param PageFactory $factory
+	 * @param Pages $factory
 	 */
-	public function register_factory( PageFactory $factory ) {
+	public function register_factory( Pages $factory ) {
 		$this->factories[] = $factory;
 	}
 

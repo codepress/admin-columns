@@ -1,11 +1,11 @@
 <?php
 namespace AC;
 
-use AC\Admin\AbstractPageFactory;
+use AC\Admin\PagesFactory;
 use AC\Admin\Helpable;
 use AC\Admin\MenuItem;
 use AC\Admin\Page;
-use AC\Admin\PageFactory;
+use AC\Admin\Pages;
 
 class Admin implements Registrable {
 
@@ -23,13 +23,13 @@ class Admin implements Registrable {
 	/** @var string */
 	private $menu_hook;
 
-	/** @var AbstractPageFactory */
-	private $page_factory;
+	/** @var PagesFactory */
+	private $pages_factory;
 
 	public function __construct( $parent_page, $menu_hook ) {
 		$this->parent_page = $parent_page;
 		$this->menu_hook = $menu_hook;
-		$this->page_factory = new AbstractPageFactory();
+		$this->pages_factory = new PagesFactory();
 	}
 
 	public function register() {
@@ -37,12 +37,12 @@ class Admin implements Registrable {
 	}
 
 	/**
-	 * @param PageFactory $pageFactory
+	 * @param Pages $pages
 	 *
 	 * @return Admin
 	 */
-	public function register_page_factory( PageFactory $pageFactory ) {
-		$this->page_factory->register_factory( $pageFactory );
+	public function register_pages( Pages $pages ) {
+		$this->pages_factory->register_factory( $pages );
 
 		return $this;
 	}
@@ -82,7 +82,7 @@ class Admin implements Registrable {
 			$tab = current( $this->get_menu_items() )->get_slug();
 		}
 
-		$page = $this->page_factory->get( $tab );
+		$page = $this->pages_factory->get( $tab );
 
 		if ( $page instanceof Registrable ) {
 			$page->register();
@@ -127,7 +127,7 @@ class Admin implements Registrable {
 	 * @return Page|false
 	 */
 	public function get_page( $slug ) {
-		return $this->page_factory->get( $slug );
+		return $this->pages_factory->get( $slug );
 	}
 
 	/**
@@ -136,7 +136,7 @@ class Admin implements Registrable {
 	private function get_menu_items() {
 		$items = array();
 
-		foreach ( $this->page_factory->get_pages() as $page ) {
+		foreach ( $this->pages_factory->get_pages() as $page ) {
 			if ( $page && $page->show_in_menu() ) {
 				$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ) );
 			}
