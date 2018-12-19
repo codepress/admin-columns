@@ -12,14 +12,10 @@ class MenuItem {
 	/** @var string */
 	private $url;
 
-	/** @var bool */
-	private $is_active;
-
-	public function __construct( $slug, $label, $url, $is_active = false ) {
+	public function __construct( $slug, $label, $url ) {
 		$this->slug = $slug;
 		$this->label = $label;
 		$this->url = $url;
-		$this->is_active = (bool) $is_active;
 	}
 
 	/**
@@ -41,13 +37,6 @@ class MenuItem {
 	 */
 	public function get_url() {
 		return $this->url;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function is_active() {
-		return $this->is_active;
 	}
 
 }

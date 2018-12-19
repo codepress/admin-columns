@@ -142,7 +142,7 @@ class Admin implements Registrable {
 
 		foreach ( $this->pages as $page ) {
 			if ( $page && $page->show_in_menu() ) {
-				$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ), $page->get_slug() === $this->page->get_slug() );
+				$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ) );
 			}
 		}
 
@@ -158,7 +158,8 @@ class Admin implements Registrable {
 			<?php
 
 			$menu = new View( array(
-				'items' => $this->get_menu_items(),
+				'items'   => $this->get_menu_items(),
+				'current' => $this->page->get_slug(),
 			) );
 
 			echo $menu->set_template( 'admin/edit-tabmenu' );
