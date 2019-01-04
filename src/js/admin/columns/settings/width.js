@@ -30,6 +30,7 @@ jQuery.fn.column_width_slider = function() {
 };
 
 let width = function( column ) {
+	let $ = jQuery;
 	let $column = column.$el;
 
 	$column.find( '.ac-column-setting--width' ).each( function() {
@@ -42,9 +43,9 @@ let width = function( column ) {
 			let _width = $column.find( '.ac-setting-input-width .description input' ).val();
 			let _unit = $column.find( '.ac-setting-input-width .description .unit' ).text();
 			if ( _width > 0 ) {
-				$( this ).text( _width + _unit );
+				jQuery( this ).text( _width + _unit );
 			} else {
-				$( this ).text( '' );
+				jQuery( this ).text( '' );
 			}
 		} );
 
@@ -61,7 +62,7 @@ let width = function( column ) {
 		let width_input = $column.find( '.ac-setting-input-width .description input' )
 			.on( 'keyup', function() {
 				$column.column_width_slider(); // re-init slider
-				$( this ).trigger( 'validate' ); // validate input
+				jQuery( this ).trigger( 'validate' ); // validate input
 				$width_indicator.trigger( 'update' ); // update indicator
 			} )
 
@@ -70,7 +71,7 @@ let width = function( column ) {
 				let _width = width_input.val();
 				let _new_width = $.trim( _width );
 
-				if ( !$.isNumeric( _new_width ) ) {
+				if ( !jQuery.isNumeric( _new_width ) ) {
 					_new_width = _new_width.replace( /\D/g, '' );
 				}
 				if ( _new_width.length > 3 ) {

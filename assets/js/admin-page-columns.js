@@ -1665,6 +1665,7 @@ jQuery.fn.column_width_slider = function () {
 };
 
 var width = function width(column) {
+  var $ = jQuery;
   var $column = column.$el;
   $column.find('.ac-column-setting--width').each(function () {
     $column.column_width_slider(); // indicator
@@ -1676,9 +1677,9 @@ var width = function width(column) {
       var _unit = $column.find('.ac-setting-input-width .description .unit').text();
 
       if (_width > 0) {
-        $(this).text(_width + _unit);
+        jQuery(this).text(_width + _unit);
       } else {
-        $(this).text('');
+        jQuery(this).text('');
       }
     }); // unit selector
 
@@ -1693,7 +1694,7 @@ var width = function width(column) {
     var width_input = $column.find('.ac-setting-input-width .description input').on('keyup', function () {
       $column.column_width_slider(); // re-init slider
 
-      $(this).trigger('validate'); // validate input
+      jQuery(this).trigger('validate'); // validate input
 
       $width_indicator.trigger('update'); // update indicator
     }) // width_input:validate
@@ -1702,7 +1703,7 @@ var width = function width(column) {
 
       var _new_width = $.trim(_width);
 
-      if (!$.isNumeric(_new_width)) {
+      if (!jQuery.isNumeric(_new_width)) {
         _new_width = _new_width.replace(/\D/g, '');
       }
 
