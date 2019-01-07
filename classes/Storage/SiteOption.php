@@ -8,6 +8,8 @@ class SiteOption extends Option {
 	 * @return mixed
 	 */
 	public function get() {
+		wp_cache_delete( $this->key, 'site-options' );
+
 		return get_site_option( $this->key );
 	}
 

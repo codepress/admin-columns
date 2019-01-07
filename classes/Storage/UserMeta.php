@@ -2,10 +2,9 @@
 
 namespace AC\Storage;
 
-use Exception;
+use LogicException;
 
-class UserMeta
-	implements KeyValuePair {
+class UserMeta implements KeyValuePair {
 
 	/**
 	 * @var int
@@ -21,7 +20,7 @@ class UserMeta
 	 * @param int    $user_id
 	 * @param string $key
 	 *
-	 * @throws Exception
+	 * @throws LogicException
 	 */
 	public function __construct( $key, $user_id = null ) {
 		if ( null === $user_id ) {
@@ -29,7 +28,7 @@ class UserMeta
 		}
 
 		if ( ! preg_match( '/^[1-9][0-9]*$/', $user_id ) ) {
-			throw new Exception( 'Storage cannot be initialized without a valid user id.' );
+			throw new LogicException( 'Storage cannot be initialized without a valid user id.' );
 		}
 
 		$this->user_id = $user_id;
