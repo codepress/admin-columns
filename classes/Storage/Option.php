@@ -2,14 +2,16 @@
 
 namespace AC\Storage;
 
-class Option
-	implements KeyValuePair {
+class Option implements KeyValuePair {
 
 	/**
 	 * @var string
 	 */
 	protected $key;
 
+	/**
+	 * @param string $key
+	 */
 	public function __construct( $key ) {
 		$this->key = $key;
 	}
