@@ -37,6 +37,7 @@ class Media extends AC\ListScreenPost {
 	 */
 	public function get_single_row( $id ) {
 		// Author column depends on this global to be set.
+		// todo
 		global $authordata;
 
 		$authordata = get_userdata( get_post_field( 'post_author', $id ) );

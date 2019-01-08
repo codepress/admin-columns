@@ -10,26 +10,23 @@ use AC\Column;
 class ReplyTo extends Column {
 
 	public function __construct() {
-		$this->set_type( 'column-reply_to' );
-		$this->set_label( __( 'In Reply To', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-reply_to' )
+		     ->set_label( __( 'In Reply To', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {
-		$value = '';
-		$parent = $this->get_raw_value( $id );
-		if ( $parent ) {
-			$parent = get_comment( $parent );
+		$parent_id = $this->get_raw_value( $id );
+		$parent = get_comment( $parent_id );
 
-			$value = ac_helper()->html->link( esc_url( get_comment_link( $parent ) ), get_comment_author( $parent->comment_ID ) );
+		if ( ! $parent ) {
+			return $this->get_empty_char();
 		}
 
-		return $value;
+		return ac_helper()->html->link( esc_url( get_comment_link( $parent ) ), get_comment_author( $parent->comment_ID ) );
 	}
 
 	public function get_raw_value( $id ) {
-		$comment = get_comment( $id );
-
-		return $comment->comment_parent;
+		return get_comment( $id )->comment_parent;
 	}
 
 }
