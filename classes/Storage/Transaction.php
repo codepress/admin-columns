@@ -1,11 +1,11 @@
 <?php
 
-namespace AC;
+namespace AC\Storage;
 
 use LogicException;
 use wpdb;
 
-class Transaction {
+final class Transaction {
 
 	const START = 1;
 	const COMMIT = 2;
@@ -14,7 +14,7 @@ class Transaction {
 	/**
 	 * @param integer $type
 	 */
-	protected function statement( $type ) {
+	private function statement( $type ) {
 		global $wpdb;
 
 		if ( ! $wpdb instanceof wpdb ) {

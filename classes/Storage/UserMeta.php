@@ -6,6 +6,8 @@ use LogicException;
 
 class UserMeta implements KeyValuePair {
 
+	const OPTION_SINGLE = 'single';
+
 	/**
 	 * @var int
 	 */
@@ -36,10 +38,16 @@ class UserMeta implements KeyValuePair {
 	}
 
 	/**
+	 * @param array $args
+	 *
 	 * @return mixed
 	 */
-	public function get() {
-		return get_user_meta( $this->user_id, $this->key, true );
+	public function get( array $args = array() ) {
+		$args = array_merge( array(
+			self::OPTION_SINGLE => true,
+		), $args );
+
+		return get_user_meta( $this->user_id, $this->key, $args[ self::OPTION_SINGLE ] );
 	}
 
 	/**

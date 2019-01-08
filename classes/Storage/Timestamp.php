@@ -48,8 +48,13 @@ final class Timestamp implements KeyValuePair, Expirable {
 		return preg_match( '/^[1-9][0-9]*$/', $value );
 	}
 
-	public function get() {
-		return $this->storage->get();
+	/**
+	 * @param array $args
+	 *
+	 * @return mixed
+	 */
+	public function get( array $args = array() ) {
+		return $this->storage->get( $args );
 	}
 
 	public function delete() {

@@ -5,9 +5,11 @@ namespace AC\Storage;
 interface KeyValuePair {
 
 	/**
+	 * @param array $args
+	 *
 	 * @return mixed
 	 */
-	public function get();
+	public function get( array $args = array() );
 
 	/**
 	 * @param mixed $value
