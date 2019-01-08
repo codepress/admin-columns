@@ -12,6 +12,20 @@ final class Transaction {
 	const ROLLBACK = 3;
 
 	/**
+	 * @var bool
+	 */
+	private $started = false;
+
+	/**
+	 * @param bool $start Will start a transaction on creation if true
+	 */
+	public function __construct( $start = true ) {
+		if ( $start === true ) {
+			$this->start();
+		}
+	}
+
+	/**
 	 * @param integer $type
 	 */
 	private function statement( $type ) {
@@ -46,6 +60,12 @@ final class Transaction {
 	 * Start a MySQL transaction
 	 */
 	public function start() {
+		if ( $this->started ) {
+			throw new LogicException( 'Transaction has started already.' );
+		}
+
+		$this->started = true;
+
 		$this->statement( self::START );
 	}
 
