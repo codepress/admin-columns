@@ -15,7 +15,15 @@ class Status extends Column {
 	}
 
 	public function get_value( $id ) {
-		return $this->get_raw_value( $id );
+		$status = $this->get_raw_value( $id );
+
+		$statuses = $this->get_statuses();
+
+		if ( ! isset( $statuses[ $status ] ) ) {
+			return $this->get_empty_char();
+		}
+
+		return $statuses[ $status ];
 	}
 
 	public function get_statuses() {
@@ -30,9 +38,8 @@ class Status extends Column {
 
 	public function get_raw_value( $id ) {
 		$comment = get_comment( $id );
-		$statuses = $this->get_statuses();
 
-		return isset( $statuses[ $comment->comment_approved ] ) ? $statuses[ $comment->comment_approved ] : '';
+		return $comment->comment_approved;
 	}
 
 }
