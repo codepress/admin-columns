@@ -1,39 +1,133 @@
 <?php
 namespace AC\Admin;
 
+use AC\View;
+
 class Tooltip {
 
 	/** @var string */
-	private $name;
+	private $id;
 
 	/** @var string */
-	private $description;
+	private $content;
 
-	public function __construct( $name, $description ) {
-		$this->name = $name;
-		$this->description = $description;
+	/** @var string */
+	private $link_label;
+
+	/** @var string */
+	private $title;
+
+	/** @var string */
+	private $position = 'right';
+
+	public function __construct( $id, array $args ) {
+		$this->id = $id;
+		$this->title = __( 'Notice', 'codepress-admin-columns' );
+		$this->link_label = __( 'Instructions', 'codepress-admin-columns' );
+
+		$this->populate( $args );
+	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return $this
+	 */
+	private function populate( $args ) {
+		foreach ( $args as $key => $value ) {
+			$method = 'set_' . $key;
+
+			if ( method_exists( $this, $method ) ) {
+				call_user_func( array( $this, $method ), $value );
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param string $id
+	 *
+	 * @return Tooltip
+	 */
+	public function set_id( $id ) {
+		$this->id = $id;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $content
+	 *
+	 * @return Tooltip
+	 */
+	public function set_content( $content ) {
+		$this->content = $content;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $title
+	 *
+	 * @return Tooltip
+	 */
+	public function set_title( $title ) {
+		$this->title = $title;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $label
+	 *
+	 * @return $this
+	 */
+	public function set_link_label( $label ) {
+		$this->link_label = $label;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $position
+	 *
+	 * @return Tooltip
+	 */
+	public function set_position( $position ) {
+		$this->position = $position;
+
+		return $this;
 	}
 
 	/**
 	 * @return string
 	 */
 	public function get_label() {
-		return sprintf( '<a class="ac-pointer instructions" rel="pointer-%s" data-pos="right">%s</a>', esc_attr( $this->name ), __( 'Instructions', 'codepress-admin-columns' ) );
+		$view = new View( array(
+			'id'       => $this->id,
+			'position' => $this->position,
+			'label'    => $this->link_label,
+		) );
+
+		$view->set_template( 'admin/tooltip-label' );
+
+		return $view->render();
 	}
 
 	/**
 	 * @return string
 	 */
-	public function render() {
-		ob_start();
-		?>
-		<div id="pointer-<?php echo $this->name; ?>" style="display:none;">
-			<h3><?php _e( 'Notice', 'codepress-admin-columns' ); ?></h3>
-			<?php echo $this->description; ?>
-		</div>
-		<?php
+	public function get_instructions() {
+		$view = new View( array(
+			'id'      => $this->id,
+			'title'   => $this->title,
+			'content' => $this->content,
+		) );
 
-		return ob_get_clean();
+		$view->set_template( 'admin/tooltip-body' );
+
+		return $view->render();
 	}
 
 }
