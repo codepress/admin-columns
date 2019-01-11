@@ -183,6 +183,11 @@ function () {
       this.el.classList.add('-active');
     }
   }, {
+    key: "destroy",
+    value: function destroy() {
+      this.el.remove();
+    }
+  }, {
     key: "onClose",
     value: function onClose() {}
   }, {
