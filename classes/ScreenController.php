@@ -17,12 +17,11 @@ class ScreenController {
 		$this->list_screen = $list_screen;
 
 		// Headings
-		add_filter( 'manage_' . $this->list_screen->get_screen_id() . '_columns', array( $this, 'add_headings' ), 200 );
+		add_filter( $this->list_screen->get_heading_hookname(), array( $this, 'add_headings' ), 200 );
 
 		// Values
 		$this->list_screen->set_manage_value_callback();
 
-		// todo
 		do_action( 'ac/table/list_screen', $this->list_screen );
 	}
 
