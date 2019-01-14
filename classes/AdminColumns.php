@@ -7,6 +7,7 @@ use AC\Admin\Page;
 use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
+use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
 
@@ -55,9 +56,10 @@ class AdminColumns extends Plugin {
 		$this->api = new API();
 
 		$modules = array(
+			new Deprecated\Hooks,
+			new QuickEdit(),
 			new Screen,
 			new Settings\General,
-			new Deprecated\Hooks,
 			new ThirdParty\ACF,
 			new ThirdParty\NinjaForms,
 			new ThirdParty\WooCommerce,

@@ -4,8 +4,9 @@ namespace AC\Screen;
 
 use AC\ListScreen;
 use AC\ListScreenFactory;
+use AC\Registrable;
 
-class QuickEdit {
+class QuickEdit implements Registrable {
 
 	/**
 	 * @var ListScreen
