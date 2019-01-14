@@ -159,7 +159,7 @@ function ac_quickedit_events( $ ) {
 		if ( $result.find( 'tr.iedit' ).length === 1 ) {
 			let id = $result.find( 'tr.iedit' ).attr( 'id' );
 
-			$( 'tr#' + id ).trigger( 'updated' )
+			$( 'tr#' + id ).trigger( 'updated', { id : id } )
 		}
 	} );
 

@@ -454,7 +454,9 @@ function ac_quickedit_events($) {
 
     if ($result.find('tr.iedit').length === 1) {
       var id = $result.find('tr.iedit').attr('id');
-      $('tr#' + id).trigger('updated');
+      $('tr#' + id).trigger('updated', {
+        id: id
+      });
     }
   });
 }
@@ -1159,14 +1161,33 @@ function () {
 
       this._initTable();
 
-      this._addCellMethods();
-
       this.addCellClasses();
       document.dispatchEvent(new CustomEvent('AC_Table_Ready', {
         detail: {
           self: self
         }
       }));
+    }
+  }, {
+    key: "updateRow",
+    value: function updateRow(row) {
+      var id = this._getIDFromRow(row);
+
+      row.dataset.id = id;
+
+      this._setCellsForRow(row, id);
+    }
+  }, {
+    key: "addCellClasses",
+    value: function addCellClasses() {
+      var self = this;
+      this.Columns.getColumnNames().forEach(function (name) {
+        var type = self.Columns.get(name).type;
+        var cells = self.Cells.getByName(name);
+        cells.forEach(function (cell) {
+          cell.el.classList.add(type);
+        });
+      });
     }
     /**
      * Initiate the table so we can easily query it
@@ -1178,42 +1199,45 @@ function () {
   }, {
     key: "_initTable",
     value: function _initTable() {
-      var _this = this;
-
       var self = this;
       var el = this.el.getElementsByTagName('tbody');
       var rows = el[0].getElementsByTagName('tr');
 
-      var _loop = function _loop(i) {
+      for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
 
-        var id = _this._getIDFromRow(row);
+        var id = this._getIDFromRow(row);
 
         self._ids.push(id);
 
-        row.dataset.id = id;
-        self.Columns.getColumnNames().forEach(function (name) {
-          var td = row.querySelector(".column-".concat(name));
-
-          if (td) {
-            self.Cells.add(id, new _cell.default(id, name, td));
-          }
-        });
-      };
-
-      for (var i = 0; i < rows.length; i++) {
-        _loop(i);
+        this.updateRow(row);
       }
     }
   }, {
-    key: "_addCellMethods",
-    value: function _addCellMethods() {
-      // Attach method to retrieve the column reference
-      this.Cells.getAll().forEach(function (column) {
-        column.el.getCell = function () {
-          return column;
-        };
+    key: "_setCellsForRow",
+    value: function _setCellsForRow(row) {
+      var _this = this;
+
+      var id = this._getIDFromRow(row);
+
+      this.Columns.getColumnNames().forEach(function (name) {
+        var td = row.querySelector(".column-".concat(name));
+
+        if (td) {
+          var cell = new _cell.default(id, name, td);
+
+          _this.Cells.add(id, cell);
+
+          _this._addColumnCellMethods(cell);
+        }
       });
+    }
+  }, {
+    key: "_addColumnCellMethods",
+    value: function _addColumnCellMethods(column) {
+      column.el.getCell = function () {
+        return column;
+      };
     }
     /**
      * Get the Post ID from a table row based on it's attributes or columns
@@ -1260,21 +1284,9 @@ function () {
       return item_id;
     }
   }, {
-    key: "addCellClasses",
-    value: function addCellClasses() {
-      var self = this;
-      this.Columns.getColumnNames().forEach(function (name) {
-        var type = self.Columns.get(name).type;
-        var cells = self.Cells.getByName(name);
-        cells.forEach(function (cell) {
-          cell.el.classList.add(type);
-        });
-      });
-    }
-  }, {
-    key: "getRow",
-    value: function getRow(id) {
-      return this.el.querySelector("tr#".concat(id));
+    key: "getRowCellByName",
+    value: function getRowCellByName(row, column_name) {
+      return row.querySelector(".column-".concat(column_name));
     }
   }], [{
     key: "getTable",
