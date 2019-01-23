@@ -19,14 +19,18 @@ class Admin implements Registrable {
 	private $page;
 
 	/** @var string */
+	private $url;
+
+	/** @var string */
 	private $menu_hook;
 
 	/** @var Page[] */
 	private $pages = array();
 
-	public function __construct( $parent_page, $menu_hook ) {
+	public function __construct( $parent_page, $menu_hook, $url ) {
 		$this->parent_page = $parent_page;
 		$this->menu_hook = $menu_hook;
+		$this->url = trailingslashit( $url );
 	}
 
 	/**
@@ -118,7 +122,7 @@ class Admin implements Registrable {
 			'page' => self::PLUGIN_PAGE,
 		);
 
-		return add_query_arg( $args, $this->get_parent_page() );
+		return add_query_arg( $args, $this->url . $this->get_parent_page() );
 	}
 
 	/**

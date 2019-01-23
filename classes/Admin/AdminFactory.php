@@ -13,9 +13,9 @@ class AdminFactory {
 	public function create( $is_network ) {
 
 		if ( $is_network ) {
-			return new Admin( 'settings.php', 'network_admin_menu' );
+			return new Admin( 'settings.php', 'network_admin_menu', network_admin_url() );
 		} else {
-			return new Admin( 'options-general.php', 'admin_menu' );
+			return new Admin( 'options-general.php', 'admin_menu', admin_url() );
 		}
 	}
 

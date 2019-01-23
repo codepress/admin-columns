@@ -378,7 +378,10 @@ abstract class ListScreen {
 	 * @return string Link
 	 */
 	public function get_screen_link() {
-		return add_query_arg( array( 'page' => $this->get_page(), 'layout' => $this->get_layout_id() ), $this->get_admin_url() );
+		return add_query_arg( array(
+			'page'   => $this->get_page(),
+			'layout' => $this->get_layout_id(),
+		), $this->get_admin_url() );
 	}
 
 	/**
