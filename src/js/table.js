@@ -7,9 +7,7 @@ Modals.init();
 
 jQuery( document ).ready( function( $ ) {
 	ac_quickedit_events( $ );
-
 	ac_actions_column( $, $( '.column-actions' ) );
-
 	ac_show_more( $ );
 	ac_toggle_box( $ );
 	ac_toggle_box_ajax_init( $ );
