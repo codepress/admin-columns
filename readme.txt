@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.5
 Tested up to: 5.0
 Requires PHP: 5.3.6
-Stable tag: 3.3.1
+Stable tag: 3.4
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -213,9 +213,10 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 3.4 =
 Release Date: tbd
 
+* [Fixed] Width setting Javascript errors
 * [Fixed] Show icons for Action column works again
 * [Improved] Show icon labels in the Screen Options menu when necessary
 
