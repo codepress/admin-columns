@@ -4,10 +4,8 @@ namespace AC;
 use AC\Admin\Helpable;
 use AC\Admin\MenuItem;
 use AC\Admin\Page;
-use AC\Admin\PageFactory;
-use AC\Admin\PageFactoryInterface;
 
-class Admin {
+class Admin implements Registrable {
 
 	const PLUGIN_PAGE = 'codepress-admin-columns';
 
@@ -20,20 +18,35 @@ class Admin {
 	/** @var Page */
 	private $page;
 
-	/** @var PageFactory */
-	protected $page_factory;
+	/** @var string */
+	private $url;
 
-	public function __construct( $parent_page ) {
+	/** @var string */
+	private $menu_hook;
+
+	/** @var Page[] */
+	private $pages = array();
+
+	public function __construct( $parent_page, $menu_hook, $url ) {
 		$this->parent_page = $parent_page;
+		$this->menu_hook = $menu_hook;
+		$this->url = trailingslashit( $url );
 	}
 
 	/**
-	 * @param PageFactoryInterface $page_factory
-	 *
-	 * @return Admin
+	 * Menu hook
 	 */
-	public function register_page_factory( PageFactoryInterface $page_factory ) {
-		$this->page_factory = $page_factory;
+	public function register() {
+		add_action( $this->menu_hook, array( $this, 'settings_menu' ) );
+	}
+
+	/**
+	 * @param Page $page
+	 *
+	 * @return $this
+	 */
+	public function register_page( Page $page ) {
+		$this->pages[ $page->get_slug() ] = $page;
 
 		return $this;
 	}
@@ -73,7 +86,7 @@ class Admin {
 			$tab = current( $this->get_menu_items() )->get_slug();
 		}
 
-		$page = $this->page_factory->create( $tab );
+		$page = $this->get_page( $tab );
 
 		if ( $page instanceof Registrable ) {
 			$page->register();
@@ -109,7 +122,20 @@ class Admin {
 			'page' => self::PLUGIN_PAGE,
 		);
 
-		return add_query_arg( $args, $this->get_parent_page() );
+		return add_query_arg( $args, $this->url . $this->get_parent_page() );
+	}
+
+	/**
+	 * @param string $slug
+	 *
+	 * @return Page|false
+	 */
+	public function get_page( $slug ) {
+		if ( ! array_key_exists( $slug, $this->pages ) ) {
+			return false;
+		}
+
+		return $this->pages[ $slug ];
 	}
 
 	/**
@@ -118,9 +144,7 @@ class Admin {
 	private function get_menu_items() {
 		$items = array();
 
-		foreach ( $this->page_factory->get_slugs() as $slug ) {
-			$page = $this->page_factory->create( $slug );
-
+		foreach ( $this->pages as $page ) {
 			if ( $page && $page->show_in_menu() ) {
 				$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ) );
 			}

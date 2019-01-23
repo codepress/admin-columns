@@ -15,7 +15,7 @@ class General extends Section {
 	}
 
 	/**
-	 * @param Settings\Admin $setting
+	 * @param Settings\Admin\General $setting
 	 *
 	 * @return $this
 	 */

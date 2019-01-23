@@ -6,9 +6,10 @@ use AC;
 use AC\Capabilities;
 use AC\Form;
 use AC\ListScreen;
+use AC\Registrable;
 use AC\Settings;
 
-final class Screen {
+final class Screen implements Registrable {
 
 	/**
 	 * @var ListScreen $list_screen

@@ -7,9 +7,7 @@ Modals.init();
 
 jQuery( document ).ready( function( $ ) {
 	ac_quickedit_events( $ );
-
 	ac_actions_column( $, $( '.column-actions' ) );
-
 	ac_show_more( $ );
 	ac_toggle_box( $ );
 	ac_toggle_box_ajax_init( $ );
@@ -159,7 +157,7 @@ function ac_quickedit_events( $ ) {
 		if ( $result.find( 'tr.iedit' ).length === 1 ) {
 			let id = $result.find( 'tr.iedit' ).attr( 'id' );
 
-			$( 'tr#' + id ).trigger( 'updated' )
+			$( 'tr#' + id ).trigger( 'updated', { id : id } )
 		}
 	} );
 

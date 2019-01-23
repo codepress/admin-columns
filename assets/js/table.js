@@ -86,6 +86,143 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./js/modules/modal.js":
+/*!*****************************!*\
+  !*** ./js/modules/modal.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
+var _modals = _interopRequireDefault(__webpack_require__(/*! ./modals */ "./js/modules/modals.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Modal =
+/*#__PURE__*/
+function () {
+  function Modal(el) {
+    _classCallCheck(this, Modal);
+
+    if (!el) {
+      return;
+    }
+
+    this.el = el;
+    this.dialog = el.querySelector('.ac-modal__dialog');
+    this.initEvents();
+  }
+
+  _createClass(Modal, [{
+    key: "initEvents",
+    value: function initEvents() {
+      var _this = this;
+
+      var self = this;
+      document.addEventListener('keydown', function (e) {
+        var keyName = event.key;
+
+        if (!_this.isOpen()) {
+          return;
+        }
+
+        if ('Escape' === keyName) {
+          _this.close();
+        }
+      });
+      var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
+
+      if (dismissButtons.length > 0) {
+        dismissButtons.forEach(function (b) {
+          b.addEventListener('click', function (e) {
+            e.preventDefault();
+            self.close();
+          });
+        });
+      }
+
+      this.el.addEventListener('click', function () {
+        self.close();
+      });
+      this.el.querySelector('.ac-modal__dialog').addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+
+      if (typeof document.querySelector('body').dataset.ac_modal_init === 'undefined') {
+        Modal.initGlobalEvents();
+        document.querySelector('body').dataset.ac_modal_init = 1;
+      }
+
+      this.el.AC_MODAL = self;
+    }
+  }, {
+    key: "isOpen",
+    value: function isOpen() {
+      return this.el.classList.contains('-active');
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.onClose();
+      this.el.classList.remove('-active');
+    }
+  }, {
+    key: "open",
+    value: function open() {
+      this.onOpen();
+      this.el.classList.add('-active');
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this.el.remove();
+    }
+  }, {
+    key: "onClose",
+    value: function onClose() {}
+  }, {
+    key: "onOpen",
+    value: function onOpen() {}
+  }], [{
+    key: "initGlobalEvents",
+    value: function initGlobalEvents() {
+      jQuery(document).on('click', '[data-ac-open-modal]', function (e) {
+        e.preventDefault();
+        var target = e.target.dataset.acOpenModal;
+        var el = document.querySelector(target);
+
+        if (el && el.AC_MODAL) {
+          el.AC_MODAL.open();
+        }
+      });
+      jQuery(document).on('click', '[data-ac-modal]', function (e) {
+        e.preventDefault();
+        var modal_key = jQuery(this).data('ac-modal');
+
+        if (_modals.default.init().get(modal_key)) {
+          _modals.default.init().get(modal_key).open();
+        }
+      });
+    }
+  }]);
+
+  return Modal;
+}();
+
+module.exports = Modal;
+
+/***/ }),
+
 /***/ "./js/modules/modals.js":
 /*!******************************!*\
   !*** ./js/modules/modals.js ***!
@@ -95,6 +232,10 @@
 
 "use strict";
 
+
+var _modal = _interopRequireDefault(__webpack_require__(/*! ./modal */ "./js/modules/modal.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -140,6 +281,9 @@ function () {
     value: function init() {
       if (typeof AdminColumns.Modals === 'undefined') {
         AdminColumns.Modals = new this();
+        AdminColumns.Modals._abstract = {
+          modal: _modal.default
+        };
       }
 
       return AdminColumns.Modals;
@@ -310,7 +454,9 @@ function ac_quickedit_events($) {
 
     if ($result.find('tr.iedit').length === 1) {
       var id = $result.find('tr.iedit').attr('id');
-      $('tr#' + id).trigger('updated');
+      $('tr#' + id).trigger('updated', {
+        id: id
+      });
     }
   });
 }
@@ -812,10 +958,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Selection =
 /*#__PURE__*/
 function () {
-  function Selection(table) {
+  function Selection(Table) {
     _classCallCheck(this, Selection);
 
-    this.table = table;
+    this.Table = Table;
   }
   /**
    * Get the selected IDs in the table
@@ -828,7 +974,7 @@ function () {
     key: "getIDs",
     value: function getIDs() {
       var ids = [];
-      var checked = this.table.el.querySelectorAll('tbody th.check-column input[type=checkbox]:checked');
+      var checked = this.Table.el.querySelectorAll('tbody th.check-column input[type=checkbox]:checked');
 
       if (checked.length === 0) {
         return ids;
@@ -865,6 +1011,21 @@ function () {
         }
       });
       return cells;
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "getCount",
+    value: function getCount() {
+      return this.getIDs().length;
+    }
+  }, {
+    key: "isAllSelected",
+    value: function isAllSelected() {
+      return !!this.Table.el.querySelector('thead #cb input:checked');
     }
   }]);
 
@@ -989,6 +1150,7 @@ function () {
     this.Cells = new _cells.default();
     this.Actions = new _actions.default('ac-table-actions');
     this.Selection = new _rowSelection.default(this);
+    this._ids = [];
     this.init();
   }
 
@@ -999,14 +1161,33 @@ function () {
 
       this._initTable();
 
-      this._addCellMethods();
-
       this.addCellClasses();
       document.dispatchEvent(new CustomEvent('AC_Table_Ready', {
         detail: {
           self: self
         }
       }));
+    }
+  }, {
+    key: "updateRow",
+    value: function updateRow(row) {
+      var id = this._getIDFromRow(row);
+
+      row.dataset.id = id;
+
+      this._setCellsForRow(row, id);
+    }
+  }, {
+    key: "addCellClasses",
+    value: function addCellClasses() {
+      var self = this;
+      this.Columns.getColumnNames().forEach(function (name) {
+        var type = self.Columns.get(name).type;
+        var cells = self.Cells.getByName(name);
+        cells.forEach(function (cell) {
+          cell.el.classList.add(type);
+        });
+      });
     }
     /**
      * Initiate the table so we can easily query it
@@ -1018,40 +1199,45 @@ function () {
   }, {
     key: "_initTable",
     value: function _initTable() {
-      var _this = this;
-
       var self = this;
       var el = this.el.getElementsByTagName('tbody');
       var rows = el[0].getElementsByTagName('tr');
 
-      var _loop = function _loop(i) {
+      for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
 
-        var id = _this._getIDFromRow(row);
+        var id = this._getIDFromRow(row);
 
-        row.dataset.id = id;
-        self.Columns.getColumnNames().forEach(function (name) {
-          var td = row.querySelector(".column-".concat(name));
+        self._ids.push(id);
 
-          if (td) {
-            self.Cells.add(id, new _cell.default(id, name, td));
-          }
-        });
-      };
-
-      for (var i = 0; i < rows.length; i++) {
-        _loop(i);
+        this.updateRow(row);
       }
     }
   }, {
-    key: "_addCellMethods",
-    value: function _addCellMethods() {
-      // Attach method to retrieve the column reference
-      this.Cells.getAll().forEach(function (column) {
-        column.el.getCell = function () {
-          return column;
-        };
+    key: "_setCellsForRow",
+    value: function _setCellsForRow(row) {
+      var _this = this;
+
+      var id = this._getIDFromRow(row);
+
+      this.Columns.getColumnNames().forEach(function (name) {
+        var td = row.querySelector(".column-".concat(name));
+
+        if (td) {
+          var cell = new _cell.default(id, name, td);
+
+          _this.Cells.add(id, cell);
+
+          _this._addColumnCellMethods(cell);
+        }
       });
+    }
+  }, {
+    key: "_addColumnCellMethods",
+    value: function _addColumnCellMethods(column) {
+      column.el.getCell = function () {
+        return column;
+      };
     }
     /**
      * Get the Post ID from a table row based on it's attributes or columns
@@ -1098,21 +1284,9 @@ function () {
       return item_id;
     }
   }, {
-    key: "addCellClasses",
-    value: function addCellClasses() {
-      var self = this;
-      this.Columns.getColumnNames().forEach(function (name) {
-        var type = self.Columns.get(name).type;
-        var cells = self.Cells.getByName(name);
-        cells.forEach(function (cell) {
-          cell.el.classList.add(type);
-        });
-      });
-    }
-  }, {
-    key: "getRow",
-    value: function getRow(id) {
-      return this.el.querySelector("tr#".concat(id));
+    key: "getRowCellByName",
+    value: function getRowCellByName(row, column_name) {
+      return row.querySelector(".column-".concat(column_name));
     }
   }], [{
     key: "getTable",

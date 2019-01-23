@@ -2,8 +2,12 @@
 
 namespace AC;
 
+use AC\Admin\GeneralSectionFactory;
+use AC\Admin\Page;
+use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
+use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
 
@@ -49,10 +53,13 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
+		$this->api = new API();
+
 		$modules = array(
+			new Deprecated\Hooks,
+			new QuickEdit(),
 			new Screen,
 			new Settings\General,
-			new Deprecated\Hooks,
 			new ThirdParty\ACF,
 			new ThirdParty\NinjaForms,
 			new ThirdParty\WooCommerce,
@@ -65,15 +72,7 @@ class AdminColumns extends Plugin {
 			}
 		}
 
-		$this->api = new API();
-
-		$site_factory = new Admin\SiteFactory();
-		$site_factory->register();
-
-		$this->admin = $site_factory->create();
-
-		$page = new Admin\Page\Columns();
-		$page->register_ajax();
+		$this->register_admin();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
@@ -347,6 +346,33 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
+	 * @return void
+	 */
+	private function register_admin() {
+		$is_network = is_network_admin();
+
+		$site_factory = new Admin\AdminFactory();
+		$this->admin = $site_factory->create( $is_network );
+
+		if ( ! $is_network ) {
+
+			$page_settings = new Page\Settings();
+			$page_settings
+				->register_section( GeneralSectionFactory::create() )
+				->register_section( new Restore() );
+
+			$page_columns = new Page\Columns();
+			$page_columns->register_ajax();
+
+			$this->admin->register_page( $page_columns )
+			            ->register_page( $page_settings )
+			            ->register_page( new Page\Addons() )
+			            ->register_page( new Page\Help() )
+			            ->register();
+		}
+	}
+
+	/**
 	 * Redirect the user to the Admin Columns add-ons page after activation/deactivation of an add-on from the add-ons page
 	 * @since 2.2
 	 *
@@ -468,8 +494,8 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
+	 * @return Table\Screen Returns the screen manager for the list table
 	 * @deprecated NEWVERSION
-	 * @return Table\Screen
 	 */
 	public function table_screen() {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );

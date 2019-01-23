@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use AC\Request\Parameters;
+
 class Request {
 
 	const METHOD_POST = 'POST';
@@ -13,12 +15,12 @@ class Request {
 	protected $method;
 
 	/**
-	 * @var array
+	 * @var Parameters
 	 */
 	protected $query;
 
 	/**
-	 * @var array
+	 * @var Parameters
 	 */
 	protected $request;
 
@@ -29,8 +31,8 @@ class Request {
 
 	public function __construct() {
 		$this->method = $_SERVER['REQUEST_METHOD'];
-		$this->query = filter_input_array( INPUT_GET );
-		$this->request = filter_input_array( INPUT_POST );
+		$this->query = new Parameters( (array) filter_input_array( INPUT_GET ) );
+		$this->request = new Parameters( (array) filter_input_array( INPUT_POST ) );
 	}
 
 	/**
@@ -46,14 +48,28 @@ class Request {
 	 * @return bool
 	 */
 	public function is_request() {
-		return ! empty( $this->request );
+		return $this->request->count() > 0;
+	}
+
+	/**
+	 * @return Parameters
+	 */
+	public function get_query() {
+		return $this->query;
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function is_query() {
-		return ! empty( $this->query );
+		return $this->request->count() > 0;
+	}
+
+	/**
+	 * @return Parameters
+	 */
+	public function get_request() {
+		return $this->request;
 	}
 
 	/**
@@ -64,77 +80,36 @@ class Request {
 	}
 
 	/**
-	 * Wrapper that defaults to request method accessor
+	 * Return the parameters based on the current method
 	 *
-	 * @param string|null $key
-	 * @param int         $filter
-	 * @param array|null  $options
-	 *
-	 * @return mixed
+	 * @return Parameters
 	 */
-	public function get( $key = null, $filter = FILTER_DEFAULT, $options = null ) {
-		if ( $this->method === self::METHOD_POST ) {
-			return $this->get_request( $key, $filter, $options );
-		}
-
-		return $this->get_query( $key, $filter, $options );
+	public function get_parameters() {
+		return $this->get_method() === self::METHOD_POST
+			? $this->get_request()
+			: $this->get_query();
 	}
 
 	/**
-	 * Merge input with current request method
-	 *
-	 * @param array $input
-	 */
-	public function merge( array $input ) {
-		$target = 'query';
-
-		if ( $this->method === self::METHOD_POST ) {
-			$target = 'request';
-		}
-
-		$this->$target = array_merge( $this->$target, $input );
-	}
-
-	/**
-	 * Wrapper around filter_input for INPUT_POST
-	 *
-	 * @param string|null $key
-	 * @param int         $filter
-	 * @param array|null  $options
+	 * @param string $key
+	 * @param null   $default
 	 *
 	 * @return mixed
 	 */
-	public function get_request( $key = null, $filter = FILTER_DEFAULT, $options = null ) {
-		if ( null === $key ) {
-			return $this->request;
-		}
-
-		if ( ! isset( $this->request[ $key ] ) ) {
-			return false;
-		}
-
-		return filter_var( $this->request[ $key ], $filter, $options );
+	public function get( $key, $default = null ) {
+		return $this->get_parameters()->get( $key, $default );
 	}
 
 	/**
-	 * Wrapper around filter_input for INPUT_GET
-	 *
-	 * @param string|null $key
-	 * @param int         $filter
-	 * @param array|null  $options
+	 * @param string $key
+	 * @param null   $default
+	 * @param int    $filter
+	 * @param null   $options
 	 *
 	 * @return mixed
 	 */
-	public function get_query( $key = null, $filter = FILTER_DEFAULT, $options = null ) {
-		if ( null === $key ) {
-			return $this->query;
-		}
-
-		if ( ! isset( $this->query[ $key ] ) ) {
-			return false;
-		}
-
-		return filter_var( $this->query[ $key ], $filter, $options );
+	public function filter( $key, $default = null, $filter = FILTER_DEFAULT, $options = null ) {
+		return $this->get_parameters()->filter( $key, $default, $filter, $options );
 	}
 
 }

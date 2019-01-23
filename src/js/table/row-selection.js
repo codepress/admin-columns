@@ -1,7 +1,7 @@
 export default class Selection {
 
-	constructor( table ) {
-		this.table = table;
+	constructor( Table ) {
+		this.Table = Table;
 	}
 
 	/**
@@ -11,7 +11,7 @@ export default class Selection {
 	 */
 	getIDs() {
 		let ids = [];
-		let checked = this.table.el.querySelectorAll( 'tbody th.check-column input[type=checkbox]:checked' );
+		let checked = this.Table.el.querySelectorAll( 'tbody th.check-column input[type=checkbox]:checked' );
 
 		if ( checked.length === 0 ) {
 			return ids;
@@ -48,6 +48,18 @@ export default class Selection {
 		} );
 
 		return cells;
+	}
+
+	/**
+	 *
+	 * @returns {number}
+	 */
+	getCount() {
+		return this.getIDs().length;
+	}
+
+	isAllSelected(){
+		return !!this.Table.el.querySelector('thead #cb input:checked');
 	}
 
 }

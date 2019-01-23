@@ -33,7 +33,7 @@ abstract class Column extends AC\Admin\Request\Handler {
 			) );
 		}
 
-		$current_original_columns = (array) $request->get( 'current_original_columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		$current_original_columns = (array) $request->get( 'current_original_columns', array() );
 
 		// Not cloneable message
 		if ( in_array( $column->get_type(), $current_original_columns ) ) {

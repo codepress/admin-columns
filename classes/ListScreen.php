@@ -126,6 +126,13 @@ abstract class ListScreen {
 	/**
 	 * @return string
 	 */
+	public function get_heading_hookname() {
+		return 'manage_' . $this->get_screen_id() . '_columns';
+	}
+
+	/**
+	 * @return string
+	 */
 	public function get_key() {
 		return $this->key;
 	}
@@ -371,7 +378,10 @@ abstract class ListScreen {
 	 * @return string Link
 	 */
 	public function get_screen_link() {
-		return add_query_arg( array( 'page' => $this->get_page(), 'layout' => $this->get_layout_id() ), $this->get_admin_url() );
+		return add_query_arg( array(
+			'page'   => $this->get_page(),
+			'layout' => $this->get_layout_id(),
+		), $this->get_admin_url() );
 	}
 
 	/**
@@ -380,7 +390,7 @@ abstract class ListScreen {
 	public function get_edit_link() {
 		return add_query_arg( array(
 			'list_screen' => $this->key,
-			'layout_id' => $this->get_layout_id()
+			'layout_id'   => $this->get_layout_id(),
 		), ac_get_admin_url() );
 	}
 
