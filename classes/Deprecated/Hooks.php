@@ -33,8 +33,8 @@ class Hooks implements Registrable {
 			new Filter( 'cac/addon/filtering/taxonomy/terms_args', '3.0' ),
 			new Filter( 'cac/column/meta/use_text_input', '3.0' ),
 			new Filter( 'cac/hide_renewal_notice', '3.0' ),
-			new Filter( 'acp/network_settings/groups', 'NEWVERSION' ),
-			new Filter( 'acp/settings/groups', 'NEWVERSION' ),
+			new Filter( 'acp/network_settings/groups', '3.4' ),
+			new Filter( 'acp/settings/groups', '3.4' ),
 		);
 
 		$hooks[] = new Filter( 'cac/columns/custom', '3.0', 'cac-columns-custom' );
@@ -106,7 +106,7 @@ class Hooks implements Registrable {
 			new Action( 'cac/settings/general', '3.0' ),
 			new Action( 'cpac_messages', '3.0' ),
 			new Action( 'cac/settings/after_menu', '3.0' ),
-			new Action( 'ac/settings/general', 'NEWVERSION' ),
+			new Action( 'ac/settings/general', '3.4' ),
 		);
 
 		return $hooks;

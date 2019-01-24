@@ -495,20 +495,20 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * @return Table\Screen Returns the screen manager for the list table
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.4
 	 */
 	public function table_screen() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '3.4' );
 
 		return $this->table_screen;
 	}
 
 	/**
-	 * @deprecated NEWVERSION
+	 * @deprecated 3.4
 	 * @return Admin\Page\Columns
 	 */
 	public function admin_columns_screen() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '3.4' );
 
 		return new Admin\Page\Columns();
 	}
