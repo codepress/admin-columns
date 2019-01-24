@@ -37,7 +37,11 @@ abstract class DateTimeFormat extends Settings\Column
 		}
 
 		if ( ! $description && current_user_can( 'manage_options' ) ) {
-			$description = sprintf( __( 'The %s can be changed in %s.', 'codepress-admin-columns' ), $label, ac_helper()->html->link( admin_url( 'options-general.php' ) . '#date_format_custom_radio', strtolower( __( 'General Settings' ) ) ) );
+			$description = sprintf(
+				__( 'The %s can be changed in %s.', 'codepress-admin-columns' ),
+				$label,
+				ac_helper()->html->link( ac_get_admin_url() . '#date_format_custom_radio', strtolower( __( 'General Settings' ) ) )
+			);
 		}
 
 		return $this->get_html_label( $label, $date_format, $description );

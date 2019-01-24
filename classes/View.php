@@ -62,7 +62,7 @@ class View {
 	 * Will try to resolve the current template to a file
 	 * @return false|string
 	 */
-	private function resolve_template() {
+	public function resolve_template() {
 
 		/**
 		 * Returns the available template paths for column settings

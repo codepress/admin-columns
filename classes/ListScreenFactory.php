@@ -18,10 +18,21 @@ class ListScreenFactory {
 		}
 
 		$list_screen = clone $list_screens[ $type ];
-
 		$list_screen->set_layout_id( $id );
 
 		return $list_screen;
+	}
+
+	/**
+	 * @param Request $request
+	 *
+	 * @return ListScreen|false
+	 */
+	public static function create_from_request( Request $request ) {
+		$type = $request->filter( 'list_screen', '', FILTER_SANITIZE_STRING );
+		$id = $request->filter( 'layout', null, FILTER_SANITIZE_STRING );
+
+		return self::create( $type, $id );
 	}
 
 }

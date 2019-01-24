@@ -99,3 +99,23 @@ function ac_helper() {
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	AC()->api()->load_columndata( $list_screen_keys, $column_data );
 }
+
+/**
+ * @param string $slug Page slug
+ *
+ * @return string
+ */
+function ac_get_admin_url( $slug = null ) {
+	if ( null === $slug ) {
+		$slug = 'columns';
+	}
+
+	return AC()->admin()->get_url( $slug );
+}
+
+/**
+ * @return int
+ */
+function ac_get_lowest_price() {
+	return 49;
+}

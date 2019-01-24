@@ -3,6 +3,7 @@ import Cells from "./cells";
 import Columns from "./columns";
 import Cell from "./cell";
 import Helper from "./helper";
+import Selection from "./row-selection";
 
 export default class Table {
 
@@ -16,6 +17,8 @@ export default class Table {
 		this.Columns = new Columns( el );
 		this.Cells = new Cells();
 		this.Actions = new Actions( 'ac-table-actions' );
+		this.Selection = new Selection( this );
+		this._ids = [];
 
 		this.init();
 	}
@@ -24,10 +27,28 @@ export default class Table {
 		let self = this;
 
 		this._initTable();
-		this._addCellMethods();
 		this.addCellClasses();
 
 		document.dispatchEvent( new CustomEvent( 'AC_Table_Ready', { detail : { self } } ) );
+	}
+
+	updateRow( row ) {
+		let id = this._getIDFromRow( row );
+
+		row.dataset.id = id;
+		this._setCellsForRow( row, id );
+	}
+
+	addCellClasses() {
+		let self = this;
+		this.Columns.getColumnNames().forEach( ( name ) => {
+			let type = self.Columns.get( name ).type;
+			let cells = self.Cells.getByName( name );
+
+			cells.forEach( ( cell ) => {
+				cell.el.classList.add( type );
+			} );
+		} );
 	}
 
 	/**
@@ -45,26 +66,31 @@ export default class Table {
 			let row = rows[ i ];
 			let id = this._getIDFromRow( row );
 
-			row.dataset.id = id;
+			self._ids.push( id );
 
-			self.Columns.getColumnNames().forEach( function( name ) {
-				let td = row.querySelector( `.column-${name}` );
-
-				if ( td ) {
-					self.Cells.add( id, new Cell( id, name, td ) );
-				}
-			} );
+			this.updateRow( row );
 		}
 
 	}
 
-	_addCellMethods() {
-		// Attach method to retrieve the column reference
-		this.Cells.getAll().forEach( function( column ) {
-			column.el.getCell = function() {
-				return column;
+	_setCellsForRow( row ) {
+		let id = this._getIDFromRow( row );
+
+		this.Columns.getColumnNames().forEach( ( name ) => {
+			let td = row.querySelector( `.column-${name}` );
+
+			if ( td ) {
+				let cell = new Cell( id, name, td );
+				this.Cells.add( id, cell );
+				this._addColumnCellMethods( cell );
 			}
 		} );
+	}
+
+	_addColumnCellMethods( column ) {
+		column.el.getCell = function() {
+			return column;
+		}
 	}
 
 	/**
@@ -111,16 +137,8 @@ export default class Table {
 		return item_id;
 	}
 
-	addCellClasses() {
-		let self = this;
-		this.Columns.getColumnNames().forEach( ( name ) => {
-			let type = self.Columns.get( name ).type;
-			let cells = self.Cells.getByName( name );
-
-			cells.forEach( ( cell ) => {
-				cell.el.classList.add( type );
-			} );
-		} );
+	getRowCellByName( row, column_name ) {
+		return row.querySelector( `.column-${column_name}` );
 	}
 
 	static getTable( jQuery = false ) {
@@ -129,10 +147,6 @@ export default class Table {
 		}
 
 		return this.el;
-	}
-
-	getRow( id ) {
-		return this.el.querySelector( `tr#${id}` );
 	}
 
 }

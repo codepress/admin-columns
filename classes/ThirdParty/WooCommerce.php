@@ -2,9 +2,11 @@
 
 namespace AC\ThirdParty;
 
-class WooCommerce {
+use AC\Registrable;
 
-	public function __construct() {
+class WooCommerce implements Registrable {
+
+	public function register() {
 		add_filter( 'ac/post_types', array( $this, 'remove_webhook' ) );
 	}
 

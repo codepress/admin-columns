@@ -3,7 +3,9 @@
 {% endfor %}
 @font-face {
     font-family: "{{ fontName }}";
-    src: url("{{ fontPath }}{{ fontName }}.woff2") format("woff2");
+    src:
+        url("{{ fontPath }}{{ fontName }}.woff2") format("woff2"),
+        url("{{ fontPath }}{{ fontName }}.woff") format("woff");
     font-style: normal;
     font-weight: 400;
 }

@@ -1,14 +1,13 @@
 import Table from "./table/table";
 import Tooltip from "./table/tooltips";
 import Modals from "./modules/modals";
+import ScreenOptionsColumns from "./table/screen-options-columns";
 
 Modals.init();
 
 jQuery( document ).ready( function( $ ) {
 	ac_quickedit_events( $ );
-
 	ac_actions_column( $, $( '.column-actions' ) );
-
 	ac_show_more( $ );
 	ac_toggle_box( $ );
 	ac_toggle_box_ajax_init( $ );
@@ -18,6 +17,8 @@ jQuery( document ).ready( function( $ ) {
 
 	if ( table ) {
 		ac_load_table( table.parentElement );
+
+		AdminColumns.ScreenOptionsColumns = new ScreenOptionsColumns( AdminColumns.Table.Columns );
 	}
 
 	AdminColumns.Tooltips = new Tooltip();
@@ -156,7 +157,7 @@ function ac_quickedit_events( $ ) {
 		if ( $result.find( 'tr.iedit' ).length === 1 ) {
 			let id = $result.find( 'tr.iedit' ).attr( 'id' );
 
-			$( 'tr#' + id ).trigger( 'updated' )
+			$( 'tr#' + id ).trigger( 'updated', { id : id } )
 		}
 	} );
 
