@@ -290,6 +290,8 @@ final class Screen implements Registrable {
 
 			$width = $setting->get_display_width();
 
+			$width = apply_filters( 'ac/table/column/width', $width, $column, $this->list_screen, $setting );
+
 			if ( $width ) {
 				$css_column_width .= ".ac-" . esc_attr( $this->list_screen->get_key() ) . " .wrap table th.column-" . esc_attr( $column->get_name() ) . " { width: " . $width . " !important; }";
 				$css_column_width .= "body.acp-overflow-table.ac-" . esc_attr( $this->list_screen->get_key() ) . " .wrap th.column-" . esc_attr( $column->get_name() ) . " { min-width: " . $width . " !important; }";
