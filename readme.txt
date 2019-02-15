@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 3.4.1 =
+Release Date: TBD
+
+* [Improved] Minor improvements in banners, missing links, etc
+
 = 3.4 =
 Release Date: January 23rd, 2019
 
