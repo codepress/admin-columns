@@ -1,9 +1,12 @@
 $cpacicon-draft: "\ea01";
 $cpacicon-move: "\ea02";
+$cpacicon-segment: "\ea03";
 
 @font-face {
     font-family: "cpac_icons";
-    src: url("../fonts/cpac_icons.woff2") format("woff2");
+    src:
+        url("../fonts/cpac_icons.woff2") format("woff2"),
+        url("../fonts/cpac_icons.woff") format("woff");
     font-style: normal;
     font-weight: 400;
 }
@@ -30,4 +33,8 @@ $cpacicon-move: "\ea02";
 
 .cpacicon-move::before {
     content: $cpacicon-move;
+}
+
+.cpacicon-segment::before {
+    content: $cpacicon-segment;
 }

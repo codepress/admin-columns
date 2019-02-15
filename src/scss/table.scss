@@ -1,6 +1,8 @@
 //@import 'webfont';
 //@import 'iconfont';
 @import '_colors';
+@import '_webfont';
+@import '_modals';
 
 /* =Status icons
 -------------------------------------------------------------- */
@@ -25,7 +27,7 @@
 -------------------------------------------------------------- */
 .ac-image-sizes {
 	.ac-missing-size {
-		color: lighten( $ac-gray, 3 );
+		color: lighten($ac-gray, 3);
 	}
 }
 
@@ -106,7 +108,19 @@
 	display: inline-block;
 	width: 14px;
 	height: 12px;
-	background: transparent url(../images/square.png) no-repeat 50% 7px;
+	position: relative;
+
+	&:before {
+		content: '';
+		display: block;
+		width: 2px;
+		height: 2px;
+		background: #000;
+		position: absolute;
+		left: 50%;
+		margin-left: -1px;
+		top: 60%;
+	}
 }
 
 span.status-open {
@@ -683,7 +697,8 @@ div.cpac-color span {
 		position: relative;
 	}
 
-	&.cpac_use_icons .row-actions {
+	.cpac_use_icons + .hidden + .row-actions,
+	.cpac_use_icons + .row-actions {
 		> span {
 			color: transparent;
 			margin-right: -8px;
@@ -823,4 +838,212 @@ div.cpac-color span {
 	background: rgba(0, 0, 0, .75);
 	font-weight: normal;
 	min-width: 25px;
+}
+
+.ac-table-actions {
+	display: none;
+	position: relative;
+	z-index: 20;
+	float: left;
+	white-space: nowrap;
+	margin-right: 5px;
+	margin-left: 1px;
+	margin-top: 3px;
+	margin-bottom: 5px;
+
+	&.-init {
+		display: block;
+	}
+
+	.ac-table-actions-buttons {
+		white-space: nowrap;
+		display: inline-block;
+		vertical-align: top;
+
+		.ac-table-button {
+			float: left;
+			border-radius: 0;
+			border-right: none;
+
+			&:first-child {
+				border-radius: 3px 0 0 3px;
+			}
+
+			&:last-child, &.last {
+				border-radius: 0 3px 3px 0;
+				border-right: 1px solid #ccc;
+
+				&.active {
+					border-right: 1px solid #008EC2;
+				}
+
+				&:first-child {
+					border-radius: 3px;
+				}
+			}
+		}
+
+	}
+
+	.ac-table-button {
+		display: inline-block;
+		padding: 2px 12px;
+		cursor: pointer;
+		color: #555;
+		background: #f7f7f7;
+		text-decoration: none;
+		font-size: 13px;
+		height: 24px;
+		line-height: 24px;
+		text-align: center;
+		border: 1px solid #CCCCCC;
+		transform: translateX(-1px);
+		border-radius: 3px;
+
+		&:focus, &:active {
+			outline: none;
+			box-shadow: none;
+		}
+
+		&:hover {
+			background: #ddd;
+			color: darken(#555, 3);
+		}
+
+		.dashicons {
+			font-size: 14px;
+			width: 14px;
+			height: 14px;
+			line-height: 24px;
+		}
+
+		&.disabled {
+			background: #ddd;
+			color: #aaa;
+			cursor: not-allowed;
+		}
+
+		&.active {
+			background: #00A0D2;
+			border: 1px solid #008EC2;
+			color: #fff;
+
+			& + .ac-table-button {
+				border-left: none;
+			}
+		}
+
+		&.-inline-edit {
+			.dashicons {
+				font-size: 18px;
+				margin-left: -2px;
+			}
+		}
+
+		&.-toggle {
+			background: none;
+			border: 1px solid transparent;
+			padding-left: 4px;
+			padding-right: 4px;
+			transform: translateY(-1px);
+
+			.ac-toggle__switch {
+				vertical-align: middle;
+				margin-top: -3px;
+				margin-right: 1px;
+				color: #888;
+			}
+		}
+
+		&.-segment {
+
+		}
+
+		&__caret {
+			display: inline-block;
+			vertical-align: middle;
+			width: 0;
+			height: 0;
+			border-left: 3px solid transparent;
+			border-right: 3px solid transparent;
+			border-top: 4px solid #6F6F6F;
+			transition: transform .2s;
+		}
+
+		&.-open {
+			color: #0072AA;
+			.ac-table-button__caret {
+				transform: rotate(180deg);
+
+			}
+		}
+	}
+}
+
+.ac-toggle {
+	display: inline-block;
+	white-space: nowrap;
+
+	input {
+		position: absolute;
+		left: -3000em;
+	}
+
+	&__switch {
+		display: inline-block;
+		background: #ccc;
+		border-radius: 8px;
+		width: 30px;
+		height: 16px;
+		position: relative;
+		transition: background-color .3s;
+
+		&__on,
+		&__off {
+			font-size: 11px;
+			font-weight: bold;
+			color: #fff;
+			position: absolute;
+			top: 5px;
+			line-height: 11px;
+		}
+		&__off {
+			right: 6px;
+			color: #555;
+		}
+		&__on {
+			left: 8px;
+		}
+
+		&__track {
+			border-radius: 50%;
+			display: inline-block;
+			background: #fff;
+			position: absolute;
+			left: 3px;
+			top: 3px;
+			height: 10px;
+			width: 10px;
+			transition: all .1s;
+		}
+
+	}
+
+	input:checked {
+		+ .ac-toggle__switch {
+			background: #1e8cbe;
+
+			.ac-toggle__switch__track {
+				left: calc(100% - 13px);
+			}
+		}
+	}
+
+}
+
+.hide-column-tog + span {
+	.dashicons {
+		transform: translateY(5px);
+		margin-left: 3px;
+	}
 }

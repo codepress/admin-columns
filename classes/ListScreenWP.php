@@ -1,24 +1,23 @@
 <?php
 
+namespace AC;
+
 /**
  * @since 3.1
  */
-abstract class AC_ListScreenWP extends AC_ListScreen {
+abstract class ListScreenWP extends ListScreen {
 
 	/**
-	 * Class name of the WP_List_Table instance
-	 *
-	 * @see        WP_List_Table
-	 *
+	 * Class name of the \WP_List_Table instance
+	 * @see        \WP_List_Table
 	 * @since      3.0
 	 * @deprecated 3.1
-	 *
 	 * @var string
 	 */
 	private $list_table_class;
 
 	/**
-	 * @return WP_List_Table
+	 * @return \WP_List_Table
 	 */
 	abstract protected function get_list_table();
 
@@ -62,9 +61,7 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 
 	/**
 	 * Get default column headers
-	 *
-	 * @see WP_List_Table::get_columns()
-	 *
+	 * @see \WP_List_Table::get_columns()
 	 * @return array
 	 */
 	public function get_default_column_headers() {
@@ -75,7 +72,6 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 
 	/**
 	 * @deprecated 3.1
-	 *
 	 * @return string
 	 */
 	public function get_list_table_class() {
@@ -88,7 +84,7 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 	 * @param string $list_table_class
 	 */
 	public function set_list_table_class( $list_table_class ) {
-		_deprecated_function( __METHOD__, '3.1', 'AC_ListScreenWP::get_list_table()' );
+		_deprecated_function( __METHOD__, '3.1', 'AC\ListScreenWP::get_list_table()' );
 
 		$this->list_table_class = (string) $list_table_class;
 	}
@@ -101,7 +97,7 @@ abstract class AC_ListScreenWP extends AC_ListScreen {
 	 * @return object
 	 */
 	protected function get_object_by_id( $id ) {
-		_deprecated_function( __METHOD__, '3.1.4', 'AC_ListScreenWP::get_object()' );
+		_deprecated_function( __METHOD__, '3.1.4', 'AC\ListScreenWP::get_object()' );
 
 		return $this->get_object( $id );
 	}

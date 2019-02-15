@@ -1,6 +1,13 @@
 <?php
 
-class AC_Settings_Column_Type extends AC_Settings_Column {
+namespace AC\Settings\Column;
+
+use AC;
+use AC\Groups;
+use AC\Settings\Column;
+use AC\View;
+
+class Type extends Column {
 
 	/**
 	 * @var string
@@ -22,14 +29,14 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 		$tooltip = __( 'Choose a column type.', 'codepress-admin-columns' );
 
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$tooltip .=  '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em>';
+			$tooltip .= '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->column->get_type() . '</em>';
 
 			if ( $this->column->get_name() ) {
 				$tooltip .= '<em>' . __( 'Name', 'codepress-admin-columns' ) . ': ' . $this->column->get_name() . '</em>';
 			}
 		}
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'setting' => $type,
 			'label'   => __( 'Type', 'codepress-admin-columns' ),
 			'tooltip' => $tooltip,
@@ -41,11 +48,11 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 	/**
 	 * Returns the type label as human readable: no tags, underscores and capitalized.
 	 *
-	 * @param AC_Column|null $column
+	 * @param AC\Column|null $column
 	 *
 	 * @return string
 	 */
-	private function get_clean_label( AC_Column $column ) {
+	private function get_clean_label( AC\Column $column ) {
 		$label = $column->get_label();
 
 		if ( 0 === strlen( strip_tags( $label ) ) ) {
@@ -56,8 +63,43 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 	}
 
 	/**
-	 * @param AC_ListScreen $list_screen
-	 *
+	 * @return \AC\Integration[]
+	 */
+	private function get_missing_integrations() {
+		$missing = array();
+
+		foreach ( new AC\Integrations() as $integration ) {
+			$integration_plugin = new AC\PluginInformation( $integration->get_basename() );
+
+			if ( $integration->is_plugin_active() && ! $integration_plugin->is_active() ) {
+				$missing[] = $integration;
+			}
+		}
+
+		return $missing;
+	}
+
+	/**
+	 * @return Groups
+	 */
+	private function column_groups() {
+		$groups = new Groups();
+
+		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ) );
+		$groups->register_group( 'plugin', __( 'Plugins' ), 20 );
+		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 30 );
+		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
+
+		foreach ( $this->get_missing_integrations() as $integration ) {
+			$groups->register_group( $integration->get_slug(), $integration->get_title(), 11 );
+		}
+
+		do_action( 'ac/column_groups', $groups );
+
+		return $groups;
+	}
+
+	/**
 	 * @return array
 	 */
 	private function get_grouped_columns() {
@@ -68,7 +110,7 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 
 			/**
 			 * @param string $group Group slug
-			 * @param AC_Column $column
+			 * @param Column $column
 			 */
 			$group = apply_filters( 'ac/column_group', $column->get_group(), $column );
 
@@ -83,7 +125,7 @@ class AC_Settings_Column_Type extends AC_Settings_Column {
 		$grouped = array();
 
 		// create select options
-		foreach ( AC()->column_groups()->get_groups_sorted() as $group ) {
+		foreach ( $this->column_groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
 			// hide empty groups

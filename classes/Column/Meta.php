@@ -1,17 +1,19 @@
 <?php
 
-abstract class AC_Column_Meta extends AC_Column {
+namespace AC\Column;
+
+use AC\Column;
+
+abstract class Meta extends Column {
 
 	/**
 	 * Return the meta_key of this column
-	 *
 	 * @return string
 	 */
 	abstract public function get_meta_key();
 
 	/**
 	 * Is data stored serialized?
-	 *
 	 * @var bool
 	 */
 	private $serialized = false;
@@ -31,8 +33,12 @@ abstract class AC_Column_Meta extends AC_Column {
 	}
 
 	/**
-	 * @see   AC_Column::get_raw_value()
+	 * @see   Column::get_raw_value()
 	 * @since 2.0.3
+	 *
+	 * @param $id
+	 *
+	 * @return bool|mixed
 	 */
 	public function get_raw_value( $id ) {
 		$value = $this->get_meta_value( $id, $this->get_meta_key(), true );
@@ -46,7 +52,6 @@ abstract class AC_Column_Meta extends AC_Column {
 
 	/**
 	 * Retrieve metadata object type (e.g., comment, post, or user)
-	 *
 	 * @since 3.0
 	 * @return bool
 	 */

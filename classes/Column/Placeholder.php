@@ -1,26 +1,34 @@
 <?php
 
+namespace AC\Column;
+
+use AC\Column;
+use AC\Integration;
+
 /**
  * ACF Placeholder column, holding a CTA for Admin Columns Pro.
- *
  * @since 2.2
  */
-class AC_Column_Placeholder extends AC_Column {
+class Placeholder extends Column {
 
 	/**
-	 * @var AC_Admin_Addon
+	 * @var Integration
 	 */
-	private $addon;
+	private $integration;
 
 	/**
-	 * @param AC_Admin_Addon $addon
+	 * @param Integration $integration
+	 *
+	 * @return $this
 	 */
-	public function set_addon( AC_Admin_Addon $addon ) {
-		$this->addon = $addon;
+	public function set_integration( Integration $integration ) {
+		$this->set_type( 'placeholder-' . $integration->get_slug() )
+		     ->set_group( $integration->get_slug() )
+		     ->set_label( $integration->get_title() );
 
-		$this->set_type( 'placeholder-' . $addon->get_slug() );
-		$this->set_group( $addon->get_slug() );
-		$this->set_label( $addon->get_title() );
+		$this->integration = $integration;
+
+		return $this;
 	}
 
 	public function get_message() {
@@ -32,14 +40,15 @@ class AC_Column_Placeholder extends AC_Column {
 		</p>
 
 		<p>
-			<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $this->get_label(), AC()->admin()->get_link( 'addons' ) ); ?>
+			<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $this->get_label(), ac_get_admin_url( 'addons' ) ); ?>
 		</p>
 
 		<p>
 			<?php printf( __( "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview.", 'codepress-admin-columns' ), $this->get_label(), $this->get_label() ); ?>
 		</p>
-		<a target="_blank" href="<?php echo $this->addon->get_link(); ?>" class="button button-primary"><?php _e( 'Find out more', 'codepress-admin-columns' ); ?></a>
-
+		<a target="_blank" href="<?php echo $this->integration->get_link(); ?>" class="button button-primary">
+			<?php _e( 'Find out more', 'codepress-admin-columns' ); ?>
+		</a>
 		<?php
 
 		return ob_get_clean();

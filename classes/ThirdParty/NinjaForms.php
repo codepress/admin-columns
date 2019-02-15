@@ -1,8 +1,12 @@
 <?php
 
-class AC_ThirdParty_NinjaForms {
+namespace AC\ThirdParty;
 
-	public function __construct() {
+use AC\Registrable;
+
+class NinjaForms implements Registrable {
+
+	public function register() {
 		add_filter( 'ac/post_types', array( $this, 'remove_nf_sub' ) );
 	}
 

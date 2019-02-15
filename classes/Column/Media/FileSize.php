@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Media_FileSize extends AC_Column {
+class FileSize extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-file_size' );
@@ -12,9 +16,7 @@ class AC_Column_Media_FileSize extends AC_Column {
 
 	public function get_value( $id ) {
 		$value = '';
-
-		$file = wp_get_attachment_url( $id );
-		$abs = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $file );
+		$abs = get_attached_file( $id );
 
 		if ( file_exists( $abs ) ) {
 			$value = ac_helper()->file->get_readable_filesize( filesize( $abs ) );

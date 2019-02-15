@@ -1,13 +1,17 @@
 <?php
 
+namespace AC\Column\Comment;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Comment_DateGmt extends AC_Column {
+class DateGmt extends Column {
 
 	public function __construct() {
-		$this->set_type( 'column-date_gmt' );
-		$this->set_label( __( 'Date GMT', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-date_gmt' )
+		     ->set_label( __( 'Date GMT', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

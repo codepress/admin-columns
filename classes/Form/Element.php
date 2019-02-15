@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_Form_Element {
+namespace AC\Form;
+
+abstract class Element {
 
 	/**
 	 * @var array
@@ -9,28 +11,24 @@ abstract class AC_Form_Element {
 
 	/**
 	 * Options for element like select
-	 *
 	 * @var array
 	 */
 	protected $options = array();
 
 	/**
 	 * The elements value
-	 *
 	 * @var mixed
 	 */
 	protected $value;
 
 	/**
 	 * Label
-	 *
 	 * @var string
 	 */
 	protected $label;
 
 	/**
 	 * Extra description
-	 *
 	 * @var string
 	 */
 	protected $description;
@@ -39,7 +37,7 @@ abstract class AC_Form_Element {
 	 * Setup element with base name and id
 	 *
 	 * @param string $name
-	 * @param array $options
+	 * @param array  $options
 	 */
 	public function __construct( $name, array $options = array() ) {
 		$this->set_name( $name );
@@ -62,7 +60,6 @@ abstract class AC_Form_Element {
 
 	/**
 	 * Render this element
-	 *
 	 * @return string
 	 */
 	abstract public function render();
@@ -267,6 +264,8 @@ abstract class AC_Form_Element {
 	}
 
 	/**
+	 * @param $description
+	 *
 	 * @return $this
 	 */
 	public function set_description( $description ) {

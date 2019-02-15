@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\User;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_User_DisplayName extends AC_Column {
+class DisplayName extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-display_name' );

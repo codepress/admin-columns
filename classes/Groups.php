@@ -1,9 +1,11 @@
 <?php
 
+namespace AC;
+
 /**
  * Holds the groups to which columns can belong.
  */
-final class AC_Groups {
+final class Groups {
 
 	const SORT_PRIORITY = 1;
 
@@ -49,7 +51,6 @@ final class AC_Groups {
 
 	/**
 	 * Sort the group by priority
-	 *
 	 * If there are more groups with the same priority it will those groups by label
 	 *
 	 * @param $groups
@@ -75,7 +76,7 @@ final class AC_Groups {
 	/**
 	 * Sort the group by label or slug
 	 *
-	 * @param array $groups
+	 * @param array  $groups
 	 * @param string $key
 	 *
 	 * @return array
@@ -129,7 +130,7 @@ final class AC_Groups {
 	 *
 	 * @param string $slug
 	 * @param string $label Should be translatable
-	 * @param int $priority
+	 * @param int    $priority
 	 *
 	 * @return bool
 	 */

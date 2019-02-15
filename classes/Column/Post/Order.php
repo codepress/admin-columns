@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Post_Order extends AC_Column {
+class Order extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-order' );

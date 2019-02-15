@@ -1,6 +1,10 @@
 <?php
 
-class AC_Form_Element_Select extends AC_Form_Element {
+namespace AC\Form\Element;
+
+use AC\Form\Element;
+
+class Select extends Element {
 
 	/**
 	 * @var string
@@ -23,6 +27,12 @@ class AC_Form_Element_Select extends AC_Form_Element {
 		return implode( "\n", $output );
 	}
 
+	/**
+	 * @param string $key
+	 * @param string $label
+	 *
+	 * @return string
+	 */
 	protected function render_option( $key, $label ) {
 		$template = '<option %s>%s</option>';
 		$attributes = $this->get_option_attributes( $key );
@@ -30,15 +40,29 @@ class AC_Form_Element_Select extends AC_Form_Element {
 		return sprintf( $template, $this->get_attributes_as_string( $attributes ), esc_html( $label ) );
 	}
 
+	/**
+	 * @param string $key
+	 *
+	 * @return array
+	 */
 	protected function get_option_attributes( $key ) {
 		$attributes = array();
 		$attributes['value'] = $key;
 
-		if ( selected( $this->get_value(), $key, false ) ) {
+		if ( $this->selected( $key ) ) {
 			$attributes['selected'] = 'selected';
 		}
 
 		return $attributes;
+	}
+
+	/**
+	 * @param string $value
+	 *
+	 * @return string
+	 */
+	protected function selected( $value ) {
+		return selected( $this->get_value(), $value, false );
 	}
 
 	/**
@@ -57,8 +81,11 @@ class AC_Form_Element_Select extends AC_Form_Element {
 		return sprintf( $template, $this->get_attributes_as_string( $attributes ), $this->render_options( $group['options'] ) );
 	}
 
+	/**
+	 * @return string
+	 */
 	public function render() {
-		if ( ! $this->get_options() ) {
+		if ( ! $this->get_options() && $this->get_no_result() ) {
 			return $this->get_no_result();
 		}
 

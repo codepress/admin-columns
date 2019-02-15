@@ -1,164 +1,191 @@
 <?php
+namespace AC;
 
-/**
- * @since 2.0
- */
-class AC_Admin {
+use AC\Admin\Helpable;
+use AC\Admin\MenuItem;
+use AC\Admin\Page;
 
-	const MENU_SLUG = 'codepress-admin-columns';
+class Admin implements Registrable {
 
-	/**
-	 * Settings Page hook suffix
-	 *
-	 * @since 2.0
-	 */
+	const PLUGIN_PAGE = 'codepress-admin-columns';
+
+	/** @var string */
 	private $hook_suffix;
 
-	/**
-	 * @var AC_Admin_Pages
-	 */
-	private $pages;
+	/** @var string */
+	private $parent_page;
 
-	/**
-	 * @since 2.0
-	 */
-	public function __construct() {
-		add_action( 'init', array( $this, 'set_pages' ) );
-		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	/** @var Page */
+	private $page;
+
+	/** @var string */
+	private $url;
+
+	/** @var string */
+	private $menu_hook;
+
+	/** @var Page[] */
+	private $pages = array();
+
+	public function __construct( $parent_page, $menu_hook, $url ) {
+		$this->parent_page = $parent_page;
+		$this->menu_hook = $menu_hook;
+		$this->url = trailingslashit( $url );
 	}
 
 	/**
-	 * Load pages
+	 * Menu hook
 	 */
-	public function set_pages() {
-		$this->pages = new AC_Admin_Pages();
-
-		$this->pages
-			->register_page( new AC_Admin_Page_Columns() )
-			->register_page( new AC_Admin_Page_Settings() )
-			->register_page( new AC_Admin_Page_Addons() )
-			->register_page( new AC_Admin_Page_Help() );
-
-		do_action( 'ac/admin_pages', $this->pages );
+	public function register() {
+		add_action( $this->menu_hook, array( $this, 'settings_menu' ) );
 	}
 
 	/**
-	 * @return AC_Admin_Pages|false
+	 * @param Page $page
+	 *
+	 * @return $this
 	 */
-	public function get_pages() {
-		return $this->pages;
+	public function register_page( Page $page ) {
+		$this->pages[ $page->get_slug() ] = $page;
+
+		return $this;
 	}
 
 	/**
-	 * Admin scripts for this tab
+	 * @return string
 	 */
-	public function admin_scripts() {
-		if ( ! $this->is_admin_screen() ) {
+	public function get_parent_page() {
+		return $this->parent_page;
+	}
+
+	/**
+	 * @return void
+	 */
+	public function settings_menu() {
+		$this->hook_suffix = add_submenu_page(
+			$this->parent_page,
+			__( 'Admin Columns Settings', 'codepress-admin-columns' ),
+			__( 'Admin Columns', 'codepress-admin-columns' ),
+			Capabilities::MANAGE,
+			self::PLUGIN_PAGE,
+			function () {
+			}
+		);
+
+		add_action( "load-" . $this->hook_suffix, array( $this, 'on_load' ) );
+		add_action( "admin_print_scripts-" . $this->hook_suffix, array( $this, 'admin_scripts' ) );
+	}
+
+	/**
+	 * @return void
+	 */
+	public function on_load() {
+		$tab = filter_input( INPUT_GET, 'tab' );
+
+		if ( ! $tab ) {
+			$tab = current( $this->get_menu_items() )->get_slug();
+		}
+
+		$page = $this->get_page( $tab );
+
+		if ( $page instanceof Registrable ) {
+			$page->register();
+		}
+
+		if ( $page instanceof Helpable ) {
+			foreach ( $page->get_help_tabs() as $help ) {
+				get_current_screen()->add_help_tab( array(
+					'id'      => $help->get_id(),
+					'content' => $help->get_content(),
+					'title'   => $help->get_title(),
+				) );
+			}
+		}
+
+		if ( ! $page ) {
 			return;
 		}
 
-		wp_enqueue_script( 'ac-admin-general', AC()->get_plugin_url() . "assets/js/admin-general.js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
-		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_style( 'ac-admin', AC()->get_plugin_url() . "assets/css/admin-general.css", array(), AC()->get_version() );
+		$this->page = $page;
 
-		do_action( 'ac/admin_scripts', $this );
+		add_action( $this->hook_suffix, array( $this, 'render' ) );
 	}
 
 	/**
-	 * @param $option
+	 * @param string $tab
 	 *
-	 * @return bool
-	 */
-	public function get_general_option( $option ) {
-		/* @var AC_Admin_Page_Settings $settings */
-		$settings = $this->get_pages()->get_page( 'settings' );
-
-		return $settings->get_option( $option );
-	}
-
-	/**
-	 * @param $tab_slug
-	 *
-	 * @return AC_Admin_Page_Columns|AC_Admin_Page_Settings|AC_Admin_Page_Addons|false
-	 */
-	public function get_page( $tab_slug ) {
-		return $this->get_pages()->get_page( $tab_slug );
-	}
-
-	/**
-	 * @param string $tab_slug
-	 *
-	 * @return false|string URL
-	 */
-	public function get_link( $tab_slug ) {
-		return $this->get_pages()->get_page( $tab_slug )->get_link();
-	}
-
-	/**
-	 * @since 3.1.1
-	 */
-	public function get_hook_suffix() {
-		return $this->hook_suffix;
-	}
-
-	/**
 	 * @return string
 	 */
-	private function get_parent_slug() {
-		return 'options-general.php';
-	}
+	public function get_url( $tab ) {
+		$args = array(
+			'tab'  => $tab,
+			'page' => self::PLUGIN_PAGE,
+		);
 
-	/**
-	 * @return string
-	 */
-	public function get_settings_url() {
-		return add_query_arg( array( 'page' => self::MENU_SLUG ), admin_url( $this->get_parent_slug() ) );
-	}
-
-	/**
-	 * @since 1.0
-	 */
-	public function settings_menu() {
-		$this->hook_suffix = add_submenu_page( $this->get_parent_slug(), __( 'Admin Columns Settings', 'codepress-admin-columns' ), __( 'Admin Columns', 'codepress-admin-columns' ), 'manage_admin_columns', self::MENU_SLUG, array( $this, 'display' ) );
-
-		add_action( 'load-' . $this->hook_suffix, array( $this, 'load_help_tabs' ) );
-	}
-
-	/**
-	 * Load help tabs
-	 */
-	public function load_help_tabs() {
-		new AC_Admin_Help_Introduction();
-		new AC_Admin_Help_Basics();
-		new AC_Admin_Help_CustomField();
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function is_admin_screen() {
-		global $pagenow;
-
-		return self::MENU_SLUG === filter_input( INPUT_GET, 'page' ) && $this->get_parent_slug() === $pagenow;
+		return add_query_arg( $args, $this->url . $this->get_parent_page() );
 	}
 
 	/**
 	 * @param string $slug
 	 *
-	 * @return bool
+	 * @return Page|false
 	 */
-	public function is_current_page( $slug ) {
-		$current_tab = $this->get_pages()->get_current_page();
+	public function get_page( $slug ) {
+		if ( ! array_key_exists( $slug, $this->pages ) ) {
+			return false;
+		}
 
-		return $current_tab && $current_tab->get_slug() === $slug && $this->is_admin_screen();
+		return $this->pages[ $slug ];
 	}
 
 	/**
-	 * @since 1.0
+	 * @return MenuItem[]
 	 */
-	public function display() {
-		$this->get_pages()->display();
+	private function get_menu_items() {
+		$items = array();
+
+		foreach ( $this->pages as $page ) {
+			if ( $page && $page->show_in_menu() ) {
+				$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ) );
+			}
+		}
+
+		return $items;
+	}
+
+	/**
+	 * @return void
+	 */
+	public function render() {
+		?>
+		<div id="cpac" class="wrap">
+			<?php
+
+			$menu = new View( array(
+				'items'   => $this->get_menu_items(),
+				'current' => $this->page->get_slug(),
+			) );
+
+			echo $menu->set_template( 'admin/edit-tabmenu' );
+
+			$this->page->render();
+			?>
+		</div>
+		<?php
+
+		do_action( 'ac/admin/render', $this );
+	}
+
+	/**
+	 * Scripts
+	 * @return void
+	 */
+	public function admin_scripts() {
+		wp_enqueue_script( 'ac-admin-general', AC()->get_url() . "assets/js/admin-general.js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
+		wp_enqueue_style( 'wp-pointer' );
+		wp_enqueue_style( 'ac-admin', AC()->get_url() . "assets/css/admin-general.css", array(), AC()->get_version() );
+
+		do_action( 'ac/admin_scripts' );
 	}
 
 }

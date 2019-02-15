@@ -1,6 +1,11 @@
 <?php
 
-class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
+namespace AC\Settings\Column;
+
+use AC;
+use AC\Settings;
+
+class CustomField extends Meta {
 
 	protected function set_name() {
 		$this->name = 'custom_field';
@@ -20,7 +25,7 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 	}
 
 	public function get_dependent_settings() {
-		return array( new AC_Settings_Column_CustomFieldType( $this->column ) );
+		return array( new Settings\Column\CustomFieldType( $this->column ) );
 	}
 
 	protected function get_cache_group() {
@@ -49,7 +54,7 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 	 * @return array|false
 	 */
 	protected function get_meta_keys() {
-		$query = new AC_Meta_Query( $this->get_meta_type() );
+		$query = new AC\Meta\Query( $this->get_meta_type() );
 
 		$query->select( 'meta_key' )
 		      ->distinct()
@@ -66,8 +71,8 @@ class AC_Settings_Column_CustomField extends AC_Settings_Column_Meta {
 		}
 
 		/**
-		 * @param array                          $keys Distinct meta keys from DB
-		 * @param AC_Settings_Column_CustomField $this
+		 * @param array                       $keys Distinct meta keys from DB
+		 * @param Settings\Column\CustomField $this
 		 */
 		return apply_filters( 'ac/column/custom_field/meta_keys', $keys, $this );
 	}

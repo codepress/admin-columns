@@ -1,0 +1,121 @@
+/**
+ * Modal
+ */
+.ac-modal {
+	position: fixed;
+	overflow: auto;
+	z-index: 100000;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, .5);
+	display: none;
+
+	&.-active {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&__dialog {
+		border: 1px solid #C8C8C8;
+		background: #fff;
+		position: fixed;
+		width: 650px;
+		max-width: 90%;
+
+		&__header {
+			background: $bg-gray;
+			font-size: 18px;
+			line-height: 18px;
+			color: #807F7F;
+			padding: 17px 25px;
+		}
+
+		&__close {
+			display: inline-block;
+			padding: 0;
+			margin: 0;
+			border: none;
+			background: none;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 52px;
+			height: 52px;
+			text-align: center;
+			color: #989797;
+			cursor: pointer;
+
+			&:hover {
+				background: darken($bg-gray, 8);
+			}
+		}
+
+		&__content {
+			padding: 25px;
+			max-height: calc(100vh - 200px);
+			overflow: scroll;
+
+			&__lead {
+				font-weight: bold;
+				font-size: 15px;
+				margin-top: 5px;
+				margin-bottom: 25px;
+				color: #6D6D6D;
+			}
+		}
+
+		&__list {
+			li {
+				&:before {
+					content: '\f147';
+					font-family: Dashicons;
+					position: absolute;
+					left: 0;
+					top: 0;
+					color: #3D4350;
+				}
+
+				&:nth-child(2n) {
+					color: $ac-pink;
+				}
+
+				position: relative;
+				padding-left: 25px;
+				font-weight: 400;
+				font-size: 16px;
+				letter-spacing: 0.5px;
+				margin-bottom: 10px;
+			}
+		}
+
+		&__footer {
+			padding: 20px 24px;
+			border-top: 1px solid #DBDBDB;
+			color: #979696;
+			font-size: 16px;
+
+			.button {
+				margin-left: 0;
+				padding-left: 15px;
+				padding-right: 15px;
+			}
+		}
+	}
+
+	@media only screen and (max-width: 720px) {
+		&__dialog {
+			&__footer {
+				&__content {
+					display: block;
+				}
+				.button {
+					margin-left: 0;
+					margin-top: 10px;
+				}
+			}
+		}
+	}
+}

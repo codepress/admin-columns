@@ -1,7 +1,8 @@
 <?php
 
-class AC_View
-	implements AC_ViewInterface {
+namespace AC;
+
+class View {
 
 	/**
 	 * @var array
@@ -59,18 +60,17 @@ class AC_View
 
 	/**
 	 * Will try to resolve the current template to a file
-	 *
 	 * @return false|string
 	 */
-	private function resolve_template() {
+	public function resolve_template() {
 
 		/**
 		 * Returns the available template paths for column settings
 		 *
-		 * @param array $paths Template paths
+		 * @param array  $paths    Template paths
 		 * @param string $template Current template path
 		 */
-		$paths = apply_filters( 'ac/view/templates', array( AC()->get_plugin_dir() . 'templates' ), $this->template );
+		$paths = apply_filters( 'ac/view/templates', array( AC()->get_dir() . 'templates' ), $this->template );
 
 		foreach ( $paths as $path ) {
 			$file = $path . '/' . $this->template . '.php';
@@ -85,6 +85,10 @@ class AC_View
 		return false;
 	}
 
+	/**
+	 * Get a string representation of this object
+	 * @return string
+	 */
 	public function render() {
 		ob_start();
 
@@ -111,6 +115,10 @@ class AC_View
 		return $this;
 	}
 
+	/**
+	 * Should call self::render when treated as a string
+	 * @return string
+	 */
 	public function __toString() {
 		return $this->render();
 	}

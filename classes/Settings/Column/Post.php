@@ -1,7 +1,12 @@
 <?php
 
-class AC_Settings_Column_Post extends AC_Settings_Column
-	implements AC_Settings_FormatValueInterface {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+class Post extends Settings\Column
+	implements Settings\FormatValue {
 
 	/**
 	 * @var string
@@ -23,17 +28,17 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 
 		switch ( $this->get_post_property_display() ) {
 			case 'thumbnail' :
-				$setting[] = new AC_Settings_Column_Image( $this->column );
+				$setting[] = new Settings\Column\Image( $this->column );
 				break;
 		}
 
-		$setting[] = new AC_Settings_Column_PostLink( $this->column );
+		$setting[] = new Settings\Column\PostLink( $this->column );
 
 		return $setting;
 	}
 
 	/**
-	 * @param int $id
+	 * @param int   $id
 	 * @param mixed $original_value
 	 *
 	 * @return string|int
@@ -66,7 +71,7 @@ class AC_Settings_Column_Post extends AC_Settings_Column
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $this->get_display_options() );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $select,
 		) );

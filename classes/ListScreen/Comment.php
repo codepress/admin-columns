@@ -1,25 +1,30 @@
 <?php
 
+namespace AC\ListScreen;
+
+use AC;
+use WP_Comments_List_Table;
+
 /**
  * @since 2.0
  */
-class AC_ListScreen_Comment extends AC_ListScreenWP {
+class Comment extends AC\ListScreenWP {
 
 	public function __construct() {
 
-		$this->set_label( __( 'Comments' ) );
-		$this->set_singular_label( __( 'Comment' ) );
-		$this->set_meta_type( 'comment' );
-		$this->set_screen_base( 'edit-comments' );
-		$this->set_key( 'wp-comments' );
-		$this->set_screen_id( 'edit-comments' );
-		$this->set_group( 'comment' );
+		$this->set_label( __( 'Comments' ) )
+		     ->set_singular_label( __( 'Comment' ) )
+		     ->set_meta_type( 'comment' )
+		     ->set_screen_base( 'edit-comments' )
+		     ->set_key( 'wp-comments' )
+		     ->set_screen_id( 'edit-comments' )
+		     ->set_group( 'comment' );
 	}
 
 	/**
 	 * @param int $id
 	 *
-	 * @return WP_Comment
+	 * @return \WP_Comment
 	 */
 	protected function get_object( $id ) {
 		return get_comment( $id );
@@ -33,7 +38,7 @@ class AC_ListScreen_Comment extends AC_ListScreenWP {
 
 		$table = new WP_Comments_List_Table( array( 'screen' => $this->get_screen_id() ) );
 
-		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `WP_Comments_List_Table` class.
+		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `\WP_Comments_List_Table` class.
 		// Here we remove the filter from the constructor.
 		remove_filter( 'comment_author', array( $table, 'floated_admin_avatar' ), 10 );
 
@@ -53,7 +58,7 @@ class AC_ListScreen_Comment extends AC_ListScreenWP {
 
 	/**
 	 * @param string $column_name
-	 * @param int $id
+	 * @param int    $id
 	 */
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
@@ -61,13 +66,12 @@ class AC_ListScreen_Comment extends AC_ListScreenWP {
 
 	/**
 	 * Register column types
+	 * @throws \ReflectionException
 	 */
 	protected function register_column_types() {
-		$this->register_column_type( new AC_Column_CustomField );
-		$this->register_column_type( new AC_Column_Menu );
-		$this->register_column_type( new AC_Column_Actions );
-
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Comment', AC()->get_prefix() );
+		$this->register_column_type( new AC\Column\CustomField );
+		$this->register_column_type( new AC\Column\Actions );
+		$this->register_column_types_from_dir( 'AC\Column\Comment' );
 	}
 
 }

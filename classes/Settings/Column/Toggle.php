@@ -1,6 +1,11 @@
 <?php
 
-abstract class AC_Settings_Column_Toggle extends AC_Settings_Column {
+namespace AC\Settings\Column;
+
+use AC\Settings;
+use AC\View;
+
+abstract class Toggle extends Settings\Column {
 
 	public function create_view() {
 		$setting = $this
@@ -10,7 +15,7 @@ abstract class AC_Settings_Column_Toggle extends AC_Settings_Column {
 				'off' => __( 'No' ),
 			) );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'setting' => $setting,
 		) );
 

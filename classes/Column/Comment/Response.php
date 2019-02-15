@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Comment;
+
+use AC\Column;
+
 /**
  * @since 3.0
  */
-class AC_Column_Comment_Response extends AC_Column {
+class Response extends Column {
 
 	public function __construct() {
 		$this->set_type( 'response' );
@@ -17,7 +21,6 @@ class AC_Column_Comment_Response extends AC_Column {
 	/**
 	 * Response Column should not be displayed when viewing "Comments On".
 	 * The list table does this by checking if $post_id is set globally. We mimic this functionality here.
-	 *
 	 * @see WP_Comments_List_Table::get_columns() for the WP implementation
 	 */
 	public function is_valid() {

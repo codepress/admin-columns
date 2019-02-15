@@ -1,6 +1,11 @@
 <?php
 
-class AC_Settings_Column_ActionIcons extends AC_Settings_Column {
+namespace AC\Settings\Column;
+
+use AC\Settings\Column;
+use AC\View;
+
+class ActionIcons extends Column {
 
 	private $use_icons;
 
@@ -18,7 +23,7 @@ class AC_Settings_Column_ActionIcons extends AC_Settings_Column {
 			                ''  => __( 'No' ),
 		                ) );
 
-		$view = new AC_View( array(
+		$view = new View( array(
 			'label'   => __( 'Use icons?', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Use icons instead of text for displaying the actions.', 'codepress-admin-columns' ),
 			'setting' => $setting,

@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_User {
+namespace AC\Helper;
+
+class User {
 
 	/**
 	 * @param string $field
@@ -50,7 +52,7 @@ class AC_Helper_User {
 	}
 
 	/**
-	 * @param int|WP_User  $user
+	 * @param int|\WP_User $user
 	 * @param false|string $format WP_user var, 'first_last_name' or 'roles'
 	 *
 	 * @return false|string
@@ -101,12 +103,13 @@ class AC_Helper_User {
 	 * @return array Role nice names
 	 */
 	public function get_roles_names( $roles ) {
-		$translated = $this->get_roles();
-
 		$role_names = array();
+
 		foreach ( $roles as $role ) {
-			if ( isset( $translated[ $role ] ) ) {
-				$role_names[ $role ] = $translated[ $role ];
+			$name = $this->get_role_name( $role );
+
+			if ( $name ) {
+				$role_names[ $role ] = $name;
 			}
 		}
 
@@ -114,7 +117,27 @@ class AC_Helper_User {
 	}
 
 	/**
+	 * @param string $role
+	 *
+	 * @return string
+	 */
+	public function get_role_name( $role ) {
+		$roles = $this->get_roles();
+
+		if ( ! array_key_exists( $role, $roles ) ) {
+			return false;
+		}
+
+		return $roles[ $role ];
+	}
+
+	/**
 	 * @since 3.4.4
+	 *
+	 * @param int    $user_id
+	 * @param string $post_type
+	 *
+	 * @return string
 	 */
 	public function get_postcount( $user_id, $post_type ) {
 		global $wpdb;

@@ -1,9 +1,14 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+use AC\Settings;
+
 /**
  * @since 2.0
  */
-class AC_Column_Post_Attachment extends AC_Column {
+class Attachment extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-attachment' );
@@ -36,7 +41,7 @@ class AC_Column_Post_Attachment extends AC_Column {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_AttachmentDisplay( $this ) );
+		$this->add_setting( new Settings\Column\AttachmentDisplay( $this ) );
 	}
 
 }

@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_Post {
+namespace AC\Helper;
+
+class Post {
 
 	/**
 	 * @param int $id
@@ -24,6 +26,7 @@ class AC_Helper_Post {
 	 * @since 1.0
 	 *
 	 * @param int $post_id Post ID
+	 * @param int $words
 	 *
 	 * @return string Post Excerpt.
 	 */
@@ -91,7 +94,7 @@ class AC_Helper_Post {
 	/**
 	 * Get Post Title or Media Filename
 	 *
-	 * @param int|WP_Post $post
+	 * @param int|\WP_Post $post
 	 *
 	 * @return bool|string
 	 */
@@ -112,7 +115,7 @@ class AC_Helper_Post {
 	}
 
 	/**
-	 * @param WP_Post $post Post
+	 * @param \WP_Post $post Post
 	 *
 	 * @return false|string Dash icon with tooltip
 	 */

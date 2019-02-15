@@ -1,12 +1,16 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+use AC\Settings;
+
 /**
  * Column displaying information about the author of a post, such as the
  * author's display name, user ID and email address.
- *
  * @since 2.0
  */
-class AC_Column_Post_LastModifiedAuthor extends AC_Column_Meta {
+class LastModifiedAuthor extends Column\Meta {
 
 	public function __construct() {
 		$this->set_type( 'column-last_modified_author' );
@@ -16,7 +20,7 @@ class AC_Column_Post_LastModifiedAuthor extends AC_Column_Meta {
 	public function get_value( $id ) {
 		$raw_value = $this->get_raw_value( $id );
 
-		if( ! $raw_value ){
+		if ( ! $raw_value ) {
 			return $this->get_empty_char();
 		}
 
@@ -28,7 +32,7 @@ class AC_Column_Post_LastModifiedAuthor extends AC_Column_Meta {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new AC_Settings_Column_User( $this ) );
+		$this->add_setting( new Settings\Column\User( $this ) );
 	}
 
 }

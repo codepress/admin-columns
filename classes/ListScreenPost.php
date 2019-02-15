@@ -1,6 +1,8 @@
 <?php
 
-abstract class AC_ListScreenPost extends AC_ListScreenWP {
+namespace AC;
+
+abstract class ListScreenPost extends ListScreenWP {
 
 	/**
 	 * @var string Post type
@@ -11,8 +13,8 @@ abstract class AC_ListScreenPost extends AC_ListScreenWP {
 	 * @param string $post_type
 	 */
 	public function __construct( $post_type ) {
-		$this->set_meta_type( 'post' );
-		$this->set_post_type( $post_type );
+		$this->set_post_type( $post_type )
+		     ->set_meta_type( MetaType::POST );
 	}
 
 	/**
@@ -24,15 +26,19 @@ abstract class AC_ListScreenPost extends AC_ListScreenWP {
 
 	/**
 	 * @param string $post_type
+	 *
+	 * @return self
 	 */
 	protected function set_post_type( $post_type ) {
 		$this->post_type = (string) $post_type;
+
+		return $this;
 	}
 
 	/**
 	 * @param int $id
 	 *
-	 * @return WP_Post
+	 * @return \WP_Post
 	 */
 	protected function get_object( $id ) {
 		return get_post( $id );
@@ -53,9 +59,8 @@ abstract class AC_ListScreenPost extends AC_ListScreenWP {
 	 * Register post specific columns
 	 */
 	protected function register_column_types() {
-		$this->register_column_type( new AC_Column_CustomField );
-		$this->register_column_type( new AC_Column_Menu );
-		$this->register_column_type( new AC_Column_Actions );
+		$this->register_column_type( new Column\CustomField );
+		$this->register_column_type( new Column\Actions );
 	}
 
 }

@@ -1,9 +1,11 @@
 <?php
 
-class AC_Helper_Network {
+namespace AC\Helper;
+
+class Network {
 
 	/**
-	 * @param int $blog_id
+	 * @param int    $blog_id
 	 * @param string $option Option name
 	 *
 	 * @return null|string
@@ -19,16 +21,16 @@ class AC_Helper_Network {
 			WHERE option_name = %s
 		";
 
-		return (string) $wpdb->get_var( $wpdb->prepare( $sql, $option) );
+		return (string) $wpdb->get_var( $wpdb->prepare( $sql, $option ) );
 	}
 
 	/**
 	 * @param int $blog_id
 	 *
-	 * @return WP_Theme
+	 * @return \WP_Theme
 	 */
 	public function get_active_theme( $blog_id ) {
-		return wp_get_theme( ac_helper()->network->get_site_option( $blog_id, 'stylesheet' ) );
+		return wp_get_theme( $this->get_site_option( $blog_id, 'stylesheet' ) );
 	}
 
 }

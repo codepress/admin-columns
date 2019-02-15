@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_Date {
+namespace AC\Helper;
+
+class Date {
 
 	/**
 	 * @param string $date
@@ -26,7 +28,7 @@ class AC_Helper_Date {
 			}
 
 			// Date format: yyyymmdd ( often used by ACF ) must start with 19xx or 20xx and is 8 long
-			// @todo: in theory a numeric string of 8 can also be a unix timestamp; no conversion would be needed
+			// in theory a numeric string of 8 can also be a unix timestamp; no conversion would be needed
 			if ( 8 === $length && ( strpos( $date, '20' ) === 0 || strpos( $date, '19' ) === 0 ) ) {
 				$date = strtotime( $date );
 			}
@@ -86,7 +88,7 @@ class AC_Helper_Date {
 	/**
 	 * @since 3.0
 	 *
-	 * @param string $date           PHP Date format
+	 * @param        $timestamp
 	 * @param string $display_format Date display format
 	 *
 	 * @return string Formatted date
@@ -125,6 +127,7 @@ class AC_Helper_Date {
 	 * @since 1.3.1
 	 *
 	 * @param string $date
+	 * @param string $format
 	 *
 	 * @return string Formatted time
 	 */
@@ -144,7 +147,6 @@ class AC_Helper_Date {
 
 	/**
 	 * Translate a jQuery date format to the PHP date format
-	 *
 	 * @since 1.1
 	 *
 	 * @param string $format jQuery date format

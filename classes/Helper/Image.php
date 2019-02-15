@@ -1,6 +1,10 @@
 <?php
 
-class AC_Helper_Image {
+namespace AC\Helper;
+
+use DOMDocument;
+
+class Image {
 
 	/**
 	 * Resize image
@@ -13,7 +17,7 @@ class AC_Helper_Image {
 	 * @param null|string $dest_path
 	 * @param int         $jpeg_quality
 	 *
-	 * @return bool|string|WP_Error
+	 * @return bool|string|\WP_Error
 	 */
 	public function resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
 		$editor = wp_get_image_editor( $file );
@@ -159,6 +163,7 @@ class AC_Helper_Image {
 	/**
 	 * @param int|string $image ID of Url
 	 * @param string     $size
+	 * @param bool       $skip_image_check
 	 *
 	 * @return string
 	 */
@@ -207,15 +212,13 @@ class AC_Helper_Image {
 		return pathinfo( $this->get_file_name( $attachment_id ), PATHINFO_EXTENSION );
 	}
 
-	// Helpers
-
 	private function get_file_tooltip_attr( $media_id ) {
 		return ac_helper()->html->get_tooltip_attr( $this->get_file_name( $media_id ) );
 	}
 
 	private function markup_cover( $src, $width, $height, $media_id = null ) {
 		ob_start(); ?>
-		<span class="ac-image cpac-cover" data-media-id="<?php echo esc_attr( $media_id ); ?>" style="width:<?php echo esc_attr( $width ); ?>px;height:<?php echo esc_attr( $height ); ?>px;background-size:cover;background-image:url(<?php echo esc_attr( $src ); ?>);background-position:center;"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>></span>
+		<span class="ac-image cpac-cover" data-media-id="<?php echo esc_attr( $media_id ); ?>" style="width:<?php echo esc_attr( $width ); ?>px;height:<?php echo esc_attr( $height ); ?>px;background-size:cover;background-image:url('<?php echo esc_attr( $src ); ?>');background-position:center;"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>></span>
 
 		<?php
 		return ob_get_clean();
@@ -244,7 +247,6 @@ class AC_Helper_Image {
 
 	/**
 	 * Return dimensions and file type
-	 *
 	 * @see filesize
 	 *
 	 * @param string $url
@@ -315,7 +317,7 @@ class AC_Helper_Image {
 
 		foreach ( $images as $img ) {
 
-			/** @var DOMElement $img */
+			/** @var \DOMElement $img */
 			$urls[] = $img->getAttribute( 'src' );
 		}
 

@@ -1,6 +1,8 @@
 <?php
 
-class AC_Helper_Media {
+namespace AC\Helper;
+
+class Media {
 
 	/**
 	 * @param string $image_url

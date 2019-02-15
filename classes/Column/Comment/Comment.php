@@ -1,13 +1,17 @@
 <?php
 
+namespace AC\Column\Comment;
+
+use AC\Column;
+
 /**
  * @since 2.0
  */
-class AC_Column_Comment_Comment extends AC_Column {
+class Comment extends Column {
 
 	public function __construct() {
-		$this->set_original( true );
-		$this->set_type( 'comment' );
+		$this->set_original( true )
+		     ->set_type( 'comment' );
 	}
 
 }

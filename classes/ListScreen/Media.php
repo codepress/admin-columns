@@ -1,15 +1,20 @@
 <?php
 
-class AC_ListScreen_Media extends AC_ListScreenPost {
+namespace AC\ListScreen;
+
+use AC;
+use WP_Media_List_Table;
+
+class Media extends AC\ListScreenPost {
 
 	public function __construct() {
 		parent::__construct( 'attachment' );
 
-		$this->set_screen_id( 'upload' );
-		$this->set_screen_base( 'upload' );
-		$this->set_key( 'wp-media' );
-		$this->set_group( 'media' );
-		$this->set_label( __( 'Media' ) );
+		$this->set_screen_id( 'upload' )
+		     ->set_screen_base( 'upload' )
+		     ->set_key( 'wp-media' )
+		     ->set_group( 'media' )
+		     ->set_label( __( 'Media' ) );
 	}
 
 	public function set_manage_value_callback() {
@@ -41,15 +46,21 @@ class AC_ListScreen_Media extends AC_ListScreenPost {
 
 	/**
 	 * @since 2.4.7
+	 *
+	 * @param $column_name
+	 * @param $id
 	 */
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
+	/**
+	 * @throws \ReflectionException
+	 */
 	protected function register_column_types() {
 		parent::register_column_types();
 
-		$this->register_column_types_from_dir( AC()->get_plugin_dir() . 'classes/Column/Media', AC()->get_prefix() );
+		$this->register_column_types_from_dir( 'AC\Column\Media' );
 	}
 
 }

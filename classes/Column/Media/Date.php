@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Media;
+
+use AC\Column;
+
 /**
  * @since 3.0
  */
-class AC_Column_Media_Date extends AC_Column  {
+class Date extends Column {
 
 	public function __construct() {
 		$this->set_original( true );

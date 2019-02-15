@@ -1,37 +1,40 @@
 <?php
 
-abstract class AC_Settings_Column {
+namespace AC\Settings;
+
+use AC;
+use AC\Form\Element;
+use AC\View;
+
+abstract class Column {
 
 	/**
 	 * A (short) reference to this setting
-	 *
 	 * @var string
 	 */
 	protected $name;
 
 	/**
 	 * The options this field manages (optionally with default values)
-	 *
 	 * @var array
 	 */
 	protected $options = array();
 
 	/**
-	 * @var AC_Column
+	 * @var AC\Column
 	 */
 	protected $column;
 
 	/**
 	 * Options that are set by the user and should not be overwritten with defaults
-	 *
 	 * @var array
 	 */
 	private $user_set = array();
 
 	/**
-	 * @param AC_Column $column
+	 * @param AC\Column $column
 	 */
-	public function __construct( AC_Column $column ) {
+	public function __construct( AC\Column $column ) {
 		$this->column = $column;
 
 		$this->set_options();
@@ -39,22 +42,20 @@ abstract class AC_Settings_Column {
 	}
 
 	/**
-	 * @see AC_Settings_Column::$options
+	 * @see AC\Settings_Column::$options
 	 * @return array
 	 */
 	protected abstract function define_options();
 
 	/**
 	 * Create a string representation of this setting
-	 *
-	 * @return AC_View|false
+	 * @return View|false
 	 */
 	public abstract function create_view();
 
 	/**
 	 * Get settings that depend on this setting
-	 *
-	 * @return AC_Settings_Column[]
+	 * @return Column[]
 	 */
 	public function get_dependent_settings() {
 		return array();
@@ -88,9 +89,6 @@ abstract class AC_Settings_Column {
 
 	/**
 	 * Get a managed option
-	 *
-	 * @param null|string $option
-	 *
 	 * @return false|string
 	 */
 	protected function get_default_option() {
@@ -101,7 +99,6 @@ abstract class AC_Settings_Column {
 
 	/**
 	 * Return the value of all options
-	 *
 	 * @return array
 	 */
 	public function get_values() {
@@ -116,7 +113,6 @@ abstract class AC_Settings_Column {
 
 	/**
 	 * Get value of this setting, optionally specified with a key
-	 *
 	 * Will return the value of the default option
 	 *
 	 * @param string|null $option
@@ -144,7 +140,7 @@ abstract class AC_Settings_Column {
 	/**
 	 * Set the values of this setting
 	 *
-	 * @param array $options
+	 * @param array $values
 	 */
 	public function set_values( array $values ) {
 		foreach ( $values as $option => $value ) {
@@ -258,7 +254,7 @@ abstract class AC_Settings_Column {
 	 * @param string      $type
 	 * @param string|null $name
 	 *
-	 * @return AC_Form_Element_Select|AC_Form_Element_Input|AC_Form_Element_Radio
+	 * @return Element\Select|Element\Input|Element\Radio
 	 */
 	protected function create_element( $type, $name = null ) {
 		if ( null === $name ) {
@@ -268,19 +264,19 @@ abstract class AC_Settings_Column {
 		switch ( $type ) {
 
 			case 'checkbox' :
-				$element = new AC_Form_Element_Checkbox( $name );
+				$element = new Element\Checkbox( $name );
 
 				break;
 			case 'radio' :
-				$element = new AC_Form_Element_Radio( $name );
+				$element = new Element\Radio( $name );
 
 				break;
 			case 'select' :
-				$element = new AC_Settings_Form_Element_Select( $name );
+				$element = new AC\Settings\Form\Element\Select( $name );
 
 				break;
 			default:
-				$element = new AC_Form_Element_Input( $name );
+				$element = new Element\Input( $name );
 				$element->set_type( $type );
 		}
 
@@ -300,18 +296,17 @@ abstract class AC_Settings_Column {
 
 	/**
 	 * Render the output of self::create_header()
-	 *
 	 * @return false|string
 	 */
 	public function render_header() {
-		if ( ! ( $this instanceof AC_Settings_HeaderInterface ) ) {
+		if ( ! ( $this instanceof Header ) ) {
 			return false;
 		}
 
-		/* @var AC_Settings_HeaderInterface $this */
+		/* @var Header $this */
 		$view = $this->create_header_view();
 
-		if ( ! ( $view instanceof AC_View ) ) {
+		if ( ! ( $view instanceof View ) ) {
 			return false;
 		}
 
@@ -328,13 +323,12 @@ abstract class AC_Settings_Column {
 
 	/**
 	 * Render the output of self::create_view()
-	 *
 	 * @return false|string
 	 */
 	public function render() {
 		$view = $this->create_view();
 
-		if ( ! ( $view instanceof AC_View ) ) {
+		if ( ! ( $view instanceof View ) ) {
 			return false;
 		}
 
@@ -350,9 +344,18 @@ abstract class AC_Settings_Column {
 			$view->set( 'name', $this->name );
 		}
 
+		// set default for
+		if ( null === $view->get( 'for' ) ) {
+			$setting = $view->get( 'setting' );
+
+			if ( $setting instanceof AC\Form\Element ) {
+				$view->set( 'for', $setting->get_id() );
+			}
+		}
+
 		// set default template for nested sections
 		foreach ( (array) $view->sections as $section ) {
-			if ( $section instanceof AC_View && null === $section->get_template() ) {
+			if ( $section instanceof View && null === $section->get_template() ) {
 				$section->set_template( $template );
 			}
 		}

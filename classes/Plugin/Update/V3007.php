@@ -1,6 +1,10 @@
 <?php
 
-class AC_Plugin_Update_V3007 extends AC_Plugin_Update {
+namespace AC\Plugin\Update;
+
+use AC\Plugin\Update;
+
+class V3007 extends Update {
 
 	public function apply_update() {
 		$this->update_roles_column();
@@ -51,7 +55,7 @@ class AC_Plugin_Update_V3007 extends AC_Plugin_Update {
 			}
 
 			if ( $update ) {
-				update_option( $row->option_name, $options );
+				update_option( $row->option_name, $options, false );
 			}
 		}
 	}

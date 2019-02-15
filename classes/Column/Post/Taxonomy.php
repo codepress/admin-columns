@@ -1,9 +1,13 @@
 <?php
 
+namespace AC\Column\Post;
+
+use AC\Column;
+
 /**
  * @since 3.0
  */
-class AC_Column_Post_Taxonomy extends AC_Column_Taxonomy {
+class Taxonomy extends Column\Taxonomy {
 
 	/**
 	 * @return bool True when post type has associated taxonomies

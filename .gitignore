@@ -6,8 +6,11 @@
 Icon
 ehthumbs.d*
 Thumbs.d*
+/.idea*
+
 # Project specific
 *.scssc
+*.map
 
 # Development
 node_modules
