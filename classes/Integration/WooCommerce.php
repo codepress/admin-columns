@@ -16,7 +16,7 @@ final class WooCommerce extends Integration {
 			'assets/images/addons/woocommerce.png',
 			__( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' ),
 			null,
-			'woocommerce'
+			'woocommerce-columns'
 		);
 	}
 
