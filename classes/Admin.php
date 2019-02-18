@@ -188,4 +188,13 @@ class Admin implements Registrable {
 		do_action( 'ac/admin_scripts' );
 	}
 
+	/**
+	 * @return string
+	 */
+	public function get_settings_url() {
+		_deprecated_function( __METHOD__, '3.4.1', 'Admin::get_url()' );
+
+		return $this->get_url( 'settings' );
+	}
+
 }

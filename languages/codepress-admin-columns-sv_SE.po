@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-11-07 13:16:23+0000\n"
+"PO-Revision-Date: 2019-02-15 16:08:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:69
 msgid "Select"
-msgstr ""
+msgstr "Välj"
 
 #: templates/settings/setting-label-icons.php:24
 msgid "Select Icon"
@@ -21,15 +21,15 @@ msgstr "Välj ikon"
 
 #: classes/Settings/Column/PathScope.php:28
 msgid "Local Path"
-msgstr ""
+msgstr "Lokal sökväg"
 
 #: classes/Integration/EventsCalendar.php:15
 msgid "Events Calendar"
-msgstr ""
+msgstr "Evenemangskalender"
 
 #: classes/Admin/Page/Addons.php:102
 msgid "%s add-on"
-msgstr ""
+msgstr "%s utökningar"
 
 #: classes/Admin/Page/Addons.php:55
 msgid "%s needs to be installed and active for the add-on to work."
@@ -1354,7 +1354,7 @@ msgstr "Användar ID"
 
 #: classes/Settings/Column/LinkToMenu.php:26
 msgid "This will make the title link to the menu."
-msgstr "Detta gör att titeln länkas till menyn."
+msgstr "Detta gör rubriklänken till meny."
 
 #: classes/Settings/Column/LinkToMenu.php:25
 msgid "Link to menu"

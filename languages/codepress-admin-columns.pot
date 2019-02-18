@@ -19,7 +19,7 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin.php:68, classes/Check/Review.php:126, classes/Plugin/Updater.php:105, classes/Plugin/Updater.php:116, classes/Admin/Page/Columns.php:29
+#: classes/Admin.php:68, classes/Check/Review.php:126, classes/Plugin/Updater.php:105, classes/Plugin/Updater.php:117, classes/Admin/Page/Columns.php:29
 msgid "Admin Columns"
 msgstr ""
 
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: classes/Admin/Promo.php:131, templates/admin/side-banner.php:87
+#: classes/Admin/Promo.php:131, templates/admin/side-banner.php:88
 msgid "Get %s Off!"
 msgstr ""
 
@@ -227,11 +227,11 @@ msgstr ""
 msgid "Your database is up to date. You are awesome."
 msgstr ""
 
-#: classes/Plugin/Updater.php:117
+#: classes/Plugin/Updater.php:118
 msgid "We need to update your database to the latest version."
 msgstr ""
 
-#: classes/Plugin/Updater.php:119
+#: classes/Plugin/Updater.php:120
 msgid "Run the updater"
 msgstr ""
 
@@ -328,50 +328,58 @@ msgid "Take Admin Columns to the next level:"
 msgstr ""
 
 #: templates/admin/side-banner.php:35
-msgid "Add sortable columns"
+msgid "Search any content"
 msgstr ""
 
 #: templates/admin/side-banner.php:36
-msgid "Add filterable columns"
+msgid "Bulk Edit any content"
 msgstr ""
 
 #: templates/admin/side-banner.php:37
-msgid "Edit your column content directly"
+msgid "Sort any content"
 msgstr ""
 
 #: templates/admin/side-banner.php:38
-msgid "Create multiple columns sets"
+msgid "Filter any content"
 msgstr ""
 
 #: templates/admin/side-banner.php:39
+msgid "Inline Edit any content"
+msgstr ""
+
+#: templates/admin/side-banner.php:40
+msgid "Create multiple columns sets"
+msgstr ""
+
+#: templates/admin/side-banner.php:41
 msgid "Import &amp; Export settings"
 msgstr ""
 
-#: templates/admin/side-banner.php:52
-msgid "Extra Columns for:"
+#: templates/admin/side-banner.php:54
+msgid "Includes special integrations for:"
 msgstr ""
 
-#: templates/admin/side-banner.php:65
+#: templates/admin/side-banner.php:68
+msgid "Get Admin Columns Pro"
+msgstr ""
+
+#: templates/admin/side-banner.php:73
 msgid "Prices starting from %s"
 msgstr ""
 
-#: templates/admin/side-banner.php:70
-msgid "Learn more about Pro"
-msgstr ""
-
-#: templates/admin/side-banner.php:91
+#: templates/admin/side-banner.php:92
 msgid "Submit your email and we'll send you a discount for %s off."
 msgstr ""
 
-#: templates/admin/side-banner.php:98
+#: templates/admin/side-banner.php:99
 msgid "Your Email"
 msgstr ""
 
-#: templates/admin/side-banner.php:99
+#: templates/admin/side-banner.php:100
 msgid "Your First Name"
 msgstr ""
 
-#: templates/admin/side-banner.php:100
+#: templates/admin/side-banner.php:101
 msgid "Send me the discount"
 msgstr ""
 
