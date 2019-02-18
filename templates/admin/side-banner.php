@@ -32,9 +32,11 @@ $price = $this->price;
 				<?php
 
 				$items = array(
-					'sorting'       => __( 'Add sortable columns', 'codepress-admin-columns' ),
-					'filtering'     => __( 'Add filterable columns', 'codepress-admin-columns' ),
-					'editing'       => __( 'Edit your column content directly', 'codepress-admin-columns' ),
+					'search'        => __( 'Search any content', 'codepress-admin-columns' ),
+					'bulk-edit'     => __( 'Bulk Edit any content', 'codepress-admin-columns' ),
+					'sorting'       => __( 'Sort any content', 'codepress-admin-columns' ),
+					'filter'        => __( 'Filter any content', 'codepress-admin-columns' ),
+					'editing'       => __( 'Inline Edit any content', 'codepress-admin-columns' ),
 					'column-sets'   => __( 'Create multiple columns sets', 'codepress-admin-columns' ),
 					'import-export' => __( 'Import &amp; Export settings', 'codepress-admin-columns' ),
 				);
@@ -49,7 +51,7 @@ $price = $this->price;
 
 			<?php
 			if ( $integrations ) : ?>
-				<strong><?php _e( 'Extra Columns for:', 'codepress-admin-columns' ); ?></strong>
+				<strong class="extra"><?php _e( 'Includes special integrations for:', 'codepress-admin-columns' ); ?></strong>
 				<ul>
 					<?php foreach ( $integrations as $integration ) : ?>
 						<li class="acp-integration">
@@ -60,16 +62,15 @@ $price = $this->price;
 					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
-
-			<p class="center">
-				<?php echo ac_helper()->html->link( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner' ), sprintf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$' . $price ), array( 'class' => 'ac-pro-prices' ) ); ?>
-			</p>
 			<p class="center nopadding">
 				<?php if ( ! $promo ) : ?>
-					<a target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner' ) ); ?>" class="more">
-						<?php _e( 'Learn more about Pro', 'codepress-admin-columns' ); ?>
+					<a target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner' ) ); ?>" class="acp-button">
+						<?php _e( 'Get Admin Columns Pro', 'codepress-admin-columns' ); ?>
 					</a>
 				<?php endif; ?>
+			</p>
+			<p class="center ac-pro-prices">
+				<?php echo sprintf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$' . $price ); ?>
 			</p>
 		</div>
 	</div>

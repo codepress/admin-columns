@@ -111,7 +111,8 @@ class Updater {
 	}
 
 	protected function show_update_notice() {
-		$url = add_query_arg( array( 'ac_do_update' => 'true' ), AC()->admin()->get_settings_url() );
+		$url = add_query_arg( array( 'ac_do_update' => 'true' ), ac_get_admin_url( 'settings' ) );
+
 		$message = sprintf( '<strong>%s</strong> &ndash; %s <a href="%s" class="button ac-update-now">%s</a>',
 			esc_html__( 'Admin Columns', 'codepress-admin-columns' ),
 			esc_html__( 'We need to update your database to the latest version.', 'codepress-admin-columns' ),

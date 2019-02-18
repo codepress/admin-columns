@@ -233,7 +233,7 @@ class Image {
 
 		ob_start(); ?>
 		<span class="ac-image<?php echo $class; ?>" data-media-id="<?php echo esc_attr( $media_id ); ?>"<?php echo $this->get_file_tooltip_attr( $media_id ); ?>>
-			<img style="max-width:<?php echo esc_attr( $width ); ?>px;max-height:<?php echo esc_attr( $height ); ?>px;" src="<?php echo esc_attr( $src ); ?>">
+			<img style="max-width:<?php echo esc_attr( $width ); ?>px;max-height:<?php echo esc_attr( $height ); ?>px;" src="<?php echo esc_attr( $src ); ?>" alt="">
 
 			<?php if ( $add_extension ) : ?>
 				<span class="ac-extension"><?php echo esc_attr( $this->get_file_extension( $media_id ) ); ?></span>
