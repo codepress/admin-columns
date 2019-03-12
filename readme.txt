@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: TBD
+
+* [Improved] Setting for link Media item to download or view
+
 = 3.4.1 =
 Release Date: February 18th, 2019
 
