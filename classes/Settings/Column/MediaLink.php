@@ -47,7 +47,7 @@ class MediaLink extends Settings\Column
 	}
 
 	public function create_view() {
-		$select = $this->create_element( 'select' )->set_options( $this->get_display_options() );
+		$select = $this->create_element( 'select' )->set_options( $this->get_link_options() );
 
 		$view = new View( array(
 			'label'   => __( 'Link To', 'codepress-admin-columns' ),
@@ -57,7 +57,7 @@ class MediaLink extends Settings\Column
 		return $view;
 	}
 
-	protected function get_display_options() {
+	protected function get_link_options() {
 		return array(
 			''         => __( 'None' ),
 			'view'     => __( 'View', 'codepress-admin-columns' ),
