@@ -116,7 +116,7 @@ abstract class Integration {
 	 * @return string
 	 */
 	public function get_link() {
-		return ac_get_site_utm_url( $this->page, 'addon', $this->get_logo() );
+		return ac_get_site_utm_url( $this->page, 'addon', $this->get_slug() );
 	}
 
 	/**
