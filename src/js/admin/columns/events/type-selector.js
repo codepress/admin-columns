@@ -6,6 +6,8 @@ let selector = function( column ) {
 			column.$el.removeClass( 'loading' );
 
 			AC.Form.reindexColumns();
+		} ).fail( () => {
+			column.showMessage( AC.i18n.errors.loading_column );
 		} );
 	} );
 };

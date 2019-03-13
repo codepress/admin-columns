@@ -121,8 +121,12 @@ class Columns extends Admin\Page
 		$params = $ajax_handler->get_params();
 
 		$params['i18n'] = array(
-			'clone' => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-			'error' => __( 'Invalid response.', 'codepress-admin-columns' ),
+			'clone'  => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+			'error'  => __( 'Invalid response.', 'codepress-admin-columns' ),
+			'errors' => array(
+				'save_settings' => __( 'There was an error during saving the column settings.', 'codepress-admin-columns' ),
+				'loading_column'      => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
+			),
 		);
 
 		wp_localize_script( 'ac-admin-page-columns', 'AC', $params );
