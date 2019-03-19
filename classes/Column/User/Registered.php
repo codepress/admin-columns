@@ -20,7 +20,13 @@ class Registered extends Column {
 	}
 
 	public function get_raw_value( $user_id ) {
-		return get_userdata( $user_id )->user_registered;
+		$user_data = get_userdata( $user_id );
+
+		if ( ! $user_data ) {
+			return null;
+		}
+
+		return $user_data->user_registered;
 	}
 
 	public function register_settings() {

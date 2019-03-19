@@ -216,6 +216,7 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: TBD
 
+* [Improved] Prevent possible warning in User Registered column
 * [Improved] Give feedback on settings page when something went wrong
 * [Improved] Setting for link Media item to download or view
 
