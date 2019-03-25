@@ -73,13 +73,13 @@ class AdminColumns extends Plugin {
 		}
 
 		$this->register_admin();
+		$this->localize();
 
 		add_action( 'init', array( $this, 'init_capabilities' ) );
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
 
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
-		add_action( 'plugins_loaded', array( $this, 'localize' ) );
 
 		add_action( 'ac/screen', array( $this, 'init_table_on_screen' ) );
 		add_action( 'ac/screen/quick_edit', array( $this, 'init_table_on_quick_edit' ) );
@@ -331,7 +331,9 @@ class AdminColumns extends Plugin {
 	 * Load text-domain
 	 */
 	public function localize() {
-		load_plugin_textdomain( 'codepress-admin-columns', false, $this->get_dir() . '/languages/' );
+		$path = pathinfo( $this->get_dir() );
+
+		load_plugin_textdomain( 'codepress-admin-columns', false, $path['basename'] . '/languages/' );
 	}
 
 	/**
