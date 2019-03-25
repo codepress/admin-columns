@@ -26,17 +26,11 @@ final class Timestamp implements KeyValuePair, Expirable {
 	 * @return bool
 	 */
 	public function is_expired( $time = null ) {
-		$value = $this->get();
-
-		if ( false === $value ) {
-			return true;
-		}
-
 		if ( null === $time ) {
 			$time = time();
 		}
 
-		return $time > $value;
+		return $time > (int) $this->get();
 	}
 
 	/**
