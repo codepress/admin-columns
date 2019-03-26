@@ -24,8 +24,7 @@ class Form {
 
 		if ( this.$form.hasClass( 'ui-sortable' ) ) {
 			this.$form.sortable( 'refresh' );
-		}
-		else {
+		} else {
 			this.$form.sortable( {
 				items : '.ac-column',
 				handle : '.column_sort'
@@ -146,8 +145,7 @@ class Form {
 
 		// No JSON
 		xhr.fail( function( error ) {
-			// We choose not to notify the user of errors, because the settings will have
-			// been saved correctly despite of PHP notices/errors from plugin or themes.
+			self.showMessage( AC.i18n.errors.save_settings, 'notice notice-warning' );
 		} );
 
 		//document.dispatchEvent( new CustomEvent( 'AC_Form_AfterUpdate', { detail : { container : self.$container } } ) );

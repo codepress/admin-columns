@@ -31,6 +31,7 @@ class CustomFieldType extends Settings\Column
 			case 'image' :
 			case 'library_id' :
 				$settings[] = new Image( $this->column );
+				$settings[] = new MediaLink( $this->column );
 
 				break;
 			case 'excerpt' :

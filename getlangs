@@ -2,6 +2,7 @@
 
 languages=(
     'ar::ar_AR'
+    'bg::bg_BG'
     'da::da_DK'
     'de::de_DE'
     'es::es_ES'
@@ -13,11 +14,14 @@ languages=(
     'it::it_IT'
     'ja::ja_JA'
     'nl::nl_NL'
+    'nb::nb_NO'
     'pl::pl_PL'
     'pt-br::bt_BR'
+    'pt::pt_PT'
     'ro::ro_RO'
     'ru::ru_RU'
     'sv::sv_SE'
+    'tr::tr_TR'
     'zh-cn::zh_CN'
 
 )
