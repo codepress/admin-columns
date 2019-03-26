@@ -195,7 +195,7 @@ abstract class Meta extends Column {
 
 		// Place the hidden group at the end
 		if ( isset( $grouped['_'] ) ) {
-			array_push( $grouped, $grouped['_'] );
+			$grouped[] = $grouped['_'];
 
 			unset( $grouped['_'] );
 		}
