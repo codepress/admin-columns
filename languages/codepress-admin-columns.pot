@@ -47,7 +47,7 @@ msgstr ""
 msgid "No columns settings available."
 msgstr ""
 
-#: classes/ListScreenGroups.php:13, classes/Settings/Column/CustomFieldType.php:83, classes/Settings/Column/PostType.php:25
+#: classes/ListScreenGroups.php:13, classes/Settings/Column/CustomFieldType.php:84, classes/Settings/Column/PostType.php:25
 msgid "Post Type"
 msgstr ""
 
@@ -235,7 +235,7 @@ msgstr ""
 msgid "Run the updater"
 msgstr ""
 
-#: classes/Table/Screen.php:133, classes/Table/Screen.php:135
+#: classes/Table/Screen.php:133, classes/Table/Screen.php:135, classes/Settings/Column/MediaLink.php:64
 msgid "Download"
 msgstr ""
 
@@ -275,7 +275,7 @@ msgstr ""
 msgid "Select type"
 msgstr ""
 
-#: templates/admin/edit-menu.php:35
+#: templates/admin/edit-menu.php:35, classes/Settings/Column/MediaLink.php:63
 msgid "View"
 msgstr ""
 
@@ -483,7 +483,7 @@ msgstr ""
 msgid "The custom field column uses the custom fields from posts and users. There are 14 types which you can set."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:22, classes/Settings/Column/CustomFieldType.php:169, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:25, classes/Settings/Column/Type.php:88
+#: classes/Admin/HelpTab/CustomField.php:22, classes/Settings/Column/CustomFieldType.php:170, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:25, classes/Settings/Column/Type.php:88
 msgid "Default"
 msgstr ""
 
@@ -491,7 +491,7 @@ msgstr ""
 msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by commas."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:26, classes/Settings/Column/CustomFieldType.php:102
+#: classes/Admin/HelpTab/CustomField.php:26, classes/Settings/Column/CustomFieldType.php:103
 msgid "Color"
 msgstr ""
 
@@ -507,7 +507,7 @@ msgstr ""
 msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:34, classes/Settings/Column/CustomFieldType.php:103
+#: classes/Admin/HelpTab/CustomField.php:34, classes/Settings/Column/CustomFieldType.php:104
 msgid "Date"
 msgstr ""
 
@@ -515,7 +515,7 @@ msgstr ""
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:38, classes/Column/Post/Excerpt.php:15, classes/Settings/Column/CustomFieldType.php:104
+#: classes/Admin/HelpTab/CustomField.php:38, classes/Column/Post/Excerpt.php:15, classes/Settings/Column/CustomFieldType.php:105
 msgid "Excerpt"
 msgstr ""
 
@@ -523,7 +523,7 @@ msgstr ""
 msgid "Value: This will show the first 20 words of the Post content."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:42, classes/Settings/Column/CustomFieldType.php:110
+#: classes/Admin/HelpTab/CustomField.php:42, classes/Settings/Column/CustomFieldType.php:111
 msgid "Has Content"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Value: This will show if the field has content or not."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:46, classes/Settings/Column/CustomFieldType.php:105
+#: classes/Admin/HelpTab/CustomField.php:46, classes/Settings/Column/CustomFieldType.php:106
 msgid "Image"
 msgstr ""
 
@@ -539,7 +539,7 @@ msgstr ""
 msgid "Value: Should contain one or more Image URLs or Attachment IDs, separated by commas."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:50, classes/Settings/Column/CustomFieldType.php:114
+#: classes/Admin/HelpTab/CustomField.php:50, classes/Settings/Column/CustomFieldType.php:115
 msgid "Media"
 msgstr ""
 
@@ -547,7 +547,7 @@ msgstr ""
 msgid "Value: Should contain one or more Attachment IDs, separated by commas."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:54, classes/Settings/Column/CustomFieldType.php:120
+#: classes/Admin/HelpTab/CustomField.php:54, classes/Settings/Column/CustomFieldType.php:121
 msgid "Multiple Values"
 msgstr ""
 
@@ -555,7 +555,7 @@ msgstr ""
 msgid "Value: Should be an array. This will flatten any ( multi dimensional ) array."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:58, classes/Settings/Column/CustomFieldType.php:107
+#: classes/Admin/HelpTab/CustomField.php:58, classes/Settings/Column/CustomFieldType.php:108
 msgid "Number"
 msgstr ""
 
@@ -563,7 +563,7 @@ msgstr ""
 msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:62, classes/Column/Comment/Post.php:15, classes/Settings/Column/CustomFieldType.php:115
+#: classes/Admin/HelpTab/CustomField.php:62, classes/Column/Comment/Post.php:15, classes/Settings/Column/CustomFieldType.php:116
 msgid "Post"
 msgstr ""
 
@@ -571,7 +571,7 @@ msgstr ""
 msgid "Value: Should contain one or more Post IDs, separated by commas."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:66, classes/Settings/Column/CustomFieldType.php:111
+#: classes/Admin/HelpTab/CustomField.php:66, classes/Settings/Column/CustomFieldType.php:112
 msgid "True / False"
 msgstr ""
 
@@ -579,7 +579,7 @@ msgstr ""
 msgid "Value: Should be a 1 (one) or 0 (zero)."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:70, classes/Settings/Column/CustomFieldType.php:106
+#: classes/Admin/HelpTab/CustomField.php:70, classes/Settings/Column/CustomFieldType.php:107
 msgid "URL"
 msgstr ""
 
@@ -587,7 +587,7 @@ msgstr ""
 msgid "Value: Should contain a URL."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:74, classes/Column/Comment/User.php:15, classes/Settings/Column/CustomFieldType.php:87, classes/Settings/Column/CustomFieldType.php:116
+#: classes/Admin/HelpTab/CustomField.php:74, classes/Column/Comment/User.php:15, classes/Settings/Column/CustomFieldType.php:88, classes/Settings/Column/CustomFieldType.php:117
 msgid "User"
 msgstr ""
 
@@ -691,15 +691,23 @@ msgstr ""
 msgid "Invalid response."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:267
+#: classes/Admin/Page/Columns.php:127
+msgid "There was an error during saving the column settings."
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:128
+msgid "The column could not be loaded because of an unknown error"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:271
 msgid "The columns for %s are set up via PHP and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:305
+#: classes/Admin/Page/Columns.php:309
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:314
+#: classes/Admin/Page/Columns.php:318
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -825,7 +833,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:59, classes/Settings/Column/Type.php:32, classes/Settings/Column/Type.php:41
+#: classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:60, classes/Settings/Column/Type.php:32, classes/Settings/Column/Type.php:41
 msgid "Type"
 msgstr ""
 
@@ -1113,43 +1121,43 @@ msgstr ""
 msgid "Please create a %s item first."
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:56
+#: classes/Settings/Column/CustomFieldType.php:57
 msgid "This will determine how the value will be displayed."
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:63
+#: classes/Settings/Column/CustomFieldType.php:64
 msgid "Field Type"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:72
+#: classes/Settings/Column/CustomFieldType.php:73
 msgid "Uses one or more %s IDs to display information about it."
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:73
+#: classes/Settings/Column/CustomFieldType.php:74
 msgid "Multiple IDs should be separated by commas."
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:119
+#: classes/Settings/Column/CustomFieldType.php:120
 msgid "Number of Fields"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:150
+#: classes/Settings/Column/CustomFieldType.php:151
 msgid "Basic"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:151
+#: classes/Settings/Column/CustomFieldType.php:152
 msgid "Relational"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:152
+#: classes/Settings/Column/CustomFieldType.php:153
 msgid "Choice"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:153
+#: classes/Settings/Column/CustomFieldType.php:154
 msgid "Multiple"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:154, classes/Settings/Column/Image.php:112, classes/Settings/Column/Type.php:91
+#: classes/Settings/Column/CustomFieldType.php:155, classes/Settings/Column/Image.php:112, classes/Settings/Column/Type.php:91
 msgid "Custom"
 msgstr ""
 
@@ -1305,6 +1313,10 @@ msgstr ""
 msgid "This will make the title link to the menu."
 msgstr ""
 
+#: classes/Settings/Column/MediaLink.php:53, classes/Settings/Column/PostLink.php:58, classes/Settings/Column/UserLink.php:60
+msgid "Link To"
+msgstr ""
+
 #: classes/Settings/Column/Meta.php:30
 msgid "No fields available."
 msgstr ""
@@ -1387,10 +1399,6 @@ msgstr ""
 
 #: classes/Settings/Column/PostFormatIcon.php:74
 msgid "Standard"
-msgstr ""
-
-#: classes/Settings/Column/PostLink.php:58, classes/Settings/Column/UserLink.php:60
-msgid "Link To"
 msgstr ""
 
 #: classes/Settings/Column/PostLink.php:71

@@ -199,7 +199,8 @@ class Query {
 		$nested = array();
 
 		if ( is_array( $field ) ) {
-			for ( $i = 0; $i < count( $field ); $i++ ) {
+			$count = count( $field );
+			for ( $i = 0; $i < $count; $i++ ) {
 				$nested[] = array_pop( $this->where );
 			}
 		}
