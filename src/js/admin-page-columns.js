@@ -28,6 +28,7 @@ import SettingDate from './admin/columns/settings/date';
 import SettingPro from './admin/columns/settings/pro';
 import SettingWidth from './admin/columns/settings/width';
 import SettingLabel from './admin/columns/settings/label';
+import SettingCustomField from './admin/columns/settings/meta-field';
 
 let jQuery = $ = require( 'jquery' );
 
@@ -54,6 +55,7 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 		.registerSetting( 'pro', SettingPro )
 		.registerSetting( 'sub_setting_toggle', SettingSubSettingToggle )
 		.registerSetting( 'width', SettingWidth )
+		.registerSetting( 'customfield', SettingCustomField )
 		.registerSetting( 'label', SettingLabel );
 } );
 

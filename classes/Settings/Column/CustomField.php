@@ -12,16 +12,10 @@ class CustomField extends Meta {
 	}
 
 	protected function get_setting_field() {
-		$use_text_input = apply_filters( 'ac/column/custom_field/use_text_input', false );
-
-		if ( $use_text_input ) {
-			return $this->create_element( 'text', 'field' )->set_attribute( 'placeholder', __( 'Custom field key', 'codepress-admin-columns' ) );
-		}
-
-		$field = parent::get_setting_field();
-		$field->set_no_result( __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->column->get_list_screen()->get_singular_label() . '</strong>' ) );
-
-		return $field;
+		return $this->create_element( 'select', 'field' )
+		            ->set_attribute( 'data-selected', $this->get_field() )
+		            ->set_options( array( $this->get_field() ) )
+		            ->set_attribute( 'class', 'custom_field' );
 	}
 
 	public function get_dependent_settings() {
