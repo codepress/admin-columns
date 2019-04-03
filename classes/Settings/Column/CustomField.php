@@ -14,7 +14,7 @@ class CustomField extends Meta {
 	protected function get_setting_field() {
 		return $this->create_element( 'select', 'field' )
 		            ->set_attribute( 'data-selected', $this->get_field() )
-		            ->set_options( array( $this->get_field() ) )
+		            ->set_options( array( $this->get_field() => $this->get_field() ) )
 		            ->set_attribute( 'class', 'custom_field' );
 	}
 

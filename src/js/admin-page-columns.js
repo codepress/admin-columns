@@ -28,7 +28,7 @@ import SettingDate from './admin/columns/settings/date';
 import SettingPro from './admin/columns/settings/pro';
 import SettingWidth from './admin/columns/settings/width';
 import SettingLabel from './admin/columns/settings/label';
-import SettingCustomField from './admin/columns/settings/meta-field';
+import SettingCustomField from './admin/columns/settings/custom-field';
 
 let jQuery = $ = require( 'jquery' );
 

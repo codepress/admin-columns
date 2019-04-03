@@ -136,7 +136,7 @@ var _width = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/sett
 
 var _label2 = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/label */ "./js/admin/columns/settings/label.js"));
 
-var _metaField = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/meta-field */ "./js/admin/columns/settings/meta-field.js"));
+var _customField = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/custom-field */ "./js/admin/columns/settings/custom-field.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -161,7 +161,7 @@ jQuery(document).on('AC_Form_Loaded', function () {
   /** Register Events **/
   AdminColumns.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
   /** Register Settings **/
-  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default).registerSetting('customfield', _metaField.default).registerSetting('label', _label2.default);
+  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default).registerSetting('customfield', _customField.default).registerSetting('label', _label2.default);
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#cpac .ac-columns form');
@@ -1184,6 +1184,146 @@ module.exports = Menu;
 
 /***/ }),
 
+/***/ "./js/admin/columns/settings/custom-field.js":
+/*!***************************************************!*\
+  !*** ./js/admin/columns/settings/custom-field.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+
+var SingleCustomFieldRequestManager =
+/*#__PURE__*/
+function () {
+  function SingleCustomFieldRequestManager() {
+    _classCallCheck(this, SingleCustomFieldRequestManager);
+
+    this.loading = false;
+    this.data = false;
+    this.events = nanobus();
+  }
+
+  _createClass(SingleCustomFieldRequestManager, [{
+    key: "retrieveOptions",
+    value: function retrieveOptions() {
+      this.loading = true;
+      return jQuery.ajax({
+        url: ajaxurl,
+        dataType: 'json',
+        method: 'post',
+        data: {
+          action: 'ac_custom_field_options',
+          layout: AC.layout,
+          list_screen: AC.list_screen,
+          _ajax_nonce: AC._ajax_nonce
+        }
+      });
+    }
+  }, {
+    key: "getOptions",
+    value: function getOptions() {
+      var _this = this;
+
+      var defer = jQuery.Deferred();
+
+      if (this.data) {
+        defer.resolve(this.data);
+      } else if (this.loading) {
+        this.events.on('loaded', function () {
+          defer.resolve(_this.data);
+        });
+      } else {
+        this.retrieveOptions().done(function (response) {
+          if (!response.success) {
+            defer.reject();
+          }
+
+          _this.data = response.data.results;
+
+          _this.events.emit('loaded');
+
+          defer.resolve(_this.data);
+        });
+      }
+
+      return defer.promise();
+    }
+  }]);
+
+  return SingleCustomFieldRequestManager;
+}();
+
+var loadSingleRequestManager = function loadSingleRequestManager() {
+  if (!AdminColumns.hasOwnProperty('SingleCustomFieldRequest')) {
+    AdminColumns.SingleCustomFieldRequest = new SingleCustomFieldRequestManager();
+  }
+
+  return AdminColumns.SingleCustomFieldRequest;
+};
+
+var CustomField =
+/*#__PURE__*/
+function () {
+  function CustomField(column) {
+    _classCallCheck(this, CustomField);
+
+    this.column = column;
+    this.setting = column.$el[0].querySelector('.ac-column-setting--custom_field');
+
+    if (!this.setting) {
+      return;
+    }
+
+    this.bindEvents();
+  }
+
+  _createClass(CustomField, [{
+    key: "bindEvents",
+    value: function bindEvents() {
+      var request = loadSingleRequestManager();
+      var input = this.setting.querySelector('.custom_field');
+      request.getOptions().done(function (data) {
+        jQuery(input).find('option').remove();
+        jQuery(input).ac_select2({
+          theme: 'acs2',
+          width: '100%',
+          tags: true,
+          dropdownCssClass: '-customfields',
+          data: data
+        });
+      });
+    }
+  }]);
+
+  return CustomField;
+}();
+
+var customfield = function customfield(column) {
+  column.settings.customfield = new CustomField(column);
+};
+
+var _default = customfield;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./js/admin/columns/settings/date.js":
 /*!*******************************************!*\
   !*** ./js/admin/columns/settings/date.js ***!
@@ -1550,89 +1690,6 @@ var label = function label(column) {
 };
 
 module.exports = label;
-
-/***/ }),
-
-/***/ "./js/admin/columns/settings/meta-field.js":
-/*!*************************************************!*\
-  !*** ./js/admin/columns/settings/meta-field.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-__webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var CustomField =
-/*#__PURE__*/
-function () {
-  function CustomField(column) {
-    _classCallCheck(this, CustomField);
-
-    this.column = column;
-    this.setting = column.$el[0].querySelector('.ac-column-setting--custom_field');
-
-    if (!this.setting) {
-      return;
-    }
-
-    this.bindEvents();
-  }
-
-  _createClass(CustomField, [{
-    key: "getPreloadedOptions",
-    value: function getPreloadedOptions() {
-      return jQuery.ajax({
-        url: ajaxurl,
-        dataType: 'json',
-        method: 'post',
-        data: {
-          action: 'ac_get_custom_fields_options',
-          layout: AC.layout,
-          column: this.column.name,
-          list_screen: AC.list_screen,
-          _ajax_nonce: AC.ajax_nonce
-        }
-      });
-    }
-  }, {
-    key: "bindEvents",
-    value: function bindEvents() {
-      this.getPreloadedOptions().done(function (d) {
-        console.log(d, 'sdf');
-      });
-      var input = this.setting.querySelector('.custom_field');
-      jQuery(input).ac_select2({
-        theme: 'acs2',
-        width: '100%',
-        tags: true,
-        data: ['test', 'HOI']
-      });
-    }
-  }]);
-
-  return CustomField;
-}();
-
-var customfield = function customfield(column) {
-  column.settings.customfield = new CustomField(column);
-};
-
-var _default = customfield;
-exports.default = _default;
 
 /***/ }),
 
@@ -3377,6 +3434,376 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
     Iterators[NAME] = ArrayValues;
     if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
   }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/nanoassert/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/nanoassert/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+assert.notEqual = notEqual
+assert.notOk = notOk
+assert.equal = equal
+assert.ok = assert
+
+module.exports = assert
+
+function equal (a, b, m) {
+  assert(a == b, m) // eslint-disable-line eqeqeq
+}
+
+function notEqual (a, b, m) {
+  assert(a != b, m) // eslint-disable-line eqeqeq
+}
+
+function notOk (t, m) {
+  assert(!t, m)
+}
+
+function assert (t, m) {
+  if (!t) throw new Error(m || 'AssertionError')
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/nanobus/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/nanobus/index.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var splice = __webpack_require__(/*! remove-array-items */ "./node_modules/remove-array-items/index.js")
+var nanotiming = __webpack_require__(/*! nanotiming */ "./node_modules/nanotiming/browser.js")
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js")
+
+module.exports = Nanobus
+
+function Nanobus (name) {
+  if (!(this instanceof Nanobus)) return new Nanobus(name)
+
+  this._name = name || 'nanobus'
+  this._starListeners = []
+  this._listeners = {}
+}
+
+Nanobus.prototype.emit = function (eventName) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.emit: eventName should be type string or symbol')
+
+  var data = []
+  for (var i = 1, len = arguments.length; i < len; i++) {
+    data.push(arguments[i])
+  }
+
+  var emitTiming = nanotiming(this._name + "('" + eventName.toString() + "')")
+  var listeners = this._listeners[eventName]
+  if (listeners && listeners.length > 0) {
+    this._emit(this._listeners[eventName], data)
+  }
+
+  if (this._starListeners.length > 0) {
+    this._emit(this._starListeners, eventName, data, emitTiming.uuid)
+  }
+  emitTiming()
+
+  return this
+}
+
+Nanobus.prototype.on = Nanobus.prototype.addListener = function (eventName, listener) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.on: eventName should be type string or symbol')
+  assert.equal(typeof listener, 'function', 'nanobus.on: listener should be type function')
+
+  if (eventName === '*') {
+    this._starListeners.push(listener)
+  } else {
+    if (!this._listeners[eventName]) this._listeners[eventName] = []
+    this._listeners[eventName].push(listener)
+  }
+  return this
+}
+
+Nanobus.prototype.prependListener = function (eventName, listener) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.prependListener: eventName should be type string or symbol')
+  assert.equal(typeof listener, 'function', 'nanobus.prependListener: listener should be type function')
+
+  if (eventName === '*') {
+    this._starListeners.unshift(listener)
+  } else {
+    if (!this._listeners[eventName]) this._listeners[eventName] = []
+    this._listeners[eventName].unshift(listener)
+  }
+  return this
+}
+
+Nanobus.prototype.once = function (eventName, listener) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.once: eventName should be type string or symbol')
+  assert.equal(typeof listener, 'function', 'nanobus.once: listener should be type function')
+
+  var self = this
+  this.on(eventName, once)
+  function once () {
+    listener.apply(self, arguments)
+    self.removeListener(eventName, once)
+  }
+  return this
+}
+
+Nanobus.prototype.prependOnceListener = function (eventName, listener) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.prependOnceListener: eventName should be type string or symbol')
+  assert.equal(typeof listener, 'function', 'nanobus.prependOnceListener: listener should be type function')
+
+  var self = this
+  this.prependListener(eventName, once)
+  function once () {
+    listener.apply(self, arguments)
+    self.removeListener(eventName, once)
+  }
+  return this
+}
+
+Nanobus.prototype.removeListener = function (eventName, listener) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.removeListener: eventName should be type string or symbol')
+  assert.equal(typeof listener, 'function', 'nanobus.removeListener: listener should be type function')
+
+  if (eventName === '*') {
+    this._starListeners = this._starListeners.slice()
+    return remove(this._starListeners, listener)
+  } else {
+    if (typeof this._listeners[eventName] !== 'undefined') {
+      this._listeners[eventName] = this._listeners[eventName].slice()
+    }
+
+    return remove(this._listeners[eventName], listener)
+  }
+
+  function remove (arr, listener) {
+    if (!arr) return
+    var index = arr.indexOf(listener)
+    if (index !== -1) {
+      splice(arr, index, 1)
+      return true
+    }
+  }
+}
+
+Nanobus.prototype.removeAllListeners = function (eventName) {
+  if (eventName) {
+    if (eventName === '*') {
+      this._starListeners = []
+    } else {
+      this._listeners[eventName] = []
+    }
+  } else {
+    this._starListeners = []
+    this._listeners = {}
+  }
+  return this
+}
+
+Nanobus.prototype.listeners = function (eventName) {
+  var listeners = eventName !== '*'
+    ? this._listeners[eventName]
+    : this._starListeners
+
+  var ret = []
+  if (listeners) {
+    var ilength = listeners.length
+    for (var i = 0; i < ilength; i++) ret.push(listeners[i])
+  }
+  return ret
+}
+
+Nanobus.prototype._emit = function (arr, eventName, data, uuid) {
+  if (typeof arr === 'undefined') return
+  if (arr.length === 0) return
+  if (data === undefined) {
+    data = eventName
+    eventName = null
+  }
+
+  if (eventName) {
+    if (uuid !== undefined) {
+      data = [eventName].concat(data, uuid)
+    } else {
+      data = [eventName].concat(data)
+    }
+  }
+
+  var length = arr.length
+  for (var i = 0; i < length; i++) {
+    var listener = arr[i]
+    listener.apply(listener, data)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/nanoscheduler/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/nanoscheduler/index.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js")
+
+var hasWindow = typeof window !== 'undefined'
+
+function createScheduler () {
+  var scheduler
+  if (hasWindow) {
+    if (!window._nanoScheduler) window._nanoScheduler = new NanoScheduler(true)
+    scheduler = window._nanoScheduler
+  } else {
+    scheduler = new NanoScheduler()
+  }
+  return scheduler
+}
+
+function NanoScheduler (hasWindow) {
+  this.hasWindow = hasWindow
+  this.hasIdle = this.hasWindow && window.requestIdleCallback
+  this.method = this.hasIdle ? window.requestIdleCallback.bind(window) : this.setTimeout
+  this.scheduled = false
+  this.queue = []
+}
+
+NanoScheduler.prototype.push = function (cb) {
+  assert.equal(typeof cb, 'function', 'nanoscheduler.push: cb should be type function')
+
+  this.queue.push(cb)
+  this.schedule()
+}
+
+NanoScheduler.prototype.schedule = function () {
+  if (this.scheduled) return
+
+  this.scheduled = true
+  var self = this
+  this.method(function (idleDeadline) {
+    var cb
+    while (self.queue.length && idleDeadline.timeRemaining() > 0) {
+      cb = self.queue.shift()
+      cb(idleDeadline)
+    }
+    self.scheduled = false
+    if (self.queue.length) self.schedule()
+  })
+}
+
+NanoScheduler.prototype.setTimeout = function (cb) {
+  setTimeout(cb, 0, {
+    timeRemaining: function () {
+      return 1
+    }
+  })
+}
+
+module.exports = createScheduler
+
+
+/***/ }),
+
+/***/ "./node_modules/nanotiming/browser.js":
+/*!********************************************!*\
+  !*** ./node_modules/nanotiming/browser.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var scheduler = __webpack_require__(/*! nanoscheduler */ "./node_modules/nanoscheduler/index.js")()
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js")
+
+var perf
+nanotiming.disabled = true
+try {
+  perf = window.performance
+  nanotiming.disabled = window.localStorage.DISABLE_NANOTIMING === 'true' || !perf.mark
+} catch (e) { }
+
+module.exports = nanotiming
+
+function nanotiming (name) {
+  assert.equal(typeof name, 'string', 'nanotiming: name should be type string')
+
+  if (nanotiming.disabled) return noop
+
+  var uuid = (perf.now() * 10000).toFixed() % Number.MAX_SAFE_INTEGER
+  var startName = 'start-' + uuid + '-' + name
+  perf.mark(startName)
+
+  function end (cb) {
+    var endName = 'end-' + uuid + '-' + name
+    perf.mark(endName)
+
+    scheduler.push(function () {
+      var err = null
+      try {
+        var measureName = name + ' [' + uuid + ']'
+        perf.measure(measureName, startName, endName)
+        perf.clearMarks(startName)
+        perf.clearMarks(endName)
+      } catch (e) { err = e }
+      if (cb) cb(err, name)
+    })
+  }
+
+  end.uuid = uuid
+  return end
+}
+
+function noop (cb) {
+  if (cb) {
+    scheduler.push(function () {
+      cb(new Error('nanotiming: performance API unavailable'))
+    })
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remove-array-items/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/remove-array-items/index.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Remove a range of items from an array
+ *
+ * @function removeItems
+ * @param {Array<*>} arr The target array
+ * @param {number} startIdx The index to begin removing from (inclusive)
+ * @param {number} removeCount How many items to remove
+ */
+module.exports = function removeItems (arr, startIdx, removeCount) {
+  var i, length = arr.length
+
+  if (startIdx >= length || removeCount === 0) {
+    return
+  }
+
+  removeCount = (startIdx + removeCount > length ? length - startIdx : removeCount)
+
+  var len = length - removeCount
+
+  for (i = startIdx; i < len; ++i) {
+    arr[i] = arr[i + removeCount]
+  }
+
+  arr.length = len
 }
 
 

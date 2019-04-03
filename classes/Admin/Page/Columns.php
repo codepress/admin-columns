@@ -6,6 +6,7 @@ use AC\Admin;
 use AC\Ajax;
 use AC\Capabilities;
 use AC\Column;
+use AC\Helper\Select;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenGroups;
@@ -13,6 +14,7 @@ use AC\Message\Notice;
 use AC\Preferences;
 use AC\Registrable;
 use AC\Request;
+use AC\Response;
 use AC\View;
 
 class Columns extends Admin\Page
@@ -30,7 +32,8 @@ class Columns extends Admin\Page
 	}
 
 	public function register_ajax() {
-		$this->get_ajax_handler()->register();
+		$this->get_ajax_custom_field_handler()->register();
+		$this->get_ajax_column_handler()->register();
 	}
 
 	public function register() {
@@ -112,7 +115,7 @@ class Columns extends Admin\Page
 
 		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_url() . 'assets/css/admin-page-columns.css', array(), AC()->get_version() );
 
-		$ajax_handler = $this->get_ajax_handler();
+		$ajax_handler = $this->get_ajax_column_handler();
 
 		$ajax_handler->set_param( 'list_screen', $list_screen->get_key() )
 		             ->set_param( 'layout', $list_screen->get_layout_id() )
@@ -124,8 +127,8 @@ class Columns extends Admin\Page
 			'clone'  => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 			'error'  => __( 'Invalid response.', 'codepress-admin-columns' ),
 			'errors' => array(
-				'save_settings' => __( 'There was an error during saving the column settings.', 'codepress-admin-columns' ),
-				'loading_column'      => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
+				'save_settings'  => __( 'There was an error during saving the column settings.', 'codepress-admin-columns' ),
+				'loading_column' => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
 			),
 		);
 
@@ -134,10 +137,19 @@ class Columns extends Admin\Page
 		do_action( 'ac/settings/scripts' );
 	}
 
+	private function get_ajax_custom_field_handler() {
+		$handler = new Ajax\Handler();
+		$handler
+			->set_action( 'ac_custom_field_options' )
+			->set_callback( array( $this, 'ajax_get_custom_fields' ) );
+
+		return $handler;
+	}
+
 	/**
 	 * @return Ajax\Handler
 	 */
-	private function get_ajax_handler() {
+	private function get_ajax_column_handler() {
 		$handler = new Ajax\Handler();
 		$handler
 			->set_action( 'ac-columns' )
@@ -147,7 +159,7 @@ class Columns extends Admin\Page
 	}
 
 	public function handle_ajax_request() {
-		$this->get_ajax_handler()->verify_request();
+		$this->get_ajax_column_handler()->verify_request();
 
 		$request = new Request();
 
@@ -162,6 +174,40 @@ class Columns extends Admin\Page
 				$handler->request( $request );
 			}
 		}
+	}
+
+	public function ajax_get_custom_fields() {
+		$this->get_ajax_custom_field_handler()->verify_request();
+		$request = new Request();
+		$response = new Response\Json();
+		$list_screen = ListScreenFactory::create_from_request( $request );
+
+		if ( ! $list_screen ) {
+			$response->error();
+		}
+
+		$args = array(
+			'meta_type' => $list_screen->get_meta_type(),
+		);
+
+		if ( $list_screen instanceof ListScreen\Post ) {
+			$args['post_type'] = $list_screen->get_post_type();
+		}
+
+		$entities = new Select\Entities\CustomFields( $args );
+
+		$options = new Select\Options\Paginated(
+			$entities,
+			new Select\Group\CustomField(
+				new Select\Formatter\Copy( $entities )
+			)
+		);
+
+		$select = new Select\Response( $options );
+
+		$response
+			->set_parameters( $select() )
+			->success();
 	}
 
 	public function get_list_screen() {
