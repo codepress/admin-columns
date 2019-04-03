@@ -180,18 +180,13 @@ class Columns extends Admin\Page
 		$this->get_ajax_custom_field_handler()->verify_request();
 		$request = new Request();
 		$response = new Response\Json();
-		$list_screen = ListScreenFactory::create_from_request( $request );
-
-		if ( ! $list_screen ) {
-			$response->error();
-		}
 
 		$args = array(
-			'meta_type' => $list_screen->get_meta_type(),
+			'meta_type' => $request->get('meta_type'),
 		);
 
-		if ( $list_screen instanceof ListScreen\Post ) {
-			$args['post_type'] = $list_screen->get_post_type();
+		if ( $request->get('post_type') ) {
+			$args['post_type'] = $request->get('post_type');
 		}
 
 		$entities = new Select\Entities\CustomFields( $args );

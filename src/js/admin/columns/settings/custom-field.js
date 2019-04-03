@@ -2,7 +2,9 @@ var nanobus = require( 'nanobus' );
 
 class SingleCustomFieldRequestManager {
 
-	constructor() {
+	constructor( meta_type, post_type ) {
+		this.meta_type = meta_type;
+		this.post_type = post_type;
 		this.loading = false;
 		this.data = false;
 		this.events = nanobus();
@@ -17,8 +19,8 @@ class SingleCustomFieldRequestManager {
 			method : 'post',
 			data : {
 				action : 'ac_custom_field_options',
-				layout : AC.layout,
-				list_screen : AC.list_screen,
+				post_type : this.post_type,
+				meta_type : this.meta_type,
 				_ajax_nonce : AC._ajax_nonce
 			}
 		} );
@@ -51,12 +53,18 @@ class SingleCustomFieldRequestManager {
 
 }
 
-const loadSingleRequestManager = () => {
-	if ( !AdminColumns.hasOwnProperty( 'SingleCustomFieldRequest' ) ) {
-		AdminColumns.SingleCustomFieldRequest = new SingleCustomFieldRequestManager();
+const loadSingleRequestManager = ( meta_type, post_type ) => {
+	const key = `custom_field_${meta_type}_${post_type}`;
+
+	if ( typeof AC_Requests === 'undefined' ) {
+		global.AC_Requests = {};
 	}
 
-	return AdminColumns.SingleCustomFieldRequest;
+	if ( !AC_Requests.hasOwnProperty( key ) ) {
+		AC_Requests[ key ] = new SingleCustomFieldRequestManager( meta_type, post_type );
+	}
+
+	return AC_Requests[ key ];
 };
 
 class CustomField {
@@ -72,11 +80,10 @@ class CustomField {
 	}
 
 	bindEvents() {
-		const request = loadSingleRequestManager();
 		const input = this.setting.querySelector( '.custom_field' );
+		const request = loadSingleRequestManager( input.dataset.type, input.dataset.post_type );
 
 		request.getOptions().done( data => {
-			jQuery( input ).find( 'option' ).remove();
 			jQuery( input ).ac_select2( {
 				theme : 'acs2',
 				width : '100%',

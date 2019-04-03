@@ -1192,14 +1192,12 @@ module.exports = Menu;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(global) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-__webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1212,9 +1210,11 @@ var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.j
 var SingleCustomFieldRequestManager =
 /*#__PURE__*/
 function () {
-  function SingleCustomFieldRequestManager() {
+  function SingleCustomFieldRequestManager(meta_type, post_type) {
     _classCallCheck(this, SingleCustomFieldRequestManager);
 
+    this.meta_type = meta_type;
+    this.post_type = post_type;
     this.loading = false;
     this.data = false;
     this.events = nanobus();
@@ -1230,8 +1230,8 @@ function () {
         method: 'post',
         data: {
           action: 'ac_custom_field_options',
-          layout: AC.layout,
-          list_screen: AC.list_screen,
+          post_type: this.post_type,
+          meta_type: this.meta_type,
           _ajax_nonce: AC._ajax_nonce
         }
       });
@@ -1270,12 +1270,18 @@ function () {
   return SingleCustomFieldRequestManager;
 }();
 
-var loadSingleRequestManager = function loadSingleRequestManager() {
-  if (!AdminColumns.hasOwnProperty('SingleCustomFieldRequest')) {
-    AdminColumns.SingleCustomFieldRequest = new SingleCustomFieldRequestManager();
+var loadSingleRequestManager = function loadSingleRequestManager(meta_type, post_type) {
+  var key = "custom_field_".concat(meta_type, "_").concat(post_type);
+
+  if (typeof AC_Requests === 'undefined') {
+    global.AC_Requests = {};
   }
 
-  return AdminColumns.SingleCustomFieldRequest;
+  if (!AC_Requests.hasOwnProperty(key)) {
+    AC_Requests[key] = new SingleCustomFieldRequestManager(meta_type, post_type);
+  }
+
+  return AC_Requests[key];
 };
 
 var CustomField =
@@ -1297,10 +1303,9 @@ function () {
   _createClass(CustomField, [{
     key: "bindEvents",
     value: function bindEvents() {
-      var request = loadSingleRequestManager();
       var input = this.setting.querySelector('.custom_field');
+      var request = loadSingleRequestManager(input.dataset.type, input.dataset.post_type);
       request.getOptions().done(function (data) {
-        jQuery(input).find('option').remove();
         jQuery(input).ac_select2({
           theme: 'acs2',
           width: '100%',
@@ -1321,6 +1326,7 @@ var customfield = function customfield(column) {
 
 var _default = customfield;
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -3805,6 +3811,37 @@ module.exports = function removeItems (arr, startIdx, removeCount) {
 
   arr.length = len
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
