@@ -7,6 +7,8 @@ use WP_User;
 
 abstract class Capabilities implements Registrable {
 
+	const MANAGE = 'manage_admin_columns';
+
 	/**
 	 * @var WP_User
 	 */

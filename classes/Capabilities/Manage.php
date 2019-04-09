@@ -7,8 +7,6 @@ use WP_Roles;
 
 class Manage extends Capabilities {
 
-	const MANAGE = 'manage_admin_columns';
-
 	public function is_administrator() {
 		return is_super_admin( $this->user->ID ) || $this->has_cap( 'administrator' );
 	}
