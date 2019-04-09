@@ -196,7 +196,7 @@ class AdminColumns extends Plugin {
 	 * @since 3.2
 	 */
 	public function init_capabilities() {
-		$caps = new Capabilities();
+		$caps = new Capabilities\Manage();
 
 		if ( ! $caps->is_administrator() || $caps->has_manage() ) {
 			return;
