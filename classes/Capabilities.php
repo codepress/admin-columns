@@ -22,6 +22,10 @@ abstract class Capabilities implements Registrable {
 		$this->user = $user;
 	}
 
+	public function is_administrator() {
+		return is_super_admin( $this->user->ID ) || $this->has_cap( 'administrator' );
+	}
+
 	public function register() {
 		add_action( 'ac/capabilities/set_defaults', array( $this, 'set_default_caps' ) );
 	}

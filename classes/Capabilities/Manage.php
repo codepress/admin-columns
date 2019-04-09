@@ -7,10 +7,6 @@ use WP_Roles;
 
 class Manage extends Capabilities {
 
-	public function is_administrator() {
-		return is_super_admin( $this->user->ID ) || $this->has_cap( 'administrator' );
-	}
-
 	public function has_manage() {
 		return $this->has_cap( self::MANAGE );
 	}
