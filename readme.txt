@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Fixed] IE11 bug when adding new columns
+
 = 3.4.2 =
 Release Date: March 26th, 2019
 
