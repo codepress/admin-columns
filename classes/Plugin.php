@@ -3,6 +3,7 @@
 namespace AC;
 
 use ReflectionObject;
+use WP_Roles;
 
 abstract class Plugin extends Addon {
 
@@ -64,6 +65,14 @@ abstract class Plugin extends Addon {
 		if ( 0 === version_compare( $this->get_version(), $this->get_stored_version() ) ) {
 			return;
 		}
+
+		global $wp_roles;
+
+		if ( ! $wp_roles ) {
+			$wp_roles = new WP_Roles();
+		}
+
+		do_action( 'ac/capabilities/set_defaults', $wp_roles );
 
 		$updater = new Plugin\Updater( $this );
 
