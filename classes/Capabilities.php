@@ -7,6 +7,7 @@ use WP_User;
 
 abstract class Capabilities implements Registrable {
 
+	// backwards compat
 	const MANAGE = 'manage_admin_columns';
 
 	/**
@@ -27,7 +28,7 @@ abstract class Capabilities implements Registrable {
 	}
 
 	public function register() {
-		add_action( 'ac/capabilities/set_defaults', array( $this, 'set_default_caps' ) );
+		add_action( 'ac/capabilities/init', array( $this, 'set_default_caps' ) );
 	}
 
 	/**

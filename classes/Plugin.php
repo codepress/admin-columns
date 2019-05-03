@@ -72,7 +72,7 @@ abstract class Plugin extends Addon {
 			$wp_roles = new WP_Roles();
 		}
 
-		do_action( 'ac/capabilities/set_defaults', $wp_roles );
+		do_action( 'ac/capabilities/init', $wp_roles );
 
 		$updater = new Plugin\Updater( $this );
 
