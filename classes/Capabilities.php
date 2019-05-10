@@ -2,10 +2,12 @@
 
 namespace AC;
 
+use WP_Roles;
 use WP_User;
 
-class Capabilities {
+abstract class Capabilities implements Registrable {
 
+	// backwards compat
 	const MANAGE = 'manage_admin_columns';
 
 	/**
@@ -21,28 +23,23 @@ class Capabilities {
 		$this->user = $user;
 	}
 
-	/**
-	 * @return bool
-	 */
 	public function is_administrator() {
-		return is_super_admin( $this->user->ID ) || $this->user->has_cap( 'administrator' );
+		return is_super_admin( $this->user->ID ) || $this->has_cap( 'administrator' );
+	}
+
+	public function register() {
+		add_action( 'ac/capabilities/init', array( $this, 'set_default_caps' ) );
 	}
 
 	/**
-	 * Check if user can manage Admin Columns
+	 * @param string $cap
+	 *
 	 * @return bool
 	 */
-	public function has_manage() {
-		return $this->user->has_cap( self::MANAGE );
+	public function has_cap( $cap ) {
+		return $this->user->has_cap( $cap );
 	}
 
-	/**
-	 * Add the capability to manage admin columns.
-	 */
-	public function add_manage() {
-		/** @var \WP_Roles $wp_roles */
-		global $wp_roles;
+	abstract public function set_default_caps( WP_Roles $roles );
 
-		$wp_roles->add_cap( 'administrator', self::MANAGE );
-	}
 }

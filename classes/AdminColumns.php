@@ -75,7 +75,9 @@ class AdminColumns extends Plugin {
 		$this->register_admin();
 		$this->localize();
 
-		add_action( 'init', array( $this, 'init_capabilities' ) );
+		$caps = new Capabilities\Manage();
+		$caps->register();
+
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
 
@@ -189,20 +191,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function get_version() {
 		return AC_VERSION;
-	}
-
-	/**
-	 * Initialize current user and make sure any administrator user can use Admin Columns
-	 * @since 3.2
-	 */
-	public function init_capabilities() {
-		$caps = new Capabilities();
-
-		if ( ! $caps->is_administrator() || $caps->has_manage() ) {
-			return;
-		}
-
-		add_action( 'admin_init', array( $caps, 'add_manage' ) );
 	}
 
 	/**

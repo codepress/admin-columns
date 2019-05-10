@@ -1,3 +1,6 @@
+require( 'admin-columns-js/polyfill/customevent' );
+require( 'admin-columns-js/polyfill/nodelist' );
+
 /**
  * AC variables. Defined in DOM.
  * @param AdminColumns {Object}

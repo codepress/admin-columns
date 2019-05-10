@@ -309,6 +309,8 @@ class Strings {
 			$compound = __( ' or ', 'codepress-admin-columns' );
 		}
 
+		$compound = sprintf( ' %s ', trim( $compound ) );
+
 		$last = end( $words );
 		$delimiter = ', ';
 
