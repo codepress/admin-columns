@@ -140,6 +140,12 @@ class Addons extends Page
 	 */
 	public function admin_scripts() {
 		wp_enqueue_style( 'ac-admin-page-addons', AC()->get_url() . 'assets/css/admin-page-addons.css', array(), AC()->get_version() );
+		wp_enqueue_script( 'ac-admin-page-addons', AC()->get_url() . "assets/js/admin-page-addons.js", array( 'jquery' ), AC()->get_version() );
+
+		wp_localize_script( 'ac-admin-page-addons', 'AC', array(
+				'ajax_nonce' => wp_create_nonce( 'ac-ajax' ),
+			)
+		);
 	}
 
 	/**
@@ -205,8 +211,8 @@ class Addons extends Page
 
 	/**
 	 * Addons are grouped into addon groups by providing the group an addon belongs to.
-	 * @since 2.2
 	 * @return array Available addon groups ([group_name] => [label])
+	 * @since 2.2
 	 */
 	public function get_addon_groups() {
 		$addon_groups = array(
@@ -217,9 +223,10 @@ class Addons extends Page
 
 		/**
 		 * Filter the addon groups
-		 * @since 2.2
 		 *
 		 * @param array $addon_groups Available addon groups ([group_name] => [label])
+		 *
+		 * @since 2.2
 		 */
 		return apply_filters( 'ac/addons/groups', $addon_groups );
 	}
@@ -250,8 +257,8 @@ class Addons extends Page
 
 	/**
 	 * Group a list of add-ons
-	 * @since 3.0
 	 * @return array A list of addons per group: [group_name] => (array) [group_addons], where [group_addons] is an array ([addon_name] => (array) [addon_details])
+	 * @since 3.0
 	 */
 	private function get_grouped_addons() {
 		$active = array();
