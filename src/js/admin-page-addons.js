@@ -1,62 +1,8 @@
+import WPNotice from './modules/notice';
+
 require( 'admin-columns-js/polyfill/nodelist' );
 
-class WPNotice {
-	constructor() {
-		this.element = document.createElement( 'div' );
-		this.element.classList.add( 'notice' );
-	}
-
-	setMessage( message ) {
-		this.message = message;
-
-		return this;
-	}
-
-	renderDimiss() {
-		const button = document.createElement( 'button' );
-
-		button.classList.add( 'notice-dismiss' );
-		button.setAttribute( 'type', 'button' );
-		button.insertAdjacentHTML( 'beforeend', `<span class="screen-reader-text">Dismiss this notice.</span>` );
-
-		button.addEventListener( 'click', e => {
-			e.preventDefault();
-			this.element.remove();
-		} );
-
-		this.element.classList.add( 'is-dismissible' );
-		this.element.insertAdjacentElement( 'beforeend', button );
-	}
-
-	renderContent() {
-		this.element.insertAdjacentHTML( 'afterbegin', this.message );
-	}
-
-	makeDismissable() {
-		this.dismissible = true;
-
-		return this;
-	}
-
-	addClass( className ) {
-		this.element.classList.add( className );
-
-		return this;
-	}
-
-	render() {
-		this.element.innerHTML = '';
-		this.renderContent();
-		if ( this.dismissible ) {
-			this.renderDimiss();
-		}
-
-		return this.element;
-	}
-
-}
-
-class AddonDownloader {
+class AddonDownload {
 
 	constructor( el, slug ) {
 		this.element = el;
@@ -73,8 +19,11 @@ class AddonDownloader {
 	setLoadingState() {
 		const button = this.getDownloadButton();
 
-		button.insertAdjacentHTML( 'afterend', '<span class="spinner" style="visibility: visible;"></span>' );
-		button.classList.add( 'button-disabled' );
+		if( button ){
+			button.insertAdjacentHTML( 'afterend', '<span class="spinner" style="visibility: visible;"></span>' );
+			button.classList.add( 'button-disabled' );
+		}
+
 		this.loadingState = true;
 	}
 
@@ -86,7 +35,10 @@ class AddonDownloader {
 			spinner.remove();
 		}
 
-		button.classList.remove( 'button-disabled' );
+		if ( button ) {
+			button.classList.remove( 'button-disabled' );
+		}
+
 		this.loadingState = false;
 	}
 
@@ -107,20 +59,29 @@ class AddonDownloader {
 		}
 	}
 
-	success() {
+	success( status ) {
+		const button = this.getDownloadButton();
 		const title = this.element.querySelector( 'h3' );
 		const notice = new WPNotice();
+
 		notice.setMessage( `<p>The Add-on <strong>${title.innerHTML}</strong> is installed.</p>` )
 			.makeDismissable()
 			.addClass( 'updated' );
 
 		document.querySelector( '.ac-addons' ).insertAdjacentElement( 'beforebegin', notice.render() );
+
+		if ( button ) {
+			button.insertAdjacentHTML( 'beforebegin', `<span class="active">${status}</span>` );
+			button.remove();
+		}
+
 	}
 
-	failure( message ){
+	failure( message ) {
 		const title = this.element.querySelector( 'h3' );
 		const notice = new WPNotice();
-		notice.setMessage( `<p>The installation of the Add-on <strong>${title.innerHTML}</strong> has failed with the following message: ${message}</p>` )
+
+		notice.setMessage( `<p><strong>${title.innerHTML}</strong>: ${message}</p>` )
 			.makeDismissable()
 			.addClass( 'notice-error' );
 
@@ -132,8 +93,8 @@ class AddonDownloader {
 
 		request.done( response => {
 			this.removeLoadingState();
-			if( response.success ){
-				this.success();
+			if ( response.success ) {
+				this.success( response.data.status );
 			} else {
 				this.failure( response.data );
 			}
@@ -143,7 +104,7 @@ class AddonDownloader {
 	request() {
 		let data = {
 			action : 'acp-install-addon',
-			plugin_name : 'ac-addon-ninjaforms',
+			plugin_name : this.slug,
 			_ajax_nonce : AC.ajax_nonce
 		};
 
@@ -160,7 +121,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 	global.AC_Addons = [];
 
 	document.querySelectorAll( '.ac-addon' ).forEach( element => {
-		AC_Addons[ element.dataset.slug ] = new AddonDownloader( element, element.dataset.slug );
+		AC_Addons[ element.dataset.slug ] = new AddonDownload( element, element.dataset.slug );
 	} );
 
 } );
