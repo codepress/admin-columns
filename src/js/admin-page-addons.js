@@ -19,7 +19,7 @@ class AddonDownload {
 	setLoadingState() {
 		const button = this.getDownloadButton();
 
-		if( button ){
+		if ( button ) {
 			button.insertAdjacentHTML( 'afterend', '<span class="spinner" style="visibility: visible;"></span>' );
 			button.classList.add( 'button-disabled' );
 		}
@@ -77,6 +77,12 @@ class AddonDownload {
 
 	}
 
+	static scrollToTop( ms ) {
+		jQuery( 'html, body' ).animate( {
+			scrollTop : 0
+		}, ms );
+	}
+
 	failure( message ) {
 		const title = this.element.querySelector( 'h3' );
 		const notice = new WPNotice();
@@ -86,6 +92,7 @@ class AddonDownload {
 			.addClass( 'notice-error' );
 
 		document.querySelector( '.ac-addons' ).insertAdjacentElement( 'beforebegin', notice.render() );
+		AddonDownload.scrollToTop( 200 );
 	}
 
 	download() {

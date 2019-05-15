@@ -197,6 +197,7 @@ function () {
       var notice = new _notice.default();
       notice.setMessage("<p><strong>".concat(title.innerHTML, "</strong>: ").concat(message, "</p>")).makeDismissable().addClass('notice-error');
       document.querySelector('.ac-addons').insertAdjacentElement('beforebegin', notice.render());
+      AddonDownload.scrollToTop(200);
     }
   }, {
     key: "download",
@@ -227,6 +228,13 @@ function () {
         method: 'post',
         data: data
       });
+    }
+  }], [{
+    key: "scrollToTop",
+    value: function scrollToTop(ms) {
+      jQuery('html, body').animate({
+        scrollTop: 0
+      }, ms);
     }
   }]);
 
