@@ -7,7 +7,7 @@ $addon-color-link: #0073aa;
 
 /* =Addons
 -------------------------------------------------------------- */
-.ac-addon {
+.ac-addons {
 	display: inline-block;
 	margin-right: 16px;
 	float: left;
@@ -18,6 +18,8 @@ $addon-color-link: #0073aa;
 		display:table; // forces new line
 	}
 
+
+
 	h2 {
 		border-bottom: 1px solid #ccc;
 		padding-bottom: 10px;
@@ -26,7 +28,7 @@ $addon-color-link: #0073aa;
 	ul {
 		overflow: hidden;
 
-		li {
+		.ac-addon {
 			width: 200px;
 			background: #FFF;
 			float: left;
@@ -49,6 +51,9 @@ $addon-color-link: #0073aa;
 
 			a {
 				color: #444;
+			}
+			a.button-primary {
+				color: #fff;
 			}
 
 			.addon-header {

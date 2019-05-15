@@ -380,7 +380,7 @@ class Addons extends Page
 
 		// Not installed...
 		elseif ( ac_is_pro_active() && current_user_can( 'install_plugins' ) ) : ?>
-			<a href="<?php echo esc_url( $this->get_plugin_install_url( $addon->get_slug() ) ); ?>" class="button">
+			<a href="#" class="button" data-install>
 				<?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?>
 			</a>
 		<?php else : ?>
@@ -397,7 +397,7 @@ class Addons extends Page
 		foreach ( $this->get_grouped_addons() as $group_slug => $group ) :
 			?>
 
-			<div class="ac-addon group-<?php echo esc_attr( $group_slug ); ?>">
+			<div class="ac-addons group-<?php echo esc_attr( $group_slug ); ?>">
 				<h2><?php echo esc_html( $group['title'] ); ?></h2>
 
 				<ul>
@@ -408,6 +408,7 @@ class Addons extends Page
 						$view = new AC\View( array(
 							'logo'        => AC()->get_url() . $addon->get_logo(),
 							'title'       => $addon->get_title(),
+							'slug'        => $addon->get_slug(),
 							'description' => $addon->get_description(),
 							'actions'     => $this->render_actions( $addon ),
 						) );
