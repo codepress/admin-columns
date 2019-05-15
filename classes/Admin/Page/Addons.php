@@ -10,10 +10,8 @@ use AC\PluginInformation;
 class Addons extends Page
 	implements AC\Registrable {
 
-	const NAME = 'addons';
-
 	public function __construct() {
-		parent::__construct( self::NAME, __( 'Add-ons', 'codepress-admin-columns' ) );
+		parent::__construct( 'addons', __( 'Add-ons', 'codepress-admin-columns' ) );
 	}
 
 	/**
@@ -21,7 +19,6 @@ class Addons extends Page
 	 */
 	public function register() {
 		$this->handle_request();
-		$this->handle_install_request();
 		$this->page_notices();
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
@@ -131,10 +128,6 @@ class Addons extends Page
 		);
 	}
 
-	private function get_link() {
-		return ac_get_admin_url( $this->get_slug() );
-	}
-
 	/**
 	 * Admin scripts
 	 */
@@ -160,53 +153,6 @@ class Addons extends Page
 		}
 
 		$notice->register();
-	}
-
-	/**
-	 * Handles the installation of the add-on
-	 * @since 2.2
-	 */
-	public function handle_install_request() {
-		if ( ! wp_verify_nonce( filter_input( INPUT_GET, '_wpnonce' ), 'install-ac-addon' ) ) {
-			return;
-		}
-
-		$dirname = filter_input( INPUT_GET, 'plugin' );
-
-		if ( ! $dirname ) {
-			return;
-		}
-
-		if ( ! ac_is_pro_active() ) {
-			$this->register_notice( __( 'You need Admin Columns Pro.', 'codepress-admin-columns' ), Notice::ERROR );
-
-			return;
-		}
-
-		$integration = AC\IntegrationFactory::create_by_dirname( $dirname );
-
-		if ( ! $integration ) {
-			$this->register_notice( __( 'Addon does not exist.', 'codepress-admin-columns' ), Notice::ERROR );
-
-			return;
-		}
-
-		$error_message = apply_filters( 'ac/addons/install_request/maybe_error', false, $integration->get_slug() );
-
-		if ( $error_message ) {
-			$this->register_notice( $error_message, Notice::ERROR );
-
-			return;
-		}
-
-		$install_url = add_query_arg( array(
-			'action'      => 'install-plugin',
-			'plugin'      => $integration->get_slug(),
-			'ac-redirect' => true,
-		), wp_nonce_url( self_admin_url( 'update.php' ), 'install-plugin_' . $integration->get_slug() ) );
-
-		wp_redirect( $install_url );
-		exit;
 	}
 
 	/**
@@ -344,18 +290,6 @@ class Addons extends Page
 	}
 
 	/**
-	 * @param string $slug
-	 *
-	 * @return string
-	 */
-	private function get_plugin_install_url( $slug ) {
-		return add_query_arg( array(
-			'action' => 'install',
-			'plugin' => $slug,
-		), wp_nonce_url( $this->get_link(), 'install-ac-addon' ) );
-	}
-
-	/**
 	 * @param AC\Integration $addon
 	 *
 	 * @return string
@@ -380,7 +314,7 @@ class Addons extends Page
 
 		// Not installed...
 		elseif ( ac_is_pro_active() && current_user_can( 'install_plugins' ) ) : ?>
-			<a href="<?php echo esc_url( $this->get_plugin_install_url( $addon->get_slug() ) ); ?>" class="button">
+			<a href="" class="button">
 				<?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?>
 			</a>
 		<?php else : ?>
