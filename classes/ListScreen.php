@@ -320,19 +320,18 @@ abstract class ListScreen {
 
 	/**
 	 * ID attribute of targeted list table
-	 * @since 3.0
 	 * @return string
+	 * @since 3.0
 	 */
 	public function get_table_attr_id() {
 		return '#the-list';
 	}
 
 	/**
-	 * @since 2.0.3
-	 *
 	 * @param $wp_screen
 	 *
 	 * @return boolean
+	 * @since 2.0.3
 	 */
 	public function is_current_screen( $wp_screen ) {
 		return $wp_screen && $wp_screen->id === $this->get_screen_id() && $wp_screen->base === $this->get_screen_base();
@@ -374,8 +373,8 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @since 2.0
 	 * @return string Link
+	 * @since 2.0
 	 */
 	public function get_screen_link() {
 		return add_query_arg( array(
@@ -395,8 +394,8 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @since 3.0
 	 * @return Column[]
+	 * @since 3.0
 	 */
 	public function get_columns() {
 		if ( null === $this->columns ) {
@@ -428,11 +427,10 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @since 2.0
-	 *
 	 * @param $name
 	 *
 	 * @return false|Column
+	 * @since 2.0
 	 */
 	public function get_column_by_name( $name ) {
 		$columns = $this->get_columns();
@@ -669,9 +667,9 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @since 3.0
-	 *
 	 * @param string $column_name Column name
+	 *
+	 * @since 3.0
 	 */
 	public function deregister_column( $column_name ) {
 		unset( $this->columns[ $column_name ] );
@@ -686,10 +684,11 @@ abstract class ListScreen {
 		/**
 		 * Fires when a column is registered to a list screen, i.e. when it is created. Can be used
 		 * to attach additional functionality to a column, such as exporting, sorting or filtering
-		 * @since 3.0.5
 		 *
 		 * @param Column     $column      Column type object
 		 * @param ListScreen $list_screen List screen object to which the column was registered
+		 *
+		 * @since 3.0.5
 		 */
 		do_action( 'ac/list_screen/column_registered', $column, $this );
 	}
@@ -785,9 +784,10 @@ abstract class ListScreen {
 		/**
 		 * Fires after a new column setup is stored in the database
 		 * Primarily used when columns are saved through the Admin Columns settings screen
-		 * @since 3.0
 		 *
 		 * @param ListScreen $list_screen
+		 *
+		 * @since 3.0
 		 */
 		do_action( 'ac/columns_stored', $this );
 
@@ -832,34 +832,29 @@ abstract class ListScreen {
 		return $this->settings;
 	}
 
-	/**
-	 * @return string
-	 */
-	private function get_default_key() {
-		return self::OPTIONS_KEY . $this->get_key() . "__default";
+	private function get_default_columns_object() {
+		return new DefaultColumns();
 	}
 
 	/**
-	 * @param array $column_headings Default column headings
-	 *
-	 * @return bool
+	 * @param array $column_headings
 	 */
 	public function save_default_headings( $column_headings ) {
-		return update_option( $this->get_default_key(), $column_headings, false );
+		$this->get_default_columns_object()->update( $this->get_key(), $column_headings );
 	}
 
 	/**
 	 * @return array [ Column Name => Label ]
 	 */
 	public function get_stored_default_headings() {
-		return get_option( $this->get_default_key(), array() );
+		return $this->get_default_columns_object()->get( $this->get_key() );
 	}
 
 	/**
-	 * @return bool
+	 * @return void
 	 */
 	public function delete_default_headings() {
-		return delete_option( $this->get_default_key() );
+		$this->get_default_columns_object()->delete( $this->get_key() );
 	}
 
 	/**
@@ -870,9 +865,10 @@ abstract class ListScreen {
 		/**
 		 * Fires before a column setup is removed from the database
 		 * Primarily used when columns are deleted through the Admin Columns settings screen
-		 * @since 3.0.8
 		 *
 		 * @param ListScreen $list_screen
+		 *
+		 * @since 3.0.8
 		 */
 		do_action( 'ac/columns_delete', $this );
 
@@ -902,11 +898,12 @@ abstract class ListScreen {
 
 		/**
 		 * Column display value
-		 * @since 3.0
 		 *
 		 * @param string $value  Column display value
 		 * @param int    $id     Object ID
 		 * @param Column $column Column object
+		 *
+		 * @since 3.0
 		 */
 		$value = apply_filters( 'ac/column/value', $value, $id, $column );
 

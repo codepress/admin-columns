@@ -6,6 +6,7 @@ use AC\Admin;
 use AC\Ajax;
 use AC\Capabilities;
 use AC\Column;
+use AC\DefaultColumns;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenGroups;
@@ -25,7 +26,12 @@ class Columns extends Admin\Page
 	 */
 	private $notices = array();
 
+	/** @var DefaultColumns */
+	private $default_columns;
+
 	public function __construct() {
+		$this->default_columns = new DefaultColumns();
+
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 	}
 
@@ -44,7 +50,10 @@ class Columns extends Admin\Page
 		$list_screen = $this->get_list_screen();
 
 		if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->is_read_only() ) {
-			$notice = new Notice( sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $list_screen->get_screen_link(), $list_screen->get_label() ) ) );
+
+			$first_visit_link = add_query_arg( array( 'ac_action' => 'first-visit' ), $list_screen->get_screen_link() );
+
+			$notice = new Notice( sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $first_visit_link, $list_screen->get_label() ) ) );
 			$notice
 				->set_type( Notice::WARNING )
 				->register();
@@ -124,8 +133,8 @@ class Columns extends Admin\Page
 			'clone'  => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 			'error'  => __( 'Invalid response.', 'codepress-admin-columns' ),
 			'errors' => array(
-				'save_settings' => __( 'There was an error during saving the column settings.', 'codepress-admin-columns' ),
-				'loading_column'      => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
+				'save_settings'  => __( 'There was an error during saving the column settings.', 'codepress-admin-columns' ),
+				'loading_column' => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
 			),
 		);
 
@@ -279,6 +288,7 @@ class Columns extends Admin\Page
 	public function render() {
 
 		$list_screen = $this->get_list_screen();
+
 		?>
 
 		<div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
