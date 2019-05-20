@@ -4,6 +4,7 @@ let config = {
 	entry : {
 		'admin-general' : './js/admin-general.js',
 		'admin-page-columns' : [ './js/admin-page-columns.js' ],
+		'admin-page-addons' : './js/admin-page-addons.js',
 		'message-review' : './js/message-review.js',
 		'notice-dismissible' : './js/notice-dismissible.js',
 		'table' : './js/table.js'

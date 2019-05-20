@@ -19,31 +19,31 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin.php:68, classes/Check/Review.php:126, classes/Plugin/Updater.php:105, classes/Plugin/Updater.php:117, classes/Admin/Page/Columns.php:29
+#: classes/Admin.php:68, classes/Check/Review.php:126, classes/Plugin/Updater.php:105, classes/Plugin/Updater.php:117, classes/Admin/Page/Columns.php:35
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/AdminColumns.php:132
+#: classes/AdminColumns.php:134
 msgid "Invalid item ID."
 msgstr ""
 
-#: classes/AdminColumns.php:138
+#: classes/AdminColumns.php:140
 msgid "Invalid list screen."
 msgstr ""
 
-#: classes/AdminColumns.php:144
+#: classes/AdminColumns.php:146
 msgid "Invalid column."
 msgstr ""
 
-#: classes/AdminColumns.php:148
+#: classes/AdminColumns.php:150
 msgid "Invalid method."
 msgstr ""
 
-#: classes/AdminColumns.php:220, classes/Admin/Page/Settings.php:20
+#: classes/AdminColumns.php:208, classes/Admin/Page/Settings.php:20
 msgid "Settings"
 msgstr ""
 
-#: classes/ListScreen.php:732
+#: classes/ListScreen.php:731
 msgid "No columns settings available."
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "the addons page"
 msgstr ""
 
-#: classes/Check/Review.php:125, classes/Admin/Page/Addons.php:36
+#: classes/Check/Review.php:125, classes/Admin/Page/Addons.php:33
 msgid "Admin Columns Pro"
 msgstr ""
 
@@ -235,11 +235,19 @@ msgstr ""
 msgid "Run the updater"
 msgstr ""
 
-#: classes/Table/Screen.php:133, classes/Table/Screen.php:135, classes/Settings/Column/MediaLink.php:64
+#: classes/Table/Screen.php:59
+msgid "the settings page"
+msgstr ""
+
+#: classes/Table/Screen.php:60
+msgid "The available columns are loaded. You can now return to %s."
+msgstr ""
+
+#: classes/Table/Screen.php:147, classes/Table/Screen.php:149, classes/Settings/Column/MediaLink.php:64
 msgid "Download"
 msgstr ""
 
-#: classes/Table/Screen.php:192, classes/Settings/Admin/General/ShowEditButton.php:20
+#: classes/Table/Screen.php:216, classes/Settings/Admin/General/ShowEditButton.php:20
 msgid "Edit columns"
 msgstr ""
 
@@ -603,111 +611,103 @@ msgstr ""
 msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:16
+#: classes/Admin/Page/Addons.php:14
 msgid "Add-ons"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:39
+#: classes/Admin/Page/Addons.php:36
 msgid "All add-ons require %s."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:56
+#: classes/Admin/Page/Addons.php:53
 msgid "%s needs to be installed and active for the add-on to work."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:95
+#: classes/Admin/Page/Addons.php:92
 msgid "%s add-on"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:99
+#: classes/Admin/Page/Addons.php:96
 msgid "%s successfully activated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:107
+#: classes/Admin/Page/Addons.php:104
 msgid "%s could not be activated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:107
+#: classes/Admin/Page/Addons.php:104
 msgid "Please visit the %s page."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:130
+#: classes/Admin/Page/Addons.php:127
 msgid "%s successfully deactivated."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:175
-msgid "You need Admin Columns Pro."
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:183
-msgid "Addon does not exist."
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:213
+#: classes/Admin/Page/Addons.php:165
 msgid "Installed"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:214
+#: classes/Admin/Page/Addons.php:166
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:215
+#: classes/Admin/Page/Addons.php:167
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:364
+#: classes/Admin/Page/Addons.php:305
 msgid "Active"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:367
+#: classes/Admin/Page/Addons.php:308
 msgid "Deactivate"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:371
+#: classes/Admin/Page/Addons.php:312
 msgid "Activate"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:377
+#: classes/Admin/Page/Addons.php:319
 msgid "Download & Install"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:380
+#: classes/Admin/Page/Addons.php:322
 msgid "Get this add-on"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:47, classes/Admin/Request/Column.php:32
+#: classes/Admin/Page/Columns.php:56, classes/Admin/Request/Column.php:32
 msgid "Please visit the %s screen once to load all available columns"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:83
+#: classes/Admin/Page/Columns.php:92
 msgid "Settings for %s restored successfully."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:124, classes/Admin/Request/Column.php:43
+#: classes/Admin/Page/Columns.php:133, classes/Admin/Request/Column.php:43
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:125
+#: classes/Admin/Page/Columns.php:134
 msgid "Invalid response."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:127
+#: classes/Admin/Page/Columns.php:136
 msgid "There was an error during saving the column settings."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:128
+#: classes/Admin/Page/Columns.php:137
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:271
+#: classes/Admin/Page/Columns.php:280
 msgid "The columns for %s are set up via PHP and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:309
+#: classes/Admin/Page/Columns.php:319
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:318
+#: classes/Admin/Page/Columns.php:328
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 

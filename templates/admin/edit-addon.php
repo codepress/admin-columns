@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<li class="<?php echo esc_attr( $this->slug ); ?>">
+<li class="ac-addon -<?php echo esc_attr( $this->slug ); ?>" data-slug="<?php echo $this->slug; ?>">
 	<div class="addon-header">
 		<div class="inner">
 			<img src="<?php echo esc_url( $this->logo ); ?>"/>
