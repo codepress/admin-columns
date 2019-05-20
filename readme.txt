@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.5
 Tested up to: 5.2
 Requires PHP: 5.3.6
-Stable tag: 3.4.3
+Stable tag: 3.4.4
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -213,8 +213,8 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
-Release Date: tbd
+= 4.4.4 =
+Release Date: May 20th, 2019
 
 * [Fixed] Transient class fixed. Unchanged data did not update the timestamp resulting in invalidating the transient constantly
 
