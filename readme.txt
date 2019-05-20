@@ -213,7 +213,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= 4.4.4 =
+= 3.4.4 =
 Release Date: May 20th, 2019
 
 * [Fixed] Transient class fixed. Unchanged data did not update the timestamp resulting in invalidating the transient constantly
