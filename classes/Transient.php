@@ -53,7 +53,11 @@ class Transient
 	 * @throws \Exception
 	 */
 	public function save( $data, $expiration ) {
-		return $this->option->save( $data ) && $this->timestamp->save( time() + intval( $expiration ) );
+
+		// Alway store timestamp before option data.
+		$this->timestamp->save( time() + intval( $expiration ) );
+
+		return $this->option->save( $data );
 	}
 
 }
