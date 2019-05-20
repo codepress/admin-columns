@@ -7,9 +7,6 @@ class ScreenController {
 	/** @var ListScreen */
 	private $list_screen;
 
-	/** @var DefaultColumns */
-	private $default_columns;
-
 	/** @var array */
 	private $headings = array();
 
@@ -18,7 +15,6 @@ class ScreenController {
 	 */
 	public function __construct( ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
-		$this->default_columns = new DefaultColumns();
 
 		// Headings
 		add_filter( $this->list_screen->get_heading_hookname(), array( $this, 'add_headings' ), 200 );
@@ -40,14 +36,14 @@ class ScreenController {
 			return $columns;
 		}
 
+		if ( 'store_default_columns' === filter_input( INPUT_GET, 'acp_action' ) ) {
+			$this->list_screen->save_default_headings( $columns );
+			exit;
+		}
+
 		// Store default headings
 		if ( ! AC()->is_doing_ajax() ) {
 			$this->list_screen->save_default_headings( $columns );
-		}
-
-		if ( 'store-default-heading' === filter_input( INPUT_GET, 'ac-action' ) ) {
-			$this->default_columns->update( $this->list_screen->get_key(), $columns );
-			exit;
 		}
 
 		// Run once
