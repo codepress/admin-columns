@@ -1,3 +1,5 @@
+global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
+
 jQuery( document ).ready( function( $ ) {
 	if ( $( '#cpac' ).length === 0 ) {
 		return false;

@@ -32,6 +32,8 @@ import SettingPro from './admin/columns/settings/pro';
 import SettingWidth from './admin/columns/settings/width';
 import SettingLabel from './admin/columns/settings/label';
 
+global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
+
 let jQuery = $ = require( 'jquery' );
 
 AC.Column = new Initiator(); // Todo remove from

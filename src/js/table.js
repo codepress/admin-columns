@@ -3,7 +3,11 @@ import Tooltip from "./table/tooltips";
 import Modals from "./modules/modals";
 import ScreenOptionsColumns from "./table/screen-options-columns";
 
+// Register the global variable
+global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
+
 Modals.init();
+
 
 jQuery( document ).ready( function( $ ) {
 	ac_quickedit_events( $ );
