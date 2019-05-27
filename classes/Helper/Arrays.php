@@ -5,13 +5,54 @@ namespace AC\Helper;
 class Arrays {
 
 	/**
+	 * @param mixed $array
+	 *
+	 * @return bool
+	 */
+	public function is_associative( $array ) {
+		if ( ! is_array( $array ) ) {
+			return false;
+		}
+
+		foreach ( $array as $key => $value ) {
+			if ( is_string( $key ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param array  $array
+	 * @param string $glue
+	 *
+	 * @return string
+	 */
+	public function implode_associative( array $array, $glue ) {
+		$result = array();
+
+		foreach ( $array as $key => $item ) {
+			if ( is_array( $item ) ) {
+				$result[] = $this->implode_associative( $item, $glue );
+			} else if ( is_numeric( $key ) ) {
+				$result[] = $item;
+			} else {
+				$result[] = sprintf( '%s: %s', $key, $item );
+			}
+		}
+
+		return implode( $glue, $result );
+	}
+
+	/**
 	 * Implode for multi dimensional array
-	 * @since 3.0
 	 *
 	 * @param string       $glue
 	 * @param string|array $pieces
 	 *
 	 * @return string Imploded array
+	 * @since 3.0
 	 */
 	public function implode_recursive( $glue, $pieces ) {
 		if ( is_array( $pieces ) ) {
@@ -36,13 +77,13 @@ class Arrays {
 
 	/**
 	 * Replace a single key in an associative array
-	 * @since 2.2.7
 	 *
 	 * @param array      $input   Input array.
 	 * @param int|string $old_key Key to replace.
 	 * @param int|string $new_key Key to replace $old_key with
 	 *
 	 * @return array
+	 * @since 2.2.7
 	 */
 	public function key_replace( $input, $old_key, $new_key ) {
 		$keys = array_keys( $input );
@@ -59,7 +100,6 @@ class Arrays {
 
 	/**
 	 * Indents any object as long as it has a unique id and that of its parent.
-	 * @since 1.0
 	 *
 	 * @param array  $array
 	 * @param int    $parentId
@@ -68,6 +108,7 @@ class Arrays {
 	 * @param string $childrenKey
 	 *
 	 * @return array Indented Array
+	 * @since 1.0
 	 */
 	public function indent( $array, $parentId = 0, $parentKey = 'post_parent', $selfKey = 'ID', $childrenKey = 'children' ) {
 		$indent = array();
