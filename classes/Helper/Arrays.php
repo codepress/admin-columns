@@ -34,15 +34,23 @@ class Arrays {
 
 		foreach ( $array as $key => $item ) {
 			if ( is_array( $item ) ) {
-				$result[] = $this->implode_associative( $item, $glue );
+				$result[] = sprintf( '%s[ %s ]', $key, $this->implode_associative( $item, $glue ) );
 			} else if ( is_numeric( $key ) ) {
-				$result[] = $item;
+				$result[] = $this->wrap_boolean_in_italic( $item );
 			} else {
-				$result[] = sprintf( '%s: %s', $key, $item );
+				$result[] = sprintf( '%s: %s', $key, $this->wrap_boolean_in_italic( $item ) );
 			}
 		}
 
 		return implode( $glue, $result );
+	}
+
+	private function wrap_boolean_in_italic( $value ) {
+		if ( is_bool( $value ) ) {
+			$value = sprintf( '<em>%s</em>', $value ? 'true' : 'false' );
+		}
+
+		return $value;
 	}
 
 	/**
