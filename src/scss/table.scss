@@ -703,7 +703,7 @@ div.cpac-color span {
 			color: transparent;
 			margin-right: -8px;
 
-			a {
+			a, button {
 				@extend .cpac_wp_button;
 				display: inline-block;
 				position: relative;
@@ -727,7 +727,7 @@ div.cpac-color span {
 			&.unapprove, &.spam, &.untrash, &.unspam, &.reply, &.delete,
 			&.backend, &.visit, &.deactivate, &.archive, &.unarchive, &.activate, &.download {
 
-				a {
+				a, button.button-link {
 					text-indent: -3000px;
 					&:before {
 						text-indent: 0;
@@ -738,8 +738,10 @@ div.cpac-color span {
 			&.edit a:before {
 				content: "\f464";
 			}
-			&.inline a:before, &.quickedit a:before {
-				content: "\f119";
+			&.inline {
+				a:before, &.quickedit a:before, button.button-link:before {
+					content: "\f119";
+				}
 			}
 			&.trash {
 				a {
