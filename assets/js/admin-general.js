@@ -110,7 +110,7 @@ jQuery(document).ready(function ($) {
  *
  */
 
-function ac_pointers($) {
+global.ac_pointers = function ($) {
   $('.ac-pointer').each(function () {
     ac_pointer($(this));
   });
@@ -120,9 +120,9 @@ function ac_pointers($) {
     $(this).removeClass('hover');
     $('.ac-pointer').trigger('close');
   });
-}
+};
 
-function ac_pointer($el) {
+global.ac_pointer = function ($el) {
   var el = $el,
       $ = jQuery,
       html = el.attr('rel'),
@@ -190,7 +190,7 @@ function ac_pointer($el) {
       el.pointer('close');
     }
   });
-}
+};
 /*
  * Help
  *

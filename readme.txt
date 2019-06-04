@@ -217,6 +217,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: tbd
 
 * [Fixed] Styling issue on the WordPress Customize page
+* [Fixed] Re-init tooltips when column is reloaded or added
 
 = 3.4.4 =
 Release Date: May 20th, 2019

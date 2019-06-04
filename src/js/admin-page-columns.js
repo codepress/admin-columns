@@ -68,4 +68,14 @@ jQuery( document ).ready( function() {
 
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );
+
+	jQuery( document ).on( 'AC_Column_Change', function() {
+		ac_pointers( jQuery );
+	} );
+
+	jQuery( document ).on( 'AC_Column_Created', function() {
+		setTimeout( function() {
+			ac_pointers( jQuery );
+		}, 100 )
+	} );
 } );

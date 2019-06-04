@@ -171,6 +171,14 @@ jQuery(document).ready(function () {
 
   new _menu.default().init();
   new _feedback.default('.sidebox#direct-feedback');
+  jQuery(document).on('AC_Column_Change', function () {
+    ac_pointers(jQuery);
+  });
+  jQuery(document).on('AC_Column_Created', function () {
+    setTimeout(function () {
+      ac_pointers(jQuery);
+    }, 100);
+  });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 

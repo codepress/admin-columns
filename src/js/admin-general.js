@@ -13,9 +13,9 @@ jQuery( document ).ready( function( $ ) {
  * WP Pointer
  *
  */
-function ac_pointers( $ ) {
+global.ac_pointers = function( $ ) {
 
-	$( '.ac-pointer' ).each( function() { ac_pointer( $(this) ) } );
+	$( '.ac-pointer' ).each( function() { ac_pointer( $( this ) ) } );
 
 	$( '.ac-wp-pointer' ).hover( function() {
 		$( this ).addClass( 'hover' );
@@ -25,7 +25,7 @@ function ac_pointers( $ ) {
 	} );
 }
 
-function ac_pointer( $el ) {
+global.ac_pointer = function( $el ) {
 	let el = $el,
 		$ = jQuery,
 		html = el.attr( 'rel' ),
@@ -72,8 +72,7 @@ function ac_pointer( $el ) {
 		el.click( function() {
 			if ( el.hasClass( 'open' ) ) {
 				el.removeClass( 'open' );
-			}
-			else {
+			} else {
 				el.addClass( 'open' );
 			}
 		} );
