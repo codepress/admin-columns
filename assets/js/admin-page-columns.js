@@ -194,13 +194,11 @@ jQuery(document).ready(function () {
 "use strict";
 
 
-__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
-
 __webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
 
-__webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
-
 __webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
+
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 
 __webpack_require__(/*! core-js/modules/es6.regexp.replace */ "./node_modules/core-js/modules/es6.regexp.replace.js");
 
@@ -872,13 +870,11 @@ __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/cor
 
 __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
 
-__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
-
 __webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
 
-__webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
-
 __webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
+
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 
 var _column = _interopRequireDefault(__webpack_require__(/*! ./column */ "./js/admin/columns/column.js"));
 
@@ -1425,6 +1421,8 @@ module.exports = image;
 "use strict";
 
 
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
 var _modals = _interopRequireDefault(__webpack_require__(/*! ../../../modules/modals */ "./js/modules/modals.js"));
 
 var _modal = _interopRequireDefault(__webpack_require__(/*! ../../../modules/modal */ "./js/modules/modal.js"));
@@ -1754,6 +1752,8 @@ module.exports = width;
 "use strict";
 
 
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
 var _modals = _interopRequireDefault(__webpack_require__(/*! ./modals */ "./js/modules/modals.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -1836,6 +1836,7 @@ function () {
     key: "open",
     value: function open() {
       this.onOpen();
+      this.el.removeAttribute('style');
       this.el.classList.add('-active');
     }
   }, {
@@ -2171,40 +2172,6 @@ var speciesConstructor = __webpack_require__(/*! ./_array-species-constructor */
 
 module.exports = function (original, length) {
   return new (speciesConstructor(original))(length);
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_classof.js":
-/*!**************************************************!*\
-  !*** ./node_modules/core-js/modules/_classof.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(/*! ./_cof */ "./node_modules/core-js/modules/_cof.js");
-var TAG = __webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js")('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
 };
 
 
@@ -3288,28 +3255,6 @@ __webpack_require__(/*! ./_object-sap */ "./node_modules/core-js/modules/_object
     return $keys(toObject(it));
   };
 });
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/es6.object.to-string.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/core-js/modules/es6.object.to-string.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 19.1.3.6 Object.prototype.toString()
-var classof = __webpack_require__(/*! ./_classof */ "./node_modules/core-js/modules/_classof.js");
-var test = {};
-test[__webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js")('toStringTag')] = 'z';
-if (test + '' != '[object z]') {
-  __webpack_require__(/*! ./_redefine */ "./node_modules/core-js/modules/_redefine.js")(Object.prototype, 'toString', function toString() {
-    return '[object ' + classof(this) + ']';
-  }, true);
-}
 
 
 /***/ }),

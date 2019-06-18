@@ -216,6 +216,7 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: tbd
 
+* [Fixed] Removed flikering for Pro modal
 * [Fixed] Styling issue on the WordPress Customize page
 * [Fixed] Re-init tooltips when column is reloaded or added
 
