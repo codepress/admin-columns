@@ -96,6 +96,8 @@
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
+__webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
+
 var _form = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.js"));
 
 var _modals = _interopRequireDefault(__webpack_require__(/*! ./modules/modals */ "./js/modules/modals.js"));
@@ -171,12 +173,16 @@ jQuery(document).ready(function () {
 
   new _menu.default().init();
   new _feedback.default('.sidebox#direct-feedback');
-  jQuery(document).on('AC_Column_Change', function () {
-    ac_pointers(jQuery);
+  jQuery(document).on('AC_Column_Change', function (e, column) {
+    column.$el.find('.ac-pointer').each(function () {
+      ac_pointer($(this));
+    });
   });
-  jQuery(document).on('AC_Column_Created', function () {
+  jQuery(document).on('AC_Column_Created', function (e, column) {
     setTimeout(function () {
-      ac_pointers(jQuery);
+      column.$el.find('.ac-pointer').each(function () {
+        ac_pointer($(this));
+      });
     }, 100);
   });
 });
@@ -440,7 +446,7 @@ function () {
     value: function create() {
       this.initNewInstance();
       this.bindEvents();
-      jQuery(document).trigger('AC_Column_Created', [self]);
+      jQuery(document).trigger('AC_Column_Created', [this]);
       return this;
     }
     /**

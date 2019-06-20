@@ -69,13 +69,17 @@ jQuery( document ).ready( function() {
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );
 
-	jQuery( document ).on( 'AC_Column_Change', function() {
-		ac_pointers( jQuery );
+	jQuery( document ).on( 'AC_Column_Change', function( e, column ) {
+		column.$el.find( '.ac-pointer' ).each( function() {
+			ac_pointer( $( this ) );
+		} );
 	} );
 
-	jQuery( document ).on( 'AC_Column_Created', function() {
+	jQuery( document ).on( 'AC_Column_Created', function( e, column ) {
 		setTimeout( function() {
-			ac_pointers( jQuery );
+			column.$el.find( '.ac-pointer' ).each( function() {
+				ac_pointer( $( this ) );
+			} );
 		}, 100 )
 	} );
 } );
