@@ -77,7 +77,7 @@ class Form {
 
 	initColumns() {
 		let self = this;
-		self.columns = [];
+		self.columns = {};
 
 		this.$form.find( '.ac-column' ).each( function() {
 			let $el = jQuery( this );
@@ -92,7 +92,7 @@ class Form {
 
 	reindexColumns() {
 		let self = this;
-		self.columns = [];
+		self.columns = {};
 
 		this.$form.find( '.ac-column' ).each( function() {
 			let column = jQuery( this ).data( 'column' );

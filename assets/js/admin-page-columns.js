@@ -175,13 +175,13 @@ jQuery(document).ready(function () {
   new _feedback.default('.sidebox#direct-feedback');
   jQuery(document).on('AC_Column_Change', function (e, column) {
     column.$el.find('.ac-pointer').each(function () {
-      ac_pointer($(this));
+      ac_pointer(jQuery(this));
     });
   });
   jQuery(document).on('AC_Column_Created', function (e, column) {
     setTimeout(function () {
       column.$el.find('.ac-pointer').each(function () {
-        ac_pointer($(this));
+        ac_pointer(jQuery(this));
       });
     }, 100);
   });
@@ -970,7 +970,7 @@ function () {
     key: "initColumns",
     value: function initColumns() {
       var self = this;
-      self.columns = [];
+      self.columns = {};
       this.$form.find('.ac-column').each(function () {
         var $el = jQuery(this);
         var column = new _column.default($el);
@@ -983,7 +983,7 @@ function () {
     key: "reindexColumns",
     value: function reindexColumns() {
       var self = this;
-      self.columns = [];
+      self.columns = {};
       this.$form.find('.ac-column').each(function () {
         var column = jQuery(this).data('column');
         self.columns[column.name] = column;
