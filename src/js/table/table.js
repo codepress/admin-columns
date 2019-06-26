@@ -77,7 +77,8 @@ export default class Table {
 		let id = this._getIDFromRow( row );
 
 		this.Columns.getColumnNames().forEach( ( name ) => {
-			let td = row.querySelector( `.column-${name}` );
+			let selector = name.replace( /\./g, '\\.' );
+			let td = row.querySelector( ".column-" + selector );
 
 			if ( td ) {
 				let cell = new Cell( id, name, td );
@@ -102,7 +103,7 @@ export default class Table {
 	 */
 	_getIDFromRow( row ) {
 		let id = row.id;
-		let id_parts = id.split( '-' );
+		let id_parts = id.split( /[_,\-]+/ );
 		let item_id = id_parts[ id_parts.length - 1 ];
 
 		if ( row.classList.contains( 'no-items' ) ) {

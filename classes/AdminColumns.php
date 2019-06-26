@@ -115,7 +115,8 @@ class AdminColumns extends Plugin {
 		$list_screen = $screen->get_list_screen();
 
 		if ( $list_screen instanceof ListScreen ) {
-			new ScreenController( $list_screen );
+			$controller = new ScreenController( $list_screen );
+			$controller->register();
 		}
 	}
 

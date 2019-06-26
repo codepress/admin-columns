@@ -37,7 +37,8 @@ final class Screen implements Registrable {
 	 * Register hooks
 	 */
 	public function register() {
-		new AC\ScreenController( $this->list_screen );
+		$controller = new AC\ScreenController( $this->list_screen );
+		$controller->register();
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_footer', array( $this, 'admin_footer_scripts' ) );

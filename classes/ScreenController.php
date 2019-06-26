@@ -2,7 +2,7 @@
 
 namespace AC;
 
-class ScreenController {
+class ScreenController implements Registrable {
 
 	/** @var ListScreen */
 	private $list_screen;
@@ -15,7 +15,9 @@ class ScreenController {
 	 */
 	public function __construct( ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
+	}
 
+	public function register() {
 		// Headings
 		add_filter( $this->list_screen->get_heading_hookname(), array( $this, 'add_headings' ), 200 );
 
