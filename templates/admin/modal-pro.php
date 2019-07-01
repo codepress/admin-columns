@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 ?>
-<div class="ac-modal -pro" id="ac-modal-pro">
+<div class="ac-modal -pro" id="ac-modal-pro" style="display: none;">
 	<div class="ac-modal__dialog -mascot">
 		<div class="ac-modal__dialog__header">
 			<?php _e( 'Do you like Admin Columns?', 'codepress-admin-columns' ); ?>
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<a class="button button-primary" target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'admin-columns-pro', 'upgrade' ) ); ?>"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
 			<span class="ac-modal__dialog__footer__content"><?php echo sprintf( __( 'Only %s for 1 site', 'codepress-admin-columns' ), '$' . $this->price ); ?></span>
 			<svg class="ac-modal__dialog__mascot">
-				<use xlink:href="<?php echo esc_url( AC()->get_url() ); ?>/assets/images/symbols.svg#zebra-thumbs-up"/>
+				<use xlink:href="<?php echo esc_url( AC()->get_url() ); ?>/assets/images/symbols.svg#zebra-thumbs-up"></use>
 			</svg>
 		</div>
 	</div>

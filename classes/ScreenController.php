@@ -2,7 +2,7 @@
 
 namespace AC;
 
-class ScreenController {
+class ScreenController implements Registrable {
 
 	/** @var ListScreen */
 	private $list_screen;
@@ -15,7 +15,9 @@ class ScreenController {
 	 */
 	public function __construct( ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
+	}
 
+	public function register() {
 		// Headings
 		add_filter( $this->list_screen->get_heading_hookname(), array( $this, 'add_headings' ), 200 );
 
@@ -26,15 +28,19 @@ class ScreenController {
 	}
 
 	/**
-	 * @since 2.0
-	 *
 	 * @param $columns
 	 *
 	 * @return array
+	 * @since 2.0
 	 */
 	public function add_headings( $columns ) {
 		if ( empty( $columns ) ) {
 			return $columns;
+		}
+
+		if ( 'store_default_columns' === filter_input( INPUT_GET, 'acp_action' ) ) {
+			$this->list_screen->save_default_headings( $columns );
+			exit;
 		}
 
 		// Store default headings

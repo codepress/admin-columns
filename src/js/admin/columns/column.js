@@ -236,7 +236,7 @@ class Column {
 		this.initNewInstance();
 		this.bindEvents();
 
-		jQuery( document ).trigger( 'AC_Column_Created', [ self ] );
+		jQuery( document ).trigger( 'AC_Column_Created', [ this ] );
 		return this;
 	}
 

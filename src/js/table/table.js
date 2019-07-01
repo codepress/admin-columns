@@ -77,7 +77,8 @@ export default class Table {
 		let id = this._getIDFromRow( row );
 
 		this.Columns.getColumnNames().forEach( ( name ) => {
-			let td = row.querySelector( `.column-${name}` );
+			let selector = name.replace( /\./g, '\\.' );
+			let td = row.querySelector( ".column-" + selector );
 
 			if ( td ) {
 				let cell = new Cell( id, name, td );
@@ -102,7 +103,7 @@ export default class Table {
 	 */
 	_getIDFromRow( row ) {
 		let id = row.id;
-		let id_parts = id.split( '-' );
+		let id_parts = id.split( /[_,\-]+/ );
 		let item_id = id_parts[ id_parts.length - 1 ];
 
 		if ( row.classList.contains( 'no-items' ) ) {
@@ -134,7 +135,11 @@ export default class Table {
 
 		}
 
-		return item_id;
+		row.dataset.id = item_id;
+
+		document.dispatchEvent( new CustomEvent( 'AC_Table_Row_Id', { detail : { row : row } } ) );
+
+		return row.dataset.id;
 	}
 
 	getRowCellByName( row, column_name ) {
