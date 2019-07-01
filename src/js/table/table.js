@@ -135,7 +135,11 @@ export default class Table {
 
 		}
 
-		return item_id;
+		row.dataset.id = item_id;
+
+		document.dispatchEvent( new CustomEvent( 'AC_Table_Row_Id', { detail : { row : row } } ) );
+
+		return row.dataset.id;
 	}
 
 	getRowCellByName( row, column_name ) {
