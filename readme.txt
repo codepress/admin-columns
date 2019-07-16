@@ -3,9 +3,9 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.5
-Tested up to: 5.2
+Tested up to: 5.2.2
 Requires PHP: 5.3.6
-Stable tag: 3.4.4
+Stable tag: 3.4.5
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -212,6 +212,14 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 3.4.5 =
+Release Date: July 16th, 2019
+
+* [Fixed] Javascript errors on admin pages for specific columns
+* [Fixed] Removed flickering for Pro modal
+* [Fixed] Styling issue on the WordPress Customize page
+* [Fixed] Re-init tooltips when a column is reloaded or added
 
 = 3.4.4 =
 Release Date: May 20th, 2019

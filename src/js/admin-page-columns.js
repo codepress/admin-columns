@@ -32,6 +32,8 @@ import SettingPro from './admin/columns/settings/pro';
 import SettingWidth from './admin/columns/settings/width';
 import SettingLabel from './admin/columns/settings/label';
 
+global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
+
 let jQuery = $ = require( 'jquery' );
 
 AC.Column = new Initiator(); // Todo remove from
@@ -66,4 +68,18 @@ jQuery( document ).ready( function() {
 
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );
+
+	jQuery( document ).on( 'AC_Column_Change', function( e, column ) {
+		column.$el.find( '.ac-pointer' ).each( function() {
+			ac_pointer( jQuery( this ) );
+		} );
+	} );
+
+	jQuery( document ).on( 'AC_Column_Created', function( e, column ) {
+		setTimeout( function() {
+			column.$el.find( '.ac-pointer' ).each( function() {
+				ac_pointer( jQuery( this ) );
+			} );
+		}, 100 )
+	} );
 } );

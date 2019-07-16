@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 ?>
-<div class="ac-modal -pro" id="ac-modal-pro">
+<div class="ac-modal -pro" id="ac-modal-pro" style="display: none;">
 	<div class="ac-modal__dialog -mascot">
 		<div class="ac-modal__dialog__header">
 			<?php _e( 'Do you like Admin Columns?', 'codepress-admin-columns' ); ?>

@@ -86,10 +86,11 @@ class Modal {
 
 	open() {
 		this.onOpen();
+		this.el.removeAttribute( 'style' );
 		this.el.classList.add( '-active' );
 	}
 
-	destroy(){
+	destroy() {
 		this.el.remove();
 	}
 

@@ -124,9 +124,10 @@ class CustomFieldType extends Settings\Column
 
 		/**
 		 * Filter the available custom field types for the meta (custom field) field
-		 * @since 3.0
 		 *
 		 * @param array $field_types Available custom field types ([type] => [label])
+		 *
+		 * @since 3.0
 		 */
 		$grouped_types['custom'] = apply_filters( 'ac/column/custom_field/field_types', array() );
 
@@ -198,6 +199,14 @@ class CustomFieldType extends Settings\Column
 
 		switch ( $this->get_field_type() ) {
 
+			case 'array' :
+				if ( ac_helper()->array->is_associative( $value ) ) {
+					$value = ac_helper()->array->implode_associative( $value, __( ', ' ) );
+				} else {
+					$value = ac_helper()->array->implode_recursive( __( ', ' ), $value );
+				}
+
+				break;
 			case 'date' :
 				$timestamp = ac_helper()->date->strtotime( $value );
 				if ( $timestamp ) {
@@ -205,7 +214,6 @@ class CustomFieldType extends Settings\Column
 				}
 
 				break;
-
 			case "title_by_id" :
 				$values = array();
 				foreach ( $this->get_ids_from_array_or_string( $value ) as $id ) {
@@ -214,8 +222,8 @@ class CustomFieldType extends Settings\Column
 				}
 
 				$value = implode( ac_helper()->html->divider(), $values );
-				break;
 
+				break;
 			case "user_by_id" :
 				$values = array();
 				foreach ( $this->get_ids_from_array_or_string( $value ) as $id ) {
