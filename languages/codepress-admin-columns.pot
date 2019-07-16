@@ -23,23 +23,23 @@ msgstr ""
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/AdminColumns.php:134
+#: classes/AdminColumns.php:133
 msgid "Invalid item ID."
 msgstr ""
 
-#: classes/AdminColumns.php:140
+#: classes/AdminColumns.php:139
 msgid "Invalid list screen."
 msgstr ""
 
-#: classes/AdminColumns.php:146
+#: classes/AdminColumns.php:145
 msgid "Invalid column."
 msgstr ""
 
-#: classes/AdminColumns.php:150
+#: classes/AdminColumns.php:149
 msgid "Invalid method."
 msgstr ""
 
-#: classes/AdminColumns.php:208, classes/Admin/Page/Settings.php:20
+#: classes/AdminColumns.php:207, classes/Admin/Page/Settings.php:20
 msgid "Settings"
 msgstr ""
 
@@ -235,19 +235,19 @@ msgstr ""
 msgid "Run the updater"
 msgstr ""
 
-#: classes/Table/Screen.php:59
+#: classes/Table/Screen.php:60
 msgid "the settings page"
 msgstr ""
 
-#: classes/Table/Screen.php:60
+#: classes/Table/Screen.php:61
 msgid "The available columns are loaded. You can now return to %s."
 msgstr ""
 
-#: classes/Table/Screen.php:147, classes/Table/Screen.php:149, classes/Settings/Column/MediaLink.php:64
+#: classes/Table/Screen.php:148, classes/Table/Screen.php:150, classes/Settings/Column/MediaLink.php:64
 msgid "Download"
 msgstr ""
 
-#: classes/Table/Screen.php:216, classes/Settings/Admin/General/ShowEditButton.php:20
+#: classes/Table/Screen.php:217, classes/Settings/Admin/General/ShowEditButton.php:20
 msgid "Edit columns"
 msgstr ""
 
@@ -491,7 +491,7 @@ msgstr ""
 msgid "The custom field column uses the custom fields from posts and users. There are 14 types which you can set."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:22, classes/Settings/Column/CustomFieldType.php:170, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:25, classes/Settings/Column/Type.php:88
+#: classes/Admin/HelpTab/CustomField.php:22, classes/Settings/Column/CustomFieldType.php:171, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:25, classes/Settings/Column/Type.php:88
 msgid "Default"
 msgstr ""
 
@@ -1141,23 +1141,23 @@ msgstr ""
 msgid "Number of Fields"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:151
+#: classes/Settings/Column/CustomFieldType.php:152
 msgid "Basic"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:152
+#: classes/Settings/Column/CustomFieldType.php:153
 msgid "Relational"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:153
+#: classes/Settings/Column/CustomFieldType.php:154
 msgid "Choice"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:154
+#: classes/Settings/Column/CustomFieldType.php:155
 msgid "Multiple"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:155, classes/Settings/Column/Image.php:112, classes/Settings/Column/Type.php:91
+#: classes/Settings/Column/CustomFieldType.php:156, classes/Settings/Column/Image.php:112, classes/Settings/Column/Type.php:91
 msgid "Custom"
 msgstr ""
 

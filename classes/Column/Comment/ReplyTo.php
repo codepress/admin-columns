@@ -17,7 +17,7 @@ class ReplyTo extends Column {
 	public function get_value( $id ) {
 		$parent_id = $this->get_raw_value( $id );
 
-		if( ! $parent_id ){
+		if ( ! $parent_id ) {
 			return $this->get_empty_char();
 		}
 
