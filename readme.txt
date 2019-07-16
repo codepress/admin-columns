@@ -214,7 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 3.4.5 =
-Release Date: July 8th, 2019
+Release Date: July 16th, 2019
 
 * [Fixed] Javascript errors on admin pages for specific columns
 * [Fixed] Removed flikering for Pro modal
