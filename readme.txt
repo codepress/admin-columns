@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Improved] Setting for adding a link to related comments display
+
 = 3.4.5 =
 Release Date: July 16th, 2019
 
