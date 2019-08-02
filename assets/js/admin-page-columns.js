@@ -220,6 +220,11 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var STATES = {
+  CLOSED: 'closed',
+  OPEN: 'open'
+};
+
 var Column =
 /*#__PURE__*/
 function () {
@@ -229,6 +234,7 @@ function () {
     this.$el = $el;
     this.el = $el[0];
     this.settings = [];
+    this.state = STATES.CLOSED;
     this._type = this.$el.data('type');
   }
 
@@ -340,11 +346,16 @@ function () {
       });
     }
   }, {
+    key: "getState",
+    value: function getState() {
+      return this.state;
+    }
+  }, {
     key: "toggle",
     value: function toggle() {
       var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 150;
 
-      if (this.$el.hasClass('opened')) {
+      if (this.getState() === STATES.OPEN) {
         this.close(duration);
       } else {
         this.open(duration);
@@ -355,12 +366,14 @@ function () {
     value: function close() {
       var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       this.$el.removeClass('opened').find('.ac-column-body').slideUp(duration);
+      this.state = STATES.CLOSED;
     }
   }, {
     key: "open",
     value: function open() {
       var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       this.$el.addClass('opened').find('.ac-column-body').slideDown(duration);
+      this.state = STATES.OPEN;
     }
   }, {
     key: "showMessage",
@@ -433,7 +446,11 @@ function () {
             self.$el = column;
             self.el = column[0];
             self.bindEvents();
-            self.open();
+
+            if (self.getState() === STATES.OPEN) {
+              self.open();
+            }
+
             jQuery(document).trigger('AC_Column_Refresh', [self]);
           }
         }

@@ -216,6 +216,7 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: tbd
 
+* [Improved] Don't open column settings when toggling editing on settings page
 * [Improved] Setting for adding a link to related comments display
 
 = 3.4.5 =
