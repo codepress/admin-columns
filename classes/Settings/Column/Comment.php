@@ -31,16 +31,21 @@ class Comment extends Settings\Column
 		switch ( $this->get_comment_property_display() ) {
 
 			case 'date' :
-				return array( new Settings\Column\Date( $this->column ) );
+				return array(
+					new Settings\Column\Date( $this->column ),
+					new Settings\Column\CommentLink( $this->column ),
+				);
 
 				break;
 			case 'comment' :
-				return array( new Settings\Column\StringLimit( $this->column ) );
+				return array(
+					new Settings\Column\StringLimit( $this->column ),
+					new Settings\Column\CommentLink( $this->column ),
+				);
 
 				break;
-
 			default :
-				return array();
+				return array( new Settings\Column\CommentLink( $this->column ) );
 		}
 	}
 
