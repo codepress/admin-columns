@@ -20,7 +20,7 @@ class CustomFields extends Select\Entities
 	 */
 	public function __construct( array $args = array(), Value $value = null ) {
 		if ( null === $value ) {
-			$value = new Value\Copy();
+			$value = new Value\NullFormatter();
 		}
 
 		$args = array_merge( array(

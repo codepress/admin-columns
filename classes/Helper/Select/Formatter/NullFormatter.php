@@ -6,11 +6,11 @@ use AC\Helper\Select;
 
 use WP_Post;
 
-class Copy extends Select\Formatter {
+class NullFormatter extends Select\Formatter {
 
 	public function __construct( Select\Entities $entities, Select\Value $value = null ) {
 		if ( null === $value ) {
-			$value = new Select\Value\Copy();
+			$value = new Select\Value\NullFormatter();
 		}
 
 		parent::__construct( $entities, $value );
@@ -21,8 +21,8 @@ class Copy extends Select\Formatter {
 	 *
 	 * @return string
 	 */
-	public function get_label( $test ) {
-		return $test;
+	public function get_label( $label ) {
+		return $label;
 	}
 
 }

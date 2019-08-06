@@ -6,8 +6,8 @@ use AC\Admin;
 use AC\Ajax;
 use AC\Capabilities;
 use AC\Column;
-use AC\Helper\Select;
 use AC\DefaultColumns;
+use AC\Helper\Select;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenGroups;
@@ -191,20 +191,28 @@ class Columns extends Admin\Page
 		$response = new Response\Json();
 
 		$args = array(
-			'meta_type' => $request->get('meta_type'),
+			'meta_type' => $request->get( 'meta_type' ),
 		);
 
-		if ( $request->get('post_type') ) {
-			$args['post_type'] = $request->get('post_type');
+		if ( $request->get( 'post_type' ) ) {
+			$args['post_type'] = $request->get( 'post_type' );
 		}
 
 		$entities = new Select\Entities\CustomFields( $args );
 
+		if ( is_multisite() ) {
+			$formatter = new Select\Group\MultiSite(
+				new Select\Formatter\NullFormatter( $entities )
+			);
+		} else {
+			$formatter = new Select\Group\CustomField(
+				new Select\Formatter\NullFormatter( $entities )
+			);
+		}
+
 		$options = new Select\Options\Paginated(
 			$entities,
-			new Select\Group\CustomField(
-				new Select\Formatter\Copy( $entities )
-			)
+			$formatter
 		);
 
 		$select = new Select\Response( $options );
