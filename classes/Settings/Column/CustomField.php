@@ -4,39 +4,48 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Settings;
+use AC\View;
 
-class CustomField extends Meta {
+class CustomField extends Settings\Column {
+
+	/**
+	 * @var string
+	 */
+	private $field;
+
+	protected function define_options() {
+		return array( 'field' );
+	}
+
+	/**
+	 * @return View
+	 */
+	public function create_view() {
+		$view = new View( array(
+			'label'   => __( 'Field', 'codepress-admin-columns' ),
+			'setting' => $this->get_setting_field(),
+		) );
+
+		return $view;
+	}
 
 	protected function set_name() {
 		$this->name = 'custom_field';
 	}
 
 	protected function get_setting_field() {
-		$use_text_input = apply_filters( 'ac/column/custom_field/use_text_input', false );
+		$options = $this->get_field() ? array( $this->get_field() => $this->get_field() ) : array();
 
-		if ( $use_text_input ) {
-			return $this->create_element( 'text', 'field' )->set_attribute( 'placeholder', __( 'Custom field key', 'codepress-admin-columns' ) );
-		}
-
-		$field = parent::get_setting_field();
-		$field->set_no_result( __( 'No custom fields available.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Please create a %s item first.', 'codepress-admin-columns' ), '<strong>' . $this->column->get_list_screen()->get_singular_label() . '</strong>' ) );
-
-		return $field;
+		return $this->create_element( 'select', 'field' )
+		            ->set_attribute( 'data-selected', $this->get_field() )
+		            ->set_attribute( 'data-post_type', $this->get_post_type() )
+		            ->set_attribute( 'data-type', $this->get_meta_type() )
+		            ->set_options( $options )
+		            ->set_attribute( 'class', 'custom_field' );
 	}
 
 	public function get_dependent_settings() {
 		return array( new Settings\Column\CustomFieldType( $this->column ) );
-	}
-
-	protected function get_cache_group() {
-		return 'ac_settings_custom_field';
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function get_cache_key() {
-		return parent::get_cache_key() . $this->get_post_type();
 	}
 
 	protected function get_meta_type() {
@@ -51,36 +60,16 @@ class CustomField extends Meta {
 	}
 
 	/**
-	 * @return array|false
+	 * @return string
 	 */
-	protected function get_meta_keys() {
-		$query = new AC\Meta\Query( $this->get_meta_type() );
-
-		$query->select( 'meta_key' )
-		      ->distinct()
-		      ->order_by( 'meta_key' );
-
-		if ( $this->get_post_type() ) {
-			$query->where_post_type( $this->get_post_type() );
-		}
-
-		$keys = $query->get();
-
-		if ( empty( $keys ) ) {
-			$keys = false;
-		}
-
-		/**
-		 * @param array                       $keys Distinct meta keys from DB
-		 * @param Settings\Column\CustomField $this
-		 */
-		return apply_filters( 'ac/column/custom_field/meta_keys', $keys, $this );
+	public function get_field() {
+		return $this->field;
 	}
 
 	/**
 	 * @param string $field
 	 *
-	 * @return bool
+	 * @return self
 	 */
 	public function set_field( $field ) {
 
@@ -89,7 +78,9 @@ class CustomField extends Meta {
 			$field = substr( $field, strlen( 'cpachidden' ) );
 		}
 
-		return parent::set_field( $field );
+		$this->field = $field;
+
+		return $this;
 	}
 
 }
