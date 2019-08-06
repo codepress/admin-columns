@@ -2,17 +2,12 @@
 
 namespace AC\Helper\Select\Entities;
 
+use AC;
 use AC\Helper\Select;
 use AC\Helper\Select\Value;
-use WP_Query;
 
 class CustomFields extends Select\Entities
 	implements Select\Paginated {
-
-	/**
-	 * @var WP_Query
-	 */
-	protected $query;
 
 	/**
 	 * @param array $args
@@ -28,7 +23,7 @@ class CustomFields extends Select\Entities
 			'post_type' => false,
 		), $args );
 
-		$query = new \AC\Meta\Query( $args['meta_type'] );
+		$query = new AC\Meta\Query( $args['meta_type'] );
 
 		$query->select( 'meta_key' )
 		      ->distinct()

@@ -201,7 +201,7 @@ class Columns extends Admin\Page
 		$entities = new Select\Entities\CustomFields( $args );
 
 		if ( is_multisite() ) {
-			$formatter = new Select\Group\MultiSite(
+			$formatter = new Select\Group\CustomField\MultiSite(
 				new Select\Formatter\NullFormatter( $entities )
 			);
 		} else {
@@ -210,11 +210,7 @@ class Columns extends Admin\Page
 			);
 		}
 
-		$options = new Select\Options\Paginated(
-			$entities,
-			$formatter
-		);
-
+		$options = new Select\Options\Paginated( $entities, $formatter );
 		$select = new Select\Response( $options );
 
 		$response

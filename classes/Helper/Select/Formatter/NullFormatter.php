@@ -4,8 +4,6 @@ namespace AC\Helper\Select\Formatter;
 
 use AC\Helper\Select;
 
-use WP_Post;
-
 class NullFormatter extends Select\Formatter {
 
 	public function __construct( Select\Entities $entities, Select\Value $value = null ) {
@@ -17,7 +15,7 @@ class NullFormatter extends Select\Formatter {
 	}
 
 	/**
-	 * @param WP_Post $post
+	 * @param string $label
 	 *
 	 * @return string
 	 */
