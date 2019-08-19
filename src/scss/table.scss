@@ -701,7 +701,8 @@ div.cpac-color span {
 	.cpac_use_icons + .row-actions {
 		> span {
 			color: transparent;
-			margin-right: -8px;
+			font-size: 0;
+			margin-right: 5px;
 
 			a, button {
 				@extend .cpac_wp_button;
