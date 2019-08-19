@@ -1344,6 +1344,9 @@ function () {
     value: function bindEvents() {
       var input = this.setting.querySelector('.custom_field');
       var request = loadSingleRequestManager(input.dataset.type, input.dataset.post_type);
+      this.setting.querySelectorAll('.select2').forEach(function (el) {
+        el.remove();
+      });
       request.getOptions().done(function (data) {
         jQuery(input).ac_select2({
           theme: 'acs2',
