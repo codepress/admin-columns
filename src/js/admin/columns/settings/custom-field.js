@@ -82,17 +82,17 @@ class CustomField {
 	bindEvents() {
 		const input = this.setting.querySelector( '.custom_field' );
 		const request = loadSingleRequestManager( input.dataset.type, input.dataset.post_type );
+		const editingAvailable = this.column.el.querySelectorAll( '[data-setting="edit"][data-indicator-toggle]' ).length > 0;
 
 		this.setting.querySelectorAll( '.select2' ).forEach( el => {
 			el.remove();
 		} );
 
 		request.getOptions().done( data => {
-
 			jQuery( input ).ac_select2( {
 				theme : 'acs2',
 				width : '100%',
-				tags : true,
+				tags : editingAvailable,
 				dropdownCssClass : '-customfields',
 				data : data
 			} );

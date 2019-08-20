@@ -1344,6 +1344,7 @@ function () {
     value: function bindEvents() {
       var input = this.setting.querySelector('.custom_field');
       var request = loadSingleRequestManager(input.dataset.type, input.dataset.post_type);
+      var editingAvailable = this.column.el.querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0;
       this.setting.querySelectorAll('.select2').forEach(function (el) {
         el.remove();
       });
@@ -1351,7 +1352,7 @@ function () {
         jQuery(input).ac_select2({
           theme: 'acs2',
           width: '100%',
-          tags: true,
+          tags: editingAvailable,
           dropdownCssClass: '-customfields',
           data: data
         });

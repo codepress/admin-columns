@@ -216,7 +216,9 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: tbd
 
-* [Improved] Don't open column settings when toggling editing on settings page
+* [Improved] Search the list of available custom fields in the drop down with Select2
+* [Improved] Change the label for Custom Field column Excerpt to Text
+* [Improved] Don't open column settings when column refreshes
 * [Improved] Setting for adding a link to related comments display
 
 = 3.4.5 =
