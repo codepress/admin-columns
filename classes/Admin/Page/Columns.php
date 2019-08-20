@@ -141,6 +141,9 @@ class Columns extends Admin\Page
 			),
 		);
 
+		wp_enqueue_style( 'ac-select2' );
+		wp_enqueue_script( 'ac-select2' );
+
 		wp_localize_script( 'ac-admin-page-columns', 'AC', $params );
 
 		do_action( 'ac/settings/scripts' );
