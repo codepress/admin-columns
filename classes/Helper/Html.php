@@ -10,8 +10,8 @@ class Html {
 	 * @param string $key
 	 * @param string $value
 	 *
-	 * @since 3.0
 	 * @return string
+	 * @since 3.0
 	 */
 	public function get_attribute_as_string( $key, $value ) {
 		return sprintf( '%s="%s"', $key, esc_attr( trim( $value ) ) );
@@ -20,8 +20,8 @@ class Html {
 	/**
 	 * @param array $attributes
 	 *
-	 * @since 3.0
 	 * @return string
+	 * @since 3.0
 	 */
 	public function get_attributes_as_string( array $attributes ) {
 		$output = array();
@@ -390,6 +390,10 @@ class Html {
 	}
 
 	public function more( $array, $number = 10, $glue = ', ' ) {
+		if ( ! $number ) {
+			return implode( $glue, $array );
+		}
+
 		$first_set = array_slice( $array, 0, $number );
 		$last_set = array_slice( $array, $number );
 
@@ -400,11 +404,11 @@ class Html {
 			echo implode( $glue, $first_set );
 
 			if ( $last_set ) { ?>
-				<span class="ac-more-link-show">( <a><?php printf( __( 'Show %s more', 'codepress-admin-columns' ), count( $last_set ) ); ?></a> )</span>
+				<span class="ac-more-link-show"> <a><?php printf( __( 'Show %s more', 'codepress-admin-columns' ), count( $last_set ) ); ?></a></span>
 				<span class="ac-show-more-block">
 					<?php echo $glue . implode( $glue, $first_set ); ?>
 					<br/>
-                    <span class="ac-more-link-hide">( <a><?php _e( 'Hide', 'codepress-admin-columns' ); ?></a> )</span>
+                    <span class="ac-more-link-hide"> <a><?php _e( 'Hide', 'codepress-admin-columns' ); ?></a></span>
                 </span>
 				<?php
 			}
