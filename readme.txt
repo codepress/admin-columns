@@ -214,7 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 3.4.6 =
-Release Date: August 21th, 2019
+Release Date: August 21st, 2019
 
 * [Improved] Search the list of available custom fields in the drop down with Select2
 * [Improved] Change the label for Custom Field column Excerpt to Text
