@@ -19,27 +19,27 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin.php:68, classes/Check/Review.php:126, classes/Plugin/Updater.php:105, classes/Plugin/Updater.php:117, classes/Admin/Page/Columns.php:35
+#: classes/Admin.php:68, classes/Check/Review.php:126, classes/Plugin/Updater.php:105, classes/Plugin/Updater.php:117, classes/Admin/Page/Columns.php:37
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/AdminColumns.php:133
+#: classes/AdminColumns.php:134
 msgid "Invalid item ID."
 msgstr ""
 
-#: classes/AdminColumns.php:139
+#: classes/AdminColumns.php:140
 msgid "Invalid list screen."
 msgstr ""
 
-#: classes/AdminColumns.php:145
+#: classes/AdminColumns.php:146
 msgid "Invalid column."
 msgstr ""
 
-#: classes/AdminColumns.php:149
+#: classes/AdminColumns.php:150
 msgid "Invalid method."
 msgstr ""
 
-#: classes/AdminColumns.php:207, classes/Admin/Page/Settings.php:20
+#: classes/AdminColumns.php:208, classes/Admin/Page/Settings.php:20
 msgid "Settings"
 msgstr ""
 
@@ -491,7 +491,7 @@ msgstr ""
 msgid "The custom field column uses the custom fields from posts and users. There are 14 types which you can set."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:22, classes/Settings/Column/CustomFieldType.php:171, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:25, classes/Settings/Column/Type.php:88
+#: classes/Admin/HelpTab/CustomField.php:22, classes/Settings/Column/CustomFieldType.php:171, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:25, classes/Settings/Column/Type.php:88, classes/Helper/Select/Group/CustomField/MultiSite.php:53
 msgid "Default"
 msgstr ""
 
@@ -523,7 +523,7 @@ msgstr ""
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
 msgstr ""
 
-#: classes/Admin/HelpTab/CustomField.php:38, classes/Column/Post/Excerpt.php:15, classes/Settings/Column/CustomFieldType.php:105
+#: classes/Admin/HelpTab/CustomField.php:38, classes/Column/Post/Excerpt.php:15
 msgid "Excerpt"
 msgstr ""
 
@@ -675,39 +675,39 @@ msgstr ""
 msgid "Get this add-on"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:56, classes/Admin/Request/Column.php:32
+#: classes/Admin/Page/Columns.php:59, classes/Admin/Request/Column.php:32
 msgid "Please visit the %s screen once to load all available columns"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:92
+#: classes/Admin/Page/Columns.php:95
 msgid "Settings for %s restored successfully."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:133, classes/Admin/Request/Column.php:43
+#: classes/Admin/Page/Columns.php:136, classes/Admin/Request/Column.php:43
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:134
+#: classes/Admin/Page/Columns.php:137
 msgid "Invalid response."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:136
+#: classes/Admin/Page/Columns.php:139
 msgid "There was an error during saving the column settings."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:137
+#: classes/Admin/Page/Columns.php:140
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:280
+#: classes/Admin/Page/Columns.php:328
 msgid "The columns for %s are set up via PHP and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:319
+#: classes/Admin/Page/Columns.php:367
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:328
+#: classes/Admin/Page/Columns.php:376
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -1049,7 +1049,7 @@ msgstr ""
 msgid "Count"
 msgstr ""
 
-#: classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:102, classes/Settings/Column/Post.php:75, classes/Settings/Column/Term.php:34, classes/Settings/Column/User.php:42
+#: classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:107, classes/Settings/Column/Post.php:75, classes/Settings/Column/Term.php:34, classes/Settings/Column/User.php:42
 msgid "Display"
 msgstr ""
 
@@ -1109,16 +1109,20 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: classes/Settings/Column/CustomField.php:18
-msgid "Custom field key"
+#: classes/Settings/Column/CommentLink.php:52, classes/Settings/Column/MediaLink.php:53, classes/Settings/Column/PostLink.php:58, classes/Settings/Column/UserLink.php:60
+msgid "Link To"
 msgstr ""
 
-#: classes/Settings/Column/CustomField.php:22
-msgid "No custom fields available."
+#: classes/Settings/Column/CommentLink.php:62
+msgid "View Comment"
 msgstr ""
 
-#: classes/Settings/Column/CustomField.php:22
-msgid "Please create a %s item first."
+#: classes/Settings/Column/CommentLink.php:63
+msgid "Edit Comment"
+msgstr ""
+
+#: classes/Settings/Column/CustomField.php:25, classes/Settings/Column/Meta.php:73
+msgid "Field"
 msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:57
@@ -1135,6 +1139,10 @@ msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:74
 msgid "Multiple IDs should be separated by commas."
+msgstr ""
+
+#: classes/Settings/Column/CustomFieldType.php:105
+msgid "Text"
 msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:120
@@ -1313,16 +1321,8 @@ msgstr ""
 msgid "This will make the title link to the menu."
 msgstr ""
 
-#: classes/Settings/Column/MediaLink.php:53, classes/Settings/Column/PostLink.php:58, classes/Settings/Column/UserLink.php:60
-msgid "Link To"
-msgstr ""
-
 #: classes/Settings/Column/Meta.php:30
 msgid "No fields available."
-msgstr ""
-
-#: classes/Settings/Column/Meta.php:73
-msgid "Field"
 msgstr ""
 
 #: classes/Settings/Column/Meta.php:120
@@ -1333,11 +1333,11 @@ msgstr ""
 msgid "Hidden"
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:129
+#: classes/Settings/Column/Meta.php:129, classes/Helper/Select/Group/CustomField/MultiSite.php:28
 msgid "Network Site:"
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:132
+#: classes/Settings/Column/Meta.php:132, classes/Helper/Select/Group/CustomField/MultiSite.php:31
 msgid "current"
 msgstr ""
 
