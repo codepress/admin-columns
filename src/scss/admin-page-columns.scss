@@ -605,6 +605,7 @@
 
 		.ui-slider-handle {
 			cursor: ew-resize;
+			z-index: 1;
 		}
 	}
 
@@ -1628,5 +1629,14 @@
 	.ac-modal__dialog__content {
 		overflow: hidden;
 		overflow-y: scroll;
+	}
+}
+
+.select2-container--acs2 {
+	z-index: 2;
+	.select2-dropdown.-customfields {
+		.select2-results > .select2-results__options {
+			max-height: 600px;
+		}
 	}
 }

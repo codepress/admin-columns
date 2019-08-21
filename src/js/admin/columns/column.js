@@ -1,9 +1,15 @@
+const STATES = {
+	CLOSED : 'closed',
+	OPEN : 'open'
+};
+
 class Column {
 
 	constructor( $el ) {
 		this.$el = $el;
 		this.el = $el[ 0 ];
 		this.settings = [];
+		this.state = STATES.CLOSED;
 
 		this._type = this.$el.data( 'type' );
 	}
@@ -128,8 +134,12 @@ class Column {
 		} );
 	}
 
+	getState() {
+		return this.state;
+	}
+
 	toggle( duration = 150 ) {
-		if ( this.$el.hasClass( 'opened' ) ) {
+		if ( this.getState() === STATES.OPEN ) {
 			this.close( duration );
 		} else {
 			this.open( duration );
@@ -138,10 +148,12 @@ class Column {
 
 	close( duration = 0 ) {
 		this.$el.removeClass( 'opened' ).find( '.ac-column-body' ).slideUp( duration );
+		this.state = STATES.CLOSED;
 	}
 
 	open( duration = 0 ) {
 		this.$el.addClass( 'opened' ).find( '.ac-column-body' ).slideDown( duration );
+		this.state = STATES.OPEN;
 	}
 
 	showMessage( message ) {
@@ -218,9 +230,11 @@ class Column {
 					self.$el.replaceWith( column );
 					self.$el = column;
 					self.el = column[ 0 ];
-
 					self.bindEvents();
-					self.open();
+
+					if ( self.getState() === STATES.OPEN ) {
+						self.open();
+					}
 
 					jQuery( document ).trigger( 'AC_Column_Refresh', [ self ] );
 				}

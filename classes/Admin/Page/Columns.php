@@ -7,6 +7,7 @@ use AC\Ajax;
 use AC\Capabilities;
 use AC\Column;
 use AC\DefaultColumns;
+use AC\Helper\Select;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenGroups;
@@ -14,6 +15,7 @@ use AC\Message\Notice;
 use AC\Preferences;
 use AC\Registrable;
 use AC\Request;
+use AC\Response;
 use AC\View;
 
 class Columns extends Admin\Page
@@ -36,7 +38,8 @@ class Columns extends Admin\Page
 	}
 
 	public function register_ajax() {
-		$this->get_ajax_handler()->register();
+		$this->get_ajax_custom_field_handler()->register();
+		$this->get_ajax_column_handler()->register();
 	}
 
 	public function register() {
@@ -121,7 +124,7 @@ class Columns extends Admin\Page
 
 		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_url() . 'assets/css/admin-page-columns.css', array(), AC()->get_version() );
 
-		$ajax_handler = $this->get_ajax_handler();
+		$ajax_handler = $this->get_ajax_column_handler();
 
 		$ajax_handler->set_param( 'list_screen', $list_screen->get_key() )
 		             ->set_param( 'layout', $list_screen->get_layout_id() )
@@ -138,15 +141,27 @@ class Columns extends Admin\Page
 			),
 		);
 
+		wp_enqueue_style( 'ac-select2' );
+		wp_enqueue_script( 'ac-select2' );
+
 		wp_localize_script( 'ac-admin-page-columns', 'AC', $params );
 
 		do_action( 'ac/settings/scripts' );
 	}
 
+	private function get_ajax_custom_field_handler() {
+		$handler = new Ajax\Handler();
+		$handler
+			->set_action( 'ac_custom_field_options' )
+			->set_callback( array( $this, 'ajax_get_custom_fields' ) );
+
+		return $handler;
+	}
+
 	/**
 	 * @return Ajax\Handler
 	 */
-	private function get_ajax_handler() {
+	private function get_ajax_column_handler() {
 		$handler = new Ajax\Handler();
 		$handler
 			->set_action( 'ac-columns' )
@@ -156,7 +171,7 @@ class Columns extends Admin\Page
 	}
 
 	public function handle_ajax_request() {
-		$this->get_ajax_handler()->verify_request();
+		$this->get_ajax_column_handler()->verify_request();
 
 		$request = new Request();
 
@@ -171,6 +186,39 @@ class Columns extends Admin\Page
 				$handler->request( $request );
 			}
 		}
+	}
+
+	public function ajax_get_custom_fields() {
+		$this->get_ajax_custom_field_handler()->verify_request();
+		$request = new Request();
+		$response = new Response\Json();
+
+		$args = array(
+			'meta_type' => $request->get( 'meta_type' ),
+		);
+
+		if ( $request->get( 'post_type' ) ) {
+			$args['post_type'] = $request->get( 'post_type' );
+		}
+
+		$entities = new Select\Entities\CustomFields( $args );
+
+		if ( is_multisite() ) {
+			$formatter = new Select\Group\CustomField\MultiSite(
+				new Select\Formatter\NullFormatter( $entities )
+			);
+		} else {
+			$formatter = new Select\Group\CustomField(
+				new Select\Formatter\NullFormatter( $entities )
+			);
+		}
+
+		$options = new Select\Options\Paginated( $entities, $formatter );
+		$select = new Select\Response( $options );
+
+		$response
+			->set_parameters( $select() )
+			->success();
 	}
 
 	public function get_list_screen() {

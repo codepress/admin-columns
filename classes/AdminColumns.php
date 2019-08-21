@@ -80,6 +80,7 @@ class AdminColumns extends Plugin {
 
 		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
+		add_action( 'init', array( $this, 'register_global_scripts' ) );
 
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
@@ -286,6 +287,16 @@ class AdminColumns extends Plugin {
 		}
 
 		do_action( 'ac/list_screens', $this );
+	}
+
+	/**
+	 * @return void
+	 */
+	public function register_global_scripts() {
+		wp_register_script( 'ac-select2-core', $this->get_url() . 'assets/js/select2.js', array(), $this->get_version() );
+		wp_register_script( 'ac-select2', $this->get_url() . 'assets/js/select2_conflict_fix.js', array( 'jquery', 'ac-select2-core' ), $this->get_version() );
+		wp_register_style( 'ac-select2', $this->get_url() . 'assets/css/select2.css', array(), $this->get_version() );
+		wp_register_style( 'ac-jquery-ui', $this->get_url() . 'assets/css/ac-jquery-ui.css', array(), $this->get_version() );
 	}
 
 	/**

@@ -29,7 +29,7 @@ export default class Table {
 		this._initTable();
 		this.addCellClasses();
 
-		document.dispatchEvent( new CustomEvent( 'AC_Table_Ready', { detail : { self } } ) );
+		document.dispatchEvent( new CustomEvent( 'AC_Table_Ready', { detail : { table : self } } ) );
 	}
 
 	updateRow( row ) {
