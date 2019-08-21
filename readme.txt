@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.5
 Tested up to: 5.2.2
 Requires PHP: 5.3.6
-Stable tag: 3.4.5
+Stable tag: 3.4.6
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -213,8 +213,8 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
-Release Date: tbd
+= 3.4.6 =
+Release Date: August 21th, 2019
 
 * [Improved] Search the list of available custom fields in the drop down with Select2
 * [Improved] Change the label for Custom Field column Excerpt to Text

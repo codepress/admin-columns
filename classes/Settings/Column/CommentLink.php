@@ -6,7 +6,7 @@ use AC\Settings;
 use AC\View;
 
 /**
- * @since NEWVERSION
+ * @since 3.4.6
  */
 class CommentLink extends Settings\Column
 	implements Settings\FormatValue {
