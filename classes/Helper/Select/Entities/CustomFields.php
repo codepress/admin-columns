@@ -45,7 +45,7 @@ class CustomFields extends Select\Entities
 	}
 
 	public function is_last_page() {
-		return $this->get_total_pages() <= $this->get_page();
+		return true;
 	}
 
 }
