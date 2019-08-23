@@ -401,11 +401,11 @@ class Html {
 		ob_start();
 
 		if ( $first_set ) {
-			$html_parts[] = implode( $glue, $first_set );
+			$html_parts[] = sprintf( '<span class="ac-show-default-block">%s</span>', implode( $glue, $first_set ) );
 
 			if ( $last_set ) {
-				$hide_link = sprintf( '<span class="ac-more-link-hide"> [ <a>%s</a> ]</span>', __( 'Hide', 'codepress-admin-columns' ) );
-				$html_parts[] = sprintf( '<span class="ac-more-link-show"> [ <a>%s</a> ]</span>', sprintf( __( '%s more', 'codepress-admin-columns' ), count( $last_set ) ) );
+				$hide_link = sprintf( '<span class="ac-more-link ac-more-link-hide"> <a>%s</a></span>', strtolower( __( 'Hide', 'codepress-admin-columns' ) ) );
+				$html_parts[] = sprintf( '<span class="ac-more-link ac-more-link-show"> <a>%s</a></span>', sprintf( __( '%s more', 'codepress-admin-columns' ), count( $last_set ) ) );
 				$html_parts[] = sprintf( '<span class="ac-show-more-block">%s%s<br>%s</span>', $glue, implode( $glue, $last_set ), $hide_link );
 
 			}
