@@ -396,21 +396,16 @@ class Html {
 
 		$first_set = array_slice( $array, 0, $number );
 		$last_set = array_slice( $array, $number );
-		$html_parts = array();
 
 		ob_start();
 
 		if ( $first_set ) {
-			$html_parts[] = sprintf( '<span class="ac-show-default-block">%s</span>', implode( $glue, $first_set ) );
+			$first = sprintf( '<span class="ac-show-more__part -first">%s</span>', implode( $glue, $first_set ) );
+			$more = $last_set ? sprintf( '<span class="ac-show-more__part -more">%s%s</span>', $glue, implode( $glue, $last_set ) ) : '';
+			$content = sprintf('<span class="ac-show-more__content">%s%s</span>', $first, $more );
+			$toggler = $last_set ? sprintf( '<a class="ac-show-more__toggle" data-show-more-toggle data-more="%1$s" data-less="%2$s">%1$s</a>', sprintf( __( '%s more', 'codepress-admin-columns' ), count( $last_set ) ), strtolower( __( 'Hide', 'codepress-admin-columns' ) ) ) : '';
 
-			if ( $last_set ) {
-				$hide_link = sprintf( '<span class="ac-more-link ac-more-link-hide"> <a>%s</a></span>', strtolower( __( 'Hide', 'codepress-admin-columns' ) ) );
-				$html_parts[] = sprintf( '<span class="ac-more-link ac-more-link-show"> <a>%s</a></span>', sprintf( __( '%s more', 'codepress-admin-columns' ), count( $last_set ) ) );
-				$html_parts[] = sprintf( '<span class="ac-show-more-block">%s%s<br>%s</span>', $glue, implode( $glue, $last_set ), $hide_link );
-
-			}
-
-			echo implode( $html_parts );
+			echo sprintf( '<span class="ac-show-more">%s %s</span>', $content, $toggler );
 		}
 
 		return ob_get_clean();

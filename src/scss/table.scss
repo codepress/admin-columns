@@ -515,6 +515,35 @@ table.ac-table-items {
 	cursor: pointer;
 }
 
+
+.ac-show-more {
+	$e: &;
+
+	&__content {
+		margin-right: 5px;
+	}
+
+	&__toggle {
+		cursor: pointer;
+		white-space: nowrap;
+		font-style: italic;
+		color: #9e9e9e;
+	}
+
+	&__part {
+		&.-more {
+			display: none;
+		}
+	}
+
+	&.-on {
+		#{$e}__part.-more {
+			display: inline;
+		}
+	}
+}
+
+
 .ac-show-more-block {
 	display: none;
 }

@@ -2,6 +2,7 @@ import Table from "./table/table";
 import Tooltip from "./table/tooltips";
 import Modals from "./modules/modals";
 import ScreenOptionsColumns from "./table/screen-options-columns";
+import ShowMore from "./modules/show-more";
 
 // Register the global variable
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
@@ -123,22 +124,8 @@ function ac_toggle_box_ajax_init( $ ) {
 }
 
 global.ac_show_more = function( $ ) {
-	$( '.ac-more-link-show' ).click( function( e ) {
-		e.stopPropagation();
-		e.preventDefault();
-
-		let td = $( this ).hide().closest( 'td' );
-
-		td.find( '.ac-show-more-block' ).show();
-
-	} );
-	$( '.ac-more-link-hide' ).click( function( e ) {
-		e.stopPropagation();
-		e.preventDefault();
-		let td = $( this ).closest( 'td' );
-
-		td.find( '.ac-more-link-show' ).show();
-		td.find( '.ac-show-more-block' ).hide();
+	document.querySelectorAll( '.ac-show-more' ).forEach( el => {
+		new ShowMore( el );
 	} );
 };
 

@@ -296,6 +296,95 @@ module.exports = Modals;
 
 /***/ }),
 
+/***/ "./js/modules/show-more.js":
+/*!*********************************!*\
+  !*** ./js/modules/show-more.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ShowMore =
+/*#__PURE__*/
+function () {
+  function ShowMore(el) {
+    _classCallCheck(this, ShowMore);
+
+    this.el = el;
+    this.initEvents();
+  }
+
+  _createClass(ShowMore, [{
+    key: "initEvents",
+    value: function initEvents() {
+      var _this = this;
+
+      if (this.isInited()) {
+        return;
+      }
+
+      if (this.getToggler()) {
+        this.getToggler().addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          _this.toggle();
+        });
+      }
+    }
+  }, {
+    key: "getToggler",
+    value: function getToggler() {
+      return this.el.querySelector('.ac-show-more__toggle');
+    }
+  }, {
+    key: "isInited",
+    value: function isInited() {
+      return this.el.dataset.showMoreInit;
+    }
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      if (this.el.classList.contains('-on')) {
+        this.hide();
+      } else {
+        this.show();
+      }
+    }
+  }, {
+    key: "show",
+    value: function show() {
+      this.el.classList.add('-on');
+      this.getToggler().innerHTML = this.getToggler().dataset.less;
+    }
+  }, {
+    key: "hide",
+    value: function hide() {
+      this.el.classList.remove('-on');
+      this.getToggler().innerHTML = this.getToggler().dataset.more;
+    }
+  }]);
+
+  return ShowMore;
+}();
+
+exports.default = ShowMore;
+
+/***/ }),
+
 /***/ "./js/table.js":
 /*!*********************!*\
   !*** ./js/table.js ***!
@@ -315,6 +404,8 @@ var _tooltips = _interopRequireDefault(__webpack_require__(/*! ./table/tooltips 
 var _modals = _interopRequireDefault(__webpack_require__(/*! ./modules/modals */ "./js/modules/modals.js"));
 
 var _screenOptionsColumns = _interopRequireDefault(__webpack_require__(/*! ./table/screen-options-columns */ "./js/table/screen-options-columns.js"));
+
+var _showMore = _interopRequireDefault(__webpack_require__(/*! ./modules/show-more */ "./js/modules/show-more.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -424,18 +515,8 @@ function ac_toggle_box_ajax_init($) {
 }
 
 global.ac_show_more = function ($) {
-  $('.ac-more-link-show').click(function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-    var td = $(this).hide().closest('td');
-    td.find('.ac-show-more-block').show();
-  });
-  $('.ac-more-link-hide').click(function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-    var td = $(this).closest('td');
-    td.find('.ac-more-link-show').show();
-    td.find('.ac-show-more-block').hide();
+  document.querySelectorAll('.ac-show-more').forEach(function (el) {
+    new _showMore.default(el);
   });
 };
 
