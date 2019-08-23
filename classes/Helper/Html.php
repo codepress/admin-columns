@@ -406,7 +406,7 @@ class Html {
 			if ( $last_set ) { ?>
 				<span class="ac-more-link-show"> <a><?php printf( __( 'Show %s more', 'codepress-admin-columns' ), count( $last_set ) ); ?></a></span>
 				<span class="ac-show-more-block">
-					<?php echo $glue . implode( $glue, $first_set ); ?>
+					<?php echo $glue . implode( $glue, $last_set ); ?>
 					<br/>
                     <span class="ac-more-link-hide"> <a><?php _e( 'Hide', 'codepress-admin-columns' ); ?></a></span>
                 </span>
