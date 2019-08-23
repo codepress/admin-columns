@@ -526,8 +526,6 @@ table.ac-table-items {
 	&__toggle {
 		cursor: pointer;
 		white-space: nowrap;
-		//font-style: italic;
-		//color: #9e9e9e;
 	}
 
 	&__part {
@@ -544,28 +542,6 @@ table.ac-table-items {
 	&__divider {
 		color: #ddd;
 		padding-right: 4px;
-	}
-}
-
-
-.ac-show-more-block {
-	display: none;
-}
-
-.ac-more-link-hide {
-	cursor: pointer;
-}
-
-.ac-show-default-block {
-	margin-right: 5px;
-}
-
-.ac-more-link {
-	white-space: nowrap;
-
-	a {
-		font-style: italic;
-		color: #9e9e9e;
 	}
 }
 
