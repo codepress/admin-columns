@@ -28,7 +28,9 @@ class Taxonomy extends Column {
 			return $this->get_empty_char();
 		}
 
-		return ac_helper()->string->enumeration_list( $terms, 'and' );
+		$setting_limit = $this->get_setting( 'number_of_items' );
+
+		return ac_helper()->html->more( $terms, $setting_limit ? $setting_limit->get_value() : false );
 	}
 
 	/**
@@ -48,6 +50,7 @@ class Taxonomy extends Column {
 
 	public function register_settings() {
 		$this->add_setting( new Settings\Column\Taxonomy( $this ) );
+		$this->add_setting( new Settings\Column\NumberOfItems( $this ) );
 	}
 
 }
