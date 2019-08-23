@@ -8,7 +8,6 @@ global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 
 Modals.init();
 
-
 jQuery( document ).ready( function( $ ) {
 	ac_quickedit_events( $ );
 	ac_actions_column( $, $( '.column-actions' ) );
@@ -30,6 +29,10 @@ jQuery( document ).ready( function( $ ) {
 	$( '.wp-list-table' ).on( 'updated', 'tr', function() {
 		AdminColumns.Table.addCellClasses();
 		ac_actions_column( $, $( this ).find( '.column-actions' ) );
+		ac_show_more( $ );
+	} );
+
+	$( '.wp-list-table td' ).on( 'ACP_InlineEditing_After_SetValue', function() {
 		ac_show_more( $ );
 	} );
 
@@ -119,22 +122,25 @@ function ac_toggle_box_ajax_init( $ ) {
 	$( 'a[data-ajax-populate=1]' ).bind( 'click', do_retrieve_ajax_value );
 }
 
-function ac_show_more( $ ) {
+global.ac_show_more = function( $ ) {
 	$( '.ac-more-link-show' ).click( function( e ) {
+		e.stopPropagation();
 		e.preventDefault();
+
 		let td = $( this ).hide().closest( 'td' );
 
 		td.find( '.ac-show-more-block' ).show();
 
 	} );
 	$( '.ac-more-link-hide' ).click( function( e ) {
+		e.stopPropagation();
 		e.preventDefault();
 		let td = $( this ).closest( 'td' );
 
 		td.find( '.ac-more-link-show' ).show();
 		td.find( '.ac-show-more-block' ).hide();
 	} );
-}
+};
 
 function ac_actions_column( $, $selector ) {
 	$( $selector ).each( function() {
