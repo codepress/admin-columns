@@ -403,9 +403,9 @@ class Html {
 			$first = sprintf( '<span class="ac-show-more__part -first">%s</span>', implode( $glue, $first_set ) );
 			$more = $last_set ? sprintf( '<span class="ac-show-more__part -more">%s%s</span>', $glue, implode( $glue, $last_set ) ) : '';
 			$content = sprintf('<span class="ac-show-more__content">%s%s</span>', $first, $more );
-			$toggler = $last_set ? sprintf( '<a class="ac-show-more__toggle" data-show-more-toggle data-more="%1$s" data-less="%2$s">%1$s</a>', sprintf( __( '%s more', 'codepress-admin-columns' ), count( $last_set ) ), strtolower( __( 'Hide', 'codepress-admin-columns' ) ) ) : '';
+			$toggler = $last_set ? sprintf( '<span class="ac-show-more__divider">|</span><a class="ac-show-more__toggle" data-show-more-toggle data-more="%1$s" data-less="%2$s">%1$s</a>', sprintf( __( '%s more', 'codepress-admin-columns' ), count( $last_set ) ), strtolower( __( 'Hide', 'codepress-admin-columns' ) ) ) : '';
 
-			echo sprintf( '<span class="ac-show-more">%s %s</span>', $content, $toggler );
+			echo sprintf( '<span class="ac-show-more">%s</span>', $content . $toggler );
 		}
 
 		return ob_get_clean();
