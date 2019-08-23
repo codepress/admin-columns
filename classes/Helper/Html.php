@@ -396,22 +396,21 @@ class Html {
 
 		$first_set = array_slice( $array, 0, $number );
 		$last_set = array_slice( $array, $number );
+		$html_parts = array();
 
 		ob_start();
 
 		if ( $first_set ) {
+			$html_parts[] = implode( $glue, $first_set );
 
-			echo implode( $glue, $first_set );
+			if ( $last_set ) {
+				$hide_link = sprintf( '<span class="ac-more-link-hide"> [ <a>%s</a> ]</span>', __( 'Hide', 'codepress-admin-columns' ) );
+				$html_parts[] = sprintf( '<span class="ac-more-link-show"> [ <a>%s</a> ]</span>', sprintf( __( '%s more', 'codepress-admin-columns' ), count( $last_set ) ) );
+				$html_parts[] = sprintf( '<span class="ac-show-more-block">%s%s<br>%s</span>', $glue, implode( $glue, $last_set ), $hide_link );
 
-			if ( $last_set ) { ?>
-				<span class="ac-more-link-show"> <a><?php printf( __( 'Show %s more', 'codepress-admin-columns' ), count( $last_set ) ); ?></a></span>
-				<span class="ac-show-more-block">
-					<?php echo $glue . implode( $glue, $last_set ); ?>
-					<br/>
-                    <span class="ac-more-link-hide"> <a><?php _e( 'Hide', 'codepress-admin-columns' ); ?></a></span>
-                </span>
-				<?php
 			}
+
+			echo implode( $html_parts );
 		}
 
 		return ob_get_clean();
