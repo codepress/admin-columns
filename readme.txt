@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.5
 Tested up to: 5.2.2
 Requires PHP: 5.3.6
-Stable tag: 3.4.6
+Stable tag: 3.4.7
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -212,6 +212,14 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 3.4.7 =
+Release Date: August 26th, 2019
+
+* [Added] Option to limit the amount of taxonomies that is shown in the column with show more button.
+* [Improved] Changed WordPress Date Format link
+* [Improved] Show more feature that is used in several columns
+* [Improved] Update Select2 version that fixes multiple selections bug
 
 = 3.4.6 =
 Release Date: August 21st, 2019

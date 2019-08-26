@@ -111,7 +111,7 @@ abstract class DateTimeFormat extends Settings\Column
 		$custom_label = $this->get_html_label(
 			__( 'Custom:', 'codepress-admin-columns' ),
 			'',
-			sprintf( __( 'Learn more about %s.', 'codepress-admin-columns' ), ac_helper()->html->link( 'http://codex.wordpress.org/Formatting_Date_and_Time', __( 'date and time formatting', 'codepress-admin-columns' ) ), array( 'target' => '_blank' ) )
+			sprintf( __( 'Learn more about %s.', 'codepress-admin-columns' ), ac_helper()->html->link( 'https://wordpress.org/support/article/formatting-date-and-time/', __( 'date and time formatting', 'codepress-admin-columns' ), array( 'target' => '_blank' ) ) )
 		);
 
 		$custom_label .= '<input type="text" class="ac-setting-input-date__custom" value="' . esc_attr( $this->get_date_format() ) . '" disabled>';

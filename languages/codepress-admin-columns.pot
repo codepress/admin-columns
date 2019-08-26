@@ -155,11 +155,11 @@ msgstr ""
 msgid "Taxonomy"
 msgstr ""
 
-#: classes/Helper/Html.php:403
-msgid "Show %s more"
+#: classes/Helper/Html.php:406
+msgid "%s more"
 msgstr ""
 
-#: classes/Helper/Html.php:407
+#: classes/Helper/Html.php:406
 msgid "Hide"
 msgstr ""
 
