@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: TBD
+
+* [Improved] Changed WordPress Date Format link
+
 = 3.4.6 =
 Release Date: August 21st, 2019
 
