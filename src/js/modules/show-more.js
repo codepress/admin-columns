@@ -18,6 +18,8 @@ export default class ShowMore {
 				this.toggle();
 			} );
 		}
+
+		this.el.dataset.showMoreInit = true;
 	}
 
 	getToggler() {
