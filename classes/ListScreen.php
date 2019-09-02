@@ -697,10 +697,11 @@ abstract class ListScreen {
 	 * @since 3.0
 	 */
 	private function set_columns() {
-
 		foreach ( $this->get_settings() as $name => $data ) {
 			$data['name'] = $name;
-			if ( $column = $this->create_column( $data ) ) {
+			$column = $this->create_column( $data );
+
+			if ( $column ) {
 				$this->register_column( $column );
 			}
 		}
@@ -798,7 +799,6 @@ abstract class ListScreen {
 	 * Populate settings from the database
 	 */
 	public function populate_settings() {
-
 		// Load from DB
 		$this->set_settings( get_option( self::OPTIONS_KEY . $this->get_storage_key() ) );
 
