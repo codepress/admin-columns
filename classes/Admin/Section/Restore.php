@@ -15,7 +15,7 @@ class Restore extends Custom {
 	}
 
 	public function register() {
-		add_action( 'admin_init', array( $this, 'request' ) );
+		add_action( 'admin_head', array( $this, 'request' ) );
 	}
 
 	public function request() {
