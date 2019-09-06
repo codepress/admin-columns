@@ -804,6 +804,9 @@ abstract class ListScreen {
 
 		// Load from API
 		AC()->api()->set_column_settings( $this );
+
+		// Hook for populating the ListScreen from other sources
+		do_action( 'ac/list_screen/populate_settings', $this );
 	}
 
 	/**
