@@ -42,6 +42,9 @@ class CustomFieldType extends Settings\Column
 				$settings[] = new LinkLabel( $this->column );
 
 				break;
+			case 'numeric' :
+				$settings[] = new NumberFormat( $this->column );
+				break;
 		}
 
 		return $settings;
