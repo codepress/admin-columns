@@ -8,8 +8,10 @@ use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
 use AC\Screen\QuickEdit;
+use AC\Settings\Column\NumberFormat;
 use AC\Table;
 use AC\ThirdParty;
+use AC\Request;
 
 class AdminColumns extends Plugin {
 
@@ -56,6 +58,7 @@ class AdminColumns extends Plugin {
 		$this->api = new API();
 
 		$modules = array(
+			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new QuickEdit(),
 			new Screen,

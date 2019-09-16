@@ -1776,7 +1776,6 @@ function () {
       return;
     }
 
-    this.preview = new Preview(this.setting.querySelector('[data-preview]'));
     this.bindEvents();
   }
 
@@ -1786,8 +1785,8 @@ function () {
       var _this = this;
 
       this.refreshPreview();
-      this.setting.querySelectorAll('input,select').forEach(function (el) {
-        el.addEventListener('change', function () {
+      this.setting.querySelectorAll('input').forEach(function (el) {
+        el.addEventListener('change', function (e) {
           _this.refreshPreview();
         });
       });
@@ -1795,83 +1794,37 @@ function () {
   }, {
     key: "refreshPreview",
     value: function refreshPreview() {
-      var inp_decimals = this.setting.querySelector('.ac-setting-input_number_decimals');
+      var _this2 = this;
 
-      if (inp_decimals) {
-        this.preview.decimals = inp_decimals.value;
-      }
+      this.getExampleRequest().done(function (example) {
+        var preview = _this2.setting.querySelector('[data-preview]');
 
-      var inp_decimal_separator = this.setting.querySelector('.ac-setting-input_number_decimal_point');
-
-      if (inp_decimal_separator) {
-        this.preview.decimal_separator = inp_decimal_separator.value;
-      }
-
-      var inp_thousand_point = this.setting.querySelector('.ac-setting-input_number_thousands_separator');
-
-      if (inp_thousand_point) {
-        this.preview.thousand_point = inp_thousand_point.value;
-      }
-
-      this.preview.refresh();
+        if (preview) {
+          preview.innerText = example;
+        }
+      });
+    }
+  }, {
+    key: "getExampleRequest",
+    value: function getExampleRequest() {
+      var decimals = this.setting.querySelector('.ac-setting-input_number_decimals');
+      var decimal_point = this.setting.querySelector('.ac-setting-input_number_decimal_point');
+      var thousands_point = this.setting.querySelector('.ac-setting-input_number_thousands_separator');
+      return jQuery.ajax({
+        url: ajaxurl,
+        method: 'post',
+        data: {
+          action: 'ac_number_format',
+          number: 7500,
+          decimals: decimals ? decimals.value : '',
+          decimal_point: decimal_point ? decimal_point.value : '',
+          thousands_point: thousands_point ? thousands_point.value : ''
+        }
+      });
     }
   }]);
 
   return NumberFormat;
-}();
-
-var Preview =
-/*#__PURE__*/
-function () {
-  function Preview(el) {
-    _classCallCheck(this, Preview);
-
-    this.el = el;
-    this.decimals = 0;
-    this.decimal_separator = ',';
-    this.thousand_point = '.';
-    this.template = "7<span data-bind=\"ts\"></span>500<span data-bind=\"ds\"></span><span data-bind=\"decimals\"></span>";
-  }
-
-  _createClass(Preview, [{
-    key: "refresh",
-    value: function refresh() {
-      var _this2 = this;
-
-      if (!this.el) {
-        return;
-      }
-
-      if (this.decimals > 20) {
-        return 20;
-      }
-
-      this.el.innerHTML = this.template;
-      this.el.querySelectorAll('[data-bind=ts]').forEach(function (el) {
-        el.innerText = _this2.thousand_point;
-      });
-      var decimal_sep = this.decimal_separator;
-
-      if (this.decimals === 0) {
-        decimal_sep = '';
-      }
-
-      this.el.querySelectorAll('[data-bind=ds]').forEach(function (el) {
-        el.innerText = decimal_sep;
-      });
-      var _decimals = '';
-
-      for (var i = 0; i < this.decimals; i++) {
-        _decimals = "0".concat(_decimals);
-      }
-
-      this.el.querySelectorAll('[data-bind=decimals]').forEach(function (el) {
-        el.innerText = _decimals;
-      });
-    }
-  }]);
-
-  return Preview;
 }();
 
 var numberformat = function numberformat(column) {

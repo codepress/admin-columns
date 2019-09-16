@@ -33,7 +33,7 @@ class NumberFormat extends Settings\Column
 			'number_format'              => '',
 			'number_decimals'            => 0,
 			'number_decimal_point'       => '.',
-			'number_thousands_separator' => ',',
+			'number_thousands_separator' => '',
 		);
 	}
 
