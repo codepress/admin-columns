@@ -59,7 +59,7 @@ final class Timestamp implements KeyValuePair, Expirable {
 	 * @param int $value
 	 *
 	 * @return bool
-	 * @throws Exception
+	 * @throws LogicException
 	 */
 	public function save( $value ) {
 		if ( ! $this->validate( $value ) ) {

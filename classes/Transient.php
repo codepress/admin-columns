@@ -3,6 +3,7 @@
 namespace AC;
 
 use AC\Storage;
+use LogicException;
 
 class Transient
 	implements Expirable {
@@ -50,11 +51,11 @@ class Transient
 	 * @param int   $expiration Time until expiration in seconds. Default 0 (no expiration).
 	 *
 	 * @return bool
-	 * @throws \Exception
+	 * @throws LogicException
 	 */
 	public function save( $data, $expiration ) {
 
-		// Alway store timestamp before option data.
+		// Always store timestamp before option data.
 		$this->timestamp->save( time() + intval( $expiration ) );
 
 		return $this->option->save( $data );
