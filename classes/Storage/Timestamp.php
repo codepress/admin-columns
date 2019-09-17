@@ -3,7 +3,6 @@
 namespace AC\Storage;
 
 use AC\Expirable;
-use Exception;
 use LogicException;
 
 final class Timestamp implements KeyValuePair, Expirable {
