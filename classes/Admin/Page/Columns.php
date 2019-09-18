@@ -31,6 +31,9 @@ class Columns extends Admin\Page
 	/** @var DefaultColumns */
 	private $default_columns;
 
+	/** @var array */
+	private $uninitialized_list_screens = array();
+
 	public function __construct() {
 		$this->default_columns = new DefaultColumns();
 
@@ -45,8 +48,23 @@ class Columns extends Admin\Page
 	public function register() {
 		$this->maybe_show_notice();
 		$this->handle_request();
+		$this->set_uninitialized_list_screens();
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	}
+
+	private function set_uninitialized_list_screens() {
+		$list_screens = AC()->get_list_screens();
+
+		foreach ( $list_screens as $key => $list_screen ) {
+			$columns = $this->default_columns->get( $list_screen->get_key() );
+
+			if ( ! empty( $columns ) ) {
+				unset( $list_screens[ $key ] );
+			}
+		}
+
+		$this->uninitialized_list_screens = $list_screens;
 	}
 
 	private function maybe_show_notice() {
@@ -140,6 +158,15 @@ class Columns extends Admin\Page
 				'loading_column' => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
 			),
 		);
+
+		$params['uninitialized_list_screens'] = array();
+
+		foreach ( $this->uninitialized_list_screens as $list_screen ) {
+			$params['uninitialized_list_screens'][] = array(
+				'screen_link' => add_query_arg( array( 'acp_action' => 'store_default_columns' ), $list_screen->get_screen_link() ),
+				'label'       => $list_screen->get_label()
+			);
+		}
 
 		wp_enqueue_style( 'ac-select2' );
 		wp_enqueue_script( 'ac-select2' );
@@ -262,7 +289,7 @@ class Columns extends Admin\Page
 
 	/**
 	 * @param string $message Message body
-	 * @param string $type    Updated or error
+	 * @param string $type Updated or error
 	 */
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="ac-message inline ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
@@ -335,12 +362,18 @@ class Columns extends Admin\Page
 	 */
 	public function render() {
 
+	    if ( $this->uninitialized_list_screens ) {
+
+		    echo 'loading message...';
+		    return;
+        }
+
 		$list_screen = $this->get_list_screen();
 
 		?>
 
-		<div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
-			<div class="main">
+        <div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
+            <div class="main">
 
 				<?php
 				$menu = new View( array(
@@ -355,10 +388,10 @@ class Columns extends Admin\Page
 
 				<?php do_action( 'ac/settings/after_title', $list_screen ); ?>
 
-			</div>
+            </div>
 
-			<div class="ac-right">
-				<div class="ac-right-inner">
+            <div class="ac-right">
+                <div class="ac-right-inner">
 
 					<?php if ( ! $list_screen->is_read_only() ) : ?>
 
@@ -410,10 +443,10 @@ class Columns extends Admin\Page
 
 					?>
 
-				</div><!--.ac-right-inner-->
-			</div><!--.ac-right-->
+                </div><!--.ac-right-inner-->
+            </div><!--.ac-right-->
 
-			<div class="ac-left">
+            <div class="ac-left">
 				<?php
 
 				$columns = new View( array(
@@ -431,17 +464,17 @@ class Columns extends Admin\Page
 
 				?>
 
-			</div><!--.ac-left-->
-			<div class="clear"></div>
+            </div><!--.ac-left-->
+            <div class="clear"></div>
 
-			<div id="add-new-column-template">
+            <div id="add-new-column-template">
 				<?php $this->display_column_template( $list_screen ); ?>
-			</div>
+            </div>
 
 
-		</div><!--.ac-admin-->
+        </div><!--.ac-admin-->
 
-		<div class="clear"></div>
+        <div class="clear"></div>
 
 		<?php
 
@@ -454,7 +487,7 @@ class Columns extends Admin\Page
 
 	/**
 	 * @param array $column_types
-	 * @param bool  $group
+	 * @param bool $group
 	 *
 	 * @return Column|false
 	 */

@@ -25,7 +25,7 @@ class InitializeColumns implements Registrable {
 				'label'       => $list_screen->get_label()
 			);
 		}
-echo '<pre>'; print_r( $urls ); echo '</pre>'; //exit;
+
 
 	}
 
