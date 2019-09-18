@@ -65,7 +65,6 @@ class AdminColumns extends Plugin {
 			new ThirdParty\NinjaForms,
 			new ThirdParty\WooCommerce,
 			new ThirdParty\WPML,
-			new InitializeColumns( new DefaultColumns() ),
 		);
 
 		foreach ( $modules as $module ) {
