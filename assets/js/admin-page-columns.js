@@ -98,6 +98,8 @@
 
 __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
 
+var _listscreenInitialize = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/listscreen-initialize */ "./js/admin/columns/listscreen-initialize.js"));
+
 var _form = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.js"));
 
 var _modals = _interopRequireDefault(__webpack_require__(/*! ./modules/modals */ "./js/modules/modals.js"));
@@ -144,9 +146,6 @@ var _numberFormat = _interopRequireDefault(__webpack_require__(/*! ./admin/colum
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-__webpack_require__(/*! admin-columns-js/polyfill/customevent */ "./node_modules/admin-columns-js/polyfill/customevent.js");
-
-__webpack_require__(/*! admin-columns-js/polyfill/nodelist */ "./node_modules/admin-columns-js/polyfill/nodelist.js");
 /**
  * AC variables. Defined in DOM.
  * @param AdminColumns {Object}
@@ -156,6 +155,12 @@ __webpack_require__(/*! admin-columns-js/polyfill/nodelist */ "./node_modules/ad
  * @param AC.i81n {String}
  */
 
+/** Events */
+
+/** Settings */
+__webpack_require__(/*! admin-columns-js/polyfill/customevent */ "./node_modules/admin-columns-js/polyfill/customevent.js");
+
+__webpack_require__(/*! admin-columns-js/polyfill/nodelist */ "./node_modules/admin-columns-js/polyfill/nodelist.js");
 
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 
@@ -189,6 +194,12 @@ jQuery(document).ready(function () {
       });
     }, 100);
   });
+  console.log(AC);
+
+  if (AC.hasOwnProperty('uninitialized_list_screens') && AC.uninitialized_list_screens.length > 0) {
+    var initializer = new _listscreenInitialize.default(AC.uninitialized_list_screens, AC.uninitialized_list_screens);
+    initializer.run();
+  }
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
@@ -1180,6 +1191,94 @@ function () {
 }();
 
 module.exports = Initiator;
+
+/***/ }),
+
+/***/ "./js/admin/columns/listscreen-initialize.js":
+/*!***************************************************!*\
+  !*** ./js/admin/columns/listscreen-initialize.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ListscreenInitialize =
+/*#__PURE__*/
+function () {
+  function ListscreenInitialize(list_screens) {
+    _classCallCheck(this, ListscreenInitialize);
+
+    this.list_screens = list_screens;
+    this.treads = 6;
+    this.processing = [];
+  }
+
+  _createClass(ListscreenInitialize, [{
+    key: "initListScreen",
+    value: function initListScreen(list_screen) {
+      return jQuery.ajax({
+        url: list_screen.screen_link,
+        method: 'get'
+      });
+    }
+  }, {
+    key: "run",
+    value: function run() {
+      for (var i = 0; i < this.treads; i++) {
+        this.processNext();
+      }
+    }
+  }, {
+    key: "getNextItem",
+    value: function getNextItem() {
+      return this.list_screens.shift();
+    }
+  }, {
+    key: "checkFinish",
+    value: function checkFinish() {
+      if (this.processing.length > 0) {
+        return;
+      }
+
+      location.reload(true);
+    }
+  }, {
+    key: "processNext",
+    value: function processNext() {
+      var _this = this;
+
+      var list_screen = this.getNextItem();
+
+      if (!list_screen) {
+        return this.checkFinish();
+      }
+
+      this.processing.push(list_screen.label);
+      this.initListScreen(list_screen).done(function (d) {
+        _this.processing.shift();
+
+        _this.processNext();
+      });
+    }
+  }]);
+
+  return ListscreenInitialize;
+}();
+
+exports.default = ListscreenInitialize;
 
 /***/ }),
 

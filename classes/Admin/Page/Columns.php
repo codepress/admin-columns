@@ -46,7 +46,6 @@ class Columns extends Admin\Page
 	}
 
 	public function register() {
-		$this->maybe_show_notice();
 		$this->handle_request();
 		$this->set_uninitialized_list_screens();
 
@@ -65,27 +64,6 @@ class Columns extends Admin\Page
 		}
 
 		$this->uninitialized_list_screens = $list_screens;
-	}
-
-	private function maybe_show_notice() {
-		$list_screen = $this->get_list_screen();
-
-		if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->is_read_only() ) {
-
-			$first_visit_link = add_query_arg( array( 'ac_action' => 'first-visit' ), $list_screen->get_screen_link() );
-
-			$notice = new Notice( sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $first_visit_link, $list_screen->get_label() ) ) );
-			$notice
-				->set_type( Notice::WARNING )
-				->register();
-		}
-
-		if ( $list_screen->is_read_only() ) {
-			$notice = new Notice( $this->get_read_only_message( $list_screen ) );
-			$notice
-				->set_type( Notice::INFO )
-				->register();
-		}
 	}
 
 	/**
@@ -164,7 +142,7 @@ class Columns extends Admin\Page
 		foreach ( $this->uninitialized_list_screens as $list_screen ) {
 			$params['uninitialized_list_screens'][] = array(
 				'screen_link' => add_query_arg( array( 'acp_action' => 'store_default_columns' ), $list_screen->get_screen_link() ),
-				'label'       => $list_screen->get_label()
+				'label'       => $list_screen->get_label(),
 			);
 		}
 
@@ -204,6 +182,7 @@ class Columns extends Admin\Page
 
 		$requests = array(
 			new Admin\Request\Column\Save(),
+			new Admin\Request\Column\Refresh(),
 			new Admin\Request\Column\Refresh(),
 			new Admin\Request\Column\Select(),
 		);
@@ -289,7 +268,7 @@ class Columns extends Admin\Page
 
 	/**
 	 * @param string $message Message body
-	 * @param string $type Updated or error
+	 * @param string $type    Updated or error
 	 */
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="ac-message inline ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
@@ -362,18 +341,24 @@ class Columns extends Admin\Page
 	 */
 	public function render() {
 
-	    if ( $this->uninitialized_list_screens ) {
+		if ( $this->uninitialized_list_screens ) {
 
-		    echo 'loading message...';
-		    return;
-        }
+
+			$modal = new View( array(
+				'message' => 'Loading columns',
+			) );
+
+			echo $modal->set_template( 'admin/loading-message' );
+
+			return;
+		}
 
 		$list_screen = $this->get_list_screen();
 
 		?>
 
-        <div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
-            <div class="main">
+		<div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
+			<div class="main">
 
 				<?php
 				$menu = new View( array(
@@ -388,10 +373,10 @@ class Columns extends Admin\Page
 
 				<?php do_action( 'ac/settings/after_title', $list_screen ); ?>
 
-            </div>
+			</div>
 
-            <div class="ac-right">
-                <div class="ac-right-inner">
+			<div class="ac-right">
+				<div class="ac-right-inner">
 
 					<?php if ( ! $list_screen->is_read_only() ) : ?>
 
@@ -443,10 +428,10 @@ class Columns extends Admin\Page
 
 					?>
 
-                </div><!--.ac-right-inner-->
-            </div><!--.ac-right-->
+				</div><!--.ac-right-inner-->
+			</div><!--.ac-right-->
 
-            <div class="ac-left">
+			<div class="ac-left">
 				<?php
 
 				$columns = new View( array(
@@ -464,17 +449,17 @@ class Columns extends Admin\Page
 
 				?>
 
-            </div><!--.ac-left-->
-            <div class="clear"></div>
+			</div><!--.ac-left-->
+			<div class="clear"></div>
 
-            <div id="add-new-column-template">
+			<div id="add-new-column-template">
 				<?php $this->display_column_template( $list_screen ); ?>
-            </div>
+			</div>
 
 
-        </div><!--.ac-admin-->
+		</div><!--.ac-admin-->
 
-        <div class="clear"></div>
+		<div class="clear"></div>
 
 		<?php
 
@@ -487,7 +472,7 @@ class Columns extends Admin\Page
 
 	/**
 	 * @param array $column_types
-	 * @param bool $group
+	 * @param bool  $group
 	 *
 	 * @return Column|false
 	 */

@@ -1,6 +1,4 @@
-require( 'admin-columns-js/polyfill/customevent' );
-require( 'admin-columns-js/polyfill/nodelist' );
-
+import ListscreenInitialize from "./admin/columns/listscreen-initialize";
 /**
  * AC variables. Defined in DOM.
  * @param AdminColumns {Object}
@@ -33,6 +31,9 @@ import SettingWidth from './admin/columns/settings/width';
 import SettingLabel from './admin/columns/settings/label';
 import SettingCustomField from './admin/columns/settings/custom-field';
 import SettingNumberFormat from './admin/columns/settings/number-format';
+
+require( 'admin-columns-js/polyfill/customevent' );
+require( 'admin-columns-js/polyfill/nodelist' );
 
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 
@@ -86,4 +87,11 @@ jQuery( document ).ready( function() {
 			} );
 		}, 100 )
 	} );
+
+	console.log( AC );
+	if ( AC.hasOwnProperty( 'uninitialized_list_screens' ) && AC.uninitialized_list_screens.length > 0 ) {
+		let initializer = new ListscreenInitialize( AC.uninitialized_list_screens, AC.uninitialized_list_screens );
+		initializer.run();
+	}
+
 } );
