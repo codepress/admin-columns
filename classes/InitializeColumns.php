@@ -14,6 +14,14 @@ class InitializeColumns implements Registrable {
 
 	public function register() {
 		add_action( 'ac/settings/scripts', array( $this, 'scripts' ) );
+		add_action( 'admin_body_class', function( $classes ){
+			$classes .= ' ac-blocking';
+
+
+			return $classes;
+		},100);
+
+
 	}
 
 	public function scripts() {
@@ -25,8 +33,9 @@ class InitializeColumns implements Registrable {
 				'label'       => $list_screen->get_label()
 			);
 		}
-echo '<pre>'; print_r( $urls ); echo '</pre>'; //exit;
 
+		wp_enqueue_script( 'ac-initialize-columns', AC()->get_url() . '/assets/js/initialize-columns.js' );
+		wp_localize_script( 'ac-initialize-columns', 'AC_INIT_LISTSCREENS', $urls );
 	}
 
 	private function get_uninitialized_list_screens() {

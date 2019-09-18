@@ -105,6 +105,10 @@
 		}
 	}
 
+	&.-blocking {
+		background: #E3E7EB;
+	}
+
 	@media only screen and (max-width: 720px) {
 		&__dialog {
 			&__footer {
@@ -117,5 +121,11 @@
 				}
 			}
 		}
+	}
+}
+
+.ac-blocking {
+	#wpbody {
+		visibility: hidden;
 	}
 }
