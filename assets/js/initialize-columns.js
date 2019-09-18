@@ -153,31 +153,6 @@ function () {
   return InitializeColumns;
 }();
 
-var Modal =
-/*#__PURE__*/
-function () {
-  function Modal() {
-    _classCallCheck(this, Modal);
-  }
-
-  _createClass(Modal, [{
-    key: "getMarkup",
-    value: function getMarkup() {
-      "<div class=\"ac-modal -active\">\n\t\t\t<div class=\"ac-modal__dialog\">\n\t\t\t\t<div class=\"ac-modal__dialog__content\">\n\t\t\t\t\t<p class=\"ac-modal__dialog__content__lead\">\n\t\t\t\t\t\tUpgrade to PRO, and take Admin Columns to the next level:\t\t\t</p>\n\t\t\t\t\t<ul class=\"ac-modal__dialog__list\">\n\t\t\t\t\t\t<li>Sort &amp; Filter on all your content</li>\n\t\t\t\t\t\t<li>Directly edit your content from the overview</li>\n\t\t\t\t\t\t<li>Export all column data to CSV</li>\n\t\t\t\t\t\t<li>Create multiple column groups per overview</li>\n\t\t\t\t\t\t<li>Get add-ons for ACF, WooCommerce and many more</li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t\n\t\t\t</div>\n\t\t</div>";
-    }
-  }, {
-    key: "place",
-    value: function place() {
-      document.createElement();
-    }
-  }, {
-    key: "remove",
-    value: function remove() {}
-  }]);
-
-  return Modal;
-}();
-
 jQuery(document).ready(function () {
   var initializer = new InitializeColumns(AC_INIT_LISTSCREENS);
   initializer.run();
