@@ -13,17 +13,34 @@ class InitializeColumns implements Registrable {
 	}
 
 	public function register() {
-
-		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ) );
+		add_action( 'ac/settings/scripts', array( $this, 'scripts' ) );
 	}
 
 	public function scripts() {
+		$urls = array();
 
+		foreach ( $this->get_unitialized_list_screens() as $list_screen ) {
+			$urls[] = array(
+				'screen_link' => add_query_arg( array( 'acp_action' => 'store_default_columns' ), $list_screen->get_screen_link() ),
+				'label'       => $list_screen->get_label()
+			);
+		}
+echo '<pre>'; print_r( $urls ); echo '</pre>'; //exit;
 
+	}
 
+	private function get_unitialized_list_screens() {
+		$list_screens = AC()->get_list_screens();
 
+		foreach ( $list_screens as $key => $list_screen ) {
+			$columns = $this->default_columns->get( $list_screen->get_key() );
 
-		if ( $this->default_columns->)
+			if ( ! empty( $columns ) ) {
+				unset( $list_screens[ $key ] );
+			}
+		}
+
+		return $list_screens;
 	}
 
 }
