@@ -8,10 +8,8 @@ use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
 use AC\Screen\QuickEdit;
-use AC\Settings\Column\NumberFormat;
 use AC\Table;
 use AC\ThirdParty;
-use AC\Request;
 
 class AdminColumns extends Plugin {
 
@@ -198,13 +196,14 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
-	 * @since 1.0
-	 * @see   filter:plugin_action_links
 	 *
-	 * @param array  $links
+	 * @param array $links
 	 * @param string $file
 	 *
 	 * @return array
+	 * @see   filter:plugin_action_links
+	 *
+	 * @since 1.0
 	 */
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->get_basename() ) {
@@ -222,16 +221,16 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @since 3.0
 	 * @return API
+	 * @since 3.0
 	 */
 	public function api() {
 		return $this->api;
 	}
 
 	/**
-	 * @since 2.2
 	 * @return Admin Settings class instance
+	 * @since 2.2
 	 */
 	public function admin() {
 		return $this->admin;
@@ -304,8 +303,8 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Get a list of post types for which Admin Columns is active
-	 * @since 1.0
 	 * @return array List of post type keys (e.g. post, page)
+	 * @since 1.0
 	 */
 	public function get_post_types() {
 		$post_types = get_post_types( array(
@@ -321,9 +320,11 @@ class AdminColumns extends Plugin {
 
 		/**
 		 * Filter the post types for which Admin Columns is active
-		 * @since 2.0
 		 *
 		 * @param array $post_types List of active post type names
+		 *
+		 * @since 2.0
+		 *
 		 */
 		return apply_filters( 'ac/post_types', $post_types );
 	}
@@ -366,11 +367,12 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Redirect the user to the Admin Columns add-ons page after activation/deactivation of an add-on from the add-ons page
-	 * @since 2.2
 	 *
 	 * @param $location
 	 *
 	 * @return string
+	 * @since 2.2
+	 *
 	 */
 	public function redirect_after_status_change( $location ) {
 		global $pagenow;
@@ -401,10 +403,11 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @deprecated 3.1.5
+	 * @param $file
+	 *
 	 * @since      3.0
 	 *
-	 * @param $file
+	 * @deprecated 3.1.5
 	 */
 	public function get_plugin_version( $file ) {
 		_deprecated_function( __METHOD__, '3.1.5' );
@@ -428,12 +431,12 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @since      3.0
-	 * @deprecated 3.2
-	 *
 	 * @param string $key
 	 *
 	 * @return ListScreen|false
+	 * @since      3.0
+	 * @deprecated 3.2
+	 *
 	 */
 	public function get_list_screen( $key ) {
 		_deprecated_function( __METHOD__, '3.2', 'ListScreenFactory::create()' );
@@ -444,8 +447,8 @@ class AdminColumns extends Plugin {
 	/**
 	 * @param string $key
 	 *
-	 * @deprecated 3.2
 	 * @return bool
+	 * @deprecated 3.2
 	 */
 	public function list_screen_exists( $key ) {
 		_deprecated_function( __METHOD__, '3.2' );
@@ -454,8 +457,8 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @deprecated 3.2
 	 * @return Groups
+	 * @deprecated 3.2
 	 */
 	public function list_screen_groups() {
 		_deprecated_function( __METHOD__, '3.1.5', 'ListScreenGroups::get_groups' );
@@ -464,8 +467,8 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @deprecated 3.2
 	 * @return Groups
+	 * @deprecated 3.2
 	 */
 	public function column_groups() {
 		_deprecated_function( __METHOD__, '3.2' );
@@ -475,9 +478,9 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * Contains simple helper methods
-	 * @since      3.0
-	 * @deprecated 3.2
 	 * @return Helper
+	 * @deprecated 3.2
+	 * @since      3.0
 	 */
 	public function helper() {
 		_deprecated_function( __METHOD__, '3.2', 'ac_helper()' );
@@ -496,8 +499,8 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @deprecated 3.4
 	 * @return Admin\Page\Columns
+	 * @deprecated 3.4
 	 */
 	public function admin_columns_screen() {
 		_deprecated_function( __METHOD__, '3.4' );

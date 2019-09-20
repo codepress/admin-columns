@@ -25,6 +25,14 @@ class ScreenController implements Registrable {
 		$this->list_screen->set_manage_value_callback();
 
 		do_action( 'ac/table/list_screen', $this->list_screen );
+
+		if ( $this->is_doing_saving_default_headings() ) {
+			ob_start();
+		}
+	}
+
+	private function is_doing_saving_default_headings() {
+		return '1' === filter_input( INPUT_GET, 'save-default-headings' );
 	}
 
 	/**
@@ -38,14 +46,14 @@ class ScreenController implements Registrable {
 			return $columns;
 		}
 
-		if ( 'store_default_columns' === filter_input( INPUT_GET, 'acp_action' ) ) {
-			$this->list_screen->save_default_headings( $columns );
-			exit;
-		}
-
-		// Store default headings
 		if ( ! AC()->is_doing_ajax() ) {
 			$this->list_screen->save_default_headings( $columns );
+		}
+
+		// Break script when storing headings is all we need to do
+		if ( $this->is_doing_saving_default_headings() ) {
+			ob_end_clean();
+			exit( "1" );
 		}
 
 		// Run once

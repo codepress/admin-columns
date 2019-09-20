@@ -96,7 +96,17 @@
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
+__webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
+
+__webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
+
+__webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
+
 __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
+
+var _listscreenInitialize = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/listscreen-initialize */ "./js/admin/columns/listscreen-initialize.js"));
 
 var _form = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.js"));
 
@@ -144,9 +154,6 @@ var _numberFormat = _interopRequireDefault(__webpack_require__(/*! ./admin/colum
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-__webpack_require__(/*! admin-columns-js/polyfill/customevent */ "./node_modules/admin-columns-js/polyfill/customevent.js");
-
-__webpack_require__(/*! admin-columns-js/polyfill/nodelist */ "./node_modules/admin-columns-js/polyfill/nodelist.js");
 /**
  * AC variables. Defined in DOM.
  * @param AdminColumns {Object}
@@ -156,6 +163,12 @@ __webpack_require__(/*! admin-columns-js/polyfill/nodelist */ "./node_modules/ad
  * @param AC.i81n {String}
  */
 
+/** Events */
+
+/** Settings */
+__webpack_require__(/*! admin-columns-js/polyfill/customevent */ "./node_modules/admin-columns-js/polyfill/customevent.js");
+
+__webpack_require__(/*! admin-columns-js/polyfill/nodelist */ "./node_modules/admin-columns-js/polyfill/nodelist.js");
 
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 
@@ -189,6 +202,10 @@ jQuery(document).ready(function () {
       });
     }, 100);
   });
+
+  if (AC.hasOwnProperty('uninitialized_list_screens') && Object.keys(AC.uninitialized_list_screens).length > 0) {
+    new _listscreenInitialize.default(AC.uninitialized_list_screens);
+  }
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
@@ -1180,6 +1197,162 @@ function () {
 }();
 
 module.exports = Initiator;
+
+/***/ }),
+
+/***/ "./js/admin/columns/listscreen-initialize.js":
+/*!***************************************************!*\
+  !*** ./js/admin/columns/listscreen-initialize.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
+__webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
+
+__webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
+
+__webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+
+var ListscreenInitialize =
+/*#__PURE__*/
+function () {
+  function ListscreenInitialize(list_screens) {
+    _classCallCheck(this, ListscreenInitialize);
+
+    this.list_screens = list_screens;
+    this.processing = [];
+    this.errors = [];
+    this.events = nanobus();
+  }
+
+  _createClass(ListscreenInitialize, [{
+    key: "initListScreen",
+    value: function initListScreen(list_screen) {
+      return jQuery.ajax({
+        url: list_screen.screen_link,
+        method: 'get'
+      });
+    }
+  }, {
+    key: "run",
+    value: function run() {
+      var _this = this;
+
+      Object.keys(this.list_screens).forEach(function (key) {
+        _this.processListScreen(_this.list_screens[key]);
+      });
+    }
+  }, {
+    key: "getNextItem",
+    value: function getNextItem() {
+      return this.list_screens.shift();
+    }
+  }, {
+    key: "checkFinish",
+    value: function checkFinish() {
+      if (Object.keys(this.processing).length > 0) {
+        return;
+      }
+
+      if (Object.keys(this.errors).length > 0) {
+        this.events.emit('error');
+        return;
+      }
+
+      this.events.emit('success');
+    }
+  }, {
+    key: "processListScreen",
+    value: function processListScreen(list_screen) {
+      var _this2 = this;
+
+      this.processing.push(list_screen.label);
+      this.initListScreen(list_screen).done(function (r) {
+        _this2.processing.shift();
+
+        if (r !== '1') {
+          _this2.errors.push(list_screen);
+        }
+
+        _this2.checkFinish();
+      }).error(function () {
+        _this2.processing.shift();
+
+        _this2.errors.push(list_screen);
+      });
+    }
+  }]);
+
+  return ListscreenInitialize;
+}();
+
+var ListScreenInitializeController =
+/*#__PURE__*/
+function () {
+  function ListScreenInitializeController(list_screens) {
+    _classCallCheck(this, ListScreenInitializeController);
+
+    this.list_screens = list_screens;
+    this.run();
+  }
+
+  _createClass(ListScreenInitializeController, [{
+    key: "run",
+    value: function run() {
+      if (Object.keys(this.list_screens).length > 0) {
+        if (this.list_screens.hasOwnProperty(AC.list_screen)) {
+          var main_initializer = new ListscreenInitialize([this.list_screens[AC.list_screen]]);
+          main_initializer.run();
+          main_initializer.events.on('error', function () {
+            var notice = document.querySelector('.ac-notice.visit-ls');
+            var loading = document.querySelector('.ac-loading-msg-wrapper');
+            var menu = document.querySelector('.menu');
+
+            if (notice) {
+              notice.style.display = 'block';
+            }
+
+            if (loading) {
+              loading.remove();
+            }
+
+            if (menu) {
+              menu.classList.remove('hidden');
+            }
+          });
+          main_initializer.events.on('success', function () {
+            location.reload(true);
+          });
+        }
+
+        var background_initializer = new ListscreenInitialize(this.list_screens);
+        background_initializer.run();
+      }
+    }
+  }]);
+
+  return ListScreenInitializeController;
+}();
+
+exports.default = ListScreenInitializeController;
 
 /***/ }),
 

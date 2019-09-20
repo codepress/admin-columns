@@ -1,0 +1,42 @@
+.ac-setbox {
+	margin-top: 30px;
+	background: #fff;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+	&__header {
+		background: #fff;
+		font-weight: bold;
+		padding: 10px;
+		border-bottom: 1px solid #dfdfdf;
+	}
+
+	&__row {
+		display: flex;
+
+		&__th, &__fields {
+			border-bottom: 1px solid #dfdfdf;
+		}
+
+		&__th {
+			background: #f5f5f5;
+			flex: 0 0 230px;
+			padding: 10px;
+			border-right: 1px solid #dedede;
+
+			label {
+				display: block;
+				font-weight: bold;
+				margin-bottom : 5px;
+			}
+			small {
+				color: #72777C;
+				font-size: 12px;
+				line-height: 17px;
+			}
+		}
+		&__fields {
+			flex: auto;
+			padding: 10px;
+		}
+	}
+}

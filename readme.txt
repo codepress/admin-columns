@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Improved] It is not necessary anymore to load the overview page once in order to recognize the default columns
+
 = 3.4.7 =
 Release Date: August 26th, 2019
 
