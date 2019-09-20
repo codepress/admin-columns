@@ -30,7 +30,7 @@ class Media extends AC\ListScreenPost {
 		return new WP_Media_List_Table( array( 'screen' => $this->get_screen_id() ) );
 	}
 
-	public function get_screen_links() {
+	public function get_screen_link() {
 		return add_query_arg( 'mode',  'list', parent::get_screen_link() );
 	}
 
