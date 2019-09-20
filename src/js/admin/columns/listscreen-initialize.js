@@ -1,6 +1,6 @@
 var nanobus = require( 'nanobus' );
 
-export default class ListscreenInitialize {
+class ListscreenInitialize {
 
 	constructor( list_screens ) {
 		this.list_screens = list_screens;
@@ -53,6 +53,49 @@ export default class ListscreenInitialize {
 			this.processing.shift();
 			this.errors.push( list_screen );
 		} )
+	}
+
+}
+
+export default class ListScreenInitializeController {
+
+	constructor( list_screens ) {
+		this.list_screens = list_screens;
+		this.run();
+	}
+
+	run() {
+		if ( Object.keys( this.list_screens ).length > 0 ) {
+
+			if ( this.list_screens.hasOwnProperty( AC.list_screen ) ) {
+				let main_initializer = new ListscreenInitialize( [ this.list_screens[ AC.list_screen ] ] );
+				main_initializer.run();
+				main_initializer.events.on( 'error', () => {
+					let notice = document.querySelector( '.ac-notice.visit-ls' );
+					let loading = document.querySelector( '.ac-loading-msg-wrapper' );
+					let menu = document.querySelector( '.menu' );
+
+					if ( notice ) {
+						notice.style.display = 'block';
+					}
+
+					if ( loading ) {
+						loading.remove();
+					}
+
+					if ( menu ) {
+						menu.classList.remove( 'hidden' );
+					}
+				} );
+
+				main_initializer.events.on( 'success', () => {
+					location.reload( true );
+				} );
+			}
+
+			let background_initializer = new ListscreenInitialize( this.list_screens );
+			background_initializer.run();
+		}
 	}
 
 }

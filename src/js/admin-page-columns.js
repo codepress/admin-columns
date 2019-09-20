@@ -1,4 +1,4 @@
-import ListscreenInitialize from "./admin/columns/listscreen-initialize";
+import ListScreenInitializeController from "./admin/columns/listscreen-initialize";
 /**
  * AC variables. Defined in DOM.
  * @param AdminColumns {Object}
@@ -89,24 +89,7 @@ jQuery( document ).ready( function() {
 	} );
 
 	if ( AC.hasOwnProperty( 'uninitialized_list_screens' ) && Object.keys( AC.uninitialized_list_screens ).length > 0 ) {
-
-		if( AC.uninitialized_list_screens.hasOwnProperty( AC.list_screen ) ){
-			let main_initializer = new ListscreenInitialize( [ AC.uninitialized_list_screens[ AC.list_screen ] ] );
-			main_initializer.run();
-			main_initializer.events.on( 'error', () => {
-				let notice = document.querySelector( '.ac-notice.visit-ls');
-				let loading = document.querySelector( '.ac-loading-msg-wrapper' );
-				notice.style.display = 'block';
-				loading.remove();
-			});
-			main_initializer.events.on( 'success', ( ) => {
-				location.reload( true );
-			});
-		}
-
-		let background_initializer = new ListscreenInitialize( AC.uninitialized_list_screens );
-		background_initializer.run();
-
+		new ListScreenInitializeController( AC.uninitialized_list_screens );
 	}
 
 } );

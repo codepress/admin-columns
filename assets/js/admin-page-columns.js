@@ -204,22 +204,7 @@ jQuery(document).ready(function () {
   });
 
   if (AC.hasOwnProperty('uninitialized_list_screens') && Object.keys(AC.uninitialized_list_screens).length > 0) {
-    if (AC.uninitialized_list_screens.hasOwnProperty(AC.list_screen)) {
-      var main_initializer = new _listscreenInitialize.default([AC.uninitialized_list_screens[AC.list_screen]]);
-      main_initializer.run();
-      main_initializer.events.on('error', function () {
-        var notice = document.querySelector('.ac-notice.visit-ls');
-        var loading = document.querySelector('.ac-loading-msg-wrapper');
-        notice.style.display = 'block';
-        loading.remove();
-      });
-      main_initializer.events.on('success', function () {
-        location.reload(true);
-      });
-    }
-
-    var background_initializer = new _listscreenInitialize.default(AC.uninitialized_list_screens);
-    background_initializer.run();
+    new _listscreenInitialize.default(AC.uninitialized_list_screens);
   }
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
@@ -1319,7 +1304,55 @@ function () {
   return ListscreenInitialize;
 }();
 
-exports.default = ListscreenInitialize;
+var ListScreenInitializeController =
+/*#__PURE__*/
+function () {
+  function ListScreenInitializeController(list_screens) {
+    _classCallCheck(this, ListScreenInitializeController);
+
+    this.list_screens = list_screens;
+    this.run();
+  }
+
+  _createClass(ListScreenInitializeController, [{
+    key: "run",
+    value: function run() {
+      if (Object.keys(this.list_screens).length > 0) {
+        if (this.list_screens.hasOwnProperty(AC.list_screen)) {
+          var main_initializer = new ListscreenInitialize([this.list_screens[AC.list_screen]]);
+          main_initializer.run();
+          main_initializer.events.on('error', function () {
+            var notice = document.querySelector('.ac-notice.visit-ls');
+            var loading = document.querySelector('.ac-loading-msg-wrapper');
+            var menu = document.querySelector('.menu');
+
+            if (notice) {
+              notice.style.display = 'block';
+            }
+
+            if (loading) {
+              loading.remove();
+            }
+
+            if (menu) {
+              menu.classList.remove('hidden');
+            }
+          });
+          main_initializer.events.on('success', function () {
+            location.reload(true);
+          });
+        }
+
+        var background_initializer = new ListscreenInitialize(this.list_screens);
+        background_initializer.run();
+      }
+    }
+  }]);
+
+  return ListScreenInitializeController;
+}();
+
+exports.default = ListScreenInitializeController;
 
 /***/ }),
 

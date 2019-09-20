@@ -143,7 +143,7 @@ class Columns extends Admin\Page
 		foreach ( $this->uninitialized_list_screens as $list_screen ) {
 			/** @var \AC\ListScreen $list_screen */
 			$params['uninitialized_list_screens'][ $list_screen->get_key() ] = array(
-				'screen_link' => add_query_arg( array( 'acp_action' => 'store_default_columns' ), $list_screen->get_screen_link() ),
+				'screen_link' => add_query_arg( array( 'save-default-headings' => '1' ), $list_screen->get_screen_link() ),
 				'label'       => $list_screen->get_label(),
 			);
 		}
@@ -349,7 +349,6 @@ class Columns extends Admin\Page
 		}
 	}
 
-
 	/**
 	 * @param ListScreen $list_screen
 	 *
@@ -366,6 +365,12 @@ class Columns extends Admin\Page
 	 */
 	public function render() {
 		$list_screen = $this->get_list_screen();
+		$menu = new View( array(
+			'items'       => $this->get_grouped_list_screens(),
+			'current'     => $list_screen->get_key(),
+			'screen_link' => $list_screen->get_screen_link(),
+		) );
+		$menu->set_template( 'admin/edit-menu' );
 
 		if ( empty( $this->default_columns->get( $list_screen->get_key() ) ) ) {
 			$modal = new View( array(
@@ -373,6 +378,7 @@ class Columns extends Admin\Page
 			) );
 
 			echo $modal->set_template( 'admin/loading-message' );
+			echo $menu->set( 'class', 'hidden' );
 
 			return;
 		}
@@ -382,17 +388,9 @@ class Columns extends Admin\Page
 			<div class="main">
 
 				<?php
-				$menu = new View( array(
-					'items'       => $this->get_grouped_list_screens(),
-					'current'     => $list_screen->get_key(),
-					'screen_link' => $list_screen->get_screen_link(),
-				) );
-
-				echo $menu->set_template( 'admin/edit-menu' );
-
+				echo $menu;
+				do_action( 'ac/settings/after_title', $list_screen );
 				?>
-
-				<?php do_action( 'ac/settings/after_title', $list_screen ); ?>
 
 			</div>
 
@@ -510,7 +508,8 @@ class Columns extends Admin\Page
 			}
 		}
 
-		array_multisort( array_keys( $columns ), SORT_NATURAL, $columns );
+		$column_keys = array_keys( $columns );
+		array_multisort( $column_keys, SORT_NATURAL, $columns );
 
 		$column = array_shift( $columns );
 
