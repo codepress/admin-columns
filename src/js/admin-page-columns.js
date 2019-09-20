@@ -88,7 +88,6 @@ jQuery( document ).ready( function() {
 		}, 100 )
 	} );
 
-	console.log( AC );
 	if ( AC.hasOwnProperty( 'uninitialized_list_screens' ) && AC.uninitialized_list_screens.length > 0 ) {
 		let initializer = new ListscreenInitialize( AC.uninitialized_list_screens, AC.uninitialized_list_screens );
 		initializer.run();

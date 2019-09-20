@@ -38,14 +38,13 @@ class ScreenController implements Registrable {
 			return $columns;
 		}
 
-		if ( 'store_default_columns' === filter_input( INPUT_GET, 'acp_action' ) ) {
-			$this->list_screen->save_default_headings( $columns );
-			exit;
-		}
-
-		// Store default headings
 		if ( ! AC()->is_doing_ajax() ) {
 			$this->list_screen->save_default_headings( $columns );
+		}
+
+		// Break script when storing headings is all we need to do
+		if ( '1' === filter_input( INPUT_GET, 'save-default-headings' ) ) {
+			exit( 'success-save-headings' );
 		}
 
 		// Run once

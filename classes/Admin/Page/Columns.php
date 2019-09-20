@@ -141,7 +141,7 @@ class Columns extends Admin\Page
 
 		foreach ( $this->uninitialized_list_screens as $list_screen ) {
 			$params['uninitialized_list_screens'][] = array(
-				'screen_link' => add_query_arg( array( 'acp_action' => 'store_default_columns' ), $list_screen->get_screen_link() ),
+				'screen_link' => add_query_arg( array( 'save-default-headings' => '1' ), $list_screen->get_screen_link() ),
 				'label'       => $list_screen->get_label(),
 			);
 		}
@@ -342,7 +342,6 @@ class Columns extends Admin\Page
 	public function render() {
 
 		if ( $this->uninitialized_list_screens ) {
-
 
 			$modal = new View( array(
 				'message' => 'Loading columns',
