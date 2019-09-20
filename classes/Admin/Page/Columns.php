@@ -372,7 +372,9 @@ class Columns extends Admin\Page
 		) );
 		$menu->set_template( 'admin/edit-menu' );
 
-		if ( empty( $this->default_columns->get( $list_screen->get_key() ) ) ) {
+		$default_columns = $this->default_columns->get( $list_screen->get_key() );
+
+		if ( empty( $default_columns ) ) {
 			$modal = new View( array(
 				'message' => 'Loading columns',
 			) );
