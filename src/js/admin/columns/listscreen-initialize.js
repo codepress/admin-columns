@@ -1,8 +1,12 @@
+var nanobus = require( 'nanobus' );
+
 export default class ListscreenInitialize {
 
 	constructor( list_screens ) {
 		this.list_screens = list_screens;
 		this.processing = [];
+		this.errors = [];
+		this.events = nanobus();
 	}
 
 	initListScreen( list_screen ) {
@@ -13,9 +17,9 @@ export default class ListscreenInitialize {
 	}
 
 	run() {
-		for ( let i = 0; i < this.list_screens.length; i++ ) {
-			this.processNext();
-		}
+		Object.keys( this.list_screens ).forEach( key => {
+			this.processListScreen( this.list_screens[ key ] );
+		} );
 	}
 
 	getNextItem() {
@@ -23,26 +27,32 @@ export default class ListscreenInitialize {
 	}
 
 	checkFinish() {
-
-		if ( this.processing.length > 0 ) {
+		if ( Object.keys( this.processing ).length > 0 ) {
 			return;
 		}
 
-		//location.reload( true );
-	}
-
-	processNext() {
-		let list_screen = this.getNextItem();
-
-		if ( !list_screen ) {
-			return this.checkFinish();
+		if ( Object.keys( this.errors ).length > 0 ) {
+			this.events.emit( 'error' );
+			return;
 		}
 
-		this.processing.push( list_screen.label );
+		this.events.emit( 'success' );
+	}
 
-		this.initListScreen( list_screen ).done( d => {
+	processListScreen( list_screen ) {
+		this.processing.push( list_screen.label );
+		this.initListScreen( list_screen ).done( ( r ) => {
 			this.processing.shift();
-			this.processNext();
+
+			if ( r !== '1' ) {
+				this.errors.push( list_screen );
+			}
+			this.checkFinish();
+
+		} ).error( () => {
+			this.processing.shift();
+			this.errors.push( list_screen );
 		} )
 	}
+
 }

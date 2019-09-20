@@ -96,6 +96,14 @@
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
+__webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
+
+__webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
+
+__webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
+
 __webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
 
 var _listscreenInitialize = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/listscreen-initialize */ "./js/admin/columns/listscreen-initialize.js"));
@@ -194,11 +202,24 @@ jQuery(document).ready(function () {
       });
     }, 100);
   });
-  console.log(AC);
 
-  if (AC.hasOwnProperty('uninitialized_list_screens') && AC.uninitialized_list_screens.length > 0) {
-    var initializer = new _listscreenInitialize.default(AC.uninitialized_list_screens, AC.uninitialized_list_screens);
-    initializer.run();
+  if (AC.hasOwnProperty('uninitialized_list_screens') && Object.keys(AC.uninitialized_list_screens).length > 0) {
+    if (AC.uninitialized_list_screens.hasOwnProperty(AC.list_screen)) {
+      var main_initializer = new _listscreenInitialize.default([AC.uninitialized_list_screens[AC.list_screen]]);
+      main_initializer.run();
+      main_initializer.events.on('error', function () {
+        var notice = document.querySelector('.ac-notice.visit-ls');
+        var loading = document.querySelector('.ac-loading-msg-wrapper');
+        notice.style.display = 'block';
+        loading.remove();
+      });
+      main_initializer.events.on('success', function () {
+        location.reload(true);
+      });
+    }
+
+    var background_initializer = new _listscreenInitialize.default(AC.uninitialized_list_screens);
+    background_initializer.run();
   }
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
@@ -1209,11 +1230,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+__webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+
+__webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
+
+__webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
+
+__webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 
 var ListscreenInitialize =
 /*#__PURE__*/
@@ -1223,6 +1254,8 @@ function () {
 
     this.list_screens = list_screens;
     this.processing = [];
+    this.errors = [];
+    this.events = nanobus();
   }
 
   _createClass(ListscreenInitialize, [{
@@ -1236,9 +1269,11 @@ function () {
   }, {
     key: "run",
     value: function run() {
-      for (var i = 0; i < this.list_screens.length; i++) {
-        this.processNext();
-      }
+      var _this = this;
+
+      Object.keys(this.list_screens).forEach(function (key) {
+        _this.processListScreen(_this.list_screens[key]);
+      });
     }
   }, {
     key: "getNextItem",
@@ -1248,27 +1283,35 @@ function () {
   }, {
     key: "checkFinish",
     value: function checkFinish() {
-      if (this.processing.length > 0) {
+      if (Object.keys(this.processing).length > 0) {
         return;
-      } //location.reload( true );
-
-    }
-  }, {
-    key: "processNext",
-    value: function processNext() {
-      var _this = this;
-
-      var list_screen = this.getNextItem();
-
-      if (!list_screen) {
-        return this.checkFinish();
       }
 
-      this.processing.push(list_screen.label);
-      this.initListScreen(list_screen).done(function (d) {
-        _this.processing.shift();
+      if (Object.keys(this.errors).length > 0) {
+        this.events.emit('error');
+        return;
+      }
 
-        _this.processNext();
+      this.events.emit('success');
+    }
+  }, {
+    key: "processListScreen",
+    value: function processListScreen(list_screen) {
+      var _this2 = this;
+
+      this.processing.push(list_screen.label);
+      this.initListScreen(list_screen).done(function (r) {
+        _this2.processing.shift();
+
+        if (r !== '1') {
+          _this2.errors.push(list_screen);
+        }
+
+        _this2.checkFinish();
+      }).error(function () {
+        _this2.processing.shift();
+
+        _this2.errors.push(list_screen);
       });
     }
   }]);

@@ -46,6 +46,7 @@ class Columns extends Admin\Page
 	}
 
 	public function register() {
+		$this->maybe_show_notice();
 		$this->handle_request();
 		$this->set_uninitialized_list_screens();
 
@@ -140,7 +141,8 @@ class Columns extends Admin\Page
 		$params['uninitialized_list_screens'] = array();
 
 		foreach ( $this->uninitialized_list_screens as $list_screen ) {
-			$params['uninitialized_list_screens'][] = array(
+			/** @var \AC\ListScreen $list_screen */
+			$params['uninitialized_list_screens'][ $list_screen->get_key() ] = array(
 				'screen_link' => add_query_arg( array( 'acp_action' => 'store_default_columns' ), $list_screen->get_screen_link() ),
 				'label'       => $list_screen->get_label(),
 			);
@@ -325,6 +327,29 @@ class Columns extends Admin\Page
 		return $label;
 	}
 
+	private function maybe_show_notice() {
+		$list_screen = $this->get_list_screen();
+
+		if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->is_read_only() ) {
+
+			$first_visit_link = add_query_arg( array( 'ac_action' => 'first-visit' ), $list_screen->get_screen_link() );
+
+			$notice = new Notice( sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $first_visit_link, $list_screen->get_label() ) ) );
+			$notice
+				->set_type( Notice::WARNING )
+				->set_id( 'visit-ls' )
+				->register();
+		}
+
+		if ( $list_screen->is_read_only() ) {
+			$notice = new Notice( $this->get_read_only_message( $list_screen ) );
+			$notice
+				->set_type( Notice::INFO )
+				->register();
+		}
+	}
+
+
 	/**
 	 * @param ListScreen $list_screen
 	 *
@@ -340,10 +365,9 @@ class Columns extends Admin\Page
 	 * Display
 	 */
 	public function render() {
+		$list_screen = $this->get_list_screen();
 
-		if ( $this->uninitialized_list_screens ) {
-
-
+		if ( empty( $this->default_columns->get( $list_screen->get_key() ) ) ) {
 			$modal = new View( array(
 				'message' => 'Loading columns',
 			) );
@@ -352,9 +376,6 @@ class Columns extends Admin\Page
 
 			return;
 		}
-
-		$list_screen = $this->get_list_screen();
-
 		?>
 
 		<div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">

@@ -25,6 +25,10 @@ class ScreenController implements Registrable {
 		$this->list_screen->set_manage_value_callback();
 
 		do_action( 'ac/table/list_screen', $this->list_screen );
+
+		if ( 'store_default_columns' === filter_input( INPUT_GET, 'acp_action' ) ) {
+			ob_start();
+		}
 	}
 
 	/**
@@ -40,6 +44,8 @@ class ScreenController implements Registrable {
 
 		if ( 'store_default_columns' === filter_input( INPUT_GET, 'acp_action' ) ) {
 			$this->list_screen->save_default_headings( $columns );
+			ob_get_clean();
+			echo 1;
 			exit;
 		}
 
