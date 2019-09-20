@@ -1222,7 +1222,6 @@ function () {
     _classCallCheck(this, ListscreenInitialize);
 
     this.list_screens = list_screens;
-    this.treads = 6;
     this.processing = [];
   }
 
@@ -1237,7 +1236,7 @@ function () {
   }, {
     key: "run",
     value: function run() {
-      for (var i = 0; i < this.treads; i++) {
+      for (var i = 0; i < this.list_screens.length; i++) {
         this.processNext();
       }
     }
@@ -1251,9 +1250,8 @@ function () {
     value: function checkFinish() {
       if (this.processing.length > 0) {
         return;
-      }
+      } //location.reload( true );
 
-      location.reload(true);
     }
   }, {
     key: "processNext",

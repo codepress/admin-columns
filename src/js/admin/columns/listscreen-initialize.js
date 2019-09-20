@@ -2,7 +2,6 @@ export default class ListscreenInitialize {
 
 	constructor( list_screens ) {
 		this.list_screens = list_screens;
-		this.treads = 6;
 		this.processing = [];
 	}
 
@@ -13,30 +12,29 @@ export default class ListscreenInitialize {
 		} );
 	}
 
-	run(){
-		for( let i=0; i<this.treads; i++ ){
+	run() {
+		for ( let i = 0; i < this.list_screens.length; i++ ) {
 			this.processNext();
 		}
-
 	}
 
-	getNextItem(){
+	getNextItem() {
 		return this.list_screens.shift();
 	}
 
-	checkFinish(){
+	checkFinish() {
 
-		if( this.processing.length > 0 ){
+		if ( this.processing.length > 0 ) {
 			return;
 		}
 
-		location.reload(true);
+		//location.reload( true );
 	}
 
-	processNext(){
+	processNext() {
 		let list_screen = this.getNextItem();
 
-		if( ! list_screen ){
+		if ( !list_screen ) {
 			return this.checkFinish();
 		}
 
@@ -45,6 +43,6 @@ export default class ListscreenInitialize {
 		this.initListScreen( list_screen ).done( d => {
 			this.processing.shift();
 			this.processNext();
-		})
+		} )
 	}
 }
