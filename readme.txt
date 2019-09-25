@@ -216,6 +216,7 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: tbd
 
+* [Removed] Support for PHP 5.3. The minimum version required to run Admin Columns is now PHP 5.6.20.
 * [Improved] It is not necessary anymore to load the overview page once in order to recognize the default columns
 
 = 3.4.7 =
