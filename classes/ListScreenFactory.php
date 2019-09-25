@@ -20,6 +20,8 @@ class ListScreenFactory {
 		$list_screen = clone $list_screens[ $type ];
 		$list_screen->set_layout_id( $id );
 
+		// todo: load settings
+
 		return $list_screen;
 	}
 

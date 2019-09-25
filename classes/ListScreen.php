@@ -727,6 +727,7 @@ abstract class ListScreen {
 	 *
 	 * @return WP_Error|true
 	 */
+	// todo: remove
 	public function store( $column_data ) {
 		if ( ! $column_data ) {
 			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );

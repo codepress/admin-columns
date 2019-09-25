@@ -5,6 +5,7 @@ use AC\Admin\Request\Handler;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\Request;
+use AC\Storage;
 
 class Save extends Handler {
 
@@ -29,9 +30,39 @@ class Save extends Handler {
 			);
 		}
 
-		$result = $list_screen->store( $formdata['columns'] );
+		$subtype = null;
+
+		if ( method_exists( $list_screen, 'get_post_type' ) ) {
+			$subtype = $list_screen->get_post_type();
+		}
+
+		$data = new Storage\DataObject( [
+			'type'       => $list_screen->get_key(),
+			'subtype'    => $subtype,
+			'menu_order' => 5,
+			'columns'    => $formdata['columns'],
+			// todo
+			'settings'   => [],
+			'title'      => 'My Label',
+		] );
+
+		$id = 0;
+
+		if ( $id ) {
+			( new Storage\ListScreen() )->update( $id, $data );
+		} else {
+			( new Storage\ListScreen() )->create( $data );
+		}
+
+		do_action( 'ac/columns_stored', $list_screen );
+
+		// Current storage
+		// $result = $list_screen->store( $formdata['columns'] );
 
 		$view_link = ac_helper()->html->link( $list_screen->get_screen_link(), sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) );
+
+		// todo: do object hash compare to see if there were any changes
+		$result = true;
 
 		if ( is_wp_error( $result ) ) {
 
