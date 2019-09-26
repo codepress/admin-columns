@@ -15,20 +15,21 @@ class ListScreen implements Data {
 	/**
 	 * @param array $args
 	 *
-	 * @return int[]
+	 * @return DataObject[]
 	 */
 	public function query( array $args ) {
 		$query_args = [
 			'post_type'      => PostTypes::LIST_SCREEN_DATA,
-			'meta_query'     => [
-				[
-					'key'   => self::TYPE_KEY,
-					'value' => $args['type'],
-				],
-			],
 			'posts_per_page' => -1,
 			'fields'         => 'ids',
 		];
+
+		if ( isset( $args['type'] ) ) {
+			$query_args['meta_query'][] = [
+				'key'   => self::TYPE_KEY,
+				'value' => $args['type'],
+			];
+		}
 
 		if ( isset( $args['subtype'] ) ) {
 			$query_args['meta_query'][] = [
@@ -37,7 +38,14 @@ class ListScreen implements Data {
 			];
 		}
 
-		return get_posts( $args );
+		// todo return ListScreenDataCollection
+		$data_objects = [];
+
+		foreach ( get_posts( $query_args ) as $id ) {
+			$data_objects[] = $this->read( $id );
+		}
+
+		return $data_objects;
 	}
 
 	public function create( DataObject $data ) {
@@ -58,10 +66,10 @@ class ListScreen implements Data {
 
 	public function read( $id ) {
 		return new DataObject( [
-			'type'     => get_post_meta( $id, self::TYPE_KEY ),
-			'subtype'  => get_post_meta( $id, self::SUBTYPE_KEY ),
-			'settings' => get_post_meta( $id, self::SETTINGS_KEY ),
-			'columns'  => get_post_meta( $id, self::COLUMNS_KEY ),
+			'type'     => get_post_meta( $id, self::TYPE_KEY, true ),
+			'subtype'  => get_post_meta( $id, self::SUBTYPE_KEY, true ),
+			'settings' => get_post_meta( $id, self::SETTINGS_KEY, true ),
+			'columns'  => get_post_meta( $id, self::COLUMNS_KEY, true ),
 		] );
 	}
 

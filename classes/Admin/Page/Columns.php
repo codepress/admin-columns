@@ -16,6 +16,7 @@ use AC\Preferences;
 use AC\Registrable;
 use AC\Request;
 use AC\Response;
+use AC\Storage;
 use AC\View;
 
 class Columns extends Admin\Page
@@ -87,7 +88,13 @@ class Columns extends Admin\Page
 				if ( $this->verify_nonce( 'restore-type' ) ) {
 
 					$list_screen = ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
-					$list_screen->delete();
+					//$list_screen->delete();
+
+					// todo: delete column settings only
+					$data = ( new Storage\ListScreen() )->read( 1 );
+					unset( $data->columns );
+					( new Storage\ListScreen() )->update( 1, $data );
+
 
 					$notice = new Notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ) );
 					$notice->register();
@@ -365,6 +372,7 @@ class Columns extends Admin\Page
 	 */
 	public function render() {
 		$list_screen = $this->get_list_screen();
+
 		$menu = new View( array(
 			'items'       => $this->get_grouped_list_screens(),
 			'current'     => $list_screen->get_key(),

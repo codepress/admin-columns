@@ -10,7 +10,7 @@ use WP_Error;
  * List Screen
  * @since 2.0
  */
-abstract class ListScreen {
+abstract class _ListScreen {
 
 	const OPTIONS_KEY = 'cpac_options_';
 
@@ -99,7 +99,7 @@ abstract class ListScreen {
 	/**
 	 * @var array Column settings data
 	 */
-	private $settings = [];
+	private $settings;
 
 	/**
 	 * @var bool True when column settings can not be overwritten
@@ -420,11 +420,10 @@ abstract class ListScreen {
 	 * Clears columns variable, which allow it to be repopulated by get_columns().
 	 * @since 2.5
 	 */
-	// todo: remove
 	public function reset() {
-//		$this->columns = null;
-//		$this->column_types = null;
-//		$this->settings = null;
+		$this->columns = null;
+		$this->column_types = null;
+		$this->settings = null;
 	}
 
 	/**
@@ -729,95 +728,98 @@ abstract class ListScreen {
 	 * @return WP_Error|true
 	 */
 	// todo: remove
-//	public function store( $column_data ) {
-//		if ( ! $column_data ) {
-//			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
-//		}
-//
-//		$settings = array();
-//
-//		foreach ( $column_data as $column_name => $options ) {
-//			if ( empty( $options['type'] ) ) {
-//				continue;
-//			}
-//
-//			// New column, new key
-//			if ( 0 === strpos( $column_name, '_new_column_' ) ) {
-//				$column_name = uniqid();
-//			}
-//
-//			$options['name'] = $column_name;
-//
-//			$column = $this->create_column( $options );
-//
-//			if ( ! $column ) {
-//				continue;
-//			}
-//
-//			// Skip duplicate original columns
-//			if ( $column->is_original() ) {
-//				if ( in_array( $column->get_type(), wp_list_pluck( $settings, 'type' ), true ) ) {
-//					continue;
-//				}
-//			}
-//
-//			$sanitized = array();
-//
-//			// Sanitize data
-//			foreach ( $column->get_settings() as $setting ) {
-//				$sanitized += $setting->get_values();
-//			}
-//
-//			// Encode site url
-//			$setting = $column->get_setting( 'label' );
-//
-//			if ( $setting ) {
-//				$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
-//			}
-//
-//			$settings[ $column_name ] = array_merge( $options, $sanitized );
-//		}
-//
-//		$result = update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings, false );
-//
-//		if ( ! $result ) {
-//			return new WP_Error( 'same-settings' );
-//		}
-//
-//		/**
-//		 * Fires after a new column setup is stored in the database
-//		 * Primarily used when columns are saved through the Admin Columns settings screen
-//		 *
-//		 * @param ListScreen $list_screen
-//		 *
-//		 * @since 3.0
-//		 */
-//		do_action( 'ac/columns_stored', $this );
-//
-//		return true;
-//	}
+	public function store( $column_data ) {
+		if ( ! $column_data ) {
+			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
+		}
+
+		$settings = array();
+
+		foreach ( $column_data as $column_name => $options ) {
+			if ( empty( $options['type'] ) ) {
+				continue;
+			}
+
+			// New column, new key
+			if ( 0 === strpos( $column_name, '_new_column_' ) ) {
+				$column_name = uniqid();
+			}
+
+			$options['name'] = $column_name;
+
+			$column = $this->create_column( $options );
+
+			if ( ! $column ) {
+				continue;
+			}
+
+			// Skip duplicate original columns
+			if ( $column->is_original() ) {
+				if ( in_array( $column->get_type(), wp_list_pluck( $settings, 'type' ), true ) ) {
+					continue;
+				}
+			}
+
+			$sanitized = array();
+
+			// Sanitize data
+			foreach ( $column->get_settings() as $setting ) {
+				$sanitized += $setting->get_values();
+			}
+
+			// Encode site url
+			$setting = $column->get_setting( 'label' );
+
+			if ( $setting ) {
+				$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
+			}
+
+			$settings[ $column_name ] = array_merge( $options, $sanitized );
+		}
+
+		$result = update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings, false );
+
+		if ( ! $result ) {
+			return new WP_Error( 'same-settings' );
+		}
+
+		/**
+		 * Fires after a new column setup is stored in the database
+		 * Primarily used when columns are saved through the Admin Columns settings screen
+		 *
+		 * @param ListScreen $list_screen
+		 *
+		 * @since 3.0
+		 */
+		do_action( 'ac/columns_stored', $this );
+
+		return true;
+	}
 
 	/**
 	 * Populate settings from the database
 	 */
 	public function populate_settings() {
-		// todo: remove
 		// Load from DB
-		//$this->set_settings( get_option( self::OPTIONS_KEY . $this->get_storage_key() ) );
+		$this->set_settings( get_option( self::OPTIONS_KEY . $this->get_storage_key() ) );
 
 		// Load from API
-		//AC()->api()->set_column_settings( $this );
+		AC()->api()->set_column_settings( $this );
 
 		// Hook for populating the ListScreen from other sources
-		//do_action( 'ac/list_screen/populate_settings', $this );
+		do_action( 'ac/list_screen/populate_settings', $this );
 	}
 
 	/**
-	 * @param array $settings
+	 * @param array $settings Column settings
 	 *
 	 * @return self
 	 */
-	public function set_settings( array $settings ) {
+	public function set_settings( $settings ) {
+		if ( ! is_array( $settings ) ) {
+			$settings = array();
+		}
+
 		$this->settings = $settings;
 
 		return $this;
@@ -827,6 +829,10 @@ abstract class ListScreen {
 	 * @return array
 	 */
 	public function get_settings() {
+		if ( null === $this->settings ) {
+			$this->populate_settings();
+		}
+
 		return $this->settings;
 	}
 

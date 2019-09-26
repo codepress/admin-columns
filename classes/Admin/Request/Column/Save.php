@@ -30,20 +30,14 @@ class Save extends Handler {
 			);
 		}
 
-		$subtype = null;
-
-		if ( method_exists( $list_screen, 'get_post_type' ) ) {
-			$subtype = $list_screen->get_post_type();
-		}
-
 		$data = new Storage\DataObject( [
-			'type'       => $list_screen->get_key(),
-			'subtype'    => $subtype,
+			'type'       => $list_screen->get_key(), // wp-users, wp-ms_users, wp-media, page, car etc.,
 			'menu_order' => 5,
 			'columns'    => $formdata['columns'],
 			// todo
 			'settings'   => [],
 			'title'      => 'My Label',
+			'subtype'    => '',
 		] );
 
 		$id = 0;
