@@ -9,12 +9,17 @@ use AC\Storage;
 
 class Save extends Handler {
 
+	/** @var ListScreenFactory */
+	private $list_screen_factory;
+
 	public function __construct() {
 		parent::__construct( 'save' );
+
+		$this->list_screen_factory = new ListScreenFactory();
 	}
 
 	public function request( Request $request ) {
-		$list_screen = ListScreenFactory::create( $request->get( 'list_screen' ), $request->get( 'layout' ) );
+		$list_screen = $this->list_screen_factory->create( $request->get( 'list_screen' ), $request->get( 'layout' ) );
 
 		if ( ! $list_screen ) {
 			wp_die();

@@ -51,7 +51,6 @@ class ListScreen implements Data {
 	public function create( DataObject $data ) {
 		$id = wp_insert_post( [
 			'post_status' => 'publish',
-			'post_title'  => $data->title,
 			'post_type'   => PostTypes::LIST_SCREEN_DATA,
 		] );
 
@@ -66,25 +65,34 @@ class ListScreen implements Data {
 
 	public function read( $id ) {
 		return new DataObject( [
-			'type'     => get_post_meta( $id, self::TYPE_KEY, true ),
-			'subtype'  => get_post_meta( $id, self::SUBTYPE_KEY, true ),
-			'settings' => get_post_meta( $id, self::SETTINGS_KEY, true ),
-			'columns'  => get_post_meta( $id, self::COLUMNS_KEY, true ),
+			'id'            => $id,
+			'title'         => get_post_field( 'post_title', $id ),
+			'date_modified' => get_post_field( 'post_modified_gmt', $id ),
+			'date_created'  => get_post_field( 'post_date_gmt', $id ),
+			'order'         => get_post_field( 'menu_order', $id ),
+			'type'          => get_post_meta( $id, self::TYPE_KEY, true ),
+			'subtype'       => get_post_meta( $id, self::SUBTYPE_KEY, true ),
+			'settings'      => get_post_meta( $id, self::SETTINGS_KEY, true ),
+			'columns'       => get_post_meta( $id, self::COLUMNS_KEY, true ),
 		] );
 	}
 
 	public function update( $id, DataObject $data ) {
-		update_post_meta( $id, self::TYPE_KEY, $data->type );
-		update_post_meta( $id, self::SUBTYPE_KEY, $data->subtype );
-		update_post_meta( $id, self::SETTINGS_KEY, $data->settings );
-		update_post_meta( $id, self::COLUMNS_KEY, $data->columns );
+		wp_update_post( [
+			'ID'         => $id,
+			'post_title' => $data->title,
+			'menu_order' => $data->order,
+			'meta_input' => [
+				self::TYPE_KEY     => $data->type,
+				self::SUBTYPE_KEY  => $data->subtype,
+				self::SETTINGS_KEY => $data->settings,
+				self::COLUMNS_KEY  => $data->columns,
+			],
+		] );
 	}
 
 	public function delete( $id ) {
-		delete_post_meta( $id, self::TYPE_KEY );
-		delete_post_meta( $id, self::SUBTYPE_KEY );
-		delete_post_meta( $id, self::SETTINGS_KEY );
-		delete_post_meta( $id, self::COLUMNS_KEY );
+		wp_delete_post( $id, true );
 	}
 
 }

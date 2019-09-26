@@ -32,6 +32,14 @@ function ac_get_site_url( $path = '' ) {
 	return $url;
 }
 
+function ac_get_list_screen_types() {
+	if ( ! did_action( 'init' ) ) {
+		wc_doing_it_wrong( __FUNCTION__, 'ac_get_list_screen_types should not be called before post types are registered', 'NEWVERSION' );
+	}
+
+	return \AC\ListScreenTypes::instance()->get_list_screens();
+}
+
 /**
  * Url with utm tags
  *

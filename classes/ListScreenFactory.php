@@ -7,24 +7,30 @@ use LogicException;
 
 class ListScreenFactory {
 
+	/** @var Storage\ListScreen */
+	private $storage;
+
+	public function __construct() {
+		// todo add interface + inject
+		$this->storage = new Storage\ListScreen;
+	}
+
 	/**
 	 * @param string $type
-	 * @param int    $id Optional (layout) ID
 	 *
 	 * @return ListScreen|false
 	 */
 	// todo: remove static and add inject Storage\ListScreen to __constructor
-	public static function create( $type, $id = null ) {
-		$list_screen = self::get_list_screen_by_type( $type );
+	public function create( $key ) {
+		$list_screen = $this->get_list_screen_by_key( $key );
 
 		if ( ! $list_screen ) {
 			return false;
 		}
-		//$list_screen->set_layout_id( $id );
 
-		$data_objects = ( new Storage\ListScreen )->query( [
+		$data_objects = $this->storage->query( [
 			'type' => $list_screen->get_key(),
-		]);
+		] );
 
 		// todo
 		if ( $data_objects ) {
@@ -35,14 +41,19 @@ class ListScreenFactory {
 		return $list_screen;
 	}
 
-	private static function get_list_screen_by_type( $type ) {
-		$list_screens = AC()->get_list_screens();
-
-		if ( ! isset( $list_screens[ $type ] ) ) {
-			return false;
+	/**
+	 * @param string $key
+	 *
+	 * @return ListScreen|false
+	 */
+	private function get_list_screen_by_key( $key ) {
+		foreach ( ac_get_list_screen_types() as $list_screen ) {
+			if ( $key === $list_screen->get_key() ) {
+				return $list_screen;
+			}
 		}
 
-		return clone $list_screens[ $type ];
+		return false;
 	}
 
 	/**
@@ -50,14 +61,14 @@ class ListScreenFactory {
 	 *
 	 * @return ListScreen|bool
 	 */
-	public static function create_by_id( $id ) {
-		$data = ( new Storage\ListScreen )->read( $id );
+	public function create_by_id( $id ) {
+		$data = $this->storage->read( $id );
 
 		if ( $data->is_empty() ) {
 			throw new LogicException( sprintf( 'ListScreen ID:%s not found.', $id ) );
 		}
 
-		$list_screen = self::get_list_screen_by_type( $data->type );
+		$list_screen = $this->get_list_screen_by_key( $data->type );
 
 		if ( ! $list_screen ) {
 			throw new LogicException( sprintf( 'ListScreen Type:%s not found.', $data->type ) );
@@ -68,16 +79,27 @@ class ListScreenFactory {
 		return $list_screen;
 	}
 
+	public function create_by_screen( \WP_Screen $screen ) {
+		foreach ( ac_get_list_screen_types() as $list_screen ) {
+			if ( $list_screen->is_current_screen( $screen ) ) {
+				return $this->create( $list_screen->get_key() );
+			}
+		}
+
+		return null;
+	}
+
 	/**
 	 * @param Request $request
 	 *
 	 * @return ListScreen|false
 	 */
-	public static function create_from_request( Request $request ) {
+	public function create_from_request( Request $request ) {
 		$type = $request->filter( 'list_screen', '', FILTER_SANITIZE_STRING );
 		$id = $request->filter( 'layout', null, FILTER_SANITIZE_STRING );
 
-		return self::create( $type, $id );
+		// todo
+		return $this->create( $type, $id );
 	}
 
 }

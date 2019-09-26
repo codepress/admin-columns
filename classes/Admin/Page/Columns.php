@@ -35,8 +35,12 @@ class Columns extends Admin\Page
 	/** @var array */
 	private $uninitialized_list_screens = array();
 
+	/** @var ListScreenFactory */
+	private $list_screen_factory;
+
 	public function __construct() {
 		$this->default_columns = new DefaultColumns();
+		$this->list_screen_factory = new ListScreenFactory();
 
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 	}
@@ -55,7 +59,7 @@ class Columns extends Admin\Page
 	}
 
 	private function set_uninitialized_list_screens() {
-		$list_screens = AC()->get_list_screens();
+		$list_screens = ac_get_list_screen_types();
 
 		foreach ( $list_screens as $key => $list_screen ) {
 			$columns = $this->default_columns->get( $list_screen->get_key() );
@@ -87,14 +91,13 @@ class Columns extends Admin\Page
 			case 'restore_by_type' :
 				if ( $this->verify_nonce( 'restore-type' ) ) {
 
-					$list_screen = ListScreenFactory::create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
+					$list_screen = $this->list_screen_factory->create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 					//$list_screen->delete();
 
 					// todo: delete column settings only
 					$data = ( new Storage\ListScreen() )->read( 1 );
 					unset( $data->columns );
 					( new Storage\ListScreen() )->update( 1, $data );
-
 
 					$notice = new Notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ) );
 					$notice->register();
@@ -237,24 +240,25 @@ class Columns extends Admin\Page
 	}
 
 	public function get_list_screen() {
-		// User selected
-		$list_screen = ListScreenFactory::create( filter_input( INPUT_GET, 'list_screen' ) );
+		$requested_list = filter_input( INPUT_GET, 'list_screen' );
 
-		// Preference
-		$preference = ListScreenFactory::create( $this->preferences()->get( 'list_screen' ) );
+		// todo
+		$requested_id = filter_input( INPUT_GET, 'layout_id' );
+
+		$list_screen = $this->list_screen_factory->create( $requested_list );
+
+		try {
+			$preference = $this->list_screen_factory->create( $this->preferences()->get( 'list_screen' ) );
+		} catch ( \Exception $e ) {
+			$preference = false;
+		}
 
 		if ( ! $list_screen ) {
 			$list_screen = $preference;
 		}
 
-		// First one
 		if ( ! $list_screen ) {
-			$list_screen = ListScreenFactory::create( key( AC()->get_list_screens() ) );
-		}
-
-		// Load table headers
-		if ( ! $list_screen->get_original_columns() ) {
-			$list_screen->set_original_columns( $list_screen->get_default_column_headers() );
+			$list_screen = $this->list_screen_factory->create( key( ac_get_list_screen_types() ) );
 		}
 
 		if ( $preference !== $list_screen->get_key() ) {
@@ -293,7 +297,7 @@ class Columns extends Admin\Page
 	private function get_grouped_list_screens() {
 		$list_screens = array();
 
-		foreach ( AC()->get_list_screens() as $list_screen ) {
+		foreach ( ac_get_list_screen_types() as $list_screen ) {
 			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
 
@@ -367,31 +371,72 @@ class Columns extends Admin\Page
 		return apply_filters( 'ac/read_only_message', $message, $list_screen );
 	}
 
+	private function menu_view( $key, $link ) {
+		$menu = new View( array(
+			'items'       => $this->get_grouped_list_screens(),
+			'current'     => $key,
+			'screen_link' => $link,
+		) );
+		$menu->set_template( 'admin/edit-menu' );
+
+		return $menu;
+	}
+
+	// todo: move
+	private function submenu_view( $page_link, $list_screen_key, $current_id = false ) {
+		$data_objects = ( new Storage\ListScreen() )->query( [ 'type' => $list_screen_key ] );
+
+		if ( ! $data_objects ) {
+			return '';
+		}
+
+		ob_start();
+		$count = 0;
+		foreach ( $data_objects as $data ) : ?>
+			<li data-screen="<?php echo esc_attr( $data->id  ); ?>">
+				<?php echo ( $count++ ) != 0 ? ' | ' : ''; ?>
+				<a class="<?php echo $data->id === $current_id ? 'current' : ''; ?>" href="<?php echo add_query_arg( [ 'layout_id' => $data->id ], $page_link ); ?>"><?php echo esc_html( $data->title ); ?></a>
+			</li>
+		<?php endforeach;
+
+		$items = ob_get_clean();
+
+		$menu = new View( array(
+			'items' => $items,
+		) );
+
+		$menu->set_template( 'admin/edit-submenu' );
+
+		return $menu;
+	}
+
+	private function render_loading_screen( View $menu ) {
+		$modal = new View( array(
+			'message' => 'Loading columns',
+		) );
+
+		echo $modal->set_template( 'admin/loading-message' );
+		echo $menu->set( 'class', 'hidden' );;
+	}
+
 	/**
 	 * Display
 	 */
 	public function render() {
 		$list_screen = $this->get_list_screen();
 
-		$menu = new View( array(
-			'items'       => $this->get_grouped_list_screens(),
-			'current'     => $list_screen->get_key(),
-			'screen_link' => $list_screen->get_screen_link(),
-		) );
-		$menu->set_template( 'admin/edit-menu' );
+		$menu = $this->menu_view( $list_screen->get_key(), $list_screen->get_screen_link() );
 
 		$default_columns = $this->default_columns->get( $list_screen->get_key() );
 
 		if ( empty( $default_columns ) ) {
-			$modal = new View( array(
-				'message' => 'Loading columns',
-			) );
-
-			echo $modal->set_template( 'admin/loading-message' );
-			echo $menu->set( 'class', 'hidden' );
+			$this->render_loading_screen( $menu );
 
 			return;
 		}
+
+		$submenu = $this->submenu_view( $list_screen->get_edit_link(), $list_screen->get_key() );
+
 		?>
 
 		<div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
@@ -399,6 +444,8 @@ class Columns extends Admin\Page
 
 				<?php
 				echo $menu;
+				echo $submenu;
+
 				do_action( 'ac/settings/after_title', $list_screen );
 				?>
 

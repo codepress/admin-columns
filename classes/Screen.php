@@ -83,13 +83,7 @@ class Screen implements Registrable {
 	 * @return ListScreen|false
 	 */
 	public function get_list_screen() {
-		foreach ( AC()->get_list_screens() as $list_screen ) {
-			if ( $list_screen->is_current_screen( $this->screen ) ) {
-				return $list_screen;
-			}
-		}
-
-		return false;
+		return ( new ListScreenFactory() )->create_by_screen( $this->screen );
 	}
 
 	/**

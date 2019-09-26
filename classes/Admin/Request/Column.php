@@ -18,7 +18,7 @@ abstract class Column extends AC\Admin\Request\Handler {
 	abstract public function get_column();
 
 	public function request( AC\Request $request ) {
-		$this->list_screen = ListScreenFactory::create( $request->get( 'list_screen' ), $request->get( 'layout' ) );
+		$this->list_screen = ( new ListScreenFactory )->create( $request->get( 'list_screen' ), $request->get( 'layout' ) );
 
 		if ( ! $this->list_screen ) {
 			wp_die();

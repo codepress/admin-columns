@@ -13,6 +13,13 @@ class QuickEdit implements Registrable {
 	 */
 	private $list_screen;
 
+	/** @var string */
+	private $list_screen_factory;
+
+	public function __construct() {
+		$this->list_screen_factory = new ListScreenFactory();
+	}
+
 	/**
 	 * Register hooks
 	 */
@@ -61,7 +68,7 @@ class QuickEdit implements Registrable {
 			return;
 		}
 
-		$this->list_screen = ListScreenFactory::create( $type );
+		$this->list_screen = $this->list_screen_factory->create( $type );
 
 		do_action( 'ac/screen/quick_edit', $this );
 	}
