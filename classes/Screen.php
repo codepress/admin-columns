@@ -83,6 +83,9 @@ class Screen implements Registrable {
 	 * @return ListScreen|false
 	 */
 	public function get_list_screen() {
+		return false;
+
+		// todo
 		return ( new ListScreenFactory() )->create_by_screen( $this->screen );
 	}
 

@@ -13,18 +13,18 @@ interface Data {
 	public function query( array $args );
 
 	/**
+	 * @param int $id
+	 *
+	 * @return DataObject
+	 */
+	public function find_by_id( $id );
+
+	/**
 	 * @param DataObject $data
 	 *
 	 * @return int
 	 */
 	public function create( DataObject $data );
-
-	/**
-	 * @param int $id
-	 *
-	 * @return DataObject
-	 */
-	public function read( $id );
 
 	/**
 	 * @param int        $id

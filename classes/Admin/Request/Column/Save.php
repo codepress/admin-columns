@@ -19,7 +19,7 @@ class Save extends Handler {
 	}
 
 	public function request( Request $request ) {
-		$list_screen = $this->list_screen_factory->create( $request->get( 'list_screen' ), $request->get( 'layout' ) );
+		$list_screen = $this->list_screen_factory->create( $request->get( 'list_screen' ) );
 
 		if ( ! $list_screen ) {
 			wp_die();
@@ -40,9 +40,9 @@ class Save extends Handler {
 			'menu_order' => 5,
 			'columns'    => $formdata['columns'],
 			// todo
-			'settings'   => [],
-			'title'      => 'My Label',
-			'subtype'    => '',
+			'settings'   => isset( $formdata['settings'] ) ? $formdata['settings'] : '',
+			'title'      => isset( $formdata['title'] ) ? $formdata['title'] : 'My View',
+			'list_id'    => uniqid(), // layout_id
 		] );
 
 		$id = 0;
