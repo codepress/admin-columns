@@ -22,6 +22,7 @@ echo implode( $this->notices ); ?>
 			<input type="hidden" name="list_screen" value="<?php echo esc_attr( $this->list_screen ); ?>"/>
 			<input type="hidden" name="title" value="<?= $this->title ?>">
 			<input type="hidden" name="settings[]" value="">
+			<input type="hidden" name="layout_id" value="<?= $this->layout_id; ?>">
 			<?php wp_nonce_field( 'update-type', '_ac_nonce', false ); ?>
 
 			<?php
