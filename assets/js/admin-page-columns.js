@@ -184,7 +184,7 @@ jQuery(document).on('AC_Form_Loaded', function () {
   .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default).registerSetting('customfield', _customField.default).registerSetting('number_format', _numberFormat.default).registerSetting('label', _label2.default);
 });
 jQuery(document).ready(function () {
-  AC.Form = new _form.default('#cpac .ac-columns form');
+  AC.Form = new _form.default('#listscreen_settings');
 
   _modals.default.init().register(new _modal.default(document.querySelector('#ac-modal-pro')), 'pro');
 

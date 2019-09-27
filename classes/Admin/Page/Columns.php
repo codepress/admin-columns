@@ -17,7 +17,6 @@ use AC\Preferences;
 use AC\Registrable;
 use AC\Request;
 use AC\Response;
-use AC\Storage;
 use AC\View;
 
 class Columns extends Admin\Page
@@ -142,7 +141,7 @@ class Columns extends Admin\Page
 		$ajax_handler->set_param( 'list_screen', $this->get_requested_list_screen_type() )
 		             ->set_param( 'layout', $this->get_requested_list_id() )
 		             ->set_param( 'original_columns', [] );
-//		             ->set_param( 'original_columns', $list_screen->get_original_columns() );
+		//		             ->set_param( 'original_columns', $list_screen->get_original_columns() );
 
 		$params = $ajax_handler->get_params();
 
@@ -269,7 +268,7 @@ class Columns extends Admin\Page
 		$list_screen = $this->list_screen_repository->find_by_id( $this->get_requested_list_id() );
 
 		if ( ! $list_screen ) {
-			$list_screens = $this->list_screen_repository->query( ['type' => $this->get_requested_list_screen_type() ] );
+			$list_screens = $this->list_screen_repository->query( [ 'type' => $this->get_requested_list_screen_type() ] );
 
 			if ( $list_screens ) {
 				$list_screen = $list_screens[0];
@@ -280,23 +279,23 @@ class Columns extends Admin\Page
 			$list_screen = $this->list_screen_factory->create( $this->get_requested_list_screen_type() );
 		}
 
-//		try {
-//			$preference = $this->list_screen_factory->create( $this->preferences()->get( 'list_screen' ) );
-//		} catch ( \Exception $e ) {
-//			$preference = false;
-//		}
-//
-//		if ( ! $list_screen ) {
-//			$list_screen = $preference;
-//		}
-//
-//		if ( ! $list_screen ) {
-//			$list_screen = $this->list_screen_factory->create( key( ac_get_list_screen_types() ) );
-//		}
-//
-//		if ( $preference !== $list_screen->get_key() ) {
-//			$this->preferences()->set( 'list_screen', $list_screen->get_key() );
-//		}
+		//		try {
+		//			$preference = $this->list_screen_factory->create( $this->preferences()->get( 'list_screen' ) );
+		//		} catch ( \Exception $e ) {
+		//			$preference = false;
+		//		}
+		//
+		//		if ( ! $list_screen ) {
+		//			$list_screen = $preference;
+		//		}
+		//
+		//		if ( ! $list_screen ) {
+		//			$list_screen = $this->list_screen_factory->create( key( ac_get_list_screen_types() ) );
+		//		}
+		//
+		//		if ( $preference !== $list_screen->get_key() ) {
+		//			$this->preferences()->set( 'list_screen', $list_screen->get_key() );
+		//		}
 
 		//do_action( 'ac/settings/list_screen', $list_screen );
 
@@ -547,6 +546,7 @@ class Columns extends Admin\Page
 					'notices'        => $this->notices,
 					'class'          => $list_screen->is_read_only() ? ' disabled' : '',
 					'list_screen'    => $list_screen->get_key(),
+					'title'          => $list_screen->get_title(),
 					'columns'        => $list_screen->get_columns(),
 					'show_actions'   => ! $list_screen->is_read_only(),
 					'show_clear_all' => apply_filters( 'ac/enable_clear_columns_button', false ),

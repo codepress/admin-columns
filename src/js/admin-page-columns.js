@@ -68,7 +68,7 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 } );
 
 jQuery( document ).ready( function() {
-	AC.Form = new Form( '#cpac .ac-columns form' );
+	AC.Form = new Form( '#listscreen_settings' );
 	Modals.init().register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
 
 	new Menu().init();
