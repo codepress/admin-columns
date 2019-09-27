@@ -3,7 +3,9 @@ import Column from "./column";
 class Form {
 
 	constructor( el ) {
+		this.form = el;
 		this.$form = jQuery( el );
+		this.$column_container = this.$form.find('.ac-columns');
 		this.$container = jQuery( '#cpac .ac-admin' );
 		this.columns = {};
 
@@ -120,10 +122,12 @@ class Form {
 		let xhr = jQuery.post( ajaxurl, {
 				action : 'ac-columns',
 				id : 'save',
-				data : this.serialize(),
 				_ajax_nonce : AC._ajax_nonce,
-				list_screen : AC.list_screen,
-				layout : AC.layout,
+				data : this.serialize(),
+				columns: this.getColumnSettings(),
+				title: this.getTitle(),
+				list_screen : this.getListScreen(),
+				list_screen_id : this.getListScreenID(),
 				original_columns : AC.original_columns
 			},
 
@@ -181,9 +185,25 @@ class Form {
 		}
 	}
 
+	getListScreen(){
+		return this.$form.find('input[name="list_screen"]').val();
+	}
+
+	getListScreenID(){
+		return this.$form.find('input[name="list_screen_id"]').val();
+	}
+
+	getTitle(){
+		return this.$form.find('input[name="title"]').val();
+	}
+
+	getColumnSettings(){
+		return this.$form.find('[name^="columns["]').serialize();
+	}
+
 	_addColumnToForm( column, open = true ) {
 		this.columns[ column.name ] = column;
-		this.$form.append( column.$el );
+		this.$column_container.append( column.$el );
 
 		if ( open ) {
 			column.open();

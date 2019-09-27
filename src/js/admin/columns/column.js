@@ -173,8 +173,8 @@ class Column {
 				type : type,
 				current_original_columns : AC.Form.originalColumns(),
 				original_columns : AC.original_columns,
-				list_screen : AC.list_screen,
-				layout : AC.layout,
+				list_screen : AC.Form.getListScreen(),
+				list_screen_id : AC.Form.getListScreenID(),
 				_ajax_nonce : AC._ajax_nonce,
 			},
 			success : function( response ) {
@@ -205,8 +205,8 @@ class Column {
 			action : 'ac-columns',
 			id : 'refresh',
 			_ajax_nonce : AC._ajax_nonce,
-			list_screen : AC.list_screen,
-			layout : AC.layout,
+			list_screen : AC.Form.getListScreen(),
+			list_screen_id : AC.Form.getListScreenID(),
 			column_name : this.name,
 			original_columns : AC.original_columns
 		};

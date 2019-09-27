@@ -185,6 +185,7 @@ jQuery(document).on('AC_Form_Loaded', function () {
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#listscreen_settings');
+  AdminColumns.Form = AC.Form;
 
   _modals.default.init().register(new _modal.default(document.querySelector('#ac-modal-pro')), 'pro');
 
@@ -415,8 +416,8 @@ function () {
           type: type,
           current_original_columns: AC.Form.originalColumns(),
           original_columns: AC.original_columns,
-          list_screen: AC.list_screen,
-          layout: AC.layout,
+          list_screen: AC.Form.getListScreen(),
+          list_screen_id: AC.Form.getListScreenID(),
           _ajax_nonce: AC._ajax_nonce
         },
         success: function success(response) {
@@ -445,8 +446,8 @@ function () {
         action: 'ac-columns',
         id: 'refresh',
         _ajax_nonce: AC._ajax_nonce,
-        list_screen: AC.list_screen,
-        layout: AC.layout,
+        list_screen: AC.Form.getListScreen(),
+        list_screen_id: AC.Form.getListScreenID(),
         column_name: this.name,
         original_columns: AC.original_columns
       };
@@ -914,8 +915,6 @@ module.exports = Feedback;
 
 __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
 
-__webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
-
 __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 
 __webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
@@ -923,6 +922,8 @@ __webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/co
 __webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
 
 __webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
+
+__webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
 
 var _column = _interopRequireDefault(__webpack_require__(/*! ./column */ "./js/admin/columns/column.js"));
 
@@ -940,7 +941,9 @@ function () {
   function Form(el) {
     _classCallCheck(this, Form);
 
+    this.form = el;
     this.$form = jQuery(el);
+    this.$column_container = this.$form.find('.ac-columns');
     this.$container = jQuery('#cpac .ac-admin');
     this.columns = {};
     jQuery(document).trigger('AC_Form_Loaded');
@@ -1053,10 +1056,12 @@ function () {
       var xhr = jQuery.post(ajaxurl, {
         action: 'ac-columns',
         id: 'save',
-        data: this.serialize(),
         _ajax_nonce: AC._ajax_nonce,
-        list_screen: AC.list_screen,
-        layout: AC.layout,
+        data: this.serialize(),
+        columns: this.getColumnSettings(),
+        title: this.getTitle(),
+        list_screen: this.getListScreen(),
+        list_screen_id: this.getListScreenID(),
         original_columns: AC.original_columns
       }, function (response) {
         if (response) {
@@ -1107,11 +1112,31 @@ function () {
       }
     }
   }, {
+    key: "getListScreen",
+    value: function getListScreen() {
+      return this.$form.find('input[name="list_screen"]').val();
+    }
+  }, {
+    key: "getListScreenID",
+    value: function getListScreenID() {
+      return this.$form.find('input[name="list_screen_id"]').val();
+    }
+  }, {
+    key: "getTitle",
+    value: function getTitle() {
+      return this.$form.find('input[name="title"]').val();
+    }
+  }, {
+    key: "getColumnSettings",
+    value: function getColumnSettings() {
+      return this.$form.find('[name^="columns["]').serialize();
+    }
+  }, {
     key: "_addColumnToForm",
     value: function _addColumnToForm(column) {
       var open = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       this.columns[column.name] = column;
-      this.$form.append(column.$el);
+      this.$column_container.append(column.$el);
 
       if (open) {
         column.open();
