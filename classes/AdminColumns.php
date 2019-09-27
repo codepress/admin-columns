@@ -7,6 +7,7 @@ use AC\Admin\Page;
 use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
+use AC\ListScreenRepository\DataBase;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
@@ -366,7 +367,13 @@ class AdminColumns extends Plugin {
 				->register_section( GeneralSectionFactory::create() )
 				->register_section( new Restore() );
 
-			$page_columns = new Page\Columns();
+			$list_screen_factory = new ListScreenFactory();
+
+			// todo: Add file repo
+			$repositories = [ new ListScreenRepository\DataBase() ];
+			$list_screen_repository = new ListScreenRepository( $repositories, $list_screen_factory );
+
+			$page_columns = new Page\Columns( $list_screen_factory, $list_screen_repository );
 			$page_columns->register_ajax();
 
 			$this->admin->register_page( $page_columns )
@@ -508,13 +515,10 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return Admin\Page\Columns
 	 * @deprecated 3.4
 	 */
 	public function admin_columns_screen() {
 		_deprecated_function( __METHOD__, '3.4' );
-
-		return new Admin\Page\Columns();
 	}
 
 }

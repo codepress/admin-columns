@@ -16,11 +16,11 @@ class Save extends Handler {
 	/** @var ListScreenRepository */
 	private $list_screen_repository;
 
-	public function __construct() {
+	public function __construct( ListScreenFactory $list_screen_factory, ListScreenRepository $list_screen_repository ) {
 		parent::__construct( 'save' );
 
-		$this->list_screen_factory = new ListScreenFactory();
-		$this->list_screen_repository = new ListScreenRepository\PostType();
+		$this->list_screen_factory = $list_screen_factory;
+		$this->list_screen_repository = $list_screen_repository;
 	}
 
 	public function request( Request $request ) {
@@ -43,9 +43,9 @@ class Save extends Handler {
 		}
 
 		$data = new Storage\DataObject( [
-			'title'    => ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ),
-			'columns'  => $formdata['columns'],
-			'list_id'  => $list_id,
+			'title'   => ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ),
+			'columns' => $formdata['columns'],
+			'list_id' => $list_id,
 		] );
 
 		$list_screen = $this->list_screen_factory->create( $type, $data );
