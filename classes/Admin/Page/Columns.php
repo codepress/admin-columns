@@ -27,26 +27,26 @@ class Columns extends Admin\Page
 	/**
 	 * @var array
 	 */
-	private $notices = array();
+	private $notices = [];
 
 	/** @var DefaultColumns */
 	private $default_columns;
 
 	/** @var array */
-	private $uninitialized_list_screens = array();
+	private $uninitialized_list_screens = [];
 
 	/** @var ListScreenFactory */
-	private $list_screen_factory;
+	private $factory;
 
 	/** @var ListScreenRepository */
-	private $list_screen_repository;
+	private $repository;
 
 	public function __construct( ListScreenFactory $list_screen_factory, ListScreenRepository $list_screen_repository ) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->default_columns = new DefaultColumns();
-		$this->list_screen_factory = $list_screen_factory;
-		$this->list_screen_repository = $list_screen_repository;
+		$this->factory = $list_screen_factory;
+		$this->repository = $list_screen_repository;
 	}
 
 	public function register_ajax() {
@@ -55,8 +55,7 @@ class Columns extends Admin\Page
 	}
 
 	public function register() {
-		// todo
-		//$this->maybe_show_notice();
+		$this->maybe_show_notice();
 		$this->handle_request();
 		$this->set_uninitialized_list_screens();
 
@@ -96,13 +95,9 @@ class Columns extends Admin\Page
 			case 'restore_by_type' :
 				if ( $this->verify_nonce( 'restore-type' ) ) {
 
-					$list_screen = $this->list_screen_factory->create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
-					//$list_screen->delete();
-
-					// todo: delete column settings only
-					//$data = ( new Storage\ListScreen() )->read( 1 );
-					//unset( $data->columns );
-					//( new Storage\ListScreen() )->update( 1, $data );
+					$list_screen = $this->repository->find_by_id( filter_input( INPUT_POST, 'layout' ) );
+					$list_screen->set_settings( [] );
+					$this->repository->save( $list_screen );
 
 					$notice = new Notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ) );
 					$notice->register();
@@ -121,6 +116,8 @@ class Columns extends Admin\Page
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
+		$list_screen = $this->get_list_screen();
+
 		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version() );
 		wp_enqueue_script( 'jquery-ui-slider' );
 
@@ -136,10 +133,9 @@ class Columns extends Admin\Page
 
 		$ajax_handler = $this->get_ajax_column_handler();
 
-		$ajax_handler->set_param( 'list_screen', $this->get_requested_list_screen_type() )
-		             ->set_param( 'layout', $this->get_requested_list_id() )
+		$ajax_handler->set_param( 'list_screen', $list_screen->get_key() )
+		             ->set_param( 'layout', $list_screen->get_layout_id() )
 		             ->set_param( 'original_columns', [] );
-		//		             ->set_param( 'original_columns', $list_screen->get_original_columns() );
 
 		$params = $ajax_handler->get_params();
 
@@ -155,7 +151,7 @@ class Columns extends Admin\Page
 		$params['uninitialized_list_screens'] = array();
 
 		foreach ( $this->uninitialized_list_screens as $list_screen ) {
-			/** @var \AC\ListScreen $list_screen */
+			/** @var ListScreen $list_screen */
 			$params['uninitialized_list_screens'][ $list_screen->get_key() ] = array(
 				'screen_link' => add_query_arg( array( 'save-default-headings' => '1' ), $list_screen->get_screen_link() ),
 				'label'       => $list_screen->get_label(),
@@ -197,7 +193,7 @@ class Columns extends Admin\Page
 		$request = new Request();
 
 		$requests = array(
-			new Admin\Request\Column\Save( $this->list_screen_factory, $this->list_screen_repository ),
+			new Admin\Request\Column\Save( $this->factory, $this->repository ),
 			new Admin\Request\Column\Refresh(),
 			new Admin\Request\Column\Select(),
 		);
@@ -243,61 +239,49 @@ class Columns extends Admin\Page
 	}
 
 	/**
-	 * @return string
+	 * @return ListScreen
 	 */
-	private function get_requested_list_screen_type() {
-		$type = filter_input( INPUT_GET, 'list_screen' );
-
-		if ( ! $type ) {
-			$type = key( ac_get_list_screen_types() );
-		}
-
-		return $type;
-	}
-
-	/**
-	 * @return string
-	 */
-	private function get_requested_list_id() {
-		return filter_input( INPUT_GET, 'layout_id' );
-	}
-
 	public function get_list_screen() {
-		$list_screen = $this->list_screen_repository->find_by_id( $this->get_requested_list_id() );
 
-		if ( ! $list_screen ) {
-			$list_screens = $this->list_screen_repository->query( [ 'type' => $this->get_requested_list_screen_type() ] );
+		// Requested list ID
+		$list_id = filter_input( INPUT_GET, 'layout_id' );
 
-			if ( $list_screens ) {
-				$list_screen = $list_screens[0];
+		if ( $list_id && $this->repository->exists( $list_id ) ) {
+			$this->preferences()->set( 'list_id', $list_id );
+
+			return $this->repository->find_by_id( $list_id );
+		}
+
+		// Requested list type
+		$list_type = filter_input( INPUT_GET, 'list_screen' );
+
+		if ( $list_type ) {
+			/** @var ListScreen $list_screen */
+			$list_screen = current( $this->repository->query( [ 'type' => $list_type ] ) );
+
+			if ( $list_screen ) {
+				$this->preferences()->set( 'list_id', $list_screen->get_layout_id() );
+
+				return $list_screen;
 			}
+
+			return $this->factory->create( $list_type );
 		}
 
-		if ( ! $list_screen ) {
-			$list_screen = $this->list_screen_factory->create( $this->get_requested_list_screen_type() );
+		// Last visited
+		$list_id = $this->preferences()->get( 'list_id' );
+
+		if ( $list_id && $this->repository->exists( $list_id ) ) {
+			return $this->repository->find_by_id( $list_id );
 		}
 
-		//		try {
-		//			$preference = $this->list_screen_factory->create( $this->preferences()->get( 'list_screen' ) );
-		//		} catch ( \Exception $e ) {
-		//			$preference = false;
-		//		}
-		//
-		//		if ( ! $list_screen ) {
-		//			$list_screen = $preference;
-		//		}
-		//
-		//		if ( ! $list_screen ) {
-		//			$list_screen = $this->list_screen_factory->create( key( ac_get_list_screen_types() ) );
-		//		}
-		//
-		//		if ( $preference !== $list_screen->get_key() ) {
-		//			$this->preferences()->set( 'list_screen', $list_screen->get_key() );
-		//		}
+		// Initialize new
+		$types = ac_get_list_screen_types();
 
+		return $this->factory->create( current( $types )->get_key() );
+
+		// todo: remove
 		//do_action( 'ac/settings/list_screen', $list_screen );
-
-		return $list_screen;
 	}
 
 	/**
@@ -414,7 +398,7 @@ class Columns extends Admin\Page
 
 	// todo: move
 	private function submenu_view( $page_link, $list_screen_key, $current_id = false ) {
-		$list_screens = $this->list_screen_repository->query( [ 'type' => $list_screen_key ] );
+		$list_screens = $this->repository->query( [ 'type' => $list_screen_key ] );
 
 		if ( ! $list_screens ) {
 			return '';
@@ -544,7 +528,7 @@ class Columns extends Admin\Page
 					'notices'        => $this->notices,
 					'class'          => $list_screen->is_read_only() ? ' disabled' : '',
 					'list_screen'    => $list_screen->get_key(),
-					'list_screen_id'      => $list_screen->get_layout_id(),
+					'list_screen_id' => $list_screen->get_layout_id(),
 					'title'          => $list_screen->get_title(),
 					'columns'        => $list_screen->get_columns(),
 					'show_actions'   => ! $list_screen->is_read_only(),
