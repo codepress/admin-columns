@@ -2,13 +2,13 @@
 
 namespace AC\ListScreenRepository;
 
-use AC\Data;
+use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\PostTypes;
 use AC\Storage\DataObject;
 use LogicException;
 
-class PostType implements Data {
+class DataBase implements Write, Read {
 
 	const TYPE_KEY = 'type';
 	const SUBTYPE_KEY = 'subtype';
@@ -26,7 +26,7 @@ class PostType implements Data {
 	/**
 	 * @param array $args
 	 *
-	 * @return \AC\ListScreen[]
+	 * @return ListScreen[]
 	 */
 	public function query( array $args ) {
 		$query_args = [
@@ -62,7 +62,7 @@ class PostType implements Data {
 	/**
 	 * @param string $list_id
 	 *
-	 * @return \AC\ListScreen|null
+	 * @return ListScreen|null
 	 */
 	public function find_by_id( $list_id ) {
 		$post_id = $this->get_post_id_by_list_id( $list_id );
@@ -83,11 +83,11 @@ class PostType implements Data {
 	}
 
 	/**
-	 * @param \AC\ListScreen $data
+	 * @param ListScreen $data
 	 *
 	 * @return void
 	 */
-	public function save( \AC\ListScreen $list_screen ) {
+	public function save( ListScreen $list_screen ) {
 		$post_id = $this->get_post_id_by_list_id( $list_screen->get_layout_id() );
 
 		if ( ! $post_id ) {
@@ -98,11 +98,11 @@ class PostType implements Data {
 	}
 
 	/**
-	 * @param \AC\ListScreen $data
+	 * @param ListScreen $data
 	 *
 	 * @return int
 	 */
-	private function create_post( \AC\ListScreen $list_screen ) {
+	private function create_post( ListScreen $list_screen ) {
 		$id = wp_insert_post( [
 			'post_status' => 'publish',
 			'post_type'   => PostTypes::LIST_SCREEN_DATA,
@@ -167,7 +167,7 @@ class PostType implements Data {
 		] );
 	}
 
-	private function update_post( $id, \AC\ListScreen $list_screen ) {
+	private function update_post( $id, ListScreen $list_screen ) {
 		wp_update_post( [
 			'ID'         => $id,
 			'post_title' => $list_screen->get_label(),

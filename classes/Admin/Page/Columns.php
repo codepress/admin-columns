@@ -41,14 +41,12 @@ class Columns extends Admin\Page
 	/** @var ListScreenRepository */
 	private $list_screen_repository;
 
-	public function __construct() {
-		$this->default_columns = new DefaultColumns();
-		$this->list_screen_factory = new ListScreenFactory();
-
-		$storage = new ListScreenRepository\PostType();
-		$this->list_screen_repository = new ListScreenRepository( [ $storage ], $this->list_screen_factory );
-
+	public function __construct( ListScreenFactory $list_screen_factory, ListScreenRepository $list_screen_repository ) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
+
+		$this->default_columns = new DefaultColumns();
+		$this->list_screen_factory = $list_screen_factory;
+		$this->list_screen_repository = $list_screen_repository;
 	}
 
 	public function register_ajax() {
@@ -199,7 +197,7 @@ class Columns extends Admin\Page
 		$request = new Request();
 
 		$requests = array(
-			new Admin\Request\Column\Save(),
+			new Admin\Request\Column\Save( $this->list_screen_factory, $this->list_screen_repository ),
 			new Admin\Request\Column\Refresh(),
 			new Admin\Request\Column\Select(),
 		);
