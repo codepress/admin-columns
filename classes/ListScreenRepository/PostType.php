@@ -1,11 +1,14 @@
 <?php
-namespace AC\Storage;
+
+namespace AC\ListScreenRepository;
 
 use AC\Data;
+use AC\ListScreenFactory;
 use AC\PostTypes;
+use AC\Storage\DataObject;
 use LogicException;
 
-class ListScreen implements Data {
+class PostType implements Data {
 
 	const TYPE_KEY = 'type';
 	const SUBTYPE_KEY = 'subtype';
@@ -13,10 +16,17 @@ class ListScreen implements Data {
 	const COLUMNS_KEY = 'columns';
 	const LIST_KEY = 'list_id';
 
+	/** @var string */
+	private $list_screen_factory;
+
+	public function __construct() {
+		$this->list_screen_factory = new ListScreenFactory();
+	}
+
 	/**
 	 * @param array $args
 	 *
-	 * @return DataObject[]
+	 * @return \AC\ListScreen[]
 	 */
 	public function query( array $args ) {
 		$query_args = [
@@ -43,16 +53,16 @@ class ListScreen implements Data {
 		$data_objects = [];
 
 		foreach ( get_posts( $query_args ) as $id ) {
-			$data_objects[] = $this->read_post( $id );
+			$data_objects[] = $this->create_list_screen_by_data( $this->read_post( $id ) );
 		}
 
-		return $data_objects;
+		return array_filter( $data_objects );
 	}
 
 	/**
 	 * @param string $list_id
 	 *
-	 * @return DataObject|null
+	 * @return \AC\ListScreen|null
 	 */
 	public function find_by_id( $list_id ) {
 		$post_id = $this->get_post_id_by_list_id( $list_id );
@@ -61,31 +71,38 @@ class ListScreen implements Data {
 			return null;
 		}
 
-		return $this->read_post( $post_id );
+		return $this->create_list_screen_by_data( $this->read_post( $post_id ) );
+	}
+
+	private function create_list_screen_by_data( DataObject $data ) {
+		if ( ! $data->type ) {
+			return null;
+		}
+
+		return $this->list_screen_factory->create( $data->type, $data );
 	}
 
 	/**
-	 * @param string     $list_id
-	 * @param DataObject $data
+	 * @param \AC\ListScreen $data
 	 *
-	 * @return null
+	 * @return void
 	 */
-	public function update( $list_id, DataObject $data ) {
-		$post_id = $this->get_post_id_by_list_id( $list_id );
+	public function save( \AC\ListScreen $list_screen ) {
+		$post_id = $this->get_post_id_by_list_id( $list_screen->get_layout_id() );
 
 		if ( ! $post_id ) {
 			return;
 		}
 
-		$this->update_post( $post_id, $data );
+		$this->update_post( $post_id, $list_screen );
 	}
 
 	/**
-	 * @param DataObject $data
+	 * @param \AC\ListScreen $data
 	 *
 	 * @return int
 	 */
-	public function create( DataObject $data ) {
+	public function create( \AC\ListScreen $list_screen ) {
 		$id = wp_insert_post( [
 			'post_status' => 'publish',
 			'post_type'   => PostTypes::LIST_SCREEN_DATA,
@@ -95,7 +112,7 @@ class ListScreen implements Data {
 			throw new LogicException( $id->get_error_message() );
 		}
 
-		$this->update_post( $id, $data );
+		$this->update_post( $id, $list_screen );
 
 		return $id;
 	}
@@ -150,23 +167,26 @@ class ListScreen implements Data {
 		] );
 	}
 
-	private function update_post( $id, DataObject $data ) {
+	private function update_post( $id, \AC\ListScreen $list_screen ) {
 		wp_update_post( [
 			'ID'         => $id,
-			'post_title' => $data->title,
-			'menu_order' => $data->order,
+			'post_title' => $list_screen->get_label(),
 			'meta_input' => [
-				self::TYPE_KEY     => $data->type,
-				self::SUBTYPE_KEY  => $data->subtype,
-				self::SETTINGS_KEY => $data->settings,
-				self::COLUMNS_KEY  => $data->columns,
-				self::LIST_KEY     => $data->list_id,
+				self::TYPE_KEY     => $list_screen->get_key(),
+				self::SUBTYPE_KEY  => false,
+				self::SETTINGS_KEY => $list_screen->get_settings(), // todo
+				self::COLUMNS_KEY  => $list_screen->get_settings(),
+				self::LIST_KEY     => $list_screen->get_layout_id(),
 			],
 		] );
 	}
 
 	public function delete_post( $id ) {
 		wp_delete_post( $id, true );
+	}
+
+	public function exists( $id ) {
+		return null !== $this->get_post_id_by_list_id( $id );
 	}
 
 }

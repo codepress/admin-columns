@@ -18,7 +18,9 @@ class ListScreenFactory {
 		$list_screen = clone $list_screen;
 
 		if ( $data && is_array( $data->columns ) ) {
+			$list_screen->set_title( $data->title );
 			$list_screen->set_settings( $data->columns );
+			$list_screen->set_layout_id( $data->list_id );
 		}
 
 		return $list_screen;

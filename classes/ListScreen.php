@@ -111,6 +111,9 @@ abstract class ListScreen {
 	 */
 	private $network_only = false;
 
+	/** @var string */
+	private $title;
+
 	/**
 	 * Contains the hook that contains the manage_value callback
 	 * @return void
@@ -281,6 +284,24 @@ abstract class ListScreen {
 	/**
 	 * @return string
 	 */
+	public function get_title() {
+		return $this->title;
+	}
+
+	/**
+	 * @param string $title
+	 *
+	 * @return $this
+	 */
+	public function set_title( $title ) {
+		$this->title = $title;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function get_storage_key() {
 		if ( null === $this->storage_key ) {
 			$this->set_storage_key( $this->get_key() );
@@ -422,9 +443,9 @@ abstract class ListScreen {
 	 */
 	// todo: remove
 	public function reset() {
-//		$this->columns = null;
-//		$this->column_types = null;
-//		$this->settings = null;
+		//		$this->columns = null;
+		//		$this->column_types = null;
+		//		$this->settings = null;
 	}
 
 	/**
@@ -729,73 +750,73 @@ abstract class ListScreen {
 	 * @return WP_Error|true
 	 */
 	// todo: remove
-//	public function store( $column_data ) {
-//		if ( ! $column_data ) {
-//			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
-//		}
-//
-//		$settings = array();
-//
-//		foreach ( $column_data as $column_name => $options ) {
-//			if ( empty( $options['type'] ) ) {
-//				continue;
-//			}
-//
-//			// New column, new key
-//			if ( 0 === strpos( $column_name, '_new_column_' ) ) {
-//				$column_name = uniqid();
-//			}
-//
-//			$options['name'] = $column_name;
-//
-//			$column = $this->create_column( $options );
-//
-//			if ( ! $column ) {
-//				continue;
-//			}
-//
-//			// Skip duplicate original columns
-//			if ( $column->is_original() ) {
-//				if ( in_array( $column->get_type(), wp_list_pluck( $settings, 'type' ), true ) ) {
-//					continue;
-//				}
-//			}
-//
-//			$sanitized = array();
-//
-//			// Sanitize data
-//			foreach ( $column->get_settings() as $setting ) {
-//				$sanitized += $setting->get_values();
-//			}
-//
-//			// Encode site url
-//			$setting = $column->get_setting( 'label' );
-//
-//			if ( $setting ) {
-//				$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
-//			}
-//
-//			$settings[ $column_name ] = array_merge( $options, $sanitized );
-//		}
-//
-//		$result = update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings, false );
-//
-//		if ( ! $result ) {
-//			return new WP_Error( 'same-settings' );
-//		}
-//
-//		/**
-//		 * Fires after a new column setup is stored in the database
-//		 * Primarily used when columns are saved through the Admin Columns settings screen
-//		 *
-//		 * @param ListScreen $list_screen
-//		 *
-//		 * @since 3.0
-//		 */
-//		do_action( 'ac/columns_stored', $this );
-//
-//		return true;
-//	}
+	//	public function store( $column_data ) {
+	//		if ( ! $column_data ) {
+	//			return new WP_Error( 'no-settings', __( 'No columns settings available.', 'codepress-admin-columns' ) );
+	//		}
+	//
+	//		$settings = array();
+	//
+	//		foreach ( $column_data as $column_name => $options ) {
+	//			if ( empty( $options['type'] ) ) {
+	//				continue;
+	//			}
+	//
+	//			// New column, new key
+	//			if ( 0 === strpos( $column_name, '_new_column_' ) ) {
+	//				$column_name = uniqid();
+	//			}
+	//
+	//			$options['name'] = $column_name;
+	//
+	//			$column = $this->create_column( $options );
+	//
+	//			if ( ! $column ) {
+	//				continue;
+	//			}
+	//
+	//			// Skip duplicate original columns
+	//			if ( $column->is_original() ) {
+	//				if ( in_array( $column->get_type(), wp_list_pluck( $settings, 'type' ), true ) ) {
+	//					continue;
+	//				}
+	//			}
+	//
+	//			$sanitized = array();
+	//
+	//			// Sanitize data
+	//			foreach ( $column->get_settings() as $setting ) {
+	//				$sanitized += $setting->get_values();
+	//			}
+	//
+	//			// Encode site url
+	//			$setting = $column->get_setting( 'label' );
+	//
+	//			if ( $setting ) {
+	//				$sanitized[ $setting->get_name() ] = $setting->get_encoded_label();
+	//			}
+	//
+	//			$settings[ $column_name ] = array_merge( $options, $sanitized );
+	//		}
+	//
+	//		$result = update_option( self::OPTIONS_KEY . $this->get_storage_key(), $settings, false );
+	//
+	//		if ( ! $result ) {
+	//			return new WP_Error( 'same-settings' );
+	//		}
+	//
+	//		/**
+	//		 * Fires after a new column setup is stored in the database
+	//		 * Primarily used when columns are saved through the Admin Columns settings screen
+	//		 *
+	//		 * @param ListScreen $list_screen
+	//		 *
+	//		 * @since 3.0
+	//		 */
+	//		do_action( 'ac/columns_stored', $this );
+	//
+	//		return true;
+	//	}
 
 	/**
 	 * Populate settings from the database

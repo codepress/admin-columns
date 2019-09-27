@@ -2,17 +2,18 @@
 
 namespace AC;
 
+use AC\ListScreenRepository;
 use AC\Storage;
 use LogicException;
 
 class __ListScreenFactory {
 
-	/** @var Storage\ListScreen */
-	private $storage;
+	/** @var ListScreenRepository\PostType */
+	private $repository;
 
 	public function __construct() {
 		// todo add interface + inject
-		$this->storage = new Storage\ListScreen;
+		$this->repository = new ListScreenRepository\PostType();
 	}
 
 	/**

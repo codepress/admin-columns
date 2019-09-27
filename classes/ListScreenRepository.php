@@ -1,7 +1,7 @@
 <?php
 namespace AC;
 
-class ListScreenRepository {
+class ListScreenRepository implements Data {
 
 	/** @var Data[] */
 	private $storages;
@@ -14,32 +14,43 @@ class ListScreenRepository {
 		$this->factory = $factory;
 	}
 
-	public function find_all( $args ) {
+	/**
+	 * @param array $args
+	 *
+	 * @return ListScreen[]
+	 */
+	public function query( array $args ) {
 		$list_screens = [];
 
 		foreach ( $this->storages as $storage ) {
-			$results = $storage->query( $args );
-
-			foreach ( $results as $data ) {
-				$list_screens[] = $this->factory->create( $data->type, $data );
-			}
+			$list_screens = $storage->query( $args ) + $list_screens;
 		}
 
-		return $list_screens;
+		return array_filter( $list_screens );
 	}
 
 	public function find_by_id( $id ) {
-		$list_screens = [];
-
 		foreach ( $this->storages as $storage ) {
-			$data = $storage->find_by_id( $id );
+			$list_screen = $storage->find_by_id( $id );
 
-			if ( $data ) {
-				return $this->factory->create( $data->type, $data );
+			if ( $list_screen ) {
+				return $list_screen;
 			}
 		}
 
 		return null;
+	}
+
+	public function save( ListScreen $data ) {
+		// todo
+	}
+
+	public function delete( $id ) {
+		// todo
+	}
+
+	public function exists( $id ) {
+		// todo
 	}
 
 }

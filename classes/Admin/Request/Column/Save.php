@@ -4,6 +4,7 @@ namespace AC\Admin\Request\Column;
 use AC\Admin\Request\Handler;
 use AC\ListScreen;
 use AC\ListScreenFactory;
+use AC\ListScreenRepository;
 use AC\Request;
 use AC\Storage;
 
@@ -12,19 +13,20 @@ class Save extends Handler {
 	/** @var ListScreenFactory */
 	private $list_screen_factory;
 
+	/** @var Storage\ListScreen */
+	private $list_screen_storage;
+
+	/** @var ListScreenRepository */
+	private $list_screen_repository;
+
 	public function __construct() {
 		parent::__construct( 'save' );
 
 		$this->list_screen_factory = new ListScreenFactory();
+		$this->list_screen_storage = new ListScreenRepository\PostType();
 	}
 
 	public function request( Request $request ) {
-		$list_screen = $this->list_screen_factory->create( $request->get( 'list_screen' ) );
-
-		if ( ! $list_screen ) {
-			wp_die();
-		}
-
 		parse_str( $request->get( 'data' ), $formdata );
 
 		if ( ! isset( $formdata['columns'] ) ) {
@@ -35,23 +37,25 @@ class Save extends Handler {
 			);
 		}
 
-		$data = new Storage\DataObject( [
-			'type'       => $list_screen->get_key(), // wp-users, wp-ms_users, wp-media, page, car etc.,
-			'menu_order' => 5,
-			'columns'    => $formdata['columns'],
-			// todo
-			'settings'   => isset( $formdata['settings'] ) ? $formdata['settings'] : '',
-			'title'      => isset( $formdata['title'] ) ? $formdata['title'] : 'My View',
-			'list_id'    => uniqid(), // layout_id
-		] );
+		// todo
+		$list_id = 'adasjkdhak';
+		$type = 'page';
 
-		$id = 0;
+		$repo = new ListScreenRepository\PostType();
+		$list_screen = $repo->find_by_id( $list_id );
 
-		if ( $id ) {
-			( new Storage\ListScreen() )->update( $id, $data );
-		} else {
-			( new Storage\ListScreen() )->create( $data );
+		if ( ! $list_screen ) {
+			$this->list_screen_factory->create( $type, new Storage\DataObject( [
+				'title'    => $formdata['title'],
+				'columns'  => $formdata['columns'],
+				'list_id'  => $list_id,
+			] ) );
 		}
+
+		$repo->save( $list_screen );
+		// todo
+
+		$this->list_screen_storage->save( $list_screen );
 
 		do_action( 'ac/columns_stored', $list_screen );
 

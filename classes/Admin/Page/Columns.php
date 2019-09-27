@@ -46,7 +46,7 @@ class Columns extends Admin\Page
 		$this->default_columns = new DefaultColumns();
 		$this->list_screen_factory = new ListScreenFactory();
 
-		$storage = new Storage\ListScreen();
+		$storage = new ListScreenRepository\PostType();
 		$this->list_screen_repository = new ListScreenRepository( [ $storage ], $this->list_screen_factory );
 
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
@@ -103,9 +103,9 @@ class Columns extends Admin\Page
 					//$list_screen->delete();
 
 					// todo: delete column settings only
-					$data = ( new Storage\ListScreen() )->read( 1 );
-					unset( $data->columns );
-					( new Storage\ListScreen() )->update( 1, $data );
+					//$data = ( new Storage\ListScreen() )->read( 1 );
+					//unset( $data->columns );
+					//( new Storage\ListScreen() )->update( 1, $data );
 
 					$notice = new Notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ) );
 					$notice->register();
@@ -202,7 +202,6 @@ class Columns extends Admin\Page
 		$requests = array(
 			new Admin\Request\Column\Save(),
 			new Admin\Request\Column\Refresh(),
-			new Admin\Request\Column\Refresh(),
 			new Admin\Request\Column\Select(),
 		);
 
@@ -270,7 +269,7 @@ class Columns extends Admin\Page
 		$list_screen = $this->list_screen_repository->find_by_id( $this->get_requested_list_id() );
 
 		if ( ! $list_screen ) {
-			$list_screens = $this->list_screen_repository->find_all( ['type' => $this->get_requested_list_screen_type() ] );
+			$list_screens = $this->list_screen_repository->query( ['type' => $this->get_requested_list_screen_type() ] );
 
 			if ( $list_screens ) {
 				$list_screen = $list_screens[0];
@@ -418,18 +417,18 @@ class Columns extends Admin\Page
 
 	// todo: move
 	private function submenu_view( $page_link, $list_screen_key, $current_id = false ) {
-		$data_objects = ( new Storage\ListScreen() )->query( [ 'type' => $list_screen_key ] );
+		$list_screens = $this->list_screen_repository->query( [ 'type' => $list_screen_key ] );
 
-		if ( ! $data_objects ) {
+		if ( ! $list_screens ) {
 			return '';
 		}
 
 		ob_start();
 		$count = 0;
-		foreach ( $data_objects as $data ) : ?>
-			<li data-screen="<?php echo esc_attr( $data->list_id ); ?>">
+		foreach ( $list_screens as $list_screen ) : ?>
+			<li data-screen="<?php echo esc_attr( $list_screen->get_layout_id() ); ?>">
 				<?php echo ( $count++ ) != 0 ? ' | ' : ''; ?>
-				<a class="<?php echo $data->list_id === $current_id ? 'current' : ''; ?>" href="<?php echo add_query_arg( [ 'layout_id' => $data->list_id ], $page_link ); ?>"><?php echo esc_html( $data->title ); ?></a>
+				<a class="<?php echo $list_screen->get_layout_id() === $current_id ? 'current' : ''; ?>" href="<?php echo add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $page_link ); ?>"><?php echo esc_html( $list_screen->get_label() ); ?></a>
 			</li>
 		<?php endforeach;
 
