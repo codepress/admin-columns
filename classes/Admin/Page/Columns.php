@@ -546,7 +546,7 @@ class Columns extends Admin\Page
 					'notices'        => $this->notices,
 					'class'          => $list_screen->is_read_only() ? ' disabled' : '',
 					'list_screen'    => $list_screen->get_key(),
-					'layout_id'      => $list_screen->get_layout_id(),
+					'list_screen_id'      => $list_screen->get_layout_id(),
 					'title'          => $list_screen->get_title(),
 					'columns'        => $list_screen->get_columns(),
 					'show_actions'   => ! $list_screen->is_read_only(),

@@ -35,8 +35,8 @@ class Save extends Handler {
 		}
 
 		// todo
-		$list_id = 'adasjkdhak';
-		$type = 'page';
+		$list_id = $formdata['list_screen_id'];
+		$type = $formdata['list_screen'];
 
 		$list_screen = $this->list_screen_repository->find_by_id( $list_id );
 
