@@ -13,9 +13,6 @@ class Save extends Handler {
 	/** @var ListScreenFactory */
 	private $list_screen_factory;
 
-	/** @var Storage\ListScreen */
-	private $list_screen_storage;
-
 	/** @var ListScreenRepository */
 	private $list_screen_repository;
 
@@ -23,7 +20,7 @@ class Save extends Handler {
 		parent::__construct( 'save' );
 
 		$this->list_screen_factory = new ListScreenFactory();
-		$this->list_screen_storage = new ListScreenRepository\PostType();
+		$this->list_screen_repository = new ListScreenRepository\PostType();
 	}
 
 	public function request( Request $request ) {
@@ -41,21 +38,18 @@ class Save extends Handler {
 		$list_id = 'adasjkdhak';
 		$type = 'page';
 
-		$repo = new ListScreenRepository\PostType();
-		$list_screen = $repo->find_by_id( $list_id );
+		$list_screen = $this->list_screen_repository->find_by_id( $list_id );
 
 		if ( ! $list_screen ) {
-			$this->list_screen_factory->create( $type, new Storage\DataObject( [
-				'title'    => $formdata['title'],
+			$list_screen = $this->list_screen_factory->create( $type, new Storage\DataObject( [
+				'title'    => isset( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ),
 				'columns'  => $formdata['columns'],
-				'list_id'  => $list_id,
+				'list_id'  => uniqid( 'ac' ),
 			] ) );
 		}
 
-		$repo->save( $list_screen );
 		// todo
-
-		$this->list_screen_storage->save( $list_screen );
+		$this->list_screen_repository->save( $list_screen );
 
 		do_action( 'ac/columns_stored', $list_screen );
 
