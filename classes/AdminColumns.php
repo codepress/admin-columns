@@ -7,7 +7,6 @@ use AC\Admin\Page;
 use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
-use AC\ListScreenRepository\DataBase;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
@@ -369,8 +368,10 @@ class AdminColumns extends Plugin {
 
 			$list_screen_factory = new ListScreenFactory();
 
-			// todo: Add file repo
-			$repositories = [ new ListScreenRepository\DataBase() ];
+			$repositories = apply_filters( 'ac\list_screen_repositories', [
+				new ListScreenRepository\DataBase(),
+			] );
+
 			$list_screen_repository = new ListScreenRepository( $repositories, $list_screen_factory );
 
 			$page_columns = new Page\Columns( $list_screen_factory, $list_screen_repository );
