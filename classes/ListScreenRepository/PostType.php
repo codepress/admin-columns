@@ -91,7 +91,7 @@ class PostType implements Data {
 		$post_id = $this->get_post_id_by_list_id( $list_screen->get_layout_id() );
 
 		if ( ! $post_id ) {
-			return;
+			$this->create_post( $list_screen );
 		}
 
 		$this->update_post( $post_id, $list_screen );
@@ -102,7 +102,7 @@ class PostType implements Data {
 	 *
 	 * @return int
 	 */
-	public function create( \AC\ListScreen $list_screen ) {
+	private function create_post( \AC\ListScreen $list_screen ) {
 		$id = wp_insert_post( [
 			'post_status' => 'publish',
 			'post_type'   => PostTypes::LIST_SCREEN_DATA,
