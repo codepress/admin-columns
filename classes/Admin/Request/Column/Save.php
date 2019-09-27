@@ -38,17 +38,18 @@ class Save extends Handler {
 		$list_id = $formdata['list_screen_id'];
 		$type = $formdata['list_screen'];
 
-		$list_screen = $this->list_screen_repository->find_by_id( $list_id );
-
-		if ( ! $list_screen ) {
-			$list_screen = $this->list_screen_factory->create( $type, new Storage\DataObject( [
-				'title'    => isset( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ),
-				'columns'  => $formdata['columns'],
-				'list_id'  => uniqid( 'ac' ),
-			] ) );
+		if ( ! $this->list_screen_repository->exists( $list_id ) ) {
+			$list_id = uniqid( 'ac' );
 		}
 
-		// todo
+		$data = new Storage\DataObject( [
+			'title'    => ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ),
+			'columns'  => $formdata['columns'],
+			'list_id'  => $list_id,
+		] );
+
+		$list_screen = $this->list_screen_factory->create( $type, $data );
+
 		$this->list_screen_repository->save( $list_screen );
 
 		do_action( 'ac/columns_stored', $list_screen );
