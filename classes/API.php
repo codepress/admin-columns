@@ -176,4 +176,8 @@ class API {
 		}
 	}
 
+	public function get_data(  ) {
+		return $this->columndata;
+	}
+
 }

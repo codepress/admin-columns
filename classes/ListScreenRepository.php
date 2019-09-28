@@ -43,7 +43,7 @@ class ListScreenRepository implements Read, Write {
 		$list_screens = [];
 
 		foreach ( $this->repositories_read as $repository ) {
-			$list_screens = $repository->query( $args ) + $list_screens;
+			$list_screens = array_merge( $repository->query( $args ), $list_screens );
 		}
 
 		return array_filter( $list_screens );

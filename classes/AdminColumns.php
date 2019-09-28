@@ -369,7 +369,8 @@ class AdminColumns extends Plugin {
 			$list_screen_factory = new ListScreenFactory();
 
 			$repositories = apply_filters( 'ac\list_screen_repositories', [
-				new ListScreenRepository\DataBase(),
+				new ListScreenRepository\DataBase( $list_screen_factory ),
+				new ListScreenRepository\FilePHP( $list_screen_factory, $this->api ),
 			] );
 
 			$list_screen_repository = new ListScreenRepository( $repositories, $list_screen_factory );

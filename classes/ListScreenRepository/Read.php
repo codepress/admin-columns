@@ -13,7 +13,7 @@ interface Read {
 	public function query( array $args );
 
 	/**
-	 * @param int $id
+	 * @param string $id
 	 *
 	 * @return ListScreen
 	 */

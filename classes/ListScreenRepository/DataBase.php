@@ -16,11 +16,11 @@ class DataBase implements Write, Read {
 	const COLUMNS_KEY = 'columns';
 	const LIST_KEY = 'list_id';
 
-	/** @var string */
+	/** @var ListScreenFactory */
 	private $list_screen_factory;
 
-	public function __construct() {
-		$this->list_screen_factory = new ListScreenFactory();
+	public function __construct( $list_screen_factory ) {
+		$this->list_screen_factory = $list_screen_factory;
 	}
 
 	/**
@@ -74,14 +74,6 @@ class DataBase implements Write, Read {
 		return $this->create_list_screen_by_data( $this->read_post( $post_id ) );
 	}
 
-	private function create_list_screen_by_data( DataObject $data ) {
-		if ( ! $data->type ) {
-			return null;
-		}
-
-		return $this->list_screen_factory->create( $data->type, $data );
-	}
-
 	/**
 	 * @param ListScreen $data
 	 *
@@ -95,6 +87,24 @@ class DataBase implements Write, Read {
 		}
 
 		$this->update_post( $post_id, $list_screen );
+	}
+
+	public function delete( $list_id ) {
+		$post_id = $this->get_post_id_by_list_id( $list_id );
+
+		if ( ! $post_id ) {
+			return;
+		}
+
+		$this->delete_post( $post_id );
+	}
+
+	private function create_list_screen_by_data( DataObject $data ) {
+		if ( ! $data->type ) {
+			return null;
+		}
+
+		return $this->list_screen_factory->create( $data->type, $data );
 	}
 
 	/**
@@ -115,16 +125,6 @@ class DataBase implements Write, Read {
 		$this->update_post( $id, $list_screen );
 
 		return $id;
-	}
-
-	public function delete( $id ) {
-		$post_id = $this->get_post_id_by_list_id( $id );
-
-		if ( ! $post_id ) {
-			return;
-		}
-
-		$this->delete_post( $post_id );
 	}
 
 	/**
@@ -152,24 +152,23 @@ class DataBase implements Write, Read {
 		return $ids[0];
 	}
 
-	private function read_post( $id ) {
+	private function read_post( $post_id ) {
 		return new DataObject( [
-			'post_id'       => $id,
-			'title'         => get_post_field( 'post_title', $id ),
-			'date_modified' => get_post_field( 'post_modified_gmt', $id ),
-			'date_created'  => get_post_field( 'post_date_gmt', $id ),
-			'order'         => get_post_field( 'menu_order', $id ),
-			'list_id'       => get_post_meta( $id, self::LIST_KEY, true ),
-			'type'          => get_post_meta( $id, self::TYPE_KEY, true ),
-			'subtype'       => get_post_meta( $id, self::SUBTYPE_KEY, true ),
-			'settings'      => get_post_meta( $id, self::SETTINGS_KEY, true ),
-			'columns'       => get_post_meta( $id, self::COLUMNS_KEY, true ),
+			'title'         => get_post_field( 'post_title', $post_id ),
+			'date_modified' => get_post_field( 'post_modified_gmt', $post_id ),
+			'date_created'  => get_post_field( 'post_date_gmt', $post_id ),
+			'order'         => get_post_field( 'menu_order', $post_id ),
+			'list_id'       => get_post_meta( $post_id, self::LIST_KEY, true ),
+			'type'          => get_post_meta( $post_id, self::TYPE_KEY, true ),
+			'subtype'       => get_post_meta( $post_id, self::SUBTYPE_KEY, true ),
+			'settings'      => get_post_meta( $post_id, self::SETTINGS_KEY, true ),
+			'columns'       => get_post_meta( $post_id, self::COLUMNS_KEY, true ),
 		] );
 	}
 
-	private function update_post( $id, ListScreen $list_screen ) {
+	private function update_post( $post_id, ListScreen $list_screen ) {
 		wp_update_post( [
-			'ID'         => $id,
+			'ID'         => $post_id,
 			'post_title' => $list_screen->get_label(),
 			'meta_input' => [
 				self::TYPE_KEY     => $list_screen->get_key(),
@@ -181,8 +180,8 @@ class DataBase implements Write, Read {
 		] );
 	}
 
-	public function delete_post( $id ) {
-		wp_delete_post( $id, true );
+	private function delete_post( $post_id ) {
+		wp_delete_post( $post_id, true );
 	}
 
 	public function exists( $id ) {
