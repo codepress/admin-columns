@@ -10,11 +10,15 @@ class ScreenController implements Registrable {
 	/** @var array */
 	private $headings = array();
 
+	/** @var DefaultColumns */
+	private $default_columns;
+
 	/**
 	 * @param ListScreen $list_screen
 	 */
 	public function __construct( ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
+		$this->default_columns = new DefaultColumns();
 	}
 
 	public function register() {
@@ -47,7 +51,7 @@ class ScreenController implements Registrable {
 		}
 
 		if ( ! AC()->is_doing_ajax() ) {
-			$this->list_screen->save_default_headings( $columns );
+			$this->default_columns->update( $this->list_screen->get_key(), $columns );
 		}
 
 		// Break script when storing headings is all we need to do
@@ -73,10 +77,11 @@ class ScreenController implements Registrable {
 
 		// On first visit 'columns' can be empty, because they were put in memory before 'default headings'
 		// were stored. We force get_columns() to be re-populated.
-		if ( ! $this->list_screen->get_columns() ) {
-			$this->list_screen->reset();
-			$this->list_screen->reset_original_columns();
-		}
+		// todo: remove
+//		if ( ! $this->list_screen->get_columns() ) {
+//			$this->list_screen->reset();
+//			$this->list_screen->reset_original_columns();
+//		}
 
 		foreach ( $this->list_screen->get_columns() as $column ) {
 			$this->headings[ $column->get_name() ] = $column->get_custom_label();

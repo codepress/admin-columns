@@ -37,16 +37,16 @@ class ListScreenRepository implements Read, Write {
 	/**
 	 * @param array $args
 	 *
-	 * @return ListScreen[]
+	 * @return ListScreenCollection
 	 */
 	public function query( array $args ) {
-		$list_screens = [];
+		$list_screens = new ListScreenCollection();
 
 		foreach ( $this->repositories_read as $repository ) {
-			$list_screens = array_merge( $repository->query( $args ), $list_screens );
+			$list_screens->add_collection( $repository->query( $args ) );
 		}
 
-		return array_filter( $list_screens );
+		return $list_screens;
 	}
 
 	public function find_by_id( $id ) {

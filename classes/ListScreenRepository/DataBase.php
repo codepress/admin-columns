@@ -3,6 +3,7 @@
 namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
+use AC\ListScreenCollection;
 use AC\ListScreenFactory;
 use AC\PostTypes;
 use AC\Storage\DataObject;
@@ -26,7 +27,7 @@ class DataBase implements Write, Read {
 	/**
 	 * @param array $args
 	 *
-	 * @return ListScreen[]
+	 * @return ListScreenCollection
 	 */
 	public function query( array $args ) {
 		$query_args = [
@@ -50,13 +51,13 @@ class DataBase implements Write, Read {
 		}
 
 		// todo return ListScreenDataCollection
-		$data_objects = [];
+		$list_screens = [];
 
 		foreach ( get_posts( $query_args ) as $id ) {
-			$data_objects[] = $this->create_list_screen_by_data( $this->read_post( $id ) );
+			$list_screens[] = $this->create_list_screen_by_data( $this->read_post( $id ) );
 		}
 
-		return array_filter( $data_objects );
+		return new ListScreenCollection( $list_screens );
 	}
 
 	/**

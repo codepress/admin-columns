@@ -30,6 +30,8 @@ class Restore extends Custom {
 			FROM $wpdb->options
 			WHERE option_name LIKE %s";
 
+		// todo: use ListScreenRepository
+
 		$wpdb->query( $wpdb->prepare( $sql, ListScreen::OPTIONS_KEY . '%' ) );
 
 		do_action( 'ac/restore_all_columns' );

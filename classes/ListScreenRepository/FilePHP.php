@@ -4,6 +4,7 @@ namespace AC\ListScreenRepository;
 
 use AC\API;
 use AC\ListScreen;
+use AC\ListScreenCollection;
 use AC\ListScreenFactory;
 use AC\Storage\DataObject;
 
@@ -51,11 +52,11 @@ class FilePHP implements Read {
 	/**
 	 * @param array $args
 	 *
-	 * @return ListScreen[]
+	 * @return ListScreenCollection
 	 */
 	public function query( array $args ) {
 		if ( ! isset( $args['type'] ) ) {
-			return [];
+			return new ListScreenCollection();
 		}
 
 		$type = $args['type'];
@@ -68,7 +69,7 @@ class FilePHP implements Read {
 			}
 		}
 
-		return $list_screens;
+		return new ListScreenCollection( $list_screens );
 	}
 
 	/**

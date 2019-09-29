@@ -28,6 +28,9 @@ class AdminColumns extends Plugin {
 	 */
 	private $api;
 
+	/** @var ListScreenRepository */
+	private $repository;
+
 	/**
 	 * @since 2.5
 	 */
@@ -63,6 +66,15 @@ class AdminColumns extends Plugin {
 			new ThirdParty\WPML,
 		);
 
+		$list_screen_factory = new ListScreenFactory();
+
+		$repositories = apply_filters( 'ac\list_screen_repositories', [
+			new ListScreenRepository\DataBase( $list_screen_factory ),
+			new ListScreenRepository\FilePHP( $list_screen_factory, $this->api ),
+		] );
+
+		$this->repository = new ListScreenRepository( $repositories, $list_screen_factory );
+
 		foreach ( $modules as $module ) {
 			if ( $module instanceof Registrable ) {
 				$module->register();
@@ -92,14 +104,55 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
+	 * @since 4.0.12
+	 */
+	public function preferences() {
+		return new Preferences\Site( 'layout_columns' );
+	}
+
+	/**
 	 * @param Screen $screen
 	 */
 	public function init_table_on_screen( Screen $screen ) {
-		$list_screen = $screen->get_list_screen();
+		$key = $screen->get_list_screen();
 
-		if ( ! $list_screen instanceof ListScreen ) {
+		if ( ! $key ) {
 			return;
 		}
+
+		// Requested
+		$list_id = filter_input( INPUT_GET, 'layout' );
+
+		// Last visited
+		if ( ! $list_id ) {
+			$list_id = $this->preferences()->get( $key );
+		}
+
+		// First visit. Load first available list Id.
+		if ( ! $list_id ) {
+			// todo: add user and role query arg
+			$list_screens = $this->repository->query( [ 'type' => $key ] )->filter_by_permission( wp_get_current_user() );
+
+			if ( $list_screens->count() ) {
+				$list_id = $list_screens->current()->get_layout_id();
+			}
+		}
+
+		// Nothing stored yet then load an empty list screen.
+		if ( ! $list_id ) {
+			$list_screen = ( new ListScreenFactory() )->create( $key );
+		} else {
+			$this->preferences()->set( $key, $list_id );
+
+			// todo: filter by user
+			$list_screen = $this->repository->find_by_id( $list_id );
+		}
+
+		if ( ! $list_screen ) {
+			return; // something went wrong
+		}
+
+		// todo: do permission check
 
 		$table_screen = new Table\Screen( $list_screen );
 		$table_screen->register();
@@ -134,6 +187,7 @@ class AdminColumns extends Plugin {
 			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );
 		}
 
+		// todo: use Repo
 		$list_screen = ( new ListScreenFactory )->create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 
 		if ( ! $list_screen ) {
@@ -276,6 +330,8 @@ class AdminColumns extends Plugin {
 		foreach ( $list_screens as $list_screen ) {
 			ListScreenTypes::instance()->register_list_screen( $list_screen );
 		}
+
+		do_action( 'ac/list_screens', $this );
 	}
 
 	/**
@@ -366,16 +422,7 @@ class AdminColumns extends Plugin {
 				->register_section( GeneralSectionFactory::create() )
 				->register_section( new Restore() );
 
-			$list_screen_factory = new ListScreenFactory();
-
-			$repositories = apply_filters( 'ac\list_screen_repositories', [
-				new ListScreenRepository\DataBase( $list_screen_factory ),
-				new ListScreenRepository\FilePHP( $list_screen_factory, $this->api ),
-			] );
-
-			$list_screen_repository = new ListScreenRepository( $repositories, $list_screen_factory );
-
-			$page_columns = new Page\Columns( $list_screen_factory, $list_screen_repository );
+			$page_columns = new Page\Columns( new ListScreenFactory(), $this->repository );
 			$page_columns->register_ajax();
 
 			$this->admin->register_page( $page_columns )

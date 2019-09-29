@@ -2,13 +2,14 @@
 namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
+use AC\ListScreenCollection;
 
 interface Read {
 
 	/**
 	 * @param array $args
 	 *
-	 * @return ListScreen[]
+	 * @return ListScreenCollection
 	 */
 	public function query( array $args );
 

@@ -355,7 +355,7 @@ class Columns extends Admin\Page
 	private function maybe_show_notice() {
 		$list_screen = $this->get_list_screen();
 
-		if ( ! $list_screen->get_stored_default_headings() && ! $list_screen->is_read_only() ) {
+		if ( ! $list_screen->is_read_only() && ! $this->default_columns->get( $list_screen->get_key() ) ) {
 
 			$first_visit_link = add_query_arg( array( 'ac_action' => 'first-visit' ), $list_screen->get_screen_link() );
 
@@ -380,7 +380,7 @@ class Columns extends Admin\Page
 	 * @return string
 	 */
 	private function get_read_only_message( ListScreen $list_screen ) {
-		$message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
+		$message = sprintf( __( 'The columns are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ) );
 
 		return apply_filters( 'ac/read_only_message', $message, $list_screen );
 	}

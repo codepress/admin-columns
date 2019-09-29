@@ -1,5 +1,7 @@
 <?php
 
+use AC\ListScreenTypes;
+
 /**
  * @since 3.0
  * @return AC\AdminColumns
@@ -37,7 +39,7 @@ function ac_get_list_screen_types() {
 		wc_doing_it_wrong( __FUNCTION__, 'ac_get_list_screen_types should not be called before post types are registered', 'NEWVERSION' );
 	}
 
-	return \AC\ListScreenTypes::instance()->get_list_screens();
+	return ListScreenTypes::instance()->get_list_screens();
 }
 
 /**
