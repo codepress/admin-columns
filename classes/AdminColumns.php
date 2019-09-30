@@ -148,6 +148,7 @@ class AdminColumns extends Plugin {
 			$list_screen = $this->repository->find_by_id( $list_id );
 		}
 
+
 		if ( ! $list_screen ) {
 			return; // something went wrong
 		}

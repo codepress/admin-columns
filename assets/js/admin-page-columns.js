@@ -414,10 +414,9 @@ function () {
           action: 'ac-columns',
           id: 'select',
           type: type,
+          data: AC.Form.serialize(),
           current_original_columns: AC.Form.originalColumns(),
           original_columns: AC.original_columns,
-          list_screen: AC.Form.getListScreen(),
-          list_screen_id: AC.Form.getListScreenID(),
           _ajax_nonce: AC._ajax_nonce
         },
         success: function success(response) {
@@ -446,8 +445,7 @@ function () {
         action: 'ac-columns',
         id: 'refresh',
         _ajax_nonce: AC._ajax_nonce,
-        list_screen: AC.Form.getListScreen(),
-        list_screen_id: AC.Form.getListScreenID(),
+        data: AC.Form.serialize(),
         column_name: this.name,
         original_columns: AC.original_columns
       };
@@ -1057,12 +1055,12 @@ function () {
         action: 'ac-columns',
         id: 'save',
         _ajax_nonce: AC._ajax_nonce,
-        data: this.serialize(),
-        columns: this.getColumnSettings(),
-        title: this.getTitle(),
-        list_screen: this.getListScreen(),
-        list_screen_id: this.getListScreenID(),
-        original_columns: AC.original_columns
+        data: this.serialize() //columns: this.getColumnSettings(),
+        //title: this.getTitle(),
+        //list_screen : this.getListScreen(),
+        //list_screen_id : this.getListScreenID(),
+        //original_columns : AC.original_columns
+
       }, function (response) {
         if (response) {
           if (response.success) {

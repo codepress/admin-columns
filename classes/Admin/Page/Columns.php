@@ -96,6 +96,11 @@ class Columns extends Admin\Page
 				if ( $this->verify_nonce( 'restore-type' ) ) {
 
 					$list_screen = $this->repository->find_by_id( filter_input( INPUT_POST, 'layout' ) );
+
+					if ( ! $list_screen ) {
+						return;
+					}
+
 					$list_screen->set_settings( [] );
 					$this->repository->save( $list_screen );
 
@@ -242,7 +247,6 @@ class Columns extends Admin\Page
 	 * @return ListScreen
 	 */
 	public function get_list_screen() {
-
 		// Requested list ID
 		$list_id = filter_input( INPUT_GET, 'layout_id' );
 
@@ -257,7 +261,8 @@ class Columns extends Admin\Page
 
 		if ( $list_type ) {
 			/** @var ListScreen $list_screen */
-			$list_screen = current( $this->repository->query( [ 'type' => $list_type ] ) );
+			$list_screens = $this->repository->query( [ 'type' => $list_type ] );
+			$list_screen = $list_screens->current();
 
 			if ( $list_screen ) {
 				$this->preferences()->set( 'list_id', $list_screen->get_layout_id() );
@@ -467,7 +472,6 @@ class Columns extends Admin\Page
 
 			<div class="ac-right">
 				<div class="ac-right-inner">
-
 					<?php if ( ! $list_screen->is_read_only() ) : ?>
 
 						<?php
@@ -496,7 +500,7 @@ class Columns extends Admin\Page
 
 					endif; ?>
 
-					<?php do_action( 'ac/settings/sidebox', $list_screen ); ?>
+					<?php do_action( 'ac/settings/sidebox', $list_screen, $this->repository ); ?>
 
 					<?php if ( apply_filters( 'ac/show_banner', true ) ) : ?>
 
@@ -522,24 +526,26 @@ class Columns extends Admin\Page
 			</div><!--.ac-right-->
 
 			<div class="ac-left">
-				<?php
+				<form method="post" id="listscreen_settings">
+					<?php
 
-				$columns = new View( array(
-					'notices'        => $this->notices,
-					'class'          => $list_screen->is_read_only() ? ' disabled' : '',
-					'list_screen'    => $list_screen->get_key(),
-					'list_screen_id' => $list_screen->get_layout_id(),
-					'title'          => $list_screen->get_title(),
-					'columns'        => $list_screen->get_columns(),
-					'show_actions'   => ! $list_screen->is_read_only(),
-					'show_clear_all' => apply_filters( 'ac/enable_clear_columns_button', false ),
-				) );
+					$columns = new View( array(
+						'notices'        => $this->notices,
+						'class'          => $list_screen->is_read_only() ? ' disabled' : '',
+						'list_screen'    => $list_screen->get_key(),
+						'list_screen_id' => $list_screen->get_layout_id(),
+						'title'          => $list_screen->get_title(),
+						'columns'        => $list_screen->get_columns(),
+						'show_actions'   => ! $list_screen->is_read_only(),
+						'show_clear_all' => apply_filters( 'ac/enable_clear_columns_button', false ),
+					) );
 
-				echo $columns->set_template( 'admin/edit-columns' );
+					echo $columns->set_template( 'admin/edit-columns' );
 
-				do_action( 'ac/settings/after_columns', $list_screen );
+					do_action( 'ac/settings/after_columns', $list_screen, $this->repository );
 
-				?>
+					?>
+				</form>
 
 			</div><!--.ac-left-->
 			<div class="clear"></div>

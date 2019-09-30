@@ -24,7 +24,7 @@ class Save extends Handler {
 	}
 
 	public function request( Request $request ) {
-		parse_str( $request->get( 'columns' ), $formdata );
+		parse_str( $request->get( 'data' ), $formdata );
 
 		if ( ! isset( $formdata['columns'] ) ) {
 			wp_send_json_error( array(
@@ -34,17 +34,19 @@ class Save extends Handler {
 			);
 		}
 
-		$list_id = $request->get( 'list_screen_id' );
-		$type = $request->get( 'list_screen' );
+		//$list_id = $request->get( 'list_screen_id' );
+		$list_id = $formdata['list_screen_id'];
+		//$type = $request->get( 'list_screen' );
+		$type = $formdata['list_screen'];
 
 		if ( ! $this->list_screen_repository->exists( $list_id ) ) {
 			$list_id = uniqid( 'ac' );
 		}
 
 		$data = new Storage\DataObject( [
-			'title'    => ! empty( $request->get( 'title' ) ) ? $request->get( 'title' ) : __( 'Original', 'codepress-admin-columns' ),
-			'columns'  => $formdata['columns'],
-			'list_id'  => $list_id,
+			'title'   => ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ),
+			'columns' => $formdata['columns'],
+			'list_id' => $list_id,
 		] );
 
 		$list_screen = $this->list_screen_factory->create( $type, $data );

@@ -23,6 +23,12 @@ class FilePHP implements Read {
 
 	private function get_data_objects() {
 		$data = [];
+		$list_types = $this->api->get_data();
+
+		if ( empty( $list_types ) ) {
+			return $data;
+		}
+
 		foreach ( $this->api->get_data() as $list_type => $lists_data ) {
 			foreach ( $lists_data as $list_data ) {
 
@@ -34,14 +40,14 @@ class FilePHP implements Read {
 					'type'          => $list_type,
 					'columns'       => $columns,
 					'list_id'       => $layout['id'],
-					'date_modified' => $layout['updated'],
+					'date_modified' => isset( $layout['updated'] ) ? $layout['updated'] : false,
 					'read_only'     => true,
 
 					// todo: roles, users, other preferences
 					'settings'      => [
-					'roles' => $layout['roles'],
-					'users' => $layout['users'],
-				],
+						'roles' => $layout['roles'],
+						'users' => $layout['users'],
+					],
 				] );
 			}
 		}

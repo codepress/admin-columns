@@ -3,6 +3,7 @@
 namespace AC\Admin\Request\Column;
 
 use AC\Admin\Request\Column;
+use AC;
 
 class Refresh extends Column {
 
@@ -10,8 +11,9 @@ class Refresh extends Column {
 		parent::__construct( 'refresh' );
 	}
 
-	public function get_column() {
-		$options = filter_input( INPUT_POST, 'columns', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+	public function get_column( AC\Request $request ) {
+		parse_str( $request->get('data'), $formdata );
+		$options = $formdata['columns'];
 		$name = filter_input( INPUT_POST, 'column_name' );
 
 		if ( empty( $options[ $name ] ) ) {

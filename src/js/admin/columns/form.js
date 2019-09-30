@@ -5,7 +5,7 @@ class Form {
 	constructor( el ) {
 		this.form = el;
 		this.$form = jQuery( el );
-		this.$column_container = this.$form.find('.ac-columns');
+		this.$column_container = this.$form.find( '.ac-columns' );
 		this.$container = jQuery( '#cpac .ac-admin' );
 		this.columns = {};
 
@@ -124,11 +124,11 @@ class Form {
 				id : 'save',
 				_ajax_nonce : AC._ajax_nonce,
 				data : this.serialize(),
-				columns: this.getColumnSettings(),
-				title: this.getTitle(),
-				list_screen : this.getListScreen(),
-				list_screen_id : this.getListScreenID(),
-				original_columns : AC.original_columns
+				//columns: this.getColumnSettings(),
+				//title: this.getTitle(),
+				//list_screen : this.getListScreen(),
+				//list_screen_id : this.getListScreenID(),
+				//original_columns : AC.original_columns
 			},
 
 			function( response ) {
@@ -185,20 +185,20 @@ class Form {
 		}
 	}
 
-	getListScreen(){
-		return this.$form.find('input[name="list_screen"]').val();
+	getListScreen() {
+		return this.$form.find( 'input[name="list_screen"]' ).val();
 	}
 
-	getListScreenID(){
-		return this.$form.find('input[name="list_screen_id"]').val();
+	getListScreenID() {
+		return this.$form.find( 'input[name="list_screen_id"]' ).val();
 	}
 
-	getTitle(){
-		return this.$form.find('input[name="title"]').val();
+	getTitle() {
+		return this.$form.find( 'input[name="title"]' ).val();
 	}
 
-	getColumnSettings(){
-		return this.$form.find('[name^="columns["]').serialize();
+	getColumnSettings() {
+		return this.$form.find( '[name^="columns["]' ).serialize();
 	}
 
 	_addColumnToForm( column, open = true ) {

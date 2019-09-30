@@ -15,16 +15,18 @@ abstract class Column extends AC\Admin\Request\Handler {
 	/**
 	 * @return AC\Column
 	 */
-	abstract public function get_column();
+	abstract public function get_column( AC\Request $request );
 
 	public function request( AC\Request $request ) {
-		$this->list_screen = ( new ListScreenFactory )->create( $request->get( 'list_screen' ), $request->get( 'layout' ) );
+		parse_str( $request->get( 'data' ), $formdata );
+
+		$this->list_screen = ( new ListScreenFactory )->create( $formdata['list_screen'] );
 
 		if ( ! $this->list_screen ) {
 			wp_die();
 		}
 
-		$column = $this->get_column();
+		$column = $this->get_column( $request );
 
 		if ( ! $column ) {
 			wp_send_json_error( array(

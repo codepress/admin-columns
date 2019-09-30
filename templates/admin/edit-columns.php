@@ -16,46 +16,44 @@ if ( ! defined( 'ABSPATH' ) ) {
 echo implode( $this->notices ); ?>
 
 <div class="ac-boxes <?php echo esc_attr( $this->class ); ?>">
-	<form method="post" id="listscreen_settings">
-		<div class="ac-columns">
+	<div class="ac-columns">
+		<?php wp_nonce_field( 'update-type', '_ac_nonce', false ); ?>
+		<input type="hidden" name="list_screen" value="<?= esc_attr( $this->list_screen ); ?>"/>
+		<!--<input type="hidden" name="title" value="<? /*= esc_attr( $this->title ); */ ?>">
+			<input type="hidden" name="settings[]" value="">-->
+		<input type="hidden" name="list_screen_id" value="<?= esc_attr( $this->list_screen_id ); ?>">
 
-			<input type="hidden" name="list_screen" value="<?= esc_attr( $this->list_screen ); ?>"/>
-			<input type="hidden" name="title" value="<?= esc_attr( $this->title ); ?>">
-			<input type="hidden" name="settings[]" value="">
-			<input type="hidden" name="list_screen_id" value="<?= esc_attr( $this->list_screen_id ); ?>">
 
-			<?php wp_nonce_field( 'update-type', '_ac_nonce', false ); ?>
+		<?php
+		foreach ( $this->columns as $column ) {
+			$view = new \AC\View( array(
+				'column' => $column,
+			) );
 
-			<?php
-			foreach ( $this->columns as $column ) {
-				$view = new \AC\View( array(
-					'column' => $column,
-				) );
+			echo $view->set_template( 'admin/edit-column' );
+		}
+		?>
+	</div>
 
-				echo $view->set_template( 'admin/edit-column' );
-			}
-			?>
-		</div>
+	<div class="column-footer">
 
-		<div class="column-footer">
+		<?php if ( $this->show_actions ) : ?>
 
-			<?php if ( $this->show_actions ) : ?>
+			<div class="button-container">
 
-				<div class="button-container">
+				<?php if ( $this->show_clear_all ) : ?>
+					<a class="clear-columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
+				<?php endif; ?>
 
-					<?php if ( $this->show_clear_all ) : ?>
-						<a class="clear-columns" data-clear-columns><?php _e( 'Clear all columns ', 'codepress-admin-columns' ) ?></a>
-					<?php endif; ?>
+				<span class="spinner"></span>
+				<a class="button-primary submit update"><?php _e( 'Update' ); ?></a>
+				<a class="button-primary submit save"><?php _e( 'Save' ); ?></a>
+				<a class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
+			</div>
 
-					<span class="spinner"></span>
-					<a class="button-primary submit update"><?php _e( 'Update' ); ?></a>
-					<a class="button-primary submit save"><?php _e( 'Save' ); ?></a>
-					<a class="add_column button">+ <?php _e( 'Add Column', 'codepress-admin-columns' ); ?></a>
-				</div>
+		<?php endif; ?>
 
-			<?php endif; ?>
+	</div>
 
-		</div>
-	</form>
 
 </div>
