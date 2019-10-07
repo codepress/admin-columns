@@ -34,9 +34,7 @@ class Save extends Handler {
 			);
 		}
 
-		//$list_id = $request->get( 'list_screen_id' );
 		$list_id = $formdata['list_screen_id'];
-		//$type = $request->get( 'list_screen' );
 		$type = $formdata['list_screen'];
 
 		if ( ! $this->list_screen_repository->exists( $list_id ) ) {
@@ -44,9 +42,10 @@ class Save extends Handler {
 		}
 
 		$data = new Storage\DataObject( [
-			'title'   => ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ),
-			'columns' => $formdata['columns'],
-			'list_id' => $list_id,
+			'title'    => ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ),
+			'columns'  => $formdata['columns'],
+			'settings' => ! empty( $formdata['settings'] ) ? $formdata['settings'] : [],
+			'list_id'  => $list_id,
 		] );
 
 		$list_screen = $this->list_screen_factory->create( $type, $data );

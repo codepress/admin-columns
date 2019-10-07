@@ -170,11 +170,11 @@ class DataBase implements Write, Read {
 	private function update_post( $post_id, ListScreen $list_screen ) {
 		wp_update_post( [
 			'ID'         => $post_id,
-			'post_title' => $list_screen->get_label(),
+			'post_title' => $list_screen->get_title(),
 			'meta_input' => [
 				self::TYPE_KEY     => $list_screen->get_key(),
 				self::SUBTYPE_KEY  => false,
-				self::SETTINGS_KEY => $list_screen->get_settings(), // todo
+				self::SETTINGS_KEY => $list_screen->get_preferences(), // todo
 				self::COLUMNS_KEY  => $list_screen->get_settings(),
 				self::LIST_KEY     => $list_screen->get_layout_id(),
 			],

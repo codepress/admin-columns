@@ -104,6 +104,14 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
+	 * Todo do we want this?
+	 * @return ListScreenRepository
+	 */
+	public function get_listscreen_repository(){
+		return $this->repository;
+	}
+
+	/**
 	 * @since 4.0.12
 	 */
 	public function preferences() {

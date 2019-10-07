@@ -15,8 +15,7 @@ class ListScreenCollection extends Collection {
 		foreach ( $this->items as $list_screen ) {
 
 			// todo
-			//$user_ids = $list_screen->get_settings()->get( 'users' );
-			$user_ids = [];
+			$user_ids = $list_screen->get_preferences()['users'];
 
 			if ( ! $user_ids || in_array( $user_id, $user_ids, true ) ) {
 				$list_screens[] = $list_screen;
@@ -42,17 +41,30 @@ class ListScreenCollection extends Collection {
 	}
 
 	public function filter_by_permission( WP_User $user ) {
-		$list_screens = $this->filter_by_user( $user->ID );
+		$list_screens = new self;
 
 		foreach ( $this->items as $list_screen ) {
-			//$roles = $list_screen->get_settings()->get( 'roles' );
-			$roles = [];
+			$roles = isset( $list_screen->get_preferences()['roles'] ) ? $list_screen->get_preferences()['roles'] : [];
+			$users = isset( $list_screen->get_preferences()['users'] ) ? $list_screen->get_preferences()['users'] : [];
 
 			foreach ( $roles as $role ) {
 				if ( $user->has_cap( $role ) ) {
 					$list_screens->push( $list_screen );
+					continue;
 				}
 			}
+
+			if ( in_array( $user->ID, $users, true ) ) {
+				$list_screens->push( $list_screen );
+				continue;
+
+			}
+
+			if ( empty( $users ) && empty( $roles ) ) {
+				$list_screens->push( $list_screen );
+				continue;
+			}
+
 		}
 
 		return $list_screens;

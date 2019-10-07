@@ -101,6 +101,11 @@ abstract class ListScreen {
 	private $settings = [];
 
 	/**
+	 * @var array ListScreen settings data
+	 */
+	private $preferences = [];
+
+	/**
 	 * @var bool True when column settings can not be overwritten
 	 */
 	private $read_only = false;
@@ -744,6 +749,24 @@ abstract class ListScreen {
 	 */
 	public function get_settings() {
 		return $this->settings;
+	}
+
+	/**
+	 * @param array $settings
+	 *
+	 * @return self
+	 */
+	public function set_preferences( array $preferences ) {
+		$this->preferences = $preferences;
+
+		return $this;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_preferences() {
+		return $this->preferences;
 	}
 
 	/**
