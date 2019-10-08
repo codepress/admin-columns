@@ -8,7 +8,7 @@ use AC\ListScreenCollection;
 use AC\ListScreenFactory;
 use AC\Storage\DataObject;
 
-class FilePHP implements Read {
+class FilePHP implements ListScreenRepository {
 
 	/** @var ListScreenFactory */
 	private $factory;
@@ -61,7 +61,7 @@ class FilePHP implements Read {
 	 *
 	 * @return ListScreenCollection
 	 */
-	public function query( array $args ) {
+	public function find_all( array $args = [] ) {
 		if ( ! isset( $args['type'] ) ) {
 			return new ListScreenCollection();
 		}
@@ -84,7 +84,7 @@ class FilePHP implements Read {
 	 *
 	 * @return ListScreen|null
 	 */
-	public function find_by_id( $id ) {
+	public function find( $id ) {
 		foreach ( $this->get_data_objects() as $data_object ) {
 			if ( $id === $data_object->list_id ) {
 				return $this->factory->create( $data_object->type, $data_object );
@@ -95,7 +95,7 @@ class FilePHP implements Read {
 	}
 
 	public function exists( $id ) {
-		return null !== $this->find_by_id( $id );
+		return null !== $this->find( $id );
 	}
 
 }

@@ -3,6 +3,7 @@
 namespace AC;
 
 use AC\Column\Placeholder;
+use DateTime;
 use ReflectionClass;
 
 /**
@@ -117,6 +118,11 @@ abstract class ListScreen {
 
 	/** @var string */
 	private $title;
+
+	/**
+	 * @var int
+	 */
+	private $updated;
 
 	/**
 	 * Contains the hook that contains the manage_value callback
@@ -389,6 +395,24 @@ abstract class ListScreen {
 	 */
 	public function set_network_only( $network_only ) {
 		$this->network_only = (bool) $network_only;
+	}
+
+	/**
+	 * @param int
+	 */
+	public function set_updated( $updated ) {
+		$this->updated = (int) $updated;
+	}
+
+	/**
+	 * @return DateTime
+	 */
+	public function get_updated() {
+		if ( ! $this->updated ) {
+			return DateTime::createFromFormat( 'U', time() );
+		}
+
+		return DateTime::createFromFormat( 'U', $this->updated );
 	}
 
 	/**

@@ -9,7 +9,7 @@ use AC\PostTypes;
 use AC\Storage\DataObject;
 use LogicException;
 
-class DataBase implements Write, Read {
+class DataBase implements Write, ListScreenRepository {
 
 	const TYPE_KEY = 'type';
 	const SUBTYPE_KEY = 'subtype';
@@ -29,7 +29,7 @@ class DataBase implements Write, Read {
 	 *
 	 * @return ListScreenCollection
 	 */
-	public function query( array $args ) {
+	public function find_all( array $args = [] ) {
 		$query_args = [
 			'post_type'      => PostTypes::LIST_SCREEN_DATA,
 			'posts_per_page' => -1,
@@ -65,7 +65,7 @@ class DataBase implements Write, Read {
 	 *
 	 * @return ListScreen|null
 	 */
-	public function find_by_id( $list_id ) {
+	public function find( $list_id ) {
 		$post_id = $this->get_post_id_by_list_id( $list_id );
 
 		if ( ! $post_id ) {
@@ -154,10 +154,13 @@ class DataBase implements Write, Read {
 	}
 
 	private function read_post( $post_id ) {
+		$date_modified = \DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_field( 'post_modified_gmt', $post_id ) );
+		$date_created = \DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_field( 'post_date_gmt', $post_id ) );
+
 		return new DataObject( [
 			'title'         => get_post_field( 'post_title', $post_id ),
-			'date_modified' => get_post_field( 'post_modified_gmt', $post_id ),
-			'date_created'  => get_post_field( 'post_date_gmt', $post_id ),
+			'date_modified' => $date_modified ? $date_modified->getTimestamp() : false,
+			'date_created'  => $date_created ? $date_created->getTimestamp() : false,
 			'order'         => get_post_field( 'menu_order', $post_id ),
 			'list_id'       => get_post_meta( $post_id, self::LIST_KEY, true ),
 			'type'          => get_post_meta( $post_id, self::TYPE_KEY, true ),

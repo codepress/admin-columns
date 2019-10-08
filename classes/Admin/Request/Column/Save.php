@@ -13,10 +13,10 @@ class Save extends Handler {
 	/** @var ListScreenFactory */
 	private $list_screen_factory;
 
-	/** @var ListScreenRepository */
+	/** @var ListScreenRepository\Aggregate */
 	private $list_screen_repository;
 
-	public function __construct( ListScreenFactory $list_screen_factory, ListScreenRepository $list_screen_repository ) {
+	public function __construct( ListScreenFactory $list_screen_factory, ListScreenRepository\Aggregate $list_screen_repository ) {
 		parent::__construct( 'save' );
 
 		$this->list_screen_factory = $list_screen_factory;

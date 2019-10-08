@@ -7,6 +7,7 @@ use AC\Admin\Page;
 use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
+use AC\ListScreenRepository;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
@@ -28,8 +29,8 @@ class AdminColumns extends Plugin {
 	 */
 	private $api;
 
-	/** @var ListScreenRepository */
-	private $repository;
+	/** @var ListScreenRepositoryAggregate */
+	private $list_screen_repository;
 
 	/**
 	 * @since 2.5
@@ -67,13 +68,9 @@ class AdminColumns extends Plugin {
 		);
 
 		$list_screen_factory = new ListScreenFactory();
-
-		$repositories = apply_filters( 'ac\list_screen_repositories', [
-			new ListScreenRepository\DataBase( $list_screen_factory ),
-			new ListScreenRepository\FilePHP( $list_screen_factory, $this->api ),
-		] );
-
-		$this->repository = new ListScreenRepository( $repositories, $list_screen_factory );
+		$this->list_screen_repository = new ListScreenRepository\Aggregate( $list_screen_factory );
+		$this->list_screen_repository->register_repository( new ListScreenRepository\DataBase( $list_screen_factory ) )
+		                             ->register_repository( new ListScreenRepository\FilePHP( $list_screen_factory, $this->api ) );
 
 		foreach ( $modules as $module ) {
 			if ( $module instanceof Registrable ) {
@@ -104,11 +101,10 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * Todo do we want this?
-	 * @return ListScreenRepository
+	 * @return ListScreenRepository\Aggregate
 	 */
-	public function get_listscreen_repository(){
-		return $this->repository;
+	public function get_listscreen_repository() {
+		return $this->list_screen_repository;
 	}
 
 	/**
@@ -139,7 +135,7 @@ class AdminColumns extends Plugin {
 		// First visit. Load first available list Id.
 		if ( ! $list_id ) {
 			// todo: add user and role query arg
-			$list_screens = $this->repository->query( [ 'type' => $key ] )->filter_by_permission( wp_get_current_user() );
+			$list_screens = $this->list_screen_repository->find_all( [ 'type' => $key ] )->filter_by_permission( wp_get_current_user() );
 
 			if ( $list_screens->count() ) {
 				$list_id = $list_screens->current()->get_layout_id();
@@ -153,12 +149,11 @@ class AdminColumns extends Plugin {
 			$this->preferences()->set( $key, $list_id );
 
 			// todo: filter by user
-			$list_screen = $this->repository->find_by_id( $list_id );
+			$list_screen = $this->list_screen_repository->find( $list_id );
 		}
 
-
 		if ( ! $list_screen ) {
-			return; // something went wrong
+			$list_screen = ( new ListScreenFactory() )->create( $key );
 		}
 
 		// todo: do permission check
@@ -431,7 +426,7 @@ class AdminColumns extends Plugin {
 				->register_section( GeneralSectionFactory::create() )
 				->register_section( new Restore() );
 
-			$page_columns = new Page\Columns( new ListScreenFactory(), $this->repository );
+			$page_columns = new Page\Columns( new ListScreenFactory(), $this->list_screen_repository );
 			$page_columns->register_ajax();
 
 			$this->admin->register_page( $page_columns )

@@ -4,21 +4,21 @@ namespace AC\ListScreenRepository;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 
-interface Read {
+interface ListScreenRepository {
 
 	/**
 	 * @param array $args
 	 *
 	 * @return ListScreenCollection
 	 */
-	public function query( array $args );
+	public function find_all( array $args = [] );
 
 	/**
 	 * @param string $id
 	 *
-	 * @return ListScreen
+	 * @return ListScreen|null
 	 */
-	public function find_by_id( $id );
+	public function find( $id );
 
 	/**
 	 * @param string $id

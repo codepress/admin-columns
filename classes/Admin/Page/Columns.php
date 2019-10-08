@@ -11,7 +11,8 @@ use AC\Helper\Select;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenGroups;
-use AC\ListScreenRepository;
+use AC\ListScreenRepository\Aggregate;
+use AC\ListScreenRepositoryAggregate;
 use AC\Message\Notice;
 use AC\Preferences;
 use AC\Registrable;
@@ -38,10 +39,10 @@ class Columns extends Admin\Page
 	/** @var ListScreenFactory */
 	private $factory;
 
-	/** @var ListScreenRepository */
+	/** @var Aggregate */
 	private $repository;
 
-	public function __construct( ListScreenFactory $list_screen_factory, ListScreenRepository $list_screen_repository ) {
+	public function __construct( ListScreenFactory $list_screen_factory, Aggregate $list_screen_repository ) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->default_columns = new DefaultColumns();
@@ -95,7 +96,7 @@ class Columns extends Admin\Page
 			case 'restore_by_type' :
 				if ( $this->verify_nonce( 'restore-type' ) ) {
 
-					$list_screen = $this->repository->find_by_id( filter_input( INPUT_POST, 'layout' ) );
+					$list_screen = $this->repository->find( filter_input( INPUT_POST, 'layout' ) );
 
 					if ( ! $list_screen ) {
 						return;
@@ -253,7 +254,7 @@ class Columns extends Admin\Page
 		if ( $list_id && $this->repository->exists( $list_id ) ) {
 			$this->preferences()->set( 'list_id', $list_id );
 
-			return $this->repository->find_by_id( $list_id );
+			return $this->repository->find( $list_id );
 		}
 
 		// Requested list type
@@ -261,7 +262,7 @@ class Columns extends Admin\Page
 
 		if ( $list_type ) {
 			/** @var ListScreen $list_screen */
-			$list_screens = $this->repository->query( [ 'type' => $list_type ] );
+			$list_screens = $this->repository->find_all( [ 'type' => $list_type ] );
 			$list_screen = $list_screens->current();
 
 			if ( $list_screen ) {
@@ -277,7 +278,7 @@ class Columns extends Admin\Page
 		$list_id = $this->preferences()->get( 'list_id' );
 
 		if ( $list_id && $this->repository->exists( $list_id ) ) {
-			return $this->repository->find_by_id( $list_id );
+			return $this->repository->find( $list_id );
 		}
 
 		// Initialize new
@@ -403,7 +404,7 @@ class Columns extends Admin\Page
 
 	// todo: move
 	private function submenu_view( $page_link, $list_screen_key, $current_id = false ) {
-		$list_screens = $this->repository->query( [ 'type' => $list_screen_key ] );
+		$list_screens = $this->repository->find_all( [ 'type' => $list_screen_key ] );
 
 		if ( ! $list_screens ) {
 			return '';
