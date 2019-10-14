@@ -325,9 +325,6 @@ abstract class ListScreen {
 	 */
 	private function set_storage_key( $key ) {
 		$this->storage_key = $key;
-
-		// todo
-		//$this->reset();
 	}
 
 	/**
@@ -579,13 +576,6 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * Reset original columns
-	 */
-	public function reset_original_columns() {
-		$this->original_columns = null;
-	}
-
-	/**
 	 * Available column types
 	 */
 	private function set_column_types() {
@@ -668,6 +658,15 @@ abstract class ListScreen {
 	}
 
 	/**
+	 * @param string $column_name Column name
+	 *
+	 * @since 3.0
+	 */
+	public function deregister_column( $column_name ) {
+		unset( $this->columns[ $column_name ] );
+	}
+
+	/**
 	 * @param array $settings Column options
 	 *
 	 * @return Column|false
@@ -704,15 +703,6 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @param string $column_name Column name
-	 *
-	 * @since 3.0
-	 */
-	public function deregister_column( $column_name ) {
-		unset( $this->columns[ $column_name ] );
-	}
-
-	/**
 	 * @param Column $column
 	 */
 	protected function register_column( Column $column ) {
@@ -728,6 +718,17 @@ abstract class ListScreen {
 		 * @since 3.0.5
 		 */
 		do_action( 'ac/list_screen/column_registered', $column, $this );
+	}
+
+	/**
+	 * @param array $settings
+	 *
+	 * @return self
+	 */
+	public function set_settings( array $settings ) {
+		$this->settings = $settings;
+
+		return $this;
 	}
 
 	/**
@@ -755,17 +756,6 @@ abstract class ListScreen {
 		if ( null === $this->columns ) {
 			$this->columns = array();
 		}
-	}
-
-	/**
-	 * @param array $settings
-	 *
-	 * @return self
-	 */
-	public function set_settings( array $settings ) {
-		$this->settings = $settings;
-
-		return $this;
 	}
 
 	/**
@@ -906,7 +896,8 @@ abstract class ListScreen {
 	 * @deprecated NEWVERSION
 	 */
 	public function populate_settings() {
-		// todo: remove
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
 		// Load from DB
 		//$this->set_settings( get_option( self::OPTIONS_KEY . $this->get_storage_key() ) );
 
@@ -915,6 +906,15 @@ abstract class ListScreen {
 
 		// Hook for populating the ListScreen from other sources
 		//do_action( 'ac/list_screen/populate_settings', $this );
+	}
+
+	/**
+	 * Reset original columns
+	 */
+	public function reset_original_columns() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
+		$this->original_columns = null;
 	}
 
 	/**

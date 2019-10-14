@@ -29,7 +29,7 @@ class AdminColumns extends Plugin {
 	 */
 	private $api;
 
-	/** @var ListScreenRepositoryAggregate */
+	/** @var ListScreenRepository\Aggregate */
 	private $list_screen_repository;
 
 	/**
@@ -191,7 +191,7 @@ class AdminColumns extends Plugin {
 			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );
 		}
 
-		// todo: use Repo
+		// todo: use Repo and list ID
 		$list_screen = ( new ListScreenFactory )->create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
 
 		if ( ! $list_screen ) {
@@ -337,32 +337,6 @@ class AdminColumns extends Plugin {
 
 		do_action( 'ac/list_screens', $this );
 	}
-
-	/**
-	 * Register List Screens
-	 */
-	//	public function __register_list_screens() {
-	//		$list_screens = array();
-	//
-	//		// Post types
-	//		foreach ( $this->get_post_types() as $post_type ) {
-	//			$list_screens[] = new ListScreen\Post( $post_type );
-	//		}
-	//
-	//		$list_screens[] = new ListScreen\Media();
-	//		$list_screens[] = new ListScreen\Comment();
-	//
-	//		// Users, not for network users
-	//		if ( ! is_multisite() ) {
-	//			$list_screens[] = new ListScreen\User();
-	//		}
-	//
-	//		foreach ( $list_screens as $list_screen ) {
-	//			$this->register_list_screen( $list_screen );
-	//		}
-	//
-	//		do_action( 'ac/list_screens', $this );
-	//	}
 
 	/**
 	 * @return void
