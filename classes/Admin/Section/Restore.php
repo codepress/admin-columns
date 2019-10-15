@@ -1,17 +1,22 @@
 <?php
 namespace AC\Admin\Section;
 
-use AC\ListScreen;
+use AC\ListScreenRepository\DataBase;
 use AC\Message;
 
 class Restore extends Custom {
 
-	public function __construct() {
+	/** @var string */
+	private $database_repository;
+
+	public function __construct( DataBase $repo ) {
 		parent::__construct(
 			'restore',
 			__( 'Restore Settings', 'codepress-admin-columns' ),
 			__( 'This will delete all column settings and restore the default settings.', 'codepress-admin-columns' )
 		);
+
+		$this->database_repository = $repo;
 	}
 
 	public function register() {
@@ -19,20 +24,13 @@ class Restore extends Custom {
 	}
 
 	public function request() {
-		global $wpdb;
-
 		if ( ! $this->validate_request() ) {
 			return;
 		}
 
-		$sql = "
-			DELETE
-			FROM $wpdb->options
-			WHERE option_name LIKE %s";
-
-		// todo: use ListScreenRepository
-
-		$wpdb->query( $wpdb->prepare( $sql, ListScreen::OPTIONS_KEY . '%' ) );
+		foreach ( $this->database_repository->find_all() as $list_screen ) {
+			$this->database_repository->delete( $list_screen->get_layout_id() );
+		}
 
 		do_action( 'ac/restore_all_columns' );
 

@@ -18,12 +18,12 @@ class ListScreenFactory {
 		$list_screen = clone $list_screen;
 
 		if ( $data && is_array( $data->columns ) ) {
-			$list_screen->set_title( $data->title );
-			$list_screen->set_settings( $data->columns );
-			$list_screen->set_preferences( (array) $data->settings );
-			$list_screen->set_layout_id( $data->list_id );
-			$list_screen->set_read_only( isset( $data->read_only ) ? $data->read_only : false );
-			$list_screen->set_updated( isset( $data->date_modified ) ? $data->date_modified : 0 );
+			$list_screen->set_title( $data->title )
+			            ->set_settings( $data->columns )
+			            ->set_preferences( $data->settings ? $data->settings : [] )
+			            ->set_layout_id( $data->list_id )
+			            ->set_read_only( isset( $data->read_only ) ? $data->read_only : false )
+			            ->set_updated( isset( $data->date_modified ) ? $data->date_modified : 0 );
 		}
 
 		return $list_screen;

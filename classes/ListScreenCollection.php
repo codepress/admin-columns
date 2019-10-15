@@ -44,8 +44,8 @@ class ListScreenCollection extends Collection {
 		$list_screens = new self;
 
 		foreach ( $this->items as $list_screen ) {
-			$roles = isset( $list_screen->get_preferences()['roles'] ) ? $list_screen->get_preferences()['roles'] : [];
-			$users = isset( $list_screen->get_preferences()['users'] ) ? $list_screen->get_preferences()['users'] : [];
+			$roles = ! empty( $list_screen->get_preferences()['roles'] ) ? $list_screen->get_preferences()['roles'] : [];
+			$users = ! empty( $list_screen->get_preferences()['users'] ) ? $list_screen->get_preferences()['users'] : [];
 
 			foreach ( $roles as $role ) {
 				if ( $user->has_cap( $role ) ) {

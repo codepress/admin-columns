@@ -7,6 +7,7 @@ use AC\ListScreenCollection;
 use AC\ListScreenFactory;
 use AC\PostTypes;
 use AC\Storage\DataObject;
+use DateTime;
 use LogicException;
 
 class DataBase implements Write, ListScreenRepository {
@@ -90,12 +91,15 @@ class DataBase implements Write, ListScreenRepository {
 		$this->update_post( $post_id, $list_screen );
 	}
 
-	public function delete( $list_id ) {
-		$post_id = $this->get_post_id_by_list_id( $list_id );
+	public function delete( ListScreen $list_screen ) {
+		$post_id = $this->get_post_id_by_list_id( $list_screen->get_layout_id() );
 
 		if ( ! $post_id ) {
 			return;
 		}
+
+		// todo: remove?
+		do_action( 'ac/columns_delete', $list_screen );
 
 		$this->delete_post( $post_id );
 	}
@@ -154,8 +158,8 @@ class DataBase implements Write, ListScreenRepository {
 	}
 
 	private function read_post( $post_id ) {
-		$date_modified = \DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_field( 'post_modified_gmt', $post_id ) );
-		$date_created = \DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_field( 'post_date_gmt', $post_id ) );
+		$date_modified = DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_field( 'post_modified_gmt', $post_id ) );
+		$date_created = DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_field( 'post_date_gmt', $post_id ) );
 
 		return new DataObject( [
 			'title'         => get_post_field( 'post_title', $post_id ),

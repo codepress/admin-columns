@@ -13,10 +13,10 @@ interface Write {
 	public function save( ListScreen $list_screen );
 
 	/**
-	 * @param int $id
+	 * @param ListScreen $list_screen
 	 *
 	 * @return bool
 	 */
-	public function delete( $id );
+	public function delete( ListScreen $list_screen );
 
 }

@@ -398,7 +398,7 @@ class AdminColumns extends Plugin {
 			$page_settings = new Page\Settings();
 			$page_settings
 				->register_section( GeneralSectionFactory::create() )
-				->register_section( new Restore() );
+				->register_section( new Restore( new ListScreenRepository\DataBase( new ListScreenFactory() ) ) );
 
 			$page_columns = new Page\Columns( new ListScreenFactory(), $this->list_screen_repository );
 			$page_columns->register_ajax();
