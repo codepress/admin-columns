@@ -574,7 +574,6 @@ abstract class ListScreen {
 	/**
 	 * @return array
 	 */
-	// todo: remove?
 	public function get_original_columns() {
 		return ( new DefaultColumns() )->get( $this->get_key() );
 	}

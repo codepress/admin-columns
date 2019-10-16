@@ -402,12 +402,11 @@ class Columns extends Admin\Page
 		return $menu;
 	}
 
-	// todo: move
-	private function submenu_view( $page_link, $list_screen_key, $current_id = false ) {
+	private function render_submenu_view( $page_link, $list_screen_key, $current_id = false ) {
 		$list_screens = $this->repository->find_all( [ 'type' => $list_screen_key ] );
 
 		if ( ! $list_screens ) {
-			return '';
+			return;
 		}
 
 		ob_start();
@@ -425,9 +424,7 @@ class Columns extends Admin\Page
 			'items' => $items,
 		) );
 
-		$menu->set_template( 'admin/edit-submenu' );
-
-		return $menu;
+		echo $menu->set_template( 'admin/edit-submenu' );
 	}
 
 	private function render_loading_screen( View $menu ) {
@@ -455,8 +452,6 @@ class Columns extends Admin\Page
 			return;
 		}
 
-		$submenu = $this->submenu_view( $list_screen->get_edit_link(), $list_screen->get_key(), $list_screen->get_layout_id() );
-
 		?>
 
 		<div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
@@ -464,7 +459,8 @@ class Columns extends Admin\Page
 
 				<?php
 				echo $menu;
-				echo $submenu;
+
+				$this->render_submenu_view( $list_screen->get_edit_link(), $list_screen->get_key(), $list_screen->get_layout_id() );
 
 				do_action( 'ac/settings/after_title', $list_screen );
 				?>

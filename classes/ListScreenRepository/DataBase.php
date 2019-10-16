@@ -51,7 +51,6 @@ class DataBase implements Write, ListScreenRepository {
 			];
 		}
 
-		// todo return ListScreenDataCollection
 		$list_screens = [];
 
 		foreach ( get_posts( $query_args ) as $id ) {
@@ -98,7 +97,15 @@ class DataBase implements Write, ListScreenRepository {
 			return;
 		}
 
-		// todo: remove?
+		/**
+		 * Fires before a column setup is removed from the database
+		 * Primarily used when columns are deleted through the Admin Columns settings screen
+		 *
+		 * @param ListScreen $list_screen
+		 *
+		 * @deprecated NEWVERSION
+		 * @since      3.0.8
+		 */
 		do_action( 'ac/columns_delete', $list_screen );
 
 		$this->delete_post( $post_id );

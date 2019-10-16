@@ -95,6 +95,7 @@ class Aggregate implements ListScreenRepository {
 
 	private function unique_by_list_id( ListScreenCollection $collection ) {
 		$list_screens = [];
+
 		/**
 		 * @var ListScreen $list_screen
 		 */

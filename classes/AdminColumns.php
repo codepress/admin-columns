@@ -134,7 +134,6 @@ class AdminColumns extends Plugin {
 
 		// First visit. Load first available list Id.
 		if ( ! $list_id ) {
-			// todo: add user and role query arg
 			$list_screens = $this->list_screen_repository->find_all( [ 'type' => $key ] )->filter_by_permission( wp_get_current_user() );
 
 			if ( $list_screens->count() ) {
@@ -189,8 +188,7 @@ class AdminColumns extends Plugin {
 			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );
 		}
 
-		// todo: use Repo and list ID
-		$list_screen = ( new ListScreenFactory )->create( filter_input( INPUT_POST, 'list_screen' ), filter_input( INPUT_POST, 'layout' ) );
+		$list_screen = AC()->get_listscreen_repository()->find( filter_input( INPUT_POST, 'layout' ) );
 
 		if ( ! $list_screen ) {
 			wp_die( __( 'Invalid list screen.', 'codepress-admin-columns' ), null, 400 );

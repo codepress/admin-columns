@@ -13,8 +13,7 @@ class ListScreenFactory {
 			return false;
 		}
 
-		// todo
-		// create a new reference
+		// create a cloned reference
 		$list_screen = clone $list_screen;
 
 		if ( $data && is_array( $data->columns ) ) {

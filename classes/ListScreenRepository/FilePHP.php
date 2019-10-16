@@ -43,7 +43,7 @@ class FilePHP implements ListScreenRepository {
 					'date_modified' => isset( $layout['updated'] ) ? $layout['updated'] : false,
 					'read_only'     => true,
 
-					// todo: roles, users, other preferences
+					// todo: other preferences
 					'settings'      => [
 						'roles' => $layout['roles'],
 						'users' => $layout['users'],
