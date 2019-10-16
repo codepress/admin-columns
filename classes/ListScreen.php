@@ -795,6 +795,19 @@ abstract class ListScreen {
 	}
 
 	/**
+	 * @param string $key
+	 *
+	 * @return mixed|null
+	 */
+	public function get_preference( $key ) {
+		if ( ! isset( $this->preferences[ $key ] ) ) {
+			return null;
+		}
+
+		return $this->preferences[ $key ];
+	}
+
+	/**
 	 * @param string $column_name
 	 * @param int    $id
 	 * @param null   $original_value

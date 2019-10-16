@@ -12,7 +12,6 @@ use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenGroups;
 use AC\ListScreenRepository\Aggregate;
-use AC\ListScreenRepositoryAggregate;
 use AC\Message\Notice;
 use AC\Preferences;
 use AC\Registrable;
@@ -284,10 +283,11 @@ class Columns extends Admin\Page
 		// Initialize new
 		$types = ac_get_list_screen_types();
 
-		return $this->factory->create( current( $types )->get_key() );
+		$list_screen = $this->factory->create( current( $types )->get_key() );
 
-		// todo: remove
-		//do_action( 'ac/settings/list_screen', $list_screen );
+		do_action( 'ac/settings/list_screen', $list_screen );
+
+		return $list_screen;
 	}
 
 	/**
@@ -540,6 +540,8 @@ class Columns extends Admin\Page
 						'show_actions'   => ! $list_screen->is_read_only(),
 						'show_clear_all' => apply_filters( 'ac/enable_clear_columns_button', false ),
 					) );
+
+					do_action( 'ac/settings/before_columns', $list_screen, $this->repository );
 
 					echo $columns->set_template( 'admin/edit-columns' );
 

@@ -146,17 +146,15 @@ class AdminColumns extends Plugin {
 		if ( ! $list_id ) {
 			$list_screen = ( new ListScreenFactory() )->create( $key );
 		} else {
-			$this->preferences()->set( $key, $list_id );
-
-			// todo: filter by user
 			$list_screen = $this->list_screen_repository->find( $list_id );
 		}
 
-		if ( ! $list_screen ) {
+		// Requested list ID not found or user does not have permission to use it
+		if ( ! $list_screen || ! ac_user_has_permission_list_screen( $list_screen ) ) {
 			$list_screen = ( new ListScreenFactory() )->create( $key );
 		}
 
-		// todo: do permission check
+		$this->preferences()->set( $key, $list_screen->get_layout_id() );
 
 		$table_screen = new Table\Screen( $list_screen );
 		$table_screen->register();

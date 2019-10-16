@@ -1,10 +1,11 @@
 <?php
 
+use AC\ListScreen;
 use AC\ListScreenTypes;
 
 /**
- * @since 3.0
  * @return AC\AdminColumns
+ * @since 3.0
  */
 function AC() {
 	return AC\AdminColumns::instance();
@@ -101,10 +102,11 @@ function ac_helper() {
  * We also have a free start-kit available, which contains all the necessary files.
  * Documentation: https://www.admincolumns.com/documentation/developer-docs/creating-new-column-type/
  * Starter-kit: https://github.com/codepress/ac-column-template/
- * @since 2.2
  *
  * @param array|string $list_screen_keys
  * @param array        $column_data
+ *
+ * @since 2.2
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	AC()->api()->load_columndata( $list_screen_keys, $column_data );
@@ -128,4 +130,54 @@ function ac_get_admin_url( $slug = null ) {
  */
 function ac_get_lowest_price() {
 	return 49;
+}
+
+/**
+ * @param ListScreen   $list_screen
+ * @param WP_User|null $user
+ *
+ * @return bool
+ */
+function ac_user_has_permission_list_screen( ListScreen $list_screen, WP_User $user = null ) {
+	if ( null === $user ) {
+		$user = wp_get_current_user();
+	}
+
+	$roles = ! empty( $list_screen->get_preferences()['roles'] ) ? $list_screen->get_preferences()['roles'] : [];
+	$users = ! empty( $list_screen->get_preferences()['users'] ) ? $list_screen->get_preferences()['users'] : [];
+
+	foreach ( $roles as $role ) {
+		if ( $user->has_cap( $role ) ) {
+			return true;
+		}
+	}
+
+	if ( in_array( $user->ID, $users, true ) ) {
+		return true;
+
+	}
+
+	if ( empty( $users ) && empty( $roles ) ) {
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * Convert site_url() to [cpac_site_url] and back for easy migration
+ *
+ * @param string $label
+ * @param string $action
+ *
+ * @return string
+ */
+function ac_convert_site_url( $label, $action = 'encode' ) {
+	$input = array( site_url(), '[cpac_site_url]' );
+
+	if ( 'decode' == $action ) {
+		$input = array_reverse( $input );
+	}
+
+	return stripslashes( str_replace( $input[0], $input[1], trim( $label ) ) );
 }

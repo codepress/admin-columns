@@ -181,7 +181,7 @@ class DataBase implements Write, ListScreenRepository {
 			'meta_input' => [
 				self::TYPE_KEY     => $list_screen->get_key(),
 				self::SUBTYPE_KEY  => false,
-				self::SETTINGS_KEY => $list_screen->get_preferences(), // todo
+				self::SETTINGS_KEY => $list_screen->get_preferences(),
 				self::COLUMNS_KEY  => $list_screen->get_settings(),
 				self::LIST_KEY     => $list_screen->get_layout_id(),
 			],

@@ -41,9 +41,11 @@ class Save extends Handler {
 			$list_id = uniqid( 'ac' );
 		}
 
+		$formdata = $this->maybe_encode_urls( $formdata );
+
 		$data = new Storage\DataObject( [
 			'title'    => ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ),
-			'columns'  => $formdata['columns'],
+			'columns'  => ! empty( $formdata['columns'] ) ? $formdata['columns'] : [],
 			'settings' => ! empty( $formdata['settings'] ) ? $formdata['settings'] : [],
 			'list_id'  => $list_id,
 		] );
@@ -62,6 +64,20 @@ class Save extends Handler {
 				"<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>"
 			) . ' ' . $view_link
 		);
+	}
+
+	private function maybe_encode_urls( array $formdata ) {
+		if ( empty( $formdata['columns'] ) ) {
+			return $formdata;
+		}
+
+		foreach ( $formdata['columns'] as $name => $data ) {
+			if ( isset( $data['label'] ) ) {
+				$formdata['columns'][ $name ]['label'] = ac_convert_site_url( $data['label'] );
+			}
+		}
+
+		return $formdata;
 	}
 
 	/**

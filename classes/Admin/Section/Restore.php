@@ -6,7 +6,7 @@ use AC\Message;
 
 class Restore extends Custom {
 
-	/** @var string */
+	/** @var DataBase */
 	private $database_repository;
 
 	public function __construct( DataBase $repo ) {
@@ -29,10 +29,8 @@ class Restore extends Custom {
 		}
 
 		foreach ( $this->database_repository->find_all() as $list_screen ) {
-			$this->database_repository->delete( $list_screen->get_layout_id() );
+			$this->database_repository->delete( $list_screen );
 		}
-
-		do_action( 'ac/restore_all_columns' );
 
 		$notice = new Message\Notice( __( 'Default settings successfully restored.', 'codepress-admin-columns' ) );
 		$notice->register();
