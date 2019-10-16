@@ -41,11 +41,21 @@ class Save extends Handler {
 			$list_id = uniqid( 'ac' );
 		}
 
-		$formdata = $this->maybe_encode_urls( $formdata );
+		$formdata['columns'] = $this->maybe_encode_urls( $formdata['columns'] );
+
+		$column_data = [];
+
+		foreach ( $formdata['columns'] as $column_name => $settings ) {
+			if ( 0 === strpos( $column_name, '_new_column_' ) ) {
+				$column_data[ uniqid() ] = $settings;
+			} else {
+				$column_data[ $column_name ] = $settings;
+			}
+		}
 
 		$data = new Storage\DataObject( [
 			'title'    => ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ),
-			'columns'  => ! empty( $formdata['columns'] ) ? $formdata['columns'] : [],
+			'columns'  => $column_data,
 			'settings' => ! empty( $formdata['settings'] ) ? $formdata['settings'] : [],
 			'list_id'  => $list_id,
 		] );
@@ -66,18 +76,14 @@ class Save extends Handler {
 		);
 	}
 
-	private function maybe_encode_urls( array $formdata ) {
-		if ( empty( $formdata['columns'] ) ) {
-			return $formdata;
-		}
-
-		foreach ( $formdata['columns'] as $name => $data ) {
+	private function maybe_encode_urls( array $columndata ) {
+		foreach ( $columndata as $name => $data ) {
 			if ( isset( $data['label'] ) ) {
-				$formdata['columns'][ $name ]['label'] = ac_convert_site_url( $data['label'] );
+				$columndata[ $name ]['label'] = ac_convert_site_url( $data['label'] );
 			}
 		}
 
-		return $formdata;
+		return $columndata;
 	}
 
 	/**
