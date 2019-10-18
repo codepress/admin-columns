@@ -74,10 +74,10 @@ class Aggregate implements ListScreenRepository {
 		}
 	}
 
-	public function delete( $id ) {
+	public function delete( ListScreen $list_screen ) {
 		foreach ( $this->repositories as $repository ) {
 			if ( $repository instanceof Write ) {
-				$repository->delete( $id );
+				$repository->delete( $list_screen );
 			}
 		}
 	}

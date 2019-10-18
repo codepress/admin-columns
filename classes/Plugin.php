@@ -148,6 +148,8 @@ abstract class Plugin extends Addon {
 	public function is_new_install() {
 		global $wpdb;
 
+		// todo
+
 		$sql = "
 			SELECT option_id
 			FROM {$wpdb->options}
