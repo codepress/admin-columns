@@ -34,7 +34,7 @@ class TermLink extends Settings\Column
 	protected function get_link_options() {
 		return array(
 			''       => __( 'None' ),
-			'filter' => __( 'Filtered Overview', 'codepress-admin-columns' ),
+			'filter' => __( 'Filter by Term', 'codepress-admin-columns' ),
 			'edit'   => __( 'Edit Term', 'codepress-admin-columns' ),
 		);
 	}
