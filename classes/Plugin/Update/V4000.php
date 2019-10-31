@@ -66,6 +66,7 @@ class V4000 extends Update {
 		}
 
 		$posts_data = [];
+		$settings_without_layout_info = [];
 
 		// 2. convert to post data
 		foreach ( $settings as $setting ) {
@@ -77,6 +78,11 @@ class V4000 extends Update {
 				continue;
 			}
 
+			// Truly eliminates a duplicate $unique_id, because `uniqid()` is based on the current time in microseconds
+			usleep( 1000 );
+
+			$unique_id = uniqid( 'ac' );
+
 			// Defaults
 			$post_data = [
 				'post_status'   => 'publish',
@@ -85,7 +91,7 @@ class V4000 extends Update {
 				'post_modified' => time(),
 				'post_title'    => __( 'Original', 'codepress-admin-columns' ),
 				'meta_input'    => [
-					DataBase::LIST_KEY     => uniqid( 'ac' ), // todo: could be based on seconds
+					DataBase::LIST_KEY     => $unique_id,
 					DataBase::TYPE_KEY     => $storage_key, // wp-users, wp-taxonomy_tag, post, page etc.
 					DataBase::SUBTYPE_KEY  => '',
 					DataBase::SETTINGS_KEY => [
@@ -120,13 +126,18 @@ class V4000 extends Update {
 					$post_data['post_date'] = $layout_settings->updated;
 					$post_data['post_modified'] = $layout_settings->updated;
 				}
+			} else {
+				$settings_without_layout_info[] = $layout_settings;
 			}
 
 			$posts_data[] = $post_data;
 		}
 
-		// 3. check the invalid
-		// todo
+		// 3. double check setting that do not have layout info
+		foreach ( $settings_without_layout_info as $setting ) {
+			// todo
+			echo $setting;
+		}
 
 		// 4. migrate
 		foreach ( $posts_data as $post_data ) {
