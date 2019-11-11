@@ -12,7 +12,7 @@ Domain Path: /languages
 License: GPL v3
 
 Admin Columns Plugin
-Copyright (C) 2011-2019, Admin Columns - info@admincolumns.com
+Copyright (C) 2011-2020, Admin Columns - info@admincolumns.com
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
