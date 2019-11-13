@@ -418,7 +418,6 @@ class Columns extends Admin\Page
 		$count = 0;
 		foreach ( $list_screens as $list_screen ) : ?>
 			<li data-screen="<?php echo esc_attr( $list_screen->get_layout_id() ); ?>">
-				<?php echo ( $count++ ) != 0 ? ' | ' : ''; ?>
 				<a class="<?php echo $list_screen->get_layout_id() === $current_id ? 'current' : ''; ?>" href="<?php echo add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $page_link ); ?>"><?php echo esc_html( $list_screen->get_title() ? $list_screen->get_title() : __( '(no name)', 'codepress-admin-columns' ) ); ?></a>
 			</li>
 		<?php endforeach;
