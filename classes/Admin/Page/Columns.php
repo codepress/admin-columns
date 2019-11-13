@@ -199,7 +199,7 @@ class Columns extends Admin\Page
 		$request = new Request();
 
 		$requests = array(
-			new Admin\Request\Column\Save( $this->repository, $this->list_screen_types, $this->preferences() ),
+			new Admin\Request\Column\Save( $this->repository, $this->preferences() ),
 			new Admin\Request\Column\Refresh(),
 			new Admin\Request\Column\Select(),
 		);
@@ -282,7 +282,7 @@ class Columns extends Admin\Page
 		}
 
 		// Initialize new
-		$types = ac_get_list_screen_types();
+		$types = $this->list_screen_types->get_list_screens();
 
 		$list_screen = $this->list_screen_types->get_list_screen_by_key( current( $types )->get_key() );
 
@@ -319,7 +319,7 @@ class Columns extends Admin\Page
 		$list_screens = array();
 
 		// todo
-		foreach ( ac_get_list_screen_types() as $list_screen ) {
+		foreach ( $this->list_screen_types->get_list_screens() as $list_screen ) {
 			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
 
@@ -415,7 +415,6 @@ class Columns extends Admin\Page
 		}
 
 		ob_start();
-		$count = 0;
 		foreach ( $list_screens as $list_screen ) : ?>
 			<li data-screen="<?php echo esc_attr( $list_screen->get_layout_id() ); ?>">
 				<a class="<?php echo $list_screen->get_layout_id() === $current_id ? 'current' : ''; ?>" href="<?php echo add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $page_link ); ?>"><?php echo esc_html( $list_screen->get_title() ? $list_screen->get_title() : __( '(no name)', 'codepress-admin-columns' ) ); ?></a>

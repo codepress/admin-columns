@@ -13,19 +13,15 @@ class Save extends Handler {
 	/** @var ListScreenRepository\Aggregate */
 	private $list_screen_repository;
 
-	/** @var ListScreenTypes */
-	private $list_screen_types;
-
 	/**
 	 * @var Preferences\Site
 	 */
 	private $preferences;
 
-	public function __construct( ListScreenRepository\Aggregate $list_screen_repository, ListScreenTypes $list_screen_types, Preferences\Site $preferences ) {
+	public function __construct( ListScreenRepository\Aggregate $list_screen_repository, Preferences\Site $preferences ) {
 		parent::__construct( 'save' );
 
 		$this->list_screen_repository = $list_screen_repository;
-		$this->list_screen_types = $list_screen_types;
 		$this->preferences = $preferences;
 	}
 
@@ -60,7 +56,7 @@ class Save extends Handler {
 		}
 
 		// todo: test
-		$list_screen = clone $this->list_screen_types->get_list_screen_by_key( $type );
+		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $type );
 
 		$list_screen->set_title( ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ) )
 		            ->set_settings( $column_data )
