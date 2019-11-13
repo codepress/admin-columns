@@ -93,6 +93,7 @@ class DataBase implements Write, ListScreenRepository {
 
 		if ( ! $post_id ) {
 			$this->create_post( $list_screen );
+			return;
 		}
 
 		$this->update_post( $post_id, $list_screen );
