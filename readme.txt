@@ -3,7 +3,7 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.5
-Tested up to: 5.2.2
+Tested up to: 5.3
 Requires PHP: 5.3.6
 Stable tag: 3.4.7
 
@@ -217,6 +217,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: tbd
 
 * [Removed] Support for PHP 5.3. The minimum version required to run Admin Columns is now PHP 5.6.20.
+* [Improved] Set link type for Taxonomy Columns
 * [Improved] It is not necessary anymore to load the overview page once in order to recognize the default columns
 
 = 3.4.7 =
