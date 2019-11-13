@@ -20,19 +20,15 @@ class ListScreenOrder {
 
 		$data[ $key ] = $list_screen_ids;
 
-		$this->save( $data );
+		update_option( self::KEY, $data, false );
 	}
 
 	public function add( $key, $id ) {
-		$data = $this->get_data();
+		$ids = $this->get( $key );
 
-		array_unshift( $data[ $key ], $id );
+		array_unshift( $ids, $id );
 
-		$this->save( $data );
-	}
-
-	private function save( array $data ) {
-		update_option( self::KEY, $data, false );
+		$this->set( $key, $ids );
 	}
 
 	private function get_data() {
