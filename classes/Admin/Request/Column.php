@@ -8,15 +8,6 @@ use AC\View;
 
 abstract class Column extends AC\Admin\Request\Handler {
 
-	/** @var AC\ListScreenRepository\Aggregate */
-	private $list_screen_repository;
-
-	public function __construct( AC\ListScreenRepository\Aggregate $list_screen_repository, $id ) {
-		$this->list_screen_repository = $list_screen_repository;
-
-		parent::__construct( $id );
-	}
-
 	/**
 	 * @return AC\Column
 	 */
@@ -25,7 +16,7 @@ abstract class Column extends AC\Admin\Request\Handler {
 	public function request( AC\Request $request ) {
 		parse_str( $request->get( 'data' ), $formdata );
 
-		$list_screen = $this->list_screen_repository->find( $formdata['list_screen_id'] );
+		$list_screen = AC\ListScreenTypes::instance()->get_list_screen_by_key( $formdata['list_screen'] );
 
 		if ( ! $list_screen ) {
 			wp_die();

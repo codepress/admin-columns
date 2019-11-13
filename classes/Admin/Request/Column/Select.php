@@ -7,8 +7,8 @@ use AC\Admin\Request\Column;
 
 class Select extends Column {
 
-	public function __construct( AC\ListScreenRepository\Aggregate $repo ) {
-		parent::__construct( $repo, 'select' );
+	public function __construct() {
+		parent::__construct( 'select' );
 	}
 
 	public function get_column( AC\Request $request, AC\ListScreen $list_screen ) {

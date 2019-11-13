@@ -200,8 +200,8 @@ class Columns extends Admin\Page
 
 		$requests = array(
 			new Admin\Request\Column\Save( $this->repository, $this->list_screen_types, $this->preferences() ),
-			new Admin\Request\Column\Refresh( $this->repository ),
-			new Admin\Request\Column\Select( $this->repository ),
+			new Admin\Request\Column\Refresh(),
+			new Admin\Request\Column\Select(),
 		);
 
 		foreach ( $requests as $handler ) {
