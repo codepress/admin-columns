@@ -3,24 +3,23 @@ namespace AC\Admin\Request\Column;
 
 use AC\Admin\Request\Handler;
 use AC\ListScreen;
-use AC\ListScreenFactory;
 use AC\ListScreenRepository;
+use AC\ListScreenTypes;
 use AC\Request;
-use AC\Storage;
 
 class Save extends Handler {
-
-	/** @var ListScreenFactory */
-	private $list_screen_factory;
 
 	/** @var ListScreenRepository\Aggregate */
 	private $list_screen_repository;
 
-	public function __construct( ListScreenFactory $list_screen_factory, ListScreenRepository\Aggregate $list_screen_repository ) {
+	/** @var ListScreenTypes */
+	private $list_screen_types;
+
+	public function __construct( ListScreenRepository\Aggregate $list_screen_repository, ListScreenTypes $list_screen_types ) {
 		parent::__construct( 'save' );
 
-		$this->list_screen_factory = $list_screen_factory;
 		$this->list_screen_repository = $list_screen_repository;
+		$this->list_screen_types = $list_screen_types;
 	}
 
 	public function request( Request $request ) {
@@ -53,14 +52,13 @@ class Save extends Handler {
 			}
 		}
 
-		$data = new Storage\DataObject( [
-			'title'    => ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ),
-			'columns'  => $column_data,
-			'settings' => ! empty( $formdata['settings'] ) ? $formdata['settings'] : [],
-			'list_id'  => $list_id,
-		] );
+		// todo: test
+		$list_screen = clone $this->list_screen_types->get_list_screen_by_key( $type );
 
-		$list_screen = $this->list_screen_factory->create( $type, $data );
+		$list_screen->set_title( ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ) )
+		            ->set_settings( $column_data )
+		            ->set_layout_id( $list_id )
+		            ->set_preferences( ! empty( $formdata['settings'] ) ? $formdata['settings'] : [] );
 
 		$this->list_screen_repository->save( $list_screen );
 

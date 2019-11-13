@@ -3,7 +3,7 @@
 namespace AC\Screen;
 
 use AC\ListScreen;
-use AC\ListScreenFactory;
+use AC\ListScreenRepository\ListScreenRepository;
 use AC\Registrable;
 
 class QuickEdit implements Registrable {
@@ -13,11 +13,11 @@ class QuickEdit implements Registrable {
 	 */
 	private $list_screen;
 
-	/** @var string */
-	private $list_screen_factory;
+	/** @var ListScreenRepository */
+	private $list_screen_repository;
 
-	public function __construct() {
-		$this->list_screen_factory = new ListScreenFactory();
+	public function __construct( ListScreenRepository $list_screen_repository ) {
+		$this->list_screen_repository = $list_screen_repository;
 	}
 
 	/**
@@ -68,7 +68,9 @@ class QuickEdit implements Registrable {
 			return;
 		}
 
-		$this->list_screen = $this->list_screen_factory->create( $type );
+		// todo: how to get layout ID at this point?
+		$id = '';
+		$this->list_screen = $this->list_screen_repository->find( $id );
 
 		do_action( 'ac/screen/quick_edit', $this );
 	}

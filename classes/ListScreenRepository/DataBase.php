@@ -4,25 +4,24 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenFactory;
+use AC\ListScreenTypes;
 use AC\PostTypes;
-use AC\Storage\DataObject;
-use DateTime;
 use LogicException;
 
 class DataBase implements Write, ListScreenRepository {
 
+	const STORAGE_KEY = 'key';
 	const TYPE_KEY = 'type';
 	const SUBTYPE_KEY = 'subtype';
 	const SETTINGS_KEY = 'settings';
 	const COLUMNS_KEY = 'columns';
 	const LIST_KEY = 'list_id';
 
-	/** @var ListScreenFactory */
-	private $list_screen_factory;
+	/** @var ListScreenTypes */
+	private $list_screen_types;
 
-	public function __construct( $list_screen_factory ) {
-		$this->list_screen_factory = $list_screen_factory;
+	public function __construct( ListScreenTypes $list_screen_types ) {
+		$this->list_screen_types = $list_screen_types;
 	}
 
 	/**
@@ -37,6 +36,14 @@ class DataBase implements Write, ListScreenRepository {
 			'fields'         => 'ids',
 		];
 
+		if ( isset( $args['key'] ) ) {
+			$query_args['meta_query'][] = [
+				'key'   => self::STORAGE_KEY,
+				'value' => $args['key'],
+			];
+		}
+
+		// todo: not used
 		if ( isset( $args['type'] ) ) {
 			$query_args['meta_query'][] = [
 				'key'   => self::TYPE_KEY,
@@ -44,6 +51,7 @@ class DataBase implements Write, ListScreenRepository {
 			];
 		}
 
+		// todo: not used
 		if ( isset( $args['subtype'] ) ) {
 			$query_args['meta_query'][] = [
 				'key'   => self::SUBTYPE_KEY,
@@ -53,8 +61,8 @@ class DataBase implements Write, ListScreenRepository {
 
 		$list_screens = [];
 
-		foreach ( get_posts( $query_args ) as $id ) {
-			$list_screens[] = $this->create_list_screen_by_data( $this->read_post( $id ) );
+		foreach ( get_posts( $query_args ) as $post_id ) {
+			$list_screens[] = $this->create_list_screen( (int) $post_id );
 		}
 
 		return new ListScreenCollection( $list_screens );
@@ -72,7 +80,7 @@ class DataBase implements Write, ListScreenRepository {
 			return null;
 		}
 
-		return $this->create_list_screen_by_data( $this->read_post( $post_id ) );
+		return $this->create_list_screen( (int) $post_id );
 	}
 
 	/**
@@ -111,12 +119,34 @@ class DataBase implements Write, ListScreenRepository {
 		$this->delete_post( $post_id );
 	}
 
-	private function create_list_screen_by_data( DataObject $data ) {
-		if ( ! $data->type ) {
+	private function create_list_screen( $post_id ) {
+		$key = get_post_meta( $post_id, self::STORAGE_KEY, true );
+
+		// create a cloned reference
+		$list_screen = $this->list_screen_types->get_list_screen_by_key( $key );
+
+		if ( null === $list_screen ) {
+			// todo exception
 			return null;
 		}
 
-		return $this->list_screen_factory->create( $data->type, $data );
+		$list_screen->set_title( get_post_field( 'post_title', $post_id ) )
+		            ->set_layout_id( get_post_meta( $post_id, self::LIST_KEY, true ) )
+		            ->set_updated( strtotime( get_post_field( 'post_modified_gmt', $post_id ) ) );
+
+		$preferences = get_post_meta( $post_id, self::SETTINGS_KEY, true );
+
+		if ( $preferences ) {
+			$list_screen->set_preferences( $preferences );
+		}
+
+		$columns = get_post_meta( $post_id, self::COLUMNS_KEY, true );
+
+		if ( $columns ) {
+			$list_screen->set_settings( $columns );
+		}
+
+		return $list_screen;
 	}
 
 	/**
@@ -164,30 +194,14 @@ class DataBase implements Write, ListScreenRepository {
 		return $ids[0];
 	}
 
-	private function read_post( $post_id ) {
-		$date_modified = DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_field( 'post_modified_gmt', $post_id ) );
-		$date_created = DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_field( 'post_date_gmt', $post_id ) );
-
-		return new DataObject( [
-			'title'         => get_post_field( 'post_title', $post_id ),
-			'date_modified' => $date_modified ? $date_modified->getTimestamp() : false,
-			'date_created'  => $date_created ? $date_created->getTimestamp() : false,
-			'order'         => get_post_field( 'menu_order', $post_id ),
-			'list_id'       => get_post_meta( $post_id, self::LIST_KEY, true ),
-			'type'          => get_post_meta( $post_id, self::TYPE_KEY, true ),
-			'subtype'       => get_post_meta( $post_id, self::SUBTYPE_KEY, true ),
-			'settings'      => get_post_meta( $post_id, self::SETTINGS_KEY, true ),
-			'columns'       => get_post_meta( $post_id, self::COLUMNS_KEY, true ),
-		] );
-	}
-
 	private function update_post( $post_id, ListScreen $list_screen ) {
 		wp_update_post( [
 			'ID'         => $post_id,
 			'post_title' => $list_screen->get_title(),
 			'meta_input' => [
-				self::TYPE_KEY     => $list_screen->get_key(),
-				self::SUBTYPE_KEY  => false,
+				self::STORAGE_KEY  => $list_screen->get_key(),
+				self::TYPE_KEY     => $list_screen->get_type(),
+				self::SUBTYPE_KEY  => $list_screen->get_subtype(),
 				self::SETTINGS_KEY => $list_screen->get_preferences(),
 				self::COLUMNS_KEY  => $list_screen->get_settings(),
 				self::LIST_KEY     => $list_screen->get_layout_id(),

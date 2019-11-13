@@ -5,55 +5,78 @@ namespace AC\ListScreenRepository;
 use AC\API;
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenFactory;
-use AC\Storage\DataObject;
+use AC\ListScreenTypes;
 
 class FilePHP implements ListScreenRepository {
 
-	/** @var ListScreenFactory */
-	private $factory;
+	/** @var ListScreenTypes */
+	private $list_screen_types;
 
 	/** @var API */
 	private $api;
 
-	public function __construct( ListScreenFactory $list_screen_factory, API $api ) {
-		$this->factory = $list_screen_factory;
+	public function __construct( ListScreenTypes $list_screen_types, API $api ) {
+		$this->list_screen_types = $list_screen_types;
 		$this->api = $api;
 	}
 
-	private function get_data_objects() {
-		$data = [];
+	/**
+	 * @return ListScreenCollection
+	 */
+	private function get_list_screens() {
 		$list_types = $this->api->get_data();
 
 		if ( empty( $list_types ) ) {
-			return $data;
+			return new ListScreenCollection();
 		}
+
+		$list_screens = [];
 
 		foreach ( $this->api->get_data() as $list_type => $lists_data ) {
 			foreach ( $lists_data as $list_data ) {
-
-				$columns = $list_data['columns'];
-				$layout = $list_data['layout'];
-
-				$data[] = new DataObject( [
-					'title'         => ! empty( $layout['name'] ) ? $layout['name'] : ucfirst( $list_type ),
-					'type'          => $list_type,
-					'columns'       => $columns,
-					'list_id'       => $layout['id'],
-					'date_modified' => isset( $layout['updated'] ) ? $layout['updated'] : false,
-					'read_only'     => true,
-
-					// todo: other preferences
-					'settings'      => [
-						'roles' => $layout['roles'],
-						'users' => $layout['users'],
-					],
-				] );
-
+				$list_screens[] = $this->create_list_screen( $list_type, $list_data );
 			}
 		}
 
-		return $data;
+		return new ListScreenCollection($list_screens);
+	}
+
+	/**
+	 * @param string $key
+	 * @param array  $data
+	 *
+	 * @return ListScreen
+	 */
+	private function create_list_screen( $key, array $data ) {
+		$list_screen = clone $this->list_screen_types->get_list_screen_by_key( $key );
+
+		$layout = $data['layout'];
+		$columns = $data['columns'];
+
+		$list_screen->set_title( ! empty( $layout['name'] ) ? $layout['name'] : ucfirst( $key ) )
+		            ->set_read_only( true )
+			// todo: check if empty and unique?
+			        ->set_layout_id( $layout['id'] );
+
+		if ( $columns ) {
+			$list_screen->set_settings( $columns );
+		}
+
+		if ( isset( $layout['updated'] ) ) {
+			$list_screen->set_updated( $layout['updated'] );
+		}
+
+		$settings = [];
+		if ( isset( $layout['roles'] ) ) {
+			$settings['roles'] = $layout['roles'];
+		}
+		if ( isset( $layout['users'] ) ) {
+			$settings['users'] = $layout['users'];
+		}
+
+		$list_screen->set_preferences( $settings );
+
+		return $list_screen;
 	}
 
 	/**
@@ -68,12 +91,16 @@ class FilePHP implements ListScreenRepository {
 
 		$type = $args['type'];
 
-		$list_screens = [];
+		$api_data = $this->api->get_data();
 
-		foreach ( $this->get_data_objects() as $data_object ) {
-			if ( $type === $data_object->type ) {
-				$list_screens[] = $this->factory->create( $data_object->type, $data_object );
-			}
+		if ( ! isset( $api_data[ $type ] ) ) {
+			return new ListScreenCollection();
+		}
+
+		$lists_data = $api_data[ $type ];
+
+		foreach ( $lists_data as $list_data ) {
+			$list_screens[] = $this->create_list_screen( $type, $list_data );
 		}
 
 		return new ListScreenCollection( $list_screens );
@@ -85,9 +112,9 @@ class FilePHP implements ListScreenRepository {
 	 * @return ListScreen|null
 	 */
 	public function find( $id ) {
-		foreach ( $this->get_data_objects() as $data_object ) {
-			if ( $id === $data_object->list_id ) {
-				return $this->factory->create( $data_object->type, $data_object );
+		foreach ( $this->get_list_screens() as $list_screen ) {
+			if ( $list_screen->get_layout_id() == $id  ) {
+				return $list_screen;
 			}
 		}
 

@@ -24,6 +24,12 @@ abstract class ListScreen {
 	 */
 	private $key;
 
+	/** @var string */
+	private $type;
+
+	/** @var string */
+	private $subtype;
+
 	/**
 	 * @since 2.0
 	 * @var string
@@ -178,6 +184,42 @@ abstract class ListScreen {
 	 */
 	protected function set_label( $label ) {
 		$this->label = $label;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_type() {
+		return $this->type;
+	}
+
+	/**
+	 * @param string $type
+	 *
+	 * @return self
+	 */
+	protected function set_type( $type ) {
+		$this->type = $type;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_subtype() {
+		return $this->subtype;
+	}
+
+	/**
+	 * @param string $subtype
+	 *
+	 * @return self
+	 */
+	protected function set_subtype( $subtype ) {
+		$this->subtype = $subtype;
 
 		return $this;
 	}

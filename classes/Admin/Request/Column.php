@@ -4,29 +4,34 @@ namespace AC\Admin\Request;
 
 use AC;
 use AC\Column\Placeholder;
-use AC\ListScreenFactory;
 use AC\View;
 
 abstract class Column extends AC\Admin\Request\Handler {
 
-	/** @var AC\ListScreen */
-	protected $list_screen;
+	/** @var AC\ListScreenRepository\Aggregate */
+	private $list_screen_repository;
+
+	public function __construct( AC\ListScreenRepository\Aggregate $list_screen_repository, $id ) {
+		$this->list_screen_repository = $list_screen_repository;
+
+		parent::__construct( $id );
+	}
 
 	/**
 	 * @return AC\Column
 	 */
-	abstract public function get_column( AC\Request $request );
+	abstract public function get_column( AC\Request $request, AC\ListScreen $list_scren );
 
 	public function request( AC\Request $request ) {
 		parse_str( $request->get( 'data' ), $formdata );
 
-		$this->list_screen = ( new ListScreenFactory )->create( $formdata['list_screen'] );
+		$list_screen = $this->list_screen_repository->find( $formdata['list_screen_id'] );
 
-		if ( ! $this->list_screen ) {
+		if ( ! $list_screen ) {
 			wp_die();
 		}
 
-		$column = $this->get_column( $request );
+		$column = $this->get_column( $request, $list_screen );
 
 		if ( ! $column ) {
 			wp_send_json_error( array(

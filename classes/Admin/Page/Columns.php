@@ -9,9 +9,9 @@ use AC\Column;
 use AC\DefaultColumns;
 use AC\Helper\Select;
 use AC\ListScreen;
-use AC\ListScreenFactory;
 use AC\ListScreenGroups;
 use AC\ListScreenRepository\Aggregate;
+use AC\ListScreenTypes;
 use AC\Message\Notice;
 use AC\Preferences;
 use AC\Registrable;
@@ -35,17 +35,17 @@ class Columns extends Admin\Page
 	/** @var array */
 	private $uninitialized_list_screens = [];
 
-	/** @var ListScreenFactory */
-	private $factory;
+	/** @var ListScreenTypes */
+	private $list_screen_types;
 
 	/** @var Aggregate */
 	private $repository;
 
-	public function __construct( ListScreenFactory $list_screen_factory, Aggregate $list_screen_repository ) {
+	public function __construct( ListScreenTypes $list_screen_types, Aggregate $list_screen_repository ) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->default_columns = new DefaultColumns();
-		$this->factory = $list_screen_factory;
+		$this->list_screen_types = $list_screen_types;
 		$this->repository = $list_screen_repository;
 	}
 
@@ -198,9 +198,9 @@ class Columns extends Admin\Page
 		$request = new Request();
 
 		$requests = array(
-			new Admin\Request\Column\Save( $this->factory, $this->repository ),
-			new Admin\Request\Column\Refresh(),
-			new Admin\Request\Column\Select(),
+			new Admin\Request\Column\Save( $this->repository, $this->list_screen_types ),
+			new Admin\Request\Column\Refresh( $this->repository ),
+			new Admin\Request\Column\Select( $this->repository ),
 		);
 
 		foreach ( $requests as $handler ) {
@@ -257,11 +257,11 @@ class Columns extends Admin\Page
 		}
 
 		// Requested list type
-		$list_type = filter_input( INPUT_GET, 'list_screen' );
+		$list_key = filter_input( INPUT_GET, 'list_screen' );
 
-		if ( $list_type ) {
+		if ( $list_key ) {
 			/** @var ListScreen $list_screen */
-			$list_screens = $this->repository->find_all( [ 'type' => $list_type ] );
+			$list_screens = $this->repository->find_all( [ 'key' => $list_key ] );
 			$list_screen = $list_screens->current();
 
 			if ( $list_screen ) {
@@ -270,7 +270,7 @@ class Columns extends Admin\Page
 				return $list_screen;
 			}
 
-			return $this->factory->create( $list_type );
+			return $this->list_screen_types->get_list_screen_by_key( $list_key );
 		}
 
 		// Last visited
@@ -283,7 +283,7 @@ class Columns extends Admin\Page
 		// Initialize new
 		$types = ac_get_list_screen_types();
 
-		$list_screen = $this->factory->create( current( $types )->get_key() );
+		$list_screen = $this->list_screen_types->get_list_screen_by_key( current( $types )->get_key() );
 
 		do_action( 'ac/settings/list_screen', $list_screen );
 
@@ -403,9 +403,9 @@ class Columns extends Admin\Page
 	}
 
 	private function render_submenu_view( $page_link, $list_screen_key, $current_id = false ) {
-		$list_screens = $this->repository->find_all( [ 'type' => $list_screen_key ] );
+		$list_screens = $this->repository->find_all( [ 'key' => $list_screen_key ] );
 
-		if ( ! $list_screens ) {
+		if ( $list_screens->count() < 1 ) {
 			return;
 		}
 

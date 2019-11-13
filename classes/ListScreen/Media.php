@@ -7,6 +7,8 @@ use WP_Media_List_Table;
 
 class Media extends AC\ListScreenPost {
 
+	const TYPE = 'media';
+
 	public function __construct() {
 		parent::__construct( 'attachment' );
 
@@ -14,7 +16,8 @@ class Media extends AC\ListScreenPost {
 		     ->set_screen_base( 'upload' )
 		     ->set_key( 'wp-media' )
 		     ->set_group( 'media' )
-		     ->set_label( __( 'Media' ) );
+		     ->set_label( __( 'Media' ) )
+		     ->set_type( self::TYPE );
 	}
 
 	public function set_manage_value_callback() {
@@ -31,7 +34,7 @@ class Media extends AC\ListScreenPost {
 	}
 
 	public function get_screen_link() {
-		return add_query_arg( 'mode',  'list', parent::get_screen_link() );
+		return add_query_arg( 'mode', 'list', parent::get_screen_link() );
 	}
 
 	/**
@@ -49,10 +52,10 @@ class Media extends AC\ListScreenPost {
 	}
 
 	/**
-	 * @since 2.4.7
-	 *
 	 * @param $column_name
 	 * @param $id
+	 *
+	 * @since 2.4.7
 	 */
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );

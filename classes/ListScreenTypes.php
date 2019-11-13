@@ -31,11 +31,23 @@ class ListScreenTypes {
 		return $this;
 	}
 
-	/**
-	 * @return ListScreen[]
-	 */
 	public function get_list_screens() {
 		return $this->list_screens;
+	}
+
+	/**
+	 * @param string $key
+	 *
+	 * @return ListScreen|false
+	 */
+	public function get_list_screen_by_key( $key ) {
+		foreach ( $this->list_screens as $list_screen ) {
+			if ( $key === $list_screen->get_key() ) {
+				return clone $list_screen;
+			}
+		}
+
+		return null;
 	}
 
 }

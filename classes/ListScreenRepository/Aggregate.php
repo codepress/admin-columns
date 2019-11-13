@@ -4,7 +4,6 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenFactory;
 use AC\Request;
 
 class Aggregate implements ListScreenRepository {
@@ -13,13 +12,6 @@ class Aggregate implements ListScreenRepository {
 	 * @var ListScreenRepository[]
 	 */
 	private $repositories;
-
-	/** @var ListScreenFactory */
-	private $factory;
-
-	public function __construct( ListScreenFactory $factory ) {
-		$this->factory = $factory;
-	}
 
 	public function register_repository( ListScreenRepository $repository ) {
 		$this->repositories[ get_class( $repository ) ] = $repository;

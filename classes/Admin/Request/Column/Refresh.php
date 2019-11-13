@@ -7,11 +7,11 @@ use AC;
 
 class Refresh extends Column {
 
-	public function __construct() {
-		parent::__construct( 'refresh' );
+	public function __construct( AC\ListScreenRepository\Aggregate $repo ) {
+		parent::__construct( $repo, 'refresh' );
 	}
 
-	public function get_column( AC\Request $request ) {
+	public function get_column( AC\Request $request, AC\ListScreen $list_screen ) {
 		parse_str( $request->get('data'), $formdata );
 		$options = $formdata['columns'];
 		$name = filter_input( INPUT_POST, 'column_name' );
@@ -24,7 +24,7 @@ class Refresh extends Column {
 
 		$settings['name'] = $name;
 
-		return $this->list_screen->create_column( $settings );
+		return $list_screen->create_column( $settings );
 	}
 
 }

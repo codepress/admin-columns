@@ -7,6 +7,8 @@ use WP_Users_List_Table;
 
 class User extends AC\ListScreenWP {
 
+	const TYPE = 'user';
+
 	public function __construct() {
 
 		$this->set_label( __( 'Users' ) )
@@ -15,7 +17,8 @@ class User extends AC\ListScreenWP {
 		     ->set_screen_base( 'users' )
 		     ->set_screen_id( 'users' )
 		     ->set_key( 'wp-users' )
-		     ->set_group( 'user' );
+		     ->set_group( 'user' )
+		     ->set_type( self::TYPE );
 	}
 
 	/**
@@ -35,24 +38,22 @@ class User extends AC\ListScreenWP {
 	}
 
 	/**
-	 * @since 2.4.10
-	 *
 	 * @param $wp_screen
 	 *
 	 * @return bool
+	 * @since 2.4.10
 	 */
 	public function is_current_screen( $wp_screen ) {
 		return parent::is_current_screen( $wp_screen ) && 'delete' !== filter_input( INPUT_GET, 'action' );
 	}
 
 	/**
-	 * @since 2.0.2
-	 *
 	 * @param string $value
 	 * @param string $column_name
 	 * @param int    $user_id
 	 *
 	 * @return string
+	 * @since 2.0.2
 	 */
 	public function manage_value( $value, $column_name, $user_id ) {
 		return $this->get_display_value_by_column_name( $column_name, $user_id, $value );
@@ -68,11 +69,10 @@ class User extends AC\ListScreenWP {
 	}
 
 	/**
-	 * @since 3.0
-	 *
 	 * @param int $id
 	 *
 	 * @return string HTML
+	 * @since 3.0
 	 */
 	public function get_single_row( $id ) {
 		return $this->get_list_table()->single_row( $this->get_object( $id ) );

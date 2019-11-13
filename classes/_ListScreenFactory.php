@@ -4,7 +4,7 @@ namespace AC;
 
 use AC\Storage;
 
-class ListScreenFactory {
+class _ListScreenFactory {
 
 	public function create( $key, Storage\DataObject $data = null ) {
 		$list_screen = $this->get_list_screen_by_key( $key );

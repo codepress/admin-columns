@@ -7,13 +7,17 @@ use WP_Posts_List_Table;
 
 class Post extends ListScreenPost {
 
+	const TYPE = 'post';
+
 	public function __construct( $post_type ) {
 		parent::__construct( $post_type );
 
 		$this->set_screen_base( 'edit' )
 		     ->set_group( 'post' )
 		     ->set_key( $post_type )
-		     ->set_screen_id( $this->get_screen_base() . '-' . $post_type );
+		     ->set_screen_id( $this->get_screen_base() . '-' . $post_type )
+		     ->set_type( self::TYPE )
+		     ->set_subtype( $post_type );
 	}
 
 	/**
@@ -54,10 +58,10 @@ class Post extends ListScreenPost {
 	}
 
 	/**
-	 * @since 2.4.7
-	 *
 	 * @param $column_name
 	 * @param $id
+	 *
+	 * @since 2.4.7
 	 */
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );

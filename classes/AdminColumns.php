@@ -57,7 +57,6 @@ class AdminColumns extends Plugin {
 		$modules = array(
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
-			new QuickEdit(),
 			new Screen,
 			new Settings\General,
 			new PostTypes(),
@@ -67,10 +66,13 @@ class AdminColumns extends Plugin {
 			new ThirdParty\WPML,
 		);
 
-		$list_screen_factory = new ListScreenFactory();
-		$this->list_screen_repository = new ListScreenRepository\Aggregate( $list_screen_factory );
-		$this->list_screen_repository->register_repository( new ListScreenRepository\DataBase( $list_screen_factory ) )
-		                             ->register_repository( new ListScreenRepository\FilePHP( $list_screen_factory, $this->api ) );
+		$list_screens = ListScreenTypes::instance();
+
+		$this->list_screen_repository = new ListScreenRepository\Aggregate();
+		$this->list_screen_repository->register_repository( new ListScreenRepository\DataBase( $list_screens ) )
+		                             ->register_repository( new ListScreenRepository\FilePHP( $list_screens, $this->api ) );
+
+		$modules[] = new QuickEdit( $this->list_screen_repository );
 
 		foreach ( $modules as $module ) {
 			if ( $module instanceof Registrable ) {
@@ -134,7 +136,7 @@ class AdminColumns extends Plugin {
 
 		// First visit. Load first available list Id.
 		if ( ! $list_id ) {
-			$list_screens = $this->list_screen_repository->find_all( [ 'type' => $key ] )->filter_by_permission( wp_get_current_user() );
+			$list_screens = $this->list_screen_repository->find_all( [ 'key' => $key ] )->filter_by_permission( wp_get_current_user() );
 
 			if ( $list_screens->count() ) {
 				$list_id = $list_screens->current()->get_layout_id();
@@ -143,14 +145,14 @@ class AdminColumns extends Plugin {
 
 		// Nothing stored yet then load an empty list screen.
 		if ( ! $list_id ) {
-			$list_screen = ( new ListScreenFactory() )->create( $key );
+			$list_screen = clone ListScreenTypes::instance()->get_list_screen_by_key( $key );
 		} else {
 			$list_screen = $this->list_screen_repository->find( $list_id );
 		}
 
 		// Requested list ID not found or user does not have permission to use it
 		if ( ! $list_screen || ! ac_user_has_permission_list_screen( $list_screen ) ) {
-			$list_screen = ( new ListScreenFactory() )->create( $key );
+			$list_screen = clone ListScreenTypes::instance()->get_list_screen_by_key( $key );
 		}
 
 		$this->preferences()->set( $key, $list_screen->get_layout_id() );
@@ -394,9 +396,9 @@ class AdminColumns extends Plugin {
 			$page_settings = new Page\Settings();
 			$page_settings
 				->register_section( GeneralSectionFactory::create() )
-				->register_section( new Restore( new ListScreenRepository\DataBase( new ListScreenFactory() ) ) );
+				->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
 
-			$page_columns = new Page\Columns( new ListScreenFactory(), $this->list_screen_repository );
+			$page_columns = new Page\Columns( ListScreenTypes::instance(), $this->list_screen_repository );
 			$page_columns->register_ajax();
 
 			$this->admin->register_page( $page_columns )
@@ -478,9 +480,9 @@ class AdminColumns extends Plugin {
 	 * @deprecated 3.2
 	 */
 	public function get_list_screen( $key ) {
-		_deprecated_function( __METHOD__, '3.2', 'ListScreenFactory::create()' );
+		_deprecated_function( __METHOD__, '3.2', 'ListScreenTypes::instance()->get_list_screen_by_key()' );
 
-		return ( new ListScreenFactory )->create( $key );
+		return ListScreenTypes::instance()->get_list_screen_by_key( $key );
 	}
 
 	/**
@@ -492,7 +494,7 @@ class AdminColumns extends Plugin {
 	public function list_screen_exists( $key ) {
 		_deprecated_function( __METHOD__, '3.2' );
 
-		return ( new ListScreenFactory )->create( $key ) ? true : false;
+		return ListScreenTypes::instance()->get_list_screen_by_key( $key ) ? true : false;
 	}
 
 	/**
