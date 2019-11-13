@@ -1086,7 +1086,7 @@ function () {
       var attr_class = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'updated';
       var $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
       this.$container.find('.ac-message').stop().remove();
-      this.$container.find('.ac-boxes').before($msg);
+      this.$container.find('.ac-left').prepend($msg);
       $msg.slideDown();
     }
   }, {

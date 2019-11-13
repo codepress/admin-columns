@@ -21,10 +21,17 @@ class V4000 extends Update {
 
 	public function apply_update() {
 		$this->migrate_list_screen_settings();
+		$this->migrate_list_screen_order();
 	}
 
 	protected function set_version() {
 		$this->version = '4.0.0';
+	}
+
+	private function migrate_list_screen_order() {
+		// todo: migrate to options table
+		// @see new AC\Preferences\Site( 'layout_order' )
+		// in usermeta {$wpdb->prefix}ac_preferences_layout_order
 	}
 
 	private function migrate_list_screen_settings() {

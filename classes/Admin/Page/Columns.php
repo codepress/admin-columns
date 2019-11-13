@@ -11,6 +11,7 @@ use AC\Helper\Select;
 use AC\ListScreen;
 use AC\ListScreenGroups;
 use AC\ListScreenRepository\Aggregate;
+use AC\ListScreenRepository\SortStrategy;
 use AC\ListScreenTypes;
 use AC\Message\Notice;
 use AC\Preferences;
@@ -63,7 +64,7 @@ class Columns extends Admin\Page
 	}
 
 	private function set_uninitialized_list_screens() {
-		$list_screens = ac_get_list_screen_types();
+		$list_screens = $this->list_screen_types->get_list_screens();
 
 		foreach ( $list_screens as $key => $list_screen ) {
 			$columns = $this->default_columns->get( $list_screen->get_key() );
@@ -317,6 +318,7 @@ class Columns extends Admin\Page
 	private function get_grouped_list_screens() {
 		$list_screens = array();
 
+		// todo
 		foreach ( ac_get_list_screen_types() as $list_screen ) {
 			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
@@ -403,9 +405,12 @@ class Columns extends Admin\Page
 	}
 
 	private function render_submenu_view( $page_link, $list_screen_key, $current_id = false ) {
-		$list_screens = $this->repository->find_all( [ 'key' => $list_screen_key ] );
+		$list_screens = $this->repository->find_all( [
+			'key'  => $list_screen_key,
+			'sort' => new SortStrategy\ManualOrder(),
+		] );
 
-		if ( $list_screens->count() < 1 ) {
+		if ( $list_screens->count() <= 1 ) {
 			return;
 		}
 
@@ -414,7 +419,7 @@ class Columns extends Admin\Page
 		foreach ( $list_screens as $list_screen ) : ?>
 			<li data-screen="<?php echo esc_attr( $list_screen->get_layout_id() ); ?>">
 				<?php echo ( $count++ ) != 0 ? ' | ' : ''; ?>
-				<a class="<?php echo $list_screen->get_layout_id() === $current_id ? 'current' : ''; ?>" href="<?php echo add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $page_link ); ?>"><?php echo esc_html( $list_screen->get_title() ); ?></a>
+				<a class="<?php echo $list_screen->get_layout_id() === $current_id ? 'current' : ''; ?>" href="<?php echo add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $page_link ); ?>"><?php echo esc_html( $list_screen->get_title() ? $list_screen->get_title() : __( '(no name)', 'codepress-admin-columns' ) ); ?></a>
 			</li>
 		<?php endforeach;
 
@@ -526,8 +531,9 @@ class Columns extends Admin\Page
 				<form method="post" id="listscreen_settings">
 					<?php
 
+					echo implode( $this->notices );
+
 					$columns = new View( array(
-						'notices'        => $this->notices,
 						'class'          => $list_screen->is_read_only() ? ' disabled' : '',
 						'list_screen'    => $list_screen->get_key(),
 						'list_screen_id' => $list_screen->get_layout_id(),

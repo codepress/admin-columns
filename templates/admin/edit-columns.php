@@ -4,23 +4,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * @global array        $notices
- * @global string       $class
- * @global string       $list_screen
- * @global \AC\Column[] $columns
- * @global bool         $show_actions
- * @global bool         $show_clear_all
- */
-
-echo implode( $this->notices ); ?>
+?>
 
 <div class="ac-boxes <?php echo esc_attr( $this->class ); ?>">
 	<div class="ac-columns">
 		<?php wp_nonce_field( 'update-type', '_ac_nonce', false ); ?>
 		<input type="hidden" name="list_screen" value="<?= esc_attr( $this->list_screen ); ?>"/>
-		<!--<input type="hidden" name="title" value="<? /*= esc_attr( $this->title ); */ ?>">
-			<input type="hidden" name="settings[]" value="">-->
 		<input type="hidden" name="list_screen_id" value="<?= esc_attr( $this->list_screen_id ); ?>">
 
 

@@ -35,8 +35,21 @@ class Aggregate implements ListScreenRepository {
 	public function find_all( array $args = [] ) {
 		$list_screens = new ListScreenCollection();
 
+		/** @var SortStrategy $sort_strategy */
+		$sort_strategy = null;
+
+		if ( isset( $args['sort'] ) && $args['sort'] instanceof SortStrategy ) {
+			$sort_strategy = $args['sort'];
+
+			unset( $args['sort'] );
+		}
+
 		foreach ( $this->repositories as $repository ) {
 			$list_screens->add_collection( $repository->find_all( $args ) );
+		}
+
+		if ( $sort_strategy ) {
+			$list_screens = $sort_strategy->sort( $list_screens );
 		}
 
 		return $this->unique_by_list_id( $list_screens );

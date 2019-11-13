@@ -162,7 +162,7 @@ class Form {
 		let $msg = jQuery( '<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>' );
 
 		this.$container.find( '.ac-message' ).stop().remove();
-		this.$container.find( '.ac-boxes' ).before( $msg );
+		this.$container.find( '.ac-left' ).prepend( $msg );
 
 		$msg.slideDown();
 	}

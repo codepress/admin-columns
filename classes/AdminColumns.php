@@ -113,7 +113,7 @@ class AdminColumns extends Plugin {
 	 * @since 4.0.12
 	 */
 	public function preferences() {
-		return new Preferences\Site( 'layout_columns' );
+		return new Preferences\Site( 'layout_table' );
 	}
 
 	/**
