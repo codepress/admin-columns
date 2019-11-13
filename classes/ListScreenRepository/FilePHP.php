@@ -34,11 +34,15 @@ class FilePHP implements ListScreenRepository {
 
 		foreach ( $this->api->get_data() as $list_type => $lists_data ) {
 			foreach ( $lists_data as $list_data ) {
+				if ( ! $this->list_screen_exists( $list_type ) ) {
+					continue;
+				}
+
 				$list_screens[] = $this->create_list_screen( $list_type, $list_data );
 			}
 		}
 
-		return new ListScreenCollection($list_screens);
+		return new ListScreenCollection( $list_screens );
 	}
 
 	/**
@@ -48,7 +52,11 @@ class FilePHP implements ListScreenRepository {
 	 * @return ListScreen
 	 */
 	private function create_list_screen( $key, array $data ) {
-		$list_screen = clone $this->list_screen_types->get_list_screen_by_key( $key );
+		$list_screen = $this->list_screen_types->get_list_screen_by_key( $key );
+
+		if ( null === $list_screen ) {
+			return null;
+		}
 
 		$layout = $data['layout'];
 		$columns = $data['columns'];
@@ -77,6 +85,15 @@ class FilePHP implements ListScreenRepository {
 		$list_screen->set_preferences( $settings );
 
 		return $list_screen;
+	}
+
+	/**
+	 * @param string $key
+	 *
+	 * @return bool
+	 */
+	private function list_screen_exists( $key ) {
+		return null !== $this->list_screen_types->get_list_screen_by_key( $key );
 	}
 
 	/**
@@ -113,7 +130,7 @@ class FilePHP implements ListScreenRepository {
 	 */
 	public function find( $id ) {
 		foreach ( $this->get_list_screens() as $list_screen ) {
-			if ( $list_screen->get_layout_id() == $id  ) {
+			if ( $list_screen->get_layout_id() == $id ) {
 				return $list_screen;
 			}
 		}
