@@ -10,8 +10,8 @@ use AC\DefaultColumns;
 use AC\Helper\Select;
 use AC\ListScreen;
 use AC\ListScreenGroups;
-use AC\ListScreenRepository\Aggregate;
-use AC\ListScreenRepository\SortStrategy;
+use AC\ListScreenRepository;
+use AC\ListScreenRepository\SortStrategy\ManualOrder;
 use AC\ListScreenTypes;
 use AC\Message\Notice;
 use AC\Preferences;
@@ -39,10 +39,10 @@ class Columns extends Admin\Page
 	/** @var ListScreenTypes */
 	private $list_screen_types;
 
-	/** @var Aggregate */
+	/** @var ListScreenRepository\Aggregate */
 	private $repository;
 
-	public function __construct( ListScreenTypes $list_screen_types, Aggregate $list_screen_repository ) {
+	public function __construct( ListScreenTypes $list_screen_types, ListScreenRepository\Aggregate $list_screen_repository ) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->default_columns = new DefaultColumns();
@@ -199,7 +199,7 @@ class Columns extends Admin\Page
 		$request = new Request();
 
 		$requests = array(
-			new Admin\Request\Column\Save( $this->repository, $this->list_screen_types ),
+			new Admin\Request\Column\Save( $this->repository, $this->list_screen_types, $this->preferences() ),
 			new Admin\Request\Column\Refresh( $this->repository ),
 			new Admin\Request\Column\Select( $this->repository ),
 		);
@@ -407,7 +407,7 @@ class Columns extends Admin\Page
 	private function render_submenu_view( $page_link, $list_screen_key, $current_id = false ) {
 		$list_screens = $this->repository->find_all( [
 			'key'  => $list_screen_key,
-			'sort' => new SortStrategy\ManualOrder(),
+			'sort' => new ManualOrder(),
 		] );
 
 		if ( $list_screens->count() <= 1 ) {
