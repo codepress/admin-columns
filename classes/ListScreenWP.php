@@ -41,36 +41,6 @@ abstract class ListScreenWP extends ListScreen {
 	}
 
 	/**
-	 * @return array [ $column_name => [ $orderby, $order ], ... ]
-	 */
-	public function get_default_sortable_columns() {
-		$sortables = array();
-
-		foreach ( $this->get_list_table()->get_sortable_columns() as $name => $data ) {
-			$data = (array) $data;
-
-			if ( ! isset( $data[1] ) ) {
-				$data[1] = false;
-			}
-
-			$sortables[ $name ] = $data;
-		}
-
-		return $sortables;
-	}
-
-	/**
-	 * Get default column headers
-	 * @see \WP_List_Table::get_columns()
-	 * @return array
-	 */
-	public function get_default_column_headers() {
-		$this->get_list_table();
-
-		return (array) get_column_headers( $this->get_screen_id() );
-	}
-
-	/**
 	 * @deprecated 3.1
 	 * @return string
 	 */
@@ -100,6 +70,15 @@ abstract class ListScreenWP extends ListScreen {
 		_deprecated_function( __METHOD__, '3.1.4', 'AC\ListScreenWP::get_object()' );
 
 		return $this->get_object( $id );
+	}
+
+	/**
+	 * @return array [ $column_name => [ $orderby, $order ], ... ]
+	 */
+	public function get_default_sortable_columns() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+
+		return [];
 	}
 
 }
