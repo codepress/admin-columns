@@ -112,5 +112,13 @@
 .ac-ls-settings {
 	.select2 {
 		margin-bottom: 10px;
+
+		input {
+			min-height: 0;
+		}
+
+		li {
+			margin-bottom: 0;
+		}
 	}
 }

@@ -124,6 +124,11 @@ class Columns extends Admin\Page
 	public function admin_scripts() {
 		$list_screen = $this->get_list_screen();
 
+		// Tooltip
+		wp_register_script( 'jquery-qtip2', AC()->get_url() . "external/qtip2/jquery.qtip.min.js", array( 'jquery' ), AC()->get_version() );
+		wp_enqueue_style( 'jquery-qtip2', AC()->get_url() . "external/qtip2/jquery.qtip.min.css", array(), AC()->get_version() );
+		wp_enqueue_script( 'jquery-qtip2' );
+
 		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version() );
 		wp_enqueue_script( 'jquery-ui-slider' );
 

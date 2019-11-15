@@ -120,6 +120,8 @@ var _menu = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/menu 
 
 var _feedback = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/feedback */ "./js/admin/columns/feedback.js"));
 
+var _tooltips = _interopRequireDefault(__webpack_require__(/*! ./table/tooltips */ "./js/table/tooltips.js"));
+
 var _toggle = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/toggle */ "./js/admin/columns/events/toggle.js"));
 
 var _remove = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/remove */ "./js/admin/columns/events/remove.js"));
@@ -178,7 +180,9 @@ AC.Column = new _initiator.default(); // Todo remove from
 
 AdminColumns.Column = AC.Column;
 jQuery(document).on('AC_Form_Loaded', function () {
+  AdminColumns.Tooltips = new _tooltips.default();
   /** Register Events **/
+
   AdminColumns.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
   /** Register Settings **/
   .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default).registerSetting('customfield', _customField.default).registerSetting('number_format', _numberFormat.default).registerSetting('label', _label2.default);
@@ -2418,6 +2422,63 @@ function () {
 }();
 
 module.exports = Modals;
+
+/***/ }),
+
+/***/ "./js/table/tooltips.js":
+/*!******************************!*\
+  !*** ./js/table/tooltips.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Tooltips =
+/*#__PURE__*/
+function () {
+  function Tooltips() {
+    _classCallCheck(this, Tooltips);
+
+    this.isEnabled = typeof jQuery.fn.qtip !== 'undefined';
+    this.init();
+  }
+
+  _createClass(Tooltips, [{
+    key: "init",
+    value: function init() {
+      if (!this.isEnabled) {
+        console.log('Tooltips not loaded!');
+        return;
+      }
+
+      jQuery('[data-ac-tip]').qtip({
+        content: {
+          attr: 'data-ac-tip'
+        },
+        position: {
+          my: 'top center',
+          at: 'bottom center'
+        },
+        style: {
+          tip: true,
+          classes: 'qtip-tipsy'
+        }
+      });
+    }
+  }]);
+
+  return Tooltips;
+}();
+
+module.exports = Tooltips;
 
 /***/ }),
 

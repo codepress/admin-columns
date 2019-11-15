@@ -13,6 +13,7 @@ import Initiator from "./admin/columns/initiator";
 import Modal from "./modules/modal";
 import Menu from "./admin/columns/menu";
 import Feedback from "./admin/columns/feedback";
+import Tooltip from "./table/tooltips";
 /** Events */
 import EventToggle from './admin/columns/events/toggle';
 import EventRemove from './admin/columns/events/remove';
@@ -43,7 +44,7 @@ AC.Column = new Initiator(); // Todo remove from
 AdminColumns.Column = AC.Column;
 
 jQuery( document ).on( 'AC_Form_Loaded', function() {
-
+	AdminColumns.Tooltips = new Tooltip();
 	/** Register Events **/
 	AdminColumns.Column
 		.registerEvent( 'toggle', EventToggle )
