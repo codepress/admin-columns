@@ -499,6 +499,7 @@
 
 	input, select {
 		width: 99.95%;
+		max-width: none;
 	}
 
 	input[type=checkbox],
@@ -570,7 +571,7 @@
 
 	div.description {
 		font-size: 12px;
-		width: 68px;
+		width: 72px;
 		position: absolute;
 		display: table;
 
@@ -579,6 +580,8 @@
 			text-align: right;
 			vertical-align: middle;
 			display: table-cell;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
 
 			@include placeholder {
 				font-size: 13px;
@@ -592,7 +595,7 @@
 			line-height: 23px;
 			text-align: center;
 			vertical-align: middle;
-			border: 1px solid #dedede;
+			border: 1px solid #7e8993;
 			border-left: none;
 			color: #505050;
 		}
@@ -1635,6 +1638,7 @@
 
 .select2-container--acs2 {
 	z-index: 2;
+
 	.select2-dropdown.-customfields {
 		.select2-results > .select2-results__options {
 			max-height: 600px;
@@ -1652,18 +1656,17 @@
 
 }
 
-
-
 .ac-loading-msg-wrapper {
 	position: fixed;
-	left:0;
-	right:0;
-	top:0;
+	left: 0;
+	right: 0;
+	top: 0;
 	bottom: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
+
 .ac-loading-msg {
 	display: inline-block;
 	text-align: center;
@@ -1674,6 +1677,7 @@
 		text-align: center;
 		margin-bottom: 15px;
 	}
+
 	&__content {
 		position: relative;
 		font-family: sans-serif;
