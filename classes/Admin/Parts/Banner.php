@@ -3,7 +3,6 @@
 namespace AC\Admin\Parts;
 
 use AC\Admin;
-use AC\Autoloader;
 use AC\Integrations;
 use AC\PluginInformation;
 use AC\View;
@@ -11,22 +10,12 @@ use AC\View;
 class Banner {
 
 	/**
-	 * @return Admin\Promo|false
+	 * @return Admin\Promo|null
 	 */
 	private function get_active_promotion() {
-		$classes = Autoloader::instance()->get_class_names_from_dir( 'AC\Admin\Promo' );
+		$promos = new Admin\PromoCollection();
 
-		foreach ( $classes as $class ) {
-
-			/* @var Admin\Promo $promo */
-			$promo = new $class;
-
-			if ( $promo->is_active() ) {
-				return $promo;
-			}
-		}
-
-		return false;
+		return $promos->find_active();
 	}
 
 	/**
