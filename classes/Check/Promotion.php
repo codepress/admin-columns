@@ -21,7 +21,7 @@ final class Promotion
 	}
 
 	public function register() {
-		add_action( 'ac/screen', array( $this, 'display' ) );
+		add_action( 'ac/screen', [ $this, 'display' ] );
 
 		$this->get_ajax_handler()->register();
 	}
@@ -31,9 +31,10 @@ final class Promotion
 	 */
 	private function get_ajax_handler() {
 		$handler = new Ajax\Handler();
+
 		$handler
 			->set_action( 'ac_dismiss_notice_promo_' . $this->get_individual_slug() )
-			->set_callback( array( $this, 'ajax_dismiss_notice' ) );
+			->set_callback( [ $this, 'ajax_dismiss_notice' ] );
 
 		return $handler;
 	}
@@ -64,6 +65,7 @@ final class Promotion
 		if ( ! $this->promo->is_active()
 		     || ! current_user_can( Capabilities::MANAGE )
 		     || ! $screen->is_list_screen()
+		     || $this->get_preferences()->get( 'dismiss-notice' )
 		) {
 			return;
 		}

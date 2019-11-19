@@ -3,7 +3,6 @@
 namespace AC\Admin;
 
 use AC\Admin\Entity\DateRange;
-use LogicException;
 
 abstract class Promo {
 
