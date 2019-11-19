@@ -70,7 +70,7 @@ final class Promotion
 			return;
 		}
 
-		$message = sprintf( __( 'Get %s', 'codepress-admin-columns' ), 'Admin Columns Pro' );
+		$message = sprintf( __( 'Get %s now', 'codepress-admin-columns' ), '<strong>Admin Columns Pro</strong>' );
 		$message = sprintf( '%s! <a target="_blank" href="%s">%s</a>', $this->promo->get_title(), $this->promo->get_url(), $message );
 
 		$notice = new Dismissible( $message, $this->get_ajax_handler() );
