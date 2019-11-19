@@ -4,6 +4,7 @@ namespace AC\Check;
 
 use AC\Admin\Promo;
 use AC\Ajax;
+use AC\Capabilities;
 use AC\Message\Notice\Dismissible;
 use AC\Preferences;
 use AC\Registrable;
@@ -60,11 +61,15 @@ final class Promotion
 	 * @param Screen $screen
 	 */
 	public function display( Screen $screen ) {
-		if ( ! $this->promo->get_date_range()->in_range() ) {
+		if ( ! $this->promo->is_active()
+		     || ! current_user_can( Capabilities::MANAGE )
+		     || ! $screen->is_list_screen()
+		) {
 			return;
 		}
 
-		$message = $this->promo->get_title();
+		$message = sprintf( __( 'Get %s', 'codepress-admin-columns' ), 'Admin Columns Pro' );
+		$message = sprintf( '%s! <a target="_blank" href="%s">%s</a>', $this->promo->get_title(), $this->promo->get_url(), $message );
 
 		$notice = new Dismissible( $message, $this->get_ajax_handler() );
 		$notice->register();
