@@ -20,8 +20,9 @@ final class Promotion
 	}
 
 	public function register() {
-		// todo: see AddonAvailable
+		add_action( 'ac/screen', array( $this, 'display' ) );
 
+		$this->get_ajax_handler()->register();
 	}
 
 	/**
@@ -30,7 +31,7 @@ final class Promotion
 	private function get_ajax_handler() {
 		$handler = new Ajax\Handler();
 		$handler
-			->set_action( 'ac_dismiss_notice_addon_' . $this->get_individual_slug() )
+			->set_action( 'ac_dismiss_notice_promo_' . $this->get_individual_slug() )
 			->set_callback( array( $this, 'ajax_dismiss_notice' ) );
 
 		return $handler;
@@ -44,13 +45,24 @@ final class Promotion
 	 * @return Preferences\User
 	 */
 	private function get_preferences() {
-		return new Preferences\User( 'check-addon-available-' . $this->get_individual_slug() );
+		return new Preferences\User( 'check-promo-' . $this->get_individual_slug() );
+	}
+
+	/**
+	 * Dismiss notice
+	 */
+	public function ajax_dismiss_notice() {
+		$this->get_ajax_handler()->verify_request();
+		$this->get_preferences()->set( 'dismiss-notice', true );
 	}
 
 	/**
 	 * @param Screen $screen
 	 */
 	public function display( Screen $screen ) {
+		if ( ! $this->promo->get_date_range()->in_range() ) {
+			return;
+		}
 
 		$message = $this->promo->get_title();
 
