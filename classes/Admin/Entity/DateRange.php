@@ -37,7 +37,7 @@ class DateRange {
 	 * @return bool
 	 */
 	public function in_range( DateTime $date = null ) {
-		if ( null == $date ) {
+		if ( null === $date ) {
 			$date = new DateTime();
 		}
 
