@@ -216,7 +216,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 3.4.8 =
 Release Date: November 19th, 2019
 
-* [Changed] Support for PHP 5.3. The minimum version required to run Admin Columns is now PHP 5.6.20
+* [Updated] The minimum version required to run Admin Columns is now PHP 5.6.20
 * [Improved] Adapted new WordPress interface styling
 * [Improved] Updated Select2 to 4.0.12 to prevent non closing drop-downs
 

@@ -42,7 +42,7 @@ require_once __DIR__ . '/classes/Dependencies.php';
 
 add_action( 'after_setup_theme', function () {
 	$dependencies = new AC\Dependencies( plugin_basename( AC_FILE ), AC_VERSION );
-	$dependencies->requires_php( '5.3.6' );
+	$dependencies->requires_php( '5.6.20' );
 
 	if ( $dependencies->has_missing() ) {
 		return;
