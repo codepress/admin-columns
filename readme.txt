@@ -213,6 +213,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 3.4.8 =
+Release Date: November 19th, 2019
+
+* [Improved] Adapted new WordPress interface styling
+* [Improved] Updated Select2 to 4.0.10 to prevent non closing drop-downs
+
 = 3.4.7 =
 Release Date: August 26th, 2019
 
