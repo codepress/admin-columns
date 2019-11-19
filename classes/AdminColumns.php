@@ -4,6 +4,7 @@ namespace AC;
 
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
+use AC\Admin\PromoCollection;
 use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
@@ -164,6 +165,10 @@ class AdminColumns extends Plugin {
 			new Check\Review(),
 		);
 
+		foreach ( new PromoCollection() as $promo ) {
+			$checks[] = new Check\Promotion( $promo );
+		}
+
 		foreach ( new Integrations() as $integration ) {
 			$checks[] = new Check\AddonAvailable( $integration );
 		}
@@ -197,12 +202,11 @@ class AdminColumns extends Plugin {
 	/**
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
 	 *
-	 * @param array $links
+	 * @param array  $links
 	 * @param string $file
 	 *
 	 * @return array
 	 * @see   filter:plugin_action_links
-	 *
 	 * @since 1.0
 	 */
 	public function add_settings_link( $links, $file ) {
@@ -324,7 +328,9 @@ class AdminColumns extends Plugin {
 		 * @param array $post_types List of active post type names
 		 *
 		 * @since 2.0
-		 *
+		 * <<<<<<< HEAD
+		 * =======
+		 * >>>>>>> release/3.4.8
 		 */
 		return apply_filters( 'ac/post_types', $post_types );
 	}
@@ -372,7 +378,9 @@ class AdminColumns extends Plugin {
 	 *
 	 * @return string
 	 * @since 2.2
-	 *
+	 * <<<<<<< HEAD
+	 * =======
+	 * >>>>>>> release/3.4.8
 	 */
 	public function redirect_after_status_change( $location ) {
 		global $pagenow;
@@ -406,7 +414,6 @@ class AdminColumns extends Plugin {
 	 * @param $file
 	 *
 	 * @since      3.0
-	 *
 	 * @deprecated 3.1.5
 	 */
 	public function get_plugin_version( $file ) {
@@ -436,7 +443,6 @@ class AdminColumns extends Plugin {
 	 * @return ListScreen|false
 	 * @since      3.0
 	 * @deprecated 3.2
-	 *
 	 */
 	public function get_list_screen( $key ) {
 		_deprecated_function( __METHOD__, '3.2', 'ListScreenFactory::create()' );

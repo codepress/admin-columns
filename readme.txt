@@ -4,8 +4,13 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.5
 Tested up to: 5.3
+<<<<<<< HEAD
 Requires PHP: 5.3.6
 Stable tag: 3.4.7
+=======
+Requires PHP: 5.6.20
+Stable tag: 3.4.8
+>>>>>>> release/3.4.8
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -216,9 +221,15 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: tbd
 
-* [Removed] Support for PHP 5.3. The minimum version required to run Admin Columns is now PHP 5.6.20.
 * [Improved] Set link type for Taxonomy Columns
 * [Improved] It is not necessary anymore to load the overview page once in order to recognize the default columns
+
+= 3.4.8 =
+Release Date: November 19th, 2019
+
+* [Changed] Support for PHP 5.3. The minimum version required to run Admin Columns is now PHP 5.6.20
+* [Improved] Adapted new WordPress interface styling
+* [Improved] Updated Select2 to 4.0.12 to prevent non closing drop-downs
 
 = 3.4.7 =
 Release Date: August 26th, 2019
