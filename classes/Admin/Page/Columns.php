@@ -380,6 +380,8 @@ class Columns extends Admin\Page
 		}
 
 		if ( $list_screen->is_read_only() ) {
+
+			// todo
 			$notice = new Notice( $this->get_read_only_message( $list_screen ) );
 			$notice
 				->set_type( Notice::INFO )
@@ -393,6 +395,7 @@ class Columns extends Admin\Page
 	 * @return string
 	 */
 	private function get_read_only_message( ListScreen $list_screen ) {
+		// todo: update message
 		$message = sprintf( __( 'The columns are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ) );
 
 		return apply_filters( 'ac/read_only_message', $message, $list_screen );

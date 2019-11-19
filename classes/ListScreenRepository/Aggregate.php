@@ -98,6 +98,15 @@ class Aggregate implements ListScreenRepository {
 		return $this->find( $layout_id );
 	}
 
+	/**
+	 * Remove list screens with the same ID based on its `updated` timestamp
+	 *
+	 * @param ListScreenCollection $collection
+	 *
+	 * @return ListScreenCollection
+	 */
+
+	// todo: what happends when the repo does not have an updated timestamp. e.g. PHP loaded columns before 4.0.
 	private function unique_by_list_id( ListScreenCollection $collection ) {
 		$list_screens = [];
 

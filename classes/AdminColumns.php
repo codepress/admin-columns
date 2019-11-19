@@ -69,8 +69,8 @@ class AdminColumns extends Plugin {
 		$list_screens = ListScreenTypes::instance();
 
 		$this->list_screen_repository = new ListScreenRepository\Aggregate();
-		$this->list_screen_repository->register_repository( new ListScreenRepository\DataBase( $list_screens ) )
-		                             ->register_repository( new ListScreenRepository\FilePHP( $list_screens, $this->api ) );
+		$this->list_screen_repository ->register_repository( new ListScreenRepository\FilePHP( $list_screens, $this->api ) )
+		                              ->register_repository( new ListScreenRepository\DataBase( $list_screens ) );
 
 		$modules[] = new QuickEdit( $this->list_screen_repository );
 

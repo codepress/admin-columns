@@ -6,6 +6,7 @@ use AC\ListScreenRepository\DataBase;
 use AC\ListScreenTypes;
 use AC\Plugin\Update;
 use AC\PostTypes;
+use AC\Storage\ListScreenOrder;
 
 // todo
 class V4000 extends Update {
@@ -28,10 +29,37 @@ class V4000 extends Update {
 		$this->version = '4.0.0';
 	}
 
+	/**
+	 * Migrate the order of the list screens from the `usermeta` to the `options` table
+	 */
 	private function migrate_list_screen_order() {
-		// todo: migrate to options table
-		// @see new AC\Preferences\Site( 'layout_order' )
-		// in usermeta {$wpdb->prefix}ac_preferences_layout_order
+		global $wpdb;
+
+		// Check the first usermeta we can find
+		$sql = "
+			SELECT `meta_value` FROM {$wpdb->prefix}usermeta
+			WHERE `meta_key` = '{$wpdb->prefix}ac_preferences_layout_order'
+				AND `meta_value` != ''
+			LIMIT 1
+		";
+
+		$result = $wpdb->get_var( $sql );
+
+		if ( ! $result ) {
+			return;
+		}
+
+		$list_screens = maybe_unserialize( $result );
+
+		if ( ! $list_screens ) {
+			return;
+		}
+
+		$order = new ListScreenOrder();
+
+		foreach ( $list_screens as $list_screen_key => $ids ) {
+			$order->set( $list_screen_key, $ids );
+		}
 	}
 
 	private function migrate_list_screen_settings() {
@@ -51,30 +79,20 @@ class V4000 extends Update {
 			return;
 		}
 
-		$settings = [];
-
+		// 2. convert to post data
 		foreach ( $results as $row ) {
 			// Ignore settings that contain the default columns
 			if ( "__default" === substr( $row->option_name, -9 ) ) {
 				continue;
 			}
 
-			$settings[] = (object) [
-				'option_id' => $row->option_id,
-				'name'      => $this->remove_prefix( 'cpac_options_', $row->option_name ),
-				'columns'   => maybe_unserialize( $row->option_value ),
-			];
-		}
+			$columns = maybe_unserialize( $row->option_value );
 
-		$posts_data = [];
-
-		// 2. convert to post data
-		foreach ( $settings as $setting ) {
-			if ( ! $setting->columns ) {
-				continue;
+			if ( empty( $columns ) ) {
+				$columns = [];
 			}
 
-			$storage_key = $setting->name;
+			$storage_key = $this->remove_prefix( 'cpac_options_', $row->option_name );
 
 			// Truly eliminates a duplicate $unique_id, because `uniqid()` is based on the current time in microseconds
 			usleep( 1000 );
@@ -93,7 +111,7 @@ class V4000 extends Update {
 						'roles' => [],
 						'users' => [],
 					],
-					DataBase::COLUMNS_KEY  => $setting->columns,
+					DataBase::COLUMNS_KEY  => $columns,
 				],
 			];
 
@@ -117,15 +135,24 @@ class V4000 extends Update {
 				if ( $layout_settings->roles ) {
 					$post_data['meta_input'][ DataBase::SETTINGS_KEY ]['roles'] = $layout_settings->roles;
 				}
-
-				$posts_data[] = $post_data;
 			} else {
+
+				// A list screen without layouts ánd columns is invalid
+				if ( empty( $columns ) ) {
+					continue;
+				}
+
+				// A list screen without layouts and with a layout ID is invalid
 				$id = $this->contains_layout_id( $storage_key );
 
 				if ( $id ) {
-					$post_data['meta_input'][ DataBase::LIST_KEY ] = $id;
-					$post_data['meta_input'][ DataBase::STORAGE_KEY ] = $this->remove_suffix( $id, $storage_key );
+					continue;
 				}
+
+//				if ( $id ) {
+//					$post_data['meta_input'][ DataBase::LIST_KEY ] = $id;
+//					$post_data['meta_input'][ DataBase::STORAGE_KEY ] = $this->remove_suffix( $id, $storage_key );
+//				}
 			}
 
 			$result = wp_insert_post( $post_data, true );
