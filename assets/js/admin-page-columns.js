@@ -958,6 +958,11 @@ function () {
       this.initColumns();
       this.bindFormEvents();
       this.bindOrdering();
+
+      if (this.$form.hasClass('-disabled')) {
+        this.disableFields();
+      }
+
       jQuery(document).trigger('AC_Form_Ready');
     }
   }, {
@@ -1051,6 +1056,25 @@ function () {
     value: function serialize() {
       return this.$form.serialize();
     }
+  }, {
+    key: "disableFields",
+    value: function disableFields() {
+      var form = document.querySelector(this.form);
+
+      if (!form) {
+        return;
+      }
+
+      var elements = form.elements;
+
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].readOnly = true;
+        elements[i].setAttribute('disabled', true);
+      }
+    }
+  }, {
+    key: "enableFields",
+    value: function enableFields() {}
   }, {
     key: "submitForm",
     value: function submitForm() {

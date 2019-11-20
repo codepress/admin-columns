@@ -19,6 +19,10 @@ class Form {
 		this.bindFormEvents();
 		this.bindOrdering();
 
+		if( this.$form.hasClass('-disabled') ){
+			this.disableFields();
+		}
+
 		jQuery( document ).trigger( 'AC_Form_Ready' );
 	}
 
@@ -116,6 +120,24 @@ class Form {
 		return this.$form.serialize();
 	}
 
+	disableFields() {
+		let form = document.querySelector( this.form );
+		if ( !form ) {
+			return;
+		}
+
+		let elements = form.elements;
+
+		for ( let i = 0; i < elements.length; i++ ) {
+			elements[ i ].readOnly = true;
+			elements[ i ].setAttribute( 'disabled', true );
+		}
+	}
+
+	enableFields() {
+
+	}
+
 	submitForm() {
 		let self = this;
 
@@ -153,7 +175,7 @@ class Form {
 		} );
 
 		//document.dispatchEvent( new CustomEvent( 'AC_Form_AfterUpdate', { detail : { container : self.$container } } ) );
-		jQuery( document ).trigger( 'AC_Form_AfterUpdate', [ self.$container ] );
+		jQuery( document ).trigger( 'AC_Form_AfterUpdate', [self.$container] );
 
 		return xhr;
 	}
@@ -213,7 +235,7 @@ class Form {
 
 		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
 
-		jQuery( document ).trigger( 'AC_Column_Added', [ column ] );
+		jQuery( document ).trigger( 'AC_Column_Added', [column] );
 
 		return column;
 	}

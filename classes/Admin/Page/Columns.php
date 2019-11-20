@@ -534,7 +534,7 @@ class Columns extends Admin\Page
 			</div><!--.ac-right-->
 
 			<div class="ac-left">
-				<form method="post" id="listscreen_settings">
+				<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
 					<?php
 
 					echo implode( $this->notices );
