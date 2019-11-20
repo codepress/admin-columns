@@ -4,6 +4,7 @@ namespace AC;
 
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
+use AC\Admin\PromoCollection;
 use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
@@ -218,6 +219,10 @@ class AdminColumns extends Plugin {
 		$checks = array(
 			new Check\Review(),
 		);
+
+		foreach ( new PromoCollection() as $promo ) {
+			$checks[] = new Check\Promotion( $promo );
+		}
 
 		foreach ( new Integrations() as $integration ) {
 			$checks[] = new Check\AddonAvailable( $integration );
