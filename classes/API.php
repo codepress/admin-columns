@@ -72,8 +72,19 @@ class API {
 	private function add_columndata( $list_screen_key, $columndata ) {
 		$columndata = $this->convert_old_format_to_current( $columndata );
 		$columndata = $this->set_as_read_only( $columndata );
+		$columndata = $this->maybe_set_layout_id( $columndata );
 
 		$this->columndata[ $list_screen_key ] = array_merge( $this->get_columndata( $list_screen_key ), $columndata );
+	}
+
+	private function maybe_set_layout_id( $columndata ) {
+		foreach ( $columndata as $k => $data ) {
+			if ( empty( $columndata[ $k ]['layout']['id'] ) ) {
+				$columndata[ $k ]['layout']['id'] = $this->create_layout_id( $data );
+			}
+		}
+
+		return $columndata;
 	}
 
 	/**
@@ -132,7 +143,7 @@ class API {
 					'columns' => isset( $data['columns'] ) ? $data['columns'] : $data,
 					'layout'  => array(
 						// unique id based on settings
-						'id'   => sanitize_key( substr( md5( serialize( $data ) ), 0, 16 ) ),
+						'id'   => $this->create_layout_id( $data ),
 						'name' => __( 'Imported' ) . ( $k ? ' #' . $k : '' ),
 					),
 				);
@@ -140,6 +151,15 @@ class API {
 		}
 
 		return $columndata;
+	}
+
+	/**
+	 * @param array $data
+	 *
+	 * @return string
+	 */
+	private function create_layout_id( $data ) {
+		return sanitize_key( substr( md5( serialize( $data ) ), 0, 16 ) );
 	}
 
 	/**

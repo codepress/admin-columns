@@ -7,6 +7,7 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenTypes;
 use DateTime;
+use LogicException;
 
 class FilePHP implements ListScreenRepository {
 
@@ -27,23 +28,31 @@ class FilePHP implements ListScreenRepository {
 	private function get_list_screens() {
 		$list_types = $this->api->get_data();
 
+		$list_screens = new ListScreenCollection();
+
 		if ( empty( $list_types ) ) {
-			return new ListScreenCollection();
+			return $list_screens;
 		}
 
-		$list_screens = [];
-
-		foreach ( $this->api->get_data() as $list_type => $lists_data ) {
+		foreach ( $list_types as $list_type => $lists_data ) {
 			foreach ( $lists_data as $list_data ) {
 				if ( ! $this->list_screen_exists( $list_type ) ) {
 					continue;
 				}
 
-				$list_screens[] = $this->create_list_screen( $list_type, $list_data );
+				try {
+					$list_screen = $this->create_list_screen( $list_type, $list_data );
+				} catch ( LogicException $e ) {
+
+					// todo: log exception
+					continue;
+				}
+
+				$list_screens->push( $list_screen );
 			}
 		}
 
-		return new ListScreenCollection( $list_screens );
+		return $list_screens;
 	}
 
 	/**
@@ -55,24 +64,23 @@ class FilePHP implements ListScreenRepository {
 	private function create_list_screen( $key, array $data ) {
 		$list_screen = $this->list_screen_types->get_list_screen_by_key( $key );
 
-		if ( null === $list_screen ) {
-			return null;
-		}
-
 		$layout = $data['layout'];
 		$columns = $data['columns'];
 
+		if ( empty( $layout['id'] ) ) {
+			throw new LogicException( 'Missing list screen ID.' );
+		}
+
 		$list_screen->set_title( ! empty( $layout['name'] ) ? $layout['name'] : ucfirst( $key ) )
 		            ->set_read_only( true )
-			// todo: check if empty and unique?
-			        ->set_layout_id( $layout['id'] );
+		            ->set_layout_id( $layout['id'] );
 
 		if ( $columns ) {
 			$list_screen->set_settings( $columns );
 		}
 
 		if ( isset( $layout['updated'] ) ) {
-			$list_screen->set_updated( DateTime::createFromFormat( 'U', $layout['updated'] ) );
+			$list_screen->set_updated( DateTime::createFromFormat( 'U', (int) $layout['updated'] ) );
 		}
 
 		$settings = [];
@@ -103,8 +111,10 @@ class FilePHP implements ListScreenRepository {
 	 * @return ListScreenCollection
 	 */
 	public function find_all( array $args = [] ) {
+		$list_screens = new ListScreenCollection();
+
 		if ( ! isset( $args['key'] ) ) {
-			return new ListScreenCollection();
+			return $list_screens;
 		}
 
 		$key = $args['key'];
@@ -112,16 +122,16 @@ class FilePHP implements ListScreenRepository {
 		$api_data = $this->api->get_data();
 
 		if ( ! isset( $api_data[ $key ] ) ) {
-			return new ListScreenCollection();
+			return $list_screens;
 		}
 
 		$lists_data = $api_data[ $key ];
 
 		foreach ( $lists_data as $list_data ) {
-			$list_screens[] = $this->create_list_screen( $key, $list_data );
+			$list_screens->push( $this->create_list_screen( $key, $list_data ) );
 		}
 
-		return new ListScreenCollection( $list_screens );
+		return $list_screens;
 	}
 
 	/**

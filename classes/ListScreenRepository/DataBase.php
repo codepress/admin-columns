@@ -44,29 +44,19 @@ class DataBase implements Write, ListScreenRepository {
 			];
 		}
 
-		// todo: not used
-		if ( isset( $args['type'] ) ) {
-			$query_args['meta_query'][] = [
-				'key'   => self::TYPE_KEY,
-				'value' => $args['type'],
-			];
-		}
-
-		// todo: not used
-		if ( isset( $args['subtype'] ) ) {
-			$query_args['meta_query'][] = [
-				'key'   => self::SUBTYPE_KEY,
-				'value' => $args['subtype'],
-			];
-		}
-
-		$list_screens = [];
+		$list_screens = new ListScreenCollection();
 
 		foreach ( get_posts( $query_args ) as $post_id ) {
-			$list_screens[] = $this->create_list_screen( (int) $post_id );
+			$list_screen = $this->create_list_screen( (int) $post_id );
+
+			if ( null === $list_screen ) {
+				continue;
+			}
+
+			$list_screens->push( $list_screen );
 		}
 
-		return new ListScreenCollection( $list_screens );
+		return $list_screens;
 	}
 
 	/**

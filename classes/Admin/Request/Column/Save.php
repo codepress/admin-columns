@@ -29,11 +29,7 @@ class Save extends Handler {
 		parse_str( $request->get( 'data' ), $formdata );
 
 		if ( ! isset( $formdata['columns'] ) ) {
-			wp_send_json_error( array(
-					'type'    => 'error',
-					'message' => __( 'You need at least one column', 'codepress-admin-columns' ),
-				)
-			);
+			wp_send_json_error( [ 'message' => __( 'You need at least one column', 'codepress-admin-columns' ) ] );
 		}
 
 		$list_id = $formdata['list_screen_id'];
@@ -55,8 +51,11 @@ class Save extends Handler {
 			}
 		}
 
-		// todo: test
 		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $type );
+
+		if ( ! $list_screen ) {
+			wp_send_json_error( [ 'message' => 'Failed: List screen not found.' ] );
+		}
 
 		$list_screen->set_title( ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ) )
 		            ->set_settings( $column_data )

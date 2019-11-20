@@ -324,7 +324,6 @@ class Columns extends Admin\Page
 	private function get_grouped_list_screens() {
 		$list_screens = array();
 
-		// todo
 		foreach ( $this->list_screen_types->get_list_screens() as $list_screen ) {
 			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
@@ -381,8 +380,6 @@ class Columns extends Admin\Page
 		}
 
 		if ( $list_screen->is_read_only() ) {
-
-			// todo
 			$notice = new Notice( $this->get_read_only_message( $list_screen ) );
 			$notice
 				->set_type( Notice::INFO )

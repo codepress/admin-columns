@@ -38,7 +38,7 @@ class ListScreenTypes {
 	/**
 	 * @param string $key
 	 *
-	 * @return ListScreen|false
+	 * @return ListScreen|null
 	 */
 	public function get_list_screen_by_key( $key ) {
 		foreach ( $this->list_screens as $list_screen ) {
