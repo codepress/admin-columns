@@ -254,6 +254,7 @@ class Columns extends Admin\Page
 	 */
 	public function get_list_screen() {
 		// Requested list ID
+		// TODO what about the hook running on the end, this is ignored for early returns
 		$list_id = filter_input( INPUT_GET, 'layout_id' );
 
 		if ( $list_id && $this->repository->exists( $list_id ) ) {

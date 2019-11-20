@@ -5,10 +5,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-	<div class="layout-selector">
-		<ul class="subsubsub">
-			<li class="first"><?php _e( 'Column Sets', 'codepress-admin-columns' ); ?>:</li>
-			<?php echo $this->items; ?>
-		</ul>
-	</div>
-<?php
+<div class="layout-selector">
+	<ul class="subsubsub">
+		<li class="first"><?php _e( 'Column Sets', 'codepress-admin-columns' ); ?>:</li>
+		<?php echo $this->items; ?>
+	</ul>
+</div>
