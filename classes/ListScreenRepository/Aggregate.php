@@ -35,36 +35,44 @@ class Aggregate implements ListScreenRepository {
 	public function find_all( array $args = [] ) {
 		$list_screens = new ListScreenCollection();
 
-		/** @var SortStrategy $sort_strategy */
-		$sort_strategy = null;
+		$sort_strategy = isset( $args['sort'] )
+			? $args['sort']
+			: false;
 
-		if ( isset( $args['sort'] ) && $args['sort'] instanceof SortStrategy ) {
-			$sort_strategy = $args['sort'];
-
-			unset( $args['sort'] );
-		}
+		// does not apply to repositories
+		unset( $args['sort'] );
 
 		foreach ( $this->repositories as $repository ) {
 			$list_screens->add_collection( $repository->find_all( $args ) );
 		}
 
-		if ( $sort_strategy ) {
+		$list_screens = $list_screens->filter_unique();
+
+		if ( $sort_strategy instanceof SortStrategy ) {
 			$list_screens = $sort_strategy->sort( $list_screens );
 		}
 
-		return $this->unique_by_list_id( $list_screens );
+		return $list_screens;
 	}
 
 	public function find( $id ) {
+		$list_screens = new ListScreenCollection();
+
 		foreach ( $this->repositories as $repository ) {
 			$list_screen = $repository->find( $id );
 
 			if ( $list_screen ) {
-				return $list_screen;
+				$list_screens->push( $list_screen );
 			}
 		}
 
-		return null;
+		$list_screen = $list_screens->filter_unique()->current();
+
+		if ( ! $list_screen ) {
+			return null;
+		}
+
+		return $list_screen;
 	}
 
 	public function exists( $id ) {
@@ -96,37 +104,6 @@ class Aggregate implements ListScreenRepository {
 		$layout_id = $request->get( 'layout' );
 
 		return $this->find( $layout_id );
-	}
-
-	/**
-	 * Remove list screens with the same ID based on its `updated` timestamp
-	 *
-	 * @param ListScreenCollection $collection
-	 *
-	 * @return ListScreenCollection
-	 */
-
-	// todo: what happends when the repo does not have an updated timestamp. e.g. PHP loaded columns before 4.0.
-	private function unique_by_list_id( ListScreenCollection $collection ) {
-		$list_screens = [];
-
-		/**
-		 * @var ListScreen $list_screen
-		 */
-		foreach ( $collection as $list_screen ) {
-			if ( ! isset( $list_screens[ $list_screen->get_layout_id() ] ) ) {
-				$list_screens[ $list_screen->get_layout_id() ] = $list_screen;
-				continue;
-			}
-
-			$existing_ls = $list_screens[ $list_screen->get_layout_id() ];
-
-			if ( $list_screen->get_updated() > $existing_ls->get_updated() ) {
-				$list_screens[ $list_screen->get_layout_id() ] = $list_screen;
-			}
-		}
-
-		return new ListScreenCollection( $list_screens );
 	}
 
 }

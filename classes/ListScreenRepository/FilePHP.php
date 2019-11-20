@@ -6,6 +6,7 @@ use AC\API;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenTypes;
+use DateTime;
 
 class FilePHP implements ListScreenRepository {
 
@@ -71,7 +72,7 @@ class FilePHP implements ListScreenRepository {
 		}
 
 		if ( isset( $layout['updated'] ) ) {
-			$list_screen->set_updated( $layout['updated'] );
+			$list_screen->set_updated( DateTime::createFromFormat( 'U', $layout['updated'] ) );
 		}
 
 		$settings = [];
@@ -102,22 +103,22 @@ class FilePHP implements ListScreenRepository {
 	 * @return ListScreenCollection
 	 */
 	public function find_all( array $args = [] ) {
-		if ( ! isset( $args['type'] ) ) {
+		if ( ! isset( $args['key'] ) ) {
 			return new ListScreenCollection();
 		}
 
-		$type = $args['type'];
+		$key = $args['key'];
 
 		$api_data = $this->api->get_data();
 
-		if ( ! isset( $api_data[ $type ] ) ) {
+		if ( ! isset( $api_data[ $key ] ) ) {
 			return new ListScreenCollection();
 		}
 
-		$lists_data = $api_data[ $type ];
+		$lists_data = $api_data[ $key ];
 
 		foreach ( $lists_data as $list_data ) {
-			$list_screens[] = $this->create_list_screen( $type, $list_data );
+			$list_screens[] = $this->create_list_screen( $key, $list_data );
 		}
 
 		return new ListScreenCollection( $list_screens );

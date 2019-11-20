@@ -146,6 +146,10 @@ function ac_user_has_permission_list_screen( ListScreen $list_screen, WP_User $u
 	$roles = ! empty( $list_screen->get_preferences()['roles'] ) ? $list_screen->get_preferences()['roles'] : [];
 	$users = ! empty( $list_screen->get_preferences()['users'] ) ? $list_screen->get_preferences()['users'] : [];
 
+	if ( empty( $users ) && empty( $roles ) ) {
+		return true;
+	}
+
 	foreach ( $roles as $role ) {
 		if ( $user->has_cap( $role ) ) {
 			return true;
@@ -155,10 +159,6 @@ function ac_user_has_permission_list_screen( ListScreen $list_screen, WP_User $u
 	if ( in_array( $user->ID, $users, true ) ) {
 		return true;
 
-	}
-
-	if ( empty( $users ) && empty( $roles ) ) {
-		return true;
 	}
 
 	return false;

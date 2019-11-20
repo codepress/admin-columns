@@ -6,6 +6,7 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenTypes;
 use AC\PostTypes;
+use DateTime;
 use LogicException;
 
 class DataBase implements Write, ListScreenRepository {
@@ -133,7 +134,7 @@ class DataBase implements Write, ListScreenRepository {
 
 		$list_screen->set_title( get_post_field( 'post_title', $post_id ) )
 		            ->set_layout_id( get_post_meta( $post_id, self::LIST_KEY, true ) )
-		            ->set_updated( strtotime( get_post_field( 'post_modified_gmt', $post_id ) ) );
+		            ->set_updated( DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_field( 'post_modified_gmt', $post_id ) ) );
 
 		$preferences = get_post_meta( $post_id, self::SETTINGS_KEY, true );
 

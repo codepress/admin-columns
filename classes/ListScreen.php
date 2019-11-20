@@ -129,7 +129,7 @@ abstract class ListScreen {
 	private $title;
 
 	/**
-	 * @var int
+	 * @var DateTime
 	 */
 	private $updated;
 
@@ -444,12 +444,12 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @param int $updated
+	 * @param DateTime $updated
 	 *
 	 * @return $this
 	 */
-	public function set_updated( $updated ) {
-		$this->updated = (int) $updated;
+	public function set_updated( DateTime $updated ) {
+		$this->updated = $updated;
 
 		return $this;
 	}
@@ -458,11 +458,7 @@ abstract class ListScreen {
 	 * @return DateTime
 	 */
 	public function get_updated() {
-		if ( ! $this->updated ) {
-			return DateTime::createFromFormat( 'U', time() );
-		}
-
-		return DateTime::createFromFormat( 'U', $this->updated );
+		return $this->updated ? $this->updated : new DateTime();
 	}
 
 	/**
