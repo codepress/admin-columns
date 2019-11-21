@@ -112,6 +112,10 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
 	AC()->api()->load_columndata( $list_screen_keys, $column_data );
 }
 
+function ac_load_columns( array $data ) {
+	// todo: load into PhpReader
+}
+
 /**
  * @param string $slug Page slug
  *
