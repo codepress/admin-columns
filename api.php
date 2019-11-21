@@ -109,11 +109,13 @@ function ac_helper() {
  * @since 2.2
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
-	AC()->api()->load_columndata( $list_screen_keys, $column_data );
+	foreach ( (array) $list_screen_keys as $key ) {
+		AC\ListScreenRepository\FilePhpData::push( [ $key => $column_data ] );
+	}
 }
 
 function ac_load_columns( array $data ) {
-	// todo: load into PhpReader
+	AC\ListScreenRepository\FilePhpData::push( $data );
 }
 
 /**

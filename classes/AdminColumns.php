@@ -25,11 +25,6 @@ class AdminColumns extends Plugin {
 	 */
 	private $table_screen;
 
-	/**
-	 * @var API
-	 */
-	private $api;
-
 	/** @var ListScreenRepository\Aggregate */
 	private $list_screen_repository;
 
@@ -53,8 +48,6 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
-		$this->api = new API();
-
 		$modules = array(
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
@@ -70,8 +63,8 @@ class AdminColumns extends Plugin {
 		$list_screens = ListScreenTypes::instance();
 
 		$this->list_screen_repository = new ListScreenRepository\Aggregate();
-		$this->list_screen_repository ->register_repository( new ListScreenRepository\FilePHP( $list_screens, $this->api ) )
-		                              ->register_repository( new ListScreenRepository\DataBase( $list_screens ) );
+		$this->list_screen_repository->register_repository( new ListScreenRepository\FilePhp( $list_screens ) )
+		                             ->register_repository( new ListScreenRepository\DataBase( $list_screens ) );
 
 		$modules[] = new QuickEdit( $this->list_screen_repository );
 
@@ -277,14 +270,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function use_delete_confirmation() {
 		return apply_filters( 'ac/delete_confirmation', true );
-	}
-
-	/**
-	 * @return API
-	 * @since 3.0
-	 */
-	public function api() {
-		return $this->api;
 	}
 
 	/**
@@ -549,6 +534,15 @@ class AdminColumns extends Plugin {
 	 */
 	public function admin_columns_screen() {
 		_deprecated_function( __METHOD__, '3.4' );
+	}
+
+	/**
+	 * @return API
+	 * @since      3.0
+	 * @deprecated NEWVERSION
+	 */
+	public function api() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
 	}
 
 }
