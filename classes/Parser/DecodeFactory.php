@@ -28,13 +28,13 @@ class DecodeFactory {
 				return $parser->decode( $data );
 			default :
 
-				throw new RuntimeException( 'Invalid.' );
+				throw new RuntimeException( 'Invalid format.' );
 		}
 	}
 
 	private function get_version( array $data ) {
-		if ( isset( $data['version'] ) && Version480::VERSION === $data['version'] ) {
-			return Version480::VERSION;
+		if ( isset( $data['version'] ) ) {
+			return $data['version'];
 		}
 
 		if ( $this->is_version384( $data ) ) {
