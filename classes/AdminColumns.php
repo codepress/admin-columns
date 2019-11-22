@@ -328,9 +328,6 @@ class AdminColumns extends Plugin {
 		 * @param array $post_types List of active post type names
 		 *
 		 * @since 2.0
-		 * <<<<<<< HEAD
-		 * =======
-		 * >>>>>>> release/3.4.8
 		 */
 		return apply_filters( 'ac/post_types', $post_types );
 	}
@@ -378,9 +375,6 @@ class AdminColumns extends Plugin {
 	 *
 	 * @return string
 	 * @since 2.2
-	 * <<<<<<< HEAD
-	 * =======
-	 * >>>>>>> release/3.4.8
 	 */
 	public function redirect_after_status_change( $location ) {
 		global $pagenow;
