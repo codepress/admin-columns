@@ -32,6 +32,23 @@ class ListScreenCollection extends Collection {
 	}
 
 	/**
+	 * @param ListScreen $listScreen
+	 *
+	 * @return bool
+	 */
+	public function hasListScreen( ListScreen $listScreen ) {
+		/** @var ListScreen $_listScreen
+		 */
+		foreach ( $this->all() as $_listScreen ) {
+			if ( $_listScreen->get_layout_id() === $listScreen->get_layout_id() ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Removes duplicate list screens (with the same ID) based on its `red only` state and `updated` timestamp
 	 * @return ListScreenCollection
 	 */

@@ -5,7 +5,7 @@ use AC\ListScreenCollection;
 use AC\Parser\Encode;
 use AC\Parser\Version480;
 
-class PhpEncoder extends Encode {
+class PhpHookEncoder extends Encode {
 
 	public function encode( ListScreenCollection $listScreens ) {
 		$data = [
@@ -15,8 +15,15 @@ class PhpEncoder extends Encode {
 		foreach ( $listScreens as $listScreen ) {
 			$data['list_screens'][] = $this->toArray( $listScreen );
 		}
+		$php = "
+			add_action( 'ac/ready', function() {
+				ac_load_columns(
+					" . var_export( $data, true ) . "
+				);
+			});
+		";
 
-		return sprintf( '<?php return %s; ?>', var_export( $data, true ) );
+		return $php;
 	}
 
 }

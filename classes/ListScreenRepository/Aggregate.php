@@ -101,9 +101,9 @@ class Aggregate implements ListScreenRepository {
 	 * @return ListScreen|null
 	 */
 	public function find_by_request( Request $request ) {
-		$layout_id = $request->get( 'layout' );
+		$id = $request->get( 'layout' );
 
-		return $this->find( $layout_id );
+		return $this->find( $id );
 	}
 
 }
