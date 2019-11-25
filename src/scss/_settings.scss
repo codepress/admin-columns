@@ -38,7 +38,7 @@
 	}
 
 	&__row {
-		display: flex;
+		$row: &;
 
 		&__th, &__fields {
 			border-bottom: 1px solid #dfdfdf;
@@ -46,7 +46,7 @@
 
 		&__th {
 			background: #f5f5f5;
-			flex: 0 0 230px;
+
 			padding: 10px;
 			border-right: 1px solid #dedede;
 
@@ -73,6 +73,32 @@
 			select {
 				width: 100%;
 				margin-bottom: 10px;
+			}
+		}
+
+		@media screen and (min-width: 900px){
+			display: flex;
+			&__th {
+				flex: 0 0 230px;
+			}
+			&__fields {
+				flex: auto;
+			}
+			&.-sub {
+				display: block;
+				#{$row}__th,
+				#{$row}__fields {
+					flex: 100%;
+				}
+			}
+		}
+		@media screen and (min-width: 1150px){
+			&.-sub {
+				display: flex;
+				#{$row}__th,
+				#{$row}__fields {
+					flex: 100%;
+				}
 			}
 		}
 	}
