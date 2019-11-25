@@ -1,15 +1,15 @@
 <?php
 namespace AC\Parser;
 
-use AC\ListScreen;
+use AC\ListScreenCollection;
 
 interface Decode {
 
 	/**
 	 * @param array $data
 	 *
-	 * @return ListScreen
+	 * @return ListScreenCollection
 	 */
-	public function decode( array $data);
+	public function decode( array $data );
 
 }

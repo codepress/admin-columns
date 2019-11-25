@@ -1,9 +1,11 @@
 <?php
 namespace AC\Parser;
 
+use AC\Parser\FileEncode\JsonEncoder;
+use AC\Parser\FileEncode\PhpEncoder;
 use RuntimeException;
 
-class EncodeFactory {
+class FileEncodeFactory {
 
 	const FORMAT_PHP = 'php';
 	const FORMAT_PHP_EXPORT = 'php-export';
@@ -13,13 +15,13 @@ class EncodeFactory {
 
 		switch ( $format ) {
 			case self::FORMAT_JSON :
-				return new Encode\JsonEncoder();
+				return new JsonEncoder( new Version480() );
 
 			case self::FORMAT_PHP :
-				return new Encode\PhpEncoder();
+				return new PhpEncoder( new Version480() );
 
 			case self::FORMAT_PHP_EXPORT :
-				return new Encode\PhpHookEncoder();
+				return new PhpEncoder( new Version480() );
 		}
 
 		throw new RuntimeException( 'Invalid Encoder.' );

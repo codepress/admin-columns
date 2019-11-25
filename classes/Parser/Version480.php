@@ -1,12 +1,13 @@
 <?php
 namespace AC\Parser;
 
+use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenTypes;
+use AC\Parser\Dto;
 use DateTime;
-use RuntimeException;
 
-class Version480 implements Decode {
+class Version480 implements Decode, Encode {
 
 	const VERSION = 'NEWVERSION';
 
@@ -23,7 +24,7 @@ class Version480 implements Decode {
 			$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $_data[ Dto\ListScreen::TYPE_KEY ] );
 
 			if ( null === $list_screen ) {
-				throw new RuntimeException( sprintf( 'List screen %s is not avaible.', $_data[ Dto\ListScreen::TYPE_KEY ] ) );
+				continue;
 			}
 
 			$title = $_data[ Dto\ListScreen::TITLE_KEY ];
@@ -43,6 +44,39 @@ class Version480 implements Decode {
 		}
 
 		return $list_screens;
+	}
+
+	/**
+	 * @param ListScreenCollection $listScreens
+	 *
+	 * @return array
+	 */
+	public function encode( ListScreenCollection $listScreens ) {
+		$data = [
+			'version' => self::VERSION
+		];
+
+		foreach ( $listScreens as $listScreen ) {
+			$data['list_screens'] = $this->toArray( $listScreen );
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @param ListScreen $listScreen
+	 *
+	 * @return array
+	 */
+	protected function toArray( ListScreen $listScreen ) {
+		return [
+			Dto\ListScreen::TITLE_KEY    => $listScreen->get_title(),
+			Dto\ListScreen::TYPE_KEY     => $listScreen->get_key(),
+			Dto\ListScreen::ID_KEY       => $listScreen->get_layout_id(),
+			Dto\ListScreen::UPDATED_KEY  => $listScreen->get_updated()->getTimestamp(),
+			Dto\ListScreen::COLUMNS_KEY  => $listScreen->get_settings(),
+			Dto\ListScreen::SETTINGS_KEY => $listScreen->get_preferences(),
+		];
 	}
 
 }
