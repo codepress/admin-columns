@@ -56,11 +56,11 @@ class Version480 implements Decode, Encode {
 	 */
 	public function encode( ListScreenCollection $listScreens ) {
 		$data = [
-			self::VERSION_KEY => self::VERSION
+			self::VERSION_KEY => self::VERSION,
 		];
 
 		foreach ( $listScreens as $listScreen ) {
-			$data[ self::LISTSCREENS_KEY ] = $this->toArray( $listScreen );
+			$data[ self::LISTSCREENS_KEY ][] = $this->toArray( $listScreen );
 		}
 
 		return $data;
