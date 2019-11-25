@@ -6,7 +6,7 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\Request;
 
-class Aggregate implements ListScreenRepository {
+class Aggregate implements ListScreenRepository, SourceAware {
 
 	/**
 	 * @var ListScreenRepository[]
@@ -104,6 +104,20 @@ class Aggregate implements ListScreenRepository {
 		$id = $request->get( 'layout' );
 
 		return $this->find( $id );
+	}
+
+	public function getSource( ListScreen $listScreen  ) {
+		foreach ( $this->repositories as $repository ) {
+			if ( $repository instanceof SourceAware ) {
+				$source = $repository->getSource( $listScreen );
+
+				if ( $source ) {
+					return $source;
+				}
+			}
+		}
+
+		return null;
 	}
 
 }

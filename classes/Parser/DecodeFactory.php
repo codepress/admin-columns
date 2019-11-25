@@ -33,8 +33,8 @@ class DecodeFactory {
 	}
 
 	private function get_version( array $data ) {
-		if ( isset( $data['version'] ) ) {
-			return $data['version'];
+		if ( isset( $data[ Version480::VERSION_KEY ] ) ) {
+			return $data[ Version480::VERSION_KEY ];
 		}
 
 		if ( $this->is_version384( $data ) ) {

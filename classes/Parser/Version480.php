@@ -11,6 +11,9 @@ class Version480 implements Decode, Encode {
 
 	const VERSION = 'NEWVERSION';
 
+	const VERSION_KEY = 'version';
+	const LISTSCREENS_KEY = 'list_screens';
+
 	/**
 	 * @param array $data
 	 *
@@ -19,7 +22,7 @@ class Version480 implements Decode, Encode {
 	public function decode( array $data ) {
 		$list_screens = new ListScreenCollection();
 
-		foreach ( $data['list_screens'] as $_data ) {
+		foreach ( $data[ self::LISTSCREENS_KEY ] as $_data ) {
 
 			$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $_data[ Dto\ListScreen::TYPE_KEY ] );
 
@@ -53,11 +56,11 @@ class Version480 implements Decode, Encode {
 	 */
 	public function encode( ListScreenCollection $listScreens ) {
 		$data = [
-			'version' => self::VERSION
+			self::VERSION_KEY => self::VERSION
 		];
 
 		foreach ( $listScreens as $listScreen ) {
-			$data['list_screens'] = $this->toArray( $listScreen );
+			$data[ self::LISTSCREENS_KEY ] = $this->toArray( $listScreen );
 		}
 
 		return $data;
