@@ -10,39 +10,39 @@ use AC\Storage;
 class ManualOrder implements SortStrategy {
 
 	/** @var Storage\ListScreenOrder(); */
-	private $list_screen_order;
+	private $listScreenOrder;
 
 	public function __construct() {
-		$this->list_screen_order = new Storage\ListScreenOrder();
+		$this->listScreenOrder = new Storage\ListScreenOrder();
 	}
 
-	public function sort( ListScreenCollection $list_screens ) {
-		if ( $list_screens->count() < 1 ) {
-			return $list_screens;
+	public function sort( ListScreenCollection $listScreens ) {
+		if ( $listScreens->count() < 1 ) {
+			return $listScreens;
 		}
 
-		$key = $list_screens->current()->get_key();
+		$key = $listScreens->current()->get_key();
 
-		$_list_screens = [];
+		$_listScreens = [];
 
-		/** @var ListScreen $list_screen */
-		foreach ( $list_screens as $list_screen ) {
-			$_list_screens[ $list_screen->get_layout_id() ] = $list_screen;
+		/** @var ListScreen $listScreen */
+		foreach ( $listScreens as $listScreen ) {
+			$_listScreens[ $listScreen->get_layout_id() ] = $listScreen;
 		}
 
 		$ordered = new ListScreenCollection();
 
-		foreach ( $this->list_screen_order->get( $key ) as $id ) {
-			if ( ! isset( $_list_screens[ $id ] ) ) {
+		foreach ( $this->listScreenOrder->get( $key ) as $id ) {
+			if ( ! isset( $_listScreens[ $id ] ) ) {
 				continue;
 			}
 
-			$ordered->push( $_list_screens[ $id ] );
+			$ordered->push( $_listScreens[ $id ] );
 
-			unset( $_list_screens[ $id ] );
+			unset( $_listScreens[ $id ] );
 		}
 
-		$ordered->add_collection( new ListScreenCollection( $_list_screens ) );
+		$ordered->add_collection( new ListScreenCollection( $_listScreens ) );
 
 		return $ordered;
 	}

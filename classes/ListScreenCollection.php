@@ -67,6 +67,7 @@ class ListScreenCollection extends Collection {
 					continue;
 				}
 
+				// todo: move to SortStrategy
 				if ( $_list_screen->get_updated() > $list_screen->get_updated() ) {
 					continue;
 				}
