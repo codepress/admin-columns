@@ -3,6 +3,7 @@ namespace AC\Parser;
 
 use AC\Parser\FileEncode\JsonEncoder;
 use AC\Parser\FileEncode\PhpEncoder;
+use AC\Parser\FileEncode\PhpHookEncoder;
 use RuntimeException;
 
 class FileEncodeFactory {
@@ -21,7 +22,7 @@ class FileEncodeFactory {
 				return new PhpEncoder( new Version480() );
 
 			case self::FORMAT_PHP_EXPORT :
-				return new PhpEncoder( new Version480() );
+				return new PhpHookEncoder( new Version480() );
 		}
 
 		throw new RuntimeException( 'Invalid Encoder.' );
