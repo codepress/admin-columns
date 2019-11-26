@@ -17,6 +17,7 @@ class DataBase implements Write, ListScreenRepository {
 	const SETTINGS_KEY = 'settings';
 	const COLUMNS_KEY = 'columns';
 	const LIST_KEY = 'list_id';
+	const DATE_MODIFIED_KEY = 'updated';
 
 	/** @var ListScreenTypes */
 	private $list_screen_types;
@@ -84,6 +85,7 @@ class DataBase implements Write, ListScreenRepository {
 
 		if ( ! $post_id ) {
 			$this->create_post( $list_screen );
+
 			return;
 		}
 
@@ -124,7 +126,7 @@ class DataBase implements Write, ListScreenRepository {
 
 		$list_screen->set_title( get_post_field( 'post_title', $post_id ) )
 		            ->set_layout_id( get_post_meta( $post_id, self::LIST_KEY, true ) )
-		            ->set_updated( DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_field( 'post_modified_gmt', $post_id ) ) );
+		            ->set_updated( DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_meta( $post_id, self::DATE_MODIFIED_KEY, true ) ) );
 
 		$preferences = get_post_meta( $post_id, self::SETTINGS_KEY, true );
 
@@ -191,12 +193,13 @@ class DataBase implements Write, ListScreenRepository {
 			'ID'         => $post_id,
 			'post_title' => $list_screen->get_title(),
 			'meta_input' => [
-				self::STORAGE_KEY  => $list_screen->get_key(),
-				self::TYPE_KEY     => $list_screen->get_type(),
-				self::SUBTYPE_KEY  => $list_screen->get_subtype(),
-				self::SETTINGS_KEY => $list_screen->get_preferences(),
-				self::COLUMNS_KEY  => $list_screen->get_settings(),
-				self::LIST_KEY     => $list_screen->get_layout_id(),
+				self::STORAGE_KEY       => $list_screen->get_key(),
+				self::TYPE_KEY          => $list_screen->get_type(),
+				self::SUBTYPE_KEY       => $list_screen->get_subtype(),
+				self::SETTINGS_KEY      => $list_screen->get_preferences(),
+				self::COLUMNS_KEY       => $list_screen->get_settings(),
+				self::LIST_KEY          => $list_screen->get_layout_id(),
+				self::DATE_MODIFIED_KEY => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
 			],
 		] );
 	}

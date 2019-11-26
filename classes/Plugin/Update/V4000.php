@@ -105,13 +105,14 @@ class V4000 extends Update {
 				'post_type'   => PostTypes::LIST_SCREEN_DATA,
 				'post_title'  => __( 'Original', 'codepress-admin-columns' ),
 				'meta_input'  => [
-					DataBase::LIST_KEY     => $unique_id,
-					DataBase::STORAGE_KEY  => $storage_key, // wp-users, wp-taxonomy_tag, post, page etc.
-					DataBase::SETTINGS_KEY => [
+					DataBase::DATE_MODIFIED_KEY => current_time( 'mysql' ),
+					DataBase::LIST_KEY          => $unique_id,
+					DataBase::STORAGE_KEY       => $storage_key, // wp-users, wp-taxonomy_tag, post, page etc.
+					DataBase::SETTINGS_KEY      => [
 						'roles' => [],
 						'users' => [],
 					],
-					DataBase::COLUMNS_KEY  => $columns,
+					DataBase::COLUMNS_KEY       => $columns,
 				],
 			];
 
@@ -149,6 +150,7 @@ class V4000 extends Update {
 					continue;
 				}
 
+				// todo: skip? or create a new list screen?
 //				if ( $id ) {
 //					$post_data['meta_input'][ DataBase::LIST_KEY ] = $id;
 //					$post_data['meta_input'][ DataBase::STORAGE_KEY ] = $this->remove_suffix( $id, $storage_key );
