@@ -8,9 +8,9 @@ use RuntimeException;
 
 class FileEncodeFactory {
 
+	const FORMAT_JSON = 'json';
 	const FORMAT_PHP = 'php';
 	const FORMAT_PHP_EXPORT = 'php-export';
-	const FORMAT_JSON = 'json';
 
 	public function create( $format ) {
 

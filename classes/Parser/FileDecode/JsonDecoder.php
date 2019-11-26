@@ -3,6 +3,7 @@
 namespace AC\Parser\FileDecode;
 
 use AC\Parser\FileDecode;
+use RuntimeException;
 use SplFileInfo;
 
 class JsonDecoder extends FileDecode {
@@ -12,7 +13,7 @@ class JsonDecoder extends FileDecode {
 		$contents = file_get_contents( $filePath );
 
 		if ( ! $contents ) {
-			return [];
+			throw new RuntimeException( 'Empty file.' );
 		}
 
 		return json_decode( $contents, true );

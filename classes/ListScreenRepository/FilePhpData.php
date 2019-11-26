@@ -2,6 +2,7 @@
 
 namespace AC\ListScreenRepository;
 
+// todo: rename ApiDataCollection
 class FilePhpData {
 
 	static $data = [];

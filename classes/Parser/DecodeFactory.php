@@ -28,7 +28,7 @@ class DecodeFactory {
 				return $parser->decode( $data );
 			default :
 
-				throw new RuntimeException( 'Invalid format.' );
+				throw new RuntimeException( 'Invalid data format.' );
 		}
 	}
 

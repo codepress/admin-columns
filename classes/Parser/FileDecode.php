@@ -2,6 +2,7 @@
 namespace AC\Parser;
 
 use AC\ListScreenCollection;
+use RuntimeException;
 use SplFileInfo;
 
 abstract class FileDecode {
@@ -27,6 +28,10 @@ abstract class FileDecode {
 	 */
 	public function decodeFile( SplFileInfo $file ) {
 		$data = $this->getDataFromFile( $file );
+
+		if ( ! is_array( $data ) ) {
+			throw new RuntimeException( 'Invalid file format.' );
+		}
 
 		return $this->decodeFactory->create( $data );
 	}
