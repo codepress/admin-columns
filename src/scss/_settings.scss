@@ -2,13 +2,9 @@
 	$e: &;
 	-webkit-font-smoothing: antialiased;
 	margin-top: 30px;
-	background: #fff;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
 	&__header {
-		background: #fff;
 		padding: 10px;
-		border-bottom: 1px solid #dfdfdf;
 		position: relative;
 		cursor: pointer;
 
@@ -39,6 +35,7 @@
 
 	&__row {
 		$row: &;
+		background: #fff;
 
 		&__th, &__fields {
 			border-bottom: 1px solid #dfdfdf;

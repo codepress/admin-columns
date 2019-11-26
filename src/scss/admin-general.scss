@@ -315,11 +315,11 @@ body.rtl {
 .ac-section {
 	background: #F5F5F5;
 	margin-bottom: 28px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
 	&__header {
 		background: #fff;
-		padding: 16px;
+		padding: 10px 16px;
 		border-bottom: 1px solid #E1E1E1;
 
 		&__title {
@@ -330,6 +330,11 @@ body.rtl {
 	}
 
 	&__body {
-		padding: 24px 16px;
+		padding: 16px 16px;
+	}
+
+	p {
+		margin: 0 0 1em 0;
+		max-width: 800px;
 	}
 }
