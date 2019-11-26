@@ -9,6 +9,7 @@ use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
 use AC\ListScreenRepository;
+use AC\Parser\DecodeFactory;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
@@ -48,7 +49,7 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
-		$modules = array(
+		$modules = [
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new Screen,
@@ -58,13 +59,11 @@ class AdminColumns extends Plugin {
 			new ThirdParty\NinjaForms,
 			new ThirdParty\WooCommerce,
 			new ThirdParty\WPML,
-		);
-
-		$list_screens = ListScreenTypes::instance();
+		];
 
 		$this->list_screen_repository = new ListScreenRepository\Aggregate();
-		$this->list_screen_repository->register_repository( new ListScreenRepository\FilePhp( $list_screens ) )
-		                             ->register_repository( new ListScreenRepository\DataBase( $list_screens ) );
+		$this->list_screen_repository->register_repository( new ListScreenRepository\FilePhp( new DecodeFactory() ) )
+		                             ->register_repository( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) );
 
 		$modules[] = new QuickEdit( $this->list_screen_repository );
 
@@ -250,7 +249,7 @@ class AdminColumns extends Plugin {
 	/**
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
 	 *
-	 * @param array  $links
+	 * @param array $links
 	 * @param string $file
 	 *
 	 * @return array

@@ -4,21 +4,16 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenTypes;
 use AC\Parser\DecodeFactory;
 use RuntimeException;
 
 class FilePhp implements ListScreenRepository {
 
-	/** @var ListScreenTypes */
-	private $list_screen_types;
-
 	/** @var DecodeFactory */
 	private $decoder;
 
-	public function __construct( ListScreenTypes $list_screen_types ) {
-		$this->list_screen_types = $list_screen_types;
-		$this->decoder = new DecodeFactory();
+	public function __construct( DecodeFactory $decodeFactory ) {
+		$this->decoder = $decodeFactory;
 	}
 
 	/**
@@ -54,22 +49,22 @@ class FilePhp implements ListScreenRepository {
 	 * @return ListScreenCollection
 	 */
 	public function find_all( array $args = [] ) {
-		$list_screens = new ListScreenCollection();
+		$listScreens = $this->get_list_screens();
 
 		if ( ! isset( $args['key'] ) ) {
-			return $list_screens;
+			return $listScreens;
 		}
 
-		$key = $args['key'];
+		$filteredListScreens = new ListScreenCollection();
 
 		/** @var ListScreen $list_screen */
-		foreach ( $this->get_list_screens() as $list_screen ) {
-			if ( $list_screen->get_key() === $key ) {
-				$list_screens->push( $list_screen );
+		foreach ( $listScreens as $listScreen ) {
+			if ( $listScreen->get_key() === $args['key'] ) {
+				$filteredListScreens->push( $listScreen );
 			}
 		}
 
-		return $list_screens;
+		return $filteredListScreens;
 	}
 
 	/**
