@@ -89,12 +89,14 @@ a.external {
 		display: inline-block;
 		margin: 0;
 	}
+
 	.spinner {
 		display: none;
 		float: none;
 		visibility: visible;
 		margin: 0 0 0 14px;
 	}
+
 	.view-link,
 	.view-link:active {
 		display: inline-block;
@@ -125,6 +127,7 @@ table.ac-form-table {
 
 				font-weight: normal;
 			}
+
 			td {
 				padding-top: 58px;
 			}
@@ -192,6 +195,7 @@ body.rtl {
 						margin-left: 3px;
 						margin-right: 0;
 					}
+
 					.column_label {
 						.inner {
 							> a.remove-button {
@@ -208,6 +212,7 @@ body.rtl {
 							float: right;
 						}
 					}
+
 					.column_type {
 						text-align: left;
 						padding-left: 0;
@@ -231,6 +236,7 @@ body.rtl {
 								right: 0;
 								left: auto;
 							}
+
 							a.more-info {
 								float: left;
 							}
@@ -266,9 +272,11 @@ body.rtl {
 					transform: scaleX(-1);
 				}
 			}
+
 			.button-container {
 				float: left;
 			}
+
 			.submit {
 				display: none;
 			}
@@ -296,5 +304,32 @@ body.rtl {
 		height: auto;
 		margin: 10px;
 		margin-top: 0;
+	}
+}
+
+
+.ac-section-group {
+
+}
+
+.ac-section {
+	background: #F5F5F5;
+	margin-bottom: 28px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
+
+	&__header {
+		background: #fff;
+		padding: 16px;
+		border-bottom: 1px solid #E1E1E1;
+
+		&__title {
+			font-size: 15px;
+			margin: 0;
+			font-weight: bold;
+		}
+	}
+
+	&__body {
+		padding: 24px 16px;
 	}
 }
