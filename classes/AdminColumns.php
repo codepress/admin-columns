@@ -396,6 +396,7 @@ class AdminColumns extends Plugin {
 			            ->register_page( new Page\Help() )
 			            ->register();
 		}
+
 	}
 
 	/**

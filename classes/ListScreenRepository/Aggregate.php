@@ -27,6 +27,10 @@ class Aggregate implements ListScreenRepository {
 		return $this;
 	}
 
+	public function get_repositories() {
+		return $this->repositories;
+	}
+
 	/**
 	 * @param array $args
 	 *
@@ -101,9 +105,7 @@ class Aggregate implements ListScreenRepository {
 	 * @return ListScreen|null
 	 */
 	public function find_by_request( Request $request ) {
-		$id = $request->get( 'layout' );
-
-		return $this->find( $id );
+		return $this->find( $request->get( 'layout' ) );
 	}
 
 }
