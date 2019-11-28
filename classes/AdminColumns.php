@@ -62,7 +62,7 @@ class AdminColumns extends Plugin {
 		];
 
 		$this->list_screen_repository = new ListScreenRepository\Aggregate();
-		$this->list_screen_repository->register_repository( new ListScreenRepository\FilePhp( new DecodeFactory() ) )
+		$this->list_screen_repository->register_repository( new ListScreenRepository\ListScreenData( new DecodeFactory(), new ListScreensDataCollecion() ) )
 		                             ->register_repository( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) );
 
 		$modules[] = new QuickEdit( $this->list_screen_repository );
@@ -212,8 +212,10 @@ class AdminColumns extends Plugin {
 			new Check\Review(),
 		);
 
-		foreach ( new PromoCollection() as $promo ) {
-			$checks[] = new Check\Promotion( $promo );
+		if ( ! ac_is_pro_active() ) {
+			foreach ( new PromoCollection() as $promo ) {
+				$checks[] = new Check\Promotion( $promo );
+			}
 		}
 
 		foreach ( new Integrations() as $integration ) {

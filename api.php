@@ -100,7 +100,7 @@ function ac_helper() {
  * This overrides the database settings and thus renders the settings screen for this list screen useless
  * If you like to register a column of your own please have a look at our documentation.
  * We also have a free start-kit available, which contains all the necessary files.
- * Documentation: https://www.admincolumns.com/documentation/developer-docs/creating-new-column-type/
+ * Documentation: https://www.admincolumns.com/documentation/guides/creating-new-column-type/
  * Starter-kit: https://github.com/codepress/ac-column-template/
  *
  * @param array|string $list_screen_keys
@@ -110,12 +110,17 @@ function ac_helper() {
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	foreach ( (array) $list_screen_keys as $key ) {
-		AC\ListScreenRepository\FilePhpData::push( [ $key => $column_data ] );
+		AC\ListScreensDataCollecion::push( [ $key => $column_data ] );
 	}
 }
 
+/**
+ * @param array $data
+ *
+ * @since NEWVERSION
+ */
 function ac_load_columns( array $data ) {
-	AC\ListScreenRepository\FilePhpData::push( $data );
+	AC\ListScreensDataCollecion::push( $data );
 }
 
 /**

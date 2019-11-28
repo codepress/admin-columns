@@ -4,17 +4,21 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\ListScreensDataCollecion;
 use AC\Parser\DecodeFactory;
 use RuntimeException;
 
-// todo: rename ApiData repo?
-class FilePhp implements ListScreenRepository {
+class ListScreenData implements ListScreenRepository {
 
 	/** @var DecodeFactory */
 	private $decoder;
 
-	public function __construct( DecodeFactory $decodeFactory ) {
+	/** @var ListScreensDataCollecion */
+	private $dataCollection;
+
+	public function __construct( DecodeFactory $decodeFactory, ListScreensDataCollecion $dataCollecion ) {
 		$this->decoder = $decodeFactory;
+		$this->dataCollection = $dataCollecion;
 	}
 
 	/**
@@ -23,9 +27,9 @@ class FilePhp implements ListScreenRepository {
 	private function get_list_screens() {
 		$list_screens = new ListScreenCollection();
 
-		foreach ( FilePhpData::get() as $data ) {
+		foreach ( $this->dataCollection->get() as $list_data ) {
 			try {
-				$_list_screens = $this->decoder->create( $data );
+				$_list_screens = $this->decoder->create( $list_data );
 			} catch ( RuntimeException $e ) {
 				continue;
 			}
@@ -38,7 +42,9 @@ class FilePhp implements ListScreenRepository {
 		return $list_screens;
 	}
 
+	// todo: test if reference still works within the Collection
 	private function set_read_only( ListScreenCollection $list_screens ) {
+		/** @var ListScreen $list_screen */
 		foreach ( $list_screens as $list_screen ) {
 			$list_screen->set_read_only( true );
 		}

@@ -9,7 +9,7 @@ use AC\PostTypes;
 use DateTime;
 use LogicException;
 
-class DataBase implements Write, ListScreenRepository {
+class DataBase implements Write, ListScreenRepository, SourceAware {
 
 	const STORAGE_KEY = 'key';
 	const TYPE_KEY = 'type';
@@ -185,7 +185,7 @@ class DataBase implements Write, ListScreenRepository {
 			return null;
 		}
 
-		return $ids[0];
+		return (int) $ids[0];
 	}
 
 	private function update_post( $post_id, ListScreen $list_screen ) {
@@ -210,6 +210,16 @@ class DataBase implements Write, ListScreenRepository {
 
 	public function exists( $id ) {
 		return null !== $this->get_post_id_by_list_id( $id );
+	}
+
+	public function getSource( ListScreen $listScreen ) {
+		$id = $this->get_post_id_by_list_id( $listScreen->get_layout_id() );
+
+		if ( ! $id ) {
+			return null;
+		}
+
+		return sprintf( __( 'Post ID: %s', 'codepress-admin-columns' ), $id );
 	}
 
 }
