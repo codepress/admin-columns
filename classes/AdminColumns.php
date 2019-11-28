@@ -165,8 +165,10 @@ class AdminColumns extends Plugin {
 			new Check\Review(),
 		);
 
-		foreach ( new PromoCollection() as $promo ) {
-			$checks[] = new Check\Promotion( $promo );
+		if ( ! ac_is_pro_active() ) {
+			foreach ( new PromoCollection() as $promo ) {
+				$checks[] = new Check\Promotion( $promo );
+			}
 		}
 
 		foreach ( new Integrations() as $integration ) {

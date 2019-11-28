@@ -20,10 +20,6 @@ class PromoCollection extends ArrayIterator {
 	 * @return Promo|null
 	 */
 	public function find_active() {
-		if ( ac_is_pro_active() ) {
-			return null;
-		}
-
 		/** @var Promo $promo */
 		foreach ( $this->array as $promo ) {
 			if ( $promo->is_active() ) {
