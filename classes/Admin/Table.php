@@ -15,13 +15,18 @@ abstract class Table {
 		return '';
 	}
 
+	protected function getMessage() {
+		return '';
+	}
+
 	public function getTableClasses() {
 		return [ 'widefat', 'fixed', 'ac-table' ];
 	}
 
 	public function render() {
 		$view = new View( [
-			'table' => $this,
+			'table'   => $this,
+			'message' => $this->getMessage(),
 		] );
 
 		$view->set_template( 'admin/table' );
