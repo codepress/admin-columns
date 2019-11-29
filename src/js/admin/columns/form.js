@@ -8,6 +8,7 @@ class Form {
 		this.$column_container = this.$form.find( '.ac-columns' );
 		this.$container = jQuery( '#cpac .ac-admin' );
 		this.columns = {};
+		this._validators = [];
 
 		jQuery( document ).trigger( 'AC_Form_Loaded' );
 
@@ -19,11 +20,11 @@ class Form {
 		this.bindFormEvents();
 		this.bindOrdering();
 
-		if( this.$form.hasClass('-disabled') ){
+		if ( this.$form.hasClass( '-disabled' ) ) {
 			this.disableFields();
 		}
 
-		jQuery( document ).trigger( 'AC_Form_Ready' );
+		jQuery( document ).trigger( 'AC_Form_Ready', this );
 	}
 
 	bindOrdering() {
@@ -53,11 +54,28 @@ class Form {
 		return columns;
 	}
 
+	validateForm() {
+		let valid = true;
+
+		this._validators.forEach( validator => {
+			valid = validator.call( this, this );
+		} );
+
+		return valid;
+	}
+
+	addValidator( validator ){
+		this._validators.push( validator );
+	}
+
 	bindFormEvents() {
 		let self = this;
 		let $buttons = jQuery( '.sidebox a.submit, .column-footer a.submit' );
 
 		$buttons.on( 'click', function() {
+			if( ! self.validateForm() ){
+				return;
+			}
 			$buttons.attr( 'disabled', 'disabled' );
 			self.submitForm().always( function() {
 				$buttons.removeAttr( 'disabled', 'disabled' );

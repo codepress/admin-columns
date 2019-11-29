@@ -948,6 +948,7 @@ function () {
     this.$column_container = this.$form.find('.ac-columns');
     this.$container = jQuery('#cpac .ac-admin');
     this.columns = {};
+    this._validators = [];
     jQuery(document).trigger('AC_Form_Loaded');
     this.init();
   }
@@ -963,7 +964,7 @@ function () {
         this.disableFields();
       }
 
-      jQuery(document).trigger('AC_Form_Ready');
+      jQuery(document).trigger('AC_Form_Ready', this);
     }
   }, {
     key: "bindOrdering",
@@ -992,11 +993,33 @@ function () {
       return columns;
     }
   }, {
+    key: "validateForm",
+    value: function validateForm() {
+      var _this = this;
+
+      var valid = true;
+
+      this._validators.forEach(function (validator) {
+        valid = validator.call(_this, _this);
+      });
+
+      return valid;
+    }
+  }, {
+    key: "addValidator",
+    value: function addValidator(validator) {
+      this._validators.push(validator);
+    }
+  }, {
     key: "bindFormEvents",
     value: function bindFormEvents() {
       var self = this;
       var $buttons = jQuery('.sidebox a.submit, .column-footer a.submit');
       $buttons.on('click', function () {
+        if (!self.validateForm()) {
+          return;
+        }
+
         $buttons.attr('disabled', 'disabled');
         self.submitForm().always(function () {
           $buttons.removeAttr('disabled', 'disabled');
@@ -1044,10 +1067,10 @@ function () {
   }, {
     key: "resetColumns",
     value: function resetColumns() {
-      var _this = this;
+      var _this2 = this;
 
       Object.keys(this.columns).forEach(function (key) {
-        var column = _this.columns[key];
+        var column = _this2.columns[key];
         column.destroy();
       });
     }
