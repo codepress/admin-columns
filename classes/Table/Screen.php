@@ -8,6 +8,7 @@ use AC\Form;
 use AC\ListScreen;
 use AC\Registrable;
 use AC\Settings;
+use ACP\Settings\ListScreen\HideOnScreen\Filters;
 
 final class Screen implements Registrable {
 
@@ -44,12 +45,32 @@ final class Screen implements Registrable {
 		add_action( 'admin_footer', array( $this, 'admin_footer_scripts' ) );
 		add_action( 'admin_head', array( $this, 'admin_head_scripts' ) );
 		add_action( 'admin_head', array( $this, 'register_settings_button' ) );
+		add_action( 'admin_head', array( $this, 'hide_filters' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_class' ) );
 		add_filter( 'list_table_primary_column', array( $this, 'set_primary_column' ), 20 );
 		add_action( 'admin_footer', array( $this, 'render_actions' ) );
 		add_filter( 'screen_settings', array( $this, 'screen_options' ) );
 
 		$this->register_first_visit_notice();
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function is_filters_hidden() {
+		return ( new Filters( $this->list_screen ) )->is_hidden();
+	}
+
+	public function hide_filters() {
+		if ( $this->is_filters_hidden() ) {
+			?>
+			<style type="text/css">
+				[class="alignleft actions"] {
+					display: none !important;
+				}
+			</style>
+			<?php
+		}
 	}
 
 	private function register_first_visit_notice() {

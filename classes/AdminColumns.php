@@ -65,7 +65,7 @@ class AdminColumns extends Plugin {
 		$this->list_screen_repository->register_repository( new ListScreenRepository\ListScreenData( new DecodeFactory(), new ListScreensDataCollecion() ) )
 		                             ->register_repository( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) );
 
-		$modules[] = new QuickEdit( $this->list_screen_repository );
+		$modules[] = new QuickEdit( $this->list_screen_repository, $this->preferences() );
 
 		foreach ( $modules as $module ) {
 			if ( $module instanceof Registrable ) {
@@ -86,7 +86,6 @@ class AdminColumns extends Plugin {
 		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
 
 		add_action( 'ac/screen', array( $this, 'init_table_on_screen' ) );
-		add_action( 'ac/screen/quick_edit', array( $this, 'init_table_on_quick_edit' ) );
 		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
 
 		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
@@ -156,18 +155,6 @@ class AdminColumns extends Plugin {
 		do_action( 'ac/table', $table_screen );
 
 		$this->table_screen = $table_screen;
-	}
-
-	/**
-	 * @param Screen\QuickEdit $screen
-	 */
-	public function init_table_on_quick_edit( Screen\QuickEdit $screen ) {
-		$list_screen = $screen->get_list_screen();
-
-		if ( $list_screen instanceof ListScreen ) {
-			$controller = new ScreenController( $list_screen );
-			$controller->register();
-		}
 	}
 
 	/**
@@ -251,7 +238,7 @@ class AdminColumns extends Plugin {
 	/**
 	 * Add a settings link to the Admin Columns entry in the plugin overview screen
 	 *
-	 * @param array $links
+	 * @param array  $links
 	 * @param string $file
 	 *
 	 * @return array

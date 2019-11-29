@@ -114,7 +114,7 @@ class Aggregate implements ListScreenRepository, SourceAware {
 				$source = $repository->getSource( $listScreen );
 
 				if ( $source ) {
-					break;
+					return $source;
 				}
 			}
 		}

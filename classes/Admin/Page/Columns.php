@@ -292,8 +292,6 @@ class Columns extends Admin\Page
 
 		$list_screen = $this->list_screen_types->get_list_screen_by_key( current( $types )->get_key() );
 
-		do_action( 'ac/settings/list_screen', $list_screen );
-
 		return $list_screen;
 	}
 
