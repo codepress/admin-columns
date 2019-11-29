@@ -17,13 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php endforeach; ?>
 	</thead>
 	<tbody>
-	<?php if ( $this->message ) : ?>
-		<tr class="message">
-			<td colspan="<?= count( $table->getColumns() ); ?>">
-				<?= $this->message; ?>
-			</td>
-		</tr>
-	<?php endif; ?>
+
 	<?php foreach ( $table->getItems() as $item ) : ?>
 		<tr class="<?= $table->getRowClass( $item ); ?>">
 			<?php foreach ( $table->getColumnNames() as $name ) : ?>
@@ -34,4 +28,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</tr>
 	<?php endforeach; ?>
 	</tbody>
+
+	<?php if ( $this->message ) : ?>
+		<tfoot>
+		<tr class="message">
+			<td colspan="<?= count( $table->getColumns() ); ?>">
+				<?= $this->message; ?>
+			</td>
+		</tr>
+		</tfoot>
+	<?php endif; ?>
+
 </table>
