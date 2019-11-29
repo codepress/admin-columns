@@ -133,6 +133,9 @@ abstract class ListScreen {
 	 */
 	private $updated;
 
+	/** @var string */
+	private $source;
+
 	/**
 	 * Contains the hook that contains the manage_value callback
 	 * @return void
@@ -260,6 +263,24 @@ abstract class ListScreen {
 	 */
 	protected function set_meta_type( $meta_type ) {
 		$this->meta_type = $meta_type;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_source() {
+		return $this->source;
+	}
+
+	/**
+	 * @param string $source
+	 *
+	 * @return self
+	 */
+	public function set_source( $source ) {
+		$this->source = (string) $source;
 
 		return $this;
 	}

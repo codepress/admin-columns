@@ -254,7 +254,6 @@ class Columns extends Admin\Page
 	 */
 	public function get_list_screen() {
 		// Requested list ID
-		// TODO what about the hook running on the end, this is ignored for early returns
 		$list_id = filter_input( INPUT_GET, 'layout_id' );
 
 		if ( $list_id && $this->repository->exists( $list_id ) ) {
@@ -388,8 +387,6 @@ class Columns extends Admin\Page
 	 * @return string
 	 */
 	private function get_read_only_message( ListScreen $list_screen ) {
-		// todo: update message
-//		$message = sprintf( __( 'The columns are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ) );
 		$message = sprintf( __( 'The columns are read only and can not be edited.', 'codepress-admin-columns' ) );
 
 		return apply_filters( 'ac/read_only_message', $message, $list_screen );

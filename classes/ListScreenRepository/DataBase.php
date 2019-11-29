@@ -48,9 +48,10 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		$list_screens = new ListScreenCollection();
 
 		foreach ( get_posts( $query_args ) as $post_id ) {
-			$list_screen = $this->create_list_screen( (int) $post_id );
 
-			if ( null === $list_screen ) {
+			try {
+				$list_screen = $this->create_list_screen( (int) $post_id );
+			} catch ( LogicException $e ) {
 				continue;
 			}
 
@@ -72,7 +73,14 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 			return null;
 		}
 
-		return $this->create_list_screen( (int) $post_id );
+		try {
+			$list_screen = $this->create_list_screen( $post_id );
+		}
+		catch ( LogicException $e ) {
+			return null;
+		}
+
+		return $list_screen;
 	}
 
 	/**
@@ -120,8 +128,7 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		$list_screen = $this->list_screen_types->get_list_screen_by_key( $key );
 
 		if ( null === $list_screen ) {
-			// todo exception
-			return null;
+			throw new LogicException( 'List screen not found.' );
 		}
 
 		$list_screen->set_title( get_post_field( 'post_title', $post_id ) )
@@ -134,11 +141,15 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 			$list_screen->set_preferences( $preferences );
 		}
 
+		$list_screen->set_source( $post_id );
+
 		$columns = get_post_meta( $post_id, self::COLUMNS_KEY, true );
 
 		if ( $columns ) {
 			$list_screen->set_settings( $columns );
 		}
+
+		$list_screen->set_source( $post_id );
 
 		return $list_screen;
 	}

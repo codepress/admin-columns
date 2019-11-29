@@ -2,6 +2,7 @@
 
 namespace AC;
 
+use AC\Admin\ExtraListInfo;
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
 use AC\Admin\PromoCollection;

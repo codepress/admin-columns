@@ -6,7 +6,7 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\Request;
 
-class Aggregate implements ListScreenRepository, SourceAware {
+class Aggregate implements ListScreenRepository {
 
 	/**
 	 * @var ListScreenRepository[]
@@ -50,7 +50,7 @@ class Aggregate implements ListScreenRepository, SourceAware {
 			$list_screens->add_collection( $repository->find_all( $args ) );
 		}
 
-		$list_screens = $list_screens->filter_unique();
+		$list_screens = $this->filter_unique( $list_screens );
 
 		if ( $sort_strategy instanceof SortStrategy ) {
 			$list_screens = $sort_strategy->sort( $list_screens );
@@ -70,13 +70,45 @@ class Aggregate implements ListScreenRepository, SourceAware {
 			}
 		}
 
-		$list_screen = $list_screens->filter_unique()->current();
+		$list_screen = $this->filter_unique( $list_screens )->current();
 
 		if ( ! $list_screen ) {
 			return null;
 		}
 
 		return $list_screen;
+	}
+
+	/**
+	 * Removes duplicate list screens (with the same ID) based on its `red only` state and `updated` timestamp
+	 * @return ListScreenCollection
+	 */
+	// todo: move to repo
+	public function filter_unique( ListScreenCollection $list_screens ) {
+		$unique = new ListScreenCollection();
+
+		/** @var ListScreen $list_screen */
+		foreach ( $list_screens as $list_screen ) {
+
+			if ( $unique->has( $list_screen->get_layout_id() ) ) {
+
+				/** @var ListScreen $_list_screen */
+				$_list_screen = $unique->get( $list_screen->get_layout_id() );
+
+				if ( $_list_screen->is_read_only() ) {
+					continue;
+				}
+
+				// todo: move to SortStrategy
+				if ( $_list_screen->get_updated() > $list_screen->get_updated() ) {
+					continue;
+				}
+			}
+
+			$unique->put( $list_screen->get_layout_id(), $list_screen );
+		}
+
+		return $unique;
 	}
 
 	public function exists( $id ) {
@@ -106,20 +138,6 @@ class Aggregate implements ListScreenRepository, SourceAware {
 	 */
 	public function find_by_request( Request $request ) {
 		return $this->find( $request->get( 'layout' ) );
-	}
-
-	public function getSource( ListScreen $listScreen ) {
-		foreach ( $this->repositories as $repository ) {
-			if ( $repository instanceof SourceAware ) {
-				$source = $repository->getSource( $listScreen );
-
-				if ( $source ) {
-					return $source;
-				}
-			}
-		}
-
-		return null;
 	}
 
 }

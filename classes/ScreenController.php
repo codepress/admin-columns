@@ -75,14 +75,6 @@ class ScreenController implements Registrable {
 			$this->headings['cb'] = $columns['cb'];
 		}
 
-		// On first visit 'columns' can be empty, because they were put in memory before 'default headings'
-		// were stored. We force get_columns() to be re-populated.
-		// todo: remove
-//		if ( ! $this->list_screen->get_columns() ) {
-//			$this->list_screen->reset();
-//			$this->list_screen->reset_original_columns();
-//		}
-
 		foreach ( $this->list_screen->get_columns() as $column ) {
 			$this->headings[ $column->get_name() ] = $column->get_custom_label();
 		}
