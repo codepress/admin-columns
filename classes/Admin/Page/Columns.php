@@ -257,9 +257,12 @@ class Columns extends Admin\Page
 		$list_id = filter_input( INPUT_GET, 'layout_id' );
 
 		if ( $list_id && $this->repository->exists( $list_id ) ) {
-			$this->preferences()->set( 'list_id', $list_id );
+			$list_screen = $this->repository->find( $list_id );
 
-			return $this->repository->find( $list_id );
+			$this->preferences()->set( 'list_id', $list_screen->get_layout_id() );
+			$this->preferences()->set( 'list_key', $list_screen->get_key() );
+
+			return $list_screen;
 		}
 
 		// Requested list type
@@ -272,6 +275,7 @@ class Columns extends Admin\Page
 
 			if ( $list_screen ) {
 				$this->preferences()->set( 'list_id', $list_screen->get_layout_id() );
+				$this->preferences()->set( 'list_key', $list_screen->get_key() );
 
 				return $list_screen;
 			}
@@ -279,11 +283,18 @@ class Columns extends Admin\Page
 			return $this->list_screen_types->get_list_screen_by_key( $list_key );
 		}
 
-		// Last visited
+		// Last visited ID
 		$list_id = $this->preferences()->get( 'list_id' );
 
 		if ( $list_id && $this->repository->exists( $list_id ) ) {
 			return $this->repository->find( $list_id );
+		}
+
+		// Last visited Key
+		$list_key = $this->preferences()->get( 'list_key' );
+
+		if ( $list_key && $this->list_screen_types->get_list_screen_by_key( $list_key ) ) {
+			return $this->list_screen_types->get_list_screen_by_key( $list_key );
 		}
 
 		// Initialize new
