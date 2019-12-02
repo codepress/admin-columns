@@ -27,11 +27,15 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 	public function find_all( array $args = [] ) {
 		global $wpdb;
 
-		$sql = "SELECT * FROM {$wpdb->prefix}" . self::TABLE;
+		$table_name = $wpdb->prefix . self::TABLE;
+
+		$sql = "SELECT * FROM {$table_name}";
 
 		if ( isset( $args['key'] ) ) {
 			$sql .= $wpdb->prepare( " WHERE list_key = %s", $args['key'] );
 		}
+
+		$sql .= ';';
 
 		$list_screens = new ListScreenCollection();
 
@@ -120,9 +124,10 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 				'title'         => $listScreen->get_title(),
 				'list_id'       => $listScreen->get_layout_id(),
 				'list_key'      => $listScreen->get_key(),
-				'date_modified' => $listScreen->get_updated()->format( 'Y-m-d H:i:s' ),
 				'columns'       => serialize( $listScreen->get_settings() ),
 				'settings'      => serialize( $listScreen->get_preferences() ),
+				'date_modified' => $listScreen->get_updated()->format( 'Y-m-d H:i:s' ),
+				'date_created'  => $listScreen->get_updated()->format( 'Y-m-d H:i:s' ),
 			],
 			[
 				'%s',
@@ -148,20 +153,20 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 				'list_id'       => $listScreen->get_layout_id(),
 				'list_key'      => $listScreen->get_key(),
 				'title'         => $listScreen->get_title(),
-				'date_modified' => $listScreen->get_updated()->format( 'Y-m-d H:i:s' ),
 				'columns'       => serialize( $listScreen->get_settings() ),
 				'settings'      => serialize( $listScreen->get_preferences() ),
-			],
-			[
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-				'%s',
+				'date_modified' => $listScreen->get_updated()->format( 'Y-m-d H:i:s' ),
 			],
 			[
 				'id' => $id,
+			],
+			[
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
 			],
 			[
 				'%d',

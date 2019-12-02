@@ -28,9 +28,10 @@ class Installer {
 			title text NOT NULL,
 			list_id varchar(20) NOT NULL default '',
 			list_key varchar(100) NOT NULL default '',
-			date_modified datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			columns longtext,
 			settings longtext,
+			date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+			date_modified datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			PRIMARY KEY (id)
 		) $collate;
 		";

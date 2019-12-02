@@ -7,7 +7,6 @@ use AC\ListScreenTypes;
 use AC\Plugin\Update;
 use AC\Storage\ListScreenOrder;
 
-// todo
 class V4000 extends Update {
 
 	/** @var DataBase */

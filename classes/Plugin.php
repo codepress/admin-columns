@@ -152,8 +152,6 @@ abstract class Plugin extends Addon {
 	public function is_new_install() {
 		global $wpdb;
 
-		// todo: cpac_options is no longer used. Add check for new data storage.
-
 		$sql = "
 			SELECT option_id
 			FROM {$wpdb->options}
