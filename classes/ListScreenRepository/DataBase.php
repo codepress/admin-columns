@@ -5,19 +5,12 @@ namespace AC\ListScreenRepository;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenTypes;
-use AC\PostTypes;
 use DateTime;
 use LogicException;
 
 class DataBase implements Write, ListScreenRepository, SourceAware {
 
-	const STORAGE_KEY = 'key';
-	const TYPE_KEY = 'type';
-	const SUBTYPE_KEY = 'subtype';
-	const SETTINGS_KEY = 'settings';
-	const COLUMNS_KEY = 'columns';
-	const LIST_KEY = 'list_id';
-	const DATE_MODIFIED_KEY = 'updated';
+	const TABLE = 'admin_columns';
 
 	/** @var ListScreenTypes */
 	private $list_screen_types;
@@ -32,25 +25,19 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 	 * @return ListScreenCollection
 	 */
 	public function find_all( array $args = [] ) {
-		$query_args = [
-			'post_type'      => PostTypes::LIST_SCREEN_DATA,
-			'posts_per_page' => -1,
-			'fields'         => 'ids',
-		];
+		global $wpdb;
+
+		$sql = "SELECT * FROM {$wpdb->prefix}" . self::TABLE;
 
 		if ( isset( $args['key'] ) ) {
-			$query_args['meta_query'][] = [
-				'key'   => self::STORAGE_KEY,
-				'value' => $args['key'],
-			];
+			$sql .= $wpdb->prepare( " WHERE list_key = %s", $args['key'] );
 		}
 
 		$list_screens = new ListScreenCollection();
 
-		foreach ( get_posts( $query_args ) as $post_id ) {
-
+		foreach ( $wpdb->get_results( $sql ) as $list_data ) {
 			try {
-				$list_screen = $this->create_list_screen( (int) $post_id );
+				$list_screen = $this->create_list_screen( $list_data );
 			} catch ( LogicException $e ) {
 				continue;
 			}
@@ -67,16 +54,21 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 	 * @return ListScreen|null
 	 */
 	public function find( $list_id ) {
-		$post_id = $this->get_post_id_by_list_id( $list_id );
+		global $wpdb;
 
-		if ( ! $post_id ) {
+		$table_name = $wpdb->prefix . self::TABLE;
+
+		$sql = $wpdb->prepare( "SELECT * FROM {$table_name} WHERE list_id = %s LIMIT 1;", $list_id );
+
+		$data = $wpdb->get_row( $sql );
+
+		if ( null === $data ) {
 			return null;
 		}
 
 		try {
-			$list_screen = $this->create_list_screen( $post_id );
-		}
-		catch ( LogicException $e ) {
+			$list_screen = $this->create_list_screen( $data );
+		} catch ( LogicException $e ) {
 			return null;
 		}
 
@@ -89,23 +81,96 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 	 * @return void
 	 */
 	public function save( ListScreen $list_screen ) {
-		$post_id = $this->get_post_id_by_list_id( $list_screen->get_layout_id() );
+		$id = $this->get_id( $list_screen->get_layout_id() );
 
-		if ( ! $post_id ) {
-			$this->create_post( $list_screen );
+		if ( $id ) {
+			$this->update( $id, $list_screen );
 
 			return;
 		}
 
-		$this->update_post( $post_id, $list_screen );
+		$this->create( $list_screen );
+	}
+
+	/**
+	 * @param string $list_id
+	 *
+	 * @return bool
+	 */
+	private function get_id( $list_id ) {
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . self::TABLE;
+
+		$sql = $wpdb->prepare( "SELECT id FROM {$table_name} WHERE list_id = %s LIMIT 1;", $list_id );
+
+		return (int) $wpdb->get_var( $sql );
+	}
+
+	private function create( ListScreen $listScreen ) {
+		global $wpdb;
+
+		if ( empty( $listScreen->get_layout_id() ) ) {
+			throw new LogicException( 'Invalid listscreen Id.' );
+		}
+
+		$wpdb->insert(
+			$wpdb->prefix . self::TABLE,
+			[
+				'title'         => $listScreen->get_title(),
+				'list_id'       => $listScreen->get_layout_id(),
+				'list_key'      => $listScreen->get_key(),
+				'date_modified' => $listScreen->get_updated()->format( 'Y-m-d H:i:s' ),
+				'columns'       => serialize( $listScreen->get_settings() ),
+				'settings'      => serialize( $listScreen->get_preferences() ),
+			],
+			[
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+			]
+		);
+	}
+
+	private function update( $id, ListScreen $listScreen ) {
+		global $wpdb;
+
+		if ( empty( $listScreen->get_layout_id() ) ) {
+			throw new LogicException( 'Invalid listscreen Id.' );
+		}
+
+		$wpdb->update(
+			$wpdb->prefix . self::TABLE,
+			[
+				'list_id'       => $listScreen->get_layout_id(),
+				'list_key'      => $listScreen->get_key(),
+				'title'         => $listScreen->get_title(),
+				'date_modified' => $listScreen->get_updated()->format( 'Y-m-d H:i:s' ),
+				'columns'       => serialize( $listScreen->get_settings() ),
+				'settings'      => serialize( $listScreen->get_preferences() ),
+			],
+			[
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+			],
+			[
+				'id' => $id,
+			],
+			[
+				'%d',
+			]
+		);
 	}
 
 	public function delete( ListScreen $list_screen ) {
-		$post_id = $this->get_post_id_by_list_id( $list_screen->get_layout_id() );
-
-		if ( ! $post_id ) {
-			return;
-		}
+		global $wpdb;
 
 		/**
 		 * Fires before a column setup is removed from the database
@@ -118,11 +183,19 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		 */
 		do_action( 'ac/columns_delete', $list_screen );
 
-		$this->delete_post( $post_id );
+		$wpdb->delete(
+			$wpdb->prefix . self::TABLE,
+			[
+				'id' => $list_screen->get_layout_id(),
+			],
+			[
+				'%d',
+			]
+		);
 	}
 
-	private function create_list_screen( $post_id ) {
-		$key = get_post_meta( $post_id, self::STORAGE_KEY, true );
+	private function create_list_screen( $data ) {
+		$key = $data->list_key;
 
 		// create a cloned reference
 		$list_screen = $this->list_screen_types->get_list_screen_by_key( $key );
@@ -131,106 +204,29 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 			throw new LogicException( 'List screen not found.' );
 		}
 
-		$list_screen->set_title( get_post_field( 'post_title', $post_id ) )
-		            ->set_layout_id( get_post_meta( $post_id, self::LIST_KEY, true ) )
-		            ->set_updated( DateTime::createFromFormat( 'Y-m-d H:i:s', get_post_meta( $post_id, self::DATE_MODIFIED_KEY, true ) ) );
+		$list_screen->set_title( $data->title )
+		            ->set_layout_id( $data->list_id )
+		            ->set_updated( DateTime::createFromFormat( 'Y-m-d H:i:s', $data->date_modified ) );
 
-		$preferences = get_post_meta( $post_id, self::SETTINGS_KEY, true );
-
-		if ( $preferences ) {
-			$list_screen->set_preferences( $preferences );
+		if ( $data->settings ) {
+			$list_screen->set_preferences( unserialize( $data->settings ) );
 		}
 
-		$list_screen->set_source( $post_id );
-
-		$columns = get_post_meta( $post_id, self::COLUMNS_KEY, true );
-
-		if ( $columns ) {
-			$list_screen->set_settings( $columns );
+		if ( $data->columns ) {
+			$list_screen->set_settings( unserialize( $data->columns ) );
 		}
 
-		$list_screen->set_source( $post_id );
+		$list_screen->set_source( $data->id );
 
 		return $list_screen;
 	}
 
-	/**
-	 * @param ListScreen $data
-	 *
-	 * @return int
-	 */
-	private function create_post( ListScreen $list_screen ) {
-		$id = wp_insert_post( [
-			'post_status' => 'publish',
-			'post_type'   => PostTypes::LIST_SCREEN_DATA,
-		] );
-
-		if ( is_wp_error( $id ) ) {
-			throw new LogicException( $id->get_error_message() );
-		}
-
-		$this->update_post( $id, $list_screen );
-
-		return $id;
-	}
-
-	/**
-	 * @param string $list_id
-	 *
-	 * @return int|null
-	 */
-	private function get_post_id_by_list_id( $list_id ) {
-		$ids = get_posts( [
-			'post_type'      => PostTypes::LIST_SCREEN_DATA,
-			'fields'         => 'ids',
-			'posts_per_page' => 1,
-			'meta_query'     => [
-				[
-					'key'   => self::LIST_KEY,
-					'value' => $list_id,
-				],
-			],
-		] );
-
-		if ( ! $ids ) {
-			return null;
-		}
-
-		return (int) $ids[0];
-	}
-
-	private function update_post( $post_id, ListScreen $list_screen ) {
-		wp_update_post( [
-			'ID'         => $post_id,
-			'post_title' => $list_screen->get_title(),
-			'meta_input' => [
-				self::STORAGE_KEY       => $list_screen->get_key(),
-				self::TYPE_KEY          => $list_screen->get_type(),
-				self::SUBTYPE_KEY       => $list_screen->get_subtype(),
-				self::SETTINGS_KEY      => $list_screen->get_preferences(),
-				self::COLUMNS_KEY       => $list_screen->get_settings(),
-				self::LIST_KEY          => $list_screen->get_layout_id(),
-				self::DATE_MODIFIED_KEY => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
-			],
-		] );
-	}
-
-	private function delete_post( $post_id ) {
-		wp_delete_post( $post_id, true );
-	}
-
-	public function exists( $id ) {
-		return null !== $this->get_post_id_by_list_id( $id );
+	public function exists( $list_id ) {
+		return null !== $this->get_id( $list_id );
 	}
 
 	public function getSource( ListScreen $listScreen ) {
-		$id = $this->get_post_id_by_list_id( $listScreen->get_layout_id() );
-
-		if ( ! $id ) {
-			return null;
-		}
-
-		return sprintf( __( 'Post ID: %s', 'codepress-admin-columns' ), $id );
+		return $this->get_id( $listScreen->get_layout_id() );
 	}
 
 }

@@ -2,7 +2,6 @@
 
 namespace AC;
 
-use AC\Admin\ExtraListInfo;
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
 use AC\Admin\PromoCollection;
@@ -527,7 +526,6 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return API
 	 * @since      3.0
 	 * @deprecated NEWVERSION
 	 */

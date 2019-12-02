@@ -5,20 +5,17 @@ namespace AC\Plugin\Update;
 use AC\ListScreenRepository\DataBase;
 use AC\ListScreenTypes;
 use AC\Plugin\Update;
+use AC\PostTypes;
 use AC\Storage\ListScreenOrder;
 
 // todo
-class V4000 extends Update {
+class _V4000 extends Update {
 
 	/** @var DataBase */
 	private $repository;
 
-	/** @var ListScreenTypes */
-	private $list_screen_types;
-
 	public function __construct( $stored_version ) {
-		$this->list_screen_types = ListScreenTypes::instance();
-		$this->repository = new DataBase( $this->list_screen_types );
+		$this->repository = new DataBase( ListScreenTypes::instance() );
 
 		parent::__construct( $stored_version );
 	}
@@ -101,13 +98,23 @@ class V4000 extends Update {
 			// Truly eliminates a duplicate $unique_id, because `uniqid()` is based on the current time in microseconds
 			usleep( 1000 );
 
+			$unique_id = uniqid( 'ac' );
+
 			// Defaults
-			$list_data = [
-				'id'       => uniqid( 'ac' ),
-				'title'    => __( 'Original', 'codepress-admin-columns' ),
-				'key'      => $storage_key,
-				'columns'  => $columns,
-				'settings' => [],
+			$post_data = [
+				'post_status' => 'publish',
+				'post_type'   => PostTypes::LIST_SCREEN_DATA,
+				'post_title'  => __( 'Original', 'codepress-admin-columns' ),
+				'meta_input'  => [
+					DataBase::DATE_MODIFIED_KEY => current_time( 'mysql' ),
+					DataBase::LIST_KEY          => $unique_id,
+					DataBase::STORAGE_KEY       => $storage_key, // wp-users, wp-taxonomy_tag, post, page etc.
+					DataBase::SETTINGS_KEY      => [
+						'roles' => [],
+						'users' => [],
+					],
+					DataBase::COLUMNS_KEY       => $columns,
+				],
 			];
 
 			$layout_settings = $this->get_layout_settings( $storage_key );
@@ -116,17 +123,19 @@ class V4000 extends Update {
 
 				// Add layout settings
 				if ( $layout_settings->id ) {
-					$list_data['id'] = $layout_settings->id;
-					$list_data['key'] = $this->remove_suffix( $layout_settings->id, $storage_key );
+					$post_data['meta_input'][ DataBase::LIST_KEY ] = (string) $layout_settings->id;
+
+					// remove layout ID from list type
+					$post_data['meta_input'][ DataBase::STORAGE_KEY ] = $this->remove_suffix( $layout_settings->id, $storage_key );
 				}
 				if ( $layout_settings->name ) {
-					$list_data['title'] = $layout_settings->name;
+					$post_data['post_title'] = (string) $layout_settings->name;
 				}
 				if ( $layout_settings->users ) {
-					$list_data['settings']['users'] = $layout_settings->users;
+					$post_data['meta_input'][ DataBase::SETTINGS_KEY ]['users'] = $layout_settings->users;
 				}
 				if ( $layout_settings->roles ) {
-					$list_data['settings']['roles'] = $layout_settings->roles;
+					$post_data['meta_input'][ DataBase::SETTINGS_KEY ]['roles'] = $layout_settings->roles;
 				}
 			} else {
 
@@ -143,22 +152,13 @@ class V4000 extends Update {
 				}
 			}
 
-			$list_screen = $this->list_screen_types->get_list_screen_by_key( $list_data['key'] );
+			$result = wp_insert_post( $post_data, true );
 
-			if ( ! $list_screen ) {
-				continue;
+			// Remove old data
+			if ( ! is_wp_error( $result ) ) {
+				// todo
+				//$wpdb->delete( $wpdb->options, [ 'option_id' => $setting->option_id ] );
 			}
-
-			$list_screen->set_layout_id( $list_data['id'] )
-			            ->set_title( $list_data['title'] )
-			            ->set_settings( $list_data['columns'] )
-			            ->set_preferences( $list_data['settings'] );
-
-			$this->repository->save( $list_screen );
-
-			// cleanup
-			// todo
-//			$wpdb->delete( $wpdb->options, [ 'option_id' => $row->option_id ] );
 		}
 	}
 

@@ -2,6 +2,7 @@
 
 namespace AC;
 
+use AC\Plugin\Installer;
 use ReflectionObject;
 use WP_Roles;
 
@@ -20,8 +21,8 @@ abstract class Plugin extends Addon {
 
 	/**
 	 * Calls get_plugin_data() for this plugin
-	 * @see get_plugin_data()
 	 * @return array
+	 * @see get_plugin_data()
 	 */
 	protected function get_data() {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -34,8 +35,8 @@ abstract class Plugin extends Addon {
 	}
 
 	/**
-	 * @since 3.2
 	 * @return false|string
+	 * @since 3.2
 	 */
 	public function get_name() {
 		return $this->get_header( 'Name' );
@@ -74,6 +75,9 @@ abstract class Plugin extends Addon {
 
 		do_action( 'ac/capabilities/init', $wp_roles );
 
+		$installer = new Plugin\Installer();
+		$installer->install();
+
 		$updater = new Plugin\Updater( $this );
 
 		if ( ! $updater->check_update_conditions() ) {
@@ -92,8 +96,8 @@ abstract class Plugin extends Addon {
 
 	/**
 	 * Check if a plugin is in beta
-	 * @since 3.2
 	 * @return bool
+	 * @since 3.2
 	 */
 	public function is_beta() {
 		return false !== strpos( $this->get_version(), 'beta' );
@@ -167,8 +171,8 @@ abstract class Plugin extends Addon {
 	 *
 	 * @param $key
 	 *
-	 * @deprecated
 	 * @return false|string
+	 * @deprecated
 	 */
 	protected function get_plugin_header( $key ) {
 		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_header()' );
@@ -178,9 +182,9 @@ abstract class Plugin extends Addon {
 
 	/**
 	 * Calls get_plugin_data() for this plugin
-	 * @deprecated
-	 * @see get_plugin_data()
 	 * @return array
+	 * @see get_plugin_data()
+	 * @deprecated
 	 */
 	protected function get_plugin_data() {
 		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_data()' );
