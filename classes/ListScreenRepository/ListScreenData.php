@@ -42,7 +42,6 @@ class ListScreenData implements ListScreenRepository {
 		return $list_screens;
 	}
 
-	// todo: test if reference still works within the Collection
 	private function set_read_only( ListScreenCollection $list_screens ) {
 		/** @var ListScreen $list_screen */
 		foreach ( $list_screens as $list_screen ) {
