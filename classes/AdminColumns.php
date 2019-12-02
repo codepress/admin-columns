@@ -126,25 +126,20 @@ class AdminColumns extends Plugin {
 			$list_id = $this->preferences()->get( $key );
 		}
 
-		// First visit. Load first available list Id.
-		if ( ! $list_id ) {
-			$list_screens = $this->list_screen_repository->find_all( [ 'key' => $key ] )->filter_by_permission( wp_get_current_user() );
+		if ( $list_id ) {
+			$_list_screen = $this->list_screen_repository->find( $list_id );
 
-			if ( $list_screens->count() ) {
-				$list_id = $list_screens->current()->get_layout_id();
+			if ( $_list_screen && ac_user_has_permission_list_screen( $_list_screen ) ) {
+				$list_screen = $_list_screen;
+			} else {
+
+				// List screen not found.
+				$list_screen = $this->get_first_list_screen( $key );
 			}
-		}
-
-		// Nothing stored yet then load an empty list screen.
-		if ( ! $list_id ) {
-			$list_screen = clone ListScreenTypes::instance()->get_list_screen_by_key( $key );
 		} else {
-			$list_screen = $this->list_screen_repository->find( $list_id );
-		}
 
-		// Requested list ID not found or user does not have permission to use it
-		if ( ! $list_screen || ! ac_user_has_permission_list_screen( $list_screen ) ) {
-			$list_screen = clone ListScreenTypes::instance()->get_list_screen_by_key( $key );
+			// First visit.
+			$list_screen = $this->get_first_list_screen( $key );
 		}
 
 		$this->preferences()->set( $key, $list_screen->get_layout_id() );
@@ -170,7 +165,7 @@ class AdminColumns extends Plugin {
 			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );
 		}
 
-		$list_screen = AC()->get_listscreen_repository()->find( filter_input( INPUT_POST, 'layout' ) );
+		$list_screen = $this->list_screen_repository->find( filter_input( INPUT_POST, 'layout' ) );
 
 		if ( ! $list_screen ) {
 			wp_die( __( 'Invalid list screen.', 'codepress-admin-columns' ), null, 400 );
@@ -531,6 +526,24 @@ class AdminColumns extends Plugin {
 	 */
 	public function api() {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
+	}
+
+	/**
+	 * @param string $key
+	 *
+	 * @return ListScreen
+	 */
+	private function get_first_list_screen( $key ) {
+		$list_screens = $this->list_screen_repository->find_all( [ 'key' => $key ] )->filter_by_permission( wp_get_current_user() );
+
+		if ( $list_screens->count() ) {
+
+			// First visit. Load first available list Id.
+			return $list_screens->current();
+		}
+
+		// No available list screen found.
+		return ListScreenTypes::instance()->get_list_screen_by_key( $key );
 	}
 
 }

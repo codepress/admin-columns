@@ -191,10 +191,10 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		$wpdb->delete(
 			$wpdb->prefix . self::TABLE,
 			[
-				'id' => $list_screen->get_layout_id(),
+				'list_id' => $list_screen->get_layout_id(),
 			],
 			[
-				'%d',
+				'%s',
 			]
 		);
 	}

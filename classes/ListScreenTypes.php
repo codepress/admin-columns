@@ -7,7 +7,7 @@ class ListScreenTypes {
 	private static $instance = null;
 
 	/** @var ListScreen[] */
-	private $list_screens;
+	private $list_screens = [];
 
 	/**
 	 * @return ListScreenTypes

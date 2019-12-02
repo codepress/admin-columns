@@ -130,13 +130,4 @@ class Aggregate implements ListScreenRepository {
 		}
 	}
 
-	/**
-	 * @param Request $request
-	 *
-	 * @return ListScreen|null
-	 */
-	public function find_by_request( Request $request ) {
-		return $this->find( $request->get( 'layout' ) );
-	}
-
 }
