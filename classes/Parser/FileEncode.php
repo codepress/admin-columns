@@ -19,4 +19,9 @@ abstract class FileEncode {
 	 */
 	abstract public function format( ListScreenCollection $listScreenCollection );
 
+	/**
+	 * @return string File extension
+	 */
+	abstract public function getFileType();
+
 }

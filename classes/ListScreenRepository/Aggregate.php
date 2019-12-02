@@ -83,7 +83,6 @@ class Aggregate implements ListScreenRepository {
 	 * Removes duplicate list screens (with the same ID) based on its `red only` state and `updated` timestamp
 	 * @return ListScreenCollection
 	 */
-	// todo: move to repo
 	public function filter_unique( ListScreenCollection $list_screens ) {
 		$unique = new ListScreenCollection();
 
