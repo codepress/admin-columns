@@ -54,7 +54,6 @@ class AdminColumns extends Plugin {
 			new Deprecated\Hooks,
 			new Screen,
 			new Settings\General,
-			new PostTypes(),
 			new ThirdParty\ACF,
 			new ThirdParty\NinjaForms,
 			new ThirdParty\WooCommerce,
@@ -129,7 +128,7 @@ class AdminColumns extends Plugin {
 		if ( $list_id ) {
 			$_list_screen = $this->list_screen_repository->find( $list_id );
 
-			if ( $_list_screen && ac_user_has_permission_list_screen( $_list_screen ) ) {
+			if ( $_list_screen && ( new ListScreenPermission() )->user_has_permission( $_list_screen, wp_get_current_user() ) ) {
 				$list_screen = $_list_screen;
 			} else {
 
@@ -150,6 +149,26 @@ class AdminColumns extends Plugin {
 		do_action( 'ac/table', $table_screen );
 
 		$this->table_screen = $table_screen;
+	}
+
+	/**
+	 * @param string $key
+	 *
+	 * @return ListScreen
+	 */
+	private function get_first_list_screen( $key ) {
+		$list_screens = $this->list_screen_repository->find_all( [ 'key' => $key ] );
+
+		$list_screens = ( new ListScreenPermission() )->filter_by_permission( $list_screens, wp_get_current_user() );
+
+		if ( $list_screens->count() ) {
+
+			// First visit. Load first available list Id.
+			return $list_screens->current();
+		}
+
+		// No available list screen found.
+		return ListScreenTypes::instance()->get_list_screen_by_key( $key );
 	}
 
 	/**
@@ -526,24 +545,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function api() {
 		_deprecated_function( __METHOD__, 'NEWVERSION' );
-	}
-
-	/**
-	 * @param string $key
-	 *
-	 * @return ListScreen
-	 */
-	private function get_first_list_screen( $key ) {
-		$list_screens = $this->list_screen_repository->find_all( [ 'key' => $key ] )->filter_by_permission( wp_get_current_user() );
-
-		if ( $list_screens->count() ) {
-
-			// First visit. Load first available list Id.
-			return $list_screens->current();
-		}
-
-		// No available list screen found.
-		return ListScreenTypes::instance()->get_list_screen_by_key( $key );
 	}
 
 }

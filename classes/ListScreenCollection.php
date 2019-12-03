@@ -23,7 +23,7 @@ class ListScreenCollection extends Collection {
 		$list_screens = new self;
 
 		foreach ( $this->items as $list_screen ) {
-			if ( ac_user_has_permission_list_screen( $list_screen, $user ) ) {
+			if ( ( new ListScreenPermission() )->user_has_permission( $list_screen, $user ) ) {
 				$list_screens->push( $list_screen );
 			}
 		}
@@ -37,8 +37,7 @@ class ListScreenCollection extends Collection {
 	 * @return bool
 	 */
 	public function hasListScreen( ListScreen $listScreen ) {
-		/** @var ListScreen $_listScreen
-		 */
+		/** @var ListScreen $_listScreen */
 		foreach ( $this->all() as $_listScreen ) {
 			if ( $_listScreen->get_layout_id() === $listScreen->get_layout_id() ) {
 				return true;

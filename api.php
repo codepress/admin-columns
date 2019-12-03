@@ -1,6 +1,7 @@
 <?php
 
 use AC\ListScreen;
+use AC\ListScreenCollection;
 use AC\ListScreenTypes;
 
 /**
@@ -144,38 +145,6 @@ function ac_get_lowest_price() {
 }
 
 /**
- * @param ListScreen   $list_screen
- * @param WP_User|null $user
- *
- * @return bool
- */
-function ac_user_has_permission_list_screen( ListScreen $list_screen, WP_User $user = null ) {
-	if ( null === $user ) {
-		$user = wp_get_current_user();
-	}
-
-	$roles = ! empty( $list_screen->get_preferences()['roles'] ) ? $list_screen->get_preferences()['roles'] : [];
-	$users = ! empty( $list_screen->get_preferences()['users'] ) ? $list_screen->get_preferences()['users'] : [];
-
-	if ( empty( $users ) && empty( $roles ) ) {
-		return true;
-	}
-
-	foreach ( $roles as $role ) {
-		if ( $user->has_cap( $role ) ) {
-			return true;
-		}
-	}
-
-	if ( in_array( $user->ID, $users, true ) ) {
-		return true;
-
-	}
-
-	return false;
-}
-
-/**
  * Convert site_url() to [cpac_site_url] and back for easy migration
  *
  * @param string $label
@@ -191,4 +160,22 @@ function ac_convert_site_url( $label, $action = 'encode' ) {
 	}
 
 	return stripslashes( str_replace( $input[0], $input[1], trim( $label ) ) );
+}
+
+/**
+ * @param string $id Layout ID e.g. ac5de58e04a75b0
+ *
+ * @return ListScreen|null
+ */
+function ac_get_list_screen( $id ) {
+	return AC()->get_listscreen_repository()->find( $id );
+}
+
+/**
+ * @param string $key e.g. post, page, wp-users, wp-media, wp-comments
+ *
+ * @return ListScreenCollection
+ */
+function ac_get_list_screens( $key ) {
+	return AC()->get_listscreen_repository()->find_all( [ 'key' => $key ] );
 }

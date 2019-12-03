@@ -3,24 +3,11 @@
 namespace AC\Plugin\Update;
 
 use AC\ListScreenRepository\DataBase;
-use AC\ListScreenTypes;
 use AC\Plugin\Update;
 use AC\Storage\ListScreenOrder;
+use DateTime;
 
 class V4000 extends Update {
-
-	/** @var DataBase */
-	private $repository;
-
-	/** @var ListScreenTypes */
-	private $list_screen_types;
-
-	public function __construct( $stored_version ) {
-		$this->list_screen_types = ListScreenTypes::instance();
-		$this->repository = new DataBase( $this->list_screen_types );
-
-		parent::__construct( $stored_version );
-	}
 
 	public function apply_update() {
 		$this->migrate_list_screen_settings();
@@ -142,23 +129,39 @@ class V4000 extends Update {
 				}
 			}
 
-			$list_screen = $this->list_screen_types->get_list_screen_by_key( $list_data['key'] );
-
-			if ( ! $list_screen ) {
-				continue;
-			}
-
-			$list_screen->set_layout_id( $list_data['id'] )
-			            ->set_title( $list_data['title'] )
-			            ->set_settings( $list_data['columns'] )
-			            ->set_preferences( $list_data['settings'] );
-
-			$this->repository->save( $list_screen );
+			$this->insert( $list_data );
 
 			// cleanup
 			// todo
-//			$wpdb->delete( $wpdb->options, [ 'option_id' => $row->option_id ] );
+			//			$wpdb->delete( $wpdb->options, [ 'option_id' => $row->option_id ] );
 		}
+	}
+
+	private function insert( array $data ) {
+		global $wpdb;
+
+		$date = new DateTime();
+
+		$wpdb->insert(
+			$wpdb->prefix . DataBase::TABLE,
+			[
+				'title'         => $data['title'],
+				'list_id'       => $data['id'],
+				'list_key'      => $data['key'],
+				'columns'       => serialize( $data['columns'] ),
+				'settings'      => serialize( $data['settings'] ),
+				'date_modified' => $date->format( 'Y-m-d H:i:s' ),
+				'date_created'  => $date->format( 'Y-m-d H:i:s' ),
+			],
+			[
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+			]
+		);
 	}
 
 	/**
