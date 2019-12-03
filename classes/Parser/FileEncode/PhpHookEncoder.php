@@ -9,13 +9,7 @@ class PhpHookEncoder extends FileEncode {
 	const FILE_FORMAT = 'php';
 
 	public function format( ListScreenCollection $listScreens ) {
-		$php = sprintf( "
-			add_action( 'ac/ready', function() {
-				ac_load_columns(
-					%s
-				);
-			});
-		", var_export( $this->encode->encode( $listScreens ), true ) );
+		$php = sprintf( "add_action( 'ac/ready', function() { \n  ac_load_columns( %s );\n});", var_export( $this->encode->encode( $listScreens ), true ) );
 
 		return $php;
 	}
