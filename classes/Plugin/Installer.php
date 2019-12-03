@@ -25,9 +25,9 @@ class Installer {
 		$table = "
 		CREATE TABLE {$table_name} (
 			id bigint(20) unsigned NOT NULL auto_increment,
-			title text NOT NULL,
 			list_id varchar(20) NOT NULL default '',
 			list_key varchar(100) NOT NULL default '',
+			title varchar(255) NOT NULL default '',
 			columns mediumtext,
 			settings mediumtext,
 			date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
