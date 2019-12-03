@@ -28,8 +28,8 @@ class Installer {
 			title text NOT NULL,
 			list_id varchar(20) NOT NULL default '',
 			list_key varchar(100) NOT NULL default '',
-			columns longtext,
-			settings longtext,
+			columns mediumtext,
+			settings mediumtext,
 			date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			date_modified datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			PRIMARY KEY (id)
