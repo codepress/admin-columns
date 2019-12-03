@@ -160,6 +160,7 @@ class V4000 extends Update {
 				'%s',
 				'%s',
 				'%s',
+				'%s',
 			]
 		);
 	}

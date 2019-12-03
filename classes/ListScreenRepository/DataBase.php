@@ -136,6 +136,7 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 				'%s',
 				'%s',
 				'%s',
+				'%s',
 			]
 		);
 	}
