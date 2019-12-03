@@ -99,7 +99,7 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 	/**
 	 * @param string $list_id
 	 *
-	 * @return bool
+	 * @return int
 	 */
 	private function get_id( $list_id ) {
 		global $wpdb;

@@ -79,7 +79,6 @@ class AdminColumns extends Plugin {
 		$caps = new Capabilities\Manage();
 		$caps->register();
 
-		add_action( 'init', array( $this, 'install' ) );
 		add_action( 'init', array( $this, 'notice_checks' ) );
 		add_action( 'init', array( $this, 'register_global_scripts' ) );
 
@@ -92,6 +91,7 @@ class AdminColumns extends Plugin {
 
 		// run after all post types are registered
 		add_action( 'init', array( $this, 'register_list_screens' ), 1000 );
+		add_action( 'init', array( $this, 'install' ), 1001 );
 	}
 
 	/**
