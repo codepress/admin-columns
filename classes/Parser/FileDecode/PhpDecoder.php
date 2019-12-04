@@ -7,7 +7,7 @@ use SplFileInfo;
 
 class PhpDecoder extends FileDecode {
 
-	public function getDataFromFile( SplFileInfo $file ) {
+	public function get_data_from_file( SplFileInfo $file ) {
 		return ( require $file->getRealPath() );
 	}
 

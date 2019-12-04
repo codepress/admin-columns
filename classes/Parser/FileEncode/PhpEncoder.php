@@ -12,7 +12,7 @@ class PhpEncoder extends FileEncode {
 		return sprintf( '<?php return %s; ?>', var_export( $this->encode->encode( $listScreens ), true ) );
 	}
 
-	public function getFileType() {
+	public function get_file_type() {
 		return self::FILE_FORMAT;
 	}
 

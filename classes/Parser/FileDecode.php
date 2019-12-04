@@ -19,15 +19,15 @@ abstract class FileDecode {
 	 *
 	 * @return array
 	 */
-	abstract protected function getDataFromFile( SplFileInfo $file );
+	abstract protected function get_data_from_file( SplFileInfo $file );
 
 	/**
 	 * @param SplFileInfo $file
 	 *
 	 * @return ListScreenCollection
 	 */
-	public function decodeFile( SplFileInfo $file ) {
-		$data = $this->getDataFromFile( $file );
+	public function decode_file( SplFileInfo $file ) {
+		$data = $this->get_data_from_file( $file );
 
 		if ( ! is_array( $data ) ) {
 			throw new RuntimeException( 'Invalid file format.' );

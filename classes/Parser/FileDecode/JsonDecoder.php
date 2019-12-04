@@ -8,7 +8,7 @@ use SplFileInfo;
 
 class JsonDecoder extends FileDecode {
 
-	public function getDataFromFile( SplFileInfo $file ) {
+	public function get_data_from_file( SplFileInfo $file ) {
 		$filePath = $file->getRealPath();
 		$contents = file_get_contents( $filePath );
 

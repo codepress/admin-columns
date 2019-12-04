@@ -4,7 +4,6 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenRepository\SortStrategy\ModifiedDate;
 
 class Aggregate implements ListScreenRepository {
 

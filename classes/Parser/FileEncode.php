@@ -22,6 +22,6 @@ abstract class FileEncode {
 	/**
 	 * @return string File extension
 	 */
-	abstract public function getFileType();
+	abstract public function get_file_type();
 
 }

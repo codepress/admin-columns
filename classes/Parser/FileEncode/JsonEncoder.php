@@ -12,7 +12,7 @@ class JsonEncoder extends FileEncode {
 		return (string) json_encode( $this->encode->encode( $listScreens ), JSON_PRETTY_PRINT );
 	}
 
-	public function getFileType() {
+	public function get_file_type() {
 		return self::FILE_FORMAT;
 	}
 
