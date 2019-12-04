@@ -96,6 +96,10 @@
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
+var _tooltips = _interopRequireDefault(__webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 jQuery(document).ready(function ($) {
   if ($('#cpac').length === 0) {
@@ -120,6 +124,7 @@ global.ac_pointers = function ($) {
     $(this).removeClass('hover');
     $('.ac-pointer').trigger('close');
   });
+  new _tooltips.default();
 };
 
 global.ac_pointer = function ($el) {
@@ -210,6 +215,63 @@ function ac_help($) {
   });
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./js/modules/tooltips.js":
+/*!********************************!*\
+  !*** ./js/modules/tooltips.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Tooltips =
+/*#__PURE__*/
+function () {
+  function Tooltips() {
+    _classCallCheck(this, Tooltips);
+
+    this.isEnabled = typeof jQuery.fn.qtip !== 'undefined';
+    this.init();
+  }
+
+  _createClass(Tooltips, [{
+    key: "init",
+    value: function init() {
+      if (!this.isEnabled) {
+        console.log('Tooltips not loaded!');
+        return;
+      }
+
+      jQuery('[data-ac-tip]').qtip({
+        content: {
+          attr: 'data-ac-tip'
+        },
+        position: {
+          my: 'top center',
+          at: 'bottom center'
+        },
+        style: {
+          tip: true,
+          classes: 'qtip-tipsy'
+        }
+      });
+    }
+  }]);
+
+  return Tooltips;
+}();
+
+module.exports = Tooltips;
 
 /***/ }),
 

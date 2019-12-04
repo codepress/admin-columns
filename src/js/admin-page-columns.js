@@ -13,7 +13,7 @@ import Initiator from "./admin/columns/initiator";
 import Modal from "./modules/modal";
 import Menu from "./admin/columns/menu";
 import Feedback from "./admin/columns/feedback";
-import Tooltip from "./table/tooltips";
+import Tooltip from "./modules/tooltips";
 /** Events */
 import EventToggle from './admin/columns/events/toggle';
 import EventRemove from './admin/columns/events/remove';

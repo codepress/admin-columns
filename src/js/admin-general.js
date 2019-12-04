@@ -1,3 +1,5 @@
+import Tooltip from "./modules/tooltips";
+
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 
 jQuery( document ).ready( function( $ ) {
@@ -23,7 +25,10 @@ global.ac_pointers = function( $ ) {
 		$( this ).removeClass( 'hover' );
 		$( '.ac-pointer' ).trigger( 'close' );
 	} );
-}
+
+
+	new Tooltip();
+};
 
 global.ac_pointer = function( $el ) {
 	let el = $el,

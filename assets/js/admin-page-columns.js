@@ -120,7 +120,7 @@ var _menu = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/menu 
 
 var _feedback = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/feedback */ "./js/admin/columns/feedback.js"));
 
-var _tooltips = _interopRequireDefault(__webpack_require__(/*! ./table/tooltips */ "./js/table/tooltips.js"));
+var _tooltips = _interopRequireDefault(__webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.js"));
 
 var _toggle = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/events/toggle */ "./js/admin/columns/events/toggle.js"));
 
@@ -2472,10 +2472,10 @@ module.exports = Modals;
 
 /***/ }),
 
-/***/ "./js/table/tooltips.js":
-/*!******************************!*\
-  !*** ./js/table/tooltips.js ***!
-  \******************************/
+/***/ "./js/modules/tooltips.js":
+/*!********************************!*\
+  !*** ./js/modules/tooltips.js ***!
+  \********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
