@@ -176,6 +176,18 @@
 
 	.ac-message {
 		margin-top: 0 !important;
+
+		p {
+			min-height: 1px;
+			overflow: hidden;
+		}
+
+		> .dashicons {
+			float: left;
+			margin-top: 6px;
+			color: #949494;
+			margin-right: 5px;
+		}
 	}
 
 	.ac-boxes {

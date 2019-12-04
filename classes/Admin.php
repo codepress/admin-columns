@@ -186,7 +186,7 @@ class Admin implements Registrable {
 		wp_enqueue_style( 'jquery-qtip2', AC()->get_url() . "external/qtip2/jquery.qtip.min.css", array(), AC()->get_version() );
 		wp_enqueue_script( 'jquery-qtip2' );
 
-		wp_enqueue_script( 'ac-admin-general', AC()->get_url() . "assets/js/admin-general.js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
+		wp_enqueue_script( 'ac-admin-general', AC()->get_url() . "assets/js/admin-general.js", array( 'jquery', 'wp-pointer', 'jquery-qtip2' ), AC()->get_version() );
 		wp_enqueue_style( 'wp-pointer' );
 		wp_enqueue_style( 'ac-admin', AC()->get_url() . "assets/css/admin-general.css", array(), AC()->get_version() );
 
