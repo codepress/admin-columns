@@ -98,6 +98,8 @@
 
 var _tooltips = _interopRequireDefault(__webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.js"));
 
+var _acSection = _interopRequireDefault(__webpack_require__(/*! ./modules/ac-section */ "./js/modules/ac-section.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
@@ -108,6 +110,9 @@ jQuery(document).ready(function ($) {
 
   ac_pointers($);
   ac_help($);
+  document.querySelectorAll('.ac-section').forEach(function (el) {
+    new _acSection.default(el);
+  });
 });
 /*
  * WP Pointer
@@ -215,6 +220,81 @@ function ac_help($) {
   });
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./js/modules/ac-section.js":
+/*!**********************************!*\
+  !*** ./js/modules/ac-section.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var AcSection =
+/*#__PURE__*/
+function () {
+  function AcSection(el) {
+    _classCallCheck(this, AcSection);
+
+    this.element = el;
+    this.init();
+  }
+
+  _createClass(AcSection, [{
+    key: "init",
+    value: function init() {
+      var _this = this;
+
+      if (this.element.classList.contains('-closable')) {
+        var header = this.element.querySelector('.ac-section__header');
+
+        if (header) {
+          header.addEventListener('click', function () {
+            _this.toggle();
+          });
+        }
+      }
+    }
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      this.isOpen() ? this.close() : this.open();
+    }
+  }, {
+    key: "isOpen",
+    value: function isOpen() {
+      return !this.element.classList.contains('-closed');
+    }
+  }, {
+    key: "open",
+    value: function open() {
+      this.element.classList.remove('-closed');
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.element.classList.add('-closed');
+    }
+  }]);
+
+  return AcSection;
+}();
+
+exports.default = AcSection;
 
 /***/ }),
 

@@ -1,4 +1,5 @@
 import Tooltip from "./modules/tooltips";
+import AcSection from "./modules/ac-section";
 
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 
@@ -9,6 +10,10 @@ jQuery( document ).ready( function( $ ) {
 
 	ac_pointers( $ );
 	ac_help( $ );
+
+	document.querySelectorAll( '.ac-section' ).forEach( el => {
+		new AcSection( el );
+	});
 } );
 
 /*
