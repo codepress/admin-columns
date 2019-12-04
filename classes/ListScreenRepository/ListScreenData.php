@@ -3,8 +3,8 @@
 namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
+use AC\ListScreenApiData;
 use AC\ListScreenCollection;
-use AC\ListScreensDataCollecion;
 use AC\Parser\DecodeFactory;
 use RuntimeException;
 
@@ -13,12 +13,12 @@ class ListScreenData implements ListScreenRepository {
 	/** @var DecodeFactory */
 	private $decoder;
 
-	/** @var ListScreensDataCollecion */
-	private $dataCollection;
+	/** @var ListScreenApiData */
+	private $apiData;
 
-	public function __construct( DecodeFactory $decodeFactory, ListScreensDataCollecion $dataCollecion ) {
+	public function __construct( DecodeFactory $decodeFactory, ListScreenApiData $dataCollecion ) {
 		$this->decoder = $decodeFactory;
-		$this->dataCollection = $dataCollecion;
+		$this->apiData = $dataCollecion;
 	}
 
 	/**
@@ -27,7 +27,7 @@ class ListScreenData implements ListScreenRepository {
 	private function get_list_screens() {
 		$list_screens = new ListScreenCollection();
 
-		foreach ( $this->dataCollection->get() as $list_data ) {
+		foreach ( $this->apiData->get() as $list_data ) {
 			try {
 				$_list_screens = $this->decoder->create( $list_data );
 			} catch ( RuntimeException $e ) {
@@ -55,22 +55,13 @@ class ListScreenData implements ListScreenRepository {
 	 * @return ListScreenCollection
 	 */
 	public function find_all( array $args = [] ) {
-		$listScreens = $this->get_list_screens();
+		$list_screens = $this->get_list_screens();
 
-		if ( ! isset( $args['key'] ) ) {
-			return $listScreens;
+		if ( isset( $args['key'] ) ) {
+			$list_screens = ( new FilterStrategy\ByKey( $args['key'] ) )->filter( $list_screens );
 		}
 
-		$filteredListScreens = new ListScreenCollection();
-
-		/** @var ListScreen $list_screen */
-		foreach ( $listScreens as $listScreen ) {
-			if ( $listScreen->get_key() === $args['key'] ) {
-				$filteredListScreens->push( $listScreen );
-			}
-		}
-
-		return $filteredListScreens;
+		return $list_screens;
 	}
 
 	/**

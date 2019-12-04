@@ -4,6 +4,7 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\ListScreenRepository\SortStrategy\ModifiedDate;
 
 class Aggregate implements ListScreenRepository {
 
@@ -42,11 +43,20 @@ class Aggregate implements ListScreenRepository {
 			? $args['sort']
 			: false;
 
+		$filter_strategy = isset( $args['filter'] )
+			? $args['filter']
+			: false;
+
 		// does not apply to repositories
 		unset( $args['sort'] );
+		unset( $args['filter'] );
 
 		foreach ( $this->repositories as $repository ) {
 			$list_screens->add_collection( $repository->find_all( $args ) );
+		}
+
+		if ( $filter_strategy instanceof FilterStrategy ) {
+			$list_screens = $filter_strategy->filter( $list_screens );
 		}
 
 		$list_screens = $this->filter_unique( $list_screens );
@@ -79,26 +89,27 @@ class Aggregate implements ListScreenRepository {
 	}
 
 	/**
-	 * Removes duplicate list screens (with the same ID) based on its `red only` state and `updated` timestamp
+	 * Creates an unique set of list screens with no duplicate Id's. When a duplicate Id is found it will
+	 * keep the on with a higher mdified date.
 	 * @return ListScreenCollection
 	 */
-	public function filter_unique( ListScreenCollection $list_screens ) {
+	private function filter_unique( ListScreenCollection $list_screens ) {
 		$unique = new ListScreenCollection();
 
 		/** @var ListScreen $list_screen */
 		foreach ( $list_screens as $list_screen ) {
-
 			if ( $unique->has( $list_screen->get_layout_id() ) ) {
 
 				/** @var ListScreen $_list_screen */
 				$_list_screen = $unique->get( $list_screen->get_layout_id() );
 
-				if ( $_list_screen->is_read_only() ) {
+				// Use the list screen that is newer
+				if ( $_list_screen->get_updated() > $list_screen->get_updated() ) {
 					continue;
 				}
 
-				// todo: move to SortStrategy
-				if ( $_list_screen->get_updated() > $list_screen->get_updated() ) {
+				// Use the `read only` list screen when the dates are the same
+				if ( $_list_screen->get_updated() == $list_screen->get_updated() && $_list_screen->is_read_only() ) {
 					continue;
 				}
 			}

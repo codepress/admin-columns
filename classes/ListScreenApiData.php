@@ -2,7 +2,7 @@
 
 namespace AC;
 
-class ListScreensDataCollecion {
+class ListScreenApiData {
 
 	static $data = [];
 

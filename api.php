@@ -111,7 +111,7 @@ function ac_helper() {
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	foreach ( (array) $list_screen_keys as $key ) {
-		AC\ListScreensDataCollecion::push( [ $key => $column_data ] );
+		AC\ListScreenApiData::push( [ $key => $column_data ] );
 	}
 }
 
@@ -121,7 +121,7 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
  * @since NEWVERSION
  */
 function ac_load_columns( array $data ) {
-	AC\ListScreensDataCollecion::push( $data );
+	AC\ListScreenApiData::push( $data );
 }
 
 /**

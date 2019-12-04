@@ -89,7 +89,7 @@ class V4000 extends Update {
 
 			// Defaults
 			$list_data = [
-				'id'       => uniqid( 'ac' ),
+				'id'       => uniqid(),
 				'title'    => __( 'Original', 'codepress-admin-columns' ),
 				'key'      => $storage_key,
 				'columns'  => $columns,

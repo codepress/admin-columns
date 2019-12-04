@@ -316,10 +316,10 @@ class Columns extends Admin\Page
 
 	/**
 	 * @param string $message Message body
-	 * @param string $type Updated or error
+	 * @param string $type    Updated or error
 	 */
 	public function notice( $message, $type = 'updated' ) {
-		$this->notices[] = '<div class="ac-message inline ' . esc_attr( $type ) . '"><p>' . $message . '</p></div>';
+		$this->notices[] = '<div class="ac-message inline ' . esc_attr( $type ) . '">' . $message . '</div>';
 	}
 
 	public function sort_by_label( $a, $b ) {
@@ -388,7 +388,14 @@ class Columns extends Admin\Page
 		}
 
 		if ( $list_screen->is_read_only() ) {
-			$this->notice( $this->get_read_only_message( $list_screen ), 'notice notice-warning' );
+			$this->notice(
+				sprintf( '%s<p>%s</p>',
+					// todo: style icon
+					ac_helper()->icon->dashicon( [ 'icon' => 'lock', 'class' => '-icon' ] ),
+					$this->get_read_only_message( $list_screen )
+				),
+				'notice notice-warning'
+			);
 		}
 	}
 
@@ -426,9 +433,9 @@ class Columns extends Admin\Page
 
 		ob_start();
 		foreach ( $list_screens as $list_screen ) : ?>
-            <li data-screen="<?php echo esc_attr( $list_screen->get_layout_id() ); ?>">
-                <a class="<?php echo $list_screen->get_layout_id() === $current_id ? 'current' : ''; ?>" href="<?php echo add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $page_link ); ?>"><?php echo esc_html( $list_screen->get_title() ? $list_screen->get_title() : __( '(no name)', 'codepress-admin-columns' ) ); ?></a>
-            </li>
+			<li data-screen="<?php echo esc_attr( $list_screen->get_layout_id() ); ?>">
+				<a class="<?php echo $list_screen->get_layout_id() === $current_id ? 'current' : ''; ?>" href="<?php echo add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $page_link ); ?>"><?php echo esc_html( $list_screen->get_title() ? $list_screen->get_title() : __( '(no name)', 'codepress-admin-columns' ) ); ?></a>
+			</li>
 		<?php endforeach;
 
 		$items = ob_get_clean();
@@ -467,8 +474,8 @@ class Columns extends Admin\Page
 
 		?>
 
-        <div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
-            <div class="main">
+		<div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
+			<div class="main">
 
 				<?php
 				echo $menu;
@@ -478,10 +485,10 @@ class Columns extends Admin\Page
 				do_action( 'ac/settings/after_title', $list_screen );
 				?>
 
-            </div>
+			</div>
 
-            <div class="ac-right">
-                <div class="ac-right-inner">
+			<div class="ac-right">
+				<div class="ac-right-inner">
 					<?php if ( ! $list_screen->is_read_only() ) : ?>
 
 						<?php
@@ -532,11 +539,11 @@ class Columns extends Admin\Page
 
 					?>
 
-                </div><!--.ac-right-inner-->
-            </div><!--.ac-right-->
+				</div><!--.ac-right-inner-->
+			</div><!--.ac-right-->
 
-            <div class="ac-left">
-                <form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
+			<div class="ac-left">
+				<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
 					<?php
 
 					echo implode( $this->notices );
@@ -558,19 +565,19 @@ class Columns extends Admin\Page
 					do_action( 'ac/settings/after_columns', $list_screen, $this->repository );
 
 					?>
-                </form>
+				</form>
 
-            </div><!--.ac-left-->
-            <div class="clear"></div>
+			</div><!--.ac-left-->
+			<div class="clear"></div>
 
-            <div id="add-new-column-template">
+			<div id="add-new-column-template">
 				<?php $this->display_column_template( $list_screen ); ?>
-            </div>
+			</div>
 
 
-        </div><!--.ac-admin-->
+		</div><!--.ac-admin-->
 
-        <div class="clear"></div>
+		<div class="clear"></div>
 
 		<?php
 
@@ -583,7 +590,7 @@ class Columns extends Admin\Page
 
 	/**
 	 * @param array $column_types
-	 * @param bool $group
+	 * @param bool  $group
 	 *
 	 * @return Column|false
 	 */

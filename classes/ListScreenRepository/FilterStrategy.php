@@ -1,15 +1,15 @@
 <?php
 namespace AC\ListScreenRepository;
 
-use AC\ListScreen;
+use AC\ListScreenCollection;
 
 interface FilterStrategy {
 
 	/**
-	 * @param ListScreen $list_screens
+	 * @param ListScreenCollection $list_screens
 	 *
-	 * @return ListScreen|null
+	 * @return ListScreenCollection
 	 */
-	public function filter( ListScreen $list_screen );
+	public function filter( ListScreenCollection $list_screens );
 
 }

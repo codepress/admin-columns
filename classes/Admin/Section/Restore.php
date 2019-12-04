@@ -20,10 +20,10 @@ class Restore extends Custom {
 	}
 
 	public function register() {
-		add_action( 'admin_head', array( $this, 'request' ) );
+		$this->handle_request();
 	}
 
-	public function request() {
+	public function handle_request() {
 		if ( ! $this->validate_request() ) {
 			return;
 		}

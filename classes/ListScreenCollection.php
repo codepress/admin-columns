@@ -1,8 +1,6 @@
 <?php
 namespace AC;
 
-use WP_User;
-
 /**
  * @since NEWVERSION
  * @property ListScreen[] $items
@@ -17,18 +15,6 @@ class ListScreenCollection extends Collection {
 		foreach ( $collection as $item ) {
 			$this->push( $item );
 		}
-	}
-
-	public function filter_by_permission( WP_User $user ) {
-		$list_screens = new self;
-
-		foreach ( $this->items as $list_screen ) {
-			if ( ( new ListScreenPermission() )->user_has_permission( $list_screen, $user ) ) {
-				$list_screens->push( $list_screen );
-			}
-		}
-
-		return $list_screens;
 	}
 
 	/**

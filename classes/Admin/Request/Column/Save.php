@@ -36,7 +36,7 @@ class Save extends Handler {
 		$type = $formdata['list_screen'];
 
 		if ( ! $this->list_screen_repository->exists( $list_id ) ) {
-			$list_id = uniqid( 'ac' );
+			$list_id = uniqid();
 		}
 
 		$formdata['columns'] = $this->maybe_encode_urls( $formdata['columns'] );

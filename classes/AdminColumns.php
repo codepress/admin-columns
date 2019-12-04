@@ -9,6 +9,7 @@ use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
 use AC\ListScreenRepository;
+use AC\ListScreenRepository\FilterStrategy;
 use AC\Parser\DecodeFactory;
 use AC\Screen\QuickEdit;
 use AC\Table;
@@ -61,7 +62,7 @@ class AdminColumns extends Plugin {
 		];
 
 		$this->list_screen_repository = new ListScreenRepository\Aggregate();
-		$this->list_screen_repository->register_repository( new ListScreenRepository\ListScreenData( new DecodeFactory(), new ListScreensDataCollecion() ) )
+		$this->list_screen_repository->register_repository( new ListScreenRepository\ListScreenData( new DecodeFactory(), new ListScreenApiData() ) )
 		                             ->register_repository( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) );
 
 		$modules[] = new QuickEdit( $this->list_screen_repository, $this->preferences() );
@@ -125,20 +126,22 @@ class AdminColumns extends Plugin {
 			$list_id = $this->preferences()->get( $key );
 		}
 
+		$permission_checker = ( new PermissionChecker( wp_get_current_user() ) );
+
 		if ( $list_id ) {
 			$_list_screen = $this->list_screen_repository->find( $list_id );
 
-			if ( $_list_screen && ( new ListScreenPermission() )->user_has_permission( $_list_screen, wp_get_current_user() ) ) {
+			if ( $_list_screen && $permission_checker->is_valid( $_list_screen ) ) {
 				$list_screen = $_list_screen;
 			} else {
 
 				// List screen not found.
-				$list_screen = $this->get_first_list_screen( $key );
+				$list_screen = $this->get_first_list_screen( $key, $permission_checker );
 			}
 		} else {
 
 			// First visit.
-			$list_screen = $this->get_first_list_screen( $key );
+			$list_screen = $this->get_first_list_screen( $key, $permission_checker );
 		}
 
 		$this->preferences()->set( $key, $list_screen->get_layout_id() );
@@ -156,12 +159,13 @@ class AdminColumns extends Plugin {
 	 *
 	 * @return ListScreen
 	 */
-	private function get_first_list_screen( $key ) {
-		$list_screens = $this->list_screen_repository->find_all( [ 'key' => $key ] );
+	private function get_first_list_screen( $key, PermissionChecker $permission_checker ) {
+		$list_screens = $this->list_screen_repository->find_all( [
+			'key'    => $key,
+			'filter' => new FilterStrategy\ByPermission( $permission_checker ),
+		] );
 
-		$list_screens = ( new ListScreenPermission() )->filter_by_permission( $list_screens, wp_get_current_user() );
-
-		if ( $list_screens->count() ) {
+		if ( $list_screens->count() > 0 ) {
 
 			// First visit. Load first available list Id.
 			return $list_screens->current();
