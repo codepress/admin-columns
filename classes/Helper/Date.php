@@ -72,12 +72,11 @@ class Date {
 	}
 
 	/**
-	 * @since 1.3.1
-	 *
 	 * @param string $date           PHP Date format
 	 * @param string $display_format Date display format
 	 *
 	 * @return string Formatted date
+	 * @since 1.3.1
 	 */
 	public function date( $date, $display_format = '' ) {
 		$timestamp = ac_helper()->date->strtotime( $date );
@@ -86,12 +85,11 @@ class Date {
 	}
 
 	/**
-	 * @since 3.0
-	 *
 	 * @param        $timestamp
 	 * @param string $display_format Date display format
 	 *
 	 * @return string Formatted date
+	 * @since 3.0
 	 */
 	public function date_by_timestamp( $timestamp, $display_format = '' ) {
 		if ( ! $timestamp ) {
@@ -124,12 +122,11 @@ class Date {
 	}
 
 	/**
-	 * @since 1.3.1
-	 *
 	 * @param string $date
 	 * @param string $format
 	 *
 	 * @return string Formatted time
+	 * @since 1.3.1
 	 */
 	public function time( $date, $format = '' ) {
 		$timestamp = ac_helper()->date->strtotime( $date );
@@ -147,11 +144,11 @@ class Date {
 
 	/**
 	 * Translate a jQuery date format to the PHP date format
-	 * @since 1.1
 	 *
 	 * @param string $format jQuery date format
 	 *
 	 * @return string PHP date format
+	 * @since 1.1
 	 */
 	public function parse_jquery_dateformat( $format ) {
 		$replace = array(

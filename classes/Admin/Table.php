@@ -5,17 +5,17 @@ use AC\View;
 
 abstract class Table {
 
-	abstract public function getColumns();
+	abstract public function get_columns();
 
-	abstract public function getItems();
+	abstract public function get_items();
 
-	abstract public function renderColumn( $name, $item );
+	abstract public function render_column( $name, $item );
 
-	public function getRowClass( $item ) {
+	public function get_row_class( $item ) {
 		return '';
 	}
 
-	protected function getMessage() {
+	protected function get_message() {
 		return '';
 	}
 
@@ -26,7 +26,7 @@ abstract class Table {
 	public function render() {
 		$view = new View( [
 			'table'   => $this,
-			'message' => $this->getMessage(),
+			'message' => $this->get_message(),
 		] );
 
 		$view->set_template( 'admin/table' );
@@ -35,7 +35,7 @@ abstract class Table {
 	}
 
 	public function getColumnNames() {
-		return array_keys( $this->getColumns() );
+		return array_keys( $this->get_columns() );
 	}
 
 }

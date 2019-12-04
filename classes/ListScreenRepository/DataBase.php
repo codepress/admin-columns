@@ -231,7 +231,7 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		return null !== $this->get_id( $list_id );
 	}
 
-	public function getSource( ListScreen $listScreen ) {
+	public function get_source( ListScreen $listScreen ) {
 		return $this->get_id( $listScreen->get_layout_id() );
 	}
 

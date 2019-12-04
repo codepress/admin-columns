@@ -12,17 +12,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <table class="<?= implode( ' ', $table->getTableClasses() ); ?>">
 	<thead>
-	<?php foreach ( $table->getColumns() as $name => $label ) : ?>
+	<?php foreach ( $table->get_columns() as $name => $label ) : ?>
 		<th class="<?= $name; ?>"><?= $label; ?></th>
 	<?php endforeach; ?>
 	</thead>
 	<tbody>
 
-	<?php foreach ( $table->getItems() as $item ) : ?>
-		<tr class="<?= $table->getRowClass( $item ); ?>">
+	<?php foreach ( $table->get_items() as $item ) : ?>
+		<tr class="<?= $table->get_row_class( $item ); ?>">
 			<?php foreach ( $table->getColumnNames() as $name ) : ?>
 				<td class="<?= $name; ?>">
-					<?= $table->renderColumn( $name, $item ); ?>
+					<?= $table->render_column( $name, $item ); ?>
 				</td>
 			<?php endforeach; ?>
 		</tr>
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php if ( $this->message ) : ?>
 		<tfoot>
 		<tr class="message">
-			<td colspan="<?= count( $table->getColumns() ); ?>">
+			<td colspan="<?= count( $table->get_columns() ); ?>">
 				<?= $this->message; ?>
 			</td>
 		</tr>

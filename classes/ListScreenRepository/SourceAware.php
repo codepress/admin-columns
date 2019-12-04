@@ -8,6 +8,6 @@ interface SourceAware {
 	/**
 	 * @return string
 	 */
-	public function getSource( ListScreen $listScreen );
+	public function get_source( ListScreen $listScreen );
 
 }
