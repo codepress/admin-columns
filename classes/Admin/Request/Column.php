@@ -11,7 +11,7 @@ abstract class Column extends AC\Admin\Request\Handler {
 	/**
 	 * @return AC\Column
 	 */
-	abstract public function get_column( AC\Request $request, AC\ListScreen $list_scren );
+	abstract public function get_column( AC\Request $request, AC\ListScreen $list_screen );
 
 	public function request( AC\Request $request ) {
 		parse_str( $request->get( 'data' ), $formdata );
@@ -27,7 +27,7 @@ abstract class Column extends AC\Admin\Request\Handler {
 		if ( ! $column ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
-				'error' => sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $this->list_screen->get_screen_link(), $this->list_screen->get_label() ) ),
+				'error' => sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $list_screen->get_screen_link(), $list_screen->get_label() ) ),
 			) );
 		}
 

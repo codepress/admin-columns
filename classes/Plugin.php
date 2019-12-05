@@ -2,7 +2,6 @@
 
 namespace AC;
 
-use AC\Plugin\Installer;
 use ReflectionObject;
 use WP_Roles;
 

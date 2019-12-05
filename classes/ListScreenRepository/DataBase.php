@@ -111,23 +111,23 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		return (int) $wpdb->get_var( $sql );
 	}
 
-	private function create( ListScreen $listScreen ) {
+	private function create( ListScreen $list_screen ) {
 		global $wpdb;
 
-		if ( empty( $listScreen->get_layout_id() ) ) {
+		if ( empty( $list_screen->get_layout_id() ) ) {
 			throw new LogicException( 'Invalid listscreen Id.' );
 		}
 
 		$wpdb->insert(
 			$wpdb->prefix . self::TABLE,
 			[
-				'title'         => $listScreen->get_title(),
-				'list_id'       => $listScreen->get_layout_id(),
-				'list_key'      => $listScreen->get_key(),
-				'columns'       => serialize( $listScreen->get_settings() ),
-				'settings'      => serialize( $listScreen->get_preferences() ),
-				'date_modified' => $listScreen->get_updated()->format( 'Y-m-d H:i:s' ),
-				'date_created'  => $listScreen->get_updated()->format( 'Y-m-d H:i:s' ),
+				'title'         => $list_screen->get_title(),
+				'list_id'       => $list_screen->get_layout_id(),
+				'list_key'      => $list_screen->get_key(),
+				'columns'       => serialize( $list_screen->get_settings() ),
+				'settings'      => serialize( $list_screen->get_preferences() ),
+				'date_modified' => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
+				'date_created'  => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
 			],
 			[
 				'%s',
@@ -141,22 +141,22 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		);
 	}
 
-	private function update( $id, ListScreen $listScreen ) {
+	private function update( $id, ListScreen $list_screen ) {
 		global $wpdb;
 
-		if ( empty( $listScreen->get_layout_id() ) ) {
+		if ( empty( $list_screen->get_layout_id() ) ) {
 			throw new LogicException( 'Invalid listscreen Id.' );
 		}
 
 		$wpdb->update(
 			$wpdb->prefix . self::TABLE,
 			[
-				'list_id'       => $listScreen->get_layout_id(),
-				'list_key'      => $listScreen->get_key(),
-				'title'         => $listScreen->get_title(),
-				'columns'       => serialize( $listScreen->get_settings() ),
-				'settings'      => serialize( $listScreen->get_preferences() ),
-				'date_modified' => $listScreen->get_updated()->format( 'Y-m-d H:i:s' ),
+				'list_id'       => $list_screen->get_layout_id(),
+				'list_key'      => $list_screen->get_key(),
+				'title'         => $list_screen->get_title(),
+				'columns'       => serialize( $list_screen->get_settings() ),
+				'settings'      => serialize( $list_screen->get_preferences() ),
+				'date_modified' => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
 			],
 			[
 				'id' => $id,
@@ -201,10 +201,7 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 	}
 
 	private function create_list_screen( $data ) {
-		$key = $data->list_key;
-
-		// create a cloned reference
-		$list_screen = $this->list_screen_types->get_list_screen_by_key( $key );
+		$list_screen = $this->list_screen_types->get_list_screen_by_key( $data->list_key );
 
 		if ( null === $list_screen ) {
 			throw new LogicException( 'List screen not found.' );
@@ -231,8 +228,8 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		return null !== $this->get_id( $list_id );
 	}
 
-	public function get_source( ListScreen $listScreen ) {
-		return $this->get_id( $listScreen->get_layout_id() );
+	public function get_source( ListScreen $list_screen ) {
+		return $this->get_id( $list_screen->get_layout_id() );
 	}
 
 }

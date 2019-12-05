@@ -77,8 +77,8 @@ class QuickEdit implements Registrable {
 			return;
 		}
 
-		$this->screen_controller = new ScreenController( $list_screen );
-		$this->screen_controller->register();
+		$screen_controller = new ScreenController( $list_screen );
+		$screen_controller->register();
 	}
 
 }

@@ -16,9 +16,9 @@ class ListScreenData implements ListScreenRepository {
 	/** @var ListScreenApiData */
 	private $apiData;
 
-	public function __construct( DecodeFactory $decodeFactory, ListScreenApiData $dataCollecion ) {
+	public function __construct( DecodeFactory $decodeFactory, ListScreenApiData $apiData ) {
 		$this->decoder = $decodeFactory;
-		$this->apiData = $dataCollecion;
+		$this->apiData = $apiData;
 	}
 
 	/**

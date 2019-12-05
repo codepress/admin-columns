@@ -5,6 +5,7 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenTypes;
 use DateTime;
+use RuntimeException;
 
 class Version480 implements Decode, Encode {
 
@@ -27,6 +28,10 @@ class Version480 implements Decode, Encode {
 	 */
 	public function decode( array $data ) {
 		$list_screens = new ListScreenCollection();
+
+		if ( ! array_key_exists( self::LISTSCREENS_KEY, $data ) ) {
+			throw new RuntimeException( 'Invalid list screen data.' );
+		}
 
 		foreach ( $data[ self::LISTSCREENS_KEY ] as $_data ) {
 
