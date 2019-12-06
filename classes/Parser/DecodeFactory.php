@@ -2,6 +2,7 @@
 namespace AC\Parser;
 
 use AC\ListScreenCollection;
+use phpDocumentor\Reflection\DocBlock\Tags\Reference\Url;
 use RuntimeException;
 
 class DecodeFactory {
@@ -22,19 +23,18 @@ class DecodeFactory {
 				$parser = new Version384();
 
 				return $parser->decode( $data );
-			case Version480::VERSION :
-				$parser = new Version480();
+			case Version400::VERSION :
+				$parser = new Version400();
 
 				return $parser->decode( $data );
 			default :
-
 				throw new RuntimeException( 'Invalid data format.' );
 		}
 	}
 
 	private function get_version( array $data ) {
-		if ( isset( $data[ Version480::VERSION_KEY ] ) ) {
-			return $data[ Version480::VERSION_KEY ];
+		if ( isset( $data[ Version400::VERSION_KEY ] ) ) {
+			return $data[ Version400::VERSION_KEY ];
 		}
 
 		if ( $this->is_version384( $data ) ) {

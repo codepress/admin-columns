@@ -2,7 +2,7 @@
 namespace AC;
 
 /**
- * @since NEWVERSION
+ * @since 4.0
  * @property ListScreen[] $items
  */
 class ListScreenCollection extends Collection {

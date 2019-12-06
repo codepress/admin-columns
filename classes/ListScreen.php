@@ -13,7 +13,7 @@ use ReflectionClass;
 abstract class ListScreen {
 
 	/**
-	 * @deprecated NEWVERSION
+	 * @deprecated 4.0
 	 */
 	const OPTIONS_KEY = 'cpac_options_';
 
@@ -903,20 +903,20 @@ abstract class ListScreen {
 	/**
 	 * @param array $column_headings
 	 *
-	 * @deprecated NEWVERSION
+	 * @deprecated 4.0
 	 */
 	public function save_default_headings( $columns ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC\DefaultColumns::update( $key, $columns )' );
+		_deprecated_function( __METHOD__, '4.0', 'AC\DefaultColumns::update( $key, $columns )' );
 
 		( new DefaultColumns() )->update( $this->get_key(), $columns );
 	}
 
 	/**
 	 * @return array
-	 * @deprecated NEWVERSION
+	 * @deprecated 4.0
 	 */
 	public function get_stored_default_headings() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC\DefaultColumns::get( $key )' );
+		_deprecated_function( __METHOD__, '4.0', 'AC\DefaultColumns::get( $key )' );
 
 		return ( new DefaultColumns() )->get( $this->get_key() );
 	}
@@ -925,17 +925,17 @@ abstract class ListScreen {
 	 * @return void
 	 */
 	public function delete_default_headings() {
-		_deprecated_function( __METHOD__, 'NEWVERSION', 'AC\DefaultColumns::delete( $key )' );
+		_deprecated_function( __METHOD__, '4.0', 'AC\DefaultColumns::delete( $key )' );
 
 		( new DefaultColumns() )->delete( $this->get_key() );
 	}
 
 	/**
 	 * @return bool
-	 * @deprecated NEWVERSION
+	 * @deprecated 4.0
 	 */
 	public function delete() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '4.0' );
 
 		return false;
 	}
@@ -943,35 +943,37 @@ abstract class ListScreen {
 	/**
 	 * Get default column headers
 	 * @return array
-	 * @deprecated NEWVERSION
+	 * @deprecated 4.0
 	 */
 	public function get_default_column_headers() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '4.0' );
 
 		return array();
 	}
 
 	/**
 	 * Clears columns variable, which allow it to be repopulated by get_columns().
-	 * @deprecated NEWVERSION
+	 * @deprecated 4.0
 	 * @since      2.5
 	 */
 	public function reset() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '4.0' );
 	}
 
 	/**
-	 * @deprecated NEWVERSION
+	 * @deprecated 4.0
 	 */
 	public function populate_settings() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '4.0' );
 	}
 
 	/**
 	 * Reset original columns
+	 *
+	 * @deprecated 4.0
 	 */
 	public function reset_original_columns() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '4.0' );
 
 		$this->original_columns = null;
 	}
@@ -981,10 +983,10 @@ abstract class ListScreen {
 	 *
 	 * @param array $column_data
 	 *
-	 * @deprecated NEWVERSION
+	 * @deprecated 4.0
 	 */
 	public function store( $column_data ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '4.0' );
 	}
 
 }

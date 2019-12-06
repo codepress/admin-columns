@@ -187,10 +187,10 @@ class API {
 	/**
 	 * @param ListScreen $list_screen
 	 *
-	 * @deprecated NEWVERSION
+	 * @deprecated 4.0
 	 */
 	public function set_column_settings( ListScreen $list_screen ) {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '4.0' );
 	}
 
 }

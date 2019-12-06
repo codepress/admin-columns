@@ -3,7 +3,7 @@
 namespace AC;
 
 /**
- * @deprecated NEWVERSION
+ * @deprecated 4.0
  */
 class ListScreenFactory {
 

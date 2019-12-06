@@ -184,7 +184,7 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		 *
 		 * @param ListScreen $list_screen
 		 *
-		 * @deprecated NEWVERSION
+		 * @deprecated 4.0
 		 * @since      3.0.8
 		 */
 		do_action( 'ac/columns_delete', $list_screen );

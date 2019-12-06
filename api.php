@@ -2,7 +2,6 @@
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenTypes;
 
 /**
  * @return AC\AdminColumns
@@ -34,14 +33,6 @@ function ac_get_site_url( $path = '' ) {
 	}
 
 	return $url;
-}
-
-function ac_get_list_screen_types() {
-	if ( ! did_action( 'init' ) ) {
-		wc_doing_it_wrong( __FUNCTION__, 'ac_get_list_screen_types should not be called before post types are registered', 'NEWVERSION' );
-	}
-
-	return ListScreenTypes::instance()->get_list_screens();
 }
 
 /**
@@ -97,17 +88,11 @@ function ac_helper() {
 }
 
 /**
- * Manually set the columns for a list screen
- * This overrides the database settings and thus renders the settings screen for this list screen useless
- * If you like to register a column of your own please have a look at our documentation.
- * We also have a free start-kit available, which contains all the necessary files.
- * Documentation: https://www.admincolumns.com/documentation/guides/creating-new-column-type/
- * Starter-kit: https://github.com/codepress/ac-column-template/
- *
  * @param array|string $list_screen_keys
  * @param array        $column_data
  *
- * @since 2.2
+ * @deprecated 4.0
+ * @since      2.2
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	foreach ( (array) $list_screen_keys as $key ) {
@@ -116,9 +101,16 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
 }
 
 /**
+ * Manually set the columns for a list screen
+ * This overrides the database settings and thus renders the settings screen for this list screen useless
+ * If you like to register a column of your own please have a look at our documentation.
+ * We also have a free start-kit available, which contains all the necessary files.
+ * Documentation: https://www.admincolumns.com/documentation/guides/creating-new-column-type/
+ * Starter-kit: https://github.com/codepress/ac-column-template/
+ *
  * @param array $data
  *
- * @since NEWVERSION
+ * @since 4.0
  */
 function ac_load_columns( array $data ) {
 	AC\ListScreenApiData::push( $data );
@@ -166,6 +158,7 @@ function ac_convert_site_url( $label, $action = 'encode' ) {
  * @param string $id Layout ID e.g. ac5de58e04a75b0
  *
  * @return ListScreen|null
+ * @since 4.0
  */
 function ac_get_list_screen( $id ) {
 	return AC()->get_listscreen_repository()->find( $id );
@@ -175,6 +168,7 @@ function ac_get_list_screen( $id ) {
  * @param string $key e.g. post, page, wp-users, wp-media, wp-comments
  *
  * @return ListScreenCollection
+ * @since 4.0
  */
 function ac_get_list_screens( $key ) {
 	return AC()->get_listscreen_repository()->find_all( [ 'key' => $key ] );

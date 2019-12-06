@@ -16,13 +16,13 @@ class FileEncodeFactory {
 
 		switch ( $format ) {
 			case self::FORMAT_JSON :
-				return new JsonEncoder( new Version480() );
+				return new JsonEncoder( new Version400() );
 
 			case self::FORMAT_PHP :
-				return new PhpEncoder( new Version480() );
+				return new PhpEncoder( new Version400() );
 
 			case self::FORMAT_PHP_EXPORT :
-				return new PhpHookEncoder( new Version480() );
+				return new PhpHookEncoder( new Version400() );
 		}
 
 		throw new RuntimeException( 'Invalid Encoder.' );

@@ -83,7 +83,7 @@ class Screen implements Registrable {
 	 * @return string|null
 	 */
 	public function get_list_screen() {
-		foreach ( ac_get_list_screen_types() as $list_screen ) {
+		foreach ( ListScreenTypes::instance()->get_list_screens() as $list_screen ) {
 			if ( $list_screen->is_current_screen( $this->screen ) ) {
 				return $list_screen->get_key();
 			}

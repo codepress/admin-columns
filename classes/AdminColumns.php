@@ -545,10 +545,10 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * @since      3.0
-	 * @deprecated NEWVERSION
+	 * @deprecated 4.0
 	 */
 	public function api() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '4.0' );
 	}
 
 }

@@ -7,9 +7,9 @@ use AC\ListScreenTypes;
 use DateTime;
 use RuntimeException;
 
-class Version480 implements Decode, Encode {
+class Version400 implements Decode, Encode {
 
-	const VERSION = 'NEWVERSION';
+	const VERSION = '4.0.0';
 
 	const VERSION_KEY = 'version';
 	const LISTSCREENS_KEY = 'list_screens';

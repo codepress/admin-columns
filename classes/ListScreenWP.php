@@ -76,7 +76,7 @@ abstract class ListScreenWP extends ListScreen {
 	 * @return array [ $column_name => [ $orderby, $order ], ... ]
 	 */
 	public function get_default_sortable_columns() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '4.0' );
 
 		return [];
 	}
