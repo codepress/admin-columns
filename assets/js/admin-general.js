@@ -244,6 +244,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var Cookies = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'js-cookie'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
 var AcSection =
 /*#__PURE__*/
 function () {
@@ -267,7 +269,30 @@ function () {
             _this.toggle();
           });
         }
+
+        if (this.isStorable()) {
+          var setting = Cookies.get(this.getCookieKey());
+
+          if (setting !== undefined) {
+            parseInt(setting) === 1 ? this.open : this.close();
+          }
+        }
       }
+    }
+  }, {
+    key: "getCookieKey",
+    value: function getCookieKey() {
+      return "ac-section_".concat(this.getSectionId());
+    }
+  }, {
+    key: "getSectionId",
+    value: function getSectionId() {
+      return this.element.dataset.section;
+    }
+  }, {
+    key: "isStorable",
+    value: function isStorable() {
+      return typeof this.element.dataset.section !== 'undefined';
     }
   }, {
     key: "toggle",
@@ -283,11 +308,19 @@ function () {
     key: "open",
     value: function open() {
       this.element.classList.remove('-closed');
+
+      if (this.isStorable()) {
+        Cookies.set(this.getCookieKey(), 1);
+      }
     }
   }, {
     key: "close",
     value: function close() {
       this.element.classList.add('-closed');
+
+      if (this.isStorable()) {
+        Cookies.set(this.getCookieKey(), 0);
+      }
     }
   }]);
 
