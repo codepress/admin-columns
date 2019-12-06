@@ -1593,7 +1593,12 @@ function () {
     value: function bindEvents() {
       var input = this.setting.querySelector('.custom_field');
       var request = loadSingleRequestManager(input.dataset.type, input.dataset.post_type);
-      var editingAvailable = this.column.el.querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0;
+      var editingAvailable = this.column.el.querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0; // Ensure you won't get any duplicates on clone
+
+      input.querySelectorAll('optgroup').forEach(function (el) {
+        el.remove();
+      });
+      input.removeAttribute('data-select2-id');
       this.setting.querySelectorAll('.select2').forEach(function (el) {
         el.remove();
       });
