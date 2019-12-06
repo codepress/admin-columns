@@ -1,3 +1,5 @@
+let Cookies = require( 'js-cookie' );
+
 export default class AcSection {
 
 	constructor( el ) {
@@ -14,8 +16,29 @@ export default class AcSection {
 					this.toggle();
 				} );
 			}
+
+			if ( this.isStorable() ) {
+				let setting = Cookies.get( this.getCookieKey() );
+
+				if( setting !== undefined ){
+					( parseInt( setting ) === 1 ) ? this.open : this.close();
+				}
+			}
+
 		}
 
+	}
+
+	getCookieKey() {
+		return `ac-section_${this.getSectionId()}`
+	}
+
+	getSectionId() {
+		return this.element.dataset.section;
+	}
+
+	isStorable() {
+		return typeof this.element.dataset.section !== 'undefined';
 	}
 
 	toggle() {
@@ -28,10 +51,16 @@ export default class AcSection {
 
 	open() {
 		this.element.classList.remove( '-closed' );
+		if ( this.isStorable() ) {
+			Cookies.set( this.getCookieKey(), 1 );
+		}
 	}
 
 	close() {
 		this.element.classList.add( '-closed' );
+		if ( this.isStorable() ) {
+			Cookies.set( this.getCookieKey(), 0 );
+		}
 	}
 
 }

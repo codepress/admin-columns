@@ -42,6 +42,7 @@
     "@babel/polyfill": "^7.0.0-rc.1",
     "@babel/preset-env": "^7.4.4",
     "babel-loader": "^8.0.0-beta.4",
+    "js-cookie": "^2.2.1",
     "nanobus": "4.4.0",
     "webpack": "^4.16.1"
   }
