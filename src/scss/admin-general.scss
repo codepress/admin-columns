@@ -343,6 +343,8 @@ body.rtl {
 	&.-closable {
 		#{$e}__header {
 			padding-right: 30px;
+			cursor: pointer;
+
 			&:after {
 				content: "";
 				position: absolute;
@@ -363,6 +365,7 @@ body.rtl {
 					transform: rotate(180deg);
 				}
 			}
+
 			#{$e}__body {
 				display: none;
 			}
