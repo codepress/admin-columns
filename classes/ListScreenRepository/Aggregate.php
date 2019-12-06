@@ -47,8 +47,7 @@ class Aggregate implements ListScreenRepository {
 			: false;
 
 		// does not apply to repositories
-		unset( $args['sort'] );
-		unset( $args['filter'] );
+		unset( $args['sort'], $args['filter'] );
 
 		foreach ( $this->repositories as $repository ) {
 			$list_screens->add_collection( $repository->find_all( $args ) );
@@ -89,7 +88,10 @@ class Aggregate implements ListScreenRepository {
 
 	/**
 	 * Creates an unique set of list screens with no duplicate Id's. When a duplicate Id is found it will
-	 * keep the on with a higher mdified date.
+	 * keep the on with a higher modified date.
+	 *
+	 * @param ListScreenCollection $list_screens
+	 *
 	 * @return ListScreenCollection
 	 */
 	private function filter_unique( ListScreenCollection $list_screens ) {
