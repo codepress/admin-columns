@@ -20,11 +20,10 @@ export default class AcSection {
 			if ( this.isStorable() ) {
 				let setting = Cookies.get( this.getCookieKey() );
 
-				if( setting !== undefined ){
-					( parseInt( setting ) === 1 ) ? this.open : this.close();
+				if ( setting !== undefined ) {
+					(parseInt( setting ) === 1) ? this.open : this.close();
 				}
 			}
-
 		}
 
 	}
