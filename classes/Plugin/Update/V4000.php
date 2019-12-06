@@ -47,7 +47,9 @@ class V4000 extends Update {
 		$order = new ListScreenOrder();
 
 		foreach ( $list_screens as $list_screen_key => $ids ) {
-			$order->set( $list_screen_key, $ids );
+			if ( $ids ) {
+				$order->set( $list_screen_key, $ids );
+			}
 		}
 	}
 
@@ -60,6 +62,7 @@ class V4000 extends Update {
 			SELECT *
 			FROM {$wpdb->options}
 			WHERE option_name LIKE 'cpac_options_%'
+			ORDER BY `option_id` DESC
 		";
 
 		$results = $wpdb->get_results( $sql );
