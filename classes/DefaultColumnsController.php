@@ -29,13 +29,15 @@ class DefaultColumnsController implements Registrable {
 			return;
 		}
 
-		ob_start();
-
 		$this->list_screen = ListScreenTypes::instance()->get_list_screen_by_key( filter_input( INPUT_GET, self::LISTSCREEN_KEY ) );
 
-		if ( $this->list_screen ) {
-			add_filter( $this->list_screen->get_heading_hookname(), [ $this, 'save_headings' ], 500 );
+		if ( null === $this->list_screen ) {
+			return;
 		}
+
+		ob_start();
+
+		add_filter( $this->list_screen->get_heading_hookname(), [ $this, 'save_headings' ], 500 );
 	}
 
 	public function save_headings( $columns ) {
