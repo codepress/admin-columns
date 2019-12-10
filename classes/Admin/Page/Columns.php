@@ -67,11 +67,9 @@ class Columns extends Admin\Page
 		$list_screens = $this->list_screen_types->get_list_screens();
 
 		foreach ( $list_screens as $key => $list_screen ) {
-			$columns = $this->default_columns->get( $list_screen->get_key() );
-
-			if ( ! empty( $columns ) ) {
+			if ( $this->default_columns->exists( $list_screen->get_key() ) ) {
 				unset( $list_screens[ $key ] );
-			}
+			};
 		}
 
 		$this->uninitialized_list_screens = $list_screens;
@@ -158,8 +156,9 @@ class Columns extends Admin\Page
 
 		foreach ( $this->uninitialized_list_screens as $list_screen ) {
 			/** @var ListScreen $list_screen */
-			$params['uninitialized_list_screens'][ $list_screen->get_key() ] = array(
-				'screen_link' => add_query_arg( array( 'save-default-headings' => '1' ), $list_screen->get_screen_link() ),
+			$key = $list_screen->get_key();
+			$params['uninitialized_list_screens'][ $key ] = array(
+				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $key ], $list_screen->get_screen_link() ),
 				'label'       => $list_screen->get_label(),
 			);
 		}
@@ -459,9 +458,7 @@ class Columns extends Admin\Page
 
 		$menu = $this->menu_view( $list_screen->get_key(), $list_screen->get_screen_link() );
 
-		$default_columns = $this->default_columns->get( $list_screen->get_key() );
-
-		if ( empty( $default_columns ) ) {
+		if ( ! $this->default_columns->exists( $list_screen->get_key() ) ) {
 			$this->render_loading_screen( $menu );
 
 			return;

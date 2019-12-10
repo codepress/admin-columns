@@ -4,7 +4,7 @@ namespace AC;
 
 class DefaultColumnsController implements Registrable {
 
-	const ACTION_KEY = 'save_default_headings';
+	const ACTION_KEY = 'save-default-headings';
 	const LISTSCREEN_KEY = 'list_screen';
 
 	/** @var ListScreen */

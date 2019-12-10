@@ -16,6 +16,10 @@ class DefaultColumns {
 		update_option( $this->get_option_name( $list_screen_key ), $columns, false );
 	}
 
+	public function exists( $list_screen_key ) {
+		return false !== get_option( $this->get_option_name( $list_screen_key ) );
+	}
+
 	/**
 	 * @return array
 	 */
