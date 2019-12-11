@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
@@ -16,7 +17,7 @@ interface ListScreenRepository {
 	/**
 	 * @param string $id
 	 *
-	 * @return ListScreen|null
+	 * @return ListScreen
 	 */
 	public function find( $id );
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace AC;
 
 /**
@@ -22,7 +23,7 @@ class ListScreenCollection extends Collection {
 	 *
 	 * @return bool
 	 */
-	public function hasListScreen( ListScreen $listScreen ) {
+	public function has_list_screen( ListScreen $listScreen ) {
 		/** @var ListScreen $_listScreen */
 		foreach ( $this->all() as $_listScreen ) {
 			if ( $_listScreen->get_layout_id() === $listScreen->get_layout_id() ) {
