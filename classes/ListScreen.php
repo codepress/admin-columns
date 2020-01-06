@@ -270,24 +270,6 @@ abstract class ListScreen {
 	/**
 	 * @return string
 	 */
-	public function get_source() {
-		return $this->source;
-	}
-
-	/**
-	 * @param string $source
-	 *
-	 * @return self
-	 */
-	public function set_source( $source ) {
-		$this->source = (string) $source;
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
 	public function get_screen_base() {
 		return $this->screen_base;
 	}

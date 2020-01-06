@@ -225,8 +225,6 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 			$list_screen->set_settings( unserialize( $data->columns ) );
 		}
 
-		$list_screen->set_source( $data->id );
-
 		return $list_screen;
 	}
 
