@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\Parser;
 
 use AC\ListScreenCollection;
@@ -47,10 +48,10 @@ class Version384 implements Decode {
 
 				$settings = [];
 				if ( isset( $data['layout']['users'] ) ) {
-					$settings['users'] = $data['layout']['users'];
+					$settings['users'] = array_map( 'intval', $data['layout']['users'] );
 				}
 				if ( isset( $data['layout']['roles'] ) ) {
-					$settings['roles'] = $data['layout']['roles'];
+					$settings['roles'] = array_map( 'strval', $data['layout']['roles'] );
 				}
 
 				$list_screen->set_preferences( $settings );
