@@ -71,8 +71,12 @@ class V4000 extends Update {
 			return;
 		}
 
-		// 2. convert to post data
+		// 2. clear DB table
+		$this->clear_table();
+
+		// 3. migrate data to DB table
 		foreach ( $results as $row ) {
+
 			// Ignore settings that contain the default columns
 			if ( $this->has_suffix( "__default", $row->option_name ) ) {
 				continue;
@@ -106,11 +110,13 @@ class V4000 extends Update {
 				// Add layout settings
 				if ( $layout_settings->id ) {
 					$list_data['key'] = $this->remove_suffix( $layout_settings->id, $storage_key );
+					$list_data['id'] = $layout_settings->id;
 
 					// Check if `id` already exists in DB. The `id` has to be unique. A duplicate `id` can happen when a
-					// user manually exported & imported their list screen settings and changed the list screen type (e.g. from post to page), but did not change the `id`.
-					if ( ! $this->exists_list_id( $layout_settings->id ) ) {
-						$list_data['id'] = $layout_settings->id;
+					// user manually exported their list screen settings and changed the list screen `key` (e.g. from post to page), without
+					// changing the `id`, and imported these settings.
+					if ( ! $this->exists_list_id( $list_data['id'] ) ) {
+						$list_data['id'] = uniqid();
 					}
 				}
 				if ( ! empty( $layout_settings->name ) ) {
@@ -139,6 +145,12 @@ class V4000 extends Update {
 
 			$this->insert( $list_data );
 		}
+	}
+
+	private function clear_table() {
+		global $wpdb;
+
+		$wpdb->query( "TRUNCATE TABLE " . $wpdb->prefix . DataBase::TABLE );
 	}
 
 	private function exists_list_id( $list_id ) {
