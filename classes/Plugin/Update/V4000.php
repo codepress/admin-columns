@@ -115,7 +115,7 @@ class V4000 extends Update {
 					// Check if `id` already exists in DB. The `id` has to be unique. A duplicate `id` can happen when a
 					// user manually exported their list screen settings and changed the list screen `key` (e.g. from post to page), without
 					// changing the `id`, and imported these settings.
-					if ( ! $this->exists_list_id( $list_data['id'] ) ) {
+					if ( $this->exists_list_id( $list_data['id'] ) ) {
 						$list_data['id'] = uniqid();
 					}
 				}
