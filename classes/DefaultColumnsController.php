@@ -10,14 +10,15 @@ class DefaultColumnsController implements Registrable {
 	/** @var ListScreen */
 	private $list_screen;
 
+	/** @var Request */
+	private $request;
+
 	/** @var DefaultColumns */
 	private $default_columns;
 
-	/**
-	 * @param ListScreen $list_screen
-	 */
-	public function __construct() {
-		$this->default_columns = new DefaultColumns();
+	public function __construct( Request $request, DefaultColumns $default_columns ) {
+		$this->request = $request;
+		$this->default_columns = $default_columns;
 	}
 
 	public function register() {
@@ -25,29 +26,26 @@ class DefaultColumnsController implements Registrable {
 	}
 
 	public function handle_request() {
-		if ( ! current_user_can( Capabilities::MANAGE ) || '1' !== filter_input( INPUT_GET, self::ACTION_KEY ) ) {
+		if ( ! current_user_can( Capabilities::MANAGE ) || '1' !== $this->request->get( self::ACTION_KEY ) ) {
 			return;
 		}
 
-		$this->list_screen = ListScreenTypes::instance()->get_list_screen_by_key( filter_input( INPUT_GET, self::LISTSCREEN_KEY ) );
+		$this->list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $this->request->get( self::LISTSCREEN_KEY ) );
 
 		if ( null === $this->list_screen ) {
 			return;
 		}
 
-		ob_start();
-
 		add_filter( $this->list_screen->get_heading_hookname(), [ $this, 'save_headings' ], 500 );
+
+		// do not render anything
+		ob_start();
 	}
 
 	public function save_headings( $columns ) {
-		if ( $columns ) {
-			$this->default_columns->update( $this->list_screen->get_key(), $columns );
-		} else {
-			$this->default_columns->update( $this->list_screen->get_key(), [] );
-		}
-
 		ob_end_clean();
+
+		$this->default_columns->update( $this->list_screen->get_key(), $columns && is_array( $columns ) ? $columns : [] );
 		exit( "1" );
 	}
 

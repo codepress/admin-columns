@@ -133,9 +133,6 @@ abstract class ListScreen {
 	 */
 	private $updated;
 
-	/** @var string */
-	private $source;
-
 	/**
 	 * Contains the hook that contains the manage_value callback
 	 * @return void

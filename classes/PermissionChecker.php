@@ -26,7 +26,7 @@ class PermissionChecker {
 			return $list_screen;
 		}
 
-		if ( $roles ) {
+		if ( $roles && is_array( $roles ) ) {
 			foreach ( $roles as $role ) {
 				if ( $this->user->has_cap( $role ) ) {
 					return $list_screen;
@@ -34,7 +34,7 @@ class PermissionChecker {
 			}
 		}
 
-		if ( $users && in_array( $this->user->ID, (array) $users, true ) ) {
+		if ( $users && is_array( $users ) && in_array( $this->user->ID, $users, true ) ) {
 			return $list_screen;
 
 		}

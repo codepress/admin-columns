@@ -59,7 +59,7 @@ class AdminColumns extends Plugin {
 			new ThirdParty\NinjaForms,
 			new ThirdParty\WooCommerce,
 			new ThirdParty\WPML,
-			new DefaultColumnsController(),
+			new DefaultColumnsController( new Request(), new DefaultColumns() ),
 		];
 
 		$this->list_screen_repository = new ListScreenRepository\Aggregate();
