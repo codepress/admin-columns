@@ -16,11 +16,6 @@ class Updater {
 	/**
 	 * @var bool
 	 */
-	protected $fresh_install;
-
-	/**
-	 * @var bool
-	 */
 	protected $apply_updates;
 
 	/**

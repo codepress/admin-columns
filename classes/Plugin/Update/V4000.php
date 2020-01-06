@@ -93,8 +93,8 @@ class V4000 extends Update {
 			// Defaults
 			$list_data = [
 				'id'       => uniqid(),
-				'title'    => __( 'Original', 'codepress-admin-columns' ),
 				'key'      => $storage_key,
+				'title'    => __( 'Original', 'codepress-admin-columns' ),
 				'columns'  => $columns,
 				'settings' => [],
 			];
@@ -105,17 +105,22 @@ class V4000 extends Update {
 
 				// Add layout settings
 				if ( $layout_settings->id ) {
-					$list_data['id'] = $layout_settings->id;
 					$list_data['key'] = $this->remove_suffix( $layout_settings->id, $storage_key );
+
+					// Check if `id` already exists in DB. The `id` has to be unique. A duplicate `id` can happen when a
+					// user manually exported & imported their list screen settings and changed the list screen type (e.g. from post to page), but did not change the `id`.
+					if ( ! $this->exists_list_id( $layout_settings->id ) ) {
+						$list_data['id'] = $layout_settings->id;
+					}
 				}
-				if ( $layout_settings->name ) {
+				if ( ! empty( $layout_settings->name ) ) {
 					$list_data['title'] = $layout_settings->name;
 				}
-				if ( $layout_settings->users ) {
-					$list_data['settings']['users'] = $layout_settings->users;
+				if ( ! empty( $layout_settings->users ) && is_array( $layout_settings->users ) ) {
+					$list_data['settings']['users'] = array_map( 'intval', $layout_settings->users );
 				}
-				if ( $layout_settings->roles ) {
-					$list_data['settings']['roles'] = $layout_settings->roles;
+				if ( ! empty( $layout_settings->roles ) && is_array( $layout_settings->roles ) ) {
+					$list_data['settings']['roles'] = array_map( 'strval', $layout_settings->roles );
 				}
 			} else {
 
@@ -133,11 +138,19 @@ class V4000 extends Update {
 			}
 
 			$this->insert( $list_data );
-
-			// cleanup
-			// todo
-			//			$wpdb->delete( $wpdb->options, [ 'option_id' => $row->option_id ] );
 		}
+	}
+
+	private function exists_list_id( $list_id ) {
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . DataBase::TABLE;
+
+		$sql = $wpdb->prepare( "SELECT id FROM {$table_name} WHERE list_id = %s LIMIT 1;", $list_id );
+
+		$id = $wpdb->get_var( $sql );
+
+		return null !== $id;
 	}
 
 	private function insert( array $data ) {
@@ -210,8 +223,6 @@ class V4000 extends Update {
 		}
 
 		$layout_id = substr( $storage_key, -13 );
-
-		// todo: test with ninja forms add-on
 
 		return $this->is_layout_id( $layout_id );
 	}

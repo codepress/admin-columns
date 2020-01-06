@@ -80,7 +80,7 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 	}
 
 	/**
-	 * @param ListScreen $data
+	 * @param ListScreen $list_screen
 	 *
 	 * @return void
 	 */
@@ -108,7 +108,13 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 
 		$sql = $wpdb->prepare( "SELECT id FROM {$table_name} WHERE list_id = %s LIMIT 1;", $list_id );
 
-		return (int) $wpdb->get_var( $sql );
+		$id = $wpdb->get_var( $sql );
+
+		if ( ! $id ) {
+			return null;
+		}
+
+		return (int) $id;
 	}
 
 	private function create( ListScreen $list_screen ) {
