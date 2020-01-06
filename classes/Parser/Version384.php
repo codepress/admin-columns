@@ -47,6 +47,7 @@ class Version384 implements Decode {
 					->set_updated( new DateTime() );
 
 				$settings = [];
+
 				if ( ! empty( $data['layout']['users'] ) && is_array( $data['layout']['users'] ) ) {
 					$settings['users'] = array_map( 'intval', $data['layout']['users'] );
 				}
