@@ -32,7 +32,8 @@ class Installer {
 			settings mediumtext,
 			date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			date_modified datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			PRIMARY KEY (id)
+			PRIMARY KEY (id),
+			UNIQUE KEY `list_id` (`list_id`)
 		) $collate;
 		";
 
