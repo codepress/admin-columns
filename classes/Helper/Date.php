@@ -79,7 +79,7 @@ class Date {
 	 * @since 1.3.1
 	 */
 	public function date( $date, $display_format = '' ) {
-		$timestamp = ac_helper()->date->strtotime( $date );
+		$timestamp = $this->strtotime( $date );
 
 		return $this->date_by_timestamp( $timestamp, $display_format );
 	}
