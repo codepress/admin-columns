@@ -4,8 +4,7 @@ namespace AC\Settings\Column;
 
 use AC\Settings;
 
-class Time extends Settings\Column\DateTimeFormat
-	implements Settings\FormatValue {
+class Time extends Settings\Column\DateTimeFormat {
 
 	public function create_view() {
 		$view = parent::create_view();
