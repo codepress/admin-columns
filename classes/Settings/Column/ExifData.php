@@ -62,8 +62,8 @@ class ExifData extends Settings\Column
 	/**
 	 * Get EXIF data
 	 * Get extended image metadata
-	 * @since 2.0
 	 * @return array EXIF data types
+	 * @since 2.0
 	 */
 	private function get_exif_types() {
 		$exif_types = array(
@@ -111,7 +111,7 @@ class ExifData extends Settings\Column
 		if ( false != $value ) {
 			switch ( $exif_datatype ) {
 				case 'created_timestamp' :
-					$value = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $value );
+					$value = ac_format_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $value );
 
 					break;
 				case 'keywords' :
