@@ -1,5 +1,6 @@
 <?php
 
+use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 
@@ -172,4 +173,15 @@ function ac_get_list_screen( $id ) {
  */
 function ac_get_list_screens( $key ) {
 	return AC()->get_listscreen_repository()->find_all( [ 'key' => $key ] );
+}
+
+/**
+ * @param                   $format
+ * @param null              $timestamp
+ * @param DateTimeZone|null $timezone
+ *
+ * @return false|string
+ */
+function ac_format_date( $format, $timestamp = null, DateTimeZone $timezone = null ) {
+	return ( new Helper\Date() )->format_date( $format, $timestamp, $timezone );
 }

@@ -111,16 +111,16 @@ class Date {
 		return $this->format_date( $display_format, $timestamp );
 	}
 
-	public function format_date( $format, $time = null, $timezone = null ) {
-		if ( function_exists( 'wp_date' ) ) {
-			if ( ! $timezone ) {
-				$timezone = new DateTimeZone( date_default_timezone_get() );
-			}
-
-			return wp_date( $format, $time, $timezone );
+	public function format_date( $format, $timestamp = null, DateTimeZone $timezone = null ) {
+		if ( ! function_exists( 'wp_date' ) ) {
+			return date_i18n( $format, $timestamp );
 		}
 
-		return date_i18n( $format, $time );
+		if ( null === $timezone ) {
+			$timezone = new DateTimeZone( date_default_timezone_get() );
+		}
+
+		return wp_date( $format, $timestamp, $timezone );
 	}
 
 	/**
