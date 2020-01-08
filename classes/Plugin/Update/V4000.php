@@ -15,7 +15,7 @@ class V4000 extends Update {
 	}
 
 	protected function set_version() {
-		$this->version = '4.0.0';
+		$this->version = '4.0.0beta';
 	}
 
 	/**
@@ -153,6 +153,11 @@ class V4000 extends Update {
 		$wpdb->query( "TRUNCATE TABLE " . $wpdb->prefix . DataBase::TABLE );
 	}
 
+	/**
+	 * @param string $list_id
+	 *
+	 * @return bool
+	 */
 	private function exists_list_id( $list_id ) {
 		global $wpdb;
 
