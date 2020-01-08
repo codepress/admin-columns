@@ -216,6 +216,7 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: tbd
 
+* [Improved] user wp_date for column value formatters instead of date_i18n
 * [Improved] Set link type for Taxonomy Columns
 * [Improved] It is not necessary anymore to load the overview page once in order to recognize the default columns
 
