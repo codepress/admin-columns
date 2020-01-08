@@ -73,15 +73,7 @@ abstract class DateTimeFormat extends Settings\Column
 	 * @return string
 	 */
 	private function format_date( $format, $time = null, $timezone = null ) {
-		if ( function_exists( 'wp_date' ) ) {
-			if ( ! $timezone ) {
-				$timezone = new \DateTimeZone( date_default_timezone_get() );
-			}
-
-			return wp_date( $format, $time, $timezone );
-		}
-
-		return date_i18n( $format, $time );
+		return ac_helper()->date->format_date( $format, $time, $timezone );
 	}
 
 	public function get_html_label_from_date_format( $date_format ) {

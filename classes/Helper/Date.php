@@ -2,6 +2,9 @@
 
 namespace AC\Helper;
 
+use DateTime;
+use DateTimeZone;
+
 class Date {
 
 	/**
@@ -55,20 +58,7 @@ class Date {
 			return $date;
 		}
 
-		$timestamp = false;
-
-		// since PHP 5.3.0
-		// Create timestamp from a specific date format
-		if ( function_exists( 'date_create_from_format' ) && $format ) {
-			if ( $date = date_create_from_format( $format, $date ) ) {
-				$timestamp = date_format( $date, 'U' );
-			}
-		} // before PHP 5.3.0
-		else {
-			$timestamp = $this->strtotime( $date );
-		}
-
-		return $timestamp;
+		return ( DateTime::createFromFormat( $format, $date ) )->format( 'U' );
 	}
 
 	/**
@@ -118,7 +108,19 @@ class Date {
 			$display_format = 'F j, Y';
 		}
 
-		return date_i18n( $display_format, $timestamp );
+		return $this->format_date( $display_format, $timestamp );
+	}
+
+	public function format_date( $format, $time = null, $timezone = null ) {
+		if ( function_exists( 'wp_date' ) ) {
+			if ( ! $timezone ) {
+				$timezone = new DateTimeZone( date_default_timezone_get() );
+			}
+
+			return wp_date( $format, $time, $timezone );
+		}
+
+		return date_i18n( $format, $time );
 	}
 
 	/**
@@ -139,7 +141,7 @@ class Date {
 			return false;
 		}
 
-		return date_i18n( $format, $timestamp );
+		return $this->format_date( $format, $timestamp );
 	}
 
 	/**
