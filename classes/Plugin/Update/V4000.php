@@ -55,7 +55,7 @@ class V4000 extends Update {
 			foreach ( $ids as $deprecated_id => $list_id ) {
 
 				$old_meta_key = 'ac_preferences_search_segments_' . ( $deprecated_id ? $deprecated_id : $list_key );
-				$new_meta_key = 'ac_preferences_search_segments_' . $list_id;
+				$new_meta_key = $wpdb->get_blog_prefix() . 'ac_preferences_search_segments_' . $list_id;
 
 				$sql = $wpdb->prepare( "SELECT user_id, meta_value FROM $wpdb->usermeta WHERE meta_key = %s", $old_meta_key );
 
