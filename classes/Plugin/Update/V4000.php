@@ -13,18 +13,41 @@ class V4000 extends Update {
 	const COLUMNS_PREFIX = 'cpac_options_';
 
 	public function apply_update() {
+		$this->update_segments_preferences();
+
 		// $replaced_list_ids contains a list of empty id's that are replaced with unique id's
 		$replaced_list_ids = $this->migrate_list_screen_settings();
 
-		echo '<pre>';
-		print_r( $replaced_list_ids );
-		echo '</pre>';
 		$this->migrate_list_screen_order();
 		$this->migrate_list_screen_user_preferences( $replaced_list_ids );
 	}
 
 	protected function set_version() {
 		$this->version = '4.0.0beta';
+	}
+
+	// Segments were stored globally, ignoring individual sites on a multisite network. Semgents are now stored per site.
+	private function update_segments_preferences() {
+		global $wpdb;
+
+		$prefix = 'ac_preferences_search_segments_';
+
+		$sql = "
+			SELECT *
+			FROM $wpdb->usermeta
+			WHERE meta_key LIKE '{$prefix}%'
+			ORDER BY `umeta_id` DESC
+		";
+
+		$results = $wpdb->get_results( $sql );
+
+		foreach ( $results as $row ) {
+			$data = maybe_unserialize( $row->meta_value );
+
+			if ( $data ) {
+				update_user_option( $row->user_id, $row->meta_key, $data );
+			}
+		}
 	}
 
 	private function migrate_list_screen_user_preferences( array $list_ids ) {
@@ -39,18 +62,22 @@ class V4000 extends Update {
 		// 3. Preference "Sort": ac_preferences_sorted_by
 		$this->migrate_aggregated_user_preference( $wpdb->get_blog_prefix() . 'ac_preferences_sorted_by', $list_ids );
 
-		// 7. Preference "Table selection": wp_ac_preferences_layout_table
+		// 4. Preference "Table selection": wp_ac_preferences_layout_table
 		$this->migrate_user_preferences_table_selection( $list_ids );
 	}
 
 	private function migrate_user_preferences_segments( array $list_ids ) {
 		global $wpdb;
 
+		$prefix = $wpdb->get_blog_prefix() . 'ac_preferences_search_segments_';
+
 		foreach ( $list_ids as $list_key => $ids ) {
 			foreach ( $ids as $deprecated_id => $list_id ) {
 
-				$old_meta_key = 'ac_preferences_search_segments_' . ( $deprecated_id ? $deprecated_id : $list_key );
-				$new_meta_key = $wpdb->get_blog_prefix() . 'ac_preferences_search_segments_' . $list_id;
+				$old_meta_key = $prefix . ( $deprecated_id ? $deprecated_id : $list_key );
+
+				// Segments were stored globally, ignoring individual sites on a multisite network. Semgents are now stored per site.
+				$new_meta_key = $prefix . $list_id;
 
 				$sql = $wpdb->prepare( "SELECT user_id, meta_value FROM $wpdb->usermeta WHERE meta_key = %s", $old_meta_key );
 
