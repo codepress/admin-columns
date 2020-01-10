@@ -50,7 +50,7 @@ class V4000 extends Update {
 		$order = new ListScreenOrder();
 
 		foreach ( $list_screens as $list_screen_key => $ids ) {
-			if ( $ids ) {
+			if ( $ids && is_array( $ids ) ) {
 				$order->set( $list_screen_key, $ids );
 			}
 		}
@@ -78,7 +78,7 @@ class V4000 extends Update {
 		foreach ( $results as $row ) {
 			$data = maybe_unserialize( $row->option_value );
 
-			if ( $data ) {
+			if ( is_object( $data ) ) {
 
 				$list_id = $data->id;
 
@@ -139,7 +139,7 @@ class V4000 extends Update {
 
 			$column_data = maybe_unserialize( $row->option_value );
 
-			$columns[ $storage_key ] = $column_data ? $column_data : [];
+			$columns[ $storage_key ] = $column_data && is_array( $column_data ) ? $column_data : [];
 		}
 
 		return $columns;
@@ -211,7 +211,9 @@ class V4000 extends Update {
 			$migrate[] = $list_data;
 		}
 
-		// 5. Unique ID's
+		// 5. Make sure all ID's are unique.
+		// A duplicate `id` is possible when a user manually exported their list screen settings and
+		// changed the list screen `key` (e.g. from post to page), without changing the `id`, and imported these settings.
 		$migrate = $this->unique_ids( $migrate );
 
 		// 6. Insert into DB
@@ -222,8 +224,14 @@ class V4000 extends Update {
 		return $migrate;
 	}
 
-	private function unique_ids( $migrate ) {
+	/**
+	 * @param array $migrate
+	 *
+	 * @return array
+	 */
+	private function unique_ids( array $migrate ) {
 		$ids = [];
+
 		foreach ( $migrate as $k => $list_data ) {
 
 			if ( in_array( $list_data['id'], $ids, true ) ) {
