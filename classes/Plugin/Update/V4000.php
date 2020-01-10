@@ -13,12 +13,44 @@ class V4000 extends Update {
 	const COLUMNS_PREFIX = 'cpac_options_';
 
 	public function apply_update() {
-		$this->migrate_list_screen_settings();
+		// $replaced_list_ids contains a list of empty id's that are now replaced with unique id's
+		$replaced_list_ids = $this->migrate_list_screen_settings();
+
 		$this->migrate_list_screen_order();
+		$this->migrate_list_screen_user_preferences( $replaced_list_ids );
 	}
 
 	protected function set_version() {
 		$this->version = '4.0.0beta';
+	}
+
+	private function migrate_list_screen_user_preferences( array $list_ids ) {
+
+		// 1. Segments
+		// usermeta: ac_preferences_search_segments_post
+
+		// 2. Screen option: Show Export Button
+
+		// 3. Screen option: Enable Smart Filtering
+
+		// 4. Screen option: Horizontal Scrolling
+
+		// 5. Sorting
+
+		// 6. Table selection
+
+	}
+
+	private function migrate_user_preferences_segments( array $list_ids ) {
+		global $wpdb;
+
+		foreach ( $list_ids as $list_key => $ids ) {
+			foreach ( $ids as $deprecated_id => $list_id ) {
+				$old_meta_key = 'ac_preferences_search_segments_' . $list_key;
+				$new_meta_key = 'ac_preferences_search_segments_' . $list_id;
+			}
+			
+		}
 	}
 
 	/**
@@ -145,8 +177,14 @@ class V4000 extends Update {
 		return $columns;
 	}
 
+	/**
+	 * @return array List of replaced id's
+	 */
 	private function migrate_list_screen_settings() {
 		$migrate = [];
+
+		/** @var array $replaced_list_ids array( $list_key => array( $deprecated_list_id => $new_list_id ) ) */
+		$replaced_list_ids = [];
 
 		// 1. clear DB table
 		$this->clear_table();
@@ -158,7 +196,9 @@ class V4000 extends Update {
 		// 3. Process Pro settings
 		foreach ( $layouts_data as $layout_data ) {
 
-			$storage_key = $layout_data['key'] . $layout_data['id'];
+			$list_key = $layout_data['key'];
+
+			$storage_key = $list_key . $layout_data['id'];
 
 			$columns = [];
 
@@ -178,9 +218,18 @@ class V4000 extends Update {
 				$settings['roles'] = $layout_data['roles'];
 			}
 
+			$list_id = $layout_data['id'];
+
+			if ( ! $layout_data['id'] ) {
+				$list_id = uniqid();
+
+				// add to list of id's that have been replaced
+				$replaced_list_ids[ $list_key ][ '' ] = $list_id;
+			}
+
 			$list_data = [
-				'id'       => $layout_data['id'] ? $layout_data['id'] : uniqid(),
-				'key'      => $layout_data['key'],
+				'id'       => $list_id,
+				'key'      => $list_key,
 				'title'    => $layout_data['name'],
 				'columns'  => $columns,
 				'settings' => $settings,
@@ -190,25 +239,30 @@ class V4000 extends Update {
 		}
 
 		// 4. Process Free column settings
-		foreach ( $columns_data as $key => $columns ) {
+		foreach ( $columns_data as $list_key => $columns ) {
 			if ( empty( $columns ) ) {
 				continue;
 			}
 
 			// Skip columns that contain a list ID
-			if ( $this->contains_list_id( $key ) ) {
+			if ( $this->contains_list_id( $list_key ) ) {
 				continue;
 			}
 
+			$list_id = uniqid();
+
 			$list_data = [
-				'id'       => uniqid(),
-				'key'      => $key,
+				'id'       => $list_id,
+				'key'      => $list_key,
 				'title'    => __( 'Original', 'codepress-admin-columns' ),
 				'settings' => [],
 				'columns'  => $columns,
 			];
 
 			$migrate[] = $list_data;
+
+			// add to list of id's that have been replaced
+			$replaced_list_ids[ $list_key ][ '' ] = $list_id;
 		}
 
 		// 5. Make sure all ID's are unique.
@@ -221,7 +275,7 @@ class V4000 extends Update {
 			$this->insert( $list_data );
 		}
 
-		return $migrate;
+		return $replaced_list_ids;
 	}
 
 	/**
