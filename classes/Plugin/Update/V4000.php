@@ -26,20 +26,26 @@ class V4000 extends Update {
 
 	private function migrate_list_screen_user_preferences( array $list_ids ) {
 
-		// 1. Segments
+		// 1. Preference "Segments": ac_preferences_search_segments
 		$this->migrate_user_preferences_segments( $list_ids );
 
-		// 2. Screen option: Show Export Button
+		// 2. Preference "Show Export Button": ac_preferences_show_export_button
 		$this->migrate_user_preferences_show_export( $list_ids );
 
-		// 3. Screen option: Enable Smart Filtering
+		// 3. Preference "Enable Smart Filtering": ac_preferences_enable_smart_filtering
+		$this->migrate_user_preferences_show_smart_filtering( $list_ids );
 
-		// 4. Screen option: Horizontal Scrolling
+		// 4. Preference "Horizontal Scrolling": ac_preferences_show_overflow_table
+		$this->migrate_user_preferences_show_horizontal_scroll( $list_ids );
 
-		// 5. Sorting
+		// 5. Preference "Edit State": ac_preferences_editability_state
+		$this->migrate_user_preferences_edit_state( $list_ids );
 
-		// 6. Table selection
+		// 6. Preference "Sort": ac_preferences_sorted_by
+		$this->migrate_user_preferences_sort_by( $list_ids );
 
+		// 7. Preference "Table selection": wp_ac_preferences_layout_table
+		$this->migrate_user_preferences_table_selection( $list_ids );
 	}
 
 	private function migrate_user_preferences_segments( array $list_ids ) {
@@ -75,7 +81,27 @@ class V4000 extends Update {
 	}
 
 	private function migrate_user_preferences_show_export( array $list_ids ) {
+		// todo
+	}
 
+	private function migrate_user_preferences_show_smart_filtering( array $list_ids ) {
+		// todo
+	}
+
+	private function migrate_user_preferences_show_horizontal_scroll( array $list_ids ) {
+		// todo
+	}
+
+	private function migrate_user_preferences_edit_state( array $list_ids ) {
+		// todo
+	}
+
+	private function migrate_user_preferences_sort_by( array $list_ids ) {
+		// todo
+	}
+
+	private function migrate_user_preferences_table_selection( array $list_ids ) {
+		// todo
 	}
 
 	/**
