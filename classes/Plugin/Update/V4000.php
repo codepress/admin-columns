@@ -13,7 +13,7 @@ class V4000 extends Update {
 	const COLUMNS_PREFIX = 'cpac_options_';
 
 	public function apply_update() {
-		// $replaced_list_ids contains a list of empty id's that are now replaced with unique id's
+		// $replaced_list_ids contains a list of empty id's that are replaced with unique id's
 		$replaced_list_ids = $this->migrate_list_screen_settings();
 
 		$this->migrate_list_screen_order();
@@ -27,9 +27,10 @@ class V4000 extends Update {
 	private function migrate_list_screen_user_preferences( array $list_ids ) {
 
 		// 1. Segments
-		// usermeta: ac_preferences_search_segments_post
+		$this->migrate_user_preferences_segments( $list_ids );
 
 		// 2. Screen option: Show Export Button
+		$this->migrate_user_preferences_show_export( $list_ids );
 
 		// 3. Screen option: Enable Smart Filtering
 
@@ -46,11 +47,35 @@ class V4000 extends Update {
 
 		foreach ( $list_ids as $list_key => $ids ) {
 			foreach ( $ids as $deprecated_id => $list_id ) {
-				$old_meta_key = 'ac_preferences_search_segments_' . $list_key;
+
+				$old_meta_key = 'ac_preferences_search_segments_' . ( $deprecated_id ? $deprecated_id : $list_key );
 				$new_meta_key = 'ac_preferences_search_segments_' . $list_id;
+
+				$sql = $wpdb->prepare( "SELECT user_id, meta_value FROM $wpdb->usermeta WHERE meta_key = %s", $old_meta_key );
+
+				$results = $wpdb->get_results( $sql );
+
+				foreach ( $results as $row ) {
+					$wpdb->insert(
+						$wpdb->usermeta,
+						[
+							'user_id'    => $row->user_id,
+							'meta_key'   => $new_meta_key,
+							'meta_value' => $row->meta_value,
+						],
+						[
+							'%d',
+							'%s',
+							'%s',
+						]
+					);
+				}
 			}
-			
 		}
+	}
+
+	private function migrate_user_preferences_show_export( array $list_ids ) {
+
 	}
 
 	/**
@@ -224,7 +249,7 @@ class V4000 extends Update {
 				$list_id = uniqid();
 
 				// add to list of id's that have been replaced
-				$replaced_list_ids[ $list_key ][ '' ] = $list_id;
+				$replaced_list_ids[ $list_key ][''] = $list_id;
 			}
 
 			$list_data = [
@@ -262,7 +287,7 @@ class V4000 extends Update {
 			$migrate[] = $list_data;
 
 			// add to list of id's that have been replaced
-			$replaced_list_ids[ $list_key ][ '' ] = $list_id;
+			$replaced_list_ids[ $list_key ][''] = $list_id;
 		}
 
 		// 5. Make sure all ID's are unique.
