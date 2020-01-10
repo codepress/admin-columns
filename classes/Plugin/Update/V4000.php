@@ -54,11 +54,11 @@ class V4000 extends Update {
 		global $wpdb;
 
 		// 1. Preference "Segments": ac_preferences_search_segments
-		$this->migrate_user_preferences_segments( $list_ids );
+		//		$this->migrate_user_preferences_segments( $list_ids );
 
 		// 2. Preference "Horizontal Scrolling": ac_preferences_show_overflow_table
 		$this->migrate_aggregated_user_preference( $wpdb->get_blog_prefix() . 'ac_preferences_show_overflow_table', $list_ids );
-
+		exit;
 		// 3. Preference "Sort": ac_preferences_sorted_by
 		$this->migrate_aggregated_user_preference( $wpdb->get_blog_prefix() . 'ac_preferences_sorted_by', $list_ids );
 
@@ -99,41 +99,59 @@ class V4000 extends Update {
 					);
 				}
 			}
-
 		}
+	}
+
+	/**
+	 * @param array $list_ids
+	 *
+	 * @return array
+	 */
+	private function map_to_storage_keys( array $list_ids ) {
+		$map = [];
+
+		foreach ( $list_ids as $list_key => $ids ) {
+			foreach ( $ids as $deprecated_id => $list_id ) {
+				$old_meta_key = $list_key . $deprecated_id;
+				$new_meta_key = $list_key . $list_id;
+
+				$map[ $old_meta_key ] = $new_meta_key;
+			}
+		}
+
+		return $map;
 	}
 
 	private function migrate_aggregated_user_preference( $meta_key, array $list_ids ) {
 		global $wpdb;
 
-		$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->usermeta} WHERE meta_key = %s ", $meta_key ), ARRAY_A );
-		$results = array_map( function ( $a ) {
-			$a['meta_value'] = unserialize( $a['meta_value'] );
+		$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->usermeta} WHERE meta_key = %s", $meta_key ) );
 
-			return $a;
-		}, $results );
+		$storage_keys = $this->map_to_storage_keys( $list_ids );
 
-		foreach ( $list_ids as $list_key => $ids ) {
+		foreach ( $results as $row ) {
+			$data = maybe_unserialize( $row->meta_value );
 
-			foreach ( $ids as $deprecated_id => $list_id ) {
-
-				$storage_key = $deprecated_id ? $deprecated_id : $list_key;
-				$new_storage_key = $list_key . $list_id;
-
-				foreach ( $results as &$result ) {
-
-					if ( isset( $result['meta_value'][ $storage_key ] ) ) {
-						$result['meta_value'][ $new_storage_key ] = $result['meta_value'][ $storage_key ];
-						unset( $result['meta_value'][ $storage_key ] );
-					}
-
-				}
-				unset( $result );
+			if ( empty( $data ) ) {
+				continue;
 			}
-		}
 
-		foreach ( $results as $result ) {
-			$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE umeta_id = %d ", serialize( $result['meta_value'] ), $result['umeta_id'] ) );
+			$orginal_data = $data;
+
+			foreach ( $storage_keys as $old_key => $new_key ) {
+				if ( isset( $data[ $old_key ] ) ) {
+					$data[ $new_key ] = $data[ $old_key ];
+
+					unset( $data[ $new_key ] );
+				}
+			}
+
+			// no update needed
+			if ( $data === $orginal_data ) {
+				continue;
+			}
+
+			$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE umeta_id = %d ", serialize( $data ), $row->umeta_id ) );
 		}
 	}
 
