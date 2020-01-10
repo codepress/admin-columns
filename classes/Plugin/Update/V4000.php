@@ -9,6 +9,9 @@ use DateTime;
 
 class V4000 extends Update {
 
+	const LAYOUT_PREFIX = 'cpac_layouts';
+	const COLUMNS_PREFIX = 'cpac_options_';
+
 	public function apply_update() {
 		$this->migrate_list_screen_settings();
 		$this->migrate_list_screen_order();
@@ -53,121 +56,193 @@ class V4000 extends Update {
 		}
 	}
 
-	private function migrate_list_screen_settings() {
-
-		// 1. fetch all list screen settings
+	/**
+	 * @return object[]
+	 */
+	private function get_layouts_data() {
 		global $wpdb;
 
+		$prefix = self::LAYOUT_PREFIX;
+
 		$sql = "
-			SELECT *
+			SELECT option_name, option_value
 			FROM {$wpdb->options}
-			WHERE option_name LIKE 'cpac_options_%'
+			WHERE option_name LIKE '{$prefix}%'
 			ORDER BY `option_id` DESC
 		";
 
 		$results = $wpdb->get_results( $sql );
 
-		if ( ! is_array( $results ) ) {
-			return;
+		$layouts = [];
+
+		foreach ( $results as $row ) {
+			$data = maybe_unserialize( $row->option_value );
+
+			if ( $data ) {
+
+				$list_id = $data->id;
+
+				$list_key = $this->remove_prefix( self::LAYOUT_PREFIX, $row->option_name );
+				$list_key = $this->remove_suffix( $list_id, $list_key );
+
+				if ( ! $list_key ) {
+					continue;
+				}
+
+				$layout_data = [
+					'id'    => $list_id,
+					'key'   => $list_key,
+					'name'  => '',
+					'users' => [],
+					'roles' => [],
+				];
+
+				if ( ! empty( $data->name ) ) {
+					$layout_data['name'] = $data->name;
+				}
+				if ( ! empty( $data->users ) && is_array( $data->users ) ) {
+					$layout_data['users'] = array_map( 'intval', $data->users );
+				}
+				if ( ! empty( $data->roles ) && is_array( $data->roles ) ) {
+					$layout_data['roles'] = array_map( 'strval', $data->roles );
+				}
+
+				$layouts[] = $layout_data;
+			}
 		}
 
-		// 2. clear DB table
-		$this->clear_table();
+		return $layouts;
+	}
 
-		// 3. migrate data to DB table
+	private function get_columns_data() {
+		global $wpdb;
+
+		$prefix = self::COLUMNS_PREFIX;
+
+		$sql = "
+			SELECT option_name, option_value
+			FROM {$wpdb->options}
+			WHERE option_name LIKE '{$prefix}%'
+			ORDER BY `option_id` DESC
+		";
+
+		$results = $wpdb->get_results( $sql );
+
+		$columns = [];
+
 		foreach ( $results as $row ) {
-
-			// Ignore settings that contain the default columns
-			if ( $this->has_suffix( "__default", $row->option_name ) ) {
+			if ( $this->has_suffix( '__default', $row->option_name ) ) {
 				continue;
 			}
 
-			$columns = maybe_unserialize( $row->option_value );
+			$storage_key = $this->remove_prefix( self::COLUMNS_PREFIX, $row->option_name );
 
-			// A layout without columns can be valid
-			if ( empty( $columns ) ) {
-				$columns = [];
+			$column_data = maybe_unserialize( $row->option_value );
+
+			$columns[ $storage_key ] = $column_data ? $column_data : [];
+		}
+
+		return $columns;
+	}
+
+	private function migrate_list_screen_settings() {
+		$migrate = [];
+
+		// 1. clear DB table
+		$this->clear_table();
+
+		// 2. Fetch data
+		$layouts_data = $this->get_layouts_data();
+		$columns_data = $this->get_columns_data();
+
+		// 3. Process Pro settings
+		foreach ( $layouts_data as $layout_data ) {
+
+			$storage_key = $layout_data['key'] . $layout_data['id'];
+
+			$columns = [];
+
+			// Check for column settings
+			if ( isset( $columns_data[ $storage_key ] ) ) {
+				$columns = $columns_data[ $storage_key ];
+
+				// Remove used column settings from stack
+				unset( $columns_data[ $storage_key ] );
 			}
 
-			$storage_key = $this->remove_prefix( 'cpac_options_', $row->option_name );
+			$settings = [];
+			if ( $layout_data['users'] ) {
+				$settings['users'] = $layout_data['users'];
+			}
+			if ( $layout_data['roles'] ) {
+				$settings['roles'] = $layout_data['roles'];
+			}
 
-			// Truly eliminates a duplicate $unique_id, because `uniqid()` is based on the current time in microseconds
-			usleep( 1000 );
-
-			// Defaults
 			$list_data = [
-				'id'       => uniqid(),
-				'key'      => $storage_key,
-				'title'    => __( 'Original', 'codepress-admin-columns' ),
+				'id'       => $layout_data['id'] ? $layout_data['id'] : uniqid(),
+				'key'      => $layout_data['key'],
+				'title'    => $layout_data['name'],
 				'columns'  => $columns,
-				'settings' => [],
+				'settings' => $settings,
 			];
 
-			$layout_settings = $this->get_layout_settings( $storage_key );
+			$migrate[] = $list_data;
+		}
 
-			if ( $layout_settings ) {
-
-				// Add layout settings
-				if ( $layout_settings->id ) {
-					$list_data['key'] = $this->remove_suffix( $layout_settings->id, $storage_key );
-					$list_data['id'] = $layout_settings->id;
-
-					// Check if `id` already exists in DB. The `id` has to be unique. A duplicate `id` can happen when a
-					// user manually exported their list screen settings and changed the list screen `key` (e.g. from post to page), without
-					// changing the `id`, and imported these settings.
-					if ( $this->exists_list_id( $list_data['id'] ) ) {
-						$list_data['id'] = uniqid();
-					}
-				}
-				if ( ! empty( $layout_settings->name ) ) {
-					$list_data['title'] = $layout_settings->name;
-				}
-				if ( ! empty( $layout_settings->users ) && is_array( $layout_settings->users ) ) {
-					$list_data['settings']['users'] = array_map( 'intval', $layout_settings->users );
-				}
-				if ( ! empty( $layout_settings->roles ) && is_array( $layout_settings->roles ) ) {
-					$list_data['settings']['roles'] = array_map( 'strval', $layout_settings->roles );
-				}
-			} else {
-
-				// A list screen without layouts ánd without columns is invalid
-				if ( empty( $columns ) ) {
-					continue;
-				}
-
-				// A list screen without layouts and with a layout ID is invalid
-				$id = $this->contains_layout_id( $storage_key );
-
-				if ( $id ) {
-					continue;
-				}
+		// 4. Process Free column settings
+		foreach ( $columns_data as $key => $columns ) {
+			if ( empty( $columns ) ) {
+				continue;
 			}
 
+			// Skip columns that contain a list ID
+			if ( $this->contains_list_id( $key ) ) {
+				continue;
+			}
+
+			$list_data = [
+				'id'       => uniqid(),
+				'key'      => $key,
+				'title'    => __( 'Original', 'codepress-admin-columns' ),
+				'settings' => [],
+				'columns'  => $columns,
+			];
+
+			$migrate[] = $list_data;
+		}
+
+		// 5. Unique ID's
+		$migrate = $this->unique_ids( $migrate );
+
+		// 6. Insert into DB
+		foreach ( $migrate as $list_data ) {
 			$this->insert( $list_data );
 		}
+
+		return $migrate;
+	}
+
+	private function unique_ids( $migrate ) {
+		$ids = [];
+		foreach ( $migrate as $k => $list_data ) {
+
+			if ( in_array( $list_data['id'], $ids, true ) ) {
+				// Truly eliminates a duplicate $unique_id, because `uniqid()` is based on the current time in microseconds
+				usleep( 1000 );
+
+				$migrate[ $k ]['id'] = uniqid();
+			}
+
+			$ids[] = $list_data['id'];
+		}
+
+		return $migrate;
 	}
 
 	private function clear_table() {
 		global $wpdb;
 
 		$wpdb->query( "TRUNCATE TABLE " . $wpdb->prefix . DataBase::TABLE );
-	}
-
-	/**
-	 * @param string $list_id
-	 *
-	 * @return bool
-	 */
-	private function exists_list_id( $list_id ) {
-		global $wpdb;
-
-		$table_name = $wpdb->prefix . DataBase::TABLE;
-
-		$sql = $wpdb->prepare( "SELECT id FROM {$table_name} WHERE list_id = %s LIMIT 1;", $list_id );
-
-		$id = $wpdb->get_var( $sql );
-
-		return null !== $id;
 	}
 
 	private function insert( array $data ) {
@@ -203,7 +278,7 @@ class V4000 extends Update {
 	 *
 	 * @return string|false ID
 	 */
-	private function contains_layout_id( $storage_key ) {
+	private function contains_list_id( $storage_key ) {
 		$prefixes = [
 			'wp-users',
 			'wp-media',
@@ -294,15 +369,6 @@ class V4000 extends Update {
 	 */
 	private function has_suffix( $suffix, $string ) {
 		return substr( $string, strlen( $suffix ) * -1 ) === $suffix;
-	}
-
-	/**
-	 * @param string $storage_key
-	 *
-	 * @return object
-	 */
-	private function get_layout_settings( $storage_key ) {
-		return get_option( 'cpac_layouts' . $storage_key );
 	}
 
 }
