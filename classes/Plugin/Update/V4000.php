@@ -28,16 +28,16 @@ class V4000 extends Update {
 	}
 
 	private function migrate_list_screen_user_preferences( array $list_ids ) {
+		global $wpdb;
 
 		// 1. Preference "Segments": ac_preferences_search_segments
 		$this->migrate_user_preferences_segments( $list_ids );
 
-
 		// 2. Preference "Horizontal Scrolling": ac_preferences_show_overflow_table
-		$this->migrate_user_preferences_show_horizontal_scroll( $list_ids );
+		$this->migrate_aggregated_user_preference( $wpdb->get_blog_prefix() . 'ac_preferences_show_overflow_table', $list_ids );
 
 		// 3. Preference "Sort": ac_preferences_sorted_by
-		$this->migrate_user_preferences_sort_by( $list_ids );
+		$this->migrate_aggregated_user_preference( $wpdb->get_blog_prefix() . 'ac_preferences_sorted_by', $list_ids );
 
 		// 7. Preference "Table selection": wp_ac_preferences_layout_table
 		$this->migrate_user_preferences_table_selection( $list_ids );
@@ -76,10 +76,8 @@ class V4000 extends Update {
 		}
 	}
 
-	private function migrate_user_preferences_sort_by( array $list_ids ) {
+	private function migrate_aggregated_user_preference( $meta_key, array $list_ids ) {
 		global $wpdb;
-
-		$meta_key = $wpdb->base_prefix . 'ac_preferences_sorted_by';
 
 		$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->usermeta} WHERE meta_key = %s ", $meta_key ), ARRAY_A );
 		$results = array_map( function ( $a ) {
@@ -110,17 +108,11 @@ class V4000 extends Update {
 		foreach ( $results as $result ) {
 			$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE umeta_id = %d ", serialize( $result['meta_value'] ), $result['umeta_id'] ) );
 		}
-
-	}
-
-	private function migrate_user_preferences_show_horizontal_scroll( array $list_ids ) {
-		// todo
 	}
 
 	private function migrate_user_preferences_table_selection( array $list_ids ) {
 		// todo
 	}
-
 
 	/**
 	 * Migrate the order of the list screens from the `usermeta` to the `options` table
