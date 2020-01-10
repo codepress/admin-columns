@@ -13,7 +13,7 @@ class V4000 extends Update {
 	const COLUMNS_PREFIX = 'cpac_options_';
 
 	public function apply_update() {
-		// $replaced_list_ids contains a list of empty id's that are now replaced with unique id's
+		// $replaced_list_ids contains a list of empty id's that are replaced with unique id's
 		$replaced_list_ids = $this->migrate_list_screen_settings();
 
 		echo '<pre>';
@@ -29,20 +29,18 @@ class V4000 extends Update {
 
 	private function migrate_list_screen_user_preferences( array $list_ids ) {
 
-		// 1. Segments
-		// usermeta: ac_preferences_search_segments_post
+		// 1. Preference "Segments": ac_preferences_search_segments
+		$this->migrate_user_preferences_segments( $list_ids );
 
-		// 2. Screen option: Show Export Button
-		$this->migrate_user_preferences_sorting( $list_ids );
 
-		// 3. Screen option: Enable Smart Filtering
+		// 2. Preference "Horizontal Scrolling": ac_preferences_show_overflow_table
+		$this->migrate_user_preferences_show_horizontal_scroll( $list_ids );
 
-		// 4. Screen option: Horizontal Scrolling
+		// 3. Preference "Sort": ac_preferences_sorted_by
+		$this->migrate_user_preferences_sort_by( $list_ids );
 
-		// 5. Sorting
-
-		// 6. Table selection
-
+		// 7. Preference "Table selection": wp_ac_preferences_layout_table
+		$this->migrate_user_preferences_table_selection( $list_ids );
 	}
 
 	private function migrate_user_preferences_segments( array $list_ids ) {
@@ -50,14 +48,35 @@ class V4000 extends Update {
 
 		foreach ( $list_ids as $list_key => $ids ) {
 			foreach ( $ids as $deprecated_id => $list_id ) {
-				$old_meta_key = 'ac_preferences_search_segments_' . $list_key;
+
+				$old_meta_key = 'ac_preferences_search_segments_' . ( $deprecated_id ? $deprecated_id : $list_key );
 				$new_meta_key = 'ac_preferences_search_segments_' . $list_id;
+
+				$sql = $wpdb->prepare( "SELECT user_id, meta_value FROM $wpdb->usermeta WHERE meta_key = %s", $old_meta_key );
+
+				$results = $wpdb->get_results( $sql );
+
+				foreach ( $results as $row ) {
+					$wpdb->insert(
+						$wpdb->usermeta,
+						[
+							'user_id'    => $row->user_id,
+							'meta_key'   => $new_meta_key,
+							'meta_value' => $row->meta_value,
+						],
+						[
+							'%d',
+							'%s',
+							'%s',
+						]
+					);
+				}
 			}
 
 		}
 	}
 
-	private function migrate_user_preferences_sorting( array $list_ids ) {
+	private function migrate_user_preferences_sort_by( array $list_ids ) {
 		global $wpdb;
 
 		$meta_key = $wpdb->base_prefix . 'ac_preferences_sorted_by';
@@ -93,6 +112,15 @@ class V4000 extends Update {
 		}
 
 	}
+
+	private function migrate_user_preferences_show_horizontal_scroll( array $list_ids ) {
+		// todo
+	}
+
+	private function migrate_user_preferences_table_selection( array $list_ids ) {
+		// todo
+	}
+
 
 	/**
 	 * Migrate the order of the list screens from the `usermeta` to the `options` table
