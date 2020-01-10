@@ -16,6 +16,9 @@ class V4000 extends Update {
 		// $replaced_list_ids contains a list of empty id's that are now replaced with unique id's
 		$replaced_list_ids = $this->migrate_list_screen_settings();
 
+		echo '<pre>';
+		print_r( $replaced_list_ids );
+		echo '</pre>';
 		$this->migrate_list_screen_order();
 		$this->migrate_list_screen_user_preferences( $replaced_list_ids );
 	}
@@ -30,6 +33,7 @@ class V4000 extends Update {
 		// usermeta: ac_preferences_search_segments_post
 
 		// 2. Screen option: Show Export Button
+		$this->migrate_user_preferences_sorting( $list_ids );
 
 		// 3. Screen option: Enable Smart Filtering
 
@@ -49,8 +53,45 @@ class V4000 extends Update {
 				$old_meta_key = 'ac_preferences_search_segments_' . $list_key;
 				$new_meta_key = 'ac_preferences_search_segments_' . $list_id;
 			}
-			
+
 		}
+	}
+
+	private function migrate_user_preferences_sorting( array $list_ids ) {
+		global $wpdb;
+
+		$meta_key = $wpdb->base_prefix . 'ac_preferences_sorted_by';
+
+		$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->usermeta} WHERE meta_key = %s ", $meta_key ), ARRAY_A );
+		$results = array_map( function ( $a ) {
+			$a['meta_value'] = unserialize( $a['meta_value'] );
+
+			return $a;
+		}, $results );
+
+		foreach ( $list_ids as $list_key => $ids ) {
+
+			foreach ( $ids as $deprecated_id => $list_id ) {
+
+				$storage_key = $deprecated_id ? $deprecated_id : $list_key;
+				$new_storage_key = $list_key . $list_id;
+
+				foreach ( $results as &$result ) {
+
+					if ( isset( $result['meta_value'][ $storage_key ] ) ) {
+						$result['meta_value'][ $new_storage_key ] = $result['meta_value'][ $storage_key ];
+						unset( $result['meta_value'][ $storage_key ] );
+					}
+
+				}
+				unset( $result );
+			}
+		}
+
+		foreach ( $results as $result ) {
+			$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE umeta_id = %d ", serialize( $result['meta_value'] ), $result['umeta_id'] ) );
+		}
+
 	}
 
 	/**
@@ -224,7 +265,7 @@ class V4000 extends Update {
 				$list_id = uniqid();
 
 				// add to list of id's that have been replaced
-				$replaced_list_ids[ $list_key ][ '' ] = $list_id;
+				$replaced_list_ids[ $list_key ][''] = $list_id;
 			}
 
 			$list_data = [
@@ -262,7 +303,7 @@ class V4000 extends Update {
 			$migrate[] = $list_data;
 
 			// add to list of id's that have been replaced
-			$replaced_list_ids[ $list_key ][ '' ] = $list_id;
+			$replaced_list_ids[ $list_key ][''] = $list_id;
 		}
 
 		// 5. Make sure all ID's are unique.
