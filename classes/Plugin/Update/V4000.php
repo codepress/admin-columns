@@ -11,6 +11,8 @@ class V4000 extends Update {
 
 	const LAYOUT_PREFIX = 'cpac_layouts';
 	const COLUMNS_PREFIX = 'cpac_options_';
+	const PROGRESS_KEY = 'ac_update_progress';
+	const REPLACEMENT_IDS_KEY = 'ac_update_replacement_ids';
 
 	protected function set_version() {
 		$this->version = '4.0.0beta';
@@ -24,27 +26,91 @@ class V4000 extends Update {
 
 		global $wpdb;
 
-		// 1. migrate segments to site specific user preference. Previously this was stored globally.
-		$this->migrate_segments_preferences();
+		// Apply update in chunks to minimize the impact of a timeout.
+		switch ( $this->get_next_step() ) {
+			case 1 :
+				// 1. migrate segments to site specific user preference. Previously this was stored globally.
+				$this->migrate_segments_preferences();
 
-		// 2. migrate column settings to new DB table
-		// $replaced_list_ids contains a list of empty id's that are replaced with unique id's
-		$replaced_list_ids = $this->migrate_list_screen_settings();
+				// go to next step
+				$this->update_next_step( 2 )
+				     ->apply_update();
 
-		// 3. User Preference "Segments": ac_preferences_search_segments
-		$this->update_user_preferences_segments( $replaced_list_ids );
+				break;
+			case 2 :
 
-		// 4. User Preference "Horizontal Scrolling": ac_preferences_show_overflow_table
-		$this->update_user_preference_by_key( $wpdb->get_blog_prefix() . 'ac_preferences_show_overflow_table', $replaced_list_ids );
+				// 2. migrate column settings to new DB table
+				// $replaced_list_ids contains a list of empty id's that are replaced with unique id's
+				$replaced_list_ids = $this->migrate_list_screen_settings();
 
-		// 5. User Preference "Sort": ac_preferences_sorted_by
-		$this->update_user_preference_by_key( $wpdb->get_blog_prefix() . 'ac_preferences_sorted_by', $replaced_list_ids );
+				$this->update_replacement_ids( $replaced_list_ids );
 
-		// 6. User Preference "Table selection": wp_ac_preferences_layout_table
-		$this->migrate_user_preferences_table_selection( $replaced_list_ids );
+				// go to next step
+				$this->update_next_step( 3 )
+				     ->apply_update();
 
-		// 7. Migrate layout order from `usermeta` to the `option table`
-		$this->migrate_list_screen_order( $replaced_list_ids );
+				break;
+			case 3 :
+
+				// 3. User Preference "Segments": ac_preferences_search_segments
+				$this->update_user_preferences_segments( $this->get_replacement_ids() );
+
+				// go to next step
+				$this->update_next_step( 4 )
+				     ->apply_update();
+
+				break;
+			case 4 :
+				$replaced_list_ids = $this->get_replacement_ids();
+
+				// 4. User Preference "Horizontal Scrolling": ac_preferences_show_overflow_table
+				$this->update_user_preference_by_key( $wpdb->get_blog_prefix() . 'ac_preferences_show_overflow_table', $replaced_list_ids );
+
+				// 5. User Preference "Sort": ac_preferences_sorted_by
+				$this->update_user_preference_by_key( $wpdb->get_blog_prefix() . 'ac_preferences_sorted_by', $replaced_list_ids );
+
+				// go to next step
+				$this->update_next_step( 5 )
+				     ->apply_update();
+
+				break;
+			case 5 :
+				$replaced_list_ids = $this->get_replacement_ids();
+
+				// 6. User Preference "Table selection": wp_ac_preferences_layout_table
+				$this->migrate_user_preferences_table_selection( $replaced_list_ids );
+
+				// 7. Migrate layout order from `usermeta` to the `option table`
+				$this->migrate_list_screen_order( $replaced_list_ids );
+
+				// clear steps and replacement id's
+				$this->flush_temp_data();
+
+				break;
+		}
+	}
+
+	private function update_replacement_ids( array $ids ) {
+		update_option( self::REPLACEMENT_IDS_KEY, $ids, false );
+	}
+
+	private function get_replacement_ids() {
+		return (array) get_option( self::REPLACEMENT_IDS_KEY, [] );
+	}
+
+	private function get_next_step() {
+		return (int) get_option( self::PROGRESS_KEY, 1 );
+	}
+
+	private function update_next_step( $step ) {
+		update_option( self::PROGRESS_KEY, (int) $step, false );
+
+		return $this;
+	}
+
+	private function flush_temp_data() {
+		delete_option( self::PROGRESS_KEY );
+		delete_option( self::REPLACEMENT_IDS_KEY );
 	}
 
 	// Segments were stored globally, ignoring individual sites on a multisite network. Segments are now stored per site.
