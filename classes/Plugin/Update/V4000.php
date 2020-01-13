@@ -17,18 +17,37 @@ class V4000 extends Update {
 	}
 
 	public function apply_update() {
+		// just in case we need a bit of extra time to execute our upgrade script
+		if ( ini_get( 'max_execution_time' ) < 120 ) {
+			@set_time_limit( 120 );
+		}
+
+		global $wpdb;
+
+		// 1. migrate segments to site specific user preference. Previously this was stored globally.
 		$this->migrate_segments_preferences();
 
+		// 2. migrate column settings to new DB table
 		// $replaced_list_ids contains a list of empty id's that are replaced with unique id's
 		$replaced_list_ids = $this->migrate_list_screen_settings();
 
-		// update the user preferences with the replaced list Id's
-		$this->update_user_preferences( $replaced_list_ids );
+		// 3. User Preference "Segments": ac_preferences_search_segments
+		$this->update_user_preferences_segments( $replaced_list_ids );
 
-		$this->migrate_list_screen_order();
+		// 4. User Preference "Horizontal Scrolling": ac_preferences_show_overflow_table
+		$this->update_user_preference_by_key( $wpdb->get_blog_prefix() . 'ac_preferences_show_overflow_table', $replaced_list_ids );
+
+		// 5. User Preference "Sort": ac_preferences_sorted_by
+		$this->update_user_preference_by_key( $wpdb->get_blog_prefix() . 'ac_preferences_sorted_by', $replaced_list_ids );
+
+		// 6. User Preference "Table selection": wp_ac_preferences_layout_table
+		$this->migrate_user_preferences_table_selection( $replaced_list_ids );
+
+		// 7. Migrate layout order from `usermeta` to the `option table`
+		$this->migrate_list_screen_order( $replaced_list_ids );
 	}
 
-	// Segments were stored globally, ignoring individual sites on a multisite network. Semgents are now stored per site.
+	// Segments were stored globally, ignoring individual sites on a multisite network. Segments are now stored per site.
 	private function migrate_segments_preferences() {
 		global $wpdb;
 
@@ -44,28 +63,16 @@ class V4000 extends Update {
 		$results = $wpdb->get_results( $sql );
 
 		foreach ( $results as $row ) {
-			$data = maybe_unserialize( $row->meta_value );
 
-			if ( $data ) {
-				update_user_option( $row->user_id, $row->meta_key, $data );
+			if ( $row->meta_value ) {
+				// add site prefix
+				$meta_key = $wpdb->get_blog_prefix() . $row->meta_key;
+
+				$insert = $wpdb->prepare( '( %d, %s, %s)', $row->user_id, $meta_key, $row->meta_value );
+
+				$wpdb->query( "INSERT INTO {$wpdb->usermeta} (user_id, meta_key, meta_value) VALUES " . $insert );
 			}
 		}
-	}
-
-	private function update_user_preferences( array $list_ids ) {
-		global $wpdb;
-
-		// 1. Preference "Segments": ac_preferences_search_segments
-		$this->update_user_preferences_segments( $list_ids );
-
-		// 2. Preference "Horizontal Scrolling": ac_preferences_show_overflow_table
-		$this->update_user_preference_by_key( $wpdb->get_blog_prefix() . 'ac_preferences_show_overflow_table', $list_ids );
-
-		// 3. Preference "Sort": ac_preferences_sorted_by
-		$this->update_user_preference_by_key( $wpdb->get_blog_prefix() . 'ac_preferences_sorted_by', $list_ids );
-
-		// 4. Preference "Table selection": wp_ac_preferences_layout_table
-		$this->migrate_user_preferences_table_selection( $list_ids );
 	}
 
 	private function update_user_preferences_segments( array $list_ids ) {
@@ -159,7 +166,7 @@ class V4000 extends Update {
 		}
 	}
 
-	private function migrate_user_preferences_table_selection( array $list_ids ) {
+	private function migrate_user_preferences_table_selection( array $replaced_list_ids ) {
 		global $wpdb;
 
 		$meta_key = $wpdb->get_blog_prefix() . 'ac_preferences_layout_table';
@@ -168,21 +175,24 @@ class V4000 extends Update {
 		foreach ( $results as $row ) {
 			$data = maybe_unserialize( $row->meta_value );
 
-			if ( empty( $data ) ) {
+			if ( empty( $data ) || ! is_array( $data ) ) {
 				continue;
 			}
 
 			$orginal_data = $data;
-			foreach ( $list_ids as $list_key => $ids ) {
+
+			foreach ( $replaced_list_ids as $list_key => $ids ) {
 
 				if ( ! array_key_exists( $list_key, $data ) ) {
 					continue;
 				}
 
-				$list_key_value = $data[ $list_key ];
+				$old_id = $data[ $list_key ];
 
-				if ( array_key_exists( $list_key_value, $ids ) ) {
-					$data[ $list_key ] = $ids[ $list_key_value ];
+				if ( array_key_exists( $old_id, $ids ) ) {
+
+					// use replaced ID
+					$data[ $list_key ] = $ids[ $old_id ];
 				}
 			}
 
@@ -191,24 +201,19 @@ class V4000 extends Update {
 				continue;
 			}
 
-			$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE umeta_id = %d ", serialize( $data ), $row->umeta_id ) );
+			$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE umeta_id = %d", serialize( $data ), $row->umeta_id ) );
 		}
-
 	}
 
 	/**
 	 * Migrate the order of the list screens from the `usermeta` to the `options` table
 	 */
-	private function migrate_list_screen_order() {
+	private function migrate_list_screen_order( array $replaced_list_ids ) {
 		global $wpdb;
 
-		// Check the first usermeta we can find
-		$sql = "
-			SELECT `meta_value` FROM {$wpdb->prefix}usermeta
-			WHERE `meta_key` = '{$wpdb->prefix}ac_preferences_layout_order'
-				AND `meta_value` != ''
-			LIMIT 1
-		";
+		$meta_key = $wpdb->get_blog_prefix() . 'ac_preferences_layout_order';
+
+		$sql = $wpdb->prepare( "SELECT meta_value FROM {$wpdb->prefix}usermeta WHERE meta_key = %s AND meta_value != '' LIMIT 1", $meta_key );
 
 		$result = $wpdb->get_var( $sql );
 
@@ -218,17 +223,44 @@ class V4000 extends Update {
 
 		$list_screens = maybe_unserialize( $result );
 
-		if ( ! $list_screens ) {
+		if ( ! $list_screens || ! is_array( $list_screens ) ) {
 			return;
 		}
 
 		$order = new ListScreenOrder();
 
 		foreach ( $list_screens as $list_screen_key => $ids ) {
+
 			if ( $ids && is_array( $ids ) ) {
+
+				// maybe replace ids
+				foreach ( $ids as $k => $id ) {
+					$ids[ $k ] = $this->has_replaced_id( $replaced_list_ids, $list_screen_key, $id );
+				}
+
 				$order->set( $list_screen_key, $ids );
 			}
 		}
+	}
+
+	private function has_replaced_id( array $replaced_list_ids, $list_key, $id ) {
+		if ( ! array_key_exists( $list_key, $replaced_list_ids ) ) {
+			return $id;
+		}
+
+		$_ids = $replaced_list_ids[ $list_key ];
+
+		if ( ! $_ids || ! is_array( $_ids ) ) {
+			return $id;
+		}
+
+		foreach ( $_ids as $old_id => $new_id ) {
+			if ( $old_id === $id ) {
+				return $new_id;
+			}
+		}
+
+		return $id;
 	}
 
 	/**
