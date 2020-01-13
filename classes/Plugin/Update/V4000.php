@@ -64,13 +64,10 @@ class V4000 extends Update {
 
 		foreach ( $results as $row ) {
 
-			if ( $row->meta_value ) {
-				// add site prefix
-				$meta_key = $wpdb->get_blog_prefix() . $row->meta_key;
+			$data = maybe_unserialize( $row->meta_value );
 
-				$insert = $wpdb->prepare( '( %d, %s, %s)', $row->user_id, $meta_key, $row->meta_value );
-
-				$wpdb->query( "INSERT INTO {$wpdb->usermeta} (user_id, meta_key, meta_value) VALUES " . $insert );
+			if ( $data ) {
+				update_user_option( $row->user_id, $row->meta_key, $data );
 			}
 		}
 	}
@@ -233,9 +230,9 @@ class V4000 extends Update {
 
 			if ( $ids && is_array( $ids ) ) {
 
-				// maybe replace ids
+				// try and replace deprecated id's
 				foreach ( $ids as $k => $id ) {
-					$ids[ $k ] = $this->has_replaced_id( $replaced_list_ids, $list_screen_key, $id );
+					$ids[ $k ] = $this->maybe_replace_id( $replaced_list_ids, $list_screen_key, $id );
 				}
 
 				$order->set( $list_screen_key, $ids );
@@ -243,7 +240,7 @@ class V4000 extends Update {
 		}
 	}
 
-	private function has_replaced_id( array $replaced_list_ids, $list_key, $id ) {
+	private function maybe_replace_id( array $replaced_list_ids, $list_key, $id ) {
 		if ( ! array_key_exists( $list_key, $replaced_list_ids ) ) {
 			return $id;
 		}
@@ -479,12 +476,13 @@ class V4000 extends Update {
 	private function clear_table() {
 		global $wpdb;
 
-		$exists = $wpdb->get_results( $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->prefix . DataBase::TABLE ) );
+		$table = $wpdb->prefix . DataBase::TABLE;
 
-		if ( ! empty( $exists ) ) {
-			$wpdb->query( "TRUNCATE TABLE " . $wpdb->prefix . DataBase::TABLE );
+		$exists = $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table ) ) === $table;
+
+		if ( $exists ) {
+			$wpdb->query( "TRUNCATE TABLE " . $table );
 		}
-
 	}
 
 	private function insert( array $data ) {
