@@ -163,29 +163,35 @@ class V4000 extends Update {
 		global $wpdb;
 
 		$meta_key = $wpdb->get_blog_prefix() . 'ac_preferences_layout_table';
-		$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->usermeta} WHERE meta_key = %s", $meta_key ), ARRAY_A );
-		$results = array_map( function ( $a ) {
-			$a['meta_value'] = unserialize( $a['meta_value'] );
+		$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->usermeta} WHERE meta_key = %s", $meta_key ) );
 
-			return $a;
-		}, $results );
+		foreach ( $results as $row ) {
+			$data = maybe_unserialize( $row->meta_value );
 
-		foreach ( $list_ids as $list_key => $ids ) {
+			if ( empty( $data ) ) {
+				continue;
+			}
 
-			foreach ( $ids as $deprecated_id => $list_id ) {
+			$orginal_data = $data;
+			foreach ( $list_ids as $list_key => $ids ) {
 
-				foreach ( $results as $key => $result ) {
-					if ( array_key_exists( $list_key, $result['meta_value'] ) && (string) $deprecated_id === (string) $result['meta_value'][ $list_key ] ) {
-						$result['meta_value'][ $list_key ] = $list_id;
-						$results[ $key ] = $result;
-					}
+				if ( ! array_key_exists( $list_key, $data ) ) {
+					continue;
 				}
 
-			}
-		}
+				$list_key_value = $data[ $list_key ];
 
-		foreach ( $results as $result ) {
-			update_user_option( $result['user_id'], 'ac_preferences_layout_table', $result['meta_value'] );
+				if ( array_key_exists( $list_key_value, $ids ) ) {
+					$data[ $list_key ] = $ids[ $list_key_value ];
+				}
+			}
+
+			// no update needed
+			if ( $data === $orginal_data ) {
+				continue;
+			}
+
+			$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE umeta_id = %d ", serialize( $data ), $row->umeta_id ) );
 		}
 
 	}
