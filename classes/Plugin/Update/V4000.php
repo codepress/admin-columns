@@ -447,7 +447,12 @@ class V4000 extends Update {
 	private function clear_table() {
 		global $wpdb;
 
-		$wpdb->query( "TRUNCATE TABLE " . $wpdb->prefix . DataBase::TABLE );
+		$exists = $wpdb->get_results( $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->prefix . DataBase::TABLE ) );
+
+		if ( ! empty( $exists ) ) {
+			$wpdb->query( "TRUNCATE TABLE " . $wpdb->prefix . DataBase::TABLE );
+		}
+
 	}
 
 	private function insert( array $data ) {
