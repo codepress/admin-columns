@@ -11,8 +11,20 @@ class V4000 extends Update {
 
 	const LAYOUT_PREFIX = 'cpac_layouts';
 	const COLUMNS_PREFIX = 'cpac_options_';
+
 	const PROGRESS_KEY = 'ac_update_progress';
 	const REPLACEMENT_IDS_KEY = 'ac_update_replacement_ids';
+
+	/** @var int */
+	private $next_step;
+
+	public function __construct( $stored_version ) {
+
+		// because `get_option` could be cached we only fetch the next step from the DB on initialisation.
+		$this->next_step = $this->get_next_step();
+
+		parent::__construct( $stored_version );
+	}
 
 	protected function set_version() {
 		$this->version = '4.0.0beta';
@@ -27,7 +39,7 @@ class V4000 extends Update {
 		global $wpdb;
 
 		// Apply update in chunks to minimize the impact of a timeout.
-		switch ( $this->get_next_step() ) {
+		switch ( $this->next_step ) {
 			case 1 :
 				// 1. migrate segments to site specific user preference. Previously this was stored globally.
 				$this->migrate_segments_preferences();
@@ -40,9 +52,9 @@ class V4000 extends Update {
 			case 2 :
 
 				// 2. migrate column settings to new DB table
-				// $replaced_list_ids contains a list of empty id's that are replaced with unique id's
 				$replaced_list_ids = $this->migrate_list_screen_settings();
 
+				// $replaced_list_ids contains a list of empty id's that are replaced with unique id's
 				$this->update_replacement_ids( $replaced_list_ids );
 
 				// go to next step
@@ -98,12 +110,17 @@ class V4000 extends Update {
 		return (array) get_option( self::REPLACEMENT_IDS_KEY, [] );
 	}
 
+	/**
+	 * @return int
+	 */
 	private function get_next_step() {
 		return (int) get_option( self::PROGRESS_KEY, 1 );
 	}
 
 	private function update_next_step( $step ) {
-		update_option( self::PROGRESS_KEY, (int) $step, false );
+		$this->next_step = (int) $step;
+
+		update_option( self::PROGRESS_KEY, $this->next_step, false );
 
 		return $this;
 	}
@@ -148,7 +165,7 @@ class V4000 extends Update {
 
 				$old_meta_key = $prefix . ( $deprecated_id ? $deprecated_id : $list_key );
 
-				// Segments were stored globally, ignoring individual sites on a multisite network. Semgents are now stored per site.
+				// Segments were stored globally, ignoring individual sites on a multisite network. Segments are now stored per site.
 				$new_meta_key = $prefix . $list_id;
 
 				$sql = $wpdb->prepare( "SELECT user_id, meta_value FROM $wpdb->usermeta WHERE meta_key = %s", $old_meta_key );
@@ -225,7 +242,7 @@ class V4000 extends Update {
 				continue;
 			}
 
-			$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE umeta_id = %d ", serialize( $data ), $row->umeta_id ) );
+			$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->usermeta} SET meta_value = %s WHERE umeta_id = %d", serialize( $data ), $row->umeta_id ) );
 		}
 	}
 
@@ -458,7 +475,7 @@ class V4000 extends Update {
 
 			$list_id = $layout_data['id'];
 
-			if ( ! $layout_data['id'] ) {
+			if ( ! $list_id ) {
 				$list_id = uniqid();
 
 				// add to list of id's that have been replaced
