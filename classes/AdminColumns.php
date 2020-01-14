@@ -10,7 +10,6 @@ use AC\Check;
 use AC\Deprecated;
 use AC\ListScreenRepository;
 use AC\ListScreenRepository\FilterStrategy;
-use AC\Parser\DecodeFactory;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
@@ -50,6 +49,10 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
+
+		$this->list_screen_repository = new ListScreenRepository\Aggregate();
+		$this->list_screen_repository->register_repository( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) );
+
 		$modules = [
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
@@ -60,13 +63,9 @@ class AdminColumns extends Plugin {
 			new ThirdParty\WooCommerce,
 			new ThirdParty\WPML,
 			new DefaultColumnsController( new Request(), new DefaultColumns() ),
+			new QuickEdit( $this->list_screen_repository, $this->preferences() ),
+			new Capabilities\Manage(),
 		];
-
-		$this->list_screen_repository = new ListScreenRepository\Aggregate();
-		$this->list_screen_repository->register_repository( new ListScreenRepository\ListScreenData( new DecodeFactory(), new ListScreenApiData() ) )
-		                             ->register_repository( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) );
-
-		$modules[] = new QuickEdit( $this->list_screen_repository, $this->preferences() );
 
 		foreach ( $modules as $module ) {
 			if ( $module instanceof Registrable ) {
@@ -76,9 +75,6 @@ class AdminColumns extends Plugin {
 
 		$this->register_admin();
 		$this->localize();
-
-		$caps = new Capabilities\Manage();
-		$caps->register();
 
 		add_action( 'init', array( $this, 'install' ), 1000 );
 		add_action( 'init', array( $this, 'notice_checks' ) );
