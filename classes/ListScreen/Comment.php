@@ -10,8 +10,6 @@ use WP_Comments_List_Table;
  */
 class Comment extends AC\ListScreenWP {
 
-	const TYPE = 'comment';
-
 	public function __construct() {
 
 		$this->set_label( __( 'Comments' ) )
@@ -20,8 +18,7 @@ class Comment extends AC\ListScreenWP {
 		     ->set_screen_base( 'edit-comments' )
 		     ->set_key( 'wp-comments' )
 		     ->set_screen_id( 'edit-comments' )
-		     ->set_group( 'comment' )
-		     ->set_type( self::TYPE );
+		     ->set_group( 'comment' );
 	}
 
 	/**

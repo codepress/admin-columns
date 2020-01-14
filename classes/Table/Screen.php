@@ -117,7 +117,7 @@ final class Screen implements Registrable {
 						add_filter( 'media_row_actions', array( $this, 'set_media_row_actions' ), 10, 2 );
 					}
 				}
-			};
+			}
 
 			// Set inline edit data if the default column (title) is not present
 			if ( $this->list_screen instanceof ListScreen\Post && 'title' !== $default ) {

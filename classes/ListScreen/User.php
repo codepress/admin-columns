@@ -7,8 +7,6 @@ use WP_Users_List_Table;
 
 class User extends AC\ListScreenWP {
 
-	const TYPE = 'user';
-
 	public function __construct() {
 
 		$this->set_label( __( 'Users' ) )
@@ -17,8 +15,7 @@ class User extends AC\ListScreenWP {
 		     ->set_screen_base( 'users' )
 		     ->set_screen_id( 'users' )
 		     ->set_key( 'wp-users' )
-		     ->set_group( 'user' )
-		     ->set_type( self::TYPE );
+		     ->set_group( 'user' );
 	}
 
 	/**

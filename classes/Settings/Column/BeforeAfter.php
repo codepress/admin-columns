@@ -74,13 +74,11 @@ class BeforeAfter extends Column
 			'for'         => $setting->get_id(),
 		) );
 
-		$view = new View( array(
+		return new View( array(
 			'label'    => __( 'Display Options', 'codepress-admin-columns' ),
 			'sections' => array( $before, $after ),
 			'for'      => $for,
 		) );
-
-		return $view;
 	}
 
 	/**

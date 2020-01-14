@@ -69,7 +69,7 @@ class Columns extends Admin\Page
 		foreach ( $list_screens as $key => $list_screen ) {
 			if ( $this->default_columns->exists( $list_screen->get_key() ) ) {
 				unset( $list_screens[ $key ] );
-			};
+			}
 		}
 
 		$this->uninitialized_list_screens = $list_screens;
@@ -447,7 +447,7 @@ class Columns extends Admin\Page
 		) );
 
 		echo $modal->set_template( 'admin/loading-message' );
-		echo $menu->set( 'class', 'hidden' );;
+		echo $menu->set( 'class', 'hidden' );
 	}
 
 	/**
