@@ -2,36 +2,60 @@
 
 namespace AC;
 
-/**
- * @since 4.0
- * @property ListScreen[] $items
- */
-class ListScreenCollection extends Collection {
+use Countable;
+use Iterator;
+
+final class ListScreenCollection implements Iterator, Countable {
+
+	/**
+	 * @var array
+	 */
+	private $data;
+
+	public function __construct( array $list_screens = [] ) {
+		array_map( [ $this, 'add' ], $list_screens );
+	}
+
+	public function add( ListScreen $list_screen ) {
+		$this->data[ $list_screen->get_layout_id() ] = $list_screen;
+	}
 
 	public function add_collection( ListScreenCollection $collection ) {
-		if ( ! $collection->count() ) {
-			return;
-		}
-
-		foreach ( $collection as $item ) {
-			$this->push( $item );
+		foreach ( $collection as $list_screen ) {
+			$this->add( $list_screen );
 		}
 	}
 
-	/**
-	 * @param ListScreen $listScreen
-	 *
-	 * @return bool
-	 */
-	public function has_list_screen( ListScreen $listScreen ) {
-		/** @var ListScreen $_listScreen */
-		foreach ( $this->all() as $_listScreen ) {
-			if ( $_listScreen->get_layout_id() === $listScreen->get_layout_id() ) {
-				return true;
-			}
-		}
+	public function rewind() {
+		reset( $this->data );
+	}
 
-		return false;
+	/**
+	 * @return ListScreen
+	 */
+	public function current() {
+		return current( $this->data );
+	}
+
+	public function key() {
+		return key( $this->data );
+	}
+
+	public function next() {
+		return next( $this->data );
+	}
+
+	public function valid() {
+		$key = $this->key();
+
+		return ( $key !== null && $key !== false );
+	}
+
+	/**
+	 * @return int
+	 */
+	public function count() {
+		return count( $this->data );
 	}
 
 }

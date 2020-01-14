@@ -5,6 +5,7 @@ namespace AC\ListScreenRepository;
 use AC\ListScreen;
 use AC\ListScreenApiData;
 use AC\ListScreenCollection;
+use AC\ListScreenRepository;
 use AC\Parser\DecodeFactory;
 use RuntimeException;
 

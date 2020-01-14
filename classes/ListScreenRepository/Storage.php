@@ -4,30 +4,53 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\ListScreenRepository;
+use LogicException;
 
-class Aggregate implements ListScreenRepository {
+final class Storage {
 
 	/**
 	 * @var ListScreenRepository[]
 	 */
 	private $repositories;
 
-	public function register_repository( ListScreenRepository $repository ) {
+	/**
+	 * @var ListScreenRepository\Writable
+	 */
+	private $write_engine;
+
+	/**
+	 * @param ListScreenRepository $repository
+	 * @param bool                 $is_write_engine
+	 *
+	 * @return $this
+	 */
+	public function register_repository( ListScreenRepository $repository, $is_write_engine = false ) {
 		$this->repositories[ get_class( $repository ) ] = $repository;
 
-		return $this;
-	}
+		if ( $is_write_engine ) {
+			if ( ! $repository instanceof ListScreenRepository\Writable ) {
+				throw new LogicException( 'Trying to register a storage engine that does not implement the %s interface.', ListScreenRepository\Writable::class );
+			}
 
-	public function deregister_repository( ListScreenRepository $repository ) {
-		if ( isset( $this->repositories[ get_class( $repository ) ] ) ) {
-			unset( $this->repositories[ get_class( $repository ) ] );
+			$this->write_engine = $repository;
 		}
 
 		return $this;
 	}
 
-	public function get_repositories() {
-		return $this->repositories;
+	/**
+	 * @return void
+	 */
+	public function set_read_only() {
+		$this->write_engine = null;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_read_ony() {
+		return $this->write_engine === null;
 	}
 
 	/**
@@ -126,19 +149,11 @@ class Aggregate implements ListScreenRepository {
 	}
 
 	public function save( ListScreen $list_screen ) {
-		foreach ( $this->repositories as $repository ) {
-			if ( $repository instanceof Write ) {
-				$repository->save( $list_screen );
-			}
-		}
+		$this->write_engine->save( $list_screen );
 	}
 
 	public function delete( ListScreen $list_screen ) {
-		foreach ( $this->repositories as $repository ) {
-			if ( $repository instanceof Write ) {
-				$repository->delete( $list_screen );
-			}
-		}
+		$this->write_engine->delete( $list_screen );
 	}
 
 }

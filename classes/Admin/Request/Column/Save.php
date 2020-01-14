@@ -10,7 +10,7 @@ use AC\Request;
 
 class Save extends Handler {
 
-	/** @var ListScreenRepository\Aggregate */
+	/** @var ListScreenRepository\Storage */
 	private $list_screen_repository;
 
 	/**
@@ -18,7 +18,7 @@ class Save extends Handler {
 	 */
 	private $preferences;
 
-	public function __construct( ListScreenRepository\Aggregate $list_screen_repository, Preferences\Site $preferences ) {
+	public function __construct( ListScreenRepository\Storage $list_screen_repository, Preferences\Site $preferences ) {
 		parent::__construct( 'save' );
 
 		$this->list_screen_repository = $list_screen_repository;

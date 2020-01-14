@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\Parser;
 
 use AC\ListScreenCollection;
@@ -20,6 +21,11 @@ abstract class FileDecode {
 	 * @return array
 	 */
 	abstract protected function get_data_from_file( SplFileInfo $file );
+
+	/**
+	 * @return string File extension
+	 */
+	abstract public function get_file_type();
 
 	/**
 	 * @param SplFileInfo $file

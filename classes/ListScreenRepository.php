@@ -1,9 +1,6 @@
 <?php
 
-namespace AC\ListScreenRepository;
-
-use AC\ListScreen;
-use AC\ListScreenCollection;
+namespace AC;
 
 interface ListScreenRepository {
 

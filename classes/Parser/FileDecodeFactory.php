@@ -1,9 +1,10 @@
 <?php
+
 namespace AC\Parser;
 
 use RuntimeException;
 
-class FileDecodeFactory {
+final class FileDecodeFactory {
 
 	const FORMAT_PHP = 'php';
 	const FORMAT_JSON = 'json';

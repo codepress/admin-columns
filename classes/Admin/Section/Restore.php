@@ -1,15 +1,15 @@
 <?php
 namespace AC\Admin\Section;
 
-use AC\ListScreenRepository\DataBase;
+use AC\ListScreenRepository\Database;
 use AC\Message;
 
 class Restore extends Custom {
 
-	/** @var DataBase */
+	/** @var Database */
 	private $database_repository;
 
-	public function __construct( DataBase $repo ) {
+	public function __construct( Database $repo ) {
 		parent::__construct(
 			'restore',
 			__( 'Restore Settings', 'codepress-admin-columns' ),

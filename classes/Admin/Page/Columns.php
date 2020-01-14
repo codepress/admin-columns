@@ -39,10 +39,11 @@ class Columns extends Admin\Page
 	/** @var ListScreenTypes */
 	private $list_screen_types;
 
-	/** @var ListScreenRepository\Aggregate */
+	/** @var ListScreenRepository\Storage */
 	private $repository;
 
-	public function __construct( ListScreenTypes $list_screen_types, ListScreenRepository\Aggregate $list_screen_repository ) {
+	// TODO DAVID check what the LS does here. Also HC aggregate
+	public function __construct( ListScreenTypes $list_screen_types, ListScreenRepository\Storage $list_screen_repository ) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->default_columns = new DefaultColumns();

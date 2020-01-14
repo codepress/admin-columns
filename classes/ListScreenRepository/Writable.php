@@ -1,21 +1,19 @@
 <?php
+
 namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
+use AC\ListScreenRepository;
 
-interface Write {
+interface Writable extends ListScreenRepository {
 
 	/**
 	 * @param ListScreen $list_screen
-	 *
-	 * @return bool
 	 */
 	public function save( ListScreen $list_screen );
 
 	/**
 	 * @param ListScreen $list_screen
-	 *
-	 * @return bool
 	 */
 	public function delete( ListScreen $list_screen );
 

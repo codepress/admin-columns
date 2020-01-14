@@ -6,9 +6,10 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenTypes;
 use DateTime;
+use DomainException;
 use LogicException;
 
-class DataBase implements Write, ListScreenRepository, SourceAware {
+class Database implements Writable {
 
 	const TABLE = 'admin_columns';
 
@@ -25,14 +26,23 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 	 * @return ListScreenCollection
 	 */
 	public function find_all( array $args = [] ) {
+		// TODO David let find_all and find be idential but let find supply args to find_all with LIMIT
 		global $wpdb;
+
+		$args = array_merge( [
+			'key' => null,
+		], $args );
 
 		$table_name = $wpdb->prefix . self::TABLE;
 
-		$sql = "SELECT * FROM {$table_name}";
+		$sql = "
+			SELECT * 
+			FROM {$table_name}
+			WHERE 1=1
+		";
 
-		if ( isset( $args['key'] ) ) {
-			$sql .= $wpdb->prepare( " WHERE list_key = %s", $args['key'] );
+		if ( $args['key'] ) {
+			$sql .= $wpdb->prepare( ' AND list_key = %s', $args['key'] );
 		}
 
 		$sql .= ';';
@@ -55,9 +65,10 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 	/**
 	 * @param string $list_id
 	 *
-	 * @return ListScreen|null
+	 * @return ListScreen
 	 */
 	public function find( $list_id ) {
+		// TODO throw exception on no find
 		global $wpdb;
 
 		$table_name = $wpdb->prefix . self::TABLE;
@@ -79,8 +90,12 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		return $list_screen;
 	}
 
+	public function exists( $list_id ) {
+		return null !== $this->get_id( $list_id );
+	}
+
 	/**
-	 * @param ListScreen $data
+	 * @param ListScreen $list_screen
 	 *
 	 * @return void
 	 */
@@ -102,6 +117,7 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 	 * @return int
 	 */
 	private function get_id( $list_id ) {
+		// TODO David this seems premature optimize and should be in the get_all?
 		global $wpdb;
 
 		$table_name = $wpdb->prefix . self::TABLE;
@@ -142,6 +158,7 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 	}
 
 	private function update( $id, ListScreen $list_screen ) {
+		// TODO David: Let update and save be a single call
 		global $wpdb;
 
 		if ( empty( $list_screen->get_layout_id() ) ) {
@@ -204,7 +221,7 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		$list_screen = $this->list_screen_types->get_list_screen_by_key( $data->list_key );
 
 		if ( null === $list_screen ) {
-			throw new LogicException( 'List screen not found.' );
+			throw new DomainException( 'List screen not found.' );
 		}
 
 		$list_screen->set_title( $data->title )
@@ -222,14 +239,6 @@ class DataBase implements Write, ListScreenRepository, SourceAware {
 		$list_screen->set_source( $data->id );
 
 		return $list_screen;
-	}
-
-	public function exists( $list_id ) {
-		return null !== $this->get_id( $list_id );
-	}
-
-	public function get_source( ListScreen $list_screen ) {
-		return $this->get_id( $list_screen->get_layout_id() );
 	}
 
 }

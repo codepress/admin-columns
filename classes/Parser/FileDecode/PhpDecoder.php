@@ -11,4 +11,11 @@ class PhpDecoder extends FileDecode {
 		return ( require $file->getRealPath() );
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	public function get_file_type() {
+		return 'php';
+	}
+
 }

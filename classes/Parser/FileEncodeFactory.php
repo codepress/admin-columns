@@ -13,7 +13,6 @@ class FileEncodeFactory {
 	const FORMAT_PHP_EXPORT = 'php-export';
 
 	public function create( $format ) {
-
 		switch ( $format ) {
 			case self::FORMAT_JSON :
 				return new JsonEncoder( new Version400() );

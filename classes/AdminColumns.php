@@ -8,9 +8,7 @@ use AC\Admin\PromoCollection;
 use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
-use AC\ListScreenRepository;
 use AC\ListScreenRepository\FilterStrategy;
-use AC\Parser\DecodeFactory;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
@@ -27,13 +25,16 @@ class AdminColumns extends Plugin {
 	 */
 	private $table_screen;
 
-	/** @var ListScreenRepository\Aggregate */
-	private $list_screen_repository;
+	/**
+	 * @var ListScreenRepository\Storage
+	 */
+	private $storage;
 
 	/**
 	 * @since 2.5
+	 * @var self
 	 */
-	private static $instance = null;
+	private static $instance;
 
 	/**
 	 * @since 2.5
@@ -62,11 +63,10 @@ class AdminColumns extends Plugin {
 			new DefaultColumnsController(),
 		];
 
-		$this->list_screen_repository = new ListScreenRepository\Aggregate();
-		$this->list_screen_repository->register_repository( new ListScreenRepository\ListScreenData( new DecodeFactory(), new ListScreenApiData() ) )
-		                             ->register_repository( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) );
+		$this->storage = new ListScreenRepository\Storage();
+		$this->storage->register_repository( new ListScreenRepository\Database( ListScreenTypes::instance() ), true );
 
-		$modules[] = new QuickEdit( $this->list_screen_repository, $this->preferences() );
+		$modules[] = new QuickEdit( $this->storage, $this->preferences() );
 
 		foreach ( $modules as $module ) {
 			if ( $module instanceof Registrable ) {
@@ -96,10 +96,10 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return ListScreenRepository\Aggregate
+	 * @return ListScreenRepository\Storage
 	 */
 	public function get_listscreen_repository() {
-		return $this->list_screen_repository;
+		return $this->storage;
 	}
 
 	/**
@@ -130,7 +130,7 @@ class AdminColumns extends Plugin {
 		$permission_checker = ( new PermissionChecker( wp_get_current_user() ) );
 
 		if ( $list_id ) {
-			$_list_screen = $this->list_screen_repository->find( $list_id );
+			$_list_screen = $this->storage->find( $list_id );
 
 			if ( $_list_screen && $permission_checker->is_valid( $_list_screen ) ) {
 				$list_screen = $_list_screen;
@@ -161,7 +161,7 @@ class AdminColumns extends Plugin {
 	 * @return ListScreen
 	 */
 	private function get_first_list_screen( $key, PermissionChecker $permission_checker ) {
-		$list_screens = $this->list_screen_repository->find_all( [
+		$list_screens = $this->storage->find_all( [
 			'key'    => $key,
 			'filter' => new FilterStrategy\ByPermission( $permission_checker ),
 		] );
@@ -189,7 +189,7 @@ class AdminColumns extends Plugin {
 			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );
 		}
 
-		$list_screen = $this->list_screen_repository->find( filter_input( INPUT_POST, 'layout' ) );
+		$list_screen = $this->storage->find( filter_input( INPUT_POST, 'layout' ) );
 
 		if ( ! $list_screen ) {
 			wp_die( __( 'Invalid list screen.', 'codepress-admin-columns' ), null, 400 );
@@ -393,9 +393,9 @@ class AdminColumns extends Plugin {
 			$page_settings = new Page\Settings();
 			$page_settings
 				->register_section( GeneralSectionFactory::create() )
-				->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
+				->register_section( new Restore( new ListScreenRepository\Database( ListScreenTypes::instance() ) ) );
 
-			$page_columns = new Page\Columns( ListScreenTypes::instance(), $this->list_screen_repository );
+			$page_columns = new Page\Columns( ListScreenTypes::instance(), $this->storage );
 			$page_columns->register_ajax();
 
 			$this->admin->register_page( $page_columns )

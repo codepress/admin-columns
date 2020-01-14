@@ -19,4 +19,11 @@ class JsonDecoder extends FileDecode {
 		return json_decode( $contents, true );
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	public function get_file_type() {
+		return 'json';
+	}
+
 }
