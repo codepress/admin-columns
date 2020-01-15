@@ -26,9 +26,34 @@ class ListScreenRequest {
 	}
 
 	/**
+	 * @param string $list_key
+	 *
+	 * @return bool
+	 */
+	private function exists_list_screen( $list_key ) {
+		return null !== ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+	}
+
+	/**
+	 * @param string $list_key
+	 *
+	 * @return ListScreen|null
+	 */
+	private function get_first_available_list_screen( $list_key ) {
+		$list_screens = $this->repository->find_all( [ 'key' => $list_key ] );
+
+		if ( $list_screens->count() < 1 ) {
+			return null;
+		}
+
+		return $list_screens->current();
+	}
+
+	/**
 	 * @return ListScreen
 	 */
 	public function get_list_screen() {
+
 		// Requested list ID
 		$list_id = filter_input( INPUT_GET, 'layout_id' );
 
@@ -44,18 +69,18 @@ class ListScreenRequest {
 		// Requested list type
 		$list_key = filter_input( INPUT_GET, 'list_screen' );
 
-		if ( $list_key ) {
-			/** @var ListScreen $list_screen */
-			$list_screens = $this->repository->find_all( [ 'key' => $list_key ] );
-			$list_screen = $list_screens->current();
+		if ( $list_key && $this->exists_list_screen( $list_key ) ) {
+			$this->preference->set( 'list_key', $list_key );
+
+			$list_screen = $this->get_first_available_list_screen( $list_key );
 
 			if ( $list_screen ) {
 				$this->preference->set( 'list_id', $list_screen->get_layout_id() );
-				$this->preference->set( 'list_key', $list_screen->get_key() );
 
 				return $list_screen;
 			}
 
+			// Initialize new
 			return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
 		}
 
@@ -69,7 +94,19 @@ class ListScreenRequest {
 		// Last visited Key
 		$list_key = $this->preference->get( 'list_key' );
 
-		if ( $list_key && ListScreenTypes::instance()->get_list_screen_by_key( $list_key ) ) {
+		// Load first available ID
+		if ( $list_key && $this->exists_list_screen( $list_key ) ) {
+			$this->preference->set( 'list_key', $list_key );
+
+			$list_screen = $this->get_first_available_list_screen( $list_key );
+
+			if ( $list_screen ) {
+				$this->preference->set( 'list_id', $list_screen->get_layout_id() );
+
+				return $list_screen;
+			}
+
+			// Initialize new
 			return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
 		}
 
@@ -77,9 +114,6 @@ class ListScreenRequest {
 		$types = ListScreenTypes::instance()->get_list_screens();
 
 		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( current( $types )->get_key() );
-
-
-		// todo: make sure we always get a list screen. That not the case atm. It could be `null`.
 
 		return $list_screen;
 	}
