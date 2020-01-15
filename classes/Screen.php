@@ -95,6 +95,13 @@ class Screen implements Registrable {
 	/**
 	 * @return bool
 	 */
+	private function is_admin_network() {
+		return $this->screen->in_admin( 'network' );
+	}
+
+	/**
+	 * @return bool
+	 */
 	public function is_list_screen() {
 		return false !== $this->get_list_screen();
 	}
@@ -104,7 +111,13 @@ class Screen implements Registrable {
 	 * @return bool
 	 */
 	public function is_plugin_screen() {
-		return $this->is_screen( 'plugins' ) || $this->is_screen( 'plugins-network' );
+		$id = 'plugins';
+
+		if ( $this->is_admin_network() ) {
+			$id .= '-network';
+		}
+
+		return $this->is_screen( $id );
 	}
 
 	/**
@@ -124,7 +137,13 @@ class Screen implements Registrable {
 	 * @return bool
 	 */
 	private function is_main_admin_screen() {
-		return $this->get_id() === 'settings_page_' . Admin::PLUGIN_PAGE;
+		$id = 'settings_page_' . Admin::PLUGIN_PAGE;
+
+		if ( $this->is_admin_network() ) {
+			$id .= '-network';
+		}
+
+		return $this->is_screen( $id );
 	}
 
 }
