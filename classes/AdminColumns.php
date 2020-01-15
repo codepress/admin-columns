@@ -8,6 +8,10 @@ use AC\Admin\PromoCollection;
 use AC\Admin\Section\ListScreenMenu;
 use AC\Admin\Section\Restore;
 use AC\Check;
+use AC\Controller\AjaxRequestCustomFieldKeys;
+use AC\Controller\AjaxRequestNewColumn;
+use AC\Controller\ListScreenRequest;
+use AC\Controller\ListScreenRestoreColumns;
 use AC\Deprecated;
 use AC\ListScreen\Post;
 use AC\ListScreenRepository;
@@ -70,6 +74,9 @@ class AdminColumns extends Plugin {
 			new DefaultColumnsController( new Request(), new DefaultColumns() ),
 			new QuickEdit( $this->list_screen_repository, $this->preferences() ),
 			new Capabilities\Manage(),
+			new AjaxRequestNewColumn( $this->list_screen_repository, new Preferences\Site( 'settings' ) ),
+			new AjaxRequestCustomFieldKeys(),
+			new ListScreenRestoreColumns( $this->list_screen_repository ),
 		];
 
 		foreach ( $modules as $module ) {
@@ -384,6 +391,8 @@ class AdminColumns extends Plugin {
 	 * @return void
 	 */
 	private function register_admin() {
+		$controller = new ListScreenRequest( new Request(), ListScreenTypes::instance(), $this->list_screen_repository, new Preferences\Site( 'settings' ) );
+
 		$this->admin = new Admin( 'options-general.php', 'admin_menu', admin_url() );
 
 		$page_settings = new Page\Settings();
@@ -391,12 +400,9 @@ class AdminColumns extends Plugin {
 			->register_section( GeneralSectionFactory::create() )
 			->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
 
-
 		$menu = new ListScreenMenu( ListScreenTypes::instance(), new Post('post'));
 
-
-		$page_columns = new Page\Columns( ListScreenTypes::instance(), $this->list_screen_repository, $menu );
-		$page_columns->register_ajax();
+		$page_columns = new Page\Columns( $controller, $menu, new UnitializedListScreens( new DefaultColumns() ) );
 
 		$this->admin->register_page( $page_columns )
 		            ->register_page( $page_settings )
