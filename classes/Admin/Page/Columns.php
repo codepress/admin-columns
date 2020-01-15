@@ -8,7 +8,6 @@ use AC\Column;
 use AC\Controller;
 use AC\DefaultColumns;
 use AC\ListScreen;
-use AC\Message\Notice;
 use AC\Registrable;
 use AC\UnitializedListScreens;
 use AC\View;
@@ -43,8 +42,6 @@ class Columns extends Admin\Page
 	}
 
 	public function register() {
-		$this->maybe_show_notice();
-
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
@@ -136,46 +133,6 @@ class Columns extends Admin\Page
 		}
 
 		return $label;
-	}
-
-	private function maybe_show_notice() {
-		$list_screen = $this->get_list_screen();
-
-		// todo
-		$default_columns = new DefaultColumns();
-
-		if ( ! $list_screen->is_read_only() && ! $default_columns->get( $list_screen->get_key() ) ) {
-
-			$first_visit_link = add_query_arg( array( 'ac_action' => 'first-visit' ), $list_screen->get_screen_link() );
-
-			$notice = new Notice( sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $first_visit_link, $list_screen->get_label() ) ) );
-			$notice
-				->set_type( Notice::WARNING )
-				->set_id( 'visit-ls' )
-				->register();
-		}
-
-		if ( $list_screen->is_read_only() ) {
-			$this->notice(
-				sprintf( '%s<p>%s</p>',
-					// todo: style icon
-					ac_helper()->icon->dashicon( [ 'icon' => 'lock', 'class' => '-icon' ] ),
-					$this->get_read_only_message( $list_screen )
-				),
-				'notice notice-warning'
-			);
-		}
-	}
-
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return string
-	 */
-	private function get_read_only_message( ListScreen $list_screen ) {
-		$message = sprintf( __( 'The columns are read only and can not be edited.', 'codepress-admin-columns' ) );
-
-		return apply_filters( 'ac/read_only_message', $message, $list_screen );
 	}
 
 	private function render_loading_screen() {
