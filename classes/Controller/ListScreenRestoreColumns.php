@@ -5,6 +5,7 @@ namespace AC\Controller;
 use AC\Capabilities;
 use AC\ListScreen;
 use AC\ListScreenRepository\Aggregate;
+use AC\ListScreenTypes;
 use AC\Message\Notice;
 use AC\Registrable;
 
@@ -19,7 +20,7 @@ class ListScreenRestoreColumns implements Registrable {
 
 	public function register() {
 		// todo: early enough?
-		add_action( 'init', [ $this, 'handle_request' ] );
+		add_action( 'admin_init', [ $this, 'handle_request' ] );
 	}
 
 	public function handle_request() {
@@ -44,8 +45,6 @@ class ListScreenRestoreColumns implements Registrable {
 					$notice = new Notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ) );
 					$notice->register();
 				}
-
-				do_action( 'ac/restored_columns', $list_screen );
 				break;
 		}
 	}

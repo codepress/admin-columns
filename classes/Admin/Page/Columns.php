@@ -6,7 +6,6 @@ use AC\Admin;
 use AC\Ajax;
 use AC\Column;
 use AC\Controller;
-use AC\DefaultColumns;
 use AC\ListScreen;
 use AC\Registrable;
 use AC\UnitializedListScreens;
@@ -88,12 +87,13 @@ class Columns extends Admin\Page
 		];
 
 		foreach ( $this->uninitialized->get_list_screens() as $list_screen ) {
-			/** @var ListScreen $list_screen */
+
 			$key = $list_screen->get_key();
-			$params['uninitialized_list_screens'][ $key ] = array(
+
+			$params['uninitialized_list_screens'][ $key ] = [
 				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $key ], $list_screen->get_screen_link() ),
 				'label'       => $list_screen->get_label(),
-			);
+			];
 		}
 
 		wp_enqueue_style( 'ac-select2' );
@@ -122,14 +122,14 @@ class Columns extends Admin\Page
 	}
 
 	/**
-	 * @param        $label
-	 * @param string $mainlabel
+	 * @param string $label
+	 * @param string $main_label
 	 *
 	 * @return string
 	 */
-	private function get_truncated_side_label( $label, $mainlabel = '' ) {
-		if ( 34 < ( strlen( $label ) + ( strlen( $mainlabel ) * 1.1 ) ) ) {
-			$label = substr( $label, 0, 34 - ( strlen( $mainlabel ) * 1.1 ) ) . '...';
+	private function get_truncated_side_label( $label, $main_label = '' ) {
+		if ( 34 < ( strlen( $label ) + ( strlen( $main_label ) * 1.1 ) ) ) {
+			$label = substr( $label, 0, 34 - ( strlen( $main_label ) * 1.1 ) ) . '...';
 		}
 
 		return $label;
@@ -143,16 +143,10 @@ class Columns extends Admin\Page
 		echo $modal->set_template( 'admin/loading-message' );
 	}
 
-	/**
-	 * Display
-	 */
 	public function render() {
 		$list_screen = $this->get_list_screen();
 
-		// todo: use UnitializedColumns
-		$default_columns = new DefaultColumns();
-
-		if ( ! $default_columns->exists( $list_screen->get_key() ) ) {
+		if ( $this->uninitialized->has_list_screen( $list_screen->get_key() ) ) {
 			$this->render_loading_screen();
 
 			return;

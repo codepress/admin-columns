@@ -11,6 +11,9 @@ class UnitializedListScreens {
 		$this->default_columns = $default_columns;
 	}
 
+	/**
+	 * @return ListScreen[]
+	 */
 	public function get_list_screens() {
 		$list_screens = ListScreenTypes::instance()->get_list_screens();
 
@@ -21,6 +24,17 @@ class UnitializedListScreens {
 		}
 
 		return $list_screens;
+	}
+
+	/**
+	 * @param string $key
+	 *
+	 * @return bool
+	 */
+	public function has_list_screen( $key ) {
+		$list_screens = $this->get_list_screens();
+
+		return array_key_exists( $key, $list_screens );
 	}
 
 }
