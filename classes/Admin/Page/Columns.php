@@ -8,7 +8,6 @@ use AC\Column;
 use AC\Controller;
 use AC\DefaultColumns;
 use AC\ListScreen;
-use AC\ListScreenRepository\SortStrategy\ManualOrder;
 use AC\Message\Notice;
 use AC\Registrable;
 use AC\UnitializedListScreens;
@@ -75,20 +74,21 @@ class Columns extends Admin\Page
 
 		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_url() . 'assets/css/admin-page-columns.css', array(), AC()->get_version() );
 
-		$params['_ajax_nonce'] = wp_create_nonce( Ajax\Handler::NONCE_ACTION );
-		$params['list_screen'] = $list_screen->get_key();
-		$params['layout'] = $list_screen->get_layout_id();
-		$params['original_columns'] = [];
-		$params['i18n'] = array(
-			'clone'  => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-			'error'  => __( 'Invalid response.', 'codepress-admin-columns' ),
-			'errors' => array(
-				'save_settings'  => __( 'There was an error during saving the column settings.', 'codepress-admin-columns' ),
-				'loading_column' => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
-			),
-		);
-
-		$params['uninitialized_list_screens'] = [];
+		$params = [
+			'_ajax_nonce'                => wp_create_nonce( Ajax\Handler::NONCE_ACTION ),
+			'list_screen'                => $list_screen->get_key(),
+			'layout'                     => $list_screen->get_layout_id(),
+			'original_columns'           => [],
+			'uninitialized_list_screens' => [],
+			'i18n'                       => [
+				'clone'  => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+				'error'  => __( 'Invalid response.', 'codepress-admin-columns' ),
+				'errors' => [
+					'save_settings'  => __( 'There was an error during saving the column settings.', 'codepress-admin-columns' ),
+					'loading_column' => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
+				],
+			],
+		];
 
 		foreach ( $this->uninitialized->get_list_screens() as $list_screen ) {
 			/** @var ListScreen $list_screen */
@@ -178,33 +178,6 @@ class Columns extends Admin\Page
 		return apply_filters( 'ac/read_only_message', $message, $list_screen );
 	}
 
-	// todo: move to pro
-	private function __render_submenu_view( $page_link, $list_screen_key, $current_id = false ) {
-		$list_screens = $this->repository->find_all( [
-			'key'  => $list_screen_key,
-			'sort' => new ManualOrder(),
-		] );
-
-		if ( $list_screens->count() <= 1 ) {
-			return;
-		}
-
-		ob_start();
-		foreach ( $list_screens as $list_screen ) : ?>
-			<li data-screen="<?php echo esc_attr( $list_screen->get_layout_id() ); ?>">
-				<a class="<?php echo $list_screen->get_layout_id() === $current_id ? 'current' : ''; ?>" href="<?php echo add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $page_link ); ?>"><?php echo esc_html( $list_screen->get_title() ? $list_screen->get_title() : __( '(no name)', 'codepress-admin-columns' ) ); ?></a>
-			</li>
-		<?php endforeach;
-
-		$items = ob_get_clean();
-
-		$menu = new View( array(
-			'items' => $items,
-		) );
-
-		echo $menu->set_template( 'admin/edit-submenu' );
-	}
-
 	private function render_loading_screen() {
 		$modal = new View( array(
 			'message' => 'Loading columns',
@@ -235,9 +208,6 @@ class Columns extends Admin\Page
 
 				<?php
 				$this->menu->render();
-
-				// todo: move to Pro
-				//$this->render_submenu_view( $list_screen->get_edit_link(), $list_screen->get_key(), $list_screen->get_layout_id() );
 
 				do_action( 'ac/settings/after_title', $list_screen );
 				?>
