@@ -9,7 +9,6 @@ use AC\Column;
 use AC\DefaultColumns;
 use AC\Helper\Select;
 use AC\ListScreen;
-use AC\ListScreenGroups;
 use AC\ListScreenRepository;
 use AC\ListScreenRepository\SortStrategy\ManualOrder;
 use AC\ListScreenTypes;
@@ -42,12 +41,18 @@ class Columns extends Admin\Page
 	/** @var ListScreenRepository\Aggregate */
 	private $repository;
 
-	public function __construct( ListScreenTypes $list_screen_types, ListScreenRepository\Aggregate $list_screen_repository ) {
+	/**
+	 * @var Admin\Section\ListScreenMenu
+	 */
+	private $menu;
+
+	public function __construct( ListScreenTypes $list_screen_types, ListScreenRepository\Aggregate $list_screen_repository, Admin\Section\ListScreenMenu $menu ) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->default_columns = new DefaultColumns();
 		$this->list_screen_types = $list_screen_types;
 		$this->repository = $list_screen_repository;
+		$this->menu = $menu;
 	}
 
 	public function register_ajax() {
@@ -321,39 +326,6 @@ class Columns extends Admin\Page
 	}
 
 	/**
-	 * @return array
-	 */
-	private function get_grouped_list_screens() {
-		$list_screens = array();
-
-		foreach ( $this->list_screen_types->get_list_screens() as $list_screen ) {
-			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
-		}
-
-		$grouped = array();
-
-		foreach ( ListScreenGroups::get_groups()->get_groups_sorted() as $group ) {
-			$slug = $group['slug'];
-
-			if ( empty( $list_screens[ $slug ] ) ) {
-				continue;
-			}
-
-			if ( ! isset( $grouped[ $slug ] ) ) {
-				$grouped[ $slug ]['title'] = $group['label'];
-			}
-
-			natcasesort( $list_screens[ $slug ] );
-
-			$grouped[ $slug ]['options'] = $list_screens[ $slug ];
-
-			unset( $list_screens[ $slug ] );
-		}
-
-		return $grouped;
-	}
-
-	/**
 	 * @param        $label
 	 * @param string $mainlabel
 	 *
@@ -404,17 +376,6 @@ class Columns extends Admin\Page
 		return apply_filters( 'ac/read_only_message', $message, $list_screen );
 	}
 
-	private function menu_view( $key, $link ) {
-		$menu = new View( array(
-			'items'       => $this->get_grouped_list_screens(),
-			'current'     => $key,
-			'screen_link' => $link,
-		) );
-		$menu->set_template( 'admin/edit-menu' );
-
-		return $menu;
-	}
-
 	private function render_submenu_view( $page_link, $list_screen_key, $current_id = false ) {
 		$list_screens = $this->repository->find_all( [
 			'key'  => $list_screen_key,
@@ -441,13 +402,12 @@ class Columns extends Admin\Page
 		echo $menu->set_template( 'admin/edit-submenu' );
 	}
 
-	private function render_loading_screen( View $menu ) {
+	private function render_loading_screen() {
 		$modal = new View( array(
 			'message' => 'Loading columns',
 		) );
 
 		echo $modal->set_template( 'admin/loading-message' );
-		echo $menu->set( 'class', 'hidden' );
 	}
 
 	/**
@@ -456,10 +416,8 @@ class Columns extends Admin\Page
 	public function render() {
 		$list_screen = $this->get_list_screen();
 
-		$menu = $this->menu_view( $list_screen->get_key(), $list_screen->get_screen_link() );
-
 		if ( ! $this->default_columns->exists( $list_screen->get_key() ) ) {
-			$this->render_loading_screen( $menu );
+			$this->render_loading_screen();
 
 			return;
 		}
@@ -470,7 +428,7 @@ class Columns extends Admin\Page
 			<div class="main">
 
 				<?php
-				echo $menu;
+				$this->menu->display();
 
 				$this->render_submenu_view( $list_screen->get_edit_link(), $list_screen->get_key(), $list_screen->get_layout_id() );
 

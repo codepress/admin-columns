@@ -5,9 +5,11 @@ namespace AC;
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
 use AC\Admin\PromoCollection;
+use AC\Admin\Section\ListScreenMenu;
 use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
+use AC\ListScreen\Post;
 use AC\ListScreenRepository;
 use AC\ListScreenRepository\FilterStrategy;
 use AC\Screen\QuickEdit;
@@ -389,7 +391,11 @@ class AdminColumns extends Plugin {
 			->register_section( GeneralSectionFactory::create() )
 			->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
 
-		$page_columns = new Page\Columns( ListScreenTypes::instance(), $this->list_screen_repository );
+
+		$menu = new ListScreenMenu( ListScreenTypes::instance(), new Post('post'));
+
+
+		$page_columns = new Page\Columns( ListScreenTypes::instance(), $this->list_screen_repository, $menu );
 		$page_columns->register_ajax();
 
 		$this->admin->register_page( $page_columns )
