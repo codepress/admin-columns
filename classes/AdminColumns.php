@@ -21,6 +21,9 @@ class AdminColumns extends Plugin {
 	 */
 	private $admin;
 
+	/** @var Admin */
+	private $network_admin;
+
 	/**
 	 * @var Table\Screen
 	 */
@@ -379,28 +382,21 @@ class AdminColumns extends Plugin {
 	 * @return void
 	 */
 	private function register_admin() {
-		$is_network = is_network_admin();
+		$this->admin = new Admin( 'options-general.php', 'admin_menu', admin_url() );
 
-		$site_factory = new Admin\AdminFactory();
-		$this->admin = $site_factory->create( $is_network );
+		$page_settings = new Page\Settings();
+		$page_settings
+			->register_section( GeneralSectionFactory::create() )
+			->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
 
-		if ( ! $is_network ) {
+		$page_columns = new Page\Columns( ListScreenTypes::instance(), $this->list_screen_repository );
+		$page_columns->register_ajax();
 
-			$page_settings = new Page\Settings();
-			$page_settings
-				->register_section( GeneralSectionFactory::create() )
-				->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
-
-			$page_columns = new Page\Columns( ListScreenTypes::instance(), $this->list_screen_repository );
-			$page_columns->register_ajax();
-
-			$this->admin->register_page( $page_columns )
-			            ->register_page( $page_settings )
-			            ->register_page( new Page\Addons() )
-			            ->register_page( new Page\Help() )
-			            ->register();
-		}
-
+		$this->admin->register_page( $page_columns )
+		            ->register_page( $page_settings )
+		            ->register_page( new Page\Addons() )
+		            ->register_page( new Page\Help() )
+		            ->register();
 	}
 
 	/**
