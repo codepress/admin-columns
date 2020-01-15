@@ -400,9 +400,7 @@ class AdminColumns extends Plugin {
 			->register_section( GeneralSectionFactory::create() )
 			->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
 
-		$menu = new ListScreenMenu( ListScreenTypes::instance(), new Post('post'));
-
-		$page_columns = new Page\Columns( $controller, $menu, new UnitializedListScreens( new DefaultColumns() ) );
+		$page_columns = new Page\Columns( $controller, new ListScreenMenu( $controller ), new UnitializedListScreens( new DefaultColumns() ) );
 
 		$this->admin->register_page( $page_columns )
 		            ->register_page( $page_settings )
