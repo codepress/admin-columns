@@ -127,7 +127,6 @@ function ac_get_admin_url( $slug = null ) {
 		$slug = 'columns';
 	}
 
-	// todo: make compat with network
 	return AC()->admin()->get_url( $slug );
 }
 
