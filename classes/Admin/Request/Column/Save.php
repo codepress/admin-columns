@@ -73,7 +73,7 @@ class Save extends Handler {
 		wp_send_json_success(
 			sprintf(
 				__( 'Settings for %s updated successfully.', 'codepress-admin-columns' ),
-				"<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>"
+				"<strong>" . esc_html( $list_screen->get_title() ) . "</strong>"
 			) . ' ' . $view_link
 		);
 	}
@@ -86,15 +86,6 @@ class Save extends Handler {
 		}
 
 		return $columndata;
-	}
-
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return string $label
-	 */
-	private function get_list_screen_message_label( ListScreen $list_screen ) {
-		return apply_filters( 'ac/settings/list_screen_message_label', $list_screen->get_label(), $list_screen );
 	}
 
 }
