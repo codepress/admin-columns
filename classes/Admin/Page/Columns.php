@@ -60,7 +60,6 @@ class Columns extends Admin\Page
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
-
 		$list_screen = $this->controller->get_list_screen();
 
 		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version() );
@@ -76,16 +75,10 @@ class Columns extends Admin\Page
 
 		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_url() . 'assets/css/admin-page-columns.css', array(), AC()->get_version() );
 
-		// todo: remove ajax handler dependency but preserve $params
-		//		$ajax_handler = $this->get_ajax_column_handler();
-		//
-		//
-		//		$ajax_handler->set_param( 'list_screen', $this->list_screen->get_key() )
-		//		             ->set_param( 'layout', $this->list_screen->get_layout_id() )
-		//		             ->set_param( 'original_columns', [] );
-		//
-		//		$params = $ajax_handler->get_params();
-
+		$params['_ajax_nonce'] = wp_create_nonce( Ajax\Handler::NONCE_ACTION );
+		$params['list_screen'] = $list_screen->get_key();
+		$params['layout'] = $list_screen->get_layout_id();
+		$params['original_columns'] = [];
 		$params['i18n'] = array(
 			'clone'  => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 			'error'  => __( 'Invalid response.', 'codepress-admin-columns' ),
@@ -95,7 +88,7 @@ class Columns extends Admin\Page
 			),
 		);
 
-		$params['uninitialized_list_screens'] = array();
+		$params['uninitialized_list_screens'] = [];
 
 		foreach ( $this->uninitialized->get_list_screens() as $list_screen ) {
 			/** @var ListScreen $list_screen */
