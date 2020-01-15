@@ -391,7 +391,7 @@ class AdminColumns extends Plugin {
 	 * @return void
 	 */
 	private function register_admin() {
-		$controller = new ListScreenRequest( new Request(), ListScreenTypes::instance(), $this->list_screen_repository, new Preferences\Site( 'settings' ) );
+		$controller = new ListScreenRequest( new Request(), $this->list_screen_repository, new Preferences\Site( 'settings' ) );
 
 		$this->admin = new Admin( 'options-general.php', 'admin_menu', admin_url() );
 

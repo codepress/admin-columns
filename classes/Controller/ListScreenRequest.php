@@ -22,9 +22,9 @@ class ListScreenRequest {
 	/** @var Preferences\Site */
 	private $preference;
 
-	public function __construct( Request $request, ListScreenTypes $types, ListScreenRepository $repository, Preferences\Site $preference ) {
+	public function __construct( Request $request, ListScreenRepository $repository, Preferences\Site $preference ) {
 		$this->request = $request;
-		$this->types = $types;
+		$this->types = ListScreenTypes::instance();
 		$this->repository = $repository;
 		$this->preference = $preference;
 		$this->preference = new Preferences\Site( 'settings' );

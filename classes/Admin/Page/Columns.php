@@ -107,79 +107,6 @@ class Columns extends Admin\Page
 		do_action( 'ac/settings/scripts' );
 	}
 
-	//	private function get_ajax_custom_field_handler() {
-	//		$handler = new Ajax\Handler();
-	//		$handler
-	//			->set_action( 'ac_custom_field_options' )
-	//			->set_callback( array( $this, 'ajax_get_custom_fields' ) );
-	//
-	//		return $handler;
-	//	}
-
-	// todo: remove
-	/**
-	 * @return Ajax\Handler
-	 */
-	//	private function get_ajax_column_handler() {
-	//		$handler = new Ajax\Handler();
-	//		$handler
-	//			->set_action( 'ac-columns' )
-	//			->set_callback( array( $this, 'handle_ajax_request' ) );
-	//
-	//		return $handler;
-	//	}
-
-	//	public function handle_ajax_request() {
-	//		$this->get_ajax_column_handler()->verify_request();
-	//
-	//		$request = new Request();
-	//
-	//		$requests = array(
-	//			new Admin\Request\Column\Save( $this->repository, $this->preferences() ),
-	//			new Admin\Request\Column\Refresh(),
-	//			new Admin\Request\Column\Select(),
-	//		);
-	//
-	//		foreach ( $requests as $handler ) {
-	//			if ( $handler->get_id() === $request->get( 'id' ) ) {
-	//				$handler->request( $request );
-	//			}
-	//		}
-	//	}
-
-	//	public function ajax_get_custom_fields() {
-	//		$this->get_ajax_custom_field_handler()->verify_request();
-	//		$request = new Request();
-	//		$response = new Response\Json();
-	//
-	//		$args = array(
-	//			'meta_type' => $request->get( 'meta_type' ),
-	//		);
-	//
-	//		if ( $request->get( 'post_type' ) ) {
-	//			$args['post_type'] = $request->get( 'post_type' );
-	//		}
-	//
-	//		$entities = new Select\Entities\CustomFields( $args );
-	//
-	//		if ( is_multisite() ) {
-	//			$formatter = new Select\Group\CustomField\MultiSite(
-	//				new Select\Formatter\NullFormatter( $entities )
-	//			);
-	//		} else {
-	//			$formatter = new Select\Group\CustomField(
-	//				new Select\Formatter\NullFormatter( $entities )
-	//			);
-	//		}
-	//
-	//		$options = new Select\Options\Paginated( $entities, $formatter );
-	//		$select = new Select\Response( $options );
-	//
-	//		$response
-	//			->set_parameters( $select() )
-	//			->success();
-	//	}
-
 	/**
 	 * @param ListScreen $list_screen
 	 *
@@ -195,10 +122,6 @@ class Columns extends Admin\Page
 	 */
 	public function notice( $message, $type = 'updated' ) {
 		$this->notices[] = '<div class="ac-message inline ' . esc_attr( $type ) . '">' . $message . '</div>';
-	}
-
-	public function sort_by_label( $a, $b ) {
-		return strcmp( $a->label, $b->label );
 	}
 
 	/**
