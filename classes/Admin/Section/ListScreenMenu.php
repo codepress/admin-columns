@@ -16,7 +16,7 @@ class ListScreenMenu {
 		$this->controller = $controller;
 	}
 
-	public function display() {
+	public function render() {
 		$list_screen = $this->controller->get_list_screen();
 
 		$menu = new View( [

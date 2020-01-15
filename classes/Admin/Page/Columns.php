@@ -315,7 +315,7 @@ class Columns extends Admin\Page
 			<div class="main">
 
 				<?php
-				$this->menu->display();
+				$this->menu->render();
 
 				// todo: move to Pro
 				//$this->render_submenu_view( $list_screen->get_edit_link(), $list_screen->get_key(), $list_screen->get_layout_id() );
