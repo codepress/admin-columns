@@ -12,8 +12,12 @@ class ListScreenMenu {
 	/** @var ListScreenRequest */
 	private $controller;
 
-	public function __construct( ListScreenRequest $controller ) {
+	/** @var bool */
+	private $is_network;
+
+	public function __construct( ListScreenRequest $controller, $is_network = false ) {
 		$this->controller = $controller;
+		$this->is_network = (bool) $is_network;
 	}
 
 	public function render() {
@@ -30,14 +34,42 @@ class ListScreenMenu {
 		echo $menu->render();
 	}
 
+	private function get_network_list_screens() {
+		$list_screens = ListScreenTypes::instance()->get_list_screens();
+
+		foreach ( $list_screens as $k => $list_screen ) {
+			if ( ! $list_screen->is_network_only() ) {
+				unset( $list_screens[ $k ] );
+			}
+		}
+
+		return $list_screens;
+	}
+
+	private function get_site_list_screens() {
+		$list_screens = ListScreenTypes::instance()->get_list_screens();
+
+		foreach ( $list_screens as $k => $list_screen ) {
+			if ( $list_screen->is_network_only() ) {
+				unset( $list_screens[ $k ] );
+			}
+		}
+
+		return $list_screens;
+	}
+
 	/**
 	 * @return array
 	 */
 	private function get_grouped_list_screens() {
-		$list_screens = [];
 
-		foreach ( ListScreenTypes::instance()->get_list_screens() as $list_screen ) {
-			$list_screens[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
+		$list_screens = $this->is_network
+			? $this->get_network_list_screens()
+			: $this->get_site_list_screens();
+
+		$list_screens_grouped = [];
+		foreach ( $list_screens as $list_screen ) {
+			$list_screens_grouped[ $list_screen->get_group() ][ $list_screen->get_key() ] = $list_screen->get_label();
 		}
 
 		$grouped = [];
@@ -45,7 +77,7 @@ class ListScreenMenu {
 		foreach ( ListScreenGroups::get_groups()->get_groups_sorted() as $group ) {
 			$slug = $group['slug'];
 
-			if ( empty( $list_screens[ $slug ] ) ) {
+			if ( empty( $list_screens_grouped[ $slug ] ) ) {
 				continue;
 			}
 
@@ -53,11 +85,11 @@ class ListScreenMenu {
 				$grouped[ $slug ]['title'] = $group['label'];
 			}
 
-			natcasesort( $list_screens[ $slug ] );
+			natcasesort( $list_screens_grouped[ $slug ] );
 
-			$grouped[ $slug ]['options'] = $list_screens[ $slug ];
+			$grouped[ $slug ]['options'] = $list_screens_grouped[ $slug ];
 
-			unset( $list_screens[ $slug ] );
+			unset( $list_screens_grouped[ $slug ] );
 		}
 
 		return $grouped;

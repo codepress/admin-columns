@@ -60,6 +60,9 @@ class Columns extends Admin\Page
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
+
+		$list_screen = $this->controller->get_list_screen();
+
 		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version() );
 		wp_enqueue_script( 'jquery-ui-slider' );
 
