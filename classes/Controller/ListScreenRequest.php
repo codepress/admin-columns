@@ -13,9 +13,6 @@ class ListScreenRequest {
 	/** @var Request */
 	private $request;
 
-	/** @var ListScreenTypes */
-	private $types;
-
 	/** @var ListScreenRepository */
 	private $repository;
 
@@ -24,10 +21,8 @@ class ListScreenRequest {
 
 	public function __construct( Request $request, ListScreenRepository $repository, Preferences\Site $preference ) {
 		$this->request = $request;
-		$this->types = ListScreenTypes::instance();
 		$this->repository = $repository;
 		$this->preference = $preference;
-		$this->preference = new Preferences\Site( 'settings' );
 	}
 
 	/**
@@ -61,7 +56,7 @@ class ListScreenRequest {
 				return $list_screen;
 			}
 
-			return $this->types->get_list_screen_by_key( $list_key );
+			return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
 		}
 
 		// Last visited ID
@@ -74,14 +69,14 @@ class ListScreenRequest {
 		// Last visited Key
 		$list_key = $this->preference->get( 'list_key' );
 
-		if ( $list_key && $this->types->get_list_screen_by_key( $list_key ) ) {
-			return $this->types->get_list_screen_by_key( $list_key );
+		if ( $list_key && ListScreenTypes::instance()->get_list_screen_by_key( $list_key ) ) {
+			return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
 		}
 
 		// Initialize new
-		$types = $this->types->get_list_screens();
+		$types = ListScreenTypes::instance()->get_list_screens();
 
-		$list_screen = $this->types->get_list_screen_by_key( current( $types )->get_key() );
+		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( current( $types )->get_key() );
 
 
 		// todo: make sure we always get a list screen. That not the case atm. It could be `null`.

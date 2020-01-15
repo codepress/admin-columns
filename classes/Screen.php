@@ -104,7 +104,7 @@ class Screen implements Registrable {
 	 * @return bool
 	 */
 	public function is_plugin_screen() {
-		return $this->is_screen( 'plugins' );
+		return $this->is_screen( 'plugins' ) || $this->is_screen( 'plugins-network' );
 	}
 
 	/**

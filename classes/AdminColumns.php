@@ -391,7 +391,7 @@ class AdminColumns extends Plugin {
 	 * @return void
 	 */
 	private function register_admin() {
-		$controller = new ListScreenRequest( new Request(), $this->list_screen_repository, new Preferences\Site( 'settings' ) );
+		$listscreen_controller = new ListScreenRequest( new Request(), $this->list_screen_repository, new Preferences\Site( 'settings' ) );
 
 		$this->admin = new Admin( 'options-general.php', 'admin_menu', admin_url() );
 
@@ -400,7 +400,7 @@ class AdminColumns extends Plugin {
 			->register_section( GeneralSectionFactory::create() )
 			->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
 
-		$page_columns = new Page\Columns( $controller, new ListScreenMenu( $controller ), new UnitializedListScreens( new DefaultColumns() ) );
+		$page_columns = new Page\Columns( $listscreen_controller, new ListScreenMenu( $listscreen_controller ), new UnitializedListScreens( new DefaultColumns() ) );
 
 		$this->admin->register_page( $page_columns )
 		            ->register_page( $page_settings )
