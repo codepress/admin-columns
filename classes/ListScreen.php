@@ -441,10 +441,10 @@ abstract class ListScreen {
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		return add_query_arg( array(
+		return add_query_arg( [
 			'list_screen' => $this->key,
 			'layout_id'   => $this->get_layout_id(),
-		), ac_get_admin_url() );
+		], ac_get_admin_url() );
 	}
 
 	/**
