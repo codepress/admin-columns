@@ -5,9 +5,15 @@ namespace AC;
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
 use AC\Admin\PromoCollection;
+use AC\Admin\Section\ListScreenMenu;
 use AC\Admin\Section\Restore;
 use AC\Check;
+use AC\Controller\AjaxRequestCustomFieldKeys;
+use AC\Controller\AjaxRequestNewColumn;
+use AC\Controller\ListScreenRequest;
+use AC\Controller\ListScreenRestoreColumns;
 use AC\Deprecated;
+use AC\ListScreen\Post;
 use AC\ListScreenRepository;
 use AC\ListScreenRepository\FilterStrategy;
 use AC\Screen\QuickEdit;
@@ -20,6 +26,9 @@ class AdminColumns extends Plugin {
 	 * @var Admin
 	 */
 	private $admin;
+
+	/** @var Admin */
+	private $network_admin;
 
 	/**
 	 * @var Table\Screen
@@ -65,6 +74,9 @@ class AdminColumns extends Plugin {
 			new DefaultColumnsController( new Request(), new DefaultColumns() ),
 			new QuickEdit( $this->list_screen_repository, $this->preferences() ),
 			new Capabilities\Manage(),
+			new AjaxRequestNewColumn( $this->list_screen_repository, new Preferences\Site( 'settings' ) ),
+			new AjaxRequestCustomFieldKeys(),
+			new ListScreenRestoreColumns( $this->list_screen_repository ),
 		];
 
 		foreach ( $modules as $module ) {
@@ -379,28 +391,22 @@ class AdminColumns extends Plugin {
 	 * @return void
 	 */
 	private function register_admin() {
-		$is_network = is_network_admin();
+		$listscreen_controller = new ListScreenRequest( new Request(), $this->list_screen_repository, new Preferences\Site( 'settings' ) );
 
-		$site_factory = new Admin\AdminFactory();
-		$this->admin = $site_factory->create( $is_network );
+		$this->admin = new Admin( 'options-general.php', 'admin_menu', admin_url() );
 
-		if ( ! $is_network ) {
+		$page_settings = new Page\Settings();
+		$page_settings
+			->register_section( GeneralSectionFactory::create() )
+			->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
 
-			$page_settings = new Page\Settings();
-			$page_settings
-				->register_section( GeneralSectionFactory::create() )
-				->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
+		$page_columns = new Page\Columns( $listscreen_controller, new ListScreenMenu( $listscreen_controller ), new UnitializedListScreens( new DefaultColumns() ) );
 
-			$page_columns = new Page\Columns( ListScreenTypes::instance(), $this->list_screen_repository );
-			$page_columns->register_ajax();
-
-			$this->admin->register_page( $page_columns )
-			            ->register_page( $page_settings )
-			            ->register_page( new Page\Addons() )
-			            ->register_page( new Page\Help() )
-			            ->register();
-		}
-
+		$this->admin->register_page( $page_columns )
+		            ->register_page( $page_settings )
+		            ->register_page( new Page\Addons() )
+		            ->register_page( new Page\Help() )
+		            ->register();
 	}
 
 	/**

@@ -1,4 +1,5 @@
 <?php
+
 namespace AC;
 
 use AC\Admin\Helpable;
@@ -117,10 +118,10 @@ class Admin implements Registrable {
 	 * @return string
 	 */
 	public function get_url( $tab ) {
-		$args = array(
-			'tab'  => $tab,
+		$args = [
 			'page' => self::PLUGIN_PAGE,
-		);
+			'tab'  => $tab,
+		];
 
 		return add_query_arg( $args, $this->url . $this->get_parent_page() );
 	}
