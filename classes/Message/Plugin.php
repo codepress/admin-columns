@@ -47,7 +47,7 @@ class Plugin extends Message {
 				$class = $this->type;
 		}
 
-		$is_plugin_active = is_network_admin()
+		$is_plugin_active = is_multisite() && is_network_admin()
 			? is_plugin_active_for_network( $this->plugin_basename )
 			: is_plugin_active( $this->plugin_basename );
 
