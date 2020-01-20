@@ -79,21 +79,18 @@ abstract class Plugin extends Addon {
 
 		// Network wide updating is not supported yet.
 		if ( current_user_can( Capabilities::MANAGE ) && ! is_network_admin() ) {
-			$this->run_updater();
+
+			$updater = new Plugin\Updater\Site( $this );
+
+			$reflection = new ReflectionObject( $this );
+			$classes = Autoloader::instance()->get_class_names_from_dir( $reflection->getNamespaceName() . '\Plugin\Update' );
+
+			foreach ( $classes as $class ) {
+				$updater->add_update( new $class( $this->get_stored_version() ) );
+			}
+
+			$updater->parse_updates();
 		}
-	}
-
-	private function run_updater() {
-		$updater = new Plugin\Updater( $this );
-
-		$reflection = new ReflectionObject( $this );
-		$classes = Autoloader::instance()->get_class_names_from_dir( $reflection->getNamespaceName() . '\Plugin\Update' );
-
-		foreach ( $classes as $class ) {
-			$updater->add_update( new $class( $this->get_stored_version() ) );
-		}
-
-		$updater->parse_updates();
 	}
 
 	/**
@@ -153,6 +150,8 @@ abstract class Plugin extends Addon {
 	 */
 	public function is_new_install() {
 		global $wpdb;
+
+		// todo: also check new settings
 
 		$sql = "
 			SELECT option_id
