@@ -2,21 +2,10 @@
 
 namespace AC\Plugin;
 
-use AC\Capabilities;
 use AC\Message;
 use AC\Plugin;
 
 class Updater {
-
-	/**
-	 * @var self
-	 */
-	protected static $instance;
-
-	/**
-	 * @var bool
-	 */
-	protected $apply_updates;
 
 	/**
 	 * @var Update[]
@@ -33,36 +22,13 @@ class Updater {
 	 */
 	public function __construct( Plugin $plugin ) {
 		$this->plugin = $plugin;
-		// TODO: https://github.com/codepress/admin-columns-issues/issues/982
-		//$this->apply_updates = 'true' === filter_input( INPUT_GET, 'ac_do_update' );
-		$this->apply_updates = true;
 	}
 
 	public function add_update( Update $update ) {
 		$this->updates[ $update->get_version() ] = $update;
 	}
 
-	/**
-	 * Checks conditions like user permissions
-	 */
-	public function check_update_conditions() {
-		if ( ! current_user_can( Capabilities::MANAGE ) ) {
-			return false;
-		}
-
-		// Network wide updating is not supported yet
-		if ( is_network_admin() ) {
-			return false;
-		}
-
-		return true;
-	}
-
 	public function parse_updates() {
-		if ( ! $this->check_update_conditions() ) {
-			return;
-		}
-
 		if ( $this->plugin->is_new_install() ) {
 			$this->plugin->update_stored_version();
 
@@ -75,26 +41,18 @@ class Updater {
 		/* @var Update $update */
 		foreach ( $this->updates as $update ) {
 			if ( $update->needs_update() ) {
-				if ( ! $this->apply_updates ) {
-					$this->show_update_notice();
-
-					return;
-				}
 
 				$update->apply_update();
 				$this->plugin->update_stored_version( $update->get_version() );
 			}
 		}
 
-		if ( ! $this->apply_updates ) {
-			return;
-		}
-
 		$this->plugin->update_stored_version();
-		// TODO: https://github.com/codepress/admin-columns-issues/issues/982
-		//$this->show_completed_notice();
 	}
 
+	/**
+	 * @deprecated
+	 */
 	protected function show_completed_notice() {
 		$message = sprintf( '<strong>%s</strong> &ndash; %s',
 			esc_html__( 'Admin Columns', 'codepress-admin-columns' ),
@@ -105,6 +63,9 @@ class Updater {
 		$notice->register();
 	}
 
+	/**
+	 * @deprecated
+	 */
 	protected function show_update_notice() {
 		$url = add_query_arg( array( 'ac_do_update' => 'true' ), ac_get_admin_url( 'settings' ) );
 

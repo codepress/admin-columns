@@ -6,10 +6,10 @@ class Installer {
 	const TABLE = 'admin_columns';
 
 	public function install() {
-		$this->create_data_base();
+		$this->create_database();
 	}
 
-	private function create_data_base() {
+	private function create_database() {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		dbDelta( $this->get_schema() );
