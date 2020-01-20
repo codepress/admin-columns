@@ -77,20 +77,22 @@ abstract class Plugin extends Addon {
 		$installer = new Plugin\Installer();
 		$installer->install();
 
-		// Network wide updating is not supported yet.
 		if ( current_user_can( Capabilities::MANAGE ) && ! is_network_admin() ) {
-
-			$updater = new Plugin\Updater\Site( $this );
-
-			$reflection = new ReflectionObject( $this );
-			$classes = Autoloader::instance()->get_class_names_from_dir( $reflection->getNamespaceName() . '\Plugin\Update' );
-
-			foreach ( $classes as $class ) {
-				$updater->add_update( new $class( $this->get_stored_version() ) );
-			}
-
-			$updater->parse_updates();
+			$this->run_updater();
 		}
+	}
+
+	private function run_updater() {
+		$updater = new Plugin\Updater\Site( $this );
+
+		$reflection = new ReflectionObject( $this );
+		$classes = Autoloader::instance()->get_class_names_from_dir( $reflection->getNamespaceName() . '\Plugin\Update' );
+
+		foreach ( $classes as $class ) {
+			$updater->add_update( new $class( $this->get_stored_version() ) );
+		}
+
+		$updater->parse_updates();
 	}
 
 	/**
@@ -151,18 +153,12 @@ abstract class Plugin extends Addon {
 	public function is_new_install() {
 		global $wpdb;
 
-		// todo: also check new settings
+		$results_1 = $wpdb->get_results( "SELECT option_id FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%' LIMIT 1" );
 
-		$sql = "
-			SELECT option_id
-			FROM {$wpdb->options}
-			WHERE option_name LIKE 'cpac_options_%'
-			LIMIT 1
-		";
+		// Since 4.0.0
+		$results_2 = $wpdb->get_results( "SELECT id FROM {$wpdb->prefix}admin_columns LIMIT 1" );
 
-		$results = $wpdb->get_results( $sql );
-
-		return empty( $results );
+		return empty( $results_1 ) && empty( $results_2 );
 	}
 
 	/**
