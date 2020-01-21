@@ -155,7 +155,7 @@ abstract class Plugin extends Addon {
 
 		$stored_version = $this->get_stored_version();
 
-		// Legacy
+		// Check for ACP < 5.0
 		$results = $wpdb->get_results( "SELECT option_id FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%' LIMIT 1" );
 
 		return empty( $stored_version ) && empty( $results );
