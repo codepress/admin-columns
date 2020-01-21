@@ -19,25 +19,18 @@ class Site extends Updater {
 		$this->plugin = $plugin;
 	}
 
-	public function parse_updates() {
-		if ( $this->plugin->is_new_install() ) {
-			$this->plugin->update_stored_version();
+	/**
+	 * @inheritDoc
+	 */
+	protected function update_stored_version( $version = null ) {
+		$this->plugin->update_stored_version( $version );
+	}
 
-			return;
-		}
-
-		// Sort by version number
-		uksort( $this->updates, 'version_compare' );
-
-		foreach ( $this->updates as $update ) {
-			if ( $update->needs_update() ) {
-
-				$update->apply_update();
-				$this->plugin->update_stored_version( $update->get_version() );
-			}
-		}
-
-		$this->plugin->update_stored_version();
+	/**
+	 * @inheritDoc
+	 */
+	protected function is_new_install() {
+		return $this->plugin->is_new_install();
 	}
 
 }

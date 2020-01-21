@@ -153,12 +153,14 @@ abstract class Plugin extends Addon {
 	public function is_new_install() {
 		global $wpdb;
 
-		$stored_version = $this->get_stored_version();
+		if ( $this->get_stored_version() ) {
+			return false;
+		}
 
-		// Legacy
+		// Before version 3.0.5
 		$results = $wpdb->get_results( "SELECT option_id FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%' LIMIT 1" );
 
-		return empty( $stored_version ) && empty( $results );
+		return empty( $results );
 	}
 
 	/**

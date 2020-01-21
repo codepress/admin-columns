@@ -20,6 +20,36 @@ abstract class Updater {
 		return $this;
 	}
 
-	abstract public function parse_updates();
+	public function parse_updates() {
+		if ( $this->is_new_install() ) {
+			$this->update_stored_version();
+
+			return;
+		}
+
+		// Sort by version number
+		uksort( $this->updates, 'version_compare' );
+
+		foreach ( $this->updates as $update ) {
+			if ( $update->needs_update() ) {
+				$update->apply_update();
+				$this->update_stored_version( $update->get_version() );
+			}
+		}
+
+		$this->update_stored_version();
+	}
+
+	/**
+	 * @param null $version
+	 *
+	 * @return bool
+	 */
+	abstract protected function update_stored_version( $version = null );
+
+	/**
+	 * @return bool
+	 */
+	abstract protected function is_new_install();
 
 }
