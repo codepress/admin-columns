@@ -20,6 +20,10 @@ final class ListScreenCollection implements Iterator, Countable {
 		$this->data[ $list_screen->get_layout_id() ] = $list_screen;
 	}
 
+	public function remove( ListScreen $list_screen ) {
+		unset( $this->data[ $list_screen->get_layout_id() ] );
+	}
+
 	public function add_collection( ListScreenCollection $collection ) {
 		foreach ( $collection as $list_screen ) {
 			$this->add( $list_screen );
@@ -56,6 +60,15 @@ final class ListScreenCollection implements Iterator, Countable {
 	 */
 	public function count() {
 		return count( $this->data );
+	}
+
+	/**
+	 * @param ListScreen $list_screen
+	 *
+	 * @return bool
+	 */
+	public function contains( ListScreen $list_screen ) {
+		return isset( $this->data[ $list_screen->get_layout_id() ] );
 	}
 
 }

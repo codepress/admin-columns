@@ -1,21 +1,17 @@
 <?php
 
-namespace AC\ListScreenRepository\SortStrategy;
+namespace AC\ListScreenRepository\Sort;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenRepository\SortStrategy;
+use AC\ListScreenRepository\Sort;
 
-class ListScreenLabel implements SortStrategy {
+class ListScreenLabel implements Sort {
 
 	public function sort( ListScreenCollection $list_screens ) {
-		if ( $list_screens->count() < 1 ) {
-			return $list_screens;
-		}
-
+		// TODO David make more elegant and simpler _ ?
 		$grouped = [];
 
-		/** @var ListScreen $list_screen */
 		foreach ( $list_screens as $list_screen ) {
 			$grouped[ $list_screen->get_label() ][] = $list_screen;
 		}
@@ -26,7 +22,7 @@ class ListScreenLabel implements SortStrategy {
 
 		foreach ( $grouped as $_list_screens ) {
 			foreach ( $_list_screens as $_list_screen ) {
-				$ordered->push( $_list_screen );
+				$ordered->add( $_list_screen );
 			}
 		}
 

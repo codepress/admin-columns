@@ -1,15 +1,17 @@
 <?php
 
-namespace AC\ListScreenRepository\SortStrategy;
+namespace AC\ListScreenRepository\Sort;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenRepository\SortStrategy;
+use AC\ListScreenRepository\Sort;
 use AC\Storage;
 
-class ManualOrder implements SortStrategy {
+class ManualOrder implements Sort {
 
-	/** @var Storage\ListScreenOrder(); */
+	/**
+	 * @var Storage\ListScreenOrder
+	 */
 	private $list_screen_order;
 
 	public function __construct() {
@@ -17,15 +19,11 @@ class ManualOrder implements SortStrategy {
 	}
 
 	public function sort( ListScreenCollection $list_screens ) {
-		if ( $list_screens->count() < 1 ) {
-			return $list_screens;
-		}
-
+		// TODO David make more elegant and simpler _?
 		$key = $list_screens->current()->get_key();
 
 		$_list_screens = [];
 
-		/** @var ListScreen $list_screen */
 		foreach ( $list_screens as $list_screen ) {
 			$_list_screens[ $list_screen->get_layout_id() ] = $list_screen;
 		}
@@ -37,7 +35,7 @@ class ManualOrder implements SortStrategy {
 				continue;
 			}
 
-			$ordered->push( $_list_screens[ $id ] );
+			$ordered->add( $_list_screens[ $id ] );
 
 			unset( $_list_screens[ $id ] );
 		}

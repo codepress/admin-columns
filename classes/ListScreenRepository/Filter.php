@@ -3,7 +3,7 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreenCollection;
 
-interface FilterStrategy {
+interface Filter {
 
 	/**
 	 * @param ListScreenCollection $list_screens

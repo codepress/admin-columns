@@ -8,7 +8,7 @@ use AC\Admin\PromoCollection;
 use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
-use AC\ListScreenRepository\FilterStrategy;
+use AC\ListScreenRepository\Filter;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
@@ -163,7 +163,7 @@ class AdminColumns extends Plugin {
 	private function get_first_list_screen( $key, PermissionChecker $permission_checker ) {
 		$list_screens = $this->storage->find_all( [
 			'key'    => $key,
-			'filter' => new FilterStrategy\ByPermission( $permission_checker ),
+			'filter' => new Filter\ByPermission( $permission_checker ),
 		] );
 
 		if ( $list_screens->count() > 0 ) {

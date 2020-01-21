@@ -1,14 +1,16 @@
 <?php
 
-namespace AC\ListScreenRepository\FilterStrategy;
+namespace AC\ListScreenRepository\Filter;
 
 use AC\ListScreenCollection;
-use AC\ListScreenRepository\FilterStrategy;
+use AC\ListScreenRepository\Filter;
 use AC\PermissionChecker;
 
-class ByPermission implements FilterStrategy {
+class ByPermission implements Filter {
 
-	/** @var PermissionChecker */
+	/**
+	 * @var PermissionChecker
+	 */
 	protected $permission_checker;
 
 	public function __construct( PermissionChecker $permission_checker ) {
@@ -16,15 +18,13 @@ class ByPermission implements FilterStrategy {
 	}
 
 	public function filter( ListScreenCollection $list_screens ) {
-		$filtered = new ListScreenCollection();
-
 		foreach ( $list_screens as $list_screen ) {
-			if ( $this->permission_checker->is_valid( $list_screen ) ) {
-				$filtered->push( $list_screen );
+			if ( ! $this->permission_checker->is_valid( $list_screen ) ) {
+				$list_screens->remove( $list_screen );
 			}
 		}
 
-		return $filtered;
+		return $list_screens;
 	}
 
 }

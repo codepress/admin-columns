@@ -19,6 +19,8 @@ final class Storage {
 	 */
 	private $write_engine;
 
+	// TODO David needs a write engine
+
 	/**
 	 * @param ListScreenRepository $repository
 	 * @param bool                 $is_write_engine
@@ -40,108 +42,66 @@ final class Storage {
 	}
 
 	/**
-	 * @return void
-	 */
-	public function set_read_only() {
-		$this->write_engine = null;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function is_read_ony() {
-		return $this->write_engine === null;
-	}
-
-	/**
-	 * @param array $args
+	 * @param array       $args
+	 * @param Filter|null $filtering
+	 * @param Sort|null   $sorting
 	 *
 	 * @return ListScreenCollection
 	 */
-	public function find_all( array $args = [] ) {
-		$list_screens = new ListScreenCollection();
 
-		$sort_strategy = isset( $args['sort'] )
-			? $args['sort']
-			: false;
-
-		$filter_strategy = isset( $args['filter'] )
-			? $args['filter']
-			: false;
-
-		// does not apply to repositories
-		unset( $args['sort'], $args['filter'] );
+	// TODO David filters maybe NOT here, or ALSO here? Think about htis some mor
+	public function find_all( array $args = [], Filter $filtering = null, Sort $sorting = null ) {
+		$list_screens = $this->write_engine->find_all( $args );
 
 		foreach ( $this->repositories as $repository ) {
-			$list_screens->add_collection( $repository->find_all( $args ) );
+			if ( $repository === $this->write_engine ) {
+				continue;
+			}
+
+			foreach ( $repository->find_all( $args ) as $list_screen ) {
+				if ( ! $list_screens->contains( $list_screen ) ) {
+					$list_screens->add( $list_screen );
+				}
+			}
 		}
 
-		if ( $filter_strategy instanceof FilterStrategy ) {
-			$list_screens = $filter_strategy->filter( $list_screens );
+		// TODO DAvid make this into traits
+		if ( $filtering ) {
+			$list_screens = $filtering->filter( $list_screens );
 		}
 
-		$list_screens = $this->filter_unique( $list_screens );
-
-		if ( $sort_strategy instanceof SortStrategy ) {
-			$list_screens = $sort_strategy->sort( $list_screens );
+		if ( $sorting ) {
+			$list_screens = $sorting->sort( $list_screens );
 		}
 
 		return $list_screens;
 	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return ListScreen|null
+	 */
 	public function find( $id ) {
-		$list_screens = new ListScreenCollection();
+		$list_screen = $this->write_engine->find( $id );
+
+		if ( $list_screen ) {
+			return $list_screen;
+		}
 
 		foreach ( $this->repositories as $repository ) {
+			if ( $repository === $this->write_engine ) {
+				continue;
+			}
+
 			$list_screen = $repository->find( $id );
 
 			if ( $list_screen ) {
-				$list_screens->push( $list_screen );
+				return $list_screen;
 			}
 		}
 
-		$list_screen = $this->filter_unique( $list_screens )->current();
-
-		if ( ! $list_screen ) {
-			return null;
-		}
-
-		return $list_screen;
-	}
-
-	/**
-	 * Creates an unique set of list screens with no duplicate Id's. When a duplicate Id is found it will
-	 * keep the on with a higher modified date.
-	 *
-	 * @param ListScreenCollection $list_screens
-	 *
-	 * @return ListScreenCollection
-	 */
-	private function filter_unique( ListScreenCollection $list_screens ) {
-		$unique = new ListScreenCollection();
-
-		/** @var ListScreen $list_screen */
-		foreach ( $list_screens as $list_screen ) {
-			if ( $unique->has( $list_screen->get_layout_id() ) ) {
-
-				/** @var ListScreen $_list_screen */
-				$_list_screen = $unique->get( $list_screen->get_layout_id() );
-
-				// Use the list screen that is newer
-				if ( $_list_screen->get_updated() > $list_screen->get_updated() ) {
-					continue;
-				}
-
-				// Use the `read only` list screen when the dates are the same
-				if ( $_list_screen->get_updated() == $list_screen->get_updated() && $_list_screen->is_read_only() ) {
-					continue;
-				}
-			}
-
-			$unique->put( $list_screen->get_layout_id(), $list_screen );
-		}
-
-		return $unique;
+		return null;
 	}
 
 	public function exists( $id ) {

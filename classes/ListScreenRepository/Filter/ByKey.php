@@ -1,11 +1,11 @@
 <?php
 
-namespace AC\ListScreenRepository\FilterStrategy;
+namespace AC\ListScreenRepository\Filter;
 
 use AC\ListScreenCollection;
-use AC\ListScreenRepository\FilterStrategy;
+use AC\ListScreenRepository\Filter;
 
-class ByKey implements FilterStrategy {
+class ByKey implements Filter {
 
 	/** @var string */
 	private $key;
@@ -19,7 +19,7 @@ class ByKey implements FilterStrategy {
 
 		foreach ( $list_screens as $list_screen ) {
 			if ( $this->key === $list_screen->get_key() ) {
-				$filtered->push( $list_screen );
+				$filtered->add( $list_screen );
 			}
 		}
 

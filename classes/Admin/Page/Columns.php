@@ -11,7 +11,7 @@ use AC\Helper\Select;
 use AC\ListScreen;
 use AC\ListScreenGroups;
 use AC\ListScreenRepository;
-use AC\ListScreenRepository\SortStrategy\ManualOrder;
+use AC\ListScreenRepository\Sort\ManualOrder;
 use AC\ListScreenTypes;
 use AC\Message\Notice;
 use AC\Preferences;
