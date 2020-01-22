@@ -87,6 +87,14 @@ class V4000 extends Update {
 
 				break;
 			case 5 :
+				$this->migrate_invalid_network_settings();
+
+				// go to next step
+				$this->update_next_step( 6 )
+				     ->apply_update();
+
+				break;
+			case 6 :
 				$replaced_list_ids = $this->get_replacement_ids();
 
 				// 6. User Preference "Table selection": wp_ac_preferences_layout_table
@@ -323,6 +331,30 @@ class V4000 extends Update {
 				$order->set( $list_screen_key, $ids );
 			}
 		}
+	}
+
+	/**
+	 * Since Network list screens have their own preference, we have to remove any network list screens from the preferences
+	 */
+	private function migrate_invalid_network_settings() {
+		global $wpdb;
+
+		$network_listscreens = [ 'wp-ms_sites', 'wp-ms_users' ];
+		$meta_key = $wpdb->get_blog_prefix() . 'ac_preferences_settings';
+		$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->usermeta} WHERE meta_key = %s", $meta_key ) );
+
+		foreach ( $results as $row ) {
+			$data = maybe_unserialize( $row->meta_value );
+
+			if ( empty( $data ) || ! is_array( $data ) ) {
+				continue;
+			}
+
+			if ( isset( $data['list_screen'] ) && in_array( $data['list_screen'], $network_listscreens, true ) ) {
+				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->usermeta} WHERE umeta_id = %d", $row->umeta_id ) );
+			}
+		}
+
 	}
 
 	private function maybe_replace_id( array $replaced_list_ids, $list_key, $id ) {
