@@ -103,7 +103,7 @@ class Screen implements Registrable {
 	 * @return bool
 	 */
 	public function is_list_screen() {
-		return false !== $this->get_list_screen();
+		return null !== $this->get_list_screen();
 	}
 
 	/**

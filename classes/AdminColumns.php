@@ -13,7 +13,6 @@ use AC\Controller\AjaxRequestNewColumn;
 use AC\Controller\ListScreenRequest;
 use AC\Controller\ListScreenRestoreColumns;
 use AC\Deprecated;
-use AC\ListScreen\Post;
 use AC\ListScreenRepository;
 use AC\ListScreenRepository\FilterStrategy;
 use AC\Screen\QuickEdit;
@@ -26,9 +25,6 @@ class AdminColumns extends Plugin {
 	 * @var Admin
 	 */
 	private $admin;
-
-	/** @var Admin */
-	private $network_admin;
 
 	/**
 	 * @var Table\Screen
