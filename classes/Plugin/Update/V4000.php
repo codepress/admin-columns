@@ -27,7 +27,7 @@ class V4000 extends Update {
 	}
 
 	protected function set_version() {
-		$this->version = '4.0.0beta';
+		$this->version = '4.0.0';
 	}
 
 	public function apply_update() {
