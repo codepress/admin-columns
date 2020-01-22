@@ -6,7 +6,6 @@ use AC\Admin;
 use AC\Ajax;
 use AC\ListScreenRepository\Aggregate;
 use AC\ListScreenRepository\ListScreenRepository;
-use AC\Preferences\Site;
 use AC\Registrable;
 use AC\Request;
 
@@ -15,12 +14,8 @@ class AjaxRequestNewColumn implements Registrable {
 	/** @var Aggregate */
 	private $repository;
 
-	/** @var Site */
-	private $preference;
-
-	public function __construct( ListScreenRepository $repository, Site $preference ) {
+	public function __construct( ListScreenRepository $repository ) {
 		$this->repository = $repository;
-		$this->preference = $preference;
 	}
 
 	public function register() {
@@ -45,7 +40,7 @@ class AjaxRequestNewColumn implements Registrable {
 		$request = new Request();
 
 		$requests = [
-			new Admin\Request\Column\Save( $this->repository, $this->preference ),
+			new Admin\Request\Column\Save( $this->repository ),
 			new Admin\Request\Column\Refresh(),
 			new Admin\Request\Column\Select(),
 		];

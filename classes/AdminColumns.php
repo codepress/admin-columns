@@ -70,7 +70,7 @@ class AdminColumns extends Plugin {
 			new DefaultColumnsController( new Request(), new DefaultColumns() ),
 			new QuickEdit( $this->list_screen_repository, $this->preferences() ),
 			new Capabilities\Manage(),
-			new AjaxRequestNewColumn( $this->list_screen_repository, new Preferences\Site( 'settings' ) ),
+			new AjaxRequestNewColumn( $this->list_screen_repository ),
 			new AjaxRequestCustomFieldKeys(),
 			new ListScreenRestoreColumns( $this->list_screen_repository ),
 		];

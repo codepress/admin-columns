@@ -1,11 +1,10 @@
 <?php
+
 namespace AC\Admin\Request\Column;
 
 use AC\Admin\Request\Handler;
-use AC\ListScreen;
 use AC\ListScreenRepository;
 use AC\ListScreenTypes;
-use AC\Preferences;
 use AC\Request;
 
 class Save extends Handler {
@@ -13,16 +12,10 @@ class Save extends Handler {
 	/** @var ListScreenRepository\Aggregate */
 	private $list_screen_repository;
 
-	/**
-	 * @var Preferences\Site
-	 */
-	private $preferences;
-
-	public function __construct( ListScreenRepository\Aggregate $list_screen_repository, Preferences\Site $preferences ) {
+	public function __construct( ListScreenRepository\Aggregate $list_screen_repository ) {
 		parent::__construct( 'save' );
 
 		$this->list_screen_repository = $list_screen_repository;
-		$this->preferences = $preferences;
 	}
 
 	public function request( Request $request ) {
@@ -63,8 +56,6 @@ class Save extends Handler {
 		            ->set_preferences( ! empty( $formdata['settings'] ) ? $formdata['settings'] : [] );
 
 		$this->list_screen_repository->save( $list_screen );
-
-		$this->preferences->set( 'list_id', $list_id );
 
 		do_action( 'ac/columns_stored', $list_screen );
 

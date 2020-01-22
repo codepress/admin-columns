@@ -16,13 +16,13 @@ class ListScreenRequest {
 	/** @var ListScreenRepository */
 	private $repository;
 
-	/** @var Preferences\Site */
+	/** @var Preferences */
 	private $preference;
 
 	/** @var bool */
 	private $is_network;
 
-	public function __construct( Request $request, ListScreenRepository $repository, Preferences\Site $preference, $is_network = false ) {
+	public function __construct( Request $request, ListScreenRepository $repository, Preferences $preference, $is_network = false ) {
 		$this->request = $request;
 		$this->repository = $repository;
 		$this->preference = $preference;
