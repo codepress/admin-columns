@@ -2,6 +2,7 @@
 
 namespace AC\ThirdParty;
 
+use AC\ListScreenTypes;
 use AC\Registrable;
 
 /**
@@ -48,7 +49,7 @@ class WPML implements Registrable {
 			return;
 		}
 
-		foreach ( AC()->get_list_screens() as $list_screen ) {
+		foreach ( ListScreenTypes::instance()->get_list_screens() as $list_screen ) {
 			foreach ( $list_screen->get_settings() as $column_name => $options ) {
 				do_action( 'wpml_register_single_string', 'Admin Columns', $options['label'], $options['label'] );
 			}

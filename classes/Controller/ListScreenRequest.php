@@ -56,13 +56,7 @@ class ListScreenRequest {
 			return null;
 		}
 
-		$list_screen = $list_screens->current();
-
-		if ( $this->is_network && $list_screen && ! $list_screen->is_network_only() ) {
-			$list_screen = null;
-		}
-
-		return $list_screen;
+		return $list_screens->current();
 	}
 
 	/**
@@ -126,7 +120,7 @@ class ListScreenRequest {
 			return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
 		}
 
-		// First visit. Fetch key then first layout ID.
+		// First visit to settings page
 		$list_key = $this->get_first_available_list_screen_key();
 
 		$this->preference->set( 'list_key', $list_key );

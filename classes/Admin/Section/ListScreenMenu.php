@@ -35,27 +35,11 @@ class ListScreenMenu {
 	}
 
 	private function get_network_list_screens() {
-		$list_screens = ListScreenTypes::instance()->get_list_screens();
-
-		foreach ( $list_screens as $k => $list_screen ) {
-			if ( ! $list_screen->is_network_only() ) {
-				unset( $list_screens[ $k ] );
-			}
-		}
-
-		return $list_screens;
+		return ListScreenTypes::instance()->get_list_screens( [ 'network_only' => true ] );
 	}
 
 	private function get_site_list_screens() {
-		$list_screens = ListScreenTypes::instance()->get_list_screens();
-
-		foreach ( $list_screens as $k => $list_screen ) {
-			if ( $list_screen->is_network_only() ) {
-				unset( $list_screens[ $k ] );
-			}
-		}
-
-		return $list_screens;
+		return ListScreenTypes::instance()->get_list_screens( [ 'site_only' => true ] );
 	}
 
 	/**

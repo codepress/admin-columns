@@ -299,13 +299,6 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return ListScreen[]
-	 */
-	public function get_list_screens() {
-		return ListScreenTypes::instance()->get_list_screens();
-	}
-
-	/**
 	 * @param ListScreen $list_screen
 	 *
 	 * @return self
@@ -548,6 +541,16 @@ class AdminColumns extends Plugin {
 	 */
 	public function api() {
 		_deprecated_function( __METHOD__, '4.0' );
+	}
+
+	/**
+	 * @return ListScreen[]
+	 * @deprecated 4.0
+	 */
+	public function get_list_screens() {
+		_deprecated_function( __METHOD__, '4.0', 'ListScreenTypes::instance()->get_list_screens()' );
+
+		return ListScreenTypes::instance()->get_list_screens();
 	}
 
 }
