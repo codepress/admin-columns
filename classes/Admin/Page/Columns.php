@@ -45,13 +45,6 @@ class Columns extends Admin\Page
 	}
 
 	/**
-	 * @return ListScreen
-	 */
-	private function get_list_screen() {
-		return $this->controller->get_list_screen();
-	}
-
-	/**
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
@@ -135,7 +128,7 @@ class Columns extends Admin\Page
 	}
 
 	public function render() {
-		$list_screen = $this->get_list_screen();
+		$list_screen = $this->controller->get_list_screen();
 
 		if ( $this->uninitialized->has_list_screen( $list_screen->get_key() ) ) {
 			$this->render_loading_screen();

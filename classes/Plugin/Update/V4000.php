@@ -95,6 +95,8 @@ class V4000 extends Update {
 				// 7. Migrate layout order from `usermeta` to the `option table`
 				$this->migrate_list_screen_order( $replaced_list_ids );
 
+				// todo: migrate_user_preferences_settings_selection . Also remove network sites 'sites' and 'network-users' from main site preference.
+
 				// clear steps and replacement id's
 				$this->flush_temp_data();
 

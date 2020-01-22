@@ -19,10 +19,14 @@ class ListScreenRequest {
 	/** @var Preferences\Site */
 	private $preference;
 
-	public function __construct( Request $request, ListScreenRepository $repository, Preferences\Site $preference ) {
+	/** @var bool */
+	private $is_network;
+
+	public function __construct( Request $request, ListScreenRepository $repository, Preferences\Site $preference, $is_network = false ) {
 		$this->request = $request;
 		$this->repository = $repository;
 		$this->preference = $preference;
+		$this->is_network = (bool) $is_network;
 	}
 
 	/**
@@ -31,7 +35,13 @@ class ListScreenRequest {
 	 * @return bool
 	 */
 	private function exists_list_screen( $list_key ) {
-		return null !== ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+
+		if ( $this->is_network && $list_screen && ! $list_screen->is_network_only() ) {
+			$list_screen = null;
+		}
+
+		return null !== $list_screen;
 	}
 
 	/**
@@ -46,7 +56,13 @@ class ListScreenRequest {
 			return null;
 		}
 
-		return $list_screens->current();
+		$list_screen = $list_screens->current();
+
+		if ( $this->is_network && $list_screen && ! $list_screen->is_network_only() ) {
+			$list_screen = null;
+		}
+
+		return $list_screen;
 	}
 
 	/**
@@ -110,12 +126,30 @@ class ListScreenRequest {
 			return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
 		}
 
+		// First visit. Fetch key then first layout ID.
+		$list_key = $this->get_first_available_list_screen_key();
+
+		$this->preference->set( 'list_key', $list_key );
+
+		$list_screen = $this->get_first_available_list_screen( $list_key );
+
+		if ( $list_screen ) {
+			$this->preference->set( 'list_id', $list_screen->get_layout_id() );
+
+			return $list_screen;
+		}
+
 		// Initialize new
-		$types = ListScreenTypes::instance()->get_list_screens();
+		return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+	}
 
-		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( current( $types )->get_key() );
+	/**
+	 * @return string
+	 */
+	private function get_first_available_list_screen_key() {
+		$list_screens = ListScreenTypes::instance()->get_list_screens( [ 'network_only' => $this->is_network ] );
 
-		return $list_screen;
+		return current( $list_screens )->get_key();
 	}
 
 }
