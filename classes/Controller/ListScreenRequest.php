@@ -141,7 +141,11 @@ class ListScreenRequest {
 	 * @return string
 	 */
 	private function get_first_available_list_screen_key() {
-		$list_screens = ListScreenTypes::instance()->get_list_screens( [ 'network_only' => $this->is_network ] );
+		if ( $this->is_network ) {
+			$list_screens = ListScreenTypes::instance()->get_list_screens( [ 'network_only' => true ] );
+		} else {
+			$list_screens = ListScreenTypes::instance()->get_list_screens( [ 'site_only' => true ] );
+		}
 
 		return current( $list_screens )->get_key();
 	}
