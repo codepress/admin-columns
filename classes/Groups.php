@@ -66,8 +66,8 @@ final class Groups {
 
 		ksort( $aggregated, SORT_NUMERIC );
 
-		foreach ( $aggregated as $priority => $groups ) {
-			$sorted = array_merge( $sorted, $this->sort_groups_by_string( $groups, 'label' ) );
+		foreach ( $aggregated as $priority => $_groups ) {
+			$sorted = array_merge( $sorted, $this->sort_groups_by_string( $_groups, 'label' ) );
 		}
 
 		return $sorted;

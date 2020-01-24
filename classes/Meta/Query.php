@@ -78,8 +78,8 @@ class Query {
 	public function select( $field ) {
 		$fields = explode( ',', $field );
 
-		foreach ( $fields as $field ) {
-			$this->select[] = trim( $field );
+		foreach ( $fields as $_field ) {
+			$this->select[] = trim( $_field );
 		}
 
 		return $this;
@@ -123,14 +123,13 @@ class Query {
 	}
 
 	/**
-	 * @see get_where_clause()
-	 *
 	 * @param        $field
 	 * @param null   $operator
 	 * @param null   $value
 	 * @param string $boolean
 	 *
 	 * @return $this
+	 * @see get_where_clause()
 	 */
 	public function join_where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
 		// set default join
@@ -146,9 +145,9 @@ class Query {
 	public function order_by( $order_by, $order = 'asc' ) {
 		$parts = explode( ',', $order_by );
 
-		foreach ( $parts as $order_by ) {
+		foreach ( $parts as $_order_by ) {
 			$this->order_by[] = array(
-				'order_by' => trim( $order_by ),
+				'order_by' => trim( $_order_by ),
 				'order'    => strtoupper( $order ),
 			);
 		}
@@ -214,14 +213,13 @@ class Query {
 	}
 
 	/**
-	 * @see get_where_clause()
-	 *
 	 * @param        $field
 	 * @param null   $operator
 	 * @param null   $value
 	 * @param string $boolean
 	 *
 	 * @return $this
+	 * @see get_where_clause()
 	 */
 	public function remove_where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
 		$where = $this->get_where_clause( $field, $operator, $value, $boolean );
@@ -236,14 +234,13 @@ class Query {
 	}
 
 	/**
-	 * @see get_where_clause()
-	 *
 	 * @param        $field
 	 * @param null   $operator
 	 * @param null   $value
 	 * @param string $boolean
 	 *
 	 * @return $this
+	 * @see get_where_clause()
 	 */
 	public function where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
 		$this->where[] = $this->get_where_clause( $field, $operator, $value, $boolean );
@@ -252,13 +249,12 @@ class Query {
 	}
 
 	/**
-	 * @see get_where_clause()
-	 *
 	 * @param      $field
 	 * @param null $operator
 	 * @param null $value
 	 *
 	 * @return $this
+	 * @see get_where_clause()
 	 */
 	public function or_where( $field, $operator = null, $value = null ) {
 		return $this->where( $field, $operator, $value, 'OR' );

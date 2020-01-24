@@ -453,8 +453,8 @@ class Html {
 
 		$icons = array();
 
-		foreach ( $stars as $type => $count ) {
-			for ( $i = 1; $i <= $count; $i++ ) {
+		foreach ( $stars as $type => $_count ) {
+			for ( $i = 1; $i <= $_count; $i++ ) {
 				$icons[] = ac_helper()->icon->dashicon( array( 'icon' => 'star-' . $type, 'class' => 'ac-value-star' ) );
 			}
 		}
