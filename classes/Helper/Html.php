@@ -3,6 +3,7 @@
 namespace AC\Helper;
 
 use DOMDocument;
+use DOMElement;
 
 class Html {
 
@@ -208,7 +209,7 @@ class Html {
 		$links = $dom->getElementsByTagName( 'a' );
 
 		foreach ( $links as $link ) {
-			/** @var \DOMElement $link */
+			/** @var DOMElement $link */
 			$href = $link->getAttribute( 'href' );
 
 			if ( 0 === strpos( $href, '#' ) ) {

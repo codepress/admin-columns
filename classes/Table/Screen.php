@@ -8,6 +8,7 @@ use AC\Form;
 use AC\ListScreen;
 use AC\Registrable;
 use AC\Settings;
+use WP_Post;
 
 final class Screen implements Registrable {
 
@@ -138,7 +139,7 @@ final class Screen implements Registrable {
 	 * Add a download link to the table screen
 	 *
 	 * @param array    $actions
-	 * @param \WP_Post $post
+	 * @param WP_Post $post
 	 *
 	 * @return array
 	 */
@@ -156,7 +157,7 @@ final class Screen implements Registrable {
 	 * Sets the inline data when the title columns is not present on a AC\ListScreen_Post screen
 	 *
 	 * @param array    $actions
-	 * @param \WP_Post $post
+	 * @param WP_Post $post
 	 *
 	 * @return array
 	 */

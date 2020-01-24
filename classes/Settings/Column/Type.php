@@ -4,6 +4,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Groups;
+use AC\Integration;
 use AC\Settings\Column;
 use AC\View;
 
@@ -63,7 +64,7 @@ class Type extends Column {
 	}
 
 	/**
-	 * @return \AC\Integration[]
+	 * @return Integration[]
 	 */
 	private function get_missing_integrations() {
 		$missing = array();

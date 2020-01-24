@@ -3,6 +3,7 @@
 namespace AC\ListScreen;
 
 use AC\ListScreenPost;
+use ReflectionException;
 use WP_Posts_List_Table;
 
 class Post extends ListScreenPost {
@@ -64,7 +65,7 @@ class Post extends ListScreenPost {
 	}
 
 	/**
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
 	protected function register_column_types() {
 		parent::register_column_types();

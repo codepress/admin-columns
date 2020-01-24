@@ -5,6 +5,7 @@ namespace AC;
 use AC\Column\Placeholder;
 use DateTime;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * List Screen
@@ -634,7 +635,7 @@ abstract class ListScreen {
 	/**
 	 * @param string $namespace Namespace from the current path
 	 *
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
 	public function register_column_types_from_dir( $namespace ) {
 		$classes = Autoloader::instance()->get_class_names_from_dir( $namespace );
