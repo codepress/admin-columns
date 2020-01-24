@@ -92,7 +92,7 @@ function ac_helper() {
  * @param array|string $list_screen_keys
  * @param array        $column_data
  *
- * @deprecated 4.0
+ * @deprecated 4.0.0
  * @since      2.2
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
@@ -111,7 +111,7 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
  *
  * @param array $data
  *
- * @since 4.0
+ * @since 4.0.0
  */
 function ac_load_columns( array $data ) {
 	AC\ListScreenApiData::push( $data );
@@ -159,7 +159,7 @@ function ac_convert_site_url( $label, $action = 'encode' ) {
  * @param string $id Layout ID e.g. ac5de58e04a75b0
  *
  * @return ListScreen|null
- * @since 4.0
+ * @since 4.0.0
  */
 function ac_get_list_screen( $id ) {
 	return AC()->get_listscreen_repository()->find( $id );
@@ -169,7 +169,7 @@ function ac_get_list_screen( $id ) {
  * @param string $key e.g. post, page, wp-users, wp-media, wp-comments
  *
  * @return ListScreenCollection
- * @since 4.0
+ * @since 4.0.0
  */
 function ac_get_list_screens( $key ) {
 	return AC()->get_listscreen_repository()->find_all( [ 'key' => $key ] );

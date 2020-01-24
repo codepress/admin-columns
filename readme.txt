@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.5
 Tested up to: 5.3
 Requires PHP: 5.6.20
-Stable tag: 3.4.8
+Stable tag: 4.0.0
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -213,8 +213,8 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
-Release Date: tbd
+= 4.0.0 =
+Release Date: January 27th, 2020
 
 * [Improved] Use wp_date for column value formatters instead of date_i18n
 * [Improved] Set link type for Taxonomy Columns
