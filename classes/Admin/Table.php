@@ -1,41 +1,54 @@
 <?php
+
 namespace AC\Admin;
 
 use AC\View;
+use Traversable;
 
 abstract class Table {
 
-	abstract public function get_columns();
+	/**
+	 * @var string
+	 */
+	protected $message;
 
-	abstract public function get_items();
+	/**
+	 * @return array
+	 */
+	abstract public function get_headings();
 
-	abstract public function render_column( $name, $item );
+	/**
+	 * @return Traversable
+	 */
+	abstract public function get_rows();
 
-	public function get_row_class( $item ) {
-		return '';
+	/**
+	 * @param string $key
+	 * @param mixed  $data
+	 *
+	 * @return string
+	 */
+	abstract public function get_column( $key, $data );
+
+	/**
+	 * @return bool
+	 */
+	public function has_message() {
+		return null !== $this->message;
 	}
 
-	protected function get_message() {
-		return '';
-	}
-
-	public function getTableClasses() {
-		return [ 'widefat', 'fixed', 'ac-table' ];
+	public function get_message() {
+		return $this->message;
 	}
 
 	public function render() {
 		$view = new View( [
-			'table'   => $this,
-			'message' => $this->get_message(),
+			'table' => $this,
 		] );
 
 		$view->set_template( 'admin/table' );
 
-		echo $view->render();
-	}
-
-	public function getColumnNames() {
-		return array_keys( $this->get_columns() );
+		return $view->render();
 	}
 
 }
