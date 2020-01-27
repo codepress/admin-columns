@@ -7,14 +7,24 @@ use AC\ListScreenCollection;
 use AC\ListScreenTypes;
 use DateTime;
 use DomainException;
+use Exception;
 use LogicException;
 
-class Database implements Writable {
+// TODO David test this new implementation
+
+final class Database implements Writable {
 
 	const TABLE = 'admin_columns';
 
-	/** @var ListScreenTypes */
+	/**
+	 * @var ListScreenTypes
+	 */
 	private $list_screen_types;
+
+	/**
+	 * @var array
+	 */
+	private $cached_list_ids = [];
 
 	public function __construct( ListScreenTypes $list_screen_types ) {
 		$this->list_screen_types = $list_screen_types;
@@ -23,40 +33,50 @@ class Database implements Writable {
 	/**
 	 * @param array $args
 	 *
-	 * @return ListScreenCollection
+	 * @return array
 	 */
-	public function find_all( array $args = [] ) {
-		// TODO David let find_all and find be idential but let find supply args to find_all with LIMIT
+	private function get_results( array $args = [] ) {
 		global $wpdb;
 
 		$args = array_merge( [
-			'key' => null,
+			'id'    => null,
+			'limit' => null,
 		], $args );
 
-		$table_name = $wpdb->prefix . self::TABLE;
-
-		$sql = "
+		$sql = '
 			SELECT * 
-			FROM {$table_name}
+			FROM ' . $wpdb->prefix . self::TABLE . '
 			WHERE 1=1
-		";
+		';
 
-		if ( $args['key'] ) {
-			$sql .= $wpdb->prepare( ' AND list_key = %s', $args['key'] );
+		if ( $args['id'] ) {
+			$sql .= $wpdb->prepare( ' AND list_id = %s', $args['id'] ) . "\n";
 		}
 
-		$sql .= ';';
+		if ( $args['limit'] ) {
+			$sql .= 'LIMIT ' . absint( $args['limit'] ) . "\n";
+		}
 
+		return $wpdb->get_results( $sql );
+	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return ListScreenCollection
+	 */
+	public function find_all( array $args = [] ) {
 		$list_screens = new ListScreenCollection();
 
-		foreach ( $wpdb->get_results( $sql ) as $list_data ) {
+		foreach ( $this->get_results( $args ) as $list_data ) {
 			try {
 				$list_screen = $this->create_list_screen( $list_data );
-			} catch ( LogicException $e ) {
+			} catch ( Exception $e ) {
 				continue;
 			}
 
-			$list_screens->push( $list_screen );
+			$list_screens->add( $list_screen );
+
 		}
 
 		return $list_screens;
@@ -68,26 +88,38 @@ class Database implements Writable {
 	 * @return ListScreen
 	 */
 	public function find( $list_id ) {
-		// TODO throw exception on no find
-		global $wpdb;
+		$list_screens = $this->find_all( [
+			'id'    => $list_id,
+			'limit' => 1,
+		] );
 
-		$table_name = $wpdb->prefix . self::TABLE;
+		return $list_screens->current();
+	}
 
-		$sql = $wpdb->prepare( "SELECT * FROM {$table_name} WHERE list_id = %s LIMIT 1;", $list_id );
+	/**
+	 * @param string $list_id
+	 *
+	 * @return int
+	 */
+	private function get_id( $list_id ) {
+		if ( in_array( $list_id, $this->cached_list_ids, true ) ) {
+			return $list_id;
+		}
 
-		$data = $wpdb->get_row( $sql );
+		$results = $this->get_results( [
+			'id'    => $list_id,
+			'limit' => 1,
+		] );
 
-		if ( null === $data ) {
+		if ( ! count( $results ) ) {
 			return null;
 		}
 
-		try {
-			$list_screen = $this->create_list_screen( $data );
-		} catch ( LogicException $e ) {
-			return null;
-		}
+		$id = (int) current( $results )->list_id;
 
-		return $list_screen;
+		$this->cached_list_ids[] = $id;
+
+		return $id;
 	}
 
 	public function exists( $list_id ) {
@@ -102,29 +134,9 @@ class Database implements Writable {
 	public function save( ListScreen $list_screen ) {
 		$id = $this->get_id( $list_screen->get_layout_id() );
 
-		if ( $id ) {
-			$this->update( $id, $list_screen );
-
-			return;
-		}
-
-		$this->create( $list_screen );
-	}
-
-	/**
-	 * @param string $list_id
-	 *
-	 * @return int
-	 */
-	private function get_id( $list_id ) {
-		// TODO David this seems premature optimize and should be in the get_all?
-		global $wpdb;
-
-		$table_name = $wpdb->prefix . self::TABLE;
-
-		$sql = $wpdb->prepare( "SELECT id FROM {$table_name} WHERE list_id = %s LIMIT 1;", $list_id );
-
-		return (int) $wpdb->get_var( $sql );
+		$id
+			? $this->update( $id, $list_screen )
+			: $this->create( $list_screen );
 	}
 
 	private function create( ListScreen $list_screen ) {
@@ -217,6 +229,11 @@ class Database implements Writable {
 		);
 	}
 
+	/**
+	 * @param $data
+	 *
+	 * @return ListScreen
+	 */
 	private function create_list_screen( $data ) {
 		$list_screen = $this->list_screen_types->get_list_screen_by_key( $data->list_key );
 
@@ -236,6 +253,7 @@ class Database implements Writable {
 			$list_screen->set_settings( unserialize( $data->columns ) );
 		}
 
+		// TODO David need to decide on this
 		$list_screen->set_source( $data->id );
 
 		return $list_screen;
