@@ -21,11 +21,6 @@ final class Database implements Writable {
 	 */
 	private $list_screen_types;
 
-	/**
-	 * @var array
-	 */
-	private $cached_list_ids = [];
-
 	public function __construct( ListScreenTypes $list_screen_types ) {
 		$this->list_screen_types = $list_screen_types;
 	}
@@ -50,11 +45,13 @@ final class Database implements Writable {
 		';
 
 		if ( $args['id'] ) {
-			$sql .= $wpdb->prepare( ' AND list_id = %s', $args['id'] ) . "\n";
+			$sql .= "\n" . $wpdb->prepare( 'AND list_id = %s', $args['id'] );
+
+			$args['limit'] = 1;
 		}
 
 		if ( $args['limit'] ) {
-			$sql .= 'LIMIT ' . absint( $args['limit'] ) . "\n";
+			$sql .= "\n" . 'LIMIT ' . absint( $args['limit'] );
 		}
 
 		return $wpdb->get_results( $sql );
@@ -89,8 +86,7 @@ final class Database implements Writable {
 	 */
 	public function find( $list_id ) {
 		$list_screens = $this->find_all( [
-			'id'    => $list_id,
-			'limit' => 1,
+			'id' => $list_id,
 		] );
 
 		return $list_screens->current();
@@ -102,13 +98,14 @@ final class Database implements Writable {
 	 * @return int
 	 */
 	private function get_id( $list_id ) {
-		if ( in_array( $list_id, $this->cached_list_ids, true ) ) {
+		static $cached_list_ids = [];
+
+		if ( in_array( $list_id, $cached_list_ids, true ) ) {
 			return $list_id;
 		}
 
 		$results = $this->get_results( [
-			'id'    => $list_id,
-			'limit' => 1,
+			'id' => $list_id,
 		] );
 
 		if ( ! count( $results ) ) {
@@ -116,8 +113,7 @@ final class Database implements Writable {
 		}
 
 		$id = (int) current( $results )->list_id;
-
-		$this->cached_list_ids[] = $id;
+		$cached_list_ids[] = $id;
 
 		return $id;
 	}
@@ -132,76 +128,60 @@ final class Database implements Writable {
 	 * @return void
 	 */
 	public function save( ListScreen $list_screen ) {
+		global $wpdb;
+
+		if ( empty( $list_screen->get_layout_id() ) ) {
+			throw new LogicException( 'Invalid listscreen Id.' );
+		}
+
 		$id = $this->get_id( $list_screen->get_layout_id() );
+		$table = $wpdb->prefix . self::TABLE;
 
-		$id
-			? $this->update( $id, $list_screen )
-			: $this->create( $list_screen );
-	}
+		$args = [
+			'list_id'       => $list_screen->get_layout_id(),
+			'list_key'      => $list_screen->get_key(),
+			'title'         => $list_screen->get_title(),
+			'columns'       => serialize( $list_screen->get_settings() ),
+			'settings'      => serialize( $list_screen->get_preferences() ),
+			'date_modified' => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
+		];
 
-	private function create( ListScreen $list_screen ) {
-		global $wpdb;
+		if ( $id ) {
+			$wpdb->update(
+				$table,
+				$args,
+				[
+					'id' => $id,
+				],
+				[
+					'%s',
+					'%s',
+					'%s',
+					'%s',
+					'%s',
+					'%s',
+				],
+				[
+					'%d',
+				]
+			);
+		} else {
+			$args['date_created'] = $args['date_modified'];
 
-		if ( empty( $list_screen->get_layout_id() ) ) {
-			throw new LogicException( 'Invalid listscreen Id.' );
+			$wpdb->insert(
+				$table,
+				$args,
+				[
+					'%s',
+					'%s',
+					'%s',
+					'%s',
+					'%s',
+					'%s',
+					'%s',
+				]
+			);
 		}
-
-		$wpdb->insert(
-			$wpdb->prefix . self::TABLE,
-			[
-				'title'         => $list_screen->get_title(),
-				'list_id'       => $list_screen->get_layout_id(),
-				'list_key'      => $list_screen->get_key(),
-				'columns'       => serialize( $list_screen->get_settings() ),
-				'settings'      => serialize( $list_screen->get_preferences() ),
-				'date_modified' => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
-				'date_created'  => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
-			],
-			[
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-			]
-		);
-	}
-
-	private function update( $id, ListScreen $list_screen ) {
-		// TODO David: Let update and save be a single call
-		global $wpdb;
-
-		if ( empty( $list_screen->get_layout_id() ) ) {
-			throw new LogicException( 'Invalid listscreen Id.' );
-		}
-
-		$wpdb->update(
-			$wpdb->prefix . self::TABLE,
-			[
-				'list_id'       => $list_screen->get_layout_id(),
-				'list_key'      => $list_screen->get_key(),
-				'title'         => $list_screen->get_title(),
-				'columns'       => serialize( $list_screen->get_settings() ),
-				'settings'      => serialize( $list_screen->get_preferences() ),
-				'date_modified' => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
-			],
-			[
-				'id' => $id,
-			],
-			[
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-			],
-			[
-				'%d',
-			]
-		);
 	}
 
 	public function delete( ListScreen $list_screen ) {
