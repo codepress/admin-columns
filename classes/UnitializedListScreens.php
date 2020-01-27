@@ -15,17 +15,21 @@ class UnitializedListScreens {
 		$this->is_network = (bool) $is_network;
 	}
 
+	private function get_network_list_screens() {
+		return ListScreenTypes::instance()->get_list_screens( [ 'network_only' => true ] );
+	}
+
+	private function get_site_list_screens() {
+		return ListScreenTypes::instance()->get_list_screens( [ 'site_only' => true ] );
+	}
+
 	/**
 	 * @return ListScreen[]
 	 */
 	public function get_list_screens() {
-		$args = [];
-
-		if ( $this->is_network ) {
-			$args['network_only'] = $this->is_network;
-		}
-
-		$list_screens = ListScreenTypes::instance()->get_list_screens( $args );
+		$list_screens = $this->is_network
+			? $this->get_network_list_screens()
+			: $this->get_site_list_screens();
 
 		foreach ( $list_screens as $key => $list_screen ) {
 			if ( $this->default_columns->exists( $list_screen->get_key() ) ) {
