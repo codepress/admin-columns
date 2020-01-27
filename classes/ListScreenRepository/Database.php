@@ -73,7 +73,6 @@ final class Database implements Writable {
 			}
 
 			$list_screens->add( $list_screen );
-
 		}
 
 		return $list_screens;
@@ -146,6 +145,8 @@ final class Database implements Writable {
 			'date_modified' => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
 		];
 
+		$format = array_fill( 0, 6, '%s' );
+
 		if ( $id ) {
 			$wpdb->update(
 				$table,
@@ -153,33 +154,19 @@ final class Database implements Writable {
 				[
 					'id' => $id,
 				],
-				[
-					'%s',
-					'%s',
-					'%s',
-					'%s',
-					'%s',
-					'%s',
-				],
+				$format,
 				[
 					'%d',
 				]
 			);
 		} else {
 			$args['date_created'] = $args['date_modified'];
+			$format[] = '%s';
 
 			$wpdb->insert(
 				$table,
 				$args,
-				[
-					'%s',
-					'%s',
-					'%s',
-					'%s',
-					'%s',
-					'%s',
-					'%s',
-				]
+				$format
 			);
 		}
 	}
