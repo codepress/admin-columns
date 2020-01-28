@@ -131,13 +131,6 @@ function ac_get_admin_url( $slug = null ) {
 }
 
 /**
- * @return int
- */
-function ac_get_lowest_price() {
-	return 49;
-}
-
-/**
  * Convert site_url() to [cpac_site_url] and back for easy migration
  *
  * @param string $label

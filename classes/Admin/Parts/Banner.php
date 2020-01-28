@@ -51,7 +51,6 @@ class Banner {
 			'promo'        => $this->get_active_promotion(),
 			'integrations' => $this->get_missing_integrations(),
 			'discount'     => $this->get_discount_percentage(),
-			'price'        => ac_get_lowest_price(),
 		) );
 
 		$banner->set_template( 'admin/side-banner' );

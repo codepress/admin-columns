@@ -243,9 +243,7 @@ class Columns extends Admin\Page
 
 		<?php
 
-		$modal = new View( array(
-			'price' => ac_get_lowest_price(),
-		) );
+		$modal = new View();
 
 		echo $modal->set_template( 'admin/modal-pro' );
 	}
