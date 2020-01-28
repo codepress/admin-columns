@@ -47,7 +47,7 @@ class Transient implements Expirable {
 
 	/**
 	 * @param mixed $data
-	 * @param int   $expiration Time until expiration in seconds. Default 0 (no expiration).
+	 * @param int   $expiration Time until expiration in seconds.
 	 *
 	 * @return bool
 	 * @throws LogicException

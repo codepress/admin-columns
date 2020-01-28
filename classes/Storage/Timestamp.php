@@ -38,7 +38,7 @@ final class Timestamp implements KeyValuePair, Expirable {
 	 * @return bool
 	 */
 	public function validate( $value ) {
-		return preg_match( '/^[1-9][0-9]*$/', $value );
+		return preg_match( '/^[1-9]\d*$/', $value );
 	}
 
 	/**
