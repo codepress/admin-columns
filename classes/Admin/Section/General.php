@@ -36,11 +36,11 @@ class General extends Section {
 
 			<?php
 			foreach ( $this->settings as $setting ) {
-				echo sprintf( '<p>%s</p>', $setting->render() );
+				echo $setting->render();
 			}
 			?>
 
-			<p>
+			<p class="save-button">
 				<input type="submit" class="button" value="<?php echo esc_attr( __( 'Save' ) ); ?>"/>
 			</p>
 		</form>
