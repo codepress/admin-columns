@@ -4,6 +4,7 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\ListScreenRepository;
 use AC\ListScreenTypes;
 use DateTime;
 use DomainException;
@@ -12,7 +13,7 @@ use LogicException;
 
 // TODO David test this new implementation
 
-final class Database implements Writable {
+final class Database implements ListScreenRepository {
 
 	const TABLE = 'admin_columns';
 

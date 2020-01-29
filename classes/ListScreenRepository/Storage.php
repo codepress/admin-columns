@@ -9,6 +9,9 @@ use LogicException;
 
 final class Storage {
 
+	const DATABASE = 'database';
+	const FILE = 'file';
+
 	/**
 	 * @var ListScreenRepository[]
 	 */
@@ -21,13 +24,7 @@ final class Storage {
 
 	// TODO David needs a write engine
 
-	/**
-	 * @param ListScreenRepository $repository
-	 * @param bool                 $is_write_engine
-	 *
-	 * @return $this
-	 */
-	public function register_repository( ListScreenRepository $repository, $is_write_engine = false ) {
+	public function register_repository( ListScreenRepository $repository ) {
 		$this->repositories[ get_class( $repository ) ] = $repository;
 
 		if ( $is_write_engine ) {
