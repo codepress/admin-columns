@@ -337,9 +337,13 @@ class V4000 extends Update {
 	private function migrate_invalid_network_settings() {
 		global $wpdb;
 
-		$network_listscreens = [ 'wp-ms_sites', 'wp-ms_users' ];
-		$meta_key = $wpdb->get_blog_prefix() . 'ac_preferences_settings';
-		$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->usermeta} WHERE meta_key = %s", $meta_key ) );
+		$results = $wpdb->get_results( $wpdb->prepare( "
+			SELECT * 
+			FROM {$wpdb->usermeta} 
+			WHERE meta_key = %s
+			",
+			$wpdb->get_blog_prefix() . 'ac_preferences_settings' )
+		);
 
 		foreach ( $results as $row ) {
 			$data = maybe_unserialize( $row->meta_value );
@@ -348,11 +352,10 @@ class V4000 extends Update {
 				continue;
 			}
 
-			if ( isset( $data['list_screen'] ) && in_array( $data['list_screen'], $network_listscreens, true ) ) {
+			if ( isset( $data['list_screen'] ) && in_array( $data['list_screen'], [ 'wp-ms_sites', 'wp-ms_users' ], true ) ) {
 				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->usermeta} WHERE umeta_id = %d", $row->umeta_id ) );
 			}
 		}
-
 	}
 
 	private function maybe_replace_id( array $replaced_list_ids, $list_key, $id ) {
