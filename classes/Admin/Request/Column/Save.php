@@ -50,7 +50,7 @@ class Save extends Handler {
 			wp_send_json_error( [ 'message' => 'Failed: List screen not found.' ] );
 		}
 
-		$list_screen->set_title( ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ) )
+		$list_screen->set_title( ! empty( $formdata['title'] ) ? $formdata['title'] : $list_screen->get_label() )
 		            ->set_settings( $column_data )
 		            ->set_layout_id( $list_id )
 		            ->set_preferences( ! empty( $formdata['settings'] ) ? $formdata['settings'] : [] );
