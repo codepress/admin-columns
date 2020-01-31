@@ -77,8 +77,7 @@ global.ac_pointer = function( $el ) {
 	}
 
 	if( pos_edge  ){
-		console.log( 'YES', pos_edge );
-		//position.edge = pos_edge;
+		position.edge = pos_edge;
 	}
 
 	// create pointer
