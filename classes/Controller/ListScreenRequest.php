@@ -35,13 +35,7 @@ class ListScreenRequest {
 	 * @return bool
 	 */
 	private function exists_list_screen( $list_key ) {
-		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
-
-		if ( $this->is_network && $list_screen && ! $list_screen->is_network_only() ) {
-			$list_screen = null;
-		}
-
-		return null !== $list_screen;
+		return null !== ListScreenTypes::instance()->get_list_screen_by_key( $list_key, $this->is_network );
 	}
 
 	/**
@@ -70,10 +64,12 @@ class ListScreenRequest {
 		if ( $list_id && $this->repository->exists( $list_id ) ) {
 			$list_screen = $this->repository->find( $list_id );
 
-			$this->preference->set( 'list_id', $list_screen->get_layout_id() );
-			$this->preference->set( 'list_key', $list_screen->get_key() );
+			if ( $this->exists_list_screen( $list_screen->get_key() ) ) {
+				$this->preference->set( 'list_id', $list_screen->get_layout_id() );
+				$this->preference->set( 'list_key', $list_screen->get_key() );
 
-			return $list_screen;
+				return $list_screen;
+			}
 		}
 
 		// Requested list type
@@ -98,7 +94,11 @@ class ListScreenRequest {
 		$list_id = $this->preference->get( 'list_id' );
 
 		if ( $list_id && $this->repository->exists( $list_id ) ) {
-			return $this->repository->find( $list_id );
+			$list_screen = $this->repository->find( $list_id );
+
+			if ( $list_screen && $this->exists_list_screen( $list_screen->get_key() ) ) {
+				return $list_screen;
+			}
 		}
 
 		// Last visited Key

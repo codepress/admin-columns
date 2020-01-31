@@ -77,11 +77,20 @@ class ListScreenTypes {
 
 	/**
 	 * @param string $key
+	 * @param bool   $network_only False is site only. True is network only.
 	 *
 	 * @return ListScreen|null
 	 */
-	public function get_list_screen_by_key( $key ) {
-		foreach ( $this->get_list_screens() as $list_screen ) {
+	public function get_list_screen_by_key( $key, $network_only = null ) {
+		if ( true === $network_only ) {
+			$list_screens = $this->filter_by_network( $this->get_list_screens() );
+		} else if ( false === $network_only ) {
+			$list_screens = $this->filter_by_non_network( $this->get_list_screens() );
+		} else {
+			$list_screens = $this->get_list_screens();
+		}
+
+		foreach ( $list_screens as $list_screen ) {
 			if ( $key === $list_screen->get_key() ) {
 				return clone $list_screen;
 			}
