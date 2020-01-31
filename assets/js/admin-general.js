@@ -137,6 +137,7 @@ global.ac_pointer = function ($el) {
       $ = jQuery,
       html = el.attr('rel'),
       pos = el.attr('data-pos'),
+      pos_edge = el.attr('data-pos_edge'),
       w = el.attr('data-width'),
       noclick = el.attr('data-noclick');
   var position = {
@@ -157,12 +158,24 @@ global.ac_pointer = function ($el) {
     };
   }
 
+  if ('right_bottom' === pos) {
+    position = {
+      at: 'right middle',
+      my: 'left bottom',
+      edge: 'none'
+    };
+  }
+
   if ('left' === pos) {
     position = {
       at: 'left middle',
       my: 'right middle',
       edge: 'right'
     };
+  }
+
+  if (pos_edge) {
+    console.log('YES', pos_edge); //position.edge = pos_edge;
   } // create pointer
 
 
@@ -191,12 +204,12 @@ global.ac_pointer = function ($el) {
   }, function () {
     var el = $(this);
     setTimeout(function () {
-      if (!el.hasClass('open') && $('.ac-wp-pointer.hover').length == 0) {
+      if (!el.hasClass('open') && $('.ac-wp-pointer.hover').length === 0) {
         el.pointer('close');
       }
     }, 100);
   }).on('close', function () {
-    if (!el.hasClass('open') && $('.ac-wp-pointer.hover').length == 0) {
+    if (!el.hasClass('open') && $('.ac-wp-pointer.hover').length === 0) {
       el.pointer('close');
     }
   });

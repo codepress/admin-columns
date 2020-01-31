@@ -188,6 +188,7 @@
 			color: #b7b7b7;
 			margin-right: 5px;
 		}
+
 		&.notice-info {
 			border-left: 4px solid #00a0d2;
 		}
@@ -410,7 +411,7 @@
 			}
 
 			&:hover {
-				color: darken( #d2d2d2, 15 );
+				color: darken(#d2d2d2, 15);
 			}
 		}
 
@@ -537,6 +538,11 @@
 	input[type=radio] {
 		width: auto;
 		margin-right: 4px;
+	}
+
+	&__info {
+		margin-left: 5px;
+		transform: translateY(2px);
 	}
 
 	.checkbox-labels,
