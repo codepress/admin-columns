@@ -8,7 +8,7 @@ use Iterator;
 final class ListScreenCollection implements Iterator, Countable {
 
 	/**
-	 * @var array
+	 * @var ListScreen[]
 	 */
 	private $data;
 

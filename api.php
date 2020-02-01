@@ -162,7 +162,7 @@ function ac_convert_site_url( $label, $action = 'encode' ) {
  * @since 4.0
  */
 function ac_get_list_screen( $id ) {
-	return AC()->get_listscreen_repository()->find( $id );
+	return AC()->get_storage()->find( $id );
 }
 
 /**
@@ -172,5 +172,5 @@ function ac_get_list_screen( $id ) {
  * @since 4.0
  */
 function ac_get_list_screens( $key ) {
-	return AC()->get_listscreen_repository()->find_all( [ 'key' => $key ] );
+	return AC()->get_storage()->find_all( [ 'key' => $key ] );
 }

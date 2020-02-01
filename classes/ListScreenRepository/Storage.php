@@ -4,38 +4,27 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenRepository;
-use LogicException;
 
 final class Storage {
 
-	const DATABASE = 'database';
-	const FILE = 'file';
-
 	/**
-	 * @var ListScreenRepository[]
+	 * @var StorageRepository[]
 	 */
 	private $repositories;
 
+	public function __construct() {
+		$this->repositories = [];
+	}
+
 	/**
-	 * @var ListScreenRepository\Writable
+	 * @return StorageRepository[]
 	 */
-	private $write_engine;
+	public function get_repositories() {
+		return array_values( $this->repositories );
+	}
 
-	// TODO David needs a write engine
-
-	public function register_repository( ListScreenRepository $repository ) {
-		$this->repositories[ get_class( $repository ) ] = $repository;
-
-		if ( $is_write_engine ) {
-			if ( ! $repository instanceof ListScreenRepository\Writable ) {
-				throw new LogicException( 'Trying to register a storage engine that does not implement the %s interface.', ListScreenRepository\Writable::class );
-			}
-
-			$this->write_engine = $repository;
-		}
-
-		return $this;
+	public function add_repository( StorageRepository $repository ) {
+		$this->repositories[] = $repository;
 	}
 
 	/**
@@ -45,16 +34,10 @@ final class Storage {
 	 *
 	 * @return ListScreenCollection
 	 */
-
-	// TODO David filters maybe NOT here, or ALSO here? Think about htis some mor
 	public function find_all( array $args = [], Filter $filtering = null, Sort $sorting = null ) {
-		$list_screens = $this->write_engine->find_all( $args );
+		$list_screens = new ListScreenCollection();
 
 		foreach ( $this->repositories as $repository ) {
-			if ( $repository === $this->write_engine ) {
-				continue;
-			}
-
 			foreach ( $repository->find_all( $args ) as $list_screen ) {
 				if ( ! $list_screens->contains( $list_screen ) ) {
 					$list_screens->add( $list_screen );
@@ -62,7 +45,6 @@ final class Storage {
 			}
 		}
 
-		// TODO DAvid make this into traits
 		if ( $filtering ) {
 			$list_screens = $filtering->filter( $list_screens );
 		}
@@ -80,17 +62,7 @@ final class Storage {
 	 * @return ListScreen|null
 	 */
 	public function find( $id ) {
-		$list_screen = $this->write_engine->find( $id );
-
-		if ( $list_screen ) {
-			return $list_screen;
-		}
-
 		foreach ( $this->repositories as $repository ) {
-			if ( $repository === $this->write_engine ) {
-				continue;
-			}
-
 			$list_screen = $repository->find( $id );
 
 			if ( $list_screen ) {
@@ -106,11 +78,23 @@ final class Storage {
 	}
 
 	public function save( ListScreen $list_screen ) {
-		$this->write_engine->save( $list_screen );
+		foreach ( $this->repositories as $repository ) {
+			$match = ! $repository->has_rules() || $repository->get_rules()->match( $list_screen );
+
+			if ( $match && $repository->is_writable() ) {
+				$repository->save( $list_screen );
+
+				break;
+			}
+		}
 	}
 
 	public function delete( ListScreen $list_screen ) {
-		$this->write_engine->delete( $list_screen );
+		foreach ( $this->repositories as $repository ) {
+			if ( $repository->is_writable() ) {
+				$repository->delete( $list_screen );
+			}
+		}
 	}
 
 }

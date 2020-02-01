@@ -9,6 +9,7 @@ use AC\Admin\Section\Restore;
 use AC\Check;
 use AC\Deprecated;
 use AC\ListScreenRepository\Filter;
+use AC\ListScreenRepository\StorageRepository;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
@@ -64,7 +65,12 @@ class AdminColumns extends Plugin {
 		];
 
 		$this->storage = new ListScreenRepository\Storage();
-		$this->storage->register_repository( new ListScreenRepository\Database( ListScreenTypes::instance() ), true );
+		$this->storage->add_repository(
+			new StorageRepository(
+				new ListScreenRepository\Database( ListScreenTypes::instance() ),
+				true
+			)
+		);
 
 		$modules[] = new QuickEdit( $this->storage, $this->preferences() );
 
@@ -98,7 +104,7 @@ class AdminColumns extends Plugin {
 	/**
 	 * @return ListScreenRepository\Storage
 	 */
-	public function get_listscreen_repository() {
+	public function get_storage() {
 		return $this->storage;
 	}
 
