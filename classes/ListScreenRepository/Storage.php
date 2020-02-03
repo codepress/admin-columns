@@ -8,6 +8,9 @@ use AC\ListScreenRepository\Storage\OrderedList;
 
 final class Storage {
 
+	// TODO David implement Storage (Aware?) And also in all Storage Repositories?
+	// TODO David get it from ACP Settings sync
+
 	/**
 	 * @var OrderedList
 	 */
