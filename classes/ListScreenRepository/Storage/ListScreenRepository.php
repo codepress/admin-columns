@@ -1,12 +1,13 @@
 <?php
 
-namespace AC\ListScreenRepository;
+namespace AC\ListScreenRepository\Storage;
 
+use AC;
 use AC\ListScreen;
-use AC\ListScreenRepository;
+use AC\ListScreenRepository\Rules;
 use LogicException;
 
-class StorageRepository implements ListScreenRepository {
+class ListScreenRepository implements AC\ListScreenRepository {
 
 	/**
 	 * @var ListScreenRepository
@@ -24,11 +25,11 @@ class StorageRepository implements ListScreenRepository {
 	private $rules;
 
 	/**
-	 * @param ListScreenRepository $repository
-	 * @param bool|null            $writable
-	 * @param Rules|null           $rules
+	 * @param AC\ListScreenRepository $repository
+	 * @param bool|null               $writable
+	 * @param Rules|null              $rules
 	 */
-	public function __construct( ListScreenRepository $repository, $writable = null, Rules $rules = null ) {
+	public function __construct( AC\ListScreenRepository $repository, $writable = null, Rules $rules = null ) {
 		if ( null === $writable ) {
 			$writable = false;
 		}

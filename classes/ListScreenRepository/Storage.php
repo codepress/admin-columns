@@ -4,27 +4,24 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\ListScreenRepository\Storage\OrderedList;
 
 final class Storage {
 
 	/**
-	 * @var StorageRepository[]
+	 * @var OrderedList
 	 */
 	private $repositories;
 
 	public function __construct() {
-		$this->repositories = [];
+		$this->repositories = new OrderedList();
 	}
 
 	/**
-	 * @return StorageRepository[]
+	 * @return OrderedList
 	 */
 	public function get_repositories() {
-		return array_values( $this->repositories );
-	}
-
-	public function add_repository( StorageRepository $repository ) {
-		$this->repositories[] = $repository;
+		return $this->repositories;
 	}
 
 	/**
@@ -84,7 +81,7 @@ final class Storage {
 			if ( $match && $repository->is_writable() ) {
 				$repository->save( $list_screen );
 
-				break;
+				return;
 			}
 		}
 	}

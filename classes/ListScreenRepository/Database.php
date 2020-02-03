@@ -232,8 +232,8 @@ final class Database implements ListScreenRepository {
 			$list_screen->set_settings( unserialize( $data->columns ) );
 		}
 
-		// TODO David need to decide on this
-		$list_screen->set_source( $data->id );
+		// TODO David need to decide on this, still required? Where would this show?
+		//$list_screen->set_source( $data->id );
 
 		return $list_screen;
 	}

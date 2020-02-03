@@ -5,9 +5,11 @@ namespace AC\ListScreenRepository\Filter;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Filter;
 
-class ByKey implements Filter {
+class HasKey implements Filter {
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $key;
 
 	public function __construct( $key ) {

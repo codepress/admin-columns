@@ -2,7 +2,6 @@
 
 namespace AC\ListScreenRepository\Sort;
 
-use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Sort;
 use AC\Storage;
@@ -19,28 +18,29 @@ class ManualOrder implements Sort {
 	}
 
 	public function sort( ListScreenCollection $list_screens ) {
-		// TODO David make more elegant and simpler _?
 		$key = $list_screens->current()->get_key();
 
-		$_list_screens = [];
+		$layouts = [];
 
 		foreach ( $list_screens as $list_screen ) {
-			$_list_screens[ $list_screen->get_layout_id() ] = $list_screen;
+			$layouts[ $list_screen->get_layout_id() ] = $list_screen;
 		}
 
 		$ordered = new ListScreenCollection();
 
-		foreach ( $this->list_screen_order->get( $key ) as $id ) {
-			if ( ! isset( $_list_screens[ $id ] ) ) {
+		foreach ( $this->list_screen_order->get( $key ) as $layout_id ) {
+			if ( ! isset( $layouts[ $layout_id ] ) ) {
 				continue;
 			}
 
-			$ordered->add( $_list_screens[ $id ] );
+			$ordered->add( $layouts[ $layout_id ] );
 
-			unset( $_list_screens[ $id ] );
+			unset( $layouts[ $layout_id ] );
 		}
 
-		$ordered->add_collection( new ListScreenCollection( $_list_screens ) );
+		foreach ( $layouts as $list_screen ) {
+			$ordered->add( $list_screen );
+		}
 
 		return $ordered;
 	}

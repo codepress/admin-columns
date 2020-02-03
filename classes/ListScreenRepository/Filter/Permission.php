@@ -6,7 +6,7 @@ use AC\ListScreenCollection;
 use AC\ListScreenRepository\Filter;
 use AC\PermissionChecker;
 
-class ByPermission implements Filter {
+class Permission implements Filter {
 
 	/**
 	 * @var PermissionChecker

@@ -59,7 +59,7 @@ class ListScreenData implements ListScreenRepository {
 		$list_screens = $this->get_list_screens();
 
 		if ( isset( $args['key'] ) ) {
-			$list_screens = ( new Filter\ByKey( $args['key'] ) )->filter( $list_screens );
+			$list_screens = ( new Filter\HasKey( $args['key'] ) )->filter( $list_screens );
 		}
 
 		return $list_screens;
