@@ -3,7 +3,7 @@
 namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
-use LogicException;
+use InvalidArgumentException;
 
 final class Rules {
 
@@ -34,7 +34,7 @@ final class Rules {
 		$match_decisions = [ self::MATCH_ANY, self::MATCH_ALL ];
 
 		if ( ! in_array( $this->match_decision, $match_decisions, true ) ) {
-			throw new LogicException( 'Invalid match decision.' );
+			throw new InvalidArgumentException( 'Invalid match decision.' );
 		}
 	}
 
