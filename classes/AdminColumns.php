@@ -162,7 +162,7 @@ class AdminColumns extends Plugin {
 	/**
 	 * @param string $key
 	 *
-	 * @return ListScreen
+	 * @return ListScreen|null
 	 */
 	private function get_first_list_screen( $key, PermissionChecker $permission_checker ) {
 		$list_screens = $this->list_screen_repository->find_all( [
