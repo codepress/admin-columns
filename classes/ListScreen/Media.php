@@ -3,6 +3,7 @@
 namespace AC\ListScreen;
 
 use AC;
+use ReflectionException;
 use WP_Media_List_Table;
 
 class Media extends AC\ListScreenPost {
@@ -31,7 +32,7 @@ class Media extends AC\ListScreenPost {
 	}
 
 	public function get_screen_link() {
-		return add_query_arg( 'mode',  'list', parent::get_screen_link() );
+		return add_query_arg( 'mode', 'list', parent::get_screen_link() );
 	}
 
 	/**
@@ -49,17 +50,17 @@ class Media extends AC\ListScreenPost {
 	}
 
 	/**
-	 * @since 2.4.7
-	 *
 	 * @param $column_name
 	 * @param $id
+	 *
+	 * @since 2.4.7
 	 */
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
 	/**
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
 	protected function register_column_types() {
 		parent::register_column_types();

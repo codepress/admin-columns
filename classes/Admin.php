@@ -1,4 +1,5 @@
 <?php
+
 namespace AC;
 
 use AC\Admin\Helpable;
@@ -117,10 +118,10 @@ class Admin implements Registrable {
 	 * @return string
 	 */
 	public function get_url( $tab ) {
-		$args = array(
-			'tab'  => $tab,
+		$args = [
 			'page' => self::PLUGIN_PAGE,
-		);
+			'tab'  => $tab,
+		];
 
 		return add_query_arg( $args, $this->url . $this->get_parent_page() );
 	}
@@ -181,7 +182,12 @@ class Admin implements Registrable {
 	 * @return void
 	 */
 	public function admin_scripts() {
-		wp_enqueue_script( 'ac-admin-general', AC()->get_url() . "assets/js/admin-general.js", array( 'jquery', 'wp-pointer' ), AC()->get_version() );
+		// Tooltip
+		wp_register_script( 'jquery-qtip2', AC()->get_url() . "external/qtip2/jquery.qtip.min.js", array( 'jquery' ), AC()->get_version() );
+		wp_enqueue_style( 'jquery-qtip2', AC()->get_url() . "external/qtip2/jquery.qtip.min.css", array(), AC()->get_version() );
+		wp_enqueue_script( 'jquery-qtip2' );
+
+		wp_enqueue_script( 'ac-admin-general', AC()->get_url() . "assets/js/admin-general.js", array( 'jquery', 'wp-pointer', 'jquery-qtip2' ), AC()->get_version() );
 		wp_enqueue_style( 'wp-pointer' );
 		wp_enqueue_style( 'ac-admin', AC()->get_url() . "assets/css/admin-general.css", array(), AC()->get_version() );
 

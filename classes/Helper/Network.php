@@ -2,6 +2,8 @@
 
 namespace AC\Helper;
 
+use WP_Theme;
+
 class Network {
 
 	/**
@@ -27,7 +29,7 @@ class Network {
 	/**
 	 * @param int $blog_id
 	 *
-	 * @return \WP_Theme
+	 * @return WP_Theme
 	 */
 	public function get_active_theme( $blog_id ) {
 		return wp_get_theme( $this->get_site_option( $blog_id, 'stylesheet' ) );

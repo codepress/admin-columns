@@ -176,6 +176,22 @@
 
 	.ac-message {
 		margin-top: 0 !important;
+
+		p {
+			min-height: 1px;
+			overflow: hidden;
+		}
+
+		> .dashicons {
+			float: left;
+			margin-top: 6px;
+			color: #b7b7b7;
+			margin-right: 5px;
+		}
+
+		&.notice-info {
+			border-left: 4px solid #00a0d2;
+		}
 	}
 
 	.ac-boxes {
@@ -383,6 +399,22 @@
 		padding: 10px;
 		padding-left: 12px;
 
+		a.more-link {
+			text-decoration: none;
+			color: #d2d2d2;
+			position: absolute;
+			right: 8px;
+			top: 17px;
+
+			span.dashicons {
+				font-size: 17px;
+			}
+
+			&:hover {
+				color: darken(#d2d2d2, 15);
+			}
+		}
+
 		span.label {
 			font-weight: bold;
 			display: block;
@@ -508,6 +540,11 @@
 		margin-right: 4px;
 	}
 
+	&__info {
+		margin-left: 5px;
+		transform: translateY(2px);
+	}
+
 	.checkbox-labels,
 	.radio-labels {
 		> label {
@@ -571,7 +608,7 @@
 
 	div.description {
 		font-size: 12px;
-		width: 68px;
+		width: 72px;
 		position: absolute;
 		display: table;
 
@@ -1643,6 +1680,7 @@
 
 .select2-container--acs2 {
 	z-index: 2;
+
 	.select2-dropdown.-customfields {
 		.select2-results > .select2-results__options {
 			max-height: 600px;
@@ -1660,18 +1698,17 @@
 
 }
 
-
-
 .ac-loading-msg-wrapper {
 	position: fixed;
-	left:0;
-	right:0;
-	top:0;
+	left: 0;
+	right: 0;
+	top: 0;
 	bottom: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
+
 .ac-loading-msg {
 	display: inline-block;
 	text-align: center;
@@ -1682,6 +1719,7 @@
 		text-align: center;
 		margin-bottom: 15px;
 	}
+
 	&__content {
 		position: relative;
 		font-family: sans-serif;

@@ -6,12 +6,18 @@ namespace AC;
  */
 class DefaultColumns {
 
+	const OPTIONS_KEY = 'cpac_options_';
+
 	private function get_option_name( $list_screen_key ) {
-		return ListScreen::OPTIONS_KEY . $list_screen_key . "__default";
+		return self::OPTIONS_KEY . $list_screen_key . "__default";
 	}
 
 	public function update( $list_screen_key, array $columns ) {
 		update_option( $this->get_option_name( $list_screen_key ), $columns, false );
+	}
+
+	public function exists( $list_screen_key ) {
+		return false !== get_option( $this->get_option_name( $list_screen_key ) );
 	}
 
 	/**

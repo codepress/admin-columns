@@ -3,6 +3,7 @@
 namespace AC\ListScreen;
 
 use AC\ListScreenPost;
+use ReflectionException;
 use WP_Posts_List_Table;
 
 class Post extends ListScreenPost {
@@ -54,17 +55,17 @@ class Post extends ListScreenPost {
 	}
 
 	/**
-	 * @since 2.4.7
-	 *
 	 * @param $column_name
 	 * @param $id
+	 *
+	 * @since 2.4.7
 	 */
 	public function manage_value( $column_name, $id ) {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
 	/**
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
 	protected function register_column_types() {
 		parent::register_column_types();

@@ -8,11 +8,12 @@ use AC\Form;
 use AC\ListScreen;
 use AC\Registrable;
 use AC\Settings;
+use WP_Post;
 
 final class Screen implements Registrable {
 
 	/**
-	 * @var ListScreen $list_screen
+	 * @var ListScreen $list_screen|null
 	 */
 	private $list_screen;
 
@@ -29,7 +30,7 @@ final class Screen implements Registrable {
 	/**
 	 * @param ListScreen $list_screen
 	 */
-	public function __construct( ListScreen $list_screen ) {
+	public function __construct( $list_screen ) {
 		$this->list_screen = $list_screen;
 	}
 
@@ -37,8 +38,10 @@ final class Screen implements Registrable {
 	 * Register hooks
 	 */
 	public function register() {
-		$controller = new AC\ScreenController( $this->list_screen );
-		$controller->register();
+		if ( $this->list_screen ) {
+			$controller = new AC\ScreenController( $this->list_screen );
+			$controller->register();
+		}
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_footer', array( $this, 'admin_footer_scripts' ) );
@@ -117,7 +120,7 @@ final class Screen implements Registrable {
 						add_filter( 'media_row_actions', array( $this, 'set_media_row_actions' ), 10, 2 );
 					}
 				}
-			};
+			}
 
 			// Set inline edit data if the default column (title) is not present
 			if ( $this->list_screen instanceof ListScreen\Post && 'title' !== $default ) {
@@ -138,7 +141,7 @@ final class Screen implements Registrable {
 	 * Add a download link to the table screen
 	 *
 	 * @param array    $actions
-	 * @param \WP_Post $post
+	 * @param WP_Post $post
 	 *
 	 * @return array
 	 */
@@ -156,7 +159,7 @@ final class Screen implements Registrable {
 	 * Sets the inline data when the title columns is not present on a AC\ListScreen_Post screen
 	 *
 	 * @param array    $actions
-	 * @param \WP_Post $post
+	 * @param WP_Post $post
 	 *
 	 * @return array
 	 */
@@ -234,25 +237,27 @@ final class Screen implements Registrable {
 		wp_enqueue_script( 'ac-table', AC()->get_url() . "assets/js/table.js", array( 'jquery', 'jquery-qtip2' ), AC()->get_version() );
 		wp_enqueue_style( 'ac-table', AC()->get_url() . "assets/css/table.css", array(), AC()->get_version() );
 
-		wp_localize_script( 'ac-table', 'AC', array(
-				'list_screen'  => $this->list_screen->get_key(),
-				'layout'       => $this->list_screen->get_layout_id(),
-				'column_types' => $this->get_column_types_mapping(),
-				'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
-				'table_id'     => $this->list_screen->get_table_attr_id(),
-				'screen'       => $this->get_current_screen_id(),
-				'meta_type'    => $this->list_screen->get_meta_type(),
-			)
-		);
+		if ( $this->list_screen ) {
+			wp_localize_script( 'ac-table', 'AC', array(
+					'list_screen'  => $this->list_screen->get_key(),
+					'layout'       => $this->list_screen->get_layout_id(),
+					'column_types' => $this->get_column_types_mapping(),
+					'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
+					'table_id'     => $this->list_screen->get_table_attr_id(),
+					'screen'       => $this->get_current_screen_id(),
+					'meta_type'    => $this->list_screen->get_meta_type(),
+				)
+			);
 
-		/**
-		 * @param ListScreen $list_screen
-		 */
-		do_action( 'ac/table_scripts', $this->list_screen, $this );
+			/**
+			 * @param ListScreen $list_screen
+			 */
+			do_action( 'ac/table_scripts', $this->list_screen, $this );
 
-		// Column specific scripts
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			$column->scripts();
+			// Column specific scripts
+			foreach ( $this->list_screen->get_columns() as $column ) {
+				$column->scripts();
+			}
 		}
 	}
 

@@ -2,13 +2,9 @@
 	$e: &;
 	-webkit-font-smoothing: antialiased;
 	margin-top: 30px;
-	background: #fff;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
 	&__header {
-		background: #fff;
 		padding: 10px;
-		border-bottom: 1px solid #dfdfdf;
 		position: relative;
 		cursor: pointer;
 
@@ -38,7 +34,8 @@
 	}
 
 	&__row {
-		display: flex;
+		$row: &;
+		background: #fff;
 
 		&__th, &__fields {
 			border-bottom: 1px solid #dfdfdf;
@@ -46,8 +43,8 @@
 
 		&__th {
 			background: #f5f5f5;
-			flex: 0 0 230px;
-			padding: 10px;
+			position: relative;
+			padding: 12px 13px;
 			border-right: 1px solid #dedede;
 
 			label {
@@ -57,8 +54,8 @@
 			}
 
 			small {
-				color: #72777C;
-				font-size: 12px;
+				color: #636669;
+				font-size: 13px;
 				line-height: 17px;
 			}
 		}
@@ -68,6 +65,47 @@
 
 			&__inner {
 				padding: 15px;
+			}
+
+			select {
+				width: 100%;
+				margin-bottom: 10px;
+			}
+		}
+
+		a.ac-pointer.instructions {
+			position: absolute;
+			top: 14px;
+			right: 10px;
+			display: inline-block;
+			cursor: pointer;
+		}
+
+		@media screen and (min-width: 900px) {
+			display: flex;
+			&__th {
+				flex: 0 0 230px;
+			}
+			&__fields {
+				flex: auto;
+			}
+			&.-sub {
+				display: block;
+
+				#{$row}__th,
+				#{$row}__fields {
+					flex: 100%;
+				}
+			}
+		}
+		@media screen and (min-width: 1150px) {
+			&.-sub {
+				display: flex;
+
+				#{$row}__th,
+				#{$row}__fields {
+					flex: 100%;
+				}
 			}
 		}
 	}
@@ -98,7 +136,7 @@
 			}
 		}
 
-		#{$e}__fields {
+		#{$e}__row {
 			display: none;
 		}
 	}
@@ -107,5 +145,23 @@
 .ac-ls-settings {
 	.select2 {
 		margin-bottom: 10px;
+
+		input {
+			min-height: 0;
+		}
+
+		li {
+			margin-bottom: 0;
+		}
+	}
+
+	.row.users {
+		.select2 {
+			margin-bottom: 0;
+		}
+	}
+
+	select.sorting_order {
+		margin-bottom: 0;
 	}
 }

@@ -38,12 +38,10 @@ class AttachmentDisplay extends Settings\Column
 			                'count'     => __( 'Count', 'codepress-admin-columns' ),
 		                ) );
 
-		$view = new View( array(
+		return new View( array(
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $setting,
 		) );
-
-		return $view;
 	}
 
 	/**

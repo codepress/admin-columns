@@ -1,3 +1,6 @@
+import Tooltip from "./modules/tooltips";
+import AcSection from "./modules/ac-section";
+
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 
 jQuery( document ).ready( function( $ ) {
@@ -7,6 +10,10 @@ jQuery( document ).ready( function( $ ) {
 
 	ac_pointers( $ );
 	ac_help( $ );
+
+	document.querySelectorAll( '.ac-section' ).forEach( el => {
+		new AcSection( el );
+	} );
 } );
 
 /*
@@ -23,15 +30,19 @@ global.ac_pointers = function( $ ) {
 		$( this ).removeClass( 'hover' );
 		$( '.ac-pointer' ).trigger( 'close' );
 	} );
-}
+
+	new Tooltip();
+};
 
 global.ac_pointer = function( $el ) {
 	let el = $el,
 		$ = jQuery,
 		html = el.attr( 'rel' ),
 		pos = el.attr( 'data-pos' ),
+		pos_edge = el.attr( 'data-pos_edge' ),
 		w = el.attr( 'data-width' ),
 		noclick = el.attr( 'data-noclick' );
+
 
 	let position = {
 		at : 'left top',		// position of wp-pointer relative to the element which triggers the pointer event
@@ -49,12 +60,24 @@ global.ac_pointer = function( $el ) {
 		};
 	}
 
+	if ( 'right_bottom' === pos ) {
+		position = {
+			at : 'right middle',
+			my : 'left bottom',
+			edge : 'none'
+		};
+	}
+
 	if ( 'left' === pos ) {
 		position = {
 			at : 'left middle',
 			my : 'right middle',
 			edge : 'right'
 		};
+	}
+
+	if( pos_edge  ){
+		position.edge = pos_edge;
 	}
 
 	// create pointer
@@ -84,17 +107,17 @@ global.ac_pointer = function( $el ) {
 	}, function() {
 		let el = $( this );
 		setTimeout( function() {
-			if ( !el.hasClass( 'open' ) && $( '.ac-wp-pointer.hover' ).length == 0 ) {
+			if ( !el.hasClass( 'open' ) && $( '.ac-wp-pointer.hover' ).length === 0 ) {
 				el.pointer( 'close' );
 			}
 		}, 100 );
 
 	} ).on( 'close', function() {
-		if ( !el.hasClass( 'open' ) && $( '.ac-wp-pointer.hover' ).length == 0 ) {
+		if ( !el.hasClass( 'open' ) && $( '.ac-wp-pointer.hover' ).length === 0 ) {
 			el.pointer( 'close' );
 		}
 	} );
-}
+};
 
 /*
  * Help

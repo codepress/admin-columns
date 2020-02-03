@@ -95,11 +95,8 @@ abstract class Meta extends Column {
 		return true;
 	}
 
-	/**
-	 * Get temp cache
-	 */
 	private function get_cache() {
-		wp_cache_get( $this->get_cache_key(), $this->get_cache_group() );
+		return wp_cache_get( $this->get_cache_key(), $this->get_cache_group() );
 	}
 
 	/**

@@ -2,6 +2,8 @@
 
 namespace AC\Helper;
 
+use WP_Post;
+
 class Post {
 
 	/**
@@ -94,7 +96,7 @@ class Post {
 	/**
 	 * Get Post Title or Media Filename
 	 *
-	 * @param int|\WP_Post $post
+	 * @param int|WP_Post $post
 	 *
 	 * @return bool|string
 	 */
@@ -115,7 +117,7 @@ class Post {
 	}
 
 	/**
-	 * @param \WP_Post $post Post
+	 * @param WP_Post $post Post
 	 *
 	 * @return false|string Dash icon with tooltip
 	 */

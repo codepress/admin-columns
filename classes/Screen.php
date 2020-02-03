@@ -80,23 +80,30 @@ class Screen implements Registrable {
 	}
 
 	/**
-	 * @return ListScreen|false
+	 * @return string|null
 	 */
 	public function get_list_screen() {
-		foreach ( AC()->get_list_screens() as $list_screen ) {
+		foreach ( ListScreenTypes::instance()->get_list_screens() as $list_screen ) {
 			if ( $list_screen->is_current_screen( $this->screen ) ) {
-				return $list_screen;
+				return $list_screen->get_key();
 			}
 		}
 
-		return false;
+		return null;
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function is_admin_network() {
+		return $this->screen->in_admin( 'network' );
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function is_list_screen() {
-		return false !== $this->get_list_screen();
+		return null !== $this->get_list_screen();
 	}
 
 	/**
@@ -104,7 +111,13 @@ class Screen implements Registrable {
 	 * @return bool
 	 */
 	public function is_plugin_screen() {
-		return $this->is_screen( 'plugins' );
+		$id = 'plugins';
+
+		if ( $this->is_admin_network() ) {
+			$id .= '-network';
+		}
+
+		return $this->is_screen( $id );
 	}
 
 	/**
@@ -124,7 +137,13 @@ class Screen implements Registrable {
 	 * @return bool
 	 */
 	private function is_main_admin_screen() {
-		return $this->get_id() === 'settings_page_' . Admin::PLUGIN_PAGE;
+		$id = 'settings_page_' . Admin::PLUGIN_PAGE;
+
+		if ( $this->is_admin_network() ) {
+			$id .= '-network';
+		}
+
+		return $this->is_screen( $id );
 	}
 
 }

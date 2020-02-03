@@ -20,8 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php endif; ?>
 
 				<?php if ( $this->read_more ) : ?>
-					<a title="<?php esc_attr_e( 'View more', 'codepress-admin-columns' ); ?>" href="<?php echo esc_url( $this->read_more ); ?>" target="_blank" class="more-link">
-						<span class="dashicons dashicons-external"></span>
+					<a href="<?php echo esc_url( $this->read_more ); ?>" target="_blank" class="more-link">
+						<span class="dashicons dashicons-admin-links"></span>
 					</a>
 				<?php endif; ?>
 			</label>

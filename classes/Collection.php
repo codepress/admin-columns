@@ -65,6 +65,10 @@ class Collection
 		return next( $this->items );
 	}
 
+	public function get_copy() {
+		return $this->items;
+	}
+
 	public function valid() {
 		$key = $this->key();
 

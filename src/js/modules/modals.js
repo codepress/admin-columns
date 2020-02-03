@@ -1,6 +1,6 @@
 import Modal from './modal';
 
-class Modals {
+export default class Modals {
 
 	constructor() {
 		this.modals = [];
@@ -39,5 +39,3 @@ class Modals {
 	}
 
 }
-
-module.exports = Modals;
