@@ -2,8 +2,8 @@
 
 namespace AC\Admin\Request\Column;
 
-use AC\Admin\Request\Column;
 use AC;
+use AC\Admin\Request\Column;
 
 class Refresh extends Column {
 

@@ -188,6 +188,10 @@
 			color: #b7b7b7;
 			margin-right: 5px;
 		}
+
+		&.notice-info {
+			border-left: 4px solid #00a0d2;
+		}
 	}
 
 	.ac-boxes {
@@ -395,6 +399,22 @@
 		padding: 10px;
 		padding-left: 12px;
 
+		a.more-link {
+			text-decoration: none;
+			color: #d2d2d2;
+			position: absolute;
+			right: 8px;
+			top: 17px;
+
+			span.dashicons {
+				font-size: 17px;
+			}
+
+			&:hover {
+				color: darken(#d2d2d2, 15);
+			}
+		}
+
 		span.label {
 			font-weight: bold;
 			display: block;
@@ -518,6 +538,11 @@
 	input[type=radio] {
 		width: auto;
 		margin-right: 4px;
+	}
+
+	&__info {
+		margin-left: 5px;
+		transform: translateY(2px);
 	}
 
 	.checkbox-labels,

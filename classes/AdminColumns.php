@@ -5,8 +5,13 @@ namespace AC;
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
 use AC\Admin\PromoCollection;
+use AC\Admin\Section\ListScreenMenu;
 use AC\Admin\Section\Restore;
 use AC\Check;
+use AC\Controller\AjaxRequestCustomFieldKeys;
+use AC\Controller\AjaxRequestNewColumn;
+use AC\Controller\ListScreenRequest;
+use AC\Controller\ListScreenRestoreColumns;
 use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Filter;
@@ -53,17 +58,6 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
-		$modules = [
-			new Ajax\NumberFormat( new Request() ),
-			new Deprecated\Hooks,
-			new Screen,
-			new Settings\General,
-			new ThirdParty\ACF,
-			new ThirdParty\NinjaForms,
-			new ThirdParty\WooCommerce,
-			new ThirdParty\WPML,
-			new DefaultColumnsController(),
-		];
 
 		$this->storage = new Storage();
 		$this->storage->get_repositories()->append(
@@ -73,21 +67,35 @@ class AdminColumns extends Plugin {
 			)
 		);
 
-		$modules[] = new QuickEdit( $this->storage, $this->preferences() );
+		$services = [
+			new Ajax\NumberFormat( new Request() ),
+			new Deprecated\Hooks,
+			new Screen,
+			new Settings\General,
+			new ThirdParty\ACF,
+			new ThirdParty\NinjaForms,
+			new ThirdParty\WooCommerce,
+			new ThirdParty\WPML,
+			new DefaultColumnsController( new Request(), new DefaultColumns() ),
+			new QuickEdit( $this->storage, $this->preferences() ),
+			new Capabilities\Manage(),
+			new AjaxRequestNewColumn( $this->storage ),
+			new AjaxRequestCustomFieldKeys(),
+			new ListScreenRestoreColumns( $this->storage ),
+		];
 
-		foreach ( $modules as $module ) {
-			if ( $module instanceof Registrable ) {
-				$module->register();
+		$services[] = new QuickEdit( $this->storage, $this->preferences() );
+
+		foreach ( $services as $service ) {
+			if ( $service instanceof Registrable ) {
+				$service->register();
 			}
 		}
 
 		$this->register_admin();
 		$this->localize();
 
-		$caps = new Capabilities\Manage();
-		$caps->register();
-
-		add_action( 'init', [ $this, 'install' ] );
+		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'notice_checks' ] );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
 
@@ -165,7 +173,7 @@ class AdminColumns extends Plugin {
 	/**
 	 * @param string $key
 	 *
-	 * @return ListScreen
+	 * @return ListScreen|null
 	 */
 	private function get_first_list_screen( $key, PermissionChecker $permission_checker ) {
 		$list_screens = $this->storage->find_all( [
@@ -302,13 +310,6 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return ListScreen[]
-	 */
-	public function get_list_screens() {
-		return ListScreenTypes::instance()->get_list_screens();
-	}
-
-	/**
 	 * @param ListScreen $list_screen
 	 *
 	 * @return self
@@ -390,28 +391,22 @@ class AdminColumns extends Plugin {
 	 * @return void
 	 */
 	private function register_admin() {
-		$is_network = is_network_admin();
+		$listscreen_controller = new ListScreenRequest( new Request(), $this->list_screen_repository, new Preferences\Site( 'settings' ) );
 
-		$site_factory = new Admin\AdminFactory();
-		$this->admin = $site_factory->create( $is_network );
+		$this->admin = new Admin( 'options-general.php', 'admin_menu', admin_url() );
 
-		if ( ! $is_network ) {
+		$page_settings = new Page\Settings();
+		$page_settings
+			->register_section( GeneralSectionFactory::create() )
+			->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
 
-			$page_settings = new Page\Settings();
-			$page_settings
-				->register_section( GeneralSectionFactory::create() )
-				->register_section( new Restore( new ListScreenRepository\Database( ListScreenTypes::instance() ) ) );
+		$page_columns = new Page\Columns( $listscreen_controller, new ListScreenMenu( $listscreen_controller ), new UnitializedListScreens( new DefaultColumns() ) );
 
-			$page_columns = new Page\Columns( ListScreenTypes::instance(), $this->storage );
-			$page_columns->register_ajax();
-
-			$this->admin->register_page( $page_columns )
-			            ->register_page( $page_settings )
-			            ->register_page( new Page\Addons() )
-			            ->register_page( new Page\Help() )
-			            ->register();
-		}
-
+		$this->admin->register_page( $page_columns )
+		            ->register_page( $page_settings )
+		            ->register_page( new Page\Addons() )
+		            ->register_page( new Page\Help() )
+		            ->register();
 	}
 
 	/**
@@ -557,6 +552,16 @@ class AdminColumns extends Plugin {
 	 */
 	public function api() {
 		_deprecated_function( __METHOD__, '4.0' );
+	}
+
+	/**
+	 * @return ListScreen[]
+	 * @deprecated 4.0
+	 */
+	public function get_list_screens() {
+		_deprecated_function( __METHOD__, '4.0', 'ListScreenTypes::instance()->get_list_screens()' );
+
+		return ListScreenTypes::instance()->get_list_screens();
 	}
 
 }

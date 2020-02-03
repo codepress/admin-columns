@@ -5,6 +5,7 @@ namespace AC;
 use AC\Column\Placeholder;
 use DateTime;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * List Screen
@@ -23,12 +24,6 @@ abstract class ListScreen {
 	 * @var string
 	 */
 	private $key;
-
-	/** @var string */
-	private $type;
-
-	/** @var string */
-	private $subtype;
 
 	/**
 	 * @since 2.0
@@ -133,9 +128,6 @@ abstract class ListScreen {
 	 */
 	private $updated;
 
-	/** @var string */
-	private $source;
-
 	/**
 	 * Contains the hook that contains the manage_value callback
 	 * @return void
@@ -194,42 +186,6 @@ abstract class ListScreen {
 	/**
 	 * @return string
 	 */
-	public function get_type() {
-		return $this->type;
-	}
-
-	/**
-	 * @param string $type
-	 *
-	 * @return self
-	 */
-	protected function set_type( $type ) {
-		$this->type = $type;
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_subtype() {
-		return $this->subtype;
-	}
-
-	/**
-	 * @param string $subtype
-	 *
-	 * @return self
-	 */
-	protected function set_subtype( $subtype ) {
-		$this->subtype = $subtype;
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
 	public function get_singular_label() {
 		if ( null === $this->singular_label ) {
 			$this->set_singular_label( $this->label );
@@ -263,24 +219,6 @@ abstract class ListScreen {
 	 */
 	protected function set_meta_type( $meta_type ) {
 		$this->meta_type = $meta_type;
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_source() {
-		return $this->source;
-	}
-
-	/**
-	 * @param string $source
-	 *
-	 * @return self
-	 */
-	public function set_source( $source ) {
-		$this->source = (string) $source;
 
 		return $this;
 	}
@@ -504,10 +442,10 @@ abstract class ListScreen {
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		return add_query_arg( array(
+		return add_query_arg( [
 			'list_screen' => $this->key,
 			'layout_id'   => $this->get_layout_id(),
-		), ac_get_admin_url() );
+		], ac_get_admin_url() );
 	}
 
 	/**
@@ -697,7 +635,7 @@ abstract class ListScreen {
 	/**
 	 * @param string $namespace Namespace from the current path
 	 *
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
 	public function register_column_types_from_dir( $namespace ) {
 		$classes = Autoloader::instance()->get_class_names_from_dir( $namespace );

@@ -3,11 +3,10 @@
 namespace AC\ListScreen;
 
 use AC\ListScreenPost;
+use ReflectionException;
 use WP_Posts_List_Table;
 
 class Post extends ListScreenPost {
-
-	const TYPE = 'post';
 
 	public function __construct( $post_type ) {
 		parent::__construct( $post_type );
@@ -15,9 +14,7 @@ class Post extends ListScreenPost {
 		$this->set_screen_base( 'edit' )
 		     ->set_group( 'post' )
 		     ->set_key( $post_type )
-		     ->set_screen_id( $this->get_screen_base() . '-' . $post_type )
-		     ->set_type( self::TYPE )
-		     ->set_subtype( $post_type );
+		     ->set_screen_id( $this->get_screen_base() . '-' . $post_type );
 	}
 
 	/**
@@ -68,7 +65,7 @@ class Post extends ListScreenPost {
 	}
 
 	/**
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
 	protected function register_column_types() {
 		parent::register_column_types();

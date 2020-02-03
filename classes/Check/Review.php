@@ -8,6 +8,7 @@ use AC\Message;
 use AC\Preferences;
 use AC\Registrable;
 use AC\Screen;
+use Exception;
 
 class Review
 	implements Registrable {
@@ -25,7 +26,7 @@ class Review
 	}
 
 	/**
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function register() {
 		add_action( 'ac/screen', array( $this, 'display' ) );

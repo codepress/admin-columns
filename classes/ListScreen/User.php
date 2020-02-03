@@ -3,11 +3,11 @@
 namespace AC\ListScreen;
 
 use AC;
+use ReflectionException;
+use WP_User;
 use WP_Users_List_Table;
 
 class User extends AC\ListScreenWP {
-
-	const TYPE = 'user';
 
 	public function __construct() {
 
@@ -17,8 +17,7 @@ class User extends AC\ListScreenWP {
 		     ->set_screen_base( 'users' )
 		     ->set_screen_id( 'users' )
 		     ->set_key( 'wp-users' )
-		     ->set_group( 'user' )
-		     ->set_type( self::TYPE );
+		     ->set_group( 'user' );
 	}
 
 	/**
@@ -62,7 +61,7 @@ class User extends AC\ListScreenWP {
 	/**
 	 * @param int $id
 	 *
-	 * @return \WP_User
+	 * @return WP_User
 	 */
 	protected function get_object( $id ) {
 		return get_userdata( $id );
@@ -79,7 +78,7 @@ class User extends AC\ListScreenWP {
 	}
 
 	/**
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
 	protected function register_column_types() {
 		$this->register_column_type( new AC\Column\CustomField );

@@ -3,6 +3,8 @@
 namespace AC\Helper;
 
 use DOMDocument;
+use DOMElement;
+use WP_Error;
 
 class Image {
 
@@ -17,7 +19,7 @@ class Image {
 	 * @param null|string $dest_path
 	 * @param int         $jpeg_quality
 	 *
-	 * @return bool|string|\WP_Error
+	 * @return bool|string|WP_Error
 	 */
 	public function resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
 		$editor = wp_get_image_editor( $file );
@@ -333,7 +335,7 @@ class Image {
 
 		foreach ( $images as $img ) {
 
-			/** @var \DOMElement $img */
+			/** @var DOMElement $img */
 			$urls[] = $img->getAttribute( 'src' );
 		}
 

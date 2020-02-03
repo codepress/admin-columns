@@ -3,14 +3,14 @@
 namespace AC\ListScreen;
 
 use AC;
+use ReflectionException;
+use WP_Comment;
 use WP_Comments_List_Table;
 
 /**
  * @since 2.0
  */
 class Comment extends AC\ListScreenWP {
-
-	const TYPE = 'comment';
 
 	public function __construct() {
 
@@ -20,14 +20,13 @@ class Comment extends AC\ListScreenWP {
 		     ->set_screen_base( 'edit-comments' )
 		     ->set_key( 'wp-comments' )
 		     ->set_screen_id( 'edit-comments' )
-		     ->set_group( 'comment' )
-		     ->set_type( self::TYPE );
+		     ->set_group( 'comment' );
 	}
 
 	/**
 	 * @param int $id
 	 *
-	 * @return \WP_Comment
+	 * @return WP_Comment
 	 */
 	protected function get_object( $id ) {
 		return get_comment( $id );
@@ -69,7 +68,7 @@ class Comment extends AC\ListScreenWP {
 
 	/**
 	 * Register column types
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
 	protected function register_column_types() {
 		$this->register_column_type( new AC\Column\CustomField );

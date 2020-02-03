@@ -77,11 +77,13 @@ abstract class Plugin extends Addon {
 		$installer = new Plugin\Installer();
 		$installer->install();
 
-		$updater = new Plugin\Updater( $this );
-
-		if ( ! $updater->check_update_conditions() ) {
-			return;
+		if ( current_user_can( Capabilities::MANAGE ) && ! is_network_admin() ) {
+			$this->run_updater();
 		}
+	}
+
+	private function run_updater() {
+		$updater = new Plugin\Updater\Site( $this );
 
 		$reflection = new ReflectionObject( $this );
 		$classes = Autoloader::instance()->get_class_names_from_dir( $reflection->getNamespaceName() . '\Plugin\Update' );
@@ -151,14 +153,12 @@ abstract class Plugin extends Addon {
 	public function is_new_install() {
 		global $wpdb;
 
-		$sql = "
-			SELECT option_id
-			FROM {$wpdb->options}
-			WHERE option_name LIKE 'cpac_options_%'
-			LIMIT 1
-		";
+		if ( $this->get_stored_version() ) {
+			return false;
+		}
 
-		$results = $wpdb->get_results( $sql );
+		// Before version 3.0.5
+		$results = $wpdb->get_results( "SELECT option_id FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%' LIMIT 1" );
 
 		return empty( $results );
 	}

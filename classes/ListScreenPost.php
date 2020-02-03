@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use WP_Post;
+
 abstract class ListScreenPost extends ListScreenWP {
 
 	/**
@@ -38,7 +40,7 @@ abstract class ListScreenPost extends ListScreenWP {
 	/**
 	 * @param int $id
 	 *
-	 * @return \WP_Post
+	 * @return WP_Post
 	 */
 	protected function get_object( $id ) {
 		return get_post( $id );

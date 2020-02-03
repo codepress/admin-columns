@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\Admin;
 
 use AC\View;
@@ -19,6 +20,9 @@ class Tooltip {
 
 	/** @var string */
 	private $position = 'right';
+
+	/** @var string */
+	private $position_edge;
 
 	public function __construct( $id, array $args ) {
 		$this->id = $id;
@@ -101,13 +105,25 @@ class Tooltip {
 	}
 
 	/**
+	 * @param string $position
+	 *
+	 * @return Tooltip
+	 */
+	public function set_position_edge( $position_edge ) {
+		$this->position_edge = $position_edge;
+
+		return $this;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function get_label() {
 		$view = new View( array(
-			'id'       => $this->id,
-			'position' => $this->position,
-			'label'    => $this->link_label,
+			'id'            => $this->id,
+			'position'      => $this->position,
+			'position_edge' => $this->position_edge,
+			'label'         => $this->link_label,
 		) );
 
 		$view->set_template( 'admin/tooltip-label' );
@@ -123,6 +139,7 @@ class Tooltip {
 			'id'      => $this->id,
 			'title'   => $this->title,
 			'content' => $this->content,
+			'position'      => $this->position,
 		) );
 
 		$view->set_template( 'admin/tooltip-body' );

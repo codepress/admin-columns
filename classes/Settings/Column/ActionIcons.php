@@ -23,13 +23,11 @@ class ActionIcons extends Column {
 			                ''  => __( 'No' ),
 		                ) );
 
-		$view = new View( array(
+		return new View( array(
 			'label'   => __( 'Use icons?', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Use icons instead of text for displaying the actions.', 'codepress-admin-columns' ),
 			'setting' => $setting,
 		) );
-
-		return $view;
 	}
 
 	/**

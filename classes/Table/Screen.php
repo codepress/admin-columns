@@ -8,6 +8,7 @@ use AC\Form;
 use AC\ListScreen;
 use AC\Registrable;
 use AC\Settings;
+use WP_Post;
 
 final class Screen implements Registrable {
 
@@ -37,8 +38,10 @@ final class Screen implements Registrable {
 	 * Register hooks
 	 */
 	public function register() {
-		$controller = new AC\ScreenController( $this->list_screen );
-		$controller->register();
+		if ( $this->list_screen ) {
+			$controller = new AC\ScreenController( $this->list_screen );
+			$controller->register();
+		}
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_footer', array( $this, 'admin_footer_scripts' ) );
@@ -117,7 +120,7 @@ final class Screen implements Registrable {
 						add_filter( 'media_row_actions', array( $this, 'set_media_row_actions' ), 10, 2 );
 					}
 				}
-			};
+			}
 
 			// Set inline edit data if the default column (title) is not present
 			if ( $this->list_screen instanceof ListScreen\Post && 'title' !== $default ) {
@@ -138,7 +141,7 @@ final class Screen implements Registrable {
 	 * Add a download link to the table screen
 	 *
 	 * @param array    $actions
-	 * @param \WP_Post $post
+	 * @param WP_Post $post
 	 *
 	 * @return array
 	 */
@@ -156,7 +159,7 @@ final class Screen implements Registrable {
 	 * Sets the inline data when the title columns is not present on a AC\ListScreen_Post screen
 	 *
 	 * @param array    $actions
-	 * @param \WP_Post $post
+	 * @param WP_Post $post
 	 *
 	 * @return array
 	 */

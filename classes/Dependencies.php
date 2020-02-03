@@ -215,9 +215,17 @@ final class Dependencies {
 	public function display_notice() {
 		$intro = "This plugin can't load because";
 
+		$is_plugin_active = is_multisite() && is_network_admin()
+			? is_plugin_active_for_network( $this->basename )
+			: is_plugin_active( $this->basename );
+
+		$status = $is_plugin_active
+			? 'active'
+			: 'inactive';
+
 		?>
 
-		<tr class="plugin-update-tr active">
+		<tr class="plugin-update-tr <?= $status; ?>">
 			<td colspan="3" class="plugin-update colspanchange">
 				<div class="update-message notice inline notice-error notice-alt">
 					<?php if ( count( $this->messages ) > 1 )  : ?>

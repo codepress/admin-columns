@@ -4,10 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * @global string $price
- */
-
 ?>
 <div class="ac-modal -pro" id="ac-modal-pro" style="display: none;">
 	<div class="ac-modal__dialog -mascot">
@@ -26,12 +22,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<li><?php _e( 'Directly edit your content from the overview', 'codepress-admin-columns' ); ?></li>
 				<li><?php _e( 'Export all column data to CSV', 'codepress-admin-columns' ); ?></li>
 				<li><?php _e( 'Create multiple column groups per overview', 'codepress-admin-columns' ); ?></li>
+				<li><?php _e( 'Bulk edit any content, including custom fields.', 'codepress-admin-columns' ); ?></li>
 				<li><?php _e( 'Get add-ons for ACF, WooCommerce and many more', 'codepress-admin-columns' ); ?></li>
 			</ul>
 		</div>
 		<div class="ac-modal__dialog__footer">
 			<a class="button button-primary" target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'admin-columns-pro', 'upgrade' ) ); ?>"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
-			<span class="ac-modal__dialog__footer__content"><?php echo sprintf( __( 'Only %s for 1 site', 'codepress-admin-columns' ), '$' . $this->price ); ?></span>
+			<?php if ( $this->price ) : ?>
+				<span class="ac-modal__dialog__footer__content"><?php echo sprintf( __( 'Only %s for 1 site', 'codepress-admin-columns' ), '$' . $this->price ); ?></span>
+			<?php endif; ?>
 			<svg class="ac-modal__dialog__mascot">
 				<use xlink:href="<?php echo esc_url( AC()->get_url() ); ?>/assets/images/symbols.svg#zebra-thumbs-up"></use>
 			</svg>

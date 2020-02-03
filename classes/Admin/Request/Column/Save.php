@@ -1,28 +1,23 @@
 <?php
+
 namespace AC\Admin\Request\Column;
 
 use AC\Admin\Request\Handler;
-use AC\ListScreen;
 use AC\ListScreenRepository;
 use AC\ListScreenTypes;
-use AC\Preferences;
 use AC\Request;
 
 class Save extends Handler {
 
-	/** @var ListScreenRepository\Storage */
-	private $list_screen_repository;
-
 	/**
-	 * @var Preferences\Site
+	 * @var ListScreenRepository\Storage
 	 */
-	private $preferences;
+	private $storage;
 
-	public function __construct( ListScreenRepository\Storage $list_screen_repository, Preferences\Site $preferences ) {
+	public function __construct( ListScreenRepository\Storage $storage ) {
 		parent::__construct( 'save' );
 
-		$this->list_screen_repository = $list_screen_repository;
-		$this->preferences = $preferences;
+		$this->storage = $storage;
 	}
 
 	public function request( Request $request ) {
@@ -35,7 +30,7 @@ class Save extends Handler {
 		$list_id = $formdata['list_screen_id'];
 		$type = $formdata['list_screen'];
 
-		if ( ! $this->list_screen_repository->exists( $list_id ) ) {
+		if ( ! $this->storage->exists( $list_id ) ) {
 			$list_id = uniqid();
 		}
 
@@ -57,14 +52,12 @@ class Save extends Handler {
 			wp_send_json_error( [ 'message' => 'Failed: List screen not found.' ] );
 		}
 
-		$list_screen->set_title( ! empty( $formdata['title'] ) ? $formdata['title'] : __( 'Original', 'codepress-admin-columns' ) )
+		$list_screen->set_title( ! empty( $formdata['title'] ) ? $formdata['title'] : $list_screen->get_label() )
 		            ->set_settings( $column_data )
 		            ->set_layout_id( $list_id )
 		            ->set_preferences( ! empty( $formdata['settings'] ) ? $formdata['settings'] : [] );
 
-		$this->list_screen_repository->save( $list_screen );
-
-		$this->preferences->set( 'list_id', $list_id );
+		$this->storage->save( $list_screen );
 
 		do_action( 'ac/columns_stored', $list_screen );
 
@@ -73,7 +66,7 @@ class Save extends Handler {
 		wp_send_json_success(
 			sprintf(
 				__( 'Settings for %s updated successfully.', 'codepress-admin-columns' ),
-				"<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>"
+				"<strong>" . esc_html( $list_screen->get_title() ) . "</strong>"
 			) . ' ' . $view_link
 		);
 	}
@@ -86,15 +79,6 @@ class Save extends Handler {
 		}
 
 		return $columndata;
-	}
-
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return string $label
-	 */
-	private function get_list_screen_message_label( ListScreen $list_screen ) {
-		return apply_filters( 'ac/settings/list_screen_message_label', $list_screen->get_label(), $list_screen );
 	}
 
 }

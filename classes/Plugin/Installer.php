@@ -6,10 +6,10 @@ class Installer {
 	const TABLE = 'admin_columns';
 
 	public function install() {
-		$this->create_data_base();
+		$this->create_database();
 	}
 
-	private function create_data_base() {
+	private function create_database() {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		dbDelta( $this->get_schema() );
@@ -32,7 +32,8 @@ class Installer {
 			settings mediumtext,
 			date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			date_modified datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			PRIMARY KEY (id)
+			PRIMARY KEY (id),
+			UNIQUE KEY `list_id` (`list_id`)
 		) $collate;
 		";
 

@@ -2,6 +2,7 @@
 
 namespace AC;
 
+use DirectoryIterator;
 use FilesystemIterator;
 
 class Autoloader {
@@ -132,7 +133,7 @@ class Autoloader {
 		$iterator = new FilesystemIterator( $path, FilesystemIterator::SKIP_DOTS );
 		$classes = array();
 
-		/* @var \DirectoryIterator $leaf */
+		/* @var DirectoryIterator $leaf */
 		foreach ( $iterator as $leaf ) {
 			// Exclude system files
 			if ( 0 === strpos( $leaf->getBasename(), '.' ) ) {

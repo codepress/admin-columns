@@ -2,6 +2,8 @@
 
 namespace AC\Helper;
 
+use WP_User;
+
 class User {
 
 	/**
@@ -52,7 +54,7 @@ class User {
 	}
 
 	/**
-	 * @param int|\WP_User $user
+	 * @param int|WP_User  $user
 	 * @param false|string $format WP_user var, 'first_last_name' or 'roles'
 	 *
 	 * @return false|string

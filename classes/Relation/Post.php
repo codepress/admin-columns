@@ -3,6 +3,7 @@
 namespace AC\Relation;
 
 use AC\Relation;
+use WP_Post_Type;
 
 class Post extends Relation {
 
@@ -22,7 +23,7 @@ class Post extends Relation {
 	}
 
 	/**
-	 * @return \WP_Post_Type
+	 * @return WP_Post_Type
 	 */
 	public function get_post_type_object() {
 		return $this->post_type_object;
