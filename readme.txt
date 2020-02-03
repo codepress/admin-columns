@@ -214,7 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.0.0 =
-Release Date: January 27th, 2020
+Release Date: February 3rd, 2020
 
 * [Improved] Use wp_date for column value formatters instead of date_i18n
 * [Improved] Set link type for Taxonomy Columns
