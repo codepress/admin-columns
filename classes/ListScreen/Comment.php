@@ -3,6 +3,8 @@
 namespace AC\ListScreen;
 
 use AC;
+use ReflectionException;
+use WP_Comment;
 use WP_Comments_List_Table;
 
 /**
@@ -24,7 +26,7 @@ class Comment extends AC\ListScreenWP {
 	/**
 	 * @param int $id
 	 *
-	 * @return \WP_Comment
+	 * @return WP_Comment
 	 */
 	protected function get_object( $id ) {
 		return get_comment( $id );
@@ -66,7 +68,7 @@ class Comment extends AC\ListScreenWP {
 
 	/**
 	 * Register column types
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
 	protected function register_column_types() {
 		$this->register_column_type( new AC\Column\CustomField );

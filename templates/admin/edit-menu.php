@@ -4,26 +4,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * @global array $items
- * @global string $current
- * @global string $screen_link
- */
-
-$items = $this->items;
-
 ?>
 
-<div class="menu">
+<div class="menu <?php echo $this->class; ?>">
 	<form>
 		<input type="hidden" name="page" value="<?php echo esc_attr( \AC\Admin::PLUGIN_PAGE ); ?>">
 
 		<?php
-		$select = new \AC\Form\Element\Select( 'list_screen', $items );
+		$select = new \AC\Form\Element\Select( 'list_screen', $this->items );
 
 		$select->set_value( $this->current )
-			   ->set_attribute( 'title', __( 'Select type', 'codepress-admin-columns' ) )
-			   ->set_attribute( 'id', 'ac_list_screen' );
+		       ->set_attribute( 'title', __( 'Select type', 'codepress-admin-columns' ) )
+		       ->set_attribute( 'id', 'ac_list_screen' );
 
 		echo $select->render();
 

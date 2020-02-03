@@ -14,7 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 $integrations = $this->integrations;
 $promo = $this->promo;
 $discount = $this->discount;
-$price = $this->price;
 
 $is_promo_active = $promo && $promo->is_active();
 
@@ -72,7 +71,9 @@ $is_promo_active = $promo && $promo->is_active();
 				<?php endif; ?>
 			</p>
 			<p class="center ac-pro-prices">
-				<?php echo sprintf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$' . $price ); ?>
+				<?php if ( $this->price ) : ?>
+					<?php printf( __( 'Prices starting from %s', 'codepress-admin-columns' ), '$' . $this->price ); ?>
+				<?php endif; ?>
 			</p>
 		</div>
 	</div>

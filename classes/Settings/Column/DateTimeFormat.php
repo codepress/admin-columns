@@ -65,8 +65,19 @@ abstract class DateTimeFormat extends Settings\Column
 		return $view;
 	}
 
+	/**
+	 * @param string $format
+	 * @param null   $time
+	 * @param null   $timezone
+	 *
+	 * @return string
+	 */
+	private function format_date( $format, $time = null, $timezone = null ) {
+		return ac_helper()->date->format_date( $format, $time, $timezone );
+	}
+
 	public function get_html_label_from_date_format( $date_format ) {
-		return $this->get_html_label( date_i18n( $date_format ), $date_format );
+		return $this->format_date( $date_format, null, wp_timezone() );
 	}
 
 	/**
@@ -78,7 +89,7 @@ abstract class DateTimeFormat extends Settings\Column
 		$options = array();
 
 		foreach ( $formats as $format ) {
-			$options[ $format ] = $this->get_html_label( date_i18n( $format ), $format );
+			$options[ $format ] = $this->get_html_label( $this->format_date( $format, null, wp_timezone() ), $format );
 		}
 
 		return $options;
@@ -183,13 +194,12 @@ abstract class DateTimeFormat extends Settings\Column
 		$date_format = $this->get_date_format();
 
 		switch ( $date_format ) {
-
 			case 'wp_default' :
-				$date = date_i18n( $this->get_wp_default_format(), $timestamp );
+				$date = $this->format_date( $this->get_wp_default_format(), $timestamp );
 
 				break;
 			default :
-				$date = date_i18n( $date_format, $timestamp );
+				$date = $this->format_date( $date_format, $timestamp );
 		}
 
 		return $date;

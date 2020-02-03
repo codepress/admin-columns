@@ -3,7 +3,6 @@
 namespace AC\Storage;
 
 use AC\Expirable;
-use Exception;
 use LogicException;
 
 final class Timestamp implements KeyValuePair, Expirable {
@@ -39,7 +38,7 @@ final class Timestamp implements KeyValuePair, Expirable {
 	 * @return bool
 	 */
 	public function validate( $value ) {
-		return preg_match( '/^[1-9][0-9]*$/', $value );
+		return preg_match( '/^[1-9]\d*$/', $value );
 	}
 
 	/**
@@ -59,7 +58,7 @@ final class Timestamp implements KeyValuePair, Expirable {
 	 * @param int $value
 	 *
 	 * @return bool
-	 * @throws Exception
+	 * @throws LogicException
 	 */
 	public function save( $value ) {
 		if ( ! $this->validate( $value ) ) {

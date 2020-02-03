@@ -15,7 +15,13 @@ class Url extends Column {
 	}
 
 	public function get_value( $user_id ) {
-		return $this->get_raw_value( $user_id );
+		$url = $this->get_raw_value( $user_id );
+
+		if ( ! $url ) {
+			return $this->get_empty_char();
+		}
+
+		return sprintf( '<a target="_blank" href="%1$s">%1$s</a>', $url );
 	}
 
 	public function get_raw_value( $user_id ) {

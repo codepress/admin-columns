@@ -4,32 +4,30 @@ namespace AC\Admin\Request;
 
 use AC;
 use AC\Column\Placeholder;
-use AC\ListScreenFactory;
 use AC\View;
 
 abstract class Column extends AC\Admin\Request\Handler {
 
-	/** @var AC\ListScreen */
-	protected $list_screen;
-
 	/**
 	 * @return AC\Column
 	 */
-	abstract public function get_column();
+	abstract public function get_column( AC\Request $request, AC\ListScreen $list_screen );
 
 	public function request( AC\Request $request ) {
-		$this->list_screen = ListScreenFactory::create( $request->get( 'list_screen' ), $request->get( 'layout' ) );
+		parse_str( $request->get( 'data' ), $formdata );
 
-		if ( ! $this->list_screen ) {
+		$list_screen = AC\ListScreenTypes::instance()->get_list_screen_by_key( $formdata['list_screen'] );
+
+		if ( ! $list_screen ) {
 			wp_die();
 		}
 
-		$column = $this->get_column();
+		$column = $this->get_column( $request, $list_screen );
 
 		if ( ! $column ) {
 			wp_send_json_error( array(
 				'type'  => 'message',
-				'error' => sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $this->list_screen->get_screen_link(), $this->list_screen->get_label() ) ),
+				'error' => sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $list_screen->get_screen_link(), $list_screen->get_label() ) ),
 			) );
 		}
 

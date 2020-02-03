@@ -12,7 +12,9 @@ class Help extends Page
 
 	const NAME = 'help';
 
-	/** @var Counter */
+	/**
+	 * @var Counter
+	 */
 	private $counter;
 
 	/** @var Hooks */

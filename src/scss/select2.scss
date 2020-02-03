@@ -325,6 +325,8 @@ $wp-border-color: #7e8893;
 		}
 
 		.select2-results__option {
+			margin-bottom: 0;
+
 			&[role=group],
 			&[role=list] {
 				padding: 0;

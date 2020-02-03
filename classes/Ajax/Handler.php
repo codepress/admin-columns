@@ -38,9 +38,6 @@ class Handler implements Registrable {
 		$this->set_nonce();
 	}
 
-	/**
-	 * @throws LogicException
-	 */
 	public function register() {
 		if ( ! $this->get_action() ) {
 			throw new LogicException( 'Action parameter is missing.' );

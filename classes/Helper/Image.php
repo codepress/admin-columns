@@ -3,6 +3,8 @@
 namespace AC\Helper;
 
 use DOMDocument;
+use DOMElement;
+use WP_Error;
 
 class Image {
 
@@ -17,7 +19,7 @@ class Image {
 	 * @param null|string $dest_path
 	 * @param int         $jpeg_quality
 	 *
-	 * @return bool|string|\WP_Error
+	 * @return bool|string|WP_Error
 	 */
 	public function resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
 		$editor = wp_get_image_editor( $file );
@@ -101,6 +103,12 @@ class Image {
 		return round( absint( $size ) * $scale );
 	}
 
+	private function is_resized_image( $path ) {
+		$fileinfo = pathinfo( $path );
+
+		return preg_match( '/-[0-9]+x[0-9]+$/', $fileinfo['filename'] );
+	}
+
 	/**
 	 * @param string       $url
 	 * @param array|string $size
@@ -116,11 +124,13 @@ class Image {
 			$dimensions = $size;
 		}
 
+
+
 		$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url );
 
 		if ( is_file( $image_path ) ) {
-			// try to resize image
-			if ( $resized = $this->resize( $image_path, $dimensions[0], $dimensions[1], true ) ) {
+			// try to resize image if it is not already resized
+			if ( ! $this->is_resized_image( $image_path ) && $resized = $this->resize( $image_path, $dimensions[0], $dimensions[1], true ) ) {
 				$src = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $resized );
 
 				$image = $this->markup( $src, $dimensions[0], $dimensions[1] );
@@ -177,12 +187,20 @@ class Image {
 	 * @return array Image sizes
 	 */
 	public function get_image_sizes_by_name( $name ) {
-		global $_wp_additional_image_sizes;
+		$available_sizes = wp_get_additional_image_sizes();
+
+		$defaults = ['thumbnail','medium','large'];
+		foreach( $defaults as $key ){
+			$available_sizes[ $key ] = [
+					'width' => get_option( $key .'_size_w' ),
+					'height' => get_option( $key .'_size_h' ),
+			];
+		}
 
 		$sizes = false;
 
-		if ( is_scalar( $name ) && isset( $_wp_additional_image_sizes[ $name ] ) ) {
-			$sizes = $_wp_additional_image_sizes[ $name ];
+		if ( is_scalar( $name ) && isset( $available_sizes[ $name ] ) ) {
+			$sizes = $available_sizes[ $name ];
 		}
 
 		return $sizes;
@@ -317,7 +335,7 @@ class Image {
 
 		foreach ( $images as $img ) {
 
-			/** @var \DOMElement $img */
+			/** @var DOMElement $img */
 			$urls[] = $img->getAttribute( 'src' );
 		}
 

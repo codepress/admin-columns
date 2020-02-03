@@ -10,6 +10,7 @@ use AC\PluginInformation;
 use AC\Preferences;
 use AC\Registrable;
 use AC\Screen;
+use Exception;
 
 final class AddonAvailable
 	implements Registrable {
@@ -25,7 +26,7 @@ final class AddonAvailable
 	}
 
 	/**
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function register() {
 		add_action( 'ac/screen', array( $this, 'display' ) );

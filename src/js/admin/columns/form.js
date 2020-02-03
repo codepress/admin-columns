@@ -3,9 +3,12 @@ import Column from "./column";
 class Form {
 
 	constructor( el ) {
+		this.form = el;
 		this.$form = jQuery( el );
+		this.$column_container = this.$form.find( '.ac-columns' );
 		this.$container = jQuery( '#cpac .ac-admin' );
 		this.columns = {};
+		this._validators = [];
 
 		jQuery( document ).trigger( 'AC_Form_Loaded' );
 
@@ -17,7 +20,11 @@ class Form {
 		this.bindFormEvents();
 		this.bindOrdering();
 
-		jQuery( document ).trigger( 'AC_Form_Ready' );
+		if ( this.$form.hasClass( '-disabled' ) ) {
+			this.disableFields();
+		}
+
+		jQuery( document ).trigger( 'AC_Form_Ready', this );
 	}
 
 	bindOrdering() {
@@ -47,11 +54,28 @@ class Form {
 		return columns;
 	}
 
+	validateForm() {
+		let valid = true;
+
+		this._validators.forEach( validator => {
+			valid = validator.call( this, this );
+		} );
+
+		return valid;
+	}
+
+	addValidator( validator ){
+		this._validators.push( validator );
+	}
+
 	bindFormEvents() {
 		let self = this;
 		let $buttons = jQuery( '.sidebox a.submit, .column-footer a.submit' );
 
 		$buttons.on( 'click', function() {
+			if( ! self.validateForm() ){
+				return;
+			}
 			$buttons.attr( 'disabled', 'disabled' );
 			self.submitForm().always( function() {
 				$buttons.removeAttr( 'disabled', 'disabled' );
@@ -114,17 +138,37 @@ class Form {
 		return this.$form.serialize();
 	}
 
+	disableFields() {
+		let form = document.querySelector( this.form );
+		if ( !form ) {
+			return;
+		}
+
+		let elements = form.elements;
+
+		for ( let i = 0; i < elements.length; i++ ) {
+			elements[ i ].readOnly = true;
+			elements[ i ].setAttribute( 'disabled', true );
+		}
+	}
+
+	enableFields() {
+
+	}
+
 	submitForm() {
 		let self = this;
 
 		let xhr = jQuery.post( ajaxurl, {
 				action : 'ac-columns',
 				id : 'save',
-				data : this.serialize(),
 				_ajax_nonce : AC._ajax_nonce,
-				list_screen : AC.list_screen,
-				layout : AC.layout,
-				original_columns : AC.original_columns
+				data : this.serialize(),
+				//columns: this.getColumnSettings(),
+				//title: this.getTitle(),
+				//list_screen : this.getListScreen(),
+				//list_screen_id : this.getListScreenID(),
+				//original_columns : AC.original_columns
 			},
 
 			function( response ) {
@@ -149,7 +193,7 @@ class Form {
 		} );
 
 		//document.dispatchEvent( new CustomEvent( 'AC_Form_AfterUpdate', { detail : { container : self.$container } } ) );
-		jQuery( document ).trigger( 'AC_Form_AfterUpdate', [ self.$container ] );
+		jQuery( document ).trigger( 'AC_Form_AfterUpdate', [self.$container] );
 
 		return xhr;
 	}
@@ -158,7 +202,7 @@ class Form {
 		let $msg = jQuery( '<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>' );
 
 		this.$container.find( '.ac-message' ).stop().remove();
-		this.$container.find( '.ac-boxes' ).before( $msg );
+		this.$container.find( '.ac-left' ).prepend( $msg );
 
 		$msg.slideDown();
 	}
@@ -181,9 +225,25 @@ class Form {
 		}
 	}
 
+	getListScreen() {
+		return this.$form.find( 'input[name="list_screen"]' ).val();
+	}
+
+	getListScreenID() {
+		return this.$form.find( 'input[name="list_screen_id"]' ).val();
+	}
+
+	getTitle() {
+		return this.$form.find( 'input[name="title"]' ).val();
+	}
+
+	getColumnSettings() {
+		return this.$form.find( '[name^="columns["]' ).serialize();
+	}
+
 	_addColumnToForm( column, open = true ) {
 		this.columns[ column.name ] = column;
-		this.$form.append( column.$el );
+		this.$column_container.append( column.$el );
 
 		if ( open ) {
 			column.open();
@@ -193,7 +253,7 @@ class Form {
 
 		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
 
-		jQuery( document ).trigger( 'AC_Column_Added', [ column ] );
+		jQuery( document ).trigger( 'AC_Column_Added', [column] );
 
 		return column;
 	}

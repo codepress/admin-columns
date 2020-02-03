@@ -89,12 +89,14 @@ a.external {
 		display: inline-block;
 		margin: 0;
 	}
+
 	.spinner {
 		display: none;
 		float: none;
 		visibility: visible;
 		margin: 0 0 0 14px;
 	}
+
 	.view-link,
 	.view-link:active {
 		display: inline-block;
@@ -125,10 +127,24 @@ table.ac-form-table {
 
 				font-weight: normal;
 			}
+
 			td {
 				padding-top: 58px;
 			}
 		}
+	}
+
+	.general {
+		form {
+			div.checkbox-labels {
+				margin-bottom: 6px;
+			}
+
+			p.save-button {
+				margin-top: 10px;
+			}
+		}
+
 	}
 }
 
@@ -192,6 +208,7 @@ body.rtl {
 						margin-left: 3px;
 						margin-right: 0;
 					}
+
 					.column_label {
 						.inner {
 							> a.remove-button {
@@ -208,6 +225,7 @@ body.rtl {
 							float: right;
 						}
 					}
+
 					.column_type {
 						text-align: left;
 						padding-left: 0;
@@ -231,6 +249,7 @@ body.rtl {
 								right: 0;
 								left: auto;
 							}
+
 							a.more-info {
 								float: left;
 							}
@@ -266,9 +285,11 @@ body.rtl {
 					transform: scaleX(-1);
 				}
 			}
+
 			.button-container {
 				float: left;
 			}
+
 			.submit {
 				display: none;
 			}
@@ -296,5 +317,72 @@ body.rtl {
 		height: auto;
 		margin: 10px;
 		margin-top: 0;
+	}
+}
+
+
+.ac-section-group {
+
+}
+
+.ac-section {
+	$e: &;
+	background: #F5F5F5;
+	margin-bottom: 28px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+	&__header {
+		background: #fff;
+		padding: 13px 14px;
+		border-bottom: 1px solid #E1E1E1;
+		position: relative;
+
+		&__title {
+			font-size: 15px;
+			margin: 0;
+			font-weight: bold;
+		}
+	}
+
+	&__body {
+		padding: 16px 16px;
+	}
+
+	p {
+		margin: 0 0 1em 0;
+		max-width: 800px;
+	}
+
+	&.-closable {
+		#{$e}__header {
+			padding-right: 30px;
+			cursor: pointer;
+
+			&:after {
+				content: "";
+				position: absolute;
+				right: 20px;
+				top: 50%;
+				border-left: 4px solid transparent;
+				border-right: 4px solid transparent;
+				border-bottom: 6px solid #000;
+				transition: all .2s;
+				margin-top: -4px;
+
+			}
+		}
+
+		&.-closed {
+			#{$e}__header {
+				&:after {
+					transform: rotate(180deg);
+				}
+			}
+
+			#{$e}__body {
+				display: none;
+			}
+		}
+
 	}
 }

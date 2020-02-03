@@ -12,7 +12,7 @@ class EstimatedReadingTime extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-estimated_reading_time' );
-		$this->set_label( __( 'Estimated Reading Time', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Read Time', 'codepress-admin-columns' ) );
 	}
 
 	/**

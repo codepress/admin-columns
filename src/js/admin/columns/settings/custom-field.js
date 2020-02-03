@@ -84,6 +84,13 @@ class CustomField {
 		const request = loadSingleRequestManager( input.dataset.type, input.dataset.post_type );
 		const editingAvailable = this.column.el.querySelectorAll( '[data-setting="edit"][data-indicator-toggle]' ).length > 0;
 
+		// Ensure you won't get any duplicates on clone
+		input.querySelectorAll( 'optgroup' ).forEach( el => {
+			el.remove();
+		} );
+
+		input.removeAttribute( 'data-select2-id' );
+
 		this.setting.querySelectorAll( '.select2' ).forEach( el => {
 			el.remove();
 		} );

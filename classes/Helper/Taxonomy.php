@@ -2,10 +2,12 @@
 
 namespace AC\Helper;
 
+use WP_Term;
+
 class Taxonomy {
 
 	/**
-	 * @param \WP_Term[]  $terms Term objects
+	 * @param WP_Term[]   $terms Term objects
 	 * @param null|string $post_type
 	 *
 	 * @return array
@@ -18,26 +20,30 @@ class Taxonomy {
 		$values = array();
 
 		foreach ( $terms as $t ) {
-			if ( ! is_a( $t, 'WP_Term' ) ) {
+			if ( ! $t instanceof WP_Term ) {
 				continue;
 			}
 
-			$args = array(
-				'post_type' => $post_type,
-				'taxonomy'  => $t->taxonomy,
-				'term'      => $t->slug,
-			);
-
-			$page = 'attachment' === $post_type ? 'upload' : 'edit';
-
-			$values[] = ac_helper()->html->link( add_query_arg( $args, $page . '.php' ), sanitize_term_field( 'name', $t->name, $t->term_id, $t->taxonomy, 'display' ) );
+			$values[] = ac_helper()->html->link( $this->get_term_url( $t, $post_type ), sanitize_term_field( 'name', $t->name, $t->term_id, $t->taxonomy, 'display' ) );
 		}
 
 		return $values;
 	}
 
+	public function get_term_url( $term, $post_type = null ) {
+		$args = array(
+			'post_type' => $post_type,
+			'taxonomy'  => $term->taxonomy,
+			'term'      => $term->slug,
+		);
+
+		$page = 'attachment' === $post_type ? 'upload' : 'edit';
+
+		return add_query_arg( $args, $page . '.php' );
+	}
+
 	/**
-	 * @param \WP_Term $term
+	 * @param WP_Term $term
 	 *
 	 * @return false|string
 	 */
@@ -73,13 +79,12 @@ class Taxonomy {
 	}
 
 	/**
-	 * @since 3.0
-	 *
 	 * @param string $field
 	 * @param int    $term_id
 	 * @param string $taxonomy
 	 *
 	 * @return bool|mixed
+	 * @since 3.0
 	 */
 	public function get_term_field( $field, $term_id, $taxonomy ) {
 		$term = get_term_by( 'id', $term_id, $taxonomy );
@@ -96,11 +101,10 @@ class Taxonomy {
 	}
 
 	/**
-	 * @since 3.0
-	 *
 	 * @param $post_type
 	 *
 	 * @return array
+	 * @since 3.0
 	 */
 	public function get_taxonomy_selection_options( $post_type ) {
 		$taxonomies = get_object_taxonomies( $post_type, 'objects' );
@@ -122,7 +126,7 @@ class Taxonomy {
 	 * @param int    $term_ids
 	 * @param string $taxonomy
 	 *
-	 * @return \WP_Term[]
+	 * @return WP_Term[]
 	 */
 	public function get_terms_by_ids( $term_ids, $taxonomy ) {
 		$terms = array();

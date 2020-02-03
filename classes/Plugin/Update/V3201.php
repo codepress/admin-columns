@@ -4,6 +4,7 @@ namespace AC\Plugin\Update;
 
 use AC\Plugin\Update;
 use AC\Preferences;
+use DirectoryIterator;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -30,7 +31,7 @@ class V3201 extends Update {
 			new RecursiveDirectoryIterator( $directory, FilesystemIterator::SKIP_DOTS )
 		);
 
-		/** @var \DirectoryIterator $leaf */
+		/** @var DirectoryIterator $leaf */
 		foreach ( $iterator as $leaf ) {
 			$file = $leaf->getFilename();
 

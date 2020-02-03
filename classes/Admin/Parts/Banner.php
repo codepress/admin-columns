@@ -3,6 +3,7 @@
 namespace AC\Admin\Parts;
 
 use AC\Admin;
+use AC\Integration;
 use AC\Integrations;
 use AC\PluginInformation;
 use AC\View;
@@ -26,7 +27,7 @@ class Banner {
 	}
 
 	/**
-	 * @return \AC\Integration[]
+	 * @return Integration[]
 	 */
 	private function get_missing_integrations() {
 		$missing = array();
@@ -50,7 +51,6 @@ class Banner {
 			'promo'        => $this->get_active_promotion(),
 			'integrations' => $this->get_missing_integrations(),
 			'discount'     => $this->get_discount_percentage(),
-			'price'        => ac_get_lowest_price(),
 		) );
 
 		$banner->set_template( 'admin/side-banner' );

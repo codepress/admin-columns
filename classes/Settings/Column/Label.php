@@ -45,13 +45,7 @@ class Label extends Settings\Column {
 	 * @return string
 	 */
 	private function convert_site_url( $label, $action = 'encode' ) {
-		$input = array( site_url(), '[cpac_site_url]' );
-
-		if ( 'decode' == $action ) {
-			$input = array_reverse( $input );
-		}
-
-		return stripslashes( str_replace( $input[0], $input[1], trim( $label ) ) );
+		return ac_convert_site_url( $label, $action );
 	}
 
 	/**

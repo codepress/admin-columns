@@ -1,8 +1,12 @@
 <?php
 
+use AC\Helper;
+use AC\ListScreen;
+use AC\ListScreenCollection;
+
 /**
- * @since 3.0
  * @return AC\AdminColumns
+ * @since 3.0
  */
 function AC() {
 	return AC\AdminColumns::instance();
@@ -85,19 +89,32 @@ function ac_helper() {
 }
 
 /**
+ * @param array|string $list_screen_keys
+ * @param array        $column_data
+ *
+ * @deprecated 4.0.0
+ * @since      2.2
+ */
+function ac_register_columns( $list_screen_keys, $column_data ) {
+	foreach ( (array) $list_screen_keys as $key ) {
+		AC\ListScreenApiData::push( [ $key => $column_data ] );
+	}
+}
+
+/**
  * Manually set the columns for a list screen
  * This overrides the database settings and thus renders the settings screen for this list screen useless
  * If you like to register a column of your own please have a look at our documentation.
  * We also have a free start-kit available, which contains all the necessary files.
- * Documentation: https://www.admincolumns.com/documentation/developer-docs/creating-new-column-type/
+ * Documentation: https://www.admincolumns.com/documentation/guides/creating-new-column-type/
  * Starter-kit: https://github.com/codepress/ac-column-template/
- * @since 2.2
  *
- * @param array|string $list_screen_keys
- * @param array        $column_data
+ * @param array $data
+ *
+ * @since 4.0.0
  */
-function ac_register_columns( $list_screen_keys, $column_data ) {
-	AC()->api()->load_columndata( $list_screen_keys, $column_data );
+function ac_load_columns( array $data ) {
+	AC\ListScreenApiData::push( $data );
 }
 
 /**
@@ -114,8 +131,50 @@ function ac_get_admin_url( $slug = null ) {
 }
 
 /**
- * @return int
+ * Convert site_url() to [cpac_site_url] and back for easy migration
+ *
+ * @param string $label
+ * @param string $action
+ *
+ * @return string
  */
-function ac_get_lowest_price() {
-	return 49;
+function ac_convert_site_url( $label, $action = 'encode' ) {
+	$input = array( site_url(), '[cpac_site_url]' );
+
+	if ( 'decode' == $action ) {
+		$input = array_reverse( $input );
+	}
+
+	return stripslashes( str_replace( $input[0], $input[1], trim( $label ) ) );
+}
+
+/**
+ * @param string $id Layout ID e.g. ac5de58e04a75b0
+ *
+ * @return ListScreen|null
+ * @since 4.0.0
+ */
+function ac_get_list_screen( $id ) {
+	return AC()->get_listscreen_repository()->find( $id );
+}
+
+/**
+ * @param string $key e.g. post, page, wp-users, wp-media, wp-comments
+ *
+ * @return ListScreenCollection
+ * @since 4.0.0
+ */
+function ac_get_list_screens( $key ) {
+	return AC()->get_listscreen_repository()->find_all( [ 'key' => $key ] );
+}
+
+/**
+ * @param                   $format
+ * @param null              $timestamp
+ * @param DateTimeZone|null $timezone
+ *
+ * @return false|string
+ */
+function ac_format_date( $format, $timestamp = null, DateTimeZone $timezone = null ) {
+	return ( new Helper\Date() )->format_date( $format, $timestamp, $timezone );
 }

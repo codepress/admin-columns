@@ -4,36 +4,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * @global array        $notices
- * @global string       $class
- * @global string       $list_screen
- * @global \AC\Column[] $columns
- * @global bool         $show_actions
- * @global bool         $show_clear_all
- */
-
-echo implode( $this->notices ); ?>
+?>
 
 <div class="ac-boxes <?php echo esc_attr( $this->class ); ?>">
-
 	<div class="ac-columns">
-		<form method="post">
-			<input type="hidden" name="list_screen" value="<?php echo esc_attr( $this->list_screen ); ?>"/>
+		<?php wp_nonce_field( 'update-type', '_ac_nonce', false ); ?>
+		<input type="hidden" name="list_screen" value="<?= esc_attr( $this->list_screen ); ?>"/>
+		<input type="hidden" name="list_screen_id" value="<?= esc_attr( $this->list_screen_id ); ?>">
 
-			<?php wp_nonce_field( 'update-type', '_ac_nonce', false ); ?>
 
-			<?php
-			foreach ( $this->columns as $column ) {
-				$view = new \AC\View( array(
-					'column' => $column,
-				) );
+		<?php
+		foreach ( $this->columns as $column ) {
+			$view = new \AC\View( array(
+				'column' => $column,
+			) );
 
-				echo $view->set_template( 'admin/edit-column' );
-			}
-			?>
-		</form>
-
+			echo $view->set_template( 'admin/edit-column' );
+		}
+		?>
 	</div>
 
 	<div class="column-footer">
@@ -55,5 +43,6 @@ echo implode( $this->notices ); ?>
 		<?php endif; ?>
 
 	</div>
+
 
 </div>

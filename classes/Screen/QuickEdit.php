@@ -2,22 +2,29 @@
 
 namespace AC\Screen;
 
-use AC\ListScreen;
-use AC\ListScreenFactory;
+use AC\ListScreenRepository\ListScreenRepository;
+use AC\Preferences\Site;
 use AC\Registrable;
+use AC\ScreenController;
 
 class QuickEdit implements Registrable {
 
-	/**
-	 * @var ListScreen
-	 */
-	private $list_screen;
+	/** @var ListScreenRepository */
+	private $list_screen_repository;
+
+	/** @var Site */
+	private $preferences;
+
+	public function __construct( ListScreenRepository $list_screen_repository, Site $preferences ) {
+		$this->list_screen_repository = $list_screen_repository;
+		$this->preferences = $preferences;
+	}
 
 	/**
 	 * Register hooks
 	 */
 	public function register() {
-		add_action( 'admin_init', array( $this, 'set_list_screen' ) );
+		add_action( 'admin_init', array( $this, 'init_columns_on_quick_edit' ) );
 	}
 
 	/**
@@ -30,12 +37,10 @@ class QuickEdit implements Registrable {
 	/**
 	 * Get list screen when doing Quick Edit, a native WordPress ajax call
 	 */
-	public function set_list_screen() {
+	public function init_columns_on_quick_edit() {
 		if ( ! $this->is_doing_ajax() ) {
 			return;
 		}
-
-		$type = false;
 
 		switch ( filter_input( INPUT_POST, 'action' ) ) {
 
@@ -55,22 +60,25 @@ class QuickEdit implements Registrable {
 			case 'replyto-comment' :
 				$type = 'wp-comments';
 				break;
+
+			default:
+				return;
 		}
 
-		if ( ! $type ) {
+		$id = $this->preferences->get( $type );
+
+		if ( ! $id ) {
 			return;
 		}
 
-		$this->list_screen = ListScreenFactory::create( $type );
+		$list_screen = $this->list_screen_repository->find( $id );
 
-		do_action( 'ac/screen/quick_edit', $this );
-	}
+		if ( ! $list_screen ) {
+			return;
+		}
 
-	/**
-	 * @return ListScreen
-	 */
-	public function get_list_screen() {
-		return $this->list_screen;
+		$screen_controller = new ScreenController( $list_screen );
+		$screen_controller->register();
 	}
 
 }

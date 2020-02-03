@@ -1,6 +1,4 @@
-require( 'admin-columns-js/polyfill/customevent' );
-require( 'admin-columns-js/polyfill/nodelist' );
-
+import ListScreenInitializeController from "./admin/columns/listscreen-initialize";
 /**
  * AC variables. Defined in DOM.
  * @param AdminColumns {Object}
@@ -15,6 +13,7 @@ import Initiator from "./admin/columns/initiator";
 import Modal from "./modules/modal";
 import Menu from "./admin/columns/menu";
 import Feedback from "./admin/columns/feedback";
+import Tooltip from "./modules/tooltips";
 /** Events */
 import EventToggle from './admin/columns/events/toggle';
 import EventRemove from './admin/columns/events/remove';
@@ -32,6 +31,10 @@ import SettingPro from './admin/columns/settings/pro';
 import SettingWidth from './admin/columns/settings/width';
 import SettingLabel from './admin/columns/settings/label';
 import SettingCustomField from './admin/columns/settings/custom-field';
+import SettingNumberFormat from './admin/columns/settings/number-format';
+
+require( 'admin-columns-js/polyfill/customevent' );
+require( 'admin-columns-js/polyfill/nodelist' );
 
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 
@@ -41,7 +44,7 @@ AC.Column = new Initiator(); // Todo remove from
 AdminColumns.Column = AC.Column;
 
 jQuery( document ).on( 'AC_Form_Loaded', function() {
-
+	AdminColumns.Tooltips = new Tooltip();
 	/** Register Events **/
 	AdminColumns.Column
 		.registerEvent( 'toggle', EventToggle )
@@ -61,11 +64,13 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 		.registerSetting( 'sub_setting_toggle', SettingSubSettingToggle )
 		.registerSetting( 'width', SettingWidth )
 		.registerSetting( 'customfield', SettingCustomField )
+		.registerSetting( 'number_format', SettingNumberFormat )
 		.registerSetting( 'label', SettingLabel );
 } );
 
 jQuery( document ).ready( function() {
-	AC.Form = new Form( '#cpac .ac-columns form' );
+	AC.Form = new Form( '#listscreen_settings' );
+	AdminColumns.Form = AC.Form;
 	Modals.init().register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
 
 	new Menu().init();
@@ -84,4 +89,9 @@ jQuery( document ).ready( function() {
 			} );
 		}, 100 )
 	} );
+
+	if ( AC.hasOwnProperty( 'uninitialized_list_screens' ) && Object.keys( AC.uninitialized_list_screens ).length > 0 ) {
+		new ListScreenInitializeController( AC.uninitialized_list_screens );
+	}
+
 } );

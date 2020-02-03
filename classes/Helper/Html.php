@@ -3,6 +3,7 @@
 namespace AC\Helper;
 
 use DOMDocument;
+use DOMElement;
 
 class Html {
 
@@ -208,7 +209,7 @@ class Html {
 		$links = $dom->getElementsByTagName( 'a' );
 
 		foreach ( $links as $link ) {
-			/** @var \DOMElement $link */
+			/** @var DOMElement $link */
 			$href = $link->getAttribute( 'href' );
 
 			if ( 0 === strpos( $href, '#' ) ) {
@@ -452,8 +453,8 @@ class Html {
 
 		$icons = array();
 
-		foreach ( $stars as $type => $count ) {
-			for ( $i = 1; $i <= $count; $i++ ) {
+		foreach ( $stars as $type => $_count ) {
+			for ( $i = 1; $i <= $_count; $i++ ) {
 				$icons[] = ac_helper()->icon->dashicon( array( 'icon' => 'star-' . $type, 'class' => 'ac-value-star' ) );
 			}
 		}

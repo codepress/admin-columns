@@ -1,67 +1,82 @@
 <?php
+
 namespace AC\Admin\Request\Column;
 
 use AC\Admin\Request\Handler;
-use AC\ListScreen;
-use AC\ListScreenFactory;
+use AC\ListScreenRepository;
+use AC\ListScreenTypes;
 use AC\Request;
 
 class Save extends Handler {
 
-	public function __construct() {
+	/** @var ListScreenRepository\Aggregate */
+	private $list_screen_repository;
+
+	public function __construct( ListScreenRepository\Aggregate $list_screen_repository ) {
 		parent::__construct( 'save' );
+
+		$this->list_screen_repository = $list_screen_repository;
 	}
 
 	public function request( Request $request ) {
-		$list_screen = ListScreenFactory::create( $request->get( 'list_screen' ), $request->get( 'layout' ) );
-
-		if ( ! $list_screen ) {
-			wp_die();
-		}
-
 		parse_str( $request->get( 'data' ), $formdata );
 
 		if ( ! isset( $formdata['columns'] ) ) {
-			wp_send_json_error( array(
-					'type'    => 'error',
-					'message' => __( 'You need at least one column', 'codepress-admin-columns' ),
-				)
-			);
+			wp_send_json_error( [ 'message' => __( 'You need at least one column', 'codepress-admin-columns' ) ] );
 		}
 
-		$result = $list_screen->store( $formdata['columns'] );
+		$list_id = $formdata['list_screen_id'];
+		$type = $formdata['list_screen'];
+
+		if ( ! $this->list_screen_repository->exists( $list_id ) ) {
+			$list_id = uniqid();
+		}
+
+		$formdata['columns'] = $this->maybe_encode_urls( $formdata['columns'] );
+
+		$column_data = [];
+
+		foreach ( $formdata['columns'] as $column_name => $settings ) {
+			if ( 0 === strpos( $column_name, '_new_column_' ) ) {
+				$column_data[ uniqid() ] = $settings;
+			} else {
+				$column_data[ $column_name ] = $settings;
+			}
+		}
+
+		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $type );
+
+		if ( ! $list_screen ) {
+			wp_send_json_error( [ 'message' => 'Failed: List screen not found.' ] );
+		}
+
+		$list_screen->set_title( ! empty( $formdata['title'] ) ? $formdata['title'] : $list_screen->get_label() )
+		            ->set_settings( $column_data )
+		            ->set_layout_id( $list_id )
+		            ->set_preferences( ! empty( $formdata['settings'] ) ? $formdata['settings'] : [] );
+
+		$this->list_screen_repository->save( $list_screen );
+
+		do_action( 'ac/columns_stored', $list_screen );
 
 		$view_link = ac_helper()->html->link( $list_screen->get_screen_link(), sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) );
 
-		if ( is_wp_error( $result ) ) {
-
-			if ( 'same-settings' === $result->get_error_code() ) {
-				wp_send_json_error( array(
-						'type'    => 'notice notice-warning',
-						'message' => sprintf( __( 'You are trying to store the same settings for %s.', 'codepress-admin-columns' ), "<strong>" . $this->get_list_screen_message_label( $list_screen ) . "</strong>" ) . ' ' . $view_link,
-					)
-				);
-			}
-
-			wp_send_json_error( array(
-					'type'    => 'error',
-					'message' => $result->get_error_message(),
-				)
-			);
-		}
-
 		wp_send_json_success(
-			sprintf( __( 'Settings for %s updated successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $this->get_list_screen_message_label( $list_screen ) ) . "</strong>" ) . ' ' . $view_link
+			sprintf(
+				__( 'Settings for %s updated successfully.', 'codepress-admin-columns' ),
+				"<strong>" . esc_html( $list_screen->get_title() ) . "</strong>"
+			) . ' ' . $view_link
 		);
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return string $label
-	 */
-	private function get_list_screen_message_label( ListScreen $list_screen ) {
-		return apply_filters( 'ac/settings/list_screen_message_label', $list_screen->get_label(), $list_screen );
+	private function maybe_encode_urls( array $columndata ) {
+		foreach ( $columndata as $name => $data ) {
+			if ( isset( $data['label'] ) ) {
+				$columndata[ $name ]['label'] = ac_convert_site_url( $data['label'] );
+			}
+		}
+
+		return $columndata;
 	}
 
 }
