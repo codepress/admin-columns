@@ -36,6 +36,13 @@ class CustomField extends Settings\Column {
 	protected function get_setting_field() {
 		$options = $this->get_field() ? array( $this->get_field() => $this->get_field() ) : array();
 
+		$use_text_input = apply_filters( 'ac/column/custom_field/use_text_input', false );
+
+		if ( $use_text_input ) {
+			return $this->create_element( 'text', 'field' )
+			            ->set_attribute( 'placeholder', 'Custom field key' );
+		}
+
 		return $this->create_element( 'select', 'field' )
 		            ->set_attribute( 'data-selected', $this->get_field() )
 		            ->set_attribute( 'data-post_type', $this->get_post_type() )
