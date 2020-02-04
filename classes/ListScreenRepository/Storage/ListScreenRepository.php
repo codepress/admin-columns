@@ -40,6 +40,13 @@ class ListScreenRepository implements AC\ListScreenRepository {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function get_type() {
+		return get_class( $this->repository );
+	}
+
+	/**
 	 * @return bool
 	 */
 	public function is_writable() {
