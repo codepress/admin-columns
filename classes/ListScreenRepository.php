@@ -7,7 +7,7 @@ interface ListScreenRepository {
 	/**
 	 * @param string $id
 	 *
-	 * @return ListScreen
+	 * @return ListScreen|null
 	 */
 	public function find( $id );
 
