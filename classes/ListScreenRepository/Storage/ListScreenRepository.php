@@ -3,6 +3,7 @@
 namespace AC\ListScreenRepository\Storage;
 
 use AC;
+use AC\Exception;
 use AC\ListScreen;
 use AC\ListScreenRepository\Rules;
 use AC\ListScreenRepository\SourceAware;
@@ -134,6 +135,10 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 	 * @inheritDoc
 	 */
 	public function get_source( $id ) {
+		if ( ! $this->has_source( $id ) ) {
+			throw new Exception\SourceNotAvailable();
+		}
+
 		return $this->repository->get_source( $id );
 	}
 

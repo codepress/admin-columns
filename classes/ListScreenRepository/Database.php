@@ -16,8 +16,6 @@ use LogicException;
 
 final class Database implements ListScreenRepository {
 
-	use WritableTrait;
-
 	const TABLE = 'admin_columns';
 
 	/**
@@ -133,10 +131,6 @@ final class Database implements ListScreenRepository {
 	public function save( ListScreen $list_screen ) {
 		global $wpdb;
 
-		if ( ! $this->is_writable() ) {
-			throw StorageException::storage_not_writable();
-		}
-
 		if ( empty( $list_screen->get_layout_id() ) ) {
 			throw new LogicException( 'Invalid listscreen Id.' );
 		}
@@ -181,10 +175,6 @@ final class Database implements ListScreenRepository {
 
 	public function delete( ListScreen $list_screen ) {
 		global $wpdb;
-
-		if ( ! $this->is_writable() ) {
-			throw StorageException::storage_not_writable();
-		}
 
 		/**
 		 * Fires before a column setup is removed from the database
