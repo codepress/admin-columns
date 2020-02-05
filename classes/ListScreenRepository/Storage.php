@@ -32,7 +32,7 @@ final class Storage {
 			$repositories[ $repository->get_key() ] = $repository;
 		}
 
-		return $repositories;
+		return array_reverse( $repositories );
 	}
 
 	/**
@@ -80,11 +80,17 @@ final class Storage {
 	 */
 	public function find( $id ) {
 		foreach ( $this->get_repositories_lifo() as $repository ) {
+			if ( ! $repository->exists( $id ) ) {
+				continue;
+			}
+
 			$list_screen = $repository->find( $id );
 
-			if ( $list_screen ) {
-				return $list_screen;
+			if ( ! $list_screen ) {
+				continue;
 			}
+
+			return $list_screen;
 		}
 
 		return null;
