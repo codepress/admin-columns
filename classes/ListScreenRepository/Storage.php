@@ -5,6 +5,7 @@ namespace AC\ListScreenRepository;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Storage\OrderedList;
+use SplStack;
 
 final class Storage {
 
@@ -12,19 +13,34 @@ final class Storage {
 	// TODO David get it from ACP Settings sync
 
 	/**
-	 * @var OrderedList
+	 * @var SplStack
 	 */
 	private $repositories;
 
 	public function __construct() {
-		$this->repositories = new OrderedList();
+		$this->repositories = new SplStack();
 	}
 
-	/**
-	 * @return OrderedList
-	 */
+	public function register_repository( Storage\ListScreenRepository $list_screen_repository ) {
+		$this->repositories->push( $list_screen_repository );
+	}
+
+	public function set_repositories( array $list_screen_repositories ) {
+		$this->repositories = new SplStack();
+
+		foreach ( $list_screen_repositories as $list_screen_repository ) {
+			$this->register_repository( $list_screen_repository );
+		}
+	}
+
 	public function get_repositories() {
-		return $this->repositories;
+		$repositories = [];
+
+		foreach ( $this->repositories as $repository ) {
+			$repositories[ $repository->get_key() ] = $repository;
+		}
+
+		return $repositories;
 	}
 
 	/**

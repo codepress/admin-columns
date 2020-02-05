@@ -10,6 +10,11 @@ use LogicException;
 class ListScreenRepository implements AC\ListScreenRepository {
 
 	/**
+	 * @var string
+	 */
+	private $key;
+
+	/**
 	 * @var ListScreenRepository
 	 */
 	private $repository;
@@ -25,11 +30,14 @@ class ListScreenRepository implements AC\ListScreenRepository {
 	private $rules;
 
 	/**
+	 * @param string key
 	 * @param AC\ListScreenRepository $repository
 	 * @param bool|null               $writable
 	 * @param Rules|null              $rules
 	 */
-	public function __construct( AC\ListScreenRepository $repository, $writable = null, Rules $rules = null ) {
+	public function __construct( $key, AC\ListScreenRepository $repository, $writable = null, Rules $rules = null ) {
+		// TODO David typecheck
+
 		if ( null === $writable ) {
 			$writable = false;
 		}
@@ -37,13 +45,15 @@ class ListScreenRepository implements AC\ListScreenRepository {
 		$this->repository = $repository;
 		$this->writable = $this->set_writable( $writable );
 		$this->rules = $rules;
+		$this->key = $key;
+		$this->writable = $writable;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function get_type() {
-		return get_class( $this->repository );
+	public function get_key() {
+		return $this->key;
 	}
 
 	/**

@@ -13,7 +13,6 @@ use AC\Controller\AjaxRequestNewColumn;
 use AC\Controller\ListScreenRequest;
 use AC\Controller\ListScreenRestoreColumns;
 use AC\Deprecated;
-use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
@@ -58,16 +57,10 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
-
 		$this->storage = new Storage();
-		$this->storage->get_repositories()->append(
-			new Storage\ListScreenRepository(
-				new Database( ListScreenTypes::instance() ),
-				true
-			)
-		);
 
 		$services = [
+			new Service\Storage( $this->storage, ListScreenTypes::instance() ),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new Screen,
