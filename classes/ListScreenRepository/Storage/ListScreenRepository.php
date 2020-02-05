@@ -5,9 +5,10 @@ namespace AC\ListScreenRepository\Storage;
 use AC;
 use AC\ListScreen;
 use AC\ListScreenRepository\Rules;
+use AC\ListScreenRepository\SourceAware;
 use LogicException;
 
-class ListScreenRepository implements AC\ListScreenRepository {
+class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 
 	/**
 	 * @var string
@@ -36,7 +37,9 @@ class ListScreenRepository implements AC\ListScreenRepository {
 	 * @param Rules|null              $rules
 	 */
 	public function __construct( $key, AC\ListScreenRepository $repository, $writable = null, Rules $rules = null ) {
-		// TODO David typecheck
+		if ( ! is_string( $key ) || 2 > strlen( $key ) ) {
+			throw new LogicException( 'Expected a string of minimal 2 characters as key.' );
+		}
 
 		if ( null === $writable ) {
 			$writable = false;
@@ -127,4 +130,17 @@ class ListScreenRepository implements AC\ListScreenRepository {
 		$this->repository->delete( $list_screen );
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	public function get_source( $id ) {
+		return $this->repository->get_source( $id );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function has_source( $id ) {
+		return $this->repository instanceof SourceAware && $this->repository->has_source( $id );
+	}
 }
