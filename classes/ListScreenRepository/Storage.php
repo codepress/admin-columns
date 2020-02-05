@@ -31,6 +31,19 @@ final class Storage {
 	}
 
 	/**
+	 * @retur bool
+	 */
+	public function has_writable() {
+		foreach ( $this->get_repositories() as $repository ) {
+			if ( $repository->is_writable() ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * @return ListScreenRepository[]
 	 */
 	public function get_repositories() {

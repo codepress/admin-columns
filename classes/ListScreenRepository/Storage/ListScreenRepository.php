@@ -100,7 +100,13 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 	 * @inheritDoc
 	 */
 	public function find( $id ) {
-		return $this->repository->find( $id );
+		$list_screen =  $this->repository->find( $id );
+
+		if( $list_screen && ! $this->is_writable() ){
+			$list_screen->set_read_only( true );
+		}
+
+		return $list_screen;
 	}
 
 	/**
@@ -114,7 +120,13 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 	 * @inheritDoc
 	 */
 	public function find_all( array $args = [] ) {
-		return $this->repository->find_all( $args );
+		$list_screens = $this->repository->find_all( $args );
+
+		if ( ! $this->is_writable() ) {
+			$this->make_read_only( $list_screens );
+		}
+
+		return $list_screens;
 	}
 
 	/**
@@ -147,5 +159,15 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 	 */
 	public function has_source( $id ) {
 		return $this->repository instanceof SourceAware && $this->repository->has_source( $id );
+	}
+
+	// TODO make we need to decorate the listscreen with a storage decorator
+	private function make_read_only( AC\ListScreenCollection $list_screens ) {
+
+		foreach ( $list_screens as $list_screen ) {
+			$list_screen->set_read_only( true );
+		}
+
+		return $list_screens;
 	}
 }
