@@ -2,7 +2,6 @@
 
 namespace AC\ListScreenRepository;
 
-use AC\Exception\StorageException;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository;
@@ -11,8 +10,6 @@ use DateTime;
 use DomainException;
 use Exception;
 use LogicException;
-
-// TODO David test this new implementation
 
 final class Database implements ListScreenRepository {
 
@@ -226,9 +223,6 @@ final class Database implements ListScreenRepository {
 		if ( $data->columns ) {
 			$list_screen->set_settings( unserialize( $data->columns ) );
 		}
-
-		// TODO David need to decide on this, still required? Where would this show?
-		//$list_screen->set_source( $data->id );
 
 		return $list_screen;
 	}

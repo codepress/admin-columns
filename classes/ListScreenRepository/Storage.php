@@ -4,34 +4,26 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenRepository\Storage\ListScreenRepository;
-use SplStack;
 
 final class Storage {
 
 	/**
-	 * @var SplStack
+	 * @var Storage\ListScreenRepository[]
 	 */
-	private $repositories;
+	private $repositories = [];
 
-	public function __construct() {
-		$this->repositories = new SplStack();
+	public function register_repository( Storage\ListScreenRepository $repository ) {
+		$this->repositories[] = $repository;
 	}
 
-	public function register_repository( Storage\ListScreenRepository $list_screen_repository ) {
-		$this->repositories->push( $list_screen_repository );
-	}
-
-	public function set_repositories( array $list_screen_repositories ) {
-		$this->repositories = new SplStack();
-
-		foreach ( $list_screen_repositories as $list_screen_repository ) {
-			$this->register_repository( $list_screen_repository );
+	public function set_repositories( array $repositories ) {
+		foreach ( $repositories as $repository ) {
+			$this->register_repository( $repository );
 		}
 	}
 
 	/**
-	 * @return ListScreenRepository[]
+	 * @return Storage\ListScreenRepository[]
 	 */
 	public function get_repositories() {
 		$repositories = [];
@@ -44,6 +36,15 @@ final class Storage {
 	}
 
 	/**
+	 * Returns the repositories last in, first out
+	 *
+	 * @return Storage\ListScreenRepository[]
+	 */
+	private function get_repositories_lifo() {
+		return array_reverse( $this->repositories );
+	}
+
+	/**
 	 * @param array       $args
 	 * @param Filter|null $filtering
 	 * @param Sort|null   $sorting
@@ -53,7 +54,7 @@ final class Storage {
 	public function find_all( array $args = [], Filter $filtering = null, Sort $sorting = null ) {
 		$list_screens = new ListScreenCollection();
 
-		foreach ( $this->repositories as $repository ) {
+		foreach ( $this->get_repositories_lifo() as $repository ) {
 			foreach ( $repository->find_all( $args ) as $list_screen ) {
 				if ( ! $list_screens->contains( $list_screen ) ) {
 					$list_screens->add( $list_screen );
@@ -75,10 +76,10 @@ final class Storage {
 	/**
 	 * @param $id
 	 *
-	 * @return ListScreen
+	 * @return ListScreen|null
 	 */
 	public function find( $id ) {
-		foreach ( $this->repositories as $repository ) {
+		foreach ( $this->get_repositories_lifo() as $repository ) {
 			$list_screen = $repository->find( $id );
 
 			if ( $list_screen ) {
@@ -94,7 +95,7 @@ final class Storage {
 	}
 
 	public function save( ListScreen $list_screen ) {
-		foreach ( $this->repositories as $repository ) {
+		foreach ( $this->get_repositories_lifo() as $repository ) {
 			$match = ! $repository->has_rules() || $repository->get_rules()->match( $list_screen );
 
 			if ( $match && $repository->is_writable() ) {
@@ -106,9 +107,11 @@ final class Storage {
 	}
 
 	public function delete( ListScreen $list_screen ) {
-		foreach ( $this->repositories as $repository ) {
+		foreach ( $this->get_repositories_lifo() as $repository ) {
 			if ( $repository->is_writable() ) {
 				$repository->delete( $list_screen );
+
+				return;
 			}
 		}
 	}
