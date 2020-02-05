@@ -4,7 +4,7 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenRepository\Storage\OrderedList;
+use AC\ListScreenRepository\Storage\ListScreenRepository;
 use SplStack;
 
 final class Storage {
@@ -33,6 +33,9 @@ final class Storage {
 		}
 	}
 
+	/**
+	 * @return ListScreenRepository[]
+	 */
 	public function get_repositories() {
 		$repositories = [];
 
