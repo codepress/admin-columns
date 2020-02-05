@@ -40,7 +40,7 @@ final class Storage {
 			$repositories[ $repository->get_key() ] = $repository;
 		}
 
-		return $repositories;
+		return array_reverse( $repositories );
 	}
 
 	/**
@@ -75,10 +75,15 @@ final class Storage {
 	/**
 	 * @param $id
 	 *
-	 * @return ListScreen
+	 * @return ListScreen|null
 	 */
 	public function find( $id ) {
 		foreach ( $this->repositories as $repository ) {
+			/** @var \AC\ListScreenRepository $repository */
+			if ( ! $repository->exists( $id ) ) {
+				continue;
+			}
+
 			$list_screen = $repository->find( $id );
 
 			if ( $list_screen ) {
@@ -98,6 +103,7 @@ final class Storage {
 			$match = ! $repository->has_rules() || $repository->get_rules()->match( $list_screen );
 
 			if ( $match && $repository->is_writable() ) {
+
 				$repository->save( $list_screen );
 
 				return;

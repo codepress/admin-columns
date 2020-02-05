@@ -10,7 +10,7 @@ final class ListScreenCollection implements Iterator, Countable {
 	/**
 	 * @var ListScreen[]
 	 */
-	private $data;
+	private $data = [];
 
 	public function __construct( array $list_screens = [] ) {
 		array_map( [ $this, 'add' ], $list_screens );
