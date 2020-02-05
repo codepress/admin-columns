@@ -32,7 +32,7 @@ final class Storage {
 			$repositories[ $repository->get_key() ] = $repository;
 		}
 
-		return array_reverse( $repositories );
+		return $repositories;
 	}
 
 	/**
