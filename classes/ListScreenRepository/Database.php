@@ -38,6 +38,7 @@ final class Database implements ListScreenRepository {
 		$args = array_merge( [
 			'id'    => null,
 			'limit' => null,
+			'key'   => null,
 		], $args );
 
 		$sql = '
@@ -50,6 +51,10 @@ final class Database implements ListScreenRepository {
 			$sql .= "\n" . $wpdb->prepare( 'AND list_id = %s', $args['id'] );
 
 			$args['limit'] = 1;
+		}
+
+		if ( $args['key'] ) {
+			$sql .= "\n" . $wpdb->prepare( 'AND list_key = %s', $args['key'] );
 		}
 
 		if ( $args['limit'] ) {
@@ -98,22 +103,22 @@ final class Database implements ListScreenRepository {
 	 *
 	 * @return int
 	 */
-	private function get_id( $list_id ) {
+	private function get_id( $layout_id ) {
 		static $cached_list_ids = [];
 
-		if ( in_array( $list_id, $cached_list_ids, true ) ) {
-			return $list_id;
+		if ( in_array( $layout_id, $cached_list_ids, true ) ) {
+			return $layout_id;
 		}
 
 		$results = $this->get_results( [
-			'id' => $list_id,
+			'id' => $layout_id,
 		] );
 
 		if ( ! count( $results ) ) {
 			return null;
 		}
 
-		$id = (int) current( $results )->list_id;
+		$id = (int) current( $results )->id;
 		$cached_list_ids[] = $id;
 
 		return $id;

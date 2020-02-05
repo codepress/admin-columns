@@ -75,7 +75,7 @@ final class Storage {
 	/**
 	 * @param $id
 	 *
-	 * @return ListScreen|null
+	 * @return ListScreen
 	 */
 	public function find( $id ) {
 		foreach ( $this->repositories as $repository ) {

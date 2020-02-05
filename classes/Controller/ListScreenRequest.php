@@ -3,7 +3,7 @@
 namespace AC\Controller;
 
 use AC\ListScreen;
-use AC\ListScreenRepository\ListScreenRepository;
+use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Preferences;
 use AC\Request;
@@ -13,8 +13,8 @@ class ListScreenRequest {
 	/** @var Request */
 	private $request;
 
-	/** @var ListScreenRepository */
-	private $repository;
+	/** @var Storage */
+	private $storage;
 
 	/** @var Preferences */
 	private $preference;
@@ -22,9 +22,9 @@ class ListScreenRequest {
 	/** @var bool */
 	private $is_network;
 
-	public function __construct( Request $request, ListScreenRepository $repository, Preferences $preference, $is_network = false ) {
+	public function __construct( Request $request, Storage $storage, Preferences $preference, $is_network = false ) {
 		$this->request = $request;
-		$this->repository = $repository;
+		$this->storage = $storage;
 		$this->preference = $preference;
 		$this->is_network = (bool) $is_network;
 	}
@@ -44,7 +44,7 @@ class ListScreenRequest {
 	 * @return ListScreen|null
 	 */
 	private function get_first_available_list_screen( $list_key ) {
-		$list_screens = $this->repository->find_all( [ 'key' => $list_key ] );
+		$list_screens = $this->storage->find_all( [ 'key' => $list_key ] );
 
 		if ( $list_screens->count() < 1 ) {
 			return null;
@@ -61,8 +61,8 @@ class ListScreenRequest {
 		// Requested list ID
 		$list_id = filter_input( INPUT_GET, 'layout_id' );
 
-		if ( $list_id && $this->repository->exists( $list_id ) ) {
-			$list_screen = $this->repository->find( $list_id );
+		if ( $list_id && $this->storage->exists( $list_id ) ) {
+			$list_screen = $this->storage->find( $list_id );
 
 			if ( $this->exists_list_screen( $list_screen->get_key() ) ) {
 				$this->preference->set( 'list_id', $list_screen->get_layout_id() );
@@ -93,8 +93,8 @@ class ListScreenRequest {
 		// Last visited ID
 		$list_id = $this->preference->get( 'list_id' );
 
-		if ( $list_id && $this->repository->exists( $list_id ) ) {
-			$list_screen = $this->repository->find( $list_id );
+		if ( $list_id && $this->storage->exists( $list_id ) ) {
+			$list_screen = $this->storage->find( $list_id );
 
 			if ( $list_screen && $this->exists_list_screen( $list_screen->get_key() ) ) {
 				return $list_screen;
