@@ -50,26 +50,24 @@ final class Storage {
 	}
 
 	/**
-	 * Returns the repositories last in, first out and writable + no rules first
+	 * Returns the repositories last in, first out and writable first
 	 *
 	 * @return Storage\ListScreenRepository[]
 	 */
 	private function get_repositories_ordered() {
-		$has_rules = [];
 		$is_writable = [];
 		$is_readable = [];
 
+		// Writable repositories take precedence over readable
 		foreach ( array_reverse( $this->repositories ) as $repository ) {
-			if ( $repository->has_rules() ) {
-				$has_rules[] = $repository;
-			} elseif ( $repository->is_writable() ) {
+			if ( $repository->is_writable() ) {
 				$is_writable[] = $repository;
 			} else {
 				$is_readable[] = $repository;
 			}
 		}
 
-		return array_merge( $is_readable, $is_writable, $has_rules );
+		return array_merge( $is_readable, $is_writable );
 	}
 
 	/**
