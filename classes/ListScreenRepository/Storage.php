@@ -4,7 +4,7 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use MongoDB\Driver\Exception\LogicException;
+use LogicException;
 
 final class Storage {
 
@@ -51,7 +51,6 @@ final class Storage {
 
 	/**
 	 * Returns the repositories last in, first out and writable first
-	 *
 	 * @return Storage\ListScreenRepository[]
 	 */
 	private function get_repositories_ordered() {
