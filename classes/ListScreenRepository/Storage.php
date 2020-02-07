@@ -66,7 +66,7 @@ final class Storage {
 			}
 		}
 
-		return array_merge( $is_readable, $is_writable );
+		return array_merge( $is_writable, $is_readable );
 	}
 
 	/**
