@@ -6,6 +6,8 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use LogicException;
 
+// TODO how to use keys? Store with keys here? And return ordered always? e.g. not have two methods?
+
 final class Storage {
 
 	/**
@@ -47,6 +49,26 @@ final class Storage {
 		}
 
 		return $repositories;
+	}
+
+	public function has_repository( $key ) {
+		foreach ( $this->repositories as $repository ) {
+			if ( $repository->get_key() === $key ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function get_repository( $key ) {
+		foreach ( $this->repositories as $repository ) {
+			if ( $repository->get_key() === $key ) {
+				return $repository;
+			}
+		}
+
+		throw new LogicException( sprintf( 'Repository with key %s not found.', $key ) );
 	}
 
 	/**
