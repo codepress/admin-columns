@@ -399,6 +399,12 @@
 		padding: 10px;
 		padding-left: 12px;
 
+		.ac-pointer {
+			position: absolute;
+			right: 8px;
+			top: 14px;
+		}
+
 		a.more-link {
 			text-decoration: none;
 			color: #d2d2d2;

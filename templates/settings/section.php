@@ -19,12 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				<?php endif; ?>
 
-				<?php if( $this->instructions  ): ?>
-
-					<a class="ac-pointer instructions" rel="pointer-export-5e39458051777" data-pos="right" data-pos_edge="" data-width="300">
-						<img src="https://acp.test/wp-content/plugins/admin-columns-pro/admin-columns/assets/images/question.svg" alt="?" class="ac-setting-input__info">
+				<?php if ( $this->instructions ): ?>
+					<?php $id = $this->name . uniqid(); ?>
+					<a class="ac-pointer ac-column-setting__instructions" rel="p-instruction-<?= $id; ?>" data-pos="right" data-width="300">
+						<img src="<?= AC()->get_url(); ?>assets/images/question.svg" alt="?">
 					</a>
-					<div id="pointer-smart-filtering-5e39458051777" style="display:none;">
+					<div id="p-instruction-<?= $id; ?>" style="display:none;">
 						<?= $this->instructions; ?>
 					</div>
 				<?php endif; ?>
