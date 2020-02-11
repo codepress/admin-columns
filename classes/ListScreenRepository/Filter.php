@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\ListScreenRepository;
 
 use AC\ListScreenCollection;

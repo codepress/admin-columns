@@ -24,7 +24,7 @@ final class Storage {
 	}
 
 	/**
-	 *  * @retur bool
+	 * @return bool
 	 */
 	public function has_writable() {
 		foreach ( $this->get_repositories() as $repository ) {
@@ -51,6 +51,7 @@ final class Storage {
 
 	/**
 	 * Returns the repositories last in, first out and writable first
+	 *
 	 * @return Storage\ListScreenRepository[]
 	 */
 	private function get_repositories_ordered() {
