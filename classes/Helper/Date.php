@@ -58,13 +58,11 @@ class Date {
 			return $date;
 		}
 
-		$_date = DateTime::createFromFormat( $format, $date )->format( 'U' );
+		$_date = DateTime::createFromFormat( $format, $date );
 
-		if ( false === $_date ) {
-			return false;
-		}
-
-		return $_date->format( 'U' );
+		return $_date
+			? $_date->format( 'U' )
+			: false;
 	}
 
 	/**
