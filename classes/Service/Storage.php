@@ -25,13 +25,12 @@ final class Storage implements Registrable {
 	}
 
 	public function register() {
-		$this->storage->register_repository(
-			new ListScreenRepository\Storage\ListScreenRepository(
-				'acp_database',
+		$this->storage->set_repositories( [
+			'acp-database' => new ListScreenRepository\Storage\ListScreenRepository(
 				new Database( $this->list_screen_types ),
 				true
-			)
-		);
+			),
+		] );
 	}
 
 }

@@ -4,92 +4,43 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\ListScreenRepository;
 use LogicException;
 
-// TODO how to use keys? Store with keys here? And return ordered always? e.g. not have two methods?
-
-final class Storage {
+final class Storage implements ListScreenRepository {
 
 	/**
 	 * @var Storage\ListScreenRepository[]
 	 */
 	private $repositories = [];
 
-	public function register_repository( Storage\ListScreenRepository $repository ) {
-		$this->repositories[] = $repository;
-	}
-
-	public function set_repositories( array $repositories ) {
-		foreach ( $repositories as $repository ) {
-			$this->register_repository( $repository );
-		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function has_writable() {
-		foreach ( $this->get_repositories() as $repository ) {
-			if ( $repository->is_writable() ) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
 	/**
 	 * @return Storage\ListScreenRepository[]
 	 */
 	public function get_repositories() {
-		$repositories = [];
+		return array_reverse( $this->repositories );
+	}
 
-		foreach ( $this->repositories as $repository ) {
-			$repositories[ $repository->get_key() ] = $repository;
+	public function set_repositories( array $repositories ) {
+		foreach ( $repositories as $repository ) {
+			if ( ! $repository instanceof ListScreenRepository\Storage\ListScreenRepository ) {
+				throw new LogicException( 'Expected a Storage\ListScreenRepository object.' );
+			}
 		}
 
-		return $repositories;
+		$this->repositories = array_reverse( $repositories );
 	}
 
 	public function has_repository( $key ) {
-		foreach ( $this->repositories as $repository ) {
-			if ( $repository->get_key() === $key ) {
-				return true;
-			}
-		}
-
-		return false;
+		return array_key_exists( $key, $this->repositories );
 	}
 
 	public function get_repository( $key ) {
-		foreach ( $this->repositories as $repository ) {
-			if ( $repository->get_key() === $key ) {
-				return $repository;
-			}
+		if ( ! $this->has_repository( $key ) ) {
+			throw new LogicException( sprintf( 'Repository with key %s not found.', $key ) );
 		}
 
-		throw new LogicException( sprintf( 'Repository with key %s not found.', $key ) );
-	}
-
-	/**
-	 * Returns the repositories last in, first out and writable first
-	 *
-	 * @return Storage\ListScreenRepository[]
-	 */
-	private function get_repositories_ordered() {
-		$is_writable = [];
-		$is_readable = [];
-
-		// Writable repositories take precedence over readable
-		foreach ( array_reverse( $this->repositories ) as $repository ) {
-			if ( $repository->is_writable() ) {
-				$is_writable[] = $repository;
-			} else {
-				$is_readable[] = $repository;
-			}
-		}
-
-		return array_merge( $is_writable, $is_readable );
+		return $this->repositories[ $key ];
 	}
 
 	/**
@@ -102,7 +53,7 @@ final class Storage {
 	public function find_all( array $args = [], Filter $filtering = null, Sort $sorting = null ) {
 		$list_screens = new ListScreenCollection();
 
-		foreach ( $this->get_repositories_ordered() as $repository ) {
+		foreach ( $this->repositories as $repository ) {
 			foreach ( $repository->find_all( $args ) as $list_screen ) {
 				if ( ! $list_screens->contains( $list_screen ) ) {
 					$list_screens->add( $list_screen );
@@ -127,7 +78,7 @@ final class Storage {
 	 * @return ListScreen|null
 	 */
 	public function find( $id ) {
-		foreach ( $this->get_repositories_ordered() as $repository ) {
+		foreach ( $this->repositories as $repository ) {
 			if ( ! $repository->exists( $id ) ) {
 				continue;
 			}
@@ -157,7 +108,7 @@ final class Storage {
 	}
 
 	private function update( ListScreen $list_screen, $action ) {
-		foreach ( $this->get_repositories_ordered() as $repository ) {
+		foreach ( $this->repositories as $repository ) {
 			$match = ! $repository->has_rules() || $repository->get_rules()->match( $list_screen );
 
 			if ( $match && $repository->is_writable() ) {

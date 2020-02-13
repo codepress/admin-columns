@@ -12,11 +12,6 @@ use LogicException;
 class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 
 	/**
-	 * @var string
-	 */
-	private $key;
-
-	/**
 	 * @var ListScreenRepository
 	 */
 	private $repository;
@@ -32,32 +27,18 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 	private $rules;
 
 	/**
-	 * @param string key
 	 * @param AC\ListScreenRepository $repository
 	 * @param bool|null               $writable
 	 * @param Rules|null              $rules
 	 */
-	public function __construct( $key, AC\ListScreenRepository $repository, $writable = null, Rules $rules = null ) {
-		if ( ! is_string( $key ) || 2 > strlen( $key ) ) {
-			throw new LogicException( 'Expected a string of minimal 2 characters as key.' );
-		}
-
+	public function __construct( AC\ListScreenRepository $repository, $writable = null, Rules $rules = null ) {
 		if ( null === $writable ) {
 			$writable = false;
 		}
 
 		$this->repository = $repository;
-		$this->writable = $this->set_writable( $writable );
+		$this->writable = (bool) $writable;
 		$this->rules = $rules;
-		$this->key = $key;
-		$this->writable = $writable;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_key() {
-		return $this->key;
 	}
 
 	/**
@@ -69,13 +50,15 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 
 	/**
 	 * @param bool $writable
+	 *
+	 * @return self
 	 */
-	public function set_writable( $writable ) {
-		if ( ! is_bool( $writable ) ) {
-			throw new LogicException( 'Expected boolean value.' );
-		}
-
-		$this->writable = $writable;
+	public function with_writable( $writable ) {
+		return new self(
+			$this->repository,
+			$writable,
+			$this->rules
+		);
 	}
 
 	/**
@@ -100,9 +83,9 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 	 * @inheritDoc
 	 */
 	public function find( $id ) {
-		$list_screen =  $this->repository->find( $id );
+		$list_screen = $this->repository->find( $id );
 
-		if( $list_screen && ! $this->is_writable() ){
+		if ( $list_screen && ! $this->is_writable() ) {
 			$list_screen->set_read_only( true );
 		}
 
@@ -123,7 +106,9 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 		$list_screens = $this->repository->find_all( $args );
 
 		if ( ! $this->is_writable() ) {
-			$this->make_read_only( $list_screens );
+			foreach ( $list_screens as $list_screen ) {
+				$list_screen->set_read_only( true );
+			}
 		}
 
 		return $list_screens;
@@ -161,13 +146,4 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 		return $this->repository instanceof SourceAware && $this->repository->has_source( $id );
 	}
 
-	// TODO make we need to decorate the listscreen with a storage decorator
-	private function make_read_only( AC\ListScreenCollection $list_screens ) {
-
-		foreach ( $list_screens as $list_screen ) {
-			$list_screen->set_read_only( true );
-		}
-
-		return $list_screens;
-	}
 }
