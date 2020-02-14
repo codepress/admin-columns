@@ -93,6 +93,7 @@ class AdminColumns extends Plugin {
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
 
 		add_filter( 'plugin_action_links', [ $this, 'add_settings_link' ], 1, 2 );
+		add_filter( 'plugin_action_links', [ $this, 'add_pro_link' ], 10, 2 );
 
 		add_action( 'ac/screen', [ $this, 'init_table_on_screen' ] );
 		add_action( 'wp_ajax_ac_get_column_value', [ $this, 'table_ajax_value' ] );
@@ -138,6 +139,7 @@ class AdminColumns extends Plugin {
 		$permission_checker = ( new PermissionChecker( wp_get_current_user() ) );
 
 		if ( $list_id ) {
+			// TODO Stefan $_list_screen is not semantic please name to something more meaningful
 			$_list_screen = $this->storage->find( $list_id );
 
 			if ( $_list_screen && $permission_checker->is_valid( $_list_screen ) ) {
@@ -148,11 +150,11 @@ class AdminColumns extends Plugin {
 				$list_screen = $this->get_first_list_screen( $key, $permission_checker );
 			}
 		} else {
-
 			// First visit.
 			$list_screen = $this->get_first_list_screen( $key, $permission_checker );
 		}
 
+		// TODO Stefan fix null pointer
 		$this->preferences()->set( $key, $list_screen->get_layout_id() );
 
 		$table_screen = new Table\Screen( $list_screen );
@@ -275,6 +277,17 @@ class AdminColumns extends Plugin {
 	public function add_settings_link( $links, $file ) {
 		if ( $file === $this->get_basename() ) {
 			array_unshift( $links, sprintf( '<a href="%s">%s</a>', $this->admin->get_url( 'columns' ), __( 'Settings', 'codepress-admin-columns' ) ) );
+		}
+
+		return $links;
+	}
+
+	public function add_pro_link( $links, $file ) {
+		if ( $file === $this->get_basename() && ! ac_is_pro_active() ) {
+			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
+				esc_url( ac_get_site_utm_url( 'admin-columns-pro', 'upgrade' ) ),
+				sprintf( '<span style="font-weight: bold;">%s</span>', __( 'Go Pro', 'codepress-admin-columns' ) )
+			);
 		}
 
 		return $links;

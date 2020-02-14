@@ -72,7 +72,7 @@ class CustomField {
 		this.column = column;
 		this.setting = column.$el[ 0 ].querySelector( '.ac-column-setting--custom_field' );
 
-		if ( !this.setting ) {
+		if ( !this.setting || !this.setting.querySelector( '.custom_field' ) ) {
 			return;
 		}
 

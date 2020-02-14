@@ -213,6 +213,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Fixed] Fatal error in Date helper that occurs in PHP 5.6
+* [Improved] Re-added the hook `ac/column/custom_field/use_text_input` to use a text field for the custom field column setting
+
 = 4.0.0 =
 Release Date: February 3rd, 2020
 
