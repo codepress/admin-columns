@@ -34,9 +34,7 @@ final class Database implements ListScreenRepository {
 		global $wpdb;
 
 		$args = array_merge( [
-			self::ID  => null,
 			self::KEY => null,
-			'limit'   => null,
 		], $args );
 
 		$sql = '
@@ -45,18 +43,22 @@ final class Database implements ListScreenRepository {
 			WHERE 1=1
 		';
 
-		if ( $args[ self::ID ] ) {
-			$sql .= "\n" . $wpdb->prepare( 'AND list_id = %s', $args[ self::ID ] );
+		$limit = '';
+		$where = [];
 
-			$args['limit'] = 1;
+		if ( $args['_id'] ) {
+			$where[] = $wpdb->prepare( 'AND list_id = %s', $args['_id'] );
+			$limit = 'LIMIT 1';
 		}
 
 		if ( $args[ self::KEY ] ) {
-			$sql .= "\n" . $wpdb->prepare( 'AND list_key = %s', $args[ self::KEY ] );
+			$where[] = $wpdb->prepare( 'AND list_key = %s', $args[ self::KEY ] );
 		}
 
-		if ( $args['limit'] ) {
-			$sql .= "\n" . 'LIMIT ' . absint( $args['limit'] );
+		$sql .= implode( "\n", $where );
+
+		if ( $limit ) {
+			$sql .= "\n" . $limit;
 		}
 
 		return $wpdb->get_results( $sql );
@@ -90,7 +92,7 @@ final class Database implements ListScreenRepository {
 	 */
 	public function find( ListScreenId $list_id ) {
 		$list_screens = $this->find_all( [
-			'id' => $list_id,
+			'_id' => $list_id,
 		] );
 
 		return $list_screens->current();
@@ -109,7 +111,7 @@ final class Database implements ListScreenRepository {
 		}
 
 		$results = $this->get_results( [
-			'id' => $list_id->get_id(),
+			'_id' => $list_id->get_id(),
 		] );
 
 		if ( ! count( $results ) ) {
@@ -134,7 +136,7 @@ final class Database implements ListScreenRepository {
 	public function save( ListScreen $list_screen ) {
 		global $wpdb;
 
-		if ( empty( $list_screen->get_layout_id() ) || ! ListScreenId::is_valid_id( $list_screen->get_layout_id() )) {
+		if ( empty( $list_screen->get_layout_id() ) || ! ListScreenId::is_valid_id( $list_screen->get_layout_id() ) ) {
 			throw new LogicException( 'Invalid listscreen Id.' );
 		}
 
