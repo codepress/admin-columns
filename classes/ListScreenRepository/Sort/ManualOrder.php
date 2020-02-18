@@ -18,6 +18,10 @@ class ManualOrder implements Sort {
 	}
 
 	public function sort( ListScreenCollection $list_screens ) {
+		if ( ! $list_screens->count() ) {
+			return $list_screens;
+		}
+
 		$list_screens->rewind();
 		$key = $list_screens->current()->get_key();
 

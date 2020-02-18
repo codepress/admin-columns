@@ -78,6 +78,7 @@ final class Storage implements ListScreenRepository {
 	 * @return ListScreen|null
 	 */
 	public function find( $id ) {
+		// TODO check if $list_id is set
 		foreach ( $this->repositories as $repository ) {
 			if ( ! $repository->exists( $id ) ) {
 				continue;

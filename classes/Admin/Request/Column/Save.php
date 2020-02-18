@@ -30,7 +30,7 @@ class Save extends Handler {
 		$list_id = $formdata['list_screen_id'];
 		$type = $formdata['list_screen'];
 
-		if ( ! $this->storage->exists( $list_id ) ) {
+		if ( ! $list_id || ! $this->storage->exists( $list_id ) ) {
 			$list_id = uniqid();
 		}
 
