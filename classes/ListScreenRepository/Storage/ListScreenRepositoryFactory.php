@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpMethodParametersCountMismatchInspection */
 
 namespace AC\ListScreenRepository\Storage;
 
@@ -19,20 +19,19 @@ final class ListScreenRepositoryFactory {
 	}
 
 	/**
-	 * @param string     $key
 	 * @param Directory  $directory
 	 * @param bool       $writable
 	 * @param Rules|null $rules
 	 *
 	 * @return ListScreenRepository
 	 */
-	public function create( $key, Directory $directory, $writable, Rules $rules = null ) {
+	public function create( Directory $directory, $writable, Rules $rules = null ) {
 		$file = $this->file_factory->create(
 			SerializerTypes::PHP,
 			$directory
 		);
 
-		return new ListScreenRepository( $key, $file, $writable, $rules );
+		return new ListScreenRepository( $file, $writable, $rules );
 	}
 
 }

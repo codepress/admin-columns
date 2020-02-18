@@ -94,6 +94,7 @@ class Admin implements Registrable {
 		}
 
 		if ( $page instanceof Helpable ) {
+			// TODO Stefan fix null pointer
 			foreach ( $page->get_help_tabs() as $help ) {
 				get_current_screen()->add_help_tab( array(
 					'id'      => $help->get_id(),

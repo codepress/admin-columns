@@ -152,6 +152,7 @@ class Strings {
 	public function hex_to_rgb( $hex ) {
 		$hex = $this->hex_format( $hex );
 
+		// TODO David what is this?
 		return sscanf( $hex, '%2x%2x%2x' );
 	}
 

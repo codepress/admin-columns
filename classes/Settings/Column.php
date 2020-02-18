@@ -363,6 +363,7 @@ abstract class Column {
 		return $view->render();
 	}
 
+	// TODO Stefan find out if render can trhow a logic
 	public function __toString() {
 		return $this->render();
 	}

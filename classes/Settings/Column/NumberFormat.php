@@ -132,6 +132,8 @@ class NumberFormat extends Settings\Column
 
 	/**
 	 * @param string $number_decimals
+	 *
+	 * @return NumberFormat
 	 */
 	public function set_number_decimals( $number_decimals ) {
 		$this->number_decimals = $number_decimals;
@@ -148,6 +150,8 @@ class NumberFormat extends Settings\Column
 
 	/**
 	 * @param string $number_decimal_point
+	 *
+	 * @return NumberFormat
 	 */
 	public function set_number_decimal_point( $number_decimal_point ) {
 		$this->number_decimal_point = $number_decimal_point;
