@@ -33,9 +33,9 @@ final class Database implements ListScreenRepository {
 		global $wpdb;
 
 		$args = array_merge( [
-			'id'    => null,
+			self::ID    => null,
+			self::KEY   => null,
 			'limit' => null,
-			'key'   => null,
 		], $args );
 
 		$sql = '
@@ -44,14 +44,14 @@ final class Database implements ListScreenRepository {
 			WHERE 1=1
 		';
 
-		if ( $args['id'] ) {
-			$sql .= "\n" . $wpdb->prepare( 'AND list_id = %s', $args['id'] );
+		if ( $args[ self::ID ] ) {
+			$sql .= "\n" . $wpdb->prepare( 'AND list_id = %s', $args[ self::ID ] );
 
 			$args['limit'] = 1;
 		}
 
-		if ( $args['key'] ) {
-			$sql .= "\n" . $wpdb->prepare( 'AND list_key = %s', $args['key'] );
+		if ( $args[ self::KEY ] ) {
+			$sql .= "\n" . $wpdb->prepare( 'AND list_key = %s', $args[ self::KEY ] );
 		}
 
 		if ( $args['limit'] ) {

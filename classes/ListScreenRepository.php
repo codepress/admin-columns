@@ -4,6 +4,10 @@ namespace AC;
 
 interface ListScreenRepository {
 
+	const ID = 'id';
+	const KEY = 'key';
+	const LIMIT = 'limit';
+
 	/**
 	 * @param string $id
 	 *
