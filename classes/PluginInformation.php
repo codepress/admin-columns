@@ -24,7 +24,7 @@ class PluginInformation {
 	 * @return bool
 	 */
 	public function is_installed() {
-		return $this->get_plugin_info() ? true : false;
+		return null !== $this->get_plugin_info();
 	}
 
 	/**
@@ -35,7 +35,7 @@ class PluginInformation {
 	}
 
 	/**
-	 * @return string|false Returns the plugin version if the plugin is installed, false otherwise
+	 * @return string|null
 	 */
 	public function get_version() {
 		return $this->get_plugin_var( 'Version' );
@@ -49,20 +49,20 @@ class PluginInformation {
 	}
 
 	/**
-	 * @return string Name
+	 * @return string
 	 */
 	public function get_name() {
 		return $this->get_plugin_var( 'Name' );
 	}
 
 	/**
-	 * @return array|false
+	 * @return array|null
 	 */
 	private function get_plugin_info() {
 		$plugins = (array) get_plugins();
 
 		if ( ! array_key_exists( $this->basename, $plugins ) ) {
-			return false;
+			return null;
 		}
 
 		return $plugins[ $this->basename ];
@@ -71,13 +71,13 @@ class PluginInformation {
 	/**
 	 * @param string $var
 	 *
-	 * @return string|false
+	 * @return string|null
 	 */
-	public function get_plugin_var( $var ) {
+	private function get_plugin_var( $var ) {
 		$info = $this->get_plugin_info();
 
-		if ( ! isset( $info[ $var ] ) ) {
-			return false;
+		if ( ! $info || ! isset( $info[ $var ] ) ) {
+			return null;
 		}
 
 		return $info[ $var ];

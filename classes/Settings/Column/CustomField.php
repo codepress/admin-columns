@@ -14,17 +14,17 @@ class CustomField extends Settings\Column {
 	private $field;
 
 	protected function define_options() {
-		return array( 'field' );
+		return [ 'field' ];
 	}
 
 	/**
 	 * @return View
 	 */
 	public function create_view() {
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Field', 'codepress-admin-columns' ),
 			'setting' => $this->get_setting_field(),
-		) );
+		] );
 
 		return $view;
 	}
@@ -33,8 +33,25 @@ class CustomField extends Settings\Column {
 		$this->name = 'custom_field';
 	}
 
-	protected function get_setting_field() {
-		$options = $this->get_field() ? array( $this->get_field() => $this->get_field() ) : array();
+	private function use_text_field() {
+		return (bool) apply_filters( 'ac/column/custom_field/use_text_input', false );
+	}
+
+	/**
+	 * @return AC\Form\Element\Input
+	 */
+	private function get_settings_field_text() {
+		return $this->create_element( 'text', 'field' )
+		            ->set_attribute( 'placeholder', 'Custom field key' );
+	}
+
+	/**
+	 * @return AC\Form\Element\Select
+	 */
+	private function get_settings_field_select() {
+		$options = $this->get_field()
+			? [ $this->get_field() => $this->get_field() ]
+			: [];
 
 		return $this->create_element( 'select', 'field' )
 		            ->set_attribute( 'data-selected', $this->get_field() )
@@ -44,8 +61,17 @@ class CustomField extends Settings\Column {
 		            ->set_attribute( 'class', 'custom_field' );
 	}
 
+	/**
+	 * @return AC\Form\Element
+	 */
+	protected function get_setting_field() {
+		return $this->use_text_field()
+			? $this->get_settings_field_text()
+			: $this->get_settings_field_select();
+	}
+
 	public function get_dependent_settings() {
-		return array( new Settings\Column\CustomFieldType( $this->column ) );
+		return [ new Settings\Column\CustomFieldType( $this->column ) ];
 	}
 
 	protected function get_meta_type() {
