@@ -45,15 +45,16 @@ final class Storage implements ListScreenRepository {
 	}
 
 	/**
-	 * @param array       $args
-	 * @param Filter|null $filtering
-	 * @param Sort|null   $sorting
+	 * @param array $args
 	 *
 	 * @return ListScreenCollection
 	 */
+	public function find_all( array $args = [] ) {
+		$args = array_merge( [
+			'filter' => null,
+			'sort'   => null,
+		], $args );
 
-	// TODO David decide on $args onoly or Filter / Sort
-	public function find_all( array $args = [], Filter $filtering = null, Sort $sorting = null ) {
 		$list_screens = new ListScreenCollection();
 
 		foreach ( $this->repositories as $repository ) {
@@ -64,12 +65,12 @@ final class Storage implements ListScreenRepository {
 			}
 		}
 
-		if ( $filtering ) {
-			$list_screens = $filtering->filter( $list_screens );
+		if ( $args['filter'] instanceof Filter ) {
+			$list_screens = $args['filter']->filter( $list_screens );
 		}
 
-		if ( $sorting ) {
-			$list_screens = $sorting->sort( $list_screens );
+		if ( $args['sort'] instanceof Sort ) {
+			$list_screens = $args['sort']->sort( $list_screens );
 		}
 
 		return $list_screens;
