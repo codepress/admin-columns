@@ -8,6 +8,7 @@ use AC\Admin\PromoCollection;
 use AC\Admin\Section\ListScreenMenu;
 use AC\Admin\Section\Restore;
 use AC\Check;
+use AC\Controller\AjaxColumnValue;
 use AC\Controller\AjaxRequestCustomFieldKeys;
 use AC\Controller\AjaxRequestNewColumn;
 use AC\Controller\ListScreenRequest;
@@ -72,6 +73,7 @@ class AdminColumns extends Plugin {
 			new Capabilities\Manage(),
 			new AjaxRequestNewColumn( $this->list_screen_repository ),
 			new AjaxRequestCustomFieldKeys(),
+			new AjaxColumnValue( $this->list_screen_repository ),
 			new ListScreenRestoreColumns( $this->list_screen_repository ),
 		];
 
@@ -92,7 +94,6 @@ class AdminColumns extends Plugin {
 		add_filter( 'plugin_action_links', [ $this, 'add_pro_link' ], 10, 2 );
 
 		add_action( 'ac/screen', [ $this, 'init_table_on_screen' ] );
-		add_action( 'wp_ajax_ac_get_column_value', [ $this, 'table_ajax_value' ] );
 
 		add_filter( 'wp_redirect', [ $this, 'redirect_after_status_change' ] );
 
@@ -179,40 +180,6 @@ class AdminColumns extends Plugin {
 
 		// No available list screen found.
 		return ListScreenTypes::instance()->get_list_screen_by_key( $key );
-	}
-
-	/**
-	 * Get column value by ajax.
-	 */
-	public function table_ajax_value() {
-		check_ajax_referer( 'ac-ajax' );
-
-		// Get ID of entry to edit
-		$id = intval( filter_input( INPUT_POST, 'pk' ) );
-
-		if ( ! $id ) {
-			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );
-		}
-
-		$list_screen = $this->list_screen_repository->find( filter_input( INPUT_POST, 'layout' ) );
-
-		if ( ! $list_screen ) {
-			wp_die( __( 'Invalid list screen.', 'codepress-admin-columns' ), null, 400 );
-		}
-
-		$column = $list_screen->get_column_by_name( filter_input( INPUT_POST, 'column' ) );
-
-		if ( ! $column ) {
-			wp_die( __( 'Invalid column.', 'codepress-admin-columns' ), null, 400 );
-		}
-
-		if ( ! $column instanceof Column\AjaxValue ) {
-			wp_die( __( 'Invalid method.', 'codepress-admin-columns' ), null, 400 );
-		}
-
-		// Trigger ajax callback
-		echo $column->get_ajax_value( $id );
-		exit;
 	}
 
 	/**
@@ -389,9 +356,7 @@ class AdminColumns extends Plugin {
 	 * Load text-domain
 	 */
 	public function localize() {
-		$path = pathinfo( $this->get_dir() );
-
-		load_plugin_textdomain( 'codepress-admin-columns', false, $path['basename'] . '/languages/' );
+		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->get_basename() ) . '/languages/' );
 	}
 
 	/**
