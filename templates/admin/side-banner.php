@@ -32,7 +32,7 @@ $is_promo_active = $promo && $promo->is_active();
 			<ul class="features">
 				<?php
 
-				$items = array(
+				$items = [
 					'search'        => __( 'Search any content', 'codepress-admin-columns' ),
 					'bulk-edit'     => __( 'Bulk Edit any content', 'codepress-admin-columns' ),
 					'sorting'       => __( 'Sort any content', 'codepress-admin-columns' ),
@@ -40,7 +40,7 @@ $is_promo_active = $promo && $promo->is_active();
 					'editing'       => __( 'Inline Edit any content', 'codepress-admin-columns' ),
 					'column-sets'   => __( 'Create multiple columns sets', 'codepress-admin-columns' ),
 					'import-export' => __( 'Import &amp; Export settings', 'codepress-admin-columns' ),
-				);
+				];
 
 				foreach ( $items as $utm_content => $label ) : ?>
 					<li>
@@ -94,6 +94,8 @@ $is_promo_active = $promo && $promo->is_active();
 
 	<?php else : ?>
 
+		<?php $user_data = wp_get_current_user(); ?>
+
 		<div class="padding-box ac-pro-newsletter">
 			<h3>
 				<?php echo esc_html( sprintf( __( 'Get %s Off!', 'codepress-admin-columns' ), $discount . '%' ) ); ?>
@@ -102,13 +104,11 @@ $is_promo_active = $promo && $promo->is_active();
 				<p>
 					<?php echo esc_html( sprintf( __( "Submit your email and we'll send you a discount for %s off.", 'codepress-admin-columns' ), $discount . '%' ) ); ?>
 				</p>
-				<?php
-				$user_data = get_userdata( get_current_user_id() );
-				?>
+				<?php $user_data = wp_get_current_user(); ?>
 				<form method="post" action="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'send-coupon' ) ); ?>" target="_blank">
 					<input name="action" type="hidden" value="mc_upgrade_pro">
-					<input name="EMAIL" placeholder="<?php esc_attr_e( "Your Email", 'codepress-admin-columns' ); ?>" value="<?php echo esc_attr( $user_data->user_email ); ?>" required>
-					<input name="FNAME" placeholder="<?php esc_attr_e( "Your First Name", 'codepress-admin-columns' ); ?>" required>
+					<input type="text" name="EMAIL" placeholder="<?php esc_attr_e( "Your Email", 'codepress-admin-columns' ); ?>" value="<?= esc_attr( $user_data->user_email ); ?>" required>
+					<input type="text" name="FNAME" placeholder="<?php esc_attr_e( "Your First Name", 'codepress-admin-columns' ); ?>" value="<?= esc_attr( $user_data->first_name ); ?>" required>
 					<input type="submit" value="<?php esc_attr_e( "Send me the discount", 'codepress-admin-columns' ); ?>" class="acp-button">
 				</form>
 			</div>
