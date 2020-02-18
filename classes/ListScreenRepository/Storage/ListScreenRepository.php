@@ -7,6 +7,7 @@ use AC\Exception;
 use AC\ListScreen;
 use AC\ListScreenRepository\Rules;
 use AC\ListScreenRepository\SourceAware;
+use AC\Type\ListScreenId;
 use LogicException;
 
 class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
@@ -82,7 +83,7 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 	/**
 	 * @inheritDoc
 	 */
-	public function find( $id ) {
+	public function find( ListScreenId $id ) {
 		$list_screen = $this->repository->find( $id );
 
 		if ( $list_screen && ! $this->is_writable() ) {
@@ -95,7 +96,7 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 	/**
 	 * @inheritDoc
 	 */
-	public function exists( $id ) {
+	public function exists( ListScreenId $id ) {
 		return $this->repository->exists( $id );
 	}
 

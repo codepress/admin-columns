@@ -5,6 +5,7 @@ namespace AC\ListScreenRepository;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository;
+use AC\Type\ListScreenId;
 use LogicException;
 
 final class Storage implements ListScreenRepository {
@@ -73,12 +74,11 @@ final class Storage implements ListScreenRepository {
 	}
 
 	/**
-	 * @param $id
+	 * @param ListScreenId $id
 	 *
 	 * @return ListScreen|null
 	 */
-	public function find( $id ) {
-		// TODO check if $list_id is set
+	public function find( ListScreenId $id ) {
 		foreach ( $this->repositories as $repository ) {
 			if ( ! $repository->exists( $id ) ) {
 				continue;
@@ -96,7 +96,7 @@ final class Storage implements ListScreenRepository {
 		return null;
 	}
 
-	public function exists( $id ) {
+	public function exists( ListScreenId $id ) {
 		return null !== $this->find( $id );
 	}
 

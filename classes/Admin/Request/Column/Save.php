@@ -6,6 +6,7 @@ use AC\Admin\Request\Handler;
 use AC\ListScreenRepository;
 use AC\ListScreenTypes;
 use AC\Request;
+use AC\Type\ListScreenId;
 
 class Save extends Handler {
 
@@ -30,8 +31,8 @@ class Save extends Handler {
 		$list_id = $formdata['list_screen_id'];
 		$type = $formdata['list_screen'];
 
-		if ( ! $list_id || ! $this->storage->exists( $list_id ) ) {
-			$list_id = uniqid();
+		if ( ! ListScreenId::is_valid_id( $list_id ) || ! $this->storage->exists( new ListScreenId( $list_id ) ) ) {
+			$list_id = ListScreenId::generate()->get_id();
 		}
 
 		$formdata['columns'] = $this->maybe_encode_urls( $formdata['columns'] );

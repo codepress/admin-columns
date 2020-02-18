@@ -7,6 +7,7 @@ use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Preferences;
 use AC\Request;
+use AC\Type\ListScreenId;
 
 class ListScreenRequest {
 
@@ -61,8 +62,8 @@ class ListScreenRequest {
 		// Requested list ID
 		$list_id = filter_input( INPUT_GET, 'layout_id' );
 
-		if ( $list_id && $this->storage->exists( $list_id ) ) {
-			$list_screen = $this->storage->find( $list_id );
+		if ( ListScreenId::is_valid_id( $list_id ) && $this->storage->exists( new ListScreenId( $list_id ) ) ) {
+			$list_screen = $this->storage->find( new ListScreenId( $list_id ) );
 
 			// TODO Stefan fix null pointer
 			if ( $this->exists_list_screen( $list_screen->get_key() ) ) {
@@ -94,8 +95,8 @@ class ListScreenRequest {
 		// Last visited ID
 		$list_id = $this->preference->get( 'list_id' );
 
-		if ( $list_id && $this->storage->exists( $list_id ) ) {
-			$list_screen = $this->storage->find( $list_id );
+		if ( ListScreenId::is_valid_id( $list_id ) && $this->storage->exists( new ListScreenId( $list_id ) ) ) {
+			$list_screen = $this->storage->find( new ListScreenId( $list_id ) );
 
 			if ( $list_screen && $this->exists_list_screen( $list_screen->get_key() ) ) {
 				return $list_screen;

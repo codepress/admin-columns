@@ -6,6 +6,7 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository;
 use AC\ListScreenTypes;
+use AC\Type\ListScreenId;
 use DateTime;
 use DomainException;
 use Exception;
@@ -33,9 +34,9 @@ final class Database implements ListScreenRepository {
 		global $wpdb;
 
 		$args = array_merge( [
-			self::ID    => null,
-			self::KEY   => null,
-			'limit' => null,
+			self::ID  => null,
+			self::KEY => null,
+			'limit'   => null,
 		], $args );
 
 		$sql = '
@@ -83,11 +84,11 @@ final class Database implements ListScreenRepository {
 	}
 
 	/**
-	 * @param string $list_id
+	 * @param ListScreenId $list_id
 	 *
 	 * @return ListScreen
 	 */
-	public function find( $list_id ) {
+	public function find( ListScreenId $list_id ) {
 		$list_screens = $this->find_all( [
 			'id' => $list_id,
 		] );
@@ -96,19 +97,19 @@ final class Database implements ListScreenRepository {
 	}
 
 	/**
-	 * @param string $list_id
+	 * @param ListScreenId $list_id
 	 *
 	 * @return int
 	 */
-	private function get_id( $layout_id ) {
+	private function get_id( ListScreenId $list_id ) {
 		static $cached_list_ids = [];
 
-		if ( in_array( $layout_id, $cached_list_ids, true ) ) {
-			return $layout_id;
+		if ( in_array( $list_id->get_id(), $cached_list_ids, true ) ) {
+			return $list_id->get_id();
 		}
 
 		$results = $this->get_results( [
-			'id' => $layout_id,
+			'id' => $list_id->get_id(),
 		] );
 
 		if ( ! count( $results ) ) {
@@ -121,7 +122,7 @@ final class Database implements ListScreenRepository {
 		return $id;
 	}
 
-	public function exists( $list_id ) {
+	public function exists( ListScreenId $list_id ) {
 		return null !== $this->get_id( $list_id );
 	}
 
@@ -133,11 +134,11 @@ final class Database implements ListScreenRepository {
 	public function save( ListScreen $list_screen ) {
 		global $wpdb;
 
-		if ( empty( $list_screen->get_layout_id() ) ) {
+		if ( empty( $list_screen->get_layout_id() ) || ! ListScreenId::is_valid_id( $list_screen->get_layout_id() )) {
 			throw new LogicException( 'Invalid listscreen Id.' );
 		}
 
-		$id = $this->get_id( $list_screen->get_layout_id() );
+		$id = $this->get_id( new ListScreenId( $list_screen->get_layout_id() ) );
 		$table = $wpdb->prefix . self::TABLE;
 
 		$args = [
