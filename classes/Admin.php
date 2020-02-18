@@ -10,22 +10,34 @@ class Admin implements Registrable {
 
 	const PLUGIN_PAGE = 'codepress-admin-columns';
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $hook_suffix;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $parent_page;
 
-	/** @var Page */
+	/**
+	 * @var Page
+	 */
 	private $page;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $url;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $menu_hook;
 
-	/** @var Page[] */
+	/**
+	 * @var Page[]
+	 */
 	private $pages = [];
 
 	public function __construct( $parent_page, $menu_hook, $url ) {
@@ -69,12 +81,12 @@ class Admin implements Registrable {
 			__( 'Admin Columns', 'codepress-admin-columns' ),
 			Capabilities::MANAGE,
 			self::PLUGIN_PAGE,
-			function () {
+			static function () {
 			}
 		);
 
-		add_action( "load-" . $this->hook_suffix, [ $this, 'on_load' ] );
-		add_action( "admin_print_scripts-" . $this->hook_suffix, [ $this, 'admin_scripts' ] );
+		add_action( 'load-' . $this->hook_suffix, [ $this, 'on_load' ] );
+		add_action( 'admin_print_scripts-' . $this->hook_suffix, [ $this, 'admin_scripts' ] );
 	}
 
 	/**
