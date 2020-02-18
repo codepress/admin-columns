@@ -88,7 +88,7 @@ function ac_helper() {
 	return new AC\Helper();
 }
 
-// TODO David have a look at this
+// TODO David look at ListScreenApiData
 /**
  * @param array|string $list_screen_keys
  * @param array        $column_data
@@ -102,6 +102,7 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
 	}
 }
 
+// TODO David this seems not to be the proper documentation? Or way?
 /**
  * Manually set the columns for a list screen
  * This overrides the database settings and thus renders the settings screen for this list screen useless
