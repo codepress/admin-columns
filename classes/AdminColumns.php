@@ -136,25 +136,22 @@ class AdminColumns extends Plugin {
 			$list_id = $this->preferences()->get( $key );
 		}
 
+		$list_screen = null;
 		$permission_checker = ( new PermissionChecker( wp_get_current_user() ) );
 
 		if ( $list_id ) {
-			// TODO Stefan $_list_screen is not semantic please name to something more meaningful
-			$_list_screen = $this->storage->find( $list_id );
+			$requested_list_screen = $this->storage->find( $list_id );
 
-			if ( $_list_screen && $permission_checker->is_valid( $_list_screen ) ) {
-				$list_screen = $_list_screen;
-			} else {
-
-				// List screen not found.
-				$list_screen = $this->get_first_list_screen( $key, $permission_checker );
+			if ( $requested_list_screen && $permission_checker->is_valid( $requested_list_screen ) ) {
+				$list_screen = $requested_list_screen;
 			}
-		} else {
-			// First visit.
+		}
+
+		// First visit or not found
+		if ( ! $list_screen ) {
 			$list_screen = $this->get_first_list_screen( $key, $permission_checker );
 		}
 
-		// TODO Stefan fix null pointer
 		$this->preferences()->set( $key, $list_screen->get_layout_id() );
 
 		$table_screen = new Table\Screen( $list_screen );
