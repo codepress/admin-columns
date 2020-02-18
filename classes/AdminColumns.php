@@ -282,6 +282,12 @@ class AdminColumns extends Plugin {
 		return $links;
 	}
 
+	/**
+	 * @param array  $links
+	 * @param string $file
+	 *
+	 * @return array
+	 */
 	public function add_pro_link( $links, $file ) {
 		if ( $file === $this->get_basename() && ! ac_is_pro_active() ) {
 			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
