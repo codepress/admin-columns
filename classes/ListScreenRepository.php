@@ -2,25 +2,26 @@
 
 namespace AC;
 
+use AC\Type\ListScreenId;
+
 interface ListScreenRepository {
 
 	const ID = 'id';
 	const KEY = 'key';
-	const LIMIT = 'limit';
 
 	/**
-	 * @param string $id
+	 * @param ListScreenId $id
 	 *
 	 * @return ListScreen|null
 	 */
-	public function find( $id );
+	public function find( ListScreenId $id );
 
 	/**
-	 * @param string $id
+	 * @param ListScreenId $id
 	 *
 	 * @return bool
 	 */
-	public function exists( $id );
+	public function exists( ListScreenId $id );
 
 	/**
 	 * @param array $args
