@@ -60,10 +60,12 @@ class ListScreenRequest {
 	public function get_list_screen() {
 
 		// Requested list ID
-		$list_id = filter_input( INPUT_GET, 'layout_id' );
+		$list_id = ListScreenId::is_valid_id( filter_input( INPUT_GET, 'layout_id' ) )
+			? new ListScreenId( filter_input( INPUT_GET, 'layout_id' ) )
+			: false;
 
-		if ( ListScreenId::is_valid_id( $list_id ) && $this->storage->exists( new ListScreenId( $list_id ) ) ) {
-			$list_screen = $this->storage->find( new ListScreenId( $list_id ) );
+		if ( false !== $list_id && $this->storage->exists( $list_id ) ) {
+			$list_screen = $this->storage->find( $list_id );
 
 			// TODO Stefan fix null pointer
 			if ( $this->exists_list_screen( $list_screen->get_key() ) ) {
@@ -93,10 +95,13 @@ class ListScreenRequest {
 		}
 
 		// Last visited ID
-		$list_id = $this->preference->get( 'list_id' );
+		$list_id_pref = $this->preference->get( 'list_id' );
+		$list_id = ListScreenId::is_valid_id( $list_id_pref )
+			? new ListScreenId( $list_id_pref )
+			: false;
 
-		if ( ListScreenId::is_valid_id( $list_id ) && $this->storage->exists( new ListScreenId( $list_id ) ) ) {
-			$list_screen = $this->storage->find( new ListScreenId( $list_id ) );
+		if ( false !== $list_id && $this->storage->exists( $list_id ) ) {
+			$list_screen = $this->storage->find( $list_id );
 
 			if ( $list_screen && $this->exists_list_screen( $list_screen->get_key() ) ) {
 				return $list_screen;
