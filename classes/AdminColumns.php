@@ -58,7 +58,7 @@ class AdminColumns extends Plugin {
 		$this->list_screen_repository = new ListScreenRepository\Aggregate();
 		$this->list_screen_repository->register_repository( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) );
 
-		$modules = [
+		$services = [
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new Screen,
@@ -75,29 +75,29 @@ class AdminColumns extends Plugin {
 			new ListScreenRestoreColumns( $this->list_screen_repository ),
 		];
 
-		foreach ( $modules as $module ) {
-			if ( $module instanceof Registrable ) {
-				$module->register();
+		foreach ( $services as $service ) {
+			if ( $service instanceof Registrable ) {
+				$service->register();
 			}
 		}
 
 		$this->register_admin();
 		$this->localize();
 
-		add_action( 'init', array( $this, 'install' ), 1000 );
-		add_action( 'init', array( $this, 'notice_checks' ) );
-		add_action( 'init', array( $this, 'register_global_scripts' ) );
+		add_action( 'init', [ $this, 'install' ], 1000 );
+		add_action( 'init', [ $this, 'notice_checks' ] );
+		add_action( 'init', [ $this, 'register_global_scripts' ] );
 
-		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 1, 2 );
-		add_filter( 'plugin_action_links', array( $this, 'add_pro_link' ), 10, 2 );
+		add_filter( 'plugin_action_links', [ $this, 'add_settings_link' ], 1, 2 );
+		add_filter( 'plugin_action_links', [ $this, 'add_pro_link' ], 10, 2 );
 
-		add_action( 'ac/screen', array( $this, 'init_table_on_screen' ) );
-		add_action( 'wp_ajax_ac_get_column_value', array( $this, 'table_ajax_value' ) );
+		add_action( 'ac/screen', [ $this, 'init_table_on_screen' ] );
+		add_action( 'wp_ajax_ac_get_column_value', [ $this, 'table_ajax_value' ] );
 
-		add_filter( 'wp_redirect', array( $this, 'redirect_after_status_change' ) );
+		add_filter( 'wp_redirect', [ $this, 'redirect_after_status_change' ] );
 
 		// run after all post types are registered
-		add_action( 'init', array( $this, 'register_list_screens' ), 1000 );
+		add_action( 'init', [ $this, 'register_list_screens' ], 1000 );
 	}
 
 	/**
@@ -219,9 +219,9 @@ class AdminColumns extends Plugin {
 	 * Init checks
 	 */
 	public function notice_checks() {
-		$checks = array(
+		$checks = [
 			new Check\Review(),
-		);
+		];
 
 		if ( ! ac_is_pro_active() ) {
 			foreach ( new PromoCollection() as $promo ) {
@@ -277,6 +277,12 @@ class AdminColumns extends Plugin {
 		return $links;
 	}
 
+	/**
+	 * @param array  $links
+	 * @param string $file
+	 *
+	 * @return array
+	 */
 	public function add_pro_link( $links, $file ) {
 		if ( $file === $this->get_basename() && ! ac_is_pro_active() ) {
 			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
@@ -346,10 +352,10 @@ class AdminColumns extends Plugin {
 	 * @return void
 	 */
 	public function register_global_scripts() {
-		wp_register_script( 'ac-select2-core', $this->get_url() . 'assets/js/select2.js', array(), $this->get_version() );
-		wp_register_script( 'ac-select2', $this->get_url() . 'assets/js/select2_conflict_fix.js', array( 'jquery', 'ac-select2-core' ), $this->get_version() );
-		wp_register_style( 'ac-select2', $this->get_url() . 'assets/css/select2.css', array(), $this->get_version() );
-		wp_register_style( 'ac-jquery-ui', $this->get_url() . 'assets/css/ac-jquery-ui.css', array(), $this->get_version() );
+		wp_register_script( 'ac-select2-core', $this->get_url() . 'assets/js/select2.js', [], $this->get_version() );
+		wp_register_script( 'ac-select2', $this->get_url() . 'assets/js/select2_conflict_fix.js', [ 'jquery', 'ac-select2-core' ], $this->get_version() );
+		wp_register_style( 'ac-select2', $this->get_url() . 'assets/css/select2.css', [], $this->get_version() );
+		wp_register_style( 'ac-jquery-ui', $this->get_url() . 'assets/css/ac-jquery-ui.css', [], $this->get_version() );
 	}
 
 	/**
@@ -358,12 +364,12 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	public function get_post_types() {
-		$post_types = get_post_types( array(
+		$post_types = get_post_types( [
 			'_builtin' => false,
 			'show_ui'  => true,
-		) );
+		] );
 
-		foreach ( array( 'post', 'page' ) as $builtin ) {
+		foreach ( [ 'post', 'page' ] as $builtin ) {
 			if ( post_type_exists( $builtin ) ) {
 				$post_types[ $builtin ] = $builtin;
 			}
@@ -437,11 +443,11 @@ class AdminColumns extends Plugin {
 			return $location;
 		}
 
-		$location = add_query_arg( array(
+		$location = add_query_arg( [
 			'status'    => $status,
 			'plugin'    => $integration->get_slug(),
 			'_ac_nonce' => wp_create_nonce( 'ac-plugin-status-change' ),
-		), $this->admin()->get_url( 'addons' ) );
+		], $this->admin()->get_url( 'addons' ) );
 
 		return $location;
 	}
