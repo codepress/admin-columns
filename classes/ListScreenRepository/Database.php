@@ -12,6 +12,7 @@ use DomainException;
 use Exception;
 use LogicException;
 
+// TODO David needs some love
 final class Database implements ListScreenRepository {
 
 	const TABLE = 'admin_columns';
@@ -211,6 +212,7 @@ final class Database implements ListScreenRepository {
 	private function create_list_screen( $data ) {
 		$list_screen = $this->list_screen_types->get_list_screen_by_key( $data->list_key );
 
+		// TODO David needed?
 		if ( null === $list_screen ) {
 			throw new DomainException( 'List screen not found.' );
 		}
