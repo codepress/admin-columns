@@ -6,7 +6,6 @@ use AC\Type\ListScreenId;
 
 interface ListScreenRepository {
 
-	const ID = 'id';
 	const KEY = 'key';
 
 	/**
