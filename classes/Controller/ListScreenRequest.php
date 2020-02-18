@@ -67,8 +67,7 @@ class ListScreenRequest {
 		if ( false !== $list_id && $this->storage->exists( $list_id ) ) {
 			$list_screen = $this->storage->find( $list_id );
 
-			// TODO Stefan fix null pointer
-			if ( $this->exists_list_screen( $list_screen->get_key() ) ) {
+			if ( $list_screen && $this->exists_list_screen( $list_screen->get_key() ) ) {
 				$this->preference->set( 'list_id', $list_screen->get_layout_id() );
 				$this->preference->set( 'list_key', $list_screen->get_key() );
 
