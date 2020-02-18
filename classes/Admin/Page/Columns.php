@@ -53,7 +53,7 @@ class Columns extends Admin\Page implements Admin\Helpable, Registrable {
 		$list_screen = $this->controller->get_list_screen();
 
 		if ( $list_screen->is_read_only() ) {
-			$message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
+			$message = sprintf( __( 'The column settings for %s are read only and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
 
 			$this->notice( sprintf( '<p>%s</p>', apply_filters( 'ac/read_only_message', $message, $list_screen ) ), 'updated notice-info' );
 		}
