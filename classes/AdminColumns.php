@@ -18,6 +18,7 @@ use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
+use AC\Type\ListScreenId;
 
 class AdminColumns extends Plugin {
 
@@ -125,11 +126,16 @@ class AdminColumns extends Plugin {
 		}
 
 		// Requested
-		$list_id = filter_input( INPUT_GET, 'layout' );
+		$list_id = ListScreenId::is_valid_id( filter_input( INPUT_GET, 'layout' ) )
+			? new ListScreenId( filter_input( INPUT_GET, 'layout' ) )
+			: null;
 
 		// Last visited
 		if ( ! $list_id ) {
-			$list_id = $this->preferences()->get( $key );
+			$list_id_preference = $this->preferences()->get( $key );
+			$list_id = ListScreenId::is_valid_id( $list_id_preference )
+				? new ListScreenId( $list_id_preference )
+				: null;
 		}
 
 		$list_screen = null;
@@ -170,9 +176,8 @@ class AdminColumns extends Plugin {
 		] );
 
 		if ( $list_screens->count() > 0 ) {
-
 			// First visit. Load first available list Id.
-			return $list_screens->current();
+			return $list_screens->get_first();
 		}
 
 		// No available list screen found.
