@@ -4,14 +4,14 @@ namespace AC;
 
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
-use AC\Admin\PromoCollection;
 use AC\Admin\Section\ListScreenMenu;
 use AC\Admin\Section\Restore;
-use AC\Check;
+use AC\Controller\AjaxColumnValue;
 use AC\Controller\AjaxRequestCustomFieldKeys;
 use AC\Controller\AjaxRequestNewColumn;
 use AC\Controller\ListScreenRequest;
 use AC\Controller\ListScreenRestoreColumns;
+use AC\Controller\RedirectAddonStatus;
 use AC\Deprecated;
 use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\Storage;
@@ -59,6 +59,8 @@ class AdminColumns extends Plugin {
 	private function __construct() {
 		$this->storage = new Storage();
 
+		$this->register_admin();
+
 		$services = [
 			new Service\Storage( $this->storage, ListScreenTypes::instance() ),
 			new Ajax\NumberFormat( new Request() ),
@@ -75,9 +77,12 @@ class AdminColumns extends Plugin {
 			new AjaxRequestNewColumn( $this->storage ),
 			new AjaxRequestCustomFieldKeys(),
 			new ListScreenRestoreColumns( $this->storage ),
+			new AjaxColumnValue( $this->storage ),
+			new ListScreenRestoreColumns( $this->storage ),
+			new RedirectAddonStatus( $this->admin->get_url( Page\Addons::NAME ) ),
+			new PluginActionLinks( $this->get_basename(), $this->admin->get_url( Page\Columns::NAME ) ),
+			new NoticeChecks(),
 		];
-
-		$services[] = new QuickEdit( $this->storage, $this->preferences() );
 
 		foreach ( $services as $service ) {
 			if ( $service instanceof Registrable ) {
@@ -85,23 +90,12 @@ class AdminColumns extends Plugin {
 			}
 		}
 
-		$this->register_admin();
 		$this->localize();
 
+		add_action( 'init', [ $this, 'register_list_screens' ], 1000 ); // run after all post types are registered
 		add_action( 'init', [ $this, 'install' ], 1000 );
-		add_action( 'init', [ $this, 'notice_checks' ] );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
-
-		add_filter( 'plugin_action_links', [ $this, 'add_settings_link' ], 1, 2 );
-		add_filter( 'plugin_action_links', [ $this, 'add_pro_link' ], 10, 2 );
-
 		add_action( 'ac/screen', [ $this, 'init_table_on_screen' ] );
-		add_action( 'wp_ajax_ac_get_column_value', [ $this, 'table_ajax_value' ] );
-
-		add_filter( 'wp_redirect', [ $this, 'redirect_after_status_change' ] );
-
-		// run after all post types are registered
-		add_action( 'init', [ $this, 'register_list_screens' ], 1000 );
 	}
 
 	/**
@@ -121,6 +115,8 @@ class AdminColumns extends Plugin {
 	/**
 	 * @param Screen $screen
 	 */
+
+	// todo: move
 	public function init_table_on_screen( Screen $screen ) {
 		$key = $screen->get_list_screen();
 
@@ -184,63 +180,6 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * Get column value by ajax.
-	 */
-	public function table_ajax_value() {
-		check_ajax_referer( 'ac-ajax' );
-
-		// Get ID of entry to edit
-		$id = intval( filter_input( INPUT_POST, 'pk' ) );
-
-		if ( ! $id ) {
-			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );
-		}
-
-		$list_screen = $this->storage->find( filter_input( INPUT_POST, 'layout' ) );
-
-		if ( ! $list_screen ) {
-			wp_die( __( 'Invalid list screen.', 'codepress-admin-columns' ), null, 400 );
-		}
-
-		$column = $list_screen->get_column_by_name( filter_input( INPUT_POST, 'column' ) );
-
-		if ( ! $column ) {
-			wp_die( __( 'Invalid column.', 'codepress-admin-columns' ), null, 400 );
-		}
-
-		if ( ! $column instanceof Column\AjaxValue ) {
-			wp_die( __( 'Invalid method.', 'codepress-admin-columns' ), null, 400 );
-		}
-
-		// Trigger ajax callback
-		echo $column->get_ajax_value( $id );
-		exit;
-	}
-
-	/**
-	 * Init checks
-	 */
-	public function notice_checks() {
-		$checks = [
-			new Check\Review(),
-		];
-
-		if ( ! ac_is_pro_active() ) {
-			foreach ( new PromoCollection() as $promo ) {
-				$checks[] = new Check\Promotion( $promo );
-			}
-		}
-
-		foreach ( new Integrations() as $integration ) {
-			$checks[] = new Check\AddonAvailable( $integration );
-		}
-
-		foreach ( $checks as $check ) {
-			$check->register();
-		}
-	}
-
-	/**
 	 * @return string
 	 */
 	protected function get_file() {
@@ -259,41 +198,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function get_version() {
 		return AC_VERSION;
-	}
-
-	/**
-	 * Add a settings link to the Admin Columns entry in the plugin overview screen
-	 *
-	 * @param array  $links
-	 * @param string $file
-	 *
-	 * @return array
-	 * @see   filter:plugin_action_links
-	 * @since 1.0
-	 */
-	public function add_settings_link( $links, $file ) {
-		if ( $file === $this->get_basename() ) {
-			array_unshift( $links, sprintf( '<a href="%s">%s</a>', $this->admin->get_url( 'columns' ), __( 'Settings', 'codepress-admin-columns' ) ) );
-		}
-
-		return $links;
-	}
-
-	/**
-	 * @param array  $links
-	 * @param string $file
-	 *
-	 * @return array
-	 */
-	public function add_pro_link( $links, $file ) {
-		if ( $file === $this->get_basename() && ! ac_is_pro_active() ) {
-			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-				esc_url( ac_get_site_utm_url( 'admin-columns-pro', 'upgrade' ) ),
-				sprintf( '<span style="font-weight: bold;">%s</span>', __( 'Go Pro', 'codepress-admin-columns' ) )
-			);
-		}
-
-		return $links;
 	}
 
 	/**
@@ -391,9 +295,7 @@ class AdminColumns extends Plugin {
 	 * Load text-domain
 	 */
 	public function localize() {
-		$path = pathinfo( $this->get_dir() );
-
-		load_plugin_textdomain( 'codepress-admin-columns', false, $path['basename'] . '/languages/' );
+		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->get_basename() ) . '/languages/' );
 	}
 
 	/**
@@ -416,42 +318,6 @@ class AdminColumns extends Plugin {
 		            ->register_page( new Page\Addons() )
 		            ->register_page( new Page\Help() )
 		            ->register();
-	}
-
-	/**
-	 * Redirect the user to the Admin Columns add-ons page after activation/deactivation of an add-on from the add-ons page
-	 *
-	 * @param $location
-	 *
-	 * @return string
-	 * @since 2.2
-	 */
-	public function redirect_after_status_change( $location ) {
-		global $pagenow;
-
-		if ( 'plugins.php' !== $pagenow || ! filter_input( INPUT_GET, 'ac-redirect' ) || filter_input( INPUT_GET, 'error' ) ) {
-			return $location;
-		}
-
-		$status = filter_input( INPUT_GET, 'action' );
-
-		if ( ! $status ) {
-			return $location;
-		}
-
-		$integration = IntegrationFactory::create( filter_input( INPUT_GET, 'plugin' ) );
-
-		if ( ! $integration ) {
-			return $location;
-		}
-
-		$location = add_query_arg( [
-			'status'    => $status,
-			'plugin'    => $integration->get_slug(),
-			'_ac_nonce' => wp_create_nonce( 'ac-plugin-status-change' ),
-		], $this->admin()->get_url( 'addons' ) );
-
-		return $location;
 	}
 
 	/**
