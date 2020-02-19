@@ -41,6 +41,10 @@ final class ListScreenCollection implements Iterator, Countable {
 		return current( $this->data );
 	}
 
+	public function get_first() {
+		return reset( $this->data );
+	}
+
 	public function key() {
 		return key( $this->data );
 	}

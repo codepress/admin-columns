@@ -80,7 +80,7 @@ final class Database implements ListScreenRepository {
 		global $wpdb;
 
 		$sql = '
-			SELECT * 
+			SELECT *
 			FROM ' . $wpdb->prefix . self::TABLE . '
 			WHERE list_id = %s
 			LIMIT 1;

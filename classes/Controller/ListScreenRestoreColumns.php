@@ -6,6 +6,7 @@ use AC\Capabilities;
 use AC\ListScreenRepository\Storage;
 use AC\Message\Notice;
 use AC\Registrable;
+use AC\Type\ListScreenId;
 
 class ListScreenRestoreColumns implements Registrable {
 
@@ -31,8 +32,11 @@ class ListScreenRestoreColumns implements Registrable {
 
 			case 'restore_by_type' :
 				if ( $this->verify_nonce( 'restore-type' ) ) {
+					if ( ! ListScreenId::is_valid_id( filter_input( INPUT_POST, 'layout' ) ) ) {
+						return;
+					}
 
-					$list_screen = $this->repository->find( filter_input( INPUT_POST, 'layout' ) );
+					$list_screen = $this->repository->find( new ListScreenId( filter_input( INPUT_POST, 'layout' ) ) );
 
 					if ( ! $list_screen ) {
 						return;
