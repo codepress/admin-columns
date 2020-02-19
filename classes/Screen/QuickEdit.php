@@ -6,6 +6,7 @@ use AC\ListScreenRepository\Storage;
 use AC\Preferences\Site;
 use AC\Registrable;
 use AC\ScreenController;
+use AC\Type\ListScreenId;
 
 class QuickEdit implements Registrable {
 
@@ -72,7 +73,7 @@ class QuickEdit implements Registrable {
 			return;
 		}
 
-		$list_screen = $this->storage->find( $id );
+		$list_screen = $this->storage->find( new ListScreenId( $id ) );
 
 		if ( ! $list_screen ) {
 			return;
