@@ -62,9 +62,9 @@ class ListScreenRequest {
 		// Requested list ID
 		$list_id = ListScreenId::is_valid_id( filter_input( INPUT_GET, 'layout_id' ) )
 			? new ListScreenId( filter_input( INPUT_GET, 'layout_id' ) )
-			: false;
+			: null;
 
-		if ( false !== $list_id && $this->storage->exists( $list_id ) ) {
+		if ( $list_id && $this->storage->exists( $list_id ) ) {
 			$list_screen = $this->storage->find( $list_id );
 
 			if ( $list_screen && $this->exists_list_screen( $list_screen->get_key() ) ) {
@@ -97,9 +97,9 @@ class ListScreenRequest {
 		$list_id_pref = $this->preference->get( 'list_id' );
 		$list_id = ListScreenId::is_valid_id( $list_id_pref )
 			? new ListScreenId( $list_id_pref )
-			: false;
+			: null;
 
-		if ( false !== $list_id && $this->storage->exists( $list_id ) ) {
+		if ( $list_id && $this->storage->exists( $list_id ) ) {
 			$list_screen = $this->storage->find( $list_id );
 
 			if ( $list_screen && $this->exists_list_screen( $list_screen->get_key() ) ) {

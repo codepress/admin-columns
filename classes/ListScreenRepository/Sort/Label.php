@@ -16,7 +16,9 @@ class Label implements Sort {
 
 		ksort( $labels );
 
-		return new ListScreenCollection( $labels );
+		$labels = array_values( $labels );
+
+		return new ListScreenCollection( array_merge( [], ...$labels ) );
 	}
 
 }

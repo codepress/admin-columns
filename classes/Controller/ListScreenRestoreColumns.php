@@ -32,10 +32,6 @@ class ListScreenRestoreColumns implements Registrable {
 
 			case 'restore_by_type' :
 				if ( $this->verify_nonce( 'restore-type' ) ) {
-					if ( ! ListScreenId::is_valid_id( filter_input( INPUT_POST, 'layout' ) ) ) {
-						return;
-					}
-
 					$list_screen = $this->repository->find( new ListScreenId( filter_input( INPUT_POST, 'layout' ) ) );
 
 					if ( ! $list_screen ) {

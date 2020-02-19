@@ -3,6 +3,7 @@
 use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\Type\ListScreenId;
 
 /**
  * @return AC\AdminColumns
@@ -53,7 +54,7 @@ function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_camp
 		$utm_campaign = 'plugin-installation';
 	}
 
-	$args = array(
+	$args = [
 		// Referrer: plugin
 		'utm_source'   => 'plugin-installation',
 
@@ -65,7 +66,7 @@ function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_camp
 
 		// Used for differentiation of medium
 		'utm_content'  => $utm_content,
-	);
+	];
 
 	$args = array_map( 'sanitize_key', array_filter( $args ) );
 
@@ -141,7 +142,7 @@ function ac_get_admin_url( $slug = null ) {
  * @return string
  */
 function ac_convert_site_url( $label, $action = 'encode' ) {
-	$input = array( site_url(), '[cpac_site_url]' );
+	$input = [ site_url(), '[cpac_site_url]' ];
 
 	if ( 'decode' == $action ) {
 		$input = array_reverse( $input );
@@ -157,7 +158,7 @@ function ac_convert_site_url( $label, $action = 'encode' ) {
  * @since 4.0.0
  */
 function ac_get_list_screen( $id ) {
-	return AC()->get_storage()->find( $id );
+	return AC()->get_storage()->find( new ListScreenId( $id ) );
 }
 
 /**
