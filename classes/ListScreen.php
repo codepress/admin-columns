@@ -3,7 +3,9 @@
 namespace AC;
 
 use AC\Column\Placeholder;
+use AC\Type\ListScreenId;
 use DateTime;
+use LogicException;
 use ReflectionClass;
 use ReflectionException;
 
@@ -127,6 +129,24 @@ abstract class ListScreen {
 	 * @var DateTime
 	 */
 	private $updated;
+
+	/**
+	 * @return bool
+	 */
+	public function has_id() {
+		return ListScreenId::is_valid_id( $this->layout_id );
+	}
+
+	/**
+	 * @return ListScreenId
+	 */
+	public function get_id() {
+		if ( ! $this->has_id() ) {
+			throw new LogicException( 'ListScreen has no identity.' );
+		}
+
+		return new ListScreenId( $this->layout_id );
+	}
 
 	/**
 	 * Contains the hook that contains the manage_value callback
