@@ -128,7 +128,7 @@ final class Database implements ListScreenRepository {
 		global $wpdb;
 
 		if ( ! $list_screen->has_id() ) {
-			throw new LogicException( 'Cannot save a ListScreen without and identity.' );
+			throw new LogicException( 'Cannot save a ListScreen without an identity.' );
 		}
 
 		$args = [
@@ -170,7 +170,7 @@ final class Database implements ListScreenRepository {
 		global $wpdb;
 
 		if ( ! $list_screen->has_id() ) {
-			throw new LogicException( 'Cannot save a ListScreen without and identity.' );
+			throw new LogicException( 'Cannot delete a ListScreen without an identity.' );
 		}
 
 		/**

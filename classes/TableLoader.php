@@ -68,7 +68,9 @@ class TableLoader implements Registrable {
 			$list_screen = $this->get_first_list_screen( $key );
 		}
 
-		$this->preferences()->set( $key, $list_screen->get_layout_id() );
+		if ( $list_screen->has_id() ) {
+			$this->preferences()->set( $key, $list_screen->get_id()->get_id() );
+		}
 
 		$table_screen = new Table\Screen( $list_screen );
 		$table_screen->register();
