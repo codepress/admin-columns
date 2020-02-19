@@ -131,21 +131,19 @@ class AdminColumns extends Plugin {
 			$list_id = $this->preferences()->get( $key );
 		}
 
+		$list_screen = null;
 		$permission_checker = ( new PermissionChecker( wp_get_current_user() ) );
 
 		if ( $list_id ) {
-			$_list_screen = $this->list_screen_repository->find( $list_id );
+			$requested_list_screen = $this->list_screen_repository->find( $list_id );
 
-			if ( $_list_screen && $permission_checker->is_valid( $_list_screen ) ) {
-				$list_screen = $_list_screen;
-			} else {
-
-				// List screen not found.
-				$list_screen = $this->get_first_list_screen( $key, $permission_checker );
+			if ( $requested_list_screen && $permission_checker->is_valid( $requested_list_screen ) ) {
+				$list_screen = $requested_list_screen;
 			}
-		} else {
+		}
 
-			// First visit.
+		// First visit or not found
+		if ( ! $list_screen ) {
 			$list_screen = $this->get_first_list_screen( $key, $permission_checker );
 		}
 
