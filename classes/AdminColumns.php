@@ -111,9 +111,6 @@ class AdminColumns extends Plugin {
 		return new Preferences\Site( 'layout_table' );
 	}
 
-	/**
-	 * @return string
-	 */
 	protected function get_file() {
 		return AC_FILE;
 	}

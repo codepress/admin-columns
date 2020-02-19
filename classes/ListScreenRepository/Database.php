@@ -47,7 +47,7 @@ final class Database implements ListScreenRepository {
 		$limit = '';
 		$where = [];
 
-		if ( $args['_id'] ) {
+		if ( isset( $args['_id'] ) && $args['_id'] ) {
 			$where[] = $wpdb->prepare( 'AND list_id = %s', $args['_id'] );
 			$limit = 'LIMIT 1';
 		}
@@ -93,7 +93,7 @@ final class Database implements ListScreenRepository {
 	 */
 	public function find( ListScreenId $list_id ) {
 		$list_screens = $this->find_all( [
-			'_id' => $list_id,
+			'_id' => $list_id->get_id(),
 		] );
 
 		return $list_screens->current();
