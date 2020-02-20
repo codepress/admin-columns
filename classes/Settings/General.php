@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\Settings;
 
 use AC\Capabilities;
@@ -12,7 +13,7 @@ class General implements Registrable {
 	public function register() {
 		$this->register_setting();
 
-		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, array( $this, 'set_capability' ) );
+		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, [ $this, 'set_capability' ] );
 	}
 
 	public function register_setting() {

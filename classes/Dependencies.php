@@ -25,7 +25,7 @@ final class Dependencies {
 	 * Missing dependency messages
 	 * @var string[]
 	 */
-	private $messages = array();
+	private $messages = [];
 
 	/**
 	 * @param string $basename
@@ -54,8 +54,8 @@ final class Dependencies {
 	 * Register hooks
 	 */
 	private function register() {
-		add_action( 'after_plugin_row_' . $this->basename, array( $this, 'display_notice' ), 5 );
-		add_action( 'admin_head', array( $this, 'display_notice_css' ) );
+		add_action( 'after_plugin_row_' . $this->basename, [ $this, 'display_notice' ], 5 );
+		add_action( 'admin_head', [ $this, 'display_notice_css' ] );
 	}
 
 	/**
@@ -120,12 +120,12 @@ final class Dependencies {
 	 * @return string
 	 */
 	private function sanitize_message( $message ) {
-		return wp_kses( $message, array(
-			'a' => array(
+		return wp_kses( $message, [
+			'a' => [
 				'href'   => true,
 				'target' => true,
-			),
-		) );
+			],
+		] );
 	}
 
 	/**
@@ -201,12 +201,21 @@ final class Dependencies {
 	 * @return string
 	 */
 	public function get_search_url( $keywords ) {
-		$url = add_query_arg( array(
+		$url = add_query_arg( [
 			'tab' => 'search',
 			's'   => $keywords,
-		), admin_url( 'plugin-install.php' ) );
+		], admin_url( 'plugin-install.php' ) );
 
 		return $url;
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function is_plugin_active() {
+		return is_multisite() && is_network_admin()
+			? is_plugin_active_for_network( $this->basename )
+			: is_plugin_active( $this->basename );
 	}
 
 	/**
@@ -214,18 +223,9 @@ final class Dependencies {
 	 */
 	public function display_notice() {
 		$intro = "This plugin can't load because";
-
-		$is_plugin_active = is_multisite() && is_network_admin()
-			? is_plugin_active_for_network( $this->basename )
-			: is_plugin_active( $this->basename );
-
-		$status = $is_plugin_active
-			? 'active'
-			: 'inactive';
-
 		?>
 
-		<tr class="plugin-update-tr <?= $status; ?>">
+		<tr class="plugin-update-tr <?= $this->is_plugin_active() ? 'active' : 'inactive'; ?>">
 			<td colspan="3" class="plugin-update colspanchange">
 				<div class="update-message notice inline notice-error notice-alt">
 					<?php if ( count( $this->messages ) > 1 )  : ?>
