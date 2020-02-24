@@ -6,14 +6,22 @@ use AC;
 use AC\Admin\Page;
 use AC\Message\Notice;
 use AC\PluginInformation;
+use AC\Asset;
 
 class Addons extends Page
 	implements AC\Registrable {
 
 	const NAME = 'addons';
 
-	public function __construct() {
+	/**
+	 * @var Asset\Location\Absolute
+	 */
+	private $location;
+
+	public function __construct( Asset\Location\Absolute $location ) {
 		parent::__construct( self::NAME, __( 'Add-ons', 'codepress-admin-columns' ) );
+
+		$this->location = $location;
 	}
 
 	/**
@@ -23,7 +31,7 @@ class Addons extends Page
 		$this->handle_request();
 		$this->page_notices();
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] );
 	}
 
 	public function page_notices() {
@@ -32,7 +40,7 @@ class Addons extends Page
 		}
 
 		if ( ! ac_is_pro_active() ) {
-			$link = ac_helper()->html->link( ac_get_site_utm_url( false, 'addon' ), __( 'Admin Columns Pro', 'codepress-admin-columns' ), array( 'target' => '_blank' ) );
+			$link = ac_helper()->html->link( ac_get_site_utm_url( false, 'addon' ), __( 'Admin Columns Pro', 'codepress-admin-columns' ), [ 'target' => '_blank' ] );
 
 			$this->register_notice(
 				sprintf( __( 'All add-ons require %s.', 'codepress-admin-columns' ), $link ),
@@ -134,12 +142,15 @@ class Addons extends Page
 	 * Admin scripts
 	 */
 	public function admin_scripts() {
-		wp_enqueue_style( 'ac-admin-page-addons', AC()->get_url() . 'assets/css/admin-page-addons.css', array(), AC()->get_version() );
-		wp_enqueue_script( 'ac-admin-page-addons', AC()->get_url() . "assets/js/admin-page-addons.js", array( 'jquery' ), AC()->get_version() );
+		$style = new Asset\Style( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/css/admin-page-addons.css' ) );
+		$style->enqueue();
 
-		wp_localize_script( 'ac-admin-page-addons', 'AC', array(
+		$script = new Asset\Script( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/js/admin-page-addons.js' ) );
+		$script->enqueue();
+
+		wp_localize_script( 'ac-admin-page-addons', 'AC', [
 				'ajax_nonce' => wp_create_nonce( 'ac-ajax' ),
-			)
+			]
 		);
 	}
 
@@ -163,11 +174,11 @@ class Addons extends Page
 	 * @since 2.2
 	 */
 	public function get_addon_groups() {
-		$addon_groups = array(
+		$addon_groups = [
 			'installed'   => __( 'Installed', 'codepress-admin-columns' ),
 			'recommended' => __( 'Recommended', 'codepress-admin-columns' ),
 			'default'     => __( 'Available', 'codepress-admin-columns' ),
-		);
+		];
 
 		/**
 		 * Filter the addon groups
@@ -209,8 +220,8 @@ class Addons extends Page
 	 * @since 3.0
 	 */
 	private function get_grouped_addons() {
-		$active = array();
-		$inactive = array();
+		$active = [];
+		$inactive = [];
 
 		foreach ( new AC\Integrations() as $integration ) {
 			if ( $this->get_plugin_info( $integration->get_basename() )->is_active() ) {
@@ -223,7 +234,7 @@ class Addons extends Page
 		/* @var AC\Integration[] $sorted */
 		$sorted = array_merge( $active, $inactive );
 
-		$grouped = array();
+		$grouped = [];
 		foreach ( $this->get_addon_groups() as $group => $label ) {
 			foreach ( $sorted as $integration ) {
 				$addon_group = 'default';
@@ -284,11 +295,11 @@ class Addons extends Page
 	 * @return string
 	 */
 	private function get_plugin_action_url( $action, $basename ) {
-		return add_query_arg( array(
+		return add_query_arg( [
 			'action'      => $action,
 			'plugin'      => $basename,
 			'ac-redirect' => true,
-		), wp_nonce_url( admin_url( 'plugins.php' ), $action . '-plugin_' . $basename ) );
+		], wp_nonce_url( admin_url( 'plugins.php' ), $action . '-plugin_' . $basename ) );
 	}
 
 	/**
@@ -342,13 +353,13 @@ class Addons extends Page
 					foreach ( $group['addons'] as $addon ) {
 						/* @var AC\Integration $addon */
 
-						$view = new AC\View( array(
-							'logo'        => AC()->get_url() . $addon->get_logo(),
+						$view = new AC\View( [
+							'logo'        => $this->location->with_suffix( $addon->get_logo() )->get_url(),
 							'title'       => $addon->get_title(),
 							'slug'        => $addon->get_slug(),
 							'description' => $addon->get_description(),
 							'actions'     => $this->render_actions( $addon ),
-						) );
+						] );
 
 						echo $view->set_template( 'admin/edit-addon' );
 					}

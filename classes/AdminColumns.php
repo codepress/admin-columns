@@ -17,6 +17,7 @@ use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
+use AC\Asset\Location\Absolute;
 
 class AdminColumns extends Plugin {
 
@@ -231,6 +232,8 @@ class AdminColumns extends Plugin {
 	 * @return void
 	 */
 	private function register_admin() {
+		$location = new Absolute( $this->get_url(), $this->get_dir() );
+
 		$listscreen_controller = new ListScreenRequest( new Request(), $this->storage, new Preferences\Site( 'settings' ) );
 
 		$this->admin = new Admin( 'options-general.php', 'admin_menu', admin_url() );
@@ -244,7 +247,7 @@ class AdminColumns extends Plugin {
 
 		$this->admin->register_page( $page_columns )
 		            ->register_page( $page_settings )
-		            ->register_page( new Page\Addons() )
+		            ->register_page( new Page\Addons( $location ) )
 		            ->register_page( new Page\Help() )
 		            ->register();
 	}
