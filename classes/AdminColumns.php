@@ -78,8 +78,6 @@ class AdminColumns extends Plugin {
 			new ListScreenRestoreColumns( $this->list_screen_repository ),
 			new RedirectAddonStatus( $this->admin->get_url( Page\Addons::NAME ) ),
 			new PluginActionLinks( $this->get_basename(), $this->admin->get_url( Page\Columns::NAME ) ),
-
-			// todo: test
 			new NoticeChecks(),
 		];
 
@@ -114,8 +112,6 @@ class AdminColumns extends Plugin {
 	/**
 	 * @param Screen $screen
 	 */
-
-	// todo: move
 	public function init_table_on_screen( Screen $screen ) {
 		$key = $screen->get_list_screen();
 
