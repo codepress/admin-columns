@@ -44,7 +44,7 @@ final class Rules {
 	 * @return $this
 	 */
 	public function add_rule( Rule $rule ) {
-		$this->rules = $rule;
+		$this->rules[] = $rule;
 
 		return $this;
 	}
