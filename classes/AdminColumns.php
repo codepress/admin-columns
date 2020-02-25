@@ -6,6 +6,9 @@ use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
 use AC\Admin\Section\ListScreenMenu;
 use AC\Admin\Section\Restore;
+use AC\Asset\Location\Absolute;
+use AC\Asset\Script;
+use AC\Asset\Style;
 use AC\Controller\AjaxColumnValue;
 use AC\Controller\AjaxRequestCustomFieldKeys;
 use AC\Controller\AjaxRequestNewColumn;
@@ -17,7 +20,6 @@ use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
-use AC\Asset\Location\Absolute;
 
 class AdminColumns extends Plugin {
 
@@ -82,7 +84,7 @@ class AdminColumns extends Plugin {
 			new RedirectAddonStatus( $this->admin->get_url( Page\Addons::NAME ) ),
 			new PluginActionLinks( $this->get_basename(), $this->admin->get_url( Page\Columns::NAME ) ),
 			new NoticeChecks(),
-			new TableLoader( $this->storage, new PermissionChecker() ),
+			new TableLoader( $this->storage, new PermissionChecker(), $this->get_location() ),
 		];
 
 		foreach ( $services as $service ) {
@@ -184,14 +186,21 @@ class AdminColumns extends Plugin {
 		do_action( 'ac/list_screens', $this );
 	}
 
-	/**
-	 * @return void
-	 */
+	private function get_location() {
+		return new Absolute( $this->get_url(), $this->get_dir() );
+	}
+
 	public function register_global_scripts() {
-		wp_register_script( 'ac-select2-core', $this->get_url() . 'assets/js/select2.js', [], $this->get_version() );
-		wp_register_script( 'ac-select2', $this->get_url() . 'assets/js/select2_conflict_fix.js', [ 'jquery', 'ac-select2-core' ], $this->get_version() );
-		wp_register_style( 'ac-select2', $this->get_url() . 'assets/css/select2.css', [], $this->get_version() );
-		wp_register_style( 'ac-jquery-ui', $this->get_url() . 'assets/css/ac-jquery-ui.css', [], $this->get_version() );
+		$assets = [
+			new Script( 'ac-select2-core', $this->get_location()->with_suffix( 'assets/js/select2.js' ) ),
+			new Script( 'ac-select2', $this->get_location()->with_suffix( 'assets/js/select2_conflict_fix.js' ), [ 'jquery', 'ac-select2-core' ] ),
+			new Style( 'ac-select2', $this->get_location()->with_suffix( 'assets/css/select2.css' ) ),
+			new Style( 'ac-jquery-ui', $this->get_location()->with_suffix( 'assets/css/ac-jquery-ui.css' ) ),
+		];
+
+		foreach ( $assets as $asset ) {
+			$asset->register();
+		}
 	}
 
 	/**
@@ -225,7 +234,7 @@ class AdminColumns extends Plugin {
 	 * Load text-domain
 	 */
 	public function localize() {
-		load_plugin_textdomain( 'codepress-admin-columns', false, dirname( $this->get_basename() ) . '/languages/' );
+		load_plugin_textdomain( 'codepress-admin-columns', false, $this->get_dir() . 'languages/' );
 	}
 
 	/**

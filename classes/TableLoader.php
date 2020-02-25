@@ -2,6 +2,7 @@
 
 namespace AC;
 
+use AC\Asset\Location\Absolute;
 use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\Storage;
 use AC\Type\ListScreenId;
@@ -18,9 +19,15 @@ class TableLoader implements Registrable {
 	 */
 	private $permission_checker;
 
-	public function __construct( Storage $storage, PermissionChecker $permission_checker ) {
+	/**
+	 * @var Absolute
+	 */
+	private $location;
+
+	public function __construct( Storage $storage, PermissionChecker $permission_checker, Absolute $location ) {
 		$this->storage = $storage;
 		$this->permission_checker = $permission_checker;
+		$this->location = $location;
 	}
 
 	public function register() {
@@ -72,7 +79,7 @@ class TableLoader implements Registrable {
 			$this->preferences()->set( $key, $list_screen->get_id()->get_id() );
 		}
 
-		$table_screen = new Table\Screen( $list_screen );
+		$table_screen = new Table\Screen( $this->location, $list_screen );
 		$table_screen->register();
 
 		do_action( 'ac/table', $table_screen );
