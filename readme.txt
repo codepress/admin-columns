@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.0.2 =
+Release Date: February 26th, 2020
+
+* [Updated] Languages for core version updated
+
 = 4.0.1 =
 Release Date: February 18th, 2020
 
