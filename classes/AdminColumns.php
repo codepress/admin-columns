@@ -154,7 +154,8 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @param string $key
+	 * @param string            $key
+	 * @param PermissionChecker $permission_checker
 	 *
 	 * @return ListScreen|null
 	 */
