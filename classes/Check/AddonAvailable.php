@@ -29,7 +29,7 @@ final class AddonAvailable
 	 * @throws Exception
 	 */
 	public function register() {
-		add_action( 'ac/screen', array( $this, 'display' ) );
+		add_action( 'ac/screen', [ $this, 'display' ] );
 
 		$this->get_ajax_handler()->register();
 	}
@@ -41,7 +41,7 @@ final class AddonAvailable
 		$handler = new Ajax\Handler();
 		$handler
 			->set_action( 'ac_dismiss_notice_addon_' . $this->integration->get_slug() )
-			->set_callback( array( $this, 'ajax_dismiss_notice' ) );
+			->set_callback( [ $this, 'ajax_dismiss_notice' ] );
 
 		return $handler;
 	}
@@ -87,7 +87,6 @@ final class AddonAvailable
 				__( 'the addons page', 'codepress-admin-columns' )
 			)
 		);
-
 
 		$notice = new Dismissible( $message, $this->get_ajax_handler() );
 		$notice->register();

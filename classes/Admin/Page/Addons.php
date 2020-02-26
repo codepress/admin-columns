@@ -10,8 +10,10 @@ use AC\PluginInformation;
 class Addons extends Page
 	implements AC\Registrable {
 
+	const NAME = 'addons';
+
 	public function __construct() {
-		parent::__construct( 'addons', __( 'Add-ons', 'codepress-admin-columns' ) );
+		parent::__construct( self::NAME, __( 'Add-ons', 'codepress-admin-columns' ) );
 	}
 
 	/**

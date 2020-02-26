@@ -4,6 +4,7 @@ namespace AC\Helper;
 
 use DateTime;
 use DateTimeZone;
+use Exception;
 
 class Date {
 
@@ -124,7 +125,25 @@ class Date {
 			$timezone = new DateTimeZone( date_default_timezone_get() );
 		}
 
+		// since WP 3.5
 		return wp_date( $format, $timestamp, $timezone );
+	}
+
+	/**
+	 * @return DateTimeZone|null
+	 */
+	public function timezone() {
+		if ( ! function_exists( 'wp_timezone' ) ) {
+			try {
+				return new DateTimeZone( get_option( 'timezone_string' ) );
+			}
+			catch ( Exception $e ) {
+				return null;
+			}
+		}
+
+		// since WP 3.5
+		return wp_timezone();
 	}
 
 	/**
