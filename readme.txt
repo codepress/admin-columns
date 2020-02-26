@@ -216,6 +216,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.0.2 =
 Release Date: February 26th, 2020
 
+* [Updated] Fallback for wp_timezone when running WordPress < 5.3
 * [Updated] Languages for core version updated
 
 = 4.0.1 =
