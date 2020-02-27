@@ -6,13 +6,14 @@ use AC\_Admin\Assets;
 use AC\_Admin\Controller;
 use AC\_Admin\Menu;
 use AC\_Admin\PageCollection;
+use AC\Asset\Localizable;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
 
 class AdminLoader implements Registrable {
 
-	const MENU_SLUG = 'codepress-admin-columns-test';
+	const MENU_SLUG = 'codepress-admin-columns';
 	const QUERY_ARG_PAGE = 'page';
 	const QUERY_ARG_TAB = 'tab';
 
@@ -118,13 +119,16 @@ class AdminLoader implements Registrable {
 	}
 
 	public function scripts() {
-
-		$page = $this->controller->get_page()->render();
+		$page = $this->controller->get_page();
 
 		if ( $page instanceof Assets ) {
 			foreach ( $page->get_assets() as $asset ) {
 				$asset->enqueue();
 			}
+		}
+
+		if ( $page instanceof Localizable ) {
+			$page->localize();
 		}
 
 		wp_enqueue_style( 'wp-pointer' );
@@ -140,7 +144,8 @@ class AdminLoader implements Registrable {
 			$asset->enqueue();
 		}
 
-		do_action( 'ac/admin_scripts' );
+		do_action( 'ac/admin_scripts', $page );
+		do_action( 'ac/admin_scripts/' . $page->get_slug() );
 	}
 
 }

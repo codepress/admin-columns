@@ -8,7 +8,7 @@ use AC\Admin\Page;
 
 class Admin implements Registrable {
 
-	const PLUGIN_PAGE = 'codepress-admin-columns';
+	const PLUGIN_PAGE = 'codepress-admin-columns-test';
 
 	/** @var string */
 	private $hook_suffix;

@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\_Admin;
 
 use AC\Asset\Enqueueable;

@@ -71,14 +71,20 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
+		$columns_page = new Columns(
+			new ListScreenRequest( new Request(), $this->list_screen_repository, new Preferences\Site( 'settings' ) ),
+			$location,
+			new UnitializedListScreens( new DefaultColumns() )
+		);
+
 		$pages = new PageCollection();
-		$pages->add( new Columns() )
+		$pages->add( $columns_page )
 		      ->add( new \AC\_Admin\Page\Settings() )
 		      ->add( new Addons() )
 		      ->add( new Tools() );
 
 		$network_pages = new PageCollection();
-		$network_pages->add( new Columns() )
+		$network_pages->add( $columns_page )
 		              ->add( new \AC\_Admin\Page\Settings() );
 
 		$services = [
