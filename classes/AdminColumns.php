@@ -2,10 +2,16 @@
 
 namespace AC;
 
+use AC\_Admin\Controller;
+use AC\_Admin\Page\Addons;
+use AC\_Admin\Page\Columns;
+use AC\_Admin\Page\Tools;
+use AC\_Admin\PageCollection;
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
 use AC\Admin\Section\ListScreenMenu;
 use AC\Admin\Section\Restore;
+use AC\Asset\Location\Absolute;
 use AC\Controller\AjaxColumnValue;
 use AC\Controller\AjaxRequestCustomFieldKeys;
 use AC\Controller\AjaxRequestNewColumn;
@@ -60,7 +66,24 @@ class AdminColumns extends Plugin {
 
 		$this->register_admin();
 
+		$location = new Absolute(
+			$this->get_url(),
+			$this->get_dir()
+		);
+
+		$pages = new PageCollection();
+		$pages->add( new Columns() )
+		      ->add( new \AC\_Admin\Page\Settings() )
+		      ->add( new Addons() )
+		      ->add( new Tools() );
+
+		$network_pages = new PageCollection();
+		$network_pages->add( new Columns() )
+		              ->add( new \AC\_Admin\Page\Settings() );
+
 		$services = [
+			new AdminLoader( 'options-general.php', 'admin_menu', new Controller( new Request(), $pages ), $pages, $location ),
+			new AdminLoader( 'settings.php', 'network_admin_menu', new Controller( new Request(), $pages ), $network_pages, $location ),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new Screen,
