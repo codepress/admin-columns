@@ -40,8 +40,6 @@ class Columns extends Page implements Assets, Localizable {
 	// todo
 	private $notices = [];
 
-
-
 	public function __construct( ListScreenRequest $controller, Location\Absolute $location, UnitializedListScreens $uninitialized ) {
 		parent::__construct( self::SLUG, __( 'Admin Columns', 'codepress-admin-columns' ) );
 

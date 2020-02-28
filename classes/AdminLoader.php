@@ -51,11 +51,8 @@ class AdminLoader implements Registrable {
 		$this->location = $location;
 	}
 
-	/**
-	 * @return PageCollection
-	 */
-	public function get_pages() {
-		return $this->pages;
+	public function get_page( $slug ) {
+		return $this->pages->get( $slug );
 	}
 
 	/**
@@ -107,7 +104,7 @@ class AdminLoader implements Registrable {
 			1
 		);
 
-		add_action( 'admin_print_scripts-' . $hook, [ $this, 'scripts' ] );
+		add_action( "load-" . $hook, [ $this, 'scripts' ] );
 	}
 
 	public function render() {

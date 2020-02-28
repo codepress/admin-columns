@@ -1,24 +1,33 @@
 <?php
 
-namespace AC\_Admin\Page\Settings;
+namespace AC\_Admin\Section;
 
 use AC\_Admin\Renderable;
+use AC\_Admin\Section;
 use AC\View;
 
-class General implements Renderable {
+class General extends Section {
+
+	const SLUG = 'general';
 
 	/**
 	 * @var Renderable[]
 	 */
-	private $renderables;
+	private $options;
 
-	public function __construct( array $renderables ) {
-		$this->renderables = $renderables;
+	public function __construct( array $options ) {
+		parent::__construct( self::SLUG );
+
+		array_map( [ $this, 'add_option' ], $options );
+	}
+
+	public function add_option( Renderable $option ) {
+		$this->options[] = $option;
 	}
 
 	public function render() {
 		$form = new View( [
-			'options' => $this->renderables,
+			'options' => $this->options,
 		] );
 
 		$form->set_template( 'admin/page/settings-section-general' );

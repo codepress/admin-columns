@@ -73,7 +73,7 @@ class Admin implements Registrable {
 			}
 		);
 
-		add_action( "load-" . $this->hook_suffix, array( $this, 'on_load' ) );
+
 		add_action( "admin_print_scripts-" . $this->hook_suffix, array( $this, 'admin_scripts' ) );
 	}
 

@@ -1,11 +1,17 @@
 <?php
 
-namespace AC\_Admin\Page\Settings;
+namespace AC\_Admin\Section;
 
-use AC\_Admin\Renderable;
+use AC\_Admin\Section;
 use AC\View;
 
-class Restore implements Renderable {
+class Restore extends Section {
+
+	const SLUG = 'restore';
+
+	public function __construct() {
+		parent::__construct( self::SLUG );
+	}
 
 	public function render() {
 		$form = ( new View() )->set_template( 'admin/page/settings-section-restore' );

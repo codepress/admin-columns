@@ -3,7 +3,8 @@
 namespace AC\_Admin\Page;
 
 use AC\_Admin\Page;
-use AC\_Admin\Renderable;
+use AC\_Admin\Section;
+use AC\_Admin\SectionCollection;
 use AC\View;
 
 class Settings extends Page {
@@ -11,19 +12,32 @@ class Settings extends Page {
 	const SLUG = 'settings';
 
 	/**
-	 * @var Renderable[]
+	 * @var SectionCollection
 	 */
-	private $renderables;
+	private $sections;
 
-	public function __construct( array $renderables ) {
+	public function __construct( SectionCollection $sections ) {
 		parent::__construct( self::SLUG, __( 'Settings', 'codepress-admin-columns' ) );
 
-		$this->renderables = $renderables;
+		$this->sections = $sections;
+	}
+
+	/**
+	 * @param string $slug
+	 *
+	 * @return Section|null
+	 */
+	public function get_section( $slug ) {
+		return $this->sections->get( $slug );
+	}
+
+	public function add_section( Section $section ) {
+		$this->sections->put( $section->get_slug(), $section );
 	}
 
 	public function render() {
 		$view = new View( [
-			'sections' => $this->renderables,
+			'sections' => $this->sections,
 		] );
 		$view->set_template( 'admin/page/settings' );
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace AC\_Admin\Page\Settings\General;
+namespace AC\_Admin\Section\Partial;
 
 use AC\_Admin\Renderable;
 use AC\Form\Element\Checkbox;
 use AC\Settings\General;
 
-class ShowEditButton implements Renderable  {
+class ShowEditButton implements Renderable {
 
 	const OPTION_NAME = 'show_edit_button';
 
