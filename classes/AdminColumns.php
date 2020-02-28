@@ -5,6 +5,7 @@ namespace AC;
 use AC\_Admin\Controller;
 use AC\_Admin\Page\Addons;
 use AC\_Admin\Page\Columns;
+use AC\_Admin\Page\Settings\General;
 use AC\_Admin\Page\Tools;
 use AC\_Admin\PageCollection;
 use AC\Admin\GeneralSectionFactory;
@@ -77,19 +78,26 @@ class AdminColumns extends Plugin {
 			new UnitializedListScreens( new DefaultColumns() )
 		);
 
+		$settings = [
+			new General( [
+				new General\ShowEditButton( new \AC\Settings\General() ),
+			] ),
+			new \AC\_Admin\Page\Settings\Restore(),
+		];
+
 		$pages = new PageCollection();
 		$pages->add( $columns_page )
-		      ->add( new \AC\_Admin\Page\Settings() )
+		      ->add( new \AC\_Admin\Page\Settings( $settings ) )
 		      ->add( new Addons() )
 		      ->add( new Tools() );
 
-		$network_pages = new PageCollection();
-		$network_pages->add( $columns_page )
-		              ->add( new \AC\_Admin\Page\Settings() );
+		//		$network_pages = new PageCollection();
+		//		$network_pages->add( $columns_page )
+		//		              ->add( new \AC\_Admin\Page\Settings() );
 
 		$services = [
 			new AdminLoader( 'options-general.php', 'admin_menu', new Controller( new Request(), $pages ), $pages, $location ),
-			new AdminLoader( 'settings.php', 'network_admin_menu', new Controller( new Request(), $pages ), $network_pages, $location ),
+			//new AdminLoader( 'settings.php', 'network_admin_menu', new Controller( new Request(), $pages ), $network_pages, $location ),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new Screen,
