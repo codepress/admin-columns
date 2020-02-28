@@ -42,8 +42,6 @@ class Addons extends Page implements Assets, Localizable {
 	public function render() {
 		ob_start();
 
-		echo sprintf( '<h2>%s</h2>', $this->get_title() );
-
 		foreach ( $this->get_grouped_addons() as $group_slug => $group ) :
 			?>
 
