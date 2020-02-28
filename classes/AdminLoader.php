@@ -7,13 +7,14 @@ use AC\_Admin\Controller;
 use AC\_Admin\Menu;
 use AC\_Admin\PageCollection;
 use AC\Asset\Localizable;
-use AC\Asset\Location\Absolute;
+use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
 
 class AdminLoader implements Registrable {
 
 	const MENU_SLUG = 'codepress-admin-columns';
+
 	const QUERY_ARG_PAGE = 'page';
 	const QUERY_ARG_TAB = 'tab';
 
@@ -38,11 +39,11 @@ class AdminLoader implements Registrable {
 	private $pages;
 
 	/**
-	 * @var Absolute
+	 * @var Location\Absolute
 	 */
 	private $location;
 
-	public function __construct( $parent_slug, $menu_hook, Controller $controller, PageCollection $pages, Absolute $location ) {
+	public function __construct( $parent_slug, $menu_hook, Controller $controller, PageCollection $pages, Location\Absolute $location ) {
 		$this->parent_slug = $parent_slug;
 		$this->menu_hook = $menu_hook;
 		$this->pages = $pages;
@@ -75,7 +76,7 @@ class AdminLoader implements Registrable {
 	/**
 	 * @return Menu
 	 */
-	public function get_menu() {
+	private function get_menu() {
 		$menu = new Menu();
 
 		$current_slug = $this->controller->get_page()->get_slug();
@@ -131,9 +132,8 @@ class AdminLoader implements Registrable {
 			$page->localize();
 		}
 
-		wp_enqueue_style( 'wp-pointer' );
-
 		$assets = [
+			new Style( 'wp-pointer' ),
 			new Style( 'jquery-qtip2', $this->location->with_suffix( 'external/qtip2/jquery.qtip.min.css' ) ),
 			new Script( 'jquery-qtip2', $this->location->with_suffix( 'external/qtip2/jquery.qtip.min.js' ), [ 'jquery' ] ),
 			new Script( 'ac-admin-general', $this->location->with_suffix( 'assets/js/admin-general.js' ), [ 'jquery', 'wp-pointer', 'jquery-qtip2' ] ),
@@ -144,7 +144,7 @@ class AdminLoader implements Registrable {
 			$asset->enqueue();
 		}
 
-		do_action( 'ac/admin_scripts', $page );
+		do_action( 'ac/admin_scripts' );
 		do_action( 'ac/admin_scripts/' . $page->get_slug() );
 	}
 
