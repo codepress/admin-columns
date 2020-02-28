@@ -7,7 +7,6 @@ use AC\_Admin\Assets;
 use AC\_Admin\Page;
 use AC\Asset\Localizable;
 use AC\Asset\Location;
-use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\PluginInformation;
 
@@ -29,14 +28,8 @@ class Addons extends Page implements Assets, Localizable {
 	public function get_assets() {
 		return [
 			new Style( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/css/admin-page-addons.css' ) ),
-			new Script( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/js/admin-page-addons.js' ), [ 'jquery' ] ),
+			new Page\Assets\Addons( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/js/admin-page-addons.js' ) ),
 		];
-	}
-
-	public function localize() {
-		wp_localize_script( 'ac-admin-page-addons', 'AC', [
-			'ajax_nonce' => wp_create_nonce( 'ac-ajax' ),
-		] );
 	}
 
 	public function render() {
