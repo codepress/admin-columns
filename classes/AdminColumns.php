@@ -87,8 +87,9 @@ class AdminColumns extends Plugin {
 
 		$pages = new PageCollection();
 		$pages->add( $columns_page )
+
 		      ->add( new \AC\_Admin\Page\Settings( $settings ) )
-		      ->add( new Addons() )
+		      ->add( new Addons( $location ) )
 		      ->add( new Tools() );
 
 		//		$network_pages = new PageCollection();
