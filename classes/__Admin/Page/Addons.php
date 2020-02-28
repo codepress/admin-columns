@@ -3,12 +3,22 @@
 namespace AC\Admin\Page;
 
 use AC;
+<<<<<<< HEAD:classes/__Admin/Page/Addons.php
 use AC\Admin\Page;
 use AC\Message\Notice;
 use AC\PluginInformation;
 
 class Addons extends Page
 	implements AC\Registrable {
+=======
+use AC\_Admin\Assets;
+use AC\_Admin\Page;
+use AC\Asset\Location;
+use AC\Asset\Style;
+use AC\PluginInformation;
+
+class Addons extends Page implements Assets {
+>>>>>>> origin/admin-pages:classes/_Admin/Page/Addons.php
 
 	const NAME = 'addons';
 
@@ -26,6 +36,7 @@ class Addons extends Page
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
+<<<<<<< HEAD:classes/__Admin/Page/Addons.php
 	public function page_notices() {
 		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
 			return;
@@ -38,6 +49,17 @@ class Addons extends Page
 				sprintf( __( 'All add-ons require %s.', 'codepress-admin-columns' ), $link ),
 				Notice::INFO
 			);
+=======
+	public function get_assets() {
+		return [
+			new Style( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/css/admin-page-addons.css' ) ),
+			new Page\Assets\Addons( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/js/admin-page-addons.js' ) ),
+		];
+	}
+
+	public function render() {
+		ob_start();
+>>>>>>> origin/admin-pages:classes/_Admin/Page/Addons.php
 
 			return;
 		}

@@ -11,6 +11,7 @@ use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\PluginInformation;
 
+// todo: Assets from __Admin/Page/Addons
 class Addons extends Page implements Assets, Localizable {
 
 	const SLUG = 'addons';

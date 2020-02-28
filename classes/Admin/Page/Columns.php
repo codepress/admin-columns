@@ -19,6 +19,8 @@ use AC\ListScreen;
 use AC\UnitializedListScreens;
 use AC\View;
 
+
+// todo: Assets from __Admin/Page/Columns
 class Columns extends Page implements Assets, Localizable, Helpable {
 
 	const SLUG = 'columns';
