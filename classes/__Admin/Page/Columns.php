@@ -2,89 +2,78 @@
 
 namespace AC\Admin\Page;
 
-use AC\Admin\Assets;
-use AC\Admin\Banner;
-use AC\Admin\Helpable;
-use AC\Admin\HelpTab;
-use AC\Admin\Page;
-use AC\Admin\Section\Partial\Menu;
+use AC\Admin;
 use AC\Ajax;
-use AC\Asset\Localizable;
-use AC\Asset\Location;
-use AC\Asset\Script;
-use AC\Asset\Style;
 use AC\Column;
-use AC\Controller\ListScreenRequest;
+use AC\Controller;
 use AC\ListScreen;
+use AC\Registrable;
 use AC\UnitializedListScreens;
 use AC\View;
 
-class Columns extends Page implements Assets, Localizable, Helpable {
+class Columns extends Admin\Page
+	implements Admin\Helpable, Registrable {
 
-	const SLUG = 'columns';
-
-	/**
-	 * @var ListScreenRequest
-	 */
-	private $controller;
-
-	/**
-	 * @var Location\Absolute
-	 */
-	private $location;
-
-	/**
-	 * @var UnitializedListScreens
-	 */
-	private $uninitialized;
-
-	/**
-	 * @var Menu
-	 */
-	private $menu;
+	const NAME = 'columns';
 
 	/**
 	 * @var array
 	 */
-	// todo
 	private $notices = [];
 
-	public function __construct( ListScreenRequest $controller, Location\Absolute $location, UnitializedListScreens $uninitialized, Menu $menu ) {
-		parent::__construct( self::SLUG, __( 'Admin Columns', 'codepress-admin-columns' ) );
+	/** @var Controller\ListScreenRequest */
+	private $controller;
+
+	/**
+	 * @var Admin\Section\Menu
+	 */
+	private $menu;
+
+	/** @var UnitializedListScreens */
+	private $uninitialized;
+
+	public function __construct( Controller\ListScreenRequest $controller, Admin\Section\Menu $menu, UnitializedListScreens $uninitialized ) {
+		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->controller = $controller;
-		$this->location = $location;
-		$this->uninitialized = $uninitialized;
 		$this->menu = $menu;
+		$this->uninitialized = $uninitialized;
 	}
 
-	public function get_assets() {
-		return [
-			new Style( 'jquery-ui-lightness', $this->location->with_suffix( 'assets/ui-theme/jquery-ui-1.8.18.custom.css' ) ),
-			new Script( 'jquery-ui-slider' ),
-			new Script(
-				'ac-admin-page-columns',
-				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
-				[
-					'jquery',
-					'dashboard',
-					'jquery-ui-slider',
-					'jquery-ui-sortable',
-					'wp-pointer',
-				]
-			),
-			new Style( 'ac-admin-page-columns-css', $this->location->with_suffix( 'assets/css/admin-page-columns.css' ) ),
-			new Style( 'ac-select2' ),
-			new Script( 'ac-select2' ),
-		];
+	public function register() {
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+
+		$this->show_read_only_notice();
 	}
 
-	public function localize() {
+	public function show_read_only_notice() {
 		$list_screen = $this->controller->get_list_screen();
 
-		if ( null === $list_screen ) {
-			return;
+		if ( $list_screen->is_read_only() ) {
+			$message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
+
+			$this->notice( sprintf( '<p>%s</p>', apply_filters( 'ac/read_only_message', $message, $list_screen ) ), 'updated notice-info' );
 		}
+	}
+
+	/**
+	 * Admin scripts
+	 */
+	public function admin_scripts() {
+		$list_screen = $this->controller->get_list_screen();
+
+		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), AC()->get_version() );
+		wp_enqueue_script( 'jquery-ui-slider' );
+
+		wp_enqueue_script( 'ac-admin-page-columns', AC()->get_url() . "assets/js/admin-page-columns.js", array(
+			'jquery',
+			'dashboard',
+			'jquery-ui-slider',
+			'jquery-ui-sortable',
+			'wp-pointer',
+		), AC()->get_version() );
+
+		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_url() . 'assets/css/admin-page-columns.css', array(), AC()->get_version() );
 
 		$params = [
 			'_ajax_nonce'                => wp_create_nonce( Ajax\Handler::NONCE_ACTION ),
@@ -112,27 +101,51 @@ class Columns extends Page implements Assets, Localizable, Helpable {
 			];
 		}
 
+		wp_enqueue_style( 'ac-select2' );
+		wp_enqueue_script( 'ac-select2' );
+
 		wp_localize_script( 'ac-admin-page-columns', 'AC', $params );
 
+		do_action( 'ac/settings/scripts' );
 	}
 
-	public function get_help_tabs() {
-		return [
-			new HelpTab\Introduction(),
-			new HelpTab\Basics(),
-			new HelpTab\CustomField(),
-		];
+	/**
+	 * @param string $message Message body
+	 * @param string $type    Updated or error
+	 */
+	public function notice( $message, $type = 'updated' ) {
+		$this->notices[] = '<div class="ac-message inline ' . esc_attr( $type ) . '">' . $message . '</div>';
+	}
+
+	/**
+	 * @param string $label
+	 * @param string $main_label
+	 *
+	 * @return string
+	 */
+	private function get_truncated_side_label( $label, $main_label = '' ) {
+		if ( 34 < ( strlen( $label ) + ( strlen( $main_label ) * 1.1 ) ) ) {
+			$label = substr( $label, 0, 34 - ( strlen( $main_label ) * 1.1 ) ) . '...';
+		}
+
+		return $label;
+	}
+
+	private function render_loading_screen() {
+		$modal = new View( array(
+			'message' => 'Loading columns',
+		) );
+
+		echo $modal->set_template( 'admin/loading-message' );
 	}
 
 	public function render() {
-		ob_start();
-
 		$list_screen = $this->controller->get_list_screen();
 
 		if ( $this->uninitialized->has_list_screen( $list_screen->get_key() ) ) {
 			$this->render_loading_screen();
 
-			return '';
+			return;
 		}
 
 		?>
@@ -140,9 +153,11 @@ class Columns extends Page implements Assets, Localizable, Helpable {
 		<div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
 			<div class="main">
 
-				<?= $this->menu->render(); ?>
+				<?php
+				$this->menu->render();
 
-				<?php do_action( 'ac/settings/after_title', $list_screen ); ?>
+				do_action( 'ac/settings/after_title', $list_screen );
+				?>
 
 			</div>
 
@@ -164,13 +179,13 @@ class Columns extends Page implements Assets, Localizable, Helpable {
 							$delete_confirmation_message = sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $list_screen->get_title() . "'" );
 						}
 
-						$actions = new View( [
+						$actions = new View( array(
 							'label_main'                  => $label_main,
 							'label_second'                => $label_second,
 							'list_screen_key'             => $list_screen->get_key(),
 							'list_screen_id'              => $list_screen->get_layout_id(),
 							'delete_confirmation_message' => $delete_confirmation_message,
-						] );
+						) );
 
 						echo $actions->set_template( 'admin/edit-actions' );
 
@@ -180,13 +195,23 @@ class Columns extends Page implements Assets, Localizable, Helpable {
 
 					<?php if ( apply_filters( 'ac/show_banner', true ) ) : ?>
 
-						<?= new Banner(); ?>
+						<?php
 
-						<?= ( new View() )->set_template( 'admin/side-feedback' ); ?>
+						echo new Admin\Parts\Banner();
 
-					<?php endif; ?>
+						$feedback = new View();
 
-					<?= ( new View() )->set_template( 'admin/side-support' ); ?>
+						echo $feedback->set_template( 'admin/side-feedback' );
+
+					endif; ?>
+
+					<?php
+
+					$support = new View();
+
+					echo $support->set_template( 'admin/side-support' );
+
+					?>
 
 				</div><!--.ac-right-inner-->
 			</div><!--.ac-right-->
@@ -197,7 +222,7 @@ class Columns extends Page implements Assets, Localizable, Helpable {
 
 					echo implode( $this->notices );
 
-					$columns = new View( [
+					$columns = new View( array(
 						'class'          => $list_screen->is_read_only() ? ' disabled' : '',
 						'list_screen'    => $list_screen->get_key(),
 						'list_screen_id' => $list_screen->get_layout_id(),
@@ -205,7 +230,7 @@ class Columns extends Page implements Assets, Localizable, Helpable {
 						'columns'        => $list_screen->get_columns(),
 						'show_actions'   => ! $list_screen->is_read_only(),
 						'show_clear_all' => apply_filters( 'ac/enable_clear_columns_button', false ),
-					] );
+					) );
 
 					do_action( 'ac/settings/before_columns', $list_screen );
 
@@ -233,8 +258,6 @@ class Columns extends Page implements Assets, Localizable, Helpable {
 		$modal = new View();
 
 		echo $modal->set_template( 'admin/modal-pro' );
-
-		return ob_get_clean();
 	}
 
 	/**
@@ -248,7 +271,7 @@ class Columns extends Page implements Assets, Localizable, Helpable {
 			return array_shift( $column_types );
 		}
 
-		$columns = [];
+		$columns = array();
 
 		foreach ( $column_types as $column_type ) {
 			if ( $group === $column_type->get_group() ) {
@@ -278,33 +301,22 @@ class Columns extends Page implements Assets, Localizable, Helpable {
 			$column = $this->get_column_template_by_group( $list_screen->get_column_types() );
 		}
 
-		$view = new View( [
+		$view = new View( array(
 			'column' => $column,
-		] );
+		) );
 
 		echo $view->set_template( 'admin/edit-column' );
 	}
 
 	/**
-	 * @param string $label
-	 * @param string $main_label
-	 *
-	 * @return string
+	 * @return Admin\HelpTab[]
 	 */
-	private function get_truncated_side_label( $label, $main_label = '' ) {
-		if ( 34 < ( strlen( $label ) + ( strlen( $main_label ) * 1.1 ) ) ) {
-			$label = substr( $label, 0, 34 - ( strlen( $main_label ) * 1.1 ) ) . '...';
-		}
-
-		return $label;
-	}
-
-	private function render_loading_screen() {
-		$modal = new View( [
-			'message' => 'Loading columns',
-		] );
-
-		echo $modal->set_template( 'admin/loading-message' );
+	public function get_help_tabs() {
+		return array(
+			new Admin\HelpTab\Introduction(),
+			new Admin\HelpTab\Basics(),
+			new Admin\HelpTab\CustomField(),
+		);
 	}
 
 }

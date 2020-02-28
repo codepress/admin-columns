@@ -1,23 +1,41 @@
 <?php
+
 namespace AC\Admin;
 
 abstract class HelpTab {
 
 	/**
-	 * @return string
+	 * @var string
 	 */
-	abstract public function get_content();
+	private $id;
+
+	/**
+	 * @var string
+	 */
+	private $title;
+
+	public function __construct( $title ) {
+		$this->id = 'ac-tab-' . sanitize_key( get_called_class() );
+		$this->title = $title;
+	}
 
 	/**
 	 * @return string
 	 */
-	abstract public function get_title();
+	public function get_title() {
+		return $this->title;
+	}
 
 	/**
 	 * @return string
 	 */
 	public function get_id() {
-		return 'ac-tab-' . sanitize_key( get_called_class() );
+		return $this->id;
 	}
+
+	/**
+	 * @return string
+	 */
+	abstract public function get_content();
 
 }

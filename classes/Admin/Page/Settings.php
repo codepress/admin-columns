@@ -2,72 +2,46 @@
 
 namespace AC\Admin\Page;
 
-use AC;
 use AC\Admin\Page;
 use AC\Admin\Section;
+use AC\Admin\SectionCollection;
+use AC\View;
 
-class Settings extends Page
-	implements AC\Registrable {
+class Settings extends Page {
 
-	const NAME = 'settings';
+	const SLUG = 'settings';
 
 	/**
-	 * @var Section[]
+	 * @var SectionCollection
 	 */
-	private $sections = array();
+	private $sections;
 
-	public function __construct() {
-		parent::__construct( self::NAME, __( 'Settings', 'codepress-admin-columns' ) );
+	public function __construct( SectionCollection $sections ) {
+		parent::__construct( self::SLUG, __( 'Settings', 'codepress-admin-columns' ) );
+
+		$this->sections = $sections;
 	}
 
 	/**
-	 * @param Section $section
+	 * @param string $slug
 	 *
-	 * @return $this
+	 * @return Section|null
 	 */
-	public function register_section( Section $section ) {
-		$this->sections[] = $section;
-
-		return $this;
+	public function get_section( $slug ) {
+		return $this->sections->get( $slug );
 	}
 
-	/**
-	 * @return Section[]
-	 */
-	public function get_sections() {
-		return $this->sections;
+	public function add_section( Section $section ) {
+		$this->sections->put( $section->get_slug(), $section );
 	}
 
-	/**
-	 * Register Hooks
-	 */
-	public function register() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	public function render() {
+		$view = new View( [
+			'sections' => $this->sections,
+		] );
+		$view->set_template( 'admin/page/settings' );
 
-		foreach ( $this->sections as $section ) {
-			if ( $section instanceof AC\Registrable ) {
-				$section->register();
-			}
-		}
-	}
-
-	public function admin_scripts() {
-		wp_enqueue_style( 'ac-admin-page-settings', AC()->get_url() . 'assets/css/admin-page-settings.css', array(), AC()->get_version() );
-	}
-
-	public function render() { ?>
-		<table class="form-table ac-form-table settings">
-			<tbody>
-
-			<?php foreach ( $this->sections as $section ) {
-				$section->render();
-			}
-			?>
-
-			</tbody>
-		</table>
-
-		<?php
+		return $view->render();
 	}
 
 }

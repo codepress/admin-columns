@@ -11,7 +11,7 @@ use AC\Asset\Location;
 use AC\Controller\ListScreenRequest;
 use AC\ListScreenRepository\Aggregate;
 
-class AdminFactory {
+class AdminNetworkFactory {
 
 	/**
 	 * @var Aggregate
@@ -33,21 +33,12 @@ class AdminFactory {
 	 */
 	protected function create_columns_page() {
 
-		$list_screen_controller = new ListScreenRequest( new Request(), $this->list_screen_repository, new Preferences\Site( 'settings' ) );
-
-		// todo: check dependencies. maybe inject ListScreen instead of controller
+		// todo: only network sites and users
 		return new Page\Columns(
-			$list_screen_controller,
+			new ListScreenRequest( new Request(), $this->list_screen_repository, new Preferences\Site( 'settings' ) ),
 			$this->location,
-			new UnitializedListScreens( new DefaultColumns() ),
-			new Section\Partial\Menu( $list_screen_controller, false )
+			new UnitializedListScreens( new DefaultColumns() )
 		);
-	}
-
-	protected function create_section_general() {
-		return new Section\General( [
-			new Section\Partial\ShowEditButton( new Settings\General() ),
-		] );
 	}
 
 	/**
@@ -55,8 +46,8 @@ class AdminFactory {
 	 */
 	protected function create_settings_page() {
 		$sections = new SectionCollection();
-		$sections->add( $this->create_section_general() )
-		         ->add( new Section\Restore() );
+
+		// todo: add license
 
 		return new Page\Settings( $sections );
 	}
@@ -68,8 +59,7 @@ class AdminFactory {
 		$pages = new PageCollection();
 		$pages->add( $this->create_columns_page() )
 		      ->add( $this->create_settings_page() )
-		      ->add( new Page\Addons( $this->location ) )
-		      ->add( new Page\Tools() );
+		      ->add( new Page\Addons( $this->location ) );
 
 		return $pages;
 	}
@@ -86,8 +76,8 @@ class AdminFactory {
 	 */
 	public function create() {
 		return new Admin(
-			'options-general.php',
-			'admin_menu',
+			'settings.php',
+			'network_admin_menu',
 			$this->get_controller(),
 			$this->get_pages(),
 			$this->location

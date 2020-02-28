@@ -2,7 +2,7 @@
 
 namespace AC\Check;
 
-use AC\Admin\Promo;
+use AC\Promo;
 use AC\Ajax;
 use AC\Capabilities;
 use AC\Message\Notice\Dismissible;

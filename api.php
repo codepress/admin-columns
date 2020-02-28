@@ -127,7 +127,9 @@ function ac_get_admin_url( $slug = null ) {
 		$slug = 'columns';
 	}
 
-	return AC()->admin()->get_url( $slug );
+	// todo
+	return '';
+	//return AC()->admin()->get_url( $slug );
 }
 
 /**

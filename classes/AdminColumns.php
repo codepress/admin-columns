@@ -2,21 +2,14 @@
 
 namespace AC;
 
-use AC\_Admin\Controller;
-use AC\_Admin\Page\Addons;
-use AC\_Admin\Page\Columns;
-use AC\_Admin\Page\Tools;
-use AC\_Admin\PageCollection;
-use AC\_Admin\Section\Partial\ShowEditButton;
-use AC\_Admin\SectionCollection;
 use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
-use AC\Admin\Section\ListScreenMenu;
+use AC\Admin\Section\Menu;
 use AC\Admin\Section\Restore;
 use AC\Asset\Location\Absolute;
 use AC\Controller\AjaxColumnValue;
 use AC\Controller\AjaxRequestCustomFieldKeys;
-use AC\Controller\AjaxRequestNewColumn;
+use AC\Controller\AjaxColumnRequest;
 use AC\Controller\ListScreenRequest;
 use AC\Controller\ListScreenRestoreColumns;
 use AC\Controller\RedirectAddonStatus;
@@ -66,26 +59,26 @@ class AdminColumns extends Plugin {
 		$this->list_screen_repository = new ListScreenRepository\Aggregate();
 		$this->list_screen_repository->register_repository( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) );
 
-		$this->register_admin();
+		//$this->register_admin();
 
 		$location = new Absolute(
 			$this->get_url(),
 			$this->get_dir()
 		);
 
-		$admin = ( new AdminFactory( $this->list_screen_repository, $location ) )->create();
-//		$network_admin = ( new NetworkAdminFactory( $this->list_screen_repository, $location ) )->create();
+		$this->admin = ( new AdminFactory( $this->list_screen_repository, $location ) )->create();
+		//$network_admin = ( new AdminNetworkFactory( $this->list_screen_repository, $location ) )->create();
 
 		// todo: move to PRO
-		/** @var \AC\_Admin\Page\Settings $page_settings */
-//		$page_settings = $admin->get_page( 'settings' );
-		/** @var \AC\_Admin\Section\General $section */
-//		$section = $page_settings->get_section( 'general' );
-//		$section->add_option( new ShowEditButton( new \AC\Settings\General() ) );
+		/** @var \AC\Admin\Page\Settings $page_settings */
+		//		$page_settings = $admin->get_page( 'settings' );
+		/** @var \AC\Admin\Section\General $section */
+		//		$section = $page_settings->get_section( 'general' );
+		//		$section->add_option( new ShowEditButton( new \AC\Settings\General() ) );
 
 		$services = [
-			$admin,
-//			$network_admin,
+			$this->admin,
+			//$network_admin,
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new Screen,
@@ -97,12 +90,12 @@ class AdminColumns extends Plugin {
 			new DefaultColumnsController( new Request(), new DefaultColumns() ),
 			new QuickEdit( $this->list_screen_repository, $this->preferences() ),
 			new Capabilities\Manage(),
-			new AjaxRequestNewColumn( $this->list_screen_repository ),
+			new AjaxColumnRequest( $this->list_screen_repository ),
 			new AjaxRequestCustomFieldKeys(),
 			new AjaxColumnValue( $this->list_screen_repository ),
 			new ListScreenRestoreColumns( $this->list_screen_repository ),
-			new RedirectAddonStatus( $this->admin->get_url( Page\Addons::NAME ) ),
-			new PluginActionLinks( $this->get_basename(), $this->admin->get_url( Page\Columns::NAME ) ),
+			new RedirectAddonStatus( '' ), // todo $this->admin->get_url( Page\Addons::NAME )
+			new PluginActionLinks( $this->get_basename(), '' ), // todo: $this->admin->get_url( Page\Columns::NAME )
 			new NoticeChecks(),
 		];
 
@@ -334,7 +327,7 @@ class AdminColumns extends Plugin {
 			->register_section( GeneralSectionFactory::create() )
 			->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
 
-		$page_columns = new Page\Columns( $listscreen_controller, new ListScreenMenu( $listscreen_controller ), new UnitializedListScreens( new DefaultColumns() ) );
+		$page_columns = new Page\Columns( $listscreen_controller, new Menu( $listscreen_controller ), new UnitializedListScreens( new DefaultColumns() ) );
 
 		$this->admin->register_page( $page_columns )
 		            ->register_page( $page_settings )
