@@ -5,12 +5,11 @@ namespace AC\_Admin\Page;
 use AC;
 use AC\_Admin\Assets;
 use AC\_Admin\Page;
-use AC\Asset\Localizable;
 use AC\Asset\Location;
 use AC\Asset\Style;
 use AC\PluginInformation;
 
-class Addons extends Page implements Assets, Localizable {
+class Addons extends Page implements Assets {
 
 	const SLUG = 'addons';
 
