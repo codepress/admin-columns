@@ -5,7 +5,6 @@ namespace AC;
 use AC\_Admin\Controller;
 use AC\_Admin\Page\Addons;
 use AC\_Admin\Page\Columns;
-use AC\_Admin\Page\Settings\General;
 use AC\_Admin\Page\Tools;
 use AC\_Admin\PageCollection;
 use AC\_Admin\Section\Partial\ShowEditButton;
@@ -74,44 +73,19 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
-		// todo: how to deal with network?
-		$columns_page = new Columns(
-			new ListScreenRequest( new Request(), $this->list_screen_repository, new Preferences\Site( 'settings' ) ),
-			$location,
-			new UnitializedListScreens( new DefaultColumns() )
-		);
-
-		$sections = new SectionCollection();
-		$sections->add( new \AC\_Admin\Section\General( [ new ShowEditButton( new \AC\Settings\General() ) ] ) );
-		$sections->add( new \AC\_Admin\Section\Restore() );
-
-		$settings = new \AC\_Admin\Page\Settings( $sections );
-
-		$pages = new PageCollection();
-		$pages->add( $columns_page )
-		      ->add( $settings )
-		      ->add( new Addons() )
-		      ->add( new Tools() );
-
-		$admin = new AdminLoader( 'options-general.php', 'admin_menu', new Controller( new Request(), $pages ), $pages, $location );
+		$admin = ( new AdminFactory( $this->list_screen_repository, $location ) )->create();
+//		$network_admin = ( new NetworkAdminFactory( $this->list_screen_repository, $location ) )->create();
 
 		// todo: move to PRO
 		/** @var \AC\_Admin\Page\Settings $page_settings */
-		$page_settings = $admin->get_page( 'settings' );
+//		$page_settings = $admin->get_page( 'settings' );
 		/** @var \AC\_Admin\Section\General $section */
-		$section = $page_settings->get_section( 'general' );
-		$section->add_option( new ShowEditButton( new \AC\Settings\General() ) );
-
-		$network_pages = new PageCollection();
-		$network_pages->add( $columns_page )
-		              ->add( $settings );
-		$network_admin = new AdminLoader( 'settings.php', 'network_admin_menu', new Controller( new Request(), $pages ), $network_pages, $location );
-
-		// todo: end
+//		$section = $page_settings->get_section( 'general' );
+//		$section->add_option( new ShowEditButton( new \AC\Settings\General() ) );
 
 		$services = [
 			$admin,
-			$network_admin,
+//			$network_admin,
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new Screen,
