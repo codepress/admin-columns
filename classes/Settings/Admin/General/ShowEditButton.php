@@ -5,6 +5,8 @@ namespace AC\Settings\Admin\General;
 use AC\Form\Element\Checkbox;
 use AC\Settings\Admin\General;
 
+// todo: remove. see AC\Admin\Section\Partial\ShowEditButton
+// todo create option with enabled.
 class ShowEditButton extends General {
 
 	public function __construct() {

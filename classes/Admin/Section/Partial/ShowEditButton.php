@@ -15,6 +15,7 @@ class ShowEditButton implements Renderable {
 	 */
 	private $options;
 
+	// todo: inject Option/ShowEditButton
 	public function __construct( General $options ) {
 		$this->options = $options;
 	}

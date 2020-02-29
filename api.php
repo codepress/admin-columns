@@ -53,7 +53,7 @@ function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_camp
 		$utm_campaign = 'plugin-installation';
 	}
 
-	$args = array(
+	$args = [
 		// Referrer: plugin
 		'utm_source'   => 'plugin-installation',
 
@@ -65,7 +65,7 @@ function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_camp
 
 		// Used for differentiation of medium
 		'utm_content'  => $utm_content,
-	);
+	];
 
 	$args = array_map( 'sanitize_key', array_filter( $args ) );
 
@@ -127,9 +127,27 @@ function ac_get_admin_url( $slug = null ) {
 		$slug = 'columns';
 	}
 
-	// todo
-	return '';
-	//return AC()->admin()->get_url( $slug );
+	return add_query_arg(
+		[
+			\AC\Admin::QUERY_ARG_PAGE => \AC\Admin::NAME,
+			\AC\Admin::QUERY_ARG_TAB  => $slug,
+		],
+		admin_url( 'options-general.php' )
+	);
+}
+
+function ac_get_admin_network_url( $slug = null ) {
+	if ( null === $slug ) {
+		$slug = 'columns';
+	}
+
+	return add_query_arg(
+		[
+			\AC\Admin::QUERY_ARG_PAGE => \AC\Admin::NAME,
+			\AC\Admin::QUERY_ARG_TAB  => $slug,
+		],
+		admin_url( 'options-general.php' )
+	);
 }
 
 /**
@@ -141,7 +159,7 @@ function ac_get_admin_url( $slug = null ) {
  * @return string
  */
 function ac_convert_site_url( $label, $action = 'encode' ) {
-	$input = array( site_url(), '[cpac_site_url]' );
+	$input = [ site_url(), '[cpac_site_url]' ];
 
 	if ( 'decode' == $action ) {
 		$input = array_reverse( $input );

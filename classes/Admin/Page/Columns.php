@@ -8,10 +8,8 @@ use AC\Admin\Helpable;
 use AC\Admin\HelpTab;
 use AC\Admin\Page;
 use AC\Admin\Section\Partial\Menu;
-use AC\Ajax;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
-use AC\Asset\Localizable;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
@@ -21,7 +19,7 @@ use AC\ListScreen;
 use AC\UnitializedListScreens;
 use AC\View;
 
-class Columns extends Page implements Enqueueables, Localizable, Helpable {
+class Columns extends Page implements Enqueueables, Helpable {
 
 	const NAME = 'columns';
 
@@ -76,42 +74,43 @@ class Columns extends Page implements Enqueueables, Localizable, Helpable {
 		] );
 	}
 
-	public function localize() {
-		$list_screen = $this->controller->get_list_screen();
-
-		if ( null === $list_screen ) {
-			return;
-		}
-
-		$params = [
-			'_ajax_nonce'                => wp_create_nonce( Ajax\Handler::NONCE_ACTION ),
-			'list_screen'                => $list_screen->get_key(),
-			'layout'                     => $list_screen->get_layout_id(),
-			'original_columns'           => [],
-			'uninitialized_list_screens' => [],
-			'i18n'                       => [
-				'clone'  => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-				'error'  => __( 'Invalid response.', 'codepress-admin-columns' ),
-				'errors' => [
-					'save_settings'  => __( 'There was an error during saving the column settings.', 'codepress-admin-columns' ),
-					'loading_column' => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
-				],
-			],
-		];
-
-		foreach ( $this->uninitialized->get_list_screens() as $list_screen ) {
-
-			$key = $list_screen->get_key();
-
-			$params['uninitialized_list_screens'][ $key ] = [
-				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $key ], $list_screen->get_screen_link() ),
-				'label'       => $list_screen->get_label(),
-			];
-		}
-
-		wp_localize_script( 'ac-admin-page-columns', 'AC', $params );
-
-	}
+	// todo: remove
+	//	public function localize() {
+	//		$list_screen = $this->controller->get_list_screen();
+	//
+	//		if ( null === $list_screen ) {
+	//			return;
+	//		}
+	//
+	//		$params = [
+	//			'_ajax_nonce'                => wp_create_nonce( Ajax\Handler::NONCE_ACTION ),
+	//			'list_screen'                => $list_screen->get_key(),
+	//			'layout'                     => $list_screen->get_layout_id(),
+	//			'original_columns'           => [],
+	//			'uninitialized_list_screens' => [],
+	//			'i18n'                       => [
+	//				'clone'  => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+	//				'error'  => __( 'Invalid response.', 'codepress-admin-columns' ),
+	//				'errors' => [
+	//					'save_settings'  => __( 'There was an error during saving the column settings.', 'codepress-admin-columns' ),
+	//					'loading_column' => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
+	//				],
+	//			],
+	//		];
+	//
+	//		foreach ( $this->uninitialized->get_list_screens() as $list_screen ) {
+	//
+	//			$key = $list_screen->get_key();
+	//
+	//			$params['uninitialized_list_screens'][ $key ] = [
+	//				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $key ], $list_screen->get_screen_link() ),
+	//				'label'       => $list_screen->get_label(),
+	//			];
+	//		}
+	//
+	//		wp_localize_script( 'ac-admin-page-columns', 'AC', $params );
+	//
+	//	}
 
 	public function get_help_tabs() {
 		return [

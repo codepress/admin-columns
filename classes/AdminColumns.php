@@ -3,12 +3,10 @@
 namespace AC;
 
 use AC\Admin\Page;
-use AC\Admin\Section\Restore;
 use AC\Asset\Location\Absolute;
 use AC\Controller\AjaxColumnRequest;
 use AC\Controller\AjaxColumnValue;
 use AC\Controller\AjaxRequestCustomFieldKeys;
-use AC\Controller\ListScreenRequest;
 use AC\Controller\ListScreenRestoreColumns;
 use AC\Controller\RedirectAddonStatus;
 use AC\Deprecated;
@@ -80,8 +78,8 @@ class AdminColumns extends Plugin {
 			new AjaxRequestCustomFieldKeys(),
 			new AjaxColumnValue( $this->list_screen_repository ),
 			new ListScreenRestoreColumns( $this->list_screen_repository ),
-			new RedirectAddonStatus( '' ), // todo $this->admin->get_url( Page\Addons::NAME )
-			new PluginActionLinks( $this->get_basename(), '' ), // todo: $this->admin->get_url( Page\Columns::NAME )
+			new RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ) ), // todo test on network
+			new PluginActionLinks( $this->get_basename(), ac_get_admin_url( Page\Columns::NAME ) ),
 			new NoticeChecks(),
 		];
 
@@ -298,28 +296,6 @@ class AdminColumns extends Plugin {
 		$relative_dir = str_replace( WP_PLUGIN_DIR, '', $this->get_dir() );
 
 		load_plugin_textdomain( 'codepress-admin-columns', false, $relative_dir . 'languages/' );
-	}
-
-	/**
-	 * @return void
-	 */
-	private function register_admin() {
-		$listscreen_controller = new ListScreenRequest( new Request(), $this->list_screen_repository, new Preferences\Site( 'settings' ) );
-
-		$this->admin = new Admin( 'options-general.php', 'admin_menu', admin_url() );
-
-		$page_settings = new Page\Settings();
-		$page_settings
-			->register_section( GeneralSectionFactory::create() )
-			->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
-
-		$page_columns = new Page\Columns( $listscreen_controller, new Menu( $listscreen_controller ), new UnitializedListScreens( new DefaultColumns() ) );
-
-		$this->admin->register_page( $page_columns )
-		            ->register_page( $page_settings )
-		            ->register_page( new Page\Addons() )
-		            ->register_page( new Page\Help() )
-		            ->register();
 	}
 
 	/**
