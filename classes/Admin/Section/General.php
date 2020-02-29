@@ -8,7 +8,7 @@ use AC\View;
 
 class General extends Section {
 
-	const SLUG = 'general';
+	const NAME = 'general';
 
 	/**
 	 * @var Renderable[]
@@ -16,7 +16,7 @@ class General extends Section {
 	private $options;
 
 	public function __construct( array $options ) {
-		parent::__construct( self::SLUG );
+		parent::__construct( self::NAME );
 
 		array_map( [ $this, 'add_option' ], $options );
 	}

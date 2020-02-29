@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\_Admin\Page\Assets;
+namespace AC\Admin\Asset;
 
 use AC\Asset\Location;
 use AC\Asset\Script;

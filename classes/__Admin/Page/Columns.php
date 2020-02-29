@@ -2,16 +2,13 @@
 
 namespace AC\Admin\Page;
 
-<<<<<<< HEAD:classes/__Admin/Page/Columns.php
 use AC\Admin;
 use AC\Ajax;
-=======
-use AC\_Admin\Assets;
-use AC\_Admin\Page;
+use AC\Admin\Assets;
+use AC\Admin\Page;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
->>>>>>> origin/admin-pages:classes/_Admin/Page/Columns.php
 use AC\Column;
 use AC\Controller;
 use AC\ListScreen;
@@ -19,12 +16,9 @@ use AC\Registrable;
 use AC\UnitializedListScreens;
 use AC\View;
 
-<<<<<<< HEAD:classes/__Admin/Page/Columns.php
+
 class Columns extends Admin\Page
-	implements Admin\Helpable, Registrable {
-=======
-class Columns extends Page implements Assets {
->>>>>>> origin/admin-pages:classes/_Admin/Page/Columns.php
+	implements Admin\Helpable, Registrable, Assets {
 
 	const NAME = 'columns';
 

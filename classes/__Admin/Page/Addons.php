@@ -3,22 +3,14 @@
 namespace AC\Admin\Page;
 
 use AC;
-<<<<<<< HEAD:classes/__Admin/Page/Addons.php
 use AC\Admin\Page;
 use AC\Message\Notice;
-use AC\PluginInformation;
-
-class Addons extends Page
-	implements AC\Registrable {
-=======
-use AC\_Admin\Assets;
-use AC\_Admin\Page;
+use AC\Admin\Assets;
 use AC\Asset\Location;
 use AC\Asset\Style;
 use AC\PluginInformation;
 
 class Addons extends Page implements Assets {
->>>>>>> origin/admin-pages:classes/_Admin/Page/Addons.php
 
 	const NAME = 'addons';
 

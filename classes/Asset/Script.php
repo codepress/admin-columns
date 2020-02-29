@@ -2,7 +2,7 @@
 
 namespace AC\Asset;
 
-class Script extends Asset {
+class Script extends Enqueueable {
 
 	public function register() {
 		if ( null === $this->location ) {

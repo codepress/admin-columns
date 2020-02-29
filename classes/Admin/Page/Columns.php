@@ -2,13 +2,15 @@
 
 namespace AC\Admin\Page;
 
-use AC\Admin\Assets;
+use AC\Admin;
 use AC\Admin\Banner;
 use AC\Admin\Helpable;
 use AC\Admin\HelpTab;
 use AC\Admin\Page;
 use AC\Admin\Section\Partial\Menu;
 use AC\Ajax;
+use AC\Asset\Assets;
+use AC\Asset\Enqueueables;
 use AC\Asset\Localizable;
 use AC\Asset\Location;
 use AC\Asset\Script;
@@ -19,11 +21,9 @@ use AC\ListScreen;
 use AC\UnitializedListScreens;
 use AC\View;
 
+class Columns extends Page implements Enqueueables, Localizable, Helpable {
 
-// todo: Assets from __Admin/Page/Columns
-class Columns extends Page implements Assets, Localizable, Helpable {
-
-	const SLUG = 'columns';
+	const NAME = 'columns';
 
 	/**
 	 * @var ListScreenRequest
@@ -52,7 +52,7 @@ class Columns extends Page implements Assets, Localizable, Helpable {
 	private $notices = [];
 
 	public function __construct( ListScreenRequest $controller, Location\Absolute $location, UnitializedListScreens $uninitialized, Menu $menu ) {
-		parent::__construct( self::SLUG, __( 'Admin Columns', 'codepress-admin-columns' ) );
+		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->controller = $controller;
 		$this->location = $location;
@@ -61,24 +61,19 @@ class Columns extends Page implements Assets, Localizable, Helpable {
 	}
 
 	public function get_assets() {
-		return [
+		return new Assets( [
 			new Style( 'jquery-ui-lightness', $this->location->with_suffix( 'assets/ui-theme/jquery-ui-1.8.18.custom.css' ) ),
 			new Script( 'jquery-ui-slider' ),
-			new Script(
+			new Admin\Asset\Columns(
 				'ac-admin-page-columns',
 				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
-				[
-					'jquery',
-					'dashboard',
-					'jquery-ui-slider',
-					'jquery-ui-sortable',
-					'wp-pointer',
-				]
+				$this->uninitialized,
+				$this->controller->get_list_screen()
 			),
 			new Style( 'ac-admin-page-columns-css', $this->location->with_suffix( 'assets/css/admin-page-columns.css' ) ),
 			new Style( 'ac-select2' ),
 			new Script( 'ac-select2' ),
-		];
+		] );
 	}
 
 	public function localize() {

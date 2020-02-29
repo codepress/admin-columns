@@ -2,10 +2,11 @@
 
 namespace AC;
 
-use AC\Admin\Assets;
-use AC\Admin\Controller;
+use AC\Admin\Helpable;
 use AC\Admin\Menu;
+use AC\Admin\Page;
 use AC\Admin\PageCollection;
+use AC\Asset\Enqueueables;
 use AC\Asset\Localizable;
 use AC\Asset\Location;
 use AC\Asset\Script;
@@ -29,9 +30,9 @@ class Admin implements Registrable {
 	private $menu_hook;
 
 	/**
-	 * @var Controller
+	 * @var Request
 	 */
-	private $controller;
+	private $request;
 
 	/**
 	 * @var PageCollection
@@ -43,16 +44,20 @@ class Admin implements Registrable {
 	 */
 	private $location;
 
-	public function __construct( $parent_slug, $menu_hook, Controller $controller, PageCollection $pages, Location\Absolute $location ) {
+	public function __construct( $parent_slug, $menu_hook, Request $request, PageCollection $pages, Location\Absolute $location ) {
 		$this->parent_slug = $parent_slug;
 		$this->menu_hook = $menu_hook;
 		$this->pages = $pages;
-		$this->controller = $controller;
+		$this->request = $request;
 		$this->location = $location;
 	}
 
 	public function get_page( $slug ) {
 		return $this->pages->get( $slug );
+	}
+
+	public function add_page( Page $page ) {
+		$this->pages->add( $page );
 	}
 
 	/**
@@ -71,12 +76,25 @@ class Admin implements Registrable {
 	}
 
 	/**
+	 * @return Page
+	 */
+	private function get_current_page() {
+		$slug = $this->request->get( 'tab' );
+
+		if ( $this->pages->has( $slug ) ) {
+			return $this->pages->get( $slug );
+		}
+
+		return $this->pages->current();
+	}
+
+	/**
 	 * @return Menu
 	 */
 	private function get_menu() {
 		$menu = new Menu();
 
-		$current_slug = $this->controller->get_page()->get_slug();
+		$current_slug = $this->get_current_page()->get_slug();
 
 		foreach ( $this->pages->all() as $page ) {
 			$class = $current_slug === $page->get_slug()
@@ -111,15 +129,15 @@ class Admin implements Registrable {
 		?>
 		<div id="cpac" class="wrap">
 			<?= $this->get_menu()->render(); ?>
-			<?= $this->controller->get_page()->render(); ?>
+			<?= $this->get_current_page()->render(); ?>
 		</div>
 		<?php
 	}
 
 	public function scripts() {
-		$page = $this->controller->get_page();
+		$page = $this->get_current_page();
 
-		if ( $page instanceof Assets ) {
+		if ( $page instanceof Enqueueables ) {
 			foreach ( $page->get_assets() as $asset ) {
 				$asset->enqueue();
 			}
@@ -129,7 +147,7 @@ class Admin implements Registrable {
 			$page->localize();
 		}
 
-		if ( $page instanceof \AC\Admin\Helpable ) {
+		if ( $page instanceof Helpable ) {
 			foreach ( $page->get_help_tabs() as $help ) {
 				get_current_screen()->add_help_tab( [
 					'id'      => $help->get_id(),
@@ -153,6 +171,8 @@ class Admin implements Registrable {
 
 		do_action( 'ac/admin_scripts' );
 		do_action( 'ac/admin_scripts/' . $page->get_slug() );
+
+		// todo: add original hook
 	}
 
 }

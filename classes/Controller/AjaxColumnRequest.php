@@ -3,6 +3,7 @@
 namespace AC\Controller;
 
 use AC\Ajax;
+use AC\Controller\ColumnRequest\Refresh;
 use AC\Controller\ColumnRequest\Save;
 use AC\Controller\ColumnRequest\Select;
 use AC\ListScreenRepository\Aggregate;
@@ -47,13 +48,14 @@ class AjaxColumnRequest implements Registrable {
 
 		switch ( $this->request->get( 'id' ) ) {
 			case 'save':
-				return new Save( $this->repository );
-
+				( new Save( $this->repository ) )->request( $this->request );
+				break;
 			case 'select':
-				return new Select();
-
+				( new Select() )->request( $this->request );
+				break;
 			case 'refresh':
-				return new Refresh();
+				( new Refresh() )->request( $this->request );
+				break;
 		}
 
 		throw new LogicException( 'Could not handle request.' );

@@ -14,7 +14,7 @@ class Settings extends Page
 	/**
 	 * @var Section[]
 	 */
-	private $sections = array();
+	private $sections = [];
 
 	public function __construct() {
 		parent::__construct( self::NAME, __( 'Settings', 'codepress-admin-columns' ) );
@@ -42,7 +42,7 @@ class Settings extends Page
 	 * Register Hooks
 	 */
 	public function register() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] );
 
 		foreach ( $this->sections as $section ) {
 			if ( $section instanceof AC\Registrable ) {
@@ -52,7 +52,7 @@ class Settings extends Page
 	}
 
 	public function admin_scripts() {
-		wp_enqueue_style( 'ac-admin-page-settings', AC()->get_url() . 'assets/css/admin-page-settings.css', array(), AC()->get_version() );
+		wp_enqueue_style( 'ac-admin-page-settings', AC()->get_url() . 'assets/css/admin-page-settings.css', [], AC()->get_version() );
 	}
 
 	public function render() { ?>

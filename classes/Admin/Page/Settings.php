@@ -5,19 +5,21 @@ namespace AC\Admin\Page;
 use AC\Admin\Page;
 use AC\Admin\Section;
 use AC\Admin\SectionCollection;
+use AC\Asset\Assets;
+use AC\Asset\Enqueueables;
 use AC\View;
 
-class Settings extends Page {
+class Settings extends Page implements Enqueueables {
 
-	const SLUG = 'settings';
+	const NAME = 'settings';
 
 	/**
 	 * @var SectionCollection
 	 */
-	private $sections;
+	protected $sections;
 
 	public function __construct( SectionCollection $sections ) {
-		parent::__construct( self::SLUG, __( 'Settings', 'codepress-admin-columns' ) );
+		parent::__construct( self::NAME, __( 'Settings', 'codepress-admin-columns' ) );
 
 		$this->sections = $sections;
 	}
@@ -32,16 +34,27 @@ class Settings extends Page {
 	}
 
 	public function add_section( Section $section ) {
-		$this->sections->put( $section->get_slug(), $section );
+		$this->sections->add( $section );
+	}
+
+	public function get_assets() {
+		$assets = new Assets();
+
+		foreach ( $this->sections as $section ) {
+			if ( $section instanceof Assets ) {
+				$assets->add_collection( $section->get_assets() );
+			}
+		}
+
+		return $assets;
 	}
 
 	public function render() {
 		$view = new View( [
 			'sections' => $this->sections,
 		] );
-		$view->set_template( 'admin/page/settings' );
 
-		return $view->render();
+		return $view->set_template( 'admin/page/settings' )->render();
 	}
 
 }

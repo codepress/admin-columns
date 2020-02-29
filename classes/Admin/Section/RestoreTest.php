@@ -5,9 +5,9 @@ namespace AC\Admin\Section;
 use AC\Admin\Section;
 use AC\View;
 
-class Restore extends Section {
+class RestoreTest extends Section {
 
-	const NAME = 'restore';
+	const NAME = 'restore-test';
 
 	public function __construct() {
 		parent::__construct( self::NAME );

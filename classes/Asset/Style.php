@@ -2,7 +2,7 @@
 
 namespace AC\Asset;
 
-class Style extends Asset {
+class Style extends Enqueueable {
 
 	public function register() {
 		if ( null === $this->location ) {

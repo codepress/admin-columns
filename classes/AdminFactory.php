@@ -2,7 +2,6 @@
 
 namespace AC;
 
-use AC\Admin\Controller;
 use AC\Admin\Page;
 use AC\Admin\PageCollection;
 use AC\Admin\Section;
@@ -68,28 +67,22 @@ class AdminFactory {
 		$pages = new PageCollection();
 		$pages->add( $this->create_columns_page() )
 		      ->add( $this->create_settings_page() )
-		      ->add( new Page\Addons( $this->location ) )
-		      ->add( new Page\Tools() );
+		      ->add( new Page\Addons( $this->location ) );
 
 		return $pages;
-	}
-
-	/**
-	 * @return Controller
-	 */
-	protected function get_controller() {
-		return new Controller( new Request(), $this->get_pages() );
 	}
 
 	/**
 	 * @return Admin
 	 */
 	public function create() {
+		$pages = $this->get_pages();
+
 		return new Admin(
 			'options-general.php',
 			'admin_menu',
-			$this->get_controller(),
-			$this->get_pages(),
+			new Request(),
+			$pages,
 			$this->location
 		);
 	}

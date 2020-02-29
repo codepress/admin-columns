@@ -3,18 +3,18 @@
 namespace AC\Admin\Page;
 
 use AC;
-use AC\Admin\Assets;
+use AC\Admin;
 use AC\Admin\Page;
+use AC\Asset\Assets;
 use AC\Asset\Localizable;
 use AC\Asset\Location;
-use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\PluginInformation;
 
 // todo: Assets from __Admin/Page/Addons
-class Addons extends Page implements Assets, Localizable {
+class Addons extends Page implements AC\Asset\Enqueueables, Localizable {
 
-	const SLUG = 'addons';
+	const NAME = 'addons';
 
 	/**
 	 * @var Location\Absolute
@@ -22,16 +22,16 @@ class Addons extends Page implements Assets, Localizable {
 	private $location;
 
 	public function __construct( Location\Absolute $location ) {
-		parent::__construct( self::SLUG, __( 'Add-ons', 'codepress-admin-columns' ) );
+		parent::__construct( self::NAME, __( 'Add-ons', 'codepress-admin-columns' ) );
 
 		$this->location = $location;
 	}
 
 	public function get_assets() {
-		return [
+		return new Assets( [
 			new Style( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/css/admin-page-addons.css' ) ),
-			new Script( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/js/admin-page-addons.js' ), [ 'jquery' ] ),
-		];
+			new Admin\Asset\Addons( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/js/admin-page-addons.js' ) ),
+		] );
 	}
 
 	public function localize() {
