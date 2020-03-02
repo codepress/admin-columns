@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.5
 Tested up to: 5.3.2
 Requires PHP: 5.6.20
-Stable tag: 4.0.0
+Stable tag: 4.0.1
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -213,9 +213,16 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
-Release Date: tbd
+= 4.0.2 =
+Release Date: February 26th, 2020
 
+* [Updated] Fallback for wp_timezone when running WordPress < 5.3
+* [Updated] Languages for core version updated
+
+= 4.0.1 =
+Release Date: February 18th, 2020
+
+* [Fixed] Fatal error in Date helper that occurs in PHP 5.6
 * [Improved] Re-added the hook `ac/column/custom_field/use_text_input` to use a text field for the custom field column setting
 
 = 4.0.0 =

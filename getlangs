@@ -43,10 +43,10 @@ for index in "${languages[@]}" ; do
     KEY="${index%%::*}"
     LOCALE="${index##*::}"
 
-    url="https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns/stable/${KEY}/default/export-translations?format="
+    #url="https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns/stable/${KEY}/default/export-translations/"
+    url="https://translate.wordpress.org/projects/wp-plugins/codepress-admin-columns/stable/${KEY}/default/export-translations/?format="
 
     for ext in "${exts[@]}"; do
-
         curl $url$ext --silent --output codepress-admin-columns-$LOCALE.$ext &
     done
 

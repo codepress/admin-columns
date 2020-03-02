@@ -4,6 +4,7 @@ namespace AC\Helper;
 
 use DateTime;
 use DateTimeZone;
+use Exception;
 
 class Date {
 
@@ -13,7 +14,7 @@ class Date {
 	 * @return int|false
 	 */
 	public function strtotime( $date ) {
-		if ( empty( $date ) || in_array( $date, array( '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ) ) || ! is_scalar( $date ) ) {
+		if ( empty( $date ) || in_array( $date, [ '0000-00-00 00:00:00', '0000-00-00', '00:00:00' ] ) || ! is_scalar( $date ) ) {
 			return false;
 		}
 
@@ -58,7 +59,11 @@ class Date {
 			return $date;
 		}
 
-		return ( DateTime::createFromFormat( $format, $date ) )->format( 'U' );
+		$_date = DateTime::createFromFormat( $format, $date );
+
+		return $_date
+			? $_date->format( 'U' )
+			: false;
 	}
 
 	/**
@@ -120,7 +125,25 @@ class Date {
 			$timezone = new DateTimeZone( date_default_timezone_get() );
 		}
 
+		// since WP 3.5
 		return wp_date( $format, $timestamp, $timezone );
+	}
+
+	/**
+	 * @return DateTimeZone|null
+	 */
+	public function timezone() {
+		if ( ! function_exists( 'wp_timezone' ) ) {
+			try {
+				return new DateTimeZone( get_option( 'timezone_string' ) );
+			}
+			catch ( Exception $e ) {
+				return null;
+			}
+		}
+
+		// since WP 3.5
+		return wp_timezone();
 	}
 
 	/**
@@ -153,7 +176,7 @@ class Date {
 	 * @since 1.1
 	 */
 	public function parse_jquery_dateformat( $format ) {
-		$replace = array(
+		$replace = [
 			'^dd^d' => 'j',
 			'dd'    => 'd',
 			'DD'    => 'l',
@@ -162,10 +185,10 @@ class Date {
 			'^mm^m' => 'n',
 			'mm'    => 'm',
 			'yy'    => 'Y',
-		);
+		];
 
-		$replace_from = array();
-		$replace_to = array();
+		$replace_from = [];
+		$replace_to = [];
 
 		foreach ( $replace as $from => $to ) {
 			$replace_from[] = '/' . $from . '/';

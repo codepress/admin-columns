@@ -15,9 +15,9 @@ abstract class DateTimeFormat extends Settings\Column
 	}
 
 	protected function define_options() {
-		return array(
+		return [
 			'date_format' => 'wp_default',
-		);
+		];
 	}
 
 	abstract protected function get_custom_format_options();
@@ -52,32 +52,21 @@ abstract class DateTimeFormat extends Settings\Column
 			->create_element( 'text' )
 			->set_attribute( 'placeholder', $this->get_default() );
 
-		$view = new View( array(
+		$view = new View( [
 			'setting'      => $setting,
 			'date_format'  => $this->get_date_format(),
 			'date_options' => $this->get_date_options(),
 			'label'        => __( 'Date Format', 'codepress-admin-columns' ),
 			'tooltip'      => __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ),
-		) );
+		] );
 
 		$view->set_template( 'settings/setting-date' );
 
 		return $view;
 	}
 
-	/**
-	 * @param string $format
-	 * @param null   $time
-	 * @param null   $timezone
-	 *
-	 * @return string
-	 */
-	private function format_date( $format, $time = null, $timezone = null ) {
-		return ac_helper()->date->format_date( $format, $time, $timezone );
-	}
-
 	public function get_html_label_from_date_format( $date_format ) {
-		return $this->format_date( $date_format, null, wp_timezone() );
+		return ac_helper()->date->format_date( $date_format, null, ac_helper()->date->timezone() );
 	}
 
 	/**
@@ -86,10 +75,10 @@ abstract class DateTimeFormat extends Settings\Column
 	 * @return array
 	 */
 	protected function get_formatted_date_options( $formats ) {
-		$options = array();
+		$options = [];
 
 		foreach ( $formats as $format ) {
-			$options[ $format ] = $this->get_html_label( $this->format_date( $format, null, wp_timezone() ), $format );
+			$options[ $format ] = $this->get_html_label( ac_helper()->date->format_date( $format, null, ac_helper()->date->timezone() ), $format );
 		}
 
 		return $options;
@@ -122,7 +111,7 @@ abstract class DateTimeFormat extends Settings\Column
 		$custom_label = $this->get_html_label(
 			__( 'Custom:', 'codepress-admin-columns' ),
 			'',
-			sprintf( __( 'Learn more about %s.', 'codepress-admin-columns' ), ac_helper()->html->link( 'https://wordpress.org/support/article/formatting-date-and-time/', __( 'date and time formatting', 'codepress-admin-columns' ), array( 'target' => '_blank' ) ) )
+			sprintf( __( 'Learn more about %s.', 'codepress-admin-columns' ), ac_helper()->html->link( 'https://wordpress.org/support/article/formatting-date-and-time/', __( 'date and time formatting', 'codepress-admin-columns' ), [ 'target' => '_blank' ] ) )
 		);
 
 		$custom_label .= '<input type="text" class="ac-setting-input-date__custom" value="' . esc_attr( $this->get_date_format() ) . '" disabled>';
@@ -195,11 +184,11 @@ abstract class DateTimeFormat extends Settings\Column
 
 		switch ( $date_format ) {
 			case 'wp_default' :
-				$date = $this->format_date( $this->get_wp_default_format(), $timestamp );
+				$date = ac_helper()->date->format_date( $this->get_wp_default_format(), $timestamp );
 
 				break;
 			default :
-				$date = $this->format_date( $date_format, $timestamp );
+				$date = ac_helper()->date->format_date( $date_format, $timestamp );
 		}
 
 		return $date;
