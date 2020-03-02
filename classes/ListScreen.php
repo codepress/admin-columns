@@ -445,7 +445,7 @@ abstract class ListScreen {
 		return add_query_arg( [
 			'list_screen' => $this->key,
 			'layout_id'   => $this->get_layout_id(),
-		], ac_get_admin_url() );
+		], ac_get_admin_url( 'columns' ) );
 	}
 
 	/**

@@ -52,6 +52,18 @@ class Admin implements Registrable {
 		$this->location = $location;
 	}
 
+	/**
+	 * @return Location\Absolute
+	 */
+	public function get_location() {
+		return $this->location;
+	}
+
+	/**
+	 * @param string $slug
+	 *
+	 * @return Page|null
+	 */
 	public function get_page( $slug ) {
 		return $this->pages->get( $slug );
 	}
@@ -115,11 +127,10 @@ class Admin implements Registrable {
 		$hook = add_submenu_page(
 			$this->parent_slug,
 			__( 'Admin Columns Settings', 'codepress-admin-columns' ),
-			__( 'Admin Columns Test', 'codepress-admin-columns' ),
+			__( 'Admin Columns', 'codepress-admin-columns' ),
 			Capabilities::MANAGE,
 			self::NAME,
-			[ $this, 'render' ],
-			1
+			[ $this, 'render' ]
 		);
 
 		add_action( "load-" . $hook, [ $this, 'scripts' ] );
@@ -141,10 +152,6 @@ class Admin implements Registrable {
 			foreach ( $page->get_assets() as $asset ) {
 				$asset->enqueue();
 			}
-		}
-
-		if ( $page instanceof Localizable ) {
-			$page->localize();
 		}
 
 		if ( $page instanceof Helpable ) {

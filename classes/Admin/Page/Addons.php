@@ -6,13 +6,11 @@ use AC;
 use AC\Admin;
 use AC\Admin\Page;
 use AC\Asset\Assets;
-use AC\Asset\Localizable;
 use AC\Asset\Location;
 use AC\Asset\Style;
 use AC\PluginInformation;
 
-// todo: Assets from __Admin/Page/Addons. remove Localizable
-class Addons extends Page implements AC\Asset\Enqueueables, Localizable {
+class Addons extends Page implements AC\Asset\Enqueueables {
 
 	const NAME = 'addons';
 

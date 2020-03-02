@@ -35,6 +35,8 @@ class Settings extends Page implements Enqueueables {
 
 	public function add_section( Section $section ) {
 		$this->sections->add( $section );
+
+		return $this;
 	}
 
 	public function get_assets() {

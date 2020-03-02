@@ -1,5 +1,6 @@
 <?php
 
+use AC\Admin;
 use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
@@ -118,35 +119,32 @@ function ac_load_columns( array $data ) {
 }
 
 /**
- * @param string $slug Page slug
+ * @param string|null $slug
  *
  * @return string
  */
-function ac_get_admin_url( $slug = null ) {
-	if ( null === $slug ) {
-		$slug = 'columns';
-	}
-
+function ac_get_admin_url( $slug ) {
 	return add_query_arg(
 		[
-			\AC\Admin::QUERY_ARG_PAGE => \AC\Admin::NAME,
-			\AC\Admin::QUERY_ARG_TAB  => $slug,
+			Admin::QUERY_ARG_PAGE => Admin::NAME,
+			Admin::QUERY_ARG_TAB  => $slug,
 		],
 		admin_url( 'options-general.php' )
 	);
 }
 
+/**
+ * @param string|null $slug
+ *
+ * @return string
+ */
 function ac_get_admin_network_url( $slug = null ) {
-	if ( null === $slug ) {
-		$slug = 'columns';
-	}
-
 	return add_query_arg(
 		[
-			\AC\Admin::QUERY_ARG_PAGE => \AC\Admin::NAME,
-			\AC\Admin::QUERY_ARG_TAB  => $slug,
+			Admin::QUERY_ARG_PAGE => Admin::NAME,
+			Admin::QUERY_ARG_TAB  => $slug,
 		],
-		admin_url( 'options-general.php' )
+		network_admin_url( 'settings.php' )
 	);
 }
 
