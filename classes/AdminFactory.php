@@ -8,6 +8,7 @@ use AC\Admin\Section;
 use AC\Admin\SectionCollection;
 use AC\Asset\Location;
 use AC\Controller\ListScreenRequest;
+use AC\Deprecated\Hooks;
 use AC\ListScreenRepository\Aggregate;
 
 class AdminFactory {
@@ -31,10 +32,12 @@ class AdminFactory {
 	 * @return Page\Columns
 	 */
 	protected function create_columns_page() {
+		$list_screen_controller = new ListScreenRequest(
+			new Request(),
+			$this->list_screen_repository,
+			new Preferences\Site( 'settings' )
+		);
 
-		$list_screen_controller = new ListScreenRequest( new Request(), $this->list_screen_repository, new Preferences\Site( 'settings' ) );
-
-		// todo: check dependencies. maybe inject ListScreen instead of controller
 		return new Page\Columns(
 			$list_screen_controller,
 			$this->location,
@@ -67,10 +70,12 @@ class AdminFactory {
 		$pages = new PageCollection();
 		$pages->add( $this->create_columns_page() )
 		      ->add( $this->create_settings_page() )
-		      ->add( new Page\Addons( $this->location ) )
+		      ->add( new Page\Addons( $this->location ) );
 
-			// todo
-		      ->add( new Page\Help() );
+		$hooks = new Hooks();
+		if ( $hooks->get_count() > 0 ) {
+			$pages->add( new Page\Help( new Hooks(), $this->location ) );
+		}
 
 		return $pages;
 	}
@@ -84,7 +89,6 @@ class AdminFactory {
 		return new Admin(
 			'options-general.php',
 			'admin_menu',
-			new Request(),
 			$pages,
 			$this->location
 		);

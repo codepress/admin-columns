@@ -7,7 +7,6 @@ use AC\Admin\Menu;
 use AC\Admin\Page;
 use AC\Admin\PageCollection;
 use AC\Asset\Enqueueables;
-use AC\Asset\Localizable;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
@@ -30,11 +29,6 @@ class Admin implements Registrable {
 	private $menu_hook;
 
 	/**
-	 * @var Request
-	 */
-	private $request;
-
-	/**
 	 * @var PageCollection
 	 */
 	private $pages;
@@ -44,11 +38,10 @@ class Admin implements Registrable {
 	 */
 	private $location;
 
-	public function __construct( $parent_slug, $menu_hook, Request $request, PageCollection $pages, Location\Absolute $location ) {
+	public function __construct( $parent_slug, $menu_hook, PageCollection $pages, Location\Absolute $location ) {
 		$this->parent_slug = $parent_slug;
 		$this->menu_hook = $menu_hook;
 		$this->pages = $pages;
-		$this->request = $request;
 		$this->location = $location;
 	}
 
@@ -91,7 +84,7 @@ class Admin implements Registrable {
 	 * @return Page
 	 */
 	private function get_current_page() {
-		$slug = $this->request->get( 'tab' );
+		$slug = filter_input( INPUT_GET, 'tab' );
 
 		if ( $this->pages->has( $slug ) ) {
 			return $this->pages->get( $slug );

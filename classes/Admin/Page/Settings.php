@@ -43,7 +43,7 @@ class Settings extends Page implements Enqueueables {
 		$assets = new Assets();
 
 		foreach ( $this->sections as $section ) {
-			if ( $section instanceof Assets ) {
+			if ( $section instanceof Enqueueables ) {
 				$assets->add_collection( $section->get_assets() );
 			}
 		}
