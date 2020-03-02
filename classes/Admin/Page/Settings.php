@@ -33,6 +33,11 @@ class Settings extends Page implements Enqueueables {
 		return $this->sections->get( $slug );
 	}
 
+	/**
+	 * @param Section $section
+	 *
+	 * @return $this
+	 */
 	public function add_section( Section $section ) {
 		$this->sections->add( $section );
 
