@@ -313,9 +313,10 @@ body.rtl {
 
 .ac-wp-pointer {
 	img {
-		max-width: calc(100% - 20px);
+		max-width: calc(100% - 40px);
 		height: auto;
-		margin: 10px;
+		margin: 20px;
+		margin-bottom: 5px;
 		margin-top: 0;
 	}
 }
