@@ -9,7 +9,6 @@ use AC\Controller\AjaxColumnValue;
 use AC\Controller\AjaxRequestCustomFieldKeys;
 use AC\Controller\ListScreenRestoreColumns;
 use AC\Controller\RedirectAddonStatus;
-use AC\Counter;
 use AC\ListScreenRepository;
 use AC\ListScreenRepository\FilterStrategy;
 use AC\Screen\QuickEdit;
