@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: TBD
+
+* [Improved] Send list screen ID with table form
+
 = 4.0.2 =
 Release Date: February 26th, 2020
 

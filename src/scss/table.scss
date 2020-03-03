@@ -266,6 +266,10 @@ body.upload-php .tablenav.top .ac-button {
 .ac-toggle-box-contents {
 	display: none;
 	padding: 5px 0 0;
+
+	&.-open {
+		display: block;
+	}
 }
 
 table.ac-table-items {
