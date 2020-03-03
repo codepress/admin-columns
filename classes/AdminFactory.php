@@ -70,7 +70,7 @@ class AdminFactory {
 		$pages = new PageCollection();
 		$pages->add( $this->create_columns_page() )
 		      ->add( $this->create_settings_page() )
-		      ->add( new Page\Addons( $this->location ) );
+		      ->add( new Page\Addons( $this->location, new Integrations() ) );
 
 		$hooks = new Hooks();
 		if ( $hooks->get_count() > 0 ) {

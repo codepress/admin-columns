@@ -6,24 +6,30 @@ use AC;
 use AC\Admin;
 use AC\Admin\Page;
 use AC\Asset\Assets;
+use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Style;
 use AC\PluginInformation;
 
-class Addons extends Page implements AC\Asset\Enqueueables {
+class Addons extends Page implements Enqueueables {
 
 	const NAME = 'addons';
 
 	/**
 	 * @var Location\Absolute
 	 */
-
 	private $location;
 
-	public function __construct( Location\Absolute $location ) {
+	/**
+	 * @var AC\Integrations
+	 */
+	private $integrations;
+
+	public function __construct( Location\Absolute $location, AC\Integrations $integrations ) {
 		parent::__construct( self::NAME, __( 'Add-ons', 'codepress-admin-columns' ) );
 
 		$this->location = $location;
+		$this->integrations = $integrations;
 	}
 
 	public function get_assets() {
@@ -33,19 +39,13 @@ class Addons extends Page implements AC\Asset\Enqueueables {
 		] );
 	}
 
-	public function localize() {
-		wp_localize_script( 'ac-admin-page-addons', 'AC', [
-			'ajax_nonce' => wp_create_nonce( 'ac-ajax' ),
-		] );
-	}
-
 	public function render() {
 		ob_start();
 
 		foreach ( $this->get_grouped_addons() as $group_slug => $group ) :
 			?>
 
-			<div class="ac-addons group-<?php echo esc_attr( $group_slug ); ?>">
+			<div class="ac-addons group-<?= esc_attr( $group_slug ); ?>">
 				<h2><?php echo esc_html( $group['title'] ); ?></h2>
 
 				<ul>
@@ -144,7 +144,7 @@ class Addons extends Page implements AC\Asset\Enqueueables {
 	/**
 	 * Deactivate plugin
 	 *
-	 * @param $basename
+	 * @param string $basename
 	 *
 	 * @return string
 	 */
@@ -188,7 +188,7 @@ class Addons extends Page implements AC\Asset\Enqueueables {
 		$active = [];
 		$inactive = [];
 
-		foreach ( new AC\Integrations() as $integration ) {
+		foreach ( $this->integrations as $integration ) {
 			if ( $this->get_plugin_info( $integration->get_basename() )->is_active() ) {
 				$active[] = $integration;
 			} else {
@@ -271,7 +271,6 @@ class Addons extends Page implements AC\Asset\Enqueueables {
 	 *
 	 * @return PluginInformation
 	 */
-
 	private function get_plugin_info( $basename ) {
 		return new PluginInformation( $basename );
 	}

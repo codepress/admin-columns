@@ -83,7 +83,7 @@ class AdminColumns extends Plugin {
 			new ListScreenRestoreColumns( $this->storage ),
 			new AjaxColumnValue( $this->storage ),
 			new ListScreenRestoreColumns( $this->storage ),
-			new RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ) ),
+			new RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
 			new PluginActionLinks( $this->get_basename(), ac_get_admin_url( Page\Columns::NAME ) ),
 			new NoticeChecks(),
 			new TableLoader( $this->storage, new PermissionChecker(), $location ),
