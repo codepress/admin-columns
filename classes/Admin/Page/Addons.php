@@ -17,6 +17,7 @@ class Addons extends Page implements AC\Asset\Enqueueables {
 	/**
 	 * @var Location\Absolute
 	 */
+
 	private $location;
 
 	public function __construct( Location\Absolute $location ) {
@@ -270,6 +271,7 @@ class Addons extends Page implements AC\Asset\Enqueueables {
 	 *
 	 * @return PluginInformation
 	 */
+
 	private function get_plugin_info( $basename ) {
 		return new PluginInformation( $basename );
 	}

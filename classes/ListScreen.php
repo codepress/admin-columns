@@ -3,7 +3,9 @@
 namespace AC;
 
 use AC\Column\Placeholder;
+use AC\Type\ListScreenId;
 use DateTime;
+use LogicException;
 use ReflectionClass;
 use ReflectionException;
 
@@ -127,6 +129,24 @@ abstract class ListScreen {
 	 * @var DateTime
 	 */
 	private $updated;
+
+	/**
+	 * @return bool
+	 */
+	public function has_id() {
+		return ListScreenId::is_valid_id( $this->layout_id );
+	}
+
+	/**
+	 * @return ListScreenId
+	 */
+	public function get_id() {
+		if ( ! $this->has_id() ) {
+			throw new LogicException( 'ListScreen has no identity.' );
+		}
+
+		return new ListScreenId( $this->layout_id );
+	}
 
 	/**
 	 * Contains the hook that contains the manage_value callback
@@ -417,7 +437,9 @@ abstract class ListScreen {
 	 * @return DateTime
 	 */
 	public function get_updated() {
-		return $this->updated ? $this->updated : new DateTime();
+		return $this->updated
+			? $this->updated
+			: new DateTime();
 	}
 
 	/**
@@ -432,10 +454,10 @@ abstract class ListScreen {
 	 * @since 2.0
 	 */
 	public function get_screen_link() {
-		return add_query_arg( array(
+		return add_query_arg( [
 			'page'   => $this->get_page(),
 			'layout' => $this->get_layout_id(),
-		), $this->get_admin_url() );
+		], $this->get_admin_url() );
 	}
 
 	/**
@@ -481,9 +503,7 @@ abstract class ListScreen {
 		$columns = $this->get_columns();
 
 		foreach ( $columns as $column ) {
-
-			// Do not do a var type check. All column names
-			// are stored as strings, even integers.
+			// Do not do a strict comparision. All column names are stored as strings, even integers.
 			if ( $column->get_name() == $name ) {
 				return $column;
 			}
@@ -546,7 +566,7 @@ abstract class ListScreen {
 		}
 
 		// Skip the custom registered columns which are marked 'original' but are not available for this list screen
-		if ( $column->is_original() && ! in_array( $column->get_type(), array_keys( $this->get_original_columns() ) ) ) {
+		if ( $column->is_original() && ! array_key_exists( $column->get_type(), $this->get_original_columns() ) ) {
 			return;
 		}
 
@@ -586,7 +606,7 @@ abstract class ListScreen {
 	 * Available column types
 	 */
 	private function set_column_types() {
-		$this->column_types = array();
+		$this->column_types = [];
 
 		// Register default columns
 		foreach ( $this->get_original_columns() as $type => $label ) {
@@ -754,14 +774,14 @@ abstract class ListScreen {
 		// Nothing stored. Use WP default columns.
 		if ( null === $this->columns ) {
 			foreach ( $this->get_original_columns() as $type => $label ) {
-				if ( $column = $this->create_column( array( 'type' => $type, 'original' => true ) ) ) {
+				if ( $column = $this->create_column( [ 'type' => $type, 'original' => true ] ) ) {
 					$this->register_column( $column );
 				}
 			}
 		}
 
 		if ( null === $this->columns ) {
-			$this->columns = array();
+			$this->columns = [];
 		}
 	}
 
@@ -772,11 +792,6 @@ abstract class ListScreen {
 		return $this->settings;
 	}
 
-	/**
-	 * @param array $settings
-	 *
-	 * @return self
-	 */
 	public function set_preferences( array $preferences ) {
 		$this->preferences = $preferences;
 
@@ -886,7 +901,7 @@ abstract class ListScreen {
 	public function get_default_column_headers() {
 		_deprecated_function( __METHOD__, '4.0' );
 
-		return array();
+		return [];
 	}
 
 	/**

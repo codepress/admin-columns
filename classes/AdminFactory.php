@@ -9,22 +9,22 @@ use AC\Admin\SectionCollection;
 use AC\Asset\Location;
 use AC\Controller\ListScreenRequest;
 use AC\Deprecated\Hooks;
-use AC\ListScreenRepository\Aggregate;
+use AC\ListScreenRepository\Storage;
 
 class AdminFactory {
 
 	/**
-	 * @var Aggregate
+	 * @var Storage
 	 */
-	protected $list_screen_repository;
+	protected $storage;
 
 	/**
 	 * @var Location\Absolute
 	 */
 	protected $location;
 
-	public function __construct( Aggregate $list_screen_repository, Location\Absolute $location ) {
-		$this->list_screen_repository = $list_screen_repository;
+	public function __construct( Storage $storage, Location\Absolute $location ) {
+		$this->storage = $storage;
 		$this->location = $location;
 	}
 
@@ -34,7 +34,7 @@ class AdminFactory {
 	protected function create_columns_page() {
 		$list_screen_controller = new ListScreenRequest(
 			new Request(),
-			$this->list_screen_repository,
+			$this->storage,
 			new Preferences\Site( 'settings' )
 		);
 

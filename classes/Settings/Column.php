@@ -18,7 +18,7 @@ abstract class Column {
 	 * The options this field manages (optionally with default values)
 	 * @var array
 	 */
-	protected $options = array();
+	protected $options = [];
 
 	/**
 	 * @var AC\Column
@@ -29,7 +29,7 @@ abstract class Column {
 	 * Options that are set by the user and should not be overwritten with defaults
 	 * @var array
 	 */
-	private $user_set = array();
+	private $user_set = [];
 
 	/**
 	 * @param AC\Column $column
@@ -42,8 +42,8 @@ abstract class Column {
 	}
 
 	/**
-	 * @see AC\Settings_Column::$options
 	 * @return array
+	 * @see AC\Settings_Column::$options
 	 */
 	protected abstract function define_options();
 
@@ -58,7 +58,7 @@ abstract class Column {
 	 * @return Column[]
 	 */
 	public function get_dependent_settings() {
-		return array();
+		return [];
 	}
 
 	private function set_options() {
@@ -102,7 +102,7 @@ abstract class Column {
 	 * @return array
 	 */
 	public function get_values() {
-		$values = array();
+		$values = [];
 
 		foreach ( array_keys( $this->options ) as $option ) {
 			$values[ $option ] = $this->get_value( $option );
@@ -364,7 +364,13 @@ abstract class Column {
 	}
 
 	public function __toString() {
-		return $this->render();
+		$rendered = $this->render();
+
+		if ( ! is_string( $rendered ) ) {
+			return '';
+		}
+
+		return $rendered;
 	}
 
 	public function get_column() {

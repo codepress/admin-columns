@@ -6,24 +6,25 @@ use AC\Ajax;
 use AC\Controller\ColumnRequest\Refresh;
 use AC\Controller\ColumnRequest\Save;
 use AC\Controller\ColumnRequest\Select;
-use AC\ListScreenRepository\Aggregate;
-use AC\ListScreenRepository\ListScreenRepository;
+use AC\ListScreenRepository\Storage;
 use AC\Registrable;
 use AC\Request;
 use LogicException;
 
 class AjaxColumnRequest implements Registrable {
 
-	/** @var Aggregate */
-	private $repository;
+	/**
+	 * @var Storage
+	 */
+	private $storage;
 
 	/**
 	 * @var Request
 	 */
 	private $request;
 
-	public function __construct( ListScreenRepository $repository ) {
-		$this->repository = $repository;
+	public function __construct( Storage $storage ) {
+		$this->storage = $storage;
 		$this->request = new Request();
 	}
 
@@ -48,7 +49,7 @@ class AjaxColumnRequest implements Registrable {
 
 		switch ( $this->request->get( 'id' ) ) {
 			case 'save':
-				( new Save( $this->repository ) )->request( $this->request );
+				( new Save( $this->storage ) )->request( $this->request );
 				break;
 			case 'select':
 				( new Select() )->request( $this->request );

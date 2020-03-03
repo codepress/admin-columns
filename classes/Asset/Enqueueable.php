@@ -51,11 +51,13 @@ abstract class Enqueueable {
 	/**
 	 * @return void
 	 */
+
 	abstract public function register();
 
 	/**
 	 * @return void
 	 */
+
 	abstract public function enqueue();
 
 }

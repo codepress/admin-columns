@@ -4,13 +4,15 @@ namespace AC;
 
 use AC\Admin\Page;
 use AC\Asset\Location\Absolute;
+use AC\Asset\Script;
+use AC\Asset\Style;
 use AC\Controller\AjaxColumnRequest;
 use AC\Controller\AjaxColumnValue;
 use AC\Controller\AjaxRequestCustomFieldKeys;
 use AC\Controller\ListScreenRestoreColumns;
 use AC\Controller\RedirectAddonStatus;
-use AC\ListScreenRepository;
-use AC\ListScreenRepository\FilterStrategy;
+use AC\Deprecated;
+use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
 use AC\Table;
 use AC\ThirdParty;
@@ -27,13 +29,16 @@ class AdminColumns extends Plugin {
 	 */
 	private $table_screen;
 
-	/** @var ListScreenRepository\Aggregate */
-	private $list_screen_repository;
+	/**
+	 * @var ListScreenRepository\Storage
+	 */
+	private $storage;
 
 	/**
 	 * @since 2.5
+	 * @var self
 	 */
-	private static $instance = null;
+	private static $instance;
 
 	/**
 	 * @since 2.5
@@ -50,18 +55,18 @@ class AdminColumns extends Plugin {
 	 * @since 1.0
 	 */
 	private function __construct() {
-		$this->list_screen_repository = new ListScreenRepository\Aggregate();
-		$this->list_screen_repository->register_repository( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) );
+		$this->storage = new Storage();
 
 		$location = new Absolute(
 			$this->get_url(),
 			$this->get_dir()
 		);
 
-		$this->admin = ( new AdminFactory( $this->list_screen_repository, $location ) )->create();
+		$this->admin = ( new AdminFactory( $this->storage, $location ) )->create();
 
 		$services = [
 			$this->admin,
+			new Service\Storage( $this->storage, ListScreenTypes::instance() ),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new Screen,
@@ -71,15 +76,17 @@ class AdminColumns extends Plugin {
 			new ThirdParty\WooCommerce,
 			new ThirdParty\WPML,
 			new DefaultColumnsController( new Request(), new DefaultColumns() ),
-			new QuickEdit( $this->list_screen_repository, $this->preferences() ),
+			new QuickEdit( $this->storage, $this->preferences() ),
 			new Capabilities\Manage(),
-			new AjaxColumnRequest( $this->list_screen_repository ),
+			new AjaxColumnRequest( $this->storage ),
 			new AjaxRequestCustomFieldKeys(),
-			new AjaxColumnValue( $this->list_screen_repository ),
-			new ListScreenRestoreColumns( $this->list_screen_repository ),
-			new RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ) ), // todo test on network
+			new ListScreenRestoreColumns( $this->storage ),
+			new AjaxColumnValue( $this->storage ),
+			new ListScreenRestoreColumns( $this->storage ),
+			new RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ) ),
 			new PluginActionLinks( $this->get_basename(), ac_get_admin_url( Page\Columns::NAME ) ),
 			new NoticeChecks(),
+			new TableLoader( $this->storage, new PermissionChecker(), $location ),
 		];
 
 		foreach ( $services as $service ) {
@@ -93,14 +100,13 @@ class AdminColumns extends Plugin {
 		add_action( 'init', [ $this, 'register_list_screens' ], 1000 ); // run after all post types are registered
 		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
-		add_action( 'ac/screen', [ $this, 'init_table_on_screen' ] );
 	}
 
 	/**
-	 * @return ListScreenRepository\Aggregate
+	 * @return ListScreenRepository\Storage
 	 */
-	public function get_listscreen_repository() {
-		return $this->list_screen_repository;
+	public function get_storage() {
+		return $this->storage;
 	}
 
 	/**
@@ -110,75 +116,6 @@ class AdminColumns extends Plugin {
 		return new Preferences\Site( 'layout_table' );
 	}
 
-	/**
-	 * @param Screen $screen
-	 */
-	public function init_table_on_screen( Screen $screen ) {
-		$key = $screen->get_list_screen();
-
-		if ( ! $key ) {
-			return;
-		}
-
-		// Requested
-		$list_id = filter_input( INPUT_GET, 'layout' );
-
-		// Last visited
-		if ( ! $list_id ) {
-			$list_id = $this->preferences()->get( $key );
-		}
-
-		$list_screen = null;
-		$permission_checker = ( new PermissionChecker( wp_get_current_user() ) );
-
-		if ( $list_id ) {
-			$requested_list_screen = $this->list_screen_repository->find( $list_id );
-
-			if ( $requested_list_screen && $permission_checker->is_valid( $requested_list_screen ) ) {
-				$list_screen = $requested_list_screen;
-			}
-		}
-
-		// First visit or not found
-		if ( ! $list_screen ) {
-			$list_screen = $this->get_first_list_screen( $key, $permission_checker );
-		}
-
-		$this->preferences()->set( $key, $list_screen->get_layout_id() );
-
-		$table_screen = new Table\Screen( $list_screen );
-		$table_screen->register();
-
-		do_action( 'ac/table', $table_screen );
-
-		$this->table_screen = $table_screen;
-	}
-
-	/**
-	 * @param string            $key
-	 * @param PermissionChecker $permission_checker
-	 *
-	 * @return ListScreen|null
-	 */
-	private function get_first_list_screen( $key, PermissionChecker $permission_checker ) {
-		$list_screens = $this->list_screen_repository->find_all( [
-			'key'    => $key,
-			'filter' => new FilterStrategy\ByPermission( $permission_checker ),
-		] );
-
-		if ( $list_screens->count() > 0 ) {
-
-			// First visit. Load first available list Id.
-			return $list_screens->current();
-		}
-
-		// No available list screen found.
-		return ListScreenTypes::instance()->get_list_screen_by_key( $key );
-	}
-
-	/**
-	 * @return string
-	 */
 	protected function get_file() {
 		return AC_FILE;
 	}
@@ -251,14 +188,21 @@ class AdminColumns extends Plugin {
 		do_action( 'ac/list_screens', $this );
 	}
 
-	/**
-	 * @return void
-	 */
+	private function get_location() {
+		return new Absolute( $this->get_url(), $this->get_dir() );
+	}
+
 	public function register_global_scripts() {
-		wp_register_script( 'ac-select2-core', $this->get_url() . 'assets/js/select2.js', [], $this->get_version() );
-		wp_register_script( 'ac-select2', $this->get_url() . 'assets/js/select2_conflict_fix.js', [ 'jquery', 'ac-select2-core' ], $this->get_version() );
-		wp_register_style( 'ac-select2', $this->get_url() . 'assets/css/select2.css', [], $this->get_version() );
-		wp_register_style( 'ac-jquery-ui', $this->get_url() . 'assets/css/ac-jquery-ui.css', [], $this->get_version() );
+		$assets = [
+			new Script( 'ac-select2-core', $this->get_location()->with_suffix( 'assets/js/select2.js' ) ),
+			new Script( 'ac-select2', $this->get_location()->with_suffix( 'assets/js/select2_conflict_fix.js' ), [ 'jquery', 'ac-select2-core' ] ),
+			new Style( 'ac-select2', $this->get_location()->with_suffix( 'assets/css/select2.css' ) ),
+			new Style( 'ac-jquery-ui', $this->get_location()->with_suffix( 'assets/css/ac-jquery-ui.css' ) ),
+		];
+
+		foreach ( $assets as $asset ) {
+			$asset->register();
+		}
 	}
 
 	/**

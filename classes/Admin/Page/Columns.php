@@ -36,7 +36,60 @@ class Columns extends Page implements Enqueueables, Helpable {
 	/**
 	 * @var UnitializedListScreens
 	 */
+
 	private $uninitialized;
+
+	// todo: remove
+	//	public function admin_scripts() {
+	//		$list_screen = $this->controller->get_list_screen();
+	//
+	//		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', [], AC()->get_version() );
+	//		wp_enqueue_script( 'jquery-ui-slider' );
+	//
+	//		wp_enqueue_script( 'ac-admin-page-columns', AC()->get_url() . "assets/js/admin-page-columns.js", [
+	//			'jquery',
+	//			'dashboard',
+	//			'jquery-ui-slider',
+	//			'jquery-ui-sortable',
+	//			'wp-pointer',
+	//		], AC()->get_version() );
+	//
+	//		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_url() . 'assets/css/admin-page-columns.css', [], AC()->get_version() );
+	//
+	//		$params = [
+	//			'_ajax_nonce'                => wp_create_nonce( Ajax\Handler::NONCE_ACTION ),
+	//			'list_screen'                => $list_screen->get_key(),
+	//			'layout'                     => $list_screen->get_layout_id(),
+	//			'original_columns'           => [],
+	//			'uninitialized_list_screens' => [],
+	//			'i18n'                       => [
+	//				'clone'  => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
+	//				'error'  => __( 'Invalid response.', 'codepress-admin-columns' ),
+	//				'errors' => [
+	//					'save_settings'  => __( 'There was an error during saving the column settings.', 'codepress-admin-columns' ),
+	//					'loading_column' => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
+	//				],
+	//			],
+	//		];
+	//
+	//		foreach ( $this->uninitialized->get_list_screens() as $list_screen ) {
+	//
+	//			$key = $list_screen->get_key();
+	//
+	//			$params['uninitialized_list_screens'][ $key ] = [
+	//				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $key ], $list_screen->get_screen_link() ),
+	//				'label'       => $list_screen->get_label(),
+	//			];
+	//		}
+	//
+	//		wp_enqueue_style( 'ac-select2' );
+	//		wp_enqueue_script( 'ac-select2' );
+	//
+	//		wp_localize_script( 'ac-admin-page-columns', 'AC', $params );
+	//
+	// todo: add to new
+	//		do_action( 'ac/settings/scripts' );
+	//	}
 
 	/**
 	 * @var Menu
@@ -249,6 +302,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 	 *
 	 * @return string
 	 */
+
 	private function get_truncated_side_label( $label, $main_label = '' ) {
 		if ( 34 < ( strlen( $label ) + ( strlen( $main_label ) * 1.1 ) ) ) {
 			$label = substr( $label, 0, 34 - ( strlen( $main_label ) * 1.1 ) ) . '...';

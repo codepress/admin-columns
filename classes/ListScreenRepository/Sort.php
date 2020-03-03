@@ -1,9 +1,10 @@
 <?php
+
 namespace AC\ListScreenRepository;
 
 use AC\ListScreenCollection;
 
-interface SortStrategy {
+interface Sort {
 
 	/**
 	 * @param ListScreenCollection $list_screens

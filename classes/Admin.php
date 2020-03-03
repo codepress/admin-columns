@@ -21,6 +21,7 @@ class Admin implements Registrable {
 	/**
 	 * @var string
 	 */
+
 	private $parent_slug;
 
 	/**
@@ -48,6 +49,7 @@ class Admin implements Registrable {
 	/**
 	 * @return Location\Absolute
 	 */
+
 	public function get_location() {
 		return $this->location;
 	}
@@ -83,6 +85,7 @@ class Admin implements Registrable {
 	/**
 	 * @return Page
 	 */
+
 	private function get_current_page() {
 		$slug = filter_input( INPUT_GET, 'tab' );
 
@@ -132,8 +135,10 @@ class Admin implements Registrable {
 	public function render() {
 		?>
 		<div id="cpac" class="wrap">
+
 			<?= $this->get_menu()->render(); ?>
 			<?= $this->get_current_page()->render(); ?>
+
 		</div>
 		<?php
 	}

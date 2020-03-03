@@ -4,21 +4,23 @@ namespace AC\Controller\ColumnRequest;
 
 
 use AC\Controller\Handler;
-use AC\ListScreenRepository;
+use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Request;
+use AC\Type\ListScreenId;
 
 class Save extends Handler {
 
 	const ID = 'save';
+	/**
+	 * @var Storage
+	 */
+	private $storage;
 
-	/** @var ListScreenRepository\Aggregate */
-	private $list_screen_repository;
-
-	public function __construct( ListScreenRepository\Aggregate $list_screen_repository ) {
+	public function __construct( Storage $storage ) {
 		parent::__construct( self::ID );
 
-		$this->list_screen_repository = $list_screen_repository;
+		$this->storage = $storage;
 	}
 
 	public function request( Request $request ) {
@@ -31,8 +33,8 @@ class Save extends Handler {
 		$list_id = $formdata['list_screen_id'];
 		$type = $formdata['list_screen'];
 
-		if ( ! $this->list_screen_repository->exists( $list_id ) ) {
-			$list_id = uniqid();
+		if ( ! ListScreenId::is_valid_id( $list_id ) || ! $this->storage->exists( new ListScreenId( $list_id ) ) ) {
+			$list_id = ListScreenId::generate()->get_id();
 		}
 
 		$formdata['columns'] = $this->maybe_encode_urls( $formdata['columns'] );
@@ -58,7 +60,7 @@ class Save extends Handler {
 		            ->set_layout_id( $list_id )
 		            ->set_preferences( ! empty( $formdata['settings'] ) ? $formdata['settings'] : [] );
 
-		$this->list_screen_repository->save( $list_screen );
+		$this->storage->save( $list_screen );
 
 		do_action( 'ac/columns_stored', $list_screen );
 

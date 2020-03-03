@@ -3,6 +3,7 @@
 namespace AC\Table;
 
 use AC;
+use AC\Asset;
 use AC\Capabilities;
 use AC\Form;
 use AC\ListScreen;
@@ -13,7 +14,7 @@ use WP_Post;
 final class Screen implements Registrable {
 
 	/**
-	 * @var ListScreen $list_screen |null
+	 * @var ListScreen|null $list_screen
 	 */
 	private $list_screen;
 
@@ -28,9 +29,12 @@ final class Screen implements Registrable {
 	private $buttons = [];
 
 	/**
-	 * @param ListScreen $list_screen
+	 * @var Asset\Location\Absolute
 	 */
-	public function __construct( $list_screen ) {
+	private $location;
+
+	public function __construct( Asset\Location\Absolute $location, $list_screen = null ) {
+		$this->location = $location;
 		$this->list_screen = $list_screen;
 	}
 
@@ -234,12 +238,17 @@ final class Screen implements Registrable {
 	public function admin_scripts() {
 
 		// Tooltip
-		wp_register_script( 'jquery-qtip2', AC()->get_url() . 'external/qtip2/jquery.qtip.min.js', [ 'jquery' ], AC()->get_version() );
-		wp_enqueue_style( 'jquery-qtip2', AC()->get_url() . 'external/qtip2/jquery.qtip.min.css', [], AC()->get_version() );
+		$script = new Asset\Script( 'jquery-qtip2', $this->location->with_suffix( 'external/qtip2/jquery.qtip.min.js' ), [ 'jquery' ] );
+		$script->register();
 
-		// Main
-		wp_enqueue_script( 'ac-table', AC()->get_url() . 'assets/js/table.js', [ 'jquery', 'jquery-qtip2' ], AC()->get_version() );
-		wp_enqueue_style( 'ac-table', AC()->get_url() . 'assets/css/table.css', [], AC()->get_version() );
+		$style = new Asset\Style( 'jquery-qtip2', $this->location->with_suffix( 'external/qtip2/jquery.qtip.min.css' ) );
+		$style->enqueue();
+
+		$script = new Asset\Script( 'ac-table', $this->location->with_suffix( 'assets/js/table.js' ), [ 'jquery', 'jquery-qtip2' ] );
+		$script->enqueue();
+
+		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ) );
+		$style->enqueue();
 
 		if ( $this->list_screen ) {
 			wp_localize_script( 'ac-table', 'AC', [

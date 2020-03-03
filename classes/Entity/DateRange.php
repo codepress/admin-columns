@@ -6,10 +6,14 @@ use DateTime;
 
 class DateRange {
 
-	/** @var DateTime */
+	/**
+	 * @var DateTime
+	 */
 	private $start;
 
-	/** @var DateTime */
+	/**
+	 * @var DateTime
+	 */
 	private $end;
 
 	public function __construct( DateTime $start, DateTime $end ) {

@@ -2,11 +2,11 @@
 
 namespace AC\Exception;
 
-use LogicException;
+use RuntimeException;
 
-class Request extends LogicException {
+class Request extends RuntimeException {
 
-	public static function from_invalid_parameters() {
+	public static function parameters_invalid() {
 		return new self( 'Invalid request parameters.' );
 	}
 

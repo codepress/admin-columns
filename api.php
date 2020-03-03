@@ -4,6 +4,7 @@ use AC\Admin;
 use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\Type\ListScreenId;
 
 /**
  * @return AC\AdminColumns
@@ -89,6 +90,7 @@ function ac_helper() {
 	return new AC\Helper();
 }
 
+// TODO David look at ListScreenApiData
 /**
  * @param array|string $list_screen_keys
  * @param array        $column_data
@@ -102,6 +104,7 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
 	}
 }
 
+// TODO David this seems not to be the proper documentation? Or way?
 /**
  * Manually set the columns for a list screen
  * This overrides the database settings and thus renders the settings screen for this list screen useless
@@ -173,7 +176,7 @@ function ac_convert_site_url( $label, $action = 'encode' ) {
  * @since 4.0.0
  */
 function ac_get_list_screen( $id ) {
-	return AC()->get_listscreen_repository()->find( $id );
+	return AC()->get_storage()->find( new ListScreenId( $id ) );
 }
 
 /**
@@ -183,7 +186,7 @@ function ac_get_list_screen( $id ) {
  * @since 4.0.0
  */
 function ac_get_list_screens( $key ) {
-	return AC()->get_listscreen_repository()->find_all( [ 'key' => $key ] );
+	return AC()->get_storage()->find_all( [ 'key' => $key ] );
 }
 
 /**
