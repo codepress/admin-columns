@@ -1,4 +1,5 @@
 <?php
+
 namespace AC;
 
 /**
@@ -24,7 +25,7 @@ class DefaultColumns {
 	 * @return array
 	 */
 	public function get( $list_screen_key ) {
-		return get_option( $this->get_option_name( $list_screen_key ), array() );
+		return get_option( $this->get_option_name( $list_screen_key ), [] );
 	}
 
 	public function delete( $list_screen_key ) {
