@@ -135,6 +135,9 @@ class Help extends Page implements AC\Asset\Enqueueables {
 		$this->render_actions();
 		$this->render_filters();
 
+		// For cach refresh
+		$this->hooks->get_count( true );
+
 		return ob_get_clean();
 	}
 

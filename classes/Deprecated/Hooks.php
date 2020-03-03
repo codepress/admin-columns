@@ -10,12 +10,13 @@ use AC\Transient;
 class Hooks {
 
 	/**
+	 * @parsam bool $force_update
 	 * @return int
 	 */
-	public function get_count() {
+	public function get_count( $force_update = false ) {
 		$cache = new Transient( 'ac-deprecated-message-count' );
 
-		if ( $cache->is_expired() ) {
+		if ( $cache->is_expired() || (bool) $force_update ) {
 			$cache->save( $this->get_deprecated_count(), WEEK_IN_SECONDS );
 		}
 
