@@ -94,8 +94,6 @@ $is_promo_active = $promo && $promo->is_active();
 
 	<?php else : ?>
 
-		<?php $user_data = wp_get_current_user(); ?>
-
 		<div class="padding-box ac-pro-newsletter">
 			<h3>
 				<?php echo esc_html( sprintf( __( 'Get %s Off!', 'codepress-admin-columns' ), $discount . '%' ) ); ?>

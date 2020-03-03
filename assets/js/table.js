@@ -86,6 +86,32 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "../../src/editing/js/helpers/elements.js":
+/*!********************************************************************************************************!*\
+  !*** /Users/stefan/PhpStormProjects/AdminColumns/admin-columns-pro/src/editing/js/helpers/elements.js ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.insertAfter = insertAfter;
+exports.insertBefore = insertBefore;
+
+function insertAfter(newNode, referenceNode) {
+  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+function insertBefore(newNode, referenceNode) {
+  referenceNode.parentNode.insertBefore(newNode, referenceNode);
+}
+
+/***/ }),
+
 /***/ "./js/modules/modal.js":
 /*!*****************************!*\
   !*** ./js/modules/modal.js ***!
@@ -392,6 +418,164 @@ exports.default = ShowMore;
 
 /***/ }),
 
+/***/ "./js/modules/toggle-box-link.js":
+/*!***************************************!*\
+  !*** ./js/modules/toggle-box-link.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _elements = __webpack_require__(/*! ../../../../src/editing/js/helpers/elements */ "../../src/editing/js/helpers/elements.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ToggleBoxLink =
+/*#__PURE__*/
+function () {
+  function ToggleBoxLink(el) {
+    _classCallCheck(this, ToggleBoxLink);
+
+    this.element = el;
+    this.initEvents();
+    this.contentBox = this.element.parentElement.querySelector('.ac-toggle-box-contents');
+
+    if (!this.contentBox) {
+      this.createContenBox();
+    }
+  }
+
+  _createClass(ToggleBoxLink, [{
+    key: "isAjax",
+    value: function isAjax() {
+      return parseInt(this.element.dataset.ajaxPopulate) === 1;
+    }
+  }, {
+    key: "isInited",
+    value: function isInited() {
+      return this.element.dataset.toggleBoxInit;
+    }
+  }, {
+    key: "createContenBox",
+    value: function createContenBox() {
+      var contentBox = document.createElement('div');
+      contentBox.classList.add('ac-toggle-box-contents');
+      (0, _elements.insertAfter)(contentBox, this.element);
+      this.contentBox = contentBox;
+      return this.contentBox;
+    }
+  }, {
+    key: "initEvents",
+    value: function initEvents() {
+      var _this = this;
+
+      if (this.isInited()) {
+        return;
+      }
+
+      this.element.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        if (_this.isAjax() && !_this.hasContent()) {
+          _this.manageAjaxValue();
+        }
+
+        _this.toggleContentBox();
+      });
+      this.element.dataset.toggleBoxInit = true;
+    }
+  }, {
+    key: "hasContent",
+    value: function hasContent() {
+      return this.getContentBox().innerHTML.length > 0;
+    }
+  }, {
+    key: "setContent",
+    value: function setContent(content) {
+      this.getContentBox().innerHTML = content;
+    }
+  }, {
+    key: "getContentBox",
+    value: function getContentBox() {
+      if (!this.contentBox) {
+        return this.createContenBox();
+      }
+
+      return this.contentBox;
+    }
+  }, {
+    key: "setLabel",
+    value: function setLabel(open) {
+      var label = this.element.dataset.label;
+
+      if (open && this.element.dataset.labelClose) {
+        label = this.element.dataset.labelClose;
+      }
+
+      this.element.innerHTML = label + '<span class="spinner"></span>';
+    }
+  }, {
+    key: "toggleContentBox",
+    value: function toggleContentBox() {
+      if (this.getContentBox().classList.contains('-open')) {
+        this.getContentBox().classList.remove('-open');
+        this.setLabel(false);
+      } else {
+        this.getContentBox().classList.add('-open');
+        this.setLabel(true);
+      }
+    }
+  }, {
+    key: "manageAjaxValue",
+    value: function manageAjaxValue() {
+      var _this2 = this;
+
+      this.element.classList.add('loading');
+      this.retrieveAjaxValue().done(function (response) {
+        _this2.setContent(response);
+
+        jQuery(_this2.element.parentElement).trigger('ajax_column_value_ready');
+        AdminColumns.Tooltips.init();
+      }).always(function () {
+        _this2.element.classList.remove('loading');
+      });
+    }
+  }, {
+    key: "retrieveAjaxValue",
+    value: function retrieveAjaxValue() {
+      return jQuery.ajax({
+        url: ajaxurl,
+        method: 'POST',
+        data: {
+          action: 'ac_get_column_value',
+          list_screen: AC.list_screen,
+          layout: AC.layout,
+          column: this.element.dataset.column,
+          pk: this.element.dataset.itemId,
+          _ajax_nonce: AC.ajax_nonce
+        }
+      });
+    }
+  }]);
+
+  return ToggleBoxLink;
+}();
+
+exports.default = ToggleBoxLink;
+
+/***/ }),
+
 /***/ "./js/table.js":
 /*!*********************!*\
   !*** ./js/table.js ***!
@@ -414,6 +598,8 @@ var _screenOptionsColumns = _interopRequireDefault(__webpack_require__(/*! ./tab
 
 var _showMore = _interopRequireDefault(__webpack_require__(/*! ./modules/show-more */ "./js/modules/show-more.js"));
 
+var _toggleBoxLink = _interopRequireDefault(__webpack_require__(/*! ./modules/toggle-box-link */ "./js/modules/toggle-box-link.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Register the global variable
@@ -425,9 +611,8 @@ jQuery(document).ready(function ($) {
   ac_quickedit_events($);
   ac_actions_column($, $('.column-actions'));
   ac_show_more($);
-  ac_toggle_box($);
-  ac_toggle_box_ajax_init($);
   ac_actions_tooltips($);
+  ac_toggle_box();
   var table = document.querySelector(AC.table_id);
 
   if (table) {
@@ -446,16 +631,22 @@ jQuery(document).ready(function ($) {
   });
 });
 
+global.ac_toggle_box = function () {
+  document.querySelectorAll('.ac-toggle-box-link').forEach(function (el) {
+    new _toggleBoxLink.default(el);
+  });
+};
+
 global.ac_load_table = function (el) {
   AdminColumns.Table = new _table.default(el);
   AC.Table = AdminColumns.Table; // TODO use AdminColumns instead of AC
 };
 
-function ac_actions_tooltips($) {
-  $('.row-actions a').qtip({
+function ac_actions_tooltips() {
+  jQuery('.cpac_use_icons').parent().find('.row-actions a').qtip({
     content: {
       text: function text() {
-        return $(this).text();
+        return jQuery(this).text();
       }
     },
     position: {
@@ -467,58 +658,6 @@ function ac_actions_tooltips($) {
       classes: 'qtip-tipsy'
     }
   });
-}
-
-function ac_toggle_box($) {
-  $('.ac-toggle-box-link').click(function (e) {
-    e.preventDefault();
-    $(this).next('.ac-toggle-box-contents').toggle();
-  });
-}
-
-function ac_toggle_box_ajax_init($) {
-  /**
-   * Toggle box
-   */
-  var do_toggle_value = function do_toggle_value(e) {
-    e.preventDefault();
-    $(this).next('.ac-toggle-box-contents-ajax').toggle();
-  };
-  /**
-   * Retrieves the contents from the column through ajax
-   */
-
-
-  var do_retrieve_ajax_value = function do_retrieve_ajax_value(e) {
-    e.preventDefault();
-    var $this = $(this);
-    var data = {
-      action: 'ac_get_column_value',
-      list_screen: AC.list_screen,
-      layout: AC.layout,
-      column: $this.data('column'),
-      pk: $this.attr('data-item-id'),
-      _ajax_nonce: AC.ajax_nonce
-    };
-    $this.addClass('loading');
-    var xhr = $.post(ajaxurl, data, function (response) {
-      if (response) {
-        $this.after('<div class="ac-toggle-box-contents-ajax">' + response + '</div>'); // We only need to run the ajax request once. Unbind the event, and replace with a Toggle Box.
-
-        $this.unbind('click', do_retrieve_ajax_value).bind('click', do_toggle_value); // Added hook on Table Cell
-
-        $($this.parent('td')).trigger('ajax_column_value_ready'); // Re-init tooltips
-
-        AdminColumns.Tooltips.init();
-      }
-    });
-    xhr.always(function () {
-      $this.removeClass('loading');
-    });
-  }; // Click event
-
-
-  $('a[data-ajax-populate=1]').bind('click', do_retrieve_ajax_value);
 }
 
 global.ac_show_more = function ($) {

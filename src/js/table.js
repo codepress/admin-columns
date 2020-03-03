@@ -3,6 +3,7 @@ import Tooltip from "./table/tooltips";
 import Modals from "./modules/modals";
 import ScreenOptionsColumns from "./table/screen-options-columns";
 import ShowMore from "./modules/show-more";
+import ToggleBoxLink from "./modules/toggle-box-link";
 
 // Register the global variable
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
@@ -13,9 +14,8 @@ jQuery( document ).ready( function( $ ) {
 	ac_quickedit_events( $ );
 	ac_actions_column( $, $( '.column-actions' ) );
 	ac_show_more( $ );
-	ac_toggle_box( $ );
-	ac_toggle_box_ajax_init( $ );
 	ac_actions_tooltips( $ );
+	ac_toggle_box();
 
 	let table = document.querySelector( AC.table_id );
 
@@ -39,16 +39,23 @@ jQuery( document ).ready( function( $ ) {
 
 } );
 
+global.ac_toggle_box = function() {
+	document.querySelectorAll( '.ac-toggle-box-link' ).forEach( el => {
+		new ToggleBoxLink( el );
+	} );
+};
+
 global.ac_load_table = function( el ) {
 	AdminColumns.Table = new Table( el );
 	AC.Table = AdminColumns.Table; // TODO use AdminColumns instead of AC
 };
 
-function ac_actions_tooltips( $ ) {
-	$( '.row-actions a' ).qtip( {
+function ac_actions_tooltips() {
+
+	jQuery( '.cpac_use_icons' ).parent().find( '.row-actions a' ).qtip( {
 		content : {
 			text : function() {
-				return $( this ).text();
+				return jQuery( this ).text();
 			}
 		},
 		position : {
@@ -60,67 +67,7 @@ function ac_actions_tooltips( $ ) {
 			classes : 'qtip-tipsy'
 		}
 	} );
-}
 
-function ac_toggle_box( $ ) {
-	$( '.ac-toggle-box-link' ).click( function( e ) {
-		e.preventDefault();
-		$( this ).next( '.ac-toggle-box-contents' ).toggle();
-	} );
-}
-
-function ac_toggle_box_ajax_init( $ ) {
-
-	/**
-	 * Toggle box
-	 */
-	let do_toggle_value = function( e ) {
-		e.preventDefault();
-
-		$( this ).next( '.ac-toggle-box-contents-ajax' ).toggle();
-	};
-
-	/**
-	 * Retrieves the contents from the column through ajax
-	 */
-	let do_retrieve_ajax_value = function( e ) {
-		e.preventDefault();
-
-		let $this = $( this );
-
-		let data = {
-			action : 'ac_get_column_value',
-			list_screen : AC.list_screen,
-			layout : AC.layout,
-			column : $this.data( 'column' ),
-			pk : $this.attr( 'data-item-id' ),
-			_ajax_nonce : AC.ajax_nonce
-		};
-
-		$this.addClass( 'loading' );
-
-		let xhr = $.post( ajaxurl, data, function( response ) {
-			if ( response ) {
-				$this.after( '<div class="ac-toggle-box-contents-ajax">' + response + '</div>' );
-
-				// We only need to run the ajax request once. Unbind the event, and replace with a Toggle Box.
-				$this.unbind( 'click', do_retrieve_ajax_value ).bind( 'click', do_toggle_value );
-
-				// Added hook on Table Cell
-				$( $this.parent( 'td' ) ).trigger( 'ajax_column_value_ready' );
-
-				// Re-init tooltips
-				AdminColumns.Tooltips.init();
-			}
-		} );
-
-		xhr.always( function() {
-			$this.removeClass( 'loading' );
-		} );
-	};
-
-	// Click event
-	$( 'a[data-ajax-populate=1]' ).bind( 'click', do_retrieve_ajax_value );
 }
 
 global.ac_show_more = function( $ ) {

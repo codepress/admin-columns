@@ -138,12 +138,14 @@ class Html {
 	 *
 	 * @return string
 	 */
-	public function get_ajax_toggle_box_link( $id, $label, $column_name ) {
+	public function get_ajax_toggle_box_link( $id, $label, $column_name, $label_close = null ) {
 		return ac_helper()->html->link( '#', $label . '<div class="spinner"></div>', array(
 			'class'              => 'ac-toggle-box-link',
 			'data-column'        => $column_name,
 			'data-item-id'       => $id,
 			'data-ajax-populate' => 1,
+			'data-label' => $label,
+			'data-label-close' => $label_close
 		) );
 	}
 

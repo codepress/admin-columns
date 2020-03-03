@@ -234,7 +234,9 @@ class AdminColumns extends Plugin {
 	 * Load text-domain
 	 */
 	public function localize() {
-		load_plugin_textdomain( 'codepress-admin-columns', false, $this->get_dir() . 'languages/' );
+		$relative_dir = str_replace( WP_PLUGIN_DIR, '', $this->get_dir() );
+
+		load_plugin_textdomain( 'codepress-admin-columns', false, $relative_dir . 'languages/' );
 	}
 
 	/**

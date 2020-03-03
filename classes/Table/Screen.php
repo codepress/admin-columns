@@ -57,6 +57,16 @@ final class Screen implements Registrable {
 		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
 
 		$this->register_first_visit_notice();
+		$this->render_layout_input();
+	}
+
+	private function render_layout_input() {
+		if ( ! $this->list_screen ) {
+			return;
+		}
+
+		$render = new TableFormView( $this->list_screen );
+		$render->render( sprintf( '<input type="text" name="layout" value="%s">', $this->list_screen->get_layout_id() ) );
 	}
 
 	private function register_first_visit_notice() {
@@ -75,13 +85,7 @@ final class Screen implements Registrable {
 	 * @return Button[]
 	 */
 	public function get_buttons() {
-		$buttons = [];
-
-		foreach ( $this->buttons as $button ) {
-			$buttons = array_merge( $buttons, $button );
-		}
-
-		return $buttons;
+		return array_merge( [], ...$this->buttons );
 	}
 
 	/**
@@ -115,7 +119,7 @@ final class Screen implements Registrable {
 
 			// If actions column is present, set it as primary
 			foreach ( $this->list_screen->get_columns() as $column ) {
-				if ( 'column-actions' == $column->get_type() ) {
+				if ( 'column-actions' === $column->get_type() ) {
 					$default = $column->get_name();
 
 					if ( $this->list_screen instanceof ListScreen\Media ) {
@@ -195,7 +199,7 @@ final class Screen implements Registrable {
 	 * @since 1.4.0
 	 */
 	public function admin_class( $classes ) {
-		$classes .= " ac-" . $this->list_screen->get_key();
+		$classes .= ' ac-' . $this->list_screen->get_key();
 
 		return apply_filters( 'ac/table/body_class', $classes, $this );
 	}
@@ -234,6 +238,7 @@ final class Screen implements Registrable {
 	public function admin_scripts() {
 
 		// Tooltip
+
 		$script = new Asset\Script( 'jquery-qtip2', $this->location->with_suffix( 'external/qtip2/jquery.qtip.min.js' ), [ 'jquery' ] );
 		$script->register();
 
@@ -330,8 +335,8 @@ final class Screen implements Registrable {
 			$width = $setting->get_display_width();
 
 			if ( $width ) {
-				$css_column_width .= ".ac-" . esc_attr( $this->list_screen->get_key() ) . " .wrap table th.column-" . esc_attr( $column->get_name() ) . " { width: " . $width . " !important; }";
-				$css_column_width .= "body.acp-overflow-table.ac-" . esc_attr( $this->list_screen->get_key() ) . " .wrap th.column-" . esc_attr( $column->get_name() ) . " { min-width: " . $width . " !important; }";
+				$css_column_width .= '.ac-' . esc_attr( $this->list_screen->get_key() ) . ' .wrap table th.column-' . esc_attr( $column->get_name() ) . ' { width: ' . $width . ' !important; }';
+				$css_column_width .= 'body.acp-overflow-table.ac-' . esc_attr( $this->list_screen->get_key() ) . ' .wrap th.column-' . esc_attr( $column->get_name() ) . ' { min-width: ' . $width . ' !important; }';
 			}
 		}
 
