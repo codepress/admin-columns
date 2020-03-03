@@ -66,7 +66,7 @@ final class Screen implements Registrable {
 		}
 
 		$render = new TableFormView( $this->list_screen );
-		$render->render( sprintf( '<input type="text" name="layout" value="%s">', $this->list_screen->get_layout_id() ) );
+		$render->render( sprintf( '<input type="hidden" name="layout" value="%s">', $this->list_screen->get_layout_id() ) );
 	}
 
 	private function register_first_visit_notice() {
