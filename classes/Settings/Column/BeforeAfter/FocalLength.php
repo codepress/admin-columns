@@ -7,7 +7,7 @@ use AC\Settings\Column\BeforeAfter;
 class FocalLength extends BeforeAfter {
 
 	protected function define_options() {
-		return array( 'before' => '', 'after' => 'mm' );
+		return [ 'before' => '', 'after' => 'mm' ];
 	}
 
 }

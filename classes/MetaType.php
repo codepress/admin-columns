@@ -36,12 +36,12 @@ final class MetaType {
 	 * @throws LogicException
 	 */
 	private function validate() {
-		$types = array(
+		$types = [
 			self::POST,
 			self::USER,
 			self::COMMENT,
 			self::TERM,
-		);
+		];
 
 		if ( ! in_array( $this->meta_type, $types ) ) {
 			throw new LogicException( 'Invalid meta type.' );

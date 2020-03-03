@@ -40,7 +40,7 @@ class User {
 	 * @return array
 	 */
 	public function translate_roles( $role_names ) {
-		$roles = array();
+		$roles = [];
 
 		$wp_roles = wp_roles()->roles;
 
@@ -72,7 +72,7 @@ class User {
 
 			case 'first_last_name' :
 
-				$name_parts = array();
+				$name_parts = [];
 
 				if ( $user->first_name ) {
 					$name_parts[] = $user->first_name;
@@ -105,7 +105,7 @@ class User {
 	 * @return array Role nice names
 	 */
 	public function get_roles_names( $roles ) {
-		$role_names = array();
+		$role_names = [];
 
 		foreach ( $roles as $role ) {
 			$name = $this->get_role_name( $role );
@@ -134,12 +134,11 @@ class User {
 	}
 
 	/**
-	 * @since 3.4.4
-	 *
 	 * @param int    $user_id
 	 * @param string $post_type
 	 *
 	 * @return string
+	 * @since 3.4.4
 	 */
 	public function get_postcount( $user_id, $post_type ) {
 		global $wpdb;
@@ -158,7 +157,7 @@ class User {
 	 * @return array Translatable roles
 	 */
 	public function get_roles() {
-		$roles = array();
+		$roles = [];
 		foreach ( wp_roles()->roles as $k => $role ) {
 			$roles[ $k ] = translate_user_role( $role['name'] );
 		}
@@ -172,7 +171,7 @@ class User {
 	 * @return array Role Names
 	 */
 	public function get_role_names( $roles ) {
-		$role_names = array();
+		$role_names = [];
 
 		$labels = $this->get_roles();
 

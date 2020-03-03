@@ -17,11 +17,11 @@ class EstimatedReadingTime extends Column {
 
 	/**
 	 * Estimate read time in seconds
-	 * @since 2.3.3
 	 *
 	 * @param $post_id
 	 *
 	 * @return string Raw Post Content
+	 * @since 2.3.3
 	 */
 	public function get_raw_value( $post_id ) {
 		return ac_helper()->post->get_raw_field( 'post_content', $post_id );

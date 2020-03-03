@@ -3,204 +3,184 @@
 namespace AC;
 
 use AC\Admin\Helpable;
-use AC\Admin\MenuItem;
+use AC\Admin\Menu;
 use AC\Admin\Page;
+use AC\Admin\PageCollection;
+use AC\Asset\Enqueueables;
+use AC\Asset\Location;
+use AC\Asset\Script;
+use AC\Asset\Style;
 
 class Admin implements Registrable {
 
-	const PLUGIN_PAGE = 'codepress-admin-columns';
+	const NAME = 'codepress-admin-columns';
 
-	/** @var string */
-	private $hook_suffix;
+	const QUERY_ARG_PAGE = 'page';
+	const QUERY_ARG_TAB = 'tab';
 
-	/** @var string */
-	private $parent_page;
+	/**
+	 * @var string
+	 */
 
-	/** @var Page */
-	private $page;
+	private $parent_slug;
 
-	/** @var string */
-	private $url;
-
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $menu_hook;
 
-	/** @var Page[] */
-	private $pages = array();
+	/**
+	 * @var PageCollection
+	 */
+	private $pages;
 
-	public function __construct( $parent_page, $menu_hook, $url ) {
-		$this->parent_page = $parent_page;
+	/**
+	 * @var Location\Absolute
+	 */
+	private $location;
+
+	public function __construct( $parent_slug, $menu_hook, PageCollection $pages, Location\Absolute $location ) {
+		$this->parent_slug = $parent_slug;
 		$this->menu_hook = $menu_hook;
-		$this->url = trailingslashit( $url );
+		$this->pages = $pages;
+		$this->location = $location;
 	}
 
 	/**
-	 * Menu hook
+	 * @return Location\Absolute
 	 */
-	public function register() {
-		add_action( $this->menu_hook, array( $this, 'settings_menu' ) );
-	}
 
-	/**
-	 * @param Page $page
-	 *
-	 * @return $this
-	 */
-	public function register_page( Page $page ) {
-		$this->pages[ $page->get_slug() ] = $page;
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_parent_page() {
-		return $this->parent_page;
-	}
-
-	/**
-	 * @return void
-	 */
-	public function settings_menu() {
-		$this->hook_suffix = add_submenu_page(
-			$this->parent_page,
-			__( 'Admin Columns Settings', 'codepress-admin-columns' ),
-			__( 'Admin Columns', 'codepress-admin-columns' ),
-			Capabilities::MANAGE,
-			self::PLUGIN_PAGE,
-			function () {
-			}
-		);
-
-		add_action( "load-" . $this->hook_suffix, array( $this, 'on_load' ) );
-		add_action( "admin_print_scripts-" . $this->hook_suffix, array( $this, 'admin_scripts' ) );
-	}
-
-	/**
-	 * @return void
-	 */
-	public function on_load() {
-		$tab = filter_input( INPUT_GET, 'tab' );
-
-		if ( ! $tab ) {
-			$tab = current( $this->get_menu_items() )->get_slug();
-		}
-
-		$page = $this->get_page( $tab );
-
-		if ( $page instanceof Registrable ) {
-			$page->register();
-		}
-
-		if ( $page instanceof Helpable ) {
-			foreach ( $page->get_help_tabs() as $help ) {
-				get_current_screen()->add_help_tab( array(
-					'id'      => $help->get_id(),
-					'content' => $help->get_content(),
-					'title'   => $help->get_title(),
-				) );
-			}
-		}
-
-		if ( ! $page ) {
-			return;
-		}
-
-		$this->page = $page;
-
-		add_action( $this->hook_suffix, array( $this, 'render' ) );
-	}
-
-	/**
-	 * @param string $tab
-	 *
-	 * @return string
-	 */
-	public function get_url( $tab ) {
-		$args = [
-			'page' => self::PLUGIN_PAGE,
-			'tab'  => $tab,
-		];
-
-		return add_query_arg( $args, $this->url . $this->get_parent_page() );
+	public function get_location() {
+		return $this->location;
 	}
 
 	/**
 	 * @param string $slug
 	 *
-	 * @return Page|false
+	 * @return Page|null
 	 */
 	public function get_page( $slug ) {
-		if ( ! array_key_exists( $slug, $this->pages ) ) {
-			return false;
-		}
+		return $this->pages->get( $slug );
+	}
 
-		return $this->pages[ $slug ];
+	public function add_page( Page $page ) {
+		$this->pages->add( $page );
 	}
 
 	/**
-	 * @return MenuItem[]
+	 * @param string $slug
+	 *
+	 * @return string
 	 */
-	private function get_menu_items() {
-		$items = array();
-
-		foreach ( $this->pages as $page ) {
-			if ( $page && $page->show_in_menu() ) {
-				$items[] = new MenuItem( $page->get_slug(), $page->get_label(), $this->get_url( $page->get_slug() ) );
-			}
-		}
-
-		return $items;
+	protected function create_menu_link( $slug ) {
+		return add_query_arg(
+			[
+				self::QUERY_ARG_PAGE => self::NAME,
+				self::QUERY_ARG_TAB  => $slug,
+			],
+			$this->parent_slug
+		);
 	}
 
 	/**
-	 * @return void
+	 * @return Page
 	 */
+
+	private function get_current_page() {
+		$slug = filter_input( INPUT_GET, 'tab' );
+
+		if ( $this->pages->has( $slug ) ) {
+			return $this->pages->get( $slug );
+		}
+
+		return $this->pages->current();
+	}
+
+	/**
+	 * @return Menu
+	 */
+	private function get_menu() {
+		$menu = new Menu();
+
+		$current_slug = $this->get_current_page()->get_slug();
+
+		foreach ( $this->pages->all() as $page ) {
+			$class = $current_slug === $page->get_slug()
+				? 'nav-tab-active'
+				: null;
+
+			$menu->add( new Menu\Item( $this->create_menu_link( $page->get_slug() ), $page->get_title(), $class ) );
+		}
+
+		return $menu;
+	}
+
+	public function register() {
+		add_action( $this->menu_hook, [ $this, 'register_menu' ] );
+	}
+
+	public function register_menu() {
+		$hook = add_submenu_page(
+			$this->parent_slug,
+			__( 'Admin Columns Settings', 'codepress-admin-columns' ),
+			__( 'Admin Columns', 'codepress-admin-columns' ),
+			Capabilities::MANAGE,
+			self::NAME,
+			[ $this, 'render' ]
+		);
+
+		add_action( "load-" . $hook, [ $this, 'scripts' ] );
+	}
+
 	public function render() {
 		?>
 		<div id="cpac" class="wrap">
-			<?php
 
-			$menu = new View( array(
-				'items'   => $this->get_menu_items(),
-				'current' => $this->page->get_slug(),
-			) );
+			<?= $this->get_menu()->render(); ?>
+			<?= $this->get_current_page()->render(); ?>
 
-			echo $menu->set_template( 'admin/edit-tabmenu' );
-
-			$this->page->render();
-			?>
 		</div>
 		<?php
-
-		do_action( 'ac/admin/render', $this );
 	}
 
-	/**
-	 * Scripts
-	 * @return void
-	 */
-	public function admin_scripts() {
-		// Tooltip
-		wp_register_script( 'jquery-qtip2', AC()->get_url() . "external/qtip2/jquery.qtip.min.js", array( 'jquery' ), AC()->get_version() );
-		wp_enqueue_style( 'jquery-qtip2', AC()->get_url() . "external/qtip2/jquery.qtip.min.css", array(), AC()->get_version() );
-		wp_enqueue_script( 'jquery-qtip2' );
+	public function scripts() {
+		$page = $this->get_current_page();
 
-		wp_enqueue_script( 'ac-admin-general', AC()->get_url() . "assets/js/admin-general.js", array( 'jquery', 'wp-pointer', 'jquery-qtip2' ), AC()->get_version() );
-		wp_enqueue_style( 'wp-pointer' );
-		wp_enqueue_style( 'ac-admin', AC()->get_url() . "assets/css/admin-general.css", array(), AC()->get_version() );
+		if ( $page instanceof Enqueueables ) {
+			foreach ( $page->get_assets() as $asset ) {
+				$asset->enqueue();
+			}
+		}
+
+		if ( $page instanceof Helpable ) {
+			foreach ( $page->get_help_tabs() as $help ) {
+				get_current_screen()->add_help_tab( [
+					'id'      => $help->get_id(),
+					'title'   => $help->get_title(),
+					'content' => $help->get_content(),
+				] );
+			}
+		}
+
+		$assets = [
+			new Style( 'wp-pointer' ),
+			new Style( 'jquery-qtip2', $this->location->with_suffix( 'external/qtip2/jquery.qtip.min.css' ) ),
+			new Script( 'jquery-qtip2', $this->location->with_suffix( 'external/qtip2/jquery.qtip.min.js' ), [ 'jquery' ] ),
+			new Script( 'ac-admin-general', $this->location->with_suffix( 'assets/js/admin-general.js' ), [ 'jquery', 'wp-pointer', 'jquery-qtip2' ] ),
+			new Style( 'ac-admin', $this->location->with_suffix( 'assets/css/admin-general.css' ) ),
+		];
+
+		foreach ( $assets as $asset ) {
+			$asset->enqueue();
+		}
 
 		do_action( 'ac/admin_scripts' );
-	}
+		do_action( 'ac/admin_scripts/' . $page->get_slug() );
 
-	/**
-	 * @return string
-	 */
-	public function get_settings_url() {
-		_deprecated_function( __METHOD__, '3.4.1', 'Admin::get_url()' );
-
-		return $this->get_url( 'settings' );
+		/**
+		 * @deprecated NEWVERSION
+		 */
+		do_action_deprecated( 'ac/settings/scripts', null, 'NEWVERSION', 'ac/admin_scripts' );
 	}
 
 }

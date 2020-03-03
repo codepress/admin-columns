@@ -16,7 +16,7 @@ class Message extends Settings\Column {
 	}
 
 	protected function define_options() {
-		return array();
+		return [];
 	}
 
 	public function set_label( $label ) {
@@ -32,10 +32,10 @@ class Message extends Settings\Column {
 	}
 
 	public function create_view() {
-		$view = new View( array(
+		$view = new View( [
 			'label'   => $this->label,
 			'setting' => $this->message,
-		) );
+		] );
 
 		return $view;
 	}

@@ -74,7 +74,6 @@ class Request {
 
 	/**
 	 * Return the parameters based on the current method
-	 *
 	 * @return Parameters
 	 */
 	public function get_parameters() {

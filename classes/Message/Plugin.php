@@ -30,7 +30,7 @@ class Plugin extends Message {
 	}
 
 	public function register() {
-		add_action( 'after_plugin_row_' . $this->plugin_basename, array( $this, 'display' ), 11 );
+		add_action( 'after_plugin_row_' . $this->plugin_basename, [ $this, 'display' ], 11 );
 	}
 
 	public function render() {
@@ -55,14 +55,14 @@ class Plugin extends Message {
 			? 'active'
 			: 'inactive';
 
-		$data = array(
+		$data = [
 			'plugin_basename' => $this->plugin_basename,
 			'icon'            => $this->icon,
 			'class'           => $class,
 			'message'         => $this->message,
 			'type'            => $this->type,
 			'status'          => $status,
-		);
+		];
 
 		$view = new View( $data );
 		$view->set_template( 'message/plugin' );
@@ -74,12 +74,12 @@ class Plugin extends Message {
 	 * @return string
 	 */
 	protected function get_icon_by_current_type() {
-		$mapping = array(
+		$mapping = [
 			self::SUCCESS => '\f147',
 			self::WARNING => '\f348',
 			self::ERROR   => '\f534',
 			self::INFO    => '\f463',
-		);
+		];
 
 		if ( ! isset( $mapping[ $this->type ] ) ) {
 			return false;

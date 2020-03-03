@@ -19,7 +19,7 @@ abstract class Preferences {
 	 * Preferences of this user
 	 * @var array
 	 */
-	protected $data = array();
+	protected $data = [];
 
 	/**
 	 * Retrieves data from DB

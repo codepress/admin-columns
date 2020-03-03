@@ -19,17 +19,17 @@ class Width extends Settings\Column
 	private $width_unit;
 
 	protected function define_options() {
-		return array(
+		return [
 			'width',
 			'width_unit' => '%',
-		);
+		];
 	}
 
 	private function get_valid_width_units() {
-		return array(
+		return [
 			'%'  => '%',
 			'px' => 'px',
-		);
+		];
 	}
 
 	private function is_valid_width_unit( $width_unit ) {
@@ -43,26 +43,26 @@ class Width extends Settings\Column
 		$unit = $this->create_element( 'radio', 'width_unit' )
 		             ->set_options( $this->get_valid_width_units() );
 
-		$section = new View( array(
+		$section = new View( [
 			'width' => $width,
 			'unit'  => $unit,
-		) );
+		] );
 		$section->set_template( 'settings/setting-width' );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'    => __( 'Width', 'codepress-admin-columns' ),
-			'sections' => array( $section ),
-		) );
+			'sections' => [ $section ],
+		] );
 
 		return $view;
 	}
 
 	public function create_header_view() {
 
-		$view = new View( array(
+		$view = new View( [
 			'title'   => __( 'width', 'codepress-admin-columns' ),
 			'content' => $this->get_display_width(),
-		) );
+		] );
 
 		return $view;
 	}

@@ -2,29 +2,31 @@
 
 namespace AC\Screen;
 
-use AC\ListScreenRepository\ListScreenRepository;
+use AC\ListScreenRepository\Storage;
 use AC\Preferences\Site;
 use AC\Registrable;
 use AC\ScreenController;
+use AC\Type\ListScreenId;
 
 class QuickEdit implements Registrable {
 
-	/** @var ListScreenRepository */
-	private $list_screen_repository;
+	/**
+	 * @var Storage
+	 */
+	private $storage;
 
-	/** @var Site */
+	/**
+	 * @var Site
+	 */
 	private $preferences;
 
-	public function __construct( ListScreenRepository $list_screen_repository, Site $preferences ) {
-		$this->list_screen_repository = $list_screen_repository;
+	public function __construct( Storage $storage, Site $preferences ) {
+		$this->storage = $storage;
 		$this->preferences = $preferences;
 	}
 
-	/**
-	 * Register hooks
-	 */
 	public function register() {
-		add_action( 'admin_init', array( $this, 'init_columns_on_quick_edit' ) );
+		add_action( 'admin_init', [ $this, 'init_columns_on_quick_edit' ] );
 	}
 
 	/**
@@ -71,7 +73,7 @@ class QuickEdit implements Registrable {
 			return;
 		}
 
-		$list_screen = $this->list_screen_repository->find( $id );
+		$list_screen = $this->storage->find( new ListScreenId( $id ) );
 
 		if ( ! $list_screen ) {
 			return;

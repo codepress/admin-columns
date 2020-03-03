@@ -25,12 +25,11 @@ class Post {
 	}
 
 	/**
-	 * @since 1.0
-	 *
 	 * @param int $post_id Post ID
 	 * @param int $words
 	 *
 	 * @return string Post Excerpt.
+	 * @since 1.0
 	 */
 	public function excerpt( $post_id, $words = 400 ) {
 		global $post;
@@ -126,23 +125,23 @@ class Post {
 
 		switch ( $post->post_status ) {
 			case 'private' :
-				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'hidden', 'class' => 'gray' ) ), __( 'Private' ) );
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( [ 'icon' => 'hidden', 'class' => 'gray' ] ), __( 'Private' ) );
 				break;
 			case 'publish' :
-				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'yes', 'class' => 'blue large' ) ), __( 'Published' ) );
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( [ 'icon' => 'yes', 'class' => 'blue large' ] ), __( 'Published' ) );
 				break;
 			case 'draft' :
-				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'edit', 'class' => 'green' ) ), __( 'Draft' ) );
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( [ 'icon' => 'edit', 'class' => 'green' ] ), __( 'Draft' ) );
 				break;
 			case 'pending' :
-				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'backup', 'class' => 'orange' ) ), __( 'Pending for review' ) );
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( [ 'icon' => 'backup', 'class' => 'orange' ] ), __( 'Pending for review' ) );
 				break;
 			case 'future' :
-				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'clock' ) ), __( 'Scheduled' ) . ': <em>' . ac_helper()->date->date( $post->post_date, 'wp_date_time' ) . '</em>' );
+				$icon = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( [ 'icon' => 'clock' ] ), __( 'Scheduled' ) . ': <em>' . ac_helper()->date->date( $post->post_date, 'wp_date_time' ) . '</em>' );
 
 				// Missed schedule
 				if ( ( time() - mysql2date( 'G', $post->post_date_gmt ) ) > 0 ) {
-					$icon .= ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'flag', 'class' => 'gray' ) ), __( 'Missed schedule' ) );
+					$icon .= ac_helper()->html->tooltip( ac_helper()->icon->dashicon( [ 'icon' => 'flag', 'class' => 'gray' ] ), __( 'Missed schedule' ) );
 				}
 				break;
 		}

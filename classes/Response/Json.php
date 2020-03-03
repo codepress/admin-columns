@@ -11,7 +11,7 @@ class Json {
 	/**
 	 * @var array
 	 */
-	protected $parameters = array();
+	protected $parameters = [];
 
 	/**
 	 * @var int

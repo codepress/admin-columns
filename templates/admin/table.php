@@ -1,42 +1,40 @@
 <?php
-/** @var Table $table */
 
 use AC\Admin\Table;
-
-$table = $this->table;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/** @var Table $table */
+$table = $this->table;
+
 ?>
 
-<table class="<?= implode( ' ', $table->getTableClasses() ); ?>">
+<table class="widefat fixed ac-table">
 	<thead>
-	<?php foreach ( $table->get_columns() as $name => $label ) : ?>
-		<th class="<?= $name; ?>"><?= $label; ?></th>
+	<?php foreach ( $table->get_headings() as $key => $label ) : ?>
+		<th class="<?= $key ?>"><?= $label ?></th>
 	<?php endforeach; ?>
 	</thead>
 	<tbody>
-
-	<?php foreach ( $table->get_items() as $item ) : ?>
-		<tr class="<?= $table->get_row_class( $item ); ?>">
-			<?php foreach ( $table->getColumnNames() as $name ) : ?>
-				<td class="<?= $name; ?>">
-					<?= $table->render_column( $name, $item ); ?>
+	<?php foreach ( $table->get_rows() as $row ) : ?>
+		<tr>
+			<?php foreach ( array_keys( $table->get_headings() ) as $key ) : ?>
+				<td class="<?= $key ?>">
+					<?= $table->get_column( $key, $row ) ?>
 				</td>
 			<?php endforeach; ?>
 		</tr>
 	<?php endforeach; ?>
 	</tbody>
-
-	<?php if ( $this->message ) : ?>
+	<?php if ( $table->has_message() ) : ?>
 		<tfoot>
 		<tr class="message">
-			<td colspan="<?= count( $table->get_columns() ); ?>">
-				<?= $this->message; ?>
+			<td colspan="<?= count( $table->get_headings() ) ?>">
+				<?= $table->get_message() ?>
 			</td>
 		</tr>
 		</tfoot>
 	<?php endif; ?>
-
 </table>

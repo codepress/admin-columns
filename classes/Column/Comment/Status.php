@@ -27,13 +27,13 @@ class Status extends Column {
 	}
 
 	public function get_statuses() {
-		return array(
+		return [
 			'trash'        => __( 'Trash' ),
 			'post-trashed' => __( 'Trash' ),
 			'spam'         => __( 'Spam' ),
 			'1'            => __( 'Approved' ),
 			'0'            => __( 'Pending' ),
-		);
+		];
 	}
 
 	public function get_raw_value( $id ) {

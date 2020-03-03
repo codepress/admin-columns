@@ -46,7 +46,7 @@ final class Timestamp implements KeyValuePair, Expirable {
 	 *
 	 * @return mixed
 	 */
-	public function get( array $args = array() ) {
+	public function get( array $args = [] ) {
 		return $this->storage->get( $args );
 	}
 

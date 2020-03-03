@@ -7,7 +7,7 @@ abstract class Config extends ArrayIterator {
 	/**
 	 * @param array $config
 	 */
-	public function __construct( array $config = array() ) {
+	public function __construct( array $config = [] ) {
 		parent::__construct( $config );
 
 		$this->validate_config();

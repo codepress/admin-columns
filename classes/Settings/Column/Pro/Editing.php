@@ -15,7 +15,7 @@ class Editing extends Settings\Column\Pro {
 	}
 
 	protected function define_options() {
-		return array( 'edit' );
+		return [ 'edit' ];
 	}
 
 }

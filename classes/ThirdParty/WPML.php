@@ -13,13 +13,13 @@ class WPML implements Registrable {
 	function register() {
 
 		// display correct flags on the overview screens
-		add_action( 'ac/table/list_screen', array( $this, 'replace_flags' ) );
+		add_action( 'ac/table/list_screen', [ $this, 'replace_flags' ] );
 
 		// enable the translation of the column labels
-		add_action( 'wp_loaded', array( $this, 'register_column_labels' ), 99 );
+		add_action( 'wp_loaded', [ $this, 'register_column_labels' ], 99 );
 
 		// enable the WPML translation of column headings
-		add_filter( 'ac/headings/label', array( $this, 'register_translated_label' ), 100 );
+		add_filter( 'ac/headings/label', [ $this, 'register_translated_label' ], 100 );
 	}
 
 	public function replace_flags() {

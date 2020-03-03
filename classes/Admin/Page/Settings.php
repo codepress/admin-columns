@@ -2,22 +2,35 @@
 
 namespace AC\Admin\Page;
 
-use AC;
 use AC\Admin\Page;
 use AC\Admin\Section;
+use AC\Admin\SectionCollection;
+use AC\Asset\Assets;
+use AC\Asset\Enqueueables;
+use AC\View;
 
-class Settings extends Page
-	implements AC\Registrable {
+class Settings extends Page implements Enqueueables {
 
 	const NAME = 'settings';
 
 	/**
-	 * @var Section[]
+	 * @var SectionCollection
 	 */
-	private $sections = array();
+	protected $sections;
 
-	public function __construct() {
+	public function __construct( SectionCollection $sections ) {
 		parent::__construct( self::NAME, __( 'Settings', 'codepress-admin-columns' ) );
+
+		$this->sections = $sections;
+	}
+
+	/**
+	 * @param string $slug
+	 *
+	 * @return Section|null
+	 */
+	public function get_section( $slug ) {
+		return $this->sections->get( $slug );
 	}
 
 	/**
@@ -25,49 +38,30 @@ class Settings extends Page
 	 *
 	 * @return $this
 	 */
-	public function register_section( Section $section ) {
-		$this->sections[] = $section;
+	public function add_section( Section $section ) {
+		$this->sections->add( $section );
 
 		return $this;
 	}
 
-	/**
-	 * @return Section[]
-	 */
-	public function get_sections() {
-		return $this->sections;
-	}
-
-	/**
-	 * Register Hooks
-	 */
-	public function register() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	public function get_assets() {
+		$assets = new Assets();
 
 		foreach ( $this->sections as $section ) {
-			if ( $section instanceof AC\Registrable ) {
-				$section->register();
+			if ( $section instanceof Enqueueables ) {
+				$assets->add_collection( $section->get_assets() );
 			}
 		}
+
+		return $assets;
 	}
 
-	public function admin_scripts() {
-		wp_enqueue_style( 'ac-admin-page-settings', AC()->get_url() . 'assets/css/admin-page-settings.css', array(), AC()->get_version() );
-	}
+	public function render() {
+		$view = new View( [
+			'sections' => $this->sections,
+		] );
 
-	public function render() { ?>
-		<table class="form-table ac-form-table settings">
-			<tbody>
-
-			<?php foreach ( $this->sections as $section ) {
-				$section->render();
-			}
-			?>
-
-			</tbody>
-		</table>
-
-		<?php
+		return $view->set_template( 'admin/page/settings' )->render();
 	}
 
 }

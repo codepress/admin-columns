@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\Plugin;
 
 class Installer {

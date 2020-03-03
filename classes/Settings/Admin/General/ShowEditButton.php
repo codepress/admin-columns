@@ -5,6 +5,8 @@ namespace AC\Settings\Admin\General;
 use AC\Form\Element\Checkbox;
 use AC\Settings\Admin\General;
 
+// todo: remove. see AC\Admin\Section\Partial\ShowEditButton
+// todo create option with enabled.
 class ShowEditButton extends General {
 
 	public function __construct() {
@@ -34,7 +36,7 @@ class ShowEditButton extends General {
 
 		$checkbox = new Checkbox( $name );
 
-		$checkbox->set_options( array( '1' => $this->get_label() ) )
+		$checkbox->set_options( [ '1' => $this->get_label() ] )
 		         ->set_value( $this->get_value() );
 
 		return $checkbox->render();

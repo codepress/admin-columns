@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\Settings;
 
 use AC\Capabilities;
@@ -12,7 +13,7 @@ class General implements Registrable {
 	public function register() {
 		$this->register_setting();
 
-		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, array( $this, 'set_capability' ) );
+		add_filter( 'option_page_capability_' . self::SETTINGS_GROUP, [ $this, 'set_capability' ] );
 	}
 
 	public function register_setting() {
@@ -64,6 +65,37 @@ class General implements Registrable {
 	 */
 	public function delete_options() {
 		delete_option( self::SETTINGS_NAME );
+	}
+
+	/**
+	 * @param string $name
+	 * @param mixed  $value
+	 */
+	public function save_option( $name, $value ) {
+		$options = $this->get_options();
+
+		if ( false === $options ) {
+			$options = [];
+		}
+
+		$options[ $name ] = $value;
+
+		update_option( self::SETTINGS_NAME, $options );
+	}
+
+	/**
+	 * @param string $name
+	 */
+	public function delete_option( $name ) {
+		$options = $this->get_options();
+
+		if ( empty( $options ) ) {
+			return;
+		}
+
+		unset( $options[ $name ] );
+
+		update_option( self::SETTINGS_NAME, $options );
 	}
 
 }

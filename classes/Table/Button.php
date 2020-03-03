@@ -17,7 +17,7 @@ class Button {
 	private $dashicon;
 
 	/** @var array */
-	protected $attributes = array();
+	protected $attributes = [];
 
 	public function __construct( $slug ) {
 		$this->set_slug( $slug );
@@ -75,7 +75,7 @@ class Button {
 	 * @return string
 	 */
 	protected function get_attributes_as_string( array $attributes ) {
-		$output = array();
+		$output = [];
 
 		foreach ( $attributes as $key => $value ) {
 			$output[] = $this->get_attribute_as_string( $key, $value );
@@ -162,9 +162,9 @@ class Button {
 			return '';
 		}
 
-		return ac_helper()->icon->dashicon( array(
+		return ac_helper()->icon->dashicon( [
 			'icon' => $this->dashicon,
-		) );
+		] );
 	}
 
 	/**

@@ -29,22 +29,22 @@ final class Response {
 	 * @return array
 	 */
 	private function parse_options( array $options ) {
-		$results = array();
+		$results = [];
 
 		foreach ( $options as $option ) {
 			switch ( true ) {
 				case $option instanceof OptionGroup:
-					$results[] = array(
+					$results[] = [
 						'text'     => $option->get_label(),
 						'children' => $this->parse_options( $option->get_options() ),
-					);
+					];
 
 					break;
 				case $option instanceof Option:
-					$results[] = array(
+					$results[] = [
 						'id'   => $option->get_value(),
 						'text' => $option->get_label(),
-					);
+					];
 
 					break;
 			}
@@ -57,12 +57,12 @@ final class Response {
 	 * @inheritDoc
 	 */
 	public function __invoke() {
-		return array(
+		return [
 			'results'    => $this->parse_options( $this->options->get_copy() ),
-			'pagination' => array(
+			'pagination' => [
 				'more' => $this->more,
-			),
-		);
+			],
+		];
 	}
 
 }

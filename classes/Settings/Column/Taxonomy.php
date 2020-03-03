@@ -13,7 +13,7 @@ class Taxonomy extends Settings\Column {
 	private $taxonomy;
 
 	protected function define_options() {
-		return array( 'taxonomy' );
+		return [ 'taxonomy' ];
 	}
 
 	/**
@@ -26,10 +26,10 @@ class Taxonomy extends Settings\Column {
 		         ->set_attribute( 'data-label', 'update' )
 		         ->set_attribute( 'data-refresh', 'column' );
 
-		return new View( array(
+		return new View( [
 			'setting' => $taxonomy,
 			'label'   => __( 'Taxonomy', 'codepress-admin-columns' ),
-		) );
+		] );
 	}
 
 	/**

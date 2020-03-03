@@ -51,7 +51,7 @@ abstract class Formatter extends ArrayIterator {
 	 * @return Option[]
 	 */
 	protected function get_labels() {
-		$labels = array();
+		$labels = [];
 
 		foreach ( $this->entities as $value => $entity ) {
 			$labels[ $value ] = $this->get_label( $entity );
@@ -106,7 +106,7 @@ abstract class Formatter extends ArrayIterator {
 	 * @return Option[]
 	 */
 	private function get_options( array $labels ) {
-		$options = array();
+		$options = [];
 
 		foreach ( $labels as $value => $label ) {
 			$options[] = new Option( $value, $label );

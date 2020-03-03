@@ -4,8 +4,9 @@ namespace AC\Controller;
 
 use AC\Ajax;
 use AC\Column\AjaxValue;
-use AC\ListScreenRepository\ListScreenRepository;
+use AC\ListScreenRepository;
 use AC\Registrable;
+use AC\Type\ListScreenId;
 
 class AjaxColumnValue implements Registrable {
 
@@ -41,7 +42,7 @@ class AjaxColumnValue implements Registrable {
 			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );
 		}
 
-		$list_screen = $this->repository->find( filter_input( INPUT_POST, 'layout' ) );
+		$list_screen = $this->repository->find( new ListScreenId( filter_input( INPUT_POST, 'layout' ) ) );
 
 		if ( ! $list_screen ) {
 			wp_die( __( 'Invalid list screen.', 'codepress-admin-columns' ), null, 400 );
