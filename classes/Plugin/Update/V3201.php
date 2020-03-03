@@ -45,10 +45,10 @@ class V3201 extends Update {
 	 * Update user preferences for review
 	 */
 	private function update_notice_preference_review() {
-		$mapping = array(
+		$mapping = [
 			'ac_hide_notice_review'    => 'dismiss-review',
 			'ac-first-login-timestamp' => 'first-login-review',
-		);
+		];
 
 		foreach ( $mapping as $old => $new ) {
 			foreach ( $this->get_users_by_meta_key( $old ) as $user_id ) {
@@ -67,9 +67,9 @@ class V3201 extends Update {
 	 * Update user preferences for addons
 	 */
 	private function update_notice_preference_addons() {
-		$mapping = array(
+		$mapping = [
 			'ac_hide_notice_addons' => 'dismiss-notice',
-		);
+		];
 
 		foreach ( $mapping as $old => $new ) {
 			foreach ( $this->get_users_by_meta_key( $old ) as $user_id ) {
@@ -90,18 +90,18 @@ class V3201 extends Update {
 	 * @return array ID's
 	 */
 	protected function get_users_by_meta_key( $key ) {
-		$user_ids = get_users( array(
+		$user_ids = get_users( [
 			'fields'     => 'ids',
-			'meta_query' => array(
-				array(
+			'meta_query' => [
+				[
 					'key'     => $key,
 					'compare' => 'EXISTS',
-				),
-			),
-		) );
+				],
+			],
+		] );
 
 		if ( ! $user_ids ) {
-			return array();
+			return [];
 		}
 
 		return $user_ids;

@@ -25,7 +25,7 @@ final class NinjaForms extends Integration {
 	}
 
 	private function get_post_types() {
-		return array( 'nf_sub' );
+		return [ 'nf_sub' ];
 	}
 
 	public function show_notice( Screen $screen ) {

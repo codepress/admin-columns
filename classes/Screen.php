@@ -12,7 +12,7 @@ class Screen implements Registrable {
 	protected $screen;
 
 	public function register() {
-		add_action( 'current_screen', array( $this, 'init' ) );
+		add_action( 'current_screen', [ $this, 'init' ] );
 	}
 
 	/**

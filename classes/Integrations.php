@@ -5,7 +5,7 @@ namespace AC;
 class Integrations extends ArrayIterator {
 
 	public function __construct() {
-		$integrations = array();
+		$integrations = [];
 
 		$classes = Autoloader::instance()->get_class_names_from_dir( __NAMESPACE__ . '\Integration' );
 

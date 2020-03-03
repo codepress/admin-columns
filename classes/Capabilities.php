@@ -28,7 +28,7 @@ abstract class Capabilities implements Registrable {
 	}
 
 	public function register() {
-		add_action( 'ac/capabilities/init', array( $this, 'set_default_caps' ) );
+		add_action( 'ac/capabilities/init', [ $this, 'set_default_caps' ] );
 	}
 
 	/**

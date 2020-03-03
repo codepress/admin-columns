@@ -14,25 +14,25 @@ class WordsPerMinute extends Settings\Column
 	private $words_per_minute;
 
 	protected function define_options() {
-		return array(
+		return [
 			'words_per_minute' => 200,
-		);
+		];
 	}
 
 	public function create_view() {
 		$setting = $this->create_element( 'number' );
 		$setting
-			->set_attributes( array(
+			->set_attributes( [
 				'min'         => 0,
 				'step'        => 1,
 				'placeholder' => $this->get_words_per_minute(),
-			) );
+			] );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Words per minute', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Estimated reading time in words per minute.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'By default: %s', 'codepress-admin-columns' ), $this->get_words_per_minute() ),
 			'setting' => $setting,
-		) );
+		] );
 
 		return $view;
 	}
@@ -60,8 +60,8 @@ class WordsPerMinute extends Settings\Column
 	 *
 	 * @param int $seconds
 	 *
-	 * @since 3.0
 	 * @return string
+	 * @since 3.0
 	 */
 	protected function make_human_readable( $seconds ) {
 		$time = false;

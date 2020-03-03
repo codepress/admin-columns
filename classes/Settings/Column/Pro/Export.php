@@ -15,7 +15,7 @@ class Export extends Settings\Column\Pro {
 	}
 
 	protected function define_options() {
-		return array( 'export' );
+		return [ 'export' ];
 	}
 
 }

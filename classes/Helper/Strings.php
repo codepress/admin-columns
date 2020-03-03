@@ -9,7 +9,6 @@ class Strings {
 	 *
 	 * @return bool|false|string
 	 * @since 1.3.1
-	 *
 	 */
 	public function shorten_url( $url ) {
 		if ( ! $url ) {
@@ -24,7 +23,6 @@ class Strings {
 	 *
 	 * @return string
 	 * @since 1.3
-	 *
 	 */
 	public function strip_trim( $string ) {
 		return trim( strip_tags( $string ) );
@@ -37,7 +35,6 @@ class Strings {
 	 *
 	 * @return int Number of words
 	 * @since 3.0
-	 *
 	 */
 	public function word_count( $string ) {
 		if ( empty( $string ) ) {
@@ -76,7 +73,6 @@ class Strings {
 	 * @return false|string
 	 * @see   wp_trim_words();
 	 * @since 3.0
-	 *
 	 */
 	public function trim_words( $string = '', $num_words = 30, $more = null ) {
 		if ( ! $string ) {
@@ -149,7 +145,6 @@ class Strings {
 	 *
 	 * @return array
 	 * @since 3.0
-	 *
 	 */
 	public function hex_to_rgb( $hex ) {
 		$hex = $this->hex_format( $hex );
@@ -164,7 +159,6 @@ class Strings {
 	 *
 	 * @return string
 	 * @since 3.0
-	 *
 	 */
 	public function hex_get_contrast( $hex ) {
 		$rgb = $this->hex_to_rgb( $hex );
@@ -178,7 +172,6 @@ class Strings {
 	 *
 	 * @return bool
 	 * @since 1.2.0
-	 *
 	 */
 	public function is_image( $url ) {
 		if ( ! $url || ! is_string( $url ) ) {
@@ -195,7 +188,6 @@ class Strings {
 	 *
 	 * @return array
 	 * @since 3.0
-	 *
 	 */
 	public function comma_separated_to_array( $string ) {
 		$array = [];
@@ -217,7 +209,6 @@ class Strings {
 	 *
 	 * @return array
 	 * @since 3.0
-	 *
 	 */
 	public function string_to_array_integers( $string ) {
 		$integers = [];
@@ -236,7 +227,6 @@ class Strings {
 	 *
 	 * @return string
 	 * @since 3.0
-	 *
 	 */
 	public function get_color_block( $hex ) {
 		if ( ! $hex ) {

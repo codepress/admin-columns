@@ -23,10 +23,10 @@ final class Pods extends Integration {
 	}
 
 	public function show_notice( Screen $screen ) {
-		return in_array( $screen->get_id(), array(
+		return in_array( $screen->get_id(), [
 			'toplevel_page_pods',
 			'pods-admin_page_pods-settings',
-		) );
+		] );
 	}
 
 }

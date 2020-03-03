@@ -18,7 +18,7 @@ class Permalink extends Column {
 	public function get_value( $id ) {
 		$link = $this->get_raw_value( $id );
 
-		return ac_helper()->html->link( $link, $link, array( 'target' => '_blank' ) );
+		return ac_helper()->html->link( $link, $link, [ 'target' => '_blank' ] );
 	}
 
 	public function get_raw_value( $id ) {

@@ -18,7 +18,7 @@ class ExifData extends Settings\Column
 	}
 
 	protected function define_options() {
-		return array( 'exif_datatype' => 'aperture' );
+		return [ 'exif_datatype' => 'aperture' ];
 	}
 
 	public function create_view() {
@@ -27,33 +27,33 @@ class ExifData extends Settings\Column
 		                ->set_attribute( 'data-refresh', 'column' )
 		                ->set_options( $this->get_exif_types() );
 
-		return new View( array(
+		return new View( [
 			'label'   => $this->column->get_label(),
 			'setting' => $setting,
-		) );
+		] );
 	}
 
 	public function get_dependent_settings() {
 
 		switch ( $this->get_exif_datatype() ) {
 			case 'aperture' :
-				$settings = array( new Settings\Column\BeforeAfter\Aperture( $this->column ) );
+				$settings = [ new Settings\Column\BeforeAfter\Aperture( $this->column ) ];
 
 				break;
 			case 'focal_length' :
-				$settings = array( new Settings\Column\BeforeAfter\FocalLength( $this->column ) );
+				$settings = [ new Settings\Column\BeforeAfter\FocalLength( $this->column ) ];
 
 				break;
 			case 'iso' :
-				$settings = array( new Settings\Column\BeforeAfter\ISO( $this->column ) );
+				$settings = [ new Settings\Column\BeforeAfter\ISO( $this->column ) ];
 
 				break;
 			case 'shutter_speed' :
-				$settings = array( new Settings\Column\BeforeAfter\ShutterSpeed( $this->column ) );
+				$settings = [ new Settings\Column\BeforeAfter\ShutterSpeed( $this->column ) ];
 
 				break;
 			default :
-				$settings = array( new Settings\Column\BeforeAfter( $this->column ) );
+				$settings = [ new Settings\Column\BeforeAfter( $this->column ) ];
 		}
 
 		return $settings;
@@ -66,7 +66,7 @@ class ExifData extends Settings\Column
 	 * @since 2.0
 	 */
 	private function get_exif_types() {
-		$exif_types = array(
+		$exif_types = [
 			'aperture'          => __( 'Aperture', 'codepress-admin-columns' ),
 			'credit'            => __( 'Credit', 'codepress-admin-columns' ),
 			'camera'            => __( 'Camera', 'codepress-admin-columns' ),
@@ -79,7 +79,7 @@ class ExifData extends Settings\Column
 			'title'             => __( 'Title', 'codepress-admin-columns' ),
 			'orientation'       => __( 'Orientation', 'codepress-admin-columns' ),
 			'keywords'          => __( 'Keywords', 'codepress-admin-columns' ),
-		);
+		];
 
 		natcasesort( $exif_types );
 

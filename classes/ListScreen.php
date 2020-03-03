@@ -922,7 +922,6 @@ abstract class ListScreen {
 
 	/**
 	 * Reset original columns
-	 *
 	 * @deprecated 4.0
 	 */
 	public function reset_original_columns() {

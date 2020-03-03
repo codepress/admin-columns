@@ -13,7 +13,7 @@ class StringLimit extends Settings\Column {
 	private $string_limit;
 
 	protected function define_options() {
-		return array( 'string_limit' => 'word_limit' );
+		return [ 'string_limit' => 'word_limit' ];
 	}
 
 	public function create_view() {
@@ -21,27 +21,27 @@ class StringLimit extends Settings\Column {
 		                ->set_attribute( 'data-refresh', 'column' )
 		                ->set_options( $this->get_limit_options() );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Text Limit', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Limit text to a certain number of characters or words', 'codepress-admin-columns' ),
 			'setting' => $setting,
-		) );
+		] );
 
 		return $view;
 	}
 
 	private function get_limit_options() {
-		$options = array(
+		$options = [
 			''                => __( 'No limit', 'codepress-admin-columns' ),
 			'character_limit' => __( 'Character Limit', 'codepress-admin-columns' ),
 			'word_limit'      => __( 'Word Limit', 'codepress-admin-columns' ),
-		);
+		];
 
 		return $options;
 	}
 
 	public function get_dependent_settings() {
-		$setting = array();
+		$setting = [];
 
 		switch ( $this->get_string_limit() ) {
 

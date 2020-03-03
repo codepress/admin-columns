@@ -13,10 +13,10 @@ abstract class Pro extends Settings\Column {
 
 	public function create_view() {
 		$setting = $this->create_element( 'radio' )
-		                ->set_options( array(
+		                ->set_options( [
 			                'on'  => __( 'Yes' ),
 			                'off' => __( 'No' ),
-		                ) )
+		                ] )
 		                ->set_value( 'off' );
 
 		$view = new View();

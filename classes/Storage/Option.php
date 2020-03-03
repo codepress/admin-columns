@@ -23,10 +23,10 @@ class Option implements KeyValuePair {
 	 *
 	 * @return mixed
 	 */
-	public function get( array $args = array() ) {
-		$args = array_merge( array(
+	public function get( array $args = [] ) {
+		$args = array_merge( [
 			self::OPTION_DEFAULT => false,
-		), $args );
+		], $args );
 
 		wp_cache_delete( $this->key, 'options' );
 

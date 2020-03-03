@@ -2,7 +2,6 @@
 
 namespace AC\Controller\ColumnRequest;
 
-
 use AC\Controller\Handler;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
@@ -12,6 +11,7 @@ use AC\Type\ListScreenId;
 class Save extends Handler {
 
 	const ID = 'save';
+
 	/**
 	 * @var Storage
 	 */

@@ -4,7 +4,6 @@ namespace AC\Controller\ColumnRequest;
 
 use AC;
 
-
 class Refresh extends AC\Controller\ColumnRequest {
 
 	const ID = 'refresh';
@@ -14,7 +13,7 @@ class Refresh extends AC\Controller\ColumnRequest {
 	}
 
 	public function get_column( AC\Request $request, AC\ListScreen $list_screen ) {
-		parse_str( $request->get('data'), $formdata );
+		parse_str( $request->get( 'data' ), $formdata );
 		$options = $formdata['columns'];
 		$name = filter_input( INPUT_POST, 'column_name' );
 

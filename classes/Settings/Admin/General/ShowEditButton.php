@@ -36,7 +36,7 @@ class ShowEditButton extends General {
 
 		$checkbox = new Checkbox( $name );
 
-		$checkbox->set_options( array( '1' => $this->get_label() ) )
+		$checkbox->set_options( [ '1' => $this->get_label() ] )
 		         ->set_value( $this->get_value() );
 
 		return $checkbox->render();

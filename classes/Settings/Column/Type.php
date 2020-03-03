@@ -16,9 +16,9 @@ class Type extends Column {
 	private $type;
 
 	protected function define_options() {
-		return array(
+		return [
 			'type' => $this->column->get_type(),
-		);
+		];
 	}
 
 	public function create_view() {
@@ -37,11 +37,11 @@ class Type extends Column {
 			}
 		}
 
-		$view = new View( array(
+		$view = new View( [
 			'setting' => $type,
 			'label'   => __( 'Type', 'codepress-admin-columns' ),
 			'tooltip' => $tooltip,
-		) );
+		] );
 
 		return $view;
 	}
@@ -67,7 +67,7 @@ class Type extends Column {
 	 * @return Integration[]
 	 */
 	private function get_missing_integrations() {
-		$missing = array();
+		$missing = [];
 
 		foreach ( new AC\Integrations() as $integration ) {
 			$integration_plugin = new AC\PluginInformation( $integration->get_basename() );
@@ -104,7 +104,7 @@ class Type extends Column {
 	 * @return array
 	 */
 	private function get_grouped_columns() {
-		$columns = array();
+		$columns = [];
 
 		// get columns and sort them
 		foreach ( $this->column->get_list_screen()->get_column_types() as $column ) {
@@ -123,7 +123,7 @@ class Type extends Column {
 			}
 		}
 
-		$grouped = array();
+		$grouped = [];
 
 		// create select options
 		foreach ( $this->column_groups()->get_groups_sorted() as $group ) {

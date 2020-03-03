@@ -16,7 +16,7 @@ final class NumberFormat implements AC\Registrable {
 	}
 
 	public function register() {
-		add_action( 'wp_ajax_ac_number_format', array( $this, 'request' ) );
+		add_action( 'wp_ajax_ac_number_format', [ $this, 'request' ] );
 	}
 
 	public function request() {

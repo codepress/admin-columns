@@ -29,12 +29,12 @@ class Dismissible extends Notice {
 	}
 
 	public function render() {
-		$data = array(
+		$data = [
 			'message'              => $this->message,
 			'type'                 => $this->type,
 			'id'                   => $this->id,
 			'dismissible_callback' => $this->handler->get_params(),
-		);
+		];
 
 		$view = new View( $data );
 		$view->set_template( 'message/notice/dismissible' );
@@ -48,7 +48,7 @@ class Dismissible extends Notice {
 	public function enqueue_scripts() {
 		parent::enqueue_scripts();
 
-		wp_enqueue_script( 'ac-message', AC()->get_url() . 'assets/js/notice-dismissible.js', array(), AC()->get_version(), true );
+		wp_enqueue_script( 'ac-message', AC()->get_url() . 'assets/js/notice-dismissible.js', [], AC()->get_version(), true );
 	}
 
 }

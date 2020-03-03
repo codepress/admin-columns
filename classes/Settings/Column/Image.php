@@ -28,55 +28,55 @@ class Image extends Settings\Column
 	}
 
 	protected function define_options() {
-		return array(
+		return [
 			'image_size'   => 'cpac-custom',
 			'image_size_w' => 60,
 			'image_size_h' => 60,
-		);
+		];
 	}
 
 	public function create_view() {
-		$width = new View( array(
+		$width = new View( [
 			'setting' => $this->create_element( 'number', 'image_size_w' ),
 			'label'   => __( 'Width', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Width in pixels', 'codepress-admin-columns' ),
-		) );
+		] );
 
-		$height = new View( array(
+		$height = new View( [
 			'setting' => $this->create_element( 'number', 'image_size_h' ),
 			'label'   => __( 'Height', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Height in pixels', 'codepress-admin-columns' ),
-		) );
+		] );
 
 		$size = $this->create_element( 'select', 'image_size' )
 		             ->set_options( $this->get_grouped_image_sizes() );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'    => __( 'Image Size', 'codepress-admin-columns' ),
 			'setting'  => $size,
-			'sections' => array( $width, $height ),
-		) );
+			'sections' => [ $width, $height ],
+		] );
 
 		return $view;
 	}
 
 	/**
-	 * @since 1.0
 	 * @return array
+	 * @since 1.0
 	 */
 	private function get_grouped_image_sizes() {
 		global $_wp_additional_image_sizes;
 
-		$sizes = array(
-			'default' => array(
+		$sizes = [
+			'default' => [
 				'title'   => __( 'Default', 'codepress-admin-columns' ),
-				'options' => array(
+				'options' => [
 					'thumbnail' => __( 'Thumbnail', 'codepress-admin-columns' ),
 					'medium'    => __( 'Medium', 'codepress-admin-columns' ),
 					'large'     => __( 'Large', 'codepress-admin-columns' ),
-				),
-			),
-		);
+				],
+			],
+		];
 
 		$all_sizes = get_intermediate_image_sizes();
 
@@ -108,10 +108,10 @@ class Image extends Settings\Column
 
 		$sizes['default']['options']['full'] = __( 'Full Size', 'codepress-admin-columns' );
 
-		$sizes['custom'] = array(
+		$sizes['custom'] = [
 			'title'   => __( 'Custom', 'codepress-admin-columns' ),
-			'options' => array( 'cpac-custom' => __( 'Custom Size', 'codepress-admin-columns' ) . '&hellip;' ),
-		);
+			'options' => [ 'cpac-custom' => __( 'Custom Size', 'codepress-admin-columns' ) . '&hellip;' ],
+		];
 
 		return $sizes;
 	}
@@ -182,12 +182,12 @@ class Image extends Settings\Column
 		$size = $this->get_image_size();
 
 		if ( 'cpac-custom' === $size ) {
-			$size = array( $this->get_image_size_w(), $this->get_image_size_h() );
+			$size = [ $this->get_image_size_w(), $this->get_image_size_h() ];
 		}
 
 		// fallback size
 		if ( empty( $size ) ) {
-			$size = array( 60, 60 );
+			$size = [ 60, 60 ];
 		}
 
 		return $size;

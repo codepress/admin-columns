@@ -12,7 +12,7 @@ class Select extends Element {
 	protected $no_result = '';
 
 	protected function render_options( array $options ) {
-		$output = array();
+		$output = [];
 
 		foreach ( $options as $key => $option ) {
 			if ( isset( $option['options'] ) && is_array( $option['options'] ) ) {
@@ -46,7 +46,7 @@ class Select extends Element {
 	 * @return array
 	 */
 	protected function get_option_attributes( $key ) {
-		$attributes = array();
+		$attributes = [];
 		$attributes['value'] = $key;
 
 		if ( $this->selected( $key ) ) {
@@ -72,7 +72,7 @@ class Select extends Element {
 	 */
 	protected function render_optgroup( array $group ) {
 		$template = '<optgroup %s>%s</optgroup>';
-		$attributes = array();
+		$attributes = [];
 
 		if ( isset( $group['title'] ) ) {
 			$attributes['label'] = esc_attr( $group['title'] );

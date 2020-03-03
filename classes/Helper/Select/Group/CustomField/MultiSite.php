@@ -22,7 +22,7 @@ class MultiSite extends Group {
 	private function get_groups() {
 		global $wpdb;
 
-		$groups = array();
+		$groups = [];
 
 		foreach ( get_sites() as $site ) {
 			$label = __( 'Network Site:', 'codepress-admin-columns' ) . ' ' . ac_helper()->network->get_site_option( $site->blog_id, 'blogname' );

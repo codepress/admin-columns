@@ -11,13 +11,13 @@ class AttachmentDisplay extends Settings\Column
 	private $attachment_display;
 
 	protected function define_options() {
-		return array(
+		return [
 			'attachment_display' => 'thumbnail',
-		);
+		];
 	}
 
 	public function get_dependent_settings() {
-		$settings = array();
+		$settings = [];
 
 		switch ( $this->get_attachment_display() ) {
 			case 'thumbnail' :
@@ -33,15 +33,15 @@ class AttachmentDisplay extends Settings\Column
 
 		$setting = $this->create_element( 'select' )
 		                ->set_attribute( 'data-refresh', 'column' )
-		                ->set_options( array(
+		                ->set_options( [
 			                'thumbnail' => __( 'Thumbnails', 'codepress-admin-columns' ),
 			                'count'     => __( 'Count', 'codepress-admin-columns' ),
-		                ) );
+		                ] );
 
-		return new View( array(
+		return new View( [
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $setting,
-		) );
+		] );
 	}
 
 	/**
