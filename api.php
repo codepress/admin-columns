@@ -89,7 +89,6 @@ function ac_helper() {
 	return new AC\Helper();
 }
 
-// TODO David look at ListScreenApiData
 /**
  * @param array|string $list_screen_keys
  * @param array        $column_data
@@ -103,7 +102,6 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
 	}
 }
 
-// TODO David this seems not to be the proper documentation? Or way?
 /**
  * Manually set the columns for a list screen
  * This overrides the database settings and thus renders the settings screen for this list screen useless
@@ -144,7 +142,7 @@ function ac_get_admin_url( $slug = null ) {
 function ac_convert_site_url( $label, $action = 'encode' ) {
 	$input = [ site_url(), '[cpac_site_url]' ];
 
-	if ( 'decode' == $action ) {
+	if ( 'decode' === $action ) {
 		$input = array_reverse( $input );
 	}
 
