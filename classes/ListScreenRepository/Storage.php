@@ -5,10 +5,11 @@ namespace AC\ListScreenRepository;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository;
+use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
 use LogicException;
 
-final class Storage implements ListScreenRepository {
+final class Storage implements ListScreenRepositoryWritable {
 
 	/**
 	 * @var Storage\ListScreenRepository[]

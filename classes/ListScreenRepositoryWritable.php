@@ -2,7 +2,6 @@
 
 namespace AC;
 
-// TODO David implement where required
 interface ListScreenRepositoryWritable extends ListScreenRepository {
 
 	/**
