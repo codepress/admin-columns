@@ -16,3 +16,17 @@ class ListScreenApiData {
 	}
 
 }
+
+// TODO Implement here
+//$decoders = [
+//	new Decoder\Version510( new Storage\ListScreen\DecoderFactory( $this->types ) ),
+//	new Decoder\Version400( $this->types ),
+//	new Decoder\Version384( $this->types ),
+//	new Decoder\Version332( $this->types ),
+//];
+//
+//foreach ( $decoders as $decoder ) {
+//	if ( $decoder->can_decode( $data ) ) {
+//		$list_screens->add_collection( $decoder->decode( $data ) );
+//	}
+//}

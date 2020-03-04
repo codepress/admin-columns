@@ -5,12 +5,13 @@ namespace AC\ListScreenRepository;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository;
+use AC\ListScreenRepositoryWritable;
 use AC\ListScreenTypes;
 use AC\Type\ListScreenId;
 use DateTime;
 use LogicException;
 
-final class Database implements ListScreenRepository {
+final class Database implements ListScreenRepositoryWritable {
 
 	const TABLE = 'admin_columns';
 
