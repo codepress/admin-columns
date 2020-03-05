@@ -1,5 +1,6 @@
 <?php
 
+use AC\EncodedListScreenDataFactory;
 use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
@@ -98,7 +99,7 @@ function ac_helper() {
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	foreach ( (array) $list_screen_keys as $key ) {
-		AC\ListScreenApiData::push( [ $key => $column_data ] );
+		ac_load_columns( [ $key => $column_data ] );
 	}
 }
 
@@ -115,7 +116,8 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
  * @since 4.0.0
  */
 function ac_load_columns( array $data ) {
-	AC\ListScreenApiData::push( $data );
+	$factory = new EncodedListScreenDataFactory();
+	$factory->create()->add( $data );
 }
 
 /**
