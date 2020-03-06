@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../src/editing/js/helpers/elements.js":
-/*!***********************************************************************************!*\
-  !*** /Users/tobias/Projects/admin-columns-pro/src/editing/js/helpers/elements.js ***!
-  \***********************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /Users/stefan/PhpStormProjects/AdminColumns/admin-columns-pro/src/editing/js/helpers/elements.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
