@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpMethodParametersCountMismatchInspection */
+<?php
 
 namespace AC\ListScreenRepository\Storage;
 
@@ -6,6 +6,7 @@ use AC\ListScreenRepository\Rules;
 use ACP\ListScreenRepository\FileFactory;
 use ACP\Storage\Directory;
 use ACP\Storage\ListScreen\SerializerTypes;
+use LogicException;
 
 final class ListScreenRepositoryFactory {
 
@@ -19,34 +20,23 @@ final class ListScreenRepositoryFactory {
 	}
 
 	/**
-	 * @param Directory  $directory
-	 * @param bool       $writable
-	 * @param Rules|null $rules
-	 *
-	 * @return ListScreenRepository
-	 */
-	public function create( Directory $directory, $writable, Rules $rules = null ) {
-		$file = $this->file_factory->create(
-			SerializerTypes::PHP,
-			$directory
-		);
-
-		return new ListScreenRepository( $file, $writable, $rules );
-	}
-
-	/**
 	 * @param string     $path
 	 * @param bool       $writable
 	 * @param Rules|null $rules
 	 *
 	 * @return ListScreenRepository
 	 */
-	public function create_from_path( $path, $writable, Rules $rules = null ) {
-		return $this->create(
-			new Directory( $path ),
-			$writable,
-			$rules
+	public function create( $path, $writable, Rules $rules = null ) {
+		if ( ! is_string( $path ) || $path === '' ) {
+			throw new LogicException( 'Expected string as path.' );
+		}
+
+		$file = $this->file_factory->create(
+			SerializerTypes::PHP,
+			new Directory( $path )
 		);
+
+		return new ListScreenRepository( $file, $writable, $rules );
 	}
 
 }

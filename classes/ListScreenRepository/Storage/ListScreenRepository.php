@@ -134,7 +134,7 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
 	 */
 	public function get_source( $id ) {
 		if ( ! $this->has_source( $id ) ) {
-			throw new Exception\SourceNotAvailable();
+			throw new Exception\SourceNotAvailableException();
 		}
 
 		return $this->repository->get_source( $id );

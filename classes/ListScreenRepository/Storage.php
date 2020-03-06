@@ -109,7 +109,6 @@ final class Storage implements ListScreenRepositoryWritable {
 		return null !== $this->find( $id );
 	}
 
-	// TODO David decide on segregated interface part: read write, continue or throw an exception? Latter is better Logic. Test it yourself before calling? Can you know?
 	public function save( ListScreen $list_screen ) {
 		$this->update( $list_screen, 'save' );
 	}
