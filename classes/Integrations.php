@@ -18,4 +18,11 @@ class Integrations extends ArrayIterator {
 		parent::__construct( $integrations );
 	}
 
+	/**
+	 * @return Integration[]
+	 */
+	public function all() {
+		return $this->array;
+	}
+
 }

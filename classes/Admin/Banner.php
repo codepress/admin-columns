@@ -13,6 +13,15 @@ use AC\View;
 class Banner {
 
 	/**
+	 * @var Integrations
+	 */
+	private $integrations;
+
+	public function __construct() {
+		$this->integrations = new Integrations();
+	}
+
+	/**
 	 * @return Promo|null
 	 */
 	private function get_active_promotion() {
@@ -34,7 +43,7 @@ class Banner {
 	private function get_missing_integrations() {
 		$missing = [];
 
-		foreach ( new Integrations() as $integration ) {
+		foreach ( $this->integrations->all() as $integration ) {
 			$integration_plugin = new PluginInformation( $integration->get_basename() );
 
 			if ( $integration->is_plugin_active() && ! $integration_plugin->is_active() ) {
