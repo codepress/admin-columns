@@ -2,8 +2,6 @@
 
 namespace AC;
 
-use ACP\Storage\ListScreens\DecoderAggregate;
-
 final class EncodedListScreenDataFactory {
 
 	/**
@@ -16,7 +14,7 @@ final class EncodedListScreenDataFactory {
 	 */
 	public function create() {
 		if ( self::$instance === null ) {
-			self::$instance = new EncodedListScreenData( new DecoderAggregate( ListScreenTypes::instance() ) );
+			self::$instance = new EncodedListScreenData();
 		}
 
 		return self::$instance;

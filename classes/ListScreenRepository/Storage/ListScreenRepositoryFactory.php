@@ -18,9 +18,6 @@ final class ListScreenRepositoryFactory {
 		$this->file_factory = $file_factory;
 	}
 
-
-	// TODO David consider adding a path e.g. with_path() instead of Directory
-
 	/**
 	 * @param Directory  $directory
 	 * @param bool       $writable
@@ -35,6 +32,21 @@ final class ListScreenRepositoryFactory {
 		);
 
 		return new ListScreenRepository( $file, $writable, $rules );
+	}
+
+	/**
+	 * @param string     $path
+	 * @param bool       $writable
+	 * @param Rules|null $rules
+	 *
+	 * @return ListScreenRepository
+	 */
+	public function create_from_path( $path, $writable, Rules $rules = null ) {
+		return $this->create(
+			new Directory( $path ),
+			$writable,
+			$rules
+		);
 	}
 
 }
