@@ -9,10 +9,10 @@ final class EncodedListScreenData implements Iterator {
 	/**
 	 * @var array
 	 */
-	private $data;
+	private $data = [];
 
 	public function add( array $data ) {
-		$this->data[] = $data;
+		$this->data = $data;
 	}
 
 	public function rewind() {
