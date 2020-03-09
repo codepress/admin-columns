@@ -4,7 +4,9 @@ namespace AC\Admin\Page;
 
 use AC;
 use AC\Admin\Page;
+use AC\Asset\Assets;
 use AC\Asset\Location;
+use AC\Asset\Style;
 use AC\Deprecated\Hooks;
 
 class Help extends Page implements AC\Asset\Enqueueables {
@@ -27,15 +29,15 @@ class Help extends Page implements AC\Asset\Enqueueables {
 	}
 
 	public function get_assets() {
-		return new AC\Asset\Assets( [
-			new AC\Asset\Style( 'ac-admin-page-help-css', $this->location->with_suffix( 'assets/css/admin-page-help.css' ) ),
+		return new Assets( [
+			new Style( 'ac-admin-page-help-css', $this->location->with_suffix( 'assets/css/admin-page-help.css' ) ),
 		] );
 	}
 
 	/**
-	 * @param string $page Website page slug
+	 * @param string $page
 	 *
-	 * @return false|string
+	 * @return string
 	 */
 	private function get_documention_link( $page ) {
 		return ac_helper()->html->link( ac_get_site_utm_url( 'documentation/' . $page, 'documentation' ), __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', [ 'target' => '_blank' ] );
@@ -121,6 +123,9 @@ class Help extends Page implements AC\Asset\Enqueueables {
 	}
 
 	public function render() {
+		// Force cache refresh
+		$this->hooks->get_count( true );
+
 		ob_start();
 		?>
 		<h2><?php _e( 'Help', 'codepress-admin-columns' ); ?></h2>
@@ -132,11 +137,12 @@ class Help extends Page implements AC\Asset\Enqueueables {
 
 		<?php
 
-		$this->render_actions();
-		$this->render_filters();
-
-		// For cach refresh
-		$this->hooks->get_count( true );
+		if ( $this->hooks->get_count() > 0 ) {
+			$this->render_actions();
+			$this->render_filters();
+		} else {
+			_e( 'No deprecated hooks or filters found.', 'codepress-admin-columns' );
+		}
 
 		return ob_get_clean();
 	}
