@@ -9,7 +9,6 @@ use AC\Promo;
 use AC\PromoCollection;
 use AC\View;
 
-// todo: this is a View? maybe extend View? Partial of Columns?
 class Banner {
 
 	/**

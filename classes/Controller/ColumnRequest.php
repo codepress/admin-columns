@@ -6,7 +6,6 @@ use AC;
 use AC\Column\Placeholder;
 use AC\View;
 
-// todo
 abstract class ColumnRequest extends Handler {
 
 	/**
