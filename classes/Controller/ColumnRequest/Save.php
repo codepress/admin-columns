@@ -33,7 +33,7 @@ class Save extends Handler {
 		$list_id = $formdata['list_screen_id'];
 		$type = $formdata['list_screen'];
 
-		if ( ! ListScreenId::is_valid_id( $list_id ) || ! $this->storage->exists( new ListScreenId( $list_id ) ) ) {
+		if ( ! ListScreenId::is_valid_id( $list_id ) ) {
 			$list_id = ListScreenId::generate()->get_id();
 		}
 
