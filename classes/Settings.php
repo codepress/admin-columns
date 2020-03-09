@@ -1,4 +1,5 @@
 <?php
+
 namespace AC;
 
 class Settings {
@@ -6,7 +7,7 @@ class Settings {
 	/** @var Settings\Admin[] */
 	private static $settings;
 
-	public static function register_setting( Settings\Admin $setting  ) {
+	public static function register_setting( Settings\Admin $setting ) {
 		self::$settings[] = $setting;
 	}
 

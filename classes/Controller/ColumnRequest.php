@@ -1,12 +1,12 @@
 <?php
 
-namespace AC\Admin\Request;
+namespace AC\Controller;
 
 use AC;
 use AC\Column\Placeholder;
 use AC\View;
 
-abstract class Column extends AC\Admin\Request\Handler {
+abstract class ColumnRequest extends Handler {
 
 	/**
 	 * @return AC\Column
@@ -25,30 +25,30 @@ abstract class Column extends AC\Admin\Request\Handler {
 		$column = $this->get_column( $request, $list_screen );
 
 		if ( ! $column ) {
-			wp_send_json_error( array(
+			wp_send_json_error( [
 				'type'  => 'message',
 				'error' => sprintf( __( 'Please visit the %s screen once to load all available columns', 'codepress-admin-columns' ), ac_helper()->html->link( $list_screen->get_screen_link(), $list_screen->get_label() ) ),
-			) );
+			] );
 		}
 
-		$current_original_columns = (array) $request->get( 'current_original_columns', array() );
+		$current_original_columns = (array) $request->get( 'current_original_columns', [] );
 
 		// Not cloneable message
 		if ( in_array( $column->get_type(), $current_original_columns ) ) {
-			wp_send_json_error( array(
+			wp_send_json_error( [
 				'type'  => 'message',
 				'error' => sprintf(
 					__( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
 					'<strong>' . $column->get_label() . '</strong>' ),
-			) );
+			] );
 		}
 
 		// Placeholder message
 		if ( $column instanceof Placeholder ) {
-			wp_send_json_error( array(
+			wp_send_json_error( [
 				'type'  => 'message',
 				'error' => $column->get_message(),
-			) );
+			] );
 		}
 
 		wp_send_json_success( $this->render_column( $column ) );
@@ -60,9 +60,9 @@ abstract class Column extends AC\Admin\Request\Handler {
 	 * @return string
 	 */
 	private function render_column( AC\Column $column ) {
-		$view = new View( array(
+		$view = new View( [
 			'column' => $column,
-		) );
+		] );
 
 		$view->set_template( 'admin/edit-column' );
 

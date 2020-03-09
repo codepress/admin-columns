@@ -68,11 +68,11 @@ abstract class Integration {
 	 */
 	private function search_plugin( $name ) {
 		return add_query_arg(
-			array(
+			[
 				'tab'  => 'search',
 				'type' => 'term',
 				's'    => $name,
-			),
+			],
 			admin_url( 'plugin-install.php' )
 		);
 	}

@@ -25,11 +25,11 @@ final class EventsCalendar extends Integration {
 	}
 
 	private function get_post_types() {
-		return array(
+		return [
 			'tribe_events',
 			'tribe_organizer',
 			'tribe_venue',
-		);
+		];
 	}
 
 	public function show_notice( Screen $screen ) {

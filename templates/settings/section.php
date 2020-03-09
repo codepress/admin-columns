@@ -19,6 +19,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				<?php endif; ?>
 
+				<?php if ( $this->instructions ): ?>
+					<?php $id = $this->name . uniqid(); ?>
+					<a class="ac-pointer ac-column-setting__instructions" rel="p-instruction-<?= $id; ?>" data-pos="right" data-width="300">
+						<img src="<?= AC()->get_url(); ?>assets/images/question.svg" alt="?">
+					</a>
+					<div id="p-instruction-<?= $id; ?>" style="display:none;">
+						<?= $this->instructions; ?>
+					</div>
+				<?php endif; ?>
+
 				<?php if ( $this->read_more ) : ?>
 					<a href="<?php echo esc_url( $this->read_more ); ?>" target="_blank" class="more-link">
 						<span class="dashicons dashicons-admin-links"></span>

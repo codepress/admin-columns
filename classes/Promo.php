@@ -1,8 +1,8 @@
 <?php
 
-namespace AC\Admin;
+namespace AC;
 
-use AC\Admin\Entity\DateRange;
+use AC\Entity\DateRange;
 
 abstract class Promo {
 

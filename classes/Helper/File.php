@@ -6,13 +6,13 @@ class File {
 
 	/**
 	 * Convert file size to readable format
-	 * @since 1.4.5
 	 *
 	 * @param      $bytes
 	 * @param int  $decimals
 	 * @param bool $empty_text
 	 *
 	 * @return string|false Readable file size
+	 * @since 1.4.5
 	 */
 	public function get_readable_filesize( $bytes, $decimals = 2, $empty_text = false ) {
 
@@ -26,24 +26,24 @@ class File {
 	}
 
 	/**
-	 * @param  string $bytes
-	 * @param int     $decimals
+	 * @param string $bytes
+	 * @param int    $decimals
 	 *
 	 * @return array [ string $size, string $unit ]
 	 */
 	public function get_readable_filesize_as_array( $bytes, $decimals = 2 ) {
 		if ( ! $bytes ) {
-			return array();
+			return [];
 		}
 
-		$filesize_units = array( 'Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' );
+		$filesize_units = [ 'Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' ];
 
 		$i = (int) floor( log( $bytes, 1024 ) );
 
-		return array(
+		return [
 			round( $bytes / pow( 1024, $i ), $decimals ),
 			$filesize_units[ $i ],
-		);
+		];
 	}
 
 }

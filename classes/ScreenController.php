@@ -8,7 +8,7 @@ class ScreenController implements Registrable {
 	private $list_screen;
 
 	/** @var array */
-	private $headings = array();
+	private $headings = [];
 
 	/** @var DefaultColumns */
 	private $default_columns;
@@ -23,7 +23,7 @@ class ScreenController implements Registrable {
 
 	public function register() {
 		// Headings
-		add_filter( $this->list_screen->get_heading_hookname(), array( $this, 'add_headings' ), 200 );
+		add_filter( $this->list_screen->get_heading_hookname(), [ $this, 'add_headings' ], 200 );
 
 		// Values
 		$this->list_screen->set_manage_value_callback();

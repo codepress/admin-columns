@@ -2,11 +2,11 @@
 
 namespace AC\Check;
 
-use AC\Admin\Promo;
 use AC\Ajax;
 use AC\Capabilities;
 use AC\Message\Notice\Dismissible;
 use AC\Preferences;
+use AC\Promo;
 use AC\Registrable;
 use AC\Screen;
 

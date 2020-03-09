@@ -24,7 +24,7 @@ class User extends AC\ListScreenWP {
 	 * @see set_manage_value_callback()
 	 */
 	public function set_manage_value_callback() {
-		add_filter( 'manage_users_custom_column', array( $this, 'manage_value' ), 100, 3 );
+		add_filter( 'manage_users_custom_column', [ $this, 'manage_value' ], 100, 3 );
 	}
 
 	/**
@@ -33,7 +33,7 @@ class User extends AC\ListScreenWP {
 	public function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php' );
 
-		return new WP_Users_List_Table( array( 'screen' => $this->get_screen_id() ) );
+		return new WP_Users_List_Table( [ 'screen' => $this->get_screen_id() ] );
 	}
 
 	/**

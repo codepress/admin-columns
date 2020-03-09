@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Admin\Entity;
+namespace AC\Entity;
 
 use DateTime;
 

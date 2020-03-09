@@ -7,14 +7,14 @@ use AC\Form\Element;
 class Input extends Element {
 
 	protected function is_valid_type( $type ) {
-		$valid_types = array(
+		$valid_types = [
 			'hidden',
 			'text',
 			'number',
 			'email',
 			'radio',
 			'checkbox',
-		);
+		];
 
 		return in_array( $type, $valid_types );
 	}

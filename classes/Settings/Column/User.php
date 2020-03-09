@@ -18,11 +18,11 @@ class User extends Settings\Column
 	}
 
 	protected function define_options() {
-		return array( 'display_author_as' );
+		return [ 'display_author_as' ];
 	}
 
 	public function get_dependent_settings() {
-		$settings = array();
+		$settings = [];
 
 		$settings[] = new Settings\Column\UserLink( $this->column );
 
@@ -38,11 +38,11 @@ class User extends Settings\Column
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $this->get_display_options() );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $select,
 			'for'     => $select->get_id(),
-		) );
+		] );
 
 		return $view;
 	}
@@ -60,7 +60,7 @@ class User extends Settings\Column
 	 * @return array
 	 */
 	protected function get_display_options() {
-		$options = array(
+		$options = [
 			'display_name'    => __( 'Display Name', 'codepress-admin-columns' ),
 			'first_name'      => __( 'First Name', 'codepress-admin-columns' ),
 			'last_name'       => __( 'Last Name', 'codepress-admin-columns' ),
@@ -71,7 +71,7 @@ class User extends Settings\Column
 			'first_last_name' => __( 'First and Last Name', 'codepress-admin-columns' ),
 			'user_nicename'   => __( 'User Nicename', 'codepress-admin-columns' ),
 			'roles'           => __( 'Roles', 'codepress-admin-columns' ),
-		);
+		];
 
 		// resort for possible translations
 		natcasesort( $options );

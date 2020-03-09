@@ -16,7 +16,7 @@ final class Groups {
 	/**
 	 * @var array
 	 */
-	private $groups = array();
+	private $groups = [];
 
 	/**
 	 * @return array
@@ -58,7 +58,7 @@ final class Groups {
 	 * @return array
 	 */
 	private function sort_groups_by_priority( array $groups ) {
-		$aggregated = $sorted = array();
+		$aggregated = $sorted = [];
 
 		foreach ( $groups as $group ) {
 			$aggregated[ $group['priority'] ][] = $group;
@@ -82,7 +82,7 @@ final class Groups {
 	 * @return array
 	 */
 	private function sort_groups_by_string( array $groups, $key ) {
-		$sorted = array();
+		$sorted = [];
 
 		foreach ( $groups as $k => $group ) {
 			$sorted[ $k ] = $group[ $key ];
@@ -139,11 +139,11 @@ final class Groups {
 			return false;
 		}
 
-		$this->groups[ $slug ] = array(
+		$this->groups[ $slug ] = [
 			'slug'     => $slug,
 			'label'    => $label,
 			'priority' => $priority,
-		);
+		];
 
 		return true;
 	}

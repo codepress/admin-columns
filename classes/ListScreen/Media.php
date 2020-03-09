@@ -19,7 +19,7 @@ class Media extends AC\ListScreenPost {
 	}
 
 	public function set_manage_value_callback() {
-		add_action( 'manage_media_custom_column', array( $this, 'manage_value' ), 100, 2 );
+		add_action( 'manage_media_custom_column', [ $this, 'manage_value' ], 100, 2 );
 	}
 
 	/**
@@ -28,7 +28,7 @@ class Media extends AC\ListScreenPost {
 	public function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php' );
 
-		return new WP_Media_List_Table( array( 'screen' => $this->get_screen_id() ) );
+		return new WP_Media_List_Table( [ 'screen' => $this->get_screen_id() ] );
 	}
 
 	public function get_screen_link() {

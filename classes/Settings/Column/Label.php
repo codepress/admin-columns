@@ -13,10 +13,10 @@ class Label extends Settings\Column {
 	private $label;
 
 	protected function define_options() {
-		return array(
+		return [
 			'label'      => $this->column->get_label(),
 			'label_type' => 'text',
-		);
+		];
 	}
 
 	public function create_view() {
@@ -25,11 +25,11 @@ class Label extends Settings\Column {
 			->create_element( 'text' )
 			->set_attribute( 'placeholder', $this->column->get_label() );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Label', 'codepress-admin-columns' ),
 			'tooltip' => __( 'This is the name which will appear as the column header.', 'codepress-admin-columns' ),
 			'setting' => $setting,
-		) );
+		] );
 
 		$view->set_template( 'settings/setting-label' );
 

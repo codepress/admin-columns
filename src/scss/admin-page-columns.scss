@@ -399,6 +399,12 @@
 		padding: 10px;
 		padding-left: 12px;
 
+		.ac-pointer {
+			position: absolute;
+			right: 8px;
+			top: 14px;
+		}
+
 		a.more-link {
 			text-decoration: none;
 			color: #d2d2d2;
@@ -525,7 +531,7 @@
 	}
 }
 
-.ac-setting-input {
+.ac-column .ac-setting-input {
 	padding: 10px;
 	line-height: 24px;
 
@@ -725,7 +731,7 @@
  * Column Header
  * ----------------------------------------------------------------------------
  */
-.ac-column-header {
+div.ac-column-header {
 	border-style: solid;
 	border-color: #dfdfdf;
 	border-width: 1px 1px 0;
@@ -737,6 +743,10 @@
 
 	img {
 		margin-right: 3px;
+	}
+
+	table.widefat {
+		border: none;
 	}
 
 	table {

@@ -1,9 +1,9 @@
 <?php
 
-namespace AC\Admin\Promo;
+namespace AC\Promo;
 
-use AC\Admin\Entity\DateRange;
-use AC\Admin\Promo;
+use AC\Entity\DateRange;
+use AC\Promo;
 
 class BlackFriday extends Promo {
 

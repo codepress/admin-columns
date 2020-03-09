@@ -1,18 +1,19 @@
 <?php
 
-namespace AC\Admin\Request\Column;
+namespace AC\Controller\ColumnRequest;
 
 use AC;
-use AC\Admin\Request\Column;
 
-class Refresh extends Column {
+class Refresh extends AC\Controller\ColumnRequest {
+
+	const ID = 'refresh';
 
 	public function __construct() {
-		parent::__construct( 'refresh' );
+		parent::__construct( self::ID );
 	}
 
 	public function get_column( AC\Request $request, AC\ListScreen $list_screen ) {
-		parse_str( $request->get('data'), $formdata );
+		parse_str( $request->get( 'data' ), $formdata );
 		$options = $formdata['columns'];
 		$name = filter_input( INPUT_POST, 'column_name' );
 

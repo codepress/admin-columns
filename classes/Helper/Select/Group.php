@@ -35,7 +35,7 @@ abstract class Group extends ArrayIterator {
 	 * @return OptionGroup[]
 	 */
 	protected function get_group() {
-		$groups = array();
+		$groups = [];
 
 		foreach ( $this->formatter as $option ) {
 			$label = $this->get_label(
@@ -55,7 +55,7 @@ abstract class Group extends ArrayIterator {
 	 * @return OptionGroup[]
 	 */
 	protected function get_option_groups( array $groups ) {
-		$option_groups = array();
+		$option_groups = [];
 
 		foreach ( $groups as $label => $options ) {
 			$option_groups[] = new OptionGroup( $label, $options );
