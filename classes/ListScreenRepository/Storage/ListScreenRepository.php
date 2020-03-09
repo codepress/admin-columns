@@ -13,7 +13,7 @@ use LogicException;
 class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAware {
 
 	/**
-	 * @var ListScreenRepository
+	 * @var AC\ListScreenRepository
 	 */
 	private $repository;
 
