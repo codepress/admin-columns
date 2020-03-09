@@ -6,11 +6,7 @@ use AC\Admin\Page;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
-use AC\Controller\AjaxColumnRequest;
-use AC\Controller\AjaxColumnValue;
-use AC\Controller\AjaxRequestCustomFieldKeys;
-use AC\Controller\ListScreenRestoreColumns;
-use AC\Controller\RedirectAddonStatus;
+use AC\Controller;
 use AC\Deprecated;
 use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
@@ -78,12 +74,11 @@ class AdminColumns extends Plugin {
 			new DefaultColumnsController( new Request(), new DefaultColumns() ),
 			new QuickEdit( $this->storage, $this->preferences() ),
 			new Capabilities\Manage(),
-			new AjaxColumnRequest( $this->storage ),
-			new AjaxRequestCustomFieldKeys(),
-			new ListScreenRestoreColumns( $this->storage ),
-			new AjaxColumnValue( $this->storage ),
-			new ListScreenRestoreColumns( $this->storage ),
-			new RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
+			new Controller\AjaxColumnRequest( $this->storage ),
+			new Controller\AjaxRequestCustomFieldKeys(),
+			new Controller\AjaxColumnValue( $this->storage ),
+			new Controller\ListScreenRestoreColumns( $this->storage ),
+			new Controller\RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
 			new PluginActionLinks( $this->get_basename(), ac_get_admin_url( Page\Columns::NAME ) ),
 			new NoticeChecks(),
 			new TableLoader( $this->storage, new PermissionChecker(), $location ),
