@@ -1,9 +1,9 @@
 <?php
-namespace AC\Admin;
 
-use AC\Admin\Entity\DateRange;
-use AC\Admin\Promo\BlackFriday;
-use AC\ArrayIterator;
+namespace AC;
+
+use AC\Entity\DateRange;
+use AC\Promo\BlackFriday;
 use DateTime;
 
 class PromoCollection extends ArrayIterator {

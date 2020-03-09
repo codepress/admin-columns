@@ -15,11 +15,11 @@ class CommentCount extends Column {
 	}
 
 	public function get_raw_value( $user_id ) {
-		return get_comments( array(
+		return get_comments( [
 			'user_id' => $user_id,
 			'count'   => true,
 			'orderby' => false,
-		) );
+		] );
 	}
 
 }

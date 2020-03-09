@@ -12,7 +12,7 @@ class Images extends Settings\Column\Image {
 	}
 
 	public function get_dependent_settings() {
-		return array( new Settings\Column\NumberOfItems( $this->column ) );
+		return [ new Settings\Column\NumberOfItems( $this->column ) ];
 	}
 
 	public function format( $value, $original_value ) {

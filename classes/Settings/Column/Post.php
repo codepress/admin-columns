@@ -18,13 +18,13 @@ class Post extends Settings\Column
 	}
 
 	protected function define_options() {
-		return array(
+		return [
 			'post_property_display' => 'title',
-		);
+		];
 	}
 
 	public function get_dependent_settings() {
-		$setting = array();
+		$setting = [];
 
 		switch ( $this->get_post_property_display() ) {
 			case 'thumbnail' :
@@ -71,21 +71,21 @@ class Post extends Settings\Column
 		               ->set_attribute( 'data-refresh', 'column' )
 		               ->set_options( $this->get_display_options() );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $select,
-		) );
+		] );
 
 		return $view;
 	}
 
 	protected function get_display_options() {
-		$options = array(
+		$options = [
 			'title'     => __( 'Title' ),
 			'id'        => __( 'ID' ),
 			'author'    => __( 'Author' ),
 			'thumbnail' => _x( 'Featured Image', 'post' ),
-		);
+		];
 
 		asort( $options );
 

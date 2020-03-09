@@ -18,17 +18,17 @@ class Date extends Settings\Column\DateTimeFormat {
 	}
 
 	protected function get_custom_format_options() {
-		$options = array(
+		$options = [
 			'diff'       => $this->get_diff_html_label(),
 			'wp_default' => $this->get_default_html_label( __( 'WordPress Date Format', 'codepress-admin-columns' ) ),
-		);
+		];
 
-		$formats = array(
+		$formats = [
 			'j F Y',
 			'Y-m-d',
 			'm/d/Y',
 			'd/m/Y',
-		);
+		];
 
 		foreach ( $formats as $format ) {
 			$options[ $format ] = $this->get_html_label_from_date_format( $format );

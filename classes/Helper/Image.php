@@ -53,9 +53,9 @@ class Image {
 	 * @return string HTML Images
 	 */
 	public function get_images_by_ids( $ids, $size ) {
-		$images = array();
+		$images = [];
 
-		$ids = is_array( $ids ) ? $ids : array( $ids );
+		$ids = is_array( $ids ) ? $ids : [ $ids ];
 		foreach ( $ids as $id ) {
 			$images[] = $this->get_image_by_id( $id, $size );
 		}
@@ -116,15 +116,13 @@ class Image {
 	 * @return string
 	 */
 	public function get_image_by_url( $url, $size ) {
-		$dimensions = array( 60, 60 );
+		$dimensions = [ 60, 60 ];
 
 		if ( is_string( $size ) && ( $sizes = $this->get_image_sizes_by_name( $size ) ) ) {
-			$dimensions = array( $sizes['width'], $sizes['height'] );
+			$dimensions = [ $sizes['width'], $sizes['height'] ];
 		} else if ( is_array( $size ) ) {
 			$dimensions = $size;
 		}
-
-
 
 		$image_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url );
 
@@ -154,7 +152,7 @@ class Image {
 	 * @return array
 	 */
 	public function get_images( $images, $size = 'thumbnail', $skip_image_check = false ) {
-		$thumbnails = array();
+		$thumbnails = [];
 
 		foreach ( (array) $images as $value ) {
 			if ( $skip_image_check && $value && is_string( $value ) ) {
@@ -189,11 +187,11 @@ class Image {
 	public function get_image_sizes_by_name( $name ) {
 		$available_sizes = wp_get_additional_image_sizes();
 
-		$defaults = ['thumbnail','medium','large'];
-		foreach( $defaults as $key ){
+		$defaults = [ 'thumbnail', 'medium', 'large' ];
+		foreach ( $defaults as $key ) {
 			$available_sizes[ $key ] = [
-					'width' => get_option( $key .'_size_w' ),
-					'height' => get_option( $key .'_size_h' ),
+				'width'  => get_option( $key . '_size_w' ),
+				'height' => get_option( $key . '_size_h' ),
 			];
 		}
 
@@ -265,11 +263,11 @@ class Image {
 
 	/**
 	 * Return dimensions and file type
-	 * @see filesize
 	 *
 	 * @param string $url
 	 *
 	 * @return false|array
+	 * @see filesize
 	 */
 	public function get_local_image_info( $url ) {
 		$path = $this->get_local_image_path( $url );
@@ -318,18 +316,18 @@ class Image {
 	 */
 	public function get_image_urls_from_string( $string ) {
 		if ( ! $string ) {
-			return array();
+			return [];
 		}
 
 		if ( ! class_exists( 'DOMDocument' ) ) {
-			return array();
+			return [];
 		}
 
 		$dom = new DOMDocument;
 		@$dom->loadHTML( $string );
 		$dom->preserveWhiteSpace = false;
 
-		$urls = array();
+		$urls = [];
 
 		$images = $dom->getElementsByTagName( 'img' );
 

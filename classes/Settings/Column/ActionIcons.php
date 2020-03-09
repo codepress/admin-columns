@@ -10,24 +10,24 @@ class ActionIcons extends Column {
 	private $use_icons;
 
 	protected function define_options() {
-		return array(
+		return [
 			'use_icons' => '',
-		);
+		];
 	}
 
 	public function create_view() {
 
 		$setting = $this->create_element( 'radio' )
-		                ->set_options( array(
+		                ->set_options( [
 			                '1' => __( 'Yes' ),
 			                ''  => __( 'No' ),
-		                ) );
+		                ] );
 
-		return new View( array(
+		return new View( [
 			'label'   => __( 'Use icons?', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Use icons instead of text for displaying the actions.', 'codepress-admin-columns' ),
 			'setting' => $setting,
-		) );
+		] );
 	}
 
 	/**

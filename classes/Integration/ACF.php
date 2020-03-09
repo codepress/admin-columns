@@ -23,10 +23,10 @@ final class ACF extends Integration {
 	}
 
 	public function show_notice( Screen $screen ) {
-		return in_array( $screen->get_id(), array(
+		return in_array( $screen->get_id(), [
 			'edit-acf-field-group',
 			'acf-field-group',
-		) );
+		] );
 	}
 
 }

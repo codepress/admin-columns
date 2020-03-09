@@ -14,10 +14,10 @@ class Taxonomy {
 	 */
 	public function get_term_links( $terms, $post_type = null ) {
 		if ( ! $terms || is_wp_error( $terms ) ) {
-			return array();
+			return [];
 		}
 
-		$values = array();
+		$values = [];
 
 		foreach ( $terms as $t ) {
 			if ( ! $t instanceof WP_Term ) {
@@ -31,11 +31,11 @@ class Taxonomy {
 	}
 
 	public function get_term_url( $term, $post_type = null ) {
-		$args = array(
+		$args = [
 			'post_type' => $post_type,
 			'taxonomy'  => $term->taxonomy,
 			'term'      => $term->slug,
-		);
+		];
 
 		$page = 'attachment' === $post_type ? 'upload' : 'edit';
 
@@ -109,7 +109,7 @@ class Taxonomy {
 	public function get_taxonomy_selection_options( $post_type ) {
 		$taxonomies = get_object_taxonomies( $post_type, 'objects' );
 
-		$options = array();
+		$options = [];
 		foreach ( $taxonomies as $index => $taxonomy ) {
 			if ( $taxonomy->name == 'post_format' ) {
 				unset( $taxonomies[ $index ] );
@@ -129,7 +129,7 @@ class Taxonomy {
 	 * @return WP_Term[]
 	 */
 	public function get_terms_by_ids( $term_ids, $taxonomy ) {
-		$terms = array();
+		$terms = [];
 
 		foreach ( (array) $term_ids as $term_id ) {
 			$term = get_term( $term_id, $taxonomy );

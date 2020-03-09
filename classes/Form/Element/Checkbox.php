@@ -18,9 +18,9 @@ class Checkbox extends Element {
 	}
 
 	protected function get_classes() {
-		$classes = array(
+		$classes = [
 			$this->get_type() . '-labels',
-		);
+		];
 
 		if ( $this->is_vertical() ) {
 			$classes[] = 'vertical';
@@ -52,7 +52,7 @@ class Checkbox extends Element {
 			return null;
 		}
 
-		$elements = array();
+		$elements = [];
 
 		$value = (array) $this->get_value();
 

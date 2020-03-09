@@ -1,5 +1,6 @@
 <?php
 
+use AC\Admin;
 use AC\EncodedListScreenDataFactory;
 use AC\Helper;
 use AC\ListScreen;
@@ -121,16 +122,33 @@ function ac_load_columns( array $data ) {
 }
 
 /**
- * @param string $slug Page slug
+ * @param string|null $slug
  *
  * @return string
  */
-function ac_get_admin_url( $slug = null ) {
-	if ( null === $slug ) {
-		$slug = 'columns';
-	}
+function ac_get_admin_url( $slug ) {
+	return add_query_arg(
+		[
+			Admin::QUERY_ARG_PAGE => Admin::NAME,
+			Admin::QUERY_ARG_TAB  => $slug,
+		],
+		admin_url( 'options-general.php' )
+	);
+}
 
-	return AC()->admin()->get_url( $slug );
+/**
+ * @param string|null $slug
+ *
+ * @return string
+ */
+function ac_get_admin_network_url( $slug = null ) {
+	return add_query_arg(
+		[
+			Admin::QUERY_ARG_PAGE => Admin::NAME,
+			Admin::QUERY_ARG_TAB  => $slug,
+		],
+		network_admin_url( 'settings.php' )
+	);
 }
 
 /**

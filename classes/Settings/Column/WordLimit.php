@@ -18,23 +18,23 @@ class WordLimit extends Settings\Column
 	}
 
 	protected function define_options() {
-		return array(
+		return [
 			'excerpt_length' => 20,
-		);
+		];
 	}
 
 	public function create_view() {
 		$setting = $this->create_element( 'number' )
-		                ->set_attributes( array(
+		                ->set_attributes( [
 			                'min'  => 0,
 			                'step' => 1,
-		                ) );
+		                ] );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Word Limit', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Maximum number of words', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
 			'setting' => $setting,
-		) );
+		] );
 
 		return $view;
 	}
@@ -58,7 +58,7 @@ class WordLimit extends Settings\Column
 	}
 
 	public function format( $value, $original_value ) {
-		$values = array();
+		$values = [];
 
 		foreach ( (array) $value as $_string ) {
 			$values[] = ac_helper()->string->trim_words( $_string, $this->get_excerpt_length() );

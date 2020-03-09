@@ -18,9 +18,9 @@ class Underscore {
 	protected $aliases;
 
 	protected function __construct() {
-		$this->aliases = array();
+		$this->aliases = [];
 
-		spl_autoload_register( array( $this, 'autoload' ), true, true );
+		spl_autoload_register( [ $this, 'autoload' ], true, true );
 	}
 
 	public static function instance() {
@@ -102,7 +102,7 @@ class Underscore {
 	 * @return bool
 	 */
 	protected function is_valid_prefix( $alias ) {
-		$prefixes = array( 'AC', 'ACP', 'ACA' );
+		$prefixes = [ 'AC', 'ACP', 'ACA' ];
 
 		foreach ( $prefixes as $prefix ) {
 			if ( 0 === strpos( $alias, $prefix . '_' ) ) {

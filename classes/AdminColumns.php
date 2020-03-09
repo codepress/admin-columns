@@ -2,17 +2,13 @@
 
 namespace AC;
 
-use AC\Admin\GeneralSectionFactory;
 use AC\Admin\Page;
-use AC\Admin\Section\ListScreenMenu;
-use AC\Admin\Section\Restore;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
+use AC\Controller\AjaxColumnRequest;
 use AC\Controller\AjaxColumnValue;
 use AC\Controller\AjaxRequestCustomFieldKeys;
-use AC\Controller\AjaxRequestNewColumn;
-use AC\Controller\ListScreenRequest;
 use AC\Controller\ListScreenRestoreColumns;
 use AC\Controller\RedirectAddonStatus;
 use AC\Deprecated;
@@ -61,9 +57,15 @@ class AdminColumns extends Plugin {
 	private function __construct() {
 		$this->storage = new Storage();
 
-		$this->register_admin();
+		$location = new Absolute(
+			$this->get_url(),
+			$this->get_dir()
+		);
+
+		$this->admin = ( new AdminFactory( $this->storage, $location ) )->create();
 
 		$services = [
+			$this->admin,
 			new Service\Storage( $this->storage, ListScreenTypes::instance() ),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
@@ -76,15 +78,15 @@ class AdminColumns extends Plugin {
 			new DefaultColumnsController( new Request(), new DefaultColumns() ),
 			new QuickEdit( $this->storage, $this->preferences() ),
 			new Capabilities\Manage(),
-			new AjaxRequestNewColumn( $this->storage ),
+			new AjaxColumnRequest( $this->storage ),
 			new AjaxRequestCustomFieldKeys(),
 			new ListScreenRestoreColumns( $this->storage ),
 			new AjaxColumnValue( $this->storage ),
 			new ListScreenRestoreColumns( $this->storage ),
-			new RedirectAddonStatus( $this->admin->get_url( Page\Addons::NAME ) ),
-			new PluginActionLinks( $this->get_basename(), $this->admin->get_url( Page\Columns::NAME ) ),
+			new RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
+			new PluginActionLinks( $this->get_basename(), ac_get_admin_url( Page\Columns::NAME ) ),
 			new NoticeChecks(),
-			new TableLoader( $this->storage, new PermissionChecker(), $this->get_location() ),
+			new TableLoader( $this->storage, new PermissionChecker(), $location ),
 		];
 
 		foreach ( $services as $service ) {
@@ -237,30 +239,6 @@ class AdminColumns extends Plugin {
 		$relative_dir = str_replace( WP_PLUGIN_DIR, '', $this->get_dir() );
 
 		load_plugin_textdomain( 'codepress-admin-columns', false, $relative_dir . 'languages/' );
-	}
-
-	/**
-	 * @return void
-	 */
-	private function register_admin() {
-		$location = new Absolute( $this->get_url(), $this->get_dir() );
-
-		$listscreen_controller = new ListScreenRequest( new Request(), $this->storage, new Preferences\Site( 'settings' ) );
-
-		$this->admin = new Admin( 'options-general.php', 'admin_menu', admin_url() );
-
-		$page_settings = new Page\Settings();
-		$page_settings
-			->register_section( GeneralSectionFactory::create() )
-			->register_section( new Restore( new ListScreenRepository\DataBase( ListScreenTypes::instance() ) ) );
-
-		$page_columns = new Page\Columns( $listscreen_controller, new ListScreenMenu( $listscreen_controller ), new UnitializedListScreens( new DefaultColumns() ) );
-
-		$this->admin->register_page( $page_columns )
-		            ->register_page( $page_settings )
-		            ->register_page( new Page\Addons( $location ) )
-		            ->register_page( new Page\Help() )
-		            ->register();
 	}
 
 	/**

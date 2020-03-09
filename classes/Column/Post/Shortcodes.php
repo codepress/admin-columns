@@ -20,7 +20,7 @@ class Shortcodes extends Column {
 			return false;
 		}
 
-		$display = array();
+		$display = [];
 		foreach ( $shortcodes as $sc => $count ) {
 			$string = '[' . $sc . ']';
 
@@ -43,7 +43,7 @@ class Shortcodes extends Column {
 
 		$content = get_post_field( 'post_content', $post_id );
 
-		$shortcodes = array();
+		$shortcodes = [];
 
 		$_shortcodes = array_keys( $shortcode_tags );
 		asort( $_shortcodes );

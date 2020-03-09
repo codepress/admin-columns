@@ -13,18 +13,18 @@ class LinkToMenu extends Settings\Column\Toggle
 	private $link_to_menu;
 
 	protected function define_options() {
-		return array(
+		return [
 			'link_to_menu' => 'on',
-		);
+		];
 	}
 
 	public function create_view() {
 		$view = parent::create_view();
 
-		$view->set_data( array(
+		$view->set_data( [
 			'label'   => __( 'Link to menu', 'codepress-admin-columns' ),
 			'tooltip' => __( 'This will make the title link to the menu.', 'codepress-admin-columns' ),
-		) );
+		] );
 
 		return $view;
 	}
@@ -58,13 +58,13 @@ class LinkToMenu extends Settings\Column\Toggle
 			return $this->column->get_empty_char();
 		}
 
-		$values = array();
+		$values = [];
 
 		foreach ( $menu_ids as $menu_id ) {
 			$term = get_term_by( 'id', $menu_id, 'nav_menu' );
 
 			if ( 'on' === $this->get_link_to_menu() ) {
-				$term->name = ac_helper()->html->link( add_query_arg( array( 'menu' => $menu_id ), admin_url( 'nav-menus.php' ) ), $term->name );
+				$term->name = ac_helper()->html->link( add_query_arg( [ 'menu' => $menu_id ], admin_url( 'nav-menus.php' ) ), $term->name );
 			}
 
 			$values[] = $term->name;

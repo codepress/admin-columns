@@ -24,7 +24,7 @@ class BeforeAfter extends Column
 	}
 
 	protected function define_options() {
-		return array( 'before', 'after' );
+		return [ 'before', 'after' ];
 	}
 
 	public function format( $value, $original_value ) {
@@ -58,27 +58,27 @@ class BeforeAfter extends Column
 
 		$for = $setting->get_id();
 
-		$before = new View( array(
+		$before = new View( [
 			'label'       => __( 'Before', 'codepress-admin-columns' ),
 			'description' => __( 'This text will appear before the column value.', 'codepress-admin-columns' ),
 			'setting'     => $setting,
 			'for'         => $for,
-		) );
+		] );
 
 		$setting = $this->get_after_element();
 
-		$after = new View( array(
+		$after = new View( [
 			'label'       => __( 'After', 'codepress-admin-columns' ),
 			'description' => __( 'This text will appear after the column value.', 'codepress-admin-columns' ),
 			'setting'     => $setting,
 			'for'         => $setting->get_id(),
-		) );
+		] );
 
-		return new View( array(
+		return new View( [
 			'label'    => __( 'Display Options', 'codepress-admin-columns' ),
-			'sections' => array( $before, $after ),
+			'sections' => [ $before, $after ],
 			'for'      => $for,
-		) );
+		] );
 	}
 
 	/**

@@ -42,7 +42,7 @@ class Tooltip {
 			$method = 'set_' . $key;
 
 			if ( method_exists( $this, $method ) ) {
-				call_user_func( array( $this, $method ), $value );
+				call_user_func( [ $this, $method ], $value );
 			}
 		}
 
@@ -119,12 +119,12 @@ class Tooltip {
 	 * @return string
 	 */
 	public function get_label() {
-		$view = new View( array(
+		$view = new View( [
 			'id'            => $this->id,
 			'position'      => $this->position,
 			'position_edge' => $this->position_edge,
 			'label'         => $this->link_label,
-		) );
+		] );
 
 		$view->set_template( 'admin/tooltip-label' );
 
@@ -135,12 +135,12 @@ class Tooltip {
 	 * @return string
 	 */
 	public function get_instructions() {
-		$view = new View( array(
-			'id'      => $this->id,
-			'title'   => $this->title,
-			'content' => $this->content,
-			'position'      => $this->position,
-		) );
+		$view = new View( [
+			'id'       => $this->id,
+			'title'    => $this->title,
+			'content'  => $this->content,
+			'position' => $this->position,
+		] );
 
 		$view->set_template( 'admin/tooltip-body' );
 

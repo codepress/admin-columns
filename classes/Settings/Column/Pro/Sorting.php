@@ -15,7 +15,7 @@ class Sorting extends Settings\Column\Pro {
 	}
 
 	protected function define_options() {
-		return array( 'sort' );
+		return [ 'sort' ];
 	}
 
 }

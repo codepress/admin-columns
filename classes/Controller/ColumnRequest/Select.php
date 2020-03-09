@@ -1,14 +1,15 @@
 <?php
 
-namespace AC\Admin\Request\Column;
+namespace AC\Controller\ColumnRequest;
 
 use AC;
-use AC\Admin\Request\Column;
 
-class Select extends Column {
+class Select extends AC\Controller\ColumnRequest {
+
+	const ID = 'select';
 
 	public function __construct() {
-		parent::__construct( 'select' );
+		parent::__construct( self::ID );
 	}
 
 	public function get_column( AC\Request $request, AC\ListScreen $list_screen ) {

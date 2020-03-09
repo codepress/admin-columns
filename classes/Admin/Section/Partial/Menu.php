@@ -1,13 +1,13 @@
 <?php
 
-namespace AC\Admin\Section;
+namespace AC\Admin\Section\Partial;
 
 use AC\Controller\ListScreenRequest;
 use AC\ListScreenGroups;
 use AC\ListScreenTypes;
 use AC\View;
 
-class ListScreenMenu {
+class Menu {
 
 	/** @var ListScreenRequest */
 	private $controller;
@@ -31,7 +31,7 @@ class ListScreenMenu {
 
 		$menu->set_template( 'admin/edit-menu' );
 
-		echo $menu->render();
+		return $menu->render();
 	}
 
 	private function get_network_list_screens() {

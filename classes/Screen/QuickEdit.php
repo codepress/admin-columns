@@ -26,7 +26,7 @@ class QuickEdit implements Registrable {
 	}
 
 	public function register() {
-		add_action( 'admin_init', array( $this, 'init_columns_on_quick_edit' ) );
+		add_action( 'admin_init', [ $this, 'init_columns_on_quick_edit' ] );
 	}
 
 	/**

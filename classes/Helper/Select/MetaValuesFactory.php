@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\Helper\Select;
 
 use AC\MetaType;
@@ -63,7 +64,7 @@ class MetaValuesFactory {
 				", $meta_key ) );
 
 			default :
-				return array();
+				return [];
 
 		}
 	}

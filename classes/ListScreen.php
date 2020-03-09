@@ -467,7 +467,7 @@ abstract class ListScreen {
 		return add_query_arg( [
 			'list_screen' => $this->key,
 			'layout_id'   => $this->get_layout_id(),
-		], ac_get_admin_url() );
+		], ac_get_admin_url( 'columns' ) );
 	}
 
 	/**
@@ -922,7 +922,6 @@ abstract class ListScreen {
 
 	/**
 	 * Reset original columns
-	 *
 	 * @deprecated 4.0
 	 */
 	public function reset_original_columns() {

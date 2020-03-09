@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @global \AC\Admin\Promo   $promo
+ * @global \AC\Promo         $promo
  * @global \AC\Integration[] $integrations
  * @global int               $discount
  * @global string            $price

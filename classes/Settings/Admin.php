@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\Settings;
 
 abstract class Admin {

@@ -14,9 +14,9 @@ class UserLink extends Settings\Column
 	protected $user_link_to;
 
 	protected function define_options() {
-		return array(
+		return [
 			'user_link_to' => 'edit_user',
-		);
+		];
 	}
 
 	public function format( $value, $user_id ) {
@@ -28,10 +28,10 @@ class UserLink extends Settings\Column
 
 				break;
 			case 'view_user_posts' :
-				$link = add_query_arg( array(
+				$link = add_query_arg( [
 					'post_type' => $this->column->get_post_type(),
 					'author'    => $user_id,
-				), 'edit.php' );
+				], 'edit.php' );
 
 				break;
 			case 'view_author' :
@@ -56,26 +56,26 @@ class UserLink extends Settings\Column
 	public function create_view() {
 		$select = $this->create_element( 'select' )->set_options( $this->get_display_options() );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Link To', 'codepress-admin-columns' ),
 			'setting' => $select,
-		) );
+		] );
 
 		return $view;
 	}
 
 	protected function get_display_options() {
-		$options = array(
+		$options = [
 			'edit_user'       => __( 'Edit User Profile', 'codepress-admin-columns' ),
 			'email_user'      => __( 'User Email', 'codepress-admin-columns' ),
 			'view_user_posts' => __( 'View User Posts', 'codepress-admin-columns' ),
 			'view_author'     => __( 'View Public Author Page', 'codepress-admin-columns' ),
-		);
+		];
 
 		// resort for possible translations
 		natcasesort( $options );
 
-		$options = array_merge( array( '' => __( 'None' ) ), $options );
+		$options = array_merge( [ '' => __( 'None' ) ], $options );
 
 		return $options;
 	}

@@ -14,9 +14,9 @@ class CharacterLimit extends Settings\Column
 	private $character_limit;
 
 	protected function define_options() {
-		return array(
+		return [
 			'character_limit' => 20,
-		);
+		];
 	}
 
 	public function create_view() {
@@ -24,11 +24,11 @@ class CharacterLimit extends Settings\Column
 		                   ->set_attribute( 'min', 0 )
 		                   ->set_attribute( 'step', 1 );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Character Limit', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Maximum number of characters', 'codepress-admin-columns' ) . '<em>' . __( 'Leave empty for no limit', 'codepress-admin-columns' ) . '</em>',
 			'setting' => $word_limit,
-		) );
+		] );
 
 		return $view;
 	}

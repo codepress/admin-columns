@@ -25,11 +25,11 @@ final class WooCommerce extends Integration {
 	}
 
 	private function get_post_types() {
-		return array(
+		return [
 			'product',
 			'shop_order',
 			'shop_coupon',
-		);
+		];
 	}
 
 	public function show_notice( Screen $screen ) {

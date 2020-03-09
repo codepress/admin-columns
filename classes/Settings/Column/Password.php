@@ -14,20 +14,20 @@ class Password extends Settings\Column
 	private $password;
 
 	protected function define_options() {
-		return array( 'password' );
+		return [ 'password' ];
 	}
 
 	public function create_view() {
 		$select = $this->create_element( 'select' )
-		               ->set_options( array(
+		               ->set_options( [
 			               ''     => __( 'Password', 'codepress-admin-column' ), // default
 			               'text' => __( 'Plain text', 'codepress-admin-column' ),
-		               ) );
+		               ] );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Display format', 'codepress-admin-columns' ),
 			'setting' => $select,
-		) );
+		] );
 
 		return $view;
 	}
