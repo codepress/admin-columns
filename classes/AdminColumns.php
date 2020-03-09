@@ -11,6 +11,7 @@ use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
+use AC\Table;
 use AC\ThirdParty;
 
 class AdminColumns extends Plugin {
@@ -72,7 +73,7 @@ class AdminColumns extends Plugin {
 			new ThirdParty\WooCommerce,
 			new ThirdParty\WPML,
 			new DefaultColumnsController( new Request(), new DefaultColumns() ),
-			new QuickEdit( $this->storage, new Preferences\Site( 'layout_table' ) ),
+			new QuickEdit( $this->storage, new Table\Preference() ),
 			new Capabilities\Manage(),
 			new Controller\AjaxColumnRequest( $this->storage ),
 			new Controller\AjaxRequestCustomFieldKeys(),
@@ -82,7 +83,7 @@ class AdminColumns extends Plugin {
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename(), ac_get_admin_url( Page\Columns::NAME ) ),
 			new NoticeChecks(),
-			new TableLoader( $this->storage, new PermissionChecker(), $location ),
+			new TableLoader( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];
 
 		foreach ( $services as $service ) {
