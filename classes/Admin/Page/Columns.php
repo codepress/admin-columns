@@ -16,7 +16,6 @@ use AC\Asset\Style;
 use AC\Column;
 use AC\Controller\ListScreenRequest;
 use AC\ListScreen;
-use AC\Type\ListScreenId;
 use AC\UnitializedListScreens;
 use AC\View;
 
@@ -212,7 +211,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 					$columns = new View( [
 						'class'          => $list_screen->is_read_only() ? ' disabled' : '',
 						'list_screen'    => $list_screen->get_key(),
-						'list_screen_id' => $list_screen->get_layout_id() ?: ListScreenId::generate()->get_id(),
+						'list_screen_id' => $list_screen->get_layout_id(),
 						'title'          => $list_screen->get_title(),
 						'columns'        => $list_screen->get_columns(),
 						'show_actions'   => ! $list_screen->is_read_only(),

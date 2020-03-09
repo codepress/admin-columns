@@ -90,7 +90,7 @@ class ListScreenRequest {
 			}
 
 			// Initialize new
-			return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+			return $this->create_list_screen( $list_key );
 		}
 
 		// Last visited ID
@@ -123,7 +123,7 @@ class ListScreenRequest {
 			}
 
 			// Initialize new
-			return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+			return $this->create_list_screen( $list_key );
 		}
 
 		// First visit to settings page
@@ -140,7 +140,17 @@ class ListScreenRequest {
 		}
 
 		// Initialize new
-		return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+		return $this->create_list_screen( $list_key );
+	}
+
+	private function create_list_screen( $key ) {
+		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $key );
+
+		if ( ! $list_screen ) {
+			return null;
+		}
+
+		return $list_screen->set_layout_id( ListScreenId::generate()->get_id() );
 	}
 
 	/**
