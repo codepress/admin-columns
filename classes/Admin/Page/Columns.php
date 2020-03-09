@@ -171,7 +171,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 
 						$delete_confirmation_message = false;
 
-						if ( AC()->use_delete_confirmation() ) {
+						if ( apply_filters( 'ac/delete_confirmation', true ) ) {
 							$delete_confirmation_message = sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $list_screen->get_title() . "'" );
 						}
 

@@ -11,7 +11,6 @@ use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
-use AC\Table;
 use AC\ThirdParty;
 
 class AdminColumns extends Plugin {
@@ -20,11 +19,6 @@ class AdminColumns extends Plugin {
 	 * @var Admin
 	 */
 	private $admin;
-
-	/**
-	 * @var Table\Screen
-	 */
-	private $table_screen;
 
 	/**
 	 * @var ListScreenRepository\Storage
@@ -78,7 +72,7 @@ class AdminColumns extends Plugin {
 			new ThirdParty\WooCommerce,
 			new ThirdParty\WPML,
 			new DefaultColumnsController( new Request(), new DefaultColumns() ),
-			new QuickEdit( $this->storage, $this->preferences() ),
+			new QuickEdit( $this->storage, new Preferences\Site( 'layout_table' ) ),
 			new Capabilities\Manage(),
 			new Controller\AjaxColumnRequest( $this->storage ),
 			new Controller\AjaxRequestCustomFieldKeys(),
@@ -111,13 +105,6 @@ class AdminColumns extends Plugin {
 		return $this->storage;
 	}
 
-	/**
-	 * @since 4.0.12
-	 */
-	public function preferences() {
-		return new Preferences\Site( 'layout_table' );
-	}
-
 	protected function get_file() {
 		return AC_FILE;
 	}
@@ -137,25 +124,11 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @since 2.5
-	 */
-	public function use_delete_confirmation() {
-		return apply_filters( 'ac/delete_confirmation', true );
-	}
-
-	/**
 	 * @return Admin Settings class instance
 	 * @since 2.2
 	 */
 	public function admin() {
 		return $this->admin;
-	}
-
-	/**
-	 * @return bool True when doing ajax
-	 */
-	public function is_doing_ajax() {
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
 
 	/**
@@ -328,13 +301,10 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return Table\Screen Returns the screen manager for the list table
 	 * @deprecated 3.4
 	 */
 	public function table_screen() {
 		_deprecated_function( __METHOD__, '3.4' );
-
-		return $this->table_screen;
 	}
 
 	/**
@@ -360,6 +330,27 @@ class AdminColumns extends Plugin {
 		_deprecated_function( __METHOD__, '4.0', 'ListScreenTypes::instance()->get_list_screens()' );
 
 		return ListScreenTypes::instance()->get_list_screens();
+	}
+
+	/**
+	 * @return bool
+	 * @deprecated 4.1
+	 * @since      2.5
+	 */
+	public function use_delete_confirmation() {
+		_deprecated_function( __METHOD__, '4.1' );
+
+		return apply_filters( 'ac/delete_confirmation', true );
+	}
+
+	/**
+	 * @return bool True when doing ajax
+	 * @deprecated 4.1
+	 */
+	public function is_doing_ajax() {
+		_deprecated_function( __METHOD__, '4.1' );
+
+		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
 
 }
