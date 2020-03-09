@@ -8,6 +8,7 @@ use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Controller;
 use AC\Deprecated;
+use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
 use AC\Table;
@@ -52,6 +53,12 @@ class AdminColumns extends Plugin {
 	 */
 	private function __construct() {
 		$this->storage = new Storage();
+		$this->storage->set_repositories( [
+			'acp-database' => new ListScreenRepository\Storage\ListScreenRepository(
+				new Database( ListScreenTypes::instance() ),
+				true
+			),
+		] );
 
 		$location = new Absolute(
 			$this->get_url(),
@@ -62,7 +69,6 @@ class AdminColumns extends Plugin {
 
 		$services = [
 			$this->admin,
-			new Service\Storage( $this->storage, ListScreenTypes::instance() ),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new Screen,
@@ -79,6 +85,7 @@ class AdminColumns extends Plugin {
 			new Controller\AjaxColumnValue( $this->storage ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
+			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename(), ac_get_admin_url( Page\Columns::NAME ) ),
 			new NoticeChecks(),
 			new TableLoader( $this->storage, new PermissionChecker(), $location ),
