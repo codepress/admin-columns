@@ -4,7 +4,6 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenRepository;
 use AC\ListScreenRepositoryWritable;
 use AC\ListScreenTypes;
 use AC\Type\ListScreenId;
