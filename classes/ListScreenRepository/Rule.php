@@ -2,15 +2,17 @@
 
 namespace AC\ListScreenRepository;
 
-use AC\ListScreen;
-
 interface Rule {
 
+	const TYPE = 'type';
+	const ID = 'id';
+	const GROUP = 'group';
+
 	/**
-	 * @param ListScreen $list_screen
+	 * @param array $args
 	 *
 	 * @return bool
 	 */
-	public function match( ListScreen $list_screen );
+	public function match( array $args );
 
 }

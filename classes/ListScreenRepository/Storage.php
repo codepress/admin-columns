@@ -119,7 +119,15 @@ final class Storage implements ListScreenRepositoryWritable {
 
 	private function update( ListScreen $list_screen, $action ) {
 		foreach ( $this->repositories as $repository ) {
-			$match = ! $repository->has_rules() || $repository->get_rules()->match( $list_screen );
+			$match = false;
+
+			if ( $repository->has_rules() ) {
+				$match = $repository->get_rules()->match( [
+					Rule::ID    => $list_screen->has_id() ? $list_screen->get_id() : null,
+					Rule::TYPE  => $list_screen->get_key(),
+					Rule::GROUP => $list_screen->get_group(),
+				] );
+			}
 
 			if ( $match && $repository->is_writable() ) {
 				switch ( $action ) {

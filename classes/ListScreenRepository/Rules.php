@@ -2,7 +2,6 @@
 
 namespace AC\ListScreenRepository;
 
-use AC\ListScreen;
 use InvalidArgumentException;
 
 final class Rules {
@@ -49,11 +48,11 @@ final class Rules {
 		return $this;
 	}
 
-	public function match( ListScreen $list_screen ) {
+	public function match( array $args ) {
 		$matches = 0;
 
 		foreach ( $this->rules as $rule ) {
-			if ( $rule->match( $list_screen ) ) {
+			if ( $rule->match( $args ) ) {
 				$matches++;
 			}
 		}
