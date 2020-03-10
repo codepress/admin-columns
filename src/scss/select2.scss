@@ -265,7 +265,7 @@ $wp-border-color: #7e8893;
 
 	.select2-selection--multiple {
 		background-color: white;
-		border: 1px solid #aaa;
+		border: 1px solid $wp-border-color;
 		border-radius: 4px;
 		cursor: text;
 

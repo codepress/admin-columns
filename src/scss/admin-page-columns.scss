@@ -1741,16 +1741,15 @@ div.ac-column-header {
 		overflow: hidden;
 		color: #999;
 		font-weight: 300;
-		//background: #000 linear-gradient(90deg, #000, $ac-pink, #000);
 		background-repeat: no-repeat;
 		background-size: 60%;
-		//animation: loading_text 2s linear infinite;
-		//-webkit-background-clip: text;
-		//-webkit-text-fill-color: rgba(255, 255, 255, .1);
-
 	}
 }
 
 .ac-notice.visit-ls {
 	display: none
+}
+
+.ac-setbox .select2-container .select2-search--inline .select2-search__field {
+	margin-top: 0 !important;
 }
