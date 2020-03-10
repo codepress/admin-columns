@@ -106,13 +106,6 @@ abstract class Integration {
 	}
 
 	/**
-	 *
-	 */
-	public function is_integration_active(){
-		return is_plugin_active( $this->get_slug() );
-	}
-
-	/**
 	 * @return string
 	 */
 	public function get_description() {

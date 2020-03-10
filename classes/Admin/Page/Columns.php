@@ -159,7 +159,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 			</div>
 
 			<div class="ac-left">
-				<?= $this->show_read_only_notice( $list_screen ); ?>
+				<?php $this->show_read_only_notice( $list_screen ); ?>
 				<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
 					<?php
 
