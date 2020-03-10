@@ -13,6 +13,7 @@ class Integrations extends ArrayIterator {
 			new Integration\Pods(),
 			new Integration\Types(),
 			new Integration\WooCommerce(),
+			new Integration\YoastSeo(),
 		];
 
 		parent::__construct( $integrations );
