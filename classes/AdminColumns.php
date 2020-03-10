@@ -11,7 +11,9 @@ use AC\Controller\AjaxColumnValue;
 use AC\Controller\AjaxRequestCustomFieldKeys;
 use AC\Controller\ListScreenRestoreColumns;
 use AC\Controller\RedirectAddonStatus;
+use AC\Controller\RestoreSettingsRequest;
 use AC\Deprecated;
+use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
 use AC\Table;
@@ -56,6 +58,12 @@ class AdminColumns extends Plugin {
 	 */
 	private function __construct() {
 		$this->storage = new Storage();
+		$this->storage->set_repositories( [
+			'acp-database' => new ListScreenRepository\Storage\ListScreenRepository(
+				new Database( ListScreenTypes::instance() ),
+				true
+			),
+		] );
 
 		$location = new Absolute(
 			$this->get_url(),
@@ -66,7 +74,6 @@ class AdminColumns extends Plugin {
 
 		$services = [
 			$this->admin,
-			new Service\Storage( $this->storage, ListScreenTypes::instance() ),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new Screen,
@@ -80,6 +87,7 @@ class AdminColumns extends Plugin {
 			new Capabilities\Manage(),
 			new AjaxColumnRequest( $this->storage ),
 			new AjaxRequestCustomFieldKeys(),
+			new RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new ListScreenRestoreColumns( $this->storage ),
 			new AjaxColumnValue( $this->storage ),
 			new ListScreenRestoreColumns( $this->storage ),
