@@ -16,6 +16,7 @@ use AC\Asset\Style;
 use AC\Column;
 use AC\Controller\ListScreenRequest;
 use AC\ListScreen;
+use AC\Message;
 use AC\UnitializedListScreens;
 use AC\View;
 
@@ -50,6 +51,18 @@ class Columns extends Page implements Enqueueables, Helpable {
 		$this->location = $location;
 		$this->uninitialized = $uninitialized;
 		$this->menu = $menu;
+	}
+
+	public function show_read_only_notice( ListScreen $list_screen ) {
+		if ( $list_screen->is_read_only() ) {
+			$message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
+			$message = sprintf( '<p>%s</p>', apply_filters( 'ac/read_only_message', $message, $list_screen ) );
+
+			$notice = new Message\InlineMessage( $message );
+
+			echo $notice->set_type( Message::INFO )
+			            ->render();
+		}
 	}
 
 	public function get_assets() {
@@ -146,6 +159,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 			</div>
 
 			<div class="ac-left">
+				<?= $this->show_read_only_notice( $list_screen ); ?>
 				<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
 					<?php
 
