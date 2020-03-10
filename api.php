@@ -114,8 +114,11 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
  *
  * @param array $data
  *
- * @since 4.0.0
+ * @deprecated NEWVERSION
+ * @since      4.0.0
+ *
  */
+// TODO David check if documentation is also on par with this: export is gone, don't use this function with 5.x!!
 function ac_load_columns( array $data ) {
 	$factory = new EncodedListScreenDataFactory();
 	$factory->create()->add( $data );
