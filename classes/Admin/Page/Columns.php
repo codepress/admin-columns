@@ -36,71 +36,12 @@ class Columns extends Page implements Enqueueables, Helpable {
 	/**
 	 * @var UnitializedListScreens
 	 */
-
 	private $uninitialized;
-
-	// todo: remove
-	//	public function admin_scripts() {
-	//		$list_screen = $this->controller->get_list_screen();
-	//
-	//		wp_enqueue_style( 'jquery-ui-lightness', AC()->get_url() . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', [], AC()->get_version() );
-	//		wp_enqueue_script( 'jquery-ui-slider' );
-	//
-	//		wp_enqueue_script( 'ac-admin-page-columns', AC()->get_url() . "assets/js/admin-page-columns.js", [
-	//			'jquery',
-	//			'dashboard',
-	//			'jquery-ui-slider',
-	//			'jquery-ui-sortable',
-	//			'wp-pointer',
-	//		], AC()->get_version() );
-	//
-	//		wp_enqueue_style( 'ac-admin-page-columns-css', AC()->get_url() . 'assets/css/admin-page-columns.css', [], AC()->get_version() );
-	//
-	//		$params = [
-	//			'_ajax_nonce'                => wp_create_nonce( Ajax\Handler::NONCE_ACTION ),
-	//			'list_screen'                => $list_screen->get_key(),
-	//			'layout'                     => $list_screen->get_layout_id(),
-	//			'original_columns'           => [],
-	//			'uninitialized_list_screens' => [],
-	//			'i18n'                       => [
-	//				'clone'  => __( '%s column is already present and can not be duplicated.', 'codepress-admin-columns' ),
-	//				'error'  => __( 'Invalid response.', 'codepress-admin-columns' ),
-	//				'errors' => [
-	//					'save_settings'  => __( 'There was an error during saving the column settings.', 'codepress-admin-columns' ),
-	//					'loading_column' => __( 'The column could not be loaded because of an unknown error', 'codepress-admin-columns' ),
-	//				],
-	//			],
-	//		];
-	//
-	//		foreach ( $this->uninitialized->get_list_screens() as $list_screen ) {
-	//
-	//			$key = $list_screen->get_key();
-	//
-	//			$params['uninitialized_list_screens'][ $key ] = [
-	//				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $key ], $list_screen->get_screen_link() ),
-	//				'label'       => $list_screen->get_label(),
-	//			];
-	//		}
-	//
-	//		wp_enqueue_style( 'ac-select2' );
-	//		wp_enqueue_script( 'ac-select2' );
-	//
-	//		wp_localize_script( 'ac-admin-page-columns', 'AC', $params );
-	//
-	// todo: add to new
-	//		do_action( 'ac/settings/scripts' );
-	//	}
 
 	/**
 	 * @var Menu
 	 */
 	private $menu;
-
-	/**
-	 * @var array
-	 */
-	// todo
-	private $notices = [];
 
 	public function __construct( ListScreenRequest $controller, Location\Absolute $location, UnitializedListScreens $uninitialized, Menu $menu ) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
@@ -136,19 +77,21 @@ class Columns extends Page implements Enqueueables, Helpable {
 	}
 
 	public function render() {
-		ob_start();
-
 		$list_screen = $this->controller->get_list_screen();
 
 		if ( $this->uninitialized->has_list_screen( $list_screen->get_key() ) ) {
-			$this->render_loading_screen();
+			$modal = new View( [
+				'message' => 'Loading columns',
+			] );
+			$modal->set_template( 'admin/loading-message' );
 
-			return '';
+			return $modal->render();
 		}
 
+		ob_start();
 		?>
 
-		<div class="ac-admin<?php echo $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?php echo esc_attr( $list_screen->get_key() ); ?>">
+		<div class="ac-admin<?= $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?= esc_attr( $list_screen->get_key() ); ?>">
 			<div class="main">
 
 				<?= $this->menu->render(); ?>
@@ -199,14 +142,12 @@ class Columns extends Page implements Enqueueables, Helpable {
 
 					<?= ( new View() )->set_template( 'admin/side-support' ); ?>
 
-				</div><!--.ac-right-inner-->
-			</div><!--.ac-right-->
+				</div>
+			</div>
 
 			<div class="ac-left">
 				<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
 					<?php
-
-					echo implode( $this->notices );
 
 					$columns = new View( [
 						'class'          => $list_screen->is_read_only() ? ' disabled' : '',
@@ -227,15 +168,14 @@ class Columns extends Page implements Enqueueables, Helpable {
 					?>
 				</form>
 
-			</div><!--.ac-left-->
+			</div>
 			<div class="clear"></div>
 
 			<div id="add-new-column-template">
-				<?php $this->display_column_template( $list_screen ); ?>
+				<?= $this->render_column_template( $list_screen ); ?>
 			</div>
 
-
-		</div><!--.ac-admin-->
+		</div>
 
 		<div class="clear"></div>
 
@@ -281,8 +221,10 @@ class Columns extends Page implements Enqueueables, Helpable {
 
 	/**
 	 * @param ListScreen $list_screen
+	 *
+	 * @return string
 	 */
-	private function display_column_template( ListScreen $list_screen ) {
+	private function render_column_template( ListScreen $list_screen ) {
 		$column = $this->get_column_template_by_group( $list_screen->get_column_types(), 'custom' );
 
 		if ( ! $column ) {
@@ -293,7 +235,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 			'column' => $column,
 		] );
 
-		echo $view->set_template( 'admin/edit-column' );
+		return $view->set_template( 'admin/edit-column' )->render();
 	}
 
 	/**
@@ -302,21 +244,12 @@ class Columns extends Page implements Enqueueables, Helpable {
 	 *
 	 * @return string
 	 */
-
 	private function get_truncated_side_label( $label, $main_label = '' ) {
 		if ( 34 < ( strlen( $label ) + ( strlen( $main_label ) * 1.1 ) ) ) {
 			$label = substr( $label, 0, 34 - ( strlen( $main_label ) * 1.1 ) ) . '...';
 		}
 
 		return $label;
-	}
-
-	private function render_loading_screen() {
-		$modal = new View( [
-			'message' => 'Loading columns',
-		] );
-
-		echo $modal->set_template( 'admin/loading-message' );
 	}
 
 }
