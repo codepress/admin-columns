@@ -128,12 +128,13 @@ global.ac_pointers = function ($) {
   }, function () {
     $(this).removeClass('hover');
     $('.ac-pointer').trigger('close');
+  }).on('click', '.close', function () {
+    $('.ac-pointer').removeClass('open');
   });
   new _tooltips.default();
 };
 
 global.ac_pointer = function ($el) {
-  console.log($el);
   var el = $el,
       $ = jQuery,
       html = el.attr('rel'),
@@ -204,19 +205,23 @@ global.ac_pointer = function ($el) {
   });
   el.mouseenter(function () {
     el.pointer('open');
+    setTimeout(function () {
+      el.pointer('open');
+    }, 2);
   });
   el.mouseleave(function () {
-    console.log('leave');
     setTimeout(function () {
       if (!el.hasClass('open') && jQuery('.ac-wp-pointer.hover').length === 0) {
         el.pointer('close');
       }
-    }, 100);
+    }, 1);
   });
   el.on('close', function () {
     setTimeout(function () {
-      el.pointer('close');
-    }, 100);
+      if (!el.hasClass('open')) {
+        el.pointer('close');
+      }
+    });
   });
 };
 /*

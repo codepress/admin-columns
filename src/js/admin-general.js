@@ -29,13 +29,14 @@ global.ac_pointers = function( $ ) {
 	}, function() {
 		$( this ).removeClass( 'hover' );
 		$( '.ac-pointer' ).trigger( 'close' );
-	} );
+	} ).on('click', '.close', function(){
+		$( '.ac-pointer' ).removeClass('open');
+	});
 
 	new Tooltip();
 };
 
 global.ac_pointer = function( $el ) {
-	console.log( $el );
 	let el = $el,
 		$ = jQuery,
 		html = el.attr( 'rel' ),
@@ -107,24 +108,26 @@ global.ac_pointer = function( $el ) {
 
 	el.mouseenter( function() {
 		el.pointer( 'open' );
+		setTimeout( () => {
+			el.pointer( 'open' );
+		}, 2 );
 	} );
 
 	el.mouseleave( function() {
-		console.log( 'leave' );
 		setTimeout( () => {
 			if ( !el.hasClass( 'open' ) && jQuery( '.ac-wp-pointer.hover' ).length === 0 ) {
 				el.pointer( 'close' );
 			}
-		}, 100 );
+		}, 1 );
 	} );
 
 	el.on( 'close', () => {
 		setTimeout( () => {
-
-			el.pointer( 'close' );
-
-		}, 100 );
-	} )
+			if( !el.hasClass( 'open' ) ){
+				el.pointer( 'close' );
+			}
+		} )
+	} );
 
 };
 
