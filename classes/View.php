@@ -2,8 +2,6 @@
 
 namespace AC;
 
-use AC\Admin\Renderable;
-
 class View implements Renderable {
 
 	/**

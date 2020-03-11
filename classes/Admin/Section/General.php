@@ -2,8 +2,8 @@
 
 namespace AC\Admin\Section;
 
-use AC\Admin\Renderable;
 use AC\Admin\Section;
+use AC\Renderable;
 use AC\View;
 
 class General extends Section {

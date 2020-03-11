@@ -2,8 +2,8 @@
 
 namespace AC\Admin\Section\Partial;
 
-use AC\Admin\Renderable;
 use AC\Form\Element\Checkbox;
+use AC\Renderable;
 use AC\Settings\General;
 
 class ShowEditButton implements Renderable {

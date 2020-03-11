@@ -4,6 +4,7 @@ namespace AC\Admin;
 
 use AC\Admin\Menu\Item;
 use AC\Collection;
+use AC\Renderable;
 use AC\View;
 
 class Menu extends Collection implements Renderable {
