@@ -3,9 +3,9 @@
 namespace AC\Screen;
 
 use AC\ListScreenRepository\Storage;
-use AC\Preferences\Site;
 use AC\Registrable;
 use AC\ScreenController;
+use AC\Table\Preference;
 use AC\Type\ListScreenId;
 
 class QuickEdit implements Registrable {
@@ -16,13 +16,13 @@ class QuickEdit implements Registrable {
 	private $storage;
 
 	/**
-	 * @var Site
+	 * @var Preference
 	 */
-	private $preferences;
+	private $preference;
 
-	public function __construct( Storage $storage, Site $preferences ) {
+	public function __construct( Storage $storage, Preference $preference ) {
 		$this->storage = $storage;
-		$this->preferences = $preferences;
+		$this->preference = $preference;
 	}
 
 	public function register() {
@@ -30,17 +30,10 @@ class QuickEdit implements Registrable {
 	}
 
 	/**
-	 * @return bool
-	 */
-	private function is_doing_ajax() {
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
-	}
-
-	/**
 	 * Get list screen when doing Quick Edit, a native WordPress ajax call
 	 */
 	public function init_columns_on_quick_edit() {
-		if ( ! $this->is_doing_ajax() ) {
+		if ( ! wp_doing_ajax() ) {
 			return;
 		}
 
@@ -67,7 +60,7 @@ class QuickEdit implements Registrable {
 				return;
 		}
 
-		$id = $this->preferences->get( $type );
+		$id = $this->preference->get( $type );
 
 		if ( ! $id ) {
 			return;

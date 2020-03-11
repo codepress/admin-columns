@@ -30,18 +30,19 @@ class Save extends Handler {
 			wp_send_json_error( [ 'message' => __( 'You need at least one column', 'codepress-admin-columns' ) ] );
 		}
 
-		$list_id = $formdata['list_screen_id'];
-		$type = $formdata['list_screen'];
-
-		if ( ! ListScreenId::is_valid_id( $list_id ) || ! $this->storage->exists( new ListScreenId( $list_id ) ) ) {
-			$list_id = ListScreenId::generate()->get_id();
+		if ( ! ListScreenId::is_valid_id( $formdata['list_screen_id'] ) ) {
+			wp_send_json_error( [ 'message' => 'Invalid list Id' ] );
 		}
 
-		$formdata['columns'] = $this->maybe_encode_urls( $formdata['columns'] );
+		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $formdata['list_screen'] );
+
+		if ( ! $list_screen ) {
+			wp_send_json_error( [ 'message' => 'List screen not found' ] );
+		}
 
 		$column_data = [];
 
-		foreach ( $formdata['columns'] as $column_name => $settings ) {
+		foreach ( $this->maybe_encode_urls( $formdata['columns'] ) as $column_name => $settings ) {
 			if ( 0 === strpos( $column_name, '_new_column_' ) ) {
 				$column_data[ uniqid() ] = $settings;
 			} else {
@@ -49,28 +50,24 @@ class Save extends Handler {
 			}
 		}
 
-		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $type );
-
-		if ( ! $list_screen ) {
-			wp_send_json_error( [ 'message' => 'Failed: List screen not found.' ] );
-		}
-
 		$list_screen->set_title( ! empty( $formdata['title'] ) ? $formdata['title'] : $list_screen->get_label() )
 		            ->set_settings( $column_data )
-		            ->set_layout_id( $list_id )
+		            ->set_layout_id( $formdata['list_screen_id'] )
 		            ->set_preferences( ! empty( $formdata['settings'] ) ? $formdata['settings'] : [] );
 
 		$this->storage->save( $list_screen );
 
 		do_action( 'ac/columns_stored', $list_screen );
 
-		$view_link = ac_helper()->html->link( $list_screen->get_screen_link(), sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) );
-
 		wp_send_json_success(
 			sprintf(
-				__( 'Settings for %s updated successfully.', 'codepress-admin-columns' ),
-				"<strong>" . esc_html( $list_screen->get_title() ) . "</strong>"
-			) . ' ' . $view_link
+				'%s %s',
+				sprintf(
+					__( 'Settings for %s updated successfully.', 'codepress-admin-columns' ),
+					sprintf( '<strong>%s</strong>', esc_html( $list_screen->get_title() ) )
+				),
+				ac_helper()->html->link( $list_screen->get_screen_link(), sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) )
+			)
 		);
 	}
 

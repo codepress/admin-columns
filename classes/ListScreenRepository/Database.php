@@ -2,15 +2,16 @@
 
 namespace AC\ListScreenRepository;
 
+use AC\Exception\MissingListScreenIdException;
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenRepository;
+use AC\ListScreenRepositoryWritable;
 use AC\ListScreenTypes;
 use AC\Type\ListScreenId;
 use DateTime;
 use LogicException;
 
-final class Database implements ListScreenRepository {
+final class Database implements ListScreenRepositoryWritable {
 
 	const TABLE = 'admin_columns';
 
@@ -128,7 +129,7 @@ final class Database implements ListScreenRepository {
 		global $wpdb;
 
 		if ( ! $list_screen->has_id() ) {
-			throw new LogicException( 'Cannot save a ListScreen without an identity.' );
+			throw MissingListScreenIdException::from_saving_list_screen();
 		}
 
 		$args = [

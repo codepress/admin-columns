@@ -6,12 +6,7 @@ use AC\Admin\Page;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
-use AC\Controller\AjaxColumnRequest;
-use AC\Controller\AjaxColumnValue;
-use AC\Controller\AjaxRequestCustomFieldKeys;
-use AC\Controller\ListScreenRestoreColumns;
-use AC\Controller\RedirectAddonStatus;
-use AC\Controller\RestoreSettingsRequest;
+use AC\Controller;
 use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
@@ -25,11 +20,6 @@ class AdminColumns extends Plugin {
 	 * @var Admin
 	 */
 	private $admin;
-
-	/**
-	 * @var Table\Screen
-	 */
-	private $table_screen;
 
 	/**
 	 * @var ListScreenRepository\Storage
@@ -83,18 +73,17 @@ class AdminColumns extends Plugin {
 			new ThirdParty\WooCommerce,
 			new ThirdParty\WPML,
 			new DefaultColumnsController( new Request(), new DefaultColumns() ),
-			new QuickEdit( $this->storage, $this->preferences() ),
+			new QuickEdit( $this->storage, new Table\Preference() ),
 			new Capabilities\Manage(),
-			new AjaxColumnRequest( $this->storage ),
-			new AjaxRequestCustomFieldKeys(),
-			new RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
-			new ListScreenRestoreColumns( $this->storage ),
-			new AjaxColumnValue( $this->storage ),
-			new ListScreenRestoreColumns( $this->storage ),
-			new RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
+			new Controller\AjaxColumnRequest( $this->storage ),
+			new Controller\AjaxRequestCustomFieldKeys(),
+			new Controller\AjaxColumnValue( $this->storage ),
+			new Controller\ListScreenRestoreColumns( $this->storage ),
+			new Controller\RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
+			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename(), ac_get_admin_url( Page\Columns::NAME ) ),
 			new NoticeChecks(),
-			new TableLoader( $this->storage, new PermissionChecker(), $location ),
+			new TableLoader( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];
 
 		foreach ( $services as $service ) {
@@ -117,13 +106,6 @@ class AdminColumns extends Plugin {
 		return $this->storage;
 	}
 
-	/**
-	 * @since 4.0.12
-	 */
-	public function preferences() {
-		return new Preferences\Site( 'layout_table' );
-	}
-
 	protected function get_file() {
 		return AC_FILE;
 	}
@@ -143,25 +125,11 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @since 2.5
-	 */
-	public function use_delete_confirmation() {
-		return apply_filters( 'ac/delete_confirmation', true );
-	}
-
-	/**
 	 * @return Admin Settings class instance
 	 * @since 2.2
 	 */
 	public function admin() {
 		return $this->admin;
-	}
-
-	/**
-	 * @return bool True when doing ajax
-	 */
-	public function is_doing_ajax() {
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
 
 	/**
@@ -334,13 +302,10 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return Table\Screen Returns the screen manager for the list table
 	 * @deprecated 3.4
 	 */
 	public function table_screen() {
 		_deprecated_function( __METHOD__, '3.4' );
-
-		return $this->table_screen;
 	}
 
 	/**
@@ -366,6 +331,27 @@ class AdminColumns extends Plugin {
 		_deprecated_function( __METHOD__, '4.0', 'ListScreenTypes::instance()->get_list_screens()' );
 
 		return ListScreenTypes::instance()->get_list_screens();
+	}
+
+	/**
+	 * @return bool
+	 * @deprecated 4.1
+	 * @since      2.5
+	 */
+	public function use_delete_confirmation() {
+		_deprecated_function( __METHOD__, '4.1' );
+
+		return apply_filters( 'ac/delete_confirmation', true );
+	}
+
+	/**
+	 * @return bool True when doing ajax
+	 * @deprecated 4.1
+	 */
+	public function is_doing_ajax() {
+		_deprecated_function( __METHOD__, '4.1', 'wp_doing_ajax()' );
+
+		return wp_doing_ajax();
 	}
 
 }

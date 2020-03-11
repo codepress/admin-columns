@@ -29,14 +29,4 @@ interface ListScreenRepository {
 	 */
 	public function find_all( array $args = [] );
 
-	/**
-	 * @param ListScreen $list_screen
-	 */
-	public function save( ListScreen $list_screen );
-
-	/**
-	 * @param ListScreen $list_screen
-	 */
-	public function delete( ListScreen $list_screen );
-
 }

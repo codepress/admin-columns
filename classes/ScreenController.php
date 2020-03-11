@@ -42,7 +42,7 @@ class ScreenController implements Registrable {
 			return $columns;
 		}
 
-		if ( ! AC()->is_doing_ajax() ) {
+		if ( ! wp_doing_ajax() ) {
 			$this->default_columns->update( $this->list_screen->get_key(), $columns );
 		}
 

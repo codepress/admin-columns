@@ -10,10 +10,10 @@ use AC\ListScreenRepository\SourceAware;
 use AC\Type\ListScreenId;
 use LogicException;
 
-class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
+class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAware {
 
 	/**
-	 * @var ListScreenRepository
+	 * @var AC\ListScreenRepository
 	 */
 	private $repository;
 
@@ -38,7 +38,7 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 		}
 
 		$this->repository = $repository;
-		$this->writable = (bool) $writable;
+		$this->writable = $writable && $this->repository instanceof AC\ListScreenRepositoryWritable;
 		$this->rules = $rules;
 	}
 
@@ -134,7 +134,7 @@ class ListScreenRepository implements AC\ListScreenRepository, SourceAware {
 	 */
 	public function get_source( $id ) {
 		if ( ! $this->has_source( $id ) ) {
-			throw new Exception\SourceNotAvailable();
+			throw new Exception\SourceNotAvailableException();
 		}
 
 		return $this->repository->get_source( $id );

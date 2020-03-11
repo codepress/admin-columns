@@ -5,6 +5,7 @@ namespace AC;
 use AC\Asset\Location\Absolute;
 use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\Storage;
+use AC\Table\Preference;
 use AC\Type\ListScreenId;
 
 class TableLoader implements Registrable {
@@ -24,18 +25,20 @@ class TableLoader implements Registrable {
 	 */
 	private $location;
 
-	public function __construct( Storage $storage, PermissionChecker $permission_checker, Absolute $location ) {
+	/**
+	 * @var Preference
+	 */
+	private $preference;
+
+	public function __construct( Storage $storage, PermissionChecker $permission_checker, Absolute $location, Preference $preference ) {
 		$this->storage = $storage;
 		$this->permission_checker = $permission_checker;
 		$this->location = $location;
+		$this->preference = $preference;
 	}
 
 	public function register() {
 		add_action( 'ac/screen', [ $this, 'init' ] );
-	}
-
-	private function preferences() {
-		return new Preferences\Site( 'layout_table' );
 	}
 
 	public function init( Screen $screen ) {
@@ -52,7 +55,7 @@ class TableLoader implements Registrable {
 
 		// Last visited
 		if ( ! $list_id ) {
-			$list_id_preference = $this->preferences()->get( $key );
+			$list_id_preference = $this->preference->get( $key );
 			$list_id = ListScreenId::is_valid_id( $list_id_preference )
 				? new ListScreenId( $list_id_preference )
 				: null;
@@ -76,7 +79,7 @@ class TableLoader implements Registrable {
 		}
 
 		if ( $list_screen->has_id() ) {
-			$this->preferences()->set( $key, $list_screen->get_id()->get_id() );
+			$this->preference->set( $key, $list_screen->get_id()->get_id() );
 		}
 
 		$table_screen = new Table\Screen( $this->location, $list_screen );

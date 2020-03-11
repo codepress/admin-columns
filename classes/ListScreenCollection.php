@@ -24,12 +24,6 @@ final class ListScreenCollection implements Iterator, Countable {
 		unset( $this->data[ $list_screen->get_layout_id() ] );
 	}
 
-	public function add_collection( ListScreenCollection $collection ) {
-		foreach ( $collection as $list_screen ) {
-			$this->add( $list_screen );
-		}
-	}
-
 	public function rewind() {
 		reset( $this->data );
 	}

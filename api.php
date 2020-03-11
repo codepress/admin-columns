@@ -1,6 +1,7 @@
 <?php
 
 use AC\Admin;
+use AC\EncodedListScreenDataFactory;
 use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
@@ -90,7 +91,6 @@ function ac_helper() {
 	return new AC\Helper();
 }
 
-// TODO David look at ListScreenApiData
 /**
  * @param array|string $list_screen_keys
  * @param array        $column_data
@@ -100,11 +100,10 @@ function ac_helper() {
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	foreach ( (array) $list_screen_keys as $key ) {
-		AC\ListScreenApiData::push( [ $key => $column_data ] );
+		ac_load_columns( [ $key => $column_data ] );
 	}
 }
 
-// TODO David this seems not to be the proper documentation? Or way?
 /**
  * Manually set the columns for a list screen
  * This overrides the database settings and thus renders the settings screen for this list screen useless
@@ -115,10 +114,14 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
  *
  * @param array $data
  *
- * @since 4.0.0
+ * @deprecated NEWVERSION
+ * @since      4.0.0
+ *
  */
+// TODO David check if documentation is also on par with this: export is gone, don't use this function with 5.x!!
 function ac_load_columns( array $data ) {
-	AC\ListScreenApiData::push( $data );
+	$factory = new EncodedListScreenDataFactory();
+	$factory->create()->add( $data );
 }
 
 /**
@@ -162,7 +165,7 @@ function ac_get_admin_network_url( $slug = null ) {
 function ac_convert_site_url( $label, $action = 'encode' ) {
 	$input = [ site_url(), '[cpac_site_url]' ];
 
-	if ( 'decode' == $action ) {
+	if ( 'decode' === $action ) {
 		$input = array_reverse( $input );
 	}
 
