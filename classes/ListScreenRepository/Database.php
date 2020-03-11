@@ -2,6 +2,7 @@
 
 namespace AC\ListScreenRepository;
 
+use AC\Exception\MissingListScreenIdException;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepositoryWritable;
@@ -128,7 +129,7 @@ final class Database implements ListScreenRepositoryWritable {
 		global $wpdb;
 
 		if ( ! $list_screen->has_id() ) {
-			throw new LogicException( 'Cannot save a ListScreen without an identity.' );
+			throw MissingListScreenIdException::from_saving_list_screen();
 		}
 
 		$args = [
