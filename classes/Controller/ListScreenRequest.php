@@ -64,7 +64,7 @@ class ListScreenRequest {
 		if ( $list_id && $this->repository->exists( $list_id ) ) {
 			$list_screen = $this->repository->find( $list_id );
 
-			if ( $this->exists_list_screen( $list_screen->get_key() ) ) {
+			if ( $list_screen && $this->exists_list_screen( $list_screen->get_key() ) ) {
 				$this->preference->set( 'list_id', $list_screen->get_layout_id() );
 				$this->preference->set( 'list_key', $list_screen->get_key() );
 
@@ -87,7 +87,7 @@ class ListScreenRequest {
 			}
 
 			// Initialize new
-			return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+			return $this->create_list_screen( $list_key );
 		}
 
 		// Last visited ID
@@ -117,7 +117,7 @@ class ListScreenRequest {
 			}
 
 			// Initialize new
-			return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+			return $this->create_list_screen( $list_key );
 		}
 
 		// First visit to settings page
@@ -134,7 +134,22 @@ class ListScreenRequest {
 		}
 
 		// Initialize new
-		return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+		return $this->create_list_screen( $list_key );
+	}
+
+	/**
+	 * @param string $key
+	 *
+	 * @return ListScreen|null
+	 */
+	private function create_list_screen( $key ) {
+		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $key );
+
+		if ( ! $list_screen ) {
+			return null;
+		}
+
+		return $list_screen->set_layout_id( uniqid() );
 	}
 
 	/**
