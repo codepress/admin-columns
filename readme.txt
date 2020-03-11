@@ -216,7 +216,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.0.3 =
 Release Date: March 11th, 2020
 
-* [Updated] Saving column settings for the first time could result in an extra database record.
+* [Updated] Saving column settings for the first time could result in extra database records.
 
 = 4.0.2 =
 Release Date: February 26th, 2020
