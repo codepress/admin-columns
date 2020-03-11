@@ -32,13 +32,6 @@ class ScreenController implements Registrable {
 	}
 
 	/**
-	 * @return bool
-	 */
-	private function is_doing_ajax() {
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
-	}
-
-	/**
 	 * @param $columns
 	 *
 	 * @return array
@@ -49,7 +42,7 @@ class ScreenController implements Registrable {
 			return $columns;
 		}
 
-		if ( ! $this->is_doing_ajax() ) {
+		if ( ! wp_doing_ajax() ) {
 			$this->default_columns->update( $this->list_screen->get_key(), $columns );
 		}
 

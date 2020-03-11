@@ -30,17 +30,10 @@ class QuickEdit implements Registrable {
 	}
 
 	/**
-	 * @return bool
-	 */
-	private function is_doing_ajax() {
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
-	}
-
-	/**
 	 * Get list screen when doing Quick Edit, a native WordPress ajax call
 	 */
 	public function init_columns_on_quick_edit() {
-		if ( ! $this->is_doing_ajax() ) {
+		if ( ! wp_doing_ajax() ) {
 			return;
 		}
 
