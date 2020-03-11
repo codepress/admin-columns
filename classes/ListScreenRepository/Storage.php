@@ -119,7 +119,7 @@ final class Storage implements ListScreenRepositoryWritable {
 
 	private function update( ListScreen $list_screen, $action ) {
 		foreach ( $this->repositories as $repository ) {
-			$match = false;
+			$match = true;
 
 			if ( $repository->has_rules() ) {
 				$match = $repository->get_rules()->match( [
