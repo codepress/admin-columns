@@ -78,6 +78,10 @@ class TableLoader implements Registrable {
 			$list_screen = $this->get_first_list_screen( $key );
 		}
 
+		if ( ! $list_screen ) {
+			return;
+		}
+
 		if ( $list_screen->has_id() ) {
 			$this->preference->set( $key, $list_screen->get_id()->get_id() );
 		}

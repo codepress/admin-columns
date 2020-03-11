@@ -14,7 +14,7 @@ use WP_Post;
 final class Screen implements Registrable {
 
 	/**
-	 * @var ListScreen|null $list_screen
+	 * @var ListScreen $list_screen
 	 */
 	private $list_screen;
 
@@ -33,7 +33,7 @@ final class Screen implements Registrable {
 	 */
 	private $location;
 
-	public function __construct( Asset\Location\Absolute $location, $list_screen = null ) {
+	public function __construct( Asset\Location\Absolute $location, ListScreen $list_screen ) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
 	}
@@ -42,10 +42,8 @@ final class Screen implements Registrable {
 	 * Register hooks
 	 */
 	public function register() {
-		if ( $this->list_screen ) {
-			$controller = new AC\ScreenController( $this->list_screen );
-			$controller->register();
-		}
+		$controller = new AC\ScreenController( $this->list_screen );
+		$controller->register();
 
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] );
 		add_action( 'admin_footer', [ $this, 'admin_footer_scripts' ] );
@@ -56,29 +54,12 @@ final class Screen implements Registrable {
 		add_action( 'admin_footer', [ $this, 'render_actions' ] );
 		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
 
-		$this->register_first_visit_notice();
-		$this->render_layout_input();
+		$this->render_list_screen_input();
 	}
 
-	private function render_layout_input() {
-		if ( ! $this->list_screen ) {
-			return;
-		}
-
+	private function render_list_screen_input() {
 		$render = new TableFormView( $this->list_screen );
 		$render->render( sprintf( '<input type="hidden" name="layout" value="%s">', $this->list_screen->get_layout_id() ) );
-	}
-
-	private function register_first_visit_notice() {
-		if ( 'first-visit' !== filter_input( INPUT_GET, 'ac_action' ) ) {
-			return;
-		}
-
-		$link = sprintf( '<a href="%s">%s</a>', $this->list_screen->get_edit_link(), __( 'the settings page', 'codepress-admin-columns' ) );
-		$message = sprintf( __( 'The available columns are loaded. You can now return to %s.', 'codepress-admin-columns' ), $link );
-
-		$notice = new AC\Message\Notice( $message );
-		$notice->register();
 	}
 
 	/**
@@ -111,35 +92,33 @@ final class Screen implements Registrable {
 	 * @since 2.5.5
 	 */
 	public function set_primary_column( $default ) {
-		if ( $this->list_screen ) {
 
-			if ( ! $this->list_screen->get_column_by_name( $default ) ) {
-				$default = key( $this->list_screen->get_columns() );
-			}
+		if ( ! $this->list_screen->get_column_by_name( $default ) ) {
+			$default = key( $this->list_screen->get_columns() );
+		}
 
-			// If actions column is present, set it as primary
-			foreach ( $this->list_screen->get_columns() as $column ) {
-				if ( 'column-actions' === $column->get_type() ) {
-					$default = $column->get_name();
+		// If actions column is present, set it as primary
+		foreach ( $this->list_screen->get_columns() as $column ) {
+			if ( 'column-actions' === $column->get_type() ) {
+				$default = $column->get_name();
 
-					if ( $this->list_screen instanceof ListScreen\Media ) {
+				if ( $this->list_screen instanceof ListScreen\Media ) {
 
-						// Add download button to the actions column
-						add_filter( 'media_row_actions', [ $this, 'set_media_row_actions' ], 10, 2 );
-					}
+					// Add download button to the actions column
+					add_filter( 'media_row_actions', [ $this, 'set_media_row_actions' ], 10, 2 );
 				}
 			}
+		}
 
-			// Set inline edit data if the default column (title) is not present
-			if ( $this->list_screen instanceof ListScreen\Post && 'title' !== $default ) {
-				add_filter( 'page_row_actions', [ $this, 'set_inline_edit_data' ], 20, 2 );
-				add_filter( 'post_row_actions', [ $this, 'set_inline_edit_data' ], 20, 2 );
-			}
+		// Set inline edit data if the default column (title) is not present
+		if ( $this->list_screen instanceof ListScreen\Post && 'title' !== $default ) {
+			add_filter( 'page_row_actions', [ $this, 'set_inline_edit_data' ], 20, 2 );
+			add_filter( 'post_row_actions', [ $this, 'set_inline_edit_data' ], 20, 2 );
+		}
 
-			// Remove inline edit action if the default column (author) is not present
-			if ( $this->list_screen instanceof ListScreen\Comment && 'comment' !== $default ) {
-				add_filter( 'comment_row_actions', [ $this, 'remove_quick_edit_from_actions' ], 20, 2 );
-			}
+		// Remove inline edit action if the default column (author) is not present
+		if ( $this->list_screen instanceof ListScreen\Comment && 'comment' !== $default ) {
+			add_filter( 'comment_row_actions', [ $this, 'remove_quick_edit_from_actions' ], 20, 2 );
 		}
 
 		return $default;
@@ -250,27 +229,25 @@ final class Screen implements Registrable {
 		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ) );
 		$style->enqueue();
 
-		if ( $this->list_screen ) {
-			wp_localize_script( 'ac-table', 'AC', [
-					'list_screen'  => $this->list_screen->get_key(),
-					'layout'       => $this->list_screen->get_layout_id(),
-					'column_types' => $this->get_column_types_mapping(),
-					'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
-					'table_id'     => $this->list_screen->get_table_attr_id(),
-					'screen'       => $this->get_current_screen_id(),
-					'meta_type'    => $this->list_screen->get_meta_type(),
-				]
-			);
+		wp_localize_script( 'ac-table', 'AC', [
+				'list_screen'  => $this->list_screen->get_key(),
+				'layout'       => $this->list_screen->get_layout_id(),
+				'column_types' => $this->get_column_types_mapping(),
+				'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
+				'table_id'     => $this->list_screen->get_table_attr_id(),
+				'screen'       => $this->get_current_screen_id(),
+				'meta_type'    => $this->list_screen->get_meta_type(),
+			]
+		);
 
-			/**
-			 * @param ListScreen $list_screen
-			 */
-			do_action( 'ac/table_scripts', $this->list_screen, $this );
+		/**
+		 * @param ListScreen $list_screen
+		 */
+		do_action( 'ac/table_scripts', $this->list_screen, $this );
 
-			// Column specific scripts
-			foreach ( $this->list_screen->get_columns() as $column ) {
-				$column->scripts();
-			}
+		// Column specific scripts
+		foreach ( $this->list_screen->get_columns() as $column ) {
+			$column->scripts();
 		}
 	}
 
