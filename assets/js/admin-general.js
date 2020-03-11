@@ -133,6 +133,7 @@ global.ac_pointers = function ($) {
 };
 
 global.ac_pointer = function ($el) {
+  console.log($el);
   var el = $el,
       $ = jQuery,
       html = el.attr('rel'),
@@ -196,22 +197,26 @@ global.ac_pointer = function ($el) {
         el.addClass('open');
       }
     });
-  } // show on hover
+  }
 
-
-  el.hover(function () {
-    $(this).pointer('open');
-  }, function () {
-    var el = $(this);
+  el.click(function () {
+    el.pointer('open');
+  });
+  el.mouseenter(function () {
+    el.pointer('open');
+  });
+  el.mouseleave(function () {
+    console.log('leave');
     setTimeout(function () {
-      if (!el.hasClass('open') && $('.ac-wp-pointer.hover').length === 0) {
+      if (!el.hasClass('open') && jQuery('.ac-wp-pointer.hover').length === 0) {
         el.pointer('close');
       }
     }, 100);
-  }).on('close', function () {
-    if (!el.hasClass('open') && $('.ac-wp-pointer.hover').length === 0) {
+  });
+  el.on('close', function () {
+    setTimeout(function () {
       el.pointer('close');
-    }
+    }, 100);
   });
 };
 /*

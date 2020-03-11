@@ -330,6 +330,10 @@ body.rtl {
 		margin-bottom: 5px;
 		margin-top: 0;
 	}
+
+	.wp-pointer-arrow {
+		pointer-events: none;
+	}
 }
 
 
