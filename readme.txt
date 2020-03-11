@@ -213,7 +213,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= 4.1 =
+= 4.1.0 =
 Release Date: TBD
 
 * [Improved] Send list screen ID with table form

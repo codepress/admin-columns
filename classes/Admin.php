@@ -178,9 +178,9 @@ class Admin implements Registrable {
 		do_action( 'ac/admin_scripts/' . $page->get_slug() );
 
 		/**
-		 * @deprecated NEWVERSION
+		 * @deprecated 4.1
 		 */
-		do_action_deprecated( 'ac/settings/scripts', null, 'NEWVERSION', 'ac/admin_scripts' );
+		do_action_deprecated( 'ac/settings/scripts', null, '4.1', 'ac/admin_scripts' );
 	}
 
 }

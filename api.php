@@ -114,7 +114,7 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
  *
  * @param array $data
  *
- * @deprecated NEWVERSION
+ * @deprecated 4.1
  * @since      4.0.0
  *
  */
