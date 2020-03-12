@@ -592,7 +592,7 @@ abstract class ListScreen {
 	 * @return array
 	 */
 	public function get_original_columns() {
-		return ( new DefaultColumns() )->get( $this->get_key() );
+		return ( new DefaultColumnsRepository() )->get( $this->get_key() );
 	}
 
 	/**
@@ -861,7 +861,7 @@ abstract class ListScreen {
 	public function save_default_headings( $columns ) {
 		_deprecated_function( __METHOD__, '4.0', 'AC\DefaultColumns::update( $key, $columns )' );
 
-		( new DefaultColumns() )->update( $this->get_key(), $columns );
+		( new DefaultColumnsRepository() )->update( $this->get_key(), $columns );
 	}
 
 	/**
@@ -869,18 +869,18 @@ abstract class ListScreen {
 	 * @deprecated 4.0
 	 */
 	public function get_stored_default_headings() {
-		_deprecated_function( __METHOD__, '4.0', 'AC\DefaultColumns::get( $key )' );
+		_deprecated_function( __METHOD__, '4.0', 'AC\DefaultColumnsRepository()::get( $key )' );
 
-		return ( new DefaultColumns() )->get( $this->get_key() );
+		return ( new DefaultColumnsRepository() )->get( $this->get_key() );
 	}
 
 	/**
 	 * @return void
 	 */
 	public function delete_default_headings() {
-		_deprecated_function( __METHOD__, '4.0', 'AC\DefaultColumns::delete( $key )' );
+		_deprecated_function( __METHOD__, '4.0', 'AC\DefaultColumnsRepository()::delete( $key )' );
 
-		( new DefaultColumns() )->delete( $this->get_key() );
+		( new DefaultColumnsRepository() )->delete( $this->get_key() );
 	}
 
 	/**

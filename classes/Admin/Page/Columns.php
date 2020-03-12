@@ -15,9 +15,9 @@ use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Column;
 use AC\Controller\ListScreenRequest;
+use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\Message;
-use AC\UnitializedListScreens;
 use AC\View;
 
 class Columns extends Page implements Enqueueables, Helpable {
@@ -35,22 +35,34 @@ class Columns extends Page implements Enqueueables, Helpable {
 	private $location;
 
 	/**
-	 * @var UnitializedListScreens
+	 * @var DefaultColumnsRepository
 	 */
-	private $uninitialized;
+	private $default_columns;
 
 	/**
 	 * @var Menu
 	 */
 	private $menu;
 
-	public function __construct( ListScreenRequest $controller, Location\Absolute $location, UnitializedListScreens $uninitialized, Menu $menu ) {
+	/**
+	 * @var bool
+	 */
+	private $network_active;
+
+	public function __construct(
+		ListScreenRequest $controller,
+		Location\Absolute $location,
+		DefaultColumnsRepository $default_columns,
+		Menu $menu,
+		$network_active
+	) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->controller = $controller;
 		$this->location = $location;
-		$this->uninitialized = $uninitialized;
+		$this->default_columns = $default_columns;
 		$this->menu = $menu;
+		$this->network_active = $network_active;
 	}
 
 	public function show_read_only_notice( ListScreen $list_screen ) {
@@ -72,7 +84,8 @@ class Columns extends Page implements Enqueueables, Helpable {
 			new Admin\Asset\Columns(
 				'ac-admin-page-columns',
 				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
-				$this->uninitialized,
+				$this->default_columns,
+				$this->network_active,
 				$this->controller->get_list_screen()
 			),
 			new Style( 'ac-admin-page-columns-css', $this->location->with_suffix( 'assets/css/admin-page-columns.css' ) ),
@@ -92,7 +105,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 	public function render() {
 		$list_screen = $this->controller->get_list_screen();
 
-		if ( $this->uninitialized->has_list_screen( $list_screen->get_key() ) ) {
+		if ( ! $this->default_columns->exists( $list_screen->get_key() ) ) {
 			$modal = new View( [
 				'message' => 'Loading columns',
 			] );

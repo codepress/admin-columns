@@ -5,8 +5,9 @@ namespace AC\Admin\Asset;
 use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
+use AC\DefaultColumnsRepository;
 use AC\ListScreen;
-use AC\UnitializedListScreens;
+use AC\ListScreenTypes;
 
 class Columns extends Script {
 
@@ -16,11 +17,22 @@ class Columns extends Script {
 	private $list_screen;
 
 	/**
-	 * @var UnitializedListScreens
+	 * @var DefaultColumnsRepository
 	 */
-	private $uninitialized;
+	private $default_columns;
 
-	public function __construct( $handle, Location $location, UnitializedListScreens $uninitialized, ListScreen $list_screen = null ) {
+	/**
+	 * @var bool
+	 */
+	private $network_active;
+
+	public function __construct(
+		$handle,
+		Location $location,
+		DefaultColumnsRepository $default_columns,
+		$network_active = false,
+		ListScreen $list_screen = null
+	) {
 		parent::__construct( $handle, $location, [
 			'jquery',
 			'dashboard',
@@ -30,7 +42,14 @@ class Columns extends Script {
 		] );
 
 		$this->list_screen = $list_screen;
-		$this->uninitialized = $uninitialized;
+		$this->default_columns = $default_columns;
+		$this->network_active = (bool) $network_active;
+	}
+
+	private function get_list_screens() {
+		return $this->network_active
+			? ListScreenTypes::instance()->get_list_screens( [ 'network_only' => true ] )
+			: ListScreenTypes::instance()->get_list_screens( [ 'site_only' => true ] );
 	}
 
 	public function register() {
@@ -56,7 +75,10 @@ class Columns extends Script {
 			],
 		];
 
-		foreach ( $this->uninitialized->get_list_screens() as $list_screen ) {
+		foreach ( $this->get_list_screens() as $list_screen ) {
+			if ( $this->default_columns->exists( $list_screen->get_key() ) ) {
+				continue;
+			}
 
 			$key = $list_screen->get_key();
 

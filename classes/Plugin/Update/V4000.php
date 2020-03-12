@@ -594,7 +594,7 @@ class V4000 extends Update {
 	private function clear_table() {
 		global $wpdb;
 
-		$table = $wpdb->prefix . DataBase::TABLE;
+		$table = $wpdb->prefix . Database::TABLE;
 
 		$exists = $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table ) ) === $table;
 

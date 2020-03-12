@@ -60,7 +60,7 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
-		$this->admin = ( new AdminFactory( $this->storage, $location ) )->create();
+		$this->admin = ( new AdminFactory( $this->storage, $location, $this->is_network_active() ) )->create();
 
 		$services = [
 			$this->admin,
@@ -72,7 +72,7 @@ class AdminColumns extends Plugin {
 			new ThirdParty\NinjaForms,
 			new ThirdParty\WooCommerce,
 			new ThirdParty\WPML,
-			new DefaultColumnsController( new Request(), new DefaultColumns() ),
+			new Controller\DefaultColumns( new Request(), new DefaultColumnsRepository() ),
 			new QuickEdit( $this->storage, new Table\Preference() ),
 			new Capabilities\Manage(),
 			new Controller\AjaxColumnRequest( $this->storage ),
