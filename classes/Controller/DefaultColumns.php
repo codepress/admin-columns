@@ -45,6 +45,11 @@ class DefaultColumns implements Registrable {
 		// Our custom columns are set at priority 200. Before they are added we need to store the default column headings.
 		add_filter( $this->list_screen->get_heading_hookname(), [ $this, 'save_headings' ], 199 );
 
+		// Preemptively save empty array in case the `save_headings` callback is not being reached.
+		if ( ! $this->default_columns->exists( $this->list_screen->get_key() ) ) {
+			$this->default_columns->update( $this->list_screen->get_key(), [] );
+		}
+
 		// no render needed
 		ob_start();
 	}
