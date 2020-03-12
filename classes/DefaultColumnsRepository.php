@@ -52,11 +52,4 @@ class DefaultColumnsRepository {
 		delete_option( $this->get_option_name( $list_screen_key ) );
 	}
 
-	/**
-	 * @param string $list_screen_key
-	 */
-	public function find_by_key( $list_screen_key ) {
-
-	}
-
 }

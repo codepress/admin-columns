@@ -80,10 +80,8 @@ class Columns extends Script {
 				continue;
 			}
 
-			$key = $list_screen->get_key();
-
-			$params['uninitialized_list_screens'][ $key ] = [
-				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $key ], $list_screen->get_screen_link() ),
+			$params['uninitialized_list_screens'][ $list_screen->get_key() ] = [
+				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $list_screen->get_key() ], $list_screen->get_screen_link() ),
 				'label'       => $list_screen->get_label(),
 			];
 		}
