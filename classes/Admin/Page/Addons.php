@@ -42,49 +42,15 @@ class Addons extends Page implements Enqueueables {
 	public function render() {
 		ob_start();
 
-		foreach ( $this->get_grouped_addons() as $group_slug => $group ) :
+		foreach ( $this->get_grouped_addons() as $group ) :
 			?>
 
-			<div class="ac-addons group-<?= esc_attr( $group_slug ); ?>">
+			<div class="ac-addons group-<?= esc_attr( $group['class'] ); ?>">
 				<h2><?php echo esc_html( $group['title'] ); ?></h2>
 
 				<ul>
 					<?php
-					foreach ( $group['addons'] as $addon ) {
-						/* @var AC\Integration $addon */
-
-						$view = new AC\View( [
-							'logo'        => AC()->get_url() . $addon->get_logo(),
-							'title'       => $addon->get_title(),
-							'slug'        => $addon->get_slug(),
-							'description' => $addon->get_description(),
-							'actions'     => $this->render_actions( $addon ),
-						] );
-
-						echo $view->set_template( 'admin/edit-addon' );
-					}
-					?>
-				</ul>
-			</div>
-		<?php endforeach;
-
-		return ob_get_clean();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function render_grouped_addons() {
-		ob_start();
-		foreach ( $this->get_grouped_addons() as $group_slug => $group ) :
-			?>
-
-			<div class="ac-addons group-<?php echo esc_attr( $group_slug ); ?>">
-				<h2><?php echo esc_html( $group['title'] ); ?></h2>
-
-				<ul>
-					<?php
-					foreach ( $group['addons'] as $addon ) {
+					foreach ( $group['integrations'] as $addon ) {
 						/* @var AC\Integration $addon */
 
 						$view = new AC\View( [
@@ -113,11 +79,13 @@ class Addons extends Page implements Enqueueables {
 	private function render_actions( AC\Integration $addon ) {
 		ob_start();
 
+		$plugin = new PluginInformation( $addon->get_basename() );
+
 		// Installed..
-		if ( $this->get_plugin_info( $addon->get_basename() )->is_installed() ) :
+		if ( $plugin->is_installed() ) :
 
 			// Active
-			if ( $this->get_plugin_info( $addon->get_basename() )->is_active() ) : ?>
+			if ( $plugin->is_active() ) : ?>
 				<span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
 
 				<?php if ( current_user_can( 'activate_plugins' ) ) : ?>
@@ -130,7 +98,6 @@ class Addons extends Page implements Enqueueables {
 
 		// Not installed...
 		elseif ( ac_is_pro_active() && current_user_can( 'install_plugins' ) ) : ?>
-
 			<a href="#" class="button" data-install>
 				<?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?>
 			</a>
@@ -180,99 +147,59 @@ class Addons extends Page implements Enqueueables {
 	}
 
 	/**
-	 * Group a list of add-ons
-	 * @return array A list of addons per group: [group_name] => (array) [group_addons], where [group_addons] is an array ([addon_name] => (array) [addon_details])
-	 * @since 3.0
+	 * @return array
 	 */
 	private function get_grouped_addons() {
+
 		$active = [];
-		$inactive = [];
+		$recommended = [];
+		$available = [];
 
-		foreach ( $this->integrations as $integration ) {
-			if ( $this->get_plugin_info( $integration->get_basename() )->is_active() ) {
+		foreach ( $this->integrations->all() as $integration ) {
+			$plugin = new PluginInformation( $integration->get_basename() );
+
+			// active
+			if ( $plugin->is_active() ) {
 				$active[] = $integration;
-			} else {
-				$inactive[] = $integration;
-			}
-		}
-
-		/* @var AC\Integration[] $sorted */
-		$sorted = array_merge( $active, $inactive );
-
-		$grouped = [];
-		foreach ( $this->get_addon_groups() as $group => $label ) {
-			foreach ( $sorted as $integration ) {
-				$addon_group = 'default';
-
-				if ( $this->get_plugin_info( $integration->get_basename() )->is_active() ) {
-					$addon_group = 'recommended';
-				}
-
-				if ( $this->get_plugin_info( $integration->get_basename() )->is_installed() ) {
-					$addon_group = 'installed';
-				}
-
-				if ( ! isset( $grouped[ $group ] ) ) {
-					$grouped[ $group ]['title'] = $label;
-				}
-
-				if ( $addon_group === $group ) {
-					$grouped[ $group ]['addons'][] = $integration;
-				}
+				continue;
 			}
 
-			if ( empty( $grouped[ $group ]['addons'] ) ) {
-				unset( $grouped[ $group ] );
+			// recommended
+			if ( $integration->is_plugin_active() ) {
+				$recommended[] = $integration;
+				continue;
 			}
+
+			$available[] = $integration;
 		}
 
-		return $grouped;
-	}
+		$groups = [];
 
-	/**
-	 * Addons are grouped into addon groups by providing the group an addon belongs to.
-	 * @return array Available addon groups ([group_name] => [label])
-	 * @since 2.2
-	 */
-	public function get_addon_groups() {
-		$addon_groups = [
-			'installed'   => __( 'Installed', 'codepress-admin-columns' ),
-			'recommended' => __( 'Recommended', 'codepress-admin-columns' ),
-			'default'     => __( 'Available', 'codepress-admin-columns' ),
-		];
-
-		/**
-		 * Filter the addon groups
-		 *
-		 * @param array $addon_groups Available addon groups ([group_name] => [label])
-		 *
-		 * @since 2.2
-		 */
-		return apply_filters( 'ac/addons/groups', $addon_groups );
-	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return string|false
-	 */
-	public function get_group( $name ) {
-		$groups = $this->get_addon_groups();
-
-		if ( ! $groups ) {
-			return false;
+		if ( $recommended ) {
+			$groups[] = [
+				'title'        => 'Recommended',
+				'class'        => 'recommended',
+				'integrations' => $recommended,
+			];
 		}
 
-		return $groups[ $name ];
-	}
+		if ( $active ) {
+			$groups[] = [
+				'title'        => 'Active',
+				'class'        => 'active',
+				'integrations' => $active,
+			];
+		}
 
-	/**
-	 * @param string $basename
-	 *
-	 * @return PluginInformation
-	 */
-	private function get_plugin_info( $basename ) {
-		return new PluginInformation( $basename );
+		if ( $available ) {
+			$groups[] = [
+				'title'        => 'Available',
+				'class'        => 'available',
+				'integrations' => $available,
+			];
+		}
+
+		return $groups;
 	}
 
 }
