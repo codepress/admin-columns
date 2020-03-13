@@ -854,14 +854,14 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @param array $column_headings
+	 * @param array $columns
 	 *
 	 * @deprecated 4.0
 	 */
 	public function save_default_headings( $columns ) {
 		_deprecated_function( __METHOD__, '4.0', 'AC\DefaultColumns::update( $key, $columns )' );
 
-		( new DefaultColumnsRepository() )->update( $this->get_key(), $columns );
+		( new DefaultColumnsRepository() )->update( $this->get_key(), $columns && is_array( $columns ) ? $columns : [] );
 	}
 
 	/**
