@@ -1297,6 +1297,8 @@ __webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/
 
 __webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1312,14 +1314,15 @@ function () {
     _classCallCheck(this, ListscreenInitialize);
 
     this.list_screens = list_screens;
-    this.processing = [];
+    this.processed = [];
     this.errors = [];
+    this.success = [];
     this.events = nanobus();
   }
 
   _createClass(ListscreenInitialize, [{
-    key: "initListScreen",
-    value: function initListScreen(list_screen) {
+    key: "doAjaxCall",
+    value: function doAjaxCall(list_screen) {
       return jQuery.ajax({
         url: list_screen.screen_link,
         method: 'get'
@@ -1335,42 +1338,40 @@ function () {
       });
     }
   }, {
-    key: "getNextItem",
-    value: function getNextItem() {
-      return this.list_screens.shift();
+    key: "onFinish",
+    value: function onFinish() {
+      if (this.success.length === Object.keys(this.list_screens).length) {
+        this.events.emit('success');
+      }
+
+      if (this.errors.length > 0) {
+        this.events.emit('error');
+      }
     }
   }, {
     key: "checkFinish",
     value: function checkFinish() {
-      if (Object.keys(this.processing).length > 0) {
-        return;
+      if (this.processed.length === Object.keys(this.list_screens).length) {
+        this.onFinish();
       }
-
-      if (Object.keys(this.errors).length > 0) {
-        this.events.emit('error');
-        return;
-      }
-
-      this.events.emit('success');
     }
   }, {
     key: "processListScreen",
     value: function processListScreen(list_screen) {
       var _this2 = this;
 
-      this.processing.push(list_screen.label);
-      this.initListScreen(list_screen).done(function (r) {
-        _this2.processing.shift();
-
-        if (r !== '1') {
+      return this.doAjaxCall(list_screen).done(function (r) {
+        if (r === 'ac_success') {
+          _this2.success.push(list_screen);
+        } else {
           _this2.errors.push(list_screen);
         }
+      }).fail(function () {
+        _this2.errors.push(list_screen);
+      }).always(function () {
+        _this2.processed.push(list_screen);
 
         _this2.checkFinish();
-      }).error(function () {
-        _this2.processing.shift();
-
-        _this2.errors.push(list_screen);
       });
     }
   }]);
@@ -1393,27 +1394,18 @@ function () {
     value: function run() {
       if (Object.keys(this.list_screens).length > 0) {
         if (this.list_screens.hasOwnProperty(AC.list_screen)) {
-          var main_initializer = new ListscreenInitialize([this.list_screens[AC.list_screen]]);
+          var main_initializer = new ListscreenInitialize(_defineProperty({}, AC.list_screen, this.list_screens[AC.list_screen]));
           main_initializer.run();
           main_initializer.events.on('error', function () {
-            var notice = document.querySelector('.ac-notice.visit-ls');
-            var loading = document.querySelector('.ac-loading-msg-wrapper');
-            var menu = document.querySelector('.menu');
-
-            if (notice) {
-              notice.style.display = 'block';
-            }
-
-            if (loading) {
-              loading.remove();
-            }
-
-            if (menu) {
-              menu.classList.remove('hidden');
-            }
+            document.querySelectorAll('.ac-loading-msg-wrapper').forEach(function (el) {
+              return el.remove();
+            });
+            document.querySelectorAll('.menu').forEach(function (el) {
+              return el.classList.remove('hidden');
+            });
           });
           main_initializer.events.on('success', function () {
-            location.reload(true);
+            return location.reload();
           });
         }
 

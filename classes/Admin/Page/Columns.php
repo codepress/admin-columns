@@ -98,6 +98,8 @@ class Columns extends Page implements Enqueueables, Helpable {
 			] );
 			$modal->set_template( 'admin/loading-message' );
 
+			echo $this->menu->render( true );
+
 			return $modal->render();
 		}
 
