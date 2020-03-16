@@ -175,7 +175,7 @@ $wp-border-color: #7e8893;
 	width: 1px !important
 }
 
-// THeme AC S2
+// Theme AC S2
 .select2-container--acs2 {
 
 	.select2-dropdown {
@@ -359,6 +359,13 @@ $wp-border-color: #7e8893;
 		}
 	}
 
+	.select2-dropdown.-type-selector {
+		.select2-results {
+			.select2-results__options {
+				max-height: 400px;
+			}
+		}
+	}
 }
 
 .select2-container--acs2[dir="rtl"] {

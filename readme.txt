@@ -216,6 +216,7 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: TBD
 
+* [Improved] Type selector in Column settings
 * [Improved] Send list screen ID with table form
 
 = 4.0.2 =

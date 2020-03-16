@@ -154,6 +154,8 @@ var _customField = _interopRequireDefault(__webpack_require__(/*! ./admin/column
 
 var _numberFormat = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/number-format */ "./js/admin/columns/settings/number-format.js"));
 
+var _type = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/type */ "./js/admin/columns/settings/type.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -185,7 +187,7 @@ jQuery(document).on('AC_Form_Loaded', function () {
 
   AdminColumns.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
   /** Register Settings **/
-  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default).registerSetting('customfield', _customField.default).registerSetting('number_format', _numberFormat.default).registerSetting('label', _label2.default);
+  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default).registerSetting('customfield', _customField.default).registerSetting('number_format', _numberFormat.default).registerSetting('type_selector', _type.default).registerSetting('label', _label2.default);
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#listscreen_settings');
@@ -2151,6 +2153,70 @@ var subsetting = function subsetting(column) {
 };
 
 module.exports = subsetting;
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/type.js":
+/*!*******************************************!*\
+  !*** ./js/admin/columns/settings/type.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var TypeSelector =
+/*#__PURE__*/
+function () {
+  function TypeSelector(column) {
+    _classCallCheck(this, TypeSelector);
+
+    this.column = column;
+    this.setting = column.$el[0].querySelector('[data-setting="type"]');
+
+    if (!this.setting) {
+      return;
+    }
+
+    this.bindEvents();
+  }
+
+  _createClass(TypeSelector, [{
+    key: "bindEvents",
+    value: function bindEvents() {
+      var select = this.setting.querySelector('.ac-setting-input_type');
+
+      if (select) {
+        jQuery(select).ac_select2({
+          theme: 'acs2',
+          width: '100%',
+          dropdownCssClass: '-type-selector'
+        });
+      }
+    }
+  }]);
+
+  return TypeSelector;
+}();
+
+var type = function type(column) {
+  column.settings.typeSelector = new TypeSelector(column);
+};
+
+var _default = type;
+exports.default = _default;
 
 /***/ }),
 
