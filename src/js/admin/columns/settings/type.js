@@ -14,6 +14,12 @@ class TypeSelector {
 		const select = this.setting.querySelector( '.ac-setting-input_type' );
 
 		if ( select ) {
+			select.removeAttribute( 'data-select2-id' );
+
+			this.setting.querySelectorAll( '.select2' ).forEach( el => {
+				el.remove();
+			} );
+
 			jQuery( select ).ac_select2( {
 				theme : 'acs2',
 				width : '100%',
