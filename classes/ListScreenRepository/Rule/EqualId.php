@@ -24,7 +24,7 @@ class EqualId implements Rule {
 			return false;
 		}
 
-		return $this->id == $args[ self::ID ];
+		return $this->id->equals( $args[ self::ID ] );
 	}
 
 }
