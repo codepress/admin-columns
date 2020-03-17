@@ -37,4 +37,13 @@ final class ListScreenId {
 		return $this->id;
 	}
 
+	/**
+	 * @param ListScreenId $id
+	 *
+	 * @return bool
+	 */
+	public function equals( ListScreenId $id ) {
+		return $this->id === $id->get_id();
+	}
+
 }
