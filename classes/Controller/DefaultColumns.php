@@ -57,7 +57,8 @@ class DefaultColumns implements Registrable {
 		ob_end_clean();
 
 		$this->default_columns->update( $this->list_screen->get_key(), $columns && is_array( $columns ) ? $columns : [] );
-		exit( "1" );
+
+		exit( 'ac_success' );
 	}
 
 }

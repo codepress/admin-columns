@@ -32,6 +32,7 @@ import SettingWidth from './admin/columns/settings/width';
 import SettingLabel from './admin/columns/settings/label';
 import SettingCustomField from './admin/columns/settings/custom-field';
 import SettingNumberFormat from './admin/columns/settings/number-format';
+import SettingTypeSelector from "./admin/columns/settings/type";
 
 require( 'admin-columns-js/polyfill/customevent' );
 require( 'admin-columns-js/polyfill/nodelist' );
@@ -65,6 +66,7 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 		.registerSetting( 'width', SettingWidth )
 		.registerSetting( 'customfield', SettingCustomField )
 		.registerSetting( 'number_format', SettingNumberFormat )
+		.registerSetting( 'type_selector', SettingTypeSelector )
 		.registerSetting( 'label', SettingLabel );
 } );
 

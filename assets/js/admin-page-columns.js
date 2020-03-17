@@ -154,6 +154,8 @@ var _customField = _interopRequireDefault(__webpack_require__(/*! ./admin/column
 
 var _numberFormat = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/number-format */ "./js/admin/columns/settings/number-format.js"));
 
+var _type = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/type */ "./js/admin/columns/settings/type.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -185,7 +187,7 @@ jQuery(document).on('AC_Form_Loaded', function () {
 
   AdminColumns.Column.registerEvent('toggle', _toggle.default).registerEvent('remove', _remove.default).registerEvent('clone', _clone.default).registerEvent('refresh', _refresh.default).registerEvent('type_selector', _typeSelector.default).registerEvent('indicator', _indicator.default).registerEvent('label', _label.default.label).registerEvent('label_setting', _label.default.setting).registerEvent('addons', _addons.default)
   /** Register Settings **/
-  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default).registerSetting('customfield', _customField.default).registerSetting('number_format', _numberFormat.default).registerSetting('label', _label2.default);
+  .registerSetting('date', _date.default).registerSetting('image_size', _imageSize.default).registerSetting('pro', _pro.default).registerSetting('sub_setting_toggle', _subSettingToggle.default).registerSetting('width', _width.default).registerSetting('customfield', _customField.default).registerSetting('number_format', _numberFormat.default).registerSetting('type_selector', _type.default).registerSetting('label', _label2.default);
 });
 jQuery(document).ready(function () {
   AC.Form = new _form.default('#listscreen_settings');
@@ -1297,6 +1299,8 @@ __webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/
 
 __webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1312,14 +1316,15 @@ function () {
     _classCallCheck(this, ListscreenInitialize);
 
     this.list_screens = list_screens;
-    this.processing = [];
+    this.processed = [];
     this.errors = [];
+    this.success = [];
     this.events = nanobus();
   }
 
   _createClass(ListscreenInitialize, [{
-    key: "initListScreen",
-    value: function initListScreen(list_screen) {
+    key: "doAjaxCall",
+    value: function doAjaxCall(list_screen) {
       return jQuery.ajax({
         url: list_screen.screen_link,
         method: 'get'
@@ -1335,42 +1340,40 @@ function () {
       });
     }
   }, {
-    key: "getNextItem",
-    value: function getNextItem() {
-      return this.list_screens.shift();
+    key: "onFinish",
+    value: function onFinish() {
+      if (this.success.length === Object.keys(this.list_screens).length) {
+        this.events.emit('success');
+      }
+
+      if (this.errors.length > 0) {
+        this.events.emit('error');
+      }
     }
   }, {
     key: "checkFinish",
     value: function checkFinish() {
-      if (Object.keys(this.processing).length > 0) {
-        return;
+      if (this.processed.length === Object.keys(this.list_screens).length) {
+        this.onFinish();
       }
-
-      if (Object.keys(this.errors).length > 0) {
-        this.events.emit('error');
-        return;
-      }
-
-      this.events.emit('success');
     }
   }, {
     key: "processListScreen",
     value: function processListScreen(list_screen) {
       var _this2 = this;
 
-      this.processing.push(list_screen.label);
-      this.initListScreen(list_screen).done(function (r) {
-        _this2.processing.shift();
-
-        if (r !== '1') {
+      return this.doAjaxCall(list_screen).done(function (r) {
+        if (r === 'ac_success') {
+          _this2.success.push(list_screen);
+        } else {
           _this2.errors.push(list_screen);
         }
+      }).fail(function () {
+        _this2.errors.push(list_screen);
+      }).always(function () {
+        _this2.processed.push(list_screen);
 
         _this2.checkFinish();
-      }).error(function () {
-        _this2.processing.shift();
-
-        _this2.errors.push(list_screen);
       });
     }
   }]);
@@ -1393,27 +1396,18 @@ function () {
     value: function run() {
       if (Object.keys(this.list_screens).length > 0) {
         if (this.list_screens.hasOwnProperty(AC.list_screen)) {
-          var main_initializer = new ListscreenInitialize([this.list_screens[AC.list_screen]]);
+          var main_initializer = new ListscreenInitialize(_defineProperty({}, AC.list_screen, this.list_screens[AC.list_screen]));
           main_initializer.run();
           main_initializer.events.on('error', function () {
-            var notice = document.querySelector('.ac-notice.visit-ls');
-            var loading = document.querySelector('.ac-loading-msg-wrapper');
-            var menu = document.querySelector('.menu');
-
-            if (notice) {
-              notice.style.display = 'block';
-            }
-
-            if (loading) {
-              loading.remove();
-            }
-
-            if (menu) {
-              menu.classList.remove('hidden');
-            }
+            document.querySelectorAll('.ac-loading-msg-wrapper').forEach(function (el) {
+              return el.remove();
+            });
+            document.querySelectorAll('.menu').forEach(function (el) {
+              return el.classList.remove('hidden');
+            });
           });
           main_initializer.events.on('success', function () {
-            location.reload(true);
+            return location.reload();
           });
         }
 
@@ -2159,6 +2153,74 @@ var subsetting = function subsetting(column) {
 };
 
 module.exports = subsetting;
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/type.js":
+/*!*******************************************!*\
+  !*** ./js/admin/columns/settings/type.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var TypeSelector =
+/*#__PURE__*/
+function () {
+  function TypeSelector(column) {
+    _classCallCheck(this, TypeSelector);
+
+    this.column = column;
+    this.setting = column.$el[0].querySelector('[data-setting="type"]');
+
+    if (!this.setting) {
+      return;
+    }
+
+    this.bindEvents();
+  }
+
+  _createClass(TypeSelector, [{
+    key: "bindEvents",
+    value: function bindEvents() {
+      var select = this.setting.querySelector('.ac-setting-input_type');
+
+      if (select) {
+        select.removeAttribute('data-select2-id');
+        this.setting.querySelectorAll('.select2').forEach(function (el) {
+          el.remove();
+        });
+        jQuery(select).ac_select2({
+          theme: 'acs2',
+          width: '100%',
+          dropdownCssClass: '-type-selector'
+        });
+      }
+    }
+  }]);
+
+  return TypeSelector;
+}();
+
+var type = function type(column) {
+  column.settings.typeSelector = new TypeSelector(column);
+};
+
+var _default = type;
+exports.default = _default;
 
 /***/ }),
 
