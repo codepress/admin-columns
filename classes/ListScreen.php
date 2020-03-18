@@ -726,6 +726,8 @@ abstract class ListScreen {
 
 		$column->set_options( $settings );
 
+		do_action( 'ac/list_screen/column_created', $column, $this );
+
 		return $column;
 	}
 
