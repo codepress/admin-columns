@@ -60,7 +60,7 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
-		$this->admin = ( new AdminFactory( $this->storage, $location, $this->is_network_active() ) )->create();
+		$this->admin = ( new AdminFactory( $this->storage, $location, $this->get_basename() ) )->create();
 
 		$services = [
 			$this->admin,
@@ -81,7 +81,7 @@ class AdminColumns extends Plugin {
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
-			new PluginActionLinks( $this->get_basename(), ac_get_admin_url( Page\Columns::NAME ) ),
+			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks(),
 			new TableLoader( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];

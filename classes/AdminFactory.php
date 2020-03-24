@@ -24,14 +24,14 @@ class AdminFactory {
 	protected $location;
 
 	/**
-	 * @var bool
+	 * @var string
 	 */
-	protected $network_active;
+	protected $plugin_basename;
 
-	public function __construct( Storage $storage, Location\Absolute $location, $network_active ) {
+	public function __construct( Storage $storage, Location\Absolute $location, $plugin_basename ) {
 		$this->storage = $storage;
 		$this->location = $location;
-		$this->network_active = (bool) $network_active;
+		$this->plugin_basename = (string) $plugin_basename;
 	}
 
 	/**
@@ -49,7 +49,7 @@ class AdminFactory {
 			$this->location,
 			new DefaultColumnsRepository(),
 			new Section\Partial\Menu( $list_screen_controller, false ),
-			$this->network_active
+			$this->plugin_basename
 		);
 	}
 
