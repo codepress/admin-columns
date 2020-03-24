@@ -45,6 +45,9 @@ final class Screen implements Registrable {
 		$controller = new AC\ScreenController( $this->list_screen );
 		$controller->register();
 
+		$render = new TableFormView( $this->list_screen->get_meta_type(), sprintf( '<input type="hidden" name="layout" value="%s">', $this->list_screen->get_layout_id() ) );
+		$render->register();
+
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] );
 		add_action( 'admin_footer', [ $this, 'admin_footer_scripts' ] );
 		add_action( 'admin_head', [ $this, 'admin_head_scripts' ] );
@@ -53,13 +56,6 @@ final class Screen implements Registrable {
 		add_filter( 'list_table_primary_column', [ $this, 'set_primary_column' ], 20 );
 		add_action( 'admin_footer', [ $this, 'render_actions' ] );
 		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
-
-		$this->render_list_screen_input();
-	}
-
-	private function render_list_screen_input() {
-		$render = new TableFormView( $this->list_screen );
-		$render->render( sprintf( '<input type="hidden" name="layout" value="%s">', $this->list_screen->get_layout_id() ) );
 	}
 
 	/**
