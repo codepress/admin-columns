@@ -44,17 +44,11 @@ class Columns extends Page implements Enqueueables, Helpable {
 	 */
 	private $menu;
 
-	/**
-	 * @var string
-	 */
-	private $plugin_basename;
-
 	public function __construct(
 		ListScreenRequest $controller,
 		Location\Absolute $location,
 		DefaultColumnsRepository $default_columns,
-		Menu $menu,
-		$plugin_basename
+		Menu $menu
 	) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
@@ -62,7 +56,6 @@ class Columns extends Page implements Enqueueables, Helpable {
 		$this->location = $location;
 		$this->default_columns = $default_columns;
 		$this->menu = $menu;
-		$this->plugin_basename = $plugin_basename;
 	}
 
 	public function show_read_only_notice( ListScreen $list_screen ) {
@@ -86,7 +79,6 @@ class Columns extends Page implements Enqueueables, Helpable {
 				'ac-admin-page-columns',
 				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
 				$this->default_columns,
-				is_plugin_active_for_network( $this->plugin_basename ) && is_network_admin(),
 				$this->controller->get_list_screen()
 			),
 			new Style( 'ac-admin-page-columns-css', $this->location->with_suffix( 'assets/css/admin-page-columns.css' ) ),

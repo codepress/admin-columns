@@ -21,16 +21,10 @@ class Columns extends Script {
 	 */
 	private $default_columns;
 
-	/**
-	 * @var bool
-	 */
-	private $is_network_admin;
-
 	public function __construct(
 		$handle,
 		Location $location,
 		DefaultColumnsRepository $default_columns,
-		$network_active = false,
 		ListScreen $list_screen = null
 	) {
 		parent::__construct( $handle, $location, [
@@ -43,11 +37,10 @@ class Columns extends Script {
 
 		$this->list_screen = $list_screen;
 		$this->default_columns = $default_columns;
-		$this->network_active = (bool) $network_active;
 	}
 
 	private function get_list_screens() {
-		return $this->is_network_admin
+		return is_network_admin()
 			? ListScreenTypes::instance()->get_list_screens( [ 'network_only' => true ] )
 			: ListScreenTypes::instance()->get_list_screens( [ 'site_only' => true ] );
 	}

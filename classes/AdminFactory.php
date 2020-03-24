@@ -23,15 +23,9 @@ class AdminFactory {
 	 */
 	protected $location;
 
-	/**
-	 * @var string
-	 */
-	protected $plugin_basename;
-
-	public function __construct( Storage $storage, Location\Absolute $location, $plugin_basename ) {
+	public function __construct( Storage $storage, Location\Absolute $location ) {
 		$this->storage = $storage;
 		$this->location = $location;
-		$this->plugin_basename = (string) $plugin_basename;
 	}
 
 	/**
@@ -48,8 +42,7 @@ class AdminFactory {
 			$list_screen_controller,
 			$this->location,
 			new DefaultColumnsRepository(),
-			new Section\Partial\Menu( $list_screen_controller, false ),
-			$this->plugin_basename
+			new Section\Partial\Menu( $list_screen_controller, false )
 		);
 	}
 

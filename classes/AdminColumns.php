@@ -60,7 +60,7 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
-		$this->admin = ( new AdminFactory( $this->storage, $location, $this->get_basename() ) )->create();
+		$this->admin = ( new AdminFactory( $this->storage, $location ) )->create();
 
 		$services = [
 			$this->admin,
