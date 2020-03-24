@@ -191,9 +191,9 @@ final class Screen implements Registrable {
 			return;
 		}
 
-		$button = new Settings\Admin\General\ShowEditButton();
+		$edit_button = new Settings\Option\EditButton();
 
-		if ( ! $button->show_button() ) {
+		if ( ! $edit_button->is_enabled() ) {
 			return;
 		}
 

@@ -177,7 +177,7 @@ class Addons extends Page implements Enqueueables {
 
 		if ( $recommended ) {
 			$groups[] = [
-				'title'        => 'Recommended',
+				'title'        => __( 'Recommended', 'codepress-admin-columns' ),
 				'class'        => 'recommended',
 				'integrations' => $recommended,
 			];
@@ -185,7 +185,7 @@ class Addons extends Page implements Enqueueables {
 
 		if ( $active ) {
 			$groups[] = [
-				'title'        => 'Active',
+				'title'        => __( 'Active', 'codepress-admin-columns' ),
 				'class'        => 'active',
 				'integrations' => $active,
 			];
@@ -193,7 +193,7 @@ class Addons extends Page implements Enqueueables {
 
 		if ( $available ) {
 			$groups[] = [
-				'title'        => 'Available',
+				'title'        => __( 'Available', 'codepress-admin-columns' ),
 				'class'        => 'available',
 				'integrations' => $available,
 			];

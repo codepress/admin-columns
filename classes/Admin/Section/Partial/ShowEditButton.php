@@ -5,19 +5,19 @@ namespace AC\Admin\Section\Partial;
 use AC\Form\Element\Checkbox;
 use AC\Renderable;
 use AC\Settings\General;
+use AC\Settings\Option\EditButton;
 
 class ShowEditButton implements Renderable {
 
 	const OPTION_NAME = 'show_edit_button';
 
 	/**
-	 * @var General
+	 * @var EditButton
 	 */
-	private $options;
+	private $option;
 
-	// todo: inject Option/ShowEditButton
-	public function __construct( General $options ) {
-		$this->options = $options;
+	public function __construct() {
+		$this->option = new EditButton();
 	}
 
 	private function get_label() {
@@ -31,12 +31,12 @@ class ShowEditButton implements Renderable {
 	 * @return string
 	 */
 	public function render() {
-		$name = sprintf( '%s[%s]', General::SETTINGS_NAME, self::OPTION_NAME );
+		$name = sprintf( '%s[%s]', General::NAME, $this->option->get_name() );
 
 		$checkbox = new Checkbox( $name );
 
 		$checkbox->set_options( [ '1' => $this->get_label() ] )
-		         ->set_value( $this->options->get_option( self::OPTION_NAME ) );
+		         ->set_value( $this->option->is_enabled() ? 1 : 0 );
 
 		return $checkbox->render();
 	}

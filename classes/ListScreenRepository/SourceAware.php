@@ -12,7 +12,7 @@ interface SourceAware {
 	public function get_source( $id );
 
 	/**
-	 * @param $id
+	 * @param string $id
 	 *
 	 * @return bool
 	 */

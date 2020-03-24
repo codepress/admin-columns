@@ -27,7 +27,7 @@ class Menu extends Collection implements Renderable {
 			'menu_items' => $this->items,
 		] );
 
-		return $view->set_template( 'admin/menu' );
+		return $view->set_template( 'admin/menu' )->render();
 	}
 
 }

@@ -12,20 +12,20 @@ use AC\ListScreenTypes;
 class Columns extends Script {
 
 	/**
-	 * @var ListScreen
-	 */
-	private $list_screen;
-
-	/**
 	 * @var DefaultColumnsRepository
 	 */
 	private $default_columns;
+
+	/**
+	 * @var ListScreen
+	 */
+	private $list_screen;
 
 	public function __construct(
 		$handle,
 		Location $location,
 		DefaultColumnsRepository $default_columns,
-		ListScreen $list_screen = null
+		ListScreen $list_screen
 	) {
 		parent::__construct( $handle, $location, [
 			'jquery',
@@ -35,8 +35,8 @@ class Columns extends Script {
 			'wp-pointer',
 		] );
 
-		$this->list_screen = $list_screen;
 		$this->default_columns = $default_columns;
+		$this->list_screen = $list_screen;
 	}
 
 	private function get_list_screens() {

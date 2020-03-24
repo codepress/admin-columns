@@ -48,7 +48,7 @@ class AdminFactory {
 
 	protected function create_section_general() {
 		return new Section\General( [
-			new Section\Partial\ShowEditButton( new Settings\General() ),
+			new Section\Partial\ShowEditButton(),
 		] );
 	}
 
