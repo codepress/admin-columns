@@ -78,6 +78,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 	}
 
 	public function get_assets() {
+
 		return new Assets( [
 			new Style( 'jquery-ui-lightness', $this->location->with_suffix( 'assets/ui-theme/jquery-ui-1.8.18.custom.css' ) ),
 			new Script( 'jquery-ui-slider' ),
@@ -85,7 +86,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 				'ac-admin-page-columns',
 				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
 				$this->default_columns,
-				is_plugin_active_for_network( $this->plugin_basename ),
+				is_plugin_active_for_network( $this->plugin_basename ) && is_network_admin(),
 				$this->controller->get_list_screen()
 			),
 			new Style( 'ac-admin-page-columns-css', $this->location->with_suffix( 'assets/css/admin-page-columns.css' ) ),

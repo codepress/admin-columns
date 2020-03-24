@@ -24,7 +24,7 @@ class Columns extends Script {
 	/**
 	 * @var bool
 	 */
-	private $network_active;
+	private $is_network_admin;
 
 	public function __construct(
 		$handle,
@@ -47,7 +47,7 @@ class Columns extends Script {
 	}
 
 	private function get_list_screens() {
-		return $this->network_active
+		return $this->is_network_admin
 			? ListScreenTypes::instance()->get_list_screens( [ 'network_only' => true ] )
 			: ListScreenTypes::instance()->get_list_screens( [ 'site_only' => true ] );
 	}
