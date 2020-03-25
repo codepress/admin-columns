@@ -136,8 +136,8 @@ final class Database implements ListScreenRepositoryWritable {
 			'list_id'       => $list_screen->get_layout_id(),
 			'list_key'      => $list_screen->get_key(),
 			'title'         => $list_screen->get_title(),
-			'columns'       => serialize( $list_screen->get_settings() ),
-			'settings'      => serialize( $list_screen->get_preferences() ),
+			'columns'       => $list_screen->get_settings() ? serialize( $list_screen->get_settings() ) : null,
+			'settings'      => $list_screen->get_preferences() ? serialize( $list_screen->get_preferences() ) : null,
 			'date_modified' => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
 		];
 

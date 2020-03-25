@@ -401,8 +401,9 @@
 
 		.ac-pointer {
 			position: absolute;
-			right: 8px;
-			top: 14px;
+			right: 0;
+			top: 0;
+			padding: 14px 8px 8px 14px;
 		}
 
 		a.more-link {
@@ -423,7 +424,7 @@
 
 		span.label {
 			font-weight: bold;
-			display: block;
+			display: inline-block;
 			color: #333333;
 			font-style: normal;
 		}

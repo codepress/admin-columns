@@ -59,7 +59,7 @@ class CustomFieldType extends Settings\Column
 
 		$tooltip = __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' );
 
-		if ( null !== $this->get_field_type() ) {
+		if ( ! in_array( $this->get_field_type(), [ null, '' ], true ) ) {
 			$tooltip .= '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>';
 		}
 

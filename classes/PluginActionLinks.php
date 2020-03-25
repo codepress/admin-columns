@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use AC\Admin\Page\Columns;
+
 class PluginActionLinks implements Registrable {
 
 	/**
@@ -29,25 +31,20 @@ class PluginActionLinks implements Registrable {
 	 * @since 1.0
 	 */
 	public function add_settings_link( $links, $file ) {
-		if ( $file === $this->basename ) {
-			array_unshift( $links, sprintf( '<a href="%s">%s</a>', esc_url( ac_get_admin_url( 'settings' ) ), __( 'Settings', 'codepress-admin-columns' ) ) );
+		if ( $file !== $this->basename ) {
+			return $links;
 		}
 
-		$this->add_pro_link( $links );
+		array_unshift( $links, sprintf( '<a href="%s">%s</a>', esc_url( ac_get_admin_url( Columns::NAME ) ), __( 'Settings', 'codepress-admin-columns' ) ) );
 
-		return $links;
-	}
-
-	/**
-	 * @param array $links
-	 *
-	 * @return array
-	 */
-	private function add_pro_link( $links ) {
 		if ( ! ac_is_pro_active() ) {
-			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
+			$links[] = sprintf(
+				'<a href="%s" target="_blank">%s</a>',
 				esc_url( ac_get_site_utm_url( 'admin-columns-pro', 'upgrade' ) ),
-				sprintf( '<span style="font-weight: bold;">%s</span>', __( 'Go Pro', 'codepress-admin-columns' ) )
+				sprintf(
+					'<span style="font-weight: bold;">%s</span>',
+					__( 'Go Pro', 'codepress-admin-columns' )
+				)
 			);
 		}
 
