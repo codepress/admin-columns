@@ -2171,6 +2171,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _excludegroup = _interopRequireDefault(__webpack_require__(/*! ../../../select2/excludegroup.matcher */ "./js/select2/excludegroup.matcher.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2206,7 +2210,8 @@ function () {
         jQuery(select).ac_select2({
           theme: 'acs2',
           width: '100%',
-          dropdownCssClass: '-type-selector'
+          dropdownCssClass: '-type-selector',
+          matcher: _excludegroup.default
         });
       }
     }
@@ -2598,6 +2603,48 @@ function () {
 }();
 
 module.exports = Tooltips;
+
+/***/ }),
+
+/***/ "./js/select2/excludegroup.matcher.js":
+/*!********************************************!*\
+  !*** ./js/select2/excludegroup.matcher.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = excludeGroupsMather;
+
+function excludeGroupsMather(params, data) {
+  if (jQuery.trim(params.term) === '') {
+    return data;
+  }
+
+  if (typeof data.children === 'undefined') {
+    return null;
+  }
+
+  var filteredChildren = [];
+  jQuery.each(data.children, function (idx, child) {
+    if (child.text.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
+      filteredChildren.push(child);
+    }
+  });
+
+  if (filteredChildren.length) {
+    var modifiedData = jQuery.extend({}, data, true);
+    modifiedData.children = filteredChildren;
+    return modifiedData;
+  }
+
+  return null;
+}
 
 /***/ }),
 

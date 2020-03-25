@@ -1,3 +1,5 @@
+import excludeGroupsMather from "../../../select2/excludegroup.matcher";
+
 class TypeSelector {
 	constructor( column ) {
 		this.column = column;
@@ -24,6 +26,7 @@ class TypeSelector {
 				theme : 'acs2',
 				width : '100%',
 				dropdownCssClass : '-type-selector',
+				matcher : excludeGroupsMather
 			} );
 		}
 	}
