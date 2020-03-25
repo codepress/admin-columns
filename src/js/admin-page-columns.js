@@ -84,6 +84,12 @@ jQuery( document ).ready( function() {
 		} );
 	} );
 
+	jQuery( document ).on( 'AC_Column_Refresh', function( e, column ) {
+		column.$el.find( '.ac-pointer' ).each( function() {
+			ac_pointer( jQuery( this ) );
+		} );
+	} );
+
 	jQuery( document ).on( 'AC_Column_Created', function( e, column ) {
 		setTimeout( function() {
 			column.$el.find( '.ac-pointer' ).each( function() {
