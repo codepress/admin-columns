@@ -78,23 +78,13 @@ jQuery( document ).ready( function() {
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );
 
-	jQuery( document ).on( 'AC_Column_Change', function( e, column ) {
-		column.$el.find( '.ac-pointer' ).each( function() {
-			ac_pointer( jQuery( this ) );
-		} );
-	} );
-
-	jQuery( document ).on( 'AC_Column_Refresh', function( e, column ) {
-		column.$el.find( '.ac-pointer' ).each( function() {
-			ac_pointer( jQuery( this ) );
-		} );
+	['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach( hook => {
+		jQuery( document ).on( hook, () => ac_pointers( jQuery ) );
 	} );
 
 	jQuery( document ).on( 'AC_Column_Created', function( e, column ) {
 		setTimeout( function() {
-			column.$el.find( '.ac-pointer' ).each( function() {
-				ac_pointer( jQuery( this ) );
-			} );
+			ac_pointers( jQuery );
 		}, 100 )
 	} );
 

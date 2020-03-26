@@ -135,7 +135,7 @@ global.ac_pointers = function ($) {
 };
 
 global.ac_pointer = function ($el) {
-  var el = $el,
+  var el = $el.first(),
       $ = jQuery,
       html = el.attr('rel'),
       pos = el.attr('data-pos'),
@@ -150,6 +150,11 @@ global.ac_pointer = function ($el) {
     edge: 'right' // position of arrow
 
   };
+
+  if ($el[0].dataset.hasOwnProperty('acpointer')) {
+    return;
+  }
+
   var width = w ? w : 250;
 
   if ('right' === pos) {
@@ -223,6 +228,7 @@ global.ac_pointer = function ($el) {
       }
     });
   });
+  $el[0].dataset.acpointer = 1;
 };
 /*
  * Help
