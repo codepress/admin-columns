@@ -28,8 +28,8 @@ abstract class Pro extends Settings\Column {
 		$view = new View();
 		$view->set( 'label', $this->get_label() )
 		     ->set( 'instructions', $this->get_instructions()->render() )
-		     ->set( 'setting', $setting );
-//		     ->set_template( 'settings/setting-pro' );
+		     ->set( 'setting', $setting )
+		     ->set_template( 'settings/setting-pro' );
 
 		return $view;
 	}

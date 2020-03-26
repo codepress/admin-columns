@@ -12,7 +12,11 @@ class InlineEditing extends Settings\Column\Pro {
 	}
 
 	protected function get_instructions() {
-		return ( new View() )->set_template( 'tooltip/inline-editing' );
+		$view = new View( [
+			'object_type' => $this->column->get_list_screen()->get_singular_label(),
+		] );
+
+		return $view->set_template( 'tooltip/inline-editing' );
 	}
 
 	protected function define_options() {
