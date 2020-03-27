@@ -298,7 +298,7 @@ class AdminColumns extends Plugin {
 	 * @deprecated 4.1
 	 */
 	public function register_list_screen( ListScreen $list_screen ) {
-		_deprecated_function( __METHOD__, '4.1', 'ListScreenTypes::register_list()' );
+		_deprecated_function( __METHOD__, '4.1', 'ListScreenTypes::register_list_screen()' );
 
 		ListScreenTypes::instance()->register_list_screen( $list_screen );
 
