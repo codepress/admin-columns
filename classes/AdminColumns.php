@@ -75,7 +75,7 @@ class AdminColumns extends Plugin {
 			new Controller\DefaultColumns( new Request(), new DefaultColumnsRepository() ),
 			new QuickEdit( $this->storage, new Table\Preference() ),
 			new Capabilities\Manage(),
-			new Controller\AjaxColumnRequest( $this->storage ),
+			new Controller\AjaxColumnRequest( $this->storage, new Request() ),
 			new Controller\AjaxRequestCustomFieldKeys(),
 			new Controller\AjaxColumnValue( $this->storage ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),

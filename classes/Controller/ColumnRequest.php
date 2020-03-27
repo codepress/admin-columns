@@ -6,12 +6,12 @@ use AC;
 use AC\Column\Placeholder;
 use AC\View;
 
-abstract class ColumnRequest extends Handler {
+abstract class ColumnRequest {
 
 	/**
 	 * @return AC\Column
 	 */
-	abstract public function get_column( AC\Request $request, AC\ListScreen $list_screen );
+	abstract protected function get_column( AC\Request $request, AC\ListScreen $list_screen );
 
 	public function request( AC\Request $request ) {
 		parse_str( $request->get( 'data' ), $formdata );
