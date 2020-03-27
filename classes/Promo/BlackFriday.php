@@ -2,8 +2,8 @@
 
 namespace AC\Promo;
 
-use AC\Entity\DateRange;
 use AC\Promo;
+use AC\Type\DateRange;
 
 class BlackFriday extends Promo {
 

@@ -2,7 +2,7 @@
 
 namespace AC;
 
-use AC\Entity\DateRange;
+use AC\Type\DateRange;
 
 abstract class Promo {
 

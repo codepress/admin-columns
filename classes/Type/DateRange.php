@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Entity;
+namespace AC\Type;
 
 use DateTime;
 

@@ -2,8 +2,8 @@
 
 namespace AC;
 
-use AC\Entity\DateRange;
 use AC\Promo\BlackFriday;
+use AC\Type\DateRange;
 use DateTime;
 
 class PromoCollection extends ArrayIterator {
