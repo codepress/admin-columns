@@ -7,7 +7,7 @@
 </p>
 <img src="<?= esc_url( AC()->get_url() . 'assets/images/tooltip/filter.png' ); ?>" alt="Export" style="border:1px solid #ddd;">
 <p class="notice notice-warning">
-	<?= sprintf( __( 'We recommend using %s.', 'codepress-admin-columns' ), sprintf( '<strong>%s</strong>', __( 'Smart Filtering', 'codepress-admin-columns' ) ) ); ?>
+	<?= sprintf( __( 'We recommend using %s', 'codepress-admin-columns' ), sprintf( '<strong>%s</strong>', __( 'Smart Filtering', 'codepress-admin-columns' ) ) ); ?>
 </p>
 <h4>
 	<?= __( 'Filtering vs Smart Filtering', 'codepress-admin-columns' ); ?>
