@@ -975,7 +975,7 @@ div.cpac-color span {
 			}
 		}
 
-		&:focus, &:active {
+		&:hover, &:focus, &:active {
 			outline: none;
 			box-shadow: none;
 			background: $wp-color-button-hover-bg;
