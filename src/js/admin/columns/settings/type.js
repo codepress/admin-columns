@@ -26,6 +26,16 @@ class TypeSelector {
 				theme : 'acs2',
 				width : '100%',
 				dropdownCssClass : '-type-selector',
+				escapeMarkup : function( text ) { return text; },
+				templateResult : function( result ) {
+					let text = result.text;
+
+					if ( result.hasOwnProperty('id') && result.id.includes( 'placeholder-' ) ) {
+						text += `<span style="background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;">PRO</span>`;
+					}
+
+					return text;
+				},
 				matcher : excludeGroupsMather
 			} );
 		}
