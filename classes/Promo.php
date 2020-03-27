@@ -58,7 +58,7 @@ abstract class Promo {
 	}
 
 	/**
-	 * @return Entity\DateRange
+	 * @return Type\DateRange
 	 */
 	public function get_date_range() {
 		return $this->date_range;
