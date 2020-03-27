@@ -197,12 +197,12 @@ jQuery(document).ready(function () {
   new _feedback.default('.sidebox#direct-feedback');
   ['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach(function (hook) {
     jQuery(document).on(hook, function () {
-      return ac_pointers(jQuery);
+      return ac_pointers();
     });
   });
   jQuery(document).on('AC_Column_Created', function (e, column) {
     setTimeout(function () {
-      ac_pointers(jQuery);
+      ac_pointers();
     }, 100);
   });
 

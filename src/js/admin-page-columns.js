@@ -79,12 +79,12 @@ jQuery( document ).ready( function() {
 	new Feedback( '.sidebox#direct-feedback' );
 
 	['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach( hook => {
-		jQuery( document ).on( hook, () => ac_pointers( jQuery ) );
+		jQuery( document ).on( hook, () => ac_pointers() );
 	} );
 
 	jQuery( document ).on( 'AC_Column_Created', function( e, column ) {
 		setTimeout( function() {
-			ac_pointers( jQuery );
+			ac_pointers();
 		}, 100 )
 	} );
 
