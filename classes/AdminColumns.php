@@ -66,6 +66,7 @@ class AdminColumns extends Plugin {
 			$this->admin,
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
+			new ListScreens(),
 			new Screen,
 			new Settings\General,
 			new ThirdParty\ACF,
@@ -94,7 +95,6 @@ class AdminColumns extends Plugin {
 
 		$this->localize();
 
-		add_action( 'init', [ $this, 'register_list_screens' ], 1000 ); // run after all post types are registered
 		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
 	}
@@ -132,38 +132,6 @@ class AdminColumns extends Plugin {
 		return $this->admin;
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return self
-	 */
-	public function register_list_screen( ListScreen $list_screen ) {
-		ListScreenTypes::instance()->register_list_screen( $list_screen );
-
-		return $this;
-	}
-
-	public function register_list_screens() {
-		$list_screens = [];
-
-		foreach ( $this->get_post_types() as $post_type ) {
-			$list_screens[] = new ListScreen\Post( $post_type );
-		}
-
-		$list_screens[] = new ListScreen\Media();
-		$list_screens[] = new ListScreen\Comment();
-
-		if ( ! is_multisite() ) {
-			$list_screens[] = new ListScreen\User();
-		}
-
-		foreach ( $list_screens as $list_screen ) {
-			ListScreenTypes::instance()->register_list_screen( $list_screen );
-		}
-
-		do_action( 'ac/list_screens', $this );
-	}
-
 	private function get_location() {
 		return new Absolute( $this->get_url(), $this->get_dir() );
 	}
@@ -179,33 +147,6 @@ class AdminColumns extends Plugin {
 		foreach ( $assets as $asset ) {
 			$asset->register();
 		}
-	}
-
-	/**
-	 * Get a list of post types for which Admin Columns is active
-	 * @return array List of post type keys (e.g. post, page)
-	 * @since 1.0
-	 */
-	public function get_post_types() {
-		$post_types = get_post_types( [
-			'_builtin' => false,
-			'show_ui'  => true,
-		] );
-
-		foreach ( [ 'post', 'page' ] as $builtin ) {
-			if ( post_type_exists( $builtin ) ) {
-				$post_types[ $builtin ] = $builtin;
-			}
-		}
-
-		/**
-		 * Filter the post types for which Admin Columns is active
-		 *
-		 * @param array $post_types List of active post type names
-		 *
-		 * @since 2.0
-		 */
-		return apply_filters( 'ac/post_types', $post_types );
 	}
 
 	/**
@@ -352,6 +293,31 @@ class AdminColumns extends Plugin {
 		_deprecated_function( __METHOD__, '4.1', 'wp_doing_ajax()' );
 
 		return wp_doing_ajax();
+	}
+
+	/**
+	 * Get a list of post types for which Admin Columns is active
+	 * @return array List of post type keys (e.g. post, page)
+	 * @since      1.0
+	 * @deprecated 4.1
+	 */
+	public function get_post_types() {
+		_deprecated_function( __METHOD__, '4.1' );
+
+		return ( new ListScreens )->get_post_types();
+	}
+
+	/**
+	 * @param ListScreen $list_screen
+	 *
+	 * @return self
+	 */
+	public function register_list_screen( ListScreen $list_screen ) {
+		_deprecated_function( __METHOD__, '4.1', 'ListScreenTypes::register_list()' );
+
+		ListScreenTypes::instance()->register_list_screen( $list_screen );
+
+		return $this;
 	}
 
 }
