@@ -76,7 +76,6 @@ function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_camp
 }
 
 /**
- * Admin Columns Twitter username
  * @return string
  */
 function ac_get_twitter_handle() {
@@ -84,7 +83,7 @@ function ac_get_twitter_handle() {
 }
 
 /**
- * Simple helper methods for AC_Column objects
+ * Simple helper methods for AC/Column objects
  * @since 3.0
  */
 function ac_helper() {
