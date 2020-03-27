@@ -33,7 +33,6 @@ import SettingLabel from './admin/columns/settings/label';
 import SettingCustomField from './admin/columns/settings/custom-field';
 import SettingNumberFormat from './admin/columns/settings/number-format';
 import SettingTypeSelector from "./admin/columns/settings/type";
-import excludeGroupsMather from "./select2/excludegroup.matcher";
 
 require( 'admin-columns-js/polyfill/customevent' );
 require( 'admin-columns-js/polyfill/nodelist' );
@@ -92,11 +91,11 @@ jQuery( document ).ready( function() {
 	if ( AC.hasOwnProperty( 'uninitialized_list_screens' ) && Object.keys( AC.uninitialized_list_screens ).length > 0 ) {
 		new ListScreenInitializeController( AC.uninitialized_list_screens );
 	}
-
-	jQuery( '#ac_list_screen' ).ac_select2( {
-		theme : 'acs2',
-		dropdownCssClass : '-list-screen-selector',
-		matcher : excludeGroupsMather
-	} );
+	/*
+		jQuery( '#ac_list_screen' ).ac_select2( {
+			theme : 'acs2',
+			dropdownCssClass : '-list-screen-selector',
+			matcher : excludeGroupsMather
+		} );*/
 
 } );

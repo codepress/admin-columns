@@ -154,8 +154,6 @@ var _numberFormat = _interopRequireDefault(__webpack_require__(/*! ./admin/colum
 
 var _type = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/type */ "./js/admin/columns/settings/type.js"));
 
-var _excludegroup = _interopRequireDefault(__webpack_require__(/*! ./select2/excludegroup.matcher */ "./js/select2/excludegroup.matcher.js"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -211,12 +209,13 @@ jQuery(document).ready(function () {
   if (AC.hasOwnProperty('uninitialized_list_screens') && Object.keys(AC.uninitialized_list_screens).length > 0) {
     new _listscreenInitialize.default(AC.uninitialized_list_screens);
   }
+  /*
+  	jQuery( '#ac_list_screen' ).ac_select2( {
+  		theme : 'acs2',
+  		dropdownCssClass : '-list-screen-selector',
+  		matcher : excludeGroupsMather
+  	} );*/
 
-  jQuery('#ac_list_screen').ac_select2({
-    theme: 'acs2',
-    dropdownCssClass: '-list-screen-selector',
-    matcher: _excludegroup.default
-  });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
