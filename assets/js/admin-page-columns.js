@@ -214,7 +214,6 @@ jQuery(document).ready(function () {
 
   jQuery('#ac_list_screen').ac_select2({
     theme: 'acs2',
-    width: '250px',
     dropdownCssClass: '-list-screen-selector',
     matcher: _excludegroup.default
   });
