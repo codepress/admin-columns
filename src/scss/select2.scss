@@ -99,7 +99,7 @@ $wp-border-color: #7e8893;
 	}
 
 	&__option {
-		padding: 6px;
+		padding: 4px 6px;
 		user-select: none;
 		-webkit-user-select: none;
 
@@ -359,7 +359,8 @@ $wp-border-color: #7e8893;
 		}
 	}
 
-	.select2-dropdown.-type-selector {
+	.select2-dropdown.-type-selector,
+	.select2-dropdown.-list-screen-selector{
 		> .select2-results {
 			> .select2-results__options {
 				max-height: 400px;
