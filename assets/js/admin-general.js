@@ -100,6 +100,8 @@ var _tooltips = _interopRequireDefault(__webpack_require__(/*! ./modules/tooltip
 
 var _acSection = _interopRequireDefault(__webpack_require__(/*! ./modules/ac-section */ "./js/modules/ac-section.js"));
 
+var _acPointer = _interopRequireDefault(__webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
@@ -108,7 +110,7 @@ jQuery(document).ready(function ($) {
     return false;
   }
 
-  ac_pointers($);
+  ac_pointers();
   ac_help($);
   document.querySelectorAll('.ac-section').forEach(function (el) {
     new _acSection.default(el);
@@ -119,9 +121,10 @@ jQuery(document).ready(function ($) {
  *
  */
 
-global.ac_pointers = function ($) {
-  $('.ac-pointer').each(function () {
-    ac_pointer($(this));
+global.ac_pointers = function () {
+  var $ = jQuery;
+  document.querySelectorAll('.ac-pointer').forEach(function (element) {
+    new _acPointer.default(element);
   });
   $('.ac-wp-pointer').hover(function () {
     $(this).addClass('hover');
@@ -134,95 +137,8 @@ global.ac_pointers = function ($) {
   new _tooltips.default();
 };
 
-global.ac_pointer = function ($el) {
-  var el = $el,
-      $ = jQuery,
-      html = el.attr('rel'),
-      pos = el.attr('data-pos'),
-      pos_edge = el.attr('data-pos_edge'),
-      w = el.attr('data-width'),
-      noclick = el.attr('data-noclick');
-  var position = {
-    at: 'left top',
-    // position of wp-pointer relative to the element which triggers the pointer event
-    my: 'right top',
-    // position of wp-pointer relative to the at-coordinates
-    edge: 'right' // position of arrow
-
-  };
-  var width = w ? w : 250;
-
-  if ('right' === pos) {
-    position = {
-      at: 'right middle',
-      my: 'left middle',
-      edge: 'left'
-    };
-  }
-
-  if ('right_bottom' === pos) {
-    position = {
-      at: 'right middle',
-      my: 'left bottom',
-      edge: 'none'
-    };
-  }
-
-  if ('left' === pos) {
-    position = {
-      at: 'left middle',
-      my: 'right middle',
-      edge: 'right'
-    };
-  }
-
-  if (pos_edge) {
-    position.edge = pos_edge;
-  } // create pointer
-
-
-  el.pointer({
-    content: $('#' + html).html(),
-    position: position,
-    pointerWidth: width,
-    // bug fix. with an arrow on the right side the position of wp-pointer is incorrect. it does not take
-    // into account the padding of the arrow. adding "wp-pointer-' + position.edge"  will fix that.
-    pointerClass: 'ac-wp-pointer wp-pointer wp-pointer-' + position.edge + (noclick ? ' noclick' : '')
-  }); // click
-
-  if (!noclick) {
-    el.click(function () {
-      if (el.hasClass('open')) {
-        el.removeClass('open');
-      } else {
-        el.addClass('open');
-      }
-    });
-  }
-
-  el.click(function () {
-    el.pointer('open');
-  });
-  el.mouseenter(function () {
-    el.pointer('open');
-    setTimeout(function () {
-      el.pointer('open');
-    }, 2);
-  });
-  el.mouseleave(function () {
-    setTimeout(function () {
-      if (!el.hasClass('open') && jQuery('.ac-wp-pointer.hover').length === 0) {
-        el.pointer('close');
-      }
-    }, 1);
-  });
-  el.on('close', function () {
-    setTimeout(function () {
-      if (!el.hasClass('open')) {
-        el.pointer('close');
-      }
-    });
-  });
+global.ac_pointer = function (el) {
+  new _acPointer.default(el);
 };
 /*
  * Help
@@ -243,6 +159,183 @@ function ac_help($) {
   });
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./js/modules/ac-pointer.js":
+/*!**********************************!*\
+  !*** ./js/modules/ac-pointer.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Pointer =
+/*#__PURE__*/
+function () {
+  function Pointer(el) {
+    _classCallCheck(this, Pointer);
+
+    this.el = el;
+    this.settings = this.getDefaults();
+    this.init();
+    this.setInitialized();
+  }
+
+  _createClass(Pointer, [{
+    key: "setInitialized",
+    value: function setInitialized() {
+      this.el.dataset.ac_pointer_initialized = 1;
+    }
+  }, {
+    key: "getDefaults",
+    value: function getDefaults() {
+      return {
+        width: this.el.getAttribute('data-width') ? this.el.getAttribute('data-width') : 250,
+        noclick: this.el.getAttribute('data-noclick') ? this.el.getAttribute('data-noclick') : false,
+        position: this.getPosition()
+      };
+    }
+  }, {
+    key: "isInitialized",
+    value: function isInitialized() {
+      return this.el.dataset.hasOwnProperty('ac_pointer_initialized');
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      if (this.isInitialized()) {
+        return;
+      } // create pointer
+
+
+      jQuery(this.el).pointer({
+        content: this.getRelatedHTML(),
+        position: this.settings.position,
+        pointerWidth: this.settings.width,
+        pointerClass: this.getPointerClass()
+      });
+      this.initEvents();
+    }
+  }, {
+    key: "getPosition",
+    value: function getPosition() {
+      var position = {
+        at: 'left top',
+        // position of wp-pointer relative to the element which triggers the pointer event
+        my: 'right top',
+        // position of wp-pointer relative to the at-coordinates
+        edge: 'right' // position of arrow
+
+      };
+      var pos = this.el.getAttribute('data-pos');
+      var edge = this.el.getAttribute('data-pos_edge');
+
+      if ('right' === pos) {
+        position = {
+          at: 'right middle',
+          my: 'left middle',
+          edge: 'left'
+        };
+      }
+
+      if ('right_bottom' === pos) {
+        position = {
+          at: 'right middle',
+          my: 'left bottom',
+          edge: 'none'
+        };
+      }
+
+      if ('left' === pos) {
+        position = {
+          at: 'left middle',
+          my: 'right middle',
+          edge: 'right'
+        };
+      }
+
+      if (edge) {
+        position.edge = edge;
+      }
+
+      return position;
+    }
+  }, {
+    key: "getPointerClass",
+    value: function getPointerClass() {
+      var classes = ['ac-wp-pointer', 'wp-pointer', 'wp-pointer-' + this.settings.position.edge];
+
+      if (this.settings.noclick) {
+        classes.push('noclick');
+      }
+
+      return classes.join(' ');
+    }
+  }, {
+    key: "getRelatedHTML",
+    value: function getRelatedHTML() {
+      var related_element = document.getElementById(this.el.getAttribute('rel'));
+      return related_element ? related_element.innerHTML : '';
+    }
+  }, {
+    key: "initEvents",
+    value: function initEvents() {
+      var el = jQuery(this.el); // click
+
+      if (!this.settings.noclick) {
+        el.click(function () {
+          if (el.hasClass('open')) {
+            el.removeClass('open');
+          } else {
+            el.addClass('open');
+          }
+        });
+      }
+
+      el.click(function () {
+        el.pointer('open');
+      });
+      el.mouseenter(function () {
+        el.pointer('open');
+        setTimeout(function () {
+          el.pointer('open');
+        }, 2);
+      });
+      el.mouseleave(function () {
+        setTimeout(function () {
+          if (!el.hasClass('open') && jQuery('.ac-wp-pointer.hover').length === 0) {
+            el.pointer('close');
+          }
+        }, 1);
+      });
+      el.on('close', function () {
+        setTimeout(function () {
+          if (!el.hasClass('open')) {
+            el.pointer('close');
+          }
+        });
+      });
+    }
+  }]);
+
+  return Pointer;
+}();
+
+exports.default = Pointer;
 
 /***/ }),
 

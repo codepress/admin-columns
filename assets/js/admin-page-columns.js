@@ -104,8 +104,6 @@ __webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/
 
 __webpack_require__(/*! core-js/modules/es6.object.keys */ "./node_modules/core-js/modules/es6.object.keys.js");
 
-__webpack_require__(/*! core-js/modules/es6.array.find */ "./node_modules/core-js/modules/es6.array.find.js");
-
 var _listscreenInitialize = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/listscreen-initialize */ "./js/admin/columns/listscreen-initialize.js"));
 
 var _form = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.js"));
@@ -197,21 +195,14 @@ jQuery(document).ready(function () {
 
   new _menu.default().init();
   new _feedback.default('.sidebox#direct-feedback');
-  jQuery(document).on('AC_Column_Change', function (e, column) {
-    column.$el.find('.ac-pointer').each(function () {
-      ac_pointer(jQuery(this));
-    });
-  });
-  jQuery(document).on('AC_Column_Refresh', function (e, column) {
-    column.$el.find('.ac-pointer').each(function () {
-      ac_pointer(jQuery(this));
+  ['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach(function (hook) {
+    jQuery(document).on(hook, function () {
+      return ac_pointers();
     });
   });
   jQuery(document).on('AC_Column_Created', function (e, column) {
     setTimeout(function () {
-      column.$el.find('.ac-pointer').each(function () {
-        ac_pointer(jQuery(this));
-      });
+      ac_pointers();
     }, 100);
   });
 
