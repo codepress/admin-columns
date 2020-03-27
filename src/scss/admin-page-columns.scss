@@ -19,6 +19,9 @@
  * ----------------------------------------------------------------------------
  */
 .ac-column {
+	span.select2-container {
+		z-index: 1;
+	}
 	.comment-grey-bubble {
 		height: 16px;
 		width: 16px;
