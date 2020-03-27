@@ -2,12 +2,20 @@
 	<?= __( 'Filtering', 'codepress-admin-columns' ); ?>
 </h3>
 <p>
-	<?= __( 'The Filtering feature allows you to filter the overview pages by choosing one of the available column values from the drop-downs above the overview table.', 'codepress-admin-columns' ); ?>
+	<?= __( 'This will allow the column to be filtered.', 'codepress-admin-columns' ); ?>
+	<?= __( 'You can filter the contents by selecting the column value from the filter dropdown menu.', 'codepress-admin-columns' ); ?>
 </p>
-<?php // todo ?>
 <h4>
-	<?= __( 'Important', 'codepress-admin-columns' ); ?>
+	<?= __( 'Filtering vs Smart Filtering', 'codepress-admin-columns' ); ?>
 </h4>
 <p>
-	<?= __( 'We highly recommend to start using our Smart Filtering feature instead since this feature will probably replaced by the Smart Filtering feature', 'codepress-admin-columns' ); ?>
+	<?= sprintf( __( '%s is an improved version of %s.', 'codepress-admin-columns' ), sprintf( '<em>%s</em>', __( 'Smart Filtering', 'codepress-admin-columns' ) ), sprintf( '<em>%s</em>', __( 'Filtering', 'codepress-admin-columns' ) ) ); ?>
+</p>
+<p>
+	<?= sprintf( __( 'Finding the right content will be much easier with the use of conditionals, such as %s.', 'codepress-admin-columns' ), wp_sprintf( '%l', [ "contains", "between", "starts with" ] ) ); ?>
+	<br>
+	<?= sprintf( __( '%s also has better support for all the different types of fields, such as text, numbers and dates.', 'codepress-admin-columns' ), sprintf( '<em>%s</em>', __( 'Smart Filtering', 'codepress-admin-columns' ) ) ); ?>
+</p>
+<p class="notice notice-warning">
+	<?= sprintf( __( 'We recommend using %s.', 'codepress-admin-columns' ), sprintf( '<strong>%s</strong>', __( 'Smart Filtering', 'codepress-admin-columns' ) ) ); ?>
 </p>
