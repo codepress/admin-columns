@@ -214,7 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.1.0 =
-Release Date: TBD
+Release Date: March 30th, 2020
 
 * [Improved] Type selector in Column settings
 * [Improved] Send list screen ID with table form
