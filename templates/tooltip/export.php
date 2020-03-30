@@ -12,3 +12,6 @@
 	2. <?= __( 'The result is a CSV file.', 'codepress-admin-columns' ); ?>
 </p>
 <img src="<?= esc_url( AC()->get_url() . 'assets/images/tooltip/export-csv.png' ); ?>" alt="Export" style="border:1px solid #ddd;">
+<p>
+	<?= __( 'You can use filters to segment your list before exporting.', 'codepress-admin-columns' ); ?>
+</p>
