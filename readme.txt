@@ -216,8 +216,12 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.1.0 =
 Release Date: March 30th, 2020
 
-* [Improved] Type selector in Column settings
-* [Improved] Send list screen ID with table form
+* [Improved] The column type selector now uses select2
+* [Improved] The current `list screen ID` has been added to the URL when filtering a list table, making it easier to bookmark
+* [Improved] Our buttons on the list table now have the same style and colors as the default WordPress buttons.
+* [Added] Tooltips added to each feature of the custom field column
+* [Updated] The `Admin` class has been refactored
+* [Updated] The `ListScreenRepository` class has been refactored
 
 = 4.0.3 =
 Release Date: March 11th, 2020
