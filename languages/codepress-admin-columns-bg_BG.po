@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-02-18 14:20:21+0000\n"
+"PO-Revision-Date: 2020-03-11 13:57:53+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Column Sets"
 msgstr ""
 
-#: classes/AdminColumns.php:290
+#: classes/PluginActionLinks.php:46
 msgid "Go Pro"
 msgstr ""
 
@@ -147,15 +147,15 @@ msgstr ""
 msgid "Events Calendar"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:92
+#: classes/Admin/Page/Addons.php:94
 msgid "%s add-on"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:53
+#: classes/Admin/Page/Addons.php:55
 msgid "%s needs to be installed and active for the add-on to work."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:36
+#: classes/Admin/Page/Addons.php:38
 msgid "All add-ons require %s."
 msgstr ""
 
@@ -175,8 +175,8 @@ msgstr ""
 msgid "Value: Should contain a URL."
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:110
 #: classes/Admin/HelpTab/CustomField.php:70
+#: classes/Settings/Column/CustomFieldType.php:110
 msgid "URL"
 msgstr ""
 
@@ -296,8 +296,8 @@ msgstr "Лимитиране на няколко броя от символи и
 msgid "Text Limit"
 msgstr "Лимит за текста"
 
-#: classes/Settings/Column/MediaLink.php:64 classes/Table/Screen.php:151
-#: classes/Table/Screen.php:153
+#: classes/Table/Screen.php:151 classes/Table/Screen.php:153
+#: classes/Settings/Column/MediaLink.php:64
 msgid "Download"
 msgstr "Сваляне"
 
@@ -432,7 +432,7 @@ msgstr "оригинал"
 msgid "Alternative Text"
 msgstr "Алтернативен текст"
 
-#: classes/Admin/Page/Addons.php:104
+#: classes/Admin/Page/Addons.php:106
 msgid "Please visit the %s page."
 msgstr "Моля посетете %s страница."
 
@@ -485,7 +485,7 @@ msgstr "Откъса липсва."
 msgid "User Nicename"
 msgstr "Потребителски пряков"
 
-#: templates/admin/side-banner.php:112
+#: templates/admin/side-banner.php:110
 msgid "Send me the discount"
 msgstr "Изпратете ми отстъпка"
 
@@ -501,19 +501,19 @@ msgstr "Показване на всяко поле от Вашият профи
 msgid "BuddyPress"
 msgstr "BuddyPress"
 
-#: classes/AdminColumns.php:210
+#: classes/Controller/AjaxColumnValue.php:57
 msgid "Invalid method."
 msgstr "Невалиден метод."
 
-#: classes/AdminColumns.php:206
+#: classes/Controller/AjaxColumnValue.php:53
 msgid "Invalid column."
 msgstr "Невалидна колона."
 
-#: classes/AdminColumns.php:200
+#: classes/Controller/AjaxColumnValue.php:47
 msgid "Invalid list screen."
 msgstr "Невалиден екран за списъка."
 
-#: classes/AdminColumns.php:194
+#: classes/Controller/AjaxColumnValue.php:41
 msgid "Invalid item ID."
 msgstr "Невалиден ID на елемента."
 
@@ -534,10 +534,9 @@ msgstr "Лимит за думи"
 msgid "Auto"
 msgstr "Автоматично"
 
-#: classes/Settings/Column/User.php:42
-#: classes/Settings/Column/AttachmentDisplay.php:42
 #: classes/Settings/Column/Term.php:34 classes/Settings/Column/Comment.php:107
-#: classes/Settings/Column/Post.php:75
+#: classes/Settings/Column/AttachmentDisplay.php:42
+#: classes/Settings/Column/Post.php:75 classes/Settings/Column/User.php:42
 msgid "Display"
 msgstr "Показване"
 
@@ -569,8 +568,8 @@ msgstr "Разделено със запетая"
 msgid "Plain text"
 msgstr "Обикновен текст"
 
-#: classes/Settings/Column/Password.php:23
 #: classes/Column/Post/PasswordProtected.php:21
+#: classes/Settings/Column/Password.php:23
 msgid "Password"
 msgstr "Парола"
 
@@ -606,15 +605,15 @@ msgstr "в %s"
 msgid "%s ago"
 msgstr "%s от преди"
 
-#: classes/Settings/Column/DateTimeFormat.php:125
+#: classes/Settings/Column/DateTimeFormat.php:114
 msgid "date and time formatting"
 msgstr "форматиране на дата и време"
 
-#: classes/Settings/Column/DateTimeFormat.php:125
+#: classes/Settings/Column/DateTimeFormat.php:114
 msgid "Learn more about %s."
 msgstr "Научете повече за %s."
 
-#: classes/Settings/Column/DateTimeFormat.php:123
+#: classes/Settings/Column/DateTimeFormat.php:112
 msgid "Custom:"
 msgstr "Потребителско:"
 
@@ -662,18 +661,18 @@ msgstr "Основни"
 msgid "Number of Fields"
 msgstr "Брой полета"
 
-#: classes/Settings/Column/CustomFieldType.php:115
 #: classes/Admin/HelpTab/CustomField.php:66
+#: classes/Settings/Column/CustomFieldType.php:115
 msgid "True / False"
 msgstr "Правилно / Неправилно"
 
-#: classes/Settings/Column/CustomFieldType.php:114
 #: classes/Admin/HelpTab/CustomField.php:42
+#: classes/Settings/Column/CustomFieldType.php:114
 msgid "Has Content"
 msgstr "Има съдържание"
 
-#: classes/Settings/Column/CustomFieldType.php:111
 #: classes/Admin/HelpTab/CustomField.php:58
+#: classes/Settings/Column/CustomFieldType.php:111
 msgid "Number"
 msgstr "Номер"
 
@@ -685,14 +684,14 @@ msgstr "Текст"
 msgid "Multiple IDs should be separated by commas."
 msgstr ""
 
-#: classes/Settings/Column/CustomField.php:25
 #: classes/Settings/Column/Meta.php:73
+#: classes/Settings/Column/CustomField.php:25
 msgid "Field"
 msgstr "Поле"
 
-#: classes/Settings/Column/CharacterLimit.php:29
-#: classes/Settings/Column/NumberOfItems.php:31
 #: classes/Settings/Column/WordLimit.php:35
+#: classes/Settings/Column/NumberOfItems.php:31
+#: classes/Settings/Column/CharacterLimit.php:29
 msgid "Leave empty for no limit"
 msgstr "Оставете празно за без лимит"
 
@@ -825,11 +824,11 @@ msgstr "Изчистване на всички колони"
 msgid "I'm using Admin Columns for WordPress!"
 msgstr "Аз използвам Admin Columns за WordPress!"
 
-#: templates/admin/side-banner.php:111
+#: templates/admin/side-banner.php:109
 msgid "Your First Name"
 msgstr "Вашето първо име"
 
-#: templates/admin/side-banner.php:110
+#: templates/admin/side-banner.php:108
 msgid "Your Email"
 msgstr "Вашият Email"
 
@@ -849,19 +848,19 @@ msgstr "Pro"
 msgid "You need at least one column"
 msgstr "Трябва Ви поне една колона"
 
-#: classes/Admin/Page/Addons.php:167
+#: classes/Admin/Page/Addons.php:169
 msgid "Available"
 msgstr "Достъпна"
 
-#: classes/Admin/Page/Addons.php:166
+#: classes/Admin/Page/Addons.php:168
 msgid "Recommended"
 msgstr "Препоръчително"
 
-#: classes/Admin/Page/Addons.php:104
+#: classes/Admin/Page/Addons.php:106
 msgid "%s could not be activated."
 msgstr "%s не може да бъде активиран."
 
-#: classes/Admin/Page/Addons.php:96
+#: classes/Admin/Page/Addons.php:98
 msgid "%s successfully activated."
 msgstr "%s успешно активиран."
 
@@ -909,7 +908,7 @@ msgstr "Възстановяване на колоните"
 msgid "Settings for %s restored successfully."
 msgstr "Настройките за %s са възстановени успешно."
 
-#: classes/Admin/Request/Column/Save.php:62
+#: classes/Admin/Request/Column/Save.php:64
 msgid "View %s screen"
 msgstr "Прегледайте %s екран"
 
@@ -933,7 +932,7 @@ msgstr "страница на добавката"
 msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
 msgstr "Знаете ли, че Admin Columns Pro има интеграция за добавка %s? С точния Admin Columns Pro лицензм Вие можете да я свалите от %s!"
 
-#: classes/Settings/Column/Type.php:91 classes/Admin/HelpTab/CustomField.php:10
+#: classes/Admin/HelpTab/CustomField.php:10 classes/Settings/Column/Type.php:91
 msgid "Custom Fields"
 msgstr "потребителски полета"
 
@@ -950,8 +949,8 @@ msgstr "Персонализирайте колоните на екрана за
 msgid "https://www.admincolumns.com"
 msgstr "https://www.admincolumns.com"
 
-#: classes/Settings/Admin/General/ShowEditButton.php:20
 #: classes/Table/Screen.php:220
+#: classes/Settings/Admin/General/ShowEditButton.php:20
 msgid "Edit columns"
 msgstr "Редактиране на колоните"
 
@@ -959,17 +958,17 @@ msgstr "Редактиране на колоните"
 msgid "Upgrade"
 msgstr ""
 
-#: classes/Admin/Request/Column/Save.php:66
+#: classes/Admin/Request/Column/Save.php:61
 msgid "Settings for %s updated successfully."
 msgstr "Настройките за %s са обновени успешно."
 
-#: classes/ListScreenGroups.php:14 classes/ListScreen/User.php:14
+#: classes/ListScreen/User.php:14 classes/ListScreenGroups.php:14
 msgid "Users"
 msgstr "Питребители"
 
+#: classes/Admin/HelpTab/CustomField.php:50 classes/ListScreen/Media.php:18
+#: classes/ListScreenGroups.php:15
 #: classes/Settings/Column/CustomFieldType.php:118
-#: classes/Admin/HelpTab/CustomField.php:50 classes/ListScreenGroups.php:15
-#: classes/ListScreen/Media.php:18
 msgid "Media"
 msgstr "Медия"
 
@@ -977,35 +976,35 @@ msgstr "Медия"
 msgid "Links"
 msgstr "Линкове"
 
-#: classes/Settings/Column/Comment.php:116 classes/ListScreen/Comment.php:18
+#: classes/ListScreen/Comment.php:18 classes/Settings/Column/Comment.php:116
 msgid "Comment"
 msgstr "Коментар"
 
-#: classes/ListScreenGroups.php:16 classes/ListScreen/Comment.php:17
+#: classes/ListScreen/Comment.php:17 classes/ListScreenGroups.php:16
 msgid "Comments"
 msgstr "Коментари"
 
-#: classes/Admin/Page/Addons.php:322
+#: classes/Admin/Page/Addons.php:324
 msgid "Get this add-on"
 msgstr "Вземете тази добавка"
 
-#: classes/Admin/Page/Addons.php:319
+#: classes/Admin/Page/Addons.php:321
 msgid "Download & Install"
 msgstr "Свалете & Инсталирайте"
 
-#: classes/Admin/Page/Addons.php:312
+#: classes/Admin/Page/Addons.php:314
 msgid "Activate"
 msgstr "Активиране"
 
-#: classes/Admin/Page/Addons.php:165
+#: classes/Admin/Page/Addons.php:167
 msgid "Installed"
 msgstr "Инсталирано"
 
-#: classes/Admin/Page/Addons.php:308
+#: classes/Admin/Page/Addons.php:310
 msgid "Deactivate"
 msgstr "Дективирайте"
 
-#: classes/Admin/Page/Addons.php:305
+#: classes/Admin/Page/Addons.php:307
 msgid "Active"
 msgstr "Активирайте"
 
@@ -1073,7 +1072,7 @@ msgstr ""
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr "Внимание! %s данни на колоните ще бъде изтрити. Това не може да бъде променено. 'OK' за да изтриете, 'Cancel' за да спрете"
 
-#: templates/admin/edit-columns.php:38 templates/admin/edit-actions.php:23
+#: templates/admin/edit-actions.php:23 templates/admin/edit-columns.php:38
 msgid "Update"
 msgstr "Обновяване"
 
@@ -1081,11 +1080,11 @@ msgstr "Обновяване"
 msgid "Store settings"
 msgstr "Настройки на магазина"
 
-#: classes/Admin/Page/Addons.php:14
+#: classes/Admin/Page/Addons.php:16
 msgid "Add-ons"
 msgstr "Добавки"
 
-#: classes/Admin/Page/Settings.php:20 classes/AdminColumns.php:274
+#: classes/Admin/Page/Settings.php:20 classes/PluginActionLinks.php:41
 msgid "Settings"
 msgstr "Настройки"
 
@@ -1109,8 +1108,8 @@ msgstr "Това ще изтрие всичките настройки на ко
 msgid "Restore Settings"
 msgstr "Възстановяване на настройките"
 
-#: classes/Admin/Section/General.php:44 templates/admin/edit-columns.php:39
-#: templates/admin/edit-actions.php:24
+#: templates/admin/edit-actions.php:24 templates/admin/edit-columns.php:39
+#: classes/Admin/Section/General.php:44
 msgid "Save"
 msgstr "Запис"
 
@@ -1118,8 +1117,8 @@ msgstr "Запис"
 msgid "Customize your Admin Columns settings."
 msgstr "Персонализиране на Вашите Admin Columns настройки."
 
-#: classes/Settings/Column/DateTimeFormat.php:43
 #: classes/Admin/Section/General.php:14
+#: classes/Settings/Column/DateTimeFormat.php:43
 msgid "General Settings"
 msgstr "Основни настройки"
 
@@ -1207,7 +1206,7 @@ msgstr "%s колона вече съществува и не може да се
 msgid "Admin Columns Settings"
 msgstr "Настройки на Admin Column"
 
-#: classes/Admin/Page/Addons.php:127
+#: classes/Admin/Page/Addons.php:129
 msgid "%s successfully deactivated."
 msgstr "%s успешно деактивиран."
 
@@ -1251,13 +1250,13 @@ msgstr "натиснете тук"
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr "Ние не искаме да Ви притесняваме, но Вие сте използвали %s за известно време, и сега ние се чудим дали сте щастливи с плъгина. Ако е така може ли да оставите ревю на wordpress.org? Ние не сме щастливи с %s, моля %s."
 
-#: classes/Admin/Page/Addons.php:33 classes/Check/Review.php:126
+#: classes/Admin/Page/Addons.php:35 classes/Check/Review.php:126
 msgid "Admin Columns Pro"
 msgstr "Admin Columns Pro"
 
 #. Plugin Name of the plugin
-#: classes/Admin.php:69 classes/Admin/Page/Columns.php:36
-#: classes/Check/Review.php:127
+#: classes/Admin/Page/Columns.php:36 classes/Check/Review.php:127
+#: classes/Admin.php:69
 msgid "Admin Columns"
 msgstr "Администраторски колони"
 
@@ -1329,15 +1328,15 @@ msgstr "Потребителски Email"
 msgid "User Login"
 msgstr "Потребитеско име"
 
-#: classes/Settings/Column/User.php:66 classes/Column/User/LastName.php:14
+#: classes/Column/User/LastName.php:14 classes/Settings/Column/User.php:66
 msgid "Last Name"
 msgstr "Фамилия"
 
-#: classes/Settings/Column/User.php:65 classes/Column/User/FirstName.php:14
+#: classes/Column/User/FirstName.php:14 classes/Settings/Column/User.php:65
 msgid "First Name"
 msgstr "Първо име"
 
-#: classes/Settings/Column/User.php:64 classes/Column/User/DisplayName.php:14
+#: classes/Column/User/DisplayName.php:14 classes/Settings/Column/User.php:64
 msgid "Display Name"
 msgstr "Име за показване"
 
@@ -1357,9 +1356,8 @@ msgstr "Преди"
 msgid "width"
 msgstr "ширина"
 
-#: classes/Settings/Column/Image.php:112
+#: classes/Settings/Column/Type.php:92 classes/Settings/Column/Image.php:112
 #: classes/Settings/Column/CustomFieldType.php:159
-#: classes/Settings/Column/Type.php:92
 msgid "Custom"
 msgstr "Потребителски"
 
@@ -1391,8 +1389,8 @@ msgstr "Визуален редактор"
 msgid "Registered"
 msgstr "Регистрирано"
 
+#: classes/ListScreenGroups.php:13 classes/Settings/Column/PostType.php:25
 #: classes/Settings/Column/CustomFieldType.php:87
-#: classes/Settings/Column/PostType.php:25 classes/ListScreenGroups.php:13
 msgid "Post Type"
 msgstr "Тип на публикацията"
 
@@ -1400,7 +1398,7 @@ msgstr "Тип на публикацията"
 msgid "Post Count"
 msgstr "Брояч на публикации"
 
-#: classes/Settings/Column/User.php:67 classes/Column/User/Nickname.php:14
+#: classes/Column/User/Nickname.php:14 classes/Settings/Column/User.php:67
 msgid "Nickname"
 msgstr "Прякор"
 
@@ -1413,7 +1411,7 @@ msgstr "Брояч на коментари"
 msgid "Remove"
 msgstr "Изтриване"
 
-#: classes/Settings/Column/User.php:70 classes/Column/User/ID.php:14
+#: classes/Column/User/ID.php:14 classes/Settings/Column/User.php:70
 msgid "User ID"
 msgstr "ID на потребителя"
 
@@ -1425,7 +1423,7 @@ msgstr "Това ще направи малък линк в менюто."
 msgid "Link to menu"
 msgstr "Линк в менюто"
 
-#: classes/Settings/Column/Taxonomy.php:31 classes/Column/Taxonomy.php:18
+#: classes/Column/Taxonomy.php:18 classes/Settings/Column/Taxonomy.php:31
 msgid "Taxonomy"
 msgstr "Таксономия"
 
@@ -1437,7 +1435,7 @@ msgstr "Залепен"
 msgid "Status"
 msgstr "Състояние"
 
-#: classes/Settings/Column/Term.php:29 classes/Column/Post/Slug.php:14
+#: classes/Column/Post/Slug.php:14 classes/Settings/Column/Term.php:29
 msgid "Slug"
 msgstr "Наставка"
 
@@ -1525,13 +1523,13 @@ msgstr "Изберете, кои статус на коментар искате
 msgid "Comment status"
 msgstr "Статус на коментар"
 
-#: classes/Settings/Column/CommentCount.php:49
 #: classes/Column/Comment/Status.php:33
+#: classes/Settings/Column/CommentCount.php:49
 msgid "Spam"
 msgstr "Спам"
 
-#: classes/Settings/Column/CommentCount.php:48
 #: classes/Column/Comment/Status.php:35
+#: classes/Settings/Column/CommentCount.php:48
 msgid "Pending"
 msgstr "В изчакване"
 
@@ -1551,20 +1549,20 @@ msgstr "Преглед на потребителските публикации"
 msgid "Edit User Profile"
 msgstr "Редактиране на потребителския профил"
 
+#: classes/Settings/Column/CommentLink.php:61
 #: classes/Settings/Column/TermLink.php:36
 #: classes/Settings/Column/UserLink.php:78
-#: classes/Settings/Column/PostLink.php:68
-#: classes/Settings/Column/CommentLink.php:61
-#: classes/Settings/Column/Separator.php:28
 #: classes/Settings/Column/MediaLink.php:62
+#: classes/Settings/Column/PostLink.php:68
+#: classes/Settings/Column/Separator.php:28
 msgid "None"
 msgstr "Без"
 
+#: classes/Settings/Column/CommentLink.php:52
 #: classes/Settings/Column/TermLink.php:27
 #: classes/Settings/Column/UserLink.php:60
-#: classes/Settings/Column/PostLink.php:58
-#: classes/Settings/Column/CommentLink.php:52
 #: classes/Settings/Column/MediaLink.php:53
+#: classes/Settings/Column/PostLink.php:58
 msgid "Link To"
 msgstr "Линк към"
 
@@ -1576,8 +1574,8 @@ msgstr "Прикачени файлове"
 msgid "Preview"
 msgstr ""
 
-#: classes/Settings/Column/Image.php:41 classes/Settings/Column/Width.php:53
-#: classes/Column/Media/Width.php:16
+#: classes/Column/Media/Width.php:16 classes/Settings/Column/Image.php:41
+#: classes/Settings/Column/Width.php:53
 msgid "Width"
 msgstr "Ширина"
 
@@ -1585,7 +1583,7 @@ msgstr "Ширина"
 msgid "Mime Type"
 msgstr "Тип на файлове"
 
-#: classes/Settings/Column/Image.php:47 classes/Column/Media/Height.php:16
+#: classes/Column/Media/Height.php:16 classes/Settings/Column/Image.php:47
 msgid "Height"
 msgstr "Височина"
 
@@ -1613,8 +1611,8 @@ msgstr "Файлов размер"
 msgid "Filename"
 msgstr "Име на файла"
 
-#: classes/Settings/Column/ExifData.php:79 classes/Settings/Column/Term.php:28
-#: classes/Settings/Column/Post.php:84
+#: classes/Settings/Column/Term.php:28 classes/Settings/Column/Post.php:84
+#: classes/Settings/Column/ExifData.php:79
 msgid "Title"
 msgstr "Заглавие"
 
@@ -1654,7 +1652,7 @@ msgstr "EXIF данни"
 msgid "Dimensions"
 msgstr "Размери"
 
-#: classes/Settings/Column/ExifData.php:73 classes/Column/Media/Caption.php:14
+#: classes/Column/Media/Caption.php:14 classes/Settings/Column/ExifData.php:73
 msgid "Caption"
 msgstr "Заглавие"
 
@@ -1662,12 +1660,12 @@ msgstr "Заглавие"
 msgid "Available Sizes"
 msgstr "Достъпни размери"
 
-#: classes/Settings/Column/MediaLink.php:63 templates/admin/edit-menu.php:27
+#: templates/admin/edit-menu.php:27 classes/Settings/Column/MediaLink.php:63
 msgid "View"
 msgstr "Преглед"
 
-#: classes/Settings/Column/CommentCount.php:50
 #: classes/Column/Comment/Status.php:31 classes/Column/Comment/Status.php:32
+#: classes/Settings/Column/CommentCount.php:50
 msgid "Trash"
 msgstr "Кошче"
 
@@ -1684,13 +1682,13 @@ msgstr "Това че определи как стойността да се п�
 msgid "Field Type"
 msgstr "Тип на полето"
 
-#: classes/Settings/Column/CustomFieldType.php:124
 #: classes/Admin/HelpTab/CustomField.php:54
+#: classes/Settings/Column/CustomFieldType.php:124
 msgid "Multiple Values"
 msgstr "Множество стойности"
 
-#: classes/Settings/Column/CustomFieldType.php:109
 #: classes/Admin/HelpTab/CustomField.php:46
+#: classes/Settings/Column/CustomFieldType.php:109
 msgid "Image"
 msgstr "Изображение"
 
@@ -1702,16 +1700,16 @@ msgstr "Откъс"
 msgid "Counter"
 msgstr "Брояч"
 
-#: classes/Settings/Column/CustomFieldType.php:106
 #: classes/Admin/HelpTab/CustomField.php:26
+#: classes/Settings/Column/CustomFieldType.php:106
 msgid "Color"
 msgstr "Цвят"
 
+#: classes/Admin/HelpTab/CustomField.php:22 classes/Settings/Column/Type.php:89
 #: classes/Settings/Column/Image.php:72
 #: classes/Settings/Column/CustomFieldType.php:174
-#: classes/Settings/Column/Type.php:89 classes/Settings/Column/Separator.php:25
 #: classes/Settings/Column/NumberFormat.php:88
-#: classes/Admin/HelpTab/CustomField.php:22
+#: classes/Settings/Column/Separator.php:25
 #: classes/Helper/Select/Group/CustomField/MultiSite.php:53
 msgid "Default"
 msgstr "По подразбиране"
@@ -1724,16 +1722,16 @@ msgstr "Потребителско поле"
 msgid "Word Count"
 msgstr "Брояч на думи"
 
-#: classes/Settings/Column/CustomFieldType.php:91
-#: classes/Settings/Column/CustomFieldType.php:120
 #: classes/Admin/HelpTab/CustomField.php:74 classes/Column/Comment/User.php:15
 #: classes/ListScreen/User.php:15
+#: classes/Settings/Column/CustomFieldType.php:91
+#: classes/Settings/Column/CustomFieldType.php:120
 msgid "User"
 msgstr "Потребител"
 
+#: classes/Column/Comment/Type.php:14 classes/Settings/Column/Type.php:33
+#: classes/Settings/Column/Type.php:42
 #: classes/Settings/Column/CustomFieldType.php:63
-#: classes/Settings/Column/Type.php:33 classes/Settings/Column/Type.php:42
-#: classes/Column/Comment/Type.php:14
 msgid "Type"
 msgstr "Тип"
 
@@ -1741,8 +1739,8 @@ msgstr "Тип"
 msgid "In Reply To"
 msgstr "В отговор до"
 
-#: classes/Settings/Column/CustomFieldType.php:119
 #: classes/Admin/HelpTab/CustomField.php:62 classes/Column/Comment/Post.php:15
+#: classes/Settings/Column/CustomFieldType.php:119
 msgid "Post"
 msgstr "Публикувай"
 
@@ -1750,9 +1748,9 @@ msgstr "Публикувай"
 msgid "Content"
 msgstr "Съдържание"
 
-#: classes/Settings/Column/CustomFieldType.php:107
-#: classes/Settings/Column/Comment.php:120
 #: classes/Admin/HelpTab/CustomField.php:34
+#: classes/Settings/Column/Comment.php:120
+#: classes/Settings/Column/CustomFieldType.php:107
 msgid "Date"
 msgstr "Дата"
 
@@ -1764,8 +1762,8 @@ msgstr "Подадено на <a href=\"%1$s\">%2$s в %3$s</a>"
 msgid "Date GMT"
 msgstr "Дата GMT"
 
-#: classes/Settings/Column/Comment.php:118 classes/Settings/Column/Post.php:86
 #: classes/Column/Post/AuthorName.php:18
+#: classes/Settings/Column/Comment.php:118 classes/Settings/Column/Post.php:86
 msgid "Author"
 msgstr "Автор"
 
@@ -1781,8 +1779,8 @@ msgstr "Име на автора"
 msgid "Author IP"
 msgstr "IP на автора"
 
-#: classes/Settings/Column/Comment.php:119
 #: classes/Column/Comment/AuthorEmail.php:14
+#: classes/Settings/Column/Comment.php:119
 msgid "Author Email"
 msgstr "Email на автора"
 
@@ -1790,8 +1788,8 @@ msgstr "Email на автора"
 msgid "Avatar"
 msgstr "Avatar"
 
+#: classes/Column/Comment/Approved.php:14 classes/Column/Comment/Status.php:34
 #: classes/Settings/Column/CommentCount.php:47
-#: classes/Column/Comment/Status.php:34 classes/Column/Comment/Approved.php:14
 msgid "Approved"
 msgstr "Разрешен"
 
@@ -1807,27 +1805,27 @@ msgstr "Редактиране"
 msgid "Edit Comment"
 msgstr ""
 
-#: classes/Settings/Column/Term.php:30 classes/Settings/Column/Comment.php:117
-#: classes/Settings/Column/Post.php:85 classes/Column/Post/ID.php:15
-#: classes/Column/Media/ID.php:14 classes/Column/Comment/ID.php:14
+#: classes/Column/Post/ID.php:15 classes/Column/Media/ID.php:14
+#: classes/Column/Comment/ID.php:14 classes/Settings/Column/Term.php:30
+#: classes/Settings/Column/Comment.php:117 classes/Settings/Column/Post.php:85
 msgid "ID"
 msgstr "ID"
 
+#: templates/admin/side-feedback.php:14
 #: classes/Settings/Column/ActionIcons.php:23
-#: classes/Settings/Column/Toggle.php:15
-#: classes/Settings/Column/StatusIcon.php:25 classes/Settings/Column/Pro.php:18
+#: classes/Settings/Column/StatusIcon.php:25
+#: classes/Settings/Column/Toggle.php:15 classes/Settings/Column/Pro.php:18
 #: classes/Settings/Column/MissingImageSize.php:23
 #: classes/Settings/Column/PostFormatIcon.php:25 classes/Helper/Icon.php:64
-#: templates/admin/side-feedback.php:14
 msgid "No"
 msgstr "Не"
 
+#: templates/admin/side-feedback.php:13
 #: classes/Settings/Column/ActionIcons.php:22
-#: classes/Settings/Column/Toggle.php:14
-#: classes/Settings/Column/StatusIcon.php:24 classes/Settings/Column/Pro.php:17
+#: classes/Settings/Column/StatusIcon.php:24
+#: classes/Settings/Column/Toggle.php:14 classes/Settings/Column/Pro.php:17
 #: classes/Settings/Column/MissingImageSize.php:22
 #: classes/Settings/Column/PostFormatIcon.php:24 classes/Helper/Icon.php:47
-#: templates/admin/side-feedback.php:13
 msgid "Yes"
 msgstr "Да"
 
@@ -1855,6 +1853,6 @@ msgstr "WooCommerce"
 msgid "Advanced Custom Fields"
 msgstr "Advanced Custom Fields"
 
-#: classes/Settings/Column/Type.php:90 classes/Admin/Page/Addons.php:113
+#: classes/Admin/Page/Addons.php:115 classes/Settings/Column/Type.php:90
 msgid "Plugins"
 msgstr "Плъгини"

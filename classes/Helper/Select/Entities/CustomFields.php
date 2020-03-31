@@ -13,15 +13,15 @@ class CustomFields extends Select\Entities
 	 * @param array $args
 	 * @param Value $value
 	 */
-	public function __construct( array $args = array(), Value $value = null ) {
+	public function __construct( array $args = [], Value $value = null ) {
 		if ( null === $value ) {
 			$value = new Value\NullFormatter();
 		}
 
-		$args = array_merge( array(
+		$args = array_merge( [
 			'meta_type' => 'post',
 			'post_type' => false,
-		), $args );
+		], $args );
 
 		$query = new AC\Meta\Query( $args['meta_type'] );
 

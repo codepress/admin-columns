@@ -15,7 +15,7 @@ class Collection
 	 */
 	protected $items;
 
-	public function __construct( array $items = array() ) {
+	public function __construct( array $items = [] ) {
 		$this->items = $items;
 	}
 

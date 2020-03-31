@@ -7,7 +7,7 @@ use AC\Settings\Column\BeforeAfter;
 class ISO extends BeforeAfter {
 
 	protected function define_options() {
-		return array( 'before' => 'ISO ', 'after' => '' );
+		return [ 'before' => 'ISO ', 'after' => '' ];
 	}
 
 }

@@ -136,8 +136,7 @@ class Date {
 		if ( ! function_exists( 'wp_timezone' ) ) {
 			try {
 				return new DateTimeZone( get_option( 'timezone_string' ) );
-			}
-			catch ( Exception $e ) {
+			} catch ( Exception $e ) {
 				return null;
 			}
 		}

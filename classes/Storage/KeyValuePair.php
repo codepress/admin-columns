@@ -9,7 +9,7 @@ interface KeyValuePair {
 	 *
 	 * @return mixed
 	 */
-	public function get( array $args = array() );
+	public function get( array $args = [] );
 
 	/**
 	 * @param mixed $value

@@ -46,7 +46,7 @@ class V3005 extends Update {
 		global $wpdb;
 
 		if ( ! $this->validate_key( $key ) ) {
-			return array();
+			return [];
 		}
 
 		$sql = $wpdb->prepare( "
@@ -59,7 +59,7 @@ class V3005 extends Update {
 		$results = $wpdb->get_results( $sql );
 
 		if ( ! $results ) {
-			return array();
+			return [];
 		}
 
 		return $results;
@@ -71,10 +71,10 @@ class V3005 extends Update {
 	private function migrate_user_specific_settings() {
 		global $wpdb;
 
-		$mapping = array(
+		$mapping = [
 			'cpac-hide-install-addons-notice' => 'ac_hide_notice_addons',
 			'cpac-hide-review-notice'         => 'ac_hide_notice_review',
-		);
+		];
 
 		foreach ( $mapping as $current => $new ) {
 			$sql_meta_key = $wpdb->esc_like( $current ) . '%';

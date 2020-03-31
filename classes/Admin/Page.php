@@ -1,23 +1,25 @@
 <?php
+
 namespace AC\Admin;
 
-abstract class Page {
+use AC\Renderable;
 
-	/** @var string */
-	private $slug;
-
-	/** @var string */
-	private $label;
-
-	public function __construct( $slug, $label ) {
-		$this->slug = $slug;
-		$this->label = $label;
-	}
+abstract class Page implements Renderable {
 
 	/**
-	 * @return void
+	 * @var string
 	 */
-	abstract public function render();
+	private $slug;
+
+	/**
+	 * @var string
+	 */
+	private $title;
+
+	public function __construct( $slug, $title ) {
+		$this->slug = (string) $slug;
+		$this->title = (string) $title;
+	}
 
 	/**
 	 * @return string
@@ -29,15 +31,8 @@ abstract class Page {
 	/**
 	 * @return string
 	 */
-	public function get_label() {
-		return $this->label;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function show_in_menu() {
-		return true;
+	public function get_title() {
+		return $this->title;
 	}
 
 }

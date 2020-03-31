@@ -7,21 +7,27 @@ use AC\View;
 
 abstract class Pro extends Settings\Column {
 
+	/**
+	 * @return string
+	 */
 	abstract protected function get_label();
 
-	abstract protected function get_tooltip();
+	/**
+	 * @return View
+	 */
+	abstract protected function get_instructions();
 
 	public function create_view() {
 		$setting = $this->create_element( 'radio' )
-		                ->set_options( array(
+		                ->set_options( [
 			                'on'  => __( 'Yes' ),
 			                'off' => __( 'No' ),
-		                ) )
+		                ] )
 		                ->set_value( 'off' );
 
 		$view = new View();
 		$view->set( 'label', $this->get_label() )
-		     ->set( 'tooltip', $this->get_tooltip() )
+		     ->set( 'instructions', $this->get_instructions()->render() )
 		     ->set( 'setting', $setting )
 		     ->set_template( 'settings/setting-pro' );
 

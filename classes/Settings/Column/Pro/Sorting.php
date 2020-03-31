@@ -3,6 +3,7 @@
 namespace AC\Settings\Column\Pro;
 
 use AC\Settings;
+use AC\View;
 
 class Sorting extends Settings\Column\Pro {
 
@@ -10,12 +11,12 @@ class Sorting extends Settings\Column\Pro {
 		return __( 'Sorting', 'codepress-admin-columns' );
 	}
 
-	protected function get_tooltip() {
-		return __( "This will make the column sortable.", 'codepress-admin-columns' );
+	protected function get_instructions() {
+		return ( new View() )->set_template( 'tooltip/sorting' );
 	}
 
 	protected function define_options() {
-		return array( 'sort' );
+		return [ 'sort' ];
 	}
 
 }

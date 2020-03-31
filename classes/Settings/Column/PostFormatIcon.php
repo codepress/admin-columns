@@ -14,22 +14,22 @@ class PostFormatIcon extends Settings\Column
 	private $use_icon;
 
 	protected function define_options() {
-		return array( 'use_icon' => '1' );
+		return [ 'use_icon' => '1' ];
 	}
 
 	public function create_view() {
 
 		$setting = $this->create_element( 'radio' )
-		                ->set_options( array(
+		                ->set_options( [
 			                '1' => __( 'Yes' ),
 			                ''  => __( 'No' ),
-		                ) );
+		                ] );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Use an icon?', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Use an icon instead of text for displaying.', 'codepress-admin-columns' ),
 			'setting' => $setting,
-		) );
+		] );
 
 		return $view;
 	}

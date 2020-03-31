@@ -2,7 +2,7 @@
 
 namespace AC\Plugin\Update;
 
-use AC\ListScreenRepository\DataBase;
+use AC\ListScreenRepository\Database;
 use AC\Plugin\Update;
 use AC\Storage\ListScreenOrder;
 use DateTime;
@@ -594,7 +594,7 @@ class V4000 extends Update {
 	private function clear_table() {
 		global $wpdb;
 
-		$table = $wpdb->prefix . DataBase::TABLE;
+		$table = $wpdb->prefix . Database::TABLE;
 
 		$exists = $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table ) ) === $table;
 
@@ -609,7 +609,7 @@ class V4000 extends Update {
 		$date = new DateTime();
 
 		$wpdb->insert(
-			$wpdb->prefix . DataBase::TABLE,
+			$wpdb->prefix . Database::TABLE,
 			[
 				'title'         => $data['title'],
 				'list_id'       => $data['id'],

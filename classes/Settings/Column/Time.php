@@ -18,10 +18,10 @@ class Time extends Settings\Column\DateTimeFormat {
 	protected function get_custom_format_options() {
 		$options['wp_default'] = $this->get_default_html_label( __( 'WordPress Time Format', 'codepress-admin-columns' ) );
 
-		$formats = array(
+		$formats = [
 			'H:i:s',
 			'g:i A',
-		);
+		];
 
 		foreach ( $formats as $format ) {
 			$options[ $format ] = $this->get_html_label_from_date_format( $format );

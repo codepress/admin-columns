@@ -29,9 +29,9 @@ class AjaxRequestCustomFieldKeys implements Registrable {
 		$request = new Request();
 		$response = new Response\Json();
 
-		$args = array(
+		$args = [
 			'meta_type' => $request->get( 'meta_type' ),
-		);
+		];
 
 		if ( $request->get( 'post_type' ) ) {
 			$args['post_type'] = $request->get( 'post_type' );

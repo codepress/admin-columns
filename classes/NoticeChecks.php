@@ -2,8 +2,6 @@
 
 namespace AC;
 
-use AC\Admin\PromoCollection;
-
 class NoticeChecks implements Registrable {
 
 	public function register() {

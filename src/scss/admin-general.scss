@@ -12,6 +12,17 @@
 	}
 }
 
+.ac-message {
+	background: #fff;
+	padding: 1px 12px;
+	border: 1px solid #ccd0d4;
+	margin-bottom: 15px;
+
+	p {
+		margin: 0.5em 0;
+	}
+}
+
 .wrap {
 
 	.nav-tab-wrapper {
@@ -79,7 +90,7 @@ a.external {
  * Menu
  * ----------------------------------------------------------------------------
  */
-.menu {
+div.menu {
 	position: relative;
 	padding: 0;
 	margin-top: 16px;
@@ -313,10 +324,20 @@ body.rtl {
 
 .ac-wp-pointer {
 	img {
-		max-width: calc(100% - 20px);
+		max-width: calc(100% - 40px);
 		height: auto;
-		margin: 10px;
+		margin: 20px;
+		margin-bottom: 5px;
 		margin-top: 0;
+	}
+
+	p.notice {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.wp-pointer-arrow {
+		pointer-events: none;
 	}
 }
 

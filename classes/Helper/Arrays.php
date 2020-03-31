@@ -30,7 +30,7 @@ class Arrays {
 	 * @return string
 	 */
 	public function implode_associative( array $array, $glue ) {
-		$result = array();
+		$result = [];
 
 		foreach ( $array as $key => $item ) {
 			if ( is_array( $item ) ) {
@@ -119,7 +119,7 @@ class Arrays {
 	 * @since 1.0
 	 */
 	public function indent( $array, $parentId = 0, $parentKey = 'post_parent', $selfKey = 'ID', $childrenKey = 'children' ) {
-		$indent = array();
+		$indent = [];
 
 		$i = 0;
 		foreach ( $array as $v ) {
@@ -142,7 +142,7 @@ class Arrays {
 	 * @return array
 	 */
 	public function filter( $array ) {
-		return array_filter( $array, array( ac_helper()->string, 'is_not_empty' ) );
+		return array_filter( $array, [ ac_helper()->string, 'is_not_empty' ] );
 	}
 
 	/**
@@ -155,7 +155,7 @@ class Arrays {
 	 * @return array
 	 */
 	public function insert( $array, $insert, $position ) {
-		$new = array();
+		$new = [];
 		foreach ( $array as $key => $value ) {
 			$new[ $key ] = $value;
 			if ( $key === $position ) {

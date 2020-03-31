@@ -5,26 +5,24 @@ namespace AC\Helper;
 class Strings {
 
 	/**
-	 * @since 1.3.1
-	 *
 	 * @param $url
 	 *
 	 * @return bool|false|string
+	 * @since 1.3.1
 	 */
 	public function shorten_url( $url ) {
 		if ( ! $url ) {
 			return false;
 		}
 
-		return ac_helper()->html->link( $url, url_shorten( $url ), array( 'title' => $url ) );
+		return ac_helper()->html->link( $url, url_shorten( $url ), [ 'title' => $url ] );
 	}
 
 	/**
-	 * @since 1.3
-	 *
 	 * @param $string
 	 *
 	 * @return string
+	 * @since 1.3
 	 */
 	public function strip_trim( $string ) {
 		return trim( strip_tags( $string ) );
@@ -32,11 +30,11 @@ class Strings {
 
 	/**
 	 * Count the number of words in a string (multibyte-compatible)
-	 * @since 3.0
 	 *
 	 * @param $string
 	 *
 	 * @return int Number of words
+	 * @since 3.0
 	 */
 	public function word_count( $string ) {
 		if ( empty( $string ) ) {
@@ -49,12 +47,12 @@ class Strings {
 			return false;
 		}
 
-		$patterns = array(
+		$patterns = [
 			'strip' => '/<[a-zA-Z\/][^<>]*>/',
 			'clean' => '/[0-9.(),;:!?%#$¿\'"_+=\\/-]+/',
 			'w'     => '/\S\s+/',
 			'c'     => '/\S/',
-		);
+		];
 
 		$string = preg_replace( $patterns['strip'], ' ', $string );
 		$string = preg_replace( '/&nbsp;|&#160;/i', ' ', $string );
@@ -68,14 +66,13 @@ class Strings {
 	}
 
 	/**
-	 * @see   wp_trim_words();
-	 * @since 3.0
-	 *
 	 * @param string $string
 	 * @param int    $num_words
 	 * @param null   $more
 	 *
 	 * @return false|string
+	 * @see   wp_trim_words();
+	 * @since 3.0
 	 */
 	public function trim_words( $string = '', $num_words = 30, $more = null ) {
 		if ( ! $string ) {
@@ -143,11 +140,11 @@ class Strings {
 
 	/**
 	 * Get RGB values from a hex color string
-	 * @since 3.0
 	 *
 	 * @param string $hex Valid hex color
 	 *
 	 * @return array
+	 * @since 3.0
 	 */
 	public function hex_to_rgb( $hex ) {
 		$hex = $this->hex_format( $hex );
@@ -157,11 +154,11 @@ class Strings {
 
 	/**
 	 * Get contrasting hex color based on given hex color
-	 * @since 3.0
 	 *
 	 * @param string $hex Valid hex color
 	 *
 	 * @return string
+	 * @since 3.0
 	 */
 	public function hex_get_contrast( $hex ) {
 		$rgb = $this->hex_to_rgb( $hex );
@@ -171,11 +168,10 @@ class Strings {
 	}
 
 	/**
-	 * @since 1.2.0
-	 *
 	 * @param string $url
 	 *
 	 * @return bool
+	 * @since 1.2.0
 	 */
 	public function is_image( $url ) {
 		if ( ! $url || ! is_string( $url ) ) {
@@ -184,23 +180,22 @@ class Strings {
 
 		$ext = strtolower( pathinfo( strtok( $url, '?' ), PATHINFO_EXTENSION ) );
 
-		return in_array( $ext, array( 'jpg', 'jpeg', 'gif', 'png', 'bmp' ) );
+		return in_array( $ext, [ 'jpg', 'jpeg', 'gif', 'png', 'bmp' ] );
 	}
 
 	/**
-	 * @since 3.0
-	 *
 	 * @param string $string
 	 *
 	 * @return array
+	 * @since 3.0
 	 */
 	public function comma_separated_to_array( $string ) {
-		$array = array();
+		$array = [];
 		if ( is_scalar( $string ) ) {
 			if ( strpos( $string, ',' ) !== false ) {
 				$array = array_filter( explode( ',', ac_helper()->string->strip_trim( str_replace( ' ', '', $string ) ) ) );
 			} else {
-				$array = array( $string );
+				$array = [ $string ];
 			}
 		} else if ( is_array( $string ) ) {
 			$array = $string;
@@ -210,14 +205,13 @@ class Strings {
 	}
 
 	/**
-	 * @since 3.0
-	 *
 	 * @param string $string
 	 *
 	 * @return array
+	 * @since 3.0
 	 */
 	public function string_to_array_integers( $string ) {
-		$integers = array();
+		$integers = [];
 
 		foreach ( $this->comma_separated_to_array( $string ) as $k => $value ) {
 			if ( is_numeric( trim( $value ) ) ) {
@@ -229,11 +223,10 @@ class Strings {
 	}
 
 	/**
-	 * @since 3.0
-	 *
 	 * @param string $hex Color Hex Code
 	 *
 	 * @return string
+	 * @since 3.0
 	 */
 	public function get_color_block( $hex ) {
 		if ( ! $hex ) {

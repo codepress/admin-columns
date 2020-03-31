@@ -3,16 +3,19 @@
 namespace AC\Controller;
 
 use AC\Capabilities;
-use AC\ListScreenRepository\Aggregate;
+use AC\ListScreenRepository\Storage;
 use AC\Message\Notice;
 use AC\Registrable;
+use AC\Type\ListScreenId;
 
 class ListScreenRestoreColumns implements Registrable {
 
-	/** @var Aggregate */
+	/**
+	 * @var Storage
+	 */
 	private $repository;
 
-	public function __construct( Aggregate $repository ) {
+	public function __construct( Storage $repository ) {
 		$this->repository = $repository;
 	}
 
@@ -29,8 +32,7 @@ class ListScreenRestoreColumns implements Registrable {
 
 			case 'restore_by_type' :
 				if ( $this->verify_nonce( 'restore-type' ) ) {
-
-					$list_screen = $this->repository->find( filter_input( INPUT_POST, 'layout' ) );
+					$list_screen = $this->repository->find( new ListScreenId( filter_input( INPUT_POST, 'layout' ) ) );
 
 					if ( ! $list_screen ) {
 						return;

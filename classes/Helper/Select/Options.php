@@ -30,7 +30,7 @@ class Options extends ArrayIterator {
 	 * @return Options
 	 */
 	public static function create_from_array( array $array ) {
-		$options = array();
+		$options = [];
 
 		foreach ( $array as $key => $value ) {
 			$options[] = new Option( $key, $value );

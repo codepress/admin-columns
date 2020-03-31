@@ -51,12 +51,12 @@ class Column {
 	 * The options managed by the settings
 	 * @var array
 	 */
-	protected $options = array();
+	protected $options = [];
 
 	/**
 	 * Get the unique name of the column
-	 * @since 2.3.4
 	 * @return string Column name
+	 * @since 2.3.4
 	 */
 	public function get_name() {
 		return $this->name;
@@ -75,8 +75,8 @@ class Column {
 
 	/**
 	 * Get the type of the column.
-	 * @since 2.3.4
 	 * @return string Type
+	 * @since 2.3.4
 	 */
 	public function get_type() {
 		return $this->type;
@@ -113,8 +113,8 @@ class Column {
 
 	/**
 	 * Get the type of the column.
-	 * @since 2.4.9
 	 * @return string Label of column's type
+	 * @since 2.4.9
 	 */
 	public function get_label() {
 		if ( null === $this->label ) {
@@ -136,8 +136,8 @@ class Column {
 	}
 
 	/**
-	 * @since 3.0
 	 * @return string Group
+	 * @since 3.0
 	 */
 	public function get_group() {
 		if ( null === $this->group ) {
@@ -199,8 +199,8 @@ class Column {
 	/**
 	 * Overwrite this function in child class.
 	 * Determine whether this column type should be available
-	 * @since 2.2
 	 * @return bool Whether the column type should be available
+	 * @since 2.2
 	 */
 	public function is_valid() {
 		return true;
@@ -254,16 +254,16 @@ class Column {
 	}
 
 	/**
-	 * @since 3.2.5
 	 * @return string
+	 * @since 3.2.5
 	 */
 	public function get_custom_label() {
 
 		/**
-		 * @since 3.0
-		 *
 		 * @param string $label
 		 * @param Column $column
+		 *
+		 * @since 3.0
 		 */
 		return apply_filters( 'ac/headings/label', $this->get_setting( 'label' )->get_value(), $this );
 	}
@@ -273,11 +273,11 @@ class Column {
 	 */
 	public function get_settings() {
 		if ( null === $this->settings ) {
-			$settings = array(
+			$settings = [
 				new Settings\Column\Type( $this ),
 				new Settings\Column\Label( $this ),
 				new Settings\Column\Width( $this ),
-			);
+			];
 
 			foreach ( $settings as $setting ) {
 				$this->add_setting( $setting );
@@ -384,11 +384,11 @@ class Column {
 	/**
 	 * Get the raw, underlying value for the column
 	 * Not suitable for direct display, use get_value() for that
-	 * @since 2.0.3
 	 *
 	 * @param int $id
 	 *
 	 * @return string|array
+	 * @since 2.0.3
 	 */
 	public function get_raw_value( $id ) {
 		return null;

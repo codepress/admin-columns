@@ -42,10 +42,10 @@ class UserMeta implements KeyValuePair {
 	 *
 	 * @return mixed
 	 */
-	public function get( array $args = array() ) {
-		$args = array_merge( array(
+	public function get( array $args = [] ) {
+		$args = array_merge( [
 			self::OPTION_SINGLE => true,
-		), $args );
+		], $args );
 
 		return get_user_meta( $this->user_id, $this->key, $args[ self::OPTION_SINGLE ] );
 	}

@@ -14,22 +14,22 @@ class StatusIcon extends Settings\Column
 	private $use_icon;
 
 	protected function define_options() {
-		return array( 'use_icon' => '' );
+		return [ 'use_icon' => '' ];
 	}
 
 	public function create_view() {
 
 		$setting = $this->create_element( 'radio' )
-		                ->set_options( array(
+		                ->set_options( [
 			                '1' => __( 'Yes' ),
 			                ''  => __( 'No' ),
-		                ) );
+		                ] );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Use an icon?', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Use an icon instead of text for displaying the status.', 'codepress-admin-columns' ),
 			'setting' => $setting,
-		) );
+		] );
 
 		return $view;
 	}
@@ -69,7 +69,7 @@ class StatusIcon extends Settings\Column
 			$value = ac_helper()->post->get_status_icon( $post );
 
 			if ( $post->post_password ) {
-				$value .= ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'lock', 'class' => 'gray' ) ), __( 'Password protected' ) );
+				$value .= ac_helper()->html->tooltip( ac_helper()->icon->dashicon( [ 'icon' => 'lock', 'class' => 'gray' ] ), __( 'Password protected' ) );
 			}
 		} else if ( isset( $wp_post_statuses[ $status ] ) ) {
 			$value = $wp_post_statuses[ $status ]->label;

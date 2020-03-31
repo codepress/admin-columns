@@ -32,6 +32,7 @@ import SettingWidth from './admin/columns/settings/width';
 import SettingLabel from './admin/columns/settings/label';
 import SettingCustomField from './admin/columns/settings/custom-field';
 import SettingNumberFormat from './admin/columns/settings/number-format';
+import SettingTypeSelector from "./admin/columns/settings/type";
 
 require( 'admin-columns-js/polyfill/customevent' );
 require( 'admin-columns-js/polyfill/nodelist' );
@@ -65,6 +66,7 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 		.registerSetting( 'width', SettingWidth )
 		.registerSetting( 'customfield', SettingCustomField )
 		.registerSetting( 'number_format', SettingNumberFormat )
+		.registerSetting( 'type_selector', SettingTypeSelector )
 		.registerSetting( 'label', SettingLabel );
 } );
 
@@ -76,22 +78,24 @@ jQuery( document ).ready( function() {
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );
 
-	jQuery( document ).on( 'AC_Column_Change', function( e, column ) {
-		column.$el.find( '.ac-pointer' ).each( function() {
-			ac_pointer( jQuery( this ) );
-		} );
+	['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach( hook => {
+		jQuery( document ).on( hook, () => ac_pointers() );
 	} );
 
 	jQuery( document ).on( 'AC_Column_Created', function( e, column ) {
 		setTimeout( function() {
-			column.$el.find( '.ac-pointer' ).each( function() {
-				ac_pointer( jQuery( this ) );
-			} );
+			ac_pointers();
 		}, 100 )
 	} );
 
 	if ( AC.hasOwnProperty( 'uninitialized_list_screens' ) && Object.keys( AC.uninitialized_list_screens ).length > 0 ) {
 		new ListScreenInitializeController( AC.uninitialized_list_screens );
 	}
+	/*
+		jQuery( '#ac_list_screen' ).ac_select2( {
+			theme : 'acs2',
+			dropdownCssClass : '-list-screen-selector',
+			matcher : excludeGroupsMather
+		} );*/
 
 } );

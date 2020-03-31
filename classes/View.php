@@ -2,19 +2,19 @@
 
 namespace AC;
 
-class View {
+class View implements Renderable {
 
 	/**
 	 * @var array
 	 */
-	private $data = array();
+	private $data = [];
 
 	/**
 	 * @var string
 	 */
 	private $template;
 
-	public function __construct( array $data = array() ) {
+	public function __construct( array $data = [] ) {
 		$this->set_data( $data );
 	}
 
@@ -70,7 +70,7 @@ class View {
 		 * @param array  $paths    Template paths
 		 * @param string $template Current template path
 		 */
-		$paths = apply_filters( 'ac/view/templates', array( AC()->get_dir() . 'templates' ), $this->template );
+		$paths = apply_filters( 'ac/view/templates', [ AC()->get_dir() . 'templates' ], $this->template );
 
 		foreach ( $paths as $path ) {
 			$file = $path . '/' . $this->template . '.php';

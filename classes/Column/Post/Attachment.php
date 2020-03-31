@@ -25,16 +25,16 @@ class Attachment extends Column {
 	 * @return int[] Attachment ID's
 	 */
 	private function get_attachment_ids( $post_id ) {
-		$attachment_ids = get_posts( array(
+		$attachment_ids = get_posts( [
 			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
 			'post_status'    => null,
 			'post_parent'    => $post_id,
 			'fields'         => 'ids',
-		) );
+		] );
 
 		if ( ! $attachment_ids ) {
-			return array();
+			return [];
 		}
 
 		return $attachment_ids;

@@ -21,7 +21,7 @@ class Post extends ListScreenPost {
 	 * @see WP_Posts_List_Table::column_default
 	 */
 	public function set_manage_value_callback() {
-		add_action( "manage_" . $this->get_post_type() . "_posts_custom_column", array( $this, 'manage_value' ), 100, 2 );
+		add_action( "manage_" . $this->get_post_type() . "_posts_custom_column", [ $this, 'manage_value' ], 100, 2 );
 	}
 
 	/**
@@ -30,14 +30,14 @@ class Post extends ListScreenPost {
 	protected function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' );
 
-		return new WP_Posts_List_Table( array( 'screen' => $this->get_screen_id() ) );
+		return new WP_Posts_List_Table( [ 'screen' => $this->get_screen_id() ] );
 	}
 
 	/**
 	 * @since 2.0
 	 */
 	public function get_screen_link() {
-		return add_query_arg( array( 'post_type' => $this->get_post_type() ), parent::get_screen_link() );
+		return add_query_arg( [ 'post_type' => $this->get_post_type() ], parent::get_screen_link() );
 	}
 
 	/**

@@ -29,7 +29,7 @@ class Review
 	 * @throws Exception
 	 */
 	public function register() {
-		add_action( 'ac/screen', array( $this, 'display' ) );
+		add_action( 'ac/screen', [ $this, 'display' ] );
 
 		$this->get_ajax_handler()->register();
 	}
@@ -58,7 +58,7 @@ class Review
 			return;
 		}
 
-		wp_enqueue_script( 'ac-notice-review', AC()->get_url() . 'assets/js/message-review.js', array( 'jquery' ), AC()->get_version() );
+		wp_enqueue_script( 'ac-notice-review', AC()->get_url() . 'assets/js/message-review.js', [ 'jquery' ], AC()->get_version() );
 
 		$notice = new Message\Notice\Dismissible( $this->get_message(), $this->get_ajax_handler() );
 		$notice
@@ -73,7 +73,7 @@ class Review
 		$handler = new Ajax\Handler();
 		$handler
 			->set_action( 'ac_check_review_dismiss_notice' )
-			->set_callback( array( $this, 'ajax_dismiss_notice' ) );
+			->set_callback( [ $this, 'ajax_dismiss_notice' ] );
 
 		return $handler;
 	}

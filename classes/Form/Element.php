@@ -7,13 +7,13 @@ abstract class Element {
 	/**
 	 * @var array
 	 */
-	protected $attributes = array();
+	protected $attributes = [];
 
 	/**
 	 * Options for element like select
 	 * @var array
 	 */
-	protected $options = array();
+	protected $options = [];
 
 	/**
 	 * The elements value
@@ -39,7 +39,7 @@ abstract class Element {
 	 * @param string $name
 	 * @param array  $options
 	 */
-	public function __construct( $name, array $options = array() ) {
+	public function __construct( $name, array $options = [] ) {
 		$this->set_name( $name );
 		$this->set_id( $name );
 		$this->set_options( $options );
@@ -123,7 +123,7 @@ abstract class Element {
 	 * @return string
 	 */
 	protected function get_attributes_as_string( array $attributes ) {
-		$output = array();
+		$output = [];
 
 		foreach ( $attributes as $key => $value ) {
 			$output[] = $this->get_attribute_as_string( $key, $value );

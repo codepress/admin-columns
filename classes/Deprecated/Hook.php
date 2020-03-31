@@ -1,4 +1,5 @@
 <?php
+
 namespace AC\Deprecated;
 
 abstract class Hook {
@@ -58,7 +59,7 @@ abstract class Hook {
 			return false;
 		}
 
-		$callbacks = array();
+		$callbacks = [];
 
 		foreach ( $wp_filter[ $this->name ]->callbacks as $callback ) {
 			foreach ( $callback as $cb ) {

@@ -19,7 +19,7 @@ class Excerpt extends Column {
 		$value = parent::get_value( $post_id );
 
 		if ( $value && ! has_excerpt( $post_id ) && $value !== $this->get_empty_char() ) {
-			$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( array( 'icon' => 'media-text', 'class' => 'gray' ) ), __( 'Excerpt is missing.' ) . ' ' . __( 'Current excerpt is generated from the content.' ) ) . ' ' . $value;
+			$value = ac_helper()->html->tooltip( ac_helper()->icon->dashicon( [ 'icon' => 'media-text', 'class' => 'gray' ] ), __( 'Excerpt is missing.' ) . ' ' . __( 'Current excerpt is generated from the content.' ) ) . ' ' . $value;
 		}
 
 		return $value;

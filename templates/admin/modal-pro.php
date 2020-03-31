@@ -18,11 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php _e( 'Upgrade to PRO, and take Admin Columns to the next level:', 'codepress-admin-columns' ); ?>
 			</p>
 			<ul class="ac-modal__dialog__list">
-				<li><?php _e( 'Sort & Filter on all your content', 'codepress-admin-columns' ); ?></li>
-				<li><?php _e( 'Directly edit your content from the overview', 'codepress-admin-columns' ); ?></li>
-				<li><?php _e( 'Export all column data to CSV', 'codepress-admin-columns' ); ?></li>
-				<li><?php _e( 'Create multiple column groups per overview', 'codepress-admin-columns' ); ?></li>
+				<li><?php _e( 'Sort & Filter on all your content.', 'codepress-admin-columns' ); ?></li>
+				<li><?php _e( 'Search the contents of your columns.', 'codepress-admin-columns' ); ?></li>
 				<li><?php _e( 'Bulk edit any content, including custom fields.', 'codepress-admin-columns' ); ?></li>
+				<li><?php _e( 'Quick edit any content with Inline Editing, including custom fields.' ); ?></li>
+				<li><?php _e( 'Export all column data to CSV.', 'codepress-admin-columns' ); ?></li>
+				<li><?php _e( 'Create multiple list table views with different columns.', 'codepress-admin-columns' ); ?></li>
 				<li><?php _e( 'Get add-ons for ACF, WooCommerce and many more', 'codepress-admin-columns' ); ?></li>
 			</ul>
 		</div>
