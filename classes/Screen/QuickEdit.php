@@ -2,43 +2,38 @@
 
 namespace AC\Screen;
 
-use AC\ListScreenRepository\ListScreenRepository;
-use AC\Preferences\Site;
+use AC\ListScreenRepository\Storage;
 use AC\Registrable;
 use AC\ScreenController;
+use AC\Table\Preference;
+use AC\Type\ListScreenId;
 
 class QuickEdit implements Registrable {
 
-	/** @var ListScreenRepository */
-	private $list_screen_repository;
-
-	/** @var Site */
-	private $preferences;
-
-	public function __construct( ListScreenRepository $list_screen_repository, Site $preferences ) {
-		$this->list_screen_repository = $list_screen_repository;
-		$this->preferences = $preferences;
-	}
+	/**
+	 * @var Storage
+	 */
+	private $storage;
 
 	/**
-	 * Register hooks
+	 * @var Preference
 	 */
+	private $preference;
+
+	public function __construct( Storage $storage, Preference $preference ) {
+		$this->storage = $storage;
+		$this->preference = $preference;
+	}
+
 	public function register() {
-		add_action( 'admin_init', array( $this, 'init_columns_on_quick_edit' ) );
-	}
-
-	/**
-	 * @return bool
-	 */
-	private function is_doing_ajax() {
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
+		add_action( 'admin_init', [ $this, 'init_columns_on_quick_edit' ] );
 	}
 
 	/**
 	 * Get list screen when doing Quick Edit, a native WordPress ajax call
 	 */
 	public function init_columns_on_quick_edit() {
-		if ( ! $this->is_doing_ajax() ) {
+		if ( ! wp_doing_ajax() ) {
 			return;
 		}
 
@@ -65,13 +60,13 @@ class QuickEdit implements Registrable {
 				return;
 		}
 
-		$id = $this->preferences->get( $type );
+		$id = $this->preference->get( $type );
 
 		if ( ! $id ) {
 			return;
 		}
 
-		$list_screen = $this->list_screen_repository->find( $id );
+		$list_screen = $this->storage->find( new ListScreenId( $id ) );
 
 		if ( ! $list_screen ) {
 			return;

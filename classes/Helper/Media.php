@@ -26,17 +26,17 @@ class Media {
 
 		$image_id = false;
 
-		$images = get_posts( array(
+		$images = get_posts( [
 			'post_type'      => 'attachment',
 			'fields'         => 'ids',
-			'meta_query'     => array(
-				array(
+			'meta_query'     => [
+				[
 					'key'   => '_wp_attached_file',
 					'value' => $file_with_relative_path,
-				),
-			),
+				],
+			],
 			'posts_per_page' => 1,
-		) );
+		] );
 
 		if ( $images ) {
 			$image_id = $images[0];
@@ -47,23 +47,23 @@ class Media {
 
 			$relative_upload_dir = dirname( $file_with_relative_path );
 
-			$image_ids = get_posts( array(
+			$image_ids = get_posts( [
 				'post_type'      => 'attachment',
 				'fields'         => 'ids',
-				'meta_query'     => array(
-					array(
+				'meta_query'     => [
+					[
 						'key'     => '_wp_attachment_metadata',
 						'value'   => serialize( basename( $image_url ) ),
 						'compare' => 'LIKE',
-					),
-					array(
+					],
+					[
 						'key'     => '_wp_attached_file',
 						'value'   => $relative_upload_dir,
 						'compare' => 'LIKE',
-					),
-				),
+					],
+				],
 				'posts_per_page' => 1,
-			) );
+			] );
 
 			if ( $image_ids ) {
 

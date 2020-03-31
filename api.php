@@ -1,8 +1,11 @@
 <?php
 
+use AC\Admin;
+use AC\EncodedListScreenDataFactory;
 use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\Type\ListScreenId;
 
 /**
  * @return AC\AdminColumns
@@ -53,7 +56,7 @@ function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_camp
 		$utm_campaign = 'plugin-installation';
 	}
 
-	$args = array(
+	$args = [
 		// Referrer: plugin
 		'utm_source'   => 'plugin-installation',
 
@@ -65,7 +68,7 @@ function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_camp
 
 		// Used for differentiation of medium
 		'utm_content'  => $utm_content,
-	);
+	];
 
 	$args = array_map( 'sanitize_key', array_filter( $args ) );
 
@@ -73,7 +76,6 @@ function ac_get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_camp
 }
 
 /**
- * Admin Columns Twitter username
  * @return string
  */
 function ac_get_twitter_handle() {
@@ -81,7 +83,7 @@ function ac_get_twitter_handle() {
 }
 
 /**
- * Simple helper methods for AC_Column objects
+ * Simple helper methods for AC/Column objects
  * @since 3.0
  */
 function ac_helper() {
@@ -97,7 +99,7 @@ function ac_helper() {
  */
 function ac_register_columns( $list_screen_keys, $column_data ) {
 	foreach ( (array) $list_screen_keys as $key ) {
-		AC\ListScreenApiData::push( [ $key => $column_data ] );
+		ac_load_columns( [ $key => $column_data ] );
 	}
 }
 
@@ -111,23 +113,42 @@ function ac_register_columns( $list_screen_keys, $column_data ) {
  *
  * @param array $data
  *
- * @since 4.0.0
+ * @deprecated 4.1
+ * @since      4.0.0
  */
 function ac_load_columns( array $data ) {
-	AC\ListScreenApiData::push( $data );
+	$factory = new EncodedListScreenDataFactory();
+	$factory->create()->add( $data );
 }
 
 /**
- * @param string $slug Page slug
+ * @param string|null $slug
  *
  * @return string
  */
-function ac_get_admin_url( $slug = null ) {
-	if ( null === $slug ) {
-		$slug = 'columns';
-	}
+function ac_get_admin_url( $slug ) {
+	return add_query_arg(
+		[
+			Admin::QUERY_ARG_PAGE => Admin::NAME,
+			Admin::QUERY_ARG_TAB  => $slug,
+		],
+		admin_url( 'options-general.php' )
+	);
+}
 
-	return AC()->admin()->get_url( $slug );
+/**
+ * @param string|null $slug
+ *
+ * @return string
+ */
+function ac_get_admin_network_url( $slug = null ) {
+	return add_query_arg(
+		[
+			Admin::QUERY_ARG_PAGE => Admin::NAME,
+			Admin::QUERY_ARG_TAB  => $slug,
+		],
+		network_admin_url( 'settings.php' )
+	);
 }
 
 /**
@@ -139,9 +160,9 @@ function ac_get_admin_url( $slug = null ) {
  * @return string
  */
 function ac_convert_site_url( $label, $action = 'encode' ) {
-	$input = array( site_url(), '[cpac_site_url]' );
+	$input = [ site_url(), '[cpac_site_url]' ];
 
-	if ( 'decode' == $action ) {
+	if ( 'decode' === $action ) {
 		$input = array_reverse( $input );
 	}
 
@@ -155,7 +176,7 @@ function ac_convert_site_url( $label, $action = 'encode' ) {
  * @since 4.0.0
  */
 function ac_get_list_screen( $id ) {
-	return AC()->get_listscreen_repository()->find( $id );
+	return AC()->get_storage()->find( new ListScreenId( $id ) );
 }
 
 /**
@@ -165,7 +186,7 @@ function ac_get_list_screen( $id ) {
  * @since 4.0.0
  */
 function ac_get_list_screens( $key ) {
-	return AC()->get_listscreen_repository()->find_all( [ 'key' => $key ] );
+	return AC()->get_storage()->find_all( [ 'key' => $key ] );
 }
 
 /**

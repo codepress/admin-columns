@@ -2,36 +2,71 @@
 
 namespace AC;
 
-/**
- * @since 4.0
- * @property ListScreen[] $items
- */
-class ListScreenCollection extends Collection {
+use Countable;
+use Iterator;
 
-	public function add_collection( ListScreenCollection $collection ) {
-		if ( ! $collection->count() ) {
-			return;
-		}
+final class ListScreenCollection implements Iterator, Countable {
 
-		foreach ( $collection as $item ) {
-			$this->push( $item );
-		}
+	/**
+	 * @var ListScreen[]
+	 */
+	private $data = [];
+
+	public function __construct( array $list_screens = [] ) {
+		array_map( [ $this, 'add' ], $list_screens );
+	}
+
+	public function add( ListScreen $list_screen ) {
+		$this->data[ $list_screen->get_layout_id() ] = $list_screen;
+	}
+
+	public function remove( ListScreen $list_screen ) {
+		unset( $this->data[ $list_screen->get_layout_id() ] );
+	}
+
+	public function rewind() {
+		reset( $this->data );
 	}
 
 	/**
-	 * @param ListScreen $listScreen
+	 * @return ListScreen
+	 */
+	public function current() {
+		return current( $this->data );
+	}
+
+	public function get_first() {
+		return reset( $this->data );
+	}
+
+	public function key() {
+		return key( $this->data );
+	}
+
+	public function next() {
+		return next( $this->data );
+	}
+
+	public function valid() {
+		$key = $this->key();
+
+		return ( $key !== null && $key !== false );
+	}
+
+	/**
+	 * @return int
+	 */
+	public function count() {
+		return count( $this->data );
+	}
+
+	/**
+	 * @param ListScreen $list_screen
 	 *
 	 * @return bool
 	 */
-	public function has_list_screen( ListScreen $listScreen ) {
-		/** @var ListScreen $_listScreen */
-		foreach ( $this->all() as $_listScreen ) {
-			if ( $_listScreen->get_layout_id() === $listScreen->get_layout_id() ) {
-				return true;
-			}
-		}
-
-		return false;
+	public function contains( ListScreen $list_screen ) {
+		return isset( $this->data[ $list_screen->get_layout_id() ] );
 	}
 
 }

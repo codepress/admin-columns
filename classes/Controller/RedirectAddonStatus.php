@@ -2,7 +2,8 @@
 
 namespace AC\Controller;
 
-use AC\IntegrationFactory;
+use AC\Integration;
+use AC\Integrations;
 use AC\Registrable;
 
 class RedirectAddonStatus implements Registrable {
@@ -12,8 +13,14 @@ class RedirectAddonStatus implements Registrable {
 	 */
 	private $url;
 
-	public function __construct( $url ) {
+	/**
+	 * @var Integrations
+	 */
+	private $integrations;
+
+	public function __construct( $url, Integrations $integrations ) {
 		$this->url = $url;
+		$this->integrations = $integrations;
 	}
 
 	public function register() {
@@ -21,9 +28,25 @@ class RedirectAddonStatus implements Registrable {
 	}
 
 	/**
+	 * @param string $basename
+	 *
+	 * @return Integration|null
+	 */
+	private function get_integration_by_basename( $basename ) {
+		/** @var Integration $integration */
+		foreach ( $this->integrations as $integration ) {
+			if ( $integration->get_basename() === $basename ) {
+				return $integration;
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Redirect the user to the Admin Columns add-ons page after activation/deactivation of an add-on from the add-ons page
 	 *
-	 * @param $location
+	 * @param string $location
 	 *
 	 * @return string
 	 * @since 2.2
@@ -41,7 +64,7 @@ class RedirectAddonStatus implements Registrable {
 			return $location;
 		}
 
-		$integration = IntegrationFactory::create( filter_input( INPUT_GET, 'plugin' ) );
+		$integration = $this->get_integration_by_basename( filter_input( INPUT_GET, 'plugin' ) );
 
 		if ( ! $integration ) {
 			return $location;

@@ -18,9 +18,9 @@ class CommentCount extends Settings\Column
 	}
 
 	protected function define_options() {
-		return array(
+		return [
 			'comment_status' => 'total_comments',
-		);
+		];
 	}
 
 	/**
@@ -30,11 +30,11 @@ class CommentCount extends Settings\Column
 		$setting = $this->create_element( 'select' )
 		                ->set_options( $this->get_comment_statuses() );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Comment status', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Select which comment status you like to display.', 'codepress-admin-columns' ),
 			'setting' => $setting,
-		) );
+		] );
 
 		return $view;
 	}
@@ -43,17 +43,17 @@ class CommentCount extends Settings\Column
 	 * @return array
 	 */
 	protected function get_comment_statuses() {
-		$options = array(
+		$options = [
 			'approved'  => __( 'Approved', 'codepress-admin-columns' ),
 			'moderated' => __( 'Pending', 'codepress-admin-columns' ),
 			'spam'      => __( 'Spam', 'codepress-admin-columns' ),
 			'trash'     => __( 'Trash', 'codepress-admin-columns' ),
-		);
+		];
 
 		natcasesort( $options );
 
 		// First
-		$options = array( 'total_comments' => __( 'Total', 'codepress-admin-columns' ) ) + $options;
+		$options = [ 'total_comments' => __( 'Total', 'codepress-admin-columns' ) ] + $options;
 
 		return $options;
 	}
@@ -105,7 +105,7 @@ class CommentCount extends Settings\Column
 			return $this->column->get_empty_char();
 		}
 
-		return ac_helper()->html->link( add_query_arg( array( 'p' => $post_id, 'comment_status' => $this->get_comment_status() ), admin_url( 'edit-comments.php' ) ), $count );
+		return ac_helper()->html->link( add_query_arg( [ 'p' => $post_id, 'comment_status' => $this->get_comment_status() ], admin_url( 'edit-comments.php' ) ), $count );
 	}
 
 }

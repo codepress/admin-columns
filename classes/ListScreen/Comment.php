@@ -38,17 +38,17 @@ class Comment extends AC\ListScreenWP {
 	public function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php' );
 
-		$table = new WP_Comments_List_Table( array( 'screen' => $this->get_screen_id() ) );
+		$table = new WP_Comments_List_Table( [ 'screen' => $this->get_screen_id() ] );
 
 		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `\WP_Comments_List_Table` class.
 		// Here we remove the filter from the constructor.
-		remove_filter( 'comment_author', array( $table, 'floated_admin_avatar' ), 10 );
+		remove_filter( 'comment_author', [ $table, 'floated_admin_avatar' ], 10 );
 
 		return $table;
 	}
 
 	public function set_manage_value_callback() {
-		add_action( 'manage_comments_custom_column', array( $this, 'manage_value' ), 100, 2 );
+		add_action( 'manage_comments_custom_column', [ $this, 'manage_value' ], 100, 2 );
 	}
 
 	/**

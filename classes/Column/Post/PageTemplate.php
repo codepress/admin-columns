@@ -38,8 +38,8 @@ class PageTemplate extends Column\Meta {
 	public function get_page_templates() {
 		global $wp_version;
 
-		if( ! function_exists( 'get_page_templates' ) ){
-			return array();
+		if ( ! function_exists( 'get_page_templates' ) ) {
+			return [];
 		}
 
 		if ( version_compare( $wp_version, '4.7', '>=' ) ) {

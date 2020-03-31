@@ -29,12 +29,12 @@ class NumberFormat extends Settings\Column
 	private $number_thousands_separator;
 
 	protected function define_options() {
-		return array(
+		return [
 			'number_format'              => '',
 			'number_decimals'            => 0,
 			'number_decimal_point'       => '.',
 			'number_thousands_separator' => '',
-		);
+		];
 	}
 
 	private function get_decimals_setting() {
@@ -43,10 +43,10 @@ class NumberFormat extends Settings\Column
 		         ->set_attribute( 'step', 1 )
 		         ->set_attribute( 'max', 20 )
 		         ->set_attribute( 'min', 0 );
-		$decimals_view = new View( array(
+		$decimals_view = new View( [
 			'label'   => __( 'Decimals', 'codepress-admin-columns' ),
 			'setting' => $decimals,
-		) );
+		] );
 
 		return $decimals_view;
 	}
@@ -54,10 +54,10 @@ class NumberFormat extends Settings\Column
 	private function get_decimal_point_setting() {
 		$decimal_point = $this->create_element( 'text', 'number_decimal_point' );
 		$decimal_point->set_attribute( 'placeholder', $this->get_default( 'number_decimal_point' ) );
-		$decimal_point_view = new View( array(
+		$decimal_point_view = new View( [
 			'label'   => __( 'Decimal point', 'codepress-admin-columns' ),
 			'setting' => $decimal_point,
-		) );
+		] );
 
 		return $decimal_point_view;
 	}
@@ -65,29 +65,29 @@ class NumberFormat extends Settings\Column
 	private function get_thousands_point_setting() {
 		$setting = $this->create_element( 'text', 'number_thousands_separator' );
 		$setting->set_attribute( 'placeholder', $this->get_default( 'number_thousands_separator' ) );
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Thousands separator', 'codepress-admin-columns' ),
 			'setting' => $setting,
-		) );
+		] );
 
 		return $view;
 	}
 
 	private function get_preview_setting() {
-		return new View( array(
+		return new View( [
 			'label'   => __( 'Preview', 'codepress-admin-columns' ),
 			'setting' => '<code data-preview="">75000</code>',
-		) );
+		] );
 	}
 
 	public function create_view() {
-		$sections = array();
+		$sections = [];
 		$select = $this->create_element( 'select' )
 		               ->set_attribute( 'data-refresh', 'column' )
-		               ->set_options( array(
+		               ->set_options( [
 			               ''          => __( 'Default', 'codepress-admin-column' ),
 			               'formatted' => __( 'Formatted', 'codepress-admin-column' ),
-		               ) );
+		               ] );
 
 		if ( $this->get_number_format() ) {
 			$sections[] = $this->get_decimals_setting();
@@ -96,11 +96,11 @@ class NumberFormat extends Settings\Column
 			$sections[] = $this->get_preview_setting();
 		}
 
-		$view = new View( array(
+		$view = new View( [
 			'label'    => __( 'Number Format', 'codepress-admin-columns' ),
 			'setting'  => $select,
 			'sections' => $sections,
-		) );
+		] );
 
 		return $view;
 	}
@@ -132,6 +132,8 @@ class NumberFormat extends Settings\Column
 
 	/**
 	 * @param string $number_decimals
+	 *
+	 * @return NumberFormat
 	 */
 	public function set_number_decimals( $number_decimals ) {
 		$this->number_decimals = $number_decimals;
@@ -148,6 +150,8 @@ class NumberFormat extends Settings\Column
 
 	/**
 	 * @param string $number_decimal_point
+	 *
+	 * @return NumberFormat
 	 */
 	public function set_number_decimal_point( $number_decimal_point ) {
 		$this->number_decimal_point = $number_decimal_point;

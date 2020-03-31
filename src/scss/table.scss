@@ -943,19 +943,6 @@ div.cpac-color span {
 			&:first-child {
 				border-radius: 3px 0 0 3px;
 			}
-
-			&:last-child, &.last {
-				border-radius: 0 3px 3px 0;
-				border-right: 1px solid #7e8993;
-
-				&.active {
-					border-right: 1px solid #008EC2;
-				}
-
-				&:first-child {
-					border-radius: 3px;
-				}
-			}
 		}
 
 	}
@@ -964,25 +951,36 @@ div.cpac-color span {
 		display: inline-block;
 		padding: 2px 12px;
 		cursor: pointer;
-		color: #555;
-		background: #f7f7f7;
+		color: $wp-color-button;
+		border: 1px solid $wp-color-button;
+		background: $wp-color-button-bg;
 		text-decoration: none;
 		font-size: 13px;
 		height: 24px;
 		line-height: 24px;
 		text-align: center;
-		border: 1px solid #7e8993;
 		transform: translateX(-1px);
 		border-radius: 3px;
 
-		&:focus, &:active {
-			outline: none;
-			box-shadow: none;
+		&:last-child, &.last {
+			border-radius: 0 3px 3px 0;
+			border-right: 1px solid $wp-color-button;
+
+			&.active {
+				border-right: 1px solid $wp-color-button;
+			}
+
+			&:first-child {
+				border-radius: 3px;
+			}
 		}
 
-		&:hover {
-			background: #ddd;
-			color: darken(#555, 3);
+		&:hover, &:focus, &:active {
+			outline: none;
+			box-shadow: none;
+			background: $wp-color-button-hover-bg;
+			color: $wp-color-button-hover;
+			border-color: $wp-color-button-hover;
 		}
 
 		.dashicons {

@@ -14,15 +14,15 @@ class LinkLabel extends Settings\Column
 	private $link_label;
 
 	protected function define_options() {
-		return array( 'link_label' );
+		return [ 'link_label' ];
 	}
 
 	public function create_view() {
-		$view = new View( array(
+		$view = new View( [
 			'setting' => $this->create_element( 'text' ),
 			'label'   => __( 'Link Label', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Leave blank to display the URL', 'codepress-admin-columns' ),
-		) );
+		] );
 
 		return $view;
 	}

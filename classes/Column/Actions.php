@@ -20,11 +20,10 @@ class Actions extends Column {
 	}
 
 	/**
-	 * @since 2.2.6
-	 *
 	 * @param $id
 	 *
 	 * @return string
+	 * @since 2.2.6
 	 */
 	public function get_value( $id ) {
 		if ( $this->get_setting( 'use_icons' )->get_value() ) {

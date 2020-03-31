@@ -3,6 +3,7 @@
 namespace AC\Settings\Column\Pro;
 
 use AC\Settings;
+use AC\View;
 
 class Export extends Settings\Column\Pro {
 
@@ -10,12 +11,12 @@ class Export extends Settings\Column\Pro {
 		return __( 'Export', 'codepress-admin-columns' );
 	}
 
-	protected function get_tooltip() {
-		return __( 'Export your column data to CSV.', 'codepress-admin-columns' );
+	protected function get_instructions() {
+		return ( new View() )->set_template( 'tooltip/export' );
 	}
 
 	protected function define_options() {
-		return array( 'export' );
+		return [ 'export' ];
 	}
 
 }

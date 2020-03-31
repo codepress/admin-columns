@@ -4,45 +4,55 @@ namespace AC\Table;
 
 use AC;
 
-final class TableFormView {
+final class TableFormView implements AC\Renderable {
 
 	/**
-	 * @var AC\ListScreen
+	 * @var string
 	 */
-	private $list_screen;
+	private $type;
 
 	/**
 	 * @var string
 	 */
 	private $html;
 
-	public function __construct( AC\ListScreen $list_screen ) {
-		$this->list_screen = $list_screen;
+	/**
+	 * @var int
+	 */
+	private $priority;
+
+	public function __construct( $type, $html, $priority = null ) {
+		if ( null === $priority ) {
+			$priority = 10;
+		}
+
+		$this->type = (string) $type;
+		$this->html = (string) $html;
+		$this->priority = (int) $priority;
 	}
 
 	/**
 	 * Register hooks
 	 */
-	public function render( $html, $priority = 10 ) {
-		$this->html = $html;
+	public function register() {
 
-		switch ( $this->list_screen->get_meta_type() ) {
+		switch ( $this->type ) {
 			case 'post':
-				add_action( 'restrict_manage_posts', [ $this, 'echo_html' ], $priority );
+				add_action( 'restrict_manage_posts', [ $this, 'render' ], $this->priority );
 
 				break;
 			case'user':
-				add_action( 'restrict_manage_users', [ $this, 'echo_html' ], $priority );
+				add_action( 'restrict_manage_users', [ $this, 'render' ], $this->priority );
 
 				break;
 			case 'comment':
-				add_action( 'restrict_manage_comment', [ $this, 'echo_html' ], $priority );
+				add_action( 'restrict_manage_comment', [ $this, 'render' ], $this->priority );
 
 				break;
 		}
 	}
 
-	public function echo_html() {
+	public function render() {
 		echo $this->html;
 	}
 

@@ -23,20 +23,20 @@ class TermLink extends Settings\Column
 	public function create_view() {
 		$select = $this->create_element( 'select' )->set_options( $this->get_link_options() );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Link To', 'codepress-admin-columns' ),
 			'setting' => $select,
-		) );
+		] );
 
 		return $view;
 	}
 
 	protected function get_link_options() {
-		return array(
+		return [
 			''       => __( 'None' ),
 			'filter' => __( 'Filter by Term', 'codepress-admin-columns' ),
 			'edit'   => __( 'Edit Term', 'codepress-admin-columns' ),
-		);
+		];
 	}
 
 	/**

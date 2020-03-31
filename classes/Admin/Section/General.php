@@ -3,48 +3,45 @@
 namespace AC\Admin\Section;
 
 use AC\Admin\Section;
-use AC\Settings;
+use AC\Renderable;
+use AC\View;
 
 class General extends Section {
 
-	/** @var Settings\Admin\General[] */
-	private $settings;
-
-	public function __construct() {
-		parent::__construct( 'general', __( 'General Settings', 'codepress-admin-columns' ), __( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ) );
-	}
+	const NAME = 'general';
 
 	/**
-	 * @param Settings\Admin\General $setting
-	 *
-	 * @return $this
+	 * @var Renderable[]
 	 */
-	public function register_setting( Settings\Admin\General $setting ) {
-		$this->settings[] = $setting;
+	private $options;
 
-		return $this;
+	public function __construct( array $options ) {
+		parent::__construct( self::NAME );
+
+		array_map( [ $this, 'add_option' ], $options );
 	}
 
-	/**
-	 * @return void
-	 */
-	protected function display_fields() {
-		?>
-		<form method="post" action="options.php">
+	public function add_option( Renderable $option ) {
+		$this->options[] = $option;
+	}
 
-			<?php settings_fields( Settings\General::SETTINGS_GROUP ); ?>
+	public function render() {
+		$form = new View( [
+			'options' => $this->options,
+		] );
 
-			<?php
-			foreach ( $this->settings as $setting ) {
-				echo $setting->render();
-			}
-			?>
+		$form->set_template( 'admin/page/settings-section-general' );
 
-			<p class="save-button">
-				<input type="submit" class="button" value="<?php echo esc_attr( __( 'Save' ) ); ?>"/>
-			</p>
-		</form>
-		<?php
+		$view = new View( [
+			'title'       => __( 'General Settings', 'codepress-admin-columns' ),
+			'description' => __( 'Customize your Admin Columns settings.', 'codepress-admin-columns' ),
+			'content'     => $form->render(),
+			'class'       => 'general',
+		] );
+
+		$view->set_template( 'admin/page/settings-section' );
+
+		return $view->render();
 	}
 
 }

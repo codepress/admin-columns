@@ -18,7 +18,7 @@ final class OptionGroup {
 	 * @param string   $label
 	 * @param Option[] $options
 	 */
-	public function __construct( $label, array $options = array() ) {
+	public function __construct( $label, array $options = [] ) {
 		$this->label = $label;
 
 		foreach ( $options as $option ) {

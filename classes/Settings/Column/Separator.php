@@ -15,25 +15,25 @@ class Separator extends Settings\Column
 	private $separator;
 
 	protected function define_options() {
-		return array( 'separator' => 'comma' );
+		return [ 'separator' => 'comma' ];
 	}
 
 	public function create_view() {
 		$element = $this
 			->create_element( 'select' )
-			->set_options( array(
+			->set_options( [
 				''            => __( 'Default', 'codepress-admin-columns' ),
 				'comma'       => __( 'Comma Separated', 'codepress-admin-columns' ),
 				'newline'     => __( 'New line', 'codepress-admin-columns' ),
 				'none'        => __( 'None', 'codepress-admin-columns' ),
 				'white_space' => __( 'Whitespace', 'codepress-admin-columns' ),
-			) );
+			] );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Separator', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Select a repeater sub field.', 'codepress-admin-columns' ),
 			'setting' => $element,
-		) );
+		] );
 
 		return $view;
 	}

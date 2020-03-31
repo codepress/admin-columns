@@ -16,11 +16,11 @@ class CustomFieldType extends Settings\Column
 	private $field_type;
 
 	protected function define_options() {
-		return array( 'field_type' );
+		return [ 'field_type' ];
 	}
 
 	public function get_dependent_settings() {
-		$settings = array();
+		$settings = [];
 
 		switch ( $this->get_field_type() ) {
 
@@ -59,15 +59,15 @@ class CustomFieldType extends Settings\Column
 
 		$tooltip = __( 'This will determine how the value will be displayed.', 'codepress-admin-columns' );
 
-		if ( null !== $this->get_field_type() ) {
+		if ( ! in_array( $this->get_field_type(), [ null, '' ], true ) ) {
 			$tooltip .= '<em>' . __( 'Type', 'codepress-admin-columns' ) . ': ' . $this->get_field_type() . '</em>';
 		}
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Field Type', 'codepress-admin-columns' ),
 			'tooltip' => $tooltip,
 			'setting' => $select,
-		) );
+		] );
 
 		return $view;
 	}
@@ -101,29 +101,29 @@ class CustomFieldType extends Settings\Column
 	 * @return array
 	 */
 	protected function get_field_type_options() {
-		$grouped_types = array(
-			'basic'      => array(
+		$grouped_types = [
+			'basic'      => [
 				'color'   => __( 'Color', 'codepress-admin-columns' ),
 				'date'    => __( 'Date', 'codepress-admin-columns' ),
 				'excerpt' => __( 'Text', 'codepress-admin-columns' ),
 				'image'   => __( 'Image', 'codepress-admin-columns' ),
 				'link'    => __( 'URL', 'codepress-admin-columns' ),
 				'numeric' => __( 'Number', 'codepress-admin-columns' ),
-			),
-			'choice'     => array(
+			],
+			'choice'     => [
 				'has_content' => __( 'Has Content', 'codepress-admin-columns' ),
 				'checkmark'   => __( 'True / False', 'codepress-admin-columns' ),
-			),
-			'relational' => array(
+			],
+			'relational' => [
 				'library_id'  => __( 'Media', 'codepress-admin-columns' ),
 				'title_by_id' => __( 'Post', 'codepress-admin-columns' ),
 				'user_by_id'  => __( 'User', 'codepress-admin-columns' ),
-			),
-			'multiple'   => array(
+			],
+			'multiple'   => [
 				'count' => __( 'Number of Fields', 'codepress-admin-columns' ),
 				'array' => __( 'Multiple Values', 'codepress-admin-columns' ),
-			),
-		);
+			],
+		];
 
 		/**
 		 * Filter the available custom field types for the meta (custom field) field
@@ -132,7 +132,7 @@ class CustomFieldType extends Settings\Column
 		 *
 		 * @since 3.0
 		 */
-		$grouped_types['custom'] = apply_filters( 'ac/column/custom_field/field_types', array() );
+		$grouped_types['custom'] = apply_filters( 'ac/column/custom_field/field_types', [] );
 
 		foreach ( $grouped_types as $k => $fields ) {
 			natcasesort( $grouped_types[ $k ] );
@@ -151,15 +151,15 @@ class CustomFieldType extends Settings\Column
 			asort( $fields );
 		}
 
-		$groups = array(
+		$groups = [
 			'basic'      => __( 'Basic', 'codepress-admin-columns' ),
 			'relational' => __( 'Relational', 'codepress-admin-columns' ),
 			'choice'     => __( 'Choice', 'codepress-admin-columns' ),
 			'multiple'   => __( 'Multiple', 'codepress-admin-columns' ),
 			'custom'     => __( 'Custom', 'codepress-admin-columns' ),
-		);
+		];
 
-		$grouped_options = array();
+		$grouped_options = [];
 		foreach ( $field_types as $group => $fields ) {
 
 			if ( ! $fields ) {
@@ -171,7 +171,7 @@ class CustomFieldType extends Settings\Column
 		}
 
 		// Default option comes first
-		$grouped_options = array_merge( array( '' => __( 'Default', 'codepress-admin-columns' ) ), $grouped_options );
+		$grouped_options = array_merge( [ '' => __( 'Default', 'codepress-admin-columns' ) ], $grouped_options );
 
 		return $grouped_options;
 	}
@@ -218,7 +218,7 @@ class CustomFieldType extends Settings\Column
 
 				break;
 			case "title_by_id" :
-				$values = array();
+				$values = [];
 				foreach ( $this->get_ids_from_array_or_string( $value ) as $id ) {
 					$post = get_post( $id );
 					$values[] = ac_helper()->html->link( get_edit_post_link( $post ), $post->post_title );
@@ -228,7 +228,7 @@ class CustomFieldType extends Settings\Column
 
 				break;
 			case "user_by_id" :
-				$values = array();
+				$values = [];
 				foreach ( $this->get_ids_from_array_or_string( $value ) as $id ) {
 					$user = get_userdata( $id );
 					$values[] = ac_helper()->html->link( get_edit_user_link( $id ), ac_helper()->user->get_display_name( $user ) );
@@ -249,9 +249,9 @@ class CustomFieldType extends Settings\Column
 				$is_true = ! empty( $value ) && 'false' !== $value && '0' !== $value;
 
 				if ( $is_true ) {
-					$value = ac_helper()->icon->dashicon( array( 'icon' => 'yes', 'class' => 'green' ) );
+					$value = ac_helper()->icon->dashicon( [ 'icon' => 'yes', 'class' => 'green' ] );
 				} else {
-					$value = ac_helper()->icon->dashicon( array( 'icon' => 'no-alt', 'class' => 'red' ) );
+					$value = ac_helper()->icon->dashicon( [ 'icon' => 'no-alt', 'class' => 'red' ] );
 				}
 
 				break;

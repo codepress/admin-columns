@@ -4,69 +4,43 @@ namespace AC\Admin\Page;
 
 use AC;
 use AC\Admin\Page;
-use AC\Deprecated\Counter;
+use AC\Asset\Assets;
+use AC\Asset\Location;
+use AC\Asset\Style;
 use AC\Deprecated\Hooks;
 
-class Help extends Page
-	implements AC\Registrable {
+class Help extends Page implements AC\Asset\Enqueueables {
 
 	const NAME = 'help';
-
-	/**
-	 * @var Counter
-	 */
-	private $counter;
 
 	/** @var Hooks */
 	private $hooks;
 
-	public function __construct() {
-		$this->counter = new Counter();
-		$this->hooks = new Hooks();
-
-		$label = __( 'Help', 'codepress-admin-columns' );
-
-		if ( $this->show_in_menu() ) {
-			$label .= '<span class="ac-badge">' . $this->counter->get() . '</span>';
-		}
-
-		parent::__construct( self::NAME, $label );
-	}
-
 	/**
-	 * Register Hooks
+	 * @var Location\Absolute
 	 */
-	public function register() {
-		$this->update_count();
+	private $location;
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	public function __construct( Hooks $hooks, Location\Absolute $location ) {
+		$this->hooks = $hooks;
+		$this->location = $location;
+
+		parent::__construct( self::NAME, sprintf( '%s %s', __( 'Help', 'codepress-admin-columns' ), '<span class="ac-badge">' . $hooks->get_count() . '</span>' ) );
 	}
 
-	public function update_count() {
-		$this->counter->update( $this->hooks->get_deprecated_count() );
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function show_in_menu() {
-		return absint( $this->counter->get() ) > 0;
-	}
-
-	/**
-	 * Admin scripts
-	 */
-	public function admin_scripts() {
-		wp_enqueue_style( 'ac-admin-page-help-css', AC()->get_url() . 'assets/css/admin-page-help.css', array(), AC()->get_version() );
+	public function get_assets() {
+		return new Assets( [
+			new Style( 'ac-admin-page-help-css', $this->location->with_suffix( 'assets/css/admin-page-help.css' ) ),
+		] );
 	}
 
 	/**
-	 * @param string $page Website page slug
+	 * @param string $page
 	 *
-	 * @return false|string
+	 * @return string
 	 */
 	private function get_documention_link( $page ) {
-		return ac_helper()->html->link( ac_get_site_utm_url( 'documentation/' . $page, 'documentation' ), __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', array( 'target' => '_blank' ) );
+		return ac_helper()->html->link( ac_get_site_utm_url( 'documentation/' . $page, 'documentation' ), __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', [ 'target' => '_blank' ] );
 	}
 
 	/**
@@ -149,6 +123,10 @@ class Help extends Page
 	}
 
 	public function render() {
+		// Force cache refresh
+		$this->hooks->get_count( true );
+
+		ob_start();
 		?>
 		<h2><?php _e( 'Help', 'codepress-admin-columns' ); ?></h2>
 		<p>
@@ -159,8 +137,14 @@ class Help extends Page
 
 		<?php
 
-		$this->render_actions();
-		$this->render_filters();
+		if ( $this->hooks->get_count() > 0 ) {
+			$this->render_actions();
+			$this->render_filters();
+		} else {
+			_e( 'No deprecated hooks or filters found.', 'codepress-admin-columns' );
+		}
+
+		return ob_get_clean();
 	}
 
 }

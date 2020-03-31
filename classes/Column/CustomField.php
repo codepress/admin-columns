@@ -30,8 +30,9 @@ class CustomField extends Column\Meta {
 
 		if ( ! ac_is_pro_active() ) {
 			$this->add_setting( new Settings\Column\Pro\Sorting( $this ) )
-			     ->add_setting( new Settings\Column\Pro\Editing( $this ) )
-			     ->add_setting( new Settings\Column\Pro\Filtering( $this ) )
+			     ->add_setting( new Settings\Column\Pro\InlineEditing( $this ) )
+			     ->add_setting( new Settings\Column\Pro\BulkEditing( $this ) )
+			     ->add_setting( new Settings\Column\Pro\SmartFiltering( $this ) )
 			     ->add_setting( new Settings\Column\Pro\Export( $this ) );
 		}
 	}

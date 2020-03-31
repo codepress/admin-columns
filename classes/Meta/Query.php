@@ -19,7 +19,7 @@ class Query {
 	/**
 	 * @var array
 	 */
-	private $select = array();
+	private $select = [];
 
 	/**
 	 * @var string|false
@@ -39,22 +39,22 @@ class Query {
 	/**
 	 * @var array
 	 */
-	private $join_where = array();
+	private $join_where = [];
 
 	/**
 	 * @var array
 	 */
-	private $where = array();
+	private $where = [];
 
 	/**
 	 * @var array
 	 */
-	private $group_by = array();
+	private $group_by = [];
 
 	/**
 	 * @var array
 	 */
-	private $order_by = array();
+	private $order_by = [];
 
 	/**
 	 * @var int|false
@@ -146,10 +146,10 @@ class Query {
 		$parts = explode( ',', $order_by );
 
 		foreach ( $parts as $_order_by ) {
-			$this->order_by[] = array(
+			$this->order_by[] = [
 				'order_by' => trim( $_order_by ),
 				'order'    => strtoupper( $order ),
-			);
+			];
 		}
 
 		return $this;
@@ -182,20 +182,20 @@ class Query {
 			$operator = '=';
 		}
 
-		$where = array(
+		$where = [
 			'nested'   => false,
 			'boolean'  => strtoupper( $boolean ),
 			'field'    => $field,
 			'operator' => strtoupper( $operator ),
 			'value'    => $value,
-		);
+		];
 
 		// set default join
 		if ( $field === 'post_type' && ! $this->join ) {
 			$this->join();
 		}
 
-		$nested = array();
+		$nested = [];
 
 		if ( is_array( $field ) ) {
 			$count = count( $field );
@@ -314,7 +314,7 @@ class Query {
 
 						break;
 					default:
-						$valid_raw = array( 'IS NULL', 'IS NOT NULL' );
+						$valid_raw = [ 'IS NULL', 'IS NOT NULL' ];
 
 						if ( ! in_array( $clause['value'], $valid_raw ) ) {
 							$clause['value'] = $wpdb->prepare( '%s', $clause['value'] );
@@ -338,7 +338,7 @@ class Query {
 		global $wpdb;
 
 		if ( ! $this->query ) {
-			return array();
+			return [];
 		}
 
 		// parse SELECT
@@ -349,7 +349,7 @@ class Query {
 			$this->select( 'id' );
 		}
 
-		$fields = array();
+		$fields = [];
 
 		foreach ( $this->select as $field ) {
 			$parsed = $this->parse_field( $field );
@@ -399,7 +399,7 @@ class Query {
 		$order_by = '';
 
 		if ( ! empty( $this->order_by ) ) {
-			$order_by_clauses = array();
+			$order_by_clauses = [];
 
 			foreach ( $this->order_by as $order_by_clause ) {
 				$order_by_clauses[] = $this->parse_field( $order_by_clause['order_by'] ) . ' ' . $order_by_clause['order'];
@@ -422,13 +422,13 @@ class Query {
 		$results = $wpdb->get_results( $sql );
 
 		if ( ! is_array( $results ) ) {
-			return array();
+			return [];
 		}
 
 		$return = $results;
 
 		if ( count( $fields ) === 1 ) {
-			$return = array();
+			$return = [];
 			$field = $this->select[0];
 
 			foreach ( $results as $result ) {

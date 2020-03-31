@@ -18,22 +18,22 @@ class Term extends Settings\Column
 	}
 
 	protected function define_options() {
-		return array( 'term_property' );
+		return [ 'term_property' ];
 	}
 
 	public function create_view() {
 		$setting = $this
 			->create_element( 'select' )
-			->set_options( array(
+			->set_options( [
 				''     => __( 'Title' ),
 				'slug' => __( 'Slug' ),
 				'id'   => __( 'ID' ),
-			) );
+			] );
 
-		$view = new View( array(
+		$view = new View( [
 			'label'   => __( 'Display', 'codepress-admin-columns' ),
 			'setting' => $setting,
-		) );
+		] );
 
 		return $view;
 	}
@@ -60,10 +60,10 @@ class Term extends Settings\Column
 		$term = $value;
 
 		if ( is_int( $original_value ) ) {
-			$term = get_term_by( 'id', $term, $this->column->get_taxonomy() );
+			$term = get_term( $term );
 		}
 
-		if( ! $term || is_wp_error( $term ) ){
+		if ( ! $term || is_wp_error( $term ) ) {
 			return $value;
 		}
 
