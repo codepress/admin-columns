@@ -12,6 +12,7 @@ class Integrations extends ArrayIterator {
 			new Integration\NinjaForms(),
 			new Integration\Pods(),
 			new Integration\Types(),
+			new Integration\MetaBox(),
 			new Integration\WooCommerce(),
 		];
 
