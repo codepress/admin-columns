@@ -15,9 +15,9 @@ use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Column;
 use AC\Controller\ListScreenRequest;
+use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\Message;
-use AC\UnitializedListScreens;
 use AC\View;
 
 class Columns extends Page implements Enqueueables, Helpable {
@@ -35,27 +35,32 @@ class Columns extends Page implements Enqueueables, Helpable {
 	private $location;
 
 	/**
-	 * @var UnitializedListScreens
+	 * @var DefaultColumnsRepository
 	 */
-	private $uninitialized;
+	private $default_columns;
 
 	/**
 	 * @var Menu
 	 */
 	private $menu;
 
-	public function __construct( ListScreenRequest $controller, Location\Absolute $location, UnitializedListScreens $uninitialized, Menu $menu ) {
+	public function __construct(
+		ListScreenRequest $controller,
+		Location\Absolute $location,
+		DefaultColumnsRepository $default_columns,
+		Menu $menu
+	) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->controller = $controller;
 		$this->location = $location;
-		$this->uninitialized = $uninitialized;
+		$this->default_columns = $default_columns;
 		$this->menu = $menu;
 	}
 
 	public function show_read_only_notice( ListScreen $list_screen ) {
 		if ( $list_screen->is_read_only() ) {
-			$message = sprintf( __( 'The columns for %s are set up via PHP and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
+			$message = sprintf( __( 'The columns for %s are read only and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
 			$message = sprintf( '<p>%s</p>', apply_filters( 'ac/read_only_message', $message, $list_screen ) );
 
 			$notice = new Message\InlineMessage( $message );
@@ -66,13 +71,14 @@ class Columns extends Page implements Enqueueables, Helpable {
 	}
 
 	public function get_assets() {
+
 		return new Assets( [
 			new Style( 'jquery-ui-lightness', $this->location->with_suffix( 'assets/ui-theme/jquery-ui-1.8.18.custom.css' ) ),
 			new Script( 'jquery-ui-slider' ),
 			new Admin\Asset\Columns(
 				'ac-admin-page-columns',
 				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
-				$this->uninitialized,
+				$this->default_columns,
 				$this->controller->get_list_screen()
 			),
 			new Style( 'ac-admin-page-columns-css', $this->location->with_suffix( 'assets/css/admin-page-columns.css' ) ),
@@ -92,11 +98,13 @@ class Columns extends Page implements Enqueueables, Helpable {
 	public function render() {
 		$list_screen = $this->controller->get_list_screen();
 
-		if ( $this->uninitialized->has_list_screen( $list_screen->get_key() ) ) {
+		if ( ! $this->default_columns->exists( $list_screen->get_key() ) ) {
 			$modal = new View( [
 				'message' => 'Loading columns',
 			] );
 			$modal->set_template( 'admin/loading-message' );
+
+			echo $this->menu->render( true );
 
 			return $modal->render();
 		}
@@ -127,7 +135,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 
 						$delete_confirmation_message = false;
 
-						if ( apply_filters( 'ac/delete_confirmation', true ) ) {
+						if ( (bool) apply_filters( 'ac/delete_confirmation', true ) ) {
 							$delete_confirmation_message = sprintf( __( "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ), "'" . $list_screen->get_title() . "'" );
 						}
 
@@ -159,7 +167,9 @@ class Columns extends Page implements Enqueueables, Helpable {
 			</div>
 
 			<div class="ac-left">
-				<?php $this->show_read_only_notice( $list_screen ); ?>
+
+				<?= $this->show_read_only_notice( $list_screen ); ?>
+
 				<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
 					<?php
 

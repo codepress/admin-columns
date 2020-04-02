@@ -2,6 +2,8 @@
 
 namespace AC\Admin;
 
+use AC\Renderable;
+
 abstract class Page implements Renderable {
 
 	/**

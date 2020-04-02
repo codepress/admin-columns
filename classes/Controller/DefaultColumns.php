@@ -1,8 +1,14 @@
 <?php
 
-namespace AC;
+namespace AC\Controller;
 
-class DefaultColumnsController implements Registrable {
+use AC;
+use AC\DefaultColumnsRepository;
+use AC\ListScreen;
+use AC\Registrable;
+use AC\Request;
+
+class DefaultColumns implements Registrable {
 
 	const ACTION_KEY = 'save-default-headings';
 	const LISTSCREEN_KEY = 'list_screen';
@@ -16,7 +22,7 @@ class DefaultColumnsController implements Registrable {
 	/** @var DefaultColumns */
 	private $default_columns;
 
-	public function __construct( Request $request, DefaultColumns $default_columns ) {
+	public function __construct( Request $request, DefaultColumnsRepository $default_columns ) {
 		$this->request = $request;
 		$this->default_columns = $default_columns;
 	}
@@ -26,11 +32,15 @@ class DefaultColumnsController implements Registrable {
 	}
 
 	public function handle_request() {
-		if ( ! current_user_can( Capabilities::MANAGE ) || '1' !== $this->request->get( self::ACTION_KEY ) ) {
+		if ( '1' !== $this->request->get( self::ACTION_KEY ) ) {
 			return;
 		}
 
-		$this->list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $this->request->get( self::LISTSCREEN_KEY ) );
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
+			return;
+		}
+
+		$this->list_screen = AC\ListScreenTypes::instance()->get_list_screen_by_key( $this->request->get( self::LISTSCREEN_KEY ) );
 
 		if ( null === $this->list_screen ) {
 			return;
@@ -47,7 +57,8 @@ class DefaultColumnsController implements Registrable {
 		ob_end_clean();
 
 		$this->default_columns->update( $this->list_screen->get_key(), $columns && is_array( $columns ) ? $columns : [] );
-		exit( "1" );
+
+		exit( 'ac_success' );
 	}
 
 }

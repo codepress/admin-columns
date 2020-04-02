@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Admin;
+namespace AC;
 
 interface Renderable {
 

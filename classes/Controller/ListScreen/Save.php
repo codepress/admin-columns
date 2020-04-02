@@ -1,16 +1,13 @@
 <?php
 
-namespace AC\Controller\ColumnRequest;
+namespace AC\Controller\ListScreen;
 
-use AC\Controller\Handler;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Request;
 use AC\Type\ListScreenId;
 
-class Save extends Handler {
-
-	const ID = 'save';
+class Save {
 
 	/**
 	 * @var Storage
@@ -18,8 +15,6 @@ class Save extends Handler {
 	private $storage;
 
 	public function __construct( Storage $storage ) {
-		parent::__construct( self::ID );
-
 		$this->storage = $storage;
 	}
 

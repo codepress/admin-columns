@@ -5,22 +5,28 @@ namespace AC\Admin\Asset;
 use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
+use AC\DefaultColumnsRepository;
 use AC\ListScreen;
-use AC\UnitializedListScreens;
+use AC\ListScreenTypes;
 
 class Columns extends Script {
+
+	/**
+	 * @var DefaultColumnsRepository
+	 */
+	private $default_columns;
 
 	/**
 	 * @var ListScreen
 	 */
 	private $list_screen;
 
-	/**
-	 * @var UnitializedListScreens
-	 */
-	private $uninitialized;
-
-	public function __construct( $handle, Location $location, UnitializedListScreens $uninitialized, ListScreen $list_screen = null ) {
+	public function __construct(
+		$handle,
+		Location $location,
+		DefaultColumnsRepository $default_columns,
+		ListScreen $list_screen
+	) {
 		parent::__construct( $handle, $location, [
 			'jquery',
 			'dashboard',
@@ -29,8 +35,14 @@ class Columns extends Script {
 			'wp-pointer',
 		] );
 
+		$this->default_columns = $default_columns;
 		$this->list_screen = $list_screen;
-		$this->uninitialized = $uninitialized;
+	}
+
+	private function get_list_screens() {
+		return is_network_admin()
+			? ListScreenTypes::instance()->get_list_screens( [ 'network_only' => true ] )
+			: ListScreenTypes::instance()->get_list_screens( [ 'site_only' => true ] );
 	}
 
 	public function register() {
@@ -56,12 +68,13 @@ class Columns extends Script {
 			],
 		];
 
-		foreach ( $this->uninitialized->get_list_screens() as $list_screen ) {
+		foreach ( $this->get_list_screens() as $list_screen ) {
+			if ( $this->default_columns->exists( $list_screen->get_key() ) ) {
+				continue;
+			}
 
-			$key = $list_screen->get_key();
-
-			$params['uninitialized_list_screens'][ $key ] = [
-				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $key ], $list_screen->get_screen_link() ),
+			$params['uninitialized_list_screens'][ $list_screen->get_key() ] = [
+				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $list_screen->get_key() ], $list_screen->get_screen_link() ),
 				'label'       => $list_screen->get_label(),
 			];
 		}

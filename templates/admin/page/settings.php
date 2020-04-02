@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \AC\_Admin\Renderable $section
+ * @var \AC\Renderable $section
  */
 ?>
 <table class="form-table ac-form-table settings">

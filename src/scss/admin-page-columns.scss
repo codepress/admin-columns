@@ -19,6 +19,9 @@
  * ----------------------------------------------------------------------------
  */
 .ac-column {
+	span.select2-container {
+		z-index: 1;
+	}
 	.comment-grey-bubble {
 		height: 16px;
 		width: 16px;
@@ -401,8 +404,10 @@
 
 		.ac-pointer {
 			position: absolute;
-			right: 8px;
-			top: 14px;
+			right: 4px;
+			top: 10px;
+			padding: 4px;
+			height: 17px;
 		}
 
 		a.more-link {
@@ -423,7 +428,7 @@
 
 		span.label {
 			font-weight: bold;
-			display: block;
+			display: inline-block;
 			color: #333333;
 			font-style: normal;
 		}
@@ -694,6 +699,10 @@
 			margin-right: 3px;
 			cursor: pointer;
 		}
+	}
+
+	td.col-input {
+		background: #f5f5f5;
 	}
 
 	.radio-labels {

@@ -1,6 +1,6 @@
 <form method="post" action="options.php">
 
-	<?php settings_fields( \AC\Settings\General::SETTINGS_GROUP ); ?>
+	<?php settings_fields( \AC\Settings\General::GROUP ); ?>
 
 	<?php foreach ( $this->options as $option ) : ?>
 		<?= $option->render(); ?>

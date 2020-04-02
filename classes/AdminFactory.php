@@ -41,14 +41,14 @@ class AdminFactory {
 		return new Page\Columns(
 			$list_screen_controller,
 			$this->location,
-			new UnitializedListScreens( new DefaultColumns() ),
+			new DefaultColumnsRepository(),
 			new Section\Partial\Menu( $list_screen_controller, false )
 		);
 	}
 
 	protected function create_section_general() {
 		return new Section\General( [
-			new Section\Partial\ShowEditButton( new Settings\General() ),
+			new Section\Partial\ShowEditButton(),
 		] );
 	}
 

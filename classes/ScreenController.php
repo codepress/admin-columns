@@ -10,7 +10,7 @@ class ScreenController implements Registrable {
 	/** @var array */
 	private $headings = [];
 
-	/** @var DefaultColumns */
+	/** @var DefaultColumnsRepository */
 	private $default_columns;
 
 	/**
@@ -18,7 +18,7 @@ class ScreenController implements Registrable {
 	 */
 	public function __construct( ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
-		$this->default_columns = new DefaultColumns();
+		$this->default_columns = new DefaultColumnsRepository();
 	}
 
 	public function register() {
@@ -32,13 +32,6 @@ class ScreenController implements Registrable {
 	}
 
 	/**
-	 * @return bool
-	 */
-	private function is_doing_ajax() {
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
-	}
-
-	/**
 	 * @param $columns
 	 *
 	 * @return array
@@ -49,7 +42,7 @@ class ScreenController implements Registrable {
 			return $columns;
 		}
 
-		if ( ! $this->is_doing_ajax() ) {
+		if ( ! wp_doing_ajax() ) {
 			$this->default_columns->update( $this->list_screen->get_key(), $columns );
 		}
 

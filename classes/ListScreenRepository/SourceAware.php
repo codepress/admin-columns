@@ -2,20 +2,22 @@
 
 namespace AC\ListScreenRepository;
 
+use AC\Type\ListScreenId;
+
 interface SourceAware {
 
 	/**
-	 * @param string $id
+	 * @param ListScreenId $id
 	 *
 	 * @return string
 	 */
-	public function get_source( $id );
+	public function get_source( ListScreenId $id );
 
 	/**
-	 * @param $id
+	 * @param ListScreenId $id
 	 *
 	 * @return bool
 	 */
-	public function has_source( $id );
+	public function has_source( ListScreenId $id );
 
 }

@@ -4,12 +4,13 @@ class ListscreenInitialize {
 
 	constructor( list_screens ) {
 		this.list_screens = list_screens;
-		this.processing = [];
+		this.processed = [];
 		this.errors = [];
+		this.success = [];
 		this.events = nanobus();
 	}
 
-	initListScreen( list_screen ) {
+	doAjaxCall( list_screen ) {
 		return jQuery.ajax( {
 			url : list_screen.screen_link,
 			method : 'get',
@@ -22,37 +23,38 @@ class ListscreenInitialize {
 		} );
 	}
 
-	getNextItem() {
-		return this.list_screens.shift();
+	onFinish() {
+		if ( this.success.length === Object.keys( this.list_screens ).length ) {
+			this.events.emit( 'success' );
+		}
+
+		if ( this.errors.length > 0 ) {
+			this.events.emit( 'error' );
+		}
 	}
 
 	checkFinish() {
-		if ( Object.keys( this.processing ).length > 0 ) {
-			return;
+		if ( this.processed.length === Object.keys( this.list_screens ).length ) {
+			this.onFinish();
 		}
-
-		if ( Object.keys( this.errors ).length > 0 ) {
-			this.events.emit( 'error' );
-			return;
-		}
-
-		this.events.emit( 'success' );
 	}
 
 	processListScreen( list_screen ) {
-		this.processing.push( list_screen.label );
-		this.initListScreen( list_screen ).done( ( r ) => {
-			this.processing.shift();
-
-			if ( r !== '1' ) {
+		return this.doAjaxCall( list_screen )
+			.done( r => {
+				if ( r === 'ac_success' ) {
+					this.success.push( list_screen );
+				} else {
+					this.errors.push( list_screen );
+				}
+			} )
+			.fail( () => {
 				this.errors.push( list_screen );
-			}
-			this.checkFinish();
-
-		} ).error( () => {
-			this.processing.shift();
-			this.errors.push( list_screen );
-		} )
+			} )
+			.always( () => {
+				this.processed.push( list_screen );
+				this.checkFinish();
+			} );
 	}
 
 }
@@ -68,29 +70,16 @@ export default class ListScreenInitializeController {
 		if ( Object.keys( this.list_screens ).length > 0 ) {
 
 			if ( this.list_screens.hasOwnProperty( AC.list_screen ) ) {
-				let main_initializer = new ListscreenInitialize( [ this.list_screens[ AC.list_screen ] ] );
+				let main_initializer = new ListscreenInitialize( { [ AC.list_screen ] : this.list_screens[ AC.list_screen ] } );
+
 				main_initializer.run();
+
 				main_initializer.events.on( 'error', () => {
-					let notice = document.querySelector( '.ac-notice.visit-ls' );
-					let loading = document.querySelector( '.ac-loading-msg-wrapper' );
-					let menu = document.querySelector( '.menu' );
-
-					if ( notice ) {
-						notice.style.display = 'block';
-					}
-
-					if ( loading ) {
-						loading.remove();
-					}
-
-					if ( menu ) {
-						menu.classList.remove( 'hidden' );
-					}
+					document.querySelectorAll( '.ac-loading-msg-wrapper' ).forEach( el => el.remove() );
+					document.querySelectorAll( '.menu' ).forEach( el => el.classList.remove( 'hidden' ) );
 				} );
 
-				main_initializer.events.on( 'success', () => {
-					location.reload( true );
-				} );
+				main_initializer.events.on( 'success', () => location.reload() );
 			}
 
 			let background_initializer = new ListscreenInitialize( this.list_screens );

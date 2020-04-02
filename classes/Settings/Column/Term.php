@@ -60,7 +60,7 @@ class Term extends Settings\Column
 		$term = $value;
 
 		if ( is_int( $original_value ) ) {
-			$term = get_term_by( 'id', $term, $this->column->get_taxonomy() );
+			$term = get_term( $term );
 		}
 
 		if ( ! $term || is_wp_error( $term ) ) {

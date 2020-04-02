@@ -2,10 +2,10 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
-Requires at least: 4.5
+Requires at least: 4.7
 Tested up to: 5.4
 Requires PHP: 5.6.20
-Stable tag: 4.0.2
+Stable tag: 4.1.0
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -213,10 +213,20 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
-Release Date: TBD
+= 4.1.0 =
+Release Date: March 30th, 2020
 
-* [Improved] Send list screen ID with table form
+* [Improved] The column type selector now uses select2
+* [Improved] The current `list screen ID` has been added to the URL when filtering a list table, making it easier to bookmark
+* [Improved] Our buttons on the list table now have the same style and colors as the default WordPress buttons.
+* [Added] Tooltips added to each feature of the custom field column
+* [Updated] The `Admin` class has been refactored
+* [Updated] The `ListScreenRepository` class has been refactored
+
+= 4.0.3 =
+Release Date: March 11th, 2020
+
+* [Updated] Saving column settings for the first time could result in extra database records.
 
 = 4.0.2 =
 Release Date: February 26th, 2020

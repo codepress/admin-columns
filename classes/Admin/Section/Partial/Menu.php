@@ -20,13 +20,14 @@ class Menu {
 		$this->is_network = (bool) $is_network;
 	}
 
-	public function render() {
+	public function render( $is_hidden = false ) {
 		$list_screen = $this->controller->get_list_screen();
 
 		$menu = new View( [
 			'items'       => $this->get_grouped_list_screens(),
 			'current'     => $list_screen->get_key(),
 			'screen_link' => $list_screen->get_screen_link(),
+			'class'       => $is_hidden ? 'hidden' : '',
 		] );
 
 		$menu->set_template( 'admin/edit-menu' );

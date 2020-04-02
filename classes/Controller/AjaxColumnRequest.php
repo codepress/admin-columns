@@ -4,8 +4,8 @@ namespace AC\Controller;
 
 use AC\Ajax;
 use AC\Controller\ColumnRequest\Refresh;
-use AC\Controller\ColumnRequest\Save;
 use AC\Controller\ColumnRequest\Select;
+use AC\Controller\ListScreen\Save;
 use AC\ListScreenRepository\Storage;
 use AC\Registrable;
 use AC\Request;
@@ -23,9 +23,9 @@ class AjaxColumnRequest implements Registrable {
 	 */
 	private $request;
 
-	public function __construct( Storage $storage ) {
+	public function __construct( Storage $storage, Request $request ) {
 		$this->storage = $storage;
-		$this->request = new Request();
+		$this->request = $request;
 	}
 
 	public function register() {

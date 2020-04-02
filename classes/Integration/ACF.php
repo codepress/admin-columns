@@ -19,7 +19,7 @@ final class ACF extends Integration {
 	}
 
 	public function is_plugin_active() {
-		return class_exists( 'acf', false );
+		return class_exists( 'acf', false ) || class_exists( 'ACF', false );
 	}
 
 	public function show_notice( Screen $screen ) {

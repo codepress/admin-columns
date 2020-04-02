@@ -2,6 +2,7 @@
 
 namespace AC\ListScreenRepository;
 
+use AC\Exception\MissingListScreenIdException;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepositoryWritable;
@@ -128,15 +129,15 @@ final class Database implements ListScreenRepositoryWritable {
 		global $wpdb;
 
 		if ( ! $list_screen->has_id() ) {
-			throw new LogicException( 'Cannot save a ListScreen without an identity.' );
+			throw MissingListScreenIdException::from_saving_list_screen();
 		}
 
 		$args = [
 			'list_id'       => $list_screen->get_layout_id(),
 			'list_key'      => $list_screen->get_key(),
 			'title'         => $list_screen->get_title(),
-			'columns'       => serialize( $list_screen->get_settings() ),
-			'settings'      => serialize( $list_screen->get_preferences() ),
+			'columns'       => $list_screen->get_settings() ? serialize( $list_screen->get_settings() ) : null,
+			'settings'      => $list_screen->get_preferences() ? serialize( $list_screen->get_preferences() ) : null,
 			'date_modified' => $list_screen->get_updated()->format( 'Y-m-d H:i:s' ),
 		];
 
