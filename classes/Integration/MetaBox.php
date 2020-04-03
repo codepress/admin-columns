@@ -23,7 +23,7 @@ final class MetaBox extends Integration {
 	}
 
 	public function show_notice( Screen $screen ) {
-		return $screen->get_id() === 'toplevel_page_meta-box';
+		return $screen->get_id() === 'edit-meta-box';
 	}
 
 }
