@@ -22,6 +22,7 @@
 	span.select2-container {
 		z-index: 1;
 	}
+
 	.comment-grey-bubble {
 		height: 16px;
 		width: 16px;
@@ -869,6 +870,11 @@ div.ac-column-header {
 
 									&.on, &.on span {
 										color: $blue;
+									}
+
+									&.cpacicon {
+										font-size: 14px;
+										line-height: 18px;
 									}
 								}
 

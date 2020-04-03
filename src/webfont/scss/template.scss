@@ -1,6 +1,8 @@
-$cpacicon-draft: "\ea01";
-$cpacicon-move: "\ea02";
-$cpacicon-segment: "\ea03";
+$cpacicon-bulk-edit: "\ea01";
+$cpacicon-download: "\ea02";
+$cpacicon-draft: "\ea03";
+$cpacicon-move: "\ea04";
+$cpacicon-segment: "\ea05";
 
 @font-face {
     font-family: "cpac_icons";
@@ -26,6 +28,14 @@ $cpacicon-segment: "\ea03";
 }
 
 
+
+.cpacicon-bulk-edit::before {
+    content: $cpacicon-bulk-edit;
+}
+
+.cpacicon-download::before {
+    content: $cpacicon-download;
+}
 
 .cpacicon-draft::before {
     content: $cpacicon-draft;
