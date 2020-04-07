@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="18px" viewBox="0 0 15 18" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon/csv_hover-Copy" transform="translate(-4.000000, -1.000000)" fill="#B2B2B2">
+            <g id="Group" transform="translate(4.000000, 1.000000)">
+                <polygon id="Rectangle" points="4.55081787 0 10.6073754 0 10.6073754 6.28490635 15 6.28490635 7.65430659 15 0 6.28490635 4.55081787 6.28490635"></polygon>
+                <rect id="Rectangle" x="0" y="16" width="15" height="2"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
