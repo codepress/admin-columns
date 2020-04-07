@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-02-24 21:17:25+0000\n"
+"PO-Revision-Date: 2020-04-07 07:44:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,7 +29,7 @@ msgstr ""
 
 #: classes/Plugin/Update/V4000.php:547
 msgid "Original"
-msgstr ""
+msgstr "Original"
 
 #: classes/Column/Post/EstimatedReadingTime.php:15
 msgid "Read Time"
@@ -37,11 +37,11 @@ msgstr ""
 
 #: classes/Column/Post/PasswordProtected.php:11
 msgid "Password Protected"
-msgstr ""
+msgstr "Protejat cu parolă"
 
 #: classes/Settings/Column/NumberFormat.php:100
 msgid "Number Format"
-msgstr ""
+msgstr "Format număr"
 
 #: classes/Settings/Column/NumberFormat.php:89
 msgid "Formatted"
