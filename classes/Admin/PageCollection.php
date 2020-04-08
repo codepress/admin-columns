@@ -19,4 +19,11 @@ class PageCollection extends Collection {
 		return $this;
 	}
 
+	/**
+	 * @return Page
+	 */
+	public function first() {
+		return parent::first();
+	}
+
 }

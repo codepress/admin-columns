@@ -22,8 +22,7 @@ class ManualOrder implements Sort {
 			return $list_screens;
 		}
 
-		$list_screens->rewind();
-		$key = $list_screens->current()->get_key();
+		$key = $list_screens->get_first()->get_key();
 
 		$layouts = [];
 
