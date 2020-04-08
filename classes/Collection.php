@@ -53,6 +53,10 @@ class Collection
 		reset( $this->items );
 	}
 
+	public function first() {
+		return reset( $this->items );
+	}
+
 	public function current() {
 		return current( $this->items );
 	}

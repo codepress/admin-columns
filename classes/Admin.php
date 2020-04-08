@@ -85,7 +85,6 @@ class Admin implements Registrable {
 	/**
 	 * @return Page
 	 */
-
 	private function get_current_page() {
 		$slug = filter_input( INPUT_GET, 'tab' );
 
@@ -93,7 +92,7 @@ class Admin implements Registrable {
 			return $this->pages->get( $slug );
 		}
 
-		return $this->pages->current();
+		return $this->pages->first();
 	}
 
 	/**
