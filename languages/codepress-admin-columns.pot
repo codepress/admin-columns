@@ -15,11 +15,11 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/Admin.php:125
+#: classes/Admin.php:124
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin.php:126, classes/Admin/Page/Columns.php:53
+#: classes/Admin.php:125, classes/Check/Review.php:127, classes/Admin/Page/Columns.php:53
 msgid "Admin Columns"
 msgstr ""
 
@@ -55,8 +55,16 @@ msgstr ""
 msgid "Get %s now"
 msgstr ""
 
+#: classes/Check/Review.php:126
+msgid "Admin Columns Pro"
+msgstr ""
+
 #: classes/Check/Review.php:135
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
+msgstr ""
+
+#: classes/Check/Review.php:139
+msgid "click here"
 msgstr ""
 
 #: classes/Check/Review.php:143
@@ -71,8 +79,28 @@ msgstr ""
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr ""
 
+#: classes/Check/Review.php:155
+msgid "documentation page"
+msgstr ""
+
 #: classes/Check/Review.php:160
 msgid "You can also use your admincolumns.com account to access support through %s!"
+msgstr ""
+
+#: classes/Check/Review.php:161
+msgid "our forum"
+msgstr ""
+
+#: classes/Check/Review.php:165
+msgid "You can also find help on the %s, and %s."
+msgstr ""
+
+#: classes/Check/Review.php:166
+msgid "Admin Columns forum on WordPress.org"
+msgstr ""
+
+#: classes/Check/Review.php:167
+msgid "find answers to frequently asked questions"
 msgstr ""
 
 #: classes/Column/Actions.php:19
@@ -137,6 +165,14 @@ msgstr ""
 
 #: classes/Controller/RestoreSettingsRequest.php:37
 msgid "Default settings successfully restored."
+msgstr ""
+
+#: classes/Helper/Html.php:409
+msgid "%s more"
+msgstr ""
+
+#: classes/Helper/Html.php:409
+msgid "Hide"
 msgstr ""
 
 #: classes/Helper/Strings.php:302
@@ -211,11 +247,15 @@ msgstr ""
 msgid "30% Off from Black Friday until Cyber Monday"
 msgstr ""
 
-#: classes/Table/Screen.php:134, classes/Table/Screen.php:136, classes/Settings/Column/MediaLink.php:64
+#: classes/Table/Screen.php:134, classes/Table/Screen.php:136, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
 msgid "Download"
 msgstr ""
 
-#: templates/admin/edit-actions.php:35
+#: classes/Table/Screen.php:203, classes/Admin/Section/Partial/ShowEditButton.php:25
+msgid "Edit columns"
+msgstr ""
+
+#: templates/admin/edit-actions.php:35, templates/admin/edit-actions.php:38
 msgid "Restore columns"
 msgstr ""
 
@@ -241,6 +281,10 @@ msgstr ""
 
 #: templates/admin/edit-columns.php:40
 msgid "Add Column"
+msgstr ""
+
+#: templates/admin/edit-menu.php:17
+msgid "Select type"
 msgstr ""
 
 #: templates/admin/edit-menu.php:27, classes/Settings/Column/MediaLink.php:63
@@ -347,12 +391,28 @@ msgstr ""
 msgid "Prices starting from %s"
 msgstr ""
 
-#: templates/admin/side-banner.php:88
+#: templates/admin/side-banner.php:88, templates/admin/side-banner.php:99
 msgid "Get %s Off!"
 msgstr ""
 
 #: templates/admin/side-banner.php:91
 msgid "Discount is valid until %s"
+msgstr ""
+
+#: templates/admin/side-banner.php:103
+msgid "Submit your email and we'll send you a discount for %s off."
+msgstr ""
+
+#: templates/admin/side-banner.php:108
+msgid "Your Email"
+msgstr ""
+
+#: templates/admin/side-banner.php:109
+msgid "Your First Name"
+msgstr ""
+
+#: templates/admin/side-banner.php:110
+msgid "Send me the discount"
 msgstr ""
 
 #: templates/admin/side-feedback.php:10
@@ -606,6 +666,18 @@ msgstr ""
 msgid "Deactivate"
 msgstr ""
 
+#: classes/Admin/Page/Addons.php:96
+msgid "Activate"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:102
+msgid "Download & Install"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:105
+msgid "Get this add-on"
+msgstr ""
+
 #: classes/Admin/Page/Addons.php:180
 msgid "Recommended"
 msgstr ""
@@ -628,6 +700,10 @@ msgstr ""
 
 #: classes/Admin/Page/Help.php:28, classes/Admin/Page/Help.php:131
 msgid "Help"
+msgstr ""
+
+#: classes/Admin/Page/Help.php:43
+msgid "View documentation"
 msgstr ""
 
 #: classes/Admin/Page/Help.php:56
@@ -662,6 +738,10 @@ msgstr ""
 
 #: classes/Admin/Page/Help.php:135
 msgid "our documentation"
+msgstr ""
+
+#: classes/Admin/Page/Help.php:144
+msgid "No deprecated hooks or filters found."
 msgstr ""
 
 #: classes/Admin/Section/General.php:36
@@ -736,7 +816,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: classes/Column/Comment/Type.php:14, classes/Settings/Column/Type.php:42
+#: classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:63, classes/Settings/Column/Type.php:33, classes/Settings/Column/Type.php:42
 msgid "Type"
 msgstr ""
 
@@ -774,6 +854,10 @@ msgstr ""
 
 #: classes/Column/Media/Dimensions.php:16
 msgid "Dimensions"
+msgstr ""
+
+#: classes/Column/Media/Dimensions.php:28
+msgid "Width : %s px"
 msgstr ""
 
 #: classes/Column/Media/Dimensions.php:28
@@ -1008,6 +1092,14 @@ msgstr ""
 msgid "Character Limit"
 msgstr ""
 
+#: classes/Settings/Column/CharacterLimit.php:29
+msgid "Maximum number of characters"
+msgstr ""
+
+#: classes/Settings/Column/CharacterLimit.php:29, classes/Settings/Column/NumberOfItems.php:31, classes/Settings/Column/WordLimit.php:35
+msgid "Leave empty for no limit"
+msgstr ""
+
 #: classes/Settings/Column/CommentCount.php:34
 msgid "Comment status"
 msgstr ""
@@ -1026,6 +1118,10 @@ msgstr ""
 
 #: classes/Settings/Column/CommentCount.php:50
 msgid "Trash"
+msgstr ""
+
+#: classes/Settings/Column/CommentCount.php:56
+msgid "Total"
 msgstr ""
 
 #: classes/Settings/Column/CommentLink.php:52, classes/Settings/Column/MediaLink.php:53, classes/Settings/Column/PostLink.php:58, classes/Settings/Column/TermLink.php:27, classes/Settings/Column/UserLink.php:60
@@ -1128,8 +1224,16 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
+#: classes/Settings/Column/Date.php:10
+msgid "The difference is returned in a human readable format."
+msgstr ""
+
 #: classes/Settings/Column/Date.php:11
 msgid "For example: %s."
+msgstr ""
+
+#: classes/Settings/Column/Date.php:13
+msgid "or"
 msgstr ""
 
 #: classes/Settings/Column/Date.php:17
@@ -1244,6 +1348,10 @@ msgstr ""
 msgid "Full Size"
 msgstr ""
 
+#: classes/Settings/Column/Image.php:113
+msgid "Custom Size"
+msgstr ""
+
 #: classes/Settings/Column/Label.php:29
 msgid "Label"
 msgstr ""
@@ -1280,6 +1388,18 @@ msgstr ""
 msgid "Hidden"
 msgstr ""
 
+#: classes/Settings/Column/Meta.php:126, classes/Helper/Select/Group/CustomField/MultiSite.php:28
+msgid "Network Site:"
+msgstr ""
+
+#: classes/Settings/Column/Meta.php:129, classes/Helper/Select/Group/CustomField/MultiSite.php:31
+msgid "current"
+msgstr ""
+
+#: classes/Settings/Column/Meta.php:135
+msgid "Site Options"
+msgstr ""
+
 #: classes/Settings/Column/MissingImageSize.php:27
 msgid "Include missing sizes?"
 msgstr ""
@@ -1310,6 +1430,10 @@ msgstr ""
 
 #: classes/Settings/Column/NumberOfItems.php:30
 msgid "Number of Items"
+msgstr ""
+
+#: classes/Settings/Column/NumberOfItems.php:31
+msgid "Maximum number of items"
 msgstr ""
 
 #: classes/Settings/Column/Password.php:28
@@ -1348,6 +1472,10 @@ msgstr ""
 msgid "Use an icon instead of text for displaying."
 msgstr ""
 
+#: classes/Settings/Column/PostFormatIcon.php:74
+msgid "Standard"
+msgstr ""
+
 #: classes/Settings/Column/PostLink.php:71
 msgid "Edit Post Author"
 msgstr ""
@@ -1364,6 +1492,10 @@ msgstr ""
 #: classes/Settings/Column/PostLink.php:80
 msgctxt "post"
 msgid "View Public %s Author Page"
+msgstr ""
+
+#: classes/Settings/Column/PostType.php:35
+msgid "All Post Types"
 msgstr ""
 
 #: classes/Settings/Column/Separator.php:26
@@ -1410,6 +1542,10 @@ msgstr ""
 msgid "Word Limit"
 msgstr ""
 
+#: classes/Settings/Column/Taxonomy.php:24
+msgid "No taxonomies available."
+msgstr ""
+
 #: classes/Settings/Column/TermLink.php:37
 msgid "Filter by Term"
 msgstr ""
@@ -1432,6 +1568,10 @@ msgstr ""
 
 #: classes/Settings/Column/Type.php:30
 msgid "Choose a column type."
+msgstr ""
+
+#: classes/Settings/Column/Type.php:36
+msgid "Name"
 msgstr ""
 
 #: classes/Settings/Column/User.php:68
@@ -1474,8 +1614,16 @@ msgstr ""
 msgid "width"
 msgstr ""
 
+#: classes/Settings/Column/WordLimit.php:35
+msgid "Maximum number of words"
+msgstr ""
+
 #: classes/Settings/Column/WordsPerMinute.php:32
 msgid "Words per minute"
+msgstr ""
+
+#: classes/Settings/Column/WordsPerMinute.php:33
+msgid "Estimated reading time in words per minute."
 msgstr ""
 
 #: classes/Settings/Column/WordsPerMinute.php:33
@@ -1485,6 +1633,12 @@ msgstr ""
 #: classes/Settings/Column/WordsPerMinute.php:84
 msgid "second"
 msgid_plural "seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/Settings/Column/WordsPerMinute.php:86
+msgid "minute"
+msgid_plural "minutes"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1592,10 +1746,10 @@ msgstr ""
 msgid "Show %s button on table screen."
 msgstr ""
 
-#: classes/Admin/Section/Partial/ShowEditButton.php:25
-msgid "Edit columns"
+#: classes/Admin/Section/Partial/ShowEditButton.php:26
+msgid "Default is %s."
 msgstr ""
 
 #: classes/Admin/Section/Partial/ShowEditButton.php:26
-msgid "Default is %s."
+msgid "on"
 msgstr ""

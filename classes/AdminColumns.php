@@ -87,8 +87,6 @@ class AdminColumns extends Plugin {
 			}
 		}
 
-		$this->localize();
-
 		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
 	}
@@ -137,12 +135,6 @@ class AdminColumns extends Plugin {
 		foreach ( $assets as $asset ) {
 			$asset->register();
 		}
-	}
-
-	public function localize() {
-		$relative_dir = str_replace( WP_PLUGIN_DIR, '', $this->get_dir() );
-
-		load_plugin_textdomain( 'codepress-admin-columns', false, $relative_dir . 'languages/' );
 	}
 
 	/**
