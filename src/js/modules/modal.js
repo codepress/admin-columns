@@ -59,12 +59,10 @@ class Modal {
 			} );
 		}
 
-		this.el.addEventListener( 'click', () => {
-			self.close();
-		} );
-
-		this.el.querySelector( '.ac-modal__dialog' ).addEventListener( 'click', ( e ) => {
-			e.stopPropagation();
+		document.addEventListener( 'click', ( e ) => {
+			if ( !e.target.closest( '.ac-modal__dialog' ) ) {
+				self.close();
+			}
 		} );
 
 		if ( typeof document.querySelector( 'body' ).dataset.ac_modal_init === 'undefined' ) {
@@ -85,9 +83,12 @@ class Modal {
 	}
 
 	open() {
-		this.onOpen();
-		this.el.removeAttribute( 'style' );
-		this.el.classList.add( '-active' );
+		//short delay in order to allow bubbling events to bind before opening
+		setTimeout( () => {
+			this.onOpen();
+			this.el.removeAttribute( 'style' );
+			this.el.classList.add( '-active' );
+		} );
 	}
 
 	destroy() {
