@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-04-27 12:12:13+0000\n"
+"PO-Revision-Date: 2020-04-15 09:06:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,91 +13,91 @@ msgstr ""
 
 #: templates/admin/modal-pro.php:25
 msgid "Bulk edit any content, including custom fields."
-msgstr ""
+msgstr "Özel alanlar da dahil olmak üzere tüm içeriği toplu olarak düzenleyin."
 
 #: templates/admin/loading-message.php:11
 msgid "Loading Columns"
-msgstr ""
+msgstr "Sütunlar yükleniyor"
 
 #: templates/admin/edit-submenu.php:10
 msgid "Column Sets"
-msgstr ""
+msgstr "Sütun kümeleri"
 
 #: classes/PluginActionLinks.php:46
 msgid "Go Pro"
-msgstr ""
+msgstr "Pro edinin"
 
 #: classes/Plugin/Update/V4000.php:547
 msgid "Original"
-msgstr ""
+msgstr "Orijinal"
 
 #: classes/Column/Post/EstimatedReadingTime.php:15
 msgid "Read Time"
-msgstr ""
+msgstr "Okuma süresi"
 
 #: classes/Column/Post/PasswordProtected.php:11
 msgid "Password Protected"
-msgstr ""
+msgstr "Parola korumalı"
 
 #: classes/Settings/Column/NumberFormat.php:100
 msgid "Number Format"
-msgstr ""
+msgstr "Sayı biçimi"
 
 #: classes/Settings/Column/NumberFormat.php:89
 msgid "Formatted"
-msgstr ""
+msgstr "Biçimlendirilmiş"
 
 #: classes/Settings/Column/NumberFormat.php:69
 msgid "Thousands separator"
-msgstr ""
+msgstr "Binler basamağı ayırıcı"
 
 #: classes/Settings/Column/NumberFormat.php:58
 msgid "Decimal point"
-msgstr ""
+msgstr "Ondalık ayracı"
 
 #: classes/Settings/Column/NumberFormat.php:47
 msgid "Decimals"
-msgstr ""
+msgstr "Ondalık sayılar"
 
 #: classes/Settings/Column/TermLink.php:38
 msgid "Edit Term"
-msgstr ""
+msgstr "Terimi düzenle"
 
 #: classes/Settings/Column/TermLink.php:37
 msgid "Filter by Term"
-msgstr ""
+msgstr "Terime göre süz"
 
 #: classes/Admin/Promo/BlackFriday.php:13
 msgid "30% Off from Black Friday until Cyber Monday"
-msgstr ""
+msgstr "Kara Cuma'dan Siber Pazartesi'ye kadar %30 indirimli"
 
 #: classes/Check/Promotion.php:73
 msgid "Get %s now"
-msgstr ""
+msgstr "Şimdi %s edinin"
 
 #: classes/Helper/Html.php:407
 msgid "%s more"
-msgstr ""
+msgstr "%s fazla"
 
 #: classes/Settings/Column/CommentLink.php:62
 msgid "View Comment"
-msgstr ""
+msgstr "Yorumu görüntüle"
 
 #: classes/Admin/Page/Columns.php:89
 msgid "The column could not be loaded because of an unknown error"
-msgstr ""
+msgstr "Sütun bilinmeyen bir hata nedeniyle yüklenemedi"
 
 #: classes/Admin/Page/Columns.php:88
 msgid "There was an error during saving the column settings."
-msgstr ""
+msgstr "Sütun ayarlarını kaydederken bir hata oluştu."
 
 #: classes/Table/Screen.php:64
 msgid "The available columns are loaded. You can now return to %s."
-msgstr ""
+msgstr "Kullanılabilir sütunlar yüklendi. Artık %s konumuna dönebilirsiniz."
 
 #: classes/Table/Screen.php:63
 msgid "the settings page"
-msgstr ""
+msgstr "ayarlar sayfası"
 
 #: classes/Integration/ACF.php:15
 msgid "Display and edit ACF fields in the posts overview in seconds!"
@@ -1572,7 +1572,7 @@ msgstr "Dosya ekleri"
 
 #: classes/Settings/Column/NumberFormat.php:78
 msgid "Preview"
-msgstr ""
+msgstr "Önizleme"
 
 #: classes/Column/Media/Width.php:16 classes/Settings/Column/Image.php:41
 #: classes/Settings/Column/Width.php:53
@@ -1803,7 +1803,7 @@ msgstr "Düzenle"
 
 #: classes/Settings/Column/CommentLink.php:63
 msgid "Edit Comment"
-msgstr ""
+msgstr "Yorumu Düzenle"
 
 #: classes/Column/Post/ID.php:15 classes/Column/Media/ID.php:14
 #: classes/Column/Comment/ID.php:14 classes/Settings/Column/Term.php:30
