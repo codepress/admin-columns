@@ -104,9 +104,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 			] );
 			$modal->set_template( 'admin/loading-message' );
 
-			echo $this->menu->render( true );
-
-			return $modal->render();
+			return $this->menu->render( true ) . $modal->render();
 		}
 
 		ob_start();
