@@ -59,8 +59,8 @@ class Modal {
 			} );
 		}
 
-		document.addEventListener( 'click', ( e ) => {
-			if ( !e.target.closest( '.ac-modal__dialog' ) ) {
+		this.el.addEventListener( 'click', ( e ) => {
+			if ( e.target.classList.contains( 'ac-modal' ) ) {
 				self.close();
 			}
 		} );
