@@ -16,10 +16,11 @@ function AC() {
 }
 
 /**
- * @return bool True when Admin Columns Pro plugin is activated.
+ * We check the defined const because it is available before AC::__construct() runs.
+ * @return bool
  */
 function ac_is_pro_active() {
-	return function_exists( 'ACP' );
+	return defined( 'ACP_FILE' );
 }
 
 /**
