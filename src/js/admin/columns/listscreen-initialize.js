@@ -68,7 +68,7 @@ export default class ListScreenInitializeController {
 
 	run() {
 		if ( Object.keys( this.list_screens ).length > 0 ) {
-
+			// Only load main screen first if unitialized, otherwise do the rest in background
 			if ( this.list_screens.hasOwnProperty( AC.list_screen ) ) {
 				let main_initializer = new ListscreenInitialize( { [ AC.list_screen ] : this.list_screens[ AC.list_screen ] } );
 
@@ -79,11 +79,15 @@ export default class ListScreenInitializeController {
 					document.querySelectorAll( '.menu' ).forEach( el => el.classList.remove( 'hidden' ) );
 				} );
 
-				main_initializer.events.on( 'success', () => location.reload() );
+				main_initializer.events.on( 'success', () => {
+					window.location = `${location.href}&t=${Date.now()}`;
+				} );
+
+			} else {
+				let background_initializer = new ListscreenInitialize( this.list_screens );
+				background_initializer.run();
 			}
 
-			let background_initializer = new ListscreenInitialize( this.list_screens );
-			background_initializer.run();
 		}
 	}
 
