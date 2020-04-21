@@ -27,6 +27,7 @@ class ColumnId extends ScreenOption {
 	public function render() {
 		ob_start();
 		?>
+
 		<label for="ac-column-id" data-ac-screen-option="<?= self::KEY; ?>">
 			<input id="ac-column-id" type="checkbox" <?php checked( $this->is_active() ); ?>>
 			<?= __( 'Column ID', 'codepress-admin-columns' ); ?>

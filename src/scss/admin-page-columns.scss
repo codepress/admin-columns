@@ -205,6 +205,11 @@
 				margin: 0;
 			}
 		}
+		&.show-column-id {
+			div.ac-column-header table tr td.column_label .inner small.column-id {
+				display: inline;
+			}
+		}
 
 	}
 }
@@ -807,8 +812,9 @@ div.ac-column-header {
 							}
 						}
 
-						> small {
+						small.column-id {
 							font-weight: normal;
+							display: none;
 						}
 
 						> a {
