@@ -103,6 +103,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	public function get_screen_options() {
 		return [
 			new ScreenOption\ColumnId( $this->get_screen_option_preference() ),
+			new ScreenOption\ColumnType( $this->get_screen_option_preference() ),
 		];
 	}
 
@@ -190,6 +191,10 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 
 					if ( 1 === $this->get_screen_option_preference()->get( ScreenOption\ColumnId::KEY ) ) {
 						$classes[] = 'show-column-id';
+					}
+
+					if ( 1 === $this->get_screen_option_preference()->get( ScreenOption\ColumnType::KEY ) ) {
+						$classes[] = 'show-column-type';
 					}
 
 					$columns = new View( [

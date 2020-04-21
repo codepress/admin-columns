@@ -50,6 +50,7 @@ $column = $this->column;
 							<?= $column->get_setting( 'label' )->get_value(); ?>
 						</a>
 						<small class="column-id"><?= sprintf( '%s: %s', __( 'ID', 'codepress-admin-columns' ), $column->get_name() ); ?></small>
+						<small class="column-type"><?= sprintf( '%s: %s', __( 'Type', 'codepress-admin-columns' ), $column->get_type() ); ?></small>
 						<a class="edit-button" data-toggle="column"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 						<a class="close-button" data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 						<?php if ( ! $column->is_original() ) : ?>

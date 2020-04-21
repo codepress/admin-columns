@@ -79,7 +79,7 @@ jQuery( document ).ready( function() {
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );
 
-	['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach( hook => {
+	[ 'AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh' ].forEach( hook => {
 		jQuery( document ).on( hook, () => ac_pointers() );
 	} );
 
@@ -101,12 +101,21 @@ jQuery( document ).ready( function() {
 	} );
 
 	let showColumnId = document.querySelector( '[data-ac-screen-option="show_column_id"] input' );
-	if( showColumnId ){
+	if ( showColumnId ) {
 		showColumnId.addEventListener( 'change', () => {
 			showColumnId.checked
-				? document.querySelector('.ac-boxes').classList.add('show-column-id')
-				: document.querySelector('.ac-boxes').classList.remove('show-column-id');
-		});
+				? document.querySelector( '.ac-boxes' ).classList.add( 'show-column-id' )
+				: document.querySelector( '.ac-boxes' ).classList.remove( 'show-column-id' );
+		} );
+	}
+
+	let showColumnType = document.querySelector( '[data-ac-screen-option="show_column_type"] input' );
+	if ( showColumnType ) {
+		showColumnType.addEventListener( 'change', () => {
+			showColumnType.checked
+				? document.querySelector( '.ac-boxes' ).classList.add( 'show-column-type' )
+				: document.querySelector( '.ac-boxes' ).classList.remove( 'show-column-type' );
+		} );
 	}
 
 } );

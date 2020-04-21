@@ -205,8 +205,15 @@
 				margin: 0;
 			}
 		}
+
 		&.show-column-id {
 			div.ac-column-header table tr td.column_label .inner small.column-id {
+				display: inline;
+			}
+		}
+
+		&.show-column-type {
+			div.ac-column-header table tr td.column_label .inner small.column-type {
 				display: inline;
 			}
 		}
@@ -781,7 +788,7 @@ div.ac-column-header {
 				&.column_sort {
 					position: relative;
 					cursor: move;
-					padding: 9px 16px;
+					padding: 9px 12px;
 
 					span.cpacicon-move {
 						position: absolute;
@@ -812,6 +819,7 @@ div.ac-column-header {
 							}
 						}
 
+						small.column-type,
 						small.column-id {
 							font-weight: normal;
 							display: none;

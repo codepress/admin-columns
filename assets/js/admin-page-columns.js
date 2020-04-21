@@ -226,6 +226,14 @@ jQuery(document).ready(function () {
       showColumnId.checked ? document.querySelector('.ac-boxes').classList.add('show-column-id') : document.querySelector('.ac-boxes').classList.remove('show-column-id');
     });
   }
+
+  var showColumnType = document.querySelector('[data-ac-screen-option="show_column_type"] input');
+
+  if (showColumnType) {
+    showColumnType.addEventListener('change', function () {
+      showColumnType.checked ? document.querySelector('.ac-boxes').classList.add('show-column-type') : document.querySelector('.ac-boxes').classList.remove('show-column-type');
+    });
+  }
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
