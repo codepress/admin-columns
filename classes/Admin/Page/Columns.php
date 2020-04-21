@@ -45,6 +45,11 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	 */
 	private $menu;
 
+	/**
+	 * @var Admin\Preference\ScreenOptions
+	 */
+	private $screen_options;
+
 	public function __construct(
 		ListScreenRequest $controller,
 		Location\Absolute $location,
@@ -57,10 +62,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 		$this->location = $location;
 		$this->default_columns = $default_columns;
 		$this->menu = $menu;
-	}
-
-	private function get_screen_option_preference() {
-		return new Admin\Preference\ScreenOptions();
+		$this->screen_options = new Admin\Preference\ScreenOptions();
 	}
 
 	public function show_read_only_notice( ListScreen $list_screen ) {
@@ -100,10 +102,18 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 		];
 	}
 
+	private function get_column_id() {
+		return new ScreenOption\ColumnId( $this->screen_options );
+	}
+
+	private function get_column_type() {
+		return new ScreenOption\ColumnType( $this->screen_options );
+	}
+
 	public function get_screen_options() {
 		return [
-			new ScreenOption\ColumnId( $this->get_screen_option_preference() ),
-			new ScreenOption\ColumnType( $this->get_screen_option_preference() ),
+			$this->get_column_id(),
+			$this->get_column_type(),
 		];
 	}
 
@@ -188,11 +198,11 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 							$classes[] = 'disabled';
 						}
 
-						if ( 1 === $this->get_screen_option_preference()->get( ScreenOption\ColumnId::KEY ) ) {
+						if ( $this->get_column_id()->is_active() ) {
 							$classes[] = 'show-column-id';
 						}
 
-						if ( 1 === $this->get_screen_option_preference()->get( ScreenOption\ColumnType::KEY ) ) {
+						if ( $this->get_column_type()->is_active() ) {
 							$classes[] = 'show-column-type';
 						}
 

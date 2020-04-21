@@ -19,7 +19,7 @@ class ColumnId extends ScreenOption {
 		$this->preference = $preference;
 	}
 
-	private function is_active() {
+	public function is_active() {
 		return 1 === $this->preference->get( self::KEY );
 	}
 
