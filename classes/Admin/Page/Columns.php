@@ -7,6 +7,7 @@ use AC\Admin\Banner;
 use AC\Admin\Helpable;
 use AC\Admin\HelpTab;
 use AC\Admin\Page;
+use AC\Admin\ScreenOption;
 use AC\Admin\Section\Partial\Menu;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
@@ -18,9 +19,10 @@ use AC\Controller\ListScreenRequest;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\Message;
+use AC\Preferences;
 use AC\View;
 
-class Columns extends Page implements Enqueueables, Helpable {
+class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOptions {
 
 	const NAME = 'columns';
 
@@ -92,6 +94,12 @@ class Columns extends Page implements Enqueueables, Helpable {
 			new HelpTab\Introduction(),
 			new HelpTab\Basics(),
 			new HelpTab\CustomField(),
+		];
+	}
+
+	public function get_screen_options() {
+		return [
+			new ScreenOption\ColumnId( new Preferences\User( 'admin_screen_option' ) ),
 		];
 	}
 
