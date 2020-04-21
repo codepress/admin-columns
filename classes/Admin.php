@@ -147,6 +147,8 @@ class Admin implements Registrable {
 		$page = $this->get_current_page();
 
 		if ( $page instanceof ScreenOptions ) {
+			$settings .= sprintf( '<legend>%s</legend>', __( 'Display', 'codepress-admin-columns' ) );
+
 			foreach ( $page->get_screen_options() as $screen_option ) {
 				$settings .= $screen_option->render();
 			}
