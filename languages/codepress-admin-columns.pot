@@ -15,12 +15,16 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/Admin.php:124
+#: classes/Admin.php:125
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin.php:125, classes/Check/Review.php:127, classes/Admin/Page/Columns.php:53
+#: classes/Admin.php:126, classes/Admin/Page/Columns.php:54
 msgid "Admin Columns"
+msgstr ""
+
+#: classes/Admin.php:150, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:107, classes/Settings/Column/Post.php:75, classes/Settings/Column/Term.php:34, classes/Settings/Column/User.php:42
+msgid "Display"
 msgstr ""
 
 #: classes/ListScreenGroups.php:13, classes/Settings/Column/CustomFieldType.php:87, classes/Settings/Column/PostType.php:43
@@ -55,10 +59,6 @@ msgstr ""
 msgid "Get %s now"
 msgstr ""
 
-#: classes/Check/Review.php:126
-msgid "Admin Columns Pro"
-msgstr ""
-
 #: classes/Check/Review.php:135
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr ""
@@ -83,14 +83,6 @@ msgstr ""
 msgid "documentation page"
 msgstr ""
 
-#: classes/Check/Review.php:160
-msgid "You can also use your admincolumns.com account to access support through %s!"
-msgstr ""
-
-#: classes/Check/Review.php:161
-msgid "our forum"
-msgstr ""
-
 #: classes/Check/Review.php:165
 msgid "You can also find help on the %s, and %s."
 msgstr ""
@@ -101,6 +93,14 @@ msgstr ""
 
 #: classes/Check/Review.php:167
 msgid "find answers to frequently asked questions"
+msgstr ""
+
+#: classes/Check/Review.php:160
+msgid "You can also use your admincolumns.com account to access support through %s!"
+msgstr ""
+
+#: classes/Check/Review.php:161
+msgid "our forum"
 msgstr ""
 
 #: classes/Column/Actions.php:19
@@ -165,14 +165,6 @@ msgstr ""
 
 #: classes/Controller/RestoreSettingsRequest.php:37
 msgid "Default settings successfully restored."
-msgstr ""
-
-#: classes/Helper/Html.php:409
-msgid "%s more"
-msgstr ""
-
-#: classes/Helper/Html.php:409
-msgid "Hide"
 msgstr ""
 
 #: classes/Helper/Strings.php:302
@@ -255,23 +247,31 @@ msgstr ""
 msgid "Edit columns"
 msgstr ""
 
-#: templates/admin/edit-actions.php:35, templates/admin/edit-actions.php:38
+#: templates/admin/edit-actions.php:37, templates/admin/edit-actions.php:34
 msgid "Restore columns"
 msgstr ""
 
-#: templates/admin/edit-column.php:51
+#: templates/admin/edit-column.php:52, classes/Column/Comment/ID.php:14, classes/Column/Media/ID.php:14, classes/Column/Post/ID.php:15
+msgid "ID"
+msgstr ""
+
+#: templates/admin/edit-column.php:53, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:63, classes/Settings/Column/Type.php:33, classes/Settings/Column/Type.php:42
+msgid "Type"
+msgstr ""
+
+#: templates/admin/edit-column.php:54
 msgid "Edit"
 msgstr ""
 
-#: templates/admin/edit-column.php:52, templates/admin/edit-column.php:87
+#: templates/admin/edit-column.php:55, templates/admin/edit-column.php:90
 msgid "Close"
 msgstr ""
 
-#: templates/admin/edit-column.php:54, templates/admin/edit-column.php:89
+#: templates/admin/edit-column.php:57, templates/admin/edit-column.php:92
 msgid "Clone"
 msgstr ""
 
-#: templates/admin/edit-column.php:56
+#: templates/admin/edit-column.php:59
 msgid "Remove"
 msgstr ""
 
@@ -391,12 +391,8 @@ msgstr ""
 msgid "Prices starting from %s"
 msgstr ""
 
-#: templates/admin/side-banner.php:88, templates/admin/side-banner.php:99
+#: templates/admin/side-banner.php:99, templates/admin/side-banner.php:88
 msgid "Get %s Off!"
-msgstr ""
-
-#: templates/admin/side-banner.php:91
-msgid "Discount is valid until %s"
 msgstr ""
 
 #: templates/admin/side-banner.php:103
@@ -413,6 +409,10 @@ msgstr ""
 
 #: templates/admin/side-banner.php:110
 msgid "Send me the discount"
+msgstr ""
+
+#: templates/admin/side-banner.php:91
+msgid "Discount is valid until %s"
 msgstr ""
 
 #: templates/admin/side-feedback.php:10
@@ -658,24 +658,24 @@ msgstr ""
 msgid "Add-ons"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:89, classes/Admin/Page/Addons.php:188
-msgid "Active"
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:92
-msgid "Deactivate"
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:96
-msgid "Activate"
+#: classes/Admin/Page/Addons.php:105
+msgid "Get this add-on"
 msgstr ""
 
 #: classes/Admin/Page/Addons.php:102
 msgid "Download & Install"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:105
-msgid "Get this add-on"
+#: classes/Admin/Page/Addons.php:96
+msgid "Activate"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:89, classes/Admin/Page/Addons.php:188
+msgid "Active"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:92
+msgid "Deactivate"
 msgstr ""
 
 #: classes/Admin/Page/Addons.php:180
@@ -686,15 +686,15 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:63
+#: classes/Admin/Page/Columns.php:68
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:130
+#: classes/Admin/Page/Columns.php:140
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:139
+#: classes/Admin/Page/Columns.php:149
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -742,6 +742,14 @@ msgstr ""
 
 #: classes/Admin/Page/Help.php:144
 msgid "No deprecated hooks or filters found."
+msgstr ""
+
+#: classes/Admin/ScreenOption/ColumnId.php:32
+msgid "Column ID"
+msgstr ""
+
+#: classes/Admin/ScreenOption/ColumnType.php:32
+msgid "Column Type"
 msgstr ""
 
 #: classes/Admin/Section/General.php:36
@@ -800,10 +808,6 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: classes/Column/Comment/ID.php:14, classes/Column/Media/ID.php:14, classes/Column/Post/ID.php:15
-msgid "ID"
-msgstr ""
-
 #: classes/Column/Comment/Post.php:15, classes/Settings/Column/CustomFieldType.php:119, templates/admin/help-tab/custom-fields.php:46
 msgid "Post"
 msgstr ""
@@ -814,10 +818,6 @@ msgstr ""
 
 #: classes/Column/Comment/Status.php:14, classes/Column/Post/Status.php:12
 msgid "Status"
-msgstr ""
-
-#: classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:63, classes/Settings/Column/Type.php:33, classes/Settings/Column/Type.php:42
-msgid "Type"
 msgstr ""
 
 #: classes/Column/Comment/User.php:15, classes/Settings/Column/CustomFieldType.php:91, classes/Settings/Column/CustomFieldType.php:120, templates/admin/help-tab/custom-fields.php:58
@@ -1062,10 +1062,6 @@ msgstr ""
 
 #: classes/Settings/Column/AttachmentDisplay.php:38
 msgid "Count"
-msgstr ""
-
-#: classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:107, classes/Settings/Column/Post.php:75, classes/Settings/Column/Term.php:34, classes/Settings/Column/User.php:42
-msgid "Display"
 msgstr ""
 
 #: classes/Settings/Column/BeforeAfter.php:62
@@ -1388,16 +1384,16 @@ msgstr ""
 msgid "Hidden"
 msgstr ""
 
+#: classes/Settings/Column/Meta.php:135
+msgid "Site Options"
+msgstr ""
+
 #: classes/Settings/Column/Meta.php:126, classes/Helper/Select/Group/CustomField/MultiSite.php:28
 msgid "Network Site:"
 msgstr ""
 
 #: classes/Settings/Column/Meta.php:129, classes/Helper/Select/Group/CustomField/MultiSite.php:31
 msgid "current"
-msgstr ""
-
-#: classes/Settings/Column/Meta.php:135
-msgid "Site Options"
 msgstr ""
 
 #: classes/Settings/Column/MissingImageSize.php:27
@@ -1630,15 +1626,15 @@ msgstr ""
 msgid "By default: %s"
 msgstr ""
 
-#: classes/Settings/Column/WordsPerMinute.php:84
-msgid "second"
-msgid_plural "seconds"
-msgstr[0] ""
-msgstr[1] ""
-
 #: classes/Settings/Column/WordsPerMinute.php:86
 msgid "minute"
 msgid_plural "minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/Settings/Column/WordsPerMinute.php:84
+msgid "second"
+msgid_plural "seconds"
 msgstr[0] ""
 msgstr[1] ""
 
