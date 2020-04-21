@@ -2,19 +2,21 @@
 
 namespace AC\Admin\ScreenOption;
 
+use AC\Admin\Preference;
 use AC\Admin\ScreenOption;
 use AC\Preferences;
 
 class ColumnId extends ScreenOption {
 
-	const NAME = 'show_column_id';
+	const NAME = 'screen_options';
+	const VALUE = 'show_column_id';
 
 	/**
 	 * @var Preferences\User
 	 */
 	private $preference;
 
-	public function __construct( Preferences\User $preference ) {
+	public function __construct( Preference\ScreenOptions $preference ) {
 		$this->preference = $preference;
 	}
 
@@ -26,7 +28,7 @@ class ColumnId extends ScreenOption {
 		ob_start();
 		?>
 		<label for="ac-column-id">
-			<input id="ac-column-id" type="checkbox" value="1" name="<?= self::NAME; ?>"<?php checked( $this->is_active() ); ?>>
+			<input id="ac-column-id" type="checkbox" value="<?= self::VALUE; ?>" name="<?= self::NAME; ?>"<?php checked( $this->is_active() ); ?>>
 			<?= __( 'Column ID', 'codepress-admin-columns' ); ?>
 		</label>
 		<?php

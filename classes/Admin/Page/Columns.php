@@ -99,7 +99,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 
 	public function get_screen_options() {
 		return [
-			new ScreenOption\ColumnId( new Preferences\User( 'admin_screen_option' ) ),
+			new ScreenOption\ColumnId( new Admin\Preference\ScreenOptions() ),
 		];
 	}
 
