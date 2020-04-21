@@ -100,4 +100,13 @@ jQuery( document ).ready( function() {
 		AdminColumns.ScreenOptions[ name ] = new ScreenOption( el, name );
 	} );
 
+	let showColumnId = document.querySelector( '[data-ac-screen-option="show_column_id"] input' );
+	if( showColumnId ){
+		showColumnId.addEventListener( 'change', () => {
+			showColumnId.checked
+				? document.querySelector('.ac-boxes').classList.add('show-column-id')
+				: document.querySelector('.ac-boxes').classList.remove('show-column-id');
+		});
+	}
+
 } );

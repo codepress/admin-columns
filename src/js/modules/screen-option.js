@@ -6,16 +6,16 @@ export default class ScreenOption {
 		this.init();
 	}
 
-	getInput(){
+	getInput() {
 		return this.element.querySelector( 'input' );
 	}
 
 	init() {
 		let input = this.getInput();
-		if( input ){
-			input.addEventListener('change', ()=>{
+		if ( input ) {
+			input.addEventListener( 'change', () => {
 				this.persist();
-			});
+			} );
 		}
 	}
 

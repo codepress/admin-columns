@@ -219,6 +219,13 @@ jQuery(document).ready(function () {
     var name = el.dataset.acScreenOption;
     AdminColumns.ScreenOptions[name] = new _screenOption.default(el, name);
   });
+  var showColumnId = document.querySelector('[data-ac-screen-option="show_column_id"] input');
+
+  if (showColumnId) {
+    showColumnId.addEventListener('change', function () {
+      showColumnId.checked ? document.querySelector('.ac-boxes').classList.add('show-column-id') : document.querySelector('.ac-boxes').classList.remove('show-column-id');
+    });
+  }
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
