@@ -408,7 +408,7 @@ class Column {
 			$value = $value->filter()->implode( $this->get_separator() );
 		}
 
-		if ( ! $value && ! $this->is_original() ) {
+		if ( ! $this->is_original() && ac_helper()->string->is_empty( $value ) ) {
 			$value = $this->get_empty_char();
 		}
 

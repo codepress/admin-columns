@@ -278,7 +278,7 @@ class Strings {
 	 * @return bool
 	 */
 	public function is_not_empty( $value ) {
-		return $value || 0 === $value;
+		return $value || 0 === $value || '0' === $value;
 	}
 
 	/**
