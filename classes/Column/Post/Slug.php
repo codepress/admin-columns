@@ -15,7 +15,13 @@ class Slug extends Column {
 	}
 
 	function get_value( $post_id ) {
-		return $this->get_raw_value( $post_id );
+		$slug = $this->get_raw_value( $post_id );
+
+		if ( ! $slug ) {
+			return $this->get_empty_char();
+		}
+
+		return $slug;
 	}
 
 	function get_raw_value( $post_id ) {
