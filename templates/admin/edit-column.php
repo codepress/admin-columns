@@ -46,8 +46,9 @@ $column = $this->column;
 								?>
 							</div>
 							<a class="toggle" data-toggle="column">
-								<?= $column->get_setting( 'label' )->get_value(); // do not escape ?>
+								<?= $column->get_setting( 'label' )->get_value(); ?>
 							</a>
+							<small class="column-id"><?= $column->get_name(); ?></small>
 							<a class="edit-button" data-toggle="column"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 							<a class="close-button" data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 							<?php if ( ! $column->is_original() ) : ?>
