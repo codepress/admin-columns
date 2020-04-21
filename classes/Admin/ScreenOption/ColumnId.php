@@ -9,7 +9,7 @@ use AC\Preferences;
 class ColumnId extends ScreenOption {
 
 	const NAME = 'screen_options';
-	const VALUE = 'show_column_id';
+	const KEY = 'show_column_id';
 
 	/**
 	 * @var Preferences\User
@@ -28,7 +28,7 @@ class ColumnId extends ScreenOption {
 		ob_start();
 		?>
 		<label for="ac-column-id">
-			<input id="ac-column-id" type="checkbox" value="<?= self::VALUE; ?>" name="<?= self::NAME; ?>"<?php checked( $this->is_active() ); ?>>
+			<input id="ac-column-id" type="checkbox" value="<?= self::KEY; ?>" name="<?= self::NAME; ?>"<?php checked( $this->is_active() ); ?>>
 			<?= __( 'Column ID', 'codepress-admin-columns' ); ?>
 		</label>
 		<?php

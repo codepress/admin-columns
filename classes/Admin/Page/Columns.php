@@ -188,8 +188,8 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 						$classes[] = 'disabled';
 					}
 
-					if ( 1 === $this->get_screen_option_preference()->get( 'show_column_id' ) ) {
-						$classes[] = 'show_column_id';
+					if ( 1 === $this->get_screen_option_preference()->get( ScreenOption\ColumnId::KEY ) ) {
+						$classes[] = 'show-column-id';
 					}
 
 					$columns = new View( [
