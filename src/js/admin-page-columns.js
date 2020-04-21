@@ -95,10 +95,9 @@ jQuery( document ).ready( function() {
 
 	AdminColumns.ScreenOptions = {};
 
-	document.querySelectorAll('[data-ac-screen-option]' ).forEach( el => {
-		AdminColumns.ScreenOptions['test']  = new ScreenOption( el, 'test' );
-	});
-
-
+	document.querySelectorAll( '[data-ac-screen-option]' ).forEach( el => {
+		let name = el.dataset.acScreenOption;
+		AdminColumns.ScreenOptions[ name ] = new ScreenOption( el, name );
+	} );
 
 } );

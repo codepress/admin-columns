@@ -96,6 +96,8 @@
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
+__webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+
 __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 
 __webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
@@ -214,7 +216,8 @@ jQuery(document).ready(function () {
 
   AdminColumns.ScreenOptions = {};
   document.querySelectorAll('[data-ac-screen-option]').forEach(function (el) {
-    AdminColumns.ScreenOptions['test'] = new _screenOption.default(el, 'test');
+    var name = el.dataset.acScreenOption;
+    AdminColumns.ScreenOptions[name] = new _screenOption.default(el, name);
   });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
@@ -2610,9 +2613,22 @@ function () {
   }
 
   _createClass(ScreenOption, [{
+    key: "getInput",
+    value: function getInput() {
+      return this.element.querySelector('input');
+    }
+  }, {
     key: "init",
     value: function init() {
-      this.element.querySelectorAll('input');
+      var _this = this;
+
+      var input = this.getInput();
+
+      if (input) {
+        input.addEventListener('change', function () {
+          _this.persist();
+        });
+      }
     }
   }, {
     key: "persist",
@@ -2622,8 +2638,8 @@ function () {
         method: 'POST',
         data: {
           action: 'ac_admin_screen_options',
-          option_name: 'test',
-          option_value: '1',
+          option_name: this.name,
+          option_value: this.getInput().checked ? 1 : 0,
           _ajax_nonce: AC._ajax_nonce
         }
       });

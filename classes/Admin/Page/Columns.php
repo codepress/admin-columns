@@ -19,7 +19,6 @@ use AC\Controller\ListScreenRequest;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\Message;
-use AC\Preferences;
 use AC\View;
 
 class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOptions {
@@ -58,6 +57,10 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 		$this->location = $location;
 		$this->default_columns = $default_columns;
 		$this->menu = $menu;
+	}
+
+	private function get_screen_option_preference() {
+		return new Admin\Preference\ScreenOptions();
 	}
 
 	public function show_read_only_notice( ListScreen $list_screen ) {
@@ -99,7 +102,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 
 	public function get_screen_options() {
 		return [
-			new ScreenOption\ColumnId( new Admin\Preference\ScreenOptions() ),
+			new ScreenOption\ColumnId( $this->get_screen_option_preference() ),
 		];
 	}
 
@@ -179,8 +182,18 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 				<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
 					<?php
 
+					$classes = [];
+
+					if ( $list_screen->is_read_only() ) {
+						$classes[] = 'disabled';
+					}
+
+					if ( 1 === $this->get_screen_option_preference()->get( 'show_column_id' ) ) {
+						$classes[] = 'show_column_id';
+					}
+
 					$columns = new View( [
-						'class'          => $list_screen->is_read_only() ? ' disabled' : '',
+						'class'          => implode( ' ', $classes ),
 						'list_screen'    => $list_screen->get_key(),
 						'list_screen_id' => $list_screen->get_layout_id(),
 						'title'          => $list_screen->get_title(),
