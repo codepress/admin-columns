@@ -152,4 +152,8 @@ body.rtl {
 		}
 	}
 
+	.ac-setbox__row a.ac-pointer.instructions {
+		right: inherit;
+		left: 10px;
+	}
 }
