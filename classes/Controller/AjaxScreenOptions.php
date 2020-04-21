@@ -37,7 +37,7 @@ class AjaxScreenOptions implements Registrable {
 		$this->get_ajax_handler()->verify_request();
 
 		$name = filter_input( INPUT_POST, 'option_name', FILTER_SANITIZE_STRING );
-		$value = filter_input( INPUT_POST, 'option_value', FILTER_SANITIZE_STRING );
+		$value = filter_input( INPUT_POST, 'option_value', FILTER_SANITIZE_NUMBER_INT );
 
 		$this->preference->set( $name, $value );
 	}

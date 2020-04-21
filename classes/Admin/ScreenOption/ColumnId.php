@@ -8,7 +8,6 @@ use AC\Preferences;
 
 class ColumnId extends ScreenOption {
 
-	const NAME = 'screen_options';
 	const KEY = 'show_column_id';
 
 	/**
@@ -21,7 +20,7 @@ class ColumnId extends ScreenOption {
 	}
 
 	private function is_active() {
-		return 1 === $this->preference->get( self::NAME );
+		return 1 === $this->preference->get( self::KEY );
 	}
 
 	public function render() {
