@@ -33,6 +33,7 @@ import SettingLabel from './admin/columns/settings/label';
 import SettingCustomField from './admin/columns/settings/custom-field';
 import SettingNumberFormat from './admin/columns/settings/number-format';
 import SettingTypeSelector from "./admin/columns/settings/type";
+import ScreenOption from "./modules/screen-option";
 
 require( 'admin-columns-js/polyfill/customevent' );
 require( 'admin-columns-js/polyfill/nodelist' );
@@ -91,5 +92,13 @@ jQuery( document ).ready( function() {
 	if ( AC.hasOwnProperty( 'uninitialized_list_screens' ) && Object.keys( AC.uninitialized_list_screens ).length > 0 ) {
 		new ListScreenInitializeController( AC.uninitialized_list_screens );
 	}
+
+	AdminColumns.ScreenOptions = {};
+
+	document.querySelectorAll('[data-ac-screen-option]' ).forEach( el => {
+		AdminColumns.ScreenOptions['test']  = new ScreenOption( el, 'test' );
+	});
+
+
 
 } );

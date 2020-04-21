@@ -154,6 +154,8 @@ var _numberFormat = _interopRequireDefault(__webpack_require__(/*! ./admin/colum
 
 var _type = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/type */ "./js/admin/columns/settings/type.js"));
 
+var _screenOption = _interopRequireDefault(__webpack_require__(/*! ./modules/screen-option */ "./js/modules/screen-option.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -209,6 +211,11 @@ jQuery(document).ready(function () {
   if (AC.hasOwnProperty('uninitialized_list_screens') && Object.keys(AC.uninitialized_list_screens).length > 0) {
     new _listscreenInitialize.default(AC.uninitialized_list_screens);
   }
+
+  AdminColumns.ScreenOptions = {};
+  document.querySelectorAll('[data-ac-screen-option]').forEach(function (el) {
+    AdminColumns.ScreenOptions['test'] = new _screenOption.default(el, 'test');
+  });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
@@ -2565,6 +2572,68 @@ function () {
 }();
 
 exports.default = Modals;
+
+/***/ }),
+
+/***/ "./js/modules/screen-option.js":
+/*!*************************************!*\
+  !*** ./js/modules/screen-option.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ScreenOption =
+/*#__PURE__*/
+function () {
+  function ScreenOption(element, name) {
+    _classCallCheck(this, ScreenOption);
+
+    this.name = name;
+    this.element = element;
+    this.init();
+  }
+
+  _createClass(ScreenOption, [{
+    key: "init",
+    value: function init() {
+      this.element.querySelectorAll('input');
+    }
+  }, {
+    key: "persist",
+    value: function persist() {
+      return jQuery.ajax({
+        url: ajaxurl,
+        method: 'POST',
+        data: {
+          action: 'ac_admin_screen_options',
+          option_name: 'test',
+          option_value: '1',
+          _ajax_nonce: AC._ajax_nonce
+        }
+      });
+    }
+  }]);
+
+  return ScreenOption;
+}();
+
+exports.default = ScreenOption;
 
 /***/ }),
 
