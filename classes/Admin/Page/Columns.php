@@ -45,11 +45,6 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	 */
 	private $menu;
 
-	/**
-	 * @var Admin\Preference\ScreenOptions
-	 */
-	private $screen_options;
-
 	public function __construct(
 		ListScreenRequest $controller,
 		Location\Absolute $location,
@@ -62,7 +57,6 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 		$this->location = $location;
 		$this->default_columns = $default_columns;
 		$this->menu = $menu;
-		$this->screen_options = new Admin\Preference\ScreenOptions();
 	}
 
 	public function show_read_only_notice( ListScreen $list_screen ) {
@@ -103,11 +97,11 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	}
 
 	private function get_column_id() {
-		return new ScreenOption\ColumnId( $this->screen_options );
+		return new ScreenOption\ColumnId( new Admin\Preference\ScreenOptions() );
 	}
 
 	private function get_column_type() {
-		return new ScreenOption\ColumnType( $this->screen_options );
+		return new ScreenOption\ColumnType( new Admin\Preference\ScreenOptions() );
 	}
 
 	public function get_screen_options() {
