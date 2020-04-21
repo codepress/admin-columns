@@ -1061,6 +1061,11 @@ div.cpac-color span {
 	input {
 		position: absolute;
 		left: -3000em;
+
+		.rtl & {
+			left: inherit;
+			right: -3000em;
+		}
 	}
 
 	&__switch {

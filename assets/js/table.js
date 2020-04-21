@@ -453,8 +453,8 @@ function () {
   function ToggleBoxLink(el) {
     _classCallCheck(this, ToggleBoxLink);
 
-    this.element = el;
-    this.initEvents();
+    this.element = el; //this.initEvents();
+
     this.contentBox = this.element.parentElement.querySelector('.ac-toggle-box-contents');
 
     if (!this.contentBox) {
