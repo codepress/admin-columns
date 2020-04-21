@@ -28,12 +28,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<input type="hidden" name="list_screen" value="<?php echo esc_attr( $this->list_screen_key ); ?>"/>
 		<input type="hidden" name="layout" value="<?php echo esc_attr( $this->list_screen_id ); ?>"/>
 		<input type="hidden" name="action" value="restore_by_type"/>
-
-		<?php wp_nonce_field( 'restore-type', '_ac_nonce', false ); ?>
+		<input type="hidden" name="_ac_nonce" value="<?= wp_create_nonce( 'restore-type' ); ?>"/>
 
 		<?php if ( $this->delete_confirmation_message ) : ?>
 			<input class="reset-column-type" type="submit" value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>"
-			onclick="return confirm( '<?php echo esc_js( $this->delete_confirmation_message ); ?>'); ">
+					onclick="return confirm( '<?php echo esc_js( $this->delete_confirmation_message ); ?>'); ">
 		<?php else : ?>
 			<input class="reset-column-type" type="submit" value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>">
 		<?php endif; ?>

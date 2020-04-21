@@ -111,16 +111,16 @@ class Columns extends Page implements Enqueueables, Helpable {
 		?>
 
 		<div class="ac-admin<?= $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?= esc_attr( $list_screen->get_key() ); ?>">
-			<div class="main">
+			<div class="ac-admin__header">
 
 				<?= $this->menu->render(); ?>
 
 				<?php do_action( 'ac/settings/after_title', $list_screen ); ?>
 
 			</div>
+			<div class="ac-admin__wrap">
 
-			<div class="ac-right">
-				<div class="ac-right-inner">
+				<div class="ac-admin__sidebar">
 					<?php if ( ! $list_screen->is_read_only() ) : ?>
 
 						<?php
@@ -162,36 +162,36 @@ class Columns extends Page implements Enqueueables, Helpable {
 					<?= ( new View() )->set_template( 'admin/side-support' ); ?>
 
 				</div>
+
+				<div class="ac-admin__main">
+
+					<?= $this->show_read_only_notice( $list_screen ); ?>
+
+					<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
+						<?php
+
+						$columns = new View( [
+							'class'          => $list_screen->is_read_only() ? ' disabled' : '',
+							'list_screen'    => $list_screen->get_key(),
+							'list_screen_id' => $list_screen->get_layout_id(),
+							'title'          => $list_screen->get_title(),
+							'columns'        => $list_screen->get_columns(),
+							'show_actions'   => ! $list_screen->is_read_only(),
+							'show_clear_all' => apply_filters( 'ac/enable_clear_columns_button', false ),
+						] );
+
+						do_action( 'ac/settings/before_columns', $list_screen );
+
+						echo $columns->set_template( 'admin/edit-columns' );
+
+						do_action( 'ac/settings/after_columns', $list_screen );
+
+						?>
+					</form>
+
+				</div>
+
 			</div>
-
-			<div class="ac-left">
-
-				<?= $this->show_read_only_notice( $list_screen ); ?>
-
-				<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
-					<?php
-
-					$columns = new View( [
-						'class'          => $list_screen->is_read_only() ? ' disabled' : '',
-						'list_screen'    => $list_screen->get_key(),
-						'list_screen_id' => $list_screen->get_layout_id(),
-						'title'          => $list_screen->get_title(),
-						'columns'        => $list_screen->get_columns(),
-						'show_actions'   => ! $list_screen->is_read_only(),
-						'show_clear_all' => apply_filters( 'ac/enable_clear_columns_button', false ),
-					] );
-
-					do_action( 'ac/settings/before_columns', $list_screen );
-
-					echo $columns->set_template( 'admin/edit-columns' );
-
-					do_action( 'ac/settings/after_columns', $list_screen );
-
-					?>
-				</form>
-
-			</div>
-			<div class="clear"></div>
 
 			<div id="add-new-column-template">
 				<?= $this->render_column_template( $list_screen ); ?>
