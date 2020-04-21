@@ -7,6 +7,7 @@ use AC\Admin\Banner;
 use AC\Admin\Helpable;
 use AC\Admin\HelpTab;
 use AC\Admin\Page;
+use AC\Admin\ScreenOption;
 use AC\Admin\Section\Partial\Menu;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
@@ -20,7 +21,7 @@ use AC\ListScreen;
 use AC\Message;
 use AC\View;
 
-class Columns extends Page implements Enqueueables, Helpable {
+class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOptions {
 
 	const NAME = 'columns';
 
@@ -58,6 +59,10 @@ class Columns extends Page implements Enqueueables, Helpable {
 		$this->menu = $menu;
 	}
 
+	private function get_screen_option_preference() {
+		return new Admin\Preference\ScreenOptions();
+	}
+
 	public function show_read_only_notice( ListScreen $list_screen ) {
 		if ( $list_screen->is_read_only() ) {
 			$message = sprintf( __( 'The columns for %s are read only and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_title() ? $list_screen->get_title() : $list_screen->get_label() ) . '</strong>' );
@@ -92,6 +97,13 @@ class Columns extends Page implements Enqueueables, Helpable {
 			new HelpTab\Introduction(),
 			new HelpTab\Basics(),
 			new HelpTab\CustomField(),
+		];
+	}
+
+	public function get_screen_options() {
+		return [
+			new ScreenOption\ColumnId( $this->get_screen_option_preference() ),
+			new ScreenOption\ColumnType( $this->get_screen_option_preference() ),
 		];
 	}
 
@@ -170,8 +182,22 @@ class Columns extends Page implements Enqueueables, Helpable {
 					<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
 						<?php
 
+						$classes = [];
+
+						if ( $list_screen->is_read_only() ) {
+							$classes[] = 'disabled';
+						}
+
+						if ( 1 === $this->get_screen_option_preference()->get( ScreenOption\ColumnId::KEY ) ) {
+							$classes[] = 'show-column-id';
+						}
+
+						if ( 1 === $this->get_screen_option_preference()->get( ScreenOption\ColumnType::KEY ) ) {
+							$classes[] = 'show-column-type';
+						}
+
 						$columns = new View( [
-							'class'          => $list_screen->is_read_only() ? ' disabled' : '',
+							'class'          => implode( ' ', $classes ),
 							'list_screen'    => $list_screen->get_key(),
 							'list_screen_id' => $list_screen->get_layout_id(),
 							'title'          => $list_screen->get_title(),

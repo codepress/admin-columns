@@ -33,6 +33,7 @@ import SettingLabel from './admin/columns/settings/label';
 import SettingCustomField from './admin/columns/settings/custom-field';
 import SettingNumberFormat from './admin/columns/settings/number-format';
 import SettingTypeSelector from "./admin/columns/settings/type";
+import ScreenOption from "./modules/screen-option";
 
 require( 'admin-columns-js/polyfill/customevent' );
 require( 'admin-columns-js/polyfill/nodelist' );
@@ -78,7 +79,7 @@ jQuery( document ).ready( function() {
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );
 
-	['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach( hook => {
+	[ 'AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh' ].forEach( hook => {
 		jQuery( document ).on( hook, () => ac_pointers() );
 	} );
 
@@ -90,6 +91,31 @@ jQuery( document ).ready( function() {
 
 	if ( AC.hasOwnProperty( 'uninitialized_list_screens' ) && Object.keys( AC.uninitialized_list_screens ).length > 0 ) {
 		new ListScreenInitializeController( AC.uninitialized_list_screens );
+	}
+
+	AdminColumns.ScreenOptions = {};
+
+	document.querySelectorAll( '[data-ac-screen-option]' ).forEach( el => {
+		let name = el.dataset.acScreenOption;
+		AdminColumns.ScreenOptions[ name ] = new ScreenOption( el, name );
+	} );
+
+	let showColumnId = document.querySelector( '[data-ac-screen-option="show_column_id"] input' );
+	if ( showColumnId ) {
+		showColumnId.addEventListener( 'change', () => {
+			showColumnId.checked
+				? document.querySelector( '.ac-boxes' ).classList.add( 'show-column-id' )
+				: document.querySelector( '.ac-boxes' ).classList.remove( 'show-column-id' );
+		} );
+	}
+
+	let showColumnType = document.querySelector( '[data-ac-screen-option="show_column_type"] input' );
+	if ( showColumnType ) {
+		showColumnType.addEventListener( 'change', () => {
+			showColumnType.checked
+				? document.querySelector( '.ac-boxes' ).classList.add( 'show-column-type' )
+				: document.querySelector( '.ac-boxes' ).classList.remove( 'show-column-type' );
+		} );
 	}
 
 } );
