@@ -1392,7 +1392,11 @@ function () {
     this.Helper = _helper.default;
     this.Columns = new _columns.default(el);
     this.Cells = new _cells.default();
-    this.Actions = new _actions.default('ac-table-actions');
+
+    if (document.getElementById('ac-table-actions')) {
+      this.Actions = new _actions.default('ac-table-actions');
+    }
+
     this.Selection = new _rowSelection.default(this);
     this._ids = [];
     this.init();
