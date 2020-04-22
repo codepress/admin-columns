@@ -3,6 +3,7 @@
 namespace AC;
 
 use AC\Admin\Page;
+use AC\Admin\Preference;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
@@ -73,6 +74,7 @@ class AdminColumns extends Plugin {
 			new Controller\AjaxColumnRequest( $this->storage, new Request() ),
 			new Controller\AjaxRequestCustomFieldKeys(),
 			new Controller\AjaxColumnValue( $this->storage ),
+			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),

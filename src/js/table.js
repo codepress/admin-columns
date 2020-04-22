@@ -40,6 +40,7 @@ jQuery( document ).ready( function( $ ) {
 } );
 
 global.ac_toggle_box = function() {
+
 	document.querySelectorAll( '.ac-toggle-box-link' ).forEach( el => {
 		new ToggleBoxLink( el );
 	} );

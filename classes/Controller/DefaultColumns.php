@@ -46,6 +46,9 @@ class DefaultColumns implements Registrable {
 			return;
 		}
 
+		// Save an empty array in case the hook does not run properly.
+		$this->default_columns->update( $this->list_screen->get_key(), [] );
+
 		// Our custom columns are set at priority 200. Before they are added we need to store the default column headings.
 		add_filter( $this->list_screen->get_heading_hookname(), [ $this, 'save_headings' ], 199 );
 

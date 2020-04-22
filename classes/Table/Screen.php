@@ -411,7 +411,7 @@ final class Screen implements Registrable {
 		?>
 
 		<fieldset class='acp-screen-option-prefs'>
-			<legend>Admin Columns</legend>
+			<legend><?= __( 'Admin Columns', 'codepress-admin-columns' ); ?></legend>
 			<?php
 
 			foreach ( $this->screen_options as $option ) {

@@ -64,7 +64,7 @@ class Form {
 		return valid;
 	}
 
-	addValidator( validator ){
+	addValidator( validator ) {
 		this._validators.push( validator );
 	}
 
@@ -73,12 +73,14 @@ class Form {
 		let $buttons = jQuery( '.sidebox a.submit, .column-footer a.submit' );
 
 		$buttons.on( 'click', function() {
-			if( ! self.validateForm() ){
+			if ( !self.validateForm() ) {
 				return;
 			}
 			$buttons.attr( 'disabled', 'disabled' );
+			self.$container.addClass( 'saving' );
 			self.submitForm().always( function() {
 				$buttons.removeAttr( 'disabled', 'disabled' );
+				self.$container.removeClass( 'saving' );
 			} )
 		} );
 
@@ -164,11 +166,6 @@ class Form {
 				id : 'save',
 				_ajax_nonce : AC._ajax_nonce,
 				data : this.serialize(),
-				//columns: this.getColumnSettings(),
-				//title: this.getTitle(),
-				//list_screen : this.getListScreen(),
-				//list_screen_id : this.getListScreenID(),
-				//original_columns : AC.original_columns
 			},
 
 			function( response ) {
@@ -192,7 +189,6 @@ class Form {
 			self.showMessage( AC.i18n.errors.save_settings, 'notice notice-warning' );
 		} );
 
-		//document.dispatchEvent( new CustomEvent( 'AC_Form_AfterUpdate', { detail : { container : self.$container } } ) );
 		jQuery( document ).trigger( 'AC_Form_AfterUpdate', [self.$container] );
 
 		return xhr;
@@ -202,7 +198,7 @@ class Form {
 		let $msg = jQuery( '<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>' );
 
 		this.$container.find( '.ac-message' ).stop().remove();
-		this.$container.find( '.ac-left' ).prepend( $msg );
+		this.$container.find( '.ac-admin__main' ).prepend( $msg );
 
 		$msg.slideDown();
 	}
