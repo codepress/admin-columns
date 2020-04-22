@@ -214,7 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.1.6 =
-Release Date: April 22th, 2020
+Release Date: April 22nd, 2020
 
 * [Improved] You can now display the column ID and Type by opening the screen options in top right
 * [Improved] The meta column will will now display a zero (when available) instead of a dash
