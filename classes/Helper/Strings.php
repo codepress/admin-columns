@@ -75,7 +75,7 @@ class Strings {
 	 * @since 3.0
 	 */
 	public function trim_words( $string = '', $num_words = 30, $more = null ) {
-		if ( ! $string ) {
+		if ( $this->is_empty( $string ) ) {
 			return false;
 		}
 
