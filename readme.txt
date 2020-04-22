@@ -217,7 +217,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: April 22nd, 2020
 
 * [Improved] You can now display the column ID and Type by opening the screen options in top right
-* [Improved] The meta column will will now display a zero (when available) instead of a dash
+* [Improved] The meta column will now display a zero (when available) instead of a dash
 * [Improved] Improved right-to-left (RTL) support
 * [Improved] First time loading columns is faster
 
