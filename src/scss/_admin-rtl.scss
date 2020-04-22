@@ -28,6 +28,15 @@ body.rtl {
 		.ac-columns {
 			.ac-column {
 
+				.ac-setting-input {
+					.checkbox-labels>label,
+					.radio-labels>label {
+						padding-right:0;
+						padding-left: 10px;
+						display: inline-block;
+					}
+				}
+
 				// Column Header
 				.column-meta {
 					img {
@@ -140,7 +149,7 @@ body.rtl {
 		div.unit-select {
 			left: 0;
 			right: inherit;
-			.radio-labels label { margin-right: 0; }
+			.radio-labels label { margin-right: 0; padding-left: 0 !important;}
 		}
 	}
 
@@ -156,4 +165,16 @@ body.rtl {
 		right: inherit;
 		left: 10px;
 	}
+
+	.ac-column-setting--label .ac-setting-input__container .ac-setting-label-icon {
+		right: 2px;
+		padding-left: 4px;
+	}
+
+	.ac-setbox {
+		.radio-labels {
+			label { display: inline-block; }
+		}
+	}
+
 }
