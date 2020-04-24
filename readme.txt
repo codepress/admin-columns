@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Improved] Better Table overview recognition to prevent wrong loaded list screens
+
 = 4.1.6 =
 Release Date: April 22nd, 2020
 
