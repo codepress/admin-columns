@@ -14,11 +14,11 @@ class NoticeChecks implements Registrable {
 	 * @return Registrable[]
 	 */
 	private function get_checks() {
-		$checks = [
-			new Check\Review(),
-		];
+		$checks = [];
 
 		if ( ! ac_is_pro_active() ) {
+			$checks[] = new Check\Review();
+
 			foreach ( new PromoCollection() as $promo ) {
 				$checks[] = new Check\Promotion( $promo );
 			}

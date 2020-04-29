@@ -62,20 +62,11 @@ class Taxonomy {
 	 * @return bool
 	 */
 	public function is_taxonomy_registered( $object_type, $taxonomy = '' ) {
-		if ( ! $object_type ) {
-			return false;
-		}
-		$taxonomies = get_object_taxonomies( $object_type );
-
-		if ( ! $taxonomies ) {
+		if ( ! $object_type || ! $taxonomy ) {
 			return false;
 		}
 
-		if ( $taxonomy ) {
-			return in_array( $taxonomy, $taxonomies );
-		}
-
-		return true;
+		return is_object_in_taxonomy( $object_type, $taxonomy );
 	}
 
 	/**

@@ -7,6 +7,7 @@ use AC\Admin\Banner;
 use AC\Admin\Helpable;
 use AC\Admin\HelpTab;
 use AC\Admin\Page;
+use AC\Admin\ScreenOption;
 use AC\Admin\Section\Partial\Menu;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
@@ -20,7 +21,7 @@ use AC\ListScreen;
 use AC\Message;
 use AC\View;
 
-class Columns extends Page implements Enqueueables, Helpable {
+class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOptions {
 
 	const NAME = 'columns';
 
@@ -60,7 +61,7 @@ class Columns extends Page implements Enqueueables, Helpable {
 
 	public function show_read_only_notice( ListScreen $list_screen ) {
 		if ( $list_screen->is_read_only() ) {
-			$message = sprintf( __( 'The columns for %s are read only and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_label() ) . '</strong>' );
+			$message = sprintf( __( 'The columns for %s are read only and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_title() ? $list_screen->get_title() : $list_screen->get_label() ) . '</strong>' );
 			$message = sprintf( '<p>%s</p>', apply_filters( 'ac/read_only_message', $message, $list_screen ) );
 
 			$notice = new Message\InlineMessage( $message );
@@ -95,6 +96,21 @@ class Columns extends Page implements Enqueueables, Helpable {
 		];
 	}
 
+	private function get_column_id() {
+		return new ScreenOption\ColumnId( new Admin\Preference\ScreenOptions() );
+	}
+
+	private function get_column_type() {
+		return new ScreenOption\ColumnType( new Admin\Preference\ScreenOptions() );
+	}
+
+	public function get_screen_options() {
+		return [
+			$this->get_column_id(),
+			$this->get_column_type(),
+		];
+	}
+
 	public function render() {
 		$list_screen = $this->controller->get_list_screen();
 
@@ -104,25 +120,23 @@ class Columns extends Page implements Enqueueables, Helpable {
 			] );
 			$modal->set_template( 'admin/loading-message' );
 
-			echo $this->menu->render( true );
-
-			return $modal->render();
+			return $this->menu->render( true ) . $modal->render();
 		}
 
 		ob_start();
 		?>
 
 		<div class="ac-admin<?= $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?= esc_attr( $list_screen->get_key() ); ?>">
-			<div class="main">
+			<div class="ac-admin__header">
 
 				<?= $this->menu->render(); ?>
 
 				<?php do_action( 'ac/settings/after_title', $list_screen ); ?>
 
 			</div>
+			<div class="ac-admin__wrap">
 
-			<div class="ac-right">
-				<div class="ac-right-inner">
+				<div class="ac-admin__sidebar">
 					<?php if ( ! $list_screen->is_read_only() ) : ?>
 
 						<?php
@@ -164,36 +178,50 @@ class Columns extends Page implements Enqueueables, Helpable {
 					<?= ( new View() )->set_template( 'admin/side-support' ); ?>
 
 				</div>
+
+				<div class="ac-admin__main">
+
+					<?= $this->show_read_only_notice( $list_screen ); ?>
+
+					<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
+						<?php
+
+						$classes = [];
+
+						if ( $list_screen->is_read_only() ) {
+							$classes[] = 'disabled';
+						}
+
+						if ( $this->get_column_id()->is_active() ) {
+							$classes[] = 'show-column-id';
+						}
+
+						if ( $this->get_column_type()->is_active() ) {
+							$classes[] = 'show-column-type';
+						}
+
+						$columns = new View( [
+							'class'          => implode( ' ', $classes ),
+							'list_screen'    => $list_screen->get_key(),
+							'list_screen_id' => $list_screen->get_layout_id(),
+							'title'          => $list_screen->get_title(),
+							'columns'        => $list_screen->get_columns(),
+							'show_actions'   => ! $list_screen->is_read_only(),
+							'show_clear_all' => apply_filters( 'ac/enable_clear_columns_button', false ),
+						] );
+
+						do_action( 'ac/settings/before_columns', $list_screen );
+
+						echo $columns->set_template( 'admin/edit-columns' );
+
+						do_action( 'ac/settings/after_columns', $list_screen );
+
+						?>
+					</form>
+
+				</div>
+
 			</div>
-
-			<div class="ac-left">
-
-				<?= $this->show_read_only_notice( $list_screen ); ?>
-
-				<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
-					<?php
-
-					$columns = new View( [
-						'class'          => $list_screen->is_read_only() ? ' disabled' : '',
-						'list_screen'    => $list_screen->get_key(),
-						'list_screen_id' => $list_screen->get_layout_id(),
-						'title'          => $list_screen->get_title(),
-						'columns'        => $list_screen->get_columns(),
-						'show_actions'   => ! $list_screen->is_read_only(),
-						'show_clear_all' => apply_filters( 'ac/enable_clear_columns_button', false ),
-					] );
-
-					do_action( 'ac/settings/before_columns', $list_screen );
-
-					echo $columns->set_template( 'admin/edit-columns' );
-
-					do_action( 'ac/settings/after_columns', $list_screen );
-
-					?>
-				</form>
-
-			</div>
-			<div class="clear"></div>
 
 			<div id="add-new-column-template">
 				<?= $this->render_column_template( $list_screen ); ?>

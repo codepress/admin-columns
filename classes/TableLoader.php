@@ -66,9 +66,7 @@ class TableLoader implements Registrable {
 		if ( $list_id ) {
 			$requested_list_screen = $this->storage->find( $list_id );
 
-			$user = wp_get_current_user();
-
-			if ( $user && $requested_list_screen && $this->permission_checker->is_valid( $user, $requested_list_screen ) ) {
+			if ( $requested_list_screen && $requested_list_screen->get_key() === $key && $this->permission_checker->is_valid( wp_get_current_user(), $requested_list_screen ) ) {
 				$list_screen = $requested_list_screen;
 			}
 		}

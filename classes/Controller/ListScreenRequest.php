@@ -51,7 +51,7 @@ class ListScreenRequest {
 			return null;
 		}
 
-		return $list_screens->current();
+		return $list_screens->get_first();
 	}
 
 	/**

@@ -96,6 +96,11 @@
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
+<<<<<<< HEAD
+=======
+__webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+
+>>>>>>> develop
 __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 
 __webpack_require__(/*! core-js/modules/es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
@@ -154,6 +159,11 @@ var _numberFormat = _interopRequireDefault(__webpack_require__(/*! ./admin/colum
 
 var _type = _interopRequireDefault(__webpack_require__(/*! ./admin/columns/settings/type */ "./js/admin/columns/settings/type.js"));
 
+<<<<<<< HEAD
+=======
+var _screenOption = _interopRequireDefault(__webpack_require__(/*! ./modules/screen-option */ "./js/modules/screen-option.js"));
+
+>>>>>>> develop
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -209,6 +219,7 @@ jQuery(document).ready(function () {
   if (AC.hasOwnProperty('uninitialized_list_screens') && Object.keys(AC.uninitialized_list_screens).length > 0) {
     new _listscreenInitialize.default(AC.uninitialized_list_screens);
   }
+<<<<<<< HEAD
   /*
   	jQuery( '#ac_list_screen' ).ac_select2( {
   		theme : 'acs2',
@@ -216,6 +227,29 @@ jQuery(document).ready(function () {
   		matcher : excludeGroupsMather
   	} );*/
 
+=======
+
+  AdminColumns.ScreenOptions = {};
+  document.querySelectorAll('[data-ac-screen-option]').forEach(function (el) {
+    var name = el.dataset.acScreenOption;
+    AdminColumns.ScreenOptions[name] = new _screenOption.default(el, name);
+  });
+  var showColumnId = document.querySelector('[data-ac-screen-option="show_column_id"] input');
+
+  if (showColumnId) {
+    showColumnId.addEventListener('change', function () {
+      showColumnId.checked ? document.querySelector('.ac-boxes').classList.add('show-column-id') : document.querySelector('.ac-boxes').classList.remove('show-column-id');
+    });
+  }
+
+  var showColumnType = document.querySelector('[data-ac-screen-option="show_column_type"] input');
+
+  if (showColumnType) {
+    showColumnType.addEventListener('change', function () {
+      showColumnType.checked ? document.querySelector('.ac-boxes').classList.add('show-column-type') : document.querySelector('.ac-boxes').classList.remove('show-column-type');
+    });
+  }
+>>>>>>> develop
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
@@ -1026,8 +1060,15 @@ function () {
         }
 
         $buttons.attr('disabled', 'disabled');
+<<<<<<< HEAD
         self.submitForm().always(function () {
           $buttons.removeAttr('disabled', 'disabled');
+=======
+        self.$container.addClass('saving');
+        self.submitForm().always(function () {
+          $buttons.removeAttr('disabled', 'disabled');
+          self.$container.removeClass('saving');
+>>>>>>> develop
         });
       });
       self.$container.find('.add_column').on('click', function () {
@@ -1111,12 +1152,16 @@ function () {
         action: 'ac-columns',
         id: 'save',
         _ajax_nonce: AC._ajax_nonce,
+<<<<<<< HEAD
         data: this.serialize() //columns: this.getColumnSettings(),
         //title: this.getTitle(),
         //list_screen : this.getListScreen(),
         //list_screen_id : this.getListScreenID(),
         //original_columns : AC.original_columns
 
+=======
+        data: this.serialize()
+>>>>>>> develop
       }, function (response) {
         if (response) {
           if (response.success) {
@@ -1131,8 +1176,12 @@ function () {
 
       xhr.fail(function (error) {
         self.showMessage(AC.i18n.errors.save_settings, 'notice notice-warning');
+<<<<<<< HEAD
       }); //document.dispatchEvent( new CustomEvent( 'AC_Form_AfterUpdate', { detail : { container : self.$container } } ) );
 
+=======
+      });
+>>>>>>> develop
       jQuery(document).trigger('AC_Form_AfterUpdate', [self.$container]);
       return xhr;
     }
@@ -1142,13 +1191,21 @@ function () {
       var attr_class = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'updated';
       var $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
       this.$container.find('.ac-message').stop().remove();
+<<<<<<< HEAD
       this.$container.find('.ac-left').prepend($msg);
+=======
+      this.$container.find('.ac-admin__main').prepend($msg);
+>>>>>>> develop
       $msg.slideDown();
     }
   }, {
     key: "cloneColumn",
     value: function cloneColumn($el) {
+<<<<<<< HEAD
       return this._addColumnToForm(new _column.default($el).clone(), $el.hasClass('opened'));
+=======
+      return this._addColumnToForm(new _column.default($el).clone(), $el.hasClass('opened'), $el);
+>>>>>>> develop
     }
   }, {
     key: "addColumn",
@@ -1189,18 +1246,40 @@ function () {
     key: "_addColumnToForm",
     value: function _addColumnToForm(column) {
       var open = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+<<<<<<< HEAD
       this.columns[column.name] = column;
       this.$column_container.append(column.$el);
+=======
+      var $after = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      this.columns[column.name] = column;
+
+      if ($after) {
+        column.$el.insertAfter($after);
+      } else {
+        this.$column_container.append(column.$el);
+      }
+>>>>>>> develop
 
       if (open) {
         column.open();
       }
 
       column.$el.hide().slideDown();
+<<<<<<< HEAD
       jQuery('html, body').animate({
         scrollTop: column.$el.offset().top - 58
       }, 300);
       jQuery(document).trigger('AC_Column_Added', [column]);
+=======
+      jQuery(document).trigger('AC_Column_Added', [column]);
+
+      if (!isInViewport(column.$el)) {
+        jQuery('html, body').animate({
+          scrollTop: column.$el.offset().top - 58
+        }, 300);
+      }
+
+>>>>>>> develop
       return column;
     }
   }]);
@@ -1210,6 +1289,17 @@ function () {
 
 module.exports = Form;
 
+<<<<<<< HEAD
+=======
+var isInViewport = function isInViewport($el) {
+  var elementTop = $el.offset().top;
+  var elementBottom = elementTop + $el.outerHeight();
+  var viewportTop = jQuery(window).scrollTop();
+  var viewportBottom = viewportTop + jQuery(window).height();
+  return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+
+>>>>>>> develop
 /***/ }),
 
 /***/ "./js/admin/columns/initiator.js":
@@ -1398,6 +1488,10 @@ function () {
     key: "run",
     value: function run() {
       if (Object.keys(this.list_screens).length > 0) {
+<<<<<<< HEAD
+=======
+        // Only load main screen first if unitialized, otherwise do the rest in background
+>>>>>>> develop
         if (this.list_screens.hasOwnProperty(AC.list_screen)) {
           var main_initializer = new ListscreenInitialize(_defineProperty({}, AC.list_screen, this.list_screens[AC.list_screen]));
           main_initializer.run();
@@ -1410,12 +1504,21 @@ function () {
             });
           });
           main_initializer.events.on('success', function () {
+<<<<<<< HEAD
             return location.reload();
           });
         }
 
         var background_initializer = new ListscreenInitialize(this.list_screens);
         background_initializer.run();
+=======
+            window.location = "".concat(location.href, "&t=").concat(Date.now());
+          });
+        } else {
+          var background_initializer = new ListscreenInitialize(this.list_screens);
+          background_initializer.run();
+        }
+>>>>>>> develop
       }
     }
   }]);
@@ -2416,11 +2519,18 @@ function () {
         });
       }
 
+<<<<<<< HEAD
       this.el.addEventListener('click', function () {
         self.close();
       });
       this.el.querySelector('.ac-modal__dialog').addEventListener('click', function (e) {
         e.stopPropagation();
+=======
+      this.el.addEventListener('click', function (e) {
+        if (e.target.classList.contains('ac-modal')) {
+          self.close();
+        }
+>>>>>>> develop
       });
 
       if (typeof document.querySelector('body').dataset.ac_modal_init === 'undefined') {
@@ -2444,9 +2554,22 @@ function () {
   }, {
     key: "open",
     value: function open() {
+<<<<<<< HEAD
       this.onOpen();
       this.el.removeAttribute('style');
       this.el.classList.add('-active');
+=======
+      var _this2 = this;
+
+      //short delay in order to allow bubbling events to bind before opening
+      setTimeout(function () {
+        _this2.onOpen();
+
+        _this2.el.removeAttribute('style');
+
+        _this2.el.classList.add('-active');
+      });
+>>>>>>> develop
     }
   }, {
     key: "destroy",
@@ -2568,6 +2691,84 @@ exports.default = Modals;
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./js/modules/screen-option.js":
+/*!*************************************!*\
+  !*** ./js/modules/screen-option.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+__webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ScreenOption =
+/*#__PURE__*/
+function () {
+  function ScreenOption(element, name) {
+    _classCallCheck(this, ScreenOption);
+
+    this.name = name;
+    this.element = element;
+    this.init();
+  }
+
+  _createClass(ScreenOption, [{
+    key: "getInput",
+    value: function getInput() {
+      return this.element.querySelector('input');
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      var _this = this;
+
+      var input = this.getInput();
+
+      if (input) {
+        input.addEventListener('change', function () {
+          _this.persist();
+        });
+      }
+    }
+  }, {
+    key: "persist",
+    value: function persist() {
+      return jQuery.ajax({
+        url: ajaxurl,
+        method: 'POST',
+        data: {
+          action: 'ac_admin_screen_options',
+          option_name: this.name,
+          option_value: this.getInput().checked ? 1 : 0,
+          _ajax_nonce: AC._ajax_nonce
+        }
+      });
+    }
+  }]);
+
+  return ScreenOption;
+}();
+
+exports.default = ScreenOption;
+
+/***/ }),
+
+>>>>>>> develop
 /***/ "./js/modules/tooltips.js":
 /*!********************************!*\
   !*** ./js/modules/tooltips.js ***!

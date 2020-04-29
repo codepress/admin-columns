@@ -3,6 +3,7 @@
 namespace AC;
 
 use AC\Admin\Page;
+use AC\Admin\Preference;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
@@ -73,6 +74,7 @@ class AdminColumns extends Plugin {
 			new Controller\AjaxColumnRequest( $this->storage, new Request() ),
 			new Controller\AjaxRequestCustomFieldKeys(),
 			new Controller\AjaxColumnValue( $this->storage ),
+			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
@@ -86,8 +88,6 @@ class AdminColumns extends Plugin {
 				$service->register();
 			}
 		}
-
-		$this->localize();
 
 		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
@@ -137,12 +137,6 @@ class AdminColumns extends Plugin {
 		foreach ( $assets as $asset ) {
 			$asset->register();
 		}
-	}
-
-	public function localize() {
-		$relative_dir = str_replace( WP_PLUGIN_DIR, '', $this->get_dir() );
-
-		load_plugin_textdomain( 'codepress-admin-columns', false, $relative_dir . 'languages/' );
 	}
 
 	/**

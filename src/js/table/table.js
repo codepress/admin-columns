@@ -16,7 +16,10 @@ export default class Table {
 		this.Helper = Helper;
 		this.Columns = new Columns( el );
 		this.Cells = new Cells();
-		this.Actions = new Actions( 'ac-table-actions' );
+		if ( document.getElementById( 'ac-table-actions' ) ) {
+			this.Actions = new Actions( 'ac-table-actions' );
+		}
+
 		this.Selection = new Selection( this );
 		this._ids = [];
 

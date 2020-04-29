@@ -6,7 +6,7 @@ export default class ToggleBoxLink {
 		this.element = el;
 		this.initEvents();
 
-		this.contentBox = this.element.parentElement.querySelector( '.ac-toggle-box-contents' )
+		this.contentBox = this.element.parentElement.querySelector( '.ac-toggle-box-contents' );
 		if ( !this.contentBox ) {
 			this.createContenBox();
 		}

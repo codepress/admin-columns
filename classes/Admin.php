@@ -6,6 +6,7 @@ use AC\Admin\Helpable;
 use AC\Admin\Menu;
 use AC\Admin\Page;
 use AC\Admin\PageCollection;
+use AC\Admin\ScreenOptions;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Script;
@@ -85,7 +86,6 @@ class Admin implements Registrable {
 	/**
 	 * @return Page
 	 */
-
 	private function get_current_page() {
 		$slug = filter_input( INPUT_GET, 'tab' );
 
@@ -93,7 +93,7 @@ class Admin implements Registrable {
 			return $this->pages->get( $slug );
 		}
 
-		return $this->pages->current();
+		return $this->pages->first();
 	}
 
 	/**
@@ -143,6 +143,20 @@ class Admin implements Registrable {
 		<?php
 	}
 
+	public function add_screen_options( $settings ) {
+		$page = $this->get_current_page();
+
+		if ( $page instanceof ScreenOptions ) {
+			$settings .= sprintf( '<legend>%s</legend>', __( 'Display', 'codepress-admin-columns' ) );
+
+			foreach ( $page->get_screen_options() as $screen_option ) {
+				$settings .= $screen_option->render();
+			}
+		}
+
+		return $settings;
+	}
+
 	public function scripts() {
 		$page = $this->get_current_page();
 
@@ -161,6 +175,8 @@ class Admin implements Registrable {
 				] );
 			}
 		}
+
+		add_filter( 'screen_settings', [ $this, 'add_screen_options' ] );
 
 		$assets = [
 			new Style( 'wp-pointer' ),

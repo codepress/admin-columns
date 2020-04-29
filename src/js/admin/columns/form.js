@@ -64,7 +64,7 @@ class Form {
 		return valid;
 	}
 
-	addValidator( validator ){
+	addValidator( validator ) {
 		this._validators.push( validator );
 	}
 
@@ -73,12 +73,14 @@ class Form {
 		let $buttons = jQuery( '.sidebox a.submit, .column-footer a.submit' );
 
 		$buttons.on( 'click', function() {
-			if( ! self.validateForm() ){
+			if ( !self.validateForm() ) {
 				return;
 			}
 			$buttons.attr( 'disabled', 'disabled' );
+			self.$container.addClass( 'saving' );
 			self.submitForm().always( function() {
 				$buttons.removeAttr( 'disabled', 'disabled' );
+				self.$container.removeClass( 'saving' );
 			} )
 		} );
 
@@ -164,11 +166,6 @@ class Form {
 				id : 'save',
 				_ajax_nonce : AC._ajax_nonce,
 				data : this.serialize(),
-				//columns: this.getColumnSettings(),
-				//title: this.getTitle(),
-				//list_screen : this.getListScreen(),
-				//list_screen_id : this.getListScreenID(),
-				//original_columns : AC.original_columns
 			},
 
 			function( response ) {
@@ -192,7 +189,6 @@ class Form {
 			self.showMessage( AC.i18n.errors.save_settings, 'notice notice-warning' );
 		} );
 
-		//document.dispatchEvent( new CustomEvent( 'AC_Form_AfterUpdate', { detail : { container : self.$container } } ) );
 		jQuery( document ).trigger( 'AC_Form_AfterUpdate', [self.$container] );
 
 		return xhr;
@@ -202,13 +198,13 @@ class Form {
 		let $msg = jQuery( '<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>' );
 
 		this.$container.find( '.ac-message' ).stop().remove();
-		this.$container.find( '.ac-left' ).prepend( $msg );
+		this.$container.find( '.ac-admin__main' ).prepend( $msg );
 
 		$msg.slideDown();
 	}
 
 	cloneColumn( $el ) {
-		return this._addColumnToForm( new Column( $el ).clone(), $el.hasClass( 'opened' ) );
+		return this._addColumnToForm( new Column( $el ).clone(), $el.hasClass( 'opened' ), $el );
 	}
 
 	addColumn() {
@@ -241,9 +237,14 @@ class Form {
 		return this.$form.find( '[name^="columns["]' ).serialize();
 	}
 
-	_addColumnToForm( column, open = true ) {
+	_addColumnToForm( column, open = true, $after = null ) {
 		this.columns[ column.name ] = column;
-		this.$column_container.append( column.$el );
+
+		if ( $after ) {
+			column.$el.insertAfter( $after );
+		} else {
+			this.$column_container.append( column.$el );
+		}
 
 		if ( open ) {
 			column.open();
@@ -251,9 +252,11 @@ class Form {
 
 		column.$el.hide().slideDown();
 
-		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
-
 		jQuery( document ).trigger( 'AC_Column_Added', [column] );
+
+		if ( !isInViewport( column.$el ) ) {
+			jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
+		}
 
 		return column;
 	}
@@ -261,3 +264,11 @@ class Form {
 }
 
 module.exports = Form;
+
+let isInViewport = ( $el ) => {
+	var elementTop = $el.offset().top;
+	var elementBottom = elementTop + $el.outerHeight();
+	var viewportTop = jQuery( window ).scrollTop();
+	var viewportBottom = viewportTop + jQuery( window ).height();
+	return elementBottom > viewportTop && elementTop < viewportBottom;
+};

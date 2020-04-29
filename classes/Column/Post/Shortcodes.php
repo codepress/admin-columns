@@ -16,8 +16,10 @@ class Shortcodes extends Column {
 	}
 
 	public function get_value( $post_id ) {
-		if ( ! ( $shortcodes = $this->get_raw_value( $post_id ) ) ) {
-			return false;
+		$shortcodes = $this->get_raw_value( $post_id );
+
+		if ( ! $shortcodes ) {
+			return $this->get_empty_char();
 		}
 
 		$display = [];

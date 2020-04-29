@@ -4,18 +4,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$classes = array(
+$classes = [
 	'ac-column-heading-setting',
 	'ac-column-indicator--' . $this->setting,
 	'ac-column-indicator',
-);
+];
 
 if ( $this->dashicon ) {
 	$classes[] = 'dashicons';
 	$classes[] = $this->dashicon;
 }
 
-if ( 'on' == $this->state ) {
+if ( $this->class ) {
+	$classes[] = $this->class;
+}
+
+if ( 'on' === $this->state ) {
 	$classes[] = 'on';
 }
 
