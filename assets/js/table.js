@@ -175,18 +175,10 @@ function () {
         });
       }
 
-<<<<<<< HEAD
-      this.el.addEventListener('click', function () {
-        self.close();
-      });
-      this.el.querySelector('.ac-modal__dialog').addEventListener('click', function (e) {
-        e.stopPropagation();
-=======
       this.el.addEventListener('click', function (e) {
         if (e.target.classList.contains('ac-modal')) {
           self.close();
         }
->>>>>>> develop
       });
 
       if (typeof document.querySelector('body').dataset.ac_modal_init === 'undefined') {
@@ -210,11 +202,6 @@ function () {
   }, {
     key: "open",
     value: function open() {
-<<<<<<< HEAD
-      this.onOpen();
-      this.el.removeAttribute('style');
-      this.el.classList.add('-active');
-=======
       var _this2 = this;
 
       //short delay in order to allow bubbling events to bind before opening
@@ -225,7 +212,6 @@ function () {
 
         _this2.el.classList.add('-active');
       });
->>>>>>> develop
     }
   }, {
     key: "destroy",
@@ -1406,15 +1392,11 @@ function () {
     this.Helper = _helper.default;
     this.Columns = new _columns.default(el);
     this.Cells = new _cells.default();
-<<<<<<< HEAD
-    this.Actions = new _actions.default('ac-table-actions');
-=======
 
     if (document.getElementById('ac-table-actions')) {
       this.Actions = new _actions.default('ac-table-actions');
     }
 
->>>>>>> develop
     this.Selection = new _rowSelection.default(this);
     this._ids = [];
     this.init();
