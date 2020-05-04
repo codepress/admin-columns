@@ -214,7 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.1.7 =
-Release Date: tbd
+Release Date: May 4th, 2020
 
 * [Improved] Better Table overview recognition to prevent wrong loaded list screens
 
