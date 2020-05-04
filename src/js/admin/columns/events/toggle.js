@@ -13,4 +13,4 @@ let toggle = function( column ) {
 	} ).css( 'cursor', 'pointer' );
 };
 
-module.exports = toggle;
+export default toggle;

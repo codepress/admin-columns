@@ -263,7 +263,7 @@ class Form {
 
 }
 
-module.exports = Form;
+export default Form;
 
 let isInViewport = ( $el ) => {
 	var elementTop = $el.offset().top;

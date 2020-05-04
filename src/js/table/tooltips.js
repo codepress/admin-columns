@@ -29,4 +29,4 @@ class Tooltips {
 
 }
 
-module.exports = Tooltips;
+export default Tooltips;

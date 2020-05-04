@@ -88,4 +88,4 @@ let date = function( column ) {
 	} );
 };
 
-module.exports = date;
+export default date;

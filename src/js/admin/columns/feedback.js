@@ -25,4 +25,4 @@ class Feedback {
 
 }
 
-module.exports = Feedback;
+export default Feedback;

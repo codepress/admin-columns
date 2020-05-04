@@ -14,4 +14,4 @@ let pro = function( column ) {
 	} );
 };
 
-module.exports = pro;
+export default pro;

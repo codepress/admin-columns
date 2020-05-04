@@ -15,4 +15,4 @@ let clone = function( column ) {
 	} );
 };
 
-module.exports = clone;
+export default clone;
