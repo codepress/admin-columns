@@ -91,7 +91,7 @@ class User {
 
 				break;
 			default :
-				if ( ! empty( $user->{$format} ) ) {
+				if ( isset( $user->{$format} ) ) {
 					$name = $user->{$format};
 				}
 		}

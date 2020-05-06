@@ -73,14 +73,14 @@ class User extends Settings\Column implements Settings\FormatValue {
 		$options = [
 			self::PROPERTY_DISPLAY_NAME        => __( 'Display Name', 'codepress-admin-columns' ),
 			self::PROPERTY_FIRST_NAME          => __( 'First Name', 'codepress-admin-columns' ),
+			self::PROPERTY_FIRST_AND_LAST_NAME => __( 'First and Last Name', 'codepress-admin-columns' ),
 			self::PROPERTY_LAST_NAME           => __( 'Last Name', 'codepress-admin-columns' ),
 			self::PROPERTY_NICKNAME            => __( 'Nickname', 'codepress-admin-columns' ),
+			self::PROPERTY_ROLES               => __( 'Roles', 'codepress-admin-columns' ),
 			self::PROPERTY_LOGIN               => __( 'User Login', 'codepress-admin-columns' ),
 			self::PROPERTY_EMAIL               => __( 'User Email', 'codepress-admin-columns' ),
 			self::PROPERTY_ID                  => __( 'User ID', 'codepress-admin-columns' ),
-			self::PROPERTY_FIRST_AND_LAST_NAME => __( 'First and Last Name', 'codepress-admin-columns' ),
 			self::PROPERTY_NICENAME            => __( 'User Nicename', 'codepress-admin-columns' ),
-			self::PROPERTY_ROLES               => __( 'Roles', 'codepress-admin-columns' ),
 		];
 
 		// resort for possible translations
