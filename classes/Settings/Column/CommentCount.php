@@ -8,6 +8,12 @@ use AC\View;
 class CommentCount extends Settings\Column
 	implements Settings\FormatValue {
 
+	const STATUS_ALL = 'total_comments';
+	const STATUS_APPROVED = 'approved';
+	const STATUS_PENDING = 'moderated';
+	const STATUS_SPAM = 'spam';
+	const STATUS_TRASH = 'trash';
+
 	/**
 	 * @var string
 	 */
@@ -19,7 +25,7 @@ class CommentCount extends Settings\Column
 
 	protected function define_options() {
 		return [
-			'comment_status' => 'total_comments',
+			'comment_status' => self::STATUS_ALL,
 		];
 	}
 
@@ -44,16 +50,16 @@ class CommentCount extends Settings\Column
 	 */
 	protected function get_comment_statuses() {
 		$options = [
-			'approved'  => __( 'Approved', 'codepress-admin-columns' ),
-			'moderated' => __( 'Pending', 'codepress-admin-columns' ),
-			'spam'      => __( 'Spam', 'codepress-admin-columns' ),
-			'trash'     => __( 'Trash', 'codepress-admin-columns' ),
+			self::STATUS_APPROVED => __( 'Approved', 'codepress-admin-columns' ),
+			self::STATUS_PENDING  => __( 'Pending', 'codepress-admin-columns' ),
+			self::STATUS_SPAM     => __( 'Spam', 'codepress-admin-columns' ),
+			self::STATUS_TRASH    => __( 'Trash', 'codepress-admin-columns' ),
 		];
 
 		natcasesort( $options );
 
 		// First
-		$options = [ 'total_comments' => __( 'Total', 'codepress-admin-columns' ) ] + $options;
+		$options = [ self::STATUS_ALL => __( 'Total', 'codepress-admin-columns' ) ] + $options;
 
 		return $options;
 	}
