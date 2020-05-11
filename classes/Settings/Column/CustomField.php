@@ -8,6 +8,8 @@ use AC\View;
 
 class CustomField extends Settings\Column {
 
+	const NAME = 'custom_field';
+
 	/**
 	 * @var string
 	 */
@@ -30,7 +32,7 @@ class CustomField extends Settings\Column {
 	}
 
 	protected function set_name() {
-		$this->name = 'custom_field';
+		$this->name = self::NAME;
 	}
 
 	private function use_text_field() {

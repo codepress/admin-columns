@@ -9,6 +9,8 @@ use AC\View;
 class BeforeAfter extends Column
 	implements Settings\FormatValue {
 
+	const NAME = 'before_after';
+
 	/**
 	 * @var string
 	 */
@@ -20,7 +22,7 @@ class BeforeAfter extends Column
 	private $after;
 
 	protected function set_name() {
-		$this->name = 'before_after';
+		$this->name = self::NAME;
 	}
 
 	protected function define_options() {
