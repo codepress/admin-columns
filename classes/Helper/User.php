@@ -71,6 +71,7 @@ class User {
 		switch ( $format ) {
 
 			case 'first_last_name' :
+			case 'fullname' :
 
 				$name_parts = [];
 
