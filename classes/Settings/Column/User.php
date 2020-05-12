@@ -7,6 +7,8 @@ use AC\View;
 
 class User extends Settings\Column implements Settings\FormatValue {
 
+	const NAME = 'user';
+
 	const PROPERTY_DISPLAY_NAME = 'display_name';
 	const PROPERTY_EMAIL = 'user_email';
 	const PROPERTY_FULL_NAME = 'first_last_name';
