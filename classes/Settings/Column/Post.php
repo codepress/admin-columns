@@ -10,10 +10,10 @@ class Post extends Settings\Column
 
 	const NAME = 'post';
 
-	const TYPE_AUTHOR = 'author';
-	const TYPE_FEATURED_IMAGE = 'thumbnail';
-	const TYPE_ID = 'id';
-	const TYPE_TITLE = 'title';
+	const PROPERTY_AUTHOR = 'author';
+	const PROPERTY_FEATURED_IMAGE = 'thumbnail';
+	const PROPERTY_ID = 'id';
+	const PROPERTY_TITLE = 'title';
 
 	/**
 	 * @var string
@@ -26,7 +26,7 @@ class Post extends Settings\Column
 
 	protected function define_options() {
 		return [
-			'post_property_display' => self::TYPE_TITLE,
+			'post_property_display' => self::PROPERTY_TITLE,
 		];
 	}
 
@@ -34,7 +34,7 @@ class Post extends Settings\Column
 		$setting = [];
 
 		switch ( $this->get_post_property_display() ) {
-			case self::TYPE_FEATURED_IMAGE :
+			case self::PROPERTY_FEATURED_IMAGE :
 				$setting[] = new Settings\Column\Image( $this->column );
 				break;
 		}
@@ -54,15 +54,15 @@ class Post extends Settings\Column
 
 		switch ( $this->get_post_property_display() ) {
 
-			case self::TYPE_AUTHOR :
+			case self::PROPERTY_AUTHOR :
 				$value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $id ) );
 
 				break;
-			case self::TYPE_FEATURED_IMAGE :
+			case self::PROPERTY_FEATURED_IMAGE :
 				$value = get_post_thumbnail_id( $id );
 
 				break;
-			case self::TYPE_TITLE :
+			case self::PROPERTY_TITLE :
 				$value = ac_helper()->post->get_title( $id );
 
 				break;
@@ -88,10 +88,10 @@ class Post extends Settings\Column
 
 	protected function get_display_options() {
 		$options = [
-			self::TYPE_TITLE          => __( 'Title' ),
-			self::TYPE_ID             => __( 'ID' ),
-			self::TYPE_AUTHOR         => __( 'Author' ),
-			self::TYPE_FEATURED_IMAGE => _x( 'Featured Image', 'post' ),
+			self::PROPERTY_TITLE          => __( 'Title' ),
+			self::PROPERTY_ID             => __( 'ID' ),
+			self::PROPERTY_AUTHOR         => __( 'Author' ),
+			self::PROPERTY_FEATURED_IMAGE => _x( 'Featured Image', 'post' ),
 		];
 
 		asort( $options );
