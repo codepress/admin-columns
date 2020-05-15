@@ -8,6 +8,8 @@ use AC\View;
 class CommentCount extends Settings\Column
 	implements Settings\FormatValue {
 
+	const NAME = 'comment_count';
+
 	const STATUS_ALL = 'total_comments';
 	const STATUS_APPROVED = 'approved';
 	const STATUS_PENDING = 'moderated';
@@ -19,8 +21,8 @@ class CommentCount extends Settings\Column
 	 */
 	private $comment_status;
 
-	public function get_name() {
-		return 'comment_count';
+	protected function set_name() {
+		$this->name = self::NAME;
 	}
 
 	protected function define_options() {
