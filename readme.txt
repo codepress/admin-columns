@@ -217,6 +217,9 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: May 4th, 2020
 
 * [Improved] Better Table overview recognition to prevent wrong loaded list screens
+* [Improved] The comments column on the users page will now link to the (filtered) comments table
+* [Improved] The post count column on the users page now has the option to select all post types
+* [Fixed] Renamed the user display option 'First and Last Name' to 'Full name'
 
 = 4.1.6 =
 Release Date: April 22nd, 2020

@@ -66,7 +66,9 @@ class User {
 			return false;
 		}
 
-		$name = $user->display_name;
+		if ( false === $format ) {
+			return $user->display_name;
+		}
 
 		switch ( $format ) {
 
@@ -94,6 +96,8 @@ class User {
 			default :
 				if ( isset( $user->{$format} ) ) {
 					$name = $user->{$format};
+				} else {
+					$name = $user->display_name;
 				}
 		}
 
