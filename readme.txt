@@ -220,6 +220,7 @@ Release Date: May 4th, 2020
 * [Improved] The comments column on the users page will now link to the (filtered) comments table
 * [Improved] The post count column on the users page now has the option to select all post types
 * [Fixed] Renamed the user display option 'First and Last Name' to 'Full name'
+* [Fixed] The comment count column for the users page will now only count 'approved' and 'pending' comments when selecting 'All comments'
 
 = 4.1.6 =
 Release Date: April 22nd, 2020
