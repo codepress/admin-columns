@@ -10,11 +10,12 @@ class CommentCount extends Settings\Column
 
 	const NAME = 'comment_count';
 
-	const STATUS_ALL = 'total_comments';
+	const STATUS_ALL = 'all';
 	const STATUS_APPROVED = 'approved';
 	const STATUS_PENDING = 'moderated';
 	const STATUS_SPAM = 'spam';
 	const STATUS_TRASH = 'trash';
+	const STATUS_TOTAL_COMMENTS = 'total_comments';
 
 	/**
 	 * @var string
@@ -79,6 +80,10 @@ class CommentCount extends Settings\Column
 	 * @return bool
 	 */
 	public function set_comment_status( $comment_status ) {
+		if ( self::STATUS_TOTAL_COMMENTS === $comment_status ) {
+			$comment_status = self::STATUS_ALL;
+		}
+
 		$this->comment_status = $comment_status;
 
 		return true;
@@ -113,7 +118,10 @@ class CommentCount extends Settings\Column
 			return $this->column->get_empty_char();
 		}
 
-		return ac_helper()->html->link( add_query_arg( [ 'p' => $post_id, 'comment_status' => $this->get_comment_status() ], admin_url( 'edit-comments.php' ) ), $count );
+		return ac_helper()->html->link( add_query_arg( [
+			'p'              => $post_id,
+			'comment_status' => $this->get_comment_status(),
+		], admin_url( 'edit-comments.php' ) ), $count );
 	}
 
 }
