@@ -41,10 +41,17 @@ class PostCount extends Column {
 	}
 
 	public function get_raw_value( $user_id ) {
+		$post_type = $this->get_selected_post_type();
+
+		if ( 'any' === $post_type ) {
+			// All post types, including the ones that are marked "exclude from search"
+			$post_type = get_post_types();
+		}
+
 		return get_posts( [
 			'fields'         => 'ids',
 			'author'         => $user_id,
-			'post_type'      => $this->get_selected_post_type(),
+			'post_type'      => $post_type,
 			'posts_per_page' => -1,
 			'post_status'    => 'publish',
 		] );
