@@ -26,7 +26,7 @@ class User extends Settings\Column implements Settings\FormatValue {
 	private $display_author_as;
 
 	protected function set_name() {
-		$this->name = 'user';
+		$this->name = self::NAME;
 	}
 
 	protected function define_options() {
