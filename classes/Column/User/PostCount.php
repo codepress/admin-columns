@@ -53,7 +53,7 @@ class PostCount extends Column {
 			'author'         => $user_id,
 			'post_type'      => $post_type,
 			'posts_per_page' => -1,
-			'post_status'    => 'publish',
+			'post_status'    => [ 'publish', 'private' ],
 		] );
 	}
 
