@@ -11,6 +11,8 @@ use AC\View;
 class Comment extends Settings\Column
 	implements Settings\FormatValue {
 
+	const NAME = 'comment';
+
 	const PROPERTY_COMMENT = 'comment';
 	const PROPERTY_DATE = 'date';
 	const PROPERTY_ID = 'id';
@@ -23,7 +25,7 @@ class Comment extends Settings\Column
 	private $comment_property;
 
 	protected function set_name() {
-		$this->name = 'comment';
+		$this->name = self::NAME;
 	}
 
 	protected function define_options() {

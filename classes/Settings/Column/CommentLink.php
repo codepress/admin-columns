@@ -31,7 +31,11 @@ class CommentLink extends Settings\Column
 
 				break;
 			case 'edit_comment' :
-				$link = get_edit_comment_link( $id );
+				$comment = get_comment( $id );
+
+				$link = $comment
+					? get_edit_comment_link( $comment )
+					: false;
 
 				break;
 			default :
