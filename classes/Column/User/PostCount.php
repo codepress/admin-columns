@@ -22,7 +22,7 @@ class PostCount extends Column {
 			return $this->get_empty_char();
 		}
 
-		$value = count( $ids );
+		$value = number_format_i18n( count( $ids ) );
 
 		if ( post_type_exists( $this->get_selected_post_type() ) ) {
 			$link = add_query_arg( [
