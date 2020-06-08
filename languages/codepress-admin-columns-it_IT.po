@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-07-18 14:38:20+0000\n"
+"PO-Revision-Date: 2020-05-10 02:12:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: templates/tooltip/bulk-editing.php:14
 msgid "Bulk Edit"
-msgstr ""
+msgstr "Modifica di massa"
 
 #: templates/tooltip/bulk-editing.php:13
 msgid "Clicking the %s button will display a popup that allows you to add or change the current value of all selected items."
@@ -236,7 +236,7 @@ msgstr ""
 
 #: classes/Settings/Column/NumberFormat.php:69
 msgid "Thousands separator"
-msgstr ""
+msgstr "Separatore migliaia"
 
 #: classes/Settings/Column/NumberFormat.php:58
 msgid "Decimal point"
@@ -248,7 +248,7 @@ msgstr ""
 
 #: classes/Settings/Column/TermLink.php:38
 msgid "Edit Term"
-msgstr ""
+msgstr "Modifica termine"
 
 #: classes/Settings/Column/TermLink.php:37
 msgid "Filter by Term"
