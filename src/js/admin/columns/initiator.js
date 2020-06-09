@@ -1,4 +1,4 @@
-class Initiator {
+export default class Initiator {
 
 	constructor() {
 		this.events = {};
@@ -36,5 +36,3 @@ class Initiator {
 		return oldName;
 	}
 }
-
-module.exports = Initiator;

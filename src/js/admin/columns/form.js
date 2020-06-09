@@ -204,7 +204,7 @@ class Form {
 	}
 
 	cloneColumn( $el ) {
-		return this._addColumnToForm( new Column( $el ).clone(), $el.hasClass( 'opened' ) );
+		return this._addColumnToForm( new Column( $el ).clone(), $el.hasClass( 'opened' ), $el );
 	}
 
 	addColumn() {
@@ -237,9 +237,14 @@ class Form {
 		return this.$form.find( '[name^="columns["]' ).serialize();
 	}
 
-	_addColumnToForm( column, open = true ) {
+	_addColumnToForm( column, open = true, $after = null ) {
 		this.columns[ column.name ] = column;
-		this.$column_container.append( column.$el );
+
+		if ( $after ) {
+			column.$el.insertAfter( $after );
+		} else {
+			this.$column_container.append( column.$el );
+		}
 
 		if ( open ) {
 			column.open();
@@ -247,13 +252,23 @@ class Form {
 
 		column.$el.hide().slideDown();
 
-		jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
-
 		jQuery( document ).trigger( 'AC_Column_Added', [column] );
+
+		if ( !isInViewport( column.$el ) ) {
+			jQuery( 'html, body' ).animate( { scrollTop : column.$el.offset().top - 58 }, 300 );
+		}
 
 		return column;
 	}
 
 }
 
-module.exports = Form;
+export default Form;
+
+let isInViewport = ( $el ) => {
+	var elementTop = $el.offset().top;
+	var elementBottom = elementTop + $el.outerHeight();
+	var viewportTop = jQuery( window ).scrollTop();
+	var viewportBottom = viewportTop + jQuery( window ).height();
+	return elementBottom > viewportTop && elementTop < viewportBottom;
+};

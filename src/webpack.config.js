@@ -35,10 +35,7 @@ let config = {
 	},
 	stats : {
 		colors : true
-	},
-	externals : {
-		jquery : 'jQuery'
-	},
+	}
 
 };
 

@@ -11,8 +11,7 @@ use AC\Column;
 class Depth extends Column {
 
 	public function __construct() {
-		$this->set_type( 'column-depth' );
-		$this->set_label( __( 'Depth', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-depth' )->set_label( __( 'Depth', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $post_id ) {

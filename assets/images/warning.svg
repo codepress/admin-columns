@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Warning Icon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Warning-Icon" transform="translate(0.000000, -1.000000)">
+            <g stroke-width="1" fill="#DDDDDD" fill-opacity="0.55822577" id="Triangle" stroke="#CACDD1">
+                <path d="M10.2888544,3.57770876 L15.5527864,14.1055728 C16.0467649,15.0935298 15.6463162,16.2948759 14.6583592,16.7888544 C14.3806483,16.9277098 14.0744222,17 13.763932,17 L3.23606798,17 C2.13149848,17 1.23606798,16.1045695 1.23606798,15 C1.23606798,14.6895098 1.30835816,14.3832837 1.4472136,14.1055728 L6.71114562,3.57770876 C7.20512412,2.58975177 8.4064702,2.18930308 9.39442719,2.68328157 C9.781482,2.87680898 10.095327,3.19065396 10.2888544,3.57770876 Z"></path>
+            </g>
+            <rect id="Rectangle" fill="#ADB4BB" x="7.65" y="6.8" width="1.7" height="5.95"></rect>
+            <circle id="Oval" fill="#ADB4BB" cx="8.5" cy="14.45" r="1"></circle>
+        </g>
+    </g>
+</svg>

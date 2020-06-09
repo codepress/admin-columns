@@ -2,6 +2,7 @@
 
 namespace AC\Column\Post;
 
+use AC;
 use AC\Column;
 use AC\Settings;
 
@@ -29,6 +30,16 @@ class LastModifiedAuthor extends Column\Meta {
 
 	public function get_meta_key() {
 		return '_edit_last';
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function get_user_setting_display() {
+		/* @var AC\Settings\Column\User $setting */
+		$setting = $this->get_setting( 'user' );
+
+		return $setting->get_display_author_as();
 	}
 
 	public function register_settings() {

@@ -607,6 +607,17 @@
 		transform: translateY(2px);
 	}
 
+	&__icon {
+		display: inline-block;
+		margin-right: 10px;
+		&.-warning {
+			transform: translateY(3px);
+		}
+
+		+ * {
+			display: inline-block;
+		}
+	}
 }
 
 .ac-setting-input-date {

@@ -8,18 +8,25 @@ use AC\View;
 class Post extends Settings\Column
 	implements Settings\FormatValue {
 
+	const NAME = 'post';
+
+	const PROPERTY_AUTHOR = 'author';
+	const PROPERTY_FEATURED_IMAGE = 'thumbnail';
+	const PROPERTY_ID = 'id';
+	const PROPERTY_TITLE = 'title';
+
 	/**
 	 * @var string
 	 */
 	private $post_property;
 
 	protected function set_name() {
-		$this->name = 'post';
+		$this->name = self::NAME;
 	}
 
 	protected function define_options() {
 		return [
-			'post_property_display' => 'title',
+			'post_property_display' => self::PROPERTY_TITLE,
 		];
 	}
 
@@ -27,7 +34,7 @@ class Post extends Settings\Column
 		$setting = [];
 
 		switch ( $this->get_post_property_display() ) {
-			case 'thumbnail' :
+			case self::PROPERTY_FEATURED_IMAGE :
 				$setting[] = new Settings\Column\Image( $this->column );
 				break;
 		}
@@ -47,15 +54,15 @@ class Post extends Settings\Column
 
 		switch ( $this->get_post_property_display() ) {
 
-			case 'author' :
+			case self::PROPERTY_AUTHOR :
 				$value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $id ) );
 
 				break;
-			case 'thumbnail' :
+			case self::PROPERTY_FEATURED_IMAGE :
 				$value = get_post_thumbnail_id( $id );
 
 				break;
-			case 'title' :
+			case self::PROPERTY_TITLE :
 				$value = ac_helper()->post->get_title( $id );
 
 				break;
@@ -81,10 +88,10 @@ class Post extends Settings\Column
 
 	protected function get_display_options() {
 		$options = [
-			'title'     => __( 'Title' ),
-			'id'        => __( 'ID' ),
-			'author'    => __( 'Author' ),
-			'thumbnail' => _x( 'Featured Image', 'post' ),
+			self::PROPERTY_TITLE          => __( 'Title' ),
+			self::PROPERTY_ID             => __( 'ID' ),
+			self::PROPERTY_AUTHOR         => __( 'Author' ),
+			self::PROPERTY_FEATURED_IMAGE => _x( 'Featured Image', 'post' ),
 		];
 
 		asort( $options );

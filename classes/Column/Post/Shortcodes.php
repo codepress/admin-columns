@@ -43,24 +43,7 @@ class Shortcodes extends Column {
 			return false;
 		}
 
-		$content = get_post_field( 'post_content', $post_id );
-
-		$shortcodes = [];
-
-		$_shortcodes = array_keys( $shortcode_tags );
-		asort( $_shortcodes );
-
-		foreach ( $_shortcodes as $shortcode ) {
-
-			$count = substr_count( $content, '[' . $shortcode . ']' );
-			$count += substr_count( $content, '[' . $shortcode . ' ' );
-
-			if ( $count ) {
-				$shortcodes[ $shortcode ] = $count;
-			}
-		}
-
-		return $shortcodes;
+		return ac_helper()->string->get_shortcodes( get_post_field( 'post_content', $post_id ) );
 	}
 
 }

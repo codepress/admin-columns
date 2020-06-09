@@ -26,6 +26,10 @@ class AuthorName extends Column {
 			$value = $value->filter()->implode( $this->get_separator() );
 		}
 
+		if ( ! $value ) {
+			return $this->get_empty_char();
+		}
+
 		return $value;
 	}
 

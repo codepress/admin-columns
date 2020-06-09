@@ -15,9 +15,9 @@ use AC\Settings;
 class CustomField extends Column\Meta {
 
 	public function __construct() {
-		$this->set_type( 'column-meta' );
-		$this->set_label( __( 'Custom Field', 'codepress-admin-columns' ) );
-		$this->set_group( 'custom_field' );
+		$this->set_type( 'column-meta' )
+		     ->set_label( __( 'Custom Field', 'codepress-admin-columns' ) )
+		     ->set_group( 'custom_field' );
 	}
 
 	public function get_meta_key() {
