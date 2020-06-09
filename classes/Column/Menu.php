@@ -24,7 +24,7 @@ abstract class Menu extends Column {
 	 * @since 2.2.5
 	 */
 	public function get_raw_value( $object_id ) {
-		return $this->get_menus( $object_id, [ 'fields' => 'ids' ] );
+		return $this->get_menus( $object_id, [ 'fields' => 'ids', 'orderby' => 'name' ] );
 	}
 
 	/**

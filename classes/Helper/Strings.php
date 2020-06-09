@@ -29,6 +29,36 @@ class Strings {
 	}
 
 	/**
+	 * @param string $content
+	 *
+	 * @return array
+	 */
+	public function get_shortcodes( $content ) {
+		global $shortcode_tags;
+
+		if ( ! $shortcode_tags || ! $content ) {
+			return [];
+		}
+
+		$shortcodes = [];
+
+		$_shortcodes = array_keys( $shortcode_tags );
+		asort( $_shortcodes );
+
+		foreach ( $_shortcodes as $shortcode ) {
+
+			$count = substr_count( $content, '[' . $shortcode . ']' );
+			$count += substr_count( $content, '[' . $shortcode . ' ' );
+
+			if ( $count ) {
+				$shortcodes[ $shortcode ] = $count;
+			}
+		}
+
+		return $shortcodes;
+	}
+
+	/**
 	 * Count the number of words in a string (multibyte-compatible)
 	 *
 	 * @param $string

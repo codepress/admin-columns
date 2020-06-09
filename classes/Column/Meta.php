@@ -45,7 +45,7 @@ abstract class Meta extends Column {
 
 	/**
 	 * Retrieve metadata object type (e.g., comment, post, or user)
-	 * @return bool
+	 * @return string
 	 * @since 3.0
 	 */
 	public function get_meta_type() {

@@ -39,4 +39,4 @@ let indicator = function( column ) {
 	} );
 };
 
-module.exports = indicator;
+export default indicator;

@@ -40,4 +40,4 @@ let addons = function( column ) {
 
 };
 
-module.exports = addons;
+export default addons;

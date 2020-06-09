@@ -8,13 +8,15 @@ use AC\View;
 class ExifData extends Settings\Column
 	implements Settings\FormatValue {
 
+	const NAME = 'exif_data';
+
 	/**
 	 * @var string
 	 */
 	private $exif_datatype;
 
 	protected function set_name() {
-		$this->name = 'exif_data';
+		$this->name = self::NAME;
 	}
 
 	protected function define_options() {

@@ -7,13 +7,15 @@ use AC\View;
 
 class NumberOfItems extends Settings\Column {
 
+	const NAME = 'number_of_items';
+
 	/**
 	 * @var string
 	 */
 	private $number_of_items;
 
 	protected function set_name() {
-		return $this->name = 'number_of_items';
+		return $this->name = self::NAME;
 	}
 
 	protected function define_options() {

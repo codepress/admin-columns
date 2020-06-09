@@ -11,13 +11,21 @@ use AC\View;
 class Comment extends Settings\Column
 	implements Settings\FormatValue {
 
+	const NAME = 'comment';
+
+	const PROPERTY_COMMENT = 'comment';
+	const PROPERTY_DATE = 'date';
+	const PROPERTY_ID = 'id';
+	const PROPERTY_AUTHOR = 'author';
+	const PROPERTY_AUTHOR_EMAIL = 'author_email';
+
 	/**
 	 * @var string
 	 */
 	private $comment_property;
 
 	protected function set_name() {
-		$this->name = 'comment';
+		$this->name = self::NAME;
 	}
 
 	protected function define_options() {
@@ -30,14 +38,14 @@ class Comment extends Settings\Column
 
 		switch ( $this->get_comment_property_display() ) {
 
-			case 'date' :
+			case self::PROPERTY_DATE :
 				return [
 					new Settings\Column\Date( $this->column ),
 					new Settings\Column\CommentLink( $this->column ),
 				];
 
 				break;
-			case 'comment' :
+			case self::PROPERTY_COMMENT :
 				return [
 					new Settings\Column\StringLimit( $this->column ),
 					new Settings\Column\CommentLink( $this->column ),
@@ -59,19 +67,19 @@ class Comment extends Settings\Column
 
 		switch ( $this->get_comment_property_display() ) {
 
-			case 'date' :
+			case self::PROPERTY_DATE :
 				$value = $this->get_comment_property( 'comment_date', $id );
 
 				break;
-			case 'author' :
+			case self::PROPERTY_AUTHOR :
 				$value = $this->get_comment_property( 'comment_author', $id );
 
 				break;
-			case 'author_email' :
+			case self::PROPERTY_AUTHOR_EMAIL :
 				$value = $this->get_comment_property( 'comment_author_email', $id );
 
 				break;
-			case 'comment' :
+			case self::PROPERTY_COMMENT :
 				$value = $this->get_comment_property( 'comment_content', $id );
 
 				break;
@@ -113,11 +121,11 @@ class Comment extends Settings\Column
 
 	protected function get_display_options() {
 		$options = [
-			'comment'      => __( 'Comment' ),
-			'id'           => __( 'ID' ),
-			'author'       => __( 'Author' ),
-			'author_email' => __( 'Author Email', 'codepress-admin-column' ),
-			'date'         => __( 'Date' ),
+			self::PROPERTY_COMMENT      => __( 'Comment' ),
+			self::PROPERTY_ID           => __( 'ID' ),
+			self::PROPERTY_AUTHOR       => __( 'Author' ),
+			self::PROPERTY_AUTHOR_EMAIL => __( 'Author Email', 'codepress-admin-column' ),
+			self::PROPERTY_DATE         => __( 'Date' ),
 		];
 
 		natcasesort( $options );

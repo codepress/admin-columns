@@ -1,4 +1,4 @@
-let label = function( column ) {
+let EventLabel = function( column ) {
 	let $column = column.$el;
 
 	/**
@@ -23,7 +23,7 @@ let label = function( column ) {
 	}, 50 );
 };
 
-let settingLabel = function( column ) {
+let EventLabelSettings = function( column ) {
 	let $column = column.$el;
 
 	/** change label */
@@ -40,7 +40,4 @@ let settingLabel = function( column ) {
 	} );
 };
 
-module.exports = {
-	label : label,
-	setting : settingLabel
-};
+export {EventLabel, EventLabelSettings};

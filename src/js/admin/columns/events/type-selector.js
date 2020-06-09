@@ -12,4 +12,4 @@ let selector = function( column ) {
 	} );
 };
 
-module.exports = selector;
+export default selector;

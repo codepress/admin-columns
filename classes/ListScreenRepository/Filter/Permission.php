@@ -18,7 +18,7 @@ class Permission implements Filter {
 	}
 
 	public function filter( ListScreenCollection $list_screens ) {
-		foreach ( $list_screens as $list_screen ) {
+		foreach ( clone $list_screens as $list_screen ) {
 			if ( ! $this->permission_checker->is_valid( wp_get_current_user(), $list_screen ) ) {
 				$list_screens->remove( $list_screen );
 			}

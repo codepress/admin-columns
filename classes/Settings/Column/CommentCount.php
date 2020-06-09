@@ -8,18 +8,27 @@ use AC\View;
 class CommentCount extends Settings\Column
 	implements Settings\FormatValue {
 
+	const NAME = 'comment_count';
+
+	const STATUS_ALL = 'all';
+	const STATUS_APPROVED = 'approved';
+	const STATUS_PENDING = 'moderated';
+	const STATUS_SPAM = 'spam';
+	const STATUS_TRASH = 'trash';
+	const STATUS_TOTAL_COMMENTS = 'total_comments';
+
 	/**
 	 * @var string
 	 */
 	private $comment_status;
 
-	public function get_name() {
-		return 'comment_count';
+	protected function set_name() {
+		$this->name = self::NAME;
 	}
 
 	protected function define_options() {
 		return [
-			'comment_status' => 'total_comments',
+			'comment_status' => self::STATUS_ALL,
 		];
 	}
 
@@ -44,16 +53,16 @@ class CommentCount extends Settings\Column
 	 */
 	protected function get_comment_statuses() {
 		$options = [
-			'approved'  => __( 'Approved', 'codepress-admin-columns' ),
-			'moderated' => __( 'Pending', 'codepress-admin-columns' ),
-			'spam'      => __( 'Spam', 'codepress-admin-columns' ),
-			'trash'     => __( 'Trash', 'codepress-admin-columns' ),
+			self::STATUS_APPROVED => __( 'Approved', 'codepress-admin-columns' ),
+			self::STATUS_PENDING  => __( 'Pending', 'codepress-admin-columns' ),
+			self::STATUS_SPAM     => __( 'Spam', 'codepress-admin-columns' ),
+			self::STATUS_TRASH    => __( 'Trash', 'codepress-admin-columns' ),
 		];
 
 		natcasesort( $options );
 
 		// First
-		$options = [ 'total_comments' => __( 'Total', 'codepress-admin-columns' ) ] + $options;
+		$options = [ self::STATUS_ALL => __( 'Total', 'codepress-admin-columns' ) ] + $options;
 
 		return $options;
 	}
@@ -71,6 +80,10 @@ class CommentCount extends Settings\Column
 	 * @return bool
 	 */
 	public function set_comment_status( $comment_status ) {
+		if ( self::STATUS_TOTAL_COMMENTS === $comment_status ) {
+			$comment_status = self::STATUS_ALL;
+		}
+
 		$this->comment_status = $comment_status;
 
 		return true;
@@ -105,7 +118,10 @@ class CommentCount extends Settings\Column
 			return $this->column->get_empty_char();
 		}
 
-		return ac_helper()->html->link( add_query_arg( [ 'p' => $post_id, 'comment_status' => $this->get_comment_status() ], admin_url( 'edit-comments.php' ) ), $count );
+		return ac_helper()->html->link( add_query_arg( [
+			'p'              => $post_id,
+			'comment_status' => $this->get_comment_status(),
+		], admin_url( 'edit-comments.php' ) ), $count );
 	}
 
 }

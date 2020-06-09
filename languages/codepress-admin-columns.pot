@@ -19,7 +19,7 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin.php:126, classes/Admin/Page/Columns.php:54
+#: classes/Admin.php:126, classes/Table/Screen.php:414, classes/Admin/Page/Columns.php:54
 msgid "Admin Columns"
 msgstr ""
 
@@ -686,15 +686,15 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:68
+#: classes/Admin/Page/Columns.php:64
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:140
+#: classes/Admin/Page/Columns.php:144
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:149
+#: classes/Admin/Page/Columns.php:153
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 

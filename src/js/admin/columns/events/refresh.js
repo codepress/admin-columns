@@ -17,4 +17,4 @@ let refresh = function( column ) {
 	} );
 };
 
-module.exports = refresh;
+export default refresh;

@@ -96,4 +96,4 @@ let image = function( column ) {
 	column.settings.image = new Image( column );
 };
 
-module.exports = image;
+export default image;

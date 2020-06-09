@@ -1,4 +1,4 @@
-class Menu {
+export default class Menu {
 
 	init() {
 		let $ = jQuery;
@@ -13,5 +13,3 @@ class Menu {
 	}
 
 }
-
-module.exports = Menu;

@@ -319,6 +319,10 @@ class Image {
 			return [];
 		}
 
+		if ( false === strpos( $string, '<img' ) ) {
+			return [];
+		}
+
 		if ( ! class_exists( 'DOMDocument' ) ) {
 			return [];
 		}
