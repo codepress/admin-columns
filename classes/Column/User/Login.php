@@ -8,7 +8,7 @@ class Login extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-user_login' )
-		     ->set_label( __( 'Login', 'codepress-admin-columns' ) );
+		     ->set_label( __( 'Username', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $user_id ) {
