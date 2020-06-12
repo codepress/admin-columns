@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.1.8 =
+Release Date: tbd
+
+* [Added] Added "Author Slug", "Full Name" and "Username / Login" columns for the users table
+
 = 4.1.7 =
 Release Date: June 9th, 2020
 
