@@ -10,8 +10,8 @@ use AC\Column;
 class FirstName extends Column\Meta {
 
 	public function __construct() {
-		$this->set_type( 'column-first_name' );
-		$this->set_label( __( 'First Name', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-first_name' )
+		     ->set_label( __( 'First Name', 'codepress-admin-columns' ) );
 	}
 
 	public function get_meta_key() {
@@ -21,11 +21,7 @@ class FirstName extends Column\Meta {
 	public function get_value( $user_id ) {
 		$value = $this->get_raw_value( $user_id );
 
-		if ( ! $value ) {
-			return $this->get_empty_char();
-		}
-
-		return $value;
+		return $value ?: $this->get_empty_char();
 	}
 
 	public function get_raw_value( $user_id ) {
