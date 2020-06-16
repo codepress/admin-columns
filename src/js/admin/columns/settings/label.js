@@ -121,4 +121,4 @@ let label = function( column ) {
 	column.settings.label = new Label( column );
 };
 
-module.exports = label;
+export default label;

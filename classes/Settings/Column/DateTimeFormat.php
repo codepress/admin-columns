@@ -8,10 +8,12 @@ use AC\View;
 abstract class DateTimeFormat extends Settings\Column
 	implements Settings\FormatValue {
 
+	const NAME = 'date';
+
 	private $date_format;
 
 	protected function set_name() {
-		$this->name = 'date';
+		$this->name = self::NAME;
 	}
 
 	protected function define_options() {

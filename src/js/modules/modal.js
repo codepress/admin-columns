@@ -1,6 +1,6 @@
 import Modals from './modals'
 
-class Modal {
+export default class Modal {
 	constructor( el ) {
 		if ( !el ) {
 			return;
@@ -100,5 +100,3 @@ class Modal {
 	onOpen() {}
 
 }
-
-module.exports = Modal;

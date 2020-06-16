@@ -21,7 +21,7 @@ import EventClone from './admin/columns/events/clone';
 import EventRefresh from './admin/columns/events/refresh';
 import EventTypeSelector from './admin/columns/events/type-selector';
 import EventIndicator from './admin/columns/events/indicator';
-import EventLabel from './admin/columns/events/label';
+import {EventLabel, EventLabelSettings} from './admin/columns/events/label';
 import EventAddons from './admin/columns/events/addons';
 /** Settings */
 import SettingImageSize from './admin/columns/settings/image-size';
@@ -40,12 +40,12 @@ require( 'admin-columns-js/polyfill/nodelist' );
 
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 
-let jQuery = $ = require( 'jquery' );
 
 AC.Column = new Initiator(); // Todo remove from
 AdminColumns.Column = AC.Column;
 
 jQuery( document ).on( 'AC_Form_Loaded', function() {
+
 	AdminColumns.Tooltips = new Tooltip();
 	/** Register Events **/
 	AdminColumns.Column
@@ -55,8 +55,8 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 		.registerEvent( 'refresh', EventRefresh )
 		.registerEvent( 'type_selector', EventTypeSelector )
 		.registerEvent( 'indicator', EventIndicator )
-		.registerEvent( 'label', EventLabel.label )
-		.registerEvent( 'label_setting', EventLabel.setting )
+		.registerEvent( 'label', EventLabel )
+		.registerEvent( 'label_setting', EventLabelSettings )
 		.registerEvent( 'addons', EventAddons )
 
 		/** Register Settings **/

@@ -88,4 +88,4 @@ let width = function( column ) {
 	} );
 };
 
-module.exports = width;
+export default width;

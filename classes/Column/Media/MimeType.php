@@ -10,12 +10,14 @@ use AC\Column;
 class MimeType extends Column {
 
 	public function __construct() {
-		$this->set_type( 'column-mime_type' );
-		$this->set_label( __( 'Mime Type', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-mime_type' )
+		     ->set_label( __( 'Mime Type', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {
-		return $this->get_raw_value( $id );
+		$value = $this->get_raw_value( $id );
+
+		return $value ?: $this->get_empty_char();
 	}
 
 	public function get_raw_value( $id ) {

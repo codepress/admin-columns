@@ -11,4 +11,4 @@ let remove = function( column ) {
 	} );
 };
 
-module.exports = remove;
+export default remove;

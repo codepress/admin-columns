@@ -31,4 +31,4 @@ let subsetting = function( column ) {
 	} );
 };
 
-module.exports = subsetting;
+export default subsetting;

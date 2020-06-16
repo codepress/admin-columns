@@ -10,8 +10,8 @@ use AC\Column;
 class Posts extends Column {
 
 	public function __construct() {
-		$this->set_original( true );
-		$this->set_type( 'posts' );
+		$this->set_original( true )
+		     ->set_type( 'posts' );
 	}
 
 }

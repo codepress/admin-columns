@@ -66,11 +66,14 @@ class User {
 			return false;
 		}
 
-		$name = $user->display_name;
+		if ( false === $format ) {
+			return $user->display_name;
+		}
 
 		switch ( $format ) {
 
 			case 'first_last_name' :
+			case 'full_name' :
 
 				$name_parts = [];
 
@@ -91,8 +94,10 @@ class User {
 
 				break;
 			default :
-				if ( ! empty( $user->{$format} ) ) {
+				if ( isset( $user->{$format} ) ) {
 					$name = $user->{$format};
+				} else {
+					$name = $user->display_name;
 				}
 		}
 
