@@ -23,6 +23,9 @@
 	p {
 		margin: 0.5em 0;
 	}
+
+	&.notice-warning { border-left-color: #ffb900; }
+	&.notice-error { border-left-color: #dc3232; }
 }
 
 .wrap {
