@@ -33,6 +33,7 @@ export default class Table {
 		this.addCellClasses();
 
 		document.dispatchEvent( new CustomEvent( 'AC_Table_Ready', { detail : { table : self } } ) );
+		AdminColumns.events.emit( 'Table.Ready', { table: self } );
 	}
 
 	updateRow( row ) {
@@ -140,7 +141,7 @@ export default class Table {
 
 		row.dataset.id = item_id;
 
-		document.dispatchEvent( new CustomEvent( 'AC_Table_Row_Id', { detail : { row : row } } ) );
+		AdminColumns.events.emit( 'Table.Id', { id : item_id, row : row } );
 
 		return row.dataset.id;
 	}

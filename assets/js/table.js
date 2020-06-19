@@ -1359,6 +1359,9 @@ var Table = /*#__PURE__*/function () {
           table: self
         }
       }));
+      AdminColumns.events.emit('Table.Ready', {
+        table: self
+      });
     }
   }, {
     key: "updateRow",
@@ -1475,11 +1478,10 @@ var Table = /*#__PURE__*/function () {
       }
 
       row.dataset.id = item_id;
-      document.dispatchEvent(new CustomEvent('AC_Table_Row_Id', {
-        detail: {
-          row: row
-        }
-      }));
+      AdminColumns.events.emit('Table.Id', {
+        id: item_id,
+        row: row
+      });
       return row.dataset.id;
     }
   }, {
