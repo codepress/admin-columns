@@ -2,7 +2,11 @@ import Tooltip from "./modules/tooltips";
 import AcSection from "./modules/ac-section";
 import Pointer from "./modules/ac-pointer";
 
+const nanobus = require('nanobus');
+
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
+
+AdminColumns.events = nanobus();
 
 jQuery( document ).ready( function( $ ) {
 	if ( $( '#cpac' ).length === 0 ) {

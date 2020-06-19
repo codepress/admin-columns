@@ -5,8 +5,12 @@ import ScreenOptionsColumns from "./table/screen-options-columns";
 import ShowMore from "./modules/show-more";
 import ToggleBoxLink from "./modules/toggle-box-link";
 
+const nanobus = require( 'nanobus' );
+
 // Register the global variable
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
+
+AdminColumns.events = nanobus();
 
 Modals.init();
 
