@@ -216,6 +216,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.1.8 =
 Release Date: tbd
 
+* [Added] New column for Order overview page: Product Tags
 * [Added] Added "Author Slug", "Full Name" and "Username / Login" columns for the users table
 * [Fixed] CSS conflict on overview pages where post type is 'Modal'
 

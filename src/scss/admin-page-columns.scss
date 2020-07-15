@@ -834,7 +834,7 @@ div.ac-column-header {
 
 					.inner {
 						position: relative;
-						overflow: hidden;
+						overflow: visible;
 						height: 18px;
 
 						.toggle {
@@ -889,6 +889,8 @@ div.ac-column-header {
 							font-weight: normal;
 							color: #b2b2b2;
 							font-size: 12px;
+							width: 180px;
+							position: relative;
 
 							.ac-column-heading-setting {
 								cursor: pointer;
@@ -902,11 +904,20 @@ div.ac-column-header {
 
 								&.ac-column-indicator {
 									margin-left: 3px;
-									font-size: 24px;
+									font-size: 22px;
 									line-height: 17px;
 									width: 22px;
+									position: absolute;
+									left:0;
 
-									&.ac-column-indicator--filter {
+									&.ac-column-indicator--export { left: 0px;}
+									&.ac-column-indicator--sort { left: 30px;}
+									&.ac-column-indicator--edit { left: 60px;}
+									&.ac-column-indicator--bulk_edit { left: 90px;}
+									&.ac-column-indicator--search { left: 120px;}
+									&.ac-column-indicator--filter { left: 150px; top: 1px;}
+
+									&.cpacicon-filter {
 										font-size: 20px;
 									}
 
@@ -943,10 +954,11 @@ div.ac-column-header {
 					text-align: right;
 					color: #999999;
 					padding-right: 0;
+					line-height: 21px;
 
 					.inner {
 						display: inline-block;
-						height: 18px;
+						height: 22px;
 						overflow: hidden;
 						text-overflow: ellipsis;
 						white-space: nowrap;

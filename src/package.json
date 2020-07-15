@@ -21,8 +21,7 @@
     "ac:build:production": "nps build.production && npm run ac:languages",
     "ac:build:development": "nps build.development",
     "ac:languages": "nps languages.production",
-    "ac:webfont": "webfont svg/*.svg --dest webfont/fonts --dest-template webfont/scss & nps webfont.build",
-    "ac:webfont2": "nps webfont.build",
+    "webfont": "node ./scripts/webfont.js",
     "ac:svgsymbols": "svgstore ./svg-symbols/*.svg -o ../assets/images/symbols.svg"
   },
   "webfont": {
