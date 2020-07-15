@@ -1,7 +1,8 @@
 /**
  * Modal
  */
-.ac-modal {
+// Prefixed with body because it could leas to issues when using a post type called modal
+body .ac-modal {
 	position: fixed;
 	overflow: auto;
 	z-index: 100000;

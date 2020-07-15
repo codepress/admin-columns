@@ -217,6 +217,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: tbd
 
 * [Added] Added "Author Slug", "Full Name" and "Username / Login" columns for the users table
+* [Fixed] CSS conflict on overview pages where post type is 'Modal'
 
 = 4.1.7 =
 Release Date: June 9th, 2020
