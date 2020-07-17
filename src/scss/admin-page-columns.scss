@@ -610,6 +610,7 @@
 	&__icon {
 		display: inline-block;
 		margin-right: 10px;
+
 		&.-warning {
 			transform: translateY(3px);
 		}
@@ -910,14 +911,22 @@ div.ac-column-header {
 									line-height: 17px;
 									width: 22px;
 									position: absolute;
-									left:0;
+									left: 0;
 
-									&.ac-column-indicator--export { left: 40px;}
-									&.ac-column-indicator--sort { left: 68px;}
-									&.ac-column-indicator--edit { left: 96px;}
-									&.ac-column-indicator--bulk_edit { left: 124px;}
-									&.ac-column-indicator--search { left: 152px;}
-									&.ac-column-indicator--filter { left: 180px; top: 1px;}
+									$selectors: export, sort, edit, bulk_edit, search, filter;
+									$start: 12;
+									$gutter: 27;
+
+									@for $i from 1 through length($selectors) {
+										$c: nth($selectors, $i);
+										&.ac-column-indicator--#{$c} {
+											left: ($start+($i*$gutter)) + 0px;
+										}
+									}
+
+									&.ac-column-indicator--filter {
+										top: 1px;
+									}
 
 									&.cpacicon-filter {
 										font-size: 20px;
