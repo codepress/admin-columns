@@ -900,6 +900,8 @@ div.ac-column-header {
 									margin-right: 3px;
 									cursor: auto;
 									color: #737373;
+									position: absolute;
+									right: calc(100% - 45px);
 								}
 
 								&.ac-column-indicator {
