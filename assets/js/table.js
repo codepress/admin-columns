@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../src/editing/js/helpers/elements.js":
-/*!********************************************************************************************************!*\
-  !*** /Users/stefan/PhpstormProjects/AdminColumns/admin-columns-pro/src/editing/js/helpers/elements.js ***!
-  \********************************************************************************************************/
+/*!***********************************************************************************!*\
+  !*** /Users/tobias/Projects/admin-columns-pro/src/editing/js/helpers/elements.js ***!
+  \***********************************************************************************/
 /*! exports provided: insertAfter, insertBefore */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
