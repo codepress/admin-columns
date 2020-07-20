@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7
 Tested up to: 5.4.1
 Requires PHP: 5.6.20
-Stable tag: 4.1.7
+Stable tag: 4.1.8
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -216,7 +216,6 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.1.8 =
 Release Date: tbd
 
-* [Added] New column for Order overview page: Product Tags
 * [Added] New columns for the Users table: Fullname, Author Slug and Username / Login.
 * [Fixed] CSS conflict on overview pages where post type is 'Modal'
 
