@@ -214,7 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.1.8 =
-Release Date: tbd
+Release Date: July 26th, 2020
 
 * [Added] New columns for the Users table: Fullname, Author Slug and Username / Login.
 * [Fixed] CSS conflict on overview pages where post type is 'Modal'
