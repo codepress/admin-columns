@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-03-19 17:03:21+0000\n"
+"PO-Revision-Date: 2020-06-25 12:49:16+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: nb_NO\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
@@ -21,11 +21,11 @@ msgstr ""
 
 #: templates/tooltip/export-disabled.php:2
 msgid "Export Unavailable"
-msgstr ""
+msgstr "Eksport utilgjengelig"
 
 #: templates/tooltip/bulk-editing.php:14
 msgid "Bulk Edit"
-msgstr ""
+msgstr "Masseredigering"
 
 #: templates/tooltip/bulk-editing.php:13
 msgid "Clicking the %s button will display a popup that allows you to add or change the current value of all selected items."
@@ -69,7 +69,7 @@ msgstr ""
 
 #: templates/tooltip/filtering.php:19
 msgid "We recommend using %s"
-msgstr ""
+msgstr "Vi anbefaler å bruke %s"
 
 #: templates/tooltip/filtering.php:16
 msgid "%s also has better support for all the different types of fields, such as text, numbers and dates."
@@ -107,7 +107,7 @@ msgstr ""
 
 #: templates/tooltip/smart-filtering.php:9
 msgid "Add Filter"
-msgstr ""
+msgstr "Legg til filter"
 
 #: templates/tooltip/smart-filtering.php:3
 msgctxt "smart filtering help"
@@ -120,7 +120,7 @@ msgstr ""
 
 #: templates/tooltip/export.php:12
 msgid "The result is a CSV file."
-msgstr ""
+msgstr "Resultatet er en CSV-fil."
 
 #: templates/tooltip/export.php:8
 msgid "Click the export button and all items will be exported to CSV."
@@ -164,15 +164,15 @@ msgstr ""
 
 #: classes/Integration/MetaBox.php:13
 msgid "Meta Box"
-msgstr ""
+msgstr "Metaboks"
 
 #: classes/Admin/ScreenOption/ColumnType.php:32
 msgid "Column Type"
-msgstr ""
+msgstr "Kolonnetype"
 
 #: classes/Admin/ScreenOption/ColumnId.php:32
 msgid "Column ID"
-msgstr ""
+msgstr "Kolonne-ID"
 
 #: classes/Admin/Page/Help.php:144
 msgid "No deprecated hooks or filters found."
@@ -187,16 +187,16 @@ msgstr ""
 #: classes/Settings/Column/Pro/BulkEditing.php:11
 #: templates/tooltip/bulk-editing.php:2
 msgid "Bulk Editing"
-msgstr ""
+msgstr "Masseredigering"
 
 #: classes/Settings/Column/Pro/InlineEditing.php:11
 #: templates/tooltip/inline-editing.php:2
 msgid "Inline Editing"
-msgstr ""
+msgstr "Hurtigredigering"
 
 #: classes/Settings/Column/PostType.php:35
 msgid "All Post Types"
-msgstr ""
+msgstr "Alle innholdstyper"
 
 #: templates/admin/modal-pro.php:23
 msgid "Bulk edit any content, including custom fields."
@@ -204,55 +204,55 @@ msgstr ""
 
 #: templates/admin/loading-message.php:11
 msgid "Loading Columns"
-msgstr ""
+msgstr "Laster kolonner"
 
 #: templates/admin/edit-submenu.php:10
 msgid "Column Sets"
-msgstr ""
+msgstr "Kolonnesett"
 
 #: classes/PluginActionLinks.php:46
 msgid "Go Pro"
-msgstr ""
+msgstr "Skaff Pro"
 
 #: classes/Plugin/Update/V4000.php:547
 msgid "Original"
-msgstr ""
+msgstr "Original"
 
 #: classes/Column/Post/EstimatedReadingTime.php:15
 msgid "Read Time"
-msgstr ""
+msgstr "Lesetid"
 
 #: classes/Column/Post/PasswordProtected.php:11
 msgid "Password Protected"
-msgstr ""
+msgstr "Passordbeskyttet"
 
 #: classes/Settings/Column/NumberFormat.php:100
 msgid "Number Format"
-msgstr ""
+msgstr "Tallformat"
 
 #: classes/Settings/Column/NumberFormat.php:89
 msgid "Formatted"
-msgstr ""
+msgstr "Formatert"
 
 #: classes/Settings/Column/NumberFormat.php:69
 msgid "Thousands separator"
-msgstr ""
+msgstr "Tusenskilletegn"
 
 #: classes/Settings/Column/NumberFormat.php:58
 msgid "Decimal point"
-msgstr ""
+msgstr "Desimaltegn"
 
 #: classes/Settings/Column/NumberFormat.php:47
 msgid "Decimals"
-msgstr ""
+msgstr "Desimaler"
 
 #: classes/Settings/Column/TermLink.php:38
 msgid "Edit Term"
-msgstr ""
+msgstr "Rediger term"
 
 #: classes/Settings/Column/TermLink.php:37
 msgid "Filter by Term"
-msgstr ""
+msgstr "Filtrer etter term"
 
 #: classes/Promo/BlackFriday.php:13
 msgid "30% Off from Black Friday until Cyber Monday"
@@ -260,15 +260,15 @@ msgstr ""
 
 #: classes/Check/Promotion.php:73
 msgid "Get %s now"
-msgstr ""
+msgstr "Skaff %s nå"
 
 #: classes/Helper/Html.php:409
 msgid "%s more"
-msgstr ""
+msgstr "%s mer"
 
 #: classes/Settings/Column/CommentLink.php:62
 msgid "View Comment"
-msgstr ""
+msgstr "Vis kommentar"
 
 #: classes/Admin/Asset/Columns.php:66
 msgid "The column could not be loaded because of an unknown error"
@@ -393,11 +393,11 @@ msgstr "Få tillegg for ACF, WooCommerce og mange flere"
 
 #: templates/admin/modal-pro.php:25
 msgid "Export all column data to CSV."
-msgstr ""
+msgstr "Eksporter alle kolonnedata til CSV."
 
 #: templates/admin/modal-pro.php:21
 msgid "Sort & Filter on all your content."
-msgstr ""
+msgstr "Sorter og filtrer på alt innholdet ditt."
 
 #: templates/admin/modal-pro.php:18
 msgid "Upgrade to PRO, and take Admin Columns to the next level:"
@@ -815,7 +815,7 @@ msgstr "Nummer"
 
 #: classes/Settings/Column/CustomFieldType.php:108
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #: classes/Settings/Column/CustomFieldType.php:77
 msgid "Multiple IDs should be separated by commas."
@@ -1023,7 +1023,7 @@ msgstr "Oppgrader til"
 
 #: classes/Admin/Page/Columns.php:64
 msgid "The columns for %s are read only and can therefore not be edited."
-msgstr ""
+msgstr "Kolonnene for %s e kun for lesing og kan derfor ikke redigeres."
 
 #: classes/Controller/ColumnRequest.php:30
 msgid "Please visit the %s screen once to load all available columns"
@@ -1693,7 +1693,7 @@ msgstr "Vedlegg"
 
 #: classes/Settings/Column/NumberFormat.php:78
 msgid "Preview"
-msgstr ""
+msgstr "Forhåndsvis"
 
 #: classes/Settings/Column/Image.php:41 classes/Settings/Column/Width.php:53
 #: classes/Column/Media/Width.php:16
@@ -1926,7 +1926,7 @@ msgstr "Rediger"
 
 #: classes/Settings/Column/CommentLink.php:63
 msgid "Edit Comment"
-msgstr ""
+msgstr "Rediger kommentar"
 
 #: classes/Settings/Column/Post.php:85 classes/Settings/Column/Term.php:30
 #: classes/Settings/Column/Comment.php:117 classes/Column/Comment/ID.php:14

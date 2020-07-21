@@ -610,6 +610,7 @@
 	&__icon {
 		display: inline-block;
 		margin-right: 10px;
+
 		&.-warning {
 			transform: translateY(3px);
 		}
@@ -834,7 +835,7 @@ div.ac-column-header {
 
 					.inner {
 						position: relative;
-						overflow: hidden;
+						overflow: visible;
 						height: 18px;
 
 						.toggle {
@@ -889,6 +890,8 @@ div.ac-column-header {
 							font-weight: normal;
 							color: #b2b2b2;
 							font-size: 12px;
+							width: 190px;
+							position: relative;
 
 							.ac-column-heading-setting {
 								cursor: pointer;
@@ -898,21 +901,40 @@ div.ac-column-header {
 									margin-right: 3px;
 									cursor: auto;
 									color: #737373;
+									position: absolute;
+									right: calc(100% - 40px);
 								}
 
 								&.ac-column-indicator {
 									margin-left: 3px;
-									font-size: 24px;
+									font-size: 22px;
 									line-height: 17px;
 									width: 22px;
+									position: absolute;
+									left: 0;
+
+									$selectors: export, sort, edit, bulk_edit, search, filter;
+									$start: 12;
+									$gutter: 27;
+
+									@for $i from 1 through length($selectors) {
+										$c: nth($selectors, $i);
+										&.ac-column-indicator--#{$c} {
+											left: ($start+($i*$gutter)) + 0px;
+										}
+									}
 
 									&.ac-column-indicator--filter {
+										top: 1px;
+									}
+
+									&.cpacicon-filter {
 										font-size: 20px;
 									}
 
 									&.on, &.on span {
 										color: $blue;
-									}
+									} 
 
 									&.cpacicon {
 										font-size: 14px;
@@ -943,10 +965,11 @@ div.ac-column-header {
 					text-align: right;
 					color: #999999;
 					padding-right: 0;
+					line-height: 21px;
 
 					.inner {
 						display: inline-block;
-						height: 18px;
+						height: 22px;
 						overflow: hidden;
 						text-overflow: ellipsis;
 						white-space: nowrap;
