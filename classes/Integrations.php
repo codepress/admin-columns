@@ -14,6 +14,7 @@ class Integrations extends ArrayIterator {
 			new Integration\Types(),
 			new Integration\MetaBox(),
 			new Integration\WooCommerce(),
+			new Integration\YoastSeo(),
 		];
 
 		parent::__construct( $integrations );

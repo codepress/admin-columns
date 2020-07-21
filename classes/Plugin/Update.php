@@ -38,7 +38,7 @@ abstract class Update {
 	 * Apply this update
 	 * @return void
 	 */
-	public abstract function apply_update();
+	abstract public function apply_update();
 
 	/**
 	 * @return string
@@ -51,6 +51,6 @@ abstract class Update {
 	 * Set the version this update applies to
 	 * @return void
 	 */
-	protected abstract function set_version();
+	abstract protected function set_version();
 
 }

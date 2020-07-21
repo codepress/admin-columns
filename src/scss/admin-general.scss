@@ -17,11 +17,15 @@
 	background: #fff;
 	padding: 1px 12px;
 	border: 1px solid #ccd0d4;
+	border-left-width: 4px;
 	margin-bottom: 15px;
 
 	p {
 		margin: 0.5em 0;
 	}
+
+	&.notice-warning { border-left-color: #ffb900; }
+	&.notice-error { border-left-color: #dc3232; }
 }
 
 .wrap {

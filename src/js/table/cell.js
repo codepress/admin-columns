@@ -3,6 +3,7 @@ export default class Cell {
 	constructor( id, name, el ) {
 		this._object_id = id;
 		this._column_name = name;
+		this._original_value = el.innerHTML;
 
 		this.el = el;
 	}
@@ -27,9 +28,14 @@ export default class Cell {
 		return AdminColumns.Table.Columns.get( this.getName() );
 	}
 
+	hasChanged( content ) {
+		return this._original_value !== content;
+	}
+
 	setValue( value ) {
 		let el = this.getElement();
 
+		this._original_value = value;
 		el.innerHTML = value;
 
 		return this;

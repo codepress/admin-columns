@@ -2,297 +2,297 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-07-16 13:55:28+0000\n"
+"PO-Revision-Date: 2020-07-15 11:00:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: nl\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
 #: templates/tooltip/export-disabled.php:8
 msgid "Third-party columns and some custom columns cannot be exported unless there is build-in support for that specific column."
-msgstr ""
+msgstr "Kolommen van derden en sommige aangepaste kolommen kunnen niet worden geëxporteerd, tenzij er ingebouwde ondersteuning is voor die specifieke kolom."
 
 #: templates/tooltip/export-disabled.php:5
 msgid "Unfortunately not every column can be exported."
-msgstr ""
+msgstr "Helaas kan niet elke kolom worden geëxporteerd."
 
 #: templates/tooltip/export-disabled.php:2
 msgid "Export Unavailable"
-msgstr ""
+msgstr "Exporteren niet beschikbaar"
 
 #: templates/tooltip/bulk-editing.php:14
 msgid "Bulk Edit"
-msgstr ""
+msgstr "Bulkbewerking"
 
 #: templates/tooltip/bulk-editing.php:13
 msgid "Clicking the %s button will display a popup that allows you to add or change the current value of all selected items."
-msgstr ""
+msgstr "Als je op de knop %s klikt, wordt er een pop-up weergegeven waarin je de huidige waarde van alle geselecteerde items kan toevoegen of wijzigen."
 
 #: templates/tooltip/bulk-editing.php:8
 msgid "Select more than one row from the list table to show the bulk edit buttons."
-msgstr ""
+msgstr "Selecteer meer dan één rij in de lijsttabel om de knoppen voor bulkbewerking weer te geven."
 
 #: templates/tooltip/bulk-editing.php:5
 msgid "Bulk Edit allows you to update multiple values at once."
-msgstr ""
+msgstr "Met Bulk Edit kan je meerdere waarden tegelijk bijwerken."
 
 #: templates/tooltip/sorting.php:20
 msgid "You can change the default sorted column in the optional settings below."
-msgstr ""
+msgstr "Je kan de standaard gesorteerde kolom wijzigen in de optionele instellingen hieronder."
 
 #: templates/tooltip/sorting.php:15
 msgid "Reset Sorting"
-msgstr ""
+msgstr "Sortering opnieuw instellen"
 
 #: templates/tooltip/sorting.php:14
 msgid "Reset the sorting by clicking the %s button."
-msgstr ""
+msgstr "Reset de sortering door op de %s-knop te klikken."
 
 #: templates/tooltip/sorting.php:10
 msgid "When you come back the content is sorted just the way you left it."
-msgstr ""
+msgstr "Als je terugkomt, wordt de inhoud gesorteerd zoals je hem achterliet."
 
 #: templates/tooltip/sorting.php:9
 msgid "The sorted column is saved as your personal preference."
-msgstr ""
+msgstr "De gesorteerde kolom wordt opgeslagen als je persoonlijke voorkeur."
 
 #: templates/tooltip/sorting.php:5
 msgid "Sort by clicking the column header on the list table. Click the column header again to switch between <em>ascending</em> and <em>descending</em>."
-msgstr ""
+msgstr "Sorteer door op de kolomkop in de lijsttabel te klikken. Klik nogmaals op de kolomkop om te schakelen tussen <em> oplopend </em> en <em> aflopend </em>."
 
 #: templates/tooltip/filtering.php:19
 msgid "Smart Filters"
-msgstr ""
+msgstr "Slimme filters"
 
 #: templates/tooltip/filtering.php:19
 msgid "We recommend using %s"
-msgstr ""
+msgstr "We raden aan %s \"te gebruiken"
 
 #: templates/tooltip/filtering.php:16
 msgid "%s also has better support for all the different types of fields, such as text, numbers and dates."
-msgstr ""
+msgstr "%s heeft ook een betere ondersteuning voor alle verschillende soorten velden, zoals tekst, cijfers en datums."
 
 #: templates/tooltip/filtering.php:14
 msgid "Finding the right content will be much easier with the use of conditionals, such as %s."
-msgstr ""
+msgstr "Het vinden van de juiste inhoud wordt veel gemakkelijker met het gebruik van conditionals, zoals %s."
 
 #: templates/tooltip/filtering.php:13
 msgid "%s is an improved version of %s."
-msgstr ""
+msgstr "%s is een verbeterde versie van %s."
 
 #: templates/tooltip/filtering.php:10
 msgid "Filters vs Smart Filters"
-msgstr ""
+msgstr "Filters versus slimme filters"
 
 #: templates/tooltip/filtering.php:6
 msgid "You can filter the contents by selecting the column value from the filter dropdown menu."
-msgstr ""
+msgstr "Je kan de inhoud filteren door de kolomwaarde te selecteren in het vervolgkeuzemenu voor filters."
 
 #: templates/tooltip/filtering.php:5
 msgid "This will allow the column to be filtered."
-msgstr ""
+msgstr "Hierdoor kan de kolom worden gefilterd."
 
 #: templates/tooltip/smart-filtering.php:18
 msgctxt "smart filtering help"
 msgid "When you return to your list table you can easily select them again from the menu."
-msgstr ""
+msgstr "Wanneer je terugkeert naar je lijsttabel, kan je ze gemakkelijk opnieuw selecteren in het menu."
 
 #: templates/tooltip/smart-filtering.php:17
 msgctxt "smart filtering help"
 msgid "You can save your filters for later use."
-msgstr ""
+msgstr "Je kan je filters bewaren voor later gebruik."
 
 #: templates/tooltip/smart-filtering.php:9
 msgid "Add Filter"
-msgstr ""
+msgstr "Filter toevoegen"
 
 #: templates/tooltip/smart-filtering.php:3
 msgctxt "smart filtering help"
 msgid "Smart filtering allows you to segment your data by different criteria."
-msgstr ""
+msgstr "Met slimme filtering kan je je gegevens op verschillende criteria segmenteren."
 
 #: templates/tooltip/export.php:16
 msgid "You can use filters to segment your list before exporting."
-msgstr ""
+msgstr "Je kan filters gebruiken om je lijst te segmenteren voordat je ze exporteert."
 
 #: templates/tooltip/export.php:12
 msgid "The result is a CSV file."
-msgstr ""
+msgstr "Het resultaat is een CSV-bestand."
 
 #: templates/tooltip/export.php:8
 msgid "Click the export button and all items will be exported to CSV."
-msgstr ""
+msgstr "Klik op de exportknop en alle items worden geëxporteerd naar CSV."
 
 #: templates/tooltip/export.php:5
 msgid "Export for Admin Columns Pro, allows you to export the contents of your columns to CSV."
-msgstr ""
+msgstr "Exporteren voor Admin Columns Pro, hiermee kan je de inhoud van je kolommen exporteren naar CSV."
 
 #: templates/tooltip/inline-editing.php:16
 msgid "It is possible to undo and redo all changes made with Inline Editing, so using it is without risk."
-msgstr ""
+msgstr "Het is mogelijk om alle wijzigingen die zijn aangebracht met Inline Editing ongedaan te maken en opnieuw uit te voeren, dus het gebruik ervan is zonder risico."
 
 #: templates/tooltip/inline-editing.php:12
 msgid "Click on the pencil icon to start editing the value of a field."
-msgstr ""
+msgstr "Klik op het potloodpictogram om de waarde van een veld te bewerken."
 
 #: templates/tooltip/inline-editing.php:8
 msgid "To start inline editing, toggle the “Inline Edit” button on top of the list table."
-msgstr ""
+msgstr "Om te beginnen met inline bewerken, schakel je de knop \"Inline bewerken\" bovenaan de lijsttabel."
 
 #: templates/tooltip/inline-editing.php:5
 msgid "With Inline Edit, you can update your content quick and easy, without having to open each %s one at the time."
-msgstr ""
+msgstr "Met Inline Edit kan je je inhoud snel en gemakkelijk bijwerken, zonder dat je elke %s een voor een hoeft te openen."
 
 #: templates/admin/modal-pro.php:26
 msgid "Create multiple list table views with different columns."
-msgstr ""
+msgstr "Maak meerdere lijsttabelweergaven met verschillende kolommen."
 
 #: templates/admin/modal-pro.php:24
 msgid "Quick edit any content with Inline Editing, including custom fields."
-msgstr ""
+msgstr "Bewerk snel alle inhoud met Inline Editing, inclusief aangepaste velden."
 
 #: templates/admin/modal-pro.php:22
 msgid "Search the contents of your columns."
-msgstr ""
+msgstr "Doorzoek de inhoud van je kolommen."
 
 #: classes/Integration/MetaBox.php:15
 msgid "Instantly generate columns for your Meta Box custom fields!"
-msgstr ""
+msgstr "Genereer direct kolommen voor je Meta Box-aangepaste velden!"
 
 #: classes/Integration/MetaBox.php:13
 msgid "Meta Box"
-msgstr ""
+msgstr "Meta Box"
 
 #: classes/Admin/ScreenOption/ColumnType.php:32
 msgid "Column Type"
-msgstr ""
+msgstr "Kolomtype"
 
 #: classes/Admin/ScreenOption/ColumnId.php:32
 msgid "Column ID"
-msgstr ""
+msgstr "Kolom-ID"
 
 #: classes/Admin/Page/Help.php:144
 msgid "No deprecated hooks or filters found."
-msgstr ""
+msgstr "Geen verouderde hooks of filters gevonden."
 
 #: classes/Settings/Column/Pro/SmartFiltering.php:11
 #: templates/tooltip/smart-filtering.php:1 templates/tooltip/filtering.php:13
 #: templates/tooltip/filtering.php:16
 msgid "Smart Filtering"
-msgstr ""
+msgstr "Slim filteren"
 
 #: classes/Settings/Column/Pro/BulkEditing.php:11
 #: templates/tooltip/bulk-editing.php:2
 msgid "Bulk Editing"
-msgstr ""
+msgstr "Bulkbewerking"
 
 #: classes/Settings/Column/Pro/InlineEditing.php:11
 #: templates/tooltip/inline-editing.php:2
 msgid "Inline Editing"
-msgstr ""
+msgstr "Inline bewerken"
 
 #: classes/Settings/Column/PostType.php:35
 msgid "All Post Types"
-msgstr ""
+msgstr "Alle berichttypen"
 
 #: templates/admin/modal-pro.php:23
 msgid "Bulk edit any content, including custom fields."
-msgstr ""
+msgstr "Bewerk alle inhoud in bulk, inclusief aangepaste velden."
 
 #: templates/admin/loading-message.php:11
 msgid "Loading Columns"
-msgstr ""
+msgstr "Kolommen laden"
 
 #: templates/admin/edit-submenu.php:10
 msgid "Column Sets"
-msgstr ""
+msgstr "Kolomsets"
 
 #: classes/PluginActionLinks.php:46
 msgid "Go Pro"
-msgstr ""
+msgstr "Go Pro"
 
 #: classes/Plugin/Update/V4000.php:547
 msgid "Original"
-msgstr ""
+msgstr "Origineel"
 
 #: classes/Column/Post/EstimatedReadingTime.php:15
 msgid "Read Time"
-msgstr ""
+msgstr "Leestijd"
 
 #: classes/Column/Post/PasswordProtected.php:11
 msgid "Password Protected"
-msgstr ""
+msgstr "Beschermd met een wachtwoord"
 
 #: classes/Settings/Column/NumberFormat.php:100
 msgid "Number Format"
-msgstr ""
+msgstr "Nummer formaat"
 
 #: classes/Settings/Column/NumberFormat.php:89
 msgid "Formatted"
-msgstr ""
+msgstr "Opgemaakt"
 
 #: classes/Settings/Column/NumberFormat.php:69
 msgid "Thousands separator"
-msgstr ""
+msgstr "Duizenden scheidingstekens"
 
 #: classes/Settings/Column/NumberFormat.php:58
 msgid "Decimal point"
-msgstr ""
+msgstr "Decimale punt"
 
 #: classes/Settings/Column/NumberFormat.php:47
 msgid "Decimals"
-msgstr ""
+msgstr "Decimalen"
 
 #: classes/Settings/Column/TermLink.php:38
 msgid "Edit Term"
-msgstr ""
+msgstr "Term bewerken"
 
 #: classes/Settings/Column/TermLink.php:37
 msgid "Filter by Term"
-msgstr ""
+msgstr "Filteren op term"
 
 #: classes/Promo/BlackFriday.php:13
 msgid "30% Off from Black Friday until Cyber Monday"
-msgstr ""
+msgstr "30% korting van Black Friday tot Cyber ​​Monday"
 
 #: classes/Check/Promotion.php:73
 msgid "Get %s now"
-msgstr ""
+msgstr "Download %s nu"
 
 #: classes/Helper/Html.php:409
 msgid "%s more"
-msgstr ""
+msgstr "%s meer"
 
 #: classes/Settings/Column/CommentLink.php:62
 msgid "View Comment"
-msgstr ""
+msgstr "Reactie bekijken"
 
 #: classes/Admin/Asset/Columns.php:66
 msgid "The column could not be loaded because of an unknown error"
-msgstr ""
+msgstr "De kolom kan niet worden geladen vanwege een onbekende fout"
 
 #: classes/Admin/Asset/Columns.php:65
 msgid "There was an error during saving the column settings."
-msgstr ""
+msgstr "Er is een fout opgetreden bij het opslaan van de kolominstellingen."
 
 #: classes/Integration/ACF.php:15
 msgid "Display and edit ACF fields in the posts overview in seconds!"
-msgstr ""
+msgstr "Toon en bewerk ACF-velden in het berichtenoverzicht in seconden!"
 
 #: classes/Integration/Pods.php:15
 msgid "Display and edit Pods fields in the posts overview in seconds!"
-msgstr ""
+msgstr "Toon en bewerk Pods-velden in het berichtenoverzicht in seconden!"
 
 #: templates/admin/side-banner.php:55
 msgid "Includes special integrations for:"
-msgstr ""
+msgstr "Bevat speciale integraties voor:"
 
 #: templates/admin/side-banner.php:40
 msgid "Inline Edit any content"
-msgstr ""
+msgstr "Inline Bewerk elke inhoud"
 
 #: templates/admin/side-banner.php:39
 msgid "Filter any content"
@@ -304,7 +304,7 @@ msgstr "Sorteer alle content"
 
 #: templates/admin/side-banner.php:37
 msgid "Bulk Edit any content"
-msgstr ""
+msgstr "Alle inhoud in bulk bewerken"
 
 #: templates/admin/side-banner.php:36
 msgid "Search any content"
@@ -328,19 +328,19 @@ msgstr "Events Calendar"
 
 #: classes/Settings/Column/CustomFieldType.php:76
 msgid "Uses one or more %s IDs to display information about it."
-msgstr ""
+msgstr "Gebruikt een of meer %s ID's om er informatie over weer te geven."
 
 #: classes/Check/Review.php:160
 msgid "You can also use your admincolumns.com account to access support through %s!"
-msgstr ""
+msgstr "Je kan ook je admincolumns.com-account gebruiken om toegang te krijgen tot ondersteuning via %s!"
 
 #: templates/admin/help-tab/custom-fields.php:59
 msgid "Value: Should contain one or more User IDs, separated by commas."
-msgstr ""
+msgstr "Waarde: moet een of meer gebruikers-ID's bevatten, gescheiden door komma's."
 
 #: templates/admin/help-tab/custom-fields.php:55
 msgid "Value: Should contain a URL."
-msgstr ""
+msgstr "Waarde: moet een URL bevatten."
 
 #: classes/Settings/Column/CustomFieldType.php:110
 #: templates/admin/help-tab/custom-fields.php:54
@@ -349,27 +349,27 @@ msgstr "URL"
 
 #: templates/admin/help-tab/custom-fields.php:47
 msgid "Value: Should contain one or more Post IDs, separated by commas."
-msgstr ""
+msgstr "Waarde: moet een of meer bericht-ID's bevatten, gescheiden door komma's."
 
 #: templates/admin/help-tab/custom-fields.php:35
 msgid "Value: Should contain one or more Attachment IDs, separated by commas."
-msgstr ""
+msgstr "Waarde: moet een of meer bijlage-ID's bevatten, gescheiden door komma's."
 
 #: templates/admin/help-tab/custom-fields.php:31
 msgid "Value: Should contain one or more Image URLs or Attachment IDs, separated by commas."
-msgstr ""
+msgstr "Waarde: moet een of meer afbeeldings-URL's of bijlage-ID's bevatten, gescheiden door komma's."
 
 #: templates/admin/help-tab/custom-fields.php:27
 msgid "Value: This will show if the field has content or not."
-msgstr ""
+msgstr "Waarde: dit wordt weergegeven als het veld inhoud heeft of niet."
 
 #: classes/Integration/NinjaForms.php:17
 msgid "Add Ninja Forms columns that can be sorted, filtered and directly edited!"
-msgstr ""
+msgstr "Voeg Ninja Forms-kolommen toe die kunnen worden gesorteerd, gefilterd en direct bewerkt!"
 
 #: classes/Integration/EventsCalendar.php:17
 msgid "Manage columns for your event, organizer or venue overviews."
-msgstr ""
+msgstr "Beheer kolommen voor je evenement, organisator of locatieoverzichten."
 
 #: classes/Settings/Column/Pro/Sorting.php:11 templates/tooltip/sorting.php:2
 msgid "Sorting"
@@ -393,11 +393,11 @@ msgstr "Verkrijg add-ons voor ACF, WooCommerce en meer"
 
 #: templates/admin/modal-pro.php:25
 msgid "Export all column data to CSV."
-msgstr ""
+msgstr "Exporteer alle kolom gegevens naar CSV."
 
 #: templates/admin/modal-pro.php:21
 msgid "Sort & Filter on all your content."
-msgstr ""
+msgstr "Sorteer en filter op al je inhoud."
 
 #: templates/admin/modal-pro.php:18
 msgid "Upgrade to PRO, and take Admin Columns to the next level:"
@@ -819,7 +819,7 @@ msgstr "Tekst"
 
 #: classes/Settings/Column/CustomFieldType.php:77
 msgid "Multiple IDs should be separated by commas."
-msgstr ""
+msgstr "Meerdere ID's moeten worden gescheiden door een komma. "
 
 #: classes/Settings/Column/Meta.php:73
 #: classes/Settings/Column/CustomField.php:25
@@ -995,7 +995,7 @@ msgstr "Aangeraden"
 
 #: classes/Integration/Types.php:15
 msgid "Display and edit Toolset Types fields in the posts overview in seconds!"
-msgstr ""
+msgstr "Toon en bewerk Toolset Types velden in het berichtenoverzicht in enkele seconden."
 
 #: classes/Integration/Types.php:13
 msgid "Toolset Types"
@@ -1023,7 +1023,7 @@ msgstr "Upgraden naar"
 
 #: classes/Admin/Page/Columns.php:64
 msgid "The columns for %s are read only and can therefore not be edited."
-msgstr ""
+msgstr "De kolommen voor %s zijn 'alleen lezen', en kunnen daarom niet bewerkt worden."
 
 #: classes/Controller/ColumnRequest.php:30
 msgid "Please visit the %s screen once to load all available columns"
@@ -1047,7 +1047,7 @@ msgstr "Ongeldige respons."
 
 #: classes/Settings/Column/LinkLabel.php:24
 msgid "Leave blank to display the URL"
-msgstr ""
+msgstr "Laat leeg om URL weer te geven"
 
 #: classes/Settings/Column/LinkLabel.php:23
 msgid "Link Label"
@@ -1139,7 +1139,7 @@ msgstr "Kolom toevoegen"
 
 #: templates/admin/side-support.php:17
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>."
-msgstr ""
+msgstr "Voor de volledige documentatie, bug reports, suggesties en tips <a href='%s'>bezoek de Admin Columns site</a>."
 
 #: templates/admin/side-support.php:14
 msgid "Check the <strong>Help</strong> section in the top-right screen."
@@ -1253,11 +1253,11 @@ msgstr "Waarde: Kan een string of een array zijn. Dit zal een teller weergeven m
 
 #: templates/admin/help-tab/custom-fields.php:11
 msgid "Value: Hex value color, such as #808080."
-msgstr ""
+msgstr "Waarde: hex waarde kleur, zoals: #808080."
 
 #: templates/admin/help-tab/custom-fields.php:51
 msgid "Value: Should be a 1 (one) or 0 (zero)."
-msgstr ""
+msgstr "Waarde: moet 1 of 0 zijn."
 
 #: templates/admin/help-tab/custom-fields.php:19
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
@@ -1269,7 +1269,7 @@ msgstr "Waarde: Enkel reeksen.<br/>Als je de 'sorteer-addon' hebt, zal die gebru
 
 #: templates/admin/help-tab/custom-fields.php:39
 msgid "Value: Should be an array. This will flatten any ( multi dimensional ) array."
-msgstr ""
+msgstr "Waarde: moet een array zijn. Dit zal elke (multi-dimensionale) array afvlakken."
 
 #: templates/admin/help-tab/custom-fields.php:23
 msgid "Value: This will show the first 20 words of the Post content."
@@ -1277,11 +1277,11 @@ msgstr "Waarde: Deze toont de eerste 20 woorden van een bericht."
 
 #: templates/admin/help-tab/custom-fields.php:7
 msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by commas."
-msgstr ""
+msgstr "Waarde: Kan een string of array zijn. Arrays worden plat gemaakt en de waarden gescheiden door komma's."
 
 #: templates/admin/help-tab/custom-fields.php:2
 msgid "The custom field column uses the custom fields from posts and users. There are 14 types which you can set."
-msgstr ""
+msgstr "De aangepaste veld kolom gebruikt aangepaste velden voor berichten en gebruikers. Er zijn 14 typen welke je kan gebruiken."
 
 #: templates/admin/help-tab/basics.php:13
 msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
@@ -1321,7 +1321,7 @@ msgstr "Overzicht"
 
 #: classes/Controller/RestoreSettingsRequest.php:37
 msgid "Default settings successfully restored."
-msgstr ""
+msgstr "Standaard instellingen met succes hersteld."
 
 #: classes/Controller/ColumnRequest.php:41 classes/Admin/Asset/Columns.php:62
 msgid "%s column is already present and can not be duplicated."
@@ -1333,11 +1333,11 @@ msgstr "Admin Columns Instellingen"
 
 #: classes/Check/Review.php:167
 msgid "find answers to frequently asked questions"
-msgstr ""
+msgstr "vind antwoorden op veel gestelde vragen"
 
 #: classes/Check/Review.php:166
 msgid "Admin Columns forum on WordPress.org"
-msgstr ""
+msgstr "Admin Columns forums op WordPress.org"
 
 #: classes/Check/Review.php:165
 msgid "You can also find help on the %s, and %s."
@@ -1345,7 +1345,7 @@ msgstr "Je kunt ook hulp vinden op de %, en %s."
 
 #: classes/Check/Review.php:161
 msgid "our forum"
-msgstr ""
+msgstr "onze forums"
 
 #: classes/Check/Review.php:155
 msgid "documentation page"
@@ -1710,7 +1710,7 @@ msgstr "Hoogte"
 
 #: classes/Settings/Column/PathScope.php:27
 msgid "Relative to main uploads folder"
-msgstr ""
+msgstr "Relatief aan de uploads map"
 
 #: classes/Settings/Column/PathScope.php:26
 msgid "Relative to domain"
@@ -1892,7 +1892,7 @@ msgstr "Auteur"
 
 #: classes/Column/Comment/AuthorUrl.php:14
 msgid "Author URL"
-msgstr ""
+msgstr "Auteur url"
 
 #: classes/Column/Comment/AuthorName.php:14
 msgid "Author Name"
@@ -1926,7 +1926,7 @@ msgstr "Bewerken"
 
 #: classes/Settings/Column/CommentLink.php:63
 msgid "Edit Comment"
-msgstr ""
+msgstr "Reactie bewerken"
 
 #: classes/Settings/Column/Post.php:85 classes/Settings/Column/Term.php:30
 #: classes/Settings/Column/Comment.php:117 classes/Column/Comment/ID.php:14

@@ -8,13 +8,15 @@ use AC\View;
 class Term extends Settings\Column
 	implements Settings\FormatValue {
 
+	const NAME = 'term';
+
 	/**
 	 * @var string
 	 */
 	private $term_property;
 
 	protected function set_name() {
-		$this->name = 'term';
+		$this->name = self::NAME;
 	}
 
 	protected function define_options() {
@@ -59,7 +61,7 @@ class Term extends Settings\Column
 	public function format( $value, $original_value ) {
 		$term = $value;
 
-		if ( is_int( $original_value ) ) {
+		if ( is_numeric( $term ) ) {
 			$term = get_term( $term );
 		}
 
