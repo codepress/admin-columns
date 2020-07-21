@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-28 12:43:43+0000\n"
+"PO-Revision-Date: 2020-07-03 11:26:39+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: fr\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
@@ -33,114 +33,114 @@ msgstr "Cliquer sur le bouton %s affichera une fenêtre surgissante qui vous per
 
 #: templates/tooltip/bulk-editing.php:8
 msgid "Select more than one row from the list table to show the bulk edit buttons."
-msgstr ""
+msgstr "Sélectionnez plusieurs lignes dans le tableau pour afficher le bouton « Modifications groupées »."
 
 #: templates/tooltip/bulk-editing.php:5
 msgid "Bulk Edit allows you to update multiple values at once."
-msgstr ""
+msgstr "Les modifications groupées vous permette de modifier plusieurs valeur à la fois."
 
 #: templates/tooltip/sorting.php:20
 msgid "You can change the default sorted column in the optional settings below."
-msgstr ""
+msgstr "Vous pouvez modifier la colonne triée par défaut grâce aux réglages facultatifs ci dessous."
 
 #: templates/tooltip/sorting.php:15
 msgid "Reset Sorting"
-msgstr ""
+msgstr "Réinitialiser le tri"
 
 #: templates/tooltip/sorting.php:14
 msgid "Reset the sorting by clicking the %s button."
-msgstr ""
+msgstr "Réinitialiser le tri en cliquant sur le bouton %s."
 
 #: templates/tooltip/sorting.php:10
 msgid "When you come back the content is sorted just the way you left it."
-msgstr ""
+msgstr "Lorsque vous revenez, le contenu est trié comme vous l’avez laissé."
 
 #: templates/tooltip/sorting.php:9
 msgid "The sorted column is saved as your personal preference."
-msgstr ""
+msgstr "La colonne triée est enregistrée comme votre préférence personnelle."
 
 #: templates/tooltip/sorting.php:5
 msgid "Sort by clicking the column header on the list table. Click the column header again to switch between <em>ascending</em> and <em>descending</em>."
-msgstr ""
+msgstr "Triez en cliquant sur l’en-tête de la colonne du tableau. Cliquez sur l’en-tête une nouvelle fois pour permuter entre <em>croissant</em> et <em>décroissant</em>."
 
 #: templates/tooltip/filtering.php:19
 msgid "Smart Filters"
-msgstr ""
+msgstr "Filtres intelligents"
 
 #: templates/tooltip/filtering.php:19
 msgid "We recommend using %s"
-msgstr ""
+msgstr "Nous recommandons l’utilisation de %s"
 
 #: templates/tooltip/filtering.php:16
 msgid "%s also has better support for all the different types of fields, such as text, numbers and dates."
-msgstr ""
+msgstr "%s prend également mieux en charge tous les différents types de champs, tels que le texte, les nombres et les dates."
 
 #: templates/tooltip/filtering.php:14
 msgid "Finding the right content will be much easier with the use of conditionals, such as %s."
-msgstr ""
+msgstr "Trouver le bon contenu sera beaucoup plus facile avec l’utilisation de conditions, telles que %s."
 
 #: templates/tooltip/filtering.php:13
 msgid "%s is an improved version of %s."
-msgstr ""
+msgstr "%s est une version améliorée de %s."
 
 #: templates/tooltip/filtering.php:10
 msgid "Filters vs Smart Filters"
-msgstr ""
+msgstr "Filtres ou filtres intelligents"
 
 #: templates/tooltip/filtering.php:6
 msgid "You can filter the contents by selecting the column value from the filter dropdown menu."
-msgstr ""
+msgstr "Vous pouvez filtrer les contenus en sélectionnant la valeur de la colonne dans le menu déroulant du filtre."
 
 #: templates/tooltip/filtering.php:5
 msgid "This will allow the column to be filtered."
-msgstr ""
+msgstr "Cela permet à la colonne d’être filtrée."
 
 #: templates/tooltip/smart-filtering.php:18
 msgctxt "smart filtering help"
 msgid "When you return to your list table you can easily select them again from the menu."
-msgstr ""
+msgstr "Lorsque vous revenez à l’écran de liste des publications, vous pouvez facilement les sélectionner à nouveau dans le menu."
 
 #: templates/tooltip/smart-filtering.php:17
 msgctxt "smart filtering help"
 msgid "You can save your filters for later use."
-msgstr ""
+msgstr "Vous pouvez enregistrer vos filtres pour une utilisation ultérieure."
 
 #: templates/tooltip/smart-filtering.php:9
 msgid "Add Filter"
-msgstr ""
+msgstr "Ajouter un filtre"
 
 #: templates/tooltip/smart-filtering.php:3
 msgctxt "smart filtering help"
 msgid "Smart filtering allows you to segment your data by different criteria."
-msgstr ""
+msgstr "Le filtrage intelligent vous permet de segmenter vos données selon différents critères."
 
 #: templates/tooltip/export.php:16
 msgid "You can use filters to segment your list before exporting."
-msgstr ""
+msgstr "Vous pouvez utiliser les filtres pour segmenter votre liste avant exportation."
 
 #: templates/tooltip/export.php:12
 msgid "The result is a CSV file."
-msgstr ""
+msgstr "Le résultat est un fichier CSV."
 
 #: templates/tooltip/export.php:8
 msgid "Click the export button and all items will be exported to CSV."
-msgstr ""
+msgstr "Cliquez sur le bouton d’exportation et tous les éléments seront exportés en CSV."
 
 #: templates/tooltip/export.php:5
 msgid "Export for Admin Columns Pro, allows you to export the contents of your columns to CSV."
-msgstr ""
+msgstr "Export pour Admin Columns Pro, vous permets d’exporter les contenus de vos colonnes en CSV."
 
 #: templates/tooltip/inline-editing.php:16
 msgid "It is possible to undo and redo all changes made with Inline Editing, so using it is without risk."
-msgstr ""
+msgstr "Il est possible d’annuler et de refaire tous les changements faits avec la modification en ligne, donc son utilisation est sans risque."
 
 #: templates/tooltip/inline-editing.php:12
 msgid "Click on the pencil icon to start editing the value of a field."
-msgstr ""
+msgstr "Cliquez sur l’icône en forme de crayon pour commencer à modifier la valeur d’un champ."
 
 #: templates/tooltip/inline-editing.php:8
 msgid "To start inline editing, toggle the “Inline Edit” button on top of the list table."
-msgstr ""
+msgstr "Pour commencer la modification en ligne, cliquez sur le bouton « Modification en ligne » au dessus du tableau."
 
 #: templates/tooltip/inline-editing.php:5
 msgid "With Inline Edit, you can update your content quick and easy, without having to open each %s one at the time."
@@ -164,39 +164,39 @@ msgstr ""
 
 #: classes/Integration/MetaBox.php:13
 msgid "Meta Box"
-msgstr ""
+msgstr "Boîte de métadonnées"
 
 #: classes/Admin/ScreenOption/ColumnType.php:32
 msgid "Column Type"
-msgstr ""
+msgstr "Type de colonne"
 
 #: classes/Admin/ScreenOption/ColumnId.php:32
 msgid "Column ID"
-msgstr ""
+msgstr "ID de colonne"
 
 #: classes/Admin/Page/Help.php:144
 msgid "No deprecated hooks or filters found."
-msgstr ""
+msgstr "Aucun point d’accroche ou filtre obsolète n’a été trouvé."
 
 #: classes/Settings/Column/Pro/SmartFiltering.php:11
 #: templates/tooltip/smart-filtering.php:1 templates/tooltip/filtering.php:13
 #: templates/tooltip/filtering.php:16
 msgid "Smart Filtering"
-msgstr ""
+msgstr "Filtrage intelligent"
 
 #: classes/Settings/Column/Pro/BulkEditing.php:11
 #: templates/tooltip/bulk-editing.php:2
 msgid "Bulk Editing"
-msgstr ""
+msgstr "Modifications groupées"
 
 #: classes/Settings/Column/Pro/InlineEditing.php:11
 #: templates/tooltip/inline-editing.php:2
 msgid "Inline Editing"
-msgstr ""
+msgstr "Modification en ligne"
 
 #: classes/Settings/Column/PostType.php:35
 msgid "All Post Types"
-msgstr ""
+msgstr "Tous les types de publication"
 
 #: templates/admin/modal-pro.php:23
 msgid "Bulk edit any content, including custom fields."

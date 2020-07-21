@@ -3,9 +3,9 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.7
-Tested up to: 5.4.1
+Tested up to: 5.4.2
 Requires PHP: 5.6.20
-Stable tag: 4.1.7
+Stable tag: 4.1.8
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -214,9 +214,8 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.1.8 =
-Release Date: tbd
+Release Date: July 21st, 2020
 
-* [Added] New column for Order overview page: Product Tags
 * [Added] New columns for the Users table: Fullname, Author Slug and Username / Login.
 * [Fixed] CSS conflict on overview pages where post type is 'Modal'
 
