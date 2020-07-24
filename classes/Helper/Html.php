@@ -150,6 +150,25 @@ class Html {
 	}
 
 	/**
+	 * Display a modal which trigger an ajax event on click. The ajax callback calls AC\Column::get_ajax_value.
+	 *
+	 * @param int    $item_id
+	 * @param string $label
+	 * @param string $column_name
+	 *
+	 * @return string
+	 */
+	public function get_ajax_modal_link( $item_id, $label, $column_name ) {
+		return ac_helper()->html->link( '#', $label, [
+			'class'              => 'ac-modal-box-link',
+			'data-column'        => $column_name,
+			'data-item-id'       => $item_id,
+			'data-ajax-populate' => 1,
+			'data-label'         => $label,
+		] );
+	}
+
+	/**
 	 * @param string $string
 	 * @param int    $max_chars
 	 *
