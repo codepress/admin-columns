@@ -3,10 +3,10 @@ let path = require( 'path' );
 let config = {
 	entry : {
 		'admin-general' : './js/admin-general.js',
-		'admin-page-columns' : [ './js/admin-page-columns.js' ],
+		'admin-page-columns' : ['./js/admin-page-columns.js'],
 		'admin-page-addons' : './js/admin-page-addons.js',
-		'message-review' : './js/message-review.js',
-		'notice-dismissible' : './js/notice-dismissible.js',
+		'message-review' : './js/message-review.ts',
+		'notice-dismissible' : './js/notice-dismissible.ts',
 		'table' : './js/table.js'
 	},
 	output : {
@@ -16,22 +16,28 @@ let config = {
 	module : {
 		rules : [
 			{
-				test : /\.js$/,
-				exclude : /node_modules/,
-				use : {
-					loader : 'babel-loader',
-					options : {
-						babelrc : false,
-						presets : [ [ "@babel/preset-env", {
-							"targets" : {
-								"browsers" : [ "ie 11" ]
-							},
-							useBuiltIns : 'usage'
-						} ] ]
+				test : /\.(t|j)sx?$/,
+				exclude : /node_modules(?!(\/|\\)query-string)/,
+				use : [
+					{
+						loader : 'babel-loader',
+						options : {
+							presets : ['@babel/preset-env']
+						}
+					},
+					{
+						loader : 'ts-loader',
 					}
-				}
+				]
 			}
 		]
+	},
+	resolve : {
+		extensions : ['.tsx', '.ts', '.js'],
+	},
+	externals : {
+		jquery : 'jQuery',
+		jQuery : 'jQuery'
 	},
 	stats : {
 		colors : true
