@@ -213,6 +213,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Updated] Column label translation support for WPML was updated for the latest version of WPML
+
 = 4.1.8 =
 Release Date: July 21st, 2020
 
