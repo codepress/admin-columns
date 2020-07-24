@@ -65,7 +65,7 @@ final class AddonAvailable
 	 * @param Screen $screen
 	 */
 	public function display( Screen $screen ) {
-		/*if ( ! current_user_can( Capabilities::MANAGE )
+		if ( ! current_user_can( Capabilities::MANAGE )
 		     || ! $this->integration->show_notice( $screen )
 		     || ! $this->integration->is_plugin_active()
 		     || $this->get_preferences()->get( 'dismiss-notice' )
@@ -77,7 +77,7 @@ final class AddonAvailable
 
 		if ( $integration_info->is_active() ) {
 			return;
-		}*/
+		}
 
 		$message = sprintf(
 			__( 'Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!', 'codepress-admin-columns' ),
