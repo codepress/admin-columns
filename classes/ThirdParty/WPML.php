@@ -15,7 +15,7 @@ class WPML implements Registrable {
 		add_action( 'ac/table/list_screen', [ $this, 'replace_flags' ] );
 
 		// enable the translation of the column labels
-		add_action( 'ac/list_screens', [ $this, 'register_column_labels' ] );
+		add_action( 'ac/list_screens', [ $this, 'register_column_labels' ], 300 );
 
 		// enable the WPML translation of column headings
 		add_filter( 'ac/headings/label', [ $this, 'register_translated_label' ], 100 );
@@ -52,9 +52,10 @@ class WPML implements Registrable {
 
 		foreach ( $list_screens as $list_screen ) {
 			foreach ( $list_screen->get_columns() as $column ) {
-				do_action( 'wpml_register_single_string', 'Admin Columns', $column->get_custom_label(), $column->get_label() );
+				do_action( 'wpml_register_single_string', 'Admin Columns', $column->get_custom_label(), $column->get_custom_label() );
 			}
 		}
+
 	}
 
 	/**
