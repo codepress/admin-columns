@@ -12,17 +12,18 @@ abstract class Plugin extends Addon {
 	 */
 	private $installer;
 
-	public function __construct( Installer $installer = null ) {
-		$this->installer = $installer;
-	}
-
 	/**
 	 * @var array
 	 */
 	private $data;
 
+	public function set_installer( Installer $installer ) {
+		$this->installer = $installer;
+	}
+
 	/**
 	 * Check if plugin is network activated
+	 *
 	 * @return bool
 	 */
 	public function is_network_active() {
