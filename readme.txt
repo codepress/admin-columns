@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7
 Tested up to: 5.4.2
 Requires PHP: 5.6.20
-Stable tag: 4.1.8
+Stable tag: 4.1.9
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -212,6 +212,11 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.1.9 =
+Release Date: July 28th, 2020
+
+* [Updated] Column label translation support for WPML was updated for the latest version of WPML
 
 = 4.1.8 =
 Release Date: July 21st, 2020
