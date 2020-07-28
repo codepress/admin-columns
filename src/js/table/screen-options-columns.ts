@@ -1,9 +1,14 @@
+import Columns from "./columns";
+import columns from "./columns";
+
 export default class ScreenOptionsColumns {
 
-	constructor( columns ) {
+    private columns: Columns
+
+	constructor( columns: columns ) {
 		this.columns = columns;
 
-		columns.getColumnNames().forEach( ( column_name ) => {
+		columns.getColumnNames().forEach( ( column_name: string ) => {
 			let column = columns.get( column_name );
 			let input = ScreenOptionsColumns.getInputByName( column.name );
 
@@ -15,7 +20,7 @@ export default class ScreenOptionsColumns {
 		} );
 	}
 
-	static getInputByName( name ) {
+	static getInputByName( name: string ) {
 		let input = document.querySelector( `input[name='${name}-hide']` );
 
 		return input ? input : false;

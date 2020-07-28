@@ -106,6 +106,109 @@ function insertBefore(newNode, referenceNode) {
 
 /***/ }),
 
+/***/ "./js/helpers/elements.ts":
+/*!********************************!*\
+  !*** ./js/helpers/elements.ts ***!
+  \********************************/
+/*! exports provided: insertAfter, insertBefore */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertAfter", function() { return insertAfter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertBefore", function() { return insertBefore; });
+function insertAfter(newNode, referenceNode) {
+  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+function insertBefore(newNode, referenceNode) {
+  referenceNode.parentNode.insertBefore(newNode, referenceNode);
+}
+
+/***/ }),
+
+/***/ "./js/helpers/global.ts":
+/*!******************************!*\
+  !*** ./js/helpers/global.ts ***!
+  \******************************/
+/*! exports provided: getParamFromUrl */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParamFromUrl", function() { return getParamFromUrl; });
+var getParamFromUrl = function getParamFromUrl(param, url) {
+  param = param.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + param + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+
+  if (!results) {
+    return null;
+  }
+
+  if (!results[2]) {
+    return '';
+  }
+
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+};
+
+/***/ }),
+
+/***/ "./js/helpers/table.ts":
+/*!*****************************!*\
+  !*** ./js/helpers/table.ts ***!
+  \*****************************/
+/*! exports provided: getIdFromTableRow, getIdFromString, getRowCellByName */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIdFromTableRow", function() { return getIdFromTableRow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIdFromString", function() { return getIdFromString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRowCellByName", function() { return getRowCellByName; });
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global */ "./js/helpers/global.ts");
+
+var getIdFromTableRow = function getIdFromTableRow(row) {
+  if (row.classList.contains('no-items')) {
+    return 0;
+  }
+
+  var item_id = getIdFromString(row.id);
+
+  if (!item_id) {
+    var input = row.querySelector('.check-column input[type=checkbox]');
+
+    if (input) {
+      item_id = getIdFromString(input.id);
+    }
+  } // Try to get the ID from the edit URL (MS Sites)
+
+
+  if (!item_id) {
+    var link = row.parentElement.querySelector('.edit a');
+
+    if (link) {
+      var href = link.getAttribute('href');
+
+      if (href) {
+        item_id = parseInt(Object(_global__WEBPACK_IMPORTED_MODULE_0__["getParamFromUrl"])('id', href));
+      }
+    }
+  }
+
+  row.dataset.id = item_id.toString();
+  return item_id;
+};
+var getIdFromString = function getIdFromString(value) {
+  var id_parts = value.split(/[_,\-]+/);
+  return parseInt(id_parts[id_parts.length - 1]);
+};
+var getRowCellByName = function getRowCellByName(row, column_name) {
+  return row.querySelector("td.column-" + column_name);
+};
+
+/***/ }),
+
 /***/ "./js/modules/modal.js":
 /*!*****************************!*\
   !*** ./js/modules/modal.js ***!
@@ -499,10 +602,10 @@ function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _table_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./table/table */ "./js/table/table.js");
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _table_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./table/table */ "./js/table/table.ts");
 /* harmony import */ var _table_tooltips__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./table/tooltips */ "./js/table/tooltips.js");
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/modals */ "./js/modules/modals.js");
-/* harmony import */ var _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./table/screen-options-columns */ "./js/table/screen-options-columns.js");
+/* harmony import */ var _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./table/screen-options-columns */ "./js/table/screen-options-columns.ts");
 /* harmony import */ var _modules_show_more__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/show-more */ "./js/modules/show-more.js");
 /* harmony import */ var _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/toggle-box-link */ "./js/modules/toggle-box-link.js");
 
@@ -631,49 +734,57 @@ function ac_quickedit_events($) {
 
 /***/ }),
 
-/***/ "./js/table/actions.js":
+/***/ "./js/table/actions.ts":
 /*!*****************************!*\
-  !*** ./js/table/actions.js ***!
+  !*** ./js/table/actions.ts ***!
   \*****************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/elements */ "./js/helpers/elements.ts");
+
+
+var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+
 var Actions =
 /** @class */
 function () {
-  function Actions(id) {
-    this.container = document.getElementById(id);
-    this.buttons = this.container.querySelector('.ac-table-actions-buttons');
+  function Actions(element) {
+    this.container = element;
+    this.events = nanobus();
     this.init();
   }
 
   Actions.prototype.init = function () {
-    var self = this;
-    this.dropDownEvents();
-    jQuery(this.container).on('update', function () {
-      self.refresh();
-    }).insertAfter(jQuery('.tablenav.top .actions:last')).addClass('-init').trigger('update');
+    var _this = this;
+
+    this.container.addEventListener('update', function () {
+      _this.refresh();
+    });
+    var reference = document.querySelectorAll('.tablenav.top .actions');
+
+    if (reference) {
+      Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_0__["insertAfter"])(this.container, reference[reference.length - 1]);
+      this.container.classList.add('-init');
+      this.container.dispatchEvent(new Event('update'));
+    }
   };
 
   Actions.prototype.refresh = function () {
-    var $buttons = jQuery(this.buttons);
-    $buttons.find('> a').removeClass('last');
-    $buttons.find('> a:visible:last').addClass('last');
-  };
-
-  Actions.prototype.dropDownEvents = function () {
-    jQuery(this.buttons).on('click', '[data-dropdown]', function () {
-      var $button = jQuery(this);
-      $button.toggleClass('-open');
-
-      if ($button.hasClass('-open')) {
-        $button[0].dispatchEvent(new CustomEvent('open'));
-      } else {
-        $button[0].dispatchEvent(new CustomEvent('closed'));
-      }
+    this.container.querySelectorAll('.ac-table-actions-buttons > a').forEach(function (element) {
+      element.classList.remove('last');
     });
+    var buttons = [].slice.call(this.container.querySelectorAll('.ac-table-actions-buttons > a'), 0);
+    buttons.reverse();
+
+    for (var i = 0; i < buttons.length; i++) {
+      if (buttons[i].offsetParent) {
+        buttons[i].classList.add('last');
+        break;
+      }
+    }
   };
 
   return Actions;
@@ -683,9 +794,9 @@ function () {
 
 /***/ }),
 
-/***/ "./js/table/cell.js":
+/***/ "./js/table/cell.ts":
 /*!**************************!*\
-  !*** ./js/table/cell.js ***!
+  !*** ./js/table/cell.ts ***!
   \**************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -696,18 +807,18 @@ var Cell =
 /** @class */
 function () {
   function Cell(id, name, el) {
-    this._object_id = id;
-    this._column_name = name;
-    this._original_value = el.innerHTML;
+    this.object_id = id;
+    this.column_name = name;
+    this.original_value = el.innerHTML;
     this.el = el;
   }
 
   Cell.prototype.getObjectID = function () {
-    return this._object_id;
+    return this.object_id;
   };
 
   Cell.prototype.getName = function () {
-    return this._column_name;
+    return this.column_name;
   };
 
   Cell.prototype.getElement = function () {
@@ -723,13 +834,12 @@ function () {
   };
 
   Cell.prototype.hasChanged = function (content) {
-    return this._original_value !== content;
+    return this.original_value !== content;
   };
 
   Cell.prototype.setValue = function (value) {
-    var el = this.getElement();
-    this._original_value = value;
-    el.innerHTML = value;
+    this.original_value = value;
+    this.el.innerHTML = value;
     return this;
   };
 
@@ -740,79 +850,77 @@ function () {
 
 /***/ }),
 
-/***/ "./js/table/cells.js":
+/***/ "./js/table/cells.ts":
 /*!***************************!*\
-  !*** ./js/table/cells.js ***!
+  !*** ./js/table/cells.ts ***!
   \***************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _cell__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cell */ "./js/table/cell.ts");
+
+
 var Cells =
 /** @class */
 function () {
   function Cells() {
-    this._cells = new Map();
+    this.cells = {};
   }
 
-  Cells.prototype.add = function (id, column) {
-    if (!this._cells.has(id)) {
-      this._cells.set(id, new Map());
+  Cells.prototype.add = function (id, cell) {
+    if (!this.cells.hasOwnProperty(id)) {
+      this.cells[id] = {};
     }
 
-    this._cells.get(id).set(column.getName(), column);
+    this.cells[id][cell.getName()] = cell;
   };
 
   Cells.prototype.getByID = function (id) {
     var result = [];
-    var key = id.toString();
 
-    if (!this._cells.has(key)) {
+    if (!this.cells.hasOwnProperty(id.toString())) {
       return result;
     }
 
-    this._cells.get(id.toString()).forEach(function (column) {
-      result.push(column);
+    var cells = this.cells[id.toString()];
+    Object.keys(cells).forEach(function (name) {
+      return result.push(cells[name]);
     });
-
     return result;
   };
 
   Cells.prototype.getAll = function () {
-    var results = [];
+    var _this = this;
 
-    this._cells.forEach(function (columns) {
-      columns.forEach(function (column) {
-        results.push(column);
+    var results = [];
+    Object.keys(this.cells).forEach(function (id) {
+      var cells = _this.cells[id];
+      Object.keys(_cell__WEBPACK_IMPORTED_MODULE_0__["default"]).forEach(function (name) {
+        return results.push(cells[name]);
       });
     });
-
     return results;
   };
 
   Cells.prototype.getByName = function (name) {
-    var results = [];
+    var _this = this;
 
-    this._cells.forEach(function (columns) {
-      columns.forEach(function (column, column_name) {
+    var results = [];
+    Object.keys(this.cells).forEach(function (id) {
+      var cells = _this.cells[id];
+      Object.keys(cells).forEach(function (column_name) {
         if (name === column_name) {
-          results.push(column);
+          results.push(cells[column_name]);
         }
       });
     });
-
     return results;
   };
 
-  Cells.prototype.get = function (id, type) {
-    var row = this._cells.get(id.toString());
-
-    if (!row) {
-      return false;
-    }
-
-    return row.get(type);
+  Cells.prototype.get = function (id, name) {
+    return this.cells.hasOwnProperty(id.toString()) ? this.cells[id][name] : null;
   };
 
   return Cells;
@@ -822,9 +930,9 @@ function () {
 
 /***/ }),
 
-/***/ "./js/table/columns.js":
+/***/ "./js/table/columns.ts":
 /*!*****************************!*\
-  !*** ./js/table/columns.js ***!
+  !*** ./js/table/columns.ts ***!
   \*****************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -836,7 +944,7 @@ var Columns =
 function () {
   function Columns(table) {
     this.table = table;
-    this._columns = {};
+    this.columns = {};
     this.init();
   }
 
@@ -846,16 +954,17 @@ function () {
     var headers = thead.querySelectorAll('th');
 
     for (var i = 0; i < headers.length; i++) {
-      var column = {};
-      column.name = headers[i].id;
-      column.type = AC.column_types[column.name];
-      column.label = this.sanitizeLabel(headers[i]);
-      self._columns[headers[i].id] = column;
+      var headerName = headers[i].id;
+      self.columns[headers[i].id] = {
+        name: headerName,
+        type: AC.column_types[headerName],
+        label: this.sanitizeLabel(headers[i])
+      };
     }
   };
 
   Columns.prototype.getColumns = function () {
-    return this._columns;
+    return this.columns;
   };
 
   Columns.prototype.getColumnsMap = function () {
@@ -866,27 +975,13 @@ function () {
     });
     return map;
   };
-  /**
-   * @returns {string[]}
-   */
-
 
   Columns.prototype.getColumnNames = function () {
-    return Object.keys(this._columns);
+    return Object.keys(this.columns);
   };
-  /**
-   *
-   * @param {String} column_name
-   * @returns {Object}
-   */
-
 
   Columns.prototype.get = function (column_name) {
-    if (!this._columns[column_name]) {
-      return false;
-    }
-
-    return this._columns[column_name];
+    return this.columns.hasOwnProperty(column_name) ? this.columns[column_name] : null;
   };
 
   Columns.prototype.sanitizeLabel = function (header) {
@@ -911,110 +1006,53 @@ function () {
 
 /***/ }),
 
-/***/ "./js/table/helper.js":
-/*!****************************!*\
-  !*** ./js/table/helper.js ***!
-  \****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var Helper =
-/** @class */
-function () {
-  function Helper() {}
-  /**
-   * Get query param from url
-   *
-   * @param param
-   * @param url
-   * @returns {*}
-   */
-
-
-  Helper.getParamFromUrl = function (param, url) {
-    if (!url) {
-      return null;
-    }
-
-    param = param.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + param + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-
-    if (!results) {
-      return null;
-    }
-
-    if (!results[2]) {
-      return '';
-    }
-
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-  };
-
-  ;
-  return Helper;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Helper);
-
-/***/ }),
-
-/***/ "./js/table/row-selection.js":
+/***/ "./js/table/row-selection.ts":
 /*!***********************************!*\
-  !*** ./js/table/row-selection.js ***!
+  !*** ./js/table/row-selection.ts ***!
   \***********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var Selection =
+var RowSelection =
 /** @class */
 function () {
-  function Selection(Table) {
-    this.Table = Table;
+  function RowSelection(table) {
+    this.Table = table;
   }
-  /**
-   * Get the selected IDs in the table
-   *
-   * @returns {Array}
-   */
 
-
-  Selection.prototype.getIDs = function () {
+  RowSelection.prototype.getIDs = function () {
     var ids = [];
-    var checked = this.Table.el.querySelectorAll('tbody th.check-column input[type=checkbox]:checked');
+    var checked = this.Table.getElement().querySelectorAll('tbody th.check-column input[type=checkbox]:checked');
 
     if (checked.length === 0) {
       return ids;
     }
 
     for (var i = 0; i < checked.length; i++) {
-      ids.push(checked[i].value);
+      ids.push(parseInt(checked[i].value));
     }
 
     return ids;
   };
   /**
    * Get selected cells for specific column
-   *
-   * @param name
    */
 
 
-  Selection.prototype.getSelectedCells = function (name) {
-    var self = this;
+  RowSelection.prototype.getSelectedCells = function (name) {
+    var _this = this;
+
     var ids = this.getIDs();
 
     if (ids.length === 0) {
-      return false;
+      return null;
     }
 
     var cells = [];
     ids.forEach(function (id) {
-      var cell = self.table.Cells.get(id, name);
+      var cell = _this.Table.Cells.get(id, name);
 
       if (cell) {
         cells.push(cell);
@@ -1022,30 +1060,25 @@ function () {
     });
     return cells;
   };
-  /**
-   *
-   * @returns {number}
-   */
 
-
-  Selection.prototype.getCount = function () {
+  RowSelection.prototype.getCount = function () {
     return this.getIDs().length;
   };
 
-  Selection.prototype.isAllSelected = function () {
-    return !!this.Table.el.querySelector('thead #cb input:checked');
+  RowSelection.prototype.isAllSelected = function () {
+    return !!this.Table.getElement().querySelector('thead #cb input:checked');
   };
 
-  return Selection;
+  return RowSelection;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (Selection);
+/* harmony default export */ __webpack_exports__["default"] = (RowSelection);
 
 /***/ }),
 
-/***/ "./js/table/screen-options-columns.js":
+/***/ "./js/table/screen-options-columns.ts":
 /*!********************************************!*\
-  !*** ./js/table/screen-options-columns.js ***!
+  !*** ./js/table/screen-options-columns.ts ***!
   \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1081,21 +1114,21 @@ function () {
 
 /***/ }),
 
-/***/ "./js/table/table.js":
+/***/ "./js/table/table.ts":
 /*!***************************!*\
-  !*** ./js/table/table.js ***!
+  !*** ./js/table/table.ts ***!
   \***************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./js/table/actions.js");
-/* harmony import */ var _cells__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cells */ "./js/table/cells.js");
-/* harmony import */ var _columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./columns */ "./js/table/columns.js");
-/* harmony import */ var _cell__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cell */ "./js/table/cell.js");
-/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helper */ "./js/table/helper.js");
-/* harmony import */ var _row_selection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./row-selection */ "./js/table/row-selection.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./js/table/actions.ts");
+/* harmony import */ var _cells__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cells */ "./js/table/cells.ts");
+/* harmony import */ var _columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./columns */ "./js/table/columns.ts");
+/* harmony import */ var _cell__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cell */ "./js/table/cell.ts");
+/* harmony import */ var _row_selection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./row-selection */ "./js/table/row-selection.ts");
+/* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/table */ "./js/helpers/table.ts");
 
 
 
@@ -1106,170 +1139,97 @@ __webpack_require__.r(__webpack_exports__);
 var Table =
 /** @class */
 function () {
-  /**
-   *
-   * @param {Element} el
-   */
   function Table(el) {
     this.el = el;
-    this.Helper = _helper__WEBPACK_IMPORTED_MODULE_4__["default"];
     this.Columns = new _columns__WEBPACK_IMPORTED_MODULE_2__["default"](el);
     this.Cells = new _cells__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    this.Actions = document.getElementById('ac-table-actions') ? new _actions__WEBPACK_IMPORTED_MODULE_0__["default"](document.getElementById('ac-table-actions')) : null;
+    this.Selection = new _row_selection__WEBPACK_IMPORTED_MODULE_4__["default"](this); // TODO make helper function for this (INLINE EDIT NEEDS IT)
 
-    if (document.getElementById('ac-table-actions')) {
-      this.Actions = new _actions__WEBPACK_IMPORTED_MODULE_0__["default"]('ac-table-actions');
-    }
-
-    this.Selection = new _row_selection__WEBPACK_IMPORTED_MODULE_5__["default"](this);
     this._ids = [];
     this.init();
   }
 
+  Table.prototype.getElement = function () {
+    return this.el;
+  };
+
   Table.prototype.init = function () {
-    var self = this;
-
-    this._initTable();
-
+    this.initTable();
     this.addCellClasses();
     document.dispatchEvent(new CustomEvent('AC_Table_Ready', {
       detail: {
-        table: self
+        table: this
       }
     }));
     AdminColumns.events.emit('Table.Ready', {
-      table: self
+      table: this
     });
-  };
-
-  Table.prototype.updateRow = function (row) {
-    var id = this._getIDFromRow(row);
-
-    row.dataset.id = id;
-
-    this._setCellsForRow(row, id);
   };
 
   Table.prototype.addCellClasses = function () {
-    var self = this;
+    var _this = this;
+
     this.Columns.getColumnNames().forEach(function (name) {
-      var type = self.Columns.get(name).type;
-      var cells = self.Cells.getByName(name);
+      var type = _this.Columns.get(name).type;
+
+      var cells = _this.Cells.getByName(name);
+
       cells.forEach(function (cell) {
-        cell.el.classList.add(type);
+        cell.getElement().classList.add(type);
       });
     });
   };
-  /**
-   * Initiate the table so we can easily query it
-   * Also populate the Columns Model
-   *
-   * @private
-   */
 
-
-  Table.prototype._initTable = function () {
-    var self = this;
+  Table.prototype.initTable = function () {
     var el = this.el.getElementsByTagName('tbody');
-    var rows = el[0].getElementsByTagName('tr');
+    var rows = el[0].querySelectorAll('tr');
 
     for (var i = 0; i < rows.length; i++) {
-      var row = rows[i];
+      this._ids.push(Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(rows[i]));
 
-      var id = this._getIDFromRow(row);
-
-      self._ids.push(id);
-
-      this.updateRow(row);
+      this.updateRow(rows[i]);
     }
   };
 
-  Table.prototype._setCellsForRow = function (row) {
+  Table.prototype.updateRow = function (row) {
+    var id = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row);
+    row.dataset.id = id.toString();
+    this.setCellsForRow(row);
+  };
+
+  Table.prototype.setCellsForRow = function (row) {
     var _this = this;
 
-    var id = this._getIDFromRow(row);
-
+    var id = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row);
     this.Columns.getColumnNames().forEach(function (name) {
       var selector = name.replace(/\./g, '\\.');
-      var td = row.querySelector(".column-" + selector);
+      var td = row.querySelector("td.column-" + selector);
 
       if (td) {
         var cell = new _cell__WEBPACK_IMPORTED_MODULE_3__["default"](id, name, td);
 
         _this.Cells.add(id, cell);
-
-        _this._addColumnCellMethods(cell);
       }
     });
   };
-
-  Table.prototype._addColumnCellMethods = function (column) {
-    column.el.getCell = function () {
-      return column;
-    };
-  };
   /**
-   * Get the Post ID from a table row based on it's attributes or columns
-   *
-   * @param {Element} row
-   * @returns {int}
-   * @private
+   * @deprecated
+   * TODO remove once IE uses the helper
    */
 
 
   Table.prototype._getIDFromRow = function (row) {
-    var id = row.id;
-    var id_parts = id.split(/[_,\-]+/);
-    var item_id = id_parts[id_parts.length - 1];
-
-    if (row.classList.contains('no-items')) {
-      return 0;
-    }
-
-    if (!item_id) {
-      var input = row.querySelector('.check-column input[type=checkbox]');
-
-      if (input) {
-        id = input.id;
-        id_parts = id.split('_');
-        item_id = id_parts[id_parts.length - 1];
-      }
-    } // Try to get the ID from the edit URL (MS Sites)
-
-
-    if (!item_id) {
-      var link = row.parentElement.querySelector('.edit a');
-
-      if (link) {
-        var href = link.getAttribute('href');
-
-        if (href) {
-          item_id = this.Helper.getParamFromUrl('id', href);
-        }
-      }
-    }
-
-    row.dataset.id = item_id;
-    AdminColumns.events.emit('Table.Id', {
-      id: item_id,
-      row: row
-    });
-    return row.dataset.id;
+    return Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row);
   };
+  /**
+   * @deprecated use Helper function instead
+   * TODO remove once IE uses the helper
+   */
+
 
   Table.prototype.getRowCellByName = function (row, column_name) {
-    return row.querySelector(".column-" + column_name);
-  };
-
-  Table.getTable = function (jQuery) {
-    if (jQuery === void 0) {
-      jQuery = false;
-    }
-
-    if (jQuery) {
-      return jQuery(this.el);
-    }
-
-    return this.el;
+    return Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getRowCellByName"])(row, column_name);
   };
 
   return Table;

@@ -1,12 +1,14 @@
-import {nanoBusInterface} from "./declarations/libraries";
+import Table from "./table/table";
 
-export interface AdminColumns {
+export interface AdminColumnsInterface {
     events: nanoBusInterface,
-    Form: any
+    Form: any,
+    Table?: Table
 }
 
-export interface ACLocalizeScript {
+export interface LocalizedScriptAC {
     layout: string,
     list_screen: string,
-    _ajax_nonce: string
+    _ajax_nonce: string,
+    column_types: { [key: string]: string }
 }
