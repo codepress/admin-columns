@@ -17,3 +17,7 @@ export const dismissNotice = (selector: string) => {
         }, el);
     });
 }
+
+export const initDismissibleNotices = () => {
+    dismissNotice('.ac-notice');
+}

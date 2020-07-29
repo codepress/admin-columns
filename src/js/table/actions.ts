@@ -1,12 +1,11 @@
-import Nanobus from "nanobus";
 import {insertAfter} from "../helpers/elements";
 
-const nanobus = require('nanobus');
+var nanobus = require('nanobus')
 
 export default class Actions {
 
     private container: HTMLElement
-    events: Nanobus
+    events: any
 
     constructor(element: HTMLElement) {
         this.container = element;
@@ -22,8 +21,7 @@ export default class Actions {
         let reference = document.querySelectorAll<HTMLElement>('.tablenav.top .actions');
 
         if (reference) {
-
-            insertAfter(this.container, reference[reference.length-1])
+            insertAfter(this.container, reference[reference.length - 1])
             this.container.classList.add('-init');
             this.container.dispatchEvent(new Event('update'));
         }
@@ -34,11 +32,11 @@ export default class Actions {
             element.classList.remove('last');
         });
 
-        let buttons = [].slice.call( this.container.querySelectorAll('.ac-table-actions-buttons > a'), 0 );
+        let buttons = [].slice.call(this.container.querySelectorAll('.ac-table-actions-buttons > a'), 0);
         buttons.reverse();
 
-        for( var i = 0; i < buttons.length; i++ ){
-            if( buttons[i].offsetParent ){
+        for (var i = 0; i < buttons.length; i++) {
+            if (buttons[i].offsetParent) {
                 buttons[i].classList.add('last');
                 break;
             }

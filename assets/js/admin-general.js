@@ -98,6 +98,8 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _modules_tooltips__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.js");
 /* harmony import */ var _modules_ac_section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/ac-section */ "./js/modules/ac-section.js");
 /* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.js");
+/* harmony import */ var _plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugin/dismissible-notice */ "./js/plugin/dismissible-notice.ts");
+
 
 
 
@@ -107,12 +109,13 @@ var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.j
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 AdminColumns.events = nanobus();
 jQuery(document).ready(function ($) {
+  Object(_plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_3__["initDismissibleNotices"])();
+
   if ($('#cpac').length === 0) {
     return false;
   }
 
   ac_pointers();
-  ac_help($);
   document.querySelectorAll('.ac-section').forEach(function (el) {
     new _modules_ac_section__WEBPACK_IMPORTED_MODULE_1__["default"](el);
   });
@@ -141,25 +144,43 @@ global.ac_pointers = function () {
 global.ac_pointer = function (el) {
   new _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_2__["default"](el);
 };
-/*
- * Help
- *
- * usage: <a href="javascript:;" class="help" data-help="tab-2"></a>
- */
-
-
-function ac_help($) {
-  $('a.help').click(function (e) {
-    e.preventDefault();
-    var panel = $('#contextual-help-wrap');
-    panel.parent().show();
-    $('a[href="#tab-panel-cpac-' + $(this).attr('data-help') + '"]', panel).trigger('click');
-    panel.slideDown('fast', function () {
-      panel.focus();
-    });
-  });
-}
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./js/helpers/events.ts":
+/*!******************************!*\
+  !*** ./js/helpers/events.ts ***!
+  \******************************/
+/*! exports provided: addEventListenerLive */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListenerLive", function() { return addEventListenerLive; });
+var addEventListenerLive = function addEventListenerLive(eventType, elementQuerySelector, cb, rootElement) {
+  if (rootElement === void 0) {
+    rootElement = null;
+  }
+
+  var element = rootElement ? rootElement : document;
+  element.addEventListener(eventType, function (event) {
+    var qs = document.querySelectorAll(elementQuerySelector);
+
+    if (qs) {
+      var element = event.target,
+          index = -1;
+
+      while (element && (index = Array.prototype.indexOf.call(qs, element)) === -1) {
+        element = element.parentElement;
+      }
+
+      if (index > -1) {
+        cb.call(element, event);
+      }
+    }
+  });
+};
 
 /***/ }),
 
@@ -439,6 +460,40 @@ function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (Tooltips);
+
+/***/ }),
+
+/***/ "./js/plugin/dismissible-notice.ts":
+/*!*****************************************!*\
+  !*** ./js/plugin/dismissible-notice.ts ***!
+  \*****************************************/
+/*! exports provided: dismissNotice, initDismissibleNotices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dismissNotice", function() { return dismissNotice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initDismissibleNotices", function() { return initDismissibleNotices; });
+/* harmony import */ var _helpers_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/events */ "./js/helpers/events.ts");
+
+
+var $ = __webpack_require__(/*! jquery */ "jquery");
+
+var dismissNotice = function dismissNotice(selector) {
+  document.querySelectorAll(selector).forEach(function (el) {
+    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', '.ac-notice__dismiss, [data-dismiss], .notice-dismiss', function (e) {
+      e.preventDefault();
+      var data = el.dataset.dismissibleCallback ? JSON.parse(el.dataset.dismissibleCallback) : null;
+
+      if (data) {
+        $.post(ajaxurl, data);
+      }
+    }, el);
+  });
+};
+var initDismissibleNotices = function initDismissibleNotices() {
+  dismissNotice('.ac-notice');
+};
 
 /***/ }),
 
@@ -1018,6 +1073,17 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+
+/***/ "jquery":
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = jQuery;
 
 /***/ })
 

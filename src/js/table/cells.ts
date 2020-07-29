@@ -8,7 +8,6 @@ type rowMap = {
     [key: string]: cellMap
 }
 
-
 export default class Cells {
 
     cells: rowMap
@@ -67,7 +66,7 @@ export default class Cells {
     }
 
     get(id: number, name: string) {
-        return this.cells.hasOwnProperty( id.toString() ) ? this.cells[id][name] : null
+        return this.cells.hasOwnProperty(id.toString()) ? this.cells[id][name] : null
     }
 
 }

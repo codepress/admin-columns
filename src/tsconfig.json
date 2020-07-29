@@ -10,6 +10,6 @@
         "noEmit": false,
         "skipLibCheck": true,
         "moduleResolution": "Node",
-        "allowSyntheticDefaultImports" : true,
-    },
+        "allowSyntheticDefaultImports" : true
+    }
 }

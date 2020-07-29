@@ -4,6 +4,10 @@ import Columns from "./columns";
 import Cell from "./cell";
 import RowSelection from "./row-selection";
 import {getIdFromTableRow, getRowCellByName} from "../helpers/table";
+import {AdminColumnsInterface} from "../admincolumns";
+import {EventConstants} from "../constants";
+
+declare const AdminColumns: AdminColumnsInterface;
 
 export default class Table {
 
@@ -34,14 +38,16 @@ export default class Table {
         this.initTable();
         this.addCellClasses();
 
+
         document.dispatchEvent(new CustomEvent('AC_Table_Ready', {detail: {table: this}}));
-        AdminColumns.events.emit('Table.Ready', {table: this});
+        AdminColumns.events.emit(EventConstants.TABLE.READY, {table: this});
     }
 
-    private addCellClasses() {
+    addCellClasses() {
         this.Columns.getColumnNames().forEach((name) => {
             let type = this.Columns.get(name).type;
             let cells = this.Cells.getByName(name);
+
 
             cells.forEach((cell: Cell) => {
                 cell.getElement().classList.add(type);

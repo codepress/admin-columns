@@ -6,8 +6,7 @@ let config = {
 		'admin-page-columns' : ['./js/admin-page-columns.js'],
 		'admin-page-addons' : './js/admin-page-addons.js',
 		'message-review' : './js/message-review.ts',
-		'notice-dismissible' : './js/notice-dismissible.ts',
-		'table' : './js/table.js'
+		'table' : './js/table.ts'
 	},
 	output : {
 		path : path.resolve( __dirname, '../assets/js' ),
