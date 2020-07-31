@@ -2,7 +2,9 @@
 
 namespace AC\Plugin;
 
-class Installer {
+use AC;
+
+class Installer implements AC\Installer {
 
 	const TABLE = 'admin_columns';
 
