@@ -74,7 +74,6 @@ class User {
 
 			case 'first_last_name' :
 			case 'full_name' :
-
 				$name_parts = [];
 
 				if ( $user->first_name ) {
@@ -84,24 +83,16 @@ class User {
 					$name_parts[] = $user->last_name;
 				}
 
-				if ( $name_parts ) {
-					$name = implode( ' ', $name_parts );
-				}
-
-				break;
+				return $name_parts
+					? implode( ' ', $name_parts )
+					: false;
 			case 'roles' :
-				$name = ac_helper()->string->enumeration_list( $this->get_roles_names( $user->roles ), 'and' );
-
-				break;
+				return ac_helper()->string->enumeration_list( $this->get_roles_names( $user->roles ), 'and' );
 			default :
-				if ( isset( $user->{$format} ) ) {
-					$name = $user->{$format};
-				} else {
-					$name = $user->display_name;
-				}
+				return isset( $user->{$format} )
+					? $user->{$format}
+					: $user->display_name;
 		}
-
-		return $name;
 	}
 
 	/**

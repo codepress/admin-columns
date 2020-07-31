@@ -7,11 +7,23 @@ use WP_Roles;
 
 abstract class Plugin extends Addon {
 
-	/** @var array */
+	/**
+	 * @var Installer|null
+	 */
+	private $installer;
+
+	/**
+	 * @var array
+	 */
 	private $data;
+
+	public function set_installer( Installer $installer ) {
+		$this->installer = $installer;
+	}
 
 	/**
 	 * Check if plugin is network activated
+	 *
 	 * @return bool
 	 */
 	public function is_network_active() {
@@ -74,8 +86,9 @@ abstract class Plugin extends Addon {
 
 		do_action( 'ac/capabilities/init', $wp_roles );
 
-		$installer = new Plugin\Installer();
-		$installer->install();
+		if ( $this->installer instanceof Installer ) {
+			$this->installer->install();
+		}
 
 		if ( current_user_can( Capabilities::MANAGE ) && ! is_network_admin() ) {
 			$this->run_updater();
