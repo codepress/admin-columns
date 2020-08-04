@@ -232,7 +232,7 @@ var getParamFromUrl = function getParamFromUrl(param, url) {
 /*!*****************************!*\
   !*** ./js/helpers/table.ts ***!
   \*****************************/
-/*! exports provided: getIdFromTableRow, getIdFromString, getRowCellByName */
+/*! exports provided: getIdFromTableRow, getIdFromString, getRowCellByName, resolveTableBySelector */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -240,6 +240,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIdFromTableRow", function() { return getIdFromTableRow; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIdFromString", function() { return getIdFromString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRowCellByName", function() { return getRowCellByName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resolveTableBySelector", function() { return resolveTableBySelector; });
 /* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global */ "./js/helpers/global.ts");
 
 var getIdFromTableRow = function getIdFromTableRow(row) {
@@ -279,6 +280,19 @@ var getIdFromString = function getIdFromString(value) {
 };
 var getRowCellByName = function getRowCellByName(row, column_name) {
   return row.querySelector("td.column-" + column_name);
+};
+var resolveTableBySelector = function resolveTableBySelector(selector) {
+  var table = document.querySelector(selector);
+
+  if (!table) {
+    return;
+  }
+
+  if (table.tagName !== 'TABLE') {
+    table = table.querySelector('table') ? table.querySelector('table') : table.closest('table');
+  }
+
+  return table;
 };
 
 /***/ }),
@@ -781,13 +795,9 @@ var AdminColumns = Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_11__["
 Object(_polyfill_custom_event__WEBPACK_IMPORTED_MODULE_6__["polyfillCustomEvent"])();
 _modules_modals__WEBPACK_IMPORTED_MODULE_2__["default"].init();
 jquery__WEBPACK_IMPORTED_MODULE_5___default()(document).ready(function () {
-  var table = document.querySelector(AC.table_id);
+  var table = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_10__["resolveTableBySelector"])(AC.table_id);
 
-  if (table.tagName !== 'TABLE') {
-    table = table.closest('table');
-  }
-
-  if (table && table.tagName === 'TABLE') {
+  if (table) {
     AdminColumns.Table = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table);
     AdminColumns.ScreenOptionsColumns = new _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_3__["default"](AdminColumns.Table.Columns);
   }
@@ -954,9 +964,6 @@ function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _cell__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cell */ "./js/table/cell.ts");
-
-
 var Cells =
 /** @class */
 function () {
@@ -992,7 +999,7 @@ function () {
     var results = [];
     Object.keys(this.cells).forEach(function (id) {
       var cells = _this.cells[id];
-      Object.keys(_cell__WEBPACK_IMPORTED_MODULE_0__["default"]).forEach(function (name) {
+      Object.keys(cells).forEach(function (name) {
         return results.push(cells[name]);
       });
     });

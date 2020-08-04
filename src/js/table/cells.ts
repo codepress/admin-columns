@@ -43,7 +43,7 @@ export default class Cells {
 
         Object.keys(this.cells).forEach(id => {
             let cells = this.cells[id];
-            Object.keys(Cell).forEach(name => results.push(cells[name]))
+            Object.keys(cells).forEach(name => results.push(cells[name]))
         });
 
         return results;

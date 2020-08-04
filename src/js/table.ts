@@ -10,7 +10,7 @@ import {polyfillCustomEvent} from "./polyfill/custom-event";
 import {auto_init_show_more} from "./plugin/show-more";
 import {init_actions_tooltips} from "./table/functions";
 import {EventConstants} from "./constants";
-import {getIdFromTableRow} from "./helpers/table";
+import {getIdFromTableRow, resolveTableBySelector} from "./helpers/table";
 import {initAdminColumnsGlobalBootstrap} from "./helpers/admin-columns";
 import {initDismissibleNotices} from "./plugin/dismissible-notice";
 
@@ -22,13 +22,9 @@ polyfillCustomEvent();
 Modals.init();
 
 $(document).ready(() => {
-    let table: HTMLTableElement = document.querySelector(AC.table_id);
+    let table = resolveTableBySelector(AC.table_id);
 
-    if (table.tagName !== 'TABLE') {
-        table = table.closest('table');
-    }
-
-    if (table && table.tagName === 'TABLE') {
+    if (table) {
         AdminColumns.Table = new Table(table);
         AdminColumns.ScreenOptionsColumns = new ScreenOptionsColumns(AdminColumns.Table.Columns);
     }

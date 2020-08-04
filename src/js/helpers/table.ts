@@ -1,4 +1,7 @@
 import {getParamFromUrl} from "./global";
+import {LocalizedScriptAC} from "../admincolumns";
+
+declare let AC: LocalizedScriptAC
 
 export const getIdFromTableRow = (row: HTMLTableRowElement): number => {
     if (row.classList.contains('no-items')) {
@@ -41,4 +44,18 @@ export const getIdFromString = (value: string): number => {
 
 export const getRowCellByName = (row: HTMLTableRowElement, column_name: string): HTMLTableCellElement => {
     return row.querySelector<HTMLTableCellElement>(`td.column-${column_name}`);
+}
+
+export const resolveTableBySelector = (selector: string): HTMLTableElement => {
+    let table: HTMLTableElement = document.querySelector(selector);
+
+    if( ! table ){
+        return;
+    }
+
+    if (table.tagName !== 'TABLE') {
+        table = table.querySelector('table') ? table.querySelector('table') : table.closest('table');
+    }
+
+    return table;
 }
