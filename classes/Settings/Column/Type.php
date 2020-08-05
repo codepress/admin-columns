@@ -64,40 +64,10 @@ class Type extends Column {
 	}
 
 	/**
-	 * @return Integration[]
-	 */
-	private function get_missing_integrations() {
-		$missing = [];
-
-		foreach ( new AC\Integrations() as $integration ) {
-			$integration_plugin = new AC\PluginInformation( $integration->get_basename() );
-
-			if ( $integration->is_plugin_active() && ! $integration_plugin->is_active() ) {
-				$missing[] = $integration;
-			}
-		}
-
-		return $missing;
-	}
-
-	/**
 	 * @return Groups
 	 */
 	private function column_groups() {
-		$groups = new Groups();
-
-		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ) );
-		$groups->register_group( 'plugin', __( 'Plugins' ), 20 );
-		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 30 );
-		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
-
-		foreach ( $this->get_missing_integrations() as $integration ) {
-			$groups->register_group( $integration->get_slug(), $integration->get_title(), 11 );
-		}
-
-		do_action( 'ac/column_groups', $groups );
-
-		return $groups;
+		return AC\ColumnGroups::get_groups();
 	}
 
 	/**
