@@ -37,6 +37,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input class="reset-column-type" type="submit" value="<?php _e( 'Restore columns', 'codepress-admin-columns' ); ?>">
 		<?php endif; ?>
 
+		<small class="list-screen-id"><?= sprintf( '%s: %s', __( 'ID', 'codepress-admin-columns' ), $this->list_screen_id ); ?></small>
+
 		<span class="spinner"></span>
 	</form>
 

@@ -2,19 +2,33 @@
 
 namespace AC;
 
-/**
- * @deprecated 4.0
- */
+use AC\ListScreen\Comment;
+use AC\ListScreen\Media;
+use AC\ListScreen\Post;
+use AC\ListScreen\User;
+use AC\Type\ListScreenId;
+
 class ListScreenFactory {
 
-	public static function create( $key, $id = null ) {
-		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $key );
+	/**
+	 * @param string       $key
+	 * @param ListScreenId $id
+	 *
+	 * @return Comment|Media|Post|User
+	 */
+	public function create( $key, ListScreenId $id = null ) {
+		switch ( $key ) {
+			case 'wp-users' :
+				return ( new User() )->set_layout_id( $id->get_id() );
+			case 'wp-media' :
+				return ( new Media() )->set_layout_id( $id->get_id() );
+			case 'wp-comments' :
+				return ( new Comment() )->set_layout_id( $id->get_id() );
+			default :
+				$list_screen = ( new Post( $key ) )->set_layout_id( $id->get_id() );
 
-		if ( $list_screen ) {
-			return clone $list_screen;
+				return $list_screen;
 		}
-
-		return null;
 	}
 
 }

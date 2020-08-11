@@ -98,7 +98,7 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _modules_tooltips__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.js");
 /* harmony import */ var _modules_ac_section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/ac-section */ "./js/modules/ac-section.js");
 /* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.js");
-!(function webpackMissingModule() { var e = new Error("Cannot find module './plugin/dismissible-notice'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugin/dismissible-notice */ "./js/plugin/dismissible-notice.ts");
 
 
 
@@ -109,7 +109,7 @@ var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.j
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 AdminColumns.events = nanobus();
 jQuery(document).ready(function ($) {
-  !(function webpackMissingModule() { var e = new Error("Cannot find module './plugin/dismissible-notice'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())();
+  Object(_plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_3__["initDismissibleNotices"])();
 
   if ($('#cpac').length === 0) {
     return false;
@@ -148,6 +148,42 @@ global.ac_pointer = function (el) {
 
 /***/ }),
 
+/***/ "./js/helpers/events.ts":
+/*!******************************!*\
+  !*** ./js/helpers/events.ts ***!
+  \******************************/
+/*! exports provided: addEventListenerLive */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListenerLive", function() { return addEventListenerLive; });
+var addEventListenerLive = function addEventListenerLive(eventType, elementQuerySelector, cb, rootElement) {
+  if (rootElement === void 0) {
+    rootElement = null;
+  }
+
+  var element = rootElement ? rootElement : document;
+  element.addEventListener(eventType, function (event) {
+    var qs = document.querySelectorAll(elementQuerySelector);
+
+    if (qs) {
+      var element = event.target,
+          index = -1;
+
+      while (element && (index = Array.prototype.indexOf.call(qs, element)) === -1) {
+        element = element.parentElement;
+      }
+
+      if (index > -1) {
+        cb.call(element, event);
+      }
+    }
+  });
+};
+
+/***/ }),
+
 /***/ "./js/modules/ac-pointer.js":
 /*!**********************************!*\
   !*** ./js/modules/ac-pointer.js ***!
@@ -157,164 +193,144 @@ global.ac_pointer = function (el) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Pointer; });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Pointer = /*#__PURE__*/function () {
+var Pointer =
+/** @class */
+function () {
   function Pointer(el) {
-    _classCallCheck(this, Pointer);
-
     this.el = el;
     this.settings = this.getDefaults();
     this.init();
     this.setInitialized();
   }
 
-  _createClass(Pointer, [{
-    key: "setInitialized",
-    value: function setInitialized() {
-      this.el.dataset.ac_pointer_initialized = 1;
-    }
-  }, {
-    key: "getDefaults",
-    value: function getDefaults() {
-      return {
-        width: this.el.getAttribute('data-width') ? this.el.getAttribute('data-width') : 250,
-        noclick: this.el.getAttribute('data-noclick') ? this.el.getAttribute('data-noclick') : false,
-        position: this.getPosition()
+  Pointer.prototype.setInitialized = function () {
+    this.el.dataset.ac_pointer_initialized = 1;
+  };
+
+  Pointer.prototype.getDefaults = function () {
+    return {
+      width: this.el.getAttribute('data-width') ? this.el.getAttribute('data-width') : 250,
+      noclick: this.el.getAttribute('data-noclick') ? this.el.getAttribute('data-noclick') : false,
+      position: this.getPosition()
+    };
+  };
+
+  Pointer.prototype.isInitialized = function () {
+    return this.el.dataset.hasOwnProperty('ac_pointer_initialized');
+  };
+
+  Pointer.prototype.init = function () {
+    if (this.isInitialized()) {
+      return;
+    } // create pointer
+
+
+    jQuery(this.el).pointer({
+      content: this.getRelatedHTML(),
+      position: this.settings.position,
+      pointerWidth: this.settings.width,
+      pointerClass: this.getPointerClass()
+    });
+    this.initEvents();
+  };
+
+  Pointer.prototype.getPosition = function () {
+    var position = {
+      at: 'left top',
+      my: 'right top',
+      edge: 'right'
+    };
+    var pos = this.el.getAttribute('data-pos');
+    var edge = this.el.getAttribute('data-pos_edge');
+
+    if ('right' === pos) {
+      position = {
+        at: 'right middle',
+        my: 'left middle',
+        edge: 'left'
       };
     }
-  }, {
-    key: "isInitialized",
-    value: function isInitialized() {
-      return this.el.dataset.hasOwnProperty('ac_pointer_initialized');
-    }
-  }, {
-    key: "init",
-    value: function init() {
-      if (this.isInitialized()) {
-        return;
-      } // create pointer
 
-
-      jQuery(this.el).pointer({
-        content: this.getRelatedHTML(),
-        position: this.settings.position,
-        pointerWidth: this.settings.width,
-        pointerClass: this.getPointerClass()
-      });
-      this.initEvents();
-    }
-  }, {
-    key: "getPosition",
-    value: function getPosition() {
-      var position = {
-        at: 'left top',
-        // position of wp-pointer relative to the element which triggers the pointer event
-        my: 'right top',
-        // position of wp-pointer relative to the at-coordinates
-        edge: 'right' // position of arrow
-
+    if ('right_bottom' === pos) {
+      position = {
+        at: 'right middle',
+        my: 'left bottom',
+        edge: 'none'
       };
-      var pos = this.el.getAttribute('data-pos');
-      var edge = this.el.getAttribute('data-pos_edge');
-
-      if ('right' === pos) {
-        position = {
-          at: 'right middle',
-          my: 'left middle',
-          edge: 'left'
-        };
-      }
-
-      if ('right_bottom' === pos) {
-        position = {
-          at: 'right middle',
-          my: 'left bottom',
-          edge: 'none'
-        };
-      }
-
-      if ('left' === pos) {
-        position = {
-          at: 'left middle',
-          my: 'right middle',
-          edge: 'right'
-        };
-      }
-
-      if (edge) {
-        position.edge = edge;
-      }
-
-      return position;
     }
-  }, {
-    key: "getPointerClass",
-    value: function getPointerClass() {
-      var classes = ['ac-wp-pointer', 'wp-pointer', 'wp-pointer-' + this.settings.position.edge];
 
-      if (this.settings.noclick) {
-        classes.push('noclick');
-      }
-
-      return classes.join(' ');
+    if ('left' === pos) {
+      position = {
+        at: 'left middle',
+        my: 'right middle',
+        edge: 'right'
+      };
     }
-  }, {
-    key: "getRelatedHTML",
-    value: function getRelatedHTML() {
-      var related_element = document.getElementById(this.el.getAttribute('rel'));
-      return related_element ? related_element.innerHTML : '';
+
+    if (edge) {
+      position.edge = edge;
     }
-  }, {
-    key: "initEvents",
-    value: function initEvents() {
-      var el = jQuery(this.el); // click
 
-      if (!this.settings.noclick) {
-        el.click(function () {
-          if (el.hasClass('open')) {
-            el.removeClass('open');
-          } else {
-            el.addClass('open');
-          }
-        });
-      }
+    return position;
+  };
 
+  Pointer.prototype.getPointerClass = function () {
+    var classes = ['ac-wp-pointer', 'wp-pointer', 'wp-pointer-' + this.settings.position.edge];
+
+    if (this.settings.noclick) {
+      classes.push('noclick');
+    }
+
+    return classes.join(' ');
+  };
+
+  Pointer.prototype.getRelatedHTML = function () {
+    var related_element = document.getElementById(this.el.getAttribute('rel'));
+    return related_element ? related_element.innerHTML : '';
+  };
+
+  Pointer.prototype.initEvents = function () {
+    var el = jQuery(this.el); // click
+
+    if (!this.settings.noclick) {
       el.click(function () {
-        el.pointer('open');
-      });
-      el.mouseenter(function () {
-        el.pointer('open');
-        setTimeout(function () {
-          el.pointer('open');
-        }, 2);
-      });
-      el.mouseleave(function () {
-        setTimeout(function () {
-          if (!el.hasClass('open') && jQuery('.ac-wp-pointer.hover').length === 0) {
-            el.pointer('close');
-          }
-        }, 1);
-      });
-      el.on('close', function () {
-        setTimeout(function () {
-          if (!el.hasClass('open')) {
-            el.pointer('close');
-          }
-        });
+        if (el.hasClass('open')) {
+          el.removeClass('open');
+        } else {
+          el.addClass('open');
+        }
       });
     }
-  }]);
+
+    el.click(function () {
+      el.pointer('open');
+    });
+    el.mouseenter(function () {
+      el.pointer('open');
+      setTimeout(function () {
+        el.pointer('open');
+      }, 2);
+    });
+    el.mouseleave(function () {
+      setTimeout(function () {
+        if (!el.hasClass('open') && jQuery('.ac-wp-pointer.hover').length === 0) {
+          el.pointer('close');
+        }
+      }, 1);
+    });
+    el.on('close', function () {
+      setTimeout(function () {
+        if (!el.hasClass('open')) {
+          el.pointer('close');
+        }
+      });
+    });
+  };
 
   return Pointer;
 }();
 
-
+/* harmony default export */ __webpack_exports__["default"] = (Pointer);
 
 /***/ }),
 
@@ -327,95 +343,78 @@ var Pointer = /*#__PURE__*/function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AcSection; });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 var Cookies = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
 
-var AcSection = /*#__PURE__*/function () {
+var AcSection =
+/** @class */
+function () {
   function AcSection(el) {
-    _classCallCheck(this, AcSection);
-
     this.element = el;
     this.init();
   }
 
-  _createClass(AcSection, [{
-    key: "init",
-    value: function init() {
-      var _this = this;
+  AcSection.prototype.init = function () {
+    var _this = this;
 
-      if (this.element.classList.contains('-closable')) {
-        var header = this.element.querySelector('.ac-section__header');
+    if (this.element.classList.contains('-closable')) {
+      var header = this.element.querySelector('.ac-section__header');
 
-        if (header) {
-          header.addEventListener('click', function () {
-            _this.toggle();
-          });
-        }
+      if (header) {
+        header.addEventListener('click', function () {
+          _this.toggle();
+        });
+      }
 
-        if (this.isStorable()) {
-          var setting = Cookies.get(this.getCookieKey());
+      if (this.isStorable()) {
+        var setting = Cookies.get(this.getCookieKey());
 
-          if (setting !== undefined) {
-            parseInt(setting) === 1 ? this.open : this.close();
-          }
+        if (setting !== undefined) {
+          parseInt(setting) === 1 ? this.open : this.close();
         }
       }
     }
-  }, {
-    key: "getCookieKey",
-    value: function getCookieKey() {
-      return "ac-section_".concat(this.getSectionId());
-    }
-  }, {
-    key: "getSectionId",
-    value: function getSectionId() {
-      return this.element.dataset.section;
-    }
-  }, {
-    key: "isStorable",
-    value: function isStorable() {
-      return typeof this.element.dataset.section !== 'undefined';
-    }
-  }, {
-    key: "toggle",
-    value: function toggle() {
-      this.isOpen() ? this.close() : this.open();
-    }
-  }, {
-    key: "isOpen",
-    value: function isOpen() {
-      return !this.element.classList.contains('-closed');
-    }
-  }, {
-    key: "open",
-    value: function open() {
-      this.element.classList.remove('-closed');
+  };
 
-      if (this.isStorable()) {
-        Cookies.set(this.getCookieKey(), 1);
-      }
-    }
-  }, {
-    key: "close",
-    value: function close() {
-      this.element.classList.add('-closed');
+  AcSection.prototype.getCookieKey = function () {
+    return "ac-section_" + this.getSectionId();
+  };
 
-      if (this.isStorable()) {
-        Cookies.set(this.getCookieKey(), 0);
-      }
+  AcSection.prototype.getSectionId = function () {
+    return this.element.dataset.section;
+  };
+
+  AcSection.prototype.isStorable = function () {
+    return typeof this.element.dataset.section !== 'undefined';
+  };
+
+  AcSection.prototype.toggle = function () {
+    this.isOpen() ? this.close() : this.open();
+  };
+
+  AcSection.prototype.isOpen = function () {
+    return !this.element.classList.contains('-closed');
+  };
+
+  AcSection.prototype.open = function () {
+    this.element.classList.remove('-closed');
+
+    if (this.isStorable()) {
+      Cookies.set(this.getCookieKey(), 1);
     }
-  }]);
+  };
+
+  AcSection.prototype.close = function () {
+    this.element.classList.add('-closed');
+
+    if (this.isStorable()) {
+      Cookies.set(this.getCookieKey(), 0);
+    }
+  };
 
   return AcSection;
 }();
 
-
+/* harmony default export */ __webpack_exports__["default"] = (AcSection);
 
 /***/ }),
 
@@ -428,48 +427,73 @@ var AcSection = /*#__PURE__*/function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Tooltips = /*#__PURE__*/function () {
+var Tooltips =
+/** @class */
+function () {
   function Tooltips() {
-    _classCallCheck(this, Tooltips);
-
     this.isEnabled = typeof jQuery.fn.qtip !== 'undefined';
     this.init();
   }
 
-  _createClass(Tooltips, [{
-    key: "init",
-    value: function init() {
-      if (!this.isEnabled) {
-        console.log('Tooltips not loaded!');
-        return;
-      }
-
-      jQuery('[data-ac-tip]').qtip({
-        content: {
-          attr: 'data-ac-tip'
-        },
-        position: {
-          my: 'top center',
-          at: 'bottom center'
-        },
-        style: {
-          tip: true,
-          classes: 'qtip-tipsy'
-        }
-      });
+  Tooltips.prototype.init = function () {
+    if (!this.isEnabled) {
+      console.log('Tooltips not loaded!');
+      return;
     }
-  }]);
+
+    jQuery('[data-ac-tip]').qtip({
+      content: {
+        attr: 'data-ac-tip'
+      },
+      position: {
+        my: 'top center',
+        at: 'bottom center'
+      },
+      style: {
+        tip: true,
+        classes: 'qtip-tipsy'
+      }
+    });
+  };
 
   return Tooltips;
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (Tooltips);
+
+/***/ }),
+
+/***/ "./js/plugin/dismissible-notice.ts":
+/*!*****************************************!*\
+  !*** ./js/plugin/dismissible-notice.ts ***!
+  \*****************************************/
+/*! exports provided: dismissNotice, initDismissibleNotices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dismissNotice", function() { return dismissNotice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initDismissibleNotices", function() { return initDismissibleNotices; });
+/* harmony import */ var _helpers_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/events */ "./js/helpers/events.ts");
+
+
+var $ = __webpack_require__(/*! jquery */ "jquery");
+
+var dismissNotice = function dismissNotice(selector) {
+  document.querySelectorAll(selector).forEach(function (el) {
+    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', '.ac-notice__dismiss, [data-dismiss], .notice-dismiss', function (e) {
+      e.preventDefault();
+      var data = el.dataset.dismissibleCallback ? JSON.parse(el.dataset.dismissibleCallback) : null;
+
+      if (data) {
+        $.post(ajaxurl, data);
+      }
+    }, el);
+  });
+};
+var initDismissibleNotices = function initDismissibleNotices() {
+  dismissNotice('.ac-notice');
+};
 
 /***/ }),
 
@@ -1049,6 +1073,17 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+
+/***/ "jquery":
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = jQuery;
 
 /***/ })
 

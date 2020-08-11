@@ -167,6 +167,11 @@
 			}
 		}
 	}
+
+	&.show-list-screen-id .ac-admin__sidebar .sidebox.form-actions small.list-screen-id,
+	&.show-list-screen-id .layouts__item__title small.layouts__item__id {
+		display: inline;
+	}
 }
 
 /**
@@ -1178,6 +1183,13 @@ div.ac-column-header {
 		}
 
 		&.form-actions {
+
+			small.list-screen-id {
+				float: right;
+				line-height: 25px;
+				display: none;
+			}
+
 			.form-reset {
 				display: none;
 				border-bottom: 1px solid #F5F5F5;
