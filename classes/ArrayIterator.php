@@ -76,12 +76,12 @@ class ArrayIterator implements Iterator {
 	}
 
 	/**
-	 * @param $value
+	 * @param mixed $value
 	 *
-	 * @return false|int|string
+	 * @return bool
 	 */
 	public function search( $value ) {
-		return array_search( $value, $this->array, true );
+		return false !== array_search( $value, $this->array, true );
 	}
 
 	/**
