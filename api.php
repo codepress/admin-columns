@@ -181,16 +181,14 @@ function ac_get_list_screen( $id ) {
 }
 
 /**
+ * Usage: Load after or within the 'wp_loaded' action hook.
+ *
  * @param string $key e.g. post, page, wp-users, wp-media, wp-comments
  *
  * @return ListScreenCollection
  * @since 4.0.0
  */
 function ac_get_list_screens( $key ) {
-	if ( ! did_action( 'wp_loaded' ) ) {
-		throw new RuntimeException( sprintf( "Use %s after the %s action has loaded.", __FUNCTION__, 'wp_loaded' ) );
-	}
-
 	return AC()->get_storage()->find_all( [ 'key' => $key ] );
 }
 
