@@ -23,7 +23,7 @@ export default class Actions {
         if (reference) {
             insertAfter(this.container, reference[reference.length - 1])
             this.container.classList.add('-init');
-            this.container.dispatchEvent(new Event('update'));
+            this.container.dispatchEvent(new CustomEvent('update'));
         }
     }
 
