@@ -187,6 +187,10 @@ function ac_get_list_screen( $id ) {
  * @since 4.0.0
  */
 function ac_get_list_screens( $key ) {
+	if ( ! did_action( 'wp_loaded' ) ) {
+		throw new RuntimeException( sprintf( "Use %s after the %s action has loaded.", __FUNCTION__, 'wp_loaded' ) );
+	}
+
 	return AC()->get_storage()->find_all( [ 'key' => $key ] );
 }
 
