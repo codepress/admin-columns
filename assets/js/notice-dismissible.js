@@ -81,21 +81,21 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./js/message-review.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./js/notice-dismissible.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./js/message-review.js":
-/*!******************************!*\
-  !*** ./js/message-review.js ***!
-  \******************************/
-/*! no exports provided */
+/***/ "./js/notice-dismissible.js":
+/*!**********************************!*\
+  !*** ./js/notice-dismissible.js ***!
+  \**********************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/stefan/PhpstormProjects/AdminColumns/admin-columns-pro/admin-columns/src/js/message-review.js'");
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/stefan/PhpstormProjects/AdminColumns/admin-columns-pro/admin-columns/src/js/notice-dismissible.js'");
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=message-review.js.map
+//# sourceMappingURL=notice-dismissible.js.map
