@@ -249,20 +249,20 @@ function () {
   }
 
   Object.defineProperty(Column.prototype, "name", {
-    get: function get() {
+    get: function () {
       return this.$el.data('column-name');
     },
-    set: function set(name) {
+    set: function (name) {
       this.$el.data('column-name', name);
     },
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Column.prototype, "type", {
-    get: function get() {
+    get: function () {
       return this._type;
     },
-    set: function set(type) {
+    set: function (type) {
       this.$el.data('type', type);
     },
     enumerable: false,
@@ -421,7 +421,7 @@ function () {
         original_columns: AC.original_columns,
         _ajax_nonce: AC._ajax_nonce
       },
-      success: function success(response) {
+      success: function (response) {
         if (true === response.success) {
           var column = jQuery(response.data);
           self.$el.replaceWith(column);
@@ -460,7 +460,7 @@ function () {
       type: 'post',
       url: ajaxurl,
       data: data,
-      success: function success(response) {
+      success: function (response) {
         if (true === response.success) {
           var column = jQuery(response.data);
           self.$el.replaceWith(column);
@@ -522,7 +522,7 @@ __webpack_require__.r(__webpack_exports__);
  * Optional Radio Click events
  * TODO: Is not used anymore?
  */
-var addons = function addons(column) {
+var addons = function (column) {
   var $ = jQuery;
   var $column = column.$el;
   var inputs = $column.find('[data-trigger] label');
@@ -573,7 +573,7 @@ __webpack_require__.r(__webpack_exports__);
 *
 * @since 2.0
 */
-var clone = function clone(column) {
+var clone = function (column) {
   column.$el.find('.clone-button').click(function (e) {
     e.preventDefault();
 
@@ -598,7 +598,7 @@ var clone = function clone(column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var indicator = function indicator(column) {
+var indicator = function (column) {
   var $column = column.$el;
   $column.find('.ac-column-header [data-indicator-toggle]').each(function () {
     var $ = jQuery;
@@ -652,7 +652,7 @@ var indicator = function indicator(column) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventLabel", function() { return EventLabel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventLabelSettings", function() { return EventLabelSettings; });
-var EventLabel = function EventLabel(column) {
+var EventLabel = function (column) {
   var $column = column.$el;
   /**
    * Populates the main Label with the selected label from the dropdown,
@@ -676,7 +676,7 @@ var EventLabel = function EventLabel(column) {
   }, 50);
 };
 
-var EventLabelSettings = function EventLabelSettings(column) {
+var EventLabelSettings = function (column) {
   var $column = column.$el;
   /** change label */
 
@@ -706,7 +706,7 @@ var EventLabelSettings = function EventLabelSettings(column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var refresh = function refresh(column) {
+var refresh = function (column) {
   var $ = jQuery;
   column.$el.find('[data-refresh="column"]').on('change', function () {
     // Allow plugins to hook into this event
@@ -740,7 +740,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @since 2.0
  */
-var remove = function remove(column) {
+var remove = function (column) {
   column.$el.find('.remove-button').click(function (e) {
     e.preventDefault();
     AC.Form.removeColumn(column.name);
@@ -767,7 +767,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @since 2.0
  */
-var toggle = function toggle(column) {
+var toggle = function (column) {
   column.$el.find('[data-toggle="column"]').click(function (e) {
     e.preventDefault();
     column.toggle();
@@ -787,7 +787,7 @@ var toggle = function toggle(column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var selector = function selector(column) {
+var selector = function (column) {
   var $ = jQuery;
   column.$el.find('select.ac-setting-input_type').change(function () {
     column.$el.addClass('loading');
@@ -1112,7 +1112,7 @@ function () {
 
 /* harmony default export */ __webpack_exports__["default"] = (Form);
 
-var isInViewport = function isInViewport($el) {
+var isInViewport = function ($el) {
   var elementTop = $el.offset().top;
   var elementBottom = elementTop + $el.outerHeight();
   var viewportTop = jQuery(window).scrollTop();
@@ -1388,7 +1388,7 @@ function () {
   return SingleCustomFieldRequestManager;
 }();
 
-var loadSingleRequestManager = function loadSingleRequestManager(meta_type, post_type) {
+var loadSingleRequestManager = function (meta_type, post_type) {
   var key = "custom_field_" + meta_type + "_" + post_type;
 
   if (typeof AC_Requests === 'undefined') {
@@ -1442,7 +1442,7 @@ function () {
   return CustomField;
 }();
 
-var customfield = function customfield(column) {
+var customfield = function (column) {
   column.settings.customfield = new CustomField(column);
 };
 
@@ -1460,7 +1460,7 @@ var customfield = function customfield(column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var date = function date(column) {
+var date = function (column) {
   var $ = jQuery;
   var $column = column.$el;
   var $setting = $column.find('.ac-column-setting--date');
@@ -1636,7 +1636,7 @@ function () {
   return Image;
 }();
 
-var image = function image(column) {
+var image = function (column) {
   column.settings.image = new Image(column);
 };
 
@@ -1767,7 +1767,7 @@ function () {
   return Label;
 }();
 
-var label = function label(column) {
+var label = function (column) {
   column.settings.label = new Label(column);
 };
 
@@ -1841,7 +1841,7 @@ function () {
   return NumberFormat;
 }();
 
-var numberformat = function numberformat(column) {
+var numberformat = function (column) {
   column.settings.number_format = new NumberFormat(column);
 };
 
@@ -1858,7 +1858,7 @@ var numberformat = function numberformat(column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var pro = function pro(column) {
+var pro = function (column) {
   var $column = column.$el;
   var $setting = $column.find('.ac-column-setting--pro');
   $setting.each(function () {
@@ -1883,7 +1883,7 @@ var pro = function pro(column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var subsetting = function subsetting(column) {
+var subsetting = function (column) {
   var $ = jQuery;
   var settings = {
     value_show: "on",
@@ -1955,10 +1955,10 @@ function () {
         theme: 'acs2',
         width: '100%',
         dropdownCssClass: '-type-selector',
-        escapeMarkup: function escapeMarkup(text) {
+        escapeMarkup: function (text) {
           return text;
         },
-        templateResult: function templateResult(result) {
+        templateResult: function (result) {
           var text = result.text;
 
           if (result.hasOwnProperty('id') && result.id.includes('placeholder-')) {
@@ -1975,7 +1975,7 @@ function () {
   return TypeSelector;
 }();
 
-var type = function type(column) {
+var type = function (column) {
   column.settings.typeSelector = new TypeSelector(column);
 };
 
@@ -2013,7 +2013,7 @@ jQuery.fn.column_width_slider = function () {
     min: 0,
     max: '%' === unit ? 100 : 500,
     value: width,
-    slide: function slide(event, ui) {
+    slide: function (event, ui) {
       input_width.val(ui.value);
       indicator.trigger('update');
       input_width.trigger('validate');
@@ -2021,7 +2021,7 @@ jQuery.fn.column_width_slider = function () {
   });
 };
 
-var width = function width(column) {
+var width = function (column) {
   var $ = jQuery;
   var $column = column.$el;
   $column.find('.ac-column-setting--width').each(function () {

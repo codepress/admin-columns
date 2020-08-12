@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-10-04 22:49:18+0000\n"
+"PO-Revision-Date: 2020-08-08 22:13:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1787,7 +1787,7 @@ msgstr "أبعاد"
 
 #: classes/Settings/Column/ExifData.php:73 classes/Column/Media/Caption.php:14
 msgid "Caption"
-msgstr "شرح"
+msgstr "كلمات توضيحية"
 
 #: classes/Column/Media/AvailableSizes.php:17
 msgid "Available Sizes"

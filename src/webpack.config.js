@@ -18,21 +18,14 @@ let config = {
 				test : /\.(t|j)sx?$/,
 				exclude : /node_modules(?!(\/|\\)query-string)/,
 				use : [
-					{
-						loader : 'babel-loader',
-						options : {
-							presets : ['@babel/preset-env']
-						}
-					},
-					{
-						loader : 'ts-loader',
-					}
+					{ loader : 'babel-loader' },
+					{ loader : 'ts-loader' }
 				]
 			}
 		]
 	},
 	resolve : {
-		extensions : ['.tsx', '.ts', '.js'],
+		extensions : ['.ts', '.js'],
 	},
 	externals : {
 		jquery : 'jQuery',
