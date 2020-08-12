@@ -29,7 +29,7 @@ class ListScreenType extends ScreenOption {
 
 		<label for="ac-list-screen-type" data-ac-screen-option="<?= self::KEY; ?>">
 			<input id="ac-list-screen-type" type="checkbox" <?php checked( $this->is_active() ); ?>>
-			<?= __( 'List Screen Type', 'codepress-admin-columns' ); ?>
+			<?= __( 'List Screen Key', 'codepress-admin-columns' ); ?>
 		</label>
 		<?php
 		return ob_get_clean();
