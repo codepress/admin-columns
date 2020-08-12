@@ -126,4 +126,13 @@ jQuery( document ).ready( function() {
 		} );
 	}
 
+	let showListScreenType = document.querySelector( '[data-ac-screen-option="show_list_screen_type"] input' );
+	if ( showListScreenType ) {
+		showListScreenType.addEventListener( 'change', () => {
+			showListScreenType.checked
+				? document.querySelector( '.ac-admin' ).classList.add( 'show-list-screen-type' )
+				: document.querySelector( '.ac-admin' ).classList.remove( 'show-list-screen-type' );
+		} );
+	}
+
 } );

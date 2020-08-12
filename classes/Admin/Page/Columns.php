@@ -108,11 +108,16 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 		return new ScreenOption\ListScreenId( new Admin\Preference\ScreenOptions() );
 	}
 
+	private function get_list_screen_type() {
+		return new ScreenOption\ListScreenType( new Admin\Preference\ScreenOptions() );
+	}
+
 	public function get_screen_options() {
 		return [
 			$this->get_column_id(),
 			$this->get_column_type(),
 			$this->get_list_screen_id(),
+			$this->get_list_screen_type(),
 		];
 	}
 
@@ -134,8 +139,12 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 			$classes[] = 'stored';
 		}
 
-		if ( $this->get_list_screen_id() ) {
+		if ( $this->get_list_screen_id()->is_active() ) {
 			$classes[] = 'show-list-screen-id';
+		}
+
+		if ( $this->get_list_screen_type()->is_active() ) {
+			$classes[] = 'show-list-screen-type';
 		}
 
 		ob_start();

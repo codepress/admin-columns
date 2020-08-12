@@ -168,7 +168,11 @@
 		}
 	}
 
-	&.show-list-screen-id .ac-admin__sidebar .sidebox.form-actions small.list-screen-id,
+	&.show-list-screen-type .ac-admin__sidebar .sidebox.form-actions small.list-screen-type,
+	&.show-list-screen-id .ac-admin__sidebar .sidebox.form-actions small.list-screen-id {
+		display: block;
+	}
+
 	&.show-list-screen-id .layouts__item__title small.layouts__item__id {
 		display: inline;
 	}
@@ -939,7 +943,7 @@ div.ac-column-header {
 
 									&.on, &.on span {
 										color: $blue;
-									} 
+									}
 
 									&.cpacicon {
 										font-size: 14px;
@@ -1184,10 +1188,11 @@ div.ac-column-header {
 
 		&.form-actions {
 
-			small.list-screen-id {
-				float: right;
-				line-height: 25px;
+			small.list-screen-id,
+			small.list-screen-type {
 				display: none;
+				line-height: 25px;
+
 			}
 
 			.form-reset {
