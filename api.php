@@ -181,6 +181,8 @@ function ac_get_list_screen( $id ) {
 }
 
 /**
+ * Usage: Load after or within the 'wp_loaded' action hook.
+ *
  * @param string $key e.g. post, page, wp-users, wp-media, wp-comments
  *
  * @return ListScreenCollection

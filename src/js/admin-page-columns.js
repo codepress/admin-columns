@@ -40,7 +40,6 @@ require( 'admin-columns-js/polyfill/nodelist' );
 
 global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
 
-
 AC.Column = new Initiator(); // Todo remove from
 AdminColumns.Column = AC.Column;
 
@@ -115,6 +114,15 @@ jQuery( document ).ready( function() {
 			showColumnType.checked
 				? document.querySelector( '.ac-boxes' ).classList.add( 'show-column-type' )
 				: document.querySelector( '.ac-boxes' ).classList.remove( 'show-column-type' );
+		} );
+	}
+
+	let showListScreenId = document.querySelector( '[data-ac-screen-option="show_list_screen_id"] input' );
+	if ( showListScreenId ) {
+		showListScreenId.addEventListener( 'change', () => {
+			showListScreenId.checked
+				? document.querySelector( '.ac-admin' ).classList.add( 'show-list-screen-id' )
+				: document.querySelector( '.ac-admin' ).classList.remove( 'show-list-screen-id' );
 		} );
 	}
 
