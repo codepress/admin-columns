@@ -193,6 +193,60 @@ function ac_get_list_screens( $key ) {
 }
 
 /**
+ * Usage: Load after or within the 'wp_loaded' action hook.
+ *
+ * @param string $column_name
+ * @param string $list_screen_id
+ *
+ * @return AC\Column|null
+ * @since NEWVERSION
+ */
+function ac_get_column( $column_name, $list_screen_id ) {
+	try {
+		$list_id = new ListScreenId( $list_screen_id );
+	} catch ( Exception $e ) {
+		return null;
+	}
+
+	$list_screen = AC()->get_storage()->find( $list_id );
+
+	if ( ! $list_screen ) {
+		return null;
+	}
+
+	$column = $list_screen->get_column_by_name( $column_name );
+
+	if ( ! $column ) {
+		return null;
+	}
+
+	return $column;
+}
+
+/**
+ * Usage: Load after or within the 'wp_loaded' action hook.
+ *
+ * @param string $list_screen_id
+ *
+ * @return AC\Column[]
+ */
+function ac_get_columns( $list_screen_id ) {
+	try {
+		$list_id = new ListScreenId( $list_screen_id );
+	} catch ( Exception $e ) {
+		return [];
+	}
+
+	$list_screen = AC()->get_storage()->find( $list_id );
+
+	if ( ! $list_screen ) {
+		return [];
+	}
+
+	return $list_screen->get_columns();
+}
+
+/**
  * @param                   $format
  * @param null              $timestamp
  * @param DateTimeZone|null $timezone
