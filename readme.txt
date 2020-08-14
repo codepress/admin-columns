@@ -216,7 +216,8 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.2 =
 Release Date: tbd
 
-* [Updated] todo
+* [Added] Screen Option to show the Listscreen ID and Listscreen Name on the Column settings page
+* [Fixed] Fixed User heler that gave some PHP warnings when using in the Author column
 
 = 4.1.9 =
 Release Date: July 28th, 2020
