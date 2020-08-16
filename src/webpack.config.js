@@ -2,7 +2,7 @@ let path = require( 'path' );
 
 let config = {
 	entry : {
-		'admin-general' : './js/admin-general.js',
+		'admin-general' : './js/admin-general.ts',
 		'admin-page-columns' : ['./js/admin-page-columns.js'],
 		'admin-page-addons' : './js/admin-page-addons.ts',
 		'message-review' : './js/message-review.ts',

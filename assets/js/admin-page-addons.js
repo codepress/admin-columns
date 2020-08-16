@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddonDownload", function() { return AddonDownload; });
-/* harmony import */ var _notice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./notice */ "./js/modules/notice.js");
+/* harmony import */ var _notice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./notice */ "./js/modules/notice.ts");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
  // @ts-ignore
@@ -244,9 +244,9 @@ function () {
 
 /***/ }),
 
-/***/ "./js/modules/notice.js":
+/***/ "./js/modules/notice.ts":
 /*!******************************!*\
-  !*** ./js/modules/notice.js ***!
+  !*** ./js/modules/notice.ts ***!
   \******************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -259,6 +259,7 @@ function () {
   function Notice() {
     this.element = document.createElement('div');
     this.element.classList.add('notice');
+    this.dismissible = false;
   }
 
   Notice.prototype.setMessage = function (message) {
@@ -266,7 +267,7 @@ function () {
     return this;
   };
 
-  Notice.prototype.renderDimiss = function () {
+  Notice.prototype.renderDismiss = function () {
     var _this = this;
 
     var button = document.createElement('button');
@@ -301,7 +302,7 @@ function () {
     this.renderContent();
 
     if (this.dismissible) {
-      this.renderDimiss();
+      this.renderDismiss();
     }
 
     return this.element;

@@ -2,7 +2,9 @@ let Cookies = require( 'js-cookie' );
 
 export default class AcSection {
 
-	constructor( el ) {
+    element: HTMLElement
+
+	constructor( el: HTMLElement ) {
 		this.element = el;
 		this.init();
 	}

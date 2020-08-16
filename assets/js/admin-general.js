@@ -81,70 +81,60 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./js/admin-general.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./js/admin-general.ts");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./js/admin-general.js":
+/***/ "./js/admin-general.ts":
 /*!*****************************!*\
-  !*** ./js/admin-general.js ***!
+  !*** ./js/admin-general.ts ***!
   \*****************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _modules_tooltips__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.js");
-/* harmony import */ var _modules_ac_section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/ac-section */ "./js/modules/ac-section.js");
-/* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.js");
-/* harmony import */ var _plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugin/dismissible-notice */ "./js/plugin/dismissible-notice.ts");
+/* harmony import */ var _modules_ac_section__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/ac-section */ "./js/modules/ac-section.ts");
+/* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.ts");
+/* harmony import */ var _plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugin/dismissible-notice */ "./js/plugin/dismissible-notice.ts");
+/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
 
 
 
 
 
-var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+var $ = __webpack_require__(/*! jquery */ "jquery");
 
-global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
-AdminColumns.events = nanobus();
-jQuery(document).ready(function ($) {
-  Object(_plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_3__["initDismissibleNotices"])();
-
-  if ($('#cpac').length === 0) {
-    return false;
-  }
-
-  ac_pointers();
+Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_3__["initAdminColumnsGlobalBootstrap"])();
+window.ac_pointers = _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_1__["initPointers"];
+$(document).ready(function () {
+  Object(_plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_2__["initDismissibleNotices"])();
+  Object(_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_1__["initPointers"])();
   document.querySelectorAll('.ac-section').forEach(function (el) {
-    new _modules_ac_section__WEBPACK_IMPORTED_MODULE_1__["default"](el);
+    new _modules_ac_section__WEBPACK_IMPORTED_MODULE_0__["default"](el);
   });
 });
-/*
- * WP Pointer
- *
- */
 
-global.ac_pointers = function () {
-  var $ = jQuery;
-  document.querySelectorAll('.ac-pointer').forEach(function (element) {
-    new _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_2__["default"](element);
-  });
-  $('.ac-wp-pointer').hover(function () {
-    $(this).addClass('hover');
-  }, function () {
-    $(this).removeClass('hover');
-    $('.ac-pointer').trigger('close');
-  }).on('click', '.close', function () {
-    $('.ac-pointer').removeClass('open');
-  });
-  new _modules_tooltips__WEBPACK_IMPORTED_MODULE_0__["default"]();
-};
+/***/ }),
 
-global.ac_pointer = function (el) {
-  new _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_2__["default"](el);
+/***/ "./js/helpers/admin-columns.ts":
+/*!*************************************!*\
+  !*** ./js/helpers/admin-columns.ts ***!
+  \*************************************/
+/*! exports provided: initAdminColumnsGlobalBootstrap */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAdminColumnsGlobalBootstrap", function() { return initAdminColumnsGlobalBootstrap; });
+var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+
+var initAdminColumnsGlobalBootstrap = function () {
+  window.AdminColumns = window.AdminColumns || {};
+  AdminColumns.events = nanobus();
+  return AdminColumns;
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -184,39 +174,46 @@ var addEventListenerLive = function (eventType, elementQuerySelector, cb, rootEl
 
 /***/ }),
 
-/***/ "./js/modules/ac-pointer.js":
+/***/ "./js/modules/ac-pointer.ts":
 /*!**********************************!*\
-  !*** ./js/modules/ac-pointer.js ***!
+  !*** ./js/modules/ac-pointer.ts ***!
   \**********************************/
-/*! exports provided: default */
+/*! exports provided: Pointer, initPointers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Pointer", function() { return Pointer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initPointers", function() { return initPointers; });
+/* harmony import */ var _tooltips__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltips */ "./js/modules/tooltips.js");
+
+
+var $ = __webpack_require__(/*! jquery */ "jquery");
+
 var Pointer =
 /** @class */
 function () {
   function Pointer(el) {
-    this.el = el;
+    this.element = el;
     this.settings = this.getDefaults();
     this.init();
     this.setInitialized();
   }
 
   Pointer.prototype.setInitialized = function () {
-    this.el.dataset.ac_pointer_initialized = 1;
+    this.element.dataset.ac_pointer_initialized = '1';
   };
 
   Pointer.prototype.getDefaults = function () {
     return {
-      width: this.el.getAttribute('data-width') ? this.el.getAttribute('data-width') : 250,
-      noclick: this.el.getAttribute('data-noclick') ? this.el.getAttribute('data-noclick') : false,
+      width: this.element.getAttribute('data-width') ? this.element.getAttribute('data-width') : 250,
+      noclick: this.element.getAttribute('data-noclick') ? this.element.getAttribute('data-noclick') : false,
       position: this.getPosition()
     };
   };
 
   Pointer.prototype.isInitialized = function () {
-    return this.el.dataset.hasOwnProperty('ac_pointer_initialized');
+    return this.element.dataset.hasOwnProperty('ac_pointer_initialized');
   };
 
   Pointer.prototype.init = function () {
@@ -225,7 +222,7 @@ function () {
     } // create pointer
 
 
-    jQuery(this.el).pointer({
+    $(this.element).pointer({
       content: this.getRelatedHTML(),
       position: this.settings.position,
       pointerWidth: this.settings.width,
@@ -240,8 +237,8 @@ function () {
       my: 'right top',
       edge: 'right'
     };
-    var pos = this.el.getAttribute('data-pos');
-    var edge = this.el.getAttribute('data-pos_edge');
+    var pos = this.element.getAttribute('data-pos');
+    var edge = this.element.getAttribute('data-pos_edge');
 
     if ('right' === pos) {
       position = {
@@ -285,12 +282,12 @@ function () {
   };
 
   Pointer.prototype.getRelatedHTML = function () {
-    var related_element = document.getElementById(this.el.getAttribute('rel'));
+    var related_element = document.getElementById(this.element.getAttribute('rel'));
     return related_element ? related_element.innerHTML : '';
   };
 
   Pointer.prototype.initEvents = function () {
-    var el = jQuery(this.el); // click
+    var el = $(this.element); // click
 
     if (!this.settings.noclick) {
       el.click(function () {
@@ -313,7 +310,7 @@ function () {
     });
     el.mouseleave(function () {
       setTimeout(function () {
-        if (!el.hasClass('open') && jQuery('.ac-wp-pointer.hover').length === 0) {
+        if (!el.hasClass('open') && $('.ac-wp-pointer.hover').length === 0) {
           el.pointer('close');
         }
       }, 1);
@@ -330,13 +327,27 @@ function () {
   return Pointer;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (Pointer);
+
+var initPointers = function () {
+  document.querySelectorAll('.ac-pointer').forEach(function (element) {
+    new Pointer(element);
+  });
+  $('.ac-wp-pointer').hover(function () {
+    $(this).addClass('hover');
+  }, function () {
+    $(this).removeClass('hover');
+    $('.ac-pointer').trigger('close');
+  }).on('click', '.close', function () {
+    $('.ac-pointer').removeClass('open');
+  });
+  new _tooltips__WEBPACK_IMPORTED_MODULE_0__["default"]();
+};
 
 /***/ }),
 
-/***/ "./js/modules/ac-section.js":
+/***/ "./js/modules/ac-section.ts":
 /*!**********************************!*\
-  !*** ./js/modules/ac-section.js ***!
+  !*** ./js/modules/ac-section.ts ***!
   \**********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1041,37 +1052,6 @@ module.exports = function removeItems (arr, startIdx, removeCount) {
 
   arr.length = len
 }
-
-
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/global.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
 
 
 /***/ }),
