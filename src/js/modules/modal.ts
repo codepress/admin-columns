@@ -1,5 +1,3 @@
-const $ = require("jquery");
-
 export default class Modal {
     el: HTMLElement
     dialog: HTMLElement
