@@ -38,12 +38,12 @@ import ScreenOption from "./modules/screen-option";
 require( 'admin-columns-js/polyfill/customevent' );
 require( 'admin-columns-js/polyfill/nodelist' );
 
-global.AdminColumns = typeof AdminColumns !== "undefined" ? AdminColumns : {};
-
 AC.Column = new Initiator(); // Todo remove from
-AdminColumns.Column = AC.Column;
+
 
 jQuery( document ).on( 'AC_Form_Loaded', function() {
+
+	AdminColumns.Column = AC.Column;
 
 	AdminColumns.Tooltips = new Tooltip();
 	/** Register Events **/
@@ -73,7 +73,7 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 jQuery( document ).ready( function() {
 	AC.Form = new Form( '#listscreen_settings' );
 	AdminColumns.Form = AC.Form;
-	Modals.init().register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
+	AdminColumns.Modals.register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
 
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );

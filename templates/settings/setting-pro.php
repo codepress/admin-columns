@@ -28,7 +28,7 @@
 			<?php if ( $this->setting ) : ?>
 				<div class="ac-setting-input">
 					<?php echo $this->setting; ?>
-					<button class="acp-button" data-ac-open-modal="#ac-modal-pro">
+					<button class="acp-button" data-ac-modal="pro">
 						PRO
 					</button>
 				</div>

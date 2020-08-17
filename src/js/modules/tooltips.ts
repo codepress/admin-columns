@@ -1,4 +1,8 @@
+declare const jQuery: any;
+
 class Tooltips {
+
+    isEnabled: boolean
 
 	constructor() {
 		this.isEnabled = typeof jQuery.fn.qtip !== 'undefined';

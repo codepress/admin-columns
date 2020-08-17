@@ -1,6 +1,5 @@
 import Table from "./table/table";
 import Tooltip from "./table/tooltips";
-import Modals from "./modules/modals";
 import ScreenOptionsColumns from "./table/screen-options-columns";
 import ToggleBoxLink from "./modules/toggle-box-link";
 // @ts-ignore
@@ -19,8 +18,6 @@ declare let AC: LocalizedScriptAC
 let AdminColumns = initAdminColumnsGlobalBootstrap();
 polyfillCustomEvent();
 
-Modals.init();
-
 $(document).ready(() => {
     let table = resolveTableBySelector(AC.table_id);
 
@@ -31,7 +28,7 @@ $(document).ready(() => {
 
     AdminColumns.Tooltips = new Tooltip();
 
-    document.querySelectorAll('.ac-toggle-box-link').forEach(el => {
+    document.querySelectorAll<HTMLLinkElement>('.ac-toggle-box-link').forEach(el => {
         new ToggleBoxLink(el);
     });
 

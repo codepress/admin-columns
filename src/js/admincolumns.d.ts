@@ -3,6 +3,7 @@ import ScreenOptionsColumns from "./table/screen-options-columns";
 import Tooltips from "./table/tooltips";
 import {AddonDownload} from "./modules/addon-download";
 import Nanobus = require("nanobus");
+import Modals from "./modules/modals";
 
 export interface AdminColumnsInterface {
     events: Nanobus,
@@ -10,6 +11,7 @@ export interface AdminColumnsInterface {
     Table?: Table,
     ScreenOptionsColumns?: ScreenOptionsColumns
     Tooltips?: Tooltips
+    Modals: Modals
     Addons?: { [key: string]: AddonDownload }
 }
 
@@ -19,4 +21,8 @@ export interface LocalizedScriptAC {
     _ajax_nonce: string,
     table_id: string,
     column_types: { [key: string]: string }
+}
+
+export interface LocalizedScriptACTable extends LocalizedScriptAC {
+    ajax_nonce: string,
 }
