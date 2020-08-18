@@ -180,8 +180,8 @@ class Admin implements Registrable {
 
 		$assets = [
 			new Style( 'wp-pointer' ),
-			new Style( 'jquery-qtip2', $this->location->with_suffix( 'external/qtip2/jquery.qtip.min.css' ) ),
-			new Script( 'jquery-qtip2', $this->location->with_suffix( 'external/qtip2/jquery.qtip.min.js' ), [ 'jquery' ] ),
+			new Style( 'jquery-qtip2', $this->location->with_suffix( 'assets/external/qtip2/jquery.qtip.min.css' ) ),
+			new Script( 'jquery-qtip2', $this->location->with_suffix( 'assets/external/qtip2/jquery.qtip.min.js' ), [ 'jquery' ] ),
 			new Script( 'ac-admin-general', $this->location->with_suffix( 'assets/js/admin-general.js' ), [ 'jquery', 'wp-pointer', 'jquery-qtip2' ] ),
 			new Style( 'ac-admin', $this->location->with_suffix( 'assets/css/admin-general.css' ) ),
 		];

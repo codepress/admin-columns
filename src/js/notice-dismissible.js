@@ -10,4 +10,4 @@ jQuery( function( $ ) {
 		}
 	} );
 
-} );
+} ); 

@@ -89,6 +89,8 @@ class AdminColumns extends Plugin {
 			}
 		}
 
+		$this->set_installer( new Plugin\Installer() );
+
 		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
 	}

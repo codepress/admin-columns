@@ -15,7 +15,7 @@ class Addons extends Script {
 		parent::register();
 
 		wp_localize_script( $this->get_handle(), 'AC', [
-			'ajax_nonce' => wp_create_nonce( 'ac-ajax' ),
+			'_ajax_nonce' => wp_create_nonce( 'ac-ajax' ),
 		] );
 	}
 

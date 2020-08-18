@@ -181,6 +181,8 @@ function ac_get_list_screen( $id ) {
 }
 
 /**
+ * Usage: Load after or within the 'wp_loaded' action hook.
+ *
  * @param string $key e.g. post, page, wp-users, wp-media, wp-comments
  *
  * @return ListScreenCollection
@@ -188,6 +190,61 @@ function ac_get_list_screen( $id ) {
  */
 function ac_get_list_screens( $key ) {
 	return AC()->get_storage()->find_all( [ 'key' => $key ] );
+}
+
+/**
+ * Usage: Load after or within the 'wp_loaded' action hook.
+ *
+ * @param string $column_name
+ * @param string $list_screen_id
+ *
+ * @return AC\Column|null
+ * @since 4.2
+ */
+function ac_get_column( $column_name, $list_screen_id ) {
+	try {
+		$list_id = new ListScreenId( $list_screen_id );
+	} catch ( Exception $e ) {
+		return null;
+	}
+
+	$list_screen = AC()->get_storage()->find( $list_id );
+
+	if ( ! $list_screen ) {
+		return null;
+	}
+
+	$column = $list_screen->get_column_by_name( $column_name );
+
+	if ( ! $column ) {
+		return null;
+	}
+
+	return $column;
+}
+
+/**
+ * Usage: Load after or within the 'wp_loaded' action hook.
+ *
+ * @param string $list_screen_id
+ *
+ * @return AC\Column[]
+ * @since 4.2
+ */
+function ac_get_columns( $list_screen_id ) {
+	try {
+		$list_id = new ListScreenId( $list_screen_id );
+	} catch ( Exception $e ) {
+		return [];
+	}
+
+	$list_screen = AC()->get_storage()->find( $list_id );
+
+	if ( ! $list_screen ) {
+		return [];
+	}
+
+	return $list_screen->get_columns();
 }
 
 /**
