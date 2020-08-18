@@ -216,6 +216,8 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.2 =
 Release Date: tbd
 
+* [Added] New api function `ac_get_columns` to retrieve the available columns for Listscreen ID
+* [Added] New api function `ac_get_column` to retrieve a single column from a Listscreen based on its ID
 * [Added] Screen Option to show the Listscreen ID and Listscreen Name on the Column settings page
 * [Fixed] Fixed User helper that gave some PHP warnings when using in the Author column
 
