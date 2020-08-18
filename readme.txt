@@ -214,7 +214,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.2 =
-Release Date: tbd
+Release Date: August 18th, 2020
 
 * [Added] New api function `ac_get_columns` to retrieve the available columns for Listscreen ID
 * [Added] New api function `ac_get_column` to retrieve a single column from a Listscreen based on its ID
