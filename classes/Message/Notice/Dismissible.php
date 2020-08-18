@@ -42,4 +42,13 @@ class Dismissible extends Notice {
 		return $view->render();
 	}
 
+	/**
+	 * Enqueue scripts & styles
+	 */
+	public function enqueue_scripts() {
+		parent::enqueue_scripts();
+
+		wp_enqueue_script( 'ac-message', AC()->get_url() . 'assets/js/notice-dismissible.js', [], AC()->get_version(), true );
+	}
+
 }

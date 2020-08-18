@@ -11,7 +11,6 @@ import {init_actions_tooltips} from "./table/functions";
 import {EventConstants} from "./constants";
 import {getIdFromTableRow, resolveTableBySelector} from "./helpers/table";
 import {initAdminColumnsGlobalBootstrap} from "./helpers/admin-columns";
-import {initDismissibleNotices} from "./plugin/dismissible-notice";
 
 declare let AC: LocalizedScriptAC
 
@@ -47,7 +46,6 @@ $(document).ready(() => {
 AdminColumns.events.addListener(EventConstants.TABLE.READY, (e) => {
     auto_init_show_more();
     init_actions_tooltips();
-    initDismissibleNotices();
 
     e.table.getElement().addEventListener('DOMNodeInserted', (e: Event) => {
         let element: HTMLElement = (<HTMLElement>e.target)

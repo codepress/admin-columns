@@ -6,6 +6,7 @@ let config = {
 		'admin-page-columns' : ['./js/admin-page-columns.js'],
 		'admin-page-addons' : './js/admin-page-addons.ts',
 		'message-review' : './js/message-review.ts',
+		'notice-dismissible' : './js/notice-dismissible.js',
 		'table' : './js/table.ts'
 	},
 	output : {
