@@ -81,296 +81,248 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./js/admin-page-addons.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./js/admin-page-addons.ts");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./js/admin-page-addons.js":
+/***/ "./js/admin-page-addons.ts":
 /*!*********************************!*\
-  !*** ./js/admin-page-addons.js ***!
+  !*** ./js/admin-page-addons.ts ***!
   \*********************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _modules_notice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/notice */ "./js/modules/notice.js");
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+/* harmony import */ var _modules_addon_download__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/addon-download */ "./js/modules/addon-download.ts");
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll('.ac-addon').forEach(function (element) {
+    new _modules_addon_download__WEBPACK_IMPORTED_MODULE_0__["AddonDownload"](element, element.dataset.slug);
+  });
+});
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+/***/ }),
+
+/***/ "./js/modules/addon-download.ts":
+/*!**************************************!*\
+  !*** ./js/modules/addon-download.ts ***!
+  \**************************************/
+/*! exports provided: AddonDownload */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddonDownload", function() { return AddonDownload; });
+/* harmony import */ var _notice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./notice */ "./js/modules/notice.ts");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+ // @ts-ignore
 
 
 
-__webpack_require__(/*! admin-columns-js/polyfill/nodelist */ "./node_modules/admin-columns-js/polyfill/nodelist.js");
-
-var AddonDownload = /*#__PURE__*/function () {
+var AddonDownload =
+/** @class */
+function () {
   function AddonDownload(el, slug) {
-    _classCallCheck(this, AddonDownload);
-
     this.element = el;
     this.slug = slug;
     this.loadingState = false;
     this.initEvents();
   }
 
-  _createClass(AddonDownload, [{
-    key: "getDownloadButton",
-    value: function getDownloadButton() {
-      return this.element.querySelector('[data-install]');
+  AddonDownload.prototype.getDownloadButton = function () {
+    return this.element.querySelector('[data-install]');
+  };
+
+  AddonDownload.prototype.setLoadingState = function () {
+    var button = this.getDownloadButton();
+
+    if (button) {
+      button.insertAdjacentHTML('afterend', '<span class="spinner" style="visibility: visible;"></span>');
+      button.classList.add('button-disabled');
     }
-  }, {
-    key: "setLoadingState",
-    value: function setLoadingState() {
-      var button = this.getDownloadButton();
 
-      if (button) {
-        button.insertAdjacentHTML('afterend', '<span class="spinner" style="visibility: visible;"></span>');
-        button.classList.add('button-disabled');
-      }
+    this.loadingState = true;
+  };
 
-      this.loadingState = true;
+  AddonDownload.prototype.removeLoadingState = function () {
+    var button = this.getDownloadButton();
+    var spinner = this.element.querySelector('.spinner');
+
+    if (spinner) {
+      spinner.remove();
     }
-  }, {
-    key: "removeLoadingState",
-    value: function removeLoadingState() {
-      var button = this.getDownloadButton();
-      var spinner = this.element.querySelector('.spinner');
 
-      if (spinner) {
-        spinner.remove();
-      }
-
-      if (button) {
-        button.classList.remove('button-disabled');
-      }
-
-      this.loadingState = false;
+    if (button) {
+      button.classList.remove('button-disabled');
     }
-  }, {
-    key: "initEvents",
-    value: function initEvents() {
-      var _this = this;
 
-      var button = this.getDownloadButton();
+    this.loadingState = false;
+  };
 
-      if (button) {
-        button.addEventListener('click', function (e) {
-          e.preventDefault();
+  AddonDownload.prototype.initEvents = function () {
+    var _this = this;
 
-          if (_this.loadingState) {
-            return;
-          }
+    var button = this.getDownloadButton();
 
-          _this.setLoadingState();
+    if (button) {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
 
-          _this.download();
-        });
-      }
-    }
-  }, {
-    key: "success",
-    value: function success(status) {
-      var button = this.getDownloadButton();
-      var title = this.element.querySelector('h3');
-      var notice = new _modules_notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
-      notice.setMessage("<p>The Add-on <strong>".concat(title.innerHTML, "</strong> is installed.</p>")).makeDismissable().addClass('updated');
-      document.querySelector('.ac-addons').insertAdjacentElement('beforebegin', notice.render());
-
-      if (button) {
-        button.insertAdjacentHTML('beforebegin', "<span class=\"active\">".concat(status, "</span>"));
-        button.remove();
-      }
-    }
-  }, {
-    key: "failure",
-    value: function failure(message) {
-      var title = this.element.querySelector('h3');
-      var notice = new _modules_notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
-      notice.setMessage("<p><strong>".concat(title.innerHTML, "</strong>: ").concat(message, "</p>")).makeDismissable().addClass('notice-error');
-      document.querySelector('.ac-addons').insertAdjacentElement('beforebegin', notice.render());
-      AddonDownload.scrollToTop(200);
-    }
-  }, {
-    key: "download",
-    value: function download() {
-      var _this2 = this;
-
-      var request = this.request();
-      request.done(function (response) {
-        _this2.removeLoadingState();
-
-        if (response.success) {
-          _this2.success(response.data.status);
-        } else {
-          _this2.failure(response.data);
+        if (_this.loadingState) {
+          return;
         }
+
+        _this.setLoadingState();
+
+        _this.download();
       });
     }
-  }, {
-    key: "request",
-    value: function request() {
-      var data = {
-        action: 'acp-install-addon',
-        plugin_name: this.slug,
-        _ajax_nonce: AC.ajax_nonce
-      };
-      return jQuery.ajax({
-        url: ajaxurl,
-        method: 'post',
-        data: data
-      });
+  };
+
+  AddonDownload.prototype.success = function (status) {
+    var button = this.getDownloadButton();
+    var title = this.element.querySelector('h3');
+    var notice = new _notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    notice.setMessage("<p>The Add-on <strong>" + title.innerHTML + "</strong> is installed.</p>").makeDismissable().addClass('updated');
+    document.querySelector('.ac-addons').insertAdjacentElement('beforebegin', notice.render());
+
+    if (button) {
+      button.insertAdjacentHTML('beforebegin', "<span class=\"active\">" + status + "</span>");
+      button.remove();
     }
-  }], [{
-    key: "scrollToTop",
-    value: function scrollToTop(ms) {
-      jQuery('html, body').animate({
-        scrollTop: 0
-      }, ms);
-    }
-  }]);
+  };
+
+  AddonDownload.scrollToTop = function (ms) {
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()('html, body').animate({
+      scrollTop: 0
+    }, ms);
+  };
+
+  AddonDownload.prototype.failure = function (message) {
+    var title = this.element.querySelector('h3');
+    var notice = new _notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    notice.setMessage("<p><strong>" + title.innerHTML + "</strong>: " + message + "</p>").makeDismissable().addClass('notice-error');
+    document.querySelector('.ac-addons').insertAdjacentElement('beforebegin', notice.render());
+    AddonDownload.scrollToTop(200);
+  };
+
+  AddonDownload.prototype.download = function () {
+    var _this = this;
+
+    var request = this.request();
+    request.done(function (response) {
+      _this.removeLoadingState();
+
+      if (response.success) {
+        _this.success(response.data.status);
+      } else {
+        _this.failure(response.data);
+      }
+    });
+  };
+
+  AddonDownload.prototype.request = function () {
+    var data = {
+      action: 'acp-install-addon',
+      plugin_name: this.slug,
+      _ajax_nonce: AC._ajax_nonce
+    };
+    return jquery__WEBPACK_IMPORTED_MODULE_1___default.a.ajax({
+      url: ajaxurl,
+      method: 'post',
+      data: data
+    });
+  };
 
   return AddonDownload;
 }();
 
-document.addEventListener("DOMContentLoaded", function () {
-  global.AC_Addons = [];
-  document.querySelectorAll('.ac-addon').forEach(function (element) {
-    AC_Addons[element.dataset.slug] = new AddonDownload(element, element.dataset.slug);
-  });
-});
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
 
 /***/ }),
 
-/***/ "./js/modules/notice.js":
+/***/ "./js/modules/notice.ts":
 /*!******************************!*\
-  !*** ./js/modules/notice.js ***!
+  !*** ./js/modules/notice.ts ***!
   \******************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Notice; });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Notice = /*#__PURE__*/function () {
+var Notice =
+/** @class */
+function () {
   function Notice() {
-    _classCallCheck(this, Notice);
-
     this.element = document.createElement('div');
     this.element.classList.add('notice');
+    this.dismissible = false;
   }
 
-  _createClass(Notice, [{
-    key: "setMessage",
-    value: function setMessage(message) {
-      this.message = message;
-      return this;
-    }
-  }, {
-    key: "renderDimiss",
-    value: function renderDimiss() {
-      var _this = this;
+  Notice.prototype.setMessage = function (message) {
+    this.message = message;
+    return this;
+  };
 
-      var button = document.createElement('button');
-      button.classList.add('notice-dismiss');
-      button.setAttribute('type', 'button');
-      button.insertAdjacentHTML('beforeend', "<span class=\"screen-reader-text\">Dismiss this notice.</span>");
-      button.addEventListener('click', function (e) {
-        e.preventDefault();
+  Notice.prototype.renderDismiss = function () {
+    var _this = this;
 
-        _this.element.remove();
-      });
-      this.element.classList.add('is-dismissible');
-      this.element.insertAdjacentElement('beforeend', button);
-    }
-  }, {
-    key: "renderContent",
-    value: function renderContent() {
-      this.element.insertAdjacentHTML('afterbegin', this.message);
-    }
-  }, {
-    key: "makeDismissable",
-    value: function makeDismissable() {
-      this.dismissible = true;
-      return this;
-    }
-  }, {
-    key: "addClass",
-    value: function addClass(className) {
-      this.element.classList.add(className);
-      return this;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      this.element.innerHTML = '';
-      this.renderContent();
+    var button = document.createElement('button');
+    button.classList.add('notice-dismiss');
+    button.setAttribute('type', 'button');
+    button.insertAdjacentHTML('beforeend', "<span class=\"screen-reader-text\">Dismiss this notice.</span>");
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
 
-      if (this.dismissible) {
-        this.renderDimiss();
-      }
+      _this.element.remove();
+    });
+    this.element.classList.add('is-dismissible');
+    this.element.insertAdjacentElement('beforeend', button);
+  };
 
-      return this.element;
+  Notice.prototype.renderContent = function () {
+    this.element.insertAdjacentHTML('afterbegin', this.message);
+  };
+
+  Notice.prototype.makeDismissable = function () {
+    this.dismissible = true;
+    return this;
+  };
+
+  Notice.prototype.addClass = function (className) {
+    this.element.classList.add(className);
+    return this;
+  };
+
+  Notice.prototype.render = function () {
+    this.element.innerHTML = '';
+    this.renderContent();
+
+    if (this.dismissible) {
+      this.renderDismiss();
     }
-  }]);
+
+    return this.element;
+  };
 
   return Notice;
 }();
 
-
-
-/***/ }),
-
-/***/ "./node_modules/admin-columns-js/polyfill/nodelist.js":
-/*!************************************************************!*\
-  !*** ./node_modules/admin-columns-js/polyfill/nodelist.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-if ( window.NodeList && !NodeList.prototype.forEach ) {
-	NodeList.prototype.forEach = Array.prototype.forEach;
-}
+/* harmony default export */ __webpack_exports__["default"] = (Notice);
 
 /***/ }),
 
-/***/ "./node_modules/webpack/buildin/global.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
+/***/ "jquery":
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
+module.exports = jQuery;
 
 /***/ })
 

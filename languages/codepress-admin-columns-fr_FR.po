@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-07-03 11:26:39+0000\n"
+"PO-Revision-Date: 2020-08-17 13:22:24+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -144,23 +144,23 @@ msgstr "Pour commencer la modification en ligne, cliquez sur le bouton « Modif
 
 #: templates/tooltip/inline-editing.php:5
 msgid "With Inline Edit, you can update your content quick and easy, without having to open each %s one at the time."
-msgstr ""
+msgstr "Avec la modification en ligne, vous pouvez mettre à jour votre contenu rapidement et facilement sans avoir à ouvrir chaque %s."
 
 #: templates/admin/modal-pro.php:26
 msgid "Create multiple list table views with different columns."
-msgstr ""
+msgstr "Créez plusieurs vues de liste de publications avec différentes colonnes."
 
 #: templates/admin/modal-pro.php:24
 msgid "Quick edit any content with Inline Editing, including custom fields."
-msgstr ""
+msgstr "Modifiez rapidement tout contenu avec la modification en ligne, y compris les champs personnalisés."
 
 #: templates/admin/modal-pro.php:22
 msgid "Search the contents of your columns."
-msgstr ""
+msgstr "Recherchez dans le contenu de vos colonnes."
 
 #: classes/Integration/MetaBox.php:15
 msgid "Instantly generate columns for your Meta Box custom fields!"
-msgstr ""
+msgstr "Générez instantanément des colonnes pour les champs personnalisés de votre boite de méta !"
 
 #: classes/Integration/MetaBox.php:13
 msgid "Meta Box"

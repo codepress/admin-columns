@@ -104,10 +104,20 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 		return new ScreenOption\ColumnType( new Admin\Preference\ScreenOptions() );
 	}
 
+	private function get_list_screen_id() {
+		return new ScreenOption\ListScreenId( new Admin\Preference\ScreenOptions() );
+	}
+
+	private function get_list_screen_type() {
+		return new ScreenOption\ListScreenType( new Admin\Preference\ScreenOptions() );
+	}
+
 	public function get_screen_options() {
 		return [
 			$this->get_column_id(),
 			$this->get_column_type(),
+			$this->get_list_screen_id(),
+			$this->get_list_screen_type(),
 		];
 	}
 
@@ -123,10 +133,24 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 			return $this->menu->render( true ) . $modal->render();
 		}
 
+		$classes = [];
+
+		if ( $list_screen->get_settings() ) {
+			$classes[] = 'stored';
+		}
+
+		if ( $this->get_list_screen_id()->is_active() ) {
+			$classes[] = 'show-list-screen-id';
+		}
+
+		if ( $this->get_list_screen_type()->is_active() ) {
+			$classes[] = 'show-list-screen-type';
+		}
+
 		ob_start();
 		?>
 
-		<div class="ac-admin<?= $list_screen->get_settings() ? ' stored' : ''; ?>" data-type="<?= esc_attr( $list_screen->get_key() ); ?>">
+		<div class="ac-admin <?= esc_attr( implode( ' ', $classes ) ); ?>" data-type="<?= esc_attr( $list_screen->get_key() ); ?>">
 			<div class="ac-admin__header">
 
 				<?= $this->menu->render(); ?>
