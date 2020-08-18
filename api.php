@@ -199,7 +199,7 @@ function ac_get_list_screens( $key ) {
  * @param string $list_screen_id
  *
  * @return AC\Column|null
- * @since NEWVERSION
+ * @since 4.2
  */
 function ac_get_column( $column_name, $list_screen_id ) {
 	try {
@@ -229,6 +229,7 @@ function ac_get_column( $column_name, $list_screen_id ) {
  * @param string $list_screen_id
  *
  * @return AC\Column[]
+ * @since 4.2
  */
 function ac_get_columns( $list_screen_id ) {
 	try {
