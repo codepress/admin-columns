@@ -233,14 +233,23 @@ var resolveTableBySelector = function (selector) {
   var table = document.querySelector(selector);
 
   if (!table) {
-    return;
+    return null;
   }
 
-  if (table.tagName !== 'TABLE') {
-    table = table.querySelector('table.wp-list-table') ? table.querySelector('table.wp-list-table') : table.closest('table');
+  if (table.tagName === 'TABLE') {
+    return table;
   }
 
-  return table;
+  if (table.tagName === 'TBODY') {
+    console.log('TBODY');
+    return table.closest('table');
+  }
+
+  if (table.querySelector('table.wp-list-table')) {
+    return table.querySelector('table.wp-list-table');
+  }
+
+  return null;
 };
 
 /***/ }),
