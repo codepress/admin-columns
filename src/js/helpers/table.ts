@@ -49,12 +49,12 @@ export const getRowCellByName = (row: HTMLTableRowElement, column_name: string):
 export const resolveTableBySelector = (selector: string): HTMLTableElement => {
     let table: HTMLTableElement = document.querySelector(selector);
 
-    if( ! table ){
+    if (!table) {
         return;
     }
 
     if (table.tagName !== 'TABLE') {
-        table = table.querySelector('table') ? table.querySelector('table') : table.closest('table');
+        table = table.querySelector('table.wp-list-table') ? table.querySelector('table.wp-list-table') : table.closest('table');
     }
 
     return table;

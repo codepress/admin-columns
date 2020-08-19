@@ -237,7 +237,7 @@ var resolveTableBySelector = function (selector) {
   }
 
   if (table.tagName !== 'TABLE') {
-    table = table.querySelector('table') ? table.querySelector('table') : table.closest('table');
+    table = table.querySelector('table.wp-list-table') ? table.querySelector('table.wp-list-table') : table.closest('table');
   }
 
   return table;
