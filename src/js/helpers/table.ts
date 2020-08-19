@@ -58,7 +58,6 @@ export const resolveTableBySelector = (selector: string): HTMLTableElement => {
     }
 
     if (table.tagName === 'TBODY') {
-        console.log('TBODY');
         return table.closest('table');
     }
 
