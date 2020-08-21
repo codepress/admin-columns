@@ -1,3 +1,9 @@
+# Admin Columns 
+[![WordPress](https://img.shields.io/wordpress/plugin/tested/codepress-admin-columns.svg?style=flat-square)](https://wordpress.org/plugins/codepress-admin-columns/) 
+[![WordPress](https://img.shields.io/wordpress/plugin/r/codepress-admin-columns.svg?style=flat-square)](https://wordpress.org/plugins/codepress-admin-columns/) 
+[![WordPress](https://img.shields.io/wordpress/plugin/v/codepress-admin-columns.svg?style=flat-square)](https://wordpress.org/plugins/codepress-admin-columns/) 
+[![WordPress](https://img.shields.io/wordpress/plugin/dt/codepress-admin-columns.svg?style=flat-square)](https://wordpress.org/plugins/codepress-admin-columns/) 
+
 ## Contributing to this project
 
 Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
