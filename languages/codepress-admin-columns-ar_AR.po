@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-08-08 22:13:28+0000\n"
+"PO-Revision-Date: 2020-08-20 13:02:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1492,7 +1492,7 @@ msgstr "هذا سيحدد كيف سيتم عرض التاريخ."
 
 #: classes/Settings/Column/DateTimeFormat.php:59
 msgid "Date Format"
-msgstr "تنسيق التاريخ"
+msgstr "صيغة التاريخ"
 
 #: classes/Settings/Column/Image.php:76
 msgid "Large"
@@ -1846,7 +1846,7 @@ msgstr "لون"
 #: classes/Helper/Select/Group/CustomField/MultiSite.php:53
 #: templates/admin/help-tab/custom-fields.php:6
 msgid "Default"
-msgstr "إفتراضي"
+msgstr "افتراضي"
 
 #: classes/Column/CustomField.php:19
 msgid "Custom Field"
@@ -1921,7 +1921,7 @@ msgstr ""
 
 #: classes/Column/Comment/AuthorAvatar.php:14
 msgid "Avatar"
-msgstr "صورة"
+msgstr "الصورة الرمزية Avatar"
 
 #: classes/Settings/Column/CommentCount.php:47
 #: classes/Column/Comment/Status.php:34 classes/Column/Comment/Approved.php:14
@@ -1975,7 +1975,7 @@ msgstr ""
 
 #: classes/Column/Actions.php:19
 msgid "Actions"
-msgstr "تطبيقات"
+msgstr "إجراءات"
 
 #: classes/Integration/WooCommerce.php:17
 msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
