@@ -49,13 +49,21 @@ export const getRowCellByName = (row: HTMLTableRowElement, column_name: string):
 export const resolveTableBySelector = (selector: string): HTMLTableElement => {
     let table: HTMLTableElement = document.querySelector(selector);
 
-    if( ! table ){
-        return;
+    if (!table) {
+        return null;
     }
 
-    if (table.tagName !== 'TABLE') {
-        table = table.querySelector('table') ? table.querySelector('table') : table.closest('table');
+    if (table.tagName === 'TABLE') {
+        return table;
     }
 
-    return table;
+    if (table.tagName === 'TBODY') {
+        return table.closest('table');
+    }
+
+    if (table.querySelector('table.wp-list-table')) {
+        return table.querySelector('table.wp-list-table');
+    }
+
+    return null;
 }
