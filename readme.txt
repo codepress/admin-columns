@@ -218,7 +218,6 @@ Release Date: August 21st, 2020
 
 * [Fixed] JS error on table pages
 
-
 = 4.2 =
 Release Date: August 18th, 2020
 
