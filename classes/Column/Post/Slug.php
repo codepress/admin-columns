@@ -25,7 +25,7 @@ class Slug extends Column {
 	}
 
 	function get_raw_value( $post_id ) {
-		return get_post_field( 'post_name', $post_id, 'raw' );
+		return urldecode( get_post_field( 'post_name', $post_id, 'raw' ) );
 	}
 
 }
