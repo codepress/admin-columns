@@ -44,7 +44,7 @@ function ac_get_site_documentation_url( $path = null ) {
 	$url = 'https://docs.admincolumns.com/';
 
 	if ( $path ) {
-		$url .= ltrim( '/', $path );
+		$url .= ltrim( $path, '/' );
 	}
 
 	return $url;
