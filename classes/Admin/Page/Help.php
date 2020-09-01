@@ -35,12 +35,10 @@ class Help extends Page implements AC\Asset\Enqueueables {
 	}
 
 	/**
-	 * @param string $page
-	 *
 	 * @return string
 	 */
-	private function get_documention_link( $page ) {
-		return ac_helper()->html->link( ac_get_site_utm_url( 'documentation/' . $page, 'documentation' ), __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', [ 'target' => '_blank' ] );
+	private function get_documention_link() {
+		return sprintf( '<a href="%s" target="_blank">%s</a>', ac_get_site_documentation_url( '/article/15-hooks-and-filters' ), __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;' );
 	}
 
 	/**
@@ -79,7 +77,7 @@ class Help extends Page implements AC\Asset\Enqueueables {
 				$message .= ' ' . $this->get_callback_message( $callbacks );
 			}
 
-			$message .= ' ' . $this->get_documention_link( $hook->get_slug() ? 'action-reference/' . $hook->get_slug() : '#action-reference' );
+			$message .= ' ' . $this->get_documention_link();
 
 			$this->render_message( $message );
 		}
@@ -108,7 +106,7 @@ class Help extends Page implements AC\Asset\Enqueueables {
 				$message .= ' ' . $this->get_callback_message( $callbacks );
 			}
 
-			$message .= ' ' . $this->get_documention_link( $hook->get_slug() ? 'filter-reference/' . $hook->get_slug() : '#filter-reference' );
+			$message .= ' ' . $this->get_documention_link();
 
 			$this->render_message( $message );
 		}
