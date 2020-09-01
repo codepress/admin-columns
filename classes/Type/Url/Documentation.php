@@ -14,7 +14,9 @@ class Documentation {
 	const ARTICLE_QUICK_ADD = '/article/71-how-to-use-quick-add';
 	const ARTICLE_COLUMN_SETS = '/article/72-how-to-create-column-sets';
 	const ARTICLE_ENABLE_EDITING = '/article/68-enable-editing-for-custom-field-columns';
+	const ARTICLE_UPGRADE_V3_TO_V4 = '/article/91-how-to-upgrade-from-v3-to-v4';
 	const ARTICLE_SHOW_ALL_SORTING_RESULTS = '/article/86-show-all-results-when-sorting';
+	const ARTICLE_ACTIONS_FILTERS = '/article/15-hooks-and-filters';
 
 	/**
 	 * @var string
