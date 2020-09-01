@@ -6,6 +6,7 @@ use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\Type\ListScreenId;
+use AC\Type\Url;
 
 /**
  * @return AC\AdminColumns
@@ -20,7 +21,7 @@ function AC() {
  * @return bool
  */
 function ac_is_pro_active() {
-	return defined( 'ACP_FILE' );
+	return defined( 'ACP_FILE' ) && false;
 }
 
 /**
@@ -41,13 +42,7 @@ function ac_get_site_url( $path = '' ) {
 }
 
 function ac_get_site_documentation_url( $path = null ) {
-	$url = 'https://docs.admincolumns.com/';
-
-	if ( $path ) {
-		$url .= ltrim( $path, '/' );
-	}
-
-	return $url;
+	return ( new Url\Documentation( $path ) )->get_url();
 }
 
 /**

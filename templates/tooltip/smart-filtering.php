@@ -18,3 +18,8 @@
 	<?= _x( 'When you return to your list table you can easily select them again from the menu.', 'smart filtering help', 'codepress-admin-columns' ); ?>
 </p>
 <img width="180" src="<?= esc_url( AC()->get_url() . 'assets/images/tooltip/save-filters.png' ); ?>" alt="Saved Filters" style="border:1px solid #ddd;">
+<p>
+	<a href="<?= esc_url( ac_get_site_documentation_url( \AC\Type\Url\Documentation::ARTICLE_SMART_FILTERING ) ); ?>" target="_blank">
+		<?= __( 'Learn more &raquo;', 'codepress-admin-columns' ); ?>
+	</a>
+</p>
