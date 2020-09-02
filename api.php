@@ -41,6 +41,11 @@ function ac_get_site_url( $path = '' ) {
 	return $url;
 }
 
+/**
+ * @param string|null $path
+ *
+ * @return string
+ */
 function ac_get_site_documentation_url( $path = null ) {
 	return ( new Url\Documentation( $path ) )->get_url();
 }
