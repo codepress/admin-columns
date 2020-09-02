@@ -38,18 +38,18 @@ $upgrade_page_url = new UtmTags( new Site( Site::PAGE_UPGRADE_TO_PRO ), 'banner'
 				<?php
 
 				$items = [
-					'search'        => __( 'Search any content', 'codepress-admin-columns' ),
-					'bulk-edit'     => __( 'Bulk Edit any content', 'codepress-admin-columns' ),
-					'sorting'       => __( 'Sort any content', 'codepress-admin-columns' ),
-					'filter'        => __( 'Filter any content', 'codepress-admin-columns' ),
-					'editing'       => __( 'Inline Edit any content', 'codepress-admin-columns' ),
-					'column-sets'   => __( 'Create multiple columns sets', 'codepress-admin-columns' ),
-					'import-export' => __( 'Import &amp; Export settings', 'codepress-admin-columns' ),
+					'search'      => __( 'Search any content', 'codepress-admin-columns' ),
+					'editing'     => __( 'Inline Edit any content', 'codepress-admin-columns' ),
+					'bulk-edit'   => __( 'Bulk Edit any content', 'codepress-admin-columns' ),
+					'sorting'     => __( 'Sort any content', 'codepress-admin-columns' ),
+					'filter'      => __( 'Filter any content', 'codepress-admin-columns' ),
+					'column-sets' => __( 'Create multiple columns sets', 'codepress-admin-columns' ),
+					'export'      => __( 'Export table contents to CSV', 'codepress-admin-columns' ),
 				];
 
 				foreach ( $items as $utm_content => $label ) : ?>
 					<li>
-						<a href="<?= esc_url( $upgrade_page_url->add_content( 'usp-' . $utm_content )->get_url() ); ?>"><?= esc_html( $label ); ?></a>
+						<a target="_blank" href="<?= esc_url( $upgrade_page_url->add_content( 'usp-' . $utm_content )->get_url() ); ?>"><?= esc_html( $label ); ?></a>
 					</li>
 				<?php endforeach; ?>
 
@@ -61,8 +61,8 @@ $upgrade_page_url = new UtmTags( new Site( Site::PAGE_UPGRADE_TO_PRO ), 'banner'
 				<ul>
 					<?php foreach ( $integrations as $integration ) : ?>
 						<li class="acp-integration">
-							<a href="<?php echo esc_url( $integration->get_link() ); ?>" target="_blank">
-								<strong><?php echo $integration->get_title(); ?></strong>
+							<a href="<?= esc_url( $integration->get_link() ); ?>" target="_blank">
+								<strong><?= $integration->get_title(); ?></strong>
 							</a>
 						</li>
 					<?php endforeach; ?>
