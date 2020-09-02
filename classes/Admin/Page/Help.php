@@ -41,7 +41,7 @@ class Help extends Page implements AC\Asset\Enqueueables {
 	private function get_documention_link() {
 		return sprintf(
 			'<a href="%s" target="_blank">%s &raquo;</a>',
-			ac_get_site_documentation_url( Url\Documentation::ARTICLE_UPGRADE_V3_TO_V4 ),
+			( new Url\Documentation( Url\Documentation::ARTICLE_UPGRADE_V3_TO_V4 ) )->get_url(),
 			__( 'View documentation', 'codepress-admin-columns' )
 		);
 	}
@@ -139,7 +139,7 @@ class Help extends Page implements AC\Asset\Enqueueables {
 			printf(
 				__( 'This site is using some actions or filters that have changed. Please read %s to resolve them.', 'codepress-admin-columns' ),
 				sprintf(
-					'<a href="%s" target=""_blank">%s</a>', ac_get_site_documentation_url( Url\Documentation::ARTICLE_UPGRADE_V3_TO_V4 ),
+					'<a href="%s" target="_blank">%s</a>', ( new Url\Documentation( Url\Documentation::ARTICLE_UPGRADE_V3_TO_V4 ) )->get_url(),
 					__( 'our documentation', 'codepress-admin-columns' )
 				)
 			);

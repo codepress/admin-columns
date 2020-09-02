@@ -1,5 +1,8 @@
 <?php
 
+use AC\Type\Url\Site;
+use AC\Type\Url\UtmTags;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -17,12 +20,14 @@ $discount = $this->discount;
 
 $is_promo_active = $promo && $promo->is_active();
 
+$upgrade_page_url = new UtmTags( new Site( Site::PAGE_UPGRADE_TO_PRO ), 'banner' );
+
 ?>
 
 <div class="sidebox" id="ac-pro-version">
 	<div class="padding-box">
 		<h3>
-			<a href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner', 'title' ) ); ?>">
+			<a href="<?= esc_url( $upgrade_page_url->add_content( 'title' )->get_url() ); ?>">
 				<?php _e( 'Upgrade to', 'codepress-admin-columns' ); ?>&nbsp;<span><?php _e( 'Pro', 'codepress-admin-columns' ); ?></span>
 			</a>
 		</h3>
@@ -44,7 +49,7 @@ $is_promo_active = $promo && $promo->is_active();
 
 				foreach ( $items as $utm_content => $label ) : ?>
 					<li>
-						<a href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner', 'usp-' . $utm_content ) ); ?>"><?php echo esc_html( $label ); ?></a>
+						<a href="<?= esc_url( $upgrade_page_url->add_content( 'usp-' . $utm_content )->get_url() ); ?>"><?= esc_html( $label ); ?></a>
 					</li>
 				<?php endforeach; ?>
 
@@ -65,7 +70,7 @@ $is_promo_active = $promo && $promo->is_active();
 			<?php endif; ?>
 			<p class="center nopadding">
 				<?php if ( ! $is_promo_active ) : ?>
-					<a target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'banner' ) ); ?>" class="acp-button">
+					<a target="_blank" href="<?= esc_url( $upgrade_page_url->get_url() ); ?>" class="acp-button">
 						<?php _e( 'Get Admin Columns Pro', 'codepress-admin-columns' ); ?>
 					</a>
 				<?php endif; ?>
@@ -103,7 +108,7 @@ $is_promo_active = $promo && $promo->is_active();
 					<?php echo esc_html( sprintf( __( "Submit your email and we'll send you a discount for %s off.", 'codepress-admin-columns' ), $discount . '%' ) ); ?>
 				</p>
 				<?php $user_data = wp_get_current_user(); ?>
-				<form method="post" action="<?php echo esc_url( ac_get_site_utm_url( 'upgrade-to-admin-columns-pro', 'send-coupon' ) ); ?>" target="_blank">
+				<form method="post" action="<?= esc_url( $upgrade_page_url->add_medium( 'send-coupon' )->get_url() ); ?>" target="_blank">
 					<input name="action" type="hidden" value="mc_upgrade_pro">
 					<input type="text" name="EMAIL" placeholder="<?php esc_attr_e( "Your Email", 'codepress-admin-columns' ); ?>" value="<?= esc_attr( $user_data->user_email ); ?>" required>
 					<input type="text" name="FNAME" placeholder="<?php esc_attr_e( "Your First Name", 'codepress-admin-columns' ); ?>" value="<?= esc_attr( $user_data->first_name ); ?>" required>

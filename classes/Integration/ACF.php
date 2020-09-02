@@ -4,6 +4,7 @@ namespace AC\Integration;
 
 use AC\Integration;
 use AC\Screen;
+use AC\Type\Url\Site;
 
 final class ACF extends Integration {
 
@@ -14,7 +15,7 @@ final class ACF extends Integration {
 			'assets/images/addons/acf.png',
 			__( 'Display and edit ACF fields in the posts overview in seconds!', 'codepress-admin-columns' ),
 			'https://www.advancedcustomfields.com',
-			'advanced-custom-fields'
+			new Site( Site::PAGE_ADDON_ACF )
 		);
 	}
 

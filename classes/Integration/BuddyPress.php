@@ -5,6 +5,7 @@ namespace AC\Integration;
 use AC\Integration;
 use AC\ListScreen;
 use AC\Screen;
+use AC\Type\Url\Site;
 
 final class BuddyPress extends Integration {
 
@@ -13,7 +14,9 @@ final class BuddyPress extends Integration {
 			'ac-addon-buddypress/ac-addon-buddypress.php',
 			__( 'BuddyPress', 'codepress-admin-columns' ),
 			'assets/images/addons/buddypress.png',
-			__( 'Display any of your Profile Fields for BuddyPress on your users overview.', 'codepress-admin-columns' )
+			__( 'Display any of your Profile Fields for BuddyPress on your users overview.', 'codepress-admin-columns' ),
+			null,
+			new Site( Site::PAGE_ADDON_BUDDYPRESS )
 		);
 	}
 

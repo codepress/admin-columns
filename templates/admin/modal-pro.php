@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</ul>
 		</div>
 		<div class="ac-modal__dialog__footer">
-			<a class="button button-primary" target="_blank" href="<?php echo esc_url( ac_get_site_utm_url( 'admin-columns-pro', 'upgrade' ) ); ?>"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
+			<a class="button button-primary" target="_blank" href="<?= esc_url( $this->upgrade_url ); ?>"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
 			<?php if ( $this->price ) : ?>
 				<span class="ac-modal__dialog__footer__content"><?php echo sprintf( __( 'Only %s for 1 site', 'codepress-admin-columns' ), '$' . $this->price ); ?></span>
 			<?php endif; ?>

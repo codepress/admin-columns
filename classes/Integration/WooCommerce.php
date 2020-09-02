@@ -6,6 +6,7 @@ use AC\Integration;
 use AC\ListScreen;
 use AC\ListScreenPost;
 use AC\Screen;
+use AC\Type\Url\Site;
 
 final class WooCommerce extends Integration {
 
@@ -16,7 +17,7 @@ final class WooCommerce extends Integration {
 			'assets/images/addons/woocommerce.png',
 			__( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' ),
 			null,
-			'woocommerce-columns'
+			new Site( Site::PAGE_ADDON_WOOCOMMERCE )
 		);
 	}
 

@@ -1,3 +1,8 @@
+<?php
+
+use AC\Type\Url\Documentation;
+
+?>
 <h3>
 	<?= __( 'Bulk Editing', 'codepress-admin-columns' ); ?>
 </h3>
@@ -16,7 +21,7 @@
 </p>
 <img src="<?= esc_url( AC()->get_url() . 'assets/images/tooltip/bulk-edit-author.png' ); ?>" alt="Bulk Edit" style="border:1px solid #ddd;">
 <p>
-	<a href="<?= esc_url( ac_get_site_documentation_url( \AC\Type\Url\Documentation::ARTICLE_BULK_EDITING ) ); ?>" target="_blank">
+	<a href="<?= esc_url( ( new Documentation( Documentation::ARTICLE_BULK_EDITING ) )->get_url() ); ?>" target="_blank">
 		<?= __( 'Learn more &raquo;', 'codepress-admin-columns' ); ?>
 	</a>
 </p>

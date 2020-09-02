@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use AC\Type\Url;
+
 abstract class Integration {
 
 	/** @var string */
@@ -13,8 +15,8 @@ abstract class Integration {
 	/** @var string */
 	private $logo;
 
-	/** @var string */
-	private $page;
+	/** @var Url */
+	private $url;
 
 	/** @var string */
 	private $plugin_link;
@@ -32,13 +34,13 @@ abstract class Integration {
 	 * @param string $plugin_link
 	 * @param string $page
 	 */
-	public function __construct( $basename, $title, $logo, $description, $plugin_link = null, $page = null ) {
+	public function __construct( $basename, $title, $logo, $description, $plugin_link = null, Url $url = null ) {
 		if ( null === $plugin_link ) {
 			$plugin_link = $this->search_plugin( $title );
 		}
 
-		if ( null === $page ) {
-			$page = 'pricing-purchase';
+		if ( null === $url ) {
+			$url = new Url\Site( Url\Site::PAGE_PRICING );
 		}
 
 		$this->basename = $basename;
@@ -46,7 +48,7 @@ abstract class Integration {
 		$this->logo = $logo;
 		$this->description = $description;
 		$this->plugin_link = $plugin_link;
-		$this->page = $page;
+		$this->url = $url;
 	}
 
 	/**
@@ -116,7 +118,7 @@ abstract class Integration {
 	 * @return string
 	 */
 	public function get_link() {
-		return ac_get_site_utm_url( $this->page, 'addon', $this->get_slug() );
+		return ( new Url\UtmTags( $this->url, 'addon', $this->get_slug() ) )->get_url();
 	}
 
 	/**

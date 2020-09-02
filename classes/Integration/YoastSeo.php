@@ -4,6 +4,7 @@ namespace AC\Integration;
 
 use AC\Integration;
 use AC\Screen;
+use AC\Type\Url\Site;
 
 final class YoastSeo extends Integration {
 
@@ -14,7 +15,7 @@ final class YoastSeo extends Integration {
 			'assets/images/addons/yoast-seo.png',
 			__( 'Enrich the Yoast SEO columns with amazing pro features!', 'codepress-admin-columns' ),
 			'https://www.yoast.com',
-			'yoast-seo'
+			new Site( Site::PAGE_ADDON_YOAST_SEO )
 		);
 	}
 

@@ -8,6 +8,9 @@ use AC\Message;
 use AC\Preferences;
 use AC\Registrable;
 use AC\Screen;
+use AC\Type\Url\Documentation;
+use AC\Type\Url\Site;
+use AC\Type\Url\UtmTags;
 use Exception;
 
 class Review
@@ -119,6 +122,24 @@ class Review
 	}
 
 	/**
+	 * @param string $utm_medium
+	 *
+	 * @return string
+	 */
+	private function get_forum_url( $utm_medium ) {
+		return ( new UtmTags( new Site( Site::PAGE_FORUM ), $utm_medium ) )->get_url();
+	}
+
+	/**
+	 * @param string $utm_medium
+	 *
+	 * @return string
+	 */
+	private function get_documentation_url( $utm_medium ) {
+		return ( new UtmTags( new Documentation(), $utm_medium ) )->get_url();
+	}
+
+	/**
 	 * @return string
 	 */
 	protected function get_message() {
@@ -152,13 +173,13 @@ class Review
 				printf(
 					__( "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s.", 'codepress-admin-columns' ),
 					$product,
-					'<a href="' . esc_url( ac_get_site_utm_url( 'documentation', 'review-notice' ) ) . '" target="_blank">' . __( 'documentation page', 'codepress-admin-columns' ) . '</a>'
+					'<a href="' . esc_url( $this->get_documentation_url( 'review-notice' ) ) . '" target="_blank">' . __( 'documentation page', 'codepress-admin-columns' ) . '</a>'
 				);
 
 				if ( ac_is_pro_active() ) {
 					printf(
 						__( 'You can also use your admincolumns.com account to access support through %s!', 'codepress-admin-columns' ),
-						'<a href="' . esc_url( ac_get_site_utm_url( 'topics', 'review-notice' ) ) . '" target="_blank">' . __( 'our forum', 'codepress-admin-columns' ) . '</a>'
+						'<a href="' . esc_url( $this->get_forum_url( 'review-notice' ) ) . '" target="_blank">' . __( 'our forum', 'codepress-admin-columns' ) . '</a>'
 					);
 				} else {
 					printf(

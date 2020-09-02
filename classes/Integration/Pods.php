@@ -4,6 +4,7 @@ namespace AC\Integration;
 
 use AC\Integration;
 use AC\Screen;
+use AC\Type\Url\Site;
 
 final class Pods extends Integration {
 
@@ -14,7 +15,7 @@ final class Pods extends Integration {
 			'assets/images/addons/pods.png',
 			__( 'Display and edit Pods fields in the posts overview in seconds!', 'codepress-admin-columns' ),
 			null,
-			'pods'
+			new Site( Site::PAGE_ADDON_PODS )
 		);
 	}
 
