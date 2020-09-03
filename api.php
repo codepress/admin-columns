@@ -21,7 +21,7 @@ function AC() {
  * @return bool
  */
 function ac_is_pro_active() {
-	return defined( 'ACP_FILE' ) && false;
+	return defined( 'ACP_FILE' );
 }
 
 /**
