@@ -20,6 +20,7 @@ class Documentation implements Type\Url {
 	const ARTICLE_EXPORT = '/article/69-how-to-use-export';
 	const ARTICLE_QUICK_ADD = '/article/71-how-to-use-quick-add';
 	const ARTICLE_COLUMN_SETS = '/article/72-how-to-create-column-sets';
+	const ARTICLE_SAVED_FILTERS = '/article/73-how-to-use-saved-filters';
 	const ARTICLE_SHOW_ALL_SORTING_RESULTS = '/article/86-show-all-results-when-sorting';
 	const ARTICLE_UPGRADE_V3_TO_V4 = '/article/91-how-to-upgrade-from-v3-to-v4';
 
