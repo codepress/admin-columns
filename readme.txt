@@ -192,10 +192,6 @@ Great, we'd love to hear from you! Please leave your feature request in our [for
 
 You can select a custom size for your custom field option from the Column options.
 
-**my columns thumbnails still have the wrong size**
-
-If you want your already uploaded images to display the newly added size you will need to regenerate the thumbnail for them. You can use this plugin to generate the newly added sized thumbnails: http://wordpress.org/extend/plugins/regenerate-thumbnails/.
-
 = What filters and hooks can I use? =
 
 You can find a list of the available actions and filters (and examples on how to use them!) in the [Admin Columns documentation](https://www.admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq#filter-reference).
