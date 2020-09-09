@@ -11,8 +11,8 @@ class Site implements Type\Url {
 	const URL = 'https://www.admincolumns.com';
 
 	const PAGE_PRICING = '/pricing-purchase';
-	const PAGE_UPGRADE_TO_PRO = '/upgrade-to-admin-columns-pro'; // TODO
-	const PAGE_ABOUT_PRO = '/admin-columns-pro'; // TODO
+	const PAGE_UPGRADE_TO_PRO = '/upgrade-to-admin-columns-pro';
+	const PAGE_ABOUT_PRO = '/admin-columns-pro';
 	const PAGE_ACCOUNT_SUBSCRIPTIONS = '/my-account/subscriptions';
 	const PAGE_FORUM = '/topics';
 	const PAGE_FORUM_BETA = '/forums/forum/beta-feedback/';
