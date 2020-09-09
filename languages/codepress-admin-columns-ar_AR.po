@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-08-20 13:02:02+0000\n"
+"PO-Revision-Date: 2020-09-04 20:31:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1151,7 +1151,7 @@ msgstr "تحقق من قسم <strong>المساعدة</strong> في الجانب
 
 #: templates/admin/side-support.php:10
 msgid "Support"
-msgstr "دعم"
+msgstr "الدعم الفني"
 
 #: templates/admin/side-feedback.php:63
 msgid "Buy Pro"
