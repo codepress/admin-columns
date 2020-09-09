@@ -6,6 +6,7 @@ use AC\Integration;
 use AC\ListScreen;
 use AC\ListScreenPost;
 use AC\Screen;
+use AC\Type\Url\Site;
 
 final class EventsCalendar extends Integration {
 
@@ -16,7 +17,7 @@ final class EventsCalendar extends Integration {
 			'assets/images/addons/events-calendar.png',
 			__( 'Manage columns for your event, organizer or venue overviews.', 'codepress-admin-columns' ),
 			null,
-			'events-calendar'
+			new Site( Site::PAGE_ADDON_EVENTS_CALENDAR )
 		);
 	}
 

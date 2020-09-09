@@ -4,6 +4,7 @@ namespace AC\Integration;
 
 use AC\Integration;
 use AC\Screen;
+use AC\Type\Url\Site;
 
 final class MetaBox extends Integration {
 
@@ -14,7 +15,7 @@ final class MetaBox extends Integration {
 			'assets/images/addons/metabox.svg',
 			__( 'Instantly generate columns for your Meta Box custom fields!', 'codepress-admin-columns' ),
 			null,
-			'metabox'
+			new Site( Site::PAGE_ADDON_METABOX )
 		);
 	}
 

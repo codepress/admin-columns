@@ -1,3 +1,8 @@
+<?php
+
+use AC\Type\Url\Documentation;
+
+?>
 <h3>
 	<?= __( 'Inline Editing', 'codepress-admin-columns' ); ?>
 </h3>
@@ -14,4 +19,9 @@
 <img src="<?= esc_url( AC()->get_url() . 'assets/images/tooltip/inline-edit.png' ); ?>" alt="Usage of Inline Edit" width="213" style="border:1px solid #ddd;">
 <p>
 	3. <?= __( 'It is possible to undo and redo all changes made with Inline Editing, so using it is without risk.', 'codepress-admin-columns' ); ?>
+</p>
+<p>
+	<a href="<?= esc_url( ( new Documentation( Documentation::ARTICLE_INLINE_EDITING ) )->get_url() ); ?>" target="_blank">
+		<?= __( 'Learn more &raquo;', 'codepress-admin-columns' ); ?>
+	</a>
 </p>

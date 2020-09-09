@@ -1,3 +1,8 @@
+<?php
+
+use AC\Type\Url\Documentation;
+
+?>
 <h3>
 	<?= __( 'Sorting', 'codepress-admin-columns' ); ?>
 </h3>
@@ -18,4 +23,9 @@
 <img width="222" src="<?= esc_url( AC()->get_url() . 'assets/images/tooltip/reset-sorting.png' ); ?>" alt="Reset Sorting">
 <p>
 	<?= __( 'You can change the default sorted column in the optional settings below.', 'codepress-admin-columns' ); ?>
+</p>
+<p>
+	<a href="<?= esc_url( ( new Documentation( Documentation::ARTICLE_SORTING ) )->get_url() ); ?>" target="_blank">
+		<?= __( 'Learn more &raquo;', 'codepress-admin-columns' ); ?>
+	</a>
 </p>

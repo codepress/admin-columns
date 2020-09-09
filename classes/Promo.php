@@ -3,6 +3,8 @@
 namespace AC;
 
 use AC\Type\DateRange;
+use AC\Type\Url\Site;
+use AC\Type\Url\UtmTags;
 
 abstract class Promo {
 
@@ -54,7 +56,7 @@ abstract class Promo {
 	 * @return string
 	 */
 	public function get_url() {
-		return ac_get_site_utm_url( 'pricing-purchase', 'promo', null, $this->slug );
+		return ( new UtmTags( new Site( Site::PAGE_PRICING ), 'promo', null, $this->slug ) )->get_url();
 	}
 
 	/**

@@ -3,6 +3,8 @@
 namespace AC;
 
 use AC\Admin\Page\Columns;
+use AC\Type\Url\Site;
+use AC\Type\Url\UtmTags;
 
 class PluginActionLinks implements Registrable {
 
@@ -40,7 +42,7 @@ class PluginActionLinks implements Registrable {
 		if ( ! ac_is_pro_active() ) {
 			$links[] = sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( ac_get_site_utm_url( 'admin-columns-pro', 'upgrade' ) ),
+				esc_url( ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url() ),
 				sprintf(
 					'<span style="font-weight: bold;">%s</span>',
 					__( 'Go Pro', 'codepress-admin-columns' )

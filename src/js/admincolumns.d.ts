@@ -25,4 +25,6 @@ export interface LocalizedScriptAC {
 
 export interface LocalizedScriptACTable extends LocalizedScriptAC {
     ajax_nonce: string,
+    list_screen_link: string,
+    meta_type: string
 }

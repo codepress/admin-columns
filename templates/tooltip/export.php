@@ -1,3 +1,8 @@
+<?php
+
+use AC\Type\Url\Documentation;
+
+?>
 <h3>
 	<?= __( 'Export', 'codepress-admin-columns' ); ?>
 </h3>
@@ -14,4 +19,9 @@
 <img src="<?= esc_url( AC()->get_url() . 'assets/images/tooltip/export-csv.png' ); ?>" alt="Export" style="border:1px solid #ddd;">
 <p>
 	<?= __( 'You can use filters to segment your list before exporting.', 'codepress-admin-columns' ); ?>
+</p>
+<p>
+	<a href="<?= esc_url( ( new Documentation( Documentation::ARTICLE_EXPORT ) )->get_url() ); ?>" target="_blank">
+		<?= __( 'Learn more &raquo;', 'codepress-admin-columns' ); ?>
+	</a>
 </p>

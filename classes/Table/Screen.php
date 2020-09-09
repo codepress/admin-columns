@@ -226,13 +226,14 @@ final class Screen implements Registrable {
 		$style->enqueue();
 
 		wp_localize_script( 'ac-table', 'AC', [
-				'list_screen'  => $this->list_screen->get_key(),
-				'layout'       => $this->list_screen->get_layout_id(),
-				'column_types' => $this->get_column_types_mapping(),
-				'ajax_nonce'   => wp_create_nonce( 'ac-ajax' ),
-				'table_id'     => $this->list_screen->get_table_attr_id(),
-				'screen'       => $this->get_current_screen_id(),
-				'meta_type'    => $this->list_screen->get_meta_type(),
+				'list_screen'      => $this->list_screen->get_key(),
+				'layout'           => $this->list_screen->get_layout_id(),
+				'column_types'     => $this->get_column_types_mapping(),
+				'ajax_nonce'       => wp_create_nonce( 'ac-ajax' ),
+				'table_id'         => $this->list_screen->get_table_attr_id(),
+				'screen'           => $this->get_current_screen_id(),
+				'meta_type'        => $this->list_screen->get_meta_type(),
+				'list_screen_link' => $this->get_list_screen_clear_link(),
 			]
 		);
 
@@ -245,6 +246,40 @@ final class Screen implements Registrable {
 		foreach ( $this->list_screen->get_columns() as $column ) {
 			$column->scripts();
 		}
+	}
+
+	/**
+	 * @return string
+	 */
+	private function get_list_screen_clear_link() {
+
+		$query_args_whitelist = [
+			'layout',
+			'orderby',
+			'order',
+		];
+
+		switch ( true ) {
+			case $this->list_screen instanceof ListScreen\Post :
+				$query_args_whitelist[] = 'post_status';
+				break;
+			case $this->list_screen instanceof ListScreen\User :
+				$query_args_whitelist[] = 'role';
+				break;
+			case $this->list_screen instanceof ListScreen\Comment :
+				$query_args_whitelist[] = 'comment_status';
+				break;
+		}
+
+		$args = [];
+
+		foreach ( $query_args_whitelist as $query_arg ) {
+			if ( isset( $_GET[ $query_arg ] ) ) {
+				$args[ $query_arg ] = $_GET[ $query_arg ];
+			}
+		}
+
+		return add_query_arg( $args, $this->list_screen->get_screen_link() );
 	}
 
 	/**

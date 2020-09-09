@@ -8,6 +8,7 @@ use AC\Asset\Assets;
 use AC\Asset\Location;
 use AC\Asset\Style;
 use AC\Deprecated\Hooks;
+use AC\Type\Url;
 
 class Help extends Page implements AC\Asset\Enqueueables {
 
@@ -35,12 +36,14 @@ class Help extends Page implements AC\Asset\Enqueueables {
 	}
 
 	/**
-	 * @param string $page
-	 *
 	 * @return string
 	 */
-	private function get_documention_link( $page ) {
-		return ac_helper()->html->link( ac_get_site_utm_url( 'documentation/' . $page, 'documentation' ), __( 'View documentation', 'codepress-admin-columns' ) . ' &raquo;', [ 'target' => '_blank' ] );
+	private function get_documention_link() {
+		return sprintf(
+			'<a href="%s" target="_blank">%s &raquo;</a>',
+			( new Url\Documentation( Url\Documentation::ARTICLE_UPGRADE_V3_TO_V4 ) )->get_url(),
+			__( 'View documentation', 'codepress-admin-columns' )
+		);
 	}
 
 	/**
@@ -79,7 +82,7 @@ class Help extends Page implements AC\Asset\Enqueueables {
 				$message .= ' ' . $this->get_callback_message( $callbacks );
 			}
 
-			$message .= ' ' . $this->get_documention_link( $hook->get_slug() ? 'action-reference/' . $hook->get_slug() : '#action-reference' );
+			$message .= ' ' . $this->get_documention_link();
 
 			$this->render_message( $message );
 		}
@@ -108,7 +111,7 @@ class Help extends Page implements AC\Asset\Enqueueables {
 				$message .= ' ' . $this->get_callback_message( $callbacks );
 			}
 
-			$message .= ' ' . $this->get_documention_link( $hook->get_slug() ? 'filter-reference/' . $hook->get_slug() : '#filter-reference' );
+			$message .= ' ' . $this->get_documention_link();
 
 			$this->render_message( $message );
 		}
@@ -132,7 +135,15 @@ class Help extends Page implements AC\Asset\Enqueueables {
 		<p>
 			<?php _e( 'The Admin Columns plugin has undergone some major changes in version 4.', 'codepress-admin-columns' ); ?> <br/>
 
-			<?php printf( __( 'This site is using some actions or filters that have changed. Please read %s to resolve them.', 'codepress-admin-columns' ), ac_helper()->html->link( ac_get_site_utm_url( 'documentation/faq/upgrading-from-v3-to-v4', 'help' ), __( 'our documentation', 'codepress-admin-columns' ) ) ); ?>
+			<?php
+			printf(
+				__( 'This site is using some actions or filters that have changed. Please read %s to resolve them.', 'codepress-admin-columns' ),
+				sprintf(
+					'<a href="%s" target="_blank">%s</a>', ( new Url\Documentation( Url\Documentation::ARTICLE_UPGRADE_V3_TO_V4 ) )->get_url(),
+					__( 'our documentation', 'codepress-admin-columns' )
+				)
+			);
+			?>
 		</p>
 
 		<?php

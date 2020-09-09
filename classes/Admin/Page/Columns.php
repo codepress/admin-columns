@@ -19,6 +19,9 @@ use AC\Controller\ListScreenRequest;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\Message;
+use AC\Type\Url\Documentation;
+use AC\Type\Url\Site;
+use AC\Type\Url\UtmTags;
 use AC\View;
 
 class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOptions {
@@ -195,11 +198,22 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 
 						<?= new Banner(); ?>
 
-						<?= ( new View() )->set_template( 'admin/side-feedback' ); ?>
+						<?php
+						$view = new View( [
+							'documentation_url' => ( new UtmTags( new Documentation(), 'feedback-docs-button' ) )->get_url(),
+							'upgrade_url'       => ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'feedback-purchase-button' ) )->get_url(),
+						] );
+						echo $view->set_template( 'admin/side-feedback' );
+						?>
 
 					<?php endif; ?>
 
-					<?= ( new View() )->set_template( 'admin/side-support' ); ?>
+					<?php
+					$view = new View( [
+						'documentation_url' => ( new UtmTags( new Documentation(), 'support' ) )->get_url(),
+					] );
+					echo $view->set_template( 'admin/side-support' );
+					?>
 
 				</div>
 
@@ -257,7 +271,9 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 
 		<?php
 
-		$modal = new View();
+		$modal = new View( [
+			'upgrade_url' => ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url(),
+		] );
 
 		echo $modal->set_template( 'admin/modal-pro' );
 
