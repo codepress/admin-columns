@@ -20,7 +20,7 @@ $discount = $this->discount;
 
 $is_promo_active = $promo && $promo->is_active();
 
-$upgrade_page_url = new UtmTags( new Site( Site::PAGE_UPGRADE_TO_PRO ), 'banner' );
+$upgrade_page_url = new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'banner' );
 
 ?>
 

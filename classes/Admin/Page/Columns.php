@@ -201,7 +201,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 						<?php
 						$view = new View( [
 							'documentation_url' => ( new UtmTags( new Documentation(), 'feedback-docs-button' ) )->get_url(),
-							'upgrade_url'       => ( new UtmTags( new Site( Site::PAGE_UPGRADE_TO_PRO ), 'feedback-purchase-button' ) )->get_url(),
+							'upgrade_url'       => ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'feedback-purchase-button' ) )->get_url(),
 						] );
 						echo $view->set_template( 'admin/side-feedback' );
 						?>
