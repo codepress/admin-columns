@@ -16,7 +16,7 @@ class TitleRaw extends Column {
 	}
 
 	public function get_value( $id ) {
-		return wp_kses_post( parent::get_value( $id ) );
+		return sprintf( '<span class="row-title">%s</span>', wp_kses_post( parent::get_value( $id ) ) );
 	}
 
 	function get_raw_value( $post_id ) {
