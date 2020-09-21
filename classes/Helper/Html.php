@@ -225,7 +225,7 @@ class Html {
 		$external_links = [];
 
 		$dom = new DOMDocument();
-		$dom->loadHTML( $string );
+		@$dom->loadHTML( $string );
 
 		$links = $dom->getElementsByTagName( 'a' );
 
