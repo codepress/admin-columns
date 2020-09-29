@@ -51,7 +51,7 @@ class Html {
 		}
 
 		if ( null === $label ) {
-			$label = $url;
+			$label = urldecode( $url );
 		}
 
 		if ( ! $label ) {
