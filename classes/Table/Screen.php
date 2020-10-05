@@ -234,6 +234,7 @@ final class Screen implements Registrable {
 				'screen'           => $this->get_current_screen_id(),
 				'meta_type'        => $this->list_screen->get_meta_type(),
 				'list_screen_link' => $this->get_list_screen_clear_link(),
+				'column_widths'    => $this->get_column_widths(),
 			]
 		);
 
@@ -322,6 +323,25 @@ final class Screen implements Registrable {
 	 */
 	public function get_list_screen() {
 		return $this->list_screen;
+	}
+
+	/**
+	 *
+	 */
+	private function get_column_widths() {
+		$result = [];
+		if ( ! $this->list_screen->get_settings() ) {
+			return $result;
+		}
+
+		foreach ( $this->list_screen->get_columns() as $column ) {
+			/* @var Settings\Column\Width $setting */
+			$setting = $column->get_setting( 'width' );
+			$width = $setting->get_display_width();
+			$result[ $column->get_name() ] = $width ?: 'auto';
+		}
+
+		return $result;
 	}
 
 	/**

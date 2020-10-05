@@ -5,6 +5,8 @@ import {AddonDownload} from "./modules/addon-download";
 import Nanobus = require("nanobus");
 import Modals from "./modules/modals";
 
+export type ACTable = Table;
+
 export interface AdminColumnsInterface {
     events: Nanobus,
     Form?: any,
