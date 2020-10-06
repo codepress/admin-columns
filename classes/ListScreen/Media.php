@@ -71,6 +71,7 @@ class Media extends AC\ListScreenPost {
 		parent::register_column_types();
 
 		$this->register_column_types_from_dir( 'AC\Column\Media' );
+		$this->register_column_type( new AC\Column\Post\TitleRaw );
 	}
 
 }

@@ -51,7 +51,7 @@ class Html {
 		}
 
 		if ( null === $label ) {
-			$label = $url;
+			$label = urldecode( $url );
 		}
 
 		if ( ! $label ) {
@@ -225,7 +225,7 @@ class Html {
 		$external_links = [];
 
 		$dom = new DOMDocument();
-		$dom->loadHTML( $string );
+		@$dom->loadHTML( $string );
 
 		$links = $dom->getElementsByTagName( 'a' );
 

@@ -9,12 +9,13 @@
 <h4>
 	<?= __( 'Filters vs Smart Filters', 'codepress-admin-columns' ); ?>
 </h4>
+<p class="notice notice-warning">
+	<?= sprintf( __( 'We recommend using %s', 'codepress-admin-columns' ), sprintf( '<strong>%s</strong>', __( 'Smart Filters', 'codepress-admin-columns' ) ) ); ?>
+</p>
 <p>
 	<?= sprintf( __( '%s is an improved version of %s.', 'codepress-admin-columns' ), sprintf( '<em>%s</em>', __( 'Smart Filtering', 'codepress-admin-columns' ) ), sprintf( '<em>%s</em>', __( 'Filtering', 'codepress-admin-columns' ) ) ); ?>
 	<?= sprintf( __( 'Finding the right content will be much easier with the use of conditionals, such as %s.', 'codepress-admin-columns' ), wp_sprintf( '%l', [ "contains", "between", "starts with" ] ) ); ?>
-	<br>
-	<?= sprintf( __( '%s also has better support for all the different types of fields, such as text, numbers and dates.', 'codepress-admin-columns' ), sprintf( '<em>%s</em>', __( 'Smart Filtering', 'codepress-admin-columns' ) ) ); ?>
 </p>
-<p class="notice notice-warning">
-	<?= sprintf( __( 'We recommend using %s', 'codepress-admin-columns' ), sprintf( '<strong>%s</strong>', __( 'Smart Filters', 'codepress-admin-columns' ) ) ); ?>
+<p>
+	<?= sprintf( __( '%s also has better support for all the different types of fields, such as text, numbers and dates.', 'codepress-admin-columns' ), sprintf( '<em>%s</em>', __( 'Smart Filtering', 'codepress-admin-columns' ) ) ); ?>
 </p>
