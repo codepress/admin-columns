@@ -3,6 +3,7 @@
 @import '_colors';
 @import '_webfont';
 @import '_modals';
+@import 'components/tooltip';
 
 /* =Status icons
 -------------------------------------------------------------- */
@@ -910,16 +911,8 @@ div.cpac-color span {
 	}
 }
 
-/* =qTip2
--------------------------------------------------------------- */
 .ac-tip {
 	display: inline-block;
-}
-
-.qtip.qtip-tipsy {
-	background: rgba(0, 0, 0, .75);
-	font-weight: normal;
-	min-width: 25px;
 }
 
 .ac-table-actions {

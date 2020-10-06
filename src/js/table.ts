@@ -1,5 +1,5 @@
 import Table from "./table/table";
-import Tooltip from "./table/tooltips";
+import Tooltip from "./modules/tooltips";
 import ScreenOptionsColumns from "./table/screen-options-columns";
 import ToggleBoxLink from "./modules/toggle-box-link";
 // @ts-ignore
@@ -56,6 +56,7 @@ AdminColumns.events.addListener(EventConstants.TABLE.READY, (e) => {
         $(element).trigger('updated', {id: getIdFromTableRow((<HTMLTableRowElement>element)), row: element})
     });
 });
+
 
 window.ac_load_table = function (el: HTMLTableElement) {
     AdminColumns.Table = new Table(el);
