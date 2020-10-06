@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.2.3 =
-Release Date: tbd
+Release Date: October 6th, 2020
 
 * [Added] Title only column added to Media list table
 * [Improved] Dashicons updates for icon picker in column settings
