@@ -2312,7 +2312,6 @@ function () {
     this.element.dataset.acTooltipInit = '1';
     document.body.append(this.tip);
     this.element.addEventListener('mouseenter', function () {
-      console.log(_this.element);
       var bodyOffset = document.body.getBoundingClientRect();
 
       var viewportOffset = _this.element.getBoundingClientRect();

@@ -28,12 +28,11 @@ export class Tooltip {
         document.body.append(this.tip);
 
         this.element.addEventListener('mouseenter', () => {
-            console.log( this.element );
             const bodyOffset = document.body.getBoundingClientRect();
             const viewportOffset = this.element.getBoundingClientRect();
 
-            this.tip.style.left = ( ( viewportOffset.left - bodyOffset.left)  + this.element.offsetWidth / 2) + 'px';
-            this.tip.style.top = ( ( viewportOffset.top - bodyOffset.top ) + this.element.offsetHeight) + 'px';
+            this.tip.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth / 2) + 'px';
+            this.tip.style.top = ((viewportOffset.top - bodyOffset.top) + this.element.offsetHeight) + 'px';
             this.tip.classList.add('hover');
         });
 
