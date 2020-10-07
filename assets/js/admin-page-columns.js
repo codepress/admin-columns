@@ -2250,39 +2250,93 @@ function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
+
+
 var Tooltips =
 /** @class */
 function () {
   function Tooltips() {
-    this.isEnabled = typeof jQuery.fn.qtip !== 'undefined';
     this.init();
   }
 
   Tooltips.prototype.init = function () {
-    if (!this.isEnabled) {
-      console.log('Tooltips not loaded!');
-      return;
-    }
-
-    jQuery('[data-ac-tip]').qtip({
-      content: {
-        attr: 'data-ac-tip'
-      },
-      position: {
-        my: 'top center',
-        at: 'bottom center'
-      },
-      style: {
-        tip: true,
-        classes: 'qtip-tipsy'
-      }
-    });
+    Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["initAcTooltips"])();
   };
 
   return Tooltips;
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (Tooltips);
+
+/***/ }),
+
+/***/ "./js/plugin/tooltip.ts":
+/*!******************************!*\
+  !*** ./js/plugin/tooltip.ts ***!
+  \******************************/
+/*! exports provided: initAcTooltips, Tooltip */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcTooltips", function() { return initAcTooltips; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
+var initAcTooltips = function () {
+  document.querySelectorAll('[data-ac-tip]').forEach(function (element) {
+    new Tooltip(element);
+  });
+};
+
+var Tooltip =
+/** @class */
+function () {
+  function Tooltip(el, content) {
+    if (content === void 0) {
+      content = '';
+    }
+
+    this.element = el;
+    this.content = content ? content : el.dataset.acTip;
+    this.tip = createTooltip(this.content);
+    this.initEvents();
+  }
+
+  Tooltip.prototype.initEvents = function () {
+    var _this = this;
+
+    if (this.element.dataset.acTooltipInit === '1') {
+      return;
+    }
+
+    this.element.dataset.acTooltipInit = '1';
+    document.body.append(this.tip);
+    this.element.addEventListener('mouseenter', function () {
+      var bodyOffset = document.body.getBoundingClientRect();
+
+      var viewportOffset = _this.element.getBoundingClientRect();
+
+      _this.tip.style.left = viewportOffset.left - bodyOffset.left + _this.element.offsetWidth / 2 + 'px';
+      _this.tip.style.top = viewportOffset.top - bodyOffset.top + _this.element.offsetHeight + 'px';
+
+      _this.tip.classList.add('hover');
+    });
+    this.element.addEventListener('mouseleave', function () {
+      _this.tip.classList.remove('hover');
+    });
+  };
+
+  return Tooltip;
+}();
+
+
+
+var createTooltip = function (content) {
+  var tip = document.createElement('div');
+  tip.classList.add('ac-tooltip');
+  tip.innerHTML = content;
+  return tip;
+};
 
 /***/ }),
 

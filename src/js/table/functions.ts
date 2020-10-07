@@ -1,20 +1,12 @@
-// @ts-ignore
-import $ from 'jquery';
+import {Tooltip} from "../plugin/tooltip";
 
 export const init_actions_tooltips = () => {
-    $('.cpac_use_icons').parent().find('.row-actions a').qtip({
-        content: {
-            text: function () {
-                return $(this).text();
-            }
-        },
-        position: {
-            my: 'top center',
-            at: 'bottom center'
-        },
-        style: {
-            tip: true,
-            classes: 'qtip-tipsy'
-        }
+    document.querySelectorAll('.cpac_use_icons').forEach((el: HTMLElement) => {
+
+        el.parentElement.querySelectorAll('.row-actions a').forEach((el: HTMLElement) => {
+
+            new Tooltip(el, el.innerText);
+        });
     });
+
 }

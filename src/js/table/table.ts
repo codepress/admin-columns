@@ -38,7 +38,6 @@ export default class Table {
         this.initTable();
         this.addCellClasses();
 
-
         document.dispatchEvent(new CustomEvent('AC_Table_Ready', {detail: {table: this}}));
         AdminColumns.events.emit(EventConstants.TABLE.READY, {table: this});
     }
@@ -47,7 +46,6 @@ export default class Table {
         this.Columns.getColumnNames().forEach((name) => {
             let type = this.Columns.get(name).type;
             let cells = this.Cells.getByName(name);
-
 
             cells.forEach((cell: Cell) => {
                 cell.getElement().classList.add(type);

@@ -1,0 +1,51 @@
+.ac-tooltip-wrapper {
+	position: relative;
+
+	&:focus, &:hover {
+		.ac-tooltip {
+			opacity: 1;
+		}
+	}
+}
+
+.ac-tooltip {
+	background: rgba(0, 0, 0, .75);
+	border-radius: 3px;
+	padding: 3px 9px;
+	color: #fff;
+	position: absolute;
+	transform: translateX(-50%);
+	min-width: 30px;
+	margin-top: 5px;
+	display: block;
+	opacity: 0;
+	transition: opacity .3s;
+	pointer-events: none;
+	font-size: 11px;
+	line-height: 16px;
+	z-index: 100000;
+
+	&:before {
+		content: '';
+		display: block;
+		width: 0;
+		height: 0;
+		border-bottom: 4px solid rgba(0, 0, 0, .8);
+		border-left: 6px solid transparent;
+		border-right: 6px solid transparent;
+		position: absolute;
+		left: 50%;
+		top: -4px;
+		transform: translateX(-4px);
+	}
+
+	&.hover {
+		opacity: 1;
+	}
+}
+
+html.wp-toolbar {
+	.ac-tooltip {
+		margin-top:36px;
+	}
+}

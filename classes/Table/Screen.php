@@ -211,15 +211,7 @@ final class Screen implements Registrable {
 	 * @since 2.2.4
 	 */
 	public function admin_scripts() {
-
-		// Tooltip
-		$script = new Asset\Script( 'jquery-qtip2', $this->location->with_suffix( 'assets/external/qtip2/jquery.qtip.min.js' ), [ 'jquery' ] );
-		$script->register();
-
-		$style = new Asset\Style( 'jquery-qtip2', $this->location->with_suffix( 'assets/external/qtip2/jquery.qtip.min.css' ) );
-		$style->enqueue();
-
-		$script = new Asset\Script( 'ac-table', $this->location->with_suffix( 'assets/js/table.js' ), [ 'jquery', 'jquery-qtip2' ] );
+		$script = new Asset\Script( 'ac-table', $this->location->with_suffix( 'assets/js/table.js' ), [ 'jquery' ] );
 		$script->enqueue();
 
 		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ) );

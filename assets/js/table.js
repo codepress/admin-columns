@@ -120,6 +120,10 @@ __webpack_require__.r(__webpack_exports__);
 var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 
 var initAdminColumnsGlobalBootstrap = function () {
+  if (window.AdminColumns) {
+    return window.AdminColumns;
+  }
+
   window.AdminColumns = window.AdminColumns || {};
   AdminColumns.events = nanobus();
   AdminColumns.Modals = new _modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"]();
@@ -560,6 +564,36 @@ function () {
 
 /***/ }),
 
+/***/ "./js/modules/tooltips.ts":
+/*!********************************!*\
+  !*** ./js/modules/tooltips.ts ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
+
+
+var Tooltips =
+/** @class */
+function () {
+  function Tooltips() {
+    this.init();
+  }
+
+  Tooltips.prototype.init = function () {
+    Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["initAcTooltips"])();
+  };
+
+  return Tooltips;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Tooltips);
+
+/***/ }),
+
 /***/ "./js/plugin/show-more.ts":
 /*!********************************!*\
   !*** ./js/plugin/show-more.ts ***!
@@ -636,6 +670,75 @@ function () {
 
 /***/ }),
 
+/***/ "./js/plugin/tooltip.ts":
+/*!******************************!*\
+  !*** ./js/plugin/tooltip.ts ***!
+  \******************************/
+/*! exports provided: initAcTooltips, Tooltip */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcTooltips", function() { return initAcTooltips; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
+var initAcTooltips = function () {
+  document.querySelectorAll('[data-ac-tip]').forEach(function (element) {
+    new Tooltip(element);
+  });
+};
+
+var Tooltip =
+/** @class */
+function () {
+  function Tooltip(el, content) {
+    if (content === void 0) {
+      content = '';
+    }
+
+    this.element = el;
+    this.content = content ? content : el.dataset.acTip;
+    this.tip = createTooltip(this.content);
+    this.initEvents();
+  }
+
+  Tooltip.prototype.initEvents = function () {
+    var _this = this;
+
+    if (this.element.dataset.acTooltipInit === '1') {
+      return;
+    }
+
+    this.element.dataset.acTooltipInit = '1';
+    document.body.append(this.tip);
+    this.element.addEventListener('mouseenter', function () {
+      var bodyOffset = document.body.getBoundingClientRect();
+
+      var viewportOffset = _this.element.getBoundingClientRect();
+
+      _this.tip.style.left = viewportOffset.left - bodyOffset.left + _this.element.offsetWidth / 2 + 'px';
+      _this.tip.style.top = viewportOffset.top - bodyOffset.top + _this.element.offsetHeight + 'px';
+
+      _this.tip.classList.add('hover');
+    });
+    this.element.addEventListener('mouseleave', function () {
+      _this.tip.classList.remove('hover');
+    });
+  };
+
+  return Tooltip;
+}();
+
+
+
+var createTooltip = function (content) {
+  var tip = document.createElement('div');
+  tip.classList.add('ac-tooltip');
+  tip.innerHTML = content;
+  return tip;
+};
+
+/***/ }),
+
 /***/ "./js/polyfill/custom-event.ts":
 /*!*************************************!*\
   !*** ./js/polyfill/custom-event.ts ***!
@@ -678,7 +781,7 @@ var polyfillCustomEvent = function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _table_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./table/table */ "./js/table/table.ts");
-/* harmony import */ var _table_tooltips__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./table/tooltips */ "./js/table/tooltips.ts");
+/* harmony import */ var _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.ts");
 /* harmony import */ var _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./table/screen-options-columns */ "./js/table/screen-options-columns.ts");
 /* harmony import */ var _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/toggle-box-link */ "./js/modules/toggle-box-link.ts");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "jquery");
@@ -711,7 +814,7 @@ jquery__WEBPACK_IMPORTED_MODULE_4___default()(document).ready(function () {
     AdminColumns.ScreenOptionsColumns = new _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__["default"](AdminColumns.Table.Columns);
   }
 
-  AdminColumns.Tooltips = new _table_tooltips__WEBPACK_IMPORTED_MODULE_1__["default"]();
+  AdminColumns.Tooltips = new _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__["default"]();
   document.querySelectorAll('.ac-toggle-box-link').forEach(function (el) {
     new _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__["default"](el);
   });
@@ -1026,25 +1129,13 @@ function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init_actions_tooltips", function() { return init_actions_tooltips; });
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-// @ts-ignore
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
 
 var init_actions_tooltips = function () {
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpac_use_icons').parent().find('.row-actions a').qtip({
-    content: {
-      text: function () {
-        return jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).text();
-      }
-    },
-    position: {
-      my: 'top center',
-      at: 'bottom center'
-    },
-    style: {
-      tip: true,
-      classes: 'qtip-tipsy'
-    }
+  document.querySelectorAll('.cpac_use_icons').forEach(function (el) {
+    el.parentElement.querySelectorAll('.row-actions a').forEach(function (el) {
+      new _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["Tooltip"](el, el.innerText);
+    });
   });
 };
 
@@ -1282,58 +1373,6 @@ function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (Table);
-
-/***/ }),
-
-/***/ "./js/table/tooltips.ts":
-/*!******************************!*\
-  !*** ./js/table/tooltips.ts ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-// @ts-ignore
-
-
-var Tooltips =
-/** @class */
-function () {
-  function Tooltips() {
-    this.init();
-  }
-
-  Tooltips.prototype.isEnabled = function () {
-    return typeof jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.qtip !== 'undefined';
-  };
-
-  Tooltips.prototype.init = function () {
-    if (!this.isEnabled()) {
-      return;
-    }
-
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('[data-ac-tip]').qtip({
-      content: {
-        attr: 'data-ac-tip'
-      },
-      position: {
-        my: 'top center',
-        at: 'bottom center'
-      },
-      style: {
-        tip: true,
-        classes: 'qtip-tipsy'
-      }
-    });
-  };
-
-  return Tooltips;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Tooltips);
 
 /***/ }),
 
