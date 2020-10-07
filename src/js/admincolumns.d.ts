@@ -2,8 +2,8 @@ import Table from "./table/table";
 import ScreenOptionsColumns from "./table/screen-options-columns";
 import Tooltips from "./table/tooltips";
 import {AddonDownload} from "./modules/addon-download";
-import Nanobus = require("nanobus");
 import Modals from "./modules/modals";
+import Nanobus = require("nanobus");
 
 export type ACTable = Table;
 
@@ -28,5 +28,8 @@ export interface LocalizedScriptAC {
 export interface LocalizedScriptACTable extends LocalizedScriptAC {
     ajax_nonce: string,
     list_screen_link: string,
-    meta_type: string
+    meta_type: string,
+    column_widths: { [key: string]: widthType }
 }
+
+export interface WidthType  { width: number, width_unit: string }

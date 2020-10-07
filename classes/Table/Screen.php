@@ -329,8 +329,11 @@ final class Screen implements Registrable {
 		foreach ( $this->list_screen->get_columns() as $column ) {
 			/* @var Settings\Column\Width $setting */
 			$setting = $column->get_setting( 'width' );
-			$width = $setting->get_display_width();
-			$result[ $column->get_name() ] = $width ?: 'auto';
+
+			$result[ $column->get_name() ] = [
+				'width'      => $setting->get_width(),
+				'width_unit' => $setting->get_width_unit(),
+			];
 		}
 
 		return $result;
