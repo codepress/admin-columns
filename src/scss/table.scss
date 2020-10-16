@@ -1,8 +1,9 @@
 //@import 'webfont';
 //@import 'iconfont';
-@import '_colors';
-@import '_webfont';
-@import '_modals';
+@import 'colors';
+@import 'webfont';
+@import 'modals';
+@import 'animations';
 @import 'components/tooltip';
 
 /* =Status icons
@@ -557,7 +558,7 @@ table.ac-table-items {
 	margin-bottom: -6px;
 }
 
-.ac-image {
+.ac-image:not(body) {
 	display: inline-block;
 	margin-right: 2px;
 	margin-bottom: 6px;
