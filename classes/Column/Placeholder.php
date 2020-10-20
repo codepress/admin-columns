@@ -35,17 +35,14 @@ class Placeholder extends Column {
 		ob_start();
 		?>
 
+		<p><strong><?php printf( __( "The %s column is only available if you have installed the add-on.", 'codepress-admin-columns' ), $this->get_label() ); ?></strong></p>
 		<p>
-			<strong><?php printf( __( "The %s column is only available in Admin Columns Pro - Business or Developer.", 'codepress-admin-columns' ), $this->get_label() ); ?></strong>
+			<?php printf( __( "Download & install the %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $this->get_label(), ac_get_admin_url( 'addons' ) ); ?>
 		</p>
-
-		<p>
-			<?php printf( __( "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>.", 'codepress-admin-columns' ), $this->get_label(), ac_get_admin_url( 'addons' ) ); ?>
-		</p>
-
 		<p>
 			<?php printf( __( "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview.", 'codepress-admin-columns' ), $this->get_label(), $this->get_label() ); ?>
 		</p>
+
 		<a target="_blank" href="<?php echo $this->integration->get_link(); ?>" class="button button-primary">
 			<?php _e( 'Find out more', 'codepress-admin-columns' ); ?>
 		</a>
