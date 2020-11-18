@@ -9,6 +9,10 @@ import {EventConstants} from "../constants";
 
 declare const AdminColumns: AdminColumnsInterface;
 
+export type TableEventPayload = {
+    table: Table
+}
+
 export default class Table {
 
     private el: HTMLTableElement

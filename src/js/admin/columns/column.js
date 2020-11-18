@@ -171,8 +171,8 @@ class Column {
 				action : 'ac-columns',
 				id : 'select',
 				type : type,
-				data: AC.Form.serialize(),
-				current_original_columns : AC.Form.originalColumns(),
+				data: AdminColumns.Form.serialize(),
+				current_original_columns : AdminColumns.Form.originalColumns(),
 				original_columns : AC.original_columns,
 				_ajax_nonce : AC._ajax_nonce,
 			},
@@ -204,7 +204,7 @@ class Column {
 			action : 'ac-columns',
 			id : 'refresh',
 			_ajax_nonce : AC._ajax_nonce,
-			data: AC.Form.serialize(),
+			data: AdminColumns.Form.serialize(),
 			column_name : this.name,
 			original_columns : AC.original_columns
 		};
