@@ -40,7 +40,7 @@
         "normalize": true
     },
     "dependencies": {
-        "axios": "^0.19.2",
+        "axios": "^0.21.0",
         "babel-loader": "^8.1.0",
         "jquery": "^3.5.1",
         "js-cookie": "^2.2.1",

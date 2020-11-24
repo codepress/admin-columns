@@ -5,15 +5,16 @@ import {AddonDownload} from "./modules/addon-download";
 import Modals from "./modules/modals";
 import Nanobus = require("nanobus");
 
-export type ACTable = Table;
-
-export interface AdminColumnsInterface {
+export interface AdminColumnsBaseInterface {
     events: Nanobus,
+    Modals: Modals
+}
+
+export interface AdminColumnsInterface extends AdminColumnsBaseInterface {
     Form?: any,
     Table?: Table,
     ScreenOptionsColumns?: ScreenOptionsColumns
     Tooltips?: Tooltips
-    Modals: Modals
     Addons?: { [key: string]: AddonDownload }
 }
 
@@ -29,7 +30,13 @@ export interface LocalizedScriptACTable extends LocalizedScriptAC {
     ajax_nonce: string,
     list_screen_link: string,
     meta_type: string,
-    column_widths: { [key: string]: widthType }
+    column_widths: { [key: string]: WidthType }
 }
 
-export interface WidthType  { width: number, width_unit: string }
+
+export interface LocalizedScriptColumnSettings extends LocalizedScriptAC {
+    uninitialized_list_screens: Array<string>
+    i18n: any
+}
+
+export type WidthType = { width: number, width_unit: string }

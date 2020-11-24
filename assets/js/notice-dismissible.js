@@ -81,28 +81,107 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./js/notice-dismissible.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./js/notice-dismissible.ts");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./js/notice-dismissible.js":
+/***/ "./js/helpers/events.ts":
+/*!******************************!*\
+  !*** ./js/helpers/events.ts ***!
+  \******************************/
+/*! exports provided: addEventListenerLive */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListenerLive", function() { return addEventListenerLive; });
+var addEventListenerLive = function (eventType, elementQuerySelector, cb, rootElement) {
+  if (rootElement === void 0) {
+    rootElement = null;
+  }
+
+  var element = rootElement ? rootElement : document;
+  element.addEventListener(eventType, function (event) {
+    var qs = document.querySelectorAll(elementQuerySelector);
+
+    if (qs) {
+      var element = event.target,
+          index = -1;
+
+      while (element && (index = Array.prototype.indexOf.call(qs, element)) === -1) {
+        element = element.parentElement;
+      }
+
+      if (index > -1) {
+        cb.call(element, event);
+      }
+    }
+  });
+};
+
+/***/ }),
+
+/***/ "./js/notice-dismissible.ts":
 /*!**********************************!*\
-  !*** ./js/notice-dismissible.js ***!
+  !*** ./js/notice-dismissible.ts ***!
   \**********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./plugin/dismissible-notice */ "./js/plugin/dismissible-notice.ts");
+
+document.addEventListener('DOMContentLoaded', function () {
+  alert('Test');
+  Object(_plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_0__["initDismissibleNotices"])();
+});
+
+/***/ }),
+
+/***/ "./js/plugin/dismissible-notice.ts":
+/*!*****************************************!*\
+  !*** ./js/plugin/dismissible-notice.ts ***!
+  \*****************************************/
+/*! exports provided: dismissNotice, initDismissibleNotices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dismissNotice", function() { return dismissNotice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initDismissibleNotices", function() { return initDismissibleNotices; });
+/* harmony import */ var _helpers_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/events */ "./js/helpers/events.ts");
+
+
+var $ = __webpack_require__(/*! jquery */ "jquery");
+
+var dismissNotice = function (selector) {
+  document.querySelectorAll(selector).forEach(function (el) {
+    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', '.ac-notice__dismiss, [data-dismiss], .notice-dismiss', function (e) {
+      e.preventDefault();
+      var data = el.dataset.dismissibleCallback ? JSON.parse(el.dataset.dismissibleCallback) : null;
+
+      if (data) {
+        $.post(ajaxurl, data);
+      }
+    }, el);
+  });
+};
+var initDismissibleNotices = function () {
+  dismissNotice('.ac-notice');
+};
+
+/***/ }),
+
+/***/ "jquery":
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-jQuery(function ($) {
-  $('.ac-notice').on('click', '.ac-notice__dismiss, [data-dismiss], .notice-dismiss', function (e) {
-    e.preventDefault();
-    var dismissible_callback = $(this).closest('.ac-notice').data('dismissible-callback');
-
-    if (dismissible_callback) {
-      $.post(ajaxurl, dismissible_callback);
-    }
-  });
-});
+module.exports = jQuery;
 
 /***/ })
 

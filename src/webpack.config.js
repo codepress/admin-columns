@@ -3,10 +3,10 @@ let path = require( 'path' );
 let config = {
 	entry : {
 		'admin-general' : './js/admin-general.ts',
-		'admin-page-columns' : ['./js/admin-page-columns.js'],
+		'admin-page-columns' : ['./js/admin-page-columns.ts'],
 		'admin-page-addons' : './js/admin-page-addons.ts',
 		'message-review' : './js/message-review.ts',
-		'notice-dismissible' : './js/notice-dismissible.js',
+		'notice-dismissible' : './js/notice-dismissible.ts',
 		'table' : './js/table.ts'
 	},
 	output : {

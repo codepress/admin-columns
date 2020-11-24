@@ -99,6 +99,12 @@ __webpack_require__.r(__webpack_exports__);
 var EventConstants = {
   TABLE: {
     READY: 'Table.Ready'
+  },
+  SETTINGS: {
+    FORM: {
+      LOADED: 'Settings.Form.Loaded',
+      READY: 'Settings.Form.Ready'
+    }
   }
 };
 

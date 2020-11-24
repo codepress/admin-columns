@@ -86,814 +86,423 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./js/admin-page-columns.js":
+/***/ "./js/admin-page-columns.ts":
 /*!**********************************!*\
-  !*** ./js/admin-page-columns.js ***!
+  !*** ./js/admin-page-columns.ts ***!
   \**********************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _admin_columns_listscreen_initialize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin/columns/listscreen-initialize */ "./js/admin/columns/listscreen-initialize.js");
-/* harmony import */ var _admin_columns_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.js");
-/* harmony import */ var _admin_columns_initiator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admin/columns/initiator */ "./js/admin/columns/initiator.js");
-/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/modal */ "./js/modules/modal.ts");
-/* harmony import */ var _admin_columns_menu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./admin/columns/menu */ "./js/admin/columns/menu.js");
-/* harmony import */ var _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./admin/columns/feedback */ "./js/admin/columns/feedback.js");
-/* harmony import */ var _modules_tooltips__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.ts");
-/* harmony import */ var _admin_columns_events_toggle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./admin/columns/events/toggle */ "./js/admin/columns/events/toggle.js");
-/* harmony import */ var _admin_columns_events_remove__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./admin/columns/events/remove */ "./js/admin/columns/events/remove.js");
-/* harmony import */ var _admin_columns_events_clone__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./admin/columns/events/clone */ "./js/admin/columns/events/clone.js");
-/* harmony import */ var _admin_columns_events_refresh__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./admin/columns/events/refresh */ "./js/admin/columns/events/refresh.js");
-/* harmony import */ var _admin_columns_events_type_selector__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./admin/columns/events/type-selector */ "./js/admin/columns/events/type-selector.js");
-/* harmony import */ var _admin_columns_events_indicator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./admin/columns/events/indicator */ "./js/admin/columns/events/indicator.js");
-/* harmony import */ var _admin_columns_events_label__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./admin/columns/events/label */ "./js/admin/columns/events/label.js");
-/* harmony import */ var _admin_columns_events_addons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./admin/columns/events/addons */ "./js/admin/columns/events/addons.js");
-/* harmony import */ var _admin_columns_settings_image_size__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./admin/columns/settings/image-size */ "./js/admin/columns/settings/image-size.js");
-/* harmony import */ var _admin_columns_settings_sub_setting_toggle__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./admin/columns/settings/sub-setting-toggle */ "./js/admin/columns/settings/sub-setting-toggle.js");
-/* harmony import */ var _admin_columns_settings_date__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./admin/columns/settings/date */ "./js/admin/columns/settings/date.js");
-/* harmony import */ var _admin_columns_settings_pro__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./admin/columns/settings/pro */ "./js/admin/columns/settings/pro.js");
-/* harmony import */ var _admin_columns_settings_width__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./admin/columns/settings/width */ "./js/admin/columns/settings/width.js");
-/* harmony import */ var _admin_columns_settings_label__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./admin/columns/settings/label */ "./js/admin/columns/settings/label.js");
-/* harmony import */ var _admin_columns_settings_custom_field__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./admin/columns/settings/custom-field */ "./js/admin/columns/settings/custom-field.js");
-/* harmony import */ var _admin_columns_settings_number_format__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./admin/columns/settings/number-format */ "./js/admin/columns/settings/number-format.js");
-/* harmony import */ var _admin_columns_settings_type__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./admin/columns/settings/type */ "./js/admin/columns/settings/type.js");
-/* harmony import */ var _modules_screen_option__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./modules/screen-option */ "./js/modules/screen-option.ts");
-
-/**
- * AC variables. Defined in DOM.
- * @param AdminColumns {Object}
- * @param AC {Object}
- * @param AC.list_screen {String}
- * @param AC.layout {String}
- * @param AC.i81n {String}
- */
+/* harmony import */ var _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
+/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
 
 
 
+Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__["initAdminColumnsGlobalBootstrap"])();
+document.addEventListener('DOMContentLoaded', function () {
+  var formElement = document.querySelector('#listscreen_settings');
 
-
-
-
-/** Events */
-
-
-
-
-
-
-
-
-
-/** Settings */
-
-
-
-
-
-
-
-
-
-
-
-
-__webpack_require__(/*! admin-columns-js/polyfill/customevent */ "./node_modules/admin-columns-js/polyfill/customevent.js");
-
-__webpack_require__(/*! admin-columns-js/polyfill/nodelist */ "./node_modules/admin-columns-js/polyfill/nodelist.js");
-
-AC.Column = new _admin_columns_initiator__WEBPACK_IMPORTED_MODULE_2__["default"](); // Todo remove from
-
-jQuery(document).on('AC_Form_Loaded', function () {
-  AdminColumns.Column = AC.Column;
-  AdminColumns.Tooltips = new _modules_tooltips__WEBPACK_IMPORTED_MODULE_6__["default"]();
-  /** Register Events **/
-
-  AdminColumns.Column.registerEvent('toggle', _admin_columns_events_toggle__WEBPACK_IMPORTED_MODULE_7__["default"]).registerEvent('remove', _admin_columns_events_remove__WEBPACK_IMPORTED_MODULE_8__["default"]).registerEvent('clone', _admin_columns_events_clone__WEBPACK_IMPORTED_MODULE_9__["default"]).registerEvent('refresh', _admin_columns_events_refresh__WEBPACK_IMPORTED_MODULE_10__["default"]).registerEvent('type_selector', _admin_columns_events_type_selector__WEBPACK_IMPORTED_MODULE_11__["default"]).registerEvent('indicator', _admin_columns_events_indicator__WEBPACK_IMPORTED_MODULE_12__["default"]).registerEvent('label', _admin_columns_events_label__WEBPACK_IMPORTED_MODULE_13__["EventLabel"]).registerEvent('label_setting', _admin_columns_events_label__WEBPACK_IMPORTED_MODULE_13__["EventLabelSettings"]).registerEvent('addons', _admin_columns_events_addons__WEBPACK_IMPORTED_MODULE_14__["default"])
-  /** Register Settings **/
-  .registerSetting('date', _admin_columns_settings_date__WEBPACK_IMPORTED_MODULE_17__["default"]).registerSetting('image_size', _admin_columns_settings_image_size__WEBPACK_IMPORTED_MODULE_15__["default"]).registerSetting('pro', _admin_columns_settings_pro__WEBPACK_IMPORTED_MODULE_18__["default"]).registerSetting('sub_setting_toggle', _admin_columns_settings_sub_setting_toggle__WEBPACK_IMPORTED_MODULE_16__["default"]).registerSetting('width', _admin_columns_settings_width__WEBPACK_IMPORTED_MODULE_19__["default"]).registerSetting('customfield', _admin_columns_settings_custom_field__WEBPACK_IMPORTED_MODULE_21__["default"]).registerSetting('number_format', _admin_columns_settings_number_format__WEBPACK_IMPORTED_MODULE_22__["default"]).registerSetting('type_selector', _admin_columns_settings_type__WEBPACK_IMPORTED_MODULE_23__["default"]).registerSetting('label', _admin_columns_settings_label__WEBPACK_IMPORTED_MODULE_20__["default"]);
+  if (formElement) {
+    AdminColumns.Form = new _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__["Form"](formElement, AdminColumns.events);
+  }
 });
-jQuery(document).ready(function () {
-  AC.Form = new _admin_columns_form__WEBPACK_IMPORTED_MODULE_1__["default"]('#listscreen_settings');
-  AdminColumns.Form = AC.Form;
-  AdminColumns.Modals.register(new _modules_modal__WEBPACK_IMPORTED_MODULE_3__["default"](document.querySelector('#ac-modal-pro')), 'pro');
-  new _admin_columns_menu__WEBPACK_IMPORTED_MODULE_4__["default"]().init();
-  new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_5__["default"]('.sidebox#direct-feedback');
-  ['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach(function (hook) {
-    jQuery(document).on(hook, function () {
-      return ac_pointers();
-    });
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, function (form) {
+  document.querySelector('.add_column').addEventListener('click', function (e) {
+    form.createNewColumn();
   });
-  jQuery(document).on('AC_Column_Created', function (e, column) {
-    setTimeout(function () {
-      ac_pointers();
-    }, 100);
-  });
-
-  if (AC.hasOwnProperty('uninitialized_list_screens') && Object.keys(AC.uninitialized_list_screens).length > 0) {
-    new _admin_columns_listscreen_initialize__WEBPACK_IMPORTED_MODULE_0__["default"](AC.uninitialized_list_screens);
-  }
-
-  AdminColumns.ScreenOptions = {};
-  document.querySelectorAll('[data-ac-screen-option]').forEach(function (el) {
-    var name = el.dataset.acScreenOption;
-    AdminColumns.ScreenOptions[name] = new _modules_screen_option__WEBPACK_IMPORTED_MODULE_24__["default"](el, name);
-  });
-  var showColumnId = document.querySelector('[data-ac-screen-option="show_column_id"] input');
-
-  if (showColumnId) {
-    showColumnId.addEventListener('change', function () {
-      showColumnId.checked ? document.querySelector('.ac-boxes').classList.add('show-column-id') : document.querySelector('.ac-boxes').classList.remove('show-column-id');
-    });
-  }
-
-  var showColumnType = document.querySelector('[data-ac-screen-option="show_column_type"] input');
-
-  if (showColumnType) {
-    showColumnType.addEventListener('change', function () {
-      showColumnType.checked ? document.querySelector('.ac-boxes').classList.add('show-column-type') : document.querySelector('.ac-boxes').classList.remove('show-column-type');
-    });
-  }
-
-  var showListScreenId = document.querySelector('[data-ac-screen-option="show_list_screen_id"] input');
-
-  if (showListScreenId) {
-    showListScreenId.addEventListener('change', function () {
-      showListScreenId.checked ? document.querySelector('.ac-admin').classList.add('show-list-screen-id') : document.querySelector('.ac-admin').classList.remove('show-list-screen-id');
-    });
-  }
-
-  var showListScreenType = document.querySelector('[data-ac-screen-option="show_list_screen_type"] input');
-
-  if (showListScreenType) {
-    showListScreenType.addEventListener('change', function () {
-      showListScreenType.checked ? document.querySelector('.ac-admin').classList.add('show-list-screen-type') : document.querySelector('.ac-admin').classList.remove('show-list-screen-type');
-    });
-  }
+});
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.READY, function (form) {
+  console.log(form.getOriginalColumns());
+  var data = new FormData(form.getElement());
+  console.log(new URLSearchParams(new FormData(form.getElement()).toString()));
 });
 
 /***/ }),
 
-/***/ "./js/admin/columns/column.js":
-/*!************************************!*\
-  !*** ./js/admin/columns/column.js ***!
-  \************************************/
-/*! exports provided: default */
+/***/ "./js/admin/columns/ajax.ts":
+/*!**********************************!*\
+  !*** ./js/admin/columns/ajax.ts ***!
+  \**********************************/
+/*! exports provided: submitColumnSettings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "submitColumnSettings", function() { return submitColumnSettings; });
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var submitColumnSettings = function (data) {
+  var formData = mapDataToFormData({
+    action: 'ac-columns',
+    id: 'save',
+    _ajax_nonce: AC._ajax_nonce,
+    data: data
+  });
+  return axios.post(ajaxurl, formData);
+};
+
+var mapDataToFormData = function (data, formData) {
+  if (formData === void 0) {
+    formData = null;
+  }
+
+  if (!formData) {
+    formData = new FormData();
+  }
+
+  Object.keys(data).forEach(function (key) {
+    formData.append(key, data[key]);
+  });
+  return formData;
+};
+
+/***/ }),
+
+/***/ "./js/admin/columns/column.ts":
+/*!************************************!*\
+  !*** ./js/admin/columns/column.ts ***!
+  \************************************/
+/*! exports provided: ColumnSettings */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ColumnSettings", function() { return ColumnSettings; });
 var STATES = {
   CLOSED: 'closed',
   OPEN: 'open'
 };
+var ColumnSettings;
 
-var Column =
-/** @class */
-function () {
-  function Column($el) {
-    this.$el = $el;
-    this.el = $el[0];
-    this.settings = [];
-    this.state = STATES.CLOSED;
-    this._type = this.$el.data('type');
-  }
-
-  Object.defineProperty(Column.prototype, "name", {
-    get: function () {
-      return this.$el.data('column-name');
-    },
-    set: function (name) {
-      this.$el.data('column-name', name);
-    },
-    enumerable: false,
-    configurable: true
-  });
-  Object.defineProperty(Column.prototype, "type", {
-    get: function () {
-      return this._type;
-    },
-    set: function (type) {
-      this.$el.data('type', type);
-    },
-    enumerable: false,
-    configurable: true
-  });
-
-  Column.prototype.isOriginal = function () {
-    return 1 === this.$el.data('original');
-  };
-
-  Column.prototype.isDisabled = function () {
-    return this.$el.hasClass('disabled');
-  };
-
-  Column.prototype.disable = function () {
-    this.$el.addClass('disabled');
-    return this;
-  };
-
-  Column.prototype.enable = function () {
-    this.$el.removeClass('disabled');
-    return this;
-  };
-
-  Column.prototype.initNewInstance = function () {
-    var temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
-    var original_column_name = this.name;
-    this.$el.find('input, select, label').each(function (i, v) {
-      var $input = jQuery(v); // name attributes
-
-      if ($input.attr('name')) {
-        $input.attr('name', $input.attr('name').replace("columns[" + original_column_name + "]", "columns[" + temp_column_name + "]"));
-      } // id attributes
-
-
-      if ($input.attr('id')) {
-        $input.attr('id', $input.attr('id').replace("-" + original_column_name + "-", "-" + temp_column_name + "-"));
-      }
-    });
-    this.name = temp_column_name;
-    AC.incremental_column_name++;
-    return this;
-  };
-  /**
-   *
-   * @returns {Column}
-   */
-
-
-  Column.prototype.bindEvents = function () {
-    var column = this;
-    column.$el.data('column', column);
-    Object.keys(AC.Column.events).forEach(function (key) {
-      if (!column.isBound(key)) {
-        AC.Column.events[key](column);
-        column.bind(key);
-      }
-    });
-    this.bindSettings();
-    jQuery(document).trigger('AC_Column_InitSettings', [column]);
-    return this;
-  };
-
-  Column.prototype.bindSettings = function () {
-    var column = this;
-    Object.keys(AC.Column.settings).forEach(function (key) {
-      if (!column.isBound(key)) {
-        AC.Column.settings[key](column);
-        column.bind(key);
-      }
-    });
-  };
-  /**
-   *
-   * @param key
-   * @returns {bool}
-   */
-
-
-  Column.prototype.isBound = function (key) {
-    return this.$el.data(key);
-  };
-
-  Column.prototype.bind = function (key) {
-    this.$el.data(key, true);
-  };
-
-  Column.prototype.destroy = function () {
-    this.$el.remove();
-  };
-
-  Column.prototype.remove = function (duration) {
-    if (duration === void 0) {
-      duration = 350;
+(function (ColumnSettings) {
+  var Column =
+  /** @class */
+  function () {
+    function Column(element) {
+      this.element = element;
+      this.settings = [];
+      this.state = STATES.CLOSED;
+      this.name = element.dataset.columnName;
+      this.type = element.dataset.type;
+      this.original = element.dataset.original === '1';
+      this.disabled = element.classList.contains('disabled');
     }
 
-    var self = this;
-    this.$el.addClass('deleting').animate({
-      opacity: 0,
-      height: 0
-    }, duration, function () {
-      self.destroy();
-    });
-  };
-
-  Column.prototype.getState = function () {
-    return this.state;
-  };
-
-  Column.prototype.toggle = function (duration) {
-    if (duration === void 0) {
-      duration = 150;
-    }
-
-    if (this.getState() === STATES.OPEN) {
-      this.close(duration);
-    } else {
-      this.open(duration);
-    }
-  };
-
-  Column.prototype.close = function (duration) {
-    if (duration === void 0) {
-      duration = 0;
-    }
-
-    this.$el.removeClass('opened').find('.ac-column-body').slideUp(duration);
-    this.state = STATES.CLOSED;
-  };
-
-  Column.prototype.open = function (duration) {
-    if (duration === void 0) {
-      duration = 0;
-    }
-
-    this.$el.addClass('opened').find('.ac-column-body').slideDown(duration);
-    this.state = STATES.OPEN;
-  };
-
-  Column.prototype.showMessage = function (message) {
-    this.$el.find('.ac-column-setting--type .msg').html(message).show();
-  };
-
-  Column.prototype.switchToType = function (type) {
-    var self = this;
-    return jQuery.ajax({
-      url: ajaxurl,
-      method: 'post',
-      dataType: 'json',
-      data: {
-        action: 'ac-columns',
-        id: 'select',
-        type: type,
-        data: AC.Form.serialize(),
-        current_original_columns: AC.Form.originalColumns(),
-        original_columns: AC.original_columns,
-        _ajax_nonce: AC._ajax_nonce
-      },
-      success: function (response) {
-        if (true === response.success) {
-          var column = jQuery(response.data);
-          self.$el.replaceWith(column);
-          self.$el = column;
-          self.el = column[0];
-          self._type = type;
-          self.initNewInstance();
-          self.bindEvents();
-          self.open();
-          jQuery(document).trigger('AC_Column_Change', [self]);
-        } else {
-          self.showMessage(response.data.error);
-        }
-      }
-    });
-  };
-
-  Column.prototype.refresh = function () {
-    var self = this;
-    var data = this.$el.find(':input').serializeArray();
-    var request_data = {
-      action: 'ac-columns',
-      id: 'refresh',
-      _ajax_nonce: AC._ajax_nonce,
-      data: AC.Form.serialize(),
-      column_name: this.name,
-      original_columns: AC.original_columns
+    Column.prototype.getName = function () {
+      return this.name;
     };
-    jQuery.each(request_data, function (name, value) {
-      data.push({
-        name: name,
-        value: value
-      });
-    });
-    return jQuery.ajax({
-      type: 'post',
-      url: ajaxurl,
-      data: data,
-      success: function (response) {
-        if (true === response.success) {
-          var column = jQuery(response.data);
-          self.$el.replaceWith(column);
-          self.$el = column;
-          self.el = column[0];
-          self.bindEvents();
 
-          if (self.getState() === STATES.OPEN) {
-            self.open();
-          }
+    Column.prototype.getType = function () {
+      return this.type;
+    };
 
-          jQuery(document).trigger('AC_Column_Refresh', [self]);
+    Column.prototype.isOriginal = function () {
+      return this.original;
+    };
+
+    Column.prototype.getElement = function () {
+      return this.element;
+    };
+
+    Column.prototype.isDisabled = function () {
+      return this.disable();
+    };
+
+    Column.prototype.disable = function () {
+      this.element.classList.add('disabled');
+      return this;
+    };
+
+    Column.prototype.enable = function () {
+      this.element.classList.remove('disabled');
+      return this;
+    };
+
+    Column.prototype.initNewInstance = function () {
+      var temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
+      var original_column_name = this.name;
+      this.$el.find('input, select, label').each(function (i, v) {
+        var $input = jQuery(v); // name attributes
+
+        if ($input.attr('name')) {
+          $input.attr('name', $input.attr('name').replace("columns[" + original_column_name + "]", "columns[" + temp_column_name + "]"));
+        } // id attributes
+
+
+        if ($input.attr('id')) {
+          $input.attr('id', $input.attr('id').replace("-" + original_column_name + "-", "-" + temp_column_name + "-"));
         }
-      }
-    });
-  };
-  /**
-   * @returns {Column}
-   */
-
-
-  Column.prototype.create = function () {
-    this.initNewInstance();
-    this.bindEvents();
-    jQuery(document).trigger('AC_Column_Created', [this]);
-    return this;
-  };
-  /**
-   * @returns {Column}
-   */
-
-
-  Column.prototype.clone = function () {
-    var $clone = this.$el.clone();
-    $clone.data('column-name', this.$el.data('column-name'));
-    var clone = new Column($clone);
-    clone.initNewInstance();
-    clone.bindEvents();
-    return clone;
-  };
-
-  return Column;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Column);
-
-/***/ }),
-
-/***/ "./js/admin/columns/events/addons.js":
-/*!*******************************************!*\
-  !*** ./js/admin/columns/events/addons.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/*
- * Optional Radio Click events
- * TODO: Is not used anymore?
- */
-var addons = function (column) {
-  var $ = jQuery;
-  var $column = column.$el;
-  var inputs = $column.find('[data-trigger] label');
-  inputs.on('click', function () {
-    var id = $(this).closest('td.input').data('trigger');
-    var state = $('input', this).val(); // Toggle indicator icon
-
-    var label = $column.find('[data-indicator-id="' + id + '"]').removeClass('on');
-
-    if ('on' === state) {
-      label.addClass('on');
-    } // Toggle additional options
-
-
-    var additional = $column.find('[data-handle="' + id + '"]').addClass('hide');
-
-    if ('on' === state) {
-      additional.removeClass('hide');
-    }
-  }); // On load
-
-  $column.find('[data-trigger]').each(function () {
-    var trigger = $(this).data('trigger'); // Hide additional column settings
-
-    var additional = $column.find('[data-handle="' + trigger + '"]').addClass('hide');
-
-    if ('on' === $('input:checked', this).val()) {
-      additional.removeClass('hide');
-    }
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (addons);
-
-/***/ }),
-
-/***/ "./js/admin/columns/events/clone.js":
-/*!******************************************!*\
-  !*** ./js/admin/columns/events/clone.js ***!
-  \******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/*
-* Column: bind clone events
-*
-* @since 2.0
-*/
-var clone = function (column) {
-  column.$el.find('.clone-button').click(function (e) {
-    e.preventDefault();
-
-    if (column.isOriginal()) {
-      return;
-    }
-
-    AC.Form.cloneColumn(column.$el);
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (clone);
-
-/***/ }),
-
-/***/ "./js/admin/columns/events/indicator.js":
-/*!**********************************************!*\
-  !*** ./js/admin/columns/events/indicator.js ***!
-  \**********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var indicator = function (column) {
-  var $column = column.$el;
-  $column.find('.ac-column-header [data-indicator-toggle]').each(function () {
-    var $ = jQuery;
-    var $indicator = $(this);
-    var setting = $(this).data('setting');
-    var $setting = $column.find('.ac-column-setting[data-setting=' + setting + ']');
-    var $input = $setting.find('.col-input:first .ac-setting-input:first input[type=radio]');
-    $indicator.unbind('click').on('click', function (e) {
-      e.preventDefault();
-
-      if ($column.hasClass('disabled')) {
-        return;
-      }
-
-      $indicator.toggleClass('on');
-
-      if ($(this).hasClass('on')) {
-        $input.filter('[value=on]').prop('checked', true).trigger('click').trigger('change');
-      } else {
-        $input.filter('[value=off]').prop('checked', true).trigger('click').trigger('change');
-      }
-    });
-    $input.on('change', function () {
-      if ($column.hasClass('disabled')) {
-        return;
-      }
-
-      var value = $input.filter(':checked').val();
-
-      if ('on' === value) {
-        $indicator.addClass('on');
-      } else {
-        $indicator.removeClass('on');
-      }
-    });
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (indicator);
-
-/***/ }),
-
-/***/ "./js/admin/columns/events/label.js":
-/*!******************************************!*\
-  !*** ./js/admin/columns/events/label.js ***!
-  \******************************************/
-/*! exports provided: EventLabel, EventLabelSettings */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventLabel", function() { return EventLabel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventLabelSettings", function() { return EventLabelSettings; });
-var EventLabel = function (column) {
-  var $column = column.$el;
-  /**
-   * Populates the main Label with the selected label from the dropdown,
-   */
-
-  $column.find('select[data-label="update"]').change(function () {
-    var $label = $column.find('input.ac-setting-input_label');
-    var field_label = jQuery(this).find('option:selected').text(); // Set new label
-
-    $label.val(field_label);
-    $label.trigger('change');
-  });
-  /** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
-
-  setTimeout(function () {
-    var column_label = $column.find('.column_label .toggle');
-
-    if (jQuery.trim(column_label.html()) && column_label.width() < 1) {
-      column_label.html($column.find('.column_type .inner').html());
-    }
-  }, 50);
-};
-
-var EventLabelSettings = function (column) {
-  var $column = column.$el;
-  /** change label */
-
-  $column.find('.ac-column-setting--label input').bind('keyup change', function () {
-    var value = jQuery(this).val();
-    jQuery(this).closest('.ac-column').find('td.column_label .inner > a.toggle').html(value);
-  }).trigger('change');
-  /** tooltip */
-
-  $column.find('.ac-column-body .col-label .label').hover(function () {
-    jQuery(this).parents('.col-label').find('div.tooltip').show();
-  }, function () {
-    jQuery(this).parents('.col-label').find('div.tooltip').hide();
-  });
-};
-
-
-
-/***/ }),
-
-/***/ "./js/admin/columns/events/refresh.js":
-/*!********************************************!*\
-  !*** ./js/admin/columns/events/refresh.js ***!
-  \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var refresh = function (column) {
-  var $ = jQuery;
-  column.$el.find('[data-refresh="column"]').on('change', function () {
-    // Allow plugins to hook into this event
-    $(document).trigger('AC.column.prerefresh', column.$el);
-    column.$el.addClass('loading');
-    setTimeout(function () {
-      column.refresh().always(function () {
-        column.$el.removeClass('loading');
-      }).fail(function () {
-        column.showMessage(AC.i18n.errors.loading_column);
       });
-    }, 200);
-  });
-};
+      this.name = temp_column_name;
+      AC.incremental_column_name++;
+      return this;
+    };
+    /**
+     *
+     * @returns {Column}
+     */
 
-/* harmony default export */ __webpack_exports__["default"] = (refresh);
+
+    Column.prototype.bindEvents = function () {
+      var column = this;
+      column.$el.data('column', column);
+      Object.keys(AC.Column.events).forEach(function (key) {
+        if (!column.isBound(key)) {
+          AC.Column.events[key](column);
+          column.bind(key);
+        }
+      });
+      this.bindSettings();
+      jQuery(document).trigger('AC_Column_InitSettings', [column]);
+      return this;
+    };
+
+    Column.prototype.bindSettings = function () {
+      var column = this;
+      Object.keys(AC.Column.settings).forEach(function (key) {
+        if (!column.isBound(key)) {
+          AC.Column.settings[key](column);
+          column.bind(key);
+        }
+      });
+    };
+    /**
+     *
+     * @param key
+     * @returns {bool}
+     */
+
+
+    Column.prototype.isBound = function (key) {
+      return this.$el.data(key);
+    };
+
+    Column.prototype.bind = function (key) {
+      this.$el.data(key, true);
+    };
+
+    Column.prototype.destroy = function () {
+      this.element.remove();
+    };
+
+    Column.prototype.remove = function (duration) {
+      if (duration === void 0) {
+        duration = 350;
+      }
+
+      var self = this;
+      this.$el.addClass('deleting').animate({
+        opacity: 0,
+        height: 0
+      }, duration, function () {
+        self.destroy();
+      });
+    };
+
+    Column.prototype.getState = function () {
+      return this.state;
+    };
+
+    Column.prototype.toggle = function (duration) {
+      if (duration === void 0) {
+        duration = 150;
+      }
+
+      this.getState() === STATES.OPEN ? this.close(duration) : this.open(duration);
+    };
+
+    Column.prototype.close = function (duration) {
+      if (duration === void 0) {
+        duration = 0;
+      }
+
+      this.$el.removeClass('opened').find('.ac-column-body').slideUp(duration);
+      this.state = STATES.CLOSED;
+    };
+
+    Column.prototype.open = function (duration) {
+      if (duration === void 0) {
+        duration = 0;
+      }
+
+      this.$el.addClass('opened').find('.ac-column-body').slideDown(duration);
+      this.state = STATES.OPEN;
+    };
+
+    Column.prototype.showMessage = function (message) {
+      this.$el.find('.ac-column-setting--type .msg').html(message).show();
+    };
+
+    Column.prototype.switchToType = function (type) {
+      //Todo
+      return; //let self = this;
+
+      /*return jQuery.ajax({
+          url: ajaxurl,
+          method: 'post',
+          dataType: 'json',
+          data: {
+              action: 'ac-columns',
+              id: 'select',
+              type: type,
+              data: AdminColumns.Form.serialize(),
+              current_original_columns: AdminColumns.Form.originalColumns(),
+              original_columns: AC.original_columns,
+              _ajax_nonce: AC._ajax_nonce,
+          },
+          success: function (response) {
+              if (true === response.success) {
+                  let column = jQuery(response.data);
+                   self.$el.replaceWith(column);
+                  self.$el = column;
+                  self.el = column[0];
+                  self._type = type;
+                  self.initNewInstance();
+                  self.bindEvents();
+                  self.open();
+                   jQuery(document).trigger('AC_Column_Change', [self]);
+              } else {
+                  self.showMessage(response.data.error)
+              }
+          }
+      });*/
+    };
+
+    Column.prototype.refresh = function () {
+      //todo
+      return;
+      /* let self = this;
+       let data = this.$el.find(':input').serializeArray();
+       let request_data = {
+           action: 'ac-columns',
+           id: 'refresh',
+           _ajax_nonce: AC._ajax_nonce,
+           data: AdminColumns.Form.serialize(),
+           column_name: this.name,
+           original_columns: AC.original_columns
+       };
+         jQuery.each(request_data, function (name, value) {
+           data.push({
+               name: name,
+               value: value
+           });
+       });
+         return jQuery.ajax({
+           type: 'post',
+           url: ajaxurl,
+           data: data,
+             success: function (response) {
+               if (true === response.success) {
+                   let column = jQuery(response.data);
+                     self.$el.replaceWith(column);
+                   self.$el = column;
+                   self.el = column[0];
+                   self.bindEvents();
+                     if (self.getState() === STATES.OPEN) {
+                       self.open();
+                   }
+                     jQuery(document).trigger('AC_Column_Refresh', [self]);
+               }
+           }
+         });*/
+    };
+    /**
+     * @returns {Column}
+     */
+
+
+    Column.prototype.create = function () {// TODO move out ckass
+
+      /*this.initNewInstance();
+      this.bindEvents();
+       jQuery(document).trigger('AC_Column_Created', [this]);
+      return this;*/
+    };
+
+    Column.prototype.clone = function () {// TODO move out class
+
+      /*let $clone = this.$el.clone();
+      $clone.data('column-name', this.$el.data('column-name'));
+       let clone = new Column($clone);
+       clone.initNewInstance();
+      clone.bindEvents();
+       return clone;*/
+    };
+
+    return Column;
+  }();
+
+  ColumnSettings.Column = Column;
+})(ColumnSettings || (ColumnSettings = {}));
 
 /***/ }),
 
-/***/ "./js/admin/columns/events/remove.js":
-/*!*******************************************!*\
-  !*** ./js/admin/columns/events/remove.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/*
- * Column: bind remove events
- *
- * @since 2.0
- */
-var remove = function (column) {
-  column.$el.find('.remove-button').click(function (e) {
-    e.preventDefault();
-    AC.Form.removeColumn(column.name);
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (remove);
-
-/***/ }),
-
-/***/ "./js/admin/columns/events/toggle.js":
-/*!*******************************************!*\
-  !*** ./js/admin/columns/events/toggle.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/*
- * Column: bind toggle events
- *
- * For performance we bind all other events after the click event.
- *
- * @since 2.0
- */
-var toggle = function (column) {
-  column.$el.find('[data-toggle="column"]').click(function (e) {
-    e.preventDefault();
-    column.toggle();
-  }).css('cursor', 'pointer');
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (toggle);
-
-/***/ }),
-
-/***/ "./js/admin/columns/events/type-selector.js":
-/*!**************************************************!*\
-  !*** ./js/admin/columns/events/type-selector.js ***!
-  \**************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var selector = function (column) {
-  var $ = jQuery;
-  column.$el.find('select.ac-setting-input_type').change(function () {
-    column.$el.addClass('loading');
-    column.switchToType($(this).val()).always(function () {
-      column.$el.removeClass('loading');
-      AC.Form.reindexColumns();
-    }).fail(function () {
-      column.showMessage(AC.i18n.errors.loading_column);
-    });
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (selector);
-
-/***/ }),
-
-/***/ "./js/admin/columns/feedback.js":
-/*!**************************************!*\
-  !*** ./js/admin/columns/feedback.js ***!
-  \**************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var Feedback =
-/** @class */
-function () {
-  function Feedback($el) {
-    this.$el = jQuery($el);
-    this.init();
-  }
-
-  Feedback.prototype.init = function () {
-    var $box = this.$el;
-    $box.find('#feedback-choice a.no').click(function (e) {
-      e.preventDefault();
-      $box.find('#feedback-choice').slideUp();
-      $box.find('#feedback-support').slideDown();
-    });
-    $box.find('#feedback-choice a.yes').click(function (e) {
-      e.preventDefault();
-      $box.find('#feedback-choice').slideUp();
-      $box.find('#feedback-rate').slideDown();
-    });
-  };
-
-  ;
-  return Feedback;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Feedback);
-
-/***/ }),
-
-/***/ "./js/admin/columns/form.js":
+/***/ "./js/admin/columns/form.ts":
 /*!**********************************!*\
-  !*** ./js/admin/columns/form.js ***!
+  !*** ./js/admin/columns/form.ts ***!
   \**********************************/
-/*! exports provided: default */
+/*! exports provided: Form */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./column */ "./js/admin/columns/column.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Form", function() { return Form; });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants */ "./js/constants.ts");
+/* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./column */ "./js/admin/columns/column.ts");
+/* harmony import */ var _ajax__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ajax */ "./js/admin/columns/ajax.ts");
+
+
 
 
 var Form =
 /** @class */
 function () {
-  function Form(el) {
-    this.form = el;
-    this.$form = jQuery(el);
-    this.$column_container = this.$form.find('.ac-columns');
-    this.$container = jQuery('#cpac .ac-admin');
-    this.columns = {};
-    this._validators = [];
-    jQuery(document).trigger('AC_Form_Loaded');
+  function Form(element, events) {
+    this.form = element;
+    this.events = events;
+    this.columns = []; //this.$container = jQuery('#cpac .ac-admin');
+
+    this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.LOADED, this); // TODO See usage
+    // jQuery(document).trigger('AC_Form_Loaded');
+
     this.init();
   }
 
-  Form.prototype.init = function () {
-    this.initColumns();
-    this.bindFormEvents();
-    this.bindOrdering();
+  Form.prototype.getElement = function () {
+    return this.form;
+  };
 
-    if (this.$form.hasClass('-disabled')) {
+  Form.prototype.placeColumn = function (column) {
+    this.getElement().querySelector('.ac-columns').append(column.getElement());
+  };
+
+  Form.prototype.createNewColumn = function () {
+    var column = createColumnFromTemplate();
+    this.columns.push(column);
+    this.placeColumn(column);
+  };
+
+  Form.prototype.isDisabled = function () {
+    return this.form.classList.contains('-disabled');
+  };
+
+  Form.prototype.init = function () {
+    this.initColumns(); //this.bindFormEvents();
+    //this.bindOrdering();
+
+    if (this.isDisabled()) {
       this.disableFields();
     }
 
-    jQuery(document).trigger('AC_Form_Ready', this);
+    this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.READY, this); //jQuery(document).trigger('AC_Form_Ready', this);
   };
 
   Form.prototype.bindOrdering = function () {
+    return;
+
     if (this.$form.hasClass('ui-sortable')) {
       this.$form.sortable('refresh');
     } else {
@@ -904,36 +513,19 @@ function () {
     }
   };
 
-  Form.prototype.originalColumns = function () {
-    var self = this;
-    var columns = [];
-    Object.keys(self.columns).forEach(function (key) {
-      var column = self.columns[key];
-
-      if (column.isOriginal()) {
-        columns.push(column.type);
-      }
+  Form.prototype.getOriginalColumns = function () {
+    return this.columns.filter(function (column) {
+      return column.isOriginal();
     });
-    return columns;
-  };
+  }; // Todo remove
+
 
   Form.prototype.validateForm = function () {
-    var _this = this;
-
-    var valid = true;
-
-    this._validators.forEach(function (validator) {
-      valid = validator.call(_this, _this);
-    });
-
-    return valid;
-  };
-
-  Form.prototype.addValidator = function (validator) {
-    this._validators.push(validator);
+    return true;
   };
 
   Form.prototype.bindFormEvents = function () {
+    return;
     var self = this;
     var $buttons = jQuery('.sidebox a.submit, .column-footer a.submit');
     $buttons.on('click', function () {
@@ -959,21 +551,17 @@ function () {
         jQuery(col).find('input, select').prop('disabled', true);
       });
     }
+    /*jQuery('a[data-clear-columns]').on('click', function () {
+        self.resetColumns();
+    });*/
 
-    jQuery('a[data-clear-columns]').on('click', function () {
-      self.resetColumns();
-    });
   };
 
   Form.prototype.initColumns = function () {
-    var self = this;
-    self.columns = {};
-    this.$form.find('.ac-column').each(function () {
-      var $el = jQuery(this);
-      var column = new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($el);
-      column.bindEvents();
-      $el.data('column', column);
-      self.columns[column.name] = column;
+    var _this = this;
+
+    this.getElement().querySelectorAll('.ac-column').forEach(function (element) {
+      _this.columns.push(new _column__WEBPACK_IMPORTED_MODULE_1__["ColumnSettings"].Column(element));
     });
   };
 
@@ -1017,6 +605,12 @@ function () {
   Form.prototype.enableFields = function () {};
 
   Form.prototype.submitForm = function () {
+    var data = new URLSearchParams(new FormData(this.getElement()));
+    Object(_ajax__WEBPACK_IMPORTED_MODULE_2__["submitColumnSettings"])(data.toString()).then(function (response) {
+      response.data.success;
+    });
+    return;
+    return;
     var self = this;
     var xhr = jQuery.post(ajaxurl, {
       action: 'ac-columns',
@@ -1054,13 +648,7 @@ function () {
   };
 
   Form.prototype.cloneColumn = function ($el) {
-    return this._addColumnToForm(new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($el).clone(), $el.hasClass('opened'), $el);
-  };
-
-  Form.prototype.addColumn = function () {
-    var $clone = jQuery('#add-new-column-template').find('.ac-column').clone();
-    var column = new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($clone).create();
-    return this._addColumnToForm(column);
+    return this._addColumnToForm(new Column($el).clone(), $el.hasClass('opened'), $el);
   };
 
   Form.prototype.removeColumn = function (name) {
@@ -1068,22 +656,6 @@ function () {
       this.columns[name].remove();
       delete this.columns[name];
     }
-  };
-
-  Form.prototype.getListScreen = function () {
-    return this.$form.find('input[name="list_screen"]').val();
-  };
-
-  Form.prototype.getListScreenID = function () {
-    return this.$form.find('input[name="list_screen_id"]').val();
-  };
-
-  Form.prototype.getTitle = function () {
-    return this.$form.find('input[name="title"]').val();
-  };
-
-  Form.prototype.getColumnSettings = function () {
-    return this.$form.find('[name^="columns["]').serialize();
   };
 
   Form.prototype._addColumnToForm = function (column, open, $after) {
@@ -1122,7 +694,12 @@ function () {
   return Form;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (Form);
+
+
+var createColumnFromTemplate = function () {
+  var columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true);
+  return new _column__WEBPACK_IMPORTED_MODULE_1__["ColumnSettings"].Column(columnElement);
+};
 
 var isInViewport = function ($el) {
   var elementTop = $el.offset().top;
@@ -1134,962 +711,55 @@ var isInViewport = function ($el) {
 
 /***/ }),
 
-/***/ "./js/admin/columns/initiator.js":
-/*!***************************************!*\
-  !*** ./js/admin/columns/initiator.js ***!
-  \***************************************/
-/*! exports provided: default */
+/***/ "./js/constants.ts":
+/*!*************************!*\
+  !*** ./js/constants.ts ***!
+  \*************************/
+/*! exports provided: EventConstants */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var Initiator =
-/** @class */
-function () {
-  function Initiator() {
-    this.events = {};
-    this.settings = {};
-    this.incremental_name = 0;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventConstants", function() { return EventConstants; });
+var EventConstants = {
+  TABLE: {
+    READY: 'Table.Ready'
+  },
+  SETTINGS: {
+    FORM: {
+      LOADED: 'Settings.Form.Loaded',
+      READY: 'Settings.Form.Ready'
+    }
   }
-
-  Initiator.prototype.registerSetting = function (k, setting) {
-    var key = 's_' + k;
-
-    if (this.settings[key]) {
-      console.error('Setting key already exists: ' + k);
-    }
-
-    this.settings[key] = setting;
-    return this;
-  };
-
-  Initiator.prototype.registerEvent = function (k, event) {
-    var key = 'e_' + k;
-
-    if (this.settings[key]) {
-      console.error('Event key already exists: ' + key);
-    }
-
-    this.events[key] = event;
-    return this;
-  };
-
-  Initiator.prototype.getNewIncementalName = function () {
-    var oldName = this.incremental_name;
-    this.incremental_name++;
-    return oldName;
-  };
-
-  return Initiator;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Initiator);
+};
 
 /***/ }),
 
-/***/ "./js/admin/columns/listscreen-initialize.js":
-/*!***************************************************!*\
-  !*** ./js/admin/columns/listscreen-initialize.js ***!
-  \***************************************************/
-/*! exports provided: default */
+/***/ "./js/helpers/admin-columns.ts":
+/*!*************************************!*\
+  !*** ./js/helpers/admin-columns.ts ***!
+  \*************************************/
+/*! exports provided: initAdminColumnsGlobalBootstrap */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAdminColumnsGlobalBootstrap", function() { return initAdminColumnsGlobalBootstrap; });
+/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/modals */ "./js/modules/modals.ts");
+
+
 var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 
-var ListscreenInitialize =
-/** @class */
-function () {
-  function ListscreenInitialize(list_screens) {
-    this.list_screens = list_screens;
-    this.processed = [];
-    this.errors = [];
-    this.success = [];
-    this.events = nanobus();
+var initAdminColumnsGlobalBootstrap = function () {
+  if (window.AdminColumns) {
+    return window.AdminColumns;
   }
 
-  ListscreenInitialize.prototype.doAjaxCall = function (list_screen) {
-    return jQuery.ajax({
-      url: list_screen.screen_link,
-      method: 'get'
-    });
-  };
-
-  ListscreenInitialize.prototype.run = function () {
-    var _this = this;
-
-    Object.keys(this.list_screens).forEach(function (key) {
-      _this.processListScreen(_this.list_screens[key]);
-    });
-  };
-
-  ListscreenInitialize.prototype.onFinish = function () {
-    if (this.success.length === Object.keys(this.list_screens).length) {
-      this.events.emit('success');
-    }
-
-    if (this.errors.length > 0) {
-      this.events.emit('error');
-    }
-  };
-
-  ListscreenInitialize.prototype.checkFinish = function () {
-    if (this.processed.length === Object.keys(this.list_screens).length) {
-      this.onFinish();
-    }
-  };
-
-  ListscreenInitialize.prototype.processListScreen = function (list_screen) {
-    var _this = this;
-
-    return this.doAjaxCall(list_screen).done(function (r) {
-      if (r === 'ac_success') {
-        _this.success.push(list_screen);
-      } else {
-        _this.errors.push(list_screen);
-      }
-    }).fail(function () {
-      _this.errors.push(list_screen);
-    }).always(function () {
-      _this.processed.push(list_screen);
-
-      _this.checkFinish();
-    });
-  };
-
-  return ListscreenInitialize;
-}();
-
-var ListScreenInitializeController =
-/** @class */
-function () {
-  function ListScreenInitializeController(list_screens) {
-    this.list_screens = list_screens;
-    this.run();
-  }
-
-  ListScreenInitializeController.prototype.run = function () {
-    var _a;
-
-    if (Object.keys(this.list_screens).length > 0) {
-      // Only load main screen first if unitialized, otherwise do the rest in background
-      if (this.list_screens.hasOwnProperty(AC.list_screen)) {
-        var main_initializer = new ListscreenInitialize((_a = {}, _a[AC.list_screen] = this.list_screens[AC.list_screen], _a));
-        main_initializer.run();
-        main_initializer.events.on('error', function () {
-          document.querySelectorAll('.ac-loading-msg-wrapper').forEach(function (el) {
-            return el.remove();
-          });
-          document.querySelectorAll('.menu').forEach(function (el) {
-            return el.classList.remove('hidden');
-          });
-        });
-        main_initializer.events.on('success', function () {
-          window.location = location.href + "&t=" + Date.now();
-        });
-      } else {
-        var background_initializer = new ListscreenInitialize(this.list_screens);
-        background_initializer.run();
-      }
-    }
-  };
-
-  return ListScreenInitializeController;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (ListScreenInitializeController);
-
-/***/ }),
-
-/***/ "./js/admin/columns/menu.js":
-/*!**********************************!*\
-  !*** ./js/admin/columns/menu.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var Menu =
-/** @class */
-function () {
-  function Menu() {}
-
-  Menu.prototype.init = function () {
-    var $ = jQuery;
-    $('#ac_list_screen').on('change', function () {
-      $('.view-link').hide();
-      $(this).parents('form').submit();
-      $(this).prop('disabled', true).next('.spinner').css('display', 'inline-block');
-    });
-  };
-
-  return Menu;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Menu);
-
-/***/ }),
-
-/***/ "./js/admin/columns/settings/custom-field.js":
-/*!***************************************************!*\
-  !*** ./js/admin/columns/settings/custom-field.js ***!
-  \***************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
-
-var SingleCustomFieldRequestManager =
-/** @class */
-function () {
-  function SingleCustomFieldRequestManager(meta_type, post_type) {
-    this.meta_type = meta_type;
-    this.post_type = post_type;
-    this.loading = false;
-    this.data = false;
-    this.events = nanobus();
-  }
-
-  SingleCustomFieldRequestManager.prototype.retrieveOptions = function () {
-    this.loading = true;
-    return jQuery.ajax({
-      url: ajaxurl,
-      dataType: 'json',
-      method: 'post',
-      data: {
-        action: 'ac_custom_field_options',
-        post_type: this.post_type,
-        meta_type: this.meta_type,
-        _ajax_nonce: AC._ajax_nonce
-      }
-    });
-  };
-
-  SingleCustomFieldRequestManager.prototype.getOptions = function () {
-    var _this = this;
-
-    var defer = jQuery.Deferred();
-
-    if (this.data) {
-      defer.resolve(this.data);
-    } else if (this.loading) {
-      this.events.on('loaded', function () {
-        defer.resolve(_this.data);
-      });
-    } else {
-      this.retrieveOptions().done(function (response) {
-        if (!response.success) {
-          defer.reject();
-        }
-
-        _this.data = response.data.results;
-
-        _this.events.emit('loaded');
-
-        defer.resolve(_this.data);
-      });
-    }
-
-    return defer.promise();
-  };
-
-  return SingleCustomFieldRequestManager;
-}();
-
-var loadSingleRequestManager = function (meta_type, post_type) {
-  var key = "custom_field_" + meta_type + "_" + post_type;
-
-  if (typeof AC_Requests === 'undefined') {
-    global.AC_Requests = {};
-  }
-
-  if (!AC_Requests.hasOwnProperty(key)) {
-    AC_Requests[key] = new SingleCustomFieldRequestManager(meta_type, post_type);
-  }
-
-  return AC_Requests[key];
+  window.AdminColumns = window.AdminColumns || {};
+  AdminColumns.events = nanobus();
+  AdminColumns.Modals = new _modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  return AdminColumns;
 };
-
-var CustomField =
-/** @class */
-function () {
-  function CustomField(column) {
-    this.column = column;
-    this.setting = column.$el[0].querySelector('.ac-column-setting--custom_field');
-
-    if (!this.setting || !this.setting.querySelector('.custom_field')) {
-      return;
-    }
-
-    this.bindEvents();
-  }
-
-  CustomField.prototype.bindEvents = function () {
-    var input = this.setting.querySelector('.custom_field');
-    var request = loadSingleRequestManager(input.dataset.type, input.dataset.post_type);
-    var editingAvailable = this.column.el.querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0; // Ensure you won't get any duplicates on clone
-
-    input.querySelectorAll('optgroup').forEach(function (el) {
-      el.remove();
-    });
-    input.removeAttribute('data-select2-id');
-    this.setting.querySelectorAll('.select2').forEach(function (el) {
-      el.remove();
-    });
-    request.getOptions().done(function (data) {
-      jQuery(input).ac_select2({
-        theme: 'acs2',
-        width: '100%',
-        tags: editingAvailable,
-        dropdownCssClass: '-customfields',
-        data: data
-      });
-    });
-  };
-
-  return CustomField;
-}();
-
-var customfield = function (column) {
-  column.settings.customfield = new CustomField(column);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (customfield);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
-/***/ "./js/admin/columns/settings/date.js":
-/*!*******************************************!*\
-  !*** ./js/admin/columns/settings/date.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var date = function (column) {
-  var $ = jQuery;
-  var $column = column.$el;
-  var $setting = $column.find('.ac-column-setting--date');
-  $setting.each(function () {
-    var $container = $(this); // Custom input
-
-    var $radio_custom = $container.find('input.custom');
-    var $input_custom = $container.find('.ac-setting-input-date__custom');
-    var $input_value = $container.find('.ac-setting-input-date__value');
-    var $example_custom = $container.find('.ac-setting-input-date__example');
-    var $selected = $container.find('input[type=radio]:checked');
-    var $help_msg = $container.find('.help-msg'); // Click Event
-
-    $container.find('input[type=radio]').on('change', function () {
-      var $input = $(this);
-      var $input_container = $input.closest('label');
-      var date_format = $input_container.find('code').text();
-      var description = $input_container.find('.ac-setting-input-date__more').html();
-
-      if (date_format) {
-        $input_custom.val(date_format).trigger('change');
-      }
-
-      if ($input.hasClass('diff')) {
-        $input_custom.val('');
-        $example_custom.text('');
-      }
-
-      $input_custom.prop('disabled', true); // Custom input selected
-
-      if ($input.hasClass('custom')) {
-        $input.val($input_custom.val());
-        $input_custom.prop('disabled', false);
-        $help_msg.show();
-      } // Show more description
-
-
-      $help_msg.hide();
-
-      if (description) {
-        $help_msg.html(description).show();
-      }
-
-      $input_value.val($input.val());
-    }); // Custom input
-
-    $input_custom.on('change', function () {
-      $example_custom.html('<span class="spinner is-active"></span>');
-      $radio_custom.val($input_custom.val());
-      var $custom_value = $(this).val();
-
-      if (!$custom_value) {
-        $example_custom.text('');
-        return;
-      }
-
-      $.ajax({
-        url: ajaxurl,
-        method: 'post',
-        data: {
-          action: 'date_format',
-          date: $custom_value
-        }
-      }).done(function (date) {
-        $example_custom.text(date);
-      });
-      $input_value.val($custom_value);
-    }); // Update date example box
-
-    $selected.trigger('change'); // Select custom input as a default
-
-    if (0 === $selected.length) {
-      $radio_custom.trigger('click');
-    }
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (date);
-
-/***/ }),
-
-/***/ "./js/admin/columns/settings/image-size.js":
-/*!*************************************************!*\
-  !*** ./js/admin/columns/settings/image-size.js ***!
-  \*************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var Image =
-/** @class */
-function () {
-  function Image(column) {
-    this.column = column;
-    this.setting = column.$el[0].querySelector('.ac-column-setting--image');
-
-    if (!this.setting) {
-      return;
-    }
-
-    this.field = this.setting.querySelector('.ac-setting-input select');
-    this.initState();
-    this.bindEvents();
-  }
-
-  Image.prototype.getValue = function () {
-    return this.field.value;
-  };
-
-  Image.prototype.bindEvents = function () {
-    var self = this;
-    this.field.addEventListener('change', function (e) {
-      self.initState();
-    });
-  };
-
-  Image.prototype.initState = function () {
-    if ('cpac-custom' === this.getValue()) {
-      this.showSubsettings();
-    } else {
-      this.hideSubsettings();
-    }
-  };
-
-  Image.prototype.hideSubsettings = function () {
-    var subsetting = this.setting.querySelectorAll('.ac-column-setting');
-
-    for (var i = 0; i < subsetting.length; ++i) {
-      subsetting[i].style.display = 'none';
-    }
-  };
-
-  Image.prototype.showSubsettings = function () {
-    var subsetting = this.setting.querySelectorAll('.ac-column-setting');
-
-    for (var i = 0; i < subsetting.length; ++i) {
-      subsetting[i].style.display = 'table';
-    }
-  };
-
-  Image.prototype.setValue = function (value) {
-    this.field.value = value;
-    this.trigger(this.field, 'change');
-    return this;
-  };
-
-  Image.prototype.setWidth = function (width) {
-    var field = this.setting.querySelector('.ac-column-setting [name*="image_size_w"]');
-    field.value = width;
-    this.trigger(field, 'change');
-    return this;
-  };
-
-  Image.prototype.setHeight = function (height) {
-    var field = this.setting.querySelector('.ac-column-setting [name*="image_size_h"]');
-    field.value = height;
-    this.trigger(field, 'change');
-    return this;
-  };
-
-  Image.prototype.setSize = function (width, height) {
-    this.setWidth(width);
-    this.setHeight(height);
-    return this;
-  };
-
-  Image.prototype.trigger = function (el, event) {
-    el.dispatchEvent(new Event(event));
-    return this;
-  };
-
-  return Image;
-}();
-
-var image = function (column) {
-  column.settings.image = new Image(column);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (image);
-
-/***/ }),
-
-/***/ "./js/admin/columns/settings/label.js":
-/*!********************************************!*\
-  !*** ./js/admin/columns/settings/label.js ***!
-  \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../modules/modal */ "./js/modules/modal.ts");
-
-
-var Label =
-/** @class */
-function () {
-  function Label(column) {
-    this.column = column;
-    this.setting = column.el.querySelector('.ac-column-setting--label');
-    this.iconpicker = this.setting.querySelector('.-iconpicker');
-
-    if (!this.iconpicker) {
-      return;
-    }
-
-    this._dashicon = false;
-    this.modal = AdminColumns.Modals.register(new _modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"](this.setting.querySelector('.-iconpicker')));
-    this.field = this.setting.querySelector('.ac-setting-input_label');
-    this.initValue();
-    this.bindEvents();
-  }
-
-  Label.prototype.initValue = function () {
-    var self = this;
-    var html = document.createRange().createContextualFragment(this.getValue());
-    var dashicon = html.querySelector('.dashicons');
-
-    if (dashicon) {
-      var classList = dashicon.classList;
-      classList.forEach(function (cls) {
-        if (cls.indexOf('dashicons-') !== -1) {
-          var selector = '.' + cls;
-          var icon = self.iconpicker.querySelector(selector);
-
-          if (icon) {
-            icon.parentElement.classList.add('active');
-            self.setIconSelection(icon.parentElement.dataset.dashicon);
-          }
-        }
-      });
-    } else {
-      self.setIconSelection(false);
-    }
-  };
-
-  Label.prototype.bindEvents = function () {
-    var self = this;
-    this.setting.querySelector('.ac-setting-label-icon').addEventListener('click', function (e) {
-      e.preventDefault();
-      self.modal.open();
-    });
-    this.setting.querySelector('[data-action="submit"]').addEventListener('click', function (e) {
-      e.preventDefault();
-
-      if (self.getIconSelection()) {
-        self.setDashicon(self.getIconSelection());
-      }
-
-      self.modal.close();
-    });
-    var icons = this.iconpicker.querySelectorAll('.ac-ipicker__icon');
-    icons.forEach(function (icon) {
-      icon.addEventListener('click', function (e) {
-        e.preventDefault();
-        var dashicon = this.dataset.dashicon;
-
-        if (dashicon) {
-          self.setIconSelection(dashicon);
-        }
-
-        var icons = self.setting.querySelectorAll('.ac-ipicker__icon');
-        icons.forEach(function (icon) {
-          icon.classList.remove('active');
-        });
-        icon.classList.add('active');
-      });
-    });
-  };
-
-  Label.prototype.getValue = function () {
-    return this.field.value;
-  };
-
-  Label.prototype.setValue = function (value) {
-    this.field.value = value;
-    var event = new Event('change');
-    this.field.dispatchEvent(event);
-  };
-
-  Label.prototype.setIconSelection = function (dashicon) {
-    var selection = this.setting.querySelector('.ac-ipicker__selection');
-    this._dashicon = dashicon;
-    selection.innerHTML = "<span class=\"dashicons dashicons-" + dashicon + "\"></span>";
-
-    if (!dashicon) {
-      selection.style.visibility = 'hidden';
-    } else {
-      selection.style.visibility = 'visible';
-    }
-  };
-
-  Label.prototype.getIconSelection = function () {
-    return this._dashicon;
-  };
-
-  Label.prototype.setDashicon = function (dashicon) {
-    this.setValue("<span class=\"dashicons dashicons-" + dashicon + "\"></span>");
-  };
-
-  return Label;
-}();
-
-var label = function (column) {
-  column.settings.label = new Label(column);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (label);
-
-/***/ }),
-
-/***/ "./js/admin/columns/settings/number-format.js":
-/*!****************************************************!*\
-  !*** ./js/admin/columns/settings/number-format.js ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var NumberFormat =
-/** @class */
-function () {
-  function NumberFormat(column) {
-    this.column = column;
-    this.setting = column.$el[0].querySelector('.ac-column-setting--number_format');
-
-    if (!this.setting) {
-      return;
-    }
-
-    this.bindEvents();
-  }
-
-  NumberFormat.prototype.bindEvents = function () {
-    var _this = this;
-
-    this.refreshPreview();
-    this.setting.querySelectorAll('input').forEach(function (el) {
-      el.addEventListener('change', function (e) {
-        _this.refreshPreview();
-      });
-    });
-  };
-
-  NumberFormat.prototype.refreshPreview = function () {
-    var _this = this;
-
-    this.getExampleRequest().done(function (example) {
-      var preview = _this.setting.querySelector('[data-preview]');
-
-      if (preview) {
-        preview.innerText = example;
-      }
-    });
-  };
-
-  NumberFormat.prototype.getExampleRequest = function () {
-    var decimals = this.setting.querySelector('.ac-setting-input_number_decimals');
-    var decimal_point = this.setting.querySelector('.ac-setting-input_number_decimal_point');
-    var thousands_point = this.setting.querySelector('.ac-setting-input_number_thousands_separator');
-    return jQuery.ajax({
-      url: ajaxurl,
-      method: 'post',
-      data: {
-        action: 'ac_number_format',
-        number: 7500,
-        decimals: decimals ? decimals.value : '',
-        decimal_point: decimal_point ? decimal_point.value : '',
-        thousands_point: thousands_point ? thousands_point.value : ''
-      }
-    });
-  };
-
-  return NumberFormat;
-}();
-
-var numberformat = function (column) {
-  column.settings.number_format = new NumberFormat(column);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (numberformat);
-
-/***/ }),
-
-/***/ "./js/admin/columns/settings/pro.js":
-/*!******************************************!*\
-  !*** ./js/admin/columns/settings/pro.js ***!
-  \******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var pro = function (column) {
-  var $column = column.$el;
-  var $setting = $column.find('.ac-column-setting--pro');
-  $setting.each(function () {
-    var $container = jQuery(this);
-    $container.find('input').on('click', function (e) {
-      e.preventDefault();
-      $container.find('[data-ac-open-modal]').trigger('click');
-    });
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (pro);
-
-/***/ }),
-
-/***/ "./js/admin/columns/settings/sub-setting-toggle.js":
-/*!*********************************************************!*\
-  !*** ./js/admin/columns/settings/sub-setting-toggle.js ***!
-  \*********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var subsetting = function (column) {
-  var $ = jQuery;
-  var settings = {
-    value_show: "on",
-    subfield: '.ac-column-setting'
-  };
-
-  function initState($setting, $input) {
-    var value = $input.filter(':checked').val();
-    var $subfields = $setting.find(settings.subfield);
-
-    if (settings.value_show === value) {
-      $subfields.show();
-    } else {
-      $subfields.hide();
-    }
-  }
-
-  var $column = column.$el;
-  var $settings = $column.find('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit');
-  $settings.each(function () {
-    var $setting = $(this);
-    var $input = $(this).find('.ac-setting-input input[type="radio"]');
-    initState($setting, $input);
-    $input.on('change', function () {
-      initState($setting, $input);
-    });
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (subsetting);
-
-/***/ }),
-
-/***/ "./js/admin/columns/settings/type.js":
-/*!*******************************************!*\
-  !*** ./js/admin/columns/settings/type.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../select2/excludegroup.matcher */ "./js/select2/excludegroup.matcher.js");
-
-
-var TypeSelector =
-/** @class */
-function () {
-  function TypeSelector(column) {
-    this.column = column;
-    this.setting = column.$el[0].querySelector('[data-setting="type"]');
-
-    if (!this.setting) {
-      return;
-    }
-
-    this.bindEvents();
-  }
-
-  TypeSelector.prototype.bindEvents = function () {
-    var select = this.setting.querySelector('.ac-setting-input_type');
-
-    if (select) {
-      select.removeAttribute('data-select2-id');
-      this.setting.querySelectorAll('.select2').forEach(function (el) {
-        el.remove();
-      });
-      jQuery(select).ac_select2({
-        theme: 'acs2',
-        width: '100%',
-        dropdownCssClass: '-type-selector',
-        escapeMarkup: function (text) {
-          return text;
-        },
-        templateResult: function (result) {
-          var text = result.text;
-
-          if (result.hasOwnProperty('id') && result.id.includes('placeholder-')) {
-            text += "<span style=\"background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;\">PRO</span>";
-          }
-
-          return text;
-        },
-        matcher: _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__["default"]
-      });
-    }
-  };
-
-  return TypeSelector;
-}();
-
-var type = function (column) {
-  column.settings.typeSelector = new TypeSelector(column);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (type);
-
-/***/ }),
-
-/***/ "./js/admin/columns/settings/width.js":
-/*!********************************************!*\
-  !*** ./js/admin/columns/settings/width.js ***!
-  \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// Settings fields: Width
-jQuery.fn.column_width_slider = function () {
-  var $ = jQuery;
-  var $column_width = $(this).find('.ac-setting-input-width');
-  var input_width = $column_width.find('.description input'),
-      input_unit = $column_width.find('.unit-select input'),
-      unit = input_unit.filter(':checked').val(),
-      width = input_width.val(),
-      slider = $column_width.find('.width-slider'),
-      indicator = $(this).find('.ac-column-header .ac-column-heading-setting--width'); // width
-
-  if ('%' === unit && width > 100) {
-    width = 100;
-  }
-
-  input_width.val(width);
-  slider.slider({
-    range: 'min',
-    min: 0,
-    max: '%' === unit ? 100 : 500,
-    value: width,
-    slide: function (event, ui) {
-      input_width.val(ui.value);
-      indicator.trigger('update');
-      input_width.trigger('validate');
-    }
-  });
-};
-
-var width = function (column) {
-  var $ = jQuery;
-  var $column = column.$el;
-  $column.find('.ac-column-setting--width').each(function () {
-    $column.column_width_slider(); // indicator
-
-    var $width_indicator = $column.find('.ac-column-header .ac-column-heading-setting--width');
-    $width_indicator.on('update', function () {
-      var _width = $column.find('.ac-setting-input-width .description input').val();
-
-      var _unit = $column.find('.ac-setting-input-width .description .unit').text();
-
-      if (_width > 0) {
-        jQuery(this).text(_width + _unit);
-      } else {
-        jQuery(this).text('');
-      }
-    }); // unit selector
-
-    var width_unit_select = $column.find('.ac-setting-input-width .unit-select label');
-    width_unit_select.on('click', function () {
-      $column.find('span.unit').text($(this).find('input').val());
-      $column.column_width_slider(); // re-init slider
-
-      $width_indicator.trigger('update'); // update indicator
-    }); // width_input
-
-    var width_input = $column.find('.ac-setting-input-width .description input').on('keyup', function () {
-      $column.column_width_slider(); // re-init slider
-
-      jQuery(this).trigger('validate'); // validate input
-
-      $width_indicator.trigger('update'); // update indicator
-    }) // width_input:validate
-    .on('validate', function () {
-      var _width = width_input.val();
-
-      var _new_width = $.trim(_width);
-
-      if (!jQuery.isNumeric(_new_width)) {
-        _new_width = _new_width.replace(/\D/g, '');
-      }
-
-      if (_new_width.length > 3) {
-        _new_width = _new_width.substring(0, 3);
-      }
-
-      if (_new_width <= 0) {
-        _new_width = '';
-      }
-
-      if (_new_width !== _width) {
-        width_input.val(_new_width);
-      }
-    });
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (width);
 
 /***/ }),
 
@@ -2185,236 +855,1918 @@ function () {
 
 /***/ }),
 
-/***/ "./js/modules/screen-option.ts":
-/*!*************************************!*\
-  !*** ./js/modules/screen-option.ts ***!
-  \*************************************/
+/***/ "./js/modules/modals.ts":
+/*!******************************!*\
+  !*** ./js/modules/modals.ts ***!
+  \******************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var $ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.ts");
 
-var ScreenOption =
+
+var Modals =
 /** @class */
 function () {
-  function ScreenOption(element, name) {
-    this.name = name;
-    this.element = element;
-    this.init();
+  function Modals() {
+    this.modals = {};
+    this.number = 0;
+    this.defaults = {
+      modal: _modal__WEBPACK_IMPORTED_MODULE_0__["default"]
+    };
+    this.initGlobalEvents();
   }
 
-  ScreenOption.prototype.getInput = function () {
-    return this.element.querySelector('input');
+  Modals.prototype.register = function (modal, key) {
+    if (key === void 0) {
+      key = '';
+    }
+
+    if (!key) {
+      key = 'm' + this.number;
+    }
+
+    this.modals[key] = modal;
+    this.number++;
+    return modal;
   };
 
-  ScreenOption.prototype.init = function () {
-    var _this = this;
+  Modals.prototype.get = function (key) {
+    return this.modals.hasOwnProperty(key) ? this.modals[key] : null;
+  };
 
-    var input = this.getInput();
-
-    if (input) {
-      input.addEventListener('change', function () {
-        _this.persist();
-      });
+  Modals.prototype.open = function (key) {
+    if (this.get(key)) {
+      this.get(key).open();
     }
   };
 
-  ScreenOption.prototype.persist = function () {
-    return $.ajax({
-      url: ajaxurl,
-      method: 'POST',
-      data: {
-        action: 'ac_admin_screen_options',
-        option_name: this.name,
-        option_value: this.getInput().checked ? 1 : 0,
-        _ajax_nonce: AC._ajax_nonce
+  Modals.prototype.close = function (key) {
+    if (this.get(key)) {
+      this.get(key).close();
+    }
+  };
+
+  Modals.prototype.closeAll = function () {
+    for (var key in this.modals) {
+      this.close(key);
+    }
+  };
+
+  Modals.prototype.initGlobalEvents = function () {
+    var _this = this;
+
+    document.addEventListener('click', function (e) {
+      var target = e.target;
+
+      if (target.dataset.acModal) {
+        e.preventDefault();
+
+        _this.open(target.dataset.acModal);
       }
     });
   };
 
-  return ScreenOption;
+  return Modals;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (ScreenOption);
+/* harmony default export */ __webpack_exports__["default"] = (Modals);
 
 /***/ }),
 
-/***/ "./js/modules/tooltips.ts":
-/*!********************************!*\
-  !*** ./js/modules/tooltips.ts ***!
-  \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/axios/index.js":
+/*!*************************************!*\
+  !*** ./node_modules/axios/index.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
-
-
-var Tooltips =
-/** @class */
-function () {
-  function Tooltips() {
-    this.init();
-  }
-
-  Tooltips.prototype.init = function () {
-    Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["initAcTooltips"])();
-  };
-
-  return Tooltips;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Tooltips);
+module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/axios/lib/axios.js");
 
 /***/ }),
 
-/***/ "./js/plugin/tooltip.ts":
-/*!******************************!*\
-  !*** ./js/plugin/tooltip.ts ***!
-  \******************************/
-/*! exports provided: initAcTooltips, Tooltip */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/axios/lib/adapters/xhr.js":
+/*!************************************************!*\
+  !*** ./node_modules/axios/lib/adapters/xhr.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcTooltips", function() { return initAcTooltips; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
-var initAcTooltips = function () {
-  document.querySelectorAll('[data-ac-tip]').forEach(function (element) {
-    new Tooltip(element);
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var settle = __webpack_require__(/*! ./../core/settle */ "./node_modules/axios/lib/core/settle.js");
+var cookies = __webpack_require__(/*! ./../helpers/cookies */ "./node_modules/axios/lib/helpers/cookies.js");
+var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
+var buildFullPath = __webpack_require__(/*! ../core/buildFullPath */ "./node_modules/axios/lib/core/buildFullPath.js");
+var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ "./node_modules/axios/lib/helpers/parseHeaders.js");
+var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ "./node_modules/axios/lib/helpers/isURLSameOrigin.js");
+var createError = __webpack_require__(/*! ../core/createError */ "./node_modules/axios/lib/core/createError.js");
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest();
+
+    // HTTP basic authentication
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    var fullPath = buildFullPath(config.baseURL, config.url);
+    request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
+
+    // Set the request timeout in MS
+    request.timeout = config.timeout;
+
+    // Listen for ready state
+    request.onreadystatechange = function handleLoad() {
+      if (!request || request.readyState !== 4) {
+        return;
+      }
+
+      // The request errored out and we didn't get a response, this will be
+      // handled by onerror instead
+      // With one exception: request that using file: protocol, most browsers
+      // will return status as 0 even though it's a successful request
+      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+        return;
+      }
+
+      // Prepare the response
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var response = {
+        data: responseData,
+        status: request.status,
+        statusText: request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+
+      settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle browser request cancellation (as opposed to a manual cancellation)
+    request.onabort = function handleAbort() {
+      if (!request) {
+        return;
+      }
+
+      reject(createError('Request aborted', config, 'ECONNABORTED', request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle low level network errors
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config, null, request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle timeout
+    request.ontimeout = function handleTimeout() {
+      var timeoutErrorMessage = 'timeout of ' + config.timeout + 'ms exceeded';
+      if (config.timeoutErrorMessage) {
+        timeoutErrorMessage = config.timeoutErrorMessage;
+      }
+      reject(createError(timeoutErrorMessage, config, 'ECONNABORTED',
+        request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+    if (utils.isStandardBrowserEnv()) {
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ?
+        cookies.read(config.xsrfCookieName) :
+        undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    }
+
+    // Add headers to the request
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    }
+
+    // Add withCredentials to request if needed
+    if (!utils.isUndefined(config.withCredentials)) {
+      request.withCredentials = !!config.withCredentials;
+    }
+
+    // Add responseType to request if needed
+    if (config.responseType) {
+      try {
+        request.responseType = config.responseType;
+      } catch (e) {
+        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
+        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
+        if (config.responseType !== 'json') {
+          throw e;
+        }
+      }
+    }
+
+    // Handle progress if needed
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    }
+
+    // Not all browsers support upload events
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel);
+        // Clean up request
+        request = null;
+      });
+    }
+
+    if (!requestData) {
+      requestData = null;
+    }
+
+    // Send the request
+    request.send(requestData);
   });
 };
 
-var Tooltip =
-/** @class */
-function () {
-  function Tooltip(el, content) {
-    if (content === void 0) {
-      content = '';
-    }
 
-    this.element = el;
-    this.content = content ? content : el.dataset.acTip;
-    this.tip = createTooltip(this.content);
-    this.initEvents();
+/***/ }),
+
+/***/ "./node_modules/axios/lib/axios.js":
+/*!*****************************************!*\
+  !*** ./node_modules/axios/lib/axios.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
+var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
+var Axios = __webpack_require__(/*! ./core/Axios */ "./node_modules/axios/lib/core/Axios.js");
+var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
+var defaults = __webpack_require__(/*! ./defaults */ "./node_modules/axios/lib/defaults.js");
+
+/**
+ * Create an instance of Axios
+ *
+ * @param {Object} defaultConfig The default config for the instance
+ * @return {Axios} A new instance of Axios
+ */
+function createInstance(defaultConfig) {
+  var context = new Axios(defaultConfig);
+  var instance = bind(Axios.prototype.request, context);
+
+  // Copy axios.prototype to instance
+  utils.extend(instance, Axios.prototype, context);
+
+  // Copy context to instance
+  utils.extend(instance, context);
+
+  return instance;
+}
+
+// Create the default instance to be exported
+var axios = createInstance(defaults);
+
+// Expose Axios class to allow class inheritance
+axios.Axios = Axios;
+
+// Factory for creating new instances
+axios.create = function create(instanceConfig) {
+  return createInstance(mergeConfig(axios.defaults, instanceConfig));
+};
+
+// Expose Cancel & CancelToken
+axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
+axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ "./node_modules/axios/lib/cancel/CancelToken.js");
+axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
+
+// Expose all/spread
+axios.all = function all(promises) {
+  return Promise.all(promises);
+};
+axios.spread = __webpack_require__(/*! ./helpers/spread */ "./node_modules/axios/lib/helpers/spread.js");
+
+module.exports = axios;
+
+// Allow use of default import syntax in TypeScript
+module.exports.default = axios;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/cancel/Cancel.js":
+/*!*************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/Cancel.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+function Cancel(message) {
+  this.message = message;
+}
+
+Cancel.prototype.toString = function toString() {
+  return 'Cancel' + (this.message ? ': ' + this.message : '');
+};
+
+Cancel.prototype.__CANCEL__ = true;
+
+module.exports = Cancel;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/cancel/CancelToken.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/CancelToken.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Cancel = __webpack_require__(/*! ./Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
+
+/**
+ * A `CancelToken` is an object that can be used to request cancellation of an operation.
+ *
+ * @class
+ * @param {Function} executor The executor function.
+ */
+function CancelToken(executor) {
+  if (typeof executor !== 'function') {
+    throw new TypeError('executor must be a function.');
   }
 
-  Tooltip.prototype.initEvents = function () {
-    var _this = this;
+  var resolvePromise;
+  this.promise = new Promise(function promiseExecutor(resolve) {
+    resolvePromise = resolve;
+  });
 
-    if (this.element.dataset.acTooltipInit === '1') {
+  var token = this;
+  executor(function cancel(message) {
+    if (token.reason) {
+      // Cancellation has already been requested
       return;
     }
 
-    this.element.dataset.acTooltipInit = '1';
-    document.body.append(this.tip);
-    this.element.addEventListener('mouseenter', function () {
-      var bodyOffset = document.body.getBoundingClientRect();
+    token.reason = new Cancel(message);
+    resolvePromise(token.reason);
+  });
+}
 
-      var viewportOffset = _this.element.getBoundingClientRect();
-
-      _this.tip.style.left = viewportOffset.left - bodyOffset.left + _this.element.offsetWidth / 2 + 'px';
-      _this.tip.style.top = viewportOffset.top - bodyOffset.top + _this.element.offsetHeight + 'px';
-
-      _this.tip.classList.add('hover');
-    });
-    this.element.addEventListener('mouseleave', function () {
-      _this.tip.classList.remove('hover');
-    });
-  };
-
-  return Tooltip;
-}();
-
-
-
-var createTooltip = function (content) {
-  var tip = document.createElement('div');
-  tip.classList.add('ac-tooltip');
-  tip.innerHTML = content;
-  return tip;
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+  if (this.reason) {
+    throw this.reason;
+  }
 };
+
+/**
+ * Returns an object that contains a new `CancelToken` and a function that, when called,
+ * cancels the `CancelToken`.
+ */
+CancelToken.source = function source() {
+  var cancel;
+  var token = new CancelToken(function executor(c) {
+    cancel = c;
+  });
+  return {
+    token: token,
+    cancel: cancel
+  };
+};
+
+module.exports = CancelToken;
+
 
 /***/ }),
 
-/***/ "./js/select2/excludegroup.matcher.js":
-/*!********************************************!*\
-  !*** ./js/select2/excludegroup.matcher.js ***!
-  \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/axios/lib/cancel/isCancel.js":
+/*!***************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/isCancel.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return excludeGroupsMather; });
-function excludeGroupsMather(params, data) {
-  if (jQuery.trim(params.term) === '') {
-    return data;
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/Axios.js":
+/*!**********************************************!*\
+  !*** ./node_modules/axios/lib/core/Axios.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var buildURL = __webpack_require__(/*! ../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
+var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ "./node_modules/axios/lib/core/InterceptorManager.js");
+var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ "./node_modules/axios/lib/core/dispatchRequest.js");
+var mergeConfig = __webpack_require__(/*! ./mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
+
+/**
+ * Create a new instance of Axios
+ *
+ * @param {Object} instanceConfig The default config for the instance
+ */
+function Axios(instanceConfig) {
+  this.defaults = instanceConfig;
+  this.interceptors = {
+    request: new InterceptorManager(),
+    response: new InterceptorManager()
+  };
+}
+
+/**
+ * Dispatch a request
+ *
+ * @param {Object} config The config specific for this request (merged with this.defaults)
+ */
+Axios.prototype.request = function request(config) {
+  /*eslint no-param-reassign:0*/
+  // Allow for axios('example/url'[, config]) a la fetch API
+  if (typeof config === 'string') {
+    config = arguments[1] || {};
+    config.url = arguments[0];
+  } else {
+    config = config || {};
   }
 
-  if (typeof data.children === 'undefined') {
-    return null;
+  config = mergeConfig(this.defaults, config);
+
+  // Set config.method
+  if (config.method) {
+    config.method = config.method.toLowerCase();
+  } else if (this.defaults.method) {
+    config.method = this.defaults.method.toLowerCase();
+  } else {
+    config.method = 'get';
   }
 
-  var filteredChildren = [];
-  jQuery.each(data.children, function (idx, child) {
-    if (child.text.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
-      filteredChildren.push(child);
+  // Hook up interceptors middleware
+  var chain = [dispatchRequest, undefined];
+  var promise = Promise.resolve(config);
+
+  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+    chain.push(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  while (chain.length) {
+    promise = promise.then(chain.shift(), chain.shift());
+  }
+
+  return promise;
+};
+
+Axios.prototype.getUri = function getUri(config) {
+  config = mergeConfig(this.defaults, config);
+  return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
+};
+
+// Provide aliases for supported request methods
+utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, config) {
+    return this.request(mergeConfig(config || {}, {
+      method: method,
+      url: url,
+      data: (config || {}).data
+    }));
+  };
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, data, config) {
+    return this.request(mergeConfig(config || {}, {
+      method: method,
+      url: url,
+      data: data
+    }));
+  };
+});
+
+module.exports = Axios;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/InterceptorManager.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/axios/lib/core/InterceptorManager.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+/**
+ * Add a new interceptor to the stack
+ *
+ * @param {Function} fulfilled The function to handle `then` for a `Promise`
+ * @param {Function} rejected The function to handle `reject` for a `Promise`
+ *
+ * @return {Number} An ID used to remove interceptor later
+ */
+InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected
+  });
+  return this.handlers.length - 1;
+};
+
+/**
+ * Remove an interceptor from the stack
+ *
+ * @param {Number} id The ID that was returned by `use`
+ */
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+/**
+ * Iterate over all the registered interceptors
+ *
+ * This method is particularly useful for skipping over any
+ * interceptors that may have become `null` calling `eject`.
+ *
+ * @param {Function} fn The function to call for each interceptor
+ */
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+module.exports = InterceptorManager;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/buildFullPath.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/core/buildFullPath.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var isAbsoluteURL = __webpack_require__(/*! ../helpers/isAbsoluteURL */ "./node_modules/axios/lib/helpers/isAbsoluteURL.js");
+var combineURLs = __webpack_require__(/*! ../helpers/combineURLs */ "./node_modules/axios/lib/helpers/combineURLs.js");
+
+/**
+ * Creates a new URL by combining the baseURL with the requestedURL,
+ * only when the requestedURL is not already an absolute URL.
+ * If the requestURL is absolute, this function returns the requestedURL untouched.
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} requestedURL Absolute or relative URL to combine
+ * @returns {string} The combined full path
+ */
+module.exports = function buildFullPath(baseURL, requestedURL) {
+  if (baseURL && !isAbsoluteURL(requestedURL)) {
+    return combineURLs(baseURL, requestedURL);
+  }
+  return requestedURL;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/createError.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/core/createError.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var enhanceError = __webpack_require__(/*! ./enhanceError */ "./node_modules/axios/lib/core/enhanceError.js");
+
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/dispatchRequest.js":
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/core/dispatchRequest.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var transformData = __webpack_require__(/*! ./transformData */ "./node_modules/axios/lib/core/transformData.js");
+var isCancel = __webpack_require__(/*! ../cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
+var defaults = __webpack_require__(/*! ../defaults */ "./node_modules/axios/lib/defaults.js");
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+function throwIfCancellationRequested(config) {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
+}
+
+/**
+ * Dispatch a request to the server using the configured adapter.
+ *
+ * @param {object} config The config that is to be used for the request
+ * @returns {Promise} The Promise to be fulfilled
+ */
+module.exports = function dispatchRequest(config) {
+  throwIfCancellationRequested(config);
+
+  // Ensure headers exist
+  config.headers = config.headers || {};
+
+  // Transform request data
+  config.data = transformData(
+    config.data,
+    config.headers,
+    config.transformRequest
+  );
+
+  // Flatten headers
+  config.headers = utils.merge(
+    config.headers.common || {},
+    config.headers[config.method] || {},
+    config.headers
+  );
+
+  utils.forEach(
+    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
+    function cleanHeaderConfig(method) {
+      delete config.headers[method];
+    }
+  );
+
+  var adapter = config.adapter || defaults.adapter;
+
+  return adapter(config).then(function onAdapterResolution(response) {
+    throwIfCancellationRequested(config);
+
+    // Transform response data
+    response.data = transformData(
+      response.data,
+      response.headers,
+      config.transformResponse
+    );
+
+    return response;
+  }, function onAdapterRejection(reason) {
+    if (!isCancel(reason)) {
+      throwIfCancellationRequested(config);
+
+      // Transform response data
+      if (reason && reason.response) {
+        reason.response.data = transformData(
+          reason.response.data,
+          reason.response.headers,
+          config.transformResponse
+        );
+      }
+    }
+
+    return Promise.reject(reason);
+  });
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/enhanceError.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/axios/lib/core/enhanceError.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Update an Error with the specified config, error code, and response.
+ *
+ * @param {Error} error The error to update.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The error.
+ */
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+  if (code) {
+    error.code = code;
+  }
+
+  error.request = request;
+  error.response = response;
+  error.isAxiosError = true;
+
+  error.toJSON = function toJSON() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code
+    };
+  };
+  return error;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/mergeConfig.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/core/mergeConfig.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ../utils */ "./node_modules/axios/lib/utils.js");
+
+/**
+ * Config-specific merge-function which creates a new config-object
+ * by merging two configuration objects together.
+ *
+ * @param {Object} config1
+ * @param {Object} config2
+ * @returns {Object} New object resulting from merging config2 to config1
+ */
+module.exports = function mergeConfig(config1, config2) {
+  // eslint-disable-next-line no-param-reassign
+  config2 = config2 || {};
+  var config = {};
+
+  var valueFromConfig2Keys = ['url', 'method', 'data'];
+  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy', 'params'];
+  var defaultToConfig2Keys = [
+    'baseURL', 'transformRequest', 'transformResponse', 'paramsSerializer',
+    'timeout', 'timeoutMessage', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
+    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'decompress',
+    'maxContentLength', 'maxBodyLength', 'maxRedirects', 'transport', 'httpAgent',
+    'httpsAgent', 'cancelToken', 'socketPath', 'responseEncoding'
+  ];
+  var directMergeKeys = ['validateStatus'];
+
+  function getMergedValue(target, source) {
+    if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
+      return utils.merge(target, source);
+    } else if (utils.isPlainObject(source)) {
+      return utils.merge({}, source);
+    } else if (utils.isArray(source)) {
+      return source.slice();
+    }
+    return source;
+  }
+
+  function mergeDeepProperties(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  }
+
+  utils.forEach(valueFromConfig2Keys, function valueFromConfig2(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
     }
   });
 
-  if (filteredChildren.length) {
-    var modifiedData = jQuery.extend({}, data, true);
-    modifiedData.children = filteredChildren;
-    return modifiedData;
+  utils.forEach(mergeDeepPropertiesKeys, mergeDeepProperties);
+
+  utils.forEach(defaultToConfig2Keys, function defaultToConfig2(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  });
+
+  utils.forEach(directMergeKeys, function merge(prop) {
+    if (prop in config2) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (prop in config1) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  });
+
+  var axiosKeys = valueFromConfig2Keys
+    .concat(mergeDeepPropertiesKeys)
+    .concat(defaultToConfig2Keys)
+    .concat(directMergeKeys);
+
+  var otherKeys = Object
+    .keys(config1)
+    .concat(Object.keys(config2))
+    .filter(function filterAxiosKeys(key) {
+      return axiosKeys.indexOf(key) === -1;
+    });
+
+  utils.forEach(otherKeys, mergeDeepProperties);
+
+  return config;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/settle.js":
+/*!***********************************************!*\
+  !*** ./node_modules/axios/lib/core/settle.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var createError = __webpack_require__(/*! ./createError */ "./node_modules/axios/lib/core/createError.js");
+
+/**
+ * Resolve or reject a Promise based on response status.
+ *
+ * @param {Function} resolve A function that resolves the promise.
+ * @param {Function} reject A function that rejects the promise.
+ * @param {object} response The response.
+ */
+module.exports = function settle(resolve, reject, response) {
+  var validateStatus = response.config.validateStatus;
+  if (!response.status || !validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(createError(
+      'Request failed with status code ' + response.status,
+      response.config,
+      null,
+      response.request,
+      response
+    ));
+  }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/transformData.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/core/transformData.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+/**
+ * Transform the data for a request or a response
+ *
+ * @param {Object|String} data The data to be transformed
+ * @param {Array} headers The headers for the request or response
+ * @param {Array|Function} fns A single function or Array of functions
+ * @returns {*} The resulting transformed data
+ */
+module.exports = function transformData(data, headers, fns) {
+  /*eslint no-param-reassign:0*/
+  utils.forEach(fns, function transform(fn) {
+    data = fn(data, headers);
+  });
+
+  return data;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/defaults.js":
+/*!********************************************!*\
+  !*** ./node_modules/axios/lib/defaults.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
+var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ "./node_modules/axios/lib/helpers/normalizeHeaderName.js");
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(/*! ./adapters/xhr */ "./node_modules/axios/lib/adapters/xhr.js");
+  } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(/*! ./adapters/http */ "./node_modules/axios/lib/adapters/xhr.js");
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Accept');
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+  maxBodyLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/bind.js":
+/*!************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/bind.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/buildURL.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/buildURL.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+function encode(val) {
+  return encodeURIComponent(val).
+    replace(/%3A/gi, ':').
+    replace(/%24/g, '$').
+    replace(/%2C/gi, ',').
+    replace(/%20/g, '+').
+    replace(/%5B/gi, '[').
+    replace(/%5D/gi, ']');
+}
+
+/**
+ * Build a URL by appending params to the end
+ *
+ * @param {string} url The base of the url (e.g., http://www.google.com)
+ * @param {object} [params] The params to be appended
+ * @returns {string} The formatted url
+ */
+module.exports = function buildURL(url, params, paramsSerializer) {
+  /*eslint no-param-reassign:0*/
+  if (!params) {
+    return url;
   }
 
-  return null;
-}
+  var serializedParams;
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params);
+  } else if (utils.isURLSearchParams(params)) {
+    serializedParams = params.toString();
+  } else {
+    var parts = [];
+
+    utils.forEach(params, function serialize(val, key) {
+      if (val === null || typeof val === 'undefined') {
+        return;
+      }
+
+      if (utils.isArray(val)) {
+        key = key + '[]';
+      } else {
+        val = [val];
+      }
+
+      utils.forEach(val, function parseValue(v) {
+        if (utils.isDate(v)) {
+          v = v.toISOString();
+        } else if (utils.isObject(v)) {
+          v = JSON.stringify(v);
+        }
+        parts.push(encode(key) + '=' + encode(v));
+      });
+    });
+
+    serializedParams = parts.join('&');
+  }
+
+  if (serializedParams) {
+    var hashmarkIndex = url.indexOf('#');
+    if (hashmarkIndex !== -1) {
+      url = url.slice(0, hashmarkIndex);
+    }
+
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+  }
+
+  return url;
+};
+
 
 /***/ }),
 
-/***/ "./node_modules/admin-columns-js/polyfill/customevent.js":
+/***/ "./node_modules/axios/lib/helpers/combineURLs.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/combineURLs.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Creates a new URL by combining the specified URLs
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} relativeURL The relative URL
+ * @returns {string} The combined URL
+ */
+module.exports = function combineURLs(baseURL, relativeURL) {
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    : baseURL;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/cookies.js":
+/*!***************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/cookies.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs support document.cookie
+    (function standardBrowserEnv() {
+      return {
+        write: function write(name, value, expires, path, domain, secure) {
+          var cookie = [];
+          cookie.push(name + '=' + encodeURIComponent(value));
+
+          if (utils.isNumber(expires)) {
+            cookie.push('expires=' + new Date(expires).toGMTString());
+          }
+
+          if (utils.isString(path)) {
+            cookie.push('path=' + path);
+          }
+
+          if (utils.isString(domain)) {
+            cookie.push('domain=' + domain);
+          }
+
+          if (secure === true) {
+            cookie.push('secure');
+          }
+
+          document.cookie = cookie.join('; ');
+        },
+
+        read: function read(name) {
+          var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+          return (match ? decodeURIComponent(match[3]) : null);
+        },
+
+        remove: function remove(name) {
+          this.write(name, '', Date.now() - 86400000);
+        }
+      };
+    })() :
+
+  // Non standard browser env (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return {
+        write: function write() {},
+        read: function read() { return null; },
+        remove: function remove() {}
+      };
+    })()
+);
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/isAbsoluteURL.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Determines whether the specified URL is absolute
+ *
+ * @param {string} url The URL to test
+ * @returns {boolean} True if the specified URL is absolute, otherwise false
+ */
+module.exports = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/isURLSameOrigin.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs have full support of the APIs needed to test
+  // whether the request URL is of the same origin as current location.
+    (function standardBrowserEnv() {
+      var msie = /(msie|trident)/i.test(navigator.userAgent);
+      var urlParsingNode = document.createElement('a');
+      var originURL;
+
+      /**
+    * Parse a URL to discover it's components
+    *
+    * @param {String} url The URL to be parsed
+    * @returns {Object}
+    */
+      function resolveURL(url) {
+        var href = url;
+
+        if (msie) {
+        // IE needs attribute set twice to normalize properties
+          urlParsingNode.setAttribute('href', href);
+          href = urlParsingNode.href;
+        }
+
+        urlParsingNode.setAttribute('href', href);
+
+        // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+        return {
+          href: urlParsingNode.href,
+          protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+          host: urlParsingNode.host,
+          search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+          hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+          hostname: urlParsingNode.hostname,
+          port: urlParsingNode.port,
+          pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+            urlParsingNode.pathname :
+            '/' + urlParsingNode.pathname
+        };
+      }
+
+      originURL = resolveURL(window.location.href);
+
+      /**
+    * Determine if a URL shares the same origin as the current location
+    *
+    * @param {String} requestURL The URL to test
+    * @returns {boolean} True if URL shares the same origin, otherwise false
+    */
+      return function isURLSameOrigin(requestURL) {
+        var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+        return (parsed.protocol === originURL.protocol &&
+            parsed.host === originURL.host);
+      };
+    })() :
+
+  // Non standard browser envs (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return function isURLSameOrigin() {
+        return true;
+      };
+    })()
+);
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/normalizeHeaderName.js":
 /*!***************************************************************!*\
-  !*** ./node_modules/admin-columns-js/polyfill/customevent.js ***!
+  !*** ./node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \***************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-/** CustomEvent Polyfill */
-(function() {
+"use strict";
 
-	if ( typeof window.CustomEvent === "function" ) {
-		return false;
-	}
 
-	function CustomEvent( event, params ) {
-		params = params || { bubbles : false, cancelable : false, detail : undefined };
-		let evt = document.createEvent( 'CustomEvent' );
-		evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-		return evt;
-	}
+var utils = __webpack_require__(/*! ../utils */ "./node_modules/axios/lib/utils.js");
 
-	CustomEvent.prototype = window.Event.prototype;
+module.exports = function normalizeHeaderName(headers, normalizedName) {
+  utils.forEach(headers, function processHeader(value, name) {
+    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+      headers[normalizedName] = value;
+      delete headers[name];
+    }
+  });
+};
 
-	window.CustomEvent = CustomEvent;
-})();
 
 /***/ }),
 
-/***/ "./node_modules/admin-columns-js/polyfill/nodelist.js":
-/*!************************************************************!*\
-  !*** ./node_modules/admin-columns-js/polyfill/nodelist.js ***!
-  \************************************************************/
+/***/ "./node_modules/axios/lib/helpers/parseHeaders.js":
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \********************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-if ( window.NodeList && !NodeList.prototype.forEach ) {
-	NodeList.prototype.forEach = Array.prototype.forEach;
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+// Headers whose duplicates are ignored by node
+// c.f. https://nodejs.org/api/http.html#http_message_headers
+var ignoreDuplicateOf = [
+  'age', 'authorization', 'content-length', 'content-type', 'etag',
+  'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since',
+  'last-modified', 'location', 'max-forwards', 'proxy-authorization',
+  'referer', 'retry-after', 'user-agent'
+];
+
+/**
+ * Parse headers into an object
+ *
+ * ```
+ * Date: Wed, 27 Aug 2014 08:58:49 GMT
+ * Content-Type: application/json
+ * Connection: keep-alive
+ * Transfer-Encoding: chunked
+ * ```
+ *
+ * @param {String} headers Headers needing to be parsed
+ * @returns {Object} Headers parsed into an object
+ */
+module.exports = function parseHeaders(headers) {
+  var parsed = {};
+  var key;
+  var val;
+  var i;
+
+  if (!headers) { return parsed; }
+
+  utils.forEach(headers.split('\n'), function parser(line) {
+    i = line.indexOf(':');
+    key = utils.trim(line.substr(0, i)).toLowerCase();
+    val = utils.trim(line.substr(i + 1));
+
+    if (key) {
+      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+        return;
+      }
+      if (key === 'set-cookie') {
+        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+      } else {
+        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      }
+    }
+  });
+
+  return parsed;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/spread.js":
+/*!**************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/spread.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Syntactic sugar for invoking a function and expanding an array for arguments.
+ *
+ * Common use case would be to use `Function.prototype.apply`.
+ *
+ *  ```js
+ *  function f(x, y, z) {}
+ *  var args = [1, 2, 3];
+ *  f.apply(null, args);
+ *  ```
+ *
+ * With `spread` this example can be re-written.
+ *
+ *  ```js
+ *  spread(function(x, y, z) {})([1, 2, 3]);
+ *  ```
+ *
+ * @param {Function} callback
+ * @returns {Function}
+ */
+module.exports = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr);
+  };
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/utils.js":
+/*!*****************************************!*\
+  !*** ./node_modules/axios/lib/utils.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
+
+/*global toString:true*/
+
+// utils is a library of generic helper functions non-specific to axios
+
+var toString = Object.prototype.toString;
+
+/**
+ * Determine if a value is an Array
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Array, otherwise false
+ */
+function isArray(val) {
+  return toString.call(val) === '[object Array]';
 }
+
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+function isUndefined(val) {
+  return typeof val === 'undefined';
+}
+
+/**
+ * Determine if a value is a Buffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Buffer, otherwise false
+ */
+function isBuffer(val) {
+  return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor)
+    && typeof val.constructor.isBuffer === 'function' && val.constructor.isBuffer(val);
+}
+
+/**
+ * Determine if a value is an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+ */
+function isArrayBuffer(val) {
+  return toString.call(val) === '[object ArrayBuffer]';
+}
+
+/**
+ * Determine if a value is a FormData
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+function isFormData(val) {
+  return (typeof FormData !== 'undefined') && (val instanceof FormData);
+}
+
+/**
+ * Determine if a value is a view on an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+ */
+function isArrayBufferView(val) {
+  var result;
+  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+  }
+  return result;
+}
+
+/**
+ * Determine if a value is a String
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a String, otherwise false
+ */
+function isString(val) {
+  return typeof val === 'string';
+}
+
+/**
+ * Determine if a value is a Number
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Number, otherwise false
+ */
+function isNumber(val) {
+  return typeof val === 'number';
+}
+
+/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */
+function isObject(val) {
+  return val !== null && typeof val === 'object';
+}
+
+/**
+ * Determine if a value is a plain Object
+ *
+ * @param {Object} val The value to test
+ * @return {boolean} True if value is a plain Object, otherwise false
+ */
+function isPlainObject(val) {
+  if (toString.call(val) !== '[object Object]') {
+    return false;
+  }
+
+  var prototype = Object.getPrototypeOf(val);
+  return prototype === null || prototype === Object.prototype;
+}
+
+/**
+ * Determine if a value is a Date
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Date, otherwise false
+ */
+function isDate(val) {
+  return toString.call(val) === '[object Date]';
+}
+
+/**
+ * Determine if a value is a File
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */
+function isFile(val) {
+  return toString.call(val) === '[object File]';
+}
+
+/**
+ * Determine if a value is a Blob
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Blob, otherwise false
+ */
+function isBlob(val) {
+  return toString.call(val) === '[object Blob]';
+}
+
+/**
+ * Determine if a value is a Function
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Function, otherwise false
+ */
+function isFunction(val) {
+  return toString.call(val) === '[object Function]';
+}
+
+/**
+ * Determine if a value is a Stream
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Stream, otherwise false
+ */
+function isStream(val) {
+  return isObject(val) && isFunction(val.pipe);
+}
+
+/**
+ * Determine if a value is a URLSearchParams object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+ */
+function isURLSearchParams(val) {
+  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+}
+
+/**
+ * Trim excess whitespace off the beginning and end of a string
+ *
+ * @param {String} str The String to trim
+ * @returns {String} The String freed of excess whitespace
+ */
+function trim(str) {
+  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+}
+
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
+ */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+                                           navigator.product === 'NativeScript' ||
+                                           navigator.product === 'NS')) {
+    return false;
+  }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  );
+}
+
+/**
+ * Iterate over an Array or an Object invoking a function for each item.
+ *
+ * If `obj` is an Array callback will be called passing
+ * the value, index, and complete array for each item.
+ *
+ * If 'obj' is an Object callback will be called passing
+ * the value, key, and complete object for each property.
+ *
+ * @param {Object|Array} obj The object to iterate
+ * @param {Function} fn The callback to invoke for each item
+ */
+function forEach(obj, fn) {
+  // Don't bother if no value provided
+  if (obj === null || typeof obj === 'undefined') {
+    return;
+  }
+
+  // Force an array if not already something iterable
+  if (typeof obj !== 'object') {
+    /*eslint no-param-reassign:0*/
+    obj = [obj];
+  }
+
+  if (isArray(obj)) {
+    // Iterate over array values
+    for (var i = 0, l = obj.length; i < l; i++) {
+      fn.call(null, obj[i], i, obj);
+    }
+  } else {
+    // Iterate over object keys
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        fn.call(null, obj[key], key, obj);
+      }
+    }
+  }
+}
+
+/**
+ * Accepts varargs expecting each argument to be an object, then
+ * immutably merges the properties of each object and returns result.
+ *
+ * When multiple objects contain the same key the later object in
+ * the arguments list will take precedence.
+ *
+ * Example:
+ *
+ * ```js
+ * var result = merge({foo: 123}, {foo: 456});
+ * console.log(result.foo); // outputs 456
+ * ```
+ *
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+function merge(/* obj1, obj2, obj3, ... */) {
+  var result = {};
+  function assignValue(val, key) {
+    if (isPlainObject(result[key]) && isPlainObject(val)) {
+      result[key] = merge(result[key], val);
+    } else if (isPlainObject(val)) {
+      result[key] = merge({}, val);
+    } else if (isArray(val)) {
+      result[key] = val.slice();
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+ * Extends object a by mutably adding to it the properties of object b.
+ *
+ * @param {Object} a The object to be extended
+ * @param {Object} b The object to copy properties from
+ * @param {Object} thisArg The object to bind function to
+ * @return {Object} The resulting value of object a
+ */
+function extend(a, b, thisArg) {
+  forEach(b, function assignValue(val, key) {
+    if (thisArg && typeof val === 'function') {
+      a[key] = bind(val, thisArg);
+    } else {
+      a[key] = val;
+    }
+  });
+  return a;
+}
+
+/**
+ * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
+ *
+ * @param {string} content with BOM
+ * @return {string} content value without BOM
+ */
+function stripBOM(content) {
+  if (content.charCodeAt(0) === 0xFEFF) {
+    content = content.slice(1);
+  }
+  return content;
+}
+
+module.exports = {
+  isArray: isArray,
+  isArrayBuffer: isArrayBuffer,
+  isBuffer: isBuffer,
+  isFormData: isFormData,
+  isArrayBufferView: isArrayBufferView,
+  isString: isString,
+  isNumber: isNumber,
+  isObject: isObject,
+  isPlainObject: isPlainObject,
+  isUndefined: isUndefined,
+  isDate: isDate,
+  isFile: isFile,
+  isBlob: isBlob,
+  isFunction: isFunction,
+  isStream: isStream,
+  isURLSearchParams: isURLSearchParams,
+  isStandardBrowserEnv: isStandardBrowserEnv,
+  forEach: forEach,
+  merge: merge,
+  extend: extend,
+  trim: trim,
+  stripBOM: stripBOM
+};
+
 
 /***/ }),
 
@@ -2749,6 +3101,201 @@ function noop (cb) {
 
 /***/ }),
 
+/***/ "./node_modules/process/browser.js":
+/*!*****************************************!*\
+  !*** ./node_modules/process/browser.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+
 /***/ "./node_modules/remove-array-items/index.js":
 /*!**************************************************!*\
   !*** ./node_modules/remove-array-items/index.js ***!
@@ -2788,57 +3335,15 @@ module.exports = function removeItems (arr, startIdx, removeCount) {
 
 /***/ }),
 
-/***/ "./node_modules/webpack/buildin/global.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
 /***/ 0:
 /*!****************************************!*\
-  !*** multi ./js/admin-page-columns.js ***!
+  !*** multi ./js/admin-page-columns.ts ***!
   \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./js/admin-page-columns.js */"./js/admin-page-columns.js");
+module.exports = __webpack_require__(/*! ./js/admin-page-columns.ts */"./js/admin-page-columns.ts");
 
-
-/***/ }),
-
-/***/ "jquery":
-/*!*************************!*\
-  !*** external "jQuery" ***!
-  \*************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = jQuery;
 
 /***/ })
 

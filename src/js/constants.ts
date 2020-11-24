@@ -1,5 +1,12 @@
 export const EventConstants = {
-    TABLE : {
+    TABLE: {
         READY: 'Table.Ready'
+    },
+    SETTINGS: {
+        FORM: {
+            LOADED: 'Settings.Form.Loaded',
+            READY: 'Settings.Form.Ready'
+        }
     }
+
 }
