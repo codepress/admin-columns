@@ -10,6 +10,13 @@ export interface ColumnSettingsResponse {
     data: string
 }
 
+export interface ColumnSettingsErrorResponse {
+    success: boolean
+    data: {
+        message: string
+    }
+}
+
 export const submitColumnSettings = (data: string) => {
     let formData = mapDataToFormData({
         action: 'ac-columns',

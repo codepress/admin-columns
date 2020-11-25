@@ -1,25 +1,20 @@
 import Nanobus from "nanobus";
 import {EventConstants} from "../../constants";
-import {ColumnSettings} from "./column";
+import {Column} from "./column";
 import {ColumnSettingsResponse, submitColumnSettings} from "./ajax";
 import {AxiosResponse} from "axios";
-
-
-export type FormPayload = { form: Form }
+import {fadeIn} from "../../helpers/animations";
 
 export class Form {
 
     private form: HTMLFormElement
     private events: Nanobus
-    private columns: Array<ColumnSettings.Column>
+    private columns: Array<Column>
 
     constructor(element: HTMLFormElement, events: Nanobus) {
         this.form = element;
         this.events = events;
         this.columns = [];
-
-        //this.$container = jQuery('#cpac .ac-admin');
-
 
         this.events.emit(EventConstants.SETTINGS.FORM.LOADED, this);
         // TODO See usage
@@ -28,11 +23,22 @@ export class Form {
         this.init();
     }
 
+    init() {
+        this.initColumns();
+
+        if (this.isDisabled()) {
+            this.disableFields();
+            this.disableColumns();
+        }
+
+        this.events.emit(EventConstants.SETTINGS.FORM.READY, this);
+    }
+
     getElement(): HTMLFormElement {
         return this.form;
     }
 
-    placeColumn(column: ColumnSettings.Column) {
+    placeColumn(column: Column) {
         this.getElement().querySelector('.ac-columns').append(column.getElement())
     }
 
@@ -48,79 +54,21 @@ export class Form {
         return this.form.classList.contains('-disabled');
     }
 
-    init() {
-        this.initColumns();
-        //this.bindFormEvents();
-        //this.bindOrdering();
 
-        if (this.isDisabled()) {
-            this.disableFields();
-        }
-
-        this.events.emit(EventConstants.SETTINGS.FORM.READY, this);
-        //jQuery(document).trigger('AC_Form_Ready', this);
+    getOriginalColumns(): Array<Column> {
+        return this.columns.filter(column => column.isOriginal());
     }
 
-    bindOrdering() {
-        return;
-        if (this.$form.hasClass('ui-sortable')) {
-            this.$form.sortable('refresh');
-        } else {
-            this.$form.sortable({
-                items: '.ac-column',
-                handle: '.column_sort'
-            });
-        }
-
-    }
-
-    getOriginalColumns(): Array<ColumnSettings.Column> {
-        return this.columns.filter( column => column.isOriginal() );
-    }
-
-    // Todo remove
-    validateForm() {
-        return true;
-    }
-
-    bindFormEvents() {
-
-        return;
-        let self = this;
-        let $buttons = jQuery('.sidebox a.submit, .column-footer a.submit');
-
-        $buttons.on('click', function () {
-            if (!self.validateForm()) {
-                return;
-            }
-            $buttons.attr('disabled', 'disabled');
-            self.$container.addClass('saving');
-            self.submitForm().always(function () {
-                $buttons.removeAttr('disabled', 'disabled');
-                self.$container.removeClass('saving');
-            })
-        });
-
-        self.$container.find('.add_column').on('click', function () {
-            self.addColumn();
-        });
-
-        let $boxes = jQuery('#cpac .ac-boxes');
-        if ($boxes.hasClass('disabled')) {
-            $boxes.find('.ac-column').each(function (i, col) {
-                jQuery(col).data('column').disable();
-                jQuery(col).find('input, select').prop('disabled', true);
-            });
-        }
-
-        /*jQuery('a[data-clear-columns]').on('click', function () {
-            self.resetColumns();
-        });*/
+    disableColumns() {
+        this.columns.forEach(col => col.disable());
     }
 
     initColumns() {
         this.getElement().querySelectorAll('.ac-column').forEach((element: HTMLElement) => {
-            this.columns.push(new ColumnSettings.Column(element));
+            let column = new Column(element);
+            column.init();
+            this.events.emit( EventConstants.SETTINGS.COLUMN.INIT, column );
+            this.columns.push( column );
         });
     }
 
@@ -136,94 +84,64 @@ export class Form {
     }
 
     resetColumns() {
-        Object.keys(this.columns).forEach((key) => {
-            let column = this.columns[key];
-
+        this.columns.forEach((column) => {
             column.destroy();
         });
-
+        this.columns = [];
     }
 
-    serialize() {
-        return this.$form.serialize();
+    getSerializedFormData(): string {
+        let params = new URLSearchParams(new FormData(this.getElement()) as any)
+
+        return params.toString();
     }
 
     disableFields() {
-        let form = document.querySelector(this.form);
-        if (!form) {
-            return;
-        }
-
-        let elements = form.elements;
+        let elements = this.getElement().elements;
 
         for (let i = 0; i < elements.length; i++) {
-            elements[i].readOnly = true;
-            elements[i].setAttribute('disabled', true);
+            elements[i].setAttribute('readonly', 'readonly');
+            elements[i].setAttribute('disabled', 'disabled');
         }
-    }
-
-    enableFields() {
-
     }
 
     submitForm() {
-        let data: URLSearchParams = new URLSearchParams( new FormData( this.getElement() );
+        this.events.emit(EventConstants.SETTINGS.FORM.SAVING, this);
 
-        submitColumnSettings( data.toString() ).then( ( response: AxiosResponse<ColumnSettingsResponse> ) => {
-            response.data.success
-        });
-        return;
+        submitColumnSettings(this.getSerializedFormData()).then((response: AxiosResponse<ColumnSettingsResponse>) => {
+            if (response.data.success) {
+                this.showMessage(response.data.data, 'updated')
+            } else if (response.data) {
+                //tODO test
+                let error: any = response.data as unknown;
+                this.showMessage(error.data.message, 'notice notice-warning');
+            }
 
-
-        return;
-        let self = this;
-
-        let xhr = jQuery.post(ajaxurl, {
-                action: 'ac-columns',
-                id: 'save',
-                _ajax_nonce: AC._ajax_nonce,
-                data: this.serialize(),
-            },
-
-            function (response) {
-                if (response) {
-                    if (response.success) {
-                        self.showMessage(response.data, 'updated');
-
-                        self.$container.addClass('stored');
-                    }
-
-                    // Error message
-                    else if (response.data) {
-                        self.showMessage(response.data.message, 'notice notice-warning');
-                    }
-                }
-
-            }, 'json');
-
-        // No JSON
-        xhr.fail(function (error) {
-            self.showMessage(AC.i18n.errors.save_settings, 'notice notice-warning');
+        }).finally(() => {
+            this.events.emit(EventConstants.SETTINGS.FORM.SAVED, this);
         });
 
-        jQuery(document).trigger('AC_Form_AfterUpdate', [self.$container]);
-
-        return xhr;
+        // TODO
+        /* xhr.fail(function (error) {
+             self.showMessage(AC.i18n.errors.save_settings, 'notice notice-warning');
+         });*/
     }
 
-    showMessage(message, attr_class = 'updated') {
-        let $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
+    showMessage(message: string, className: string = 'updated') {
+        let messageContainer = document.querySelector('.ac-admin__main');
+        messageContainer.querySelectorAll('.ac-message').forEach((el: HTMLElement) => el.remove());
 
-        this.$container.find('.ac-message').stop().remove();
-        this.$container.find('.ac-admin__main').prepend($msg);
-
-        $msg.slideDown();
+        let element: HTMLDivElement = document.createElement('div');
+        element.classList.add('ac-message');
+        element.classList.add(className);
+        element.innerHTML = `<p>${message}</p>`;
+        messageContainer.insertAdjacentElement('afterbegin', element);
+        fadeIn(element, 600);
     }
 
     cloneColumn($el) {
         return this._addColumnToForm(new Column($el).clone(), $el.hasClass('opened'), $el);
     }
-
 
     removeColumn(name) {
         if (this.columns[name]) {
@@ -262,7 +180,7 @@ export class Form {
 const createColumnFromTemplate = () => {
     let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true) as HTMLElement;
 
-    return new ColumnSettings.Column(columnElement);
+    return new Column(columnElement);
 }
 
 let isInViewport = ($el) => {

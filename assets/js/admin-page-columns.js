@@ -98,11 +98,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.ts");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
 /* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./admin/columns/column-configurator */ "./js/admin/columns/column-configurator.ts");
+
+
+ // @ts-ignore
 
 
 
 Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__["initAdminColumnsGlobalBootstrap"])();
+new _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__["default"]();
 document.addEventListener('DOMContentLoaded', function () {
+  new SaveButtons();
   var formElement = document.querySelector('#listscreen_settings');
 
   if (formElement) {
@@ -110,15 +118,86 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, function (form) {
-  document.querySelector('.add_column').addEventListener('click', function (e) {
-    form.createNewColumn();
+  document.querySelectorAll('.add_column').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      form.createNewColumn();
+    });
+  });
+  document.querySelectorAll('a[data-clear-columns]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      return form.resetColumns();
+    });
   });
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.READY, function (form) {
-  console.log(form.getOriginalColumns());
-  var data = new FormData(form.getElement());
-  console.log(new URLSearchParams(new FormData(form.getElement()).toString()));
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVING, function () {
+  document.querySelector('#cpac .ac-admin').classList.add('saving');
 });
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, function () {
+  document.querySelector('#cpac .ac-admin').classList.remove('saving');
+  document.querySelector('#cpac .ac-admin').classList.add('stored');
+});
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, function (form) {
+  var $form = jquery__WEBPACK_IMPORTED_MODULE_3___default()(form.getElement());
+
+  if ($form.hasClass('ui-sortable')) {
+    $form.sortable('refresh');
+  } else {
+    $form.sortable({
+      items: '.ac-column',
+      handle: '.column_sort'
+    });
+  }
+});
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, function (form) {
+  document.querySelectorAll('a[data-clear-columns]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      return form.resetColumns();
+    });
+  });
+});
+
+var SaveButtons =
+/** @class */
+function () {
+  function SaveButtons() {
+    this.elements = document.querySelectorAll('.sidebox a.submit, .column-footer a.submit');
+    this.init();
+  }
+
+  SaveButtons.prototype.init = function () {
+    var _this = this;
+
+    AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.READY, function (form) {
+      _this.elements.forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          _this.disable();
+
+          form.submitForm();
+        });
+      });
+    });
+    AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, function () {
+      return _this.enable();
+    });
+  };
+
+  SaveButtons.prototype.disable = function () {
+    this.elements.forEach(function (el) {
+      return el.setAttribute('disabled', 'disabled');
+    });
+  };
+
+  SaveButtons.prototype.enable = function () {
+    this.elements.forEach(function (el) {
+      return el.removeAttribute('disabled');
+    });
+  };
+
+  return SaveButtons;
+}();
 
 /***/ }),
 
@@ -161,282 +240,310 @@ var mapDataToFormData = function (data, formData) {
 
 /***/ }),
 
-/***/ "./js/admin/columns/column.ts":
-/*!************************************!*\
-  !*** ./js/admin/columns/column.ts ***!
-  \************************************/
-/*! exports provided: ColumnSettings */
+/***/ "./js/admin/columns/column-configurator.ts":
+/*!*************************************************!*\
+  !*** ./js/admin/columns/column-configurator.ts ***!
+  \*************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ColumnSettings", function() { return ColumnSettings; });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants */ "./js/constants.ts");
+
+
+var ColumnConfigurator =
+/** @class */
+function () {
+  function ColumnConfigurator() {
+    AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.COLUMN.INIT, function (column) {
+      initToggle(column);
+    });
+  }
+
+  ColumnConfigurator.prototype.configColumn = function () {};
+
+  return ColumnConfigurator;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (ColumnConfigurator);
+
+var initToggle = function (column) {
+  column.getElement().querySelectorAll('[data-toggle="column"]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      return column.toggle();
+    });
+  });
+};
+
+/***/ }),
+
+/***/ "./js/admin/columns/column.ts":
+/*!************************************!*\
+  !*** ./js/admin/columns/column.ts ***!
+  \************************************/
+/*! exports provided: Column */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Column", function() { return Column; });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+// @ts-ignore
+
 var STATES = {
   CLOSED: 'closed',
   OPEN: 'open'
 };
-var ColumnSettings;
 
-(function (ColumnSettings) {
-  var Column =
-  /** @class */
-  function () {
-    function Column(element) {
-      this.element = element;
-      this.settings = [];
-      this.state = STATES.CLOSED;
-      this.name = element.dataset.columnName;
-      this.type = element.dataset.type;
-      this.original = element.dataset.original === '1';
-      this.disabled = element.classList.contains('disabled');
+var Column =
+/** @class */
+function () {
+  function Column(element) {
+    this.element = element;
+    this.settings = [];
+    this.state = STATES.CLOSED;
+    this.name = element.dataset.columnName;
+    this.type = element.dataset.type;
+    this.original = element.dataset.original === '1';
+    this.disabled = element.classList.contains('disabled');
+  }
+
+  Column.prototype.getName = function () {
+    return this.name;
+  };
+
+  Column.prototype.getType = function () {
+    return this.type;
+  };
+
+  Column.prototype.isOriginal = function () {
+    return this.original;
+  };
+
+  Column.prototype.getElement = function () {
+    return this.element;
+  };
+
+  Column.prototype.isDisabled = function () {
+    return this.element.classList.contains('disabled');
+  };
+
+  Column.prototype.disable = function () {
+    this.element.classList.add('disabled');
+    return this;
+  };
+
+  Column.prototype.enable = function () {
+    this.element.classList.remove('disabled');
+    return this;
+  };
+
+  Column.prototype.init = function () {};
+
+  Column.prototype.initNewInstance = function () {
+    var temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
+    var original_column_name = this.name;
+    this.$el.find('input, select, label').each(function (i, v) {
+      var $input = jQuery(v); // name attributes
+
+      if ($input.attr('name')) {
+        $input.attr('name', $input.attr('name').replace("columns[" + original_column_name + "]", "columns[" + temp_column_name + "]"));
+      } // id attributes
+
+
+      if ($input.attr('id')) {
+        $input.attr('id', $input.attr('id').replace("-" + original_column_name + "-", "-" + temp_column_name + "-"));
+      }
+    });
+    this.name = temp_column_name;
+    AC.incremental_column_name++;
+    return this;
+  };
+  /**
+   *
+   * @returns {Column}
+   */
+
+
+  Column.prototype.bindEvents = function () {
+    var column = this;
+    column.$el.data('column', column);
+    Object.keys(AC.Column.events).forEach(function (key) {
+      if (!column.isBound(key)) {
+        AC.Column.events[key](column);
+        column.bind(key);
+      }
+    });
+    this.bindSettings();
+    return this;
+  };
+
+  Column.prototype.bindSettings = function () {
+    var column = this;
+    Object.keys(AC.Column.settings).forEach(function (key) {
+      if (!column.isBound(key)) {
+        AC.Column.settings[key](column);
+        column.bind(key);
+      }
+    });
+  };
+
+  Column.prototype.destroy = function () {
+    this.element.remove();
+  };
+
+  Column.prototype.remove = function (duration) {
+    if (duration === void 0) {
+      duration = 350;
     }
 
-    Column.prototype.getName = function () {
-      return this.name;
-    };
+    var self = this;
+    this.$el.addClass('deleting').animate({
+      opacity: 0,
+      height: 0
+    }, duration, function () {
+      self.destroy();
+    });
+  };
 
-    Column.prototype.getType = function () {
-      return this.type;
-    };
+  Column.prototype.getState = function () {
+    return this.state;
+  };
 
-    Column.prototype.isOriginal = function () {
-      return this.original;
-    };
+  Column.prototype.toggle = function (duration) {
+    if (duration === void 0) {
+      duration = 150;
+    }
 
-    Column.prototype.getElement = function () {
-      return this.element;
-    };
+    this.getState() === STATES.OPEN ? this.close(duration) : this.open(duration);
+  };
 
-    Column.prototype.isDisabled = function () {
-      return this.disable();
-    };
+  Column.prototype.close = function (duration) {
+    if (duration === void 0) {
+      duration = 0;
+    }
 
-    Column.prototype.disable = function () {
-      this.element.classList.add('disabled');
-      return this;
-    };
+    this.getElement().classList.remove('opened');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.getElement()).find('.ac-column-body').slideUp(duration);
+    this.state = STATES.CLOSED;
+  };
 
-    Column.prototype.enable = function () {
-      this.element.classList.remove('disabled');
-      return this;
-    };
+  Column.prototype.open = function (duration) {
+    if (duration === void 0) {
+      duration = 0;
+    }
 
-    Column.prototype.initNewInstance = function () {
-      var temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
-      var original_column_name = this.name;
-      this.$el.find('input, select, label').each(function (i, v) {
-        var $input = jQuery(v); // name attributes
+    this.getElement().classList.add('opened');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.getElement()).find('.ac-column-body').slideDown(duration);
+    this.state = STATES.OPEN;
+  };
 
-        if ($input.attr('name')) {
-          $input.attr('name', $input.attr('name').replace("columns[" + original_column_name + "]", "columns[" + temp_column_name + "]"));
-        } // id attributes
+  Column.prototype.showMessage = function (message) {
+    this.$el.find('.ac-column-setting--type .msg').html(message).show();
+  };
 
+  Column.prototype.switchToType = function (type) {
+    //Todo
+    return; //let self = this;
 
-        if ($input.attr('id')) {
-          $input.attr('id', $input.attr('id').replace("-" + original_column_name + "-", "-" + temp_column_name + "-"));
+    /*return jQuery.ajax({
+        url: ajaxurl,
+        method: 'post',
+        dataType: 'json',
+        data: {
+            action: 'ac-columns',
+            id: 'select',
+            type: type,
+            data: AdminColumns.Form.serialize(),
+            current_original_columns: AdminColumns.Form.originalColumns(),
+            original_columns: AC.original_columns,
+            _ajax_nonce: AC._ajax_nonce,
+        },
+        success: function (response) {
+            if (true === response.success) {
+                let column = jQuery(response.data);
+                 self.$el.replaceWith(column);
+                self.$el = column;
+                self.el = column[0];
+                self._type = type;
+                self.initNewInstance();
+                self.bindEvents();
+                self.open();
+                 jQuery(document).trigger('AC_Column_Change', [self]);
+            } else {
+                self.showMessage(response.data.error)
+            }
         }
-      });
-      this.name = temp_column_name;
-      AC.incremental_column_name++;
-      return this;
-    };
-    /**
-     *
-     * @returns {Column}
-     */
+    });*/
+  };
 
-
-    Column.prototype.bindEvents = function () {
-      var column = this;
-      column.$el.data('column', column);
-      Object.keys(AC.Column.events).forEach(function (key) {
-        if (!column.isBound(key)) {
-          AC.Column.events[key](column);
-          column.bind(key);
-        }
-      });
-      this.bindSettings();
-      jQuery(document).trigger('AC_Column_InitSettings', [column]);
-      return this;
-    };
-
-    Column.prototype.bindSettings = function () {
-      var column = this;
-      Object.keys(AC.Column.settings).forEach(function (key) {
-        if (!column.isBound(key)) {
-          AC.Column.settings[key](column);
-          column.bind(key);
-        }
-      });
-    };
-    /**
-     *
-     * @param key
-     * @returns {bool}
-     */
-
-
-    Column.prototype.isBound = function (key) {
-      return this.$el.data(key);
-    };
-
-    Column.prototype.bind = function (key) {
-      this.$el.data(key, true);
-    };
-
-    Column.prototype.destroy = function () {
-      this.element.remove();
-    };
-
-    Column.prototype.remove = function (duration) {
-      if (duration === void 0) {
-        duration = 350;
-      }
-
-      var self = this;
-      this.$el.addClass('deleting').animate({
-        opacity: 0,
-        height: 0
-      }, duration, function () {
-        self.destroy();
-      });
-    };
-
-    Column.prototype.getState = function () {
-      return this.state;
-    };
-
-    Column.prototype.toggle = function (duration) {
-      if (duration === void 0) {
-        duration = 150;
-      }
-
-      this.getState() === STATES.OPEN ? this.close(duration) : this.open(duration);
-    };
-
-    Column.prototype.close = function (duration) {
-      if (duration === void 0) {
-        duration = 0;
-      }
-
-      this.$el.removeClass('opened').find('.ac-column-body').slideUp(duration);
-      this.state = STATES.CLOSED;
-    };
-
-    Column.prototype.open = function (duration) {
-      if (duration === void 0) {
-        duration = 0;
-      }
-
-      this.$el.addClass('opened').find('.ac-column-body').slideDown(duration);
-      this.state = STATES.OPEN;
-    };
-
-    Column.prototype.showMessage = function (message) {
-      this.$el.find('.ac-column-setting--type .msg').html(message).show();
-    };
-
-    Column.prototype.switchToType = function (type) {
-      //Todo
-      return; //let self = this;
-
-      /*return jQuery.ajax({
-          url: ajaxurl,
-          method: 'post',
-          dataType: 'json',
-          data: {
-              action: 'ac-columns',
-              id: 'select',
-              type: type,
-              data: AdminColumns.Form.serialize(),
-              current_original_columns: AdminColumns.Form.originalColumns(),
-              original_columns: AC.original_columns,
-              _ajax_nonce: AC._ajax_nonce,
-          },
+  Column.prototype.refresh = function () {
+    //todo
+    return;
+    /* let self = this;
+     let data = this.$el.find(':input').serializeArray();
+     let request_data = {
+         action: 'ac-columns',
+         id: 'refresh',
+         _ajax_nonce: AC._ajax_nonce,
+         data: AdminColumns.Form.serialize(),
+         column_name: this.name,
+         original_columns: AC.original_columns
+     };
+      jQuery.each(request_data, function (name, value) {
+         data.push({
+             name: name,
+             value: value
+         });
+     });
+      return jQuery.ajax({
+         type: 'post',
+         url: ajaxurl,
+         data: data,
           success: function (response) {
-              if (true === response.success) {
-                  let column = jQuery(response.data);
-                   self.$el.replaceWith(column);
-                  self.$el = column;
-                  self.el = column[0];
-                  self._type = type;
-                  self.initNewInstance();
-                  self.bindEvents();
-                  self.open();
-                   jQuery(document).trigger('AC_Column_Change', [self]);
-              } else {
-                  self.showMessage(response.data.error)
-              }
-          }
+             if (true === response.success) {
+                 let column = jQuery(response.data);
+                  self.$el.replaceWith(column);
+                 self.$el = column;
+                 self.el = column[0];
+                 self.bindEvents();
+                  if (self.getState() === STATES.OPEN) {
+                     self.open();
+                 }
+                  jQuery(document).trigger('AC_Column_Refresh', [self]);
+             }
+         }
       });*/
-    };
-
-    Column.prototype.refresh = function () {
-      //todo
-      return;
-      /* let self = this;
-       let data = this.$el.find(':input').serializeArray();
-       let request_data = {
-           action: 'ac-columns',
-           id: 'refresh',
-           _ajax_nonce: AC._ajax_nonce,
-           data: AdminColumns.Form.serialize(),
-           column_name: this.name,
-           original_columns: AC.original_columns
-       };
-         jQuery.each(request_data, function (name, value) {
-           data.push({
-               name: name,
-               value: value
-           });
-       });
-         return jQuery.ajax({
-           type: 'post',
-           url: ajaxurl,
-           data: data,
-             success: function (response) {
-               if (true === response.success) {
-                   let column = jQuery(response.data);
-                     self.$el.replaceWith(column);
-                   self.$el = column;
-                   self.el = column[0];
-                   self.bindEvents();
-                     if (self.getState() === STATES.OPEN) {
-                       self.open();
-                   }
-                     jQuery(document).trigger('AC_Column_Refresh', [self]);
-               }
-           }
-         });*/
-    };
-    /**
-     * @returns {Column}
-     */
+  };
+  /**
+   * @returns {Column}
+   */
 
 
-    Column.prototype.create = function () {// TODO move out ckass
+  Column.prototype.create = function () {// TODO move out ckass
 
-      /*this.initNewInstance();
-      this.bindEvents();
-       jQuery(document).trigger('AC_Column_Created', [this]);
-      return this;*/
-    };
+    /*this.initNewInstance();
+    this.bindEvents();
+     jQuery(document).trigger('AC_Column_Created', [this]);
+    return this;*/
+  };
 
-    Column.prototype.clone = function () {// TODO move out class
+  Column.prototype.clone = function () {// TODO move out class
 
-      /*let $clone = this.$el.clone();
-      $clone.data('column-name', this.$el.data('column-name'));
-       let clone = new Column($clone);
-       clone.initNewInstance();
-      clone.bindEvents();
-       return clone;*/
-    };
+    /*let $clone = this.$el.clone();
+    $clone.data('column-name', this.$el.data('column-name'));
+     let clone = new Column($clone);
+     clone.initNewInstance();
+    clone.bindEvents();
+     return clone;*/
+  };
 
-    return Column;
-  }();
+  return Column;
+}();
 
-  ColumnSettings.Column = Column;
-})(ColumnSettings || (ColumnSettings = {}));
+
 
 /***/ }),
 
@@ -453,6 +560,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants */ "./js/constants.ts");
 /* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./column */ "./js/admin/columns/column.ts");
 /* harmony import */ var _ajax__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ajax */ "./js/admin/columns/ajax.ts");
+/* harmony import */ var _helpers_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../helpers/animations */ "./js/helpers/animations.ts");
+
 
 
 
@@ -463,13 +572,23 @@ function () {
   function Form(element, events) {
     this.form = element;
     this.events = events;
-    this.columns = []; //this.$container = jQuery('#cpac .ac-admin');
-
+    this.columns = [];
     this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.LOADED, this); // TODO See usage
     // jQuery(document).trigger('AC_Form_Loaded');
 
     this.init();
   }
+
+  Form.prototype.init = function () {
+    this.initColumns();
+
+    if (this.isDisabled()) {
+      this.disableFields();
+      this.disableColumns();
+    }
+
+    this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.READY, this);
+  };
 
   Form.prototype.getElement = function () {
     return this.form;
@@ -489,79 +608,28 @@ function () {
     return this.form.classList.contains('-disabled');
   };
 
-  Form.prototype.init = function () {
-    this.initColumns(); //this.bindFormEvents();
-    //this.bindOrdering();
-
-    if (this.isDisabled()) {
-      this.disableFields();
-    }
-
-    this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.READY, this); //jQuery(document).trigger('AC_Form_Ready', this);
-  };
-
-  Form.prototype.bindOrdering = function () {
-    return;
-
-    if (this.$form.hasClass('ui-sortable')) {
-      this.$form.sortable('refresh');
-    } else {
-      this.$form.sortable({
-        items: '.ac-column',
-        handle: '.column_sort'
-      });
-    }
-  };
-
   Form.prototype.getOriginalColumns = function () {
     return this.columns.filter(function (column) {
       return column.isOriginal();
     });
-  }; // Todo remove
-
-
-  Form.prototype.validateForm = function () {
-    return true;
   };
 
-  Form.prototype.bindFormEvents = function () {
-    return;
-    var self = this;
-    var $buttons = jQuery('.sidebox a.submit, .column-footer a.submit');
-    $buttons.on('click', function () {
-      if (!self.validateForm()) {
-        return;
-      }
-
-      $buttons.attr('disabled', 'disabled');
-      self.$container.addClass('saving');
-      self.submitForm().always(function () {
-        $buttons.removeAttr('disabled', 'disabled');
-        self.$container.removeClass('saving');
-      });
+  Form.prototype.disableColumns = function () {
+    this.columns.forEach(function (col) {
+      return col.disable();
     });
-    self.$container.find('.add_column').on('click', function () {
-      self.addColumn();
-    });
-    var $boxes = jQuery('#cpac .ac-boxes');
-
-    if ($boxes.hasClass('disabled')) {
-      $boxes.find('.ac-column').each(function (i, col) {
-        jQuery(col).data('column').disable();
-        jQuery(col).find('input, select').prop('disabled', true);
-      });
-    }
-    /*jQuery('a[data-clear-columns]').on('click', function () {
-        self.resetColumns();
-    });*/
-
   };
 
   Form.prototype.initColumns = function () {
     var _this = this;
 
     this.getElement().querySelectorAll('.ac-column').forEach(function (element) {
-      _this.columns.push(new _column__WEBPACK_IMPORTED_MODULE_1__["ColumnSettings"].Column(element));
+      var column = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](element);
+      column.init();
+
+      _this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.COLUMN.INIT, column);
+
+      _this.columns.push(column);
     });
   };
 
@@ -575,80 +643,67 @@ function () {
   };
 
   Form.prototype.resetColumns = function () {
-    var _this = this;
-
-    Object.keys(this.columns).forEach(function (key) {
-      var column = _this.columns[key];
+    this.columns.forEach(function (column) {
       column.destroy();
     });
+    this.columns = [];
   };
 
-  Form.prototype.serialize = function () {
-    return this.$form.serialize();
+  Form.prototype.getSerializedFormData = function () {
+    var params = new URLSearchParams(new FormData(this.getElement()));
+    return params.toString();
   };
 
   Form.prototype.disableFields = function () {
-    var form = document.querySelector(this.form);
-
-    if (!form) {
-      return;
-    }
-
-    var elements = form.elements;
+    var elements = this.getElement().elements;
 
     for (var i = 0; i < elements.length; i++) {
-      elements[i].readOnly = true;
-      elements[i].setAttribute('disabled', true);
+      elements[i].setAttribute('readonly', 'readonly');
+      elements[i].setAttribute('disabled', 'disabled');
     }
   };
-
-  Form.prototype.enableFields = function () {};
 
   Form.prototype.submitForm = function () {
-    var data = new URLSearchParams(new FormData(this.getElement()));
-    Object(_ajax__WEBPACK_IMPORTED_MODULE_2__["submitColumnSettings"])(data.toString()).then(function (response) {
-      response.data.success;
-    });
-    return;
-    return;
-    var self = this;
-    var xhr = jQuery.post(ajaxurl, {
-      action: 'ac-columns',
-      id: 'save',
-      _ajax_nonce: AC._ajax_nonce,
-      data: this.serialize()
-    }, function (response) {
-      if (response) {
-        if (response.success) {
-          self.showMessage(response.data, 'updated');
-          self.$container.addClass('stored');
-        } // Error message
-        else if (response.data) {
-            self.showMessage(response.data.message, 'notice notice-warning');
-          }
-      }
-    }, 'json'); // No JSON
+    var _this = this;
 
-    xhr.fail(function (error) {
-      self.showMessage(AC.i18n.errors.save_settings, 'notice notice-warning');
-    });
-    jQuery(document).trigger('AC_Form_AfterUpdate', [self.$container]);
-    return xhr;
+    this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVING, this);
+    Object(_ajax__WEBPACK_IMPORTED_MODULE_2__["submitColumnSettings"])(this.getSerializedFormData()).then(function (response) {
+      if (response.data.success) {
+        _this.showMessage(response.data.data, 'updated');
+      } else if (response.data) {
+        //tODO test
+        var error = response.data;
+
+        _this.showMessage(error.data.message, 'notice notice-warning');
+      }
+    }).finally(function () {
+      _this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVED, _this);
+    }); // TODO
+
+    /* xhr.fail(function (error) {
+         self.showMessage(AC.i18n.errors.save_settings, 'notice notice-warning');
+     });*/
   };
 
-  Form.prototype.showMessage = function (message, attr_class) {
-    if (attr_class === void 0) {
-      attr_class = 'updated';
+  Form.prototype.showMessage = function (message, className) {
+    if (className === void 0) {
+      className = 'updated';
     }
 
-    var $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
-    this.$container.find('.ac-message').stop().remove();
-    this.$container.find('.ac-admin__main').prepend($msg);
-    $msg.slideDown();
+    var messageContainer = document.querySelector('.ac-admin__main');
+    messageContainer.querySelectorAll('.ac-message').forEach(function (el) {
+      return el.remove();
+    });
+    var element = document.createElement('div');
+    element.classList.add('ac-message');
+    element.classList.add(className);
+    element.innerHTML = "<p>" + message + "</p>";
+    messageContainer.insertAdjacentElement('afterbegin', element);
+    Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["fadeIn"])(element, 600);
   };
 
   Form.prototype.cloneColumn = function ($el) {
-    return this._addColumnToForm(new Column($el).clone(), $el.hasClass('opened'), $el);
+    return this._addColumnToForm(new _column__WEBPACK_IMPORTED_MODULE_1__["Column"]($el).clone(), $el.hasClass('opened'), $el);
   };
 
   Form.prototype.removeColumn = function (name) {
@@ -698,7 +753,7 @@ function () {
 
 var createColumnFromTemplate = function () {
   var columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true);
-  return new _column__WEBPACK_IMPORTED_MODULE_1__["ColumnSettings"].Column(columnElement);
+  return new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](columnElement);
 };
 
 var isInViewport = function ($el) {
@@ -728,7 +783,12 @@ var EventConstants = {
   SETTINGS: {
     FORM: {
       LOADED: 'Settings.Form.Loaded',
-      READY: 'Settings.Form.Ready'
+      READY: 'Settings.Form.Ready',
+      SAVING: 'Settings.Form.Saving',
+      SAVED: 'Settings.Form.Saved'
+    },
+    COLUMN: {
+      INIT: 'Settings.Column.Init'
     }
   }
 };
@@ -759,6 +819,44 @@ var initAdminColumnsGlobalBootstrap = function () {
   AdminColumns.events = nanobus();
   AdminColumns.Modals = new _modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"]();
   return AdminColumns;
+};
+
+/***/ }),
+
+/***/ "./js/helpers/animations.ts":
+/*!**********************************!*\
+  !*** ./js/helpers/animations.ts ***!
+  \**********************************/
+/*! exports provided: fadeIn */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeIn", function() { return fadeIn; });
+var _this = undefined;
+
+var fadeIn = function (element, ms, cb) {
+  if (ms === void 0) {
+    ms = 100;
+  }
+
+  if (cb === void 0) {
+    cb = null;
+  }
+
+  element.style.transition = "transition: opacity " + ms + "ms";
+  element.style.opacity = '0';
+  setTimeout(function () {
+    element.style.opacity = '1';
+  }, 100);
+
+  if (cb) {
+    element.addEventListener('transitionend', function () {
+      cb.call(_this);
+    }, {
+      once: true
+    });
+  }
 };
 
 /***/ }),
@@ -3344,6 +3442,17 @@ module.exports = function removeItems (arr, startIdx, removeCount) {
 
 module.exports = __webpack_require__(/*! ./js/admin-page-columns.ts */"./js/admin-page-columns.ts");
 
+
+/***/ }),
+
+/***/ "jquery":
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = jQuery;
 
 /***/ })
 
