@@ -1,6 +1,9 @@
 import {AdminColumnsInterface} from "../../admincolumns";
 import {EventConstants} from "../../constants";
 import {Column} from "./column";
+import {initToggle} from "./events/toggle";
+import {initIndicator} from "./events/indicator";
+import {initTypeSelector} from "./events/type-selector";
 
 declare const AdminColumns: AdminColumnsInterface;
 
@@ -9,6 +12,8 @@ export default class ColumnConfigurator {
     constructor() {
         AdminColumns.events.addListener(EventConstants.SETTINGS.COLUMN.INIT, (column: Column) => {
             initToggle(column);
+            initIndicator( column );
+            initTypeSelector( column );
         });
     }
 
@@ -16,11 +21,5 @@ export default class ColumnConfigurator {
 
     }
 
-}
-
-const initToggle = (column: Column) => {
-    column.getElement().querySelectorAll('[data-toggle="column"]').forEach(el => {
-        el.addEventListener('click', e => column.toggle());
-    });
 }
 

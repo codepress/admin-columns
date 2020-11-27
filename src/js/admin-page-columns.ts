@@ -33,6 +33,7 @@ AdminColumns.events.addListener(EventConstants.SETTINGS.FORM.LOADED, (form: Form
     document.querySelectorAll('a[data-clear-columns]').forEach(el => {
         el.addEventListener('click', () => form.resetColumns());
     });
+
 });
 
 AdminColumns.events.addListener(EventConstants.SETTINGS.FORM.SAVING, () => {

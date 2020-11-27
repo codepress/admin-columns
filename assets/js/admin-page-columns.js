@@ -205,12 +205,13 @@ function () {
 /*!**********************************!*\
   !*** ./js/admin/columns/ajax.ts ***!
   \**********************************/
-/*! exports provided: submitColumnSettings */
+/*! exports provided: submitColumnSettings, switchColumnType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "submitColumnSettings", function() { return submitColumnSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "switchColumnType", function() { return switchColumnType; });
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 var submitColumnSettings = function (data) {
@@ -238,6 +239,18 @@ var mapDataToFormData = function (data, formData) {
   return formData;
 };
 
+var switchColumnType = function (type, data, originalColumns) {
+  var formData = mapDataToFormData({
+    _ajax_nonce: AC._ajax_nonce,
+    action: 'ac-columns',
+    id: 'select',
+    type: type,
+    data: data,
+    current_original_columns: JSON.stringify(originalColumns)
+  });
+  return axios.post(ajaxurl, formData);
+};
+
 /***/ }),
 
 /***/ "./js/admin/columns/column-configurator.ts":
@@ -250,6 +263,12 @@ var mapDataToFormData = function (data, formData) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants */ "./js/constants.ts");
+/* harmony import */ var _events_toggle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./events/toggle */ "./js/admin/columns/events/toggle.ts");
+/* harmony import */ var _events_indicator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./events/indicator */ "./js/admin/columns/events/indicator.ts");
+/* harmony import */ var _events_type_selector__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./events/type-selector */ "./js/admin/columns/events/type-selector.ts");
+
+
+
 
 
 var ColumnConfigurator =
@@ -257,7 +276,9 @@ var ColumnConfigurator =
 function () {
   function ColumnConfigurator() {
     AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.COLUMN.INIT, function (column) {
-      initToggle(column);
+      Object(_events_toggle__WEBPACK_IMPORTED_MODULE_1__["initToggle"])(column);
+      Object(_events_indicator__WEBPACK_IMPORTED_MODULE_2__["initIndicator"])(column);
+      Object(_events_type_selector__WEBPACK_IMPORTED_MODULE_3__["initTypeSelector"])(column);
     });
   }
 
@@ -267,14 +288,6 @@ function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (ColumnConfigurator);
-
-var initToggle = function (column) {
-  column.getElement().querySelectorAll('[data-toggle="column"]').forEach(function (el) {
-    el.addEventListener('click', function (e) {
-      return column.toggle();
-    });
-  });
-};
 
 /***/ }),
 
@@ -290,7 +303,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Column", function() { return Column; });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../constants */ "./js/constants.ts");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_2__);
 // @ts-ignore
+
+
 
 var STATES = {
   CLOSED: 'closed',
@@ -301,6 +319,7 @@ var Column =
 /** @class */
 function () {
   function Column(element) {
+    this.events = new nanobus__WEBPACK_IMPORTED_MODULE_2___default.a();
     this.element = element;
     this.settings = [];
     this.state = STATES.CLOSED;
@@ -335,12 +354,20 @@ function () {
     return this;
   };
 
+  Column.prototype.setLoading = function (enabled) {
+    enabled ? this.getElement().classList.add('loading') : this.getElement().classList.remove('loading');
+    return this;
+  };
+
   Column.prototype.enable = function () {
     this.element.classList.remove('disabled');
     return this;
   };
 
-  Column.prototype.init = function () {};
+  Column.prototype.init = function () {
+    AdminColumns.events.emit(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.INIT, this);
+    return this;
+  };
 
   Column.prototype.initNewInstance = function () {
     var temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
@@ -445,7 +472,6 @@ function () {
   };
 
   Column.prototype.switchToType = function (type) {
-    //Todo
     return; //let self = this;
 
     /*return jQuery.ajax({
@@ -547,6 +573,111 @@ function () {
 
 /***/ }),
 
+/***/ "./js/admin/columns/events/indicator.ts":
+/*!**********************************************!*\
+  !*** ./js/admin/columns/events/indicator.ts ***!
+  \**********************************************/
+/*! exports provided: initIndicator */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initIndicator", function() { return initIndicator; });
+var initIndicator = function (column) {
+  if (column.isDisabled()) return;
+  column.getElement().querySelectorAll('.ac-column-header [data-indicator-toggle]').forEach(function (toggleElement) {
+    var relatedSettings = column.getElement().querySelectorAll(".ac-column-setting[data-setting='" + toggleElement.dataset.setting + "'] .col-input .ac-setting-input:first-child input[type=radio]");
+    toggleElement.addEventListener('click', function () {
+      switchTo(!toggleElement.classList.contains('on'), relatedSettings);
+    });
+    relatedSettings.forEach(function (element) {
+      element.addEventListener('change', function () {
+        element.value === 'off' ? toggleElement.classList.remove('on') : toggleElement.classList.add('on');
+      });
+    });
+  });
+};
+
+var switchTo = function (checked, elements) {
+  var checkvalue = checked ? 'on' : 'off';
+  elements.forEach(function (el) {
+    if (el.value === checkvalue) {
+      el.checked = true;
+      el.dispatchEvent(new Event('change'));
+      el.dispatchEvent(new Event('click'));
+    }
+  });
+};
+
+/***/ }),
+
+/***/ "./js/admin/columns/events/toggle.ts":
+/*!*******************************************!*\
+  !*** ./js/admin/columns/events/toggle.ts ***!
+  \*******************************************/
+/*! exports provided: initToggle */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initToggle", function() { return initToggle; });
+var initToggle = function (column) {
+  column.getElement().querySelectorAll('[data-toggle="column"]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      return column.toggle();
+    });
+    el.style.cursor = 'pointer';
+  });
+};
+
+/***/ }),
+
+/***/ "./js/admin/columns/events/type-selector.ts":
+/*!**************************************************!*\
+  !*** ./js/admin/columns/events/type-selector.ts ***!
+  \**************************************************/
+/*! exports provided: COLUMN_SWITCH_TYPE_EVENT, initTypeSelector */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COLUMN_SWITCH_TYPE_EVENT", function() { return COLUMN_SWITCH_TYPE_EVENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initTypeSelector", function() { return initTypeSelector; });
+var COLUMN_SWITCH_TYPE_EVENT = 'switch_type';
+var initTypeSelector = function (column) {
+  var select = column.getElement().querySelector('select.ac-setting-input_type');
+
+  if (!select) {
+    return;
+  }
+
+  select.addEventListener('change', function () {
+    column.events.emit(COLUMN_SWITCH_TYPE_EVENT, {
+      column: column,
+      type: select.value
+    }); //AdminColumns.events.emit(EventConstants.SETTINGS.COLUMN.SWITCH, { column: column, type: select.value });
+  });
+};
+/*
+
+let selector = function( column ) {
+    let $ = jQuery;
+    column.$el.find( 'select.ac-setting-input_type' ).change( function() {
+        column.$el.addClass( 'loading' );
+        column.switchToType( $( this ).val() ).always( function() {
+            column.$el.removeClass( 'loading' );
+
+            AdminColumns.Form.reindexColumns();
+        } ).fail( () => {
+            column.showMessage( AC.i18n.errors.loading_column );
+        } );
+    } );
+};
+
+export default selector;*/
+
+/***/ }),
+
 /***/ "./js/admin/columns/form.ts":
 /*!**********************************!*\
   !*** ./js/admin/columns/form.ts ***!
@@ -561,6 +692,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./column */ "./js/admin/columns/column.ts");
 /* harmony import */ var _ajax__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ajax */ "./js/admin/columns/ajax.ts");
 /* harmony import */ var _helpers_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../helpers/animations */ "./js/helpers/animations.ts");
+/* harmony import */ var _events_type_selector__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./events/type-selector */ "./js/admin/columns/events/type-selector.ts");
+
 
 
 
@@ -627,9 +760,31 @@ function () {
       var column = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](element);
       column.init();
 
-      _this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.COLUMN.INIT, column);
-
       _this.columns.push(column);
+
+      _this.bindColumnEvents(column);
+    });
+  };
+
+  Form.prototype.bindColumnEvents = function (column) {
+    var _this = this;
+
+    column.events.addListener(_events_type_selector__WEBPACK_IMPORTED_MODULE_4__["COLUMN_SWITCH_TYPE_EVENT"], function (data) {
+      _this.switchColumn(data.column, data.type);
+    });
+  };
+
+  Form.prototype.switchColumn = function (oldColumn, type) {
+    oldColumn.setLoading(true);
+    Object(_ajax__WEBPACK_IMPORTED_MODULE_2__["switchColumnType"])(type, this.getSerializedFormData(), this.getOriginalColumns().map(function (e) {
+      return e.getName();
+    })).then(function (response) {
+      var element = document.createElement('div');
+      element.innerHTML = response.data.data.trim();
+      var column = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](element.firstChild);
+      column.init();
+      column.open();
+      oldColumn.getElement().parentNode.replaceChild(column.getElement(), oldColumn.getElement());
     });
   };
 
@@ -788,7 +943,8 @@ var EventConstants = {
       SAVED: 'Settings.Form.Saved'
     },
     COLUMN: {
-      INIT: 'Settings.Column.Init'
+      INIT: 'Settings.Column.Init',
+      SWITCH: 'Settings.Column.SwitchToType'
     }
   }
 };

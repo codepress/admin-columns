@@ -9,9 +9,9 @@ export const EventConstants = {
             SAVING: 'Settings.Form.Saving',
             SAVED: 'Settings.Form.Saved'
         },
-        COLUMN : {
-            INIT: 'Settings.Column.Init'
+        COLUMN: {
+            INIT: 'Settings.Column.Init',
+            SWITCH: 'Settings.Column.SwitchToType',
         }
     }
-
 }

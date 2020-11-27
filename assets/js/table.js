@@ -108,7 +108,8 @@ var EventConstants = {
       SAVED: 'Settings.Form.Saved'
     },
     COLUMN: {
-      INIT: 'Settings.Column.Init'
+      INIT: 'Settings.Column.Init',
+      SWITCH: 'Settings.Column.SwitchToType'
     }
   }
 };
@@ -720,7 +721,7 @@ function () {
     }
 
     this.element.dataset.acTooltipInit = '1';
-    document.body.append(this.tip);
+    document.body.appendChild(this.tip);
     this.element.addEventListener('mouseenter', function () {
       var bodyOffset = document.body.getBoundingClientRect();
 

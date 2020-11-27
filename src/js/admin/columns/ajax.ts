@@ -39,3 +39,16 @@ const mapDataToFormData = (data: { [key: string]: string }, formData: FormData =
 
     return formData;
 }
+
+export const switchColumnType = (type: string, data: string, originalColumns: Array<string>) => {
+    let formData = mapDataToFormData({
+        _ajax_nonce: AC._ajax_nonce,
+        action: 'ac-columns',
+        id: 'select',
+        type: type,
+        data: data,
+        current_original_columns: JSON.stringify(originalColumns),
+    });
+
+    return axios.post(ajaxurl, formData);
+}

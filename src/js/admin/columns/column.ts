@@ -1,13 +1,18 @@
 // @ts-ignore
 import $ from 'jquery';
+import {EventConstants} from "../../constants";
+import {AdminColumnsInterface} from "../../admincolumns";
+import Nanobus from "nanobus";
 
 const STATES = {
     CLOSED: 'closed',
     OPEN: 'open'
 };
 
+declare const AdminColumns: AdminColumnsInterface
 
 export class Column {
+    events: Nanobus;
     private element: HTMLElement
     private settings: Array<any>
     private name: string
@@ -17,6 +22,7 @@ export class Column {
     private disabled: boolean
 
     constructor(element: HTMLElement) {
+        this.events = new Nanobus();
         this.element = element;
         this.settings = [];
         this.state = STATES.CLOSED;
@@ -52,14 +58,24 @@ export class Column {
         return this;
     }
 
-    enable() {
+    setLoading(enabled: boolean) {
+        enabled
+            ? this.getElement().classList.add('loading')
+            : this.getElement().classList.remove('loading');
+
+        return this;
+    }
+
+    enable(): this {
         this.element.classList.remove('disabled');
 
         return this;
     }
 
-    init() {
+    init(): this {
+        AdminColumns.events.emit(EventConstants.SETTINGS.COLUMN.INIT, this);
 
+        return this;
     }
 
     initNewInstance() {
@@ -159,7 +175,6 @@ export class Column {
     }
 
     switchToType(type: string) {
-        //Todo
         return;
         //let self = this;
 

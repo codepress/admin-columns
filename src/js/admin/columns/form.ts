@@ -1,9 +1,10 @@
 import Nanobus from "nanobus";
 import {EventConstants} from "../../constants";
 import {Column} from "./column";
-import {ColumnSettingsResponse, submitColumnSettings} from "./ajax";
+import {ColumnSettingsResponse, submitColumnSettings, switchColumnType} from "./ajax";
 import {AxiosResponse} from "axios";
 import {fadeIn} from "../../helpers/animations";
+import {COLUMN_SWITCH_TYPE_EVENT, ColumnSwitchPayload} from "./events/type-selector";
 
 export class Form {
 
@@ -67,8 +68,28 @@ export class Form {
         this.getElement().querySelectorAll('.ac-column').forEach((element: HTMLElement) => {
             let column = new Column(element);
             column.init();
-            this.events.emit( EventConstants.SETTINGS.COLUMN.INIT, column );
             this.columns.push( column );
+            this.bindColumnEvents( column );
+        });
+    }
+
+    bindColumnEvents( column: Column ){
+        column.events.addListener( COLUMN_SWITCH_TYPE_EVENT, ( data: ColumnSwitchPayload) => {
+            this.switchColumn( data.column, data.type );
+        });
+    }
+
+    switchColumn( oldColumn: Column, type: string ){
+        oldColumn.setLoading(true);
+
+        switchColumnType( type, this.getSerializedFormData(), this.getOriginalColumns().map(e => e.getName())).then((response: AxiosResponse<any>) => {
+            let element = document.createElement('div');
+            element.innerHTML = response.data.data.trim();
+
+            let column = new Column(element.firstChild as HTMLElement);
+            column.init();
+            column.open();
+            oldColumn.getElement().parentNode.replaceChild(column.getElement(), oldColumn.getElement());
         });
     }
 
