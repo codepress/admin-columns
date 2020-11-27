@@ -25,7 +25,8 @@ export class Tooltip {
 
         this.element.dataset.acTooltipInit = '1';
 
-        document.body.append(this.tip);
+
+        document.body.appendChild(this.tip);
 
         this.element.addEventListener('mouseenter', () => {
             const bodyOffset = document.body.getBoundingClientRect();
