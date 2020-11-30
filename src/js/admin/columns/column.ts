@@ -3,33 +3,52 @@ import $ from 'jquery';
 import {EventConstants} from "../../constants";
 import {AdminColumnsInterface} from "../../admincolumns";
 import Nanobus from "nanobus";
+import {refreshColumn, switchColumnType} from "./ajax";
+import {AxiosResponse} from "axios";
+import {createElementFromString} from "../../helpers/elements";
+import {createColumnName} from "../../helpers/columns";
+import {fadeIn, fadeOut} from "../../helpers/animations";
 
 const STATES = {
     CLOSED: 'closed',
     OPEN: 'open'
 };
 
+export const COLUMN_EVENTS = {
+    REMOVE : 'remove',
+    CLONE : 'clone',
+}
+
 declare const AdminColumns: AdminColumnsInterface
+
+type ajaxResponse = {
+    success: boolean,
+    data: any
+}
 
 export class Column {
     events: Nanobus;
     private element: HTMLElement
-    private settings: Array<any>
     private name: string
     private type: string
     private state: string
     private original: boolean
     private disabled: boolean
 
-    constructor(element: HTMLElement) {
+    constructor(element: HTMLElement, name: string) {
         this.events = new Nanobus();
+        this.name = name;
         this.element = element;
-        this.settings = [];
         this.state = STATES.CLOSED;
-        this.name = element.dataset.columnName;
+        this.setPropertiesByElement(element);
+    }
+
+    private setPropertiesByElement(element: HTMLElement) {
         this.type = element.dataset.type;
         this.original = element.dataset.original === '1';
         this.disabled = element.classList.contains('disabled');
+
+        return this;
     }
 
     getName() {
@@ -119,21 +138,7 @@ export class Column {
             }
         });
 
-        this.bindSettings();
-
-
         return this;
-    }
-
-    bindSettings() {
-        let column = this;
-
-        Object.keys(AC.Column.settings).forEach(function (key) {
-            if (!column.isBound(key)) {
-                AC.Column.settings[key](column);
-                column.bind(key);
-            }
-        });
     }
 
     destroy() {
@@ -141,11 +146,10 @@ export class Column {
     }
 
     remove(duration = 350) {
-        let self = this;
-
-        this.$el.addClass('deleting').animate({opacity: 0, height: 0}, duration, function () {
-            self.destroy();
-        });
+        this.events.emit( COLUMN_EVENTS.REMOVE, this );
+        fadeOut( this.getElement(), duration, () => {
+            this.destroy();
+        } );
     }
 
     getState() {
@@ -170,92 +174,73 @@ export class Column {
         this.state = STATES.OPEN;
     }
 
-    showMessage(message) {
-        this.$el.find('.ac-column-setting--type .msg').html(message).show();
+    showMessage(message: string) {
+        let msgElement = this.getElement().querySelector<HTMLElement>('.ac-column-setting--type .msg');
+        if (msgElement) {
+            msgElement.innerHTML = message;
+            msgElement.style.display = 'block';
+        }
+    }
+
+    getJson(): any {
+        let r: any = {};
+        this.getElement().querySelectorAll('input, select, textarea ').forEach((formEl: HTMLFormElement) => {
+            let nameParts = formEl.name.split('[').map(p => p.split(']')[0]);
+            let setter = r;
+            let i = 0;
+
+            nameParts.forEach((part) => {
+                i++;
+                if (!setter.hasOwnProperty(part)) {
+                    setter[part] = i === nameParts.length
+                        ? formEl.value
+                        : {}
+                }
+
+                setter = setter[part];
+            });
+        });
+
+        return r['columns'][this.getName()];
     }
 
     switchToType(type: string) {
-        return;
-        //let self = this;
+        this.setLoading(true);
 
-        /*return jQuery.ajax({
-            url: ajaxurl,
-            method: 'post',
-            dataType: 'json',
-            data: {
-                action: 'ac-columns',
-                id: 'select',
-                type: type,
-                data: AdminColumns.Form.serialize(),
-                current_original_columns: AdminColumns.Form.originalColumns(),
-                original_columns: AC.original_columns,
-                _ajax_nonce: AC._ajax_nonce,
-            },
-            success: function (response) {
-                if (true === response.success) {
-                    let column = jQuery(response.data);
+        switchColumnType(type).then((response: AxiosResponse<ajaxResponse>) => {
+            if( response.data.success ){
+                let name = createColumnName();
+                let element = createElementFromString(response.data.data.trim()).firstChild as HTMLElement;
 
-                    self.$el.replaceWith(column);
-                    self.$el = column;
-                    self.el = column[0];
-                    self._type = type;
-                    self.initNewInstance();
-                    self.bindEvents();
-                    self.open();
-
-                    jQuery(document).trigger('AC_Column_Change', [self]);
-                } else {
-                    self.showMessage(response.data.error)
-                }
+                setColumnNameToFormElements(name, element);
+                this.name = name;
+                this.reinitColumnFromElement(element)
+            } else {
+                this.showMessage( response.data.data.error );
             }
-        });*/
+
+        }).finally(() => this.setLoading(false));
     }
 
     refresh() {
-        //todo
-        return;
-        /* let self = this;
-         let data = this.$el.find(':input').serializeArray();
-         let request_data = {
-             action: 'ac-columns',
-             id: 'refresh',
-             _ajax_nonce: AC._ajax_nonce,
-             data: AdminColumns.Form.serialize(),
-             column_name: this.name,
-             original_columns: AC.original_columns
-         };
+        this.setLoading(true);
 
-         jQuery.each(request_data, function (name, value) {
-             data.push({
-                 name: name,
-                 value: value
-             });
-         });
+        refreshColumn(this.getName(), JSON.stringify(this.getJson())).then((response: AxiosResponse<ajaxResponse>) => {
+            if( response.data.success ){
+                this.reinitColumnFromElement(createElementFromString(response.data.data.trim()).firstChild as HTMLElement)
+            } else {
+                this.showMessage('sdfsdfsdf');
+            }
 
-         return jQuery.ajax({
-             type: 'post',
-             url: ajaxurl,
-             data: data,
-
-             success: function (response) {
-                 if (true === response.success) {
-                     let column = jQuery(response.data);
-
-                     self.$el.replaceWith(column);
-                     self.$el = column;
-                     self.el = column[0];
-                     self.bindEvents();
-
-                     if (self.getState() === STATES.OPEN) {
-                         self.open();
-                     }
-
-                     jQuery(document).trigger('AC_Column_Refresh', [self]);
-                 }
-             }
-
-         });*/
+        }).finally(() => this.setLoading(false));
     }
+
+    private reinitColumnFromElement(element: HTMLElement) {
+        this.getElement().parentNode.replaceChild(element, this.getElement());
+        this.element = element;
+        this.setPropertiesByElement(element).init().open();
+    }
+
 
     /**
      * @returns {Column}
@@ -282,4 +267,10 @@ export class Column {
 
         return clone;*/
     }
+}
+
+const setColumnNameToFormElements = (name: string, columnElement: HTMLElement) => {
+    columnElement.querySelectorAll('input, select').forEach((element: HTMLElement) => {
+        element.setAttribute('name', element.getAttribute('name').toString().replace('columns[]', `columns[${name}]`))
+    });
 }

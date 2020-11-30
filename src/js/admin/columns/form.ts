@@ -1,10 +1,11 @@
 import Nanobus from "nanobus";
 import {EventConstants} from "../../constants";
-import {Column} from "./column";
-import {ColumnSettingsResponse, submitColumnSettings, switchColumnType} from "./ajax";
+import {Column, COLUMN_EVENTS} from "./column";
+import {ColumnSettingsResponse, submitColumnSettings} from "./ajax";
 import {AxiosResponse} from "axios";
 import {fadeIn} from "../../helpers/animations";
-import {COLUMN_SWITCH_TYPE_EVENT, ColumnSwitchPayload} from "./events/type-selector";
+import {createColumnName} from "../../helpers/columns";
+import {insertAfter} from "../../helpers/elements";
 
 export class Form {
 
@@ -39,22 +40,28 @@ export class Form {
         return this.form;
     }
 
-    placeColumn(column: Column) {
-        this.getElement().querySelector('.ac-columns').append(column.getElement())
+    placeColumn(column: Column, after: HTMLElement = null): this {
+        if (after) {
+            insertAfter(column.getElement(), after);
+        } else {
+            this.getElement().querySelector('.ac-columns').append(column.getElement());
+        }
+        return this;
     }
 
-    createNewColumn() {
+    createNewColumn(): Column {
         let column = createColumnFromTemplate();
+        column.init().open();
         this.columns.push(column);
 
         this.placeColumn(column);
-    }
 
+        return column;
+    }
 
     isDisabled() {
         return this.form.classList.contains('-disabled');
     }
-
 
     getOriginalColumns(): Array<Column> {
         return this.columns.filter(column => column.isOriginal());
@@ -66,41 +73,25 @@ export class Form {
 
     initColumns() {
         this.getElement().querySelectorAll('.ac-column').forEach((element: HTMLElement) => {
-            let column = new Column(element);
+            let column = new Column(element, element.dataset.columnName);
             column.init();
-            this.columns.push( column );
-            this.bindColumnEvents( column );
+            this.columns.push(column);
+            this.bindColumnEvents(column);
         });
     }
 
-    bindColumnEvents( column: Column ){
-        column.events.addListener( COLUMN_SWITCH_TYPE_EVENT, ( data: ColumnSwitchPayload) => {
-            this.switchColumn( data.column, data.type );
+    bindColumnEvents(column: Column) {
+        column.events.addListener(COLUMN_EVENTS.REMOVE, () => {
+            this.removeColumn(column.getName());
         });
-    }
 
-    switchColumn( oldColumn: Column, type: string ){
-        oldColumn.setLoading(true);
+        column.events.addListener(COLUMN_EVENTS.CLONE, () => {
+            let cloneColumn = new Column(column.getElement().cloneNode(true) as HTMLElement, createColumnName());
+            cloneColumn.init();
 
-        switchColumnType( type, this.getSerializedFormData(), this.getOriginalColumns().map(e => e.getName())).then((response: AxiosResponse<any>) => {
-            let element = document.createElement('div');
-            element.innerHTML = response.data.data.trim();
-
-            let column = new Column(element.firstChild as HTMLElement);
-            column.init();
-            column.open();
-            oldColumn.getElement().parentNode.replaceChild(column.getElement(), oldColumn.getElement());
-        });
-    }
-
-    reindexColumns() {
-        let self = this;
-        self.columns = {};
-
-        this.$form.find('.ac-column').each(function () {
-            let column = jQuery(this).data('column');
-
-            self.columns[column.name] = column;
+            this.columns.push(cloneColumn);
+            this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
+            fadeIn(cloneColumn.getElement(), 300);
         });
     }
 
@@ -133,19 +124,16 @@ export class Form {
             if (response.data.success) {
                 this.showMessage(response.data.data, 'updated')
             } else if (response.data) {
-                //tODO test
                 let error: any = response.data as unknown;
                 this.showMessage(error.data.message, 'notice notice-warning');
             }
 
+        }).catch(() => {
+            this.showMessage(AC.i18n.error.save_settings);
         }).finally(() => {
             this.events.emit(EventConstants.SETTINGS.FORM.SAVED, this);
         });
 
-        // TODO
-        /* xhr.fail(function (error) {
-             self.showMessage(AC.i18n.errors.save_settings, 'notice notice-warning');
-         });*/
     }
 
     showMessage(message: string, className: string = 'updated') {
@@ -154,39 +142,22 @@ export class Form {
 
         let element: HTMLDivElement = document.createElement('div');
         element.classList.add('ac-message');
-        element.classList.add(className);
+        element.classList.add(...className.split(' '));
         element.innerHTML = `<p>${message}</p>`;
         messageContainer.insertAdjacentElement('afterbegin', element);
         fadeIn(element, 600);
     }
 
-    cloneColumn($el) {
-        return this._addColumnToForm(new Column($el).clone(), $el.hasClass('opened'), $el);
-    }
-
-    removeColumn(name) {
-        if (this.columns[name]) {
-            this.columns[name].remove();
-            delete this.columns[name];
-        }
+    removeColumn(name: string) {
+        this.columns.forEach((c, i) => {
+            if (name === c.getName()) {
+                this.columns.splice(i, 1);
+            }
+        });
+        console.log(this.columns)
     }
 
     _addColumnToForm(column, open = true, $after = null) {
-        this.columns[column.name] = column;
-
-        if ($after) {
-            column.$el.insertAfter($after);
-        } else {
-            this.$column_container.append(column.$el);
-        }
-
-        if (open) {
-            column.open();
-        }
-
-        column.$el.hide().slideDown();
-
-        jQuery(document).trigger('AC_Column_Added', [column]);
 
         if (!isInViewport(column.$el)) {
             jQuery('html, body').animate({scrollTop: column.$el.offset().top - 58}, 300);
@@ -201,7 +172,7 @@ export class Form {
 const createColumnFromTemplate = () => {
     let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true) as HTMLElement;
 
-    return new Column(columnElement);
+    return new Column(columnElement, '_new_column');
 }
 
 let isInViewport = ($el) => {

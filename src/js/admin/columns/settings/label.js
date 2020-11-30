@@ -120,4 +120,3 @@ let label = function( column ) {
 	column.settings.label = new Label( column );
 };
 
-export default label;

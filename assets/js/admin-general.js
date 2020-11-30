@@ -420,6 +420,10 @@ function () {
     this.initEvents();
   }
 
+  Modal.prototype.getElement = function () {
+    return this.el;
+  };
+
   Modal.prototype.initEvents = function () {
     var _this = this;
 

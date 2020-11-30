@@ -56,7 +56,7 @@ $column = $this->column;
 						<?php if ( ! $column->is_original() ) : ?>
 							<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 						<?php endif; ?>
-						<a class="remove-button"><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
+						<a class="remove-button" data-remove-column><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
 					</div>
 				</td>
 				<td class="column_type">
@@ -91,7 +91,7 @@ $column = $this->column;
 							<?php if ( ! $column->is_original() ) : ?>
 								<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 							<?php endif; ?>
-							<a href="#" class="remove-button"><?php _e( 'Remove' ); ?></a>
+							<a href="#" class="remove-button" data-remove-column><?php _e( 'Remove' ); ?></a>
 						</p>
 					</td>
 				</tr>

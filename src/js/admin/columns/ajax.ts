@@ -1,9 +1,11 @@
-import {LocalizedScriptColumnSettings} from "../../admincolumns";
+import {AdminColumnsInterface, LocalizedScriptColumnSettings} from "../../admincolumns";
+import {Column} from "./column";
 
 const axios = require('axios');
 
 declare const ajaxurl: string;
 declare const AC: LocalizedScriptColumnSettings;
+declare const AdminColumns: AdminColumnsInterface;
 
 export interface ColumnSettingsResponse {
     success: boolean
@@ -40,14 +42,41 @@ const mapDataToFormData = (data: { [key: string]: string }, formData: FormData =
     return formData;
 }
 
-export const switchColumnType = (type: string, data: string, originalColumns: Array<string>) => {
+export const _switchColumnType = (type: string, data: string) => {
     let formData = mapDataToFormData({
         _ajax_nonce: AC._ajax_nonce,
         action: 'ac-columns',
         id: 'select',
         type: type,
         data: data,
-        current_original_columns: JSON.stringify(originalColumns),
+        current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns()),
+    });
+
+    return axios.post(ajaxurl, formData);
+}
+
+export const switchColumnType = (type: string, list_screen: string = AC.list_screen) => {
+    let formData = mapDataToFormData({
+        _ajax_nonce: AC._ajax_nonce,
+        action: 'ac-columns',
+        id: 'select',
+        type: type,
+        list_screen: list_screen,
+        current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map((e: Column) => e.getName())),
+    });
+
+    return axios.post(ajaxurl, formData);
+}
+
+export const refreshColumn = (name: string, data: string, list_screen: string = AC.list_screen) => {
+    let formData = mapDataToFormData({
+        _ajax_nonce: AC._ajax_nonce,
+        action: 'ac-columns',
+        id: 'refresh',
+        column_name: name,
+        data: data,
+        list_screen: list_screen,
+        current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map((e: Column) => e.getName())),
     });
 
     return axios.post(ajaxurl, formData);

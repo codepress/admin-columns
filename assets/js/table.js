@@ -148,19 +148,29 @@ var initAdminColumnsGlobalBootstrap = function () {
 /*!********************************!*\
   !*** ./js/helpers/elements.ts ***!
   \********************************/
-/*! exports provided: insertAfter, insertBefore */
+/*! exports provided: insertAfter, insertBefore, createElementFromString */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertAfter", function() { return insertAfter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertBefore", function() { return insertBefore; });
-function insertAfter(newNode, referenceNode) {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElementFromString", function() { return createElementFromString; });
+var insertAfter = function (newNode, referenceNode) {
   referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
-function insertBefore(newNode, referenceNode) {
+};
+var insertBefore = function (newNode, referenceNode) {
   referenceNode.parentNode.insertBefore(newNode, referenceNode);
-}
+};
+var createElementFromString = function (content, baseElement) {
+  if (baseElement === void 0) {
+    baseElement = 'div';
+  }
+
+  var element = document.createElement(baseElement);
+  element.innerHTML = content;
+  return element;
+};
 
 /***/ }),
 
@@ -290,6 +300,10 @@ function () {
     this.dialog = el.querySelector('.ac-modal__dialog');
     this.initEvents();
   }
+
+  Modal.prototype.getElement = function () {
+    return this.el;
+  };
 
   Modal.prototype.initEvents = function () {
     var _this = this;
