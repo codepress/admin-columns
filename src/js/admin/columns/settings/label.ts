@@ -2,15 +2,24 @@ import Modal from "../../../modules/modal";
 import {Column} from "../column";
 import Nanobus from "nanobus";
 
-export default class LabelSetting {
-    column: Column
-    modal: IconPickerModal;
-    field: HTMLInputElement;
+export const initLabelSetting = (column: Column) => {
+    let setting: HTMLElement = column.getElement().querySelector('.ac-column-setting--label');
+    if (setting) {
+        new LabelSetting(column, setting);
+    }
+}
 
-    constructor(column: Column) {
+class LabelSetting {
+    column: Column
+    setting: HTMLElement
+    modal: IconPickerModal
+    field: HTMLInputElement
+
+    constructor(column: Column, setting: HTMLElement) {
         this.column = column;
+        this.setting = setting;
         this.modal = new IconPickerModal(column.getElement().querySelector('.-iconpicker'));
-        this.field = this.column.getElement().querySelector<HTMLInputElement>('.ac-column-setting--label .ac-setting-input_label');
+        this.field = this.setting.querySelector<HTMLInputElement>('.ac-setting-input_label');
         this.initEvents();
         this.modal.setIconSelection(this.getDashIconFromValue());
     }

@@ -22,7 +22,7 @@ export const initLabel = (column: Column) => {
     }, 50)
 }
 
-export const initLabelSetting = (column: Column) => {
+export const initLabelSettingEvents = (column: Column) => {
     let labelInput = column.getElement().querySelector<HTMLInputElement>('.ac-column-setting--label input');
 
     if (!labelInput) {

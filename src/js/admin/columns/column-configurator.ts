@@ -7,8 +7,12 @@ import {initTypeSelector} from "./events/type-selector";
 import {initColumnRefresh} from "./events/refresh";
 import {initRemoveColumn} from "./events/remove";
 import {initClone} from "./events/clone";
-import {initLabel, initLabelSetting} from "./events/label";
-import LabelSetting from "./settings/label";
+import {initLabel, initLabelSettingEvents} from "./events/label";
+import {initLabelSetting} from "./settings/label";
+import {initImageSizeSetting} from "./settings/image-size";
+import {initNumberFormatSetting} from "./settings/number-format";
+import {initColumnTypeSelectorSetting} from "./settings/type";
+import {initWidthSetting} from "./settings/width";
 
 declare const AdminColumns: AdminColumnsInterface;
 
@@ -23,9 +27,13 @@ export default class ColumnConfigurator {
             initRemoveColumn(column);
             initClone(column);
             initLabel( column );
-            initLabelSetting( column );
+            initLabelSettingEvents( column );
 
-            new LabelSetting( column );
+            initLabelSetting(column);
+            initImageSizeSetting( column );
+            initNumberFormatSetting( column );
+            initColumnTypeSelectorSetting( column );
+            initWidthSetting( column );
 
         });
     }

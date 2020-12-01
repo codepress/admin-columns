@@ -308,6 +308,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _events_clone__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./events/clone */ "./js/admin/columns/events/clone.ts");
 /* harmony import */ var _events_label__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./events/label */ "./js/admin/columns/events/label.ts");
 /* harmony import */ var _settings_label__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./settings/label */ "./js/admin/columns/settings/label.ts");
+/* harmony import */ var _settings_image_size__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./settings/image-size */ "./js/admin/columns/settings/image-size.ts");
+/* harmony import */ var _settings_number_format__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./settings/number-format */ "./js/admin/columns/settings/number-format.ts");
+/* harmony import */ var _settings_type__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./settings/type */ "./js/admin/columns/settings/type.ts");
+/* harmony import */ var _settings_width__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./settings/width */ "./js/admin/columns/settings/width.ts");
+
+
+
+
 
 
 
@@ -330,8 +338,12 @@ function () {
       Object(_events_remove__WEBPACK_IMPORTED_MODULE_5__["initRemoveColumn"])(column);
       Object(_events_clone__WEBPACK_IMPORTED_MODULE_6__["initClone"])(column);
       Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabel"])(column);
-      Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabelSetting"])(column);
-      new _settings_label__WEBPACK_IMPORTED_MODULE_8__["default"](column);
+      Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabelSettingEvents"])(column);
+      Object(_settings_label__WEBPACK_IMPORTED_MODULE_8__["initLabelSetting"])(column);
+      Object(_settings_image_size__WEBPACK_IMPORTED_MODULE_9__["initImageSizeSetting"])(column);
+      Object(_settings_number_format__WEBPACK_IMPORTED_MODULE_10__["initNumberFormatSetting"])(column);
+      Object(_settings_type__WEBPACK_IMPORTED_MODULE_11__["initColumnTypeSelectorSetting"])(column);
+      Object(_settings_width__WEBPACK_IMPORTED_MODULE_12__["initWidthSetting"])(column);
     });
   }
 
@@ -702,13 +714,13 @@ var switchTo = function (checked, elements) {
 /*!******************************************!*\
   !*** ./js/admin/columns/events/label.ts ***!
   \******************************************/
-/*! exports provided: initLabel, initLabelSetting */
+/*! exports provided: initLabel, initLabelSettingEvents */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabel", function() { return initLabel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabelSetting", function() { return initLabelSetting; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabelSettingEvents", function() { return initLabelSettingEvents; });
 var initLabel = function (column) {
   column.getElement().querySelectorAll('select[data-label="update"]').forEach(function (select) {
     select.addEventListener('change', function () {
@@ -729,7 +741,7 @@ var initLabel = function (column) {
     }
   }, 50);
 };
-var initLabelSetting = function (column) {
+var initLabelSettingEvents = function (column) {
   var labelInput = column.getElement().querySelector('.ac-column-setting--label input');
 
   if (!labelInput) {
@@ -1080,15 +1092,79 @@ var isInViewport = function ($el) {
 
 /***/ }),
 
-/***/ "./js/admin/columns/settings/label.ts":
-/*!********************************************!*\
-  !*** ./js/admin/columns/settings/label.ts ***!
-  \********************************************/
-/*! exports provided: default */
+/***/ "./js/admin/columns/settings/image-size.ts":
+/*!*************************************************!*\
+  !*** ./js/admin/columns/settings/image-size.ts ***!
+  \*************************************************/
+/*! exports provided: initImageSizeSetting, ImageSizeSetting */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initImageSizeSetting", function() { return initImageSizeSetting; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImageSizeSetting", function() { return ImageSizeSetting; });
+var initImageSizeSetting = function (column) {
+  var setting = column.getElement().querySelector('.ac-column-setting--image');
+
+  if (setting) {
+    new ImageSizeSetting(column, setting);
+  }
+};
+
+var ImageSizeSetting =
+/** @class */
+function () {
+  function ImageSizeSetting(column, setting) {
+    this.column = column;
+    this.setting = setting;
+    this.field = this.setting.querySelector('.ac-setting-input select');
+    this.initState();
+    this.bindEvents();
+  }
+
+  ImageSizeSetting.prototype.getValue = function () {
+    return this.field.value;
+  };
+
+  ImageSizeSetting.prototype.bindEvents = function () {
+    var _this = this;
+
+    this.field.addEventListener('change', function () {
+      return _this.initState();
+    });
+  };
+
+  ImageSizeSetting.prototype.initState = function () {
+    this.toggleSubSettings('cpac-custom' === this.getValue());
+  };
+
+  ImageSizeSetting.prototype.toggleSubSettings = function (show) {
+    if (show === void 0) {
+      show = true;
+    }
+
+    this.setting.querySelectorAll('.ac-column-setting').forEach(function (setting) {
+      return setting.style.display = show ? 'table' : 'none';
+    });
+  };
+
+  return ImageSizeSetting;
+}();
+
+
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/label.ts":
+/*!********************************************!*\
+  !*** ./js/admin/columns/settings/label.ts ***!
+  \********************************************/
+/*! exports provided: initLabelSetting */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabelSetting", function() { return initLabelSetting; });
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../modules/modal */ "./js/modules/modal.ts");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_1__);
@@ -1118,14 +1194,22 @@ var __extends = undefined && undefined.__extends || function () {
 
 
 
+var initLabelSetting = function (column) {
+  var setting = column.getElement().querySelector('.ac-column-setting--label');
+
+  if (setting) {
+    new LabelSetting(column, setting);
+  }
+};
 
 var LabelSetting =
 /** @class */
 function () {
-  function LabelSetting(column) {
+  function LabelSetting(column, setting) {
     this.column = column;
+    this.setting = setting;
     this.modal = new IconPickerModal(column.getElement().querySelector('.-iconpicker'));
-    this.field = this.column.getElement().querySelector('.ac-column-setting--label .ac-setting-input_label');
+    this.field = this.setting.querySelector('.ac-setting-input_label');
     this.initEvents();
     this.modal.setIconSelection(this.getDashIconFromValue());
   }
@@ -1177,8 +1261,6 @@ function () {
 
   return LabelSetting;
 }();
-
-/* harmony default export */ __webpack_exports__["default"] = (LabelSetting);
 
 var IconPickerModal =
 /** @class */
@@ -1241,6 +1323,325 @@ function (_super) {
 
   return IconPickerModal;
 }(_modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/number-format.ts":
+/*!****************************************************!*\
+  !*** ./js/admin/columns/settings/number-format.ts ***!
+  \****************************************************/
+/*! exports provided: initNumberFormatSetting */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initNumberFormatSetting", function() { return initNumberFormatSetting; });
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var initNumberFormatSetting = function (column) {
+  column.getElement().querySelectorAll('.ac-column-setting--number_format').forEach(function (setting) {
+    new NumberFormat(column, setting);
+  });
+};
+
+var NumberFormat =
+/** @class */
+function () {
+  function NumberFormat(column, setting) {
+    this.column = column;
+    this.setting = setting;
+    this.bindEvents();
+  }
+
+  NumberFormat.prototype.bindEvents = function () {
+    var _this = this;
+
+    this.refreshPreview();
+    this.setting.querySelectorAll('input').forEach(function (el) {
+      el.addEventListener('change', function () {
+        return _this.refreshPreview();
+      });
+    });
+  };
+
+  NumberFormat.prototype.refreshPreview = function () {
+    var _this = this;
+
+    this.getExampleRequest().then(function (response) {
+      _this.setting.querySelectorAll('[data-preview]').forEach(function (el) {
+        return el.textContent = response.data.data;
+      });
+    });
+  };
+
+  NumberFormat.prototype.getValue = function () {
+    var decimals = this.setting.querySelector('.ac-setting-input_number_decimals');
+    var decimal_point = this.setting.querySelector('.ac-setting-input_number_decimal_point');
+    var thousands_point = this.setting.querySelector('.ac-setting-input_number_thousands_separator');
+    return {
+      decimals: decimals ? decimals.value : '',
+      decimal_point: decimal_point ? decimal_point.value : '',
+      thousands_point: thousands_point ? thousands_point.value : ''
+    };
+  };
+
+  NumberFormat.prototype.getExampleRequest = function () {
+    var value = this.getValue();
+    var data = new FormData();
+    data.set('action', 'ac_number_format');
+    data.set('number', '7500');
+    data.set('decimals', value.decimals);
+    data.set('decimal_point', value.decimal_point);
+    data.set('thousands_sep', value.thousands_point);
+    return axios.post(ajaxurl, data, {});
+  };
+
+  return NumberFormat;
+}();
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/type.ts":
+/*!*******************************************!*\
+  !*** ./js/admin/columns/settings/type.ts ***!
+  \*******************************************/
+/*! exports provided: initColumnTypeSelectorSetting */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initColumnTypeSelectorSetting", function() { return initColumnTypeSelectorSetting; });
+/* harmony import */ var _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../select2/excludegroup.matcher */ "./js/select2/excludegroup.matcher.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+ // @ts-ignore
+
+
+var initColumnTypeSelectorSetting = function (column) {
+  column.getElement().querySelectorAll('[data-setting="type"]').forEach(function (setting) {
+    new TypeSelector(column, setting);
+  });
+};
+
+var TypeSelector =
+/** @class */
+function () {
+  function TypeSelector(column, setting) {
+    this.column = column;
+    this.setting = setting;
+    this.bindEvents();
+  }
+
+  TypeSelector.prototype.bindEvents = function () {
+    var select = this.setting.querySelector('.ac-setting-input_type');
+
+    if (select) {
+      select.removeAttribute('data-select2-id');
+      this.setting.querySelectorAll('.select2').forEach(function (el) {
+        el.remove();
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(select).ac_select2({
+        theme: 'acs2',
+        width: '100%',
+        dropdownCssClass: '-type-selector',
+        escapeMarkup: function (text) {
+          return text;
+        },
+        templateResult: function (result) {
+          var text = result.text;
+
+          if (result.hasOwnProperty('id') && result.id.includes('placeholder-')) {
+            text += "<span style=\"background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;\">PRO</span>";
+          }
+
+          return text;
+        },
+        matcher: _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__["default"]
+      });
+    }
+  };
+
+  return TypeSelector;
+}();
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/width.ts":
+/*!********************************************!*\
+  !*** ./js/admin/columns/settings/width.ts ***!
+  \********************************************/
+/*! exports provided: initWidthSetting */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initWidthSetting", function() { return initWidthSetting; });
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+ // @ts-ignore
+
+
+var initWidthSetting = function (column) {
+  column.getElement().querySelectorAll('table[data-setting="width"]').forEach(function (setting) {
+    return new WidthSetting(column, setting);
+  });
+};
+
+var WidthSetting =
+/** @class */
+function () {
+  function WidthSetting(column, setting) {
+    this.column = column;
+    this.setting = setting;
+    this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
+    this.indicator = new WidthIndicator(column.getElement().querySelector('.ac-column-header .ac-column-heading-setting--width'));
+    this.widthInput = this.setting.querySelector('[data-width-input]');
+    this.unitInput = this.setting.querySelectorAll('[data-unit-input] input');
+    this.init();
+  }
+
+  WidthSetting.prototype.getWidth = function () {
+    var widthValue = this.widthInput.value;
+    return widthValue ? parseInt(widthValue) : null;
+  };
+
+  WidthSetting.prototype.setWidth = function (width) {
+    this.widthInput.value = width ? width.toString() : null;
+    this.updateIndicator();
+  };
+
+  WidthSetting.prototype.updateUnit = function () {
+    this.setting.querySelector('.description .unit').innerHTML = this.getUnit();
+  };
+
+  WidthSetting.prototype.getUnit = function () {
+    return this.setting.querySelector('[data-unit-input] input:checked').value;
+  };
+
+  WidthSetting.prototype.getValue = function () {
+    return {
+      width: this.getWidth(),
+      unit: this.getUnit()
+    };
+  };
+
+  WidthSetting.prototype.validate = function () {
+    var width = this.getWidth();
+
+    if (width === 0 || width < 0) {
+      this.setWidth(null);
+    }
+
+    if (this.getUnit() === '%') {
+      if (width > 100) {
+        this.setWidth(100);
+      }
+    }
+  };
+
+  WidthSetting.prototype.init = function () {
+    var _this = this;
+
+    this.widthInput.addEventListener('keyup', function () {
+      return _this.updateIndicator();
+    });
+    this.unitInput.forEach(function (el) {
+      el.addEventListener('change', function () {
+        _this.initSlider();
+
+        _this.updateIndicator();
+
+        _this.updateUnit();
+
+        _this.validate();
+      });
+    });
+    this.initSlider();
+  };
+
+  WidthSetting.prototype.updateIndicator = function () {
+    this.indicator.setValue(this.getWidth(), this.getUnit());
+  };
+
+  WidthSetting.prototype.initEvents = function () {};
+
+  WidthSetting.prototype.initSlider = function () {
+    var _this = this;
+
+    var sliderElement = this.column.getElement().querySelector('.width-slider');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(sliderElement).slider({
+      range: 'min',
+      min: 0,
+      max: '%' === this.getUnit() ? 100 : 500,
+      value: this.getWidth(),
+      slide: function (event, ui) {
+        _this.setWidth(ui.value);
+      }
+    });
+  };
+
+  return WidthSetting;
+}();
+
+var WidthIndicator =
+/** @class */
+function () {
+  function WidthIndicator(element) {
+    this.element = element;
+    this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
+  }
+
+  WidthIndicator.prototype.setValue = function (width, unit) {
+    if (width === null) {
+      return this.element.innerText = '';
+    }
+
+    this.element.innerText = "" + width.toString() + unit;
+  };
+
+  return WidthIndicator;
+}();
+
+var width = function (column) {
+  var $ = jQuery;
+  var $column = column.$el;
+  $column.find('.ac-column-setting--width').each(function () {
+    $column.column_width_slider(); // unit selector
+
+    var width_unit_select = $column.find('.ac-setting-input-width .unit-select label');
+    width_unit_select.on('click', function () {
+      $column.find('span.unit').text($(this).find('input').val());
+      $column.column_width_slider(); // re-init slider
+
+      $width_indicator.trigger('update'); // update indicator
+    }); // width_input
+
+    var width_input = $column.find('.ac-setting-input-width .description input') // width_input:validate
+    .on('validate', function () {
+      var _width = width_input.val();
+
+      var _new_width = $.trim(_width);
+
+      if (!jQuery.isNumeric(_new_width)) {
+        _new_width = _new_width.replace(/\D/g, '');
+      }
+
+      if (_new_width.length > 3) {
+        _new_width = _new_width.substring(0, 3);
+      }
+
+      if (_new_width <= 0) {
+        _new_width = '';
+      }
+
+      if (_new_width !== _width) {
+        width_input.val(_new_width);
+      }
+    });
+  });
+};
 
 /***/ }),
 
@@ -1599,6 +2000,43 @@ function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (Modals);
+
+/***/ }),
+
+/***/ "./js/select2/excludegroup.matcher.js":
+/*!********************************************!*\
+  !*** ./js/select2/excludegroup.matcher.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return excludeGroupsMather; });
+function excludeGroupsMather(params, data) {
+  if (jQuery.trim(params.term) === '') {
+    return data;
+  }
+
+  if (typeof data.children === 'undefined') {
+    return null;
+  }
+
+  var filteredChildren = [];
+  jQuery.each(data.children, function (idx, child) {
+    if (child.text.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
+      filteredChildren.push(child);
+    }
+  });
+
+  if (filteredChildren.length) {
+    var modifiedData = jQuery.extend({}, data, true);
+    modifiedData.children = filteredChildren;
+    return modifiedData;
+  }
+
+  return null;
+}
 
 /***/ }),
 
