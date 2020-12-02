@@ -59,7 +59,7 @@ class WidthSetting {
     validate() {
         let width = this.getWidth();
 
-        if( width ===0 || width < 0 ){
+        if (width === 0 || width < 0) {
             this.setWidth(null);
         }
 
@@ -127,45 +127,3 @@ class WidthIndicator {
     }
 
 }
-
-
-let width = function (column) {
-    let $ = jQuery;
-    let $column = column.$el;
-
-    $column.find('.ac-column-setting--width').each(function () {
-        $column.column_width_slider();
-
-        // unit selector
-        let width_unit_select = $column.find('.ac-setting-input-width .unit-select label');
-        width_unit_select.on('click', function () {
-
-            $column.find('span.unit').text($(this).find('input').val());
-            $column.column_width_slider(); // re-init slider
-            $width_indicator.trigger('update'); // update indicator
-        });
-
-        // width_input
-        let width_input = $column.find('.ac-setting-input-width .description input')
-
-            // width_input:validate
-            .on('validate', function () {
-                let _width = width_input.val();
-                let _new_width = $.trim(_width);
-
-                if (!jQuery.isNumeric(_new_width)) {
-                    _new_width = _new_width.replace(/\D/g, '');
-                }
-                if (_new_width.length > 3) {
-                    _new_width = _new_width.substring(0, 3);
-                }
-                if (_new_width <= 0) {
-                    _new_width = '';
-                }
-                if (_new_width !== _width) {
-                    width_input.val(_new_width);
-                }
-            });
-
-    });
-};

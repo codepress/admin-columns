@@ -13,6 +13,8 @@ import {initImageSizeSetting} from "./settings/image-size";
 import {initNumberFormatSetting} from "./settings/number-format";
 import {initColumnTypeSelectorSetting} from "./settings/type";
 import {initWidthSetting} from "./settings/width";
+import {initDateSetting} from "./settings/date";
+import {initProSetting} from "./settings/pro";
 
 declare const AdminColumns: AdminColumnsInterface;
 
@@ -26,15 +28,16 @@ export default class ColumnConfigurator {
             initColumnRefresh(column);
             initRemoveColumn(column);
             initClone(column);
-            initLabel( column );
-            initLabelSettingEvents( column );
+            initLabel(column);
+            initLabelSettingEvents(column);
 
             initLabelSetting(column);
-            initImageSizeSetting( column );
-            initNumberFormatSetting( column );
-            initColumnTypeSelectorSetting( column );
-            initWidthSetting( column );
-
+            initImageSizeSetting(column);
+            initNumberFormatSetting(column);
+            initColumnTypeSelectorSetting(column);
+            initWidthSetting(column);
+            initDateSetting(column);
+            initProSetting(column);
         });
     }
 

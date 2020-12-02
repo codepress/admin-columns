@@ -101,7 +101,7 @@ abstract class DateTimeFormat extends Settings\Column
 		}
 
 		if ( $description ) {
-			$output .= '<span class="ac-setting-input-date__more hidden">' . $description . '</span>';
+			$output .= '<span data-help class="ac-setting-input-date__more hidden">' . $description . '</span>';
 		}
 
 		return $output;
@@ -116,7 +116,7 @@ abstract class DateTimeFormat extends Settings\Column
 			sprintf( __( 'Learn more about %s.', 'codepress-admin-columns' ), ac_helper()->html->link( 'https://wordpress.org/support/article/formatting-date-and-time/', __( 'date and time formatting', 'codepress-admin-columns' ), [ 'target' => '_blank' ] ) )
 		);
 
-		$custom_label .= '<input type="text" class="ac-setting-input-date__custom" value="' . esc_attr( $this->get_date_format() ) . '" disabled>';
+		$custom_label .= '<input type="text" class="ac-setting-input-date__custom" data-custom-date value="' . esc_attr( $this->get_date_format() ) . '" disabled>';
 		$custom_label .= '<span class="ac-setting-input-date__example"></span>';
 
 		$options['custom'] = $custom_label;

@@ -96,14 +96,10 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListenerLive", function() { return addEventListenerLive; });
-var addEventListenerLive = function (eventType, elementQuerySelector, cb, rootElement) {
-  if (rootElement === void 0) {
-    rootElement = null;
-  }
-
-  var element = rootElement ? rootElement : document;
-  element.addEventListener(eventType, function (event) {
-    var qs = document.querySelectorAll(elementQuerySelector);
+const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement = null) => {
+  let element = rootElement ? rootElement : document;
+  element.addEventListener(eventType, event => {
+    let qs = document.querySelectorAll(elementQuerySelector);
 
     if (qs) {
       var element = event.target,
@@ -133,7 +129,7 @@ var addEventListenerLive = function (eventType, elementQuerySelector, cb, rootEl
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./plugin/dismissible-notice */ "./js/plugin/dismissible-notice.ts");
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   alert('Test');
   Object(_plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_0__["initDismissibleNotices"])();
 });
@@ -154,13 +150,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/events */ "./js/helpers/events.ts");
 
 
-var $ = __webpack_require__(/*! jquery */ "jquery");
+const $ = __webpack_require__(/*! jquery */ "jquery");
 
-var dismissNotice = function (selector) {
-  document.querySelectorAll(selector).forEach(function (el) {
-    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', '.ac-notice__dismiss, [data-dismiss], .notice-dismiss', function (e) {
+const dismissNotice = selector => {
+  document.querySelectorAll(selector).forEach(el => {
+    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', '.ac-notice__dismiss, [data-dismiss], .notice-dismiss', e => {
       e.preventDefault();
-      var data = el.dataset.dismissibleCallback ? JSON.parse(el.dataset.dismissibleCallback) : null;
+      let data = el.dataset.dismissibleCallback ? JSON.parse(el.dataset.dismissibleCallback) : null;
 
       if (data) {
         $.post(ajaxurl, data);
@@ -168,7 +164,7 @@ var dismissNotice = function (selector) {
     }, el);
   });
 };
-var initDismissibleNotices = function () {
+const initDismissibleNotices = () => {
   dismissNotice('.ac-notice');
 };
 

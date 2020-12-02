@@ -18,10 +18,13 @@ class LabelSetting {
     constructor(column: Column, setting: HTMLElement) {
         this.column = column;
         this.setting = setting;
-        this.modal = new IconPickerModal(column.getElement().querySelector('.-iconpicker'));
         this.field = this.setting.querySelector<HTMLInputElement>('.ac-setting-input_label');
-        this.initEvents();
-        this.modal.setIconSelection(this.getDashIconFromValue());
+
+        if( column.getElement().querySelector('.-iconpicker') ){
+            this.modal = new IconPickerModal(column.getElement().querySelector('.-iconpicker'));
+            this.modal.setIconSelection(this.getDashIconFromValue());
+            this.initEvents();
+        }
     }
 
     initEvents() {
