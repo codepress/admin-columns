@@ -3,9 +3,12 @@ import {EventConstants} from "../../constants";
 import {Column, COLUMN_EVENTS} from "./column";
 import {ColumnSettingsResponse, submitColumnSettings} from "./ajax";
 import {AxiosResponse} from "axios";
-import {fadeIn} from "../../helpers/animations";
+import {fadeIn, scrollToElement} from "../../helpers/animations";
 import {createColumnName} from "../../helpers/columns";
 import {insertAfter} from "../../helpers/elements";
+import {LocalizedScriptColumnSettings} from "../../admincolumns";
+
+declare const AC: LocalizedScriptColumnSettings;
 
 export class Form {
 
@@ -46,6 +49,8 @@ export class Form {
         } else {
             this.getElement().querySelector('.ac-columns').append(column.getElement());
         }
+        scrollToElement(column.getElement(), 300, {offset: -58});
+
         return this;
     }
 
@@ -154,31 +159,12 @@ export class Form {
                 this.columns.splice(i, 1);
             }
         });
-        console.log(this.columns)
-    }
-
-    _addColumnToForm(column, open = true, $after = null) {
-
-        if (!isInViewport(column.$el)) {
-            jQuery('html, body').animate({scrollTop: column.$el.offset().top - 58}, 300);
-        }
-
-        return column;
     }
 
 }
-
 
 const createColumnFromTemplate = () => {
     let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true) as HTMLElement;
 
     return new Column(columnElement, '_new_column');
 }
-
-let isInViewport = ($el) => {
-    var elementTop = $el.offset().top;
-    var elementBottom = elementTop + $el.outerHeight();
-    var viewportTop = jQuery(window).scrollTop();
-    var viewportBottom = viewportTop + jQuery(window).height();
-    return elementBottom > viewportTop && elementTop < viewportBottom;
-};

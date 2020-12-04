@@ -76,7 +76,7 @@ class DateSetting {
     }
 
     setHelpText(text: string) {
-        let element = this.setting.querySelector('.help-msg');
+        let element: HTMLElement = this.setting.querySelector('.help-msg');
         element.innerHTML = text;
         element.style.display = 'block';
     }

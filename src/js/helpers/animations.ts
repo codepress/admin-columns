@@ -25,5 +25,35 @@ export const fadeOut = (element: HTMLElement, ms: number = 100, cb: Function = n
             cb.call(this);
         }, {once: true});
     }
+}
 
+interface scrollToElementOptions {
+    offset ?: number
+}
+export const scrollToElement = (element: HTMLElement, ms: number, options: scrollToElementOptions = {} ) => {
+    let defaults: scrollToElementOptions = {
+        offset: 0
+    }
+    let settings = Object.assign( {}, defaults, options );
+
+    const elementY = element.getBoundingClientRect().top + settings.offset;
+    const startingY = window.pageYOffset;
+    const diff = elementY - startingY;
+    let start: number;
+
+    // Bootstrap our animation - it will get called right before next frame shall be rendered.
+    window.requestAnimationFrame(function step(timestamp) {
+        if (!start) {
+            start = timestamp;
+        }
+
+        let time = timestamp - start;
+        let percent = Math.min(time / ms, 1);
+
+        window.scrollTo(0, startingY + diff * percent);
+
+        if (time < ms) {
+            window.requestAnimationFrame(step);
+        }
+    })
 }

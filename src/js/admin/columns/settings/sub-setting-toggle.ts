@@ -1,3 +1,10 @@
+import {Column} from "../column";
+
+export const initSubSettings = ( column: Column ) => {
+
+}
+
+
 let subsetting = function( column ) {
 	let $ = jQuery;
 	let settings = {
@@ -30,5 +37,3 @@ let subsetting = function( column ) {
 
 	} );
 };
-
-export default subsetting;

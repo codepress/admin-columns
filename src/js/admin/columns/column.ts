@@ -7,7 +7,7 @@ import {refreshColumn, switchColumnType} from "./ajax";
 import {AxiosResponse} from "axios";
 import {createElementFromString} from "../../helpers/elements";
 import {createColumnName} from "../../helpers/columns";
-import {fadeIn, fadeOut} from "../../helpers/animations";
+import {fadeOut} from "../../helpers/animations";
 
 const STATES = {
     CLOSED: 'closed',
@@ -15,8 +15,8 @@ const STATES = {
 };
 
 export const COLUMN_EVENTS = {
-    REMOVE : 'remove',
-    CLONE : 'clone',
+    REMOVE: 'remove',
+    CLONE: 'clone',
 }
 
 declare const AdminColumns: AdminColumnsInterface
@@ -97,59 +97,15 @@ export class Column {
         return this;
     }
 
-    initNewInstance() {
-        let temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
-        let original_column_name = this.name;
-
-        this.$el.find('input, select, label').each(function (i, v) {
-            let $input = jQuery(v);
-
-            // name attributes
-            if ($input.attr('name')) {
-                $input.attr('name', $input.attr('name').replace(`columns[${original_column_name}]`, `columns[${temp_column_name}]`));
-            }
-
-            // id attributes
-            if ($input.attr('id')) {
-                $input.attr('id', $input.attr('id').replace(`-${original_column_name}-`, `-${temp_column_name}-`));
-            }
-
-        });
-
-        this.name = temp_column_name;
-
-        AC.incremental_column_name++;
-
-        return this;
-    }
-
-    /**
-     *
-     * @returns {Column}
-     */
-    bindEvents() {
-        let column = this;
-        column.$el.data('column', column);
-
-        Object.keys(AC.Column.events).forEach(function (key) {
-            if (!column.isBound(key)) {
-                AC.Column.events[key](column);
-                column.bind(key);
-            }
-        });
-
-        return this;
-    }
-
     destroy() {
         this.element.remove();
     }
 
     remove(duration = 350) {
-        this.events.emit( COLUMN_EVENTS.REMOVE, this );
-        fadeOut( this.getElement(), duration, () => {
+        this.events.emit(COLUMN_EVENTS.REMOVE, this);
+        fadeOut(this.getElement(), duration, () => {
             this.destroy();
-        } );
+        });
     }
 
     getState() {
@@ -183,23 +139,26 @@ export class Column {
     }
 
     getJson(): any {
+        let tempForm = document.createElement('form');
+        tempForm.appendChild(this.getElement().cloneNode(true));
+        let formData = new FormData(tempForm);
+
         let r: any = {};
-        this.getElement().querySelectorAll('input, select, textarea ').forEach((formEl: HTMLFormElement) => {
-            let nameParts = formEl.name.split('[').map(p => p.split(']')[0]);
+
+        for (let entry of formData.entries()) {
+            console.log(entry);
+            let nameParts = entry[0].split('[').map(p => p.split(']')[0]);
             let setter = r;
             let i = 0;
-
             nameParts.forEach((part) => {
                 i++;
                 if (!setter.hasOwnProperty(part)) {
-                    setter[part] = i === nameParts.length
-                        ? formEl.value
-                        : {}
+                    setter[part] = i === nameParts.length ? entry[1] : {}
                 }
 
                 setter = setter[part];
             });
-        });
+        }
 
         return r['columns'][this.getName()];
     }
@@ -208,7 +167,7 @@ export class Column {
         this.setLoading(true);
 
         switchColumnType(type).then((response: AxiosResponse<ajaxResponse>) => {
-            if( response.data.success ){
+            if (response.data.success) {
                 let name = createColumnName();
                 let element = createElementFromString(response.data.data.trim()).firstChild as HTMLElement;
 
@@ -216,7 +175,7 @@ export class Column {
                 this.name = name;
                 this.reinitColumnFromElement(element)
             } else {
-                this.showMessage( response.data.data.error );
+                this.showMessage(response.data.data.error);
             }
 
         }).finally(() => this.setLoading(false));
@@ -226,7 +185,7 @@ export class Column {
         this.setLoading(true);
 
         refreshColumn(this.getName(), JSON.stringify(this.getJson())).then((response: AxiosResponse<ajaxResponse>) => {
-            if( response.data.success ){
+            if (response.data.success) {
                 this.reinitColumnFromElement(createElementFromString(response.data.data.trim()).firstChild as HTMLElement)
             } else {
                 this.showMessage('sdfsdfsdf');

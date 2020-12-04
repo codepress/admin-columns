@@ -5,6 +5,7 @@ import {initAdminColumnsGlobalBootstrap} from "./helpers/admin-columns";
 // @ts-ignore
 import $ from 'jquery';
 import ColumnConfigurator from "./admin/columns/column-configurator";
+import Modal from "./modules/modal";
 
 declare let AdminColumns: AdminColumnSettingsInterface;
 
@@ -13,27 +14,37 @@ initAdminColumnsGlobalBootstrap();
 new ColumnConfigurator();
 
 document.addEventListener('DOMContentLoaded', () => {
-
     new SaveButtons();
     let formElement = document.querySelector<HTMLFormElement>('#listscreen_settings');
 
     if (formElement) {
         AdminColumns.Form = new Form(formElement, AdminColumns.events);
     }
+
+    let proModal: HTMLElement = document.querySelector('#ac-modal-pro');
+    if (proModal) {
+        AdminColumns.Modals.register(new Modal(proModal), 'pro');
+    }
+
+    let select: HTMLSelectElement = document.querySelector('#ac_list_screen');
+    if (select) {
+        select.addEventListener('change', () => {
+            document.querySelectorAll<HTMLElement>('.view-link').forEach(link => link.style.display = 'none');
+            select.closest<HTMLFormElement>('form').submit();
+            select.disabled = true;
+            (select.nextElementSibling as HTMLElement).style.display = 'inline-block';
+        });
+    }
 });
 
 AdminColumns.events.addListener(EventConstants.SETTINGS.FORM.LOADED, (form: Form) => {
     document.querySelectorAll('.add_column').forEach(el => {
-        el.addEventListener('click', (e: MouseEvent) => {
-            e.preventDefault();
-            form.createNewColumn();
-        });
+        el.addEventListener('click', () => form.createNewColumn());
     });
 
     document.querySelectorAll('a[data-clear-columns]').forEach(el => {
         el.addEventListener('click', () => form.resetColumns());
     });
-
 });
 
 AdminColumns.events.addListener(EventConstants.SETTINGS.FORM.SAVING, () => {
