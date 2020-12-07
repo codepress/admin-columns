@@ -98,7 +98,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_addon_download__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/addon-download */ "./js/modules/addon-download.ts");
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll('.ac-addon').forEach(function (element) {
+  document.querySelectorAll('.ac-addon').forEach(element => {
     new _modules_addon_download__WEBPACK_IMPORTED_MODULE_0__["AddonDownload"](element, element.dataset.slug);
   });
 });
@@ -121,23 +121,20 @@ __webpack_require__.r(__webpack_exports__);
  // @ts-ignore
 
 
-
-var AddonDownload =
-/** @class */
-function () {
-  function AddonDownload(el, slug) {
+class AddonDownload {
+  constructor(el, slug) {
     this.element = el;
     this.slug = slug;
     this.loadingState = false;
     this.initEvents();
   }
 
-  AddonDownload.prototype.getDownloadButton = function () {
+  getDownloadButton() {
     return this.element.querySelector('[data-install]');
-  };
+  }
 
-  AddonDownload.prototype.setLoadingState = function () {
-    var button = this.getDownloadButton();
+  setLoadingState() {
+    const button = this.getDownloadButton();
 
     if (button) {
       button.insertAdjacentHTML('afterend', '<span class="spinner" style="visibility: visible;"></span>');
@@ -145,11 +142,11 @@ function () {
     }
 
     this.loadingState = true;
-  };
+  }
 
-  AddonDownload.prototype.removeLoadingState = function () {
-    var button = this.getDownloadButton();
-    var spinner = this.element.querySelector('.spinner');
+  removeLoadingState() {
+    const button = this.getDownloadButton();
+    const spinner = this.element.querySelector('.spinner');
 
     if (spinner) {
       spinner.remove();
@@ -160,72 +157,67 @@ function () {
     }
 
     this.loadingState = false;
-  };
+  }
 
-  AddonDownload.prototype.initEvents = function () {
-    var _this = this;
-
-    var button = this.getDownloadButton();
+  initEvents() {
+    const button = this.getDownloadButton();
 
     if (button) {
-      button.addEventListener('click', function (e) {
+      button.addEventListener('click', e => {
         e.preventDefault();
 
-        if (_this.loadingState) {
+        if (this.loadingState) {
           return;
         }
 
-        _this.setLoadingState();
-
-        _this.download();
+        this.setLoadingState();
+        this.download();
       });
     }
-  };
+  }
 
-  AddonDownload.prototype.success = function (status) {
-    var button = this.getDownloadButton();
-    var title = this.element.querySelector('h3');
-    var notice = new _notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
-    notice.setMessage("<p>The Add-on <strong>" + title.innerHTML + "</strong> is installed.</p>").makeDismissable().addClass('updated');
+  success(status) {
+    const button = this.getDownloadButton();
+    const title = this.element.querySelector('h3');
+    const notice = new _notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    notice.setMessage(`<p>The Add-on <strong>${title.innerHTML}</strong> is installed.</p>`).makeDismissable().addClass('updated');
     document.querySelector('.ac-addons').insertAdjacentElement('beforebegin', notice.render());
 
     if (button) {
-      button.insertAdjacentHTML('beforebegin', "<span class=\"active\">" + status + "</span>");
+      button.insertAdjacentHTML('beforebegin', `<span class="active">${status}</span>`);
       button.remove();
     }
-  };
+  }
 
-  AddonDownload.scrollToTop = function (ms) {
+  static scrollToTop(ms) {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()('html, body').animate({
       scrollTop: 0
     }, ms);
-  };
+  }
 
-  AddonDownload.prototype.failure = function (message) {
-    var title = this.element.querySelector('h3');
-    var notice = new _notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
-    notice.setMessage("<p><strong>" + title.innerHTML + "</strong>: " + message + "</p>").makeDismissable().addClass('notice-error');
+  failure(message) {
+    const title = this.element.querySelector('h3');
+    const notice = new _notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    notice.setMessage(`<p><strong>${title.innerHTML}</strong>: ${message}</p>`).makeDismissable().addClass('notice-error');
     document.querySelector('.ac-addons').insertAdjacentElement('beforebegin', notice.render());
     AddonDownload.scrollToTop(200);
-  };
+  }
 
-  AddonDownload.prototype.download = function () {
-    var _this = this;
-
-    var request = this.request();
-    request.done(function (response) {
-      _this.removeLoadingState();
+  download() {
+    let request = this.request();
+    request.done(response => {
+      this.removeLoadingState();
 
       if (response.success) {
-        _this.success(response.data.status);
+        this.success(response.data.status);
       } else {
-        _this.failure(response.data);
+        this.failure(response.data);
       }
     });
-  };
+  }
 
-  AddonDownload.prototype.request = function () {
-    var data = {
+  request() {
+    let data = {
       action: 'acp-install-addon',
       plugin_name: this.slug,
       _ajax_nonce: AC._ajax_nonce
@@ -235,12 +227,9 @@ function () {
       method: 'post',
       data: data
     });
-  };
+  }
 
-  return AddonDownload;
-}();
-
-
+}
 
 /***/ }),
 
@@ -253,51 +242,47 @@ function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var Notice =
-/** @class */
-function () {
-  function Notice() {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Notice; });
+class Notice {
+  constructor() {
     this.element = document.createElement('div');
     this.element.classList.add('notice');
     this.dismissible = false;
   }
 
-  Notice.prototype.setMessage = function (message) {
+  setMessage(message) {
     this.message = message;
     return this;
-  };
+  }
 
-  Notice.prototype.renderDismiss = function () {
-    var _this = this;
-
-    var button = document.createElement('button');
+  renderDismiss() {
+    const button = document.createElement('button');
     button.classList.add('notice-dismiss');
     button.setAttribute('type', 'button');
-    button.insertAdjacentHTML('beforeend', "<span class=\"screen-reader-text\">Dismiss this notice.</span>");
-    button.addEventListener('click', function (e) {
+    button.insertAdjacentHTML('beforeend', `<span class="screen-reader-text">Dismiss this notice.</span>`);
+    button.addEventListener('click', e => {
       e.preventDefault();
-
-      _this.element.remove();
+      this.element.remove();
     });
     this.element.classList.add('is-dismissible');
     this.element.insertAdjacentElement('beforeend', button);
-  };
+  }
 
-  Notice.prototype.renderContent = function () {
+  renderContent() {
     this.element.insertAdjacentHTML('afterbegin', this.message);
-  };
+  }
 
-  Notice.prototype.makeDismissable = function () {
+  makeDismissable() {
     this.dismissible = true;
     return this;
-  };
+  }
 
-  Notice.prototype.addClass = function (className) {
+  addClass(className) {
     this.element.classList.add(className);
     return this;
-  };
+  }
 
-  Notice.prototype.render = function () {
+  render() {
     this.element.innerHTML = '';
     this.renderContent();
 
@@ -306,12 +291,9 @@ function () {
     }
 
     return this.element;
-  };
+  }
 
-  return Notice;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Notice);
+}
 
 /***/ }),
 

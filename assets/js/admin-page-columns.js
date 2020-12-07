@@ -179,10 +179,8 @@ jQuery(document).ready(function () {
   AdminColumns.Modals.register(new _modules_modal__WEBPACK_IMPORTED_MODULE_3__["default"](document.querySelector('#ac-modal-pro')), 'pro');
   new _admin_columns_menu__WEBPACK_IMPORTED_MODULE_4__["default"]().init();
   new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_5__["default"]('.sidebox#direct-feedback');
-  ['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach(function (hook) {
-    jQuery(document).on(hook, function () {
-      return ac_pointers();
-    });
+  ['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach(hook => {
+    jQuery(document).on(hook, () => ac_pointers());
   });
   jQuery(document).on('AC_Column_Created', function (e, column) {
     setTimeout(function () {
@@ -195,38 +193,38 @@ jQuery(document).ready(function () {
   }
 
   AdminColumns.ScreenOptions = {};
-  document.querySelectorAll('[data-ac-screen-option]').forEach(function (el) {
-    var name = el.dataset.acScreenOption;
+  document.querySelectorAll('[data-ac-screen-option]').forEach(el => {
+    let name = el.dataset.acScreenOption;
     AdminColumns.ScreenOptions[name] = new _modules_screen_option__WEBPACK_IMPORTED_MODULE_24__["default"](el, name);
   });
-  var showColumnId = document.querySelector('[data-ac-screen-option="show_column_id"] input');
+  let showColumnId = document.querySelector('[data-ac-screen-option="show_column_id"] input');
 
   if (showColumnId) {
-    showColumnId.addEventListener('change', function () {
+    showColumnId.addEventListener('change', () => {
       showColumnId.checked ? document.querySelector('.ac-boxes').classList.add('show-column-id') : document.querySelector('.ac-boxes').classList.remove('show-column-id');
     });
   }
 
-  var showColumnType = document.querySelector('[data-ac-screen-option="show_column_type"] input');
+  let showColumnType = document.querySelector('[data-ac-screen-option="show_column_type"] input');
 
   if (showColumnType) {
-    showColumnType.addEventListener('change', function () {
+    showColumnType.addEventListener('change', () => {
       showColumnType.checked ? document.querySelector('.ac-boxes').classList.add('show-column-type') : document.querySelector('.ac-boxes').classList.remove('show-column-type');
     });
   }
 
-  var showListScreenId = document.querySelector('[data-ac-screen-option="show_list_screen_id"] input');
+  let showListScreenId = document.querySelector('[data-ac-screen-option="show_list_screen_id"] input');
 
   if (showListScreenId) {
-    showListScreenId.addEventListener('change', function () {
+    showListScreenId.addEventListener('change', () => {
       showListScreenId.checked ? document.querySelector('.ac-admin').classList.add('show-list-screen-id') : document.querySelector('.ac-admin').classList.remove('show-list-screen-id');
     });
   }
 
-  var showListScreenType = document.querySelector('[data-ac-screen-option="show_list_screen_type"] input');
+  let showListScreenType = document.querySelector('[data-ac-screen-option="show_list_screen_type"] input');
 
   if (showListScreenType) {
-    showListScreenType.addEventListener('change', function () {
+    showListScreenType.addEventListener('change', () => {
       showListScreenType.checked ? document.querySelector('.ac-admin').classList.add('show-list-screen-type') : document.querySelector('.ac-admin').classList.remove('show-list-screen-type');
     });
   }
@@ -243,15 +241,13 @@ jQuery(document).ready(function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var STATES = {
+const STATES = {
   CLOSED: 'closed',
   OPEN: 'open'
 };
 
-var Column =
-/** @class */
-function () {
-  function Column($el) {
+class Column {
+  constructor($el) {
     this.$el = $el;
     this.el = $el[0];
     this.settings = [];
@@ -259,72 +255,67 @@ function () {
     this._type = this.$el.data('type');
   }
 
-  Object.defineProperty(Column.prototype, "name", {
-    get: function () {
-      return this.$el.data('column-name');
-    },
-    set: function (name) {
-      this.$el.data('column-name', name);
-    },
-    enumerable: false,
-    configurable: true
-  });
-  Object.defineProperty(Column.prototype, "type", {
-    get: function () {
-      return this._type;
-    },
-    set: function (type) {
-      this.$el.data('type', type);
-    },
-    enumerable: false,
-    configurable: true
-  });
+  get name() {
+    return this.$el.data('column-name');
+  }
 
-  Column.prototype.isOriginal = function () {
+  set name(name) {
+    this.$el.data('column-name', name);
+  }
+
+  get type() {
+    return this._type;
+  }
+
+  set type(type) {
+    this.$el.data('type', type);
+  }
+
+  isOriginal() {
     return 1 === this.$el.data('original');
-  };
+  }
 
-  Column.prototype.isDisabled = function () {
+  isDisabled() {
     return this.$el.hasClass('disabled');
-  };
+  }
 
-  Column.prototype.disable = function () {
+  disable() {
     this.$el.addClass('disabled');
     return this;
-  };
+  }
 
-  Column.prototype.enable = function () {
+  enable() {
     this.$el.removeClass('disabled');
     return this;
-  };
+  }
 
-  Column.prototype.initNewInstance = function () {
-    var temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
-    var original_column_name = this.name;
+  initNewInstance() {
+    let temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
+    let original_column_name = this.name;
     this.$el.find('input, select, label').each(function (i, v) {
-      var $input = jQuery(v); // name attributes
+      let $input = jQuery(v); // name attributes
 
       if ($input.attr('name')) {
-        $input.attr('name', $input.attr('name').replace("columns[" + original_column_name + "]", "columns[" + temp_column_name + "]"));
+        $input.attr('name', $input.attr('name').replace(`columns[${original_column_name}]`, `columns[${temp_column_name}]`));
       } // id attributes
 
 
       if ($input.attr('id')) {
-        $input.attr('id', $input.attr('id').replace("-" + original_column_name + "-", "-" + temp_column_name + "-"));
+        $input.attr('id', $input.attr('id').replace(`-${original_column_name}-`, `-${temp_column_name}-`));
       }
     });
     this.name = temp_column_name;
     AC.incremental_column_name++;
     return this;
-  };
+  }
   /**
    *
    * @returns {Column}
    */
 
 
-  Column.prototype.bindEvents = function () {
-    var column = this;
+  bindEvents() {
+    let column = this;
     column.$el.data('column', column);
     Object.keys(AC.Column.events).forEach(function (key) {
       if (!column.isBound(key)) {
@@ -335,17 +326,17 @@ function () {
     this.bindSettings();
     jQuery(document).trigger('AC_Column_InitSettings', [column]);
     return this;
-  };
+  }
 
-  Column.prototype.bindSettings = function () {
-    var column = this;
+  bindSettings() {
+    let column = this;
     Object.keys(AC.Column.settings).forEach(function (key) {
       if (!column.isBound(key)) {
         AC.Column.settings[key](column);
         column.bind(key);
       }
     });
-  };
+  }
   /**
    *
    * @param key
@@ -353,72 +344,56 @@ function () {
    */
 
 
-  Column.prototype.isBound = function (key) {
+  isBound(key) {
     return this.$el.data(key);
-  };
+  }
 
-  Column.prototype.bind = function (key) {
+  bind(key) {
     this.$el.data(key, true);
-  };
+  }
 
-  Column.prototype.destroy = function () {
+  destroy() {
     this.$el.remove();
-  };
+  }
 
-  Column.prototype.remove = function (duration) {
-    if (duration === void 0) {
-      duration = 350;
-    }
-
-    var self = this;
+  remove(duration = 350) {
+    let self = this;
     this.$el.addClass('deleting').animate({
       opacity: 0,
       height: 0
     }, duration, function () {
       self.destroy();
     });
-  };
+  }
 
-  Column.prototype.getState = function () {
+  getState() {
     return this.state;
-  };
+  }
 
-  Column.prototype.toggle = function (duration) {
-    if (duration === void 0) {
-      duration = 150;
-    }
-
+  toggle(duration = 150) {
     if (this.getState() === STATES.OPEN) {
       this.close(duration);
     } else {
       this.open(duration);
     }
-  };
+  }
 
-  Column.prototype.close = function (duration) {
-    if (duration === void 0) {
-      duration = 0;
-    }
-
+  close(duration = 0) {
     this.$el.removeClass('opened').find('.ac-column-body').slideUp(duration);
     this.state = STATES.CLOSED;
-  };
+  }
 
-  Column.prototype.open = function (duration) {
-    if (duration === void 0) {
-      duration = 0;
-    }
-
+  open(duration = 0) {
     this.$el.addClass('opened').find('.ac-column-body').slideDown(duration);
     this.state = STATES.OPEN;
-  };
+  }
 
-  Column.prototype.showMessage = function (message) {
+  showMessage(message) {
     this.$el.find('.ac-column-setting--type .msg').html(message).show();
-  };
+  }
 
-  Column.prototype.switchToType = function (type) {
-    var self = this;
+  switchToType(type) {
+    let self = this;
     return jQuery.ajax({
       url: ajaxurl,
       method: 'post',
@@ -434,7 +409,7 @@ function () {
       },
       success: function (response) {
         if (true === response.success) {
-          var column = jQuery(response.data);
+          let column = jQuery(response.data);
           self.$el.replaceWith(column);
           self.$el = column;
           self.el = column[0];
@@ -448,12 +423,12 @@ function () {
         }
       }
     });
-  };
+  }
 
-  Column.prototype.refresh = function () {
-    var self = this;
-    var data = this.$el.find(':input').serializeArray();
-    var request_data = {
+  refresh() {
+    let self = this;
+    let data = this.$el.find(':input').serializeArray();
+    let request_data = {
       action: 'ac-columns',
       id: 'refresh',
       _ajax_nonce: AC._ajax_nonce,
@@ -473,7 +448,7 @@ function () {
       data: data,
       success: function (response) {
         if (true === response.success) {
-          var column = jQuery(response.data);
+          let column = jQuery(response.data);
           self.$el.replaceWith(column);
           self.$el = column;
           self.el = column[0];
@@ -487,34 +462,33 @@ function () {
         }
       }
     });
-  };
+  }
   /**
    * @returns {Column}
    */
 
 
-  Column.prototype.create = function () {
+  create() {
     this.initNewInstance();
     this.bindEvents();
     jQuery(document).trigger('AC_Column_Created', [this]);
     return this;
-  };
+  }
   /**
    * @returns {Column}
    */
 
 
-  Column.prototype.clone = function () {
-    var $clone = this.$el.clone();
+  clone() {
+    let $clone = this.$el.clone();
     $clone.data('column-name', this.$el.data('column-name'));
-    var clone = new Column($clone);
+    let clone = new Column($clone);
     clone.initNewInstance();
     clone.bindEvents();
     return clone;
-  };
+  }
 
-  return Column;
-}();
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (Column);
 
@@ -533,22 +507,22 @@ __webpack_require__.r(__webpack_exports__);
  * Optional Radio Click events
  * TODO: Is not used anymore?
  */
-var addons = function (column) {
-  var $ = jQuery;
-  var $column = column.$el;
-  var inputs = $column.find('[data-trigger] label');
+let addons = function (column) {
+  let $ = jQuery;
+  let $column = column.$el;
+  let inputs = $column.find('[data-trigger] label');
   inputs.on('click', function () {
-    var id = $(this).closest('td.input').data('trigger');
-    var state = $('input', this).val(); // Toggle indicator icon
+    let id = $(this).closest('td.input').data('trigger');
+    let state = $('input', this).val(); // Toggle indicator icon
 
-    var label = $column.find('[data-indicator-id="' + id + '"]').removeClass('on');
+    let label = $column.find('[data-indicator-id="' + id + '"]').removeClass('on');
 
     if ('on' === state) {
       label.addClass('on');
     } // Toggle additional options
 
 
-    var additional = $column.find('[data-handle="' + id + '"]').addClass('hide');
+    let additional = $column.find('[data-handle="' + id + '"]').addClass('hide');
 
     if ('on' === state) {
       additional.removeClass('hide');
@@ -556,9 +530,9 @@ var addons = function (column) {
   }); // On load
 
   $column.find('[data-trigger]').each(function () {
-    var trigger = $(this).data('trigger'); // Hide additional column settings
+    let trigger = $(this).data('trigger'); // Hide additional column settings
 
-    var additional = $column.find('[data-handle="' + trigger + '"]').addClass('hide');
+    let additional = $column.find('[data-handle="' + trigger + '"]').addClass('hide');
 
     if ('on' === $('input:checked', this).val()) {
       additional.removeClass('hide');
@@ -584,7 +558,7 @@ __webpack_require__.r(__webpack_exports__);
 *
 * @since 2.0
 */
-var clone = function (column) {
+let clone = function (column) {
   column.$el.find('.clone-button').click(function (e) {
     e.preventDefault();
 
@@ -609,14 +583,14 @@ var clone = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var indicator = function (column) {
-  var $column = column.$el;
+let indicator = function (column) {
+  let $column = column.$el;
   $column.find('.ac-column-header [data-indicator-toggle]').each(function () {
-    var $ = jQuery;
-    var $indicator = $(this);
-    var setting = $(this).data('setting');
-    var $setting = $column.find('.ac-column-setting[data-setting=' + setting + ']');
-    var $input = $setting.find('.col-input:first .ac-setting-input:first input[type=radio]');
+    let $ = jQuery;
+    let $indicator = $(this);
+    let setting = $(this).data('setting');
+    let $setting = $column.find('.ac-column-setting[data-setting=' + setting + ']');
+    let $input = $setting.find('.col-input:first .ac-setting-input:first input[type=radio]');
     $indicator.unbind('click').on('click', function (e) {
       e.preventDefault();
 
@@ -637,7 +611,7 @@ var indicator = function (column) {
         return;
       }
 
-      var value = $input.filter(':checked').val();
+      let value = $input.filter(':checked').val();
 
       if ('on' === value) {
         $indicator.addClass('on');
@@ -663,15 +637,15 @@ var indicator = function (column) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventLabel", function() { return EventLabel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventLabelSettings", function() { return EventLabelSettings; });
-var EventLabel = function (column) {
-  var $column = column.$el;
+let EventLabel = function (column) {
+  let $column = column.$el;
   /**
    * Populates the main Label with the selected label from the dropdown,
    */
 
   $column.find('select[data-label="update"]').change(function () {
-    var $label = $column.find('input.ac-setting-input_label');
-    var field_label = jQuery(this).find('option:selected').text(); // Set new label
+    let $label = $column.find('input.ac-setting-input_label');
+    let field_label = jQuery(this).find('option:selected').text(); // Set new label
 
     $label.val(field_label);
     $label.trigger('change');
@@ -679,7 +653,7 @@ var EventLabel = function (column) {
   /** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
 
   setTimeout(function () {
-    var column_label = $column.find('.column_label .toggle');
+    let column_label = $column.find('.column_label .toggle');
 
     if (jQuery.trim(column_label.html()) && column_label.width() < 1) {
       column_label.html($column.find('.column_type .inner').html());
@@ -687,12 +661,12 @@ var EventLabel = function (column) {
   }, 50);
 };
 
-var EventLabelSettings = function (column) {
-  var $column = column.$el;
+let EventLabelSettings = function (column) {
+  let $column = column.$el;
   /** change label */
 
   $column.find('.ac-column-setting--label input').bind('keyup change', function () {
-    var value = jQuery(this).val();
+    let value = jQuery(this).val();
     jQuery(this).closest('.ac-column').find('td.column_label .inner > a.toggle').html(value);
   }).trigger('change');
   /** tooltip */
@@ -717,8 +691,8 @@ var EventLabelSettings = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var refresh = function (column) {
-  var $ = jQuery;
+let refresh = function (column) {
+  let $ = jQuery;
   column.$el.find('[data-refresh="column"]').on('change', function () {
     // Allow plugins to hook into this event
     $(document).trigger('AC.column.prerefresh', column.$el);
@@ -726,7 +700,7 @@ var refresh = function (column) {
     setTimeout(function () {
       column.refresh().always(function () {
         column.$el.removeClass('loading');
-      }).fail(function () {
+      }).fail(() => {
         column.showMessage(AC.i18n.errors.loading_column);
       });
     }, 200);
@@ -751,7 +725,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @since 2.0
  */
-var remove = function (column) {
+let remove = function (column) {
   column.$el.find('.remove-button').click(function (e) {
     e.preventDefault();
     AdminColumns.Form.removeColumn(column.name);
@@ -778,7 +752,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @since 2.0
  */
-var toggle = function (column) {
+let toggle = function (column) {
   column.$el.find('[data-toggle="column"]').click(function (e) {
     e.preventDefault();
     column.toggle();
@@ -798,14 +772,14 @@ var toggle = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var selector = function (column) {
-  var $ = jQuery;
+let selector = function (column) {
+  let $ = jQuery;
   column.$el.find('select.ac-setting-input_type').change(function () {
     column.$el.addClass('loading');
     column.switchToType($(this).val()).always(function () {
       column.$el.removeClass('loading');
       AdminColumns.Form.reindexColumns();
-    }).fail(function () {
+    }).fail(() => {
       column.showMessage(AC.i18n.errors.loading_column);
     });
   });
@@ -824,16 +798,14 @@ var selector = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var Feedback =
-/** @class */
-function () {
-  function Feedback($el) {
+class Feedback {
+  constructor($el) {
     this.$el = jQuery($el);
     this.init();
   }
 
-  Feedback.prototype.init = function () {
-    var $box = this.$el;
+  init() {
+    let $box = this.$el;
     $box.find('#feedback-choice a.no').click(function (e) {
       e.preventDefault();
       $box.find('#feedback-choice').slideUp();
@@ -844,11 +816,9 @@ function () {
       $box.find('#feedback-choice').slideUp();
       $box.find('#feedback-rate').slideDown();
     });
-  };
+  }
 
-  ;
-  return Feedback;
-}();
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (Feedback);
 
@@ -866,10 +836,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./column */ "./js/admin/columns/column.js");
 
 
-var Form =
-/** @class */
-function () {
-  function Form(el) {
+class Form {
+  constructor(el) {
     this.form = el;
     this.$form = jQuery(el);
     this.$column_container = this.$form.find('.ac-columns');
@@ -880,7 +848,7 @@ function () {
     this.init();
   }
 
-  Form.prototype.init = function () {
+  init() {
     this.initColumns();
     this.bindFormEvents();
     this.bindOrdering();
@@ -890,9 +858,9 @@ function () {
     }
 
     jQuery(document).trigger('AC_Form_Ready', this);
-  };
+  }
 
-  Form.prototype.bindOrdering = function () {
+  bindOrdering() {
     if (this.$form.hasClass('ui-sortable')) {
       this.$form.sortable('refresh');
     } else {
@@ -901,40 +869,38 @@ function () {
         handle: '.column_sort'
       });
     }
-  };
+  }
 
-  Form.prototype.originalColumns = function () {
-    var self = this;
-    var columns = [];
+  originalColumns() {
+    let self = this;
+    let columns = [];
     Object.keys(self.columns).forEach(function (key) {
-      var column = self.columns[key];
+      let column = self.columns[key];
 
       if (column.isOriginal()) {
         columns.push(column.type);
       }
     });
     return columns;
-  };
+  }
 
-  Form.prototype.validateForm = function () {
-    var _this = this;
+  validateForm() {
+    let valid = true;
 
-    var valid = true;
-
-    this._validators.forEach(function (validator) {
-      valid = validator.call(_this, _this);
+    this._validators.forEach(validator => {
+      valid = validator.call(this, this);
     });
 
     return valid;
-  };
+  }
 
-  Form.prototype.addValidator = function (validator) {
+  addValidator(validator) {
     this._validators.push(validator);
-  };
+  }
 
-  Form.prototype.bindFormEvents = function () {
-    var self = this;
-    var $buttons = jQuery('.sidebox a.submit, .column-footer a.submit');
+  bindFormEvents() {
+    let self = this;
+    let $buttons = jQuery('.sidebox a.submit, .column-footer a.submit');
     $buttons.on('click', function () {
       if (!self.validateForm()) {
         return;
@@ -950,7 +916,7 @@ function () {
     self.$container.find('.add_column').on('click', function () {
       self.addColumn();
     });
-    var $boxes = jQuery('#cpac .ac-boxes');
+    let $boxes = jQuery('#cpac .ac-boxes');
 
     if ($boxes.hasClass('disabled')) {
       $boxes.find('.ac-column').each(function (i, col) {
@@ -962,62 +928,60 @@ function () {
     jQuery('a[data-clear-columns]').on('click', function () {
       self.resetColumns();
     });
-  };
+  }
 
-  Form.prototype.initColumns = function () {
-    var self = this;
+  initColumns() {
+    let self = this;
     self.columns = {};
     this.$form.find('.ac-column').each(function () {
-      var $el = jQuery(this);
-      var column = new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($el);
+      let $el = jQuery(this);
+      let column = new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($el);
       column.bindEvents();
       $el.data('column', column);
       self.columns[column.name] = column;
     });
-  };
+  }
 
-  Form.prototype.reindexColumns = function () {
-    var self = this;
+  reindexColumns() {
+    let self = this;
     self.columns = {};
     this.$form.find('.ac-column').each(function () {
-      var column = jQuery(this).data('column');
+      let column = jQuery(this).data('column');
       self.columns[column.name] = column;
     });
-  };
+  }
 
-  Form.prototype.resetColumns = function () {
-    var _this = this;
-
-    Object.keys(this.columns).forEach(function (key) {
-      var column = _this.columns[key];
+  resetColumns() {
+    Object.keys(this.columns).forEach(key => {
+      let column = this.columns[key];
       column.destroy();
     });
-  };
+  }
 
-  Form.prototype.serialize = function () {
+  serialize() {
     return this.$form.serialize();
-  };
+  }
 
-  Form.prototype.disableFields = function () {
-    var form = document.querySelector(this.form);
+  disableFields() {
+    let form = document.querySelector(this.form);
 
     if (!form) {
       return;
     }
 
-    var elements = form.elements;
+    let elements = form.elements;
 
-    for (var i = 0; i < elements.length; i++) {
+    for (let i = 0; i < elements.length; i++) {
       elements[i].readOnly = true;
       elements[i].setAttribute('disabled', true);
     }
-  };
+  }
 
-  Form.prototype.enableFields = function () {};
+  enableFields() {}
 
-  Form.prototype.submitForm = function () {
-    var self = this;
-    var xhr = jQuery.post(ajaxurl, {
+  submitForm() {
+    let self = this;
+    let xhr = jQuery.post(ajaxurl, {
       action: 'ac-columns',
       id: 'save',
       _ajax_nonce: AC._ajax_nonce,
@@ -1039,61 +1003,49 @@ function () {
     });
     jQuery(document).trigger('AC_Form_AfterUpdate', [self.$container]);
     return xhr;
-  };
+  }
 
-  Form.prototype.showMessage = function (message, attr_class) {
-    if (attr_class === void 0) {
-      attr_class = 'updated';
-    }
-
-    var $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
+  showMessage(message, attr_class = 'updated') {
+    let $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
     this.$container.find('.ac-message').stop().remove();
     this.$container.find('.ac-admin__main').prepend($msg);
     $msg.slideDown();
-  };
+  }
 
-  Form.prototype.cloneColumn = function ($el) {
+  cloneColumn($el) {
     return this._addColumnToForm(new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($el).clone(), $el.hasClass('opened'), $el);
-  };
+  }
 
-  Form.prototype.addColumn = function () {
-    var $clone = jQuery('#add-new-column-template').find('.ac-column').clone();
-    var column = new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($clone).create();
+  addColumn() {
+    let $clone = jQuery('#add-new-column-template').find('.ac-column').clone();
+    let column = new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($clone).create();
     return this._addColumnToForm(column);
-  };
+  }
 
-  Form.prototype.removeColumn = function (name) {
+  removeColumn(name) {
     if (this.columns[name]) {
       this.columns[name].remove();
       delete this.columns[name];
     }
-  };
+  }
 
-  Form.prototype.getListScreen = function () {
+  getListScreen() {
     return this.$form.find('input[name="list_screen"]').val();
-  };
+  }
 
-  Form.prototype.getListScreenID = function () {
+  getListScreenID() {
     return this.$form.find('input[name="list_screen_id"]').val();
-  };
+  }
 
-  Form.prototype.getTitle = function () {
+  getTitle() {
     return this.$form.find('input[name="title"]').val();
-  };
+  }
 
-  Form.prototype.getColumnSettings = function () {
+  getColumnSettings() {
     return this.$form.find('[name^="columns["]').serialize();
-  };
+  }
 
-  Form.prototype._addColumnToForm = function (column, open, $after) {
-    if (open === void 0) {
-      open = true;
-    }
-
-    if ($after === void 0) {
-      $after = null;
-    }
-
+  _addColumnToForm(column, open = true, $after = null) {
     this.columns[column.name] = column;
 
     if ($after) {
@@ -1116,14 +1068,13 @@ function () {
     }
 
     return column;
-  };
+  }
 
-  return Form;
-}();
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (Form);
 
-var isInViewport = function ($el) {
+let isInViewport = $el => {
   var elementTop = $el.offset().top;
   var elementBottom = elementTop + $el.outerHeight();
   var viewportTop = jQuery(window).scrollTop();
@@ -1142,17 +1093,16 @@ var isInViewport = function ($el) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var Initiator =
-/** @class */
-function () {
-  function Initiator() {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Initiator; });
+class Initiator {
+  constructor() {
     this.events = {};
     this.settings = {};
     this.incremental_name = 0;
   }
 
-  Initiator.prototype.registerSetting = function (k, setting) {
-    var key = 's_' + k;
+  registerSetting(k, setting) {
+    let key = 's_' + k;
 
     if (this.settings[key]) {
       console.error('Setting key already exists: ' + k);
@@ -1160,10 +1110,10 @@ function () {
 
     this.settings[key] = setting;
     return this;
-  };
+  }
 
-  Initiator.prototype.registerEvent = function (k, event) {
-    var key = 'e_' + k;
+  registerEvent(k, event) {
+    let key = 'e_' + k;
 
     if (this.settings[key]) {
       console.error('Event key already exists: ' + key);
@@ -1171,18 +1121,15 @@ function () {
 
     this.events[key] = event;
     return this;
-  };
+  }
 
-  Initiator.prototype.getNewIncementalName = function () {
-    var oldName = this.incremental_name;
+  getNewIncementalName() {
+    let oldName = this.incremental_name;
     this.incremental_name++;
     return oldName;
-  };
+  }
 
-  return Initiator;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Initiator);
+}
 
 /***/ }),
 
@@ -1195,12 +1142,11 @@ function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ListScreenInitializeController; });
 var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 
-var ListscreenInitialize =
-/** @class */
-function () {
-  function ListscreenInitialize(list_screens) {
+class ListscreenInitialize {
+  constructor(list_screens) {
     this.list_screens = list_screens;
     this.processed = [];
     this.errors = [];
@@ -1208,22 +1154,20 @@ function () {
     this.events = nanobus();
   }
 
-  ListscreenInitialize.prototype.doAjaxCall = function (list_screen) {
+  doAjaxCall(list_screen) {
     return jQuery.ajax({
       url: list_screen.screen_link,
       method: 'get'
     });
-  };
+  }
 
-  ListscreenInitialize.prototype.run = function () {
-    var _this = this;
-
-    Object.keys(this.list_screens).forEach(function (key) {
-      _this.processListScreen(_this.list_screens[key]);
+  run() {
+    Object.keys(this.list_screens).forEach(key => {
+      this.processListScreen(this.list_screens[key]);
     });
-  };
+  }
 
-  ListscreenInitialize.prototype.onFinish = function () {
+  onFinish() {
     if (this.success.length === Object.keys(this.list_screens).length) {
       this.events.emit('success');
     }
@@ -1231,73 +1175,60 @@ function () {
     if (this.errors.length > 0) {
       this.events.emit('error');
     }
-  };
+  }
 
-  ListscreenInitialize.prototype.checkFinish = function () {
+  checkFinish() {
     if (this.processed.length === Object.keys(this.list_screens).length) {
       this.onFinish();
     }
-  };
+  }
 
-  ListscreenInitialize.prototype.processListScreen = function (list_screen) {
-    var _this = this;
-
-    return this.doAjaxCall(list_screen).done(function (r) {
+  processListScreen(list_screen) {
+    return this.doAjaxCall(list_screen).done(r => {
       if (r === 'ac_success') {
-        _this.success.push(list_screen);
+        this.success.push(list_screen);
       } else {
-        _this.errors.push(list_screen);
+        this.errors.push(list_screen);
       }
-    }).fail(function () {
-      _this.errors.push(list_screen);
-    }).always(function () {
-      _this.processed.push(list_screen);
-
-      _this.checkFinish();
+    }).fail(() => {
+      this.errors.push(list_screen);
+    }).always(() => {
+      this.processed.push(list_screen);
+      this.checkFinish();
     });
-  };
+  }
 
-  return ListscreenInitialize;
-}();
+}
 
-var ListScreenInitializeController =
-/** @class */
-function () {
-  function ListScreenInitializeController(list_screens) {
+class ListScreenInitializeController {
+  constructor(list_screens) {
     this.list_screens = list_screens;
     this.run();
   }
 
-  ListScreenInitializeController.prototype.run = function () {
-    var _a;
-
+  run() {
     if (Object.keys(this.list_screens).length > 0) {
       // Only load main screen first if unitialized, otherwise do the rest in background
       if (this.list_screens.hasOwnProperty(AC.list_screen)) {
-        var main_initializer = new ListscreenInitialize((_a = {}, _a[AC.list_screen] = this.list_screens[AC.list_screen], _a));
-        main_initializer.run();
-        main_initializer.events.on('error', function () {
-          document.querySelectorAll('.ac-loading-msg-wrapper').forEach(function (el) {
-            return el.remove();
-          });
-          document.querySelectorAll('.menu').forEach(function (el) {
-            return el.classList.remove('hidden');
-          });
+        let main_initializer = new ListscreenInitialize({
+          [AC.list_screen]: this.list_screens[AC.list_screen]
         });
-        main_initializer.events.on('success', function () {
-          window.location = location.href + "&t=" + Date.now();
+        main_initializer.run();
+        main_initializer.events.on('error', () => {
+          document.querySelectorAll('.ac-loading-msg-wrapper').forEach(el => el.remove());
+          document.querySelectorAll('.menu').forEach(el => el.classList.remove('hidden'));
+        });
+        main_initializer.events.on('success', () => {
+          window.location = `${location.href}&t=${Date.now()}`;
         });
       } else {
-        var background_initializer = new ListscreenInitialize(this.list_screens);
+        let background_initializer = new ListscreenInitialize(this.list_screens);
         background_initializer.run();
       }
     }
-  };
+  }
 
-  return ListScreenInitializeController;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (ListScreenInitializeController);
+}
 
 /***/ }),
 
@@ -1310,24 +1241,18 @@ function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var Menu =
-/** @class */
-function () {
-  function Menu() {}
-
-  Menu.prototype.init = function () {
-    var $ = jQuery;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Menu; });
+class Menu {
+  init() {
+    let $ = jQuery;
     $('#ac_list_screen').on('change', function () {
       $('.view-link').hide();
       $(this).parents('form').submit();
       $(this).prop('disabled', true).next('.spinner').css('display', 'inline-block');
     });
-  };
+  }
 
-  return Menu;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Menu);
+}
 
 /***/ }),
 
@@ -1342,10 +1267,8 @@ function () {
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 
-var SingleCustomFieldRequestManager =
-/** @class */
-function () {
-  function SingleCustomFieldRequestManager(meta_type, post_type) {
+class SingleCustomFieldRequestManager {
+  constructor(meta_type, post_type) {
     this.meta_type = meta_type;
     this.post_type = post_type;
     this.loading = false;
@@ -1353,7 +1276,7 @@ function () {
     this.events = nanobus();
   }
 
-  SingleCustomFieldRequestManager.prototype.retrieveOptions = function () {
+  retrieveOptions() {
     this.loading = true;
     return jQuery.ajax({
       url: ajaxurl,
@@ -1366,41 +1289,36 @@ function () {
         _ajax_nonce: AC._ajax_nonce
       }
     });
-  };
+  }
 
-  SingleCustomFieldRequestManager.prototype.getOptions = function () {
-    var _this = this;
-
-    var defer = jQuery.Deferred();
+  getOptions() {
+    const defer = jQuery.Deferred();
 
     if (this.data) {
       defer.resolve(this.data);
     } else if (this.loading) {
-      this.events.on('loaded', function () {
-        defer.resolve(_this.data);
+      this.events.on('loaded', () => {
+        defer.resolve(this.data);
       });
     } else {
-      this.retrieveOptions().done(function (response) {
+      this.retrieveOptions().done(response => {
         if (!response.success) {
           defer.reject();
         }
 
-        _this.data = response.data.results;
-
-        _this.events.emit('loaded');
-
-        defer.resolve(_this.data);
+        this.data = response.data.results;
+        this.events.emit('loaded');
+        defer.resolve(this.data);
       });
     }
 
     return defer.promise();
-  };
+  }
 
-  return SingleCustomFieldRequestManager;
-}();
+}
 
-var loadSingleRequestManager = function (meta_type, post_type) {
-  var key = "custom_field_" + meta_type + "_" + post_type;
+const loadSingleRequestManager = (meta_type, post_type) => {
+  const key = `custom_field_${meta_type}_${post_type}`;
 
   if (typeof AC_Requests === 'undefined') {
     global.AC_Requests = {};
@@ -1413,10 +1331,8 @@ var loadSingleRequestManager = function (meta_type, post_type) {
   return AC_Requests[key];
 };
 
-var CustomField =
-/** @class */
-function () {
-  function CustomField(column) {
+class CustomField {
+  constructor(column) {
     this.column = column;
     this.setting = column.$el[0].querySelector('.ac-column-setting--custom_field');
 
@@ -1427,19 +1343,19 @@ function () {
     this.bindEvents();
   }
 
-  CustomField.prototype.bindEvents = function () {
-    var input = this.setting.querySelector('.custom_field');
-    var request = loadSingleRequestManager(input.dataset.type, input.dataset.post_type);
-    var editingAvailable = this.column.el.querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0; // Ensure you won't get any duplicates on clone
+  bindEvents() {
+    const input = this.setting.querySelector('.custom_field');
+    const request = loadSingleRequestManager(input.dataset.type, input.dataset.post_type);
+    const editingAvailable = this.column.el.querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0; // Ensure you won't get any duplicates on clone
 
-    input.querySelectorAll('optgroup').forEach(function (el) {
+    input.querySelectorAll('optgroup').forEach(el => {
       el.remove();
     });
     input.removeAttribute('data-select2-id');
-    this.setting.querySelectorAll('.select2').forEach(function (el) {
+    this.setting.querySelectorAll('.select2').forEach(el => {
       el.remove();
     });
-    request.getOptions().done(function (data) {
+    request.getOptions().done(data => {
       jQuery(input).ac_select2({
         theme: 'acs2',
         width: '100%',
@@ -1448,12 +1364,11 @@ function () {
         data: data
       });
     });
-  };
+  }
 
-  return CustomField;
-}();
+}
 
-var customfield = function (column) {
+const customfield = column => {
   column.settings.customfield = new CustomField(column);
 };
 
@@ -1471,25 +1386,25 @@ var customfield = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var date = function (column) {
-  var $ = jQuery;
-  var $column = column.$el;
-  var $setting = $column.find('.ac-column-setting--date');
+let date = function (column) {
+  let $ = jQuery;
+  let $column = column.$el;
+  let $setting = $column.find('.ac-column-setting--date');
   $setting.each(function () {
-    var $container = $(this); // Custom input
+    let $container = $(this); // Custom input
 
-    var $radio_custom = $container.find('input.custom');
-    var $input_custom = $container.find('.ac-setting-input-date__custom');
-    var $input_value = $container.find('.ac-setting-input-date__value');
-    var $example_custom = $container.find('.ac-setting-input-date__example');
-    var $selected = $container.find('input[type=radio]:checked');
-    var $help_msg = $container.find('.help-msg'); // Click Event
+    let $radio_custom = $container.find('input.custom');
+    let $input_custom = $container.find('.ac-setting-input-date__custom');
+    let $input_value = $container.find('.ac-setting-input-date__value');
+    let $example_custom = $container.find('.ac-setting-input-date__example');
+    let $selected = $container.find('input[type=radio]:checked');
+    let $help_msg = $container.find('.help-msg'); // Click Event
 
     $container.find('input[type=radio]').on('change', function () {
-      var $input = $(this);
-      var $input_container = $input.closest('label');
-      var date_format = $input_container.find('code').text();
-      var description = $input_container.find('.ac-setting-input-date__more').html();
+      let $input = $(this);
+      let $input_container = $input.closest('label');
+      let date_format = $input_container.find('code').text();
+      let description = $input_container.find('.ac-setting-input-date__more').html();
 
       if (date_format) {
         $input_custom.val(date_format).trigger('change');
@@ -1521,7 +1436,7 @@ var date = function (column) {
     $input_custom.on('change', function () {
       $example_custom.html('<span class="spinner is-active"></span>');
       $radio_custom.val($input_custom.val());
-      var $custom_value = $(this).val();
+      let $custom_value = $(this).val();
 
       if (!$custom_value) {
         $example_custom.text('');
@@ -1562,10 +1477,8 @@ var date = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var Image =
-/** @class */
-function () {
-  function Image(column) {
+class Image {
+  constructor(column) {
     this.column = column;
     this.setting = column.$el[0].querySelector('.ac-column-setting--image');
 
@@ -1578,76 +1491,75 @@ function () {
     this.bindEvents();
   }
 
-  Image.prototype.getValue = function () {
+  getValue() {
     return this.field.value;
-  };
+  }
 
-  Image.prototype.bindEvents = function () {
-    var self = this;
+  bindEvents() {
+    let self = this;
     this.field.addEventListener('change', function (e) {
       self.initState();
     });
-  };
+  }
 
-  Image.prototype.initState = function () {
+  initState() {
     if ('cpac-custom' === this.getValue()) {
       this.showSubsettings();
     } else {
       this.hideSubsettings();
     }
-  };
+  }
 
-  Image.prototype.hideSubsettings = function () {
-    var subsetting = this.setting.querySelectorAll('.ac-column-setting');
+  hideSubsettings() {
+    let subsetting = this.setting.querySelectorAll('.ac-column-setting');
 
-    for (var i = 0; i < subsetting.length; ++i) {
+    for (let i = 0; i < subsetting.length; ++i) {
       subsetting[i].style.display = 'none';
     }
-  };
+  }
 
-  Image.prototype.showSubsettings = function () {
-    var subsetting = this.setting.querySelectorAll('.ac-column-setting');
+  showSubsettings() {
+    let subsetting = this.setting.querySelectorAll('.ac-column-setting');
 
-    for (var i = 0; i < subsetting.length; ++i) {
+    for (let i = 0; i < subsetting.length; ++i) {
       subsetting[i].style.display = 'table';
     }
-  };
+  }
 
-  Image.prototype.setValue = function (value) {
+  setValue(value) {
     this.field.value = value;
     this.trigger(this.field, 'change');
     return this;
-  };
+  }
 
-  Image.prototype.setWidth = function (width) {
-    var field = this.setting.querySelector('.ac-column-setting [name*="image_size_w"]');
+  setWidth(width) {
+    let field = this.setting.querySelector('.ac-column-setting [name*="image_size_w"]');
     field.value = width;
     this.trigger(field, 'change');
     return this;
-  };
+  }
 
-  Image.prototype.setHeight = function (height) {
-    var field = this.setting.querySelector('.ac-column-setting [name*="image_size_h"]');
+  setHeight(height) {
+    let field = this.setting.querySelector('.ac-column-setting [name*="image_size_h"]');
     field.value = height;
     this.trigger(field, 'change');
     return this;
-  };
+  }
 
-  Image.prototype.setSize = function (width, height) {
+  setSize(width, height) {
     this.setWidth(width);
     this.setHeight(height);
     return this;
-  };
+  }
 
-  Image.prototype.trigger = function (el, event) {
+  trigger(el, event) {
     el.dispatchEvent(new Event(event));
     return this;
-  };
+  }
 
-  return Image;
-}();
+}
 
-var image = function (column) {
+let image = function (column) {
   column.settings.image = new Image(column);
 };
 
@@ -1667,10 +1579,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../modules/modal */ "./js/modules/modal.ts");
 
 
-var Label =
-/** @class */
-function () {
-  function Label(column) {
+class Label {
+  constructor(column) {
     this.column = column;
     this.setting = column.el.querySelector('.ac-column-setting--label');
     this.iconpicker = this.setting.querySelector('.-iconpicker');
@@ -1686,17 +1596,17 @@ function () {
     this.bindEvents();
   }
 
-  Label.prototype.initValue = function () {
-    var self = this;
-    var html = document.createRange().createContextualFragment(this.getValue());
-    var dashicon = html.querySelector('.dashicons');
+  initValue() {
+    let self = this;
+    let html = document.createRange().createContextualFragment(this.getValue());
+    let dashicon = html.querySelector('.dashicons');
 
     if (dashicon) {
-      var classList = dashicon.classList;
-      classList.forEach(function (cls) {
+      let classList = dashicon.classList;
+      classList.forEach(cls => {
         if (cls.indexOf('dashicons-') !== -1) {
-          var selector = '.' + cls;
-          var icon = self.iconpicker.querySelector(selector);
+          let selector = '.' + cls;
+          let icon = self.iconpicker.querySelector(selector);
 
           if (icon) {
             icon.parentElement.classList.add('active');
@@ -1707,10 +1617,10 @@ function () {
     } else {
       self.setIconSelection(false);
     }
-  };
+  }
 
-  Label.prototype.bindEvents = function () {
-    var self = this;
+  bindEvents() {
+    let self = this;
     this.setting.querySelector('.ac-setting-label-icon').addEventListener('click', function (e) {
       e.preventDefault();
       self.modal.open();
@@ -1724,59 +1634,58 @@ function () {
 
       self.modal.close();
     });
-    var icons = this.iconpicker.querySelectorAll('.ac-ipicker__icon');
-    icons.forEach(function (icon) {
+    let icons = this.iconpicker.querySelectorAll('.ac-ipicker__icon');
+    icons.forEach(icon => {
       icon.addEventListener('click', function (e) {
         e.preventDefault();
-        var dashicon = this.dataset.dashicon;
+        let dashicon = this.dataset.dashicon;
 
         if (dashicon) {
           self.setIconSelection(dashicon);
         }
 
-        var icons = self.setting.querySelectorAll('.ac-ipicker__icon');
-        icons.forEach(function (icon) {
+        let icons = self.setting.querySelectorAll('.ac-ipicker__icon');
+        icons.forEach(icon => {
           icon.classList.remove('active');
         });
         icon.classList.add('active');
       });
     });
-  };
+  }
 
-  Label.prototype.getValue = function () {
+  getValue() {
     return this.field.value;
-  };
+  }
 
-  Label.prototype.setValue = function (value) {
+  setValue(value) {
     this.field.value = value;
-    var event = new Event('change');
+    let event = new Event('change');
     this.field.dispatchEvent(event);
-  };
+  }
 
-  Label.prototype.setIconSelection = function (dashicon) {
-    var selection = this.setting.querySelector('.ac-ipicker__selection');
+  setIconSelection(dashicon) {
+    let selection = this.setting.querySelector('.ac-ipicker__selection');
     this._dashicon = dashicon;
-    selection.innerHTML = "<span class=\"dashicons dashicons-" + dashicon + "\"></span>";
+    selection.innerHTML = `<span class="dashicons dashicons-${dashicon}"></span>`;
 
     if (!dashicon) {
       selection.style.visibility = 'hidden';
     } else {
       selection.style.visibility = 'visible';
     }
-  };
+  }
 
-  Label.prototype.getIconSelection = function () {
+  getIconSelection() {
     return this._dashicon;
-  };
+  }
 
-  Label.prototype.setDashicon = function (dashicon) {
-    this.setValue("<span class=\"dashicons dashicons-" + dashicon + "\"></span>");
-  };
+  setDashicon(dashicon) {
+    this.setValue(`<span class="dashicons dashicons-${dashicon}"></span>`);
+  }
 
-  return Label;
-}();
+}
 
-var label = function (column) {
+let label = function (column) {
   column.settings.label = new Label(column);
 };
 
@@ -1793,10 +1702,8 @@ var label = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var NumberFormat =
-/** @class */
-function () {
-  function NumberFormat(column) {
+class NumberFormat {
+  constructor(column) {
     this.column = column;
     this.setting = column.$el[0].querySelector('.ac-column-setting--number_format');
 
@@ -1807,33 +1714,29 @@ function () {
     this.bindEvents();
   }
 
-  NumberFormat.prototype.bindEvents = function () {
-    var _this = this;
-
+  bindEvents() {
     this.refreshPreview();
-    this.setting.querySelectorAll('input').forEach(function (el) {
-      el.addEventListener('change', function (e) {
-        _this.refreshPreview();
+    this.setting.querySelectorAll('input').forEach(el => {
+      el.addEventListener('change', e => {
+        this.refreshPreview();
       });
     });
-  };
+  }
 
-  NumberFormat.prototype.refreshPreview = function () {
-    var _this = this;
-
-    this.getExampleRequest().done(function (example) {
-      var preview = _this.setting.querySelector('[data-preview]');
+  refreshPreview() {
+    this.getExampleRequest().done(example => {
+      let preview = this.setting.querySelector('[data-preview]');
 
       if (preview) {
         preview.innerText = example;
       }
     });
-  };
+  }
 
-  NumberFormat.prototype.getExampleRequest = function () {
-    var decimals = this.setting.querySelector('.ac-setting-input_number_decimals');
-    var decimal_point = this.setting.querySelector('.ac-setting-input_number_decimal_point');
-    var thousands_point = this.setting.querySelector('.ac-setting-input_number_thousands_separator');
+  getExampleRequest() {
+    let decimals = this.setting.querySelector('.ac-setting-input_number_decimals');
+    let decimal_point = this.setting.querySelector('.ac-setting-input_number_decimal_point');
+    let thousands_point = this.setting.querySelector('.ac-setting-input_number_thousands_separator');
     return jQuery.ajax({
       url: ajaxurl,
       method: 'post',
@@ -1845,12 +1748,11 @@ function () {
         thousands_point: thousands_point ? thousands_point.value : ''
       }
     });
-  };
+  }
 
-  return NumberFormat;
-}();
+}
 
-var numberformat = function (column) {
+const numberformat = column => {
   column.settings.number_format = new NumberFormat(column);
 };
 
@@ -1867,11 +1769,11 @@ var numberformat = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var pro = function (column) {
-  var $column = column.$el;
-  var $setting = $column.find('.ac-column-setting--pro');
+let pro = function (column) {
+  let $column = column.$el;
+  let $setting = $column.find('.ac-column-setting--pro');
   $setting.each(function () {
-    var $container = jQuery(this);
+    let $container = jQuery(this);
     $container.find('input').on('click', function (e) {
       e.preventDefault();
       $container.find('[data-ac-open-modal]').trigger('click');
@@ -1892,16 +1794,16 @@ var pro = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var subsetting = function (column) {
-  var $ = jQuery;
-  var settings = {
+let subsetting = function (column) {
+  let $ = jQuery;
+  let settings = {
     value_show: "on",
     subfield: '.ac-column-setting'
   };
 
   function initState($setting, $input) {
-    var value = $input.filter(':checked').val();
-    var $subfields = $setting.find(settings.subfield);
+    let value = $input.filter(':checked').val();
+    let $subfields = $setting.find(settings.subfield);
 
     if (settings.value_show === value) {
       $subfields.show();
@@ -1910,11 +1812,11 @@ var subsetting = function (column) {
     }
   }
 
-  var $column = column.$el;
-  var $settings = $column.find('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit');
+  let $column = column.$el;
+  let $settings = $column.find('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit');
   $settings.each(function () {
-    var $setting = $(this);
-    var $input = $(this).find('.ac-setting-input input[type="radio"]');
+    let $setting = $(this);
+    let $input = $(this).find('.ac-setting-input input[type="radio"]');
     initState($setting, $input);
     $input.on('change', function () {
       initState($setting, $input);
@@ -1938,10 +1840,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../select2/excludegroup.matcher */ "./js/select2/excludegroup.matcher.js");
 
 
-var TypeSelector =
-/** @class */
-function () {
-  function TypeSelector(column) {
+class TypeSelector {
+  constructor(column) {
     this.column = column;
     this.setting = column.$el[0].querySelector('[data-setting="type"]');
 
@@ -1952,12 +1852,12 @@ function () {
     this.bindEvents();
   }
 
-  TypeSelector.prototype.bindEvents = function () {
-    var select = this.setting.querySelector('.ac-setting-input_type');
+  bindEvents() {
+    const select = this.setting.querySelector('.ac-setting-input_type');
 
     if (select) {
       select.removeAttribute('data-select2-id');
-      this.setting.querySelectorAll('.select2').forEach(function (el) {
+      this.setting.querySelectorAll('.select2').forEach(el => {
         el.remove();
       });
       jQuery(select).ac_select2({
@@ -1968,10 +1868,10 @@ function () {
           return text;
         },
         templateResult: function (result) {
-          var text = result.text;
+          let text = result.text;
 
           if (result.hasOwnProperty('id') && result.id.includes('placeholder-')) {
-            text += "<span style=\"background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;\">PRO</span>";
+            text += `<span style="background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;">PRO</span>`;
           }
 
           return text;
@@ -1979,12 +1879,11 @@ function () {
         matcher: _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__["default"]
       });
     }
-  };
+  }
 
-  return TypeSelector;
-}();
+}
 
-var type = function (column) {
+const type = column => {
   column.settings.typeSelector = new TypeSelector(column);
 };
 
@@ -2003,9 +1902,9 @@ var type = function (column) {
 __webpack_require__.r(__webpack_exports__);
 // Settings fields: Width
 jQuery.fn.column_width_slider = function () {
-  var $ = jQuery;
-  var $column_width = $(this).find('.ac-setting-input-width');
-  var input_width = $column_width.find('.description input'),
+  let $ = jQuery;
+  let $column_width = $(this).find('.ac-setting-input-width');
+  let input_width = $column_width.find('.description input'),
       input_unit = $column_width.find('.unit-select input'),
       unit = input_unit.filter(':checked').val(),
       width = input_width.val(),
@@ -2030,17 +1929,17 @@ jQuery.fn.column_width_slider = function () {
   });
 };
 
-var width = function (column) {
-  var $ = jQuery;
-  var $column = column.$el;
+let width = function (column) {
+  let $ = jQuery;
+  let $column = column.$el;
   $column.find('.ac-column-setting--width').each(function () {
     $column.column_width_slider(); // indicator
 
-    var $width_indicator = $column.find('.ac-column-header .ac-column-heading-setting--width');
+    let $width_indicator = $column.find('.ac-column-header .ac-column-heading-setting--width');
     $width_indicator.on('update', function () {
-      var _width = $column.find('.ac-setting-input-width .description input').val();
+      let _width = $column.find('.ac-setting-input-width .description input').val();
 
-      var _unit = $column.find('.ac-setting-input-width .description .unit').text();
+      let _unit = $column.find('.ac-setting-input-width .description .unit').text();
 
       if (_width > 0) {
         jQuery(this).text(_width + _unit);
@@ -2049,7 +1948,7 @@ var width = function (column) {
       }
     }); // unit selector
 
-    var width_unit_select = $column.find('.ac-setting-input-width .unit-select label');
+    let width_unit_select = $column.find('.ac-setting-input-width .unit-select label');
     width_unit_select.on('click', function () {
       $column.find('span.unit').text($(this).find('input').val());
       $column.column_width_slider(); // re-init slider
@@ -2057,7 +1956,7 @@ var width = function (column) {
       $width_indicator.trigger('update'); // update indicator
     }); // width_input
 
-    var width_input = $column.find('.ac-setting-input-width .description input').on('keyup', function () {
+    let width_input = $column.find('.ac-setting-input-width .description input').on('keyup', function () {
       $column.column_width_slider(); // re-init slider
 
       jQuery(this).trigger('validate'); // validate input
@@ -2065,9 +1964,9 @@ var width = function (column) {
       $width_indicator.trigger('update'); // update indicator
     }) // width_input:validate
     .on('validate', function () {
-      var _width = width_input.val();
+      let _width = width_input.val();
 
-      var _new_width = $.trim(_width);
+      let _new_width = $.trim(_width);
 
       if (!jQuery.isNumeric(_new_width)) {
         _new_width = _new_width.replace(/\D/g, '');
@@ -2101,10 +2000,9 @@ var width = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var Modal =
-/** @class */
-function () {
-  function Modal(el) {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modal; });
+class Modal {
+  constructor(el) {
     if (!el) {
       return;
     }
@@ -2114,73 +2012,64 @@ function () {
     this.initEvents();
   }
 
-  Modal.prototype.initEvents = function () {
-    var _this = this;
+  initEvents() {
+    let self = this;
+    document.addEventListener('keydown', e => {
+      const keyName = e.key;
 
-    var self = this;
-    document.addEventListener('keydown', function (e) {
-      var keyName = e.key;
-
-      if (!_this.isOpen()) {
+      if (!this.isOpen()) {
         return;
       }
 
       if ('Escape' === keyName) {
-        _this.close();
+        this.close();
       }
     });
-    var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
+    let dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
 
     if (dismissButtons.length > 0) {
-      dismissButtons.forEach(function (b) {
-        b.addEventListener('click', function (e) {
+      dismissButtons.forEach(b => {
+        b.addEventListener('click', e => {
           e.preventDefault();
           self.close();
         });
       });
     }
 
-    this.el.addEventListener('click', function (e) {
+    this.el.addEventListener('click', e => {
       if (e.target.classList.contains('ac-modal')) {
         self.close();
       }
     });
-  };
+  }
 
-  Modal.prototype.isOpen = function () {
+  isOpen() {
     return this.el.classList.contains('-active');
-  };
+  }
 
-  Modal.prototype.close = function () {
+  close() {
     this.onClose();
     this.el.classList.remove('-active');
-  };
+  }
 
-  Modal.prototype.open = function () {
-    var _this = this; //short delay in order to allow bubbling events to bind before opening
-
-
-    setTimeout(function () {
-      _this.onOpen();
-
-      _this.el.removeAttribute('style');
-
-      _this.el.classList.add('-active');
+  open() {
+    //short delay in order to allow bubbling events to bind before opening
+    setTimeout(() => {
+      this.onOpen();
+      this.el.removeAttribute('style');
+      this.el.classList.add('-active');
     });
-  };
+  }
 
-  Modal.prototype.destroy = function () {
+  destroy() {
     this.el.remove();
-  };
+  }
 
-  Modal.prototype.onClose = function () {};
+  onClose() {}
 
-  Modal.prototype.onOpen = function () {};
+  onOpen() {}
 
-  return Modal;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Modal);
+}
 
 /***/ }),
 
@@ -2193,34 +2082,31 @@ function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var $ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ScreenOption; });
+const $ = __webpack_require__(/*! jquery */ "jquery");
 
-var ScreenOption =
-/** @class */
-function () {
-  function ScreenOption(element, name) {
+class ScreenOption {
+  constructor(element, name) {
     this.name = name;
     this.element = element;
     this.init();
   }
 
-  ScreenOption.prototype.getInput = function () {
+  getInput() {
     return this.element.querySelector('input');
-  };
+  }
 
-  ScreenOption.prototype.init = function () {
-    var _this = this;
-
-    var input = this.getInput();
+  init() {
+    let input = this.getInput();
 
     if (input) {
-      input.addEventListener('change', function () {
-        _this.persist();
+      input.addEventListener('change', () => {
+        this.persist();
       });
     }
-  };
+  }
 
-  ScreenOption.prototype.persist = function () {
+  persist() {
     return $.ajax({
       url: ajaxurl,
       method: 'POST',
@@ -2231,12 +2117,9 @@ function () {
         _ajax_nonce: AC._ajax_nonce
       }
     });
-  };
+  }
 
-  return ScreenOption;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (ScreenOption);
+}
 
 /***/ }),
 
@@ -2252,19 +2135,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
 
 
-var Tooltips =
-/** @class */
-function () {
-  function Tooltips() {
+class Tooltips {
+  constructor() {
     this.init();
   }
 
-  Tooltips.prototype.init = function () {
+  init() {
     Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["initAcTooltips"])();
-  };
+  }
 
-  return Tooltips;
-}();
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (Tooltips);
 
@@ -2281,57 +2161,42 @@ function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcTooltips", function() { return initAcTooltips; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
-var initAcTooltips = function () {
-  document.querySelectorAll('[data-ac-tip]').forEach(function (element) {
+const initAcTooltips = () => {
+  document.querySelectorAll('[data-ac-tip]').forEach(element => {
     new Tooltip(element);
   });
 };
-
-var Tooltip =
-/** @class */
-function () {
-  function Tooltip(el, content) {
-    if (content === void 0) {
-      content = '';
-    }
-
+class Tooltip {
+  constructor(el, content = '') {
     this.element = el;
     this.content = content ? content : el.dataset.acTip;
     this.tip = createTooltip(this.content);
     this.initEvents();
   }
 
-  Tooltip.prototype.initEvents = function () {
-    var _this = this;
-
+  initEvents() {
     if (this.element.dataset.acTooltipInit === '1') {
       return;
     }
 
     this.element.dataset.acTooltipInit = '1';
     document.body.appendChild(this.tip);
-    this.element.addEventListener('mouseenter', function () {
-      var bodyOffset = document.body.getBoundingClientRect();
-
-      var viewportOffset = _this.element.getBoundingClientRect();
-
-      _this.tip.style.left = viewportOffset.left - bodyOffset.left + _this.element.offsetWidth / 2 + 'px';
-      _this.tip.style.top = viewportOffset.top - bodyOffset.top + _this.element.offsetHeight + 'px';
-
-      _this.tip.classList.add('hover');
+    this.element.addEventListener('mouseenter', () => {
+      const bodyOffset = document.body.getBoundingClientRect();
+      const viewportOffset = this.element.getBoundingClientRect();
+      this.tip.style.left = viewportOffset.left - bodyOffset.left + this.element.offsetWidth / 2 + 'px';
+      this.tip.style.top = viewportOffset.top - bodyOffset.top + this.element.offsetHeight + 'px';
+      this.tip.classList.add('hover');
     });
-    this.element.addEventListener('mouseleave', function () {
-      _this.tip.classList.remove('hover');
+    this.element.addEventListener('mouseleave', () => {
+      this.tip.classList.remove('hover');
     });
-  };
+  }
 
-  return Tooltip;
-}();
+}
 
-
-
-var createTooltip = function (content) {
-  var tip = document.createElement('div');
+const createTooltip = content => {
+  let tip = document.createElement('div');
   tip.classList.add('ac-tooltip');
   tip.innerHTML = content;
   return tip;
