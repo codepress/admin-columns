@@ -1,4 +1,5 @@
-export const fadeIn = (element: HTMLElement, ms: number = 100, cb: Function = null) => {
+export const fadeIn = (element: HTMLElement, ms: number = 100, cb: Function = null, display: string = 'block') => {
+    element.style.display = display;
     element.style.transition = `opacity ${ms}ms`;
     element.style.opacity = '0';
 
@@ -13,28 +14,32 @@ export const fadeIn = (element: HTMLElement, ms: number = 100, cb: Function = nu
 
 }
 
-export const fadeOut = (element: HTMLElement, ms: number = 100, cb: Function = null) => {
+export const fadeOut = (element: HTMLElement, ms: number = 100, cb: Function = null, display: string = 'none') => {
     element.style.transition = `opacity ${ms}ms`;
     element.style.opacity = '1';
 
     setTimeout(() => {
         element.style.opacity = '0';
+
     }, 100);
-    if (cb) {
-        element.addEventListener('transitionend', () => {
+
+    element.addEventListener('transitionend', () => {
+        element.style.display = display;
+        if (cb) {
             cb.call(this);
-        }, {once: true});
-    }
+        }
+    }, {once: true});
 }
 
 interface scrollToElementOptions {
-    offset ?: number
+    offset?: number
 }
-export const scrollToElement = (element: HTMLElement, ms: number, options: scrollToElementOptions = {} ) => {
+
+export const scrollToElement = (element: HTMLElement, ms: number, options: scrollToElementOptions = {}) => {
     let defaults: scrollToElementOptions = {
         offset: 0
     }
-    let settings = Object.assign( {}, defaults, options );
+    let settings = Object.assign({}, defaults, options);
 
     const elementY = element.getBoundingClientRect().top + settings.offset;
     const startingY = window.pageYOffset;

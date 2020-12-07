@@ -709,38 +709,6 @@ const createTooltip = content => {
 
 /***/ }),
 
-/***/ "./js/polyfill/custom-event.ts":
-/*!*************************************!*\
-  !*** ./js/polyfill/custom-event.ts ***!
-  \*************************************/
-/*! exports provided: polyfillCustomEvent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "polyfillCustomEvent", function() { return polyfillCustomEvent; });
-const polyfillCustomEvent = () => {
-  if (typeof window.CustomEvent === "function") {
-    return false;
-  }
-
-  function CustomEvent(event, params) {
-    params = params || {
-      bubbles: false,
-      cancelable: false,
-      detail: undefined
-    };
-    let evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-    return evt;
-  }
-
-  CustomEvent.prototype = window.Event.prototype;
-  window.CustomEvent = CustomEvent;
-};
-
-/***/ }),
-
 /***/ "./js/table.ts":
 /*!*********************!*\
   !*** ./js/table.ts ***!
@@ -756,12 +724,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/toggle-box-link */ "./js/modules/toggle-box-link.ts");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _polyfill_custom_event__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./polyfill/custom-event */ "./js/polyfill/custom-event.ts");
-/* harmony import */ var _plugin_show_more__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./plugin/show-more */ "./js/plugin/show-more.ts");
-/* harmony import */ var _table_functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./table/functions */ "./js/table/functions.ts");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
-/* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./helpers/table */ "./js/helpers/table.ts");
-/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
+/* harmony import */ var _plugin_show_more__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plugin/show-more */ "./js/plugin/show-more.ts");
+/* harmony import */ var _table_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./table/functions */ "./js/table/functions.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
+/* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers/table */ "./js/helpers/table.ts");
+/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
 
 
 
@@ -773,11 +740,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-let AdminColumns = Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_10__["initAdminColumnsGlobalBootstrap"])();
-Object(_polyfill_custom_event__WEBPACK_IMPORTED_MODULE_5__["polyfillCustomEvent"])();
+let AdminColumns = Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__["initAdminColumnsGlobalBootstrap"])();
 jquery__WEBPACK_IMPORTED_MODULE_4___default()(document).ready(() => {
-  let table = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_9__["resolveTableBySelector"])(AC.table_id);
+  let table = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_8__["resolveTableBySelector"])(AC.table_id);
 
   if (table) {
     AdminColumns.Table = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table);
@@ -790,16 +755,16 @@ jquery__WEBPACK_IMPORTED_MODULE_4___default()(document).ready(() => {
   });
   jquery__WEBPACK_IMPORTED_MODULE_4___default()('.wp-list-table').on('updated', 'tr', function () {
     AdminColumns.Table.addCellClasses();
-    Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_6__["auto_init_show_more"])();
+    Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
   }); // TODO use more global event name instead of IE
 
   jquery__WEBPACK_IMPORTED_MODULE_4___default()('.wp-list-table td').on('ACP_InlineEditing_After_SetValue', function () {
-    Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_6__["auto_init_show_more"])();
+    Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
   });
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_8__["EventConstants"].TABLE.READY, e => {
-  Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_6__["auto_init_show_more"])();
-  Object(_table_functions__WEBPACK_IMPORTED_MODULE_7__["init_actions_tooltips"])();
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__["EventConstants"].TABLE.READY, e => {
+  Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
+  Object(_table_functions__WEBPACK_IMPORTED_MODULE_6__["init_actions_tooltips"])();
   e.table.getElement().addEventListener('DOMNodeInserted', e => {
     let element = e.target;
 
@@ -808,7 +773,7 @@ AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_8__["EventCo
     }
 
     jquery__WEBPACK_IMPORTED_MODULE_4___default()(element).trigger('updated', {
-      id: Object(_helpers_table__WEBPACK_IMPORTED_MODULE_9__["getIdFromTableRow"])(element),
+      id: Object(_helpers_table__WEBPACK_IMPORTED_MODULE_8__["getIdFromTableRow"])(element),
       row: element
     });
   });

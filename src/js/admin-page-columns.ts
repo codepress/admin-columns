@@ -6,6 +6,7 @@ import {initAdminColumnsGlobalBootstrap} from "./helpers/admin-columns";
 import $ from 'jquery';
 import ColumnConfigurator from "./admin/columns/column-configurator";
 import Modal from "./modules/modal";
+import Feedback from "./admin/columns/feedback";
 
 declare let AdminColumns: AdminColumnSettingsInterface;
 
@@ -34,6 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
             select.disabled = true;
             (select.nextElementSibling as HTMLElement).style.display = 'inline-block';
         });
+    }
+
+    let feedback = document.querySelector<HTMLElement>('#direct-feedback');
+    if (feedback) {
+        new Feedback(feedback);
     }
 });
 

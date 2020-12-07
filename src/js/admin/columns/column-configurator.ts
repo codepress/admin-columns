@@ -16,6 +16,7 @@ import {initWidthSetting} from "./settings/width";
 import {initDateSetting} from "./settings/date";
 import {initProSetting} from "./settings/pro";
 import {initCustomFieldSelector} from "./settings/custom-field";
+import {initSubSettings} from "./settings/sub-setting-toggle";
 
 declare const AdminColumns: AdminColumnsInterface;
 
@@ -40,6 +41,7 @@ export default class ColumnConfigurator {
             initDateSetting(column);
             initProSetting(column);
             initCustomFieldSelector(column);
+            initSubSettings( column );
         });
     }
 

@@ -102,9 +102,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./admin/columns/column-configurator */ "./js/admin/columns/column-configurator.ts");
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/modal */ "./js/modules/modal.ts");
+/* harmony import */ var _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./admin/columns/feedback */ "./js/admin/columns/feedback.ts");
 
 
  // @ts-ignore
+
 
 
 
@@ -134,6 +136,12 @@ document.addEventListener('DOMContentLoaded', () => {
       select.disabled = true;
       select.nextElementSibling.style.display = 'inline-block';
     });
+  }
+
+  let feedback = document.querySelector('#direct-feedback');
+
+  if (feedback) {
+    new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__["default"](feedback);
   }
 });
 AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, form => {
@@ -299,6 +307,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _settings_date__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./settings/date */ "./js/admin/columns/settings/date.ts");
 /* harmony import */ var _settings_pro__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./settings/pro */ "./js/admin/columns/settings/pro.ts");
 /* harmony import */ var _settings_custom_field__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./settings/custom-field */ "./js/admin/columns/settings/custom-field.ts");
+/* harmony import */ var _settings_sub_setting_toggle__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./settings/sub-setting-toggle */ "./js/admin/columns/settings/sub-setting-toggle.ts");
+
 
 
 
@@ -334,6 +344,7 @@ class ColumnConfigurator {
       Object(_settings_date__WEBPACK_IMPORTED_MODULE_13__["initDateSetting"])(column);
       Object(_settings_pro__WEBPACK_IMPORTED_MODULE_14__["initProSetting"])(column);
       Object(_settings_custom_field__WEBPACK_IMPORTED_MODULE_15__["initCustomFieldSelector"])(column);
+      Object(_settings_sub_setting_toggle__WEBPACK_IMPORTED_MODULE_16__["initSubSettings"])(column);
     });
   }
 
@@ -758,6 +769,45 @@ const initTypeSelector = column => {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(select).on('change', () => column.switchToType(select.value));
   });
 };
+
+/***/ }),
+
+/***/ "./js/admin/columns/feedback.ts":
+/*!**************************************!*\
+  !*** ./js/admin/columns/feedback.ts ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helpers_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../helpers/animations */ "./js/helpers/animations.ts");
+
+
+class Feedback {
+  constructor(element) {
+    this.element = element;
+    this.init();
+  }
+
+  init() {
+    this.element.querySelector('a.no').addEventListener('click', e => {
+      e.preventDefault();
+      Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeOut"])(this.element.querySelector('#feedback-choice'), 300, () => {
+        Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeIn"])(this.element.querySelector('#feedback-support'), 300);
+      });
+    });
+    this.element.querySelector('a.yes').addEventListener('click', e => {
+      e.preventDefault();
+      Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeOut"])(this.element.querySelector('#feedback-choice'), 300, () => {
+        Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeIn"])(this.element.querySelector('#feedback-rate'), 300);
+      });
+    });
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Feedback);
 
 /***/ }),
 
@@ -1437,6 +1487,52 @@ const initProSetting = column => {
 
 /***/ }),
 
+/***/ "./js/admin/columns/settings/sub-setting-toggle.ts":
+/*!*********************************************************!*\
+  !*** ./js/admin/columns/settings/sub-setting-toggle.ts ***!
+  \*********************************************************/
+/*! exports provided: initSubSettings */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initSubSettings", function() { return initSubSettings; });
+const initSubSettings = column => {
+  column.getElement().querySelectorAll('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit').forEach(setting => {
+    new SubsettingSetting(setting);
+  });
+};
+
+class SubsettingSetting {
+  constructor(element) {
+    this.element = element;
+    this.inputs = element.querySelectorAll('.ac-setting-input input[type="radio"]');
+    this.subFields = element.querySelectorAll('.ac-column-setting');
+    this.initState();
+    this.initEvents();
+  }
+
+  initEvents() {
+    this.inputs.forEach(el => {
+      el.addEventListener('change', () => this.initState());
+    });
+  }
+
+  initState() {
+    this.isOptionEnabled() ? this.subFields.forEach(el => el.style.display = 'table') : this.subFields.forEach(el => el.style.display = 'none');
+  }
+
+  isOptionEnabled() {
+    let checked = [...this.inputs].filter(input => {
+      return input.checked;
+    });
+    return checked.length ? checked[0].value === 'on' : false;
+  }
+
+}
+
+/***/ }),
+
 /***/ "./js/admin/columns/settings/type.ts":
 /*!*******************************************!*\
   !*** ./js/admin/columns/settings/type.ts ***!
@@ -1692,7 +1788,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeIn", function() { return fadeIn; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeOut", function() { return fadeOut; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollToElement", function() { return scrollToElement; });
-const fadeIn = (element, ms = 100, cb = null) => {
+const fadeIn = (element, ms = 100, cb = null, display = 'block') => {
+  element.style.display = display;
   element.style.transition = `opacity ${ms}ms`;
   element.style.opacity = '0';
   setTimeout(() => {
@@ -1707,20 +1804,21 @@ const fadeIn = (element, ms = 100, cb = null) => {
     });
   }
 };
-const fadeOut = (element, ms = 100, cb = null) => {
+const fadeOut = (element, ms = 100, cb = null, display = 'none') => {
   element.style.transition = `opacity ${ms}ms`;
   element.style.opacity = '1';
   setTimeout(() => {
     element.style.opacity = '0';
   }, 100);
+  element.addEventListener('transitionend', () => {
+    element.style.display = display;
 
-  if (cb) {
-    element.addEventListener('transitionend', () => {
+    if (cb) {
       cb.call(undefined);
-    }, {
-      once: true
-    });
-  }
+    }
+  }, {
+    once: true
+  });
 };
 const scrollToElement = (element, ms, options = {}) => {
   let defaults = {

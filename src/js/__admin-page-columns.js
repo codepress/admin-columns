@@ -42,35 +42,10 @@ require('admin-columns-js/polyfill/nodelist');
 jQuery(document).on('AC_Form_Loaded', function () {
 
     AdminColumns.Column = new Initiator();
-
     AdminColumns.Tooltips = new Tooltip();
-    /** Register Events **/
-    AdminColumns.Column
-        .registerEvent('toggle', EventToggle)
-        .registerEvent('remove', EventRemove)
-        .registerEvent('clone', EventClone)
-        .registerEvent('refresh', EventRefresh)
-        .registerEvent('type_selector', EventTypeSelector)
-        .registerEvent('indicator', EventIndicator)
-        .registerEvent('label', EventLabel)
-        .registerEvent('label_setting', EventLabelSettings)
-        .registerEvent('addons', EventAddons)
-
-        /** Register Settings **/
-        .registerSetting('date', SettingDate)
-        .registerSetting('image_size', SettingImageSize)
-        .registerSetting('pro', SettingPro)
-        .registerSetting('sub_setting_toggle', SettingSubSettingToggle)
-        .registerSetting('width', SettingWidth)
-        .registerSetting('customfield', SettingCustomField)
-        .registerSetting('number_format', SettingNumberFormat)
-        .registerSetting('type_selector', SettingTypeSelector)
-        .registerSetting('label', SettingLabel);
-});
-
-document.addEventListener( 'DOMContentLoaded', () =>{
 
 });
+
 
 
 jQuery(document).ready(function () {

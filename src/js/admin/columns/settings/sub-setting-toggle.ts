@@ -1,39 +1,41 @@
 import {Column} from "../column";
 
-export const initSubSettings = ( column: Column ) => {
-
+export const initSubSettings = (column: Column) => {
+    column.getElement().querySelectorAll<HTMLElement>('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit').forEach(setting => {
+        new SubsettingSetting(setting);
+    });
 }
 
+class SubsettingSetting {
+    element: HTMLElement
+    inputs: NodeListOf<HTMLInputElement>
+    subFields: NodeListOf<HTMLElement>
 
-let subsetting = function( column ) {
-	let $ = jQuery;
-	let settings = {
-		value_show : "on",
-		subfield : '.ac-column-setting'
-	};
+    constructor(element: HTMLElement) {
+        this.element = element;
+        this.inputs = element.querySelectorAll('.ac-setting-input input[type="radio"]');
+        this.subFields = element.querySelectorAll('.ac-column-setting');
+        this.initState();
+        this.initEvents();
+    }
 
-	function initState( $setting, $input ) {
-		let value = $input.filter( ':checked' ).val();
-		let $subfields = $setting.find( settings.subfield );
+    initEvents() {
+        this.inputs.forEach(el => {
+            el.addEventListener('change', () => this.initState());
+        })
+    }
 
-		if ( settings.value_show === value ) {
-			$subfields.show();
-		} else {
-			$subfields.hide();
-		}
-	}
+    initState() {
+        this.isOptionEnabled()
+            ? this.subFields.forEach(el => el.style.display = 'table')
+            : this.subFields.forEach(el => el.style.display = 'none');
+    }
 
-	let $column = column.$el;
-	let $settings = $column.find( '.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit' );
+    isOptionEnabled(): boolean {
+        let checked = [...this.inputs].filter(input => {
+            return input.checked;
+        });
 
-	$settings.each( function() {
-		let $setting = $( this );
-		let $input = $( this ).find( '.ac-setting-input input[type="radio"]' );
-
-		initState( $setting, $input );
-		$input.on( 'change', function() {
-			initState( $setting, $input );
-		} );
-
-	} );
-};
+        return checked.length ? checked[0].value === 'on' : false;
+    }
+}
