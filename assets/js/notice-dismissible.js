@@ -130,7 +130,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./plugin/dismissible-notice */ "./js/plugin/dismissible-notice.ts");
 
 document.addEventListener('DOMContentLoaded', () => {
-  alert('Test');
   Object(_plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_0__["initDismissibleNotices"])();
 });
 

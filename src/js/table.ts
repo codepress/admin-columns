@@ -5,7 +5,6 @@ import ToggleBoxLink from "./modules/toggle-box-link";
 // @ts-ignore
 import $ from 'jquery';
 import {AdminColumnsInterface, LocalizedScriptAC} from "./admincolumns";
-import {polyfillCustomEvent} from "./polyfill/custom-event";
 import {auto_init_show_more} from "./plugin/show-more";
 import {init_actions_tooltips} from "./table/functions";
 import {EventConstants} from "./constants";
@@ -15,7 +14,6 @@ import {initAdminColumnsGlobalBootstrap} from "./helpers/admin-columns";
 declare let AC: LocalizedScriptAC
 
 let AdminColumns: AdminColumnsInterface = initAdminColumnsGlobalBootstrap();
-polyfillCustomEvent();
 
 $(document).ready(() => {
     let table = resolveTableBySelector(AC.table_id);
