@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-09-10 08:22:34+0000\n"
+"PO-Revision-Date: 2020-12-06 11:50:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1464,7 +1464,7 @@ msgstr "Etiqueta"
 
 #: classes/Settings/Column/Type.php:36 templates/admin/edit-column.php:52
 msgid "Name"
-msgstr "Nom"
+msgstr "Nombre"
 
 #: classes/Settings/Column/Type.php:30
 msgid "Choose a column type."

@@ -1,11 +1,11 @@
-import {AdminColumnsInterface, LocalizedScriptColumnSettings} from "../../admincolumns";
+import {AdminColumnSettingsInterface, LocalizedScriptColumnSettings} from "./interfaces";
 import {Column} from "./column";
 
 const axios = require('axios');
 
 declare const ajaxurl: string;
 declare const AC: LocalizedScriptColumnSettings;
-declare const AdminColumns: AdminColumnsInterface;
+declare const AdminColumns: AdminColumnSettingsInterface;
 
 export interface ColumnSettingsResponse {
     success: boolean

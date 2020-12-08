@@ -2,7 +2,7 @@ import {Column} from "../column";
 import Nanobus from "nanobus";
 // @ts-ignore
 import $ from 'jquery';
-import {LocalizedScriptColumnSettings} from "../../../admincolumns";
+import {LocalizedScriptColumnSettings} from "../interfaces";
 import {AxiosPromise, AxiosResponse} from "axios";
 
 const axios = require('axios');

@@ -106,9 +106,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./admin/columns/screen-options */ "./js/admin/columns/screen-options.ts");
 /* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./plugin/tooltip */ "./js/plugin/tooltip.ts");
 /* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.ts");
+/* harmony import */ var _admin_columns_listscreen_initialize__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./admin/columns/listscreen-initialize */ "./js/admin/columns/listscreen-initialize.ts");
 
 
  // @ts-ignore
+
 
 
 
@@ -150,6 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (feedback) {
     new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__["default"](feedback);
+  }
+
+  if (AC.hasOwnProperty('uninitialized_list_screens')) {
+    Object(_admin_columns_listscreen_initialize__WEBPACK_IMPORTED_MODULE_10__["initUninitializedListScreens"])(AC.uninitialized_list_screens);
   } // Screen Options
 
 
@@ -961,6 +967,91 @@ class Form {
 const createColumnFromTemplate = () => {
   let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true);
   return new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](columnElement, '_new_column');
+};
+
+/***/ }),
+
+/***/ "./js/admin/columns/listscreen-initialize.ts":
+/*!***************************************************!*\
+  !*** ./js/admin/columns/listscreen-initialize.ts ***!
+  \***************************************************/
+/*! exports provided: initUninitializedListScreens */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initUninitializedListScreens", function() { return initUninitializedListScreens; });
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+class ListScreenInitializer {
+  constructor(list_screens) {
+    this.listScreens = list_screens;
+    this.processed = [];
+    this.errors = [];
+    this.success = [];
+    this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
+    this.run();
+  }
+
+  doAjaxCall(listScreen) {
+    return axios.get(listScreen.screen_link);
+  }
+
+  run() {
+    Object.values(this.listScreens).forEach(l => this.processListScreen(l));
+  }
+
+  onFinish() {
+    if (this.success.length === Object.keys(this.listScreens).length) {
+      this.events.emit('success');
+    }
+
+    if (this.errors.length > 0) {
+      this.events.emit('error');
+    }
+  }
+
+  checkFinish() {
+    if (this.processed.length === Object.keys(this.listScreens).length) {
+      this.onFinish();
+    }
+  }
+
+  processListScreen(listScreen) {
+    this.doAjaxCall(listScreen).then(response => {
+      response.data === 'ac_success' ? this.success.push(listScreen) : this.errors.push(listScreen);
+    }).catch(() => {
+      this.errors.push(listScreen);
+    }).finally(() => {
+      this.processed.push(listScreen);
+      this.checkFinish();
+    });
+  }
+
+}
+
+const initUninitializedListScreens = listScreens => {
+  if (Object.keys(listScreens).length > 0) {
+    // Only load main screen first if unitialized, otherwise do the rest in background
+    if (listScreens.hasOwnProperty(AC.list_screen)) {
+      const main_initializer = new ListScreenInitializer({
+        [AC.list_screen]: listScreens[AC.list_screen]
+      });
+      main_initializer.events.on('error', () => {
+        document.querySelectorAll('.ac-loading-msg-wrapper').forEach(el => el.remove());
+        document.querySelectorAll('.menu').forEach(el => el.classList.remove('hidden'));
+      });
+      main_initializer.events.on('success', () => {
+        window.location.href = `${location.href}&t=${Date.now()}`;
+      });
+    } else {
+      new ListScreenInitializer(listScreens);
+    }
+  }
 };
 
 /***/ }),

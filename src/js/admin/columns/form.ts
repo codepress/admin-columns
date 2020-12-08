@@ -6,7 +6,7 @@ import {AxiosResponse} from "axios";
 import {fadeIn, scrollToElement} from "../../helpers/animations";
 import {createColumnName} from "../../helpers/columns";
 import {insertAfter} from "../../helpers/elements";
-import {LocalizedScriptColumnSettings} from "../../admincolumns";
+import {LocalizedScriptColumnSettings} from "./interfaces";
 
 declare const AC: LocalizedScriptColumnSettings;
 

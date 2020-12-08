@@ -1,5 +1,5 @@
 import {Form} from "./admin/columns/form";
-import {AdminColumnSettingsInterface} from "./admin/columns/interfaces";
+import {AdminColumnSettingsInterface, LocalizedScriptColumnSettings} from "./admin/columns/interfaces";
 import {EventConstants} from "./constants";
 import {initAdminColumnsGlobalBootstrap} from "./helpers/admin-columns";
 // @ts-ignore
@@ -10,8 +10,10 @@ import Feedback from "./admin/columns/feedback";
 import InfoScreenOption from "./admin/columns/screen-options";
 import {initAcTooltips} from "./plugin/tooltip";
 import {initPointers} from "./modules/ac-pointer";
+import {initUninitializedListScreens} from "./admin/columns/listscreen-initialize";
 
 declare let AdminColumns: AdminColumnSettingsInterface;
+declare let AC: LocalizedScriptColumnSettings
 
 initAdminColumnsGlobalBootstrap();
 
@@ -45,6 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let feedback = document.querySelector<HTMLElement>('#direct-feedback');
     if (feedback) {
         new Feedback(feedback);
+    }
+
+    if (AC.hasOwnProperty('uninitialized_list_screens')) {
+        initUninitializedListScreens(AC.uninitialized_list_screens);
     }
 
     // Screen Options

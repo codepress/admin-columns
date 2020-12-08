@@ -33,10 +33,4 @@ export interface LocalizedScriptACTable extends LocalizedScriptAC {
     column_widths: { [key: string]: WidthType }
 }
 
-
-export interface LocalizedScriptColumnSettings extends LocalizedScriptAC {
-    uninitialized_list_screens: Array<string>
-    i18n: any
-}
-
 export type WidthType = { width: number, width_unit: string }
