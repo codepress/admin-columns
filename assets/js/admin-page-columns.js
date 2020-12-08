@@ -104,6 +104,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/modal */ "./js/modules/modal.ts");
 /* harmony import */ var _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./admin/columns/feedback */ "./js/admin/columns/feedback.ts");
 /* harmony import */ var _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./admin/columns/screen-options */ "./js/admin/columns/screen-options.ts");
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./plugin/tooltip */ "./js/plugin/tooltip.ts");
+/* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.ts");
 
 
  // @ts-ignore
@@ -113,15 +115,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__["initAdminColumnsGlobalBootstrap"])();
 new _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__["default"]();
 document.addEventListener('DOMContentLoaded', () => {
-  new SaveButtons();
+  initSaveHandlers(); // Init the form
+
   let formElement = document.querySelector('#listscreen_settings');
 
   if (formElement) {
     AdminColumns.Form = new _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__["Form"](formElement, AdminColumns.events);
-  }
+  } // Init the Pro promotion Modal
+
 
   let proModal = document.querySelector('#ac-modal-pro');
 
@@ -144,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (feedback) {
     new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__["default"](feedback);
-  } // Column
+  } // Screen Options
 
 
   document.querySelectorAll('[data-ac-screen-option="show_column_id"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-column-id', document.querySelector('.ac-boxes')));
@@ -153,11 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-ac-screen-option="show_list_screen_type"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-list-screen-type', document.querySelector('.ac-admin')));
 });
 AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, form => {
-  document.querySelectorAll('.add_column').forEach(el => {
-    el.addEventListener('click', () => form.createNewColumn());
-  });
-  document.querySelectorAll('a[data-clear-columns]').forEach(el => {
-    el.addEventListener('click', () => form.resetColumns());
+  document.querySelectorAll('.add_column').forEach(el => el.addEventListener('click', () => form.createNewColumn()));
+  document.querySelectorAll('a[data-clear-columns]').forEach(el => el.addEventListener('click', () => form.resetColumns())); // Make column settings sortable
+
+  let $form = jquery__WEBPACK_IMPORTED_MODULE_3___default()(form.getElement());
+  $form.hasClass('ui-sortable') ? $form.sortable('refresh') : $form.sortable({
+    items: '.ac-column',
+    handle: '.column_sort'
   });
 });
 AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVING, () => {
@@ -167,52 +175,24 @@ AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventCo
   document.querySelector('#cpac .ac-admin').classList.remove('saving');
   document.querySelector('#cpac .ac-admin').classList.add('stored');
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, form => {
-  let $form = jquery__WEBPACK_IMPORTED_MODULE_3___default()(form.getElement());
-
-  if ($form.hasClass('ui-sortable')) {
-    $form.sortable('refresh');
-  } else {
-    $form.sortable({
-      items: '.ac-column',
-      handle: '.column_sort'
-    });
-  }
-});
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, form => {
-  document.querySelectorAll('a[data-clear-columns]').forEach(el => {
-    el.addEventListener('click', () => form.resetColumns());
-  });
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.INIT, () => {
+  Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_8__["initAcTooltips"])();
+  Object(_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__["initPointers"])();
 });
 
-class SaveButtons {
-  constructor() {
-    this.elements = document.querySelectorAll('.sidebox a.submit, .column-footer a.submit');
-    this.init();
-  }
-
-  init() {
-    AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.READY, form => {
-      this.elements.forEach(el => {
-        el.addEventListener('click', e => {
-          e.preventDefault();
-          this.disable();
-          form.submitForm();
-        });
+const initSaveHandlers = () => {
+  const elements = document.querySelectorAll('.sidebox a.submit, .column-footer a.submit');
+  AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.READY, form => {
+    elements.forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        elements.forEach(el => el.setAttribute('disabled', 'disabled'));
+        form.submitForm();
       });
     });
-    AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, () => this.enable());
-  }
-
-  disable() {
-    this.elements.forEach(el => el.setAttribute('disabled', 'disabled'));
-  }
-
-  enable() {
-    this.elements.forEach(el => el.removeAttribute('disabled'));
-  }
-
-}
+  });
+  AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, () => elements.forEach(el => el.removeAttribute('disabled')));
+};
 
 /***/ }),
 
@@ -499,7 +479,6 @@ class Column {
     let r = {};
 
     for (let entry of formData.entries()) {
-      console.log(entry);
       let nameParts = entry[0].split('[').map(p => p.split(']')[0]);
       let setter = r;
       let i = 0;
@@ -537,8 +516,10 @@ class Column {
     Object(_ajax__WEBPACK_IMPORTED_MODULE_3__["refreshColumn"])(this.getName(), JSON.stringify(this.getJson())).then(response => {
       if (response.data.success) {
         this.reinitColumnFromElement(Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild);
+        AdminColumns.events.emit(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.REFRESHED, this);
       } else {
-        this.showMessage('sdfsdfsdf');
+        // TODO error message
+        this.showMessage('An error has occurred');
       }
     }).finally(() => this.setLoading(false));
   }
@@ -547,28 +528,6 @@ class Column {
     this.getElement().parentNode.replaceChild(element, this.getElement());
     this.element = element;
     this.setPropertiesByElement(element).init().open();
-  }
-  /**
-   * @returns {Column}
-   */
-
-
-  create() {// TODO move out ckass
-
-    /*this.initNewInstance();
-    this.bindEvents();
-     jQuery(document).trigger('AC_Column_Created', [this]);
-    return this;*/
-  }
-
-  clone() {// TODO move out class
-
-    /*let $clone = this.$el.clone();
-    $clone.data('column-name', this.$el.data('column-name'));
-     let clone = new Column($clone);
-     clone.initNewInstance();
-    clone.bindEvents();
-     return clone;*/
   }
 
 }
@@ -1780,7 +1739,8 @@ const EventConstants = {
     },
     COLUMN: {
       INIT: 'Settings.Column.Init',
-      SWITCH: 'Settings.Column.SwitchToType'
+      SWITCH: 'Settings.Column.SwitchToType',
+      REFRESHED: 'Settings.Column.Refreshed'
     }
   }
 };
@@ -1945,6 +1905,172 @@ function isInViewport(element) {
 
 /***/ }),
 
+/***/ "./js/modules/ac-pointer.ts":
+/*!**********************************!*\
+  !*** ./js/modules/ac-pointer.ts ***!
+  \**********************************/
+/*! exports provided: Pointer, initPointers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Pointer", function() { return Pointer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initPointers", function() { return initPointers; });
+/* harmony import */ var _tooltips__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltips */ "./js/modules/tooltips.ts");
+
+
+const $ = __webpack_require__(/*! jquery */ "jquery");
+
+class Pointer {
+  constructor(el) {
+    this.element = el;
+    this.settings = this.getDefaults();
+    this.init();
+    this.setInitialized();
+  }
+
+  setInitialized() {
+    this.element.dataset.ac_pointer_initialized = '1';
+  }
+
+  getDefaults() {
+    return {
+      width: this.element.getAttribute('data-width') ? this.element.getAttribute('data-width') : 250,
+      noclick: this.element.getAttribute('data-noclick') ? this.element.getAttribute('data-noclick') : false,
+      position: this.getPosition()
+    };
+  }
+
+  isInitialized() {
+    return this.element.dataset.hasOwnProperty('ac_pointer_initialized');
+  }
+
+  init() {
+    if (this.isInitialized()) {
+      return;
+    } // create pointer
+
+
+    $(this.element).pointer({
+      content: this.getRelatedHTML(),
+      position: this.settings.position,
+      pointerWidth: this.settings.width,
+      pointerClass: this.getPointerClass()
+    });
+    this.initEvents();
+  }
+
+  getPosition() {
+    let position = {
+      at: 'left top',
+      my: 'right top',
+      edge: 'right'
+    };
+    let pos = this.element.getAttribute('data-pos');
+    let edge = this.element.getAttribute('data-pos_edge');
+
+    if ('right' === pos) {
+      position = {
+        at: 'right middle',
+        my: 'left middle',
+        edge: 'left'
+      };
+    }
+
+    if ('right_bottom' === pos) {
+      position = {
+        at: 'right middle',
+        my: 'left bottom',
+        edge: 'none'
+      };
+    }
+
+    if ('left' === pos) {
+      position = {
+        at: 'left middle',
+        my: 'right middle',
+        edge: 'right'
+      };
+    }
+
+    if (edge) {
+      position.edge = edge;
+    }
+
+    return position;
+  }
+
+  getPointerClass() {
+    let classes = ['ac-wp-pointer', 'wp-pointer', 'wp-pointer-' + this.settings.position.edge];
+
+    if (this.settings.noclick) {
+      classes.push('noclick');
+    }
+
+    return classes.join(' ');
+  }
+
+  getRelatedHTML() {
+    let related_element = document.getElementById(this.element.getAttribute('rel'));
+    return related_element ? related_element.innerHTML : '';
+  }
+
+  initEvents() {
+    let el = $(this.element); // click
+
+    if (!this.settings.noclick) {
+      el.click(function () {
+        if (el.hasClass('open')) {
+          el.removeClass('open');
+        } else {
+          el.addClass('open');
+        }
+      });
+    }
+
+    el.click(function () {
+      el.pointer('open');
+    });
+    el.mouseenter(function () {
+      el.pointer('open');
+      setTimeout(() => {
+        el.pointer('open');
+      }, 2);
+    });
+    el.mouseleave(function () {
+      setTimeout(() => {
+        if (!el.hasClass('open') && $('.ac-wp-pointer.hover').length === 0) {
+          el.pointer('close');
+        }
+      }, 1);
+    });
+    el.on('close', () => {
+      setTimeout(() => {
+        if (!el.hasClass('open')) {
+          el.pointer('close');
+        }
+      });
+    });
+  }
+
+}
+const initPointers = () => {
+  document.querySelectorAll('.ac-pointer').forEach(element => {
+    new Pointer(element);
+  });
+  $('.ac-wp-pointer').hover(function () {
+    $(this).addClass('hover');
+  }, function () {
+    $(this).removeClass('hover');
+    $('.ac-pointer').trigger('close');
+  }).on('click', '.close', function () {
+    $('.ac-pointer').removeClass('open');
+  });
+  new _tooltips__WEBPACK_IMPORTED_MODULE_0__["default"]();
+};
+
+/***/ }),
+
 /***/ "./js/modules/modal.ts":
 /*!*****************************!*\
   !*** ./js/modules/modal.ts ***!
@@ -2097,6 +2223,87 @@ class Modals {
   }
 
 }
+
+/***/ }),
+
+/***/ "./js/modules/tooltips.ts":
+/*!********************************!*\
+  !*** ./js/modules/tooltips.ts ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
+
+
+class Tooltips {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["initAcTooltips"])();
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Tooltips);
+
+/***/ }),
+
+/***/ "./js/plugin/tooltip.ts":
+/*!******************************!*\
+  !*** ./js/plugin/tooltip.ts ***!
+  \******************************/
+/*! exports provided: initAcTooltips, Tooltip */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcTooltips", function() { return initAcTooltips; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
+const initAcTooltips = () => {
+  document.querySelectorAll('[data-ac-tip]').forEach(element => {
+    new Tooltip(element);
+  });
+};
+class Tooltip {
+  constructor(el, content = '') {
+    this.element = el;
+    this.content = content ? content : el.dataset.acTip;
+    this.tip = createTooltip(this.content);
+    this.initEvents();
+  }
+
+  initEvents() {
+    if (this.element.dataset.acTooltipInit === '1') {
+      return;
+    }
+
+    this.element.dataset.acTooltipInit = '1';
+    document.body.appendChild(this.tip);
+    this.element.addEventListener('mouseenter', () => {
+      const bodyOffset = document.body.getBoundingClientRect();
+      const viewportOffset = this.element.getBoundingClientRect();
+      this.tip.style.left = viewportOffset.left - bodyOffset.left + this.element.offsetWidth / 2 + 'px';
+      this.tip.style.top = viewportOffset.top - bodyOffset.top + this.element.offsetHeight + 'px';
+      this.tip.classList.add('hover');
+    });
+    this.element.addEventListener('mouseleave', () => {
+      this.tip.classList.remove('hover');
+    });
+  }
+
+}
+
+const createTooltip = content => {
+  let tip = document.createElement('div');
+  tip.classList.add('ac-tooltip');
+  tip.innerHTML = content;
+  return tip;
+};
 
 /***/ }),
 

@@ -12,6 +12,7 @@ export const EventConstants = {
         COLUMN: {
             INIT: 'Settings.Column.Init',
             SWITCH: 'Settings.Column.SwitchToType',
+            REFRESHED: 'Settings.Column.Refreshed'
         }
     }
 }

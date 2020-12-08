@@ -146,7 +146,6 @@ export class Column {
         let r: any = {};
 
         for (let entry of formData.entries()) {
-            console.log(entry);
             let nameParts = entry[0].split('[').map(p => p.split(']')[0]);
             let setter = r;
             let i = 0;
@@ -186,9 +185,11 @@ export class Column {
 
         refreshColumn(this.getName(), JSON.stringify(this.getJson())).then((response: AxiosResponse<ajaxResponse>) => {
             if (response.data.success) {
-                this.reinitColumnFromElement(createElementFromString(response.data.data.trim()).firstChild as HTMLElement)
+                this.reinitColumnFromElement(createElementFromString(response.data.data.trim()).firstChild as HTMLElement);
+                AdminColumns.events.emit(EventConstants.SETTINGS.COLUMN.REFRESHED, this);
             } else {
-                this.showMessage('sdfsdfsdf');
+                // TODO error message
+                this.showMessage('An error has occurred');
             }
 
         }).finally(() => this.setLoading(false));
@@ -200,32 +201,6 @@ export class Column {
         this.setPropertiesByElement(element).init().open();
     }
 
-
-    /**
-     * @returns {Column}
-     */
-    create() {
-        // TODO move out ckass
-        /*this.initNewInstance();
-        this.bindEvents();
-
-        jQuery(document).trigger('AC_Column_Created', [this]);
-        return this;*/
-    }
-
-
-    clone() {
-        // TODO move out class
-        /*let $clone = this.$el.clone();
-        $clone.data('column-name', this.$el.data('column-name'));
-
-        let clone = new Column($clone);
-
-        clone.initNewInstance();
-        clone.bindEvents();
-
-        return clone;*/
-    }
 }
 
 const setColumnNameToFormElements = (name: string, columnElement: HTMLElement) => {
