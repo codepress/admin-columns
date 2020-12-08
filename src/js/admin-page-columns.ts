@@ -7,6 +7,7 @@ import $ from 'jquery';
 import ColumnConfigurator from "./admin/columns/column-configurator";
 import Modal from "./modules/modal";
 import Feedback from "./admin/columns/feedback";
+import InfoScreenOption from "./admin/columns/screen-options";
 
 declare let AdminColumns: AdminColumnSettingsInterface;
 
@@ -41,7 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (feedback) {
         new Feedback(feedback);
     }
+
+    // Column
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_id"] input').forEach(el => new InfoScreenOption(el, 'show-column-id', document.querySelector('.ac-boxes')));
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_type"] input').forEach(el => new InfoScreenOption(el, 'show-column-type', document.querySelector('.ac-boxes')));
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_list_screen_id"] input').forEach(el => new InfoScreenOption(el, 'show-list-screen-id', document.querySelector('.ac-admin')));
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_list_screen_type"] input').forEach(el => new InfoScreenOption(el, 'show-list-screen-type', document.querySelector('.ac-admin')));
 });
+
 
 AdminColumns.events.addListener(EventConstants.SETTINGS.FORM.LOADED, (form: Form) => {
     document.querySelectorAll('.add_column').forEach(el => {

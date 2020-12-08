@@ -103,9 +103,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./admin/columns/column-configurator */ "./js/admin/columns/column-configurator.ts");
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/modal */ "./js/modules/modal.ts");
 /* harmony import */ var _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./admin/columns/feedback */ "./js/admin/columns/feedback.ts");
+/* harmony import */ var _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./admin/columns/screen-options */ "./js/admin/columns/screen-options.ts");
 
 
  // @ts-ignore
+
 
 
 
@@ -142,7 +144,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (feedback) {
     new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__["default"](feedback);
-  }
+  } // Column
+
+
+  document.querySelectorAll('[data-ac-screen-option="show_column_id"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-column-id', document.querySelector('.ac-boxes')));
+  document.querySelectorAll('[data-ac-screen-option="show_column_type"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-column-type', document.querySelector('.ac-boxes')));
+  document.querySelectorAll('[data-ac-screen-option="show_list_screen_id"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-list-screen-id', document.querySelector('.ac-admin')));
+  document.querySelectorAll('[data-ac-screen-option="show_list_screen_type"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-list-screen-type', document.querySelector('.ac-admin')));
 });
 AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, form => {
   document.querySelectorAll('.add_column').forEach(el => {
@@ -567,7 +575,11 @@ class Column {
 
 const setColumnNameToFormElements = (name, columnElement) => {
   columnElement.querySelectorAll('input, select').forEach(element => {
-    element.setAttribute('name', element.getAttribute('name').toString().replace('columns[]', `columns[${name}]`));
+    let name = element.getAttribute('name');
+
+    if (name !== null) {
+      element.setAttribute('name', name.replace('columns[]', `columns[${name}]`));
+    }
   });
 };
 
@@ -979,6 +991,34 @@ const createColumnFromTemplate = () => {
 
 /***/ }),
 
+/***/ "./js/admin/columns/screen-options.ts":
+/*!********************************************!*\
+  !*** ./js/admin/columns/screen-options.ts ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return InfoScreenOption; });
+class InfoScreenOption {
+  constructor(input, toggleClass, container) {
+    this.input = input;
+    this.toggleClass = toggleClass;
+    this.container = container;
+    this.initEvents();
+  }
+
+  initEvents() {
+    this.input.addEventListener('change', () => {
+      this.input.checked ? this.container.classList.add(this.toggleClass) : this.container.classList.remove(this.toggleClass);
+    });
+  }
+
+}
+
+/***/ }),
+
 /***/ "./js/admin/columns/settings/custom-field.ts":
 /*!***************************************************!*\
   !*** ./js/admin/columns/settings/custom-field.ts ***!
@@ -1116,8 +1156,7 @@ class DateSetting {
     this.setting = setting;
     this.options = this.setting.querySelectorAll('.radio-labels input[type=radio]');
     this.defaultFormat = this.setting.querySelector('.radio-labels code').textContent;
-    this.valueInput = this.setting.querySelector('[data-value-input]'); // @ts-ignore
-
+    this.valueInput = this.setting.querySelector('[data-value-input]');
     let customInput = [...this.options].filter(radio => radio.value === 'custom');
     this.customOption = new CustomOption(customInput[0], this.setting.querySelector('[data-custom-date]'), this.setting.querySelector('.ac-setting-input-date__example'), this.valueInput);
     this.initEvents();
@@ -1136,7 +1175,7 @@ class DateSetting {
     let selected = this.getSelectionOption();
 
     if (!selected) {
-      selected = [...this.options].filter(option => option.value === 'custom')[0];
+      selected = [...this.options].filter(option => option.value === 'wp_default')[0];
       selected.checked = true;
     }
 

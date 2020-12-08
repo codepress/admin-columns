@@ -230,6 +230,10 @@ export class Column {
 
 const setColumnNameToFormElements = (name: string, columnElement: HTMLElement) => {
     columnElement.querySelectorAll('input, select').forEach((element: HTMLElement) => {
-        element.setAttribute('name', element.getAttribute('name').toString().replace('columns[]', `columns[${name}]`))
+        let name = element.getAttribute('name');
+        if (name !== null) {
+            element.setAttribute('name', name.replace('columns[]', `columns[${name}]`))
+        }
+
     });
 }

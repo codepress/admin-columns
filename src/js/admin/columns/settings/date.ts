@@ -8,6 +8,7 @@ declare const ajaxurl: string;
 export const initDateSetting = (column: Column) => {
     column.getElement().querySelectorAll<HTMLElement>('[data-setting=date]').forEach(setting => new DateSetting(column, setting));
 }
+
 // TODO Test
 class DateSetting {
     column: Column
@@ -24,7 +25,6 @@ class DateSetting {
         this.defaultFormat = this.setting.querySelector('.radio-labels code').textContent;
         this.valueInput = this.setting.querySelector('[data-value-input]');
 
-        // @ts-ignore
         let customInput = [...this.options].filter(radio => radio.value === 'custom');
         this.customOption = new CustomOption(
             customInput[0],
@@ -51,7 +51,7 @@ class DateSetting {
         let selected = this.getSelectionOption();
 
         if (!selected) {
-            selected = [...this.options].filter(option => option.value === 'custom')[0];
+            selected = [...this.options].filter(option => option.value === 'wp_default')[0];
             selected.checked = true;
         }
         selected.dispatchEvent(new Event('change'));
