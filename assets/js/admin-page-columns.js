@@ -324,6 +324,7 @@ class ColumnConfigurator {
       Object(_events_clone__WEBPACK_IMPORTED_MODULE_6__["initClone"])(column);
       Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabel"])(column);
       Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabelSettingEvents"])(column);
+      Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabelTooltipsEvent"])(column);
       Object(_settings_label__WEBPACK_IMPORTED_MODULE_8__["initLabelSetting"])(column);
       Object(_settings_image_size__WEBPACK_IMPORTED_MODULE_9__["initImageSizeSetting"])(column);
       Object(_settings_number_format__WEBPACK_IMPORTED_MODULE_10__["initNumberFormatSetting"])(column);
@@ -617,13 +618,16 @@ const switchTo = (checked, elements) => {
 /*!******************************************!*\
   !*** ./js/admin/columns/events/label.ts ***!
   \******************************************/
-/*! exports provided: initLabel, initLabelSettingEvents */
+/*! exports provided: initLabel, initLabelSettingEvents, initLabelTooltipsEvent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabel", function() { return initLabel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabelSettingEvents", function() { return initLabelSettingEvents; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabelTooltipsEvent", function() { return initLabelTooltipsEvent; });
+/* harmony import */ var _helpers_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../helpers/events */ "./js/helpers/events.ts");
+
 const initLabel = column => {
   column.getElement().querySelectorAll('select[data-label="update"]').forEach(select => {
     select.addEventListener('change', () => {
@@ -647,12 +651,23 @@ const initLabel = column => {
 const initLabelSettingEvents = column => {
   let labelInput = column.getElement().querySelector('.ac-column-setting--label input');
 
-  if (!labelInput) {
-    return;
+  if (labelInput) {
+    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListeners"])(labelInput, ['change', 'keyup'], () => changeLabel(labelInput, column));
   }
+};
+const initLabelTooltipsEvent = column => {
+  column.getElement().querySelectorAll('.col-label .label').forEach(label => {
+    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["onHover"])(label, () => hoverTooltip(label, 'block'), () => hoverTooltip(label, 'none'));
+  });
+};
 
-  labelInput.addEventListener('change', () => changeLabel(labelInput, column));
-  labelInput.addEventListener('keyup', () => changeLabel(labelInput, column));
+const hoverTooltip = (label, display) => {
+  console.log('S', display, label);
+  let related = label.closest('.col-label').querySelector('div.tooltip');
+
+  if (related) {
+    related.style.display = display;
+  }
 };
 
 const changeLabel = (labelInput, column) => {
@@ -1902,6 +1917,47 @@ function isInViewport(element) {
   var rect = element.getBoundingClientRect();
   return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
 }
+
+/***/ }),
+
+/***/ "./js/helpers/events.ts":
+/*!******************************!*\
+  !*** ./js/helpers/events.ts ***!
+  \******************************/
+/*! exports provided: addEventListenerLive, onHover, addEventListeners */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListenerLive", function() { return addEventListenerLive; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onHover", function() { return onHover; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListeners", function() { return addEventListeners; });
+const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement = null) => {
+  let element = rootElement ? rootElement : document;
+  element.addEventListener(eventType, event => {
+    let qs = document.querySelectorAll(elementQuerySelector);
+
+    if (qs) {
+      var element = event.target,
+          index = -1;
+
+      while (element && (index = Array.prototype.indexOf.call(qs, element)) === -1) {
+        element = element.parentElement;
+      }
+
+      if (index > -1) {
+        cb.call(element, event);
+      }
+    }
+  });
+};
+const onHover = (el, cbOver, cbLeave) => {
+  el.addEventListener('mouseenter', cbOver);
+  el.addEventListener('mouseleave', cbLeave);
+};
+const addEventListeners = (el, events, callback) => {
+  events.forEach(event => el.addEventListener(event, callback));
+};
 
 /***/ }),
 

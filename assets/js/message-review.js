@@ -90,12 +90,14 @@
 /*!******************************!*\
   !*** ./js/helpers/events.ts ***!
   \******************************/
-/*! exports provided: addEventListenerLive */
+/*! exports provided: addEventListenerLive, onHover, addEventListeners */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListenerLive", function() { return addEventListenerLive; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onHover", function() { return onHover; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListeners", function() { return addEventListeners; });
 const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement = null) => {
   let element = rootElement ? rootElement : document;
   element.addEventListener(eventType, event => {
@@ -114,6 +116,13 @@ const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement =
       }
     }
   });
+};
+const onHover = (el, cbOver, cbLeave) => {
+  el.addEventListener('mouseenter', cbOver);
+  el.addEventListener('mouseleave', cbLeave);
+};
+const addEventListeners = (el, events, callback) => {
+  events.forEach(event => el.addEventListener(event, callback));
 };
 
 /***/ }),

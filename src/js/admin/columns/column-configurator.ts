@@ -7,7 +7,7 @@ import {initTypeSelector} from "./events/type-selector";
 import {initColumnRefresh} from "./events/refresh";
 import {initRemoveColumn} from "./events/remove";
 import {initClone} from "./events/clone";
-import {initLabel, initLabelSettingEvents} from "./events/label";
+import {initLabel, initLabelSettingEvents, initLabelTooltipsEvent} from "./events/label";
 import {initLabelSetting} from "./settings/label";
 import {initImageSizeSetting} from "./settings/image-size";
 import {initNumberFormatSetting} from "./settings/number-format";
@@ -32,6 +32,7 @@ export default class ColumnConfigurator {
             initClone(column);
             initLabel(column);
             initLabelSettingEvents(column);
+            initLabelTooltipsEvent(column);
 
             initLabelSetting(column);
             initImageSizeSetting(column);
@@ -41,7 +42,7 @@ export default class ColumnConfigurator {
             initDateSetting(column);
             initProSetting(column);
             initCustomFieldSelector(column);
-            initSubSettings( column );
+            initSubSettings(column);
         });
     }
 
