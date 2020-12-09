@@ -70,9 +70,10 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 		.registerSetting( 'label', SettingLabel );
 } );
 
-jQuery( document ).ready( function() {
+document.addEventListener('DOMContenLoaded', () => {
 	AC.Form = new Form( '#listscreen_settings' );
 	AdminColumns.Form = AC.Form;
+	AdminColumns.Form.init();
 	AdminColumns.Modals.register( new Modal( document.querySelector( '#ac-modal-pro' ) ), 'pro' );
 
 	new Menu().init();
@@ -134,5 +135,4 @@ jQuery( document ).ready( function() {
 				: document.querySelector( '.ac-admin' ).classList.remove( 'show-list-screen-type' );
 		} );
 	}
-
-} );
+});
