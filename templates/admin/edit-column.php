@@ -12,7 +12,7 @@ $column = $this->column;
 
 ?>
 
-<div class="ac-column ac-<?= esc_attr( $column->get_type() ); ?>"
+<form class="ac-column ac-<?= esc_attr( $column->get_type() ); ?>"
 		data-type="<?= esc_attr( $column->get_type() ); ?>"
 		data-original="<?= esc_attr( $column->is_original() ); ?>"
 		data-column-name="<?= esc_attr( $column->get_name() ); ?>">
@@ -99,4 +99,4 @@ $column = $this->column;
 			</table>
 		</div>
 	</div>
-</div>
+</form>

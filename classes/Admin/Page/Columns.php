@@ -221,7 +221,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 
 					<?= $this->show_read_only_notice( $list_screen ); ?>
 
-					<form method="post" id="listscreen_settings" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
+					<div id="listscreen_settings" data-form="listscreen" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
 						<?php
 
 						$classes = [];
@@ -255,7 +255,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 						do_action( 'ac/settings/after_columns', $list_screen );
 
 						?>
-					</form>
+					</div>
 
 				</div>
 

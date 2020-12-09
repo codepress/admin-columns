@@ -222,7 +222,7 @@ const submitColumnSettings = data => {
     action: 'ac-columns',
     id: 'save',
     _ajax_nonce: AC._ajax_nonce,
-    data: data
+    data: JSON.stringify(data)
   });
   return axios.post(ajaxurl, formData);
 };
@@ -365,8 +365,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _ajax__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ajax */ "./js/admin/columns/ajax.ts");
 /* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/elements */ "./js/helpers/elements.ts");
-/* harmony import */ var _helpers_columns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../helpers/columns */ "./js/helpers/columns.ts");
-/* harmony import */ var _helpers_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../helpers/animations */ "./js/helpers/animations.ts");
+/* harmony import */ var _helpers_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../helpers/animations */ "./js/helpers/animations.ts");
+/* harmony import */ var _helpers_string__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../helpers/string */ "./js/helpers/string.ts");
 // @ts-ignore
 
 
@@ -390,6 +390,7 @@ class Column {
     this.element = element;
     this.state = STATES.CLOSED;
     this.setPropertiesByElement(element);
+    this.init();
   }
 
   setPropertiesByElement(element) {
@@ -445,7 +446,7 @@ class Column {
 
   remove(duration = 350) {
     this.events.emit(COLUMN_EVENTS.REMOVE, this);
-    Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_6__["fadeOut"])(this.getElement(), duration, () => {
+    Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_5__["fadeOut"])(this.getElement(), duration, () => {
       this.destroy();
     });
   }
@@ -480,36 +481,23 @@ class Column {
   }
 
   getJson() {
-    let tempForm = document.createElement('form');
-    tempForm.appendChild(this.getElement().cloneNode(true));
-    let formData = new FormData(tempForm);
-    let r = {};
+    let formData = new FormData(this.getElement());
+    formData.set('name', this.getName());
+    var obj = {};
 
-    for (let entry of formData.entries()) {
-      let nameParts = entry[0].split('[').map(p => p.split(']')[0]);
-      let setter = r;
-      let i = 0;
-      nameParts.forEach(part => {
-        i++;
-
-        if (!setter.hasOwnProperty(part)) {
-          setter[part] = i === nameParts.length ? entry[1] : {};
-        }
-
-        setter = setter[part];
-      });
+    for (var key of formData.keys()) {
+      obj[key] = formData.get(key);
     }
 
-    return r['columns'][this.getName()];
+    return obj;
   }
 
   switchToType(type) {
     this.setLoading(true);
     Object(_ajax__WEBPACK_IMPORTED_MODULE_3__["switchColumnType"])(type).then(response => {
       if (response.data.success) {
-        let name = Object(_helpers_columns__WEBPACK_IMPORTED_MODULE_5__["createColumnName"])();
         let element = Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild;
-        this.name = name;
+        this.name = Object(_helpers_string__WEBPACK_IMPORTED_MODULE_6__["uniqid"])();
         this.reinitColumnFromElement(element);
       } else {
         this.showMessage(response.data.data.error);
@@ -533,7 +521,6 @@ class Column {
   reinitColumnFromElement(element) {
     this.getElement().parentNode.replaceChild(element, this.getElement());
     this.element = element;
-    Object(_helpers_columns__WEBPACK_IMPORTED_MODULE_5__["reinitInputNames"])(this);
     this.setPropertiesByElement(element).init().open();
   }
 
@@ -658,7 +645,6 @@ const initLabelTooltipsEvent = column => {
 };
 
 const hoverTooltip = (label, display) => {
-  console.log('S', display, label);
   let related = label.closest('.col-label').querySelector('div.tooltip');
 
   if (related) {
@@ -807,8 +793,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./column */ "./js/admin/columns/column.ts");
 /* harmony import */ var _ajax__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ajax */ "./js/admin/columns/ajax.ts");
 /* harmony import */ var _helpers_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../helpers/animations */ "./js/helpers/animations.ts");
-/* harmony import */ var _helpers_columns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/columns */ "./js/helpers/columns.ts");
-/* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../helpers/elements */ "./js/helpers/elements.ts");
+/* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/elements */ "./js/helpers/elements.ts");
+/* harmony import */ var _helpers_string__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../helpers/string */ "./js/helpers/string.ts");
 
 
 
@@ -843,7 +829,7 @@ class Form {
 
   placeColumn(column, after = null) {
     if (after) {
-      Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_5__["insertAfter"])(column.getElement(), after);
+      Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["insertAfter"])(column.getElement(), after);
     } else {
       this.getElement().querySelector('.ac-columns').append(column.getElement());
     }
@@ -856,7 +842,6 @@ class Form {
 
   createNewColumn() {
     let column = createColumnFromTemplate();
-    column.init();
     this.columns.push(column);
     this.placeColumn(column);
     this.bindColumnEvents(column);
@@ -879,7 +864,6 @@ class Form {
   initColumns() {
     this.getElement().querySelectorAll('.ac-column').forEach(element => {
       let column = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](element, element.dataset.columnName);
-      column.init();
       this.columns.push(column);
       this.bindColumnEvents(column);
     });
@@ -890,12 +874,9 @@ class Form {
       this.removeColumn(column.getName());
     });
     column.events.addListener(_column__WEBPACK_IMPORTED_MODULE_1__["COLUMN_EVENTS"].CLONE, () => {
-      let cloneColumn = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](column.getElement().cloneNode(true), Object(_helpers_columns__WEBPACK_IMPORTED_MODULE_4__["createColumnName"])());
-      cloneColumn.init();
-      Object(_helpers_columns__WEBPACK_IMPORTED_MODULE_4__["reinitInputNames"])(cloneColumn);
+      let cloneColumn = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](column.getElement().cloneNode(true), Object(_helpers_string__WEBPACK_IMPORTED_MODULE_5__["uniqid"])());
       this.columns.push(cloneColumn);
       this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
-      this.bindColumnEvents(cloneColumn);
       Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["fadeIn"])(cloneColumn.getElement(), 300);
     });
   }
@@ -907,23 +888,40 @@ class Form {
     this.columns = [];
   }
 
-  getSerializedFormData() {
-    let params = new URLSearchParams(new FormData(this.getElement()));
-    return params.toString();
+  getPreferences() {
+    let data = {};
+    document.querySelectorAll('form[data-form-part=preferences]').forEach(el => {
+      for (let t of new FormData(el).entries()) {
+        data[t[0]] = t[1];
+      }
+    });
+    return data;
+  }
+
+  getFormData() {
+    let columnData = {};
+    this.columns.forEach(column => {
+      columnData[column.getName()] = column.getJson();
+    });
+    return {
+      title: '',
+      list_screen: AC.list_screen,
+      list_screen_id: AC.layout,
+      columns: columnData,
+      settings: this.getPreferences()
+    };
   }
 
   disableFields() {
-    let elements = this.getElement().elements;
-
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].setAttribute('readonly', 'readonly');
-      elements[i].setAttribute('disabled', 'disabled');
-    }
+    this.getElement().querySelectorAll('input, select, button').forEach(el => {
+      el.setAttribute('readonly', 'readonly');
+      el.setAttribute('disabled', 'disabled');
+    });
   }
 
   submitForm() {
     this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVING, this);
-    Object(_ajax__WEBPACK_IMPORTED_MODULE_2__["submitColumnSettings"])(this.getSerializedFormData()).then(response => {
+    Object(_ajax__WEBPACK_IMPORTED_MODULE_2__["submitColumnSettings"])(this.getFormData()).then(response => {
       if (response.data.success) {
         this.showMessage(response.data.data, 'updated');
       } else if (response.data) {
@@ -960,7 +958,7 @@ class Form {
 
 const createColumnFromTemplate = () => {
   let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true);
-  return new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](columnElement, Object(_helpers_columns__WEBPACK_IMPORTED_MODULE_4__["createColumnName"])());
+  return new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](columnElement, Object(_helpers_string__WEBPACK_IMPORTED_MODULE_5__["uniqid"])());
 };
 
 /***/ }),
@@ -1740,7 +1738,8 @@ class WidthSetting {
   }
 
   getUnit() {
-    return this.setting.querySelector('[data-unit-input] input:checked').value;
+    let input = this.setting.querySelector('[data-unit-input] input:checked');
+    return input ? input.value : null;
   }
 
   getValue() {
@@ -1945,45 +1944,6 @@ const scrollToElement = (element, ms, options = {}) => {
 
 /***/ }),
 
-/***/ "./js/helpers/columns.ts":
-/*!*******************************!*\
-  !*** ./js/helpers/columns.ts ***!
-  \*******************************/
-/*! exports provided: createColumnName, reinitInputNames */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createColumnName", function() { return createColumnName; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reinitInputNames", function() { return reinitInputNames; });
-class columnName {
-  constructor() {
-    columnName.count++;
-  }
-
-  getName() {
-    return `_new_column_${columnName.count}`;
-  }
-
-}
-
-columnName.count = 0;
-const createColumnName = () => {
-  return new columnName().getName();
-};
-const reinitInputNames = column => {
-  column.getElement().querySelectorAll('input, select').forEach(element => {
-    let _name = element.getAttribute('name');
-
-    if (_name !== null) {
-      const regex = /\[(.+?)\]/;
-      element.setAttribute('name', _name.replace(regex, `[${column.getName()}]`));
-    }
-  });
-};
-
-/***/ }),
-
 /***/ "./js/helpers/elements.ts":
 /*!********************************!*\
   !*** ./js/helpers/elements.ts ***!
@@ -2052,6 +2012,34 @@ const onHover = (el, cbOver, cbLeave) => {
 };
 const addEventListeners = (el, events, callback) => {
   events.forEach(event => el.addEventListener(event, callback));
+};
+
+/***/ }),
+
+/***/ "./js/helpers/string.ts":
+/*!******************************!*\
+  !*** ./js/helpers/string.ts ***!
+  \******************************/
+/*! exports provided: uniqid */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uniqid", function() { return uniqid; });
+const uniqid = (a = "", b = false) => {
+  const c = Date.now() / 1000;
+  let d = c.toString(16).split(".").join("");
+
+  while (d.length < 14) d += "0";
+
+  let e = "";
+
+  if (b) {
+    e = ".";
+    e += Math.round(Math.random() * 100000000);
+  }
+
+  return a + d + e;
 };
 
 /***/ }),

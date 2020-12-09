@@ -1,4 +1,4 @@
-import {AdminColumnSettingsInterface, LocalizedScriptColumnSettings} from "./interfaces";
+import {AdminColumnSettingsInterface, ListScreenStorageType, LocalizedScriptColumnSettings} from "./interfaces";
 import {Column} from "./column";
 
 const axios = require('axios');
@@ -19,12 +19,12 @@ export interface ColumnSettingsErrorResponse {
     }
 }
 
-export const submitColumnSettings = (data: string) => {
+export const submitColumnSettings = (data: ListScreenStorageType) => {
     let formData = mapDataToFormData({
         action: 'ac-columns',
         id: 'save',
         _ajax_nonce: AC._ajax_nonce,
-        data: data
+        data: JSON.stringify(data)
     });
 
     return axios.post(ajaxurl, formData);

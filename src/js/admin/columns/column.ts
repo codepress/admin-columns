@@ -6,8 +6,8 @@ import Nanobus from "nanobus";
 import {refreshColumn, switchColumnType} from "./ajax";
 import {AxiosResponse} from "axios";
 import {createElementFromString} from "../../helpers/elements";
-import {createColumnName, reinitInputNames} from "../../helpers/columns";
 import {fadeOut} from "../../helpers/animations";
+import {uniqid} from "../../helpers/string";
 
 const STATES = {
     CLOSED: 'closed',
@@ -28,19 +28,20 @@ type ajaxResponse = {
 
 export class Column {
     events: Nanobus;
-    private element: HTMLElement
+    private element: HTMLFormElement
     private name: string
     private type: string
     private state: string
     private original: boolean
     private disabled: boolean
 
-    constructor(element: HTMLElement, name: string) {
+    constructor(element: HTMLFormElement, name: string) {
         this.events = new Nanobus();
         this.name = name;
         this.element = element;
         this.state = STATES.CLOSED;
         this.setPropertiesByElement(element);
+        this.init();
     }
 
     private setPropertiesByElement(element: HTMLElement) {
@@ -93,7 +94,6 @@ export class Column {
 
     init(): this {
         AdminColumns.events.emit(EventConstants.SETTINGS.COLUMN.INIT, this);
-
         return this;
     }
 
@@ -138,28 +138,16 @@ export class Column {
         }
     }
 
-    getJson(): any {
-        let tempForm = document.createElement('form');
-        tempForm.appendChild(this.getElement().cloneNode(true));
-        let formData = new FormData(tempForm);
+    getJson(): columnSettings {
+        let formData = new FormData(this.getElement());
+        formData.set('name', this.getName());
 
-        let r: any = {};
-
-        for (let entry of formData.entries()) {
-            let nameParts = entry[0].split('[').map(p => p.split(']')[0]);
-            let setter = r;
-            let i = 0;
-            nameParts.forEach((part) => {
-                i++;
-                if (!setter.hasOwnProperty(part)) {
-                    setter[part] = i === nameParts.length ? entry[1] : {}
-                }
-
-                setter = setter[part];
-            });
+        var obj: columnSettings = {};
+        for (var key of formData.keys()) {
+            obj[key] = formData.get(key);
         }
 
-        return r['columns'][this.getName()];
+        return obj;
     }
 
     switchToType(type: string) {
@@ -167,9 +155,8 @@ export class Column {
 
         switchColumnType(type).then((response: AxiosResponse<ajaxResponse>) => {
             if (response.data.success) {
-                let name = createColumnName();
-                let element = createElementFromString(response.data.data.trim()).firstChild as HTMLElement;
-                this.name = name;
+                let element = createElementFromString(response.data.data.trim()).firstChild as HTMLFormElement;
+                this.name = uniqid();
                 this.reinitColumnFromElement(element)
             } else {
                 this.showMessage(response.data.data.error);
@@ -183,7 +170,7 @@ export class Column {
 
         refreshColumn(this.getName(), JSON.stringify(this.getJson())).then((response: AxiosResponse<ajaxResponse>) => {
             if (response.data.success) {
-                this.reinitColumnFromElement(createElementFromString(response.data.data.trim()).firstChild as HTMLElement);
+                this.reinitColumnFromElement(createElementFromString(response.data.data.trim()).firstChild as HTMLFormElement);
                 AdminColumns.events.emit(EventConstants.SETTINGS.COLUMN.REFRESHED, this);
             } else {
                 // TODO error message
@@ -193,11 +180,12 @@ export class Column {
         }).finally(() => this.setLoading(false));
     }
 
-    private reinitColumnFromElement(element: HTMLElement) {
+    private reinitColumnFromElement(element: HTMLFormElement) {
         this.getElement().parentNode.replaceChild(element, this.getElement());
         this.element = element;
-        reinitInputNames( this );
         this.setPropertiesByElement(element).init().open();
     }
 
 }
+
+type columnSettings = { [key: string]: any }

@@ -38,7 +38,6 @@ export const initLabelTooltipsEvent = (column: Column) => {
 }
 
 const hoverTooltip = (label: HTMLElement, display: string) => {
-    console.log('S', display, label);
     let related = label.closest('.col-label').querySelector<HTMLElement>('div.tooltip');
     if (related) {
         related.style.display = display;

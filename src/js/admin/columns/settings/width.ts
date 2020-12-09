@@ -46,7 +46,9 @@ class WidthSetting {
     }
 
     getUnit(): string {
-        return this.setting.querySelector<HTMLInputElement>('[data-unit-input] input:checked').value
+        let input = this.setting.querySelector<HTMLInputElement>('[data-unit-input] input:checked');
+
+        return input? input.value : null;
     }
 
     getValue(): widthValue {

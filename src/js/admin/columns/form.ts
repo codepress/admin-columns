@@ -4,19 +4,19 @@ import {Column, COLUMN_EVENTS} from "./column";
 import {ColumnSettingsResponse, submitColumnSettings} from "./ajax";
 import {AxiosResponse} from "axios";
 import {fadeIn, scrollToElement} from "../../helpers/animations";
-import {createColumnName, reinitInputNames} from "../../helpers/columns";
 import {insertAfter} from "../../helpers/elements";
-import {LocalizedScriptColumnSettings} from "./interfaces";
+import {ListScreenStorageType, LocalizedScriptColumnSettings} from "./interfaces";
+import {uniqid} from "../../helpers/string";
 
 declare const AC: LocalizedScriptColumnSettings;
 
 export class Form {
 
-    private form: HTMLFormElement
+    private form: HTMLElement
     private events: Nanobus
     private columns: Array<Column>
 
-    constructor(element: HTMLFormElement, events: Nanobus) {
+    constructor(element: HTMLElement, events: Nanobus) {
         this.form = element;
         this.events = events;
         this.columns = [];
@@ -39,7 +39,7 @@ export class Form {
         this.events.emit(EventConstants.SETTINGS.FORM.READY, this);
     }
 
-    getElement(): HTMLFormElement {
+    getElement(): HTMLElement {
         return this.form;
     }
 
@@ -56,7 +56,6 @@ export class Form {
 
     createNewColumn(): Column {
         let column = createColumnFromTemplate();
-        column.init();
         this.columns.push(column);
         this.placeColumn(column);
         this.bindColumnEvents(column);
@@ -79,9 +78,8 @@ export class Form {
     }
 
     initColumns() {
-        this.getElement().querySelectorAll('.ac-column').forEach((element: HTMLElement) => {
+        this.getElement().querySelectorAll('.ac-column').forEach((element: HTMLFormElement) => {
             let column = new Column(element, element.dataset.columnName);
-            column.init();
             this.columns.push(column);
             this.bindColumnEvents(column);
         });
@@ -93,13 +91,9 @@ export class Form {
         });
 
         column.events.addListener(COLUMN_EVENTS.CLONE, () => {
-            let cloneColumn = new Column(column.getElement().cloneNode(true) as HTMLElement, createColumnName());
-            cloneColumn.init();
-            reinitInputNames(cloneColumn);
-
+            let cloneColumn = new Column(column.getElement().cloneNode(true) as HTMLFormElement, uniqid());
             this.columns.push(cloneColumn);
             this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
-            this.bindColumnEvents(cloneColumn);
 
             fadeIn(cloneColumn.getElement(), 300);
         });
@@ -112,25 +106,43 @@ export class Form {
         this.columns = [];
     }
 
-    getSerializedFormData(): string {
-        let params = new URLSearchParams(new FormData(this.getElement()) as any)
+    private getPreferences(): { [key: string]: any } {
+        let data: { [key: string]: any } = {};
+        document.querySelectorAll<HTMLFormElement>('form[data-form-part=preferences]').forEach(el => {
+            for (let t of new FormData(el).entries()) {
+                data[t[0]] = t[1];
+            }
+        });
 
-        return params.toString();
+        return data;
+    }
+
+    getFormData(): ListScreenStorageType {
+        let columnData: any = {};
+        this.columns.forEach(column => {
+            columnData[column.getName()] = column.getJson();
+        });
+
+        return {
+            title: '',
+            list_screen: AC.list_screen,
+            list_screen_id: AC.layout,
+            columns: columnData,
+            settings: this.getPreferences()
+        }
     }
 
     disableFields() {
-        let elements = this.getElement().elements;
-
-        for (let i = 0; i < elements.length; i++) {
-            elements[i].setAttribute('readonly', 'readonly');
-            elements[i].setAttribute('disabled', 'disabled');
-        }
+        this.getElement().querySelectorAll('input, select, button').forEach(el => {
+            el.setAttribute('readonly', 'readonly');
+            el.setAttribute('disabled', 'disabled');
+        });
     }
 
     submitForm() {
         this.events.emit(EventConstants.SETTINGS.FORM.SAVING, this);
 
-        submitColumnSettings(this.getSerializedFormData()).then((response: AxiosResponse<ColumnSettingsResponse>) => {
+        submitColumnSettings(this.getFormData()).then((response: AxiosResponse<ColumnSettingsResponse>) => {
             if (response.data.success) {
                 this.showMessage(response.data.data, 'updated')
             } else if (response.data) {
@@ -169,7 +181,7 @@ export class Form {
 }
 
 const createColumnFromTemplate = () => {
-    let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true) as HTMLElement;
+    let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true) as HTMLFormElement;
 
-    return new Column(columnElement, createColumnName());
+    return new Column(columnElement, uniqid());
 }
