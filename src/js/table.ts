@@ -20,6 +20,7 @@ $(document).ready(() => {
 
     if (table) {
         AdminColumns.Table = new Table(table);
+        AdminColumns.Table.init();
         AdminColumns.ScreenOptionsColumns = new ScreenOptionsColumns(AdminColumns.Table.Columns);
     }
 

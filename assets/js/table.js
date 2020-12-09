@@ -133,14 +133,13 @@ __webpack_require__.r(__webpack_exports__);
 let nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 
 const initAdminColumnsGlobalBootstrap = () => {
-  if (window.AdminColumns) {
-    return window.AdminColumns;
+  if (!window.AdminColumns) {
+    window.AdminColumns = window.AdminColumns || {};
+    AdminColumns.events = nanobus();
+    AdminColumns.Modals = new _modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"]();
   }
 
-  window.AdminColumns = window.AdminColumns || {};
-  AdminColumns.events = nanobus();
-  AdminColumns.Modals = new _modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"]();
-  return AdminColumns;
+  return window.AdminColumns;
 };
 
 /***/ }),
@@ -747,6 +746,7 @@ jquery__WEBPACK_IMPORTED_MODULE_4___default()(document).ready(() => {
 
   if (table) {
     AdminColumns.Table = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table);
+    AdminColumns.Table.init();
     AdminColumns.ScreenOptionsColumns = new _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__["default"](AdminColumns.Table.Columns);
   }
 
@@ -1182,7 +1182,6 @@ class Table {
     this.Selection = new _row_selection__WEBPACK_IMPORTED_MODULE_4__["default"](this); // TODO make helper function for this (INLINE EDIT NEEDS IT)
 
     this._ids = [];
-    this.init();
   }
 
   getElement() {

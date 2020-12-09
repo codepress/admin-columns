@@ -1,4 +1,4 @@
-import {AdminColumnsBaseInterface, AdminColumnsInterface} from "../admincolumns";
+import {AdminColumnsInterface} from "../admincolumns";
 import Modals from "../modules/modals";
 
 let nanobus = require('nanobus');
@@ -11,14 +11,12 @@ declare global {
     }
 }
 
-export const initAdminColumnsGlobalBootstrap = (): AdminColumnsBaseInterface => {
-    if( window.AdminColumns ){
-        return window.AdminColumns;
+export const initAdminColumnsGlobalBootstrap = (): AdminColumnsInterface => {
+    if (!window.AdminColumns) {
+        window.AdminColumns = window.AdminColumns || {};
+        AdminColumns.events = nanobus();
+        AdminColumns.Modals = new Modals();
     }
 
-    window.AdminColumns = window.AdminColumns || {};
-    AdminColumns.events = nanobus();
-    AdminColumns.Modals = new Modals();
-
-    return AdminColumns;
+    return window.AdminColumns;
 }

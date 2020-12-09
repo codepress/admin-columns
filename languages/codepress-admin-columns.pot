@@ -19,7 +19,7 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin.php:126, classes/Check/Review.php:148, classes/Table/Screen.php:449, classes/Admin/Page/Columns.php:57
+#: classes/Admin.php:126, classes/Check/Review.php:148, classes/Table/Screen.php:464, classes/Admin/Page/Columns.php:57
 msgid "Admin Columns"
 msgstr ""
 
@@ -131,19 +131,19 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: classes/Column/Placeholder.php:39
-msgid "The %s column is only available in Admin Columns Pro - Business or Developer."
+#: classes/Column/Placeholder.php:38
+msgid "The %s column is only available if you have installed the add-on."
+msgstr ""
+
+#: classes/Column/Placeholder.php:40
+msgid "Download & install the %s add-on from the <a href='%s'>add-ons tab</a>."
 msgstr ""
 
 #: classes/Column/Placeholder.php:43
-msgid "If you have a business or developer licence please download & install your %s add-on from the <a href='%s'>add-ons tab</a>."
-msgstr ""
-
-#: classes/Column/Placeholder.php:47
 msgid "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview."
 msgstr ""
 
-#: classes/Column/Placeholder.php:50
+#: classes/Column/Placeholder.php:47
 msgid "Find out more"
 msgstr ""
 

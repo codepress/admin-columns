@@ -1871,14 +1871,13 @@ __webpack_require__.r(__webpack_exports__);
 let nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 
 const initAdminColumnsGlobalBootstrap = () => {
-  if (window.AdminColumns) {
-    return window.AdminColumns;
+  if (!window.AdminColumns) {
+    window.AdminColumns = window.AdminColumns || {};
+    AdminColumns.events = nanobus();
+    AdminColumns.Modals = new _modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"]();
   }
 
-  window.AdminColumns = window.AdminColumns || {};
-  AdminColumns.events = nanobus();
-  AdminColumns.Modals = new _modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"]();
-  return AdminColumns;
+  return window.AdminColumns;
 };
 
 /***/ }),
