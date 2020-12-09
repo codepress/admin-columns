@@ -175,7 +175,9 @@ jQuery(document).on('AC_Form_Loaded', function () {
   .registerSetting('date', _admin_columns_settings_date__WEBPACK_IMPORTED_MODULE_17__["default"]).registerSetting('image_size', _admin_columns_settings_image_size__WEBPACK_IMPORTED_MODULE_15__["default"]).registerSetting('pro', _admin_columns_settings_pro__WEBPACK_IMPORTED_MODULE_18__["default"]).registerSetting('sub_setting_toggle', _admin_columns_settings_sub_setting_toggle__WEBPACK_IMPORTED_MODULE_16__["default"]).registerSetting('width', _admin_columns_settings_width__WEBPACK_IMPORTED_MODULE_19__["default"]).registerSetting('customfield', _admin_columns_settings_custom_field__WEBPACK_IMPORTED_MODULE_21__["default"]).registerSetting('number_format', _admin_columns_settings_number_format__WEBPACK_IMPORTED_MODULE_22__["default"]).registerSetting('type_selector', _admin_columns_settings_type__WEBPACK_IMPORTED_MODULE_23__["default"]).registerSetting('label', _admin_columns_settings_label__WEBPACK_IMPORTED_MODULE_20__["default"]);
 });
 jQuery(document).ready(function () {
-  AdminColumns.Form = new _admin_columns_form__WEBPACK_IMPORTED_MODULE_1__["default"]('#listscreen_settings');
+  AC.Form = new _admin_columns_form__WEBPACK_IMPORTED_MODULE_1__["default"]('#listscreen_settings');
+  AdminColumns.Form = AC.Form;
+  AdminColumns.Form.init();
   AdminColumns.Modals.register(new _modules_modal__WEBPACK_IMPORTED_MODULE_3__["default"](document.querySelector('#ac-modal-pro')), 'pro');
   new _admin_columns_menu__WEBPACK_IMPORTED_MODULE_4__["default"]().init();
   new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_5__["default"]('.sidebox#direct-feedback');
@@ -845,7 +847,6 @@ class Form {
     this.columns = {};
     this._validators = [];
     jQuery(document).trigger('AC_Form_Loaded');
-    this.init();
   }
 
   init() {

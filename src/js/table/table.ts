@@ -30,15 +30,13 @@ export default class Table {
         this.Selection = new RowSelection(this);
         // TODO make helper function for this (INLINE EDIT NEEDS IT)
         this._ids = [];
-
-        this.init();
     }
 
     getElement(): HTMLTableElement {
         return this.el;
     }
 
-    private init(): void {
+    init(): void {
         this.initTable();
         this.addCellClasses();
 

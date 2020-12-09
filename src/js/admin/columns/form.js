@@ -11,8 +11,6 @@ class Form {
 		this._validators = [];
 
 		jQuery( document ).trigger( 'AC_Form_Loaded' );
-
-		this.init();
 	}
 
 	init() {
