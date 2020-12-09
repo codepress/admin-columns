@@ -869,6 +869,7 @@ class Form {
     column.init().open();
     this.columns.push(column);
     this.placeColumn(column);
+    this.bindColumnEvents(column);
     return column;
   }
 
@@ -902,6 +903,7 @@ class Form {
       cloneColumn.init();
       this.columns.push(cloneColumn);
       this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
+      this.bindColumnEvents(cloneColumn);
       Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["fadeIn"])(cloneColumn.getElement(), 300);
     });
   }

@@ -60,6 +60,7 @@ export class Form {
         this.columns.push(column);
 
         this.placeColumn(column);
+        this.bindColumnEvents( column );
 
         return column;
     }
@@ -96,6 +97,8 @@ export class Form {
 
             this.columns.push(cloneColumn);
             this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
+            this.bindColumnEvents(cloneColumn);
+
             fadeIn(cloneColumn.getElement(), 300);
         });
     }
