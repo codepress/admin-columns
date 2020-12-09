@@ -70,7 +70,7 @@ jQuery( document ).on( 'AC_Form_Loaded', function() {
 		.registerSetting( 'label', SettingLabel );
 } );
 
-document.addEventListener('DOMContenLoaded', () => {
+jQuery( document ).ready( function() {
 	AC.Form = new Form( '#listscreen_settings' );
 	AdminColumns.Form = AC.Form;
 	AdminColumns.Form.init();
