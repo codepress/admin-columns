@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-09-30 13:41:37+0000\n"
+"PO-Revision-Date: 2020-10-19 07:39:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -323,7 +323,7 @@ msgstr "Affichez et modifiez les champs ACF dans la vue d’ensemble des publica
 
 #: classes/Integration/Pods.php:16
 msgid "Display and edit Pods fields in the posts overview in seconds!"
-msgstr "Affichez et modifiez les champs Pods dans la vue d’ensemble des publications en quelques secondes !"
+msgstr "Affichez et modifiez les champs Pods dans la vue d’ensemble des publications en quelques secondes !"
 
 #: templates/admin/side-banner.php:60
 msgid "Includes special integrations for:"

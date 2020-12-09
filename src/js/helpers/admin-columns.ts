@@ -12,9 +12,12 @@ declare global {
 }
 
 export const initAdminColumnsGlobalBootstrap = (): AdminColumnsInterface => {
-    window.AdminColumns = window.AdminColumns || {};
-    AdminColumns.events = nanobus();
-    AdminColumns.Modals = new Modals();
+    if( ! window.AdminColumns ){
+        window.AdminColumns = window.AdminColumns || {};
 
-    return AdminColumns;
+        AdminColumns.events = nanobus();
+        AdminColumns.Modals = new Modals();
+    }
+
+    return window.AdminColumns;
 }

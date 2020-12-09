@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-04-29 09:18:50+0000\n"
+"PO-Revision-Date: 2020-11-09 10:25:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1273,7 +1273,7 @@ msgstr "Beállítások visszaállítása"
 #: templates/admin/page/settings-section-general.php:10
 #: templates/admin/edit-actions.php:24
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 #: classes/Admin/Section/General.php:37
 msgid "Customize your Admin Columns settings."
@@ -1290,11 +1290,11 @@ msgstr "Érték: karakterlánc vagy tömb. Megjeleníti, hogy az elem hányszor 
 
 #: templates/admin/help-tab/custom-fields.php:11
 msgid "Value: Hex value color, such as #808080."
-msgstr ""
+msgstr "Érték: hex színkód, pl. #808080."
 
 #: templates/admin/help-tab/custom-fields.php:51
 msgid "Value: Should be a 1 (one) or 0 (zero)."
-msgstr ""
+msgstr "Érték: 1 (egy) vagy 0 (nulla)."
 
 #: classes/Column/User/Login.php:11
 msgid "Username"
@@ -1310,7 +1310,7 @@ msgstr "Érték: csak egész számok.<br/>Ha rendelkezésre áll a \"Rendezés\"
 
 #: templates/admin/help-tab/custom-fields.php:39
 msgid "Value: Should be an array. This will flatten any ( multi dimensional ) array."
-msgstr ""
+msgstr "Érték: tömb. A többdimenziós tömbökből egydimenziósak lesznek."
 
 #: templates/admin/help-tab/custom-fields.php:23
 msgid "Value: This will show the first 20 words of the Post content."
@@ -1322,7 +1322,7 @@ msgstr ""
 
 #: templates/admin/help-tab/custom-fields.php:2
 msgid "The custom field column uses the custom fields from posts and users. There are 14 types which you can set."
-msgstr ""
+msgstr "Az egyedi mező oszlop a bejegyzések és felhasználók egyedi mezőit használja. 10-féle típust lehet beállítani."
 
 #: templates/admin/help-tab/basics.php:13
 msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
@@ -1362,7 +1362,7 @@ msgstr "Áttekintés"
 
 #: classes/Controller/RestoreSettingsRequest.php:37
 msgid "Default settings successfully restored."
-msgstr ""
+msgstr "Alapértelmezett beállítások sikeresen visszaállítva."
 
 #: classes/Admin/Asset/Columns.php:62 classes/Controller/ColumnRequest.php:41
 msgid "%s column is already present and can not be duplicated."
@@ -1504,7 +1504,7 @@ msgstr "Utána"
 
 #: classes/Settings/Column/BeforeAfter.php:65
 msgid "This text will appear before the column value."
-msgstr ""
+msgstr "Ez a szöveg fog megjelenni az egyedi mező értéke előtt."
 
 #: classes/Settings/Column/BeforeAfter.php:64
 msgid "Before"
@@ -1566,7 +1566,7 @@ msgstr ""
 
 #: templates/admin/edit-column.php:59 templates/admin/edit-column.php:94
 msgid "Remove"
-msgstr "Eltávolítás"
+msgstr "Törlés"
 
 #: classes/Settings/Column/User.php:84 classes/Column/User/ID.php:14
 msgid "User ID"
@@ -1606,7 +1606,7 @@ msgstr "Jogkörök"
 
 #: classes/Column/Post/PingStatus.php:14
 msgid "Ping Status"
-msgstr ""
+msgstr "Ping státusz"
 
 #: classes/Column/Post/Permalink.php:15
 msgid "Permalink"
@@ -1630,7 +1630,7 @@ msgstr ""
 
 #: classes/Column/Post/Modified.php:15
 msgid "Last Modified"
-msgstr ""
+msgstr "Utoljára módosítva"
 
 #: classes/Column/Post/LastModifiedAuthor.php:18
 msgid "Last Modified Author"
@@ -1738,7 +1738,7 @@ msgstr "Szélesség"
 
 #: classes/Column/Media/MimeType.php:14
 msgid "Mime Type"
-msgstr ""
+msgstr "Mime típus"
 
 #: classes/Settings/Column/Image.php:47 classes/Column/Media/Height.php:16
 msgid "Height"
@@ -1762,11 +1762,11 @@ msgstr ""
 
 #: classes/Column/Media/FileSize.php:14
 msgid "File Size"
-msgstr ""
+msgstr "Fájlméret"
 
 #: classes/Column/Media/FileName.php:14
 msgid "Filename"
-msgstr ""
+msgstr "Fájlnév"
 
 #: classes/Settings/Column/ExifData.php:81 classes/Settings/Column/Term.php:30
 #: classes/Settings/Column/Post.php:91
@@ -1803,7 +1803,7 @@ msgstr "Rekesz"
 
 #: classes/Column/Media/ExifData.php:17
 msgid "EXIF Data"
-msgstr ""
+msgstr "EXIF adato"
 
 #: classes/Column/Media/Dimensions.php:16
 msgid "Dimensions"
@@ -1878,7 +1878,7 @@ msgstr "Egyedi mező"
 
 #: classes/Column/Post/WordCount.php:14 classes/Column/Comment/WordCount.php:14
 msgid "Word Count"
-msgstr ""
+msgstr "Szavak száma"
 
 #: classes/Settings/Column/CustomFieldType.php:103
 #: classes/Settings/Column/CustomFieldType.php:132
@@ -1928,7 +1928,7 @@ msgstr "Szerző"
 
 #: classes/Column/Comment/AuthorUrl.php:14
 msgid "Author URL"
-msgstr ""
+msgstr "Szerző URL-je"
 
 #: classes/Column/Comment/AuthorName.php:14
 msgid "Author Name"
