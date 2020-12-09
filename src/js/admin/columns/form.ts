@@ -4,7 +4,7 @@ import {Column, COLUMN_EVENTS} from "./column";
 import {ColumnSettingsResponse, submitColumnSettings} from "./ajax";
 import {AxiosResponse} from "axios";
 import {fadeIn, scrollToElement} from "../../helpers/animations";
-import {createColumnName} from "../../helpers/columns";
+import {createColumnName, reinitInputNames} from "../../helpers/columns";
 import {insertAfter} from "../../helpers/elements";
 import {LocalizedScriptColumnSettings} from "./interfaces";
 
@@ -56,11 +56,12 @@ export class Form {
 
     createNewColumn(): Column {
         let column = createColumnFromTemplate();
-        column.init().open();
+        column.init();
         this.columns.push(column);
-
         this.placeColumn(column);
-        this.bindColumnEvents( column );
+        this.bindColumnEvents(column);
+
+        column.open();
 
         return column;
     }
@@ -94,6 +95,7 @@ export class Form {
         column.events.addListener(COLUMN_EVENTS.CLONE, () => {
             let cloneColumn = new Column(column.getElement().cloneNode(true) as HTMLElement, createColumnName());
             cloneColumn.init();
+            reinitInputNames(cloneColumn);
 
             this.columns.push(cloneColumn);
             this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
@@ -169,5 +171,5 @@ export class Form {
 const createColumnFromTemplate = () => {
     let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true) as HTMLElement;
 
-    return new Column(columnElement, '_new_column');
+    return new Column(columnElement, createColumnName());
 }

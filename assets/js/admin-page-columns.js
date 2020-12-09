@@ -509,7 +509,6 @@ class Column {
       if (response.data.success) {
         let name = Object(_helpers_columns__WEBPACK_IMPORTED_MODULE_5__["createColumnName"])();
         let element = Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild;
-        setColumnNameToFormElements(name, element);
         this.name = name;
         this.reinitColumnFromElement(element);
       } else {
@@ -534,20 +533,11 @@ class Column {
   reinitColumnFromElement(element) {
     this.getElement().parentNode.replaceChild(element, this.getElement());
     this.element = element;
+    Object(_helpers_columns__WEBPACK_IMPORTED_MODULE_5__["reinitInputNames"])(this);
     this.setPropertiesByElement(element).init().open();
   }
 
 }
-
-const setColumnNameToFormElements = (name, columnElement) => {
-  columnElement.querySelectorAll('input, select').forEach(element => {
-    let name = element.getAttribute('name');
-
-    if (name !== null) {
-      element.setAttribute('name', name.replace('columns[]', `columns[${name}]`));
-    }
-  });
-};
 
 /***/ }),
 
@@ -866,10 +856,11 @@ class Form {
 
   createNewColumn() {
     let column = createColumnFromTemplate();
-    column.init().open();
+    column.init();
     this.columns.push(column);
     this.placeColumn(column);
     this.bindColumnEvents(column);
+    column.open();
     return column;
   }
 
@@ -901,6 +892,7 @@ class Form {
     column.events.addListener(_column__WEBPACK_IMPORTED_MODULE_1__["COLUMN_EVENTS"].CLONE, () => {
       let cloneColumn = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](column.getElement().cloneNode(true), Object(_helpers_columns__WEBPACK_IMPORTED_MODULE_4__["createColumnName"])());
       cloneColumn.init();
+      Object(_helpers_columns__WEBPACK_IMPORTED_MODULE_4__["reinitInputNames"])(cloneColumn);
       this.columns.push(cloneColumn);
       this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
       this.bindColumnEvents(cloneColumn);
@@ -968,7 +960,7 @@ class Form {
 
 const createColumnFromTemplate = () => {
   let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true);
-  return new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](columnElement, '_new_column');
+  return new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](columnElement, Object(_helpers_columns__WEBPACK_IMPORTED_MODULE_4__["createColumnName"])());
 };
 
 /***/ }),
@@ -1957,12 +1949,13 @@ const scrollToElement = (element, ms, options = {}) => {
 /*!*******************************!*\
   !*** ./js/helpers/columns.ts ***!
   \*******************************/
-/*! exports provided: createColumnName */
+/*! exports provided: createColumnName, reinitInputNames */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createColumnName", function() { return createColumnName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reinitInputNames", function() { return reinitInputNames; });
 class columnName {
   constructor() {
     columnName.count++;
@@ -1977,6 +1970,16 @@ class columnName {
 columnName.count = 0;
 const createColumnName = () => {
   return new columnName().getName();
+};
+const reinitInputNames = column => {
+  column.getElement().querySelectorAll('input, select').forEach(element => {
+    let _name = element.getAttribute('name');
+
+    if (_name !== null) {
+      const regex = /\[(.+?)\]/;
+      element.setAttribute('name', _name.replace(regex, `[${column.getName()}]`));
+    }
+  });
 };
 
 /***/ }),

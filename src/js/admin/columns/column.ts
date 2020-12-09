@@ -6,7 +6,7 @@ import Nanobus from "nanobus";
 import {refreshColumn, switchColumnType} from "./ajax";
 import {AxiosResponse} from "axios";
 import {createElementFromString} from "../../helpers/elements";
-import {createColumnName} from "../../helpers/columns";
+import {createColumnName, reinitInputNames} from "../../helpers/columns";
 import {fadeOut} from "../../helpers/animations";
 
 const STATES = {
@@ -169,8 +169,6 @@ export class Column {
             if (response.data.success) {
                 let name = createColumnName();
                 let element = createElementFromString(response.data.data.trim()).firstChild as HTMLElement;
-
-                setColumnNameToFormElements(name, element);
                 this.name = name;
                 this.reinitColumnFromElement(element)
             } else {
@@ -198,17 +196,8 @@ export class Column {
     private reinitColumnFromElement(element: HTMLElement) {
         this.getElement().parentNode.replaceChild(element, this.getElement());
         this.element = element;
+        reinitInputNames( this );
         this.setPropertiesByElement(element).init().open();
     }
 
-}
-
-const setColumnNameToFormElements = (name: string, columnElement: HTMLElement) => {
-    columnElement.querySelectorAll('input, select').forEach((element: HTMLElement) => {
-        let name = element.getAttribute('name');
-        if (name !== null) {
-            element.setAttribute('name', name.replace('columns[]', `columns[${name}]`))
-        }
-
-    });
 }
