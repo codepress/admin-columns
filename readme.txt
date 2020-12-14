@@ -212,6 +212,9 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.2.5 =
 Release Date: December 15th, 2020
 
+* [Fixed] The updater could give a PHP warning when there were no updates
+* [Fixed] Display a correct message when an integration is not installed
+
 = 4.2.4 =
 Release Date: December 9th, 2020
 
