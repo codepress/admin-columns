@@ -96,10 +96,14 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListenerLive", function() { return addEventListenerLive; });
-const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement = null) => {
-  let element = rootElement ? rootElement : document;
-  element.addEventListener(eventType, event => {
-    let qs = document.querySelectorAll(elementQuerySelector);
+var addEventListenerLive = function (eventType, elementQuerySelector, cb, rootElement) {
+  if (rootElement === void 0) {
+    rootElement = null;
+  }
+
+  var element = rootElement ? rootElement : document;
+  element.addEventListener(eventType, function (event) {
+    var qs = document.querySelectorAll(elementQuerySelector);
 
     if (qs) {
       var element = event.target,
@@ -130,17 +134,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/events */ "./js/helpers/events.ts");
 
 
-const $ = __webpack_require__(/*! jquery */ "jquery");
+var $ = __webpack_require__(/*! jquery */ "jquery");
 
-document.addEventListener('DOMContentLoaded', () => {
-  Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', 'a.hide-review-notice-soft', e => {
+document.addEventListener('DOMContentLoaded', function () {
+  Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', 'a.hide-review-notice-soft', function (e) {
     e.preventDefault();
-    let notice = e.target.closest('.ac-notice');
+    var notice = e.target.closest('.ac-notice');
     notice.querySelector('.info').remove();
     notice.querySelector('.help').style.display = 'block';
     $.post(ajaxurl, JSON.parse(notice.dataset.dismissibleCallback));
   });
-  Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', 'a.hide-review-notice', e => {
+  Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', 'a.hide-review-notice', function (e) {
     e.preventDefault();
     e.target.closest('.ac-notice').querySelector('.notice-dismiss').dispatchEvent(new Event('click'));
   });

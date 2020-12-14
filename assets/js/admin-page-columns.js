@@ -181,8 +181,10 @@ jQuery(document).ready(function () {
   AdminColumns.Modals.register(new _modules_modal__WEBPACK_IMPORTED_MODULE_3__["default"](document.querySelector('#ac-modal-pro')), 'pro');
   new _admin_columns_menu__WEBPACK_IMPORTED_MODULE_4__["default"]().init();
   new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_5__["default"]('.sidebox#direct-feedback');
-  ['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach(hook => {
-    jQuery(document).on(hook, () => ac_pointers());
+  ['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach(function (hook) {
+    jQuery(document).on(hook, function () {
+      return ac_pointers();
+    });
   });
   jQuery(document).on('AC_Column_Created', function (e, column) {
     setTimeout(function () {
@@ -195,38 +197,38 @@ jQuery(document).ready(function () {
   }
 
   AdminColumns.ScreenOptions = {};
-  document.querySelectorAll('[data-ac-screen-option]').forEach(el => {
-    let name = el.dataset.acScreenOption;
+  document.querySelectorAll('[data-ac-screen-option]').forEach(function (el) {
+    var name = el.dataset.acScreenOption;
     AdminColumns.ScreenOptions[name] = new _modules_screen_option__WEBPACK_IMPORTED_MODULE_24__["default"](el, name);
   });
-  let showColumnId = document.querySelector('[data-ac-screen-option="show_column_id"] input');
+  var showColumnId = document.querySelector('[data-ac-screen-option="show_column_id"] input');
 
   if (showColumnId) {
-    showColumnId.addEventListener('change', () => {
+    showColumnId.addEventListener('change', function () {
       showColumnId.checked ? document.querySelector('.ac-boxes').classList.add('show-column-id') : document.querySelector('.ac-boxes').classList.remove('show-column-id');
     });
   }
 
-  let showColumnType = document.querySelector('[data-ac-screen-option="show_column_type"] input');
+  var showColumnType = document.querySelector('[data-ac-screen-option="show_column_type"] input');
 
   if (showColumnType) {
-    showColumnType.addEventListener('change', () => {
+    showColumnType.addEventListener('change', function () {
       showColumnType.checked ? document.querySelector('.ac-boxes').classList.add('show-column-type') : document.querySelector('.ac-boxes').classList.remove('show-column-type');
     });
   }
 
-  let showListScreenId = document.querySelector('[data-ac-screen-option="show_list_screen_id"] input');
+  var showListScreenId = document.querySelector('[data-ac-screen-option="show_list_screen_id"] input');
 
   if (showListScreenId) {
-    showListScreenId.addEventListener('change', () => {
+    showListScreenId.addEventListener('change', function () {
       showListScreenId.checked ? document.querySelector('.ac-admin').classList.add('show-list-screen-id') : document.querySelector('.ac-admin').classList.remove('show-list-screen-id');
     });
   }
 
-  let showListScreenType = document.querySelector('[data-ac-screen-option="show_list_screen_type"] input');
+  var showListScreenType = document.querySelector('[data-ac-screen-option="show_list_screen_type"] input');
 
   if (showListScreenType) {
-    showListScreenType.addEventListener('change', () => {
+    showListScreenType.addEventListener('change', function () {
       showListScreenType.checked ? document.querySelector('.ac-admin').classList.add('show-list-screen-type') : document.querySelector('.ac-admin').classList.remove('show-list-screen-type');
     });
   }
@@ -243,13 +245,15 @@ jQuery(document).ready(function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const STATES = {
+var STATES = {
   CLOSED: 'closed',
   OPEN: 'open'
 };
 
-class Column {
-  constructor($el) {
+var Column =
+/** @class */
+function () {
+  function Column($el) {
     this.$el = $el;
     this.el = $el[0];
     this.settings = [];
@@ -257,67 +261,72 @@ class Column {
     this._type = this.$el.data('type');
   }
 
-  get name() {
-    return this.$el.data('column-name');
-  }
+  Object.defineProperty(Column.prototype, "name", {
+    get: function () {
+      return this.$el.data('column-name');
+    },
+    set: function (name) {
+      this.$el.data('column-name', name);
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(Column.prototype, "type", {
+    get: function () {
+      return this._type;
+    },
+    set: function (type) {
+      this.$el.data('type', type);
+    },
+    enumerable: false,
+    configurable: true
+  });
 
-  set name(name) {
-    this.$el.data('column-name', name);
-  }
-
-  get type() {
-    return this._type;
-  }
-
-  set type(type) {
-    this.$el.data('type', type);
-  }
-
-  isOriginal() {
+  Column.prototype.isOriginal = function () {
     return 1 === this.$el.data('original');
-  }
+  };
 
-  isDisabled() {
+  Column.prototype.isDisabled = function () {
     return this.$el.hasClass('disabled');
-  }
+  };
 
-  disable() {
+  Column.prototype.disable = function () {
     this.$el.addClass('disabled');
     return this;
-  }
+  };
 
-  enable() {
+  Column.prototype.enable = function () {
     this.$el.removeClass('disabled');
     return this;
-  }
+  };
 
-  initNewInstance() {
-    let temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
-    let original_column_name = this.name;
+  Column.prototype.initNewInstance = function () {
+    var temp_column_name = '_new_column_' + AC.Column.getNewIncementalName();
+    var original_column_name = this.name;
     this.$el.find('input, select, label').each(function (i, v) {
-      let $input = jQuery(v); // name attributes
+      var $input = jQuery(v); // name attributes
 
       if ($input.attr('name')) {
-        $input.attr('name', $input.attr('name').replace(`columns[${original_column_name}]`, `columns[${temp_column_name}]`));
+        $input.attr('name', $input.attr('name').replace("columns[" + original_column_name + "]", "columns[" + temp_column_name + "]"));
       } // id attributes
 
 
       if ($input.attr('id')) {
-        $input.attr('id', $input.attr('id').replace(`-${original_column_name}-`, `-${temp_column_name}-`));
+        $input.attr('id', $input.attr('id').replace("-" + original_column_name + "-", "-" + temp_column_name + "-"));
       }
     });
     this.name = temp_column_name;
     AC.incremental_column_name++;
     return this;
-  }
+  };
   /**
    *
    * @returns {Column}
    */
 
 
-  bindEvents() {
-    let column = this;
+  Column.prototype.bindEvents = function () {
+    var column = this;
     column.$el.data('column', column);
     Object.keys(AC.Column.events).forEach(function (key) {
       if (!column.isBound(key)) {
@@ -328,17 +337,17 @@ class Column {
     this.bindSettings();
     jQuery(document).trigger('AC_Column_InitSettings', [column]);
     return this;
-  }
+  };
 
-  bindSettings() {
-    let column = this;
+  Column.prototype.bindSettings = function () {
+    var column = this;
     Object.keys(AC.Column.settings).forEach(function (key) {
       if (!column.isBound(key)) {
         AC.Column.settings[key](column);
         column.bind(key);
       }
     });
-  }
+  };
   /**
    *
    * @param key
@@ -346,56 +355,72 @@ class Column {
    */
 
 
-  isBound(key) {
+  Column.prototype.isBound = function (key) {
     return this.$el.data(key);
-  }
+  };
 
-  bind(key) {
+  Column.prototype.bind = function (key) {
     this.$el.data(key, true);
-  }
+  };
 
-  destroy() {
+  Column.prototype.destroy = function () {
     this.$el.remove();
-  }
+  };
 
-  remove(duration = 350) {
-    let self = this;
+  Column.prototype.remove = function (duration) {
+    if (duration === void 0) {
+      duration = 350;
+    }
+
+    var self = this;
     this.$el.addClass('deleting').animate({
       opacity: 0,
       height: 0
     }, duration, function () {
       self.destroy();
     });
-  }
+  };
 
-  getState() {
+  Column.prototype.getState = function () {
     return this.state;
-  }
+  };
 
-  toggle(duration = 150) {
+  Column.prototype.toggle = function (duration) {
+    if (duration === void 0) {
+      duration = 150;
+    }
+
     if (this.getState() === STATES.OPEN) {
       this.close(duration);
     } else {
       this.open(duration);
     }
-  }
+  };
 
-  close(duration = 0) {
+  Column.prototype.close = function (duration) {
+    if (duration === void 0) {
+      duration = 0;
+    }
+
     this.$el.removeClass('opened').find('.ac-column-body').slideUp(duration);
     this.state = STATES.CLOSED;
-  }
+  };
 
-  open(duration = 0) {
+  Column.prototype.open = function (duration) {
+    if (duration === void 0) {
+      duration = 0;
+    }
+
     this.$el.addClass('opened').find('.ac-column-body').slideDown(duration);
     this.state = STATES.OPEN;
-  }
+  };
 
-  showMessage(message) {
+  Column.prototype.showMessage = function (message) {
     this.$el.find('.ac-column-setting--type .msg').html(message).show();
-  }
+  };
 
-  switchToType(type) {
-    let self = this;
+  Column.prototype.switchToType = function (type) {
+    var self = this;
     return jQuery.ajax({
       url: ajaxurl,
       method: 'post',
@@ -411,7 +436,7 @@ class Column {
       },
       success: function (response) {
         if (true === response.success) {
-          let column = jQuery(response.data);
+          var column = jQuery(response.data);
           self.$el.replaceWith(column);
           self.$el = column;
           self.el = column[0];
@@ -425,12 +450,12 @@ class Column {
         }
       }
     });
-  }
+  };
 
-  refresh() {
-    let self = this;
-    let data = this.$el.find(':input').serializeArray();
-    let request_data = {
+  Column.prototype.refresh = function () {
+    var self = this;
+    var data = this.$el.find(':input').serializeArray();
+    var request_data = {
       action: 'ac-columns',
       id: 'refresh',
       _ajax_nonce: AC._ajax_nonce,
@@ -450,7 +475,7 @@ class Column {
       data: data,
       success: function (response) {
         if (true === response.success) {
-          let column = jQuery(response.data);
+          var column = jQuery(response.data);
           self.$el.replaceWith(column);
           self.$el = column;
           self.el = column[0];
@@ -464,33 +489,34 @@ class Column {
         }
       }
     });
-  }
+  };
   /**
    * @returns {Column}
    */
 
 
-  create() {
+  Column.prototype.create = function () {
     this.initNewInstance();
     this.bindEvents();
     jQuery(document).trigger('AC_Column_Created', [this]);
     return this;
-  }
+  };
   /**
    * @returns {Column}
    */
 
 
-  clone() {
-    let $clone = this.$el.clone();
+  Column.prototype.clone = function () {
+    var $clone = this.$el.clone();
     $clone.data('column-name', this.$el.data('column-name'));
-    let clone = new Column($clone);
+    var clone = new Column($clone);
     clone.initNewInstance();
     clone.bindEvents();
     return clone;
-  }
+  };
 
-}
+  return Column;
+}();
 
 /* harmony default export */ __webpack_exports__["default"] = (Column);
 
@@ -509,22 +535,22 @@ __webpack_require__.r(__webpack_exports__);
  * Optional Radio Click events
  * TODO: Is not used anymore?
  */
-let addons = function (column) {
-  let $ = jQuery;
-  let $column = column.$el;
-  let inputs = $column.find('[data-trigger] label');
+var addons = function (column) {
+  var $ = jQuery;
+  var $column = column.$el;
+  var inputs = $column.find('[data-trigger] label');
   inputs.on('click', function () {
-    let id = $(this).closest('td.input').data('trigger');
-    let state = $('input', this).val(); // Toggle indicator icon
+    var id = $(this).closest('td.input').data('trigger');
+    var state = $('input', this).val(); // Toggle indicator icon
 
-    let label = $column.find('[data-indicator-id="' + id + '"]').removeClass('on');
+    var label = $column.find('[data-indicator-id="' + id + '"]').removeClass('on');
 
     if ('on' === state) {
       label.addClass('on');
     } // Toggle additional options
 
 
-    let additional = $column.find('[data-handle="' + id + '"]').addClass('hide');
+    var additional = $column.find('[data-handle="' + id + '"]').addClass('hide');
 
     if ('on' === state) {
       additional.removeClass('hide');
@@ -532,9 +558,9 @@ let addons = function (column) {
   }); // On load
 
   $column.find('[data-trigger]').each(function () {
-    let trigger = $(this).data('trigger'); // Hide additional column settings
+    var trigger = $(this).data('trigger'); // Hide additional column settings
 
-    let additional = $column.find('[data-handle="' + trigger + '"]').addClass('hide');
+    var additional = $column.find('[data-handle="' + trigger + '"]').addClass('hide');
 
     if ('on' === $('input:checked', this).val()) {
       additional.removeClass('hide');
@@ -560,7 +586,7 @@ __webpack_require__.r(__webpack_exports__);
 *
 * @since 2.0
 */
-let clone = function (column) {
+var clone = function (column) {
   column.$el.find('.clone-button').click(function (e) {
     e.preventDefault();
 
@@ -585,14 +611,14 @@ let clone = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-let indicator = function (column) {
-  let $column = column.$el;
+var indicator = function (column) {
+  var $column = column.$el;
   $column.find('.ac-column-header [data-indicator-toggle]').each(function () {
-    let $ = jQuery;
-    let $indicator = $(this);
-    let setting = $(this).data('setting');
-    let $setting = $column.find('.ac-column-setting[data-setting=' + setting + ']');
-    let $input = $setting.find('.col-input:first .ac-setting-input:first input[type=radio]');
+    var $ = jQuery;
+    var $indicator = $(this);
+    var setting = $(this).data('setting');
+    var $setting = $column.find('.ac-column-setting[data-setting=' + setting + ']');
+    var $input = $setting.find('.col-input:first .ac-setting-input:first input[type=radio]');
     $indicator.unbind('click').on('click', function (e) {
       e.preventDefault();
 
@@ -613,7 +639,7 @@ let indicator = function (column) {
         return;
       }
 
-      let value = $input.filter(':checked').val();
+      var value = $input.filter(':checked').val();
 
       if ('on' === value) {
         $indicator.addClass('on');
@@ -639,15 +665,15 @@ let indicator = function (column) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventLabel", function() { return EventLabel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventLabelSettings", function() { return EventLabelSettings; });
-let EventLabel = function (column) {
-  let $column = column.$el;
+var EventLabel = function (column) {
+  var $column = column.$el;
   /**
    * Populates the main Label with the selected label from the dropdown,
    */
 
   $column.find('select[data-label="update"]').change(function () {
-    let $label = $column.find('input.ac-setting-input_label');
-    let field_label = jQuery(this).find('option:selected').text(); // Set new label
+    var $label = $column.find('input.ac-setting-input_label');
+    var field_label = jQuery(this).find('option:selected').text(); // Set new label
 
     $label.val(field_label);
     $label.trigger('change');
@@ -655,7 +681,7 @@ let EventLabel = function (column) {
   /** When an label contains an icon or span, the displayed label can appear empty. In this case we show the "type" label. */
 
   setTimeout(function () {
-    let column_label = $column.find('.column_label .toggle');
+    var column_label = $column.find('.column_label .toggle');
 
     if (jQuery.trim(column_label.html()) && column_label.width() < 1) {
       column_label.html($column.find('.column_type .inner').html());
@@ -663,12 +689,12 @@ let EventLabel = function (column) {
   }, 50);
 };
 
-let EventLabelSettings = function (column) {
-  let $column = column.$el;
+var EventLabelSettings = function (column) {
+  var $column = column.$el;
   /** change label */
 
   $column.find('.ac-column-setting--label input').bind('keyup change', function () {
-    let value = jQuery(this).val();
+    var value = jQuery(this).val();
     jQuery(this).closest('.ac-column').find('td.column_label .inner > a.toggle').html(value);
   }).trigger('change');
   /** tooltip */
@@ -693,8 +719,8 @@ let EventLabelSettings = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-let refresh = function (column) {
-  let $ = jQuery;
+var refresh = function (column) {
+  var $ = jQuery;
   column.$el.find('[data-refresh="column"]').on('change', function () {
     // Allow plugins to hook into this event
     $(document).trigger('AC.column.prerefresh', column.$el);
@@ -702,7 +728,7 @@ let refresh = function (column) {
     setTimeout(function () {
       column.refresh().always(function () {
         column.$el.removeClass('loading');
-      }).fail(() => {
+      }).fail(function () {
         column.showMessage(AC.i18n.errors.loading_column);
       });
     }, 200);
@@ -727,7 +753,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @since 2.0
  */
-let remove = function (column) {
+var remove = function (column) {
   column.$el.find('.remove-button').click(function (e) {
     e.preventDefault();
     AdminColumns.Form.removeColumn(column.name);
@@ -754,7 +780,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @since 2.0
  */
-let toggle = function (column) {
+var toggle = function (column) {
   column.$el.find('[data-toggle="column"]').click(function (e) {
     e.preventDefault();
     column.toggle();
@@ -774,14 +800,14 @@ let toggle = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-let selector = function (column) {
-  let $ = jQuery;
+var selector = function (column) {
+  var $ = jQuery;
   column.$el.find('select.ac-setting-input_type').change(function () {
     column.$el.addClass('loading');
     column.switchToType($(this).val()).always(function () {
       column.$el.removeClass('loading');
       AdminColumns.Form.reindexColumns();
-    }).fail(() => {
+    }).fail(function () {
       column.showMessage(AC.i18n.errors.loading_column);
     });
   });
@@ -800,14 +826,16 @@ let selector = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-class Feedback {
-  constructor($el) {
+var Feedback =
+/** @class */
+function () {
+  function Feedback($el) {
     this.$el = jQuery($el);
     this.init();
   }
 
-  init() {
-    let $box = this.$el;
+  Feedback.prototype.init = function () {
+    var $box = this.$el;
     $box.find('#feedback-choice a.no').click(function (e) {
       e.preventDefault();
       $box.find('#feedback-choice').slideUp();
@@ -818,9 +846,11 @@ class Feedback {
       $box.find('#feedback-choice').slideUp();
       $box.find('#feedback-rate').slideDown();
     });
-  }
+  };
 
-}
+  ;
+  return Feedback;
+}();
 
 /* harmony default export */ __webpack_exports__["default"] = (Feedback);
 
@@ -838,8 +868,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./column */ "./js/admin/columns/column.js");
 
 
-class Form {
-  constructor(el) {
+var Form =
+/** @class */
+function () {
+  function Form(el) {
     this.form = el;
     this.$form = jQuery(el);
     this.$column_container = this.$form.find('.ac-columns');
@@ -849,7 +881,7 @@ class Form {
     jQuery(document).trigger('AC_Form_Loaded');
   }
 
-  init() {
+  Form.prototype.init = function () {
     this.initColumns();
     this.bindFormEvents();
     this.bindOrdering();
@@ -859,9 +891,9 @@ class Form {
     }
 
     jQuery(document).trigger('AC_Form_Ready', this);
-  }
+  };
 
-  bindOrdering() {
+  Form.prototype.bindOrdering = function () {
     if (this.$form.hasClass('ui-sortable')) {
       this.$form.sortable('refresh');
     } else {
@@ -870,38 +902,40 @@ class Form {
         handle: '.column_sort'
       });
     }
-  }
+  };
 
-  originalColumns() {
-    let self = this;
-    let columns = [];
+  Form.prototype.originalColumns = function () {
+    var self = this;
+    var columns = [];
     Object.keys(self.columns).forEach(function (key) {
-      let column = self.columns[key];
+      var column = self.columns[key];
 
       if (column.isOriginal()) {
         columns.push(column.type);
       }
     });
     return columns;
-  }
+  };
 
-  validateForm() {
-    let valid = true;
+  Form.prototype.validateForm = function () {
+    var _this = this;
 
-    this._validators.forEach(validator => {
-      valid = validator.call(this, this);
+    var valid = true;
+
+    this._validators.forEach(function (validator) {
+      valid = validator.call(_this, _this);
     });
 
     return valid;
-  }
+  };
 
-  addValidator(validator) {
+  Form.prototype.addValidator = function (validator) {
     this._validators.push(validator);
-  }
+  };
 
-  bindFormEvents() {
-    let self = this;
-    let $buttons = jQuery('.sidebox a.submit, .column-footer a.submit');
+  Form.prototype.bindFormEvents = function () {
+    var self = this;
+    var $buttons = jQuery('.sidebox a.submit, .column-footer a.submit');
     $buttons.on('click', function () {
       if (!self.validateForm()) {
         return;
@@ -917,7 +951,7 @@ class Form {
     self.$container.find('.add_column').on('click', function () {
       self.addColumn();
     });
-    let $boxes = jQuery('#cpac .ac-boxes');
+    var $boxes = jQuery('#cpac .ac-boxes');
 
     if ($boxes.hasClass('disabled')) {
       $boxes.find('.ac-column').each(function (i, col) {
@@ -929,60 +963,62 @@ class Form {
     jQuery('a[data-clear-columns]').on('click', function () {
       self.resetColumns();
     });
-  }
+  };
 
-  initColumns() {
-    let self = this;
+  Form.prototype.initColumns = function () {
+    var self = this;
     self.columns = {};
     this.$form.find('.ac-column').each(function () {
-      let $el = jQuery(this);
-      let column = new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($el);
+      var $el = jQuery(this);
+      var column = new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($el);
       column.bindEvents();
       $el.data('column', column);
       self.columns[column.name] = column;
     });
-  }
+  };
 
-  reindexColumns() {
-    let self = this;
+  Form.prototype.reindexColumns = function () {
+    var self = this;
     self.columns = {};
     this.$form.find('.ac-column').each(function () {
-      let column = jQuery(this).data('column');
+      var column = jQuery(this).data('column');
       self.columns[column.name] = column;
     });
-  }
+  };
 
-  resetColumns() {
-    Object.keys(this.columns).forEach(key => {
-      let column = this.columns[key];
+  Form.prototype.resetColumns = function () {
+    var _this = this;
+
+    Object.keys(this.columns).forEach(function (key) {
+      var column = _this.columns[key];
       column.destroy();
     });
-  }
+  };
 
-  serialize() {
+  Form.prototype.serialize = function () {
     return this.$form.serialize();
-  }
+  };
 
-  disableFields() {
-    let form = document.querySelector(this.form);
+  Form.prototype.disableFields = function () {
+    var form = document.querySelector(this.form);
 
     if (!form) {
       return;
     }
 
-    let elements = form.elements;
+    var elements = form.elements;
 
-    for (let i = 0; i < elements.length; i++) {
+    for (var i = 0; i < elements.length; i++) {
       elements[i].readOnly = true;
       elements[i].setAttribute('disabled', true);
     }
-  }
+  };
 
-  enableFields() {}
+  Form.prototype.enableFields = function () {};
 
-  submitForm() {
-    let self = this;
-    let xhr = jQuery.post(ajaxurl, {
+  Form.prototype.submitForm = function () {
+    var self = this;
+    var xhr = jQuery.post(ajaxurl, {
       action: 'ac-columns',
       id: 'save',
       _ajax_nonce: AC._ajax_nonce,
@@ -1004,49 +1040,61 @@ class Form {
     });
     jQuery(document).trigger('AC_Form_AfterUpdate', [self.$container]);
     return xhr;
-  }
+  };
 
-  showMessage(message, attr_class = 'updated') {
-    let $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
+  Form.prototype.showMessage = function (message, attr_class) {
+    if (attr_class === void 0) {
+      attr_class = 'updated';
+    }
+
+    var $msg = jQuery('<div class="ac-message hidden ' + attr_class + '"><p>' + message + '</p></div>');
     this.$container.find('.ac-message').stop().remove();
     this.$container.find('.ac-admin__main').prepend($msg);
     $msg.slideDown();
-  }
+  };
 
-  cloneColumn($el) {
+  Form.prototype.cloneColumn = function ($el) {
     return this._addColumnToForm(new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($el).clone(), $el.hasClass('opened'), $el);
-  }
+  };
 
-  addColumn() {
-    let $clone = jQuery('#add-new-column-template').find('.ac-column').clone();
-    let column = new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($clone).create();
+  Form.prototype.addColumn = function () {
+    var $clone = jQuery('#add-new-column-template').find('.ac-column').clone();
+    var column = new _column__WEBPACK_IMPORTED_MODULE_0__["default"]($clone).create();
     return this._addColumnToForm(column);
-  }
+  };
 
-  removeColumn(name) {
+  Form.prototype.removeColumn = function (name) {
     if (this.columns[name]) {
       this.columns[name].remove();
       delete this.columns[name];
     }
-  }
+  };
 
-  getListScreen() {
+  Form.prototype.getListScreen = function () {
     return this.$form.find('input[name="list_screen"]').val();
-  }
+  };
 
-  getListScreenID() {
+  Form.prototype.getListScreenID = function () {
     return this.$form.find('input[name="list_screen_id"]').val();
-  }
+  };
 
-  getTitle() {
+  Form.prototype.getTitle = function () {
     return this.$form.find('input[name="title"]').val();
-  }
+  };
 
-  getColumnSettings() {
+  Form.prototype.getColumnSettings = function () {
     return this.$form.find('[name^="columns["]').serialize();
-  }
+  };
 
-  _addColumnToForm(column, open = true, $after = null) {
+  Form.prototype._addColumnToForm = function (column, open, $after) {
+    if (open === void 0) {
+      open = true;
+    }
+
+    if ($after === void 0) {
+      $after = null;
+    }
+
     this.columns[column.name] = column;
 
     if ($after) {
@@ -1069,13 +1117,14 @@ class Form {
     }
 
     return column;
-  }
+  };
 
-}
+  return Form;
+}();
 
 /* harmony default export */ __webpack_exports__["default"] = (Form);
 
-let isInViewport = $el => {
+var isInViewport = function ($el) {
   var elementTop = $el.offset().top;
   var elementBottom = elementTop + $el.outerHeight();
   var viewportTop = jQuery(window).scrollTop();
@@ -1094,16 +1143,17 @@ let isInViewport = $el => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Initiator; });
-class Initiator {
-  constructor() {
+var Initiator =
+/** @class */
+function () {
+  function Initiator() {
     this.events = {};
     this.settings = {};
     this.incremental_name = 0;
   }
 
-  registerSetting(k, setting) {
-    let key = 's_' + k;
+  Initiator.prototype.registerSetting = function (k, setting) {
+    var key = 's_' + k;
 
     if (this.settings[key]) {
       console.error('Setting key already exists: ' + k);
@@ -1111,10 +1161,10 @@ class Initiator {
 
     this.settings[key] = setting;
     return this;
-  }
+  };
 
-  registerEvent(k, event) {
-    let key = 'e_' + k;
+  Initiator.prototype.registerEvent = function (k, event) {
+    var key = 'e_' + k;
 
     if (this.settings[key]) {
       console.error('Event key already exists: ' + key);
@@ -1122,15 +1172,18 @@ class Initiator {
 
     this.events[key] = event;
     return this;
-  }
+  };
 
-  getNewIncementalName() {
-    let oldName = this.incremental_name;
+  Initiator.prototype.getNewIncementalName = function () {
+    var oldName = this.incremental_name;
     this.incremental_name++;
     return oldName;
-  }
+  };
 
-}
+  return Initiator;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Initiator);
 
 /***/ }),
 
@@ -1143,11 +1196,12 @@ class Initiator {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ListScreenInitializeController; });
 var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 
-class ListscreenInitialize {
-  constructor(list_screens) {
+var ListscreenInitialize =
+/** @class */
+function () {
+  function ListscreenInitialize(list_screens) {
     this.list_screens = list_screens;
     this.processed = [];
     this.errors = [];
@@ -1155,20 +1209,22 @@ class ListscreenInitialize {
     this.events = nanobus();
   }
 
-  doAjaxCall(list_screen) {
+  ListscreenInitialize.prototype.doAjaxCall = function (list_screen) {
     return jQuery.ajax({
       url: list_screen.screen_link,
       method: 'get'
     });
-  }
+  };
 
-  run() {
-    Object.keys(this.list_screens).forEach(key => {
-      this.processListScreen(this.list_screens[key]);
+  ListscreenInitialize.prototype.run = function () {
+    var _this = this;
+
+    Object.keys(this.list_screens).forEach(function (key) {
+      _this.processListScreen(_this.list_screens[key]);
     });
-  }
+  };
 
-  onFinish() {
+  ListscreenInitialize.prototype.onFinish = function () {
     if (this.success.length === Object.keys(this.list_screens).length) {
       this.events.emit('success');
     }
@@ -1176,60 +1232,73 @@ class ListscreenInitialize {
     if (this.errors.length > 0) {
       this.events.emit('error');
     }
-  }
+  };
 
-  checkFinish() {
+  ListscreenInitialize.prototype.checkFinish = function () {
     if (this.processed.length === Object.keys(this.list_screens).length) {
       this.onFinish();
     }
-  }
+  };
 
-  processListScreen(list_screen) {
-    return this.doAjaxCall(list_screen).done(r => {
+  ListscreenInitialize.prototype.processListScreen = function (list_screen) {
+    var _this = this;
+
+    return this.doAjaxCall(list_screen).done(function (r) {
       if (r === 'ac_success') {
-        this.success.push(list_screen);
+        _this.success.push(list_screen);
       } else {
-        this.errors.push(list_screen);
+        _this.errors.push(list_screen);
       }
-    }).fail(() => {
-      this.errors.push(list_screen);
-    }).always(() => {
-      this.processed.push(list_screen);
-      this.checkFinish();
+    }).fail(function () {
+      _this.errors.push(list_screen);
+    }).always(function () {
+      _this.processed.push(list_screen);
+
+      _this.checkFinish();
     });
-  }
+  };
 
-}
+  return ListscreenInitialize;
+}();
 
-class ListScreenInitializeController {
-  constructor(list_screens) {
+var ListScreenInitializeController =
+/** @class */
+function () {
+  function ListScreenInitializeController(list_screens) {
     this.list_screens = list_screens;
     this.run();
   }
 
-  run() {
+  ListScreenInitializeController.prototype.run = function () {
+    var _a;
+
     if (Object.keys(this.list_screens).length > 0) {
       // Only load main screen first if unitialized, otherwise do the rest in background
       if (this.list_screens.hasOwnProperty(AC.list_screen)) {
-        let main_initializer = new ListscreenInitialize({
-          [AC.list_screen]: this.list_screens[AC.list_screen]
-        });
+        var main_initializer = new ListscreenInitialize((_a = {}, _a[AC.list_screen] = this.list_screens[AC.list_screen], _a));
         main_initializer.run();
-        main_initializer.events.on('error', () => {
-          document.querySelectorAll('.ac-loading-msg-wrapper').forEach(el => el.remove());
-          document.querySelectorAll('.menu').forEach(el => el.classList.remove('hidden'));
+        main_initializer.events.on('error', function () {
+          document.querySelectorAll('.ac-loading-msg-wrapper').forEach(function (el) {
+            return el.remove();
+          });
+          document.querySelectorAll('.menu').forEach(function (el) {
+            return el.classList.remove('hidden');
+          });
         });
-        main_initializer.events.on('success', () => {
-          window.location = `${location.href}&t=${Date.now()}`;
+        main_initializer.events.on('success', function () {
+          window.location = location.href + "&t=" + Date.now();
         });
       } else {
-        let background_initializer = new ListscreenInitialize(this.list_screens);
+        var background_initializer = new ListscreenInitialize(this.list_screens);
         background_initializer.run();
       }
     }
-  }
+  };
 
-}
+  return ListScreenInitializeController;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (ListScreenInitializeController);
 
 /***/ }),
 
@@ -1242,18 +1311,24 @@ class ListScreenInitializeController {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Menu; });
-class Menu {
-  init() {
-    let $ = jQuery;
+var Menu =
+/** @class */
+function () {
+  function Menu() {}
+
+  Menu.prototype.init = function () {
+    var $ = jQuery;
     $('#ac_list_screen').on('change', function () {
       $('.view-link').hide();
       $(this).parents('form').submit();
       $(this).prop('disabled', true).next('.spinner').css('display', 'inline-block');
     });
-  }
+  };
 
-}
+  return Menu;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Menu);
 
 /***/ }),
 
@@ -1268,8 +1343,10 @@ class Menu {
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 
-class SingleCustomFieldRequestManager {
-  constructor(meta_type, post_type) {
+var SingleCustomFieldRequestManager =
+/** @class */
+function () {
+  function SingleCustomFieldRequestManager(meta_type, post_type) {
     this.meta_type = meta_type;
     this.post_type = post_type;
     this.loading = false;
@@ -1277,7 +1354,7 @@ class SingleCustomFieldRequestManager {
     this.events = nanobus();
   }
 
-  retrieveOptions() {
+  SingleCustomFieldRequestManager.prototype.retrieveOptions = function () {
     this.loading = true;
     return jQuery.ajax({
       url: ajaxurl,
@@ -1290,36 +1367,41 @@ class SingleCustomFieldRequestManager {
         _ajax_nonce: AC._ajax_nonce
       }
     });
-  }
+  };
 
-  getOptions() {
-    const defer = jQuery.Deferred();
+  SingleCustomFieldRequestManager.prototype.getOptions = function () {
+    var _this = this;
+
+    var defer = jQuery.Deferred();
 
     if (this.data) {
       defer.resolve(this.data);
     } else if (this.loading) {
-      this.events.on('loaded', () => {
-        defer.resolve(this.data);
+      this.events.on('loaded', function () {
+        defer.resolve(_this.data);
       });
     } else {
-      this.retrieveOptions().done(response => {
+      this.retrieveOptions().done(function (response) {
         if (!response.success) {
           defer.reject();
         }
 
-        this.data = response.data.results;
-        this.events.emit('loaded');
-        defer.resolve(this.data);
+        _this.data = response.data.results;
+
+        _this.events.emit('loaded');
+
+        defer.resolve(_this.data);
       });
     }
 
     return defer.promise();
-  }
+  };
 
-}
+  return SingleCustomFieldRequestManager;
+}();
 
-const loadSingleRequestManager = (meta_type, post_type) => {
-  const key = `custom_field_${meta_type}_${post_type}`;
+var loadSingleRequestManager = function (meta_type, post_type) {
+  var key = "custom_field_" + meta_type + "_" + post_type;
 
   if (typeof AC_Requests === 'undefined') {
     global.AC_Requests = {};
@@ -1332,8 +1414,10 @@ const loadSingleRequestManager = (meta_type, post_type) => {
   return AC_Requests[key];
 };
 
-class CustomField {
-  constructor(column) {
+var CustomField =
+/** @class */
+function () {
+  function CustomField(column) {
     this.column = column;
     this.setting = column.$el[0].querySelector('.ac-column-setting--custom_field');
 
@@ -1344,19 +1428,19 @@ class CustomField {
     this.bindEvents();
   }
 
-  bindEvents() {
-    const input = this.setting.querySelector('.custom_field');
-    const request = loadSingleRequestManager(input.dataset.type, input.dataset.post_type);
-    const editingAvailable = this.column.el.querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0; // Ensure you won't get any duplicates on clone
+  CustomField.prototype.bindEvents = function () {
+    var input = this.setting.querySelector('.custom_field');
+    var request = loadSingleRequestManager(input.dataset.type, input.dataset.post_type);
+    var editingAvailable = this.column.el.querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0; // Ensure you won't get any duplicates on clone
 
-    input.querySelectorAll('optgroup').forEach(el => {
+    input.querySelectorAll('optgroup').forEach(function (el) {
       el.remove();
     });
     input.removeAttribute('data-select2-id');
-    this.setting.querySelectorAll('.select2').forEach(el => {
+    this.setting.querySelectorAll('.select2').forEach(function (el) {
       el.remove();
     });
-    request.getOptions().done(data => {
+    request.getOptions().done(function (data) {
       jQuery(input).ac_select2({
         theme: 'acs2',
         width: '100%',
@@ -1365,11 +1449,12 @@ class CustomField {
         data: data
       });
     });
-  }
+  };
 
-}
+  return CustomField;
+}();
 
-const customfield = column => {
+var customfield = function (column) {
   column.settings.customfield = new CustomField(column);
 };
 
@@ -1387,25 +1472,25 @@ const customfield = column => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-let date = function (column) {
-  let $ = jQuery;
-  let $column = column.$el;
-  let $setting = $column.find('.ac-column-setting--date');
+var date = function (column) {
+  var $ = jQuery;
+  var $column = column.$el;
+  var $setting = $column.find('.ac-column-setting--date');
   $setting.each(function () {
-    let $container = $(this); // Custom input
+    var $container = $(this); // Custom input
 
-    let $radio_custom = $container.find('input.custom');
-    let $input_custom = $container.find('.ac-setting-input-date__custom');
-    let $input_value = $container.find('.ac-setting-input-date__value');
-    let $example_custom = $container.find('.ac-setting-input-date__example');
-    let $selected = $container.find('input[type=radio]:checked');
-    let $help_msg = $container.find('.help-msg'); // Click Event
+    var $radio_custom = $container.find('input.custom');
+    var $input_custom = $container.find('.ac-setting-input-date__custom');
+    var $input_value = $container.find('.ac-setting-input-date__value');
+    var $example_custom = $container.find('.ac-setting-input-date__example');
+    var $selected = $container.find('input[type=radio]:checked');
+    var $help_msg = $container.find('.help-msg'); // Click Event
 
     $container.find('input[type=radio]').on('change', function () {
-      let $input = $(this);
-      let $input_container = $input.closest('label');
-      let date_format = $input_container.find('code').text();
-      let description = $input_container.find('.ac-setting-input-date__more').html();
+      var $input = $(this);
+      var $input_container = $input.closest('label');
+      var date_format = $input_container.find('code').text();
+      var description = $input_container.find('.ac-setting-input-date__more').html();
 
       if (date_format) {
         $input_custom.val(date_format).trigger('change');
@@ -1437,7 +1522,7 @@ let date = function (column) {
     $input_custom.on('change', function () {
       $example_custom.html('<span class="spinner is-active"></span>');
       $radio_custom.val($input_custom.val());
-      let $custom_value = $(this).val();
+      var $custom_value = $(this).val();
 
       if (!$custom_value) {
         $example_custom.text('');
@@ -1478,8 +1563,10 @@ let date = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-class Image {
-  constructor(column) {
+var Image =
+/** @class */
+function () {
+  function Image(column) {
     this.column = column;
     this.setting = column.$el[0].querySelector('.ac-column-setting--image');
 
@@ -1492,75 +1579,76 @@ class Image {
     this.bindEvents();
   }
 
-  getValue() {
+  Image.prototype.getValue = function () {
     return this.field.value;
-  }
+  };
 
-  bindEvents() {
-    let self = this;
+  Image.prototype.bindEvents = function () {
+    var self = this;
     this.field.addEventListener('change', function (e) {
       self.initState();
     });
-  }
+  };
 
-  initState() {
+  Image.prototype.initState = function () {
     if ('cpac-custom' === this.getValue()) {
       this.showSubsettings();
     } else {
       this.hideSubsettings();
     }
-  }
+  };
 
-  hideSubsettings() {
-    let subsetting = this.setting.querySelectorAll('.ac-column-setting');
+  Image.prototype.hideSubsettings = function () {
+    var subsetting = this.setting.querySelectorAll('.ac-column-setting');
 
-    for (let i = 0; i < subsetting.length; ++i) {
+    for (var i = 0; i < subsetting.length; ++i) {
       subsetting[i].style.display = 'none';
     }
-  }
+  };
 
-  showSubsettings() {
-    let subsetting = this.setting.querySelectorAll('.ac-column-setting');
+  Image.prototype.showSubsettings = function () {
+    var subsetting = this.setting.querySelectorAll('.ac-column-setting');
 
-    for (let i = 0; i < subsetting.length; ++i) {
+    for (var i = 0; i < subsetting.length; ++i) {
       subsetting[i].style.display = 'table';
     }
-  }
+  };
 
-  setValue(value) {
+  Image.prototype.setValue = function (value) {
     this.field.value = value;
     this.trigger(this.field, 'change');
     return this;
-  }
+  };
 
-  setWidth(width) {
-    let field = this.setting.querySelector('.ac-column-setting [name*="image_size_w"]');
+  Image.prototype.setWidth = function (width) {
+    var field = this.setting.querySelector('.ac-column-setting [name*="image_size_w"]');
     field.value = width;
     this.trigger(field, 'change');
     return this;
-  }
+  };
 
-  setHeight(height) {
-    let field = this.setting.querySelector('.ac-column-setting [name*="image_size_h"]');
+  Image.prototype.setHeight = function (height) {
+    var field = this.setting.querySelector('.ac-column-setting [name*="image_size_h"]');
     field.value = height;
     this.trigger(field, 'change');
     return this;
-  }
+  };
 
-  setSize(width, height) {
+  Image.prototype.setSize = function (width, height) {
     this.setWidth(width);
     this.setHeight(height);
     return this;
-  }
+  };
 
-  trigger(el, event) {
+  Image.prototype.trigger = function (el, event) {
     el.dispatchEvent(new Event(event));
     return this;
-  }
+  };
 
-}
+  return Image;
+}();
 
-let image = function (column) {
+var image = function (column) {
   column.settings.image = new Image(column);
 };
 
@@ -1580,8 +1668,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../modules/modal */ "./js/modules/modal.ts");
 
 
-class Label {
-  constructor(column) {
+var Label =
+/** @class */
+function () {
+  function Label(column) {
     this.column = column;
     this.setting = column.el.querySelector('.ac-column-setting--label');
     this.iconpicker = this.setting.querySelector('.-iconpicker');
@@ -1597,17 +1687,17 @@ class Label {
     this.bindEvents();
   }
 
-  initValue() {
-    let self = this;
-    let html = document.createRange().createContextualFragment(this.getValue());
-    let dashicon = html.querySelector('.dashicons');
+  Label.prototype.initValue = function () {
+    var self = this;
+    var html = document.createRange().createContextualFragment(this.getValue());
+    var dashicon = html.querySelector('.dashicons');
 
     if (dashicon) {
-      let classList = dashicon.classList;
-      classList.forEach(cls => {
+      var classList = dashicon.classList;
+      classList.forEach(function (cls) {
         if (cls.indexOf('dashicons-') !== -1) {
-          let selector = '.' + cls;
-          let icon = self.iconpicker.querySelector(selector);
+          var selector = '.' + cls;
+          var icon = self.iconpicker.querySelector(selector);
 
           if (icon) {
             icon.parentElement.classList.add('active');
@@ -1618,10 +1708,10 @@ class Label {
     } else {
       self.setIconSelection(false);
     }
-  }
+  };
 
-  bindEvents() {
-    let self = this;
+  Label.prototype.bindEvents = function () {
+    var self = this;
     this.setting.querySelector('.ac-setting-label-icon').addEventListener('click', function (e) {
       e.preventDefault();
       self.modal.open();
@@ -1635,58 +1725,59 @@ class Label {
 
       self.modal.close();
     });
-    let icons = this.iconpicker.querySelectorAll('.ac-ipicker__icon');
-    icons.forEach(icon => {
+    var icons = this.iconpicker.querySelectorAll('.ac-ipicker__icon');
+    icons.forEach(function (icon) {
       icon.addEventListener('click', function (e) {
         e.preventDefault();
-        let dashicon = this.dataset.dashicon;
+        var dashicon = this.dataset.dashicon;
 
         if (dashicon) {
           self.setIconSelection(dashicon);
         }
 
-        let icons = self.setting.querySelectorAll('.ac-ipicker__icon');
-        icons.forEach(icon => {
+        var icons = self.setting.querySelectorAll('.ac-ipicker__icon');
+        icons.forEach(function (icon) {
           icon.classList.remove('active');
         });
         icon.classList.add('active');
       });
     });
-  }
+  };
 
-  getValue() {
+  Label.prototype.getValue = function () {
     return this.field.value;
-  }
+  };
 
-  setValue(value) {
+  Label.prototype.setValue = function (value) {
     this.field.value = value;
-    let event = new Event('change');
+    var event = new Event('change');
     this.field.dispatchEvent(event);
-  }
+  };
 
-  setIconSelection(dashicon) {
-    let selection = this.setting.querySelector('.ac-ipicker__selection');
+  Label.prototype.setIconSelection = function (dashicon) {
+    var selection = this.setting.querySelector('.ac-ipicker__selection');
     this._dashicon = dashicon;
-    selection.innerHTML = `<span class="dashicons dashicons-${dashicon}"></span>`;
+    selection.innerHTML = "<span class=\"dashicons dashicons-" + dashicon + "\"></span>";
 
     if (!dashicon) {
       selection.style.visibility = 'hidden';
     } else {
       selection.style.visibility = 'visible';
     }
-  }
+  };
 
-  getIconSelection() {
+  Label.prototype.getIconSelection = function () {
     return this._dashicon;
-  }
+  };
 
-  setDashicon(dashicon) {
-    this.setValue(`<span class="dashicons dashicons-${dashicon}"></span>`);
-  }
+  Label.prototype.setDashicon = function (dashicon) {
+    this.setValue("<span class=\"dashicons dashicons-" + dashicon + "\"></span>");
+  };
 
-}
+  return Label;
+}();
 
-let label = function (column) {
+var label = function (column) {
   column.settings.label = new Label(column);
 };
 
@@ -1703,8 +1794,10 @@ let label = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-class NumberFormat {
-  constructor(column) {
+var NumberFormat =
+/** @class */
+function () {
+  function NumberFormat(column) {
     this.column = column;
     this.setting = column.$el[0].querySelector('.ac-column-setting--number_format');
 
@@ -1715,29 +1808,33 @@ class NumberFormat {
     this.bindEvents();
   }
 
-  bindEvents() {
+  NumberFormat.prototype.bindEvents = function () {
+    var _this = this;
+
     this.refreshPreview();
-    this.setting.querySelectorAll('input').forEach(el => {
-      el.addEventListener('change', e => {
-        this.refreshPreview();
+    this.setting.querySelectorAll('input').forEach(function (el) {
+      el.addEventListener('change', function (e) {
+        _this.refreshPreview();
       });
     });
-  }
+  };
 
-  refreshPreview() {
-    this.getExampleRequest().done(example => {
-      let preview = this.setting.querySelector('[data-preview]');
+  NumberFormat.prototype.refreshPreview = function () {
+    var _this = this;
+
+    this.getExampleRequest().done(function (example) {
+      var preview = _this.setting.querySelector('[data-preview]');
 
       if (preview) {
         preview.innerText = example;
       }
     });
-  }
+  };
 
-  getExampleRequest() {
-    let decimals = this.setting.querySelector('.ac-setting-input_number_decimals');
-    let decimal_point = this.setting.querySelector('.ac-setting-input_number_decimal_point');
-    let thousands_point = this.setting.querySelector('.ac-setting-input_number_thousands_separator');
+  NumberFormat.prototype.getExampleRequest = function () {
+    var decimals = this.setting.querySelector('.ac-setting-input_number_decimals');
+    var decimal_point = this.setting.querySelector('.ac-setting-input_number_decimal_point');
+    var thousands_point = this.setting.querySelector('.ac-setting-input_number_thousands_separator');
     return jQuery.ajax({
       url: ajaxurl,
       method: 'post',
@@ -1749,11 +1846,12 @@ class NumberFormat {
         thousands_point: thousands_point ? thousands_point.value : ''
       }
     });
-  }
+  };
 
-}
+  return NumberFormat;
+}();
 
-const numberformat = column => {
+var numberformat = function (column) {
   column.settings.number_format = new NumberFormat(column);
 };
 
@@ -1770,11 +1868,11 @@ const numberformat = column => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-let pro = function (column) {
-  let $column = column.$el;
-  let $setting = $column.find('.ac-column-setting--pro');
+var pro = function (column) {
+  var $column = column.$el;
+  var $setting = $column.find('.ac-column-setting--pro');
   $setting.each(function () {
-    let $container = jQuery(this);
+    var $container = jQuery(this);
     $container.find('input').on('click', function (e) {
       e.preventDefault();
       $container.find('[data-ac-open-modal]').trigger('click');
@@ -1795,16 +1893,16 @@ let pro = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-let subsetting = function (column) {
-  let $ = jQuery;
-  let settings = {
+var subsetting = function (column) {
+  var $ = jQuery;
+  var settings = {
     value_show: "on",
     subfield: '.ac-column-setting'
   };
 
   function initState($setting, $input) {
-    let value = $input.filter(':checked').val();
-    let $subfields = $setting.find(settings.subfield);
+    var value = $input.filter(':checked').val();
+    var $subfields = $setting.find(settings.subfield);
 
     if (settings.value_show === value) {
       $subfields.show();
@@ -1813,11 +1911,11 @@ let subsetting = function (column) {
     }
   }
 
-  let $column = column.$el;
-  let $settings = $column.find('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit');
+  var $column = column.$el;
+  var $settings = $column.find('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit');
   $settings.each(function () {
-    let $setting = $(this);
-    let $input = $(this).find('.ac-setting-input input[type="radio"]');
+    var $setting = $(this);
+    var $input = $(this).find('.ac-setting-input input[type="radio"]');
     initState($setting, $input);
     $input.on('change', function () {
       initState($setting, $input);
@@ -1841,8 +1939,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../select2/excludegroup.matcher */ "./js/select2/excludegroup.matcher.js");
 
 
-class TypeSelector {
-  constructor(column) {
+var TypeSelector =
+/** @class */
+function () {
+  function TypeSelector(column) {
     this.column = column;
     this.setting = column.$el[0].querySelector('[data-setting="type"]');
 
@@ -1853,12 +1953,12 @@ class TypeSelector {
     this.bindEvents();
   }
 
-  bindEvents() {
-    const select = this.setting.querySelector('.ac-setting-input_type');
+  TypeSelector.prototype.bindEvents = function () {
+    var select = this.setting.querySelector('.ac-setting-input_type');
 
     if (select) {
       select.removeAttribute('data-select2-id');
-      this.setting.querySelectorAll('.select2').forEach(el => {
+      this.setting.querySelectorAll('.select2').forEach(function (el) {
         el.remove();
       });
       jQuery(select).ac_select2({
@@ -1869,10 +1969,10 @@ class TypeSelector {
           return text;
         },
         templateResult: function (result) {
-          let text = result.text;
+          var text = result.text;
 
           if (result.hasOwnProperty('id') && result.id.includes('placeholder-')) {
-            text += `<span style="background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;">PRO</span>`;
+            text += "<span style=\"background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;\">PRO</span>";
           }
 
           return text;
@@ -1880,11 +1980,12 @@ class TypeSelector {
         matcher: _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__["default"]
       });
     }
-  }
+  };
 
-}
+  return TypeSelector;
+}();
 
-const type = column => {
+var type = function (column) {
   column.settings.typeSelector = new TypeSelector(column);
 };
 
@@ -1903,9 +2004,9 @@ const type = column => {
 __webpack_require__.r(__webpack_exports__);
 // Settings fields: Width
 jQuery.fn.column_width_slider = function () {
-  let $ = jQuery;
-  let $column_width = $(this).find('.ac-setting-input-width');
-  let input_width = $column_width.find('.description input'),
+  var $ = jQuery;
+  var $column_width = $(this).find('.ac-setting-input-width');
+  var input_width = $column_width.find('.description input'),
       input_unit = $column_width.find('.unit-select input'),
       unit = input_unit.filter(':checked').val(),
       width = input_width.val(),
@@ -1930,17 +2031,17 @@ jQuery.fn.column_width_slider = function () {
   });
 };
 
-let width = function (column) {
-  let $ = jQuery;
-  let $column = column.$el;
+var width = function (column) {
+  var $ = jQuery;
+  var $column = column.$el;
   $column.find('.ac-column-setting--width').each(function () {
     $column.column_width_slider(); // indicator
 
-    let $width_indicator = $column.find('.ac-column-header .ac-column-heading-setting--width');
+    var $width_indicator = $column.find('.ac-column-header .ac-column-heading-setting--width');
     $width_indicator.on('update', function () {
-      let _width = $column.find('.ac-setting-input-width .description input').val();
+      var _width = $column.find('.ac-setting-input-width .description input').val();
 
-      let _unit = $column.find('.ac-setting-input-width .description .unit').text();
+      var _unit = $column.find('.ac-setting-input-width .description .unit').text();
 
       if (_width > 0) {
         jQuery(this).text(_width + _unit);
@@ -1949,7 +2050,7 @@ let width = function (column) {
       }
     }); // unit selector
 
-    let width_unit_select = $column.find('.ac-setting-input-width .unit-select label');
+    var width_unit_select = $column.find('.ac-setting-input-width .unit-select label');
     width_unit_select.on('click', function () {
       $column.find('span.unit').text($(this).find('input').val());
       $column.column_width_slider(); // re-init slider
@@ -1957,7 +2058,7 @@ let width = function (column) {
       $width_indicator.trigger('update'); // update indicator
     }); // width_input
 
-    let width_input = $column.find('.ac-setting-input-width .description input').on('keyup', function () {
+    var width_input = $column.find('.ac-setting-input-width .description input').on('keyup', function () {
       $column.column_width_slider(); // re-init slider
 
       jQuery(this).trigger('validate'); // validate input
@@ -1965,9 +2066,9 @@ let width = function (column) {
       $width_indicator.trigger('update'); // update indicator
     }) // width_input:validate
     .on('validate', function () {
-      let _width = width_input.val();
+      var _width = width_input.val();
 
-      let _new_width = $.trim(_width);
+      var _new_width = $.trim(_width);
 
       if (!jQuery.isNumeric(_new_width)) {
         _new_width = _new_width.replace(/\D/g, '');
@@ -2001,9 +2102,10 @@ let width = function (column) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modal; });
-class Modal {
-  constructor(el) {
+var Modal =
+/** @class */
+function () {
+  function Modal(el) {
     if (!el) {
       return;
     }
@@ -2013,64 +2115,73 @@ class Modal {
     this.initEvents();
   }
 
-  initEvents() {
-    let self = this;
-    document.addEventListener('keydown', e => {
-      const keyName = e.key;
+  Modal.prototype.initEvents = function () {
+    var _this = this;
 
-      if (!this.isOpen()) {
+    var self = this;
+    document.addEventListener('keydown', function (e) {
+      var keyName = e.key;
+
+      if (!_this.isOpen()) {
         return;
       }
 
       if ('Escape' === keyName) {
-        this.close();
+        _this.close();
       }
     });
-    let dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
+    var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
 
     if (dismissButtons.length > 0) {
-      dismissButtons.forEach(b => {
-        b.addEventListener('click', e => {
+      dismissButtons.forEach(function (b) {
+        b.addEventListener('click', function (e) {
           e.preventDefault();
           self.close();
         });
       });
     }
 
-    this.el.addEventListener('click', e => {
+    this.el.addEventListener('click', function (e) {
       if (e.target.classList.contains('ac-modal')) {
         self.close();
       }
     });
-  }
+  };
 
-  isOpen() {
+  Modal.prototype.isOpen = function () {
     return this.el.classList.contains('-active');
-  }
+  };
 
-  close() {
+  Modal.prototype.close = function () {
     this.onClose();
     this.el.classList.remove('-active');
-  }
+  };
 
-  open() {
-    //short delay in order to allow bubbling events to bind before opening
-    setTimeout(() => {
-      this.onOpen();
-      this.el.removeAttribute('style');
-      this.el.classList.add('-active');
+  Modal.prototype.open = function () {
+    var _this = this; //short delay in order to allow bubbling events to bind before opening
+
+
+    setTimeout(function () {
+      _this.onOpen();
+
+      _this.el.removeAttribute('style');
+
+      _this.el.classList.add('-active');
     });
-  }
+  };
 
-  destroy() {
+  Modal.prototype.destroy = function () {
     this.el.remove();
-  }
+  };
 
-  onClose() {}
+  Modal.prototype.onClose = function () {};
 
-  onOpen() {}
+  Modal.prototype.onOpen = function () {};
 
-}
+  return Modal;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Modal);
 
 /***/ }),
 
@@ -2083,31 +2194,34 @@ class Modal {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ScreenOption; });
-const $ = __webpack_require__(/*! jquery */ "jquery");
+var $ = __webpack_require__(/*! jquery */ "jquery");
 
-class ScreenOption {
-  constructor(element, name) {
+var ScreenOption =
+/** @class */
+function () {
+  function ScreenOption(element, name) {
     this.name = name;
     this.element = element;
     this.init();
   }
 
-  getInput() {
+  ScreenOption.prototype.getInput = function () {
     return this.element.querySelector('input');
-  }
+  };
 
-  init() {
-    let input = this.getInput();
+  ScreenOption.prototype.init = function () {
+    var _this = this;
+
+    var input = this.getInput();
 
     if (input) {
-      input.addEventListener('change', () => {
-        this.persist();
+      input.addEventListener('change', function () {
+        _this.persist();
       });
     }
-  }
+  };
 
-  persist() {
+  ScreenOption.prototype.persist = function () {
     return $.ajax({
       url: ajaxurl,
       method: 'POST',
@@ -2118,9 +2232,12 @@ class ScreenOption {
         _ajax_nonce: AC._ajax_nonce
       }
     });
-  }
+  };
 
-}
+  return ScreenOption;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (ScreenOption);
 
 /***/ }),
 
@@ -2136,16 +2253,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
 
 
-class Tooltips {
-  constructor() {
+var Tooltips =
+/** @class */
+function () {
+  function Tooltips() {
     this.init();
   }
 
-  init() {
+  Tooltips.prototype.init = function () {
     Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["initAcTooltips"])();
-  }
+  };
 
-}
+  return Tooltips;
+}();
 
 /* harmony default export */ __webpack_exports__["default"] = (Tooltips);
 
@@ -2162,42 +2282,57 @@ class Tooltips {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcTooltips", function() { return initAcTooltips; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
-const initAcTooltips = () => {
-  document.querySelectorAll('[data-ac-tip]').forEach(element => {
+var initAcTooltips = function () {
+  document.querySelectorAll('[data-ac-tip]').forEach(function (element) {
     new Tooltip(element);
   });
 };
-class Tooltip {
-  constructor(el, content = '') {
+
+var Tooltip =
+/** @class */
+function () {
+  function Tooltip(el, content) {
+    if (content === void 0) {
+      content = '';
+    }
+
     this.element = el;
     this.content = content ? content : el.dataset.acTip;
     this.tip = createTooltip(this.content);
     this.initEvents();
   }
 
-  initEvents() {
+  Tooltip.prototype.initEvents = function () {
+    var _this = this;
+
     if (this.element.dataset.acTooltipInit === '1') {
       return;
     }
 
     this.element.dataset.acTooltipInit = '1';
     document.body.appendChild(this.tip);
-    this.element.addEventListener('mouseenter', () => {
-      const bodyOffset = document.body.getBoundingClientRect();
-      const viewportOffset = this.element.getBoundingClientRect();
-      this.tip.style.left = viewportOffset.left - bodyOffset.left + this.element.offsetWidth / 2 + 'px';
-      this.tip.style.top = viewportOffset.top - bodyOffset.top + this.element.offsetHeight + 'px';
-      this.tip.classList.add('hover');
-    });
-    this.element.addEventListener('mouseleave', () => {
-      this.tip.classList.remove('hover');
-    });
-  }
+    this.element.addEventListener('mouseenter', function () {
+      var bodyOffset = document.body.getBoundingClientRect();
 
-}
+      var viewportOffset = _this.element.getBoundingClientRect();
 
-const createTooltip = content => {
-  let tip = document.createElement('div');
+      _this.tip.style.left = viewportOffset.left - bodyOffset.left + _this.element.offsetWidth / 2 + 'px';
+      _this.tip.style.top = viewportOffset.top - bodyOffset.top + _this.element.offsetHeight + 'px';
+
+      _this.tip.classList.add('hover');
+    });
+    this.element.addEventListener('mouseleave', function () {
+      _this.tip.classList.remove('hover');
+    });
+  };
+
+  return Tooltip;
+}();
+
+
+
+var createTooltip = function (content) {
+  var tip = document.createElement('div');
   tip.classList.add('ac-tooltip');
   tip.innerHTML = content;
   return tip;

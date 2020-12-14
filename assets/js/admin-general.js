@@ -102,13 +102,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const $ = __webpack_require__(/*! jquery */ "jquery");
+var $ = __webpack_require__(/*! jquery */ "jquery");
 
 Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__["initAdminColumnsGlobalBootstrap"])();
 window.ac_pointers = _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_1__["initPointers"];
-$(document).ready(() => {
+$(document).ready(function () {
   Object(_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_1__["initPointers"])();
-  document.querySelectorAll('.ac-section').forEach(el => {
+  document.querySelectorAll('.ac-section').forEach(function (el) {
     new _modules_ac_section__WEBPACK_IMPORTED_MODULE_0__["default"](el);
   });
 });
@@ -128,9 +128,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/modals */ "./js/modules/modals.ts");
 
 
-let nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 
-const initAdminColumnsGlobalBootstrap = () => {
+var initAdminColumnsGlobalBootstrap = function () {
   if (!window.AdminColumns) {
     window.AdminColumns = window.AdminColumns || {};
     AdminColumns.events = nanobus();
@@ -156,33 +156,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tooltips__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltips */ "./js/modules/tooltips.ts");
 
 
-const $ = __webpack_require__(/*! jquery */ "jquery");
+var $ = __webpack_require__(/*! jquery */ "jquery");
 
-class Pointer {
-  constructor(el) {
+var Pointer =
+/** @class */
+function () {
+  function Pointer(el) {
     this.element = el;
     this.settings = this.getDefaults();
     this.init();
     this.setInitialized();
   }
 
-  setInitialized() {
+  Pointer.prototype.setInitialized = function () {
     this.element.dataset.ac_pointer_initialized = '1';
-  }
+  };
 
-  getDefaults() {
+  Pointer.prototype.getDefaults = function () {
     return {
       width: this.element.getAttribute('data-width') ? this.element.getAttribute('data-width') : 250,
       noclick: this.element.getAttribute('data-noclick') ? this.element.getAttribute('data-noclick') : false,
       position: this.getPosition()
     };
-  }
+  };
 
-  isInitialized() {
+  Pointer.prototype.isInitialized = function () {
     return this.element.dataset.hasOwnProperty('ac_pointer_initialized');
-  }
+  };
 
-  init() {
+  Pointer.prototype.init = function () {
     if (this.isInitialized()) {
       return;
     } // create pointer
@@ -195,16 +197,16 @@ class Pointer {
       pointerClass: this.getPointerClass()
     });
     this.initEvents();
-  }
+  };
 
-  getPosition() {
-    let position = {
+  Pointer.prototype.getPosition = function () {
+    var position = {
       at: 'left top',
       my: 'right top',
       edge: 'right'
     };
-    let pos = this.element.getAttribute('data-pos');
-    let edge = this.element.getAttribute('data-pos_edge');
+    var pos = this.element.getAttribute('data-pos');
+    var edge = this.element.getAttribute('data-pos_edge');
 
     if ('right' === pos) {
       position = {
@@ -235,25 +237,25 @@ class Pointer {
     }
 
     return position;
-  }
+  };
 
-  getPointerClass() {
-    let classes = ['ac-wp-pointer', 'wp-pointer', 'wp-pointer-' + this.settings.position.edge];
+  Pointer.prototype.getPointerClass = function () {
+    var classes = ['ac-wp-pointer', 'wp-pointer', 'wp-pointer-' + this.settings.position.edge];
 
     if (this.settings.noclick) {
       classes.push('noclick');
     }
 
     return classes.join(' ');
-  }
+  };
 
-  getRelatedHTML() {
-    let related_element = document.getElementById(this.element.getAttribute('rel'));
+  Pointer.prototype.getRelatedHTML = function () {
+    var related_element = document.getElementById(this.element.getAttribute('rel'));
     return related_element ? related_element.innerHTML : '';
-  }
+  };
 
-  initEvents() {
-    let el = $(this.element); // click
+  Pointer.prototype.initEvents = function () {
+    var el = $(this.element); // click
 
     if (!this.settings.noclick) {
       el.click(function () {
@@ -270,29 +272,32 @@ class Pointer {
     });
     el.mouseenter(function () {
       el.pointer('open');
-      setTimeout(() => {
+      setTimeout(function () {
         el.pointer('open');
       }, 2);
     });
     el.mouseleave(function () {
-      setTimeout(() => {
+      setTimeout(function () {
         if (!el.hasClass('open') && $('.ac-wp-pointer.hover').length === 0) {
           el.pointer('close');
         }
       }, 1);
     });
-    el.on('close', () => {
-      setTimeout(() => {
+    el.on('close', function () {
+      setTimeout(function () {
         if (!el.hasClass('open')) {
           el.pointer('close');
         }
       });
     });
-  }
+  };
 
-}
-const initPointers = () => {
-  document.querySelectorAll('.ac-pointer').forEach(element => {
+  return Pointer;
+}();
+
+
+var initPointers = function () {
+  document.querySelectorAll('.ac-pointer').forEach(function (element) {
     new Pointer(element);
   });
   $('.ac-wp-pointer').hover(function () {
@@ -317,72 +322,78 @@ const initPointers = () => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AcSection; });
-let Cookies = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
+var Cookies = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
 
-class AcSection {
-  constructor(el) {
+var AcSection =
+/** @class */
+function () {
+  function AcSection(el) {
     this.element = el;
     this.init();
   }
 
-  init() {
+  AcSection.prototype.init = function () {
+    var _this = this;
+
     if (this.element.classList.contains('-closable')) {
-      const header = this.element.querySelector('.ac-section__header');
+      var header = this.element.querySelector('.ac-section__header');
 
       if (header) {
-        header.addEventListener('click', () => {
-          this.toggle();
+        header.addEventListener('click', function () {
+          _this.toggle();
         });
       }
 
       if (this.isStorable()) {
-        let setting = Cookies.get(this.getCookieKey());
+        var setting = Cookies.get(this.getCookieKey());
 
         if (setting !== undefined) {
           parseInt(setting) === 1 ? this.open : this.close();
         }
       }
     }
-  }
+  };
 
-  getCookieKey() {
-    return `ac-section_${this.getSectionId()}`;
-  }
+  AcSection.prototype.getCookieKey = function () {
+    return "ac-section_" + this.getSectionId();
+  };
 
-  getSectionId() {
+  AcSection.prototype.getSectionId = function () {
     return this.element.dataset.section;
-  }
+  };
 
-  isStorable() {
+  AcSection.prototype.isStorable = function () {
     return typeof this.element.dataset.section !== 'undefined';
-  }
+  };
 
-  toggle() {
+  AcSection.prototype.toggle = function () {
     this.isOpen() ? this.close() : this.open();
-  }
+  };
 
-  isOpen() {
+  AcSection.prototype.isOpen = function () {
     return !this.element.classList.contains('-closed');
-  }
+  };
 
-  open() {
+  AcSection.prototype.open = function () {
     this.element.classList.remove('-closed');
 
     if (this.isStorable()) {
       Cookies.set(this.getCookieKey(), 1);
     }
-  }
+  };
 
-  close() {
+  AcSection.prototype.close = function () {
     this.element.classList.add('-closed');
 
     if (this.isStorable()) {
       Cookies.set(this.getCookieKey(), 0);
     }
-  }
+  };
 
-}
+  return AcSection;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (AcSection);
 
 /***/ }),
 
@@ -395,9 +406,10 @@ class AcSection {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modal; });
-class Modal {
-  constructor(el) {
+var Modal =
+/** @class */
+function () {
+  function Modal(el) {
     if (!el) {
       return;
     }
@@ -407,64 +419,73 @@ class Modal {
     this.initEvents();
   }
 
-  initEvents() {
-    let self = this;
-    document.addEventListener('keydown', e => {
-      const keyName = e.key;
+  Modal.prototype.initEvents = function () {
+    var _this = this;
 
-      if (!this.isOpen()) {
+    var self = this;
+    document.addEventListener('keydown', function (e) {
+      var keyName = e.key;
+
+      if (!_this.isOpen()) {
         return;
       }
 
       if ('Escape' === keyName) {
-        this.close();
+        _this.close();
       }
     });
-    let dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
+    var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
 
     if (dismissButtons.length > 0) {
-      dismissButtons.forEach(b => {
-        b.addEventListener('click', e => {
+      dismissButtons.forEach(function (b) {
+        b.addEventListener('click', function (e) {
           e.preventDefault();
           self.close();
         });
       });
     }
 
-    this.el.addEventListener('click', e => {
+    this.el.addEventListener('click', function (e) {
       if (e.target.classList.contains('ac-modal')) {
         self.close();
       }
     });
-  }
+  };
 
-  isOpen() {
+  Modal.prototype.isOpen = function () {
     return this.el.classList.contains('-active');
-  }
+  };
 
-  close() {
+  Modal.prototype.close = function () {
     this.onClose();
     this.el.classList.remove('-active');
-  }
+  };
 
-  open() {
-    //short delay in order to allow bubbling events to bind before opening
-    setTimeout(() => {
-      this.onOpen();
-      this.el.removeAttribute('style');
-      this.el.classList.add('-active');
+  Modal.prototype.open = function () {
+    var _this = this; //short delay in order to allow bubbling events to bind before opening
+
+
+    setTimeout(function () {
+      _this.onOpen();
+
+      _this.el.removeAttribute('style');
+
+      _this.el.classList.add('-active');
     });
-  }
+  };
 
-  destroy() {
+  Modal.prototype.destroy = function () {
     this.el.remove();
-  }
+  };
 
-  onClose() {}
+  Modal.prototype.onClose = function () {};
 
-  onOpen() {}
+  Modal.prototype.onOpen = function () {};
 
-}
+  return Modal;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Modal);
 
 /***/ }),
 
@@ -477,11 +498,13 @@ class Modal {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modals; });
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.ts");
 
-class Modals {
-  constructor() {
+
+var Modals =
+/** @class */
+function () {
+  function Modals() {
     this.modals = {};
     this.number = 0;
     this.defaults = {
@@ -490,7 +513,11 @@ class Modals {
     this.initGlobalEvents();
   }
 
-  register(modal, key = '') {
+  Modals.prototype.register = function (modal, key) {
+    if (key === void 0) {
+      key = '';
+    }
+
     if (!key) {
       key = 'm' + this.number;
     }
@@ -498,42 +525,48 @@ class Modals {
     this.modals[key] = modal;
     this.number++;
     return modal;
-  }
+  };
 
-  get(key) {
+  Modals.prototype.get = function (key) {
     return this.modals.hasOwnProperty(key) ? this.modals[key] : null;
-  }
+  };
 
-  open(key) {
+  Modals.prototype.open = function (key) {
     if (this.get(key)) {
       this.get(key).open();
     }
-  }
+  };
 
-  close(key) {
+  Modals.prototype.close = function (key) {
     if (this.get(key)) {
       this.get(key).close();
     }
-  }
+  };
 
-  closeAll() {
-    for (let key in this.modals) {
+  Modals.prototype.closeAll = function () {
+    for (var key in this.modals) {
       this.close(key);
     }
-  }
+  };
 
-  initGlobalEvents() {
-    document.addEventListener('click', e => {
-      let target = e.target;
+  Modals.prototype.initGlobalEvents = function () {
+    var _this = this;
+
+    document.addEventListener('click', function (e) {
+      var target = e.target;
 
       if (target.dataset.acModal) {
         e.preventDefault();
-        this.open(target.dataset.acModal);
+
+        _this.open(target.dataset.acModal);
       }
     });
-  }
+  };
 
-}
+  return Modals;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Modals);
 
 /***/ }),
 
@@ -549,16 +582,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
 
 
-class Tooltips {
-  constructor() {
+var Tooltips =
+/** @class */
+function () {
+  function Tooltips() {
     this.init();
   }
 
-  init() {
+  Tooltips.prototype.init = function () {
     Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["initAcTooltips"])();
-  }
+  };
 
-}
+  return Tooltips;
+}();
 
 /* harmony default export */ __webpack_exports__["default"] = (Tooltips);
 
@@ -575,42 +611,57 @@ class Tooltips {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcTooltips", function() { return initAcTooltips; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
-const initAcTooltips = () => {
-  document.querySelectorAll('[data-ac-tip]').forEach(element => {
+var initAcTooltips = function () {
+  document.querySelectorAll('[data-ac-tip]').forEach(function (element) {
     new Tooltip(element);
   });
 };
-class Tooltip {
-  constructor(el, content = '') {
+
+var Tooltip =
+/** @class */
+function () {
+  function Tooltip(el, content) {
+    if (content === void 0) {
+      content = '';
+    }
+
     this.element = el;
     this.content = content ? content : el.dataset.acTip;
     this.tip = createTooltip(this.content);
     this.initEvents();
   }
 
-  initEvents() {
+  Tooltip.prototype.initEvents = function () {
+    var _this = this;
+
     if (this.element.dataset.acTooltipInit === '1') {
       return;
     }
 
     this.element.dataset.acTooltipInit = '1';
     document.body.appendChild(this.tip);
-    this.element.addEventListener('mouseenter', () => {
-      const bodyOffset = document.body.getBoundingClientRect();
-      const viewportOffset = this.element.getBoundingClientRect();
-      this.tip.style.left = viewportOffset.left - bodyOffset.left + this.element.offsetWidth / 2 + 'px';
-      this.tip.style.top = viewportOffset.top - bodyOffset.top + this.element.offsetHeight + 'px';
-      this.tip.classList.add('hover');
-    });
-    this.element.addEventListener('mouseleave', () => {
-      this.tip.classList.remove('hover');
-    });
-  }
+    this.element.addEventListener('mouseenter', function () {
+      var bodyOffset = document.body.getBoundingClientRect();
 
-}
+      var viewportOffset = _this.element.getBoundingClientRect();
 
-const createTooltip = content => {
-  let tip = document.createElement('div');
+      _this.tip.style.left = viewportOffset.left - bodyOffset.left + _this.element.offsetWidth / 2 + 'px';
+      _this.tip.style.top = viewportOffset.top - bodyOffset.top + _this.element.offsetHeight + 'px';
+
+      _this.tip.classList.add('hover');
+    });
+    this.element.addEventListener('mouseleave', function () {
+      _this.tip.classList.remove('hover');
+    });
+  };
+
+  return Tooltip;
+}();
+
+
+
+var createTooltip = function (content) {
+  var tip = document.createElement('div');
   tip.classList.add('ac-tooltip');
   tip.innerHTML = content;
   return tip;
