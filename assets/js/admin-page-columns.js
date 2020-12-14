@@ -502,6 +502,8 @@ class Column {
       } else {
         this.showMessage(response.data.data.error);
       }
+    }).catch(() => {
+      this.showMessage(AC.i18n.errors.loading_column);
     }).finally(() => this.setLoading(false));
   }
 
@@ -512,8 +514,7 @@ class Column {
         this.reinitColumnFromElement(Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild);
         AdminColumns.events.emit(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.REFRESHED, this);
       } else {
-        // TODO error message
-        this.showMessage('An error has occurred');
+        this.showMessage(AC.i18n.errors.loading_column);
       }
     }).finally(() => this.setLoading(false));
   }
@@ -825,6 +826,10 @@ class Form {
 
   getElement() {
     return this.form;
+  }
+
+  getColumns() {
+    return this.columns;
   }
 
   placeColumn(column, after = null) {
@@ -2020,12 +2025,13 @@ const addEventListeners = (el, events, callback) => {
 /*!******************************!*\
   !*** ./js/helpers/string.ts ***!
   \******************************/
-/*! exports provided: uniqid */
+/*! exports provided: uniqid, stripHtml */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uniqid", function() { return uniqid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stripHtml", function() { return stripHtml; });
 const uniqid = (a = "", b = false) => {
   const c = Date.now() / 1000;
   let d = c.toString(16).split(".").join("");
@@ -2040,6 +2046,9 @@ const uniqid = (a = "", b = false) => {
   }
 
   return a + d + e;
+};
+const stripHtml = originalString => {
+  return originalString.replace(/(<([^>]+)>)/gi, "");
 };
 
 /***/ }),

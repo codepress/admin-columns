@@ -8,6 +8,7 @@ import {AxiosResponse} from "axios";
 import {createElementFromString} from "../../helpers/elements";
 import {fadeOut} from "../../helpers/animations";
 import {uniqid} from "../../helpers/string";
+import {LocalizedScriptColumnSettings} from "./interfaces";
 
 const STATES = {
     CLOSED: 'closed',
@@ -19,6 +20,7 @@ export const COLUMN_EVENTS = {
     CLONE: 'clone',
 }
 
+declare const AC: LocalizedScriptColumnSettings
 declare const AdminColumns: AdminColumnsInterface
 
 type ajaxResponse = {
@@ -162,6 +164,8 @@ export class Column {
                 this.showMessage(response.data.data.error);
             }
 
+        }).catch(() => {
+            this.showMessage(AC.i18n.errors.loading_column);
         }).finally(() => this.setLoading(false));
     }
 
@@ -173,8 +177,7 @@ export class Column {
                 this.reinitColumnFromElement(createElementFromString(response.data.data.trim()).firstChild as HTMLFormElement);
                 AdminColumns.events.emit(EventConstants.SETTINGS.COLUMN.REFRESHED, this);
             } else {
-                // TODO error message
-                this.showMessage('An error has occurred');
+                this.showMessage(AC.i18n.errors.loading_column);
             }
 
         }).finally(() => this.setLoading(false));

@@ -43,6 +43,10 @@ export class Form {
         return this.form;
     }
 
+    getColumns(): Array<Column> {
+        return this.columns;
+    }
+
     placeColumn(column: Column, after: HTMLElement = null): this {
         if (after) {
             insertAfter(column.getElement(), after);

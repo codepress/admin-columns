@@ -9,3 +9,7 @@ export const uniqid = (a = "", b = false): string => {
     }
     return a + d + e;
 }
+
+export const stripHtml = (originalString: string): string => {
+    return originalString.replace(/(<([^>]+)>)/gi, "");
+}
