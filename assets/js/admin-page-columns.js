@@ -121,34 +121,36 @@ __webpack_require__.r(__webpack_exports__);
 
 Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__["initAdminColumnsGlobalBootstrap"])();
 new _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__["default"]();
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
   initSaveHandlers(); // Init the form
 
-  let formElement = document.querySelector('#listscreen_settings');
+  var formElement = document.querySelector('#listscreen_settings');
 
   if (formElement) {
     AdminColumns.Form = new _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__["Form"](formElement, AdminColumns.events);
   } // Init the Pro promotion Modal
 
 
-  let proModal = document.querySelector('#ac-modal-pro');
+  var proModal = document.querySelector('#ac-modal-pro');
 
   if (proModal) {
     AdminColumns.Modals.register(new _modules_modal__WEBPACK_IMPORTED_MODULE_5__["default"](proModal), 'pro');
   }
 
-  let select = document.querySelector('#ac_list_screen');
+  var select = document.querySelector('#ac_list_screen');
 
   if (select) {
-    select.addEventListener('change', () => {
-      document.querySelectorAll('.view-link').forEach(link => link.style.display = 'none');
+    select.addEventListener('change', function () {
+      document.querySelectorAll('.view-link').forEach(function (link) {
+        return link.style.display = 'none';
+      });
       select.closest('form').submit();
       select.disabled = true;
       select.nextElementSibling.style.display = 'inline-block';
     });
   }
 
-  let feedback = document.querySelector('#direct-feedback');
+  var feedback = document.querySelector('#direct-feedback');
 
   if (feedback) {
     new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__["default"](feedback);
@@ -159,45 +161,67 @@ document.addEventListener('DOMContentLoaded', () => {
   } // Screen Options
 
 
-  document.querySelectorAll('[data-ac-screen-option="show_column_id"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-column-id', document.querySelector('.ac-boxes')));
-  document.querySelectorAll('[data-ac-screen-option="show_column_type"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-column-type', document.querySelector('.ac-boxes')));
-  document.querySelectorAll('[data-ac-screen-option="show_list_screen_id"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-list-screen-id', document.querySelector('.ac-admin')));
-  document.querySelectorAll('[data-ac-screen-option="show_list_screen_type"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-list-screen-type', document.querySelector('.ac-admin')));
+  document.querySelectorAll('[data-ac-screen-option="show_column_id"] input').forEach(function (el) {
+    return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-column-id', document.querySelector('.ac-boxes'));
+  });
+  document.querySelectorAll('[data-ac-screen-option="show_column_type"] input').forEach(function (el) {
+    return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-column-type', document.querySelector('.ac-boxes'));
+  });
+  document.querySelectorAll('[data-ac-screen-option="show_list_screen_id"] input').forEach(function (el) {
+    return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-list-screen-id', document.querySelector('.ac-admin'));
+  });
+  document.querySelectorAll('[data-ac-screen-option="show_list_screen_type"] input').forEach(function (el) {
+    return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-list-screen-type', document.querySelector('.ac-admin'));
+  });
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, form => {
-  document.querySelectorAll('.add_column').forEach(el => el.addEventListener('click', () => form.createNewColumn()));
-  document.querySelectorAll('a[data-clear-columns]').forEach(el => el.addEventListener('click', () => form.resetColumns())); // Make column settings sortable
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, function (form) {
+  document.querySelectorAll('.add_column').forEach(function (el) {
+    return el.addEventListener('click', function () {
+      return form.createNewColumn();
+    });
+  });
+  document.querySelectorAll('a[data-clear-columns]').forEach(function (el) {
+    return el.addEventListener('click', function () {
+      return form.resetColumns();
+    });
+  }); // Make column settings sortable
 
-  let $form = jquery__WEBPACK_IMPORTED_MODULE_3___default()(form.getElement());
+  var $form = jquery__WEBPACK_IMPORTED_MODULE_3___default()(form.getElement());
   $form.hasClass('ui-sortable') ? $form.sortable('refresh') : $form.sortable({
     items: '.ac-column',
     handle: '.column_sort'
   });
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVING, () => {
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVING, function () {
   document.querySelector('#cpac .ac-admin').classList.add('saving');
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, () => {
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, function () {
   document.querySelector('#cpac .ac-admin').classList.remove('saving');
   document.querySelector('#cpac .ac-admin').classList.add('stored');
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.INIT, () => {
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.INIT, function () {
   Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_8__["initAcTooltips"])();
   Object(_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__["initPointers"])();
 });
 
-const initSaveHandlers = () => {
-  const elements = document.querySelectorAll('.sidebox a.submit, .column-footer a.submit');
-  AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.READY, form => {
-    elements.forEach(el => {
-      el.addEventListener('click', e => {
+var initSaveHandlers = function () {
+  var elements = document.querySelectorAll('.sidebox a.submit, .column-footer a.submit');
+  AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.READY, function (form) {
+    elements.forEach(function (el) {
+      el.addEventListener('click', function (e) {
         e.preventDefault();
-        elements.forEach(el => el.setAttribute('disabled', 'disabled'));
+        elements.forEach(function (el) {
+          return el.setAttribute('disabled', 'disabled');
+        });
         form.submitForm();
       });
     });
   });
-  AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, () => elements.forEach(el => el.removeAttribute('disabled')));
+  AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, function () {
+    return elements.forEach(function (el) {
+      return el.removeAttribute('disabled');
+    });
+  });
 };
 
 /***/ }),
@@ -215,10 +239,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_switchColumnType", function() { return _switchColumnType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "switchColumnType", function() { return switchColumnType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "refreshColumn", function() { return refreshColumn; });
-const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
-const submitColumnSettings = data => {
-  let formData = mapDataToFormData({
+var submitColumnSettings = function (data) {
+  var formData = mapDataToFormData({
     action: 'ac-columns',
     id: 'save',
     _ajax_nonce: AC._ajax_nonce,
@@ -227,19 +251,23 @@ const submitColumnSettings = data => {
   return axios.post(ajaxurl, formData);
 };
 
-const mapDataToFormData = (data, formData = null) => {
+var mapDataToFormData = function (data, formData) {
+  if (formData === void 0) {
+    formData = null;
+  }
+
   if (!formData) {
     formData = new FormData();
   }
 
-  Object.keys(data).forEach(key => {
+  Object.keys(data).forEach(function (key) {
     formData.append(key, data[key]);
   });
   return formData;
 };
 
-const _switchColumnType = (type, data) => {
-  let formData = mapDataToFormData({
+var _switchColumnType = function (type, data) {
+  var formData = mapDataToFormData({
     _ajax_nonce: AC._ajax_nonce,
     action: 'ac-columns',
     id: 'select',
@@ -249,26 +277,38 @@ const _switchColumnType = (type, data) => {
   });
   return axios.post(ajaxurl, formData);
 };
-const switchColumnType = (type, list_screen = AC.list_screen) => {
-  let formData = mapDataToFormData({
+var switchColumnType = function (type, list_screen) {
+  if (list_screen === void 0) {
+    list_screen = AC.list_screen;
+  }
+
+  var formData = mapDataToFormData({
     _ajax_nonce: AC._ajax_nonce,
     action: 'ac-columns',
     id: 'select',
     type: type,
     list_screen: list_screen,
-    current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map(e => e.getName()))
+    current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map(function (e) {
+      return e.getName();
+    }))
   });
   return axios.post(ajaxurl, formData);
 };
-const refreshColumn = (name, data, list_screen = AC.list_screen) => {
-  let formData = mapDataToFormData({
+var refreshColumn = function (name, data, list_screen) {
+  if (list_screen === void 0) {
+    list_screen = AC.list_screen;
+  }
+
+  var formData = mapDataToFormData({
     _ajax_nonce: AC._ajax_nonce,
     action: 'ac-columns',
     id: 'refresh',
     column_name: name,
     data: data,
     list_screen: list_screen,
-    current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map(e => e.getName()))
+    current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map(function (e) {
+      return e.getName();
+    }))
   });
   return axios.post(ajaxurl, formData);
 };
@@ -284,7 +324,6 @@ const refreshColumn = (name, data, list_screen = AC.list_screen) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ColumnConfigurator; });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants */ "./js/constants.ts");
 /* harmony import */ var _events_toggle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./events/toggle */ "./js/admin/columns/events/toggle.ts");
 /* harmony import */ var _events_indicator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./events/indicator */ "./js/admin/columns/events/indicator.ts");
@@ -319,9 +358,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class ColumnConfigurator {
-  constructor() {
-    AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.COLUMN.INIT, column => {
+
+var ColumnConfigurator =
+/** @class */
+function () {
+  function ColumnConfigurator() {
+    AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.COLUMN.INIT, function (column) {
       Object(_events_toggle__WEBPACK_IMPORTED_MODULE_1__["initToggle"])(column);
       Object(_events_indicator__WEBPACK_IMPORTED_MODULE_2__["initIndicator"])(column);
       Object(_events_type_selector__WEBPACK_IMPORTED_MODULE_3__["initTypeSelector"])(column);
@@ -343,7 +385,10 @@ class ColumnConfigurator {
     });
   }
 
-}
+  return ColumnConfigurator;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (ColumnConfigurator);
 
 /***/ }),
 
@@ -375,16 +420,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const STATES = {
+var STATES = {
   CLOSED: 'closed',
   OPEN: 'open'
 };
-const COLUMN_EVENTS = {
+var COLUMN_EVENTS = {
   REMOVE: 'remove',
   CLONE: 'clone'
 };
-class Column {
-  constructor(element, name) {
+
+var Column =
+/** @class */
+function () {
+  function Column(element, name) {
     this.events = new nanobus__WEBPACK_IMPORTED_MODULE_2___default.a();
     this.name = name;
     this.element = element;
@@ -393,139 +441,171 @@ class Column {
     this.init();
   }
 
-  setPropertiesByElement(element) {
+  Column.prototype.setPropertiesByElement = function (element) {
     this.type = element.dataset.type;
     this.original = element.dataset.original === '1';
     this.disabled = element.classList.contains('disabled');
     return this;
-  }
+  };
 
-  getName() {
+  Column.prototype.getName = function () {
     return this.name;
-  }
+  };
 
-  getType() {
+  Column.prototype.getType = function () {
     return this.type;
-  }
+  };
 
-  isOriginal() {
+  Column.prototype.isOriginal = function () {
     return this.original;
-  }
+  };
 
-  getElement() {
+  Column.prototype.getElement = function () {
     return this.element;
-  }
+  };
 
-  isDisabled() {
+  Column.prototype.isDisabled = function () {
     return this.element.classList.contains('disabled');
-  }
+  };
 
-  disable() {
+  Column.prototype.disable = function () {
     this.element.classList.add('disabled');
     return this;
-  }
+  };
 
-  setLoading(enabled) {
+  Column.prototype.setLoading = function (enabled) {
     enabled ? this.getElement().classList.add('loading') : this.getElement().classList.remove('loading');
     return this;
-  }
+  };
 
-  enable() {
+  Column.prototype.enable = function () {
     this.element.classList.remove('disabled');
     return this;
-  }
+  };
 
-  init() {
+  Column.prototype.init = function () {
     AdminColumns.events.emit(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.INIT, this);
     return this;
-  }
+  };
 
-  destroy() {
+  Column.prototype.destroy = function () {
     this.element.remove();
-  }
+  };
 
-  remove(duration = 350) {
+  Column.prototype.remove = function (duration) {
+    var _this = this;
+
+    if (duration === void 0) {
+      duration = 350;
+    }
+
     this.events.emit(COLUMN_EVENTS.REMOVE, this);
-    Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_5__["fadeOut"])(this.getElement(), duration, () => {
-      this.destroy();
+    Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_5__["fadeOut"])(this.getElement(), duration, function () {
+      _this.destroy();
     });
-  }
+  };
 
-  getState() {
+  Column.prototype.getState = function () {
     return this.state;
-  }
+  };
 
-  toggle(duration = 150) {
+  Column.prototype.toggle = function (duration) {
+    if (duration === void 0) {
+      duration = 150;
+    }
+
     this.getState() === STATES.OPEN ? this.close(duration) : this.open(duration);
-  }
+  };
 
-  close(duration = 0) {
+  Column.prototype.close = function (duration) {
+    if (duration === void 0) {
+      duration = 0;
+    }
+
     this.getElement().classList.remove('opened');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.getElement()).find('.ac-column-body').slideUp(duration);
     this.state = STATES.CLOSED;
-  }
+  };
 
-  open(duration = 0) {
+  Column.prototype.open = function (duration) {
+    if (duration === void 0) {
+      duration = 0;
+    }
+
     this.getElement().classList.add('opened');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.getElement()).find('.ac-column-body').slideDown(duration);
     this.state = STATES.OPEN;
-  }
+  };
 
-  showMessage(message) {
-    let msgElement = this.getElement().querySelector('.ac-column-setting--type .msg');
+  Column.prototype.showMessage = function (message) {
+    var msgElement = this.getElement().querySelector('.ac-column-setting--type .msg');
 
     if (msgElement) {
       msgElement.innerHTML = message;
       msgElement.style.display = 'block';
     }
-  }
+  };
 
-  getJson() {
-    let formData = new FormData(this.getElement());
+  Column.prototype.getJson = function () {
+    var formData = new FormData(this.getElement());
     formData.set('name', this.getName());
     var obj = {};
 
-    for (var key of formData.keys()) {
+    for (var _i = 0, _a = formData.entries(); _i < _a.length; _i++) {
+      var key = _a[_i];
       obj[key] = formData.get(key);
     }
 
     return obj;
-  }
+  };
 
-  switchToType(type) {
+  Column.prototype.switchToType = function (type) {
+    var _this = this;
+
     this.setLoading(true);
-    Object(_ajax__WEBPACK_IMPORTED_MODULE_3__["switchColumnType"])(type).then(response => {
+    Object(_ajax__WEBPACK_IMPORTED_MODULE_3__["switchColumnType"])(type).then(function (response) {
       if (response.data.success) {
-        let element = Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild;
-        this.name = Object(_helpers_string__WEBPACK_IMPORTED_MODULE_6__["uniqid"])();
-        this.reinitColumnFromElement(element);
-      } else {
-        this.showMessage(response.data.data.error);
-      }
-    }).catch(() => {
-      this.showMessage(AC.i18n.errors.loading_column);
-    }).finally(() => this.setLoading(false));
-  }
+        var element = Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild;
+        _this.name = Object(_helpers_string__WEBPACK_IMPORTED_MODULE_6__["uniqid"])();
 
-  refresh() {
+        _this.reinitColumnFromElement(element);
+      } else {
+        _this.showMessage(response.data.data.error);
+      }
+    }).catch(function () {
+      _this.showMessage(AC.i18n.errors.loading_column);
+    }).finally(function () {
+      return _this.setLoading(false);
+    });
+  };
+
+  Column.prototype.refresh = function () {
+    var _this = this;
+
     this.setLoading(true);
-    Object(_ajax__WEBPACK_IMPORTED_MODULE_3__["refreshColumn"])(this.getName(), JSON.stringify(this.getJson())).then(response => {
+    Object(_ajax__WEBPACK_IMPORTED_MODULE_3__["refreshColumn"])(this.getName(), JSON.stringify(this.getJson())).then(function (response) {
       if (response.data.success) {
-        this.reinitColumnFromElement(Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild);
-        AdminColumns.events.emit(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.REFRESHED, this);
-      } else {
-        this.showMessage(AC.i18n.errors.loading_column);
-      }
-    }).finally(() => this.setLoading(false));
-  }
+        _this.reinitColumnFromElement(Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild);
 
-  reinitColumnFromElement(element) {
+        AdminColumns.events.emit(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.REFRESHED, _this);
+      } else {
+        _this.showMessage(AC.i18n.errors.loading_column);
+      }
+    }).finally(function () {
+      return _this.setLoading(false);
+    });
+  };
+
+  Column.prototype.reinitColumnFromElement = function (element) {
     this.getElement().parentNode.replaceChild(element, this.getElement());
     this.element = element;
     this.setPropertiesByElement(element).init().open();
-  }
+  };
 
-}
+  return Column;
+}();
+
+
 
 /***/ }),
 
@@ -546,9 +626,9 @@ __webpack_require__.r(__webpack_exports__);
 * @since 2.0
 */
 
-const initClone = column => {
-  column.getElement().querySelectorAll('.clone-button').forEach(element => {
-    element.addEventListener('click', e => {
+var initClone = function (column) {
+  column.getElement().querySelectorAll('.clone-button').forEach(function (element) {
+    element.addEventListener('click', function (e) {
       e.preventDefault();
 
       if (!column.isOriginal()) {
@@ -570,24 +650,24 @@ const initClone = column => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initIndicator", function() { return initIndicator; });
-const initIndicator = column => {
+var initIndicator = function (column) {
   if (column.isDisabled()) return;
-  column.getElement().querySelectorAll('.ac-column-header [data-indicator-toggle]').forEach(toggleElement => {
-    let relatedSettings = column.getElement().querySelectorAll(`.ac-column-setting[data-setting='${toggleElement.dataset.setting}'] .col-input .ac-setting-input:first-child input[type=radio]`);
-    toggleElement.addEventListener('click', () => {
+  column.getElement().querySelectorAll('.ac-column-header [data-indicator-toggle]').forEach(function (toggleElement) {
+    var relatedSettings = column.getElement().querySelectorAll(".ac-column-setting[data-setting='" + toggleElement.dataset.setting + "'] .col-input .ac-setting-input:first-child input[type=radio]");
+    toggleElement.addEventListener('click', function () {
       switchTo(!toggleElement.classList.contains('on'), relatedSettings);
     });
-    relatedSettings.forEach(element => {
-      element.addEventListener('change', () => {
+    relatedSettings.forEach(function (element) {
+      element.addEventListener('change', function () {
         element.value === 'off' ? toggleElement.classList.remove('on') : toggleElement.classList.add('on');
       });
     });
   });
 };
 
-const switchTo = (checked, elements) => {
-  let checkvalue = checked ? 'on' : 'off';
-  elements.forEach(el => {
+var switchTo = function (checked, elements) {
+  var checkvalue = checked ? 'on' : 'off';
+  elements.forEach(function (el) {
     if (el.value === checkvalue) {
       el.checked = true;
       el.dispatchEvent(new Event('change'));
@@ -612,11 +692,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabelTooltipsEvent", function() { return initLabelTooltipsEvent; });
 /* harmony import */ var _helpers_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../helpers/events */ "./js/helpers/events.ts");
 
-const initLabel = column => {
-  column.getElement().querySelectorAll('select[data-label="update"]').forEach(select => {
-    select.addEventListener('change', () => {
-      let labelSetting = column.getElement().querySelector('input.ac-setting-input_label');
-      let option = select.querySelector('option:selected');
+var initLabel = function (column) {
+  column.getElement().querySelectorAll('select[data-label="update"]').forEach(function (select) {
+    select.addEventListener('change', function () {
+      var labelSetting = column.getElement().querySelector('input.ac-setting-input_label');
+      var option = select.querySelector('option:selected');
 
       if (labelSetting && option) {
         labelSetting.value = option.innerHTML;
@@ -624,36 +704,42 @@ const initLabel = column => {
       }
     });
   });
-  setTimeout(() => {
-    let label = column.getElement().querySelector('.column_label .toggle');
+  setTimeout(function () {
+    var label = column.getElement().querySelector('.column_label .toggle');
 
     if (label && label.offsetWidth < 10) {
       label.innerText = column.getType();
     }
   }, 50);
 };
-const initLabelSettingEvents = column => {
-  let labelInput = column.getElement().querySelector('.ac-column-setting--label input');
+var initLabelSettingEvents = function (column) {
+  var labelInput = column.getElement().querySelector('.ac-column-setting--label input');
 
   if (labelInput) {
-    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListeners"])(labelInput, ['change', 'keyup'], () => changeLabel(labelInput, column));
+    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListeners"])(labelInput, ['change', 'keyup'], function () {
+      return changeLabel(labelInput, column);
+    });
   }
 };
-const initLabelTooltipsEvent = column => {
-  column.getElement().querySelectorAll('.col-label .label').forEach(label => {
-    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["onHover"])(label, () => hoverTooltip(label, 'block'), () => hoverTooltip(label, 'none'));
+var initLabelTooltipsEvent = function (column) {
+  column.getElement().querySelectorAll('.col-label .label').forEach(function (label) {
+    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["onHover"])(label, function () {
+      return hoverTooltip(label, 'block');
+    }, function () {
+      return hoverTooltip(label, 'none');
+    });
   });
 };
 
-const hoverTooltip = (label, display) => {
-  let related = label.closest('.col-label').querySelector('div.tooltip');
+var hoverTooltip = function (label, display) {
+  var related = label.closest('.col-label').querySelector('div.tooltip');
 
   if (related) {
     related.style.display = display;
   }
 };
 
-const changeLabel = (labelInput, column) => {
+var changeLabel = function (labelInput, column) {
   column.getElement().querySelector('td.column_label .inner > a.toggle').innerHTML = labelInput.value;
 };
 
@@ -669,9 +755,9 @@ const changeLabel = (labelInput, column) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initColumnRefresh", function() { return initColumnRefresh; });
-const initColumnRefresh = column => {
-  column.getElement().querySelectorAll('[data-refresh="column"]').forEach(element => {
-    element.addEventListener('change', () => {
+var initColumnRefresh = function (column) {
+  column.getElement().querySelectorAll('[data-refresh="column"]').forEach(function (element) {
+    element.addEventListener('change', function () {
       column.refresh();
     });
   });
@@ -689,9 +775,9 @@ const initColumnRefresh = column => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initRemoveColumn", function() { return initRemoveColumn; });
-const initRemoveColumn = column => {
-  column.getElement().querySelectorAll('[data-remove-column]').forEach(element => {
-    element.addEventListener('click', e => {
+var initRemoveColumn = function (column) {
+  column.getElement().querySelectorAll('[data-remove-column]').forEach(function (element) {
+    element.addEventListener('click', function (e) {
       e.preventDefault();
       column.remove();
     });
@@ -710,9 +796,11 @@ const initRemoveColumn = column => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initToggle", function() { return initToggle; });
-const initToggle = column => {
-  column.getElement().querySelectorAll('[data-toggle="column"]').forEach(el => {
-    el.addEventListener('click', e => column.toggle());
+var initToggle = function (column) {
+  column.getElement().querySelectorAll('[data-toggle="column"]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      return column.toggle();
+    });
     el.style.cursor = 'pointer';
   });
 };
@@ -733,9 +821,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 // @ts-ignore
 
-const initTypeSelector = column => {
-  column.getElement().querySelectorAll('select.ac-setting-input_type').forEach(select => {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(select).on('change', () => column.switchToType(select.value));
+var initTypeSelector = function (column) {
+  column.getElement().querySelectorAll('select.ac-setting-input_type').forEach(function (select) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(select).on('change', function () {
+      return column.switchToType(select.value);
+    });
   });
 };
 
@@ -753,28 +843,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../helpers/animations */ "./js/helpers/animations.ts");
 
 
-class Feedback {
-  constructor(element) {
+var Feedback =
+/** @class */
+function () {
+  function Feedback(element) {
     this.element = element;
     this.init();
   }
 
-  init() {
-    this.element.querySelector('a.no').addEventListener('click', e => {
-      e.preventDefault();
-      Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeOut"])(this.element.querySelector('#feedback-choice'), 300, () => {
-        Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeIn"])(this.element.querySelector('#feedback-support'), 300);
-      });
-    });
-    this.element.querySelector('a.yes').addEventListener('click', e => {
-      e.preventDefault();
-      Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeOut"])(this.element.querySelector('#feedback-choice'), 300, () => {
-        Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeIn"])(this.element.querySelector('#feedback-rate'), 300);
-      });
-    });
-  }
+  Feedback.prototype.init = function () {
+    var _this = this;
 
-}
+    this.element.querySelector('a.no').addEventListener('click', function (e) {
+      e.preventDefault();
+      Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeOut"])(_this.element.querySelector('#feedback-choice'), 300, function () {
+        Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeIn"])(_this.element.querySelector('#feedback-support'), 300);
+      });
+    });
+    this.element.querySelector('a.yes').addEventListener('click', function (e) {
+      e.preventDefault();
+      Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeOut"])(_this.element.querySelector('#feedback-choice'), 300, function () {
+        Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeIn"])(_this.element.querySelector('#feedback-rate'), 300);
+      });
+    });
+  };
+
+  ;
+  return Feedback;
+}();
 
 /* harmony default export */ __webpack_exports__["default"] = (Feedback);
 
@@ -802,8 +898,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class Form {
-  constructor(element, events) {
+
+var Form =
+/** @class */
+function () {
+  function Form(element, events) {
     this.form = element;
     this.events = events;
     this.columns = [];
@@ -813,7 +912,7 @@ class Form {
     this.init();
   }
 
-  init() {
+  Form.prototype.init = function () {
     this.initColumns();
 
     if (this.isDisabled()) {
@@ -822,17 +921,21 @@ class Form {
     }
 
     this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.READY, this);
-  }
+  };
 
-  getElement() {
+  Form.prototype.getElement = function () {
     return this.form;
-  }
+  };
 
-  getColumns() {
+  Form.prototype.getColumns = function () {
     return this.columns;
-  }
+  };
 
-  placeColumn(column, after = null) {
+  Form.prototype.placeColumn = function (column, after) {
+    if (after === void 0) {
+      after = null;
+    }
+
     if (after) {
       Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["insertAfter"])(column.getElement(), after);
     } else {
@@ -843,69 +946,83 @@ class Form {
       offset: -58
     });
     return this;
-  }
+  };
 
-  createNewColumn() {
-    let column = createColumnFromTemplate();
+  Form.prototype.createNewColumn = function () {
+    var column = createColumnFromTemplate();
     this.columns.push(column);
     this.placeColumn(column);
     this.bindColumnEvents(column);
     column.open();
     return column;
-  }
+  };
 
-  isDisabled() {
+  Form.prototype.isDisabled = function () {
     return this.form.classList.contains('-disabled');
-  }
+  };
 
-  getOriginalColumns() {
-    return this.columns.filter(column => column.isOriginal());
-  }
-
-  disableColumns() {
-    this.columns.forEach(col => col.disable());
-  }
-
-  initColumns() {
-    this.getElement().querySelectorAll('.ac-column').forEach(element => {
-      let column = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](element, element.dataset.columnName);
-      this.columns.push(column);
-      this.bindColumnEvents(column);
+  Form.prototype.getOriginalColumns = function () {
+    return this.columns.filter(function (column) {
+      return column.isOriginal();
     });
-  }
+  };
 
-  bindColumnEvents(column) {
-    column.events.addListener(_column__WEBPACK_IMPORTED_MODULE_1__["COLUMN_EVENTS"].REMOVE, () => {
-      this.removeColumn(column.getName());
+  Form.prototype.disableColumns = function () {
+    this.columns.forEach(function (col) {
+      return col.disable();
     });
-    column.events.addListener(_column__WEBPACK_IMPORTED_MODULE_1__["COLUMN_EVENTS"].CLONE, () => {
-      let cloneColumn = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](column.getElement().cloneNode(true), Object(_helpers_string__WEBPACK_IMPORTED_MODULE_5__["uniqid"])());
-      this.columns.push(cloneColumn);
-      this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
+  };
+
+  Form.prototype.initColumns = function () {
+    var _this = this;
+
+    this.getElement().querySelectorAll('.ac-column').forEach(function (element) {
+      var column = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](element, element.dataset.columnName);
+
+      _this.columns.push(column);
+
+      _this.bindColumnEvents(column);
+    });
+  };
+
+  Form.prototype.bindColumnEvents = function (column) {
+    var _this = this;
+
+    column.events.addListener(_column__WEBPACK_IMPORTED_MODULE_1__["COLUMN_EVENTS"].REMOVE, function () {
+      _this.removeColumn(column.getName());
+    });
+    column.events.addListener(_column__WEBPACK_IMPORTED_MODULE_1__["COLUMN_EVENTS"].CLONE, function () {
+      var cloneColumn = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](column.getElement().cloneNode(true), Object(_helpers_string__WEBPACK_IMPORTED_MODULE_5__["uniqid"])());
+
+      _this.columns.push(cloneColumn);
+
+      _this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
+
       Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["fadeIn"])(cloneColumn.getElement(), 300);
     });
-  }
+  };
 
-  resetColumns() {
-    this.columns.forEach(column => {
+  Form.prototype.resetColumns = function () {
+    this.columns.forEach(function (column) {
       column.destroy();
     });
     this.columns = [];
-  }
+  };
 
-  getPreferences() {
-    let data = {};
-    document.querySelectorAll('form[data-form-part=preferences]').forEach(el => {
-      for (let t of new FormData(el).entries()) {
+  Form.prototype.getPreferences = function () {
+    var data = {};
+    document.querySelectorAll('form[data-form-part=preferences]').forEach(function (el) {
+      for (var _i = 0, _a = new FormData(el).entries(); _i < _a.length; _i++) {
+        var t = _a[_i];
         data[t[0]] = t[1];
       }
     });
     return data;
-  }
+  };
 
-  getFormData() {
-    let columnData = {};
-    this.columns.forEach(column => {
+  Form.prototype.getFormData = function () {
+    var columnData = {};
+    this.columns.forEach(function (column) {
       columnData[column.getName()] = column.getJson();
     });
     return {
@@ -915,54 +1032,72 @@ class Form {
       columns: columnData,
       settings: this.getPreferences()
     };
-  }
+  };
 
-  disableFields() {
-    this.getElement().querySelectorAll('input, select, button').forEach(el => {
+  Form.prototype.disableFields = function () {
+    this.getElement().querySelectorAll('input, select, button').forEach(function (el) {
       el.setAttribute('readonly', 'readonly');
       el.setAttribute('disabled', 'disabled');
     });
-  }
+  };
 
-  submitForm() {
+  Form.prototype.submitForm = function () {
+    var _this = this;
+
     this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVING, this);
-    Object(_ajax__WEBPACK_IMPORTED_MODULE_2__["submitColumnSettings"])(this.getFormData()).then(response => {
+    Object(_ajax__WEBPACK_IMPORTED_MODULE_2__["submitColumnSettings"])(this.getFormData()).then(function (response) {
       if (response.data.success) {
-        this.showMessage(response.data.data, 'updated');
+        _this.showMessage(response.data.data, 'updated');
       } else if (response.data) {
-        let error = response.data;
-        this.showMessage(error.data.message, 'notice notice-warning');
-      }
-    }).catch(() => {
-      this.showMessage(AC.i18n.error.save_settings);
-    }).finally(() => {
-      this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVED, this);
-    });
-  }
+        var error = response.data;
 
-  showMessage(message, className = 'updated') {
-    let messageContainer = document.querySelector('.ac-admin__main');
-    messageContainer.querySelectorAll('.ac-message').forEach(el => el.remove());
-    let element = document.createElement('div');
+        _this.showMessage(error.data.message, 'notice notice-warning');
+      }
+    }).catch(function () {
+      _this.showMessage(AC.i18n.error.save_settings);
+    }).finally(function () {
+      _this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVED, _this);
+    });
+  };
+
+  Form.prototype.showMessage = function (message, className) {
+    var _a;
+
+    if (className === void 0) {
+      className = 'updated';
+    }
+
+    var messageContainer = document.querySelector('.ac-admin__main');
+    messageContainer.querySelectorAll('.ac-message').forEach(function (el) {
+      return el.remove();
+    });
+    var element = document.createElement('div');
     element.classList.add('ac-message');
-    element.classList.add(...className.split(' '));
-    element.innerHTML = `<p>${message}</p>`;
+
+    (_a = element.classList).add.apply(_a, className.split(' '));
+
+    element.innerHTML = "<p>" + message + "</p>";
     messageContainer.insertAdjacentElement('afterbegin', element);
     Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["fadeIn"])(element, 600);
-  }
+  };
 
-  removeColumn(name) {
-    this.columns.forEach((c, i) => {
+  Form.prototype.removeColumn = function (name) {
+    var _this = this;
+
+    this.columns.forEach(function (c, i) {
       if (name === c.getName()) {
-        this.columns.splice(i, 1);
+        _this.columns.splice(i, 1);
       }
     });
-  }
+  };
 
-}
+  return Form;
+}();
 
-const createColumnFromTemplate = () => {
-  let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true);
+
+
+var createColumnFromTemplate = function () {
+  var columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true);
   return new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](columnElement, Object(_helpers_string__WEBPACK_IMPORTED_MODULE_5__["uniqid"])());
 };
 
@@ -982,10 +1117,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
 
 
-const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
-class ListScreenInitializer {
-  constructor(list_screens) {
+var ListScreenInitializer =
+/** @class */
+function () {
+  function ListScreenInitializer(list_screens) {
     this.listScreens = list_screens;
     this.processed = [];
     this.errors = [];
@@ -994,15 +1131,19 @@ class ListScreenInitializer {
     this.run();
   }
 
-  doAjaxCall(listScreen) {
+  ListScreenInitializer.prototype.doAjaxCall = function (listScreen) {
     return axios.get(listScreen.screen_link);
-  }
+  };
 
-  run() {
-    Object.values(this.listScreens).forEach(l => this.processListScreen(l));
-  }
+  ListScreenInitializer.prototype.run = function () {
+    var _this = this;
 
-  onFinish() {
+    Object.values(this.listScreens).forEach(function (l) {
+      return _this.processListScreen(l);
+    });
+  };
+
+  ListScreenInitializer.prototype.onFinish = function () {
     if (this.success.length === Object.keys(this.listScreens).length) {
       this.events.emit('success');
     }
@@ -1010,40 +1151,48 @@ class ListScreenInitializer {
     if (this.errors.length > 0) {
       this.events.emit('error');
     }
-  }
+  };
 
-  checkFinish() {
+  ListScreenInitializer.prototype.checkFinish = function () {
     if (this.processed.length === Object.keys(this.listScreens).length) {
       this.onFinish();
     }
-  }
+  };
 
-  processListScreen(listScreen) {
-    this.doAjaxCall(listScreen).then(response => {
-      response.data === 'ac_success' ? this.success.push(listScreen) : this.errors.push(listScreen);
-    }).catch(() => {
-      this.errors.push(listScreen);
-    }).finally(() => {
-      this.processed.push(listScreen);
-      this.checkFinish();
+  ListScreenInitializer.prototype.processListScreen = function (listScreen) {
+    var _this = this;
+
+    this.doAjaxCall(listScreen).then(function (response) {
+      response.data === 'ac_success' ? _this.success.push(listScreen) : _this.errors.push(listScreen);
+    }).catch(function () {
+      _this.errors.push(listScreen);
+    }).finally(function () {
+      _this.processed.push(listScreen);
+
+      _this.checkFinish();
     });
-  }
+  };
 
-}
+  return ListScreenInitializer;
+}();
 
-const initUninitializedListScreens = listScreens => {
+var initUninitializedListScreens = function (listScreens) {
+  var _a;
+
   if (Object.keys(listScreens).length > 0) {
     // Only load main screen first if unitialized, otherwise do the rest in background
     if (listScreens.hasOwnProperty(AC.list_screen)) {
-      const main_initializer = new ListScreenInitializer({
-        [AC.list_screen]: listScreens[AC.list_screen]
+      var main_initializer = new ListScreenInitializer((_a = {}, _a[AC.list_screen] = listScreens[AC.list_screen], _a));
+      main_initializer.events.on('error', function () {
+        document.querySelectorAll('.ac-loading-msg-wrapper').forEach(function (el) {
+          return el.remove();
+        });
+        document.querySelectorAll('.menu').forEach(function (el) {
+          return el.classList.remove('hidden');
+        });
       });
-      main_initializer.events.on('error', () => {
-        document.querySelectorAll('.ac-loading-msg-wrapper').forEach(el => el.remove());
-        document.querySelectorAll('.menu').forEach(el => el.classList.remove('hidden'));
-      });
-      main_initializer.events.on('success', () => {
-        window.location.href = `${location.href}&t=${Date.now()}`;
+      main_initializer.events.on('success', function () {
+        window.location.href = location.href + "&t=" + Date.now();
       });
     } else {
       new ListScreenInitializer(listScreens);
@@ -1062,22 +1211,28 @@ const initUninitializedListScreens = listScreens => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return InfoScreenOption; });
-class InfoScreenOption {
-  constructor(input, toggleClass, container) {
+var InfoScreenOption =
+/** @class */
+function () {
+  function InfoScreenOption(input, toggleClass, container) {
     this.input = input;
     this.toggleClass = toggleClass;
     this.container = container;
     this.initEvents();
   }
 
-  initEvents() {
-    this.input.addEventListener('change', () => {
-      this.input.checked ? this.container.classList.add(this.toggleClass) : this.container.classList.remove(this.toggleClass);
-    });
-  }
+  InfoScreenOption.prototype.initEvents = function () {
+    var _this = this;
 
-}
+    this.input.addEventListener('change', function () {
+      _this.input.checked ? _this.container.classList.add(_this.toggleClass) : _this.container.classList.remove(_this.toggleClass);
+    });
+  };
+
+  return InfoScreenOption;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (InfoScreenOption);
 
 /***/ }),
 
@@ -1099,33 +1254,39 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
-const initCustomFieldSelector = column => {
-  column.getElement().querySelectorAll('[data-setting=custom_field]').forEach(setting => new CustomField(column, setting));
+var initCustomFieldSelector = function (column) {
+  column.getElement().querySelectorAll('[data-setting=custom_field]').forEach(function (setting) {
+    return new CustomField(column, setting);
+  });
 };
 
-class CustomField {
-  constructor(column, setting) {
+var CustomField =
+/** @class */
+function () {
+  function CustomField(column, setting) {
     this.column = column;
     this.setting = setting;
     this.select = setting.querySelector('.custom_field');
     this.bindEvents();
   }
 
-  bindEvents() {
-    const request = loadSingleRequestManager(this.select.dataset.type, this.select.dataset.post_type);
-    const editingAvailable = this.column.getElement().querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0; // Ensure you won't get any duplicates on clone
+  CustomField.prototype.bindEvents = function () {
+    var _this = this;
 
-    this.select.querySelectorAll('optgroup').forEach(el => {
+    var request = loadSingleRequestManager(this.select.dataset.type, this.select.dataset.post_type);
+    var editingAvailable = this.column.getElement().querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0; // Ensure you won't get any duplicates on clone
+
+    this.select.querySelectorAll('optgroup').forEach(function (el) {
       el.remove();
     });
     this.select.removeAttribute('data-select2-id');
-    this.setting.querySelectorAll('.select2').forEach(el => {
+    this.setting.querySelectorAll('.select2').forEach(function (el) {
       el.remove();
     });
-    request.getOptions().then(data => {
-      jquery__WEBPACK_IMPORTED_MODULE_1___default()(this.select).ac_select2({
+    request.getOptions().then(function (data) {
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(_this.select).ac_select2({
         theme: 'acs2',
         width: '100%',
         tags: editingAvailable,
@@ -1133,12 +1294,15 @@ class CustomField {
         data: data
       });
     });
-  }
+  };
 
-}
+  return CustomField;
+}();
 
-class SingleCustomFieldRequestManager {
-  constructor(metaType, postType) {
+var SingleCustomFieldRequestManager =
+/** @class */
+function () {
+  function SingleCustomFieldRequestManager(metaType, postType) {
     this.metaType = metaType;
     this.postType = postType;
     this.loading = false;
@@ -1146,42 +1310,47 @@ class SingleCustomFieldRequestManager {
     this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
   }
 
-  retrieveOptions() {
+  SingleCustomFieldRequestManager.prototype.retrieveOptions = function () {
     this.loading = true;
-    let formData = new FormData();
+    var formData = new FormData();
     formData.set('action', 'ac_custom_field_options');
     formData.set('post_type', this.postType);
     formData.set('meta_type', this.metaType);
     formData.set('_ajax_nonce', AC._ajax_nonce);
     return axios.post(ajaxurl, formData);
-  }
+  };
 
-  getOptions() {
-    return new Promise((resolve, reject) => {
-      if (this.data) {
-        resolve(this.data);
-      } else if (this.loading) {
-        this.events.on('loaded', () => {
-          resolve(this.data);
+  SingleCustomFieldRequestManager.prototype.getOptions = function () {
+    var _this = this;
+
+    return new Promise(function (resolve, reject) {
+      if (_this.data) {
+        resolve(_this.data);
+      } else if (_this.loading) {
+        _this.events.on('loaded', function () {
+          resolve(_this.data);
         });
       } else {
-        this.retrieveOptions().then(response => {
+        _this.retrieveOptions().then(function (response) {
           if (!response.data.success) {
             reject();
           }
 
-          this.data = response.data.data.results;
-          this.events.emit('loaded');
-          resolve(this.data);
+          _this.data = response.data.data.results;
+
+          _this.events.emit('loaded');
+
+          resolve(_this.data);
         });
       }
     });
-  }
+  };
 
-}
+  return SingleCustomFieldRequestManager;
+}();
 
-const loadSingleRequestManager = (metaType, postType) => {
-  const key = `custom_field_${metaType}_${postType}`;
+var loadSingleRequestManager = function (metaType, postType) {
+  var key = "custom_field_" + metaType + "_" + postType;
 
   if (typeof window.AC_Requests === 'undefined') {
     window.AC_Requests = {};
@@ -1206,51 +1375,78 @@ const loadSingleRequestManager = (metaType, postType) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initDateSetting", function() { return initDateSetting; });
-const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var __spreadArrays = undefined && undefined.__spreadArrays || function () {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
 
-const initDateSetting = column => {
-  column.getElement().querySelectorAll('[data-setting=date]').forEach(setting => new DateSetting(column, setting));
+  for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j];
+
+  return r;
+};
+
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var initDateSetting = function (column) {
+  column.getElement().querySelectorAll('[data-setting=date]').forEach(function (setting) {
+    return new DateSetting(column, setting);
+  });
 }; // TODO Test
 
-class DateSetting {
-  constructor(column, setting) {
+var DateSetting =
+/** @class */
+function () {
+  function DateSetting(column, setting) {
     this.column = column;
     this.setting = setting;
     this.options = this.setting.querySelectorAll('.radio-labels input[type=radio]');
     this.defaultFormat = this.setting.querySelector('.radio-labels code').textContent;
     this.valueInput = this.setting.querySelector('[data-value-input]');
-    let customInput = [...this.options].filter(radio => radio.value === 'custom');
+
+    var customInput = __spreadArrays(this.options).filter(function (radio) {
+      return radio.value === 'custom';
+    });
+
     this.customOption = new CustomOption(customInput[0], this.setting.querySelector('[data-custom-date]'), this.setting.querySelector('.ac-setting-input-date__example'), this.valueInput);
     this.initEvents();
   }
 
-  getSelectionOption() {
-    let selected = [...this.options].filter(option => option.checked);
-    return selected ? selected[0] : null;
-  }
-
-  initEvents() {
-    this.options.forEach(radio => {
-      radio.addEventListener('change', () => this.handleUpdate(radio));
-      radio.addEventListener('change', () => this.setCustomValue(radio.value));
+  DateSetting.prototype.getSelectionOption = function () {
+    var selected = __spreadArrays(this.options).filter(function (option) {
+      return option.checked;
     });
-    let selected = this.getSelectionOption();
+
+    return selected ? selected[0] : null;
+  };
+
+  DateSetting.prototype.initEvents = function () {
+    var _this = this;
+
+    this.options.forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        return _this.handleUpdate(radio);
+      });
+      radio.addEventListener('change', function () {
+        return _this.setCustomValue(radio.value);
+      });
+    });
+    var selected = this.getSelectionOption();
 
     if (!selected) {
-      selected = [...this.options].filter(option => option.value === 'wp_default')[0];
+      selected = __spreadArrays(this.options).filter(function (option) {
+        return option.value === 'wp_default';
+      })[0];
       selected.checked = true;
     }
 
     selected.dispatchEvent(new Event('change'));
-  }
+  };
 
-  handleUpdate(input) {
+  DateSetting.prototype.handleUpdate = function (input) {
     this.valueInput.value = input.value;
     this.customOption.toggle(input.value === 'custom');
     this.setHelpText(this.getHelpTextFromType(input.value));
-  }
+  };
 
-  setCustomValue(type) {
+  DateSetting.prototype.setCustomValue = function (type) {
     switch (type) {
       case 'diff':
         this.customOption.setCustomValue('');
@@ -1262,67 +1458,83 @@ class DateSetting {
       default:
         this.customOption.setCustomValue(this.defaultFormat);
     }
-  }
+  };
 
-  setHelpText(text) {
-    let element = this.setting.querySelector('.help-msg');
+  DateSetting.prototype.setHelpText = function (text) {
+    var element = this.setting.querySelector('.help-msg');
     element.innerHTML = text;
     element.style.display = 'block';
-  }
+  };
 
-  getHelpTextFromType(type) {
-    let input = [...this.options].filter(radio => radio.value === type);
+  DateSetting.prototype.getHelpTextFromType = function (type) {
+    var input = __spreadArrays(this.options).filter(function (radio) {
+      return radio.value === type;
+    });
 
     if (!input) {
       return '';
     }
 
-    let helpText = input[0].closest('label').querySelector('[data-help]');
+    var helpText = input[0].closest('label').querySelector('[data-help]');
     return helpText ? helpText.innerHTML : null;
-  }
+  };
 
-}
+  return DateSetting;
+}();
 
-class CustomOption {
-  constructor(radio, input, example, valueElement) {
+var CustomOption =
+/** @class */
+function () {
+  function CustomOption(radio, input, example, valueElement) {
+    var _this = this;
+
     this.radio = radio;
     this.input = input;
     this.example = example;
     this.valueElement = valueElement;
-    this.input.addEventListener('change', () => this.updateExample());
-    this.input.addEventListener('keyup', () => {
+    this.input.addEventListener('change', function () {
+      return _this.updateExample();
+    });
+    this.input.addEventListener('keyup', function () {
       if (radio.checked) {
-        this.valueElement.value = this.input.value;
+        _this.valueElement.value = _this.input.value;
       }
     });
   }
 
-  updateExample() {
-    this.getExample().then(response => {
-      this.example.innerHTML = response.data;
+  CustomOption.prototype.updateExample = function () {
+    var _this = this;
+
+    this.getExample().then(function (response) {
+      _this.example.innerHTML = response.data;
     });
-  }
+  };
 
-  toggle(enable = true) {
+  CustomOption.prototype.toggle = function (enable) {
+    if (enable === void 0) {
+      enable = true;
+    }
+
     enable ? this.input.removeAttribute('disabled') : this.input.setAttribute('disabled', 'disabled');
-  }
+  };
 
-  getCustomValue() {
+  CustomOption.prototype.getCustomValue = function () {
     return this.input.value;
-  }
+  };
 
-  setCustomValue(format) {
+  CustomOption.prototype.setCustomValue = function (format) {
     this.input.value = format;
-  }
+  };
 
-  getExample() {
-    let data = new FormData();
+  CustomOption.prototype.getExample = function () {
+    var data = new FormData();
     data.set('action', 'date_format');
     data.set('date', this.getCustomValue());
     return axios.post(ajaxurl, data, {});
-  }
+  };
 
-}
+  return CustomOption;
+}();
 
 /***/ }),
 
@@ -1337,15 +1549,18 @@ class CustomOption {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initImageSizeSetting", function() { return initImageSizeSetting; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImageSizeSetting", function() { return ImageSizeSetting; });
-const initImageSizeSetting = column => {
-  let setting = column.getElement().querySelector('.ac-column-setting--image');
+var initImageSizeSetting = function (column) {
+  var setting = column.getElement().querySelector('.ac-column-setting--image');
 
   if (setting) {
     new ImageSizeSetting(column, setting);
   }
 };
-class ImageSizeSetting {
-  constructor(column, setting) {
+
+var ImageSizeSetting =
+/** @class */
+function () {
+  function ImageSizeSetting(column, setting) {
     this.column = column;
     this.setting = setting;
     this.field = this.setting.querySelector('.ac-setting-input select');
@@ -1353,23 +1568,36 @@ class ImageSizeSetting {
     this.bindEvents();
   }
 
-  getValue() {
+  ImageSizeSetting.prototype.getValue = function () {
     return this.field.value;
-  }
+  };
 
-  bindEvents() {
-    this.field.addEventListener('change', () => this.initState());
-  }
+  ImageSizeSetting.prototype.bindEvents = function () {
+    var _this = this;
 
-  initState() {
+    this.field.addEventListener('change', function () {
+      return _this.initState();
+    });
+  };
+
+  ImageSizeSetting.prototype.initState = function () {
     this.toggleSubSettings('cpac-custom' === this.getValue());
-  }
+  };
 
-  toggleSubSettings(show = true) {
-    this.setting.querySelectorAll('.ac-column-setting').forEach(setting => setting.style.display = show ? 'table' : 'none');
-  }
+  ImageSizeSetting.prototype.toggleSubSettings = function (show) {
+    if (show === void 0) {
+      show = true;
+    }
 
-}
+    this.setting.querySelectorAll('.ac-column-setting').forEach(function (setting) {
+      return setting.style.display = show ? 'table' : 'none';
+    });
+  };
+
+  return ImageSizeSetting;
+}();
+
+
 
 /***/ }),
 
@@ -1386,18 +1614,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../modules/modal */ "./js/modules/modal.ts");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_1__);
+var __extends = undefined && undefined.__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
 
 
-const initLabelSetting = column => {
-  let setting = column.getElement().querySelector('.ac-column-setting--label');
+
+var initLabelSetting = function (column) {
+  var setting = column.getElement().querySelector('.ac-column-setting--label');
 
   if (setting) {
     new LabelSetting(column, setting);
   }
 };
 
-class LabelSetting {
-  constructor(column, setting) {
+var LabelSetting =
+/** @class */
+function () {
+  function LabelSetting(column, setting) {
     this.column = column;
     this.setting = setting;
     this.field = this.setting.querySelector('.ac-setting-input_label');
@@ -1409,94 +1663,115 @@ class LabelSetting {
     }
   }
 
-  initEvents() {
-    this.column.getElement().querySelectorAll('.ac-setting-label-icon').forEach(el => {
-      el.addEventListener('click', e => {
+  LabelSetting.prototype.initEvents = function () {
+    var _this = this;
+
+    this.column.getElement().querySelectorAll('.ac-setting-label-icon').forEach(function (el) {
+      el.addEventListener('click', function (e) {
         e.preventDefault();
-        this.modal.open();
+
+        _this.modal.open();
       });
     });
-    this.modal.onSubmit(() => {
-      this.setLabel(this.modal.getDashIconMarkup());
-      this.modal.close();
-    });
-  }
+    this.modal.onSubmit(function () {
+      _this.setLabel(_this.modal.getDashIconMarkup());
 
-  getDashIconFromValue() {
-    let html = document.createRange().createContextualFragment(this.getValue());
-    let dashicon = html.querySelector('.dashicons');
-    let value = null;
+      _this.modal.close();
+    });
+  };
+
+  LabelSetting.prototype.getDashIconFromValue = function () {
+    var html = document.createRange().createContextualFragment(this.getValue());
+    var dashicon = html.querySelector('.dashicons');
+    var value = null;
 
     if (!dashicon) {
       return value;
     }
 
-    dashicon.classList.forEach(cls => {
+    dashicon.classList.forEach(function (cls) {
       if (cls.indexOf('dashicons-') === 0) {
         value = cls.replace('dashicons-', '');
       }
     });
     return value;
-  }
+  };
 
-  getValue() {
+  LabelSetting.prototype.getValue = function () {
     return this.field.value;
-  }
+  };
 
-  setLabel(label) {
+  LabelSetting.prototype.setLabel = function (label) {
     if (this.field) {
       this.field.value = label;
       this.field.dispatchEvent(new Event('change'));
     }
+  };
+
+  return LabelSetting;
+}();
+
+var IconPickerModal =
+/** @class */
+function (_super) {
+  __extends(IconPickerModal, _super);
+
+  function IconPickerModal(element) {
+    var _this = _super.call(this, element) || this;
+
+    _this.events = new nanobus__WEBPACK_IMPORTED_MODULE_1___default.a();
+    _this.dashIcon = null;
+    return _this;
   }
 
-}
+  IconPickerModal.prototype.initEvents = function () {
+    var _this = this;
 
-class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"] {
-  constructor(element) {
-    super(element);
-    this.events = new nanobus__WEBPACK_IMPORTED_MODULE_1___default.a();
-    this.dashIcon = null;
-  }
+    _super.prototype.initEvents.call(this);
 
-  initEvents() {
-    super.initEvents();
-    this.getElement().querySelectorAll('[data-action="submit"]').forEach(element => {
-      element.addEventListener('click', e => {
+    this.getElement().querySelectorAll('[data-action="submit"]').forEach(function (element) {
+      element.addEventListener('click', function (e) {
         e.preventDefault();
-        this.events.emit('submit');
+
+        _this.events.emit('submit');
       });
     });
-    this.getIconElements().forEach(icon => {
-      icon.addEventListener('click', e => {
+    this.getIconElements().forEach(function (icon) {
+      icon.addEventListener('click', function (e) {
         e.preventDefault();
-        this.setIconSelection(icon.dataset.dashicon);
-        this.getIconElements().forEach(el => el.classList.remove('active'));
+
+        _this.setIconSelection(icon.dataset.dashicon);
+
+        _this.getIconElements().forEach(function (el) {
+          return el.classList.remove('active');
+        });
+
         icon.classList.add('active');
       });
     });
-  }
+  };
 
-  getIconElements() {
+  IconPickerModal.prototype.getIconElements = function () {
     return this.getElement().querySelectorAll('.ac-ipicker__icon');
-  }
+  };
 
-  onSubmit(cb) {
+  IconPickerModal.prototype.onSubmit = function (cb) {
     this.events.on('submit', cb);
-  }
+  };
 
-  getDashIconMarkup() {
-    return `<span class="dashicons dashicons-${this.dashIcon}"></span>`;
-  }
+  IconPickerModal.prototype.getDashIconMarkup = function () {
+    return "<span class=\"dashicons dashicons-" + this.dashIcon + "\"></span>";
+  };
 
-  setIconSelection(dashicon) {
-    let selection = this.getElement().querySelector('.ac-ipicker__selection');
+  IconPickerModal.prototype.setIconSelection = function (dashicon) {
+    var selection = this.getElement().querySelector('.ac-ipicker__selection');
     this.dashIcon = dashicon;
     selection.innerHTML = this.getDashIconMarkup();
     selection.style.visibility = 'visible';
-  }
+  };
 
-}
+  return IconPickerModal;
+}(_modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -1510,57 +1785,68 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initNumberFormatSetting", function() { return initNumberFormatSetting; });
-const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
-const initNumberFormatSetting = column => {
-  column.getElement().querySelectorAll('.ac-column-setting--number_format').forEach(setting => {
+var initNumberFormatSetting = function (column) {
+  column.getElement().querySelectorAll('.ac-column-setting--number_format').forEach(function (setting) {
     new NumberFormat(column, setting);
   });
 };
 
-class NumberFormat {
-  constructor(column, setting) {
+var NumberFormat =
+/** @class */
+function () {
+  function NumberFormat(column, setting) {
     this.column = column;
     this.setting = setting;
     this.bindEvents();
   }
 
-  bindEvents() {
+  NumberFormat.prototype.bindEvents = function () {
+    var _this = this;
+
     this.refreshPreview();
-    this.setting.querySelectorAll('input').forEach(el => {
-      el.addEventListener('change', () => this.refreshPreview());
+    this.setting.querySelectorAll('input').forEach(function (el) {
+      el.addEventListener('change', function () {
+        return _this.refreshPreview();
+      });
     });
-  }
+  };
 
-  refreshPreview() {
-    this.getExampleRequest().then(response => {
-      this.setting.querySelectorAll('[data-preview]').forEach(el => el.textContent = response.data.data);
+  NumberFormat.prototype.refreshPreview = function () {
+    var _this = this;
+
+    this.getExampleRequest().then(function (response) {
+      _this.setting.querySelectorAll('[data-preview]').forEach(function (el) {
+        return el.textContent = response.data.data;
+      });
     });
-  }
+  };
 
-  getValue() {
-    let decimals = this.setting.querySelector('.ac-setting-input_number_decimals');
-    let decimal_point = this.setting.querySelector('.ac-setting-input_number_decimal_point');
-    let thousands_point = this.setting.querySelector('.ac-setting-input_number_thousands_separator');
+  NumberFormat.prototype.getValue = function () {
+    var decimals = this.setting.querySelector('.ac-setting-input_number_decimals');
+    var decimal_point = this.setting.querySelector('.ac-setting-input_number_decimal_point');
+    var thousands_point = this.setting.querySelector('.ac-setting-input_number_thousands_separator');
     return {
       decimals: decimals ? decimals.value : '',
       decimal_point: decimal_point ? decimal_point.value : '',
       thousands_point: thousands_point ? thousands_point.value : ''
     };
-  }
+  };
 
-  getExampleRequest() {
-    const value = this.getValue();
-    let data = new FormData();
+  NumberFormat.prototype.getExampleRequest = function () {
+    var value = this.getValue();
+    var data = new FormData();
     data.set('action', 'ac_number_format');
     data.set('number', '7500');
     data.set('decimals', value.decimals);
     data.set('decimal_point', value.decimal_point);
     data.set('thousands_sep', value.thousands_point);
     return axios.post(ajaxurl, data, {});
-  }
+  };
 
-}
+  return NumberFormat;
+}();
 
 /***/ }),
 
@@ -1578,10 +1864,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 // @ts-ignore
 
-const initProSetting = column => {
-  column.getElement().querySelectorAll('.ac-column-setting--pro').forEach(setting => {
-    setting.querySelectorAll('input').forEach(input => {
-      input.addEventListener('click', () => jquery__WEBPACK_IMPORTED_MODULE_0___default()(setting).find('[data-ac-modal]').trigger('click'));
+var initProSetting = function (column) {
+  column.getElement().querySelectorAll('.ac-column-setting--pro').forEach(function (setting) {
+    setting.querySelectorAll('input').forEach(function (input) {
+      input.addEventListener('click', function () {
+        return jquery__WEBPACK_IMPORTED_MODULE_0___default()(setting).find('[data-ac-modal]').trigger('click');
+      });
     });
   });
 };
@@ -1598,14 +1886,24 @@ const initProSetting = column => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initSubSettings", function() { return initSubSettings; });
-const initSubSettings = column => {
-  column.getElement().querySelectorAll('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit').forEach(setting => {
+var __spreadArrays = undefined && undefined.__spreadArrays || function () {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+
+  for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j];
+
+  return r;
+};
+
+var initSubSettings = function (column) {
+  column.getElement().querySelectorAll('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit').forEach(function (setting) {
     new SubsettingSetting(setting);
   });
 };
 
-class SubsettingSetting {
-  constructor(element) {
+var SubsettingSetting =
+/** @class */
+function () {
+  function SubsettingSetting(element) {
     this.element = element;
     this.inputs = element.querySelectorAll('.ac-setting-input input[type="radio"]');
     this.subFields = element.querySelectorAll('.ac-column-setting');
@@ -1613,24 +1911,34 @@ class SubsettingSetting {
     this.initEvents();
   }
 
-  initEvents() {
-    this.inputs.forEach(el => {
-      el.addEventListener('change', () => this.initState());
+  SubsettingSetting.prototype.initEvents = function () {
+    var _this = this;
+
+    this.inputs.forEach(function (el) {
+      el.addEventListener('change', function () {
+        return _this.initState();
+      });
     });
-  }
+  };
 
-  initState() {
-    this.isOptionEnabled() ? this.subFields.forEach(el => el.style.display = 'table') : this.subFields.forEach(el => el.style.display = 'none');
-  }
+  SubsettingSetting.prototype.initState = function () {
+    this.isOptionEnabled() ? this.subFields.forEach(function (el) {
+      return el.style.display = 'table';
+    }) : this.subFields.forEach(function (el) {
+      return el.style.display = 'none';
+    });
+  };
 
-  isOptionEnabled() {
-    let checked = [...this.inputs].filter(input => {
+  SubsettingSetting.prototype.isOptionEnabled = function () {
+    var checked = __spreadArrays(this.inputs).filter(function (input) {
       return input.checked;
     });
-    return checked.length ? checked[0].value === 'on' : false;
-  }
 
-}
+    return checked.length ? checked[0].value === 'on' : false;
+  };
+
+  return SubsettingSetting;
+}();
 
 /***/ }),
 
@@ -1650,25 +1958,27 @@ __webpack_require__.r(__webpack_exports__);
  // @ts-ignore
 
 
-const initColumnTypeSelectorSetting = column => {
-  column.getElement().querySelectorAll('[data-setting="type"]').forEach(setting => {
+var initColumnTypeSelectorSetting = function (column) {
+  column.getElement().querySelectorAll('[data-setting="type"]').forEach(function (setting) {
     new TypeSelector(column, setting);
   });
 };
 
-class TypeSelector {
-  constructor(column, setting) {
+var TypeSelector =
+/** @class */
+function () {
+  function TypeSelector(column, setting) {
     this.column = column;
     this.setting = setting;
     this.bindEvents();
   }
 
-  bindEvents() {
-    const select = this.setting.querySelector('.ac-setting-input_type');
+  TypeSelector.prototype.bindEvents = function () {
+    var select = this.setting.querySelector('.ac-setting-input_type');
 
     if (select) {
       select.removeAttribute('data-select2-id');
-      this.setting.querySelectorAll('.select2').forEach(el => {
+      this.setting.querySelectorAll('.select2').forEach(function (el) {
         el.remove();
       });
       jquery__WEBPACK_IMPORTED_MODULE_1___default()(select).ac_select2({
@@ -1679,10 +1989,10 @@ class TypeSelector {
           return text;
         },
         templateResult: function (result) {
-          let text = result.text;
+          var text = result.text;
 
           if (result.hasOwnProperty('id') && result.id.includes('placeholder-')) {
-            text += `<span style="background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;">PRO</span>`;
+            text += "<span style=\"background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;\">PRO</span>";
           }
 
           return text;
@@ -1690,9 +2000,10 @@ class TypeSelector {
         matcher: _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__["default"]
       });
     }
-  }
+  };
 
-}
+  return TypeSelector;
+}();
 
 /***/ }),
 
@@ -1713,12 +2024,16 @@ __webpack_require__.r(__webpack_exports__);
  // @ts-ignore
 
 
-const initWidthSetting = column => {
-  column.getElement().querySelectorAll('table[data-setting="width"]').forEach(setting => new WidthSetting(column, setting));
+var initWidthSetting = function (column) {
+  column.getElement().querySelectorAll('table[data-setting="width"]').forEach(function (setting) {
+    return new WidthSetting(column, setting);
+  });
 };
 
-class WidthSetting {
-  constructor(column, setting) {
+var WidthSetting =
+/** @class */
+function () {
+  function WidthSetting(column, setting) {
     this.column = column;
     this.setting = setting;
     this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
@@ -1728,34 +2043,34 @@ class WidthSetting {
     this.init();
   }
 
-  getWidth() {
-    let widthValue = this.widthInput.value;
+  WidthSetting.prototype.getWidth = function () {
+    var widthValue = this.widthInput.value;
     return widthValue ? parseInt(widthValue) : null;
-  }
+  };
 
-  setWidth(width) {
+  WidthSetting.prototype.setWidth = function (width) {
     this.widthInput.value = width ? width.toString() : null;
     this.updateIndicator();
-  }
+  };
 
-  updateUnit() {
+  WidthSetting.prototype.updateUnit = function () {
     this.setting.querySelector('.description .unit').innerHTML = this.getUnit();
-  }
+  };
 
-  getUnit() {
-    let input = this.setting.querySelector('[data-unit-input] input:checked');
+  WidthSetting.prototype.getUnit = function () {
+    var input = this.setting.querySelector('[data-unit-input] input:checked');
     return input ? input.value : null;
-  }
+  };
 
-  getValue() {
+  WidthSetting.prototype.getValue = function () {
     return {
       width: this.getWidth(),
       unit: this.getUnit()
     };
-  }
+  };
 
-  validate() {
-    let width = this.getWidth();
+  WidthSetting.prototype.validate = function () {
+    var width = this.getWidth();
 
     if (width === 0 || width < 0) {
       this.setWidth(null);
@@ -1766,57 +2081,70 @@ class WidthSetting {
         this.setWidth(100);
       }
     }
-  }
+  };
 
-  init() {
-    this.widthInput.addEventListener('keyup', () => this.updateIndicator());
-    this.unitInput.forEach(el => {
-      el.addEventListener('change', () => {
-        this.initSlider();
-        this.updateIndicator();
-        this.updateUnit();
-        this.validate();
+  WidthSetting.prototype.init = function () {
+    var _this = this;
+
+    this.widthInput.addEventListener('keyup', function () {
+      return _this.updateIndicator();
+    });
+    this.unitInput.forEach(function (el) {
+      el.addEventListener('change', function () {
+        _this.initSlider();
+
+        _this.updateIndicator();
+
+        _this.updateUnit();
+
+        _this.validate();
       });
     });
     this.initSlider();
-  }
+  };
 
-  updateIndicator() {
+  WidthSetting.prototype.updateIndicator = function () {
     this.indicator.setValue(this.getWidth(), this.getUnit());
-  }
+  };
 
-  initEvents() {}
+  WidthSetting.prototype.initEvents = function () {};
 
-  initSlider() {
-    let sliderElement = this.column.getElement().querySelector('.width-slider');
+  WidthSetting.prototype.initSlider = function () {
+    var _this = this;
+
+    var sliderElement = this.column.getElement().querySelector('.width-slider');
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(sliderElement).slider({
       range: 'min',
       min: 0,
       max: '%' === this.getUnit() ? 100 : 500,
       value: this.getWidth(),
-      slide: (event, ui) => {
-        this.setWidth(ui.value);
+      slide: function (event, ui) {
+        _this.setWidth(ui.value);
       }
     });
-  }
+  };
 
-}
+  return WidthSetting;
+}();
 
-class WidthIndicator {
-  constructor(element) {
+var WidthIndicator =
+/** @class */
+function () {
+  function WidthIndicator(element) {
     this.element = element;
     this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
   }
 
-  setValue(width, unit) {
+  WidthIndicator.prototype.setValue = function (width, unit) {
     if (width === null) {
       return this.element.innerText = '';
     }
 
-    this.element.innerText = `${width.toString()}${unit}`;
-  }
+    this.element.innerText = "" + width.toString() + unit;
+  };
 
-}
+  return WidthIndicator;
+}();
 
 /***/ }),
 
@@ -1830,7 +2158,7 @@ class WidthIndicator {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventConstants", function() { return EventConstants; });
-const EventConstants = {
+var EventConstants = {
   TABLE: {
     READY: 'Table.Ready'
   },
@@ -1864,9 +2192,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/modals */ "./js/modules/modals.ts");
 
 
-let nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 
-const initAdminColumnsGlobalBootstrap = () => {
+var initAdminColumnsGlobalBootstrap = function () {
   if (!window.AdminColumns) {
     window.AdminColumns = window.AdminColumns || {};
     AdminColumns.events = nanobus();
@@ -1890,55 +2218,85 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeIn", function() { return fadeIn; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeOut", function() { return fadeOut; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollToElement", function() { return scrollToElement; });
-const fadeIn = (element, ms = 100, cb = null, display = 'block') => {
+var _this = undefined;
+
+var fadeIn = function (element, ms, cb, display) {
+  if (ms === void 0) {
+    ms = 100;
+  }
+
+  if (cb === void 0) {
+    cb = null;
+  }
+
+  if (display === void 0) {
+    display = 'block';
+  }
+
   element.style.display = display;
-  element.style.transition = `opacity ${ms}ms`;
+  element.style.transition = "opacity " + ms + "ms";
   element.style.opacity = '0';
-  setTimeout(() => {
+  setTimeout(function () {
     element.style.opacity = '1';
   }, 100);
 
   if (cb) {
-    element.addEventListener('transitionend', () => {
-      cb.call(undefined);
+    element.addEventListener('transitionend', function () {
+      cb.call(_this);
     }, {
       once: true
     });
   }
 };
-const fadeOut = (element, ms = 100, cb = null, display = 'none') => {
-  element.style.transition = `opacity ${ms}ms`;
+var fadeOut = function (element, ms, cb, display) {
+  if (ms === void 0) {
+    ms = 100;
+  }
+
+  if (cb === void 0) {
+    cb = null;
+  }
+
+  if (display === void 0) {
+    display = 'none';
+  }
+
+  element.style.transition = "opacity " + ms + "ms";
   element.style.opacity = '1';
-  setTimeout(() => {
+  setTimeout(function () {
     element.style.opacity = '0';
   }, 100);
-  element.addEventListener('transitionend', () => {
+  element.addEventListener('transitionend', function () {
     element.style.display = display;
 
     if (cb) {
-      cb.call(undefined);
+      cb.call(_this);
     }
   }, {
     once: true
   });
 };
-const scrollToElement = (element, ms, options = {}) => {
-  let defaults = {
+var scrollToElement = function (element, ms, options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var defaults = {
     offset: 0
   };
-  let settings = Object.assign({}, defaults, options);
-  const elementY = element.getBoundingClientRect().top + settings.offset;
-  const startingY = window.pageYOffset;
-  const diff = elementY - startingY;
-  let start; // Bootstrap our animation - it will get called right before next frame shall be rendered.
+  var settings = Object.assign({}, defaults, options);
+  var elementY = element.getBoundingClientRect().top + settings.offset;
+  var startingY = window.pageYOffset;
+  var diff = elementY - startingY;
+  var start; // Bootstrap our animation - it will get called right before next frame shall be rendered.
 
   window.requestAnimationFrame(function step(timestamp) {
     if (!start) {
       start = timestamp;
     }
 
-    let time = timestamp - start;
-    let percent = Math.min(time / ms, 1);
+    var time = timestamp - start;
+    var percent = Math.min(time / ms, 1);
     window.scrollTo(0, startingY + diff * percent);
 
     if (time < ms) {
@@ -1961,14 +2319,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertAfter", function() { return insertAfter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertBefore", function() { return insertBefore; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElementFromString", function() { return createElementFromString; });
-const insertAfter = (newNode, referenceNode) => {
+var insertAfter = function (newNode, referenceNode) {
   referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 };
-const insertBefore = (newNode, referenceNode) => {
+var insertBefore = function (newNode, referenceNode) {
   referenceNode.parentNode.insertBefore(newNode, referenceNode);
 };
-const createElementFromString = (content, baseElement = 'div') => {
-  let element = document.createElement(baseElement);
+var createElementFromString = function (content, baseElement) {
+  if (baseElement === void 0) {
+    baseElement = 'div';
+  }
+
+  var element = document.createElement(baseElement);
   element.innerHTML = content;
   return element;
 };
@@ -1992,10 +2354,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListenerLive", function() { return addEventListenerLive; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onHover", function() { return onHover; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListeners", function() { return addEventListeners; });
-const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement = null) => {
-  let element = rootElement ? rootElement : document;
-  element.addEventListener(eventType, event => {
-    let qs = document.querySelectorAll(elementQuerySelector);
+var addEventListenerLive = function (eventType, elementQuerySelector, cb, rootElement) {
+  if (rootElement === void 0) {
+    rootElement = null;
+  }
+
+  var element = rootElement ? rootElement : document;
+  element.addEventListener(eventType, function (event) {
+    var qs = document.querySelectorAll(elementQuerySelector);
 
     if (qs) {
       var element = event.target,
@@ -2011,12 +2377,14 @@ const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement =
     }
   });
 };
-const onHover = (el, cbOver, cbLeave) => {
+var onHover = function (el, cbOver, cbLeave) {
   el.addEventListener('mouseenter', cbOver);
   el.addEventListener('mouseleave', cbLeave);
 };
-const addEventListeners = (el, events, callback) => {
-  events.forEach(event => el.addEventListener(event, callback));
+var addEventListeners = function (el, events, callback) {
+  events.forEach(function (event) {
+    return el.addEventListener(event, callback);
+  });
 };
 
 /***/ }),
@@ -2032,13 +2400,21 @@ const addEventListeners = (el, events, callback) => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uniqid", function() { return uniqid; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stripHtml", function() { return stripHtml; });
-const uniqid = (a = "", b = false) => {
-  const c = Date.now() / 1000;
-  let d = c.toString(16).split(".").join("");
+var uniqid = function (a, b) {
+  if (a === void 0) {
+    a = "";
+  }
+
+  if (b === void 0) {
+    b = false;
+  }
+
+  var c = Date.now() / 1000;
+  var d = c.toString(16).split(".").join("");
 
   while (d.length < 14) d += "0";
 
-  let e = "";
+  var e = "";
 
   if (b) {
     e = ".";
@@ -2047,7 +2423,7 @@ const uniqid = (a = "", b = false) => {
 
   return a + d + e;
 };
-const stripHtml = originalString => {
+var stripHtml = function (originalString) {
   return originalString.replace(/(<([^>]+)>)/gi, "");
 };
 
@@ -2067,33 +2443,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tooltips__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltips */ "./js/modules/tooltips.ts");
 
 
-const $ = __webpack_require__(/*! jquery */ "jquery");
+var $ = __webpack_require__(/*! jquery */ "jquery");
 
-class Pointer {
-  constructor(el) {
+var Pointer =
+/** @class */
+function () {
+  function Pointer(el) {
     this.element = el;
     this.settings = this.getDefaults();
     this.init();
     this.setInitialized();
   }
 
-  setInitialized() {
+  Pointer.prototype.setInitialized = function () {
     this.element.dataset.ac_pointer_initialized = '1';
-  }
+  };
 
-  getDefaults() {
+  Pointer.prototype.getDefaults = function () {
     return {
       width: this.element.getAttribute('data-width') ? this.element.getAttribute('data-width') : 250,
       noclick: this.element.getAttribute('data-noclick') ? this.element.getAttribute('data-noclick') : false,
       position: this.getPosition()
     };
-  }
+  };
 
-  isInitialized() {
+  Pointer.prototype.isInitialized = function () {
     return this.element.dataset.hasOwnProperty('ac_pointer_initialized');
-  }
+  };
 
-  init() {
+  Pointer.prototype.init = function () {
     if (this.isInitialized()) {
       return;
     } // create pointer
@@ -2106,16 +2484,16 @@ class Pointer {
       pointerClass: this.getPointerClass()
     });
     this.initEvents();
-  }
+  };
 
-  getPosition() {
-    let position = {
+  Pointer.prototype.getPosition = function () {
+    var position = {
       at: 'left top',
       my: 'right top',
       edge: 'right'
     };
-    let pos = this.element.getAttribute('data-pos');
-    let edge = this.element.getAttribute('data-pos_edge');
+    var pos = this.element.getAttribute('data-pos');
+    var edge = this.element.getAttribute('data-pos_edge');
 
     if ('right' === pos) {
       position = {
@@ -2146,25 +2524,25 @@ class Pointer {
     }
 
     return position;
-  }
+  };
 
-  getPointerClass() {
-    let classes = ['ac-wp-pointer', 'wp-pointer', 'wp-pointer-' + this.settings.position.edge];
+  Pointer.prototype.getPointerClass = function () {
+    var classes = ['ac-wp-pointer', 'wp-pointer', 'wp-pointer-' + this.settings.position.edge];
 
     if (this.settings.noclick) {
       classes.push('noclick');
     }
 
     return classes.join(' ');
-  }
+  };
 
-  getRelatedHTML() {
-    let related_element = document.getElementById(this.element.getAttribute('rel'));
+  Pointer.prototype.getRelatedHTML = function () {
+    var related_element = document.getElementById(this.element.getAttribute('rel'));
     return related_element ? related_element.innerHTML : '';
-  }
+  };
 
-  initEvents() {
-    let el = $(this.element); // click
+  Pointer.prototype.initEvents = function () {
+    var el = $(this.element); // click
 
     if (!this.settings.noclick) {
       el.click(function () {
@@ -2181,29 +2559,32 @@ class Pointer {
     });
     el.mouseenter(function () {
       el.pointer('open');
-      setTimeout(() => {
+      setTimeout(function () {
         el.pointer('open');
       }, 2);
     });
     el.mouseleave(function () {
-      setTimeout(() => {
+      setTimeout(function () {
         if (!el.hasClass('open') && $('.ac-wp-pointer.hover').length === 0) {
           el.pointer('close');
         }
       }, 1);
     });
-    el.on('close', () => {
-      setTimeout(() => {
+    el.on('close', function () {
+      setTimeout(function () {
         if (!el.hasClass('open')) {
           el.pointer('close');
         }
       });
     });
-  }
+  };
 
-}
-const initPointers = () => {
-  document.querySelectorAll('.ac-pointer').forEach(element => {
+  return Pointer;
+}();
+
+
+var initPointers = function () {
+  document.querySelectorAll('.ac-pointer').forEach(function (element) {
     new Pointer(element);
   });
   $('.ac-wp-pointer').hover(function () {
@@ -2228,9 +2609,10 @@ const initPointers = () => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modal; });
-class Modal {
-  constructor(el) {
+var Modal =
+/** @class */
+function () {
+  function Modal(el) {
     if (!el) {
       return;
     }
@@ -2240,68 +2622,77 @@ class Modal {
     this.initEvents();
   }
 
-  getElement() {
+  Modal.prototype.getElement = function () {
     return this.el;
-  }
+  };
 
-  initEvents() {
-    let self = this;
-    document.addEventListener('keydown', e => {
-      const keyName = e.key;
+  Modal.prototype.initEvents = function () {
+    var _this = this;
 
-      if (!this.isOpen()) {
+    var self = this;
+    document.addEventListener('keydown', function (e) {
+      var keyName = e.key;
+
+      if (!_this.isOpen()) {
         return;
       }
 
       if ('Escape' === keyName) {
-        this.close();
+        _this.close();
       }
     });
-    let dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
+    var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
 
     if (dismissButtons.length > 0) {
-      dismissButtons.forEach(b => {
-        b.addEventListener('click', e => {
+      dismissButtons.forEach(function (b) {
+        b.addEventListener('click', function (e) {
           e.preventDefault();
           self.close();
         });
       });
     }
 
-    this.el.addEventListener('click', e => {
+    this.el.addEventListener('click', function (e) {
       if (e.target.classList.contains('ac-modal')) {
         self.close();
       }
     });
-  }
+  };
 
-  isOpen() {
+  Modal.prototype.isOpen = function () {
     return this.el.classList.contains('-active');
-  }
+  };
 
-  close() {
+  Modal.prototype.close = function () {
     this.onClose();
     this.el.classList.remove('-active');
-  }
+  };
 
-  open() {
-    //short delay in order to allow bubbling events to bind before opening
-    setTimeout(() => {
-      this.onOpen();
-      this.el.removeAttribute('style');
-      this.el.classList.add('-active');
+  Modal.prototype.open = function () {
+    var _this = this; //short delay in order to allow bubbling events to bind before opening
+
+
+    setTimeout(function () {
+      _this.onOpen();
+
+      _this.el.removeAttribute('style');
+
+      _this.el.classList.add('-active');
     });
-  }
+  };
 
-  destroy() {
+  Modal.prototype.destroy = function () {
     this.el.remove();
-  }
+  };
 
-  onClose() {}
+  Modal.prototype.onClose = function () {};
 
-  onOpen() {}
+  Modal.prototype.onOpen = function () {};
 
-}
+  return Modal;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Modal);
 
 /***/ }),
 
@@ -2314,11 +2705,13 @@ class Modal {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modals; });
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.ts");
 
-class Modals {
-  constructor() {
+
+var Modals =
+/** @class */
+function () {
+  function Modals() {
     this.modals = {};
     this.number = 0;
     this.defaults = {
@@ -2327,7 +2720,11 @@ class Modals {
     this.initGlobalEvents();
   }
 
-  register(modal, key = '') {
+  Modals.prototype.register = function (modal, key) {
+    if (key === void 0) {
+      key = '';
+    }
+
     if (!key) {
       key = 'm' + this.number;
     }
@@ -2335,42 +2732,48 @@ class Modals {
     this.modals[key] = modal;
     this.number++;
     return modal;
-  }
+  };
 
-  get(key) {
+  Modals.prototype.get = function (key) {
     return this.modals.hasOwnProperty(key) ? this.modals[key] : null;
-  }
+  };
 
-  open(key) {
+  Modals.prototype.open = function (key) {
     if (this.get(key)) {
       this.get(key).open();
     }
-  }
+  };
 
-  close(key) {
+  Modals.prototype.close = function (key) {
     if (this.get(key)) {
       this.get(key).close();
     }
-  }
+  };
 
-  closeAll() {
-    for (let key in this.modals) {
+  Modals.prototype.closeAll = function () {
+    for (var key in this.modals) {
       this.close(key);
     }
-  }
+  };
 
-  initGlobalEvents() {
-    document.addEventListener('click', e => {
-      let target = e.target;
+  Modals.prototype.initGlobalEvents = function () {
+    var _this = this;
+
+    document.addEventListener('click', function (e) {
+      var target = e.target;
 
       if (target.dataset.acModal) {
         e.preventDefault();
-        this.open(target.dataset.acModal);
+
+        _this.open(target.dataset.acModal);
       }
     });
-  }
+  };
 
-}
+  return Modals;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Modals);
 
 /***/ }),
 
@@ -2386,16 +2789,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
 
 
-class Tooltips {
-  constructor() {
+var Tooltips =
+/** @class */
+function () {
+  function Tooltips() {
     this.init();
   }
 
-  init() {
+  Tooltips.prototype.init = function () {
     Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["initAcTooltips"])();
-  }
+  };
 
-}
+  return Tooltips;
+}();
 
 /* harmony default export */ __webpack_exports__["default"] = (Tooltips);
 
@@ -2412,42 +2818,57 @@ class Tooltips {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcTooltips", function() { return initAcTooltips; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
-const initAcTooltips = () => {
-  document.querySelectorAll('[data-ac-tip]').forEach(element => {
+var initAcTooltips = function () {
+  document.querySelectorAll('[data-ac-tip]').forEach(function (element) {
     new Tooltip(element);
   });
 };
-class Tooltip {
-  constructor(el, content = '') {
+
+var Tooltip =
+/** @class */
+function () {
+  function Tooltip(el, content) {
+    if (content === void 0) {
+      content = '';
+    }
+
     this.element = el;
     this.content = content ? content : el.dataset.acTip;
     this.tip = createTooltip(this.content);
     this.initEvents();
   }
 
-  initEvents() {
+  Tooltip.prototype.initEvents = function () {
+    var _this = this;
+
     if (this.element.dataset.acTooltipInit === '1') {
       return;
     }
 
     this.element.dataset.acTooltipInit = '1';
     document.body.appendChild(this.tip);
-    this.element.addEventListener('mouseenter', () => {
-      const bodyOffset = document.body.getBoundingClientRect();
-      const viewportOffset = this.element.getBoundingClientRect();
-      this.tip.style.left = viewportOffset.left - bodyOffset.left + this.element.offsetWidth / 2 + 'px';
-      this.tip.style.top = viewportOffset.top - bodyOffset.top + this.element.offsetHeight + 'px';
-      this.tip.classList.add('hover');
-    });
-    this.element.addEventListener('mouseleave', () => {
-      this.tip.classList.remove('hover');
-    });
-  }
+    this.element.addEventListener('mouseenter', function () {
+      var bodyOffset = document.body.getBoundingClientRect();
 
-}
+      var viewportOffset = _this.element.getBoundingClientRect();
 
-const createTooltip = content => {
-  let tip = document.createElement('div');
+      _this.tip.style.left = viewportOffset.left - bodyOffset.left + _this.element.offsetWidth / 2 + 'px';
+      _this.tip.style.top = viewportOffset.top - bodyOffset.top + _this.element.offsetHeight + 'px';
+
+      _this.tip.classList.add('hover');
+    });
+    this.element.addEventListener('mouseleave', function () {
+      _this.tip.classList.remove('hover');
+    });
+  };
+
+  return Tooltip;
+}();
+
+
+
+var createTooltip = function (content) {
+  var tip = document.createElement('div');
   tip.classList.add('ac-tooltip');
   tip.innerHTML = content;
   return tip;

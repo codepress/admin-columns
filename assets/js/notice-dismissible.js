@@ -98,10 +98,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListenerLive", function() { return addEventListenerLive; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onHover", function() { return onHover; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListeners", function() { return addEventListeners; });
-const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement = null) => {
-  let element = rootElement ? rootElement : document;
-  element.addEventListener(eventType, event => {
-    let qs = document.querySelectorAll(elementQuerySelector);
+var addEventListenerLive = function (eventType, elementQuerySelector, cb, rootElement) {
+  if (rootElement === void 0) {
+    rootElement = null;
+  }
+
+  var element = rootElement ? rootElement : document;
+  element.addEventListener(eventType, function (event) {
+    var qs = document.querySelectorAll(elementQuerySelector);
 
     if (qs) {
       var element = event.target,
@@ -117,12 +121,14 @@ const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement =
     }
   });
 };
-const onHover = (el, cbOver, cbLeave) => {
+var onHover = function (el, cbOver, cbLeave) {
   el.addEventListener('mouseenter', cbOver);
   el.addEventListener('mouseleave', cbLeave);
 };
-const addEventListeners = (el, events, callback) => {
-  events.forEach(event => el.addEventListener(event, callback));
+var addEventListeners = function (el, events, callback) {
+  events.forEach(function (event) {
+    return el.addEventListener(event, callback);
+  });
 };
 
 /***/ }),
@@ -138,7 +144,7 @@ const addEventListeners = (el, events, callback) => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./plugin/dismissible-notice */ "./js/plugin/dismissible-notice.ts");
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
   Object(_plugin_dismissible_notice__WEBPACK_IMPORTED_MODULE_0__["initDismissibleNotices"])();
 });
 
@@ -158,13 +164,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/events */ "./js/helpers/events.ts");
 
 
-const $ = __webpack_require__(/*! jquery */ "jquery");
+var $ = __webpack_require__(/*! jquery */ "jquery");
 
-const dismissNotice = selector => {
-  document.querySelectorAll(selector).forEach(el => {
-    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', '.ac-notice__dismiss, [data-dismiss], .notice-dismiss', e => {
+var dismissNotice = function (selector) {
+  document.querySelectorAll(selector).forEach(function (el) {
+    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', '.ac-notice__dismiss, [data-dismiss], .notice-dismiss', function (e) {
       e.preventDefault();
-      let data = el.dataset.dismissibleCallback ? JSON.parse(el.dataset.dismissibleCallback) : null;
+      var data = el.dataset.dismissibleCallback ? JSON.parse(el.dataset.dismissibleCallback) : null;
 
       if (data) {
         $.post(ajaxurl, data);
@@ -172,7 +178,7 @@ const dismissNotice = selector => {
     }, el);
   });
 };
-const initDismissibleNotices = () => {
+var initDismissibleNotices = function () {
   dismissNotice('.ac-notice');
 };
 

@@ -145,7 +145,7 @@ export class Column {
         formData.set('name', this.getName());
 
         var obj: columnSettings = {};
-        for (var key of formData.keys()) {
+        for (var key of formData.entries()) {
             obj[key] = formData.get(key);
         }
 
