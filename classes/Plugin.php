@@ -23,7 +23,6 @@ abstract class Plugin extends Addon {
 
 	/**
 	 * Check if plugin is network activated
-	 *
 	 * @return bool
 	 */
 	public function is_network_active() {
@@ -56,7 +55,7 @@ abstract class Plugin extends Addon {
 	/**
 	 * Return a plugin header from the plugin data
 	 *
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return false|string
 	 */
@@ -71,10 +70,15 @@ abstract class Plugin extends Addon {
 	}
 
 	/**
-	 * Apply updates to the database
+	 * In case the install hasn't run you can force it to run manually
+	 * @return bool
 	 */
+	private function force_install() {
+		return '1' === filter_input( INPUT_GET, 'ac-force-install' );
+	}
+
 	public function install() {
-		if ( 0 === version_compare( $this->get_version(), $this->get_stored_version() ) ) {
+		if ( $this->is_version_equal( $this->get_stored_version() ) && ! $this->force_install() ) {
 			return;
 		}
 
@@ -136,6 +140,15 @@ abstract class Plugin extends Addon {
 	 */
 	public function is_version_gte( $version ) {
 		return version_compare( $this->get_version(), $version, '>=' );
+	}
+
+	/**
+	 * @param string $version
+	 *
+	 * @return bool
+	 */
+	private function is_version_equal( $version ) {
+		return 0 === version_compare( $this->get_version(), $version );
 	}
 
 	/**
