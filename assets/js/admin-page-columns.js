@@ -484,7 +484,7 @@ var Column = /** @class */ (function () {
             // @ts-ignore
             for (var _b = __values(formData.entries()), _c = _b.next(); !_c.done; _c = _b.next()) {
                 var key = _c.value;
-                obj[key] = formData.get(key);
+                obj[key[0]] = key[1];
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }

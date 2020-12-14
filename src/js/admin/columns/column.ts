@@ -148,7 +148,7 @@ export class Column {
 
         // @ts-ignore
         for (var key of formData.entries()) {
-            obj[key] = formData.get(key);
+            obj[key[0]] = key[1];
         }
 
         return obj;
