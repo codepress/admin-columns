@@ -113,6 +113,7 @@ export class Form {
     private getPreferences(): { [key: string]: any } {
         let data: { [key: string]: any } = {};
         document.querySelectorAll<HTMLFormElement>('form[data-form-part=preferences]').forEach(el => {
+            // @ts-ignore
             for (let t of new FormData(el).entries()) {
                 data[t[0]] = t[1];
             }

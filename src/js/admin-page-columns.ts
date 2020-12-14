@@ -11,6 +11,7 @@ import InfoScreenOption from "./admin/columns/screen-options";
 import {initAcTooltips} from "./plugin/tooltip";
 import {initPointers} from "./modules/ac-pointer";
 import {initUninitializedListScreens} from "./admin/columns/listscreen-initialize";
+import 'nodelist-foreach-polyfill';
 
 declare let AdminColumns: AdminColumnSettingsInterface;
 declare let AC: LocalizedScriptColumnSettings

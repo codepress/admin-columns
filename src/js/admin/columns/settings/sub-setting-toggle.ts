@@ -32,7 +32,7 @@ class SubsettingSetting {
     }
 
     isOptionEnabled(): boolean {
-        let checked = [...this.inputs].filter(input => {
+        let checked = Array.from(this.inputs).filter(input => {
             return input.checked;
         });
 

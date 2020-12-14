@@ -11,5 +11,5 @@ export const uniqid = (a = "", b = false): string => {
 }
 
 export const stripHtml = (originalString: string): string => {
-    return originalString.replace(/(<([^>]+)>)/gi, "");
+    return originalString ? originalString.replace(/(<([^>]+)>)/gi, "") : '';
 }

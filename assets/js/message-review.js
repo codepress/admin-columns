@@ -99,37 +99,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onHover", function() { return onHover; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListeners", function() { return addEventListeners; });
 var addEventListenerLive = function (eventType, elementQuerySelector, cb, rootElement) {
-  if (rootElement === void 0) {
-    rootElement = null;
-  }
-
-  var element = rootElement ? rootElement : document;
-  element.addEventListener(eventType, function (event) {
-    var qs = document.querySelectorAll(elementQuerySelector);
-
-    if (qs) {
-      var element = event.target,
-          index = -1;
-
-      while (element && (index = Array.prototype.indexOf.call(qs, element)) === -1) {
-        element = element.parentElement;
-      }
-
-      if (index > -1) {
-        cb.call(element, event);
-      }
-    }
-  });
+    if (rootElement === void 0) { rootElement = null; }
+    var element = rootElement ? rootElement : document;
+    element.addEventListener(eventType, function (event) {
+        var qs = document.querySelectorAll(elementQuerySelector);
+        if (qs) {
+            var element = event.target, index = -1;
+            while (element && ((index = Array.prototype.indexOf.call(qs, element)) === -1)) {
+                element = element.parentElement;
+            }
+            if (index > -1) {
+                cb.call(element, event);
+            }
+        }
+    });
 };
 var onHover = function (el, cbOver, cbLeave) {
-  el.addEventListener('mouseenter', cbOver);
-  el.addEventListener('mouseleave', cbLeave);
+    el.addEventListener('mouseenter', cbOver);
+    el.addEventListener('mouseleave', cbLeave);
 };
 var addEventListeners = function (el, events, callback) {
-  events.forEach(function (event) {
-    return el.addEventListener(event, callback);
-  });
+    events.forEach(function (event) { return el.addEventListener(event, callback); });
 };
+
 
 /***/ }),
 
@@ -144,22 +136,21 @@ var addEventListeners = function (el, events, callback) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/events */ "./js/helpers/events.ts");
 
-
 var $ = __webpack_require__(/*! jquery */ "jquery");
-
 document.addEventListener('DOMContentLoaded', function () {
-  Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', 'a.hide-review-notice-soft', function (e) {
-    e.preventDefault();
-    var notice = e.target.closest('.ac-notice');
-    notice.querySelector('.info').remove();
-    notice.querySelector('.help').style.display = 'block';
-    $.post(ajaxurl, JSON.parse(notice.dataset.dismissibleCallback));
-  });
-  Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', 'a.hide-review-notice', function (e) {
-    e.preventDefault();
-    e.target.closest('.ac-notice').querySelector('.notice-dismiss').dispatchEvent(new Event('click'));
-  });
+    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', 'a.hide-review-notice-soft', function (e) {
+        e.preventDefault();
+        var notice = e.target.closest('.ac-notice');
+        notice.querySelector('.info').remove();
+        notice.querySelector('.help').style.display = 'block';
+        $.post(ajaxurl, JSON.parse(notice.dataset.dismissibleCallback));
+    });
+    Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListenerLive"])('click', 'a.hide-review-notice', function (e) {
+        e.preventDefault();
+        e.target.closest('.ac-notice').querySelector('.notice-dismiss').dispatchEvent(new Event('click'));
+    });
 });
+
 
 /***/ }),
 

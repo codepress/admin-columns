@@ -6,6 +6,7 @@ const axios = require('axios');
 declare const ajaxurl: string;
 
 export const initDateSetting = (column: Column) => {
+
     column.getElement().querySelectorAll<HTMLElement>('[data-setting=date]').forEach(setting => new DateSetting(column, setting));
 }
 
@@ -25,6 +26,7 @@ class DateSetting {
         this.defaultFormat = this.setting.querySelector('.radio-labels code').textContent;
         this.valueInput = this.setting.querySelector('[data-value-input]');
 
+        // @ts-ignore
         let customInput = [...this.options].filter(radio => radio.value === 'custom');
         this.customOption = new CustomOption(
             customInput[0],
@@ -36,8 +38,12 @@ class DateSetting {
         this.initEvents();
     }
 
+    getOptionsAsArray(): Array<HTMLInputElement>{
+        return Array.from(this.options);
+    }
+
     getSelectionOption(): HTMLInputElement {
-        let selected = [...this.options].filter(option => option.checked);
+        let selected = this.getOptionsAsArray().filter(option => option.checked);
 
         return selected ? selected[0] : null;
     }
@@ -51,7 +57,7 @@ class DateSetting {
         let selected = this.getSelectionOption();
 
         if (!selected) {
-            selected = [...this.options].filter(option => option.value === 'wp_default')[0];
+            selected = this.getOptionsAsArray().filter(option => option.value === 'wp_default')[0];
             selected.checked = true;
         }
         selected.dispatchEvent(new Event('change'));
@@ -82,7 +88,7 @@ class DateSetting {
     }
 
     private getHelpTextFromType(type: string): string {
-        let input = [...this.options].filter(radio => radio.value === type);
+        let input = this.getOptionsAsArray().filter(radio => radio.value === type);
         if (!input) {
             return '';
         }

@@ -15,18 +15,11 @@ let config = {
 	},
 	module : {
 		rules : [
-			{
-				test : /\.(t|j)sx?$/,
-				exclude : /node_modules(?!(\/|\\)query-string)/,
-				use : [
-					{ loader : 'babel-loader' },
-					{ loader : 'ts-loader' }
-				]
-			}
+			{ loader : 'ts-loader' }
 		]
 	},
 	resolve : {
-		extensions : ['.ts', '.js'],
+		extensions : ['.tsx', '.ts', '.js'],
 	},
 	externals : {
 		jquery : 'jQuery',
