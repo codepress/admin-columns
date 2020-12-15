@@ -27,6 +27,10 @@ abstract class Updater {
 			return;
 		}
 
+		if ( empty( $this->updates ) ) {
+			return;
+		}
+
 		// Sort by version number
 		uksort( $this->updates, 'version_compare' );
 

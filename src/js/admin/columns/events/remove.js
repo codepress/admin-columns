@@ -7,7 +7,7 @@ let remove = function( column ) {
 	column.$el.find( '.remove-button' ).click( function( e ) {
 		e.preventDefault();
 
-		AC.Form.removeColumn( column.name );
+		AdminColumns.Form.removeColumn( column.name );
 	} );
 };
 

@@ -211,15 +211,7 @@ final class Screen implements Registrable {
 	 * @since 2.2.4
 	 */
 	public function admin_scripts() {
-
-		// Tooltip
-		$script = new Asset\Script( 'jquery-qtip2', $this->location->with_suffix( 'assets/external/qtip2/jquery.qtip.min.js' ), [ 'jquery' ] );
-		$script->register();
-
-		$style = new Asset\Style( 'jquery-qtip2', $this->location->with_suffix( 'assets/external/qtip2/jquery.qtip.min.css' ) );
-		$style->enqueue();
-
-		$script = new Asset\Script( 'ac-table', $this->location->with_suffix( 'assets/js/table.js' ), [ 'jquery', 'jquery-qtip2' ] );
+		$script = new Asset\Script( 'ac-table', $this->location->with_suffix( 'assets/js/table.js' ), [ 'jquery' ] );
 		$script->enqueue();
 
 		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ) );
@@ -234,6 +226,7 @@ final class Screen implements Registrable {
 				'screen'           => $this->get_current_screen_id(),
 				'meta_type'        => $this->list_screen->get_meta_type(),
 				'list_screen_link' => $this->get_list_screen_clear_link(),
+				'column_widths'    => $this->get_column_widths(),
 			]
 		);
 
@@ -322,6 +315,28 @@ final class Screen implements Registrable {
 	 */
 	public function get_list_screen() {
 		return $this->list_screen;
+	}
+
+	/**
+	 *
+	 */
+	private function get_column_widths() {
+		$result = [];
+		if ( ! $this->list_screen->get_settings() ) {
+			return $result;
+		}
+
+		foreach ( $this->list_screen->get_columns() as $column ) {
+			/* @var Settings\Column\Width $setting */
+			$setting = $column->get_setting( 'width' );
+
+			$result[ $column->get_name() ] = [
+				'width'      => $setting->get_width(),
+				'width_unit' => $setting->get_width_unit(),
+			];
+		}
+
+		return $result;
 	}
 
 	/**

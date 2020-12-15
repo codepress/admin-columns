@@ -8,7 +8,6 @@ import ListScreenInitializeController from "./admin/columns/listscreen-initializ
  * @param AC.i81n {String}
  */
 import Form from "./admin/columns/form";
-import Modals from "./modules/modals";
 import Initiator from "./admin/columns/initiator";
 import Modal from "./modules/modal";
 import Menu from "./admin/columns/menu";
@@ -39,7 +38,6 @@ require( 'admin-columns-js/polyfill/customevent' );
 require( 'admin-columns-js/polyfill/nodelist' );
 
 AC.Column = new Initiator(); // Todo remove from
-
 
 jQuery( document ).on( 'AC_Form_Loaded', function() {
 
@@ -79,7 +77,7 @@ jQuery( document ).ready( function() {
 	new Menu().init();
 	new Feedback( '.sidebox#direct-feedback' );
 
-	[ 'AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh' ].forEach( hook => {
+	['AC_Column_Change', 'AC_Column_Refresh', 'AC_Column_Refresh'].forEach( hook => {
 		jQuery( document ).on( hook, () => ac_pointers() );
 	} );
 
@@ -135,4 +133,4 @@ jQuery( document ).ready( function() {
 				: document.querySelector( '.ac-admin' ).classList.remove( 'show-list-screen-type' );
 		} );
 	}
-});
+} );

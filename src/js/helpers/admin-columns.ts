@@ -12,9 +12,8 @@ declare global {
 }
 
 export const initAdminColumnsGlobalBootstrap = (): AdminColumnsInterface => {
-    if( ! window.AdminColumns ){
+    if (!window.AdminColumns) {
         window.AdminColumns = window.AdminColumns || {};
-
         AdminColumns.events = nanobus();
         AdminColumns.Modals = new Modals();
     }

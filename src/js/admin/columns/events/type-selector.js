@@ -5,7 +5,7 @@ let selector = function( column ) {
 		column.switchToType( $( this ).val() ).always( function() {
 			column.$el.removeClass( 'loading' );
 
-			AC.Form.reindexColumns();
+			AdminColumns.Form.reindexColumns();
 		} ).fail( () => {
 			column.showMessage( AC.i18n.errors.loading_column );
 		} );

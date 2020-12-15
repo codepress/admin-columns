@@ -31,6 +31,10 @@ class Taxonomy {
 	}
 
 	public function get_term_url( $term, $post_type = null ) {
+		if ( is_numeric( $term ) ) {
+			$term = get_term_by( 'term_taxonomy_id', $term );
+		}
+
 		$args = [
 			'post_type' => $post_type,
 			'taxonomy'  => $term->taxonomy,

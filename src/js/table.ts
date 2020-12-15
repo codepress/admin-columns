@@ -1,11 +1,10 @@
 import Table from "./table/table";
-import Tooltip from "./table/tooltips";
+import Tooltip from "./modules/tooltips";
 import ScreenOptionsColumns from "./table/screen-options-columns";
 import ToggleBoxLink from "./modules/toggle-box-link";
 // @ts-ignore
 import $ from 'jquery';
 import {LocalizedScriptAC} from "./admincolumns";
-import {polyfillCustomEvent} from "./polyfill/custom-event";
 import {auto_init_show_more} from "./plugin/show-more";
 import {init_actions_tooltips} from "./table/functions";
 import {EventConstants} from "./constants";
@@ -15,7 +14,6 @@ import {initAdminColumnsGlobalBootstrap} from "./helpers/admin-columns";
 declare let AC: LocalizedScriptAC
 
 let AdminColumns = initAdminColumnsGlobalBootstrap();
-polyfillCustomEvent();
 
 $(document).ready(() => {
     let table = resolveTableBySelector(AC.table_id);
@@ -57,6 +55,7 @@ AdminColumns.events.addListener(EventConstants.TABLE.READY, (e) => {
         $(element).trigger('updated', {id: getIdFromTableRow((<HTMLTableRowElement>element)), row: element})
     });
 });
+
 
 window.ac_load_table = function (el: HTMLTableElement) {
     AdminColumns.Table = new Table(el);

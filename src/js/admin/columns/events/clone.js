@@ -11,7 +11,7 @@ let clone = function( column ) {
 			return;
 		}
 
-		AC.Form.cloneColumn( column.$el );
+		AdminColumns.Form.cloneColumn( column.$el );
 	} );
 };
 
