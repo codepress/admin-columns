@@ -10,7 +10,6 @@ export const initDateSetting = (column: Column) => {
     column.getElement().querySelectorAll<HTMLElement>('[data-setting=date]').forEach(setting => new DateSetting(column, setting));
 }
 
-// TODO Test
 class DateSetting {
     column: Column
     setting: HTMLElement
@@ -38,7 +37,7 @@ class DateSetting {
         this.initEvents();
     }
 
-    getOptionsAsArray(): Array<HTMLInputElement>{
+    getOptionsAsArray(): Array<HTMLInputElement> {
         return Array.from(this.options);
     }
 

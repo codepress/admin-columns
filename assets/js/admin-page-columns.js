@@ -1263,7 +1263,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 var initDateSetting = function (column) {
     column.getElement().querySelectorAll('[data-setting=date]').forEach(function (setting) { return new DateSetting(column, setting); });
 };
-// TODO Test
 var DateSetting = /** @class */ (function () {
     function DateSetting(column, setting) {
         this.column = column;
@@ -2062,19 +2061,19 @@ var addEventListeners = function (el, events, callback) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uniqid", function() { return uniqid; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stripHtml", function() { return stripHtml; });
-var uniqid = function (a, b) {
-    if (a === void 0) { a = ""; }
-    if (b === void 0) { b = false; }
+var uniqid = function (prefix, moreEntropy) {
+    if (prefix === void 0) { prefix = ""; }
+    if (moreEntropy === void 0) { moreEntropy = false; }
     var c = Date.now() / 1000;
     var d = c.toString(16).split(".").join("");
     while (d.length < 14)
         d += "0";
     var e = "";
-    if (b) {
+    if (moreEntropy) {
         e = ".";
         e += Math.round(Math.random() * 100000000);
     }
-    return a + d + e;
+    return prefix + d + e;
 };
 var stripHtml = function (originalString) {
     return originalString ? originalString.replace(/(<([^>]+)>)/gi, "") : '';
