@@ -63,8 +63,7 @@ export class Form {
         this.columns.push(column);
         this.placeColumn(column);
         this.bindColumnEvents(column);
-
-        column.open();
+        column.open(300);
 
         return column;
     }
