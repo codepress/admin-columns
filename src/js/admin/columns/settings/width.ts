@@ -48,7 +48,7 @@ class WidthSetting {
     getUnit(): string {
         let input = this.setting.querySelector<HTMLInputElement>('[data-unit-input] input:checked');
 
-        return input? input.value : null;
+        return input ? input.value : null;
     }
 
     getValue(): widthValue {
@@ -73,7 +73,10 @@ class WidthSetting {
     }
 
     init() {
-        this.widthInput.addEventListener('keyup', () => this.updateIndicator());
+        this.widthInput.addEventListener('keyup', () => {
+            this.updateIndicator();
+            this.initSlider();
+        });
 
         this.unitInput.forEach(el => {
             el.addEventListener('change', () => {
@@ -89,10 +92,6 @@ class WidthSetting {
 
     updateIndicator() {
         this.indicator.setValue(this.getWidth(), this.getUnit())
-    }
-
-    initEvents() {
-
     }
 
     initSlider() {

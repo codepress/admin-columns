@@ -1800,7 +1800,10 @@ var WidthSetting = /** @class */ (function () {
     };
     WidthSetting.prototype.init = function () {
         var _this = this;
-        this.widthInput.addEventListener('keyup', function () { return _this.updateIndicator(); });
+        this.widthInput.addEventListener('keyup', function () {
+            _this.updateIndicator();
+            _this.initSlider();
+        });
         this.unitInput.forEach(function (el) {
             el.addEventListener('change', function () {
                 _this.initSlider();
@@ -1813,8 +1816,6 @@ var WidthSetting = /** @class */ (function () {
     };
     WidthSetting.prototype.updateIndicator = function () {
         this.indicator.setValue(this.getWidth(), this.getUnit());
-    };
-    WidthSetting.prototype.initEvents = function () {
     };
     WidthSetting.prototype.initSlider = function () {
         var _this = this;
