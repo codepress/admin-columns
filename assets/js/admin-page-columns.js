@@ -468,6 +468,9 @@ var Column = /** @class */ (function () {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.getElement()).find('.ac-column-body').slideDown(duration);
         this.state = STATES.OPEN;
     };
+    Column.prototype.isOpen = function () {
+        return this.state === STATES.OPEN;
+    };
     Column.prototype.showMessage = function (message) {
         var msgElement = this.getElement().querySelector('.ac-column-setting--type .msg');
         if (msgElement) {
@@ -912,6 +915,7 @@ var Form = /** @class */ (function () {
             var cloneColumn = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](column.getElement().cloneNode(true), Object(_helpers_string__WEBPACK_IMPORTED_MODULE_5__["uniqid"])());
             _this.columns.push(cloneColumn);
             _this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
+            column.isOpen() ? cloneColumn.open() : cloneColumn.close();
             Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["fadeIn"])(cloneColumn.getElement(), 300);
         });
     };

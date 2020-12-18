@@ -132,6 +132,10 @@ export class Column {
         this.state = STATES.OPEN;
     }
 
+    isOpen(): Boolean {
+        return this.state === STATES.OPEN;
+    }
+
     showMessage(message: string) {
         let msgElement = this.getElement().querySelector<HTMLElement>('.ac-column-setting--type .msg');
         if (msgElement) {

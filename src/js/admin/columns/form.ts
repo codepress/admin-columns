@@ -97,6 +97,7 @@ export class Form {
             let cloneColumn = new Column(column.getElement().cloneNode(true) as HTMLFormElement, uniqid());
             this.columns.push(cloneColumn);
             this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
+            column.isOpen() ? cloneColumn.open() : cloneColumn.close();
 
             fadeIn(cloneColumn.getElement(), 300);
         });
