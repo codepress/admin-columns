@@ -1803,6 +1803,7 @@ var WidthSetting = /** @class */ (function () {
         this.widthInput.addEventListener('keyup', function () {
             _this.updateIndicator();
             _this.initSlider();
+            _this.validate();
         });
         this.unitInput.forEach(function (el) {
             el.addEventListener('change', function () {

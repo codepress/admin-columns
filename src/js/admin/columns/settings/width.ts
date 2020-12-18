@@ -76,6 +76,7 @@ class WidthSetting {
         this.widthInput.addEventListener('keyup', () => {
             this.updateIndicator();
             this.initSlider();
+            this.validate();
         });
 
         this.unitInput.forEach(el => {
