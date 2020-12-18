@@ -81,9 +81,9 @@ AdminColumns.events.addListener(EventConstants.SETTINGS.FORM.SAVED, () => {
     document.querySelector('#cpac .ac-admin').classList.add('stored');
 });
 
-AdminColumns.events.addListener(EventConstants.SETTINGS.COLUMN.INIT, () => {
+AdminColumns.events.addListener(EventConstants.SETTINGS.COLUMN.INIT, (column) => {
     initAcTooltips();
-    initPointers();
+    initPointers(column.getElement().querySelectorAll('.ac-pointer'));
 });
 
 

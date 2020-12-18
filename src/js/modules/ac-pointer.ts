@@ -16,7 +16,7 @@ export class Pointer {
     }
 
     setInitialized() {
-        this.element.dataset.ac_pointer_initialized = '1';
+        AcPointers.add(this.element);
     }
 
     getDefaults() {
@@ -28,7 +28,7 @@ export class Pointer {
     }
 
     isInitialized() {
-        return this.element.dataset.hasOwnProperty('ac_pointer_initialized');
+        return AcPointers.isInitialized(this.element);
     }
 
     init() {
@@ -152,8 +152,25 @@ export class Pointer {
     }
 }
 
-export const initPointers = () => {
-    document.querySelectorAll<HTMLElement>('.ac-pointer').forEach(element => {
+class AcPointers {
+    static initElements: Array<HTMLElement> = [];
+
+    static isInitialized(element: HTMLElement): boolean {
+        return this.initElements.filter(el => el === element).length > 0;
+    }
+
+    static add(element: HTMLElement) {
+        this.initElements.push(element);
+    }
+}
+
+
+export const initPointers = (elements: NodeListOf<HTMLElement> = null) => {
+    if (!elements) {
+        elements = document.querySelectorAll<HTMLElement>('.ac-pointer')
+    }
+
+    elements.forEach(element => {
         new Pointer(element);
     });
 

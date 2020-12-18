@@ -161,7 +161,7 @@ var Pointer = /** @class */ (function () {
         this.setInitialized();
     }
     Pointer.prototype.setInitialized = function () {
-        this.element.dataset.ac_pointer_initialized = '1';
+        AcPointers.add(this.element);
     };
     Pointer.prototype.getDefaults = function () {
         return {
@@ -171,7 +171,7 @@ var Pointer = /** @class */ (function () {
         };
     };
     Pointer.prototype.isInitialized = function () {
-        return this.element.dataset.hasOwnProperty('ac_pointer_initialized');
+        return AcPointers.isInitialized(this.element);
     };
     Pointer.prototype.init = function () {
         if (this.isInitialized()) {
@@ -275,8 +275,24 @@ var Pointer = /** @class */ (function () {
     return Pointer;
 }());
 
-var initPointers = function () {
-    document.querySelectorAll('.ac-pointer').forEach(function (element) {
+var AcPointers = /** @class */ (function () {
+    function AcPointers() {
+    }
+    AcPointers.isInitialized = function (element) {
+        return this.initElements.filter(function (el) { return el === element; }).length > 0;
+    };
+    AcPointers.add = function (element) {
+        this.initElements.push(element);
+    };
+    AcPointers.initElements = [];
+    return AcPointers;
+}());
+var initPointers = function (elements) {
+    if (elements === void 0) { elements = null; }
+    if (!elements) {
+        elements = document.querySelectorAll('.ac-pointer');
+    }
+    elements.forEach(function (element) {
         new Pointer(element);
     });
     $('.ac-wp-pointer').hover(function () {
