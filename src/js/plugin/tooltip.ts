@@ -25,7 +25,6 @@ export class Tooltip {
 
         this.element.dataset.acTooltipInit = '1';
 
-
         document.body.appendChild(this.tip);
 
         this.element.addEventListener('mouseenter', () => {

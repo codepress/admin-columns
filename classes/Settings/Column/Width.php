@@ -38,9 +38,11 @@ class Width extends Settings\Column
 
 	public function create_view() {
 		$width = $this->create_element( 'text' )
-		              ->set_attribute( 'placeholder', __( 'Auto', 'codepress-admin-columns' ) );
+		              ->set_attribute( 'placeholder', __( 'Auto', 'codepress-admin-columns' ) )
+		              ->set_attribute( 'data-width-input', '' );
 
 		$unit = $this->create_element( 'radio', 'width_unit' )
+		             ->set_attribute( 'data-unit-input', '' )
 		             ->set_options( $this->get_valid_width_units() );
 
 		$section = new View( [

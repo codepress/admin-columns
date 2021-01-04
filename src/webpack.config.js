@@ -3,10 +3,10 @@ let path = require( 'path' );
 let config = {
 	entry : {
 		'admin-general' : './js/admin-general.ts',
-		'admin-page-columns' : ['./js/admin-page-columns.js'],
+		'admin-page-columns' : ['./js/admin-page-columns.ts'],
 		'admin-page-addons' : './js/admin-page-addons.ts',
 		'message-review' : './js/message-review.ts',
-		'notice-dismissible' : './js/notice-dismissible.js',
+		'notice-dismissible' : './js/notice-dismissible.ts',
 		'table' : './js/table.ts'
 	},
 	output : {
@@ -15,18 +15,11 @@ let config = {
 	},
 	module : {
 		rules : [
-			{
-				test : /\.(t|j)sx?$/,
-				exclude : /node_modules(?!(\/|\\)query-string)/,
-				use : [
-					{ loader : 'babel-loader' },
-					{ loader : 'ts-loader' }
-				]
-			}
+			{ loader : 'ts-loader' }
 		]
 	},
 	resolve : {
-		extensions : ['.ts', '.js'],
+		extensions : ['.tsx', '.ts', '.js'],
 	},
 	externals : {
 		jquery : 'jQuery',

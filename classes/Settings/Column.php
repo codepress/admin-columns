@@ -280,7 +280,7 @@ abstract class Column {
 				$element->set_type( $type );
 		}
 
-		$element->set_name( sprintf( 'columns[%s][%s]', $this->column->get_name(), $name ) );
+		$element->set_name( $name );
 		$element->set_id( sprintf( 'ac-%s-%s', $this->column->get_name(), $name ) );
 		$element->add_class( 'ac-setting-input_' . $name );
 

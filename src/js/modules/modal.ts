@@ -12,6 +12,10 @@ export default class Modal {
         this.initEvents();
     }
 
+    getElement(): HTMLElement {
+        return this.el;
+    }
+
     initEvents() {
         let self = this;
 
