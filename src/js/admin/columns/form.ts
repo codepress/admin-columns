@@ -20,10 +20,7 @@ export class Form {
         this.form = element;
         this.events = events;
         this.columns = [];
-
         this.events.emit(EventConstants.SETTINGS.FORM.LOADED, this);
-        // TODO See usage
-        // jQuery(document).trigger('AC_Form_Loaded');
 
         this.init();
     }
@@ -53,10 +50,10 @@ export class Form {
         } else {
             this.getElement().querySelector('.ac-columns').append(column.getElement());
         }
-        setTimeout( () => {
-            scrollToElement(column.getElement(), 300, {offset: -18});
-        },300)
 
+        setTimeout(() => {
+            scrollToElement(column.getElement(), 300, {offset: -18});
+        }, 300)
 
         return this;
     }

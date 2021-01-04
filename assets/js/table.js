@@ -1093,11 +1093,16 @@ var Table = /** @class */ (function () {
         this.Cells = new _cells__WEBPACK_IMPORTED_MODULE_1__["default"]();
         this.Actions = document.getElementById('ac-table-actions') ? new _actions__WEBPACK_IMPORTED_MODULE_0__["default"](document.getElementById('ac-table-actions')) : null;
         this.Selection = new _row_selection__WEBPACK_IMPORTED_MODULE_4__["default"](this);
-        // TODO make helper function for this (INLINE EDIT NEEDS IT)
-        this._ids = [];
     }
     Table.prototype.getElement = function () {
         return this.el;
+    };
+    Table.prototype.getIdsFromTable = function () {
+        var result = [];
+        this.el.getElementsByTagName('tbody')[0].querySelectorAll('tr').forEach(function (row) {
+            result.push(Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row));
+        });
+        return result;
     };
     Table.prototype.init = function () {
         this.initTable();
@@ -1116,12 +1121,10 @@ var Table = /** @class */ (function () {
         });
     };
     Table.prototype.initTable = function () {
-        var el = this.el.getElementsByTagName('tbody');
-        var rows = el[0].querySelectorAll('tr');
-        for (var i = 0; i < rows.length; i++) {
-            this._ids.push(Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(rows[i]));
-            this.updateRow(rows[i]);
-        }
+        var _this = this;
+        this.el.getElementsByTagName('tbody')[0].querySelectorAll('tr').forEach(function (row) {
+            _this.updateRow(row);
+        });
     };
     Table.prototype.updateRow = function (row) {
         var id = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row);
@@ -1139,13 +1142,6 @@ var Table = /** @class */ (function () {
                 _this.Cells.add(id, cell);
             }
         });
-    };
-    /**
-     * @deprecated
-     * TODO remove once IE uses the helper
-     */
-    Table.prototype._getIDFromRow = function (row) {
-        return Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row);
     };
     /**
      * @deprecated use Helper function instead

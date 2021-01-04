@@ -15,5 +15,5 @@ export const initClone = (column: Column): void => {
                 column.events.emit(COLUMN_EVENTS.CLONE);
             }
         });
-    })
+    });
 }

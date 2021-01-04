@@ -28,12 +28,20 @@ export default class Table {
         this.Cells = new Cells();
         this.Actions = document.getElementById('ac-table-actions') ? new Actions(document.getElementById('ac-table-actions')) : null;
         this.Selection = new RowSelection(this);
-        // TODO make helper function for this (INLINE EDIT NEEDS IT)
-        this._ids = [];
     }
 
     getElement(): HTMLTableElement {
         return this.el;
+    }
+
+    getIdsFromTable(): Array<number> {
+        let result: Array<number> = [];
+
+        this.el.getElementsByTagName('tbody')[0].querySelectorAll('tr').forEach(row => {
+            result.push(getIdFromTableRow(row));
+        });
+
+        return result;
     }
 
     init(): void {
@@ -56,15 +64,10 @@ export default class Table {
     }
 
     private initTable() {
-        let el = this.el.getElementsByTagName('tbody');
-        let rows = el[0].querySelectorAll<HTMLTableRowElement>('tr');
-
-        for (let i = 0; i < rows.length; i++) {
-            this._ids.push(getIdFromTableRow(rows[i]));
-            this.updateRow(rows[i]);
-        }
+        this.el.getElementsByTagName('tbody')[0].querySelectorAll<HTMLTableRowElement>('tr').forEach(row => {
+            this.updateRow(row);
+        });
     }
-
 
     updateRow(row: HTMLTableRowElement): void {
         let id = getIdFromTableRow(row);
@@ -85,14 +88,6 @@ export default class Table {
                 this.Cells.add(id, cell);
             }
         });
-    }
-
-    /**
-     * @deprecated
-     * TODO remove once IE uses the helper
-     */
-    _getIDFromRow(row: HTMLTableRowElement) {
-        return getIdFromTableRow(row);
     }
 
     /**

@@ -852,8 +852,6 @@ var Form = /** @class */ (function () {
         this.events = events;
         this.columns = [];
         this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.LOADED, this);
-        // TODO See usage
-        // jQuery(document).trigger('AC_Form_Loaded');
         this.init();
     }
     Form.prototype.init = function () {
