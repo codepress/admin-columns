@@ -878,7 +878,9 @@ var Form = /** @class */ (function () {
         else {
             this.getElement().querySelector('.ac-columns').append(column.getElement());
         }
-        Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["scrollToElement"])(column.getElement(), 300, { offset: -58 });
+        setTimeout(function () {
+            Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["scrollToElement"])(column.getElement(), 300, { offset: -18 });
+        }, 300);
         return this;
     };
     Form.prototype.createNewColumn = function () {
@@ -1962,7 +1964,7 @@ var scrollToElement = function (element, ms, options) {
         offset: 0
     };
     var settings = Object.assign({}, defaults, options);
-    var elementY = element.getBoundingClientRect().top + settings.offset;
+    var elementY = element.offsetTop + settings.offset;
     var startingY = window.pageYOffset;
     var diff = elementY - startingY;
     var start;

@@ -41,7 +41,7 @@ export const scrollToElement = (element: HTMLElement, ms: number, options: scrol
     }
     let settings = Object.assign({}, defaults, options);
 
-    const elementY = element.getBoundingClientRect().top + settings.offset;
+    const elementY = element.offsetTop + settings.offset;
     const startingY = window.pageYOffset;
     const diff = elementY - startingY;
     let start: number;

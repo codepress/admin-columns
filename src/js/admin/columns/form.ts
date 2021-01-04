@@ -53,7 +53,10 @@ export class Form {
         } else {
             this.getElement().querySelector('.ac-columns').append(column.getElement());
         }
-        scrollToElement(column.getElement(), 300, {offset: -58});
+        setTimeout( () => {
+            scrollToElement(column.getElement(), 300, {offset: -18});
+        },300)
+
 
         return this;
     }
