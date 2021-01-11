@@ -46,14 +46,17 @@ AdminColumns.events.addListener(EventConstants.TABLE.READY, (e) => {
     auto_init_show_more();
     init_actions_tooltips();
 
-    e.table.getElement().addEventListener('DOMNodeInserted', (e: Event) => {
-        let element: HTMLElement = (<HTMLElement>e.target)
-        if (element.tagName !== 'TR' || !element.classList.contains('iedit')) {
-            return;
-        }
+    let observer = new MutationObserver(mutations => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node: HTMLElement) => {
+                if (node.tagName === 'TR') {
+                    $(node).trigger('updated', {id: getIdFromTableRow((<HTMLTableRowElement>node)), row: node})
+                }
+            });
+        });
+    })
 
-        $(element).trigger('updated', {id: getIdFromTableRow((<HTMLTableRowElement>element)), row: element})
-    });
+    observer.observe(e.table.getElement(), {childList: true});
 });
 
 

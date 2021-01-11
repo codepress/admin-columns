@@ -15,9 +15,9 @@ class NoticeChecks implements Registrable {
 	 */
 	private function get_checks() {
 		$checks = [];
+		$checks[] = new Check\Review();
 
 		if ( ! ac_is_pro_active() ) {
-			$checks[] = new Check\Review();
 
 			foreach ( new PromoCollection() as $promo ) {
 				$checks[] = new Check\Promotion( $promo );

@@ -1,13 +1,7 @@
 import {LocalizedScriptAC} from "../admincolumns";
 
-type column = {
-    name: string,
-    type: string,
-    label: string
-}
-
 type columns = {
-    [key: string]: column
+    [key: string]: ColumnTableSettings
 }
 
 declare const AC: LocalizedScriptAC
@@ -15,7 +9,7 @@ declare const AC: LocalizedScriptAC
 export default class Columns {
 
     table: HTMLTableElement
-    columns: { [key: string]: column }
+    columns: { [key: string]: ColumnTableSettings }
 
     constructor(table: HTMLTableElement) {
         this.table = table;
@@ -32,11 +26,7 @@ export default class Columns {
         for (let i = 0; i < headers.length; i++) {
             let headerName = headers[i].id;
 
-            self.columns[headers[i].id] = {
-                name: headerName,
-                type: AC.column_types[headerName],
-                label: this.sanitizeLabel(headers[i])
-            };
+            self.columns[headers[i].id] = new ColumnTableSettings(headerName, AC.column_types[headerName], this.sanitizeLabel(headers[i]));
         }
     }
 
@@ -59,7 +49,7 @@ export default class Columns {
         return Object.keys(this.columns);
     }
 
-    get(column_name: string): column | null {
+    get(column_name: string): ColumnTableSettings | null {
         return this.columns.hasOwnProperty(column_name) ? this.columns[column_name] : null;
     }
 
@@ -78,4 +68,32 @@ export default class Columns {
 
         return label;
     }
+}
+
+export class ColumnTableSettings {
+
+    name: string
+    type: string
+    label: string;
+    services: { [key: string]: any }
+
+    constructor(name: string, type: string, label: string) {
+        this.name = name;
+        this.type = type;
+        this.label = label;
+        this.services = {};
+    }
+
+    setService(name: string, service: any) {
+        this.services[name] = service;
+    }
+
+    getService<T = any>(name: string): T {
+        return this.hasService(name) ? this.services[name] : null;
+    }
+
+    hasService(name: string): boolean {
+        return this.services.hasOwnProperty(name);
+    }
+
 }

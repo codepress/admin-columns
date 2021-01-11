@@ -181,12 +181,13 @@ function isInViewport(element) {
 /*!******************************!*\
   !*** ./js/helpers/global.ts ***!
   \******************************/
-/*! exports provided: getParamFromUrl */
+/*! exports provided: getParamFromUrl, mapDataToFormData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParamFromUrl", function() { return getParamFromUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapDataToFormData", function() { return mapDataToFormData; });
 var getParamFromUrl = function (param, url) {
     param = param.replace(/[\[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + param + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
@@ -197,6 +198,24 @@ var getParamFromUrl = function (param, url) {
         return '';
     }
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+};
+var mapDataToFormData = function (data, formData) {
+    if (formData === void 0) { formData = null; }
+    if (!formData) {
+        formData = new FormData();
+    }
+    Object.keys(data).forEach(function (key) {
+        var value = data[key];
+        if (Array.isArray(value)) {
+            value.forEach(function (d) {
+                formData.append(key + "[]", d);
+            });
+        }
+        else {
+            formData.append(key, data[key]);
+        }
+    });
+    return formData;
 };
 
 
@@ -717,13 +736,16 @@ jquery__WEBPACK_IMPORTED_MODULE_4___default()(document).ready(function () {
 AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__["EventConstants"].TABLE.READY, function (e) {
     Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
     Object(_table_functions__WEBPACK_IMPORTED_MODULE_6__["init_actions_tooltips"])();
-    e.table.getElement().addEventListener('DOMNodeInserted', function (e) {
-        var element = e.target;
-        if (element.tagName !== 'TR' || !element.classList.contains('iedit')) {
-            return;
-        }
-        jquery__WEBPACK_IMPORTED_MODULE_4___default()(element).trigger('updated', { id: Object(_helpers_table__WEBPACK_IMPORTED_MODULE_8__["getIdFromTableRow"])(element), row: element });
+    var observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            mutation.addedNodes.forEach(function (node) {
+                if (node.tagName === 'TR') {
+                    jquery__WEBPACK_IMPORTED_MODULE_4___default()(node).trigger('updated', { id: Object(_helpers_table__WEBPACK_IMPORTED_MODULE_8__["getIdFromTableRow"])(node), row: node });
+                }
+            });
+        });
     });
+    observer.observe(e.table.getElement(), { childList: true });
 });
 window.ac_load_table = function (el) {
     AdminColumns.Table = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](el);
@@ -797,6 +819,7 @@ var Cell = /** @class */ (function () {
         this.column_name = name;
         this.original_value = el.innerHTML;
         this.el = el;
+        this.services = {};
     }
     Cell.prototype.getObjectID = function () {
         return this.object_id;
@@ -806,6 +829,9 @@ var Cell = /** @class */ (function () {
     };
     Cell.prototype.getElement = function () {
         return this.el;
+    };
+    Cell.prototype.setElement = function (element) {
+        this.el = element;
     };
     Cell.prototype.getRow = function () {
         return this.el.parentElement;
@@ -820,6 +846,15 @@ var Cell = /** @class */ (function () {
         this.original_value = value;
         this.el.innerHTML = value;
         return this;
+    };
+    Cell.prototype.setService = function (name, service) {
+        this.services[name] = service;
+    };
+    Cell.prototype.getService = function (name) {
+        return this.hasService(name) ? this.services[name] : null;
+    };
+    Cell.prototype.hasService = function (name) {
+        return this.services.hasOwnProperty(name);
     };
     return Cell;
 }());
@@ -892,11 +927,12 @@ var Cells = /** @class */ (function () {
 /*!*****************************!*\
   !*** ./js/table/columns.ts ***!
   \*****************************/
-/*! exports provided: default */
+/*! exports provided: default, ColumnTableSettings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ColumnTableSettings", function() { return ColumnTableSettings; });
 var Columns = /** @class */ (function () {
     function Columns(table) {
         this.table = table;
@@ -909,11 +945,7 @@ var Columns = /** @class */ (function () {
         var headers = thead.querySelectorAll('th');
         for (var i = 0; i < headers.length; i++) {
             var headerName = headers[i].id;
-            self.columns[headers[i].id] = {
-                name: headerName,
-                type: AC.column_types[headerName],
-                label: this.sanitizeLabel(headers[i])
-            };
+            self.columns[headers[i].id] = new ColumnTableSettings(headerName, AC.column_types[headerName], this.sanitizeLabel(headers[i]));
         }
     };
     Columns.prototype.getColumns = function () {
@@ -948,6 +980,25 @@ var Columns = /** @class */ (function () {
     return Columns;
 }());
 /* harmony default export */ __webpack_exports__["default"] = (Columns);
+var ColumnTableSettings = /** @class */ (function () {
+    function ColumnTableSettings(name, type, label) {
+        this.name = name;
+        this.type = type;
+        this.label = label;
+        this.services = {};
+    }
+    ColumnTableSettings.prototype.setService = function (name, service) {
+        this.services[name] = service;
+    };
+    ColumnTableSettings.prototype.getService = function (name) {
+        return this.hasService(name) ? this.services[name] : null;
+    };
+    ColumnTableSettings.prototype.hasService = function (name) {
+        return this.services.hasOwnProperty(name);
+    };
+    return ColumnTableSettings;
+}());
+
 
 
 /***/ }),

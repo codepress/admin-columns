@@ -65,7 +65,7 @@ export default class Cells {
         return results;
     }
 
-    get(id: number, name: string) {
+    get(id: number, name: string): Cell {
         return this.cells.hasOwnProperty(id.toString()) ? this.cells[id][name] : null
     }
 

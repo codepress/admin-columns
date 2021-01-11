@@ -31,6 +31,7 @@ export interface LocalizedScriptACTable extends LocalizedScriptAC {
     list_screen_link: string,
     meta_type: string,
     column_widths: { [key: string]: WidthType }
+    screen: string
 }
 
 export type WidthType = { width: number, width_unit: string }

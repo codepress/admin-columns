@@ -8,12 +8,14 @@ export default class Cell {
     private column_name: string
     private original_value: string
     private el: HTMLTableCellElement
+    private services: { [key: string]: any }
 
     constructor(id: number, name: string, el: HTMLTableCellElement) {
         this.object_id = id;
         this.column_name = name;
         this.original_value = el.innerHTML;
         this.el = el;
+        this.services = {}
     }
 
     getObjectID(): number {
@@ -26,6 +28,10 @@ export default class Cell {
 
     getElement(): HTMLTableCellElement {
         return this.el;
+    }
+
+    setElement(element: HTMLTableCellElement) {
+        this.el = element;
     }
 
     getRow(): HTMLTableRowElement {
@@ -45,6 +51,18 @@ export default class Cell {
         this.el.innerHTML = value;
 
         return this;
+    }
+
+    setService(name: string, service: any) {
+        this.services[name] = service;
+    }
+
+    getService<T = any>(name: string): T {
+        return this.hasService(name) ? this.services[name] : null;
+    }
+
+    hasService(name: string): boolean {
+        return this.services.hasOwnProperty(name);
     }
 
 }
