@@ -49,14 +49,14 @@ AdminColumns.events.addListener(EventConstants.TABLE.READY, (e) => {
     let observer = new MutationObserver(mutations => {
         mutations.forEach((mutation) => {
             mutation.addedNodes.forEach((node: HTMLElement) => {
-                if (node.tagName === 'TR') {
+                if (node.tagName === 'TR' && node.classList.contains('iedit')) {
                     $(node).trigger('updated', {id: getIdFromTableRow((<HTMLTableRowElement>node)), row: node})
                 }
             });
         });
     })
 
-    observer.observe(e.table.getElement(), {childList: true});
+    observer.observe(e.table.getElement(), {childList: true, subtree: true});
 });
 
 

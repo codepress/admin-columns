@@ -739,13 +739,13 @@ AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__["EventCo
     var observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
             mutation.addedNodes.forEach(function (node) {
-                if (node.tagName === 'TR') {
+                if (node.tagName === 'TR' && node.classList.contains('iedit')) {
                     jquery__WEBPACK_IMPORTED_MODULE_4___default()(node).trigger('updated', { id: Object(_helpers_table__WEBPACK_IMPORTED_MODULE_8__["getIdFromTableRow"])(node), row: node });
                 }
             });
         });
     });
-    observer.observe(e.table.getElement(), { childList: true });
+    observer.observe(e.table.getElement(), { childList: true, subtree: true });
 });
 window.ac_load_table = function (el) {
     AdminColumns.Table = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](el);
