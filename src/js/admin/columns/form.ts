@@ -44,6 +44,18 @@ export class Form {
         return this.columns;
     }
 
+    getSortedColumns(): Array<Column> {
+        let result: Array<Column> = [];
+        this.getElement().querySelectorAll<HTMLFormElement>('form.ac-column').forEach( column => {
+            let c:Column = this.columns.find( c => c.getName() === column.dataset.columnName );
+            if( c ){
+                result.push( c );
+            }
+        });
+
+        return result;
+    }
+
     placeColumn(column: Column, after: HTMLElement = null): this {
         if (after) {
             insertAfter(column.getElement(), after);
@@ -124,7 +136,7 @@ export class Form {
 
     getFormData(): ListScreenStorageType {
         let columnData: any = {};
-        this.columns.forEach(column => {
+        this.getSortedColumns().forEach(column => {
             columnData[column.getName()] = column.getJson();
         });
 

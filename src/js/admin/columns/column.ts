@@ -50,6 +50,7 @@ export class Column {
         this.type = element.dataset.type;
         this.original = element.dataset.original === '1';
         this.disabled = element.classList.contains('disabled');
+        element.dataset.columnName = this.name;
 
         return this;
     }

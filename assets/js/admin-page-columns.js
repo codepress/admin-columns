@@ -260,7 +260,6 @@ var refreshColumn = function (name, data, list_screen) {
         column_name: name,
         data: data,
         list_screen: list_screen,
-        current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map(function (e) { return e.getName(); })),
     });
     return axios.post(ajaxurl, formData);
 };
@@ -401,6 +400,7 @@ var Column = /** @class */ (function () {
         this.type = element.dataset.type;
         this.original = element.dataset.original === '1';
         this.disabled = element.classList.contains('disabled');
+        element.dataset.columnName = this.name;
         return this;
     };
     Column.prototype.getName = function () {
@@ -868,6 +868,17 @@ var Form = /** @class */ (function () {
     Form.prototype.getColumns = function () {
         return this.columns;
     };
+    Form.prototype.getSortedColumns = function () {
+        var _this = this;
+        var result = [];
+        this.getElement().querySelectorAll('form.ac-column').forEach(function (column) {
+            var c = _this.columns.find(function (c) { return c.getName() === column.dataset.columnName; });
+            if (c) {
+                result.push(c);
+            }
+        });
+        return result;
+    };
     Form.prototype.placeColumn = function (column, after) {
         if (after === void 0) { after = null; }
         if (after) {
@@ -948,7 +959,7 @@ var Form = /** @class */ (function () {
     };
     Form.prototype.getFormData = function () {
         var columnData = {};
-        this.columns.forEach(function (column) {
+        this.getSortedColumns().forEach(function (column) {
             columnData[column.getName()] = column.getJson();
         });
         return {

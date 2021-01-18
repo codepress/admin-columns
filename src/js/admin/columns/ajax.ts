@@ -76,7 +76,7 @@ export const refreshColumn = (name: string, data: string, list_screen: string = 
         column_name: name,
         data: data,
         list_screen: list_screen,
-        current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map((e: Column) => e.getName())),
+       // current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map((e: Column) => e.getName())),
     });
 
     return axios.post(ajaxurl, formData);
