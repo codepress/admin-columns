@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Added] User Column: First and Latest Post(type)
+
 = 4.2.5 =
 Release Date: December 15th, 2020
 
