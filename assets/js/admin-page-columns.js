@@ -293,6 +293,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _settings_pro__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./settings/pro */ "./js/admin/columns/settings/pro.ts");
 /* harmony import */ var _settings_custom_field__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./settings/custom-field */ "./js/admin/columns/settings/custom-field.ts");
 /* harmony import */ var _settings_sub_setting_toggle__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./settings/sub-setting-toggle */ "./js/admin/columns/settings/sub-setting-toggle.ts");
+/* harmony import */ var _settings_multi_select__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./settings/multi-select */ "./js/admin/columns/settings/multi-select.ts");
+
 
 
 
@@ -322,6 +324,7 @@ var ColumnConfigurator = /** @class */ (function () {
             Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabel"])(column);
             Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabelSettingEvents"])(column);
             Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabelTooltipsEvent"])(column);
+            Object(_settings_multi_select__WEBPACK_IMPORTED_MODULE_17__["initMultiSelectFields"])(column);
             Object(_settings_label__WEBPACK_IMPORTED_MODULE_8__["initLabelSetting"])(column);
             Object(_settings_image_size__WEBPACK_IMPORTED_MODULE_9__["initImageSizeSetting"])(column);
             Object(_settings_number_format__WEBPACK_IMPORTED_MODULE_10__["initNumberFormatSetting"])(column);
@@ -486,8 +489,17 @@ var Column = /** @class */ (function () {
         try {
             // @ts-ignore
             for (var _b = __values(formData.entries()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var key = _c.value;
-                obj[key[0]] = key[1];
+                var entry = _c.value;
+                var key = entry[0];
+                var value = entry[1];
+                if (this.fieldSupportsMultipleValues(key)) {
+                    var _value = obj.hasOwnProperty(key) ? obj[key] : [];
+                    _value.push(value);
+                    obj[key] = _value;
+                }
+                else {
+                    obj[key] = value;
+                }
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -498,6 +510,10 @@ var Column = /** @class */ (function () {
             finally { if (e_1) throw e_1.error; }
         }
         return obj;
+    };
+    Column.prototype.fieldSupportsMultipleValues = function (key) {
+        var element = this.getElement().elements[key];
+        return (element && element.tagName === 'SELECT' && element.hasAttribute('multiple'));
     };
     Column.prototype.switchToType = function (type) {
         var _this = this;
@@ -1557,6 +1573,46 @@ var IconPickerModal = /** @class */ (function (_super) {
     };
     return IconPickerModal;
 }(_modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+
+/***/ }),
+
+/***/ "./js/admin/columns/settings/multi-select.ts":
+/*!***************************************************!*\
+  !*** ./js/admin/columns/settings/multi-select.ts ***!
+  \***************************************************/
+/*! exports provided: initMultiSelectFields */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initMultiSelectFields", function() { return initMultiSelectFields; });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+// @ts-ignore
+
+var initMultiSelectFields = function (column) {
+    column.getElement().querySelectorAll('select[multiple=multiple]').forEach(function (setting) {
+        new MultiSelect(column, setting);
+    });
+};
+var MultiSelect = /** @class */ (function () {
+    function MultiSelect(column, setting) {
+        this.column = column;
+        this.setting = setting;
+        this.bindEvents();
+    }
+    MultiSelect.prototype.bindEvents = function () {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.setting).ac_select2({
+            theme: 'acs2',
+            width: '100%',
+            escapeMarkup: function (text) {
+                return text;
+            },
+        });
+    };
+    return MultiSelect;
+}());
 
 
 /***/ }),

@@ -152,11 +152,26 @@ export class Column {
         var obj: columnSettings = {};
 
         // @ts-ignore
-        for (var key of formData.entries()) {
-            obj[key[0]] = key[1];
+        for (var entry of formData.entries()) {
+            let key = entry[0];
+            let value = entry[1];
+
+            if (this.fieldSupportsMultipleValues(key)) {
+                let _value = obj.hasOwnProperty(key) ? obj[key] : [];
+                _value.push(value);
+                obj[key] = _value;
+            } else {
+                obj[key] = value;
+            }
         }
 
         return obj;
+    }
+
+    private fieldSupportsMultipleValues(key: string) {
+        let element = this.getElement().elements[key as any];
+
+        return (element && element.tagName === 'SELECT' && element.hasAttribute('multiple'));
     }
 
     switchToType(type: string) {

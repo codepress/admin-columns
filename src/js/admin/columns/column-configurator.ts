@@ -17,6 +17,7 @@ import {initDateSetting} from "./settings/date";
 import {initProSetting} from "./settings/pro";
 import {initCustomFieldSelector} from "./settings/custom-field";
 import {initSubSettings} from "./settings/sub-setting-toggle";
+import {initMultiSelectFields} from "./settings/multi-select";
 
 declare const AdminColumns: AdminColumnsInterface;
 
@@ -34,6 +35,7 @@ export default class ColumnConfigurator {
             initLabelSettingEvents(column);
             initLabelTooltipsEvent(column);
 
+            initMultiSelectFields(column);
             initLabelSetting(column);
             initImageSizeSetting(column);
             initNumberFormatSetting(column);

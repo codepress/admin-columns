@@ -275,6 +275,10 @@ abstract class Column {
 				$element = new AC\Settings\Form\Element\Select( $name );
 
 				break;
+			case 'multi-select' :
+				$element = new Element\MultiSelect( $name );
+
+				break;
 			default:
 				$element = new Element\Input( $name );
 				$element->set_type( $type );
