@@ -23,32 +23,34 @@ class FirstPost extends Column {
 		}
 
 		$post = get_post( $first_post_id );
-		$value = sprintf( '%s', $this->get_formatted_value( $post->ID ) );
 
-		if ( 'on' === $this->get_setting( 'display_date' )->get_value() ) {
-			$value .= sprintf( ' - %s', $post->post_date );
-		}
-
-		return $value;
+		return $this->get_formatted_value( $post->ID );
 	}
 
 	public function get_raw_value( $user_id ) {
 		$posts = get_posts( [
-			'author'    => $user_id,
-			'fields'    => 'ids',
-			'number'    => 1,
-			'orderby'   => 'date',
-			'order'     => 'ASC',
-			'post_type' => $this->get_setting( 'post_type' )->get_value(),
+			'author'      => $user_id,
+			'fields'      => 'ids',
+			'number'      => 1,
+			'orderby'     => 'date',
+			'post_status' => 'any',
+			'order'       => 'ASC',
+			'post_type'   => $this->get_related_post_type(),
 		] );
 
 		return empty( $posts ) ? null : $posts[0];
 	}
 
+	/**
+	 * @return string
+	 */
+	protected function get_related_post_type() {
+		return $this->get_setting( 'post_type' )->get_value();
+	}
+
 	protected function register_settings() {
 		$this->add_setting( new Settings\Column\PostType( $this ) );
 		$this->add_setting( new Settings\Column\Post( $this ) );
-		$this->add_setting( new Settings\Column\DisplayDate( $this ) );
 	}
 
 }
