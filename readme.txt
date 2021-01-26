@@ -213,7 +213,6 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: tbd
 
 * [Added] User Column: First and Latest Post(type)
-* [Added] Hook to alter the post status for the Post Count column (makes it possible to set multiple post types)
 * [Improved] It's now possible to select a post status for the Post Count column (User)
 
 = 4.2.5 =
