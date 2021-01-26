@@ -1592,18 +1592,23 @@ __webpack_require__.r(__webpack_exports__);
 // @ts-ignore
 
 var initMultiSelectFields = function (column) {
-    column.getElement().querySelectorAll('select[multiple=multiple]').forEach(function (setting) {
-        new MultiSelect(column, setting);
+    column.getElement().querySelectorAll('select[multiple]').forEach(function (select) {
+        new MultiSelect(column, select);
     });
 };
 var MultiSelect = /** @class */ (function () {
-    function MultiSelect(column, setting) {
+    function MultiSelect(column, select) {
         this.column = column;
-        this.setting = setting;
+        this.select = select;
         this.bindEvents();
     }
     MultiSelect.prototype.bindEvents = function () {
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.setting).ac_select2({
+        // First remove all cloned Select2 elements
+        this.select.removeAttribute('data-select2-id');
+        this.select.parentElement.querySelectorAll('.select2').forEach(function (el) {
+            el.remove();
+        });
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.select).ac_select2({
             theme: 'acs2',
             width: '100%',
             escapeMarkup: function (text) {
