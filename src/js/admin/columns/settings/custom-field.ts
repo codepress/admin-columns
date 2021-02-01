@@ -86,7 +86,7 @@ class SingleCustomFieldRequestManager {
     }
 
     getOptions() {
-        return new Promise( ( resolve, reject ) => {
+        return new Promise((resolve, reject) => {
             if (this.data) {
                 resolve(this.data);
             } else if (this.loading) {
@@ -94,8 +94,8 @@ class SingleCustomFieldRequestManager {
                     resolve(this.data);
                 })
             } else {
-                this.retrieveOptions().then( (response: AxiosResponse<any>) => {
-                    if( ! response.data.success ){
+                this.retrieveOptions().then((response: AxiosResponse<any>) => {
+                    if (!response.data.success) {
                         reject();
                     }
 
@@ -103,7 +103,7 @@ class SingleCustomFieldRequestManager {
                     this.events.emit('loaded');
 
                     resolve(this.data);
-                } );
+                });
             }
         });
     }

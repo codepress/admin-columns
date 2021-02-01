@@ -46,10 +46,10 @@ export class Form {
 
     getSortedColumns(): Array<Column> {
         let result: Array<Column> = [];
-        this.getElement().querySelectorAll<HTMLFormElement>('form.ac-column').forEach( column => {
-            let c:Column = this.columns.find( c => c.getName() === column.dataset.columnName );
-            if( c ){
-                result.push( c );
+        this.getElement().querySelectorAll<HTMLFormElement>('form.ac-column').forEach(column => {
+            let c: Column = this.columns.find(c => c.getName() === column.dataset.columnName);
+            if (c) {
+                result.push(c);
             }
         });
 
