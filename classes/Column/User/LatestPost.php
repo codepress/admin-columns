@@ -6,7 +6,7 @@ use AC\Column;
 use AC\Settings;
 
 /**
- * @since NEWVERSION
+ * @since 4.2.6
  */
 class LatestPost extends Column {
 

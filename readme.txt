@@ -209,7 +209,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 4.2.6 =
 Release Date: tbd
 
 * [Added] User Column: First and Latest Post(type)
