@@ -54,11 +54,11 @@ class Review
 		}
 
 		if ( $this->get_preferences()->get( 'dismiss-review' ) ) {
-			//return;
+			return;
 		}
 
 		if ( ! $this->first_login_compare() ) {
-			//return;
+			return;
 		}
 
 		wp_enqueue_script( 'ac-notice-review', AC()->get_url() . 'assets/js/message-review.js', [ 'jquery' ], AC()->get_version() );
