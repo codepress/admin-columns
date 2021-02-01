@@ -36,11 +36,11 @@ class LatestPost extends Column {
 
 	public function get_raw_value( $user_id ) {
 		$posts = get_posts( [
-			'author'    => $user_id,
-			'fields'    => 'ids',
-			'number'    => 1,
+			'author'      => $user_id,
+			'fields'      => 'ids',
+			'number'      => 1,
 			'post_status' => 'any',
-			'post_type' => $this->get_related_post_type(),
+			'post_type'   => $this->get_related_post_type(),
 		] );
 
 		return empty( $posts ) ? null : $posts[0];
