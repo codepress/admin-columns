@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-06-25 12:49:16+0000\n"
+"PO-Revision-Date: 2021-01-08 21:39:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,67 +21,67 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:51
 msgid "Misc"
-msgstr ""
+msgstr "Forskjellig"
 
 #: templates/settings/setting-label-icons.php:50
 msgid "Notifications"
-msgstr ""
+msgstr "Varsler"
 
 #: templates/settings/setting-label-icons.php:49
 msgid "Widgets"
-msgstr ""
+msgstr "Widgeter"
 
 #: templates/settings/setting-label-icons.php:47
 msgid "Products"
-msgstr ""
+msgstr "Produkter"
 
 #: templates/settings/setting-label-icons.php:46
 msgid "Buddicons"
-msgstr ""
+msgstr "Buddicons"
 
 #: templates/settings/setting-label-icons.php:45
 msgid "WordPress.org"
-msgstr ""
+msgstr "WordPress.org"
 
 #: templates/settings/setting-label-icons.php:44
 msgid "Social"
-msgstr ""
+msgstr "Sosialt"
 
 #: templates/settings/setting-label-icons.php:42
 msgid "Posts Screen"
-msgstr ""
+msgstr "Innlegg-skjermen"
 
 #: templates/settings/setting-label-icons.php:41
 msgid "TinyMCE"
-msgstr ""
+msgstr "TinyMCE"
 
 #: templates/settings/setting-label-icons.php:40
 msgid "Block Editor"
-msgstr ""
+msgstr "Blokkredigeringen"
 
 #: templates/settings/setting-label-icons.php:39
 msgid "Databases"
-msgstr ""
+msgstr "Databaser"
 
 #: templates/settings/setting-label-icons.php:38
 msgid "Image Editing"
-msgstr ""
+msgstr "Bilderedigering"
 
 #: templates/settings/setting-label-icons.php:36
 msgid "Post Formats"
-msgstr ""
+msgstr "Innleggsformater"
 
 #: templates/settings/setting-label-icons.php:35
 msgid "Welcome Screen"
-msgstr ""
+msgstr "Velkomstskjerm"
 
 #: templates/settings/setting-label-icons.php:34
 msgid "Admin Menu"
-msgstr ""
+msgstr "Admin-meny"
 
 #: templates/admin/edit-actions.php:40
 msgid "Key"
-msgstr ""
+msgstr "Nøkkel"
 
 #: templates/admin/side-banner.php:47
 msgid "Export table contents to CSV"
@@ -121,7 +121,7 @@ msgstr ""
 
 #: classes/Column/User/FullName.php:11 classes/Settings/Column/User.php:78
 msgid "Full Name"
-msgstr ""
+msgstr "Fullt navn"
 
 #: templates/tooltip/export-disabled.php:13
 msgid "Third-party columns and some custom columns cannot be exported unless there is build-in support for that specific column."
@@ -1374,7 +1374,7 @@ msgstr "Verdi: Bør være 1 (en) eller 0 (null)."
 
 #: classes/Column/User/Login.php:11
 msgid "Username"
-msgstr ""
+msgstr "Brukernavn"
 
 #: templates/admin/help-tab/custom-fields.php:19
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
