@@ -8,11 +8,11 @@ use AC\Settings;
 /**
  * @since 4.2.6
  */
-class LatestPost extends Column {
+class LastPost extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-latest_post' );
-		$this->set_label( __( 'Latest Post', 'codepress-admin-columns' ) );
+		$this->set_label( __( 'Last Post', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {
