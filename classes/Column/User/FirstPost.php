@@ -33,12 +33,19 @@ class FirstPost extends Column {
 			'fields'      => 'ids',
 			'number'      => 1,
 			'orderby'     => 'date',
-			'post_status' => 'any',
+			'post_status' => $this->get_related_post_stati(),
 			'order'       => 'ASC',
 			'post_type'   => $this->get_related_post_type(),
 		] );
 
 		return empty( $posts ) ? null : $posts[0];
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_related_post_stati(){
+		return $this->get_setting( Settings\Column\PostStatus::NAME )->get_value();
 	}
 
 	/**
@@ -50,6 +57,7 @@ class FirstPost extends Column {
 
 	protected function register_settings() {
 		$this->add_setting( new Settings\Column\PostType( $this ) );
+		$this->add_setting( new Settings\Column\PostStatus( $this ) );
 		$this->add_setting( new Settings\Column\Post( $this ) );
 	}
 
