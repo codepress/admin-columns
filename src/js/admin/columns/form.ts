@@ -200,6 +200,18 @@ export class Form {
 
 const createColumnFromTemplate = () => {
     let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true) as HTMLFormElement;
+    const newColumnName = uniqid();
+    columnElement.querySelectorAll<HTMLLabelElement>('label[for]').forEach(label => {
+        let relatedId = label.getAttribute('for');
+        if (relatedId) {
+            let relatedElement = columnElement.querySelector(`#${relatedId}`);
+            if (relatedElement) {
+                const newID = relatedId + newColumnName;
+                label.setAttribute('for', newID);
+                relatedElement.id = newID;
+            }
+        }
+    });
 
-    return new Column(columnElement, uniqid());
+    return new Column(columnElement, newColumnName);
 }
