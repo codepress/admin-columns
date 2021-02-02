@@ -47,6 +47,19 @@ class PostType extends Settings\Column {
 		return $view;
 	}
 
+	private function add_slug_to_duplicate_post_type_label( $options ) {
+		$values = array_values( $options );
+
+		// Add slug to duplicate post type labels
+		foreach ( $options as $k => $label ) {
+			if ( count( array_keys( $values, $label ) ) > 1 ) {
+				$options[ $k ] .= sprintf( ' (%s)', $k );
+			}
+		}
+
+		return $options;
+	}
+
 	private function get_post_type_labels() {
 		$options = [];
 
@@ -60,6 +73,8 @@ class PostType extends Settings\Column {
 			$post_type_object = get_post_type_object( $post_type );
 			$options[ $post_type ] = $post_type_object->labels->name;
 		}
+
+		$options = $this->add_slug_to_duplicate_post_type_label( $options );
 
 		natcasesort( $options );
 
