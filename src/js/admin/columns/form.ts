@@ -7,6 +7,7 @@ import {fadeIn, scrollToElement} from "../../helpers/animations";
 import {insertAfter} from "../../helpers/elements";
 import {ListScreenStorageType, LocalizedScriptColumnSettings} from "./interfaces";
 import {uniqid} from "../../helpers/string";
+import {keyAnyPair} from "../../helpers/types";
 
 declare const AC: LocalizedScriptColumnSettings;
 
@@ -122,18 +123,6 @@ export class Form {
         this.columns = [];
     }
 
-    private getPreferences(): { [key: string]: any } {
-        let data: { [key: string]: any } = {};
-        document.querySelectorAll<HTMLFormElement>('form[data-form-part=preferences]').forEach(el => {
-            // @ts-ignore
-            for (let t of new FormData(el).entries()) {
-                data[t[0]] = t[1];
-            }
-        });
-
-        return data;
-    }
-
     getFormData(): ListScreenStorageType {
         let columnData: any = {};
         this.getSortedColumns().forEach(column => {
@@ -193,6 +182,18 @@ export class Form {
                 this.columns.splice(i, 1);
             }
         });
+    }
+
+    private getPreferences(): keyAnyPair {
+        let data: { [key: string]: any } = {};
+        document.querySelectorAll<HTMLFormElement>('form[data-form-part=preferences]').forEach(el => {
+            // @ts-ignore
+            for (let t of new FormData(el).entries()) {
+                data[t[0]] = t[1];
+            }
+        });
+
+        return data;
     }
 
 }

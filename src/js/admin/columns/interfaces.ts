@@ -1,5 +1,6 @@
 import {AdminColumnsBaseInterface, LocalizedScriptAC} from "../../admincolumns";
 import {Form} from "./form";
+import {keyAnyPair, keySpecificPair} from "../../helpers/types";
 
 export interface AdminColumnSettingsInterface extends AdminColumnsBaseInterface {
     Form: Form
@@ -11,7 +12,7 @@ export interface LocalizedScriptColumnSettings extends LocalizedScriptAC {
     i18n: any
 }
 
-export type UninitializedListScreens = { [key: string]: UninitializedListScreen }
+export type UninitializedListScreens = keySpecificPair<UninitializedListScreen>
 
 export type UninitializedListScreen = {
     label: string,
@@ -19,8 +20,8 @@ export type UninitializedListScreen = {
 }
 
 export type ListScreenStorageType = {
-    columns: { [key: string]: any },
-    settings: { [key: string]: any }
+    columns: keyAnyPair,
+    settings: keyAnyPair
     list_screen: string,
     list_screen_id: string,
     title: string

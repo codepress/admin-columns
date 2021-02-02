@@ -1,1 +1,1562 @@
-!function(t){var e={};function n(o){if(e[o])return e[o].exports;var i=e[o]={i:o,l:!1,exports:{}};return t[o].call(i.exports,i,i.exports,n),i.l=!0,i.exports}n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var i in t)n.d(o,i,function(e){return t[e]}.bind(null,i));return o},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=46)}({0:function(t,e){t.exports=jQuery},1:function(t,e,n){"use strict";n.d(e,"a",(function(){return o}));var o={TABLE:{READY:"Table.Ready"},SETTINGS:{FORM:{LOADED:"Settings.Form.Loaded",READY:"Settings.Form.Ready",SAVING:"Settings.Form.Saving",SAVED:"Settings.Form.Saved"},COLUMN:{INIT:"Settings.Column.Init",SWITCH:"Settings.Column.SwitchToType",REFRESHED:"Settings.Column.Refreshed"}}}},10:function(t,e,n){"use strict";n.d(e,"a",(function(){return r}));var o=n(5),i=function(){function t(){this.modals={},this.number=0,this.defaults={modal:o.a},this.initGlobalEvents()}return t.prototype.register=function(t,e){return void 0===e&&(e=""),e||(e="m"+this.number),this.modals[e]=t,this.number++,t},t.prototype.get=function(t){return this.modals.hasOwnProperty(t)?this.modals[t]:null},t.prototype.open=function(t){this.get(t)&&this.get(t).open()},t.prototype.close=function(t){this.get(t)&&this.get(t).close()},t.prototype.closeAll=function(){for(var t in this.modals)this.close(t)},t.prototype.initGlobalEvents=function(){var t=this;document.addEventListener("click",(function(e){var n=e.target;n.dataset.acModal&&(e.preventDefault(),t.open(n.dataset.acModal))}))},t}(),s=n(2),r=function(){return window.AdminColumns||(window.AdminColumns=window.AdminColumns||{},AdminColumns.events=s(),AdminColumns.Modals=new i),window.AdminColumns}},12:function(t,e,n){"use strict";t.exports=function(t,e,n){var o,i=t.length;if(!(e>=i||0===n)){var s=i-(n=e+n>i?i-e:n);for(o=e;o<s;++o)t[o]=t[o+n];t.length=s}}},13:function(t,e,n){var o,i=n(14)(),s=n(6);r.disabled=!0;try{o=window.performance,r.disabled="true"===window.localStorage.DISABLE_NANOTIMING||!o.mark}catch(t){}function r(t){if(s.equal(typeof t,"string","nanotiming: name should be type string"),r.disabled)return u;var e=(1e4*o.now()).toFixed()%Number.MAX_SAFE_INTEGER,n="start-"+e+"-"+t;function a(s){var r="end-"+e+"-"+t;o.mark(r),i.push((function(){var i=null;try{var u=t+" ["+e+"]";o.measure(u,n,r),o.clearMarks(n),o.clearMarks(r)}catch(t){i=t}s&&s(i,t)}))}return o.mark(n),a.uuid=e,a}function u(t){t&&i.push((function(){t(new Error("nanotiming: performance API unavailable"))}))}t.exports=r},14:function(t,e,n){var o=n(6),i="undefined"!=typeof window;function s(t){this.hasWindow=t,this.hasIdle=this.hasWindow&&window.requestIdleCallback,this.method=this.hasIdle?window.requestIdleCallback.bind(window):this.setTimeout,this.scheduled=!1,this.queue=[]}s.prototype.push=function(t){o.equal(typeof t,"function","nanoscheduler.push: cb should be type function"),this.queue.push(t),this.schedule()},s.prototype.schedule=function(){if(!this.scheduled){this.scheduled=!0;var t=this;this.method((function(e){for(;t.queue.length&&e.timeRemaining()>0;)t.queue.shift()(e);t.scheduled=!1,t.queue.length&&t.schedule()}))}},s.prototype.setTimeout=function(t){setTimeout(t,0,{timeRemaining:function(){return 1}})},t.exports=function(){var t;return i?(window._nanoScheduler||(window._nanoScheduler=new s(!0)),t=window._nanoScheduler):t=new s,t}},2:function(t,e,n){var o=n(12),i=n(13),s=n(6);function r(t){if(!(this instanceof r))return new r(t);this._name=t||"nanobus",this._starListeners=[],this._listeners={}}t.exports=r,r.prototype.emit=function(t){s.ok("string"==typeof t||"symbol"==typeof t,"nanobus.emit: eventName should be type string or symbol");for(var e=[],n=1,o=arguments.length;n<o;n++)e.push(arguments[n]);var r=i(this._name+"('"+t.toString()+"')"),u=this._listeners[t];return u&&u.length>0&&this._emit(this._listeners[t],e),this._starListeners.length>0&&this._emit(this._starListeners,t,e,r.uuid),r(),this},r.prototype.on=r.prototype.addListener=function(t,e){return s.ok("string"==typeof t||"symbol"==typeof t,"nanobus.on: eventName should be type string or symbol"),s.equal(typeof e,"function","nanobus.on: listener should be type function"),"*"===t?this._starListeners.push(e):(this._listeners[t]||(this._listeners[t]=[]),this._listeners[t].push(e)),this},r.prototype.prependListener=function(t,e){return s.ok("string"==typeof t||"symbol"==typeof t,"nanobus.prependListener: eventName should be type string or symbol"),s.equal(typeof e,"function","nanobus.prependListener: listener should be type function"),"*"===t?this._starListeners.unshift(e):(this._listeners[t]||(this._listeners[t]=[]),this._listeners[t].unshift(e)),this},r.prototype.once=function(t,e){s.ok("string"==typeof t||"symbol"==typeof t,"nanobus.once: eventName should be type string or symbol"),s.equal(typeof e,"function","nanobus.once: listener should be type function");var n=this;return this.on(t,(function o(){e.apply(n,arguments),n.removeListener(t,o)})),this},r.prototype.prependOnceListener=function(t,e){s.ok("string"==typeof t||"symbol"==typeof t,"nanobus.prependOnceListener: eventName should be type string or symbol"),s.equal(typeof e,"function","nanobus.prependOnceListener: listener should be type function");var n=this;return this.prependListener(t,(function o(){e.apply(n,arguments),n.removeListener(t,o)})),this},r.prototype.removeListener=function(t,e){return s.ok("string"==typeof t||"symbol"==typeof t,"nanobus.removeListener: eventName should be type string or symbol"),s.equal(typeof e,"function","nanobus.removeListener: listener should be type function"),"*"===t?(this._starListeners=this._starListeners.slice(),n(this._starListeners,e)):(void 0!==this._listeners[t]&&(this._listeners[t]=this._listeners[t].slice()),n(this._listeners[t],e));function n(t,e){if(t){var n=t.indexOf(e);return-1!==n?(o(t,n,1),!0):void 0}}},r.prototype.removeAllListeners=function(t){return t?"*"===t?this._starListeners=[]:this._listeners[t]=[]:(this._starListeners=[],this._listeners={}),this},r.prototype.listeners=function(t){var e="*"!==t?this._listeners[t]:this._starListeners,n=[];if(e)for(var o=e.length,i=0;i<o;i++)n.push(e[i]);return n},r.prototype._emit=function(t,e,n,o){if(void 0!==t&&0!==t.length){void 0===n&&(n=e,e=null),e&&(n=void 0!==o?[e].concat(n,o):[e].concat(n));for(var i=t.length,s=0;s<i;s++){var r=t[s];r.apply(r,n)}}}},4:function(t,e,n){"use strict";n.d(e,"b",(function(){return o})),n.d(e,"a",(function(){return i}));var o=function(){document.querySelectorAll("[data-ac-tip]").forEach((function(t){new i(t)}))},i=function(){function t(t,e){void 0===e&&(e=""),this.element=t,this.content=e||t.dataset.acTip,this.tip=s(this.content),this.initEvents()}return t.prototype.initEvents=function(){var t=this;"1"!==this.element.dataset.acTooltipInit&&(this.element.dataset.acTooltipInit="1",document.body.appendChild(this.tip),this.element.addEventListener("mouseenter",(function(){var e=document.body.getBoundingClientRect(),n=t.element.getBoundingClientRect();t.tip.style.left=n.left-e.left+t.element.offsetWidth/2+"px",t.tip.style.top=n.top-e.top+t.element.offsetHeight+"px",t.tip.classList.add("hover")})),this.element.addEventListener("mouseleave",(function(){t.tip.classList.remove("hover")})))},t}(),s=function(t){var e=document.createElement("div");return e.classList.add("ac-tooltip"),e.innerHTML=t,e}},46:function(t,e,n){"use strict";n.r(e);var o=n(7),i=n(2),s=function(){function t(t){this.container=t,this.events=i(),this.init()}return t.prototype.init=function(){var t=this;this.container.addEventListener("update",(function(){t.refresh()}));var e=document.querySelectorAll(".tablenav.top .actions");e&&(Object(o.b)(this.container,e[e.length-1]),this.container.classList.add("-init"),this.container.dispatchEvent(new CustomEvent("update")))},t.prototype.refresh=function(){this.container.querySelectorAll(".ac-table-actions-buttons > a").forEach((function(t){t.classList.remove("last")}));var t=[].slice.call(this.container.querySelectorAll(".ac-table-actions-buttons > a"),0);t.reverse();for(var e=0;e<t.length;e++)if(t[e].offsetParent){t[e].classList.add("last");break}},t}(),r=function(){function t(){this.cells={}}return t.prototype.add=function(t,e){this.cells.hasOwnProperty(t)||(this.cells[t]={}),this.cells[t][e.getName()]=e},t.prototype.getByID=function(t){var e=[];if(!this.cells.hasOwnProperty(t.toString()))return e;var n=this.cells[t.toString()];return Object.keys(n).forEach((function(t){return e.push(n[t])})),e},t.prototype.getAll=function(){var t=this,e=[];return Object.keys(this.cells).forEach((function(n){var o=t.cells[n];Object.keys(o).forEach((function(t){return e.push(o[t])}))})),e},t.prototype.getByName=function(t){var e=this,n=[];return Object.keys(this.cells).forEach((function(o){var i=e.cells[o];Object.keys(i).forEach((function(e){t===e&&n.push(i[e])}))})),n},t.prototype.get=function(t,e){return this.cells.hasOwnProperty(t.toString())?this.cells[t][e]:null},t}(),u=function(){function t(t){this.table=t,this.columns={},this.init()}return t.prototype.init=function(){for(var t=this.table.querySelector("thead").querySelectorAll("th"),e=0;e<t.length;e++){var n=t[e].id;this.columns[t[e].id]=new a(n,AC.column_types[n],this.sanitizeLabel(t[e]))}},t.prototype.getColumns=function(){return this.columns},t.prototype.getColumnsMap=function(){var t=new Map,e=this.getColumns();return Object.keys(e).forEach((function(n){t.set(n,e[n])})),t},t.prototype.getColumnNames=function(){return Object.keys(this.columns)},t.prototype.get=function(t){return this.columns.hasOwnProperty(t)?this.columns[t]:null},t.prototype.sanitizeLabel=function(t){var e=t.querySelector("a"),n=t.innerHTML;if(e){var o=e.getElementsByTagName("span");o.length>0&&(n=o[0].innerHTML)}return n},t}(),a=function(){function t(t,e,n){this.name=t,this.type=e,this.label=n,this.services={}}return t.prototype.setService=function(t,e){this.services[t]=e},t.prototype.getService=function(t){return this.hasService(t)?this.services[t]:null},t.prototype.hasService=function(t){return this.services.hasOwnProperty(t)},t}(),l=function(){function t(t,e,n){this.object_id=t,this.column_name=e,this.original_value=n.innerHTML,this.el=n,this.services={}}return t.prototype.getObjectID=function(){return this.object_id},t.prototype.getName=function(){return this.column_name},t.prototype.getElement=function(){return this.el},t.prototype.setElement=function(t){this.el=t},t.prototype.getRow=function(){return this.el.parentElement},t.prototype.getSettings=function(){return AdminColumns.Table.Columns.get(this.getName())},t.prototype.hasChanged=function(t){return this.original_value!==t},t.prototype.setValue=function(t){return this.original_value=t,this.el.innerHTML=t,this},t.prototype.setService=function(t,e){this.services[t]=e},t.prototype.getService=function(t){return this.hasService(t)?this.services[t]:null},t.prototype.hasService=function(t){return this.services.hasOwnProperty(t)},t}(),c=function(){function t(t){this.Table=t}return t.prototype.getIDs=function(){var t=[],e=this.Table.getElement().querySelectorAll("tbody th.check-column input[type=checkbox]:checked");if(0===e.length)return t;for(var n=0;n<e.length;n++)t.push(parseInt(e[n].value));return t},t.prototype.getSelectedCells=function(t){var e=this,n=this.getIDs();if(0===n.length)return null;var o=[];return n.forEach((function(n){var i=e.Table.Cells.get(n,t);i&&o.push(i)})),o},t.prototype.getCount=function(){return this.getIDs().length},t.prototype.isAllSelected=function(){return!!this.Table.getElement().querySelector("thead #cb input:checked")},t}(),h=function(t){if(t.classList.contains("no-items"))return 0;var e=p(t.id);if(!e){var n=t.querySelector(".check-column input[type=checkbox]");n&&(e=p(n.id))}if(!e){var o=t.parentElement.querySelector(".edit a");if(o){var i=o.getAttribute("href");i&&(e=parseInt(function(t,e){t=t.replace(/[\[\]]/g,"\\$&");var n=new RegExp("[?&]"+t+"(=([^&#]*)|&|#|$)").exec(e);return n?n[2]?decodeURIComponent(n[2].replace(/\+/g," ")):"":null}("id",i)))}}return t.dataset.id=e.toString(),e},p=function(t){var e=t.split(/[_,\-]+/);return parseInt(e[e.length-1])},f=n(1),d=function(){function t(t){this.el=t,this.Columns=new u(t),this.Cells=new r,this.Actions=document.getElementById("ac-table-actions")?new s(document.getElementById("ac-table-actions")):null,this.Selection=new c(this)}return t.prototype.getElement=function(){return this.el},t.prototype.getIdsFromTable=function(){var t=[];return this.el.getElementsByTagName("tbody")[0].querySelectorAll("tr").forEach((function(e){t.push(h(e))})),t},t.prototype.init=function(){this.initTable(),this.addCellClasses(),document.dispatchEvent(new CustomEvent("AC_Table_Ready",{detail:{table:this}})),AdminColumns.events.emit(f.a.TABLE.READY,{table:this})},t.prototype.addCellClasses=function(){var t=this;this.Columns.getColumnNames().forEach((function(e){var n=t.Columns.get(e).type;t.Cells.getByName(e).forEach((function(t){t.getElement().classList.add(n)}))}))},t.prototype.initTable=function(){var t=this;this.el.getElementsByTagName("tbody")[0].querySelectorAll("tr").forEach((function(e){t.updateRow(e)}))},t.prototype.updateRow=function(t){var e=h(t);t.dataset.id=e.toString(),this.setCellsForRow(t)},t.prototype.setCellsForRow=function(t){var e=this,n=h(t);this.Columns.getColumnNames().forEach((function(o){var i=o.replace(/\./g,"\\."),s=t.querySelector("td.column-"+i);if(s){var r=new l(n,o,s);e.Cells.add(n,r)}}))},t.prototype.getRowCellByName=function(t,e){return function(t,e){return t.querySelector("td.column-"+e)}(t,e)},t}(),m=n(9),y=function(){function t(e){this.columns=e,e.getColumnNames().forEach((function(n){var o=e.get(n),i=t.getInputByName(o.name);if(i&&0===i.parentElement.textContent.length){var s=document.createElement("span");s.innerHTML=o.label,i.parentElement.appendChild(s)}}))}return t.getInputByName=function(t){var e=document.querySelector("input[name='"+t+"-hide']");return e||!1},t}(),g=n(0),v=function(){function t(t){this.element=t,this.initEvents(),this.contentBox=this.element.parentElement.querySelector(".ac-toggle-box-contents"),this.contentBox||this.createContenBox()}return t.prototype.isAjax=function(){return 1===parseInt(this.element.dataset.ajaxPopulate)},t.prototype.isInited=function(){return this.element.dataset.toggleBoxInit},t.prototype.createContenBox=function(){var t=document.createElement("div");return t.classList.add("ac-toggle-box-contents"),Object(o.b)(t,this.element),this.contentBox=t,this.contentBox},t.prototype.initEvents=function(){var t=this;this.isInited()||(this.element.addEventListener("click",(function(e){e.preventDefault(),t.isAjax()&&!t.hasContent()&&t.manageAjaxValue(),t.toggleContentBox()})),this.element.dataset.toggleBoxInit="true")},t.prototype.hasContent=function(){return this.getContentBox().innerHTML.length>0},t.prototype.setContent=function(t){this.getContentBox().innerHTML=t},t.prototype.getContentBox=function(){return this.contentBox?this.contentBox:this.createContenBox()},t.prototype.setLabel=function(t){var e=this.element.dataset.label;t&&this.element.dataset.labelClose&&(e=this.element.dataset.labelClose),this.element.innerHTML=e+'<span class="spinner"></span>'},t.prototype.toggleContentBox=function(){this.getContentBox().classList.contains("-open")?(this.getContentBox().classList.remove("-open"),this.setLabel(!1)):(this.getContentBox().classList.add("-open"),this.setLabel(!0))},t.prototype.manageAjaxValue=function(){var t=this;this.element.classList.add("loading"),this.retrieveAjaxValue().done((function(e){t.setContent(e),g(t.element.parentElement).trigger("ajax_column_value_ready"),AdminColumns.Tooltips.init()})).always((function(){t.element.classList.remove("loading")}))},t.prototype.retrieveAjaxValue=function(){return g.ajax({url:ajaxurl,method:"POST",data:{action:"ac_get_column_value",list_screen:AC.list_screen,layout:AC.layout,column:this.element.dataset.column,pk:this.element.dataset.itemId,_ajax_nonce:AC.ajax_nonce}})},t}(),b=n(0),E=n.n(b),w=function(){document.querySelectorAll(".ac-show-more").forEach((function(t){new L(t)}))},L=function(){function t(t){this.element=t,this.initEvents()}return t.prototype.initEvents=function(){var t=this;this.isInited()||(this.getToggler()&&this.getToggler().addEventListener("click",(function(e){e.preventDefault(),e.stopPropagation(),t.toggle()})),this.element.dataset.showMoreInit="true")},t.prototype.getToggler=function(){return this.element.querySelector(".ac-show-more__toggle")},t.prototype.isInited=function(){return"true"===this.element.dataset.showMoreInit},t.prototype.toggle=function(){this.element.classList.contains("-on")?this.hide():this.show()},t.prototype.show=function(){this.element.classList.add("-on"),this.getToggler().innerHTML=this.getToggler().dataset.less},t.prototype.hide=function(){this.element.classList.remove("-on"),this.getToggler().innerHTML=this.getToggler().dataset.more},t}(),_=n(4),C=n(10),S=Object(C.a)();E()(document).ready((function(){var t=function(t){var e=document.querySelector(t);return e?"TABLE"===e.tagName?e:"TBODY"===e.tagName?e.closest("table"):e.querySelector("table.wp-list-table")?e.querySelector("table.wp-list-table"):null:null}(AC.table_id);t&&(S.Table=new d(t),S.Table.init(),S.ScreenOptionsColumns=new y(S.Table.Columns)),S.Tooltips=new m.a,document.querySelectorAll(".ac-toggle-box-link").forEach((function(t){new v(t)})),E()(".wp-list-table").on("updated","tr",(function(){S.Table.addCellClasses(),w()})),E()(".wp-list-table td").on("ACP_InlineEditing_After_SetValue",(function(){w()}))})),S.events.addListener(f.a.TABLE.READY,(function(t){w(),document.querySelectorAll(".cpac_use_icons").forEach((function(t){t.parentElement.querySelectorAll(".row-actions a").forEach((function(t){new _.a(t,t.innerText)}))})),new MutationObserver((function(t){t.forEach((function(t){t.addedNodes.forEach((function(t){"TR"===t.tagName&&t.classList.contains("iedit")&&E()(t).trigger("updated",{id:h(t),row:t})}))}))})).observe(t.table.getElement(),{childList:!0,subtree:!0})})),window.ac_load_table=function(t){S.Table=new d(t)}},5:function(t,e,n){"use strict";var o=function(){function t(t){t&&(this.el=t,this.dialog=t.querySelector(".ac-modal__dialog"),this.initEvents())}return t.prototype.getElement=function(){return this.el},t.prototype.initEvents=function(){var t=this,e=this;document.addEventListener("keydown",(function(e){var n=e.key;t.isOpen()&&"Escape"===n&&t.close()}));var n=this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');n.length>0&&n.forEach((function(t){t.addEventListener("click",(function(t){t.preventDefault(),e.close()}))})),this.el.addEventListener("click",(function(t){t.target.classList.contains("ac-modal")&&e.close()}))},t.prototype.isOpen=function(){return this.el.classList.contains("-active")},t.prototype.close=function(){this.onClose(),this.el.classList.remove("-active")},t.prototype.open=function(){var t=this;setTimeout((function(){t.onOpen(),t.el.removeAttribute("style"),t.el.classList.add("-active")}))},t.prototype.destroy=function(){this.el.remove()},t.prototype.onClose=function(){},t.prototype.onOpen=function(){},t}();e.a=o},6:function(t,e){function n(t,e){if(!t)throw new Error(e||"AssertionError")}n.notEqual=function(t,e,o){n(t!=e,o)},n.notOk=function(t,e){n(!t,e)},n.equal=function(t,e,o){n(t==e,o)},n.ok=n,t.exports=n},7:function(t,e,n){"use strict";n.d(e,"b",(function(){return o})),n.d(e,"a",(function(){return i}));var o=function(t,e){e.parentNode.insertBefore(t,e.nextSibling)},i=function(t,e){void 0===e&&(e="div");var n=document.createElement(e);return n.innerHTML=t,n}},9:function(t,e,n){"use strict";var o=n(4),i=function(){function t(){this.init()}return t.prototype.init=function(){Object(o.b)()},t}();e.a=i}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./js/table.ts");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./js/constants.ts":
+/*!*************************!*\
+  !*** ./js/constants.ts ***!
+  \*************************/
+/*! exports provided: EventConstants */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventConstants", function() { return EventConstants; });
+var EventConstants = {
+    TABLE: {
+        READY: 'Table.Ready'
+    },
+    SETTINGS: {
+        FORM: {
+            LOADED: 'Settings.Form.Loaded',
+            READY: 'Settings.Form.Ready',
+            SAVING: 'Settings.Form.Saving',
+            SAVED: 'Settings.Form.Saved'
+        },
+        COLUMN: {
+            INIT: 'Settings.Column.Init',
+            SWITCH: 'Settings.Column.SwitchToType',
+            REFRESHED: 'Settings.Column.Refreshed'
+        }
+    }
+};
+
+
+/***/ }),
+
+/***/ "./js/helpers/admin-columns.ts":
+/*!*************************************!*\
+  !*** ./js/helpers/admin-columns.ts ***!
+  \*************************************/
+/*! exports provided: initAdminColumnsGlobalBootstrap */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAdminColumnsGlobalBootstrap", function() { return initAdminColumnsGlobalBootstrap; });
+/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/modals */ "./js/modules/modals.ts");
+
+var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+var initAdminColumnsGlobalBootstrap = function () {
+    if (!window.AdminColumns) {
+        window.AdminColumns = window.AdminColumns || {};
+        AdminColumns.events = nanobus();
+        AdminColumns.Modals = new _modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    }
+    return window.AdminColumns;
+};
+
+
+/***/ }),
+
+/***/ "./js/helpers/elements.ts":
+/*!********************************!*\
+  !*** ./js/helpers/elements.ts ***!
+  \********************************/
+/*! exports provided: insertAfter, insertBefore, createElementFromString */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertAfter", function() { return insertAfter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertBefore", function() { return insertBefore; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElementFromString", function() { return createElementFromString; });
+var insertAfter = function (newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+};
+var insertBefore = function (newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode);
+};
+var createElementFromString = function (content, baseElement) {
+    if (baseElement === void 0) { baseElement = 'div'; }
+    var element = document.createElement(baseElement);
+    element.innerHTML = content;
+    return element;
+};
+function isInViewport(element) {
+    var rect = element.getBoundingClientRect();
+    return (rect.top >= 0 && rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth));
+}
+
+
+/***/ }),
+
+/***/ "./js/helpers/global.ts":
+/*!******************************!*\
+  !*** ./js/helpers/global.ts ***!
+  \******************************/
+/*! exports provided: getParamFromUrl, mapDataToFormData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParamFromUrl", function() { return getParamFromUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapDataToFormData", function() { return mapDataToFormData; });
+var getParamFromUrl = function (param, url) {
+    param = param.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + param + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
+    if (!results) {
+        return null;
+    }
+    if (!results[2]) {
+        return '';
+    }
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+};
+var mapDataToFormData = function (data, formData) {
+    if (formData === void 0) { formData = null; }
+    if (!formData) {
+        formData = new FormData();
+    }
+    Object.keys(data).forEach(function (key) {
+        var value = data[key];
+        if (Array.isArray(value)) {
+            value.forEach(function (d) {
+                formData.append(key + "[]", d);
+            });
+        }
+        else {
+            formData.append(key, data[key]);
+        }
+    });
+    return formData;
+};
+
+
+/***/ }),
+
+/***/ "./js/helpers/table.ts":
+/*!*****************************!*\
+  !*** ./js/helpers/table.ts ***!
+  \*****************************/
+/*! exports provided: getIdFromTableRow, getIdFromString, getRowCellByName, resolveTableBySelector */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIdFromTableRow", function() { return getIdFromTableRow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIdFromString", function() { return getIdFromString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRowCellByName", function() { return getRowCellByName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resolveTableBySelector", function() { return resolveTableBySelector; });
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global */ "./js/helpers/global.ts");
+
+var getIdFromTableRow = function (row) {
+    if (row.classList.contains('no-items')) {
+        return 0;
+    }
+    var item_id = getIdFromString(row.id);
+    if (!item_id) {
+        var input = row.querySelector('.check-column input[type=checkbox]');
+        if (input) {
+            item_id = getIdFromString(input.id);
+        }
+    }
+    // Try to get the ID from the edit URL (MS Sites)
+    if (!item_id) {
+        var link = row.parentElement.querySelector('.edit a');
+        if (link) {
+            var href = link.getAttribute('href');
+            if (href) {
+                item_id = parseInt(Object(_global__WEBPACK_IMPORTED_MODULE_0__["getParamFromUrl"])('id', href));
+            }
+        }
+    }
+    row.dataset.id = item_id.toString();
+    return item_id;
+};
+var getIdFromString = function (value) {
+    var id_parts = value.split(/[_,\-]+/);
+    return parseInt(id_parts[id_parts.length - 1]);
+};
+var getRowCellByName = function (row, column_name) {
+    return row.querySelector("td.column-" + column_name);
+};
+var resolveTableBySelector = function (selector) {
+    var table = document.querySelector(selector);
+    if (!table) {
+        return null;
+    }
+    if (table.tagName === 'TABLE') {
+        return table;
+    }
+    if (table.tagName === 'TBODY') {
+        return table.closest('table');
+    }
+    if (table.querySelector('table.wp-list-table')) {
+        return table.querySelector('table.wp-list-table');
+    }
+    return null;
+};
+
+
+/***/ }),
+
+/***/ "./js/modules/modal.ts":
+/*!*****************************!*\
+  !*** ./js/modules/modal.ts ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var Modal = /** @class */ (function () {
+    function Modal(el) {
+        if (!el) {
+            return;
+        }
+        this.el = el;
+        this.dialog = el.querySelector('.ac-modal__dialog');
+        this.initEvents();
+    }
+    Modal.prototype.getElement = function () {
+        return this.el;
+    };
+    Modal.prototype.initEvents = function () {
+        var _this = this;
+        var self = this;
+        document.addEventListener('keydown', function (e) {
+            var keyName = e.key;
+            if (!_this.isOpen()) {
+                return;
+            }
+            if ('Escape' === keyName) {
+                _this.close();
+            }
+        });
+        var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
+        if (dismissButtons.length > 0) {
+            dismissButtons.forEach(function (b) {
+                b.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    self.close();
+                });
+            });
+        }
+        this.el.addEventListener('click', function (e) {
+            if (e.target.classList.contains('ac-modal')) {
+                self.close();
+            }
+        });
+    };
+    Modal.prototype.isOpen = function () {
+        return this.el.classList.contains('-active');
+    };
+    Modal.prototype.close = function () {
+        this.onClose();
+        this.el.classList.remove('-active');
+    };
+    Modal.prototype.open = function () {
+        var _this = this;
+        //short delay in order to allow bubbling events to bind before opening
+        setTimeout(function () {
+            _this.onOpen();
+            _this.el.removeAttribute('style');
+            _this.el.classList.add('-active');
+        });
+    };
+    Modal.prototype.destroy = function () {
+        this.el.remove();
+    };
+    Modal.prototype.onClose = function () {
+    };
+    Modal.prototype.onOpen = function () {
+    };
+    return Modal;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (Modal);
+
+
+/***/ }),
+
+/***/ "./js/modules/modals.ts":
+/*!******************************!*\
+  !*** ./js/modules/modals.ts ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.ts");
+
+var Modals = /** @class */ (function () {
+    function Modals() {
+        this.modals = {};
+        this.number = 0;
+        this.defaults = {
+            modal: _modal__WEBPACK_IMPORTED_MODULE_0__["default"]
+        };
+        this.initGlobalEvents();
+    }
+    Modals.prototype.register = function (modal, key) {
+        if (key === void 0) { key = ''; }
+        if (!key) {
+            key = 'm' + this.number;
+        }
+        this.modals[key] = modal;
+        this.number++;
+        return modal;
+    };
+    Modals.prototype.get = function (key) {
+        return this.modals.hasOwnProperty(key) ? this.modals[key] : null;
+    };
+    Modals.prototype.open = function (key) {
+        if (this.get(key)) {
+            this.get(key).open();
+        }
+    };
+    Modals.prototype.close = function (key) {
+        if (this.get(key)) {
+            this.get(key).close();
+        }
+    };
+    Modals.prototype.closeAll = function () {
+        for (var key in this.modals) {
+            this.close(key);
+        }
+    };
+    Modals.prototype.initGlobalEvents = function () {
+        var _this = this;
+        document.addEventListener('click', function (e) {
+            var target = e.target;
+            if (target.dataset.acModal) {
+                e.preventDefault();
+                _this.open(target.dataset.acModal);
+            }
+        });
+    };
+    return Modals;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (Modals);
+
+
+/***/ }),
+
+/***/ "./js/modules/toggle-box-link.ts":
+/*!***************************************!*\
+  !*** ./js/modules/toggle-box-link.ts ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/elements */ "./js/helpers/elements.ts");
+
+var $ = __webpack_require__(/*! jquery */ "jquery");
+var ToggleBoxLink = /** @class */ (function () {
+    function ToggleBoxLink(element) {
+        this.element = element;
+        this.initEvents();
+        this.contentBox = this.element.parentElement.querySelector('.ac-toggle-box-contents');
+        if (!this.contentBox) {
+            this.createContenBox();
+        }
+    }
+    ToggleBoxLink.prototype.isAjax = function () {
+        return parseInt(this.element.dataset.ajaxPopulate) === 1;
+    };
+    ToggleBoxLink.prototype.isInited = function () {
+        return this.element.dataset.toggleBoxInit;
+    };
+    ToggleBoxLink.prototype.createContenBox = function () {
+        var contentBox = document.createElement('div');
+        contentBox.classList.add('ac-toggle-box-contents');
+        Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_0__["insertAfter"])(contentBox, this.element);
+        this.contentBox = contentBox;
+        return this.contentBox;
+    };
+    ToggleBoxLink.prototype.initEvents = function () {
+        var _this = this;
+        if (this.isInited()) {
+            return;
+        }
+        this.element.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (_this.isAjax() && !_this.hasContent()) {
+                _this.manageAjaxValue();
+            }
+            _this.toggleContentBox();
+        });
+        this.element.dataset.toggleBoxInit = 'true';
+    };
+    ToggleBoxLink.prototype.hasContent = function () {
+        return this.getContentBox().innerHTML.length > 0;
+    };
+    ToggleBoxLink.prototype.setContent = function (content) {
+        this.getContentBox().innerHTML = content;
+    };
+    ToggleBoxLink.prototype.getContentBox = function () {
+        if (!this.contentBox) {
+            return this.createContenBox();
+        }
+        return this.contentBox;
+    };
+    ToggleBoxLink.prototype.setLabel = function (open) {
+        var label = this.element.dataset.label;
+        if (open && this.element.dataset.labelClose) {
+            label = this.element.dataset.labelClose;
+        }
+        this.element.innerHTML = label + '<span class="spinner"></span>';
+    };
+    ToggleBoxLink.prototype.toggleContentBox = function () {
+        if (this.getContentBox().classList.contains('-open')) {
+            this.getContentBox().classList.remove('-open');
+            this.setLabel(false);
+        }
+        else {
+            this.getContentBox().classList.add('-open');
+            this.setLabel(true);
+        }
+    };
+    ToggleBoxLink.prototype.manageAjaxValue = function () {
+        var _this = this;
+        this.element.classList.add('loading');
+        this.retrieveAjaxValue().done(function (response) {
+            _this.setContent(response);
+            $(_this.element.parentElement).trigger('ajax_column_value_ready');
+            AdminColumns.Tooltips.init();
+        }).always(function () {
+            _this.element.classList.remove('loading');
+        });
+    };
+    ToggleBoxLink.prototype.retrieveAjaxValue = function () {
+        return $.ajax({
+            url: ajaxurl,
+            method: 'POST',
+            data: {
+                action: 'ac_get_column_value',
+                list_screen: AC.list_screen,
+                layout: AC.layout,
+                column: this.element.dataset.column,
+                pk: this.element.dataset.itemId,
+                _ajax_nonce: AC.ajax_nonce
+            }
+        });
+    };
+    return ToggleBoxLink;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (ToggleBoxLink);
+
+
+/***/ }),
+
+/***/ "./js/modules/tooltips.ts":
+/*!********************************!*\
+  !*** ./js/modules/tooltips.ts ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
+
+var Tooltips = /** @class */ (function () {
+    function Tooltips() {
+        this.init();
+    }
+    Tooltips.prototype.init = function () {
+        Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["initAcTooltips"])();
+    };
+    return Tooltips;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (Tooltips);
+
+
+/***/ }),
+
+/***/ "./js/plugin/show-more.ts":
+/*!********************************!*\
+  !*** ./js/plugin/show-more.ts ***!
+  \********************************/
+/*! exports provided: auto_init_show_more, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "auto_init_show_more", function() { return auto_init_show_more; });
+var auto_init_show_more = function () {
+    document.querySelectorAll('.ac-show-more').forEach(function (el) {
+        new ShowMore(el);
+    });
+};
+var ShowMore = /** @class */ (function () {
+    function ShowMore(el) {
+        this.element = el;
+        this.initEvents();
+    }
+    ShowMore.prototype.initEvents = function () {
+        var _this = this;
+        if (this.isInited()) {
+            return;
+        }
+        if (this.getToggler()) {
+            this.getToggler().addEventListener('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                _this.toggle();
+            });
+        }
+        this.element.dataset.showMoreInit = 'true';
+    };
+    ShowMore.prototype.getToggler = function () {
+        return this.element.querySelector('.ac-show-more__toggle');
+    };
+    ShowMore.prototype.isInited = function () {
+        return this.element.dataset.showMoreInit === 'true';
+    };
+    ShowMore.prototype.toggle = function () {
+        if (this.element.classList.contains('-on')) {
+            this.hide();
+        }
+        else {
+            this.show();
+        }
+    };
+    ShowMore.prototype.show = function () {
+        this.element.classList.add('-on');
+        this.getToggler().innerHTML = this.getToggler().dataset.less;
+    };
+    ShowMore.prototype.hide = function () {
+        this.element.classList.remove('-on');
+        this.getToggler().innerHTML = this.getToggler().dataset.more;
+    };
+    return ShowMore;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (ShowMore);
+
+
+/***/ }),
+
+/***/ "./js/plugin/tooltip.ts":
+/*!******************************!*\
+  !*** ./js/plugin/tooltip.ts ***!
+  \******************************/
+/*! exports provided: initAcTooltips, Tooltip */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcTooltips", function() { return initAcTooltips; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
+var initAcTooltips = function () {
+    document.querySelectorAll('[data-ac-tip]').forEach(function (element) {
+        new Tooltip(element);
+    });
+};
+var Tooltip = /** @class */ (function () {
+    function Tooltip(el, content) {
+        if (content === void 0) { content = ''; }
+        this.element = el;
+        this.content = content ? content : el.dataset.acTip;
+        this.tip = createTooltip(this.content);
+        this.initEvents();
+    }
+    Tooltip.prototype.initEvents = function () {
+        var _this = this;
+        if (this.element.dataset.acTooltipInit === '1') {
+            return;
+        }
+        this.element.dataset.acTooltipInit = '1';
+        document.body.appendChild(this.tip);
+        this.element.addEventListener('mouseenter', function () {
+            var bodyOffset = document.body.getBoundingClientRect();
+            var viewportOffset = _this.element.getBoundingClientRect();
+            _this.tip.style.left = ((viewportOffset.left - bodyOffset.left) + _this.element.offsetWidth / 2) + 'px';
+            _this.tip.style.top = ((viewportOffset.top - bodyOffset.top) + _this.element.offsetHeight) + 'px';
+            _this.tip.classList.add('hover');
+        });
+        this.element.addEventListener('mouseleave', function () {
+            _this.tip.classList.remove('hover');
+        });
+    };
+    return Tooltip;
+}());
+
+var createTooltip = function (content) {
+    var tip = document.createElement('div');
+    tip.classList.add('ac-tooltip');
+    tip.innerHTML = content;
+    return tip;
+};
+
+
+/***/ }),
+
+/***/ "./js/table.ts":
+/*!*********************!*\
+  !*** ./js/table.ts ***!
+  \*********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _table_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./table/table */ "./js/table/table.ts");
+/* harmony import */ var _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.ts");
+/* harmony import */ var _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./table/screen-options-columns */ "./js/table/screen-options-columns.ts");
+/* harmony import */ var _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/toggle-box-link */ "./js/modules/toggle-box-link.ts");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _plugin_show_more__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plugin/show-more */ "./js/plugin/show-more.ts");
+/* harmony import */ var _table_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./table/functions */ "./js/table/functions.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
+/* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers/table */ "./js/helpers/table.ts");
+/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
+
+
+
+
+// @ts-ignore
+
+
+
+
+
+
+var AdminColumns = Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__["initAdminColumnsGlobalBootstrap"])();
+jquery__WEBPACK_IMPORTED_MODULE_4___default()(document).ready(function () {
+    var table = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_8__["resolveTableBySelector"])(AC.table_id);
+    if (table) {
+        AdminColumns.Table = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table);
+        AdminColumns.Table.init();
+        AdminColumns.ScreenOptionsColumns = new _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__["default"](AdminColumns.Table.Columns);
+    }
+    AdminColumns.Tooltips = new _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    document.querySelectorAll('.ac-toggle-box-link').forEach(function (el) {
+        new _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__["default"](el);
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_4___default()('.wp-list-table').on('updated', 'tr', function () {
+        AdminColumns.Table.addCellClasses();
+        Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
+    });
+    // TODO use more global event name instead of IE
+    jquery__WEBPACK_IMPORTED_MODULE_4___default()('.wp-list-table td').on('ACP_InlineEditing_After_SetValue', function () {
+        Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
+    });
+});
+AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__["EventConstants"].TABLE.READY, function (e) {
+    Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
+    Object(_table_functions__WEBPACK_IMPORTED_MODULE_6__["init_actions_tooltips"])();
+    var observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            mutation.addedNodes.forEach(function (node) {
+                if (node.tagName === 'TR' && node.classList.contains('iedit')) {
+                    jquery__WEBPACK_IMPORTED_MODULE_4___default()(node).trigger('updated', { id: Object(_helpers_table__WEBPACK_IMPORTED_MODULE_8__["getIdFromTableRow"])(node), row: node });
+                }
+            });
+        });
+    });
+    observer.observe(e.table.getElement(), { childList: true, subtree: true });
+});
+window.ac_load_table = function (el) {
+    AdminColumns.Table = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](el);
+};
+
+
+/***/ }),
+
+/***/ "./js/table/actions.ts":
+/*!*****************************!*\
+  !*** ./js/table/actions.ts ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/elements */ "./js/helpers/elements.ts");
+
+var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+var Actions = /** @class */ (function () {
+    function Actions(element) {
+        this.container = element;
+        this.events = nanobus();
+        this.init();
+    }
+    Actions.prototype.init = function () {
+        var _this = this;
+        this.container.addEventListener('update', function () {
+            _this.refresh();
+        });
+        var reference = document.querySelectorAll('.tablenav.top .actions');
+        if (reference) {
+            Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_0__["insertAfter"])(this.container, reference[reference.length - 1]);
+            this.container.classList.add('-init');
+            this.container.dispatchEvent(new CustomEvent('update'));
+        }
+    };
+    Actions.prototype.refresh = function () {
+        this.container.querySelectorAll('.ac-table-actions-buttons > a').forEach(function (element) {
+            element.classList.remove('last');
+        });
+        var buttons = [].slice.call(this.container.querySelectorAll('.ac-table-actions-buttons > a'), 0);
+        buttons.reverse();
+        for (var i = 0; i < buttons.length; i++) {
+            if (buttons[i].offsetParent) {
+                buttons[i].classList.add('last');
+                break;
+            }
+        }
+    };
+    return Actions;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (Actions);
+
+
+/***/ }),
+
+/***/ "./js/table/cell.ts":
+/*!**************************!*\
+  !*** ./js/table/cell.ts ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var Cell = /** @class */ (function () {
+    function Cell(id, name, el) {
+        this.object_id = id;
+        this.column_name = name;
+        this.original_value = el.innerHTML;
+        this.el = el;
+        this.services = {};
+    }
+    Cell.prototype.getObjectID = function () {
+        return this.object_id;
+    };
+    Cell.prototype.getName = function () {
+        return this.column_name;
+    };
+    Cell.prototype.getElement = function () {
+        return this.el;
+    };
+    Cell.prototype.setElement = function (element) {
+        this.el = element;
+    };
+    Cell.prototype.getRow = function () {
+        return this.el.parentElement;
+    };
+    Cell.prototype.getSettings = function () {
+        return AdminColumns.Table.Columns.get(this.getName());
+    };
+    Cell.prototype.hasChanged = function (content) {
+        return this.original_value !== content;
+    };
+    Cell.prototype.setValue = function (value) {
+        this.original_value = value;
+        this.el.innerHTML = value;
+        return this;
+    };
+    Cell.prototype.setService = function (name, service) {
+        this.services[name] = service;
+    };
+    Cell.prototype.getService = function (name) {
+        return this.hasService(name) ? this.services[name] : null;
+    };
+    Cell.prototype.hasService = function (name) {
+        return this.services.hasOwnProperty(name);
+    };
+    return Cell;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (Cell);
+
+
+/***/ }),
+
+/***/ "./js/table/cells.ts":
+/*!***************************!*\
+  !*** ./js/table/cells.ts ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var Cells = /** @class */ (function () {
+    function Cells() {
+        this.cells = {};
+    }
+    Cells.prototype.add = function (id, cell) {
+        if (!this.cells.hasOwnProperty(id)) {
+            this.cells[id] = {};
+        }
+        this.cells[id][cell.getName()] = cell;
+    };
+    Cells.prototype.getByID = function (id) {
+        var result = [];
+        if (!this.cells.hasOwnProperty(id.toString())) {
+            return result;
+        }
+        var cells = this.cells[id.toString()];
+        Object.keys(cells).forEach(function (name) { return result.push(cells[name]); });
+        return result;
+    };
+    Cells.prototype.getAll = function () {
+        var _this = this;
+        var results = [];
+        Object.keys(this.cells).forEach(function (id) {
+            var cells = _this.cells[id];
+            Object.keys(cells).forEach(function (name) { return results.push(cells[name]); });
+        });
+        return results;
+    };
+    Cells.prototype.getByName = function (name) {
+        var _this = this;
+        var results = [];
+        Object.keys(this.cells).forEach(function (id) {
+            var cells = _this.cells[id];
+            Object.keys(cells).forEach(function (column_name) {
+                if (name === column_name) {
+                    results.push(cells[column_name]);
+                }
+            });
+        });
+        return results;
+    };
+    Cells.prototype.get = function (id, name) {
+        return this.cells.hasOwnProperty(id.toString()) ? this.cells[id][name] : null;
+    };
+    return Cells;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (Cells);
+
+
+/***/ }),
+
+/***/ "./js/table/columns.ts":
+/*!*****************************!*\
+  !*** ./js/table/columns.ts ***!
+  \*****************************/
+/*! exports provided: default, ColumnTableSettings */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ColumnTableSettings", function() { return ColumnTableSettings; });
+var Columns = /** @class */ (function () {
+    function Columns(table) {
+        this.table = table;
+        this.columns = {};
+        this.init();
+    }
+    Columns.prototype.init = function () {
+        var self = this;
+        var thead = this.table.querySelector('thead');
+        var headers = thead.querySelectorAll('th');
+        for (var i = 0; i < headers.length; i++) {
+            var headerName = headers[i].id;
+            self.columns[headers[i].id] = new ColumnTableSettings(headerName, AC.column_types[headerName], this.sanitizeLabel(headers[i]));
+        }
+    };
+    Columns.prototype.getColumns = function () {
+        return this.columns;
+    };
+    Columns.prototype.getColumnsMap = function () {
+        var map = new Map();
+        var columns = this.getColumns();
+        Object.keys(columns).forEach(function (k) {
+            map.set(k, columns[k]);
+        });
+        return map;
+    };
+    Columns.prototype.getColumnNames = function () {
+        return Object.keys(this.columns);
+    };
+    Columns.prototype.get = function (column_name) {
+        return this.columns.hasOwnProperty(column_name) ? this.columns[column_name] : null;
+    };
+    Columns.prototype.sanitizeLabel = function (header) {
+        var link = header.querySelector('a');
+        var label = header.innerHTML;
+        // If it contains a link, we presume that it is because of sorting
+        if (link) {
+            var elements = link.getElementsByTagName('span');
+            if (elements.length > 0) {
+                label = elements[0].innerHTML;
+            }
+        }
+        return label;
+    };
+    return Columns;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (Columns);
+var ColumnTableSettings = /** @class */ (function () {
+    function ColumnTableSettings(name, type, label) {
+        this.name = name;
+        this.type = type;
+        this.label = label;
+        this.services = {};
+    }
+    ColumnTableSettings.prototype.setService = function (name, service) {
+        this.services[name] = service;
+    };
+    ColumnTableSettings.prototype.getService = function (name) {
+        return this.hasService(name) ? this.services[name] : null;
+    };
+    ColumnTableSettings.prototype.hasService = function (name) {
+        return this.services.hasOwnProperty(name);
+    };
+    return ColumnTableSettings;
+}());
+
+
+
+/***/ }),
+
+/***/ "./js/table/functions.ts":
+/*!*******************************!*\
+  !*** ./js/table/functions.ts ***!
+  \*******************************/
+/*! exports provided: init_actions_tooltips */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init_actions_tooltips", function() { return init_actions_tooltips; });
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
+
+var init_actions_tooltips = function () {
+    document.querySelectorAll('.cpac_use_icons').forEach(function (el) {
+        el.parentElement.querySelectorAll('.row-actions a').forEach(function (el) {
+            new _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["Tooltip"](el, el.innerText);
+        });
+    });
+};
+
+
+/***/ }),
+
+/***/ "./js/table/row-selection.ts":
+/*!***********************************!*\
+  !*** ./js/table/row-selection.ts ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var RowSelection = /** @class */ (function () {
+    function RowSelection(table) {
+        this.Table = table;
+    }
+    RowSelection.prototype.getIDs = function () {
+        var ids = [];
+        var checked = this.Table.getElement().querySelectorAll('tbody th.check-column input[type=checkbox]:checked');
+        if (checked.length === 0) {
+            return ids;
+        }
+        for (var i = 0; i < checked.length; i++) {
+            ids.push(parseInt(checked[i].value));
+        }
+        return ids;
+    };
+    /**
+     * Get selected cells for specific column
+     */
+    RowSelection.prototype.getSelectedCells = function (name) {
+        var _this = this;
+        var ids = this.getIDs();
+        if (ids.length === 0) {
+            return null;
+        }
+        var cells = [];
+        ids.forEach(function (id) {
+            var cell = _this.Table.Cells.get(id, name);
+            if (cell) {
+                cells.push(cell);
+            }
+        });
+        return cells;
+    };
+    RowSelection.prototype.getCount = function () {
+        return this.getIDs().length;
+    };
+    RowSelection.prototype.isAllSelected = function () {
+        return !!this.Table.getElement().querySelector('thead #cb input:checked');
+    };
+    return RowSelection;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (RowSelection);
+
+
+/***/ }),
+
+/***/ "./js/table/screen-options-columns.ts":
+/*!********************************************!*\
+  !*** ./js/table/screen-options-columns.ts ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var ScreenOptionsColumns = /** @class */ (function () {
+    function ScreenOptionsColumns(columns) {
+        this.columns = columns;
+        columns.getColumnNames().forEach(function (column_name) {
+            var column = columns.get(column_name);
+            var input = ScreenOptionsColumns.getInputByName(column.name);
+            if (input && input.parentElement.textContent.length === 0) {
+                var label = document.createElement('span');
+                label.innerHTML = column.label;
+                input.parentElement.appendChild(label);
+            }
+        });
+    }
+    ScreenOptionsColumns.getInputByName = function (name) {
+        var input = document.querySelector("input[name='" + name + "-hide']");
+        return input ? input : false;
+    };
+    return ScreenOptionsColumns;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (ScreenOptionsColumns);
+
+
+/***/ }),
+
+/***/ "./js/table/table.ts":
+/*!***************************!*\
+  !*** ./js/table/table.ts ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./js/table/actions.ts");
+/* harmony import */ var _cells__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cells */ "./js/table/cells.ts");
+/* harmony import */ var _columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./columns */ "./js/table/columns.ts");
+/* harmony import */ var _cell__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cell */ "./js/table/cell.ts");
+/* harmony import */ var _row_selection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./row-selection */ "./js/table/row-selection.ts");
+/* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/table */ "./js/helpers/table.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../constants */ "./js/constants.ts");
+
+
+
+
+
+
+
+var Table = /** @class */ (function () {
+    function Table(el) {
+        this.el = el;
+        this.Columns = new _columns__WEBPACK_IMPORTED_MODULE_2__["default"](el);
+        this.Cells = new _cells__WEBPACK_IMPORTED_MODULE_1__["default"]();
+        this.Actions = document.getElementById('ac-table-actions') ? new _actions__WEBPACK_IMPORTED_MODULE_0__["default"](document.getElementById('ac-table-actions')) : null;
+        this.Selection = new _row_selection__WEBPACK_IMPORTED_MODULE_4__["default"](this);
+    }
+    Table.prototype.getElement = function () {
+        return this.el;
+    };
+    Table.prototype.getIdsFromTable = function () {
+        var result = [];
+        this.el.getElementsByTagName('tbody')[0].querySelectorAll('tr').forEach(function (row) {
+            result.push(Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row));
+        });
+        return result;
+    };
+    Table.prototype.init = function () {
+        this.initTable();
+        this.addCellClasses();
+        document.dispatchEvent(new CustomEvent('AC_Table_Ready', { detail: { table: this } }));
+        AdminColumns.events.emit(_constants__WEBPACK_IMPORTED_MODULE_6__["EventConstants"].TABLE.READY, { table: this });
+    };
+    Table.prototype.addCellClasses = function () {
+        var _this = this;
+        this.Columns.getColumnNames().forEach(function (name) {
+            var type = _this.Columns.get(name).type;
+            var cells = _this.Cells.getByName(name);
+            cells.forEach(function (cell) {
+                cell.getElement().classList.add(type);
+            });
+        });
+    };
+    Table.prototype.initTable = function () {
+        var _this = this;
+        this.el.getElementsByTagName('tbody')[0].querySelectorAll('tr').forEach(function (row) {
+            _this.updateRow(row);
+        });
+    };
+    Table.prototype.updateRow = function (row) {
+        var id = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row);
+        row.dataset.id = id.toString();
+        this.setCellsForRow(row);
+    };
+    Table.prototype.setCellsForRow = function (row) {
+        var _this = this;
+        var id = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row);
+        this.Columns.getColumnNames().forEach(function (name) {
+            var selector = name.replace(/\./g, '\\.');
+            var td = row.querySelector("td.column-" + selector);
+            if (td) {
+                var cell = new _cell__WEBPACK_IMPORTED_MODULE_3__["default"](id, name, td);
+                _this.Cells.add(id, cell);
+            }
+        });
+    };
+    /**
+     * @deprecated use Helper function instead
+     * TODO remove once IE uses the helper
+     */
+    Table.prototype.getRowCellByName = function (row, column_name) {
+        return Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getRowCellByName"])(row, column_name);
+    };
+    return Table;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (Table);
+
+
+/***/ }),
+
+/***/ "./node_modules/nanoassert/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/nanoassert/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+assert.notEqual = notEqual;
+assert.notOk = notOk;
+assert.equal = equal;
+assert.ok = assert;
+module.exports = assert;
+function equal(a, b, m) {
+    assert(a == b, m); // eslint-disable-line eqeqeq
+}
+function notEqual(a, b, m) {
+    assert(a != b, m); // eslint-disable-line eqeqeq
+}
+function notOk(t, m) {
+    assert(!t, m);
+}
+function assert(t, m) {
+    if (!t)
+        throw new Error(m || 'AssertionError');
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/nanobus/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/nanobus/index.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var splice = __webpack_require__(/*! remove-array-items */ "./node_modules/remove-array-items/index.js");
+var nanotiming = __webpack_require__(/*! nanotiming */ "./node_modules/nanotiming/browser.js");
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js");
+module.exports = Nanobus;
+function Nanobus(name) {
+    if (!(this instanceof Nanobus))
+        return new Nanobus(name);
+    this._name = name || 'nanobus';
+    this._starListeners = [];
+    this._listeners = {};
+}
+Nanobus.prototype.emit = function (eventName) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.emit: eventName should be type string or symbol');
+    var data = [];
+    for (var i = 1, len = arguments.length; i < len; i++) {
+        data.push(arguments[i]);
+    }
+    var emitTiming = nanotiming(this._name + "('" + eventName.toString() + "')");
+    var listeners = this._listeners[eventName];
+    if (listeners && listeners.length > 0) {
+        this._emit(this._listeners[eventName], data);
+    }
+    if (this._starListeners.length > 0) {
+        this._emit(this._starListeners, eventName, data, emitTiming.uuid);
+    }
+    emitTiming();
+    return this;
+};
+Nanobus.prototype.on = Nanobus.prototype.addListener = function (eventName, listener) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.on: eventName should be type string or symbol');
+    assert.equal(typeof listener, 'function', 'nanobus.on: listener should be type function');
+    if (eventName === '*') {
+        this._starListeners.push(listener);
+    }
+    else {
+        if (!this._listeners[eventName])
+            this._listeners[eventName] = [];
+        this._listeners[eventName].push(listener);
+    }
+    return this;
+};
+Nanobus.prototype.prependListener = function (eventName, listener) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.prependListener: eventName should be type string or symbol');
+    assert.equal(typeof listener, 'function', 'nanobus.prependListener: listener should be type function');
+    if (eventName === '*') {
+        this._starListeners.unshift(listener);
+    }
+    else {
+        if (!this._listeners[eventName])
+            this._listeners[eventName] = [];
+        this._listeners[eventName].unshift(listener);
+    }
+    return this;
+};
+Nanobus.prototype.once = function (eventName, listener) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.once: eventName should be type string or symbol');
+    assert.equal(typeof listener, 'function', 'nanobus.once: listener should be type function');
+    var self = this;
+    this.on(eventName, once);
+    function once() {
+        listener.apply(self, arguments);
+        self.removeListener(eventName, once);
+    }
+    return this;
+};
+Nanobus.prototype.prependOnceListener = function (eventName, listener) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.prependOnceListener: eventName should be type string or symbol');
+    assert.equal(typeof listener, 'function', 'nanobus.prependOnceListener: listener should be type function');
+    var self = this;
+    this.prependListener(eventName, once);
+    function once() {
+        listener.apply(self, arguments);
+        self.removeListener(eventName, once);
+    }
+    return this;
+};
+Nanobus.prototype.removeListener = function (eventName, listener) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.removeListener: eventName should be type string or symbol');
+    assert.equal(typeof listener, 'function', 'nanobus.removeListener: listener should be type function');
+    if (eventName === '*') {
+        this._starListeners = this._starListeners.slice();
+        return remove(this._starListeners, listener);
+    }
+    else {
+        if (typeof this._listeners[eventName] !== 'undefined') {
+            this._listeners[eventName] = this._listeners[eventName].slice();
+        }
+        return remove(this._listeners[eventName], listener);
+    }
+    function remove(arr, listener) {
+        if (!arr)
+            return;
+        var index = arr.indexOf(listener);
+        if (index !== -1) {
+            splice(arr, index, 1);
+            return true;
+        }
+    }
+};
+Nanobus.prototype.removeAllListeners = function (eventName) {
+    if (eventName) {
+        if (eventName === '*') {
+            this._starListeners = [];
+        }
+        else {
+            this._listeners[eventName] = [];
+        }
+    }
+    else {
+        this._starListeners = [];
+        this._listeners = {};
+    }
+    return this;
+};
+Nanobus.prototype.listeners = function (eventName) {
+    var listeners = eventName !== '*'
+        ? this._listeners[eventName]
+        : this._starListeners;
+    var ret = [];
+    if (listeners) {
+        var ilength = listeners.length;
+        for (var i = 0; i < ilength; i++)
+            ret.push(listeners[i]);
+    }
+    return ret;
+};
+Nanobus.prototype._emit = function (arr, eventName, data, uuid) {
+    if (typeof arr === 'undefined')
+        return;
+    if (arr.length === 0)
+        return;
+    if (data === undefined) {
+        data = eventName;
+        eventName = null;
+    }
+    if (eventName) {
+        if (uuid !== undefined) {
+            data = [eventName].concat(data, uuid);
+        }
+        else {
+            data = [eventName].concat(data);
+        }
+    }
+    var length = arr.length;
+    for (var i = 0; i < length; i++) {
+        var listener = arr[i];
+        listener.apply(listener, data);
+    }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/nanoscheduler/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/nanoscheduler/index.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js");
+var hasWindow = typeof window !== 'undefined';
+function createScheduler() {
+    var scheduler;
+    if (hasWindow) {
+        if (!window._nanoScheduler)
+            window._nanoScheduler = new NanoScheduler(true);
+        scheduler = window._nanoScheduler;
+    }
+    else {
+        scheduler = new NanoScheduler();
+    }
+    return scheduler;
+}
+function NanoScheduler(hasWindow) {
+    this.hasWindow = hasWindow;
+    this.hasIdle = this.hasWindow && window.requestIdleCallback;
+    this.method = this.hasIdle ? window.requestIdleCallback.bind(window) : this.setTimeout;
+    this.scheduled = false;
+    this.queue = [];
+}
+NanoScheduler.prototype.push = function (cb) {
+    assert.equal(typeof cb, 'function', 'nanoscheduler.push: cb should be type function');
+    this.queue.push(cb);
+    this.schedule();
+};
+NanoScheduler.prototype.schedule = function () {
+    if (this.scheduled)
+        return;
+    this.scheduled = true;
+    var self = this;
+    this.method(function (idleDeadline) {
+        var cb;
+        while (self.queue.length && idleDeadline.timeRemaining() > 0) {
+            cb = self.queue.shift();
+            cb(idleDeadline);
+        }
+        self.scheduled = false;
+        if (self.queue.length)
+            self.schedule();
+    });
+};
+NanoScheduler.prototype.setTimeout = function (cb) {
+    setTimeout(cb, 0, {
+        timeRemaining: function () {
+            return 1;
+        }
+    });
+};
+module.exports = createScheduler;
+
+
+/***/ }),
+
+/***/ "./node_modules/nanotiming/browser.js":
+/*!********************************************!*\
+  !*** ./node_modules/nanotiming/browser.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var scheduler = __webpack_require__(/*! nanoscheduler */ "./node_modules/nanoscheduler/index.js")();
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js");
+var perf;
+nanotiming.disabled = true;
+try {
+    perf = window.performance;
+    nanotiming.disabled = window.localStorage.DISABLE_NANOTIMING === 'true' || !perf.mark;
+}
+catch (e) { }
+module.exports = nanotiming;
+function nanotiming(name) {
+    assert.equal(typeof name, 'string', 'nanotiming: name should be type string');
+    if (nanotiming.disabled)
+        return noop;
+    var uuid = (perf.now() * 10000).toFixed() % Number.MAX_SAFE_INTEGER;
+    var startName = 'start-' + uuid + '-' + name;
+    perf.mark(startName);
+    function end(cb) {
+        var endName = 'end-' + uuid + '-' + name;
+        perf.mark(endName);
+        scheduler.push(function () {
+            var err = null;
+            try {
+                var measureName = name + ' [' + uuid + ']';
+                perf.measure(measureName, startName, endName);
+                perf.clearMarks(startName);
+                perf.clearMarks(endName);
+            }
+            catch (e) {
+                err = e;
+            }
+            if (cb)
+                cb(err, name);
+        });
+    }
+    end.uuid = uuid;
+    return end;
+}
+function noop(cb) {
+    if (cb) {
+        scheduler.push(function () {
+            cb(new Error('nanotiming: performance API unavailable'));
+        });
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remove-array-items/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/remove-array-items/index.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * Remove a range of items from an array
+ *
+ * @function removeItems
+ * @param {Array<*>} arr The target array
+ * @param {number} startIdx The index to begin removing from (inclusive)
+ * @param {number} removeCount How many items to remove
+ */
+module.exports = function removeItems(arr, startIdx, removeCount) {
+    var i, length = arr.length;
+    if (startIdx >= length || removeCount === 0) {
+        return;
+    }
+    removeCount = (startIdx + removeCount > length ? length - startIdx : removeCount);
+    var len = length - removeCount;
+    for (i = startIdx; i < len; ++i) {
+        arr[i] = arr[i + removeCount];
+    }
+    arr.length = len;
+};
+
+
+/***/ }),
+
+/***/ "jquery":
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = jQuery;
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=table.js.map
