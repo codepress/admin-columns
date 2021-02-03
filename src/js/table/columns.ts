@@ -1,4 +1,5 @@
 import {LocalizedScriptAC} from "../admincolumns";
+import {keyAnyPair} from "../helpers/types";
 
 type columns = {
     [key: string]: ColumnTableSettings
@@ -75,7 +76,7 @@ export class ColumnTableSettings {
     name: string
     type: string
     label: string;
-    services: { [key: string]: any }
+    services: keyAnyPair
 
     constructor(name: string, type: string, label: string) {
         this.name = name;

@@ -168,12 +168,6 @@ export class Column {
         return obj;
     }
 
-    private fieldSupportsMultipleValues(key: string) {
-        let element = this.getElement().elements[key as any];
-
-        return (element && element.tagName === 'SELECT' && element.hasAttribute('multiple'));
-    }
-
     switchToType(type: string) {
         this.setLoading(true);
 
@@ -203,6 +197,12 @@ export class Column {
             }
 
         }).finally(() => this.setLoading(false));
+    }
+
+    private fieldSupportsMultipleValues(key: string) {
+        let element = this.getElement().elements[key as any];
+
+        return (element && element.tagName === 'SELECT' && element.hasAttribute('multiple'));
     }
 
     private reinitColumnFromElement(element: HTMLFormElement) {

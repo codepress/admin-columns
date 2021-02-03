@@ -4,6 +4,7 @@ import Modals from "../modules/modals";
 let nanobus = require('nanobus');
 
 declare let AdminColumns: AdminColumnsInterface
+
 declare global {
     interface Window {
         AdminColumns: any;

@@ -20,7 +20,7 @@ class LabelSetting {
         this.setting = setting;
         this.field = this.setting.querySelector<HTMLInputElement>('.ac-setting-input_label');
 
-        if( column.getElement().querySelector('.-iconpicker') ){
+        if (column.getElement().querySelector('.-iconpicker')) {
             this.modal = new IconPickerModal(column.getElement().querySelector('.-iconpicker'));
             this.modal.setIconSelection(this.getDashIconFromValue());
             this.initEvents();

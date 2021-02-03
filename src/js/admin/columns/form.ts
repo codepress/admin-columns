@@ -7,6 +7,7 @@ import {fadeIn, scrollToElement} from "../../helpers/animations";
 import {insertAfter} from "../../helpers/elements";
 import {ListScreenStorageType, LocalizedScriptColumnSettings} from "./interfaces";
 import {uniqid} from "../../helpers/string";
+import {keyAnyPair} from "../../helpers/types";
 
 declare const AC: LocalizedScriptColumnSettings;
 
@@ -46,10 +47,10 @@ export class Form {
 
     getSortedColumns(): Array<Column> {
         let result: Array<Column> = [];
-        this.getElement().querySelectorAll<HTMLFormElement>('form.ac-column').forEach( column => {
-            let c:Column = this.columns.find( c => c.getName() === column.dataset.columnName );
-            if( c ){
-                result.push( c );
+        this.getElement().querySelectorAll<HTMLFormElement>('form.ac-column').forEach(column => {
+            let c: Column = this.columns.find(c => c.getName() === column.dataset.columnName);
+            if (c) {
+                result.push(c);
             }
         });
 
@@ -122,18 +123,6 @@ export class Form {
         this.columns = [];
     }
 
-    private getPreferences(): { [key: string]: any } {
-        let data: { [key: string]: any } = {};
-        document.querySelectorAll<HTMLFormElement>('form[data-form-part=preferences]').forEach(el => {
-            // @ts-ignore
-            for (let t of new FormData(el).entries()) {
-                data[t[0]] = t[1];
-            }
-        });
-
-        return data;
-    }
-
     getFormData(): ListScreenStorageType {
         let columnData: any = {};
         this.getSortedColumns().forEach(column => {
@@ -195,10 +184,34 @@ export class Form {
         });
     }
 
+    private getPreferences(): keyAnyPair {
+        let data: { [key: string]: any } = {};
+        document.querySelectorAll<HTMLFormElement>('form[data-form-part=preferences]').forEach(el => {
+            // @ts-ignore
+            for (let t of new FormData(el).entries()) {
+                data[t[0]] = t[1];
+            }
+        });
+
+        return data;
+    }
+
 }
 
 const createColumnFromTemplate = () => {
     let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true) as HTMLFormElement;
+    const newColumnName = uniqid();
+    columnElement.querySelectorAll<HTMLLabelElement>('label[for]').forEach(label => {
+        let relatedId = label.getAttribute('for');
+        if (relatedId) {
+            let relatedElement = columnElement.querySelector(`#${relatedId}`);
+            if (relatedElement) {
+                const newID = relatedId + newColumnName;
+                label.setAttribute('for', newID);
+                relatedElement.id = newID;
+            }
+        }
+    });
 
-    return new Column(columnElement, uniqid());
+    return new Column(columnElement, newColumnName);
 }

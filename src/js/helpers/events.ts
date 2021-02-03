@@ -24,5 +24,5 @@ export const onHover = (el: HTMLElement, cbOver: EventListener, cbLeave: EventLi
 }
 
 export const addEventListeners = (el: HTMLElement, events: Array<string>, callback: EventListener) => {
-    events.forEach( event => el.addEventListener( event, callback ));
+    events.forEach(event => el.addEventListener(event, callback));
 }

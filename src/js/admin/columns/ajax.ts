@@ -1,5 +1,6 @@
 import {AdminColumnSettingsInterface, ListScreenStorageType, LocalizedScriptColumnSettings} from "./interfaces";
 import {Column} from "./column";
+import {keyStringPair} from "../../helpers/types";
 
 const axios = require('axios');
 
@@ -12,25 +13,7 @@ export interface ColumnSettingsResponse {
     data: string
 }
 
-export interface ColumnSettingsErrorResponse {
-    success: boolean
-    data: {
-        message: string
-    }
-}
-
-export const submitColumnSettings = (data: ListScreenStorageType) => {
-    let formData = mapDataToFormData({
-        action: 'ac-columns',
-        id: 'save',
-        _ajax_nonce: AC._ajax_nonce,
-        data: JSON.stringify(data)
-    });
-
-    return axios.post(ajaxurl, formData);
-}
-
-const mapDataToFormData = (data: { [key: string]: string }, formData: FormData = null): FormData => {
+const mapDataToFormData = (data: keyStringPair, formData: FormData = null): FormData => {
     if (!formData) {
         formData = new FormData();
     }
@@ -42,42 +25,33 @@ const mapDataToFormData = (data: { [key: string]: string }, formData: FormData =
     return formData;
 }
 
-export const _switchColumnType = (type: string, data: string) => {
-    let formData = mapDataToFormData({
-        _ajax_nonce: AC._ajax_nonce,
+export const submitColumnSettings = (data: ListScreenStorageType) => {
+    return axios.post(ajaxurl, mapDataToFormData({
         action: 'ac-columns',
-        id: 'select',
-        type: type,
-        data: data,
-        current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns()),
-    });
-
-    return axios.post(ajaxurl, formData);
+        id: 'save',
+        _ajax_nonce: AC._ajax_nonce,
+        data: JSON.stringify(data)
+    }));
 }
 
 export const switchColumnType = (type: string, list_screen: string = AC.list_screen) => {
-    let formData = mapDataToFormData({
+    return axios.post(ajaxurl, mapDataToFormData({
         _ajax_nonce: AC._ajax_nonce,
         action: 'ac-columns',
-        id: 'select',
-        type: type,
-        list_screen: list_screen,
         current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map((e: Column) => e.getName())),
-    });
-
-    return axios.post(ajaxurl, formData);
+        id: 'select',
+        list_screen: list_screen,
+        type: type,
+    }));
 }
 
 export const refreshColumn = (name: string, data: string, list_screen: string = AC.list_screen) => {
-    let formData = mapDataToFormData({
+    return axios.post(ajaxurl, mapDataToFormData({
         _ajax_nonce: AC._ajax_nonce,
         action: 'ac-columns',
-        id: 'refresh',
         column_name: name,
         data: data,
+        id: 'refresh',
         list_screen: list_screen,
-       // current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map((e: Column) => e.getName())),
-    });
-
-    return axios.post(ajaxurl, formData);
+    }));
 }

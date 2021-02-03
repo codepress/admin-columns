@@ -1,4 +1,5 @@
 import {AdminColumnsInterface} from "../admincolumns";
+import {keyAnyPair} from "../helpers/types";
 
 declare const AdminColumns: AdminColumnsInterface
 
@@ -8,7 +9,7 @@ export default class Cell {
     private column_name: string
     private original_value: string
     private el: HTMLTableCellElement
-    private services: { [key: string]: any }
+    private services: keyAnyPair
 
     constructor(id: number, name: string, el: HTMLTableCellElement) {
         this.object_id = id;

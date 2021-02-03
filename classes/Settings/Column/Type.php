@@ -4,7 +4,6 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Groups;
-use AC\Integration;
 use AC\Settings\Column;
 use AC\View;
 

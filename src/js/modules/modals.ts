@@ -1,8 +1,9 @@
 import Modal from './modal';
+import {keySpecificPair} from "../helpers/types";
 
 export default class Modals {
 
-    private modals: { [key: string]: Modal }
+    private modals: keySpecificPair<Modal>
     number: number;
     defaults: any;
 

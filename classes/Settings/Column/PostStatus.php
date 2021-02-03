@@ -8,13 +8,15 @@ use AC\View;
 
 class PostStatus extends Settings\Column {
 
+	const NAME = 'post_status';
+
 	/**
 	 * @var array
 	 */
 	private $post_status;
 
 	protected function define_options() {
-		return [ 'post_status' => [ 'publish', 'private' ] ];
+		return [ self::NAME => [ 'publish', 'private' ] ];
 	}
 
 	public function create_view() {
