@@ -53,12 +53,20 @@ class PostCount extends Column {
 			'author'         => $user_id,
 			'post_type'      => $post_type,
 			'posts_per_page' => -1,
-			'post_status'    => [ 'publish', 'private' ],
+			'post_status'    => $this->get_selected_post_status(),
 		] );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_selected_post_status() {
+		return $this->get_setting( 'post_status' )->get_value();
 	}
 
 	protected function register_settings() {
 		$this->add_setting( new Settings\Column\PostType( $this, true ) );
+		$this->add_setting( new Settings\Column\PostStatus( $this ) );
 	}
 
 }

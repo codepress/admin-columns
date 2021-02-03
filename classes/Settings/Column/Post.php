@@ -14,6 +14,7 @@ class Post extends Settings\Column
 	const PROPERTY_FEATURED_IMAGE = 'thumbnail';
 	const PROPERTY_ID = 'id';
 	const PROPERTY_TITLE = 'title';
+	const PROPERTY_DATE = 'date';
 
 	/**
 	 * @var string
@@ -36,6 +37,9 @@ class Post extends Settings\Column
 		switch ( $this->get_post_property_display() ) {
 			case self::PROPERTY_FEATURED_IMAGE :
 				$setting[] = new Settings\Column\Image( $this->column );
+				break;
+			case self::PROPERTY_DATE :
+				$setting[] = new Settings\Column\Date( $this->column );
 				break;
 		}
 
@@ -66,6 +70,10 @@ class Post extends Settings\Column
 				$value = ac_helper()->post->get_title( $id );
 
 				break;
+			case self::PROPERTY_DATE :
+				$value = ac_helper()->post->get_raw_field( 'post_date', $id );
+
+				break;
 			default :
 				$value = $id;
 		}
@@ -92,6 +100,7 @@ class Post extends Settings\Column
 			self::PROPERTY_ID             => __( 'ID' ),
 			self::PROPERTY_AUTHOR         => __( 'Author' ),
 			self::PROPERTY_FEATURED_IMAGE => _x( 'Featured Image', 'post' ),
+			self::PROPERTY_DATE           => __( 'Date' ),
 		];
 
 		asort( $options );

@@ -209,6 +209,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.2.6 =
+Release Date: February 3rd, 2021
+
+* [Added] User Column: First and Last Post(type)
+* [Improved] It's now possible to select a post status for the Post Count column (User)
+
 = 4.2.5 =
 Release Date: December 15th, 2020
 

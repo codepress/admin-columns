@@ -18,7 +18,7 @@ export default class RowSelection {
         }
 
         for (let i = 0; i < checked.length; i++) {
-            ids.push( parseInt( checked[i].value ));
+            ids.push(parseInt(checked[i].value));
         }
 
         return ids;

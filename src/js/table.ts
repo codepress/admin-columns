@@ -4,7 +4,7 @@ import ScreenOptionsColumns from "./table/screen-options-columns";
 import ToggleBoxLink from "./modules/toggle-box-link";
 // @ts-ignore
 import $ from 'jquery';
-import {LocalizedScriptAC} from "./admincolumns";
+import {AdminColumnsInterface, LocalizedScriptAC} from "./admincolumns";
 import {auto_init_show_more} from "./plugin/show-more";
 import {init_actions_tooltips} from "./table/functions";
 import {EventConstants} from "./constants";
@@ -13,7 +13,7 @@ import {initAdminColumnsGlobalBootstrap} from "./helpers/admin-columns";
 
 declare let AC: LocalizedScriptAC
 
-let AdminColumns = initAdminColumnsGlobalBootstrap();
+let AdminColumns: AdminColumnsInterface = initAdminColumnsGlobalBootstrap();
 
 $(document).ready(() => {
     let table = resolveTableBySelector(AC.table_id);
@@ -46,14 +46,17 @@ AdminColumns.events.addListener(EventConstants.TABLE.READY, (e) => {
     auto_init_show_more();
     init_actions_tooltips();
 
-    e.table.getElement().addEventListener('DOMNodeInserted', (e: Event) => {
-        let element: HTMLElement = (<HTMLElement>e.target)
-        if (element.tagName !== 'TR' || !element.classList.contains('iedit')) {
-            return;
-        }
+    let observer = new MutationObserver(mutations => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node: HTMLElement) => {
+                if (node.tagName === 'TR' && node.classList.contains('iedit')) {
+                    $(node).trigger('updated', {id: getIdFromTableRow((<HTMLTableRowElement>node)), row: node})
+                }
+            });
+        });
+    })
 
-        $(element).trigger('updated', {id: getIdFromTableRow((<HTMLTableRowElement>element)), row: element})
-    });
+    observer.observe(e.table.getElement(), {childList: true, subtree: true});
 });
 
 

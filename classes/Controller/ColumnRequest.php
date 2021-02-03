@@ -14,9 +14,7 @@ abstract class ColumnRequest {
 	abstract protected function get_column( AC\Request $request, AC\ListScreen $list_screen );
 
 	public function request( AC\Request $request ) {
-		parse_str( $request->get( 'data' ), $formdata );
-
-		$list_screen = AC\ListScreenTypes::instance()->get_list_screen_by_key( $formdata['list_screen'] );
+		$list_screen = AC\ListScreenTypes::instance()->get_list_screen_by_key( $request->get( 'list_screen' ) );
 
 		if ( ! $list_screen ) {
 			wp_die();
@@ -31,7 +29,7 @@ abstract class ColumnRequest {
 			] );
 		}
 
-		$current_original_columns = (array) $request->get( 'current_original_columns', [] );
+		$current_original_columns = (array) json_decode( $request->get( 'current_original_columns', '' ), true );
 
 		// Not cloneable message
 		if ( in_array( $column->get_type(), $current_original_columns ) ) {
