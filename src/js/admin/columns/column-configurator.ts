@@ -28,12 +28,12 @@ export default class ColumnConfigurator {
             initToggle(column);
             initIndicator(column);
             initTypeSelector(column);
-            initColumnRefresh(column);
             initRemoveColumn(column);
             initClone(column);
-            initLabel(column);
             initLabelSettingEvents(column);
             initLabelTooltipsEvent(column);
+            initLabel(column);
+            initColumnRefresh(column);
 
             initMultiSelectFields(column);
             initLabelSetting(column);
