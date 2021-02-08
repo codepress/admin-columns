@@ -5,9 +5,9 @@ export const initLabel = (column: Column) => {
     column.getElement().querySelectorAll<HTMLSelectElement>('select[data-label="update"]').forEach((select) => {
         select.addEventListener('change', () => {
             let labelSetting = column.getElement().querySelector<HTMLInputElement>('input.ac-setting-input_label');
-            let option = select.querySelector('option:selected');
+            let option = select.selectedOptions.length > 0 ? select.selectedOptions[0] : null;
 
-            if (labelSetting && option) {
+            if (labelSetting &&  option ) {
                 labelSetting.value = option.innerHTML;
                 labelSetting.dispatchEvent(new Event('change'));
             }

@@ -125,12 +125,14 @@ export class Form {
 
     getFormData(): ListScreenStorageType {
         let columnData: any = {};
+        let titleElement = this.getElement().querySelector<HTMLInputElement>('input[name=title]');
+
         this.getSortedColumns().forEach(column => {
             columnData[column.getName()] = column.getJson();
         });
 
         return {
-            title: '',
+            title: titleElement ? titleElement.value : '',
             list_screen: AC.list_screen,
             list_screen_id: AC.layout,
             columns: columnData,
@@ -187,15 +189,21 @@ export class Form {
     private getPreferences(): keyAnyPair {
         let data: { [key: string]: any } = {};
         document.querySelectorAll<HTMLFormElement>('form[data-form-part=preferences]').forEach(el => {
+            let fData = new FormData(el);
             // @ts-ignore
-            for (let t of new FormData(el).entries()) {
-                data[t[0]] = t[1];
+            for (let entry of fData.entries()) {
+                let key = entry[0];
+                let value = entry[1];
+                let element = el.elements[key];
+
+                data[key] = element.tagName === 'SELECT' && element.hasAttribute('multiple')
+                    ? fData.getAll(key)
+                    : data[key] = value;
             }
         });
 
         return data;
     }
-
 }
 
 const createColumnFromTemplate = () => {
