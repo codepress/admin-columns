@@ -212,7 +212,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.2.7 =
 Release Date: February 8th, 2021
 
-* [Fixed] Some settings were nog saved correctly on the admin settings page
+* [Fixed] Some settings were not saved correctly on the admin settings page
 
 = 4.2.6 =
 Release Date: February 3rd, 2021
