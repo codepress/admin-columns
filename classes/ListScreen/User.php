@@ -30,6 +30,7 @@ class User extends AC\ListScreenWP {
 	/**
 	 * @return WP_Users_List_Table
 	 */
+	// TODO David Why is this public? It's base class tells it is protected... maybe check usage and fix?
 	public function get_list_table() {
 		require_once( ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php' );
 
