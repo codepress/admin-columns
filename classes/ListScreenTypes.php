@@ -13,7 +13,7 @@ class ListScreenTypes {
 	/**
 	 * @return ListScreenTypes
 	 */
-	static public function instance() {
+	public static function instance() {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
