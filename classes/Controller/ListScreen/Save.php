@@ -14,8 +14,14 @@ class Save {
 	 */
 	private $storage;
 
+	/**
+	 * @var Sanitize\FormData
+	 */
+	private $sanitizer;
+
 	public function __construct( Storage $storage ) {
 		$this->storage = $storage;
+		$this->sanitizer = new Sanitize\FormData();
 	}
 
 	public function request( Request $request ) {
@@ -34,6 +40,8 @@ class Save {
 		if ( ! $list_screen ) {
 			wp_send_json_error( [ 'message' => 'List screen not found' ] );
 		}
+
+		$data = $this->sanitizer->sanitize( $data );
 
 		$list_screen->set_title( ! empty( $data['title'] ) ? $data['title'] : $list_screen->get_label() )
 		            ->set_settings( isset( $data['columns'] ) ? $this->maybe_encode_urls( $data['columns'] ) : [] )
