@@ -2,12 +2,25 @@
 
 namespace AC\ThirdParty;
 
+use AC\ListScreenRepository\Storage;
 use AC\Registrable;
 
 /**
  * WPML compatibility
  */
 class WPML implements Registrable {
+
+	/**
+	 * @var Storage
+	 */
+	private $storage;
+
+	/**
+	 * @param Storage $storage
+	 */
+	public function __construct( Storage $storage ) {
+		$this->storage = $storage;
+	}
 
 	function register() {
 
@@ -48,9 +61,7 @@ class WPML implements Registrable {
 			return;
 		}
 
-		$list_screens = AC()->get_storage()->find_all();
-
-		foreach ( $list_screens as $list_screen ) {
+		foreach ( $this->storage->find_all() as $list_screen ) {
 			foreach ( $list_screen->get_columns() as $column ) {
 				do_action( 'wpml_register_single_string', 'Admin Columns', $column->get_custom_label(), $column->get_custom_label() );
 			}
