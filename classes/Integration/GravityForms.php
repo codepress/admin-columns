@@ -17,7 +17,7 @@ final class GravityForms extends Integration {
 			'assets/images/addons/gravityforms.svg',
 			__( 'Take your form submission management to the next level!', 'codepress-admin-columns' ),
 			null,
-			new Site( Site::PAGE_ADDON_BUDDYPRESS )
+			new Site( Site::PAGE_ADDON_GRAVITYFORMS )
 		);
 	}
 
@@ -26,7 +26,7 @@ final class GravityForms extends Integration {
 	}
 
 	public function show_notice( Screen $screen ) {
-		return 'users' === $screen->get_id();
+		return 'forms_page_gf_entries' === $screen->get_id();
 	}
 
 	public function show_placeholder( ListScreen $list_screen ) {
