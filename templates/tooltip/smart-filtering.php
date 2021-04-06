@@ -24,7 +24,7 @@ use AC\Type\Url\Documentation;
 </p>
 <img width="180" src="<?= esc_url( AC()->get_url() . 'assets/images/tooltip/save-filters.png' ); ?>" alt="Saved Filters" style="border:1px solid #ddd;">
 <p>
-	<a href="<?= esc_url( ( new Documentation( Documentation::ARTICLE_SMART_FILTERING ) )->get_url() ); ?>" target="_blank">
+	<a href="<?= esc_url( Documentation::create_with_path( Documentation::ARTICLE_SMART_FILTERING )->get_url() ); ?>" target="_blank">
 		<?= __( 'Learn more &raquo;', 'codepress-admin-columns' ); ?>
 	</a>
 </p>

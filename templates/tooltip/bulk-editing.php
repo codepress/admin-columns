@@ -21,7 +21,7 @@ use AC\Type\Url\Documentation;
 </p>
 <img src="<?= esc_url( AC()->get_url() . 'assets/images/tooltip/bulk-edit-author.png' ); ?>" alt="Bulk Edit" style="border:1px solid #ddd;">
 <p>
-	<a href="<?= esc_url( ( new Documentation( Documentation::ARTICLE_BULK_EDITING ) )->get_url() ); ?>" target="_blank">
+	<a href="<?= esc_url( Documentation::create_with_path( Documentation::ARTICLE_BULK_EDITING )->get_url() ); ?>" target="_blank">
 		<?= __( 'Learn more &raquo;', 'codepress-admin-columns' ); ?>
 	</a>
 </p>

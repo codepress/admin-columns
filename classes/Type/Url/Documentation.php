@@ -37,4 +37,8 @@ class Documentation implements Type\Url {
 		return self::URL . $this->get_path();
 	}
 
+	public static function create_with_path( $path ) {
+		return new self( $path );
+	}
+
 }

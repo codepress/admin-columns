@@ -5,7 +5,7 @@ namespace AC;
 class ListScreenTypes {
 
 	/** @var ListScreenTypes */
-	private static $instance = null;
+	private static $instance;
 
 	/** @var ListScreen[] */
 	private $list_screens = [];
