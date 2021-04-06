@@ -23,6 +23,17 @@ class ColumnRepository {
 	}
 
 	/**
+	 * @param string $column_name
+	 *
+	 * @return Column|null
+	 */
+	public function find( $column_name ) {
+		$column = $this->list_screen->get_column_by_name( $column_name );
+
+		return $column ?: null;
+	}
+
+	/**
 	 * @param array $args
 	 *
 	 * @return Column[]
