@@ -10,6 +10,8 @@ use AC\Type\ListScreenId;
 
 class TableLoader implements Registrable {
 
+	const QUERY_PARAM_LIST_ID = 'layout';
+
 	/**
 	 * @var Storage
 	 */
@@ -48,9 +50,11 @@ class TableLoader implements Registrable {
 			return;
 		}
 
+		$requested_list_id = filter_input( INPUT_GET, self::QUERY_PARAM_LIST_ID );
+
 		// Requested
-		$list_id = ListScreenId::is_valid_id( filter_input( INPUT_GET, 'layout' ) )
-			? new ListScreenId( filter_input( INPUT_GET, 'layout' ) )
+		$list_id = ListScreenId::is_valid_id( $requested_list_id )
+			? new ListScreenId( $requested_list_id )
 			: null;
 
 		// Last visited
