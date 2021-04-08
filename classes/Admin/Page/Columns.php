@@ -127,6 +127,10 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	public function render() {
 		$list_screen = $this->controller->get_list_screen();
 
+		if ( ! $list_screen ) {
+			return '';
+		}
+
 		if ( ! $this->default_columns->exists( $list_screen->get_key() ) ) {
 			$modal = new View( [
 				'message' => 'Loading columns',
@@ -219,7 +223,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 
 				<div class="ac-admin__main">
 
-					<?= $this->show_read_only_notice( $list_screen ); ?>
+					<?php $this->show_read_only_notice( $list_screen ); ?>
 
 					<div id="listscreen_settings" data-form="listscreen" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
 						<?php

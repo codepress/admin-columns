@@ -41,4 +41,8 @@ class Documentation implements Type\Url {
 		return new self( $path );
 	}
 
+	public function __toString() {
+		return $this->get_url();
+	}
+
 }

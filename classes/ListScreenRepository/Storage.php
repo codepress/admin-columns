@@ -11,6 +11,9 @@ use LogicException;
 
 final class Storage implements ListScreenRepositoryWritable {
 
+	const PARAM_FILTER = 'filter';
+	const PARAM_SORT = 'sort';
+
 	/**
 	 * @var Storage\ListScreenRepository[]
 	 */
@@ -52,8 +55,8 @@ final class Storage implements ListScreenRepositoryWritable {
 	 */
 	public function find_all( array $args = [] ) {
 		$args = array_merge( [
-			'filter' => null,
-			'sort'   => null,
+			self::PARAM_FILTER => null,
+			self::PARAM_SORT   => null,
 		], $args );
 
 		$list_screens = new ListScreenCollection();
@@ -66,12 +69,12 @@ final class Storage implements ListScreenRepositoryWritable {
 			}
 		}
 
-		if ( $args['filter'] instanceof Filter ) {
-			$list_screens = $args['filter']->filter( $list_screens );
+		if ( $args[ self::PARAM_FILTER ] instanceof Filter ) {
+			$list_screens = $args[ self::PARAM_FILTER ]->filter( $list_screens );
 		}
 
-		if ( $args['sort'] instanceof Sort ) {
-			$list_screens = $args['sort']->sort( $list_screens );
+		if ( $args[ self::PARAM_SORT ] instanceof Sort ) {
+			$list_screens = $args[ self::PARAM_SORT ]->sort( $list_screens );
 		}
 
 		return $list_screens;
