@@ -80,7 +80,6 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
 		return $this->rules !== null;
 	}
 
-
 	public function find( ListScreenId $id ) {
 		$list_screen = $this->repository->find( $id );
 
@@ -91,11 +90,9 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
 		return $list_screen;
 	}
 
-
 	public function exists( ListScreenId $id ) {
 		return $this->repository->exists( $id );
 	}
-
 
 	public function find_all( array $args = [] ) {
 		$list_screens = $this->repository->find_all( $args );
@@ -109,16 +106,13 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
 		return $list_screens;
 	}
 
-
 	public function save( ListScreen $list_screen ) {
 		$this->repository->save( $list_screen );
 	}
 
-
 	public function delete( ListScreen $list_screen ) {
 		$this->repository->delete( $list_screen );
 	}
-
 
 	public function get_source( ListScreenId $id ) {
 		if ( ! $this->has_source( $id ) ) {
@@ -127,7 +121,6 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
 
 		return $this->repository->get_source( $id );
 	}
-
 
 	public function has_source( ListScreenId $id ) {
 		return $this->repository instanceof SourceAware && $this->repository->has_source( $id );
