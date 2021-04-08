@@ -23,23 +23,14 @@ class Paginated extends Select\Options
 		parent::__construct( $options->get_copy() );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function get_total_pages() {
 		return $this->paginated->get_total_pages();
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function get_page() {
 		return $this->paginated->get_page();
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function is_last_page() {
 		return $this->paginated->is_last_page();
 	}
