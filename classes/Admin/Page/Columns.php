@@ -62,18 +62,6 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 		$this->menu = $menu;
 	}
 
-	public function show_read_only_notice( ListScreen $list_screen ) {
-		if ( $list_screen->is_read_only() ) {
-			$message = sprintf( __( 'The columns for %s are read only and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_title() ? $list_screen->get_title() : $list_screen->get_label() ) . '</strong>' );
-			$message = sprintf( '<p>%s</p>', apply_filters( 'ac/read_only_message', $message, $list_screen ) );
-
-			$notice = new Message\InlineMessage( $message );
-
-			echo $notice->set_type( Message::INFO )
-			            ->render();
-		}
-	}
-
 	public function get_assets() {
 
 		return new Assets( [
@@ -223,7 +211,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 
 				<div class="ac-admin__main">
 
-					<?php $this->show_read_only_notice( $list_screen ); ?>
+					<?php do_action( 'ac/settings/notice', $list_screen ); ?>
 
 					<div id="listscreen_settings" data-form="listscreen" class="<?= $list_screen->is_read_only() ? '-disabled' : ''; ?>">
 						<?php

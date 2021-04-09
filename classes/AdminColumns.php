@@ -59,6 +59,7 @@ class AdminColumns extends Plugin {
 
 		$services = [
 			$this->admin,
+			new Admin\Notice\ReadOnly(),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new ListScreens(),
