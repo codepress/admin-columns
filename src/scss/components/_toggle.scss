@@ -1,4 +1,11 @@
+.ac-toggle-container {
+	display: flex;
 
+	.ac-toggle-label {
+		margin-left: 7px;
+		transform: translateY(-1px);
+	}
+}
 .ac-toggle {
 	display: inline-block;
 	white-space: nowrap;
