@@ -4,7 +4,7 @@ namespace AC\ListScreenRepository\Filter;
 
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Filter;
-use ACP\ListscreenStateRepository;
+use AC\ListscreenStateRepository;
 
 class State implements Filter {
 
