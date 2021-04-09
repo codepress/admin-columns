@@ -7,7 +7,6 @@ use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\Storage;
 use AC\Table\Preference;
 use AC\Type\ListScreenId;
-use ACP\ListscreenStateRepository;
 
 class TableLoader implements Registrable {
 
