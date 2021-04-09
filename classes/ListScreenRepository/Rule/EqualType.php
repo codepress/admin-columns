@@ -18,7 +18,6 @@ class EqualType implements Rule {
 		$this->type = $type;
 	}
 
-
 	public function match( array $args ) {
 		if ( ! isset( $args[ self::TYPE ] ) ) {
 			return false;

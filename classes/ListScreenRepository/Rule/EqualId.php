@@ -16,7 +16,6 @@ class EqualId implements Rule {
 		$this->id = $id;
 	}
 
-
 	public function match( array $args ) {
 		if ( ! isset( $args[ self::ID ] ) ) {
 			return false;
