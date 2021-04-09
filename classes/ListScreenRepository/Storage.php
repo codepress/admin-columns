@@ -7,12 +7,13 @@ use AC\ListScreenCollection;
 use AC\ListScreenRepository;
 use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
+use InvalidArgumentException;
 use LogicException;
 
 final class Storage implements ListScreenRepositoryWritable {
 
-	const PARAM_FILTER = 'filter';
-	const PARAM_SORT = 'sort';
+	const ARG_FILTER = 'filter';
+	const ARG_SORT = 'sort';
 
 	/**
 	 * @var Storage\ListScreenRepository[]
@@ -55,8 +56,8 @@ final class Storage implements ListScreenRepositoryWritable {
 	 */
 	public function find_all( array $args = [] ) {
 		$args = array_merge( [
-			self::PARAM_FILTER => null,
-			self::PARAM_SORT   => null,
+			self::ARG_FILTER => [],
+			self::ARG_SORT   => null,
 		], $args );
 
 		$list_screens = new ListScreenCollection();
@@ -69,12 +70,16 @@ final class Storage implements ListScreenRepositoryWritable {
 			}
 		}
 
-		if ( $args[ self::PARAM_FILTER ] instanceof Filter ) {
-			$list_screens = $args[ self::PARAM_FILTER ]->filter( $list_screens );
+		foreach ( $args[ self::ARG_FILTER ] as $filter ) {
+			if ( ! $filter instanceof Filter ) {
+				throw new InvalidArgumentException( 'Invalid filter supplied.' );
+			}
+
+			$list_screens = $filter->filter( $list_screens );
 		}
 
-		if ( $args[ self::PARAM_SORT ] instanceof Sort ) {
-			$list_screens = $args[ self::PARAM_SORT ]->sort( $list_screens );
+		if ( $args[ self::ARG_SORT ] instanceof Sort ) {
+			$list_screens = $args[ self::ARG_SORT ]->sort( $list_screens );
 		}
 
 		return $list_screens;

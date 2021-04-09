@@ -7,6 +7,7 @@ use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\Storage;
 use AC\Table\Preference;
 use AC\Type\ListScreenId;
+use ACP\ListscreenStateRepository;
 
 class TableLoader implements Registrable {
 
@@ -101,8 +102,11 @@ class TableLoader implements Registrable {
 	 */
 	private function get_first_list_screen( $key ) {
 		$list_screens = $this->storage->find_all( [
-			'key'    => $key,
-			'filter' => new Filter\Permission( $this->permission_checker ),
+			Storage::KEY        => $key,
+			Storage::ARG_FILTER => [
+				new Filter\State( new ListscreenStateRepository() ),
+				new Filter\Permission( $this->permission_checker ),
+			],
 		] );
 
 		if ( $list_screens->count() > 0 ) {

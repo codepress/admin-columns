@@ -45,7 +45,7 @@ class ListScreenRequest {
 	 * @return ListScreen|null
 	 */
 	private function get_first_available_list_screen( $list_key ) {
-		$list_screens = $this->storage->find_all( [ 'key' => $list_key ] );
+		$list_screens = $this->storage->find_all( [ Storage::KEY => $list_key ] );
 
 		if ( $list_screens->count() < 1 ) {
 			return null;
