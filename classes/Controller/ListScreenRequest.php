@@ -9,6 +9,7 @@ use AC\Preferences;
 use AC\Request;
 use AC\Type\ListScreenId;
 
+// TODO turn into middleware for the request. And also add the ListScreenStateRepo check.
 class ListScreenRequest {
 
 	/** @var Request */

@@ -455,8 +455,8 @@ abstract class ListScreen {
 	 */
 	public function get_screen_link() {
 		return add_query_arg( [
-			'page'                           => $this->get_page(),
-			TableLoader::QUERY_PARAM_LIST_ID => $this->get_layout_id(),
+			'page'   => $this->get_page(),
+			'layout' => $this->get_layout_id(),
 		], $this->get_admin_url() );
 	}
 
