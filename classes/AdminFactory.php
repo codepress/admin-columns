@@ -34,8 +34,9 @@ class AdminFactory {
 		return new Page\Columns(
 			$this->location,
 			new DefaultColumnsRepository(),
-			new Section\Partial\Menu( false ),
-			$this->storage
+			new Section\Partial\Menu(),
+			$this->storage,
+			new Preferences\AdminListScreen()
 		);
 	}
 

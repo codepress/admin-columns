@@ -2,6 +2,7 @@
 
 namespace AC\Controller\Middleware;
 
+use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Middleware;
@@ -36,7 +37,7 @@ class ListScreenAdmin implements Middleware {
 			$list_key = $this->preference->get_last_visited_list_key();
 		}
 
-		if ( ! $list_key ) {
+		if ( ! $list_key || ! ListScreenTypes::instance()->get_list_screen_by_key( $list_key, $this->is_network ) ) {
 			$args = $this->is_network
 				? [ 'network_only' => true ]
 				: [ 'site_only' => true ];
@@ -56,11 +57,17 @@ class ListScreenAdmin implements Middleware {
 
 		if ( ! $list_id || ! ListScreenId::is_valid_id( $list_id ) || ! $this->storage->exists( new ListScreenId( $list_id ) ) ) {
 
-			$list_screens = $this->storage->find_all( [
+			$args = [
 				Storage::KEY => $list_key,
-			] );
+			];
 
-			if ( $list_screens->valid() ) {
+			$args[ Storage::ARG_FILTER ][] = $this->is_network
+				? new Filter\Network()
+				: new Filter\ExcludeNetwork();
+
+			$list_screens = $this->storage->find_all( $args );
+
+			if ( $list_screens->count() > 0 ) {
 				$list_id = $list_screens->get_first()->get_id()->get_id();
 			}
 		}

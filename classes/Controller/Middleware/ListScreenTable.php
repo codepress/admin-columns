@@ -78,7 +78,7 @@ class ListScreenTable implements Middleware {
 				],
 			] );
 
-			if ( $list_screens->valid() ) {
+			if ( $list_screens->count() > 0 ) {
 				$list_id = $list_screens->get_first()->get_id()->get_id();
 			}
 		}

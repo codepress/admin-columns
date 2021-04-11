@@ -6,8 +6,8 @@ class AdminListScreen extends Site {
 
 	const OPTION_LAST_VISITED = 'last_visited_list_key';
 
-	public function __construct() {
-		parent::__construct( 'settings' );
+	public function __construct( $is_network = false ) {
+		parent::__construct( $is_network ? 'network_settings' : 'settings' );
 	}
 
 	public function get_last_visited_list_key() {

@@ -57,19 +57,25 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	 */
 	private $preference;
 
-	public function __construct( Location\Absolute $location, DefaultColumnsRepository $default_columns, Menu $menu, Storage $storage ) {
+	/**
+	 * @var bool
+	 */
+	private $is_network;
+
+	public function __construct( Location\Absolute $location, DefaultColumnsRepository $default_columns, Menu $menu, Storage $storage, Preferences\AdminListScreen $preference, $is_network = false ) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->location = $location;
 		$this->default_columns = $default_columns;
 		$this->menu = $menu;
 		$this->storage = $storage;
-		$this->preference = new Preferences\AdminListScreen();
+		$this->preference = $preference;
+		$this->is_network = (bool) $is_network;
 	}
 
 	private function get_list_screen_from_request() {
 		$request = new Request();
-		$request->add_middleware( new Middleware\ListScreenAdmin( $this->storage, $this->preference ) );
+		$request->add_middleware( new Middleware\ListScreenAdmin( $this->storage, $this->preference, $this->is_network ) );
 
 		$list_key = $request->get( Middleware\ListScreenAdmin::PARAM_LIST_KEY );
 
