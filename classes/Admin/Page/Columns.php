@@ -15,9 +15,14 @@ use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Column;
-use AC\Controller\ListScreenRequest;
+use AC\Controller\Middleware;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
+use AC\ListScreenRepository\Storage;
+use AC\ListScreenTypes;
+use AC\Preferences;
+use AC\Request;
+use AC\Type\ListScreenId;
 use AC\Type\Url\Documentation;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
@@ -26,11 +31,6 @@ use AC\View;
 class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOptions {
 
 	const NAME = 'columns';
-
-	/**
-	 * @var ListScreenRequest
-	 */
-	private $controller;
 
 	/**
 	 * @var Location\Absolute
@@ -47,22 +47,57 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	 */
 	private $menu;
 
-	public function __construct(
-		ListScreenRequest $controller,
-		Location\Absolute $location,
-		DefaultColumnsRepository $default_columns,
-		Menu $menu
-	) {
+	/**
+	 * @var Storage
+	 */
+	private $storage;
+
+	/**
+	 * @var Preferences\AdminListScreen
+	 */
+	private $preference;
+
+	public function __construct( Location\Absolute $location, DefaultColumnsRepository $default_columns, Menu $menu, Storage $storage ) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
-		$this->controller = $controller;
 		$this->location = $location;
 		$this->default_columns = $default_columns;
 		$this->menu = $menu;
+		$this->storage = $storage;
+		$this->preference = new Preferences\AdminListScreen();
+	}
+
+	private function get_list_screen_from_request() {
+		$request = new Request();
+		$request->add_middleware( new Middleware\ListScreenAdmin( $this->storage, $this->preference ) );
+
+		$list_key = $request->get( Middleware\ListScreenAdmin::PARAM_LIST_KEY );
+
+		if ( ! $list_key ) {
+			return null;
+		}
+
+		$list_id = $request->get( Middleware\ListScreenAdmin::PARAM_LIST_ID );
+
+		$list_screen = $list_id && ListScreenId::is_valid_id( $list_id )
+			? $this->storage->find( new ListScreenId( $list_id ) )
+			: ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+
+		if ( ! $list_screen ) {
+			return null;
+		}
+
+		// TODO move outside method
+		$this->preference->set_last_visited_list_key( $list_screen->get_key() );
+
+		if ( $list_screen->has_id() ) {
+			$this->preference->set_list_id( $list_screen->get_key(), $list_screen->get_id()->get_id() );
+		}
+
+		return $list_screen;
 	}
 
 	public function get_assets() {
-
 		return new Assets( [
 			new Style( 'jquery-ui-lightness', $this->location->with_suffix( 'assets/ui-theme/jquery-ui-1.8.18.custom.css' ) ),
 			new Script( 'jquery-ui-slider' ),
@@ -70,7 +105,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 				'ac-admin-page-columns',
 				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
 				$this->default_columns,
-				$this->controller->get_list_screen()
+				$this->get_list_screen_from_request()
 			),
 			new Style( 'ac-admin-page-columns-css', $this->location->with_suffix( 'assets/css/admin-page-columns.css' ) ),
 			new Style( 'ac-select2' ),
@@ -112,7 +147,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	}
 
 	public function render() {
-		$list_screen = $this->controller->get_list_screen();
+		$list_screen = $this->get_list_screen_from_request();
 
 		if ( ! $list_screen ) {
 			return '';
@@ -124,7 +159,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 			] );
 			$modal->set_template( 'admin/loading-message' );
 
-			return $this->menu->render( true ) . $modal->render();
+			return $this->menu->render( $list_screen, true ) . $modal->render();
 		}
 
 		$classes = [];
@@ -147,7 +182,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 		<div class="ac-admin <?= esc_attr( implode( ' ', $classes ) ); ?>" data-type="<?= esc_attr( $list_screen->get_key() ); ?>">
 			<div class="ac-admin__header">
 
-				<?= $this->menu->render(); ?>
+				<?= $this->menu->render( $list_screen ); ?>
 
 				<?php do_action( 'ac/settings/after_title', $list_screen ); ?>
 

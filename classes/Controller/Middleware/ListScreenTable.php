@@ -13,7 +13,7 @@ use AC\Table;
 use AC\Type\ListScreenId;
 use WP_Screen;
 
-class TableListScreenRequest implements Middleware {
+class ListScreenTable implements Middleware {
 
 	const PARAM_LIST_ID = 'list_id';
 	const PARAM_LIST_KEY = 'list_key';
@@ -62,16 +62,13 @@ class TableListScreenRequest implements Middleware {
 			return;
 		}
 
-		// Requested
 		$list_id = $request->get( 'layout' );
 
-		// Load preference
 		if ( ! $list_id ) {
 			$list_id = $this->preference->get( $list_key );
 		}
 
-		// Load first available
-		if ( ! $list_id || ! $this->storage->exists( new ListScreenId( $list_id ) ) ) {
+		if ( ! $list_id || ! ListScreenId::is_valid_id( $list_id ) || ! $this->storage->exists( new ListScreenId( $list_id ) ) ) {
 
 			$list_screens = $this->storage->find_all( [
 				Storage::KEY        => $list_key,

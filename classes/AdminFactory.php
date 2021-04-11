@@ -7,7 +7,6 @@ use AC\Admin\PageCollection;
 use AC\Admin\Section;
 use AC\Admin\SectionCollection;
 use AC\Asset\Location;
-use AC\Controller\ListScreenRequest;
 use AC\Deprecated\Hooks;
 use AC\ListScreenRepository\Storage;
 
@@ -32,17 +31,11 @@ class AdminFactory {
 	 * @return Page\Columns
 	 */
 	protected function create_columns_page() {
-		$list_screen_controller = new ListScreenRequest(
-			new Request(),
-			$this->storage,
-			new Preferences\Site( 'settings' )
-		);
-
 		return new Page\Columns(
-			$list_screen_controller,
 			$this->location,
 			new DefaultColumnsRepository(),
-			new Section\Partial\Menu( $list_screen_controller, false )
+			new Section\Partial\Menu( false ),
+			$this->storage
 		);
 	}
 

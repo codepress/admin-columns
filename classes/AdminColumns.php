@@ -82,7 +82,7 @@ class AdminColumns extends Plugin {
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks(),
 
-			// TODO controller should not need $location
+			// TODO
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];
 

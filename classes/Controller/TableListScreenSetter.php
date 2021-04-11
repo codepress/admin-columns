@@ -47,15 +47,15 @@ class TableListScreenSetter implements Registrable {
 
 	public function handle( WP_Screen $wp_screen ) {
 		$request = new Request();
-		$request->add_middleware( new Middleware\TableListScreenRequest( $this->storage, $wp_screen, $this->preference ) );
+		$request->add_middleware( new Middleware\ListScreenTable( $this->storage, $wp_screen, $this->preference ) );
 
-		$list_key = $request->get( Middleware\TableListScreenRequest::PARAM_LIST_KEY );
+		$list_key = $request->get( 'list_key' );
 
 		if ( ! $list_key ) {
 			return;
 		}
 
-		$list_id = $request->get( Middleware\TableListScreenRequest::PARAM_LIST_ID );
+		$list_id = $request->get( 'list_id' );
 
 		$list_screen = $list_id
 			? $this->storage->find( new ListScreenId( $list_id ) )

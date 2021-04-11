@@ -21,12 +21,7 @@ class Columns extends Script {
 	 */
 	private $list_screen;
 
-	public function __construct(
-		$handle,
-		Location $location,
-		DefaultColumnsRepository $default_columns,
-		ListScreen $list_screen
-	) {
+	public function __construct( $handle, Location $location, DefaultColumnsRepository $default_columns, ListScreen $list_screen ) {
 		parent::__construct( $handle, $location, [
 			'jquery',
 			'jquery-ui-slider',
@@ -68,12 +63,14 @@ class Columns extends Script {
 		];
 
 		foreach ( $this->get_list_screens() as $list_screen ) {
-			if ( $this->default_columns->exists( $list_screen->get_key() ) ) {
+			$list_key = $list_screen->get_key();
+
+			if ( $this->default_columns->exists( $list_key ) ) {
 				continue;
 			}
 
-			$params['uninitialized_list_screens'][ $list_screen->get_key() ] = [
-				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $list_screen->get_key() ], $list_screen->get_screen_link() ),
+			$params['uninitialized_list_screens'][ $list_key ] = [
+				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $list_key ], $list_screen->get_screen_link() ),
 				'label'       => $list_screen->get_label(),
 			];
 		}
