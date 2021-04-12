@@ -122,22 +122,19 @@ var EventConstants = {
 /*!*************************************!*\
   !*** ./js/helpers/admin-columns.ts ***!
   \*************************************/
-/*! exports provided: initAdminColumnsGlobalBootstrap */
+/*! exports provided: initAcServices */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAdminColumnsGlobalBootstrap", function() { return initAdminColumnsGlobalBootstrap; });
-/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/modals */ "./js/modules/modals.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcServices", function() { return initAcServices; });
+/* harmony import */ var _modules_ac_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/ac-services */ "./js/modules/ac-services.ts");
 
-var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
-var initAdminColumnsGlobalBootstrap = function () {
-    if (!window.AdminColumns) {
-        window.AdminColumns = window.AdminColumns || {};
-        AdminColumns.events = nanobus();
-        AdminColumns.Modals = new _modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"]();
+var initAcServices = function () {
+    if (!window.AC_SERVICES) {
+        window.AC_SERVICES = new _modules_ac_services__WEBPACK_IMPORTED_MODULE_0__["default"]();
     }
-    return window.AdminColumns;
+    return window.AC_SERVICES;
 };
 
 
@@ -283,6 +280,46 @@ var resolveTableBySelector = function (selector) {
     }
     return null;
 };
+
+
+/***/ }),
+
+/***/ "./js/modules/ac-services.ts":
+/*!***********************************!*\
+  !*** ./js/modules/ac-services.ts ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
+
+var AcServices = /** @class */ (function () {
+    function AcServices() {
+        this.services = {};
+        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
+    }
+    AcServices.prototype.registerService = function (name, service) {
+        this.services[name] = service;
+        return this;
+    };
+    AcServices.prototype.getService = function (name) {
+        return this.hasService(name) ? this.services[name] : null;
+    };
+    AcServices.prototype.hasService = function (name) {
+        return this.services.hasOwnProperty(name);
+    };
+    AcServices.prototype.addListener = function (name, callback) {
+        this.events.addListener(name, callback);
+    };
+    AcServices.prototype.emitEvent = function (name, args) {
+        this.events.emit(name, args);
+    };
+    return AcServices;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (AcServices);
 
 
 /***/ }),
@@ -512,7 +549,7 @@ var ToggleBoxLink = /** @class */ (function () {
         this.retrieveAjaxValue().done(function (response) {
             _this.setContent(response);
             $(_this.element.parentElement).trigger('ajax_column_value_ready');
-            AdminColumns.Tooltips.init();
+            AC_SERVICES.getService('Tooltips').init();
         }).always(function () {
             _this.element.classList.remove('loading');
         });
@@ -701,6 +738,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
 /* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers/table */ "./js/helpers/table.ts");
 /* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
+/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/modals */ "./js/modules/modals.ts");
 
 
 
@@ -712,20 +750,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var AdminColumns = Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__["initAdminColumnsGlobalBootstrap"])();
+
+var AC_SERVICES = Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__["initAcServices"])();
+AC_SERVICES.registerService('Modals', new _modules_modals__WEBPACK_IMPORTED_MODULE_10__["default"]());
 jquery__WEBPACK_IMPORTED_MODULE_4___default()(document).ready(function () {
     var table = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_8__["resolveTableBySelector"])(AC.table_id);
     if (table) {
-        AdminColumns.Table = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table);
-        AdminColumns.Table.init();
-        AdminColumns.ScreenOptionsColumns = new _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__["default"](AdminColumns.Table.Columns);
+        var TableModule = (new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table, AC_SERVICES)).init();
+        AC_SERVICES.registerService('Table', TableModule);
+        AC_SERVICES.registerService('ScreenOptionsColumns', new _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__["default"](TableModule.Columns));
     }
-    AdminColumns.Tooltips = new _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__["default"]();
+    AC_SERVICES.registerService('Tooltips', new _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__["default"]());
     document.querySelectorAll('.ac-toggle-box-link').forEach(function (el) {
         new _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__["default"](el);
     });
     jquery__WEBPACK_IMPORTED_MODULE_4___default()('.wp-list-table').on('updated', 'tr', function () {
-        AdminColumns.Table.addCellClasses();
+        AC_SERVICES.getService('Table').addCellClasses();
         Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
     });
     // TODO use more global event name instead of IE
@@ -733,7 +773,7 @@ jquery__WEBPACK_IMPORTED_MODULE_4___default()(document).ready(function () {
         Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
     });
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__["EventConstants"].TABLE.READY, function (e) {
+AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__["EventConstants"].TABLE.READY, function (event) {
     Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
     Object(_table_functions__WEBPACK_IMPORTED_MODULE_6__["init_actions_tooltips"])();
     var observer = new MutationObserver(function (mutations) {
@@ -745,11 +785,8 @@ AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__["EventCo
             });
         });
     });
-    observer.observe(e.table.getElement(), { childList: true, subtree: true });
+    observer.observe(event.table.getElement(), { childList: true, subtree: true });
 });
-window.ac_load_table = function (el) {
-    AdminColumns.Table = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](el);
-};
 
 
 /***/ }),
@@ -837,7 +874,7 @@ var Cell = /** @class */ (function () {
         return this.el.parentElement;
     };
     Cell.prototype.getSettings = function () {
-        return AdminColumns.Table.Columns.get(this.getName());
+        return AC_SERVICES.getService('Table').Columns.get(this.getName());
     };
     Cell.prototype.hasChanged = function (content) {
         return this.original_value !== content;
@@ -1138,8 +1175,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Table = /** @class */ (function () {
-    function Table(el) {
+    function Table(el, services) {
         this.el = el;
+        this.Services = services;
         this.Columns = new _columns__WEBPACK_IMPORTED_MODULE_2__["default"](el);
         this.Cells = new _cells__WEBPACK_IMPORTED_MODULE_1__["default"]();
         this.Actions = document.getElementById('ac-table-actions') ? new _actions__WEBPACK_IMPORTED_MODULE_0__["default"](document.getElementById('ac-table-actions')) : null;
@@ -1159,7 +1197,8 @@ var Table = /** @class */ (function () {
         this.initTable();
         this.addCellClasses();
         document.dispatchEvent(new CustomEvent('AC_Table_Ready', { detail: { table: this } }));
-        AdminColumns.events.emit(_constants__WEBPACK_IMPORTED_MODULE_6__["EventConstants"].TABLE.READY, { table: this });
+        this.Services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_6__["EventConstants"].TABLE.READY, { table: this });
+        return this;
     };
     Table.prototype.addCellClasses = function () {
         var _this = this;

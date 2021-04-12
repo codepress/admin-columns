@@ -109,6 +109,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_columns_listscreen_initialize__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./admin/columns/listscreen-initialize */ "./js/admin/columns/listscreen-initialize.ts");
 /* harmony import */ var nodelist_foreach_polyfill__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! nodelist-foreach-polyfill */ "./node_modules/nodelist-foreach-polyfill/index.js");
 /* harmony import */ var nodelist_foreach_polyfill__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(nodelist_foreach_polyfill__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/modals */ "./js/modules/modals.ts");
 
 
 
@@ -122,33 +123,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__["initAdminColumnsGlobalBootstrap"])();
-new _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__["default"]();
+
+var AcServices = Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__["initAcServices"])();
+AcServices.registerService('Modals', new _modules_modals__WEBPACK_IMPORTED_MODULE_12__["default"]());
+new _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__["default"](AcServices);
 document.addEventListener('DOMContentLoaded', function () {
     initSaveHandlers();
     // Init the form
-    var formElement = document.querySelector('#listscreen_settings');
-    if (formElement) {
-        AdminColumns.Form = new _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__["Form"](formElement, AdminColumns.events);
-    }
+    document.querySelectorAll('#listscreen_settings').forEach(function (formElement) {
+        AcServices.registerService('Form', new _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__["Form"](formElement, AcServices));
+    });
     // Init the Pro promotion Modal
-    var proModal = document.querySelector('#ac-modal-pro');
-    if (proModal) {
-        AdminColumns.Modals.register(new _modules_modal__WEBPACK_IMPORTED_MODULE_5__["default"](proModal), 'pro');
-    }
-    var select = document.querySelector('#ac_list_screen');
-    if (select) {
+    document.querySelectorAll('#ac-modal-pro').forEach(function (proModal) {
+        AcServices.getService('Modals').register(new _modules_modal__WEBPACK_IMPORTED_MODULE_5__["default"](proModal), 'pro');
+    });
+    document.querySelectorAll('#ac_list_screen').forEach(function (select) {
         select.addEventListener('change', function () {
             document.querySelectorAll('.view-link').forEach(function (link) { return link.style.display = 'none'; });
             select.closest('form').submit();
             select.disabled = true;
             select.nextElementSibling.style.display = 'inline-block';
         });
-    }
-    var feedback = document.querySelector('#direct-feedback');
-    if (feedback) {
-        new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__["default"](feedback);
-    }
+    });
+    document.querySelectorAll('#direct-feedback').forEach(function (feedbackElement) { return new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__["default"](feedbackElement); });
     if (AC.hasOwnProperty('uninitialized_list_screens')) {
         Object(_admin_columns_listscreen_initialize__WEBPACK_IMPORTED_MODULE_10__["initUninitializedListScreens"])(AC.uninitialized_list_screens);
     }
@@ -158,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-ac-screen-option="show_list_screen_id"] input').forEach(function (el) { return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-list-screen-id', document.querySelector('.ac-admin')); });
     document.querySelectorAll('[data-ac-screen-option="show_list_screen_type"] input').forEach(function (el) { return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-list-screen-type', document.querySelector('.ac-admin')); });
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, function (form) {
+AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, function (form) {
     document.querySelectorAll('.add_column').forEach(function (el) { return el.addEventListener('click', function () { return form.createNewColumn(); }); });
     document.querySelectorAll('a[data-clear-columns]').forEach(function (el) { return el.addEventListener('click', function () { return form.resetColumns(); }); });
     // Make column settings sortable
@@ -167,20 +164,20 @@ AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventCo
         ? $form.sortable('refresh')
         : $form.sortable({ items: '.ac-column', handle: '.column_sort' });
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVING, function () {
+AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVING, function () {
     document.querySelector('#cpac .ac-admin').classList.add('saving');
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, function () {
+AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, function () {
     document.querySelector('#cpac .ac-admin').classList.remove('saving');
     document.querySelector('#cpac .ac-admin').classList.add('stored');
 });
-AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.INIT, function (column) {
+AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.INIT, function (column) {
     Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_8__["initAcTooltips"])();
     Object(_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__["initPointers"])(column.getElement().querySelectorAll('.ac-pointer'));
 });
 var initSaveHandlers = function () {
     var elements = document.querySelectorAll('.sidebox a.submit, .column-footer a.submit');
-    AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.READY, function (form) {
+    AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.READY, function (form) {
         elements.forEach(function (el) {
             el.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -189,7 +186,7 @@ var initSaveHandlers = function () {
             });
         });
     });
-    AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, function () { return elements.forEach(function (el) { return el.removeAttribute('disabled'); }); });
+    AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, function () { return elements.forEach(function (el) { return el.removeAttribute('disabled'); }); });
 };
 
 
@@ -231,7 +228,7 @@ var switchColumnType = function (type, list_screen) {
     return axios.post(ajaxurl, mapDataToFormData({
         _ajax_nonce: AC._ajax_nonce,
         action: 'ac-columns',
-        current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map(function (e) { return e.getName(); })),
+        current_original_columns: JSON.stringify(AC_SERVICES.getService('Form').getOriginalColumns().map(function (e) { return e.getName(); })),
         id: 'select',
         list_screen: list_screen,
         type: type,
@@ -298,8 +295,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ColumnConfigurator = /** @class */ (function () {
-    function ColumnConfigurator() {
-        AdminColumns.events.addListener(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.COLUMN.INIT, function (column) {
+    function ColumnConfigurator(Services) {
+        Services.addListener(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.COLUMN.INIT, function (column) {
             Object(_events_toggle__WEBPACK_IMPORTED_MODULE_1__["initToggle"])(column);
             Object(_events_indicator__WEBPACK_IMPORTED_MODULE_2__["initIndicator"])(column);
             Object(_events_type_selector__WEBPACK_IMPORTED_MODULE_3__["initTypeSelector"])(column);
@@ -376,11 +373,12 @@ var COLUMN_EVENTS = {
     CLONE: 'clone',
 };
 var Column = /** @class */ (function () {
-    function Column(element, name) {
+    function Column(element, name, services) {
         this.events = new nanobus__WEBPACK_IMPORTED_MODULE_2___default.a();
         this.name = name;
         this.element = element;
         this.state = STATES.CLOSED;
+        this.services = services;
         this.setPropertiesByElement(element);
         this.init();
     }
@@ -421,7 +419,7 @@ var Column = /** @class */ (function () {
         return this;
     };
     Column.prototype.init = function () {
-        AdminColumns.events.emit(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.INIT, this);
+        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.INIT, this);
         return this;
     };
     Column.prototype.destroy = function () {
@@ -518,7 +516,7 @@ var Column = /** @class */ (function () {
         Object(_ajax__WEBPACK_IMPORTED_MODULE_3__["refreshColumn"])(this.getName(), JSON.stringify(this.getJson())).then(function (response) {
             if (response.data.success) {
                 _this.reinitColumnFromElement(Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild);
-                AdminColumns.events.emit(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.REFRESHED, _this);
+                _this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.REFRESHED, _this);
             }
             else {
                 _this.showMessage(AC.i18n.errors.loading_column);
@@ -849,11 +847,11 @@ var __values = (undefined && undefined.__values) || function(o) {
 
 
 var Form = /** @class */ (function () {
-    function Form(element, events) {
+    function Form(element, services) {
         this.form = element;
-        this.events = events;
+        this.services = services;
         this.columns = [];
-        this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.LOADED, this);
+        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.LOADED, this);
         this.init();
     }
     Form.prototype.init = function () {
@@ -862,7 +860,7 @@ var Form = /** @class */ (function () {
             this.disableFields();
             this.disableColumns();
         }
-        this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.READY, this);
+        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.READY, this);
     };
     Form.prototype.getElement = function () {
         return this.form;
@@ -895,7 +893,7 @@ var Form = /** @class */ (function () {
         return this;
     };
     Form.prototype.createNewColumn = function () {
-        var column = createColumnFromTemplate();
+        var column = createColumnFromTemplate(this.services);
         this.columns.push(column);
         this.placeColumn(column);
         this.bindColumnEvents(column);
@@ -914,7 +912,7 @@ var Form = /** @class */ (function () {
     Form.prototype.initColumns = function () {
         var _this = this;
         this.getElement().querySelectorAll('.ac-column').forEach(function (element) {
-            var column = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](element, element.dataset.columnName);
+            var column = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](element, element.dataset.columnName, _this.services);
             _this.columns.push(column);
             _this.bindColumnEvents(column);
         });
@@ -925,7 +923,7 @@ var Form = /** @class */ (function () {
             _this.removeColumn(column.getName());
         });
         column.events.addListener(_column__WEBPACK_IMPORTED_MODULE_1__["COLUMN_EVENTS"].CLONE, function () {
-            var cloneColumn = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](column.getElement().cloneNode(true), Object(_helpers_string__WEBPACK_IMPORTED_MODULE_5__["uniqid"])());
+            var cloneColumn = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](column.getElement().cloneNode(true), Object(_helpers_string__WEBPACK_IMPORTED_MODULE_5__["uniqid"])(), _this.services);
             _this.columns.push(cloneColumn);
             _this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
             column.isOpen() ? cloneColumn.open() : cloneColumn.close();
@@ -960,7 +958,7 @@ var Form = /** @class */ (function () {
     };
     Form.prototype.submitForm = function () {
         var _this = this;
-        this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVING, this);
+        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVING, this);
         Object(_ajax__WEBPACK_IMPORTED_MODULE_2__["submitColumnSettings"])(this.getFormData()).then(function (response) {
             if (response.data.success) {
                 _this.showMessage(response.data.data, 'updated');
@@ -972,7 +970,7 @@ var Form = /** @class */ (function () {
         }).catch(function () {
             _this.showMessage(AC.i18n.error.save_settings);
         }).finally(function () {
-            _this.events.emit(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVED, _this);
+            _this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVED, _this);
         });
     };
     Form.prototype.showMessage = function (message, className) {
@@ -1025,7 +1023,7 @@ var Form = /** @class */ (function () {
     return Form;
 }());
 
-var createColumnFromTemplate = function () {
+var createColumnFromTemplate = function (services) {
     var columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true);
     var newColumnName = Object(_helpers_string__WEBPACK_IMPORTED_MODULE_5__["uniqid"])();
     columnElement.querySelectorAll('label[for]').forEach(function (label) {
@@ -1039,7 +1037,7 @@ var createColumnFromTemplate = function () {
             }
         }
     });
-    return new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](columnElement, newColumnName);
+    return new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](columnElement, newColumnName, services);
 };
 
 
@@ -1967,22 +1965,19 @@ var EventConstants = {
 /*!*************************************!*\
   !*** ./js/helpers/admin-columns.ts ***!
   \*************************************/
-/*! exports provided: initAdminColumnsGlobalBootstrap */
+/*! exports provided: initAcServices */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAdminColumnsGlobalBootstrap", function() { return initAdminColumnsGlobalBootstrap; });
-/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/modals */ "./js/modules/modals.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcServices", function() { return initAcServices; });
+/* harmony import */ var _modules_ac_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/ac-services */ "./js/modules/ac-services.ts");
 
-var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
-var initAdminColumnsGlobalBootstrap = function () {
-    if (!window.AdminColumns) {
-        window.AdminColumns = window.AdminColumns || {};
-        AdminColumns.events = nanobus();
-        AdminColumns.Modals = new _modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"]();
+var initAcServices = function () {
+    if (!window.AC_SERVICES) {
+        window.AC_SERVICES = new _modules_ac_services__WEBPACK_IMPORTED_MODULE_0__["default"]();
     }
-    return window.AdminColumns;
+    return window.AC_SERVICES;
 };
 
 
@@ -2331,6 +2326,46 @@ var initPointers = function (elements) {
     });
     new _tooltips__WEBPACK_IMPORTED_MODULE_0__["default"]();
 };
+
+
+/***/ }),
+
+/***/ "./js/modules/ac-services.ts":
+/*!***********************************!*\
+  !*** ./js/modules/ac-services.ts ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
+
+var AcServices = /** @class */ (function () {
+    function AcServices() {
+        this.services = {};
+        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
+    }
+    AcServices.prototype.registerService = function (name, service) {
+        this.services[name] = service;
+        return this;
+    };
+    AcServices.prototype.getService = function (name) {
+        return this.hasService(name) ? this.services[name] : null;
+    };
+    AcServices.prototype.hasService = function (name) {
+        return this.services.hasOwnProperty(name);
+    };
+    AcServices.prototype.addListener = function (name, callback) {
+        this.events.addListener(name, callback);
+    };
+    AcServices.prototype.emitEvent = function (name, args) {
+        this.events.emit(name, args);
+    };
+    return AcServices;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (AcServices);
 
 
 /***/ }),

@@ -1,11 +1,13 @@
 import {insertAfter} from "../helpers/elements";
-import {AdminColumnsInterface, LocalizedScriptACTable} from "../admincolumns";
+import {LocalizedScriptACTable} from "../admincolumns";
+import AcServices from "./ac-services";
+import Tooltips from "./tooltips";
 
 const $ = require("jquery");
 
 declare const ajaxurl: string
 declare const AC: LocalizedScriptACTable
-declare const AdminColumns: AdminColumnsInterface
+declare const AC_SERVICES: AcServices
 
 export default class ToggleBoxLink {
     element: HTMLLinkElement
@@ -102,8 +104,7 @@ export default class ToggleBoxLink {
             this.setContent(response);
 
             $(this.element.parentElement).trigger('ajax_column_value_ready');
-            AdminColumns.Tooltips.init();
-
+            AC_SERVICES.getService<Tooltips>('Tooltips').init();
         }).always(() => {
             this.element.classList.remove('loading');
         });
