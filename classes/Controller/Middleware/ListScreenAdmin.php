@@ -2,7 +2,6 @@
 
 namespace AC\Controller\Middleware;
 
-use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Middleware;
@@ -57,15 +56,9 @@ class ListScreenAdmin implements Middleware {
 
 		if ( ! $list_id || ! ListScreenId::is_valid_id( $list_id ) || ! $this->storage->exists( new ListScreenId( $list_id ) ) ) {
 
-			$args = [
+			$list_screens = $this->storage->find_all( [
 				Storage::KEY => $list_key,
-			];
-
-			$args[ Storage::ARG_FILTER ][] = $this->is_network
-				? new Filter\Network()
-				: new Filter\ExcludeNetwork();
-
-			$list_screens = $this->storage->find_all( $args );
+			] );
 
 			if ( $list_screens->count() > 0 ) {
 				$list_id = $list_screens->get_first()->get_id()->get_id();
