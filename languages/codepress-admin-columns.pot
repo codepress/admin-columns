@@ -1,4 +1,4 @@
-# Copyright (C) 2020 Admin Columns
+# Copyright (C) 2021 Admin Columns
 # This file is distributed under the same license as the Admin Columns package.
 msgid ""
 msgstr ""
@@ -19,15 +19,15 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin.php:126, classes/Check/Review.php:148, classes/Table/Screen.php:464, classes/Admin/Page/Columns.php:57
+#: classes/Admin.php:126, classes/Check/Review.php:148, classes/Table/Screen.php:464, classes/Admin/Page/Columns.php:66
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/Admin.php:150, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:115, classes/Settings/Column/Post.php:82, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54
+#: classes/Admin.php:150, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:115, classes/Settings/Column/Post.php:90, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54
 msgid "Display"
 msgstr ""
 
-#: classes/ColumnGroups.php:13, classes/Settings/Column/CustomFieldType.php:186, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:25, templates/admin/help-tab/custom-fields.php:6, classes/Helper/Select/Group/CustomField/MultiSite.php:53
+#: classes/ColumnGroups.php:13, classes/Settings/Column/CustomFieldType.php:188, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:25, templates/admin/help-tab/custom-fields.php:6, classes/Helper/Select/Group/CustomField/MultiSite.php:53
 msgid "Default"
 msgstr ""
 
@@ -35,11 +35,11 @@ msgstr ""
 msgid "Custom Fields"
 msgstr ""
 
-#: classes/ColumnGroups.php:16, classes/Settings/Column/CustomFieldType.php:171, classes/Settings/Column/Image.php:112
+#: classes/ColumnGroups.php:16, classes/Settings/Column/CustomFieldType.php:173, classes/Settings/Column/Image.php:112
 msgid "Custom"
 msgstr ""
 
-#: classes/ListScreenGroups.php:13, classes/Settings/Column/CustomFieldType.php:99, classes/Settings/Column/PostType.php:43
+#: classes/ListScreenGroups.php:13, classes/Settings/Column/CustomFieldType.php:101, classes/Settings/Column/PostType.php:43
 msgid "Post Type"
 msgstr ""
 
@@ -167,11 +167,11 @@ msgstr ""
 msgid "Invalid method."
 msgstr ""
 
-#: classes/Controller/ColumnRequest.php:30
+#: classes/Controller/ColumnRequest.php:28
 msgid "Please visit the %s screen once to load all available columns"
 msgstr ""
 
-#: classes/Controller/ColumnRequest.php:41, classes/Admin/Asset/Columns.php:62
+#: classes/Controller/ColumnRequest.php:39, classes/Admin/Asset/Columns.php:56
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
@@ -179,7 +179,7 @@ msgstr ""
 msgid "Settings for %s restored successfully."
 msgstr ""
 
-#: classes/Controller/RestoreSettingsRequest.php:37
+#: classes/Controller/RestoreSettingsRequest.php:42
 msgid "Default settings successfully restored."
 msgstr ""
 
@@ -287,11 +287,11 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: templates/admin/edit-column.php:52, classes/Settings/Column/Type.php:36
+#: templates/admin/edit-column.php:52, classes/Settings/Column/Type.php:35
 msgid "Name"
 msgstr ""
 
-#: templates/admin/edit-column.php:53, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:77, classes/Settings/Column/Type.php:33, classes/Settings/Column/Type.php:42
+#: templates/admin/edit-column.php:53, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:79, classes/Settings/Column/Type.php:32, classes/Settings/Column/Type.php:41
 msgid "Type"
 msgstr ""
 
@@ -670,15 +670,15 @@ msgstr ""
 msgid "You can change the default sorted column in the optional settings below."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:63
+#: classes/Admin/Asset/Columns.php:57
 msgid "Invalid response."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:65
+#: classes/Admin/Asset/Columns.php:59
 msgid "There was an error during saving the column settings."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:66
+#: classes/Admin/Asset/Columns.php:60
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
@@ -688,6 +688,10 @@ msgstr ""
 
 #: classes/Admin/HelpTab/Introduction.php:11
 msgid "Overview"
+msgstr ""
+
+#: classes/Admin/Notice/ReadOnly.php:18
+msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
 #: classes/Admin/Page/Addons.php:29
@@ -722,15 +726,11 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:67
-msgid "The columns for %s are read only and can therefore not be edited."
-msgstr ""
-
-#: classes/Admin/Page/Columns.php:171
+#: classes/Admin/Page/Columns.php:203
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:180
+#: classes/Admin/Page/Columns.php:212
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -852,7 +852,7 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: classes/Column/Comment/Post.php:15, classes/Settings/Column/CustomFieldType.php:131, templates/admin/help-tab/custom-fields.php:46
+#: classes/Column/Comment/Post.php:15, classes/Settings/Column/CustomFieldType.php:133, templates/admin/help-tab/custom-fields.php:46
 msgid "Post"
 msgstr ""
 
@@ -864,7 +864,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: classes/Column/Comment/User.php:15, classes/Settings/Column/CustomFieldType.php:103, classes/Settings/Column/CustomFieldType.php:132, templates/admin/help-tab/custom-fields.php:58
+#: classes/Column/Comment/User.php:15, classes/Settings/Column/CustomFieldType.php:105, classes/Settings/Column/CustomFieldType.php:134, templates/admin/help-tab/custom-fields.php:58
 msgid "User"
 msgstr ""
 
@@ -932,7 +932,7 @@ msgstr ""
 msgid "Mime Type"
 msgstr ""
 
-#: classes/Column/Media/Width.php:16, classes/Settings/Column/Image.php:41, classes/Settings/Column/Width.php:53
+#: classes/Column/Media/Width.php:16, classes/Settings/Column/Image.php:41, classes/Settings/Column/Width.php:55
 msgid "Width"
 msgstr ""
 
@@ -1048,6 +1048,10 @@ msgstr ""
 msgid "First Name"
 msgstr ""
 
+#: classes/Column/User/FirstPost.php:15
+msgid "First Post"
+msgstr ""
+
 #: classes/Column/User/FullName.php:11, classes/Settings/Column/User.php:78
 msgid "Full Name"
 msgstr ""
@@ -1058,6 +1062,10 @@ msgstr ""
 
 #: classes/Column/User/LastName.php:14, classes/Settings/Column/User.php:79
 msgid "Last Name"
+msgstr ""
+
+#: classes/Column/User/LastPost.php:15
+msgid "Last Post"
 msgstr ""
 
 #: classes/Column/User/Login.php:11
@@ -1092,15 +1100,15 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:25
+#: classes/Controller/ListScreen/Save.php:31
 msgid "You need at least one column"
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:61
+#: classes/Controller/ListScreen/Save.php:59
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:64
+#: classes/Controller/ListScreen/Save.php:62
 msgid "View %s screen"
 msgstr ""
 
@@ -1196,79 +1204,79 @@ msgstr ""
 msgid "Field"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:74
+#: classes/Settings/Column/CustomFieldType.php:76
 msgid "This will determine how the value will be displayed."
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:81
+#: classes/Settings/Column/CustomFieldType.php:83
 msgid "Field Type"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:88
+#: classes/Settings/Column/CustomFieldType.php:90
 msgid "Uses one or more %s IDs to display information about it."
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:89
+#: classes/Settings/Column/CustomFieldType.php:91
 msgid "Multiple IDs should be separated by commas."
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:118, templates/admin/help-tab/custom-fields.php:10
+#: classes/Settings/Column/CustomFieldType.php:120, templates/admin/help-tab/custom-fields.php:10
 msgid "Color"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:119, templates/admin/help-tab/custom-fields.php:18
+#: classes/Settings/Column/CustomFieldType.php:121, templates/admin/help-tab/custom-fields.php:18
 msgid "Date"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:120
+#: classes/Settings/Column/CustomFieldType.php:122
 msgid "Text"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:121, templates/admin/help-tab/custom-fields.php:30
+#: classes/Settings/Column/CustomFieldType.php:123, templates/admin/help-tab/custom-fields.php:30
 msgid "Image"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:122, templates/admin/help-tab/custom-fields.php:54
+#: classes/Settings/Column/CustomFieldType.php:124, templates/admin/help-tab/custom-fields.php:54
 msgid "URL"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:123, templates/admin/help-tab/custom-fields.php:42
+#: classes/Settings/Column/CustomFieldType.php:125, templates/admin/help-tab/custom-fields.php:42
 msgid "Number"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:126, templates/admin/help-tab/custom-fields.php:26
+#: classes/Settings/Column/CustomFieldType.php:128, templates/admin/help-tab/custom-fields.php:26
 msgid "Has Content"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:127, templates/admin/help-tab/custom-fields.php:50
+#: classes/Settings/Column/CustomFieldType.php:129, templates/admin/help-tab/custom-fields.php:50
 msgid "True / False"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:130, templates/admin/help-tab/custom-fields.php:34
+#: classes/Settings/Column/CustomFieldType.php:132, templates/admin/help-tab/custom-fields.php:34
 msgid "Media"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:135
+#: classes/Settings/Column/CustomFieldType.php:137
 msgid "Number of Fields"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:136, templates/admin/help-tab/custom-fields.php:38
+#: classes/Settings/Column/CustomFieldType.php:138, templates/admin/help-tab/custom-fields.php:38
 msgid "Multiple Values"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:167
+#: classes/Settings/Column/CustomFieldType.php:169
 msgid "Basic"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:168
+#: classes/Settings/Column/CustomFieldType.php:170
 msgid "Relational"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:169
+#: classes/Settings/Column/CustomFieldType.php:171
 msgid "Choice"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:170
+#: classes/Settings/Column/CustomFieldType.php:172
 msgid "Multiple"
 msgstr ""
 
@@ -1542,6 +1550,10 @@ msgctxt "post"
 msgid "View Public %s Author Page"
 msgstr ""
 
+#: classes/Settings/Column/PostStatus.php:33
+msgid "Post Status"
+msgstr ""
+
 #: classes/Settings/Column/PostType.php:35
 msgid "All Post Types"
 msgstr ""
@@ -1614,7 +1626,7 @@ msgstr ""
 msgid "WordPress Time Format"
 msgstr ""
 
-#: classes/Settings/Column/Type.php:30
+#: classes/Settings/Column/Type.php:29
 msgid "Choose a column type."
 msgstr ""
 
@@ -1650,7 +1662,7 @@ msgstr ""
 msgid "Auto"
 msgstr ""
 
-#: classes/Settings/Column/Width.php:63
+#: classes/Settings/Column/Width.php:65
 msgid "width"
 msgstr ""
 

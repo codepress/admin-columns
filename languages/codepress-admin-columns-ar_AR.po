@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-11-07 23:53:05+0000\n"
+"PO-Revision-Date: 2021-03-25 04:38:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1863,7 +1863,7 @@ msgstr "ISO"
 
 #: classes/Settings/Column/ExifData.php:78
 msgid "Focal Length"
-msgstr "بعد بؤري"
+msgstr "البعد البؤري"
 
 #: classes/Settings/Column/ExifData.php:76
 msgid "Timestamp"
