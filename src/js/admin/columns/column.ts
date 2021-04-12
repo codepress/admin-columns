@@ -9,6 +9,7 @@ import {createElementFromString} from "../../helpers/elements";
 import {fadeOut} from "../../helpers/animations";
 import {uniqid} from "../../helpers/string";
 import {LocalizedScriptColumnSettings} from "./interfaces";
+import AcServices from "../../modules/ac-services";
 
 const STATES = {
     CLOSED: 'closed',
@@ -30,6 +31,7 @@ type ajaxResponse = {
 
 export class Column {
     events: Nanobus;
+    private services: AcServices
     private element: HTMLFormElement
     private name: string
     private type: string
@@ -37,11 +39,12 @@ export class Column {
     private original: boolean
     private disabled: boolean
 
-    constructor(element: HTMLFormElement, name: string) {
+    constructor(element: HTMLFormElement, name: string, services: AcServices) {
         this.events = new Nanobus();
         this.name = name;
         this.element = element;
         this.state = STATES.CLOSED;
+        this.services = services
         this.setPropertiesByElement(element);
         this.init();
     }
@@ -96,7 +99,7 @@ export class Column {
     }
 
     init(): this {
-        AdminColumns.events.emit(EventConstants.SETTINGS.COLUMN.INIT, this);
+        this.services.emitEvent(EventConstants.SETTINGS.COLUMN.INIT, this);
         return this;
     }
 
@@ -191,7 +194,7 @@ export class Column {
         refreshColumn(this.getName(), JSON.stringify(this.getJson())).then((response: AxiosResponse<ajaxResponse>) => {
             if (response.data.success) {
                 this.reinitColumnFromElement(createElementFromString(response.data.data.trim()).firstChild as HTMLFormElement);
-                AdminColumns.events.emit(EventConstants.SETTINGS.COLUMN.REFRESHED, this);
+                this.services.emitEvent(EventConstants.SETTINGS.COLUMN.REFRESHED, this);
             } else {
                 this.showMessage(AC.i18n.errors.loading_column);
             }
