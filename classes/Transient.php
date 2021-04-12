@@ -34,6 +34,13 @@ class Transient implements Expirable {
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function has_expiration_time() {
+		return false !== $this->timestamp->get();
+	}
+
+	/**
 	 * @return mixed
 	 */
 	public function get() {
