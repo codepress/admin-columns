@@ -46,7 +46,7 @@ class CustomField {
         });
 
         request.getOptions().then((data: any) => {
-            $(this.select).ac_select2({
+            (<any>$(this.select)).ac_select2({
                 theme: 'acs2',
                 width: '100%',
                 tags: editingAvailable,
