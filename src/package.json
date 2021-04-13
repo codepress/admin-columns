@@ -7,7 +7,7 @@
         "@babel/cli": "^7.0.0",
         "@babel/core": "^7.9.6",
         "@babel/preset-env": "^7.9.6",
-        "@types/node": "^14.0.14",
+        "@types/node": "^14.14.37",
         "admin-columns-js": "github:codepress/admin-columns-js#2.0-alpha",
         "babel-cli": "latest",
         "babel-preset-es2015": "latest",
