@@ -3,15 +3,11 @@
 namespace AC\ListScreenRepository\Storage;
 
 use AC\ListScreenRepository\Rules;
-use AC\ListScreenRepository\Storage\ListScreenRepository;
 use ACP\ListScreenRepository\FileFactory;
 use ACP\Storage\Directory;
 use ACP\Storage\ListScreen\SerializerTypes;
 use LogicException;
 
-/**
- * Use ACP\ListScreenRepositoryFactory
- */
 final class ListScreenRepositoryFactory {
 
 	/**

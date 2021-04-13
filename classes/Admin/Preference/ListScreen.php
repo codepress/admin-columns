@@ -1,8 +1,10 @@
 <?php
 
-namespace AC\Preferences;
+namespace AC\Admin\Preference;
 
-class AdminListScreen extends Site {
+use AC\Preferences\Site;
+
+class ListScreen extends Site {
 
 	const OPTION_LAST_VISITED = 'last_visited_list_key';
 

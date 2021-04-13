@@ -7,6 +7,7 @@ use AC\Admin\Banner;
 use AC\Admin\Helpable;
 use AC\Admin\HelpTab;
 use AC\Admin\Page;
+use AC\Admin\Preference;
 use AC\Admin\ScreenOption;
 use AC\Admin\Section\Partial\Menu;
 use AC\Asset\Assets;
@@ -20,7 +21,6 @@ use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
-use AC\Preferences;
 use AC\Request;
 use AC\Type\ListScreenId;
 use AC\Type\Url\Documentation;
@@ -53,7 +53,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	private $storage;
 
 	/**
-	 * @var Preferences\AdminListScreen
+	 * @var ListScreen
 	 */
 	private $preference;
 
@@ -62,7 +62,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	 */
 	private $is_network;
 
-	public function __construct( Location\Absolute $location, DefaultColumnsRepository $default_columns, Menu $menu, Storage $storage, Preferences\AdminListScreen $preference, $is_network = false ) {
+	public function __construct( Location\Absolute $location, DefaultColumnsRepository $default_columns, Menu $menu, Storage $storage, Preference\ListScreen $preference, $is_network = false ) {
 		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
 
 		$this->location = $location;

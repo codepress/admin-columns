@@ -4,6 +4,7 @@ namespace AC;
 
 use AC\Admin\Page;
 use AC\Admin\PageCollection;
+use AC\Admin\Preference;
 use AC\Admin\Section;
 use AC\Admin\SectionCollection;
 use AC\Asset\Location;
@@ -36,7 +37,7 @@ class AdminFactory {
 			new DefaultColumnsRepository(),
 			new Section\Partial\Menu(),
 			$this->storage,
-			new Preferences\AdminListScreen()
+			new Preference\ListScreen()
 		);
 	}
 

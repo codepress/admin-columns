@@ -2,10 +2,10 @@
 
 namespace AC\Controller\Middleware;
 
+use AC\Admin\Preference;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Middleware;
-use AC\Preferences;
 use AC\Request;
 use AC\Type\ListScreenId;
 
@@ -17,13 +17,13 @@ class ListScreenAdmin implements Middleware {
 	/** @var Storage */
 	private $storage;
 
-	/** @var Preferences\AdminListScreen */
+	/** @var Preference\ListScreen */
 	private $preference;
 
 	/** @var bool */
 	private $is_network;
 
-	public function __construct( Storage $storage, Preferences\AdminListScreen $preference, $is_network = false ) {
+	public function __construct( Storage $storage, Preference\ListScreen $preference, $is_network = false ) {
 		$this->storage = $storage;
 		$this->preference = $preference;
 		$this->is_network = (bool) $is_network;
