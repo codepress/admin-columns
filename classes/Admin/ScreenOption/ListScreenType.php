@@ -2,7 +2,7 @@
 
 namespace AC\Admin\ScreenOption;
 
-use AC\Admin\ListScreen;
+use AC\Admin\Preference;
 use AC\Admin\ScreenOption;
 use AC\Preferences;
 
