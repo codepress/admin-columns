@@ -11,6 +11,7 @@ import {EventConstants} from "./constants";
 import {getIdFromTableRow, resolveTableBySelector} from "./helpers/table";
 import {initAcServices} from "./helpers/admin-columns";
 import Modals from "./modules/modals";
+import {initPointers} from "./modules/ac-pointer";
 
 declare let AC: LocalizedScriptAC
 
@@ -20,6 +21,8 @@ AC_SERVICES.registerService('Modals', new Modals() );
 
 $(document).ready(() => {
     let table = resolveTableBySelector(AC.table_id);
+
+   initPointers();
 
     if (table) {
         const TableModule = (new Table(table, AC_SERVICES)).init();
