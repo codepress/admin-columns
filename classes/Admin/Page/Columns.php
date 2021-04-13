@@ -73,6 +73,9 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 		$this->is_network = (bool) $is_network;
 	}
 
+	/**
+	 * @return ListScreen|null
+	 */
 	private function get_list_screen_from_request() {
 		$request = new Request();
 		$request->add_middleware( new Middleware\ListScreenAdmin( $this->storage, $this->preference, $this->is_network ) );
@@ -91,13 +94,6 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 
 		if ( ! $list_screen ) {
 			return null;
-		}
-
-		// TODO move outside method
-		$this->preference->set_last_visited_list_key( $list_screen->get_key() );
-
-		if ( $list_screen->has_id() ) {
-			$this->preference->set_list_id( $list_screen->get_key(), $list_screen->get_id()->get_id() );
 		}
 
 		return $list_screen;
@@ -152,12 +148,22 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 		];
 	}
 
+	private function set_preference_screen( ListScreen $list_screen ) {
+		$this->preference->set_last_visited_list_key( $list_screen->get_key() );
+
+		if ( $list_screen->has_id() ) {
+			$this->preference->set_list_id( $list_screen->get_key(), $list_screen->get_id()->get_id() );
+		}
+	}
+
 	public function render() {
 		$list_screen = $this->get_list_screen_from_request();
 
 		if ( ! $list_screen ) {
 			return '';
 		}
+
+		$this->set_preference_screen( $list_screen );
 
 		if ( ! $this->default_columns->exists( $list_screen->get_key() ) ) {
 			$modal = new View( [
