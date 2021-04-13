@@ -1,12 +1,12 @@
 import {insertAfter} from "../helpers/elements";
-import {LocalizedScriptACTable} from "../admincolumns";
 import AcServices from "./ac-services";
 import Tooltips from "./tooltips";
+import {LocalizedAcTable} from "../types/table";
 
 const $ = require("jquery");
 
 declare const ajaxurl: string
-declare const AC: LocalizedScriptACTable
+declare const AC: LocalizedAcTable
 declare const AC_SERVICES: AcServices
 
 export default class ToggleBoxLink {

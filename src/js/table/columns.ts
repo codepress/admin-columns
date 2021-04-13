@@ -1,11 +1,12 @@
-import {LocalizedScriptAC} from "../admincolumns";
+
 import {keyAnyPair} from "../helpers/types";
+import {LocalizedAcTable} from "../types/table";
 
 type columns = {
     [key: string]: ColumnTableSettings
 }
 
-declare const AC: LocalizedScriptAC
+declare const AC: LocalizedAcTable
 
 export default class Columns {
 

@@ -42,6 +42,7 @@
         "normalize": true
     },
     "dependencies": {
+        "@types/jquery": "^3.5.5",
         "axios": "^0.21.0",
         "babel-loader": "^8.1.0",
         "jquery": "^3.5.1",

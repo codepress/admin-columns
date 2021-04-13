@@ -4,7 +4,6 @@ import ScreenOptionsColumns from "./table/screen-options-columns";
 import ToggleBoxLink from "./modules/toggle-box-link";
 // @ts-ignore
 import $ from 'jquery';
-import {LocalizedScriptAC} from "./admincolumns";
 import {auto_init_show_more} from "./plugin/show-more";
 import {init_actions_tooltips} from "./table/functions";
 import {EventConstants} from "./constants";
@@ -12,8 +11,9 @@ import {getIdFromTableRow, resolveTableBySelector} from "./helpers/table";
 import {initAcServices} from "./helpers/admin-columns";
 import Modals from "./modules/modals";
 import {initPointers} from "./modules/ac-pointer";
+import {LocalizedAcTable} from "./types/table";
 
-declare let AC: LocalizedScriptAC
+declare let AC: LocalizedAcTable
 
 let AC_SERVICES = initAcServices();
 

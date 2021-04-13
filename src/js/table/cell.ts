@@ -1,4 +1,3 @@
-import {AdminColumnsInterface} from "../admincolumns";
 import {keyAnyPair} from "../helpers/types";
 import AcServices from "../modules/ac-services";
 import Table from "./table";

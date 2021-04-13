@@ -4,12 +4,12 @@ import {ColumnSettingsResponse, submitColumnSettings} from "./ajax";
 import {AxiosResponse} from "axios";
 import {fadeIn, scrollToElement} from "../../helpers/animations";
 import {insertAfter} from "../../helpers/elements";
-import {ListScreenStorageType, LocalizedScriptColumnSettings} from "./interfaces";
+import {ListScreenStorageType, LocalizedAcColumnSettings} from "../../types/admin-columns";
 import {uniqid} from "../../helpers/string";
 import {keyAnyPair} from "../../helpers/types";
 import AcServices from "../../modules/ac-services";
 
-declare const AC: LocalizedScriptColumnSettings;
+declare const AC: LocalizedAcColumnSettings;
 
 export class Form {
 

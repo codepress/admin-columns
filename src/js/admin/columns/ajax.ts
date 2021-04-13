@@ -1,13 +1,13 @@
-import {ListScreenStorageType, LocalizedScriptColumnSettings} from "./interfaces";
 import {Column} from "./column";
 import {keyStringPair} from "../../helpers/types";
 import AcServices from "../../modules/ac-services";
 import {Form} from "./form";
+import {ListScreenStorageType, LocalizedAcColumnSettings} from "../../types/admin-columns";
 
 const axios = require('axios');
 
 declare const ajaxurl: string;
-declare const AC: LocalizedScriptColumnSettings;
+declare const AC: LocalizedAcColumnSettings;
 declare const AC_SERVICES: AcServices
 
 export interface ColumnSettingsResponse {

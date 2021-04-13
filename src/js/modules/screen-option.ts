@@ -1,9 +1,9 @@
-import {LocalizedScriptACTable} from "../admincolumns";
+import {LocalizedAcTable} from "../types/table";
 
 const $ = require("jquery");
 
 declare const ajaxurl: string
-declare const AC: LocalizedScriptACTable
+declare const AC: LocalizedAcTable
 
 export default class ScreenOption {
 
@@ -37,7 +37,7 @@ export default class ScreenOption {
                 action: 'ac_admin_screen_options',
                 option_name: this.name,
                 option_value: this.getInput().checked ? 1 : 0,
-                _ajax_nonce: AC._ajax_nonce
+                _ajax_nonce: AC.ajax_nonce
             }
         })
     }

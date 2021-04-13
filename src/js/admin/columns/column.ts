@@ -1,15 +1,14 @@
 // @ts-ignore
 import $ from 'jquery';
 import {EventConstants} from "../../constants";
-import {AdminColumnsInterface} from "../../admincolumns";
 import Nanobus from "nanobus";
 import {refreshColumn, switchColumnType} from "./ajax";
 import {AxiosResponse} from "axios";
 import {createElementFromString} from "../../helpers/elements";
 import {fadeOut} from "../../helpers/animations";
 import {uniqid} from "../../helpers/string";
-import {LocalizedScriptColumnSettings} from "./interfaces";
 import AcServices from "../../modules/ac-services";
+import {LocalizedAcColumnSettings} from "../../types/admin-columns";
 
 const STATES = {
     CLOSED: 'closed',
@@ -21,8 +20,7 @@ export const COLUMN_EVENTS = {
     CLONE: 'clone',
 }
 
-declare const AC: LocalizedScriptColumnSettings
-declare const AdminColumns: AdminColumnsInterface
+declare const AC: LocalizedAcColumnSettings
 
 type ajaxResponse = {
     success: boolean,

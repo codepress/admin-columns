@@ -1,4 +1,3 @@
-import {AdminColumnsInterface} from "../../admincolumns";
 import {EventConstants} from "../../constants";
 import {Column} from "./column";
 import {initToggle} from "./events/toggle";
@@ -19,8 +18,6 @@ import {initCustomFieldSelector} from "./settings/custom-field";
 import {initSubSettings} from "./settings/sub-setting-toggle";
 import {initMultiSelectFields} from "./settings/multi-select";
 import AcServices from "../../modules/ac-services";
-
-declare const AdminColumns: AdminColumnsInterface;
 
 export default class ColumnConfigurator {
 

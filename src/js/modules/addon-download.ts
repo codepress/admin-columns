@@ -1,10 +1,10 @@
 import WPNotice from "./notice";
 // @ts-ignore
 import $ from 'jquery';
-import {LocalizedScriptAC} from "../admincolumns";
+import {LocalizedAcColumnSettings} from "../types/admin-columns";
 
 declare let ajaxurl: string;
-declare let AC: LocalizedScriptAC
+declare let AC: LocalizedAcColumnSettings
 
 export class AddonDownload {
 

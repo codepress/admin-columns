@@ -1,8 +1,6 @@
 import {Form} from "./admin/columns/form";
-import {LocalizedScriptColumnSettings} from "./admin/columns/interfaces";
 import {EventConstants} from "./constants";
 import {initAcServices} from "./helpers/admin-columns";
-// @ts-ignore
 import $ from 'jquery';
 import ColumnConfigurator from "./admin/columns/column-configurator";
 import Modal from "./modules/modal";
@@ -14,8 +12,9 @@ import {initUninitializedListScreens} from "./admin/columns/listscreen-initializ
 import 'nodelist-foreach-polyfill';
 import Modals from "./modules/modals";
 import {Column} from "./admin/columns/column";
+import {LocalizedAcColumnSettings} from "./types/admin-columns";
 
-declare let AC: LocalizedScriptColumnSettings
+declare let AC: LocalizedAcColumnSettings
 
 let AcServices = initAcServices();
 AcServices.registerService('Modals', new Modals());
@@ -62,7 +61,7 @@ AcServices.addListener(EventConstants.SETTINGS.FORM.LOADED, (form: Form) => {
     document.querySelectorAll('a[data-clear-columns]').forEach(el => el.addEventListener('click', () => form.resetColumns()));
 
     // Make column settings sortable
-    let $form = $(form.getElement());
+    let $form = $(form.getElement()) as any;
     $form.hasClass('ui-sortable')
         ? $form.sortable('refresh')
         : $form.sortable({items: '.ac-column', handle: '.column_sort'});
