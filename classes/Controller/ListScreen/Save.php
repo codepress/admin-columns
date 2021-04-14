@@ -31,21 +31,21 @@ class Save {
 			wp_send_json_error( [ 'message' => __( 'You need at least one column', 'codepress-admin-columns' ) ] );
 		}
 
-		if ( ! ListScreenId::is_valid_id( $data['list_screen_id'] ) ) {
-			wp_send_json_error( [ 'message' => 'Invalid list Id' ] );
-		}
-
 		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $data['list_screen'] );
 
 		if ( ! $list_screen ) {
 			wp_send_json_error( [ 'message' => 'List screen not found' ] );
 		}
 
+		$list_id = ListScreenId::is_valid_id( $data['list_screen_id'] )
+			? new ListScreenId( $data['list_screen_id'] )
+			: ListScreenId::generate()->get_id();
+
 		$data = $this->sanitizer->sanitize( $data );
 
 		$list_screen->set_title( ! empty( $data['title'] ) ? $data['title'] : $list_screen->get_label() )
 		            ->set_settings( isset( $data['columns'] ) ? $this->maybe_encode_urls( $data['columns'] ) : [] )
-		            ->set_layout_id( $data['list_screen_id'] )
+		            ->set_layout_id( $list_id->get_id() )
 		            ->set_preferences( ! empty( $data['settings'] ) ? $data['settings'] : [] );
 
 		$this->storage->save( $list_screen );
