@@ -39,7 +39,7 @@ class Save {
 
 		$list_id = isset( $data['list_screen_id'] ) && ListScreenId::is_valid_id( $data['list_screen_id'] )
 			? new ListScreenId( $data['list_screen_id'] )
-			: ListScreenId::generate()->get_id();
+			: ListScreenId::generate();
 
 		$data = $this->sanitizer->sanitize( $data );
 
