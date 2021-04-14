@@ -4,22 +4,13 @@ namespace AC\ListScreenRepository\Filter;
 
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Filter;
-use AC\ListscreenStateRepository;
+use ACP\Settings\ListScreen\ActiveState;
 
 class State implements Filter {
 
-	/**
-	 * @var ListscreenStateRepository
-	 */
-	private $list_screen_state_repository;
-
-	public function __construct( ListscreenStateRepository $list_screen_state_repository ) {
-		$this->list_screen_state_repository = $list_screen_state_repository;
-	}
-
 	public function filter( ListScreenCollection $list_screens ) {
 		foreach ( clone $list_screens as $list_screen ) {
-			if ( $this->list_screen_state_repository->is_disabled( $list_screen->get_id() ) ) {
+			if ( ! ActiveState::create( $list_screen )->is_active() ) {
 				$list_screens->remove( $list_screen );
 			}
 		}
