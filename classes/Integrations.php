@@ -9,6 +9,7 @@ class Integrations extends ArrayIterator {
 			new Integration\ACF(),
 			new Integration\BuddyPress(),
 			new Integration\EventsCalendar(),
+			new Integration\GravityForms(),
 			new Integration\NinjaForms(),
 			new Integration\Pods(),
 			new Integration\Types(),
