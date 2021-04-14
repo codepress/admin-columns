@@ -4,7 +4,6 @@ namespace AC\Controller\Middleware;
 
 use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\Storage;
-use AC\ListscreenStateRepository;
 use AC\Middleware;
 use AC\PermissionChecker;
 use AC\Request;
@@ -73,7 +72,7 @@ class ListScreenTable implements Middleware {
 			$list_screens = $this->storage->find_all( [
 				Storage::KEY        => $list_key,
 				Storage::ARG_FILTER => [
-					new Filter\State( new ListscreenStateRepository() ),
+					new Filter\State(),
 					new Filter\Permission( new PermissionChecker() ),
 				],
 			] );
