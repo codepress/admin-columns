@@ -3,6 +3,7 @@
 namespace AC\ListScreen;
 
 use AC;
+use AC\ListTableFactory;
 use ReflectionException;
 use WP_User;
 use WP_Users_List_Table;
@@ -25,16 +26,6 @@ class User extends AC\ListScreenWP {
 	 */
 	public function set_manage_value_callback() {
 		add_filter( 'manage_users_custom_column', [ $this, 'manage_value' ], 100, 3 );
-	}
-
-	/**
-	 * @return WP_Users_List_Table
-	 */
-	// TODO David Why is this public? It's base class tells it is protected... maybe check usage and fix?
-	public function get_list_table() {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php' );
-
-		return new WP_Users_List_Table( [ 'screen' => $this->get_screen_id() ] );
 	}
 
 	/**
@@ -86,6 +77,13 @@ class User extends AC\ListScreenWP {
 		$this->register_column_type( new AC\Column\Actions );
 
 		$this->register_column_types_from_dir( 'AC\Column\User' );
+	}
+
+	/**
+	 * @return WP_Users_List_Table
+	 */
+	protected function get_list_table() {
+		return ( new ListTableFactory() )->create_user_table( $this->get_screen_id() );
 	}
 
 }

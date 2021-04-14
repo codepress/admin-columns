@@ -37,11 +37,15 @@ class Request {
 
 	/**
 	 * @param Middleware $middleware
+	 *
+	 * @return self
 	 */
 	public function add_middleware( Middleware $middleware ) {
 		$this->middleware[] = $middleware;
 
 		$middleware->handle( $this );
+
+		return $this;
 	}
 
 	/**

@@ -2,27 +2,21 @@
 
 namespace AC\Admin\Section\Partial;
 
-use AC\Controller\ListScreenRequest;
+use AC\ListScreen;
 use AC\ListScreenGroups;
 use AC\ListScreenTypes;
 use AC\View;
 
 class Menu {
 
-	/** @var ListScreenRequest */
-	private $controller;
-
 	/** @var bool */
 	private $is_network;
 
-	public function __construct( ListScreenRequest $controller, $is_network = false ) {
-		$this->controller = $controller;
+	public function __construct( $is_network = false ) {
 		$this->is_network = (bool) $is_network;
 	}
 
-	public function render( $is_hidden = false ) {
-		$list_screen = $this->controller->get_list_screen();
-
+	public function render( ListScreen $list_screen, $is_hidden = false ) {
 		$menu = new View( [
 			'items'       => $this->get_grouped_list_screens(),
 			'current'     => $list_screen->get_key(),

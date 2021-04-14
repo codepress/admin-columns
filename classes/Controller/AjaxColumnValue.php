@@ -36,7 +36,7 @@ class AjaxColumnValue implements Registrable {
 		check_ajax_referer( 'ac-ajax' );
 
 		// Get ID of entry to edit
-		$id = intval( filter_input( INPUT_POST, 'pk' ) );
+		$id = (int) filter_input( INPUT_POST, 'pk' );
 
 		if ( ! $id ) {
 			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );

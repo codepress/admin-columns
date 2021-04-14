@@ -4,34 +4,40 @@ import ScreenOptionsColumns from "./table/screen-options-columns";
 import ToggleBoxLink from "./modules/toggle-box-link";
 // @ts-ignore
 import $ from 'jquery';
-import {AdminColumnsInterface, LocalizedScriptAC} from "./admincolumns";
 import {auto_init_show_more} from "./plugin/show-more";
 import {init_actions_tooltips} from "./table/functions";
 import {EventConstants} from "./constants";
 import {getIdFromTableRow, resolveTableBySelector} from "./helpers/table";
-import {initAdminColumnsGlobalBootstrap} from "./helpers/admin-columns";
+import {initAcServices} from "./helpers/admin-columns";
+import Modals from "./modules/modals";
+import {initPointers} from "./modules/ac-pointer";
+import {LocalizedAcTable} from "./types/table";
 
-declare let AC: LocalizedScriptAC
+declare let AC: LocalizedAcTable
 
-let AdminColumns: AdminColumnsInterface = initAdminColumnsGlobalBootstrap();
+let AC_SERVICES = initAcServices();
+
+AC_SERVICES.registerService('Modals', new Modals() );
 
 $(document).ready(() => {
     let table = resolveTableBySelector(AC.table_id);
 
+   initPointers();
+
     if (table) {
-        AdminColumns.Table = new Table(table);
-        AdminColumns.Table.init();
-        AdminColumns.ScreenOptionsColumns = new ScreenOptionsColumns(AdminColumns.Table.Columns);
+        const TableModule = (new Table(table, AC_SERVICES)).init();
+        AC_SERVICES.registerService('Table', TableModule);
+        AC_SERVICES.registerService('ScreenOptionsColumns', new ScreenOptionsColumns(TableModule.Columns));
     }
 
-    AdminColumns.Tooltips = new Tooltip();
+    AC_SERVICES.registerService('Tooltips', new Tooltip());
 
     document.querySelectorAll<HTMLLinkElement>('.ac-toggle-box-link').forEach(el => {
         new ToggleBoxLink(el);
     });
 
     $('.wp-list-table').on('updated', 'tr', function () {
-        AdminColumns.Table.addCellClasses();
+        AC_SERVICES.getService<Table>('Table').addCellClasses();
         auto_init_show_more();
     });
 
@@ -42,7 +48,7 @@ $(document).ready(() => {
 
 });
 
-AdminColumns.events.addListener(EventConstants.TABLE.READY, (e) => {
+AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: any) => {
     auto_init_show_more();
     init_actions_tooltips();
 
@@ -54,12 +60,7 @@ AdminColumns.events.addListener(EventConstants.TABLE.READY, (e) => {
                 }
             });
         });
-    })
+    });
 
-    observer.observe(e.table.getElement(), {childList: true, subtree: true});
+    observer.observe(event.table.getElement(), {childList: true, subtree: true});
 });
-
-
-window.ac_load_table = function (el: HTMLTableElement) {
-    AdminColumns.Table = new Table(el);
-};

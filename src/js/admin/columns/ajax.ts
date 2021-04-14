@@ -1,12 +1,14 @@
-import {AdminColumnSettingsInterface, ListScreenStorageType, LocalizedScriptColumnSettings} from "./interfaces";
 import {Column} from "./column";
 import {keyStringPair} from "../../helpers/types";
+import AcServices from "../../modules/ac-services";
+import {Form} from "./form";
+import {ListScreenStorageType, LocalizedAcColumnSettings} from "../../types/admin-columns";
 
 const axios = require('axios');
 
 declare const ajaxurl: string;
-declare const AC: LocalizedScriptColumnSettings;
-declare const AdminColumns: AdminColumnSettingsInterface;
+declare const AC: LocalizedAcColumnSettings;
+declare const AC_SERVICES: AcServices
 
 export interface ColumnSettingsResponse {
     success: boolean
@@ -38,7 +40,7 @@ export const switchColumnType = (type: string, list_screen: string = AC.list_scr
     return axios.post(ajaxurl, mapDataToFormData({
         _ajax_nonce: AC._ajax_nonce,
         action: 'ac-columns',
-        current_original_columns: JSON.stringify(AdminColumns.Form.getOriginalColumns().map((e: Column) => e.getName())),
+        current_original_columns: JSON.stringify(AC_SERVICES.getService<Form>('Form').getOriginalColumns().map((e: Column) => e.getName())),
         id: 'select',
         list_screen: list_screen,
         type: type,

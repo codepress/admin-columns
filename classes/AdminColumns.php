@@ -59,6 +59,7 @@ class AdminColumns extends Plugin {
 
 		$services = [
 			$this->admin,
+			new Admin\Notice\ReadOnly(),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new ListScreens(),
@@ -80,7 +81,7 @@ class AdminColumns extends Plugin {
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks(),
-			new TableLoader( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
+			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];
 
 		foreach ( $services as $service ) {

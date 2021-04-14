@@ -25,7 +25,7 @@ class MultiSelect {
             el.remove();
         });
 
-        $(this.select).ac_select2({
+        (<any>$(this.select)).ac_select2({
             theme: 'acs2',
             width: '100%',
             escapeMarkup: function (text: string) {

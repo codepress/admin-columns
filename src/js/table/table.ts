@@ -4,10 +4,8 @@ import Columns from "./columns";
 import Cell from "./cell";
 import RowSelection from "./row-selection";
 import {getIdFromTableRow, getRowCellByName} from "../helpers/table";
-import {AdminColumnsInterface} from "../admincolumns";
 import {EventConstants} from "../constants";
-
-declare const AdminColumns: AdminColumnsInterface;
+import AcServices from "../modules/ac-services";
 
 export type TableEventPayload = {
     table: Table
@@ -16,14 +14,16 @@ export type TableEventPayload = {
 export default class Table {
 
     private el: HTMLTableElement
+    private Services: AcServices
     Columns: Columns
     Cells: Cells
     Actions: Actions
     Selection: RowSelection
     _ids: Array<number>
 
-    constructor(el: HTMLTableElement) {
+    constructor(el: HTMLTableElement, services: AcServices) {
         this.el = el;
+        this.Services = services;
         this.Columns = new Columns(el);
         this.Cells = new Cells();
         this.Actions = document.getElementById('ac-table-actions') ? new Actions(document.getElementById('ac-table-actions')) : null;
@@ -44,12 +44,14 @@ export default class Table {
         return result;
     }
 
-    init(): void {
+    init(): this {
         this.initTable();
         this.addCellClasses();
 
         document.dispatchEvent(new CustomEvent('AC_Table_Ready', {detail: {table: this}}));
-        AdminColumns.events.emit(EventConstants.TABLE.READY, {table: this});
+        this.Services.emitEvent(EventConstants.TABLE.READY, {table: this});
+
+        return this;
     }
 
     addCellClasses() {

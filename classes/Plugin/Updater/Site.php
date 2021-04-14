@@ -19,16 +19,10 @@ class Site extends Updater {
 		$this->plugin = $plugin;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function update_stored_version( $version = null ) {
 		$this->plugin->update_stored_version( $version );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function is_new_install() {
 		return $this->plugin->is_new_install();
 	}

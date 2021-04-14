@@ -6,6 +6,8 @@ use AC;
 
 final class TableFormView implements AC\Renderable {
 
+	const PARAM_ACTION = 'ac-actions-form';
+
 	/**
 	 * @var string
 	 */

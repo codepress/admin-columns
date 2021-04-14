@@ -9,7 +9,7 @@ use AC\Column;
  */
 class Sticky extends Column {
 
-	private $stickies = null;
+	private $stickies;
 
 	public function __construct() {
 		$this->set_type( 'column-sticky' );
@@ -17,7 +17,7 @@ class Sticky extends Column {
 	}
 
 	function is_valid() {
-		return 'post' == $this->get_post_type();
+		return 'post' === $this->get_post_type();
 	}
 
 	function get_value( $post_id ) {

@@ -29,7 +29,7 @@ class TypeSelector {
                 el.remove();
             });
 
-            $(select).ac_select2({
+            (<any>$(select)).ac_select2({
                 theme: 'acs2',
                 width: '100%',
                 dropdownCssClass: '-type-selector',

@@ -1,10 +1,10 @@
 import Nanobus from "nanobus";
-import {LocalizedScriptColumnSettings, UninitializedListScreen, UninitializedListScreens} from "./interfaces";
 import {AxiosPromise, AxiosResponse} from "axios";
+import {LocalizedAcColumnSettings, UninitializedListScreen, UninitializedListScreens} from "../../types/admin-columns";
 
 const axios = require('axios');
 
-declare const AC: LocalizedScriptColumnSettings
+declare const AC: LocalizedAcColumnSettings
 
 class ListScreenInitializer {
 
@@ -28,7 +28,7 @@ class ListScreenInitializer {
     }
 
     run() {
-        Object.values(this.listScreens).forEach(l => this.processListScreen(l));
+        Object.values(this.listScreens).forEach((l:UninitializedListScreen) => this.processListScreen(l));
     }
 
     onFinish() {

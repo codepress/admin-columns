@@ -98,7 +98,7 @@ class WidthSetting {
     initSlider() {
         let sliderElement: HTMLElement = this.column.getElement().querySelector('.width-slider');
 
-        $(sliderElement).slider({
+        (<any>$(sliderElement)).slider({
             range: 'min',
             min: 0,
             max: '%' === this.getUnit() ? 100 : 500,
