@@ -37,7 +37,7 @@ class Save {
 			wp_send_json_error( [ 'message' => 'List screen not found' ] );
 		}
 
-		$list_id = ListScreenId::is_valid_id( $data['list_screen_id'] )
+		$list_id = isset( $data['list_screen_id'] ) && ListScreenId::is_valid_id( $data['list_screen_id'] )
 			? new ListScreenId( $data['list_screen_id'] )
 			: ListScreenId::generate()->get_id();
 

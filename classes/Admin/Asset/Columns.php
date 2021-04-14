@@ -8,7 +8,6 @@ use AC\Asset\Script;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenTypes;
-use AC\Type\ListScreenId;
 
 class Columns extends Script {
 
@@ -50,9 +49,6 @@ class Columns extends Script {
 		$params = [
 			'_ajax_nonce'                => wp_create_nonce( AC\Ajax\Handler::NONCE_ACTION ),
 			'list_screen'                => $this->list_screen->get_key(),
-
-			// TODO remove
-			'layout'                     => $this->list_screen->has_id() ? $this->list_screen->get_id()->get_id() : ListScreenId::generate()->get_id(),
 			'original_columns'           => [],
 			'uninitialized_list_screens' => [],
 			'i18n'                       => [
