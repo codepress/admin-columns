@@ -1,4 +1,4 @@
-import {keySpecificPair, keyStringPair} from "./helpers/types";
+import {keySpecificPair, keyStringPair} from "../helpers/types";
 
 export type LocalizedAcTable = {
     ajax_nonce: string,
