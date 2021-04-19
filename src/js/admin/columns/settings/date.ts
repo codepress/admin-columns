@@ -26,7 +26,8 @@ class DateSetting {
         this.valueInput = this.setting.querySelector('[data-value-input]');
 
         // @ts-ignore
-        let customInput = [...this.options].filter(radio => radio.value === 'custom');
+        let customInput = [...this.options].filter(radio => typeof radio.dataset.custom !== 'undefined');
+
         this.customOption = new CustomOption(
             customInput[0],
             this.setting.querySelector('[data-custom-date]'),
@@ -50,34 +51,28 @@ class DateSetting {
     initEvents() {
         this.options.forEach(radio => {
             radio.addEventListener('change', () => this.handleUpdate(radio));
-            radio.addEventListener('change', () => this.setCustomValue(radio.value));
         });
 
-        let selected = this.getSelectionOption();
+        this.setSelected();
+    }
 
-        if (!selected) {
-            selected = this.getOptionsAsArray().filter(option => option.value === 'wp_default')[0];
+    setSelected() {
+        let selected = this.getOptionsAsArray().find(option => option.value === this.getCurrentValue())
+
+        if (selected) {
             selected.checked = true;
+            selected.dispatchEvent(new Event('change'));
         }
-        selected.dispatchEvent(new Event('change'));
     }
 
     handleUpdate(input: HTMLInputElement) {
         this.valueInput.value = input.value;
-        this.customOption.toggle(input.value === 'custom');
+        this.customOption.toggle(typeof input.dataset.custom !== 'undefined');
         this.setHelpText(this.getHelpTextFromType(input.value));
     }
 
-    setCustomValue(type: string) {
-        switch (type) {
-            case 'diff':
-                this.customOption.setCustomValue('');
-                break;
-            case 'custom':
-                break;
-            default:
-                this.customOption.setCustomValue(this.defaultFormat);
-        }
+    getCurrentValue() {
+        return this.valueInput.value;
     }
 
     setHelpText(text: string) {
@@ -106,18 +101,32 @@ class CustomOption {
     input: HTMLInputElement
     example: HTMLElement
     valueElement: HTMLInputElement
+    timeout: any;
 
     constructor(radio: HTMLInputElement, input: HTMLInputElement, example: HTMLElement, valueElement: HTMLInputElement) {
         this.radio = radio;
         this.input = input;
         this.example = example;
         this.valueElement = valueElement;
+        this.timeout = null;
 
-        this.input.addEventListener('change', () => this.updateExample());
+        this.input.addEventListener('change', () => {
+            this.updateExample();
+            if (radio.checked) {
+                this.valueElement.value = this.input.value;
+            }
+        });
+
         this.input.addEventListener('keyup', () => {
             if (radio.checked) {
                 this.valueElement.value = this.input.value;
             }
+
+            if (this.timeout) {
+                clearTimeout(this.timeout);
+            }
+
+            this.timeout = setTimeout(() => this.updateExample(), 500);
         });
     }
 
@@ -133,18 +142,10 @@ class CustomOption {
             : this.input.setAttribute('disabled', 'disabled')
     }
 
-    getCustomValue() {
-        return this.input.value;
-    }
-
-    setCustomValue(format: string) {
-        this.input.value = format;
-    }
-
     getExample() {
         let data = new FormData();
         data.set('action', 'date_format');
-        data.set('date', this.getCustomValue());
+        data.set('date', this.input.value);
 
         return axios.post(ajaxurl, data, {})
     }

@@ -24,16 +24,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="ac-setting-input ac-setting-input-date">
 				<div class="radio-labels vertical">
 
-					<?php foreach ( $this->date_options as $value => $label ) : ?>
+					<?php foreach ( $this->date_options as $key => $label ) : ?>
+						<?php
+						$value = $key === 'custom' ? $this->date_format : $key;
+						?>
 						<label>
-							<input class="<?php echo esc_attr( $value ); ?>" type="radio" name="<?php echo $this->setting->get_name(); ?>" value="<?php echo esc_attr( $value ); ?>"<?php checked( $this->date_format, $value ); ?>>
-							<?php echo $label; ?>
+							<input
+									class="<?= esc_attr( $value ); ?>"
+									type="radio" <?= $key === 'custom' ? 'data-custom' : '' ?>
+									name="<?= $this->setting->get_name(); ?>"
+									value="<?= esc_attr( $value ); ?>"
+							>
+							<?= $label; ?>
 						</label>
 					<?php endforeach; ?>
 
 				</div>
 				<p class="help-msg"></p>
-				<input type="hidden" class="ac-setting-input-date__value" data-value-input name="<?php echo $this->setting->get_name(); ?>" value="<?php echo $this->date_format; ?>">
+				<input type="hidden" class="ac-setting-input-date__value" data-value-input name="<?php echo $this->setting->get_name(); ?>" value="<?= $this->date_format; ?>">
 			</div>
 		</td>
 	</tr>

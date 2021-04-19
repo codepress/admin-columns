@@ -1304,7 +1304,7 @@ var DateSetting = /** @class */ (function () {
         this.defaultFormat = this.setting.querySelector('.radio-labels code').textContent;
         this.valueInput = this.setting.querySelector('[data-value-input]');
         // @ts-ignore
-        var customInput = __spread(this.options).filter(function (radio) { return radio.value === 'custom'; });
+        var customInput = __spread(this.options).filter(function (radio) { return typeof radio.dataset.custom !== 'undefined'; });
         this.customOption = new CustomOption(customInput[0], this.setting.querySelector('[data-custom-date]'), this.setting.querySelector('.ac-setting-input-date__example'), this.valueInput);
         this.initEvents();
     }
@@ -1319,30 +1319,24 @@ var DateSetting = /** @class */ (function () {
         var _this = this;
         this.options.forEach(function (radio) {
             radio.addEventListener('change', function () { return _this.handleUpdate(radio); });
-            radio.addEventListener('change', function () { return _this.setCustomValue(radio.value); });
         });
-        var selected = this.getSelectionOption();
-        if (!selected) {
-            selected = this.getOptionsAsArray().filter(function (option) { return option.value === 'wp_default'; })[0];
+        this.setSelected();
+    };
+    DateSetting.prototype.setSelected = function () {
+        var _this = this;
+        var selected = this.getOptionsAsArray().find(function (option) { return option.value === _this.getCurrentValue(); });
+        if (selected) {
             selected.checked = true;
+            selected.dispatchEvent(new Event('change'));
         }
-        selected.dispatchEvent(new Event('change'));
     };
     DateSetting.prototype.handleUpdate = function (input) {
         this.valueInput.value = input.value;
-        this.customOption.toggle(input.value === 'custom');
+        this.customOption.toggle(typeof input.dataset.custom !== 'undefined');
         this.setHelpText(this.getHelpTextFromType(input.value));
     };
-    DateSetting.prototype.setCustomValue = function (type) {
-        switch (type) {
-            case 'diff':
-                this.customOption.setCustomValue('');
-                break;
-            case 'custom':
-                break;
-            default:
-                this.customOption.setCustomValue(this.defaultFormat);
-        }
+    DateSetting.prototype.getCurrentValue = function () {
+        return this.valueInput.value;
     };
     DateSetting.prototype.setHelpText = function (text) {
         var element = this.setting.querySelector('.help-msg');
@@ -1366,11 +1360,21 @@ var CustomOption = /** @class */ (function () {
         this.input = input;
         this.example = example;
         this.valueElement = valueElement;
-        this.input.addEventListener('change', function () { return _this.updateExample(); });
+        this.timeout = null;
+        this.input.addEventListener('change', function () {
+            _this.updateExample();
+            if (radio.checked) {
+                _this.valueElement.value = _this.input.value;
+            }
+        });
         this.input.addEventListener('keyup', function () {
             if (radio.checked) {
                 _this.valueElement.value = _this.input.value;
             }
+            if (_this.timeout) {
+                clearTimeout(_this.timeout);
+            }
+            _this.timeout = setTimeout(function () { return _this.updateExample(); }, 500);
         });
     }
     CustomOption.prototype.updateExample = function () {
@@ -1385,16 +1389,10 @@ var CustomOption = /** @class */ (function () {
             ? this.input.removeAttribute('disabled')
             : this.input.setAttribute('disabled', 'disabled');
     };
-    CustomOption.prototype.getCustomValue = function () {
-        return this.input.value;
-    };
-    CustomOption.prototype.setCustomValue = function (format) {
-        this.input.value = format;
-    };
     CustomOption.prototype.getExample = function () {
         var data = new FormData();
         data.set('action', 'date_format');
-        data.set('date', this.getCustomValue());
+        data.set('date', this.input.value);
         return axios.post(ajaxurl, data, {});
     };
     return CustomOption;

@@ -1,5 +1,4 @@
-import {keySpecificPair, keyStringPair} from "./helpers/types";
-import {keyAnyPair} from "../helpers/types";
+import {keyAnyPair, keySpecificPair} from "../helpers/types";
 
 export type LocalizedAcColumnSettings = {
     _ajax_nonce: string,

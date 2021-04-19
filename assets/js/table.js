@@ -186,15 +186,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParamFromUrl", function() { return getParamFromUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapDataToFormData", function() { return mapDataToFormData; });
 var getParamFromUrl = function (param, url) {
-    param = param.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + param + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
-    if (!results) {
+    if (!url.includes('?')) {
         return null;
     }
-    if (!results[2]) {
-        return '';
-    }
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+    var params = new URLSearchParams(url.split('?')[1]);
+    return params.get(param);
 };
 var mapDataToFormData = function (data, formData) {
     if (formData === void 0) { formData = null; }
