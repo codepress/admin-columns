@@ -4,7 +4,6 @@ export const addEventListenerLive = (eventType: string, elementQuerySelector: st
     element.addEventListener(eventType, (event: Event) => {
         let qs = document.querySelectorAll(elementQuerySelector);
 
-
         if (qs) {
             var element = (<Element>event.target), index = -1;
             while (element && ((index = Array.prototype.indexOf.call(qs, element)) === -1)) {

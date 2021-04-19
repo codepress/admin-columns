@@ -1,7 +1,4 @@
 import {getParamFromUrl} from "./global";
-import {LocalizedAcTable} from "../types/table";
-
-declare let AC: LocalizedAcTable
 
 export const getIdFromTableRow = (row: HTMLTableRowElement): number => {
     if (row.classList.contains('no-items')) {

@@ -1,17 +1,11 @@
 export const getParamFromUrl = (param: string, url: string) => {
-    param = param.replace(/[\[\]]/g, "\\$&");
-
-    let regex = new RegExp("[?&]" + param + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
-
-    if (!results) {
+    if (!url.includes('?')) {
         return null;
     }
 
-    if (!results[2]) {
-        return '';
-    }
+    const params = new URLSearchParams(url.split('?')[1]);
 
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+    return params.get(param);
 }
 
 export const mapDataToFormData = (data: any, formData: FormData = null): FormData => {

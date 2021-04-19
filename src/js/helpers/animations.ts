@@ -60,5 +60,5 @@ export const scrollToElement = (element: HTMLElement, ms: number, options: scrol
         if (time < ms) {
             window.requestAnimationFrame(step);
         }
-    })
+    });
 }
