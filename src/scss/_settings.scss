@@ -70,6 +70,14 @@
 		&__fields {
 			flex: auto;
 
+			&.-subsetting-total-1 {
+				display: flex;
+
+				> * {
+					width: 100%;
+				}
+			}
+
 			&__inner {
 				padding: 15px;
 
@@ -156,7 +164,7 @@
 
 
 	.select2-search__field {
-		width: 100%!important;
+		width: 100% !important;
 	}
 }
 
