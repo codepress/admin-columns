@@ -61,11 +61,7 @@ class TableListScreenSetter implements Registrable {
 			? $this->storage->find( new ListScreenId( $list_id ) )
 			: ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
 
-		if ( ! $list_screen ) {
-			return;
-		}
-
-		if ( ! $this->permission_checker->is_valid( wp_get_current_user(), $list_screen ) ) {
+		if ( ! $list_screen || ! $this->permission_checker->is_valid( $list_screen ) ) {
 			return;
 		}
 
