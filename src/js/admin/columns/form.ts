@@ -72,7 +72,7 @@ export class Form {
     }
 
     createNewColumn(): Column {
-        let column = createColumnFromTemplate( this.services );
+        let column = createColumnFromTemplate(this.services);
         this.columns.push(column);
         this.placeColumn(column);
         this.bindColumnEvents(column);
@@ -107,7 +107,7 @@ export class Form {
         });
 
         column.events.addListener(COLUMN_EVENTS.CLONE, () => {
-            let cloneColumn = new Column(column.getElement().cloneNode(true) as HTMLFormElement, uniqid(), this.services );
+            let cloneColumn = new Column(column.getElement().cloneNode(true) as HTMLFormElement, uniqid(), this.services);
             this.columns.push(cloneColumn);
             this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
             column.isOpen() ? cloneColumn.open() : cloneColumn.close();
@@ -148,11 +148,12 @@ export class Form {
     }
 
     submitForm() {
-        this.services.emitEvent( EventConstants.SETTINGS.FORM.SAVING, this );
+        this.services.emitEvent(EventConstants.SETTINGS.FORM.SAVING, this);
 
         submitColumnSettings(this.getFormData()).then((response: AxiosResponse<ColumnSettingsResponse>) => {
             if (response.data.success) {
-                this.showMessage(response.data.data, 'updated')
+                this.showMessage(response.data.data.message, 'updated')
+                AC.layout = response.data.data.list_id;
             } else if (response.data) {
                 let error: any = response.data as unknown;
                 this.showMessage(error.data.message, 'notice notice-warning');
@@ -161,7 +162,7 @@ export class Form {
         }).catch(() => {
             this.showMessage(AC.i18n.error.save_settings);
         }).finally(() => {
-            this.services.emitEvent( EventConstants.SETTINGS.FORM.SAVED, this );
+            this.services.emitEvent(EventConstants.SETTINGS.FORM.SAVED, this);
         });
 
     }
@@ -206,7 +207,7 @@ export class Form {
     }
 }
 
-const createColumnFromTemplate = ( services: AcServices ) => {
+const createColumnFromTemplate = (services: AcServices) => {
     let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true) as HTMLFormElement;
     const newColumnName = uniqid();
     columnElement.querySelectorAll<HTMLLabelElement>('label[for]').forEach(label => {

@@ -12,7 +12,10 @@ declare const AC_SERVICES: AcServices
 
 export interface ColumnSettingsResponse {
     success: boolean
-    data: string
+    data: {
+        list_id: string,
+        message: string
+    }
 }
 
 const mapDataToFormData = (data: keyStringPair, formData: FormData = null): FormData => {

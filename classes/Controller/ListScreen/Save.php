@@ -52,15 +52,17 @@ class Save {
 
 		do_action( 'ac/columns_stored', $list_screen );
 
-		wp_send_json_success(
-			sprintf(
-				'%s %s',
-				sprintf(
-					__( 'Settings for %s updated successfully.', 'codepress-admin-columns' ),
-					sprintf( '<strong>%s</strong>', esc_html( $list_screen->get_title() ) )
+		wp_send_json_success( [
+				'message' => sprintf(
+					'%s %s',
+					sprintf(
+						__( 'Settings for %s updated successfully.', 'codepress-admin-columns' ),
+						sprintf( '<strong>%s</strong>', esc_html( $list_screen->get_title() ) )
+					),
+					ac_helper()->html->link( $list_screen->get_screen_link(), sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) )
 				),
-				ac_helper()->html->link( $list_screen->get_screen_link(), sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) )
-			)
+				'list_id' => $list_id->get_id(),
+			]
 		);
 	}
 

@@ -7,8 +7,8 @@ import {AxiosResponse} from "axios";
 import {createElementFromString} from "../../helpers/elements";
 import {fadeOut} from "../../helpers/animations";
 import {uniqid} from "../../helpers/string";
-import AcServices from "../../modules/ac-services";
 import {LocalizedAcColumnSettings} from "../../types/admin-columns";
+import AcServices from "../../modules/ac-services";
 
 const STATES = {
     CLOSED: 'closed',
