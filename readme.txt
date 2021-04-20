@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Fixed] The date setting was not working correctly a second time you store a custom date format
+
 = 4.2.7 =
 Release Date: February 8th, 2021
 
