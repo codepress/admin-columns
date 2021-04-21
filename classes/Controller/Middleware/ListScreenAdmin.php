@@ -50,11 +50,11 @@ class ListScreenAdmin implements Middleware {
 
 		$list_id = $request->get( 'layout_id' );
 
-		if ( ! $list_id ) {
+		if ( ! ListScreenId::is_valid_id( $list_id ) ) {
 			$list_id = $this->preference->get_list_id( $list_key );
 		}
 
-		if ( ! $list_id || ! ListScreenId::is_valid_id( $list_id ) || ! $this->storage->exists( new ListScreenId( $list_id ) ) ) {
+		if ( ! ListScreenId::is_valid_id( $list_id ) || ! $this->storage->exists( new ListScreenId( $list_id ) ) ) {
 
 			$list_screens = $this->storage->find_all( [
 				Storage::KEY => $list_key,

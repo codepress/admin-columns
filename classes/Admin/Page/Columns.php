@@ -53,7 +53,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	private $storage;
 
 	/**
-	 * @var ListScreen
+	 * @var Preference\ListScreen
 	 */
 	private $preference;
 
@@ -88,15 +88,9 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 
 		$list_id = $request->get( Middleware\ListScreenAdmin::PARAM_LIST_ID );
 
-		$list_screen = $list_id && ListScreenId::is_valid_id( $list_id )
+		return $list_id && ListScreenId::is_valid_id( $list_id )
 			? $this->storage->find( new ListScreenId( $list_id ) )
 			: ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
-
-		if ( ! $list_screen ) {
-			return null;
-		}
-
-		return $list_screen;
 	}
 
 	public function get_assets() {
