@@ -3,6 +3,7 @@
 namespace AC;
 
 use WP_Comments_List_Table;
+use WP_List_Table;
 use WP_Media_List_Table;
 use WP_MS_Sites_List_Table;
 use WP_MS_Users_List_Table;
@@ -11,6 +12,19 @@ use WP_Terms_List_Table;
 use WP_Users_List_Table;
 
 class ListTableFactory {
+
+	/**
+	 * @return WP_List_Table|null
+	 */
+	public function create_by_global() {
+		global $wp_list_table;
+
+		if ( ! $wp_list_table ) {
+			return null;
+		}
+
+		return $wp_list_table;
+	}
 
 	/**
 	 * @param string $screen_id
