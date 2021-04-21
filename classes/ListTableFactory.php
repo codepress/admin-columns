@@ -61,32 +61,4 @@ class ListTableFactory {
 		return null;
 	}
 
-	public function create_user_table( $screen_id ) {
-		return new User( $this->wp_list_table_factory->create_user_table( $screen_id ) );
-	}
-
-	public function create_post_table( $screen_id ) {
-		return new Post( $this->wp_list_table_factory->create_post_table( $screen_id ) );
-	}
-
-	public function create_comment_table( $screen_id ) {
-		return new Comment( $this->wp_list_table_factory->create_comment_table( $screen_id ) );
-	}
-
-	public function create_media_table( $screen_id ) {
-		return new Media( $this->wp_list_table_factory->create_media_table( $screen_id ) );
-	}
-
-	public function create_network_user_table( $screen_id ) {
-		return new NetworkUser( $this->wp_list_table_factory->create_network_user_table( $screen_id ) );
-	}
-
-	public function create_taxonomy_table( $screen_id, $taxonomy ) {
-		return new Taxonomy( $this->wp_list_table_factory->create_taxonomy_table( $screen_id ), $taxonomy );
-	}
-
-	public function create_network_site_table( $screen_id ) {
-		return new NetworkSite( $this->wp_list_table_factory->create_network_site_table( $screen_id ) );
-	}
-
 }
