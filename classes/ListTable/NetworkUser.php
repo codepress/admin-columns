@@ -5,7 +5,7 @@ namespace AC\ListTable;
 use AC\ListTable;
 use WP_MS_Users_List_Table;
 
-class MsUser implements ListTable {
+class NetworkUser implements ListTable {
 
 	use WpListTableTrait;
 

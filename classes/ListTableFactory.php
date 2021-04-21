@@ -4,12 +4,14 @@ namespace AC;
 
 use AC\ListTable\Comment;
 use AC\ListTable\Media;
-use AC\ListTable\MsUser;
+use AC\ListTable\NetworkSite;
+use AC\ListTable\NetworkUser;
 use AC\ListTable\Post;
 use AC\ListTable\Taxonomy;
 use AC\ListTable\User;
 use WP_Comments_List_Table;
 use WP_Media_List_Table;
+use WP_MS_Sites_List_Table;
 use WP_MS_Users_List_Table;
 use WP_Posts_List_Table;
 use WP_Terms_List_Table;
@@ -26,7 +28,7 @@ class ListTableFactory {
 		$this->wp_list_table_factory = $wp_list_table_factory;
 	}
 
-	public function create_by_globals() {
+	public function create_from_globals() {
 		global $wp_list_table, $current_screen;
 
 		switch ( true ) {
@@ -50,11 +52,13 @@ class ListTableFactory {
 				return new Taxonomy( $wp_list_table, $current_screen->taxonomy );
 
 			case $wp_list_table instanceof WP_MS_Users_List_Table :
-				return new MsUser( $wp_list_table );
+				return new NetworkUser( $wp_list_table );
+
+			case $wp_list_table instanceof WP_MS_Sites_List_Table :
+				return new NetworkSite( $wp_list_table );
 		}
 
 		return null;
-
 	}
 
 	public function create_user_table( $screen_id ) {
@@ -74,11 +78,15 @@ class ListTableFactory {
 	}
 
 	public function create_network_user_table( $screen_id ) {
-		return new MsUser( $this->wp_list_table_factory->create_network_user_table( $screen_id ) );
+		return new NetworkUser( $this->wp_list_table_factory->create_network_user_table( $screen_id ) );
 	}
 
 	public function create_taxonomy_table( $screen_id, $taxonomy ) {
 		return new Taxonomy( $this->wp_list_table_factory->create_taxonomy_table( $screen_id ), $taxonomy );
+	}
+
+	public function create_network_site_table( $screen_id ) {
+		return new NetworkSite( $this->wp_list_table_factory->create_network_site_table( $screen_id ) );
 	}
 
 }

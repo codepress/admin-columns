@@ -16,7 +16,7 @@ class WpListTableFactory {
 	/**
 	 * @return WP_List_Table|null
 	 */
-	public function create_by_global() {
+	public function create_from_global() {
 		global $wp_list_table;
 
 		if ( ! $wp_list_table ) {
