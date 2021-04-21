@@ -3,13 +3,13 @@
 namespace AC\ListTable;
 
 use AC\ListTable;
+use WP_Media_List_Table;
 
-// TODO test
 class Media implements ListTable {
 
 	use WpListTableTrait;
 
-	public function __construct( \WP_Media_List_Table $table ) {
+	public function __construct( WP_Media_List_Table $table ) {
 		$this->table = $table;
 	}
 
