@@ -1335,6 +1335,17 @@ var DateSetting = /** @class */ (function () {
         this.valueInput.value = input.value;
         this.customOption.toggle(typeof input.dataset.custom !== 'undefined');
         this.setHelpText(this.getHelpTextFromType(input.value));
+        switch (this.valueInput.value) {
+            case 'custom':
+                break;
+            case 'wp_default':
+            case 'diff':
+                this.customOption.setExample('');
+                break;
+            default:
+                this.customOption.setExample(this.valueInput.value);
+        }
+        this.customOption.updateExample();
     };
     DateSetting.prototype.getCurrentValue = function () {
         return this.valueInput.value;
@@ -1378,6 +1389,9 @@ var CustomOption = /** @class */ (function () {
             _this.timeout = setTimeout(function () { return _this.updateExample(); }, 500);
         });
     }
+    CustomOption.prototype.setExample = function (example) {
+        this.input.value = example;
+    };
     CustomOption.prototype.updateExample = function () {
         var _this = this;
         this.getExample().then(function (response) {

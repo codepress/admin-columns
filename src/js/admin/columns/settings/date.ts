@@ -69,6 +69,19 @@ class DateSetting {
         this.valueInput.value = input.value;
         this.customOption.toggle(typeof input.dataset.custom !== 'undefined');
         this.setHelpText(this.getHelpTextFromType(input.value));
+
+        switch (this.valueInput.value) {
+            case 'custom':
+                break;
+            case 'wp_default':
+            case 'diff':
+                this.customOption.setExample('')
+                break;
+            default:
+                this.customOption.setExample(this.valueInput.value);
+
+        }
+        this.customOption.updateExample();
     }
 
     getCurrentValue() {
@@ -128,6 +141,10 @@ class CustomOption {
 
             this.timeout = setTimeout(() => this.updateExample(), 500);
         });
+    }
+
+    setExample(example: string) {
+        this.input.value = example;
     }
 
     updateExample() {
