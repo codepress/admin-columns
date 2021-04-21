@@ -1,0 +1,20 @@
+<?php
+
+namespace AC\ListTable;
+
+use AC\ListTable;
+use WP_MS_Users_List_Table;
+
+class MsUser implements ListTable {
+
+	use WpListTableTrait;
+
+	public function __construct( WP_MS_Users_List_Table $table ) {
+		$this->table = $table;
+	}
+
+	public function get_column_value( $column, $id ) {
+		return apply_filters( 'manage_users_custom_column', '', $column, $id );
+	}
+
+}

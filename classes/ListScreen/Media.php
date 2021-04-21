@@ -3,7 +3,7 @@
 namespace AC\ListScreen;
 
 use AC;
-use AC\ListTableFactory;
+use AC\WpListTableFactory;
 use ReflectionException;
 use WP_Media_List_Table;
 
@@ -27,7 +27,7 @@ class Media extends AC\ListScreenPost {
 	 * @return WP_Media_List_Table
 	 */
 	protected function get_list_table() {
-		return ( new ListTableFactory() )->create_media_table( $this->get_screen_id() );
+		return ( new WpListTableFactory() )->create_media_table( $this->get_screen_id() );
 	}
 
 	public function get_screen_link() {

@@ -3,7 +3,7 @@
 namespace AC\ListScreen;
 
 use AC;
-use AC\ListTableFactory;
+use AC\WpListTableFactory;
 use ReflectionException;
 use WP_User;
 use WP_Users_List_Table;
@@ -83,7 +83,7 @@ class User extends AC\ListScreenWP {
 	 * @return WP_Users_List_Table
 	 */
 	protected function get_list_table() {
-		return ( new ListTableFactory() )->create_user_table( $this->get_screen_id() );
+		return ( new WpListTableFactory() )->create_user_table( $this->get_screen_id() );
 	}
 
 }
