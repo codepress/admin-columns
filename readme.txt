@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.3 =
-Release Date: tbd
+Release Date: April 28th, 2021
 
 * [Fixed] The date setting was not working correctly a second time you store a custom date format
 
