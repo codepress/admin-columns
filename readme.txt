@@ -215,7 +215,7 @@ Release Date: April 28th, 2021
 * [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
 * [Fixed] The date setting was not working correctly a second time you store a custom date format
 * [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
-* [Fixed] Column labels in the settings will not be sanitized
+* [Fixed] The column label in settings will now be sanitized
 
 = 4.2.7 =
 Release Date: February 8th, 2021
