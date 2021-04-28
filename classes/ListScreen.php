@@ -932,10 +932,10 @@ abstract class ListScreen {
 	/**
 	 * @param array $columns
 	 *
-	 * @deprecated 5.4
+	 * @deprecated 4.3
 	 */
 	public function set_original_columns( $columns ) {
-		_deprecated_function( __METHOD__, '5.4' );
+		_deprecated_function( __METHOD__, '4.3' );
 
 		$this->original_columns = (array) $columns;
 	}
