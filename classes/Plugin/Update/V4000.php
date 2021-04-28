@@ -171,7 +171,7 @@ class V4000 extends Update {
 		foreach ( $list_ids as $list_key => $ids ) {
 			foreach ( $ids as $deprecated_id => $list_id ) {
 
-				$old_meta_key = $prefix . ( $deprecated_id ? $deprecated_id : $list_key );
+				$old_meta_key = $prefix . ( $deprecated_id ?: $list_key );
 
 				// Segments were stored globally, ignoring individual sites on a multisite network. Segments are now stored per site.
 				$new_meta_key = $prefix . $list_id;

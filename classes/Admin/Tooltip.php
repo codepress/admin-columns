@@ -34,8 +34,6 @@ class Tooltip {
 
 	/**
 	 * @param array $args
-	 *
-	 * @return $this
 	 */
 	private function populate( $args ) {
 		foreach ( $args as $key => $value ) {
@@ -45,8 +43,6 @@ class Tooltip {
 				call_user_func( [ $this, $method ], $value );
 			}
 		}
-
-		return $this;
 	}
 
 	/**

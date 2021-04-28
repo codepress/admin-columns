@@ -46,7 +46,7 @@ class WpListTableFactory {
 		$table = new WP_Comments_List_Table( [ 'screen' => $screen_id ] );
 
 		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `\WP_Comments_List_Table` class.
-		remove_filter( 'comment_author', [ $table, 'floated_admin_avatar' ], 10 );
+		remove_filter( 'comment_author', [ $table, 'floated_admin_avatar' ] );
 
 		return $table;
 	}

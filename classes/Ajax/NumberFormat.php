@@ -25,7 +25,7 @@ final class NumberFormat implements AC\Registrable {
 		$decimal_point = $this->request->get( 'decimal_point' ) ?: null;
 		$thousands_sep = $this->request->get( 'thousands_sep' ) ?: '';
 
-		wp_send_json_success( (string) number_format( $number, $decimals, $decimal_point, $thousands_sep ) );
+		wp_send_json_success( number_format( $number, $decimals, $decimal_point, $thousands_sep ) );
 	}
 
 }

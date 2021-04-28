@@ -190,7 +190,7 @@ class AdminColumns extends Plugin {
 	public function list_screen_exists( $key ) {
 		_deprecated_function( __METHOD__, '3.2' );
 
-		return ListScreenTypes::instance()->get_list_screen_by_key( $key ) ? true : false;
+		return null !== ListScreenTypes::instance()->get_list_screen_by_key( $key );
 	}
 
 	/**

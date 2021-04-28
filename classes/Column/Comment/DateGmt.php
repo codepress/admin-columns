@@ -4,9 +4,6 @@ namespace AC\Column\Comment;
 
 use AC\Column;
 
-/**
- * @since 2.0
- */
 class DateGmt extends Column {
 
 	public function __construct() {
@@ -27,9 +24,7 @@ class DateGmt extends Column {
 	}
 
 	public function get_raw_value( $id ) {
-		$comment = get_comment( $id );
-
-		return $comment->comment_date_gmt;
+		return get_comment( $id )->comment_date_gmt;
 	}
 
 }

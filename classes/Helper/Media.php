@@ -8,7 +8,7 @@ class Media {
 	 * @param string $image_url
 	 * @param bool   $check_cropped_versions Checks for cropped version of the image. e.g. file-name-320x60.jpg
 	 *
-	 * @return bool
+	 * @return false|int
 	 */
 	public function get_attachment_id_by_url( $image_url, $check_cropped_versions = false ) {
 		if ( ! $image_url ) {
@@ -86,7 +86,7 @@ class Media {
 
 		}
 
-		return $image_id;
+		return (int) $image_id;
 	}
 
 }

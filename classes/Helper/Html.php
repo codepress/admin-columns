@@ -267,7 +267,7 @@ class Html {
 	 * @return bool
 	 */
 	private function contains_html( $string ) {
-		return $string && is_string( $string ) ? $string !== strip_tags( $string ) : false;
+		return $string && is_string( $string ) && $string !== strip_tags( $string );
 	}
 
 	/**

@@ -19,15 +19,6 @@ use WP_Users_List_Table;
 
 class ListTableFactory {
 
-	/**
-	 * @var WpListTableFactory
-	 */
-	private $wp_list_table_factory;
-
-	public function __construct( WpListTableFactory $wp_list_table_factory ) {
-		$this->wp_list_table_factory = $wp_list_table_factory;
-	}
-
 	public function create_from_globals() {
 		global $wp_list_table, $current_screen;
 
