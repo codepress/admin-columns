@@ -212,7 +212,10 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.3 =
 Release Date: April 28th, 2021
 
+* [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
 * [Fixed] The date setting was not working correctly a second time you store a custom date format
+* [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
+* [Fixed] Column labels in the settings will not be sanitized
 
 = 4.2.7 =
 Release Date: February 8th, 2021
