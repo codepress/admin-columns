@@ -3,7 +3,7 @@
 namespace AC\ListScreen;
 
 use AC\ListScreenPost;
-use AC\ListTableFactory;
+use AC\WpListTableFactory;
 use ReflectionException;
 use WP_Posts_List_Table;
 
@@ -29,7 +29,7 @@ class Post extends ListScreenPost {
 	 * @return WP_Posts_List_Table
 	 */
 	protected function get_list_table() {
-		return ( new ListTableFactory() )->create_post_table( $this->get_screen_id() );
+		return ( new WpListTableFactory() )->create_post_table( $this->get_screen_id() );
 	}
 
 	/**

@@ -463,8 +463,6 @@ class Query {
 
 	/**
 	 * @param string $type
-	 *
-	 * @return bool
 	 */
 	private function set_query( $type ) {
 		global $wpdb;
@@ -497,8 +495,6 @@ class Query {
 
 		$this->query = new WP_Meta_Query();
 		$this->query->get_sql( $type, $table, $id );
-
-		return true;
 	}
 
 }

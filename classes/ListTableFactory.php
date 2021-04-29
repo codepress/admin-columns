@@ -2,6 +2,13 @@
 
 namespace AC;
 
+use AC\ListTable\Comment;
+use AC\ListTable\Media;
+use AC\ListTable\NetworkSite;
+use AC\ListTable\NetworkUser;
+use AC\ListTable\Post;
+use AC\ListTable\Taxonomy;
+use AC\ListTable\User;
 use WP_Comments_List_Table;
 use WP_Media_List_Table;
 use WP_MS_Sites_List_Table;
@@ -12,86 +19,37 @@ use WP_Users_List_Table;
 
 class ListTableFactory {
 
-	/**
-	 * @param string $screen_id
-	 *
-	 * @return WP_Posts_List_Table
-	 */
-	public function create_post_table( $screen_id ) {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-posts-list-table.php' );
+	public function create_from_globals() {
+		global $wp_list_table, $current_screen;
 
-		return new WP_Posts_List_Table( [ 'screen' => $screen_id ] );
-	}
+		switch ( true ) {
+			case $wp_list_table instanceof WP_Posts_List_Table :
+				return new Post( $wp_list_table );
 
-	/**
-	 * @param string $screen_id
-	 *
-	 * @return WP_Users_List_Table
-	 */
-	public function create_user_table( $screen_id ) {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-users-list-table.php' );
+			case $wp_list_table instanceof WP_Users_List_Table :
+				return new User( $wp_list_table );
 
-		return new WP_Users_List_Table( [ 'screen' => $screen_id ] );
-	}
+			case $wp_list_table instanceof WP_Comments_List_Table :
+				return new Comment( $wp_list_table );
 
-	/**
-	 * @param string $screen_id
-	 *
-	 * @return WP_Comments_List_Table
-	 */
-	public function create_comment_table( $screen_id ) {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php' );
+			case $wp_list_table instanceof WP_Media_List_Table :
+				return new Media( $wp_list_table );
 
-		$table = new WP_Comments_List_Table( [ 'screen' => $screen_id ] );
+			case $wp_list_table instanceof WP_Terms_List_Table :
+				if ( ! $current_screen ) {
+					return null;
+				}
 
-		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `\WP_Comments_List_Table` class.
-		remove_filter( 'comment_author', [ $table, 'floated_admin_avatar' ], 10 );
+				return new Taxonomy( $wp_list_table, $current_screen->taxonomy );
 
-		return $table;
-	}
+			case $wp_list_table instanceof WP_MS_Users_List_Table :
+				return new NetworkUser( $wp_list_table );
 
-	/**
-	 * @param string $screen_id
-	 *
-	 * @return WP_Media_List_Table
-	 */
-	public function create_media_table( $screen_id ) {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-media-list-table.php' );
+			case $wp_list_table instanceof WP_MS_Sites_List_Table :
+				return new NetworkSite( $wp_list_table );
+		}
 
-		return new WP_Media_List_Table( [ 'screen' => $screen_id ] );
-	}
-
-	/**
-	 * @param string $screen_id
-	 *
-	 * @return WP_Terms_List_Table
-	 */
-	public function create_taxonomy_table( $screen_id ) {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-terms-list-table.php' );
-
-		return new WP_Terms_List_Table( [ 'screen' => $screen_id ] );
-	}
-
-	/**
-	 * @param string $screen_id
-	 *
-	 * @return WP_MS_Users_List_Table
-	 */
-	public function create_network_user_table( $screen_id ) {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-ms-users-list-table.php' );
-
-		return new WP_MS_Users_List_Table( [ 'screen' => $screen_id ] );
-	}
-
-	/**
-	 * @param string $screen_id
-	 *
-	 * @return WP_MS_Sites_List_Table
-	 */
-	public function create_network_site_table( $screen_id ) {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-ms-sites-list-table.php' );
-
-		return new WP_MS_Sites_List_Table( [ 'screen' => $screen_id ] );
+		return null;
 	}
 
 }

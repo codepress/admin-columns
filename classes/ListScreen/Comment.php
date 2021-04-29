@@ -3,7 +3,7 @@
 namespace AC\ListScreen;
 
 use AC;
-use AC\ListTableFactory;
+use AC\WpListTableFactory;
 use ReflectionException;
 use WP_Comment;
 use WP_Comments_List_Table;
@@ -34,7 +34,7 @@ class Comment extends AC\ListScreenWP {
 	 * @return WP_Comments_List_Table
 	 */
 	protected function get_list_table() {
-		return ( new ListTableFactory() )->create_comment_table( $this->get_screen_id() );
+		return ( new WpListTableFactory() )->create_comment_table( $this->get_screen_id() );
 	}
 
 	public function set_manage_value_callback() {

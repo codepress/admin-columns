@@ -2,10 +2,10 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
-Requires at least: 4.7
+Requires at least: 4.7.1
 Tested up to: 5.7
 Requires PHP: 5.6.20
-Stable tag: 4.2.7
+Stable tag: 4.3
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -209,10 +209,13 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
-Release Date: tbd
+= 4.3 =
+Release Date: April 29th, 2021
 
+* [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
 * [Fixed] The date setting was not working correctly a second time you store a custom date format
+* [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
+* [Fixed] The column label in settings will now be sanitized
 
 = 4.2.7 =
 Release Date: February 8th, 2021

@@ -16,7 +16,7 @@ class Taxonomy implements ListTable {
 
 	public function __construct( WP_Terms_List_Table $table, $taxonomy ) {
 		$this->table = $table;
-		$this->taxonomy = $taxonomy;
+		$this->taxonomy = (string) $taxonomy;
 	}
 
 	public function get_column_value( $column, $id ) {

@@ -10,7 +10,8 @@ use AC\Transient;
 class Hooks {
 
 	/**
-	 * @parsam bool $force_update
+	 * @param bool $force_update
+	 *
 	 * @return int
 	 */
 	public function get_count( $force_update = false ) {
