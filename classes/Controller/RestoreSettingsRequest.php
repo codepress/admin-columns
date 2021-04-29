@@ -2,6 +2,7 @@
 
 namespace AC\Controller;
 
+use AC\Capabilities;
 use AC\ListScreenRepository\Storage\ListScreenRepository;
 use AC\Message\Notice;
 use AC\Registrable;
@@ -22,6 +23,10 @@ class RestoreSettingsRequest implements Registrable {
 	}
 
 	public function handle_request() {
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
+			return;
+		}
+
 		if ( 'restore' !== filter_input( INPUT_POST, 'ac_action' ) ) {
 			return;
 		}

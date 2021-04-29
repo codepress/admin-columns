@@ -15,4 +15,9 @@ interface ListTable {
 	 */
 	public function get_column_value( $column, $id );
 
+	/**
+	 * @return int
+	 */
+	public function get_total_items();
+
 }

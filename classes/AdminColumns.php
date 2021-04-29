@@ -59,6 +59,7 @@ class AdminColumns extends Plugin {
 
 		$services = [
 			$this->admin,
+			new Admin\Notice\ReadOnly(),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
 			new ListScreens(),
@@ -67,7 +68,7 @@ class AdminColumns extends Plugin {
 			new ThirdParty\ACF,
 			new ThirdParty\NinjaForms,
 			new ThirdParty\WooCommerce,
-			new ThirdParty\WPML,
+			new ThirdParty\WPML( $this->storage ),
 			new Controller\DefaultColumns( new Request(), new DefaultColumnsRepository() ),
 			new QuickEdit( $this->storage, new Table\Preference() ),
 			new Capabilities\Manage(),
@@ -80,7 +81,7 @@ class AdminColumns extends Plugin {
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks(),
-			new TableLoader( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
+			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];
 
 		foreach ( $services as $service ) {
@@ -189,7 +190,7 @@ class AdminColumns extends Plugin {
 	public function list_screen_exists( $key ) {
 		_deprecated_function( __METHOD__, '3.2' );
 
-		return ListScreenTypes::instance()->get_list_screen_by_key( $key ) ? true : false;
+		return null !== ListScreenTypes::instance()->get_list_screen_by_key( $key );
 	}
 
 	/**

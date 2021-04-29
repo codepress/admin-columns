@@ -1,23 +1,17 @@
-import {AdminColumnsInterface} from "../admincolumns";
-import Modals from "../modules/modals";
-
-let nanobus = require('nanobus');
-
-declare let AdminColumns: AdminColumnsInterface
+import AcServices from "../modules/ac-services";
 
 declare global {
     interface Window {
+        AC_SERVICES: AcServices;
         AdminColumns: any;
         ac_load_table: any;
     }
 }
 
-export const initAdminColumnsGlobalBootstrap = (): AdminColumnsInterface => {
-    if (!window.AdminColumns) {
-        window.AdminColumns = window.AdminColumns || {};
-        AdminColumns.events = nanobus();
-        AdminColumns.Modals = new Modals();
+export const initAcServices = (): AcServices => {
+    if (!window.AC_SERVICES) {
+        window.AC_SERVICES = new AcServices();
     }
 
-    return window.AdminColumns;
+    return window.AC_SERVICES;
 }

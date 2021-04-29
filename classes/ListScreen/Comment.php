@@ -3,13 +3,11 @@
 namespace AC\ListScreen;
 
 use AC;
+use AC\WpListTableFactory;
 use ReflectionException;
 use WP_Comment;
 use WP_Comments_List_Table;
 
-/**
- * @since 2.0
- */
 class Comment extends AC\ListScreenWP {
 
 	public function __construct() {
@@ -35,16 +33,8 @@ class Comment extends AC\ListScreenWP {
 	/**
 	 * @return WP_Comments_List_Table
 	 */
-	public function get_list_table() {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-comments-list-table.php' );
-
-		$table = new WP_Comments_List_Table( [ 'screen' => $this->get_screen_id() ] );
-
-		// Since 4.4 the `floated_admin_avatar` filter is added in the constructor of the `\WP_Comments_List_Table` class.
-		// Here we remove the filter from the constructor.
-		remove_filter( 'comment_author', [ $table, 'floated_admin_avatar' ], 10 );
-
-		return $table;
+	protected function get_list_table() {
+		return ( new WpListTableFactory() )->create_comment_table( $this->get_screen_id() );
 	}
 
 	public function set_manage_value_callback() {

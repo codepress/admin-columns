@@ -42,7 +42,7 @@ abstract class Preferences {
 			$user_id = get_current_user_id();
 		}
 
-		$this->user_id = intval( $user_id );
+		$this->user_id = (int) $user_id;
 		$this->label = sanitize_key( (string) $label );
 
 		$data = $this->load();

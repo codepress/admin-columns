@@ -21,7 +21,7 @@ use AC\Type\Url\Documentation;
 	<?= __( 'You can use filters to segment your list before exporting.', 'codepress-admin-columns' ); ?>
 </p>
 <p>
-	<a href="<?= esc_url( ( new Documentation( Documentation::ARTICLE_EXPORT ) )->get_url() ); ?>" target="_blank">
+	<a href="<?= esc_url( Documentation::create_with_path( Documentation::ARTICLE_EXPORT )->get_url() ); ?>" target="_blank">
 		<?= __( 'Learn more &raquo;', 'codepress-admin-columns' ); ?>
 	</a>
 </p>

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-04-15 09:06:03+0000\n"
+"PO-Revision-Date: 2021-04-21 10:39:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,79 +13,79 @@ msgstr ""
 
 #: classes/Column/Placeholder.php:40
 msgid "Download & install the %s add-on from the <a href='%s'>add-ons tab</a>."
-msgstr ""
+msgstr "<a href='%s'>Eklentiler</a> sekmesinden %s eklentisini indirin ve kurun."
 
 #: classes/Column/Placeholder.php:38
 msgid "The %s column is only available if you have installed the add-on."
-msgstr ""
+msgstr "%s sütunu sadece eklentiyi yüklediyseniz kullanılabilir."
 
 #: templates/settings/setting-label-icons.php:51
 msgid "Misc"
-msgstr ""
+msgstr "Çeşitli"
 
 #: templates/settings/setting-label-icons.php:50
 msgid "Notifications"
-msgstr ""
+msgstr "Bildirimler"
 
 #: templates/settings/setting-label-icons.php:49
 msgid "Widgets"
-msgstr ""
+msgstr "Bileşenler"
 
 #: templates/settings/setting-label-icons.php:47
 msgid "Products"
-msgstr ""
+msgstr "Ürünler"
 
 #: templates/settings/setting-label-icons.php:46
 msgid "Buddicons"
-msgstr ""
+msgstr "Buddsimgeler"
 
 #: templates/settings/setting-label-icons.php:45
 msgid "WordPress.org"
-msgstr ""
+msgstr "WordPress.org"
 
 #: templates/settings/setting-label-icons.php:44
 msgid "Social"
-msgstr ""
+msgstr "Sosyal"
 
 #: templates/settings/setting-label-icons.php:42
 msgid "Posts Screen"
-msgstr ""
+msgstr "Yazılar ekranı"
 
 #: templates/settings/setting-label-icons.php:41
 msgid "TinyMCE"
-msgstr ""
+msgstr "TinyMCE"
 
 #: templates/settings/setting-label-icons.php:40
 msgid "Block Editor"
-msgstr ""
+msgstr "Blok düzenleyici"
 
 #: templates/settings/setting-label-icons.php:39
 msgid "Databases"
-msgstr ""
+msgstr "Veritabanları"
 
 #: templates/settings/setting-label-icons.php:38
 msgid "Image Editing"
-msgstr ""
+msgstr "Görsel düzenleme"
 
 #: templates/settings/setting-label-icons.php:36
 msgid "Post Formats"
-msgstr ""
+msgstr "Yazı biçimleri"
 
 #: templates/settings/setting-label-icons.php:35
 msgid "Welcome Screen"
-msgstr ""
+msgstr "Hoş geldiniz ekranı"
 
 #: templates/settings/setting-label-icons.php:34
 msgid "Admin Menu"
-msgstr ""
+msgstr "Yönetici menüsü"
 
 #: templates/admin/edit-actions.php:40
 msgid "Key"
-msgstr ""
+msgstr "Anahtar"
 
 #: templates/admin/side-banner.php:47
 msgid "Export table contents to CSV"
-msgstr ""
+msgstr "Tablo içeriğini CSV'ye aktar"
 
 #: templates/tooltip/export.php:25 templates/tooltip/sorting.php:29
 #: templates/tooltip/inline-editing.php:25
@@ -93,218 +93,218 @@ msgstr ""
 #: templates/tooltip/bulk-editing.php:25
 #: templates/tooltip/export-disabled.php:17
 msgid "Learn more &raquo;"
-msgstr ""
+msgstr "Daha fazla bilgi edinin &raquo;"
 
 #: classes/Integration/YoastSeo.php:16
 msgid "Enrich the Yoast SEO columns with amazing pro features!"
-msgstr ""
+msgstr "Yoast SEO sütunlarını harika özelliklerle zenginleştirin!"
 
 #: classes/Column/User/Login.php:24
 msgid "Super Admin"
-msgstr ""
+msgstr "Süper yönetici"
 
 #: classes/Column/User/Nicename.php:11
 msgid "Author Slug"
-msgstr ""
+msgstr "Yazar kısa ismi"
 
 #: classes/Admin/ScreenOption/ColumnId.php:32
 msgid "Column Name"
-msgstr ""
+msgstr "Sütun adı"
 
 #: classes/Admin/ScreenOption/ListScreenType.php:32
 msgid "List Screen Key"
-msgstr ""
+msgstr "Liste ekran anahtarı"
 
 #: classes/Admin/ScreenOption/ListScreenId.php:32
 msgid "List Screen ID"
-msgstr ""
+msgstr "Liste ekran kimliği"
 
 #: classes/Column/User/FullName.php:11 classes/Settings/Column/User.php:78
 msgid "Full Name"
-msgstr ""
+msgstr "Ad soyad"
 
 #: templates/tooltip/export-disabled.php:13
 msgid "Third-party columns and some custom columns cannot be exported unless there is build-in support for that specific column."
-msgstr ""
+msgstr "Özellikle ilgili sütun için dahili bir destek yoksa üçüncü parti sütunlar ve bazı özel sütunlar dışarı aktarılamaz."
 
 #: templates/tooltip/export-disabled.php:10
 msgid "Unfortunately not every column can be exported."
-msgstr ""
+msgstr "Ne yazık ki her bir sütun dışarı aktarılamıyor."
 
 #: templates/tooltip/export-disabled.php:7
 msgid "Export Unavailable"
-msgstr ""
+msgstr "Dışarı aktarım mümkün değil"
 
 #: templates/tooltip/bulk-editing.php:19
 msgid "Bulk Edit"
-msgstr ""
+msgstr "Toplu düzenleme"
 
 #: templates/tooltip/bulk-editing.php:18
 msgid "Clicking the %s button will display a popup that allows you to add or change the current value of all selected items."
-msgstr ""
+msgstr "%s düğmesine tıklarsanız seçili tüm öğelerin mevcut değerine ekleme, değeri değiştirme yapabileceğiniz bir dahili pencere açılacaktır."
 
 #: templates/tooltip/bulk-editing.php:13
 msgid "Select more than one row from the list table to show the bulk edit buttons."
-msgstr ""
+msgstr "Toplu düzenleme düğmelerini göstermek için liste tablosundan birden fazla satır seçin."
 
 #: templates/tooltip/bulk-editing.php:10
 msgid "Bulk Edit allows you to update multiple values at once."
-msgstr ""
+msgstr "Toplu düzenleme birden çok değeri topluca düzenlemenize olanak sağlar."
 
 #: templates/tooltip/sorting.php:25
 msgid "You can change the default sorted column in the optional settings below."
-msgstr ""
+msgstr "Varsayılan sıralanmış sütunu aşağıdaki tercihe bağlı ayarlardan değiştirebilirsiniz."
 
 #: templates/tooltip/sorting.php:20
 msgid "Reset Sorting"
-msgstr ""
+msgstr "Sıralamayı sıfırla"
 
 #: templates/tooltip/sorting.php:19
 msgid "Reset the sorting by clicking the %s button."
-msgstr ""
+msgstr "%s düğmesine basarak sıralamayı sıfırlayın."
 
 #: templates/tooltip/sorting.php:15
 msgid "When you come back the content is sorted just the way you left it."
-msgstr ""
+msgstr "Geri döndüğünüzde içerik daha önce bıraktığınız gibi sıralanmış olacak."
 
 #: templates/tooltip/sorting.php:14
 msgid "The sorted column is saved as your personal preference."
-msgstr ""
+msgstr "Sıralanmış sütun kişisel tercihiniz olarak kaydedilir."
 
 #: templates/tooltip/sorting.php:10
 msgid "Sort by clicking the column header on the list table. Click the column header again to switch between <em>ascending</em> and <em>descending</em>."
-msgstr ""
+msgstr "Liste tablosundaki sütun başlığına tıklayarak sıralayın. Sütun başlığına tekrar tıklayarak <em>azalan</em> ve <em>artan</em> sıralama arasında geçiş yapın."
 
 #: templates/tooltip/filtering.php:13
 msgid "Smart Filters"
-msgstr ""
+msgstr "Akıllı filtreler"
 
 #: templates/tooltip/filtering.php:13
 msgid "We recommend using %s"
-msgstr ""
+msgstr "Biz %s öneriyoruz"
 
 #: templates/tooltip/filtering.php:20
 msgid "%s also has better support for all the different types of fields, such as text, numbers and dates."
-msgstr ""
+msgstr "%s ayrıca metinler, sayılar ve tarihler gibi farklı tipler için daha iyi bir desteğe sahiptir."
 
 #: templates/tooltip/filtering.php:17
 msgid "Finding the right content will be much easier with the use of conditionals, such as %s."
-msgstr ""
+msgstr "Koşullu ifadeler kullanarak doğru içeriği bulmak çok daha kolay, örneğin %s."
 
 #: templates/tooltip/filtering.php:16
 msgid "%s is an improved version of %s."
-msgstr ""
+msgstr "%s, %s için daha gelişmiş bir sürümdür."
 
 #: templates/tooltip/filtering.php:10
 msgid "Filters vs Smart Filters"
-msgstr ""
+msgstr "Süzgeçler ile Akıllı süzgeçler"
 
 #: templates/tooltip/filtering.php:6
 msgid "You can filter the contents by selecting the column value from the filter dropdown menu."
-msgstr ""
+msgstr "Süzgeç açılır menüsünden sütun değerini seçerek içeriğe süzgeç ekleyebilirsiniz."
 
 #: templates/tooltip/filtering.php:5
 msgid "This will allow the column to be filtered."
-msgstr ""
+msgstr "Bu, sütundaki verinin süzülebilmesine izin verir."
 
 #: templates/tooltip/smart-filtering.php:23
 msgctxt "smart filtering help"
 msgid "When you return to your list table you can easily select them again from the menu."
-msgstr ""
+msgstr "Liste tablonuza döndüğünüzde, bunları menüden kolayca tekrar seçebilirsiniz."
 
 #: templates/tooltip/smart-filtering.php:22
 msgctxt "smart filtering help"
 msgid "You can save your filters for later use."
-msgstr ""
+msgstr "Filtrelerinizi daha sonra kullanmak üzere kaydedebilirsiniz."
 
 #: templates/tooltip/smart-filtering.php:14
 msgid "Add Filter"
-msgstr ""
+msgstr "Süzgeç ekle"
 
 #: templates/tooltip/smart-filtering.php:8
 msgctxt "smart filtering help"
 msgid "Smart filtering allows you to segment your data by different criteria."
-msgstr ""
+msgstr "Akıllı filtreleme verinizi farklı kriterlere göre segmente etmenizi sağlar."
 
 #: templates/tooltip/export.php:21
 msgid "You can use filters to segment your list before exporting."
-msgstr ""
+msgstr "Dışa aktarmadan önce listenizi segmentlere ayıracak süzgeçleri kullanabilirsiniz."
 
 #: templates/tooltip/export.php:17
 msgid "The result is a CSV file."
-msgstr ""
+msgstr "Sonuç bir CSV dosyasıdır."
 
 #: templates/tooltip/export.php:13
 msgid "Click the export button and all items will be exported to CSV."
-msgstr ""
+msgstr "Dışarı aktar düğmesine tıklayın ve tüm öğeler CSV olarak dışarı aktarılsın."
 
 #: templates/tooltip/export.php:10
 msgid "Export for Admin Columns Pro, allows you to export the contents of your columns to CSV."
-msgstr ""
+msgstr "Admin Columns Pro için dışarı aktar, sütunlarınızın içeriğini CSV olarak dışarı aktarmanızı sağlar."
 
 #: templates/tooltip/inline-editing.php:21
 msgid "It is possible to undo and redo all changes made with Inline Editing, so using it is without risk."
-msgstr ""
+msgstr "Yerinde düzenlemede yapılan tüm işlemlerde geri alma, tekrarlama becerisi var, yani korkusuzca kullanın."
 
 #: templates/tooltip/inline-editing.php:17
 msgid "Click on the pencil icon to start editing the value of a field."
-msgstr ""
+msgstr "Bir alanın değerini düzenlemeye başlamak için kalem simgesine tıklayın."
 
 #: templates/tooltip/inline-editing.php:13
 msgid "To start inline editing, toggle the “Inline Edit” button on top of the list table."
-msgstr ""
+msgstr "Yerinde düzenlemeye başlamak için liste tablosunun üstünde yer alan \"Yerinde düzenle\" düğmesine tıklayın."
 
 #: templates/tooltip/inline-editing.php:10
 msgid "With Inline Edit, you can update your content quick and easy, without having to open each %s one at the time."
-msgstr ""
+msgstr "Yerine düzenleme ile içeriğinizi kolay ve hızlı bir şekilde düzenleyebilirsiniz, her seferinde %s açmanıza gerek kalmadan."
 
 #: templates/admin/modal-pro.php:26
 msgid "Create multiple list table views with different columns."
-msgstr ""
+msgstr "Farklı sütunlarla bir çok listeleme tablo görünümü oluşturun."
 
 #: templates/admin/modal-pro.php:24
 msgid "Quick edit any content with Inline Editing, including custom fields."
-msgstr ""
+msgstr "Özel alanlar dahil tüm alanları yerinde düzenleme ile hızlıca düzenleyin."
 
 #: templates/admin/modal-pro.php:22
 msgid "Search the contents of your columns."
-msgstr ""
+msgstr "Sütunlarınızın içeriğini arayın."
 
 #: classes/Integration/MetaBox.php:16
 msgid "Instantly generate columns for your Meta Box custom fields!"
-msgstr ""
+msgstr "Meta kutusu özel alanlarınız için anında sütun oluşturun!"
 
 #: classes/Integration/MetaBox.php:14
 msgid "Meta Box"
-msgstr ""
+msgstr "Meta kutusu"
 
 #: classes/Admin/ScreenOption/ColumnType.php:32
 msgid "Column Type"
-msgstr ""
+msgstr "Sütun tipi"
 
 #: classes/Admin/Page/Help.php:155
 msgid "No deprecated hooks or filters found."
-msgstr ""
+msgstr "Kullanımdan kaldırılmış kanca veya filtre bulunamadı."
 
 #: templates/tooltip/smart-filtering.php:6 templates/tooltip/filtering.php:16
 #: templates/tooltip/filtering.php:20
 #: classes/Settings/Column/Pro/SmartFiltering.php:11
 msgid "Smart Filtering"
-msgstr ""
+msgstr "Akıllı filtreleme"
 
 #: templates/tooltip/bulk-editing.php:7
 #: classes/Settings/Column/Pro/BulkEditing.php:11
 msgid "Bulk Editing"
-msgstr ""
+msgstr "Toplu düzenleme"
 
 #: templates/tooltip/inline-editing.php:7
 #: classes/Settings/Column/Pro/InlineEditing.php:11
 msgid "Inline Editing"
-msgstr ""
+msgstr "Dahili düzenleme"
 
 #: classes/Settings/Column/PostType.php:35
 msgid "All Post Types"
-msgstr ""
+msgstr "Tüm yazı tipleri"
 
 #: templates/admin/modal-pro.php:23
 msgid "Bulk edit any content, including custom fields."
@@ -502,11 +502,11 @@ msgstr "ACF, WooCommerce ve çok daha fazlası için eklentiler edinin"
 
 #: templates/admin/modal-pro.php:25
 msgid "Export all column data to CSV."
-msgstr ""
+msgstr "Tüm sütun verisini CSV olarak dışarı aktar"
 
 #: templates/admin/modal-pro.php:21
 msgid "Sort & Filter on all your content."
-msgstr ""
+msgstr "Tüm içeriğinizi sıralayın ve filtreleyin."
 
 #: templates/admin/modal-pro.php:18
 msgid "Upgrade to PRO, and take Admin Columns to the next level:"
@@ -1128,7 +1128,7 @@ msgstr "Yükselt"
 
 #: classes/Admin/Page/Columns.php:67
 msgid "The columns for %s are read only and can therefore not be edited."
-msgstr ""
+msgstr "%s sütunları salt okunurdur ve bu nedenle düzenlenemez."
 
 #: classes/Controller/ColumnRequest.php:30
 msgid "Please visit the %s screen once to load all available columns"
@@ -1323,7 +1323,7 @@ msgstr "Ayarlar"
 
 #: templates/settings/setting-label-icons.php:48
 msgid "Taxonomies"
-msgstr ""
+msgstr "Taksonomiler"
 
 #: classes/Settings/Column/Image.php:90
 msgid "Others"
@@ -1374,7 +1374,7 @@ msgstr "Değer: 1 (bir) ya da 0 (sıfır) olmalı."
 
 #: classes/Column/User/Login.php:11
 msgid "Username"
-msgstr ""
+msgstr "Kullanıcı adı"
 
 #: templates/admin/help-tab/custom-fields.php:19
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."

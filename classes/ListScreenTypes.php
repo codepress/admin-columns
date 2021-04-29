@@ -4,8 +4,11 @@ namespace AC;
 
 class ListScreenTypes {
 
+	const ARG_NETWORK = 'network_only';
+	const ARG_SITE = 'site_only';
+
 	/** @var ListScreenTypes */
-	private static $instance = null;
+	private static $instance;
 
 	/** @var ListScreen[] */
 	private $list_screens = [];
@@ -13,7 +16,7 @@ class ListScreenTypes {
 	/**
 	 * @return ListScreenTypes
 	 */
-	static public function instance() {
+	public static function instance() {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
@@ -35,10 +38,10 @@ class ListScreenTypes {
 	public function get_list_screens( array $args = [] ) {
 		$list_screens = $this->list_screens;
 
-		if ( isset( $args['network_only'] ) && true === $args['network_only'] ) {
+		if ( isset( $args[ self::ARG_NETWORK ] ) && true === $args[ self::ARG_NETWORK ] ) {
 			$list_screens = $this->filter_by_network( $list_screens );
 		}
-		if ( isset( $args['site_only'] ) && true === $args['site_only'] ) {
+		if ( isset( $args[ self::ARG_SITE ] ) && true === $args[ self::ARG_SITE ] ) {
 			$list_screens = $this->filter_by_non_network( $list_screens );
 		}
 

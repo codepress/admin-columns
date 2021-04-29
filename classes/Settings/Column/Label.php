@@ -59,7 +59,7 @@ class Label extends Settings\Column {
 	 * @param string $label
 	 */
 	public function set_label( $label ) {
-		$this->label = $label;
+		$this->label = apply_filters( 'ac/column/label', wp_kses( $label, true ), $label );
 	}
 
 	/**

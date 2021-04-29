@@ -44,7 +44,7 @@ class FirstPost extends Column {
 	/**
 	 * @return array
 	 */
-	public function get_related_post_stati(){
+	public function get_related_post_stati() {
 		return $this->get_setting( Settings\Column\PostStatus::NAME )->get_value();
 	}
 

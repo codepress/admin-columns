@@ -1,7 +1,4 @@
 import {getParamFromUrl} from "./global";
-import {LocalizedScriptAC} from "../admincolumns";
-
-declare let AC: LocalizedScriptAC
 
 export const getIdFromTableRow = (row: HTMLTableRowElement): number => {
     if (row.classList.contains('no-items')) {

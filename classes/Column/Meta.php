@@ -40,7 +40,7 @@ abstract class Meta extends Column {
 	 * @since 2.0.3
 	 */
 	public function get_raw_value( $id ) {
-		return $this->get_meta_value( $id, $this->get_meta_key(), true );
+		return $this->get_meta_value( $id, $this->get_meta_key() );
 	}
 
 	/**

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-10 02:12:03+0000\n"
+"PO-Revision-Date: 2021-04-05 09:10:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,23 +25,23 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:50
 msgid "Notifications"
-msgstr ""
+msgstr "Notifiche"
 
 #: templates/settings/setting-label-icons.php:49
 msgid "Widgets"
-msgstr ""
+msgstr "Widget"
 
 #: templates/settings/setting-label-icons.php:47
 msgid "Products"
-msgstr ""
+msgstr "Prodotti"
 
 #: templates/settings/setting-label-icons.php:46
 msgid "Buddicons"
-msgstr ""
+msgstr "Buddicons"
 
 #: templates/settings/setting-label-icons.php:45
 msgid "WordPress.org"
-msgstr ""
+msgstr "WordPress.org"
 
 #: templates/settings/setting-label-icons.php:44
 msgid "Social"
@@ -53,7 +53,7 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:41
 msgid "TinyMCE"
-msgstr ""
+msgstr "TinyMCE"
 
 #: templates/settings/setting-label-icons.php:40
 msgid "Block Editor"
@@ -61,7 +61,7 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:39
 msgid "Databases"
-msgstr ""
+msgstr "Database"
 
 #: templates/settings/setting-label-icons.php:38
 msgid "Image Editing"
@@ -324,15 +324,15 @@ msgstr ""
 
 #: classes/Plugin/Update/V4000.php:547
 msgid "Original"
-msgstr ""
+msgstr "Originale"
 
 #: classes/Column/Post/EstimatedReadingTime.php:15
 msgid "Read Time"
-msgstr ""
+msgstr "Tempo di lettura"
 
 #: classes/Column/Post/PasswordProtected.php:11
 msgid "Password Protected"
-msgstr ""
+msgstr "Protetto da password"
 
 #: classes/Settings/Column/NumberFormat.php:100
 msgid "Number Format"
@@ -348,11 +348,11 @@ msgstr "Separatore migliaia"
 
 #: classes/Settings/Column/NumberFormat.php:58
 msgid "Decimal point"
-msgstr ""
+msgstr "Punto decimale"
 
 #: classes/Settings/Column/NumberFormat.php:47
 msgid "Decimals"
-msgstr ""
+msgstr "Decimali"
 
 #: classes/Settings/Column/TermLink.php:38
 msgid "Edit Term"
@@ -548,7 +548,7 @@ msgstr ""
 #: classes/Column/Media/Download.php:11
 #: classes/Settings/Column/MediaLink.php:64
 msgid "Download"
-msgstr ""
+msgstr "Scarica"
 
 #: classes/Settings/Column/PostLink.php:80
 msgctxt "post"
@@ -585,7 +585,7 @@ msgstr "Numero massimo di elementi"
 
 #: classes/Settings/Column/NumberOfItems.php:32
 msgid "Number of Items"
-msgstr ""
+msgstr "Numero di elementi"
 
 #: classes/Settings/Column/MissingImageSize.php:28
 msgid "Include sizes that are missing an image file."
@@ -597,7 +597,7 @@ msgstr ""
 
 #: classes/Settings/Column/Meta.php:135
 msgid "Site Options"
-msgstr ""
+msgstr "Opzioni del sito"
 
 #: classes/Helper/Select/Group/CustomField/MultiSite.php:31
 #: classes/Settings/Column/Meta.php:129
@@ -627,7 +627,7 @@ msgstr ""
 
 #: classes/Settings/Column/ExifData.php:77
 msgid "Copyright"
-msgstr ""
+msgstr "Copyright"
 
 #: classes/Settings/Column/AttachmentDisplay.php:38
 msgid "Count"
@@ -647,7 +647,7 @@ msgstr ""
 
 #: classes/Column/Post/TitleRaw.php:15
 msgid "Title Only"
-msgstr ""
+msgstr "Solo titolo"
 
 #: classes/Column/Post/CommentStatus.php:16
 msgid "Allow Comments"
@@ -671,7 +671,7 @@ msgstr "Larghezza: %s px"
 
 #: classes/Column/Media/AvailableSizes.php:56
 msgid "Missing image file for size %s."
-msgstr ""
+msgstr "Manca il file immagine per la dimensione %s."
 
 #: classes/Column/Media/AvailableSizes.php:38
 msgid "original"
@@ -679,7 +679,7 @@ msgstr "originale"
 
 #: classes/Column/Media/AlternateText.php:14
 msgid "Alternative Text"
-msgstr ""
+msgstr "Testo alternativo"
 
 #: classes/Integration/NinjaForms.php:16
 msgid "Ninja Forms"
@@ -812,7 +812,7 @@ msgstr "Separato da virgola"
 
 #: classes/Settings/Column/Password.php:24
 msgid "Plain text"
-msgstr ""
+msgstr "Testo semplice"
 
 #: classes/Column/Post/PasswordProtected.php:21
 #: classes/Settings/Column/Password.php:23
@@ -825,15 +825,15 @@ msgstr "Nessun campo disponibile"
 
 #: classes/Settings/Column/Image.php:113
 msgid "Custom Size"
-msgstr ""
+msgstr "Dimensioni personalizzate"
 
 #: classes/Settings/Column/Image.php:109
 msgid "Full Size"
-msgstr ""
+msgstr "Dimensione originale"
 
 #: classes/Settings/Column/Image.php:55
 msgid "Image Size"
-msgstr ""
+msgstr "Dimensione dell'immagine"
 
 #: classes/Settings/Column/Image.php:48
 msgid "Height in pixels"
@@ -845,7 +845,7 @@ msgstr "Larghezza in pixel"
 
 #: classes/Settings/Column/Date.php:79
 msgid "in %s"
-msgstr ""
+msgstr "in %s"
 
 #: classes/Settings/Column/Date.php:76
 msgid "%s ago"
@@ -952,7 +952,7 @@ msgstr ""
 
 #: classes/Settings/Column/BeforeAfter.php:80
 msgid "Display Options"
-msgstr ""
+msgstr "Opzioni di visualizzazione"
 
 #: classes/Settings/Column/BeforeAfter.php:74
 msgid "This text will appear after the column value."
@@ -1002,7 +1002,7 @@ msgstr ""
 
 #: classes/Admin/Section/Partial/ShowEditButton.php:26
 msgid "Default is %s."
-msgstr ""
+msgstr "Il valore predefinito è %s."
 
 #: classes/Admin/Section/Partial/ShowEditButton.php:26
 msgid "on"
@@ -1048,11 +1048,11 @@ msgstr ""
 
 #: classes/Admin/Page/Help.php:73
 msgid "Deprecated Actions"
-msgstr ""
+msgstr "Azioni deprecate"
 
 #: classes/Admin/Page/Help.php:102
 msgid "Deprecated Filters"
-msgstr ""
+msgstr "Filtri deprecati"
 
 #: classes/Admin/Page/Help.php:29 classes/Admin/Page/Help.php:134
 msgid "Help"
@@ -1194,7 +1194,7 @@ msgstr "Aggiornamento"
 
 #: classes/Controller/ListScreen/Save.php:61
 msgid "Settings for %s updated successfully."
-msgstr "Impostazioni per %s aggiornato con successo."
+msgstr "Impostazioni per %s aggiornate con successo."
 
 #: classes/ListScreenGroups.php:14 classes/ListScreen/User.php:14
 msgid "Users"
@@ -1291,7 +1291,7 @@ msgstr "Scopri la nostra vasta documentazione, oppure aprire un topic di support
 
 #: templates/admin/side-feedback.php:20
 msgid "What's wrong? Need help? Let us know!"
-msgstr "Cosa c'è che non va? Bisogno di aiuto? Facci sapere!"
+msgstr "Problemi? Hai bisogno di aiuto? Contattaci!"
 
 #: templates/admin/side-feedback.php:10
 msgid "Are you happy with Admin Columns?"
@@ -1311,7 +1311,7 @@ msgstr "Aggiorna"
 
 #: classes/Admin/Page/Columns.php:171
 msgid "Store settings"
-msgstr "Memorizza le impostazioni"
+msgstr "Memorizza impostazioni"
 
 #: classes/Admin/Page/Addons.php:29
 msgid "Add-ons"
@@ -1374,7 +1374,7 @@ msgstr ""
 
 #: classes/Column/User/Login.php:11
 msgid "Username"
-msgstr ""
+msgstr "Nome utente"
 
 #: templates/admin/help-tab/custom-fields.php:19
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
@@ -1406,7 +1406,7 @@ msgstr "Cliccando sul triangolo potrai vedere le opzioni della colonna. Utilizza
 
 #: templates/admin/help-tab/basics.php:11
 msgid "Change column width"
-msgstr "Cambia la larghezza della colonna"
+msgstr "Modifica larghezza colonna"
 
 #: templates/admin/help-tab/basics.php:8
 msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
@@ -1454,7 +1454,7 @@ msgstr ""
 
 #: classes/Check/Review.php:187
 msgid "Admin Columns forum on WordPress.org"
-msgstr ""
+msgstr "Forum di Admin Columns su WordPress.org"
 
 #: classes/Check/Review.php:186
 msgid "You can also find help on the %s, and %s."
@@ -1698,7 +1698,7 @@ msgstr "Ordine"
 
 #: classes/Column/Post/Modified.php:15
 msgid "Last Modified"
-msgstr ""
+msgstr "Ultima modifica"
 
 #: classes/Column/Post/LastModifiedAuthor.php:18
 msgid "Last Modified Author"
@@ -1746,7 +1746,7 @@ msgstr "Seleziona lo status del commento che vuoi mostrare."
 
 #: classes/Settings/Column/CommentCount.php:43
 msgid "Comment status"
-msgstr "Status del commento"
+msgstr "Stato del commento"
 
 #: classes/Column/Comment/Status.php:33
 #: classes/Settings/Column/CommentCount.php:58
@@ -1764,7 +1764,7 @@ msgstr "Totale"
 
 #: classes/Settings/Column/UserLink.php:72
 msgid "View Public Author Page"
-msgstr ""
+msgstr "Visualizza la pagina pubblica dell'autore"
 
 #: classes/Settings/Column/UserLink.php:71
 msgid "View User Posts"
@@ -1830,7 +1830,7 @@ msgstr "Percorso del campo"
 
 #: classes/Column/Media/FileSize.php:14
 msgid "File Size"
-msgstr ""
+msgstr "Dimensione file"
 
 #: classes/Column/Media/FileName.php:14
 msgid "Filename"
@@ -1984,7 +1984,7 @@ msgstr "Data"
 
 #: classes/Column/Comment/DateGmt.php:20
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
-msgstr ""
+msgstr "Inviato il <a href=\"%1$s\">%2$s alle %3$s</a>"
 
 #: classes/Column/Comment/DateGmt.php:14
 msgid "Date GMT"
@@ -1997,7 +1997,7 @@ msgstr "Autore"
 
 #: classes/Column/Comment/AuthorUrl.php:14
 msgid "Author URL"
-msgstr ""
+msgstr "URL autore"
 
 #: classes/Column/Comment/AuthorName.php:14
 msgid "Author Name"
@@ -2031,7 +2031,7 @@ msgstr "Modifica"
 
 #: classes/Settings/Column/CommentLink.php:67
 msgid "Edit Comment"
-msgstr ""
+msgstr "Modifica commento"
 
 #: templates/admin/edit-actions.php:41 classes/Column/Post/ID.php:15
 #: classes/Column/Comment/ID.php:14 classes/Column/Media/ID.php:14

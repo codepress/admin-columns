@@ -25,7 +25,7 @@ use AC\Type\Url\Documentation;
 	<?= __( 'You can change the default sorted column in the optional settings below.', 'codepress-admin-columns' ); ?>
 </p>
 <p>
-	<a href="<?= esc_url( ( new Documentation( Documentation::ARTICLE_SORTING ) )->get_url() ); ?>" target="_blank">
+	<a href="<?= esc_url( Documentation::create_with_path( Documentation::ARTICLE_SORTING )->get_url() ); ?>" target="_blank">
 		<?= __( 'Learn more &raquo;', 'codepress-admin-columns' ); ?>
 	</a>
 </p>

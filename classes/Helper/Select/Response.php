@@ -53,9 +53,6 @@ final class Response {
 		return $results;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function __invoke() {
 		return [
 			'results'    => $this->parse_options( $this->options->get_copy() ),

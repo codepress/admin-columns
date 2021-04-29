@@ -10,6 +10,7 @@ final class MetaType {
 	const USER = 'user';
 	const COMMENT = 'comment';
 	const TERM = 'term';
+	const SITE = 'site';
 
 	/**
 	 * @var string
@@ -41,6 +42,7 @@ final class MetaType {
 			self::USER,
 			self::COMMENT,
 			self::TERM,
+			self::SITE,
 		];
 
 		if ( ! in_array( $this->meta_type, $types ) ) {

@@ -1,15 +1,12 @@
-import {AdminColumnsBaseInterface, LocalizedScriptAC} from "../../admincolumns";
-import {Form} from "./form";
-import {keyAnyPair, keySpecificPair} from "../../helpers/types";
+import {keyAnyPair, keySpecificPair} from "../helpers/types";
 
-export interface AdminColumnSettingsInterface extends AdminColumnsBaseInterface {
-    Form: Form
-}
-
-export interface LocalizedScriptColumnSettings extends LocalizedScriptAC {
+export type LocalizedAcColumnSettings = {
+    _ajax_nonce: string,
+    i18n: any
+    layout: string,
+    list_screen: string,
     uninitialized_list_screens: UninitializedListScreens
     original_columns: Array<string>
-    i18n: any
 }
 
 export type UninitializedListScreens = keySpecificPair<UninitializedListScreen>

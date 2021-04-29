@@ -2,12 +2,12 @@ import {Column} from "../column";
 import Nanobus from "nanobus";
 // @ts-ignore
 import $ from 'jquery';
-import {LocalizedScriptColumnSettings} from "../interfaces";
 import {AxiosPromise, AxiosResponse} from "axios";
+import {LocalizedAcColumnSettings} from "../../../types/admin-columns";
 
 const axios = require('axios');
 
-declare const AC: LocalizedScriptColumnSettings;
+declare const AC: LocalizedAcColumnSettings;
 declare const ajaxurl: string;
 declare global {
     interface Window {
@@ -46,7 +46,7 @@ class CustomField {
         });
 
         request.getOptions().then((data: any) => {
-            $(this.select).ac_select2({
+            (<any>$(this.select)).ac_select2({
                 theme: 'acs2',
                 width: '100%',
                 tags: editingAvailable,

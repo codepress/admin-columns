@@ -1,7 +1,8 @@
-import {AdminColumnsInterface} from "../admincolumns";
 import {keyAnyPair} from "../helpers/types";
+import AcServices from "../modules/ac-services";
+import Table from "./table";
 
-declare const AdminColumns: AdminColumnsInterface
+declare const AC_SERVICES: AcServices;
 
 export default class Cell {
 
@@ -40,7 +41,7 @@ export default class Cell {
     }
 
     getSettings() {
-        return AdminColumns.Table.Columns.get(this.getName());
+        return AC_SERVICES.getService<Table>('Table').Columns.get(this.getName());
     }
 
     hasChanged(content: string) {

@@ -5,6 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="ac-message inline <?= esc_attr( $this->type ); ?>">
+<div class="ac-message inline <?= esc_attr( $this->class ); ?>">
 	<?= $this->message; ?>
 </div>

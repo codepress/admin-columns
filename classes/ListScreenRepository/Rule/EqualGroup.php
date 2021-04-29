@@ -18,9 +18,6 @@ class EqualGroup implements Rule {
 		$this->group = $group;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function match( array $args ) {
 		if ( ! isset( $args[ self::GROUP ] ) ) {
 			return false;

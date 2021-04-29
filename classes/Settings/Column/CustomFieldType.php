@@ -10,6 +10,8 @@ use AC\View;
 class CustomFieldType extends Settings\Column
 	implements Settings\FormatValue {
 
+	const NAME = 'field_type';
+
 	const TYPE_ARRAY = 'array';
 	const TYPE_BOOLEAN = 'checkmark';
 	const TYPE_COLOR = 'color';
@@ -30,7 +32,7 @@ class CustomFieldType extends Settings\Column
 	private $field_type;
 
 	protected function define_options() {
-		return [ 'field_type' ];
+		return [ self::NAME ];
 	}
 
 	public function get_dependent_settings() {

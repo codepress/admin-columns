@@ -88,11 +88,6 @@ abstract class ListScreen {
 	private $column_types;
 
 	/**
-	 * @var array [ Column name => Label ]
-	 */
-	private $original_columns;
-
-	/**
 	 * @var string Layout ID
 	 */
 	private $layout_id;
@@ -437,9 +432,7 @@ abstract class ListScreen {
 	 * @return DateTime
 	 */
 	public function get_updated() {
-		return $this->updated
-			? $this->updated
-			: new DateTime();
+		return $this->updated ?: new DateTime();
 	}
 
 	/**
@@ -593,13 +586,6 @@ abstract class ListScreen {
 	 */
 	public function get_original_columns() {
 		return ( new DefaultColumnsRepository() )->get( $this->get_key() );
-	}
-
-	/**
-	 * @param array $columns
-	 */
-	public function set_original_columns( $columns ) {
-		$this->original_columns = (array) $columns;
 	}
 
 	/**
@@ -941,6 +927,17 @@ abstract class ListScreen {
 	 */
 	public function store( $column_data ) {
 		_deprecated_function( __METHOD__, '4.0' );
+	}
+
+	/**
+	 * @param array $columns
+	 *
+	 * @deprecated 4.3
+	 */
+	public function set_original_columns( $columns ) {
+		_deprecated_function( __METHOD__, '4.3' );
+
+		$this->original_columns = (array) $columns;
 	}
 
 }

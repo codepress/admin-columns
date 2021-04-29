@@ -37,6 +37,7 @@ abstract class ListScreenWP extends ListScreen {
 	 */
 	public function get_single_row( $id ) {
 		ob_start();
+
 		$this->get_list_table()->single_row( $this->get_object( $id ) );
 
 		return ob_get_clean();
@@ -47,6 +48,8 @@ abstract class ListScreenWP extends ListScreen {
 	 * @deprecated 3.1
 	 */
 	public function get_list_table_class() {
+		_deprecated_function( __METHOD__, '3.1' );
+
 		return $this->list_table_class;
 	}
 

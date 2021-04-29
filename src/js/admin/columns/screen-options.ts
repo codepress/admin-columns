@@ -1,3 +1,5 @@
+
+
 export default class InfoScreenOption {
     input: HTMLInputElement
     toggleClass: string

@@ -1,4 +1,3 @@
-import {AdminColumnsInterface} from "../../admincolumns";
 import {EventConstants} from "../../constants";
 import {Column} from "./column";
 import {initToggle} from "./events/toggle";
@@ -18,13 +17,12 @@ import {initProSetting} from "./settings/pro";
 import {initCustomFieldSelector} from "./settings/custom-field";
 import {initSubSettings} from "./settings/sub-setting-toggle";
 import {initMultiSelectFields} from "./settings/multi-select";
-
-declare const AdminColumns: AdminColumnsInterface;
+import AcServices from "../../modules/ac-services";
 
 export default class ColumnConfigurator {
 
-    constructor() {
-        AdminColumns.events.addListener(EventConstants.SETTINGS.COLUMN.INIT, (column: Column) => {
+    constructor( Services: AcServices ) {
+        Services.addListener(EventConstants.SETTINGS.COLUMN.INIT, (column: Column) => {
             initToggle(column);
             initIndicator(column);
             initTypeSelector(column);
