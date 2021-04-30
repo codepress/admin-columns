@@ -9,7 +9,6 @@ import InfoScreenOption from "./admin/columns/screen-options";
 import {initAcTooltips} from "./plugin/tooltip";
 import {initPointers} from "./modules/ac-pointer";
 import {initUninitializedListScreens} from "./admin/columns/listscreen-initialize";
-import 'nodelist-foreach-polyfill';
 import Modals from "./modules/modals";
 import {Column} from "./admin/columns/column";
 import {LocalizedAcColumnSettings} from "./types/admin-columns";

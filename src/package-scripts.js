@@ -7,8 +7,8 @@ module.exports = {
 			development : 'nps "styles.development" & nps "scripts.development"',
 		},
 		styles : {
-			production : `rimraf ${core_path}css/*.map && node-sass scss --output-style compressed --o ${core_path}css/`,
-			development : `nps "styles.production" && node-sass scss -w --source-map true --output-style compressed --o ${core_path}css/`
+			production : `rimraf ${core_path}css/*.map && sass scss:${core_path}css/ --style=compressed --no-source-map`,
+			development : `sass scss:${core_path}css/ -w`
 		},
 		scripts : {
 			production : `webpack --mode=production`,

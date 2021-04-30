@@ -219,6 +219,10 @@ msgstr ""
 msgid "Manage columns for your event, organizer or venue overviews."
 msgstr ""
 
+#: classes/Integration/GravityForms.php:18
+msgid "Take your form submission management to the next level!"
+msgstr ""
+
 #: classes/Integration/MetaBox.php:14
 msgid "Meta Box"
 msgstr ""
@@ -511,6 +515,78 @@ msgstr ""
 msgid "Select Icon"
 msgstr ""
 
+#: templates/settings/setting-label-icons.php:34
+msgid "Admin Menu"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:35
+msgid "Welcome Screen"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:36
+msgid "Post Formats"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:37, classes/Settings/Column/CustomFieldType.php:132, templates/admin/help-tab/custom-fields.php:34
+msgid "Media"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:38
+msgid "Image Editing"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:39
+msgid "Databases"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:40
+msgid "Block Editor"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:41
+msgid "TinyMCE"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:42
+msgid "Posts Screen"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:43, templates/tooltip/sorting.php:7, classes/Settings/Column/Pro/Sorting.php:11
+msgid "Sorting"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:44
+msgid "Social"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:45
+msgid "WordPress.org"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:46
+msgid "Buddicons"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:47
+msgid "Products"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:48
+msgid "Taxonomies"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:49
+msgid "Widgets"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:50
+msgid "Notifications"
+msgstr ""
+
+#: templates/settings/setting-label-icons.php:51
+msgid "Misc"
+msgstr ""
+
 #: templates/tooltip/bulk-editing.php:7, classes/Settings/Column/Pro/BulkEditing.php:11
 msgid "Bulk Editing"
 msgstr ""
@@ -640,10 +716,6 @@ msgstr ""
 #: templates/tooltip/smart-filtering.php:23
 msgctxt "smart filtering help"
 msgid "When you return to your list table you can easily select them again from the menu."
-msgstr ""
-
-#: templates/tooltip/sorting.php:7, classes/Settings/Column/Pro/Sorting.php:11
-msgid "Sorting"
 msgstr ""
 
 #: templates/tooltip/sorting.php:10
@@ -840,11 +912,11 @@ msgstr ""
 msgid "Author URL"
 msgstr ""
 
-#: classes/Column/Comment/DateGmt.php:14
+#: classes/Column/Comment/DateGmt.php:11
 msgid "Date GMT"
 msgstr ""
 
-#: classes/Column/Comment/DateGmt.php:20
+#: classes/Column/Comment/DateGmt.php:17
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr ""
 
@@ -1250,10 +1322,6 @@ msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:129, templates/admin/help-tab/custom-fields.php:50
 msgid "True / False"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:132, templates/admin/help-tab/custom-fields.php:34
-msgid "Media"
 msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:137
