@@ -6,13 +6,12 @@
     "devDependencies": {
         "@types/jquery": "^3.5.5",
         "@types/node": "^14.14.37",
-        "admin-columns-js": "github:codepress/admin-columns-js#2.0-alpha",
         "axios": "^0.21.0",
         "jquery": "^3.5.1",
         "js-cookie": "^2.2.1",
         "nanobus": "4.4.0",
         "nps": "^5.9.12",
-        "rimraf": "latest",
+        "nps-utils": "^1.7.0",
         "sass": "^1.32.12",
         "svg-symbols": "1.0.4",
         "svgstore-cli": "1.3.1",
@@ -24,9 +23,9 @@
         "wp-pot": "latest"
     },
     "scripts": {
-        "ac:build:production": "nps build.production && npm run ac:languages",
+        "ac:build:production": "nps build",
         "ac:build:development": "nps build.development",
-        "ac:languages": "nps languages.production",
+        "ac:languages": "nps languages",
         "webfont": "node ./scripts/webfont.js",
         "ac:svgsymbols": "svgstore ./svg-symbols/*.svg -o ../assets/images/symbols.svg"
     },
