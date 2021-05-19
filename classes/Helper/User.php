@@ -18,20 +18,19 @@ class User {
 		return isset( $user->{$field} ) ? $user->{$field} : false;
 	}
 
+	/**
+	 * @param mixed $user
+	 *
+	 * @return false|WP_User
+	 */
 	public function get_user( $user ) {
 		if ( is_numeric( $user ) ) {
-			$user = get_userdata( $user );
+			return get_userdata( $user );
 		}
 
-		if ( ! $user ) {
-			return false;
-		}
-
-		if ( ! is_a( $user, 'WP_User' ) ) {
-			return false;
-		}
-
-		return $user;
+		return $user && $user instanceof WP_User
+			? $user
+			: false;
 	}
 
 	/**
