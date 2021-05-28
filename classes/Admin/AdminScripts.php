@@ -1,0 +1,29 @@
+<?php
+
+namespace AC\Admin;
+
+use AC\Asset\Enqueueables;
+use AC\Asset\Location;
+use AC\Asset\Script;
+use AC\Asset\Style;
+
+class AdminScripts implements Enqueueables {
+
+	/**
+	 * @var Location\Absolute
+	 */
+	private $location;
+
+	public function __construct( Location\Absolute $location ) {
+		$this->location = $location;
+	}
+
+	public function get_assets() {
+		return [
+			new Style( 'wp-pointer' ),
+			new Script( 'ac-admin-general', $this->location->with_suffix( 'assets/js/admin-general.js' ), [ 'jquery', 'wp-pointer' ] ),
+			new Style( 'ac-admin', $this->location->with_suffix( 'assets/css/admin-general.css' ) ),
+		];
+	}
+
+}

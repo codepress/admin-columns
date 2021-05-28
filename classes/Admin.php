@@ -2,15 +2,12 @@
 
 namespace AC;
 
+use AC\Admin\AdminMenu;
+use AC\Admin\AdminView;
 use AC\Admin\Helpable;
-use AC\Admin\Menu;
-use AC\Admin\Page;
-use AC\Admin\PageCollection;
+use AC\Admin\PageRequestHandler;
 use AC\Admin\ScreenOptions;
 use AC\Asset\Enqueueables;
-use AC\Asset\Location;
-use AC\Asset\Script;
-use AC\Asset\Style;
 
 class Admin implements Registrable {
 
@@ -31,120 +28,70 @@ class Admin implements Registrable {
 	private $menu_hook;
 
 	/**
-	 * @var PageCollection
+	 * @var Enqueueables
 	 */
-	private $pages;
+	private $scripts;
 
 	/**
-	 * @var Location\Absolute
+	 * @var PageRequestHandler
 	 */
-	private $location;
+	private $request_handler;
 
-	public function __construct( $parent_slug, $menu_hook, PageCollection $pages, Location\Absolute $location ) {
+	public function __construct( $parent_slug, $menu_hook, Enqueueables $scripts, PageRequestHandler $request_handler ) {
 		$this->parent_slug = $parent_slug;
 		$this->menu_hook = $menu_hook;
-		$this->pages = $pages;
-		$this->location = $location;
-	}
-
-	/**
-	 * @return Location\Absolute
-	 */
-
-	public function get_location() {
-		return $this->location;
-	}
-
-	/**
-	 * @param string $slug
-	 *
-	 * @return Page|null
-	 */
-	public function get_page( $slug ) {
-		return $this->pages->get( $slug );
-	}
-
-	public function add_page( Page $page ) {
-		$this->pages->add( $page );
-	}
-
-	/**
-	 * @param string $slug
-	 *
-	 * @return string
-	 */
-	protected function create_menu_link( $slug ) {
-		return add_query_arg(
-			[
-				self::QUERY_ARG_PAGE => self::NAME,
-				self::QUERY_ARG_TAB  => $slug,
-			],
-			$this->parent_slug
-		);
-	}
-
-	/**
-	 * @return Page
-	 */
-	private function get_current_page() {
-		$slug = filter_input( INPUT_GET, 'tab' );
-
-		if ( $this->pages->has( $slug ) ) {
-			return $this->pages->get( $slug );
-		}
-
-		return $this->pages->first();
-	}
-
-	/**
-	 * @return Menu
-	 */
-	private function get_menu() {
-		$menu = new Menu();
-
-		$current_slug = $this->get_current_page()->get_slug();
-
-		foreach ( $this->pages->all() as $page ) {
-			$class = $current_slug === $page->get_slug()
-				? 'nav-tab-active'
-				: null;
-
-			$menu->add( new Menu\Item( $this->create_menu_link( $page->get_slug() ), $page->get_title(), $class ) );
-		}
-
-		return $menu;
+		$this->scripts = $scripts;
+		$this->request_handler = $request_handler;
 	}
 
 	public function register() {
-		add_action( $this->menu_hook, [ $this, 'register_menu' ] );
+		add_action( $this->menu_hook, [ $this, 'init' ] );
 	}
 
-	public function register_menu() {
+	public function init() {
+		// TODO
+		$admin_view = new AdminView(
+			$this->request_handler,
+			new AdminMenu( $this->parent_slug )
+		);
+
 		$hook = add_submenu_page(
 			$this->parent_slug,
 			__( 'Admin Columns Settings', 'codepress-admin-columns' ),
 			__( 'Admin Columns', 'codepress-admin-columns' ),
 			Capabilities::MANAGE,
 			self::NAME,
-			[ $this, 'render' ]
+			[ $admin_view, 'render' ]
 		);
 
 		add_action( "load-" . $hook, [ $this, 'scripts' ] );
+		add_action( "load-" . $hook, [ $this, 'help_tabs' ] );
 	}
 
-	public function render() {
-		?>
-		<div id="cpac" class="wrap">
+	public function help_tabs() {
+		$screen = get_current_screen();
 
-			<?= $this->get_menu()->render(); ?>
-			<?= $this->get_current_page()->render(); ?>
+		if ( ! $screen ) {
+			return;
+		}
 
-		</div>
-		<?php
+		$page = $this->request_handler->handle( new Request() );
+
+		if ( $page instanceof Helpable ) {
+			foreach ( $page->get_help_tabs() as $help ) {
+				$screen->add_help_tab( [
+					'id'      => $help->get_id(),
+					'title'   => $help->get_title(),
+					'content' => $help->get_content(),
+				] );
+			}
+		}
+
+		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
 	}
 
-	public function add_screen_options( $settings ) {
-		$page = $this->get_current_page();
+	public function screen_options( $settings ) {
+		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page instanceof ScreenOptions ) {
 			$settings .= sprintf( '<legend>%s</legend>', __( 'Display', 'codepress-admin-columns' ) );
@@ -158,33 +105,9 @@ class Admin implements Registrable {
 	}
 
 	public function scripts() {
-		$page = $this->get_current_page();
+		$page = $this->request_handler->handle( new Request() );
 
-		if ( $page instanceof Enqueueables ) {
-			foreach ( $page->get_assets() as $asset ) {
-				$asset->enqueue();
-			}
-		}
-
-		if ( $page instanceof Helpable ) {
-			foreach ( $page->get_help_tabs() as $help ) {
-				get_current_screen()->add_help_tab( [
-					'id'      => $help->get_id(),
-					'title'   => $help->get_title(),
-					'content' => $help->get_content(),
-				] );
-			}
-		}
-
-		add_filter( 'screen_settings', [ $this, 'add_screen_options' ] );
-
-		$assets = [
-			new Style( 'wp-pointer' ),
-			new Script( 'ac-admin-general', $this->location->with_suffix( 'assets/js/admin-general.js' ), [ 'jquery', 'wp-pointer' ] ),
-			new Style( 'ac-admin', $this->location->with_suffix( 'assets/css/admin-general.css' ) ),
-		];
-
-		foreach ( $assets as $asset ) {
+		foreach ( $this->scripts as $asset ) {
 			$asset->enqueue();
 		}
 

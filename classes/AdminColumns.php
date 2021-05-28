@@ -20,12 +20,19 @@ class AdminColumns extends Plugin {
 	/**
 	 * @var Admin
 	 */
-	private $admin;
+
+	// TODO remove
+	//private $admin;
 
 	/**
 	 * @var Storage
 	 */
 	private $storage;
+
+	/**
+	 * @var Admin
+	 */
+	public static $admin;
 
 	/**
 	 * @since 2.5
@@ -55,10 +62,12 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
-		$this->admin = ( new AdminFactory( $this->storage, $location ) )->create();
+		// TODO
+		$admin_factory = new Admin\AdminFactory( $this->storage, $location );
+		self::$admin = $admin_factory->create();
 
 		$services = [
-			$this->admin,
+			self::$admin,
 			new Admin\Notice\ReadOnly(),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
@@ -121,6 +130,7 @@ class AdminColumns extends Plugin {
 		return AC_VERSION;
 	}
 
+	// TODO remove
 	public function admin() {
 		return $this->admin;
 	}
