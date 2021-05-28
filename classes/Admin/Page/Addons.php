@@ -89,6 +89,7 @@ class Addons extends Page implements Enqueueables {
 				<span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
 
 				<?php if ( current_user_can( 'activate_plugins' ) ) : ?>
+					<?php // TODO does not work on network ?>
 					<a href="<?php echo esc_url( $this->get_deactivation_url( $addon->get_basename() ) ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
 				<?php endif;
 			// Not active

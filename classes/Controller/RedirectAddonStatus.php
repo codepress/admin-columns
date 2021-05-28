@@ -2,25 +2,33 @@
 
 namespace AC\Controller;
 
+use AC\Admin\Page\Addons;
 use AC\Integration;
 use AC\Integrations;
+use AC\Plugin;
 use AC\Registrable;
 
 class RedirectAddonStatus implements Registrable {
-
-	/**
-	 * @var string
-	 */
-	private $url;
 
 	/**
 	 * @var Integrations
 	 */
 	private $integrations;
 
-	public function __construct( $url, Integrations $integrations ) {
-		$this->url = $url;
+	/**
+	 * @var Plugin
+	 */
+	private $plugin;
+
+	public function __construct( Integrations $integrations, Plugin $plugin ) {
 		$this->integrations = $integrations;
+		$this->plugin = $plugin;
+	}
+
+	private function get_url( $network_active ) {
+		return $network_active
+			? ac_get_admin_network_url( Addons::NAME )
+			: ac_get_admin_url( Addons::NAME );
 	}
 
 	public function register() {
@@ -74,7 +82,7 @@ class RedirectAddonStatus implements Registrable {
 			'status'    => $status,
 			'plugin'    => $integration->get_slug(),
 			'_ac_nonce' => wp_create_nonce( 'ac-plugin-status-change' ),
-		], $this->url );
+		], $this->get_url( $this->plugin->is_network_active() ) );
 
 		return $location;
 	}

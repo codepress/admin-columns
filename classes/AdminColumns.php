@@ -65,10 +65,10 @@ class AdminColumns extends Plugin {
 
 		// TODO
 		$admin_factory = new Admin\AdminFactory( $this->storage, $location );
-		//$admin = $admin_factory->create();
+		$admin = $admin_factory->create();
 
 		$services = [
-		//	$admin,
+			$admin,
 			new Admin\Notice\ReadOnly(),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
@@ -87,7 +87,7 @@ class AdminColumns extends Plugin {
 			new Controller\AjaxColumnValue( $this->storage ),
 			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),
-			new Controller\RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
+			new Controller\RedirectAddonStatus( new Integrations(), $this ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks(),
