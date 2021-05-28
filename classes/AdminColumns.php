@@ -32,6 +32,7 @@ class AdminColumns extends Plugin {
 	/**
 	 * @var Admin
 	 */
+	// TODO
 	public static $admin;
 
 	/**
@@ -64,10 +65,10 @@ class AdminColumns extends Plugin {
 
 		// TODO
 		$admin_factory = new Admin\AdminFactory( $this->storage, $location );
-		self::$admin = $admin_factory->create();
+		//$admin = $admin_factory->create();
 
 		$services = [
-			self::$admin,
+		//	$admin,
 			new Admin\Notice\ReadOnly(),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,

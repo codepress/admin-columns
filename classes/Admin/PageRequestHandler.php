@@ -2,6 +2,7 @@
 
 namespace AC\Admin;
 
+use AC;
 use AC\Asset\Location;
 use AC\DefaultColumnsRepository;
 use AC\Deprecated\Hooks;
@@ -9,7 +10,7 @@ use AC\Integrations;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 
-class PageRequestHandler {
+class PageRequestHandler implements AC\PageRequestHandler {
 
 	const PARAM_TAB = 'tab';
 
@@ -35,16 +36,13 @@ class PageRequestHandler {
 	 */
 	public function handle( Request $request ) {
 
-		switch ( $request->get( self::PARAM_TAB ) ) {
+		switch ( $request->get_query()->get( self::PARAM_TAB ) ) {
 
 			case Page\Help::NAME :
 				return new Page\Help( new Hooks(), $this->location );
 			case Page\Settings::NAME :
-				$general = new Section\General( [
-					new Section\Partial\ShowEditButton(),
-				] );
 				$sections = new SectionCollection();
-				$sections->add( $general )
+				$sections->add( new Section\General( [ new Section\Partial\ShowEditButton() ] ) )
 				         ->add( new Section\Restore() );
 
 				return new Page\Settings( $sections );

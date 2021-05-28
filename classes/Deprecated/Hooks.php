@@ -17,7 +17,7 @@ class Hooks {
 	public function get_count( $force_update = false ) {
 		$cache = new Transient( 'ac-deprecated-message-count' );
 
-		if ( $cache->is_expired() || (bool) $force_update ) {
+		if ( $cache->is_expired() || $force_update ) {
 			$cache->save( $this->get_deprecated_count(), WEEK_IN_SECONDS );
 		}
 

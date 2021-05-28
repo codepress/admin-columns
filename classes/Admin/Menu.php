@@ -4,10 +4,12 @@ namespace AC\Admin;
 
 use AC\Admin\Menu\Item;
 use AC\Collection;
-use AC\Renderable;
-use AC\View;
 
-class Menu extends Collection implements Renderable {
+class Menu extends Collection {
+
+	public function __construct( array $items = [] ) {
+		array_map( [ $this, 'add' ], $items );
+	}
 
 	/**
 	 * @return Item[]
@@ -20,14 +22,6 @@ class Menu extends Collection implements Renderable {
 		$this->push( $item );
 
 		return $this;
-	}
-
-	public function render() {
-		$view = new View( [
-			'menu_items' => $this->items,
-		] );
-
-		return $view->set_template( 'admin/menu' )->render();
 	}
 
 }

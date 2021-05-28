@@ -34,7 +34,8 @@ class AdminFactory implements AC\AdminFactory {
 			'options-general.php',
 			'admin_menu',
 			new AdminScripts( $this->location ),
-			new PageRequestHandler( $this->storage, $this->location )
+			new PageRequestHandler( $this->storage, $this->location ),
+			new AdminMenuFactory()
 		);
 	}
 

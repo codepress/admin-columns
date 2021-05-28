@@ -2,8 +2,7 @@
 
 namespace AC;
 
-use AC\Admin\AdminMenu;
-use AC\Admin\AdminView;
+use AC\Admin\AdminMenuFactory;
 use AC\Admin\Helpable;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\ScreenOptions;
@@ -37,11 +36,17 @@ class Admin implements Registrable {
 	 */
 	private $request_handler;
 
-	public function __construct( $parent_slug, $menu_hook, Enqueueables $scripts, PageRequestHandler $request_handler ) {
+	/**
+	 * @var AdminMenuFactory
+	 */
+	private $menu_factory;
+
+	public function __construct( $parent_slug, $menu_hook, Enqueueables $scripts, PageRequestHandler $request_handler, AdminMenuFactory $menu_factory ) {
 		$this->parent_slug = $parent_slug;
 		$this->menu_hook = $menu_hook;
 		$this->scripts = $scripts;
 		$this->request_handler = $request_handler;
+		$this->menu_factory = $menu_factory;
 	}
 
 	public function register() {
@@ -49,11 +54,6 @@ class Admin implements Registrable {
 	}
 
 	public function init() {
-		// TODO
-		$admin_view = new AdminView(
-			$this->request_handler,
-			new AdminMenu( $this->parent_slug )
-		);
 
 		$hook = add_submenu_page(
 			$this->parent_slug,
@@ -61,11 +61,31 @@ class Admin implements Registrable {
 			__( 'Admin Columns', 'codepress-admin-columns' ),
 			Capabilities::MANAGE,
 			self::NAME,
-			[ $admin_view, 'render' ]
+			[ $this, 'render' ]
 		);
 
 		add_action( "load-" . $hook, [ $this, 'scripts' ] );
 		add_action( "load-" . $hook, [ $this, 'help_tabs' ] );
+	}
+
+	public function render() {
+		$page = $this->request_handler->handle( new Request() );
+
+		?>
+		<div id="cpac" class="wrap">
+			<?php
+			$view = new View( [
+				'menu_items' => $this->menu_factory->create( $this->parent_slug )->get_copy(),
+				'current'    => $page->get_slug(),
+			] );
+
+			echo $view->set_template( 'admin/menu' )->render();
+			?>
+
+			<?= $page->render() ?>
+
+		</div>
+		<?php
 	}
 
 	public function help_tabs() {
@@ -107,7 +127,13 @@ class Admin implements Registrable {
 	public function scripts() {
 		$page = $this->request_handler->handle( new Request() );
 
-		foreach ( $this->scripts as $asset ) {
+		if ( $page instanceof Enqueueables ) {
+			foreach ( $page->get_assets() as $asset ) {
+				$asset->enqueue();
+			}
+		}
+
+		foreach ( $this->scripts->get_assets() as $asset ) {
 			$asset->enqueue();
 		}
 

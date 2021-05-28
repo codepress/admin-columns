@@ -5,24 +5,19 @@ namespace AC\Admin;
 use AC\Admin;
 use AC\Deprecated\Hooks;
 
-class AdminMenu {
+class AdminMenuFactory {
 
 	const QUERY_ARG_PAGE = 'page';
 	const QUERY_ARG_TAB = 'tab';
 
 	/**
-	 * @var string
+	 * @param string $parent_slug
+	 *
+	 * @return Menu
 	 */
-	private $parent_slug;
-
-	public function __construct( $parent_slug ) {
-		$this->parent_slug = $parent_slug;
-	}
-
-	public function render( $current ) {
+	public function create( $parent_slug ) {
 		$menu = new Menu();
 
-		// TODO
 		$pages = [
 			Page\Columns::NAME  => __( 'Columns', 'codepress-admin-columns' ),
 			Page\Settings::NAME => __( 'Settings', 'codepress-admin-columns' ),
@@ -36,28 +31,30 @@ class AdminMenu {
 		}
 
 		foreach ( $pages as $slug => $label ) {
-			$class = $current === $slug
-				? 'nav-tab-active'
-				: null;
-
-			$menu->add( new Menu\Item( $this->create_menu_link( $slug ), $label, $class ) );
+			$menu->add( $this->create_menu_item( $slug, $label, $parent_slug ) );
 		}
 
-		return $menu->render();
+		return $menu;
+	}
+
+	// TODO factory
+	protected function create_menu_item( $slug, $label, $parent_slug ) {
+		return new Menu\Item( $slug, $label, $this->create_menu_link( $parent_slug, $slug ) );
 	}
 
 	/**
+	 * @param string $parent_slug
 	 * @param string $slug
 	 *
 	 * @return string
 	 */
-	protected function create_menu_link( $slug ) {
+	protected function create_menu_link( $parent_slug, $slug ) {
 		return add_query_arg(
 			[
 				self::QUERY_ARG_PAGE => Admin::NAME,
 				self::QUERY_ARG_TAB  => $slug,
 			],
-			$this->parent_slug
+			$parent_slug
 		);
 	}
 
