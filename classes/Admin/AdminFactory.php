@@ -7,7 +7,7 @@ use AC\Admin;
 use AC\Asset\Location;
 use AC\ListScreenRepository\Storage;
 
-class AdminFactory implements AC\AdminFactory {
+class AdminFactory implements AC\AdminFactoryInterface {
 
 	/**
 	 * @var Storage
@@ -28,14 +28,10 @@ class AdminFactory implements AC\AdminFactory {
 	 * @return Admin
 	 */
 	public function create() {
-
-		// TODO
 		return new Admin(
-			'options-general.php',
-			'admin_menu',
 			new AdminScripts( $this->location ),
 			new PageRequestHandler( $this->storage, $this->location ),
-			new AdminMenuFactory()
+			new AdminPageMenuFactory( admin_url( 'options-general.php' ) )
 		);
 	}
 

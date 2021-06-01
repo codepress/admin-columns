@@ -35,6 +35,13 @@ class PluginInformation {
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function is_network_active() {
+		return is_plugin_active_for_network( $this->basename );
+	}
+
+	/**
 	 * @return string|null
 	 */
 	public function get_version() {
@@ -42,7 +49,7 @@ class PluginInformation {
 	}
 
 	/**
-	 * @return string Basename
+	 * @return string
 	 */
 	public function get_basename() {
 		return $this->basename;

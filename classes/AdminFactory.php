@@ -2,11 +2,19 @@
 
 namespace AC;
 
-interface AdminFactory {
+class AdminFactory {
 
 	/**
-	 * @return Admin
+	 * @var AdminFactoryInterface
 	 */
-	public function create();
+	public static $factory;
+
+	public static function set_factory( AdminFactoryInterface $admin_factory ) {
+		self::$factory = $admin_factory;
+	}
+
+	public static function get_factory() {
+		return self::$factory;
+	}
 
 }

@@ -5,17 +5,24 @@ namespace AC\Admin;
 use AC\Admin;
 use AC\Deprecated\Hooks;
 
-class AdminMenuFactory {
+class AdminPageMenuFactory {
 
 	const QUERY_ARG_PAGE = 'page';
 	const QUERY_ARG_TAB = 'tab';
 
 	/**
-	 * @param string $parent_slug
-	 *
+	 * @var string
+	 */
+	protected $url;
+
+	public function __construct( $url ) {
+		$this->url = $url;
+	}
+
+	/**
 	 * @return Menu
 	 */
-	public function create( $parent_slug ) {
+	public function create() {
 		$menu = new Menu();
 
 		$pages = [
@@ -31,30 +38,28 @@ class AdminMenuFactory {
 		}
 
 		foreach ( $pages as $slug => $label ) {
-			$menu->add( $this->create_menu_item( $slug, $label, $parent_slug ) );
+			$menu->add( $this->create_menu_item( $slug, $label ) );
 		}
 
 		return $menu;
 	}
 
-	// TODO factory
-	protected function create_menu_item( $slug, $label, $parent_slug ) {
-		return new Menu\Item( $slug, $label, $this->create_menu_link( $parent_slug, $slug ) );
+	protected function create_menu_item( $slug, $label ) {
+		return new Menu\Item( $slug, $label, $this->create_menu_link( $slug ) );
 	}
 
 	/**
-	 * @param string $parent_slug
 	 * @param string $slug
 	 *
 	 * @return string
 	 */
-	protected function create_menu_link( $parent_slug, $slug ) {
+	protected function create_menu_link( $slug ) {
 		return add_query_arg(
 			[
 				self::QUERY_ARG_PAGE => Admin::NAME,
 				self::QUERY_ARG_TAB  => $slug,
 			],
-			$parent_slug
+			$this->url
 		);
 	}
 

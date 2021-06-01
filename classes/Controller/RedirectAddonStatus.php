@@ -6,6 +6,7 @@ use AC\Admin\Page\Addons;
 use AC\Integration;
 use AC\Integrations;
 use AC\Plugin;
+use AC\PluginInformation;
 use AC\Registrable;
 
 class RedirectAddonStatus implements Registrable {
@@ -20,13 +21,18 @@ class RedirectAddonStatus implements Registrable {
 	 */
 	private $plugin;
 
-	public function __construct( Integrations $integrations, Plugin $plugin ) {
+	public function __construct( Integrations $integrations, PluginInformation $plugin ) {
 		$this->integrations = $integrations;
 		$this->plugin = $plugin;
 	}
 
-	private function get_url( $network_active ) {
-		return $network_active
+	/**
+	 * @return string
+	 */
+	private function get_url() {
+
+		// Determine runtime if network is active
+		return $this->plugin->is_network_active()
 			? ac_get_admin_network_url( Addons::NAME )
 			: ac_get_admin_url( Addons::NAME );
 	}
@@ -82,7 +88,7 @@ class RedirectAddonStatus implements Registrable {
 			'status'    => $status,
 			'plugin'    => $integration->get_slug(),
 			'_ac_nonce' => wp_create_nonce( 'ac-plugin-status-change' ),
-		], $this->get_url( $this->plugin->is_network_active() ) );
+		], $this->get_url() );
 
 		return $location;
 	}
