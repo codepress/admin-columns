@@ -5,12 +5,7 @@ namespace AC\Admin;
 use AC\AdminFactoryInterface;
 use AC\Registrable;
 
-class SubMenuNetworkLoader implements Registrable {
-
-	/**
-	 * @var string
-	 */
-	private $menu_hook;
+class NetworkAdminLoader implements Registrable {
 
 	/**
 	 * @var WpMenuFactory
@@ -22,14 +17,13 @@ class SubMenuNetworkLoader implements Registrable {
 	 */
 	private $admin_factory;
 
-	public function __construct( $menu_hook, WpMenuFactory $menu_factory, AdminFactoryInterface $admin_factory ) {
-		$this->menu_hook = $menu_hook;
+	public function __construct( WpMenuFactory $menu_factory, AdminFactoryInterface $admin_factory ) {
 		$this->menu_factory = $menu_factory;
 		$this->admin_factory = $admin_factory;
 	}
 
 	public function register() {
-		add_action( $this->menu_hook, [ $this, 'load' ] );
+		add_action( 'network_admin_menu', [ $this, 'load' ] );
 	}
 
 	public function load() {

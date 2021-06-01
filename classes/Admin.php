@@ -2,8 +2,8 @@
 
 namespace AC;
 
-use AC\Admin\AdminPageMenuFactory;
 use AC\Admin\Helpable;
+use AC\Admin\MenuFactoryInterface;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\ScreenOptions;
 use AC\Asset\Enqueueables;
@@ -12,8 +12,8 @@ class Admin {
 
 	const NAME = 'codepress-admin-columns';
 
-	const QUERY_ARG_PAGE = 'page';
-	const QUERY_ARG_TAB = 'tab';
+	const QUERY_ARG_PAGE = MenuFactoryInterface::QUERY_ARG_PAGE;
+	const QUERY_ARG_TAB = MenuFactoryInterface::QUERY_ARG_TAB;
 
 	/**
 	 * @var Enqueueables
@@ -26,11 +26,11 @@ class Admin {
 	private $request_handler;
 
 	/**
-	 * @var AdminPageMenuFactory
+	 * @var MenuFactoryInterface
 	 */
 	private $menu_factory;
 
-	public function __construct( Enqueueables $scripts, PageRequestHandler $request_handler, AdminPageMenuFactory $menu_factory ) {
+	public function __construct( Enqueueables $scripts, PageRequestHandler $request_handler, MenuFactoryInterface $menu_factory ) {
 		$this->scripts = $scripts;
 		$this->request_handler = $request_handler;
 		$this->menu_factory = $menu_factory;

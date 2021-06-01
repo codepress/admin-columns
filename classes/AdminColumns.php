@@ -52,7 +52,7 @@ class AdminColumns extends Plugin {
 
 		AdminFactory::set_factory( new Admin\AdminFactory( $this->storage, $location ) );
 
-		$menu_loader = new Admin\SubMenuLoader( 'admin_menu', new WpMenuFactory() );
+		$menu_loader = new Admin\AdminLoader( new WpMenuFactory() );
 
 		$services = [
 			$menu_loader,

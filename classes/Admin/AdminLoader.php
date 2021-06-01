@@ -5,25 +5,19 @@ namespace AC\Admin;
 use AC\AdminFactory;
 use AC\Registrable;
 
-class SubMenuLoader implements Registrable {
-
-	/**
-	 * @var string
-	 */
-	private $menu_hook;
+class AdminLoader implements Registrable {
 
 	/**
 	 * @var WpMenuFactory
 	 */
 	private $menu_factory;
 
-	public function __construct( $menu_hook, WpMenuFactory $menu_factory ) {
-		$this->menu_hook = $menu_hook;
+	public function __construct( WpMenuFactory $menu_factory ) {
 		$this->menu_factory = $menu_factory;
 	}
 
 	public function register() {
-		add_action( $this->menu_hook, [ $this, 'load' ] );
+		add_action( 'admin_menu', [ $this, 'load' ] );
 	}
 
 	public function load() {

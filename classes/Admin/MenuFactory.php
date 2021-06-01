@@ -5,19 +5,8 @@ namespace AC\Admin;
 use AC\Admin;
 use AC\Deprecated\Hooks;
 
-class AdminPageMenuFactory {
-
-	const QUERY_ARG_PAGE = 'page';
-	const QUERY_ARG_TAB = 'tab';
-
-	/**
-	 * @var string
-	 */
-	protected $url;
-
-	public function __construct( $url ) {
-		$this->url = $url;
-	}
+// TODO
+class MenuFactory implements MenuFactoryInterface {
 
 	/**
 	 * @return Menu
@@ -58,8 +47,7 @@ class AdminPageMenuFactory {
 			[
 				self::QUERY_ARG_PAGE => Admin::NAME,
 				self::QUERY_ARG_TAB  => $slug,
-			],
-			$this->url
+			]
 		);
 	}
 
