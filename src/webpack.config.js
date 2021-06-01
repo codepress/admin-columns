@@ -25,9 +25,7 @@ let config = {
 		jquery : 'jQuery',
 		jQuery : 'jQuery'
 	},
-	stats : {
-		colors : true
-	}
+	stats : 'minimal'
 
 };
 

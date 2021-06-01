@@ -4,19 +4,20 @@ const core_path = '../assets/';
 module.exports = {
 	scripts : {
 		build : {
-			default : npsUtils.concurrent.nps( 'styles', 'scripts', 'languages' ),
-			development : npsUtils.concurrent.nps( 'styles.development', 'scripts.development' ),
+			default : npsUtils.series.nps(
+				'styles.build --style=compressed --no-source-map',
+				'scripts --mode=production',
+				'languages',
+				'clean'
+			),
+			development : npsUtils.concurrent.nps(
+				'styles.build -w',
+				'scripts --mode=development'
+			),
 		},
-		styles : {
-			default : npsUtils.concurrent.nps( 'styles.production', 'styles.clean' ),
-			production : `rimraf ${core_path}css/*.map && sass scss:${core_path}css/ --style=compressed --no-source-map`,
-			development : `sass scss:${core_path}css/ -w`,
-			clean : npsUtils.rimraf( `${core_path}css/*.map` )
-		},
-		scripts : {
-			default : `webpack --mode=production`,
-			development : `webpack --mode=development`,
-		},
+		clean : npsUtils.rimraf( `${core_path}*/*.map` ),
+		styles : `sass scss:${core_path}css/`,
+		scripts : 'webpack',
 		languages : {
 			default : 'nps "languages.build_pot" & nps "languages.pull_language"',
 			build_pot : "node languages.js",
