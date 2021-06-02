@@ -35,6 +35,13 @@ class PluginInformation {
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function is_network_active() {
+		return is_plugin_active_for_network( $this->basename );
+	}
+
+	/**
 	 * @return string|null
 	 */
 	public function get_version() {
@@ -42,7 +49,7 @@ class PluginInformation {
 	}
 
 	/**
-	 * @return string Basename
+	 * @return string
 	 */
 	public function get_basename() {
 		return $this->basename;
@@ -81,6 +88,32 @@ class PluginInformation {
 		}
 
 		return $info[ $var ];
+	}
+
+	/**
+	 * @param string $action 'activate' or 'deactivate'
+	 * @param string $basename
+	 *
+	 * @return string
+	 */
+	public function get_plugin_action_url( $action ) {
+		return add_query_arg( [
+			'action' => $action,
+			'plugin' => $this->basename,
+		], wp_nonce_url( admin_url( 'plugins.php' ), $action . '-plugin_' . $this->basename ) );
+	}
+
+	/**
+	 * @param string $action 'activate' or 'deactivate'
+	 * @param string $basename
+	 *
+	 * @return string
+	 */
+	public function get_plugin_network_action_url( $action ) {
+		return add_query_arg( [
+			'action' => $action,
+			'plugin' => $this->basename,
+		], wp_nonce_url( network_admin_url( 'plugins.php' ), $action . '-plugin_' . $this->basename ) );
 	}
 
 }

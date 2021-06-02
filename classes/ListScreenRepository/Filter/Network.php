@@ -13,13 +13,14 @@ class Network implements Filter {
 	];
 
 	public function filter( ListScreenCollection $list_screens ) {
+		$collection = new ListScreenCollection();
 		foreach ( $list_screens as $list_screen ) {
-			if ( ! in_array( $list_screen->get_key(), self::KEYS ) ) {
-				$list_screens->remove( $list_screen );
+			if ( in_array( $list_screen->get_key(), self::KEYS, true ) ) {
+				$collection->add( $list_screen );
 			}
 		}
 
-		return $list_screens;
+		return $collection;
 	}
 
 }

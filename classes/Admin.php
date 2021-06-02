@@ -3,148 +3,101 @@
 namespace AC;
 
 use AC\Admin\Helpable;
-use AC\Admin\Menu;
-use AC\Admin\Page;
-use AC\Admin\PageCollection;
+use AC\Admin\MenuFactoryInterface;
+use AC\Admin\PageRequestHandler;
 use AC\Admin\ScreenOptions;
 use AC\Asset\Enqueueables;
-use AC\Asset\Location;
-use AC\Asset\Script;
-use AC\Asset\Style;
 
-class Admin implements Registrable {
+class Admin {
 
 	const NAME = 'codepress-admin-columns';
 
-	const QUERY_ARG_PAGE = 'page';
-	const QUERY_ARG_TAB = 'tab';
+	const QUERY_ARG_PAGE = MenuFactoryInterface::QUERY_ARG_PAGE;
+	const QUERY_ARG_TAB = MenuFactoryInterface::QUERY_ARG_TAB;
 
 	/**
-	 * @var string
+	 * @var Enqueueables
 	 */
-
-	private $parent_slug;
+	private $scripts;
 
 	/**
-	 * @var string
+	 * @var PageRequestHandler
 	 */
-	private $menu_hook;
+	private $request_handler;
 
 	/**
-	 * @var PageCollection
+	 * @var MenuFactoryInterface
 	 */
-	private $pages;
+	private $menu_factory;
 
-	/**
-	 * @var Location\Absolute
-	 */
-	private $location;
-
-	public function __construct( $parent_slug, $menu_hook, PageCollection $pages, Location\Absolute $location ) {
-		$this->parent_slug = $parent_slug;
-		$this->menu_hook = $menu_hook;
-		$this->pages = $pages;
-		$this->location = $location;
+	public function __construct( Enqueueables $scripts, PageRequestHandler $request_handler, MenuFactoryInterface $menu_factory ) {
+		$this->scripts = $scripts;
+		$this->request_handler = $request_handler;
+		$this->menu_factory = $menu_factory;
 	}
 
-	/**
-	 * @return Location\Absolute
-	 */
-
-	public function get_location() {
-		return $this->location;
+	public function get_capability() {
+		return Capabilities::MANAGE;
 	}
 
-	/**
-	 * @param string $slug
-	 *
-	 * @return Page|null
-	 */
-	public function get_page( $slug ) {
-		return $this->pages->get( $slug );
-	}
-
-	public function add_page( Page $page ) {
-		$this->pages->add( $page );
-	}
-
-	/**
-	 * @param string $slug
-	 *
-	 * @return string
-	 */
-	protected function create_menu_link( $slug ) {
-		return add_query_arg(
-			[
-				self::QUERY_ARG_PAGE => self::NAME,
-				self::QUERY_ARG_TAB  => $slug,
-			],
-			$this->parent_slug
-		);
-	}
-
-	/**
-	 * @return Page
-	 */
-	private function get_current_page() {
-		$slug = filter_input( INPUT_GET, 'tab' );
-
-		if ( $this->pages->has( $slug ) ) {
-			return $this->pages->get( $slug );
-		}
-
-		return $this->pages->first();
-	}
-
-	/**
-	 * @return Menu
-	 */
-	private function get_menu() {
-		$menu = new Menu();
-
-		$current_slug = $this->get_current_page()->get_slug();
-
-		foreach ( $this->pages->all() as $page ) {
-			$class = $current_slug === $page->get_slug()
-				? 'nav-tab-active'
-				: null;
-
-			$menu->add( new Menu\Item( $this->create_menu_link( $page->get_slug() ), $page->get_title(), $class ) );
-		}
-
-		return $menu;
-	}
-
-	public function register() {
-		add_action( $this->menu_hook, [ $this, 'register_menu' ] );
-	}
-
-	public function register_menu() {
-		$hook = add_submenu_page(
-			$this->parent_slug,
-			__( 'Admin Columns Settings', 'codepress-admin-columns' ),
-			__( 'Admin Columns', 'codepress-admin-columns' ),
-			Capabilities::MANAGE,
-			self::NAME,
-			[ $this, 'render' ]
-		);
-
-		add_action( "load-" . $hook, [ $this, 'scripts' ] );
+	public function get_slug() {
+		return self::NAME;
 	}
 
 	public function render() {
+		$page = $this->request_handler->handle( new Request() );
+
 		?>
 		<div id="cpac" class="wrap">
+			<?php
+			$view = new View( [
+				'menu_items' => $this->menu_factory->create()->get_copy(),
+				'current'    => $page->get_slug(),
+			] );
 
-			<?= $this->get_menu()->render(); ?>
-			<?= $this->get_current_page()->render(); ?>
+			echo $view->set_template( 'admin/menu' )->render();
+			?>
+
+			<?= $page->render() ?>
 
 		</div>
 		<?php
 	}
 
-	public function add_screen_options( $settings ) {
-		$page = $this->get_current_page();
+	public function load() {
+		$page = $this->request_handler->handle( new Request() );
+
+		$this->help_tabs();
+		$this->scripts();
+
+		do_action( 'ac/admin_scripts' );
+		do_action( 'ac/admin_scripts/' . $page->get_slug() );
+
+		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
+	}
+
+	protected function help_tabs() {
+		$screen = get_current_screen();
+
+		if ( ! $screen ) {
+			return;
+		}
+
+		$page = $this->request_handler->handle( new Request() );
+
+		if ( $page instanceof Helpable ) {
+			foreach ( $page->get_help_tabs() as $help ) {
+				$screen->add_help_tab( [
+					'id'      => $help->get_id(),
+					'title'   => $help->get_title(),
+					'content' => $help->get_content(),
+				] );
+			}
+		}
+	}
+
+	public function screen_options( $settings ) {
+		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page instanceof ScreenOptions ) {
 			$settings .= sprintf( '<legend>%s</legend>', __( 'Display', 'codepress-admin-columns' ) );
@@ -157,8 +110,8 @@ class Admin implements Registrable {
 		return $settings;
 	}
 
-	public function scripts() {
-		$page = $this->get_current_page();
+	protected function scripts() {
+		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page instanceof Enqueueables ) {
 			foreach ( $page->get_assets() as $asset ) {
@@ -166,35 +119,9 @@ class Admin implements Registrable {
 			}
 		}
 
-		if ( $page instanceof Helpable ) {
-			foreach ( $page->get_help_tabs() as $help ) {
-				get_current_screen()->add_help_tab( [
-					'id'      => $help->get_id(),
-					'title'   => $help->get_title(),
-					'content' => $help->get_content(),
-				] );
-			}
-		}
-
-		add_filter( 'screen_settings', [ $this, 'add_screen_options' ] );
-
-		$assets = [
-			new Style( 'wp-pointer' ),
-			new Script( 'ac-admin-general', $this->location->with_suffix( 'assets/js/admin-general.js' ), [ 'jquery', 'wp-pointer' ] ),
-			new Style( 'ac-admin', $this->location->with_suffix( 'assets/css/admin-general.css' ) ),
-		];
-
-		foreach ( $assets as $asset ) {
+		foreach ( $this->scripts->get_assets() as $asset ) {
 			$asset->enqueue();
 		}
-
-		do_action( 'ac/admin_scripts' );
-		do_action( 'ac/admin_scripts/' . $page->get_slug() );
-
-		/**
-		 * @deprecated 4.1
-		 */
-		do_action_deprecated( 'ac/settings/scripts', null, '4.1', 'ac/admin_scripts' );
 	}
 
 }

@@ -18,8 +18,12 @@ class Settings extends Page implements Enqueueables {
 	 */
 	protected $sections;
 
-	public function __construct( SectionCollection $sections ) {
-		parent::__construct( self::NAME, __( 'Settings', 'codepress-admin-columns' ) );
+	public function __construct( SectionCollection $sections = null ) {
+		parent::__construct( self::NAME );
+
+		if ( null === $sections ) {
+			$sections = new SectionCollection();
+		}
 
 		$this->sections = $sections;
 	}

@@ -2,8 +2,8 @@
 
 namespace AC;
 
-use AC\Admin\Page;
 use AC\Admin\Preference;
+use AC\Admin\WpMenuFactory;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
@@ -16,11 +16,6 @@ use AC\Table;
 use AC\ThirdParty;
 
 class AdminColumns extends Plugin {
-
-	/**
-	 * @var Admin
-	 */
-	private $admin;
 
 	/**
 	 * @var Storage
@@ -55,10 +50,10 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
-		$this->admin = ( new AdminFactory( $this->storage, $location ) )->create();
+		AdminFactory::set_factory( new Admin\AdminFactory( $this->storage, $location, new PluginInformation( $this->get_basename() ) ) );
 
 		$services = [
-			$this->admin,
+			new Admin\AdminLoader( new WpMenuFactory() ),
 			new Admin\Notice\ReadOnly(),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
@@ -77,7 +72,7 @@ class AdminColumns extends Plugin {
 			new Controller\AjaxColumnValue( $this->storage ),
 			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),
-			new Controller\RedirectAddonStatus( ac_get_admin_url( Page\Addons::NAME ), new Integrations() ),
+			new Controller\RedirectAddonStatus( new Integrations() ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks(),
@@ -121,10 +116,6 @@ class AdminColumns extends Plugin {
 		return AC_VERSION;
 	}
 
-	public function admin() {
-		return $this->admin;
-	}
-
 	private function get_location() {
 		return new Absolute( $this->get_url(), $this->get_dir() );
 	}
@@ -142,13 +133,15 @@ class AdminColumns extends Plugin {
 		}
 	}
 
+	public function admin() {
+		_deprecated_function( __METHOD__, 'NEWVERSION' );
+	}
+
 	/**
-	 * @param $file
-	 *
 	 * @since      3.0
 	 * @deprecated 3.1.5
 	 */
-	public function get_plugin_version( $file ) {
+	public function get_plugin_version() {
 		_deprecated_function( __METHOD__, '3.1.5' );
 	}
 
