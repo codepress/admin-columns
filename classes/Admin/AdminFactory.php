@@ -19,9 +19,15 @@ class AdminFactory implements AC\AdminFactoryInterface {
 	 */
 	protected $location;
 
-	public function __construct( Storage $storage, Location\Absolute $location ) {
+	/**
+	 * @var AC\PluginInformation
+	 */
+	protected $plugin_information;
+
+	public function __construct( Storage $storage, Location\Absolute $location, AC\PluginInformation $plugin_information ) {
 		$this->storage = $storage;
 		$this->location = $location;
+		$this->plugin_information = $plugin_information;
 	}
 
 	/**
@@ -30,7 +36,7 @@ class AdminFactory implements AC\AdminFactoryInterface {
 	public function create() {
 		return new Admin(
 			new AdminScripts( $this->location ),
-			new PageRequestHandler( new PageFactory( $this->storage, $this->location ) ),
+			new PageRequestHandler( new PageFactory( $this->storage, $this->location, $this->plugin_information->is_network_active() ) ),
 			new MenuFactory()
 		);
 	}

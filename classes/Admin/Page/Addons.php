@@ -80,71 +80,10 @@ class Addons extends Page implements Enqueueables {
 		ob_start();
 
 		$plugin = new PluginInformation( $addon->get_basename() );
-
-		// Installed..
-		if ( $plugin->is_installed() ) :
-
-			// Active
-			if ( $plugin->is_active() ) : ?>
-				<span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
-
-				<?php if ( current_user_can( 'activate_plugins' ) ) : ?>
-					<?php // TODO does not work on network ?>
-					<a href="<?php echo esc_url( $this->get_deactivation_url( $addon->get_basename() ) ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
-				<?php endif;
-			// Not active
-			elseif ( current_user_can( 'activate_plugins' ) ) : ?>
-				<a href="<?php echo esc_url( $this->get_activation_url( $addon->get_basename() ) ); ?>" class="button button-primary right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
-			<?php endif;
-
-		// Not installed...
-		elseif ( ac_is_pro_active() && current_user_can( 'install_plugins' ) ) : ?>
-			<a href="#" class="button" data-install>
-				<?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?>
-			</a>
-		<?php else : ?>
-			<a target="_blank" href="<?php echo esc_url( $addon->get_link() ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
-		<?php endif;
+		$view = new Admin\AddonStatus( $plugin, $addon, is_multisite(), is_network_admin() );
+		$view->render();
 
 		return ob_get_clean();
-	}
-
-	/**
-	 * Deactivate plugin
-	 *
-	 * @param string $basename
-	 *
-	 * @return string
-	 */
-	private function get_deactivation_url( $basename ) {
-		return $this->get_plugin_action_url( 'deactivate', $basename );
-	}
-
-	/**
-	 * Activate or Deactivate plugin
-	 *
-	 * @param string $action
-	 * @param string $basename
-	 *
-	 * @return string
-	 */
-	private function get_plugin_action_url( $action, $basename ) {
-		return add_query_arg( [
-			'action'      => $action,
-			'plugin'      => $basename,
-			'ac-redirect' => true,
-		], wp_nonce_url( admin_url( 'plugins.php' ), $action . '-plugin_' . $basename ) );
-	}
-
-	/**
-	 * Activate plugin
-	 *
-	 * @param $basename
-	 *
-	 * @return string
-	 */
-	private function get_activation_url( $basename ) {
-		return $this->get_plugin_action_url( 'activate', $basename );
 	}
 
 	/**
@@ -159,13 +98,15 @@ class Addons extends Page implements Enqueueables {
 		foreach ( $this->integrations->all() as $integration ) {
 			$plugin = new PluginInformation( $integration->get_basename() );
 
-			// active
-			if ( $plugin->is_active() ) {
+			$is_active = $plugin->is_network_active()
+			             || ( ! is_multisite() && $plugin->is_active() )
+			             || ( is_multisite() && ! is_network_admin() && $plugin->is_active() );
+
+			if ( $is_active ) {
 				$active[] = $integration;
 				continue;
 			}
 
-			// recommended
 			if ( $integration->is_plugin_active() ) {
 				$recommended[] = $integration;
 				continue;

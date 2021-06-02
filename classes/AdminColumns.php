@@ -50,7 +50,7 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
-		AdminFactory::set_factory( new Admin\AdminFactory( $this->storage, $location ) );
+		AdminFactory::set_factory( new Admin\AdminFactory( $this->storage, $location, new PluginInformation( $this->get_basename() ) ) );
 
 		$menu_loader = new Admin\AdminLoader( new WpMenuFactory() );
 
@@ -74,7 +74,7 @@ class AdminColumns extends Plugin {
 			new Controller\AjaxColumnValue( $this->storage ),
 			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),
-			new Controller\RedirectAddonStatus( new Integrations(), new PluginInformation( $this->get_basename() ) ),
+			new Controller\RedirectAddonStatus( new Integrations() ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks(),

@@ -23,9 +23,15 @@ class PageFactory implements PageFactoryInterface {
 	 */
 	protected $location;
 
-	public function __construct( Storage $storage, Location\Absolute $location ) {
+	/**
+	 * @var bool
+	 */
+	protected $network_active;
+
+	public function __construct( Storage $storage, Location\Absolute $location, $network_active ) {
 		$this->storage = $storage;
 		$this->location = $location;
+		$this->network_active = $network_active;
 	}
 
 	/**
@@ -45,7 +51,7 @@ class PageFactory implements PageFactoryInterface {
 
 				return new Page\Settings( $sections );
 			case Page\Addons::NAME :
-				return new Page\Addons( $this->location, new Integrations() );
+				return new Page\Addons( $this->location, new Integrations(), $this->network_active );
 			default:
 				return new Page\Columns(
 					$this->location,

@@ -16,6 +16,7 @@ abstract class Page implements Renderable {
 	 */
 	private $title;
 
+	// TODO
 	public function __construct( $slug, $title ) {
 		$this->slug = (string) $slug;
 		$this->title = (string) $title;

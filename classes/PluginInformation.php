@@ -90,4 +90,30 @@ class PluginInformation {
 		return $info[ $var ];
 	}
 
+	/**
+	 * @param string $action 'activate' or 'deactivate'
+	 * @param string $basename
+	 *
+	 * @return string
+	 */
+	public function get_plugin_action_url( $action ) {
+		return add_query_arg( [
+			'action' => $action,
+			'plugin' => $this->basename,
+		], wp_nonce_url( admin_url( 'plugins.php' ), $action . '-plugin_' . $this->basename ) );
+	}
+
+	/**
+	 * @param string $action 'activate' or 'deactivate'
+	 * @param string $basename
+	 *
+	 * @return string
+	 */
+	public function get_plugin_network_action_url( $action ) {
+		return add_query_arg( [
+			'action' => $action,
+			'plugin' => $this->basename,
+		], wp_nonce_url( network_admin_url( 'plugins.php' ), $action . '-plugin_' . $this->basename ) );
+	}
+
 }
