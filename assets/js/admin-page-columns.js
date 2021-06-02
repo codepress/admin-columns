@@ -146,10 +146,10 @@ document.addEventListener('DOMContentLoaded', function () {
         Object(_admin_columns_listscreen_initialize__WEBPACK_IMPORTED_MODULE_10__["initUninitializedListScreens"])(AC.uninitialized_list_screens);
     }
     // Screen Options
-    document.querySelectorAll('[data-ac-screen-option="show_column_id"] input').forEach(function (el) { return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-column-id', document.querySelector('.ac-boxes')); });
-    document.querySelectorAll('[data-ac-screen-option="show_column_type"] input').forEach(function (el) { return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-column-type', document.querySelector('.ac-boxes')); });
-    document.querySelectorAll('[data-ac-screen-option="show_list_screen_id"] input').forEach(function (el) { return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-list-screen-id', document.querySelector('.ac-admin')); });
-    document.querySelectorAll('[data-ac-screen-option="show_list_screen_type"] input').forEach(function (el) { return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"](el, 'show-list-screen-type', document.querySelector('.ac-admin')); });
+    document.querySelectorAll('[data-ac-screen-option="show_column_id"] input').forEach(function (el) { return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_column_id', el, 'show-column-id', document.querySelector('.ac-boxes')); });
+    document.querySelectorAll('[data-ac-screen-option="show_column_type"] input').forEach(function (el) { return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_column_type', el, 'show-column-type', document.querySelector('.ac-boxes')); });
+    document.querySelectorAll('[data-ac-screen-option="show_list_screen_id"] input').forEach(function (el) { return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_list_screen_id', el, 'show-list-screen-id', document.querySelector('.ac-admin')); });
+    document.querySelectorAll('[data-ac-screen-option="show_list_screen_type"] input').forEach(function (el) { return new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_list_screen_type', el, 'show-list-screen-type', document.querySelector('.ac-admin')); });
 });
 AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, function (form) {
     document.querySelectorAll('.add_column').forEach(function (el) { return el.addEventListener('click', function () { return form.createNewColumn(); }); });
@@ -1130,8 +1130,14 @@ var initUninitializedListScreens = function (listScreens) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helpers/global */ "./js/helpers/global.ts");
+
+
 var InfoScreenOption = /** @class */ (function () {
-    function InfoScreenOption(input, toggleClass, container) {
+    function InfoScreenOption(name, input, toggleClass, container) {
+        this.name = name;
         this.input = input;
         this.toggleClass = toggleClass;
         this.container = container;
@@ -1143,7 +1149,16 @@ var InfoScreenOption = /** @class */ (function () {
             _this.input.checked
                 ? _this.container.classList.add(_this.toggleClass)
                 : _this.container.classList.remove(_this.toggleClass);
+            _this.persist();
         });
+    };
+    InfoScreenOption.prototype.persist = function () {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(ajaxurl, Object(_helpers_global__WEBPACK_IMPORTED_MODULE_1__["mapDataToFormData"])({
+            action: 'ac_admin_screen_options',
+            _ajax_nonce: AC._ajax_nonce,
+            option_name: this.name,
+            option_value: this.input.checked ? 1 : 0
+        }));
     };
     return InfoScreenOption;
 }());
@@ -2135,6 +2150,46 @@ var onHover = function (el, cbOver, cbLeave) {
 };
 var addEventListeners = function (el, events, callback) {
     events.forEach(function (event) { return el.addEventListener(event, callback); });
+};
+
+
+/***/ }),
+
+/***/ "./js/helpers/global.ts":
+/*!******************************!*\
+  !*** ./js/helpers/global.ts ***!
+  \******************************/
+/*! exports provided: getParamFromUrl, mapDataToFormData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParamFromUrl", function() { return getParamFromUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapDataToFormData", function() { return mapDataToFormData; });
+var getParamFromUrl = function (param, url) {
+    if (!url.includes('?')) {
+        return null;
+    }
+    var params = new URLSearchParams(url.split('?')[1]);
+    return params.get(param);
+};
+var mapDataToFormData = function (data, formData) {
+    if (formData === void 0) { formData = null; }
+    if (!formData) {
+        formData = new FormData();
+    }
+    Object.keys(data).forEach(function (key) {
+        var value = data[key];
+        if (Array.isArray(value)) {
+            value.forEach(function (d) {
+                formData.append(key + "[]", d);
+            });
+        }
+        else {
+            formData.append(key, data[key]);
+        }
+    });
+    return formData;
 };
 
 
