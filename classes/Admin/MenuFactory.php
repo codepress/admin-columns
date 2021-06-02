@@ -8,6 +8,15 @@ use AC\Deprecated\Hooks;
 class MenuFactory implements MenuFactoryInterface {
 
 	/**
+	 * @var string
+	 */
+	protected $url;
+
+	public function __construct( $url ) {
+		$this->url = $url;
+	}
+
+	/**
 	 * @return Menu
 	 */
 	public function create() {
@@ -46,7 +55,8 @@ class MenuFactory implements MenuFactoryInterface {
 			[
 				self::QUERY_ARG_PAGE => Admin::NAME,
 				self::QUERY_ARG_TAB  => $slug,
-			]
+			],
+			$this->url
 		);
 	}
 

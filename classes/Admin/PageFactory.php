@@ -23,15 +23,9 @@ class PageFactory implements PageFactoryInterface {
 	 */
 	protected $location;
 
-	/**
-	 * @var bool
-	 */
-	protected $network_active;
-
-	public function __construct( Storage $storage, Location\Absolute $location, $network_active ) {
+	public function __construct( Storage $storage, Location\Absolute $location ) {
 		$this->storage = $storage;
 		$this->location = $location;
-		$this->network_active = $network_active;
 	}
 
 	/**

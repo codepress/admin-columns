@@ -5,12 +5,13 @@ namespace AC\Admin\Page;
 use AC;
 use AC\Admin\Page;
 use AC\Asset\Assets;
+use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Style;
 use AC\Deprecated\Hooks;
 use AC\Type\Url;
 
-class Help extends Page implements AC\Asset\Enqueueables {
+class Help extends Page implements Enqueueables {
 
 	const NAME = 'help';
 
