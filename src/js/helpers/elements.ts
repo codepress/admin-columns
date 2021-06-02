@@ -1,3 +1,5 @@
+import AcHtmlElement from "./html-element";
+
 export const insertAfter = (newNode: HTMLElement, referenceNode: HTMLElement): void => {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
@@ -7,10 +9,7 @@ export const insertBefore = (newNode: HTMLElement, referenceNode: HTMLElement): 
 }
 
 export const createElementFromString = (content: string, baseElement: string = 'div'): HTMLElement => {
-    let element = document.createElement(baseElement);
-    element.innerHTML = content;
-
-    return element;
+    return AcHtmlElement.create(baseElement).addHtml(content).element;
 }
 
 function isInViewport(element: HTMLElement): boolean {
