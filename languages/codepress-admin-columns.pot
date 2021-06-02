@@ -15,15 +15,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/Admin.php:125
-msgid "Admin Columns Settings"
-msgstr ""
-
-#: classes/Admin.php:126, classes/Check/Review.php:148, classes/Table/Screen.php:464, classes/Admin/Page/Columns.php:66
-msgid "Admin Columns"
-msgstr ""
-
-#: classes/Admin.php:150, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:115, classes/Settings/Column/Post.php:90, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54
+#: classes/Admin.php:103, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:115, classes/Settings/Column/Post.php:90, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54
 msgid "Display"
 msgstr ""
 
@@ -43,12 +35,52 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: classes/PluginActionLinks.php:40, classes/Admin/Page/Settings.php:22
+#: classes/PluginActionLinks.php:40, classes/Admin/MenuFactory.php:27
 msgid "Settings"
 msgstr ""
 
 #: classes/PluginActionLinks.php:48
 msgid "Go Pro"
+msgstr ""
+
+#: classes/Admin/AddonStatus.php:42, classes/Admin/Page/Addons.php:130
+msgid "Active"
+msgstr ""
+
+#: classes/Admin/AddonStatus.php:47
+msgid "Network Active"
+msgstr ""
+
+#: classes/Admin/AddonStatus.php:60, classes/Admin/AddonStatus.php:76
+msgid "Deactivate"
+msgstr ""
+
+#: classes/Admin/AddonStatus.php:68
+msgid "Network Activate"
+msgstr ""
+
+#: classes/Admin/AddonStatus.php:84
+msgid "Activate"
+msgstr ""
+
+#: classes/Admin/AddonStatus.php:92
+msgid "Download & Install"
+msgstr ""
+
+#: classes/Admin/AddonStatus.php:100
+msgid "Get this add-on"
+msgstr ""
+
+#: classes/Admin/MenuFactory.php:26
+msgid "Columns"
+msgstr ""
+
+#: classes/Admin/MenuFactory.php:28
+msgid "Add-ons"
+msgstr ""
+
+#: classes/Admin/MenuFactory.php:34, classes/Admin/Page/Help.php:135
+msgid "Help"
 msgstr ""
 
 #: classes/Admin/Tooltip.php:29
@@ -57,6 +89,14 @@ msgstr ""
 
 #: classes/Admin/Tooltip.php:30
 msgid "Instructions"
+msgstr ""
+
+#: classes/Admin/WpMenuFactory.php:17, classes/Admin/WpMenuFactory.php:35
+msgid "Admin Columns Settings"
+msgstr ""
+
+#: classes/Admin/WpMenuFactory.php:18, classes/Admin/WpMenuFactory.php:36, classes/Check/Review.php:148, classes/Table/Screen.php:464
+msgid "Admin Columns"
 msgstr ""
 
 #: classes/Check/AddonAvailable.php:83
@@ -766,35 +806,11 @@ msgstr ""
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:29
-msgid "Add-ons"
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:105
-msgid "Get this add-on"
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:102
-msgid "Download & Install"
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:96
-msgid "Activate"
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:89, classes/Admin/Page/Addons.php:188
-msgid "Active"
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:92
-msgid "Deactivate"
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:180
+#: classes/Admin/Page/Addons.php:122
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:196
+#: classes/Admin/Page/Addons.php:138
 msgid "Available"
 msgstr ""
 
@@ -806,49 +822,45 @@ msgstr ""
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:29, classes/Admin/Page/Help.php:134
-msgid "Help"
-msgstr ""
-
-#: classes/Admin/Page/Help.php:45
+#: classes/Admin/Page/Help.php:46
 msgid "View documentation"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:59
+#: classes/Admin/Page/Help.php:60
 msgid "The callback used is %s."
 msgid_plural "The callbacks used are %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/Admin/Page/Help.php:73
+#: classes/Admin/Page/Help.php:74
 msgid "Deprecated Actions"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:77
+#: classes/Admin/Page/Help.php:78
 msgid "The action %s used on this website is deprecated since %s."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:102
+#: classes/Admin/Page/Help.php:103
 msgid "Deprecated Filters"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:106
+#: classes/Admin/Page/Help.php:107
 msgid "The filter %s used on this website is deprecated since %s."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:136
+#: classes/Admin/Page/Help.php:137
 msgid "The Admin Columns plugin has undergone some major changes in version 4."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:140
+#: classes/Admin/Page/Help.php:141
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:143
+#: classes/Admin/Page/Help.php:144
 msgid "our documentation"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:155
+#: classes/Admin/Page/Help.php:156
 msgid "No deprecated hooks or filters found."
 msgstr ""
 
