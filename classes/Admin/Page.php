@@ -11,15 +11,8 @@ abstract class Page implements Renderable {
 	 */
 	private $slug;
 
-	/**
-	 * @var string
-	 */
-	private $title;
-
-	// TODO
-	public function __construct( $slug, $title ) {
+	public function __construct( $slug ) {
 		$this->slug = (string) $slug;
-		$this->title = (string) $title;
 	}
 
 	/**
@@ -27,13 +20,6 @@ abstract class Page implements Renderable {
 	 */
 	public function get_slug() {
 		return $this->slug;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_title() {
-		return $this->title;
 	}
 
 }

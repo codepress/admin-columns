@@ -5,7 +5,6 @@ namespace AC\Admin;
 use AC\Admin;
 use AC\Deprecated\Hooks;
 
-// TODO
 class MenuFactory implements MenuFactoryInterface {
 
 	/**
@@ -23,7 +22,7 @@ class MenuFactory implements MenuFactoryInterface {
 		$hooks = new Hooks();
 
 		if ( $hooks->get_count() > 0 ) {
-			$pages[ Page\Help::NAME ] = sprintf( '%s %s', __( 'Help', 'codepress-admin-columns' ), $hooks->get_count() );
+			$pages[ Page\Help::NAME ] = sprintf( '%s %s', __( 'Help', 'codepress-admin-columns' ), '<span class="ac-badge">' . $hooks->get_count() . '</span>' );
 		}
 
 		foreach ( $pages as $slug => $label ) {

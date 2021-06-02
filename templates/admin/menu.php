@@ -6,13 +6,13 @@
 	foreach ( $this->menu_items as $menu_item ) :
 
 		$class = '';
-	
+
 		if ( $this->current === $menu_item->get_slug() ) {
 			$class = ' nav-tab-active';
 		}
 
 		?>
-		<a href="<?= esc_url( $menu_item->has_url() ? $menu_item->get_url() : '' ); ?>" class="nav-tab <?= esc_attr( $class ); ?>">
+		<a href="<?= esc_url( $menu_item->get_url() ); ?>" class="nav-tab <?= esc_attr( $class ); ?>">
 			<?= $menu_item->get_label(); ?>
 		</a>
 	<?php endforeach; ?>

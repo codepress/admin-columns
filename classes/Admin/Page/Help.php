@@ -23,10 +23,10 @@ class Help extends Page implements AC\Asset\Enqueueables {
 	private $location;
 
 	public function __construct( Hooks $hooks, Location\Absolute $location ) {
+		parent::__construct( self::NAME );
+
 		$this->hooks = $hooks;
 		$this->location = $location;
-
-		parent::__construct( self::NAME, sprintf( '%s %s', __( 'Help', 'codepress-admin-columns' ), '<span class="ac-badge">' . $hooks->get_count() . '</span>' ) );
 	}
 
 	public function get_assets() {
@@ -152,7 +152,7 @@ class Help extends Page implements AC\Asset\Enqueueables {
 			$this->render_actions();
 			$this->render_filters();
 		} else {
-			_e( 'No deprecated hooks or filters found.', 'codepress-admin-columns' );
+			printf( '<em>%s</em>', __( 'No deprecated hooks or filters found.', 'codepress-admin-columns' ) );
 		}
 
 		return ob_get_clean();

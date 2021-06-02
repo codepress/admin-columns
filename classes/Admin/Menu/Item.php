@@ -19,7 +19,7 @@ class Item {
 	 */
 	private $url;
 
-	public function __construct( $slug, $label, $url = null ) {
+	public function __construct( $slug, $label, $url ) {
 		$this->slug = $slug;
 		$this->label = $label;
 		$this->url = $url;
@@ -37,18 +37,6 @@ class Item {
 	 */
 	public function get_slug() {
 		return $this->slug;
-	}
-
-	/**
-	 * @param string $url
-	 */
-	// TODO remove
-	public function set_url( $url ) {
-		$this->url = $url;
-	}
-
-	public function has_url() {
-		return null !== $this->url;
 	}
 
 	/**

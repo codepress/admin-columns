@@ -63,7 +63,7 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	private $is_network;
 
 	public function __construct( Location\Absolute $location, DefaultColumnsRepository $default_columns, Menu $menu, Storage $storage, Preference\ListScreen $preference, $is_network = false ) {
-		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
+		parent::__construct( self::NAME );
 
 		$this->location = $location;
 		$this->default_columns = $default_columns;

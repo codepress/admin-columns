@@ -26,7 +26,7 @@ class Addons extends Page implements Enqueueables {
 	private $integrations;
 
 	public function __construct( Location\Absolute $location, AC\Integrations $integrations ) {
-		parent::__construct( self::NAME, __( 'Add-ons', 'codepress-admin-columns' ) );
+		parent::__construct( self::NAME );
 
 		$this->location = $location;
 		$this->integrations = $integrations;
