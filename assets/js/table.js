@@ -152,6 +152,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertAfter", function() { return insertAfter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertBefore", function() { return insertBefore; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElementFromString", function() { return createElementFromString; });
+<<<<<<< HEAD
+=======
+/* harmony import */ var _html_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./html-element */ "./js/helpers/html-element.ts");
+
+>>>>>>> develop
 var insertAfter = function (newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 };
@@ -160,9 +165,13 @@ var insertBefore = function (newNode, referenceNode) {
 };
 var createElementFromString = function (content, baseElement) {
     if (baseElement === void 0) { baseElement = 'div'; }
+<<<<<<< HEAD
     var element = document.createElement(baseElement);
     element.innerHTML = content;
     return element;
+=======
+    return _html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create(baseElement).addHtml(content).element;
+>>>>>>> develop
 };
 function isInViewport(element) {
     var rect = element.getBoundingClientRect();
@@ -214,6 +223,53 @@ var mapDataToFormData = function (data, formData) {
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./js/helpers/html-element.ts":
+/*!************************************!*\
+  !*** ./js/helpers/html-element.ts ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var AcHtmlElement = /** @class */ (function () {
+    function AcHtmlElement(el) {
+        this.element = el instanceof HTMLElement ? el : document.createElement(el);
+    }
+    AcHtmlElement.create = function (el) {
+        return new AcHtmlElement(el);
+    };
+    AcHtmlElement.prototype.addId = function (id) {
+        this.element.id = id;
+        return this;
+    };
+    AcHtmlElement.prototype.addClass = function (className) {
+        this.element.classList.add(className);
+        return this;
+    };
+    AcHtmlElement.prototype.addClasses = function () {
+        var _this = this;
+        var classNames = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            classNames[_i] = arguments[_i];
+        }
+        classNames.forEach(function (className) { return _this.addClass(className); });
+        return this;
+    };
+    AcHtmlElement.prototype.addHtml = function (html) {
+        this.element.innerHTML = html;
+        return this;
+    };
+    return AcHtmlElement;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (AcHtmlElement);
+
+
+/***/ }),
+
+>>>>>>> develop
 /***/ "./js/helpers/table.ts":
 /*!*****************************!*\
   !*** ./js/helpers/table.ts ***!
@@ -1296,6 +1352,11 @@ var RowSelection = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+<<<<<<< HEAD
+=======
+/* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
+
+>>>>>>> develop
 var ScreenOptionsColumns = /** @class */ (function () {
     function ScreenOptionsColumns(columns) {
         this.columns = columns;
@@ -1303,9 +1364,13 @@ var ScreenOptionsColumns = /** @class */ (function () {
             var column = columns.get(column_name);
             var input = ScreenOptionsColumns.getInputByName(column.name);
             if (input && input.parentElement.textContent.length === 0) {
+<<<<<<< HEAD
                 var label = document.createElement('span');
                 label.innerHTML = column.label;
                 input.parentElement.appendChild(label);
+=======
+                input.parentElement.appendChild(_helpers_html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create('span').addHtml(column.label).element);
+>>>>>>> develop
             }
         });
     }

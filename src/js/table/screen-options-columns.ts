@@ -1,5 +1,6 @@
 import Columns from "./columns";
 import columns from "./columns";
+import AcHtmlElement from "../helpers/html-element";
 
 export default class ScreenOptionsColumns {
 
@@ -13,9 +14,7 @@ export default class ScreenOptionsColumns {
             let input = ScreenOptionsColumns.getInputByName(column.name);
 
             if (input && input.parentElement.textContent.length === 0) {
-                let label = document.createElement('span');
-                label.innerHTML = column.label;
-                input.parentElement.appendChild(label);
+                input.parentElement.appendChild(AcHtmlElement.create('span').addHtml(column.label).element);
             }
         });
     }

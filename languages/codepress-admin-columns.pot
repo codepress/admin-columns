@@ -291,11 +291,11 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: templates/admin/edit-column.php:52, classes/Settings/Column/Type.php:35
+#: templates/admin/edit-column.php:52, classes/Settings/Column/Type.php:44
 msgid "Name"
 msgstr ""
 
-#: templates/admin/edit-column.php:53, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:79, classes/Settings/Column/Type.php:32, classes/Settings/Column/Type.php:41
+#: templates/admin/edit-column.php:53, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:79, classes/Settings/Column/Type.php:41, classes/Settings/Column/Type.php:50
 msgid "Type"
 msgstr ""
 
@@ -1694,7 +1694,7 @@ msgstr ""
 msgid "WordPress Time Format"
 msgstr ""
 
-#: classes/Settings/Column/Type.php:29
+#: classes/Settings/Column/Type.php:38
 msgid "Choose a column type."
 msgstr ""
 

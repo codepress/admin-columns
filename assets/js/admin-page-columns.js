@@ -805,6 +805,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../helpers/animations */ "./js/helpers/animations.ts");
 /* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/elements */ "./js/helpers/elements.ts");
 /* harmony import */ var _helpers_string__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../helpers/string */ "./js/helpers/string.ts");
+<<<<<<< HEAD
+=======
+/* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../helpers/html-element */ "./js/helpers/html-element.ts");
+>>>>>>> develop
 var __read = (undefined && undefined.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -843,6 +847,10 @@ var __values = (undefined && undefined.__values) || function(o) {
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
 var Form = /** @class */ (function () {
     function Form(element, services) {
         this.form = element;
@@ -974,12 +982,18 @@ var Form = /** @class */ (function () {
     Form.prototype.showMessage = function (message, className) {
         var _a;
         if (className === void 0) { className = 'updated'; }
+<<<<<<< HEAD
         var messageContainer = document.querySelector('.ac-admin__main');
         messageContainer.querySelectorAll('.ac-message').forEach(function (el) { return el.remove(); });
         var element = document.createElement('div');
         element.classList.add('ac-message');
         (_a = element.classList).add.apply(_a, __spreadArray([], __read(className.split(' '))));
         element.innerHTML = "<p>" + message + "</p>";
+=======
+        var element = (_a = _helpers_html_element__WEBPACK_IMPORTED_MODULE_6__["default"].create('div').addClass('ac-message')).addClasses.apply(_a, __spreadArray([], __read(className.split(' ')))).addHtml("<p>" + message + "</p>").element;
+        var messageContainer = document.querySelector('.ac-admin__main');
+        messageContainer.querySelectorAll('.ac-message').forEach(function (el) { return el.remove(); });
+>>>>>>> develop
         messageContainer.insertAdjacentElement('afterbegin', element);
         Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["fadeIn"])(element, 600);
     };
@@ -2080,6 +2094,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertAfter", function() { return insertAfter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertBefore", function() { return insertBefore; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElementFromString", function() { return createElementFromString; });
+<<<<<<< HEAD
+=======
+/* harmony import */ var _html_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./html-element */ "./js/helpers/html-element.ts");
+
+>>>>>>> develop
 var insertAfter = function (newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 };
@@ -2088,9 +2107,13 @@ var insertBefore = function (newNode, referenceNode) {
 };
 var createElementFromString = function (content, baseElement) {
     if (baseElement === void 0) { baseElement = 'div'; }
+<<<<<<< HEAD
     var element = document.createElement(baseElement);
     element.innerHTML = content;
     return element;
+=======
+    return _html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create(baseElement).addHtml(content).element;
+>>>>>>> develop
 };
 function isInViewport(element) {
     var rect = element.getBoundingClientRect();
@@ -2141,6 +2164,53 @@ var addEventListeners = function (el, events, callback) {
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./js/helpers/html-element.ts":
+/*!************************************!*\
+  !*** ./js/helpers/html-element.ts ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var AcHtmlElement = /** @class */ (function () {
+    function AcHtmlElement(el) {
+        this.element = el instanceof HTMLElement ? el : document.createElement(el);
+    }
+    AcHtmlElement.create = function (el) {
+        return new AcHtmlElement(el);
+    };
+    AcHtmlElement.prototype.addId = function (id) {
+        this.element.id = id;
+        return this;
+    };
+    AcHtmlElement.prototype.addClass = function (className) {
+        this.element.classList.add(className);
+        return this;
+    };
+    AcHtmlElement.prototype.addClasses = function () {
+        var _this = this;
+        var classNames = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            classNames[_i] = arguments[_i];
+        }
+        classNames.forEach(function (className) { return _this.addClass(className); });
+        return this;
+    };
+    AcHtmlElement.prototype.addHtml = function (html) {
+        this.element.innerHTML = html;
+        return this;
+    };
+    return AcHtmlElement;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (AcHtmlElement);
+
+
+/***/ }),
+
+>>>>>>> develop
 /***/ "./js/helpers/string.ts":
 /*!******************************!*\
   !*** ./js/helpers/string.ts ***!

@@ -213,6 +213,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: tbd
 
 * [Added] Gravity Forms integration promo added
+* [Fixed] The column value is now sanitized
 
 = 4.3 =
 Release Date: April 29th, 2021

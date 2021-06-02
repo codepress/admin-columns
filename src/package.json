@@ -26,7 +26,7 @@
         "ac:build:production": "nps build",
         "ac:build:development": "nps build.development",
         "ac:languages": "nps languages",
-        "webfont": "node ./scripts/webfont.js",
+        "ac:webfont": "node ./scripts/webfont.js",
         "ac:svgsymbols": "svgstore ./svg-symbols/*.svg -o ../assets/images/symbols.svg"
     },
     "webfont": {

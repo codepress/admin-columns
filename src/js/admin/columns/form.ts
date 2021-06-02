@@ -8,6 +8,7 @@ import {ListScreenStorageType, LocalizedAcColumnSettings} from "../../types/admi
 import {uniqid} from "../../helpers/string";
 import {keyAnyPair} from "../../helpers/types";
 import AcServices from "../../modules/ac-services";
+import AcHtmlElement from "../../helpers/html-element";
 
 declare const AC: LocalizedAcColumnSettings;
 
@@ -168,13 +169,10 @@ export class Form {
     }
 
     showMessage(message: string, className: string = 'updated') {
+        let element = AcHtmlElement.create('div').addClass('ac-message').addClasses(...className.split(' ')).addHtml(`<p>${message}</p>`).element;
         let messageContainer = document.querySelector('.ac-admin__main');
-        messageContainer.querySelectorAll('.ac-message').forEach((el: HTMLElement) => el.remove());
 
-        let element: HTMLDivElement = document.createElement('div');
-        element.classList.add('ac-message');
-        element.classList.add(...className.split(' '));
-        element.innerHTML = `<p>${message}</p>`;
+        messageContainer.querySelectorAll('.ac-message').forEach((el: HTMLElement) => el.remove());
         messageContainer.insertAdjacentElement('afterbegin', element);
         fadeIn(element, 600);
     }

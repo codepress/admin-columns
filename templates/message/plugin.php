@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </style>
 
 <tr class="plugin-update-tr <?php echo esc_attr( $this->status ); ?>" data-slug="<?php echo esc_attr( basename( $this->plugin_basename ) ); ?>" data-plugin="<?php echo esc_attr( $this->plugin_basename ); ?>">
-	<td colspan="3" class="plugin-update colspanchange">
+	<td colspan="100%" class="plugin-update colspanchange">
 		<div class="update-message notice notice-alt inline <?php echo esc_attr( $this->class ); ?>">
 			<p><?php echo $this->message; ?></p>
 		</div>
