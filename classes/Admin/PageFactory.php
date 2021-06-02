@@ -51,7 +51,7 @@ class PageFactory implements PageFactoryInterface {
 
 				return new Page\Settings( $sections );
 			case Page\Addons::NAME :
-				return new Page\Addons( $this->location, new Integrations(), $this->network_active );
+				return new Page\Addons( $this->location, new Integrations() );
 			default:
 				return new Page\Columns(
 					$this->location,
