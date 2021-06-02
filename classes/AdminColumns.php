@@ -52,10 +52,8 @@ class AdminColumns extends Plugin {
 
 		AdminFactory::set_factory( new Admin\AdminFactory( $this->storage, $location, new PluginInformation( $this->get_basename() ) ) );
 
-		$menu_loader = new Admin\AdminLoader( new WpMenuFactory() );
-
 		$services = [
-			$menu_loader,
+			new Admin\AdminLoader( new WpMenuFactory() ),
 			new Admin\Notice\ReadOnly(),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,
