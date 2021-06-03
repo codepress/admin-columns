@@ -8,12 +8,9 @@ use AC\Admin\PageRequestHandler;
 use AC\Admin\ScreenOptions;
 use AC\Asset\Enqueueables;
 
-class Admin {
+class Admin implements Registrable, Renderable {
 
 	const NAME = 'codepress-admin-columns';
-
-	const QUERY_ARG_PAGE = MenuFactoryInterface::QUERY_ARG_PAGE;
-	const QUERY_ARG_TAB = MenuFactoryInterface::QUERY_ARG_TAB;
 
 	/**
 	 * @var Enqueueables
@@ -36,22 +33,22 @@ class Admin {
 		$this->menu_factory = $menu_factory;
 	}
 
-	public function get_capability() {
-		return Capabilities::MANAGE;
-	}
-
-	public function get_slug() {
-		return self::NAME;
-	}
-
 	public function render() {
 		$page = $this->request_handler->handle( new Request() );
+
+		if ( ! $page ) {
+			return;
+		}
+
+		$menu = $this->menu_factory->create();
+
+		do_action( 'ac/admin/menu', $menu );
 
 		?>
 		<div id="cpac" class="wrap">
 			<?php
 			$view = new View( [
-				'menu_items' => $this->menu_factory->create()->get_copy(),
+				'menu_items' => $menu->get_items(),
 				'current'    => $page->get_slug(),
 			] );
 
@@ -64,19 +61,7 @@ class Admin {
 		<?php
 	}
 
-	public function load() {
-		$page = $this->request_handler->handle( new Request() );
-
-		$this->help_tabs();
-		$this->scripts();
-
-		do_action( 'ac/admin_scripts' );
-		do_action( 'ac/admin_scripts/' . $page->get_slug() );
-
-		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
-	}
-
-	protected function help_tabs() {
+	public function register() {
 		$screen = get_current_screen();
 
 		if ( ! $screen ) {
@@ -85,14 +70,34 @@ class Admin {
 
 		$page = $this->request_handler->handle( new Request() );
 
+		if ( ! $page ) {
+			return;
+		}
+
 		if ( $page instanceof Helpable ) {
-			foreach ( $page->get_help_tabs() as $help ) {
-				$screen->add_help_tab( [
-					'id'      => $help->get_id(),
-					'title'   => $help->get_title(),
-					'content' => $help->get_content(),
-				] );
-			}
+			$this->help_tabs( $page, $screen );
+		}
+		if ( $page instanceof Enqueueables ) {
+			$this->scripts( $page );
+		}
+
+		foreach ( $this->scripts->get_assets() as $asset ) {
+			$asset->enqueue();
+		}
+
+		do_action( 'ac/admin_scripts' );
+		do_action( 'ac/admin_scripts/' . $page->get_slug() );
+
+		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
+	}
+
+	protected function help_tabs( Helpable $page, \WP_Screen $screen ) {
+		foreach ( $page->get_help_tabs() as $help ) {
+			$screen->add_help_tab( [
+				'id'      => $help->get_id(),
+				'title'   => $help->get_title(),
+				'content' => $help->get_content(),
+			] );
 		}
 	}
 
@@ -110,16 +115,8 @@ class Admin {
 		return $settings;
 	}
 
-	protected function scripts() {
-		$page = $this->request_handler->handle( new Request() );
-
-		if ( $page instanceof Enqueueables ) {
-			foreach ( $page->get_assets() as $asset ) {
-				$asset->enqueue();
-			}
-		}
-
-		foreach ( $this->scripts->get_assets() as $asset ) {
+	protected function scripts( Enqueueables $page ) {
+		foreach ( $page->get_assets() as $asset ) {
 			$asset->enqueue();
 		}
 	}

@@ -9,7 +9,7 @@ interface PageFactoryInterface {
 	/**
 	 * @param string $slug
 	 *
-	 * @return Page
+	 * @return Page|null
 	 */
 	public function create( $slug );
 

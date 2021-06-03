@@ -8,6 +8,13 @@ use AC\View;
 class UserLink extends Settings\Column
 	implements Settings\FormatValue {
 
+	const NAME = 'user_link_to';
+
+	const PROPERTY_EDIT_USER = 'edit_user';
+	const PROPERTY_VIEW_POSTS = 'view_user_posts';
+	const PROPERTY_VIEW_AUTHOR = 'view_author';
+	const PROPERTY_EMAIL = 'email_user';
+
 	/**
 	 * @var string
 	 */
@@ -15,7 +22,7 @@ class UserLink extends Settings\Column
 
 	protected function define_options() {
 		return [
-			'user_link_to' => 'edit_user',
+			self::NAME => self::PROPERTY_EDIT_USER,
 		];
 	}
 
@@ -23,22 +30,22 @@ class UserLink extends Settings\Column
 		$link = false;
 
 		switch ( $this->get_user_link_to() ) {
-			case 'edit_user' :
+			case self::PROPERTY_EDIT_USER :
 				$link = get_edit_user_link( $user_id );
 
 				break;
-			case 'view_user_posts' :
+			case self::PROPERTY_VIEW_POSTS :
 				$link = add_query_arg( [
 					'post_type' => $this->column->get_post_type(),
 					'author'    => $user_id,
 				], 'edit.php' );
 
 				break;
-			case 'view_author' :
+			case self::PROPERTY_VIEW_AUTHOR :
 				$link = get_author_posts_url( $user_id );
 
 				break;
-			case 'email_user' :
+			case self::PROPERTY_EMAIL :
 				if ( $email = get_the_author_meta( 'email', $user_id ) ) {
 					$link = 'mailto:' . $email;
 				}
@@ -66,10 +73,10 @@ class UserLink extends Settings\Column
 
 	protected function get_display_options() {
 		$options = [
-			'edit_user'       => __( 'Edit User Profile', 'codepress-admin-columns' ),
-			'email_user'      => __( 'User Email', 'codepress-admin-columns' ),
-			'view_user_posts' => __( 'View User Posts', 'codepress-admin-columns' ),
-			'view_author'     => __( 'View Public Author Page', 'codepress-admin-columns' ),
+			self::PROPERTY_EDIT_USER   => __( 'Edit User Profile', 'codepress-admin-columns' ),
+			self::PROPERTY_EMAIL       => __( 'User Email', 'codepress-admin-columns' ),
+			self::PROPERTY_VIEW_POSTS  => __( 'View User Posts', 'codepress-admin-columns' ),
+			self::PROPERTY_VIEW_AUTHOR => __( 'View Public Author Page', 'codepress-admin-columns' ),
 		];
 
 		// resort for possible translations

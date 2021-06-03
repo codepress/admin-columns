@@ -2,7 +2,6 @@
 
 namespace AC\Admin;
 
-use AC\Admin;
 use AC\Deprecated\Hooks;
 
 class MenuFactory implements MenuFactoryInterface {
@@ -20,7 +19,7 @@ class MenuFactory implements MenuFactoryInterface {
 	 * @return Menu
 	 */
 	public function create() {
-		$menu = new Menu();
+		$menu = new Menu( $this->url );
 
 		$pages = [
 			Page\Columns::NAME  => __( 'Columns', 'codepress-admin-columns' ),
@@ -35,29 +34,10 @@ class MenuFactory implements MenuFactoryInterface {
 		}
 
 		foreach ( $pages as $slug => $label ) {
-			$menu->add( $this->create_menu_item( $slug, $label ) );
+			$menu->add_item( $slug, $label );
 		}
 
 		return $menu;
-	}
-
-	protected function create_menu_item( $slug, $label ) {
-		return new Menu\Item( $slug, $label, $this->create_menu_link( $slug ) );
-	}
-
-	/**
-	 * @param string $slug
-	 *
-	 * @return string
-	 */
-	protected function create_menu_link( $slug ) {
-		return add_query_arg(
-			[
-				self::QUERY_ARG_PAGE => Admin::NAME,
-				self::QUERY_ARG_TAB  => $slug,
-			],
-			$this->url
-		);
 	}
 
 }

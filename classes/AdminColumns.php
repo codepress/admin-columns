@@ -50,7 +50,9 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
-		AdminFactory::set_factory( new Admin\AdminFactory( $this->storage, $location, new PluginInformation( $this->get_basename() ) ) );
+		AdminFactory::set_factory(
+			new Admin\AdminFactory( $this->storage, $location, new PluginInformation( $this->get_basename() ) )
+		);
 
 		$services = [
 			new Admin\AdminLoader( new WpMenuFactory() ),

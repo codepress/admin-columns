@@ -6,11 +6,8 @@ use AC;
 
 interface MenuFactoryInterface {
 
-	const QUERY_ARG_PAGE = 'page';
-	const QUERY_ARG_TAB = 'tab';
-
 	/**
-	 * @return AC\Admin\Menu
+	 * @return Menu
 	 */
 	public function create();
 

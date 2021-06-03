@@ -2,26 +2,53 @@
 
 namespace AC\Admin;
 
-use AC\Admin\Menu\Item;
-use AC\Collection;
+use AC\Admin;
 
-class Menu extends Collection {
+class Menu {
 
-	public function __construct( array $items = [] ) {
-		array_map( [ $this, 'add' ], $items );
+	/**
+	 * @var string
+	 */
+	private $url;
+
+	/**
+	 * @var Admin\Menu\Item[]
+	 */
+	private $items;
+
+	public function __construct( $url ) {
+		$this->url = $url;
+	}
+
+	public function add_item( $slug, $label ) {
+		$this->items[] = new Menu\Item( $slug, $label, $this->create_menu_link( $slug ) );
+
+		return $this;
+	}
+
+	public function remove_item( $slug ) {
+		unset( $this->items[ $slug ] );
+
+		return $this;
+	}
+
+	public function get_items() {
+		return $this->items;
 	}
 
 	/**
-	 * @return Item[]
+	 * @param string $slug
+	 *
+	 * @return string
 	 */
-	public function all() {
-		return parent::all();
-	}
-
-	public function add( Item $item ) {
-		$this->push( $item );
-
-		return $this;
+	protected function create_menu_link( $slug ) {
+		return add_query_arg(
+			[
+				PageRequestHandler::PARAM_PAGE => Admin::NAME,
+				PageRequestHandler::PARAM_TAB  => $slug,
+			],
+			$this->url
+		);
 	}
 
 }

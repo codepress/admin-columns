@@ -2,9 +2,12 @@
 
 namespace AC;
 
-use AC\Request;
+use AC\Admin\Page;
 
 interface PageRequestHandler {
+
+	const PARAM_PAGE = 'page';
+	const PARAM_TAB = 'tab';
 
 	/**
 	 * @param Request $request

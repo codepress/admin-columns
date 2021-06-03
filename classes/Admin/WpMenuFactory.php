@@ -3,45 +3,52 @@
 namespace AC\Admin;
 
 use AC\Admin;
+use AC\Capabilities;
+use AC\Registrable;
+use AC\Renderable;
 
 class WpMenuFactory {
 
 	/**
-	 * @param string $parent_menu
-	 * @param Admin  $admin
-	 * @param int    $position
+	 * @param string     $parent_menu
+	 * @param Renderable $page
+	 * @param int        $position
 	 */
-	public function create_sub_menu( $parent_menu, Admin $admin, $position = null ) {
+	public function create_sub_menu( $parent_menu, Renderable $page, $position = null ) {
 		$hook = add_submenu_page(
 			$parent_menu,
 			__( 'Admin Columns Settings', 'codepress-admin-columns' ),
 			__( 'Admin Columns', 'codepress-admin-columns' ),
-			$admin->get_capability(),
-			$admin->get_slug(),
-			[ $admin, 'render' ],
+			Capabilities::MANAGE,
+			Admin::NAME,
+			[ $page, 'render' ],
 			$position
 		);
 
-		add_action( "load-" . $hook, [ $admin, 'load' ] );
+		if ( $page instanceof Registrable ) {
+			add_action( "load-" . $hook, [ $page, 'register' ] );
+		}
 	}
 
 	/**
-	 * @param Admin  $admin
-	 * @param string $icon
-	 * @param int    $position
+	 * @param Renderable $page
+	 * @param string     $icon
+	 * @param int        $position
 	 */
-	public function create_menu( Admin $admin, $icon = null, $position = null ) {
+	public function create_menu( Renderable $page, $icon = null, $position = null ) {
 		$hook = add_menu_page(
 			__( 'Admin Columns Settings', 'codepress-admin-columns' ),
 			__( 'Admin Columns', 'codepress-admin-columns' ),
-			$admin->get_capability(),
-			$admin->get_slug(),
-			[ $admin, 'render' ],
+			Capabilities::MANAGE,
+			Admin::NAME,
+			[ $page, 'render' ],
 			$icon,
 			$position
 		);
 
-		add_action( "load-" . $hook, [ $admin, 'load' ] );
+		if ( $page instanceof Registrable ) {
+			add_action( "load-" . $hook, [ $page, 'register' ] );
+		}
 	}
 
 }

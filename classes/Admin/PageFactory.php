@@ -11,8 +11,6 @@ use AC\ListScreenRepository\Storage;
 
 class PageFactory implements PageFactoryInterface {
 
-	const PARAM_TAB = 'tab';
-
 	/**
 	 * @var Storage
 	 */
@@ -31,7 +29,7 @@ class PageFactory implements PageFactoryInterface {
 	/**
 	 * @param string $slug
 	 *
-	 * @return Page
+	 * @return Page|null
 	 */
 	public function create( $slug ) {
 
@@ -46,7 +44,7 @@ class PageFactory implements PageFactoryInterface {
 				return new Page\Settings( $sections );
 			case Page\Addons::NAME :
 				return new Page\Addons( $this->location, new Integrations() );
-			default:
+			case Page\Columns::NAME :
 				return new Page\Columns(
 					$this->location,
 					new DefaultColumnsRepository(),
@@ -55,6 +53,8 @@ class PageFactory implements PageFactoryInterface {
 					new Preference\ListScreen()
 				);
 		}
+
+		return null;
 	}
 
 }

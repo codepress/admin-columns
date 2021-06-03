@@ -1,11 +1,11 @@
 <?php
 
 use AC\Admin;
-use AC\Admin\MenuFactoryInterface;
 use AC\EncodedListScreenDataFactory;
 use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\PageRequestHandler;
 use AC\Type\ListScreenId;
 use AC\Type\Url;
 
@@ -109,8 +109,8 @@ function ac_load_columns( array $data ) {
 function ac_get_admin_url( $slug ) {
 	return add_query_arg(
 		[
-			MenuFactoryInterface::QUERY_ARG_PAGE => Admin::NAME,
-			MenuFactoryInterface::QUERY_ARG_TAB  => $slug,
+			PageRequestHandler::PARAM_PAGE => Admin::NAME,
+			PageRequestHandler::PARAM_TAB  => $slug,
 		],
 		admin_url( 'options-general.php' )
 	);
@@ -124,8 +124,8 @@ function ac_get_admin_url( $slug ) {
 function ac_get_admin_network_url( $slug = null ) {
 	return add_query_arg(
 		[
-			Admin::QUERY_ARG_PAGE => Admin::NAME,
-			Admin::QUERY_ARG_TAB  => $slug,
+			PageRequestHandler::PARAM_PAGE => Admin::NAME,
+			PageRequestHandler::PARAM_TAB  => $slug,
 		],
 		network_admin_url( 'settings.php' )
 	);

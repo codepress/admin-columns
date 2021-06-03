@@ -7,8 +7,6 @@ use AC\Request;
 
 class PageRequestHandler implements AC\PageRequestHandler {
 
-	const PARAM_TAB = 'tab';
-
 	/**
 	 * @var PageFactory
 	 */
@@ -21,10 +19,12 @@ class PageRequestHandler implements AC\PageRequestHandler {
 	/**
 	 * @param Request $request
 	 *
-	 * @return Page
+	 * @return Page|null
 	 */
 	public function handle( Request $request ) {
-		return $this->page_factory->create( $request->get_query()->get( self::PARAM_TAB ) );
+		$page = $this->page_factory->create( $request->get_query()->get( self::PARAM_TAB ) ?: Page\Columns::NAME );
+
+		return apply_filters( 'ac/admin/request/page', $page, $request );
 	}
 
 }
