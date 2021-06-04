@@ -193,7 +193,7 @@ export class Form {
             for (let entry of fData.entries()) {
                 let key = entry[0];
                 let value = entry[1];
-                let element = el.elements[key];
+                let element:any = el.elements[parseInt(key)];
 
                 data[key] = element.tagName === 'SELECT' && element.hasAttribute('multiple')
                     ? fData.getAll(key)
