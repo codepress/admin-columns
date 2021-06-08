@@ -15,7 +15,7 @@ class Page implements Registrable {
 	private $main;
 
 	/**
-	 * @var Menu
+	 * @var Renderable
 	 */
 	private $menu;
 
@@ -24,22 +24,16 @@ class Page implements Registrable {
 	 */
 	private $scripts;
 
-	public function __construct( Renderable $main, Menu $menu, Enqueueables $scripts ) {
+	public function __construct( Renderable $main, Renderable $menu, Enqueueables $scripts ) {
 		$this->main = $main;
 		$this->menu = $menu;
 		$this->scripts = $scripts;
 	}
 
-	/**
-	 * @return Renderable
-	 */
 	public function get_main() {
 		return $this->main;
 	}
 
-	/**
-	 * @return Menu
-	 */
 	public function get_menu() {
 		return $this->menu;
 	}

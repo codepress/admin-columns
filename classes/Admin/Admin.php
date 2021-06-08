@@ -41,12 +41,7 @@ class Admin implements Registrable {
 		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page ) {
-			$view = new View( [
-				'menu_items' => $page->get_menu()->get_items(),
-				'current'    => $page->get_menu()->get_current(),
-			] );
-
-			echo $view->set_template( 'admin/menu' )->render();
+			echo $page->get_menu()->render();
 		}
 	}
 
