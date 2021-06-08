@@ -4,6 +4,7 @@ namespace AC\Admin;
 
 use AC\Registrable;
 use AC\Request;
+use AC\View;
 
 class Admin implements Registrable {
 
@@ -31,15 +32,33 @@ class Admin implements Registrable {
 	public function init() {
 		$hook = $this->wp_menu_factory->create_sub_menu( 'options-general.php' );
 
-		add_action( $hook, [ $this, 'render' ] );
+		add_action( 'in_admin_header', [ $this, 'render_menu' ] );
+		add_action( $hook, [ $this, 'render_body' ] );
 		add_action( 'load-' . $hook, [ $this, 'load' ] );
 	}
 
-	public function render() {
+	public function render_menu() {
 		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page ) {
-			echo $page->render();
+			$view = new View( [
+				'menu_items' => $page->get_menu()->get_items(),
+				'current'    => $page->get_menu()->get_current(),
+			] );
+
+			echo $view->set_template( 'admin/menu' )->render();
+		}
+	}
+
+	public function render_body() {
+		$page = $this->request_handler->handle( new Request() );
+
+		if ( $page ) {
+			$view = new View( [
+				'content' => $page->get_main()->render(),
+			] );
+
+			echo $view->set_template( 'admin/wrap' )->render();
 		}
 	}
 
