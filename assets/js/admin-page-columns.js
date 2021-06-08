@@ -1001,6 +1001,10 @@ var Form = /** @class */ (function () {
                     var entry = _c.value;
                     var key = entry[0];
                     var value = entry[1];
+<<<<<<< HEAD
+=======
+                    // @ts-ignore
+>>>>>>> origin/develop
                     var element = el.elements[key];
                     data[key] = element.tagName === 'SELECT' && element.hasAttribute('multiple')
                         ? fData.getAll(key)
