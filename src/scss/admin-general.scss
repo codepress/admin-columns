@@ -15,6 +15,51 @@
 	}
 }
 
+.cpac-admin-nav {
+	background: #fff;
+	display: block;
+	padding-left: 70px;
+
+	.cpac-nav {
+		display: flex;
+		margin: 0;
+		padding: 0;
+
+		&__item {
+			flex: 0 0 auto;
+			padding: 0;
+			margin: 0;
+			margin-right: 20px;
+
+			&.-active {
+				border-bottom: 4px solid #000;
+			}
+
+			a {
+				display: inline-block;
+				padding: 30px 0 5px 0;
+				text-transform: uppercase;
+				font-weight: bold;
+				text-decoration: none;
+				border-bottom: 4px solid #fff;
+				color: #000;
+
+				&:hover {
+					border-bottom: 4px solid #000;
+				}
+			}
+		}
+	}
+
+}
+
+.cpac-header {
+	padding: 37px 72px;
+	background: #3D4350;
+	display: flex;
+	width: 100%;
+}
+
 .ac-message {
 	background: #fff;
 	padding: 1px 12px;

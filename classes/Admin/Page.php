@@ -34,6 +34,7 @@ class Page implements Renderable, Registrable {
 	public function render() {
 		?>
 		<div id="cpac" class="wrap">
+			<?= ( new View() )->set_template( 'admin/header' )->render(); ?>
 			<?php
 			$view = new View( [
 				'menu_items' => $this->menu->get_items(),
