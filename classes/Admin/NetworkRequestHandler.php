@@ -3,7 +3,6 @@
 namespace AC\Admin;
 
 use AC;
-use AC\Renderable;
 use AC\Request;
 
 class NetworkRequestHandler implements RequestHandlerInterface {
@@ -17,11 +16,6 @@ class NetworkRequestHandler implements RequestHandlerInterface {
 		self::$handlers[] = $handler;
 	}
 
-	/**
-	 * @param Request $request
-	 *
-	 * @return Renderable|null
-	 */
 	public function handle( Request $request ) {
 		foreach ( array_reverse( self::$handlers ) as $handler ) {
 			$page = $handler->handle( $request );

@@ -381,10 +381,21 @@ html.wp-toolbar .ac-tooltip {
   outline: none;
 }
 
+body.settings_page_codepress-admin-columns #wpcontent {
+  padding-left: 0;
+}
+header.cpac-header {
+  padding: 37px 72px;
+  background: #3D4350;
+  display: flex;
+  width: 100%;
+}
+
 .cpac-admin-nav {
   background: #fff;
-  display: block;
-  padding-left: 70px;
+  display: flex;
+  width: 100%;
+  padding: 0 70px;
 }
 .cpac-admin-nav .cpac-nav {
   display: flex;
@@ -413,13 +424,6 @@ html.wp-toolbar .ac-tooltip {
   border-bottom: 4px solid #000;
 }
 
-.cpac-header {
-  padding: 37px 72px;
-  background: #3D4350;
-  display: flex;
-  width: 100%;
-}
-
 .ac-message {
   background: #fff;
   padding: 1px 12px;
@@ -437,6 +441,9 @@ html.wp-toolbar .ac-tooltip {
   border-left-color: #dc3232;
 }
 
+.wrap {
+  padding: 30px 70px 0;
+}
 .wrap .nav-tab-wrapper {
   margin-bottom: 24px;
 }

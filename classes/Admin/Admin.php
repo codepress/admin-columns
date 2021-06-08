@@ -32,12 +32,12 @@ class Admin implements Registrable {
 	public function init() {
 		$hook = $this->wp_menu_factory->create_sub_menu( 'options-general.php' );
 
-		add_action( 'in_admin_header', [ $this, 'render_menu' ] );
-		add_action( $hook, [ $this, 'render_body' ] );
+		add_action( 'in_admin_header', [ $this, 'menu' ] );
+		add_action( $hook, [ $this, 'body' ] );
 		add_action( 'load-' . $hook, [ $this, 'load' ] );
 	}
 
-	public function render_menu() {
+	public function menu() {
 		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page ) {
@@ -50,7 +50,7 @@ class Admin implements Registrable {
 		}
 	}
 
-	public function render_body() {
+	public function body() {
 		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page ) {

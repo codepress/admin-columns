@@ -4,6 +4,7 @@ namespace AC\Admin;
 
 use AC\Registrable;
 use AC\Request;
+use AC\View;
 
 class AdminNetwork implements Registrable {
 
@@ -23,25 +24,43 @@ class AdminNetwork implements Registrable {
 	}
 
 	public function register() {
-		add_action( 'network_admin_menu', [ $this, 'load' ] );
+		add_action( 'network_admin_menu', [ $this, 'init' ] );
 	}
 
-	public function load() {
+	public function init() {
 		$hook = $this->wp_menu_factory->create_sub_menu( 'settings.php' );
 
-		add_action( $hook, [ $this, 'render_page' ] );
-		add_action( 'load-' . $hook, [ $this, 'register_page' ] );
+		add_action( 'in_admin_header', [ $this, 'menu' ] );
+		add_action( $hook, [ $this, 'body' ] );
+		add_action( 'load-' . $hook, [ $this, 'load' ] );
 	}
 
-	public function render_page() {
+	public function menu() {
 		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page ) {
-			$page->render();
+			$view = new View( [
+				'menu_items' => $page->get_menu()->get_items(),
+				'current'    => $page->get_menu()->get_current(),
+			] );
+
+			echo $view->set_template( 'admin/menu' )->render();
 		}
 	}
 
-	public function register_page() {
+	public function body() {
+		$page = $this->request_handler->handle( new Request() );
+
+		if ( $page ) {
+			$view = new View( [
+				'content' => $page->get_main()->render(),
+			] );
+
+			echo $view->set_template( 'admin/wrap' )->render();
+		}
+	}
+
+	public function load() {
 		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page instanceof Registrable ) {

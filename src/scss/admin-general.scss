@@ -15,10 +15,29 @@
 	}
 }
 
+body.settings_page_codepress-admin-columns {
+	#wpcontent {
+		padding-left: 0;
+
+		#wpbody-content {
+			// TODO
+			//padding: 20px 70px;
+		}
+	}
+}
+
+header.cpac-header {
+	padding: 37px 72px;
+	background: #3D4350;
+	display: flex;
+	width: 100%;
+}
+
 .cpac-admin-nav {
 	background: #fff;
-	display: block;
-	padding-left: 70px;
+	display: flex;
+	width: 100%;
+	padding: 0 70px;
 
 	.cpac-nav {
 		display: flex;
@@ -50,14 +69,6 @@
 			}
 		}
 	}
-
-}
-
-.cpac-header {
-	padding: 37px 72px;
-	background: #3D4350;
-	display: flex;
-	width: 100%;
 }
 
 .ac-message {
@@ -71,11 +82,17 @@
 		margin: 0.5em 0;
 	}
 
-	&.notice-warning { border-left-color: #ffb900; }
-	&.notice-error { border-left-color: #dc3232; }
+	&.notice-warning {
+		border-left-color: #ffb900;
+	}
+
+	&.notice-error {
+		border-left-color: #dc3232;
+	}
 }
 
 .wrap {
+	padding: 30px 70px 0;
 
 	.nav-tab-wrapper {
 		margin-bottom: 24px;
