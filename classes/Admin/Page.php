@@ -31,6 +31,20 @@ class Page implements Renderable, Registrable {
 		$this->scripts = $scripts;
 	}
 
+	/**
+	 * @return Renderable
+	 */
+	public function get_main() {
+		return $this->main;
+	}
+
+	/**
+	 * @return Menu
+	 */
+	public function get_menu() {
+		return $this->menu;
+	}
+
 	public function render() {
 		?>
 		<div id="cpac" class="wrap">

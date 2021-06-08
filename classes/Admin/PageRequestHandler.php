@@ -23,6 +23,11 @@ class PageRequestHandler implements RequestHandlerInterface {
 	}
 
 	public function handle( Request $request ) {
+		// TODO check current screeen id: 'settings_page_codepress-admin-columns'
+		if ( Admin::NAME !== $request->get( 'page' ) ) {
+			return null;
+		}
+
 		return $this->page_factory->create( $request->get( self::PARAM_TAB ) ?: $this->default );
 	}
 

@@ -2,7 +2,6 @@
 
 namespace AC\Admin;
 
-use AC\Renderable;
 use AC\Request;
 
 interface RequestHandlerInterface {
@@ -13,7 +12,7 @@ interface RequestHandlerInterface {
 	/**
 	 * @param Request $request
 	 *
-	 * @return Renderable
+	 * @return Page
 	 */
 	public function handle( Request $request );
 
