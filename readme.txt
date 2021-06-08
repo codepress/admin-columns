@@ -209,10 +209,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 4.3.1 =
 Release Date: tbd
 
-* [Added] Gravity Forms integration promo added
+* [Added] Gravity Forms integration banner added
+* [Fixed] Changing the screen options on the column settings page is not persisted
+* [Fixed] Fixed data formatted labels with sanitation
 * [Fixed] The column value is now sanitized
 
 = 4.3 =
