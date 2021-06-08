@@ -137,7 +137,7 @@ class Screen implements Registrable {
 	 * @return bool
 	 */
 	private function is_main_admin_screen() {
-		$id = 'settings_page_' . Admin::NAME;
+		$id = 'settings_page_' . Admin\Admin::NAME;
 
 		if ( $this->is_admin_network() ) {
 			$id .= '-network';

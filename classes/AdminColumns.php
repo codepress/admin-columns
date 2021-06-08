@@ -2,7 +2,13 @@
 
 namespace AC;
 
+use AC\Admin\Main\Columns;
+use AC\Admin\MainFactory;
+use AC\Admin\MenuFactory;
+use AC\Admin\PageFactory;
+use AC\Admin\PageRequestHandler;
 use AC\Admin\Preference;
+use AC\Admin\RequestHandler;
 use AC\Admin\WpMenuFactory;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
@@ -50,12 +56,15 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
-		AdminFactory::set_factory(
-			new Admin\AdminFactory( $this->storage, $location, new PluginInformation( $this->get_basename() ) )
+		RequestHandler::add_handler(
+			new PageRequestHandler(
+				new PageFactory( $location, new MenuFactory( admin_url( 'options-general.php' ) ), new MainFactory( $this->storage, $location ) ),
+				Columns::NAME
+			)
 		);
 
 		$services = [
-			new Admin\AdminLoader( new WpMenuFactory() ),
+			new Admin\Admin( new RequestHandler(), new WpMenuFactory() ),
 			new Admin\Notice\ReadOnly(),
 			new Ajax\NumberFormat( new Request() ),
 			new Deprecated\Hooks,

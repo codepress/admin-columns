@@ -1,10 +1,11 @@
 <?php
 
-namespace AC;
+namespace AC\Admin;
 
-use AC\Admin\Page;
+use AC\Renderable;
+use AC\Request;
 
-interface PageRequestHandler {
+interface RequestHandlerInterface {
 
 	const PARAM_PAGE = 'page';
 	const PARAM_TAB = 'tab';
@@ -12,7 +13,7 @@ interface PageRequestHandler {
 	/**
 	 * @param Request $request
 	 *
-	 * @return Page
+	 * @return Renderable
 	 */
 	public function handle( Request $request );
 

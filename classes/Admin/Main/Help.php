@@ -1,17 +1,17 @@
 <?php
 
-namespace AC\Admin\Page;
+namespace AC\Admin\Main;
 
 use AC;
-use AC\Admin\Page;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Style;
 use AC\Deprecated\Hooks;
+use AC\Renderable;
 use AC\Type\Url;
 
-class Help extends Page implements Enqueueables {
+class Help implements Enqueueables, Renderable {
 
 	const NAME = 'help';
 
@@ -24,8 +24,6 @@ class Help extends Page implements Enqueueables {
 	private $location;
 
 	public function __construct( Hooks $hooks, Location\Absolute $location ) {
-		parent::__construct( self::NAME );
-
 		$this->hooks = $hooks;
 		$this->location = $location;
 	}

@@ -12,12 +12,18 @@ class Menu {
 	private $url;
 
 	/**
+	 * @var string
+	 */
+	private $current;
+
+	/**
 	 * @var Admin\Menu\Item[]
 	 */
 	private $items;
 
-	public function __construct( $url ) {
+	public function __construct( $url, $current ) {
 		$this->url = $url;
+		$this->current = $current;
 	}
 
 	public function add_item( $slug, $label ) {
@@ -37,6 +43,15 @@ class Menu {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function get_current() {
+		return $this->current;
+	}
+
+
+
+	/**
 	 * @param string $slug
 	 *
 	 * @return string
@@ -44,8 +59,8 @@ class Menu {
 	protected function create_menu_link( $slug ) {
 		return add_query_arg(
 			[
-				PageRequestHandler::PARAM_PAGE => Admin::NAME,
-				PageRequestHandler::PARAM_TAB  => $slug,
+				RequestHandler::PARAM_PAGE => Admin\Admin::NAME,
+				RequestHandler::PARAM_TAB  => $slug,
 			],
 			$this->url
 		);

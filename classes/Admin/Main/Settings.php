@@ -1,15 +1,15 @@
 <?php
 
-namespace AC\Admin\Page;
+namespace AC\Admin\Main;
 
-use AC\Admin\Page;
 use AC\Admin\Section;
 use AC\Admin\SectionCollection;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
+use AC\Renderable;
 use AC\View;
 
-class Settings extends Page implements Enqueueables {
+class Settings implements Enqueueables, Renderable {
 
 	const NAME = 'settings';
 
@@ -19,8 +19,6 @@ class Settings extends Page implements Enqueueables {
 	protected $sections;
 
 	public function __construct( SectionCollection $sections = null ) {
-		parent::__construct( self::NAME );
-
 		if ( null === $sections ) {
 			$sections = new SectionCollection();
 		}
