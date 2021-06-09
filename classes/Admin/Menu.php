@@ -3,8 +3,10 @@
 namespace AC\Admin;
 
 use AC\Admin;
+use AC\Renderable;
+use AC\View;
 
-class Menu {
+class Menu implements Renderable {
 
 	/**
 	 * @var string
@@ -49,8 +51,6 @@ class Menu {
 		return $this->current;
 	}
 
-
-
 	/**
 	 * @param string $slug
 	 *
@@ -64,6 +64,15 @@ class Menu {
 			],
 			$this->url
 		);
+	}
+
+	public function render() {
+		$view = new View( [
+			'menu_items' => $this->get_items(),
+			'current'    => $this->current,
+		] );
+
+		return $view->set_template( 'admin/menu' )->render();
 	}
 
 }

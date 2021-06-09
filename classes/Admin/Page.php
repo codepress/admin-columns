@@ -6,9 +6,8 @@ use AC\Asset\Enqueueable;
 use AC\Asset\Enqueueables;
 use AC\Registrable;
 use AC\Renderable;
-use AC\View;
 
-class Page implements Renderable, Registrable {
+class Page implements Registrable {
 
 	/**
 	 * @var Renderable
@@ -16,37 +15,27 @@ class Page implements Renderable, Registrable {
 	private $main;
 
 	/**
-	 * @var Menu
-	 */
-	private $menu;
-
-	/**
 	 * @var Enqueueables
 	 */
 	private $scripts;
 
-	public function __construct( Renderable $main, Menu $menu, Enqueueables $scripts ) {
+	/**
+	 * @var Renderable
+	 */
+	private $head;
+
+	public function __construct( Renderable $main, Enqueueables $scripts, Renderable $head ) {
 		$this->main = $main;
-		$this->menu = $menu;
 		$this->scripts = $scripts;
+		$this->head = $head;
 	}
 
-	public function render() {
-		?>
-		<div id="cpac" class="wrap">
-			<?php
-			$view = new View( [
-				'menu_items' => $this->menu->get_items(),
-				'current'    => $this->menu->get_current(),
-			] );
+	public function get_main() {
+		return $this->main;
+	}
 
-			echo $view->set_template( 'admin/menu' )->render();
-			?>
-
-			<?= $this->main->render() ?>
-
-		</div>
-		<?php
+	public function get_head() {
+		return $this->head;
 	}
 
 	public function register() {

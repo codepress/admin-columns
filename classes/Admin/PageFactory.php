@@ -42,8 +42,8 @@ class PageFactory implements PageFactoryInterface {
 
 		return new Page(
 			$main,
-			$this->menu_factory->create( $slug ),
-			new AdminScripts( $this->location )
+			new AdminScripts( $this->location ),
+			$this->menu_factory->create( $slug )
 		);
 	}
 
