@@ -16,7 +16,7 @@ class Addons extends Script {
 
 		wp_localize_script( $this->get_handle(), 'AC', [
 			'_ajax_nonce'      => wp_create_nonce( 'ac-ajax' ),
-			'is_network_admin' => is_network_admin() ? 1 : 0,
+			'is_network_admin' => is_network_admin(),
 		] );
 	}
 
