@@ -18,14 +18,14 @@ class RequestHandler implements RequestHandlerInterface {
 
 	public function handle( Request $request ) {
 		foreach ( array_reverse( self::$handlers ) as $handler ) {
-			$renderable = $handler->handle( $request );
+			$page = $handler->handle( $request );
 
-			if ( $renderable ) {
+			if ( $page ) {
 				break;
 			}
 		}
 
-		return apply_filters( 'ac/admin/request/page', $renderable, $request );
+		return apply_filters( 'ac/admin/request/page', $page, $request );
 	}
 
 }

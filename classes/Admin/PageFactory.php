@@ -3,14 +3,8 @@
 namespace AC\Admin;
 
 use AC;
-use AC\Asset\Location;
 
 class PageFactory implements PageFactoryInterface {
-
-	/**
-	 * @var Location\Absolute
-	 */
-	protected $location;
 
 	/**
 	 * @var MenuFactoryInterface
@@ -22,8 +16,7 @@ class PageFactory implements PageFactoryInterface {
 	 */
 	private $main_factory;
 
-	public function __construct( Location\Absolute $location, MenuFactoryInterface $menu_factory, MainFactoryInterface $main_factory ) {
-		$this->location = $location;
+	public function __construct( MenuFactoryInterface $menu_factory, MainFactoryInterface $main_factory ) {
 		$this->menu_factory = $menu_factory;
 		$this->main_factory = $main_factory;
 	}
@@ -36,14 +29,19 @@ class PageFactory implements PageFactoryInterface {
 	public function create( $slug ) {
 		$main = $this->main_factory->create( $slug );
 
+		$main = apply_filters( 'ac/admin/page/main', $main, $slug );
+
 		if ( ! $main ) {
 			return null;
 		}
 
+		$menu = $this->menu_factory->create( $slug );
+
+		do_action( 'ac/admin/page/menu', $menu );
+
 		return new Page(
 			$main,
-			new AdminScripts( $this->location ),
-			$this->menu_factory->create( $slug )
+			$menu
 		);
 	}
 

@@ -15,18 +15,12 @@ class Page implements Registrable {
 	private $main;
 
 	/**
-	 * @var Enqueueables
-	 */
-	private $scripts;
-
-	/**
 	 * @var Renderable
 	 */
 	private $head;
 
-	public function __construct( Renderable $main, Enqueueables $scripts, Renderable $head ) {
+	public function __construct( Renderable $main, Renderable $head ) {
 		$this->main = $main;
-		$this->scripts = $scripts;
 		$this->head = $head;
 	}
 
@@ -55,8 +49,6 @@ class Page implements Registrable {
 			array_map( [ $this, 'enqueue' ], $this->main->get_assets()->all() );
 		}
 
-		array_map( [ $this, 'enqueue' ], $this->scripts->get_assets()->all() );
-
 		do_action( 'ac/admin_scripts', $this->main );
 
 		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
@@ -73,7 +65,6 @@ class Page implements Registrable {
 	}
 
 	public function screen_options( $settings ) {
-
 		if ( $this->main instanceof ScreenOptions ) {
 			$settings .= sprintf( '<legend>%s</legend>', __( 'Display', 'codepress-admin-columns' ) );
 
