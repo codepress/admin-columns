@@ -12,7 +12,7 @@ interface RequestHandlerInterface {
 	/**
 	 * @param Request $request
 	 *
-	 * @return Page
+	 * @return Page|null
 	 */
 	public function handle( Request $request );
 

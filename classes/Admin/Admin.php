@@ -20,9 +20,15 @@ class Admin implements Registrable {
 	 */
 	private $wp_menu_factory;
 
-	public function __construct( RequestHandlerInterface $request_handler, WpMenuFactory $wp_menu_factory ) {
+	/**
+	 * @var AdminScripts
+	 */
+	private $scripts;
+
+	public function __construct( RequestHandlerInterface $request_handler, WpMenuFactory $wp_menu_factory, AdminScripts $scripts ) {
 		$this->request_handler = $request_handler;
 		$this->wp_menu_factory = $wp_menu_factory;
+		$this->scripts = $scripts;
 	}
 
 	public function register() {
@@ -41,7 +47,7 @@ class Admin implements Registrable {
 		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page ) {
-			echo $page->get_menu()->render();
+			echo $page->get_head()->render();
 		}
 	}
 
@@ -62,6 +68,10 @@ class Admin implements Registrable {
 
 		if ( $page instanceof Registrable ) {
 			$page->register();
+		}
+
+		foreach ( $this->scripts->get_assets()->all() as $asset ) {
+			$asset->enqueue();
 		}
 	}
 

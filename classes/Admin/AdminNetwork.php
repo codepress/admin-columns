@@ -18,9 +18,15 @@ class AdminNetwork implements Registrable {
 	 */
 	private $wp_menu_factory;
 
-	public function __construct( NetworkRequestHandler $request_handler, WpMenuFactory $wp_menu_factory ) {
+	/**
+	 * @var AdminScripts
+	 */
+	private $scripts;
+
+	public function __construct( NetworkRequestHandler $request_handler, WpMenuFactory $wp_menu_factory, AdminScripts $scripts ) {
 		$this->request_handler = $request_handler;
 		$this->wp_menu_factory = $wp_menu_factory;
+		$this->scripts = $scripts;
 	}
 
 	public function register() {
@@ -39,12 +45,7 @@ class AdminNetwork implements Registrable {
 		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page ) {
-			$view = new View( [
-				'menu_items' => $page->get_menu()->get_items(),
-				'current'    => $page->get_menu()->get_current(),
-			] );
-
-			echo $view->set_template( 'admin/menu' )->render();
+			echo $page->get_head()->render();
 		}
 	}
 
@@ -65,6 +66,10 @@ class AdminNetwork implements Registrable {
 
 		if ( $page instanceof Registrable ) {
 			$page->register();
+		}
+
+		foreach ( $this->scripts->get_assets()->all() as $asset ) {
+			$asset->enqueue();
 		}
 	}
 
