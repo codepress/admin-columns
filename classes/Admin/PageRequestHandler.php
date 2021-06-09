@@ -23,7 +23,7 @@ class PageRequestHandler implements RequestHandlerInterface {
 	}
 
 	public function handle( Request $request ) {
-		return $this->page_factory->create( $request->get( self::PARAM_TAB ) ?: $this->default );
+		return $this->page_factory->create( $request->get_query()->get( self::PARAM_TAB ) ?: $this->default );
 	}
 
 }

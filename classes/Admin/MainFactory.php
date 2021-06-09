@@ -8,6 +8,7 @@ use AC\DefaultColumnsRepository;
 use AC\Deprecated\Hooks;
 use AC\Integrations;
 use AC\ListScreenRepository\Storage;
+use AC\Renderable;
 
 class MainFactory implements MainFactoryInterface {
 
@@ -29,7 +30,7 @@ class MainFactory implements MainFactoryInterface {
 	/**
 	 * @param string $slug
 	 *
-	 * @return AC\Renderable|null
+	 * @return Renderable|null
 	 */
 	public function create( $slug ) {
 
