@@ -207,7 +207,7 @@ class AddonDownload {
         let data = {
             action: 'acp-install-addon',
             plugin_name: this.slug,
-            network_wide: AC.is_network_admin,
+            ac_network_wide: AC.is_network_admin,
             _ajax_nonce: AC._ajax_nonce
         };
         return jquery__WEBPACK_IMPORTED_MODULE_1___default.a.ajax({
