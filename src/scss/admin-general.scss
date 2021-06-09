@@ -18,9 +18,21 @@
 
 body.settings_page_codepress-admin-columns {
 
+	.notice {
+		display: none;
+	}
+
+	#cpac {
+		.notice {
+			display: block;
+		}
+	}
+
+
 	#wpcontent {
 		padding-left: 0px;
 	}
+
 	.wrap {
 		padding: 30px 10px 0 30px;
 
@@ -111,7 +123,7 @@ header.cpac-header {
 
 				&:hover, &:focus {
 					box-shadow: none;
-					outline: none!important;
+					outline: none !important;
 					color: $blue;
 				}
 			}

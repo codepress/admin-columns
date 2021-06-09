@@ -381,6 +381,12 @@ html.wp-toolbar .ac-tooltip {
   outline: none;
 }
 
+body.settings_page_codepress-admin-columns .notice {
+  display: none;
+}
+body.settings_page_codepress-admin-columns #cpac .notice {
+  display: block;
+}
 body.settings_page_codepress-admin-columns #wpcontent {
   padding-left: 0px;
 }
