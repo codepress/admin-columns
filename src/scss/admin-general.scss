@@ -16,28 +16,54 @@
 }
 
 body.settings_page_codepress-admin-columns {
-	#wpcontent {
-		padding-left: 0;
 
-		#wpbody-content {
-			// TODO
-			//padding: 20px 70px;
+	#wpcontent {
+		padding-left: 0px;
+	}
+	.wrap {
+		padding: 30px 10px 0 30px;
+
+		.nav-tab-wrapper {
+			margin-bottom: 24px;
+		}
+
+		.notice {
+			margin-top: 16px;
+			margin-bottom: 16px;
+		}
+
+	}
+
+	@media only screen and (min-width: 1050px) {
+		.wrap {
+			padding: 30px 40px 0;
+		}
+	}
+	@media only screen and (min-width: 1450px) {
+		.wrap {
+			padding: 30px 70px 0;
 		}
 	}
 }
 
 header.cpac-header {
-	padding: 37px 72px;
+	padding: 37px 32px;
 	background: #3D4350;
 	display: flex;
-	width: 100%;
+
+	@media only screen and (min-width: 1050px) {
+		padding: 37px 42px;
+	}
+
+	@media only screen and (min-width: 1450px) {
+		padding: 37px 72px;
+	}
 }
 
 .cpac-admin-nav {
 	background: #fff;
 	display: flex;
-	width: 100%;
-	padding: 0 70px;
+	padding: 0 30px;
 
 	.cpac-nav {
 		display: flex;
@@ -50,24 +76,34 @@ header.cpac-header {
 			margin: 0;
 			margin-right: 20px;
 
-			&.-active {
+			&.-active a {
 				border-bottom: 4px solid #000;
 			}
 
 			a {
 				display: inline-block;
-				padding: 30px 0 5px 0;
+				padding: 30px 0 10px 0;
 				text-transform: uppercase;
 				font-weight: bold;
 				text-decoration: none;
 				border-bottom: 4px solid #fff;
 				color: #000;
 
-				&:hover {
+				&:hover, &:focus {
+					box-shadow: none;
+					outline: none!important;
 					border-bottom: 4px solid #000;
 				}
 			}
 		}
+	}
+
+	@media only screen and (min-width: 1050px) {
+		padding: 0 40px;
+	}
+
+	@media only screen and (min-width: 1450px) {
+		padding: 0 70px;
 	}
 }
 
@@ -91,19 +127,6 @@ header.cpac-header {
 	}
 }
 
-.wrap {
-	padding: 30px 70px 0;
-
-	.nav-tab-wrapper {
-		margin-bottom: 24px;
-	}
-
-	.notice {
-		margin-top: 16px;
-		margin-bottom: 16px;
-	}
-
-}
 
 .ac-badge {
 	display: inline-block;

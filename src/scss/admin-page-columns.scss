@@ -63,12 +63,13 @@
 
 .ac-admin {
 	$e: &;
-	max-width: 1200px;
+	max-width: 1400px;
 
 	&__wrap {
+		display: flex;
+		flex-direction: column-reverse;
 
-		@media only screen and (min-width: 900px) {
-			display: flex;
+		@media only screen and (min-width: 1200px) {
 			flex-direction: row-reverse;
 
 			#{$e}__main {
@@ -86,6 +87,11 @@
 					margin-left: 0;
 					margin-right: 20px;
 				}
+			}
+		}
+		@media only screen and (min-width: 1500px) {
+			#{$e}__sidebar {
+				flex: 0 0 340px;
 			}
 		}
 	}
@@ -818,6 +824,7 @@ div.ac-column-header {
 					position: relative;
 					cursor: move;
 					padding: 9px 12px;
+					width: 1px;
 
 					span.cpacicon-move {
 						position: absolute;
@@ -952,12 +959,6 @@ div.ac-column-header {
 
 							}
 						}
-					}
-
-					// wp default icon
-					span.vers {
-						//float: left;
-
 					}
 				}
 

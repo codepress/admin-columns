@@ -382,20 +382,49 @@ html.wp-toolbar .ac-tooltip {
 }
 
 body.settings_page_codepress-admin-columns #wpcontent {
-  padding-left: 0;
+  padding-left: 0px;
 }
+body.settings_page_codepress-admin-columns .wrap {
+  padding: 30px 10px 0 30px;
+}
+body.settings_page_codepress-admin-columns .wrap .nav-tab-wrapper {
+  margin-bottom: 24px;
+}
+body.settings_page_codepress-admin-columns .wrap .notice {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+@media only screen and (min-width: 1050px) {
+  body.settings_page_codepress-admin-columns .wrap {
+    padding: 30px 40px 0;
+  }
+}
+@media only screen and (min-width: 1450px) {
+  body.settings_page_codepress-admin-columns .wrap {
+    padding: 30px 70px 0;
+  }
+}
+
 header.cpac-header {
-  padding: 37px 72px;
+  padding: 37px 32px;
   background: #3D4350;
   display: flex;
-  width: 100%;
+}
+@media only screen and (min-width: 1050px) {
+  header.cpac-header {
+    padding: 37px 42px;
+  }
+}
+@media only screen and (min-width: 1450px) {
+  header.cpac-header {
+    padding: 37px 72px;
+  }
 }
 
 .cpac-admin-nav {
   background: #fff;
   display: flex;
-  width: 100%;
-  padding: 0 70px;
+  padding: 0 30px;
 }
 .cpac-admin-nav .cpac-nav {
   display: flex;
@@ -408,20 +437,32 @@ header.cpac-header {
   margin: 0;
   margin-right: 20px;
 }
-.cpac-admin-nav .cpac-nav__item.-active {
+.cpac-admin-nav .cpac-nav__item.-active a {
   border-bottom: 4px solid #000;
 }
 .cpac-admin-nav .cpac-nav__item a {
   display: inline-block;
-  padding: 30px 0 5px 0;
+  padding: 30px 0 10px 0;
   text-transform: uppercase;
   font-weight: bold;
   text-decoration: none;
   border-bottom: 4px solid #fff;
   color: #000;
 }
-.cpac-admin-nav .cpac-nav__item a:hover {
+.cpac-admin-nav .cpac-nav__item a:hover, .cpac-admin-nav .cpac-nav__item a:focus {
+  box-shadow: none;
+  outline: none !important;
   border-bottom: 4px solid #000;
+}
+@media only screen and (min-width: 1050px) {
+  .cpac-admin-nav {
+    padding: 0 40px;
+  }
+}
+@media only screen and (min-width: 1450px) {
+  .cpac-admin-nav {
+    padding: 0 70px;
+  }
 }
 
 .ac-message {
@@ -439,17 +480,6 @@ header.cpac-header {
 }
 .ac-message.notice-error {
   border-left-color: #dc3232;
-}
-
-.wrap {
-  padding: 30px 70px 0;
-}
-.wrap .nav-tab-wrapper {
-  margin-bottom: 24px;
-}
-.wrap .notice {
-  margin-top: 16px;
-  margin-bottom: 16px;
 }
 
 .ac-badge {
