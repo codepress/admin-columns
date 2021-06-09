@@ -3,27 +3,22 @@
 namespace AC\Admin;
 
 use AC;
-use AC\Asset\Location;
-use AC\DefaultColumnsRepository;
-use AC\Deprecated\Hooks;
-use AC\Integrations;
-use AC\ListScreenRepository\Storage;
 
 class PageFactory implements PageFactoryInterface {
 
 	/**
-	 * @var Storage
+	 * @var MenuFactoryInterface
 	 */
-	protected $storage;
+	protected $menu_factory;
 
 	/**
-	 * @var Location\Absolute
+	 * @var MainFactory
 	 */
-	protected $location;
+	private $main_factory;
 
-	public function __construct( Storage $storage, Location\Absolute $location ) {
-		$this->storage = $storage;
-		$this->location = $location;
+	public function __construct( MenuFactoryInterface $menu_factory, MainFactoryInterface $main_factory ) {
+		$this->menu_factory = $menu_factory;
+		$this->main_factory = $main_factory;
 	}
 
 	/**
@@ -32,29 +27,22 @@ class PageFactory implements PageFactoryInterface {
 	 * @return Page|null
 	 */
 	public function create( $slug ) {
+		$main = $this->main_factory->create( $slug );
 
-		switch ( $slug ) {
-			case Page\Help::NAME :
-				return new Page\Help( new Hooks(), $this->location );
-			case Page\Settings::NAME :
-				$sections = new SectionCollection();
-				$sections->add( new Section\General( [ new Section\Partial\ShowEditButton() ] ) )
-				         ->add( new Section\Restore() );
+		$main = apply_filters( 'ac/admin/page/main', $main, $slug );
 
-				return new Page\Settings( $sections );
-			case Page\Addons::NAME :
-				return new Page\Addons( $this->location, new Integrations() );
-			case Page\Columns::NAME :
-				return new Page\Columns(
-					$this->location,
-					new DefaultColumnsRepository(),
-					new Section\Partial\Menu(),
-					$this->storage,
-					new Preference\ListScreen()
-				);
+		if ( ! $main ) {
+			return null;
 		}
 
-		return null;
+		$menu = $this->menu_factory->create( $slug );
+
+		do_action( 'ac/admin/page/menu', $menu );
+
+		return new Page(
+			$main,
+			$menu
+		);
 	}
 
 }

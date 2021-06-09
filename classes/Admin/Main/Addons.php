@@ -1,17 +1,17 @@
 <?php
 
-namespace AC\Admin\Page;
+namespace AC\Admin\Main;
 
 use AC;
 use AC\Admin;
-use AC\Admin\Page;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Style;
 use AC\PluginInformation;
+use AC\Renderable;
 
-class Addons extends Page implements Enqueueables {
+class Addons implements Enqueueables, Renderable {
 
 	const NAME = 'addons';
 
@@ -26,8 +26,6 @@ class Addons extends Page implements Enqueueables {
 	private $integrations;
 
 	public function __construct( Location\Absolute $location, AC\Integrations $integrations ) {
-		parent::__construct( self::NAME );
-
 		$this->location = $location;
 		$this->integrations = $integrations;
 	}

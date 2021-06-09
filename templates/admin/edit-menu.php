@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="menu <?php echo $this->class; ?>">
 	<form>
-		<input type="hidden" name="page" value="<?php echo esc_attr( \AC\Admin::NAME ); ?>">
+		<input type="hidden" name="page" value="<?php echo esc_attr( \AC\Admin\Admin::NAME ); ?>">
 
 		<?php
 		$select = new \AC\Form\Element\Select( 'list_screen', $this->items );

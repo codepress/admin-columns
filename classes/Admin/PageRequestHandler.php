@@ -5,26 +5,25 @@ namespace AC\Admin;
 use AC;
 use AC\Request;
 
-class PageRequestHandler implements AC\PageRequestHandler {
+class PageRequestHandler implements RequestHandlerInterface {
 
 	/**
 	 * @var PageFactory
 	 */
 	private $page_factory;
 
-	public function __construct( PageFactoryInterface $page_factory ) {
+	/**
+	 * @var string
+	 */
+	private $default;
+
+	public function __construct( PageFactory $page_factory, $default = '' ) {
 		$this->page_factory = $page_factory;
+		$this->default = $default;
 	}
 
-	/**
-	 * @param Request $request
-	 *
-	 * @return Page|null
-	 */
 	public function handle( Request $request ) {
-		$page = $this->page_factory->create( $request->get_query()->get( self::PARAM_TAB ) ?: Page\Columns::NAME );
-
-		return apply_filters( 'ac/admin/request/page', $page, $request );
+		return $this->page_factory->create( $request->get_query()->get( self::PARAM_TAB ) ?: $this->default );
 	}
 
 }

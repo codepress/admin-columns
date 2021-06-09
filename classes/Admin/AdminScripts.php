@@ -2,6 +2,7 @@
 
 namespace AC\Admin;
 
+use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Script;
@@ -19,11 +20,11 @@ class AdminScripts implements Enqueueables {
 	}
 
 	public function get_assets() {
-		return [
+		return new Assets( [
 			new Style( 'wp-pointer' ),
 			new Script( 'ac-admin-general', $this->location->with_suffix( 'assets/js/admin-general.js' ), [ 'jquery', 'wp-pointer' ] ),
 			new Style( 'ac-admin', $this->location->with_suffix( 'assets/css/admin-general.css' ) ),
-		];
+		] );
 	}
 
 }

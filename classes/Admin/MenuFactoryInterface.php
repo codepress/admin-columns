@@ -7,8 +7,10 @@ use AC;
 interface MenuFactoryInterface {
 
 	/**
+	 * @param string $current
+	 *
 	 * @return Menu
 	 */
-	public function create();
+	public function create( $current );
 
 }
