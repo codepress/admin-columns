@@ -25,6 +25,11 @@ class Admin implements Registrable {
 	 */
 	private $scripts;
 
+	/**
+	 * @var string
+	 */
+	private $hook;
+
 	public function __construct( RequestHandlerInterface $request_handler, WpMenuFactory $wp_menu_factory, AdminScripts $scripts ) {
 		$this->request_handler = $request_handler;
 		$this->wp_menu_factory = $wp_menu_factory;
@@ -36,14 +41,18 @@ class Admin implements Registrable {
 	}
 
 	public function init() {
-		$hook = $this->wp_menu_factory->create_sub_menu( 'options-general.php' );
+		$this->hook = $this->wp_menu_factory->create_sub_menu( 'options-general.php' );
 
 		add_action( 'in_admin_header', [ $this, 'menu' ] );
-		add_action( $hook, [ $this, 'body' ] );
-		add_action( 'load-' . $hook, [ $this, 'load' ] );
+		add_action( $this->hook, [ $this, 'body' ] );
+		add_action( 'load-' . $this->hook, [ $this, 'load' ] );
 	}
 
 	public function menu() {
+		if ( $this->hook !== 'settings_page_' . Admin::NAME ) {
+			return;
+		}
+
 		$page = $this->request_handler->handle( new Request() );
 
 		if ( $page ) {
