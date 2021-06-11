@@ -17,7 +17,7 @@ class Hooks {
 	public function get_count( $force_update = false ) {
 		$cache = new Transient( 'ac-deprecated-message-count' );
 
-		if ( $cache->is_expired() || (bool) $force_update ) {
+		if ( $force_update || $cache->is_expired() ) {
 			$cache->save( $this->get_deprecated_count(), WEEK_IN_SECONDS );
 		}
 
@@ -95,7 +95,9 @@ class Hooks {
 		$columns = [];
 		foreach ( ListScreenTypes::instance()->get_list_screens() as $list_screen ) {
 			foreach ( $list_screen->get_column_types() as $column ) {
-				$columns[ $column->get_type() ] = $column->get_type();
+				$column_type = $column->get_type();
+
+				$columns[ $column_type ] = $column_type;
 			}
 		}
 
@@ -103,10 +105,10 @@ class Hooks {
 	}
 
 	/**
-	 * @return Action[]
+	 * @return Hook[]
 	 */
 	private function get_actions() {
-		$hooks = [
+		return [
 			new Action( 'cac/admin_head', '3.0', 'cac-admin_head' ),
 			new Action( 'cac/loaded', '3.0', 'cac-loaded' ),
 			new Action( 'cac/inline-edit/after_ajax_column_save', '3.0', 'cacinline-editafter_ajax_column_save' ),
@@ -121,28 +123,26 @@ class Hooks {
 			new Action( 'cac/settings/after_menu', '3.0' ),
 			new Action( 'ac/settings/general', '3.4' ),
 		];
-
-		return $hooks;
 	}
 
 	/**
-	 * @return Filter[]
+	 * @return Hook[]
 	 */
 	public function get_deprecated_filters() {
 		return $this->check_deprecated_hooks( $this->get_filters() );
 	}
 
 	/**
-	 * @return Action[]
+	 * @return Hook[]
 	 */
 	public function get_deprecated_actions() {
 		return $this->check_deprecated_hooks( $this->get_actions() );
 	}
 
 	/**
-	 * @param array $hooks
+	 * @param Hook[] $hooks
 	 *
-	 * @return array
+	 * @return Hook[]
 	 */
 	private function check_deprecated_hooks( $hooks ) {
 		$deprecated = [];

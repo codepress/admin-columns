@@ -29,7 +29,7 @@ $addon-color-link: #0073aa;
 		overflow: hidden;
 
 		.ac-addon {
-			width: 200px;
+			width: 250px;
 			background: #FFF;
 			float: left;
 			margin-right: 16px;
@@ -49,9 +49,6 @@ $addon-color-link: #0073aa;
 				box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.25);
 			}
 
-			a {
-				color: #444;
-			}
 			a.button-primary {
 				color: #fff;
 			}

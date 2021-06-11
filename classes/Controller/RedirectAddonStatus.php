@@ -2,6 +2,8 @@
 
 namespace AC\Controller;
 
+use AC\Admin\AddonStatus;
+use AC\Admin\Main\Addons;
 use AC\Integration;
 use AC\Integrations;
 use AC\Registrable;
@@ -9,17 +11,11 @@ use AC\Registrable;
 class RedirectAddonStatus implements Registrable {
 
 	/**
-	 * @var string
-	 */
-	private $url;
-
-	/**
 	 * @var Integrations
 	 */
 	private $integrations;
 
-	public function __construct( $url, Integrations $integrations ) {
-		$this->url = $url;
+	public function __construct( Integrations $integrations ) {
 		$this->integrations = $integrations;
 	}
 
@@ -54,7 +50,9 @@ class RedirectAddonStatus implements Registrable {
 	public function redirect_after_status_change( $location ) {
 		global $pagenow;
 
-		if ( 'plugins.php' !== $pagenow || ! filter_input( INPUT_GET, 'ac-redirect' ) || filter_input( INPUT_GET, 'error' ) ) {
+		$redirect_to = filter_input( INPUT_GET, AddonStatus::REDIRECT_PARAM );
+
+		if ( 'plugins.php' !== $pagenow || ! $redirect_to || filter_input( INPUT_GET, 'error' ) ) {
 			return $location;
 		}
 
@@ -70,11 +68,15 @@ class RedirectAddonStatus implements Registrable {
 			return $location;
 		}
 
+		$url = AddonStatus::REDIRECT_TO_NETWORK == $redirect_to
+			? ac_get_admin_network_url( Addons::NAME )
+			: ac_get_admin_url( Addons::NAME );
+
 		$location = add_query_arg( [
 			'status'    => $status,
 			'plugin'    => $integration->get_slug(),
 			'_ac_nonce' => wp_create_nonce( 'ac-plugin-status-change' ),
-		], $this->url );
+		], $url );
 
 		return $location;
 	}

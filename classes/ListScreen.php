@@ -3,6 +3,7 @@
 namespace AC;
 
 use AC\Column\Placeholder;
+use AC\Sanitize\Kses;
 use AC\Type\ListScreenId;
 use DateTime;
 use LogicException;
@@ -820,7 +821,7 @@ abstract class ListScreen {
 			return $original_value;
 		}
 
-		$value = $column->get_value( $id );
+		$value = ( new Kses() )->sanitize( $column->get_value( $id ) );
 
 		// You can overwrite the display value for original columns by making sure get_value() does not return an empty string.
 		if ( $column->is_original() && ac_helper()->string->is_empty( $value ) ) {

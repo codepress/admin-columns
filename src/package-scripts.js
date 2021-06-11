@@ -1,27 +1,25 @@
-let core_path = '../assets/';
+const npsUtils = require( "nps-utils" );
+const core_path = '../assets/';
 
 module.exports = {
 	scripts : {
 		build : {
-			production : 'nps "styles.production" & nps "scripts.production"',
-			development : 'nps "styles.development" & nps "scripts.development"',
+			default : npsUtils.series.nps(
+				'styles.build --style=compressed --no-source-map',
+				'scripts --mode=production',
+				'languages',
+				'clean'
+			),
+			development : npsUtils.concurrent.nps(
+				'styles.build -w',
+				'scripts --mode=development'
+			),
 		},
-		styles : {
-			production : `rimraf ${core_path}css/*.map && node-sass scss --output-style compressed --o ${core_path}css/`,
-			development : `nps "styles.production" && node-sass scss -w --source-map true --output-style compressed --o ${core_path}css/`
-		},
-		scripts : {
-			production : `webpack --mode=production`,
-			development : `webpack --mode=development`,
-		},
-		webfont : {
-			build : `nps "webfont.copy_fonts" & nps "webfont.copy_scss" & nps "styles.production"`,
-			create_fonts : `webfont svg/*.svg --dest webfont/fonts --dest-styles webfont/scss`,
-			copy_fonts : `cp -a webfont/fonts/. ${core_path}fonts/`,
-			copy_scss : `cp webfont/scss/template.scss scss/_webfont.scss`,
-		},
+		clean : npsUtils.rimraf( `${core_path}*/*.map` ),
+		styles : `sass scss:${core_path}css/`,
+		scripts : 'webpack',
 		languages : {
-			production : 'nps "languages.build_pot" & nps "languages.pull_language"',
+			default : 'nps "languages.build_pot" & nps "languages.pull_language"',
 			build_pot : "node languages.js",
 			pull_languages : "( cd .. ; ./getlangs )"
 		}
