@@ -1,4 +1,17 @@
 @charset "UTF-8";
+.ac-article {
+  padding: 45px;
+  background: #FFFFFF;
+  border: 1px solid #E1E1E1;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 2px -1px rgba(0, 0, 0, 0.14);
+  border-radius: 3px;
+}
+.ac-article__title {
+  margin: 0;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
 @font-face {
   font-family: "cpac_icons";
   src: url("../fonts/cpac_icons.woff2?v=942947") format("woff2"), url("../fonts/cpac_icons.woff?v=452198") format("woff");
@@ -372,6 +385,26 @@ html.wp-toolbar .ac-tooltip {
   left: calc(100% - 13px);
 }
 
+.ac-input-group {
+  display: flex;
+}
+
+.ac-input {
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #979797;
+}
+
+.ac-btn-primary {
+  background: #e9426e;
+  border: 1px solid #e9426e;
+  color: #fff;
+  padding: 10px 40px;
+  font-size: 15px;
+  display: inline-block;
+  cursor: pointer;
+}
+
 /**
  * General
  * ----------------------------------------------------------------------------
@@ -665,6 +698,10 @@ table.ac-form-table .general form p.save-button {
 }
 .ac-wp-pointer .wp-pointer-arrow {
   pointer-events: none;
+}
+
+.ac-section-group.-start {
+  max-width: 560px;
 }
 
 .ac-section {

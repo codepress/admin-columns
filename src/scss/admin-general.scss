@@ -1,9 +1,12 @@
+@import 'articles';
 @import 'admin-variables';
 @import 'colors';
 @import 'modals';
 @import 'admin-rtl';
 @import 'components/tooltip';
 @import 'components/toggle';
+@import 'components/forms';
+
 
 /**
  * General
@@ -16,9 +19,9 @@
 	}
 }
 
-
 .cpac-step-nav {
 	display: flex;
+
 	&__item {
 		padding: 15px 45px 15px 0;
 		margin: 0;
@@ -359,7 +362,9 @@ table.ac-form-table {
 
 
 .ac-section-group {
-
+	&.-start {
+		max-width: 560px;
+	}
 }
 
 .ac-section {

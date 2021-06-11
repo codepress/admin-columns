@@ -1,0 +1,19 @@
+.ac-input-group {
+	display: flex;
+}
+
+.ac-input {
+	padding: 10px;
+	font-size: 15px;
+	border: 1px solid #979797;
+}
+
+.ac-btn-primary {
+	background: $ac-pink;
+	border: 1px solid $ac-pink;
+	color: #fff;
+	padding: 10px 40px;
+	font-size: 15px;
+	display: inline-block;
+	cursor: pointer;
+}
