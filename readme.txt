@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.3.1 =
-Release Date: tbd
+Release Date: June 11th, 2021
 
 * [Added] Gravity Forms integration banner added
 * [Fixed] Changing the screen options on the column settings page is not persisted
