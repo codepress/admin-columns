@@ -403,6 +403,9 @@ html.wp-toolbar .ac-tooltip {
 .cpac-step-nav__item.-active {
   opacity: 1;
 }
+.cpac-step-nav__item:last-child {
+  background: none;
+}
 
 body.settings_page_codepress-admin-columns .notice {
   display: none;
