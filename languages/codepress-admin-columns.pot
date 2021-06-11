@@ -15,10 +15,6 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/Admin.php:103, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:115, classes/Settings/Column/Post.php:90, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54
-msgid "Display"
-msgstr ""
-
 #: classes/ColumnGroups.php:13, classes/Settings/Column/CustomFieldType.php:188, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:25, templates/admin/help-tab/custom-fields.php:6, classes/Helper/Select/Group/CustomField/MultiSite.php:53
 msgid "Default"
 msgstr ""
@@ -35,7 +31,7 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: classes/PluginActionLinks.php:40, classes/Admin/MenuFactory.php:27
+#: classes/PluginActionLinks.php:40, classes/Admin/MenuFactory.php:22
 msgid "Settings"
 msgstr ""
 
@@ -43,7 +39,7 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
-#: classes/Admin/AddonStatus.php:42, classes/Admin/Page/Addons.php:130
+#: classes/Admin/AddonStatus.php:42, classes/Admin/Main/Addons.php:128
 msgid "Active"
 msgstr ""
 
@@ -71,16 +67,20 @@ msgstr ""
 msgid "Get this add-on"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:26
-msgid "Columns"
-msgstr ""
-
-#: classes/Admin/MenuFactory.php:28
+#: classes/Admin/MenuFactory.php:23
 msgid "Add-ons"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:34, classes/Admin/Page/Help.php:135
+#: classes/Admin/MenuFactory.php:21
+msgid "Columns"
+msgstr ""
+
+#: classes/Admin/MenuFactory.php:28, classes/Admin/Main/Help.php:133
 msgid "Help"
+msgstr ""
+
+#: classes/Admin/Page.php:69, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:115, classes/Settings/Column/Post.php:90, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54
+msgid "Display"
 msgstr ""
 
 #: classes/Admin/Tooltip.php:29
@@ -91,11 +91,11 @@ msgstr ""
 msgid "Instructions"
 msgstr ""
 
-#: classes/Admin/WpMenuFactory.php:17, classes/Admin/WpMenuFactory.php:35
+#: classes/Admin/WpMenuFactory.php:19, classes/Admin/WpMenuFactory.php:34
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin/WpMenuFactory.php:18, classes/Admin/WpMenuFactory.php:36, classes/Check/Review.php:148, classes/Table/Screen.php:464
+#: classes/Admin/WpMenuFactory.php:20, classes/Admin/WpMenuFactory.php:35, classes/Check/Review.php:148, classes/Table/Screen.php:464
 msgid "Admin Columns"
 msgstr ""
 
@@ -802,66 +802,66 @@ msgstr ""
 msgid "Overview"
 msgstr ""
 
-#: classes/Admin/Notice/ReadOnly.php:18
-msgid "The columns for %s are read only and can therefore not be edited."
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:122
+#: classes/Admin/Main/Addons.php:120
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:138
+#: classes/Admin/Main/Addons.php:136
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:203
+#: classes/Admin/Main/Columns.php:201
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:212
+#: classes/Admin/Main/Columns.php:210
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:46
+#: classes/Admin/Main/Help.php:44
 msgid "View documentation"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:60
+#: classes/Admin/Main/Help.php:58
 msgid "The callback used is %s."
 msgid_plural "The callbacks used are %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/Admin/Page/Help.php:74
+#: classes/Admin/Main/Help.php:72
 msgid "Deprecated Actions"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:78
+#: classes/Admin/Main/Help.php:76
 msgid "The action %s used on this website is deprecated since %s."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:103
+#: classes/Admin/Main/Help.php:101
 msgid "Deprecated Filters"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:107
+#: classes/Admin/Main/Help.php:105
 msgid "The filter %s used on this website is deprecated since %s."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:137
+#: classes/Admin/Main/Help.php:135
 msgid "The Admin Columns plugin has undergone some major changes in version 4."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:141
+#: classes/Admin/Main/Help.php:139
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
 msgstr ""
 
-#: classes/Admin/Page/Help.php:144
+#: classes/Admin/Main/Help.php:142
 msgid "our documentation"
 msgstr ""
 
-#: classes/Admin/Page/Help.php:156
+#: classes/Admin/Main/Help.php:154
 msgid "No deprecated hooks or filters found."
+msgstr ""
+
+#: classes/Admin/Notice/ReadOnly.php:18
+msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
 #: classes/Admin/ScreenOption/ColumnId.php:32
@@ -1272,7 +1272,7 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: classes/Settings/Column/CommentLink.php:56, classes/Settings/Column/MediaLink.php:53, classes/Settings/Column/PostLink.php:58, classes/Settings/Column/TermLink.php:27, classes/Settings/Column/UserLink.php:60
+#: classes/Settings/Column/CommentLink.php:56, classes/Settings/Column/MediaLink.php:53, classes/Settings/Column/PostLink.php:58, classes/Settings/Column/TermLink.php:27, classes/Settings/Column/UserLink.php:67
 msgid "Link To"
 msgstr ""
 
@@ -1488,11 +1488,11 @@ msgstr ""
 msgid "Custom Size"
 msgstr ""
 
-#: classes/Settings/Column/Label.php:29
+#: classes/Settings/Column/Label.php:30
 msgid "Label"
 msgstr ""
 
-#: classes/Settings/Column/Label.php:30
+#: classes/Settings/Column/Label.php:31
 msgid "This is the name which will appear as the column header."
 msgstr ""
 
@@ -1718,7 +1718,7 @@ msgstr ""
 msgid "User Login"
 msgstr ""
 
-#: classes/Settings/Column/User.php:83, classes/Settings/Column/UserLink.php:70
+#: classes/Settings/Column/User.php:83, classes/Settings/Column/UserLink.php:77
 msgid "User Email"
 msgstr ""
 
@@ -1726,15 +1726,15 @@ msgstr ""
 msgid "User Nicename"
 msgstr ""
 
-#: classes/Settings/Column/UserLink.php:69
+#: classes/Settings/Column/UserLink.php:76
 msgid "Edit User Profile"
 msgstr ""
 
-#: classes/Settings/Column/UserLink.php:71
+#: classes/Settings/Column/UserLink.php:78
 msgid "View User Posts"
 msgstr ""
 
-#: classes/Settings/Column/UserLink.php:72
+#: classes/Settings/Column/UserLink.php:79
 msgid "View Public Author Page"
 msgstr ""
 

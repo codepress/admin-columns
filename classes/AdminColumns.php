@@ -146,7 +146,7 @@ class AdminColumns extends Plugin {
 	}
 
 	public function admin() {
-		_deprecated_function( __METHOD__, 'NEWVERSION' );
+		_deprecated_function( __METHOD__, '4.3.1' );
 	}
 
 	/**

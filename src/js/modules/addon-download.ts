@@ -1,10 +1,10 @@
 import WPNotice from "./notice";
 // @ts-ignore
 import $ from 'jquery';
-import {LocalizedAcColumnSettings} from "../types/admin-columns";
+import {LocalizedAcAddonSettings} from "../types/admin-columns";
 
 declare let ajaxurl: string;
-declare let AC: LocalizedAcColumnSettings
+declare let AC: LocalizedAcAddonSettings
 
 export class AddonDownload {
 
@@ -120,6 +120,7 @@ export class AddonDownload {
         let data = {
             action: 'acp-install-addon',
             plugin_name: this.slug,
+            network_wide: AC.is_network_admin,
             _ajax_nonce: AC._ajax_nonce
         };
 
