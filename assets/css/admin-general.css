@@ -1,6 +1,7 @@
 @charset "UTF-8";
 .ac-article {
   padding: 45px;
+  margin-bottom: 65px;
   background: #FFFFFF;
   border: 1px solid #E1E1E1;
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 2px -1px rgba(0, 0, 0, 0.14);
@@ -393,6 +394,8 @@ html.wp-toolbar .ac-tooltip {
   padding: 10px;
   font-size: 15px;
   border: 1px solid #979797;
+  border-radius: 3px;
+  margin-right: 3px;
 }
 
 .ac-btn-primary {
@@ -401,6 +404,7 @@ html.wp-toolbar .ac-tooltip {
   color: #fff;
   padding: 10px 40px;
   font-size: 15px;
+  border-radius: 3px;
   display: inline-block;
   cursor: pointer;
 }
