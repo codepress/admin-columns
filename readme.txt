@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7.1
 Tested up to: 5.7
 Requires PHP: 5.6.20
-Stable tag: 4.3
+Stable tag: 4.3.1
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.3.1 =
-Release Date: tbd
+Release Date: June 11th, 2021
 
 * [Added] Gravity Forms integration banner added
 * [Fixed] Changing the screen options on the column settings page is not persisted
