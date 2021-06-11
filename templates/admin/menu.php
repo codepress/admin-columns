@@ -1,24 +1,21 @@
-<header class="cpac-header">
-	<img src="<?= AC()->get_url(); ?>assets/images/logo-ac-light.svg" alt="">
-</header>
+<?php
+
+use AC\Admin\Menu;
+use AC\View;
+
+/**
+ * @var Menu\Item[] $items
+ */
+$items = $this->menu_items;
+?>
+<?= ( new View( [ 'license_status' => 1 ] ) )->set_template( 'admin/header' ) ?>
+
 <nav class="cpac-admin-nav">
 	<ul class="cpac-nav">
-		<?php
-		/**
-		 * @var \AC\Admin\Menu\Item $menu_item
-		 */
-		foreach ( $this->menu_items as $menu_item ) :
-
-			$class = '';
-
-			if ( $this->current === $menu_item->get_slug() ) {
-				$class = ' -active';
-			}
-
-			?>
-			<li class="cpac-nav__item <?= esc_attr( $class ); ?>">
-				<a href="<?= esc_url( $menu_item->get_url() ); ?>">
-					<?= $menu_item->get_label(); ?>
+		<?php foreach ( $items as $item ) : ?>
+			<li class="cpac-nav__item <?= esc_attr( $item->get_class() ); ?>">
+				<a href="<?= esc_url( $item->get_url() ); ?>">
+					<?= $item->get_label(); ?>
 				</a>
 			</li>
 		<?php endforeach; ?>

@@ -3,6 +3,7 @@
 namespace AC\Admin;
 
 use AC;
+use AC\View;
 
 class PageFactory implements PageFactoryInterface {
 
@@ -39,9 +40,15 @@ class PageFactory implements PageFactoryInterface {
 
 		do_action( 'ac/admin/page/menu', $menu );
 
+		$head = new View( [
+			'menu_items' => $menu->get_items()
+		] );
+
+		$head->set_template( 'admin/menu' )->render();
+
 		return new Page(
 			$main,
-			$menu
+			$head
 		);
 	}
 
