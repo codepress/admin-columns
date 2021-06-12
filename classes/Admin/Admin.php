@@ -43,13 +43,15 @@ class Admin implements Registrable {
 	public function init() {
 		$this->hook = $this->wp_menu_factory->create_sub_menu( 'options-general.php' );
 
-		add_action( 'in_admin_header', [ $this, 'menu' ] );
+		add_action( 'in_admin_header', [ $this, 'head' ] );
 		add_action( $this->hook, [ $this, 'body' ] );
 		add_action( 'load-' . $this->hook, [ $this, 'load' ] );
 	}
 
-	public function menu() {
-		if ( $this->hook !== 'settings_page_' . Admin::NAME ) {
+	public function head() {
+		global $plugin_page;
+
+		if ( $plugin_page !== self::NAME ) {
 			return;
 		}
 
