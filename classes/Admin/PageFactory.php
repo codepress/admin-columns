@@ -3,53 +3,66 @@
 namespace AC\Admin;
 
 use AC;
-use AC\View;
+use AC\Asset\Location;
+use AC\DefaultColumnsRepository;
+use AC\Deprecated\Hooks;
+use AC\Integrations;
+use AC\ListScreenRepository\Storage;
+use AC\Renderable;
 
 class PageFactory implements PageFactoryInterface {
+
+	/**
+	 * @var Storage
+	 */
+	protected $storage;
+
+	/**
+	 * @var Location\Absolute
+	 */
+	protected $location;
 
 	/**
 	 * @var MenuFactoryInterface
 	 */
 	protected $menu_factory;
 
-	/**
-	 * @var MainFactory
-	 */
-	private $main_factory;
-
-	public function __construct( MenuFactoryInterface $menu_factory, MainFactoryInterface $main_factory ) {
+	public function __construct( Storage $storage, Location\Absolute $location, MenuFactoryInterface $menu_factory ) {
+		$this->storage = $storage;
+		$this->location = $location;
 		$this->menu_factory = $menu_factory;
-		$this->main_factory = $main_factory;
 	}
 
 	/**
 	 * @param string $slug
 	 *
-	 * @return Page|null
+	 * @return Renderable|null
 	 */
 	public function create( $slug ) {
-		$main = $this->main_factory->create( $slug );
 
-		$main = apply_filters( 'ac/admin/page/main', $main, $slug );
+		switch ( $slug ) {
+			case Page\Help::NAME :
+				return new Page\Help( new Hooks(), $this->location, new View\Menu( $this->menu_factory->create( $slug ) ) );
+			case Page\Settings::NAME :
+				$sections = new SectionCollection();
+				$sections->add( new Section\General( [ new Section\Partial\ShowEditButton() ] ) )
+				         ->add( new Section\Restore() );
 
-		if ( ! $main ) {
-			return null;
+				return new Page\Settings( new View\Menu( $this->menu_factory->create( $slug ) ), $sections );
+			case Page\Addons::NAME :
+				return new Page\Addons( $this->location, new Integrations(), new View\Menu( $this->menu_factory->create( $slug ) ) );
+			case Page\Columns::NAME :
+				return new Page\Columns(
+					$this->location,
+					new DefaultColumnsRepository(),
+					new Section\Partial\Menu(),
+					$this->storage,
+					new View\Menu( $this->menu_factory->create( $slug ) ),
+					new Preference\ListScreen()
+				);
 		}
 
-		$menu = $this->menu_factory->create( $slug );
-
-		do_action( 'ac/admin/page/menu', $menu );
-
-		$head = new View( [
-			'menu_items' => $menu->get_items()
-		] );
-
-		$head->set_template( 'admin/menu' )->render();
-
-		return new Page(
-			$main,
-			$head
-		);
+		return null;
 	}
 
 }

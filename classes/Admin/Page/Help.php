@@ -1,8 +1,9 @@
 <?php
 
-namespace AC\Admin\Main;
+namespace AC\Admin\Page;
 
 use AC;
+use AC\Admin\RenderableHead;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
@@ -11,7 +12,7 @@ use AC\Deprecated\Hooks;
 use AC\Renderable;
 use AC\Type\Url;
 
-class Help implements Enqueueables, Renderable {
+class Help implements Enqueueables, Renderable, RenderableHead {
 
 	const NAME = 'help';
 
@@ -23,9 +24,19 @@ class Help implements Enqueueables, Renderable {
 	 */
 	private $location;
 
-	public function __construct( Hooks $hooks, Location\Absolute $location ) {
+	/**
+	 * @var Renderable
+	 */
+	private $head;
+
+	public function __construct( Hooks $hooks, Location\Absolute $location, Renderable $head ) {
 		$this->hooks = $hooks;
 		$this->location = $location;
+		$this->head = $head;
+	}
+
+	public function render_head() {
+		return $this->head;
 	}
 
 	public function get_assets() {

@@ -2,7 +2,7 @@
 
 namespace AC;
 
-use AC\Admin\Main\Columns;
+use AC\Admin\Page\Columns;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 

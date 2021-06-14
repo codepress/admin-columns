@@ -8,17 +8,17 @@ use AC\Request;
 class PageRequestHandler implements RequestHandlerInterface {
 
 	/**
-	 * @var PageFactory
+	 * @var PageFactoryInterface
 	 */
-	private $page_factory;
+	private $factory;
 
 	/**
 	 * @var string
 	 */
 	private $default;
 
-	public function __construct( PageFactory $page_factory, $default = '' ) {
-		$this->page_factory = $page_factory;
+	public function __construct( PageFactoryInterface $factory, $default = '' ) {
+		$this->factory = $factory;
 		$this->default = $default;
 	}
 
@@ -27,7 +27,9 @@ class PageRequestHandler implements RequestHandlerInterface {
 			return null;
 		}
 
-		return $this->page_factory->create( $request->get_query()->get( self::PARAM_TAB ) ?: $this->default );
+		$page = $this->factory->create( $request->get_query()->get( self::PARAM_TAB ) ?: $this->default );
+
+		return apply_filters( 'ac/admin/request/page', $page, $request );
 	}
 
 }

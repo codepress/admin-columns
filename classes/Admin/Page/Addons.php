@@ -1,9 +1,10 @@
 <?php
 
-namespace AC\Admin\Main;
+namespace AC\Admin\Page;
 
 use AC;
 use AC\Admin;
+use AC\Admin\RenderableHead;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
@@ -11,7 +12,7 @@ use AC\Asset\Style;
 use AC\PluginInformation;
 use AC\Renderable;
 
-class Addons implements Enqueueables, Renderable {
+class Addons implements Enqueueables, Renderable, RenderableHead {
 
 	const NAME = 'addons';
 
@@ -25,9 +26,19 @@ class Addons implements Enqueueables, Renderable {
 	 */
 	private $integrations;
 
-	public function __construct( Location\Absolute $location, AC\Integrations $integrations ) {
+	/**
+	 * @var Renderable
+	 */
+	private $head;
+
+	public function __construct( Location\Absolute $location, AC\Integrations $integrations, Renderable $head ) {
 		$this->location = $location;
 		$this->integrations = $integrations;
+		$this->head = $head;
+	}
+
+	public function render_head() {
+		return $this->head;
 	}
 
 	public function get_assets() {

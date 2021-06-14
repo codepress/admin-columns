@@ -1,12 +1,13 @@
 <?php
 
-namespace AC\Admin\Main;
+namespace AC\Admin\Page;
 
 use AC\Admin;
 use AC\Admin\Banner;
 use AC\Admin\Helpable;
 use AC\Admin\HelpTab;
 use AC\Admin\Preference;
+use AC\Admin\RenderableHead;
 use AC\Admin\ScreenOption;
 use AC\Admin\Section\Partial\Menu;
 use AC\Asset\Assets;
@@ -28,7 +29,7 @@ use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 use AC\View;
 
-class Columns implements Enqueueables, Helpable, Admin\ScreenOptions, Renderable {
+class Columns implements Enqueueables, Helpable, Admin\ScreenOptions, Renderable, RenderableHead {
 
 	const NAME = 'columns';
 
@@ -53,6 +54,11 @@ class Columns implements Enqueueables, Helpable, Admin\ScreenOptions, Renderable
 	private $storage;
 
 	/**
+	 * @var Renderable
+	 */
+	private $head;
+
+	/**
 	 * @var Preference\ListScreen
 	 */
 	private $preference;
@@ -62,13 +68,18 @@ class Columns implements Enqueueables, Helpable, Admin\ScreenOptions, Renderable
 	 */
 	private $is_network;
 
-	public function __construct( Location\Absolute $location, DefaultColumnsRepository $default_columns, Menu $menu, Storage $storage, Preference\ListScreen $preference, $is_network = false ) {
+	public function __construct( Location\Absolute $location, DefaultColumnsRepository $default_columns, Menu $menu, Storage $storage, Renderable $head, Preference\ListScreen $preference, $is_network = false ) {
 		$this->location = $location;
 		$this->default_columns = $default_columns;
 		$this->menu = $menu;
 		$this->storage = $storage;
+		$this->head = $head;
 		$this->preference = $preference;
 		$this->is_network = (bool) $is_network;
+	}
+
+	public function render_head() {
+		return $this->head;
 	}
 
 	/**

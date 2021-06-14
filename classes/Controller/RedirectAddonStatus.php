@@ -3,7 +3,7 @@
 namespace AC\Controller;
 
 use AC\Admin\AddonStatus;
-use AC\Admin\Main\Addons;
+use AC\Admin\Page\Addons;
 use AC\Integration;
 use AC\Integrations;
 use AC\Registrable;

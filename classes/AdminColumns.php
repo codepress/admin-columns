@@ -3,9 +3,8 @@
 namespace AC;
 
 use AC\Admin\AdminScripts;
-use AC\Admin\Main\Columns;
-use AC\Admin\MainFactory;
 use AC\Admin\MenuFactory;
+use AC\Admin\Page\Columns;
 use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\Preference;
@@ -59,7 +58,7 @@ class AdminColumns extends Plugin {
 
 		RequestHandler::add_handler(
 			new PageRequestHandler(
-				new PageFactory( new MenuFactory( admin_url( 'options-general.php' ) ), new MainFactory( $this->storage, $location ) ),
+				new PageFactory( $this->storage, $location, new MenuFactory( admin_url( 'options-general.php' ) ) ),
 				Columns::NAME
 			)
 		);

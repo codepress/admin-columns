@@ -35,20 +35,22 @@ class MenuFactory implements MenuFactoryInterface {
 		$menu = new Menu();
 
 		$items = [
-			Main\Columns::NAME  => __( 'Columns', 'codepress-admin-columns' ),
-			Main\Settings::NAME => __( 'Settings', 'codepress-admin-columns' ),
-			Main\Addons::NAME   => __( 'Add-ons', 'codepress-admin-columns' ),
+			Page\Columns::NAME  => __( 'Columns', 'codepress-admin-columns' ),
+			Page\Settings::NAME => __( 'Settings', 'codepress-admin-columns' ),
+			Page\Addons::NAME   => __( 'Add-ons', 'codepress-admin-columns' ),
 		];
 
 		$hooks = new Hooks();
 
 		if ( $hooks->get_count() > 0 ) {
-			$items[ Main\Help::NAME ] = sprintf( '%s %s', __( 'Help', 'codepress-admin-columns' ), '<span class="ac-badge">' . $hooks->get_count() . '</span>' );
+			$items[ Page\Help::NAME ] = sprintf( '%s %s', __( 'Help', 'codepress-admin-columns' ), '<span class="ac-badge">' . $hooks->get_count() . '</span>' );
 		}
 
 		foreach ( $items as $slug => $label ) {
 			$menu->add_item( new Item( $this->create_menu_link( $slug ), $label, $current === $slug ? '-active' : '' ) );
 		}
+
+		do_action( 'ac/admin/page/menu', $menu );
 
 		return $menu;
 	}
