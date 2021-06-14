@@ -175,10 +175,13 @@ class AddonStatus {
 
 	public function render() {
 		if ( ! ac_is_pro_active() ) {
+			ob_start();
 			$this->render_more_info();
 
-			return;
+			return ob_get_clean();
 		}
+
+		ob_start();
 
 		if ( $this->is_network_active() ) {
 			$this->render_network_active_label();
@@ -211,6 +214,8 @@ class AddonStatus {
 		if ( $this->show_more_info() ) {
 			$this->render_more_info();
 		}
+
+		return ob_get_clean();
 	}
 
 }

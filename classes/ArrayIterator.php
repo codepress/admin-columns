@@ -11,7 +11,7 @@ class ArrayIterator implements Iterator {
 	 */
 	protected $array;
 
-	public function __construct( array $array ) {
+	public function __construct( array $array = [] ) {
 		$this->array = $array;
 	}
 

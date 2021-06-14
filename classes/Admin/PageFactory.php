@@ -6,7 +6,7 @@ use AC;
 use AC\Asset\Location;
 use AC\DefaultColumnsRepository;
 use AC\Deprecated\Hooks;
-use AC\Integrations;
+use AC\IntegrationRepository;
 use AC\ListScreenRepository\Storage;
 use AC\Renderable;
 
@@ -50,7 +50,7 @@ class PageFactory implements PageFactoryInterface {
 
 				return new Page\Settings( new View\Menu( $this->menu_factory->create( $slug ) ), $sections );
 			case Page\Addons::NAME :
-				return new Page\Addons( $this->location, new Integrations(), new View\Menu( $this->menu_factory->create( $slug ) ) );
+				return new Page\Addons( $this->location, new IntegrationRepository(), new View\Menu( $this->menu_factory->create( $slug ) ) );
 			case Page\Columns::NAME :
 				return new Page\Columns(
 					$this->location,

@@ -4,28 +4,21 @@ namespace AC;
 
 class Integrations extends ArrayIterator {
 
-	public function __construct() {
-		$integrations = [
-			new Integration\ACF(),
-			new Integration\BuddyPress(),
-			new Integration\EventsCalendar(),
-			new Integration\GravityForms(),
-			new Integration\NinjaForms(),
-			new Integration\Pods(),
-			new Integration\Types(),
-			new Integration\MetaBox(),
-			new Integration\WooCommerce(),
-			new Integration\YoastSeo(),
-		];
-
-		parent::__construct( $integrations );
-	}
-
 	/**
 	 * @return Integration[]
 	 */
 	public function all() {
-		return $this->array;
+		return parent::get_copy();
+	}
+
+	public function add( Integration $integration ) {
+		$this->array[] = $integration;
+
+		return $this;
+	}
+
+	public function exists() {
+		return ! empty( $this->array );
 	}
 
 }

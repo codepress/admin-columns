@@ -83,7 +83,7 @@ class AdminColumns extends Plugin {
 			new Controller\AjaxColumnValue( $this->storage ),
 			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),
-			new Controller\RedirectAddonStatus( new Integrations() ),
+			new Controller\RedirectAddonStatus( new IntegrationRepository() ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks(),

@@ -3,7 +3,7 @@
 namespace AC\Admin;
 
 use AC\Integration;
-use AC\Integrations;
+use AC\IntegrationRepository;
 use AC\PluginInformation;
 use AC\Promo;
 use AC\PromoCollection;
@@ -12,12 +12,12 @@ use AC\View;
 class Banner {
 
 	/**
-	 * @var Integrations
+	 * @var IntegrationRepository
 	 */
 	private $integrations;
 
 	public function __construct() {
-		$this->integrations = new Integrations();
+		$this->integrations = new IntegrationRepository();
 	}
 
 	/**
@@ -42,7 +42,8 @@ class Banner {
 	private function get_missing_integrations() {
 		$missing = [];
 
-		foreach ( $this->integrations->all() as $integration ) {
+		// TODO
+		foreach ( $this->integrations->find_all() as $integration ) {
 			$integration_plugin = new PluginInformation( $integration->get_basename() );
 
 			if ( $integration->is_plugin_active() && ! $integration_plugin->is_active() ) {

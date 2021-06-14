@@ -9,6 +9,8 @@ use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Style;
+use AC\Integration\Filter;
+use AC\IntegrationRepository;
 use AC\PluginInformation;
 use AC\Renderable;
 
@@ -22,7 +24,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	private $location;
 
 	/**
-	 * @var AC\Integrations
+	 * @var IntegrationRepository
 	 */
 	private $integrations;
 
@@ -31,7 +33,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	 */
 	private $head;
 
-	public function __construct( Location\Absolute $location, AC\Integrations $integrations, Renderable $head ) {
+	public function __construct( Location\Absolute $location, IntegrationRepository $integrations, Renderable $head ) {
 		$this->location = $location;
 		$this->integrations = $integrations;
 		$this->head = $head;
@@ -86,13 +88,14 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	 * @return string
 	 */
 	private function render_actions( AC\Integration $addon ) {
-		ob_start();
+		$view = new Admin\AddonStatus(
+			new PluginInformation( $addon->get_basename() ),
+			$addon,
+			is_multisite(),
+			is_network_admin()
+		);
 
-		$plugin = new PluginInformation( $addon->get_basename() );
-		$view = new Admin\AddonStatus( $plugin, $addon, is_multisite(), is_network_admin() );
-		$view->render();
-
-		return ob_get_clean();
+		return $view->render();
 	}
 
 	/**
@@ -100,33 +103,29 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	 */
 	private function get_grouped_addons() {
 
-		$active = [];
-		$recommended = [];
-		$available = [];
+		$active = $this->integrations->find_all( [
+			'filter' => [
+				new Filter\IsActive( is_multisite(), is_network_admin() ),
+			],
+		] );
 
-		foreach ( $this->integrations->all() as $integration ) {
-			$plugin = new PluginInformation( $integration->get_basename() );
+		$recommended = $this->integrations->find_all( [
+			'filter' => [
+				new Filter\IsNotActive( is_multisite(), is_network_admin() ),
+				new Filter\IsPluginActive(),
+			],
+		] );
 
-			$is_active = $plugin->is_network_active()
-			             || ( ! is_multisite() && $plugin->is_active() )
-			             || ( is_multisite() && ! is_network_admin() && $plugin->is_active() );
-
-			if ( $is_active ) {
-				$active[] = $integration;
-				continue;
-			}
-
-			if ( $integration->is_plugin_active() ) {
-				$recommended[] = $integration;
-				continue;
-			}
-
-			$available[] = $integration;
-		}
+		$available = $this->integrations->find_all( [
+			'filter' => [
+				new Filter\IsNotActive( is_multisite(), is_network_admin() ),
+				new Filter\IsPluginNotActive(),
+			],
+		] );
 
 		$groups = [];
 
-		if ( $recommended ) {
+		if ( $recommended->exists() ) {
 			$groups[] = [
 				'title'        => __( 'Recommended', 'codepress-admin-columns' ),
 				'class'        => 'recommended',
@@ -134,7 +133,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 			];
 		}
 
-		if ( $active ) {
+		if ( $active->exists() ) {
 			$groups[] = [
 				'title'        => __( 'Active', 'codepress-admin-columns' ),
 				'class'        => 'active',
@@ -142,7 +141,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 			];
 		}
 
-		if ( $available ) {
+		if ( $available->exists() ) {
 			$groups[] = [
 				'title'        => __( 'Available', 'codepress-admin-columns' ),
 				'class'        => 'available',
