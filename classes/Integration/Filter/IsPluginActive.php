@@ -2,6 +2,7 @@
 
 namespace AC\Integration\Filter;
 
+use AC\Integration;
 use AC\Integration\Filter;
 use AC\Integrations;
 
@@ -16,21 +17,14 @@ class IsPluginActive implements Filter {
 		$this->enabled = (bool) $enabled;
 	}
 
-	public function filter( Integrations $_integrations ) {
-		$integrations = new Integrations();
+	public function filter( Integrations $integrations ) {
+		return new Integrations( array_filter( $integrations->all(), [ $this, 'is_active' ] ) );
+	}
 
-		foreach ( $_integrations->all() as $integration ) {
-
-			$add = $this->enabled
-				? $integration->is_plugin_active()
-				: ! $integration->is_plugin_active();
-
-			if ( $add ) {
-				$integrations->add( $integration );
-			}
-		}
-
-		return $integrations;
+	private function is_active( Integration $integration ) {
+		return $this->enabled
+			? $integration->is_plugin_active()
+			: ! $integration->is_plugin_active();
 	}
 
 }

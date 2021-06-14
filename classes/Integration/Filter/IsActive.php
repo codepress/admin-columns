@@ -2,6 +2,7 @@
 
 namespace AC\Integration\Filter;
 
+use AC\Integration;
 use AC\Integration\Filter;
 use AC\Integrations;
 use AC\PluginInformation;
@@ -29,27 +30,20 @@ class IsActive implements Filter {
 		$this->enabled = (bool) $enabled;
 	}
 
-	public function filter( Integrations $_integrations ) {
-		$integrations = new Integrations();
+	public function filter( Integrations $integrations ) {
+		return new Integrations( array_filter( $integrations->all(), [ $this, 'is_active' ] ) );
+	}
 
-		foreach ( $_integrations->all() as $integration ) {
+	private function is_active( Integration $integration ) {
+		$plugin = new PluginInformation( $integration->get_basename() );
 
-			$plugin = new PluginInformation( $integration->get_basename() );
+		$is_active = $plugin->is_network_active()
+		             || ( ! $this->is_multisite && $plugin->is_active() )
+		             || ( $this->is_multisite && ! $this->is_network_admin && $plugin->is_active() );
 
-			$is_active = $plugin->is_network_active()
-			             || ( ! $this->is_multisite && $plugin->is_active() )
-			             || ( $this->is_multisite && ! $this->is_network_admin && $plugin->is_active() );
-
-			$add = $this->enabled
-				? $is_active
-				: ! $is_active;
-
-			if ( $add ) {
-				$integrations->add( $integration );
-			}
-		}
-
-		return $integrations;
+		return $this->enabled
+			? $is_active
+			: ! $is_active;
 	}
 
 }

@@ -5,10 +5,10 @@ namespace AC;
 class IntegrationRepository {
 
 	/**
-	 * @return Integration[]
+	 * @return Integrations
 	 */
 	private function all() {
-		return [
+		return new Integrations( [
 			new Integration\ACF(),
 			new Integration\BuddyPress(),
 			new Integration\EventsCalendar(),
@@ -19,7 +19,7 @@ class IntegrationRepository {
 			new Integration\MetaBox(),
 			new Integration\WooCommerce(),
 			new Integration\YoastSeo(),
-		];
+		] );
 	}
 
 	/**
@@ -28,7 +28,7 @@ class IntegrationRepository {
 	 * @return Integration|null
 	 */
 	public function find_by_basename( $basename ) {
-		foreach ( $this->all() as $integration ) {
+		foreach ( $this->find_all() as $integration ) {
 			if ( $integration->get_basename() === $basename ) {
 				return $integration;
 			}
@@ -43,7 +43,7 @@ class IntegrationRepository {
 	 * @return Integrations
 	 */
 	public function find_all( array $args = [] ) {
-		$integrations = new Integrations( $this->all() );
+		$integrations = $this->all();
 
 		$args = array_merge( [
 			'filter' => [],
