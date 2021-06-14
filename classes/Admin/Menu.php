@@ -11,6 +11,10 @@ class Menu {
 	 */
 	private $items;
 
+	public function __construct( array $items = [] ) {
+		array_map( [ $this, 'add_item' ], $items );
+	}
+
 	public function add_item( Admin\Menu\Item $item ) {
 		$this->items[] = $item;
 
