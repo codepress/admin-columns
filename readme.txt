@@ -212,6 +212,7 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: tbd
 
+* [Fixed] Added Media columns: Artist and Album
 * [Fixed] Column date setting gave an error when the default date format was empty
 
 = 4.3.1 =
