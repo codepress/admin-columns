@@ -22,8 +22,10 @@ class DateSetting {
         this.column = column;
         this.setting = setting;
         this.options = this.setting.querySelectorAll('.radio-labels input[type=radio]');
-        this.defaultFormat = this.setting.querySelector('.radio-labels code').textContent;
         this.valueInput = this.setting.querySelector('[data-value-input]');
+
+        let defaultElement = this.setting.querySelector('.radio-labels code');
+        this.defaultFormat = defaultElement ? defaultElement.textContent : 'Y-m-d';
 
         // @ts-ignore
         let customInput = [...this.options].filter(radio => typeof radio.dataset.custom !== 'undefined');

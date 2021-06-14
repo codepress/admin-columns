@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Fixed] Column date setting gave an error when the default date format was empty
+
 = 4.3.1 =
 Release Date: June 11th, 2021
 
