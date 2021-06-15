@@ -1,11 +1,10 @@
 import axios, {AxiosPromise} from "axios";
 import {mapDataToFormData} from "../helpers/global";
-import Nanobus from "nanobus";
 
 declare const ajaxurl: string;
 
 type DownloadResponse = {
-    data : {
+    data: {
         activated: boolean,
         status: string
     },
@@ -17,7 +16,6 @@ export default class AddonDownloader {
     network_admin: boolean
     slug: string
     nonce: string
-    events: Nanobus
 
     constructor(slug: string, network_admin: boolean, nonce: string) {
         this.slug = slug;

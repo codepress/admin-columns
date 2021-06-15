@@ -415,6 +415,10 @@ html.wp-toolbar .ac-tooltip {
   text-decoration: none;
   color: #fff;
 }
+.ac-btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
 
 /**
  * General
