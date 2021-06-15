@@ -1,5 +1,6 @@
 .ac-input-group {
 	display: flex;
+	margin-bottom: 20px;
 }
 
 .ac-input {
@@ -19,4 +20,11 @@
 	border-radius: 3px;
 	display: inline-block;
 	cursor: pointer;
+	text-decoration: none;
+
+	&:hover, &:focus, &:active {
+		background: #ea1951;
+		text-decoration: none;
+		color: #fff;
+	}
 }

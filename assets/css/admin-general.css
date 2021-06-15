@@ -388,6 +388,7 @@ html.wp-toolbar .ac-tooltip {
 
 .ac-input-group {
   display: flex;
+  margin-bottom: 20px;
 }
 
 .ac-input {
@@ -407,6 +408,12 @@ html.wp-toolbar .ac-tooltip {
   border-radius: 3px;
   display: inline-block;
   cursor: pointer;
+  text-decoration: none;
+}
+.ac-btn-primary:hover, .ac-btn-primary:focus, .ac-btn-primary:active {
+  background: #ea1951;
+  text-decoration: none;
+  color: #fff;
 }
 
 /**
