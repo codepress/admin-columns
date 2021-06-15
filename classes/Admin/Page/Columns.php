@@ -29,7 +29,7 @@ use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 use AC\View;
 
-class Columns implements Enqueueables, Helpable, Admin\ScreenOptions, Renderable, RenderableHead {
+class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, RenderableHead {
 
 	const NAME = 'columns';
 
@@ -116,14 +116,6 @@ class Columns implements Enqueueables, Helpable, Admin\ScreenOptions, Renderable
 			new Style( 'ac-select2' ),
 			new Script( 'ac-select2' ),
 		] );
-	}
-
-	public function get_help_tabs() {
-		return [
-			new HelpTab\Introduction(),
-			new HelpTab\Basics(),
-			new HelpTab\CustomField(),
-		];
 	}
 
 	private function get_column_id() {
