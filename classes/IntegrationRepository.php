@@ -28,8 +28,23 @@ class IntegrationRepository {
 	 * @return Integration|null
 	 */
 	public function find_by_basename( $basename ) {
-		foreach ( $this->find_all() as $integration ) {
+		foreach ( $this->find_all()->all() as $integration ) {
 			if ( $integration->get_basename() === $basename ) {
+				return $integration;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param string $slug
+	 *
+	 * @return Integration|null
+	 */
+	public function find_by_slug( $slug ) {
+		foreach ( $this->find_all()->all() as $integration ) {
+			if ( $integration->get_slug() === $slug ) {
 				return $integration;
 			}
 		}
