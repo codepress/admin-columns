@@ -27,7 +27,7 @@ export default class AddonDownloader {
         return axios.post(ajaxurl, mapDataToFormData({
             action: 'acp-install-addon',
             plugin_name: this.slug,
-            network_wide: this.network_admin,
+            network_wide: this.network_admin ? 1 : 0,
             _ajax_nonce: this.nonce
         }));
     }
