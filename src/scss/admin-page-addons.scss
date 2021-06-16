@@ -8,7 +8,6 @@ $addon-color-link: #0073aa;
 /* =Addons
 -------------------------------------------------------------- */
 .ac-addons {
-	display: inline-block;
 	margin-right: 16px;
 	float: left;
 
@@ -18,15 +17,14 @@ $addon-color-link: #0073aa;
 		display:table; // forces new line
 	}
 
-
-
 	h2 {
 		border-bottom: 1px solid #ccc;
 		padding-bottom: 10px;
 	}
 
 	ul {
-		overflow: hidden;
+		display: flex;
+		flex-wrap: wrap;
 
 		.ac-addon {
 			width: 250px;
@@ -61,13 +59,7 @@ $addon-color-link: #0073aa;
 				vertical-align: middle;
 				border-top: 1px solid #DDD;
 				background: #0069a4;
-				background: -moz-radial-gradient(center, ellipse cover, $addon-color-lightblue 0%, $addon-color-blue 100%);
-				background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, $addon-color-lightblue), color-stop(100%, $addon-color-blue));
-				background: -webkit-radial-gradient(center, ellipse cover, $addon-color-lightblue 0%, $addon-color-blue 100%);
-				background: -o-radial-gradient(center, ellipse cover, $addon-color-lightblue 0%, $addon-color-blue 100%);
-				background: -ms-radial-gradient(center, ellipse cover, $addon-color-lightblue 0%, $addon-color-blue 100%);
 				background: radial-gradient(ellipse at center, $addon-color-lightblue 0%, $addon-color-blue 100%);
-				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$addon-color-lightblue', endColorstr='$addon-color-blue', GradientType=1);
 
 				.inner {
 					display: table-cell;
@@ -122,6 +114,7 @@ $addon-color-link: #0073aa;
 				border-top: 1px solid #ddd;
 				padding: 8px;
 				overflow: hidden;
+				height: 30px;
 
 				span.active,
 				span.active:hover {

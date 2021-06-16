@@ -19,7 +19,7 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: classes/ColumnGroups.php:15, classes/Admin/HelpTab/CustomField.php:11
+#: classes/ColumnGroups.php:15
 msgid "Custom Fields"
 msgstr ""
 
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: classes/PluginActionLinks.php:40, classes/Admin/MenuFactory.php:22
+#: classes/PluginActionLinks.php:40, classes/Admin/MenuFactory.php:39, templates/admin/page/settings.php:6
 msgid "Settings"
 msgstr ""
 
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
-#: classes/Admin/AddonStatus.php:42, classes/Admin/Main/Addons.php:128
+#: classes/Admin/AddonStatus.php:42, classes/Admin/Page/Addons.php:138
 msgid "Active"
 msgstr ""
 
@@ -67,20 +67,20 @@ msgstr ""
 msgid "Get this add-on"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:23
-msgid "Add-ons"
+#: classes/Admin/AdminLoader.php:107, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:115, classes/Settings/Column/Post.php:90, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54
+msgid "Display"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:21
+#: classes/Admin/MenuFactory.php:38
 msgid "Columns"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:28, classes/Admin/Main/Help.php:133
-msgid "Help"
+#: classes/Admin/MenuFactory.php:40
+msgid "Add-ons"
 msgstr ""
 
-#: classes/Admin/Page.php:69, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:115, classes/Settings/Column/Post.php:90, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54
-msgid "Display"
+#: classes/Admin/MenuFactory.php:46, classes/Admin/Page/Help.php:144
+msgid "Help"
 msgstr ""
 
 #: classes/Admin/Tooltip.php:29
@@ -544,10 +544,6 @@ msgid "Support"
 msgstr ""
 
 #: templates/admin/side-support.php:14
-msgid "Check the <strong>Help</strong> section in the top-right screen."
-msgstr ""
-
-#: templates/admin/side-support.php:17
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>."
 msgstr ""
 
@@ -794,74 +790,66 @@ msgstr ""
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
-#: classes/Admin/HelpTab/Basics.php:11
-msgid "Basics"
+#: classes/Admin/Notice/ReadOnly.php:18
+msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/HelpTab/Introduction.php:11
-msgid "Overview"
-msgstr ""
-
-#: classes/Admin/Main/Addons.php:120
+#: classes/Admin/Page/Addons.php:130
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Main/Addons.php:136
+#: classes/Admin/Page/Addons.php:146
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Main/Columns.php:201
+#: classes/Admin/Page/Columns.php:204
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Main/Columns.php:210
+#: classes/Admin/Page/Columns.php:213
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
-#: classes/Admin/Main/Help.php:44
+#: classes/Admin/Page/Help.php:55
 msgid "View documentation"
 msgstr ""
 
-#: classes/Admin/Main/Help.php:58
+#: classes/Admin/Page/Help.php:69
 msgid "The callback used is %s."
 msgid_plural "The callbacks used are %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/Admin/Main/Help.php:72
+#: classes/Admin/Page/Help.php:83
 msgid "Deprecated Actions"
 msgstr ""
 
-#: classes/Admin/Main/Help.php:76
+#: classes/Admin/Page/Help.php:87
 msgid "The action %s used on this website is deprecated since %s."
 msgstr ""
 
-#: classes/Admin/Main/Help.php:101
+#: classes/Admin/Page/Help.php:112
 msgid "Deprecated Filters"
 msgstr ""
 
-#: classes/Admin/Main/Help.php:105
+#: classes/Admin/Page/Help.php:116
 msgid "The filter %s used on this website is deprecated since %s."
 msgstr ""
 
-#: classes/Admin/Main/Help.php:135
+#: classes/Admin/Page/Help.php:146
 msgid "The Admin Columns plugin has undergone some major changes in version 4."
 msgstr ""
 
-#: classes/Admin/Main/Help.php:139
+#: classes/Admin/Page/Help.php:150
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
 msgstr ""
 
-#: classes/Admin/Main/Help.php:142
+#: classes/Admin/Page/Help.php:153
 msgid "our documentation"
 msgstr ""
 
-#: classes/Admin/Main/Help.php:154
+#: classes/Admin/Page/Help.php:165
 msgid "No deprecated hooks or filters found."
-msgstr ""
-
-#: classes/Admin/Notice/ReadOnly.php:18
-msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
 #: classes/Admin/ScreenOption/ColumnId.php:32

@@ -2,6 +2,7 @@ import WPNotice from "./notice";
 // @ts-ignore
 import $ from 'jquery';
 import {LocalizedAcAddonSettings} from "../types/admin-columns";
+import AddonDownloader from "./addon-downloader";
 
 declare let ajaxurl: string;
 declare let AC: LocalizedAcAddonSettings
@@ -11,8 +12,10 @@ export class AddonDownload {
     element: HTMLElement
     slug: string
     loadingState: boolean
+    downloader: AddonDownloader
 
     constructor(el: HTMLElement, slug: string) {
+        this.downloader = new AddonDownloader(slug, AC.is_network_admin === '1', AC._ajax_nonce)
         this.element = el;
         this.slug = slug;
         this.loadingState = false;
@@ -104,30 +107,13 @@ export class AddonDownload {
     }
 
     download() {
-        let request = this.request();
-
-        request.done((response: any) => {
-            this.removeLoadingState();
-            if (response.success) {
-                this.success(response.data.status);
+        this.downloader.download().then((response) => {
+            if (response.data.success) {
+                this.success(response.data.data.status);
             } else {
-                this.failure(response.data);
+                let fallback = response.data.data as unknown;
+                this.failure(fallback as string);
             }
-        });
-    }
-
-    request() {
-        let data = {
-            action: 'acp-install-addon',
-            plugin_name: this.slug,
-            network_wide: AC.is_network_admin,
-            _ajax_nonce: AC._ajax_nonce
-        };
-
-        return $.ajax({
-            url: ajaxurl,
-            method: 'post',
-            data: data
         });
     }
 
