@@ -29,12 +29,11 @@ $addon-color-link: #0073aa;
 		.ac-addon {
 			width: 250px;
 			background: #FFF;
-			float: left;
+			display: flex;
+			flex-direction: column;
 			margin-right: 16px;
 			margin-bottom: 16px;
 			border: 1px solid #DDD;
-			-webkit-box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
-			-moz-box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
 			box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
 
 			&:last-child {
@@ -42,8 +41,6 @@ $addon-color-link: #0073aa;
 			}
 
 			&:hover {
-				-webkit-box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.25);
-				-moz-box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.25);
 				box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.25);
 			}
 
@@ -84,7 +81,6 @@ $addon-color-link: #0073aa;
 				background-color: $addon-color-lightyellow;
 				margin: 0;
 				padding: 15px;
-				//font-style: italic;
 
 				a {
 					font-weight: bold;
@@ -94,11 +90,11 @@ $addon-color-link: #0073aa;
 			}
 
 			.addon-content {
+				margin-bottom: auto;
 				width: 100%;
 				padding: 25px 15px;
-				-moz-box-sizing: border-box;
 				box-sizing: border-box;
-				min-height: 162px;
+				min-height: 160px;
 
 				> *:first-child {
 					margin-top: 0;
