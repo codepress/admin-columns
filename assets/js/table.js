@@ -997,7 +997,7 @@ class Actions {
             this.refresh();
         });
         let reference = document.querySelectorAll('.tablenav.top .actions');
-        if (reference) {
+        if (reference.length > 0 && this.container) {
             Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_0__["insertAfter"])(this.container, reference[reference.length - 1]);
             this.container.classList.add('-init');
             this.container.dispatchEvent(new CustomEvent('update'));
