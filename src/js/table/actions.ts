@@ -20,7 +20,7 @@ export default class Actions {
 
         let reference = document.querySelectorAll<HTMLElement>('.tablenav.top .actions');
 
-        if (reference) {
+        if (reference && reference.length) {
             insertAfter(this.container, reference[reference.length - 1])
             this.container.classList.add('-init');
             this.container.dispatchEvent(new CustomEvent('update'));
