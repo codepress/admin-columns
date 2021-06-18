@@ -36,9 +36,9 @@ class Checkbox extends Element {
 			return false;
 		}
 
-		$template = '<div class="%s-labels %s">%s</div>';
+		$template = '<div class="%s">%s</div>';
 
-		return sprintf( $template, $this->get_type(), implode( ' ', $this->get_classes() ), implode( "\n", $elements ) );
+		return sprintf( $template, implode( ' ', $this->get_classes() ), implode( "\n", $elements ) );
 	}
 
 	private function get_elements() {

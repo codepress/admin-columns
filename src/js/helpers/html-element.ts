@@ -29,4 +29,9 @@ export default class AcHtmlElement {
         return this;
     }
 
+    Css( property: any, value: any){
+        this.element.style[property] = value;
+        return this;
+    }
+
 }
