@@ -956,8 +956,16 @@ msgstr ""
 msgid "Word Count"
 msgstr ""
 
+#: classes/Column/Media/Album.php:14
+msgid "Album"
+msgstr ""
+
 #: classes/Column/Media/AlternateText.php:14
 msgid "Alternative Text"
+msgstr ""
+
+#: classes/Column/Media/Artist.php:14
+msgid "Artist"
 msgstr ""
 
 #: classes/Column/Media/AvailableSizes.php:17
