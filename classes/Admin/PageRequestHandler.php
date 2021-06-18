@@ -23,10 +23,6 @@ class PageRequestHandler implements RequestHandlerInterface {
 	}
 
 	public function handle( Request $request ) {
-		if ( Admin::NAME !== $request->get_query()->get( self::PARAM_PAGE ) ) {
-			return null;
-		}
-
 		$page = $this->factory->create(
 			$request->get_query()->get( self::PARAM_TAB ) ?: $this->default
 		);
