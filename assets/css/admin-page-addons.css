@@ -3,10 +3,6 @@
 -------------------------------------------------------------- */
 /* =Addons
 -------------------------------------------------------------- */
-.ac-addons {
-  margin-right: 16px;
-  float: left;
-}
 .ac-addons.group-default {
   float: none;
   clear: both;
@@ -92,7 +88,6 @@
   border-top: 1px solid #ddd;
   padding: 8px;
   overflow: hidden;
-  height: 30px;
 }
 .ac-addons ul .ac-addon .addon-actions span.active,
 .ac-addons ul .ac-addon .addon-actions span.active:hover {
