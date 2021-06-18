@@ -3,7 +3,7 @@
 namespace AC\Column\Media;
 
 /**
- * @since NEWVERSION
+ * @since 4.3.2
  */
 class Album extends Meta {
 
