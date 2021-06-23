@@ -189,13 +189,24 @@ class User {
 	}
 
 	/**
-	 * Every 3 hours these translations are refreshed from the wordpress.org server
+	 * @param int $expiration 24 hours by default
+	 *
 	 * @return array[]
 	 */
-	public function get_translations_remote() {
+	public function get_translations_remote( $expiration = DAY_IN_SECONDS ) {
+		$translations = get_site_transient( 'ac_available_translations' );
+
+		if ( false !== $translations ) {
+			return $translations;
+		}
+
 		require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
 
-		return wp_get_available_translations();
+		$translations = wp_get_available_translations();
+
+		set_site_transient( 'ac_available_translations', wp_get_available_translations(), (int) $expiration );
+
+		return $translations;
 	}
 
 }
