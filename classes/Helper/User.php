@@ -189,11 +189,10 @@ class User {
 	}
 
 	/**
-	 * @param int $expiration 24 hours by default
-	 *
+	 * Fetches remote translations. Expires in 7 days.
 	 * @return array[]
 	 */
-	public function get_translations_remote( $expiration = DAY_IN_SECONDS ) {
+	public function get_translations_remote() {
 		$translations = get_site_transient( 'ac_available_translations' );
 
 		if ( false !== $translations ) {
@@ -204,7 +203,7 @@ class User {
 
 		$translations = wp_get_available_translations();
 
-		set_site_transient( 'ac_available_translations', wp_get_available_translations(), (int) $expiration );
+		set_site_transient( 'ac_available_translations', wp_get_available_translations(), WEEK_IN_SECONDS );
 
 		return $translations;
 	}
