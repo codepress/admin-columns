@@ -188,4 +188,14 @@ class User {
 		return $wpdb->get_col( "SELECT {$wpdb->users}.ID FROM {$wpdb->users}" );
 	}
 
+	/**
+	 * Every 3 hours these translations are refreshed from the wordpress.org server
+	 * @return array[]
+	 */
+	public function get_translations_remote() {
+		require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
+
+		return wp_get_available_translations();
+	}
+
 }
