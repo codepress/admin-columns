@@ -18,9 +18,9 @@ class Option {
 	 * @param string $value
 	 * @param string $label
 	 */
-	public function __construct( $value, $label ) {
+	public function __construct( $value, $label = null ) {
 		$this->value = $value;
-		$this->label = $label;
+		$this->label = $label ?: $value;
 	}
 
 	/**
