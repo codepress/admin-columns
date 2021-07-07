@@ -209,6 +209,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Fixed] Load a default column set when the preferred column set was restricted in the meantime
+
+
 = 4.3.2 =
 Release Date: June 18th, 2021
 
