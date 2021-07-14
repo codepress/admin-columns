@@ -29,7 +29,8 @@ class Toggle extends Element {
 			'name' => $this->get_name(),
 			'label' => $this->get_label(),
 			'checked' => $this->checked,
-			'value' => $this->get_value()
+			'value' => $this->get_value(),
+			'attributes' => $this->get_attributes_as_string( $this->get_attributes() )
 		]);
 
 		return $view->set_template( 'component/toggle-v2' )->render();
