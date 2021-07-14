@@ -29,6 +29,7 @@ class ShowEditButton implements Renderable {
 	public function render() {
 		$toggle = new Toggle( $this->option->get_name(), $this->get_label(), $this->option->is_enabled() );
 		$toggle->set_value( '1' );
+		$toggle->set_attribute('data-ajax-setting', $this->option->get_name() );
 
 		return $toggle->render();
 	}
