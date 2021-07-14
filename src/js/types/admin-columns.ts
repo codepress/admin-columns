@@ -14,6 +14,11 @@ export type LocalizedAcAddonSettings = {
     is_network_admin: string
 }
 
+export type LocalizedAcGeneralSettings = {
+    _ajax_nonce: string
+}
+
+
 export type UninitializedListScreens = keySpecificPair<UninitializedListScreen>
 
 export type UninitializedListScreen = {

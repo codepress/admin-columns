@@ -6,6 +6,7 @@ use AC\Form\Element\Toggle;
 use AC\Renderable;
 use AC\Settings\Option\EditButton;
 
+//TODO make an abstract / interface for the general setting
 class ShowEditButton implements Renderable {
 
 	const OPTION_NAME = 'show_edit_button';
