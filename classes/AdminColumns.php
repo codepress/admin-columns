@@ -18,6 +18,7 @@ use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
+use AC\Settings\GeneralOption;
 use AC\Table;
 use AC\ThirdParty;
 
@@ -70,7 +71,6 @@ class AdminColumns extends Plugin {
 			new Deprecated\Hooks,
 			new ListScreens(),
 			new Screen,
-			new Settings\General,
 			new ThirdParty\ACF,
 			new ThirdParty\NinjaForms,
 			new ThirdParty\WooCommerce,
@@ -79,6 +79,7 @@ class AdminColumns extends Plugin {
 			new QuickEdit( $this->storage, new Table\Preference() ),
 			new Capabilities\Manage(),
 			new Controller\AjaxColumnRequest( $this->storage, new Request() ),
+			new Controller\AjaxGeneralOptions( new GeneralOption() ),
 			new Controller\AjaxRequestCustomFieldKeys(),
 			new Controller\AjaxColumnValue( $this->storage ),
 			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
