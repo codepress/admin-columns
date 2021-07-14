@@ -19,8 +19,7 @@ class Settings extends Script {
 			sprintf(
 				"var AC = %s;",
 				json_encode( [
-					'_ajax_nonce'      => wp_create_nonce( 'ac-ajax' ),
-					'is_network_admin' => is_network_admin(),
+					'_ajax_nonce' => wp_create_nonce( 'ac-ajax' ),
 				] )
 			),
 			'before'
