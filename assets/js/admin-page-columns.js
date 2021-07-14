@@ -1987,13 +1987,14 @@ const addEventListeners = (el, events, callback) => {
 /*!******************************!*\
   !*** ./js/helpers/global.ts ***!
   \******************************/
-/*! exports provided: getParamFromUrl, mapDataToFormData */
+/*! exports provided: getParamFromUrl, mapDataToFormData, appendObjectToFormData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParamFromUrl", function() { return getParamFromUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapDataToFormData", function() { return mapDataToFormData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendObjectToFormData", function() { return appendObjectToFormData; });
 const getParamFromUrl = (param, url) => {
     if (!url.includes('?')) {
         return null;
@@ -2007,16 +2008,20 @@ const mapDataToFormData = (data, formData = null) => {
     }
     Object.keys(data).forEach(key => {
         let value = data[key];
-        if (Array.isArray(value)) {
-            value.forEach(d => {
-                formData.append(`${key}[]`, d);
-            });
-        }
-        else {
-            formData.append(key, data[key]);
-        }
+        appendObjectToFormData(formData, value, key);
     });
     return formData;
+};
+const appendObjectToFormData = (formData, data, parentKey = null) => {
+    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+        Object.keys(data).forEach(key => {
+            appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+        });
+    }
+    else {
+        const value = data == null ? '' : data;
+        formData.append(parentKey, value);
+    }
 };
 
 

@@ -3,6 +3,7 @@
 namespace AC\Admin\Section\Partial;
 
 use AC\Form\Element\Checkbox;
+use AC\Form\Element\Toggle;
 use AC\Renderable;
 use AC\Settings\General;
 use AC\Settings\Option\EditButton;
@@ -32,6 +33,12 @@ class ShowEditButton implements Renderable {
 	 */
 	public function render() {
 		$name = sprintf( '%s[%s]', General::NAME, $this->option->get_name() );
+
+		$toggle = new Toggle( $name, $this->get_label(), $this->option->is_enabled() );
+		$toggle->set_value( '1' );
+
+		return $toggle->render();
+
 
 		$checkbox = new Checkbox( $name );
 

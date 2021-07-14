@@ -3,6 +3,14 @@
 -------------------------------------------------------------- */
 /* =Addons
 -------------------------------------------------------------- */
+.ac-addons-groups {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.ac-addons {
+  margin-right: 16px;
+}
 .ac-addons.group-default {
   float: none;
   clear: both;
@@ -17,7 +25,7 @@
   flex-wrap: wrap;
 }
 .ac-addons ul .ac-addon {
-  width: 250px;
+  width: 300px;
   background: #FFF;
   display: flex;
   flex-direction: column;
@@ -38,12 +46,10 @@
 .ac-addons ul .ac-addon .addon-header {
   display: table;
   width: 100%;
-  height: 125px;
+  height: 85px;
   text-align: center;
   vertical-align: middle;
-  border-top: 1px solid #DDD;
-  background: #0069a4;
-  background: radial-gradient(ellipse at center, #0069a4 0%, #085079 100%);
+  border-bottom: 1px solid #DDD;
 }
 .ac-addons ul .ac-addon .addon-header .inner {
   display: table-cell;

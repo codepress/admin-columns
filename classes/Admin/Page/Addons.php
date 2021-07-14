@@ -53,6 +53,8 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	public function render() {
 		ob_start();
 
+		echo '<div class="ac-addons-groups">';
+
 		foreach ( $this->get_grouped_addons() as $group ) :
 			?>
 
@@ -78,6 +80,8 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 				</ul>
 			</div>
 		<?php endforeach;
+
+		echo '</div>';
 
 		return ob_get_clean();
 	}
