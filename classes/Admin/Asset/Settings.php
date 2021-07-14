@@ -17,7 +17,7 @@ class Settings extends Script {
 		wp_add_inline_script(
 			$this->get_handle(),
 			sprintf(
-				"var AC = '%s';",
+				"var AC = %s;",
 				json_encode( [
 					'_ajax_nonce'      => wp_create_nonce( 'ac-ajax' ),
 					'is_network_admin' => is_network_admin(),
