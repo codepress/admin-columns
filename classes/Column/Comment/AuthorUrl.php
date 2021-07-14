@@ -15,7 +15,11 @@ class AuthorUrl extends Column {
 	}
 
 	public function get_value( $id ) {
-		return ac_helper()->string->shorten_url( $this->get_raw_value( $id ) );
+		$raw_value = $this->get_raw_value( $id );
+
+		return $raw_value
+			? ac_helper()->string->shorten_url( $raw_value )
+			: $this->get_empty_char();
 	}
 
 	public function get_raw_value( $id ) {

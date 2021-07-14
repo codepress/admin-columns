@@ -15,14 +15,20 @@ export const mapDataToFormData = (data: any, formData: FormData = null): FormDat
 
     Object.keys(data).forEach(key => {
         let value = data[key];
-        if (Array.isArray(value)) {
-            value.forEach(d => {
-                formData.append(`${key}[]`, d);
-            });
-        } else {
-            formData.append(key, data[key]);
-        }
+        appendObjectToFormData(formData, value, key);
     });
 
     return formData;
+}
+
+export const appendObjectToFormData = (formData: FormData, data: { [key: string]: any }, parentKey: string = null) => {
+    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+        Object.keys(data).forEach(key => {
+            appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+        });
+    } else {
+        const value = data == null ? '' : data;
+
+        formData.append(parentKey, value as string);
+    }
 }

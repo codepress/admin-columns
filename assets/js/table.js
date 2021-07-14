@@ -245,6 +245,10 @@ class AcHtmlElement {
         this.element.innerHTML = html;
         return this;
     }
+    Css(property, value) {
+        this.element.style[property] = value;
+        return this;
+    }
 }
 
 
@@ -997,7 +1001,7 @@ class Actions {
             this.refresh();
         });
         let reference = document.querySelectorAll('.tablenav.top .actions');
-        if (reference.length > 0 && this.container) {
+        if (reference && reference.length) {
             Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_0__["insertAfter"])(this.container, reference[reference.length - 1]);
             this.container.classList.add('-init');
             this.container.dispatchEvent(new CustomEvent('update'));
