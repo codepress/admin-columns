@@ -18,7 +18,7 @@ class Restore extends Section {
 
 		$view = new View( [
 			'title'       => __( 'Restore Settings', 'codepress-admin-columns' ),
-			'description' => __( 'This will delete all column settings and restore the default settings.', 'codepress-admin-columns' ),
+			'description' => __( 'Delete all column settings and restore the default settings.', 'codepress-admin-columns' ),
 			'content'     => $form->render(),
 			'class'       => 'general',
 		] );

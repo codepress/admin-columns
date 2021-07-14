@@ -9,23 +9,26 @@
 
 
 .ac-settings-box {
-	margin-bottom: 40px;
+	margin-bottom: 60px;
 }
 
-.ac-lined-header {
-	display: flex;
-	font-weight: normal;
-	font-size: 20px;
-	width: 100%;
-	align-items: center;
+h2, h3 {
+	&.ac-lined-header {
+		display: flex;
+		font-weight: normal;
+		font-size: 20px;
+		width: 100%;
+		align-items: center;
+		margin-bottom: 30px;
 
-	&:after {
-		content: '';
+		&:after {
+			content: '';
 
-		flex: 100;
-		height: 1px;
-		background: #D8D8D8;
-		margin-left: 23px;
+			flex: 100;
+			height: 1px;
+			background: #D8D8D8;
+			margin-left: 23px;
+		}
 	}
 }
 
