@@ -14,8 +14,7 @@ export const mapDataToFormData = (data: any, formData: FormData = null): FormDat
     }
 
     Object.keys(data).forEach(key => {
-        let value = data[key];
-        appendObjectToFormData(formData, value, key);
+        appendObjectToFormData(formData, data[key], key);
     });
 
     return formData;
