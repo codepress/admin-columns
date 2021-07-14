@@ -2,11 +2,13 @@
 
 namespace AC\Admin\Page;
 
+use AC\Admin;
 use AC\Admin\RenderableHead;
 use AC\Admin\Section;
 use AC\Admin\SectionCollection;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
+use AC\Asset\Location;
 use AC\Renderable;
 use AC\View;
 
@@ -24,12 +26,18 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 	 */
 	protected $sections;
 
-	public function __construct( Renderable $head, SectionCollection $sections = null ) {
+	/**
+	 * @var Location\Absolute
+	 */
+	private $location;
+
+	public function __construct( Renderable $head, Location\Absolute $location, SectionCollection $sections = null ) {
 		if ( null === $sections ) {
 			$sections = new SectionCollection();
 		}
 
 		$this->head = $head;
+		$this->location = $location;
 		$this->sections = $sections;
 	}
 
@@ -48,7 +56,7 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 
 	/**
 	 * @param Section $section
-	 * @param int $prio
+	 * @param int     $prio
 	 *
 	 * @return $this
 	 */
@@ -59,7 +67,9 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 	}
 
 	public function get_assets() {
-		$assets = new Assets();
+		$assets = new Assets( [
+			new Admin\Asset\Settings( 'ac-admin-page-settings', $this->location->with_suffix( 'assets/js/admin-page-settingss.js' ) ),
+		] );
 
 		foreach ( $this->sections->all() as $section ) {
 			if ( $section instanceof Enqueueables ) {
