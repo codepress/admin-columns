@@ -7,7 +7,13 @@ $addon-color-link: #0073aa;
 
 /* =Addons
 -------------------------------------------------------------- */
+.ac-addons-groups {
+	display: inline-flex;
+	flex-wrap: wrap;
+}
+
 .ac-addons {
+	margin-right: 16px;
 
 	&.group-default {
 		float: none;
@@ -25,7 +31,7 @@ $addon-color-link: #0073aa;
 		flex-wrap: wrap;
 
 		.ac-addon {
-			width: 250px;
+			width: 300px;
 			background: #FFF;
 			display: flex;
 			flex-direction: column;
@@ -49,12 +55,10 @@ $addon-color-link: #0073aa;
 			.addon-header {
 				display: table;
 				width: 100%;
-				height: 125px;
+				height: 85px;
 				text-align: center;
 				vertical-align: middle;
-				border-top: 1px solid #DDD;
-				background: #0069a4;
-				background: radial-gradient(ellipse at center, $addon-color-lightblue 0%, $addon-color-blue 100%);
+				border-bottom: 1px solid #DDD;
 
 				.inner {
 					display: table-cell;

@@ -1,0 +1,38 @@
+<?php
+
+namespace AC\Form\Element;
+
+use AC\Form\Element;
+use AC\View;
+
+class Toggle extends Element {
+
+	/**
+	 * @var boolean
+	 */
+	private $checked;
+
+	public function __construct( $name, $label, $checked = false ) {
+		parent::__construct( $name, [] );
+
+		$this->set_label( $label );
+		$this->checked = (bool) $checked;
+	}
+
+	protected function get_type() {
+		return 'checkbox';
+	}
+
+	public function render() {
+		$view = new View([
+			'id' => $this->get_name(),
+			'name' => $this->get_name(),
+			'label' => $this->get_label(),
+			'checked' => $this->checked,
+			'value' => $this->get_value()
+		]);
+
+		return $view->set_template( 'component/toggle-v2' )->render();
+	}
+
+}
