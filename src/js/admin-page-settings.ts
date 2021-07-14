@@ -1,7 +1,7 @@
 import axios from "axios";
 import {mapDataToFormData} from "./helpers/global";
 
-declare const ajaxurl: string;
+declare const ajaxurl: string; 
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll<HTMLInputElement>('.ac-settings-box input[data-ajax-setting]').forEach(el => {
