@@ -68,7 +68,7 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 
 	public function get_assets() {
 		$assets = new Assets( [
-			new Admin\Asset\Settings( 'ac-admin-page-settings', $this->location->with_suffix( 'assets/js/admin-page-settingss.js' ) ),
+			new Admin\Asset\Settings( 'ac-admin-page-settings', $this->location->with_suffix( 'assets/js/admin-page-settings.js' ) ),
 		] );
 
 		foreach ( $this->sections->all() as $section ) {

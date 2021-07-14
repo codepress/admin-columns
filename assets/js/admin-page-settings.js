@@ -119,7 +119,7 @@ class GeneralAdminSetting {
     persist() {
         return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(ajaxurl, Object(_helpers_global__WEBPACK_IMPORTED_MODULE_1__["mapDataToFormData"])({
             action: 'ac_admin_general_options',
-            //_ajax_nonce: AC._ajax_nonce,
+            _ajax_nonce: AC._ajax_nonce,
             option_name: this.name,
             option_value: this.element.checked ? '1' : '0'
         }));

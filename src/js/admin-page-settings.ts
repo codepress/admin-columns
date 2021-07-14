@@ -1,7 +1,9 @@
 import axios from "axios";
 import {mapDataToFormData} from "./helpers/global";
+import {LocalizedAcGeneralSettings} from "./types/admin-columns";
 
-declare const ajaxurl: string; 
+declare const ajaxurl: string;
+declare const AC: LocalizedAcGeneralSettings
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll<HTMLInputElement>('.ac-settings-box input[data-ajax-setting]').forEach(el => {
@@ -30,7 +32,7 @@ class GeneralAdminSetting {
     persist() {
         return axios.post(ajaxurl, mapDataToFormData({
             action: 'ac_admin_general_options',
-            //_ajax_nonce: AC._ajax_nonce,
+            _ajax_nonce: AC._ajax_nonce,
             option_name: this.name,
             option_value: this.element.checked ? '1' : '0'
         }));
