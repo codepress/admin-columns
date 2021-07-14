@@ -44,11 +44,12 @@ class PageFactory implements PageFactoryInterface {
 			case Page\Help::NAME :
 				return new Page\Help( new Hooks(), $this->location, new View\Menu( $this->menu_factory->create( $slug ) ) );
 			case Page\Settings::NAME :
-				$sections = new SectionCollection();
-				$sections->add( new Section\General( [ new Section\Partial\ShowEditButton() ] ) )
-				         ->add( new Section\Restore() );
+				// TODO add section prio
+				$page = new Page\Settings( new View\Menu( $this->menu_factory->create( $slug ) ) );
+				$page->add_section( new Section\General( [ new Section\Partial\ShowEditButton() ] ) )
+				     ->add_section( new Section\Restore(), 40 );
 
-				return new Page\Settings( new View\Menu( $this->menu_factory->create( $slug ) ), $sections );
+				return $page;
 			case Page\Addons::NAME :
 				return new Page\Addons( $this->location, new IntegrationRepository(), new View\Menu( $this->menu_factory->create( $slug ) ) );
 			case Page\Columns::NAME :

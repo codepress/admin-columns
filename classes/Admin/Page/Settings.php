@@ -48,11 +48,12 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 
 	/**
 	 * @param Section $section
+	 * @param int $prio
 	 *
 	 * @return $this
 	 */
-	public function add_section( Section $section ) {
-		$this->sections->add( $section );
+	public function add_section( Section $section, $prio = 10 ) {
+		$this->sections->add( $section, $prio );
 
 		return $this;
 	}
@@ -60,7 +61,7 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 	public function get_assets() {
 		$assets = new Assets();
 
-		foreach ( $this->sections as $section ) {
+		foreach ( $this->sections->all() as $section ) {
 			if ( $section instanceof Enqueueables ) {
 				$assets->add_collection( $section->get_assets() );
 			}
@@ -71,7 +72,7 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 
 	public function render() {
 		$view = new View( [
-			'sections' => $this->sections,
+			'sections' => $this->sections->all(),
 		] );
 
 		return $view->set_template( 'admin/page/settings' )->render();
