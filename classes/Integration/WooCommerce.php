@@ -14,7 +14,7 @@ final class WooCommerce extends Integration {
 		parent::__construct(
 			'ac-addon-woocommerce/ac-addon-woocommerce.php',
 			__( 'WooCommerce', 'codepress-admin-columns' ),
-			'assets/images/addons/woocommerce.png',
+			'assets/images/addons/woocommerce-icon.png',
 			sprintf(
 				'%s %s',
 				__( 'Integrates Admin Columns Pro with WooCommerce.', 'codepress-admin-columns' ),
