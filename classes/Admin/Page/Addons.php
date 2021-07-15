@@ -59,7 +59,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 			?>
 
 			<div class="ac-addons group-<?= esc_attr( $group['class'] ); ?>">
-				<h2><?php echo esc_html( $group['title'] ); ?></h2>
+				<h2 class="ac-lined-header"><?php echo esc_html( $group['title'] ); ?></h2>
 
 				<ul>
 					<?php
@@ -71,6 +71,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 							'title'       => $addon->get_title(),
 							'slug'        => $addon->get_slug(),
 							'description' => $addon->get_description(),
+							'link'        => $addon->get_plugin_link(),
 							'actions'     => $this->render_actions( $addon ),
 						] );
 
