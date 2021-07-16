@@ -70,7 +70,7 @@ class AddonStatus {
 
 	private function render_network_activate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'activate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__button button">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'activate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__button button-primary">
 			<?php _e( 'Network Activate', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -86,7 +86,7 @@ class AddonStatus {
 
 	private function render_activate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_action_url( 'activate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__button button">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_action_url( 'activate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__button button-primary">
 			<?php _e( 'Enable', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -94,7 +94,7 @@ class AddonStatus {
 
 	private function render_install() {
 		?>
-		<a class="ac-addon__button button" data-install>
+		<a class="ac-addon__button button-primary" data-install>
 			<?php esc_html_e( 'Enable', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -102,7 +102,7 @@ class AddonStatus {
 
 	private function render_more_info() {
 		?>
-		<a target="_blank" href="<?php echo esc_url( $this->integration->get_link() ); ?>" class="ac-addon__button button">
+		<a target="_blank" href="<?php echo esc_url( $this->integration->get_link() ); ?>" class="ac-addon__button button-primary">
 			<?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
