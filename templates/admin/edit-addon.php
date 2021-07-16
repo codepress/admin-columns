@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<h3><?= esc_html( $this->title ); ?></h3>
 		<p>
 			<?= esc_html( $this->description ); ?>
-			<a class="ac-addon__more-link" href="<?= esc_attr( $this->link ); ?>"><?= __( 'More details', 'codepress-admin-columns' ); ?> &raquo;</a>
+			<a targe="_blank" class="ac-addon__more-link" href="<?= esc_attr( $this->link ); ?>"><?= __( 'More details', 'codepress-admin-columns' ); ?> &raquo;</a>
 		</p>
 	</div>
 	<div class="ac-addon__actions">
