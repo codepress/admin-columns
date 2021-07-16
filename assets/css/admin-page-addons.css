@@ -73,6 +73,10 @@
   color: #fff;
   font-weight: bold;
 }
+.ac-addon__actions a.ac-addon__link.link-deactivate {
+  display: inline-block;
+  color: #b1b1b1;
+}
 .ac-addon__state {
   font-weight: bold;
   font-size: 16px;

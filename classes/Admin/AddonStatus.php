@@ -62,7 +62,7 @@ class AddonStatus {
 
 	private function render_network_deactivate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'deactivate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__button button">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'deactivate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__link link-deactivate">
 			<?php _e( 'Deactivate', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -78,7 +78,7 @@ class AddonStatus {
 
 	private function render_deactivate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_action_url( 'deactivate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__button button">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_action_url( 'deactivate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__link link-deactivate">
 			<?php _e( 'Deactivate', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -193,8 +193,16 @@ class AddonStatus {
 			$this->render_network_active_label();
 		}
 
+		if ( $this->is_network_deactivatable() ) {
+			$this->render_network_deactivate();
+		}
+
 		if ( $this->is_active() ) {
 			$this->render_active_label();
+		}
+
+		if ( $this->is_deactivatable() ) {
+			$this->render_deactivate();
 		}
 
 		if ( $this->is_network_activatable() ) {
