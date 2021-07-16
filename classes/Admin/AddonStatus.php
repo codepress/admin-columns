@@ -87,7 +87,7 @@ class AddonStatus {
 	private function render_activate() {
 		?>
 		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_action_url( 'activate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__button button">
-			<?php _e( 'Activate', 'codepress-admin-columns' ); ?>
+			<?php _e( 'Enable', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
 	}
@@ -95,7 +95,7 @@ class AddonStatus {
 	private function render_install() {
 		?>
 		<a class="ac-addon__button button" data-install>
-			<?php esc_html_e( 'Install', 'codepress-admin-columns' ); ?>
+			<?php esc_html_e( 'Enable', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
 	}
