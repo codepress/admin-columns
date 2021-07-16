@@ -13,7 +13,7 @@ $addon-color-link: #0073aa;
 }
 
 .ac-addons {
-	margin-right: 16px;
+	margin-right: 46px;
 
 	&.group-default {
 		float: none;
@@ -25,6 +25,7 @@ $addon-color-link: #0073aa;
 	ul {
 		display: flex;
 		flex-wrap: wrap;
+		margin-left: -46px;
 	}
 }
 
@@ -34,8 +35,8 @@ $addon-color-link: #0073aa;
 	display: flex;
 	flex-direction: column;
 	flex-flow: column nowrap;
-	margin-right: 16px;
-	margin-bottom: 16px;
+	margin-left: 46px;
+	margin-bottom: 46px;
 	border: 1px solid #DDD;
 	box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
 
@@ -57,6 +58,7 @@ $addon-color-link: #0073aa;
 
 	&__content {
 		padding: 10px 30px;
+		min-height: 150px;
 
 		h3 {
 			margin: 15px 0 25px 0;
@@ -68,6 +70,7 @@ $addon-color-link: #0073aa;
 		text-align: center;
 		padding-bottom: 35px;
 		margin-top: auto;
+		min-height: 40px;
 
 		a.ac-addon__button {
 			border-color: #4C7FA0;
