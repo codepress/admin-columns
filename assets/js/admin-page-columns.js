@@ -1215,6 +1215,7 @@ class DateSetting {
             radio.addEventListener('change', () => this.handleUpdate(radio));
         });
         this.setSelected();
+        this.customOption.updateExample();
     }
     setSelected() {
         let selected = this.getOptionsAsArray().find(option => option.value === this.getCurrentValue());
@@ -1226,7 +1227,10 @@ class DateSetting {
     handleUpdate(input) {
         this.valueInput.value = input.value;
         this.customOption.toggle(typeof input.dataset.custom !== 'undefined');
-        this.setHelpText(this.getHelpTextFromType(input.value));
+        this.setHelpText(this.getHelpTextFromType(input));
+        if (typeof input.dataset.custom !== 'undefined') {
+            return;
+        }
         switch (this.valueInput.value) {
             case 'custom':
                 break;
@@ -1248,11 +1252,7 @@ class DateSetting {
         element.style.display = 'block';
     }
     getHelpTextFromType(type) {
-        let input = this.getOptionsAsArray().filter(radio => radio.value === type);
-        if (!input) {
-            return '';
-        }
-        let helpText = input[0].closest('label').querySelector('[data-help]');
+        let helpText = type.closest('label').querySelector('[data-help]');
         return helpText ? helpText.innerHTML : null;
     }
 }
@@ -2007,8 +2007,7 @@ const mapDataToFormData = (data, formData = null) => {
         formData = new FormData();
     }
     Object.keys(data).forEach(key => {
-        let value = data[key];
-        appendObjectToFormData(formData, value, key);
+        appendObjectToFormData(formData, data[key], key);
     });
     return formData;
 };

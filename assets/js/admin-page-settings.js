@@ -231,8 +231,7 @@ const mapDataToFormData = (data, formData = null) => {
         formData = new FormData();
     }
     Object.keys(data).forEach(key => {
-        let value = data[key];
-        appendObjectToFormData(formData, value, key);
+        appendObjectToFormData(formData, data[key], key);
     });
     return formData;
 };
