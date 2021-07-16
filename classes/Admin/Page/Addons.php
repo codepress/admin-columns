@@ -71,7 +71,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 							'title'       => $addon->get_title(),
 							'slug'        => $addon->get_slug(),
 							'description' => $addon->get_description(),
-							'link'        => $addon->get_plugin_link(),
+							'link'        => $addon->get_link(),
 							'actions'     => $this->render_actions( $addon ),
 						] );
 
