@@ -11,7 +11,7 @@ export type LocalizedAcColumnSettings = {
 
 export type LocalizedAcAddonSettings = {
     _ajax_nonce: string,
-    is_network_admin: string
+    is_network_admin: boolean
 }
 
 export type LocalizedAcGeneralSettings = {

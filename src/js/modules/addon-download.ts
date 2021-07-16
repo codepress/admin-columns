@@ -4,7 +4,6 @@ import $ from 'jquery';
 import {LocalizedAcAddonSettings} from "../types/admin-columns";
 import AddonDownloader from "./addon-downloader";
 
-declare let ajaxurl: string;
 declare let AC: LocalizedAcAddonSettings
 
 export class AddonDownload {
@@ -15,7 +14,7 @@ export class AddonDownload {
     downloader: AddonDownloader
 
     constructor(el: HTMLElement, slug: string) {
-        this.downloader = new AddonDownloader(slug, AC.is_network_admin === '1', AC._ajax_nonce)
+        this.downloader = new AddonDownloader(slug, AC.is_network_admin, AC._ajax_nonce)
         this.element = el;
         this.slug = slug;
         this.loadingState = false;
@@ -31,26 +30,22 @@ export class AddonDownload {
         const button = this.getDownloadButton();
 
         if (button) {
-            button.insertAdjacentHTML('afterend', '<span class="spinner" style="visibility: visible;"></span>');
             button.classList.add('button-disabled');
         }
 
+        this.element.querySelectorAll('h3').forEach(el => el.insertAdjacentHTML('afterend', '<span class="spinner" style="visibility: visible; transform: translateY(-3px);"></span>'))
         this.loadingState = true;
     }
 
-    removeLoadingState(): void {
+    setLoadingFinished(): void {
+        this.loadingState = false;
         const button = this.getDownloadButton();
-        const spinner = this.element.querySelector('.spinner');
 
-        if (spinner) {
-            spinner.remove();
-        }
+        this.element.querySelectorAll('.spinner').forEach(el => el.remove());
 
         if (button) {
             button.classList.remove('button-disabled');
         }
-
-        this.loadingState = false;
     }
 
     initEvents() {
@@ -70,8 +65,11 @@ export class AddonDownload {
         }
     }
 
+    getFooterElement(): HTMLElement {
+        return this.element.querySelector('.ac-addon__actions');
+    }
+
     success(status: string) {
-        const button = this.getDownloadButton();
         const title = this.element.querySelector('h3');
         const notice = new WPNotice();
 
@@ -79,13 +77,15 @@ export class AddonDownload {
             .makeDismissable()
             .addClass('updated');
 
-        document.querySelector('.ac-addons').insertAdjacentElement('beforebegin', notice.render());
+        this.addNotice(notice);
+        this.setLoadingFinished();
+        this.getFooterElement().innerHTML = `<div class="ac-addon__state"><span class="-green dashicons dashicons-yes"></span><span class="ac-addon__state__label">${status}</span></div>`
+    }
 
-        if (button) {
-            button.insertAdjacentHTML('beforebegin', `<span class="active">${status}</span>`);
-            button.remove();
-        }
+    addNotice(notice: WPNotice) {
+        let container = document.querySelector('.ac-addons-groups');
 
+        container.parentElement.insertBefore(notice.render(), container);
     }
 
     static scrollToTop(ms: number) {
@@ -102,7 +102,9 @@ export class AddonDownload {
             .makeDismissable()
             .addClass('notice-error');
 
-        document.querySelector('.ac-addons').insertAdjacentElement('beforebegin', notice.render());
+        this.addNotice(notice);
+        this.setLoadingFinished();
+
         AddonDownload.scrollToTop(200);
     }
 
