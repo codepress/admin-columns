@@ -9,7 +9,7 @@
 }
 
 .ac-addons {
-  margin-right: 16px;
+  margin-right: 46px;
 }
 .ac-addons.group-default {
   float: none;
@@ -19,6 +19,7 @@
 .ac-addons ul {
   display: flex;
   flex-wrap: wrap;
+  margin-left: -46px;
 }
 
 .ac-addon {
@@ -27,8 +28,8 @@
   display: flex;
   flex-direction: column;
   flex-flow: column nowrap;
-  margin-right: 16px;
-  margin-bottom: 16px;
+  margin-left: 46px;
+  margin-bottom: 46px;
   border: 1px solid #DDD;
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
 }
@@ -47,6 +48,7 @@
 }
 .ac-addon__content {
   padding: 10px 30px;
+  min-height: 150px;
 }
 .ac-addon__content h3 {
   margin: 15px 0 25px 0;
@@ -56,6 +58,7 @@
   text-align: center;
   padding-bottom: 35px;
   margin-top: auto;
+  min-height: 40px;
 }
 .ac-addon__actions a.ac-addon__button {
   border-color: #4C7FA0;
