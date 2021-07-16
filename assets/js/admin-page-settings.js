@@ -98,6 +98,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers/global */ "./js/helpers/global.ts");
+/* harmony import */ var _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugin/ajax-loader */ "./js/plugin/ajax-loader.ts");
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -109,12 +111,24 @@ class GeneralAdminSetting {
     constructor(element, name) {
         this.element = element;
         this.name = name;
+        this.loader = null;
         this.init();
     }
     init() {
         this.element.addEventListener('change', () => {
-            this.persist();
+            this.initNewLoader();
+            this.element.closest('.ac-toggle-v2').append(this.loader.getElement());
+            this.loader.setLoading(true);
+            this.persist().then(() => {
+                this.loader.finish();
+            });
         });
+    }
+    initNewLoader() {
+        if (this.loader !== null) {
+            this.loader.getElement().remove();
+        }
+        this.loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_2__["default"]();
     }
     persist() {
         return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(ajaxurl, Object(_helpers_global__WEBPACK_IMPORTED_MODULE_1__["mapDataToFormData"])({
@@ -125,6 +139,70 @@ class GeneralAdminSetting {
         }));
     }
 }
+
+
+/***/ }),
+
+/***/ "./js/helpers/animations.ts":
+/*!**********************************!*\
+  !*** ./js/helpers/animations.ts ***!
+  \**********************************/
+/*! exports provided: fadeIn, fadeOut, scrollToElement */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeIn", function() { return fadeIn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeOut", function() { return fadeOut; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollToElement", function() { return scrollToElement; });
+const fadeIn = (element, ms = 100, cb = null, display = 'block') => {
+    element.style.display = display;
+    element.style.transition = `opacity ${ms}ms`;
+    element.style.opacity = '0';
+    setTimeout(() => {
+        element.style.opacity = '1';
+    }, 100);
+    if (cb) {
+        element.addEventListener('transitionend', () => {
+            cb.call(undefined);
+        }, { once: true });
+    }
+};
+const fadeOut = (element, ms = 100, cb = null, display = 'none') => {
+    element.style.transition = `opacity ${ms}ms`;
+    element.style.opacity = '1';
+    setTimeout(() => {
+        element.style.opacity = '0';
+    }, 100);
+    element.addEventListener('transitionend', () => {
+        element.style.display = display;
+        if (cb) {
+            cb.call(undefined);
+        }
+    }, { once: true });
+};
+const scrollToElement = (element, ms, options = {}) => {
+    let defaults = {
+        offset: 0
+    };
+    let settings = Object.assign({}, defaults, options);
+    const elementY = element.offsetTop + settings.offset;
+    const startingY = window.pageYOffset;
+    const diff = elementY - startingY;
+    let start;
+    // Bootstrap our animation - it will get called right before next frame shall be rendered.
+    window.requestAnimationFrame(function step(timestamp) {
+        if (!start) {
+            start = timestamp;
+        }
+        let time = timestamp - start;
+        let percent = Math.min(time / ms, 1);
+        window.scrollTo(0, startingY + diff * percent);
+        if (time < ms) {
+            window.requestAnimationFrame(step);
+        }
+    });
+};
 
 
 /***/ }),
@@ -168,6 +246,111 @@ const appendObjectToFormData = (formData, data, parentKey = null) => {
         const value = data == null ? '' : data;
         formData.append(parentKey, value);
     }
+};
+
+
+/***/ }),
+
+/***/ "./js/helpers/html-element.ts":
+/*!************************************!*\
+  !*** ./js/helpers/html-element.ts ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AcHtmlElement; });
+class AcHtmlElement {
+    constructor(el) {
+        this.element = el instanceof HTMLElement ? el : document.createElement(el);
+    }
+    static create(el) {
+        return new AcHtmlElement(el);
+    }
+    addId(id) {
+        this.element.id = id;
+        return this;
+    }
+    addClass(className) {
+        this.element.classList.add(className);
+        return this;
+    }
+    addClasses(...classNames) {
+        classNames.forEach(className => this.addClass(className));
+        return this;
+    }
+    addHtml(html) {
+        this.element.innerHTML = html;
+        return this;
+    }
+    Css(property, value) {
+        this.element.style[property] = value;
+        return this;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/plugin/ajax-loader.ts":
+/*!**********************************!*\
+  !*** ./js/plugin/ajax-loader.ts ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AjaxLoader; });
+/* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
+/* harmony import */ var _helpers_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/animations */ "./js/helpers/animations.ts");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+class AjaxLoader {
+    constructor() {
+        this.element = createMarkup();
+        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_2___default.a();
+    }
+    getElement() {
+        return this.element;
+    }
+    setActive(active = true) {
+        active
+            ? this.element.classList.add('-active')
+            : this.element.classList.remove('-active');
+        return this;
+    }
+    setLoading(loading = true) {
+        this.setActive(true);
+        loading
+            ? this.element.classList.add('-loading')
+            : this.element.classList.remove('-loading');
+        return this;
+    }
+    onFinish(cb) {
+        this.events.on('finish', cb);
+    }
+    finish() {
+        this.setLoading(false);
+        this.element.classList.add('-finished');
+        setTimeout(() => {
+            Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_1__["fadeOut"])(this.element, 500, () => {
+                this.setActive(false);
+                this.events.emit('finish');
+            });
+        }, 2000);
+    }
+}
+const createMarkup = () => {
+    return _helpers_html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create('div').addClass('ac-ajax-loading').addHtml(`
+        <div class="ac-ajax-loading__spinner spinner"></div>
+        <div class="ac-ajax-loading__icon"><span class="dashicons dashicons-yes-alt"></span></div>
+        <div class="ac-ajax-loading__status">Saved</div>
+    `).element;
 };
 
 
@@ -1821,6 +2004,312 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/nanoassert/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/nanoassert/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+assert.notEqual = notEqual;
+assert.notOk = notOk;
+assert.equal = equal;
+assert.ok = assert;
+module.exports = assert;
+function equal(a, b, m) {
+    assert(a == b, m); // eslint-disable-line eqeqeq
+}
+function notEqual(a, b, m) {
+    assert(a != b, m); // eslint-disable-line eqeqeq
+}
+function notOk(t, m) {
+    assert(!t, m);
+}
+function assert(t, m) {
+    if (!t)
+        throw new Error(m || 'AssertionError');
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/nanobus/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/nanobus/index.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var splice = __webpack_require__(/*! remove-array-items */ "./node_modules/remove-array-items/index.js");
+var nanotiming = __webpack_require__(/*! nanotiming */ "./node_modules/nanotiming/browser.js");
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js");
+module.exports = Nanobus;
+function Nanobus(name) {
+    if (!(this instanceof Nanobus))
+        return new Nanobus(name);
+    this._name = name || 'nanobus';
+    this._starListeners = [];
+    this._listeners = {};
+}
+Nanobus.prototype.emit = function (eventName) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.emit: eventName should be type string or symbol');
+    var data = [];
+    for (var i = 1, len = arguments.length; i < len; i++) {
+        data.push(arguments[i]);
+    }
+    var emitTiming = nanotiming(this._name + "('" + eventName.toString() + "')");
+    var listeners = this._listeners[eventName];
+    if (listeners && listeners.length > 0) {
+        this._emit(this._listeners[eventName], data);
+    }
+    if (this._starListeners.length > 0) {
+        this._emit(this._starListeners, eventName, data, emitTiming.uuid);
+    }
+    emitTiming();
+    return this;
+};
+Nanobus.prototype.on = Nanobus.prototype.addListener = function (eventName, listener) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.on: eventName should be type string or symbol');
+    assert.equal(typeof listener, 'function', 'nanobus.on: listener should be type function');
+    if (eventName === '*') {
+        this._starListeners.push(listener);
+    }
+    else {
+        if (!this._listeners[eventName])
+            this._listeners[eventName] = [];
+        this._listeners[eventName].push(listener);
+    }
+    return this;
+};
+Nanobus.prototype.prependListener = function (eventName, listener) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.prependListener: eventName should be type string or symbol');
+    assert.equal(typeof listener, 'function', 'nanobus.prependListener: listener should be type function');
+    if (eventName === '*') {
+        this._starListeners.unshift(listener);
+    }
+    else {
+        if (!this._listeners[eventName])
+            this._listeners[eventName] = [];
+        this._listeners[eventName].unshift(listener);
+    }
+    return this;
+};
+Nanobus.prototype.once = function (eventName, listener) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.once: eventName should be type string or symbol');
+    assert.equal(typeof listener, 'function', 'nanobus.once: listener should be type function');
+    var self = this;
+    this.on(eventName, once);
+    function once() {
+        listener.apply(self, arguments);
+        self.removeListener(eventName, once);
+    }
+    return this;
+};
+Nanobus.prototype.prependOnceListener = function (eventName, listener) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.prependOnceListener: eventName should be type string or symbol');
+    assert.equal(typeof listener, 'function', 'nanobus.prependOnceListener: listener should be type function');
+    var self = this;
+    this.prependListener(eventName, once);
+    function once() {
+        listener.apply(self, arguments);
+        self.removeListener(eventName, once);
+    }
+    return this;
+};
+Nanobus.prototype.removeListener = function (eventName, listener) {
+    assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.removeListener: eventName should be type string or symbol');
+    assert.equal(typeof listener, 'function', 'nanobus.removeListener: listener should be type function');
+    if (eventName === '*') {
+        this._starListeners = this._starListeners.slice();
+        return remove(this._starListeners, listener);
+    }
+    else {
+        if (typeof this._listeners[eventName] !== 'undefined') {
+            this._listeners[eventName] = this._listeners[eventName].slice();
+        }
+        return remove(this._listeners[eventName], listener);
+    }
+    function remove(arr, listener) {
+        if (!arr)
+            return;
+        var index = arr.indexOf(listener);
+        if (index !== -1) {
+            splice(arr, index, 1);
+            return true;
+        }
+    }
+};
+Nanobus.prototype.removeAllListeners = function (eventName) {
+    if (eventName) {
+        if (eventName === '*') {
+            this._starListeners = [];
+        }
+        else {
+            this._listeners[eventName] = [];
+        }
+    }
+    else {
+        this._starListeners = [];
+        this._listeners = {};
+    }
+    return this;
+};
+Nanobus.prototype.listeners = function (eventName) {
+    var listeners = eventName !== '*'
+        ? this._listeners[eventName]
+        : this._starListeners;
+    var ret = [];
+    if (listeners) {
+        var ilength = listeners.length;
+        for (var i = 0; i < ilength; i++)
+            ret.push(listeners[i]);
+    }
+    return ret;
+};
+Nanobus.prototype._emit = function (arr, eventName, data, uuid) {
+    if (typeof arr === 'undefined')
+        return;
+    if (arr.length === 0)
+        return;
+    if (data === undefined) {
+        data = eventName;
+        eventName = null;
+    }
+    if (eventName) {
+        if (uuid !== undefined) {
+            data = [eventName].concat(data, uuid);
+        }
+        else {
+            data = [eventName].concat(data);
+        }
+    }
+    var length = arr.length;
+    for (var i = 0; i < length; i++) {
+        var listener = arr[i];
+        listener.apply(listener, data);
+    }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/nanoscheduler/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/nanoscheduler/index.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js");
+var hasWindow = typeof window !== 'undefined';
+function createScheduler() {
+    var scheduler;
+    if (hasWindow) {
+        if (!window._nanoScheduler)
+            window._nanoScheduler = new NanoScheduler(true);
+        scheduler = window._nanoScheduler;
+    }
+    else {
+        scheduler = new NanoScheduler();
+    }
+    return scheduler;
+}
+function NanoScheduler(hasWindow) {
+    this.hasWindow = hasWindow;
+    this.hasIdle = this.hasWindow && window.requestIdleCallback;
+    this.method = this.hasIdle ? window.requestIdleCallback.bind(window) : this.setTimeout;
+    this.scheduled = false;
+    this.queue = [];
+}
+NanoScheduler.prototype.push = function (cb) {
+    assert.equal(typeof cb, 'function', 'nanoscheduler.push: cb should be type function');
+    this.queue.push(cb);
+    this.schedule();
+};
+NanoScheduler.prototype.schedule = function () {
+    if (this.scheduled)
+        return;
+    this.scheduled = true;
+    var self = this;
+    this.method(function (idleDeadline) {
+        var cb;
+        while (self.queue.length && idleDeadline.timeRemaining() > 0) {
+            cb = self.queue.shift();
+            cb(idleDeadline);
+        }
+        self.scheduled = false;
+        if (self.queue.length)
+            self.schedule();
+    });
+};
+NanoScheduler.prototype.setTimeout = function (cb) {
+    setTimeout(cb, 0, {
+        timeRemaining: function () {
+            return 1;
+        }
+    });
+};
+module.exports = createScheduler;
+
+
+/***/ }),
+
+/***/ "./node_modules/nanotiming/browser.js":
+/*!********************************************!*\
+  !*** ./node_modules/nanotiming/browser.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var scheduler = __webpack_require__(/*! nanoscheduler */ "./node_modules/nanoscheduler/index.js")();
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js");
+var perf;
+nanotiming.disabled = true;
+try {
+    perf = window.performance;
+    nanotiming.disabled = window.localStorage.DISABLE_NANOTIMING === 'true' || !perf.mark;
+}
+catch (e) { }
+module.exports = nanotiming;
+function nanotiming(name) {
+    assert.equal(typeof name, 'string', 'nanotiming: name should be type string');
+    if (nanotiming.disabled)
+        return noop;
+    var uuid = (perf.now() * 10000).toFixed() % Number.MAX_SAFE_INTEGER;
+    var startName = 'start-' + uuid + '-' + name;
+    perf.mark(startName);
+    function end(cb) {
+        var endName = 'end-' + uuid + '-' + name;
+        perf.mark(endName);
+        scheduler.push(function () {
+            var err = null;
+            try {
+                var measureName = name + ' [' + uuid + ']';
+                perf.measure(measureName, startName, endName);
+                perf.clearMarks(startName);
+                perf.clearMarks(endName);
+            }
+            catch (e) {
+                err = e;
+            }
+            if (cb)
+                cb(err, name);
+        });
+    }
+    end.uuid = uuid;
+    return end;
+}
+function noop(cb) {
+    if (cb) {
+        scheduler.push(function () {
+            cb(new Error('nanotiming: performance API unavailable'));
+        });
+    }
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -2003,6 +2492,39 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 process.umask = function () { return 0; };
+
+
+/***/ }),
+
+/***/ "./node_modules/remove-array-items/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/remove-array-items/index.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * Remove a range of items from an array
+ *
+ * @function removeItems
+ * @param {Array<*>} arr The target array
+ * @param {number} startIdx The index to begin removing from (inclusive)
+ * @param {number} removeCount How many items to remove
+ */
+module.exports = function removeItems(arr, startIdx, removeCount) {
+    var i, length = arr.length;
+    if (startIdx >= length || removeCount === 0) {
+        return;
+    }
+    removeCount = (startIdx + removeCount > length ? length - startIdx : removeCount);
+    var len = length - removeCount;
+    for (i = startIdx; i < len; ++i) {
+        arr[i] = arr[i + removeCount];
+    }
+    arr.length = len;
+};
 
 
 /***/ }),
