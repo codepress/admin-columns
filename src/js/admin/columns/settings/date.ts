@@ -56,6 +56,7 @@ class DateSetting {
         });
 
         this.setSelected();
+        this.customOption.updateExample();
     }
 
     setSelected() {
@@ -71,6 +72,10 @@ class DateSetting {
         this.valueInput.value = input.value;
         this.customOption.toggle(typeof input.dataset.custom !== 'undefined');
         this.setHelpText(this.getHelpTextFromType(input));
+
+        if( typeof input.dataset.custom !== 'undefined' ){
+            return;
+        }
 
         switch (this.valueInput.value) {
             case 'custom':
