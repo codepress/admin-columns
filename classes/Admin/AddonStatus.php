@@ -70,7 +70,7 @@ class AddonStatus {
 
 	private function render_network_activate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'activate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="button right button-primary">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'activate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__button button">
 			<?php _e( 'Network Activate', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -195,14 +195,6 @@ class AddonStatus {
 
 		if ( $this->is_active() ) {
 			$this->render_active_label();
-		}
-
-		if ( $this->is_network_deactivatable() ) {
-			//$this->render_network_deactivate();
-		}
-
-		if ( $this->is_deactivatable() ) {
-			//$this->render_deactivate();
 		}
 
 		if ( $this->is_network_activatable() ) {

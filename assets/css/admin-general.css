@@ -632,7 +632,7 @@ header.cpac-header {
   flex: 0 0 auto;
   padding: 0;
   margin: 0;
-  margin-right: 30px;
+  margin-right: 40px;
 }
 .cpac-admin-nav .cpac-nav__item.-active a {
   border-bottom: 4px solid #333;

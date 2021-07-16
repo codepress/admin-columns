@@ -20,7 +20,6 @@ class Addons extends Script {
 				"var AC = %s;",
 				json_encode( [
 					'_ajax_nonce'      => wp_create_nonce( 'ac-ajax' ),
-					// TODO check if this is send correctly (without quotes)
 					'is_network_admin' => is_network_admin(),
 				] )
 			),

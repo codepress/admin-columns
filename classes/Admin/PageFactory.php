@@ -44,7 +44,6 @@ class PageFactory implements PageFactoryInterface {
 			case Page\Help::NAME :
 				return new Page\Help( new Hooks(), $this->location, new View\Menu( $this->menu_factory->create( $slug ) ) );
 			case Page\Settings::NAME :
-				// TODO add section prio
 				$page = new Page\Settings( new View\Menu( $this->menu_factory->create( $slug ) ), $this->location );
 				$page->add_section( new Section\General( [ new Section\Partial\ShowEditButton() ] ) )
 				     ->add_section( new Section\Restore(), 40 );

@@ -1,4 +1,3 @@
-<?php // TODO ?>
 <div>
 	<?php foreach ( $this->options as $option ) : ?>
 		<?= $option->render(); ?>
