@@ -170,7 +170,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class AddonDownload {
     constructor(el, slug) {
-        this.downloader = new _addon_downloader__WEBPACK_IMPORTED_MODULE_2__["default"](slug, AC.is_network_admin === '1', AC._ajax_nonce);
+        this.downloader = new _addon_downloader__WEBPACK_IMPORTED_MODULE_2__["default"](slug, AC.is_network_admin, AC._ajax_nonce);
         this.element = el;
         this.slug = slug;
         this.loadingState = false;
@@ -182,21 +182,18 @@ class AddonDownload {
     setLoadingState() {
         const button = this.getDownloadButton();
         if (button) {
-            button.insertAdjacentHTML('afterend', '<span class="spinner" style="visibility: visible;"></span>');
             button.classList.add('button-disabled');
         }
+        this.element.querySelectorAll('h3').forEach(el => el.insertAdjacentHTML('afterend', '<span class="spinner" style="visibility: visible; transform: translateY(-3px);"></span>'));
         this.loadingState = true;
     }
-    removeLoadingState() {
+    setLoadingFinished() {
+        this.loadingState = false;
         const button = this.getDownloadButton();
-        const spinner = this.element.querySelector('.spinner');
-        if (spinner) {
-            spinner.remove();
-        }
+        this.element.querySelectorAll('.spinner').forEach(el => el.remove());
         if (button) {
             button.classList.remove('button-disabled');
         }
-        this.loadingState = false;
     }
     initEvents() {
         const button = this.getDownloadButton();
@@ -211,18 +208,22 @@ class AddonDownload {
             });
         }
     }
+    getFooterElement() {
+        return this.element.querySelector('.ac-addon__actions');
+    }
     success(status) {
-        const button = this.getDownloadButton();
         const title = this.element.querySelector('h3');
         const notice = new _notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
         notice.setMessage(`<p>The Add-on <strong>${title.innerHTML}</strong> is installed.</p>`)
             .makeDismissable()
             .addClass('updated');
-        document.querySelector('.ac-addons').insertAdjacentElement('beforebegin', notice.render());
-        if (button) {
-            button.insertAdjacentHTML('beforebegin', `<span class="active">${status}</span>`);
-            button.remove();
-        }
+        this.addNotice(notice);
+        this.setLoadingFinished();
+        this.getFooterElement().innerHTML = `<div class="ac-addon__state"><span class="-green dashicons dashicons-yes"></span><span class="ac-addon__state__label">${status}</span></div>`;
+    }
+    addNotice(notice) {
+        let container = document.querySelector('.ac-addons-groups');
+        container.parentElement.insertBefore(notice.render(), container);
     }
     static scrollToTop(ms) {
         jquery__WEBPACK_IMPORTED_MODULE_1___default()('html, body').animate({
@@ -235,7 +236,8 @@ class AddonDownload {
         notice.setMessage(`<p><strong>${title.innerHTML}</strong>: ${message}</p>`)
             .makeDismissable()
             .addClass('notice-error');
-        document.querySelector('.ac-addons').insertAdjacentElement('beforebegin', notice.render());
+        this.addNotice(notice);
+        this.setLoadingFinished();
         AddonDownload.scrollToTop(200);
     }
     download() {
