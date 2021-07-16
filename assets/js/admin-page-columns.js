@@ -1226,7 +1226,7 @@ class DateSetting {
     handleUpdate(input) {
         this.valueInput.value = input.value;
         this.customOption.toggle(typeof input.dataset.custom !== 'undefined');
-        this.setHelpText(this.getHelpTextFromType(input.value));
+        this.setHelpText(this.getHelpTextFromType(input));
         switch (this.valueInput.value) {
             case 'custom':
                 break;
@@ -1248,11 +1248,7 @@ class DateSetting {
         element.style.display = 'block';
     }
     getHelpTextFromType(type) {
-        let input = this.getOptionsAsArray().filter(radio => radio.value === type);
-        if (!input) {
-            return '';
-        }
-        let helpText = input[0].closest('label').querySelector('[data-help]');
+        let helpText = type.closest('label').querySelector('[data-help]');
         return helpText ? helpText.innerHTML : null;
     }
 }
@@ -1987,13 +1983,14 @@ const addEventListeners = (el, events, callback) => {
 /*!******************************!*\
   !*** ./js/helpers/global.ts ***!
   \******************************/
-/*! exports provided: getParamFromUrl, mapDataToFormData */
+/*! exports provided: getParamFromUrl, mapDataToFormData, appendObjectToFormData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParamFromUrl", function() { return getParamFromUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapDataToFormData", function() { return mapDataToFormData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendObjectToFormData", function() { return appendObjectToFormData; });
 const getParamFromUrl = (param, url) => {
     if (!url.includes('?')) {
         return null;
@@ -2006,17 +2003,20 @@ const mapDataToFormData = (data, formData = null) => {
         formData = new FormData();
     }
     Object.keys(data).forEach(key => {
-        let value = data[key];
-        if (Array.isArray(value)) {
-            value.forEach(d => {
-                formData.append(`${key}[]`, d);
-            });
-        }
-        else {
-            formData.append(key, data[key]);
-        }
+        appendObjectToFormData(formData, data[key], key);
     });
     return formData;
+};
+const appendObjectToFormData = (formData, data, parentKey = null) => {
+    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+        Object.keys(data).forEach(key => {
+            appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+        });
+    }
+    else {
+        const value = data == null ? '' : data;
+        formData.append(parentKey, value);
+    }
 };
 
 

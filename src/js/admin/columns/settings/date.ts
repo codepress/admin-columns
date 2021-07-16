@@ -70,7 +70,7 @@ class DateSetting {
     handleUpdate(input: HTMLInputElement) {
         this.valueInput.value = input.value;
         this.customOption.toggle(typeof input.dataset.custom !== 'undefined');
-        this.setHelpText(this.getHelpTextFromType(input.value));
+        this.setHelpText(this.getHelpTextFromType(input));
 
         switch (this.valueInput.value) {
             case 'custom':
@@ -96,13 +96,8 @@ class DateSetting {
         element.style.display = 'block';
     }
 
-    private getHelpTextFromType(type: string): string {
-        let input = this.getOptionsAsArray().filter(radio => radio.value === type);
-        if (!input) {
-            return '';
-        }
-
-        let helpText = input[0].closest('label').querySelector('[data-help]');
+    private getHelpTextFromType(type: HTMLElement): string {
+        let helpText = type.closest('label').querySelector('[data-help]');
 
         return helpText ? helpText.innerHTML : null;
     }
