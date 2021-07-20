@@ -4,8 +4,6 @@ namespace AC\Admin\Page;
 
 use AC\Admin;
 use AC\Admin\Banner;
-use AC\Admin\Helpable;
-use AC\Admin\HelpTab;
 use AC\Admin\Preference;
 use AC\Admin\RenderableHead;
 use AC\Admin\ScreenOption;
