@@ -640,7 +640,7 @@ const changeLabel = (labelInput, column) => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initColumnRefresh", function() { return initColumnRefresh; });
 const initColumnRefresh = (column) => {
-    column.getElement().querySelectorAll('[data-refresh="column"]').forEach(element => {
+    column.getElement().querySelectorAll('[data-refresh="column"], [data-refresh="column"] input').forEach(element => {
         element.addEventListener('change', () => {
             // Allow other settings to do their thing first so all changes are refreshed correctly
             setTimeout(() => column.refresh(), 50);
