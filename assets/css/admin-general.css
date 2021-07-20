@@ -558,6 +558,9 @@ h2.ac-lined-header:after, h3.ac-lined-header:after {
   background: none;
 }
 
+body.settings_page_codepress-admin-columns #wpbody {
+  padding-top: 0;
+}
 body.settings_page_codepress-admin-columns .notice {
   display: none;
 }

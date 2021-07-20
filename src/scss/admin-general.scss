@@ -77,6 +77,10 @@ h2, h3 {
 
 body.settings_page_codepress-admin-columns {
 
+	#wpbody {
+		padding-top: 0;
+	}
+
 	.notice {
 		display: none;
 	}

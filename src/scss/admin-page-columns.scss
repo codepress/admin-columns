@@ -576,14 +576,13 @@
 	padding: 10px;
 	line-height: 24px;
 
-	input, select {
+	input[type=text], select {
 		width: 99.95%;
 		max-width: none;
 	}
 
 	input[type=checkbox],
 	input[type=radio] {
-		width: auto;
 		margin-right: 4px;
 	}
 

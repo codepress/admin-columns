@@ -35,7 +35,7 @@ $column = $this->column;
 				<a class="edit-button" data-toggle="column"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
 				<a class="close-button" data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
 				<?php if ( ! $column->is_original() ) : ?>
-					<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
+					<a class="clone-button"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
 				<?php endif; ?>
 				<a class="remove-button" data-remove-column><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
 			</div>

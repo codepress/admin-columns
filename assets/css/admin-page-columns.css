@@ -611,13 +611,12 @@
   padding: 10px;
   line-height: 24px;
 }
-.ac-column .ac-setting-input input, .ac-column .ac-setting-input select {
+.ac-column .ac-setting-input input[type=text], .ac-column .ac-setting-input select {
   width: 99.95%;
   max-width: none;
 }
 .ac-column .ac-setting-input input[type=checkbox],
 .ac-column .ac-setting-input input[type=radio] {
-  width: auto;
   margin-right: 4px;
 }
 .ac-column .ac-setting-input__info {
