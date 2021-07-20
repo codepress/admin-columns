@@ -1700,6 +1700,8 @@ div.ac-column-header span.vers {
 .ac-column__header__features .ac-column-heading-setting.-width {
   color: #737373;
   font-size: 12px;
+  position: absolute;
+  right: 150px;
 }
 .ac-column__header__features .ac-column-indicator {
   width: 25px;
