@@ -3,12 +3,10 @@
  * @var \AC\Renderable $section
  */
 ?>
-<table class="form-table ac-form-table settings">
-	<tbody>
+<h1 class="screen-reader-text"><?= __('Settings', 'codepress-admin-columns'); ?></h1>
 
+<div class="ac-settings">
 	<?php foreach ( $this->sections as $section ) : ?>
 		<?= $section->render(); ?>
 	<?php endforeach; ?>
-
-	</tbody>
-</table>
+</div>

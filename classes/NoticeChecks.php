@@ -24,7 +24,9 @@ class NoticeChecks implements Registrable {
 			}
 		}
 
-		foreach ( new Integrations() as $integration ) {
+		$integrations = new IntegrationRepository();
+
+		foreach ( $integrations->find_all() as $integration ) {
 			$checks[] = new Check\AddonAvailable( $integration );
 		}
 

@@ -11,9 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="inside">
 		<p>
-			<?php _e( "Check the <strong>Help</strong> section in the top-right screen.", 'codepress-admin-columns' ); ?>
-		</p>
-		<p>
 			<?php printf( __( "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>.", 'codepress-admin-columns' ), $this->documentation_url ); ?>
 		</p>
 	</div>

@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $classes = [
 	'ac-column-heading-setting',
 	'ac-column-indicator--' . $this->setting,
+	'-' . $this->setting,
 	'ac-column-indicator',
 ];
 

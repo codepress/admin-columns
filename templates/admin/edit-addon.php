@@ -6,17 +6,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<li class="ac-addon -<?php echo esc_attr( $this->slug ); ?>" data-slug="<?php echo $this->slug; ?>">
-	<div class="addon-header">
-		<div class="inner">
-			<img src="<?php echo esc_url( $this->logo ); ?>"/>
-		</div>
+<li class="ac-addon -<?= esc_attr( $this->slug ) ?>" data-slug="<?= $this->slug ?>">
+	<div class="ac-addon__header">
+		<img src="<?= esc_url( $this->logo ) ?>" alt="<?= esc_attr( $this->slug ) ?>"/>
 	</div>
-	<div class="addon-content">
-		<h3><?php echo esc_html( $this->title ); ?></h3>
-		<p><?php echo esc_html( $this->description ); ?></p>
+	<div class="ac-addon__content">
+		<h3><?= esc_html( $this->title ) ?></h3>
+		<p>
+			<?= esc_html( $this->description ) ?>
+			<a class="ac-addon__more-link" href="<?= esc_attr( $this->link ) ?>" target="_blank"><?= __( 'More details', 'codepress-admin-columns' ) ?> &raquo;</a>
+		</p>
 	</div>
-	<div class="addon-actions">
-		<?php echo $this->actions; ?>
+	<div class="ac-addon__actions">
+		<?= $this->actions ?>
 	</div>
 </li>

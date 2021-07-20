@@ -544,7 +544,7 @@ __webpack_require__.r(__webpack_exports__);
 const initIndicator = (column) => {
     if (column.isDisabled())
         return;
-    column.getElement().querySelectorAll('.ac-column-header [data-indicator-toggle]').forEach((toggleElement) => {
+    column.getElement().querySelectorAll('[data-indicator-toggle]').forEach((toggleElement) => {
         let relatedSettings = column.getElement().querySelectorAll(`.ac-column-setting[data-setting='${toggleElement.dataset.setting}'] .col-input .ac-setting-input:first-child input[type=radio]`);
         toggleElement.addEventListener('click', () => {
             switchTo(!toggleElement.classList.contains('on'), relatedSettings);
@@ -2059,7 +2059,7 @@ class AcHtmlElement {
         this.element.innerHTML = html;
         return this;
     }
-    Css(property, value) {
+    css(property, value) {
         this.element.style[property] = value;
         return this;
     }

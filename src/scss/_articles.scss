@@ -1,0 +1,14 @@
+.ac-article {
+	padding: 45px;
+	margin-bottom: 65px;
+	background: #FFFFFF;
+	border: 1px solid #E1E1E1;
+	box-shadow: 0 1px 5px 0 rgba(0,0,0,0.12), 0 2px 2px -1px rgba(0,0,0,0.14);
+	border-radius: 3px;
+
+	&__title {
+		margin: 0;
+		font-size: 22px;
+		margin-bottom: 20px;
+	}
+}

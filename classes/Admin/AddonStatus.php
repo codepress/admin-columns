@@ -39,12 +39,18 @@ class AddonStatus {
 	}
 
 	private function render_active_label() { ?>
-		<span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
+		<div class="ac-addon__state">
+			<span class="-green dashicons dashicons-yes"></span>
+			<span class="ac-addon__state__label"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
+		</div>
 		<?php
 	}
 
 	private function render_network_active_label() { ?>
-		<span class="active"><?php _e( 'Network Active', 'codepress-admin-columns' ); ?></span>
+		<div class="ac-addon__state">
+			<span class="-green dashicons dashicons-yes"></span>
+			<span class="ac-addon__state__label"><?php _e( 'Network Active', 'codepress-admin-columns' ); ?></span>
+		</div>
 		<?php
 	}
 
@@ -56,7 +62,7 @@ class AddonStatus {
 
 	private function render_network_deactivate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'deactivate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="button right">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'deactivate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__link link-deactivate">
 			<?php _e( 'Deactivate', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -64,7 +70,7 @@ class AddonStatus {
 
 	private function render_network_activate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'activate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="button right button-primary">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'activate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__button button-primary">
 			<?php _e( 'Network Activate', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -72,7 +78,7 @@ class AddonStatus {
 
 	private function render_deactivate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_action_url( 'deactivate' ), self::REDIRECT_TO_SITE ) ); ?>" class="button right">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_action_url( 'deactivate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__link link-deactivate">
 			<?php _e( 'Deactivate', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -80,23 +86,23 @@ class AddonStatus {
 
 	private function render_activate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_action_url( 'activate' ), self::REDIRECT_TO_SITE ) ); ?>" class="button right button-primary">
-			<?php _e( 'Activate', 'codepress-admin-columns' ); ?>
+		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_action_url( 'activate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__button button-primary">
+			<?php _e( 'Enable', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
 	}
 
 	private function render_install() {
 		?>
-		<a href="#" class="button" data-install>
-			<?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?>
+		<a class="ac-addon__button button-primary" data-install>
+			<?php esc_html_e( 'Enable', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
 	}
 
 	private function render_more_info() {
 		?>
-		<a target="_blank" href="<?php echo esc_url( $this->integration->get_link() ); ?>" class="button">
+		<a target="_blank" href="<?php echo esc_url( $this->integration->get_link() ); ?>" class="ac-addon__button button-primary">
 			<?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -175,10 +181,13 @@ class AddonStatus {
 
 	public function render() {
 		if ( ! ac_is_pro_active() ) {
+			ob_start();
 			$this->render_more_info();
 
-			return;
+			return ob_get_clean();
 		}
+
+		ob_start();
 
 		if ( $this->is_network_active() ) {
 			$this->render_network_active_label();
@@ -186,14 +195,6 @@ class AddonStatus {
 
 		if ( $this->is_active() ) {
 			$this->render_active_label();
-		}
-
-		if ( $this->is_network_deactivatable() ) {
-			$this->render_network_deactivate();
-		}
-
-		if ( $this->is_deactivatable() ) {
-			$this->render_deactivate();
 		}
 
 		if ( $this->is_network_activatable() ) {
@@ -211,6 +212,8 @@ class AddonStatus {
 		if ( $this->show_more_info() ) {
 			$this->render_more_info();
 		}
+
+		return ob_get_clean();
 	}
 
 }

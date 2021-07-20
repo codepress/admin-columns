@@ -3,40 +3,23 @@
 namespace AC\Controller;
 
 use AC\Admin\AddonStatus;
-use AC\Admin\Main\Addons;
-use AC\Integration;
-use AC\Integrations;
+use AC\Admin\Page\Addons;
+use AC\IntegrationRepository;
 use AC\Registrable;
 
 class RedirectAddonStatus implements Registrable {
 
 	/**
-	 * @var Integrations
+	 * @var IntegrationRepository
 	 */
 	private $integrations;
 
-	public function __construct( Integrations $integrations ) {
+	public function __construct( IntegrationRepository $integrations ) {
 		$this->integrations = $integrations;
 	}
 
 	public function register() {
 		add_filter( 'wp_redirect', [ $this, 'redirect_after_status_change' ] );
-	}
-
-	/**
-	 * @param string $basename
-	 *
-	 * @return Integration|null
-	 */
-	private function get_integration_by_basename( $basename ) {
-		/** @var Integration $integration */
-		foreach ( $this->integrations as $integration ) {
-			if ( $integration->get_basename() === $basename ) {
-				return $integration;
-			}
-		}
-
-		return null;
 	}
 
 	/**
@@ -62,7 +45,7 @@ class RedirectAddonStatus implements Registrable {
 			return $location;
 		}
 
-		$integration = $this->get_integration_by_basename( filter_input( INPUT_GET, 'plugin' ) );
+		$integration = $this->integrations->find_by_basename( filter_input( INPUT_GET, 'plugin' ) );
 
 		if ( ! $integration ) {
 			return $location;

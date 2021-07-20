@@ -7,10 +7,13 @@ $addon-color-link: #0073aa;
 
 /* =Addons
 -------------------------------------------------------------- */
+.ac-addons-groups {
+	display: inline-flex;
+	flex-wrap: wrap;
+}
+
 .ac-addons {
-	display: inline-block;
-	margin-right: 16px;
-	float: left;
+	margin-right: 46px;
 
 	&.group-default {
 		float: none;
@@ -19,136 +22,179 @@ $addon-color-link: #0073aa;
 	}
 
 
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		margin-left: -46px;
+	}
+}
 
-	h2 {
-		border-bottom: 1px solid #ccc;
-		padding-bottom: 10px;
+.ac-addon {
+	width: 300px;
+	background: #FFF;
+	display: flex;
+	flex-direction: column;
+	flex-flow: column nowrap;
+	margin-left: 46px;
+	margin-bottom: 46px;
+	border: 1px solid #DDD;
+	box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
+
+	&:hover {
+		box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.25);
 	}
 
-	ul {
+	&__header {
+		display: flex;
+		justify-content: center;
+		margin: 0 30px;
+		padding: 20px;
+		border-bottom: 1px solid #979797;
+
+		img {
+			max-height: 50px;
+		}
+	}
+
+	&__content {
+		padding: 10px 30px;
+		min-height: 165px;
+
+		h3 {
+			margin: 15px 0 25px 0;
+			text-align: center;
+		}
+	}
+
+	&__actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding-bottom: 35px;
+		margin-top: auto;
+		min-height: 40px;
+
+		a.ac-addon__button_v2 {
+			border-color: #4C7FA0;
+			padding: 5px 30px;
+			color: #4C7FA0;
+			font-weight: bold;
+		}
+		a.ac-addon__button {
+			padding: 5px 30px;
+			color: #fff;
+			font-weight: bold;
+		}
+		a.ac-addon__link {
+			&.link-deactivate {
+				// TODO
+				display: inline-block;
+				color: #b1b1b1;
+			}
+		}
+	}
+
+	&__state {
+		font-weight: bold;
+		font-size: 16px;
+		transform: translateX(-10px);
+
+		.-green {
+			color: #44D164;
+		}
+	}
+
+	&__more-link {
+		color: #054C7B;
+		font-weight: 500;
+		white-space: nowrap;
+	}
+
+	.addon-header {
+		display: flex;
+		width: 100%;
+		height: 85px;
+		text-align: center;
+		vertical-align: middle;
+		border-bottom: 1px solid #DDD;
+
+		.inner {
+			display: table-cell;
+			vertical-align: middle;
+			padding: 15px 20px;
+
+			h3 {
+				padding: 0 16px;
+				color: #FFF;
+				line-height: 150%;
+			}
+
+			img {
+				display: inline-block;
+				max-height: 52px;
+				max-width: 100%;
+			}
+		}
+	}
+
+	.addon-notice {
+		background-color: $addon-color-lightyellow;
+		margin: 0;
+		padding: 15px;
+
+		a {
+			font-weight: bold;
+			text-decoration: none;
+			color: $addon-color-link;
+		}
+	}
+
+	.addon-content {
+		margin-bottom: auto;
+		width: 100%;
+		padding: 25px 15px;
+		box-sizing: border-box;
+		min-height: 160px;
+
+		> *:first-child {
+			margin-top: 0;
+		}
+
+		> *:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.addon-actions {
+		background: #eee;
+		border-top: 1px solid #ddd;
+		padding: 8px;
 		overflow: hidden;
 
-		.ac-addon {
-			width: 250px;
-			background: #FFF;
-			float: left;
-			margin-right: 16px;
-			margin-bottom: 16px;
-			border: 1px solid #DDD;
-			-webkit-box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
-			-moz-box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
-			box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
+		span.active,
+		span.active:hover {
+			display: inline-block;
+			height: 28px;
+			line-height: 28px;
+			cursor: default;
+			border-color: lighten(#46b450, 10);
+			color: darken(#46b450, 10);
+			margin-left: 8px;
 
-			&:last-child {
-				margin-right: 0;
-			}
-
-			&:hover {
-				-webkit-box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.25);
-				-moz-box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.25);
-				box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.25);
-			}
-
-			a.button-primary {
-				color: #fff;
-			}
-
-			.addon-header {
-				display: table;
-				width: 100%;
-				height: 125px;
-				text-align: center;
+			&:before {
+				content: "\f147";
+				font-family: 'dashicons', sans-serif;
 				vertical-align: middle;
-				border-top: 1px solid #DDD;
-				background: #0069a4;
-				background: -moz-radial-gradient(center, ellipse cover, $addon-color-lightblue 0%, $addon-color-blue 100%);
-				background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, $addon-color-lightblue), color-stop(100%, $addon-color-blue));
-				background: -webkit-radial-gradient(center, ellipse cover, $addon-color-lightblue 0%, $addon-color-blue 100%);
-				background: -o-radial-gradient(center, ellipse cover, $addon-color-lightblue 0%, $addon-color-blue 100%);
-				background: -ms-radial-gradient(center, ellipse cover, $addon-color-lightblue 0%, $addon-color-blue 100%);
-				background: radial-gradient(ellipse at center, $addon-color-lightblue 0%, $addon-color-blue 100%);
-				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$addon-color-lightblue', endColorstr='$addon-color-blue', GradientType=1);
-
-				.inner {
-					display: table-cell;
-					vertical-align: middle;
-					padding: 15px 20px;
-
-					h3 {
-						padding: 0 16px;
-						color: #FFF;
-						line-height: 150%;
-					}
-
-					img {
-						display: inline-block;
-						max-height: 52px;
-						max-width: 100%;
-					}
-				}
+				font-size: 17px;
+				margin: -2px 3px 0 -5px;
 			}
+		}
+	}
 
-			.addon-notice {
-				background-color: $addon-color-lightyellow;
-				margin: 0;
-				padding: 15px;
-				//font-style: italic;
-
-				a {
-					font-weight: bold;
-					text-decoration: none;
-					color: $addon-color-link;
-				}
-			}
-
-			.addon-content {
-				width: 100%;
-				padding: 25px 15px;
-				-moz-box-sizing: border-box;
-				box-sizing: border-box;
-				min-height: 162px;
-
-				> *:first-child {
-					margin-top: 0;
-				}
-
-				> *:last-child {
-					margin-bottom: 0;
-				}
-			}
-
-			.addon-actions {
-				background: #eee;
-				border-top: 1px solid #ddd;
-				padding: 8px;
-				overflow: hidden;
-
-				span.active,
-				span.active:hover {
-					display: inline-block;
-					height: 28px;
-					line-height: 28px;
-					cursor: default;
-					border-color: lighten(#46b450, 10);
-					color: darken(#46b450, 10);
-					margin-left: 8px;
-
-					&:before {
-						content: "\f147";
-						font-family: 'dashicons', sans-serif;
-						vertical-align: middle;
-						font-size: 17px;
-						margin: -2px 3px 0 -5px;
-					}
-				}
-			}
-
-			&.ac-addon-types .addon-header .inner,
-			&.ac-addon-buddypress .addon-header .inner {
-				img {
-					max-height: 68px;
-				}
-			}
+	&.ac-addon-types .addon-header .inner,
+	&.ac-addon-buddypress .addon-header .inner {
+		img {
+			max-height: 68px;
 		}
 	}
 }

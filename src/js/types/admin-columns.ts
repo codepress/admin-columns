@@ -11,8 +11,13 @@ export type LocalizedAcColumnSettings = {
 
 export type LocalizedAcAddonSettings = {
     _ajax_nonce: string,
-    is_network_admin: number
+    is_network_admin: boolean
 }
+
+export type LocalizedAcGeneralSettings = {
+    _ajax_nonce: string
+}
+
 
 export type UninitializedListScreens = keySpecificPair<UninitializedListScreen>
 

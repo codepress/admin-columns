@@ -3,7 +3,7 @@ import {Column} from "../column";
 export const initIndicator = (column: Column) => {
     if (column.isDisabled()) return;
 
-    column.getElement().querySelectorAll('.ac-column-header [data-indicator-toggle]').forEach((toggleElement: HTMLElement) => {
+    column.getElement().querySelectorAll('[data-indicator-toggle]').forEach((toggleElement: HTMLElement) => {
         let relatedSettings = column.getElement().querySelectorAll<HTMLInputElement>(`.ac-column-setting[data-setting='${toggleElement.dataset.setting}'] .col-input .ac-setting-input:first-child input[type=radio]`);
 
         toggleElement.addEventListener('click', () => {

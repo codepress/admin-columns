@@ -14,8 +14,8 @@ final class WooCommerce extends Integration {
 		parent::__construct(
 			'ac-addon-woocommerce/ac-addon-woocommerce.php',
 			__( 'WooCommerce', 'codepress-admin-columns' ),
-			'assets/images/addons/woocommerce.png',
-			__( 'Enhance the products, orders and coupons overviews with new columns and inline editing.', 'codepress-admin-columns' ),
+			'assets/images/addons/woocommerce-icon.png',
+			__( 'Enable the WooCommerce integration to add Admin Columns Pro functionality to the Products and Orders page.', 'codepress-admin-columns' ),
 			null,
 			new Site( Site::PAGE_ADDON_WOOCOMMERCE )
 		);

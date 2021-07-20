@@ -249,7 +249,7 @@ class AcHtmlElement {
         this.element.innerHTML = html;
         return this;
     }
-    Css(property, value) {
+    css(property, value) {
         this.element.style[property] = value;
         return this;
     }

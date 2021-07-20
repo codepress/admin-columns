@@ -3,9 +3,8 @@
 namespace AC;
 
 use AC\Admin\AdminScripts;
-use AC\Admin\Main\Columns;
-use AC\Admin\MainFactory;
 use AC\Admin\MenuFactory;
+use AC\Admin\Page\Columns;
 use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\Preference;
@@ -19,6 +18,7 @@ use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Screen\QuickEdit;
+use AC\Settings\GeneralOption;
 use AC\Table;
 use AC\ThirdParty;
 
@@ -59,7 +59,7 @@ class AdminColumns extends Plugin {
 
 		RequestHandler::add_handler(
 			new PageRequestHandler(
-				new PageFactory( new MenuFactory( admin_url( 'options-general.php' ) ), new MainFactory( $this->storage, $location ) ),
+				new PageFactory( $this->storage, $location, new MenuFactory( admin_url( 'options-general.php' ) ) ),
 				Columns::NAME
 			)
 		);
@@ -71,7 +71,6 @@ class AdminColumns extends Plugin {
 			new Deprecated\Hooks,
 			new ListScreens(),
 			new Screen,
-			new Settings\General,
 			new ThirdParty\ACF,
 			new ThirdParty\NinjaForms,
 			new ThirdParty\WooCommerce,
@@ -80,11 +79,12 @@ class AdminColumns extends Plugin {
 			new QuickEdit( $this->storage, new Table\Preference() ),
 			new Capabilities\Manage(),
 			new Controller\AjaxColumnRequest( $this->storage, new Request() ),
+			new Controller\AjaxGeneralOptions( new GeneralOption() ),
 			new Controller\AjaxRequestCustomFieldKeys(),
 			new Controller\AjaxColumnValue( $this->storage ),
 			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),
-			new Controller\RedirectAddonStatus( new Integrations() ),
+			new Controller\RedirectAddonStatus( new IntegrationRepository() ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks(),

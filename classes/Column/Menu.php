@@ -59,20 +59,6 @@ abstract class Menu extends Column {
 		$helper = new AC\Helper\Menu();
 
 		return $helper->get_terms( $helper->get_ids( $object_id, $this->get_object_type() ), $args );
-// TODO test
-//		$menu_item_ids = $this->get_menu_item_ids( $object_id );
-//
-//		if ( ! $menu_item_ids ) {
-//			return [];
-//		}
-//
-//		$menu_ids = wp_get_object_terms( $menu_item_ids, 'nav_menu', $args );
-//
-//		if ( ! $menu_ids || is_wp_error( $menu_ids ) ) {
-//			return [];
-//		}
-//
-//		return $menu_ids;
 	}
 
 	public function register_settings() {

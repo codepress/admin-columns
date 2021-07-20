@@ -15,7 +15,9 @@ class ColumnGroups {
 		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 30 );
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
 
-		foreach ( new Integrations() as $integration ) {
+		$repo = new IntegrationRepository();
+
+		foreach ( $repo->find_all() as $integration ) {
 			$integration_plugin = new PluginInformation( $integration->get_basename() );
 
 			if ( $integration->is_plugin_active() && ! $integration_plugin->is_active() ) {

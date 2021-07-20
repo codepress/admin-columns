@@ -7,7 +7,7 @@ class Item {
 	/**
 	 * @var string
 	 */
-	private $slug;
+	private $url;
 
 	/**
 	 * @var string
@@ -17,12 +17,19 @@ class Item {
 	/**
 	 * @var string
 	 */
-	private $url;
+	private $class;
 
-	public function __construct( $slug, $label, $url ) {
-		$this->slug = $slug;
-		$this->label = $label;
-		$this->url = $url;
+	public function __construct( $url, $label, $class = '' ) {
+		$this->url = (string) $url;
+		$this->label = (string) $label;
+		$this->class = (string) $class;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_url() {
+		return $this->url;
 	}
 
 	/**
@@ -35,15 +42,8 @@ class Item {
 	/**
 	 * @return string
 	 */
-	public function get_slug() {
-		return $this->slug;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_url() {
-		return $this->url;
+	public function get_class() {
+		return $this->class;
 	}
 
 }
