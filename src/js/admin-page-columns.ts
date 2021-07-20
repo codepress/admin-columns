@@ -63,7 +63,7 @@ AcServices.addListener(EventConstants.SETTINGS.FORM.LOADED, (form: Form) => {
     let $form = $(form.getElement()) as any;
     $form.hasClass('ui-sortable')
         ? $form.sortable('refresh')
-        : $form.sortable({items: '.ac-column', handle: '.column_sort'});
+        : $form.sortable({items: '.ac-column', handle: '[data-sort-handle]'});
 });
 
 AcServices.addListener(EventConstants.SETTINGS.FORM.SAVING, () => {
