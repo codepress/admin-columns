@@ -17,6 +17,44 @@ $column = $this->column;
 		data-original="<?= esc_attr( $column->is_original() ); ?>"
 		data-column-name="<?= esc_attr( $column->get_name() ); ?>">
 
+	<div class="ac-column__header">
+		<div class="ac-column__header__move">
+			<span class="cpacicon-move"></span>
+		</div>
+		<div class="ac-column__header__label">
+			<a class="ac-column__header__label__link" data-toggle="column">
+				<?= $column->get_setting( 'label' )->get_value(); ?>
+			</a>
+			<div class="ac-column__header__inline-actions">
+				<a class="edit-button" data-toggle="column"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
+				<a class="close-button" data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
+				<?php if ( ! $column->is_original() ) : ?>
+					<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
+				<?php endif; ?>
+				<a class="remove-button" data-remove-column><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
+			</div>
+		</div>
+		<div class="ac-column__header__features">
+			<?php
+
+			foreach ( $column->get_settings() as $setting ) {
+				if ( $setting instanceof \AC\Settings\Column ) {
+					echo $setting->render_header() . "\n";
+				}
+			}
+
+			do_action( 'ac/column/header', $column );
+
+			?>
+		</div>
+		<div class="ac-column__header__type" data-toggle="column">
+			<span><?= ac_helper()->html->strip_attributes( $column->get_label(), [ 'style', 'class' ] ); ?></span>
+		</div>
+		<div class="ac-column__header__arrow" data-toggle="column">
+			<span class="dashicons dashicons-arrow-down"></span>
+		</div>
+	</div>
+
 	<div class="ac-column-header">
 		<table class="widefat">
 			<tbody>
