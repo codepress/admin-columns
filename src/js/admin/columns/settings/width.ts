@@ -24,7 +24,7 @@ class WidthSetting {
         this.column = column;
         this.setting = setting;
         this.events = new Nanobus();
-        this.indicator = new WidthIndicator(column.getElement().querySelector('.ac-column-header .ac-column-heading-setting--width'));
+        this.indicator = new WidthIndicator(column.getElement().querySelector('.ac-column-heading-setting--width'));
         this.widthInput = this.setting.querySelector<HTMLInputElement>('[data-width-input]');
         this.unitInput = this.setting.querySelectorAll<HTMLInputElement>('[data-unit-input] input')
 

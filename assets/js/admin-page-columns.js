@@ -158,7 +158,7 @@ AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"]
     let $form = jquery__WEBPACK_IMPORTED_MODULE_3___default()(form.getElement());
     $form.hasClass('ui-sortable')
         ? $form.sortable('refresh')
-        : $form.sortable({ items: '.ac-column', handle: '.column_sort' });
+        : $form.sortable({ items: '.ac-column', handle: '[data-sort-handle]' });
 });
 AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVING, () => {
     document.querySelector('#cpac .ac-admin').classList.add('saving');
@@ -598,10 +598,11 @@ const initLabel = (column) => {
         });
     });
     setTimeout(() => {
-        let label = column.getElement().querySelector('.column_label .toggle');
-        if (label && label.offsetWidth < 10) {
-            label.innerText = column.getType();
-        }
+        column.getElement().querySelectorAll('[data-column-label]').forEach(el => {
+            if (el.offsetWidth < 10) {
+                el.innerText = column.getType();
+            }
+        });
     }, 50);
 };
 const initLabelSettingEvents = (column) => {
@@ -622,7 +623,7 @@ const hoverTooltip = (label, display) => {
     }
 };
 const changeLabel = (labelInput, column) => {
-    column.getElement().querySelector('td.column_label .inner > a.toggle').innerHTML = labelInput.value;
+    column.getElement().querySelectorAll('[data-column-label]').forEach(el => el.innerHTML = labelInput.value);
 };
 
 
@@ -1709,7 +1710,7 @@ class WidthSetting {
         this.column = column;
         this.setting = setting;
         this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
-        this.indicator = new WidthIndicator(column.getElement().querySelector('.ac-column-header .ac-column-heading-setting--width'));
+        this.indicator = new WidthIndicator(column.getElement().querySelector('.ac-column-heading-setting--width'));
         this.widthInput = this.setting.querySelector('[data-width-input]');
         this.unitInput = this.setting.querySelectorAll('[data-unit-input] input');
         this.init();

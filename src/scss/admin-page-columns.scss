@@ -1823,16 +1823,13 @@ div.ac-column-header {
 	border: 1px solid #dfdfdf;
 	border-bottom: 0;
 
-	.ac-column.opened & {
-		background: #eaeaea;
-		border-color: #ccc;
-	}
-
 	&__move {
 		font-size: 22px;
 		color: #bdbdbd;
 		padding: 10px 13px;
 		cursor: move;
+		display: flex;
+		align-items: center;
 	}
 
 	&__label {
@@ -1851,7 +1848,7 @@ div.ac-column-header {
 		}
 	}
 
-	&__inline-actions {
+	&__actions {
 		opacity: 0;
 
 		a {
@@ -1859,14 +1856,21 @@ div.ac-column-header {
 			margin-left: 5px;
 
 			&.remove-button {
-				color: #f00;
+				color: #a00;
+
+				&:hover {
+					color: #f00;
+				}
 			}
+
 			&.close-button {
 				display: none;
+
 				.ac-column-opened & {
 					display: block;
 				}
 			}
+
 			&.edit-button {
 				.ac-column-opened & {
 					display: none;
@@ -1876,8 +1880,23 @@ div.ac-column-header {
 
 	}
 
+	&__info {
+		small {
+			display: none;
+			margin-right: 3px;
+		}
+
+		.show-column-id & .column-id {
+			display: inline;
+		}
+
+		.show-column-type & .column-type {
+			display: inline;
+		}
+	}
+
 	&:hover {
-		#{$e}__inline-actions {
+		#{$e}__actions {
 			opacity: 1;
 		}
 	}
@@ -1888,9 +1907,18 @@ div.ac-column-header {
 		width: 180px;
 		position: relative;
 
+		@media screen and (max-width: 700px) {
+			display: none;
+		}
+
 		.ac-column-heading-setting {
 			color: #b2b2b2;
 			font-size: 14px;
+
+			&.-width {
+				color: #737373;
+				font-size: 12px;
+			}
 		}
 
 		.ac-column-indicator {
@@ -1940,7 +1968,12 @@ div.ac-column-header {
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			overflow: hidden;
+
+			@media screen and (max-width: 700px) {
+				width: 200px;
+			}
 		}
+
 	}
 
 	&__arrow {
@@ -1949,10 +1982,38 @@ div.ac-column-header {
 		margin-left: auto;
 		flex: 0 0 20px;
 		transform-origin: center;
+	}
 
-		.ac-column.opened & {
-			transform: rotate(180deg);
+	.ac-column.opened & {
+		background: #eaeaea;
+		border-color: #ccc;
+
+		#{$e}__actions {
+			.edit-button {
+				display: none;
+			}
+
+			.close-button {
+				display: inline;
+			}
 		}
+
+		#{$e}__features {
+			.ac-column-indicator:not(.on) {
+				color: #8d8d8d;
+			}
+		}
+
+		#{$e}__type {
+			color: #5C5C5C;
+		}
+
+		#{$e}__arrow {
+			transform: rotate(180deg);
+			color: #5C5C5C;
+		}
+
+
 	}
 
 }

@@ -15,11 +15,11 @@ export const initLabel = (column: Column) => {
     });
 
     setTimeout(() => {
-        let label = column.getElement().querySelector<HTMLElement>('.column_label .toggle');
-
-        if (label && label.offsetWidth < 10) {
-            label.innerText = column.getType();
-        }
+        column.getElement().querySelectorAll<HTMLElement>('[data-column-label]').forEach( el => {
+            if( el.offsetWidth < 10 ){
+                el.innerText = column.getType();
+            }
+        });
     }, 50)
 }
 
@@ -45,5 +45,5 @@ const hoverTooltip = (label: HTMLElement, display: string) => {
 }
 
 const changeLabel = (labelInput: HTMLInputElement, column: Column) => {
-    column.getElement().querySelector('td.column_label .inner > a.toggle').innerHTML = labelInput.value;
+    column.getElement().querySelectorAll('[data-column-label]').forEach( el => el.innerHTML = labelInput.value );
 }
