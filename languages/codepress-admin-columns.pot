@@ -295,12 +295,8 @@ msgstr ""
 msgid "WooCommerce"
 msgstr ""
 
-#: classes/Integration/WooCommerce.php:20
-msgid "Integrates Admin Columns Pro with WooCommerce."
-msgstr ""
-
-#: classes/Integration/WooCommerce.php:21
-msgid "Allowing you to add Product and Order columns to your list tables for better shop management."
+#: classes/Integration/WooCommerce.php:18
+msgid "Enable the WooCommerce integration to add Admin Columns Pro functionality to the Products and Orders page."
 msgstr ""
 
 #: classes/Integration/YoastSeo.php:16
