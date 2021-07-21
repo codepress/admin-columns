@@ -465,7 +465,7 @@ class Column {
             if (response.data.success) {
                 let element = Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild;
                 this.name = Object(_helpers_string__WEBPACK_IMPORTED_MODULE_6__["uniqid"])();
-                this.reinitColumnFromElement(element);
+                this.reinitColumnFromElement(element).open();
             }
             else {
                 this.showMessage(response.data.data.error);
@@ -480,6 +480,9 @@ class Column {
             if (response.data.success) {
                 this.reinitColumnFromElement(Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild);
                 this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.REFRESHED, this);
+                if (this.isOpen()) {
+                    this.open();
+                }
             }
             else {
                 this.showMessage(AC.i18n.errors.loading_column);
@@ -493,7 +496,8 @@ class Column {
     reinitColumnFromElement(element) {
         this.getElement().parentNode.replaceChild(element, this.getElement());
         this.element = element;
-        this.setPropertiesByElement(element).init().open();
+        this.setPropertiesByElement(element).init();
+        return this;
     }
 }
 

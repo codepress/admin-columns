@@ -2013,8 +2013,21 @@ div.ac-column-header {
 			transform: rotate(180deg);
 			color: #5C5C5C;
 		}
+	}
 
+	.ac-column.loading & {
+		position: relative;
+		background: #eee;
+		filter: grayscale(80);
+		cursor: not-allowed;
 
+		&:after {
+			content: '';
+			position: absolute;
+			left: 0; top:0; right:0; bottom: 0;
+			background: #eee;
+			opacity: .2;
+		}
 	}
 
 }

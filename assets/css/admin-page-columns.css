@@ -1786,5 +1786,21 @@ div.ac-column-header span.vers {
   transform: rotate(180deg);
   color: #5C5C5C;
 }
+.ac-column.loading .ac-column__header {
+  position: relative;
+  background: #eee;
+  filter: grayscale(80);
+  cursor: not-allowed;
+}
+.ac-column.loading .ac-column__header:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #eee;
+  opacity: 0.2;
+}
 
 /*# sourceMappingURL=admin-page-columns.css.map */
