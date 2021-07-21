@@ -60,9 +60,41 @@ class AddonStatus {
 		], $url );
 	}
 
+	/**
+	 * @param string $action
+	 *
+	 * @return string
+	 */
+	private function get_plugin_action_url( $action ) {
+		if ( 'activate' !== $action ) {
+			$action = 'deactivate';
+		}
+
+		return add_query_arg( [
+			'action' => $action,
+			'plugin' => $this->plugin->get_basename(),
+		], wp_nonce_url( admin_url( 'plugins.php' ), $action . '-plugin_' . $this->plugin->get_basename() ) );
+	}
+
+	/**
+	 * @param string $action
+	 *
+	 * @return string
+	 */
+	private function get_plugin_network_action_url( $action ) {
+		if ( 'activate' !== $action ) {
+			$action = 'deactivate';
+		}
+
+		return add_query_arg( [
+			'action' => $action,
+			'plugin' => $this->plugin->get_basename(),
+		], wp_nonce_url( network_admin_url( 'plugins.php' ), $action . '-plugin_' . $this->plugin->get_basename() ) );
+	}
+
 	private function render_network_deactivate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'deactivate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__link link-deactivate">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->get_plugin_network_action_url( 'deactivate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__link link-deactivate">
 			<?php _e( 'Deactivate', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -70,7 +102,7 @@ class AddonStatus {
 
 	private function render_network_activate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_network_action_url( 'activate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__button button-primary">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->get_plugin_network_action_url( 'activate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__button button-primary">
 			<?php _e( 'Network Activate', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -78,7 +110,7 @@ class AddonStatus {
 
 	private function render_deactivate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_action_url( 'deactivate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__link link-deactivate">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->get_plugin_action_url( 'deactivate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__link link-deactivate">
 			<?php _e( 'Deactivate', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -86,7 +118,7 @@ class AddonStatus {
 
 	private function render_activate() {
 		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->plugin->get_plugin_action_url( 'activate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__button button-primary">
+		<a href="<?php echo esc_url( $this->add_redirect( $this->get_plugin_action_url( 'activate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__button button-primary">
 			<?php _e( 'Enable', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php

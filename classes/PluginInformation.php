@@ -10,7 +10,14 @@ class PluginInformation {
 	private $basename;
 
 	public function __construct( $basename ) {
-		$this->basename = $basename;
+		$this->basename = (string) $basename;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_basename() {
+		return $this->basename;
 	}
 
 	/**
@@ -51,13 +58,6 @@ class PluginInformation {
 	/**
 	 * @return string
 	 */
-	public function get_basename() {
-		return $this->basename;
-	}
-
-	/**
-	 * @return string
-	 */
 	public function get_name() {
 		return $this->get_plugin_var( 'Name' );
 	}
@@ -88,32 +88,6 @@ class PluginInformation {
 		}
 
 		return $info[ $var ];
-	}
-
-	/**
-	 * @param string $action 'activate' or 'deactivate'
-	 * @param string $basename
-	 *
-	 * @return string
-	 */
-	public function get_plugin_action_url( $action ) {
-		return add_query_arg( [
-			'action' => $action,
-			'plugin' => $this->basename,
-		], wp_nonce_url( admin_url( 'plugins.php' ), $action . '-plugin_' . $this->basename ) );
-	}
-
-	/**
-	 * @param string $action 'activate' or 'deactivate'
-	 * @param string $basename
-	 *
-	 * @return string
-	 */
-	public function get_plugin_network_action_url( $action ) {
-		return add_query_arg( [
-			'action' => $action,
-			'plugin' => $this->basename,
-		], wp_nonce_url( network_admin_url( 'plugins.php' ), $action . '-plugin_' . $this->basename ) );
 	}
 
 }

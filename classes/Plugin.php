@@ -5,7 +5,7 @@ namespace AC;
 use ReflectionObject;
 use WP_Roles;
 
-abstract class Plugin extends Addon {
+abstract class Plugin {
 
 	/**
 	 * @var Installer|null
@@ -16,6 +16,33 @@ abstract class Plugin extends Addon {
 	 * @var array
 	 */
 	private $data;
+
+	/**
+	 * Return the file from this plugin
+	 * @return string
+	 */
+	abstract protected function get_file();
+
+	/**
+	 * @return string
+	 */
+	public function get_basename() {
+		return plugin_basename( $this->get_file() );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_dir() {
+		return plugin_dir_path( $this->get_file() );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_url() {
+		return plugin_dir_url( $this->get_file() );
+	}
 
 	public function set_installer( Installer $installer ) {
 		$this->installer = $installer;
@@ -196,35 +223,9 @@ abstract class Plugin extends Addon {
 		}
 
 		// Before version 3.0.5
-		$results = $wpdb->get_results( "SELECT option_id FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%' LIMIT 1" );
+		$results = $wpdb->get_results( "SELECT option_id FROM $wpdb->options WHERE option_name LIKE 'cpac_options_%' LIMIT 1" );
 
 		return empty( $results );
-	}
-
-	/**
-	 * Return a plugin header from the plugin data
-	 *
-	 * @param string $key
-	 *
-	 * @return string
-	 * @deprecated
-	 */
-	protected function get_plugin_header( $key ) {
-		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_header()' );
-
-		return $this->get_header( $key );
-	}
-
-	/**
-	 * Calls get_plugin_data() for this plugin
-	 * @return array
-	 * @see get_plugin_data()
-	 * @deprecated
-	 */
-	protected function get_plugin_data() {
-		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_data()' );
-
-		return $this->get_data();
 	}
 
 }

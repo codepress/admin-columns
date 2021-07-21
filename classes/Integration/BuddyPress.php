@@ -14,7 +14,7 @@ final class BuddyPress extends Integration {
 			'ac-addon-buddypress/ac-addon-buddypress.php',
 			__( 'BuddyPress', 'codepress-admin-columns' ),
 			'assets/images/addons/buddypress.png',
-			__( 'Display any of your Profile Fields for BuddyPress on your users overview.', 'codepress-admin-columns' ),
+			__( 'Allows you to search, filter, inline- and bulk-edit the BuddyPress data fields on the Users page.', 'codepress-admin-columns' ),
 			null,
 			new Site( Site::PAGE_ADDON_BUDDYPRESS )
 		);
