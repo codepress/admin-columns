@@ -1039,6 +1039,9 @@ class Actions {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Cell; });
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
+
 class Cell {
     constructor(id, name, el) {
         this.object_id = id;
@@ -1046,6 +1049,7 @@ class Cell {
         this.original_value = el.innerHTML;
         this.el = el;
         this.services = {};
+        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
     }
     getObjectID() {
         return this.object_id;
@@ -1069,8 +1073,13 @@ class Cell {
         return this.original_value !== content;
     }
     setValue(value) {
+        let rowActions = this.el.querySelector('.row-actions');
         this.original_value = value;
         this.el.innerHTML = value;
+        if (rowActions) {
+            this.el.append(rowActions);
+        }
+        this.events.emit('setValue', this);
         return this;
     }
     setService(name, service) {
@@ -1408,13 +1417,6 @@ class Table {
                 this.Cells.add(id, cell);
             }
         });
-    }
-    /**
-     * @deprecated use Helper function instead
-     * TODO remove once IE uses the helper
-     */
-    getRowCellByName(row, column_name) {
-        return Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getRowCellByName"])(row, column_name);
     }
 }
 

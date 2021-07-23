@@ -1,6 +1,7 @@
 import {keyAnyPair} from "../helpers/types";
 import AcServices from "../modules/ac-services";
 import Table from "./table";
+import Nanobus from "nanobus";
 
 declare const AC_SERVICES: AcServices;
 
@@ -11,6 +12,7 @@ export default class Cell {
     private original_value: string
     private el: HTMLTableCellElement
     private services: keyAnyPair
+    events: Nanobus
 
     constructor(id: number, name: string, el: HTMLTableCellElement) {
         this.object_id = id;
@@ -18,6 +20,7 @@ export default class Cell {
         this.original_value = el.innerHTML;
         this.el = el;
         this.services = {}
+        this.events = new Nanobus();
     }
 
     getObjectID(): number {
@@ -49,8 +52,16 @@ export default class Cell {
     }
 
     setValue(value: string) {
+        let rowActions = this.el.querySelector('.row-actions');
+
         this.original_value = value;
         this.el.innerHTML = value;
+
+        if (rowActions) {
+            this.el.append(rowActions);
+        }
+
+        this.events.emit('setValue', this);
 
         return this;
     }

@@ -3,7 +3,7 @@ import Cells from "./cells";
 import Columns from "./columns";
 import Cell from "./cell";
 import RowSelection from "./row-selection";
-import {getIdFromTableRow, getRowCellByName} from "../helpers/table";
+import {getIdFromTableRow} from "../helpers/table";
 import {EventConstants} from "../constants";
 import AcServices from "../modules/ac-services";
 
@@ -90,14 +90,6 @@ export default class Table {
                 this.Cells.add(id, cell);
             }
         });
-    }
-
-    /**
-     * @deprecated use Helper function instead
-     * TODO remove once IE uses the helper
-     */
-    getRowCellByName(row: HTMLTableRowElement, column_name: string): HTMLTableCellElement {
-        return getRowCellByName(row, column_name);
     }
 
 }
