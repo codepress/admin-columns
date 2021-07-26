@@ -3,18 +3,29 @@
 	--ac-link-hover: #0096dd;
 	--ac-button-bg: #f6f7f7;
 	--ac-button-color: #2271b1;
+	--ac-button-border: var(--ac-button-color);
 	--ac-primary-color: #2271b1;
 	--ac-primary-color-hover: #135e96;
+
+	--ac-notification-red: #d63638;
+	--ac-notification-blue: #72aee6;
+	--ac-notification-yellow: #dba617;
+	--ac-notification-orange: #d54e21;
+	--ac-notification-green: #00a32a;
+
+	--ac-border-grey: #ddd;
 }
 
 :root .admin-color-coffee {
 	--ac-button-color: #32373c;
+	--ac-button-border: #8c8f94;
 	--ac-primary-color: #c7a589;
 	--ac-primary-color-hover: #ccad93;
 }
 
 :root .admin-color-light {
 	--ac-button-color: #04a4cc;
+	--ac-button-border: #04a4cc;
 	--ac-button-hover: #04b0db;
 	--ac-primary-color: #04a4cc;
 	--ac-primary-color-hover: #04b0db;
@@ -24,6 +35,7 @@
 	--ac-link: #3858e9;
 	--ac-link-hover: #183ad6;
 	--ac-button-color: #3858e9;
+	--ac-button-border: #3858e9;
 	--ac-primary-color: #3858e9;
 	--ac-primary-color-hover: #04b0db;
 }

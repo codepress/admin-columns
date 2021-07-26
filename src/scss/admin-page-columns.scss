@@ -192,7 +192,7 @@
 
 	.ac-notice {
 		background: #fff;
-		border-left: 4px solid #ffba00;
+		border-left: 4px solid var(--ac-notification-yellow);
 		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 		margin-bottom: 15px;
 		padding: 1px 12px;
@@ -218,7 +218,7 @@
 		}
 
 		&.notice-info {
-			border-left: 4px solid #00a0d2;
+			border-left: 4px solid var(--ac-notification-blue);
 		}
 	}
 
@@ -298,7 +298,7 @@
 			table {
 
 				td {
-					border-color: #f8f8f8;
+					border-color: var(--ac-border-grey);
 					color: #333;
 					text-shadow: 0 1px 0 #FFFFFF;
 
@@ -393,11 +393,6 @@
 			}
 		}
 	}
-
-
-	body.rtl & {
-
-	}
 }
 
 /**
@@ -409,7 +404,7 @@
 	clear: both;
 	border-spacing: 0;
 	margin: 0;
-	border-top: 1px solid $border-gray;
+	border-top: 1px solid var(--ac-border-grey);
 
 	&:first-child {
 		border-top: 0;
@@ -433,7 +428,7 @@
 		line-height: 24px;
 		overflow: visible;
 		background: $bg-gray;
-		border-right: 1px solid $border-gray-dark;
+		border-right: 1px solid var(--ac-border-grey);
 		width: 30%;
 		padding: 10px;
 		padding-left: 12px;
@@ -908,13 +903,13 @@ div.ac-column-header {
 			vertical-align: top;
 
 			&.clear-columns {
-				color: $red;
+				color: var(--ac-notification-red);
 				text-decoration: none;
 				margin-right: 8px;
 				margin-top: 5px;
 
 				&:hover {
-					color: $red-light;
+					opacity: .9;
 				}
 			}
 		}
@@ -928,7 +923,7 @@ div.ac-column-header {
 .ac-admin__sidebar {
 	.sidebox {
 		background: none repeat scroll 0 0 #FFFFFF;
-		border: 1px solid $border-gray-dark;
+		border: 1px solid var(--ac-border-grey);
 		border-radius: 0 0 0 0;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 		position: relative;
@@ -948,7 +943,7 @@ div.ac-column-header {
 				padding: 7px 10px;
 				background: #f1f1f1;
 				background-image: linear-gradient(to top, #ececec, #f9f9f9);
-				border-bottom-color: #dfdfdf;
+				border-bottom-color: var(--ac-border-grey);
 				text-shadow: #fff 0 1px 0;
 				box-shadow: 0 1px 0 #fff;
 				border-bottom-style: solid;
@@ -1001,13 +996,13 @@ div.ac-column-header {
 
 			.form-reset {
 				display: none;
-				border-bottom: 1px solid #F5F5F5;
+				border-bottom: 1px solid var(--ac-border-grey);
 				padding: 8px;
 			}
 
 			.reset-column-type {
 				text-decoration: none;
-				color: $red;
+				color: var(--ac-notification-red);
 				line-height: 25px;
 				display: inline-block;
 				background: none;
@@ -1018,7 +1013,7 @@ div.ac-column-header {
 				margin: 0;
 
 				&:hover {
-					color: $red-light;
+					opacity: .9;
 				}
 			}
 
@@ -1049,7 +1044,7 @@ div.ac-column-header {
 			.inside {
 				> a {
 					border-radius: 4px;
-					border: 1px solid #CCC;
+					border: 1px solid var(--ac-border-grey);
 					width: 48%;
 					height: 64px;
 					text-align: center;
@@ -1074,7 +1069,7 @@ div.ac-column-header {
 						display: inline-block;
 						float: right;
 						border-radius: 4px;
-						border: 1px solid #CCC;
+						border: 1px solid var(--ac-border-grey);
 						height: 32px;
 						text-align: center;
 						line-height: 32px;
@@ -1115,7 +1110,7 @@ div.ac-column-header {
 								padding: 16px 0;
 								width: 100%;
 								text-align: center;
-								border: 1px solid #CCC;
+								border: 1px solid var(--ac-border-grey);
 								border-radius: 4px;
 								display: block;
 
@@ -1461,7 +1456,7 @@ div.ac-column-header {
 			li {
 				&:before {
 					content: '\f147';
-					font-family: Dashicons;
+					font-family: Dashicons, sans-serif;
 					position: absolute;
 					left: 0;
 					top: 0;
@@ -1628,7 +1623,7 @@ div.ac-column-header {
 	$e: '.ac-column__header';
 	background: #fafafa;
 	display: flex;
-	border: 1px solid #dfdfdf;
+	border: 1px solid var(--ac-border-grey);
 	border-bottom: 0;
 
 	&__move {
@@ -1664,10 +1659,10 @@ div.ac-column-header {
 			margin-left: 5px;
 
 			&.remove-button {
-				color: #a00;
+				color: var(--ac-notification-red);
 
 				&:hover {
-					color: #f00;
+					opacity: .9;
 				}
 			}
 

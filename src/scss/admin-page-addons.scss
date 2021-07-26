@@ -30,7 +30,7 @@
 	flex-flow: column nowrap;
 	margin-left: 46px;
 	margin-bottom: 46px;
-	border: 1px solid #DDD;
+	border: 1px solid var(--ac-border-grey);
 	box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
 
 	&:hover {
@@ -111,7 +111,7 @@
 		height: 85px;
 		text-align: center;
 		vertical-align: middle;
-		border-bottom: 1px solid #DDD;
+		border-bottom: 1px solid var(--ac-border-grey);
 
 		.inner {
 			display: table-cell;
@@ -162,7 +162,7 @@
 
 	.addon-actions {
 		background: #eee;
-		border-top: 1px solid #ddd;
+		border-top: 1px solid var(--ac-border-grey);
 		padding: 8px;
 		overflow: hidden;
 
@@ -172,8 +172,8 @@
 			height: 28px;
 			line-height: 28px;
 			cursor: default;
-			border-color: lighten(#46b450, 10);
-			color: darken(#46b450, 10);
+			border-color:var(--ac-notification-green);
+			color: var(--ac-notification-green);
 			margin-left: 8px;
 
 			&:before {

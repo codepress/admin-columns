@@ -44,7 +44,7 @@
 		background: #fff;
 
 		&__th, &__fields {
-			border-bottom: 1px solid #dfdfdf;
+			border-bottom: 1px solid var(--ac-border-grey);
 		}
 
 		&__th {
@@ -52,7 +52,7 @@
 			position: relative;
 			padding: 12px 13px;
 			padding-top: 15px;
-			border-right: 1px solid #dedede;
+			border-right: 1px solid var(--ac-border-grey);
 
 			label {
 				display: block;

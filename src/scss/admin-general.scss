@@ -94,7 +94,7 @@ body.settings_page_codepress-admin-columns {
 
 
 	#wpcontent {
-		padding-left: 0px;
+		padding-left: 0;
 	}
 
 	.wrap {
@@ -215,18 +215,18 @@ header.cpac-header {
 	}
 
 	&.notice-warning {
-		border-left-color: #ffb900;
+		border-left-color: var(--ac-notification-yellow);
 	}
 
 	&.notice-error {
-		border-left-color: #dc3232;
+		border-left-color: var(--ac-notification-red);
 	}
 }
 
 
 .ac-badge {
 	display: inline-block;
-	background: #d54e21;
+	background: var(--ac-notification-orange);
 	border-radius: 10px;
 	font-size: 9px;
 	line-height: 17px;
@@ -270,7 +270,7 @@ a.external {
 // TODO: remove
 .cpac_message {
 	&.error.warning {
-		border-left: 4px solid #ffba00;
+		border-left: 4px solid var(--ac-notification-yellow);
 	}
 }
 
@@ -407,7 +407,7 @@ table.ac-form-table {
 	&__header {
 		background: #fff;
 		padding: 13px 14px;
-		border-bottom: 1px solid #E1E1E1;
+		border-bottom: 1px solid var(--ac-border-grey);
 		position: relative;
 
 		&__title {

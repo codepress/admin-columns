@@ -4,18 +4,27 @@
   --ac-link-hover: #0096dd;
   --ac-button-bg: #f6f7f7;
   --ac-button-color: #2271b1;
+  --ac-button-border: var(--ac-button-color);
   --ac-primary-color: #2271b1;
   --ac-primary-color-hover: #135e96;
+  --ac-notification-red: #d63638;
+  --ac-notification-blue: #72aee6;
+  --ac-notification-yellow: #dba617;
+  --ac-notification-orange: #d54e21;
+  --ac-notification-green: #00a32a;
+  --ac-border-grey: #ddd;
 }
 
 :root .admin-color-coffee {
   --ac-button-color: #32373c;
+  --ac-button-border: #8c8f94;
   --ac-primary-color: #c7a589;
   --ac-primary-color-hover: #ccad93;
 }
 
 :root .admin-color-light {
   --ac-button-color: #04a4cc;
+  --ac-button-border: #04a4cc;
   --ac-button-hover: #04b0db;
   --ac-primary-color: #04a4cc;
   --ac-primary-color-hover: #04b0db;
@@ -25,6 +34,7 @@
   --ac-link: #3858e9;
   --ac-link-hover: #183ad6;
   --ac-button-color: #3858e9;
+  --ac-button-border: #3858e9;
   --ac-primary-color: #3858e9;
   --ac-primary-color-hover: #04b0db;
 }
@@ -623,7 +633,7 @@ body.settings_page_codepress-admin-columns #cpac .notice {
   display: block;
 }
 body.settings_page_codepress-admin-columns #wpcontent {
-  padding-left: 0px;
+  padding-left: 0;
 }
 body.settings_page_codepress-admin-columns .wrap {
   padding: 30px 10px 0 30px;
@@ -735,15 +745,15 @@ header.cpac-header {
   margin: 0.5em 0;
 }
 .ac-message.notice-warning {
-  border-left-color: #ffb900;
+  border-left-color: var(--ac-notification-yellow);
 }
 .ac-message.notice-error {
-  border-left-color: #dc3232;
+  border-left-color: var(--ac-notification-red);
 }
 
 .ac-badge {
   display: inline-block;
-  background: #d54e21;
+  background: var(--ac-notification-orange);
   border-radius: 10px;
   font-size: 9px;
   line-height: 17px;
@@ -783,7 +793,7 @@ a.external:after {
  * ----------------------------------------------------------------------------
  */
 .cpac_message.error.warning {
-  border-left: 4px solid #ffba00;
+  border-left: 4px solid var(--ac-notification-yellow);
 }
 
 /**
@@ -888,7 +898,7 @@ table.ac-form-table .general form p.save-button {
 .ac-section__header {
   background: #fff;
   padding: 13px 14px;
-  border-bottom: 1px solid #E1E1E1;
+  border-bottom: 1px solid var(--ac-border-grey);
   position: relative;
 }
 .ac-section__header__title {
