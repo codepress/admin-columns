@@ -65,7 +65,7 @@
 
 	input:checked {
 		+ .ac-toggle__switch {
-			background: #1e8cbe;
+			background: var(--ac-primary-color);
 
 			.ac-toggle__switch__track {
 				left: calc(100% - 13px);
@@ -100,7 +100,7 @@
 					transform: translateX(14px);
 				}
 				~ .ac-toggle-v2__toggle__track {
-					background: #007cba;
+					background: var(--ac-primary-color);
 				}
 			}
 		}

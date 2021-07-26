@@ -1,6 +1,4 @@
 @charset "UTF-8";
-/* =Colors
--------------------------------------------------------------- */
 /* =Addons
 -------------------------------------------------------------- */
 .ac-addons-groups {
@@ -121,7 +119,7 @@
 .ac-addon .addon-notice a {
   font-weight: bold;
   text-decoration: none;
-  color: #0073aa;
+  color: var(--ac-link);
 }
 .ac-addon .addon-content {
   margin-bottom: auto;

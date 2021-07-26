@@ -1,10 +1,3 @@
-/* =Colors
--------------------------------------------------------------- */
-$addon-color-blue: #085079;
-$addon-color-lightblue: #0069a4;
-$addon-color-lightyellow: #fff8e5;
-$addon-color-link: #0073aa;
-
 /* =Addons
 -------------------------------------------------------------- */
 .ac-addons-groups {
@@ -18,7 +11,7 @@ $addon-color-link: #0073aa;
 	&.group-default {
 		float: none;
 		clear: both;
-		display:table; // forces new line
+		display: table; // forces new line
 	}
 
 
@@ -80,11 +73,13 @@ $addon-color-link: #0073aa;
 			color: #4C7FA0;
 			font-weight: bold;
 		}
+
 		a.ac-addon__button {
 			padding: 5px 30px;
 			color: #fff;
 			font-weight: bold;
 		}
+
 		a.ac-addon__link {
 			&.link-deactivate {
 				// TODO
@@ -138,14 +133,14 @@ $addon-color-link: #0073aa;
 	}
 
 	.addon-notice {
-		background-color: $addon-color-lightyellow;
+		background-color: #fff8e5;
 		margin: 0;
 		padding: 15px;
 
 		a {
 			font-weight: bold;
 			text-decoration: none;
-			color: $addon-color-link;
+			color: var(--ac-link);
 		}
 	}
 

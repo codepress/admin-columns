@@ -1,5 +1,6 @@
 //@import 'webfont';
 //@import 'iconfont';
+@import 'wordpress-vars';
 @import 'colors';
 @import 'webfont';
 @import 'modals';
@@ -363,7 +364,7 @@ table.ac-table-items {
 
 	a.ac-image-info {
 		&:hover {
-			color: $wp-color-link;
+			color: var(--ac-link);
 
 			span.dashicons {
 				color: $ac-dark;
@@ -952,9 +953,9 @@ div.cpac-color span {
 		display: inline-block;
 		padding: 2px 12px;
 		cursor: pointer;
-		color: $wp-color-button;
-		border: 1px solid $wp-color-button;
-		background: $wp-color-button-bg;
+		color: var(--ac-button-color);
+		border: 1px solid var(--ac-button-color);
+		background: var(--ac-button-bg);
 		text-decoration: none;
 		font-size: 13px;
 		height: 24px;
@@ -965,10 +966,10 @@ div.cpac-color span {
 
 		&:last-child, &.last {
 			border-radius: 0 3px 3px 0;
-			border-right: 1px solid $wp-color-button;
+			border-right: 1px solid var(--ac-button-color);
 
 			&.active {
-				border-right: 1px solid $wp-color-button;
+				border-right: 1px solid var(--ac-button-color);
 			}
 
 			&:first-child {
@@ -979,9 +980,9 @@ div.cpac-color span {
 		&:hover, &:focus, &:active {
 			outline: none;
 			box-shadow: none;
-			background: $wp-color-button-hover-bg;
-			color: $wp-color-button-hover;
-			border-color: $wp-color-button-hover;
+			background-color: #f0f0f1;
+			color: var(--ac-button-hover);
+			border-color: var(--ac-button-hover);
 		}
 
 		.dashicons {

@@ -818,197 +818,6 @@ div.ac-column-header {
 				border-width: 1px 0 0;
 				border-style: solid;
 				border-color: transparent;
-
-				&.column_sort {
-					position: relative;
-					cursor: move;
-					padding: 9px 12px;
-					width: 1px;
-
-					span.cpacicon-move {
-						position: absolute;
-						top: 12px;
-						left: 12px;
-						font-size: 22px;
-						display: inline-block;
-						color: #bdbdbd;
-					}
-
-				}
-
-				&.column_label {
-					width: 70%;
-					font-weight: bold;
-					vertical-align: middle;
-					position: relative;
-					padding: 15px 0;
-
-					.inner {
-						position: relative;
-						overflow: visible;
-						height: 18px;
-
-						.toggle {
-							img {
-								max-height: 20px;
-							}
-						}
-
-						small.column-type,
-						small.column-id {
-							font-weight: normal;
-							display: none;
-						}
-
-						> a {
-							color: #5a5a5a;
-							padding: 0 4px;
-
-							&:hover {
-								color: #333333;
-							}
-
-							&.edit-button,
-							&.close-button,
-							&.remove-button,
-							&.clone-button {
-								display: none;
-								color: #0074a2;
-								text-decoration: none;
-								text-shadow: none;
-								font-weight: normal;
-								margin-left: 5px;
-								font-size: 12px;
-
-								&:hover {
-									color: #2ea2cc;
-								}
-							}
-
-							&.remove-button {
-								color: #a00;
-
-								&:hover {
-									color: #f00;
-								}
-							}
-						}
-
-						.meta {
-							display: inline-block;
-							float: right;
-							font-weight: normal;
-							color: #b2b2b2;
-							font-size: 12px;
-							width: 190px;
-							position: relative;
-
-							.ac-column-heading-setting {
-								cursor: pointer;
-								margin-left: 4px;
-
-								&.ac-column-heading-setting--width {
-									margin-right: 3px;
-									cursor: auto;
-									color: #737373;
-									position: absolute;
-									right: calc(100% - 40px);
-								}
-
-								&.ac-column-indicator {
-									margin-left: 3px;
-									font-size: 22px;
-									line-height: 17px;
-									width: 22px;
-									position: absolute;
-									left: 0;
-
-									$selectors: export, sort, edit, bulk_edit, search, filter;
-									$start: 12;
-									$gutter: 27;
-
-									@for $i from 1 through length($selectors) {
-										$c: nth($selectors, $i);
-										&.ac-column-indicator--#{$c} {
-											left: ($start+($i*$gutter)) + 0px;
-										}
-									}
-
-									&.ac-column-indicator--filter {
-										top: 1px;
-									}
-
-									&.cpacicon-filter {
-										font-size: 20px;
-									}
-
-									&.on, &.on span {
-										color: $blue;
-									}
-
-									&.cpacicon {
-										font-size: 14px;
-										line-height: 18px;
-									}
-								}
-
-								&.disabled {
-									cursor: default;
-								}
-
-							}
-						}
-					}
-				}
-
-				// .column-label
-
-				&.column_type {
-					width: auto;
-					min-width: 120px;
-					text-align: right;
-					color: #999999;
-					padding-right: 0;
-					line-height: 21px;
-
-					.inner {
-						display: inline-block;
-						height: 22px;
-						overflow: hidden;
-						text-overflow: ellipsis;
-						white-space: nowrap;
-						width: 120px;
-						vertical-align: middle;
-
-						a {
-							margin-top: 2px;
-							color: #999999;
-						}
-					}
-				}
-
-				&.column_edit {
-					width: 38px;
-					min-width: 38px;
-					text-align: center;
-					cursor: pointer;
-
-					&:after {
-						right: 0;
-						content: "\f140";
-						font: normal 20px/1 dashicons;
-						speak: none;
-						display: inline-block;
-						padding: 0 5px 0 0;
-						bottom: 0;
-						position: relative;
-						vertical-align: bottom;
-						-webkit-font-smoothing: antialiased;
-						-moz-osx-font-smoothing: grayscale;
-						text-decoration: none !important;
-						color: #b4b9be;
-					}
-				}
 			}
 
 			// td
@@ -1557,7 +1366,7 @@ div.ac-column-header {
 			}
 
 			&:active {
-				color: $blue;
+				color: var(--ac-primary-color);
 			}
 		}
 	}
@@ -1624,11 +1433,11 @@ div.ac-column-header {
 		}
 
 		&:hover, &:focus {
-			color: $blue;
+			color: var(--ac-primary-color);
 		}
 
 		&.active {
-			background: $blue;
+			background: var(--ac-primary-color);
 			color: #fff;
 		}
 
@@ -1930,7 +1739,7 @@ div.ac-column-header {
 			cursor: pointer;
 
 			&.on {
-				color: #21759B;
+				color: var(--ac-primary-color);
 			}
 
 			&.-export {
@@ -2024,7 +1833,10 @@ div.ac-column-header {
 		&:after {
 			content: '';
 			position: absolute;
-			left: 0; top:0; right:0; bottom: 0;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
 			background: #eee;
 			opacity: .2;
 		}

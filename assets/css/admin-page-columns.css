@@ -819,169 +819,6 @@ div.ac-column-header table tr td {
   border-style: solid;
   border-color: transparent;
 }
-div.ac-column-header table tr td.column_sort {
-  position: relative;
-  cursor: move;
-  padding: 9px 12px;
-  width: 1px;
-}
-div.ac-column-header table tr td.column_sort span.cpacicon-move {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  font-size: 22px;
-  display: inline-block;
-  color: #bdbdbd;
-}
-div.ac-column-header table tr td.column_label {
-  width: 70%;
-  font-weight: bold;
-  vertical-align: middle;
-  position: relative;
-  padding: 15px 0;
-}
-div.ac-column-header table tr td.column_label .inner {
-  position: relative;
-  overflow: visible;
-  height: 18px;
-}
-div.ac-column-header table tr td.column_label .inner .toggle img {
-  max-height: 20px;
-}
-div.ac-column-header table tr td.column_label .inner small.column-type,
-div.ac-column-header table tr td.column_label .inner small.column-id {
-  font-weight: normal;
-  display: none;
-}
-div.ac-column-header table tr td.column_label .inner > a {
-  color: #5a5a5a;
-  padding: 0 4px;
-}
-div.ac-column-header table tr td.column_label .inner > a:hover {
-  color: #333333;
-}
-div.ac-column-header table tr td.column_label .inner > a.edit-button, div.ac-column-header table tr td.column_label .inner > a.close-button, div.ac-column-header table tr td.column_label .inner > a.remove-button, div.ac-column-header table tr td.column_label .inner > a.clone-button {
-  display: none;
-  color: #0074a2;
-  text-decoration: none;
-  text-shadow: none;
-  font-weight: normal;
-  margin-left: 5px;
-  font-size: 12px;
-}
-div.ac-column-header table tr td.column_label .inner > a.edit-button:hover, div.ac-column-header table tr td.column_label .inner > a.close-button:hover, div.ac-column-header table tr td.column_label .inner > a.remove-button:hover, div.ac-column-header table tr td.column_label .inner > a.clone-button:hover {
-  color: #2ea2cc;
-}
-div.ac-column-header table tr td.column_label .inner > a.remove-button {
-  color: #a00;
-}
-div.ac-column-header table tr td.column_label .inner > a.remove-button:hover {
-  color: #f00;
-}
-div.ac-column-header table tr td.column_label .inner .meta {
-  display: inline-block;
-  float: right;
-  font-weight: normal;
-  color: #b2b2b2;
-  font-size: 12px;
-  width: 190px;
-  position: relative;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting {
-  cursor: pointer;
-  margin-left: 4px;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-heading-setting--width {
-  margin-right: 3px;
-  cursor: auto;
-  color: #737373;
-  position: absolute;
-  right: calc(100% - 40px);
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator {
-  margin-left: 3px;
-  font-size: 22px;
-  line-height: 17px;
-  width: 22px;
-  position: absolute;
-  left: 0;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.ac-column-indicator--export {
-  left: 39px;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.ac-column-indicator--sort {
-  left: 66px;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.ac-column-indicator--edit {
-  left: 93px;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.ac-column-indicator--bulk_edit {
-  left: 120px;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.ac-column-indicator--search {
-  left: 147px;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.ac-column-indicator--filter {
-  left: 174px;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.ac-column-indicator--filter {
-  top: 1px;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.cpacicon-filter {
-  font-size: 20px;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.on, div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.on span {
-  color: #21759B;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.ac-column-indicator.cpacicon {
-  font-size: 14px;
-  line-height: 18px;
-}
-div.ac-column-header table tr td.column_label .inner .meta .ac-column-heading-setting.disabled {
-  cursor: default;
-}
-div.ac-column-header table tr td.column_type {
-  width: auto;
-  min-width: 120px;
-  text-align: right;
-  color: #999999;
-  padding-right: 0;
-  line-height: 21px;
-}
-div.ac-column-header table tr td.column_type .inner {
-  display: inline-block;
-  height: 22px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 120px;
-  vertical-align: middle;
-}
-div.ac-column-header table tr td.column_type .inner a {
-  margin-top: 2px;
-  color: #999999;
-}
-div.ac-column-header table tr td.column_edit {
-  width: 38px;
-  min-width: 38px;
-  text-align: center;
-  cursor: pointer;
-}
-div.ac-column-header table tr td.column_edit:after {
-  right: 0;
-  content: "";
-  font: normal 20px/1 dashicons;
-  speak: none;
-  display: inline-block;
-  padding: 0 5px 0 0;
-  bottom: 0;
-  position: relative;
-  vertical-align: bottom;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-decoration: none !important;
-  color: #b4b9be;
-}
 div.ac-column-header table tr:hover td.column_sort span {
   color: #9b9b9b;
 }
@@ -1414,7 +1251,7 @@ div.ac-column-header span.vers {
   color: #999;
 }
 .ac-column-setting--label .ac-setting-input__container .ac-setting-label-icon:active {
-  color: #21759B;
+  color: var(--ac-primary-color);
 }
 
 .ac-ipicker__modal {
@@ -1470,10 +1307,10 @@ div.ac-column-header span.vers {
   font-size: 28px;
 }
 .ac-ipicker__icon:hover, .ac-ipicker__icon:focus {
-  color: #21759B;
+  color: var(--ac-primary-color);
 }
 .ac-ipicker__icon.active {
-  background: #21759B;
+  background: var(--ac-primary-color);
   color: #fff;
 }
 .ac-ipicker__handles {
@@ -1711,7 +1548,7 @@ div.ac-column-header span.vers {
   cursor: pointer;
 }
 .ac-column__header__features .ac-column-indicator.on {
-  color: #21759B;
+  color: var(--ac-primary-color);
 }
 .ac-column__header__features .ac-column-indicator.-export {
   font-size: 14px;
