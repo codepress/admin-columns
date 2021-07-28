@@ -2,12 +2,10 @@
 
 namespace AC\Admin;
 
-use AC\Admin;
-
 class Menu {
 
 	/**
-	 * @var Admin\Menu\Item[]
+	 * @var Menu\Item[]
 	 */
 	private $items;
 
@@ -15,7 +13,7 @@ class Menu {
 		array_map( [ $this, 'add_item' ], $items );
 	}
 
-	public function add_item( Admin\Menu\Item $item ) {
+	public function add_item( Menu\Item $item ) {
 		$this->items[] = $item;
 
 		return $this;
