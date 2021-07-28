@@ -234,7 +234,10 @@ class Image {
 
 	private function markup_cover( $src, $width, $height, $media_id = null ) {
 		ob_start(); ?>
-		<span class="ac-image cpac-cover" data-media-id="<?php echo esc_attr( $media_id ); ?>" style="width:<?php echo esc_attr( $width ); ?>px;height:<?php echo esc_attr( $height ); ?>px;background-size:cover;background-image:url('<?php echo esc_attr( $src ); ?>');background-position:center;" <?= $this->get_file_tooltip_attr( $media_id ); ?>></span>
+
+		<span class="ac-image -cover" data-media-id="<?= esc_attr( $media_id ); ?>">
+			<img style="width:<?= esc_attr( $width ); ?>px;height:<?= esc_attr( $height ); ?>px;" src="<?= esc_attr( $src ); ?>" alt="">
+		</span>
 
 		<?php
 		return ob_get_clean();

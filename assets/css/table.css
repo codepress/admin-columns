@@ -864,6 +864,9 @@ table.ac-table-items tr td.ac-table-item-qty {
 .ac-image:not(body).ac-icon {
   background-color: transparent;
 }
+.ac-image:not(body).-cover img {
+  object-fit: cover;
+}
 
 .rtl .column-column-attachment img {
   padding-left: 5px;

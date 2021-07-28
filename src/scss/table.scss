@@ -586,6 +586,12 @@ table.ac-table-items {
 	&.ac-icon {
 		background-color: transparent;
 	}
+
+	&.-cover {
+		img {
+			object-fit: cover;
+		}
+	}
 }
 
 .rtl .column-column-attachment img {
