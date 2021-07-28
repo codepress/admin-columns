@@ -212,8 +212,10 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: tbd
 
+* [Added] Complete restyling of the Admin interface
 * [Fixed] Load a default column set when the preferred column set was restricted in the meantime
-
+* [Fixed] Gravatar display option did not work anymore since the value sanitation
+* [Fixed] Possible namespace clash in Admin class
 
 = 4.3.2 =
 Release Date: June 18th, 2021
