@@ -10,7 +10,7 @@ class Version {
 	private $value;
 
 	public function __construct( $version ) {
-		$this->value = $version;
+		$this->value = (string) $version;
 	}
 
 	/**
@@ -18,6 +18,13 @@ class Version {
 	 */
 	public function get_value() {
 		return $this->value;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_valid() {
+		return ! empty( $this->value );
 	}
 
 	/**

@@ -113,7 +113,7 @@ abstract class Plugin {
 		}
 
 		// Run installer when the current version can not be read from the plugin's header file
-		if ( ! $this->get_version()->get_value() && ! $this->get_stored_version()->get_value() ) {
+		if ( ! $this->get_version()->is_valid() && ! $this->get_stored_version()->is_valid() ) {
 			return true;
 		}
 
@@ -214,7 +214,7 @@ abstract class Plugin {
 	public function is_new_install() {
 		global $wpdb;
 
-		if ( $this->get_stored_version() ) {
+		if ( $this->get_stored_version()->is_valid() ) {
 			return false;
 		}
 
