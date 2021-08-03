@@ -89,4 +89,11 @@ class Version {
 		return false !== strpos( $this->value, 'beta' );
 	}
 
+	/**
+	 * @return string
+	 */
+	public function __toString() {
+		return $this->value;
+	}
+
 }
