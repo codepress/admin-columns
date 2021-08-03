@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use AC\Asset\Location;
+use AC\Plugin\Version;
 use ReflectionObject;
 use WP_Roles;
 
@@ -106,12 +108,12 @@ abstract class Plugin {
 		}
 
 		// Run installer when the current version is not equal to its stored version
-		if ( ! $this->is_version_equal( $this->get_stored_version() ) ) {
+		if ( $this->get_version()->is_not_equal( $this->get_stored_version() ) ) {
 			return true;
 		}
 
 		// Run installer when the current version can not be read from the plugin's header file
-		if ( ! $this->get_version() && ! $this->get_stored_version() ) {
+		if ( ! $this->get_version()->get_value() && ! $this->get_stored_version()->get_value() ) {
 			return true;
 		}
 
@@ -147,24 +149,27 @@ abstract class Plugin {
 		$classes = Autoloader::instance()->get_class_names_from_dir( $reflection->getNamespaceName() . '\Plugin\Update' );
 
 		foreach ( $classes as $class ) {
-			$updater->add_update( new $class( $this->get_stored_version() ) );
+			$updater->add_update( new $class( $this->get_stored_version()->get_value() ) );
 		}
 
 		$updater->parse_updates();
 	}
 
 	/**
-	 * @return bool
+	 * @return Location\Absolute
 	 */
-	public function is_beta() {
-		return false !== strpos( $this->get_version(), 'beta' );
+	public function get_location() {
+		return new Location\Absolute(
+			$this->get_url(),
+			$this->get_dir()
+		);
 	}
 
 	/**
-	 * @return string
+	 * @return Version
 	 */
 	public function get_version() {
-		return (string) $this->get_header( 'Version' );
+		return new Version( (string) $this->get_header( 'Version' ) );
 	}
 
 	/**
@@ -178,23 +183,14 @@ abstract class Plugin {
 	 * @return bool
 	 */
 	public function is_version_gte( $version ) {
-		return version_compare( $this->get_version(), $version, '>=' );
+		return $this->get_version()->is_gte( new Version( $version ) );
 	}
 
 	/**
-	 * @param string $version
-	 *
-	 * @return bool
-	 */
-	private function is_version_equal( $version ) {
-		return 0 === version_compare( $this->get_version(), $version );
-	}
-
-	/**
-	 * @return string
+	 * @return Version
 	 */
 	public function get_stored_version() {
-		return (string) get_option( $this->get_version_key() );
+		return new Version( (string) get_option( $this->get_version_key() ) );
 	}
 
 	/**
@@ -206,7 +202,7 @@ abstract class Plugin {
 	 */
 	public function update_stored_version( $version = null ) {
 		if ( null === $version ) {
-			$version = $this->get_version();
+			$version = $this->get_version()->get_value();
 		}
 
 		return update_option( $this->get_version_key(), $version, false );

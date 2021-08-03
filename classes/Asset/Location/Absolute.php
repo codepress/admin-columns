@@ -21,8 +21,8 @@ final class Absolute implements Location {
 	 * @param string $path
 	 */
 	public function __construct( $url, $path ) {
-		$this->url = $url;
-		$this->path = $path;
+		$this->url = (string) $url;
+		$this->path = (string) $path;
 	}
 
 	/**
