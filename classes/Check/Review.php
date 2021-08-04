@@ -3,6 +3,8 @@
 namespace AC\Check;
 
 use AC\Ajax;
+use AC\Asset\Location;
+use AC\Asset\Script;
 use AC\Capabilities;
 use AC\Message;
 use AC\Preferences;
@@ -17,9 +19,18 @@ class Review
 	implements Registrable {
 
 	/**
+	 * @var Location\Absolute
+	 */
+	private $location;
+
+	/**
 	 * @var int Show message after x days
 	 */
 	protected $show_after = 30;
+
+	public function __construct( Location\Absolute $location ) {
+		$this->location = $location;
+	}
 
 	/**
 	 * @param int $show_after_days
@@ -61,7 +72,8 @@ class Review
 			return;
 		}
 
-		wp_enqueue_script( 'ac-notice-review', AC()->get_url() . 'assets/js/message-review.js', [ 'jquery' ], AC()->get_version() );
+		$script = new Script( 'ac-notice-review', $this->location->with_suffix( 'assets/js/message-review.js' ), [ 'jquery' ] );
+		$script->enqueue();
 
 		$notice = new Message\Notice\Dismissible( $this->get_message(), $this->get_ajax_handler() );
 		$notice

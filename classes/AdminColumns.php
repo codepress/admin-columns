@@ -88,7 +88,7 @@ class AdminColumns extends Plugin {
 			new Controller\RedirectAddonStatus( new IntegrationRepository() ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
-			new NoticeChecks(),
+			new NoticeChecks( $this->get_location() ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];
 
