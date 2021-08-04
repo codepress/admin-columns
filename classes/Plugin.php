@@ -3,9 +3,9 @@
 namespace AC;
 
 use AC\Asset\Location;
+use AC\Plugin\Install;
 use AC\Plugin\Version;
 use ReflectionObject;
-use WP_Roles;
 
 class Plugin {
 
@@ -21,7 +21,7 @@ class Plugin {
 	private $version_key;
 
 	/**
-	 * @var Installer|null
+	 * @var Install|null
 	 */
 	private $installer;
 
@@ -56,7 +56,7 @@ class Plugin {
 		return plugin_dir_url( $this->file );
 	}
 
-	public function set_installer( Installer $installer ) {
+	public function set_installer( Install $installer ) {
 		$this->installer = $installer;
 	}
 
@@ -118,15 +118,7 @@ class Plugin {
 			return;
 		}
 
-		global $wp_roles;
-
-		if ( ! $wp_roles ) {
-			$wp_roles = new WP_Roles();
-		}
-
-		do_action( 'ac/capabilities/init', $wp_roles );
-
-		if ( $this->installer instanceof Installer ) {
+		if ( $this->installer ) {
 			$this->installer->install();
 		}
 

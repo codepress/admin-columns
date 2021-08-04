@@ -17,6 +17,7 @@ use AC\Controller;
 use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
+use AC\Plugin\InstallCollection;
 use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
 use AC\Settings\GeneralOption;
@@ -100,7 +101,11 @@ class AdminColumns extends Plugin {
 			}
 		}
 
-		$this->set_installer( new Plugin\Installer() );
+		$installer = new InstallCollection();
+		$installer->add_install( new Plugin\Install\Capabilities() )
+		          ->add_install( new Plugin\Install\Database() );
+
+		$this->set_installer( $installer );
 
 		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
@@ -173,7 +178,7 @@ class AdminColumns extends Plugin {
 	 * @deprecated 4.1
 	 */
 	public function register_list_screen( ListScreen $list_screen ) {
-		_deprecated_function( __METHOD__, '4.1', 'ListScreenTypes::register_list_screen()' );
+		_deprecated_function( __METHOD__, '4.1', 'ListScreenTypes::instance()->register_list_screen()' );
 
 		ListScreenTypes::instance()->register_list_screen( $list_screen );
 

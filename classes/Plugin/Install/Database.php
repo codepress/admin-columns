@@ -1,10 +1,10 @@
 <?php
 
-namespace AC\Plugin;
+namespace AC\Plugin\Install;
 
 use AC;
 
-class Installer implements AC\Installer {
+class Database implements AC\Plugin\Install {
 
 	const TABLE = 'admin_columns';
 
