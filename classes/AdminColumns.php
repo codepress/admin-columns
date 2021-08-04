@@ -46,7 +46,7 @@ class AdminColumns extends Plugin {
 	}
 
 	protected function __construct() {
-		parent::__construct( AC_FILE, 'ac_version' );
+		parent::__construct( AC_FILE, 'ac_version', new Version( AC_VERSION ) );
 
 		$this->storage = new Storage();
 		$this->storage->set_repositories( [
@@ -109,10 +109,6 @@ class AdminColumns extends Plugin {
 
 		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
-	}
-
-	public function get_version() {
-		return new Version( AC_VERSION );
 	}
 
 	/**

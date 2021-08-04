@@ -21,6 +21,11 @@ class Plugin {
 	private $version_key;
 
 	/**
+	 * @var Version
+	 */
+	private $version;
+
+	/**
 	 * @var Install|null
 	 */
 	private $installer;
@@ -30,9 +35,14 @@ class Plugin {
 	 */
 	private $data;
 
-	protected function __construct( $file, $version_key ) {
+	protected function __construct( $file, $version_key, Version $version = null ) {
 		$this->file = (string) $file;
 		$this->version_key = (string) $version_key;
+
+		if ( null === $version ) {
+			$version = new Version( (string) $this->get_header( 'Version' ) );
+		}
+		$this->version = $version;
 	}
 
 	/**
@@ -101,12 +111,12 @@ class Plugin {
 		}
 
 		// Run installer when the current version is not equal to its stored version
-		if ( $this->get_version()->is_not_equal( $this->get_stored_version() ) ) {
+		if ( $this->version->is_not_equal( $this->get_stored_version() ) ) {
 			return true;
 		}
 
 		// Run installer when the current version can not be read from the plugin's header file
-		if ( ! $this->get_version()->is_valid() && ! $this->get_stored_version()->is_valid() ) {
+		if ( ! $this->version->is_valid() && ! $this->get_stored_version()->is_valid() ) {
 			return true;
 		}
 
@@ -154,7 +164,7 @@ class Plugin {
 	 * @return Version
 	 */
 	public function get_version() {
-		return new Version( (string) $this->get_header( 'Version' ) );
+		return $this->version;
 	}
 
 	/**
@@ -163,7 +173,7 @@ class Plugin {
 	 * @return bool
 	 */
 	public function is_version_gte( $version ) {
-		return $this->get_version()->is_gte( new Version( $version ) );
+		return $this->version->is_gte( new Version( $version ) );
 	}
 
 	/**
@@ -182,7 +192,7 @@ class Plugin {
 	 */
 	public function update_stored_version( $version = null ) {
 		if ( null === $version ) {
-			$version = $this->get_version()->get_value();
+			$version = $this->version->get_value();
 		}
 
 		return update_option( $this->version_key, $version, false );
