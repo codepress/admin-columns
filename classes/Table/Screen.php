@@ -302,23 +302,13 @@ final class Screen implements Registrable {
 
 	/**
 	 * @return ListScreen
-	 * @deprecated 3.2.5
-	 */
-	public function get_current_list_screen() {
-		_deprecated_function( __METHOD__, '3.2.5', 'AC\Table\Screen::get_list_screen()' );
-
-		return $this->get_list_screen();
-	}
-
-	/**
-	 * @return ListScreen
 	 */
 	public function get_list_screen() {
 		return $this->list_screen;
 	}
 
 	/**
-	 *
+	 * @return array
 	 */
 	private function get_column_widths() {
 		$result = [];

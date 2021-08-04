@@ -7,43 +7,54 @@ use AC\Plugin\Version;
 use ReflectionObject;
 use WP_Roles;
 
-abstract class Plugin {
+class Plugin {
+
+	/**
+	 * @var string
+	 */
+	private $file;
+
+	/**
+	 * @var string
+	 */
+	private $version_key;
 
 	/**
 	 * @var Installer|null
 	 */
 	private $installer;
 
-	/**
-	 * @var array
-	 */
-	private $data;
-
-	/**
-	 * Return the file from this plugin
-	 * @return string
-	 */
-	abstract protected function get_file();
+	protected function __construct( $file, $version_key ) {
+		$this->file = (string) $file;
+		$this->version_key = (string) $version_key;
+	}
 
 	/**
 	 * @return string
 	 */
 	public function get_basename() {
-		return plugin_basename( $this->get_file() );
+		return plugin_basename( $this->file );
+	}
+
+	/**
+	 * @return PluginInformation
+	 */
+	public function get_plugin() {
+		return new PluginInformation( $this->get_basename() );
 	}
 
 	/**
 	 * @return string
 	 */
 	public function get_dir() {
-		return plugin_dir_path( $this->get_file() );
+		return plugin_dir_path( $this->file );
 	}
 
 	/**
 	 * @return string
 	 */
 	public function get_url() {
-		return plugin_dir_url( $this->get_file() );
+		return plugin_dir_url( $this->file );
 	}
 
 	public function set_installer( Installer $installer ) {
@@ -55,46 +66,7 @@ abstract class Plugin {
 	 * @return bool
 	 */
 	public function is_network_active() {
-		return is_plugin_active_for_network( $this->get_basename() );
-	}
-
-	/**
-	 * Calls get_plugin_data() for this plugin
-	 * @return array
-	 * @see get_plugin_data()
-	 */
-	protected function get_data() {
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-		if ( null === $this->data ) {
-			$this->data = get_plugin_data( $this->get_file(), false, false );
-		}
-
-		return $this->data;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_name() {
-		return (string) $this->get_header( 'Name' );
-	}
-
-	/**
-	 * Return a plugin header from the plugin data
-	 *
-	 * @param string $key
-	 *
-	 * @return false|string
-	 */
-	protected function get_header( $key ) {
-		$data = $this->get_data();
-
-		if ( ! isset( $data[ $key ] ) ) {
-			return false;
-		}
-
-		return $data[ $key ];
+		return $this->get_plugin()->is_network_active();
 	}
 
 	/**
@@ -169,13 +141,8 @@ abstract class Plugin {
 	 * @return Version
 	 */
 	public function get_version() {
-		return new Version( (string) $this->get_header( 'Version' ) );
+		return $this->get_plugin()->get_version();
 	}
-
-	/**
-	 * @return string
-	 */
-	abstract protected function get_version_key();
 
 	/**
 	 * @param string $version
@@ -190,7 +157,7 @@ abstract class Plugin {
 	 * @return Version
 	 */
 	public function get_stored_version() {
-		return new Version( (string) get_option( $this->get_version_key() ) );
+		return new Version( (string) get_option( $this->version_key ) );
 	}
 
 	/**
@@ -205,7 +172,7 @@ abstract class Plugin {
 			$version = $this->get_version()->get_value();
 		}
 
-		return update_option( $this->get_version_key(), $version, false );
+		return update_option( $this->version_key, $version, false );
 	}
 
 	/**
