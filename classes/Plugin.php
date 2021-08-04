@@ -25,6 +25,11 @@ class Plugin {
 	 */
 	private $installer;
 
+	/**
+	 * @var array
+	 */
+	private $data;
+
 	protected function __construct( $file, $version_key ) {
 		$this->file = (string) $file;
 		$this->version_key = (string) $version_key;
@@ -35,13 +40,6 @@ class Plugin {
 	 */
 	public function get_basename() {
 		return plugin_basename( $this->file );
-	}
-
-	/**
-	 * @return PluginInformation
-	 */
-	public function get_plugin() {
-		return new PluginInformation( $this->get_basename() );
 	}
 
 	/**
@@ -62,12 +60,30 @@ class Plugin {
 		$this->installer = $installer;
 	}
 
+	private function get_data() {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		if ( null === $this->data ) {
+			$this->data = get_plugin_data( $this->file, false, false );
+		}
+
+		return $this->data;
+	}
+
+	private function get_header( $var ) {
+		$data = $this->get_data();
+
+		return isset( $data[ $var ] )
+			? $data[ $var ]
+			: null;
+	}
+
 	/**
 	 * Check if plugin is network activated
 	 * @return bool
 	 */
 	public function is_network_active() {
-		return $this->get_plugin()->is_network_active();
+		return is_plugin_active_for_network( $this->get_basename() );
 	}
 
 	/**
@@ -142,7 +158,7 @@ class Plugin {
 	 * @return Version
 	 */
 	public function get_version() {
-		return $this->get_plugin()->get_version();
+		return new Version( (string) $this->get_header( 'Version' ) );
 	}
 
 	/**
