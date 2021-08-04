@@ -70,16 +70,20 @@ class Plugin {
 		return $this->data;
 	}
 
+	/**
+	 * @param string $var
+	 *
+	 * @return string|null
+	 */
 	private function get_header( $var ) {
 		$data = $this->get_data();
 
 		return isset( $data[ $var ] )
-			? $data[ $var ]
+			? (string) $data[ $var ]
 			: null;
 	}
 
 	/**
-	 * Check if plugin is network activated
 	 * @return bool
 	 */
 	public function is_network_active() {
