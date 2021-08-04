@@ -17,7 +17,6 @@ use AC\Controller;
 use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
-use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
 use AC\Settings\GeneralOption;
 use AC\Table;
@@ -111,13 +110,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function get_storage() {
 		return $this->storage;
-	}
-
-	/**
-	 * @return Version
-	 */
-	public function get_version() {
-		return new Version( AC_VERSION );
 	}
 
 	public function register_global_scripts() {

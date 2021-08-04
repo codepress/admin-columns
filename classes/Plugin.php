@@ -10,6 +10,7 @@ use WP_Roles;
 class Plugin {
 
 	/**
+	 * Location of the plugin main file
 	 * @var string
 	 */
 	private $file;

@@ -95,11 +95,9 @@ class PluginInformation {
 	public function get_header( $var ) {
 		$info = $this->get_header_data();
 
-		if ( ! $info || ! isset( $info[ $var ] ) ) {
-			return null;
-		}
-
-		return $info[ $var ];
+		return $info && isset( $info[ $var ] )
+			? (string) $info[ $var ]
+			: null;
 	}
 
 }
