@@ -63,7 +63,7 @@ class AdminColumns extends Plugin {
 
 		RequestHandler::add_handler(
 			new PageRequestHandler(
-				new PageFactory( $this->storage, $location, new MenuFactory( admin_url( 'options-general.php' ) ) ),
+				new PageFactory( $this->storage, $location, new MenuFactory( admin_url( 'options-general.php' ), new IntegrationRepository() ) ),
 				Columns::NAME
 			)
 		);

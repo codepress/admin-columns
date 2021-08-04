@@ -4,6 +4,8 @@ namespace AC\Admin;
 
 use AC\Admin\Menu\Item;
 use AC\Deprecated\Hooks;
+use AC\Integration\Filter;
+use AC\IntegrationRepository;
 
 class MenuFactory implements MenuFactoryInterface {
 
@@ -12,8 +14,14 @@ class MenuFactory implements MenuFactoryInterface {
 	 */
 	protected $url;
 
-	public function __construct( $url ) {
+	/**
+	 * @var IntegrationRepository
+	 */
+	private $integration_repository;
+
+	public function __construct( $url, $integration_repository ) {
 		$this->url = $url;
+		$this->integration_repository = $integration_repository;
 	}
 
 	/**
@@ -31,6 +39,15 @@ class MenuFactory implements MenuFactoryInterface {
 		);
 	}
 
+	private function get_recommended_integrations() {
+		return $this->integration_repository->find_all( [
+			IntegrationRepository::ARG_FILTER => [
+				new Filter\IsNotActive( is_multisite(), is_network_admin() ),
+				new Filter\IsPluginActive(),
+			],
+		] );
+	}
+
 	public function create( $current ) {
 		$menu = new Menu();
 
@@ -39,6 +56,12 @@ class MenuFactory implements MenuFactoryInterface {
 			Page\Settings::NAME => __( 'Settings', 'codepress-admin-columns' ),
 			Page\Addons::NAME   => __( 'Add-ons', 'codepress-admin-columns' ),
 		];
+
+		$integrations = $this->get_recommended_integrations();
+
+		if ( $integrations->exists() ) {
+			$items[ Page\Addons::NAME ] = sprintf( '%s %s', $items[ Page\Addons::NAME ], '<span class="ac-badge">' . $integrations->count() . '</span>' );
+		}
 
 		$hooks = new Hooks();
 

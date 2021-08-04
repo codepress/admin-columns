@@ -4,6 +4,8 @@ namespace AC;
 
 class IntegrationRepository {
 
+	const ARG_FILTER = 'filter';
+
 	/**
 	 * @return Integrations
 	 */
@@ -61,10 +63,10 @@ class IntegrationRepository {
 		$integrations = $this->all();
 
 		$args = array_merge( [
-			'filter' => [],
+			self::ARG_FILTER => [],
 		], $args );
 
-		foreach ( $args['filter'] as $filter ) {
+		foreach ( $args[ self::ARG_FILTER ] as $filter ) {
 			if ( $filter instanceof Integration\Filter ) {
 				$integrations = $filter->filter( $integrations );
 			}
