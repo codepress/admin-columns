@@ -23,6 +23,10 @@ export default class Cell {
         this.events = new Nanobus();
     }
 
+    getOriginalValue(){
+        return this.original_value;
+    }
+
     getObjectID(): number {
         return this.object_id;
     }

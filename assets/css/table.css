@@ -16,14 +16,14 @@
   --ac-border-grey: #ddd;
 }
 
-:root .admin-color-coffee {
+:root body.admin-color-coffee {
   --ac-button-color: #32373c;
   --ac-button-border: #8c8f94;
   --ac-primary-color: #c7a589;
   --ac-primary-color-hover: #ccad93;
 }
 
-:root .admin-color-light {
+:root body.admin-color-light {
   --ac-button-color: #04a4cc;
   --ac-button-border: #04a4cc;
   --ac-button-hover: #04b0db;
@@ -31,7 +31,7 @@
   --ac-primary-color-hover: #04b0db;
 }
 
-:root .admin-color-modern {
+:root body.admin-color-modern {
   --ac-link: #3858e9;
   --ac-link-hover: #183ad6;
   --ac-button-color: #3858e9;
@@ -40,25 +40,25 @@
   --ac-primary-color-hover: #04b0db;
 }
 
-:root .admin-color-blue {
+:root body.admin-color-blue {
   --ac-button-color: #096484;
   --ac-primary-color: #e1a948;
   --ac-primary-color-hover: #e3af55;
 }
 
-:root .admin-color-ectoplasm {
+:root body.admin-color-ectoplasm {
   --ac-button-color: #a3b745;
   --ac-primary-color: #a3b745;
   --ac-primary-color-hover: #a9bd4f;
 }
 
-:root .admin-color-ocean {
+:root body.admin-color-ocean {
   --ac-button-color: #7e8993;
   --ac-primary-color: #9ebaa0;
   --ac-primary-color-hover: #a7c0a9;
 }
 
-:root .admin-color-sunrise {
+:root body.admin-color-sunrise {
   --ac-button-color: #dd823b;
   --ac-button-hover: #db7728;
   --ac-primary-color: #dd823b;

@@ -6,6 +6,7 @@ import RowSelection from "./row-selection";
 import {getIdFromTableRow} from "../helpers/table";
 import {EventConstants} from "../constants";
 import AcServices from "../modules/ac-services";
+import ServiceContainer from "../modules/service-container";
 
 export type TableEventPayload = {
     table: Table
@@ -19,11 +20,12 @@ export default class Table {
     Cells: Cells
     Actions: Actions
     Selection: RowSelection
-    _ids: Array<number>
+    Services: ServiceContainer
 
     constructor(el: HTMLTableElement, services: AcServices) {
         this.el = el;
         this.AcServices = services;
+        this.Services = new ServiceContainer();
         this.Columns = new Columns(el);
         this.Cells = new Cells();
         this.Actions = document.getElementById('ac-table-actions') ? new Actions(document.getElementById('ac-table-actions')) : null;
