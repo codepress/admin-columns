@@ -986,10 +986,6 @@ document.addEventListener('DOMContentLoaded', () => {
         AC_SERVICES.getService('Table').addCellClasses();
         Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
     });
-    // TODO use more global event name instead of IE
-    jquery__WEBPACK_IMPORTED_MODULE_4___default()('.wp-list-table td').on('ACP_InlineEditing_After_SetValue', function () {
-        Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
-    });
 });
 AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__["EventConstants"].TABLE.READY, (event) => {
     Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
@@ -1004,6 +1000,11 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__["EventConstants"
         });
     });
     observer.observe(event.table.getElement(), { childList: true, subtree: true });
+    event.table.Cells.getAll().forEach(cell => {
+        cell.events.addListener('setValue', () => {
+            Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
+        });
+    });
 });
 
 
@@ -1110,6 +1111,7 @@ class Cell {
         if (rowActions) {
             this.el.append(rowActions);
         }
+        this.original_value = value;
         this.events.emit('setValue', this);
         return this;
     }
