@@ -19,7 +19,7 @@ class MenuFactory implements MenuFactoryInterface {
 	 */
 	private $integration_repository;
 
-	public function __construct( $url, $integration_repository ) {
+	public function __construct( $url, IntegrationRepository $integration_repository ) {
 		$this->url = $url;
 		$this->integration_repository = $integration_repository;
 	}
@@ -70,7 +70,7 @@ class MenuFactory implements MenuFactoryInterface {
 		}
 
 		foreach ( $items as $slug => $label ) {
-			$menu->add_item( new Item( $this->create_menu_link( $slug ), $label, $current === $slug ? '-active' : '' ) );
+			$menu->add_item( new Item( $slug, $this->create_menu_link( $slug ), $label, $current === $slug ? '-active' : '' ) );
 		}
 
 		do_action( 'ac/admin/page/menu', $menu );

@@ -2,10 +2,18 @@
 
 namespace AC\Integration\Filter;
 
-class IsPluginNotActive extends IsPluginActive {
+use AC\Integration;
+use AC\Integration\Filter;
+use AC\Integrations;
 
-	public function __construct() {
-		parent::__construct( false );
+class IsPluginNotActive implements Filter {
+
+	public function filter( Integrations $integrations ) {
+		return new Integrations( array_filter( $integrations->all(), [ $this, 'is_not_active' ] ) );
+	}
+
+	private function is_not_active( Integration $integration ) {
+		return ! $integration->is_plugin_active();
 	}
 
 }

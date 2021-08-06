@@ -141,7 +141,7 @@ class AddonStatus {
 	}
 
 	private function is_network_active() {
-		return $this->is_multisite && $this->plugin->is_network_active();
+		return $this->is_multisite && $this->plugin->is_installed() && $this->plugin->is_network_active();
 	}
 
 	private function is_active() {
@@ -153,7 +153,7 @@ class AddonStatus {
 			return false;
 		}
 
-		return $this->plugin->is_active();
+		return $this->plugin->is_installed() && $this->plugin->is_active();
 	}
 
 	private function is_network_deactivatable() {
