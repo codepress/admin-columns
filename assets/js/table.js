@@ -663,6 +663,34 @@ class Modals {
 
 /***/ }),
 
+/***/ "./js/modules/service-container.ts":
+/*!*****************************************!*\
+  !*** ./js/modules/service-container.ts ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ServiceContainer; });
+class ServiceContainer {
+    constructor() {
+        this.services = {};
+    }
+    setService(name, service) {
+        this.services[name] = service;
+    }
+    getService(name) {
+        return this.hasService(name) ? this.services[name] : null;
+    }
+    hasService(name) {
+        return this.services.hasOwnProperty(name);
+    }
+}
+
+
+/***/ }),
+
 /***/ "./js/modules/toggle-box-link.ts":
 /*!***************************************!*\
   !*** ./js/modules/toggle-box-link.ts ***!
@@ -1051,6 +1079,9 @@ class Cell {
         this.services = {};
         this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
     }
+    getOriginalValue() {
+        return this.original_value;
+    }
     getObjectID() {
         return this.object_id;
     }
@@ -1355,6 +1386,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _row_selection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./row-selection */ "./js/table/row-selection.ts");
 /* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/table */ "./js/helpers/table.ts");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../constants */ "./js/constants.ts");
+/* harmony import */ var _modules_service_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../modules/service-container */ "./js/modules/service-container.ts");
+
 
 
 
@@ -1366,6 +1399,7 @@ class Table {
     constructor(el, services) {
         this.el = el;
         this.AcServices = services;
+        this.Services = new _modules_service_container__WEBPACK_IMPORTED_MODULE_7__["default"]();
         this.Columns = new _columns__WEBPACK_IMPORTED_MODULE_2__["default"](el);
         this.Cells = new _cells__WEBPACK_IMPORTED_MODULE_1__["default"]();
         this.Actions = document.getElementById('ac-table-actions') ? new _actions__WEBPACK_IMPORTED_MODULE_0__["default"](document.getElementById('ac-table-actions')) : null;
