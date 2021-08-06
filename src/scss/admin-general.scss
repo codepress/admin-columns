@@ -254,6 +254,47 @@ a.external {
 	}
 }
 
+span.dashicons {
+	&.flip {
+		&:before {
+			transform: scale(-1, 1);
+			display: inline-block;
+		}
+	}
+
+	&.yellow {
+		color: var(--ac-notification-yellow);
+	}
+
+	&.orange {
+		color: var(--ac-notification-orange);
+	}
+
+	&.red {
+		color: #dc3232;
+	}
+
+	&.green {
+		color: #46b450;
+	}
+
+	&.light-gray {
+		color: #bbb;
+	}
+
+	&.gray {
+		color: #8a8a8a;
+	}
+
+	&.blue {
+		color: #0073aa;
+	}
+
+	&.light-blue {
+		color: #00a0d2;
+	}
+}
+
 /**
  * Button
  * ----------------------------------------------------------------------------

@@ -31,7 +31,7 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: classes/PluginActionLinks.php:40, classes/Admin/MenuFactory.php:39, templates/admin/page/settings.php:6
+#: classes/PluginActionLinks.php:40, classes/Admin/MenuFactory.php:56, templates/admin/page/settings.php:6
 msgid "Settings"
 msgstr ""
 
@@ -47,19 +47,19 @@ msgstr ""
 msgid "Network Active"
 msgstr ""
 
-#: classes/Admin/AddonStatus.php:66, classes/Admin/AddonStatus.php:82
+#: classes/Admin/AddonStatus.php:98, classes/Admin/AddonStatus.php:114
 msgid "Deactivate"
 msgstr ""
 
-#: classes/Admin/AddonStatus.php:74
+#: classes/Admin/AddonStatus.php:106
 msgid "Network Activate"
 msgstr ""
 
-#: classes/Admin/AddonStatus.php:90, classes/Admin/AddonStatus.php:98
+#: classes/Admin/AddonStatus.php:122, classes/Admin/AddonStatus.php:130
 msgid "Enable"
 msgstr ""
 
-#: classes/Admin/AddonStatus.php:106
+#: classes/Admin/AddonStatus.php:138
 msgid "Get this add-on"
 msgstr ""
 
@@ -67,15 +67,15 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:38
+#: classes/Admin/MenuFactory.php:55
 msgid "Columns"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:40
+#: classes/Admin/MenuFactory.php:57
 msgid "Add-ons"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:46, classes/Admin/Page/Help.php:144
+#: classes/Admin/MenuFactory.php:69, classes/Admin/Page/Help.php:144
 msgid "Help"
 msgstr ""
 
@@ -91,7 +91,7 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin/WpMenuFactory.php:19, classes/Admin/WpMenuFactory.php:34, classes/Check/Review.php:148, classes/Table/Screen.php:464
+#: classes/Admin/WpMenuFactory.php:19, classes/Admin/WpMenuFactory.php:34, classes/Check/Review.php:160, classes/Table/Screen.php:454
 msgid "Admin Columns"
 msgstr ""
 
@@ -107,51 +107,51 @@ msgstr ""
 msgid "Get %s now"
 msgstr ""
 
-#: classes/Check/Review.php:147
+#: classes/Check/Review.php:159
 msgid "Admin Columns Pro"
 msgstr ""
 
-#: classes/Check/Review.php:156
+#: classes/Check/Review.php:168
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr ""
 
-#: classes/Check/Review.php:160
+#: classes/Check/Review.php:172
 msgid "click here"
 msgstr ""
 
-#: classes/Check/Review.php:164
+#: classes/Check/Review.php:176
 msgid "Leave a review!"
 msgstr ""
 
-#: classes/Check/Review.php:165
+#: classes/Check/Review.php:177
 msgid "Permanently hide notice"
 msgstr ""
 
-#: classes/Check/Review.php:174
+#: classes/Check/Review.php:186
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr ""
 
-#: classes/Check/Review.php:176
+#: classes/Check/Review.php:188
 msgid "documentation page"
 msgstr ""
 
-#: classes/Check/Review.php:186
+#: classes/Check/Review.php:198
 msgid "You can also find help on the %s, and %s."
 msgstr ""
 
-#: classes/Check/Review.php:187
+#: classes/Check/Review.php:199
 msgid "Admin Columns forum on WordPress.org"
 msgstr ""
 
-#: classes/Check/Review.php:188
+#: classes/Check/Review.php:200
 msgid "find answers to frequently asked questions"
 msgstr ""
 
-#: classes/Check/Review.php:181
+#: classes/Check/Review.php:193
 msgid "You can also use your admincolumns.com account to access support through %s!"
 msgstr ""
 
-#: classes/Check/Review.php:182
+#: classes/Check/Review.php:194
 msgid "our forum"
 msgstr ""
 
@@ -236,7 +236,11 @@ msgid "Advanced Custom Fields"
 msgstr ""
 
 #: classes/Integration/ACF.php:16
-msgid "Display and edit ACF fields in the posts overview in seconds!"
+msgid "Integrates ACF with Admin Columns."
+msgstr ""
+
+#: classes/Integration/ACF.php:16
+msgid "Display, inline- and bulk-edit, smart filter and sort your ACF contents from any admin list table."
 msgstr ""
 
 #: classes/Integration/BuddyPress.php:15
@@ -244,7 +248,7 @@ msgid "BuddyPress"
 msgstr ""
 
 #: classes/Integration/BuddyPress.php:17
-msgid "Display any of your Profile Fields for BuddyPress on your users overview."
+msgid "Allows you to search, filter, inline- and bulk-edit the BuddyPress data fields on the Users page."
 msgstr ""
 
 #: classes/Integration/EventsCalendar.php:16
@@ -296,7 +300,7 @@ msgid "WooCommerce"
 msgstr ""
 
 #: classes/Integration/WooCommerce.php:18
-msgid "Enable the WooCommerce integration to add Admin Columns Pro functionality to the Products and Orders page."
+msgid "Enable the WooCommerce integration to add Admin Columns Pro functionality to the Products, Users and Orders page."
 msgstr ""
 
 #: classes/Integration/YoastSeo.php:16
@@ -331,27 +335,27 @@ msgstr ""
 msgid "More details"
 msgstr ""
 
-#: templates/admin/edit-column.php:52, classes/Settings/Column/Type.php:44
+#: templates/admin/edit-column.php:30, classes/Settings/Column/Type.php:44
 msgid "Name"
 msgstr ""
 
-#: templates/admin/edit-column.php:53, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:80, classes/Settings/Column/Type.php:41, classes/Settings/Column/Type.php:50
+#: templates/admin/edit-column.php:31, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:80, classes/Settings/Column/Type.php:41, classes/Settings/Column/Type.php:50
 msgid "Type"
 msgstr ""
 
-#: templates/admin/edit-column.php:54
+#: templates/admin/edit-column.php:35
 msgid "Edit"
 msgstr ""
 
-#: templates/admin/edit-column.php:55, templates/admin/edit-column.php:90
+#: templates/admin/edit-column.php:36, templates/admin/edit-column.php:80
 msgid "Close"
 msgstr ""
 
-#: templates/admin/edit-column.php:57, templates/admin/edit-column.php:92
+#: templates/admin/edit-column.php:38, templates/admin/edit-column.php:82
 msgid "Clone"
 msgstr ""
 
-#: templates/admin/edit-column.php:59
+#: templates/admin/edit-column.php:40
 msgid "Remove"
 msgstr ""
 
@@ -802,11 +806,11 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:204
+#: classes/Admin/Page/Columns.php:202
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:213
+#: classes/Admin/Page/Columns.php:211
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
