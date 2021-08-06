@@ -65,6 +65,7 @@ export default class Cell {
             this.el.append(rowActions);
         }
 
+        this.original_value = value;
         this.events.emit('setValue', this);
 
         return this;
