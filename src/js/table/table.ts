@@ -14,7 +14,7 @@ export type TableEventPayload = {
 export default class Table {
 
     private el: HTMLTableElement
-    private Services: AcServices
+    private AcServices: AcServices
     Columns: Columns
     Cells: Cells
     Actions: Actions
@@ -23,7 +23,7 @@ export default class Table {
 
     constructor(el: HTMLTableElement, services: AcServices) {
         this.el = el;
-        this.Services = services;
+        this.AcServices = services;
         this.Columns = new Columns(el);
         this.Cells = new Cells();
         this.Actions = document.getElementById('ac-table-actions') ? new Actions(document.getElementById('ac-table-actions')) : null;
@@ -49,7 +49,7 @@ export default class Table {
         this.addCellClasses();
 
         document.dispatchEvent(new CustomEvent('AC_Table_Ready', {detail: {table: this}}));
-        this.Services.emitEvent(EventConstants.TABLE.READY, {table: this});
+        this.AcServices.emitEvent(EventConstants.TABLE.READY, {table: this});
 
         return this;
     }

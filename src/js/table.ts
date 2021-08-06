@@ -17,15 +17,15 @@ declare let AC: LocalizedAcTable
 
 let AC_SERVICES = initAcServices();
 
-AC_SERVICES.registerService('Modals', new Modals() );
+AC_SERVICES.registerService('Modals', new Modals());
 
-$(document).ready(() => {
+document.addEventListener('DOMContentLoaded', () => {
     let table = resolveTableBySelector(AC.table_id);
 
-   initPointers();
+    initPointers();
 
     if (table) {
-        const TableModule = (new Table(table, AC_SERVICES)).init();
+        const TableModule = new Table(table, AC_SERVICES).init();
         AC_SERVICES.registerService('Table', TableModule);
         AC_SERVICES.registerService('ScreenOptionsColumns', new ScreenOptionsColumns(TableModule.Columns));
     }
@@ -45,7 +45,6 @@ $(document).ready(() => {
     $('.wp-list-table td').on('ACP_InlineEditing_After_SetValue', function () {
         auto_init_show_more();
     });
-
 });
 
 AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: any) => {

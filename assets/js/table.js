@@ -942,11 +942,11 @@ __webpack_require__.r(__webpack_exports__);
 
 let AC_SERVICES = Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__["initAcServices"])();
 AC_SERVICES.registerService('Modals', new _modules_modals__WEBPACK_IMPORTED_MODULE_10__["default"]());
-jquery__WEBPACK_IMPORTED_MODULE_4___default()(document).ready(() => {
+document.addEventListener('DOMContentLoaded', () => {
     let table = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_8__["resolveTableBySelector"])(AC.table_id);
     Object(_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__["initPointers"])();
     if (table) {
-        const TableModule = (new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table, AC_SERVICES)).init();
+        const TableModule = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table, AC_SERVICES).init();
         AC_SERVICES.registerService('Table', TableModule);
         AC_SERVICES.registerService('ScreenOptionsColumns', new _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__["default"](TableModule.Columns));
     }
@@ -1365,7 +1365,7 @@ __webpack_require__.r(__webpack_exports__);
 class Table {
     constructor(el, services) {
         this.el = el;
-        this.Services = services;
+        this.AcServices = services;
         this.Columns = new _columns__WEBPACK_IMPORTED_MODULE_2__["default"](el);
         this.Cells = new _cells__WEBPACK_IMPORTED_MODULE_1__["default"]();
         this.Actions = document.getElementById('ac-table-actions') ? new _actions__WEBPACK_IMPORTED_MODULE_0__["default"](document.getElementById('ac-table-actions')) : null;
@@ -1385,7 +1385,7 @@ class Table {
         this.initTable();
         this.addCellClasses();
         document.dispatchEvent(new CustomEvent('AC_Table_Ready', { detail: { table: this } }));
-        this.Services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_6__["EventConstants"].TABLE.READY, { table: this });
+        this.AcServices.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_6__["EventConstants"].TABLE.READY, { table: this });
         return this;
     }
     addCellClasses() {
