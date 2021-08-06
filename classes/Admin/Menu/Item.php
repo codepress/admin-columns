@@ -7,6 +7,11 @@ class Item {
 	/**
 	 * @var string
 	 */
+	private $slug;
+
+	/**
+	 * @var string
+	 */
 	private $url;
 
 	/**
@@ -19,10 +24,18 @@ class Item {
 	 */
 	private $class;
 
-	public function __construct( $url, $label, $class = '' ) {
+	public function __construct( $slug, $url, $label, $class = '' ) {
+		$this->slug = (string) $slug;
 		$this->url = (string) $url;
 		$this->label = (string) $label;
 		$this->class = (string) $class;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_slug() {
+		return $this->slug;
 	}
 
 	/**

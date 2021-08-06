@@ -42,6 +42,7 @@ class Plugin {
 		if ( null === $version ) {
 			$version = new Version( (string) $this->get_header( 'Version' ) );
 		}
+
 		$this->version = $version;
 	}
 
