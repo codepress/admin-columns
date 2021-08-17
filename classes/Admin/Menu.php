@@ -19,15 +19,19 @@ class Menu {
 		return $this;
 	}
 
+	public function remove_item( $slug ) {
+		unset( $this->items[ (string) $slug ] );
+
+		return $this;
+	}
+
 	public function get_items() {
 		return $this->items;
 	}
 
 	public function get_item_by_slug( $slug ) {
-		foreach ( $this->items as $item ) {
-			if ( $item->get_slug() === $slug ) {
-				return $item;
-			}
+		if ( isset( $this->items[ $slug ] ) ) {
+			return $this->items[ $slug ];
 		}
 
 		return null;

@@ -79,6 +79,10 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
+#: classes/Admin/MenuFactory.php:76, classes/Check/Review.php:159
+msgid "Admin Columns Pro"
+msgstr ""
+
 #: classes/Admin/Tooltip.php:29
 msgid "Notice"
 msgstr ""
@@ -105,10 +109,6 @@ msgstr ""
 
 #: classes/Check/Promotion.php:73
 msgid "Get %s now"
-msgstr ""
-
-#: classes/Check/Review.php:159
-msgid "Admin Columns Pro"
 msgstr ""
 
 #: classes/Check/Review.php:168

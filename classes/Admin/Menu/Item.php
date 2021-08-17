@@ -24,11 +24,17 @@ class Item {
 	 */
 	private $class;
 
-	public function __construct( $slug, $url, $label, $class = '' ) {
+	/**
+	 * @var string
+	 */
+	private $target;
+
+	public function __construct( $slug, $url, $label, $class = '', $target = '' ) {
 		$this->slug = (string) $slug;
 		$this->url = (string) $url;
 		$this->label = (string) $label;
 		$this->class = (string) $class;
+		$this->target = (string) $target;
 	}
 
 	/**
@@ -57,6 +63,13 @@ class Item {
 	 */
 	public function get_class() {
 		return $this->class;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_target() {
+		return $this->target;
 	}
 
 }

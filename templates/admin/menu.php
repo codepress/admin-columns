@@ -14,7 +14,7 @@ $items = $this->menu_items;
 	<ul class="cpac-nav">
 		<?php foreach ( $items as $item ) : ?>
 			<li class="cpac-nav__item <?= esc_attr( $item->get_class() ); ?>">
-				<a href="<?= esc_url( $item->get_url() ); ?>">
+				<a href="<?= esc_url( $item->get_url() ); ?>"<?php echo $item->get_target() ? sprintf( ' target="%s"', $item->get_target() ) : ''; ?>>
 					<?= $item->get_label(); ?>
 				</a>
 			</li>

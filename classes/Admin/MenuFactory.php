@@ -70,8 +70,10 @@ class MenuFactory implements MenuFactoryInterface {
 		}
 
 		foreach ( $items as $slug => $label ) {
-			$menu->add_item( new Item( $slug, $this->create_menu_link( $slug ), $label, $current === $slug ? '-active' : '' ) );
+			$menu->add_item( new Item( $slug, $this->create_menu_link( $slug ), $label, sprintf( '-%s %s', $slug, $current === $slug ? '-active' : '' ) ) );
 		}
+
+		$menu->add_item( new Item( 'pro', ac_get_site_url(), __( 'Admin Columns Pro', 'codepress-admin-columns' ), '-pro', '_blank' ) );
 
 		do_action( 'ac/admin/page/menu', $menu );
 

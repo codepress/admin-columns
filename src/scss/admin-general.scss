@@ -177,6 +177,14 @@ header.cpac-header {
 				}
 			}
 
+			&.-pro a {
+				color: var(--ac-pink-color);
+
+				&:hover, &:focus {
+					color: var(--ac-pink-color);
+				}
+			}
+
 			a {
 				display: inline-block;
 				padding: 30px 0 10px 0;
