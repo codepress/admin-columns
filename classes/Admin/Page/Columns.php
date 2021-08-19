@@ -285,6 +285,10 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
 						do_action( 'ac/settings/after_columns', $list_screen );
 
+						if ( ! ac_is_pro_active() ) {
+							echo ( new View() )->set_template( 'admin/list-screen-settings-mockup' )->render();
+						}
+
 						?>
 					</div>
 
