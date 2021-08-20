@@ -73,7 +73,7 @@ class MenuFactory implements MenuFactoryInterface {
 			$menu->add_item( new Item( $slug, $this->create_menu_link( $slug ), $label, sprintf( '-%s %s', $slug, $current === $slug ? '-active' : '' ) ) );
 		}
 
-		$menu->add_item( new Item( 'pro', ac_get_site_url(), __( 'Admin Columns Pro', 'codepress-admin-columns' ), '-pro', '_blank' ) );
+		$menu->add_item( new Item( 'pro', ac_get_site_url(), sprintf( '%s %s', __( 'Admin Columns Pro', 'codepress-admin-columns' ), ac_helper()->icon->dashicon( [ 'icon' => 'external', 'class' => 'icon-external' ] ) ), '-pro', '_blank' ) );
 
 		do_action( 'ac/admin/page/menu', $menu );
 

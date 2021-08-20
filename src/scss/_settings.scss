@@ -191,4 +191,28 @@
 	select.sorting_order {
 		margin-bottom: 0;
 	}
+
+	&-mockup {
+		position: relative;
+
+		.ac-setbox {
+			&__cta {
+				background: #FFFFFF;
+				border: 1px solid #D0CECE;
+				box-shadow: 0 0 19px 0 rgba(0, 0, 0, 0.44);
+				border-radius: 4px;
+				position: absolute;
+				right: calc( 30% - 100px);
+				top: 40%;
+				border-radius: 4px;
+				padding: 20px;
+				z-index: 2;
+			}
+
+			&__row__fields {
+				filter: blur(5px);
+			}
+
+		}
+	}
 }
