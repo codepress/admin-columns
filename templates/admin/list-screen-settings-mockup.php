@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="ac-setbox__cta">
 			<?php echo ac_helper()->icon->dashicon( [ 'icon' => 'lock' ] ); ?>
 			<?php _e( 'Unlock with Admin Columns Pro', 'codepress-admin-columns' ); ?>
-			<a href="<?php echo esc_url( ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'banner' ) )->get_url() ); ?>" class="button-primary button-pink"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
+			<a href="<?php echo esc_url( ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url() ); ?>" class="button-primary -pink"><?php _e( 'Upgrade', 'codepress-admin-columns' ); ?></a>
 		</div>
 
 		<div class="ac-setbox__row">

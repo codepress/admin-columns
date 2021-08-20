@@ -40,7 +40,7 @@ $url = ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url()
 		</li>
 	</ul>
 
-	<a target="_blank" href="<?= esc_url( $url ); ?>" class="button-primary button-pink">
+	<a target="_blank" href="<?= esc_url( $url ); ?>" class="button-primary -pink">
 		<?php _e( 'Upgrade to Admin Columns Pro', 'codepress-admin-columns' ); ?>
 	</a>
 

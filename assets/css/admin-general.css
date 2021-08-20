@@ -860,7 +860,7 @@ span.dashicons.light-blue {
   position: relative;
 }
 
-.wp-core-ui .button-primary.button-pink {
+.wp-core-ui .button-primary.-pink {
   background: #e9426e;
   border-color: #e73463;
 }

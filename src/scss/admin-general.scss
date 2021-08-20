@@ -359,11 +359,9 @@ span.dashicons {
 	position: relative;
 }
 
-.wp-core-ui .button-primary.button {
-	&-pink {
-		background: $ac-pink;
-		border-color: darken($ac-pink, 3);
-	}
+.wp-core-ui .button-primary.-pink {
+	background: $ac-pink;
+	border-color: darken($ac-pink, 3);
 }
 
 /**
