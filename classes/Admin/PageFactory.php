@@ -48,6 +48,10 @@ class PageFactory implements PageFactoryInterface {
 				$page->add_section( new Section\General( [ new Section\Partial\ShowEditButton() ] ) )
 				     ->add_section( new Section\Restore(), 40 );
 
+				if ( ! ac_is_pro_active() ) {
+					$page->add_section( new Section\ProCta(), 50 );
+				}
+
 				return $page;
 			case Page\Addons::NAME :
 				return new Page\Addons( $this->location, new IntegrationRepository(), new View\Menu( $this->menu_factory->create( $slug ) ) );

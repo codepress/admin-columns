@@ -19,7 +19,7 @@ class PageRequestHandler implements RequestHandlerInterface {
 
 	public function __construct( PageFactoryInterface $factory, $default = '' ) {
 		$this->factory = $factory;
-		$this->default = $default;
+		$this->default = (string) $default;
 	}
 
 	public function handle( Request $request ) {

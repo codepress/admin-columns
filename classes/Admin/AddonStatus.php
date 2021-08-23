@@ -132,9 +132,9 @@ class AddonStatus {
 		<?php
 	}
 
-	private function render_more_info() {
+	private function render_more_info( $class = '' ) {
 		?>
-		<a target="_blank" href="<?php echo esc_url( $this->integration->get_link() ); ?>" class="ac-addon__button button-primary">
+		<a target="_blank" href="<?php echo esc_url( $this->integration->get_link() ); ?>" class="ac-addon__button button-primary <?= $class; ?>">
 			<?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
@@ -214,7 +214,7 @@ class AddonStatus {
 	public function render() {
 		if ( ! ac_is_pro_active() ) {
 			ob_start();
-			$this->render_more_info();
+			$this->render_more_info( '-pink' );
 
 			return ob_get_clean();
 		}

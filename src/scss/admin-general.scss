@@ -13,6 +13,49 @@
 .ac-settings-box {
 	margin-bottom: 60px;
 	max-width: 800px;
+
+	&-pro-cta {
+		p.description {
+			font-weight: bold;
+		}
+
+		ul {
+			margin-bottom: 20px;
+
+			column-count: 3;
+
+			li {
+				margin-bottom: 14px;
+
+				&.-feature {
+
+					a {
+						color: #1D2327;
+						margin-left: 8px;
+						text-decoration: dotted;
+						border-bottom: 1px dotted #000;
+						text-decoration: none;
+					}
+
+					&:before {
+						color: $ac-pink;
+						content: "\f132";
+						font: normal 16px/0.5 "dashicons";
+						speak: none;
+						display: inline-block;
+						padding: 0;
+						top: 5px;
+						left: 0;
+						position: relative;
+						vertical-align: top;
+						-webkit-font-smoothing: antialiased;
+						-moz-osx-font-smoothing: grayscale;
+						text-decoration: none !important;
+					}
+				}
+			}
+		}
+	}
 }
 
 h2, h3 {
@@ -183,6 +226,10 @@ header.cpac-header {
 				&:hover, &:focus {
 					color: var(--ac-pink-color);
 				}
+
+				.icon-external {
+					margin: -2px 0 0 2px;
+				}
 			}
 
 			a {
@@ -239,7 +286,7 @@ header.cpac-header {
 	font-size: 9px;
 	line-height: 17px;
 	padding: 0 6px;
-	margin: -1px 0 0 4px;
+	margin: -2px 0 0 4px;
 	vertical-align: middle;
 	color: #fff;
 	font-weight: 600;
@@ -310,6 +357,11 @@ span.dashicons {
 .button.loading {
 	padding-right: 25px;
 	position: relative;
+}
+
+.wp-core-ui .button-primary.-pink {
+	background: $ac-pink;
+	border-color: darken($ac-pink, 3);
 }
 
 /**
