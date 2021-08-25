@@ -21,6 +21,11 @@ class Plugin {
 	private $version_key;
 
 	/**
+	 * @var string
+	 */
+	private $previous_version_key;
+
+	/**
 	 * @var Version
 	 */
 	private $version;
@@ -38,6 +43,7 @@ class Plugin {
 	protected function __construct( $file, $version_key, Version $version = null ) {
 		$this->file = (string) $file;
 		$this->version_key = (string) $version_key;
+		$this->previous_version_key = $this->version_key . '_previous';
 
 		if ( null === $version ) {
 			$version = new Version( (string) $this->get_header( 'Version' ) );
@@ -185,6 +191,13 @@ class Plugin {
 	}
 
 	/**
+	 * @return Version
+	 */
+	protected function get_previous_stored_version() {
+		return new Version( (string) get_option( $this->previous_version_key ) );
+	}
+
+	/**
 	 * Update the stored version to match the (current) version
 	 *
 	 * @param null $version
@@ -196,7 +209,10 @@ class Plugin {
 			$version = $this->version->get_value();
 		}
 
-		return update_option( $this->version_key, $version, false );
+		update_option( $this->previous_version_key, $this->get_stored_version()->get_value(), false );
+		update_option( $this->version_key, $version, false );
+
+		return true;
 	}
 
 	/**
@@ -204,6 +220,10 @@ class Plugin {
 	 */
 	public function is_new_install() {
 		global $wpdb;
+
+		if ( ! $this->get_previous_stored_version()->is_valid() ) {
+			return true;
+		}
 
 		if ( $this->get_stored_version()->is_valid() ) {
 			return false;
