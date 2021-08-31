@@ -105,6 +105,12 @@ $(document).ready(() => {
     document.querySelectorAll('.ac-section').forEach(el => {
         new _modules_ac_section__WEBPACK_IMPORTED_MODULE_0__["default"](el);
     });
+    $(document).on('select2:open', () => {
+        let searchBox = document.querySelector('.select2-container--open .select2-search__field');
+        if (searchBox) {
+            searchBox.focus();
+        }
+    });
 });
 
 
