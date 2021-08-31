@@ -15,4 +15,11 @@ $(document).ready(() => {
     document.querySelectorAll<HTMLElement>('.ac-section').forEach(el => {
         new AcSection(el);
     });
+
+    $(document).on('select2:open', () => {
+        let searchBox: HTMLInputElement = document.querySelector('.select2-container--open .select2-search__field');
+        if( searchBox ){
+            searchBox.focus();
+        }
+    });
 });
