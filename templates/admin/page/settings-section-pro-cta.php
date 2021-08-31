@@ -29,12 +29,12 @@ $url = ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url()
 
 	<p class="description"><?= $this->description; ?></p>
 
-	<ul>
+	<ul class="ac-pro-list">
 		<?php foreach ( $features as $feature ) : // TODO tooltip ?>
-			<li class="-feature"><a><?= $feature; ?></a></li>
+			<li class="ac-pro-list__item -feature"><a><?= $feature; ?></a></li>
 		<?php endforeach; ?>
-		<li>
-			<a target="_blank" href="<?= esc_url( $url ); ?>">
+		<li class="ac-pro-list__item">
+			<a target="_blank" href="<?= esc_url( $url ); ?>" class="ac-pro-list__item__link">
 				<?= __( 'View all Pro features', 'codepress-admin-columns' ); ?>
 			</a>
 		</li>

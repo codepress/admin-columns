@@ -576,22 +576,23 @@ html.wp-toolbar .ac-tooltip {
 .ac-settings-box-pro-cta p.description {
   font-weight: bold;
 }
-.ac-settings-box-pro-cta ul {
+
+.ac-pro-list {
   margin-bottom: 20px;
   column-count: 3;
 }
-.ac-settings-box-pro-cta ul li {
+.ac-pro-list__item {
   margin-bottom: 14px;
 }
-.ac-settings-box-pro-cta ul li.-feature a {
+.ac-pro-list__item.-feature a {
   color: #1D2327;
   margin-left: 8px;
   text-decoration: dotted;
   border-bottom: 1px dotted #000;
   text-decoration: none;
 }
-.ac-settings-box-pro-cta ul li.-feature:before {
-  color: #e9426e;
+.ac-pro-list__item.-feature:before {
+  color: var(--ac-pink-color);
   content: "";
   font: normal 16px/0.5 "dashicons";
   speak: none;
@@ -601,8 +602,6 @@ html.wp-toolbar .ac-tooltip {
   left: 0;
   position: relative;
   vertical-align: top;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-decoration: none !important;
 }
 
