@@ -53,6 +53,7 @@ class AjaxGeneralOptions implements Registrable {
 
 		$this->general_option->save( $options );
 
+		exit;
 	}
 
 }
