@@ -750,8 +750,8 @@ header.cpac-header {
 .cpac-admin-nav .cpac-nav__item.-pro a:hover, .cpac-admin-nav .cpac-nav__item.-pro a:focus {
   color: var(--ac-pink-color);
 }
-.cpac-admin-nav .cpac-nav__item.-pro a .icon-external {
-  margin: -2px 0 0 2px;
+.cpac-admin-nav .cpac-nav__item.-pro a img {
+  margin-left: 4px;
 }
 .cpac-admin-nav .cpac-nav__item a {
   display: inline-block;
