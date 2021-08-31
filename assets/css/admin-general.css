@@ -549,7 +549,7 @@ html.wp-toolbar .ac-tooltip {
   margin: 0;
 }
 .ac-ajax-loading__icon {
-  color: #2271B1;
+  color: var(--ac-notification-green);
 }
 .ac-ajax-loading__status {
   font-weight: bold;

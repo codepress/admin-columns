@@ -2,14 +2,9 @@
 
 namespace AC\Admin\Asset;
 
-use AC\Asset\Location;
 use AC\Asset\Script;
 
 class Settings extends Script {
-
-	public function __construct( $handle, Location $location = null ) {
-		parent::__construct( $handle, $location );
-	}
 
 	public function register() {
 		parent::register();
