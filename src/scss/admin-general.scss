@@ -28,17 +28,41 @@
 	column-count: 3;
 
 	&__item {
+		$l: &;
 		margin-bottom: 14px;
+		position: relative;
+		z-index: 1;
+
+		&__label {
+			color: #1D2327;
+			margin-left: 8px;
+			text-decoration: dotted;
+			border-bottom: 1px dotted #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		&__tooltip {
+			display: none;
+			background: #666;
+			color: #fff;
+			padding: 15px;
+			font-size: 13px;
+			line-height: 150%;
+		}
+
+		&:hover {
+			z-index: 2;
+
+			#{$l}__tooltip {
+				display: block;
+				position: absolute;
+				left:0;
+				top:100%;
+			}
+		}
 
 		&.-feature {
-
-			a {
-				color: #1D2327;
-				margin-left: 8px;
-				text-decoration: dotted;
-				border-bottom: 1px dotted #000;
-				text-decoration: none;
-			}
 
 			&:before {
 				color: var(--ac-pink-color);

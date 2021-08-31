@@ -583,13 +583,33 @@ html.wp-toolbar .ac-tooltip {
 }
 .ac-pro-list__item {
   margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
 }
-.ac-pro-list__item.-feature a {
+.ac-pro-list__item__label {
   color: #1D2327;
   margin-left: 8px;
   text-decoration: dotted;
   border-bottom: 1px dotted #000;
   text-decoration: none;
+  cursor: pointer;
+}
+.ac-pro-list__item__tooltip {
+  display: none;
+  background: #666;
+  color: #fff;
+  padding: 15px;
+  font-size: 13px;
+  line-height: 150%;
+}
+.ac-pro-list__item:hover {
+  z-index: 2;
+}
+.ac-pro-list__item:hover .ac-pro-list__item__tooltip {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 100%;
 }
 .ac-pro-list__item.-feature:before {
   color: var(--ac-pink-color);
