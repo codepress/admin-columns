@@ -579,12 +579,14 @@ html.wp-toolbar .ac-tooltip {
 
 .ac-pro-list {
   margin-bottom: 20px;
-  column-count: 3;
+  display: flex;
+  flex-wrap: wrap;
 }
 .ac-pro-list__item {
   margin-bottom: 14px;
   position: relative;
   z-index: 1;
+  flex: 33%;
 }
 .ac-pro-list__item__label {
   color: #1D2327;
@@ -609,7 +611,7 @@ html.wp-toolbar .ac-tooltip {
   display: block;
   position: absolute;
   left: 0;
-  top: 100%;
+  top: calc(100% + 5px);
 }
 .ac-pro-list__item.-feature:before {
   color: var(--ac-pink-color);
