@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</header>
 	<form>
 
-		<div class="ac-setbox__cta">
+		<div class="ac-unlock-modal">
 			<?php echo ac_helper()->icon->dashicon( [ 'icon' => 'lock' ] ); ?>
 			<?php _e( 'Unlock with Admin Columns Pro', 'codepress-admin-columns' ); ?>
 			<a target="_blank" href="<?php echo esc_url( ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url() ); ?>" class="button-primary -pink">
@@ -113,7 +113,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="ac-setbox__row -sub -predefinedfilters" data-setting="filter-segment-preference">
 					<div class="ac-setbox__row__th">
 						<label><?= __( 'Pre-applied Filters', 'codepress-admin-columns' ); ?></label>
