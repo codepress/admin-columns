@@ -11,7 +11,7 @@ $url = ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url()
 	<h2 class="ac-lined-header"><?= $this->title; ?></h2>
 
 	<p class="description"><?= $this->description; ?></p>
-	
+
 	<ul class="ac-pro-list">
 		<?=
 		( new View( [
@@ -123,6 +123,7 @@ $url = ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url()
 		<?=
 		( new View( [
 			'feature' => __( 'Customize List Table', 'codepress-admin-columns' ),
+			'tooltip' => __( 'Create a better user experience when visiting the list table by setting preferences and hiding the functionality you do not need.', 'codepress-admin-columns' ),
 		] ) )->set_template( 'admin/page/component/pro-feature-list-item' )->render();
 		?>
 
