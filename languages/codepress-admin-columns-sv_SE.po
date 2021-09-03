@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-06-21 13:23:49+0000\n"
+"PO-Revision-Date: 2021-09-02 21:29:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -347,7 +347,7 @@ msgstr "Laddar in kolumner"
 
 #: templates/admin/edit-submenu.php:10
 msgid "Column Sets"
-msgstr ""
+msgstr "Kolumnuppsättningar"
 
 #: classes/PluginActionLinks.php:48
 msgid "Go Pro"
@@ -788,7 +788,7 @@ msgstr "Ogiltig kolumn."
 
 #: classes/Controller/AjaxColumnValue.php:48
 msgid "Invalid list screen."
-msgstr ""
+msgstr "Ogiltig listvy."
 
 #: classes/Controller/AjaxColumnValue.php:42
 msgid "Invalid item ID."
@@ -1029,7 +1029,7 @@ msgstr "Rabatten är giltig till %s"
 
 #: classes/Admin/Section/Partial/ShowEditButton.php:25
 msgid "Show %s button on table screen."
-msgstr ""
+msgstr "Visa knapp %s i tabellvyn."
 
 #: classes/Admin/Section/Partial/ShowEditButton.php:26
 msgid "Default is %s."
@@ -1062,8 +1062,8 @@ msgstr "Tillägget Admin Columns har genomgått några större förändringar i 
 #: classes/Admin/Main/Help.php:58
 msgid "The callback used is %s."
 msgid_plural "The callbacks used are %s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Använt återanrop är %s."
+msgstr[1] "Använda återanrop är %s."
 
 #: classes/Admin/Main/Help.php:44
 msgid "View documentation"
