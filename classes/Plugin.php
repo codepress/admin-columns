@@ -4,6 +4,7 @@ namespace AC;
 
 use AC\Asset\Location;
 use AC\Plugin\Install;
+use AC\Plugin\PluginHeader;
 use AC\Plugin\Version;
 use ReflectionObject;
 
@@ -30,20 +31,18 @@ class Plugin {
 	 */
 	private $installer;
 
-	/**
-	 * @var array
-	 */
-	private $data;
-
 	protected function __construct( $file, $version_key, Version $version = null ) {
-		$this->file = (string) $file;
-		$this->version_key = (string) $version_key;
-
 		if ( null === $version ) {
-			$version = new Version( (string) $this->get_header( 'Version' ) );
+			$version = ( new PluginHeader( $file ) )->get_version();
 		}
 
+		$this->file = (string) $file;
+		$this->version_key = (string) $version_key;
 		$this->version = $version;
+	}
+
+	private function get_updater() {
+		return new Plugin\Updater\Site( $this->version_key, $this->version );
 	}
 
 	/**
@@ -63,35 +62,19 @@ class Plugin {
 	/**
 	 * @return string
 	 */
+	public function get_version_key() {
+		return $this->version_key;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function get_url() {
 		return plugin_dir_url( $this->file );
 	}
 
 	public function set_installer( Install $installer ) {
 		$this->installer = $installer;
-	}
-
-	private function get_data() {
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-		if ( null === $this->data ) {
-			$this->data = get_plugin_data( $this->file, false, false );
-		}
-
-		return $this->data;
-	}
-
-	/**
-	 * @param string $var
-	 *
-	 * @return string|null
-	 */
-	private function get_header( $var ) {
-		$data = $this->get_data();
-
-		return isset( $data[ $var ] )
-			? (string) $data[ $var ]
-			: null;
 	}
 
 	/**
@@ -139,7 +122,7 @@ class Plugin {
 	}
 
 	private function run_updater() {
-		$updater = new Plugin\Updater\Site( $this );
+		$updater = $this->get_updater();
 
 		$reflection = new ReflectionObject( $this );
 		$classes = Autoloader::instance()->get_class_names_from_dir( $reflection->getNamespaceName() . '\Plugin\Update' );
@@ -181,38 +164,14 @@ class Plugin {
 	 * @return Version
 	 */
 	public function get_stored_version() {
-		return new Version( (string) get_option( $this->version_key ) );
-	}
-
-	/**
-	 * Update the stored version to match the (current) version
-	 *
-	 * @param null $version
-	 *
-	 * @return bool
-	 */
-	public function update_stored_version( $version = null ) {
-		if ( null === $version ) {
-			$version = $this->version->get_value();
-		}
-
-		return update_option( $this->version_key, $version, false );
+		return $this->get_updater()->get_stored_version();
 	}
 
 	/**
 	 * Check if the plugin was updated or is a new install
 	 */
 	public function is_new_install() {
-		global $wpdb;
-
-		if ( $this->get_stored_version()->is_valid() ) {
-			return false;
-		}
-
-		// Before version 3.0.5
-		$results = $wpdb->get_results( "SELECT option_id FROM $wpdb->options WHERE option_name LIKE 'cpac_options_%' LIMIT 1" );
-
-		return empty( $results );
+		return $this->get_updater()->is_new_install();
 	}
 
 }

@@ -104,7 +104,7 @@ function ac_load_columns( array $data ) {
  *
  * @return string
  */
-function ac_get_admin_url( $slug ) {
+function ac_get_admin_url( $slug = null ) {
 	return Url\Editor::create_with_slug( $slug )->get_url();
 }
 
