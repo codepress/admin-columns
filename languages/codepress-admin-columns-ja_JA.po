@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-03-10 05:36:39+0000\n"
+"PO-Revision-Date: 2021-09-10 13:39:37+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,27 +13,27 @@ msgstr ""
 
 #: classes/Column/Media/Album.php:14
 msgid "Album"
-msgstr ""
+msgstr "アルバム"
 
 #: classes/Column/Media/Artist.php:14
 msgid "Artist"
-msgstr ""
+msgstr "アーティスト"
 
 #: classes/Admin/AddonStatus.php:68
 msgid "Network Activate"
-msgstr ""
+msgstr "サイトネットワークで有効化"
 
 #: classes/Admin/AddonStatus.php:47
 msgid "Network Active"
-msgstr ""
+msgstr "サイトネットワークで有効"
 
 #: classes/Column/User/LastPost.php:15
 msgid "Last Post"
-msgstr ""
+msgstr "最新の投稿"
 
 #: classes/Column/User/FirstPost.php:15
 msgid "First Post"
-msgstr ""
+msgstr "最初の投稿"
 
 #: classes/Integration/GravityForms.php:18
 msgid "Take your form submission management to the next level!"
@@ -41,7 +41,7 @@ msgstr ""
 
 #: classes/Settings/Column/PostStatus.php:33
 msgid "Post Status"
-msgstr ""
+msgstr "投稿ステータス"
 
 #: classes/Column/Placeholder.php:40
 msgid "Download & install the %s add-on from the <a href='%s'>add-ons tab</a>."
@@ -53,19 +53,19 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:51
 msgid "Misc"
-msgstr ""
+msgstr "その他"
 
 #: templates/settings/setting-label-icons.php:50
 msgid "Notifications"
-msgstr ""
+msgstr "通知"
 
 #: templates/settings/setting-label-icons.php:49
 msgid "Widgets"
-msgstr ""
+msgstr "ウィジェット"
 
 #: templates/settings/setting-label-icons.php:47
 msgid "Products"
-msgstr ""
+msgstr "商品"
 
 #: templates/settings/setting-label-icons.php:46
 msgid "Buddicons"
@@ -73,47 +73,47 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:45
 msgid "WordPress.org"
-msgstr ""
+msgstr "WordPress.org"
 
 #: templates/settings/setting-label-icons.php:44
 msgid "Social"
-msgstr ""
+msgstr "ソーシャル"
 
 #: templates/settings/setting-label-icons.php:42
 msgid "Posts Screen"
-msgstr ""
+msgstr "投稿画面"
 
 #: templates/settings/setting-label-icons.php:41
 msgid "TinyMCE"
-msgstr ""
+msgstr "TinyMCE"
 
 #: templates/settings/setting-label-icons.php:40
 msgid "Block Editor"
-msgstr ""
+msgstr "ブロックエディター"
 
 #: templates/settings/setting-label-icons.php:39
 msgid "Databases"
-msgstr ""
+msgstr "データベース"
 
 #: templates/settings/setting-label-icons.php:38
 msgid "Image Editing"
-msgstr ""
+msgstr "画像編集"
 
 #: templates/settings/setting-label-icons.php:36
 msgid "Post Formats"
-msgstr ""
+msgstr "投稿フォーマット"
 
 #: templates/settings/setting-label-icons.php:35
 msgid "Welcome Screen"
-msgstr ""
+msgstr "ウェルカム画面"
 
 #: templates/settings/setting-label-icons.php:34
 msgid "Admin Menu"
-msgstr ""
+msgstr "管理用メニュー"
 
 #: templates/admin/edit-actions.php:40
 msgid "Key"
-msgstr ""
+msgstr "キー"
 
 #: templates/admin/side-banner.php:47
 msgid "Export table contents to CSV"
@@ -132,11 +132,11 @@ msgstr ""
 
 #: classes/Column/User/Login.php:24
 msgid "Super Admin"
-msgstr ""
+msgstr "特権管理者"
 
 #: classes/Column/User/Nicename.php:11
 msgid "Author Slug"
-msgstr ""
+msgstr "投稿者スラッグ"
 
 #: classes/Admin/ScreenOption/ColumnId.php:32
 msgid "Column Name"
@@ -152,7 +152,7 @@ msgstr ""
 
 #: classes/Column/User/FullName.php:11 classes/Settings/Column/User.php:78
 msgid "Full Name"
-msgstr ""
+msgstr "お名前"
 
 #: templates/tooltip/export-disabled.php:13
 msgid "Third-party columns and some custom columns cannot be exported unless there is build-in support for that specific column."
@@ -164,11 +164,11 @@ msgstr ""
 
 #: templates/tooltip/export-disabled.php:7
 msgid "Export Unavailable"
-msgstr ""
+msgstr "エクスポート不可"
 
 #: templates/tooltip/bulk-editing.php:19
 msgid "Bulk Edit"
-msgstr ""
+msgstr "一括編集"
 
 #: templates/tooltip/bulk-editing.php:18
 msgid "Clicking the %s button will display a popup that allows you to add or change the current value of all selected items."
@@ -180,7 +180,7 @@ msgstr ""
 
 #: templates/tooltip/bulk-editing.php:10
 msgid "Bulk Edit allows you to update multiple values at once."
-msgstr ""
+msgstr "一括編集では、複数の値を一度に更新できます。"
 
 #: templates/tooltip/sorting.php:25
 msgid "You can change the default sorted column in the optional settings below."
@@ -267,7 +267,7 @@ msgstr ""
 
 #: templates/tooltip/export.php:13
 msgid "Click the export button and all items will be exported to CSV."
-msgstr ""
+msgstr "エクスポートボタンをクリックすると、すべての項目が CSV にエクスポートされます。"
 
 #: templates/tooltip/export.php:10
 msgid "Export for Admin Columns Pro, allows you to export the contents of your columns to CSV."
@@ -307,7 +307,7 @@ msgstr ""
 
 #: classes/Integration/MetaBox.php:14
 msgid "Meta Box"
-msgstr ""
+msgstr "メタボックス"
 
 #: classes/Admin/ScreenOption/ColumnType.php:32
 msgid "Column Type"
@@ -315,7 +315,7 @@ msgstr ""
 
 #: classes/Admin/Main/Help.php:154
 msgid "No deprecated hooks or filters found."
-msgstr ""
+msgstr "非推奨のフックまたはフィルターが見つかりません。"
 
 #: classes/Settings/Column/Pro/SmartFiltering.php:11
 #: templates/tooltip/filtering.php:16 templates/tooltip/filtering.php:20
@@ -326,16 +326,16 @@ msgstr ""
 #: classes/Settings/Column/Pro/BulkEditing.php:11
 #: templates/tooltip/bulk-editing.php:7
 msgid "Bulk Editing"
-msgstr ""
+msgstr "一括編集"
 
 #: classes/Settings/Column/Pro/InlineEditing.php:11
 #: templates/tooltip/inline-editing.php:7
 msgid "Inline Editing"
-msgstr ""
+msgstr "インライン編集"
 
 #: classes/Settings/Column/PostType.php:35
 msgid "All Post Types"
-msgstr ""
+msgstr "すべての投稿タイプ"
 
 #: templates/admin/modal-pro.php:23
 msgid "Bulk edit any content, including custom fields."
@@ -351,11 +351,11 @@ msgstr ""
 
 #: classes/PluginActionLinks.php:48
 msgid "Go Pro"
-msgstr ""
+msgstr "プロ版へ"
 
 #: classes/Plugin/Update/V4000.php:547
 msgid "Original"
-msgstr ""
+msgstr "元のサイズ"
 
 #: classes/Column/Post/EstimatedReadingTime.php:15
 msgid "Read Time"
@@ -363,7 +363,7 @@ msgstr ""
 
 #: classes/Column/Post/PasswordProtected.php:11
 msgid "Password Protected"
-msgstr ""
+msgstr "パスワード保護"
 
 #: classes/Settings/Column/NumberFormat.php:100
 msgid "Number Format"
@@ -375,23 +375,23 @@ msgstr ""
 
 #: classes/Settings/Column/NumberFormat.php:69
 msgid "Thousands separator"
-msgstr ""
+msgstr "桁区切り"
 
 #: classes/Settings/Column/NumberFormat.php:58
 msgid "Decimal point"
-msgstr ""
+msgstr "小数点"
 
 #: classes/Settings/Column/NumberFormat.php:47
 msgid "Decimals"
-msgstr ""
+msgstr "小数"
 
 #: classes/Settings/Column/TermLink.php:38
 msgid "Edit Term"
-msgstr ""
+msgstr "タームを編集"
 
 #: classes/Settings/Column/TermLink.php:37
 msgid "Filter by Term"
-msgstr ""
+msgstr "タームで絞り込む"
 
 #: classes/Promo/BlackFriday.php:13
 msgid "30% Off from Black Friday until Cyber Monday"
@@ -407,7 +407,7 @@ msgstr ""
 
 #: classes/Settings/Column/CommentLink.php:66
 msgid "View Comment"
-msgstr ""
+msgstr "コメントを表示"
 
 #: classes/Admin/Asset/Columns.php:60
 msgid "The column could not be loaded because of an unknown error"
@@ -451,11 +451,11 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:72
 msgid "Select"
-msgstr ""
+msgstr "選択"
 
 #: templates/settings/setting-label-icons.php:24
 msgid "Select Icon"
-msgstr ""
+msgstr "アイコンを選択"
 
 #: classes/Settings/Column/PathScope.php:28
 msgid "Local Path"
@@ -484,7 +484,7 @@ msgstr ""
 #: classes/Settings/Column/CustomFieldType.php:124
 #: templates/admin/help-tab/custom-fields.php:54
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: templates/admin/help-tab/custom-fields.php:47
 msgid "Value: Should contain one or more Post IDs, separated by commas."
@@ -514,7 +514,7 @@ msgstr ""
 #: templates/settings/setting-label-icons.php:43
 #: templates/tooltip/sorting.php:7
 msgid "Sorting"
-msgstr ""
+msgstr "並べ替え"
 
 #: templates/tooltip/filtering.php:2 templates/tooltip/filtering.php:16
 msgid "Filtering"
@@ -522,11 +522,11 @@ msgstr ""
 
 #: classes/Settings/Column/Pro/Export.php:11 templates/tooltip/export.php:7
 msgid "Export"
-msgstr ""
+msgstr "エクスポート"
 
 #: templates/admin/modal-pro.php:33
 msgid "Only %s for 1 site"
-msgstr ""
+msgstr "1つのサイトに対して%s のみ"
 
 #: templates/admin/modal-pro.php:27
 msgid "Get add-ons for ACF, WooCommerce and many more"
@@ -538,7 +538,7 @@ msgstr ""
 
 #: templates/admin/modal-pro.php:21
 msgid "Sort & Filter on all your content."
-msgstr ""
+msgstr "すべてのコンテンツを並べ替えと絞り込み。"
 
 #: templates/admin/modal-pro.php:18
 msgid "Upgrade to PRO, and take Admin Columns to the next level:"
@@ -550,11 +550,11 @@ msgstr ""
 
 #: templates/admin/edit-menu.php:17
 msgid "Select type"
-msgstr ""
+msgstr "タイプを選択"
 
 #: classes/Settings/Column/Time.php:19
 msgid "WordPress Time Format"
-msgstr ""
+msgstr "WordPress の日付書式"
 
 #: classes/Settings/Column/Time.php:13
 msgid "This will determine how the time will be displayed."
@@ -562,11 +562,11 @@ msgstr ""
 
 #: classes/Settings/Column/Time.php:12
 msgid "Time Format"
-msgstr ""
+msgstr "時刻形式"
 
 #: classes/Settings/Column/StringLimit.php:35
 msgid "No limit"
-msgstr ""
+msgstr "無制限"
 
 #: classes/Settings/Column/StringLimit.php:26
 msgid "Limit text to a certain number of characters or words"
@@ -574,7 +574,7 @@ msgstr ""
 
 #: classes/Settings/Column/StringLimit.php:25
 msgid "Text Limit"
-msgstr ""
+msgstr "文字制限"
 
 #: classes/Column/Media/Download.php:11
 #: classes/Settings/Column/MediaLink.php:64 classes/Table/Screen.php:134
@@ -609,15 +609,15 @@ msgstr ""
 #: classes/Settings/Column/Post.php:102
 msgctxt "post"
 msgid "Featured Image"
-msgstr ""
+msgstr "アイキャッチ画像"
 
 #: classes/Settings/Column/NumberOfItems.php:33
 msgid "Maximum number of items"
-msgstr ""
+msgstr "最大項目数"
 
 #: classes/Settings/Column/NumberOfItems.php:32
 msgid "Number of Items"
-msgstr ""
+msgstr "項目数"
 
 #: classes/Settings/Column/MissingImageSize.php:28
 msgid "Include sizes that are missing an image file."
@@ -629,37 +629,37 @@ msgstr ""
 
 #: classes/Settings/Column/Meta.php:135
 msgid "Site Options"
-msgstr ""
+msgstr "サイトオプション"
 
 #: classes/Helper/Select/Group/CustomField/MultiSite.php:31
 #: classes/Settings/Column/Meta.php:129
 msgid "current"
-msgstr ""
+msgstr "現在"
 
 #: classes/Helper/Select/Group/CustomField/MultiSite.php:28
 #: classes/Settings/Column/Meta.php:126
 msgid "Network Site:"
-msgstr ""
+msgstr "サイトネットワーク内のサイト:"
 
 #: classes/Settings/Column/Meta.php:118
 msgid "Hidden"
-msgstr ""
+msgstr "非表示"
 
 #: classes/Settings/Column/Meta.php:117
 msgid "Public"
-msgstr ""
+msgstr "公開"
 
 #: classes/Settings/Column/ExifData.php:83
 msgid "Keywords"
-msgstr ""
+msgstr "キーワード"
 
 #: classes/Settings/Column/ExifData.php:82
 msgid "Orientation"
-msgstr ""
+msgstr "方向"
 
 #: classes/Settings/Column/ExifData.php:77
 msgid "Copyright"
-msgstr ""
+msgstr "著作権表示"
 
 #: classes/Settings/Column/AttachmentDisplay.php:38
 msgid "Count"
@@ -667,23 +667,23 @@ msgstr ""
 
 #: classes/Settings/Column/AttachmentDisplay.php:37
 msgid "Thumbnails"
-msgstr ""
+msgstr "サムネイル"
 
 #: classes/Helper/Post.php:144
 msgid "Missed schedule"
-msgstr ""
+msgstr "予約投稿の失敗"
 
 #: classes/Helper/Post.php:140
 msgid "Scheduled"
-msgstr ""
+msgstr "予約済み"
 
 #: classes/Column/Post/TitleRaw.php:15
 msgid "Title Only"
-msgstr ""
+msgstr "タイトルのみ"
 
 #: classes/Column/Post/CommentStatus.php:16
 msgid "Allow Comments"
-msgstr ""
+msgstr "コメントを許可"
 
 #: classes/Column/Post/BeforeMoreTag.php:15
 msgid "More Tag"
@@ -691,7 +691,7 @@ msgstr ""
 
 #: classes/Column/Menu.php:17
 msgid "Menu"
-msgstr ""
+msgstr "メニュー"
 
 #: classes/Column/Media/Dimensions.php:28
 msgid "Height : %s px"
@@ -699,7 +699,7 @@ msgstr ""
 
 #: classes/Column/Media/Dimensions.php:28
 msgid "Width : %s px"
-msgstr ""
+msgstr "幅: %s px"
 
 #: classes/Column/Media/AvailableSizes.php:56
 msgid "Missing image file for size %s."
@@ -707,19 +707,19 @@ msgstr ""
 
 #: classes/Column/Media/AvailableSizes.php:38
 msgid "original"
-msgstr ""
+msgstr "オリジナル"
 
 #: classes/Column/Media/AlternateText.php:14
 msgid "Alternative Text"
-msgstr ""
+msgstr "代替テキスト"
 
 #: classes/Integration/NinjaForms.php:16
 msgid "Ninja Forms"
-msgstr ""
+msgstr "Ninja Forms"
 
 #: classes/Settings/Column/StatusIcon.php:72
 msgid "Password protected"
-msgstr ""
+msgstr "パスワード保護"
 
 #: classes/Helper/Post.php:137
 msgid "Pending for review"
@@ -727,15 +727,15 @@ msgstr ""
 
 #: classes/Helper/Post.php:134
 msgid "Draft"
-msgstr ""
+msgstr "下書き"
 
 #: classes/Helper/Post.php:131
 msgid "Published"
-msgstr ""
+msgstr "公開済み"
 
 #: classes/Helper/Post.php:128
 msgid "Private"
-msgstr ""
+msgstr "非公開"
 
 #: classes/Settings/Column/StatusIcon.php:30
 msgid "Use an icon instead of text for displaying the status."
@@ -744,11 +744,11 @@ msgstr ""
 #: classes/Settings/Column/PostFormatIcon.php:29
 #: classes/Settings/Column/StatusIcon.php:29
 msgid "Use an icon?"
-msgstr ""
+msgstr "アイコンを使用しますか ?"
 
 #: classes/Helper/Strings.php:142
 msgid "&hellip;"
-msgstr ""
+msgstr "&hellip;"
 
 #: classes/Column/Post/Excerpt.php:22
 msgid "Current excerpt is generated from the content."
@@ -756,7 +756,7 @@ msgstr ""
 
 #: classes/Column/Post/Excerpt.php:22
 msgid "Excerpt is missing."
-msgstr ""
+msgstr "抜粋がありません。"
 
 #: classes/Settings/Column/User.php:85
 msgid "User Nicename"
@@ -772,11 +772,11 @@ msgstr ""
 
 #: classes/Integration/BuddyPress.php:17
 msgid "Display any of your Profile Fields for BuddyPress on your users overview."
-msgstr ""
+msgstr "ユーザー概要に BuddyPress のプロフフィールフィールドを表示します。"
 
 #: classes/Integration/BuddyPress.php:15
 msgid "BuddyPress"
-msgstr ""
+msgstr "BuddyPress"
 
 #: classes/Controller/AjaxColumnValue.php:58
 msgid "Invalid method."
@@ -868,15 +868,15 @@ msgstr "画像サイズ"
 
 #: classes/Settings/Column/Image.php:48
 msgid "Height in pixels"
-msgstr "高さ (ピクセル)"
+msgstr "ピクセル値での高さ"
 
 #: classes/Settings/Column/Image.php:42
 msgid "Width in pixels"
-msgstr "幅 (ピクセル)"
+msgstr "幅 (px)"
 
 #: classes/Settings/Column/Date.php:79
 msgid "in %s"
-msgstr ""
+msgstr "カテゴリー: %s"
 
 #: classes/Settings/Column/Date.php:76
 msgid "%s ago"
@@ -904,7 +904,7 @@ msgstr "WordPress の日付書式"
 
 #: classes/Settings/Column/Date.php:13
 msgid "or"
-msgstr "又は"
+msgstr "または"
 
 #: classes/Settings/Column/Date.php:11
 msgid "For example: %s."
@@ -924,11 +924,11 @@ msgstr "複数"
 
 #: classes/Settings/Column/CustomFieldType.php:171
 msgid "Choice"
-msgstr "選択肢"
+msgstr "選択"
 
 #: classes/Settings/Column/CustomFieldType.php:170
 msgid "Relational"
-msgstr ""
+msgstr "関連"
 
 #: classes/Settings/Column/CustomFieldType.php:169
 msgid "Basic"
@@ -941,7 +941,7 @@ msgstr "フィールドの数"
 #: classes/Settings/Column/CustomFieldType.php:129
 #: templates/admin/help-tab/custom-fields.php:50
 msgid "True / False"
-msgstr ""
+msgstr "真/偽"
 
 #: classes/Settings/Column/CustomFieldType.php:128
 #: templates/admin/help-tab/custom-fields.php:26
@@ -959,7 +959,7 @@ msgstr "テキスト"
 
 #: classes/Settings/Column/CustomFieldType.php:91
 msgid "Multiple IDs should be separated by commas."
-msgstr ""
+msgstr "複数の ID はカンマで区切ってください。"
 
 #: classes/Settings/Column/CustomField.php:27
 #: classes/Settings/Column/Meta.php:73
@@ -979,11 +979,11 @@ msgstr "最大文字数"
 #: classes/Settings/Column/CharacterLimit.php:28
 #: classes/Settings/Column/StringLimit.php:36
 msgid "Character Limit"
-msgstr "文字制限"
+msgstr "文字数制限"
 
 #: classes/Settings/Column/BeforeAfter.php:80
 msgid "Display Options"
-msgstr "表示設定"
+msgstr "表示オプション"
 
 #: classes/Settings/Column/BeforeAfter.php:74
 msgid "This text will appear after the column value."
@@ -1041,7 +1041,7 @@ msgstr "オン"
 
 #: classes/Admin/Tooltip.php:29
 msgid "Notice"
-msgstr "注意"
+msgstr "通知"
 
 #: classes/Admin/Tooltip.php:30
 msgid "Instructions"
@@ -1130,7 +1130,7 @@ msgstr "利用可能"
 
 #: classes/Admin/Main/Addons.php:120
 msgid "Recommended"
-msgstr "おすすめ"
+msgstr "推奨"
 
 #: classes/Integration/Types.php:16
 msgid "Display and edit Toolset Types fields in the posts overview in seconds!"
@@ -1142,7 +1142,7 @@ msgstr "ツールセットの種類"
 
 #: classes/Integration/Pods.php:14
 msgid "Pods"
-msgstr ""
+msgstr "Pods"
 
 #: templates/admin/side-banner.php:46
 msgid "Create multiple columns sets"
@@ -1186,7 +1186,7 @@ msgstr ""
 
 #: classes/Settings/Column/LinkLabel.php:23
 msgid "Link Label"
-msgstr "リンクのラベル"
+msgstr "リンクラベル"
 
 #: classes/Check/AddonAvailable.php:87
 msgid "the addons page"
@@ -1264,7 +1264,7 @@ msgstr "有効化"
 
 #: classes/Admin/AddonStatus.php:60 classes/Admin/AddonStatus.php:76
 msgid "Deactivate"
-msgstr "停止"
+msgstr "無効化"
 
 #: classes/Admin/AddonStatus.php:42 classes/Admin/Main/Addons.php:128
 msgid "Active"
@@ -1288,15 +1288,15 @@ msgstr "サポート"
 
 #: templates/admin/side-feedback.php:63
 msgid "Buy Pro"
-msgstr "Pro 版を購入"
+msgstr "プロ版を購入"
 
 #: templates/admin/side-feedback.php:57
 msgid "Tweet"
-msgstr "ツイートする"
+msgstr "ツイート"
 
 #: templates/admin/side-feedback.php:51
 msgid "Rate"
-msgstr "評価"
+msgstr "率"
 
 #: templates/admin/side-feedback.php:46
 msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
@@ -1312,7 +1312,7 @@ msgstr "フォーラム"
 
 #: templates/admin/side-feedback.php:28
 msgid "Docs"
-msgstr "ドキュメント"
+msgstr "ドキュメンテーション"
 
 #: templates/admin/side-feedback.php:23
 msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
@@ -1332,7 +1332,7 @@ msgstr ""
 
 #: classes/Admin/MenuFactory.php:21
 msgid "Columns"
-msgstr "列"
+msgstr "カラム"
 
 #: classes/Admin/Main/Columns.php:210
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
@@ -1398,15 +1398,15 @@ msgstr "値: 文字列または配列。meta_keyの場合は回数を表示し�
 
 #: templates/admin/help-tab/custom-fields.php:11
 msgid "Value: Hex value color, such as #808080."
-msgstr ""
+msgstr "値: HEXカラーコード、#808080 など。"
 
 #: templates/admin/help-tab/custom-fields.php:51
 msgid "Value: Should be a 1 (one) or 0 (zero)."
-msgstr ""
+msgstr "値: 1または0 (ゼロ)である必要があります。"
 
 #: classes/Column/User/Login.php:11
 msgid "Username"
-msgstr ""
+msgstr "ユーザー名"
 
 #: templates/admin/help-tab/custom-fields.php:19
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
@@ -1475,7 +1475,7 @@ msgstr "概要"
 
 #: classes/Controller/RestoreSettingsRequest.php:42
 msgid "Default settings successfully restored."
-msgstr ""
+msgstr "初期設定を復元しました。"
 
 #: classes/Admin/Asset/Columns.php:56 classes/Controller/ColumnRequest.php:39
 msgid "%s column is already present and can not be duplicated."
@@ -1499,7 +1499,7 @@ msgstr ""
 
 #: classes/Check/Review.php:182
 msgid "our forum"
-msgstr ""
+msgstr "フォーラム"
 
 #: classes/Check/Review.php:176
 msgid "documentation page"
@@ -1569,7 +1569,7 @@ msgstr "ラベル"
 
 #: classes/Settings/Column/Type.php:44 templates/admin/edit-column.php:52
 msgid "Name"
-msgstr "名称"
+msgstr "名前"
 
 #: classes/Settings/Column/Type.php:38
 msgid "Choose a column type."
@@ -1585,7 +1585,7 @@ msgstr "表示形式"
 
 #: classes/Settings/Column/User.php:83 classes/Settings/Column/UserLink.php:77
 msgid "User Email"
-msgstr "メールアドレス"
+msgstr "ユーザーのメールアドレス"
 
 #: classes/Settings/Column/User.php:82
 msgid "User Login"
@@ -1605,7 +1605,7 @@ msgstr "表示名"
 
 #: classes/Settings/Column/BeforeAfter.php:73
 msgid "After"
-msgstr "更新後 "
+msgstr "後"
 
 #: classes/Settings/Column/BeforeAfter.php:65
 msgid "This text will appear before the column value."
@@ -1613,11 +1613,11 @@ msgstr "このテキストはカラムの値の前に表示されます。"
 
 #: classes/Settings/Column/BeforeAfter.php:64
 msgid "Before"
-msgstr "前"
+msgstr "更新前"
 
 #: classes/Settings/Column/Width.php:65
 msgid "width"
-msgstr "幅"
+msgstr "横幅"
 
 #: classes/ColumnGroups.php:16 classes/Settings/Column/CustomFieldType.php:173
 #: classes/Settings/Column/Image.php:112
@@ -1630,7 +1630,7 @@ msgstr "日付の表示方法を設定する。"
 
 #: classes/Settings/Column/DateTimeFormat.php:61
 msgid "Date Format"
-msgstr "日付フォーマット"
+msgstr "日付形式"
 
 #: classes/Settings/Column/Image.php:76
 msgid "Large"
@@ -1692,11 +1692,11 @@ msgstr "タクソノミー"
 
 #: classes/Column/Post/Sticky.php:16
 msgid "Sticky"
-msgstr "先頭固定表示"
+msgstr "先頭に固定表示"
 
 #: classes/Column/Comment/Status.php:14 classes/Column/Post/Status.php:12
 msgid "Status"
-msgstr "状態"
+msgstr "ステータス"
 
 #: classes/Column/Post/Slug.php:14 classes/Settings/Column/Term.php:31
 msgid "Slug"
@@ -1728,11 +1728,11 @@ msgstr "親"
 
 #: classes/Column/Post/PageTemplate.php:14
 msgid "Page Template"
-msgstr "ページテンプレート"
+msgstr "固定ページテンプレート"
 
 #: classes/Column/Post/Order.php:14
 msgid "Order"
-msgstr "注文"
+msgstr "順序"
 
 #: classes/Column/Post/Modified.php:15
 msgid "Last Modified"
@@ -1782,7 +1782,7 @@ msgstr "表示させたいコメントステータスを選択します。"
 
 #: classes/Settings/Column/CommentCount.php:43
 msgid "Comment status"
-msgstr "コメントステータス"
+msgstr "コメントの状態"
 
 #: classes/Column/Comment/Status.php:33
 #: classes/Settings/Column/CommentCount.php:58
@@ -1792,7 +1792,7 @@ msgstr "スパム"
 #: classes/Column/Comment/Status.php:35
 #: classes/Settings/Column/CommentCount.php:57
 msgid "Pending"
-msgstr "保留"
+msgstr "承認待ち"
 
 #: classes/Settings/Column/CommentCount.php:65
 msgid "Total"
@@ -1850,7 +1850,7 @@ msgstr "高さ"
 
 #: classes/Settings/Column/PathScope.php:27
 msgid "Relative to main uploads folder"
-msgstr ""
+msgstr "メインのアップロードフォルダーに対して相対"
 
 #: classes/Settings/Column/PathScope.php:26
 msgid "Relative to domain"
@@ -1911,7 +1911,7 @@ msgstr "EXIF データ"
 
 #: classes/Column/Media/Dimensions.php:16
 msgid "Dimensions"
-msgstr "寸法"
+msgstr "サイズ"
 
 #: classes/Column/Media/Caption.php:14 classes/Settings/Column/ExifData.php:75
 msgid "Caption"
@@ -1941,12 +1941,12 @@ msgstr "表示される方法を設定します"
 
 #: classes/Settings/Column/CustomFieldType.php:83
 msgid "Field Type"
-msgstr "フィールド形式"
+msgstr "フィールドタイプ"
 
 #: classes/Settings/Column/CustomFieldType.php:138
 #: templates/admin/help-tab/custom-fields.php:38
 msgid "Multiple Values"
-msgstr "複数の値"
+msgstr "複数値"
 
 #: classes/Settings/Column/CustomFieldType.php:123
 #: templates/admin/help-tab/custom-fields.php:30
@@ -2031,11 +2031,11 @@ msgstr "日時 (GMT)"
 #: classes/Column/Post/AuthorName.php:18
 #: classes/Settings/Column/Comment.php:126 classes/Settings/Column/Post.php:101
 msgid "Author"
-msgstr "登録者"
+msgstr "投稿者"
 
 #: classes/Column/Comment/AuthorUrl.php:14
 msgid "Author URL"
-msgstr ""
+msgstr "作者 URL"
 
 #: classes/Column/Comment/AuthorName.php:14
 msgid "Author Name"
@@ -2069,7 +2069,7 @@ msgstr "編集"
 
 #: classes/Settings/Column/CommentLink.php:67
 msgid "Edit Comment"
-msgstr ""
+msgstr "コメントを編集"
 
 #: classes/Column/Comment/ID.php:14 classes/Column/Media/ID.php:14
 #: classes/Column/Post/ID.php:15 classes/Settings/Column/Comment.php:125
@@ -2104,7 +2104,7 @@ msgstr "アイコンを使いますか ?"
 
 #: classes/Column/Actions.php:19
 msgid "Actions"
-msgstr "アクション"
+msgstr "操作"
 
 #: classes/Integration/WooCommerce.php:18
 msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
