@@ -4,6 +4,7 @@ namespace AC\Admin;
 
 use AC\Integration;
 use AC\PluginInformation;
+use AC\View;
 use ACP\Entity\License;
 
 class AddonStatus {
@@ -45,20 +46,12 @@ class AddonStatus {
 		$this->license = $license;
 	}
 
-	private function render_active_label() { ?>
-		<div class="ac-addon__state">
-			<span class="-green dashicons dashicons-yes"></span>
-			<span class="ac-addon__state__label"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
-		</div>
-		<?php
+	private function render_active_label() {
+		echo ( new View() )->set_template( 'admin/page/component/addon/active-label' )->render();
 	}
 
-	private function render_network_active_label() { ?>
-		<div class="ac-addon__state">
-			<span class="-green dashicons dashicons-yes"></span>
-			<span class="ac-addon__state__label"><?php _e( 'Network Active', 'codepress-admin-columns' ); ?></span>
-		</div>
-		<?php
+	private function render_network_active_label() {
+		echo ( new View() )->set_template( 'admin/page/component/addon/network-active-label' )->render();
 	}
 
 	private function add_redirect( $url, $value ) {
@@ -100,44 +93,39 @@ class AddonStatus {
 	}
 
 	private function render_network_deactivate() {
-		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->get_plugin_network_action_url( 'deactivate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__link link-deactivate">
-			<?php _e( 'Deactivate', 'codepress-admin-columns' ); ?>
-		</a>
-		<?php
+		$view = new View( [
+			'url' => $this->add_redirect( $this->get_plugin_network_action_url( 'deactivate' ), self::REDIRECT_TO_NETWORK ),
+		] );
+
+		echo $view->set_template( 'admin/page/component/addon/deactivate' )->render();
 	}
 
 	private function render_network_activate() {
-		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->get_plugin_network_action_url( 'activate' ), self::REDIRECT_TO_NETWORK ) ); ?>" class="ac-addon__button button-primary">
-			<?php _e( 'Network Activate', 'codepress-admin-columns' ); ?>
-		</a>
-		<?php
+		$view = new View( [
+			'url' => $this->add_redirect( $this->get_plugin_network_action_url( 'activate' ), self::REDIRECT_TO_NETWORK ),
+		] );
+
+		echo $view->set_template( 'admin/page/component/addon/network-activate' )->render();
 	}
 
 	private function render_deactivate() {
-		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->get_plugin_action_url( 'deactivate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__link link-deactivate">
-			<?php _e( 'Deactivate', 'codepress-admin-columns' ); ?>
-		</a>
-		<?php
+		$view = new View( [
+			'url' => $this->add_redirect( $this->get_plugin_action_url( 'deactivate' ), self::REDIRECT_TO_SITE ),
+		] );
+
+		echo $view->set_template( 'admin/page/component/addon/deactivate' )->render();
 	}
 
 	private function render_activate() {
-		?>
-		<a href="<?php echo esc_url( $this->add_redirect( $this->get_plugin_action_url( 'activate' ), self::REDIRECT_TO_SITE ) ); ?>" class="ac-addon__button button-primary">
-			<?php _e( 'Enable', 'codepress-admin-columns' ); ?>
-		</a>
-		<?php
+		$view = new View( [
+			'url' => $this->add_redirect( $this->get_plugin_action_url( 'activate' ), self::REDIRECT_TO_SITE ),
+		] );
+
+		echo $view->set_template( 'admin/page/component/addon/activate' )->render();
 	}
 
 	private function render_missing_license() {
-		?>
-		<div class="ac-addon__state">
-			<span class="dashicons dashicons-info-outline orange"></span>
-			<span class="ac-addon__state__label"><?php _e( 'Activate license', 'codepress-admin-columns' ); ?></span>
-		</div>
-		<?php
+		echo ( new View() )->set_template( 'admin/page/component/addon/missing-license' )->render();
 	}
 
 	private function is_downloadable() {
@@ -145,19 +133,16 @@ class AddonStatus {
 	}
 
 	private function render_install() {
-		?>
-		<a class="ac-addon__button button-primary" data-install>
-			<?php esc_html_e( 'Enable', 'codepress-admin-columns' ); ?>
-		</a>
-		<?php
+		echo ( new View() )->set_template( 'admin/page/component/addon/install' )->render();
 	}
 
 	private function render_more_info( $class = '' ) {
-		?>
-		<a target="_blank" href="<?php echo esc_url( $this->integration->get_link() ); ?>" class="ac-addon__button button-primary <?= $class; ?>">
-			<?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?>
-		</a>
-		<?php
+		$view = new View( [
+			'url'   => $this->integration->get_link(),
+			'class' => $class,
+		] );
+
+		echo $view->set_template( 'admin/page/component/addon/more-info' )->render();
 	}
 
 	private function is_network_active() {
