@@ -22,13 +22,13 @@ class Script extends Enqueueable {
 			$variable = json_encode( $variable );
 		}
 
-		if( is_bool( $variable ) ){
+		if ( is_bool( $variable ) ) {
 			$variable = $variable ? 'true' : 'false';
 		}
 
 		wp_add_inline_script( $this->get_handle(), sprintf(
 			"var %s = %s;",
-			$name,
+			(string) $name,
 			$variable
 		), $before ? 'before' : 'after' );
 	}
