@@ -9,8 +9,6 @@ use AC\Deprecated\Hooks;
 use AC\IntegrationRepository;
 use AC\ListScreenRepository\Storage;
 use AC\Renderable;
-use ACP\LicenseKeyRepository;
-use ACP\LicenseRepository;
 
 class PageFactory implements PageFactoryInterface {
 
@@ -59,8 +57,6 @@ class PageFactory implements PageFactoryInterface {
 				return new Page\Addons(
 					$this->location,
 					new IntegrationRepository(),
-					new LicenseKeyRepository(),
-					new LicenseRepository(),
 					new View\Menu( $this->menu_factory->create( $slug ) )
 				);
 			case Page\Columns::NAME :
