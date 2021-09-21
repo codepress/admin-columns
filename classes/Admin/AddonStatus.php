@@ -266,7 +266,9 @@ class AddonStatus {
 		}
 
 		if ( $this->is_installable() ) {
-			$this->render_install();
+			$this->is_license_active()
+				? $this->render_install()
+				: $this->render_missing_license();
 		}
 
 		if ( $this->show_more_info() ) {
