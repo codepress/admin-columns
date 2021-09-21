@@ -13,6 +13,9 @@ use AC\Integration\Filter;
 use AC\IntegrationRepository;
 use AC\PluginInformation;
 use AC\Renderable;
+use ACP\Entity\License;
+use ACP\LicenseKeyRepository;
+use ACP\LicenseRepository;
 
 class Addons implements Enqueueables, Renderable, RenderableHead {
 
@@ -29,13 +32,25 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	private $integrations;
 
 	/**
+	 * @var LicenseKeyRepository
+	 */
+	private $license_key_repository;
+
+	/**
+	 * @var LicenseRepository
+	 */
+	private $license_repository;
+
+	/**
 	 * @var Renderable
 	 */
 	private $head;
 
-	public function __construct( Location\Absolute $location, IntegrationRepository $integrations, Renderable $head ) {
+	public function __construct( Location\Absolute $location, IntegrationRepository $integrations, LicenseKeyRepository $license_key_repository, LicenseRepository $license_repository, Renderable $head ) {
 		$this->location = $location;
 		$this->integrations = $integrations;
+		$this->license_key_repository = $license_key_repository;
+		$this->license_repository = $license_repository;
 		$this->head = $head;
 	}
 
@@ -88,6 +103,17 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	}
 
 	/**
+	 * @return License|null
+	 */
+	private function get_license() {
+		$key = $this->license_key_repository->find();
+
+		return $key
+			? $this->license_repository->find( $key )
+			: null;
+	}
+
+	/**
 	 * @param AC\Integration $addon
 	 *
 	 * @return string
@@ -97,7 +123,8 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 			new PluginInformation( $addon->get_basename() ),
 			$addon,
 			is_multisite(),
-			is_network_admin()
+			is_network_admin(),
+			$this->get_license()
 		);
 
 		return $view->render();

@@ -78,6 +78,12 @@
 			padding: 5px 30px;
 			color: #fff;
 			font-weight: bold;
+
+			&.-disabled {
+				font-weight: normal;
+				border-color: #808080;
+				background-color: #f8f8f0;
+			}
 		}
 
 		a.ac-addon__link {

@@ -4,6 +4,7 @@ namespace AC\Admin;
 
 use AC\Integration;
 use AC\PluginInformation;
+use ACP\Entity\License;
 
 class AddonStatus {
 
@@ -31,11 +32,17 @@ class AddonStatus {
 	 */
 	private $is_network_admin;
 
-	public function __construct( PluginInformation $plugin, Integration $integration, $is_multisite, $is_network_admin ) {
+	/**
+	 * @var License|null
+	 */
+	private $license;
+
+	public function __construct( PluginInformation $plugin, Integration $integration, $is_multisite, $is_network_admin, License $license = null ) {
 		$this->plugin = $plugin;
 		$this->integration = $integration;
 		$this->is_multisite = (bool) $is_multisite;
 		$this->is_network_admin = (bool) $is_network_admin;
+		$this->license = $license;
 	}
 
 	private function render_active_label() { ?>
@@ -122,6 +129,19 @@ class AddonStatus {
 			<?php _e( 'Enable', 'codepress-admin-columns' ); ?>
 		</a>
 		<?php
+	}
+
+	private function render_missing_license() {
+		?>
+		<div class="ac-addon__state">
+			<span class="dashicons dashicons-info-outline orange"></span>
+			<span class="ac-addon__state__label"><?php _e( 'Activate license', 'codepress-admin-columns' ); ?></span>
+		</div>
+		<?php
+	}
+
+	private function is_downloadable() {
+		return $this->license && $this->license->is_active();
 	}
 
 	private function render_install() {
@@ -211,6 +231,10 @@ class AddonStatus {
 		return ! $this->is_installable() && ! $this->plugin->is_installed();
 	}
 
+	private function is_license_active() {
+		return $this->license && $this->license->is_active();
+	}
+
 	public function render() {
 		if ( ! ac_is_pro_active() ) {
 			ob_start();
@@ -230,11 +254,15 @@ class AddonStatus {
 		}
 
 		if ( $this->is_network_activatable() ) {
-			$this->render_network_activate();
+			$this->is_license_active()
+				? $this->render_network_activate()
+				: $this->render_missing_license();
 		}
 
 		if ( $this->is_activatable() ) {
-			$this->render_activate();
+			$this->is_license_active()
+				? $this->render_activate()
+				: $this->render_missing_license();
 		}
 
 		if ( $this->is_installable() ) {
