@@ -62,13 +62,6 @@ class Plugin {
 	/**
 	 * @return string
 	 */
-	public function get_version_key() {
-		return $this->version_key;
-	}
-
-	/**
-	 * @return string
-	 */
 	public function get_url() {
 		return plugin_dir_url( $this->file );
 	}
