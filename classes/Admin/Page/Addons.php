@@ -101,20 +101,20 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	private function get_grouped_addons() {
 
 		$active = $this->integrations->find_all( [
-			'filter' => [
+			IntegrationRepository::ARG_FILTER => [
 				new Filter\IsActive( is_multisite(), is_network_admin() ),
 			],
 		] );
 
 		$recommended = $this->integrations->find_all( [
-			'filter' => [
+			IntegrationRepository::ARG_FILTER => [
 				new Filter\IsNotActive( is_multisite(), is_network_admin() ),
 				new Filter\IsPluginActive(),
 			],
 		] );
 
 		$available = $this->integrations->find_all( [
-			'filter' => [
+			IntegrationRepository::ARG_FILTER => [
 				new Filter\IsNotActive( is_multisite(), is_network_admin() ),
 				new Filter\IsPluginNotActive(),
 			],

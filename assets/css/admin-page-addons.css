@@ -73,8 +73,12 @@
 }
 .ac-addon__actions a.ac-addon__button.-disabled {
   font-weight: normal;
-  border-color: #808080;
-  background-color: #f8f8f0;
+  color: #a7aaad !important;
+  background: #f6f7f7 !important;
+  border-color: #dcdcde !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  cursor: default;
 }
 .ac-addon__actions a.ac-addon__link.link-deactivate {
   display: inline-block;
