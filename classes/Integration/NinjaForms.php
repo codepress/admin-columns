@@ -18,7 +18,7 @@ final class NinjaForms extends Integration {
 			sprintf(
 				'%s %s',
 				sprintf( __( 'Integrates %s with Admin Columns.', 'codepress-admin-columns' ), __( 'Ninja Forms', 'codepress-admin-columns' ) ),
-				sprintf( __( 'Display, inline- and bulk-edit, smart filter and sort your %s Submissions.', 'codepress-admin-columns' ), __( 'Ninja Forms', 'codepress-admin-columns' ) )
+				sprintf( __( 'Display, inline- and bulk-edit, export, smart filter and sort your %s Submissions.', 'codepress-admin-columns' ), __( 'Ninja Forms', 'codepress-admin-columns' ) )
 			),
 			null,
 			new Site( Site::PAGE_ADDON_NINJA_FORMS )

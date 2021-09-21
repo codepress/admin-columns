@@ -18,7 +18,7 @@ final class EventsCalendar extends Integration {
 			sprintf(
 				'%s %s',
 				sprintf( __( 'Integrates %s with Admin Columns.', 'codepress-admin-columns' ), __( 'Events Calendar', 'codepress-admin-columns' ) ),
-				__( 'Display, inline- and bulk-edit, smart filter and sort your Events, Organizers and Venues.', 'codepress-admin-columns' )
+				__( 'Display, inline- and bulk-edit, export, smart filter and sort your Events, Organizers and Venues.', 'codepress-admin-columns' )
 			),
 			null,
 			new Site( Site::PAGE_ADDON_EVENTS_CALENDAR )
