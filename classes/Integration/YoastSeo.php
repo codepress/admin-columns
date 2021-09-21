@@ -13,8 +13,12 @@ final class YoastSeo extends Integration {
 			'ac-addon-yoast-seo/ac-addon-yoast-seo.php',
 			'Yoast SEO',
 			'assets/images/addons/yoast-seo.png',
-			__( 'Enrich the Yoast SEO columns with amazing pro features!', 'codepress-admin-columns' ),
-			'https://www.yoast.com',
+			sprintf(
+				'%s %s',
+				sprintf( __( 'Integrates %s with Admin Columns.', 'codepress-admin-columns' ), __( 'Yoast SEO', 'codepress-admin-columns' ) ),
+				sprintf( __( 'Display, inline- and bulk-edit, export, smart filter and sort your Yoast SEO contents on any admin list table.', 'codepress-admin-columns' ), __( 'Yoast SEO', 'codepress-admin-columns' ) )
+			),
+			null,
 			new Site( Site::PAGE_ADDON_YOAST_SEO )
 		);
 	}
