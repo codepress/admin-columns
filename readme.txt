@@ -3,7 +3,7 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.7.1
-Tested up to: 5.7.2
+Tested up to: 5.8.1
 Requires PHP: 5.6.20
 Stable tag: 4.4
 
@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.4 =
-Release Date: tbd
+Release Date: September 21st, 2021
 
 * [Added] Complete restyling of the Admin interface
 * [Fixed] Load a default column set when the preferred column set was restricted in the meantime
