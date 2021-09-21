@@ -2,12 +2,13 @@
 
 namespace AC\Plugin;
 
+use AC\Storage\KeyValuePair;
 use AC\Storage\OptionFactory;
 
 class VersionStorage {
 
 	/**
-	 * @var string
+	 * @var KeyValuePair
 	 */
 	private $storage;
 
