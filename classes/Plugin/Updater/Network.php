@@ -27,7 +27,7 @@ class Network extends Updater {
 	 * Current and before version 5 check
 	 * @return bool
 	 */
-	protected function is_new_install() {
+	public function is_new_install() {
 		if ( $this->storage->get()->is_valid() ) {
 			return false;
 		}
