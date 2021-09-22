@@ -5,36 +5,34 @@ namespace AC\Plugin;
 abstract class Updater {
 
 	/**
+	 * @var StoredVersion
+	 */
+	protected $stored_version;
+
+	/**
+	 * @var Version
+	 */
+	protected $version;
+
+	/**
 	 * @var Update[]
 	 */
 	protected $updates;
 
-	/**
-	 * @param Version|null $version
-	 *
-	 * @return bool
-	 */
-	abstract protected function update_stored_version( Version $version = null );
+	public function __construct( StoredVersion $stored_version, Version $version, array $updates = [] ) {
+		$this->stored_version = $stored_version;
+		$this->version = $version;
+		$this->updates = $updates;
+	}
 
 	/**
 	 * @return bool
 	 */
 	abstract public function is_new_install();
 
-	/**
-	 * @param Update $update
-	 *
-	 * @return $this
-	 */
-	public function add_update( Update $update ) {
-		$this->updates[ $update->get_version() ] = $update;
-
-		return $this;
-	}
-
 	public function parse_updates() {
 		if ( $this->is_new_install() ) {
-			$this->update_stored_version();
+			$this->stored_version->save( $this->version );
 
 			return;
 		}
@@ -49,11 +47,11 @@ abstract class Updater {
 		foreach ( $this->updates as $update ) {
 			if ( $update->needs_update() ) {
 				$update->apply_update();
-				$this->update_stored_version( new Version( $update->get_version() ) );
+				$this->stored_version->save( new Version( $update->get_version() ) );
 			}
 		}
 
-		$this->update_stored_version();
+		$this->stored_version->save( $this->version );
 	}
 
 }

@@ -92,6 +92,7 @@ class AdminColumns extends Plugin {
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks( $this->get_location() ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
+			new Plugin\Setup( $this->get_version(), $this->get_stored_version(), null, new InstallCollection( [ new Plugin\Install\Capabilities(), new Plugin\Install\Database() ] ) ),
 		];
 
 		foreach ( $services as $service ) {
@@ -100,13 +101,6 @@ class AdminColumns extends Plugin {
 			}
 		}
 
-		$installer = new InstallCollection();
-		$installer->add_install( new Plugin\Install\Capabilities() )
-		          ->add_install( new Plugin\Install\Database() );
-
-		$this->set_installer( $installer );
-
-		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
 	}
 

@@ -11,6 +11,10 @@ final class InstallCollection implements Install {
 	 */
 	private $installers;
 
+	public function __construct( array $installers = [] ) {
+		array_map( [ $this, 'add_install' ], $installers );
+	}
+
 	public function add_install( Install $installer ) {
 		$this->installers[] = $installer;
 

@@ -2,7 +2,9 @@
 
 namespace AC\Plugin;
 
-class StoredVersions {
+class StoredVersion {
+
+	const SUFFIX_PREVIOUS = '_previous';
 
 	/**
 	 * @var string
@@ -14,9 +16,9 @@ class StoredVersions {
 	 */
 	private $previous_key;
 
-	public function __construct( $key, $previous_key ) {
+	public function __construct( $key ) {
 		$this->key = (string) $key;
-		$this->previous_key = (string) $previous_key;
+		$this->previous_key = $this->key . self::SUFFIX_PREVIOUS;
 	}
 
 	/**
@@ -24,9 +26,9 @@ class StoredVersions {
 	 *
 	 * @return bool
 	 */
-	public function update_version( Version $version ) {
-		update_option( $this->previous_key, $this->get_version()->get_value(), false );
-		update_option( $this->key, $version, false );
+	public function save( Version $version ) {
+		update_option( $this->previous_key, $this->get()->get_value(), false );
+		update_option( $this->key, $version->get_value(), false );
 
 		return true;
 	}
@@ -34,14 +36,14 @@ class StoredVersions {
 	/**
 	 * @return Version
 	 */
-	public function get_version() {
+	public function get() {
 		return new Version( (string) get_option( $this->key ) );
 	}
 
 	/**
 	 * @return Version
 	 */
-	public function get_previous_version() {
+	public function get_previous() {
 		return new Version( (string) get_option( $this->previous_key ) );
 	}
 
