@@ -41,7 +41,7 @@ class Plugin {
 		$this->version = $version;
 	}
 
-	private function get_updater() {
+	public function get_updater() {
 		return new Plugin\Updater\Site( $this->version_key, $this->version );
 	}
 
@@ -57,13 +57,6 @@ class Plugin {
 	 */
 	public function get_dir() {
 		return plugin_dir_path( $this->file );
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_version_key() {
-		return $this->version_key;
 	}
 
 	/**

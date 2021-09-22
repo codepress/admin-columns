@@ -4,7 +4,6 @@ namespace AC\Helper;
 
 use DOMDocument;
 use DOMElement;
-use WP_Error;
 
 class Image {
 
@@ -19,7 +18,7 @@ class Image {
 	 * @param null|string $dest_path
 	 * @param int         $jpeg_quality
 	 *
-	 * @return bool|string|WP_Error
+	 * @return false|string
 	 */
 	public function resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
 		$editor = wp_get_image_editor( $file );
@@ -249,7 +248,7 @@ class Image {
 		}
 
 		ob_start(); ?>
-		<span class="ac-image<?= esc_attr( $class ); ?>" data-media-id="<?= esc_attr( $media_id ); ?>" <?= $this->get_file_tooltip_attr( $media_id ); ?>>
+		<span class="ac-image <?= esc_attr( $class ); ?>" data-media-id="<?= esc_attr( $media_id ); ?>" <?= $this->get_file_tooltip_attr( $media_id ); ?>>
 			<img style="max-width:<?= esc_attr( $width ); ?>px;max-height:<?= esc_attr( $height ); ?>px;" src="<?= esc_attr( $src ); ?>" alt="">
 
 			<?php if ( $add_extension ) : ?>

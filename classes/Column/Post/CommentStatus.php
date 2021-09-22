@@ -23,7 +23,7 @@ class CommentStatus extends Column {
 	public function get_value( $post_id ) {
 		$comment_status = $this->get_raw_value( $post_id );
 
-		return ac_helper()->icon->yes_or_no( ( 'open' == $comment_status ), $comment_status );
+		return ac_helper()->icon->yes_or_no( ( 'open' === $comment_status ), $comment_status );
 	}
 
 	public function get_raw_value( $post_id ) {

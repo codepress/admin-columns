@@ -2,6 +2,7 @@
 
 namespace AC\Integration\Filter;
 
+use AC\Integration;
 use AC\Integration\Filter;
 use AC\Integrations;
 
@@ -26,7 +27,7 @@ class IsNotActive implements Filter {
 		return new Integrations( array_filter( $integrations->all(), [ $this, 'is_not_active' ] ) );
 	}
 
-	private function is_not_active( $integration ) {
+	private function is_not_active( Integration $integration ) {
 		return ! ( new IsActive( $this->is_multisite, $this->is_network_admin ) )->is_active( $integration );
 	}
 

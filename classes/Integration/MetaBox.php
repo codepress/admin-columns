@@ -13,7 +13,11 @@ final class MetaBox extends Integration {
 			'ac-addon-metabox/ac-addon-metabox.php',
 			__( 'Meta Box', 'codepress-admin-columns' ),
 			'assets/images/addons/metabox.svg',
-			__( 'Instantly generate columns for your Meta Box custom fields!', 'codepress-admin-columns' ),
+			sprintf(
+				'%s %s',
+				sprintf( __( 'Integrates %s with Admin Columns.', 'codepress-admin-columns' ), __( 'Meta Box', 'codepress-admin-columns' ) ),
+				sprintf( __( 'Display, inline- and bulk-edit, export, smart filter and sort your %s contents on any admin list table.', 'codepress-admin-columns' ), __( 'Meta Box', 'codepress-admin-columns' ) )
+			),
 			null,
 			new Site( Site::PAGE_ADDON_METABOX )
 		);

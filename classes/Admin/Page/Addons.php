@@ -11,7 +11,6 @@ use AC\Asset\Location;
 use AC\Asset\Style;
 use AC\Integration\Filter;
 use AC\IntegrationRepository;
-use AC\PluginInformation;
 use AC\Renderable;
 
 class Addons implements Enqueueables, Renderable, RenderableHead {
@@ -21,17 +20,17 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	/**
 	 * @var Location\Absolute
 	 */
-	private $location;
+	protected $location;
 
 	/**
 	 * @var IntegrationRepository
 	 */
-	private $integrations;
+	protected $integrations;
 
 	/**
 	 * @var Renderable
 	 */
-	private $head;
+	protected $head;
 
 	public function __construct( Location\Absolute $location, IntegrationRepository $integrations, Renderable $head ) {
 		$this->location = $location;
@@ -72,7 +71,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 							'slug'        => $addon->get_slug(),
 							'description' => $addon->get_description(),
 							'link'        => $addon->get_link(),
-							'actions'     => $this->render_actions( $addon ),
+							'actions'     => $this->render_actions( $addon )->render(),
 						] );
 
 						echo $view->set_template( 'admin/edit-addon' );
@@ -90,17 +89,10 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	/**
 	 * @param AC\Integration $addon
 	 *
-	 * @return string
+	 * @return Renderable
 	 */
-	private function render_actions( AC\Integration $addon ) {
-		$view = new Admin\AddonStatus(
-			new PluginInformation( $addon->get_basename() ),
-			$addon,
-			is_multisite(),
-			is_network_admin()
-		);
-
-		return $view->render();
+	protected function render_actions( AC\Integration $addon ) {
+		return new Admin\Section\AddonStatus( $addon );
 	}
 
 	/**
@@ -109,20 +101,20 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	private function get_grouped_addons() {
 
 		$active = $this->integrations->find_all( [
-			'filter' => [
+			IntegrationRepository::ARG_FILTER => [
 				new Filter\IsActive( is_multisite(), is_network_admin() ),
 			],
 		] );
 
 		$recommended = $this->integrations->find_all( [
-			'filter' => [
+			IntegrationRepository::ARG_FILTER => [
 				new Filter\IsNotActive( is_multisite(), is_network_admin() ),
 				new Filter\IsPluginActive(),
 			],
 		] );
 
 		$available = $this->integrations->find_all( [
-			'filter' => [
+			IntegrationRepository::ARG_FILTER => [
 				new Filter\IsNotActive( is_multisite(), is_network_admin() ),
 				new Filter\IsPluginNotActive(),
 			],

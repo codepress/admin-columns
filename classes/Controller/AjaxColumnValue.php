@@ -39,23 +39,23 @@ class AjaxColumnValue implements Registrable {
 		$id = (int) filter_input( INPUT_POST, 'pk' );
 
 		if ( ! $id ) {
-			wp_die( __( 'Invalid item ID.', 'codepress-admin-columns' ), null, 400 );
+			wp_send_json_error( __( 'Invalid item ID.', 'codepress-admin-columns' ), 400 );
 		}
 
 		$list_screen = $this->repository->find( new ListScreenId( filter_input( INPUT_POST, 'layout' ) ) );
 
 		if ( ! $list_screen ) {
-			wp_die( __( 'Invalid list screen.', 'codepress-admin-columns' ), null, 400 );
+			wp_send_json_error( __( 'Invalid list screen.', 'codepress-admin-columns' ), 400 );
 		}
 
 		$column = $list_screen->get_column_by_name( filter_input( INPUT_POST, 'column' ) );
 
 		if ( ! $column ) {
-			wp_die( __( 'Invalid column.', 'codepress-admin-columns' ), null, 400 );
+			wp_send_json_error( __( 'Invalid column.', 'codepress-admin-columns' ), 400 );
 		}
 
 		if ( ! $column instanceof AjaxValue ) {
-			wp_die( __( 'Invalid method.', 'codepress-admin-columns' ), null, 400 );
+			wp_send_json_error( __( 'Invalid method.', 'codepress-admin-columns' ), 400 );
 		}
 
 		// Trigger ajax callback

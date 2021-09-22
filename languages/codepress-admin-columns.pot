@@ -39,30 +39,6 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
-#: classes/Admin/AddonStatus.php:44, classes/Admin/Page/Addons.php:143
-msgid "Active"
-msgstr ""
-
-#: classes/Admin/AddonStatus.php:52
-msgid "Network Active"
-msgstr ""
-
-#: classes/Admin/AddonStatus.php:98, classes/Admin/AddonStatus.php:114
-msgid "Deactivate"
-msgstr ""
-
-#: classes/Admin/AddonStatus.php:106
-msgid "Network Activate"
-msgstr ""
-
-#: classes/Admin/AddonStatus.php:122, classes/Admin/AddonStatus.php:130
-msgid "Enable"
-msgstr ""
-
-#: classes/Admin/AddonStatus.php:138
-msgid "Get this add-on"
-msgstr ""
-
 #: classes/Admin/AdminLoader.php:107, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:115, classes/Settings/Column/Post.php:90, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54
 msgid "Display"
 msgstr ""
@@ -235,76 +211,80 @@ msgstr ""
 msgid "Advanced Custom Fields"
 msgstr ""
 
-#: classes/Integration/ACF.php:16
+#: classes/Integration/ACF.php:18
 msgid "Integrates ACF with Admin Columns."
 msgstr ""
 
-#: classes/Integration/ACF.php:16
-msgid "Display, inline- and bulk-edit, smart filter and sort your ACF contents from any admin list table."
+#: classes/Integration/ACF.php:19
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your ACF contents on any admin list table."
 msgstr ""
 
-#: classes/Integration/BuddyPress.php:15
+#: classes/Integration/BuddyPress.php:15, classes/Integration/BuddyPress.php:19
 msgid "BuddyPress"
 msgstr ""
 
-#: classes/Integration/BuddyPress.php:17
-msgid "Allows you to search, filter, inline- and bulk-edit the BuddyPress data fields on the Users page."
+#: classes/Integration/BuddyPress.php:19, classes/Integration/EventsCalendar.php:20, classes/Integration/GravityForms.php:20, classes/Integration/MetaBox.php:18, classes/Integration/NinjaForms.php:20, classes/Integration/Pods.php:18, classes/Integration/Types.php:18, classes/Integration/WooCommerce.php:20, classes/Integration/YoastSeo.php:18
+msgid "Integrates %s with Admin Columns."
 msgstr ""
 
-#: classes/Integration/EventsCalendar.php:16
+#: classes/Integration/BuddyPress.php:20
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your BuddyPress data fields on the Users page."
+msgstr ""
+
+#: classes/Integration/EventsCalendar.php:16, classes/Integration/EventsCalendar.php:20
 msgid "Events Calendar"
 msgstr ""
 
-#: classes/Integration/EventsCalendar.php:18
-msgid "Manage columns for your event, organizer or venue overviews."
+#: classes/Integration/EventsCalendar.php:21
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your Events, Organizers and Venues."
 msgstr ""
 
-#: classes/Integration/GravityForms.php:18
-msgid "Take your form submission management to the next level!"
+#: classes/Integration/GravityForms.php:20, classes/Integration/GravityForms.php:21
+msgid "Gravity Forms"
 msgstr ""
 
-#: classes/Integration/MetaBox.php:14
+#: classes/Integration/GravityForms.php:21
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Entries."
+msgstr ""
+
+#: classes/Integration/MetaBox.php:14, classes/Integration/MetaBox.php:18, classes/Integration/MetaBox.php:19
 msgid "Meta Box"
 msgstr ""
 
-#: classes/Integration/MetaBox.php:16
-msgid "Instantly generate columns for your Meta Box custom fields!"
+#: classes/Integration/MetaBox.php:19, classes/Integration/Pods.php:19, classes/Integration/Types.php:19
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s contents on any admin list table."
 msgstr ""
 
-#: classes/Integration/NinjaForms.php:16
+#: classes/Integration/NinjaForms.php:16, classes/Integration/NinjaForms.php:20, classes/Integration/NinjaForms.php:21
 msgid "Ninja Forms"
 msgstr ""
 
-#: classes/Integration/NinjaForms.php:18
-msgid "Add Ninja Forms columns that can be sorted, filtered and directly edited!"
+#: classes/Integration/NinjaForms.php:21
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Submissions."
 msgstr ""
 
-#: classes/Integration/Pods.php:14
+#: classes/Integration/Pods.php:14, classes/Integration/Pods.php:18, classes/Integration/Pods.php:19
 msgid "Pods"
 msgstr ""
 
-#: classes/Integration/Pods.php:16
-msgid "Display and edit Pods fields in the posts overview in seconds!"
-msgstr ""
-
-#: classes/Integration/Types.php:14
+#: classes/Integration/Types.php:14, classes/Integration/Types.php:18, classes/Integration/Types.php:19
 msgid "Toolset Types"
 msgstr ""
 
-#: classes/Integration/Types.php:16
-msgid "Display and edit Toolset Types fields in the posts overview in seconds!"
-msgstr ""
-
-#: classes/Integration/WooCommerce.php:16
+#: classes/Integration/WooCommerce.php:16, classes/Integration/WooCommerce.php:20
 msgid "WooCommerce"
 msgstr ""
 
-#: classes/Integration/WooCommerce.php:18
-msgid "Enable the WooCommerce integration to add Admin Columns Pro functionality to the Products, Users and Orders page."
+#: classes/Integration/WooCommerce.php:21
+msgid "Display, inline- and bulk-edit, smart filter and sort your Products, Variations, Orders and Customers"
 msgstr ""
 
-#: classes/Integration/YoastSeo.php:16
-msgid "Enrich the Yoast SEO columns with amazing pro features!"
+#: classes/Integration/YoastSeo.php:18, classes/Integration/YoastSeo.php:19
+msgid "Yoast SEO"
+msgstr ""
+
+#: classes/Integration/YoastSeo.php:19
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your Yoast SEO contents on any admin list table."
 msgstr ""
 
 #: classes/Promo/BlackFriday.php:13
@@ -870,11 +850,15 @@ msgstr ""
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:135
+#: classes/Admin/Page/Addons.php:127
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:151
+#: classes/Admin/Page/Addons.php:135, templates/admin/page/component/addon/active-label.php:3
+msgid "Active"
+msgstr ""
+
+#: classes/Admin/Page/Addons.php:143
 msgid "Available"
 msgstr ""
 
@@ -2084,4 +2068,28 @@ msgstr ""
 
 #: classes/Admin/Section/Partial/ShowEditButton.php:21
 msgid "Show %s button on table screen."
+msgstr ""
+
+#: templates/admin/page/component/addon/activate-disabled.php:2, templates/admin/page/component/addon/install.php:2
+msgid "Enable"
+msgstr ""
+
+#: templates/admin/page/component/addon/deactivate.php:2
+msgid "Deactivate"
+msgstr ""
+
+#: templates/admin/page/component/addon/missing-license.php:3
+msgid "Activate license"
+msgstr ""
+
+#: templates/admin/page/component/addon/more-info.php:2
+msgid "Get this add-on"
+msgstr ""
+
+#: templates/admin/page/component/addon/network-activate-disabled.php:2, templates/admin/page/component/addon/network-install.php:2
+msgid "Network Enable"
+msgstr ""
+
+#: templates/admin/page/component/addon/network-active-label.php:3
+msgid "Network Active"
 msgstr ""
