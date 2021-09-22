@@ -70,6 +70,7 @@ class Plugin {
 		return plugin_dir_url( $this->file );
 	}
 
+	// TODO remove
 	public function set_installer( Install $installer ) {
 		$this->installer = $installer;
 	}
@@ -81,8 +82,9 @@ class Plugin {
 		return is_plugin_active_for_network( $this->get_basename() );
 	}
 
+	// TODO remove
 	public function install() {
-		$setup = new Setup( $this->version, $this->stored_version, $this->installer );
+		$setup = new Setup( $this->version, $this->stored_version, null, $this->installer );
 		$setup->run();
 	}
 
@@ -110,6 +112,13 @@ class Plugin {
 	 */
 	public function is_version_gte( $version ) {
 		return $this->version->is_gte( new Version( $version ) );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_new_install() {
+		return ! $this->stored_version->get_previous()->is_valid();
 	}
 
 }
