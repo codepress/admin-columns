@@ -27,11 +27,6 @@ class Plugin {
 	 */
 	private $version;
 
-	/**
-	 * @var Install|null
-	 */
-	private $installer;
-
 	protected function __construct( $file, $version_key, Version $version = null ) {
 		if ( null === $version ) {
 			$version = ( new PluginHeader( $file ) )->get_version();
@@ -70,11 +65,6 @@ class Plugin {
 		return plugin_dir_url( $this->file );
 	}
 
-	// TODO remove
-	public function set_installer( Install $installer ) {
-		$this->installer = $installer;
-	}
-
 	/**
 	 * @return bool
 	 */
@@ -84,18 +74,8 @@ class Plugin {
 
 	// TODO remove
 	public function install() {
-		$setup = new Setup( $this->version, $this->stored_version, null, $this->installer );
-		$setup->run();
-	}
-
-	/**
-	 * @return Location\Absolute
-	 */
-	public function get_location() {
-		return new Location\Absolute(
-			$this->get_url(),
-			$this->get_dir()
-		);
+//		$setup = new Setup( $this->version, $this->stored_version, null, $this->installer );
+//		$setup->run();
 	}
 
 	/**
@@ -119,6 +99,16 @@ class Plugin {
 	 */
 	public function is_new_install() {
 		return ! $this->stored_version->get_previous()->is_valid();
+	}
+
+	/**
+	 * @return Location\Absolute
+	 */
+	public function get_location() {
+		return new Location\Absolute(
+			$this->get_url(),
+			$this->get_dir()
+		);
 	}
 
 }

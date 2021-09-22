@@ -4,7 +4,6 @@ namespace AC\Plugin;
 
 use AC\Capabilities;
 use AC\Registrable;
-use ReflectionObject;
 
 class Setup implements Registrable {
 
@@ -28,15 +27,7 @@ class Setup implements Registrable {
 	 */
 	private $install;
 
-	public function __construct( Version $version, StoredVersion $stored_version, Updater $updater = null, Install $install = null ) {
-		if ( null === $updater ) {
-			$updater = new Updater\Site(
-				$stored_version,
-				$version,
-				UpdatesFactory::create_from_dir( ( new ReflectionObject( $this ) )->getNamespaceName() . '\Update', $stored_version->get() )
-			);
-		}
-
+	public function __construct( Version $version, StoredVersion $stored_version, Updater $updater, Install $install = null ) {
 		$this->version = $version;
 		$this->stored_version = $stored_version;
 		$this->updater = $updater;

@@ -30,6 +30,7 @@ abstract class Updater {
 	 */
 	abstract public function is_new_install();
 
+	// TODO maybe move to Setup
 	public function parse_updates() {
 		if ( $this->is_new_install() ) {
 			$this->stored_version->save( $this->version );
@@ -47,7 +48,7 @@ abstract class Updater {
 		foreach ( $this->updates as $update ) {
 			if ( $update->needs_update() ) {
 				$update->apply_update();
-				$this->stored_version->save( new Version( $update->get_version() ) );
+				$this->stored_version->save( $update->get_version() );
 			}
 		}
 
