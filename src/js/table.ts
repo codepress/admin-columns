@@ -1,4 +1,4 @@
-import Table from "./table/table";
+import Table, {TableEventPayload} from "./table/table";
 import Tooltip from "./modules/tooltips";
 import ScreenOptionsColumns from "./table/screen-options-columns";
 import ToggleBoxLink from "./modules/toggle-box-link";
@@ -17,15 +17,15 @@ declare let AC: LocalizedAcTable
 
 let AC_SERVICES = initAcServices();
 
-AC_SERVICES.registerService('Modals', new Modals() );
+AC_SERVICES.registerService('Modals', new Modals());
 
-$(document).ready(() => {
+document.addEventListener('DOMContentLoaded', () => {
     let table = resolveTableBySelector(AC.table_id);
 
-   initPointers();
+    initPointers();
 
     if (table) {
-        const TableModule = (new Table(table, AC_SERVICES)).init();
+        const TableModule = new Table(table, AC_SERVICES).init();
         AC_SERVICES.registerService('Table', TableModule);
         AC_SERVICES.registerService('ScreenOptionsColumns', new ScreenOptionsColumns(TableModule.Columns));
     }
@@ -40,15 +40,9 @@ $(document).ready(() => {
         AC_SERVICES.getService<Table>('Table').addCellClasses();
         auto_init_show_more();
     });
-
-    // TODO use more global event name instead of IE
-    $('.wp-list-table td').on('ACP_InlineEditing_After_SetValue', function () {
-        auto_init_show_more();
-    });
-
 });
 
-AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: any) => {
+AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) => {
     auto_init_show_more();
     init_actions_tooltips();
 
@@ -63,4 +57,12 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: any) => {
     });
 
     observer.observe(event.table.getElement(), {childList: true, subtree: true});
+
+    event.table.Cells.getAll().forEach(cell => {
+        cell.events.addListener('setValue', () => {
+            auto_init_show_more();
+        });
+    })
+
+
 });

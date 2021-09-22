@@ -1,19 +1,23 @@
-<h1 class="nav-tab-wrapper cpac-nav-tab-wrapper">
-	<?php
-	/**
-	 * @var \AC\Admin\Menu\Item $menu_item
-	 */
-	foreach ( $this->menu_items as $menu_item ) :
+<?php
 
-		$class = '';
+use AC\Admin\Menu;
+use AC\View;
 
-		if ( $this->current === $menu_item->get_slug() ) {
-			$class = ' nav-tab-active';
-		}
+/**
+ * @var Menu\Item[] $items
+ */
+$items = $this->menu_items;
+?>
+<?= ( new View( [ 'license_status' => 1 ] ) )->set_template( 'admin/header' ) ?>
 
-		?>
-		<a href="<?= esc_url( $menu_item->get_url() ); ?>" class="nav-tab <?= esc_attr( $class ); ?>">
-			<?= $menu_item->get_label(); ?>
-		</a>
-	<?php endforeach; ?>
-</h1>
+<nav class="cpac-admin-nav">
+	<ul class="cpac-nav">
+		<?php foreach ( $items as $item ) : ?>
+			<li class="cpac-nav__item <?= esc_attr( $item->get_class() ); ?>">
+				<a href="<?= esc_url( $item->get_url() ); ?>"<?php echo $item->get_target() ? sprintf( ' target="%s"', $item->get_target() ) : ''; ?>>
+					<?= $item->get_label(); ?>
+				</a>
+			</li>
+		<?php endforeach; ?>
+	</ul>
+</nav>

@@ -1,5 +1,6 @@
 //@import 'webfont';
 //@import 'iconfont';
+@import 'wordpress-vars';
 @import 'colors';
 @import 'webfont';
 @import 'modals';
@@ -30,7 +31,7 @@
 -------------------------------------------------------------- */
 .ac-image-sizes {
 	.ac-missing-size {
-		color: lighten($ac-gray, 3);
+		color: lighten(#8a8a8a, 3);
 	}
 }
 
@@ -363,7 +364,7 @@ table.ac-table-items {
 
 	a.ac-image-info {
 		&:hover {
-			color: $wp-color-link;
+			color: var(--ac-link);
 
 			span.dashicons {
 				color: $ac-dark;
@@ -426,7 +427,7 @@ table.ac-table-items {
 		position: relative;
 
 		.ac-upload-space-progress-bar {
-			background-color: $wp-color-success;
+			background-color: var(--ac-notification-green);
 			height: 100%;
 			display: block;
 		}
@@ -434,25 +435,25 @@ table.ac-table-items {
 
 	&.warning {
 		.ac-upload-space-icon:before {
-			color: $wp-color-warning;
+			color: var(--ac-notification-yellow);
 			content: "\f534";
 			margin-top: 1px;
 		}
 
 		.ac-upload-space-progress-bar {
-			background-color: $wp-color-warning;
+			background-color: var(--ac-notification-yellow);
 		}
 	}
 
 	&.full {
 		.ac-upload-space-icon:before {
-			color: $wp-color-notification;
+			color: var(--ac-notification-orange);
 			content: "\f153";
 			margin-top: 1px;
 		}
 
 		.ac-upload-space-progress-bar {
-			background-color: $wp-color-error;
+			background-color: var(--ac-notification-red);
 		}
 	}
 }
@@ -584,6 +585,12 @@ table.ac-table-items {
 
 	&.ac-icon {
 		background-color: transparent;
+	}
+
+	&.-cover {
+		img {
+			object-fit: cover;
+		}
 	}
 }
 
@@ -952,9 +959,9 @@ div.cpac-color span {
 		display: inline-block;
 		padding: 2px 12px;
 		cursor: pointer;
-		color: $wp-color-button;
-		border: 1px solid $wp-color-button;
-		background: $wp-color-button-bg;
+		color: var(--ac-button-color);
+		border: 1px solid var(--ac-button-border);
+		background: var(--ac-button-bg);
 		text-decoration: none;
 		font-size: 13px;
 		height: 24px;
@@ -965,10 +972,10 @@ div.cpac-color span {
 
 		&:last-child, &.last {
 			border-radius: 0 3px 3px 0;
-			border-right: 1px solid $wp-color-button;
+			border-right: 1px solid var(--ac-button-border);
 
 			&.active {
-				border-right: 1px solid $wp-color-button;
+				border-right: 1px solid var(--ac-button-border);
 			}
 
 			&:first-child {
@@ -979,9 +986,8 @@ div.cpac-color span {
 		&:hover, &:focus, &:active {
 			outline: none;
 			box-shadow: none;
-			background: $wp-color-button-hover-bg;
-			color: $wp-color-button-hover;
-			border-color: $wp-color-button-hover;
+			background-color: #f0f0f1;
+			color: var(--ac-button-hover);
 		}
 
 		.dashicons {

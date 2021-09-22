@@ -4,7 +4,6 @@ namespace AC\Helper;
 
 use DOMDocument;
 use DOMElement;
-use WP_Error;
 
 class Image {
 
@@ -19,7 +18,7 @@ class Image {
 	 * @param null|string $dest_path
 	 * @param int         $jpeg_quality
 	 *
-	 * @return bool|string|WP_Error
+	 * @return false|string
 	 */
 	public function resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
 		$editor = wp_get_image_editor( $file );
@@ -234,25 +233,26 @@ class Image {
 
 	private function markup_cover( $src, $width, $height, $media_id = null ) {
 		ob_start(); ?>
-		<span class="ac-image cpac-cover" data-media-id="<?php echo esc_attr( $media_id ); ?>" style="width:<?php echo esc_attr( $width ); ?>px;height:<?php echo esc_attr( $height ); ?>px;background-size:cover;background-image:url('<?php echo esc_attr( $src ); ?>');background-position:center;" <?= $this->get_file_tooltip_attr( $media_id ); ?>></span>
+
+		<span class="ac-image -cover" data-media-id="<?= esc_attr( $media_id ); ?>">
+			<img style="width:<?= esc_attr( $width ); ?>px;height:<?= esc_attr( $height ); ?>px;" src="<?= esc_attr( $src ); ?>" alt="">
+		</span>
 
 		<?php
 		return ob_get_clean();
 	}
 
-	private function markup( $src, $width, $height, $media_id = null, $add_extension = false ) {
-		$class = false;
-
+	private function markup( $src, $width, $height, $media_id = null, $add_extension = false, $class = '' ) {
 		if ( $media_id && ! wp_attachment_is_image( $media_id ) ) {
 			$class = ' ac-icon';
 		}
 
 		ob_start(); ?>
-		<span class="ac-image<?php echo $class; ?>" data-media-id="<?php echo esc_attr( $media_id ); ?>" <?= $this->get_file_tooltip_attr( $media_id ); ?>>
-			<img style="max-width:<?php echo esc_attr( $width ); ?>px;max-height:<?php echo esc_attr( $height ); ?>px;" src="<?php echo esc_attr( $src ); ?>" alt="">
+		<span class="ac-image <?= esc_attr( $class ); ?>" data-media-id="<?= esc_attr( $media_id ); ?>" <?= $this->get_file_tooltip_attr( $media_id ); ?>>
+			<img style="max-width:<?= esc_attr( $width ); ?>px;max-height:<?= esc_attr( $height ); ?>px;" src="<?= esc_attr( $src ); ?>" alt="">
 
 			<?php if ( $add_extension ) : ?>
-				<span class="ac-extension"><?php echo esc_attr( $this->get_file_extension( $media_id ) ); ?></span>
+				<span class="ac-extension"><?= esc_attr( $this->get_file_extension( $media_id ) ); ?></span>
 			<?php endif; ?>
 
 		</span>

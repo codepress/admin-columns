@@ -12,8 +12,12 @@ final class ACF extends Integration {
 		parent::__construct(
 			'ac-addon-acf/ac-addon-acf.php',
 			__( 'Advanced Custom Fields', 'codepress-admin-columns' ),
-			'assets/images/addons/acf.png',
-			__( 'Display and edit ACF fields in the posts overview in seconds!', 'codepress-admin-columns' ),
+			'assets/images/addons/acf-v2.png',
+			sprintf(
+				'%s %s',
+				__( 'Integrates ACF with Admin Columns.', 'codepress-admin-columns' ),
+				__( 'Display, inline- and bulk-edit, export, smart filter and sort your ACF contents on any admin list table.', 'codepress-admin-columns' )
+			),
 			'https://www.advancedcustomfields.com',
 			new Site( Site::PAGE_ADDON_ACF )
 		);

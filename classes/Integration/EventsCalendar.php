@@ -15,7 +15,11 @@ final class EventsCalendar extends Integration {
 			'ac-addon-events-calendar/ac-addon-events-calendar.php',
 			__( 'Events Calendar', 'codepress-admin-columns' ),
 			'assets/images/addons/events-calendar.png',
-			__( 'Manage columns for your event, organizer or venue overviews.', 'codepress-admin-columns' ),
+			sprintf(
+				'%s %s',
+				sprintf( __( 'Integrates %s with Admin Columns.', 'codepress-admin-columns' ), __( 'Events Calendar', 'codepress-admin-columns' ) ),
+				__( 'Display, inline- and bulk-edit, export, smart filter and sort your Events, Organizers and Venues.', 'codepress-admin-columns' )
+			),
 			null,
 			new Site( Site::PAGE_ADDON_EVENTS_CALENDAR )
 		);

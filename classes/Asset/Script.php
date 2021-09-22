@@ -17,6 +17,22 @@ class Script extends Enqueueable {
 		);
 	}
 
+	public function add_inline_variable( $name, $variable, $before = true ) {
+		if ( is_array( $variable ) ) {
+			$variable = json_encode( $variable );
+		}
+
+		if ( is_bool( $variable ) ) {
+			$variable = $variable ? 'true' : 'false';
+		}
+
+		wp_add_inline_script( $this->get_handle(), sprintf(
+			"var %s = %s;",
+			(string) $name,
+			$variable
+		), $before ? 'before' : 'after' );
+	}
+
 	public function enqueue() {
 		if ( wp_script_is( $this->get_handle() ) ) {
 			return;

@@ -1,0 +1,35 @@
+.ac-input-group {
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.ac-input {
+	padding: 10px;
+	font-size: 15px;
+	border: 1px solid #979797;
+	border-radius: 3px;
+	margin-right: 3px;
+}
+
+.ac-btn-primary {
+	background: $ac-pink;
+	border: 1px solid $ac-pink;
+	color: #fff;
+	padding: 10px 40px;
+	font-size: 15px;
+	border-radius: 3px;
+	display: inline-block;
+	cursor: pointer;
+	text-decoration: none;
+
+	&:hover, &:focus, &:active {
+		background: #ea1951;
+		text-decoration: none;
+		color: #fff;
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: .5;
+	}
+}

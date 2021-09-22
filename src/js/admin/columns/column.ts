@@ -176,7 +176,7 @@ export class Column {
             if (response.data.success) {
                 let element = createElementFromString(response.data.data.trim()).firstChild as HTMLFormElement;
                 this.name = uniqid();
-                this.reinitColumnFromElement(element)
+                this.reinitColumnFromElement(element).open();
             } else {
                 this.showMessage(response.data.data.error);
             }
@@ -193,6 +193,9 @@ export class Column {
             if (response.data.success) {
                 this.reinitColumnFromElement(createElementFromString(response.data.data.trim()).firstChild as HTMLFormElement);
                 this.services.emitEvent(EventConstants.SETTINGS.COLUMN.REFRESHED, this);
+                if( this.isOpen() ){
+                    this.open();
+                }
             } else {
                 this.showMessage(AC.i18n.errors.loading_column);
             }
@@ -209,7 +212,9 @@ export class Column {
     private reinitColumnFromElement(element: HTMLFormElement) {
         this.getElement().parentNode.replaceChild(element, this.getElement());
         this.element = element;
-        this.setPropertiesByElement(element).init().open();
+        this.setPropertiesByElement(element).init();
+
+        return this;
     }
 
 }

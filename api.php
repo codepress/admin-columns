@@ -1,7 +1,5 @@
 <?php
 
-use AC\Admin;
-use AC\Admin\RequestHandlerInterface;
 use AC\EncodedListScreenDataFactory;
 use AC\Helper;
 use AC\ListScreen;
@@ -106,14 +104,8 @@ function ac_load_columns( array $data ) {
  *
  * @return string
  */
-function ac_get_admin_url( $slug ) {
-	return add_query_arg(
-		[
-			RequestHandlerInterface::PARAM_PAGE => Admin\Admin::NAME,
-			RequestHandlerInterface::PARAM_TAB  => $slug,
-		],
-		admin_url( 'options-general.php' )
-	);
+function ac_get_admin_url( $slug = null ) {
+	return Url\Editor::create_with_slug( $slug )->get_url();
 }
 
 /**
@@ -122,13 +114,7 @@ function ac_get_admin_url( $slug ) {
  * @return string
  */
 function ac_get_admin_network_url( $slug = null ) {
-	return add_query_arg(
-		[
-			RequestHandlerInterface::PARAM_PAGE => Admin\Admin::NAME,
-			RequestHandlerInterface::PARAM_TAB  => $slug,
-		],
-		network_admin_url( 'settings.php' )
-	);
+	return Url\EditorNetwork::create_with_slug( $slug )->get_url();
 }
 
 /**

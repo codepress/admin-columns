@@ -17,58 +17,48 @@ $column = $this->column;
 		data-original="<?= esc_attr( $column->is_original() ); ?>"
 		data-column-name="<?= esc_attr( $column->get_name() ); ?>">
 
-	<div class="ac-column-header">
-		<table class="widefat">
-			<tbody>
-			<tr>
-				<td class="column_sort">
-					<span class="cpacicon-move"></span>
-				</td>
-				<td class="column_label">
-					<div class="inner">
-						<div class="meta">
-							<?php
+	<div class="ac-column__header">
+		<div class="ac-column__header__move" data-sort-handle>
+			<span class="cpacicon-move"></span>
+		</div>
+		<div class="ac-column__header__label">
+			<a class="ac-column__header__label__link" data-toggle="column" data-column-label>
+				<?= $column->get_setting( 'label' )->get_value(); ?>
+			</a>
 
-							foreach ( $column->get_settings() as $setting ) {
-								if ( $setting instanceof \AC\Settings\Column ) {
-									echo $setting->render_header() . "\n";
-								}
-							}
+			<div class="ac-column__header__info">
+				<small class="column-id"><?= sprintf( '%s: %s', __( 'Name', 'codepress-admin-columns' ), $column->get_name() ); ?></small>
+				<small class="column-type"><?= sprintf( '%s: %s', __( 'Type', 'codepress-admin-columns' ), $column->get_type() ); ?></small>
+			</div>
 
-							/**
-							 * Fires in the meta-element for column options, which is displayed right after the column label
-							 *
-							 * @param \AC\Column $column_instance Column class instance
-							 *
-							 * @since 2.0
-							 */
-							do_action( 'ac/column/header', $column );
+			<div class="ac-column__header__actions">
+				<a class="edit-button" data-toggle="column"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
+				<a class="close-button" data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
+				<?php if ( ! $column->is_original() ) : ?>
+					<a class="clone-button"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
+				<?php endif; ?>
+				<a class="remove-button" data-remove-column><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
+			</div>
+		</div>
+		<div class="ac-column__header__features">
+			<?php
 
-							?>
-						</div>
-						<a class="toggle" data-toggle="column">
-							<?= $column->get_setting( 'label' )->get_value(); ?>
-						</a>
-						<small class="column-id"><?= sprintf( '%s: %s', __( 'Name', 'codepress-admin-columns' ), $column->get_name() ); ?></small>
-						<small class="column-type"><?= sprintf( '%s: %s', __( 'Type', 'codepress-admin-columns' ), $column->get_type() ); ?></small>
-						<a class="edit-button" data-toggle="column"><?php _e( 'Edit', 'codepress-admin-columns' ); ?></a>
-						<a class="close-button" data-toggle="column"><?php _e( 'Close', 'codepress-admin-columns' ); ?></a>
-						<?php if ( ! $column->is_original() ) : ?>
-							<a class="clone-button" href="#"><?php _e( 'Clone', 'codepress-admin-columns' ); ?></a>
-						<?php endif; ?>
-						<a class="remove-button" data-remove-column><?php _e( 'Remove', 'codepress-admin-columns' ); ?></a>
-					</div>
-				</td>
-				<td class="column_type">
-					<div class="inner" data-toggle="column">
-						<?= ac_helper()->html->strip_attributes( $column->get_label(), [ 'style', 'class' ] ); ?>
-					</div>
-				</td>
-				<td class="column_edit" data-toggle="column">
-				</td>
-			</tr>
-			</tbody>
-		</table>
+			foreach ( $column->get_settings() as $setting ) {
+				if ( $setting instanceof \AC\Settings\Column ) {
+					echo $setting->render_header() . "\n";
+				}
+			}
+
+			do_action( 'ac/column/header', $column );
+
+			?>
+		</div>
+		<div class="ac-column__header__type" data-toggle="column">
+			<span><?= ac_helper()->html->strip_attributes( $column->get_label(), [ 'style', 'class' ] ); ?></span>
+		</div>
+		<div class="ac-column__header__arrow" data-toggle="column">
+			<span class="dashicons dashicons-arrow-down"></span>
+		</div>
 	</div>
 
 	<div class="ac-column-body">

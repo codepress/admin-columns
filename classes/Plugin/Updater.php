@@ -10,6 +10,18 @@ abstract class Updater {
 	protected $updates;
 
 	/**
+	 * @param Version|null $version
+	 *
+	 * @return bool
+	 */
+	abstract protected function update_stored_version( Version $version = null );
+
+	/**
+	 * @return bool
+	 */
+	abstract public function is_new_install();
+
+	/**
 	 * @param Update $update
 	 *
 	 * @return $this
@@ -37,23 +49,11 @@ abstract class Updater {
 		foreach ( $this->updates as $update ) {
 			if ( $update->needs_update() ) {
 				$update->apply_update();
-				$this->update_stored_version( $update->get_version() );
+				$this->update_stored_version( new Version( $update->get_version() ) );
 			}
 		}
 
 		$this->update_stored_version();
 	}
-
-	/**
-	 * @param null $version
-	 *
-	 * @return bool
-	 */
-	abstract protected function update_stored_version( $version = null );
-
-	/**
-	 * @return bool
-	 */
-	abstract protected function is_new_install();
 
 }

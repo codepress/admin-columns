@@ -12,6 +12,7 @@ class CustomFieldType extends Settings\Column
 
 	const NAME = 'field_type';
 
+	const TYPE_DEFAULT = '';
 	const TYPE_ARRAY = 'array';
 	const TYPE_BOOLEAN = 'checkmark';
 	const TYPE_COLOR = 'color';

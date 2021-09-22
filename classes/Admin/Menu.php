@@ -2,40 +2,25 @@
 
 namespace AC\Admin;
 
-use AC\Admin;
-use AC\Renderable;
-use AC\View;
-
-class Menu implements Renderable {
+class Menu {
 
 	/**
-	 * @var string
-	 */
-	private $url;
-
-	/**
-	 * @var string
-	 */
-	private $current;
-
-	/**
-	 * @var Admin\Menu\Item[]
+	 * @var Menu\Item[]
 	 */
 	private $items;
 
-	public function __construct( $url, $current ) {
-		$this->url = $url;
-		$this->current = $current;
+	public function __construct( array $items = [] ) {
+		array_map( [ $this, 'add_item' ], $items );
 	}
 
-	public function add_item( $slug, $label ) {
-		$this->items[] = new Menu\Item( $slug, $label, $this->create_menu_link( $slug ) );
+	public function add_item( Menu\Item $item ) {
+		$this->items[ $item->get_slug() ] = $item;
 
 		return $this;
 	}
 
 	public function remove_item( $slug ) {
-		unset( $this->items[ $slug ] );
+		unset( $this->items[ (string) $slug ] );
 
 		return $this;
 	}
@@ -44,35 +29,12 @@ class Menu implements Renderable {
 		return $this->items;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_current() {
-		return $this->current;
-	}
+	public function get_item_by_slug( $slug ) {
+		if ( isset( $this->items[ $slug ] ) ) {
+			return $this->items[ $slug ];
+		}
 
-	/**
-	 * @param string $slug
-	 *
-	 * @return string
-	 */
-	protected function create_menu_link( $slug ) {
-		return add_query_arg(
-			[
-				RequestHandler::PARAM_PAGE => Admin\Admin::NAME,
-				RequestHandler::PARAM_TAB  => $slug,
-			],
-			$this->url
-		);
-	}
-
-	public function render() {
-		$view = new View( [
-			'menu_items' => $this->get_items(),
-			'current'    => $this->current,
-		] );
-
-		return $view->set_template( 'admin/menu' )->render();
+		return null;
 	}
 
 }

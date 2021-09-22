@@ -15,7 +15,11 @@ final class GravityForms extends Integration {
 			'ac-addon-gravityforms/ac-addon-gravityforms.php',
 			'Gravity Forms',
 			'assets/images/addons/gravityforms.svg',
-			__( 'Take your form submission management to the next level!', 'codepress-admin-columns' ),
+			sprintf(
+				'%s %s',
+				sprintf( __( 'Integrates %s with Admin Columns.', 'codepress-admin-columns' ), __( 'Gravity Forms', 'codepress-admin-columns' ) ),
+				sprintf( __( 'Display, inline- and bulk-edit, export, smart filter and sort your %s Entries.', 'codepress-admin-columns' ), __( 'Gravity Forms', 'codepress-admin-columns' ) )
+			),
 			null,
 			new Site( Site::PAGE_ADDON_GRAVITYFORMS )
 		);

@@ -82,7 +82,7 @@ class Image extends Settings\Column
 
 		if ( ! empty( $all_sizes ) ) {
 			foreach ( $all_sizes as $size ) {
-				if ( 'medium_large' == $size || isset( $sizes['default']['options'][ $size ] ) ) {
+				if ( 'medium_large' === $size || isset( $sizes['default']['options'][ $size ] ) ) {
 					continue;
 				}
 

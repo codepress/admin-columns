@@ -34,7 +34,7 @@ class Option implements KeyValuePair {
 	}
 
 	/**
-	 * @param $value
+	 * @param mixed $value
 	 *
 	 * @return bool
 	 */

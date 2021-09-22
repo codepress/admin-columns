@@ -1,0 +1,41 @@
+.ac-ajax-loading {
+	$e: &;
+	display: none;
+	white-space: nowrap;
+	position: absolute;
+	transform: translateX(10px);
+
+	.spinner {
+		visibility: visible;
+		margin: 0;
+	}
+
+	&__icon {
+		color: var(--ac-notification-green);
+	}
+
+	&__status {
+		font-weight: bold;
+		margin-left: 5px;
+	}
+
+	&__icon, &__status {
+		display: none;
+	}
+
+	&.-active {
+		display: inline-flex;
+	}
+
+	&.-finished {
+		.spinner {
+			display: none;
+		}
+
+		#{$e}__icon,
+		#{$e}__status {
+			display: block;
+		}
+
+	}
+}

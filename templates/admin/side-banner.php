@@ -70,7 +70,7 @@ $upgrade_page_url = new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'banner' );
 			<?php endif; ?>
 			<p class="center nopadding">
 				<?php if ( ! $is_promo_active ) : ?>
-					<a target="_blank" href="<?= esc_url( $upgrade_page_url->get_url() ); ?>" class="acp-button">
+					<a target="_blank" href="<?= esc_url( $upgrade_page_url->add_content( 'cta')->get_url() ); ?>" class="acp-button">
 						<?php _e( 'Get Admin Columns Pro', 'codepress-admin-columns' ); ?>
 					</a>
 				<?php endif; ?>

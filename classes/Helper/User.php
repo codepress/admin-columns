@@ -188,4 +188,24 @@ class User {
 		return $wpdb->get_col( "SELECT {$wpdb->users}.ID FROM {$wpdb->users}" );
 	}
 
+	/**
+	 * Fetches remote translations. Expires in 7 days.
+	 * @return array[]
+	 */
+	public function get_translations_remote() {
+		$translations = get_site_transient( 'ac_available_translations' );
+
+		if ( false !== $translations ) {
+			return $translations;
+		}
+
+		require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
+
+		$translations = wp_get_available_translations();
+
+		set_site_transient( 'ac_available_translations', wp_get_available_translations(), WEEK_IN_SECONDS );
+
+		return $translations;
+	}
+
 }

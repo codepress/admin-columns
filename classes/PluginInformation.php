@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use AC\Plugin\Version;
+
 class PluginInformation {
 
 	/**
@@ -10,7 +12,18 @@ class PluginInformation {
 	private $basename;
 
 	public function __construct( $basename ) {
-		$this->basename = $basename;
+		$this->basename = (string) $basename;
+	}
+
+	public static function create_by_file( $file ) {
+		return new self( plugin_basename( $file ) );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_basename() {
+		return $this->basename;
 	}
 
 	/**
@@ -24,7 +37,7 @@ class PluginInformation {
 	 * @return bool
 	 */
 	public function is_installed() {
-		return null !== $this->get_plugin_info();
+		return null !== $this->get_header_data();
 	}
 
 	/**
@@ -42,31 +55,34 @@ class PluginInformation {
 	}
 
 	/**
-	 * @return string|null
+	 * @return Version
 	 */
 	public function get_version() {
-		return $this->get_plugin_var( 'Version' );
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_basename() {
-		return $this->basename;
+		return new Version( (string) $this->get_header( 'Version' ) );
 	}
 
 	/**
 	 * @return string
 	 */
 	public function get_name() {
-		return $this->get_plugin_var( 'Name' );
+		return $this->get_header( 'Name' );
+	}
+
+	/**
+	 * @return array
+	 */
+	private function get_plugins() {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		// use `get_plugins` (cached) over `get_plugin_data` (non cached)
+		return (array) get_plugins();
 	}
 
 	/**
 	 * @return array|null
 	 */
-	private function get_plugin_info() {
-		$plugins = (array) get_plugins();
+	private function get_header_data() {
+		$plugins = $this->get_plugins();
 
 		if ( ! array_key_exists( $this->basename, $plugins ) ) {
 			return null;
@@ -80,40 +96,12 @@ class PluginInformation {
 	 *
 	 * @return string|null
 	 */
-	private function get_plugin_var( $var ) {
-		$info = $this->get_plugin_info();
+	public function get_header( $var ) {
+		$info = $this->get_header_data();
 
-		if ( ! $info || ! isset( $info[ $var ] ) ) {
-			return null;
-		}
-
-		return $info[ $var ];
-	}
-
-	/**
-	 * @param string $action 'activate' or 'deactivate'
-	 * @param string $basename
-	 *
-	 * @return string
-	 */
-	public function get_plugin_action_url( $action ) {
-		return add_query_arg( [
-			'action' => $action,
-			'plugin' => $this->basename,
-		], wp_nonce_url( admin_url( 'plugins.php' ), $action . '-plugin_' . $this->basename ) );
-	}
-
-	/**
-	 * @param string $action 'activate' or 'deactivate'
-	 * @param string $basename
-	 *
-	 * @return string
-	 */
-	public function get_plugin_network_action_url( $action ) {
-		return add_query_arg( [
-			'action' => $action,
-			'plugin' => $this->basename,
-		], wp_nonce_url( network_admin_url( 'plugins.php' ), $action . '-plugin_' . $this->basename ) );
+		return $info && isset( $info[ $var ] )
+			? (string) $info[ $var ]
+			: null;
 	}
 
 }

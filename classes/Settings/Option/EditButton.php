@@ -14,7 +14,7 @@ class EditButton extends Option {
 	 * @return bool
 	 */
 	public function is_enabled() {
-		return $this->is_empty() || '1' === $this->get();
+		return in_array( $this->get(), [ null, '1' ], true );
 	}
 
 }

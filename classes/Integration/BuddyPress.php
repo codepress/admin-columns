@@ -14,7 +14,11 @@ final class BuddyPress extends Integration {
 			'ac-addon-buddypress/ac-addon-buddypress.php',
 			__( 'BuddyPress', 'codepress-admin-columns' ),
 			'assets/images/addons/buddypress.png',
-			__( 'Display any of your Profile Fields for BuddyPress on your users overview.', 'codepress-admin-columns' ),
+			sprintf(
+				'%s %s',
+				sprintf( __( 'Integrates %s with Admin Columns.', 'codepress-admin-columns' ), __( 'BuddyPress', 'codepress-admin-columns' ) ),
+				__( 'Display, inline- and bulk-edit, export, smart filter and sort your BuddyPress data fields on the Users page.', 'codepress-admin-columns' )
+			),
 			null,
 			new Site( Site::PAGE_ADDON_BUDDYPRESS )
 		);

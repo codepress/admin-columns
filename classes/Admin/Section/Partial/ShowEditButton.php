@@ -2,14 +2,11 @@
 
 namespace AC\Admin\Section\Partial;
 
-use AC\Form\Element\Checkbox;
+use AC\Form\Element\Toggle;
 use AC\Renderable;
-use AC\Settings\General;
 use AC\Settings\Option\EditButton;
 
 class ShowEditButton implements Renderable {
-
-	const OPTION_NAME = 'show_edit_button';
 
 	/**
 	 * @var EditButton
@@ -21,24 +18,18 @@ class ShowEditButton implements Renderable {
 	}
 
 	private function get_label() {
-		return sprintf( '%s %s',
-			sprintf( __( "Show %s button on table screen.", 'codepress-admin-columns' ), sprintf( '"%s"', __( 'Edit columns', 'codepress-admin-columns' ) ) ),
-			sprintf( __( "Default is %s.", 'codepress-admin-columns' ), '<code>' . __( 'on', 'codepress-admin-columns' ) . '</code>' )
-		);
+		return sprintf( __( "Show %s button on table screen.", 'codepress-admin-columns' ), sprintf( '"%s"', __( 'Edit columns', 'codepress-admin-columns' ) ) );
 	}
 
 	/**
 	 * @return string
 	 */
 	public function render() {
-		$name = sprintf( '%s[%s]', General::NAME, $this->option->get_name() );
+		$toggle = new Toggle( $this->option->get_name(), $this->get_label(), $this->option->is_enabled() );
+		$toggle->set_value( '1' );
+		$toggle->set_attribute( 'data-ajax-setting', $this->option->get_name() );
 
-		$checkbox = new Checkbox( $name );
-
-		$checkbox->set_options( [ '1' => $this->get_label() ] )
-		         ->set_value( $this->option->is_enabled() ? 1 : 0 );
-
-		return $checkbox->render();
+		return $toggle->render();
 	}
 
 }

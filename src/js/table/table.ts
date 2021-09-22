@@ -3,9 +3,10 @@ import Cells from "./cells";
 import Columns from "./columns";
 import Cell from "./cell";
 import RowSelection from "./row-selection";
-import {getIdFromTableRow, getRowCellByName} from "../helpers/table";
+import {getIdFromTableRow} from "../helpers/table";
 import {EventConstants} from "../constants";
 import AcServices from "../modules/ac-services";
+import ServiceContainer from "../modules/service-container";
 
 export type TableEventPayload = {
     table: Table
@@ -14,16 +15,17 @@ export type TableEventPayload = {
 export default class Table {
 
     private el: HTMLTableElement
-    private Services: AcServices
+    private AcServices: AcServices
     Columns: Columns
     Cells: Cells
     Actions: Actions
     Selection: RowSelection
-    _ids: Array<number>
+    Services: ServiceContainer
 
     constructor(el: HTMLTableElement, services: AcServices) {
         this.el = el;
-        this.Services = services;
+        this.AcServices = services;
+        this.Services = new ServiceContainer();
         this.Columns = new Columns(el);
         this.Cells = new Cells();
         this.Actions = document.getElementById('ac-table-actions') ? new Actions(document.getElementById('ac-table-actions')) : null;
@@ -49,7 +51,7 @@ export default class Table {
         this.addCellClasses();
 
         document.dispatchEvent(new CustomEvent('AC_Table_Ready', {detail: {table: this}}));
-        this.Services.emitEvent(EventConstants.TABLE.READY, {table: this});
+        this.AcServices.emitEvent(EventConstants.TABLE.READY, {table: this});
 
         return this;
     }
@@ -90,14 +92,6 @@ export default class Table {
                 this.Cells.add(id, cell);
             }
         });
-    }
-
-    /**
-     * @deprecated use Helper function instead
-     * TODO remove once IE uses the helper
-     */
-    getRowCellByName(row: HTMLTableRowElement, column_name: string): HTMLTableCellElement {
-        return getRowCellByName(row, column_name);
     }
 
 }

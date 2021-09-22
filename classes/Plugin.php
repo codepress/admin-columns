@@ -2,70 +2,79 @@
 
 namespace AC;
 
+use AC\Asset\Location;
+use AC\Plugin\Install;
+use AC\Plugin\PluginHeader;
+use AC\Plugin\Version;
 use ReflectionObject;
-use WP_Roles;
 
-abstract class Plugin extends Addon {
+class Plugin {
 
 	/**
-	 * @var Installer|null
+	 * Location of the plugin main file
+	 * @var string
+	 */
+	private $file;
+
+	/**
+	 * @var string
+	 */
+	private $version_key;
+
+	/**
+	 * @var Version
+	 */
+	private $version;
+
+	/**
+	 * @var Install|null
 	 */
 	private $installer;
 
-	/**
-	 * @var array
-	 */
-	private $data;
-
-	public function set_installer( Installer $installer ) {
-		$this->installer = $installer;
-	}
-
-	/**
-	 * Check if plugin is network activated
-	 * @return bool
-	 */
-	public function is_network_active() {
-		return is_plugin_active_for_network( $this->get_basename() );
-	}
-
-	/**
-	 * Calls get_plugin_data() for this plugin
-	 * @return array
-	 * @see get_plugin_data()
-	 */
-	protected function get_data() {
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-		if ( null === $this->data ) {
-			$this->data = get_plugin_data( $this->get_file(), false, false );
+	protected function __construct( $file, $version_key, Version $version = null ) {
+		if ( null === $version ) {
+			$version = ( new PluginHeader( $file ) )->get_version();
 		}
 
-		return $this->data;
+		$this->file = (string) $file;
+		$this->version_key = (string) $version_key;
+		$this->version = $version;
+	}
+
+	public function get_updater() {
+		return new Plugin\Updater\Site( $this->version_key, $this->version );
 	}
 
 	/**
 	 * @return string
 	 */
-	public function get_name() {
-		return (string) $this->get_header( 'Name' );
+	public function get_basename() {
+		return plugin_basename( $this->file );
 	}
 
 	/**
-	 * Return a plugin header from the plugin data
-	 *
-	 * @param string $key
-	 *
-	 * @return false|string
+	 * @return string
 	 */
-	protected function get_header( $key ) {
-		$data = $this->get_data();
+	public function get_dir() {
+		return plugin_dir_path( $this->file );
+	}
 
-		if ( ! isset( $data[ $key ] ) ) {
-			return false;
-		}
+	/**
+	 * @return string
+	 */
+	public function get_url() {
+		return plugin_dir_url( $this->file );
+	}
 
-		return $data[ $key ];
+	public function set_installer( Install $installer ) {
+		$this->installer = $installer;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_network_active() {
+		return is_plugin_active_for_network( $this->get_basename() );
 	}
 
 	/**
@@ -79,12 +88,12 @@ abstract class Plugin extends Addon {
 		}
 
 		// Run installer when the current version is not equal to its stored version
-		if ( ! $this->is_version_equal( $this->get_stored_version() ) ) {
+		if ( $this->version->is_not_equal( $this->get_stored_version() ) ) {
 			return true;
 		}
 
 		// Run installer when the current version can not be read from the plugin's header file
-		if ( ! $this->get_version() && ! $this->get_stored_version() ) {
+		if ( ! $this->version->is_valid() && ! $this->get_stored_version()->is_valid() ) {
 			return true;
 		}
 
@@ -96,15 +105,7 @@ abstract class Plugin extends Addon {
 			return;
 		}
 
-		global $wp_roles;
-
-		if ( ! $wp_roles ) {
-			$wp_roles = new WP_Roles();
-		}
-
-		do_action( 'ac/capabilities/init', $wp_roles );
-
-		if ( $this->installer instanceof Installer ) {
+		if ( $this->installer ) {
 			$this->installer->install();
 		}
 
@@ -114,36 +115,34 @@ abstract class Plugin extends Addon {
 	}
 
 	private function run_updater() {
-		$updater = new Plugin\Updater\Site( $this );
+		$updater = $this->get_updater();
 
 		$reflection = new ReflectionObject( $this );
 		$classes = Autoloader::instance()->get_class_names_from_dir( $reflection->getNamespaceName() . '\Plugin\Update' );
 
 		foreach ( $classes as $class ) {
-			$updater->add_update( new $class( $this->get_stored_version() ) );
+			$updater->add_update( new $class( $this->get_stored_version()->get_value() ) );
 		}
 
 		$updater->parse_updates();
 	}
 
 	/**
-	 * @return bool
+	 * @return Location\Absolute
 	 */
-	public function is_beta() {
-		return false !== strpos( $this->get_version(), 'beta' );
+	public function get_location() {
+		return new Location\Absolute(
+			$this->get_url(),
+			$this->get_dir()
+		);
 	}
 
 	/**
-	 * @return string
+	 * @return Version
 	 */
 	public function get_version() {
-		return (string) $this->get_header( 'Version' );
+		return $this->version;
 	}
-
-	/**
-	 * @return string
-	 */
-	abstract protected function get_version_key();
 
 	/**
 	 * @param string $version
@@ -151,80 +150,21 @@ abstract class Plugin extends Addon {
 	 * @return bool
 	 */
 	public function is_version_gte( $version ) {
-		return version_compare( $this->get_version(), $version, '>=' );
+		return $this->version->is_gte( new Version( $version ) );
 	}
 
 	/**
-	 * @param string $version
-	 *
-	 * @return bool
-	 */
-	private function is_version_equal( $version ) {
-		return 0 === version_compare( $this->get_version(), $version );
-	}
-
-	/**
-	 * @return string
+	 * @return Version
 	 */
 	public function get_stored_version() {
-		return (string) get_option( $this->get_version_key() );
-	}
-
-	/**
-	 * Update the stored version to match the (current) version
-	 *
-	 * @param null $version
-	 *
-	 * @return bool
-	 */
-	public function update_stored_version( $version = null ) {
-		if ( null === $version ) {
-			$version = $this->get_version();
-		}
-
-		return update_option( $this->get_version_key(), $version, false );
+		return $this->get_updater()->get_stored_version();
 	}
 
 	/**
 	 * Check if the plugin was updated or is a new install
 	 */
 	public function is_new_install() {
-		global $wpdb;
-
-		if ( $this->get_stored_version() ) {
-			return false;
-		}
-
-		// Before version 3.0.5
-		$results = $wpdb->get_results( "SELECT option_id FROM {$wpdb->options} WHERE option_name LIKE 'cpac_options_%' LIMIT 1" );
-
-		return empty( $results );
-	}
-
-	/**
-	 * Return a plugin header from the plugin data
-	 *
-	 * @param string $key
-	 *
-	 * @return string
-	 * @deprecated
-	 */
-	protected function get_plugin_header( $key ) {
-		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_header()' );
-
-		return $this->get_header( $key );
-	}
-
-	/**
-	 * Calls get_plugin_data() for this plugin
-	 * @return array
-	 * @see get_plugin_data()
-	 * @deprecated
-	 */
-	protected function get_plugin_data() {
-		_deprecated_function( __METHOD__, '3.2', 'AC\Plugin::get_data()' );
-
-		return $this->get_data();
+		return $this->get_updater()->is_new_install();
 	}
 
 }

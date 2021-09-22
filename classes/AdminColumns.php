@@ -3,9 +3,8 @@
 namespace AC;
 
 use AC\Admin\AdminScripts;
-use AC\Admin\Main\Columns;
-use AC\Admin\MainFactory;
 use AC\Admin\MenuFactory;
+use AC\Admin\Page\Columns;
 use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\Preference;
@@ -18,7 +17,10 @@ use AC\Controller;
 use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
+use AC\Plugin\InstallCollection;
+use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
+use AC\Settings\GeneralOption;
 use AC\Table;
 use AC\ThirdParty;
 
@@ -43,7 +45,9 @@ class AdminColumns extends Plugin {
 		return self::$instance;
 	}
 
-	private function __construct() {
+	protected function __construct() {
+		parent::__construct( AC_FILE, 'ac_version', new Version( AC_VERSION ) );
+
 		$this->storage = new Storage();
 		$this->storage->set_repositories( [
 			'acp-database' => new ListScreenRepository\Storage\ListScreenRepository(
@@ -59,7 +63,7 @@ class AdminColumns extends Plugin {
 
 		RequestHandler::add_handler(
 			new PageRequestHandler(
-				new PageFactory( new MenuFactory( admin_url( 'options-general.php' ) ), new MainFactory( $this->storage, $location ) ),
+				new PageFactory( $this->storage, $location, new MenuFactory( admin_url( 'options-general.php' ), new IntegrationRepository() ) ),
 				Columns::NAME
 			)
 		);
@@ -71,7 +75,6 @@ class AdminColumns extends Plugin {
 			new Deprecated\Hooks,
 			new ListScreens(),
 			new Screen,
-			new Settings\General,
 			new ThirdParty\ACF,
 			new ThirdParty\NinjaForms,
 			new ThirdParty\WooCommerce,
@@ -80,14 +83,14 @@ class AdminColumns extends Plugin {
 			new QuickEdit( $this->storage, new Table\Preference() ),
 			new Capabilities\Manage(),
 			new Controller\AjaxColumnRequest( $this->storage, new Request() ),
+			new Controller\AjaxGeneralOptions( new GeneralOption() ),
 			new Controller\AjaxRequestCustomFieldKeys(),
 			new Controller\AjaxColumnValue( $this->storage ),
 			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),
-			new Controller\RedirectAddonStatus( new Integrations() ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
-			new NoticeChecks(),
+			new NoticeChecks( $this->get_location() ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];
 
@@ -97,7 +100,11 @@ class AdminColumns extends Plugin {
 			}
 		}
 
-		$this->set_installer( new Plugin\Installer() );
+		$installer = new InstallCollection();
+		$installer->add_install( new Plugin\Install\Capabilities() )
+		          ->add_install( new Plugin\Install\Database() );
+
+		$this->set_installer( $installer );
 
 		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
@@ -108,28 +115,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function get_storage() {
 		return $this->storage;
-	}
-
-	protected function get_file() {
-		return AC_FILE;
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function get_version_key() {
-		return 'ac_version';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_version() {
-		return AC_VERSION;
-	}
-
-	private function get_location() {
-		return new Absolute( $this->get_url(), $this->get_dir() );
 	}
 
 	public function register_global_scripts() {
@@ -145,102 +130,11 @@ class AdminColumns extends Plugin {
 		}
 	}
 
+	/**
+	 * @deprecated 4.3.1
+	 */
 	public function admin() {
 		_deprecated_function( __METHOD__, '4.3.1' );
-	}
-
-	/**
-	 * @since      3.0
-	 * @deprecated 3.1.5
-	 */
-	public function get_plugin_version() {
-		_deprecated_function( __METHOD__, '3.1.5' );
-	}
-
-	/**
-	 * @deprecated 3.1.5
-	 * @since      3.0
-	 */
-	public function get_default_list_screen() {
-		_deprecated_function( __METHOD__, '3.1.5' );
-	}
-
-	/**
-	 * @deprecated 3.1.5
-	 * @since      3.0
-	 */
-	public function minified() {
-		_deprecated_function( __METHOD__, '3.1.5' );
-	}
-
-	/**
-	 * @param string $key
-	 *
-	 * @return ListScreen|null
-	 * @since      3.0
-	 * @deprecated 3.2
-	 */
-	public function get_list_screen( $key ) {
-		_deprecated_function( __METHOD__, '3.2', 'ListScreenTypes::instance()->get_list_screen_by_key()' );
-
-		return ListScreenTypes::instance()->get_list_screen_by_key( $key );
-	}
-
-	/**
-	 * @param string $key
-	 *
-	 * @return bool
-	 * @deprecated 3.2
-	 */
-	public function list_screen_exists( $key ) {
-		_deprecated_function( __METHOD__, '3.2' );
-
-		return null !== ListScreenTypes::instance()->get_list_screen_by_key( $key );
-	}
-
-	/**
-	 * @return Groups
-	 * @deprecated 3.2
-	 */
-	public function list_screen_groups() {
-		_deprecated_function( __METHOD__, '3.1.5', 'ListScreenGroups::get_groups' );
-
-		return ListScreenGroups::get_groups();
-	}
-
-	/**
-	 * @return Groups
-	 * @deprecated 3.2
-	 */
-	public function column_groups() {
-		_deprecated_function( __METHOD__, '3.2' );
-
-		return new Groups();
-	}
-
-	/**
-	 * @return Helper
-	 * @deprecated 3.2
-	 * @since      3.0
-	 */
-	public function helper() {
-		_deprecated_function( __METHOD__, '3.2', 'ac_helper()' );
-
-		return new Helper();
-	}
-
-	/**
-	 * @deprecated 3.4
-	 */
-	public function table_screen() {
-		_deprecated_function( __METHOD__, '3.4' );
-	}
-
-	/**
-	 * @deprecated 3.4
-	 */
-	public function admin_columns_screen() {
-		_deprecated_function( __METHOD__, '3.4' );
 	}
 
 	/**
@@ -262,27 +156,6 @@ class AdminColumns extends Plugin {
 	}
 
 	/**
-	 * @return bool
-	 * @deprecated 4.1
-	 * @since      2.5
-	 */
-	public function use_delete_confirmation() {
-		_deprecated_function( __METHOD__, '4.1' );
-
-		return (bool) apply_filters( 'ac/delete_confirmation', true );
-	}
-
-	/**
-	 * @return bool
-	 * @deprecated 4.1
-	 */
-	public function is_doing_ajax() {
-		_deprecated_function( __METHOD__, '4.1', 'wp_doing_ajax()' );
-
-		return wp_doing_ajax();
-	}
-
-	/**
 	 * @return array
 	 * @since      1.0
 	 * @deprecated 4.1
@@ -300,7 +173,7 @@ class AdminColumns extends Plugin {
 	 * @deprecated 4.1
 	 */
 	public function register_list_screen( ListScreen $list_screen ) {
-		_deprecated_function( __METHOD__, '4.1', 'ListScreenTypes::register_list_screen()' );
+		_deprecated_function( __METHOD__, '4.1', 'ListScreenTypes::instance()->register_list_screen()' );
 
 		ListScreenTypes::instance()->register_list_screen( $list_screen );
 

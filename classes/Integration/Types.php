@@ -13,7 +13,11 @@ final class Types extends Integration {
 			'ac-addon-types/ac-addon-types.php',
 			__( 'Toolset Types', 'codepress-admin-columns' ),
 			'assets/images/addons/toolset-types.png',
-			__( 'Display and edit Toolset Types fields in the posts overview in seconds!', 'codepress-admin-columns' ),
+			sprintf(
+				'%s %s',
+				sprintf( __( 'Integrates %s with Admin Columns.', 'codepress-admin-columns' ), __( 'Toolset Types', 'codepress-admin-columns' ) ),
+				sprintf( __( 'Display, inline- and bulk-edit, export, smart filter and sort your %s contents on any admin list table.', 'codepress-admin-columns' ), __( 'Toolset Types', 'codepress-admin-columns' ) )
+			),
 			null,
 			new Site( Site::PAGE_ADDON_TOOLSET_TYPES )
 		);

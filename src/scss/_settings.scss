@@ -44,7 +44,7 @@
 		background: #fff;
 
 		&__th, &__fields {
-			border-bottom: 1px solid #dfdfdf;
+			border-bottom: 1px solid var(--ac-border-grey);
 		}
 
 		&__th {
@@ -52,7 +52,7 @@
 			position: relative;
 			padding: 12px 13px;
 			padding-top: 15px;
-			border-right: 1px solid #dedede;
+			border-right: 1px solid var(--ac-border-grey);
 
 			label {
 				display: block;
@@ -129,6 +129,7 @@
 				}
 			}
 		}
+
 	}
 
 	.checkbox-labels,
@@ -189,5 +190,42 @@
 
 	select.sorting_order {
 		margin-bottom: 0;
+	}
+
+	&-mockup {
+		position: relative;
+
+		.ac-setbox {
+
+			&__row__fields {
+				filter: blur(5px);
+			}
+
+		}
+	}
+}
+
+.ac-unlock-modal {
+	background: #FFFFFF;
+	border: 1px solid #D0CECE;
+	box-shadow: 0 0 19px 0 rgba(0, 0, 0, 0.44);
+	position: absolute;
+	right: calc(30% - 100px);
+	top: 50%;
+	margin-top: -20px;
+	border-radius: 4px;
+	padding: 12px;
+	z-index: 2;
+
+	span {
+		margin-right: 5px;
+		color: var(--ac-pink-color);
+		transform: translateY( 4px );
+	}
+
+	.-pink {
+		margin-left: 10px;
+		padding-left: 20px;
+		padding-right: 20px;
 	}
 }
