@@ -33,7 +33,7 @@ export class AddonDownload {
             button.classList.add('button-disabled');
         }
 
-        this.element.querySelectorAll('h3').forEach(el => el.insertAdjacentHTML('afterend', '<span class="spinner" style="visibility: visible; transform: translateY(-3px);"></span>'))
+        this.element.querySelectorAll('.ac-addon__actions').forEach(el => el.insertAdjacentHTML('beforeend', '<span class="spinner" style="visibility: visible; transform: translateY(-3px);"></span>'))
         this.loadingState = true;
     }
 

@@ -46,7 +46,6 @@ class Dismissible extends Notice {
 	public function enqueue_scripts() {
 		parent::enqueue_scripts();
 
-		// TODO in footer?
 		$script = new Script( 'ac-message', AC()->get_location()->with_suffix( 'assets/js/notice-dismissible.js' ) );
 		$script->enqueue();
 	}

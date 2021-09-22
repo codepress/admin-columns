@@ -25,7 +25,7 @@ class Option {
 	 * @return bool
 	 */
 	public function is_empty() {
-		return false === $this->get();
+		return in_array( $this->get(), [ null, false ], true );
 	}
 
 	/**

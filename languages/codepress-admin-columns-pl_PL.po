@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-07-16 09:02:29+0000\n"
+"PO-Revision-Date: 2021-09-06 11:10:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1286,7 +1286,7 @@ msgstr "Sprawdź dział <strong>Pomocy</strong>, w prawym, górnym rogu ekranu."
 
 #: templates/admin/side-support.php:10
 msgid "Support"
-msgstr "Wsparcie"
+msgstr "Pomoc techniczna"
 
 #: templates/admin/side-feedback.php:63
 msgid "Buy Pro"
@@ -1598,7 +1598,7 @@ msgstr "Imię"
 
 #: classes/Column/User/DisplayName.php:14 classes/Settings/Column/User.php:76
 msgid "Display Name"
-msgstr "Pseudonim"
+msgstr "Wyświetlana nazwa"
 
 #: classes/Settings/Column/BeforeAfter.php:73
 msgid "After"
@@ -1619,7 +1619,7 @@ msgstr "szerokość"
 #: classes/ColumnGroups.php:16 classes/Settings/Column/CustomFieldType.php:173
 #: classes/Settings/Column/Image.php:112
 msgid "Custom"
-msgstr "Własny"
+msgstr "Własne"
 
 #: classes/Settings/Column/DateTimeFormat.php:62
 msgid "This will determine how the date will be displayed."
@@ -1647,7 +1647,7 @@ msgstr ""
 
 #: classes/Column/User/Registered.php:15
 msgid "Registered"
-msgstr "Zarejestrowany"
+msgstr "Zarejestrowano"
 
 #: classes/ListScreenGroups.php:13
 #: classes/Settings/Column/CustomFieldType.php:101
@@ -1689,7 +1689,7 @@ msgstr "Taksonomia"
 
 #: classes/Column/Post/Sticky.php:16
 msgid "Sticky"
-msgstr "Przyklejone"
+msgstr "Przypięte"
 
 #: classes/Column/Comment/Status.php:14 classes/Column/Post/Status.php:12
 msgid "Status"
@@ -2058,7 +2058,7 @@ msgstr "Avatar"
 #: classes/Column/Comment/Approved.php:14 classes/Column/Comment/Status.php:34
 #: classes/Settings/Column/CommentCount.php:56
 msgid "Approved"
-msgstr "Zatwierdzona"
+msgstr "Zatwierdzono"
 
 #: classes/Column/Comment/Agent.php:14
 msgid "Agent"

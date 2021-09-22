@@ -44,14 +44,12 @@ class Comment extends Settings\Column
 					new Settings\Column\CommentLink( $this->column ),
 				];
 
-				break;
 			case self::PROPERTY_COMMENT :
 				return [
 					new Settings\Column\StringLimit( $this->column ),
 					new Settings\Column\CommentLink( $this->column ),
 				];
 
-				break;
 			default :
 				return [ new Settings\Column\CommentLink( $this->column ) ];
 		}

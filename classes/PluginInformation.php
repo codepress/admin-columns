@@ -15,6 +15,10 @@ class PluginInformation {
 		$this->basename = (string) $basename;
 	}
 
+	public static function create_by_file( $file ) {
+		return new self( plugin_basename( $file ) );
+	}
+
 	/**
 	 * @return string
 	 */

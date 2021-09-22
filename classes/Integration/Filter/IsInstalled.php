@@ -9,15 +9,6 @@ use AC\PluginInformation;
 
 class IsInstalled implements Filter {
 
-	/**
-	 * @var bool
-	 */
-	private $enabled;
-
-	public function __construct( $enabled = true ) {
-		$this->enabled = (bool) $enabled;
-	}
-
 	public function filter( Integrations $integrations ) {
 		return new Integrations( array_filter( $integrations->all(), [ $this, 'is_installed' ] ) );
 	}
@@ -25,7 +16,7 @@ class IsInstalled implements Filter {
 	private function is_installed( Integration $integration ) {
 		$plugin = new PluginInformation( $integration->get_basename() );
 
-		return $this->enabled === $plugin->is_installed();
+		return $plugin->is_installed();
 	}
 
 }

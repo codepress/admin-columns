@@ -191,20 +191,31 @@
 .ac-ls-settings-mockup {
   position: relative;
 }
-.ac-ls-settings-mockup .ac-setbox__cta {
+.ac-ls-settings-mockup .ac-setbox__row__fields {
+  filter: blur(1.5px);
+}
+
+.ac-unlock-modal {
   background: #FFFFFF;
   border: 1px solid #D0CECE;
   box-shadow: 0 0 19px 0 rgba(0, 0, 0, 0.44);
-  border-radius: 4px;
   position: absolute;
-  right: calc( 30% - 100px);
-  top: 40%;
+  right: calc(30% - 100px);
+  top: 50%;
+  margin-top: -20px;
   border-radius: 4px;
-  padding: 20px;
+  padding: 12px;
   z-index: 2;
 }
-.ac-ls-settings-mockup .ac-setbox__row__fields {
-  filter: blur(5px);
+.ac-unlock-modal span {
+  margin-right: 5px;
+  color: var(--ac-pink-color);
+  transform: translateY(4px);
+}
+.ac-unlock-modal .-pink {
+  margin-left: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /**

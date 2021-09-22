@@ -22,7 +22,7 @@ class MenuFactory implements MenuFactoryInterface {
 	private $integration_repository;
 
 	public function __construct( $url, IntegrationRepository $integration_repository ) {
-		$this->url = $url;
+		$this->url = (string) $url;
 		$this->integration_repository = $integration_repository;
 	}
 
@@ -76,8 +76,9 @@ class MenuFactory implements MenuFactoryInterface {
 		}
 
 		$url = ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url();
+		$image = sprintf( '<img alt="%s" src="%s/assets/images/external.svg">', 'Admin Columns Pro', AC()->get_url() );
 
-		$menu->add_item( new Item( 'pro', $url, sprintf( '%s %s', __( 'Admin Columns Pro', 'codepress-admin-columns' ), ac_helper()->icon->dashicon( [ 'icon' => 'external', 'class' => 'icon-external' ] ) ), '-pro', '_blank' ) );
+		$menu->add_item( new Item( 'pro', $url, sprintf( '%s %s', 'Admin Columns Pro', $image ), '-pro', '_blank' ) );
 
 		do_action( 'ac/admin/page/menu', $menu );
 

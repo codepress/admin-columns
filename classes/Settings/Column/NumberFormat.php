@@ -185,7 +185,7 @@ class NumberFormat extends Settings\Column
 		switch ( $this->get_number_format() ) {
 			case 'formatted' :
 				return number_format( $value, (int) $this->get_number_decimals(), $this->get_number_decimal_point(), $this->get_number_thousands_separator() );
-				break;
+
 			default:
 				return $value;
 		}

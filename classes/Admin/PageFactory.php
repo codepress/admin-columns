@@ -54,7 +54,11 @@ class PageFactory implements PageFactoryInterface {
 
 				return $page;
 			case Page\Addons::NAME :
-				return new Page\Addons( $this->location, new IntegrationRepository(), new View\Menu( $this->menu_factory->create( $slug ) ) );
+				return new Page\Addons(
+					$this->location,
+					new IntegrationRepository(),
+					new View\Menu( $this->menu_factory->create( $slug ) )
+				);
 			case Page\Columns::NAME :
 				return new Page\Columns(
 					$this->location,

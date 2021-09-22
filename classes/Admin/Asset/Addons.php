@@ -14,17 +14,10 @@ class Addons extends Script {
 	public function register() {
 		parent::register();
 
-		wp_add_inline_script(
-			$this->get_handle(),
-			sprintf(
-				"var AC = %s;",
-				json_encode( [
-					'_ajax_nonce'      => wp_create_nonce( 'ac-ajax' ),
-					'is_network_admin' => is_network_admin(),
-				] )
-			),
-			'before'
-		);
+		$this->add_inline_variable( 'AC', [
+			'_ajax_nonce'      => wp_create_nonce( 'ac-ajax' ),
+			'is_network_admin' => is_network_admin(),
+		] );
 	}
 
 }

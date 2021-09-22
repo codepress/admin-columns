@@ -26,7 +26,7 @@ class Instruction {
 
 		if ( 'on' === $this->element->get_value() ) {
 			$html .= $this->instruction;
-}
+		}
 
 		return $html;
 	}
