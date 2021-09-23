@@ -18,19 +18,19 @@ class Setup implements Registrable {
 	private $stored_version;
 
 	/**
-	 * @var Updater
+	 * @var UpdateCollection|null
 	 */
-	private $updater;
+	private $updates;
 
 	/**
-	 * @var Install|null
+	 * @var InstallCollection|null
 	 */
 	private $install;
 
-	public function __construct( Version $version, StoredVersion $stored_version, Updater $updater, Install $install = null ) {
+	public function __construct( Version $version, StoredVersion $stored_version, UpdateCollection $updates = null, InstallCollection $install = null ) {
 		$this->version = $version;
 		$this->stored_version = $stored_version;
-		$this->updater = $updater;
+		$this->updates = $updates;
 		$this->install = $install;
 	}
 
@@ -43,13 +43,44 @@ class Setup implements Registrable {
 			return;
 		}
 
+		if ( $this->is_new_install() ) {
+			$this->stored_version->save( $this->version );
+
+			return;
+		}
+
 		if ( $this->install ) {
 			$this->install->install();
 		}
 
-		if ( current_user_can( Capabilities::MANAGE ) && ! is_network_admin() ) {
-			$this->updater->parse_updates();
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
+			return;
 		}
+
+		// TODO test network and single
+
+		// Single site
+		if ( $this->updates && ! is_network_admin() ) {
+			array_map( [ $this, 'apply_update' ], $this->updates->get_copy() );
+		}
+
+		$this->stored_version->save( $this->version );
+	}
+
+	private function apply_update( Update $update ) {
+		if ( $update->get_version()->is_gt( $this->stored_version->get() ) ) {
+			$update->apply_update();
+
+			$this->stored_version->save( $update->get_version() );
+		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_new_install() {
+		return ! $this->stored_version->get_previous()->is_valid() ||
+		       ! $this->stored_version->get()->is_valid();
 	}
 
 	/**

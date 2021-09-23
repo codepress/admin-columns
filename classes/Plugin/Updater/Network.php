@@ -4,6 +4,7 @@ namespace AC\Plugin\Updater;
 
 use AC\Plugin\Updater;
 
+// TODO remove
 class Network extends Updater {
 
 	/**

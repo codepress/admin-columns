@@ -12,8 +12,8 @@ use RecursiveIteratorIterator;
 
 class V3201 extends Update {
 
-	public function __construct( Version $stored_version ) {
-		parent::__construct( $stored_version, new Version( '3.2.1' ) );
+	public function __construct() {
+		parent::__construct( new Version( '3.2.1' ) );
 	}
 
 	public function apply_update() {

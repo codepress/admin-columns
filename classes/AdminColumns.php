@@ -18,6 +18,7 @@ use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\InstallCollection;
+use AC\Plugin\UpdateCollection;
 use AC\Plugin\Updater\Site;
 use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
@@ -93,7 +94,7 @@ class AdminColumns extends Plugin {
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks( $this->get_location() ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
-			new Plugin\Setup( $this->get_version(), $this->get_stored_version(), Site::create_by_namespace( 'AC\Plugin\Update', $this->get_stored_version(), $this->get_version() ), new InstallCollection( [ new Plugin\Install\Capabilities(), new Plugin\Install\Database() ] ) ),
+			new Plugin\Setup( $this->get_version(), $this->get_stored_version(), UpdateCollection::create_by_namespace( 'AC\Plugin\Update' ), new InstallCollection( [ new Plugin\Install\Capabilities(), new Plugin\Install\Database() ] ) ),
 		];
 
 		foreach ( $services as $service ) {

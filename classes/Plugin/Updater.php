@@ -2,6 +2,7 @@
 
 namespace AC\Plugin;
 
+// TODO remove
 abstract class Updater {
 
 	/**
@@ -46,8 +47,9 @@ abstract class Updater {
 		uksort( $this->updates, 'version_compare' );
 
 		foreach ( $this->updates as $update ) {
-			if ( $update->needs_update() ) {
+			if ( $update->get_version()->is_gt( $this->stored_version->get() ) ) {
 				$update->apply_update();
+
 				$this->stored_version->save( $update->get_version() );
 			}
 		}
