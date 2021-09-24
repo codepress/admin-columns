@@ -96,13 +96,10 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_addon_download__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/addon-download */ "./js/modules/addon-download.ts");
-/* harmony import */ var _modules_addon_activator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/addon-activator */ "./js/modules/addon-activator.ts");
-
 
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.ac-addon').forEach(element => {
         new _modules_addon_download__WEBPACK_IMPORTED_MODULE_0__["AddonDownload"](element, element.dataset.slug);
-        new _modules_addon_activator__WEBPACK_IMPORTED_MODULE_1__["AddonActivator"](element, element.dataset.slug);
     });
 });
 
@@ -152,76 +149,6 @@ const appendObjectToFormData = (formData, data, parentKey = null) => {
 
 /***/ }),
 
-/***/ "./js/modules/addon-activator.ts":
-/*!***************************************!*\
-  !*** ./js/modules/addon-activator.ts ***!
-  \***************************************/
-/*! exports provided: AddonActivator */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddonActivator", function() { return AddonActivator; });
-/* harmony import */ var _addon_downloader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addon-downloader */ "./js/modules/addon-downloader.ts");
-
-class AddonActivator {
-    constructor(el, slug) {
-        this.downloader = new _addon_downloader__WEBPACK_IMPORTED_MODULE_0__["default"](slug, AC.is_network_admin, AC._ajax_nonce);
-        this.element = el;
-        this.slug = slug;
-        this.loadingState = false;
-        this.initEvents();
-    }
-    getButton() {
-        return this.element.querySelector('[data-activate]');
-    }
-    setLoadingState() {
-        const button = this.getButton();
-        if (button) {
-            button.classList.add('button-disabled');
-        }
-        this.element.querySelectorAll('.ac-addon__actions').forEach(el => el.insertAdjacentHTML('beforeend', '<span class="spinner" style="visibility: visible; transform: translateY(-3px);"></span>'));
-        this.loadingState = true;
-    }
-    setLoadingFinished() {
-        this.loadingState = false;
-        const button = this.getButton();
-        this.element.querySelectorAll('.spinner').forEach(el => el.remove());
-        if (button) {
-            button.classList.remove('button-disabled');
-        }
-    }
-    initEvents() {
-        const button = this.getButton();
-        if (button) {
-            button.addEventListener('click', e => {
-                e.preventDefault();
-                if (!this.loadingState) {
-                    this.setLoadingState();
-                    this.activate();
-                }
-            });
-        }
-    }
-    getFooterElement() {
-        return this.element.querySelector('.ac-addon__actions');
-    }
-    activate() {
-        this.downloader.download().then(d => {
-            if (d.data.data.activated) {
-                this.success(d.data.data.status);
-            }
-        }).finally(() => this.setLoadingFinished());
-    }
-    success(status) {
-        this.setLoadingFinished();
-        this.getFooterElement().innerHTML = `<div class="ac-addon__state"><span class="-green dashicons dashicons-yes"></span><span class="ac-addon__state__label">${status}</span></div>`;
-    }
-}
-
-
-/***/ }),
-
 /***/ "./js/modules/addon-download.ts":
 /*!**************************************!*\
   !*** ./js/modules/addon-download.ts ***!
@@ -248,11 +175,11 @@ class AddonDownload {
         this.loadingState = false;
         this.initEvents();
     }
-    getDownloadButton() {
-        return this.element.querySelector('[data-install]');
+    getButton() {
+        return this.element.querySelector('[data-install],[data-activate]');
     }
     setLoadingState() {
-        const button = this.getDownloadButton();
+        const button = this.getButton();
         if (button) {
             button.classList.add('button-disabled');
         }
@@ -261,14 +188,14 @@ class AddonDownload {
     }
     setLoadingFinished() {
         this.loadingState = false;
-        const button = this.getDownloadButton();
+        const button = this.getButton();
         this.element.querySelectorAll('.spinner').forEach(el => el.remove());
         if (button) {
             button.classList.remove('button-disabled');
         }
     }
     initEvents() {
-        const button = this.getDownloadButton();
+        const button = this.getButton();
         if (button) {
             button.addEventListener('click', e => {
                 e.preventDefault();
@@ -286,7 +213,8 @@ class AddonDownload {
     success(status) {
         const title = this.element.querySelector('h3');
         const notice = new _notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
-        notice.setMessage(`<p>The Add-on <strong>${title.innerHTML}</strong> is installed.</p>`)
+        let message = ACi18n.plugin_installed.replace('%s', `<strong>${title.innerHTML}</strong>`);
+        notice.setMessage(`<p>${message}</p>`)
             .makeDismissable()
             .addClass('updated');
         this.addNotice(notice);
@@ -314,12 +242,13 @@ class AddonDownload {
     }
     download() {
         this.downloader.download().then((response) => {
-            if (response.data.success) {
-                this.success(response.data.data.status);
-            }
-            else {
-                let fallback = response.data.data;
-                this.failure(fallback);
+            switch (response.data.success) {
+                case true:
+                    this.success(response.data.data.status);
+                    break;
+                case false:
+                    this.failure(response.data.data);
+                    break;
             }
         });
     }

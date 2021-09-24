@@ -3,12 +3,19 @@ import {mapDataToFormData} from "../helpers/global";
 
 declare const ajaxurl: string;
 
-type DownloadResponse = {
+type DownloadResponse = DownloadSuccessResponse | DownloadFailureResponse
+
+type DownloadSuccessResponse = {
     data: {
         activated: boolean,
         status: string
     },
-    success: boolean
+    success: true
+}
+
+type DownloadFailureResponse = {
+    success: false,
+    data: string
 }
 
 export default class AddonDownloader {

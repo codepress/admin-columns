@@ -1,10 +1,11 @@
 import WPNotice from "./notice";
 // @ts-ignore
 import $ from 'jquery';
-import {LocalizedAcAddonSettings} from "../types/admin-columns";
+import {LocalizedAcAddonSettings, LocalizedAcAddonsi18n} from "../types/admin-columns";
 import AddonDownloader from "./addon-downloader";
 
 declare let AC: LocalizedAcAddonSettings
+declare let ACi18n: LocalizedAcAddonsi18n
 
 export class AddonDownload {
 
@@ -22,12 +23,12 @@ export class AddonDownload {
         this.initEvents();
     }
 
-    getDownloadButton(): HTMLAnchorElement {
-        return this.element.querySelector<HTMLAnchorElement>('[data-install]');
+    getButton(): HTMLAnchorElement {
+        return this.element.querySelector<HTMLAnchorElement>('[data-install],[data-activate]');
     }
 
     setLoadingState(): void {
-        const button = this.getDownloadButton();
+        const button = this.getButton();
 
         if (button) {
             button.classList.add('button-disabled');
@@ -39,7 +40,7 @@ export class AddonDownload {
 
     setLoadingFinished(): void {
         this.loadingState = false;
-        const button = this.getDownloadButton();
+        const button = this.getButton();
 
         this.element.querySelectorAll('.spinner').forEach(el => el.remove());
 
@@ -49,7 +50,7 @@ export class AddonDownload {
     }
 
     initEvents() {
-        const button = this.getDownloadButton();
+        const button = this.getButton();
 
         if (button) {
             button.addEventListener('click', e => {
@@ -73,7 +74,9 @@ export class AddonDownload {
         const title = this.element.querySelector('h3');
         const notice = new WPNotice();
 
-        notice.setMessage(`<p>The Add-on <strong>${title.innerHTML}</strong> is installed.</p>`)
+        let message = ACi18n.plugin_installed.replace('%s', `<strong>${title.innerHTML}</strong>`);
+
+        notice.setMessage(`<p>${message}</p>`)
             .makeDismissable()
             .addClass('updated');
 
@@ -110,13 +113,18 @@ export class AddonDownload {
 
     download() {
         this.downloader.download().then((response) => {
-            if (response.data.success) {
-                this.success(response.data.data.status);
-            } else {
-                let fallback = response.data.data as unknown;
-                this.failure(fallback as string);
+
+            switch (response.data.success) {
+                case true:
+                    this.success(response.data.data.status);
+
+                    break;
+                case false:
+                    this.failure(response.data.data);
+
+                    break;
             }
+
         });
     }
-
 }

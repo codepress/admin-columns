@@ -9,7 +9,7 @@ export type LocalizedAcColumnSettings = {
     original_columns: Array<string>
 }
 
-export type LocalizedAcAddoni18n = { [key:string] : string }
+export type LocalizedAcAddonsi18n = { [key:string] : string }
 
 export type LocalizedAcAddonSettings = {
     _ajax_nonce: string,
