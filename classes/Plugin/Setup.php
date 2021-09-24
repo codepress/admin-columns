@@ -68,7 +68,7 @@ class Setup implements Registrable {
 	}
 
 	private function apply_update( Update $update ) {
-		if ( $update->get_version()->is_gt( $this->stored_version->get() ) ) {
+		if ( $update->needs_update( $this->stored_version->get() ) ) {
 			$update->apply_update();
 
 			$this->stored_version->save( $update->get_version() );
