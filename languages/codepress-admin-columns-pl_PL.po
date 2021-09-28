@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-09-06 11:10:31+0000\n"
+"PO-Revision-Date: 2021-09-27 05:56:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1392,7 +1392,7 @@ msgstr "Zmodyfikuj ustawienia Edytora kolumn."
 #: classes/Admin/Section/General.php:36
 #: classes/Settings/Column/DateTimeFormat.php:45
 msgid "General Settings"
-msgstr "Ustawienia ogólne"
+msgstr "Ustawienia główne"
 
 #: templates/admin/help-tab/custom-fields.php:15
 msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
@@ -1574,7 +1574,7 @@ msgstr "Wybierz typ kolumny."
 
 #: templates/admin/edit-column.php:57 templates/admin/edit-column.php:92
 msgid "Clone"
-msgstr "Klonuj"
+msgstr "Powiel"
 
 #: classes/Settings/Column/Password.php:28
 msgid "Display format"
@@ -1721,7 +1721,7 @@ msgstr ""
 
 #: classes/Column/Post/PostParent.php:14
 msgid "Parent"
-msgstr "Rodzic"
+msgstr "Element nadrzędny"
 
 #: classes/Column/Post/PageTemplate.php:14
 msgid "Page Template"
@@ -1867,7 +1867,7 @@ msgstr ""
 
 #: classes/Column/Media/FileSize.php:14
 msgid "File Size"
-msgstr "Rozmiar pliku"
+msgstr "Wielkość pliku"
 
 #: classes/Column/Media/FileName.php:14
 msgid "Filename"
@@ -1976,7 +1976,7 @@ msgstr "Kolor"
 #: classes/Settings/Column/Separator.php:25
 #: templates/admin/help-tab/custom-fields.php:6
 msgid "Default"
-msgstr "Domyślny"
+msgstr "Domyślne"
 
 #: classes/Column/CustomField.php:19
 msgid "Custom Field"
@@ -2053,7 +2053,7 @@ msgstr "E-mail autora"
 
 #: classes/Column/Comment/AuthorAvatar.php:14
 msgid "Avatar"
-msgstr "Avatar"
+msgstr "Awatar"
 
 #: classes/Column/Comment/Approved.php:14 classes/Column/Comment/Status.php:34
 #: classes/Settings/Column/CommentCount.php:56
