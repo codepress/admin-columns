@@ -59,12 +59,6 @@ class MenuFactory implements MenuFactoryInterface {
 			Page\Addons::NAME   => __( 'Add-ons', 'codepress-admin-columns' ),
 		];
 
-		$integrations = $this->get_recommended_integrations();
-
-		if ( $integrations->exists() ) {
-			$items[ Page\Addons::NAME ] = sprintf( '%s %s', $items[ Page\Addons::NAME ], '<span class="ac-badge">' . $integrations->count() . '</span>' );
-		}
-
 		$hooks = new Hooks();
 
 		if ( $hooks->get_count() > 0 ) {
