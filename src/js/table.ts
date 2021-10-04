@@ -12,6 +12,9 @@ import {initAcServices} from "./helpers/admin-columns";
 import Modals from "./modules/modals";
 import {initPointers} from "./modules/ac-pointer";
 import {LocalizedAcTable} from "./types/table";
+// @ts-ignore
+import ValueModal from "./svelte/ValueModal.svelte";
+import ValueModals from "./modules/value-modals";
 
 declare let AC: LocalizedAcTable
 
@@ -40,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         AC_SERVICES.getService<Table>('Table').addCellClasses();
         auto_init_show_more();
     });
+
 });
 
 AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) => {
@@ -62,7 +66,29 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
         cell.events.addListener('setValue', () => {
             auto_init_show_more();
         });
-    })
+    });
 
+
+    type ValueModalCollection = Array<ValueModal>
+
+    let items: { [key: string]: ValueModalCollection } = {};
+
+    event.table.Cells.getAll().forEach(cell => {
+
+        let link = cell.getElement().querySelector('a[data-modal-value]');
+        if (link) {
+            if( ! items.hasOwnProperty( cell.getName() ) ){
+                items[cell.getName()] = [];
+            }
+
+            items[cell.getName()].push({
+                element: link,
+                columnName: cell.getName(),
+                objectId: cell.getObjectID()
+            });
+        }
+    });
+
+    Object.keys(items).forEach(i => new ValueModals( items[i] ))
 
 });

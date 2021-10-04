@@ -12,6 +12,9 @@
         "allowJs": true,
         "skipLibCheck": true,
         "moduleResolution": "Node",
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "noEmit": false,
+        "forceConsistentCasingInFileNames": true
     }
 }

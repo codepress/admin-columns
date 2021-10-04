@@ -35,3 +35,9 @@ export type ListScreenStorageType = {
     list_screen_id: string,
     title: string
 }
+
+export type ValueModalItem = {
+    element: HTMLLinkElement,
+    columnName: string,
+    objectId: number
+}
