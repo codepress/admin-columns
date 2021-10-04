@@ -154,7 +154,7 @@ body.settings_page_codepress-admin-columns {
 	}
 
 	#cpac {
-		.notice {
+		.notice:not(.hidden) {
 			display: block;
 		}
 	}
