@@ -2145,7 +2145,8 @@ function instance($$self, $$props, $$invalidate) {
         action: 'ac_get_column_modal_value',
         layout: AC.layout,
         column_name: column,
-        object_id: id
+        object_id: id,
+        _ajax_nonce: AC.ajax_nonce
       }
     }).then(response => {
       $$invalidate(3, content = response.data);
@@ -6382,7 +6383,7 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
     });
     let items = {};
     event.table.Cells.getAll().forEach(cell => {
-        let link = cell.getElement().querySelector('a[data-modal-value]');
+        let link = cell.getElement().querySelector('[data-modal-value]');
         if (link) {
             if (!items.hasOwnProperty(cell.getName())) {
                 items[cell.getName()] = [];

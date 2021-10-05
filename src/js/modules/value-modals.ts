@@ -2,10 +2,12 @@
 import ValueModalComponent from "../svelte/ValueModal.svelte";
 
 export type ValueModal = {
-    element: HTMLLinkElement,
+    element: HTMLElement,
     columnName: string,
     objectId: number
 }
+
+export type ValueModalCollection = Array<ValueModal>
 
 export default class ValueModals {
 

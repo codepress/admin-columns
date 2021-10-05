@@ -3,6 +3,7 @@
 namespace AC\Controller;
 
 use AC\Ajax;
+use AC\Column\DetailedValue;
 use AC\ListScreenRepository;
 use AC\Registrable;
 use AC\Type\ListScreenId;
@@ -32,7 +33,7 @@ class AjaxColumnModalValue implements Registrable {
 	}
 
 	public function get_value() {
-		//check_ajax_referer( 'ac-ajax' );
+		check_ajax_referer( 'ac-ajax' );
 
 		// Get ID of entry to edit
 		$id = (int) filter_input( INPUT_GET, 'object_id' );
@@ -53,8 +54,11 @@ class AjaxColumnModalValue implements Registrable {
 			wp_send_json_error( __( 'Invalid column.', 'codepress-admin-columns' ), 400 );
 		}
 
-		// Trigger ajax callback
-		echo $column->get_value( $id );
+		if ( ! $column instanceof DetailedValue ) {
+			wp_send_json_error( __( 'Invalid method.', 'codepress-admin-columns' ), 400 );
+		}
+
+		echo $column->get_detailed_value( $id );
 		exit;
 	}
 

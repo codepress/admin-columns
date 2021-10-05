@@ -1,16 +1,16 @@
 <script lang="ts">
-	import {LocalizedAcTable} from "../types/table";
-
-    declare const ajaxurl: string;
-	declare const AC: LocalizedAcTable;
-
+    import {LocalizedAcTable} from "../types/table";
     import {onDestroy, onMount} from "svelte";
     import axios, {AxiosResponse} from "axios";
     import {ValueModalItem} from "../types/admin-columns";
 
+    declare const ajaxurl: string;
+    declare const AC: LocalizedAcTable;
+
     export let items: Array<ValueModalItem>
     export let objectId;
     export let destroyHandler: Function;
+
     let columnTitle;
     let mainElement;
     let title;
@@ -26,7 +26,7 @@
         }
         if (e.key === 'ArrowLeft') {
             prevItem();
-			e.preventDefault();
+            e.preventDefault();
         }
         if (e.key === 'ArrowRight') {
             nextItem();
@@ -56,6 +56,7 @@
             source.cancel();
         }
         source = CancelToken.source();
+
         return axios({
             method: 'get',
             url: ajaxurl,
@@ -65,6 +66,7 @@
                 layout: AC.layout,
                 column_name: column,
                 object_id: id,
+                _ajax_nonce: AC.ajax_nonce
             }
         }).then((response: AxiosResponse<string>) => {
             content = response.data
@@ -72,21 +74,23 @@
         }).catch(() => {
         });
     }
+
     const updateItem = (index) => {
         updateDate(items[index].columnName, items[index].objectId);
     }
+
     const nextItem = () => {
         let index = items.findIndex(item => item.objectId === objectId);
         let newIndex = index + 1;
         updateItem(newIndex >= items.length ? 0 : newIndex);
     }
+
     const prevItem = () => {
         let index = items.findIndex(item => item.objectId === objectId);
         let newIndex = index - 1;
         updateItem(newIndex < 0 ? items.length - 1 : newIndex);
     }
 </script>
-
 
 <div class="ac-value-modal" bind:this={mainElement}>
 	<div class="ac-value-modal-background" on:click={close}>

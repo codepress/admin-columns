@@ -12,9 +12,7 @@ import {initAcServices} from "./helpers/admin-columns";
 import Modals from "./modules/modals";
 import {initPointers} from "./modules/ac-pointer";
 import {LocalizedAcTable} from "./types/table";
-// @ts-ignore
-import ValueModal from "./svelte/ValueModal.svelte";
-import ValueModals from "./modules/value-modals";
+import ValueModals, {ValueModalCollection} from "./modules/value-modals";
 
 declare let AC: LocalizedAcTable
 
@@ -68,16 +66,13 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
         });
     });
 
-
-    type ValueModalCollection = Array<ValueModal>
-
     let items: { [key: string]: ValueModalCollection } = {};
 
     event.table.Cells.getAll().forEach(cell => {
 
-        let link = cell.getElement().querySelector('a[data-modal-value]');
+        let link = cell.getElement().querySelector<HTMLElement>('[data-modal-value]');
         if (link) {
-            if( ! items.hasOwnProperty( cell.getName() ) ){
+            if (!items.hasOwnProperty(cell.getName())) {
                 items[cell.getName()] = [];
             }
 
@@ -89,6 +84,5 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
         }
     });
 
-    Object.keys(items).forEach(i => new ValueModals( items[i] ))
-
+    Object.keys(items).forEach(i => new ValueModals(items[i]))
 });
