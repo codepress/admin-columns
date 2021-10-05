@@ -209,6 +209,13 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Fixed] The setting to hide the 'Edit Columns' button did not always store the settings
+* [Improved] Do not force showing notices with the hidden classes
+* [Added] License file added
+
 = 4.4.1 =
 Release Date: September 28th, 2021
 
