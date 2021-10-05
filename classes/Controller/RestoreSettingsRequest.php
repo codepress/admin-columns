@@ -39,8 +39,20 @@ class RestoreSettingsRequest implements Registrable {
 			$this->repository->delete( $list_screen );
 		}
 
+		$this->delete_options();
+
 		$notice = new Notice( __( 'Default settings successfully restored.', 'codepress-admin-columns' ) );
 		$notice->register();
+	}
+
+	private function delete_options() {
+		global $wpdb;
+
+		$wpdb->query( "DELETE FROM {$wpdb->base_prefix}options WHERE option_name like 'ac_api_request%'" );
+		$wpdb->query( "DELETE FROM {$wpdb->base_prefix}options WHERE option_name like 'ac_cache_data%'" );
+		$wpdb->query( "DELETE FROM {$wpdb->base_prefix}options WHERE option_name like 'ac_sorting_%'" );
+		$wpdb->query( "DELETE FROM {$wpdb->base_prefix}options WHERE option_name like 'cpac_options%__default'" );
+		$wpdb->query( "DELETE FROM {$wpdb->base_prefix}options WHERE option_name like 'cpac_general_options'" );
 	}
 
 }
