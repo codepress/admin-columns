@@ -554,6 +554,10 @@ html.wp-toolbar .ac-tooltip {
   opacity: 0.5;
 }
 
+input:disabled, textarea:disabled, button:disabled {
+  cursor: not-allowed !important;
+}
+
 .ac-ajax-loading {
   display: none;
   white-space: nowrap;
