@@ -300,6 +300,9 @@ header.cpac-header {
 	&.notice-error {
 		border-left-color: var(--ac-notification-red);
 	}
+	&.notice-info {
+		border-left: 4px solid var(--ac-notification-blue);
+	}
 }
 
 
