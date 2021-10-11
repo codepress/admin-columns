@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7.1
 Tested up to: 5.8.1
 Requires PHP: 5.6.20
-Stable tag: 4.4.1
+Stable tag: 4.4.2
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -209,7 +209,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 4.4.2 =
 Release Date: tbd
 
 * [Fixed] The setting to hide the 'Edit Columns' button did not always store the settings
