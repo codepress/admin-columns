@@ -214,7 +214,7 @@ Release Date: tbd
 
 * [Fixed] The setting to hide the 'Edit Columns' button did not always store the settings
 * [Improved] Do not force showing notices with the hidden classes
-* [Added] License file added
+* [Added] JetEngine integration banner added
 
 = 4.4.1 =
 Release Date: September 28th, 2021
