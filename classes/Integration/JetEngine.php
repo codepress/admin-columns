@@ -12,7 +12,7 @@ final class JetEngine extends Integration {
 		parent::__construct(
 			'ac-addon-jetengine/ac-addon-jetengine.php',
 			'JetEngine',
-			'assets/images/addons/jetengine.svg?v2',
+			'assets/images/addons/jetengine.svg?v3',
 			sprintf(
 				'%s %s',
 				__( 'Integrates JetEngine with Admin Columns.', 'codepress-admin-columns' ),
