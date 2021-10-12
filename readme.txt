@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.4.2 =
-Release Date: tbd
+Release Date: October 12th, 2021
 
 * [Fixed] The setting to hide the 'Edit Columns' button did not always store the settings
 * [Improved] Do not force showing notices with the hidden classes
