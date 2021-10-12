@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-07-31 22:04:43+0000\n"
+"PO-Revision-Date: 2021-10-01 13:08:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,298 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: nb_NO\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
+
+#: templates/admin/page/settings-section-restore.php:4
+msgid "Restore settings"
+msgstr "Gjenopprett innstillinger"
+
+#: templates/admin/page/settings-section-pro-cta.php:159
+msgid "Upgrade to Admin Columns Pro"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:153
+msgid "View all Pro features"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:147
+msgid "Insert a post, user or anything really directly from the overview."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:140
+msgid "Get access to all our integrations for popular WordPress plugins"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:139
+msgid "All integration add-ons"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:133
+msgid "Manage columns for your Taxonomy overview pages"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:132
+msgid "Taxonomy Support"
+msgstr "Støtte fortaksonomi"
+
+#: templates/admin/page/settings-section-pro-cta.php:126
+msgid "Create a better user experience when visiting the list table by setting preferences and hiding the functionality you do not need."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:125
+msgid "Customize List Table"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:118
+msgid "And of course, all network sites can use Admin Columns."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:117
+msgid "Get insights about your entire network of sites."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:114
+msgid "Multisite Support"
+msgstr "Støtte for multisite"
+
+#: templates/admin/page/settings-section-pro-cta.php:107
+msgid "Admin Columns can generate a fully customized and downloadable CSV."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:106
+msgid "Want to import content in Excel, Mailchimp or anything else?"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:103
+msgid "Export Table to CSV"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:96
+msgid "Simply scroll through your columns horizontally so your overview can be complete and functional."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:95
+msgid "Need more columns than the size of your screen?"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:85
+msgid "With Bulk Edit you can update thousands of values at once."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:84
+msgid "Need to update multiple values at once?"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:73
+msgid "No need to open your post, page, order, user or anything else."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:63
+msgid "Craft overviews in minutes that display precisely what you want to see."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:62
+msgid "Choose from a well designed set of columns or create your own."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:59
+msgid "Unlimited Columns"
+msgstr "Ubegrenset kolonner"
+
+#: templates/admin/page/settings-section-pro-cta.php:52
+msgid "Switching between sets is easy and can be done from any list table."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:51
+msgid "Create multiple columns presets."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:50
+msgid "Need certain columns for certain tasks?"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:47
+msgid "Multiple Table Views"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:41
+msgid "Keep your column names on top of the screen when scrolling down the page"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:40
+msgid "Sticky Headers"
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:33
+msgid "Filters help you to get valuable insights about orders, users, posts, anything really."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:32
+msgid "Only show the content that matches the rules you set."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:22
+msgid "Sort on numbers, names, prices or anything else."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:21
+msgid "Any column can be turned into an ordered list."
+msgstr ""
+
+#: templates/admin/page/settings-section-pro-cta.php:18
+msgid "Sortable Columns"
+msgstr "Sorterbare kolonner"
+
+#: templates/admin/page/component/addon/network-activate-disabled.php:2
+#: templates/admin/page/component/addon/network-install.php:2
+msgid "Network Enable"
+msgstr "Gjør tilgjengelig i nettverk"
+
+#: templates/admin/page/component/addon/missing-license.php:3
+msgid "Activate license"
+msgstr "Aktiver lisens"
+
+#: templates/admin/page/component/addon/activate-disabled.php:2
+#: templates/admin/page/component/addon/install.php:2
+msgid "Enable"
+msgstr "Slå på"
+
+#: templates/admin/list-screen-settings-mockup.php:123
+msgid "No public saved filters available."
+msgstr ""
+
+#: templates/admin/list-screen-settings-mockup.php:119
+msgid "Pre-applied Filters"
+msgstr ""
+
+#: templates/admin/list-screen-settings-mockup.php:87
+#: templates/admin/page/settings-section-pro-cta.php:92
+msgid "Horizontal Scrolling"
+msgstr ""
+
+#: templates/admin/list-screen-settings-mockup.php:81
+msgid "Set default settings that users will see when they visit the list table."
+msgstr ""
+
+#: templates/admin/list-screen-settings-mockup.php:80
+msgid "Preferences"
+msgstr "Preferanser"
+
+#: templates/admin/list-screen-settings-mockup.php:65
+msgid "Bulk Actions"
+msgstr "Massehandlinger"
+
+#: templates/admin/list-screen-settings-mockup.php:64
+msgid "Search"
+msgstr "Søk"
+
+#: templates/admin/list-screen-settings-mockup.php:63
+msgid "Status (Quick Links)"
+msgstr "Status (hurtiglenker)"
+
+#: templates/admin/list-screen-settings-mockup.php:62
+#: templates/admin/page/settings-section-pro-cta.php:146
+msgid "Quick Add"
+msgstr "Hurtig legg til"
+
+#: templates/admin/list-screen-settings-mockup.php:59
+msgid "Filters"
+msgstr "Filtre"
+
+#: templates/admin/list-screen-settings-mockup.php:57
+msgid "Inline Edit"
+msgstr "Hurtigredigering"
+
+#: templates/admin/list-screen-settings-mockup.php:49
+msgid "Select items to hide from the list table screen."
+msgstr ""
+
+#: templates/admin/list-screen-settings-mockup.php:48
+msgid "Hide on screen"
+msgstr "Skjul på skjermen"
+
+#: templates/admin/list-screen-settings-mockup.php:30
+msgid "Make this column set available only for specific users or roles."
+msgstr ""
+
+#: templates/admin/list-screen-settings-mockup.php:29
+msgid "Conditionals"
+msgstr "Betingelser"
+
+#: templates/admin/list-screen-settings-mockup.php:21
+msgid "Unlock with Admin Columns Pro"
+msgstr ""
+
+#: templates/admin/list-screen-settings-mockup.php:14
+#: templates/admin/list-screen-settings-mockup.php:37
+msgid "optional"
+msgstr "frivillig"
+
+#: templates/admin/edit-addon.php:17
+msgid "More details"
+msgstr "Flere detaljer"
+
+#: classes/Integration/YoastSeo.php:19
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your Yoast SEO contents on any admin list table."
+msgstr ""
+
+#: classes/Integration/YoastSeo.php:18 classes/Integration/YoastSeo.php:19
+msgid "Yoast SEO"
+msgstr "Yoast SEO"
+
+#: classes/Integration/WooCommerce.php:21
+msgid "Display, inline- and bulk-edit, smart filter and sort your Products, Variations, Orders and Customers"
+msgstr ""
+
+#: classes/Integration/NinjaForms.php:21
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Submissions."
+msgstr ""
+
+#: classes/Integration/MetaBox.php:19 classes/Integration/Pods.php:19
+#: classes/Integration/Types.php:19
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s contents on any admin list table."
+msgstr ""
+
+#: classes/Integration/GravityForms.php:21
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Entries."
+msgstr ""
+
+#: classes/Integration/GravityForms.php:20
+#: classes/Integration/GravityForms.php:21
+msgid "Gravity Forms"
+msgstr "Gravity Forms"
+
+#: classes/Integration/EventsCalendar.php:21
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your Events, Organizers and Venues."
+msgstr ""
+
+#: classes/Integration/BuddyPress.php:20
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your BuddyPress data fields on the Users page."
+msgstr ""
+
+#: classes/Integration/BuddyPress.php:19
+#: classes/Integration/EventsCalendar.php:20
+#: classes/Integration/GravityForms.php:20 classes/Integration/MetaBox.php:18
+#: classes/Integration/NinjaForms.php:20 classes/Integration/Pods.php:18
+#: classes/Integration/Types.php:18 classes/Integration/WooCommerce.php:20
+#: classes/Integration/YoastSeo.php:18
+msgid "Integrates %s with Admin Columns."
+msgstr ""
+
+#: classes/Integration/ACF.php:19
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your ACF contents on any admin list table."
+msgstr ""
+
+#: classes/Integration/ACF.php:18
+msgid "Integrates ACF with Admin Columns."
+msgstr ""
+
+#: classes/Admin/Section/ProCta.php:19
+msgid "Upgrade to Admin Columns Pro and unlock all the awesome features."
+msgstr ""
+
+#: classes/Admin/Asset/Addons.php:18
+msgid "The Add-on %s is activated."
+msgstr ""
 
 #: classes/Column/Media/Album.php:14
 msgid "Album"
@@ -19,11 +311,7 @@ msgstr "Album"
 msgid "Artist"
 msgstr "Artist"
 
-#: classes/Admin/AddonStatus.php:68
-msgid "Network Activate"
-msgstr "Aktiver for nettverk"
-
-#: classes/Admin/AddonStatus.php:47
+#: templates/admin/page/component/addon/network-active-label.php:3
 msgid "Network Active"
 msgstr "Nettverksaktivert"
 
@@ -34,10 +322,6 @@ msgstr "Siste innlegg"
 #: classes/Column/User/FirstPost.php:15
 msgid "First Post"
 msgstr "Første innlegg"
-
-#: classes/Integration/GravityForms.php:18
-msgid "Take your form submission management to the next level!"
-msgstr ""
 
 #: classes/Settings/Column/PostStatus.php:33
 msgid "Post Status"
@@ -119,16 +403,12 @@ msgstr "Nøkkel"
 msgid "Export table contents to CSV"
 msgstr ""
 
-#: templates/tooltip/bulk-editing.php:25
+#: templates/tooltip/bulk-editing.php:25 templates/tooltip/custom-field.php:15
 #: templates/tooltip/export-disabled.php:17 templates/tooltip/export.php:25
 #: templates/tooltip/inline-editing.php:25
 #: templates/tooltip/smart-filtering.php:28 templates/tooltip/sorting.php:29
 msgid "Learn more &raquo;"
 msgstr "Lær mer &raquo;"
-
-#: classes/Integration/YoastSeo.php:16
-msgid "Enrich the Yoast SEO columns with amazing pro features!"
-msgstr ""
 
 #: classes/Column/User/Login.php:24
 msgid "Super Admin"
@@ -166,6 +446,7 @@ msgstr ""
 msgid "Export Unavailable"
 msgstr "Eksport utilgjengelig"
 
+#: templates/admin/list-screen-settings-mockup.php:58
 #: templates/tooltip/bulk-editing.php:19
 msgid "Bulk Edit"
 msgstr "Masseredigering"
@@ -206,6 +487,8 @@ msgstr ""
 msgid "Sort by clicking the column header on the list table. Click the column header again to switch between <em>ascending</em> and <em>descending</em>."
 msgstr ""
 
+#: templates/admin/list-screen-settings-mockup.php:60
+#: templates/admin/page/settings-section-pro-cta.php:29
 #: templates/tooltip/filtering.php:13
 msgid "Smart Filters"
 msgstr "Smarte filtre"
@@ -281,6 +564,7 @@ msgstr ""
 msgid "Click on the pencil icon to start editing the value of a field."
 msgstr ""
 
+#: templates/tooltip/custom-field.php:10
 #: templates/tooltip/inline-editing.php:13
 msgid "To start inline editing, toggle the “Inline Edit” button on top of the list table."
 msgstr ""
@@ -301,11 +585,8 @@ msgstr ""
 msgid "Search the contents of your columns."
 msgstr ""
 
-#: classes/Integration/MetaBox.php:16
-msgid "Instantly generate columns for your Meta Box custom fields!"
-msgstr ""
-
-#: classes/Integration/MetaBox.php:14
+#: classes/Integration/MetaBox.php:14 classes/Integration/MetaBox.php:18
+#: classes/Integration/MetaBox.php:19
 msgid "Meta Box"
 msgstr "Metaboks"
 
@@ -313,7 +594,7 @@ msgstr "Metaboks"
 msgid "Column Type"
 msgstr "Kolonnetype"
 
-#: classes/Admin/Main/Help.php:154
+#: classes/Admin/Page/Help.php:165
 msgid "No deprecated hooks or filters found."
 msgstr ""
 
@@ -324,11 +605,13 @@ msgid "Smart Filtering"
 msgstr ""
 
 #: classes/Settings/Column/Pro/BulkEditing.php:11
+#: templates/admin/page/settings-section-pro-cta.php:81
 #: templates/tooltip/bulk-editing.php:7
 msgid "Bulk Editing"
 msgstr "Masseredigering"
 
 #: classes/Settings/Column/Pro/InlineEditing.php:11
+#: templates/admin/page/settings-section-pro-cta.php:70
 #: templates/tooltip/inline-editing.php:7
 msgid "Inline Editing"
 msgstr "Hurtigredigering"
@@ -417,14 +700,6 @@ msgstr ""
 msgid "There was an error during saving the column settings."
 msgstr ""
 
-#: classes/Integration/ACF.php:16
-msgid "Display and edit ACF fields in the posts overview in seconds!"
-msgstr "Vis og rediger ACF-felt i innleggsoversikten i løpet av få sekunder!"
-
-#: classes/Integration/Pods.php:16
-msgid "Display and edit Pods fields in the posts overview in seconds!"
-msgstr "Vis og rediger Pods-feltene i innleggsoversikten i løpet av få sekunder!"
-
 #: templates/admin/side-banner.php:60
 msgid "Includes special integrations for:"
 msgstr "Inkluderer spesielle integrasjoner for:"
@@ -462,14 +737,15 @@ msgid "Local Path"
 msgstr "Lokal bane"
 
 #: classes/Integration/EventsCalendar.php:16
+#: classes/Integration/EventsCalendar.php:20
 msgid "Events Calendar"
 msgstr "Hendelseskalender"
 
-#: classes/Settings/Column/CustomFieldType.php:90
+#: classes/Settings/Column/CustomFieldType.php:91
 msgid "Uses one or more %s IDs to display information about it."
 msgstr "Bruker én eller flere %s IDer for å vise informasjon om den."
 
-#: classes/Check/Review.php:181
+#: classes/Check/Review.php:193
 msgid "You can also use your admincolumns.com account to access support through %s!"
 msgstr "Du kan også bruke admincolumns.com kontoen din til å få tilgang til support via %s!"
 
@@ -481,7 +757,7 @@ msgstr "Verdi: Bør inneholde én eller flere bruker-IDer, atskilt med komma."
 msgid "Value: Should contain a URL."
 msgstr "Verdi: Bør inneholde en URL-adresse."
 
-#: classes/Settings/Column/CustomFieldType.php:124
+#: classes/Settings/Column/CustomFieldType.php:125
 #: templates/admin/help-tab/custom-fields.php:54
 msgid "URL"
 msgstr "URL"
@@ -502,15 +778,8 @@ msgstr "Verdi: Bør inneholde én eller flere bilde URLer eller vedleggs-IDer, a
 msgid "Value: This will show if the field has content or not."
 msgstr "Verdi: Dette vil vise om feltet har innhold eller ikke."
 
-#: classes/Integration/NinjaForms.php:18
-msgid "Add Ninja Forms columns that can be sorted, filtered and directly edited!"
-msgstr "Legg til Ninja Forms-kolonner som kan sorteres, filtreres og redigeres direkte!"
-
-#: classes/Integration/EventsCalendar.php:18
-msgid "Manage columns for your event, organizer or venue overviews."
-msgstr "Administrer kolonner i oversikten over dine arrangementer, arrangører eller steder."
-
 #: classes/Settings/Column/Pro/Sorting.php:11
+#: templates/admin/list-screen-settings-mockup.php:101
 #: templates/settings/setting-label-icons.php:43
 #: templates/tooltip/sorting.php:7
 msgid "Sorting"
@@ -520,9 +789,15 @@ msgstr "Sortering"
 msgid "Filtering"
 msgstr "Filtrering"
 
-#: classes/Settings/Column/Pro/Export.php:11 templates/tooltip/export.php:7
+#: classes/Settings/Column/Pro/Export.php:11
+#: templates/admin/list-screen-settings-mockup.php:61
+#: templates/tooltip/export.php:7
 msgid "Export"
 msgstr "Eksport"
+
+#: templates/admin/page/settings-section-pro-cta.php:74
+msgid "Edit your content directly from the overview."
+msgstr "Rediger ditt innhold direkte fra oversikten."
 
 #: templates/admin/modal-pro.php:33
 msgid "Only %s for 1 site"
@@ -669,11 +944,11 @@ msgstr "Telle"
 msgid "Thumbnails"
 msgstr "Miniatyrbilder"
 
-#: classes/Helper/Post.php:144
+#: classes/Helper/Post.php:145
 msgid "Missed schedule"
 msgstr "Tapt tidsplan"
 
-#: classes/Helper/Post.php:140
+#: classes/Helper/Post.php:141
 msgid "Scheduled"
 msgstr "Planlagt"
 
@@ -689,7 +964,7 @@ msgstr "Tillat kommentarer"
 msgid "More Tag"
 msgstr "Mer tag"
 
-#: classes/Column/Menu.php:17
+#: classes/Column/Menu.php:18
 msgid "Menu"
 msgstr "Meny"
 
@@ -713,7 +988,8 @@ msgstr "original"
 msgid "Alternative Text"
 msgstr "Alternativ tekst"
 
-#: classes/Integration/NinjaForms.php:16
+#: classes/Integration/NinjaForms.php:16 classes/Integration/NinjaForms.php:20
+#: classes/Integration/NinjaForms.php:21
 msgid "Ninja Forms"
 msgstr "Ninja Forms"
 
@@ -721,19 +997,19 @@ msgstr "Ninja Forms"
 msgid "Password protected"
 msgstr "Passordbeskyttet"
 
-#: classes/Helper/Post.php:137
+#: classes/Helper/Post.php:138
 msgid "Pending for review"
 msgstr "Venter på gjennomgang"
 
-#: classes/Helper/Post.php:134
+#: classes/Helper/Post.php:135
 msgid "Draft"
 msgstr "Utkast"
 
-#: classes/Helper/Post.php:131
+#: classes/Helper/Post.php:132
 msgid "Published"
 msgstr "Publisert"
 
-#: classes/Helper/Post.php:128
+#: classes/Helper/Post.php:129
 msgid "Private"
 msgstr "Privat"
 
@@ -770,11 +1046,7 @@ msgstr "Send meg rabatten"
 msgid "Prices starting from %s"
 msgstr "Priser starter fra %s"
 
-#: classes/Integration/BuddyPress.php:17
-msgid "Display any of your Profile Fields for BuddyPress on your users overview."
-msgstr "Vis alle dine BuddyPress profilfelt på brukeroversikten."
-
-#: classes/Integration/BuddyPress.php:15
+#: classes/Integration/BuddyPress.php:15 classes/Integration/BuddyPress.php:19
 msgid "BuddyPress"
 msgstr "BuddyPress"
 
@@ -811,8 +1083,9 @@ msgstr "Ordgrense"
 msgid "Auto"
 msgstr "Automatisk"
 
-#: classes/Admin/Page.php:69 classes/Settings/Column/AttachmentDisplay.php:42
-#: classes/Settings/Column/Comment.php:115 classes/Settings/Column/Post.php:90
+#: classes/Admin/AdminLoader.php:107
+#: classes/Settings/Column/AttachmentDisplay.php:42
+#: classes/Settings/Column/Comment.php:113 classes/Settings/Column/Post.php:90
 #: classes/Settings/Column/Term.php:36 classes/Settings/Column/User.php:54
 msgid "Display"
 msgstr "Vis"
@@ -918,46 +1191,46 @@ msgstr "Forskjellen returneres i et menneskelig lesbart format."
 msgid "Time Difference"
 msgstr "Tidsforskjell"
 
-#: classes/Settings/Column/CustomFieldType.php:172
+#: classes/Settings/Column/CustomFieldType.php:173
 msgid "Multiple"
 msgstr "Flere"
 
-#: classes/Settings/Column/CustomFieldType.php:171
+#: classes/Settings/Column/CustomFieldType.php:172
 msgid "Choice"
 msgstr "Valg"
 
-#: classes/Settings/Column/CustomFieldType.php:170
+#: classes/Settings/Column/CustomFieldType.php:171
 msgid "Relational"
 msgstr "Relasjoner"
 
-#: classes/Settings/Column/CustomFieldType.php:169
+#: classes/Settings/Column/CustomFieldType.php:170
 msgid "Basic"
 msgstr "Grunnleggende"
 
-#: classes/Settings/Column/CustomFieldType.php:137
+#: classes/Settings/Column/CustomFieldType.php:138
 msgid "Number of Fields"
 msgstr "Antall felt"
 
-#: classes/Settings/Column/CustomFieldType.php:129
+#: classes/Settings/Column/CustomFieldType.php:130
 #: templates/admin/help-tab/custom-fields.php:50
 msgid "True / False"
 msgstr "Sant / Usant"
 
-#: classes/Settings/Column/CustomFieldType.php:128
+#: classes/Settings/Column/CustomFieldType.php:129
 #: templates/admin/help-tab/custom-fields.php:26
 msgid "Has Content"
 msgstr "Har innhold"
 
-#: classes/Settings/Column/CustomFieldType.php:125
+#: classes/Settings/Column/CustomFieldType.php:126
 #: templates/admin/help-tab/custom-fields.php:42
 msgid "Number"
 msgstr "Nummer"
 
-#: classes/Settings/Column/CustomFieldType.php:122
+#: classes/Settings/Column/CustomFieldType.php:123
 msgid "Text"
 msgstr "Tekst"
 
-#: classes/Settings/Column/CustomFieldType.php:91
+#: classes/Settings/Column/CustomFieldType.php:92
 msgid "Multiple IDs should be separated by commas."
 msgstr "Flere IDer bør skilles med komma."
 
@@ -1009,9 +1282,9 @@ msgstr "Vis verktøylinje"
 msgid "Shortlink"
 msgstr "Kortlenke"
 
-#: classes/Settings/Column/CustomFieldType.php:221
-#: classes/Settings/Column/CustomFieldType.php:223
-#: classes/Settings/Column/CustomFieldType.php:307
+#: classes/Settings/Column/CustomFieldType.php:222
+#: classes/Settings/Column/CustomFieldType.php:224
+#: classes/Settings/Column/CustomFieldType.php:308
 msgid ", "
 msgstr ", "
 
@@ -1027,17 +1300,9 @@ msgstr "Fullstendig bane"
 msgid "Discount is valid until %s"
 msgstr "Rabatten er gyldig til %s"
 
-#: classes/Admin/Section/Partial/ShowEditButton.php:25
+#: classes/Admin/Section/Partial/ShowEditButton.php:21
 msgid "Show %s button on table screen."
 msgstr "Vis %s-knappen på tabellskjermen."
-
-#: classes/Admin/Section/Partial/ShowEditButton.php:26
-msgid "Default is %s."
-msgstr "Standard er %s."
-
-#: classes/Admin/Section/Partial/ShowEditButton.php:26
-msgid "on"
-msgstr "på"
 
 #: classes/Admin/Tooltip.php:29
 msgid "Notice"
@@ -1047,49 +1312,49 @@ msgstr "Merknad"
 msgid "Instructions"
 msgstr "Bruksanvisning"
 
-#: classes/Admin/Main/Help.php:142
+#: classes/Admin/Page/Help.php:153
 msgid "our documentation"
 msgstr "vår dokumentasjon"
 
-#: classes/Admin/Main/Help.php:139
+#: classes/Admin/Page/Help.php:150
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
 msgstr "Dette nettstedet bruker noen handlinger eller filtre som er endret. Les %s for å løse dem."
 
-#: classes/Admin/Main/Help.php:135
+#: classes/Admin/Page/Help.php:146
 msgid "The Admin Columns plugin has undergone some major changes in version 4."
 msgstr "Admin Columns programtillegget har gjennomgått noen store endringer i versjon 4."
 
-#: classes/Admin/Main/Help.php:58
+#: classes/Admin/Page/Help.php:69
 msgid "The callback used is %s."
 msgid_plural "The callbacks used are %s."
 msgstr[0] "Tilbakekallet som brukes, er %s."
 msgstr[1] "Tilbakekallene som brukes, er %s."
 
-#: classes/Admin/Main/Help.php:44
+#: classes/Admin/Page/Help.php:55
 msgid "View documentation"
 msgstr "Vis dokumentasjon"
 
-#: classes/Admin/Main/Help.php:76
+#: classes/Admin/Page/Help.php:87
 msgid "The action %s used on this website is deprecated since %s."
 msgstr "Handlingen %s som brukes på dette webområdet, er foreldet siden %s."
 
-#: classes/Admin/Main/Help.php:105
+#: classes/Admin/Page/Help.php:116
 msgid "The filter %s used on this website is deprecated since %s."
 msgstr "Filteret %s som brukes på dette webområdet, er foreldet siden %s."
 
-#: classes/Admin/Main/Help.php:72
+#: classes/Admin/Page/Help.php:83
 msgid "Deprecated Actions"
 msgstr "Utgåtte handlinger"
 
-#: classes/Admin/Main/Help.php:101
+#: classes/Admin/Page/Help.php:112
 msgid "Deprecated Filters"
 msgstr "Utgåtte filtre"
 
-#: classes/Admin/Main/Help.php:133 classes/Admin/MenuFactory.php:28
+#: classes/Admin/MenuFactory.php:71 classes/Admin/Page/Help.php:144
 msgid "Help"
 msgstr "Hjelp"
 
-#: templates/admin/edit-column.php:55 templates/admin/edit-column.php:90
+#: templates/admin/edit-column.php:36 templates/admin/edit-column.php:80
 msgid "Close"
 msgstr "Lukk"
 
@@ -1125,23 +1390,21 @@ msgstr "Pro"
 msgid "You need at least one column"
 msgstr "Du må ha minst én kolonne"
 
-#: classes/Admin/Main/Addons.php:136
+#: classes/Admin/Page/Addons.php:143
 msgid "Available"
 msgstr "Tilgjengelig"
 
-#: classes/Admin/Main/Addons.php:120
+#: classes/Admin/Page/Addons.php:127
 msgid "Recommended"
 msgstr "Anbefalt"
 
-#: classes/Integration/Types.php:16
-msgid "Display and edit Toolset Types fields in the posts overview in seconds!"
-msgstr "Vis og Rediger verktøysetttyper i innleggsoversikten i løpet av få sekunde!"
-
-#: classes/Integration/Types.php:14
+#: classes/Integration/Types.php:14 classes/Integration/Types.php:18
+#: classes/Integration/Types.php:19
 msgid "Toolset Types"
 msgstr "Verktøysettyper"
 
-#: classes/Integration/Pods.php:14
+#: classes/Integration/Pods.php:14 classes/Integration/Pods.php:18
+#: classes/Integration/Pods.php:19
 msgid "Pods"
 msgstr "Pods"
 
@@ -1197,7 +1460,7 @@ msgstr "siden for tillegg"
 msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
 msgstr "Visste du at Admin Columns Pro har et integrasjons tillegg for %s? Med en korrekt Admin Columns Pro med lisens, kan du laste dem ned fra %s!"
 
-#: classes/Admin/HelpTab/CustomField.php:11 classes/ColumnGroups.php:15
+#: classes/ColumnGroups.php:15
 msgid "Custom Fields"
 msgstr "Egendefinerte felt"
 
@@ -1214,11 +1477,12 @@ msgstr "Tilpass kolonnene på administrasjonsskjermene for innlegg (typer), side
 msgid "https://www.admincolumns.com"
 msgstr "https://www.admincolumns.com"
 
-#: classes/Admin/Section/Partial/ShowEditButton.php:25
+#: classes/Admin/Section/Partial/ShowEditButton.php:21
 #: classes/Table/Screen.php:203
 msgid "Edit columns"
 msgstr "Rediger kolonner"
 
+#: templates/admin/list-screen-settings-mockup.php:23
 #: templates/admin/modal-pro.php:31
 msgid "Upgrade"
 msgstr "Oppgrader"
@@ -1232,7 +1496,7 @@ msgid "Users"
 msgstr "Brukere"
 
 #: classes/ListScreen/Media.php:19 classes/ListScreenGroups.php:15
-#: classes/Settings/Column/CustomFieldType.php:132
+#: classes/Settings/Column/CustomFieldType.php:133
 #: templates/admin/help-tab/custom-fields.php:34
 #: templates/settings/setting-label-icons.php:37
 msgid "Media"
@@ -1242,7 +1506,7 @@ msgstr "Media"
 msgid "Links"
 msgstr "Lenker"
 
-#: classes/ListScreen/Comment.php:16 classes/Settings/Column/Comment.php:124
+#: classes/ListScreen/Comment.php:16 classes/Settings/Column/Comment.php:122
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -1251,23 +1515,16 @@ msgstr "Kommentar"
 msgid "Comments"
 msgstr "Kommentarer"
 
-#: classes/Admin/AddonStatus.php:100
+#: templates/admin/page/component/addon/more-info.php:2
 msgid "Get this add-on"
 msgstr "Få dette tillegget"
 
-#: classes/Admin/AddonStatus.php:92
-msgid "Download & Install"
-msgstr "Last ned og installer"
-
-#: classes/Admin/AddonStatus.php:84
-msgid "Activate"
-msgstr "Aktiver"
-
-#: classes/Admin/AddonStatus.php:60 classes/Admin/AddonStatus.php:76
+#: templates/admin/page/component/addon/deactivate.php:2
 msgid "Deactivate"
 msgstr "Deaktiver"
 
-#: classes/Admin/AddonStatus.php:42 classes/Admin/Main/Addons.php:128
+#: classes/Admin/Page/Addons.php:135
+#: templates/admin/page/component/addon/active-label.php:3
 msgid "Active"
 msgstr "Aktiv"
 
@@ -1275,13 +1532,9 @@ msgstr "Aktiv"
 msgid "Add Column"
 msgstr "Legg til kolonne"
 
-#: templates/admin/side-support.php:17
+#: templates/admin/side-support.php:14
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>."
 msgstr "For fullstendig dokumentasjon, feilrapporter, funksjonsforslag og andre tips <a href='%s'>besøk webområdet til Admin Columns</a>."
-
-#: templates/admin/side-support.php:14
-msgid "Check the <strong>Help</strong> section in the top-right screen."
-msgstr "Se <strong>Hjelp</strong>-delen øverst til høyre på skjermen."
 
 #: templates/admin/side-support.php:10
 msgid "Support"
@@ -1331,11 +1584,11 @@ msgstr "Er du fornøyd med Admin Columns?"
 msgid "Get Admin Columns Pro"
 msgstr "Få Admin Columns Pro"
 
-#: classes/Admin/MenuFactory.php:21
+#: classes/Admin/MenuFactory.php:57
 msgid "Columns"
 msgstr "Kolonner"
 
-#: classes/Admin/Main/Columns.php:210
+#: classes/Admin/Page/Columns.php:211
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr "Advarsel! %s kolonnens data vil bli slettet. Dette kan ikke angres. 'OK' for å slette, 'Avbryt' for å stoppe"
 
@@ -1343,15 +1596,17 @@ msgstr "Advarsel! %s kolonnens data vil bli slettet. Dette kan ikke angres. 'OK'
 msgid "Update"
 msgstr "Oppdater"
 
-#: classes/Admin/Main/Columns.php:201
+#: classes/Admin/Page/Columns.php:202
 msgid "Store settings"
 msgstr "Lagre innstillinger"
 
-#: classes/Admin/MenuFactory.php:23
+#: classes/Admin/MenuFactory.php:59
 msgid "Add-ons"
 msgstr "Tillegg"
 
-#: classes/Admin/MenuFactory.php:22 classes/PluginActionLinks.php:40
+#: classes/Admin/MenuFactory.php:58 classes/PluginActionLinks.php:40
+#: templates/admin/list-screen-settings-mockup.php:13
+#: templates/admin/page/settings.php:6
 msgid "Settings"
 msgstr "Innstillinger"
 
@@ -1367,26 +1622,17 @@ msgstr "Øvrige"
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr "Advarsel! ALLE lagrede Admin Columns data vil bli slettet. Dette kan ikke angres. 'OK' for å slette, 'Avbryt ' for å stoppe"
 
-#: templates/admin/page/settings-section-restore.php:4
-msgid "Restore default settings"
-msgstr "Gjenopprett standardinnstillinger"
-
 #: classes/Admin/Section/Restore.php:21
-msgid "This will delete all column settings and restore the default settings."
-msgstr "Dette vil slette alle kolonneinnstillinger og gjenopprette standardinnstillingene."
+msgid "Delete all column settings and restore the default settings."
+msgstr "Slett alle kolonneinnstillinger og gjenopprette standardinnstillingene."
 
 #: classes/Admin/Section/Restore.php:20
 msgid "Restore Settings"
 msgstr "Gjenopprett innstillinger"
 
 #: templates/admin/edit-actions.php:24 templates/admin/edit-columns.php:39
-#: templates/admin/page/settings-section-general.php:10
 msgid "Save"
 msgstr "Lagre"
-
-#: classes/Admin/Section/General.php:37
-msgid "Customize your Admin Columns settings."
-msgstr "Tilpass innstillingene for Admin Columns."
 
 #: classes/Admin/Section/General.php:36
 #: classes/Settings/Column/DateTimeFormat.php:45
@@ -1457,17 +1703,9 @@ msgstr "Hvis du drar i kolonnene, kan du endre rekkefølgen de skal vises i."
 msgid "Change order"
 msgstr "Endre rekkefølge"
 
-#: classes/Admin/HelpTab/Basics.php:11
-msgid "Basics"
-msgstr "Grunnleggende"
-
 #: templates/admin/help-tab/introduction.php:2
 msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
 msgstr "Dette programtillegget er for å legge til og fjerne flere kolonner til administrasjonsskjermene for innlegg(typer), sider, mediebibliotek, kommentarer, lenker og brukere. Endre kolonnens etikett og omordne dem."
-
-#: classes/Admin/HelpTab/Introduction.php:11
-msgid "Overview"
-msgstr "Oversikt"
 
 #: classes/Controller/RestoreSettingsRequest.php:42
 msgid "Default settings successfully restored."
@@ -1481,53 +1719,53 @@ msgstr "%s kolonnen finnes allerede og kan ikke dupliseres."
 msgid "Admin Columns Settings"
 msgstr "Admin Columns innstillinger"
 
-#: classes/Check/Review.php:188
+#: classes/Check/Review.php:200
 msgid "find answers to frequently asked questions"
 msgstr "finn svar på ofte stilte spørsmål"
 
-#: classes/Check/Review.php:187
+#: classes/Check/Review.php:199
 msgid "Admin Columns forum on WordPress.org"
 msgstr "Admin Columns forum på WordPress.org"
 
-#: classes/Check/Review.php:186
+#: classes/Check/Review.php:198
 msgid "You can also find help on the %s, and %s."
 msgstr "Du kan også finne hjelp på %s og %s."
 
-#: classes/Check/Review.php:182
+#: classes/Check/Review.php:194
 msgid "our forum"
 msgstr "vårt forum"
 
-#: classes/Check/Review.php:176
+#: classes/Check/Review.php:188
 msgid "documentation page"
 msgstr "dokumentasjonsside"
 
-#: classes/Check/Review.php:174
+#: classes/Check/Review.php:186
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr "Vi beklager å høre det; kanskje vi kan hjelpe! Hvis du har problemer med å konfigurere %s, eller hvis du vil ha hjelp med noen mer avanserte funksjoner, kan du gå til %s."
 
-#: classes/Check/Review.php:165
+#: classes/Check/Review.php:177
 msgid "Permanently hide notice"
 msgstr "Skjul varsel for godt"
 
-#: classes/Check/Review.php:164
+#: classes/Check/Review.php:176
 msgid "Leave a review!"
 msgstr "Legg igjen en anmeldelse!"
 
-#: classes/Check/Review.php:160
+#: classes/Check/Review.php:172
 msgid "click here"
 msgstr "klikk her"
 
-#: classes/Check/Review.php:156
+#: classes/Check/Review.php:168
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr "Vi mener ikke å plage deg, men du har brukt %s i noe tid nå, og vi lurte på om du er fornøyd med programtillegget. Hvis ja, kan du vennligst legge igjen en anmeldelse på wordpress.org? Hvis du ikke er fornøyd med %s, vennligst %s."
 
-#: classes/Check/Review.php:147
+#: classes/Check/Review.php:159
 msgid "Admin Columns Pro"
 msgstr "Admin Columns Pro"
 
 #. Plugin Name of the plugin
 #: classes/Admin/WpMenuFactory.php:19 classes/Admin/WpMenuFactory.php:34
-#: classes/Check/Review.php:148 classes/Table/Screen.php:464
+#: classes/Check/Review.php:160 classes/Table/Screen.php:454
 msgid "Admin Columns"
 msgstr "Admin Columns"
 
@@ -1563,7 +1801,7 @@ msgstr "Dette er navnet som vises som kolonneoverskrift."
 msgid "Label"
 msgstr "Etikett"
 
-#: classes/Settings/Column/Type.php:44 templates/admin/edit-column.php:52
+#: classes/Settings/Column/Type.php:44 templates/admin/edit-column.php:30
 msgid "Name"
 msgstr "Navn"
 
@@ -1571,7 +1809,7 @@ msgstr "Navn"
 msgid "Choose a column type."
 msgstr "Velg en kolonnetype."
 
-#: templates/admin/edit-column.php:57 templates/admin/edit-column.php:92
+#: templates/admin/edit-column.php:38 templates/admin/edit-column.php:82
 msgid "Clone"
 msgstr "Klone"
 
@@ -1615,7 +1853,7 @@ msgstr "Før"
 msgid "width"
 msgstr "bredde"
 
-#: classes/ColumnGroups.php:16 classes/Settings/Column/CustomFieldType.php:173
+#: classes/ColumnGroups.php:16 classes/Settings/Column/CustomFieldType.php:174
 #: classes/Settings/Column/Image.php:112
 msgid "Custom"
 msgstr "Egendefinerte"
@@ -1649,7 +1887,7 @@ msgid "Registered"
 msgstr "Registrert"
 
 #: classes/ListScreenGroups.php:13
-#: classes/Settings/Column/CustomFieldType.php:101
+#: classes/Settings/Column/CustomFieldType.php:102
 #: classes/Settings/Column/PostType.php:43
 msgid "Post Type"
 msgstr "Innleggstype"
@@ -1666,7 +1904,7 @@ msgstr "Kallenavn"
 msgid "Comment Count"
 msgstr "Antall kommentarer"
 
-#: templates/admin/edit-column.php:59 templates/admin/edit-column.php:94
+#: templates/admin/edit-column.php:40 templates/admin/edit-column.php:84
 msgid "Remove"
 msgstr "Slett"
 
@@ -1703,6 +1941,7 @@ msgid "Shortcodes"
 msgstr "Hurtigkoder"
 
 #: classes/Settings/Column/User.php:81
+#: templates/admin/list-screen-settings-mockup.php:36
 msgid "Roles"
 msgstr "Roller"
 
@@ -1933,20 +2172,20 @@ msgstr "Søppel"
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: classes/Settings/Column/CustomFieldType.php:76
+#: classes/Settings/Column/CustomFieldType.php:77
 msgid "This will determine how the value will be displayed."
 msgstr "Dette vil avgjøre hvordan verdien vil bli vist."
 
-#: classes/Settings/Column/CustomFieldType.php:83
+#: classes/Settings/Column/CustomFieldType.php:84
 msgid "Field Type"
 msgstr "Felttype"
 
-#: classes/Settings/Column/CustomFieldType.php:138
+#: classes/Settings/Column/CustomFieldType.php:139
 #: templates/admin/help-tab/custom-fields.php:38
 msgid "Multiple Values"
 msgstr "Flere verdier"
 
-#: classes/Settings/Column/CustomFieldType.php:123
+#: classes/Settings/Column/CustomFieldType.php:124
 #: templates/admin/help-tab/custom-fields.php:30
 msgid "Image"
 msgstr "Bilde"
@@ -1960,14 +2199,14 @@ msgstr "Utdrag"
 msgid "Counter"
 msgstr "Teller"
 
-#: classes/Settings/Column/CustomFieldType.php:120
+#: classes/Settings/Column/CustomFieldType.php:121
 #: templates/admin/help-tab/custom-fields.php:10
 msgid "Color"
 msgstr "Farge"
 
 #: classes/ColumnGroups.php:13
 #: classes/Helper/Select/Group/CustomField/MultiSite.php:53
-#: classes/Settings/Column/CustomFieldType.php:188
+#: classes/Settings/Column/CustomFieldType.php:189
 #: classes/Settings/Column/Image.php:72
 #: classes/Settings/Column/NumberFormat.php:88
 #: classes/Settings/Column/Separator.php:25
@@ -1975,7 +2214,7 @@ msgstr "Farge"
 msgid "Default"
 msgstr "Standard"
 
-#: classes/Column/CustomField.php:19
+#: classes/Column/CustomField.php:19 templates/tooltip/custom-field.php:7
 msgid "Custom Field"
 msgstr "Egendefinert felt"
 
@@ -1984,16 +2223,16 @@ msgid "Word Count"
 msgstr "Antall ord"
 
 #: classes/Column/Comment/User.php:15 classes/ListScreen/User.php:16
-#: classes/Settings/Column/CustomFieldType.php:105
-#: classes/Settings/Column/CustomFieldType.php:134
+#: classes/Settings/Column/CustomFieldType.php:106
+#: classes/Settings/Column/CustomFieldType.php:135
 #: templates/admin/help-tab/custom-fields.php:58
 msgid "User"
 msgstr "Bruker"
 
 #: classes/Column/Comment/Type.php:14
-#: classes/Settings/Column/CustomFieldType.php:79
+#: classes/Settings/Column/CustomFieldType.php:80
 #: classes/Settings/Column/Type.php:41 classes/Settings/Column/Type.php:50
-#: templates/admin/edit-column.php:53
+#: templates/admin/edit-column.php:31
 msgid "Type"
 msgstr "Type"
 
@@ -2002,7 +2241,7 @@ msgid "In Reply To"
 msgstr "I svar til"
 
 #: classes/Column/Comment/Post.php:15
-#: classes/Settings/Column/CustomFieldType.php:133
+#: classes/Settings/Column/CustomFieldType.php:134
 #: templates/admin/help-tab/custom-fields.php:46
 msgid "Post"
 msgstr "Innlegg"
@@ -2011,8 +2250,8 @@ msgstr "Innlegg"
 msgid "Content"
 msgstr "Innhold"
 
-#: classes/Settings/Column/Comment.php:128
-#: classes/Settings/Column/CustomFieldType.php:121
+#: classes/Settings/Column/Comment.php:126
+#: classes/Settings/Column/CustomFieldType.php:122
 #: classes/Settings/Column/Post.php:103
 #: templates/admin/help-tab/custom-fields.php:18
 msgid "Date"
@@ -2027,7 +2266,7 @@ msgid "Date GMT"
 msgstr "Dato GMT"
 
 #: classes/Column/Post/AuthorName.php:18
-#: classes/Settings/Column/Comment.php:126 classes/Settings/Column/Post.php:101
+#: classes/Settings/Column/Comment.php:124 classes/Settings/Column/Post.php:101
 msgid "Author"
 msgstr "Forfatter"
 
@@ -2044,7 +2283,7 @@ msgid "Author IP"
 msgstr "Forfatter IP"
 
 #: classes/Column/Comment/AuthorEmail.php:14
-#: classes/Settings/Column/Comment.php:127
+#: classes/Settings/Column/Comment.php:125
 msgid "Author Email"
 msgstr "Forfatter e-post"
 
@@ -2061,7 +2300,7 @@ msgstr "Godkjent"
 msgid "Agent"
 msgstr "Agent"
 
-#: templates/admin/edit-column.php:54
+#: templates/admin/edit-column.php:35
 msgid "Edit"
 msgstr "Rediger"
 
@@ -2070,7 +2309,7 @@ msgid "Edit Comment"
 msgstr "Rediger kommentar"
 
 #: classes/Column/Comment/ID.php:14 classes/Column/Media/ID.php:14
-#: classes/Column/Post/ID.php:15 classes/Settings/Column/Comment.php:125
+#: classes/Column/Post/ID.php:15 classes/Settings/Column/Comment.php:123
 #: classes/Settings/Column/Post.php:100 classes/Settings/Column/Term.php:32
 #: templates/admin/edit-actions.php:41
 msgid "ID"
@@ -2080,7 +2319,9 @@ msgstr "ID"
 #: classes/Settings/Column/MissingImageSize.php:23
 #: classes/Settings/Column/PostFormatIcon.php:25
 #: classes/Settings/Column/Pro.php:24 classes/Settings/Column/StatusIcon.php:25
-#: classes/Settings/Column/Toggle.php:15 templates/admin/side-feedback.php:14
+#: classes/Settings/Column/Toggle.php:15
+#: templates/admin/list-screen-settings-mockup.php:93
+#: templates/admin/side-feedback.php:14
 msgid "No"
 msgstr "Nei"
 
@@ -2088,7 +2329,9 @@ msgstr "Nei"
 #: classes/Settings/Column/MissingImageSize.php:22
 #: classes/Settings/Column/PostFormatIcon.php:24
 #: classes/Settings/Column/Pro.php:23 classes/Settings/Column/StatusIcon.php:24
-#: classes/Settings/Column/Toggle.php:14 templates/admin/side-feedback.php:13
+#: classes/Settings/Column/Toggle.php:14
+#: templates/admin/list-screen-settings-mockup.php:92
+#: templates/admin/side-feedback.php:13
 msgid "Yes"
 msgstr "Ja"
 
@@ -2104,11 +2347,8 @@ msgstr "Bruk ikoner?"
 msgid "Actions"
 msgstr "Handlinger"
 
-#: classes/Integration/WooCommerce.php:18
-msgid "Enhance the products, orders and coupons overviews with new columns and inline editing."
-msgstr "Forbedre produkt, bestillings- og kupongoversiktene med nye kolonner og Inline redigering."
-
 #: classes/Integration/WooCommerce.php:16
+#: classes/Integration/WooCommerce.php:20
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
