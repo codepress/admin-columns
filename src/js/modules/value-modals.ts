@@ -1,5 +1,5 @@
 // @ts-ignore
-import ValueModalComponent from "../svelte/ValueModal.svelte";
+import ValueModalComponent from "../components/ValueModal.svelte";
 
 export type ValueModal = {
     element: HTMLElement,
@@ -47,7 +47,5 @@ export default class ValueModals {
                 destroyHandler: () => this.destroyComponent()
             }
         });
-
     }
-
 }

@@ -13,7 +13,7 @@ class Summary extends Column implements Column\ExtendedValue {
 	}
 
 	public function get_value( $id ) {
-		return '<a data-modal-value>' . __( 'View Summary', 'codepress-admin-columns' ) . '</a>';
+		return '<a data-modal-value href="#">' . __( 'View Summary', 'codepress-admin-columns' ) . '</a>';
 	}
 
 	public function get_extended_value( $id ) {

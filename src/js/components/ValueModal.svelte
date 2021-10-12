@@ -16,6 +16,7 @@
     let title;
     let content;
     let source;
+
     const CancelToken = axios.CancelToken;
     const close = () => {
         destroyHandler();
@@ -71,7 +72,6 @@
         }).then((response: AxiosResponse<string>) => {
             content = response.data
             title = getTitle(objectId);
-        }).catch(() => {
         });
     }
 
