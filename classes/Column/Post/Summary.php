@@ -5,7 +5,7 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\View;
 
-class Summary extends Column implements Column\DetailedValue {
+class Summary extends Column implements Column\ExtendedValue {
 
 	public function __construct() {
 		$this->set_type( 'column-summary' );
@@ -16,7 +16,7 @@ class Summary extends Column implements Column\DetailedValue {
 		return '<a data-modal-value>' . __( 'View Summary', 'codepress-admin-columns' ) . '</a>';
 	}
 
-	public function get_detailed_value( $id ) {
+	public function get_extended_value( $id ) {
 		$taxonomies = [];
 
 		foreach ( get_object_taxonomies( $this->get_post_type(), 'objects' ) as $taxonomy ) {
