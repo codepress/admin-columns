@@ -24,6 +24,16 @@ export default class AcHtmlElement {
         return this;
     }
 
+    setAttribute(name: string, value: string) {
+        this.element.setAttribute(name, value);
+        return this;
+    }
+
+    setAttributes(attributes: { [key: string]: string }) {
+        Object.keys(attributes).forEach(k => this.setAttribute(k, attributes[k]));
+        return this;
+    }
+
     addHtml(html: string) {
         this.element.innerHTML = html;
         return this;
