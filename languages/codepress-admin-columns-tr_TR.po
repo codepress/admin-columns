@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-04-21 10:39:56+0000\n"
+"PO-Revision-Date: 2021-10-13 22:46:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,270 +13,270 @@ msgstr ""
 
 #: templates/admin/page/settings-section-restore.php:4
 msgid "Restore settings"
-msgstr ""
+msgstr "Ayarları geri yükle"
 
 #: templates/admin/page/settings-section-pro-cta.php:159
 msgid "Upgrade to Admin Columns Pro"
-msgstr ""
+msgstr "Admin Columns Pro'ya yükselt"
 
 #: templates/admin/page/settings-section-pro-cta.php:153
 msgid "View all Pro features"
-msgstr ""
+msgstr "Tüm Pro özellikleri gör"
 
 #: templates/admin/page/settings-section-pro-cta.php:147
 msgid "Insert a post, user or anything really directly from the overview."
-msgstr ""
+msgstr "Genel görünüm ekranından yazı, kullanıcı ya da istediğiniz öğeyi ekleyin."
 
 #: templates/admin/page/settings-section-pro-cta.php:140
 msgid "Get access to all our integrations for popular WordPress plugins"
-msgstr ""
+msgstr "En sevilen WordPress eklentilerimiz ile bütünleştirmelerimizi edinin"
 
 #: templates/admin/page/settings-section-pro-cta.php:139
 msgid "All integration add-ons"
-msgstr ""
+msgstr "Tüm bütünleştirme eklentileri"
 
 #: templates/admin/page/settings-section-pro-cta.php:133
 msgid "Manage columns for your Taxonomy overview pages"
-msgstr ""
+msgstr "Sınıflandırma genel görünüm sayfalarının sütunlarını yönetin"
 
 #: templates/admin/page/settings-section-pro-cta.php:132
 msgid "Taxonomy Support"
-msgstr ""
+msgstr "Sınıflandırma desteği"
 
 #: templates/admin/page/settings-section-pro-cta.php:126
 msgid "Create a better user experience when visiting the list table by setting preferences and hiding the functionality you do not need."
-msgstr ""
+msgstr "Tercihleri ayarlayarak ve ihtiyacınız olmayan işlevselliği gizleyerek liste tablosunu ziyaret ederken daha iyi bir kullanıcı deneyimi oluşturun."
 
 #: templates/admin/page/settings-section-pro-cta.php:125
 msgid "Customize List Table"
-msgstr ""
+msgstr "Liste tablosunu özelleştir"
 
 #: templates/admin/page/settings-section-pro-cta.php:118
 msgid "And of course, all network sites can use Admin Columns."
-msgstr ""
+msgstr "Ve elbette, tüm ağ siteleri Admin Columns'u kullanabilir."
 
 #: templates/admin/page/settings-section-pro-cta.php:117
 msgid "Get insights about your entire network of sites."
-msgstr ""
+msgstr "Tüm site ağınız hakkında içgörüler alın."
 
 #: templates/admin/page/settings-section-pro-cta.php:114
 msgid "Multisite Support"
-msgstr ""
+msgstr "Çoklu site desteği"
 
 #: templates/admin/page/settings-section-pro-cta.php:107
 msgid "Admin Columns can generate a fully customized and downloadable CSV."
-msgstr ""
+msgstr "Admin Columns tamamen özelleştirilmiş ve indirilebilir bir CSV oluşturabilir."
 
 #: templates/admin/page/settings-section-pro-cta.php:106
 msgid "Want to import content in Excel, Mailchimp or anything else?"
-msgstr ""
+msgstr "Excel, Mailchimp veya başka bir yerden içerik aktarmak ister misiniz?"
 
 #: templates/admin/page/settings-section-pro-cta.php:103
 msgid "Export Table to CSV"
-msgstr ""
+msgstr "Tabloyu CSV'ye aktar"
 
 #: templates/admin/page/settings-section-pro-cta.php:96
 msgid "Simply scroll through your columns horizontally so your overview can be complete and functional."
-msgstr ""
+msgstr "Genel bakışınızın eksiksiz ve işlevsel olabilmesi için sütunlarınızda yatay olarak gezinmeniz yeterlidir."
 
 #: templates/admin/page/settings-section-pro-cta.php:95
 msgid "Need more columns than the size of your screen?"
-msgstr ""
+msgstr "Ekranınızın boyutundan daha fazla sütuna mı ihtiyacınız var?"
 
 #: templates/admin/page/settings-section-pro-cta.php:85
 msgid "With Bulk Edit you can update thousands of values at once."
-msgstr ""
+msgstr "Toplu düzenleme ile aynı anda binlerce değeri güncelleyebilirsiniz."
 
 #: templates/admin/page/settings-section-pro-cta.php:84
 msgid "Need to update multiple values at once?"
-msgstr ""
+msgstr "Aynı anda birden çok değeri güncelleştirmeniz mi gerekiyor?"
 
 #: templates/admin/page/settings-section-pro-cta.php:73
 msgid "No need to open your post, page, order, user or anything else."
-msgstr ""
+msgstr "Yazınızı, sayfanızı, siparişinizi, kullanıcınızı veya başka bir şeyi açmanıza gerek yok."
 
 #: templates/admin/page/settings-section-pro-cta.php:63
 msgid "Craft overviews in minutes that display precisely what you want to see."
-msgstr ""
+msgstr "Görmek istedikleriniz dakikalar içinde kolayca hazırlayın."
 
 #: templates/admin/page/settings-section-pro-cta.php:62
 msgid "Choose from a well designed set of columns or create your own."
-msgstr ""
+msgstr "İyi tasarlanmış bir sütun kümesi arasından seçim yapın veya kendiniz oluşturun."
 
 #: templates/admin/page/settings-section-pro-cta.php:59
 msgid "Unlimited Columns"
-msgstr ""
+msgstr "Sınırsız sütun"
 
 #: templates/admin/page/settings-section-pro-cta.php:52
 msgid "Switching between sets is easy and can be done from any list table."
-msgstr ""
+msgstr "Kümeler arasında geçiş yapmak kolaydır ve herhangi bir liste tablosundan yapılabilir."
 
 #: templates/admin/page/settings-section-pro-cta.php:51
 msgid "Create multiple columns presets."
-msgstr ""
+msgstr "Birden çok hazır sütun ayarı oluşturun."
 
 #: templates/admin/page/settings-section-pro-cta.php:50
 msgid "Need certain columns for certain tasks?"
-msgstr ""
+msgstr "Belirli görevler için belirli sütunlara mı ihtiyacınız var?"
 
 #: templates/admin/page/settings-section-pro-cta.php:47
 msgid "Multiple Table Views"
-msgstr ""
+msgstr "Birden çok tablo görünümü"
 
 #: templates/admin/page/settings-section-pro-cta.php:41
 msgid "Keep your column names on top of the screen when scrolling down the page"
-msgstr ""
+msgstr "Sayfayı aşağı kaydırırken sütun adlarınızı ekranın üstünde tutun"
 
 #: templates/admin/page/settings-section-pro-cta.php:40
 msgid "Sticky Headers"
-msgstr ""
+msgstr "Sabit başlıklar"
 
 #: templates/admin/page/settings-section-pro-cta.php:33
 msgid "Filters help you to get valuable insights about orders, users, posts, anything really."
-msgstr ""
+msgstr "Filtreler size siparişler, kullanıcılar, yazılar ve daha bir çok şey için çok değerli içgörüler sağlar."
 
 #: templates/admin/page/settings-section-pro-cta.php:32
 msgid "Only show the content that matches the rules you set."
-msgstr ""
+msgstr "Yalnızca belirlediğiniz kurallarla eşleşen içeriği gösterin."
 
 #: templates/admin/page/settings-section-pro-cta.php:22
 msgid "Sort on numbers, names, prices or anything else."
-msgstr ""
+msgstr "Sayılara, isimlere, fiyatlara ya da istediğiniz herhangi başka bir şeye göre sıralayın."
 
 #: templates/admin/page/settings-section-pro-cta.php:21
 msgid "Any column can be turned into an ordered list."
-msgstr ""
+msgstr "Herhangi bir sütun sıralı bir listeye dönüştürülebilir."
 
 #: templates/admin/page/settings-section-pro-cta.php:18
 msgid "Sortable Columns"
-msgstr ""
+msgstr "Sıralanabilir Sütunlar"
 
 #: templates/admin/page/component/addon/network-activate-disabled.php:2
 #: templates/admin/page/component/addon/network-install.php:2
 msgid "Network Enable"
-msgstr ""
+msgstr "Ağı etkinleştir"
 
 #: templates/admin/page/component/addon/missing-license.php:3
 msgid "Activate license"
-msgstr ""
+msgstr "Lisansı etkinleştir"
 
 #: templates/admin/page/component/addon/activate-disabled.php:2
 #: templates/admin/page/component/addon/install.php:2
 msgid "Enable"
-msgstr ""
+msgstr "Etkinleştir"
 
 #: templates/admin/list-screen-settings-mockup.php:123
 msgid "No public saved filters available."
-msgstr ""
+msgstr "Herkese açık kaydedilmiş filtre yok."
 
 #: templates/admin/list-screen-settings-mockup.php:119
 msgid "Pre-applied Filters"
-msgstr ""
+msgstr "Önceden uygulanmış filtreler"
 
 #: templates/admin/list-screen-settings-mockup.php:87
 #: templates/admin/page/settings-section-pro-cta.php:92
 msgid "Horizontal Scrolling"
-msgstr ""
+msgstr "Yatay kaydırma"
 
 #: templates/admin/list-screen-settings-mockup.php:81
 msgid "Set default settings that users will see when they visit the list table."
-msgstr ""
+msgstr "Kullanıcıların liste tablosunu ziyaret ettiklerinde görecekleri varsayılan ayarları ayarlayın."
 
 #: templates/admin/list-screen-settings-mockup.php:80
 msgid "Preferences"
-msgstr ""
+msgstr "Tercihler"
 
 #: templates/admin/list-screen-settings-mockup.php:65
 msgid "Bulk Actions"
-msgstr ""
+msgstr "Toplu İşlemler"
 
 #: templates/admin/list-screen-settings-mockup.php:64
 msgid "Search"
-msgstr ""
+msgstr "Etkinlik Ara"
 
 #: templates/admin/list-screen-settings-mockup.php:63
 msgid "Status (Quick Links)"
-msgstr ""
+msgstr "Durum (Hızlı bağlantılar)"
 
 #: templates/admin/list-screen-settings-mockup.php:62
 #: templates/admin/page/settings-section-pro-cta.php:146
 msgid "Quick Add"
-msgstr ""
+msgstr "Hızlı ekle"
 
 #: templates/admin/list-screen-settings-mockup.php:59
 msgid "Filters"
-msgstr ""
+msgstr "Filtreler"
 
 #: templates/admin/list-screen-settings-mockup.php:57
 msgid "Inline Edit"
-msgstr ""
+msgstr "Dahili düzenleme"
 
 #: templates/admin/list-screen-settings-mockup.php:49
 msgid "Select items to hide from the list table screen."
-msgstr ""
+msgstr "Liste tablosu ekranından gizleyecek öğeleri seçin."
 
 #: templates/admin/list-screen-settings-mockup.php:48
 msgid "Hide on screen"
-msgstr ""
+msgstr "Ekranda gizle"
 
 #: templates/admin/list-screen-settings-mockup.php:30
 msgid "Make this column set available only for specific users or roles."
-msgstr ""
+msgstr "Bu sütun kümesini yalnızca belirli kullanıcılar veya roller için kullanılabilir hale getirin."
 
 #: templates/admin/list-screen-settings-mockup.php:29
 msgid "Conditionals"
-msgstr ""
+msgstr "Koşullular"
 
 #: templates/admin/list-screen-settings-mockup.php:21
 msgid "Unlock with Admin Columns Pro"
-msgstr ""
+msgstr "Admin Columns Pro ile kilidini açın"
 
 #: templates/admin/list-screen-settings-mockup.php:14
 #: templates/admin/list-screen-settings-mockup.php:37
 msgid "optional"
-msgstr ""
+msgstr "isteğe bağlı"
 
 #: templates/admin/edit-addon.php:17
 msgid "More details"
-msgstr ""
+msgstr "Daha fazla ayrıntı"
 
 #: classes/Integration/YoastSeo.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Yoast SEO contents on any admin list table."
-msgstr ""
+msgstr "Yoast SEO içeriğinizi herhangi bir yönetici listesi tablosunda görüntüleyin, satır içi ve toplu olarak düzenleyin, dışa aktarın, akıllı filtreleyin ve sıralayın."
 
 #: classes/Integration/YoastSeo.php:18 classes/Integration/YoastSeo.php:19
 msgid "Yoast SEO"
-msgstr ""
+msgstr "Yoast SEO"
 
 #: classes/Integration/WooCommerce.php:21
 msgid "Display, inline- and bulk-edit, smart filter and sort your Products, Variations, Orders and Customers"
-msgstr ""
+msgstr "Ürünlerinizi, Varyasyonlarınızı, Siparişlerinizi ve Müşterilerinizi görüntüleyin, satır içi ve toplu düzenleme, akıllı filtreleyin ve sıralayın"
 
 #: classes/Integration/NinjaForms.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Submissions."
-msgstr ""
+msgstr "%s gönderimlerinizi görüntüleyin, satır içi ve toplu olarak düzenleyin, dışa aktarın, akıllı filtreleyin ve sıralayın."
 
 #: classes/Integration/MetaBox.php:19 classes/Integration/Pods.php:19
 #: classes/Integration/Types.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s contents on any admin list table."
-msgstr ""
+msgstr "Herhangi bir yönetici liste tablosunda %s içeriklerini görüntüleyin, satır içi ve toplu olarak düzenleyin, dışa aktarın, akıllı filtreleyin ve sıralayın."
 
 #: classes/Integration/GravityForms.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Entries."
-msgstr ""
+msgstr "%s girdilerinizi görüntüleyin, satır içi ve toplu olarak düzenleyin, dışa aktarın, akıllı filtreleyin ve sıralayın."
 
 #: classes/Integration/GravityForms.php:20
 #: classes/Integration/GravityForms.php:21
 msgid "Gravity Forms"
-msgstr ""
+msgstr "Gravity Forms"
 
 #: classes/Integration/EventsCalendar.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Events, Organizers and Venues."
-msgstr ""
+msgstr "Etkinliklerinizi, organizatörlerinizi ve mekanlarınızı görüntüleyin, satır içi ve toplu olarak düzenleyin, dışa aktarın, akıllı filtreleyin ve sıralayın."
 
 #: classes/Integration/BuddyPress.php:20
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your BuddyPress data fields on the Users page."
-msgstr ""
+msgstr "Kullanıcı sayfasındaki BuddyPress veri alanlarını görüntüleyin, satır içi ve toplu olarak düzenleyin, dışa aktarın, akıllı filtreleyin ve sıralayın."
 
 #: classes/Integration/BuddyPress.php:19
 #: classes/Integration/EventsCalendar.php:20
@@ -285,47 +285,47 @@ msgstr ""
 #: classes/Integration/Types.php:18 classes/Integration/WooCommerce.php:20
 #: classes/Integration/YoastSeo.php:18
 msgid "Integrates %s with Admin Columns."
-msgstr ""
+msgstr "%s için Admin Columns bütünleştirmesi."
 
 #: classes/Integration/ACF.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your ACF contents on any admin list table."
-msgstr ""
+msgstr "Herhangi bir yönetici liste tablosundaki ACF içeriklerini görüntüleyin, satır içi ve toplu olarak düzenleyin, dışa aktarın, akıllı filtreleyin ve sıralayın."
 
 #: classes/Integration/ACF.php:18
 msgid "Integrates ACF with Admin Columns."
-msgstr ""
+msgstr "ACF ve Admin Columns bütünleştirmesi."
 
 #: classes/Admin/Section/ProCta.php:19
 msgid "Upgrade to Admin Columns Pro and unlock all the awesome features."
-msgstr ""
+msgstr "Admin Columns Pro'ya yükseltin ve tüm harika özellikleri açın."
 
 #: classes/Admin/Asset/Addons.php:18
 msgid "The Add-on %s is activated."
-msgstr ""
+msgstr "%s eklentisi etkinleştirildi."
 
 #: classes/Column/Media/Album.php:14
 msgid "Album"
-msgstr ""
+msgstr "Albüm"
 
 #: classes/Column/Media/Artist.php:14
 msgid "Artist"
-msgstr ""
+msgstr "Artist"
 
 #: templates/admin/page/component/addon/network-active-label.php:3
 msgid "Network Active"
-msgstr ""
+msgstr "Ağ etkin"
 
 #: classes/Column/User/LastPost.php:15
 msgid "Last Post"
-msgstr ""
+msgstr "Son yazı"
 
 #: classes/Column/User/FirstPost.php:15
 msgid "First Post"
-msgstr ""
+msgstr "İlk yazı"
 
 #: classes/Settings/Column/PostStatus.php:33
 msgid "Post Status"
-msgstr ""
+msgstr "Yazı durumu"
 
 #: classes/Column/Placeholder.php:40
 msgid "Download & install the %s add-on from the <a href='%s'>add-ons tab</a>."
@@ -1586,7 +1586,7 @@ msgstr "Admin Columns Pro edinin"
 
 #: classes/Admin/MenuFactory.php:57
 msgid "Columns"
-msgstr ""
+msgstr "Sütunlar"
 
 #: classes/Admin/Page/Columns.php:211
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
@@ -1624,7 +1624,7 @@ msgstr "Uyarı. Tüm kayıtlı Admin Columns verileri silinecek. Bu geri alınam
 
 #: classes/Admin/Section/Restore.php:21
 msgid "Delete all column settings and restore the default settings."
-msgstr ""
+msgstr "Tüm sütun ayarlarını sil ve varsayılan ayarları geri yükle."
 
 #: classes/Admin/Section/Restore.php:20
 msgid "Restore Settings"

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-10-10 10:59:54+0000\n"
+"PO-Revision-Date: 2021-10-13 09:53:19+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,51 +25,51 @@ msgstr "Bekijk alle Pro functies"
 
 #: templates/admin/page/settings-section-pro-cta.php:147
 msgid "Insert a post, user or anything really directly from the overview."
-msgstr ""
+msgstr "Voeg een bericht, gebruiker of iets anders echt rechtstreeks vanuit het overzicht in."
 
 #: templates/admin/page/settings-section-pro-cta.php:140
 msgid "Get access to all our integrations for popular WordPress plugins"
-msgstr ""
+msgstr "Krijg toegang tot al onze integraties voor populaire WordPress plugins"
 
 #: templates/admin/page/settings-section-pro-cta.php:139
 msgid "All integration add-ons"
-msgstr ""
+msgstr "Alle integratie add-ons"
 
 #: templates/admin/page/settings-section-pro-cta.php:133
 msgid "Manage columns for your Taxonomy overview pages"
-msgstr ""
+msgstr "Kolommen beheren voor je Taxonomie overzichtspagina's"
 
 #: templates/admin/page/settings-section-pro-cta.php:132
 msgid "Taxonomy Support"
-msgstr ""
+msgstr "Taxonomie ondersteuning"
 
 #: templates/admin/page/settings-section-pro-cta.php:126
 msgid "Create a better user experience when visiting the list table by setting preferences and hiding the functionality you do not need."
-msgstr ""
+msgstr "Creëer een betere gebruikerservaring bij het bezoeken van de lijsttabel door voorkeuren in te stellen en de functionaliteit te verbergen die je niet nodig hebt."
 
 #: templates/admin/page/settings-section-pro-cta.php:125
 msgid "Customize List Table"
-msgstr ""
+msgstr "Lijsttabel aanpassen"
 
 #: templates/admin/page/settings-section-pro-cta.php:118
 msgid "And of course, all network sites can use Admin Columns."
-msgstr ""
+msgstr "En natuurlijk kunnen alle netwerksites beheer-kolommen gebruiken."
 
 #: templates/admin/page/settings-section-pro-cta.php:117
 msgid "Get insights about your entire network of sites."
-msgstr ""
+msgstr "Krijg inzicht in het hele netwerk van sites."
 
 #: templates/admin/page/settings-section-pro-cta.php:114
 msgid "Multisite Support"
-msgstr ""
+msgstr "Multisite ondersteuning"
 
 #: templates/admin/page/settings-section-pro-cta.php:107
 msgid "Admin Columns can generate a fully customized and downloadable CSV."
-msgstr ""
+msgstr "Admin Columns kan een volledig aangepaste en downloadbare CSV genereren."
 
 #: templates/admin/page/settings-section-pro-cta.php:106
 msgid "Want to import content in Excel, Mailchimp or anything else?"
-msgstr ""
+msgstr "Wil je inhoud importeren in Excel, Mailchimp of iets anders?"
 
 #: templates/admin/page/settings-section-pro-cta.php:103
 msgid "Export Table to CSV"
@@ -77,84 +77,84 @@ msgstr "Exporteer tabel naar CSV"
 
 #: templates/admin/page/settings-section-pro-cta.php:96
 msgid "Simply scroll through your columns horizontally so your overview can be complete and functional."
-msgstr ""
+msgstr "Scroll gewoon horizontaal door je kolommen zodat je overzicht compleet en functioneel kan zijn."
 
 #: templates/admin/page/settings-section-pro-cta.php:95
 msgid "Need more columns than the size of your screen?"
-msgstr ""
+msgstr "Meer kolommen nodig dan de grootte van het scherm?"
 
 #: templates/admin/page/settings-section-pro-cta.php:85
 msgid "With Bulk Edit you can update thousands of values at once."
-msgstr ""
+msgstr "Met bulk edit kun je duizenden waarden tegelijk updaten."
 
 #: templates/admin/page/settings-section-pro-cta.php:84
 msgid "Need to update multiple values at once?"
-msgstr ""
+msgstr "Wil je meerdere waarden tegelijk updaten?"
 
 #: templates/admin/page/settings-section-pro-cta.php:73
 msgid "No need to open your post, page, order, user or anything else."
-msgstr ""
+msgstr "Het is niet nodig om je bericht, pagina, bestelling, gebruiker of iets anders te openen."
 
 #: templates/admin/page/settings-section-pro-cta.php:63
 msgid "Craft overviews in minutes that display precisely what you want to see."
-msgstr ""
+msgstr "Maak in enkele minuten overzichten die precies weergeven wat je wilt zien."
 
 #: templates/admin/page/settings-section-pro-cta.php:62
 msgid "Choose from a well designed set of columns or create your own."
-msgstr ""
+msgstr "Kies uit een goed ontworpen set kolommen of maak je eigen."
 
 #: templates/admin/page/settings-section-pro-cta.php:59
 msgid "Unlimited Columns"
-msgstr ""
+msgstr "Onbeperkt aantal kolommen"
 
 #: templates/admin/page/settings-section-pro-cta.php:52
 msgid "Switching between sets is easy and can be done from any list table."
-msgstr ""
+msgstr "Schakelen tussen sets is eenvoudig en kan worden gedaan vanuit elke lijsttabel."
 
 #: templates/admin/page/settings-section-pro-cta.php:51
 msgid "Create multiple columns presets."
-msgstr ""
+msgstr "Maak voorinstellingen voor meerdere kolommen."
 
 #: templates/admin/page/settings-section-pro-cta.php:50
 msgid "Need certain columns for certain tasks?"
-msgstr ""
+msgstr "Hebt je bepaalde kolommen nodig voor bepaalde taken?"
 
 #: templates/admin/page/settings-section-pro-cta.php:47
 msgid "Multiple Table Views"
-msgstr ""
+msgstr "Meerdere tabelweergaven"
 
 #: templates/admin/page/settings-section-pro-cta.php:41
 msgid "Keep your column names on top of the screen when scrolling down the page"
-msgstr ""
+msgstr "Houd je kolomnamen bovenaan het scherm wanneer je naar beneden scrolt op de pagina"
 
 #: templates/admin/page/settings-section-pro-cta.php:40
 msgid "Sticky Headers"
-msgstr ""
+msgstr "Sticky headers"
 
 #: templates/admin/page/settings-section-pro-cta.php:33
 msgid "Filters help you to get valuable insights about orders, users, posts, anything really."
-msgstr ""
+msgstr "Filters helpen je om waardevolle inzichten te krijgen over bestellingen, gebruikers, berichten, eigenlijk alles."
 
 #: templates/admin/page/settings-section-pro-cta.php:32
 msgid "Only show the content that matches the rules you set."
-msgstr ""
+msgstr "Toon alleen de inhoud die overeenkomt met de regels die je hebt ingesteld."
 
 #: templates/admin/page/settings-section-pro-cta.php:22
 msgid "Sort on numbers, names, prices or anything else."
-msgstr ""
+msgstr "Sorteer op nummers, namen, prijzen of iets anders."
 
 #: templates/admin/page/settings-section-pro-cta.php:21
 msgid "Any column can be turned into an ordered list."
-msgstr ""
+msgstr "Elke kolom kan worden omgezet in een geordende lijst."
 
 #: templates/admin/page/settings-section-pro-cta.php:18
 msgid "Sortable Columns"
-msgstr ""
+msgstr "Sorteerbare kolommen"
 
 #: templates/admin/page/component/addon/network-activate-disabled.php:2
 #: templates/admin/page/component/addon/network-install.php:2
 msgid "Network Enable"
-msgstr ""
+msgstr "Netwerk inschakelen"
 
 #: templates/admin/page/component/addon/missing-license.php:3
 msgid "Activate license"
@@ -167,7 +167,7 @@ msgstr "Inschakelen"
 
 #: templates/admin/list-screen-settings-mockup.php:123
 msgid "No public saved filters available."
-msgstr ""
+msgstr "Er zijn geen openbare opgeslagen filters beschikbaar."
 
 #: templates/admin/list-screen-settings-mockup.php:119
 msgid "Pre-applied Filters"
@@ -229,7 +229,7 @@ msgstr "Voorwaarden"
 
 #: templates/admin/list-screen-settings-mockup.php:21
 msgid "Unlock with Admin Columns Pro"
-msgstr ""
+msgstr "Ontgrendelen met Admin Columns Pro"
 
 #: templates/admin/list-screen-settings-mockup.php:14
 #: templates/admin/list-screen-settings-mockup.php:37
@@ -242,7 +242,7 @@ msgstr "Meer details"
 
 #: classes/Integration/YoastSeo.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Yoast SEO contents on any admin list table."
-msgstr ""
+msgstr "Toon, inline- en bulk edit, export, slim filteren en sorteren van je Yoast SEO inhoud op elke beheer lijst tabel."
 
 #: classes/Integration/YoastSeo.php:18 classes/Integration/YoastSeo.php:19
 msgid "Yoast SEO"
@@ -250,20 +250,20 @@ msgstr "Yoast SEO"
 
 #: classes/Integration/WooCommerce.php:21
 msgid "Display, inline- and bulk-edit, smart filter and sort your Products, Variations, Orders and Customers"
-msgstr ""
+msgstr "Display, inline- en bulk-edit, slim filteren en sorteren van producten, variaties, bestellingen en klanten"
 
 #: classes/Integration/NinjaForms.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Submissions."
-msgstr ""
+msgstr "Toon, inline- en bulk edit, exporteren, slim filteren en sorteren van je %s inzendingen."
 
 #: classes/Integration/MetaBox.php:19 classes/Integration/Pods.php:19
 #: classes/Integration/Types.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s contents on any admin list table."
-msgstr ""
+msgstr "Toon, inline- en bulk edit, exporteren, slim filteren en sorteren van je %s inhoud op elke beheer lijsttabel."
 
 #: classes/Integration/GravityForms.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Entries."
-msgstr ""
+msgstr "Toon, inline- en bulk edit, exporteren, slim filteren en sorteren van je %s vermeldingen."
 
 #: classes/Integration/GravityForms.php:20
 #: classes/Integration/GravityForms.php:21
@@ -272,11 +272,11 @@ msgstr "Gravity Forms"
 
 #: classes/Integration/EventsCalendar.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Events, Organizers and Venues."
-msgstr ""
+msgstr "Toon, inline- en bulk edit, exporteren, slim filteren en sorteren van evenementen, organisatoren en locaties."
 
 #: classes/Integration/BuddyPress.php:20
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your BuddyPress data fields on the Users page."
-msgstr ""
+msgstr "Toon, inline- en bulk edit, exporteren, slim filteren en sorteren van je BuddyPress gegevensvelden op de gebruikerspagina."
 
 #: classes/Integration/BuddyPress.php:19
 #: classes/Integration/EventsCalendar.php:20
