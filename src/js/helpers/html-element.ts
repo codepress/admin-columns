@@ -1,4 +1,4 @@
-export const AcEl = ( el:string) => {
+export const AcEl = ( el:string|HTMLElement) => {
     return AcHtmlElement.create( el );
 }
 
