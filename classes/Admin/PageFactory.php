@@ -38,7 +38,7 @@ class PageFactory implements PageFactoryInterface {
 	 *
 	 * @return Renderable|null
 	 */
-	public function create( $slug ) {
+	public function create( ) {
 
 		switch ( $slug ) {
 			case Page\Help::NAME :

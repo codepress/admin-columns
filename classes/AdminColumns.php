@@ -2,10 +2,8 @@
 
 namespace AC;
 
+use AC\Admin;
 use AC\Admin\AdminScripts;
-use AC\Admin\MenuFactory;
-use AC\Admin\Page\Columns;
-use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\Preference;
 use AC\Admin\RequestHandler;
@@ -19,7 +17,6 @@ use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\InstallCollection;
 use AC\Plugin\UpdateCollection;
-use AC\Plugin\Updater\Site;
 use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
 use AC\Settings\GeneralOption;
@@ -63,11 +60,19 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
+		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
+		$menu = $menu_factory->create( filter_input( INPUT_GET, 'tab' ) ?: 'columns' );
+		$head = new Admin\View\Menu( $menu );
+		$asset_location = $this->get_location();
+
+		$page_factory_aggregate = new Admin\PageFactoryAggregate();
+		$page_factory_aggregate->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $asset_location, $head ) )
+		                       ->add( 'settings', new Admin\PageFactory\Settings( $asset_location, $head ) )
+		                       ->add( 'addons', new Admin\PageFactory\Addons( $asset_location, new IntegrationRepository(), $head ) )
+		                       ->add( 'help', new Admin\PageFactory\Help( $asset_location, $head ) );
+
 		RequestHandler::add_handler(
-			new PageRequestHandler(
-				new PageFactory( $this->storage, $location, new MenuFactory( admin_url( 'options-general.php' ), new IntegrationRepository() ) ),
-				Columns::NAME
-			)
+			new PageRequestHandler( $page_factory_aggregate, 'columns' )
 		);
 
 		$services = [

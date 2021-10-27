@@ -3,9 +3,8 @@
 namespace AC\Admin;
 
 use AC\Admin\Menu\Item;
+use AC\Asset\Location;
 use AC\Deprecated\Hooks;
-use AC\Integration\Filter;
-use AC\IntegrationRepository;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
@@ -17,13 +16,13 @@ class MenuFactory implements MenuFactoryInterface {
 	protected $url;
 
 	/**
-	 * @var IntegrationRepository
+	 * @var Location\Absolute
 	 */
-	private $integration_repository;
+	protected $location;
 
-	public function __construct( $url, IntegrationRepository $integration_repository ) {
+	public function __construct( $url, Location\Absolute $location ) {
 		$this->url = (string) $url;
-		$this->integration_repository = $integration_repository;
+		$this->location = $location;
 	}
 
 	/**
@@ -39,15 +38,6 @@ class MenuFactory implements MenuFactoryInterface {
 			],
 			$this->url
 		);
-	}
-
-	private function get_recommended_integrations() {
-		return $this->integration_repository->find_all( [
-			IntegrationRepository::ARG_FILTER => [
-				new Filter\IsNotActive( is_multisite(), is_network_admin() ),
-				new Filter\IsPluginActive(),
-			],
-		] );
 	}
 
 	public function create( $current ) {
@@ -70,7 +60,7 @@ class MenuFactory implements MenuFactoryInterface {
 		}
 
 		$url = ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url();
-		$image = sprintf( '<img alt="%s" src="%s/assets/images/external.svg">', 'Admin Columns Pro', AC()->get_url() );
+		$image = sprintf( '<img alt="%s" src="%s">', 'Admin Columns Pro', $this->location->with_suffix( '/assets/images/external.svg' )->get_url() );
 
 		$menu->add_item( new Item( 'pro', $url, sprintf( '%s %s', 'Admin Columns Pro', $image ), '-pro', '_blank' ) );
 

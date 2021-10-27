@@ -5,10 +5,11 @@ namespace AC\Admin;
 use AC;
 use AC\Request;
 
+// TODO redundant. Maybe use Handler.
 class PageRequestHandler implements RequestHandlerInterface {
 
 	/**
-	 * @var PageFactoryInterface
+	 * @var PageFactoryAggregate
 	 */
 	private $factory;
 
@@ -17,7 +18,7 @@ class PageRequestHandler implements RequestHandlerInterface {
 	 */
 	private $default;
 
-	public function __construct( PageFactoryInterface $factory, $default = '' ) {
+	public function __construct( PageFactoryAggregateInterface $factory, $default = '' ) {
 		$this->factory = $factory;
 		$this->default = (string) $default;
 	}
