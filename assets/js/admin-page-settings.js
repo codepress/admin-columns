@@ -119,8 +119,12 @@ const appendObjectToFormData = (formData, data, parentKey = null) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AcEl": () => (/* binding */ AcEl),
 /* harmony export */   "default": () => (/* binding */ AcHtmlElement)
 /* harmony export */ });
+const AcEl = (el) => {
+    return AcHtmlElement.create(el);
+};
 class AcHtmlElement {
     constructor(el) {
         this.element = el instanceof HTMLElement ? el : document.createElement(el);
@@ -140,12 +144,45 @@ class AcHtmlElement {
         classNames.forEach(className => this.addClass(className));
         return this;
     }
+    setAttribute(name, value) {
+        this.element.setAttribute(name, value);
+        return this;
+    }
+    setAttributes(attributes) {
+        Object.keys(attributes).forEach(k => this.setAttribute(k, attributes[k]));
+        return this;
+    }
     addHtml(html) {
         this.element.innerHTML = html;
         return this;
     }
     css(property, value) {
         this.element.style[property] = value;
+        return this;
+    }
+    insertAfter(insertedElement) {
+        try {
+            this.element.parentElement.insertBefore(insertedElement, this.element.nextElementSibling);
+        }
+        catch (e) {
+            console.error("Not able to insert element after current node", this.element);
+        }
+    }
+    insertBefore(insertedElement) {
+        try {
+            this.element.parentElement.insertBefore(insertedElement, this.element);
+        }
+        catch (e) {
+            console.error("Not able to insert element before current node", this.element);
+        }
+        return this;
+    }
+    addEventListener(event, listener) {
+        this.element.addEventListener(event, listener);
+        return this;
+    }
+    addEventListeners(events, listener) {
+        events.forEach(e => this.addEventListener(e, listener));
         return this;
     }
 }
