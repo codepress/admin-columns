@@ -8,7 +8,6 @@ use AC\Admin\PageRequestHandler;
 use AC\Admin\Preference;
 use AC\Admin\RequestHandler;
 use AC\Admin\WpMenuFactory;
-use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Controller;
@@ -55,25 +54,18 @@ class AdminColumns extends Plugin {
 			),
 		] );
 
-		$location = new Absolute(
-			$this->get_url(),
-			$this->get_dir()
-		);
+		$location = $this->get_location();
 
 		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
-		$menu = $menu_factory->create( filter_input( INPUT_GET, 'tab' ) ?: 'columns' );
-		$head = new Admin\View\Menu( $menu );
-		$asset_location = $this->get_location();
+		$head = new Admin\View\Menu( $menu_factory->create( filter_input( INPUT_GET, 'tab' ) ?: 'columns' ) );
 
 		$page_factory_aggregate = new Admin\PageFactoryAggregate();
-		$page_factory_aggregate->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $asset_location, $head ) )
-		                       ->add( 'settings', new Admin\PageFactory\Settings( $asset_location, $head ) )
-		                       ->add( 'addons', new Admin\PageFactory\Addons( $asset_location, new IntegrationRepository(), $head ) )
-		                       ->add( 'help', new Admin\PageFactory\Help( $asset_location, $head ) );
+		$page_factory_aggregate->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $head ) )
+		                       ->add( 'settings', new Admin\PageFactory\Settings( $location, $head ) )
+		                       ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $head ) )
+		                       ->add( 'help', new Admin\PageFactory\Help( $location, $head ) );
 
-		RequestHandler::add_handler(
-			new PageRequestHandler( $page_factory_aggregate, 'columns' )
-		);
+		RequestHandler::add_handler( new PageRequestHandler( $page_factory_aggregate, 'columns' ) );
 
 		$services = [
 			new Admin\Admin( new RequestHandler(), new WpMenuFactory(), new AdminScripts( $location ) ),
@@ -97,7 +89,7 @@ class AdminColumns extends Plugin {
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
-			new NoticeChecks( $this->get_location() ),
+			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 			new Plugin\Setup( $this->get_version(), $this->get_stored_version(), UpdateCollection::create_by_namespace( 'AC\Plugin\Update' ), new InstallCollection( [ new Plugin\Install\Capabilities(), new Plugin\Install\Database() ] ) ),
 		];
