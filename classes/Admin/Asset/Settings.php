@@ -3,14 +3,17 @@
 namespace AC\Admin\Asset;
 
 use AC\Asset\Script;
+use AC\Nonce;
 
 class Settings extends Script {
 
 	public function register() {
 		parent::register();
 
+		$nonce = new Nonce\Ajax();
+
 		$this->add_inline_variable( 'AC', [
-			'_ajax_nonce' => wp_create_nonce( 'ac-ajax' ),
+			Nonce\Ajax::NAME => $nonce->create(),
 		] );
 	}
 

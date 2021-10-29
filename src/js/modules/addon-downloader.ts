@@ -28,7 +28,7 @@ export default class AddonDownloader {
             action: 'acp-ajax-install-addon',
             plugin_name: this.slug,
             network_wide: this.network_admin ? 1 : 0,
-            _acnonce: this.nonce
+            _ajax_nonce: this.nonce
         }));
     }
 

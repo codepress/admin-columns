@@ -1,205 +1,19 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ "./js/admin-page-columns.ts":
-/*!**********************************!*\
-  !*** ./js/admin-page-columns.ts ***!
-  \**********************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.ts");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
-/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jquery */ "jquery");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./admin/columns/column-configurator */ "./js/admin/columns/column-configurator.ts");
-/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/modal */ "./js/modules/modal.ts");
-/* harmony import */ var _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./admin/columns/feedback */ "./js/admin/columns/feedback.ts");
-/* harmony import */ var _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./admin/columns/screen-options */ "./js/admin/columns/screen-options.ts");
-/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./plugin/tooltip */ "./js/plugin/tooltip.ts");
-/* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.ts");
-/* harmony import */ var _admin_columns_listscreen_initialize__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./admin/columns/listscreen-initialize */ "./js/admin/columns/listscreen-initialize.ts");
-/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/modals */ "./js/modules/modals.ts");
-
-
-
-
-
-
-
-
-
-
-
-
-let AcServices = Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__["initAcServices"])();
-AcServices.registerService('Modals', new _modules_modals__WEBPACK_IMPORTED_MODULE_11__["default"]());
-new _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__["default"](AcServices);
-document.addEventListener('DOMContentLoaded', () => {
-    initSaveHandlers();
-    // Init the form
-    document.querySelectorAll('#listscreen_settings').forEach((formElement) => {
-        AcServices.registerService('Form', new _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__["Form"](formElement, AcServices));
-    });
-    // Init the Pro promotion Modal
-    document.querySelectorAll('#ac-modal-pro').forEach(proModal => {
-        AcServices.getService('Modals').register(new _modules_modal__WEBPACK_IMPORTED_MODULE_5__["default"](proModal), 'pro');
-    });
-    document.querySelectorAll('#ac_list_screen').forEach(select => {
-        select.addEventListener('change', () => {
-            document.querySelectorAll('.view-link').forEach(link => link.style.display = 'none');
-            select.closest('form').submit();
-            select.disabled = true;
-            select.nextElementSibling.style.display = 'inline-block';
-        });
-    });
-    document.querySelectorAll('#direct-feedback').forEach(feedbackElement => new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__["default"](feedbackElement));
-    if (AC.hasOwnProperty('uninitialized_list_screens')) {
-        Object(_admin_columns_listscreen_initialize__WEBPACK_IMPORTED_MODULE_10__["initUninitializedListScreens"])(AC.uninitialized_list_screens);
-    }
-    // Screen Options
-    document.querySelectorAll('[data-ac-screen-option="show_column_id"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_column_id', el, 'show-column-id', document.querySelector('.ac-boxes')));
-    document.querySelectorAll('[data-ac-screen-option="show_column_type"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_column_type', el, 'show-column-type', document.querySelector('.ac-boxes')));
-    document.querySelectorAll('[data-ac-screen-option="show_list_screen_id"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_list_screen_id', el, 'show-list-screen-id', document.querySelector('.ac-admin')));
-    document.querySelectorAll('[data-ac-screen-option="show_list_screen_type"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_list_screen_type', el, 'show-list-screen-type', document.querySelector('.ac-admin')));
-});
-AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.LOADED, (form) => {
-    document.querySelectorAll('.add_column').forEach(el => el.addEventListener('click', () => form.createNewColumn()));
-    document.querySelectorAll('a[data-clear-columns]').forEach(el => el.addEventListener('click', () => form.resetColumns()));
-    // Make column settings sortable
-    let $form = jquery__WEBPACK_IMPORTED_MODULE_3___default()(form.getElement());
-    $form.hasClass('ui-sortable')
-        ? $form.sortable('refresh')
-        : $form.sortable({ items: '.ac-column', handle: '[data-sort-handle]' });
-});
-AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVING, () => {
-    document.querySelector('#cpac .ac-admin').classList.add('saving');
-});
-AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, () => {
-    document.querySelector('#cpac .ac-admin').classList.remove('saving');
-    document.querySelector('#cpac .ac-admin').classList.add('stored');
-});
-AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.INIT, (column) => {
-    Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_8__["initAcTooltips"])();
-    Object(_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__["initPointers"])(column.getElement().querySelectorAll('.ac-pointer'));
-});
-const initSaveHandlers = () => {
-    const elements = document.querySelectorAll('.sidebox a.submit, .column-footer a.submit');
-    AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.READY, (form) => {
-        elements.forEach(el => {
-            el.addEventListener('click', e => {
-                e.preventDefault();
-                elements.forEach(el => el.setAttribute('disabled', 'disabled'));
-                form.submitForm();
-            });
-        });
-    });
-    AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.FORM.SAVED, () => elements.forEach(el => el.removeAttribute('disabled')));
-};
-
-
-/***/ }),
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./js/admin/columns/ajax.ts":
 /*!**********************************!*\
   !*** ./js/admin/columns/ajax.ts ***!
   \**********************************/
-/*! exports provided: submitColumnSettings, switchColumnType, refreshColumn */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "submitColumnSettings", function() { return submitColumnSettings; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "switchColumnType", function() { return switchColumnType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "refreshColumn", function() { return refreshColumn; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "submitColumnSettings": () => (/* binding */ submitColumnSettings),
+/* harmony export */   "switchColumnType": () => (/* binding */ switchColumnType),
+/* harmony export */   "refreshColumn": () => (/* binding */ refreshColumn)
+/* harmony export */ });
 const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 const mapDataToFormData = (data, formData = null) => {
     if (!formData) {
@@ -246,12 +60,13 @@ const refreshColumn = (name, data, list_screen = AC.list_screen) => {
 /*!*************************************************!*\
   !*** ./js/admin/columns/column-configurator.ts ***!
   \*************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ColumnConfigurator; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ColumnConfigurator)
+/* harmony export */ });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants */ "./js/constants.ts");
 /* harmony import */ var _events_toggle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./events/toggle */ "./js/admin/columns/events/toggle.ts");
 /* harmony import */ var _events_indicator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./events/indicator */ "./js/admin/columns/events/indicator.ts");
@@ -290,26 +105,26 @@ __webpack_require__.r(__webpack_exports__);
 
 class ColumnConfigurator {
     constructor(Services) {
-        Services.addListener(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.COLUMN.INIT, (column) => {
-            Object(_events_toggle__WEBPACK_IMPORTED_MODULE_1__["initToggle"])(column);
-            Object(_events_indicator__WEBPACK_IMPORTED_MODULE_2__["initIndicator"])(column);
-            Object(_events_type_selector__WEBPACK_IMPORTED_MODULE_3__["initTypeSelector"])(column);
-            Object(_events_remove__WEBPACK_IMPORTED_MODULE_5__["initRemoveColumn"])(column);
-            Object(_events_clone__WEBPACK_IMPORTED_MODULE_6__["initClone"])(column);
-            Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabelSettingEvents"])(column);
-            Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabelTooltipsEvent"])(column);
-            Object(_events_label__WEBPACK_IMPORTED_MODULE_7__["initLabel"])(column);
-            Object(_events_refresh__WEBPACK_IMPORTED_MODULE_4__["initColumnRefresh"])(column);
-            Object(_settings_multi_select__WEBPACK_IMPORTED_MODULE_17__["initMultiSelectFields"])(column);
-            Object(_settings_label__WEBPACK_IMPORTED_MODULE_8__["initLabelSetting"])(column);
-            Object(_settings_image_size__WEBPACK_IMPORTED_MODULE_9__["initImageSizeSetting"])(column);
-            Object(_settings_number_format__WEBPACK_IMPORTED_MODULE_10__["initNumberFormatSetting"])(column);
-            Object(_settings_type__WEBPACK_IMPORTED_MODULE_11__["initColumnTypeSelectorSetting"])(column);
-            Object(_settings_width__WEBPACK_IMPORTED_MODULE_12__["initWidthSetting"])(column);
-            Object(_settings_date__WEBPACK_IMPORTED_MODULE_13__["initDateSetting"])(column);
-            Object(_settings_pro__WEBPACK_IMPORTED_MODULE_14__["initProSetting"])(column);
-            Object(_settings_custom_field__WEBPACK_IMPORTED_MODULE_15__["initCustomFieldSelector"])(column);
-            Object(_settings_sub_setting_toggle__WEBPACK_IMPORTED_MODULE_16__["initSubSettings"])(column);
+        Services.addListener(_constants__WEBPACK_IMPORTED_MODULE_0__.EventConstants.SETTINGS.COLUMN.INIT, (column) => {
+            (0,_events_toggle__WEBPACK_IMPORTED_MODULE_1__.initToggle)(column);
+            (0,_events_indicator__WEBPACK_IMPORTED_MODULE_2__.initIndicator)(column);
+            (0,_events_type_selector__WEBPACK_IMPORTED_MODULE_3__.initTypeSelector)(column);
+            (0,_events_remove__WEBPACK_IMPORTED_MODULE_5__.initRemoveColumn)(column);
+            (0,_events_clone__WEBPACK_IMPORTED_MODULE_6__.initClone)(column);
+            (0,_events_label__WEBPACK_IMPORTED_MODULE_7__.initLabelSettingEvents)(column);
+            (0,_events_label__WEBPACK_IMPORTED_MODULE_7__.initLabelTooltipsEvent)(column);
+            (0,_events_label__WEBPACK_IMPORTED_MODULE_7__.initLabel)(column);
+            (0,_events_refresh__WEBPACK_IMPORTED_MODULE_4__.initColumnRefresh)(column);
+            (0,_settings_multi_select__WEBPACK_IMPORTED_MODULE_17__.initMultiSelectFields)(column);
+            (0,_settings_label__WEBPACK_IMPORTED_MODULE_8__.initLabelSetting)(column);
+            (0,_settings_image_size__WEBPACK_IMPORTED_MODULE_9__.initImageSizeSetting)(column);
+            (0,_settings_number_format__WEBPACK_IMPORTED_MODULE_10__.initNumberFormatSetting)(column);
+            (0,_settings_type__WEBPACK_IMPORTED_MODULE_11__.initColumnTypeSelectorSetting)(column);
+            (0,_settings_width__WEBPACK_IMPORTED_MODULE_12__.initWidthSetting)(column);
+            (0,_settings_date__WEBPACK_IMPORTED_MODULE_13__.initDateSetting)(column);
+            (0,_settings_pro__WEBPACK_IMPORTED_MODULE_14__.initProSetting)(column);
+            (0,_settings_custom_field__WEBPACK_IMPORTED_MODULE_15__.initCustomFieldSelector)(column);
+            (0,_settings_sub_setting_toggle__WEBPACK_IMPORTED_MODULE_16__.initSubSettings)(column);
         });
     }
 }
@@ -321,13 +136,14 @@ class ColumnConfigurator {
 /*!************************************!*\
   !*** ./js/admin/columns/column.ts ***!
   \************************************/
-/*! exports provided: COLUMN_EVENTS, Column */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COLUMN_EVENTS", function() { return COLUMN_EVENTS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Column", function() { return Column; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "COLUMN_EVENTS": () => (/* binding */ COLUMN_EVENTS),
+/* harmony export */   "Column": () => (/* binding */ Column)
+/* harmony export */ });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../constants */ "./js/constants.ts");
@@ -355,7 +171,7 @@ const COLUMN_EVENTS = {
 };
 class Column {
     constructor(element, name, services) {
-        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_2___default.a();
+        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_2___default())();
         this.name = name;
         this.element = element;
         this.state = STATES.CLOSED;
@@ -400,7 +216,7 @@ class Column {
         return this;
     }
     init() {
-        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.INIT, this);
+        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.COLUMN.INIT, this);
         return this;
     }
     destroy() {
@@ -408,7 +224,7 @@ class Column {
     }
     remove(duration = 350) {
         this.events.emit(COLUMN_EVENTS.REMOVE, this);
-        Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_5__["fadeOut"])(this.getElement(), duration, () => {
+        (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_5__.fadeOut)(this.getElement(), duration, () => {
             this.destroy();
         });
     }
@@ -461,10 +277,10 @@ class Column {
     }
     switchToType(type) {
         this.setLoading(true);
-        Object(_ajax__WEBPACK_IMPORTED_MODULE_3__["switchColumnType"])(type).then((response) => {
+        (0,_ajax__WEBPACK_IMPORTED_MODULE_3__.switchColumnType)(type).then((response) => {
             if (response.data.success) {
-                let element = Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild;
-                this.name = Object(_helpers_string__WEBPACK_IMPORTED_MODULE_6__["uniqid"])();
+                let element = (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_4__.createElementFromString)(response.data.data.trim()).firstChild;
+                this.name = (0,_helpers_string__WEBPACK_IMPORTED_MODULE_6__.uniqid)();
                 this.reinitColumnFromElement(element).open();
             }
             else {
@@ -476,10 +292,10 @@ class Column {
     }
     refresh() {
         this.setLoading(true);
-        Object(_ajax__WEBPACK_IMPORTED_MODULE_3__["refreshColumn"])(this.getName(), JSON.stringify(this.getJson())).then((response) => {
+        (0,_ajax__WEBPACK_IMPORTED_MODULE_3__.refreshColumn)(this.getName(), JSON.stringify(this.getJson())).then((response) => {
             if (response.data.success) {
-                this.reinitColumnFromElement(Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["createElementFromString"])(response.data.data.trim()).firstChild);
-                this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_1__["EventConstants"].SETTINGS.COLUMN.REFRESHED, this);
+                this.reinitColumnFromElement((0,_helpers_elements__WEBPACK_IMPORTED_MODULE_4__.createElementFromString)(response.data.data.trim()).firstChild);
+                this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.COLUMN.REFRESHED, this);
                 if (this.isOpen()) {
                     this.open();
                 }
@@ -508,12 +324,13 @@ class Column {
 /*!******************************************!*\
   !*** ./js/admin/columns/events/clone.ts ***!
   \******************************************/
-/*! exports provided: initClone */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initClone", function() { return initClone; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initClone": () => (/* binding */ initClone)
+/* harmony export */ });
 /* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../column */ "./js/admin/columns/column.ts");
 /*
 * Column: bind clone events
@@ -526,7 +343,7 @@ const initClone = (column) => {
         element.addEventListener('click', e => {
             e.preventDefault();
             if (!column.isOriginal()) {
-                column.events.emit(_column__WEBPACK_IMPORTED_MODULE_0__["COLUMN_EVENTS"].CLONE);
+                column.events.emit(_column__WEBPACK_IMPORTED_MODULE_0__.COLUMN_EVENTS.CLONE);
             }
         });
     });
@@ -539,12 +356,13 @@ const initClone = (column) => {
 /*!**********************************************!*\
   !*** ./js/admin/columns/events/indicator.ts ***!
   \**********************************************/
-/*! exports provided: initIndicator */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initIndicator", function() { return initIndicator; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initIndicator": () => (/* binding */ initIndicator)
+/* harmony export */ });
 const initIndicator = (column) => {
     if (column.isDisabled())
         return;
@@ -580,14 +398,15 @@ const switchTo = (checked, elements) => {
 /*!******************************************!*\
   !*** ./js/admin/columns/events/label.ts ***!
   \******************************************/
-/*! exports provided: initLabel, initLabelSettingEvents, initLabelTooltipsEvent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabel", function() { return initLabel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabelSettingEvents", function() { return initLabelSettingEvents; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabelTooltipsEvent", function() { return initLabelTooltipsEvent; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initLabel": () => (/* binding */ initLabel),
+/* harmony export */   "initLabelSettingEvents": () => (/* binding */ initLabelSettingEvents),
+/* harmony export */   "initLabelTooltipsEvent": () => (/* binding */ initLabelTooltipsEvent)
+/* harmony export */ });
 /* harmony import */ var _helpers_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../helpers/events */ "./js/helpers/events.ts");
 
 const initLabel = (column) => {
@@ -612,12 +431,12 @@ const initLabel = (column) => {
 const initLabelSettingEvents = (column) => {
     let labelInput = column.getElement().querySelector('.ac-column-setting--label input');
     if (labelInput) {
-        Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["addEventListeners"])(labelInput, ['change', 'keyup'], () => changeLabel(labelInput, column));
+        (0,_helpers_events__WEBPACK_IMPORTED_MODULE_0__.addEventListeners)(labelInput, ['change', 'keyup'], () => changeLabel(labelInput, column));
     }
 };
 const initLabelTooltipsEvent = (column) => {
     column.getElement().querySelectorAll('.col-label .label').forEach(label => {
-        Object(_helpers_events__WEBPACK_IMPORTED_MODULE_0__["onHover"])(label, () => hoverTooltip(label, 'block'), () => hoverTooltip(label, 'none'));
+        (0,_helpers_events__WEBPACK_IMPORTED_MODULE_0__.onHover)(label, () => hoverTooltip(label, 'block'), () => hoverTooltip(label, 'none'));
     });
 };
 const hoverTooltip = (label, display) => {
@@ -637,12 +456,13 @@ const changeLabel = (labelInput, column) => {
 /*!********************************************!*\
   !*** ./js/admin/columns/events/refresh.ts ***!
   \********************************************/
-/*! exports provided: initColumnRefresh */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initColumnRefresh", function() { return initColumnRefresh; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initColumnRefresh": () => (/* binding */ initColumnRefresh)
+/* harmony export */ });
 const initColumnRefresh = (column) => {
     column.getElement().querySelectorAll('[data-refresh="column"], [data-refresh="column"] input').forEach(element => {
         element.addEventListener('change', () => {
@@ -659,12 +479,13 @@ const initColumnRefresh = (column) => {
 /*!*******************************************!*\
   !*** ./js/admin/columns/events/remove.ts ***!
   \*******************************************/
-/*! exports provided: initRemoveColumn */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initRemoveColumn", function() { return initRemoveColumn; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initRemoveColumn": () => (/* binding */ initRemoveColumn)
+/* harmony export */ });
 const initRemoveColumn = (column) => {
     column.getElement().querySelectorAll('[data-remove-column]').forEach((element) => {
         element.addEventListener('click', e => {
@@ -681,12 +502,13 @@ const initRemoveColumn = (column) => {
 /*!*******************************************!*\
   !*** ./js/admin/columns/events/toggle.ts ***!
   \*******************************************/
-/*! exports provided: initToggle */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initToggle", function() { return initToggle; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initToggle": () => (/* binding */ initToggle)
+/* harmony export */ });
 const initToggle = (column) => {
     column.getElement().querySelectorAll('[data-toggle="column"]').forEach((el) => {
         el.addEventListener('click', e => column.toggle());
@@ -701,12 +523,13 @@ const initToggle = (column) => {
 /*!**************************************************!*\
   !*** ./js/admin/columns/events/type-selector.ts ***!
   \**************************************************/
-/*! exports provided: initTypeSelector */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initTypeSelector", function() { return initTypeSelector; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initTypeSelector": () => (/* binding */ initTypeSelector)
+/* harmony export */ });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 // @ts-ignore
@@ -724,11 +547,13 @@ const initTypeSelector = (column) => {
 /*!**************************************!*\
   !*** ./js/admin/columns/feedback.ts ***!
   \**************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _helpers_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../helpers/animations */ "./js/helpers/animations.ts");
 
 class Feedback {
@@ -739,20 +564,20 @@ class Feedback {
     init() {
         this.element.querySelector('a.no').addEventListener('click', (e) => {
             e.preventDefault();
-            Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeOut"])(this.element.querySelector('#feedback-choice'), 300, () => {
-                Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeIn"])(this.element.querySelector('#feedback-support'), 300);
+            (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_0__.fadeOut)(this.element.querySelector('#feedback-choice'), 300, () => {
+                (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_0__.fadeIn)(this.element.querySelector('#feedback-support'), 300);
             });
         });
         this.element.querySelector('a.yes').addEventListener('click', (e) => {
             e.preventDefault();
-            Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeOut"])(this.element.querySelector('#feedback-choice'), 300, () => {
-                Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_0__["fadeIn"])(this.element.querySelector('#feedback-rate'), 300);
+            (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_0__.fadeOut)(this.element.querySelector('#feedback-choice'), 300, () => {
+                (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_0__.fadeIn)(this.element.querySelector('#feedback-rate'), 300);
             });
         });
     }
     ;
 }
-/* harmony default export */ __webpack_exports__["default"] = (Feedback);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Feedback);
 
 
 /***/ }),
@@ -761,12 +586,13 @@ class Feedback {
 /*!**********************************!*\
   !*** ./js/admin/columns/form.ts ***!
   \**********************************/
-/*! exports provided: Form */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Form", function() { return Form; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Form": () => (/* binding */ Form)
+/* harmony export */ });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants */ "./js/constants.ts");
 /* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./column */ "./js/admin/columns/column.ts");
 /* harmony import */ var _ajax__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ajax */ "./js/admin/columns/ajax.ts");
@@ -786,7 +612,7 @@ class Form {
         this.form = element;
         this.services = services;
         this.columns = [];
-        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.LOADED, this);
+        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__.EventConstants.SETTINGS.FORM.LOADED, this);
         this.init();
     }
     init() {
@@ -795,7 +621,7 @@ class Form {
             this.disableFields();
             this.disableColumns();
         }
-        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.READY, this);
+        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__.EventConstants.SETTINGS.FORM.READY, this);
     }
     getElement() {
         return this.form;
@@ -815,13 +641,13 @@ class Form {
     }
     placeColumn(column, after = null) {
         if (after) {
-            Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_4__["insertAfter"])(column.getElement(), after);
+            (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_4__.insertAfter)(column.getElement(), after);
         }
         else {
             this.getElement().querySelector('.ac-columns').append(column.getElement());
         }
         setTimeout(() => {
-            Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["scrollToElement"])(column.getElement(), 300, { offset: -18 });
+            (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_3__.scrollToElement)(column.getElement(), 300, { offset: -18 });
         }, 300);
         return this;
     }
@@ -844,21 +670,21 @@ class Form {
     }
     initColumns() {
         this.getElement().querySelectorAll('.ac-column').forEach((element) => {
-            let column = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](element, element.dataset.columnName, this.services);
+            let column = new _column__WEBPACK_IMPORTED_MODULE_1__.Column(element, element.dataset.columnName, this.services);
             this.columns.push(column);
             this.bindColumnEvents(column);
         });
     }
     bindColumnEvents(column) {
-        column.events.addListener(_column__WEBPACK_IMPORTED_MODULE_1__["COLUMN_EVENTS"].REMOVE, () => {
+        column.events.addListener(_column__WEBPACK_IMPORTED_MODULE_1__.COLUMN_EVENTS.REMOVE, () => {
             this.removeColumn(column.getName());
         });
-        column.events.addListener(_column__WEBPACK_IMPORTED_MODULE_1__["COLUMN_EVENTS"].CLONE, () => {
-            let cloneColumn = new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](column.getElement().cloneNode(true), Object(_helpers_string__WEBPACK_IMPORTED_MODULE_5__["uniqid"])(), this.services);
+        column.events.addListener(_column__WEBPACK_IMPORTED_MODULE_1__.COLUMN_EVENTS.CLONE, () => {
+            let cloneColumn = new _column__WEBPACK_IMPORTED_MODULE_1__.Column(column.getElement().cloneNode(true), (0,_helpers_string__WEBPACK_IMPORTED_MODULE_5__.uniqid)(), this.services);
             this.columns.push(cloneColumn);
             this.placeColumn(cloneColumn, column.getElement()).bindColumnEvents(cloneColumn);
             column.isOpen() ? cloneColumn.open() : cloneColumn.close();
-            Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["fadeIn"])(cloneColumn.getElement(), 300);
+            (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_3__.fadeIn)(cloneColumn.getElement(), 300);
         });
     }
     resetColumns() {
@@ -888,8 +714,8 @@ class Form {
         });
     }
     submitForm() {
-        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVING, this);
-        Object(_ajax__WEBPACK_IMPORTED_MODULE_2__["submitColumnSettings"])(this.getFormData()).then((response) => {
+        this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__.EventConstants.SETTINGS.FORM.SAVING, this);
+        (0,_ajax__WEBPACK_IMPORTED_MODULE_2__.submitColumnSettings)(this.getFormData()).then((response) => {
             if (response.data.success) {
                 this.showMessage(response.data.data.message, 'updated');
                 AC.layout = response.data.data.list_id;
@@ -901,7 +727,7 @@ class Form {
         }).catch(() => {
             this.showMessage(AC.i18n.error.save_settings);
         }).finally(() => {
-            this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__["EventConstants"].SETTINGS.FORM.SAVED, this);
+            this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__.EventConstants.SETTINGS.FORM.SAVED, this);
         });
     }
     showMessage(message, className = 'updated') {
@@ -909,7 +735,7 @@ class Form {
         let messageContainer = document.querySelector('.ac-admin__main');
         messageContainer.querySelectorAll('.ac-message').forEach((el) => el.remove());
         messageContainer.insertAdjacentElement('afterbegin', element);
-        Object(_helpers_animations__WEBPACK_IMPORTED_MODULE_3__["fadeIn"])(element, 600);
+        (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_3__.fadeIn)(element, 600);
     }
     removeColumn(name) {
         this.columns.forEach((c, i) => {
@@ -938,7 +764,7 @@ class Form {
 }
 const createColumnFromTemplate = (services) => {
     let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true);
-    const newColumnName = Object(_helpers_string__WEBPACK_IMPORTED_MODULE_5__["uniqid"])();
+    const newColumnName = (0,_helpers_string__WEBPACK_IMPORTED_MODULE_5__.uniqid)();
     columnElement.querySelectorAll('label[for]').forEach(label => {
         let relatedId = label.getAttribute('for');
         if (relatedId) {
@@ -950,7 +776,7 @@ const createColumnFromTemplate = (services) => {
             }
         }
     });
-    return new _column__WEBPACK_IMPORTED_MODULE_1__["Column"](columnElement, newColumnName, services);
+    return new _column__WEBPACK_IMPORTED_MODULE_1__.Column(columnElement, newColumnName, services);
 };
 
 
@@ -960,12 +786,13 @@ const createColumnFromTemplate = (services) => {
 /*!***************************************************!*\
   !*** ./js/admin/columns/listscreen-initialize.ts ***!
   \***************************************************/
-/*! exports provided: initUninitializedListScreens */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initUninitializedListScreens", function() { return initUninitializedListScreens; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initUninitializedListScreens": () => (/* binding */ initUninitializedListScreens)
+/* harmony export */ });
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -976,7 +803,7 @@ class ListScreenInitializer {
         this.processed = [];
         this.errors = [];
         this.success = [];
-        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
+        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
         this.run();
     }
     doAjaxCall(listScreen) {
@@ -1037,12 +864,13 @@ const initUninitializedListScreens = (listScreens) => {
 /*!********************************************!*\
   !*** ./js/admin/columns/screen-options.ts ***!
   \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return InfoScreenOption; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ InfoScreenOption)
+/* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helpers/global */ "./js/helpers/global.ts");
@@ -1065,7 +893,7 @@ class InfoScreenOption {
         });
     }
     persist() {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(ajaxurl, Object(_helpers_global__WEBPACK_IMPORTED_MODULE_1__["mapDataToFormData"])({
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post(ajaxurl, (0,_helpers_global__WEBPACK_IMPORTED_MODULE_1__.mapDataToFormData)({
             action: 'ac_admin_screen_options',
             _ajax_nonce: AC._ajax_nonce,
             option_name: this.name,
@@ -1081,12 +909,13 @@ class InfoScreenOption {
 /*!***************************************************!*\
   !*** ./js/admin/columns/settings/custom-field.ts ***!
   \***************************************************/
-/*! exports provided: initCustomFieldSelector */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initCustomFieldSelector", function() { return initCustomFieldSelector; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initCustomFieldSelector": () => (/* binding */ initCustomFieldSelector)
+/* harmony export */ });
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "jquery");
@@ -1133,7 +962,7 @@ class SingleCustomFieldRequestManager {
         this.postType = postType;
         this.loading = false;
         this.data = null;
-        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
+        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
     }
     retrieveOptions() {
         this.loading = true;
@@ -1185,12 +1014,13 @@ const loadSingleRequestManager = (metaType, postType) => {
 /*!*******************************************!*\
   !*** ./js/admin/columns/settings/date.ts ***!
   \*******************************************/
-/*! exports provided: initDateSetting */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initDateSetting", function() { return initDateSetting; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initDateSetting": () => (/* binding */ initDateSetting)
+/* harmony export */ });
 const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 const initDateSetting = (column) => {
     column.getElement().querySelectorAll('[data-setting=date]').forEach(setting => new DateSetting(column, setting));
@@ -1312,13 +1142,14 @@ class CustomOption {
 /*!*************************************************!*\
   !*** ./js/admin/columns/settings/image-size.ts ***!
   \*************************************************/
-/*! exports provided: initImageSizeSetting, ImageSizeSetting */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initImageSizeSetting", function() { return initImageSizeSetting; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImageSizeSetting", function() { return ImageSizeSetting; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initImageSizeSetting": () => (/* binding */ initImageSizeSetting),
+/* harmony export */   "ImageSizeSetting": () => (/* binding */ ImageSizeSetting)
+/* harmony export */ });
 const initImageSizeSetting = (column) => {
     let setting = column.getElement().querySelector('.ac-column-setting--image');
     if (setting) {
@@ -1354,12 +1185,13 @@ class ImageSizeSetting {
 /*!********************************************!*\
   !*** ./js/admin/columns/settings/label.ts ***!
   \********************************************/
-/*! exports provided: initLabelSetting */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initLabelSetting", function() { return initLabelSetting; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initLabelSetting": () => (/* binding */ initLabelSetting)
+/* harmony export */ });
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../modules/modal */ "./js/modules/modal.ts");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_1__);
@@ -1421,7 +1253,7 @@ class LabelSetting {
 class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"] {
     constructor(element) {
         super(element);
-        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_1___default.a();
+        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_1___default())();
         this.dashIcon = null;
     }
     initEvents() {
@@ -1465,12 +1297,13 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
 /*!***************************************************!*\
   !*** ./js/admin/columns/settings/multi-select.ts ***!
   \***************************************************/
-/*! exports provided: initMultiSelectFields */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initMultiSelectFields", function() { return initMultiSelectFields; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initMultiSelectFields": () => (/* binding */ initMultiSelectFields)
+/* harmony export */ });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 // @ts-ignore
@@ -1509,12 +1342,13 @@ class MultiSelect {
 /*!****************************************************!*\
   !*** ./js/admin/columns/settings/number-format.ts ***!
   \****************************************************/
-/*! exports provided: initNumberFormatSetting */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initNumberFormatSetting", function() { return initNumberFormatSetting; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initNumberFormatSetting": () => (/* binding */ initNumberFormatSetting)
+/* harmony export */ });
 const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 const initNumberFormatSetting = (column) => {
     column.getElement().querySelectorAll('.ac-column-setting--number_format').forEach(setting => {
@@ -1567,12 +1401,13 @@ class NumberFormat {
 /*!******************************************!*\
   !*** ./js/admin/columns/settings/pro.ts ***!
   \******************************************/
-/*! exports provided: initProSetting */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initProSetting", function() { return initProSetting; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initProSetting": () => (/* binding */ initProSetting)
+/* harmony export */ });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 // @ts-ignore
@@ -1592,12 +1427,13 @@ const initProSetting = (column) => {
 /*!*********************************************************!*\
   !*** ./js/admin/columns/settings/sub-setting-toggle.ts ***!
   \*********************************************************/
-/*! exports provided: initSubSettings */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initSubSettings", function() { return initSubSettings; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initSubSettings": () => (/* binding */ initSubSettings)
+/* harmony export */ });
 const initSubSettings = (column) => {
     column.getElement().querySelectorAll('.ac-column-setting--filter,.ac-column-setting--sort,.ac-column-setting--edit').forEach(setting => {
         new SubsettingSetting(setting);
@@ -1636,12 +1472,13 @@ class SubsettingSetting {
 /*!*******************************************!*\
   !*** ./js/admin/columns/settings/type.ts ***!
   \*******************************************/
-/*! exports provided: initColumnTypeSelectorSetting */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initColumnTypeSelectorSetting", function() { return initColumnTypeSelectorSetting; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initColumnTypeSelectorSetting": () => (/* binding */ initColumnTypeSelectorSetting)
+/* harmony export */ });
 /* harmony import */ var _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../select2/excludegroup.matcher */ "./js/select2/excludegroup.matcher.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
@@ -1693,12 +1530,13 @@ class TypeSelector {
 /*!********************************************!*\
   !*** ./js/admin/columns/settings/width.ts ***!
   \********************************************/
-/*! exports provided: initWidthSetting */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initWidthSetting", function() { return initWidthSetting; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initWidthSetting": () => (/* binding */ initWidthSetting)
+/* harmony export */ });
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "jquery");
@@ -1713,7 +1551,7 @@ class WidthSetting {
     constructor(column, setting) {
         this.column = column;
         this.setting = setting;
-        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
+        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
         this.indicator = new WidthIndicator(column.getElement().querySelector('.ac-column-heading-setting--width'));
         this.widthInput = this.setting.querySelector('[data-width-input]');
         this.unitInput = this.setting.querySelectorAll('[data-unit-input] input');
@@ -1786,7 +1624,7 @@ class WidthSetting {
 class WidthIndicator {
     constructor(element) {
         this.element = element;
-        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
+        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
     }
     setValue(width, unit) {
         if (width === null) {
@@ -1803,12 +1641,13 @@ class WidthIndicator {
 /*!*************************!*\
   !*** ./js/constants.ts ***!
   \*************************/
-/*! exports provided: EventConstants */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventConstants", function() { return EventConstants; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EventConstants": () => (/* binding */ EventConstants)
+/* harmony export */ });
 const EventConstants = {
     TABLE: {
         READY: 'Table.Ready'
@@ -1835,12 +1674,13 @@ const EventConstants = {
 /*!*************************************!*\
   !*** ./js/helpers/admin-columns.ts ***!
   \*************************************/
-/*! exports provided: initAcServices */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcServices", function() { return initAcServices; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initAcServices": () => (/* binding */ initAcServices)
+/* harmony export */ });
 /* harmony import */ var _modules_ac_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/ac-services */ "./js/modules/ac-services.ts");
 
 const initAcServices = () => {
@@ -1857,14 +1697,15 @@ const initAcServices = () => {
 /*!**********************************!*\
   !*** ./js/helpers/animations.ts ***!
   \**********************************/
-/*! exports provided: fadeIn, fadeOut, scrollToElement */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeIn", function() { return fadeIn; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeOut", function() { return fadeOut; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollToElement", function() { return scrollToElement; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fadeIn": () => (/* binding */ fadeIn),
+/* harmony export */   "fadeOut": () => (/* binding */ fadeOut),
+/* harmony export */   "scrollToElement": () => (/* binding */ scrollToElement)
+/* harmony export */ });
 const fadeIn = (element, ms = 100, cb = null, display = 'block') => {
     element.style.display = display;
     element.style.transition = `opacity ${ms}ms`;
@@ -1921,14 +1762,15 @@ const scrollToElement = (element, ms, options = {}) => {
 /*!********************************!*\
   !*** ./js/helpers/elements.ts ***!
   \********************************/
-/*! exports provided: insertAfter, insertBefore, createElementFromString */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertAfter", function() { return insertAfter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertBefore", function() { return insertBefore; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElementFromString", function() { return createElementFromString; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "insertAfter": () => (/* binding */ insertAfter),
+/* harmony export */   "insertBefore": () => (/* binding */ insertBefore),
+/* harmony export */   "createElementFromString": () => (/* binding */ createElementFromString)
+/* harmony export */ });
 /* harmony import */ var _html_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./html-element */ "./js/helpers/html-element.ts");
 
 const insertAfter = (newNode, referenceNode) => {
@@ -1954,14 +1796,15 @@ function isInViewport(element) {
 /*!******************************!*\
   !*** ./js/helpers/events.ts ***!
   \******************************/
-/*! exports provided: addEventListenerLive, onHover, addEventListeners */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListenerLive", function() { return addEventListenerLive; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onHover", function() { return onHover; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListeners", function() { return addEventListeners; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addEventListenerLive": () => (/* binding */ addEventListenerLive),
+/* harmony export */   "onHover": () => (/* binding */ onHover),
+/* harmony export */   "addEventListeners": () => (/* binding */ addEventListeners)
+/* harmony export */ });
 const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement = null) => {
     let element = rootElement ? rootElement : document;
     element.addEventListener(eventType, (event) => {
@@ -1992,14 +1835,15 @@ const addEventListeners = (el, events, callback) => {
 /*!******************************!*\
   !*** ./js/helpers/global.ts ***!
   \******************************/
-/*! exports provided: getParamFromUrl, mapDataToFormData, appendObjectToFormData */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParamFromUrl", function() { return getParamFromUrl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapDataToFormData", function() { return mapDataToFormData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendObjectToFormData", function() { return appendObjectToFormData; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getParamFromUrl": () => (/* binding */ getParamFromUrl),
+/* harmony export */   "mapDataToFormData": () => (/* binding */ mapDataToFormData),
+/* harmony export */   "appendObjectToFormData": () => (/* binding */ appendObjectToFormData)
+/* harmony export */ });
 const getParamFromUrl = (param, url) => {
     if (!url.includes('?')) {
         return null;
@@ -2035,12 +1879,13 @@ const appendObjectToFormData = (formData, data, parentKey = null) => {
 /*!************************************!*\
   !*** ./js/helpers/html-element.ts ***!
   \************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AcHtmlElement; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AcHtmlElement)
+/* harmony export */ });
 class AcHtmlElement {
     constructor(el) {
         this.element = el instanceof HTMLElement ? el : document.createElement(el);
@@ -2077,13 +1922,14 @@ class AcHtmlElement {
 /*!******************************!*\
   !*** ./js/helpers/string.ts ***!
   \******************************/
-/*! exports provided: uniqid, stripHtml */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uniqid", function() { return uniqid; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stripHtml", function() { return stripHtml; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "uniqid": () => (/* binding */ uniqid),
+/* harmony export */   "stripHtml": () => (/* binding */ stripHtml)
+/* harmony export */ });
 const uniqid = (prefix = "", moreEntropy = false) => {
     const c = Date.now() / 1000;
     let d = c.toString(16).split(".").join("");
@@ -2107,13 +1953,14 @@ const stripHtml = (originalString) => {
 /*!**********************************!*\
   !*** ./js/modules/ac-pointer.ts ***!
   \**********************************/
-/*! exports provided: Pointer, initPointers */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Pointer", function() { return Pointer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initPointers", function() { return initPointers; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Pointer": () => (/* binding */ Pointer),
+/* harmony export */   "initPointers": () => (/* binding */ initPointers)
+/* harmony export */ });
 /* harmony import */ var _tooltips__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltips */ "./js/modules/tooltips.ts");
 
 const $ = __webpack_require__(/*! jquery */ "jquery");
@@ -2271,19 +2118,20 @@ const initPointers = (elements = null) => {
 /*!***********************************!*\
   !*** ./js/modules/ac-services.ts ***!
   \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AcServices; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AcServices)
+/* harmony export */ });
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
 
 class AcServices {
     constructor() {
         this.services = {};
-        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
+        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
     }
     registerService(name, service) {
         this.services[name] = service;
@@ -2310,12 +2158,13 @@ class AcServices {
 /*!*****************************!*\
   !*** ./js/modules/modal.ts ***!
   \*****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modal; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Modal)
+/* harmony export */ });
 class Modal {
     constructor(el) {
         if (!el) {
@@ -2385,12 +2234,13 @@ class Modal {
 /*!******************************!*\
   !*** ./js/modules/modals.ts ***!
   \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modals; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Modals)
+/* harmony export */ });
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.ts");
 
 class Modals {
@@ -2446,11 +2296,13 @@ class Modals {
 /*!********************************!*\
   !*** ./js/modules/tooltips.ts ***!
   \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
 
 class Tooltips {
@@ -2458,10 +2310,10 @@ class Tooltips {
         this.init();
     }
     init() {
-        Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["initAcTooltips"])();
+        (0,_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__.initAcTooltips)();
     }
 }
-/* harmony default export */ __webpack_exports__["default"] = (Tooltips);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tooltips);
 
 
 /***/ }),
@@ -2470,13 +2322,14 @@ class Tooltips {
 /*!******************************!*\
   !*** ./js/plugin/tooltip.ts ***!
   \******************************/
-/*! exports provided: initAcTooltips, Tooltip */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcTooltips", function() { return initAcTooltips; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initAcTooltips": () => (/* binding */ initAcTooltips),
+/* harmony export */   "Tooltip": () => (/* binding */ Tooltip)
+/* harmony export */ });
 const initAcTooltips = () => {
     document.querySelectorAll('[data-ac-tip]').forEach((element) => {
         new Tooltip(element);
@@ -2521,12 +2374,13 @@ const createTooltip = (content) => {
 /*!********************************************!*\
   !*** ./js/select2/excludegroup.matcher.js ***!
   \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return excludeGroupsMather; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ excludeGroupsMather)
+/* harmony export */ });
 function excludeGroupsMather(params, data) {
     if (jQuery.trim(params.term) === '') {
         return data;
@@ -2555,8 +2409,7 @@ function excludeGroupsMather(params, data) {
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
   \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/axios/lib/axios.js");
 
@@ -2567,8 +2420,7 @@ module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/axios/li
 /*!************************************************!*\
   !*** ./node_modules/axios/lib/adapters/xhr.js ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -2729,8 +2581,7 @@ module.exports = function xhrAdapter(config) {
 /*!*****************************************!*\
   !*** ./node_modules/axios/lib/axios.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -2775,7 +2626,7 @@ axios.spread = __webpack_require__(/*! ./helpers/spread */ "./node_modules/axios
 axios.isAxiosError = __webpack_require__(/*! ./helpers/isAxiosError */ "./node_modules/axios/lib/helpers/isAxiosError.js");
 module.exports = axios;
 // Allow use of default import syntax in TypeScript
-module.exports.default = axios;
+module.exports["default"] = axios;
 
 
 /***/ }),
@@ -2784,8 +2635,7 @@ module.exports.default = axios;
 /*!*************************************************!*\
   !*** ./node_modules/axios/lib/cancel/Cancel.js ***!
   \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -2811,8 +2661,7 @@ module.exports = Cancel;
 /*!******************************************************!*\
   !*** ./node_modules/axios/lib/cancel/CancelToken.js ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -2872,8 +2721,7 @@ module.exports = CancelToken;
 /*!***************************************************!*\
   !*** ./node_modules/axios/lib/cancel/isCancel.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -2888,8 +2736,7 @@ module.exports = function isCancel(value) {
 /*!**********************************************!*\
   !*** ./node_modules/axios/lib/core/Axios.js ***!
   \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -2984,8 +2831,7 @@ module.exports = Axios;
 /*!***********************************************************!*\
   !*** ./node_modules/axios/lib/core/InterceptorManager.js ***!
   \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3042,8 +2888,7 @@ module.exports = InterceptorManager;
 /*!******************************************************!*\
   !*** ./node_modules/axios/lib/core/buildFullPath.js ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3072,8 +2917,7 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 /*!****************************************************!*\
   !*** ./node_modules/axios/lib/core/createError.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3100,8 +2944,7 @@ module.exports = function createError(message, config, code, request, response) 
 /*!********************************************************!*\
   !*** ./node_modules/axios/lib/core/dispatchRequest.js ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3159,8 +3002,7 @@ module.exports = function dispatchRequest(config) {
 /*!*****************************************************!*\
   !*** ./node_modules/axios/lib/core/enhanceError.js ***!
   \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -3210,8 +3052,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /*!****************************************************!*\
   !*** ./node_modules/axios/lib/core/mergeConfig.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3301,8 +3142,7 @@ module.exports = function mergeConfig(config1, config2) {
 /*!***********************************************!*\
   !*** ./node_modules/axios/lib/core/settle.js ***!
   \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3331,8 +3171,7 @@ module.exports = function settle(resolve, reject, response) {
 /*!******************************************************!*\
   !*** ./node_modules/axios/lib/core/transformData.js ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3360,11 +3199,10 @@ module.exports = function transformData(data, headers, fns) {
 /*!********************************************!*\
   !*** ./node_modules/axios/lib/defaults.js ***!
   \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
+
 var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
 var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ "./node_modules/axios/lib/helpers/normalizeHeaderName.js");
 var DEFAULT_CONTENT_TYPE = {
@@ -3449,7 +3287,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 });
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -3457,8 +3294,7 @@ module.exports = defaults;
 /*!************************************************!*\
   !*** ./node_modules/axios/lib/helpers/bind.js ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -3479,8 +3315,7 @@ module.exports = function bind(fn, thisArg) {
 /*!****************************************************!*\
   !*** ./node_modules/axios/lib/helpers/buildURL.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3554,8 +3389,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /*!*******************************************************!*\
   !*** ./node_modules/axios/lib/helpers/combineURLs.js ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -3579,8 +3413,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /*!***************************************************!*\
   !*** ./node_modules/axios/lib/helpers/cookies.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3631,8 +3464,7 @@ module.exports = (utils.isStandardBrowserEnv() ?
 /*!*********************************************************!*\
   !*** ./node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
   \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -3656,8 +3488,7 @@ module.exports = function isAbsoluteURL(url) {
 /*!********************************************************!*\
   !*** ./node_modules/axios/lib/helpers/isAxiosError.js ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -3678,8 +3509,7 @@ module.exports = function isAxiosError(payload) {
 /*!***********************************************************!*\
   !*** ./node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
   \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3746,8 +3576,7 @@ module.exports = (utils.isStandardBrowserEnv() ?
 /*!***************************************************************!*\
   !*** ./node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3768,8 +3597,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /*!********************************************************!*\
   !*** ./node_modules/axios/lib/helpers/parseHeaders.js ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -3829,8 +3657,7 @@ module.exports = function parseHeaders(headers) {
 /*!**************************************************!*\
   !*** ./node_modules/axios/lib/helpers/spread.js ***!
   \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -3867,8 +3694,7 @@ module.exports = function spread(callback) {
 /*!*****************************************!*\
   !*** ./node_modules/axios/lib/utils.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -4203,8 +4029,7 @@ module.exports = {
 /*!******************************************!*\
   !*** ./node_modules/nanoassert/index.js ***!
   \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
 assert.notEqual = notEqual;
 assert.notOk = notOk;
@@ -4232,8 +4057,7 @@ function assert(t, m) {
 /*!***************************************!*\
   !*** ./node_modules/nanobus/index.js ***!
   \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var splice = __webpack_require__(/*! remove-array-items */ "./node_modules/remove-array-items/index.js");
 var nanotiming = __webpack_require__(/*! nanotiming */ "./node_modules/nanotiming/browser.js");
@@ -4392,8 +4216,7 @@ Nanobus.prototype._emit = function (arr, eventName, data, uuid) {
 /*!*********************************************!*\
   !*** ./node_modules/nanoscheduler/index.js ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js");
 var hasWindow = typeof window !== 'undefined';
@@ -4453,8 +4276,7 @@ module.exports = createScheduler;
 /*!********************************************!*\
   !*** ./node_modules/nanotiming/browser.js ***!
   \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var scheduler = __webpack_require__(/*! nanoscheduler */ "./node_modules/nanoscheduler/index.js")();
 var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js");
@@ -4505,198 +4327,11 @@ function noop(cb) {
 
 /***/ }),
 
-/***/ "./node_modules/process/browser.js":
-/*!*****************************************!*\
-  !*** ./node_modules/process/browser.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-var cachedSetTimeout;
-var cachedClearTimeout;
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout() {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        }
-        else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    }
-    catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        }
-        else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    }
-    catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-}());
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    }
-    catch (e) {
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        }
-        catch (e) {
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    }
-    catch (e) {
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        }
-        catch (e) {
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    }
-    else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-    var len = queue.length;
-    while (len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-function noop() { }
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-process.listeners = function (name) { return []; };
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-process.cwd = function () { return '/'; };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function () { return 0; };
-
-
-/***/ }),
-
 /***/ "./node_modules/remove-array-items/index.js":
 /*!**************************************************!*\
   !*** ./node_modules/remove-array-items/index.js ***!
   \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -4724,28 +4359,185 @@ module.exports = function removeItems(arr, startIdx, removeCount) {
 
 /***/ }),
 
-/***/ 0:
-/*!****************************************!*\
-  !*** multi ./js/admin-page-columns.ts ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./js/admin-page-columns.ts */"./js/admin-page-columns.ts");
-
-
-/***/ }),
-
 /***/ "jquery":
 /*!*************************!*\
   !*** external "jQuery" ***!
   \*************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
+"use strict";
 module.exports = jQuery;
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!**********************************!*\
+  !*** ./js/admin-page-columns.ts ***!
+  \**********************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin/columns/form */ "./js/admin/columns/form.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
+/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./admin/columns/column-configurator */ "./js/admin/columns/column-configurator.ts");
+/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/modal */ "./js/modules/modal.ts");
+/* harmony import */ var _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./admin/columns/feedback */ "./js/admin/columns/feedback.ts");
+/* harmony import */ var _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./admin/columns/screen-options */ "./js/admin/columns/screen-options.ts");
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./plugin/tooltip */ "./js/plugin/tooltip.ts");
+/* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.ts");
+/* harmony import */ var _admin_columns_listscreen_initialize__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./admin/columns/listscreen-initialize */ "./js/admin/columns/listscreen-initialize.ts");
+/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/modals */ "./js/modules/modals.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+let AcServices = (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__.initAcServices)();
+AcServices.registerService('Modals', new _modules_modals__WEBPACK_IMPORTED_MODULE_11__["default"]());
+new _admin_columns_column_configurator__WEBPACK_IMPORTED_MODULE_4__["default"](AcServices);
+document.addEventListener('DOMContentLoaded', () => {
+    initSaveHandlers();
+    // Init the form
+    document.querySelectorAll('#listscreen_settings').forEach((formElement) => {
+        AcServices.registerService('Form', new _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__.Form(formElement, AcServices));
+    });
+    // Init the Pro promotion Modal
+    document.querySelectorAll('#ac-modal-pro').forEach(proModal => {
+        AcServices.getService('Modals').register(new _modules_modal__WEBPACK_IMPORTED_MODULE_5__["default"](proModal), 'pro');
+    });
+    document.querySelectorAll('#ac_list_screen').forEach(select => {
+        select.addEventListener('change', () => {
+            document.querySelectorAll('.view-link').forEach(link => link.style.display = 'none');
+            select.closest('form').submit();
+            select.disabled = true;
+            select.nextElementSibling.style.display = 'inline-block';
+        });
+    });
+    document.querySelectorAll('#direct-feedback').forEach(feedbackElement => new _admin_columns_feedback__WEBPACK_IMPORTED_MODULE_6__["default"](feedbackElement));
+    if (AC.hasOwnProperty('uninitialized_list_screens')) {
+        (0,_admin_columns_listscreen_initialize__WEBPACK_IMPORTED_MODULE_10__.initUninitializedListScreens)(AC.uninitialized_list_screens);
+    }
+    // Screen Options
+    document.querySelectorAll('[data-ac-screen-option="show_column_id"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_column_id', el, 'show-column-id', document.querySelector('.ac-boxes')));
+    document.querySelectorAll('[data-ac-screen-option="show_column_type"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_column_type', el, 'show-column-type', document.querySelector('.ac-boxes')));
+    document.querySelectorAll('[data-ac-screen-option="show_list_screen_id"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_list_screen_id', el, 'show-list-screen-id', document.querySelector('.ac-admin')));
+    document.querySelectorAll('[data-ac-screen-option="show_list_screen_type"] input').forEach(el => new _admin_columns_screen_options__WEBPACK_IMPORTED_MODULE_7__["default"]('show_list_screen_type', el, 'show-list-screen-type', document.querySelector('.ac-admin')));
+});
+AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.FORM.LOADED, (form) => {
+    document.querySelectorAll('.add_column').forEach(el => el.addEventListener('click', () => form.createNewColumn()));
+    document.querySelectorAll('a[data-clear-columns]').forEach(el => el.addEventListener('click', () => form.resetColumns()));
+    // Make column settings sortable
+    let $form = jquery__WEBPACK_IMPORTED_MODULE_3___default()(form.getElement());
+    $form.hasClass('ui-sortable')
+        ? $form.sortable('refresh')
+        : $form.sortable({ items: '.ac-column', handle: '[data-sort-handle]' });
+});
+AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.FORM.SAVING, () => {
+    document.querySelector('#cpac .ac-admin').classList.add('saving');
+});
+AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.FORM.SAVED, () => {
+    document.querySelector('#cpac .ac-admin').classList.remove('saving');
+    document.querySelector('#cpac .ac-admin').classList.add('stored');
+});
+AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.COLUMN.INIT, (column) => {
+    (0,_plugin_tooltip__WEBPACK_IMPORTED_MODULE_8__.initAcTooltips)();
+    (0,_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_9__.initPointers)(column.getElement().querySelectorAll('.ac-pointer'));
+});
+const initSaveHandlers = () => {
+    const elements = document.querySelectorAll('.sidebox a.submit, .column-footer a.submit');
+    AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.FORM.READY, (form) => {
+        elements.forEach(el => {
+            el.addEventListener('click', e => {
+                e.preventDefault();
+                elements.forEach(el => el.setAttribute('disabled', 'disabled'));
+                form.submitForm();
+            });
+        });
+    });
+    AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.FORM.SAVED, () => elements.forEach(el => el.removeAttribute('disabled')));
+};
+
+})();
+
+/******/ })()
+;
 //# sourceMappingURL=admin-page-columns.js.map
