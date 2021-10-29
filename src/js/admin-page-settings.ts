@@ -1,15 +1,28 @@
 import axios from "axios";
 import {mapDataToFormData} from "./helpers/global";
-import {LocalizedAcGeneralSettings} from "./types/admin-columns";
+import {AcGeneralSettingsI18N, LocalizedAcGeneralSettings} from "./types/admin-columns";
 import AjaxLoader from "./plugin/ajax-loader";
+import AcConfirmation from "./plugin/ac-confirmation";
 
 declare const ajaxurl: string;
 declare const AC: LocalizedAcGeneralSettings
+declare const AC_I18N: AcGeneralSettingsI18N
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll<HTMLInputElement>('.ac-settings-box input[data-ajax-setting]').forEach(el => {
         new GeneralAdminSetting(el, el.dataset.ajaxSetting);
     });
+
+    let restoreFormButton = document.querySelector('#frm-ac-restore [type=submit]' );
+    if( restoreFormButton ){
+        console.log( restoreFormButton );
+        restoreFormButton.addEventListener( 'click', (e) =>{
+            e.preventDefault();
+            new AcConfirmation( AC_I18N.restore_settings, () => {
+                restoreFormButton.closest('form').submit();
+            }).create();
+        });
+    }
 })
 
 class GeneralAdminSetting {

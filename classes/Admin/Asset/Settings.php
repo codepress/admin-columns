@@ -12,6 +12,10 @@ class Settings extends Script {
 		$this->add_inline_variable( 'AC', [
 			'_ajax_nonce' => wp_create_nonce( 'ac-ajax' ),
 		] );
+
+		wp_localize_script( $this->handle, 'AC_I18N', [
+			'restore_settings' => __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ),
+		] );
 	}
 
 }
