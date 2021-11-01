@@ -1895,13 +1895,16 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, button0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t3);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, button1);
+      /*button1_binding*/
+
+      ctx[7](button1);
 
       if (!mounted) {
         dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button0, "click",
         /*close*/
-        ctx[2]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button1, "click",
+        ctx[3]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button1, "click",
         /*confirm*/
-        ctx[1])];
+        ctx[2])];
         mounted = true;
       }
     },
@@ -1919,6 +1922,9 @@ function create_fragment(ctx) {
 
     d(detaching) {
       if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div3);
+      /*button1_binding*/
+
+      ctx[7](null);
       mounted = false;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
     }
@@ -1936,6 +1942,10 @@ function instance($$self, $$props, $$invalidate) {
   let {
     onClose
   } = $$props;
+  let {
+    lastFocusElement
+  } = $$props;
+  let okButton;
 
   const confirm = () => {
     onConfirm();
@@ -1943,6 +1953,10 @@ function instance($$self, $$props, $$invalidate) {
   };
 
   const close = () => {
+    if (lastFocusElement) {
+      lastFocusElement.focus();
+    }
+
     onClose();
   };
 
@@ -1950,26 +1964,31 @@ function instance($$self, $$props, $$invalidate) {
     if (e.key === 'Escape') {
       close();
     }
-
-    if (e.key === 'Enter') {
-      console.log('EEEE');
-    }
   };
 
   (0,svelte__WEBPACK_IMPORTED_MODULE_1__.onMount)(() => {
     document.addEventListener('keydown', keyDownHandler);
+    okButton.focus();
   });
   (0,svelte__WEBPACK_IMPORTED_MODULE_1__.onDestroy)(() => {
     document.removeEventListener('keydown', keyDownHandler);
   });
 
+  function button1_binding($$value) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+      okButton = $$value;
+      $$invalidate(1, okButton);
+    });
+  }
+
   $$self.$$set = $$props => {
     if ('message' in $$props) $$invalidate(0, message = $$props.message);
-    if ('onConfirm' in $$props) $$invalidate(3, onConfirm = $$props.onConfirm);
-    if ('onClose' in $$props) $$invalidate(4, onClose = $$props.onClose);
+    if ('onConfirm' in $$props) $$invalidate(4, onConfirm = $$props.onConfirm);
+    if ('onClose' in $$props) $$invalidate(5, onClose = $$props.onClose);
+    if ('lastFocusElement' in $$props) $$invalidate(6, lastFocusElement = $$props.lastFocusElement);
   };
 
-  return [message, confirm, close, onConfirm, onClose];
+  return [message, okButton, confirm, close, onConfirm, onClose, lastFocusElement, button1_binding];
 }
 
 class ConfirmationModal extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
@@ -1977,8 +1996,9 @@ class ConfirmationModal extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.Sve
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       message: 0,
-      onConfirm: 3,
-      onClose: 4
+      onConfirm: 4,
+      onClose: 5,
+      lastFocusElement: 6
     });
   }
 
@@ -2556,9 +2576,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ConfirmationModal_svelte__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/ConfirmationModal.svelte */ "./js/components/ConfirmationModal.svelte");
 
 class AcConfirmation {
-    constructor(message, cb) {
-        this.message = message;
-        this.onConfirm = cb;
+    constructor(config) {
+        this.config = config;
     }
     create() {
         let element = document.createElement('div');
@@ -2566,8 +2585,9 @@ class AcConfirmation {
         this.component = new _components_ConfirmationModal_svelte__WEBPACK_IMPORTED_MODULE_0__["default"]({
             target: element,
             props: {
-                message: this.message,
-                onConfirm: this.onConfirm,
+                message: this.config.message,
+                onConfirm: this.config.confirm,
+                lastFocusElement: this.config.lastFocus,
                 onClose: () => {
                     this.component.$destroy();
                     element.remove();
@@ -5001,11 +5021,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     let restoreFormButton = document.querySelector('#frm-ac-restore [type=submit]');
     if (restoreFormButton) {
-        console.log(restoreFormButton);
         restoreFormButton.addEventListener('click', (e) => {
             e.preventDefault();
-            new _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_3__["default"](AC_I18N.restore_settings, () => {
-                restoreFormButton.closest('form').submit();
+            new _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_3__["default"]({
+                message: AC_I18N.restore_settings,
+                confirm: () => {
+                    restoreFormButton.closest('form').submit();
+                },
+                lastFocus: restoreFormButton
             }).create();
         });
     }

@@ -1,9 +1,13 @@
 <script lang="ts">
-    import {onMount, onDestroy} from "svelte";
+    import {onDestroy, onMount} from "svelte";
 
     export let message: string;
     export let onConfirm: Function;
     export let onClose: Function;
+    export let lastFocusElement: HTMLElement;
+
+
+    let okButton;
 
     const confirm = () => {
         onConfirm();
@@ -11,25 +15,26 @@
     }
 
     const close = () => {
+        if( lastFocusElement ){
+            lastFocusElement.focus();
+		}
         onClose();
     }
 
-    const keyDownHandler = ( e: KeyboardEvent ) => {
-        if( e.key === 'Escape'){
+    const keyDownHandler = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
             close();
         }
-        if( e.key === 'Enter'){
-            console.log( 'EEEE');
-        }
-	}
+    }
 
     onMount(() => {
         document.addEventListener('keydown', keyDownHandler);
+        okButton.focus();
     });
 
-    onDestroy( () => {
+    onDestroy(() => {
         document.removeEventListener('keydown', keyDownHandler);
-	});
+    });
 </script>
 
 <div class="ac-confirmation">
@@ -39,7 +44,7 @@
 		</div>
 		<div class="ac-confirmation__modal__footer">
 			<button on:click={close} class="button">Cancel</button>
-			<button on:click={confirm} class="button button-primary">Ok</button>
+			<button on:click={confirm} class="button button-primary" bind:this={okButton}>Ok</button>
 		</div>
 	</div>
 </div>

@@ -1,14 +1,19 @@
 import ConfirmationModal from "../components/ConfirmationModal.svelte";
 
+type ConfirmationConfig = {
+    message: string,
+    confirm: Function,
+    lastFocus?: HTMLElement
+}
+
+
 export default class AcConfirmation {
 
-    message: string
-    onConfirm: Function
+    config: ConfirmationConfig;
     component: any;
 
-    constructor(message: string, cb: Function) {
-        this.message = message;
-        this.onConfirm = cb;
+    constructor(config: ConfirmationConfig) {
+        this.config = config;
     }
 
     create() {
@@ -18,8 +23,9 @@ export default class AcConfirmation {
         this.component = new ConfirmationModal({
             target: element,
             props: {
-                message: this.message,
-                onConfirm: this.onConfirm,
+                message: this.config.message,
+                onConfirm: this.config.confirm,
+                lastFocusElement: this.config.lastFocus,
                 onClose: () => {
                     this.component.$destroy();
                     element.remove()

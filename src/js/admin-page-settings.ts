@@ -13,13 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
         new GeneralAdminSetting(el, el.dataset.ajaxSetting);
     });
 
-    let restoreFormButton = document.querySelector('#frm-ac-restore [type=submit]' );
-    if( restoreFormButton ){
-        console.log( restoreFormButton );
-        restoreFormButton.addEventListener( 'click', (e) =>{
+    let restoreFormButton: HTMLInputElement = document.querySelector('#frm-ac-restore [type=submit]');
+    if (restoreFormButton) {
+        restoreFormButton.addEventListener('click', (e) => {
             e.preventDefault();
-            new AcConfirmation( AC_I18N.restore_settings, () => {
-                restoreFormButton.closest('form').submit();
+            new AcConfirmation({
+                message: AC_I18N.restore_settings,
+                confirm: () => {
+                    restoreFormButton.closest('form').submit();
+                },
+                lastFocus: restoreFormButton
             }).create();
         });
     }
