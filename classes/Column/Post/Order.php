@@ -14,10 +14,6 @@ class Order extends Column {
 		$this->set_label( __( 'Order', 'codepress-admin-columns' ) );
 	}
 
-	public function is_valid() {
-		return is_post_type_hierarchical( $this->get_post_type() ) || post_type_supports( $this->get_post_type(), 'page-attributes' );
-	}
-
 	public function get_value( $post_id ) {
 		return $this->get_raw_value( $post_id );
 	}

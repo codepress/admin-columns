@@ -17,8 +17,12 @@ class Addons extends Script {
 
 		$nonce = new Nonce\Ajax();
 
+		wp_localize_script( $this->handle, 'ACi18n', [
+			'plugin_installed' => __( 'The Add-on %s is activated.' ),
+		] );
+
 		$this->add_inline_variable( 'AC', [
-			Nonce\Ajax::NAME => $nonce->create(),
+			Nonce\Ajax::NAME   => $nonce->create(),
 			'is_network_admin' => is_network_admin(),
 		] );
 	}
