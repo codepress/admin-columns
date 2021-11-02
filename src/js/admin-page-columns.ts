@@ -12,7 +12,6 @@ import {initUninitializedListScreens} from "./admin/columns/listscreen-initializ
 import Modals from "./modules/modals";
 import {Column} from "./admin/columns/column";
 import {LocalizedAcColumnSettings} from "./types/admin-columns";
-import AcHtmlElement from "./helpers/html-element";
 
 declare let AC: LocalizedAcColumnSettings
 

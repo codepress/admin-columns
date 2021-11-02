@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll<HTMLInputElement>('.ac-settings-box input[data-ajax-setting]').forEach(el => {
         new GeneralAdminSetting(el, el.dataset.ajaxSetting);
     });
-})
+});
 
 class GeneralAdminSetting {
 
