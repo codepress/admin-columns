@@ -533,16 +533,19 @@ html.wp-toolbar .ac-tooltip {
   margin-right: 3px;
 }
 
-.ac-btn-primary {
-  background: #e9426e;
-  border: 1px solid #e9426e;
-  color: #fff;
+.ac-btn, .ac-btn-link, .ac-btn-primary {
   padding: 10px 40px;
   font-size: 15px;
   border-radius: 3px;
   display: inline-block;
   cursor: pointer;
   text-decoration: none;
+}
+
+.ac-btn-primary {
+  background: #e9426e;
+  border: 1px solid #e9426e;
+  color: #fff;
 }
 .ac-btn-primary:hover, .ac-btn-primary:focus, .ac-btn-primary:active {
   background: #ea1951;
@@ -552,6 +555,19 @@ html.wp-toolbar .ac-tooltip {
 .ac-btn-primary:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.ac-btn-link {
+  border: none;
+  background: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: var(--ac-link);
+  text-decoration: underline;
+  font-size: 13px;
+}
+.ac-btn-link:hover {
+  color: var(--ac-link-hover);
 }
 
 input:disabled, textarea:disabled, button:disabled {
@@ -1008,7 +1024,7 @@ table.ac-form-table .general form p.save-button {
 }
 
 .ac-section-group.-start {
-  max-width: 560px;
+  max-width: 600px;
 }
 
 .ac-section {
