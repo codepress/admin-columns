@@ -48,8 +48,8 @@ $url = ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url()
 			'tooltip' => sprintf(
 				'%s %s %s',
 				__( 'Need certain columns for certain tasks?', 'codepress-admin-columns' ),
-				__( 'Pick the columns you need to do the task and save them for later use.', 'codepress-admin-columns' ),
-				__( 'Switching between views is easy can done from the overview.', 'codepress-admin-columns' )
+				__( 'Create multiple columns presets.', 'codepress-admin-columns' ),
+				__( 'Switching between sets is easy and can be done from any list table.', 'codepress-admin-columns' )
 			),
 		] ) )->set_template( 'admin/page/component/pro-feature-list-item' )->render();
 		?>

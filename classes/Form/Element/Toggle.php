@@ -12,11 +12,15 @@ class Toggle extends Element {
 	 */
 	private $checked;
 
-	public function __construct( $name, $label, $checked = false ) {
+	public function __construct( $name, $label, $checked = false, $value = null ) {
 		parent::__construct( $name, [] );
 
 		$this->set_label( $label );
 		$this->checked = (bool) $checked;
+
+		if ( $value ) {
+			$this->set_value( $value );
+		}
 	}
 
 	protected function get_type() {

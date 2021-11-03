@@ -704,7 +704,7 @@ body.settings_page_codepress-admin-columns #wpbody {
 body.settings_page_codepress-admin-columns .notice {
   display: none;
 }
-body.settings_page_codepress-admin-columns #cpac .notice {
+body.settings_page_codepress-admin-columns #cpac .notice:not(.hidden) {
   display: block;
 }
 body.settings_page_codepress-admin-columns #wpcontent {

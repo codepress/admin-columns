@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll<HTMLInputElement>('.ac-settings-box input[data-ajax-setting]').forEach(el => {
         new GeneralAdminSetting(el, el.dataset.ajaxSetting);
     });
-})
+});
 
 class GeneralAdminSetting {
 
@@ -29,16 +29,16 @@ class GeneralAdminSetting {
     init() {
         this.element.addEventListener('change', () => {
             this.initNewLoader();
-            this.element.closest('.ac-toggle-v2').append( this.loader.getElement() );
-            this.loader.setLoading( true );
-            this.persist().then( () => {
+            this.element.closest('.ac-toggle-v2').append(this.loader.getElement());
+            this.loader.setLoading(true);
+            this.persist().then(() => {
                 this.loader.finish();
             });
         });
     }
 
-    private initNewLoader(){
-        if( this.loader !== null ){
+    private initNewLoader() {
+        if (this.loader !== null) {
             this.loader.getElement().remove();
         }
 
