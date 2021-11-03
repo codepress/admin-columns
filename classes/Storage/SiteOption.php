@@ -2,7 +2,21 @@
 
 namespace AC\Storage;
 
-class SiteOption extends Option {
+class SiteOption implements KeyValuePair {
+
+	const OPTION_DEFAULT = 'default';
+
+	/**
+	 * @var string
+	 */
+	protected $key;
+
+	/**
+	 * @param string $key
+	 */
+	public function __construct( $key ) {
+		$this->key = $key;
+	}
 
 	/**
 	 * @param array $args
