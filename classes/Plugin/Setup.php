@@ -8,30 +8,30 @@ use AC\Registrable;
 class Setup implements Registrable {
 
 	/**
+	 * @var VersionStorage
+	 */
+	private $version_storage;
+
+	/**
 	 * @var Version
 	 */
 	private $version;
 
 	/**
-	 * @var StoredVersion
+	 * @var Updater
 	 */
-	private $stored_version;
+	private $updater;
 
 	/**
-	 * @var UpdateCollection|null
+	 * @var Installer
 	 */
-	private $updates;
+	private $installer;
 
-	/**
-	 * @var InstallCollection|null
-	 */
-	private $install;
-
-	public function __construct( Version $version, StoredVersion $stored_version, UpdateCollection $updates = null, InstallCollection $install = null ) {
+	public function __construct( VersionStorage $version_storage, Version $version, Updater $updater, Installer $installer ) {
+		$this->version_storage = $version_storage;
 		$this->version = $version;
-		$this->stored_version = $stored_version;
-		$this->updates = $updates;
-		$this->install = $install;
+		$this->updater = $updater;
+		$this->installer = $installer;
 	}
 
 	public function register() {
@@ -43,44 +43,15 @@ class Setup implements Registrable {
 			return;
 		}
 
-		if ( $this->is_new_install() ) {
-			$this->stored_version->save( $this->version );
-
-			return;
-		}
-
-		if ( $this->install ) {
-			$this->install->install();
-		}
+		$this->installer->install();
 
 		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			return;
 		}
 
-		// TODO test network and single
+		$this->updater->apply_updates();
 
-		// Single site
-		if ( $this->updates && ! is_network_admin() ) {
-			array_map( [ $this, 'apply_update' ], $this->updates->get_copy() );
-		}
-
-		$this->stored_version->save( $this->version );
-	}
-
-	private function apply_update( Update $update ) {
-		if ( $update->needs_update( $this->stored_version->get() ) ) {
-			$update->apply_update();
-
-			$this->stored_version->save( $update->get_version() );
-		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function is_new_install() {
-		return ! $this->stored_version->get_previous()->is_valid() ||
-		       ! $this->stored_version->get()->is_valid();
+		$this->version_storage->save( $this->version );
 	}
 
 	/**
@@ -94,12 +65,12 @@ class Setup implements Registrable {
 		}
 
 		// Run installer when the current version is not equal to its stored version
-		if ( $this->version->is_not_equal( $this->stored_version->get() ) ) {
+		if ( $this->version->is_not_equal( $this->version_storage->get() ) ) {
 			return true;
 		}
 
 		// Run installer when the current version can not be read from the plugin's header file
-		if ( ! $this->version->is_valid() && ! $this->stored_version->get()->is_valid() ) {
+		if ( ! $this->version->is_valid() && ! $this->version_storage->get()->is_valid() ) {
 			return true;
 		}
 

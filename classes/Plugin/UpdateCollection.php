@@ -22,10 +22,20 @@ class UpdateCollection extends ArrayIterator {
 		} );
 	}
 
+	/**
+	 * @param string $namespace
+	 *
+	 * @return UpdateCollection
+	 */
 	public static function create_by_namespace( $namespace ) {
-		return new self( array_map( static function ( $class ) {
-			return new $class;
-		}, Autoloader::instance()->get_class_names_from_dir( $namespace ) ) );
+		$updates = array_map(
+			static function ( $class ) {
+				return new $class;
+			},
+			Autoloader::instance()->get_class_names_from_dir( $namespace )
+		);
+
+		return new self( $updates );
 	}
 
 }

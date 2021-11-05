@@ -3,28 +3,15 @@
 namespace AC\Plugin;
 
 use AC;
+use AC\ArrayIterator;
 
-final class InstallCollection implements Install {
+final class InstallCollection extends ArrayIterator {
 
 	/**
-	 * @var Install[]
+	 * @return Install[]
 	 */
-	private $installers;
-
-	public function __construct( array $installers = [] ) {
-		array_map( [ $this, 'add_install' ], $installers );
-	}
-
-	public function add_install( Install $installer ) {
-		$this->installers[] = $installer;
-
-		return $this;
-	}
-
-	public function install() {
-		foreach ( $this->installers as $installer ) {
-			$installer->install();
-		}
+	public function get_copy() {
+		return parent::get_copy();
 	}
 
 }

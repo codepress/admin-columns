@@ -15,7 +15,10 @@ use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\InstallCollection;
+use AC\Plugin\Installer;
+use AC\Plugin\Update;
 use AC\Plugin\UpdateCollection;
+use AC\Plugin\Updater;
 use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
 use AC\Settings\GeneralOption;
@@ -30,7 +33,6 @@ class AdminColumns extends Plugin {
 	private $storage;
 
 	/**
-	 * @since 2.5
 	 * @var self
 	 */
 	private static $instance;
@@ -91,8 +93,13 @@ class AdminColumns extends Plugin {
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
-			new Plugin\Setup( $this->get_version(), $this->get_stored_version(), UpdateCollection::create_by_namespace( 'AC\Plugin\Update' ), new InstallCollection( [ new Plugin\Install\Capabilities(), new Plugin\Install\Database() ] ) ),
 		];
+
+		$setup = is_multisite() && is_network_admin()
+			? new Plugin\Setup( $this->get_version_storage(), $this->get_version(), $this->get_network_updater(), $this->get_installer() )
+			: new Plugin\Setup( $this->get_version_storage(), $this->get_version(), $this->get_site_updater(), $this->get_installer() );
+
+		$services[] = $setup;
 
 		foreach ( $services as $service ) {
 			if ( $service instanceof Registrable ) {
@@ -101,6 +108,31 @@ class AdminColumns extends Plugin {
 		}
 
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
+	}
+
+	private function get_network_updater() {
+		return new Updater( new UpdateCollection( [] ), $this->get_version_storage() );
+	}
+
+	private function get_site_updater() {
+		return new Updater(
+			new UpdateCollection( [
+				new Update\V3005(),
+				new Update\V3007(),
+				new Update\V3201(),
+				new Update\V4000(),
+			] ),
+			$this->get_version_storage()
+		);
+	}
+
+	private function get_installer() {
+		return new Installer(
+			new InstallCollection( [
+				new Plugin\Install\Capabilities(),
+				new Plugin\Install\Database(),
+			] )
+		);
 	}
 
 	/**

@@ -3,24 +3,23 @@
 namespace AC;
 
 use AC\Asset\Location;
-use AC\Plugin\Install;
 use AC\Plugin\PluginHeader;
-use AC\Plugin\Setup;
-use AC\Plugin\StoredVersion;
 use AC\Plugin\Version;
+use AC\Plugin\VersionStorage;
+use AC\Storage\NetworkOptionFactory;
+use AC\Storage\OptionFactory;
 
 class Plugin {
 
 	/**
-	 * Location of the plugin main file
 	 * @var string
 	 */
 	private $file;
 
 	/**
-	 * @var StoredVersion
+	 * @var string
 	 */
-	private $stored_version;
+	protected $version_key;
 
 	/**
 	 * @var Version
@@ -28,20 +27,19 @@ class Plugin {
 	private $version;
 
 	protected function __construct( $file, $version_key, Version $version = null ) {
-		if ( null === $version ) {
-			$version = ( new PluginHeader( $file ) )->get_version();
-		}
-
 		$this->file = (string) $file;
-		$this->stored_version = new StoredVersion( (string) $version_key );
-		$this->version = $version;
+		$this->version_key = (string) $version_key;
+		$this->version = $version ?: ( new PluginHeader( $file ) )->get_version();
 	}
 
 	/**
-	 * @return StoredVersion
+	 * @return VersionStorage
 	 */
-	public function get_stored_version() {
-		return $this->stored_version;
+	public function get_version_storage() {
+		return new VersionStorage(
+			$this->version_key,
+			$this->is_network_active() ? new NetworkOptionFactory() : new OptionFactory()
+		);
 	}
 
 	/**
@@ -69,13 +67,7 @@ class Plugin {
 	 * @return bool
 	 */
 	public function is_network_active() {
-		return is_plugin_active_for_network( $this->get_basename() );
-	}
-
-	// TODO remove
-	public function install() {
-//		$setup = new Setup( $this->version, $this->stored_version, null, $this->installer );
-//		$setup->run();
+		return ( new PluginInformation( $this->get_basename() ) )->is_network_active();
 	}
 
 	/**
@@ -97,8 +89,10 @@ class Plugin {
 	/**
 	 * @return bool
 	 */
+	// TODO move to Setup?
 	public function is_new_install() {
-		return ! $this->stored_version->get_previous()->is_valid();
+		return ! $this->get_version_storage()->get()->is_valid() ||
+		       ! $this->get_version_storage()->get_previous()->is_valid();
 	}
 
 	/**

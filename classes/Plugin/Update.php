@@ -9,7 +9,7 @@ abstract class Update {
 	 */
 	protected $version;
 
-	// TODO check all child classes
+	// TODO check all child classes in add-ons
 	public function __construct( Version $version ) {
 		$this->version = $version;
 	}
@@ -19,7 +19,6 @@ abstract class Update {
 	}
 
 	/**
-	 * Apply this update
 	 * @return void
 	 */
 	abstract public function apply_update();
