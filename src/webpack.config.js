@@ -1,4 +1,5 @@
-let path = require( 'path' );
+const path = require( 'path' );
+const sveltePreprocess = require( "svelte-preprocess" );
 
 let config = {
 	entry : {
@@ -16,11 +17,31 @@ let config = {
 	},
 	module : {
 		rules : [
-			{ loader : 'ts-loader' }
+			{
+				test : /\.(html|svelte)$/,
+				use : [
+					{ loader : "babel-loader" },
+					{
+						loader : "svelte-loader",
+						options : {
+							preprocess : sveltePreprocess( {} ),
+						},
+					},
+				],
+			},
+			{
+				test : /\.ts$/,
+				exclude : /node_modules/,
+				use : 'ts-loader'
+			},
 		]
 	},
 	resolve : {
-		extensions : ['.tsx', '.ts', '.js'],
+		extensions : ['.mjs', '.js', '.svelte', '.ts'],
+		mainFields : ['svelte', 'browser', 'module', 'main'],
+		alias : {
+			svelte : path.resolve( 'node_modules', 'svelte' )
+		},
 	},
 	externals : {
 		jquery : 'jQuery',
