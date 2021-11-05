@@ -4,7 +4,7 @@
     "description": "Sass and JS for Admin Columns",
     "private": true,
     "devDependencies": {
-        "@babel/core": "7.4.3",
+        "@babel/core": "7.10.2",
         "@babel/preset-typescript": "^7.3.3",
         "@types/jquery": "^3.5.5",
         "@types/node": "^14.14.37",
