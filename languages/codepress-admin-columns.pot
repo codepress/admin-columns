@@ -39,7 +39,7 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
-#: classes/Admin/AdminLoader.php:107, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:115, classes/Settings/Column/Post.php:90, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54
+#: classes/Admin/AdminLoader.php:107, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:113, classes/Settings/Column/Post.php:90, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54
 msgid "Display"
 msgstr ""
 
@@ -247,6 +247,14 @@ msgstr ""
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Entries."
 msgstr ""
 
+#: classes/Integration/JetEngine.php:18
+msgid "Integrates JetEngine with Admin Columns."
+msgstr ""
+
+#: classes/Integration/JetEngine.php:19
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your JetEngine contents on any admin list table."
+msgstr ""
+
 #: classes/Integration/MetaBox.php:14, classes/Integration/MetaBox.php:18, classes/Integration/MetaBox.php:19
 msgid "Meta Box"
 msgstr ""
@@ -287,8 +295,8 @@ msgstr ""
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Yoast SEO contents on any admin list table."
 msgstr ""
 
-#: classes/Promo/BlackFriday.php:13
-msgid "30% Off from Black Friday until Cyber Monday"
+#: classes/Promo/BlackFriday.php:19
+msgid "%s Off from Black Friday to Cyber Monday"
 msgstr ""
 
 #: classes/Table/Screen.php:134, classes/Table/Screen.php:136, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
@@ -1955,11 +1963,11 @@ msgid "Need certain columns for certain tasks?"
 msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:51
-msgid "Pick the columns you need to do the task and save them for later use."
+msgid "Create multiple columns presets."
 msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:52
-msgid "Switching between views is easy can done from the overview."
+msgid "Switching between sets is easy and can be done from any list table."
 msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:59
