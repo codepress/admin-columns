@@ -1,6 +1,16 @@
 @import '_admin-variables';
 @import 'settings';
 
+@keyframes deal_blur {
+	0%,
+	60% {
+		filter: grayscale(0)
+	}
+	30% {
+		filter: grayscale(.2);
+	}
+}
+
 /**
  * UI Sortable Plugin
  * ----------------------------------------------------------------------------
@@ -1277,10 +1287,13 @@ div.ac-column-header {
 	}
 
 	.padding-box.ac-pro-deal {
+		backface-visibility: hidden;
+		transform: translateZ(0);
 		color: $ac-dark;
 		padding-bottom: 20px;
 		text-align: center;
 		background: lighten($ac-yellow, 2);
+		animation: deal_blur 2s ease 0s infinite;
 
 		h3 {
 			font-size: 20px;

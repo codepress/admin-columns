@@ -89,7 +89,7 @@ $upgrade_page_url = new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'banner' );
 			<h3>
 				<?php echo esc_html( $promo->get_title() ); ?>
 			</h3>
-			<a target="_blank" href="<?php echo esc_url( $promo->get_url() ); ?>" class="acp-button">
+			<a target="_blank" href="<?php echo esc_url( $promo->get_url()->get_url() ); ?>" class="acp-button">
 				<?php echo esc_html( sprintf( __( 'Get %s Off!', 'codepress-admin-columns' ), $promo->get_discount() . '%' ) ); ?>
 			</a>
 			<p class="nomargin">

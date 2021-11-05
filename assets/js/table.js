@@ -1,17 +1,101 @@
-/******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./js/table.ts");
+/******/ })
+/************************************************************************/
+/******/ ({
 
 /***/ "./js/constants.ts":
 /*!*************************!*\
   !*** ./js/constants.ts ***!
   \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: EventConstants */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "EventConstants": () => (/* binding */ EventConstants)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventConstants", function() { return EventConstants; });
 const EventConstants = {
     TABLE: {
         READY: 'Table.Ready'
@@ -38,13 +122,12 @@ const EventConstants = {
 /*!*************************************!*\
   !*** ./js/helpers/admin-columns.ts ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: initAcServices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "initAcServices": () => (/* binding */ initAcServices)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcServices", function() { return initAcServices; });
 /* harmony import */ var _modules_ac_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/ac-services */ "./js/modules/ac-services.ts");
 
 const initAcServices = () => {
@@ -61,15 +144,14 @@ const initAcServices = () => {
 /*!********************************!*\
   !*** ./js/helpers/elements.ts ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: insertAfter, insertBefore, createElementFromString */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "insertAfter": () => (/* binding */ insertAfter),
-/* harmony export */   "insertBefore": () => (/* binding */ insertBefore),
-/* harmony export */   "createElementFromString": () => (/* binding */ createElementFromString)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertAfter", function() { return insertAfter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "insertBefore", function() { return insertBefore; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElementFromString", function() { return createElementFromString; });
 /* harmony import */ var _html_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./html-element */ "./js/helpers/html-element.ts");
 
 const insertAfter = (newNode, referenceNode) => {
@@ -95,15 +177,14 @@ function isInViewport(element) {
 /*!******************************!*\
   !*** ./js/helpers/global.ts ***!
   \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: getParamFromUrl, mapDataToFormData, appendObjectToFormData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getParamFromUrl": () => (/* binding */ getParamFromUrl),
-/* harmony export */   "mapDataToFormData": () => (/* binding */ mapDataToFormData),
-/* harmony export */   "appendObjectToFormData": () => (/* binding */ appendObjectToFormData)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParamFromUrl", function() { return getParamFromUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapDataToFormData", function() { return mapDataToFormData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendObjectToFormData", function() { return appendObjectToFormData; });
 const getParamFromUrl = (param, url) => {
     if (!url.includes('?')) {
         return null;
@@ -139,14 +220,13 @@ const appendObjectToFormData = (formData, data, parentKey = null) => {
 /*!************************************!*\
   !*** ./js/helpers/html-element.ts ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: AcEl, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AcEl": () => (/* binding */ AcEl),
-/* harmony export */   "default": () => (/* binding */ AcHtmlElement)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AcEl", function() { return AcEl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AcHtmlElement; });
 const AcEl = (el) => {
     return AcHtmlElement.create(el);
 };
@@ -181,6 +261,10 @@ class AcHtmlElement {
         this.element.innerHTML = html;
         return this;
     }
+    append(element) {
+        this.element.appendChild(element);
+        return this;
+    }
     css(property, value) {
         this.element.style[property] = value;
         return this;
@@ -192,6 +276,15 @@ class AcHtmlElement {
         catch (e) {
             console.error("Not able to insert element after current node", this.element);
         }
+    }
+    insertSelfBefore(referenceNode) {
+        try {
+            referenceNode.parentElement.insertBefore(this.element, referenceNode);
+        }
+        catch (e) {
+            console.error("Not able to insert element before current node", this.element);
+        }
+        return this;
     }
     insertBefore(insertedElement) {
         try {
@@ -219,16 +312,15 @@ class AcHtmlElement {
 /*!*****************************!*\
   !*** ./js/helpers/table.ts ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: getIdFromTableRow, getIdFromString, getRowCellByName, resolveTableBySelector */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getIdFromTableRow": () => (/* binding */ getIdFromTableRow),
-/* harmony export */   "getIdFromString": () => (/* binding */ getIdFromString),
-/* harmony export */   "getRowCellByName": () => (/* binding */ getRowCellByName),
-/* harmony export */   "resolveTableBySelector": () => (/* binding */ resolveTableBySelector)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIdFromTableRow", function() { return getIdFromTableRow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIdFromString", function() { return getIdFromString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRowCellByName", function() { return getRowCellByName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resolveTableBySelector", function() { return resolveTableBySelector; });
 /* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global */ "./js/helpers/global.ts");
 
 const getIdFromTableRow = (row) => {
@@ -248,7 +340,7 @@ const getIdFromTableRow = (row) => {
         if (link) {
             let href = link.getAttribute('href');
             if (href) {
-                item_id = parseInt((0,_global__WEBPACK_IMPORTED_MODULE_0__.getParamFromUrl)('id', href));
+                item_id = parseInt(Object(_global__WEBPACK_IMPORTED_MODULE_0__["getParamFromUrl"])('id', href));
             }
         }
     }
@@ -286,14 +378,13 @@ const resolveTableBySelector = (selector) => {
 /*!**********************************!*\
   !*** ./js/modules/ac-pointer.ts ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: Pointer, initPointers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Pointer": () => (/* binding */ Pointer),
-/* harmony export */   "initPointers": () => (/* binding */ initPointers)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Pointer", function() { return Pointer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initPointers", function() { return initPointers; });
 /* harmony import */ var _tooltips__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltips */ "./js/modules/tooltips.ts");
 
 const $ = __webpack_require__(/*! jquery */ "jquery");
@@ -451,13 +542,12 @@ const initPointers = (elements = null) => {
 /*!***********************************!*\
   !*** ./js/modules/ac-services.ts ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ AcServices)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AcServices; });
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
@@ -466,8 +556,8 @@ __webpack_require__.r(__webpack_exports__);
 class AcServices {
     constructor() {
         this.services = {};
-        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
-        this.$ = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__.AcEl;
+        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
+        this.$ = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__["AcEl"];
     }
     registerService(name, service) {
         this.services[name] = service;
@@ -494,13 +584,12 @@ class AcServices {
 /*!*****************************!*\
   !*** ./js/modules/modal.ts ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Modal)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modal; });
 class Modal {
     constructor(el) {
         if (!el) {
@@ -570,13 +659,12 @@ class Modal {
 /*!******************************!*\
   !*** ./js/modules/modals.ts ***!
   \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Modals)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modals; });
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.ts");
 
 class Modals {
@@ -632,13 +720,12 @@ class Modals {
 /*!*****************************************!*\
   !*** ./js/modules/service-container.ts ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ServiceContainer)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ServiceContainer; });
 class ServiceContainer {
     constructor() {
         this.services = {};
@@ -661,13 +748,12 @@ class ServiceContainer {
 /*!***************************************!*\
   !*** ./js/modules/toggle-box-link.ts ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ToggleBoxLink)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ToggleBoxLink; });
 /* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/elements */ "./js/helpers/elements.ts");
 
 const $ = __webpack_require__(/*! jquery */ "jquery");
@@ -689,7 +775,7 @@ class ToggleBoxLink {
     createContenBox() {
         let contentBox = document.createElement('div');
         contentBox.classList.add('ac-toggle-box-contents');
-        (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_0__.insertAfter)(contentBox, this.element);
+        Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_0__["insertAfter"])(contentBox, this.element);
         this.contentBox = contentBox;
         return this.contentBox;
     }
@@ -768,13 +854,11 @@ class ToggleBoxLink {
 /*!********************************!*\
   !*** ./js/modules/tooltips.ts ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
 
 class Tooltips {
@@ -782,10 +866,10 @@ class Tooltips {
         this.init();
     }
     init() {
-        (0,_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__.initAcTooltips)();
+        Object(_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["initAcTooltips"])();
     }
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tooltips);
+/* harmony default export */ __webpack_exports__["default"] = (Tooltips);
 
 
 /***/ }),
@@ -794,14 +878,13 @@ class Tooltips {
 /*!********************************!*\
   !*** ./js/plugin/show-more.ts ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: auto_init_show_more, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "auto_init_show_more": () => (/* binding */ auto_init_show_more),
-/* harmony export */   "default": () => (/* binding */ ShowMore)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "auto_init_show_more", function() { return auto_init_show_more; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ShowMore; });
 const auto_init_show_more = () => {
     document.querySelectorAll('.ac-show-more').forEach((el) => {
         new ShowMore(el);
@@ -856,14 +939,13 @@ class ShowMore {
 /*!******************************!*\
   !*** ./js/plugin/tooltip.ts ***!
   \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: initAcTooltips, Tooltip */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "initAcTooltips": () => (/* binding */ initAcTooltips),
-/* harmony export */   "Tooltip": () => (/* binding */ Tooltip)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAcTooltips", function() { return initAcTooltips; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return Tooltip; });
 const initAcTooltips = () => {
     document.querySelectorAll('[data-ac-tip]').forEach((element) => {
         new Tooltip(element);
@@ -904,17 +986,93 @@ const createTooltip = (content) => {
 
 /***/ }),
 
+/***/ "./js/table.ts":
+/*!*********************!*\
+  !*** ./js/table.ts ***!
+  \*********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _table_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./table/table */ "./js/table/table.ts");
+/* harmony import */ var _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.ts");
+/* harmony import */ var _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./table/screen-options-columns */ "./js/table/screen-options-columns.ts");
+/* harmony import */ var _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/toggle-box-link */ "./js/modules/toggle-box-link.ts");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _plugin_show_more__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plugin/show-more */ "./js/plugin/show-more.ts");
+/* harmony import */ var _table_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./table/functions */ "./js/table/functions.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
+/* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers/table */ "./js/helpers/table.ts");
+/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
+/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/modals */ "./js/modules/modals.ts");
+/* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.ts");
+
+
+
+
+// @ts-ignore
+
+
+
+
+
+
+
+
+let AC_SERVICES = Object(_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__["initAcServices"])();
+AC_SERVICES.registerService('Modals', new _modules_modals__WEBPACK_IMPORTED_MODULE_10__["default"]());
+document.addEventListener('DOMContentLoaded', () => {
+    let table = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_8__["resolveTableBySelector"])(AC.table_id);
+    Object(_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__["initPointers"])();
+    if (table) {
+        const TableModule = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table, AC_SERVICES).init();
+        AC_SERVICES.registerService('Table', TableModule);
+        AC_SERVICES.registerService('ScreenOptionsColumns', new _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__["default"](TableModule.Columns));
+    }
+    AC_SERVICES.registerService('Tooltips', new _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__["default"]());
+    document.querySelectorAll('.ac-toggle-box-link').forEach(el => {
+        new _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__["default"](el);
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_4___default()('.wp-list-table').on('updated', 'tr', function () {
+        AC_SERVICES.getService('Table').addCellClasses();
+        Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
+    });
+});
+AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__["EventConstants"].TABLE.READY, (event) => {
+    Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
+    Object(_table_functions__WEBPACK_IMPORTED_MODULE_6__["init_actions_tooltips"])();
+    let observer = new MutationObserver(mutations => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.tagName === 'TR' && node.classList.contains('iedit')) {
+                    jquery__WEBPACK_IMPORTED_MODULE_4___default()(node).trigger('updated', { id: Object(_helpers_table__WEBPACK_IMPORTED_MODULE_8__["getIdFromTableRow"])(node), row: node });
+                }
+            });
+        });
+    });
+    observer.observe(event.table.getElement(), { childList: true, subtree: true });
+    event.table.Cells.getAll().forEach(cell => {
+        cell.events.addListener('setValue', () => {
+            Object(_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__["auto_init_show_more"])();
+        });
+    });
+});
+
+
+/***/ }),
+
 /***/ "./js/table/actions.ts":
 /*!*****************************!*\
   !*** ./js/table/actions.ts ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Actions)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Actions; });
 /* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/elements */ "./js/helpers/elements.ts");
 
 var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
@@ -930,7 +1088,7 @@ class Actions {
         });
         let reference = document.querySelectorAll('.tablenav.top .actions');
         if (reference && reference.length) {
-            (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_0__.insertAfter)(this.container, reference[reference.length - 1]);
+            Object(_helpers_elements__WEBPACK_IMPORTED_MODULE_0__["insertAfter"])(this.container, reference[reference.length - 1]);
             this.container.classList.add('-init');
             this.container.dispatchEvent(new CustomEvent('update'));
         }
@@ -957,13 +1115,12 @@ class Actions {
 /*!**************************!*\
   !*** ./js/table/cell.ts ***!
   \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Cell)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Cell; });
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -974,7 +1131,7 @@ class Cell {
         this.original_value = el.innerHTML;
         this.el = el;
         this.services = {};
-        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
+        this.events = new nanobus__WEBPACK_IMPORTED_MODULE_0___default.a();
     }
     getOriginalValue() {
         return this.original_value;
@@ -1029,13 +1186,12 @@ class Cell {
 /*!***************************!*\
   !*** ./js/table/cells.ts ***!
   \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Cells)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Cells; });
 class Cells {
     constructor() {
         this.cells = {};
@@ -1087,14 +1243,13 @@ class Cells {
 /*!*****************************!*\
   !*** ./js/table/columns.ts ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default, ColumnTableSettings */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Columns),
-/* harmony export */   "ColumnTableSettings": () => (/* binding */ ColumnTableSettings)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Columns; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ColumnTableSettings", function() { return ColumnTableSettings; });
 class Columns {
     constructor(table) {
         this.table = table;
@@ -1165,19 +1320,18 @@ class ColumnTableSettings {
 /*!*******************************!*\
   !*** ./js/table/functions.ts ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: init_actions_tooltips */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "init_actions_tooltips": () => (/* binding */ init_actions_tooltips)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init_actions_tooltips", function() { return init_actions_tooltips; });
 /* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
 
 const init_actions_tooltips = () => {
     document.querySelectorAll('.cpac_use_icons').forEach((el) => {
         el.parentElement.querySelectorAll('.row-actions a').forEach((el) => {
-            new _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__.Tooltip(el, el.innerText);
+            new _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__["Tooltip"](el, el.innerText);
         });
     });
 };
@@ -1189,13 +1343,12 @@ const init_actions_tooltips = () => {
 /*!***********************************!*\
   !*** ./js/table/row-selection.ts ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ RowSelection)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return RowSelection; });
 class RowSelection {
     constructor(table) {
         this.Table = table;
@@ -1243,13 +1396,12 @@ class RowSelection {
 /*!********************************************!*\
   !*** ./js/table/screen-options-columns.ts ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ScreenOptionsColumns)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ScreenOptionsColumns; });
 /* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
 
 class ScreenOptionsColumns {
@@ -1276,13 +1428,12 @@ class ScreenOptionsColumns {
 /*!***************************!*\
   !*** ./js/table/table.ts ***!
   \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Table)
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Table; });
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./js/table/actions.ts");
 /* harmony import */ var _cells__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cells */ "./js/table/cells.ts");
 /* harmony import */ var _columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./columns */ "./js/table/columns.ts");
@@ -1315,7 +1466,7 @@ class Table {
     getIdsFromTable() {
         let result = [];
         this.el.getElementsByTagName('tbody')[0].querySelectorAll('tr').forEach(row => {
-            result.push((0,_helpers_table__WEBPACK_IMPORTED_MODULE_5__.getIdFromTableRow)(row));
+            result.push(Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row));
         });
         return result;
     }
@@ -1323,7 +1474,7 @@ class Table {
         this.initTable();
         this.addCellClasses();
         document.dispatchEvent(new CustomEvent('AC_Table_Ready', { detail: { table: this } }));
-        this.AcServices.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_6__.EventConstants.TABLE.READY, { table: this });
+        this.AcServices.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_6__["EventConstants"].TABLE.READY, { table: this });
         return this;
     }
     addCellClasses() {
@@ -1341,12 +1492,12 @@ class Table {
         });
     }
     updateRow(row) {
-        let id = (0,_helpers_table__WEBPACK_IMPORTED_MODULE_5__.getIdFromTableRow)(row);
+        let id = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row);
         row.dataset.id = id.toString();
         this.setCellsForRow(row);
     }
     setCellsForRow(row) {
-        let id = (0,_helpers_table__WEBPACK_IMPORTED_MODULE_5__.getIdFromTableRow)(row);
+        let id = Object(_helpers_table__WEBPACK_IMPORTED_MODULE_5__["getIdFromTableRow"])(row);
         this.Columns.getColumnNames().forEach((name) => {
             let selector = name.replace(/\./g, '\\.');
             let td = row.querySelector("td.column-" + selector);
@@ -1365,7 +1516,8 @@ class Table {
 /*!******************************************!*\
   !*** ./node_modules/nanoassert/index.js ***!
   \******************************************/
-/***/ ((module) => {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 assert.notEqual = notEqual;
 assert.notOk = notOk;
@@ -1393,7 +1545,8 @@ function assert(t, m) {
 /*!***************************************!*\
   !*** ./node_modules/nanobus/index.js ***!
   \***************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 var splice = __webpack_require__(/*! remove-array-items */ "./node_modules/remove-array-items/index.js");
 var nanotiming = __webpack_require__(/*! nanotiming */ "./node_modules/nanotiming/browser.js");
@@ -1552,7 +1705,8 @@ Nanobus.prototype._emit = function (arr, eventName, data, uuid) {
 /*!*********************************************!*\
   !*** ./node_modules/nanoscheduler/index.js ***!
   \*********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js");
 var hasWindow = typeof window !== 'undefined';
@@ -1612,7 +1766,8 @@ module.exports = createScheduler;
 /*!********************************************!*\
   !*** ./node_modules/nanotiming/browser.js ***!
   \********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 var scheduler = __webpack_require__(/*! nanoscheduler */ "./node_modules/nanoscheduler/index.js")();
 var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js");
@@ -1667,7 +1822,8 @@ function noop(cb) {
 /*!**************************************************!*\
   !*** ./node_modules/remove-array-items/index.js ***!
   \**************************************************/
-/***/ ((module) => {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1699,156 +1855,12 @@ module.exports = function removeItems(arr, startIdx, removeCount) {
 /*!*************************!*\
   !*** external "jQuery" ***!
   \*************************/
-/***/ ((module) => {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
 module.exports = jQuery;
 
 /***/ })
 
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
-"use strict";
-/*!*********************!*\
-  !*** ./js/table.ts ***!
-  \*********************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _table_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./table/table */ "./js/table/table.ts");
-/* harmony import */ var _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.ts");
-/* harmony import */ var _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./table/screen-options-columns */ "./js/table/screen-options-columns.ts");
-/* harmony import */ var _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/toggle-box-link */ "./js/modules/toggle-box-link.ts");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "jquery");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _plugin_show_more__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plugin/show-more */ "./js/plugin/show-more.ts");
-/* harmony import */ var _table_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./table/functions */ "./js/table/functions.ts");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
-/* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers/table */ "./js/helpers/table.ts");
-/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
-/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/modals */ "./js/modules/modals.ts");
-/* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.ts");
-
-
-
-
-// @ts-ignore
-
-
-
-
-
-
-
-
-let AC_SERVICES = (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__.initAcServices)();
-AC_SERVICES.registerService('Modals', new _modules_modals__WEBPACK_IMPORTED_MODULE_10__["default"]());
-document.addEventListener('DOMContentLoaded', () => {
-    let table = (0,_helpers_table__WEBPACK_IMPORTED_MODULE_8__.resolveTableBySelector)(AC.table_id);
-    (0,_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__.initPointers)();
-    if (table) {
-        const TableModule = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table, AC_SERVICES).init();
-        AC_SERVICES.registerService('Table', TableModule);
-        AC_SERVICES.registerService('ScreenOptionsColumns', new _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__["default"](TableModule.Columns));
-    }
-    AC_SERVICES.registerService('Tooltips', new _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__["default"]());
-    document.querySelectorAll('.ac-toggle-box-link').forEach(el => {
-        new _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__["default"](el);
-    });
-    jquery__WEBPACK_IMPORTED_MODULE_4___default()('.wp-list-table').on('updated', 'tr', function () {
-        AC_SERVICES.getService('Table').addCellClasses();
-        (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__.auto_init_show_more)();
-    });
-});
-AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.TABLE.READY, (event) => {
-    (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__.auto_init_show_more)();
-    (0,_table_functions__WEBPACK_IMPORTED_MODULE_6__.init_actions_tooltips)();
-    let observer = new MutationObserver(mutations => {
-        mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((node) => {
-                if (node.tagName === 'TR' && node.classList.contains('iedit')) {
-                    jquery__WEBPACK_IMPORTED_MODULE_4___default()(node).trigger('updated', { id: (0,_helpers_table__WEBPACK_IMPORTED_MODULE_8__.getIdFromTableRow)(node), row: node });
-                }
-            });
-        });
-    });
-    observer.observe(event.table.getElement(), { childList: true, subtree: true });
-    event.table.Cells.getAll().forEach(cell => {
-        cell.events.addListener('setValue', () => {
-            (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__.auto_init_show_more)();
-        });
-    });
-});
-
-})();
-
-/******/ })()
-;
+/******/ });
 //# sourceMappingURL=table.js.map
