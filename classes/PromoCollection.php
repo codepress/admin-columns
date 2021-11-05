@@ -10,8 +10,7 @@ class PromoCollection extends ArrayIterator {
 
 	public function __construct() {
 		parent::__construct( [
-			new BlackFriday( new DateRange( new DateTime( '2019-11-28' ), new DateTime( '2019-12-03' ) ) ),
-			new BlackFriday( new DateRange( new DateTime( '2020-11-26' ), new DateTime( '2020-11-31' ) ) ),
+			new BlackFriday( new DateRange( new DateTime( '2021-11-26' ), new DateTime( '2021-11-30' ) ), 'BlackFriday21' ),
 		] );
 	}
 

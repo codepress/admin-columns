@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Improved] UI Improvements
+
 = 4.4.3 =
 Release Date: October 26th, 2021
 

@@ -4157,6 +4157,10 @@ class AcHtmlElement {
         this.element.innerHTML = html;
         return this;
     }
+    append(element) {
+        this.element.appendChild(element);
+        return this;
+    }
     css(property, value) {
         this.element.style[property] = value;
         return this;
@@ -4168,6 +4172,15 @@ class AcHtmlElement {
         catch (e) {
             console.error("Not able to insert element after current node", this.element);
         }
+    }
+    insertSelfBefore(referenceNode) {
+        try {
+            referenceNode.parentElement.insertBefore(this.element, referenceNode);
+        }
+        catch (e) {
+            console.error("Not able to insert element before current node", this.element);
+        }
+        return this;
     }
     insertBefore(insertedElement) {
         try {
