@@ -29,10 +29,6 @@ class NoticeChecks implements Registrable {
 
 		if ( ! ac_is_pro_active() ) {
 			$checks[] = new Check\Review( $this->location );
-
-			foreach ( new PromoCollection() as $promo ) {
-				$checks[] = new Check\Promotion( $promo );
-			}
 		}
 
 		$integrations = new IntegrationRepository();

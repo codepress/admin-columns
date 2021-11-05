@@ -218,6 +218,14 @@
   padding-right: 20px;
 }
 
+@keyframes deal_blur {
+  0%, 60% {
+    filter: grayscale(0);
+  }
+  30% {
+    filter: grayscale(0.2);
+  }
+}
 /**
  * UI Sortable Plugin
  * ----------------------------------------------------------------------------
@@ -1210,10 +1218,13 @@ div.ac-column-header span.vers {
   content: "+";
 }
 #ac-pro-version .padding-box.ac-pro-deal {
+  backface-visibility: hidden;
+  transform: translateZ(0);
   color: #3d4350;
   padding-bottom: 20px;
   text-align: center;
   background: #ffef8f;
+  animation: deal_blur 2s ease 0s infinite;
 }
 #ac-pro-version .padding-box.ac-pro-deal h3 {
   font-size: 20px;

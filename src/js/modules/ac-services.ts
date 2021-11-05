@@ -1,13 +1,16 @@
 import Nanobus from "nanobus";
+import {AcEl} from "../helpers/html-element";
 
 export default class AcServices {
 
     private services: { [key: string]: any }
     private events: Nanobus
+    public $: typeof AcEl
 
     constructor() {
         this.services = {};
         this.events = new Nanobus();
+        this.$ = AcEl;
     }
 
     registerService(name: string, service: any): this {
