@@ -16,7 +16,7 @@ class BlackFriday extends Promo {
 	public function __construct( DateRange $date_range, $coupon_code = null ) {
 		parent::__construct(
 			'black-friday',
-			sprintf( __( '%s Off from Black Friday until Cyber Monday', 'codepress-admin-columns' ), '25%' ),
+			sprintf( __( '%s Off from Black Friday to Cyber Monday', 'codepress-admin-columns' ), '25%' ),
 			25,
 			$date_range
 		);
