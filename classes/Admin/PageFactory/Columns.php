@@ -3,6 +3,8 @@
 namespace AC\Admin\PageFactory;
 
 use AC;
+use AC\Admin;
+use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
 use AC\Admin\Preference;
@@ -10,7 +12,6 @@ use AC\Admin\Section;
 use AC\Asset\Location;
 use AC\DefaultColumnsRepository;
 use AC\ListScreenRepository\Storage;
-use AC\Renderable;
 
 class Columns implements PageFactoryInterface {
 
@@ -25,14 +26,14 @@ class Columns implements PageFactoryInterface {
 	protected $location;
 
 	/**
-	 * @var Renderable
+	 * @var MenuFactoryInterface
 	 */
-	protected $head;
+	protected $menu_factory;
 
-	public function __construct( Storage $storage, Location\Absolute $location, Renderable $head ) {
+	public function __construct( Storage $storage, Location\Absolute $location, MenuFactoryInterface $menu_factory ) {
 		$this->storage = $storage;
 		$this->location = $location;
-		$this->head = $head;
+		$this->menu_factory = $menu_factory;
 	}
 
 	public function create() {
@@ -41,7 +42,7 @@ class Columns implements PageFactoryInterface {
 			new DefaultColumnsRepository(),
 			new Section\Partial\Menu(),
 			$this->storage,
-			$this->head,
+			new Admin\View\Menu( $this->menu_factory->create( 'columns' ) ),
 			new Preference\ListScreen()
 		);
 	}

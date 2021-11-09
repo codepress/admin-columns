@@ -57,15 +57,13 @@ class AdminColumns extends Plugin {
 		] );
 
 		$location = $this->get_location();
-
 		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
-		$head = new Admin\View\Menu( $menu_factory->create( filter_input( INPUT_GET, 'tab' ) ?: 'columns' ) );
 
 		$page_factory_aggregate = new Admin\PageFactoryAggregate();
-		$page_factory_aggregate->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $head ) )
-		                       ->add( 'settings', new Admin\PageFactory\Settings( $location, $head ) )
-		                       ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $head ) )
-		                       ->add( 'help', new Admin\PageFactory\Help( $location, $head ) );
+		$page_factory_aggregate->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory ) )
+		                       ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory ) )
+		                       ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $menu_factory ) )
+		                       ->add( 'help', new Admin\PageFactory\Help( $location, $menu_factory ) );
 
 		RequestHandler::add_handler( new PageRequestHandler( $page_factory_aggregate, 'columns' ) );
 

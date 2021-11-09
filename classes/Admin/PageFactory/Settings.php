@@ -3,11 +3,11 @@
 namespace AC\Admin\PageFactory;
 
 use AC;
+use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
 use AC\Admin\Section;
 use AC\Asset\Location;
-use AC\Renderable;
 
 class Settings implements PageFactoryInterface {
 
@@ -17,18 +17,18 @@ class Settings implements PageFactoryInterface {
 	protected $location;
 
 	/**
-	 * @var Renderable
+	 * @var MenuFactoryInterface
 	 */
-	protected $head;
+	protected $menu_factory;
 
-	public function __construct( Location\Absolute $location, Renderable $head ) {
+	public function __construct( Location\Absolute $location, MenuFactoryInterface $menu_factory ) {
 		$this->location = $location;
-		$this->head = $head;
+		$this->menu_factory = $menu_factory;
 	}
 
 	public function create() {
 		$page = new Page\Settings(
-			$this->head,
+			new AC\Admin\View\Menu( $this->menu_factory->create( 'settings' ) ),
 			$this->location
 		);
 
