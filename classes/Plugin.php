@@ -87,6 +87,14 @@ class Plugin {
 	}
 
 	/**
+	 * @deprecated
+	 * TODO necessary for old plugins
+	 */
+	public function install(){
+
+	}
+
+	/**
 	 * @return bool
 	 */
 	// TODO move to Setup?
