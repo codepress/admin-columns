@@ -78,32 +78,6 @@ class Plugin {
 	}
 
 	/**
-	 * @param string $version
-	 *
-	 * @return bool
-	 */
-	public function is_version_gte( $version ) {
-		return $this->version->is_gte( new Version( $version ) );
-	}
-
-	/**
-	 * @deprecated
-	 * TODO necessary for old plugins
-	 */
-	public function install(){
-
-	}
-
-	/**
-	 * @return bool
-	 */
-	// TODO move to Setup?
-	public function is_new_install() {
-		return ! $this->get_version_storage()->get()->is_valid() ||
-		       ! $this->get_version_storage()->get_previous()->is_valid();
-	}
-
-	/**
 	 * @return Location\Absolute
 	 */
 	public function get_location() {
@@ -111,6 +85,20 @@ class Plugin {
 			$this->get_url(),
 			$this->get_dir()
 		);
+	}
+
+	/**
+	 * @deprecated
+	 */
+	public function install() {
+	}
+
+	/**
+	 * @return false
+	 * @deprecated NEWVERSION
+	 */
+	public function is_version_gte() {
+		return false;
 	}
 
 }
