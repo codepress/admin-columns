@@ -7,7 +7,7 @@ use AC\Integration\Filter;
 use AC\Integrations;
 use ACP\Type\Activation\Products;
 
-class ContainsProducts implements Filter {
+class ExcludeProducts implements Filter {
 
 	/**
 	 * @var Products
@@ -19,7 +19,7 @@ class ContainsProducts implements Filter {
 	}
 
 	public function filter( Integrations $integrations ) {
-		return new Integrations( array_filter( $integrations->all(), [ $this, 'has_product' ] ) );
+		return new Integrations( array_filter( $integrations->all(), [ $this, 'exclude_product' ] ) );
 	}
 
 	/**
@@ -27,8 +27,8 @@ class ContainsProducts implements Filter {
 	 *
 	 * @return bool
 	 */
-	private function has_product( Integration $integration ) {
-		return in_array( $integration->get_slug(), $this->products->get_value(), true );
+	private function exclude_product( Integration $integration ) {
+		return ! in_array( $integration->get_slug(), $this->products->get_value(), true );
 	}
 
 }
