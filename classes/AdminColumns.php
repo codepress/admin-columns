@@ -93,8 +93,8 @@ class AdminColumns extends Plugin {
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];
 
-		$setup = is_multisite() && is_network_admin()
-			? new Plugin\Setup( $this->get_version_storage(), $this->get_version(), $this->get_network_updater(), $this->get_installer() )
+		$setup = is_multisite() && is_network_admin() && $this->is_network_active()
+			? new Plugin\Setup( $this->get_network_version_storage(), $this->get_version(), null, $this->get_installer() )
 			: new Plugin\Setup( $this->get_version_storage(), $this->get_version(), $this->get_site_updater(), $this->get_installer() );
 
 		$services[] = $setup;
@@ -106,10 +106,6 @@ class AdminColumns extends Plugin {
 		}
 
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
-	}
-
-	private function get_network_updater() {
-		return new Updater( new UpdateCollection( [] ), $this->get_version_storage() );
 	}
 
 	private function get_site_updater() {
