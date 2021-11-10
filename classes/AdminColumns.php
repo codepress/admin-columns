@@ -11,7 +11,6 @@ use AC\Admin\WpMenuFactory;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Controller;
-use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\InstallCollection;
@@ -71,12 +70,11 @@ class AdminColumns extends Plugin {
 			new Admin\Admin( new RequestHandler(), new WpMenuFactory(), new AdminScripts( $location ) ),
 			new Admin\Notice\ReadOnly(),
 			new Ajax\NumberFormat( new Request() ),
-			new Deprecated\Hooks,
 			new ListScreens(),
-			new Screen,
-			new ThirdParty\ACF,
-			new ThirdParty\NinjaForms,
-			new ThirdParty\WooCommerce,
+			new Screen(),
+			new ThirdParty\ACF(),
+			new ThirdParty\NinjaForms(),
+			new ThirdParty\WooCommerce(),
 			new ThirdParty\WPML( $this->storage ),
 			new Controller\DefaultColumns( new Request(), new DefaultColumnsRepository() ),
 			new QuickEdit( $this->storage, new Table\Preference() ),
@@ -99,11 +97,9 @@ class AdminColumns extends Plugin {
 
 		$services[] = $setup;
 
-		foreach ( $services as $service ) {
-			if ( $service instanceof Registrable ) {
-				$service->register();
-			}
-		}
+		array_map( static function ( Registrable $service ) {
+			$service->register();
+		}, $services );
 
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
 	}
