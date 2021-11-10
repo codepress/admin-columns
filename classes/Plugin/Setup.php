@@ -18,7 +18,7 @@ class Setup implements Registrable {
 	private $version;
 
 	/**
-	 * @var Updater
+	 * @var Updater|null
 	 */
 	private $updater;
 
@@ -27,7 +27,7 @@ class Setup implements Registrable {
 	 */
 	private $installer;
 
-	public function __construct( VersionStorage $version_storage, Version $version, Updater $updater, Installer $installer = null ) {
+	public function __construct( VersionStorage $version_storage, Version $version, Updater $updater = null, Installer $installer = null ) {
 		$this->version_storage = $version_storage;
 		$this->version = $version;
 		$this->updater = $updater;
@@ -51,7 +51,9 @@ class Setup implements Registrable {
 			return;
 		}
 
-		$this->updater->apply_updates();
+		if ( $this->updater ) {
+			$this->updater->apply_updates();
+		}
 
 		$this->version_storage->save( $this->version );
 	}
