@@ -35,12 +35,21 @@ class Plugin {
 	 * @return VersionStorage
 	 */
 	public function get_version_storage() {
-		return new VersionStorage(
-			$this->version_key,
-			$this->is_network_active()
-				? new NetworkOptionFactory()
-				: new OptionFactory()
-		);
+		return new VersionStorage( $this->version_key, new OptionFactory() );
+	}
+
+	/**
+	 * @return VersionStorage
+	 */
+	public function get_network_version_storage() {
+		return new VersionStorage( $this->version_key, new NetworkOptionFactory() );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_version_key() {
+		return $this->version_key;
 	}
 
 	/**
