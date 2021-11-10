@@ -3,7 +3,6 @@
 namespace AC;
 
 use AC\Asset\Location;
-use AC\Plugin\PluginHeader;
 use AC\Plugin\Version;
 use AC\Plugin\VersionStorage;
 use AC\Storage\NetworkOptionFactory;
@@ -26,10 +25,10 @@ class Plugin {
 	 */
 	private $version;
 
-	protected function __construct( $file, $version_key, Version $version = null ) {
+	protected function __construct( $file, $version_key, Version $version ) {
 		$this->file = (string) $file;
 		$this->version_key = (string) $version_key;
-		$this->version = $version ?: ( new PluginHeader( $file ) )->get_version();
+		$this->version = $version;
 	}
 
 	/**
@@ -38,7 +37,9 @@ class Plugin {
 	public function get_version_storage() {
 		return new VersionStorage(
 			$this->version_key,
-			$this->is_network_active() ? new NetworkOptionFactory() : new OptionFactory()
+			$this->is_network_active()
+				? new NetworkOptionFactory()
+				: new OptionFactory()
 		);
 	}
 
@@ -88,17 +89,21 @@ class Plugin {
 	}
 
 	/**
-	 * @deprecated
+	 * For backwards compatbility with the `Depedencies` class
+	 *
+	 * @param string
+	 *
+	 * @return bool
 	 */
-	public function install() {
+	public function is_version_gte( $version ) {
+		return $this->version->is_gte( new Version( (string) $version ) );
 	}
 
 	/**
-	 * @return bool
-	 * @deprecated NEWVERSION
+	 * @return void
+	 * @deprecated
 	 */
-	public function is_version_gte( $version ) {
-		return $this->get_version()->is_gte( new Version( $version ) );
+	public function install() {
 	}
 
 }
