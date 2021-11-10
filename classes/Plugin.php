@@ -3,6 +3,7 @@
 namespace AC;
 
 use AC\Asset\Location;
+use AC\Plugin\PluginHeader;
 use AC\Plugin\Version;
 use AC\Plugin\VersionStorage;
 use AC\Storage\NetworkOptionFactory;
@@ -25,10 +26,10 @@ class Plugin {
 	 */
 	private $version;
 
-	protected function __construct( $file, $version_key, Version $version ) {
+	protected function __construct( $file, $version_key, Version $version = null ) {
 		$this->file = (string) $file;
 		$this->version_key = (string) $version_key;
-		$this->version = $version;
+		$this->version = $version ?: ( new PluginHeader( $file ) )->get_version();
 	}
 
 	/**
