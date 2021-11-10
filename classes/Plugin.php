@@ -94,11 +94,11 @@ class Plugin {
 	}
 
 	/**
-	 * @return false
+	 * @return bool
 	 * @deprecated NEWVERSION
 	 */
-	public function is_version_gte() {
-		return false;
+	public function is_version_gte( $version ) {
+		return $this->get_version()->is_gte( new Version( $version ) );
 	}
 
 }
