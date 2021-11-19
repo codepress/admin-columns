@@ -60,13 +60,10 @@ class Width extends Settings\Column
 	}
 
 	public function create_header_view() {
-
-		$view = new View( [
+		return new View( [
 			'title'   => __( 'width', 'codepress-admin-columns' ),
-			'content' => $this->get_display_width(),
+			'content' => $this->width && $this->width_unit ? $this->width . $this->width_unit : '',
 		] );
-
-		return $view;
 	}
 
 	/**
@@ -121,16 +118,6 @@ class Width extends Settings\Column
 		$this->width_unit = $width_unit;
 
 		return true;
-	}
-
-	public function get_display_width() {
-		$value = false;
-
-		if ( $width = $this->get_width() ) {
-			$value = $width . $this->get_width_unit();
-		}
-
-		return $value;
 	}
 
 }

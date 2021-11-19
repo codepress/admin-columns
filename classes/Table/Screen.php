@@ -5,6 +5,7 @@ namespace AC\Table;
 use AC;
 use AC\Asset;
 use AC\Capabilities;
+use AC\ColumnSize;
 use AC\Form;
 use AC\ListScreen;
 use AC\Registrable;
@@ -33,9 +34,15 @@ final class Screen implements Registrable {
 	 */
 	private $location;
 
-	public function __construct( Asset\Location\Absolute $location, ListScreen $list_screen ) {
+	/**
+	 * @var ColumnSize\Repository
+	 */
+	private $column_size_repository;
+
+	public function __construct( Asset\Location\Absolute $location, ListScreen $list_screen, ColumnSize\Repository $column_size_repository ) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
+		$this->column_size_repository = $column_size_repository;
 	}
 
 	/**
@@ -312,17 +319,21 @@ final class Screen implements Registrable {
 	 */
 	private function get_column_widths() {
 		$result = [];
+
 		if ( ! $this->list_screen->get_settings() ) {
 			return $result;
 		}
 
 		foreach ( $this->list_screen->get_columns() as $column ) {
-			/* @var Settings\Column\Width $setting */
-			$setting = $column->get_setting( 'width' );
+			$column_width = $this->column_size_repository->find( $this->list_screen->get_id(), $column->get_name() );
+
+			if ( ! $column_width ) {
+				continue;
+			}
 
 			$result[ $column->get_name() ] = [
-				'width'      => $setting->get_width(),
-				'width_unit' => $setting->get_width_unit(),
+				'width'      => $column_width->get_value(),
+				'width_unit' => $column_width->get_unit(),
 			];
 		}
 
@@ -341,15 +352,16 @@ final class Screen implements Registrable {
 		$css_column_width = false;
 
 		foreach ( $this->list_screen->get_columns() as $column ) {
-			/* @var Settings\Column\Width $setting */
-			$setting = $column->get_setting( 'width' );
+			$column_width = $this->column_size_repository->find( $this->list_screen->get_id(), $column->get_name() );
 
-			$width = $setting->get_display_width();
-
-			if ( $width ) {
-				$css_column_width .= '.ac-' . esc_attr( $this->list_screen->get_key() ) . ' .wrap table th.column-' . esc_attr( $column->get_name() ) . ' { width: ' . $width . ' !important; }';
-				$css_column_width .= 'body.acp-overflow-table.ac-' . esc_attr( $this->list_screen->get_key() ) . ' .wrap th.column-' . esc_attr( $column->get_name() ) . ' { min-width: ' . $width . ' !important; }';
+			if ( ! $column_width ) {
+				continue;
 			}
+
+			$css_width = $column_width->get_value() . $column_width->get_unit();
+
+			$css_column_width .= '.ac-' . esc_attr( $this->list_screen->get_key() ) . ' .wrap table th.column-' . esc_attr( $column->get_name() ) . ' { width: ' . $css_width . ' !important; }';
+			$css_column_width .= 'body.acp-overflow-table.ac-' . esc_attr( $this->list_screen->get_key() ) . ' .wrap th.column-' . esc_attr( $column->get_name() ) . ' { min-width: ' . $css_width . ' !important; }';
 		}
 
 		if ( ! $css_column_width ) {
