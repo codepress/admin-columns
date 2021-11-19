@@ -2,10 +2,11 @@
 
 namespace AC\ColumnSize;
 
+use AC;
+use AC\ListScreen;
 use AC\ListScreenRepository;
 use AC\Type\ColumnWidth;
 use AC\Type\ListScreenId;
-use InvalidArgumentException;
 
 class ListStorage {
 
@@ -47,39 +48,23 @@ class ListStorage {
 	}
 
 	/**
-	 * @param ListScreenId $list_id
-	 * @param string       $column_name
+	 * @param ListScreen $list_screen
+	 * @param string     $column_name
 	 *
 	 * @return ColumnWidth|null
 	 */
-	public function get( ListScreenId $list_id, $column_name ) {
-		$list_screen = $this->list_screen_repository->find( $list_id );
-
-		if ( ! $list_screen ) {
-			return null;
-		}
-
+	public function get( ListScreen $list_screen, $column_name ) {
 		$column = $list_screen->get_column_by_name( $column_name );
 
-		if ( ! $column_name ) {
+		if ( ! $column ) {
 			return null;
 		}
 
-		/**
-		 * @var \AC\Settings\Column\Width $setting
-		 */
 		$setting = $column->get_setting( 'width' );
 
-		try {
-			$column_width = new ColumnWidth(
-				$setting->get_width_unit(),
-				$setting->get_width()
-			);
-		} catch ( InvalidArgumentException $e ) {
-			return null;
-		}
-
-		return $column_width;
+		return $setting instanceof AC\Settings\Column\Width
+			? $setting->get_column_width()
+			: null;
 	}
 
 }

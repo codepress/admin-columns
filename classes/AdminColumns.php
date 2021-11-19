@@ -13,7 +13,6 @@ use AC\Admin\WpMenuFactory;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
-use AC\ColumnSize;
 use AC\Controller;
 use AC\Deprecated;
 use AC\ListScreenRepository\Database;
@@ -62,11 +61,6 @@ class AdminColumns extends Plugin {
 			$this->get_dir()
 		);
 
-		$column_size_repository = new ColumnSize\Repository(
-			new ColumnSize\ListStorage( $this->storage ),
-			new ColumnSize\UserStorage( new ColumnSize\UserPreference() )
-		);
-
 		RequestHandler::add_handler(
 			new PageRequestHandler(
 				new PageFactory( $this->storage, $location, new MenuFactory( admin_url( 'options-general.php' ), new IntegrationRepository() ) ),
@@ -97,7 +91,7 @@ class AdminColumns extends Plugin {
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks( $this->get_location() ),
-			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference(), $column_size_repository ),
+			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];
 
 		foreach ( $services as $service ) {

@@ -35,17 +35,11 @@ class TableListScreenSetter implements Registrable {
 	 */
 	private $preference;
 
-	/**
-	 * @var ColumnSize\Repository
-	 */
-	private $column_size_repository;
-
-	public function __construct( Storage $storage, PermissionChecker $permission_checker, Absolute $location, Table\Preference $preference, ColumnSize\Repository $column_size_repository ) {
+	public function __construct( Storage $storage, PermissionChecker $permission_checker, Absolute $location, Table\Preference $preference ) {
 		$this->storage = $storage;
 		$this->permission_checker = $permission_checker;
 		$this->location = $location;
 		$this->preference = $preference;
-		$this->column_size_repository = $column_size_repository;
 	}
 
 	public function register() {
@@ -80,7 +74,8 @@ class TableListScreenSetter implements Registrable {
 			$this->preference->set( $list_screen->get_key(), $list_screen->get_id()->get_id() );
 		}
 
-		$table_screen = new Table\Screen( $this->location, $list_screen, $this->column_size_repository );
+		$table_screen = new Table\Screen( $this->location, $list_screen, new ColumnSize\ListStorage( $this->storage ), new ColumnSize\UserStorage( new ColumnSize\UserPreference() ) );
+
 		$table_screen->register();
 
 		do_action( 'ac/table', $table_screen );

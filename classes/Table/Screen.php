@@ -10,6 +10,7 @@ use AC\Form;
 use AC\ListScreen;
 use AC\Registrable;
 use AC\Settings;
+use AC\Type\ColumnWidth;
 use WP_Post;
 
 final class Screen implements Registrable {
@@ -35,14 +36,20 @@ final class Screen implements Registrable {
 	private $location;
 
 	/**
-	 * @var ColumnSize\Repository
+	 * @var ColumnSize\ListStorage
 	 */
-	private $column_size_repository;
+	private $column_size_list_storage;
 
-	public function __construct( Asset\Location\Absolute $location, ListScreen $list_screen, ColumnSize\Repository $column_size_repository ) {
+	/**
+	 * @var ColumnSize\UserStorage
+	 */
+	private $column_size_user_storage;
+
+	public function __construct( Asset\Location\Absolute $location, ListScreen $list_screen, ColumnSize\ListStorage $column_size_list_storage, ColumnSize\UserStorage $column_size_user_storage ) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
-		$this->column_size_repository = $column_size_repository;
+		$this->column_size_list_storage = $column_size_list_storage;
+		$this->column_size_user_storage = $column_size_user_storage;
 	}
 
 	/**
@@ -315,6 +322,22 @@ final class Screen implements Registrable {
 	}
 
 	/**
+	 * @param ListScreen $list_screen
+	 * @param string     $column_name
+	 *
+	 * @return ColumnWidth|null
+	 */
+	private function get_column_width( ListScreen $list_screen, $column_name ) {
+		$column_width = $this->column_size_user_storage->get( $list_screen->get_id(), $column_name );
+
+		if ( ! $column_width ) {
+			$column_width = $this->column_size_list_storage->get( $list_screen, $column_name );
+		}
+
+		return $column_width;
+	}
+
+	/**
 	 * @return array
 	 */
 	private function get_column_widths() {
@@ -325,7 +348,7 @@ final class Screen implements Registrable {
 		}
 
 		foreach ( $this->list_screen->get_columns() as $column ) {
-			$column_width = $this->column_size_repository->find( $this->list_screen->get_id(), $column->get_name() );
+			$column_width = $this->get_column_width( $this->list_screen, $column->get_name() );
 
 			if ( ! $column_width ) {
 				continue;
@@ -352,7 +375,7 @@ final class Screen implements Registrable {
 		$css_column_width = false;
 
 		foreach ( $this->list_screen->get_columns() as $column ) {
-			$column_width = $this->column_size_repository->find( $this->list_screen->get_id(), $column->get_name() );
+			$column_width = $this->get_column_width( $this->list_screen, $column->get_name() );
 
 			if ( ! $column_width ) {
 				continue;

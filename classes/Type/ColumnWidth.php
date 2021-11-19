@@ -27,7 +27,7 @@ class ColumnWidth {
 		if ( ! in_array( $this->unit, [ 'px', '%' ] ) ) {
 			throw new InvalidArgumentException( 'Invalid width unit.' );
 		}
-		if ( ! is_int( $this->value ) ) {
+		if ( ! is_int( $this->value ) || $this->value < 0 ) {
 			throw new InvalidArgumentException( 'Invalid width.' );
 		}
 	}
