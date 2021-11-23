@@ -25,13 +25,25 @@ class UserStorage {
 	 * @param ColumnWidth  $column_width
 	 */
 	public function save( ListScreenId $list_id, $column_name, ColumnWidth $column_width ) {
+		$widths = $this->user_preference->get( $list_id->get_id() );
+
+		if ( ! $widths ) {
+			$widths = [];
+		}
+
+		$widths[ $column_name ] = [
+			self::OPTION_UNIT  => $column_width->get_unit(),
+			self::OPTION_VALUE => $column_width->get_value(),
+		];
+
 		$this->user_preference->set(
-			$list_id->get_id() . $column_name,
-			[
-				self::OPTION_UNIT  => $column_width->get_unit(),
-				self::OPTION_VALUE => $column_width->get_value(),
-			]
+			$list_id->get_id(),
+			$widths
 		);
+	}
+
+	public function exists( ListScreenId $list_id ) {
+		return null !== $this->user_preference->get( $list_id->get_id() );
 	}
 
 	/**
@@ -41,17 +53,46 @@ class UserStorage {
 	 * @return ColumnWidth|null
 	 */
 	public function get( ListScreenId $list_id, $column_name ) {
-		$data = $this->user_preference->get(
-			$list_id->get_id() . $column_name
+		$widths = $this->user_preference->get(
+			$list_id->get_id()
 		);
 
-		if ( ! $data ) {
+		if ( ! isset( $widths[ $column_name ] ) ) {
 			return null;
 		}
 
 		return new ColumnWidth(
-			$data[ self::OPTION_UNIT ],
-			$data[ self::OPTION_VALUE ]
+			$widths[ $column_name ][ self::OPTION_UNIT ],
+			$widths[ $column_name ][ self::OPTION_VALUE ]
+		);
+	}
+
+	/**
+	 * @param ListScreenId $list_id
+	 * @param string       $column_name
+	 */
+	public function delete( ListScreenId $list_id, $column_name ) {
+		$widths = $this->user_preference->get(
+			$list_id->get_id()
+		);
+
+		if ( ! $widths ) {
+			return;
+		}
+
+		unset( $widths[ $column_name ] );
+
+		$widths
+			? $this->user_preference->set( $list_id->get_id(), $widths )
+			: $this->delete_by_list_id( $list_id );
+	}
+
+	/**
+	 * @param ListScreenId $list_id
+	 */
+	public function delete_by_list_id( ListScreenId $list_id ) {
+		$this->user_preference->delete(
+			$list_id->get_id()
 		);
 	}
 
