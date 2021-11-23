@@ -17,7 +17,7 @@ final class ScreenTools implements Registrable {
 		ob_start();
 		?>
 
-		<fieldset class='acp-screen-option-tools'>
+		<fieldset id="acp-screen-option-tools">
 			<legend><?= __( 'Tools', 'codepress-admin-columns' ); ?></legend>
 			<div class="acp-tools-container">
 			</div>
