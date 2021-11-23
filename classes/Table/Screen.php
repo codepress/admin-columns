@@ -9,6 +9,7 @@ use AC\ColumnSize;
 use AC\Form;
 use AC\ListScreen;
 use AC\Registrable;
+use AC\Renderable;
 use AC\Settings;
 use AC\Type\ColumnWidth;
 use WP_Post;
@@ -466,9 +467,9 @@ final class Screen implements Registrable {
 	}
 
 	/**
-	 * @param Form\Element $option
+	 * @param Renderable $option
 	 */
-	public function register_screen_option( AC\Form\Element $option ) {
+	public function register_screen_option( Renderable $option ) {
 		$this->screen_options[] = $option;
 	}
 

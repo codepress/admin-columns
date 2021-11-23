@@ -31,11 +31,11 @@ class TableListScreenSetter implements Registrable {
 	private $location;
 
 	/**
-	 * @var Table\Preference
+	 * @var Table\LayoutPreference
 	 */
 	private $preference;
 
-	public function __construct( Storage $storage, PermissionChecker $permission_checker, Absolute $location, Table\Preference $preference ) {
+	public function __construct( Storage $storage, PermissionChecker $permission_checker, Absolute $location, Table\LayoutPreference $preference ) {
 		$this->storage = $storage;
 		$this->permission_checker = $permission_checker;
 		$this->location = $location;
@@ -75,7 +75,6 @@ class TableListScreenSetter implements Registrable {
 		}
 
 		$table_screen = new Table\Screen( $this->location, $list_screen, new ColumnSize\ListStorage( $this->storage ), new ColumnSize\UserStorage( new ColumnSize\UserPreference() ) );
-
 		$table_screen->register();
 
 		do_action( 'ac/table', $table_screen );
