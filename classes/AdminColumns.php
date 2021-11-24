@@ -5,6 +5,7 @@ namespace AC;
 use AC\Admin;
 use AC\Admin\AdminScripts;
 use AC\Admin\PageRequestHandler;
+use AC\Admin\PageRequestHandlers;
 use AC\Admin\Preference;
 use AC\Admin\RequestHandler;
 use AC\Admin\WpMenuFactory;
@@ -58,16 +59,16 @@ class AdminColumns extends Plugin {
 		$location = $this->get_location();
 		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
 
-		$page_factory_aggregate = new Admin\PageFactoryAggregate();
-		$page_factory_aggregate->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory ) )
-		                       ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory ) )
-		                       ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $menu_factory ) )
-		                       ->add( 'help', new Admin\PageFactory\Help( $location, $menu_factory ) );
+		$page_handler = new PageRequestHandler();
+		$page_handler->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory ) )
+		             ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory ) )
+		             ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $menu_factory ) )
+		             ->add( 'help', new Admin\PageFactory\Help( $location, $menu_factory ) );
 
-		RequestHandler::add_handler( new PageRequestHandler( $page_factory_aggregate, 'columns' ) );
+		PageRequestHandlers::add_handler( $page_handler );
 
 		$services = [
-			new Admin\Admin( new RequestHandler(), new WpMenuFactory(), new AdminScripts( $location ) ),
+			new Admin\Admin( new PageRequestHandlers(), new WpMenuFactory(), new AdminScripts( $location ) ),
 			new Admin\Notice\ReadOnly(),
 			new Ajax\NumberFormat( new Request() ),
 			new ListScreens(),

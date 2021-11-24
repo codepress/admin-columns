@@ -33,8 +33,8 @@ class MenuFactory implements MenuFactoryInterface {
 	protected function create_menu_link( $slug ) {
 		return add_query_arg(
 			[
-				RequestHandler::PARAM_PAGE => Admin::NAME,
-				RequestHandler::PARAM_TAB  => $slug,
+				RequestHandlerInterface::PARAM_PAGE => Admin::NAME,
+				RequestHandlerInterface::PARAM_TAB  => $slug,
 			],
 			$this->url
 		);

@@ -5,7 +5,7 @@ namespace AC\Admin;
 use AC;
 use AC\Request;
 
-class PageRequestHandler implements RequestHandlerInterface {
+class PageNetworkRequestHandler implements RequestHandlerInterface {
 
 	/**
 	 * @var PageFactoryInterface[]
@@ -19,7 +19,7 @@ class PageRequestHandler implements RequestHandlerInterface {
 	 * @return $this
 	 */
 	public function add( $slug, PageFactoryInterface $factory ) {
-		$this->factories[ (string) $slug ] = $factory;
+		$this->factories[ $slug ] = $factory;
 
 		return $this;
 	}
@@ -31,7 +31,7 @@ class PageRequestHandler implements RequestHandlerInterface {
 			? $this->factories[ $slug ]->create()
 			: null;
 
-		return apply_filters( 'ac/admin/request/page', $page, $request );
+		return apply_filters( 'ac/admin/network/request/page', $page, $request );
 	}
 
 }
