@@ -8,7 +8,13 @@ use AC\Registrable;
 final class ScreenTools implements Registrable {
 
 	public function register() {
-		add_action( 'ac/table', function () {
+		add_action( 'ac/table', function ( Screen $screen ) {
+			$list_screen = $screen->get_list_screen();
+
+			if ( ! $list_screen->has_id() ) {
+				return;
+			}
+
 			add_filter( 'screen_settings', [ $this, 'render' ] );
 		} );
 	}
