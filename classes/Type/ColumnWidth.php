@@ -6,9 +6,6 @@ use InvalidArgumentException;
 
 class ColumnWidth {
 
-	const MINIMAL_PIXEL_WIDTH = 50;
-	const MINIMAL_PERCENTAGE_WIDTH = 1;
-
 	/**
 	 * @var string
 	 */
