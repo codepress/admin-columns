@@ -49,18 +49,17 @@ class ColumnSize implements Renderable {
 		);
 
 		$id = sprintf(
-			'ac-column-size-%s-%s-%s',
+			'ac-column-size-%s-%s',
 			(string) $type,
-			$this->list_screen->get_key(),
 			$column_name
 		);
 
 		ob_start();
 		?>
 		<style id="<?= $id ?>">
-		@media screen and (min-width: 783px) {
-		<?= $css ?>
-		}
+			@media screen and (min-width: 783px) {
+			<?= $css ?>
+			}
 		</style>
 		<?php
 		return ob_get_clean();
