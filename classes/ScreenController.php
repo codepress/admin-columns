@@ -4,13 +4,19 @@ namespace AC;
 
 class ScreenController implements Registrable {
 
-	/** @var ListScreen */
+	/**
+	 * @var ListScreen
+	 */
 	private $list_screen;
 
-	/** @var array */
+	/**
+	 * @var array
+	 */
 	private $headings = [];
 
-	/** @var DefaultColumnsRepository */
+	/**
+	 * @var DefaultColumnsRepository
+	 */
 	private $default_columns;
 
 	/**

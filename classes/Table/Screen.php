@@ -10,6 +10,7 @@ use AC\Form;
 use AC\ListScreen;
 use AC\Registrable;
 use AC\Renderable;
+use AC\ScreenController;
 use AC\Settings;
 use AC\Type\ColumnWidth;
 use WP_Post;
@@ -17,7 +18,12 @@ use WP_Post;
 final class Screen implements Registrable {
 
 	/**
-	 * @var ListScreen $list_screen
+	 * @var Asset\Location\Absolute
+	 */
+	private $location;
+
+	/**
+	 * @var ListScreen
 	 */
 	private $list_screen;
 
@@ -30,11 +36,6 @@ final class Screen implements Registrable {
 	 * @var Button[]
 	 */
 	private $buttons = [];
-
-	/**
-	 * @var Asset\Location\Absolute
-	 */
-	private $location;
 
 	/**
 	 * @var ColumnSize\ListStorage
@@ -57,7 +58,7 @@ final class Screen implements Registrable {
 	 * Register hooks
 	 */
 	public function register() {
-		$controller = new AC\ScreenController( $this->list_screen );
+		$controller = new ScreenController( $this->list_screen );
 		$controller->register();
 
 		$render = new TableFormView( $this->list_screen->get_meta_type(), sprintf( '<input type="hidden" name="layout" value="%s">', $this->list_screen->get_layout_id() ) );
