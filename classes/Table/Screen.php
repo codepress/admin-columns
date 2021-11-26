@@ -12,7 +12,6 @@ use AC\Registrable;
 use AC\Renderable;
 use AC\ScreenController;
 use AC\Settings;
-use AC\Type\ColumnWidth;
 use WP_Post;
 
 final class Screen implements Registrable {
@@ -96,7 +95,7 @@ final class Screen implements Registrable {
 	}
 
 	/**
-	 * Set the primary columns for the Admin Columns columns. Used to place the actions bar.
+	 * Set the primary columns. Used to place the actions bar.
 	 *
 	 * @param $default
 	 *
@@ -323,66 +322,11 @@ final class Screen implements Registrable {
 	}
 
 	/**
-	 * @param ListScreen $list_screen
-	 * @param string     $column_name
-	 *
-	 * @return ColumnWidth|null
-	 */
-	private function get_column_width( ListScreen $list_screen, $column_name ) {
-		$column_width = $this->column_size_user_storage->get( $list_screen->get_id(), $column_name );
-
-		if ( ! $column_width ) {
-			$column_width = $this->column_size_list_storage->get( $list_screen, $column_name );
-		}
-
-		return $column_width;
-	}
-
-	/**
-	 * Applies the width setting to the table headers
-	 */
-	private function display_width_styles() {
-		if ( ! $this->list_screen->get_settings() ) {
-			return;
-		}
-
-		// CSS: columns width
-		$css_column_width = false;
-
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			$column_width = $this->get_column_width( $this->list_screen, $column->get_name() );
-
-			if ( ! $column_width ) {
-				continue;
-			}
-
-			$css_width = $column_width->get_value() . $column_width->get_unit();
-
-			$css_column_width .= '.ac-' . esc_attr( $this->list_screen->get_key() ) . ' .wrap table th.column-' . esc_attr( $column->get_name() ) . ' { width: ' . $css_width . ' !important; }';
-			$css_column_width .= 'body.acp-overflow-table.ac-' . esc_attr( $this->list_screen->get_key() ) . ' .wrap th.column-' . esc_attr( $column->get_name() ) . ' { min-width: ' . $css_width . ' !important; }';
-		}
-
-		if ( ! $css_column_width ) {
-			return;
-		}
-
-		?>
-
-		<style>
-			@media screen and (min-width: 783px) {
-			<?php echo $css_column_width; ?>
-			}
-		</style>
-
-		<?php
-	}
-
-	/**
 	 * Admin header scripts
 	 * @since 3.1.4
 	 */
 	public function admin_head_scripts() {
-		$this->display_width_styles();
+		echo ( new AC\Table\InlineStyle\ColumnSize( $this->list_screen, $this->column_size_list_storage, $this->column_size_user_storage ) )->render();
 
 		/**
 		 * Add header scripts that only apply to column screens.
