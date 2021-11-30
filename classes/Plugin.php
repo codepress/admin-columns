@@ -4,7 +4,6 @@ namespace AC;
 
 use AC\Asset\Location;
 use AC\Plugin\PluginHeader;
-use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 
 class Plugin {
@@ -41,13 +40,6 @@ class Plugin {
 	 */
 	public function get_version_key() {
 		return $this->version_key;
-	}
-
-	/**
-	 * @return SetupFactory
-	 */
-	public function get_setup_factory() {
-		return new SetupFactory( $this->get_version_key(), $this->get_version() );
 	}
 
 	/**

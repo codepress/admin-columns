@@ -14,6 +14,7 @@ use AC\Controller;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\InstallCollection;
+use AC\Plugin\SetupFactory;
 use AC\Plugin\Update;
 use AC\Plugin\UpdateCollection;
 use AC\Plugin\Version;
@@ -89,9 +90,11 @@ class AdminColumns extends Plugin {
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];
 
+		$setup_factory = new SetupFactory( $this->get_version_key(), $this->get_version() );
+
 		$setup = is_multisite() && is_network_admin() && $this->is_network_active()
-			? $this->get_setup_factory()->create_network( null, $this->get_install_collection() )
-			: $this->get_setup_factory()->create_site( $this->get_site_update_collection(), $this->get_install_collection() );
+			? $setup_factory->create_network( null, $this->get_install_collection() )
+			: $setup_factory->create_site( $this->get_site_update_collection(), $this->get_install_collection() );
 
 		$services[] = $setup;
 
