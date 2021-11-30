@@ -18,6 +18,11 @@ class Setup implements Registrable {
 	private $version;
 
 	/**
+	 * @var NewInstallCheck
+	 */
+	private $new_install_check;
+
+	/**
 	 * @var Updater|null
 	 */
 	private $updater;
@@ -27,9 +32,10 @@ class Setup implements Registrable {
 	 */
 	private $installer;
 
-	public function __construct( VersionStorage $version_storage, Version $version, Updater $updater = null, Installer $installer = null ) {
+	public function __construct( VersionStorage $version_storage, Version $version, NewInstallCheck $new_install_check, Updater $updater = null, Installer $installer = null ) {
 		$this->version_storage = $version_storage;
 		$this->version = $version;
+		$this->new_install_check = $new_install_check;
 		$this->updater = $updater;
 		$this->installer = $installer;
 	}
@@ -51,7 +57,7 @@ class Setup implements Registrable {
 			return;
 		}
 
-		if ( $this->updater ) {
+		if ( $this->updater && ! $this->new_install_check->is_new_install() ) {
 			$this->updater->apply_updates();
 		}
 
@@ -74,6 +80,7 @@ class Setup implements Registrable {
 		}
 
 		// Run installer when the current version can not be read from the plugin's header file
+		// TODO remove
 		if ( ! $this->version->is_valid() && ! $this->version_storage->get()->is_valid() ) {
 			return true;
 		}

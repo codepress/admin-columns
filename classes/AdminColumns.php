@@ -7,7 +7,6 @@ use AC\Admin\AdminScripts;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Admin\Preference;
-use AC\Admin\RequestHandler;
 use AC\Admin\WpMenuFactory;
 use AC\Asset\Script;
 use AC\Asset\Style;
@@ -15,10 +14,8 @@ use AC\Controller;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\InstallCollection;
-use AC\Plugin\Installer;
 use AC\Plugin\Update;
 use AC\Plugin\UpdateCollection;
-use AC\Plugin\Updater;
 use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
 use AC\Settings\GeneralOption;
@@ -93,8 +90,8 @@ class AdminColumns extends Plugin {
 		];
 
 		$setup = is_multisite() && is_network_admin() && $this->is_network_active()
-			? new Plugin\Setup( $this->get_network_version_storage(), $this->get_version(), null, $this->get_installer() )
-			: new Plugin\Setup( $this->get_version_storage(), $this->get_version(), $this->get_site_updater(), $this->get_installer() );
+			? $this->get_setup_factory()->create_network( null, $this->get_install_collection() )
+			: $this->get_setup_factory()->create_site( $this->get_site_update_collection(), $this->get_install_collection() );
 
 		$services[] = $setup;
 
@@ -105,24 +102,23 @@ class AdminColumns extends Plugin {
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
 	}
 
-	private function get_site_updater() {
-		return new Updater(
-			new UpdateCollection( [
+	private function get_site_update_collection() {
+		return new UpdateCollection(
+			[
 				new Update\V3005(),
 				new Update\V3007(),
 				new Update\V3201(),
 				new Update\V4000(),
-			] ),
-			$this->get_version_storage()
+			]
 		);
 	}
 
-	private function get_installer() {
-		return new Installer(
-			new InstallCollection( [
+	private function get_install_collection() {
+		return new InstallCollection(
+			[
 				new Plugin\Install\Capabilities(),
 				new Plugin\Install\Database(),
-			] )
+			]
 		);
 	}
 

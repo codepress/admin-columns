@@ -23,6 +23,6 @@ class Network implements NewInstallCheck {
 			return false;
 		}
 
-		return ! ( $this->version_storage->get()->is_valid() || $this->version_storage->get_previous()->is_valid() );
+		return ! $this->version_storage->get()->is_valid();
 	}
 }
