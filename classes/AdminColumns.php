@@ -92,11 +92,9 @@ class AdminColumns extends Plugin {
 
 		$setup_factory = new SetupFactory( $this->get_version_key(), $this->get_version() );
 
-		$setup = is_multisite() && is_network_admin() && $this->is_network_active()
+		$services[] = is_multisite() && is_network_admin() && $this->is_network_active()
 			? $setup_factory->create_network( null, $this->get_install_collection() )
 			: $setup_factory->create_site( $this->get_site_update_collection(), $this->get_install_collection() );
-
-		$services[] = $setup;
 
 		array_map( static function ( Registrable $service ) {
 			$service->register();

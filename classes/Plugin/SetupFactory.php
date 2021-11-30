@@ -23,34 +23,46 @@ class SetupFactory {
 	}
 
 	public function create_network( UpdateCollection $updates = null, InstallCollection $installs = null ) {
-		$version_storage = new VersionStorage( $this->version_key, new NetworkOptionFactory() );
+		$version_storage = new VersionStorage(
+			$this->version_key,
+			new NetworkOptionFactory()
+		);
 
 		$updater = $updates
-			? new Updater( $updates, $version_storage )
+			? new Updater( $updates, $version_storage, new NewInstallCheck\Network( $version_storage ) )
+			: null;
+
+		$installer = $installs
+			? new Installer( $installs )
 			: null;
 
 		return new Setup(
 			$version_storage,
 			$this->version,
-			new NewInstallCheck\Network( $version_storage ),
 			$updater,
-			new Installer( $installs )
+			$installer
 		);
 	}
 
 	public function create_site( UpdateCollection $updates = null, InstallCollection $installs = null ) {
-		$version_storage = new VersionStorage( $this->version_key, new OptionFactory() );
+		$version_storage = new VersionStorage(
+			$this->version_key,
+			new OptionFactory()
+		);
 
 		$updater = $updates
-			? new Updater( $updates, $version_storage )
+			? new Updater( $updates, $version_storage, new NewInstallCheck\Site( $version_storage ) )
+			: null;
+
+		$installer = $installs
+			? new Installer( $installs )
 			: null;
 
 		return new Setup(
 			$version_storage,
 			$this->version,
-			new NewInstallCheck\Site( $version_storage ),
 			$updater,
-			new Installer( $installs )
+			$installer
 		);
 	}
 
