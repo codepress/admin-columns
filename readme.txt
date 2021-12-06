@@ -212,7 +212,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.4.5 =
 Release Date: December 6th, 2021
 
-* [Hotfix] The ReadOnly class is renamed because it gave fatal error in PHP 8.1
+* [Hotfix] The ReadOnly class is renamed because it gave a fatal error in PHP 8.1
 
 = 4.4.4 =
 Release Date: November 8th, 2021
