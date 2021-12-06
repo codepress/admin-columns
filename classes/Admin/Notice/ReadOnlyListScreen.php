@@ -6,7 +6,7 @@ use AC\ListScreen;
 use AC\Message;
 use AC\Registrable;
 
-class ReadOnly implements Registrable {
+class ReadOnlyListScreen implements Registrable {
 
 	public function register() {
 		add_action( 'ac/settings/notice', [ $this, 'render_notice' ] );
