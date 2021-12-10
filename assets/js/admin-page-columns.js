@@ -2665,7 +2665,7 @@ const initLabel = (column) => {
     }, 50);
 };
 const initLabelSettingEvents = (column) => {
-    let labelInput = column.getElement().querySelector('.ac-column-setting--label input');
+    let labelInput = column.getElement().querySelector('.ac-column-setting--label input[type=text]');
     if (labelInput) {
         (0,_helpers_events__WEBPACK_IMPORTED_MODULE_0__.addEventListeners)(labelInput, ['change', 'keyup'], () => changeLabel(labelInput, column));
     }
@@ -3548,7 +3548,7 @@ class IconSearch {
         this.determineVisibilityGroups();
     }
     determineVisibilityGroups() {
-        this.modal.getElement().querySelectorAll('.ipicker__icons__group').forEach(group => {
+        this.modal.getElement().querySelectorAll('.ac-ipicker__group').forEach(group => {
             let icons = group.querySelectorAll('[data-dashicon]');
             let hiddenItems = Array.from(icons).filter(el => {
                 return (el.offsetParent === null);

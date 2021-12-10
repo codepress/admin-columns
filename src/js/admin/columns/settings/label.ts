@@ -109,7 +109,6 @@ class IconPickerModal extends Modal {
 
                 this.getIconElements().forEach(el => el.classList.remove('active'));
                 icon.classList.add('active');
-
             });
         });
     }
@@ -156,7 +155,7 @@ class IconSearch {
     }
 
     private determineVisibilityGroups() {
-        this.modal.getElement().querySelectorAll<HTMLElement>('.ipicker__icons__group').forEach(group => {
+        this.modal.getElement().querySelectorAll<HTMLElement>('.ac-ipicker__group').forEach(group => {
             let icons = group.querySelectorAll<HTMLElement>('[data-dashicon]');
             let hiddenItems = Array.from(icons).filter(el => {
                 return (el.offsetParent === null);
