@@ -1531,6 +1531,12 @@ div.ac-column-header {
 			text-align: right;
 			padding: 0 15px;
 
+			input[type=search] {
+				float: left;
+				margin-top: 18px;
+				width: 200px;
+			}
+
 			.button {
 				display: inline-block;
 				vertical-align: middle;

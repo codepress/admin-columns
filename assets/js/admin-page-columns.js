@@ -3491,6 +3491,7 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
         super(element);
         this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_1___default())();
         this.dashIcon = null;
+        this.search = new IconSearch(this);
     }
     initEvents() {
         super.initEvents();
@@ -3498,6 +3499,12 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
             element.addEventListener('click', (e) => {
                 e.preventDefault();
                 this.events.emit('submit');
+            });
+        });
+        this.getElement().querySelectorAll('input[type=search]').forEach((element) => {
+            element.addEventListener('keyup', (e) => {
+                e.preventDefault();
+                this.search.searchFor(element.value);
             });
         });
         this.getIconElements().forEach(icon => {
@@ -3523,6 +3530,31 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
         this.dashIcon = dashicon;
         selection.innerHTML = this.getDashIconMarkup();
         selection.style.visibility = 'visible';
+    }
+}
+class IconSearch {
+    constructor(modal) {
+        this.modal = modal;
+    }
+    searchFor(query) {
+        this.modal.getElement().querySelectorAll('[data-dashicon]').forEach(el => {
+            if (el.dataset.dashicon.indexOf(query) !== -1) {
+                el.style.display = 'inline-block';
+            }
+            else {
+                el.style.display = 'none';
+            }
+        });
+        this.determineVisibilityGroups();
+    }
+    determineVisibilityGroups() {
+        this.modal.getElement().querySelectorAll('.ipicker__icons__group').forEach(group => {
+            let icons = group.querySelectorAll('[data-dashicon]');
+            let hiddenItems = Array.from(icons).filter(el => {
+                return (el.offsetParent === null);
+            });
+            group.querySelector('h3').style.display = icons.length == hiddenItems.length ? 'none' : 'block';
+        });
     }
 }
 
@@ -4159,6 +4191,10 @@ class AcHtmlElement {
     }
     append(element) {
         this.element.appendChild(element);
+        return this;
+    }
+    appendSelfTo(element) {
+        element.append(this.element);
         return this;
     }
     css(property, value) {

@@ -75,11 +75,13 @@ class LabelSetting {
 class IconPickerModal extends Modal {
     events: Nanobus;
     dashIcon: string;
+    search: IconSearch;
 
     constructor(element: HTMLElement) {
         super(element);
         this.events = new Nanobus()
         this.dashIcon = null;
+        this.search = new IconSearch(this);
     }
 
     initEvents() {
@@ -93,6 +95,12 @@ class IconPickerModal extends Modal {
             });
         });
 
+        this.getElement().querySelectorAll('input[type=search]').forEach((element: HTMLInputElement) => {
+            element.addEventListener('keyup', (e) => {
+                e.preventDefault();
+                this.search.searchFor(element.value);
+            });
+        });
 
         this.getIconElements().forEach(icon => {
             icon.addEventListener('click', (e) => {
@@ -104,7 +112,6 @@ class IconPickerModal extends Modal {
 
             });
         });
-
     }
 
     getIconElements() {
@@ -125,6 +132,38 @@ class IconPickerModal extends Modal {
         this.dashIcon = dashicon;
         selection.innerHTML = this.getDashIconMarkup();
         selection.style.visibility = 'visible';
+    }
+
+}
+
+class IconSearch {
+    modal: IconPickerModal
+
+    constructor(modal: IconPickerModal) {
+        this.modal = modal;
+    }
+
+    searchFor(query: string) {
+        this.modal.getElement().querySelectorAll<HTMLElement>('[data-dashicon]').forEach(el => {
+            if (el.dataset.dashicon.indexOf(query) !== -1) {
+                el.style.display = 'inline-block';
+            } else {
+                el.style.display = 'none';
+            }
+        });
+
+        this.determineVisibilityGroups();
+    }
+
+    private determineVisibilityGroups() {
+        this.modal.getElement().querySelectorAll<HTMLElement>('.ipicker__icons__group').forEach(group => {
+            let icons = group.querySelectorAll<HTMLElement>('[data-dashicon]');
+            let hiddenItems = Array.from(icons).filter(el => {
+                return (el.offsetParent === null);
+            });
+
+            group.querySelector('h3').style.display = icons.length == hiddenItems.length ? 'none' : 'block';
+        });
     }
 
 }
