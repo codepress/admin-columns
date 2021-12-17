@@ -55,6 +55,12 @@ export default class AcHtmlElement {
         return this;
     }
 
+    appendSelfTo(element: HTMLElement) {
+        element.append(this.element);
+
+        return this;
+    }
+
     css(property: any, value: any) {
         this.element.style[property] = value;
 

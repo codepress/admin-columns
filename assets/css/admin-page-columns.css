@@ -1319,7 +1319,7 @@ div.ac-column-header span.vers {
 .ac-ipicker__icons {
   flex: 1 1 auto;
 }
-.ac-ipicker__icons__group {
+.ac-ipicker__icons__group__title {
   display: block;
   clear: both;
   padding-top: 15px;
@@ -1328,7 +1328,7 @@ div.ac-column-header span.vers {
   font-size: 16px;
   font-weight: normal;
 }
-.ac-ipicker__icons__group:first-child {
+.ac-ipicker__icons__group__title:first-child {
   border-top: none;
   padding-top: 0;
   margin-top: 0;
@@ -1411,6 +1411,11 @@ div.ac-column-header span.vers {
 .ac-modal.-setting .ac-modal__dialog__footer {
   text-align: right;
   padding: 0 15px;
+}
+.ac-modal.-setting .ac-modal__dialog__footer input[type=search] {
+  float: left;
+  margin-top: 18px;
+  width: 200px;
 }
 .ac-modal.-setting .ac-modal__dialog__footer .button {
   display: inline-block;

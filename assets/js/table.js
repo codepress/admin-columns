@@ -550,6 +550,10 @@ class AcHtmlElement {
         this.element.appendChild(element);
         return this;
     }
+    appendSelfTo(element) {
+        element.append(this.element);
+        return this;
+    }
     css(property, value) {
         this.element.style[property] = value;
         return this;
