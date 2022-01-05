@@ -37,7 +37,7 @@ class Site implements SetupFactory {
 		);
 
 		$updater = $updates
-			? new Updater( $updates, $version_storage, new NewInstallCheck\Site( $version_storage ) )
+			? new Updater( $updates, $version_storage )
 			: null;
 
 		$installer = $installs
@@ -47,6 +47,7 @@ class Site implements SetupFactory {
 		return new Setup(
 			$version_storage,
 			$this->version,
+			new NewInstallCheck\Site( $version_storage ),
 			$updater,
 			$installer
 		);
