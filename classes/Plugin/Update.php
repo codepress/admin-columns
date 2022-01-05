@@ -14,8 +14,13 @@ abstract class Update {
 		$this->version = $version;
 	}
 
+	/**
+	 * @param Version $current_version
+	 *
+	 * @return bool
+	 */
 	public function needs_update( Version $current_version ) {
-		return $this->get_version()->is_gt( $current_version );
+		return $this->version->is_gt( $current_version );
 	}
 
 	/**
