@@ -391,17 +391,6 @@ span.dashicons {
 }
 
 /**
- * Message
- * ----------------------------------------------------------------------------
- */
-// TODO: remove
-.cpac_message {
-	&.error.warning {
-		border-left: 4px solid var(--ac-notification-yellow);
-	}
-}
-
-/**
  * Menu
  * ----------------------------------------------------------------------------
  */
