@@ -4275,11 +4275,13 @@ class Pointer {
             return;
         }
         // create pointer
-        $(this.element).pointer({
-            content: this.getRelatedHTML(),
-            position: this.settings.position,
-            pointerWidth: this.settings.width,
-            pointerClass: this.getPointerClass()
+        $(this.element).mouseenter(() => {
+            $(this.element).pointer({
+                content: this.getRelatedHTML(),
+                position: this.settings.position,
+                pointerWidth: this.settings.width,
+                pointerClass: this.getPointerClass()
+            });
         });
         this.initEvents();
     }
