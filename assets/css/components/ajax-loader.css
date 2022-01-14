@@ -1,1 +1,32 @@
-.ac-ajax-loading{display:none;white-space:nowrap;position:absolute;transform:translateX(10px)}.ac-ajax-loading .spinner{visibility:visible;margin:0}.ac-ajax-loading__icon{color:var(--ac-notification-green)}.ac-ajax-loading__status{font-weight:bold;margin-left:5px}.ac-ajax-loading__icon,.ac-ajax-loading__status{display:none}.ac-ajax-loading.-active{display:inline-flex}.ac-ajax-loading.-finished .spinner{display:none}.ac-ajax-loading.-finished .ac-ajax-loading__icon,.ac-ajax-loading.-finished .ac-ajax-loading__status{display:block}
+.ac-ajax-loading {
+  display: none;
+  white-space: nowrap;
+  position: absolute;
+  transform: translateX(10px);
+}
+.ac-ajax-loading .spinner {
+  visibility: visible;
+  margin: 0;
+}
+.ac-ajax-loading__icon {
+  color: var(--ac-notification-green);
+}
+.ac-ajax-loading__status {
+  font-weight: bold;
+  margin-left: 5px;
+}
+.ac-ajax-loading__icon, .ac-ajax-loading__status {
+  display: none;
+}
+.ac-ajax-loading.-active {
+  display: inline-flex;
+}
+.ac-ajax-loading.-finished .spinner {
+  display: none;
+}
+.ac-ajax-loading.-finished .ac-ajax-loading__icon,
+.ac-ajax-loading.-finished .ac-ajax-loading__status {
+  display: block;
+}
+
+/*# sourceMappingURL=ajax-loader.css.map */
