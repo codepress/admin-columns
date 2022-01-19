@@ -44,6 +44,8 @@ class PluginInformation {
 	 * @return bool
 	 */
 	public function is_active() {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
 		return is_plugin_active( $this->basename );
 	}
 
@@ -51,6 +53,8 @@ class PluginInformation {
 	 * @return bool
 	 */
 	public function is_network_active() {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
 		return is_plugin_active_for_network( $this->basename );
 	}
 

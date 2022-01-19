@@ -457,6 +457,12 @@ html.wp-toolbar .ac-tooltip {
   position: relative;
   margin-bottom: 15px;
 }
+.ac-toggle-v2.-disabled {
+  cursor: not-allowed;
+}
+.ac-toggle-v2.-disabled * {
+  cursor: not-allowed;
+}
 .ac-toggle-v2__toggle {
   position: relative;
   display: inline-block;
@@ -478,6 +484,16 @@ html.wp-toolbar .ac-tooltip {
 }
 .ac-toggle-v2__toggle input[type=checkbox]:checked ~ .ac-toggle-v2__toggle__track {
   background: var(--ac-primary-color);
+}
+.ac-toggle-v2__toggle input[type=checkbox]:disabled {
+  cursor: not-allowed;
+}
+.ac-toggle-v2__toggle input[type=checkbox]:disabled ~ .ac-toggle-v2__toggle__track {
+  background: #ddd !important;
+  cursor: not-allowed;
+}
+.ac-toggle-v2__toggle input[type=checkbox]:disabled ~ .ac-toggle-v2__toggle__thumb {
+  cursor: not-allowed;
 }
 .ac-toggle-v2__toggle__track {
   content: "";
@@ -517,16 +533,19 @@ html.wp-toolbar .ac-tooltip {
   margin-right: 3px;
 }
 
-.ac-btn-primary {
-  background: #e9426e;
-  border: 1px solid #e9426e;
-  color: #fff;
+.ac-btn, .ac-btn-link, .ac-btn-primary {
   padding: 10px 40px;
   font-size: 15px;
   border-radius: 3px;
   display: inline-block;
   cursor: pointer;
   text-decoration: none;
+}
+
+.ac-btn-primary {
+  background: #e9426e;
+  border: 1px solid #e9426e;
+  color: #fff;
 }
 .ac-btn-primary:hover, .ac-btn-primary:focus, .ac-btn-primary:active {
   background: #ea1951;
@@ -536,6 +555,23 @@ html.wp-toolbar .ac-tooltip {
 .ac-btn-primary:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.ac-btn-link {
+  border: none;
+  background: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: var(--ac-link);
+  text-decoration: underline;
+  font-size: 13px;
+}
+.ac-btn-link:hover {
+  color: var(--ac-link-hover);
+}
+
+input:disabled, textarea:disabled, button:disabled {
+  cursor: not-allowed !important;
 }
 
 .ac-ajax-loading {
@@ -806,13 +842,21 @@ header.cpac-header {
   margin-bottom: 15px;
 }
 .ac-message p {
-  margin: 0.5em 0;
+  margin: 0.7em 0;
 }
 .ac-message.notice-warning {
   border-left-color: var(--ac-notification-yellow);
 }
 .ac-message.notice-error {
   border-left-color: var(--ac-notification-red);
+}
+.ac-message.notice-info {
+  border-left: 4px solid var(--ac-notification-blue);
+}
+.ac-message .dashicons {
+  color: #8d8d8d;
+  margin-right: 5px;
+  transform: translateY(-2px);
 }
 
 .ac-badge {
@@ -884,14 +928,6 @@ span.dashicons.light-blue {
 .wp-core-ui .button-primary.-pink {
   background: #e9426e;
   border-color: #e73463;
-}
-
-/**
- * Message
- * ----------------------------------------------------------------------------
- */
-.cpac_message.error.warning {
-  border-left: 4px solid var(--ac-notification-yellow);
 }
 
 /**
@@ -985,7 +1021,7 @@ table.ac-form-table .general form p.save-button {
 }
 
 .ac-section-group.-start {
-  max-width: 560px;
+  max-width: 600px;
 }
 
 .ac-section {

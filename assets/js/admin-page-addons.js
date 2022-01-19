@@ -2010,7 +2010,7 @@ class AddonDownloader {
     }
     download() {
         return axios__WEBPACK_IMPORTED_MODULE_0___default().post(ajaxurl, (0,_helpers_global__WEBPACK_IMPORTED_MODULE_1__.mapDataToFormData)({
-            action: 'acp-install-addon',
+            action: 'acp-ajax-install-addon',
             plugin_name: this.slug,
             network_wide: this.network_admin ? 1 : 0,
             _ajax_nonce: this.nonce

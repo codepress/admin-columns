@@ -5,7 +5,7 @@ namespace AC\Admin;
 use AC;
 use AC\Request;
 
-class RequestHandler implements RequestHandlerInterface {
+class PageRequestHandlers implements RequestHandlerInterface {
 
 	/**
 	 * @var RequestHandlerInterface[]
