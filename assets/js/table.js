@@ -550,6 +550,10 @@ class AcHtmlElement {
         this.element.appendChild(element);
         return this;
     }
+    appendSelfTo(element) {
+        element.append(this.element);
+        return this;
+    }
     css(property, value) {
         this.element.style[property] = value;
         return this;
@@ -1261,16 +1265,17 @@ class Tooltip {
             return;
         }
         this.element.dataset.acTooltipInit = '1';
-        document.body.appendChild(this.tip);
         this.element.addEventListener('mouseenter', () => {
             const bodyOffset = document.body.getBoundingClientRect();
             const viewportOffset = this.element.getBoundingClientRect();
+            document.body.appendChild(this.tip);
             this.tip.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth / 2) + 'px';
             this.tip.style.top = ((viewportOffset.top - bodyOffset.top) + this.element.offsetHeight) + 'px';
             this.tip.classList.add('hover');
         });
         this.element.addEventListener('mouseleave', () => {
             this.tip.classList.remove('hover');
+            document.body.removeChild(this.tip);
         });
     }
 }

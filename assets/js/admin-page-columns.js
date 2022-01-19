@@ -2665,7 +2665,7 @@ const initLabel = (column) => {
     }, 50);
 };
 const initLabelSettingEvents = (column) => {
-    let labelInput = column.getElement().querySelector('.ac-column-setting--label input');
+    let labelInput = column.getElement().querySelector('.ac-column-setting--label input[type=text]');
     if (labelInput) {
         (0,_helpers_events__WEBPACK_IMPORTED_MODULE_0__.addEventListeners)(labelInput, ['change', 'keyup'], () => changeLabel(labelInput, column));
     }
@@ -3491,6 +3491,7 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
         super(element);
         this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_1___default())();
         this.dashIcon = null;
+        this.search = new IconSearch(this);
     }
     initEvents() {
         super.initEvents();
@@ -3498,6 +3499,12 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
             element.addEventListener('click', (e) => {
                 e.preventDefault();
                 this.events.emit('submit');
+            });
+        });
+        this.getElement().querySelectorAll('input[type=search]').forEach((element) => {
+            element.addEventListener('keyup', (e) => {
+                e.preventDefault();
+                this.search.searchFor(element.value);
             });
         });
         this.getIconElements().forEach(icon => {
@@ -3523,6 +3530,31 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
         this.dashIcon = dashicon;
         selection.innerHTML = this.getDashIconMarkup();
         selection.style.visibility = 'visible';
+    }
+}
+class IconSearch {
+    constructor(modal) {
+        this.modal = modal;
+    }
+    searchFor(query) {
+        this.modal.getElement().querySelectorAll('[data-dashicon]').forEach(el => {
+            if (el.dataset.dashicon.indexOf(query) !== -1) {
+                el.style.display = 'inline-block';
+            }
+            else {
+                el.style.display = 'none';
+            }
+        });
+        this.determineVisibilityGroups();
+    }
+    determineVisibilityGroups() {
+        this.modal.getElement().querySelectorAll('.ac-ipicker__group').forEach(group => {
+            let icons = group.querySelectorAll('[data-dashicon]');
+            let hiddenItems = Array.from(icons).filter(el => {
+                return (el.offsetParent === null);
+            });
+            group.querySelector('h3').style.display = icons.length == hiddenItems.length ? 'none' : 'block';
+        });
     }
 }
 
@@ -4161,6 +4193,10 @@ class AcHtmlElement {
         this.element.appendChild(element);
         return this;
     }
+    appendSelfTo(element) {
+        element.append(this.element);
+        return this;
+    }
     css(property, value) {
         this.element.style[property] = value;
         return this;
@@ -4638,16 +4674,17 @@ class Tooltip {
             return;
         }
         this.element.dataset.acTooltipInit = '1';
-        document.body.appendChild(this.tip);
         this.element.addEventListener('mouseenter', () => {
             const bodyOffset = document.body.getBoundingClientRect();
             const viewportOffset = this.element.getBoundingClientRect();
+            document.body.appendChild(this.tip);
             this.tip.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth / 2) + 'px';
             this.tip.style.top = ((viewportOffset.top - bodyOffset.top) + this.element.offsetHeight) + 'px';
             this.tip.classList.add('hover');
         });
         this.element.addEventListener('mouseleave', () => {
             this.tip.classList.remove('hover');
+            document.body.removeChild(this.tip);
         });
     }
 }

@@ -65,7 +65,7 @@ class AdminColumns extends Plugin {
 
 		$services = [
 			new Admin\Admin( new PageRequestHandlers(), new WpMenuFactory(), new AdminScripts( $location ) ),
-			new Admin\Notice\ReadOnly(),
+			new Admin\Notice\ReadOnlyListScreen(),
 			new Ajax\NumberFormat( new Request() ),
 			new ListScreens(),
 			new Screen(),

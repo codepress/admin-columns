@@ -1408,7 +1408,7 @@ div.ac-column-header {
 	&__icons {
 		flex: 1 1 auto;
 
-		&__group {
+		&__group__title {
 			display: block;
 			clear: both;
 			padding-top: 15px;
@@ -1530,6 +1530,12 @@ div.ac-column-header {
 		&__footer {
 			text-align: right;
 			padding: 0 15px;
+
+			input[type=search] {
+				float: left;
+				margin-top: 18px;
+				width: 200px;
+			}
 
 			.button {
 				display: inline-block;
