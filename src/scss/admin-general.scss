@@ -289,7 +289,7 @@ header.cpac-header {
 	margin-bottom: 15px;
 
 	p {
-		margin: 0.5em 0;
+		margin: 0.7em 0;
 	}
 
 	&.notice-warning {
@@ -301,6 +301,12 @@ header.cpac-header {
 	}
 	&.notice-info {
 		border-left: 4px solid var(--ac-notification-blue);
+	}
+
+	.dashicons {
+		color: #8d8d8d;
+		margin-right: 5px;
+		transform: translateY(-2px);
 	}
 }
 
