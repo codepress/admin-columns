@@ -2,18 +2,18 @@
 
 namespace AC\Plugin;
 
+use AC\Storage\KeyValueFactory;
 use AC\Storage\KeyValuePair;
-use AC\Storage\OptionFactory;
 
 class VersionStorage {
 
 	/**
 	 * @var KeyValuePair
 	 */
-	private $storage;
+	private $key;
 
-	public function __construct( $key, $network_activated = false ) {
-		$this->storage = ( new OptionFactory() )->create( (string) $key, (bool) $network_activated );
+	public function __construct( $key, KeyValueFactory $option_factory ) {
+		$this->key = $option_factory->create( (string) $key );
 	}
 
 	/**
@@ -22,14 +22,16 @@ class VersionStorage {
 	 * @return bool
 	 */
 	public function save( Version $version ) {
-		return $this->storage->save( $version->get_value() );
+		$this->key->save( $version->get_value() );
+
+		return true;
 	}
 
 	/**
 	 * @return Version
 	 */
 	public function get() {
-		return new Version( (string) $this->storage->get() );
+		return new Version( (string) $this->key->get() );
 	}
 
 }

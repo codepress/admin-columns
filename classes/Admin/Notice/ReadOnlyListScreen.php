@@ -17,10 +17,9 @@ class ReadOnlyListScreen implements Registrable {
 			$message = sprintf( __( 'The columns for %s are read only and can therefore not be edited.', 'codepress-admin-columns' ), '<strong>' . esc_html( $list_screen->get_title() ?: $list_screen->get_label() ) . '</strong>' );
 			$message = sprintf( '<p>%s</p>', apply_filters( 'ac/read_only_message', $message, $list_screen ) );
 
-			$notice = new Message\InlineMessage( $message );
+			$notice = new Message\InlineMessage( $message, Message::INFO );
 
-			echo $notice->set_type( Message::INFO )
-			            ->render();
+			echo $notice->render();
 		}
 	}
 

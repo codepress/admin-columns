@@ -2,22 +2,19 @@
 
 namespace AC;
 
+use AC\Admin;
 use AC\Admin\AdminScripts;
-use AC\Admin\MenuFactory;
-use AC\Admin\Page\Columns;
-use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
+use AC\Admin\PageRequestHandlers;
 use AC\Admin\Preference;
-use AC\Admin\RequestHandler;
 use AC\Admin\WpMenuFactory;
-use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Controller;
-use AC\Deprecated;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
-use AC\Plugin\InstallCollection;
+use AC\Plugin\SetupFactory;
+use AC\Plugin\SetupService;
 use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
 use AC\Settings\GeneralOption;
@@ -32,7 +29,6 @@ class AdminColumns extends Plugin {
 	private $storage;
 
 	/**
-	 * @since 2.5
 	 * @var self
 	 */
 	private static $instance;
@@ -56,28 +52,26 @@ class AdminColumns extends Plugin {
 			),
 		] );
 
-		$location = new Absolute(
-			$this->get_url(),
-			$this->get_dir()
-		);
+		$location = $this->get_location();
+		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
 
-		RequestHandler::add_handler(
-			new PageRequestHandler(
-				new PageFactory( $this->storage, $location, new MenuFactory( admin_url( 'options-general.php' ), new IntegrationRepository() ) ),
-				Columns::NAME
-			)
-		);
+		$page_handler = new PageRequestHandler();
+		$page_handler->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory ) )
+		             ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory ) )
+		             ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $menu_factory ) )
+		             ->add( 'help', new Admin\PageFactory\Help( $location, $menu_factory ) );
+
+		PageRequestHandlers::add_handler( $page_handler );
 
 		$services = [
-			new Admin\Admin( new RequestHandler(), new WpMenuFactory(), new AdminScripts( $location ) ),
+			new Admin\Admin( new PageRequestHandlers(), new WpMenuFactory(), new AdminScripts( $location ) ),
 			new Admin\Notice\ReadOnlyListScreen(),
 			new Ajax\NumberFormat( new Request() ),
-			new Deprecated\Hooks,
 			new ListScreens(),
-			new Screen,
-			new ThirdParty\ACF,
-			new ThirdParty\NinjaForms,
-			new ThirdParty\WooCommerce,
+			new Screen(),
+			new ThirdParty\ACF(),
+			new ThirdParty\NinjaForms(),
+			new ThirdParty\WooCommerce(),
 			new ThirdParty\WPML( $this->storage ),
 			new Controller\DefaultColumns( new Request(), new DefaultColumnsRepository() ),
 			new QuickEdit( $this->storage, new Table\Preference() ),
@@ -90,23 +84,19 @@ class AdminColumns extends Plugin {
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
-			new NoticeChecks( $this->get_location() ),
+			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
 		];
 
-		foreach ( $services as $service ) {
-			if ( $service instanceof Registrable ) {
-				$service->register();
-			}
-		}
+		$services[] = new SetupService(
+			new SetupFactory\Site( $this->version_key, $this->get_version() ),
+			new SetupFactory\Network( $this->version_key, $this->get_version() )
+		);
 
-		$installer = new InstallCollection();
-		$installer->add_install( new Plugin\Install\Capabilities() )
-		          ->add_install( new Plugin\Install\Database() );
+		array_map( static function ( Registrable $service ) {
+			$service->register();
+		}, $services );
 
-		$this->set_installer( $installer );
-
-		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'register_global_scripts' ] );
 	}
 
