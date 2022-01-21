@@ -9,7 +9,6 @@ abstract class Update {
 	 */
 	protected $version;
 
-	// TODO check all child classes in add-ons
 	public function __construct( Version $version ) {
 		$this->version = $version;
 	}
