@@ -4,6 +4,7 @@ namespace AC\Plugin\Update;
 
 use AC\ListScreenRepository\Database;
 use AC\Plugin\Update;
+use AC\Plugin\Version;
 use AC\Storage\ListScreenOrder;
 use DateTime;
 
@@ -18,16 +19,12 @@ class V4000 extends Update {
 	/** @var int */
 	private $next_step;
 
-	public function __construct( $stored_version ) {
+	public function __construct() {
 
 		// because `get_option` could be cached we only fetch the next step from the DB on initialisation.
 		$this->next_step = $this->get_next_step();
 
-		parent::__construct( $stored_version );
-	}
-
-	protected function set_version() {
-		$this->version = '4.0.0';
+		parent::__construct( new Version( '4.0.0' ) );
 	}
 
 	public function apply_update() {

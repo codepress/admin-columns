@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 })
 
+
 class GeneralAdminSetting {
 
     element: HTMLInputElement

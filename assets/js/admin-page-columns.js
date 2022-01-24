@@ -4311,11 +4311,13 @@ class Pointer {
             return;
         }
         // create pointer
-        $(this.element).pointer({
-            content: this.getRelatedHTML(),
-            position: this.settings.position,
-            pointerWidth: this.settings.width,
-            pointerClass: this.getPointerClass()
+        $(this.element).mouseenter(() => {
+            $(this.element).pointer({
+                content: this.getRelatedHTML(),
+                position: this.settings.position,
+                pointerWidth: this.settings.width,
+                pointerClass: this.getPointerClass()
+            });
         });
         this.initEvents();
     }
@@ -4672,16 +4674,17 @@ class Tooltip {
             return;
         }
         this.element.dataset.acTooltipInit = '1';
-        document.body.appendChild(this.tip);
         this.element.addEventListener('mouseenter', () => {
             const bodyOffset = document.body.getBoundingClientRect();
             const viewportOffset = this.element.getBoundingClientRect();
+            document.body.appendChild(this.tip);
             this.tip.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth / 2) + 'px';
             this.tip.style.top = ((viewportOffset.top - bodyOffset.top) + this.element.offsetHeight) + 'px';
             this.tip.classList.add('hover');
         });
         this.element.addEventListener('mouseleave', () => {
             this.tip.classList.remove('hover');
+            document.body.removeChild(this.tip);
         });
     }
 }

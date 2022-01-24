@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Admin Columns
+# Copyright (C) 2022 Admin Columns
 # This file is distributed under the same license as the Admin Columns package.
 msgid ""
 msgstr ""
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: classes/PluginActionLinks.php:40, classes/Admin/MenuFactory.php:58, templates/admin/list-screen-settings-mockup.php:13, templates/admin/page/settings.php:6
+#: classes/PluginActionLinks.php:40, classes/Admin/MenuFactory.php:48, templates/admin/list-screen-settings-mockup.php:13, templates/admin/page/settings.php:7
 msgid "Settings"
 msgstr ""
 
@@ -43,15 +43,15 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:57
+#: classes/Admin/MenuFactory.php:47, classes/Admin/Page/Columns.php:186
 msgid "Columns"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:59
+#: classes/Admin/MenuFactory.php:49, classes/Admin/Page/Addons.php:55
 msgid "Add-ons"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:71, classes/Admin/Page/Help.php:144
+#: classes/Admin/MenuFactory.php:55, classes/Admin/Page/Help.php:144
 msgid "Help"
 msgstr ""
 
@@ -191,7 +191,7 @@ msgstr ""
 msgid "Settings for %s restored successfully."
 msgstr ""
 
-#: classes/Controller/RestoreSettingsRequest.php:42
+#: classes/Controller/RestoreSettingsRequest.php:45
 msgid "Default settings successfully restored."
 msgstr ""
 
@@ -223,7 +223,7 @@ msgstr ""
 msgid "BuddyPress"
 msgstr ""
 
-#: classes/Integration/BuddyPress.php:19, classes/Integration/EventsCalendar.php:20, classes/Integration/GravityForms.php:20, classes/Integration/MetaBox.php:18, classes/Integration/NinjaForms.php:20, classes/Integration/Pods.php:18, classes/Integration/Types.php:18, classes/Integration/WooCommerce.php:20, classes/Integration/YoastSeo.php:18
+#: classes/Integration/BuddyPress.php:19, classes/Integration/EventsCalendar.php:20, classes/Integration/GravityForms.php:20, classes/Integration/MetaBox.php:18, classes/Integration/Pods.php:18, classes/Integration/Types.php:18, classes/Integration/WooCommerce.php:20, classes/Integration/YoastSeo.php:18
 msgid "Integrates %s with Admin Columns."
 msgstr ""
 
@@ -261,14 +261,6 @@ msgstr ""
 
 #: classes/Integration/MetaBox.php:19, classes/Integration/Pods.php:19, classes/Integration/Types.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s contents on any admin list table."
-msgstr ""
-
-#: classes/Integration/NinjaForms.php:16, classes/Integration/NinjaForms.php:20, classes/Integration/NinjaForms.php:21
-msgid "Ninja Forms"
-msgstr ""
-
-#: classes/Integration/NinjaForms.php:21
-msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Submissions."
 msgstr ""
 
 #: classes/Integration/Pods.php:14, classes/Integration/Pods.php:18, classes/Integration/Pods.php:19
@@ -854,19 +846,23 @@ msgstr ""
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
-#: classes/Admin/Notice/ReadOnly.php:18
+#: classes/Admin/Asset/Settings.php:20
+msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
+msgstr ""
+
+#: classes/Admin/Notice/ReadOnlyListScreen.php:17
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:127
+#: classes/Admin/Page/Addons.php:128
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:135, templates/admin/page/component/addon/active-label.php:3
+#: classes/Admin/Page/Addons.php:136, templates/admin/page/component/addon/active-label.php:3
 msgid "Active"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:143
+#: classes/Admin/Page/Addons.php:144
 msgid "Available"
 msgstr ""
 
@@ -1076,6 +1072,10 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
+#: classes/Column/Media/Image.php:11, classes/Settings/Column/CustomFieldType.php:124, templates/admin/help-tab/custom-fields.php:30
+msgid "Image"
+msgstr ""
+
 #: classes/Column/Media/MimeType.php:14
 msgid "Mime Type"
 msgstr ""
@@ -1260,7 +1260,7 @@ msgstr ""
 msgid "View %s screen"
 msgstr ""
 
-#: classes/Plugin/Update/V4000.php:547
+#: classes/Plugin/Update/V4000.php:544
 msgid "Original"
 msgstr ""
 
@@ -1378,10 +1378,6 @@ msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:123
 msgid "Text"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:124, templates/admin/help-tab/custom-fields.php:30
-msgid "Image"
 msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:125, templates/admin/help-tab/custom-fields.php:54
@@ -2068,10 +2064,6 @@ msgstr ""
 
 #: templates/admin/page/settings-section-restore.php:4
 msgid "Restore settings"
-msgstr ""
-
-#: templates/admin/page/settings-section-restore.php:4
-msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
 #: classes/Admin/Section/Partial/ShowEditButton.php:21

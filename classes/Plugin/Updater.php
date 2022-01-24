@@ -2,58 +2,33 @@
 
 namespace AC\Plugin;
 
-abstract class Updater {
+class Updater {
 
 	/**
-	 * @var Update[]
+	 * @var UpdateCollection
 	 */
-	protected $updates;
+	private $update_collection;
 
 	/**
-	 * @param Version|null $version
-	 *
-	 * @return bool
+	 * @var VersionStorage
 	 */
-	abstract protected function update_stored_version( Version $version = null );
+	private $version_storage;
 
-	/**
-	 * @return bool
-	 */
-	abstract public function is_new_install();
-
-	/**
-	 * @param Update $update
-	 *
-	 * @return $this
-	 */
-	public function add_update( Update $update ) {
-		$this->updates[ $update->get_version() ] = $update;
-
-		return $this;
+	public function __construct( UpdateCollection $update_collection, VersionStorage $version_storage ) {
+		$this->update_collection = $update_collection;
+		$this->version_storage = $version_storage;
 	}
 
-	public function parse_updates() {
-		if ( $this->is_new_install() ) {
-			$this->update_stored_version();
+	public function apply_updates() {
+		array_map( [ $this, 'apply_update' ], $this->update_collection->get_copy() );
+	}
 
-			return;
+	private function apply_update( Update $update ) {
+		if ( $update->needs_update( $this->version_storage->get() ) ) {
+			$update->apply_update();
+
+			$this->version_storage->save( $update->get_version() );
 		}
-
-		if ( empty( $this->updates ) ) {
-			return;
-		}
-
-		// Sort by version number
-		uksort( $this->updates, 'version_compare' );
-
-		foreach ( $this->updates as $update ) {
-			if ( $update->needs_update() ) {
-				$update->apply_update();
-				$this->update_stored_version( new Version( $update->get_version() ) );
-			}
-		}
-
-		$this->update_stored_version();
 	}
 
 }

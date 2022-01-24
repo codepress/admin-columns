@@ -25,11 +25,10 @@ export class Tooltip {
 
         this.element.dataset.acTooltipInit = '1';
 
-        document.body.appendChild(this.tip);
-
         this.element.addEventListener('mouseenter', () => {
             const bodyOffset = document.body.getBoundingClientRect();
             const viewportOffset = this.element.getBoundingClientRect();
+            document.body.appendChild(this.tip);
 
             this.tip.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth / 2) + 'px';
             this.tip.style.top = ((viewportOffset.top - bodyOffset.top) + this.element.offsetHeight) + 'px';
@@ -38,6 +37,7 @@ export class Tooltip {
 
         this.element.addEventListener('mouseleave', () => {
             this.tip.classList.remove('hover');
+            document.body.removeChild( this.tip );
         });
     }
 

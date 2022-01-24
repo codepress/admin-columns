@@ -52,6 +52,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	public function render() {
 		ob_start();
 
+		echo '<h1 class="screen-reader-text">'. __( 'Add-ons', 'codepress-admin-columns' ) .'</h1>';
 		echo '<div class="ac-addons-groups">';
 
 		foreach ( $this->get_grouped_addons() as $group ) :

@@ -347,6 +347,12 @@ html.wp-toolbar .ac-tooltip {
   position: relative;
   margin-bottom: 15px;
 }
+.ac-toggle-v2.-disabled {
+  cursor: not-allowed;
+}
+.ac-toggle-v2.-disabled * {
+  cursor: not-allowed;
+}
 .ac-toggle-v2__toggle {
   position: relative;
   display: inline-block;
@@ -368,6 +374,16 @@ html.wp-toolbar .ac-tooltip {
 }
 .ac-toggle-v2__toggle input[type=checkbox]:checked ~ .ac-toggle-v2__toggle__track {
   background: var(--ac-primary-color);
+}
+.ac-toggle-v2__toggle input[type=checkbox]:disabled {
+  cursor: not-allowed;
+}
+.ac-toggle-v2__toggle input[type=checkbox]:disabled ~ .ac-toggle-v2__toggle__track {
+  background: #ddd !important;
+  cursor: not-allowed;
+}
+.ac-toggle-v2__toggle input[type=checkbox]:disabled ~ .ac-toggle-v2__toggle__thumb {
+  cursor: not-allowed;
 }
 .ac-toggle-v2__toggle__track {
   content: "";
