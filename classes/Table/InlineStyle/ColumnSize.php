@@ -50,7 +50,7 @@ class ColumnSize implements Renderable {
 
 		$id = sprintf(
 			'ac-column-size-%s-%s',
-			(string) $type,
+			$type,
 			$column_name
 		);
 
