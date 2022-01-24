@@ -1429,7 +1429,7 @@ msgstr "Поднимите Admin Columns на уровень выше:"
 msgid "Upgrade to"
 msgstr "Обновить до"
 
-#: classes/Admin/Notice/ReadOnly.php:18
+#: classes/Admin/Notice/ReadOnlyListScreen.php:18
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
