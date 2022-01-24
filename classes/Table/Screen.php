@@ -232,7 +232,9 @@ final class Screen implements Registrable {
 		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ) );
 		$style->enqueue();
 
-		wp_localize_script( 'ac-table', 'AC', [
+		wp_localize_script( 'ac-table', 'AC',
+			[
+				'assets'           => $this->location->with_suffix( 'assets/' )->get_url(),
 				'list_screen'      => $this->list_screen->get_key(),
 				'layout'           => $this->list_screen->get_layout_id(),
 				'column_types'     => $this->get_column_types_mapping(),
