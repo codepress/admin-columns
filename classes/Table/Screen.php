@@ -326,7 +326,13 @@ final class Screen implements Registrable {
 	 * @since 3.1.4
 	 */
 	public function admin_head_scripts() {
-		echo ( new AC\Table\InlineStyle\ColumnSize( $this->list_screen, $this->column_size_list_storage, $this->column_size_user_storage ) )->render();
+		$inline_style = new AC\Table\InlineStyle\ColumnSize(
+			$this->list_screen,
+			$this->column_size_list_storage,
+			$this->column_size_user_storage
+		);
+
+		echo $inline_style->render();
 
 		/**
 		 * Add header scripts that only apply to column screens.

@@ -74,7 +74,12 @@ class TableListScreenSetter implements Registrable {
 			$this->preference->set( $list_screen->get_key(), $list_screen->get_id()->get_id() );
 		}
 
-		$table_screen = new Table\Screen( $this->location, $list_screen, new ColumnSize\ListStorage( $this->storage ), new ColumnSize\UserStorage( new ColumnSize\UserPreference() ) );
+		$table_screen = new Table\Screen(
+			$this->location,
+			$list_screen,
+			new ColumnSize\ListStorage( $this->storage ),
+			new ColumnSize\UserStorage( new ColumnSize\UserPreference( get_current_user_id() ) )
+		);
 		$table_screen->register();
 
 		do_action( 'ac/table', $table_screen );
