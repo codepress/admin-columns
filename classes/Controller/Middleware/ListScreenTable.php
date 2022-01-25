@@ -29,11 +29,11 @@ class ListScreenTable implements Middleware {
 	private $wp_screen;
 
 	/**
-	 * @var Table\Preference
+	 * @var Table\LayoutPreference
 	 */
 	private $preference;
 
-	public function __construct( Storage $storage, WP_Screen $wp_screen, Table\Preference $preference ) {
+	public function __construct( Storage $storage, WP_Screen $wp_screen, Table\LayoutPreference $preference ) {
 		$this->storage = $storage;
 		$this->wp_screen = $wp_screen;
 		$this->preference = $preference;

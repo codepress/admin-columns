@@ -2,7 +2,9 @@
 
 namespace AC\Form;
 
-abstract class Element {
+use AC\Renderable;
+
+abstract class Element implements Renderable {
 
 	/**
 	 * @var array

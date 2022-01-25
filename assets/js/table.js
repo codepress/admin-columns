@@ -1846,6 +1846,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/modals */ "./js/modules/modals.ts");
 /* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.ts");
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./plugin/tooltip */ "./js/plugin/tooltip.ts");
 
 
 
@@ -1859,8 +1860,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 let AC_SERVICES = (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__.initAcServices)();
 AC_SERVICES.registerService('Modals', new _modules_modals__WEBPACK_IMPORTED_MODULE_10__["default"]());
+AC_SERVICES.registerService('tooltips', _plugin_tooltip__WEBPACK_IMPORTED_MODULE_12__.initAcTooltips);
 document.addEventListener('DOMContentLoaded', () => {
     let table = (0,_helpers_table__WEBPACK_IMPORTED_MODULE_8__.resolveTableBySelector)(AC.table_id);
     (0,_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__.initPointers)();
