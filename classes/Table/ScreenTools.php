@@ -24,8 +24,8 @@ final class ScreenTools implements Registrable {
 
 		?>
 
-		<fieldset id="acp-screen-option-tools">
-		</fieldset>
+		<div id="acp-screen-option-tools">
+		</div>
 
 		<?php
 
