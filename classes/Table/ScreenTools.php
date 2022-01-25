@@ -21,12 +21,10 @@ final class ScreenTools implements Registrable {
 
 	public function render( $html ) {
 		ob_start();
+
 		?>
 
 		<fieldset id="acp-screen-option-tools">
-			<legend><?= __( 'Tools', 'codepress-admin-columns' ); ?></legend>
-			<div class="acp-tools-container">
-			</div>
 		</fieldset>
 
 		<?php

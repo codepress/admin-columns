@@ -69,6 +69,32 @@ class UserStorage {
 
 	/**
 	 * @param ListScreenId $list_id
+	 *
+	 * @return ColumnWidth[]
+	 */
+	public function all( ListScreenId $list_id ) {
+		$widths = $this->user_preference->get(
+			$list_id->get_id()
+		);
+
+		if ( ! $widths ) {
+			return [];
+		}
+
+		$column_widths = [];
+
+		foreach ( $widths as $column_name => $width ) {
+			$column_widths[ $column_name ] = new ColumnWidth(
+				$width[ self::OPTION_UNIT ],
+				$width[ self::OPTION_VALUE ]
+			);
+		}
+
+		return $column_widths;
+	}
+
+	/**
+	 * @param ListScreenId $list_id
 	 * @param string       $column_name
 	 */
 	public function delete( ListScreenId $list_id, $column_name ) {
