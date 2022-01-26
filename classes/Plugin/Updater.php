@@ -2,6 +2,7 @@
 
 namespace AC\Plugin;
 
+// TODO this seems isolated from some 'more' intelligent class that handles this
 class Updater {
 
 	/**

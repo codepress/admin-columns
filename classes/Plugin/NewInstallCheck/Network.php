@@ -5,6 +5,7 @@ namespace AC\Plugin\NewInstallCheck;
 use AC\Plugin\NewInstallCheck;
 use AC\Plugin\VersionStorage;
 
+// TODO this seems isolated from some 'more' intelligent class that handles this
 class Network implements NewInstallCheck {
 
 	/**

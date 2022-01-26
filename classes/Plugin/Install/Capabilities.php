@@ -5,7 +5,7 @@ namespace AC\Plugin\Install;
 use AC;
 use WP_Roles;
 
-class Capabilities implements AC\Plugin\Install {
+final class Capabilities implements AC\Plugin\Install {
 
 	public function install() {
 		global $wp_roles;

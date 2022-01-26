@@ -3,7 +3,6 @@
 namespace AC;
 
 use AC\Asset\Location;
-use AC\Plugin\PluginHeader;
 use AC\Plugin\Version;
 
 class Plugin {
@@ -23,13 +22,8 @@ class Plugin {
 	 */
 	private $version;
 
-	protected function __construct( $file, $version_key, Version $version = null ) {
-
-		// For backwards compatibility
-		if ( null === $version ) {
-			$version = ( new PluginHeader( $file ) )->get_version();
-		}
-
+	// TODO test if not null of $version works
+	protected function __construct( $file, $version_key, Version $version ) {
 		$this->file = (string) $file;
 		$this->version_key = (string) $version_key;
 		$this->version = $version;

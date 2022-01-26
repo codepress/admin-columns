@@ -2,85 +2,115 @@
 
 namespace AC\Plugin;
 
-use AC\Capabilities;
-use AC\Registrable;
+use AC\Storage\KeyValuePair;
 
-class Setup implements Registrable {
+abstract class Setup {
 
 	/**
-	 * @var VersionStorage
+	 * @var KeyValuePair
 	 */
-	private $version_storage;
+	private $versionStorage;
 
 	/**
 	 * @var Version
 	 */
-	private $version;
+	protected $version;
 
 	/**
-	 * @var NewInstallCheck
+	 * @var InstallCollection
 	 */
-	private $new_install_check;
+	protected $installers;
 
 	/**
-	 * @var Updater|null
+	 * @var UpdateCollection
 	 */
-	private $updater;
+	protected $updates;
 
-	/**
-	 * @var Installer|null
-	 */
-	private $installer;
-
-	public function __construct( VersionStorage $version_storage, Version $version, NewInstallCheck $new_install_check, Updater $updater = null, Installer $installer = null ) {
-		$this->version_storage = $version_storage;
+	public function __construct(
+		KeyValuePair $versionStorage,
+		Version $version,
+		InstallCollection $installers,
+		UpdateCollection $updates
+	) {
 		$this->version = $version;
-		$this->new_install_check = $new_install_check;
-		$this->updater = $updater;
-		$this->installer = $installer;
+		$this->installers = $installers;
+		$this->updates = $updates;
+		$this->versionStorage = $versionStorage;
 	}
 
-	public function register() {
-		add_action( 'init', [ $this, 'run' ], 1000 );
+	/**
+	 * @param Version $version
+	 *
+	 * @return void
+	 */
+	protected function update_stored_version( Version $version ) {
+		$this->versionStorage->save( (string) $version );
 	}
 
-	public function run() {
-		if ( ! $this->can_install() ) {
-			return;
-		}
-
-		if ( $this->installer ) {
-			$this->installer->install();
-		}
-
-		if ( ! current_user_can( Capabilities::MANAGE ) ) {
-			return;
-		}
-
-		if ( $this->updater && ! $this->new_install_check->is_new_install() ) {
-			$this->updater->apply_updates();
-		}
-
-		$this->version_storage->save( $this->version );
+	/**
+	 * @return Version
+	 */
+	protected function get_stored_version() {
+		return new Version( (string) $this->versionStorage->get() );
 	}
 
 	/**
 	 * @return bool
 	 */
-	private function can_install() {
+	protected function is_new_install() {
+		return ! $this->get_stored_version()->is_valid();
+	}
 
-		// Run installer manually
-		if ( '1' === filter_input( INPUT_GET, 'ac-force-install' ) ) {
+	private function install() {
+		foreach ( $this->installers as $installer ) {
+			$installer->install();
+		}
+	}
+
+	/**
+	 * @return void
+	 */
+	private function update() {
+		foreach ( $this->updates as $update ) {
+			if ( ! $update->needs_update( $this->get_stored_version() ) ) {
+				continue;
+			}
+
+			$update->apply_update();
+
+			$this->update_stored_version( $update->get_version() );
+		}
+
+		$this->update_stored_version( $this->version );
+	}
+
+	/**
+	 * @return void
+	 */
+	public function run( $force_update = false ) {
+		if ( $force_update === false && ! $this->requires_update() ) {
+			return;
+		}
+
+		// Always run the installers, they should be written as idempotent calls
+		$this->install();
+
+		if ( ! $this->is_new_install() ) {
+			$this->update();
+		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function requires_update() {
+		// Run installer when the current version can not be read / does not exist
+		if ( $this->is_new_install() ) {
 			return true;
 		}
 
 		// Run installer when the current version is not equal to its stored version
-		if ( $this->version->is_not_equal( $this->version_storage->get() ) ) {
-			return true;
-		}
-
-		// Run installer when the current version can not be read from the plugin's header file
-		if ( ! $this->version->is_valid() && ! $this->version_storage->get()->is_valid() ) {
+		if ( $this->version->is_not_equal( $this->get_stored_version() ) ) {
 			return true;
 		}
 

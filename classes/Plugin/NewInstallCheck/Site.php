@@ -5,6 +5,7 @@ namespace AC\Plugin\NewInstallCheck;
 use AC\Plugin\NewInstallCheck;
 use AC\Plugin\VersionStorage;
 
+// TODO this seems isolated from some 'more' intelligent class that handles this
 class Site implements NewInstallCheck {
 
 	/**
@@ -12,6 +13,7 @@ class Site implements NewInstallCheck {
 	 */
 	private $version_storage;
 
+	// TODO VersionStorage is a dangerous object. It should not be decoupled from it's intelligence
 	public function __construct( VersionStorage $version_storage ) {
 		$this->version_storage = $version_storage;
 	}
