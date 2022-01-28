@@ -57,9 +57,7 @@ abstract class Setup {
 	/**
 	 * @return bool
 	 */
-	protected function is_new_install() {
-		return ! $this->get_stored_version()->is_valid();
-	}
+	abstract protected function is_new_install();
 
 	private function install() {
 		foreach ( $this->installers as $installer ) {
