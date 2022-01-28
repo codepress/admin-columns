@@ -29,12 +29,10 @@ final class SetupFactory {
 	 * @return Setup
 	 */
 	public function create( $is_network_admin ) {
-		$install_collection = new InstallCollection(
-			[
-				new Plugin\Install\Capabilities(),
-				new Plugin\Install\Database(),
-			]
-		);
+		$install_collection = new InstallCollection( [
+			new Plugin\Install\Capabilities(),
+			new Plugin\Install\Database(),
+		] );
 
 		if ( $is_network_admin ) {
 			return new Plugin\Setup\Network(
@@ -49,14 +47,12 @@ final class SetupFactory {
 			new Option( $this->version_key ),
 			$this->version,
 			$install_collection,
-			new UpdateCollection(
-				[
-					new Update\V3005(),
-					new Update\V3007(),
-					new Update\V3201(),
-					new Update\V4000(),
-				]
-			)
+			new UpdateCollection( [
+				new Update\V3005(),
+				new Update\V3007(),
+				new Update\V3201(),
+				new Update\V4000(),
+			] )
 		);
 	}
 
