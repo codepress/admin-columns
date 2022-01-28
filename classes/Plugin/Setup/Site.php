@@ -2,9 +2,22 @@
 
 namespace AC\Plugin\Setup;
 
+use AC\Plugin\InstallCollection;
 use AC\Plugin\Setup;
+use AC\Plugin\UpdateCollection;
+use AC\Plugin\Version;
+use AC\Storage\Option;
 
 final class Site extends Setup {
+
+	public function __construct(
+		Option $version_storage,
+		Version $version,
+		InstallCollection $installers,
+		UpdateCollection $updates
+	) {
+		parent::__construct( $version_storage, $version, $installers, $updates );
+	}
 
 	protected function is_new_install() {
 		global $wpdb;

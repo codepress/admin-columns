@@ -2,9 +2,22 @@
 
 namespace AC\Plugin\Setup;
 
+use AC\Plugin\InstallCollection;
 use AC\Plugin\Setup;
+use AC\Plugin\UpdateCollection;
+use AC\Plugin\Version;
+use AC\Storage\SiteOption;
 
 final class Network extends Setup {
+
+	public function __construct(
+		SiteOption $version_storage,
+		Version $version,
+		InstallCollection $installers,
+		UpdateCollection $updates
+	) {
+		parent::__construct( $version_storage, $version, $installers, $updates );
+	}
 
 	protected function is_new_install() {
 		$result = get_site_option( 'cpupdate_cac-pro' );
