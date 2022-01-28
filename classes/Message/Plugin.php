@@ -20,12 +20,16 @@ class Plugin extends Message {
 	/**
 	 * @param string $message
 	 * @param string $plugin_basename
+	 * @param string $type
 	 */
-	public function __construct( $message, $plugin_basename ) {
-		parent::__construct( $message );
+	public function __construct( $message, $plugin_basename, $type = null ) {
+		if ( null === $type ) {
+			$type = self::WARNING;
+		}
+
+		parent::__construct( $message, $type );
 
 		$this->plugin_basename = $plugin_basename;
-		$this->type = self::WARNING;
 		$this->icon = $this->get_icon_by_current_type();
 	}
 

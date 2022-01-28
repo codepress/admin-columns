@@ -3,7 +3,7 @@
 use AC\Ajax;
 
 ?>
-<section class="ac-settings-box -<?= $this->class ?: ''; ?>">
+<section class="ac-settings-box <?= $this->class ?: ''; ?>">
 	<h2 class="ac-lined-header"><?= $this->title; ?></h2>
 
 	<?php wp_nonce_field( Ajax\Handler::NONCE_ACTION ); ?>

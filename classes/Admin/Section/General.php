@@ -35,7 +35,7 @@ class General extends Section {
 		$view = new View( [
 			'title'   => __( 'General Settings', 'codepress-admin-columns' ),
 			'content' => $form->render(),
-			'class'   => 'general',
+			'class'   => '-general',
 		] );
 
 		$view->set_template( 'admin/page/settings-section' );
