@@ -9,7 +9,7 @@ abstract class Setup {
 	/**
 	 * @var KeyValuePair
 	 */
-	private $versionStorage;
+	private $version_storage;
 
 	/**
 	 * @var Version
@@ -27,15 +27,15 @@ abstract class Setup {
 	protected $updates;
 
 	public function __construct(
-		KeyValuePair $versionStorage,
+		KeyValuePair $version_storage,
 		Version $version,
 		InstallCollection $installers,
 		UpdateCollection $updates
 	) {
+		$this->version_storage = $version_storage;
 		$this->version = $version;
 		$this->installers = $installers;
 		$this->updates = $updates;
-		$this->versionStorage = $versionStorage;
 	}
 
 	/**
@@ -44,14 +44,14 @@ abstract class Setup {
 	 * @return void
 	 */
 	protected function update_stored_version( Version $version ) {
-		$this->versionStorage->save( (string) $version );
+		$this->version_storage->save( (string) $version );
 	}
 
 	/**
 	 * @return Version
 	 */
 	protected function get_stored_version() {
-		return new Version( (string) $this->versionStorage->get() );
+		return new Version( (string) $this->version_storage->get() );
 	}
 
 	/**
