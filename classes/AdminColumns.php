@@ -16,6 +16,7 @@ use AC\ListScreenRepository\Storage;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
+use AC\Service;
 use AC\Settings\GeneralOption;
 use AC\Table;
 use AC\ThirdParty;
@@ -88,7 +89,7 @@ class AdminColumns extends Plugin {
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
-			$setupFactory->create( is_network_admin() ),
+			new Service\Setup( $setupFactory->create( is_network_admin() ) ),
 		];
 
 		array_map( static function ( Registrable $service ) {

@@ -54,6 +54,10 @@ abstract class Setup {
 		return new Version( (string) $this->version_storage->get() );
 	}
 
+	private function update_stored_version_to_current() {
+		$this->update_stored_version( $this->version );
+	}
+
 	/**
 	 * @return bool
 	 */
@@ -63,6 +67,8 @@ abstract class Setup {
 		foreach ( $this->installers as $installer ) {
 			$installer->install();
 		}
+
+		$this->update_stored_version_to_current();
 	}
 
 	/**
@@ -79,40 +85,28 @@ abstract class Setup {
 			$this->update_stored_version( $update->get_version() );
 		}
 
-		$this->update_stored_version( $this->version );
+		$this->update_stored_version_to_current();
 	}
 
 	/**
+	 * @param bool $force_install
+	 *
 	 * @return void
 	 */
-	public function run( $force_update = false ) {
-		if ( $force_update === false && ! $this->requires_update() ) {
+	public function run( $force_install = false ) {
+		if ( $force_install === true ) {
+			$this->install();
+		}
+
+		if ( $this->version->is_equal( $this->get_stored_version() ) ) {
 			return;
 		}
 
-		// Always run the installers, they should be written as idempotent calls
-		$this->install();
-
-		if ( ! $this->is_new_install() ) {
+		if ( $this->is_new_install() ) {
+			$this->install();
+		} else {
 			$this->update();
 		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	private function requires_update() {
-		// Run installer when the current version can not be read / does not exist
-		if ( $this->is_new_install() ) {
-			return true;
-		}
-
-		// Run installer when the current version is not equal to its stored version
-		if ( $this->version->is_not_equal( $this->get_stored_version() ) ) {
-			return true;
-		}
-
-		return false;
 	}
 
 }

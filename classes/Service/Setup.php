@@ -2,12 +2,14 @@
 
 namespace AC\Service;
 
-use AC\Capabilities;
-use AC\Registrable;
 use AC\Plugin;
+use AC\Registrable;
 
 final class Setup implements Registrable {
 
+	/**
+	 * @var Plugin\Setup
+	 */
 	private $setup;
 
 	public function __construct( Plugin\Setup $setup ) {
@@ -19,48 +21,13 @@ final class Setup implements Registrable {
 	}
 
 	public function run() {
-		if ( ! $this->can_install() ) {
+		if ( wp_doing_ajax() ) {
 			return;
 		}
 
-		if ( $this->installer ) {
-			$this->installer->install();
-		}
+		$force_install = '1' === filter_input( INPUT_GET, 'ac-force-install' );
 
-		// TODO David why is this here? What does it do?
-		if ( ! current_user_can( Capabilities::MANAGE ) ) {
-			return;
-		}
-
-		if ( $this->updater && ! $this->new_install_check->is_new_install() ) {
-			$this->updater->apply_updates();
-		}
-
-		$this->version_storage->save( $this->version );
+		$this->setup->run( $force_install );
 	}
-
-	/**
-	 * @return bool
-	 */
-	private function can_install() {
-
-		// Run installer manually
-		if ( '1' === filter_input( INPUT_GET, 'ac-force-install' ) ) {
-			return true;
-		}
-
-		// Run installer when the current version is not equal to its stored version
-		if ( $this->version->is_not_equal( $this->version_storage->get() ) ) {
-			return true;
-		}
-
-		// Run installer when the current version can not be read from the plugin's header file
-		if ( ! $this->version->is_valid() && ! $this->version_storage->get()->is_valid() ) {
-			return true;
-		}
-
-		return false;
-	}
-
 
 }
