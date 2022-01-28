@@ -32,6 +32,7 @@ class Plugin {
 	/**
 	 * @return string
 	 */
+	// TODO David remove? Is delegated to setup class?
 	public function get_version_key() {
 		return $this->version_key;
 	}

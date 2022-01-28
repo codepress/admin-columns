@@ -14,7 +14,6 @@ use AC\Controller;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\SetupFactory;
-use AC\Plugin\SetupService;
 use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
 use AC\Settings\GeneralOption;
@@ -63,6 +62,9 @@ class AdminColumns extends Plugin {
 
 		PageRequestHandlers::add_handler( $page_handler );
 
+		// TODO David required still in parent call? Duplicated for now
+		$setupFactory = new SetupFactory( 'ac_version', new Version( AC_VERSION ) );
+
 		$services = [
 			new Admin\Admin( new PageRequestHandlers(), new WpMenuFactory(), new AdminScripts( $location ) ),
 			new Admin\Notice\ReadOnlyListScreen(),
@@ -86,12 +88,8 @@ class AdminColumns extends Plugin {
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
+			$setupFactory->create( is_network_admin() ),
 		];
-
-		$services[] = new SetupService(
-			new SetupFactory\Site( $this->version_key, $this->get_version() ),
-			new SetupFactory\Network( $this->version_key, $this->get_version() )
-		);
 
 		array_map( static function ( Registrable $service ) {
 			$service->register();
