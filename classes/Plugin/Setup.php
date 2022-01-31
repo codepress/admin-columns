@@ -29,17 +29,9 @@ abstract class Setup {
 	public function __construct(
 		KeyValuePair $storage,
 		Version $version,
-		InstallCollection $installers = null,
-		UpdateCollection $updates = null
+		InstallCollection $installers,
+		UpdateCollection $updates
 	) {
-		if ( null === $installers ) {
-			$installers = new InstallCollection();
-		}
-
-		if ( null === $updates ) {
-			$updates = new UpdateCollection();
-		}
-
 		$this->storage = $storage;
 		$this->version = $version;
 		$this->installers = $installers;
