@@ -88,12 +88,12 @@ final class SetupBuilder {
 
 				break;
 			case self::SITE:
-				$this->site_installer = $installers;
+				$this->site_installers = $installers;
 
 				break;
 			case null:
-				$this->network_installer = $installers;
-				$this->site_installer = $installers;
+				$this->network_installers = $installers;
+				$this->site_installers = $installers;
 
 				break;
 			default:
