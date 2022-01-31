@@ -5,12 +5,8 @@ namespace AC\Plugin;
 use AC\Plugin;
 use AC\Storage\Option;
 use AC\Storage\SiteOption;
-use InvalidArgumentException;
 
 final class SetupBuilder {
-
-	const SITE = 'site';
-	const NETWORK = 'network';
 
 	/**
 	 * @var string
@@ -48,63 +44,71 @@ final class SetupBuilder {
 	}
 
 	/**
-	 * @param array       $updates
-	 * @param string|null $type
+	 * @param array $updates
 	 *
 	 * @return $this
 	 */
-	public function set_updates( array $updates, $type = null ) {
-		switch ( $type ) {
-			case self::NETWORK:
-				$this->network_updates = $updates;
-
-				break;
-			case self::SITE:
-				$this->site_updates = $updates;
-
-				break;
-			case null:
-				$this->network_updates = $updates;
-				$this->site_updates = $updates;
-
-				break;
-			default:
-				$this->throw_invalid_type_exception();
-		}
+	public function set_updates( array $updates ) {
+		$this->set_network_updates( $updates );
+		$this->set_site_updates( $updates );
 
 		return $this;
 	}
 
 	/**
-	 * @param array       $installers
-	 * @param string|null $type
+	 * @param array $updates
 	 *
 	 * @return $this
 	 */
-	public function set_installers( array $installers, $type = null ) {
-		switch ( $type ) {
-			case self::NETWORK:
-				$this->network_installers = $installers;
-
-				break;
-			case self::SITE:
-				$this->site_installers = $installers;
-
-				break;
-			case null:
-				$this->network_installers = $installers;
-				$this->site_installers = $installers;
-
-				break;
-			default:
-				$this->throw_invalid_type_exception();
-		}
+	public function set_network_updates( array $updates ) {
+		$this->network_updates = $updates;
 
 		return $this;
 	}
 
-	private function throw_invalid_type_exception() {
-		throw new InvalidArgumentException( 'Expected null or a valid setup type.' );
+	/**
+	 * @param array $updates
+	 *
+	 * @return $this
+	 */
+	public function set_site_updates( array $updates ) {
+		$this->site_updates = $updates;
+
+		return $this;
+	}
+
+	/**
+	 * @param array $installers
+	 *
+	 * @return $this
+	 */
+	public function set_installers( array $installers ) {
+		$this->set_network_installers( $installers );
+		$this->set_site_installers( $installers );
+
+		return $this;
+	}
+
+	/**
+	 * @param array $installers
+	 *
+	 * @return $this
+	 */
+	public function set_network_installers( array $installers ) {
+		$this->network_installers = $installers;
+
+		return $this;
+	}
+
+	/**
+	 * @param array $installers
+	 *
+	 * @return $this
+	 */
+	public function set_site_installers( array $installers ) {
+		$this->site_installers = $installers;
+
+		return $this;
 	}
 
 	public function build() {
