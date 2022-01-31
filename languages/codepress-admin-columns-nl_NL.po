@@ -1428,7 +1428,7 @@ msgstr "Breng Admin Columns naar een hoger niveau:"
 msgid "Upgrade to"
 msgstr "Upgraden naar"
 
-#: classes/Admin/Notice/ReadOnly.php:18
+#: classes/Admin/Notice/ReadOnlyListScreen.php:18
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr "De kolommen voor %s zijn 'alleen lezen', en kunnen daarom niet bewerkt worden."
 

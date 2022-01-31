@@ -490,7 +490,7 @@ class Query {
 				break;
 
 			default:
-				return false;
+				return;
 		}
 
 		$this->query = new WP_Meta_Query();

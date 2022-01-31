@@ -67,7 +67,7 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin/WpMenuFactory.php:19, classes/Admin/WpMenuFactory.php:34, classes/Check/Review.php:160, classes/Table/Screen.php:454
+#: classes/Admin/WpMenuFactory.php:19, classes/Admin/WpMenuFactory.php:34, classes/Check/Review.php:160, classes/Table/Screen.php:408
 msgid "Admin Columns"
 msgstr ""
 
@@ -291,12 +291,16 @@ msgstr ""
 msgid "%s Off from Black Friday to Cyber Monday"
 msgstr ""
 
-#: classes/Table/Screen.php:134, classes/Table/Screen.php:136, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
+#: classes/Table/Screen.php:149, classes/Table/Screen.php:151, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
 msgid "Download"
 msgstr ""
 
-#: classes/Table/Screen.php:203, classes/Admin/Section/Partial/ShowEditButton.php:21
+#: classes/Table/Screen.php:218, classes/Admin/Section/Partial/ShowEditButton.php:21
 msgid "Edit columns"
+msgstr ""
+
+#: classes/Table/ScreenTools.php:27
+msgid "Tools"
 msgstr ""
 
 #: templates/admin/edit-actions.php:37, templates/admin/edit-actions.php:34
@@ -834,6 +838,10 @@ msgstr ""
 msgid "You can change the default sorted column in the optional settings below."
 msgstr ""
 
+#: classes/Admin/Asset/Addons.php:21
+msgid "The Add-on %s is activated."
+msgstr ""
+
 #: classes/Admin/Asset/Columns.php:57
 msgid "Invalid response."
 msgstr ""
@@ -1080,7 +1088,7 @@ msgstr ""
 msgid "Mime Type"
 msgstr ""
 
-#: classes/Column/Media/Width.php:16, classes/Settings/Column/Image.php:41, classes/Settings/Column/Width.php:55
+#: classes/Column/Media/Width.php:16, classes/Settings/Column/Image.php:41, classes/Settings/Column/Width.php:57
 msgid "Width"
 msgstr ""
 
@@ -1794,11 +1802,11 @@ msgstr ""
 msgid "View Public Author Page"
 msgstr ""
 
-#: classes/Settings/Column/Width.php:41
+#: classes/Settings/Column/Width.php:43
 msgid "Auto"
 msgstr ""
 
-#: classes/Settings/Column/Width.php:65
+#: classes/Settings/Column/Width.php:68
 msgid "width"
 msgstr ""
 
@@ -2076,10 +2084,6 @@ msgstr ""
 
 #: templates/admin/page/component/addon/deactivate.php:2
 msgid "Deactivate"
-msgstr ""
-
-#: templates/admin/page/component/addon/missing-license.php:3
-msgid "Activate license"
 msgstr ""
 
 #: templates/admin/page/component/addon/more-info.php:2

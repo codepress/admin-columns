@@ -18,7 +18,7 @@ class Addons extends Script {
 		$nonce = new Nonce\Ajax();
 
 		wp_localize_script( $this->handle, 'ACi18n', [
-			'plugin_installed' => __( 'The Add-on %s is activated.' ),
+			'plugin_installed' => __( 'The Add-on %s is activated.', 'codepress-admin-columns' ),
 		] );
 
 		$this->add_inline_variable( 'AC', [

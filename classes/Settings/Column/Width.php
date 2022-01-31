@@ -3,7 +3,9 @@
 namespace AC\Settings\Column;
 
 use AC\Settings;
+use AC\Type\ColumnWidth;
 use AC\View;
+use InvalidArgumentException;
 
 class Width extends Settings\Column
 	implements Settings\Header {
@@ -60,13 +62,28 @@ class Width extends Settings\Column
 	}
 
 	public function create_header_view() {
+		$column_width = $this->get_column_width();
 
-		$view = new View( [
+		return new View( [
 			'title'   => __( 'width', 'codepress-admin-columns' ),
-			'content' => $this->get_display_width(),
+			'content' => $column_width ? $column_width->get_value() . $column_width->get_unit() : '',
 		] );
+	}
 
-		return $view;
+	/**
+	 * @return ColumnWidth|null
+	 */
+	public function get_column_width() {
+		try {
+			$column_width = new ColumnWidth(
+				$this->width_unit,
+				$this->width
+			);
+		} catch ( InvalidArgumentException $e ) {
+			return null;
+		}
+
+		return $column_width;
 	}
 
 	/**
@@ -121,16 +138,6 @@ class Width extends Settings\Column
 		$this->width_unit = $width_unit;
 
 		return true;
-	}
-
-	public function get_display_width() {
-		$value = false;
-
-		if ( $width = $this->get_width() ) {
-			$value = $width . $this->get_width_unit();
-		}
-
-		return $value;
 	}
 
 }

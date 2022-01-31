@@ -1428,7 +1428,7 @@ msgstr ""
 msgid "Upgrade to"
 msgstr "שדרג אל"
 
-#: classes/Admin/Notice/ReadOnly.php:18
+#: classes/Admin/Notice/ReadOnlyListScreen.php:18
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
