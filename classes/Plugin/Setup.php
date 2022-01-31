@@ -2,48 +2,24 @@
 
 namespace AC\Plugin;
 
+use AC\Plugin\Setup\Definition;
 use AC\Storage\KeyValuePair;
 
 abstract class Setup {
 
 	/**
-	 * @var KeyValuePair
+	 * @var Definition
 	 */
-	private $version_storage;
+	private $definition;
 
 	/**
 	 * @var Version
 	 */
 	protected $version;
 
-	/**
-	 * @var InstallCollection
-	 */
-	protected $installers;
-
-	/**
-	 * @var UpdateCollection
-	 */
-	protected $updates;
-
-	public function __construct(
-		KeyValuePair $version_storage,
-		Version $version,
-		InstallCollection $installers = null,
-		UpdateCollection $updates = null
-	) {
-		if ( null === $installers ) {
-			$installers = new InstallCollection();
-		}
-
-		if ( null === $updates ) {
-			$updates = new UpdateCollection();
-		}
-
-		$this->version_storage = $version_storage;
+	public function __construct( Definition $definition, Version $version ) {
+		$this->definition = $definition;
 		$this->version = $version;
-		$this->installers = $installers;
-		$this->updates = $updates;
 	}
 
 	/**
@@ -52,14 +28,14 @@ abstract class Setup {
 	 * @return void
 	 */
 	protected function update_stored_version( Version $version ) {
-		$this->version_storage->save( (string) $version );
+		$this->definition->get_storage()->save( (string) $version );
 	}
 
 	/**
 	 * @return Version
 	 */
 	protected function get_stored_version() {
-		return new Version( (string) $this->version_storage->get() );
+		return new Version( (string) $this->definition->get_storage()->get() );
 	}
 
 	private function update_stored_version_to_current() {
@@ -72,7 +48,7 @@ abstract class Setup {
 	abstract protected function is_new_install();
 
 	private function install() {
-		foreach ( $this->installers as $installer ) {
+		foreach ( $this->definition->get_installers() as $installer ) {
 			$installer->install();
 		}
 
@@ -83,7 +59,7 @@ abstract class Setup {
 	 * @return void
 	 */
 	private function update() {
-		foreach ( $this->updates as $update ) {
+		foreach ( $this->definition->get_updates() as $update ) {
 			if ( ! $update->needs_update( $this->get_stored_version() ) ) {
 				continue;
 			}
