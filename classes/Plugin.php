@@ -13,28 +13,17 @@ class Plugin {
 	private $file;
 
 	/**
-	 * @var string
-	 */
-	protected $version_key;
-
-	/**
 	 * @var Version
 	 */
 	private $version;
 
-	// TODO test if not null of $version works
-	protected function __construct( $file, $version_key, Version $version ) {
-		$this->file = (string) $file;
-		$this->version_key = (string) $version_key;
-		$this->version = $version;
-	}
-
 	/**
-	 * @return string
+	 * @var string  $file
+	 * @var Version $version
 	 */
-	// TODO David remove? Is delegated to setup class?
-	public function get_version_key() {
-		return $this->version_key;
+	protected function __construct( $file, Version $version ) {
+		$this->file = (string) $file;
+		$this->version = $version;
 	}
 
 	/**
@@ -82,8 +71,10 @@ class Plugin {
 		);
 	}
 
+	// TODO just move this to ACP?
+
 	/**
-	 * For backwards compatbility with the `Depedencies` class
+	 * For backwards compatibility with the `Depedencies` class
 	 *
 	 * @param string
 	 *
@@ -92,6 +83,8 @@ class Plugin {
 	public function is_version_gte( $version ) {
 		return $this->version->is_gte( new Version( (string) $version ) );
 	}
+
+	// TODO we can just delete this?
 
 	/**
 	 * @return void

@@ -13,8 +13,8 @@ final class Site extends Setup {
 	public function __construct(
 		Option $version_storage,
 		Version $version,
-		InstallCollection $installers,
-		UpdateCollection $updates
+		InstallCollection $installers = null,
+		UpdateCollection $updates = null
 	) {
 		parent::__construct( $version_storage, $version, $installers, $updates );
 	}

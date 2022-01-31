@@ -6,8 +6,8 @@ use AC;
 
 final class InstallCollection extends AC\Iterator {
 
-	public function __construct( array $installers ) {
-		array_map( [ $this, 'add' ], $installers );
+	public function __construct( array $data = [] ) {
+		array_map( [ $this, 'add' ], $data );
 	}
 
 	protected function add( Install $install ) {
