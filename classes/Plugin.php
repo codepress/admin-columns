@@ -71,19 +71,6 @@ class Plugin {
 		);
 	}
 
-	// TODO just move this to ACP?
-
-	/**
-	 * For backwards compatibility with the `Depedencies` class
-	 *
-	 * @param string
-	 *
-	 * @return bool
-	 */
-	public function is_version_gte( $version ) {
-		return $this->version->is_gte( new Version( (string) $version ) );
-	}
-
 	// TODO we can just delete this?
 
 	/**
