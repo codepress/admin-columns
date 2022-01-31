@@ -42,7 +42,7 @@ abstract class ListScreen {
 	private $singular_label;
 
 	/**
-	 * Meta type of list screen; post, user, comment. Mostly used for fetching meta data.
+	 * Meta type of list screen; post, user, comment. Mostly used for fetching metadata.
 	 * @since 3.0
 	 * @var string
 	 */
