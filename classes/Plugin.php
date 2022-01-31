@@ -19,10 +19,9 @@ class Plugin {
 
 	/**
 	 * @var string  $file
-	 * @var string  $version_key
 	 * @var Version $version
 	 */
-	protected function __construct( $file, $version_key, Version $version ) {
+	protected function __construct( $file, Version $version ) {
 		$this->file = (string) $file;
 		$this->version = $version;
 	}
