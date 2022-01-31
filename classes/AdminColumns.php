@@ -8,8 +8,6 @@ use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Admin\Preference;
 use AC\Admin\WpMenuFactory;
-use AC\Asset\Script;
-use AC\Asset\Style;
 use AC\Controller;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
@@ -86,6 +84,7 @@ class AdminColumns extends Plugin {
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
+			new Admin\Scripts( $location ),
 		];
 
 		$setup_factory = new SetupFactory(
@@ -98,8 +97,6 @@ class AdminColumns extends Plugin {
 		array_map( static function ( Registrable $service ) {
 			$service->register();
 		}, $services );
-
-		add_action( 'init', [ $this, 'register_global_scripts' ] );
 	}
 
 	/**
@@ -107,19 +104,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function get_storage() {
 		return $this->storage;
-	}
-
-	public function register_global_scripts() {
-		$assets = [
-			new Script( 'ac-select2-core', $this->get_location()->with_suffix( 'assets/js/select2.js' ) ),
-			new Script( 'ac-select2', $this->get_location()->with_suffix( 'assets/js/select2_conflict_fix.js' ), [ 'jquery', 'ac-select2-core' ] ),
-			new Style( 'ac-select2', $this->get_location()->with_suffix( 'assets/css/select2.css' ) ),
-			new Style( 'ac-jquery-ui', $this->get_location()->with_suffix( 'assets/css/ac-jquery-ui.css' ) ),
-		];
-
-		foreach ( $assets as $asset ) {
-			$asset->register();
-		}
 	}
 
 	/**
