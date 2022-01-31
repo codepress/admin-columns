@@ -13,7 +13,9 @@ use AC\Asset\Style;
 use AC\Controller;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
-use AC\Plugin\SetupFactory;
+use AC\Plugin\Install;
+use AC\Plugin\SetupBuilder;
+use AC\Plugin\Update;
 use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
 use AC\Service;
@@ -63,10 +65,20 @@ class AdminColumns extends Plugin {
 
 		PageRequestHandlers::add_handler( $page_handler );
 
-		// TODO David required still in parent call? Duplicated for now
-		$setupFactory = new SetupFactory( 'ac_version', new Version( AC_VERSION ) );
-
-		// TODO implement new wow
+		$setup_builder = new SetupBuilder(
+			'ac_version',
+			$this->get_version()
+		);
+		$setup_builder->set_installers( [
+			new Install\Capabilities(),
+			new Install\Database(),
+		] );
+		$setup_builder->set_updates( [
+			new Update\V3005(),
+			new Update\V3007(),
+			new Update\V3201(),
+			new Update\V4000(),
+		] );
 
 		$services = [
 			new Admin\Admin( new PageRequestHandlers(), new WpMenuFactory(), new AdminScripts( $location ) ),
@@ -90,7 +102,7 @@ class AdminColumns extends Plugin {
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks( $location ),
-			new Service\Setup( $setupFactory->create( is_network_admin() ) ),
+			new Service\Setup( $setup_builder->build() ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
 		];
 

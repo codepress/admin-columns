@@ -63,7 +63,7 @@ final class SetupBuilder {
 
 				break;
 			default:
-				$this->throwInvalidTypeException();
+				$this->throw_invalid_type_exception();
 		}
 	}
 
@@ -83,11 +83,11 @@ final class SetupBuilder {
 
 				break;
 			default:
-				$this->throwInvalidTypeException();
+				$this->throw_invalid_type_exception();
 		}
 	}
 
-	private function throwInvalidTypeException() {
+	private function throw_invalid_type_exception() {
 		throw new InvalidArgumentException( 'Expected null or a valid setup type.' );
 	}
 
