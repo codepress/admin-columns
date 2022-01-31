@@ -2,13 +2,16 @@
 
 namespace AC\Plugin\Setup;
 
+use AC\Plugin\InstallCollection;
 use AC\Plugin\Setup;
+use AC\Plugin\UpdateCollection;
 use AC\Plugin\Version;
+use AC\Storage\Option;
 
 final class Site extends Setup {
 
-	public function __construct( Definition\Site $definition, Version $version ) {
-		parent::__construct( $definition, $version );
+	public function __construct( Option $storage, Version $version, InstallCollection $installers = null, UpdateCollection $updates = null ) {
+		parent::__construct( $storage, $version, $installers, $updates );
 	}
 
 	protected function is_new_install() {

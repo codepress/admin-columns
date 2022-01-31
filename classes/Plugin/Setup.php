@@ -2,24 +2,48 @@
 
 namespace AC\Plugin;
 
-use AC\Plugin\Setup\Definition;
 use AC\Storage\KeyValuePair;
 
 abstract class Setup {
 
 	/**
-	 * @var Definition
+	 * @var KeyValuePair
 	 */
-	private $definition;
+	private $storage;
 
 	/**
 	 * @var Version
 	 */
-	protected $version;
+	private $version;
 
-	public function __construct( Definition $definition, Version $version ) {
-		$this->definition = $definition;
+	/**
+	 * @var InstallCollection
+	 */
+	private $installers;
+
+	/**
+	 * @var UpdateCollection
+	 */
+	private $updates;
+
+	public function __construct(
+		KeyValuePair $storage,
+		Version $version,
+		InstallCollection $installers = null,
+		UpdateCollection $updates = null
+	) {
+		if ( null === $installers ) {
+			$installers = new InstallCollection();
+		}
+
+		if ( null === $updates ) {
+			$updates = new UpdateCollection();
+		}
+
+		$this->storage = $storage;
 		$this->version = $version;
+		$this->installers = $installers;
+		$this->updates = $updates;
 	}
 
 	/**
@@ -28,14 +52,14 @@ abstract class Setup {
 	 * @return void
 	 */
 	protected function update_stored_version( Version $version ) {
-		$this->definition->get_storage()->save( (string) $version );
+		$this->storage->save( (string) $version );
 	}
 
 	/**
 	 * @return Version
 	 */
 	protected function get_stored_version() {
-		return new Version( (string) $this->definition->get_storage()->get() );
+		return new Version( (string) $this->storage->get() );
 	}
 
 	private function update_stored_version_to_current() {
@@ -48,7 +72,7 @@ abstract class Setup {
 	abstract protected function is_new_install();
 
 	private function install() {
-		foreach ( $this->definition->get_installers() as $installer ) {
+		foreach ( $this->installers as $installer ) {
 			$installer->install();
 		}
 
@@ -59,7 +83,7 @@ abstract class Setup {
 	 * @return void
 	 */
 	private function update() {
-		foreach ( $this->definition->get_updates() as $update ) {
+		foreach ( $this->updates as $update ) {
 			if ( ! $update->needs_update( $this->get_stored_version() ) ) {
 				continue;
 			}
