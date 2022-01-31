@@ -84,16 +84,16 @@ final class SetupBuilder {
 	public function set_installers( array $installers, $type = null ) {
 		switch ( $type ) {
 			case self::NETWORK:
-				$this->network_updates = $installers;
+				$this->network_installers = $installers;
 
 				break;
 			case self::SITE:
-				$this->site_updates = $installers;
+				$this->site_installer = $installers;
 
 				break;
 			case null:
-				$this->network_updates = $installers;
-				$this->site_updates = $installers;
+				$this->network_installer = $installers;
+				$this->site_installer = $installers;
 
 				break;
 			default:
