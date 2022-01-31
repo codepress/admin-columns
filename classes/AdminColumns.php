@@ -66,6 +66,8 @@ class AdminColumns extends Plugin {
 		// TODO David required still in parent call? Duplicated for now
 		$setupFactory = new SetupFactory( 'ac_version', new Version( AC_VERSION ) );
 
+		// TODO implement new wow
+
 		$services = [
 			new Admin\Admin( new PageRequestHandlers(), new WpMenuFactory(), new AdminScripts( $location ) ),
 			new Admin\Notice\ReadOnlyListScreen(),
