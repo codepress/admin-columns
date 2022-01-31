@@ -77,7 +77,7 @@ class AdminColumns extends Plugin {
 			new ThirdParty\WooCommerce(),
 			new ThirdParty\WPML( $this->storage ),
 			new Controller\DefaultColumns( new Request(), new DefaultColumnsRepository() ),
-			new QuickEdit( $this->storage, new Table\Preference() ),
+			new QuickEdit( $this->storage, new Table\LayoutPreference() ),
 			new Capabilities\Manage(),
 			new Controller\AjaxColumnRequest( $this->storage, new Request() ),
 			new Controller\AjaxGeneralOptions( new GeneralOption() ),
@@ -88,8 +88,8 @@ class AdminColumns extends Plugin {
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks( $location ),
-			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
-			new Service\Setup( $setupFactory->create() ),
+			new Service\Setup( $setupFactory->create( is_network_admin() ) ),
+			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
 		];
 
 		array_map( static function ( Registrable $service ) {

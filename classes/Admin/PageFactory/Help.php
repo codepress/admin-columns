@@ -31,7 +31,7 @@ class Help implements PageFactoryInterface {
 		return new Page\Help(
 			new Hooks(),
 			$this->location,
-			new Admin\View\Menu( $this->menu_factory->create( 'help' ) ),
+			new Admin\View\Menu( $this->menu_factory->create( 'help' ) )
 		);
 	}
 

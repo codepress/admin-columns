@@ -20,7 +20,7 @@ class Restore extends Section {
 			'title'       => __( 'Restore Settings', 'codepress-admin-columns' ),
 			'description' => __( 'Delete all column settings and restore the default settings.', 'codepress-admin-columns' ),
 			'content'     => $form->render(),
-			'class'       => 'general',
+			'class'       => '-general',
 		] );
 
 		$view->set_template( 'admin/page/settings-section' );
