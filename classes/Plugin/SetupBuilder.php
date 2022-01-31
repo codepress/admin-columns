@@ -47,6 +47,12 @@ final class SetupBuilder {
 		$this->version = $version;
 	}
 
+	/**
+	 * @param array       $updates
+	 * @param string|null $type
+	 *
+	 * @return $this
+	 */
 	public function set_updates( array $updates, $type = null ) {
 		switch ( $type ) {
 			case self::NETWORK:
@@ -65,8 +71,16 @@ final class SetupBuilder {
 			default:
 				$this->throwInvalidTypeException();
 		}
+
+		return $this;
 	}
 
+	/**
+	 * @param array       $installers
+	 * @param string|null $type
+	 *
+	 * @return $this
+	 */
 	public function set_installers( array $installers, $type = null ) {
 		switch ( $type ) {
 			case self::NETWORK:
@@ -85,6 +99,8 @@ final class SetupBuilder {
 			default:
 				$this->throwInvalidTypeException();
 		}
+
+		return $this;
 	}
 
 	private function throwInvalidTypeException() {
