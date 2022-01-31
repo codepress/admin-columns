@@ -17,6 +17,8 @@ class PageNetworkRequestHandlers implements RequestHandlerInterface {
 	}
 
 	public function handle( Request $request ) {
+		$page = null;
+
 		foreach ( array_reverse( self::$handlers ) as $handler ) {
 			$page = $handler->handle( $request );
 
