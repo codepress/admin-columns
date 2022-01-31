@@ -48,13 +48,6 @@ class Plugin {
 	}
 
 	/**
-	 * @return bool
-	 */
-	public function is_network_active() {
-		return ( new PluginInformation( $this->get_basename() ) )->is_network_active();
-	}
-
-	/**
 	 * @return Version
 	 */
 	public function get_version() {

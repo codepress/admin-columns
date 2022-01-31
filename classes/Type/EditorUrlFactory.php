@@ -5,6 +5,7 @@ namespace AC\Type;
 use AC\Type\Url\Editor;
 use AC\Type\Url\EditorNetwork;
 
+// TODO should probably not exist
 class EditorUrlFactory {
 
 	/**

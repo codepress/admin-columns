@@ -10,6 +10,7 @@ use AC\PluginInformation;
 use AC\Preferences;
 use AC\Registrable;
 use AC\Screen;
+use AC\Type\Url\Editor;
 use Exception;
 
 final class AddonAvailable
@@ -79,11 +80,14 @@ final class AddonAvailable
 			return;
 		}
 
+		$addon_url = new Editor( 'addons' );
+
 		$message = sprintf(
 			__( 'Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!', 'codepress-admin-columns' ),
 			sprintf( '<strong>%s</strong>', $this->integration->get_title() ),
-			ac_helper()->html->link(
-				ac_get_admin_url( 'addons' ),
+			sprintf(
+				'<a href="%s">%s</a>',
+				esc_url( $addon_url->get_url() ),
 				__( 'the addons page', 'codepress-admin-columns' )
 			)
 		);

@@ -5,6 +5,7 @@ namespace AC;
 use AC\Column\Placeholder;
 use AC\Sanitize\Kses;
 use AC\Type\ListScreenId;
+use AC\Type\Url\Editor;
 use DateTime;
 use LogicException;
 use ReflectionClass;
@@ -458,10 +459,15 @@ abstract class ListScreen {
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		return add_query_arg( [
-			'list_screen' => $this->key,
-			'layout_id'   => $this->get_layout_id(),
-		], ac_get_admin_url( 'columns' ) );
+		$url = new Editor( 'columns' );
+
+		return add_query_arg(
+			[
+				'list_screen' => $this->key,
+				'layout_id'   => $this->get_layout_id(),
+			],
+			$url->get_url()
+		);
 	}
 
 	/**
