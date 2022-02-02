@@ -64,8 +64,6 @@ class Plugin {
 		);
 	}
 
-	// TODO we can just delete this?
-
 	/**
 	 * @return void
 	 * @deprecated
