@@ -3,7 +3,6 @@
 namespace AC;
 
 use AC\Asset\Location;
-use AC\Plugin\PluginHeader;
 use AC\Plugin\Version;
 
 class Plugin {
@@ -14,32 +13,17 @@ class Plugin {
 	private $file;
 
 	/**
-	 * @var string
-	 */
-	protected $version_key;
-
-	/**
 	 * @var Version
 	 */
 	private $version;
 
-	protected function __construct( $file, $version_key, Version $version = null ) {
-
-		// For backwards compatibility
-		if ( null === $version ) {
-			$version = ( new PluginHeader( $file ) )->get_version();
-		}
-
-		$this->file = (string) $file;
-		$this->version_key = (string) $version_key;
-		$this->version = $version;
-	}
-
 	/**
-	 * @return string
+	 * @var string  $file
+	 * @var Version $version
 	 */
-	public function get_version_key() {
-		return $this->version_key;
+	protected function __construct( $file, Version $version ) {
+		$this->file = (string) $file;
+		$this->version = $version;
 	}
 
 	/**
@@ -64,13 +48,6 @@ class Plugin {
 	}
 
 	/**
-	 * @return bool
-	 */
-	public function is_network_active() {
-		return ( new PluginInformation( $this->get_basename() ) )->is_network_active();
-	}
-
-	/**
 	 * @return Version
 	 */
 	public function get_version() {
@@ -85,17 +62,6 @@ class Plugin {
 			$this->get_url(),
 			$this->get_dir()
 		);
-	}
-
-	/**
-	 * For backwards compatbility with the `Depedencies` class
-	 *
-	 * @param string
-	 *
-	 * @return bool
-	 */
-	public function is_version_gte( $version ) {
-		return $this->version->is_gte( new Version( (string) $version ) );
 	}
 
 	/**

@@ -4,7 +4,7 @@ namespace AC\Plugin\Install;
 
 use AC;
 
-class Database implements AC\Plugin\Install {
+final class Database implements AC\Plugin\Install {
 
 	const TABLE = 'admin_columns';
 
