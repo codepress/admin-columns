@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-10-13 09:53:19+0000\n"
+"PO-Revision-Date: 2022-01-17 08:26:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,14 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: nl\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
+
+#: classes/Integration/JetEngine.php:19
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your JetEngine contents on any admin list table."
+msgstr "Toon, inline- en bulk-edit, export, slim filteren en sorteren van je JetEngine inhoud op elke beheer lijst tabel."
+
+#: classes/Integration/JetEngine.php:18
+msgid "Integrates JetEngine with Admin Columns."
+msgstr "Integreert JetEngine met beheer kolommen."
 
 #: templates/admin/page/settings-section-restore.php:4
 msgid "Restore settings"
@@ -676,9 +684,9 @@ msgstr "Term bewerken"
 msgid "Filter by Term"
 msgstr "Filteren op term"
 
-#: classes/Promo/BlackFriday.php:13
-msgid "30% Off from Black Friday until Cyber Monday"
-msgstr "30% korting van Black Friday tot Cyber ​​Monday"
+#: classes/Promo/BlackFriday.php:19
+msgid "%s Off from Black Friday to Cyber Monday"
+msgstr "%s korting van Black Friday tot Cyber ​​Monday"
 
 #: classes/Check/Promotion.php:73
 msgid "Get %s now"
@@ -1420,7 +1428,7 @@ msgstr "Breng Admin Columns naar een hoger niveau:"
 msgid "Upgrade to"
 msgstr "Upgraden naar"
 
-#: classes/Admin/Notice/ReadOnly.php:18
+#: classes/Admin/Notice/ReadOnlyListScreen.php:18
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr "De kolommen voor %s zijn 'alleen lezen', en kunnen daarom niet bewerkt worden."
 
@@ -2152,7 +2160,7 @@ msgstr "Afmetingen"
 
 #: classes/Column/Media/Caption.php:14 classes/Settings/Column/ExifData.php:75
 msgid "Caption"
-msgstr "Onderschrift"
+msgstr "Bijschrift"
 
 #: classes/Column/Media/AvailableSizes.php:17
 msgid "Available Sizes"
