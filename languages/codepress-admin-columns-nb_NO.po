@@ -11,6 +11,14 @@ msgstr ""
 "Language: nb_NO\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
+#: classes/Integration/JetEngine.php:19
+msgid "Display, inline- and bulk-edit, export, smart filter and sort your JetEngine contents on any admin list table."
+msgstr ""
+
+#: classes/Integration/JetEngine.php:18
+msgid "Integrates JetEngine with Admin Columns."
+msgstr ""
+
 #: templates/admin/page/settings-section-restore.php:4
 msgid "Restore settings"
 msgstr "Gjenopprett innstillinger"
@@ -676,8 +684,8 @@ msgstr "Rediger term"
 msgid "Filter by Term"
 msgstr "Filtrer etter term"
 
-#: classes/Promo/BlackFriday.php:13
-msgid "30% Off from Black Friday until Cyber Monday"
+#: classes/Promo/BlackFriday.php:19
+msgid "%s Off from Black Friday to Cyber Monday"
 msgstr ""
 
 #: classes/Check/Promotion.php:73
@@ -1420,7 +1428,7 @@ msgstr "Ta Admin Columns til neste nivå:"
 msgid "Upgrade to"
 msgstr "Oppgrader til"
 
-#: classes/Admin/Notice/ReadOnly.php:18
+#: classes/Admin/Notice/ReadOnlyListScreen.php:18
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr "Kolonnene for %s e kun for lesing og kan derfor ikke redigeres."
 

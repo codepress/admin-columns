@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Admin Columns
+# Copyright (C) 2022 Admin Columns
 # This file is distributed under the same license as the Admin Columns package.
 msgid ""
 msgstr ""
@@ -854,7 +854,7 @@ msgstr ""
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
-#: classes/Admin/Notice/ReadOnly.php:18
+#: classes/Admin/Notice/ReadOnlyListScreen.php:18
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 

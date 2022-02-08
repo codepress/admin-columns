@@ -37,13 +37,15 @@ export class Pointer {
         }
 
         // create pointer
-        $(this.element).pointer({
-            content: this.getRelatedHTML(),
-            position: this.settings.position,
-            pointerWidth: this.settings.width,
-            pointerClass: this.getPointerClass()
-        });
+        $(this.element).mouseenter(() => {
+            $(this.element).pointer({
+                content: this.getRelatedHTML(),
+                position: this.settings.position,
+                pointerWidth: this.settings.width,
+                pointerClass: this.getPointerClass()
+            });
 
+        });
         this.initEvents();
     }
 
@@ -86,7 +88,6 @@ export class Pointer {
         }
 
         return position;
-
     }
 
     getPointerClass() {
