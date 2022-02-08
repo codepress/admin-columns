@@ -3,9 +3,9 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.7.1
-Tested up to: 5.8.1
+Tested up to: 5.9
 Requires PHP: 5.6.20
-Stable tag: 4.4.5
+Stable tag: 4.4.6
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -208,6 +208,12 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.4.6 =
+Release Date: February 8th, 2022
+
+* [Fixed] Tooltip arrows were always visible in the dom behind the admin toolbar
+* [Removed] Support for the Ninja Forms integration is removed because of incompatibility with the new submission list table
 
 = 4.4.5 =
 Release Date: December 6th, 2021
