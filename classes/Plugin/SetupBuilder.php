@@ -14,31 +14,31 @@ final class SetupBuilder {
 	private $version_key;
 
 	/**
-	 * @var Plugin\Version
+	 * @var Version
 	 */
-	protected $version;
+	private $version;
 
 	/**
 	 * @var array
 	 */
-	protected $network_installers = [];
+	private $network_installers = [];
 
 	/**
 	 * @var array
 	 */
-	protected $network_updates = [];
+	private $network_updates = [];
 
 	/**
 	 * @var array
 	 */
-	protected $site_installers = [];
+	private $site_installers = [];
 
 	/**
 	 * @var array
 	 */
-	protected $site_updates = [];
+	private $site_updates = [];
 
-	public function __construct( $version_key, Plugin\Version $version ) {
+	public function __construct( $version_key, Version $version ) {
 		$this->version_key = $version_key;
 		$this->version = $version;
 	}
