@@ -49,18 +49,17 @@ class RestoreSettingsRequest implements Registrable {
 	private function delete_user_preferences() {
 		global $wpdb;
 
-		$wpdb->query( "DELETE FROM {$wpdb->usermeta} WHERE meta_key like 'wp_ac_preferences_%'" );
-		$wpdb->query( "DELETE FROM {$wpdb->usermeta} WHERE meta_key like '{$wpdb->get_blog_prefix()}ac_preferences_%'" );
+		$wpdb->query( "DELETE FROM $wpdb->usermeta WHERE meta_key LIKE '{$wpdb->get_blog_prefix()}ac_preferences_%'" );
 	}
 
 	private function delete_options() {
 		global $wpdb;
 
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name like 'ac_api_request%'" );
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name like 'ac_cache_data%'" );
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name like 'ac_sorting_%'" );
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name like 'cpac_options%__default'" );
-		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name like 'cpac_general_options'" );
+		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_api_request%'" );
+		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_cache_data%'" );
+		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_sorting_%'" );
+		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'cpac_options%__default'" );
+		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'cpac_general_options'" );
 	}
 
 }

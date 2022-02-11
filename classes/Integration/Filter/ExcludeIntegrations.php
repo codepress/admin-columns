@@ -5,7 +5,6 @@ namespace AC\Integration\Filter;
 use AC\Integration;
 use AC\Integration\Filter;
 use AC\Integrations;
-use ACP\Type\Activation\Products;
 
 class ExcludeIntegrations implements Filter {
 
@@ -28,7 +27,7 @@ class ExcludeIntegrations implements Filter {
 	 * @return bool
 	 */
 	private function exclude_integration( Integration $integration ) {
-		$t = array_filter( $this->integrations->all(), function( $i ) use ( $integration ) {
+		$t = array_filter( $this->integrations->all(), function ( $i ) use ( $integration ) {
 			return $i->get_slug() === $integration->get_slug();
 		} );
 

@@ -17,10 +17,6 @@ class Editor implements Type\Url {
 		$this->slug = $slug;
 	}
 
-	public static function create_with_slug( $slug ) {
-		return new self( $slug );
-	}
-
 	public function get_url() {
 		$args = [
 			RequestHandlerInterface::PARAM_PAGE => Admin\Admin::NAME,
