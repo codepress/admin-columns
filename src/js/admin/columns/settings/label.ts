@@ -144,7 +144,7 @@ class IconSearch {
 
     searchFor(query: string) {
         this.modal.getElement().querySelectorAll<HTMLElement>('[data-dashicon]').forEach(el => {
-            if (el.dataset.dashicon.indexOf(query) !== -1) {
+            if (el.dataset.dashicon.indexOf(query.toLowerCase()) !== -1) {
                 el.style.display = 'inline-block';
             } else {
                 el.style.display = 'none';
