@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Improved] The Permalink column now also shows the (upcoming) permalinks for future and draft posts
+
 = 4.4.6 =
 Release Date: February 8th, 2022
 
