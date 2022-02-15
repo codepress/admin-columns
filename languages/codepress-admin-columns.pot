@@ -31,11 +31,11 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: classes/PluginActionLinks.php:40, classes/Admin/MenuFactory.php:48, templates/admin/list-screen-settings-mockup.php:13, templates/admin/page/settings.php:7
+#: classes/PluginActionLinks.php:48, classes/Admin/MenuFactory.php:48, templates/admin/list-screen-settings-mockup.php:13, templates/admin/page/settings.php:7
 msgid "Settings"
 msgstr ""
 
-#: classes/PluginActionLinks.php:48
+#: classes/PluginActionLinks.php:60
 msgid "Go Pro"
 msgstr ""
 
@@ -67,15 +67,15 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin/WpMenuFactory.php:19, classes/Admin/WpMenuFactory.php:34, classes/Check/Review.php:160, classes/Table/Screen.php:408
+#: classes/Admin/WpMenuFactory.php:19, classes/Admin/WpMenuFactory.php:34, classes/Check/Review.php:160, classes/Table/Screen.php:416
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:83
+#: classes/Check/AddonAvailable.php:86
 msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:87
+#: classes/Check/AddonAvailable.php:91
 msgid "the addons page"
 msgstr ""
 
@@ -143,19 +143,19 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: classes/Column/Placeholder.php:38
+#: classes/Column/Placeholder.php:43
 msgid "The %s column is only available if you have installed the add-on."
 msgstr ""
 
-#: classes/Column/Placeholder.php:40
+#: classes/Column/Placeholder.php:45
 msgid "Download & install the %s add-on from the <a href='%s'>add-ons tab</a>."
 msgstr ""
 
-#: classes/Column/Placeholder.php:43
+#: classes/Column/Placeholder.php:48
 msgid "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview."
 msgstr ""
 
-#: classes/Column/Placeholder.php:47
+#: classes/Column/Placeholder.php:52
 msgid "Find out more"
 msgstr ""
 
@@ -187,7 +187,7 @@ msgstr ""
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
-#: classes/Controller/ListScreenRestoreColumns.php:44
+#: classes/Controller/ListScreenRestoreColumns.php:51
 msgid "Settings for %s restored successfully."
 msgstr ""
 
@@ -297,10 +297,6 @@ msgstr ""
 
 #: classes/Table/Screen.php:218, classes/Admin/Section/Partial/ShowEditButton.php:21
 msgid "Edit columns"
-msgstr ""
-
-#: classes/Table/ScreenTools.php:27
-msgid "Tools"
 msgstr ""
 
 #: templates/admin/edit-actions.php:37, templates/admin/edit-actions.php:34
