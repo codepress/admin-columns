@@ -22,11 +22,6 @@ final class SetupFactory {
 	private $version;
 
 	/**
-	 * @var bool
-	 */
-	private $is_network_admin;
-
-	/**
 	 * @var InstallCollection
 	 */
 	private $installers;
