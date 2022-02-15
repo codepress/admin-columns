@@ -209,10 +209,10 @@ function ac_format_date( $format, $timestamp = null, DateTimeZone $timezone = nu
  * @param string|null $slug
  *
  * @return string
- * @deprecated NEWVERSION
+ * @deprecated 4.5
  */
 function ac_get_admin_url( $slug = null ) {
-	_deprecated_function( __METHOD__, 'NEWVERSION', 'Url\Editor' );
+	_deprecated_function( __METHOD__, '4.5', 'Url\Editor' );
 
 	return ( new Url\Editor( $slug ) )->get_url();
 }
@@ -221,10 +221,10 @@ function ac_get_admin_url( $slug = null ) {
  * @param string|null $slug
  *
  * @return string
- * @deprecated NEWVERSION
+ * @deprecated 4.5
  */
 function ac_get_admin_network_url( $slug = null ) {
-	_deprecated_function( __METHOD__, 'NEWVERSION', 'Url\EditorNetwork' );
+	_deprecated_function( __METHOD__, '4.5', 'Url\EditorNetwork' );
 
 	return ( new Url\EditorNetwork( $slug ) )->get_url();
 }
