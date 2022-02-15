@@ -53,7 +53,7 @@ final class Groups {
 	 * Sort the group by priority
 	 * If there are more groups with the same priority it will those groups by label
 	 *
-	 * @param $groups
+	 * @param array $groups
 	 *
 	 * @return array
 	 */

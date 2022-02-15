@@ -101,7 +101,7 @@ class Tooltip {
 	}
 
 	/**
-	 * @param string $position
+	 * @param string $position_edge
 	 *
 	 * @return Tooltip
 	 */
