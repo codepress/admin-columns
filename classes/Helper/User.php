@@ -28,7 +28,7 @@ class User {
 			return get_userdata( $user );
 		}
 
-		return $user && $user instanceof WP_User
+		return $user instanceof WP_User
 			? $user
 			: false;
 	}

@@ -26,11 +26,13 @@ class Script extends Enqueueable {
 			$variable = $variable ? 'true' : 'false';
 		}
 
-		wp_add_inline_script( $this->get_handle(), sprintf(
-			"var %s = %s;",
-			(string) $name,
-			$variable
-		), $before ? 'before' : 'after' );
+		wp_add_inline_script(
+			$this->get_handle(),
+			sprintf( "var %s = %s;", $name, $variable ),
+			$before
+				? 'before'
+				: 'after'
+		);
 	}
 
 	public function enqueue() {
