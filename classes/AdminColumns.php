@@ -92,12 +92,11 @@ class AdminColumns extends Plugin {
 		$setup_factory = new SetupFactory(
 			'ac_version',
 			$this->get_version(),
-			false,
 			new InstallCollection( [
 				new Plugin\Install\Capabilities(),
 				new Plugin\Install\Database(),
 			] ),
-			new UpdateCollection([
+			new UpdateCollection( [
 				new Plugin\Update\V3005(),
 				new Plugin\Update\V3007(),
 				new Plugin\Update\V3201(),
@@ -105,7 +104,7 @@ class AdminColumns extends Plugin {
 			] )
 		);
 
-		$services[] = new Service\Setup( $setup_factory->create() );
+		$services[] = new Service\Setup( $setup_factory->create( SetupFactory::SITE ) );
 
 		array_map( static function ( Registrable $service ) {
 			$service->register();
