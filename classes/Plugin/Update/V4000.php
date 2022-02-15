@@ -470,7 +470,9 @@ class V4000 extends Update {
 	private function migrate_list_screen_settings() {
 		$migrate = [];
 
-		/** @var array $replaced_list_ids array( $list_key => array( $deprecated_list_id => $new_list_id ) ) */
+		/**
+		 * @var array $replaced_list_ids array( $list_key => array( $deprecated_list_id => $new_list_id ) )
+		 */
 		$replaced_list_ids = [];
 
 		// 1. clear DB table

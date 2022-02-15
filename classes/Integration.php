@@ -32,7 +32,7 @@ abstract class Integration {
 	 * @param string $logo
 	 * @param string $description
 	 * @param string $plugin_link
-	 * @param string $page
+	 * @param Url    $url
 	 */
 	public function __construct( $basename, $title, $logo, $description, $plugin_link = null, Url $url = null ) {
 		if ( null === $plugin_link ) {
