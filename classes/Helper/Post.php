@@ -96,7 +96,7 @@ class Post {
 	/**
 	 * Get Post Title or Media Filename
 	 *
-	 * @param int|WP_Post $post
+	 * @param int|WP_Post $post_id
 	 *
 	 * @return bool|string
 	 */

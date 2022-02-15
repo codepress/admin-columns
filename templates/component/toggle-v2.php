@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$id = $this->id ?: uniqid( 'ac_', false );
+$id = $this->id ?: uniqid( 'ac_' );
 $value = $this->value ?: '1';
 
 ?>

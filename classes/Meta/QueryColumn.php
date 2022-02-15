@@ -6,9 +6,6 @@ use AC\Column;
 
 class QueryColumn extends Query {
 
-	/**
-	 * @param Column $column
-	 */
 	public function __construct( Column $column ) {
 		parent::__construct( $column->get_list_screen()->get_meta_type() );
 
