@@ -212,7 +212,6 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.5 =
 Release Date: February 16th, 2022
 
-* [Added] It is now possible to search for icons in the icon picker for the column label setting
 * [Added] New Image column for the Media list table
 * [Added] The Slug column is now also available for the Media list table
 * [Improved] More thorough logic for the 'Restore Settings' option.
