@@ -460,14 +460,12 @@ abstract class ListScreen {
 	 */
 	public function get_edit_link() {
 		$url = new Editor( 'columns' );
+		$url->add( [
+			'list_screen' => $this->key,
+			'layout_id'   => $this->get_layout_id(),
+		] );
 
-		return add_query_arg(
-			[
-				'list_screen' => $this->key,
-				'layout_id'   => $this->get_layout_id(),
-			],
-			$url->get_url()
-		);
+		return $url->get_url();
 	}
 
 	/**

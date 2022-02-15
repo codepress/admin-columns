@@ -6,27 +6,18 @@ use AC\Admin;
 use AC\Admin\RequestHandlerInterface;
 use AC\Type;
 
-class EditorNetwork implements Type\Url {
+class EditorNetwork implements Type\QueryAware {
 
-	/**
-	 * @var string|null
-	 */
-	private $slug;
+	use Type\QueryAwareTrait;
 
 	public function __construct( $slug = null ) {
-		$this->slug = $slug;
-	}
+		$this->url = network_admin_url( 'settings.php' );
 
-	public function get_url() {
-		$args = [
-			RequestHandlerInterface::PARAM_PAGE => Admin\Admin::NAME,
-		];
+		$this->add_one( RequestHandlerInterface::PARAM_PAGE, Admin\Admin::NAME );
 
-		if ( $this->slug ) {
-			$args[ RequestHandlerInterface::PARAM_TAB ] = $this->slug;
+		if ( $slug ) {
+			$this->add_one( RequestHandlerInterface::PARAM_TAB, $slug );
 		}
-
-		return add_query_arg( $args, network_admin_url( 'settings.php' ) );
 	}
 
 }
