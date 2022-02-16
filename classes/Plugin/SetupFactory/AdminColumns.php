@@ -12,23 +12,20 @@ use AC\Plugin\Version;
 final class AdminColumns extends SetupFactory {
 
 	public function __construct( $version_key, Version $version ) {
-		parent::__construct( $version_key, $version );
-	}
-
-	public function create( $type ) {
-		$this->installers = new InstallCollection( [
-			new Install\Capabilities(),
-			new Install\Database(),
-		] );
-
-		$this->updates = new UpdateCollection( [
-			new Update\V3005(),
-			new Update\V3007(),
-			new Update\V3201(),
-			new Update\V4000(),
-		] );
-
-		return parent::create( $type );
+		parent::__construct(
+			$version_key,
+			$version,
+			new InstallCollection( [
+				new Install\Capabilities(),
+				new Install\Database(),
+			] ),
+			new UpdateCollection( [
+				new Update\V3005(),
+				new Update\V3007(),
+				new Update\V3201(),
+				new Update\V4000(),
+			] )
+		);
 	}
 
 }

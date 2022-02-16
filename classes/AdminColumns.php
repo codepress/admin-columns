@@ -64,10 +64,6 @@ class AdminColumns extends Plugin {
 
 		PageRequestHandlers::add_handler( $page_handler );
 
-		$setup_factory = new SetupFactory\AdminColumns(
-			'ac_version',
-			$this->get_version() );
-
 		$services = [
 			new Admin\Admin( new PageRequestHandlers(), new WpMenuFactory(), new AdminScripts( $location ) ),
 			new Admin\Notice\ReadOnlyListScreen(),
@@ -92,8 +88,11 @@ class AdminColumns extends Plugin {
 			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
 			new Admin\Scripts( $location ),
-			new Service\Setup( $setup_factory->create( SetupFactory::SITE ) ),
 		];
+
+		$setup_factory = new SetupFactory\AdminColumns( 'ac_version', $this->get_version() );
+
+		$services[] = new Service\Setup( $setup_factory->create( SetupFactory::SITE ) );
 
 		if ( $is_network_active ) {
 			$services[] = new Service\Setup( $setup_factory->create( SetupFactory::NETWORK ) );
