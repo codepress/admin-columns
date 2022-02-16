@@ -87,12 +87,13 @@ class AdminColumns extends Plugin {
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
-			new Admin\Scripts( $location ),
-			new Service\Setup( ( new SetupFactory\AdminColumns(
-				'ac_version',
-				$this->get_version() ) )->create( SetupFactory::SITE )
-			),
+			new Admin\Scripts( $location )
 		];
+
+		$services[] = new Service\Setup( ( new SetupFactory\AdminColumns(
+			'ac_version',
+			$this->get_version() ) )->create( SetupFactory::SITE )
+		);
 
 		if ( $is_network_active ) {
 			$services[] = new Service\Setup( ( new Plugin\SetupFactory( 'ac_version', $this->get_version() ) )->create( SetupFactory::NETWORK ) );
