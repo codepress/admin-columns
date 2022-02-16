@@ -90,10 +90,12 @@ class AdminColumns extends Plugin {
 			new Admin\Scripts( $location ),
 		];
 
-		$services[] = new Service\Setup( ( new SetupFactory\AdminColumns( 'ac_version', $this->get_version() ) )->create( SetupFactory::SITE ) );
+		$setup_factory = new SetupFactory\AdminColumns( 'ac_version', $this->get_version() );
+
+		$services[] = new Service\Setup( $setup_factory->create( SetupFactory::SITE ) );
 
 		if ( $is_network_active ) {
-			$services[] = new Service\Setup( ( new Plugin\SetupFactory( 'ac_version', $this->get_version() ) )->create( SetupFactory::NETWORK ) );
+			$services[] = new Service\Setup( $setup_factory->create( SetupFactory::NETWORK ) );
 		}
 
 		array_map( static function ( Registrable $service ) {
