@@ -6,7 +6,7 @@ use AC\Storage\Option;
 use AC\Storage\SiteOption;
 use InvalidArgumentException;
 
-final class SetupFactory {
+class SetupFactory {
 
 	const SITE = 'site';
 	const NETWORK = 'network';
@@ -24,18 +24,18 @@ final class SetupFactory {
 	/**
 	 * @var InstallCollection
 	 */
-	private $installers;
+	protected $installers;
 
 	/**
 	 * @var UpdateCollection
 	 */
-	private $updates;
+	protected $updates;
 
 	public function __construct(
 		$version_key,
 		Version $version,
-		InstallCollection $installers,
-		UpdateCollection $updates
+		InstallCollection $installers = null,
+		UpdateCollection $updates = null
 	) {
 		$this->version_key = (string) $version_key;
 		$this->version = $version;
@@ -47,27 +47,29 @@ final class SetupFactory {
 	 * @return Setup
 	 */
 	public function create( $type ) {
+		$installers = $this->installers ?: new InstallCollection();
+		$updates = $this->updates ?: new UpdateCollection();
+
 		switch ( $type ) {
 			case self::NETWORK:
 				return new Setup\Network(
 					new SiteOption( $this->version_key ),
 					$this->version,
-					$this->installers,
-					$this->updates
+					$installers,
+					$updates
 				);
 
 			case self::SITE:
 				return new Setup\Site(
 					new Option( $this->version_key ),
 					$this->version,
-					$this->installers,
-					$this->updates
+					$installers,
+					$updates
 				);
 
 			default:
 				throw new InvalidArgumentException( 'Expected valid setup type.' );
 		}
-
 	}
 
 }

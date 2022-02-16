@@ -11,9 +11,7 @@ use AC\Admin\WpMenuFactory;
 use AC\Controller;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
-use AC\Plugin\InstallCollection;
 use AC\Plugin\SetupFactory;
-use AC\Plugin\UpdateCollection;
 use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
 use AC\Service;
@@ -87,24 +85,13 @@ class AdminColumns extends Plugin {
 			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
 			new Admin\Scripts( $location ),
+			new Service\Setup(
+				( new SetupFactory\AdminColumns(
+					'ac_version',
+					$this->get_version() )
+				)->create( SetupFactory::SITE )
+			),
 		];
-
-		$setup_factory = new SetupFactory(
-			'ac_version',
-			$this->get_version(),
-			new InstallCollection( [
-				new Plugin\Install\Capabilities(),
-				new Plugin\Install\Database(),
-			] ),
-			new UpdateCollection( [
-				new Plugin\Update\V3005(),
-				new Plugin\Update\V3007(),
-				new Plugin\Update\V3201(),
-				new Plugin\Update\V4000(),
-			] )
-		);
-
-		$services[] = new Service\Setup( $setup_factory->create( SetupFactory::SITE ) );
 
 		array_map( static function ( Registrable $service ) {
 			$service->register();
