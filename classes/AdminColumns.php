@@ -42,6 +42,9 @@ class AdminColumns extends Plugin {
 	protected function __construct() {
 		parent::__construct( AC_FILE, new Version( AC_VERSION ) );
 
+		$plugin_information = new PluginInformation( $this->get_basename() );
+		$is_network_active = $plugin_information->is_network_active();
+
 		$this->storage = new Storage();
 		$this->storage->set_repositories( [
 			'acp-database' => new ListScreenRepository\Storage\ListScreenRepository(
@@ -60,6 +63,10 @@ class AdminColumns extends Plugin {
 		             ->add( 'help', new Admin\PageFactory\Help( $location, $menu_factory ) );
 
 		PageRequestHandlers::add_handler( $page_handler );
+
+		$setup_factory = new SetupFactory\AdminColumns(
+			'ac_version',
+			$this->get_version() );
 
 		$services = [
 			new Admin\Admin( new PageRequestHandlers(), new WpMenuFactory(), new AdminScripts( $location ) ),
@@ -85,13 +92,12 @@ class AdminColumns extends Plugin {
 			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
 			new Admin\Scripts( $location ),
-			new Service\Setup(
-				( new SetupFactory\AdminColumns(
-					'ac_version',
-					$this->get_version() )
-				)->create( SetupFactory::SITE )
-			),
+			new Service\Setup( $setup_factory->create( SetupFactory::SITE ) ),
 		];
+
+		if ( $is_network_active ) {
+			$services[] = new Service\Setup( $setup_factory->create( SetupFactory::NETWORK ) );
+		}
 
 		array_map( static function ( Registrable $service ) {
 			$service->register();
