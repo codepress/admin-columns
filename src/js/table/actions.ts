@@ -27,6 +27,10 @@ export default class Actions {
         }
     }
 
+    getElement(){
+        return this.container;
+    }
+
     refresh() {
         this.container.querySelectorAll('.ac-table-actions-buttons > a').forEach((element) => {
             element.classList.remove('last');
