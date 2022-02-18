@@ -96,10 +96,14 @@ class IconPickerModal extends Modal {
         });
 
         this.getElement().querySelectorAll('input[type=search]').forEach((element: HTMLInputElement) => {
-            element.addEventListener('keyup', (e) => {
-                e.preventDefault();
-                this.search.searchFor(element.value);
+
+            ['keyup', 'search'].forEach(event => {
+                element.addEventListener(event, (e) => {
+                    e.preventDefault();
+                    this.search.searchFor(element.value);
+                });
             });
+
         });
 
         this.getIconElements().forEach(icon => {
