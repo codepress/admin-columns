@@ -390,6 +390,14 @@
 			display: none;
 		}
 
+		.ac-column__header__features {
+			cursor: not-allowed;
+
+			span.ac-column-heading-setting {
+				pointer-events: none;
+			}
+		}
+
 		.ac-column-body {
 			&:before {
 				content: '';
