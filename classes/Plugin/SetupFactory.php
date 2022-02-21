@@ -2,7 +2,14 @@
 
 namespace AC\Plugin;
 
-final class SetupFactory {
+use AC\Storage\Option;
+use AC\Storage\SiteOption;
+use InvalidArgumentException;
+
+class SetupFactory {
+
+	const SITE = 'site';
+	const NETWORK = 'network';
 
 	/**
 	 * @var string
@@ -14,33 +21,55 @@ final class SetupFactory {
 	 */
 	private $version;
 
-	public function __construct( $version_key, Version $version ) {
+	/**
+	 * @var InstallCollection
+	 */
+	protected $installers;
+
+	/**
+	 * @var UpdateCollection
+	 */
+	protected $updates;
+
+	public function __construct(
+		$version_key,
+		Version $version,
+		InstallCollection $installers = null,
+		UpdateCollection $updates = null
+	) {
 		$this->version_key = (string) $version_key;
 		$this->version = $version;
+		$this->installers = $installers;
+		$this->updates = $updates;
 	}
 
 	/**
 	 * @return Setup
 	 */
-	public function create() {
-		$installers = [
-			new Install\Capabilities(),
-			new Install\Database(),
-		];
+	public function create( $type ) {
+		$installers = $this->installers ?: new InstallCollection();
+		$updates = $this->updates ?: new UpdateCollection();
 
-		$updates = [
-			new Update\V3005(),
-			new Update\V3007(),
-			new Update\V3201(),
-			new Update\V4000(),
-		];
+		switch ( $type ) {
+			case self::NETWORK:
+				return new Setup\Network(
+					new SiteOption( $this->version_key ),
+					$this->version,
+					$installers,
+					$updates
+				);
 
-		$setup_builder = new SetupBuilder( $this->version_key, $this->version );
+			case self::SITE:
+				return new Setup\Site(
+					new Option( $this->version_key ),
+					$this->version,
+					$installers,
+					$updates
+				);
 
-		return $setup_builder
-			->set_installers( $installers )
-			->set_updates( $updates )
-			->build();
+			default:
+				throw new InvalidArgumentException( 'Expected valid setup type.' );
+		}
 	}
 
 }
