@@ -123,10 +123,10 @@ class Query {
 	}
 
 	/**
-	 * @param        $field
-	 * @param null   $operator
-	 * @param null   $value
-	 * @param string $boolean
+	 * @param string           $field
+	 * @param string           $operator
+	 * @param string|int|array $value
+	 * @param string           $boolean
 	 *
 	 * @return $this
 	 * @see get_where_clause()
@@ -490,7 +490,7 @@ class Query {
 				break;
 
 			default:
-				return false;
+				return;
 		}
 
 		$this->query = new WP_Meta_Query();

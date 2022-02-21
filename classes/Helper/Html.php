@@ -43,7 +43,7 @@ class Html {
 	 */
 	public function link( $url, $label = null, $attributes = [] ) {
 		if ( false === $label ) {
-			return $label;
+			return false;
 		}
 
 		if ( ! $url ) {

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-12-24 14:14:43+0000\n"
+"PO-Revision-Date: 2022-01-28 15:28:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: classes/Integration/JetEngine.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your JetEngine contents on any admin list table."
-msgstr "インラインおよび一括編集、エクスポート、スマートフィルターを表示、また管理者リストテーブルで JetEngine のコンテンツを並べ替え。"
+msgstr "管理者リストテーブルで、インラインおよび一括編集、エクスポート、スマートフィルター、JetEngine のコンテンツによる並べ替えを表示します。"
 
 #: classes/Integration/JetEngine.php:18
 msgid "Integrates JetEngine with Admin Columns."
@@ -29,7 +29,7 @@ msgstr "Admin Columns プロ版にアップグレード"
 
 #: templates/admin/page/settings-section-pro-cta.php:153
 msgid "View all Pro features"
-msgstr "すべての機能を表示"
+msgstr "プロ版の機能をすべて表示"
 
 #: templates/admin/page/settings-section-pro-cta.php:147
 msgid "Insert a post, user or anything really directly from the overview."
@@ -250,7 +250,7 @@ msgstr "詳細情報"
 
 #: classes/Integration/YoastSeo.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Yoast SEO contents on any admin list table."
-msgstr ""
+msgstr "管理者リストテーブルで、インラインおよび一括編集、エクスポート、スマートフィルター、YoastSEO のコンテンツによる並べ替えを表示します。"
 
 #: classes/Integration/YoastSeo.php:18 classes/Integration/YoastSeo.php:19
 msgid "Yoast SEO"
@@ -258,20 +258,20 @@ msgstr "Yoast SEO"
 
 #: classes/Integration/WooCommerce.php:21
 msgid "Display, inline- and bulk-edit, smart filter and sort your Products, Variations, Orders and Customers"
-msgstr ""
+msgstr "インラインおよび一括編集、スマートフィルター、製品、バリエーション、注文や顧客による並べ替えを表示します"
 
 #: classes/Integration/NinjaForms.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Submissions."
-msgstr ""
+msgstr "インラインおよび一括編集、エクスポート、スマートフィルター、 %s の送信による並べ替えを表示します。"
 
 #: classes/Integration/MetaBox.php:19 classes/Integration/Pods.php:19
 #: classes/Integration/Types.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s contents on any admin list table."
-msgstr ""
+msgstr "管理者リストテーブルで、インラインおよび一括編集、エクスポート、スマートフィルター、 %s のコンテンツによる並べ替えを表示します。"
 
 #: classes/Integration/GravityForms.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Entries."
-msgstr ""
+msgstr "インラインおよび一括編集、エクスポート、スマートフィルター、 %s エントリーによる並べ替えを表示します。"
 
 #: classes/Integration/GravityForms.php:20
 #: classes/Integration/GravityForms.php:21
@@ -280,11 +280,11 @@ msgstr "Gravity Forms"
 
 #: classes/Integration/EventsCalendar.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Events, Organizers and Venues."
-msgstr ""
+msgstr "インラインおよび一括編集、エクスポート、スマートフィルター、 イベントや主催者、会場による並べ替えを表示します。"
 
 #: classes/Integration/BuddyPress.php:20
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your BuddyPress data fields on the Users page."
-msgstr ""
+msgstr "インラインおよび一括編集、エクスポート、スマートフィルター、 BuddyPress のデータによる並べ替えを表示します。"
 
 #: classes/Integration/BuddyPress.php:19
 #: classes/Integration/EventsCalendar.php:20
@@ -297,7 +297,7 @@ msgstr "%s をAdmin Columns と統合。"
 
 #: classes/Integration/ACF.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your ACF contents on any admin list table."
-msgstr ""
+msgstr "管理者リストテーブルで、インラインおよび一括編集、エクスポート、スマートフィルター、ACF のコンテンツによる並べ替えを表示します。"
 
 #: classes/Integration/ACF.php:18
 msgid "Integrates ACF with Admin Columns."
@@ -444,7 +444,7 @@ msgstr "お名前"
 
 #: templates/tooltip/export-disabled.php:13
 msgid "Third-party columns and some custom columns cannot be exported unless there is build-in support for that specific column."
-msgstr ""
+msgstr "サードパーティの列と一部のカスタム列は、その特定の列に対する組み込みサポートがない限り、エクスポートできません。"
 
 #: templates/tooltip/export-disabled.php:10
 msgid "Unfortunately not every column can be exported."
@@ -461,7 +461,7 @@ msgstr "一括編集"
 
 #: templates/tooltip/bulk-editing.php:18
 msgid "Clicking the %s button will display a popup that allows you to add or change the current value of all selected items."
-msgstr ""
+msgstr "%s ボタンをクリックするとポップアップが表示され、選択したすべての項目の現在の値を追加または変更できます。"
 
 #: templates/tooltip/bulk-editing.php:13
 msgid "Select more than one row from the list table to show the bulk edit buttons."
@@ -485,7 +485,7 @@ msgstr "%s ボタンをクリックして並べ替えをリセットします。
 
 #: templates/tooltip/sorting.php:15
 msgid "When you come back the content is sorted just the way you left it."
-msgstr ""
+msgstr "戻ってきたら、コンテンツはそのままにした方法で並べ替えられます。"
 
 #: templates/tooltip/sorting.php:14
 msgid "The sorted column is saved as your personal preference."
@@ -546,11 +546,11 @@ msgstr "フィルターの追加"
 #: templates/tooltip/smart-filtering.php:8
 msgctxt "smart filtering help"
 msgid "Smart filtering allows you to segment your data by different criteria."
-msgstr ""
+msgstr "スマートフィルタリングを使用すると、データを異なる基準で分割できます。"
 
 #: templates/tooltip/export.php:21
 msgid "You can use filters to segment your list before exporting."
-msgstr ""
+msgstr "エクスポートする前に、フィルタを使用してリストを分割できます。"
 
 #: templates/tooltip/export.php:17
 msgid "The result is a CSV file."
@@ -566,7 +566,7 @@ msgstr "Admin Columns プロ版のエクスポートでは、列の内容を CSV
 
 #: templates/tooltip/inline-editing.php:21
 msgid "It is possible to undo and redo all changes made with Inline Editing, so using it is without risk."
-msgstr ""
+msgstr "インライン編集で行われたすべての変更を元に戻したりやり直したりすることは可能ですので、使用してもリスクはありません。"
 
 #: templates/tooltip/inline-editing.php:17
 msgid "Click on the pencil icon to start editing the value of a field."
@@ -579,15 +579,15 @@ msgstr "インライン編集を開始するには、リストテーブルの上
 
 #: templates/tooltip/inline-editing.php:10
 msgid "With Inline Edit, you can update your content quick and easy, without having to open each %s one at the time."
-msgstr ""
+msgstr "インライン編集を使用すると、%s ごとに一度に開かなくても、コンテンツを迅速かつ簡単に更新できます。"
 
 #: templates/admin/modal-pro.php:26
 msgid "Create multiple list table views with different columns."
-msgstr ""
+msgstr "異なる列を持つ複数のリスト テーブル ビューを作成します。"
 
 #: templates/admin/modal-pro.php:24
 msgid "Quick edit any content with Inline Editing, including custom fields."
-msgstr ""
+msgstr "インライン編集を使用して、カスタムフィールドを含むコンテンツをクイック編集します。"
 
 #: templates/admin/modal-pro.php:22
 msgid "Search the contents of your columns."
@@ -751,7 +751,7 @@ msgstr "イベントカレンダー"
 
 #: classes/Settings/Column/CustomFieldType.php:91
 msgid "Uses one or more %s IDs to display information about it."
-msgstr ""
+msgstr "1つまたは複数の %s IDを使用して、その情報を表示します。"
 
 #: classes/Check/Review.php:193
 msgid "You can also use your admincolumns.com account to access support through %s!"
@@ -1023,7 +1023,7 @@ msgstr "非公開"
 
 #: classes/Settings/Column/StatusIcon.php:30
 msgid "Use an icon instead of text for displaying the status."
-msgstr ""
+msgstr "ステータス表示のためテキストの代わりにアイコンを使います。"
 
 #: classes/Settings/Column/PostFormatIcon.php:29
 #: classes/Settings/Column/StatusIcon.php:29
@@ -1036,7 +1036,7 @@ msgstr "&hellip;"
 
 #: classes/Column/Post/Excerpt.php:22
 msgid "Current excerpt is generated from the content."
-msgstr ""
+msgstr "現在の抜粋は、コンテンツから生成されます。"
 
 #: classes/Column/Post/Excerpt.php:22
 msgid "Excerpt is missing."
@@ -1044,7 +1044,7 @@ msgstr "抜粋がありません。"
 
 #: classes/Settings/Column/User.php:85
 msgid "User Nicename"
-msgstr ""
+msgstr "ユーザーのスラッグ"
 
 #: templates/admin/side-banner.php:115
 msgid "Send me the discount"
@@ -1193,7 +1193,7 @@ msgstr "例: %s。"
 
 #: classes/Settings/Column/Date.php:10
 msgid "The difference is returned in a human readable format."
-msgstr ""
+msgstr "違いは、人間が読める形式で返されます。"
 
 #: classes/Settings/Column/Date.php:17
 msgid "Time Difference"
@@ -1326,7 +1326,7 @@ msgstr "ドキュメンテーション"
 
 #: classes/Admin/Page/Help.php:150
 msgid "This site is using some actions or filters that have changed. Please read %s to resolve them."
-msgstr ""
+msgstr "このサイトは、変更されたアクションまたはフィルターをいくつか使用しています。それらを解決するには %s を参照してください。"
 
 #: classes/Admin/Page/Help.php:146
 msgid "The Admin Columns plugin has undergone some major changes in version 4."
@@ -1343,11 +1343,11 @@ msgstr "ドキュメンテーションを表示"
 
 #: classes/Admin/Page/Help.php:87
 msgid "The action %s used on this website is deprecated since %s."
-msgstr ""
+msgstr "このサイトで使用されているアクション %s は %s 以降非推奨です。"
 
 #: classes/Admin/Page/Help.php:116
 msgid "The filter %s used on this website is deprecated since %s."
-msgstr ""
+msgstr "このサイトで使用されているフィルター %s は %s 以降非推奨です。"
 
 #: classes/Admin/Page/Help.php:83
 msgid "Deprecated Actions"
@@ -1383,7 +1383,7 @@ msgstr "メールアドレス"
 
 #: templates/admin/side-banner.php:108
 msgid "Submit your email and we'll send you a discount for %s off."
-msgstr ""
+msgstr "メールを送信されましたら %s オフのディスカウントを送ります。"
 
 #: templates/admin/side-banner.php:93 templates/admin/side-banner.php:104
 msgid "Get %s Off!"
@@ -1465,7 +1465,7 @@ msgstr "アドオンのページ"
 
 #: classes/Check/AddonAvailable.php:83
 msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
-msgstr "Admin Columns Pro は %s の統合アドオンがある事をご存知ですか。適切な Admin Columns Pro のライセンスがあれば、 %s からダウンロードできます!"
+msgstr "Admin Columns プロ版は %s の統合アドオンがある事をご存知ですか。適切な Admin Columns プロ版のライセンスがあれば、 %s からダウンロードできます!"
 
 #: classes/ColumnGroups.php:15
 msgid "Custom Fields"
@@ -1477,7 +1477,7 @@ msgstr "AdminColumns.com"
 
 #. Description of the plugin
 msgid "Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface."
-msgstr ""
+msgstr "投稿 (タイプ)、固定ページ、メディア、コメント、リンクやユーザー、使いやすいドラッグ&ドロップのインターフェースにより、管理画面の列をカスタマイズします。"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
@@ -1627,7 +1627,7 @@ msgstr "その他"
 
 #: templates/admin/page/settings-section-restore.php:4
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
-msgstr "警告! 保存した admin columns のすべてのデータが削除されます。これは元に戻せないです。削除するには 'OK'、止めるには'キャンセル'"
+msgstr "警告! 保存した admin columns のすべてのデータが削除されます。実行すると元に戻せません。削除するには 'OK'、止めるには'キャンセル'をクリックしてください"
 
 #: classes/Admin/Section/Restore.php:21
 msgid "Delete all column settings and restore the default settings."
@@ -1753,7 +1753,7 @@ msgstr "ドキュメントページ"
 
 #: classes/Check/Review.php:186
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
-msgstr ""
+msgstr "ご不便をおかけして申し訳ありません。 多分私たちは助けることができます! %s の設定に問題がある場合や、より高度な機能に関するヘルプが必要な場合は、%s をご覧ください。"
 
 #: classes/Check/Review.php:177
 msgid "Permanently hide notice"
@@ -1769,7 +1769,7 @@ msgstr "ここをクリック"
 
 #: classes/Check/Review.php:168
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
-msgstr ""
+msgstr "あなたを悩ますつもりはありません、%s をしばらくご利用いただいて、あなたがプラグインに満足しているかどうか疑問に思っていました。もしそうなら、wordpress.org でレビューを残していただけませんか? もし %s に満足していないのでしたら、%s してください。"
 
 #: classes/Check/Review.php:159
 msgid "Admin Columns Pro"
@@ -1787,7 +1787,7 @@ msgstr "さらに詳しく"
 
 #: classes/Column/Placeholder.php:43
 msgid "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview."
-msgstr ""
+msgstr "Admin Columns プロ版は完全な %s 統合を提供しており、概要内から %s フィールドを簡単に表示したり編集できます。"
 
 #: classes/Settings/Column/PostLink.php:72
 msgid "View Public Post Author Page"
@@ -1926,7 +1926,7 @@ msgstr "ユーザー ID"
 
 #: classes/Settings/Column/LinkToMenu.php:26
 msgid "This will make the title link to the menu."
-msgstr ""
+msgstr "これはタイトルリンクをメニューにします。"
 
 #: classes/Settings/Column/LinkToMenu.php:25
 msgid "Link to menu"

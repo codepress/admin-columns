@@ -1,1 +1,6468 @@
-(()=>{var e={669:(e,t,n)=>{e.exports=n(609)},448:(e,t,n)=>{"use strict";var s=n(867),r=n(26),i=n(372),o=n(327),a=n(97),l=n(109),c=n(985),u=n(916);e.exports=function(e){return new Promise((function(t,n){var h=e.data,d=e.headers;s.isFormData(h)&&delete d["Content-Type"];var p=new XMLHttpRequest;if(e.auth){var f=e.auth.username||"",m=e.auth.password?unescape(encodeURIComponent(e.auth.password)):"";d.Authorization="Basic "+btoa(f+":"+m)}var g=a(e.baseURL,e.url);if(p.open(e.method.toUpperCase(),o(g,e.params,e.paramsSerializer),!0),p.timeout=e.timeout,p.onreadystatechange=function(){if(p&&4===p.readyState&&(0!==p.status||p.responseURL&&0===p.responseURL.indexOf("file:"))){var s="getAllResponseHeaders"in p?l(p.getAllResponseHeaders()):null,i={data:e.responseType&&"text"!==e.responseType?p.response:p.responseText,status:p.status,statusText:p.statusText,headers:s,config:e,request:p};r(t,n,i),p=null}},p.onabort=function(){p&&(n(u("Request aborted",e,"ECONNABORTED",p)),p=null)},p.onerror=function(){n(u("Network Error",e,null,p)),p=null},p.ontimeout=function(){var t="timeout of "+e.timeout+"ms exceeded";e.timeoutErrorMessage&&(t=e.timeoutErrorMessage),n(u(t,e,"ECONNABORTED",p)),p=null},s.isStandardBrowserEnv()){var v=(e.withCredentials||c(g))&&e.xsrfCookieName?i.read(e.xsrfCookieName):void 0;v&&(d[e.xsrfHeaderName]=v)}if("setRequestHeader"in p&&s.forEach(d,(function(e,t){void 0===h&&"content-type"===t.toLowerCase()?delete d[t]:p.setRequestHeader(t,e)})),s.isUndefined(e.withCredentials)||(p.withCredentials=!!e.withCredentials),e.responseType)try{p.responseType=e.responseType}catch(t){if("json"!==e.responseType)throw t}"function"==typeof e.onDownloadProgress&&p.addEventListener("progress",e.onDownloadProgress),"function"==typeof e.onUploadProgress&&p.upload&&p.upload.addEventListener("progress",e.onUploadProgress),e.cancelToken&&e.cancelToken.promise.then((function(e){p&&(p.abort(),n(e),p=null)})),h||(h=null),p.send(h)}))}},609:(e,t,n)=>{"use strict";var s=n(867),r=n(849),i=n(321),o=n(185);function a(e){var t=new i(e),n=r(i.prototype.request,t);return s.extend(n,i.prototype,t),s.extend(n,t),n}var l=a(n(655));l.Axios=i,l.create=function(e){return a(o(l.defaults,e))},l.Cancel=n(263),l.CancelToken=n(972),l.isCancel=n(502),l.all=function(e){return Promise.all(e)},l.spread=n(713),l.isAxiosError=n(268),e.exports=l,e.exports.default=l},263:e=>{"use strict";function t(e){this.message=e}t.prototype.toString=function(){return"Cancel"+(this.message?": "+this.message:"")},t.prototype.__CANCEL__=!0,e.exports=t},972:(e,t,n)=>{"use strict";var s=n(263);function r(e){if("function"!=typeof e)throw new TypeError("executor must be a function.");var t;this.promise=new Promise((function(e){t=e}));var n=this;e((function(e){n.reason||(n.reason=new s(e),t(n.reason))}))}r.prototype.throwIfRequested=function(){if(this.reason)throw this.reason},r.source=function(){var e;return{token:new r((function(t){e=t})),cancel:e}},e.exports=r},502:e=>{"use strict";e.exports=function(e){return!(!e||!e.__CANCEL__)}},321:(e,t,n)=>{"use strict";var s=n(867),r=n(327),i=n(782),o=n(572),a=n(185);function l(e){this.defaults=e,this.interceptors={request:new i,response:new i}}l.prototype.request=function(e){"string"==typeof e?(e=arguments[1]||{}).url=arguments[0]:e=e||{},(e=a(this.defaults,e)).method?e.method=e.method.toLowerCase():this.defaults.method?e.method=this.defaults.method.toLowerCase():e.method="get";var t=[o,void 0],n=Promise.resolve(e);for(this.interceptors.request.forEach((function(e){t.unshift(e.fulfilled,e.rejected)})),this.interceptors.response.forEach((function(e){t.push(e.fulfilled,e.rejected)}));t.length;)n=n.then(t.shift(),t.shift());return n},l.prototype.getUri=function(e){return e=a(this.defaults,e),r(e.url,e.params,e.paramsSerializer).replace(/^\?/,"")},s.forEach(["delete","get","head","options"],(function(e){l.prototype[e]=function(t,n){return this.request(a(n||{},{method:e,url:t,data:(n||{}).data}))}})),s.forEach(["post","put","patch"],(function(e){l.prototype[e]=function(t,n,s){return this.request(a(s||{},{method:e,url:t,data:n}))}})),e.exports=l},782:(e,t,n)=>{"use strict";var s=n(867);function r(){this.handlers=[]}r.prototype.use=function(e,t){return this.handlers.push({fulfilled:e,rejected:t}),this.handlers.length-1},r.prototype.eject=function(e){this.handlers[e]&&(this.handlers[e]=null)},r.prototype.forEach=function(e){s.forEach(this.handlers,(function(t){null!==t&&e(t)}))},e.exports=r},97:(e,t,n)=>{"use strict";var s=n(793),r=n(303);e.exports=function(e,t){return e&&!s(t)?r(e,t):t}},916:(e,t,n)=>{"use strict";var s=n(481);e.exports=function(e,t,n,r,i){var o=new Error(e);return s(o,t,n,r,i)}},572:(e,t,n)=>{"use strict";var s=n(867),r=n(527),i=n(502),o=n(655);function a(e){e.cancelToken&&e.cancelToken.throwIfRequested()}e.exports=function(e){return a(e),e.headers=e.headers||{},e.data=r(e.data,e.headers,e.transformRequest),e.headers=s.merge(e.headers.common||{},e.headers[e.method]||{},e.headers),s.forEach(["delete","get","head","post","put","patch","common"],(function(t){delete e.headers[t]})),(e.adapter||o.adapter)(e).then((function(t){return a(e),t.data=r(t.data,t.headers,e.transformResponse),t}),(function(t){return i(t)||(a(e),t&&t.response&&(t.response.data=r(t.response.data,t.response.headers,e.transformResponse))),Promise.reject(t)}))}},481:e=>{"use strict";e.exports=function(e,t,n,s,r){return e.config=t,n&&(e.code=n),e.request=s,e.response=r,e.isAxiosError=!0,e.toJSON=function(){return{message:this.message,name:this.name,description:this.description,number:this.number,fileName:this.fileName,lineNumber:this.lineNumber,columnNumber:this.columnNumber,stack:this.stack,config:this.config,code:this.code}},e}},185:(e,t,n)=>{"use strict";var s=n(867);e.exports=function(e,t){t=t||{};var n={},r=["url","method","data"],i=["headers","auth","proxy","params"],o=["baseURL","transformRequest","transformResponse","paramsSerializer","timeout","timeoutMessage","withCredentials","adapter","responseType","xsrfCookieName","xsrfHeaderName","onUploadProgress","onDownloadProgress","decompress","maxContentLength","maxBodyLength","maxRedirects","transport","httpAgent","httpsAgent","cancelToken","socketPath","responseEncoding"],a=["validateStatus"];function l(e,t){return s.isPlainObject(e)&&s.isPlainObject(t)?s.merge(e,t):s.isPlainObject(t)?s.merge({},t):s.isArray(t)?t.slice():t}function c(r){s.isUndefined(t[r])?s.isUndefined(e[r])||(n[r]=l(void 0,e[r])):n[r]=l(e[r],t[r])}s.forEach(r,(function(e){s.isUndefined(t[e])||(n[e]=l(void 0,t[e]))})),s.forEach(i,c),s.forEach(o,(function(r){s.isUndefined(t[r])?s.isUndefined(e[r])||(n[r]=l(void 0,e[r])):n[r]=l(void 0,t[r])})),s.forEach(a,(function(s){s in t?n[s]=l(e[s],t[s]):s in e&&(n[s]=l(void 0,e[s]))}));var u=r.concat(i).concat(o).concat(a),h=Object.keys(e).concat(Object.keys(t)).filter((function(e){return-1===u.indexOf(e)}));return s.forEach(h,c),n}},26:(e,t,n)=>{"use strict";var s=n(916);e.exports=function(e,t,n){var r=n.config.validateStatus;n.status&&r&&!r(n.status)?t(s("Request failed with status code "+n.status,n.config,null,n.request,n)):e(n)}},527:(e,t,n)=>{"use strict";var s=n(867);e.exports=function(e,t,n){return s.forEach(n,(function(n){e=n(e,t)})),e}},655:(e,t,n)=>{"use strict";var s=n(867),r=n(16),i={"Content-Type":"application/x-www-form-urlencoded"};function o(e,t){!s.isUndefined(e)&&s.isUndefined(e["Content-Type"])&&(e["Content-Type"]=t)}var a,l={adapter:(("undefined"!=typeof XMLHttpRequest||"undefined"!=typeof process&&"[object process]"===Object.prototype.toString.call(process))&&(a=n(448)),a),transformRequest:[function(e,t){return r(t,"Accept"),r(t,"Content-Type"),s.isFormData(e)||s.isArrayBuffer(e)||s.isBuffer(e)||s.isStream(e)||s.isFile(e)||s.isBlob(e)?e:s.isArrayBufferView(e)?e.buffer:s.isURLSearchParams(e)?(o(t,"application/x-www-form-urlencoded;charset=utf-8"),e.toString()):s.isObject(e)?(o(t,"application/json;charset=utf-8"),JSON.stringify(e)):e}],transformResponse:[function(e){if("string"==typeof e)try{e=JSON.parse(e)}catch(e){}return e}],timeout:0,xsrfCookieName:"XSRF-TOKEN",xsrfHeaderName:"X-XSRF-TOKEN",maxContentLength:-1,maxBodyLength:-1,validateStatus:function(e){return e>=200&&e<300},headers:{common:{Accept:"application/json, text/plain, */*"}}};s.forEach(["delete","get","head"],(function(e){l.headers[e]={}})),s.forEach(["post","put","patch"],(function(e){l.headers[e]=s.merge(i)})),e.exports=l},849:e=>{"use strict";e.exports=function(e,t){return function(){for(var n=new Array(arguments.length),s=0;s<n.length;s++)n[s]=arguments[s];return e.apply(t,n)}}},327:(e,t,n)=>{"use strict";var s=n(867);function r(e){return encodeURIComponent(e).replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"+").replace(/%5B/gi,"[").replace(/%5D/gi,"]")}e.exports=function(e,t,n){if(!t)return e;var i;if(n)i=n(t);else if(s.isURLSearchParams(t))i=t.toString();else{var o=[];s.forEach(t,(function(e,t){null!=e&&(s.isArray(e)?t+="[]":e=[e],s.forEach(e,(function(e){s.isDate(e)?e=e.toISOString():s.isObject(e)&&(e=JSON.stringify(e)),o.push(r(t)+"="+r(e))})))})),i=o.join("&")}if(i){var a=e.indexOf("#");-1!==a&&(e=e.slice(0,a)),e+=(-1===e.indexOf("?")?"?":"&")+i}return e}},303:e=>{"use strict";e.exports=function(e,t){return t?e.replace(/\/+$/,"")+"/"+t.replace(/^\/+/,""):e}},372:(e,t,n)=>{"use strict";var s=n(867);e.exports=s.isStandardBrowserEnv()?{write:function(e,t,n,r,i,o){var a=[];a.push(e+"="+encodeURIComponent(t)),s.isNumber(n)&&a.push("expires="+new Date(n).toGMTString()),s.isString(r)&&a.push("path="+r),s.isString(i)&&a.push("domain="+i),!0===o&&a.push("secure"),document.cookie=a.join("; ")},read:function(e){var t=document.cookie.match(new RegExp("(^|;\\s*)("+e+")=([^;]*)"));return t?decodeURIComponent(t[3]):null},remove:function(e){this.write(e,"",Date.now()-864e5)}}:{write:function(){},read:function(){return null},remove:function(){}}},793:e=>{"use strict";e.exports=function(e){return/^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(e)}},268:e=>{"use strict";e.exports=function(e){return"object"==typeof e&&!0===e.isAxiosError}},985:(e,t,n)=>{"use strict";var s=n(867);e.exports=s.isStandardBrowserEnv()?function(){var e,t=/(msie|trident)/i.test(navigator.userAgent),n=document.createElement("a");function r(e){var s=e;return t&&(n.setAttribute("href",s),s=n.href),n.setAttribute("href",s),{href:n.href,protocol:n.protocol?n.protocol.replace(/:$/,""):"",host:n.host,search:n.search?n.search.replace(/^\?/,""):"",hash:n.hash?n.hash.replace(/^#/,""):"",hostname:n.hostname,port:n.port,pathname:"/"===n.pathname.charAt(0)?n.pathname:"/"+n.pathname}}return e=r(window.location.href),function(t){var n=s.isString(t)?r(t):t;return n.protocol===e.protocol&&n.host===e.host}}():function(){return!0}},16:(e,t,n)=>{"use strict";var s=n(867);e.exports=function(e,t){s.forEach(e,(function(n,s){s!==t&&s.toUpperCase()===t.toUpperCase()&&(e[t]=n,delete e[s])}))}},109:(e,t,n)=>{"use strict";var s=n(867),r=["age","authorization","content-length","content-type","etag","expires","from","host","if-modified-since","if-unmodified-since","last-modified","location","max-forwards","proxy-authorization","referer","retry-after","user-agent"];e.exports=function(e){var t,n,i,o={};return e?(s.forEach(e.split("\n"),(function(e){if(i=e.indexOf(":"),t=s.trim(e.substr(0,i)).toLowerCase(),n=s.trim(e.substr(i+1)),t){if(o[t]&&r.indexOf(t)>=0)return;o[t]="set-cookie"===t?(o[t]?o[t]:[]).concat([n]):o[t]?o[t]+", "+n:n}})),o):o}},713:e=>{"use strict";e.exports=function(e){return function(t){return e.apply(null,t)}}},867:(e,t,n)=>{"use strict";var s=n(849),r=Object.prototype.toString;function i(e){return"[object Array]"===r.call(e)}function o(e){return void 0===e}function a(e){return null!==e&&"object"==typeof e}function l(e){if("[object Object]"!==r.call(e))return!1;var t=Object.getPrototypeOf(e);return null===t||t===Object.prototype}function c(e){return"[object Function]"===r.call(e)}function u(e,t){if(null!=e)if("object"!=typeof e&&(e=[e]),i(e))for(var n=0,s=e.length;n<s;n++)t.call(null,e[n],n,e);else for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&t.call(null,e[r],r,e)}e.exports={isArray:i,isArrayBuffer:function(e){return"[object ArrayBuffer]"===r.call(e)},isBuffer:function(e){return null!==e&&!o(e)&&null!==e.constructor&&!o(e.constructor)&&"function"==typeof e.constructor.isBuffer&&e.constructor.isBuffer(e)},isFormData:function(e){return"undefined"!=typeof FormData&&e instanceof FormData},isArrayBufferView:function(e){return"undefined"!=typeof ArrayBuffer&&ArrayBuffer.isView?ArrayBuffer.isView(e):e&&e.buffer&&e.buffer instanceof ArrayBuffer},isString:function(e){return"string"==typeof e},isNumber:function(e){return"number"==typeof e},isObject:a,isPlainObject:l,isUndefined:o,isDate:function(e){return"[object Date]"===r.call(e)},isFile:function(e){return"[object File]"===r.call(e)},isBlob:function(e){return"[object Blob]"===r.call(e)},isFunction:c,isStream:function(e){return a(e)&&c(e.pipe)},isURLSearchParams:function(e){return"undefined"!=typeof URLSearchParams&&e instanceof URLSearchParams},isStandardBrowserEnv:function(){return("undefined"==typeof navigator||"ReactNative"!==navigator.product&&"NativeScript"!==navigator.product&&"NS"!==navigator.product)&&"undefined"!=typeof window&&"undefined"!=typeof document},forEach:u,merge:function e(){var t={};function n(n,s){l(t[s])&&l(n)?t[s]=e(t[s],n):l(n)?t[s]=e({},n):i(n)?t[s]=n.slice():t[s]=n}for(var s=0,r=arguments.length;s<r;s++)u(arguments[s],n);return t},extend:function(e,t,n){return u(t,(function(t,r){e[r]=n&&"function"==typeof t?s(t,n):t})),e},trim:function(e){return e.replace(/^\s*/,"").replace(/\s*$/,"")},stripBOM:function(e){return 65279===e.charCodeAt(0)&&(e=e.slice(1)),e}}},204:e=>{function t(e,t){if(!e)throw new Error(t||"AssertionError")}t.notEqual=function(e,n,s){t(e!=n,s)},t.notOk=function(e,n){t(!e,n)},t.equal=function(e,n,s){t(e==n,s)},t.ok=t,e.exports=t},559:(e,t,n)=>{var s=n(69),r=n(999),i=n(204);function o(e){if(!(this instanceof o))return new o(e);this._name=e||"nanobus",this._starListeners=[],this._listeners={}}e.exports=o,o.prototype.emit=function(e){i.ok("string"==typeof e||"symbol"==typeof e,"nanobus.emit: eventName should be type string or symbol");for(var t=[],n=1,s=arguments.length;n<s;n++)t.push(arguments[n]);var o=r(this._name+"('"+e.toString()+"')"),a=this._listeners[e];return a&&a.length>0&&this._emit(this._listeners[e],t),this._starListeners.length>0&&this._emit(this._starListeners,e,t,o.uuid),o(),this},o.prototype.on=o.prototype.addListener=function(e,t){return i.ok("string"==typeof e||"symbol"==typeof e,"nanobus.on: eventName should be type string or symbol"),i.equal(typeof t,"function","nanobus.on: listener should be type function"),"*"===e?this._starListeners.push(t):(this._listeners[e]||(this._listeners[e]=[]),this._listeners[e].push(t)),this},o.prototype.prependListener=function(e,t){return i.ok("string"==typeof e||"symbol"==typeof e,"nanobus.prependListener: eventName should be type string or symbol"),i.equal(typeof t,"function","nanobus.prependListener: listener should be type function"),"*"===e?this._starListeners.unshift(t):(this._listeners[e]||(this._listeners[e]=[]),this._listeners[e].unshift(t)),this},o.prototype.once=function(e,t){i.ok("string"==typeof e||"symbol"==typeof e,"nanobus.once: eventName should be type string or symbol"),i.equal(typeof t,"function","nanobus.once: listener should be type function");var n=this;return this.on(e,(function s(){t.apply(n,arguments),n.removeListener(e,s)})),this},o.prototype.prependOnceListener=function(e,t){i.ok("string"==typeof e||"symbol"==typeof e,"nanobus.prependOnceListener: eventName should be type string or symbol"),i.equal(typeof t,"function","nanobus.prependOnceListener: listener should be type function");var n=this;return this.prependListener(e,(function s(){t.apply(n,arguments),n.removeListener(e,s)})),this},o.prototype.removeListener=function(e,t){return i.ok("string"==typeof e||"symbol"==typeof e,"nanobus.removeListener: eventName should be type string or symbol"),i.equal(typeof t,"function","nanobus.removeListener: listener should be type function"),"*"===e?(this._starListeners=this._starListeners.slice(),n(this._starListeners,t)):(void 0!==this._listeners[e]&&(this._listeners[e]=this._listeners[e].slice()),n(this._listeners[e],t));function n(e,t){if(e){var n=e.indexOf(t);return-1!==n?(s(e,n,1),!0):void 0}}},o.prototype.removeAllListeners=function(e){return e?"*"===e?this._starListeners=[]:this._listeners[e]=[]:(this._starListeners=[],this._listeners={}),this},o.prototype.listeners=function(e){var t="*"!==e?this._listeners[e]:this._starListeners,n=[];if(t)for(var s=t.length,r=0;r<s;r++)n.push(t[r]);return n},o.prototype._emit=function(e,t,n,s){if(void 0!==e&&0!==e.length){void 0===n&&(n=t,t=null),t&&(n=void 0!==s?[t].concat(n,s):[t].concat(n));for(var r=e.length,i=0;i<r;i++){var o=e[i];o.apply(o,n)}}}},61:(e,t,n)=>{var s=n(204),r="undefined"!=typeof window;function i(e){this.hasWindow=e,this.hasIdle=this.hasWindow&&window.requestIdleCallback,this.method=this.hasIdle?window.requestIdleCallback.bind(window):this.setTimeout,this.scheduled=!1,this.queue=[]}i.prototype.push=function(e){s.equal(typeof e,"function","nanoscheduler.push: cb should be type function"),this.queue.push(e),this.schedule()},i.prototype.schedule=function(){if(!this.scheduled){this.scheduled=!0;var e=this;this.method((function(t){for(;e.queue.length&&t.timeRemaining()>0;)e.queue.shift()(t);e.scheduled=!1,e.queue.length&&e.schedule()}))}},i.prototype.setTimeout=function(e){setTimeout(e,0,{timeRemaining:function(){return 1}})},e.exports=function(){var e;return r?(window._nanoScheduler||(window._nanoScheduler=new i(!0)),e=window._nanoScheduler):e=new i,e}},999:(e,t,n)=>{var s,r=n(61)(),i=n(204);o.disabled=!0;try{s=window.performance,o.disabled="true"===window.localStorage.DISABLE_NANOTIMING||!s.mark}catch(e){}function o(e){if(i.equal(typeof e,"string","nanotiming: name should be type string"),o.disabled)return a;var t=(1e4*s.now()).toFixed()%Number.MAX_SAFE_INTEGER,n="start-"+t+"-"+e;function l(i){var o="end-"+t+"-"+e;s.mark(o),r.push((function(){var r=null;try{var a=e+" ["+t+"]";s.measure(a,n,o),s.clearMarks(n),s.clearMarks(o)}catch(e){r=e}i&&i(r,e)}))}return s.mark(n),l.uuid=t,l}function a(e){e&&r.push((function(){e(new Error("nanotiming: performance API unavailable"))}))}e.exports=o},69:e=>{"use strict";e.exports=function(e,t,n){var s,r=e.length;if(!(t>=r||0===n)){var i=r-(n=t+n>r?r-t:n);for(s=t;s<i;++s)e[s]=e[s+n];e.length=i}}},311:e=>{"use strict";e.exports=jQuery}},t={};function n(s){var r=t[s];if(void 0!==r)return r.exports;var i=t[s]={exports:{}};return e[s](i,i.exports,n),i.exports}n.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return n.d(t,{a:t}),t},n.d=(e,t)=>{for(var s in t)n.o(t,s)&&!n.o(e,s)&&Object.defineProperty(e,s,{enumerable:!0,get:t[s]})},n.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),(()=>{"use strict";const e=(e,t)=>{t.parentNode.insertBefore(e,t.nextSibling)};var t=n(559);class s{constructor(e){this.container=e,this.events=t(),this.init()}init(){this.container.addEventListener("update",(()=>{this.refresh()}));let t=document.querySelectorAll(".tablenav.top .actions");t&&t.length&&(e(this.container,t[t.length-1]),this.container.classList.add("-init"),this.container.dispatchEvent(new CustomEvent("update")))}refresh(){this.container.querySelectorAll(".ac-table-actions-buttons > a").forEach((e=>{e.classList.remove("last")}));let e=[].slice.call(this.container.querySelectorAll(".ac-table-actions-buttons > a"),0);e.reverse();for(var t=0;t<e.length;t++)if(e[t].offsetParent){e[t].classList.add("last");break}}}class r{constructor(){this.cells={}}add(e,t){this.cells.hasOwnProperty(e)||(this.cells[e]={}),this.cells[e][t.getName()]=t}getByID(e){let t=[];if(!this.cells.hasOwnProperty(e.toString()))return t;let n=this.cells[e.toString()];return Object.keys(n).forEach((e=>t.push(n[e]))),t}getAll(){let e=[];return Object.keys(this.cells).forEach((t=>{let n=this.cells[t];Object.keys(n).forEach((t=>e.push(n[t])))})),e}getByName(e){let t=[];return Object.keys(this.cells).forEach((n=>{let s=this.cells[n];Object.keys(s).forEach((n=>{e===n&&t.push(s[n])}))})),t}get(e,t){return this.cells.hasOwnProperty(e.toString())?this.cells[e][t]:null}}class i{constructor(e){this.table=e,this.columns={},this.init()}init(){let e=this,t=this.table.querySelector("thead").querySelectorAll("th");for(let n=0;n<t.length;n++){let s=t[n].id;e.columns[t[n].id]=new o(s,AC.column_types[s],this.sanitizeLabel(t[n]))}}getColumns(){return this.columns}getColumnsMap(){let e=new Map,t=this.getColumns();return Object.keys(t).forEach((n=>{e.set(n,t[n])})),e}getColumnNames(){return Object.keys(this.columns)}get(e){return this.columns.hasOwnProperty(e)?this.columns[e]:null}sanitizeLabel(e){let t=e.querySelector("a"),n=e.innerHTML;if(t){let e=t.getElementsByTagName("span");e.length>0&&(n=e[0].innerHTML)}return n}}class o{constructor(e,t,n){this.name=e,this.type=t,this.label=n,this.services={}}setService(e,t){this.services[e]=t}getService(e){return this.hasService(e)?this.services[e]:null}hasService(e){return this.services.hasOwnProperty(e)}}var a=n(559),l=n.n(a);class c{constructor(e,t,n){this.object_id=e,this.column_name=t,this.original_value=n.innerHTML,this.el=n,this.services={},this.events=new(l())}getOriginalValue(){return this.original_value}getObjectID(){return this.object_id}getName(){return this.column_name}getElement(){return this.el}setElement(e){this.el=e}getRow(){return this.el.parentElement}getSettings(){return AC_SERVICES.getService("Table").Columns.get(this.getName())}hasChanged(e){return this.original_value!==e}setValue(e){let t=this.el.querySelector(".row-actions");return this.original_value=e,this.el.innerHTML=e,t&&this.el.append(t),this.original_value=e,this.events.emit("setValue",this),this}setService(e,t){this.services[e]=t}getService(e){return this.hasService(e)?this.services[e]:null}hasService(e){return this.services.hasOwnProperty(e)}}class u{constructor(e){this.Table=e}getIDs(){let e=[],t=this.Table.getElement().querySelectorAll("tbody th.check-column input[type=checkbox]:checked");if(0===t.length)return e;for(let n=0;n<t.length;n++)e.push(parseInt(t[n].value));return e}getSelectedCells(e){let t=this.getIDs();if(0===t.length)return null;let n=[];return t.forEach((t=>{let s=this.Table.Cells.get(t,e);s&&n.push(s)})),n}getCount(){return this.getIDs().length}isAllSelected(){return!!this.Table.getElement().querySelector("thead #cb input:checked")}}const h=e=>{if(e.classList.contains("no-items"))return 0;let t=d(e.id);if(!t){let n=e.querySelector(".check-column input[type=checkbox]");n&&(t=d(n.id))}if(!t){let s=e.parentElement.querySelector(".edit a");if(s){let e=s.getAttribute("href");e&&(t=parseInt(("id",(n=e).includes("?")?new URLSearchParams(n.split("?")[1]).get("id"):null)))}}var n;return e.dataset.id=t.toString(),t},d=e=>{let t=e.split(/[_,\-]+/);return parseInt(t[t.length-1])},p="Table.Ready";class f{constructor(){this.services={}}setService(e,t){this.services[e]=t}getService(e){return this.hasService(e)?this.services[e]:null}hasService(e){return this.services.hasOwnProperty(e)}}class m{constructor(e,t){this.el=e,this.AcServices=t,this.Services=new f,this.Columns=new i(e),this.Cells=new r,this.Actions=document.getElementById("ac-table-actions")?new s(document.getElementById("ac-table-actions")):null,this.Selection=new u(this)}getElement(){return this.el}getIdsFromTable(){let e=[];return this.el.getElementsByTagName("tbody")[0].querySelectorAll("tr").forEach((t=>{e.push(h(t))})),e}init(){return this.initTable(),this.addCellClasses(),document.dispatchEvent(new CustomEvent("AC_Table_Ready",{detail:{table:this}})),this.AcServices.emitEvent(p,{table:this}),this}addCellClasses(){this.Columns.getColumnNames().forEach((e=>{let t=this.Columns.get(e).type;this.Cells.getByName(e).forEach((e=>{e.getElement().classList.add(t)}))}))}initTable(){this.el.getElementsByTagName("tbody")[0].querySelectorAll("tr").forEach((e=>{this.updateRow(e)}))}updateRow(e){let t=h(e);e.dataset.id=t.toString(),this.setCellsForRow(e)}setCellsForRow(e){let t=h(e);this.Columns.getColumnNames().forEach((n=>{let s=n.replace(/\./g,"\\."),r=e.querySelector("td.column-"+s);if(r){let e=new c(t,n,r);this.Cells.add(t,e)}}))}}class g{constructor(e,t=""){this.element=e,this.content=t||e.dataset.acTip,this.tip=v(this.content),this.initEvents()}initEvents(){"1"!==this.element.dataset.acTooltipInit&&(this.element.dataset.acTooltipInit="1",this.element.addEventListener("mouseenter",(()=>{const e=document.body.getBoundingClientRect(),t=this.element.getBoundingClientRect();document.body.appendChild(this.tip),this.tip.style.left=t.left-e.left+this.element.offsetWidth/2+"px",this.tip.style.top=t.top-e.top+this.element.offsetHeight+"px",this.tip.classList.add("hover")})),this.element.addEventListener("mouseleave",(()=>{this.tip.classList.remove("hover"),document.body.removeChild(this.tip)})))}}const v=e=>{let t=document.createElement("div");return t.classList.add("ac-tooltip"),t.innerHTML=e,t},y=class{constructor(){this.init()}init(){document.querySelectorAll("[data-ac-tip]").forEach((e=>{new g(e)}))}},b=e=>w.create(e);class w{constructor(e){this.element=e instanceof HTMLElement?e:document.createElement(e)}static create(e){return new w(e)}addId(e){return this.element.id=e,this}addClass(e){return this.element.classList.add(e),this}addClasses(...e){return e.forEach((e=>this.addClass(e))),this}setAttribute(e,t){return this.element.setAttribute(e,t),this}setAttributes(e){return Object.keys(e).forEach((t=>this.setAttribute(t,e[t]))),this}addHtml(e){return this.element.innerHTML=e,this}append(e){return this.element.appendChild(e),this}appendSelfTo(e){return e.append(this.element),this}css(e,t){return this.element.style[e]=t,this}insertAfter(e){try{this.element.parentElement.insertBefore(e,this.element.nextElementSibling)}catch(e){console.error("Not able to insert element after current node",this.element)}}insertSelfBefore(e){try{e.parentElement.insertBefore(this.element,e)}catch(e){console.error("Not able to insert element before current node",this.element)}return this}insertBefore(e){try{this.element.parentElement.insertBefore(e,this.element)}catch(e){console.error("Not able to insert element before current node",this.element)}return this}addEventListener(e,t){return this.element.addEventListener(e,t),this}addEventListeners(e,t){return e.forEach((e=>this.addEventListener(e,t))),this}}class E{constructor(e){this.columns=e,e.getColumnNames().forEach((t=>{let n=e.get(t),s=E.getInputByName(n.name);s&&0===s.parentElement.textContent.length&&s.parentElement.appendChild(w.create("span").addHtml(n.label).element)}))}static getInputByName(e){return document.querySelector(`input[name='${e}-hide']`)||!1}}const x=n(311);class C{constructor(e){this.element=e,this.initEvents(),this.contentBox=this.element.parentElement.querySelector(".ac-toggle-box-contents"),this.contentBox||this.createContenBox()}isAjax(){return 1===parseInt(this.element.dataset.ajaxPopulate)}isInited(){return this.element.dataset.toggleBoxInit}createContenBox(){let t=document.createElement("div");return t.classList.add("ac-toggle-box-contents"),e(t,this.element),this.contentBox=t,this.contentBox}initEvents(){this.isInited()||(this.element.addEventListener("click",(e=>{e.preventDefault(),this.isAjax()&&!this.hasContent()&&this.manageAjaxValue(),this.toggleContentBox()})),this.element.dataset.toggleBoxInit="true")}hasContent(){return this.getContentBox().innerHTML.length>0}setContent(e){this.getContentBox().innerHTML=e}getContentBox(){return this.contentBox?this.contentBox:this.createContenBox()}setLabel(e){let t=this.element.dataset.label;e&&this.element.dataset.labelClose&&(t=this.element.dataset.labelClose),this.element.innerHTML=t+'<span class="spinner"></span>'}toggleContentBox(){this.getContentBox().classList.contains("-open")?(this.getContentBox().classList.remove("-open"),this.setLabel(!1)):(this.getContentBox().classList.add("-open"),this.setLabel(!0))}manageAjaxValue(){this.element.classList.add("loading"),this.retrieveAjaxValue().done((e=>{this.setContent(e),x(this.element.parentElement).trigger("ajax_column_value_ready"),AC_SERVICES.getService("Tooltips").init()})).always((()=>{this.element.classList.remove("loading")}))}retrieveAjaxValue(){return x.ajax({url:ajaxurl,method:"POST",data:{action:"ac_get_column_value",list_screen:AC.list_screen,layout:AC.layout,column:this.element.dataset.column,pk:this.element.dataset.itemId,_ajax_nonce:AC.ajax_nonce}})}}var S=n(311),_=n.n(S);const L=()=>{document.querySelectorAll(".ac-show-more").forEach((e=>{new A(e)}))};class A{constructor(e){this.element=e,this.initEvents()}initEvents(){this.isInited()||(this.getToggler()&&this.getToggler().addEventListener("click",(e=>{e.preventDefault(),e.stopPropagation(),this.toggle()})),this.element.dataset.showMoreInit="true")}getToggler(){return this.element.querySelector(".ac-show-more__toggle")}isInited(){return"true"===this.element.dataset.showMoreInit}toggle(){this.element.classList.contains("-on")?this.hide():this.show()}show(){this.element.classList.add("-on"),this.getToggler().innerHTML=this.getToggler().dataset.less}hide(){this.element.classList.remove("-on"),this.getToggler().innerHTML=this.getToggler().dataset.more}}class k{constructor(e){e&&(this.el=e,this.dialog=e.querySelector(".ac-modal__dialog"),this.initEvents())}getElement(){return this.el}initEvents(){let e=this;document.addEventListener("keydown",(e=>{const t=e.key;this.isOpen()&&"Escape"===t&&this.close()}));let t=this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');t.length>0&&t.forEach((t=>{t.addEventListener("click",(t=>{t.preventDefault(),e.close()}))})),this.el.addEventListener("click",(t=>{t.target.classList.contains("ac-modal")&&e.close()}))}isOpen(){return this.el.classList.contains("-active")}close(){this.onClose(),this.el.classList.remove("-active")}open(){setTimeout((()=>{this.onOpen(),this.el.removeAttribute("style"),this.el.classList.add("-active")}))}destroy(){this.el.remove()}onClose(){}onOpen(){}}const T=n(311);class j{constructor(e){this.element=e,this.settings=this.getDefaults(),this.init(),this.setInitialized()}setInitialized(){$.add(this.element)}getDefaults(){return{width:this.element.getAttribute("data-width")?this.element.getAttribute("data-width"):250,noclick:!!this.element.getAttribute("data-noclick")&&this.element.getAttribute("data-noclick"),position:this.getPosition()}}isInitialized(){return $.isInitialized(this.element)}init(){this.isInitialized()||(T(this.element).mouseenter((()=>{T(this.element).pointer({content:this.getRelatedHTML(),position:this.settings.position,pointerWidth:this.settings.width,pointerClass:this.getPointerClass()})})),this.initEvents())}getPosition(){let e={at:"left top",my:"right top",edge:"right"},t=this.element.getAttribute("data-pos"),n=this.element.getAttribute("data-pos_edge");return"right"===t&&(e={at:"right middle",my:"left middle",edge:"left"}),"right_bottom"===t&&(e={at:"right middle",my:"left bottom",edge:"none"}),"left"===t&&(e={at:"left middle",my:"right middle",edge:"right"}),n&&(e.edge=n),e}getPointerClass(){let e=["ac-wp-pointer","wp-pointer","wp-pointer-"+this.settings.position.edge];return this.settings.noclick&&e.push("noclick"),e.join(" ")}getRelatedHTML(){let e=document.getElementById(this.element.getAttribute("rel"));return e?e.innerHTML:""}initEvents(){let e=T(this.element);this.settings.noclick||e.click((function(){e.hasClass("open")?e.removeClass("open"):e.addClass("open")})),e.click((function(){e.pointer("open")})),e.mouseenter((function(){e.pointer("open"),setTimeout((()=>{e.pointer("open")}),2)})),e.mouseleave((function(){setTimeout((()=>{e.hasClass("open")||0!==T(".ac-wp-pointer.hover").length||e.pointer("close")}),1)})),e.on("close",(()=>{setTimeout((()=>{e.hasClass("open")||e.pointer("close")}))}))}}class ${static isInitialized(e){return this.initElements.filter((t=>t===e)).length>0}static add(e){this.initElements.push(e)}}$.initElements=[];const O=(e=null)=>{e||(e=document.querySelectorAll(".ac-pointer")),e.forEach((e=>{new j(e)})),T(".ac-wp-pointer").hover((function(){T(this).addClass("hover")}),(function(){T(this).removeClass("hover"),T(".ac-pointer").trigger("close")})).on("click",".close",(function(){T(".ac-pointer").removeClass("open")})),new y};function N(){}function I(e){return e()}function B(){return Object.create(null)}function q(e){e.forEach(I)}function R(e){return"function"==typeof e}function P(e,t){return e!=e?t==t:e!==t||e&&"object"==typeof e||"function"==typeof e}function M(e){return 0===Object.keys(e).length}new Set;let H,D=!1;function U(e,t){e.appendChild(t)}function F(e,t,n){e.insertBefore(t,n||null)}function z(e){e.parentNode.removeChild(e)}function V(e){return document.createElement(e)}function X(e){return document.createTextNode(e)}function G(){return X(" ")}function J(e,t,n,s){return e.addEventListener(t,n,s),()=>e.removeEventListener(t,n,s)}function W(e){return function(t){return t.preventDefault(),e.call(this,t)}}function K(e,t,n){null==n?e.removeAttribute(t):e.getAttribute(t)!==n&&e.setAttribute(t,n)}function Q(e){H=e}function Y(){if(!H)throw new Error("Function called outside component initialization");return H}new Set;const Z=[],ee=[],te=[],ne=[],se=Promise.resolve();let re=!1;function ie(e){te.push(e)}let oe=!1;const ae=new Set;function le(){if(!oe){oe=!0;do{for(let e=0;e<Z.length;e+=1){const t=Z[e];Q(t),ce(t.$$)}for(Q(null),Z.length=0;ee.length;)ee.pop()();for(let e=0;e<te.length;e+=1){const t=te[e];ae.has(t)||(ae.add(t),t())}te.length=0}while(Z.length);for(;ne.length;)ne.pop()();re=!1,oe=!1,ae.clear()}}function ce(e){if(null!==e.fragment){e.update(),q(e.before_update);const t=e.dirty;e.dirty=[-1],e.fragment&&e.fragment.p(e.ctx,t),e.after_update.forEach(ie)}}const ue=new Set;let he;function de(e,t){const n=e.$$;null!==n.fragment&&(q(n.on_destroy),n.fragment&&n.fragment.d(t),n.on_destroy=n.fragment=null,n.ctx=[])}function pe(e,t,n,s,r,i,o,a=[-1]){const l=H;Q(e);const c=e.$$={fragment:null,ctx:null,props:i,update:N,not_equal:r,bound:B(),on_mount:[],on_destroy:[],on_disconnect:[],before_update:[],after_update:[],context:new Map(t.context||(l?l.$$.context:[])),callbacks:B(),dirty:a,skip_bound:!1,root:t.target||l.$$.root};o&&o(c.root);let u=!1;if(c.ctx=n?n(e,t.props||{},((t,n,...s)=>{const i=s.length?s[0]:n;return c.ctx&&r(c.ctx[t],c.ctx[t]=i)&&(!c.skip_bound&&c.bound[t]&&c.bound[t](i),u&&function(e,t){-1===e.$$.dirty[0]&&(Z.push(e),re||(re=!0,se.then(le)),e.$$.dirty.fill(0)),e.$$.dirty[t/31|0]|=1<<t%31}(e,t)),n})):[],c.update(),u=!0,q(c.before_update),c.fragment=!!s&&s(c.ctx),t.target){if(t.hydrate){D=!0;const e=(p=t.target,Array.from(p.childNodes));c.fragment&&c.fragment.l(e),e.forEach(z)}else c.fragment&&c.fragment.c();t.intro&&((h=e.$$.fragment)&&h.i&&(ue.delete(h),h.i(d))),function(e,t,n,s){const{fragment:r,on_mount:i,on_destroy:o,after_update:a}=e.$$;r&&r.m(t,n),s||ie((()=>{const t=i.map(I).filter(R);o?o.push(...t):q(t),e.$$.on_mount=[]})),a.forEach(ie)}(e,t.target,t.anchor,t.customElement),D=!1,le()}var h,d,p;Q(l)}"undefined"!=typeof window?window:"undefined"!=typeof globalThis?globalThis:global,new Set(["allowfullscreen","allowpaymentrequest","async","autofocus","autoplay","checked","controls","default","defer","disabled","formnovalidate","hidden","ismap","loop","multiple","muted","nomodule","novalidate","open","playsinline","readonly","required","reversed","selected"]),"function"==typeof HTMLElement&&(he=class extends HTMLElement{constructor(){super(),this.attachShadow({mode:"open"})}connectedCallback(){const{on_mount:e}=this.$$;this.$$.on_disconnect=e.map(I).filter(R);for(const e in this.$$.slotted)this.appendChild(this.$$.slotted[e])}attributeChangedCallback(e,t,n){this[e]=n}disconnectedCallback(){q(this.$$.on_disconnect)}$destroy(){de(this,1),this.$destroy=N}$on(e,t){const n=this.$$.callbacks[e]||(this.$$.callbacks[e]=[]);return n.push(t),()=>{const e=n.indexOf(t);-1!==e&&n.splice(e,1)}}$set(e){this.$$set&&!M(e)&&(this.$$.skip_bound=!0,this.$$set(e),this.$$.skip_bound=!1)}});var fe=n(669),me=n.n(fe);function ge(e){let t,n;return{c(){t=V("h2"),n=X(e[2])},m(e,s){F(e,t,s),U(t,n)},p(e,t){var s,r;4&t&&(s=n,r=""+(r=e[2]),s.wholeText!==r&&(s.data=r))},d(e){e&&z(t)}}}function ve(e){let t,n,s,r,i,o;return{c(){t=V("div"),n=V("button"),n.innerHTML='<span class="dashicons dashicons-arrow-left-alt2"></span>',s=G(),r=V("button"),r.innerHTML='<span class="dashicons dashicons-arrow-right-alt2"></span>',K(n,"title","Previous"),K(r,"title","Next"),K(t,"class","ac-value-modal-panel__footer")},m(a,l){F(a,t,l),U(t,n),U(t,s),U(t,r),i||(o=[J(n,"click",W(e[6])),J(r,"click",W(e[5]))],i=!0)},p:N,d(e){e&&z(t),i=!1,q(o)}}}function ye(e){let t,n,s,r,i,o,a,l,c,u,h,d,p,f,m=e[2]&&ge(e),g=e[0].length>1&&ve(e);return{c(){t=V("div"),n=V("div"),s=G(),r=V("div"),i=V("div"),o=V("div"),m&&m.c(),a=G(),l=V("div"),c=V("button"),c.innerHTML='<span class="dashicons dashicons-no-alt"></span>',u=G(),h=V("div"),d=G(),g&&g.c(),K(n,"class","ac-value-modal-background"),K(o,"class","ac-value-modal-title"),K(l,"class","ac-value-modal-actions"),K(i,"class","ac-value-modal-panel__header"),K(h,"class","ac-value-modal-panel__body"),K(r,"class","ac-value-modal-panel"),K(t,"class","ac-value-modal")},m(v,y){F(v,t,y),U(t,n),U(t,s),U(t,r),U(r,i),U(i,o),m&&m.m(o,null),U(i,a),U(i,l),U(l,c),U(r,u),U(r,h),h.innerHTML=e[3],U(r,d),g&&g.m(r,null),e[9](t),p||(f=[J(n,"click",e[4]),J(c,"click",e[4])],p=!0)},p(e,[t]){e[2]?m?m.p(e,t):(m=ge(e),m.c(),m.m(o,null)):m&&(m.d(1),m=null),8&t&&(h.innerHTML=e[3]),e[0].length>1?g?g.p(e,t):(g=ve(e),g.c(),g.m(r,null)):g&&(g.d(1),g=null)},i:N,o:N,d(n){n&&z(t),m&&m.d(),g&&g.d(),e[9](null),p=!1,q(f)}}}function be(e,t,n){let s,r,i,o,a,{items:l}=t,{objectId:c}=t,{destroyHandler:u}=t;const h=me().CancelToken,d=e=>{"Escape"===e.key&&u(),"ArrowLeft"===e.key&&(v(),e.preventDefault()),"ArrowRight"===e.key&&(g(),e.preventDefault())};var p;p=()=>{let e=l.find((e=>e.objectId=c));s=e.element.closest("td").dataset.colname,l.length>1&&document.addEventListener("keydown",d),n(2,i=`#${e.objectId}`),f(e.columnName,e.objectId)},Y().$$.on_mount.push(p),Y().$$.on_destroy.push((()=>{document.removeEventListener("keydown",d)}));const f=(e,t)=>(n(7,c=t),n(2,i="Loading"),n(3,o="Loading"),a&&a.cancel(),a=h.source(),me()({method:"get",url:ajaxurl,cancelToken:a.token,params:{action:"ac_get_column_modal_value",layout:AC.layout,column_name:e,object_id:t,_ajax_nonce:AC.ajax_nonce}}).then((e=>{n(3,o=e.data),n(2,i=(e=>`${s} #${e}`)(c))}))),m=e=>{f(l[e].columnName,l[e].objectId)},g=()=>{let e=l.findIndex((e=>e.objectId===c))+1;m(e>=l.length?0:e)},v=()=>{let e=l.findIndex((e=>e.objectId===c))-1;m(e<0?l.length-1:e)};return e.$$set=e=>{"items"in e&&n(0,l=e.items),"objectId"in e&&n(7,c=e.objectId),"destroyHandler"in e&&n(8,u=e.destroyHandler)},[l,r,i,o,()=>{u()},g,v,c,u,function(e){ee[e?"unshift":"push"]((()=>{r=e,n(1,r)}))}]}class we{constructor(e){this.links=e,this.component=null,this.initEventHandlers()}initEventHandlers(){this.links.forEach((e=>{e.element.addEventListener("click",(t=>{t.preventDefault(),this.displayModal(e.objectId)}))}))}destroyComponent(){null!==this.component&&this.component.$destroy()}displayModal(e){let t=document.createElement("div");document.body.appendChild(t),this.component=new class extends class{$destroy(){de(this,1),this.$destroy=N}$on(e,t){const n=this.$$.callbacks[e]||(this.$$.callbacks[e]=[]);return n.push(t),()=>{const e=n.indexOf(t);-1!==e&&n.splice(e,1)}}$set(e){this.$$set&&!M(e)&&(this.$$.skip_bound=!0,this.$$set(e),this.$$.skip_bound=!1)}}{constructor(e){super(),pe(this,e,be,ye,P,{items:0,objectId:7,destroyHandler:8})}}({target:t,props:{items:this.links,objectId:e,destroyHandler:()=>this.destroyComponent()}})}}let Ee=(window.AC_SERVICES||(window.AC_SERVICES=new class{constructor(){this.services={},this.events=new(l()),this.$=b}registerService(e,t){return this.services[e]=t,this}getService(e){return this.hasService(e)?this.services[e]:null}hasService(e){return this.services.hasOwnProperty(e)}addListener(e,t){this.events.addListener(e,t)}emitEvent(e,t){this.events.emit(e,t)}}),window.AC_SERVICES);Ee.registerService("Modals",new class{constructor(){this.modals={},this.number=0,this.defaults={modal:k},this.initGlobalEvents()}register(e,t=""){return t||(t="m"+this.number),this.modals[t]=e,this.number++,e}get(e){return this.modals.hasOwnProperty(e)?this.modals[e]:null}open(e){this.get(e)&&this.get(e).open()}close(e){this.get(e)&&this.get(e).close()}closeAll(){for(let e in this.modals)this.close(e)}initGlobalEvents(){document.addEventListener("click",(e=>{let t=e.target;t.dataset.acModal&&(e.preventDefault(),this.open(t.dataset.acModal))}))}}),document.addEventListener("DOMContentLoaded",(()=>{let e=(e=>{let t=document.querySelector(e);return t?"TABLE"===t.tagName?t:"TBODY"===t.tagName?t.closest("table"):t.querySelector("table.wp-list-table")?t.querySelector("table.wp-list-table"):null:null})(AC.table_id);if(O(),e){const t=new m(e,Ee).init();Ee.registerService("Table",t),Ee.registerService("ScreenOptionsColumns",new E(t.Columns))}Ee.registerService("Tooltips",new y),document.querySelectorAll(".ac-toggle-box-link").forEach((e=>{new C(e)})),_()(".wp-list-table").on("updated","tr",(function(){Ee.getService("Table").addCellClasses(),L()}))})),Ee.addListener(p,(e=>{L(),document.querySelectorAll(".cpac_use_icons").forEach((e=>{e.parentElement.querySelectorAll(".row-actions a").forEach((e=>{new g(e,e.innerText)}))})),new MutationObserver((e=>{e.forEach((e=>{e.addedNodes.forEach((e=>{"TR"===e.tagName&&e.classList.contains("iedit")&&_()(e).trigger("updated",{id:h(e),row:e})}))}))})).observe(e.table.getElement(),{childList:!0,subtree:!0}),e.table.Cells.getAll().forEach((e=>{e.events.addListener("setValue",(()=>{L()}))}));let t={};e.table.Cells.getAll().forEach((e=>{let n=e.getElement().querySelector("[data-modal-value]");n&&(t.hasOwnProperty(e.getName())||(t[e.getName()]=[]),t[e.getName()].push({element:n,columnName:e.getName(),objectId:e.getObjectID()}))})),Object.keys(t).forEach((e=>new we(t[e])))}))})()})();
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./node_modules/axios/index.js":
+/*!*************************************!*\
+  !*** ./node_modules/axios/index.js ***!
+  \*************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/axios/lib/axios.js");
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/adapters/xhr.js":
+/*!************************************************!*\
+  !*** ./node_modules/axios/lib/adapters/xhr.js ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var settle = __webpack_require__(/*! ./../core/settle */ "./node_modules/axios/lib/core/settle.js");
+var cookies = __webpack_require__(/*! ./../helpers/cookies */ "./node_modules/axios/lib/helpers/cookies.js");
+var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
+var buildFullPath = __webpack_require__(/*! ../core/buildFullPath */ "./node_modules/axios/lib/core/buildFullPath.js");
+var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ "./node_modules/axios/lib/helpers/parseHeaders.js");
+var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ "./node_modules/axios/lib/helpers/isURLSameOrigin.js");
+var createError = __webpack_require__(/*! ../core/createError */ "./node_modules/axios/lib/core/createError.js");
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest();
+
+    // HTTP basic authentication
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    var fullPath = buildFullPath(config.baseURL, config.url);
+    request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
+
+    // Set the request timeout in MS
+    request.timeout = config.timeout;
+
+    // Listen for ready state
+    request.onreadystatechange = function handleLoad() {
+      if (!request || request.readyState !== 4) {
+        return;
+      }
+
+      // The request errored out and we didn't get a response, this will be
+      // handled by onerror instead
+      // With one exception: request that using file: protocol, most browsers
+      // will return status as 0 even though it's a successful request
+      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+        return;
+      }
+
+      // Prepare the response
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var response = {
+        data: responseData,
+        status: request.status,
+        statusText: request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+
+      settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle browser request cancellation (as opposed to a manual cancellation)
+    request.onabort = function handleAbort() {
+      if (!request) {
+        return;
+      }
+
+      reject(createError('Request aborted', config, 'ECONNABORTED', request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle low level network errors
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config, null, request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle timeout
+    request.ontimeout = function handleTimeout() {
+      var timeoutErrorMessage = 'timeout of ' + config.timeout + 'ms exceeded';
+      if (config.timeoutErrorMessage) {
+        timeoutErrorMessage = config.timeoutErrorMessage;
+      }
+      reject(createError(timeoutErrorMessage, config, 'ECONNABORTED',
+        request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+    if (utils.isStandardBrowserEnv()) {
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ?
+        cookies.read(config.xsrfCookieName) :
+        undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    }
+
+    // Add headers to the request
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    }
+
+    // Add withCredentials to request if needed
+    if (!utils.isUndefined(config.withCredentials)) {
+      request.withCredentials = !!config.withCredentials;
+    }
+
+    // Add responseType to request if needed
+    if (config.responseType) {
+      try {
+        request.responseType = config.responseType;
+      } catch (e) {
+        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
+        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
+        if (config.responseType !== 'json') {
+          throw e;
+        }
+      }
+    }
+
+    // Handle progress if needed
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    }
+
+    // Not all browsers support upload events
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel);
+        // Clean up request
+        request = null;
+      });
+    }
+
+    if (!requestData) {
+      requestData = null;
+    }
+
+    // Send the request
+    request.send(requestData);
+  });
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/axios.js":
+/*!*****************************************!*\
+  !*** ./node_modules/axios/lib/axios.js ***!
+  \*****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
+var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
+var Axios = __webpack_require__(/*! ./core/Axios */ "./node_modules/axios/lib/core/Axios.js");
+var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
+var defaults = __webpack_require__(/*! ./defaults */ "./node_modules/axios/lib/defaults.js");
+
+/**
+ * Create an instance of Axios
+ *
+ * @param {Object} defaultConfig The default config for the instance
+ * @return {Axios} A new instance of Axios
+ */
+function createInstance(defaultConfig) {
+  var context = new Axios(defaultConfig);
+  var instance = bind(Axios.prototype.request, context);
+
+  // Copy axios.prototype to instance
+  utils.extend(instance, Axios.prototype, context);
+
+  // Copy context to instance
+  utils.extend(instance, context);
+
+  return instance;
+}
+
+// Create the default instance to be exported
+var axios = createInstance(defaults);
+
+// Expose Axios class to allow class inheritance
+axios.Axios = Axios;
+
+// Factory for creating new instances
+axios.create = function create(instanceConfig) {
+  return createInstance(mergeConfig(axios.defaults, instanceConfig));
+};
+
+// Expose Cancel & CancelToken
+axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
+axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ "./node_modules/axios/lib/cancel/CancelToken.js");
+axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
+
+// Expose all/spread
+axios.all = function all(promises) {
+  return Promise.all(promises);
+};
+axios.spread = __webpack_require__(/*! ./helpers/spread */ "./node_modules/axios/lib/helpers/spread.js");
+
+// Expose isAxiosError
+axios.isAxiosError = __webpack_require__(/*! ./helpers/isAxiosError */ "./node_modules/axios/lib/helpers/isAxiosError.js");
+
+module.exports = axios;
+
+// Allow use of default import syntax in TypeScript
+module.exports["default"] = axios;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/cancel/Cancel.js":
+/*!*************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/Cancel.js ***!
+  \*************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+function Cancel(message) {
+  this.message = message;
+}
+
+Cancel.prototype.toString = function toString() {
+  return 'Cancel' + (this.message ? ': ' + this.message : '');
+};
+
+Cancel.prototype.__CANCEL__ = true;
+
+module.exports = Cancel;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/cancel/CancelToken.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/CancelToken.js ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var Cancel = __webpack_require__(/*! ./Cancel */ "./node_modules/axios/lib/cancel/Cancel.js");
+
+/**
+ * A `CancelToken` is an object that can be used to request cancellation of an operation.
+ *
+ * @class
+ * @param {Function} executor The executor function.
+ */
+function CancelToken(executor) {
+  if (typeof executor !== 'function') {
+    throw new TypeError('executor must be a function.');
+  }
+
+  var resolvePromise;
+  this.promise = new Promise(function promiseExecutor(resolve) {
+    resolvePromise = resolve;
+  });
+
+  var token = this;
+  executor(function cancel(message) {
+    if (token.reason) {
+      // Cancellation has already been requested
+      return;
+    }
+
+    token.reason = new Cancel(message);
+    resolvePromise(token.reason);
+  });
+}
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+  if (this.reason) {
+    throw this.reason;
+  }
+};
+
+/**
+ * Returns an object that contains a new `CancelToken` and a function that, when called,
+ * cancels the `CancelToken`.
+ */
+CancelToken.source = function source() {
+  var cancel;
+  var token = new CancelToken(function executor(c) {
+    cancel = c;
+  });
+  return {
+    token: token,
+    cancel: cancel
+  };
+};
+
+module.exports = CancelToken;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/cancel/isCancel.js":
+/*!***************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/isCancel.js ***!
+  \***************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/Axios.js":
+/*!**********************************************!*\
+  !*** ./node_modules/axios/lib/core/Axios.js ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var buildURL = __webpack_require__(/*! ../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
+var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ "./node_modules/axios/lib/core/InterceptorManager.js");
+var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ "./node_modules/axios/lib/core/dispatchRequest.js");
+var mergeConfig = __webpack_require__(/*! ./mergeConfig */ "./node_modules/axios/lib/core/mergeConfig.js");
+
+/**
+ * Create a new instance of Axios
+ *
+ * @param {Object} instanceConfig The default config for the instance
+ */
+function Axios(instanceConfig) {
+  this.defaults = instanceConfig;
+  this.interceptors = {
+    request: new InterceptorManager(),
+    response: new InterceptorManager()
+  };
+}
+
+/**
+ * Dispatch a request
+ *
+ * @param {Object} config The config specific for this request (merged with this.defaults)
+ */
+Axios.prototype.request = function request(config) {
+  /*eslint no-param-reassign:0*/
+  // Allow for axios('example/url'[, config]) a la fetch API
+  if (typeof config === 'string') {
+    config = arguments[1] || {};
+    config.url = arguments[0];
+  } else {
+    config = config || {};
+  }
+
+  config = mergeConfig(this.defaults, config);
+
+  // Set config.method
+  if (config.method) {
+    config.method = config.method.toLowerCase();
+  } else if (this.defaults.method) {
+    config.method = this.defaults.method.toLowerCase();
+  } else {
+    config.method = 'get';
+  }
+
+  // Hook up interceptors middleware
+  var chain = [dispatchRequest, undefined];
+  var promise = Promise.resolve(config);
+
+  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+    chain.push(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  while (chain.length) {
+    promise = promise.then(chain.shift(), chain.shift());
+  }
+
+  return promise;
+};
+
+Axios.prototype.getUri = function getUri(config) {
+  config = mergeConfig(this.defaults, config);
+  return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
+};
+
+// Provide aliases for supported request methods
+utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, config) {
+    return this.request(mergeConfig(config || {}, {
+      method: method,
+      url: url,
+      data: (config || {}).data
+    }));
+  };
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, data, config) {
+    return this.request(mergeConfig(config || {}, {
+      method: method,
+      url: url,
+      data: data
+    }));
+  };
+});
+
+module.exports = Axios;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/InterceptorManager.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/axios/lib/core/InterceptorManager.js ***!
+  \***********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+/**
+ * Add a new interceptor to the stack
+ *
+ * @param {Function} fulfilled The function to handle `then` for a `Promise`
+ * @param {Function} rejected The function to handle `reject` for a `Promise`
+ *
+ * @return {Number} An ID used to remove interceptor later
+ */
+InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected
+  });
+  return this.handlers.length - 1;
+};
+
+/**
+ * Remove an interceptor from the stack
+ *
+ * @param {Number} id The ID that was returned by `use`
+ */
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+/**
+ * Iterate over all the registered interceptors
+ *
+ * This method is particularly useful for skipping over any
+ * interceptors that may have become `null` calling `eject`.
+ *
+ * @param {Function} fn The function to call for each interceptor
+ */
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+module.exports = InterceptorManager;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/buildFullPath.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/core/buildFullPath.js ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var isAbsoluteURL = __webpack_require__(/*! ../helpers/isAbsoluteURL */ "./node_modules/axios/lib/helpers/isAbsoluteURL.js");
+var combineURLs = __webpack_require__(/*! ../helpers/combineURLs */ "./node_modules/axios/lib/helpers/combineURLs.js");
+
+/**
+ * Creates a new URL by combining the baseURL with the requestedURL,
+ * only when the requestedURL is not already an absolute URL.
+ * If the requestURL is absolute, this function returns the requestedURL untouched.
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} requestedURL Absolute or relative URL to combine
+ * @returns {string} The combined full path
+ */
+module.exports = function buildFullPath(baseURL, requestedURL) {
+  if (baseURL && !isAbsoluteURL(requestedURL)) {
+    return combineURLs(baseURL, requestedURL);
+  }
+  return requestedURL;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/createError.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/core/createError.js ***!
+  \****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var enhanceError = __webpack_require__(/*! ./enhanceError */ "./node_modules/axios/lib/core/enhanceError.js");
+
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/dispatchRequest.js":
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/core/dispatchRequest.js ***!
+  \********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var transformData = __webpack_require__(/*! ./transformData */ "./node_modules/axios/lib/core/transformData.js");
+var isCancel = __webpack_require__(/*! ../cancel/isCancel */ "./node_modules/axios/lib/cancel/isCancel.js");
+var defaults = __webpack_require__(/*! ../defaults */ "./node_modules/axios/lib/defaults.js");
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+function throwIfCancellationRequested(config) {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
+}
+
+/**
+ * Dispatch a request to the server using the configured adapter.
+ *
+ * @param {object} config The config that is to be used for the request
+ * @returns {Promise} The Promise to be fulfilled
+ */
+module.exports = function dispatchRequest(config) {
+  throwIfCancellationRequested(config);
+
+  // Ensure headers exist
+  config.headers = config.headers || {};
+
+  // Transform request data
+  config.data = transformData(
+    config.data,
+    config.headers,
+    config.transformRequest
+  );
+
+  // Flatten headers
+  config.headers = utils.merge(
+    config.headers.common || {},
+    config.headers[config.method] || {},
+    config.headers
+  );
+
+  utils.forEach(
+    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
+    function cleanHeaderConfig(method) {
+      delete config.headers[method];
+    }
+  );
+
+  var adapter = config.adapter || defaults.adapter;
+
+  return adapter(config).then(function onAdapterResolution(response) {
+    throwIfCancellationRequested(config);
+
+    // Transform response data
+    response.data = transformData(
+      response.data,
+      response.headers,
+      config.transformResponse
+    );
+
+    return response;
+  }, function onAdapterRejection(reason) {
+    if (!isCancel(reason)) {
+      throwIfCancellationRequested(config);
+
+      // Transform response data
+      if (reason && reason.response) {
+        reason.response.data = transformData(
+          reason.response.data,
+          reason.response.headers,
+          config.transformResponse
+        );
+      }
+    }
+
+    return Promise.reject(reason);
+  });
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/enhanceError.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/axios/lib/core/enhanceError.js ***!
+  \*****************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Update an Error with the specified config, error code, and response.
+ *
+ * @param {Error} error The error to update.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The error.
+ */
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+  if (code) {
+    error.code = code;
+  }
+
+  error.request = request;
+  error.response = response;
+  error.isAxiosError = true;
+
+  error.toJSON = function toJSON() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code
+    };
+  };
+  return error;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/mergeConfig.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/core/mergeConfig.js ***!
+  \****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ../utils */ "./node_modules/axios/lib/utils.js");
+
+/**
+ * Config-specific merge-function which creates a new config-object
+ * by merging two configuration objects together.
+ *
+ * @param {Object} config1
+ * @param {Object} config2
+ * @returns {Object} New object resulting from merging config2 to config1
+ */
+module.exports = function mergeConfig(config1, config2) {
+  // eslint-disable-next-line no-param-reassign
+  config2 = config2 || {};
+  var config = {};
+
+  var valueFromConfig2Keys = ['url', 'method', 'data'];
+  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy', 'params'];
+  var defaultToConfig2Keys = [
+    'baseURL', 'transformRequest', 'transformResponse', 'paramsSerializer',
+    'timeout', 'timeoutMessage', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
+    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'decompress',
+    'maxContentLength', 'maxBodyLength', 'maxRedirects', 'transport', 'httpAgent',
+    'httpsAgent', 'cancelToken', 'socketPath', 'responseEncoding'
+  ];
+  var directMergeKeys = ['validateStatus'];
+
+  function getMergedValue(target, source) {
+    if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
+      return utils.merge(target, source);
+    } else if (utils.isPlainObject(source)) {
+      return utils.merge({}, source);
+    } else if (utils.isArray(source)) {
+      return source.slice();
+    }
+    return source;
+  }
+
+  function mergeDeepProperties(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  }
+
+  utils.forEach(valueFromConfig2Keys, function valueFromConfig2(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
+    }
+  });
+
+  utils.forEach(mergeDeepPropertiesKeys, mergeDeepProperties);
+
+  utils.forEach(defaultToConfig2Keys, function defaultToConfig2(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  });
+
+  utils.forEach(directMergeKeys, function merge(prop) {
+    if (prop in config2) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (prop in config1) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  });
+
+  var axiosKeys = valueFromConfig2Keys
+    .concat(mergeDeepPropertiesKeys)
+    .concat(defaultToConfig2Keys)
+    .concat(directMergeKeys);
+
+  var otherKeys = Object
+    .keys(config1)
+    .concat(Object.keys(config2))
+    .filter(function filterAxiosKeys(key) {
+      return axiosKeys.indexOf(key) === -1;
+    });
+
+  utils.forEach(otherKeys, mergeDeepProperties);
+
+  return config;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/settle.js":
+/*!***********************************************!*\
+  !*** ./node_modules/axios/lib/core/settle.js ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var createError = __webpack_require__(/*! ./createError */ "./node_modules/axios/lib/core/createError.js");
+
+/**
+ * Resolve or reject a Promise based on response status.
+ *
+ * @param {Function} resolve A function that resolves the promise.
+ * @param {Function} reject A function that rejects the promise.
+ * @param {object} response The response.
+ */
+module.exports = function settle(resolve, reject, response) {
+  var validateStatus = response.config.validateStatus;
+  if (!response.status || !validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(createError(
+      'Request failed with status code ' + response.status,
+      response.config,
+      null,
+      response.request,
+      response
+    ));
+  }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/core/transformData.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/core/transformData.js ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+/**
+ * Transform the data for a request or a response
+ *
+ * @param {Object|String} data The data to be transformed
+ * @param {Array} headers The headers for the request or response
+ * @param {Array|Function} fns A single function or Array of functions
+ * @returns {*} The resulting transformed data
+ */
+module.exports = function transformData(data, headers, fns) {
+  /*eslint no-param-reassign:0*/
+  utils.forEach(fns, function transform(fn) {
+    data = fn(data, headers);
+  });
+
+  return data;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/defaults.js":
+/*!********************************************!*\
+  !*** ./node_modules/axios/lib/defaults.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
+var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ "./node_modules/axios/lib/helpers/normalizeHeaderName.js");
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(/*! ./adapters/xhr */ "./node_modules/axios/lib/adapters/xhr.js");
+  } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(/*! ./adapters/http */ "./node_modules/axios/lib/adapters/xhr.js");
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Accept');
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+  maxBodyLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/bind.js":
+/*!************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/bind.js ***!
+  \************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/buildURL.js":
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/buildURL.js ***!
+  \****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+function encode(val) {
+  return encodeURIComponent(val).
+    replace(/%3A/gi, ':').
+    replace(/%24/g, '$').
+    replace(/%2C/gi, ',').
+    replace(/%20/g, '+').
+    replace(/%5B/gi, '[').
+    replace(/%5D/gi, ']');
+}
+
+/**
+ * Build a URL by appending params to the end
+ *
+ * @param {string} url The base of the url (e.g., http://www.google.com)
+ * @param {object} [params] The params to be appended
+ * @returns {string} The formatted url
+ */
+module.exports = function buildURL(url, params, paramsSerializer) {
+  /*eslint no-param-reassign:0*/
+  if (!params) {
+    return url;
+  }
+
+  var serializedParams;
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params);
+  } else if (utils.isURLSearchParams(params)) {
+    serializedParams = params.toString();
+  } else {
+    var parts = [];
+
+    utils.forEach(params, function serialize(val, key) {
+      if (val === null || typeof val === 'undefined') {
+        return;
+      }
+
+      if (utils.isArray(val)) {
+        key = key + '[]';
+      } else {
+        val = [val];
+      }
+
+      utils.forEach(val, function parseValue(v) {
+        if (utils.isDate(v)) {
+          v = v.toISOString();
+        } else if (utils.isObject(v)) {
+          v = JSON.stringify(v);
+        }
+        parts.push(encode(key) + '=' + encode(v));
+      });
+    });
+
+    serializedParams = parts.join('&');
+  }
+
+  if (serializedParams) {
+    var hashmarkIndex = url.indexOf('#');
+    if (hashmarkIndex !== -1) {
+      url = url.slice(0, hashmarkIndex);
+    }
+
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+  }
+
+  return url;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/combineURLs.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/combineURLs.js ***!
+  \*******************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Creates a new URL by combining the specified URLs
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} relativeURL The relative URL
+ * @returns {string} The combined URL
+ */
+module.exports = function combineURLs(baseURL, relativeURL) {
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    : baseURL;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/cookies.js":
+/*!***************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/cookies.js ***!
+  \***************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs support document.cookie
+    (function standardBrowserEnv() {
+      return {
+        write: function write(name, value, expires, path, domain, secure) {
+          var cookie = [];
+          cookie.push(name + '=' + encodeURIComponent(value));
+
+          if (utils.isNumber(expires)) {
+            cookie.push('expires=' + new Date(expires).toGMTString());
+          }
+
+          if (utils.isString(path)) {
+            cookie.push('path=' + path);
+          }
+
+          if (utils.isString(domain)) {
+            cookie.push('domain=' + domain);
+          }
+
+          if (secure === true) {
+            cookie.push('secure');
+          }
+
+          document.cookie = cookie.join('; ');
+        },
+
+        read: function read(name) {
+          var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+          return (match ? decodeURIComponent(match[3]) : null);
+        },
+
+        remove: function remove(name) {
+          this.write(name, '', Date.now() - 86400000);
+        }
+      };
+    })() :
+
+  // Non standard browser env (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return {
+        write: function write() {},
+        read: function read() { return null; },
+        remove: function remove() {}
+      };
+    })()
+);
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/isAbsoluteURL.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \*********************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Determines whether the specified URL is absolute
+ *
+ * @param {string} url The URL to test
+ * @returns {boolean} True if the specified URL is absolute, otherwise false
+ */
+module.exports = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/isAxiosError.js":
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isAxiosError.js ***!
+  \********************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Determines whether the payload is an error thrown by Axios
+ *
+ * @param {*} payload The value to test
+ * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
+ */
+module.exports = function isAxiosError(payload) {
+  return (typeof payload === 'object') && (payload.isAxiosError === true);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/isURLSameOrigin.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \***********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs have full support of the APIs needed to test
+  // whether the request URL is of the same origin as current location.
+    (function standardBrowserEnv() {
+      var msie = /(msie|trident)/i.test(navigator.userAgent);
+      var urlParsingNode = document.createElement('a');
+      var originURL;
+
+      /**
+    * Parse a URL to discover it's components
+    *
+    * @param {String} url The URL to be parsed
+    * @returns {Object}
+    */
+      function resolveURL(url) {
+        var href = url;
+
+        if (msie) {
+        // IE needs attribute set twice to normalize properties
+          urlParsingNode.setAttribute('href', href);
+          href = urlParsingNode.href;
+        }
+
+        urlParsingNode.setAttribute('href', href);
+
+        // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+        return {
+          href: urlParsingNode.href,
+          protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+          host: urlParsingNode.host,
+          search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+          hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+          hostname: urlParsingNode.hostname,
+          port: urlParsingNode.port,
+          pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+            urlParsingNode.pathname :
+            '/' + urlParsingNode.pathname
+        };
+      }
+
+      originURL = resolveURL(window.location.href);
+
+      /**
+    * Determine if a URL shares the same origin as the current location
+    *
+    * @param {String} requestURL The URL to test
+    * @returns {boolean} True if URL shares the same origin, otherwise false
+    */
+      return function isURLSameOrigin(requestURL) {
+        var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+        return (parsed.protocol === originURL.protocol &&
+            parsed.host === originURL.host);
+      };
+    })() :
+
+  // Non standard browser envs (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return function isURLSameOrigin() {
+        return true;
+      };
+    })()
+);
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/normalizeHeaderName.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
+  \***************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ../utils */ "./node_modules/axios/lib/utils.js");
+
+module.exports = function normalizeHeaderName(headers, normalizedName) {
+  utils.forEach(headers, function processHeader(value, name) {
+    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+      headers[normalizedName] = value;
+      delete headers[name];
+    }
+  });
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/parseHeaders.js":
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+
+// Headers whose duplicates are ignored by node
+// c.f. https://nodejs.org/api/http.html#http_message_headers
+var ignoreDuplicateOf = [
+  'age', 'authorization', 'content-length', 'content-type', 'etag',
+  'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since',
+  'last-modified', 'location', 'max-forwards', 'proxy-authorization',
+  'referer', 'retry-after', 'user-agent'
+];
+
+/**
+ * Parse headers into an object
+ *
+ * ```
+ * Date: Wed, 27 Aug 2014 08:58:49 GMT
+ * Content-Type: application/json
+ * Connection: keep-alive
+ * Transfer-Encoding: chunked
+ * ```
+ *
+ * @param {String} headers Headers needing to be parsed
+ * @returns {Object} Headers parsed into an object
+ */
+module.exports = function parseHeaders(headers) {
+  var parsed = {};
+  var key;
+  var val;
+  var i;
+
+  if (!headers) { return parsed; }
+
+  utils.forEach(headers.split('\n'), function parser(line) {
+    i = line.indexOf(':');
+    key = utils.trim(line.substr(0, i)).toLowerCase();
+    val = utils.trim(line.substr(i + 1));
+
+    if (key) {
+      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+        return;
+      }
+      if (key === 'set-cookie') {
+        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+      } else {
+        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      }
+    }
+  });
+
+  return parsed;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/spread.js":
+/*!**************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/spread.js ***!
+  \**************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Syntactic sugar for invoking a function and expanding an array for arguments.
+ *
+ * Common use case would be to use `Function.prototype.apply`.
+ *
+ *  ```js
+ *  function f(x, y, z) {}
+ *  var args = [1, 2, 3];
+ *  f.apply(null, args);
+ *  ```
+ *
+ * With `spread` this example can be re-written.
+ *
+ *  ```js
+ *  spread(function(x, y, z) {})([1, 2, 3]);
+ *  ```
+ *
+ * @param {Function} callback
+ * @returns {Function}
+ */
+module.exports = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr);
+  };
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/utils.js":
+/*!*****************************************!*\
+  !*** ./node_modules/axios/lib/utils.js ***!
+  \*****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
+
+/*global toString:true*/
+
+// utils is a library of generic helper functions non-specific to axios
+
+var toString = Object.prototype.toString;
+
+/**
+ * Determine if a value is an Array
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Array, otherwise false
+ */
+function isArray(val) {
+  return toString.call(val) === '[object Array]';
+}
+
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+function isUndefined(val) {
+  return typeof val === 'undefined';
+}
+
+/**
+ * Determine if a value is a Buffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Buffer, otherwise false
+ */
+function isBuffer(val) {
+  return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor)
+    && typeof val.constructor.isBuffer === 'function' && val.constructor.isBuffer(val);
+}
+
+/**
+ * Determine if a value is an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+ */
+function isArrayBuffer(val) {
+  return toString.call(val) === '[object ArrayBuffer]';
+}
+
+/**
+ * Determine if a value is a FormData
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+function isFormData(val) {
+  return (typeof FormData !== 'undefined') && (val instanceof FormData);
+}
+
+/**
+ * Determine if a value is a view on an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+ */
+function isArrayBufferView(val) {
+  var result;
+  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+  }
+  return result;
+}
+
+/**
+ * Determine if a value is a String
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a String, otherwise false
+ */
+function isString(val) {
+  return typeof val === 'string';
+}
+
+/**
+ * Determine if a value is a Number
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Number, otherwise false
+ */
+function isNumber(val) {
+  return typeof val === 'number';
+}
+
+/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */
+function isObject(val) {
+  return val !== null && typeof val === 'object';
+}
+
+/**
+ * Determine if a value is a plain Object
+ *
+ * @param {Object} val The value to test
+ * @return {boolean} True if value is a plain Object, otherwise false
+ */
+function isPlainObject(val) {
+  if (toString.call(val) !== '[object Object]') {
+    return false;
+  }
+
+  var prototype = Object.getPrototypeOf(val);
+  return prototype === null || prototype === Object.prototype;
+}
+
+/**
+ * Determine if a value is a Date
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Date, otherwise false
+ */
+function isDate(val) {
+  return toString.call(val) === '[object Date]';
+}
+
+/**
+ * Determine if a value is a File
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */
+function isFile(val) {
+  return toString.call(val) === '[object File]';
+}
+
+/**
+ * Determine if a value is a Blob
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Blob, otherwise false
+ */
+function isBlob(val) {
+  return toString.call(val) === '[object Blob]';
+}
+
+/**
+ * Determine if a value is a Function
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Function, otherwise false
+ */
+function isFunction(val) {
+  return toString.call(val) === '[object Function]';
+}
+
+/**
+ * Determine if a value is a Stream
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Stream, otherwise false
+ */
+function isStream(val) {
+  return isObject(val) && isFunction(val.pipe);
+}
+
+/**
+ * Determine if a value is a URLSearchParams object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+ */
+function isURLSearchParams(val) {
+  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+}
+
+/**
+ * Trim excess whitespace off the beginning and end of a string
+ *
+ * @param {String} str The String to trim
+ * @returns {String} The String freed of excess whitespace
+ */
+function trim(str) {
+  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+}
+
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
+ */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+                                           navigator.product === 'NativeScript' ||
+                                           navigator.product === 'NS')) {
+    return false;
+  }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  );
+}
+
+/**
+ * Iterate over an Array or an Object invoking a function for each item.
+ *
+ * If `obj` is an Array callback will be called passing
+ * the value, index, and complete array for each item.
+ *
+ * If 'obj' is an Object callback will be called passing
+ * the value, key, and complete object for each property.
+ *
+ * @param {Object|Array} obj The object to iterate
+ * @param {Function} fn The callback to invoke for each item
+ */
+function forEach(obj, fn) {
+  // Don't bother if no value provided
+  if (obj === null || typeof obj === 'undefined') {
+    return;
+  }
+
+  // Force an array if not already something iterable
+  if (typeof obj !== 'object') {
+    /*eslint no-param-reassign:0*/
+    obj = [obj];
+  }
+
+  if (isArray(obj)) {
+    // Iterate over array values
+    for (var i = 0, l = obj.length; i < l; i++) {
+      fn.call(null, obj[i], i, obj);
+    }
+  } else {
+    // Iterate over object keys
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        fn.call(null, obj[key], key, obj);
+      }
+    }
+  }
+}
+
+/**
+ * Accepts varargs expecting each argument to be an object, then
+ * immutably merges the properties of each object and returns result.
+ *
+ * When multiple objects contain the same key the later object in
+ * the arguments list will take precedence.
+ *
+ * Example:
+ *
+ * ```js
+ * var result = merge({foo: 123}, {foo: 456});
+ * console.log(result.foo); // outputs 456
+ * ```
+ *
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+function merge(/* obj1, obj2, obj3, ... */) {
+  var result = {};
+  function assignValue(val, key) {
+    if (isPlainObject(result[key]) && isPlainObject(val)) {
+      result[key] = merge(result[key], val);
+    } else if (isPlainObject(val)) {
+      result[key] = merge({}, val);
+    } else if (isArray(val)) {
+      result[key] = val.slice();
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+ * Extends object a by mutably adding to it the properties of object b.
+ *
+ * @param {Object} a The object to be extended
+ * @param {Object} b The object to copy properties from
+ * @param {Object} thisArg The object to bind function to
+ * @return {Object} The resulting value of object a
+ */
+function extend(a, b, thisArg) {
+  forEach(b, function assignValue(val, key) {
+    if (thisArg && typeof val === 'function') {
+      a[key] = bind(val, thisArg);
+    } else {
+      a[key] = val;
+    }
+  });
+  return a;
+}
+
+/**
+ * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
+ *
+ * @param {string} content with BOM
+ * @return {string} content value without BOM
+ */
+function stripBOM(content) {
+  if (content.charCodeAt(0) === 0xFEFF) {
+    content = content.slice(1);
+  }
+  return content;
+}
+
+module.exports = {
+  isArray: isArray,
+  isArrayBuffer: isArrayBuffer,
+  isBuffer: isBuffer,
+  isFormData: isFormData,
+  isArrayBufferView: isArrayBufferView,
+  isString: isString,
+  isNumber: isNumber,
+  isObject: isObject,
+  isPlainObject: isPlainObject,
+  isUndefined: isUndefined,
+  isDate: isDate,
+  isFile: isFile,
+  isBlob: isBlob,
+  isFunction: isFunction,
+  isStream: isStream,
+  isURLSearchParams: isURLSearchParams,
+  isStandardBrowserEnv: isStandardBrowserEnv,
+  forEach: forEach,
+  merge: merge,
+  extend: extend,
+  trim: trim,
+  stripBOM: stripBOM
+};
+
+
+/***/ }),
+
+/***/ "./js/components/ValueModal.svelte":
+/*!*****************************************!*\
+  !*** ./js/components/ValueModal.svelte ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/internal/index.mjs");
+/* harmony import */ var _types_table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/table */ "./js/types/table.ts");
+/* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/index.mjs");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _types_admin_columns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../types/admin-columns */ "./js/types/admin-columns.ts");
+/* js/components/ValueModal.svelte generated by Svelte v3.44.1 */
+
+
+
+
+
+
+function create_if_block_1(ctx) {
+  let h2;
+  let t;
+  return {
+    c() {
+      h2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h2");
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(
+      /*title*/
+      ctx[2]);
+    },
+
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, h2, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(h2, t);
+    },
+
+    p(ctx, dirty) {
+      if (dirty &
+      /*title*/
+      4) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t,
+      /*title*/
+      ctx[2]);
+    },
+
+    d(detaching) {
+      if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(h2);
+    }
+
+  };
+} // (103:2) {#if items.length > 1 }
+
+
+function create_if_block(ctx) {
+  let div;
+  let button0;
+  let t;
+  let button1;
+  let mounted;
+  let dispose;
+  return {
+    c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      button0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
+      button0.innerHTML = `<span class="dashicons dashicons-arrow-left-alt2"></span>`;
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      button1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
+      button1.innerHTML = `<span class="dashicons dashicons-arrow-right-alt2"></span>`;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button0, "title", "Previous");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button1, "title", "Next");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "ac-value-modal-panel__footer");
+    },
+
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, button0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, button1);
+
+      if (!mounted) {
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button0, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(
+        /*prevItem*/
+        ctx[6])), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button1, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(
+        /*nextItem*/
+        ctx[5]))];
+        mounted = true;
+      }
+    },
+
+    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+
+    d(detaching) {
+      if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
+      mounted = false;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
+    }
+
+  };
+}
+
+function create_fragment(ctx) {
+  let div6;
+  let div0;
+  let t0;
+  let div5;
+  let div3;
+  let div1;
+  let t1;
+  let div2;
+  let button;
+  let t2;
+  let div4;
+  let t3;
+  let mounted;
+  let dispose;
+  let if_block0 =
+  /*title*/
+  ctx[2] && create_if_block_1(ctx);
+  let if_block1 =
+  /*items*/
+  ctx[0].length > 1 && create_if_block(ctx);
+  return {
+    c() {
+      div6 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      if (if_block0) if_block0.c();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      button = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
+      button.innerHTML = `<span class="dashicons dashicons-no-alt"></span>`;
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block1) if_block1.c();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "ac-value-modal-background");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "ac-value-modal-title");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "ac-value-modal-actions");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div3, "class", "ac-value-modal-panel__header");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "class", "ac-value-modal-panel__body");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div5, "class", "ac-value-modal-panel");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div6, "class", "ac-value-modal");
+    },
+
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div6, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div6, div0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div6, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div6, div5);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div5, div3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, div1);
+      if (if_block0) if_block0.m(div1, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, div2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, button);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div5, t2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div5, div4);
+      div4.innerHTML =
+      /*content*/
+      ctx[3];
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div5, t3);
+      if (if_block1) if_block1.m(div5, null);
+      /*div6_binding*/
+
+      ctx[9](div6);
+
+      if (!mounted) {
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "click",
+        /*close*/
+        ctx[4]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click",
+        /*close*/
+        ctx[4])];
+        mounted = true;
+      }
+    },
+
+    p(ctx, [dirty]) {
+      if (
+      /*title*/
+      ctx[2]) {
+        if (if_block0) {
+          if_block0.p(ctx, dirty);
+        } else {
+          if_block0 = create_if_block_1(ctx);
+          if_block0.c();
+          if_block0.m(div1, null);
+        }
+      } else if (if_block0) {
+        if_block0.d(1);
+        if_block0 = null;
+      }
+
+      if (dirty &
+      /*content*/
+      8) div4.innerHTML =
+      /*content*/
+      ctx[3];
+      ;
+
+      if (
+      /*items*/
+      ctx[0].length > 1) {
+        if (if_block1) {
+          if_block1.p(ctx, dirty);
+        } else {
+          if_block1 = create_if_block(ctx);
+          if_block1.c();
+          if_block1.m(div5, null);
+        }
+      } else if (if_block1) {
+        if_block1.d(1);
+        if_block1 = null;
+      }
+    },
+
+    i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+
+    d(detaching) {
+      if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div6);
+      if (if_block0) if_block0.d();
+      if (if_block1) if_block1.d();
+      /*div6_binding*/
+
+      ctx[9](null);
+      mounted = false;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
+    }
+
+  };
+}
+
+function instance($$self, $$props, $$invalidate) {
+  let {
+    items
+  } = $$props;
+  let {
+    objectId
+  } = $$props;
+  let {
+    destroyHandler
+  } = $$props;
+  let columnTitle;
+  let mainElement;
+  let title;
+  let content;
+  let source;
+  const CancelToken = (axios__WEBPACK_IMPORTED_MODULE_3___default().CancelToken);
+
+  const close = () => {
+    destroyHandler();
+  };
+
+  const initMouseDown = e => {
+    if (e.key === 'Escape') {
+      destroyHandler();
+    }
+
+    if (e.key === 'ArrowLeft') {
+      prevItem();
+      e.preventDefault();
+    }
+
+    if (e.key === 'ArrowRight') {
+      nextItem();
+      e.preventDefault();
+    }
+  };
+
+  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
+    let item = items.find(i => i.objectId = objectId);
+    columnTitle = item.element.closest('td').dataset.colname;
+
+    if (items.length > 1) {
+      document.addEventListener('keydown', initMouseDown);
+    }
+
+    $$invalidate(2, title = `#${item.objectId}`);
+    updateDate(item.columnName, item.objectId);
+  });
+  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onDestroy)(() => {
+    document.removeEventListener('keydown', initMouseDown);
+  });
+
+  const getTitle = id => {
+    return `${columnTitle} #${id}`;
+  };
+
+  const updateDate = (column, id) => {
+    $$invalidate(7, objectId = id);
+    $$invalidate(2, title = 'Loading');
+    $$invalidate(3, content = 'Loading');
+
+    if (source) {
+      source.cancel();
+    }
+
+    source = CancelToken.source();
+    return axios__WEBPACK_IMPORTED_MODULE_3___default()({
+      method: 'get',
+      url: ajaxurl,
+      cancelToken: source.token,
+      params: {
+        action: 'ac_get_column_modal_value',
+        layout: AC.layout,
+        column_name: column,
+        object_id: id,
+        _ajax_nonce: AC.ajax_nonce
+      }
+    }).then(response => {
+      $$invalidate(3, content = response.data);
+      $$invalidate(2, title = getTitle(objectId));
+    });
+  };
+
+  const updateItem = index => {
+    updateDate(items[index].columnName, items[index].objectId);
+  };
+
+  const nextItem = () => {
+    let index = items.findIndex(item => item.objectId === objectId);
+    let newIndex = index + 1;
+    updateItem(newIndex >= items.length ? 0 : newIndex);
+  };
+
+  const prevItem = () => {
+    let index = items.findIndex(item => item.objectId === objectId);
+    let newIndex = index - 1;
+    updateItem(newIndex < 0 ? items.length - 1 : newIndex);
+  };
+
+  function div6_binding($$value) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+      mainElement = $$value;
+      $$invalidate(1, mainElement);
+    });
+  }
+
+  $$self.$$set = $$props => {
+    if ('items' in $$props) $$invalidate(0, items = $$props.items);
+    if ('objectId' in $$props) $$invalidate(7, objectId = $$props.objectId);
+    if ('destroyHandler' in $$props) $$invalidate(8, destroyHandler = $$props.destroyHandler);
+  };
+
+  return [items, mainElement, title, content, close, nextItem, prevItem, objectId, destroyHandler, div6_binding];
+}
+
+class ValueModal extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
+  constructor(options) {
+    super();
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      items: 0,
+      objectId: 7,
+      destroyHandler: 8
+    });
+  }
+
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ValueModal);
+
+/***/ }),
+
+/***/ "./node_modules/nanoassert/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/nanoassert/index.js ***!
+  \******************************************/
+/***/ ((module) => {
+
+assert.notEqual = notEqual
+assert.notOk = notOk
+assert.equal = equal
+assert.ok = assert
+
+module.exports = assert
+
+function equal (a, b, m) {
+  assert(a == b, m) // eslint-disable-line eqeqeq
+}
+
+function notEqual (a, b, m) {
+  assert(a != b, m) // eslint-disable-line eqeqeq
+}
+
+function notOk (t, m) {
+  assert(!t, m)
+}
+
+function assert (t, m) {
+  if (!t) throw new Error(m || 'AssertionError')
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/nanobus/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/nanobus/index.js ***!
+  \***************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var splice = __webpack_require__(/*! remove-array-items */ "./node_modules/remove-array-items/index.js")
+var nanotiming = __webpack_require__(/*! nanotiming */ "./node_modules/nanotiming/browser.js")
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js")
+
+module.exports = Nanobus
+
+function Nanobus (name) {
+  if (!(this instanceof Nanobus)) return new Nanobus(name)
+
+  this._name = name || 'nanobus'
+  this._starListeners = []
+  this._listeners = {}
+}
+
+Nanobus.prototype.emit = function (eventName) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.emit: eventName should be type string or symbol')
+
+  var data = []
+  for (var i = 1, len = arguments.length; i < len; i++) {
+    data.push(arguments[i])
+  }
+
+  var emitTiming = nanotiming(this._name + "('" + eventName.toString() + "')")
+  var listeners = this._listeners[eventName]
+  if (listeners && listeners.length > 0) {
+    this._emit(this._listeners[eventName], data)
+  }
+
+  if (this._starListeners.length > 0) {
+    this._emit(this._starListeners, eventName, data, emitTiming.uuid)
+  }
+  emitTiming()
+
+  return this
+}
+
+Nanobus.prototype.on = Nanobus.prototype.addListener = function (eventName, listener) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.on: eventName should be type string or symbol')
+  assert.equal(typeof listener, 'function', 'nanobus.on: listener should be type function')
+
+  if (eventName === '*') {
+    this._starListeners.push(listener)
+  } else {
+    if (!this._listeners[eventName]) this._listeners[eventName] = []
+    this._listeners[eventName].push(listener)
+  }
+  return this
+}
+
+Nanobus.prototype.prependListener = function (eventName, listener) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.prependListener: eventName should be type string or symbol')
+  assert.equal(typeof listener, 'function', 'nanobus.prependListener: listener should be type function')
+
+  if (eventName === '*') {
+    this._starListeners.unshift(listener)
+  } else {
+    if (!this._listeners[eventName]) this._listeners[eventName] = []
+    this._listeners[eventName].unshift(listener)
+  }
+  return this
+}
+
+Nanobus.prototype.once = function (eventName, listener) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.once: eventName should be type string or symbol')
+  assert.equal(typeof listener, 'function', 'nanobus.once: listener should be type function')
+
+  var self = this
+  this.on(eventName, once)
+  function once () {
+    listener.apply(self, arguments)
+    self.removeListener(eventName, once)
+  }
+  return this
+}
+
+Nanobus.prototype.prependOnceListener = function (eventName, listener) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.prependOnceListener: eventName should be type string or symbol')
+  assert.equal(typeof listener, 'function', 'nanobus.prependOnceListener: listener should be type function')
+
+  var self = this
+  this.prependListener(eventName, once)
+  function once () {
+    listener.apply(self, arguments)
+    self.removeListener(eventName, once)
+  }
+  return this
+}
+
+Nanobus.prototype.removeListener = function (eventName, listener) {
+  assert.ok(typeof eventName === 'string' || typeof eventName === 'symbol', 'nanobus.removeListener: eventName should be type string or symbol')
+  assert.equal(typeof listener, 'function', 'nanobus.removeListener: listener should be type function')
+
+  if (eventName === '*') {
+    this._starListeners = this._starListeners.slice()
+    return remove(this._starListeners, listener)
+  } else {
+    if (typeof this._listeners[eventName] !== 'undefined') {
+      this._listeners[eventName] = this._listeners[eventName].slice()
+    }
+
+    return remove(this._listeners[eventName], listener)
+  }
+
+  function remove (arr, listener) {
+    if (!arr) return
+    var index = arr.indexOf(listener)
+    if (index !== -1) {
+      splice(arr, index, 1)
+      return true
+    }
+  }
+}
+
+Nanobus.prototype.removeAllListeners = function (eventName) {
+  if (eventName) {
+    if (eventName === '*') {
+      this._starListeners = []
+    } else {
+      this._listeners[eventName] = []
+    }
+  } else {
+    this._starListeners = []
+    this._listeners = {}
+  }
+  return this
+}
+
+Nanobus.prototype.listeners = function (eventName) {
+  var listeners = eventName !== '*'
+    ? this._listeners[eventName]
+    : this._starListeners
+
+  var ret = []
+  if (listeners) {
+    var ilength = listeners.length
+    for (var i = 0; i < ilength; i++) ret.push(listeners[i])
+  }
+  return ret
+}
+
+Nanobus.prototype._emit = function (arr, eventName, data, uuid) {
+  if (typeof arr === 'undefined') return
+  if (arr.length === 0) return
+  if (data === undefined) {
+    data = eventName
+    eventName = null
+  }
+
+  if (eventName) {
+    if (uuid !== undefined) {
+      data = [eventName].concat(data, uuid)
+    } else {
+      data = [eventName].concat(data)
+    }
+  }
+
+  var length = arr.length
+  for (var i = 0; i < length; i++) {
+    var listener = arr[i]
+    listener.apply(listener, data)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/nanoscheduler/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/nanoscheduler/index.js ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js")
+
+var hasWindow = typeof window !== 'undefined'
+
+function createScheduler () {
+  var scheduler
+  if (hasWindow) {
+    if (!window._nanoScheduler) window._nanoScheduler = new NanoScheduler(true)
+    scheduler = window._nanoScheduler
+  } else {
+    scheduler = new NanoScheduler()
+  }
+  return scheduler
+}
+
+function NanoScheduler (hasWindow) {
+  this.hasWindow = hasWindow
+  this.hasIdle = this.hasWindow && window.requestIdleCallback
+  this.method = this.hasIdle ? window.requestIdleCallback.bind(window) : this.setTimeout
+  this.scheduled = false
+  this.queue = []
+}
+
+NanoScheduler.prototype.push = function (cb) {
+  assert.equal(typeof cb, 'function', 'nanoscheduler.push: cb should be type function')
+
+  this.queue.push(cb)
+  this.schedule()
+}
+
+NanoScheduler.prototype.schedule = function () {
+  if (this.scheduled) return
+
+  this.scheduled = true
+  var self = this
+  this.method(function (idleDeadline) {
+    var cb
+    while (self.queue.length && idleDeadline.timeRemaining() > 0) {
+      cb = self.queue.shift()
+      cb(idleDeadline)
+    }
+    self.scheduled = false
+    if (self.queue.length) self.schedule()
+  })
+}
+
+NanoScheduler.prototype.setTimeout = function (cb) {
+  setTimeout(cb, 0, {
+    timeRemaining: function () {
+      return 1
+    }
+  })
+}
+
+module.exports = createScheduler
+
+
+/***/ }),
+
+/***/ "./node_modules/nanotiming/browser.js":
+/*!********************************************!*\
+  !*** ./node_modules/nanotiming/browser.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var scheduler = __webpack_require__(/*! nanoscheduler */ "./node_modules/nanoscheduler/index.js")()
+var assert = __webpack_require__(/*! assert */ "./node_modules/nanoassert/index.js")
+
+var perf
+nanotiming.disabled = true
+try {
+  perf = window.performance
+  nanotiming.disabled = window.localStorage.DISABLE_NANOTIMING === 'true' || !perf.mark
+} catch (e) { }
+
+module.exports = nanotiming
+
+function nanotiming (name) {
+  assert.equal(typeof name, 'string', 'nanotiming: name should be type string')
+
+  if (nanotiming.disabled) return noop
+
+  var uuid = (perf.now() * 10000).toFixed() % Number.MAX_SAFE_INTEGER
+  var startName = 'start-' + uuid + '-' + name
+  perf.mark(startName)
+
+  function end (cb) {
+    var endName = 'end-' + uuid + '-' + name
+    perf.mark(endName)
+
+    scheduler.push(function () {
+      var err = null
+      try {
+        var measureName = name + ' [' + uuid + ']'
+        perf.measure(measureName, startName, endName)
+        perf.clearMarks(startName)
+        perf.clearMarks(endName)
+      } catch (e) { err = e }
+      if (cb) cb(err, name)
+    })
+  }
+
+  end.uuid = uuid
+  return end
+}
+
+function noop (cb) {
+  if (cb) {
+    scheduler.push(function () {
+      cb(new Error('nanotiming: performance API unavailable'))
+    })
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remove-array-items/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/remove-array-items/index.js ***!
+  \**************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * Remove a range of items from an array
+ *
+ * @function removeItems
+ * @param {Array<*>} arr The target array
+ * @param {number} startIdx The index to begin removing from (inclusive)
+ * @param {number} removeCount How many items to remove
+ */
+module.exports = function removeItems (arr, startIdx, removeCount) {
+  var i, length = arr.length
+
+  if (startIdx >= length || removeCount === 0) {
+    return
+  }
+
+  removeCount = (startIdx + removeCount > length ? length - startIdx : removeCount)
+
+  var len = length - removeCount
+
+  for (i = startIdx; i < len; ++i) {
+    arr[i] = arr[i + removeCount]
+  }
+
+  arr.length = len
+}
+
+
+/***/ }),
+
+/***/ "./js/constants.ts":
+/*!*************************!*\
+  !*** ./js/constants.ts ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EventConstants": () => (/* binding */ EventConstants)
+/* harmony export */ });
+const EventConstants = {
+    TABLE: {
+        READY: 'Table.Ready'
+    },
+    SETTINGS: {
+        FORM: {
+            LOADED: 'Settings.Form.Loaded',
+            READY: 'Settings.Form.Ready',
+            SAVING: 'Settings.Form.Saving',
+            SAVED: 'Settings.Form.Saved'
+        },
+        COLUMN: {
+            INIT: 'Settings.Column.Init',
+            SWITCH: 'Settings.Column.SwitchToType',
+            REFRESHED: 'Settings.Column.Refreshed'
+        }
+    }
+};
+
+
+/***/ }),
+
+/***/ "./js/helpers/admin-columns.ts":
+/*!*************************************!*\
+  !*** ./js/helpers/admin-columns.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initAcServices": () => (/* binding */ initAcServices)
+/* harmony export */ });
+/* harmony import */ var _modules_ac_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/ac-services */ "./js/modules/ac-services.ts");
+
+const initAcServices = () => {
+    if (!window.AC_SERVICES) {
+        window.AC_SERVICES = new _modules_ac_services__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    }
+    return window.AC_SERVICES;
+};
+
+
+/***/ }),
+
+/***/ "./js/helpers/elements.ts":
+/*!********************************!*\
+  !*** ./js/helpers/elements.ts ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "insertAfter": () => (/* binding */ insertAfter),
+/* harmony export */   "insertBefore": () => (/* binding */ insertBefore),
+/* harmony export */   "createElementFromString": () => (/* binding */ createElementFromString)
+/* harmony export */ });
+/* harmony import */ var _html_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./html-element */ "./js/helpers/html-element.ts");
+
+const insertAfter = (newNode, referenceNode) => {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+};
+const insertBefore = (newNode, referenceNode) => {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode);
+};
+const createElementFromString = (content, baseElement = 'div') => {
+    return _html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create(baseElement).addHtml(content).element;
+};
+function isInViewport(element) {
+    var rect = element.getBoundingClientRect();
+    return (rect.top >= 0 && rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth));
+}
+
+
+/***/ }),
+
+/***/ "./js/helpers/global.ts":
+/*!******************************!*\
+  !*** ./js/helpers/global.ts ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getParamFromUrl": () => (/* binding */ getParamFromUrl),
+/* harmony export */   "mapDataToFormData": () => (/* binding */ mapDataToFormData),
+/* harmony export */   "appendObjectToFormData": () => (/* binding */ appendObjectToFormData)
+/* harmony export */ });
+const getParamFromUrl = (param, url) => {
+    if (!url.includes('?')) {
+        return null;
+    }
+    const params = new URLSearchParams(url.split('?')[1]);
+    return params.get(param);
+};
+const mapDataToFormData = (data, formData = null) => {
+    if (!formData) {
+        formData = new FormData();
+    }
+    Object.keys(data).forEach(key => {
+        appendObjectToFormData(formData, data[key], key);
+    });
+    return formData;
+};
+const appendObjectToFormData = (formData, data, parentKey = null) => {
+    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+        Object.keys(data).forEach(key => {
+            appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+        });
+    }
+    else {
+        const value = data == null ? '' : data;
+        formData.append(parentKey, value);
+    }
+};
+
+
+/***/ }),
+
+/***/ "./js/helpers/html-element.ts":
+/*!************************************!*\
+  !*** ./js/helpers/html-element.ts ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AcEl": () => (/* binding */ AcEl),
+/* harmony export */   "default": () => (/* binding */ AcHtmlElement)
+/* harmony export */ });
+const AcEl = (el) => {
+    return AcHtmlElement.create(el);
+};
+class AcHtmlElement {
+    constructor(el) {
+        this.element = el instanceof HTMLElement ? el : document.createElement(el);
+    }
+    static create(el) {
+        return new AcHtmlElement(el);
+    }
+    addId(id) {
+        this.element.id = id;
+        return this;
+    }
+    addClass(className) {
+        this.element.classList.add(className);
+        return this;
+    }
+    addClasses(...classNames) {
+        classNames.forEach(className => this.addClass(className));
+        return this;
+    }
+    setAttribute(name, value) {
+        this.element.setAttribute(name, value);
+        return this;
+    }
+    setAttributes(attributes) {
+        Object.keys(attributes).forEach(k => this.setAttribute(k, attributes[k]));
+        return this;
+    }
+    addHtml(html) {
+        this.element.innerHTML = html;
+        return this;
+    }
+    append(element) {
+        this.element.appendChild(element);
+        return this;
+    }
+    appendSelfTo(element) {
+        element.append(this.element);
+        return this;
+    }
+    css(property, value) {
+        this.element.style[property] = value;
+        return this;
+    }
+    insertAfter(insertedElement) {
+        try {
+            this.element.parentElement.insertBefore(insertedElement, this.element.nextElementSibling);
+        }
+        catch (e) {
+            console.error("Not able to insert element after current node", this.element);
+        }
+    }
+    insertSelfBefore(referenceNode) {
+        try {
+            referenceNode.parentElement.insertBefore(this.element, referenceNode);
+        }
+        catch (e) {
+            console.error("Not able to insert element before current node", this.element);
+        }
+        return this;
+    }
+    insertBefore(insertedElement) {
+        try {
+            this.element.parentElement.insertBefore(insertedElement, this.element);
+        }
+        catch (e) {
+            console.error("Not able to insert element before current node", this.element);
+        }
+        return this;
+    }
+    addEventListener(event, listener) {
+        this.element.addEventListener(event, listener);
+        return this;
+    }
+    addEventListeners(events, listener) {
+        events.forEach(e => this.addEventListener(e, listener));
+        return this;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/helpers/table.ts":
+/*!*****************************!*\
+  !*** ./js/helpers/table.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getIdFromTableRow": () => (/* binding */ getIdFromTableRow),
+/* harmony export */   "getIdFromString": () => (/* binding */ getIdFromString),
+/* harmony export */   "getRowCellByName": () => (/* binding */ getRowCellByName),
+/* harmony export */   "resolveTableBySelector": () => (/* binding */ resolveTableBySelector)
+/* harmony export */ });
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global */ "./js/helpers/global.ts");
+
+const getIdFromTableRow = (row) => {
+    if (row.classList.contains('no-items')) {
+        return 0;
+    }
+    let item_id = getIdFromString(row.id);
+    if (!item_id) {
+        let input = row.querySelector('.check-column input[type=checkbox]');
+        if (input) {
+            item_id = getIdFromString(input.id);
+        }
+    }
+    // Try to get the ID from the edit URL (MS Sites)
+    if (!item_id) {
+        let link = row.parentElement.querySelector('.edit a');
+        if (link) {
+            let href = link.getAttribute('href');
+            if (href) {
+                item_id = parseInt((0,_global__WEBPACK_IMPORTED_MODULE_0__.getParamFromUrl)('id', href));
+            }
+        }
+    }
+    row.dataset.id = item_id.toString();
+    return item_id;
+};
+const getIdFromString = (value) => {
+    let id_parts = value.split(/[_,\-]+/);
+    return parseInt(id_parts[id_parts.length - 1]);
+};
+const getRowCellByName = (row, column_name) => {
+    return row.querySelector(`td.column-${column_name}`);
+};
+const resolveTableBySelector = (selector) => {
+    let table = document.querySelector(selector);
+    if (!table) {
+        return null;
+    }
+    if (table.tagName === 'TABLE') {
+        return table;
+    }
+    if (table.tagName === 'TBODY') {
+        return table.closest('table');
+    }
+    if (table.querySelector('table.wp-list-table')) {
+        return table.querySelector('table.wp-list-table');
+    }
+    return null;
+};
+
+
+/***/ }),
+
+/***/ "./js/modules/ac-pointer.ts":
+/*!**********************************!*\
+  !*** ./js/modules/ac-pointer.ts ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Pointer": () => (/* binding */ Pointer),
+/* harmony export */   "initPointers": () => (/* binding */ initPointers)
+/* harmony export */ });
+/* harmony import */ var _tooltips__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltips */ "./js/modules/tooltips.ts");
+
+const $ = __webpack_require__(/*! jquery */ "jquery");
+class Pointer {
+    constructor(el) {
+        this.element = el;
+        this.settings = this.getDefaults();
+        this.init();
+        this.setInitialized();
+    }
+    setInitialized() {
+        AcPointers.add(this.element);
+    }
+    getDefaults() {
+        return {
+            width: this.element.getAttribute('data-width') ? this.element.getAttribute('data-width') : 250,
+            noclick: this.element.getAttribute('data-noclick') ? this.element.getAttribute('data-noclick') : false,
+            position: this.getPosition()
+        };
+    }
+    isInitialized() {
+        return AcPointers.isInitialized(this.element);
+    }
+    init() {
+        if (this.isInitialized()) {
+            return;
+        }
+        // create pointer
+        $(this.element).mouseenter(() => {
+            $(this.element).pointer({
+                content: this.getRelatedHTML(),
+                position: this.settings.position,
+                pointerWidth: this.settings.width,
+                pointerClass: this.getPointerClass()
+            });
+        });
+        this.initEvents();
+    }
+    getPosition() {
+        let position = {
+            at: 'left top',
+            my: 'right top',
+            edge: 'right', // position of arrow
+        };
+        let pos = this.element.getAttribute('data-pos');
+        let edge = this.element.getAttribute('data-pos_edge');
+        if ('right' === pos) {
+            position = {
+                at: 'right middle',
+                my: 'left middle',
+                edge: 'left'
+            };
+        }
+        if ('right_bottom' === pos) {
+            position = {
+                at: 'right middle',
+                my: 'left bottom',
+                edge: 'none'
+            };
+        }
+        if ('left' === pos) {
+            position = {
+                at: 'left middle',
+                my: 'right middle',
+                edge: 'right'
+            };
+        }
+        if (edge) {
+            position.edge = edge;
+        }
+        return position;
+    }
+    getPointerClass() {
+        let classes = [
+            'ac-wp-pointer',
+            'wp-pointer',
+            'wp-pointer-' + this.settings.position.edge
+        ];
+        if (this.settings.noclick) {
+            classes.push('noclick');
+        }
+        return classes.join(' ');
+    }
+    getRelatedHTML() {
+        let related_element = document.getElementById(this.element.getAttribute('rel'));
+        return related_element ? related_element.innerHTML : '';
+    }
+    initEvents() {
+        let el = $(this.element);
+        // click
+        if (!this.settings.noclick) {
+            el.click(function () {
+                if (el.hasClass('open')) {
+                    el.removeClass('open');
+                }
+                else {
+                    el.addClass('open');
+                }
+            });
+        }
+        el.click(function () {
+            el.pointer('open');
+        });
+        el.mouseenter(function () {
+            el.pointer('open');
+            setTimeout(() => {
+                el.pointer('open');
+            }, 2);
+        });
+        el.mouseleave(function () {
+            setTimeout(() => {
+                if (!el.hasClass('open') && $('.ac-wp-pointer.hover').length === 0) {
+                    el.pointer('close');
+                }
+            }, 1);
+        });
+        el.on('close', () => {
+            setTimeout(() => {
+                if (!el.hasClass('open')) {
+                    el.pointer('close');
+                }
+            });
+        });
+    }
+}
+class AcPointers {
+    static isInitialized(element) {
+        return this.initElements.filter(el => el === element).length > 0;
+    }
+    static add(element) {
+        this.initElements.push(element);
+    }
+}
+AcPointers.initElements = [];
+const initPointers = (elements = null) => {
+    if (!elements) {
+        elements = document.querySelectorAll('.ac-pointer');
+    }
+    elements.forEach(element => {
+        new Pointer(element);
+    });
+    $('.ac-wp-pointer').hover(function () {
+        $(this).addClass('hover');
+    }, function () {
+        $(this).removeClass('hover');
+        $('.ac-pointer').trigger('close');
+    }).on('click', '.close', function () {
+        $('.ac-pointer').removeClass('open');
+    });
+    new _tooltips__WEBPACK_IMPORTED_MODULE_0__["default"]();
+};
+
+
+/***/ }),
+
+/***/ "./js/modules/ac-services.ts":
+/*!***********************************!*\
+  !*** ./js/modules/ac-services.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AcServices)
+/* harmony export */ });
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
+
+
+class AcServices {
+    constructor() {
+        this.services = {};
+        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
+        this.$ = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__.AcEl;
+    }
+    registerService(name, service) {
+        this.services[name] = service;
+        return this;
+    }
+    getService(name) {
+        return this.hasService(name) ? this.services[name] : null;
+    }
+    hasService(name) {
+        return this.services.hasOwnProperty(name);
+    }
+    addListener(name, callback) {
+        this.events.addListener(name, callback);
+    }
+    emitEvent(name, args) {
+        this.events.emit(name, args);
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/modules/modal.ts":
+/*!*****************************!*\
+  !*** ./js/modules/modal.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Modal)
+/* harmony export */ });
+class Modal {
+    constructor(el) {
+        if (!el) {
+            return;
+        }
+        this.el = el;
+        this.dialog = el.querySelector('.ac-modal__dialog');
+        this.initEvents();
+    }
+    getElement() {
+        return this.el;
+    }
+    initEvents() {
+        let self = this;
+        document.addEventListener('keydown', (e) => {
+            const keyName = e.key;
+            if (!this.isOpen()) {
+                return;
+            }
+            if ('Escape' === keyName) {
+                this.close();
+            }
+        });
+        let dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
+        if (dismissButtons.length > 0) {
+            dismissButtons.forEach((b) => {
+                b.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    self.close();
+                });
+            });
+        }
+        this.el.addEventListener('click', (e) => {
+            if (e.target.classList.contains('ac-modal')) {
+                self.close();
+            }
+        });
+    }
+    isOpen() {
+        return this.el.classList.contains('-active');
+    }
+    close() {
+        this.onClose();
+        this.el.classList.remove('-active');
+    }
+    open() {
+        //short delay in order to allow bubbling events to bind before opening
+        setTimeout(() => {
+            this.onOpen();
+            this.el.removeAttribute('style');
+            this.el.classList.add('-active');
+        });
+    }
+    destroy() {
+        this.el.remove();
+    }
+    onClose() {
+    }
+    onOpen() {
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/modules/modals.ts":
+/*!******************************!*\
+  !*** ./js/modules/modals.ts ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Modals)
+/* harmony export */ });
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.ts");
+
+class Modals {
+    constructor() {
+        this.modals = {};
+        this.number = 0;
+        this.defaults = {
+            modal: _modal__WEBPACK_IMPORTED_MODULE_0__["default"]
+        };
+        this.initGlobalEvents();
+    }
+    register(modal, key = '') {
+        if (!key) {
+            key = 'm' + this.number;
+        }
+        this.modals[key] = modal;
+        this.number++;
+        return modal;
+    }
+    get(key) {
+        return this.modals.hasOwnProperty(key) ? this.modals[key] : null;
+    }
+    open(key) {
+        if (this.get(key)) {
+            this.get(key).open();
+        }
+    }
+    close(key) {
+        if (this.get(key)) {
+            this.get(key).close();
+        }
+    }
+    closeAll() {
+        for (let key in this.modals) {
+            this.close(key);
+        }
+    }
+    initGlobalEvents() {
+        document.addEventListener('click', (e) => {
+            let target = e.target;
+            if (target.dataset.acModal) {
+                e.preventDefault();
+                this.open(target.dataset.acModal);
+            }
+        });
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/modules/service-container.ts":
+/*!*****************************************!*\
+  !*** ./js/modules/service-container.ts ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ServiceContainer)
+/* harmony export */ });
+class ServiceContainer {
+    constructor() {
+        this.services = {};
+    }
+    setService(name, service) {
+        this.services[name] = service;
+    }
+    getService(name) {
+        return this.hasService(name) ? this.services[name] : null;
+    }
+    hasService(name) {
+        return this.services.hasOwnProperty(name);
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/modules/toggle-box-link.ts":
+/*!***************************************!*\
+  !*** ./js/modules/toggle-box-link.ts ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ToggleBoxLink)
+/* harmony export */ });
+/* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/elements */ "./js/helpers/elements.ts");
+
+const $ = __webpack_require__(/*! jquery */ "jquery");
+class ToggleBoxLink {
+    constructor(element) {
+        this.element = element;
+        this.initEvents();
+        this.contentBox = this.element.parentElement.querySelector('.ac-toggle-box-contents');
+        if (!this.contentBox) {
+            this.createContenBox();
+        }
+    }
+    isAjax() {
+        return parseInt(this.element.dataset.ajaxPopulate) === 1;
+    }
+    isInited() {
+        return this.element.dataset.toggleBoxInit;
+    }
+    createContenBox() {
+        let contentBox = document.createElement('div');
+        contentBox.classList.add('ac-toggle-box-contents');
+        (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_0__.insertAfter)(contentBox, this.element);
+        this.contentBox = contentBox;
+        return this.contentBox;
+    }
+    initEvents() {
+        if (this.isInited()) {
+            return;
+        }
+        this.element.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (this.isAjax() && !this.hasContent()) {
+                this.manageAjaxValue();
+            }
+            this.toggleContentBox();
+        });
+        this.element.dataset.toggleBoxInit = 'true';
+    }
+    hasContent() {
+        return this.getContentBox().innerHTML.length > 0;
+    }
+    setContent(content) {
+        this.getContentBox().innerHTML = content;
+    }
+    getContentBox() {
+        if (!this.contentBox) {
+            return this.createContenBox();
+        }
+        return this.contentBox;
+    }
+    setLabel(open) {
+        let label = this.element.dataset.label;
+        if (open && this.element.dataset.labelClose) {
+            label = this.element.dataset.labelClose;
+        }
+        this.element.innerHTML = label + '<span class="spinner"></span>';
+    }
+    toggleContentBox() {
+        if (this.getContentBox().classList.contains('-open')) {
+            this.getContentBox().classList.remove('-open');
+            this.setLabel(false);
+        }
+        else {
+            this.getContentBox().classList.add('-open');
+            this.setLabel(true);
+        }
+    }
+    manageAjaxValue() {
+        this.element.classList.add('loading');
+        this.retrieveAjaxValue().done((response) => {
+            this.setContent(response);
+            $(this.element.parentElement).trigger('ajax_column_value_ready');
+            AC_SERVICES.getService('Tooltips').init();
+        }).always(() => {
+            this.element.classList.remove('loading');
+        });
+    }
+    retrieveAjaxValue() {
+        return $.ajax({
+            url: ajaxurl,
+            method: 'POST',
+            data: {
+                action: 'ac_get_column_value',
+                list_screen: AC.list_screen,
+                layout: AC.layout,
+                column: this.element.dataset.column,
+                pk: this.element.dataset.itemId,
+                _ajax_nonce: AC.ajax_nonce
+            }
+        });
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/modules/tooltips.ts":
+/*!********************************!*\
+  !*** ./js/modules/tooltips.ts ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
+
+class Tooltips {
+    constructor() {
+        this.init();
+    }
+    init() {
+        (0,_plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__.initAcTooltips)();
+    }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tooltips);
+
+
+/***/ }),
+
+/***/ "./js/modules/value-modals.ts":
+/*!************************************!*\
+  !*** ./js/modules/value-modals.ts ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ValueModals)
+/* harmony export */ });
+/* harmony import */ var _components_ValueModal_svelte__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/ValueModal.svelte */ "./js/components/ValueModal.svelte");
+// @ts-ignore
+
+class ValueModals {
+    constructor(links) {
+        this.links = links;
+        this.component = null;
+        this.initEventHandlers();
+    }
+    initEventHandlers() {
+        this.links.forEach(item => {
+            item.element.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.displayModal(item.objectId);
+            });
+        });
+    }
+    destroyComponent() {
+        if (this.component !== null) {
+            this.component.$destroy();
+        }
+    }
+    displayModal(id) {
+        let element = document.createElement('div');
+        document.body.appendChild(element);
+        this.component = new _components_ValueModal_svelte__WEBPACK_IMPORTED_MODULE_0__["default"]({
+            target: element,
+            props: {
+                items: this.links,
+                objectId: id,
+                destroyHandler: () => this.destroyComponent()
+            }
+        });
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/plugin/show-more.ts":
+/*!********************************!*\
+  !*** ./js/plugin/show-more.ts ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "auto_init_show_more": () => (/* binding */ auto_init_show_more),
+/* harmony export */   "default": () => (/* binding */ ShowMore)
+/* harmony export */ });
+const auto_init_show_more = () => {
+    document.querySelectorAll('.ac-show-more').forEach((el) => {
+        new ShowMore(el);
+    });
+};
+class ShowMore {
+    constructor(el) {
+        this.element = el;
+        this.initEvents();
+    }
+    initEvents() {
+        if (this.isInited()) {
+            return;
+        }
+        if (this.getToggler()) {
+            this.getToggler().addEventListener('click', event => {
+                event.preventDefault();
+                event.stopPropagation();
+                this.toggle();
+            });
+        }
+        this.element.dataset.showMoreInit = 'true';
+    }
+    getToggler() {
+        return this.element.querySelector('.ac-show-more__toggle');
+    }
+    isInited() {
+        return this.element.dataset.showMoreInit === 'true';
+    }
+    toggle() {
+        if (this.element.classList.contains('-on')) {
+            this.hide();
+        }
+        else {
+            this.show();
+        }
+    }
+    show() {
+        this.element.classList.add('-on');
+        this.getToggler().innerHTML = this.getToggler().dataset.less;
+    }
+    hide() {
+        this.element.classList.remove('-on');
+        this.getToggler().innerHTML = this.getToggler().dataset.more;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/plugin/tooltip.ts":
+/*!******************************!*\
+  !*** ./js/plugin/tooltip.ts ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initAcTooltips": () => (/* binding */ initAcTooltips),
+/* harmony export */   "Tooltip": () => (/* binding */ Tooltip)
+/* harmony export */ });
+const initAcTooltips = () => {
+    document.querySelectorAll('[data-ac-tip]').forEach((element) => {
+        new Tooltip(element);
+    });
+};
+class Tooltip {
+    constructor(el, content = '') {
+        this.element = el;
+        this.content = content ? content : el.dataset.acTip;
+        this.tip = createTooltip(this.content);
+        this.initEvents();
+    }
+    initEvents() {
+        if (this.element.dataset.acTooltipInit === '1') {
+            return;
+        }
+        this.element.dataset.acTooltipInit = '1';
+        this.element.addEventListener('mouseenter', () => {
+            const bodyOffset = document.body.getBoundingClientRect();
+            const viewportOffset = this.element.getBoundingClientRect();
+            document.body.appendChild(this.tip);
+            this.tip.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth / 2) + 'px';
+            this.tip.style.top = ((viewportOffset.top - bodyOffset.top) + this.element.offsetHeight) + 'px';
+            this.tip.classList.add('hover');
+        });
+        this.element.addEventListener('mouseleave', () => {
+            this.tip.classList.remove('hover');
+            document.body.removeChild(this.tip);
+        });
+    }
+}
+const createTooltip = (content) => {
+    let tip = document.createElement('div');
+    tip.classList.add('ac-tooltip');
+    tip.innerHTML = content;
+    return tip;
+};
+
+
+/***/ }),
+
+/***/ "./js/table/actions.ts":
+/*!*****************************!*\
+  !*** ./js/table/actions.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Actions)
+/* harmony export */ });
+/* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/elements */ "./js/helpers/elements.ts");
+
+var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+class Actions {
+    constructor(element) {
+        this.container = element;
+        this.events = nanobus();
+        this.init();
+    }
+    init() {
+        this.container.addEventListener('update', () => {
+            this.refresh();
+        });
+        let reference = document.querySelectorAll('.tablenav.top .actions');
+        if (reference && reference.length) {
+            (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_0__.insertAfter)(this.container, reference[reference.length - 1]);
+            this.container.classList.add('-init');
+            this.container.dispatchEvent(new CustomEvent('update'));
+        }
+    }
+    refresh() {
+        this.container.querySelectorAll('.ac-table-actions-buttons > a').forEach((element) => {
+            element.classList.remove('last');
+        });
+        let buttons = [].slice.call(this.container.querySelectorAll('.ac-table-actions-buttons > a'), 0);
+        buttons.reverse();
+        for (var i = 0; i < buttons.length; i++) {
+            if (buttons[i].offsetParent) {
+                buttons[i].classList.add('last');
+                break;
+            }
+        }
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/table/cell.ts":
+/*!**************************!*\
+  !*** ./js/table/cell.ts ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Cell)
+/* harmony export */ });
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+/* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
+
+class Cell {
+    constructor(id, name, el) {
+        this.object_id = id;
+        this.column_name = name;
+        this.original_value = el.innerHTML;
+        this.el = el;
+        this.services = {};
+        this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
+    }
+    getOriginalValue() {
+        return this.original_value;
+    }
+    getObjectID() {
+        return this.object_id;
+    }
+    getName() {
+        return this.column_name;
+    }
+    getElement() {
+        return this.el;
+    }
+    setElement(element) {
+        this.el = element;
+    }
+    getRow() {
+        return this.el.parentElement;
+    }
+    getSettings() {
+        return AC_SERVICES.getService('Table').Columns.get(this.getName());
+    }
+    hasChanged(content) {
+        return this.original_value !== content;
+    }
+    setValue(value) {
+        let rowActions = this.el.querySelector('.row-actions');
+        this.original_value = value;
+        this.el.innerHTML = value;
+        if (rowActions) {
+            this.el.append(rowActions);
+        }
+        this.original_value = value;
+        this.events.emit('setValue', this);
+        return this;
+    }
+    setService(name, service) {
+        this.services[name] = service;
+    }
+    getService(name) {
+        return this.hasService(name) ? this.services[name] : null;
+    }
+    hasService(name) {
+        return this.services.hasOwnProperty(name);
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/table/cells.ts":
+/*!***************************!*\
+  !*** ./js/table/cells.ts ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Cells)
+/* harmony export */ });
+class Cells {
+    constructor() {
+        this.cells = {};
+    }
+    add(id, cell) {
+        if (!this.cells.hasOwnProperty(id)) {
+            this.cells[id] = {};
+        }
+        this.cells[id][cell.getName()] = cell;
+    }
+    getByID(id) {
+        let result = [];
+        if (!this.cells.hasOwnProperty(id.toString())) {
+            return result;
+        }
+        let cells = this.cells[id.toString()];
+        Object.keys(cells).forEach(name => result.push(cells[name]));
+        return result;
+    }
+    getAll() {
+        let results = [];
+        Object.keys(this.cells).forEach(id => {
+            let cells = this.cells[id];
+            Object.keys(cells).forEach(name => results.push(cells[name]));
+        });
+        return results;
+    }
+    getByName(name) {
+        let results = [];
+        Object.keys(this.cells).forEach(id => {
+            let cells = this.cells[id];
+            Object.keys(cells).forEach(column_name => {
+                if (name === column_name) {
+                    results.push(cells[column_name]);
+                }
+            });
+        });
+        return results;
+    }
+    get(id, name) {
+        return this.cells.hasOwnProperty(id.toString()) ? this.cells[id][name] : null;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/table/columns.ts":
+/*!*****************************!*\
+  !*** ./js/table/columns.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Columns),
+/* harmony export */   "ColumnTableSettings": () => (/* binding */ ColumnTableSettings)
+/* harmony export */ });
+class Columns {
+    constructor(table) {
+        this.table = table;
+        this.columns = {};
+        this.init();
+    }
+    init() {
+        let self = this;
+        let thead = this.table.querySelector('thead');
+        let headers = thead.querySelectorAll('th');
+        for (let i = 0; i < headers.length; i++) {
+            let headerName = headers[i].id;
+            self.columns[headers[i].id] = new ColumnTableSettings(headerName, AC.column_types[headerName], this.sanitizeLabel(headers[i]));
+        }
+    }
+    getColumns() {
+        return this.columns;
+    }
+    getColumnsMap() {
+        let map = new Map();
+        let columns = this.getColumns();
+        Object.keys(columns).forEach((k) => {
+            map.set(k, columns[k]);
+        });
+        return map;
+    }
+    getColumnNames() {
+        return Object.keys(this.columns);
+    }
+    get(column_name) {
+        return this.columns.hasOwnProperty(column_name) ? this.columns[column_name] : null;
+    }
+    sanitizeLabel(header) {
+        let link = header.querySelector('a');
+        let label = header.innerHTML;
+        // If it contains a link, we presume that it is because of sorting
+        if (link) {
+            let elements = link.getElementsByTagName('span');
+            if (elements.length > 0) {
+                label = elements[0].innerHTML;
+            }
+        }
+        return label;
+    }
+}
+class ColumnTableSettings {
+    constructor(name, type, label) {
+        this.name = name;
+        this.type = type;
+        this.label = label;
+        this.services = {};
+    }
+    setService(name, service) {
+        this.services[name] = service;
+    }
+    getService(name) {
+        return this.hasService(name) ? this.services[name] : null;
+    }
+    hasService(name) {
+        return this.services.hasOwnProperty(name);
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/table/functions.ts":
+/*!*******************************!*\
+  !*** ./js/table/functions.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "init_actions_tooltips": () => (/* binding */ init_actions_tooltips)
+/* harmony export */ });
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
+
+const init_actions_tooltips = () => {
+    document.querySelectorAll('.cpac_use_icons').forEach((el) => {
+        el.parentElement.querySelectorAll('.row-actions a').forEach((el) => {
+            new _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__.Tooltip(el, el.innerText);
+        });
+    });
+};
+
+
+/***/ }),
+
+/***/ "./js/table/row-selection.ts":
+/*!***********************************!*\
+  !*** ./js/table/row-selection.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ RowSelection)
+/* harmony export */ });
+class RowSelection {
+    constructor(table) {
+        this.Table = table;
+    }
+    getIDs() {
+        let ids = [];
+        let checked = this.Table.getElement().querySelectorAll('tbody th.check-column input[type=checkbox]:checked');
+        if (checked.length === 0) {
+            return ids;
+        }
+        for (let i = 0; i < checked.length; i++) {
+            ids.push(parseInt(checked[i].value));
+        }
+        return ids;
+    }
+    /**
+     * Get selected cells for specific column
+     */
+    getSelectedCells(name) {
+        let ids = this.getIDs();
+        if (ids.length === 0) {
+            return null;
+        }
+        let cells = [];
+        ids.forEach((id) => {
+            let cell = this.Table.Cells.get(id, name);
+            if (cell) {
+                cells.push(cell);
+            }
+        });
+        return cells;
+    }
+    getCount() {
+        return this.getIDs().length;
+    }
+    isAllSelected() {
+        return !!this.Table.getElement().querySelector('thead #cb input:checked');
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/table/screen-options-columns.ts":
+/*!********************************************!*\
+  !*** ./js/table/screen-options-columns.ts ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ScreenOptionsColumns)
+/* harmony export */ });
+/* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
+
+class ScreenOptionsColumns {
+    constructor(columns) {
+        this.columns = columns;
+        columns.getColumnNames().forEach((column_name) => {
+            let column = columns.get(column_name);
+            let input = ScreenOptionsColumns.getInputByName(column.name);
+            if (input && input.parentElement.textContent.length === 0) {
+                input.parentElement.appendChild(_helpers_html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create('span').addHtml(column.label).element);
+            }
+        });
+    }
+    static getInputByName(name) {
+        let input = document.querySelector(`input[name='${name}-hide']`);
+        return input ? input : false;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/table/table.ts":
+/*!***************************!*\
+  !*** ./js/table/table.ts ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Table)
+/* harmony export */ });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./js/table/actions.ts");
+/* harmony import */ var _cells__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cells */ "./js/table/cells.ts");
+/* harmony import */ var _columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./columns */ "./js/table/columns.ts");
+/* harmony import */ var _cell__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cell */ "./js/table/cell.ts");
+/* harmony import */ var _row_selection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./row-selection */ "./js/table/row-selection.ts");
+/* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/table */ "./js/helpers/table.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../constants */ "./js/constants.ts");
+/* harmony import */ var _modules_service_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../modules/service-container */ "./js/modules/service-container.ts");
+
+
+
+
+
+
+
+
+class Table {
+    constructor(el, services) {
+        this.el = el;
+        this.AcServices = services;
+        this.Services = new _modules_service_container__WEBPACK_IMPORTED_MODULE_7__["default"]();
+        this.Columns = new _columns__WEBPACK_IMPORTED_MODULE_2__["default"](el);
+        this.Cells = new _cells__WEBPACK_IMPORTED_MODULE_1__["default"]();
+        this.Actions = document.getElementById('ac-table-actions') ? new _actions__WEBPACK_IMPORTED_MODULE_0__["default"](document.getElementById('ac-table-actions')) : null;
+        this.Selection = new _row_selection__WEBPACK_IMPORTED_MODULE_4__["default"](this);
+    }
+    getElement() {
+        return this.el;
+    }
+    getIdsFromTable() {
+        let result = [];
+        this.el.getElementsByTagName('tbody')[0].querySelectorAll('tr').forEach(row => {
+            result.push((0,_helpers_table__WEBPACK_IMPORTED_MODULE_5__.getIdFromTableRow)(row));
+        });
+        return result;
+    }
+    init() {
+        this.initTable();
+        this.addCellClasses();
+        document.dispatchEvent(new CustomEvent('AC_Table_Ready', { detail: { table: this } }));
+        this.AcServices.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_6__.EventConstants.TABLE.READY, { table: this });
+        return this;
+    }
+    addCellClasses() {
+        this.Columns.getColumnNames().forEach((name) => {
+            let type = this.Columns.get(name).type;
+            let cells = this.Cells.getByName(name);
+            cells.forEach((cell) => {
+                cell.getElement().classList.add(type);
+            });
+        });
+    }
+    initTable() {
+        this.el.getElementsByTagName('tbody')[0].querySelectorAll('tr').forEach(row => {
+            this.updateRow(row);
+        });
+    }
+    updateRow(row) {
+        let id = (0,_helpers_table__WEBPACK_IMPORTED_MODULE_5__.getIdFromTableRow)(row);
+        row.dataset.id = id.toString();
+        this.setCellsForRow(row);
+    }
+    setCellsForRow(row) {
+        let id = (0,_helpers_table__WEBPACK_IMPORTED_MODULE_5__.getIdFromTableRow)(row);
+        this.Columns.getColumnNames().forEach((name) => {
+            let selector = name.replace(/\./g, '\\.');
+            let td = row.querySelector("td.column-" + selector);
+            if (td) {
+                let cell = new _cell__WEBPACK_IMPORTED_MODULE_3__["default"](id, name, td);
+                this.Cells.add(id, cell);
+            }
+        });
+    }
+}
+
+
+/***/ }),
+
+/***/ "./js/types/admin-columns.ts":
+/*!***********************************!*\
+  !*** ./js/types/admin-columns.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "./js/types/table.ts":
+/*!***************************!*\
+  !*** ./js/types/table.ts ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "jquery":
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = jQuery;
+
+/***/ }),
+
+/***/ "./node_modules/svelte/index.mjs":
+/*!***************************************!*\
+  !*** ./node_modules/svelte/index.mjs ***!
+  \***************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SvelteComponent": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.SvelteComponentDev),
+/* harmony export */   "SvelteComponentTyped": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.SvelteComponentTyped),
+/* harmony export */   "afterUpdate": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.afterUpdate),
+/* harmony export */   "beforeUpdate": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.beforeUpdate),
+/* harmony export */   "createEventDispatcher": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.createEventDispatcher),
+/* harmony export */   "getAllContexts": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.getAllContexts),
+/* harmony export */   "getContext": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.getContext),
+/* harmony export */   "hasContext": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.hasContext),
+/* harmony export */   "onDestroy": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.onDestroy),
+/* harmony export */   "onMount": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.onMount),
+/* harmony export */   "setContext": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.setContext),
+/* harmony export */   "tick": () => (/* reexport safe */ _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__.tick)
+/* harmony export */ });
+/* harmony import */ var _internal_index_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./internal/index.mjs */ "./node_modules/svelte/internal/index.mjs");
+
+
+
+/***/ }),
+
+/***/ "./node_modules/svelte/internal/index.mjs":
+/*!************************************************!*\
+  !*** ./node_modules/svelte/internal/index.mjs ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "HtmlTag": () => (/* binding */ HtmlTag),
+/* harmony export */   "HtmlTagHydration": () => (/* binding */ HtmlTagHydration),
+/* harmony export */   "SvelteComponent": () => (/* binding */ SvelteComponent),
+/* harmony export */   "SvelteComponentDev": () => (/* binding */ SvelteComponentDev),
+/* harmony export */   "SvelteComponentTyped": () => (/* binding */ SvelteComponentTyped),
+/* harmony export */   "SvelteElement": () => (/* binding */ SvelteElement),
+/* harmony export */   "action_destroyer": () => (/* binding */ action_destroyer),
+/* harmony export */   "add_attribute": () => (/* binding */ add_attribute),
+/* harmony export */   "add_classes": () => (/* binding */ add_classes),
+/* harmony export */   "add_flush_callback": () => (/* binding */ add_flush_callback),
+/* harmony export */   "add_location": () => (/* binding */ add_location),
+/* harmony export */   "add_render_callback": () => (/* binding */ add_render_callback),
+/* harmony export */   "add_resize_listener": () => (/* binding */ add_resize_listener),
+/* harmony export */   "add_transform": () => (/* binding */ add_transform),
+/* harmony export */   "afterUpdate": () => (/* binding */ afterUpdate),
+/* harmony export */   "append": () => (/* binding */ append),
+/* harmony export */   "append_dev": () => (/* binding */ append_dev),
+/* harmony export */   "append_empty_stylesheet": () => (/* binding */ append_empty_stylesheet),
+/* harmony export */   "append_hydration": () => (/* binding */ append_hydration),
+/* harmony export */   "append_hydration_dev": () => (/* binding */ append_hydration_dev),
+/* harmony export */   "append_styles": () => (/* binding */ append_styles),
+/* harmony export */   "assign": () => (/* binding */ assign),
+/* harmony export */   "attr": () => (/* binding */ attr),
+/* harmony export */   "attr_dev": () => (/* binding */ attr_dev),
+/* harmony export */   "attribute_to_object": () => (/* binding */ attribute_to_object),
+/* harmony export */   "beforeUpdate": () => (/* binding */ beforeUpdate),
+/* harmony export */   "bind": () => (/* binding */ bind),
+/* harmony export */   "binding_callbacks": () => (/* binding */ binding_callbacks),
+/* harmony export */   "blank_object": () => (/* binding */ blank_object),
+/* harmony export */   "bubble": () => (/* binding */ bubble),
+/* harmony export */   "check_outros": () => (/* binding */ check_outros),
+/* harmony export */   "children": () => (/* binding */ children),
+/* harmony export */   "claim_component": () => (/* binding */ claim_component),
+/* harmony export */   "claim_element": () => (/* binding */ claim_element),
+/* harmony export */   "claim_html_tag": () => (/* binding */ claim_html_tag),
+/* harmony export */   "claim_space": () => (/* binding */ claim_space),
+/* harmony export */   "claim_svg_element": () => (/* binding */ claim_svg_element),
+/* harmony export */   "claim_text": () => (/* binding */ claim_text),
+/* harmony export */   "clear_loops": () => (/* binding */ clear_loops),
+/* harmony export */   "component_subscribe": () => (/* binding */ component_subscribe),
+/* harmony export */   "compute_rest_props": () => (/* binding */ compute_rest_props),
+/* harmony export */   "compute_slots": () => (/* binding */ compute_slots),
+/* harmony export */   "createEventDispatcher": () => (/* binding */ createEventDispatcher),
+/* harmony export */   "create_animation": () => (/* binding */ create_animation),
+/* harmony export */   "create_bidirectional_transition": () => (/* binding */ create_bidirectional_transition),
+/* harmony export */   "create_component": () => (/* binding */ create_component),
+/* harmony export */   "create_in_transition": () => (/* binding */ create_in_transition),
+/* harmony export */   "create_out_transition": () => (/* binding */ create_out_transition),
+/* harmony export */   "create_slot": () => (/* binding */ create_slot),
+/* harmony export */   "create_ssr_component": () => (/* binding */ create_ssr_component),
+/* harmony export */   "current_component": () => (/* binding */ current_component),
+/* harmony export */   "custom_event": () => (/* binding */ custom_event),
+/* harmony export */   "dataset_dev": () => (/* binding */ dataset_dev),
+/* harmony export */   "debug": () => (/* binding */ debug),
+/* harmony export */   "destroy_block": () => (/* binding */ destroy_block),
+/* harmony export */   "destroy_component": () => (/* binding */ destroy_component),
+/* harmony export */   "destroy_each": () => (/* binding */ destroy_each),
+/* harmony export */   "detach": () => (/* binding */ detach),
+/* harmony export */   "detach_after_dev": () => (/* binding */ detach_after_dev),
+/* harmony export */   "detach_before_dev": () => (/* binding */ detach_before_dev),
+/* harmony export */   "detach_between_dev": () => (/* binding */ detach_between_dev),
+/* harmony export */   "detach_dev": () => (/* binding */ detach_dev),
+/* harmony export */   "dirty_components": () => (/* binding */ dirty_components),
+/* harmony export */   "dispatch_dev": () => (/* binding */ dispatch_dev),
+/* harmony export */   "each": () => (/* binding */ each),
+/* harmony export */   "element": () => (/* binding */ element),
+/* harmony export */   "element_is": () => (/* binding */ element_is),
+/* harmony export */   "empty": () => (/* binding */ empty),
+/* harmony export */   "end_hydrating": () => (/* binding */ end_hydrating),
+/* harmony export */   "escape": () => (/* binding */ escape),
+/* harmony export */   "escape_attribute_value": () => (/* binding */ escape_attribute_value),
+/* harmony export */   "escape_object": () => (/* binding */ escape_object),
+/* harmony export */   "escaped": () => (/* binding */ escaped),
+/* harmony export */   "exclude_internal_props": () => (/* binding */ exclude_internal_props),
+/* harmony export */   "fix_and_destroy_block": () => (/* binding */ fix_and_destroy_block),
+/* harmony export */   "fix_and_outro_and_destroy_block": () => (/* binding */ fix_and_outro_and_destroy_block),
+/* harmony export */   "fix_position": () => (/* binding */ fix_position),
+/* harmony export */   "flush": () => (/* binding */ flush),
+/* harmony export */   "getAllContexts": () => (/* binding */ getAllContexts),
+/* harmony export */   "getContext": () => (/* binding */ getContext),
+/* harmony export */   "get_all_dirty_from_scope": () => (/* binding */ get_all_dirty_from_scope),
+/* harmony export */   "get_binding_group_value": () => (/* binding */ get_binding_group_value),
+/* harmony export */   "get_current_component": () => (/* binding */ get_current_component),
+/* harmony export */   "get_custom_elements_slots": () => (/* binding */ get_custom_elements_slots),
+/* harmony export */   "get_root_for_style": () => (/* binding */ get_root_for_style),
+/* harmony export */   "get_slot_changes": () => (/* binding */ get_slot_changes),
+/* harmony export */   "get_spread_object": () => (/* binding */ get_spread_object),
+/* harmony export */   "get_spread_update": () => (/* binding */ get_spread_update),
+/* harmony export */   "get_store_value": () => (/* binding */ get_store_value),
+/* harmony export */   "globals": () => (/* binding */ globals),
+/* harmony export */   "group_outros": () => (/* binding */ group_outros),
+/* harmony export */   "handle_promise": () => (/* binding */ handle_promise),
+/* harmony export */   "hasContext": () => (/* binding */ hasContext),
+/* harmony export */   "has_prop": () => (/* binding */ has_prop),
+/* harmony export */   "identity": () => (/* binding */ identity),
+/* harmony export */   "init": () => (/* binding */ init),
+/* harmony export */   "insert": () => (/* binding */ insert),
+/* harmony export */   "insert_dev": () => (/* binding */ insert_dev),
+/* harmony export */   "insert_hydration": () => (/* binding */ insert_hydration),
+/* harmony export */   "insert_hydration_dev": () => (/* binding */ insert_hydration_dev),
+/* harmony export */   "intros": () => (/* binding */ intros),
+/* harmony export */   "invalid_attribute_name_character": () => (/* binding */ invalid_attribute_name_character),
+/* harmony export */   "is_client": () => (/* binding */ is_client),
+/* harmony export */   "is_crossorigin": () => (/* binding */ is_crossorigin),
+/* harmony export */   "is_empty": () => (/* binding */ is_empty),
+/* harmony export */   "is_function": () => (/* binding */ is_function),
+/* harmony export */   "is_promise": () => (/* binding */ is_promise),
+/* harmony export */   "listen": () => (/* binding */ listen),
+/* harmony export */   "listen_dev": () => (/* binding */ listen_dev),
+/* harmony export */   "loop": () => (/* binding */ loop),
+/* harmony export */   "loop_guard": () => (/* binding */ loop_guard),
+/* harmony export */   "missing_component": () => (/* binding */ missing_component),
+/* harmony export */   "mount_component": () => (/* binding */ mount_component),
+/* harmony export */   "noop": () => (/* binding */ noop),
+/* harmony export */   "not_equal": () => (/* binding */ not_equal),
+/* harmony export */   "now": () => (/* binding */ now),
+/* harmony export */   "null_to_empty": () => (/* binding */ null_to_empty),
+/* harmony export */   "object_without_properties": () => (/* binding */ object_without_properties),
+/* harmony export */   "onDestroy": () => (/* binding */ onDestroy),
+/* harmony export */   "onMount": () => (/* binding */ onMount),
+/* harmony export */   "once": () => (/* binding */ once),
+/* harmony export */   "outro_and_destroy_block": () => (/* binding */ outro_and_destroy_block),
+/* harmony export */   "prevent_default": () => (/* binding */ prevent_default),
+/* harmony export */   "prop_dev": () => (/* binding */ prop_dev),
+/* harmony export */   "query_selector_all": () => (/* binding */ query_selector_all),
+/* harmony export */   "raf": () => (/* binding */ raf),
+/* harmony export */   "run": () => (/* binding */ run),
+/* harmony export */   "run_all": () => (/* binding */ run_all),
+/* harmony export */   "safe_not_equal": () => (/* binding */ safe_not_equal),
+/* harmony export */   "schedule_update": () => (/* binding */ schedule_update),
+/* harmony export */   "select_multiple_value": () => (/* binding */ select_multiple_value),
+/* harmony export */   "select_option": () => (/* binding */ select_option),
+/* harmony export */   "select_options": () => (/* binding */ select_options),
+/* harmony export */   "select_value": () => (/* binding */ select_value),
+/* harmony export */   "self": () => (/* binding */ self),
+/* harmony export */   "setContext": () => (/* binding */ setContext),
+/* harmony export */   "set_attributes": () => (/* binding */ set_attributes),
+/* harmony export */   "set_current_component": () => (/* binding */ set_current_component),
+/* harmony export */   "set_custom_element_data": () => (/* binding */ set_custom_element_data),
+/* harmony export */   "set_data": () => (/* binding */ set_data),
+/* harmony export */   "set_data_dev": () => (/* binding */ set_data_dev),
+/* harmony export */   "set_input_type": () => (/* binding */ set_input_type),
+/* harmony export */   "set_input_value": () => (/* binding */ set_input_value),
+/* harmony export */   "set_now": () => (/* binding */ set_now),
+/* harmony export */   "set_raf": () => (/* binding */ set_raf),
+/* harmony export */   "set_store_value": () => (/* binding */ set_store_value),
+/* harmony export */   "set_style": () => (/* binding */ set_style),
+/* harmony export */   "set_svg_attributes": () => (/* binding */ set_svg_attributes),
+/* harmony export */   "space": () => (/* binding */ space),
+/* harmony export */   "spread": () => (/* binding */ spread),
+/* harmony export */   "src_url_equal": () => (/* binding */ src_url_equal),
+/* harmony export */   "start_hydrating": () => (/* binding */ start_hydrating),
+/* harmony export */   "stop_propagation": () => (/* binding */ stop_propagation),
+/* harmony export */   "subscribe": () => (/* binding */ subscribe),
+/* harmony export */   "svg_element": () => (/* binding */ svg_element),
+/* harmony export */   "text": () => (/* binding */ text),
+/* harmony export */   "tick": () => (/* binding */ tick),
+/* harmony export */   "time_ranges_to_array": () => (/* binding */ time_ranges_to_array),
+/* harmony export */   "to_number": () => (/* binding */ to_number),
+/* harmony export */   "toggle_class": () => (/* binding */ toggle_class),
+/* harmony export */   "transition_in": () => (/* binding */ transition_in),
+/* harmony export */   "transition_out": () => (/* binding */ transition_out),
+/* harmony export */   "trusted": () => (/* binding */ trusted),
+/* harmony export */   "update_await_block_branch": () => (/* binding */ update_await_block_branch),
+/* harmony export */   "update_keyed_each": () => (/* binding */ update_keyed_each),
+/* harmony export */   "update_slot": () => (/* binding */ update_slot),
+/* harmony export */   "update_slot_base": () => (/* binding */ update_slot_base),
+/* harmony export */   "validate_component": () => (/* binding */ validate_component),
+/* harmony export */   "validate_each_argument": () => (/* binding */ validate_each_argument),
+/* harmony export */   "validate_each_keys": () => (/* binding */ validate_each_keys),
+/* harmony export */   "validate_slots": () => (/* binding */ validate_slots),
+/* harmony export */   "validate_store": () => (/* binding */ validate_store),
+/* harmony export */   "xlink_attr": () => (/* binding */ xlink_attr)
+/* harmony export */ });
+function noop() { }
+const identity = x => x;
+function assign(tar, src) {
+    // @ts-ignore
+    for (const k in src)
+        tar[k] = src[k];
+    return tar;
+}
+function is_promise(value) {
+    return value && typeof value === 'object' && typeof value.then === 'function';
+}
+function add_location(element, file, line, column, char) {
+    element.__svelte_meta = {
+        loc: { file, line, column, char }
+    };
+}
+function run(fn) {
+    return fn();
+}
+function blank_object() {
+    return Object.create(null);
+}
+function run_all(fns) {
+    fns.forEach(run);
+}
+function is_function(thing) {
+    return typeof thing === 'function';
+}
+function safe_not_equal(a, b) {
+    return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
+}
+let src_url_equal_anchor;
+function src_url_equal(element_src, url) {
+    if (!src_url_equal_anchor) {
+        src_url_equal_anchor = document.createElement('a');
+    }
+    src_url_equal_anchor.href = url;
+    return element_src === src_url_equal_anchor.href;
+}
+function not_equal(a, b) {
+    return a != a ? b == b : a !== b;
+}
+function is_empty(obj) {
+    return Object.keys(obj).length === 0;
+}
+function validate_store(store, name) {
+    if (store != null && typeof store.subscribe !== 'function') {
+        throw new Error(`'${name}' is not a store with a 'subscribe' method`);
+    }
+}
+function subscribe(store, ...callbacks) {
+    if (store == null) {
+        return noop;
+    }
+    const unsub = store.subscribe(...callbacks);
+    return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
+}
+function get_store_value(store) {
+    let value;
+    subscribe(store, _ => value = _)();
+    return value;
+}
+function component_subscribe(component, store, callback) {
+    component.$$.on_destroy.push(subscribe(store, callback));
+}
+function create_slot(definition, ctx, $$scope, fn) {
+    if (definition) {
+        const slot_ctx = get_slot_context(definition, ctx, $$scope, fn);
+        return definition[0](slot_ctx);
+    }
+}
+function get_slot_context(definition, ctx, $$scope, fn) {
+    return definition[1] && fn
+        ? assign($$scope.ctx.slice(), definition[1](fn(ctx)))
+        : $$scope.ctx;
+}
+function get_slot_changes(definition, $$scope, dirty, fn) {
+    if (definition[2] && fn) {
+        const lets = definition[2](fn(dirty));
+        if ($$scope.dirty === undefined) {
+            return lets;
+        }
+        if (typeof lets === 'object') {
+            const merged = [];
+            const len = Math.max($$scope.dirty.length, lets.length);
+            for (let i = 0; i < len; i += 1) {
+                merged[i] = $$scope.dirty[i] | lets[i];
+            }
+            return merged;
+        }
+        return $$scope.dirty | lets;
+    }
+    return $$scope.dirty;
+}
+function update_slot_base(slot, slot_definition, ctx, $$scope, slot_changes, get_slot_context_fn) {
+    if (slot_changes) {
+        const slot_context = get_slot_context(slot_definition, ctx, $$scope, get_slot_context_fn);
+        slot.p(slot_context, slot_changes);
+    }
+}
+function update_slot(slot, slot_definition, ctx, $$scope, dirty, get_slot_changes_fn, get_slot_context_fn) {
+    const slot_changes = get_slot_changes(slot_definition, $$scope, dirty, get_slot_changes_fn);
+    update_slot_base(slot, slot_definition, ctx, $$scope, slot_changes, get_slot_context_fn);
+}
+function get_all_dirty_from_scope($$scope) {
+    if ($$scope.ctx.length > 32) {
+        const dirty = [];
+        const length = $$scope.ctx.length / 32;
+        for (let i = 0; i < length; i++) {
+            dirty[i] = -1;
+        }
+        return dirty;
+    }
+    return -1;
+}
+function exclude_internal_props(props) {
+    const result = {};
+    for (const k in props)
+        if (k[0] !== '$')
+            result[k] = props[k];
+    return result;
+}
+function compute_rest_props(props, keys) {
+    const rest = {};
+    keys = new Set(keys);
+    for (const k in props)
+        if (!keys.has(k) && k[0] !== '$')
+            rest[k] = props[k];
+    return rest;
+}
+function compute_slots(slots) {
+    const result = {};
+    for (const key in slots) {
+        result[key] = true;
+    }
+    return result;
+}
+function once(fn) {
+    let ran = false;
+    return function (...args) {
+        if (ran)
+            return;
+        ran = true;
+        fn.call(this, ...args);
+    };
+}
+function null_to_empty(value) {
+    return value == null ? '' : value;
+}
+function set_store_value(store, ret, value) {
+    store.set(value);
+    return ret;
+}
+const has_prop = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+function action_destroyer(action_result) {
+    return action_result && is_function(action_result.destroy) ? action_result.destroy : noop;
+}
+
+const is_client = typeof window !== 'undefined';
+let now = is_client
+    ? () => window.performance.now()
+    : () => Date.now();
+let raf = is_client ? cb => requestAnimationFrame(cb) : noop;
+// used internally for testing
+function set_now(fn) {
+    now = fn;
+}
+function set_raf(fn) {
+    raf = fn;
+}
+
+const tasks = new Set();
+function run_tasks(now) {
+    tasks.forEach(task => {
+        if (!task.c(now)) {
+            tasks.delete(task);
+            task.f();
+        }
+    });
+    if (tasks.size !== 0)
+        raf(run_tasks);
+}
+/**
+ * For testing purposes only!
+ */
+function clear_loops() {
+    tasks.clear();
+}
+/**
+ * Creates a new task that runs on each raf frame
+ * until it returns a falsy value or is aborted
+ */
+function loop(callback) {
+    let task;
+    if (tasks.size === 0)
+        raf(run_tasks);
+    return {
+        promise: new Promise(fulfill => {
+            tasks.add(task = { c: callback, f: fulfill });
+        }),
+        abort() {
+            tasks.delete(task);
+        }
+    };
+}
+
+// Track which nodes are claimed during hydration. Unclaimed nodes can then be removed from the DOM
+// at the end of hydration without touching the remaining nodes.
+let is_hydrating = false;
+function start_hydrating() {
+    is_hydrating = true;
+}
+function end_hydrating() {
+    is_hydrating = false;
+}
+function upper_bound(low, high, key, value) {
+    // Return first index of value larger than input value in the range [low, high)
+    while (low < high) {
+        const mid = low + ((high - low) >> 1);
+        if (key(mid) <= value) {
+            low = mid + 1;
+        }
+        else {
+            high = mid;
+        }
+    }
+    return low;
+}
+function init_hydrate(target) {
+    if (target.hydrate_init)
+        return;
+    target.hydrate_init = true;
+    // We know that all children have claim_order values since the unclaimed have been detached if target is not <head>
+    let children = target.childNodes;
+    // If target is <head>, there may be children without claim_order
+    if (target.nodeName === 'HEAD') {
+        const myChildren = [];
+        for (let i = 0; i < children.length; i++) {
+            const node = children[i];
+            if (node.claim_order !== undefined) {
+                myChildren.push(node);
+            }
+        }
+        children = myChildren;
+    }
+    /*
+    * Reorder claimed children optimally.
+    * We can reorder claimed children optimally by finding the longest subsequence of
+    * nodes that are already claimed in order and only moving the rest. The longest
+    * subsequence subsequence of nodes that are claimed in order can be found by
+    * computing the longest increasing subsequence of .claim_order values.
+    *
+    * This algorithm is optimal in generating the least amount of reorder operations
+    * possible.
+    *
+    * Proof:
+    * We know that, given a set of reordering operations, the nodes that do not move
+    * always form an increasing subsequence, since they do not move among each other
+    * meaning that they must be already ordered among each other. Thus, the maximal
+    * set of nodes that do not move form a longest increasing subsequence.
+    */
+    // Compute longest increasing subsequence
+    // m: subsequence length j => index k of smallest value that ends an increasing subsequence of length j
+    const m = new Int32Array(children.length + 1);
+    // Predecessor indices + 1
+    const p = new Int32Array(children.length);
+    m[0] = -1;
+    let longest = 0;
+    for (let i = 0; i < children.length; i++) {
+        const current = children[i].claim_order;
+        // Find the largest subsequence length such that it ends in a value less than our current value
+        // upper_bound returns first greater value, so we subtract one
+        // with fast path for when we are on the current longest subsequence
+        const seqLen = ((longest > 0 && children[m[longest]].claim_order <= current) ? longest + 1 : upper_bound(1, longest, idx => children[m[idx]].claim_order, current)) - 1;
+        p[i] = m[seqLen] + 1;
+        const newLen = seqLen + 1;
+        // We can guarantee that current is the smallest value. Otherwise, we would have generated a longer sequence.
+        m[newLen] = i;
+        longest = Math.max(newLen, longest);
+    }
+    // The longest increasing subsequence of nodes (initially reversed)
+    const lis = [];
+    // The rest of the nodes, nodes that will be moved
+    const toMove = [];
+    let last = children.length - 1;
+    for (let cur = m[longest] + 1; cur != 0; cur = p[cur - 1]) {
+        lis.push(children[cur - 1]);
+        for (; last >= cur; last--) {
+            toMove.push(children[last]);
+        }
+        last--;
+    }
+    for (; last >= 0; last--) {
+        toMove.push(children[last]);
+    }
+    lis.reverse();
+    // We sort the nodes being moved to guarantee that their insertion order matches the claim order
+    toMove.sort((a, b) => a.claim_order - b.claim_order);
+    // Finally, we move the nodes
+    for (let i = 0, j = 0; i < toMove.length; i++) {
+        while (j < lis.length && toMove[i].claim_order >= lis[j].claim_order) {
+            j++;
+        }
+        const anchor = j < lis.length ? lis[j] : null;
+        target.insertBefore(toMove[i], anchor);
+    }
+}
+function append(target, node) {
+    target.appendChild(node);
+}
+function append_styles(target, style_sheet_id, styles) {
+    const append_styles_to = get_root_for_style(target);
+    if (!append_styles_to.getElementById(style_sheet_id)) {
+        const style = element('style');
+        style.id = style_sheet_id;
+        style.textContent = styles;
+        append_stylesheet(append_styles_to, style);
+    }
+}
+function get_root_for_style(node) {
+    if (!node)
+        return document;
+    const root = node.getRootNode ? node.getRootNode() : node.ownerDocument;
+    if (root && root.host) {
+        return root;
+    }
+    return node.ownerDocument;
+}
+function append_empty_stylesheet(node) {
+    const style_element = element('style');
+    append_stylesheet(get_root_for_style(node), style_element);
+    return style_element;
+}
+function append_stylesheet(node, style) {
+    append(node.head || node, style);
+}
+function append_hydration(target, node) {
+    if (is_hydrating) {
+        init_hydrate(target);
+        if ((target.actual_end_child === undefined) || ((target.actual_end_child !== null) && (target.actual_end_child.parentElement !== target))) {
+            target.actual_end_child = target.firstChild;
+        }
+        // Skip nodes of undefined ordering
+        while ((target.actual_end_child !== null) && (target.actual_end_child.claim_order === undefined)) {
+            target.actual_end_child = target.actual_end_child.nextSibling;
+        }
+        if (node !== target.actual_end_child) {
+            // We only insert if the ordering of this node should be modified or the parent node is not target
+            if (node.claim_order !== undefined || node.parentNode !== target) {
+                target.insertBefore(node, target.actual_end_child);
+            }
+        }
+        else {
+            target.actual_end_child = node.nextSibling;
+        }
+    }
+    else if (node.parentNode !== target || node.nextSibling !== null) {
+        target.appendChild(node);
+    }
+}
+function insert(target, node, anchor) {
+    target.insertBefore(node, anchor || null);
+}
+function insert_hydration(target, node, anchor) {
+    if (is_hydrating && !anchor) {
+        append_hydration(target, node);
+    }
+    else if (node.parentNode !== target || node.nextSibling != anchor) {
+        target.insertBefore(node, anchor || null);
+    }
+}
+function detach(node) {
+    node.parentNode.removeChild(node);
+}
+function destroy_each(iterations, detaching) {
+    for (let i = 0; i < iterations.length; i += 1) {
+        if (iterations[i])
+            iterations[i].d(detaching);
+    }
+}
+function element(name) {
+    return document.createElement(name);
+}
+function element_is(name, is) {
+    return document.createElement(name, { is });
+}
+function object_without_properties(obj, exclude) {
+    const target = {};
+    for (const k in obj) {
+        if (has_prop(obj, k)
+            // @ts-ignore
+            && exclude.indexOf(k) === -1) {
+            // @ts-ignore
+            target[k] = obj[k];
+        }
+    }
+    return target;
+}
+function svg_element(name) {
+    return document.createElementNS('http://www.w3.org/2000/svg', name);
+}
+function text(data) {
+    return document.createTextNode(data);
+}
+function space() {
+    return text(' ');
+}
+function empty() {
+    return text('');
+}
+function listen(node, event, handler, options) {
+    node.addEventListener(event, handler, options);
+    return () => node.removeEventListener(event, handler, options);
+}
+function prevent_default(fn) {
+    return function (event) {
+        event.preventDefault();
+        // @ts-ignore
+        return fn.call(this, event);
+    };
+}
+function stop_propagation(fn) {
+    return function (event) {
+        event.stopPropagation();
+        // @ts-ignore
+        return fn.call(this, event);
+    };
+}
+function self(fn) {
+    return function (event) {
+        // @ts-ignore
+        if (event.target === this)
+            fn.call(this, event);
+    };
+}
+function trusted(fn) {
+    return function (event) {
+        // @ts-ignore
+        if (event.isTrusted)
+            fn.call(this, event);
+    };
+}
+function attr(node, attribute, value) {
+    if (value == null)
+        node.removeAttribute(attribute);
+    else if (node.getAttribute(attribute) !== value)
+        node.setAttribute(attribute, value);
+}
+function set_attributes(node, attributes) {
+    // @ts-ignore
+    const descriptors = Object.getOwnPropertyDescriptors(node.__proto__);
+    for (const key in attributes) {
+        if (attributes[key] == null) {
+            node.removeAttribute(key);
+        }
+        else if (key === 'style') {
+            node.style.cssText = attributes[key];
+        }
+        else if (key === '__value') {
+            node.value = node[key] = attributes[key];
+        }
+        else if (descriptors[key] && descriptors[key].set) {
+            node[key] = attributes[key];
+        }
+        else {
+            attr(node, key, attributes[key]);
+        }
+    }
+}
+function set_svg_attributes(node, attributes) {
+    for (const key in attributes) {
+        attr(node, key, attributes[key]);
+    }
+}
+function set_custom_element_data(node, prop, value) {
+    if (prop in node) {
+        node[prop] = typeof node[prop] === 'boolean' && value === '' ? true : value;
+    }
+    else {
+        attr(node, prop, value);
+    }
+}
+function xlink_attr(node, attribute, value) {
+    node.setAttributeNS('http://www.w3.org/1999/xlink', attribute, value);
+}
+function get_binding_group_value(group, __value, checked) {
+    const value = new Set();
+    for (let i = 0; i < group.length; i += 1) {
+        if (group[i].checked)
+            value.add(group[i].__value);
+    }
+    if (!checked) {
+        value.delete(__value);
+    }
+    return Array.from(value);
+}
+function to_number(value) {
+    return value === '' ? null : +value;
+}
+function time_ranges_to_array(ranges) {
+    const array = [];
+    for (let i = 0; i < ranges.length; i += 1) {
+        array.push({ start: ranges.start(i), end: ranges.end(i) });
+    }
+    return array;
+}
+function children(element) {
+    return Array.from(element.childNodes);
+}
+function init_claim_info(nodes) {
+    if (nodes.claim_info === undefined) {
+        nodes.claim_info = { last_index: 0, total_claimed: 0 };
+    }
+}
+function claim_node(nodes, predicate, processNode, createNode, dontUpdateLastIndex = false) {
+    // Try to find nodes in an order such that we lengthen the longest increasing subsequence
+    init_claim_info(nodes);
+    const resultNode = (() => {
+        // We first try to find an element after the previous one
+        for (let i = nodes.claim_info.last_index; i < nodes.length; i++) {
+            const node = nodes[i];
+            if (predicate(node)) {
+                const replacement = processNode(node);
+                if (replacement === undefined) {
+                    nodes.splice(i, 1);
+                }
+                else {
+                    nodes[i] = replacement;
+                }
+                if (!dontUpdateLastIndex) {
+                    nodes.claim_info.last_index = i;
+                }
+                return node;
+            }
+        }
+        // Otherwise, we try to find one before
+        // We iterate in reverse so that we don't go too far back
+        for (let i = nodes.claim_info.last_index - 1; i >= 0; i--) {
+            const node = nodes[i];
+            if (predicate(node)) {
+                const replacement = processNode(node);
+                if (replacement === undefined) {
+                    nodes.splice(i, 1);
+                }
+                else {
+                    nodes[i] = replacement;
+                }
+                if (!dontUpdateLastIndex) {
+                    nodes.claim_info.last_index = i;
+                }
+                else if (replacement === undefined) {
+                    // Since we spliced before the last_index, we decrease it
+                    nodes.claim_info.last_index--;
+                }
+                return node;
+            }
+        }
+        // If we can't find any matching node, we create a new one
+        return createNode();
+    })();
+    resultNode.claim_order = nodes.claim_info.total_claimed;
+    nodes.claim_info.total_claimed += 1;
+    return resultNode;
+}
+function claim_element_base(nodes, name, attributes, create_element) {
+    return claim_node(nodes, (node) => node.nodeName === name, (node) => {
+        const remove = [];
+        for (let j = 0; j < node.attributes.length; j++) {
+            const attribute = node.attributes[j];
+            if (!attributes[attribute.name]) {
+                remove.push(attribute.name);
+            }
+        }
+        remove.forEach(v => node.removeAttribute(v));
+        return undefined;
+    }, () => create_element(name));
+}
+function claim_element(nodes, name, attributes) {
+    return claim_element_base(nodes, name, attributes, element);
+}
+function claim_svg_element(nodes, name, attributes) {
+    return claim_element_base(nodes, name, attributes, svg_element);
+}
+function claim_text(nodes, data) {
+    return claim_node(nodes, (node) => node.nodeType === 3, (node) => {
+        const dataStr = '' + data;
+        if (node.data.startsWith(dataStr)) {
+            if (node.data.length !== dataStr.length) {
+                return node.splitText(dataStr.length);
+            }
+        }
+        else {
+            node.data = dataStr;
+        }
+    }, () => text(data), true // Text nodes should not update last index since it is likely not worth it to eliminate an increasing subsequence of actual elements
+    );
+}
+function claim_space(nodes) {
+    return claim_text(nodes, ' ');
+}
+function find_comment(nodes, text, start) {
+    for (let i = start; i < nodes.length; i += 1) {
+        const node = nodes[i];
+        if (node.nodeType === 8 /* comment node */ && node.textContent.trim() === text) {
+            return i;
+        }
+    }
+    return nodes.length;
+}
+function claim_html_tag(nodes) {
+    // find html opening tag
+    const start_index = find_comment(nodes, 'HTML_TAG_START', 0);
+    const end_index = find_comment(nodes, 'HTML_TAG_END', start_index);
+    if (start_index === end_index) {
+        return new HtmlTagHydration();
+    }
+    init_claim_info(nodes);
+    const html_tag_nodes = nodes.splice(start_index, end_index + 1);
+    detach(html_tag_nodes[0]);
+    detach(html_tag_nodes[html_tag_nodes.length - 1]);
+    const claimed_nodes = html_tag_nodes.slice(1, html_tag_nodes.length - 1);
+    for (const n of claimed_nodes) {
+        n.claim_order = nodes.claim_info.total_claimed;
+        nodes.claim_info.total_claimed += 1;
+    }
+    return new HtmlTagHydration(claimed_nodes);
+}
+function set_data(text, data) {
+    data = '' + data;
+    if (text.wholeText !== data)
+        text.data = data;
+}
+function set_input_value(input, value) {
+    input.value = value == null ? '' : value;
+}
+function set_input_type(input, type) {
+    try {
+        input.type = type;
+    }
+    catch (e) {
+        // do nothing
+    }
+}
+function set_style(node, key, value, important) {
+    node.style.setProperty(key, value, important ? 'important' : '');
+}
+function select_option(select, value) {
+    for (let i = 0; i < select.options.length; i += 1) {
+        const option = select.options[i];
+        if (option.__value === value) {
+            option.selected = true;
+            return;
+        }
+    }
+    select.selectedIndex = -1; // no option should be selected
+}
+function select_options(select, value) {
+    for (let i = 0; i < select.options.length; i += 1) {
+        const option = select.options[i];
+        option.selected = ~value.indexOf(option.__value);
+    }
+}
+function select_value(select) {
+    const selected_option = select.querySelector(':checked') || select.options[0];
+    return selected_option && selected_option.__value;
+}
+function select_multiple_value(select) {
+    return [].map.call(select.querySelectorAll(':checked'), option => option.__value);
+}
+// unfortunately this can't be a constant as that wouldn't be tree-shakeable
+// so we cache the result instead
+let crossorigin;
+function is_crossorigin() {
+    if (crossorigin === undefined) {
+        crossorigin = false;
+        try {
+            if (typeof window !== 'undefined' && window.parent) {
+                void window.parent.document;
+            }
+        }
+        catch (error) {
+            crossorigin = true;
+        }
+    }
+    return crossorigin;
+}
+function add_resize_listener(node, fn) {
+    const computed_style = getComputedStyle(node);
+    if (computed_style.position === 'static') {
+        node.style.position = 'relative';
+    }
+    const iframe = element('iframe');
+    iframe.setAttribute('style', 'display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; ' +
+        'overflow: hidden; border: 0; opacity: 0; pointer-events: none; z-index: -1;');
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.tabIndex = -1;
+    const crossorigin = is_crossorigin();
+    let unsubscribe;
+    if (crossorigin) {
+        iframe.src = "data:text/html,<script>onresize=function(){parent.postMessage(0,'*')}</script>";
+        unsubscribe = listen(window, 'message', (event) => {
+            if (event.source === iframe.contentWindow)
+                fn();
+        });
+    }
+    else {
+        iframe.src = 'about:blank';
+        iframe.onload = () => {
+            unsubscribe = listen(iframe.contentWindow, 'resize', fn);
+        };
+    }
+    append(node, iframe);
+    return () => {
+        if (crossorigin) {
+            unsubscribe();
+        }
+        else if (unsubscribe && iframe.contentWindow) {
+            unsubscribe();
+        }
+        detach(iframe);
+    };
+}
+function toggle_class(element, name, toggle) {
+    element.classList[toggle ? 'add' : 'remove'](name);
+}
+function custom_event(type, detail, bubbles = false) {
+    const e = document.createEvent('CustomEvent');
+    e.initCustomEvent(type, bubbles, false, detail);
+    return e;
+}
+function query_selector_all(selector, parent = document.body) {
+    return Array.from(parent.querySelectorAll(selector));
+}
+class HtmlTag {
+    constructor() {
+        this.e = this.n = null;
+    }
+    c(html) {
+        this.h(html);
+    }
+    m(html, target, anchor = null) {
+        if (!this.e) {
+            this.e = element(target.nodeName);
+            this.t = target;
+            this.c(html);
+        }
+        this.i(anchor);
+    }
+    h(html) {
+        this.e.innerHTML = html;
+        this.n = Array.from(this.e.childNodes);
+    }
+    i(anchor) {
+        for (let i = 0; i < this.n.length; i += 1) {
+            insert(this.t, this.n[i], anchor);
+        }
+    }
+    p(html) {
+        this.d();
+        this.h(html);
+        this.i(this.a);
+    }
+    d() {
+        this.n.forEach(detach);
+    }
+}
+class HtmlTagHydration extends HtmlTag {
+    constructor(claimed_nodes) {
+        super();
+        this.e = this.n = null;
+        this.l = claimed_nodes;
+    }
+    c(html) {
+        if (this.l) {
+            this.n = this.l;
+        }
+        else {
+            super.c(html);
+        }
+    }
+    i(anchor) {
+        for (let i = 0; i < this.n.length; i += 1) {
+            insert_hydration(this.t, this.n[i], anchor);
+        }
+    }
+}
+function attribute_to_object(attributes) {
+    const result = {};
+    for (const attribute of attributes) {
+        result[attribute.name] = attribute.value;
+    }
+    return result;
+}
+function get_custom_elements_slots(element) {
+    const result = {};
+    element.childNodes.forEach((node) => {
+        result[node.slot || 'default'] = true;
+    });
+    return result;
+}
+
+const active_docs = new Set();
+let active = 0;
+// https://github.com/darkskyapp/string-hash/blob/master/index.js
+function hash(str) {
+    let hash = 5381;
+    let i = str.length;
+    while (i--)
+        hash = ((hash << 5) - hash) ^ str.charCodeAt(i);
+    return hash >>> 0;
+}
+function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
+    const step = 16.666 / duration;
+    let keyframes = '{\n';
+    for (let p = 0; p <= 1; p += step) {
+        const t = a + (b - a) * ease(p);
+        keyframes += p * 100 + `%{${fn(t, 1 - t)}}\n`;
+    }
+    const rule = keyframes + `100% {${fn(b, 1 - b)}}\n}`;
+    const name = `__svelte_${hash(rule)}_${uid}`;
+    const doc = get_root_for_style(node);
+    active_docs.add(doc);
+    const stylesheet = doc.__svelte_stylesheet || (doc.__svelte_stylesheet = append_empty_stylesheet(node).sheet);
+    const current_rules = doc.__svelte_rules || (doc.__svelte_rules = {});
+    if (!current_rules[name]) {
+        current_rules[name] = true;
+        stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
+    }
+    const animation = node.style.animation || '';
+    node.style.animation = `${animation ? `${animation}, ` : ''}${name} ${duration}ms linear ${delay}ms 1 both`;
+    active += 1;
+    return name;
+}
+function delete_rule(node, name) {
+    const previous = (node.style.animation || '').split(', ');
+    const next = previous.filter(name
+        ? anim => anim.indexOf(name) < 0 // remove specific animation
+        : anim => anim.indexOf('__svelte') === -1 // remove all Svelte animations
+    );
+    const deleted = previous.length - next.length;
+    if (deleted) {
+        node.style.animation = next.join(', ');
+        active -= deleted;
+        if (!active)
+            clear_rules();
+    }
+}
+function clear_rules() {
+    raf(() => {
+        if (active)
+            return;
+        active_docs.forEach(doc => {
+            const stylesheet = doc.__svelte_stylesheet;
+            let i = stylesheet.cssRules.length;
+            while (i--)
+                stylesheet.deleteRule(i);
+            doc.__svelte_rules = {};
+        });
+        active_docs.clear();
+    });
+}
+
+function create_animation(node, from, fn, params) {
+    if (!from)
+        return noop;
+    const to = node.getBoundingClientRect();
+    if (from.left === to.left && from.right === to.right && from.top === to.top && from.bottom === to.bottom)
+        return noop;
+    const { delay = 0, duration = 300, easing = identity, 
+    // @ts-ignore todo: should this be separated from destructuring? Or start/end added to public api and documentation?
+    start: start_time = now() + delay, 
+    // @ts-ignore todo:
+    end = start_time + duration, tick = noop, css } = fn(node, { from, to }, params);
+    let running = true;
+    let started = false;
+    let name;
+    function start() {
+        if (css) {
+            name = create_rule(node, 0, 1, duration, delay, easing, css);
+        }
+        if (!delay) {
+            started = true;
+        }
+    }
+    function stop() {
+        if (css)
+            delete_rule(node, name);
+        running = false;
+    }
+    loop(now => {
+        if (!started && now >= start_time) {
+            started = true;
+        }
+        if (started && now >= end) {
+            tick(1, 0);
+            stop();
+        }
+        if (!running) {
+            return false;
+        }
+        if (started) {
+            const p = now - start_time;
+            const t = 0 + 1 * easing(p / duration);
+            tick(t, 1 - t);
+        }
+        return true;
+    });
+    start();
+    tick(0, 1);
+    return stop;
+}
+function fix_position(node) {
+    const style = getComputedStyle(node);
+    if (style.position !== 'absolute' && style.position !== 'fixed') {
+        const { width, height } = style;
+        const a = node.getBoundingClientRect();
+        node.style.position = 'absolute';
+        node.style.width = width;
+        node.style.height = height;
+        add_transform(node, a);
+    }
+}
+function add_transform(node, a) {
+    const b = node.getBoundingClientRect();
+    if (a.left !== b.left || a.top !== b.top) {
+        const style = getComputedStyle(node);
+        const transform = style.transform === 'none' ? '' : style.transform;
+        node.style.transform = `${transform} translate(${a.left - b.left}px, ${a.top - b.top}px)`;
+    }
+}
+
+let current_component;
+function set_current_component(component) {
+    current_component = component;
+}
+function get_current_component() {
+    if (!current_component)
+        throw new Error('Function called outside component initialization');
+    return current_component;
+}
+function beforeUpdate(fn) {
+    get_current_component().$$.before_update.push(fn);
+}
+function onMount(fn) {
+    get_current_component().$$.on_mount.push(fn);
+}
+function afterUpdate(fn) {
+    get_current_component().$$.after_update.push(fn);
+}
+function onDestroy(fn) {
+    get_current_component().$$.on_destroy.push(fn);
+}
+function createEventDispatcher() {
+    const component = get_current_component();
+    return (type, detail) => {
+        const callbacks = component.$$.callbacks[type];
+        if (callbacks) {
+            // TODO are there situations where events could be dispatched
+            // in a server (non-DOM) environment?
+            const event = custom_event(type, detail);
+            callbacks.slice().forEach(fn => {
+                fn.call(component, event);
+            });
+        }
+    };
+}
+function setContext(key, context) {
+    get_current_component().$$.context.set(key, context);
+}
+function getContext(key) {
+    return get_current_component().$$.context.get(key);
+}
+function getAllContexts() {
+    return get_current_component().$$.context;
+}
+function hasContext(key) {
+    return get_current_component().$$.context.has(key);
+}
+// TODO figure out if we still want to support
+// shorthand events, or if we want to implement
+// a real bubbling mechanism
+function bubble(component, event) {
+    const callbacks = component.$$.callbacks[event.type];
+    if (callbacks) {
+        // @ts-ignore
+        callbacks.slice().forEach(fn => fn.call(this, event));
+    }
+}
+
+const dirty_components = [];
+const intros = { enabled: false };
+const binding_callbacks = [];
+const render_callbacks = [];
+const flush_callbacks = [];
+const resolved_promise = Promise.resolve();
+let update_scheduled = false;
+function schedule_update() {
+    if (!update_scheduled) {
+        update_scheduled = true;
+        resolved_promise.then(flush);
+    }
+}
+function tick() {
+    schedule_update();
+    return resolved_promise;
+}
+function add_render_callback(fn) {
+    render_callbacks.push(fn);
+}
+function add_flush_callback(fn) {
+    flush_callbacks.push(fn);
+}
+let flushing = false;
+const seen_callbacks = new Set();
+function flush() {
+    if (flushing)
+        return;
+    flushing = true;
+    do {
+        // first, call beforeUpdate functions
+        // and update components
+        for (let i = 0; i < dirty_components.length; i += 1) {
+            const component = dirty_components[i];
+            set_current_component(component);
+            update(component.$$);
+        }
+        set_current_component(null);
+        dirty_components.length = 0;
+        while (binding_callbacks.length)
+            binding_callbacks.pop()();
+        // then, once components are updated, call
+        // afterUpdate functions. This may cause
+        // subsequent updates...
+        for (let i = 0; i < render_callbacks.length; i += 1) {
+            const callback = render_callbacks[i];
+            if (!seen_callbacks.has(callback)) {
+                // ...so guard against infinite loops
+                seen_callbacks.add(callback);
+                callback();
+            }
+        }
+        render_callbacks.length = 0;
+    } while (dirty_components.length);
+    while (flush_callbacks.length) {
+        flush_callbacks.pop()();
+    }
+    update_scheduled = false;
+    flushing = false;
+    seen_callbacks.clear();
+}
+function update($$) {
+    if ($$.fragment !== null) {
+        $$.update();
+        run_all($$.before_update);
+        const dirty = $$.dirty;
+        $$.dirty = [-1];
+        $$.fragment && $$.fragment.p($$.ctx, dirty);
+        $$.after_update.forEach(add_render_callback);
+    }
+}
+
+let promise;
+function wait() {
+    if (!promise) {
+        promise = Promise.resolve();
+        promise.then(() => {
+            promise = null;
+        });
+    }
+    return promise;
+}
+function dispatch(node, direction, kind) {
+    node.dispatchEvent(custom_event(`${direction ? 'intro' : 'outro'}${kind}`));
+}
+const outroing = new Set();
+let outros;
+function group_outros() {
+    outros = {
+        r: 0,
+        c: [],
+        p: outros // parent group
+    };
+}
+function check_outros() {
+    if (!outros.r) {
+        run_all(outros.c);
+    }
+    outros = outros.p;
+}
+function transition_in(block, local) {
+    if (block && block.i) {
+        outroing.delete(block);
+        block.i(local);
+    }
+}
+function transition_out(block, local, detach, callback) {
+    if (block && block.o) {
+        if (outroing.has(block))
+            return;
+        outroing.add(block);
+        outros.c.push(() => {
+            outroing.delete(block);
+            if (callback) {
+                if (detach)
+                    block.d(1);
+                callback();
+            }
+        });
+        block.o(local);
+    }
+}
+const null_transition = { duration: 0 };
+function create_in_transition(node, fn, params) {
+    let config = fn(node, params);
+    let running = false;
+    let animation_name;
+    let task;
+    let uid = 0;
+    function cleanup() {
+        if (animation_name)
+            delete_rule(node, animation_name);
+    }
+    function go() {
+        const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config || null_transition;
+        if (css)
+            animation_name = create_rule(node, 0, 1, duration, delay, easing, css, uid++);
+        tick(0, 1);
+        const start_time = now() + delay;
+        const end_time = start_time + duration;
+        if (task)
+            task.abort();
+        running = true;
+        add_render_callback(() => dispatch(node, true, 'start'));
+        task = loop(now => {
+            if (running) {
+                if (now >= end_time) {
+                    tick(1, 0);
+                    dispatch(node, true, 'end');
+                    cleanup();
+                    return running = false;
+                }
+                if (now >= start_time) {
+                    const t = easing((now - start_time) / duration);
+                    tick(t, 1 - t);
+                }
+            }
+            return running;
+        });
+    }
+    let started = false;
+    return {
+        start() {
+            if (started)
+                return;
+            started = true;
+            delete_rule(node);
+            if (is_function(config)) {
+                config = config();
+                wait().then(go);
+            }
+            else {
+                go();
+            }
+        },
+        invalidate() {
+            started = false;
+        },
+        end() {
+            if (running) {
+                cleanup();
+                running = false;
+            }
+        }
+    };
+}
+function create_out_transition(node, fn, params) {
+    let config = fn(node, params);
+    let running = true;
+    let animation_name;
+    const group = outros;
+    group.r += 1;
+    function go() {
+        const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config || null_transition;
+        if (css)
+            animation_name = create_rule(node, 1, 0, duration, delay, easing, css);
+        const start_time = now() + delay;
+        const end_time = start_time + duration;
+        add_render_callback(() => dispatch(node, false, 'start'));
+        loop(now => {
+            if (running) {
+                if (now >= end_time) {
+                    tick(0, 1);
+                    dispatch(node, false, 'end');
+                    if (!--group.r) {
+                        // this will result in `end()` being called,
+                        // so we don't need to clean up here
+                        run_all(group.c);
+                    }
+                    return false;
+                }
+                if (now >= start_time) {
+                    const t = easing((now - start_time) / duration);
+                    tick(1 - t, t);
+                }
+            }
+            return running;
+        });
+    }
+    if (is_function(config)) {
+        wait().then(() => {
+            // @ts-ignore
+            config = config();
+            go();
+        });
+    }
+    else {
+        go();
+    }
+    return {
+        end(reset) {
+            if (reset && config.tick) {
+                config.tick(1, 0);
+            }
+            if (running) {
+                if (animation_name)
+                    delete_rule(node, animation_name);
+                running = false;
+            }
+        }
+    };
+}
+function create_bidirectional_transition(node, fn, params, intro) {
+    let config = fn(node, params);
+    let t = intro ? 0 : 1;
+    let running_program = null;
+    let pending_program = null;
+    let animation_name = null;
+    function clear_animation() {
+        if (animation_name)
+            delete_rule(node, animation_name);
+    }
+    function init(program, duration) {
+        const d = (program.b - t);
+        duration *= Math.abs(d);
+        return {
+            a: t,
+            b: program.b,
+            d,
+            duration,
+            start: program.start,
+            end: program.start + duration,
+            group: program.group
+        };
+    }
+    function go(b) {
+        const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config || null_transition;
+        const program = {
+            start: now() + delay,
+            b
+        };
+        if (!b) {
+            // @ts-ignore todo: improve typings
+            program.group = outros;
+            outros.r += 1;
+        }
+        if (running_program || pending_program) {
+            pending_program = program;
+        }
+        else {
+            // if this is an intro, and there's a delay, we need to do
+            // an initial tick and/or apply CSS animation immediately
+            if (css) {
+                clear_animation();
+                animation_name = create_rule(node, t, b, duration, delay, easing, css);
+            }
+            if (b)
+                tick(0, 1);
+            running_program = init(program, duration);
+            add_render_callback(() => dispatch(node, b, 'start'));
+            loop(now => {
+                if (pending_program && now > pending_program.start) {
+                    running_program = init(pending_program, duration);
+                    pending_program = null;
+                    dispatch(node, running_program.b, 'start');
+                    if (css) {
+                        clear_animation();
+                        animation_name = create_rule(node, t, running_program.b, running_program.duration, 0, easing, config.css);
+                    }
+                }
+                if (running_program) {
+                    if (now >= running_program.end) {
+                        tick(t = running_program.b, 1 - t);
+                        dispatch(node, running_program.b, 'end');
+                        if (!pending_program) {
+                            // we're done
+                            if (running_program.b) {
+                                // intro — we can tidy up immediately
+                                clear_animation();
+                            }
+                            else {
+                                // outro — needs to be coordinated
+                                if (!--running_program.group.r)
+                                    run_all(running_program.group.c);
+                            }
+                        }
+                        running_program = null;
+                    }
+                    else if (now >= running_program.start) {
+                        const p = now - running_program.start;
+                        t = running_program.a + running_program.d * easing(p / running_program.duration);
+                        tick(t, 1 - t);
+                    }
+                }
+                return !!(running_program || pending_program);
+            });
+        }
+    }
+    return {
+        run(b) {
+            if (is_function(config)) {
+                wait().then(() => {
+                    // @ts-ignore
+                    config = config();
+                    go(b);
+                });
+            }
+            else {
+                go(b);
+            }
+        },
+        end() {
+            clear_animation();
+            running_program = pending_program = null;
+        }
+    };
+}
+
+function handle_promise(promise, info) {
+    const token = info.token = {};
+    function update(type, index, key, value) {
+        if (info.token !== token)
+            return;
+        info.resolved = value;
+        let child_ctx = info.ctx;
+        if (key !== undefined) {
+            child_ctx = child_ctx.slice();
+            child_ctx[key] = value;
+        }
+        const block = type && (info.current = type)(child_ctx);
+        let needs_flush = false;
+        if (info.block) {
+            if (info.blocks) {
+                info.blocks.forEach((block, i) => {
+                    if (i !== index && block) {
+                        group_outros();
+                        transition_out(block, 1, 1, () => {
+                            if (info.blocks[i] === block) {
+                                info.blocks[i] = null;
+                            }
+                        });
+                        check_outros();
+                    }
+                });
+            }
+            else {
+                info.block.d(1);
+            }
+            block.c();
+            transition_in(block, 1);
+            block.m(info.mount(), info.anchor);
+            needs_flush = true;
+        }
+        info.block = block;
+        if (info.blocks)
+            info.blocks[index] = block;
+        if (needs_flush) {
+            flush();
+        }
+    }
+    if (is_promise(promise)) {
+        const current_component = get_current_component();
+        promise.then(value => {
+            set_current_component(current_component);
+            update(info.then, 1, info.value, value);
+            set_current_component(null);
+        }, error => {
+            set_current_component(current_component);
+            update(info.catch, 2, info.error, error);
+            set_current_component(null);
+            if (!info.hasCatch) {
+                throw error;
+            }
+        });
+        // if we previously had a then/catch block, destroy it
+        if (info.current !== info.pending) {
+            update(info.pending, 0);
+            return true;
+        }
+    }
+    else {
+        if (info.current !== info.then) {
+            update(info.then, 1, info.value, promise);
+            return true;
+        }
+        info.resolved = promise;
+    }
+}
+function update_await_block_branch(info, ctx, dirty) {
+    const child_ctx = ctx.slice();
+    const { resolved } = info;
+    if (info.current === info.then) {
+        child_ctx[info.value] = resolved;
+    }
+    if (info.current === info.catch) {
+        child_ctx[info.error] = resolved;
+    }
+    info.block.p(child_ctx, dirty);
+}
+
+const globals = (typeof window !== 'undefined'
+    ? window
+    : typeof globalThis !== 'undefined'
+        ? globalThis
+        : global);
+
+function destroy_block(block, lookup) {
+    block.d(1);
+    lookup.delete(block.key);
+}
+function outro_and_destroy_block(block, lookup) {
+    transition_out(block, 1, 1, () => {
+        lookup.delete(block.key);
+    });
+}
+function fix_and_destroy_block(block, lookup) {
+    block.f();
+    destroy_block(block, lookup);
+}
+function fix_and_outro_and_destroy_block(block, lookup) {
+    block.f();
+    outro_and_destroy_block(block, lookup);
+}
+function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block, next, get_context) {
+    let o = old_blocks.length;
+    let n = list.length;
+    let i = o;
+    const old_indexes = {};
+    while (i--)
+        old_indexes[old_blocks[i].key] = i;
+    const new_blocks = [];
+    const new_lookup = new Map();
+    const deltas = new Map();
+    i = n;
+    while (i--) {
+        const child_ctx = get_context(ctx, list, i);
+        const key = get_key(child_ctx);
+        let block = lookup.get(key);
+        if (!block) {
+            block = create_each_block(key, child_ctx);
+            block.c();
+        }
+        else if (dynamic) {
+            block.p(child_ctx, dirty);
+        }
+        new_lookup.set(key, new_blocks[i] = block);
+        if (key in old_indexes)
+            deltas.set(key, Math.abs(i - old_indexes[key]));
+    }
+    const will_move = new Set();
+    const did_move = new Set();
+    function insert(block) {
+        transition_in(block, 1);
+        block.m(node, next);
+        lookup.set(block.key, block);
+        next = block.first;
+        n--;
+    }
+    while (o && n) {
+        const new_block = new_blocks[n - 1];
+        const old_block = old_blocks[o - 1];
+        const new_key = new_block.key;
+        const old_key = old_block.key;
+        if (new_block === old_block) {
+            // do nothing
+            next = new_block.first;
+            o--;
+            n--;
+        }
+        else if (!new_lookup.has(old_key)) {
+            // remove old block
+            destroy(old_block, lookup);
+            o--;
+        }
+        else if (!lookup.has(new_key) || will_move.has(new_key)) {
+            insert(new_block);
+        }
+        else if (did_move.has(old_key)) {
+            o--;
+        }
+        else if (deltas.get(new_key) > deltas.get(old_key)) {
+            did_move.add(new_key);
+            insert(new_block);
+        }
+        else {
+            will_move.add(old_key);
+            o--;
+        }
+    }
+    while (o--) {
+        const old_block = old_blocks[o];
+        if (!new_lookup.has(old_block.key))
+            destroy(old_block, lookup);
+    }
+    while (n)
+        insert(new_blocks[n - 1]);
+    return new_blocks;
+}
+function validate_each_keys(ctx, list, get_context, get_key) {
+    const keys = new Set();
+    for (let i = 0; i < list.length; i++) {
+        const key = get_key(get_context(ctx, list, i));
+        if (keys.has(key)) {
+            throw new Error('Cannot have duplicate keys in a keyed each');
+        }
+        keys.add(key);
+    }
+}
+
+function get_spread_update(levels, updates) {
+    const update = {};
+    const to_null_out = {};
+    const accounted_for = { $$scope: 1 };
+    let i = levels.length;
+    while (i--) {
+        const o = levels[i];
+        const n = updates[i];
+        if (n) {
+            for (const key in o) {
+                if (!(key in n))
+                    to_null_out[key] = 1;
+            }
+            for (const key in n) {
+                if (!accounted_for[key]) {
+                    update[key] = n[key];
+                    accounted_for[key] = 1;
+                }
+            }
+            levels[i] = n;
+        }
+        else {
+            for (const key in o) {
+                accounted_for[key] = 1;
+            }
+        }
+    }
+    for (const key in to_null_out) {
+        if (!(key in update))
+            update[key] = undefined;
+    }
+    return update;
+}
+function get_spread_object(spread_props) {
+    return typeof spread_props === 'object' && spread_props !== null ? spread_props : {};
+}
+
+// source: https://html.spec.whatwg.org/multipage/indices.html
+const boolean_attributes = new Set([
+    'allowfullscreen',
+    'allowpaymentrequest',
+    'async',
+    'autofocus',
+    'autoplay',
+    'checked',
+    'controls',
+    'default',
+    'defer',
+    'disabled',
+    'formnovalidate',
+    'hidden',
+    'ismap',
+    'loop',
+    'multiple',
+    'muted',
+    'nomodule',
+    'novalidate',
+    'open',
+    'playsinline',
+    'readonly',
+    'required',
+    'reversed',
+    'selected'
+]);
+
+const invalid_attribute_name_character = /[\s'">/=\u{FDD0}-\u{FDEF}\u{FFFE}\u{FFFF}\u{1FFFE}\u{1FFFF}\u{2FFFE}\u{2FFFF}\u{3FFFE}\u{3FFFF}\u{4FFFE}\u{4FFFF}\u{5FFFE}\u{5FFFF}\u{6FFFE}\u{6FFFF}\u{7FFFE}\u{7FFFF}\u{8FFFE}\u{8FFFF}\u{9FFFE}\u{9FFFF}\u{AFFFE}\u{AFFFF}\u{BFFFE}\u{BFFFF}\u{CFFFE}\u{CFFFF}\u{DFFFE}\u{DFFFF}\u{EFFFE}\u{EFFFF}\u{FFFFE}\u{FFFFF}\u{10FFFE}\u{10FFFF}]/u;
+// https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
+// https://infra.spec.whatwg.org/#noncharacter
+function spread(args, classes_to_add) {
+    const attributes = Object.assign({}, ...args);
+    if (classes_to_add) {
+        if (attributes.class == null) {
+            attributes.class = classes_to_add;
+        }
+        else {
+            attributes.class += ' ' + classes_to_add;
+        }
+    }
+    let str = '';
+    Object.keys(attributes).forEach(name => {
+        if (invalid_attribute_name_character.test(name))
+            return;
+        const value = attributes[name];
+        if (value === true)
+            str += ' ' + name;
+        else if (boolean_attributes.has(name.toLowerCase())) {
+            if (value)
+                str += ' ' + name;
+        }
+        else if (value != null) {
+            str += ` ${name}="${value}"`;
+        }
+    });
+    return str;
+}
+const escaped = {
+    '"': '&quot;',
+    "'": '&#39;',
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;'
+};
+function escape(html) {
+    return String(html).replace(/["'&<>]/g, match => escaped[match]);
+}
+function escape_attribute_value(value) {
+    return typeof value === 'string' ? escape(value) : value;
+}
+function escape_object(obj) {
+    const result = {};
+    for (const key in obj) {
+        result[key] = escape_attribute_value(obj[key]);
+    }
+    return result;
+}
+function each(items, fn) {
+    let str = '';
+    for (let i = 0; i < items.length; i += 1) {
+        str += fn(items[i], i);
+    }
+    return str;
+}
+const missing_component = {
+    $$render: () => ''
+};
+function validate_component(component, name) {
+    if (!component || !component.$$render) {
+        if (name === 'svelte:component')
+            name += ' this={...}';
+        throw new Error(`<${name}> is not a valid SSR component. You may need to review your build config to ensure that dependencies are compiled, rather than imported as pre-compiled modules`);
+    }
+    return component;
+}
+function debug(file, line, column, values) {
+    console.log(`{@debug} ${file ? file + ' ' : ''}(${line}:${column})`); // eslint-disable-line no-console
+    console.log(values); // eslint-disable-line no-console
+    return '';
+}
+let on_destroy;
+function create_ssr_component(fn) {
+    function $$render(result, props, bindings, slots, context) {
+        const parent_component = current_component;
+        const $$ = {
+            on_destroy,
+            context: new Map(context || (parent_component ? parent_component.$$.context : [])),
+            // these will be immediately discarded
+            on_mount: [],
+            before_update: [],
+            after_update: [],
+            callbacks: blank_object()
+        };
+        set_current_component({ $$ });
+        const html = fn(result, props, bindings, slots);
+        set_current_component(parent_component);
+        return html;
+    }
+    return {
+        render: (props = {}, { $$slots = {}, context = new Map() } = {}) => {
+            on_destroy = [];
+            const result = { title: '', head: '', css: new Set() };
+            const html = $$render(result, props, {}, $$slots, context);
+            run_all(on_destroy);
+            return {
+                html,
+                css: {
+                    code: Array.from(result.css).map(css => css.code).join('\n'),
+                    map: null // TODO
+                },
+                head: result.title + result.head
+            };
+        },
+        $$render
+    };
+}
+function add_attribute(name, value, boolean) {
+    if (value == null || (boolean && !value))
+        return '';
+    return ` ${name}${value === true ? '' : `=${typeof value === 'string' ? JSON.stringify(escape(value)) : `"${value}"`}`}`;
+}
+function add_classes(classes) {
+    return classes ? ` class="${classes}"` : '';
+}
+
+function bind(component, name, callback) {
+    const index = component.$$.props[name];
+    if (index !== undefined) {
+        component.$$.bound[index] = callback;
+        callback(component.$$.ctx[index]);
+    }
+}
+function create_component(block) {
+    block && block.c();
+}
+function claim_component(block, parent_nodes) {
+    block && block.l(parent_nodes);
+}
+function mount_component(component, target, anchor, customElement) {
+    const { fragment, on_mount, on_destroy, after_update } = component.$$;
+    fragment && fragment.m(target, anchor);
+    if (!customElement) {
+        // onMount happens before the initial afterUpdate
+        add_render_callback(() => {
+            const new_on_destroy = on_mount.map(run).filter(is_function);
+            if (on_destroy) {
+                on_destroy.push(...new_on_destroy);
+            }
+            else {
+                // Edge case - component was destroyed immediately,
+                // most likely as a result of a binding initialising
+                run_all(new_on_destroy);
+            }
+            component.$$.on_mount = [];
+        });
+    }
+    after_update.forEach(add_render_callback);
+}
+function destroy_component(component, detaching) {
+    const $$ = component.$$;
+    if ($$.fragment !== null) {
+        run_all($$.on_destroy);
+        $$.fragment && $$.fragment.d(detaching);
+        // TODO null out other refs, including component.$$ (but need to
+        // preserve final state?)
+        $$.on_destroy = $$.fragment = null;
+        $$.ctx = [];
+    }
+}
+function make_dirty(component, i) {
+    if (component.$$.dirty[0] === -1) {
+        dirty_components.push(component);
+        schedule_update();
+        component.$$.dirty.fill(0);
+    }
+    component.$$.dirty[(i / 31) | 0] |= (1 << (i % 31));
+}
+function init(component, options, instance, create_fragment, not_equal, props, append_styles, dirty = [-1]) {
+    const parent_component = current_component;
+    set_current_component(component);
+    const $$ = component.$$ = {
+        fragment: null,
+        ctx: null,
+        // state
+        props,
+        update: noop,
+        not_equal,
+        bound: blank_object(),
+        // lifecycle
+        on_mount: [],
+        on_destroy: [],
+        on_disconnect: [],
+        before_update: [],
+        after_update: [],
+        context: new Map(options.context || (parent_component ? parent_component.$$.context : [])),
+        // everything else
+        callbacks: blank_object(),
+        dirty,
+        skip_bound: false,
+        root: options.target || parent_component.$$.root
+    };
+    append_styles && append_styles($$.root);
+    let ready = false;
+    $$.ctx = instance
+        ? instance(component, options.props || {}, (i, ret, ...rest) => {
+            const value = rest.length ? rest[0] : ret;
+            if ($$.ctx && not_equal($$.ctx[i], $$.ctx[i] = value)) {
+                if (!$$.skip_bound && $$.bound[i])
+                    $$.bound[i](value);
+                if (ready)
+                    make_dirty(component, i);
+            }
+            return ret;
+        })
+        : [];
+    $$.update();
+    ready = true;
+    run_all($$.before_update);
+    // `false` as a special case of no DOM component
+    $$.fragment = create_fragment ? create_fragment($$.ctx) : false;
+    if (options.target) {
+        if (options.hydrate) {
+            start_hydrating();
+            const nodes = children(options.target);
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            $$.fragment && $$.fragment.l(nodes);
+            nodes.forEach(detach);
+        }
+        else {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            $$.fragment && $$.fragment.c();
+        }
+        if (options.intro)
+            transition_in(component.$$.fragment);
+        mount_component(component, options.target, options.anchor, options.customElement);
+        end_hydrating();
+        flush();
+    }
+    set_current_component(parent_component);
+}
+let SvelteElement;
+if (typeof HTMLElement === 'function') {
+    SvelteElement = class extends HTMLElement {
+        constructor() {
+            super();
+            this.attachShadow({ mode: 'open' });
+        }
+        connectedCallback() {
+            const { on_mount } = this.$$;
+            this.$$.on_disconnect = on_mount.map(run).filter(is_function);
+            // @ts-ignore todo: improve typings
+            for (const key in this.$$.slotted) {
+                // @ts-ignore todo: improve typings
+                this.appendChild(this.$$.slotted[key]);
+            }
+        }
+        attributeChangedCallback(attr, _oldValue, newValue) {
+            this[attr] = newValue;
+        }
+        disconnectedCallback() {
+            run_all(this.$$.on_disconnect);
+        }
+        $destroy() {
+            destroy_component(this, 1);
+            this.$destroy = noop;
+        }
+        $on(type, callback) {
+            // TODO should this delegate to addEventListener?
+            const callbacks = (this.$$.callbacks[type] || (this.$$.callbacks[type] = []));
+            callbacks.push(callback);
+            return () => {
+                const index = callbacks.indexOf(callback);
+                if (index !== -1)
+                    callbacks.splice(index, 1);
+            };
+        }
+        $set($$props) {
+            if (this.$$set && !is_empty($$props)) {
+                this.$$.skip_bound = true;
+                this.$$set($$props);
+                this.$$.skip_bound = false;
+            }
+        }
+    };
+}
+/**
+ * Base class for Svelte components. Used when dev=false.
+ */
+class SvelteComponent {
+    $destroy() {
+        destroy_component(this, 1);
+        this.$destroy = noop;
+    }
+    $on(type, callback) {
+        const callbacks = (this.$$.callbacks[type] || (this.$$.callbacks[type] = []));
+        callbacks.push(callback);
+        return () => {
+            const index = callbacks.indexOf(callback);
+            if (index !== -1)
+                callbacks.splice(index, 1);
+        };
+    }
+    $set($$props) {
+        if (this.$$set && !is_empty($$props)) {
+            this.$$.skip_bound = true;
+            this.$$set($$props);
+            this.$$.skip_bound = false;
+        }
+    }
+}
+
+function dispatch_dev(type, detail) {
+    document.dispatchEvent(custom_event(type, Object.assign({ version: '3.44.1' }, detail), true));
+}
+function append_dev(target, node) {
+    dispatch_dev('SvelteDOMInsert', { target, node });
+    append(target, node);
+}
+function append_hydration_dev(target, node) {
+    dispatch_dev('SvelteDOMInsert', { target, node });
+    append_hydration(target, node);
+}
+function insert_dev(target, node, anchor) {
+    dispatch_dev('SvelteDOMInsert', { target, node, anchor });
+    insert(target, node, anchor);
+}
+function insert_hydration_dev(target, node, anchor) {
+    dispatch_dev('SvelteDOMInsert', { target, node, anchor });
+    insert_hydration(target, node, anchor);
+}
+function detach_dev(node) {
+    dispatch_dev('SvelteDOMRemove', { node });
+    detach(node);
+}
+function detach_between_dev(before, after) {
+    while (before.nextSibling && before.nextSibling !== after) {
+        detach_dev(before.nextSibling);
+    }
+}
+function detach_before_dev(after) {
+    while (after.previousSibling) {
+        detach_dev(after.previousSibling);
+    }
+}
+function detach_after_dev(before) {
+    while (before.nextSibling) {
+        detach_dev(before.nextSibling);
+    }
+}
+function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation) {
+    const modifiers = options === true ? ['capture'] : options ? Array.from(Object.keys(options)) : [];
+    if (has_prevent_default)
+        modifiers.push('preventDefault');
+    if (has_stop_propagation)
+        modifiers.push('stopPropagation');
+    dispatch_dev('SvelteDOMAddEventListener', { node, event, handler, modifiers });
+    const dispose = listen(node, event, handler, options);
+    return () => {
+        dispatch_dev('SvelteDOMRemoveEventListener', { node, event, handler, modifiers });
+        dispose();
+    };
+}
+function attr_dev(node, attribute, value) {
+    attr(node, attribute, value);
+    if (value == null)
+        dispatch_dev('SvelteDOMRemoveAttribute', { node, attribute });
+    else
+        dispatch_dev('SvelteDOMSetAttribute', { node, attribute, value });
+}
+function prop_dev(node, property, value) {
+    node[property] = value;
+    dispatch_dev('SvelteDOMSetProperty', { node, property, value });
+}
+function dataset_dev(node, property, value) {
+    node.dataset[property] = value;
+    dispatch_dev('SvelteDOMSetDataset', { node, property, value });
+}
+function set_data_dev(text, data) {
+    data = '' + data;
+    if (text.wholeText === data)
+        return;
+    dispatch_dev('SvelteDOMSetData', { node: text, data });
+    text.data = data;
+}
+function validate_each_argument(arg) {
+    if (typeof arg !== 'string' && !(arg && typeof arg === 'object' && 'length' in arg)) {
+        let msg = '{#each} only iterates over array-like objects.';
+        if (typeof Symbol === 'function' && arg && Symbol.iterator in arg) {
+            msg += ' You can use a spread to convert this iterable into an array.';
+        }
+        throw new Error(msg);
+    }
+}
+function validate_slots(name, slot, keys) {
+    for (const slot_key of Object.keys(slot)) {
+        if (!~keys.indexOf(slot_key)) {
+            console.warn(`<${name}> received an unexpected slot "${slot_key}".`);
+        }
+    }
+}
+/**
+ * Base class for Svelte components with some minor dev-enhancements. Used when dev=true.
+ */
+class SvelteComponentDev extends SvelteComponent {
+    constructor(options) {
+        if (!options || (!options.target && !options.$$inline)) {
+            throw new Error("'target' is a required option");
+        }
+        super();
+    }
+    $destroy() {
+        super.$destroy();
+        this.$destroy = () => {
+            console.warn('Component was already destroyed'); // eslint-disable-line no-console
+        };
+    }
+    $capture_state() { }
+    $inject_state() { }
+}
+/**
+ * Base class to create strongly typed Svelte components.
+ * This only exists for typing purposes and should be used in `.d.ts` files.
+ *
+ * ### Example:
+ *
+ * You have component library on npm called `component-library`, from which
+ * you export a component called `MyComponent`. For Svelte+TypeScript users,
+ * you want to provide typings. Therefore you create a `index.d.ts`:
+ * ```ts
+ * import { SvelteComponentTyped } from "svelte";
+ * export class MyComponent extends SvelteComponentTyped<{foo: string}> {}
+ * ```
+ * Typing this makes it possible for IDEs like VS Code with the Svelte extension
+ * to provide intellisense and to use the component like this in a Svelte file
+ * with TypeScript:
+ * ```svelte
+ * <script lang="ts">
+ * 	import { MyComponent } from "component-library";
+ * </script>
+ * <MyComponent foo={'bar'} />
+ * ```
+ *
+ * #### Why not make this part of `SvelteComponent(Dev)`?
+ * Because
+ * ```ts
+ * class ASubclassOfSvelteComponent extends SvelteComponent<{foo: string}> {}
+ * const component: typeof SvelteComponent = ASubclassOfSvelteComponent;
+ * ```
+ * will throw a type error, so we need to separate the more strictly typed class.
+ */
+class SvelteComponentTyped extends SvelteComponentDev {
+    constructor(options) {
+        super(options);
+    }
+}
+function loop_guard(timeout) {
+    const start = Date.now();
+    return () => {
+        if (Date.now() - start > timeout) {
+            throw new Error('Infinite loop detected');
+        }
+    };
+}
+
+
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!*********************!*\
+  !*** ./js/table.ts ***!
+  \*********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _table_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./table/table */ "./js/table/table.ts");
+/* harmony import */ var _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tooltips */ "./js/modules/tooltips.ts");
+/* harmony import */ var _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./table/screen-options-columns */ "./js/table/screen-options-columns.ts");
+/* harmony import */ var _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/toggle-box-link */ "./js/modules/toggle-box-link.ts");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _plugin_show_more__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plugin/show-more */ "./js/plugin/show-more.ts");
+/* harmony import */ var _table_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./table/functions */ "./js/table/functions.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./constants */ "./js/constants.ts");
+/* harmony import */ var _helpers_table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers/table */ "./js/helpers/table.ts");
+/* harmony import */ var _helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./helpers/admin-columns */ "./js/helpers/admin-columns.ts");
+/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/modals */ "./js/modules/modals.ts");
+/* harmony import */ var _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/ac-pointer */ "./js/modules/ac-pointer.ts");
+/* harmony import */ var _modules_value_modals__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/value-modals */ "./js/modules/value-modals.ts");
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./plugin/tooltip */ "./js/plugin/tooltip.ts");
+
+
+
+
+// @ts-ignore
+
+
+
+
+
+
+
+
+
+
+let AC_SERVICES = (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__.initAcServices)();
+AC_SERVICES.registerService('Modals', new _modules_modals__WEBPACK_IMPORTED_MODULE_10__["default"]());
+AC_SERVICES.registerService('tooltips', _plugin_tooltip__WEBPACK_IMPORTED_MODULE_13__.initAcTooltips);
+document.addEventListener('DOMContentLoaded', () => {
+    let table = (0,_helpers_table__WEBPACK_IMPORTED_MODULE_8__.resolveTableBySelector)(AC.table_id);
+    (0,_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__.initPointers)();
+    if (table) {
+        const TableModule = new _table_table__WEBPACK_IMPORTED_MODULE_0__["default"](table, AC_SERVICES).init();
+        AC_SERVICES.registerService('Table', TableModule);
+        AC_SERVICES.registerService('ScreenOptionsColumns', new _table_screen_options_columns__WEBPACK_IMPORTED_MODULE_2__["default"](TableModule.Columns));
+    }
+    AC_SERVICES.registerService('Tooltips', new _modules_tooltips__WEBPACK_IMPORTED_MODULE_1__["default"]());
+    document.querySelectorAll('.ac-toggle-box-link').forEach(el => {
+        new _modules_toggle_box_link__WEBPACK_IMPORTED_MODULE_3__["default"](el);
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_4___default()('.wp-list-table').on('updated', 'tr', function () {
+        AC_SERVICES.getService('Table').addCellClasses();
+        (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__.auto_init_show_more)();
+    });
+});
+AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.TABLE.READY, (event) => {
+    (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__.auto_init_show_more)();
+    (0,_table_functions__WEBPACK_IMPORTED_MODULE_6__.init_actions_tooltips)();
+    let observer = new MutationObserver(mutations => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.tagName === 'TR' && node.classList.contains('iedit')) {
+                    jquery__WEBPACK_IMPORTED_MODULE_4___default()(node).trigger('updated', { id: (0,_helpers_table__WEBPACK_IMPORTED_MODULE_8__.getIdFromTableRow)(node), row: node });
+                }
+            });
+        });
+    });
+    observer.observe(event.table.getElement(), { childList: true, subtree: true });
+    event.table.Cells.getAll().forEach(cell => {
+        cell.events.addListener('setValue', () => {
+            (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__.auto_init_show_more)();
+        });
+    });
+    let items = {};
+    event.table.Cells.getAll().forEach(cell => {
+        let link = cell.getElement().querySelector('[data-modal-value]');
+        if (link) {
+            if (!items.hasOwnProperty(cell.getName())) {
+                items[cell.getName()] = [];
+            }
+            items[cell.getName()].push({
+                element: link,
+                columnName: cell.getName(),
+                objectId: cell.getObjectID()
+            });
+        }
+    });
+    Object.keys(items).forEach(i => new _modules_value_modals__WEBPACK_IMPORTED_MODULE_12__["default"](items[i]));
+});
+
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=table.js.map

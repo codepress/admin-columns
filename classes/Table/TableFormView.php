@@ -3,8 +3,9 @@
 namespace AC\Table;
 
 use AC;
+use AC\Registrable;
 
-final class TableFormView implements AC\Renderable {
+final class TableFormView implements Registrable {
 
 	const PARAM_ACTION = 'ac-actions-form';
 
@@ -33,9 +34,6 @@ final class TableFormView implements AC\Renderable {
 		$this->priority = (int) $priority;
 	}
 
-	/**
-	 * Register hooks
-	 */
 	public function register() {
 
 		switch ( $this->type ) {

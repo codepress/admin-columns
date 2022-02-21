@@ -37,7 +37,7 @@ class Addons implements PageFactoryInterface {
 		return new Page\Addons(
 			$this->location,
 			$this->integrations,
-			new Admin\View\Menu( $this->menu_factory->create( 'addons' ) ),
+			new Admin\View\Menu( $this->menu_factory->create( 'addons' ) )
 		);
 	}
 

@@ -54,7 +54,7 @@ class Nonce {
 	 *
 	 * @return bool
 	 */
-	public function verify( $nonce ) {
+	public function verify_nonce( $nonce ) {
 		return (bool) wp_verify_nonce( (string) $nonce, $this->action );
 	}
 
@@ -63,8 +63,8 @@ class Nonce {
 	 *
 	 * @return bool
 	 */
-	public function verify_by_request( Request $request ) {
-		return $this->verify( $request->get( $this->name ) );
+	public function verify( Request $request ) {
+		return $this->verify_nonce( $request->get( $this->name ) );
 	}
 
 }

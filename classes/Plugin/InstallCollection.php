@@ -3,15 +3,22 @@
 namespace AC\Plugin;
 
 use AC;
-use AC\ArrayIterator;
 
-final class InstallCollection extends ArrayIterator {
+final class InstallCollection extends AC\Iterator {
+
+	public function __construct( array $data = [] ) {
+		array_map( [ $this, 'add' ], $data );
+	}
+
+	protected function add( Install $install ) {
+		$this->data[] = $install;
+	}
 
 	/**
-	 * @return Install[]
+	 * @return Install
 	 */
-	public function get_copy() {
-		return parent::get_copy();
+	public function current() {
+		return parent::current();
 	}
 
 }

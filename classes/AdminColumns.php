@@ -8,15 +8,13 @@ use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Admin\Preference;
 use AC\Admin\WpMenuFactory;
-use AC\Asset\Script;
-use AC\Asset\Style;
 use AC\Controller;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\SetupFactory;
-use AC\Plugin\SetupService;
 use AC\Plugin\Version;
 use AC\Screen\QuickEdit;
+use AC\Service;
 use AC\Settings\GeneralOption;
 use AC\Table;
 use AC\ThirdParty;
@@ -42,7 +40,7 @@ class AdminColumns extends Plugin {
 	}
 
 	protected function __construct() {
-		parent::__construct( AC_FILE, 'ac_version', new Version( AC_VERSION ) );
+		parent::__construct( AC_FILE, new Version( AC_VERSION ) );
 
 		$this->storage = new Storage();
 		$this->storage->set_repositories( [
@@ -74,7 +72,7 @@ class AdminColumns extends Plugin {
 			new ThirdParty\WooCommerce(),
 			new ThirdParty\WPML( $this->storage ),
 			new Controller\DefaultColumns( new Request(), new DefaultColumnsRepository() ),
-			new QuickEdit( $this->storage, new Table\Preference() ),
+			new QuickEdit( $this->storage, new Table\LayoutPreference() ),
 			new Capabilities\Manage(),
 			new Controller\AjaxColumnRequest( $this->storage, new Request() ),
 			new Controller\AjaxGeneralOptions( new GeneralOption() ),
@@ -86,19 +84,20 @@ class AdminColumns extends Plugin {
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename() ),
 			new NoticeChecks( $location ),
-			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\Preference() ),
+			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
+			new Admin\Scripts( $location ),
 		];
 
-		$services[] = new SetupService(
-			new SetupFactory\Site( $this->version_key, $this->get_version() ),
-			new SetupFactory\Network( $this->version_key, $this->get_version() )
+		$setup_factory = new SetupFactory(
+			'ac_version',
+			$this->get_version()
 		);
+
+		$services[] = new Service\Setup( $setup_factory->create() );
 
 		array_map( static function ( Registrable $service ) {
 			$service->register();
 		}, $services );
-
-		add_action( 'init', [ $this, 'register_global_scripts' ] );
 	}
 
 	/**
@@ -106,19 +105,6 @@ class AdminColumns extends Plugin {
 	 */
 	public function get_storage() {
 		return $this->storage;
-	}
-
-	public function register_global_scripts() {
-		$assets = [
-			new Script( 'ac-select2-core', $this->get_location()->with_suffix( 'assets/js/select2.js' ) ),
-			new Script( 'ac-select2', $this->get_location()->with_suffix( 'assets/js/select2_conflict_fix.js' ), [ 'jquery', 'ac-select2-core' ] ),
-			new Style( 'ac-select2', $this->get_location()->with_suffix( 'assets/css/select2.css' ) ),
-			new Style( 'ac-jquery-ui', $this->get_location()->with_suffix( 'assets/css/ac-jquery-ui.css' ) ),
-		];
-
-		foreach ( $assets as $asset ) {
-			$asset->register();
-		}
 	}
 
 	/**
