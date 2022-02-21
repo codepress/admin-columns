@@ -46,7 +46,6 @@ class RestoreSettingsRequest implements Registrable {
 
 		$notice = new Notice( __( 'Default settings successfully restored.', 'codepress-admin-columns' ) );
 		$notice->register();
-
 	}
 
 	private function delete_user_preferences() {
