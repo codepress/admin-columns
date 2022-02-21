@@ -59,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							__( 'Filters', 'codepress-admin-columns' ),
 							__( 'Smart Filters', 'codepress-admin-columns' ),
 							__( 'Export', 'codepress-admin-columns' ),
-							__( 'Quick Add', 'codepress-admin-columns' ),
+							__( 'Add Row', 'codepress-admin-columns' ),
 							__( 'Status (Quick Links)', 'codepress-admin-columns' ),
 							__( 'Search', 'codepress-admin-columns' ),
 							__( 'Bulk Actions', 'codepress-admin-columns' ),
