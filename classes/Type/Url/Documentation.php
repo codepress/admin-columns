@@ -6,7 +6,7 @@ use AC\Type;
 
 class Documentation implements Type\Url {
 
-	use Path;
+	use Path, Fragment;
 
 	const URL = 'https://docs.admincolumns.com';
 
@@ -25,18 +25,29 @@ class Documentation implements Type\Url {
 	const ARTICLE_SAVED_FILTERS = '/article/73-how-to-use-saved-filters';
 	const ARTICLE_SHOW_ALL_SORTING_RESULTS = '/article/86-show-all-results-when-sorting';
 	const ARTICLE_UPGRADE_V3_TO_V4 = '/article/91-how-to-upgrade-from-v3-to-v4';
+	const ARTICLE_SUBSCRIPTION_QUESTIONS = '/article/96-subscription-or-license-questions';
 
 	/**
 	 * @param string $path
 	 */
-	public function __construct( $path = null ) {
+	public function __construct( $path = null, $fragment = null ) {
 		if ( $path ) {
 			$this->set_path( $path );
+		}
+
+		if ( $fragment ) {
+			$this->set_fragment( $fragment );
 		}
 	}
 
 	public function get_url() {
-		return self::URL . $this->get_path();
+		$url = self::URL . $this->get_path();
+
+		if ( $this->has_fragment() ) {
+			$url .= $this->get_fragment();
+		}
+
+		return $url;
 	}
 
 	public static function create_with_path( $path ) {
