@@ -5,17 +5,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<table class="ac-column-setting<?php echo $this->name ? esc_attr( ' ac-column-setting--' . $this->name ) : ''; ?>" data-setting="<?php echo esc_attr( $this->name ); ?>">
+<table class="ac-column-setting<?= $this->class ? ' ' . $this->class : ''; ?><?= $this->name ? esc_attr( ' ac-column-setting--' . $this->name ) : ''; ?>" data-setting="<?= esc_attr( $this->name ); ?>">
 	<tr>
 		<td class="col-label">
-			<label for="<?php echo esc_attr( $this->for ); ?>">
-				<span class="label <?php echo esc_attr( $this->tooltip ? 'tooltip' : '' ); ?>">
-					<?php echo $this->label; ?>
+			<label for="<?= esc_attr( $this->for ); ?>">
+				<span class="label <?= esc_attr( $this->tooltip ? 'tooltip' : '' ); ?>">
+					<?= $this->label; ?>
 				</span>
 
 				<?php if ( $this->tooltip ) : ?>
 					<div class="tooltip">
-						<?php echo $this->tooltip; ?>
+						<?= $this->tooltip; ?>
 					</div>
 				<?php endif; ?>
 
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php endif; ?>
 
 				<?php if ( $this->read_more ) : ?>
-					<a href="<?php echo esc_url( $this->read_more ); ?>" target="_blank" class="more-link">
+					<a href="<?= esc_url( $this->read_more ); ?>" target="_blank" class="more-link">
 						<span class="dashicons dashicons-admin-links"></span>
 					</a>
 				<?php endif; ?>
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<td class="col-input">
 			<?php if ( $this->setting ) : ?>
 				<div class="ac-setting-input">
-					<?php echo $this->setting; ?>
+					<?= $this->setting; ?>
 				</div>
 			<?php endif; ?>
 
