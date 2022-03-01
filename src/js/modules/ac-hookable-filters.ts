@@ -24,7 +24,6 @@ export default class AcHookableFilters {
         }
 
         this.filters[name][ priority ].push( callback );
-        console.log( this.filters );
     }
 
     applyFilters( name: string, value: any, payload: Object = {} ){

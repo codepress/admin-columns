@@ -687,7 +687,6 @@ class AcHookableFilters {
             this.filters[name][priority] = [];
         }
         this.filters[name][priority].push(callback);
-        console.log(this.filters);
     }
     applyFilters(name, value, payload = {}) {
         if (!this.filters.hasOwnProperty(name)) {
