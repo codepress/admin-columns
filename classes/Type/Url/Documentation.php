@@ -26,6 +26,7 @@ class Documentation implements Type\Url {
 	const ARTICLE_SHOW_ALL_SORTING_RESULTS = '/article/86-show-all-results-when-sorting';
 	const ARTICLE_UPGRADE_V3_TO_V4 = '/article/91-how-to-upgrade-from-v3-to-v4';
 	const ARTICLE_SUBSCRIPTION_QUESTIONS = '/article/96-subscription-or-license-questions';
+	const ARTICLE_ACF_UPGRADE_V2_TO_V3 = '/article/103-how-to-upgrade-the-acf-integration-from-v2-to-v3';
 
 	/**
 	 * @param string $path
