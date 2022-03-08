@@ -128,7 +128,7 @@ class PluginInformation {
 	public function has_update_package() {
 		$update_data = $this->get_update_data();
 
-		return false !== $update_data->package;
+		return $update_data && false !== $update_data->package;
 	}
 
 	/**
