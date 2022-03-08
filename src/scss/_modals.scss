@@ -57,7 +57,7 @@ body .ac-modal {
 		&__content {
 			padding: 25px;
 			max-height: calc(100vh - 200px);
-			overflow: scroll;
+			overflow: auto;
 
 			&__lead {
 				font-weight: bold;
@@ -65,6 +65,10 @@ body .ac-modal {
 				margin-top: 5px;
 				margin-bottom: 25px;
 				color: #6D6D6D;
+			}
+
+			&.-p0 {
+				padding: 0;
 			}
 		}
 

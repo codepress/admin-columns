@@ -161,7 +161,7 @@ body .ac-modal__dialog__close:hover {
 body .ac-modal__dialog__content {
   padding: 25px;
   max-height: calc(100vh - 200px);
-  overflow: scroll;
+  overflow: auto;
 }
 body .ac-modal__dialog__content__lead {
   font-weight: bold;
@@ -169,6 +169,9 @@ body .ac-modal__dialog__content__lead {
   margin-top: 5px;
   margin-bottom: 25px;
   color: #6D6D6D;
+}
+body .ac-modal__dialog__content.-p0 {
+  padding: 0;
 }
 body .ac-modal__dialog__list li {
   position: relative;
