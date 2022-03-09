@@ -114,7 +114,7 @@ class PluginInformation {
 
 		$version = new Version( $data->update->new_version );
 
-		if ( $version->is_lte( $this->get_version() ) ) {
+		if ( ! $version->is_valid() || $version->is_lte( $this->get_version() ) ) {
 			return null;
 		}
 
