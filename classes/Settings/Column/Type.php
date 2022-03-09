@@ -90,7 +90,7 @@ class Type extends Column {
 
 		$list_screen = $this->column->get_list_screen();
 
-		$columns_types = apply_filters( 'ac/column/settings/column_types', $list_screen->get_column_types(), $list_screen );
+		$columns_types = apply_filters( 'ac/column/settings/column_types', $list_screen->get_column_types(), $this->column, $list_screen );
 
 		// get columns and sort them
 		foreach ( $columns_types as $column ) {
