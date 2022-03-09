@@ -91,53 +91,38 @@ class PluginInformation {
 		return get_plugin_updates();
 	}
 
-	/**
-	 * @return object|null
-	 */
-	private function get_update_data() {
-		$update_data = $this->get_plugin_updates();
+	public function has_update() {
+		return null !== $this->get_update();
+	}
 
-		if ( ! array_key_exists( $this->basename, $update_data ) ) {
+	public function get_update() {
+		$updates = $this->get_plugin_updates();
+
+		if ( ! array_key_exists( $this->basename, $updates ) ) {
 			return null;
 		}
 
-		return $update_data[ $this->basename ]->update;
-	}
+		$data = $updates[ $this->basename ];
 
-	/**
-	 * @return bool
-	 */
-	public function has_update_version() {
-		$update_data = $this->get_update_data();
+		if ( ! property_exists( $data, 'update' ) ) {
+			return null;
+		}
 
-		return null !== $update_data;
-	}
+		if ( ! property_exists( $data->update, 'new_version' ) ) {
+			return null;
+		}
 
-	/**
-	 * @return Version
-	 */
-	public function get_update_version() {
-		$update_data = $this->get_update_data();
+		$version = new Version( $data->update->new_version );
 
-		return new Version( $update_data->new_version );
-	}
+		if ( $version->is_lte( $this->get_version() ) ) {
+			return null;
+		}
 
-	/**
-	 * @return bool
-	 */
-	public function has_update_package() {
-		$update_data = $this->get_update_data();
+		$package = property_exists( $data->update, 'package' ) && $data->update->package
+			? $data->update->package
+			: null;
 
-		return $update_data && false !== $update_data->package;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_update_package() {
-		$update_data = $this->get_update_data();
-
-		return (string) $update_data->package;
+		return new PluginUpdate( new Version( $data->update->new_version ), $package );
 	}
 
 	/**
