@@ -83,6 +83,49 @@ class PluginInformation {
 	}
 
 	/**
+	 * @return array
+	 */
+	private function get_plugin_updates() {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		return get_plugin_updates();
+	}
+
+	public function has_update() {
+		return null !== $this->get_update();
+	}
+
+	public function get_update() {
+		$updates = $this->get_plugin_updates();
+
+		if ( ! array_key_exists( $this->basename, $updates ) ) {
+			return null;
+		}
+
+		$data = $updates[ $this->basename ];
+
+		if ( ! property_exists( $data, 'update' ) ) {
+			return null;
+		}
+
+		if ( ! property_exists( $data->update, 'new_version' ) ) {
+			return null;
+		}
+
+		$version = new Version( $data->update->new_version );
+
+		if ( ! $version->is_valid() || $version->is_lte( $this->get_version() ) ) {
+			return null;
+		}
+
+		$package = property_exists( $data->update, 'package' ) && $data->update->package
+			? $data->update->package
+			: null;
+
+		return new PluginUpdate( new Version( $data->update->new_version ), $package );
+	}
+
+	/**
 	 * @return array|null
 	 */
 	private function get_header_data() {

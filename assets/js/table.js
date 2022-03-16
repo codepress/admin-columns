@@ -2865,6 +2865,46 @@ const resolveTableBySelector = (selector) => {
 
 /***/ }),
 
+/***/ "./js/modules/ac-hookable-filters.ts":
+/*!*******************************************!*\
+  !*** ./js/modules/ac-hookable-filters.ts ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AcHookableFilters)
+/* harmony export */ });
+class AcHookableFilters {
+    constructor() {
+        this.filters = {};
+    }
+    addFilter(name, callback, priority = 10) {
+        if (!this.filters.hasOwnProperty(name)) {
+            this.filters[name] = {};
+        }
+        if (!this.filters[name].hasOwnProperty(priority)) {
+            this.filters[name][priority] = [];
+        }
+        this.filters[name][priority].push(callback);
+    }
+    applyFilters(name, value, payload = {}) {
+        if (!this.filters.hasOwnProperty(name)) {
+            return value;
+        }
+        Object.keys(this.filters[name]).forEach((priority) => {
+            this.filters[name][parseInt(priority)].forEach(cb => {
+                value = cb(value, payload);
+            });
+        });
+        return value;
+    }
+}
+
+
+/***/ }),
+
 /***/ "./js/modules/ac-pointer.ts":
 /*!**********************************!*\
   !*** ./js/modules/ac-pointer.ts ***!
@@ -3046,12 +3086,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
+/* harmony import */ var _ac_hookable_filters__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ac-hookable-filters */ "./js/modules/ac-hookable-filters.ts");
+
 
 
 class AcServices {
     constructor() {
         this.services = {};
         this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
+        this.filters = new _ac_hookable_filters__WEBPACK_IMPORTED_MODULE_2__["default"]();
         this.$ = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__.AcEl;
     }
     registerService(name, service) {
@@ -3570,6 +3613,9 @@ class Actions {
             this.container.classList.add('-init');
             this.container.dispatchEvent(new CustomEvent('update'));
         }
+    }
+    getElement() {
+        return this.container;
     }
     refresh() {
         this.container.querySelectorAll('.ac-table-actions-buttons > a').forEach((element) => {

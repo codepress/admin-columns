@@ -26,7 +26,7 @@ class Icon {
 			$attributes[] = 'title="' . esc_attr( $data->title ) . '"';
 		}
 
-		if ( $data->tooltip ) {
+		if ( $data->tooltip && is_string( $data->tooltip ) ) {
 			$attributes[] = ac_helper()->html->get_tooltip_attr( $data->tooltip );
 		}
 

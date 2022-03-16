@@ -6,6 +6,7 @@
   --ac-button-bg: #f6f7f7;
   --ac-button-color: #2271b1;
   --ac-button-border: var(--ac-button-color);
+  --ac-button-hover: #0a4b78;
   --ac-primary-color: #2271b1;
   --ac-primary-color-hover: #135e96;
   --ac-notification-red: #d63638;
@@ -174,7 +175,7 @@ body .ac-modal__dialog__close:hover {
 body .ac-modal__dialog__content {
   padding: 25px;
   max-height: calc(100vh - 200px);
-  overflow: scroll;
+  overflow: auto;
 }
 body .ac-modal__dialog__content__lead {
   font-weight: bold;
@@ -182,6 +183,9 @@ body .ac-modal__dialog__content__lead {
   margin-top: 5px;
   margin-bottom: 25px;
   color: #6D6D6D;
+}
+body .ac-modal__dialog__content.-p0 {
+  padding: 0;
 }
 body .ac-modal__dialog__list li {
   position: relative;

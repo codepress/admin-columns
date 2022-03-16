@@ -378,9 +378,6 @@ final class Screen implements Registrable {
 	}
 
 	private function render_buttons() {
-		if ( ! $this->get_buttons() ) {
-			return;
-		}
 		?>
 		<div class="ac-table-actions-buttons">
 			<?php
