@@ -451,6 +451,73 @@ html.wp-toolbar .ac-tooltip {
   border: 5px solid #fff;
 }
 
+.ac-value-modal .ac-value-modal-background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000000000;
+  background: rgba(0, 0, 0, 0.6);
+}
+.ac-value-modal .ac-value-modal-panel {
+  z-index: 10000000001;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background: #fff;
+  width: 600px;
+  transform: translateX(-50%) translateY(-50%);
+}
+.ac-value-modal .ac-value-modal-panel__header {
+  background: #fafafa;
+  border-bottom: 1px solid #ccc;
+  text-align: right;
+  display: flex;
+}
+.ac-value-modal .ac-value-modal-panel__header .ac-value-modal-title {
+  flex-grow: 1;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+.ac-value-modal .ac-value-modal-panel__header .ac-value-modal-title h2 {
+  margin: 0;
+  padding: 10px 20px;
+}
+.ac-value-modal .ac-value-modal-panel__header .ac-value-modal-actions {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.ac-value-modal .ac-value-modal-panel__header .ac-value-modal-actions button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-left: 1px solid #ccc;
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+.ac-value-modal .ac-value-modal-panel__body {
+  padding: 20px;
+}
+.ac-value-modal .ac-value-modal-panel__footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #ccc;
+  background: #fafafa;
+}
+.ac-value-modal .ac-value-modal-panel__footer button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-left: 1px solid #ccc;
+  cursor: pointer;
+  background: none;
+}
+
 /* =Status icons
 -------------------------------------------------------------- */
 .column-status .dashicons {
