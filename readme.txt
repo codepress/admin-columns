@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.5 =
-Release Date: February 16th, 2022
+Release Date: March 22nd, 2022
 
 * [Added] New Image column for the Media list table
 * [Added] The Slug column is now also available for the Media list table
