@@ -3,7 +3,7 @@
 namespace AC\Controller;
 
 use AC\Ajax;
-use AC\Column\ExtendedValue;
+use AC\Column\DetailedValue;
 use AC\ListScreenRepository;
 use AC\Registrable;
 use AC\Type\ListScreenId;
@@ -54,13 +54,14 @@ class AjaxColumnModalValue implements Registrable {
 			wp_send_json_error( __( 'Invalid column.', 'codepress-admin-columns' ), 400 );
 		}
 
-		if ( ! $column instanceof ExtendedValue ) {
+		if ( ! $column instanceof DetailedValue ) {
 			wp_send_json_error( __( 'Invalid method.', 'codepress-admin-columns' ), 400 );
 		}
 
-		header( "Cache-Control: max-age=60" );
+		$seconds = 10;
+		header( "Cache-Control: max-age=" . $seconds );
 
-		echo $column->get_extended_value( $id );
+		echo $column->get_detailed_value( $id );
 		exit;
 	}
 

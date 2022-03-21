@@ -2,13 +2,13 @@
 
 namespace AC\Column;
 
-interface ExtendedValue {
+interface DetailedValue {
 
 	/**
 	 * @param int $id
 	 *
 	 * @return string
 	 */
-	public function get_extended_value( $id );
+	public function get_detailed_value( $id );
 
 }
