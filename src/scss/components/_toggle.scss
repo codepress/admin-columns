@@ -79,6 +79,14 @@
 	position: relative;
 	margin-bottom: 15px;
 
+	&.-disabled {
+		cursor: not-allowed;
+
+		* {
+			cursor: not-allowed;
+		}
+	}
+
 	&__toggle {
 		position: relative;
 		display: inline-block;
@@ -86,8 +94,8 @@
 
 		input[type=checkbox] {
 			position: absolute;
-			left:0;
-			top:0;
+			left: 0;
+			top: 0;
 			opacity: 0;
 			width: 100%;
 			height: 100%;
@@ -99,8 +107,22 @@
 				~ .ac-toggle-v2__toggle__thumb {
 					transform: translateX(14px);
 				}
+
 				~ .ac-toggle-v2__toggle__track {
 					background: var(--ac-primary-color);
+				}
+			}
+
+			&:disabled {
+				cursor: not-allowed;
+
+				~ .ac-toggle-v2__toggle__track {
+					background: #ddd !important;
+					cursor: not-allowed;
+				}
+
+				~ .ac-toggle-v2__toggle__thumb {
+					cursor: not-allowed;
 				}
 			}
 		}

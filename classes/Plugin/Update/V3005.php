@@ -3,17 +3,18 @@
 namespace AC\Plugin\Update;
 
 use AC\Plugin\Update;
+use AC\Plugin\Version;
 
 class V3005 extends Update {
+
+	public function __construct() {
+		parent::__construct( new Version( '3.0.5' ) );
+	}
 
 	public function apply_update() {
 		$this->migrate_user_specific_settings();
 		$this->delete_deprecated_settings();
 		$this->delete_deprecated_options();
-	}
-
-	protected function set_version() {
-		$this->version = '3.0.5';
 	}
 
 	/**

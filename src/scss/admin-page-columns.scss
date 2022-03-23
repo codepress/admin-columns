@@ -390,6 +390,14 @@
 			display: none;
 		}
 
+		.ac-column__header__features {
+			cursor: not-allowed;
+
+			span.ac-column-heading-setting {
+				pointer-events: none;
+			}
+		}
+
 		.ac-column-body {
 			&:before {
 				content: '';
@@ -1408,7 +1416,7 @@ div.ac-column-header {
 	&__icons {
 		flex: 1 1 auto;
 
-		&__group {
+		&__group__title {
 			display: block;
 			clear: both;
 			padding-top: 15px;
@@ -1530,6 +1538,12 @@ div.ac-column-header {
 		&__footer {
 			text-align: right;
 			padding: 0 15px;
+
+			input[type=search] {
+				float: left;
+				margin-top: 18px;
+				width: 200px;
+			}
 
 			.button {
 				display: inline-block;
@@ -1850,4 +1864,12 @@ div.ac-column-header {
 		}
 	}
 
+}
+
+.ac-column-type-icon {
+	margin-top: -1px;
+	float: left;
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
 }

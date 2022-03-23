@@ -7,7 +7,7 @@ use AC\Registrable;
 class AdminNetwork implements Registrable {
 
 	/**
-	 * @var NetworkRequestHandler
+	 * @var RequestHandlerInterface
 	 */
 	private $request_handler;
 
@@ -21,7 +21,7 @@ class AdminNetwork implements Registrable {
 	 */
 	private $scripts;
 
-	public function __construct( NetworkRequestHandler $request_handler, WpMenuFactory $wp_menu_factory, AdminScripts $scripts ) {
+	public function __construct( RequestHandlerInterface $request_handler, WpMenuFactory $wp_menu_factory, AdminScripts $scripts ) {
 		$this->request_handler = $request_handler;
 		$this->wp_menu_factory = $wp_menu_factory;
 		$this->scripts = $scripts;

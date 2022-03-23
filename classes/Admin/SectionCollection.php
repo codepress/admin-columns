@@ -7,7 +7,7 @@ class SectionCollection {
 	/**
 	 * @var array
 	 */
-	private $items;
+	private $items = [];
 
 	public function add( Section $section, $priority = 10 ) {
 		$this->items[ (int) $priority ][ $section->get_slug() ] = $section;

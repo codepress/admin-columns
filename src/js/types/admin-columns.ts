@@ -20,6 +20,10 @@ export type LocalizedAcGeneralSettings = {
     _ajax_nonce: string
 }
 
+export type AcGeneralSettingsI18N = {
+    restore_settings: string
+}
+
 
 export type UninitializedListScreens = keySpecificPair<UninitializedListScreen>
 

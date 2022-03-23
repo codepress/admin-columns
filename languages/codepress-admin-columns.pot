@@ -31,11 +31,11 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: classes/PluginActionLinks.php:40, classes/Admin/MenuFactory.php:58, templates/admin/list-screen-settings-mockup.php:13, templates/admin/page/settings.php:6
+#: classes/PluginActionLinks.php:48, classes/Admin/MenuFactory.php:48, templates/admin/list-screen-settings-mockup.php:13, templates/admin/page/settings.php:7
 msgid "Settings"
 msgstr ""
 
-#: classes/PluginActionLinks.php:48
+#: classes/PluginActionLinks.php:60
 msgid "Go Pro"
 msgstr ""
 
@@ -43,15 +43,15 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:57
+#: classes/Admin/MenuFactory.php:47, classes/Admin/Page/Columns.php:186
 msgid "Columns"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:59
+#: classes/Admin/MenuFactory.php:49, classes/Admin/Page/Addons.php:55
 msgid "Add-ons"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:71, classes/Admin/Page/Help.php:144
+#: classes/Admin/MenuFactory.php:55, classes/Admin/Page/Help.php:144
 msgid "Help"
 msgstr ""
 
@@ -67,15 +67,15 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin/WpMenuFactory.php:19, classes/Admin/WpMenuFactory.php:34, classes/Check/Review.php:160, classes/Table/Screen.php:454
+#: classes/Admin/WpMenuFactory.php:19, classes/Admin/WpMenuFactory.php:34, classes/Check/Review.php:160, classes/Table/Screen.php:413
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:83
+#: classes/Check/AddonAvailable.php:86
 msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:87
+#: classes/Check/AddonAvailable.php:91
 msgid "the addons page"
 msgstr ""
 
@@ -143,19 +143,19 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: classes/Column/Placeholder.php:38
+#: classes/Column/Placeholder.php:43
 msgid "The %s column is only available if you have installed the add-on."
 msgstr ""
 
-#: classes/Column/Placeholder.php:40
+#: classes/Column/Placeholder.php:45
 msgid "Download & install the %s add-on from the <a href='%s'>add-ons tab</a>."
 msgstr ""
 
-#: classes/Column/Placeholder.php:43
+#: classes/Column/Placeholder.php:48
 msgid "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview."
 msgstr ""
 
-#: classes/Column/Placeholder.php:47
+#: classes/Column/Placeholder.php:52
 msgid "Find out more"
 msgstr ""
 
@@ -187,11 +187,11 @@ msgstr ""
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
-#: classes/Controller/ListScreenRestoreColumns.php:44
+#: classes/Controller/ListScreenRestoreColumns.php:51
 msgid "Settings for %s restored successfully."
 msgstr ""
 
-#: classes/Controller/RestoreSettingsRequest.php:42
+#: classes/Controller/RestoreSettingsRequest.php:47
 msgid "Default settings successfully restored."
 msgstr ""
 
@@ -223,7 +223,7 @@ msgstr ""
 msgid "BuddyPress"
 msgstr ""
 
-#: classes/Integration/BuddyPress.php:19, classes/Integration/EventsCalendar.php:20, classes/Integration/GravityForms.php:20, classes/Integration/MetaBox.php:18, classes/Integration/NinjaForms.php:20, classes/Integration/Pods.php:18, classes/Integration/Types.php:18, classes/Integration/WooCommerce.php:20, classes/Integration/YoastSeo.php:18
+#: classes/Integration/BuddyPress.php:19, classes/Integration/EventsCalendar.php:20, classes/Integration/GravityForms.php:20, classes/Integration/MetaBox.php:18, classes/Integration/Pods.php:18, classes/Integration/Types.php:18, classes/Integration/WooCommerce.php:20, classes/Integration/YoastSeo.php:18
 msgid "Integrates %s with Admin Columns."
 msgstr ""
 
@@ -263,14 +263,6 @@ msgstr ""
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s contents on any admin list table."
 msgstr ""
 
-#: classes/Integration/NinjaForms.php:16, classes/Integration/NinjaForms.php:20, classes/Integration/NinjaForms.php:21
-msgid "Ninja Forms"
-msgstr ""
-
-#: classes/Integration/NinjaForms.php:21
-msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Submissions."
-msgstr ""
-
 #: classes/Integration/Pods.php:14, classes/Integration/Pods.php:18, classes/Integration/Pods.php:19
 msgid "Pods"
 msgstr ""
@@ -299,11 +291,11 @@ msgstr ""
 msgid "%s Off from Black Friday to Cyber Monday"
 msgstr ""
 
-#: classes/Table/Screen.php:134, classes/Table/Screen.php:136, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
+#: classes/Table/Screen.php:149, classes/Table/Screen.php:151, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
 msgid "Download"
 msgstr ""
 
-#: classes/Table/Screen.php:203, classes/Admin/Section/Partial/ShowEditButton.php:21
+#: classes/Table/Screen.php:218, classes/Admin/Section/Partial/ShowEditButton.php:21
 msgid "Edit columns"
 msgstr ""
 
@@ -420,7 +412,7 @@ msgid "Export"
 msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:62, templates/admin/page/settings-section-pro-cta.php:146
-msgid "Quick Add"
+msgid "Add Row"
 msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:63
@@ -842,6 +834,10 @@ msgstr ""
 msgid "You can change the default sorted column in the optional settings below."
 msgstr ""
 
+#: classes/Admin/Asset/Addons.php:21
+msgid "The Add-on %s is activated."
+msgstr ""
+
 #: classes/Admin/Asset/Columns.php:57
 msgid "Invalid response."
 msgstr ""
@@ -854,19 +850,23 @@ msgstr ""
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
-#: classes/Admin/Notice/ReadOnlyListScreen.php:18
+#: classes/Admin/Asset/Settings.php:20
+msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
+msgstr ""
+
+#: classes/Admin/Notice/ReadOnlyListScreen.php:17
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:127
+#: classes/Admin/Page/Addons.php:128
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:135, templates/admin/page/component/addon/active-label.php:3
+#: classes/Admin/Page/Addons.php:136, templates/admin/page/component/addon/active-label.php:3
 msgid "Active"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:143
+#: classes/Admin/Page/Addons.php:144
 msgid "Available"
 msgstr ""
 
@@ -1076,11 +1076,15 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
+#: classes/Column/Media/Image.php:11, classes/Settings/Column/CustomFieldType.php:124, templates/admin/help-tab/custom-fields.php:30
+msgid "Image"
+msgstr ""
+
 #: classes/Column/Media/MimeType.php:14
 msgid "Mime Type"
 msgstr ""
 
-#: classes/Column/Media/Width.php:16, classes/Settings/Column/Image.php:41, classes/Settings/Column/Width.php:55
+#: classes/Column/Media/Width.php:16, classes/Settings/Column/Image.php:41, classes/Settings/Column/Width.php:57
 msgid "Width"
 msgstr ""
 
@@ -1260,7 +1264,7 @@ msgstr ""
 msgid "View %s screen"
 msgstr ""
 
-#: classes/Plugin/Update/V4000.php:547
+#: classes/Plugin/Update/V4000.php:553
 msgid "Original"
 msgstr ""
 
@@ -1378,10 +1382,6 @@ msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:123
 msgid "Text"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:124, templates/admin/help-tab/custom-fields.php:30
-msgid "Image"
 msgstr ""
 
 #: classes/Settings/Column/CustomFieldType.php:125, templates/admin/help-tab/custom-fields.php:54
@@ -1798,11 +1798,11 @@ msgstr ""
 msgid "View Public Author Page"
 msgstr ""
 
-#: classes/Settings/Column/Width.php:41
+#: classes/Settings/Column/Width.php:43
 msgid "Auto"
 msgstr ""
 
-#: classes/Settings/Column/Width.php:65
+#: classes/Settings/Column/Width.php:68
 msgid "width"
 msgstr ""
 
@@ -2070,10 +2070,6 @@ msgstr ""
 msgid "Restore settings"
 msgstr ""
 
-#: templates/admin/page/settings-section-restore.php:4
-msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
-msgstr ""
-
 #: classes/Admin/Section/Partial/ShowEditButton.php:21
 msgid "Show %s button on table screen."
 msgstr ""
@@ -2084,10 +2080,6 @@ msgstr ""
 
 #: templates/admin/page/component/addon/deactivate.php:2
 msgid "Deactivate"
-msgstr ""
-
-#: templates/admin/page/component/addon/missing-license.php:3
-msgid "Activate license"
 msgstr ""
 
 #: templates/admin/page/component/addon/more-info.php:2

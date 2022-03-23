@@ -2,12 +2,14 @@
 
 namespace AC\Plugin\Update;
 
-use AC\ListScreenRepository\Database;
 use AC\Plugin\Update;
+use AC\Plugin\Version;
 use AC\Storage\ListScreenOrder;
 use DateTime;
 
 class V4000 extends Update {
+
+	const DATABASE_TABLE = 'admin_columns';
 
 	const LAYOUT_PREFIX = 'cpac_layouts';
 	const COLUMNS_PREFIX = 'cpac_options_';
@@ -18,16 +20,12 @@ class V4000 extends Update {
 	/** @var int */
 	private $next_step;
 
-	public function __construct( $stored_version ) {
+	public function __construct() {
 
 		// because `get_option` could be cached we only fetch the next step from the DB on initialisation.
 		$this->next_step = $this->get_next_step();
 
-		parent::__construct( $stored_version );
-	}
-
-	protected function set_version() {
-		$this->version = '4.0.0';
+		parent::__construct( new Version( '4.0.0' ) );
 	}
 
 	public function apply_update() {
@@ -41,21 +39,14 @@ class V4000 extends Update {
 		// Apply update in chunks to minimize the impact of a timeout.
 		switch ( $this->next_step ) {
 			case 1 :
-				// 1. migrate segments to site specific user preference. Previously this was stored globally.
-				$this->migrate_segments_preferences();
+				$this->create_database();
 
-				// go to next step
 				$this->update_next_step( 2 )
 				     ->apply_update();
-
 				break;
 			case 2 :
-
-				// 2. migrate column settings to new DB table
-				$replaced_list_ids = $this->migrate_list_screen_settings();
-
-				// $replaced_list_ids contains a list of empty id's that are replaced with unique id's
-				$this->update_replacement_ids( $replaced_list_ids );
+				// 1. migrate segments to site specific user preference. Previously this was stored globally.
+				$this->migrate_segments_preferences();
 
 				// go to next step
 				$this->update_next_step( 3 )
@@ -64,8 +55,11 @@ class V4000 extends Update {
 				break;
 			case 3 :
 
-				// 3. User Preference "Segments": ac_preferences_search_segments
-				$this->update_user_preferences_segments( $this->get_replacement_ids() );
+				// 2. migrate column settings to new DB table
+				$replaced_list_ids = $this->migrate_list_screen_settings();
+
+				// $replaced_list_ids contains a list of empty id's that are replaced with unique id's
+				$this->update_replacement_ids( $replaced_list_ids );
 
 				// go to next step
 				$this->update_next_step( 4 )
@@ -73,6 +67,16 @@ class V4000 extends Update {
 
 				break;
 			case 4 :
+
+				// 3. User Preference "Segments": ac_preferences_search_segments
+				$this->update_user_preferences_segments( $this->get_replacement_ids() );
+
+				// go to next step
+				$this->update_next_step( 5 )
+				     ->apply_update();
+
+				break;
+			case 5 :
 				$replaced_list_ids = $this->get_replacement_ids();
 
 				// 4. User Preference "Horizontal Scrolling": ac_preferences_show_overflow_table
@@ -82,19 +86,19 @@ class V4000 extends Update {
 				$this->update_user_preference_by_key( $wpdb->get_blog_prefix() . 'ac_preferences_sorted_by', $replaced_list_ids );
 
 				// go to next step
-				$this->update_next_step( 5 )
-				     ->apply_update();
-
-				break;
-			case 5 :
-				$this->migrate_invalid_network_settings();
-
-				// go to next step
 				$this->update_next_step( 6 )
 				     ->apply_update();
 
 				break;
 			case 6 :
+				$this->migrate_invalid_network_settings();
+
+				// go to next step
+				$this->update_next_step( 7 )
+				     ->apply_update();
+
+				break;
+			case 7 :
 				$replaced_list_ids = $this->get_replacement_ids();
 
 				// 6. User Preference "Table selection": wp_ac_preferences_layout_table
@@ -473,7 +477,9 @@ class V4000 extends Update {
 	private function migrate_list_screen_settings() {
 		$migrate = [];
 
-		/** @var array $replaced_list_ids array( $list_key => array( $deprecated_list_id => $new_list_id ) ) */
+		/**
+		 * @var array $replaced_list_ids array( $list_key => array( $deprecated_list_id => $new_list_id ) )
+		 */
 		$replaced_list_ids = [];
 
 		// 1. clear DB table
@@ -591,10 +597,37 @@ class V4000 extends Update {
 		return $migrate;
 	}
 
+	private function create_database() {
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+		global $wpdb;
+
+		$collate = $wpdb->get_charset_collate();
+
+		$table_name = $wpdb->prefix . 'admin_columns';
+
+		$sql = "
+		CREATE TABLE {$table_name} (
+			id bigint(20) unsigned NOT NULL auto_increment,
+			list_id varchar(20) NOT NULL default '',
+			list_key varchar(100) NOT NULL default '',
+			title varchar(255) NOT NULL default '',
+			columns mediumtext,
+			settings mediumtext,
+			date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+			date_modified datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+			PRIMARY KEY (id),
+			UNIQUE KEY `list_id` (`list_id`)
+		) $collate;
+		";
+
+		dbDelta( $sql );
+	}
+
 	private function clear_table() {
 		global $wpdb;
 
-		$table = $wpdb->prefix . Database::TABLE;
+		$table = $wpdb->prefix . self::DATABASE_TABLE;
 
 		$exists = $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table ) ) === $table;
 
@@ -609,7 +642,7 @@ class V4000 extends Update {
 		$date = new DateTime();
 
 		$wpdb->insert(
-			$wpdb->prefix . Database::TABLE,
+			$wpdb->prefix . self::DATABASE_TABLE,
 			[
 				'title'         => $data['title'],
 				'list_id'       => $data['id'],

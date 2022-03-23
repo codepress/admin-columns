@@ -30,8 +30,12 @@ abstract class Message {
 	/**
 	 * @param string $message
 	 */
-	public function __construct( $message ) {
-		$this->type = self::SUCCESS;
+	public function __construct( $message, $type = null ) {
+		if ( null === $type ) {
+			$type = self::SUCCESS;
+		}
+
+		$this->type = $type;
 		$this->message = trim( $message );
 
 		$this->validate();

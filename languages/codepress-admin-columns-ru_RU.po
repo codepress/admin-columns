@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-26 18:23:15+0000\n"
+"PO-Revision-Date: 2022-02-14 20:18:43+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,7 +29,7 @@ msgstr ""
 
 #: templates/admin/page/settings-section-pro-cta.php:153
 msgid "View all Pro features"
-msgstr ""
+msgstr "Просмотреть все функции Pro"
 
 #: templates/admin/page/settings-section-pro-cta.php:147
 msgid "Insert a post, user or anything really directly from the overview."
@@ -162,16 +162,16 @@ msgstr ""
 #: templates/admin/page/component/addon/network-activate-disabled.php:2
 #: templates/admin/page/component/addon/network-install.php:2
 msgid "Network Enable"
-msgstr ""
+msgstr "Разрешить для сети"
 
 #: templates/admin/page/component/addon/missing-license.php:3
 msgid "Activate license"
-msgstr ""
+msgstr "Активировать лицензию"
 
 #: templates/admin/page/component/addon/activate-disabled.php:2
 #: templates/admin/page/component/addon/install.php:2
 msgid "Enable"
-msgstr ""
+msgstr "Включить"
 
 #: templates/admin/list-screen-settings-mockup.php:123
 msgid "No public saved filters available."
@@ -184,7 +184,7 @@ msgstr ""
 #: templates/admin/list-screen-settings-mockup.php:87
 #: templates/admin/page/settings-section-pro-cta.php:92
 msgid "Horizontal Scrolling"
-msgstr ""
+msgstr "Горизонтальная прокрутка"
 
 #: templates/admin/list-screen-settings-mockup.php:81
 msgid "Set default settings that users will see when they visit the list table."
@@ -192,7 +192,7 @@ msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:80
 msgid "Preferences"
-msgstr ""
+msgstr "Предпочтения"
 
 #: templates/admin/list-screen-settings-mockup.php:65
 msgid "Bulk Actions"
@@ -200,7 +200,7 @@ msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:64
 msgid "Search"
-msgstr ""
+msgstr "Найти"
 
 #: templates/admin/list-screen-settings-mockup.php:63
 msgid "Status (Quick Links)"
@@ -213,7 +213,7 @@ msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:59
 msgid "Filters"
-msgstr ""
+msgstr "Фильтры"
 
 #: templates/admin/list-screen-settings-mockup.php:57
 msgid "Inline Edit"
@@ -225,7 +225,7 @@ msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:48
 msgid "Hide on screen"
-msgstr ""
+msgstr "Скрыть на экране"
 
 #: templates/admin/list-screen-settings-mockup.php:30
 msgid "Make this column set available only for specific users or roles."
@@ -233,7 +233,7 @@ msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:29
 msgid "Conditionals"
-msgstr ""
+msgstr "Условия"
 
 #: templates/admin/list-screen-settings-mockup.php:21
 msgid "Unlock with Admin Columns Pro"
@@ -242,11 +242,11 @@ msgstr ""
 #: templates/admin/list-screen-settings-mockup.php:14
 #: templates/admin/list-screen-settings-mockup.php:37
 msgid "optional"
-msgstr ""
+msgstr "необязательно"
 
 #: templates/admin/edit-addon.php:17
 msgid "More details"
-msgstr ""
+msgstr "Подробнее"
 
 #: classes/Integration/YoastSeo.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Yoast SEO contents on any admin list table."
@@ -254,7 +254,7 @@ msgstr ""
 
 #: classes/Integration/YoastSeo.php:18 classes/Integration/YoastSeo.php:19
 msgid "Yoast SEO"
-msgstr ""
+msgstr "Yoast SEO"
 
 #: classes/Integration/WooCommerce.php:21
 msgid "Display, inline- and bulk-edit, smart filter and sort your Products, Variations, Orders and Customers"
@@ -276,7 +276,7 @@ msgstr ""
 #: classes/Integration/GravityForms.php:20
 #: classes/Integration/GravityForms.php:21
 msgid "Gravity Forms"
-msgstr ""
+msgstr "Gravity Forms"
 
 #: classes/Integration/EventsCalendar.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Events, Organizers and Venues."
@@ -313,7 +313,7 @@ msgstr ""
 
 #: classes/Column/Media/Album.php:14
 msgid "Album"
-msgstr ""
+msgstr "Альбом"
 
 #: classes/Column/Media/Artist.php:14
 msgid "Artist"
@@ -321,7 +321,7 @@ msgstr ""
 
 #: templates/admin/page/component/addon/network-active-label.php:3
 msgid "Network Active"
-msgstr ""
+msgstr "Сеть активна"
 
 #: classes/Column/User/LastPost.php:15
 msgid "Last Post"
@@ -333,7 +333,7 @@ msgstr ""
 
 #: classes/Settings/Column/PostStatus.php:33
 msgid "Post Status"
-msgstr ""
+msgstr "Статус записи"
 
 #: classes/Column/Placeholder.php:40
 msgid "Download & install the %s add-on from the <a href='%s'>add-ons tab</a>."
@@ -345,19 +345,19 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:51
 msgid "Misc"
-msgstr ""
+msgstr "Разное"
 
 #: templates/settings/setting-label-icons.php:50
 msgid "Notifications"
-msgstr ""
+msgstr "Уведомления"
 
 #: templates/settings/setting-label-icons.php:49
 msgid "Widgets"
-msgstr ""
+msgstr "Виджеты"
 
 #: templates/settings/setting-label-icons.php:47
 msgid "Products"
-msgstr ""
+msgstr "Товары"
 
 #: templates/settings/setting-label-icons.php:46
 msgid "Buddicons"
@@ -365,11 +365,11 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:45
 msgid "WordPress.org"
-msgstr ""
+msgstr "WordPress.org"
 
 #: templates/settings/setting-label-icons.php:44
 msgid "Social"
-msgstr ""
+msgstr "Соцсети"
 
 #: templates/settings/setting-label-icons.php:42
 msgid "Posts Screen"
@@ -381,7 +381,7 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:40
 msgid "Block Editor"
-msgstr ""
+msgstr "Редактор блоков"
 
 #: templates/settings/setting-label-icons.php:39
 msgid "Databases"
@@ -393,19 +393,19 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:36
 msgid "Post Formats"
-msgstr ""
+msgstr "Форматы записей"
 
 #: templates/settings/setting-label-icons.php:35
 msgid "Welcome Screen"
-msgstr ""
+msgstr "Экран приветствия"
 
 #: templates/settings/setting-label-icons.php:34
 msgid "Admin Menu"
-msgstr ""
+msgstr "Меню администратора"
 
 #: templates/admin/edit-actions.php:40
 msgid "Key"
-msgstr ""
+msgstr "Ключ"
 
 #: templates/admin/side-banner.php:47
 msgid "Export table contents to CSV"
@@ -420,7 +420,7 @@ msgstr ""
 
 #: classes/Column/User/Login.php:24
 msgid "Super Admin"
-msgstr ""
+msgstr "Супер Админ"
 
 #: classes/Column/User/Nicename.php:11
 msgid "Author Slug"
@@ -428,7 +428,7 @@ msgstr ""
 
 #: classes/Admin/ScreenOption/ColumnId.php:32
 msgid "Column Name"
-msgstr ""
+msgstr "Название столбца"
 
 #: classes/Admin/ScreenOption/ListScreenType.php:32
 msgid "List Screen Key"
@@ -440,7 +440,7 @@ msgstr ""
 
 #: classes/Column/User/FullName.php:11 classes/Settings/Column/User.php:78
 msgid "Full Name"
-msgstr ""
+msgstr "Полное имя"
 
 #: templates/tooltip/export-disabled.php:13
 msgid "Third-party columns and some custom columns cannot be exported unless there is build-in support for that specific column."
@@ -457,7 +457,7 @@ msgstr ""
 #: templates/admin/list-screen-settings-mockup.php:58
 #: templates/tooltip/bulk-editing.php:19
 msgid "Bulk Edit"
-msgstr ""
+msgstr "Массовое редактирование"
 
 #: templates/tooltip/bulk-editing.php:18
 msgid "Clicking the %s button will display a popup that allows you to add or change the current value of all selected items."
@@ -541,7 +541,7 @@ msgstr ""
 
 #: templates/tooltip/smart-filtering.php:14
 msgid "Add Filter"
-msgstr ""
+msgstr "Добавить фильтр"
 
 #: templates/tooltip/smart-filtering.php:8
 msgctxt "smart filtering help"
@@ -616,7 +616,7 @@ msgstr ""
 #: templates/admin/page/settings-section-pro-cta.php:81
 #: templates/tooltip/bulk-editing.php:7
 msgid "Bulk Editing"
-msgstr ""
+msgstr "Массовое редактирование"
 
 #: classes/Settings/Column/Pro/InlineEditing.php:11
 #: templates/admin/page/settings-section-pro-cta.php:70
@@ -626,7 +626,7 @@ msgstr ""
 
 #: classes/Settings/Column/PostType.php:35
 msgid "All Post Types"
-msgstr ""
+msgstr "Все типы сообщений"
 
 #: templates/admin/modal-pro.php:23
 msgid "Bulk edit any content, including custom fields."
@@ -642,23 +642,23 @@ msgstr ""
 
 #: classes/PluginActionLinks.php:48
 msgid "Go Pro"
-msgstr ""
+msgstr "Перейти на Pro"
 
 #: classes/Plugin/Update/V4000.php:547
 msgid "Original"
-msgstr ""
+msgstr "Оригинал"
 
 #: classes/Column/Post/EstimatedReadingTime.php:15
 msgid "Read Time"
-msgstr ""
+msgstr "Время прочтения"
 
 #: classes/Column/Post/PasswordProtected.php:11
 msgid "Password Protected"
-msgstr ""
+msgstr "Защищено паролем"
 
 #: classes/Settings/Column/NumberFormat.php:100
 msgid "Number Format"
-msgstr ""
+msgstr "Формат числа"
 
 #: classes/Settings/Column/NumberFormat.php:89
 msgid "Formatted"
@@ -666,7 +666,7 @@ msgstr ""
 
 #: classes/Settings/Column/NumberFormat.php:69
 msgid "Thousands separator"
-msgstr ""
+msgstr "Разделитель тысячных"
 
 #: classes/Settings/Column/NumberFormat.php:58
 msgid "Decimal point"
@@ -674,7 +674,7 @@ msgstr ""
 
 #: classes/Settings/Column/NumberFormat.php:47
 msgid "Decimals"
-msgstr ""
+msgstr "Десятичные"
 
 #: classes/Settings/Column/TermLink.php:38
 msgid "Edit Term"
@@ -734,20 +734,20 @@ msgstr ""
 
 #: templates/settings/setting-label-icons.php:72
 msgid "Select"
-msgstr ""
+msgstr "Выбрать "
 
 #: templates/settings/setting-label-icons.php:24
 msgid "Select Icon"
-msgstr ""
+msgstr "Выбрать значок"
 
 #: classes/Settings/Column/PathScope.php:28
 msgid "Local Path"
-msgstr ""
+msgstr "Локальный путь"
 
 #: classes/Integration/EventsCalendar.php:16
 #: classes/Integration/EventsCalendar.php:20
 msgid "Events Calendar"
-msgstr ""
+msgstr "Календарь мероприятий"
 
 #: classes/Settings/Column/CustomFieldType.php:91
 msgid "Uses one or more %s IDs to display information about it."
@@ -817,11 +817,11 @@ msgstr "Получите дополнения для ACF, WooCommerce и мно�
 
 #: templates/admin/modal-pro.php:25
 msgid "Export all column data to CSV."
-msgstr ""
+msgstr "Экспорт всех данных столбца в CSV."
 
 #: templates/admin/modal-pro.php:21
 msgid "Sort & Filter on all your content."
-msgstr ""
+msgstr "Сортировка и фильтрация всего вашего контента."
 
 #: templates/admin/modal-pro.php:18
 msgid "Upgrade to PRO, and take Admin Columns to the next level:"
@@ -1431,7 +1431,7 @@ msgstr "Обновить до"
 
 #: classes/Admin/Notice/ReadOnlyListScreen.php:18
 msgid "The columns for %s are read only and can therefore not be edited."
-msgstr ""
+msgstr "Столбцы для %s доступны только для чтения и поэтому не могут быть изменены."
 
 #: classes/Controller/ColumnRequest.php:28
 msgid "Please visit the %s screen once to load all available columns"
@@ -1547,7 +1547,7 @@ msgstr "Полная документация, отчёты об ошибках,
 
 #: templates/admin/side-support.php:10
 msgid "Support"
-msgstr "Техподдержка"
+msgstr "Поддержка"
 
 #: templates/admin/side-feedback.php:63
 msgid "Buy Pro"
@@ -1595,7 +1595,7 @@ msgstr "Получить Admin Columns Pro"
 
 #: classes/Admin/MenuFactory.php:57
 msgid "Columns"
-msgstr ""
+msgstr "Столбцы"
 
 #: classes/Admin/Page/Columns.php:211
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
@@ -1633,7 +1633,7 @@ msgstr "Внимание! Все сохранённые ранее настро�
 
 #: classes/Admin/Section/Restore.php:21
 msgid "Delete all column settings and restore the default settings."
-msgstr ""
+msgstr "Удалить все настройки столбцов и восстановить настройки по умолчанию."
 
 #: classes/Admin/Section/Restore.php:20
 msgid "Restore Settings"
@@ -1662,7 +1662,7 @@ msgstr "Значение: должно быть 1 (один) или 0 (ноль)
 
 #: classes/Column/User/Login.php:11
 msgid "Username"
-msgstr ""
+msgstr "Имя пользователя"
 
 #: templates/admin/help-tab/custom-fields.php:19
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
@@ -1915,7 +1915,7 @@ msgstr "Количество комментариев"
 
 #: templates/admin/edit-column.php:40 templates/admin/edit-column.php:84
 msgid "Remove"
-msgstr "Убрать"
+msgstr "Удалить"
 
 #: classes/Column/User/ID.php:14 classes/Settings/Column/User.php:84
 msgid "User ID"

@@ -12,12 +12,14 @@ import {initAcServices} from "./helpers/admin-columns";
 import Modals from "./modules/modals";
 import {initPointers} from "./modules/ac-pointer";
 import {LocalizedAcTable} from "./types/table";
+import {initAcTooltips} from "./plugin/tooltip";
 
 declare let AC: LocalizedAcTable
 
 let AC_SERVICES = initAcServices();
 
 AC_SERVICES.registerService('Modals', new Modals());
+AC_SERVICES.registerService('tooltips', initAcTooltips );
 
 document.addEventListener('DOMContentLoaded', () => {
     let table = resolveTableBySelector(AC.table_id);

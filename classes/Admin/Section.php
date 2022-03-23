@@ -12,7 +12,7 @@ abstract class Section implements Renderable {
 	protected $slug;
 
 	public function __construct( $slug ) {
-		$this->slug = $slug;
+		$this->slug = (string) $slug;
 	}
 
 	/**

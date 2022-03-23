@@ -4,11 +4,11 @@
 @import 'colors';
 @import 'modals';
 @import 'admin-rtl';
+@import 'components/confirmation';
 @import 'components/tooltip';
 @import 'components/toggle';
 @import 'components/forms';
 @import 'components/ajax-loader';
-
 
 .ac-settings-box {
 	margin-bottom: 60px;
@@ -290,7 +290,7 @@ header.cpac-header {
 	margin-bottom: 15px;
 
 	p {
-		margin: 0.5em 0;
+		margin: 0.7em 0;
 	}
 
 	&.notice-warning {
@@ -299,6 +299,15 @@ header.cpac-header {
 
 	&.notice-error {
 		border-left-color: var(--ac-notification-red);
+	}
+	&.notice-info {
+		border-left: 4px solid var(--ac-notification-blue);
+	}
+
+	.dashicons {
+		color: #8d8d8d;
+		margin-right: 5px;
+		transform: translateY(-2px);
 	}
 }
 
@@ -386,17 +395,6 @@ span.dashicons {
 .wp-core-ui .button-primary.-pink {
 	background: $ac-pink;
 	border-color: darken($ac-pink, 3);
-}
-
-/**
- * Message
- * ----------------------------------------------------------------------------
- */
-// TODO: remove
-.cpac_message {
-	&.error.warning {
-		border-left: 4px solid var(--ac-notification-yellow);
-	}
 }
 
 /**
@@ -519,7 +517,7 @@ table.ac-form-table {
 
 .ac-section-group {
 	&.-start {
-		max-width: 560px;
+		max-width: 600px;
 	}
 }
 

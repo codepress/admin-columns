@@ -5,7 +5,7 @@ namespace AC\Admin;
 use AC;
 use AC\Request;
 
-class NetworkRequestHandler implements RequestHandlerInterface {
+class PageNetworkRequestHandlers implements RequestHandlerInterface {
 
 	/**
 	 * @var RequestHandlerInterface[]
@@ -17,6 +17,8 @@ class NetworkRequestHandler implements RequestHandlerInterface {
 	}
 
 	public function handle( Request $request ) {
+		$page = null;
+
 		foreach ( array_reverse( self::$handlers ) as $handler ) {
 			$page = $handler->handle( $request );
 

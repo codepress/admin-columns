@@ -44,6 +44,8 @@ class PluginInformation {
 	 * @return bool
 	 */
 	public function is_active() {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
 		return is_plugin_active( $this->basename );
 	}
 
@@ -51,6 +53,8 @@ class PluginInformation {
 	 * @return bool
 	 */
 	public function is_network_active() {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
 		return is_plugin_active_for_network( $this->basename );
 	}
 
@@ -76,6 +80,49 @@ class PluginInformation {
 
 		// use `get_plugins` (cached) over `get_plugin_data` (non cached)
 		return (array) get_plugins();
+	}
+
+	/**
+	 * @return array
+	 */
+	private function get_plugin_updates() {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		return get_plugin_updates();
+	}
+
+	public function has_update() {
+		return null !== $this->get_update();
+	}
+
+	public function get_update() {
+		$updates = $this->get_plugin_updates();
+
+		if ( ! array_key_exists( $this->basename, $updates ) ) {
+			return null;
+		}
+
+		$data = $updates[ $this->basename ];
+
+		if ( ! property_exists( $data, 'update' ) ) {
+			return null;
+		}
+
+		if ( ! property_exists( $data->update, 'new_version' ) ) {
+			return null;
+		}
+
+		$version = new Version( $data->update->new_version );
+
+		if ( ! $version->is_valid() || $version->is_lte( $this->get_version() ) ) {
+			return null;
+		}
+
+		$package = property_exists( $data->update, 'package' ) && $data->update->package
+			? $data->update->package
+			: null;
+
+		return new PluginUpdate( new Version( $data->update->new_version ), $package );
 	}
 
 	/**

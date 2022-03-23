@@ -24,7 +24,7 @@ export const initLabel = (column: Column) => {
 }
 
 export const initLabelSettingEvents = (column: Column) => {
-    let labelInput = column.getElement().querySelector<HTMLInputElement>('.ac-column-setting--label input');
+    let labelInput = column.getElement().querySelector<HTMLInputElement>('.ac-column-setting--label input[type=text]');
 
     if (labelInput) {
         addEventListeners(labelInput, ['change', 'keyup'], () => changeLabel(labelInput, column));

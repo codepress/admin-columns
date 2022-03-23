@@ -100,24 +100,6 @@ function ac_load_columns( array $data ) {
 }
 
 /**
- * @param string|null $slug
- *
- * @return string
- */
-function ac_get_admin_url( $slug = null ) {
-	return Url\Editor::create_with_slug( $slug )->get_url();
-}
-
-/**
- * @param string|null $slug
- *
- * @return string
- */
-function ac_get_admin_network_url( $slug = null ) {
-	return Url\EditorNetwork::create_with_slug( $slug )->get_url();
-}
-
-/**
  * Convert site_url() to [cpac_site_url] and back for easy migration
  *
  * @param string $label
@@ -221,4 +203,28 @@ function ac_get_columns( $list_screen_id ) {
  */
 function ac_format_date( $format, $timestamp = null, DateTimeZone $timezone = null ) {
 	return ( new Helper\Date() )->format_date( $format, $timestamp, $timezone );
+}
+
+/**
+ * @param string|null $slug
+ *
+ * @return string
+ * @deprecated 4.5
+ */
+function ac_get_admin_url( $slug = null ) {
+	_deprecated_function( __METHOD__, '4.5', 'Url\Editor' );
+
+	return ( new Url\Editor( $slug ) )->get_url();
+}
+
+/**
+ * @param string|null $slug
+ *
+ * @return string
+ * @deprecated 4.5
+ */
+function ac_get_admin_network_url( $slug = null ) {
+	_deprecated_function( __METHOD__, '4.5', 'Url\EditorNetwork' );
+
+	return ( new Url\EditorNetwork( $slug ) )->get_url();
 }

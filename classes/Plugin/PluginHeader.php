@@ -35,7 +35,7 @@ class PluginHeader {
 			: null;
 	}
 
-	/**]
+	/**
 	 * @return Version
 	 */
 	public function get_version() {

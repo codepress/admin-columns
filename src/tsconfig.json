@@ -12,6 +12,7 @@
         "allowJs": true,
         "skipLibCheck": true,
         "moduleResolution": "Node",
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "types": ["node", "svelte"]
     }
 }

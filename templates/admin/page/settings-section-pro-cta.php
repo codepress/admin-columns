@@ -143,7 +143,7 @@ $url = ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url()
 
 		<?=
 		( new View( [
-			'feature' => __( 'Quick Add', 'codepress-admin-columns' ),
+			'feature' => __( 'Add Row', 'codepress-admin-columns' ),
 			'tooltip' => __( 'Insert a post, user or anything really directly from the overview.', 'codepress-admin-columns' ),
 		] ) )->set_template( 'admin/page/component/pro-feature-list-item' )->render();
 		?>

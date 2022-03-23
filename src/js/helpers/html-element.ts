@@ -1,5 +1,5 @@
-export const AcEl = ( el:string|HTMLElement) => {
-    return AcHtmlElement.create( el );
+export const AcEl = (el: string | HTMLElement) => {
+    return AcHtmlElement.create(el);
 }
 
 export default class AcHtmlElement {
@@ -49,8 +49,14 @@ export default class AcHtmlElement {
         return this;
     }
 
-    append( element: HTMLElement ){
-        this.element.appendChild( element );
+    append(element: HTMLElement) {
+        this.element.appendChild(element);
+
+        return this;
+    }
+
+    appendSelfTo(element: HTMLElement) {
+        element.append(this.element);
 
         return this;
     }
@@ -69,7 +75,7 @@ export default class AcHtmlElement {
         }
     }
 
-    insertSelfBefore( referenceNode: HTMLElement ){
+    insertSelfBefore(referenceNode: HTMLElement) {
         try {
             referenceNode.parentElement.insertBefore(this.element, referenceNode);
         } catch (e) {
@@ -78,6 +84,7 @@ export default class AcHtmlElement {
 
         return this;
     }
+
 
     insertBefore(insertedElement: HTMLElement) {
         try {

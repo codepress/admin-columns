@@ -54,20 +54,22 @@
 
 							<div class="ac-ipicker__icons">
 								<?php foreach ( $groups as $label => $icons ): ?>
-									<h3 class="ac-ipicker__icons__group"><?php echo $label; ?></h3>
+								<div class="ac-ipicker__group">
+									<h3 class="ac-ipicker__icons__group__title"><?php echo $label; ?></h3>
 
 									<?php foreach ( $icons as $icon ): ?>
 										<div class="ac-ipicker__icon" data-dashicon="<?php echo $icon; ?>" tabindex="0">
 											<span class="dashicons dashicons-<?php echo $icon; ?>"></span>
 										</div>
 									<?php endforeach; ?>
-
+								</div>
 								<?php endforeach; ?>
 							</div>
 
 						</div>
 
 						<div class="ac-modal__dialog__footer">
+							<input type="search" placeholder="Search" />
 							<div class="ac-ipicker__selection"></div>
 							<button class="button button-primary" data-action="submit"><?php _e( 'Select' ); ?></button>
 						</div>

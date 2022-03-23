@@ -5,6 +5,7 @@ namespace AC;
 use AC\Column\Placeholder;
 use AC\Sanitize\Kses;
 use AC\Type\ListScreenId;
+use AC\Type\Url\Editor;
 use DateTime;
 use LogicException;
 use ReflectionClass;
@@ -41,7 +42,7 @@ abstract class ListScreen {
 	private $singular_label;
 
 	/**
-	 * Meta type of list screen; post, user, comment. Mostly used for fetching meta data.
+	 * Meta type of list screen; post, user, comment. Mostly used for fetching metadata.
 	 * @since 3.0
 	 * @var string
 	 */
@@ -458,10 +459,13 @@ abstract class ListScreen {
 	 * @since 2.0
 	 */
 	public function get_edit_link() {
-		return add_query_arg( [
+		$url = new Editor( 'columns' );
+		$url->add( [
 			'list_screen' => $this->key,
 			'layout_id'   => $this->get_layout_id(),
-		], ac_get_admin_url( 'columns' ) );
+		] );
+
+		return $url->get_url();
 	}
 
 	/**

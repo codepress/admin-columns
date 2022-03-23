@@ -20,12 +20,16 @@ class Plugin extends Message {
 	/**
 	 * @param string $message
 	 * @param string $plugin_basename
+	 * @param string $type
 	 */
-	public function __construct( $message, $plugin_basename ) {
-		parent::__construct( $message );
+	public function __construct( $message, $plugin_basename, $type = null ) {
+		if ( null === $type ) {
+			$type = self::WARNING;
+		}
+
+		parent::__construct( $message, $type );
 
 		$this->plugin_basename = $plugin_basename;
-		$this->type = self::WARNING;
 		$this->icon = $this->get_icon_by_current_type();
 	}
 
@@ -75,10 +79,10 @@ class Plugin extends Message {
 	 */
 	protected function get_icon_by_current_type() {
 		$mapping = [
-			self::SUCCESS => '\f147',
-			self::WARNING => '\f348',
-			self::ERROR   => '\f534',
-			self::INFO    => '\f463',
+			self::SUCCESS => '\f147', // yes
+			self::WARNING => '\f348', // info
+			self::ERROR   => '\f534', // warning
+			self::INFO    => '\f14c', // info outline
 		];
 
 		if ( ! isset( $mapping[ $this->type ] ) ) {

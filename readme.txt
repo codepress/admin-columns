@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7.1
 Tested up to: 5.9
 Requires PHP: 5.6.20
-Stable tag: 4.4.6
+Stable tag: 4.5
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -208,6 +208,15 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.5 =
+Release Date: March 22nd, 2022
+
+* [Added] New Image column for the Media list table
+* [Added] The Slug column is now also available for the Media list table
+* [Improved] More thorough logic for the 'Restore Settings' option.
+* [Improved] Refactor of the Setup Script that runs when the plugin is installed and activated for the first time
+* [Improved] The Permalink column now also shows the (upcoming) permalinks for future and draft posts
 
 = 4.4.6 =
 Release Date: February 8th, 2022

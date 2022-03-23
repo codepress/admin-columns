@@ -52,7 +52,7 @@ export class AddonDownload {
     initEvents() {
         const button = this.getButton();
 
-        if (button) {
+        if (button && ! button.classList.contains('-disabled')) {
             button.addEventListener('click', e => {
                 e.preventDefault();
 

@@ -5,16 +5,24 @@ namespace AC\Table;
 use AC;
 use AC\Asset;
 use AC\Capabilities;
+use AC\ColumnSize;
 use AC\Form;
 use AC\ListScreen;
 use AC\Registrable;
+use AC\Renderable;
+use AC\ScreenController;
 use AC\Settings;
 use WP_Post;
 
 final class Screen implements Registrable {
 
 	/**
-	 * @var ListScreen $list_screen
+	 * @var Asset\Location\Absolute
+	 */
+	private $location;
+
+	/**
+	 * @var ListScreen
 	 */
 	private $list_screen;
 
@@ -29,20 +37,27 @@ final class Screen implements Registrable {
 	private $buttons = [];
 
 	/**
-	 * @var Asset\Location\Absolute
+	 * @var ColumnSize\ListStorage
 	 */
-	private $location;
+	private $column_size_list_storage;
 
-	public function __construct( Asset\Location\Absolute $location, ListScreen $list_screen ) {
+	/**
+	 * @var ColumnSize\UserStorage
+	 */
+	private $column_size_user_storage;
+
+	public function __construct( Asset\Location\Absolute $location, ListScreen $list_screen, ColumnSize\ListStorage $column_size_list_storage, ColumnSize\UserStorage $column_size_user_storage ) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
+		$this->column_size_list_storage = $column_size_list_storage;
+		$this->column_size_user_storage = $column_size_user_storage;
 	}
 
 	/**
 	 * Register hooks
 	 */
 	public function register() {
-		$controller = new AC\ScreenController( $this->list_screen );
+		$controller = new ScreenController( $this->list_screen );
 		$controller->register();
 
 		$render = new TableFormView( $this->list_screen->get_meta_type(), sprintf( '<input type="hidden" name="layout" value="%s">', $this->list_screen->get_layout_id() ) );
@@ -80,7 +95,7 @@ final class Screen implements Registrable {
 	}
 
 	/**
-	 * Set the primary columns for the Admin Columns columns. Used to place the actions bar.
+	 * Set the primary columns. Used to place the actions bar.
 	 *
 	 * @param $default
 	 *
@@ -217,7 +232,9 @@ final class Screen implements Registrable {
 		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ) );
 		$style->enqueue();
 
-		wp_localize_script( 'ac-table', 'AC', [
+		wp_localize_script( 'ac-table', 'AC',
+			[
+				'assets'           => $this->location->with_suffix( 'assets/' )->get_url(),
 				'list_screen'      => $this->list_screen->get_key(),
 				'layout'           => $this->list_screen->get_layout_id(),
 				'column_types'     => $this->get_column_types_mapping(),
@@ -226,7 +243,6 @@ final class Screen implements Registrable {
 				'screen'           => $this->get_current_screen_id(),
 				'meta_type'        => $this->list_screen->get_meta_type(),
 				'list_screen_link' => $this->get_list_screen_clear_link(),
-				'column_widths'    => $this->get_column_widths(),
 			]
 		);
 
@@ -308,71 +324,17 @@ final class Screen implements Registrable {
 	}
 
 	/**
-	 * @return array
-	 */
-	private function get_column_widths() {
-		$result = [];
-		if ( ! $this->list_screen->get_settings() ) {
-			return $result;
-		}
-
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			/* @var Settings\Column\Width $setting */
-			$setting = $column->get_setting( 'width' );
-
-			$result[ $column->get_name() ] = [
-				'width'      => $setting->get_width(),
-				'width_unit' => $setting->get_width_unit(),
-			];
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Applies the width setting to the table headers
-	 */
-	private function display_width_styles() {
-		if ( ! $this->list_screen->get_settings() ) {
-			return;
-		}
-
-		// CSS: columns width
-		$css_column_width = false;
-
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			/* @var Settings\Column\Width $setting */
-			$setting = $column->get_setting( 'width' );
-
-			$width = $setting->get_display_width();
-
-			if ( $width ) {
-				$css_column_width .= '.ac-' . esc_attr( $this->list_screen->get_key() ) . ' .wrap table th.column-' . esc_attr( $column->get_name() ) . ' { width: ' . $width . ' !important; }';
-				$css_column_width .= 'body.acp-overflow-table.ac-' . esc_attr( $this->list_screen->get_key() ) . ' .wrap th.column-' . esc_attr( $column->get_name() ) . ' { min-width: ' . $width . ' !important; }';
-			}
-		}
-
-		if ( ! $css_column_width ) {
-			return;
-		}
-
-		?>
-
-		<style>
-			@media screen and (min-width: 783px) {
-			<?php echo $css_column_width; ?>
-			}
-		</style>
-
-		<?php
-	}
-
-	/**
 	 * Admin header scripts
 	 * @since 3.1.4
 	 */
 	public function admin_head_scripts() {
-		$this->display_width_styles();
+		$inline_style = new AC\Table\InlineStyle\ColumnSize(
+			$this->list_screen,
+			$this->column_size_list_storage,
+			$this->column_size_user_storage
+		);
+
+		echo $inline_style->render();
 
 		/**
 		 * Add header scripts that only apply to column screens.
@@ -416,9 +378,6 @@ final class Screen implements Registrable {
 	}
 
 	private function render_buttons() {
-		if ( ! $this->get_buttons() ) {
-			return;
-		}
 		?>
 		<div class="ac-table-actions-buttons">
 			<?php
@@ -431,9 +390,9 @@ final class Screen implements Registrable {
 	}
 
 	/**
-	 * @param Form\Element $option
+	 * @param Renderable $option
 	 */
-	public function register_screen_option( AC\Form\Element $option ) {
+	public function register_screen_option( Renderable $option ) {
 		$this->screen_options[] = $option;
 	}
 

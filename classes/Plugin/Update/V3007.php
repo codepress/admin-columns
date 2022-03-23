@@ -3,15 +3,16 @@
 namespace AC\Plugin\Update;
 
 use AC\Plugin\Update;
+use AC\Plugin\Version;
 
 class V3007 extends Update {
 
-	public function apply_update() {
-		$this->update_roles_column();
+	public function __construct() {
+		parent::__construct( new Version( '3.0.7' ) );
 	}
 
-	protected function set_version() {
-		$this->version = '3.0.7';
+	public function apply_update() {
+		$this->update_roles_column();
 	}
 
 	/**

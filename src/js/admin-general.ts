@@ -1,5 +1,6 @@
 import AcSection from "./modules/ac-section";
 import {initPointers} from "./modules/ac-pointer";
+import {initAcServices} from "./helpers/admin-columns";
 
 const $ = require("jquery");
 
@@ -8,6 +9,8 @@ declare global {
         ac_pointers: any
     }
 }
+
+initAcServices();
 
 $(document).ready(() => {
     initPointers();

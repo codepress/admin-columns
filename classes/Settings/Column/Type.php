@@ -88,8 +88,12 @@ class Type extends Column {
 	private function get_grouped_columns() {
 		$columns = [];
 
+		$list_screen = $this->column->get_list_screen();
+
+		$columns_types = apply_filters( 'ac/column/settings/column_types', $list_screen->get_column_types(), $this->column, $list_screen );
+
 		// get columns and sort them
-		foreach ( $this->column->get_list_screen()->get_column_types() as $column ) {
+		foreach ( $columns_types as $column ) {
 
 			/**
 			 * @param string $group Group slug
@@ -97,7 +101,7 @@ class Type extends Column {
 			 */
 			$group = apply_filters( 'ac/column_group', $column->get_group(), $column );
 
-			// Labels with html will be replaced by it's name.
+			// Labels with html will be replaced by its name.
 			$columns[ $group ][ $column->get_type() ] = $this->get_clean_label( $column );
 
 			if ( ! $column->is_original() ) {
@@ -126,7 +130,7 @@ class Type extends Column {
 		}
 
 		// Add columns to a "default" group when it has an invalid group assigned
-		foreach ( $columns as $group => $_columns ) {
+		foreach ( $columns as $_columns ) {
 			foreach ( $_columns as $name => $label ) {
 				$grouped['default']['options'][ $name ] = $label;
 			}
