@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('.wp-list-table').on('updated', 'tr', function () {
-        AC_SERVICES.getService<Table>('Table').addCellClasses();
+        AC_SERVICES.getService<Table>('Table')!.addCellClasses();
         auto_init_show_more();
     });
 });

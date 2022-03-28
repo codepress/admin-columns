@@ -10,10 +10,8 @@ type rowMap = {
 
 export default class Cells {
 
-    cells: rowMap
 
-    constructor() {
-        this.cells = {};
+    constructor( private cells: rowMap = {} ) {
     }
 
     add(id: number, cell: Cell) {
@@ -65,7 +63,7 @@ export default class Cells {
         return results;
     }
 
-    get(id: number, name: string): Cell {
+    get(id: number, name: string): Cell|null {
         return this.cells.hasOwnProperty(id.toString()) ? this.cells[id][name] : null
     }
 

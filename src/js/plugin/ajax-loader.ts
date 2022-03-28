@@ -58,5 +58,5 @@ const createMarkup = (): HTMLElement => {
         <div class="ac-ajax-loading__spinner spinner"></div>
         <div class="ac-ajax-loading__icon"><span class="dashicons dashicons-yes-alt"></span></div>
         <div class="ac-ajax-loading__status">Saved</div>
-    `).element;
+    `).getElement();
 }

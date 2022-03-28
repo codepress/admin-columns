@@ -23,7 +23,7 @@ export class AddonDownload {
         this.initEvents();
     }
 
-    getButton(): HTMLAnchorElement {
+    getButton(): HTMLAnchorElement | null {
         return this.element.querySelector<HTMLAnchorElement>('[data-install],[data-activate]');
     }
 
@@ -52,7 +52,7 @@ export class AddonDownload {
     initEvents() {
         const button = this.getButton();
 
-        if (button && ! button.classList.contains('-disabled')) {
+        if (button && !button.classList.contains('-disabled')) {
             button.addEventListener('click', e => {
                 e.preventDefault();
 
@@ -66,7 +66,7 @@ export class AddonDownload {
         }
     }
 
-    getFooterElement(): HTMLElement {
+    getFooterElement(): HTMLElement | null {
         return this.element.querySelector('.ac-addon__actions');
     }
 
@@ -74,7 +74,7 @@ export class AddonDownload {
         const title = this.element.querySelector('h3');
         const notice = new WPNotice();
 
-        let message = ACi18n.plugin_installed.replace('%s', `<strong>${title.innerHTML}</strong>`);
+        let message = ACi18n.plugin_installed.replace('%s', `<strong>${title?.innerHTML}</strong>`);
 
         notice.setMessage(`<p>${message}</p>`)
             .makeDismissable()
@@ -82,13 +82,19 @@ export class AddonDownload {
 
         this.addNotice(notice);
         this.setLoadingFinished();
-        this.getFooterElement().innerHTML = `<div class="ac-addon__state"><span class="-green dashicons dashicons-yes"></span><span class="ac-addon__state__label">${status}</span></div>`
+
+        let footerElement = this.getFooterElement();
+        if (footerElement) {
+            footerElement.innerHTML = `<div class="ac-addon__state"><span class="-green dashicons dashicons-yes"></span><span class="ac-addon__state__label">${status}</span></div>`
+        }
     }
 
     addNotice(notice: WPNotice) {
-        let container = document.querySelector('.ac-addons-groups');
+        let container: HTMLElement | null = document.querySelector('.ac-addons-groups');
 
-        container.parentElement.insertBefore(notice.render(), container);
+        if (container) {
+            container.parentElement?.insertBefore(notice.render(), container);
+        }
     }
 
     static scrollToTop(ms: number) {
@@ -101,7 +107,7 @@ export class AddonDownload {
         const title = this.element.querySelector('h3');
         const notice = new WPNotice();
 
-        notice.setMessage(`<p><strong>${title.innerHTML}</strong>: ${message}</p>`)
+        notice.setMessage(`<p><strong>${title?.innerHTML}</strong>: ${message}</p>`)
             .makeDismissable()
             .addClass('notice-error');
 

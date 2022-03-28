@@ -10,21 +10,20 @@ declare const AC: LocalizedAcTable
 declare const AC_SERVICES: AcServices
 
 export default class ToggleBoxLink {
-    element: HTMLLinkElement
-    contentBox: HTMLElement
+    contentBox: HTMLElement|null
 
-    constructor(element: HTMLLinkElement) {
+    constructor( private element: HTMLLinkElement) {
         this.element = element;
         this.initEvents();
 
-        this.contentBox = this.element.parentElement.querySelector('.ac-toggle-box-contents');
+        this.contentBox = element?.parentElement?.querySelector('.ac-toggle-box-contents') ?? null;
         if (!this.contentBox) {
             this.createContenBox();
         }
     }
 
     isAjax() {
-        return parseInt(this.element.dataset.ajaxPopulate) === 1;
+        return parseInt(this.element.dataset.ajaxPopulate ?? '') === 1;
     }
 
     isInited() {
@@ -104,7 +103,7 @@ export default class ToggleBoxLink {
             this.setContent(response);
 
             $(this.element.parentElement).trigger('ajax_column_value_ready');
-            AC_SERVICES.getService<Tooltips>('Tooltips').init();
+            AC_SERVICES.getService<Tooltips>('Tooltips')?.init();
         }).always(() => {
             this.element.classList.remove('loading');
         });

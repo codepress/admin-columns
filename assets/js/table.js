@@ -446,7 +446,7 @@ const insertBefore = (newNode, referenceNode) => {
     (_a = referenceNode === null || referenceNode === void 0 ? void 0 : referenceNode.parentNode) === null || _a === void 0 ? void 0 : _a.insertBefore(newNode, referenceNode);
 };
 const createElementFromString = (content, baseElement = 'div') => {
-    return _html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create(baseElement).addHtml(content).element;
+    return _html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create(baseElement).addHtml(content).getElement();
 };
 
 
@@ -473,15 +473,13 @@ const getParamFromUrl = (param, url) => {
     return params.get(param);
 };
 const mapDataToFormData = (data, formData = null) => {
-    if (!formData) {
-        formData = new FormData();
-    }
+    let fData = formData !== null && formData !== void 0 ? formData : new FormData();
     Object.keys(data).forEach(key => {
-        appendObjectToFormData(formData, data[key], key);
+        appendObjectToFormData(fData, data[key], key);
     });
-    return formData;
+    return fData;
 };
-const appendObjectToFormData = (formData, data, parentKey = null) => {
+const appendObjectToFormData = (formData, data, parentKey = '') => {
     if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
         Object.keys(data).forEach(key => {
             appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
@@ -505,18 +503,21 @@ const appendObjectToFormData = (formData, data, parentKey = null) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AcEl": () => (/* binding */ AcEl),
 /* harmony export */   "default": () => (/* binding */ AcHtmlElement)
 /* harmony export */ });
-const AcEl = (el) => {
-    return AcHtmlElement.create(el);
-};
 class AcHtmlElement {
-    constructor(el) {
-        this.element = el instanceof HTMLElement ? el : document.createElement(el);
+    constructor(element) {
+        this.element = element;
+    }
+    static find(selector) {
+        let element = document.querySelector(selector);
+        return element === null ? null : new AcHtmlElement(element);
     }
     static create(el) {
-        return new AcHtmlElement(el);
+        return new AcHtmlElement(document.createElement(el));
+    }
+    getElement() {
+        return this.element;
     }
     addId(id) {
         this.element.id = id;
@@ -555,16 +556,18 @@ class AcHtmlElement {
         return this;
     }
     insertAfter(insertedElement) {
+        var _a;
         try {
-            this.element.parentElement.insertBefore(insertedElement, this.element.nextElementSibling);
+            (_a = this.element.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(insertedElement, this.element.nextElementSibling);
         }
         catch (e) {
             console.error("Not able to insert element after current node", this.element);
         }
     }
     insertSelfBefore(referenceNode) {
+        var _a;
         try {
-            referenceNode.parentElement.insertBefore(this.element, referenceNode);
+            (_a = referenceNode.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(this.element, referenceNode);
         }
         catch (e) {
             console.error("Not able to insert element before current node", this.element);
@@ -572,8 +575,9 @@ class AcHtmlElement {
         return this;
     }
     insertBefore(insertedElement) {
+        var _a;
         try {
-            this.element.parentElement.insertBefore(insertedElement, this.element);
+            (_a = this.element.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(insertedElement, this.element);
         }
         catch (e) {
             console.error("Not able to insert element before current node", this.element);
@@ -610,6 +614,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global */ "./js/helpers/global.ts");
 
 const getIdFromTableRow = (row) => {
+    var _a, _b;
     if (row.classList.contains('no-items')) {
         return 0;
     }
@@ -622,11 +627,11 @@ const getIdFromTableRow = (row) => {
     }
     // Try to get the ID from the edit URL (MS Sites)
     if (!item_id) {
-        let link = row.parentElement.querySelector('.edit a');
-        if (link) {
+        let link = (_a = row.parentElement) === null || _a === void 0 ? void 0 : _a.querySelector('.edit a');
+        if (!!link) {
             let href = link.getAttribute('href');
             if (href) {
-                item_id = parseInt((0,_global__WEBPACK_IMPORTED_MODULE_0__.getParamFromUrl)('id', href));
+                item_id = parseInt((_b = (0,_global__WEBPACK_IMPORTED_MODULE_0__.getParamFromUrl)('id', href)) !== null && _b !== void 0 ? _b : '');
             }
         }
     }
@@ -796,8 +801,8 @@ class Pointer {
         return classes.join(' ');
     }
     getRelatedHTML() {
-        let related_element = document.getElementById(this.element.getAttribute('rel'));
-        return related_element ? related_element.innerHTML : '';
+        var _a, _b, _c;
+        return (_c = (_b = document.getElementById((_a = this.element.getAttribute('rel')) !== null && _a !== void 0 ? _a : '')) === null || _b === void 0 ? void 0 : _b.innerHTML) !== null && _c !== void 0 ? _c : '';
     }
     initEvents() {
         let el = $(this.element);
@@ -890,7 +895,7 @@ class AcServices {
         this.services = {};
         this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
         this.filters = new _ac_hookable_filters__WEBPACK_IMPORTED_MODULE_2__["default"]();
-        this.$ = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__.AcEl;
+        this.$ = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__["default"];
     }
     registerService(name, service) {
         this.services[name] = service;
@@ -926,18 +931,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class Modal {
     constructor(el) {
-        if (!el) {
-            return;
-        }
+        var _a;
         this.el = el;
-        this.dialog = el.querySelector('.ac-modal__dialog');
+        this.dialog = (_a = el.querySelector('.ac-modal__dialogs')) !== null && _a !== void 0 ? _a : document.createElement('div');
         this.initEvents();
     }
     getElement() {
         return this.el;
     }
     initEvents() {
-        let self = this;
         document.addEventListener('keydown', (e) => {
             const keyName = e.key;
             if (!this.isOpen()) {
@@ -952,7 +954,7 @@ class Modal {
             dismissButtons.forEach((b) => {
                 b.addEventListener('click', (e) => {
                     e.preventDefault();
-                    self.close();
+                    this.close();
                 });
             });
         }
@@ -1094,15 +1096,18 @@ __webpack_require__.r(__webpack_exports__);
 const $ = __webpack_require__(/*! jquery */ "jquery");
 class ToggleBoxLink {
     constructor(element) {
+        var _a, _b;
+        this.element = element;
         this.element = element;
         this.initEvents();
-        this.contentBox = this.element.parentElement.querySelector('.ac-toggle-box-contents');
+        this.contentBox = (_b = (_a = element === null || element === void 0 ? void 0 : element.parentElement) === null || _a === void 0 ? void 0 : _a.querySelector('.ac-toggle-box-contents')) !== null && _b !== void 0 ? _b : null;
         if (!this.contentBox) {
             this.createContenBox();
         }
     }
     isAjax() {
-        return parseInt(this.element.dataset.ajaxPopulate) === 1;
+        var _a;
+        return parseInt((_a = this.element.dataset.ajaxPopulate) !== null && _a !== void 0 ? _a : '') === 1;
     }
     isInited() {
         return this.element.dataset.toggleBoxInit;
@@ -1159,9 +1164,10 @@ class ToggleBoxLink {
     manageAjaxValue() {
         this.element.classList.add('loading');
         this.retrieveAjaxValue().done((response) => {
+            var _a;
             this.setContent(response);
             $(this.element.parentElement).trigger('ajax_column_value_ready');
-            AC_SERVICES.getService('Tooltips').init();
+            (_a = AC_SERVICES.getService('Tooltips')) === null || _a === void 0 ? void 0 : _a.init();
         }).always(() => {
             this.element.classList.remove('loading');
         });
@@ -1229,16 +1235,17 @@ const auto_init_show_more = () => {
     });
 };
 class ShowMore {
-    constructor(el) {
-        this.element = el;
+    constructor(element) {
+        this.element = element;
         this.initEvents();
     }
     initEvents() {
+        var _a;
         if (this.isInited()) {
             return;
         }
-        if (this.getToggler()) {
-            this.getToggler().addEventListener('click', event => {
+        if (this.getToggleElement()) {
+            (_a = this.getToggleElement()) === null || _a === void 0 ? void 0 : _a.addEventListener('click', event => {
                 event.preventDefault();
                 event.stopPropagation();
                 this.toggle();
@@ -1246,7 +1253,7 @@ class ShowMore {
         }
         this.element.dataset.showMoreInit = 'true';
     }
-    getToggler() {
+    getToggleElement() {
         return this.element.querySelector('.ac-show-more__toggle');
     }
     isInited() {
@@ -1261,12 +1268,20 @@ class ShowMore {
         }
     }
     show() {
+        var _a, _b, _c;
         this.element.classList.add('-on');
-        this.getToggler().innerHTML = this.getToggler().dataset.less;
+        this.setToggleText((_c = (_b = (_a = this.getToggleElement()) === null || _a === void 0 ? void 0 : _a.dataset) === null || _b === void 0 ? void 0 : _b.less) !== null && _c !== void 0 ? _c : '');
     }
     hide() {
+        var _a, _b, _c;
         this.element.classList.remove('-on');
-        this.getToggler().innerHTML = this.getToggler().dataset.more;
+        this.setToggleText((_c = (_b = (_a = this.getToggleElement()) === null || _a === void 0 ? void 0 : _a.dataset) === null || _b === void 0 ? void 0 : _b.more) !== null && _c !== void 0 ? _c : '');
+    }
+    setToggleText(text) {
+        let toggle = this.getToggleElement();
+        if (toggle) {
+            toggle.innerHTML = text;
+        }
     }
 }
 
@@ -1462,8 +1477,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Cells)
 /* harmony export */ });
 class Cells {
-    constructor() {
-        this.cells = {};
+    constructor(cells = {}) {
+        this.cells = cells;
     }
     add(id, cell) {
         if (!this.cells.hasOwnProperty(id)) {
@@ -1521,31 +1536,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ColumnTableSettings": () => (/* binding */ ColumnTableSettings)
 /* harmony export */ });
 class Columns {
-    constructor(table) {
+    constructor(table, columns = {}) {
         this.table = table;
-        this.columns = {};
+        this.columns = columns;
         this.init();
     }
     init() {
-        let thead = this.table.querySelector('thead');
-        let headers = thead ? thead.querySelectorAll('th') : null;
-        if (headers.length) {
-            for (let i = 0; i < headers.length; i++) {
-                let headerName = headers[i].id;
-                this.columns[headers[i].id] = new ColumnTableSettings(headerName, AC.column_types[headerName], this.sanitizeLabel(headers[i]));
-            }
-        }
+        var _a;
+        (_a = this.table.querySelector('thead')) === null || _a === void 0 ? void 0 : _a.querySelectorAll('th').forEach(cell => {
+            let headerName = cell === null || cell === void 0 ? void 0 : cell.id;
+            this.columns[headerName] = new ColumnTableSettings(headerName, AC.column_types[headerName], this.sanitizeLabel(cell));
+        });
     }
     getColumns() {
         return this.columns;
-    }
-    getColumnsMap() {
-        let map = new Map();
-        let columns = this.getColumns();
-        Object.keys(columns).forEach((k) => {
-            map.set(k, columns[k]);
-        });
-        return map;
     }
     getColumnNames() {
         return Object.keys(this.columns);
@@ -1602,7 +1606,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const init_actions_tooltips = () => {
     document.querySelectorAll('.cpac_use_icons').forEach((el) => {
-        el.parentElement.querySelectorAll('.row-actions a').forEach((el) => {
+        var _a;
+        (_a = el === null || el === void 0 ? void 0 : el.parentElement) === null || _a === void 0 ? void 0 : _a.querySelectorAll('.row-actions a').forEach((el) => {
             new _plugin_tooltip__WEBPACK_IMPORTED_MODULE_0__.Tooltip(el, el.innerText);
         });
     });
@@ -1643,7 +1648,7 @@ class RowSelection {
     getSelectedCells(name) {
         let ids = this.getIDs();
         if (ids.length === 0) {
-            return null;
+            return [];
         }
         let cells = [];
         ids.forEach((id) => {
@@ -1681,17 +1686,19 @@ __webpack_require__.r(__webpack_exports__);
 class ScreenOptionsColumns {
     constructor(columns) {
         this.columns = columns;
-        columns.getColumnNames().forEach((column_name) => {
+        this.columns.getColumnNames().forEach((column_name) => {
+            var _a, _b;
             let column = columns.get(column_name);
-            let input = ScreenOptionsColumns.getInputByName(column.name);
-            if (input && input.parentElement.textContent.length === 0) {
-                input.parentElement.appendChild(_helpers_html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create('span').addHtml(column.label).element);
+            if (column) {
+                let input = ScreenOptionsColumns.getInputByName(column.name);
+                if (input && ((_b = (_a = input === null || input === void 0 ? void 0 : input.parentElement) === null || _a === void 0 ? void 0 : _a.textContent) === null || _b === void 0 ? void 0 : _b.length) === 0) {
+                    input.parentElement.appendChild(_helpers_html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create('span').addHtml(column.label).getElement());
+                }
             }
         });
     }
     static getInputByName(name) {
-        let input = document.querySelector(`input[name='${name}-hide']`);
-        return input ? input : false;
+        return document.querySelector(`input[name='${name}-hide']`);
     }
 }
 

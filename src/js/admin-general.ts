@@ -4,12 +4,6 @@ import {initAcServices} from "./helpers/admin-columns";
 
 const $ = require("jquery");
 
-declare global {
-    interface Window {
-        ac_pointers: any
-    }
-}
-
 initAcServices();
 
 $(document).ready(() => {
@@ -20,9 +14,6 @@ $(document).ready(() => {
     });
 
     $(document).on('select2:open', () => {
-        let searchBox: HTMLInputElement = document.querySelector('.select2-container--open .select2-search__field');
-        if( searchBox ){
-            searchBox.focus();
-        }
+        document.querySelector<HTMLInputElement>('.select2-container--open .select2-search__field')?.focus();
     });
 });
