@@ -755,48 +755,61 @@ h2.ac-lined-header:after, h3.ac-lined-header:after {
   background: none;
 }
 
-body.settings_page_codepress-admin-columns #wpbody {
+body.settings_page_codepress-admin-columns #wpbody,
+body.toplevel_page_codepress-admin-columns #wpbody {
   padding-top: 0;
 }
-body.settings_page_codepress-admin-columns .notice {
+body.settings_page_codepress-admin-columns .notice,
+body.toplevel_page_codepress-admin-columns .notice {
   display: none;
 }
-body.settings_page_codepress-admin-columns #cpac .notice:not(.hidden) {
+body.settings_page_codepress-admin-columns #cpac .notice:not(.hidden),
+body.toplevel_page_codepress-admin-columns #cpac .notice:not(.hidden) {
   display: block;
 }
-body.settings_page_codepress-admin-columns #wpcontent {
+body.settings_page_codepress-admin-columns #wpcontent,
+body.toplevel_page_codepress-admin-columns #wpcontent {
   padding-left: 0;
 }
-body.settings_page_codepress-admin-columns .wrap {
+body.settings_page_codepress-admin-columns .wrap,
+body.toplevel_page_codepress-admin-columns .wrap {
   padding: 30px 10px 0 30px;
 }
-body.settings_page_codepress-admin-columns .wrap .nav-tab-wrapper {
+body.settings_page_codepress-admin-columns .wrap .nav-tab-wrapper,
+body.toplevel_page_codepress-admin-columns .wrap .nav-tab-wrapper {
   margin-bottom: 24px;
 }
-body.settings_page_codepress-admin-columns .wrap .notice {
+body.settings_page_codepress-admin-columns .wrap .notice,
+body.toplevel_page_codepress-admin-columns .wrap .notice {
   margin-top: 16px;
   margin-bottom: 16px;
 }
 @media only screen and (min-width: 1050px) {
-  body.settings_page_codepress-admin-columns .wrap {
+  body.settings_page_codepress-admin-columns .wrap,
+body.toplevel_page_codepress-admin-columns .wrap {
     padding: 30px 40px 0;
   }
-  body.settings_page_codepress-admin-columns #screen-meta-links {
+  body.settings_page_codepress-admin-columns #screen-meta-links,
+body.toplevel_page_codepress-admin-columns #screen-meta-links {
     margin-right: 20px;
   }
-  body.settings_page_codepress-admin-columns #screen-meta {
+  body.settings_page_codepress-admin-columns #screen-meta,
+body.toplevel_page_codepress-admin-columns #screen-meta {
     margin-left: 20px;
     margin-right: 20px;
   }
 }
 @media only screen and (min-width: 1450px) {
-  body.settings_page_codepress-admin-columns .wrap {
+  body.settings_page_codepress-admin-columns .wrap,
+body.toplevel_page_codepress-admin-columns .wrap {
     padding: 30px 70px 0;
   }
-  body.settings_page_codepress-admin-columns #screen-meta-links {
+  body.settings_page_codepress-admin-columns #screen-meta-links,
+body.toplevel_page_codepress-admin-columns #screen-meta-links {
     margin-right: 50px;
   }
-  body.settings_page_codepress-admin-columns #screen-meta {
+  body.settings_page_codepress-admin-columns #screen-meta,
+body.toplevel_page_codepress-admin-columns #screen-meta {
     margin-left: 50px;
     margin-right: 50px;
   }

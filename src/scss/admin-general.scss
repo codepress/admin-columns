@@ -58,7 +58,7 @@
 			#{$l}__tooltip {
 				display: block;
 				position: absolute;
-				left:0;
+				left: 0;
 				top: calc(100% + 5px);
 			}
 		}
@@ -143,7 +143,8 @@ h2, h3 {
 	}
 }
 
-body.settings_page_codepress-admin-columns {
+body.settings_page_codepress-admin-columns,
+body.toplevel_page_codepress-admin-columns {
 
 	#wpbody {
 		padding-top: 0;
@@ -300,6 +301,7 @@ header.cpac-header {
 	&.notice-error {
 		border-left-color: var(--ac-notification-red);
 	}
+
 	&.notice-info {
 		border-left: 4px solid var(--ac-notification-blue);
 	}
