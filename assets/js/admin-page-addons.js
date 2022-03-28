@@ -1854,15 +1854,13 @@ const getParamFromUrl = (param, url) => {
     return params.get(param);
 };
 const mapDataToFormData = (data, formData = null) => {
-    if (!formData) {
-        formData = new FormData();
-    }
+    let fData = formData !== null && formData !== void 0 ? formData : new FormData();
     Object.keys(data).forEach(key => {
-        appendObjectToFormData(formData, data[key], key);
+        appendObjectToFormData(fData, data[key], key);
     });
-    return formData;
+    return fData;
 };
-const appendObjectToFormData = (formData, data, parentKey = null) => {
+const appendObjectToFormData = (formData, data, parentKey = '') => {
     if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
         Object.keys(data).forEach(key => {
             appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
@@ -1942,17 +1940,23 @@ class AddonDownload {
     success(status) {
         const title = this.element.querySelector('h3');
         const notice = new _notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
-        let message = ACi18n.plugin_installed.replace('%s', `<strong>${title.innerHTML}</strong>`);
+        let message = ACi18n.plugin_installed.replace('%s', `<strong>${title === null || title === void 0 ? void 0 : title.innerHTML}</strong>`);
         notice.setMessage(`<p>${message}</p>`)
             .makeDismissable()
             .addClass('updated');
         this.addNotice(notice);
         this.setLoadingFinished();
-        this.getFooterElement().innerHTML = `<div class="ac-addon__state"><span class="-green dashicons dashicons-yes"></span><span class="ac-addon__state__label">${status}</span></div>`;
+        let footerElement = this.getFooterElement();
+        if (footerElement) {
+            footerElement.innerHTML = `<div class="ac-addon__state"><span class="-green dashicons dashicons-yes"></span><span class="ac-addon__state__label">${status}</span></div>`;
+        }
     }
     addNotice(notice) {
+        var _a;
         let container = document.querySelector('.ac-addons-groups');
-        container.parentElement.insertBefore(notice.render(), container);
+        if (container) {
+            (_a = container.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(notice.render(), container);
+        }
     }
     static scrollToTop(ms) {
         jquery__WEBPACK_IMPORTED_MODULE_1___default()('html, body').animate({
@@ -1962,7 +1966,7 @@ class AddonDownload {
     failure(message) {
         const title = this.element.querySelector('h3');
         const notice = new _notice__WEBPACK_IMPORTED_MODULE_0__["default"]();
-        notice.setMessage(`<p><strong>${title.innerHTML}</strong>: ${message}</p>`)
+        notice.setMessage(`<p><strong>${title === null || title === void 0 ? void 0 : title.innerHTML}</strong>: ${message}</p>`)
             .makeDismissable()
             .addClass('notice-error');
         this.addNotice(notice);
@@ -2169,7 +2173,9 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.ac-addon').forEach(element => {
-        new _modules_addon_download__WEBPACK_IMPORTED_MODULE_0__.AddonDownload(element, element.dataset.slug);
+        if (!!element.dataset.slug) {
+            new _modules_addon_download__WEBPACK_IMPORTED_MODULE_0__.AddonDownload(element, element.dataset.slug);
+        }
     });
 });
 

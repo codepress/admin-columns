@@ -104,10 +104,8 @@ export class Pointer {
         return classes.join(' ');
     }
 
-    getRelatedHTML() {
-        let related_element = document.getElementById(this.element.getAttribute('rel'));
-
-        return related_element ? related_element.innerHTML : ''
+    getRelatedHTML(): string {
+        return document.getElementById(this.element.getAttribute('rel') ?? '' )?.innerHTML ?? '';
     }
 
     initEvents() {
@@ -166,7 +164,7 @@ class AcPointers {
 }
 
 
-export const initPointers = (elements: NodeListOf<HTMLElement> = null) => {
+export const initPointers = (elements: NodeListOf<HTMLElement>|null = null) => {
     if (!elements) {
         elements = document.querySelectorAll<HTMLElement>('.ac-pointer')
     }

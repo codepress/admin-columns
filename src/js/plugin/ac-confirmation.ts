@@ -3,7 +3,7 @@ import ConfirmationModal from "../components/ConfirmationModal.svelte";
 type ConfirmationConfig = {
     message: string,
     confirm: Function,
-    lastFocus?: HTMLElement
+    lastFocus?: HTMLElement|null
 }
 
 

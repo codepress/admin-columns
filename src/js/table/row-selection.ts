@@ -31,7 +31,7 @@ export default class RowSelection {
         let ids = this.getIDs();
 
         if (ids.length === 0) {
-            return null;
+            return [];
         }
 
         let cells: Array<Cell> = [];

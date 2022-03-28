@@ -9,5 +9,5 @@ export const insertBefore = (newNode: HTMLElement, referenceNode: HTMLElement): 
 }
 
 export const createElementFromString = (content: string, baseElement: string = 'div'): HTMLElement => {
-    return AcHtmlElement.create(baseElement).addHtml(content).element;
+    return AcHtmlElement.create(baseElement).addHtml(content).getElement();
 }

@@ -575,18 +575,21 @@ const initAcServices = () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AcEl": () => (/* binding */ AcEl),
 /* harmony export */   "default": () => (/* binding */ AcHtmlElement)
 /* harmony export */ });
-const AcEl = (el) => {
-    return AcHtmlElement.create(el);
-};
 class AcHtmlElement {
-    constructor(el) {
-        this.element = el instanceof HTMLElement ? el : document.createElement(el);
+    constructor(element) {
+        this.element = element;
+    }
+    static find(selector) {
+        let element = document.querySelector(selector);
+        return element === null ? null : new AcHtmlElement(element);
     }
     static create(el) {
-        return new AcHtmlElement(el);
+        return new AcHtmlElement(document.createElement(el));
+    }
+    getElement() {
+        return this.element;
     }
     addId(id) {
         this.element.id = id;
@@ -625,16 +628,18 @@ class AcHtmlElement {
         return this;
     }
     insertAfter(insertedElement) {
+        var _a;
         try {
-            this.element.parentElement.insertBefore(insertedElement, this.element.nextElementSibling);
+            (_a = this.element.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(insertedElement, this.element.nextElementSibling);
         }
         catch (e) {
             console.error("Not able to insert element after current node", this.element);
         }
     }
     insertSelfBefore(referenceNode) {
+        var _a;
         try {
-            referenceNode.parentElement.insertBefore(this.element, referenceNode);
+            (_a = referenceNode.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(this.element, referenceNode);
         }
         catch (e) {
             console.error("Not able to insert element before current node", this.element);
@@ -642,8 +647,9 @@ class AcHtmlElement {
         return this;
     }
     insertBefore(insertedElement) {
+        var _a;
         try {
-            this.element.parentElement.insertBefore(insertedElement, this.element);
+            (_a = this.element.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(insertedElement, this.element);
         }
         catch (e) {
             console.error("Not able to insert element before current node", this.element);
@@ -799,8 +805,8 @@ class Pointer {
         return classes.join(' ');
     }
     getRelatedHTML() {
-        let related_element = document.getElementById(this.element.getAttribute('rel'));
-        return related_element ? related_element.innerHTML : '';
+        var _a, _b, _c;
+        return (_c = (_b = document.getElementById((_a = this.element.getAttribute('rel')) !== null && _a !== void 0 ? _a : '')) === null || _b === void 0 ? void 0 : _b.innerHTML) !== null && _c !== void 0 ? _c : '';
     }
     initEvents() {
         let el = $(this.element);
@@ -958,7 +964,7 @@ class AcServices {
         this.services = {};
         this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
         this.filters = new _ac_hookable_filters__WEBPACK_IMPORTED_MODULE_2__["default"]();
-        this.$ = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__.AcEl;
+        this.$ = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__["default"];
     }
     registerService(name, service) {
         this.services[name] = service;
@@ -1161,10 +1167,8 @@ $(document).ready(() => {
         new _modules_ac_section__WEBPACK_IMPORTED_MODULE_0__["default"](el);
     });
     $(document).on('select2:open', () => {
-        let searchBox = document.querySelector('.select2-container--open .select2-search__field');
-        if (searchBox) {
-            searchBox.focus();
-        }
+        var _a;
+        (_a = document.querySelector('.select2-container--open .select2-search__field')) === null || _a === void 0 ? void 0 : _a.focus();
     });
 });
 

@@ -1,16 +1,20 @@
-export const AcEl = (el: string | HTMLElement) => {
-    return AcHtmlElement.create(el);
-}
+export default class AcHtmlElement<T extends HTMLElement = HTMLElement> {
 
-export default class AcHtmlElement {
-    element: HTMLElement
-
-    constructor(el: string | HTMLElement) {
-        this.element = el instanceof HTMLElement ? el : document.createElement(el);
+    constructor(private element: T) {
     }
 
-    static create(el: string | HTMLElement): AcHtmlElement {
-        return new AcHtmlElement(el)
+    static find<T extends HTMLElement = HTMLElement>(selector: string): AcHtmlElement<T> | null {
+        let element = document.querySelector<T>(selector);
+
+        return element === null ? null : new AcHtmlElement<T>(element);
+    }
+
+    static create<U extends HTMLElement = HTMLElement>(el: string): AcHtmlElement<U> {
+        return new AcHtmlElement<U>(document.createElement(el) as U);
+    }
+
+    getElement(): T {
+        return this.element;
     }
 
     addId(id: string) {
@@ -69,7 +73,7 @@ export default class AcHtmlElement {
 
     insertAfter(insertedElement: HTMLElement) {
         try {
-            this.element.parentElement.insertBefore(insertedElement, this.element.nextElementSibling);
+            this.element.parentElement?.insertBefore(insertedElement, this.element.nextElementSibling);
         } catch (e) {
             console.error("Not able to insert element after current node", this.element);
         }
@@ -77,7 +81,7 @@ export default class AcHtmlElement {
 
     insertSelfBefore(referenceNode: HTMLElement) {
         try {
-            referenceNode.parentElement.insertBefore(this.element, referenceNode);
+            referenceNode.parentElement?.insertBefore(this.element, referenceNode);
         } catch (e) {
             console.error("Not able to insert element before current node", this.element);
         }
@@ -88,7 +92,7 @@ export default class AcHtmlElement {
 
     insertBefore(insertedElement: HTMLElement) {
         try {
-            this.element.parentElement.insertBefore(insertedElement, this.element);
+            this.element.parentElement?.insertBefore(insertedElement, this.element);
         } catch (e) {
             console.error("Not able to insert element before current node", this.element);
         }

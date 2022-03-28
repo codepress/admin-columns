@@ -1,15 +1,12 @@
 export const auto_init_show_more = () => {
     document.querySelectorAll('.ac-show-more').forEach((el: HTMLElement) => {
-        new ShowMore(el);
+       new ShowMore(el);
     });
 }
 
 export default class ShowMore {
 
-    element: HTMLElement
-
-    constructor(el: HTMLElement) {
-        this.element = el;
+    constructor(private element: HTMLElement) {
         this.initEvents();
     }
 
@@ -18,8 +15,8 @@ export default class ShowMore {
             return;
         }
 
-        if (this.getToggler()) {
-            this.getToggler().addEventListener('click', event => {
+        if (this.getToggleElement()) {
+            this.getToggleElement()?.addEventListener('click', event => {
                 event.preventDefault();
                 event.stopPropagation();
                 this.toggle();
@@ -29,7 +26,7 @@ export default class ShowMore {
         this.element.dataset.showMoreInit = 'true';
     }
 
-    getToggler(): HTMLElement {
+    getToggleElement(): HTMLElement | null {
         return this.element.querySelector('.ac-show-more__toggle')!;
     }
 
@@ -47,12 +44,19 @@ export default class ShowMore {
 
     show() {
         this.element.classList.add('-on');
-        this.getToggler().innerHTML = this.getToggler().dataset.less;
+        this.setToggleText(this.getToggleElement()?.dataset?.less ?? '');
     }
 
     hide() {
         this.element.classList.remove('-on');
-        this.getToggler().innerHTML = this.getToggler().dataset.more;
+        this.setToggleText(this.getToggleElement()?.dataset?.more ?? '');
+    }
+
+    private setToggleText(text: string) {
+        let toggle = this.getToggleElement();
+        if (toggle) {
+            toggle.innerHTML = text;
+        }
     }
 
 }
