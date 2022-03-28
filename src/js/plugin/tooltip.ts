@@ -12,7 +12,7 @@ export class Tooltip {
 
     constructor(el: HTMLElement, content: string = '') {
         this.element = el;
-        this.content = content ? content : el.dataset.acTip;
+        this.content = content ? content : el.dataset.acTip as string;
         this.tip = createTooltip(this.content);
 
         this.initEvents();

@@ -21,14 +21,15 @@ export default class Columns {
     }
 
     init() {
-        let self = this;
         let thead = this.table.querySelector('thead');
-        let headers = thead.querySelectorAll<HTMLTableHeaderCellElement>('th');
+        let headers = thead ? thead.querySelectorAll<HTMLTableHeaderCellElement>('th') : null;
 
-        for (let i = 0; i < headers.length; i++) {
-            let headerName = headers[i].id;
+        if( headers.length ){
+            for (let i = 0; i < headers.length; i++) {
+                let headerName = headers[i].id;
 
-            self.columns[headers[i].id] = new ColumnTableSettings(headerName, AC.column_types[headerName], this.sanitizeLabel(headers[i]));
+                this.columns[headers[i].id] = new ColumnTableSettings(headerName, AC.column_types[headerName], this.sanitizeLabel(headers[i]));
+            }
         }
     }
 

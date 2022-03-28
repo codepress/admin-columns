@@ -4,6 +4,7 @@ import AcHtmlElement from "../helpers/html-element";
 
 export default class ScreenOptionsColumns {
 
+    // @ts-ignore
     private columns: Columns
 
     constructor(columns: columns) {

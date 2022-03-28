@@ -30,7 +30,7 @@ export default class ShowMore {
     }
 
     getToggler(): HTMLElement {
-        return this.element.querySelector('.ac-show-more__toggle');
+        return this.element.querySelector('.ac-show-more__toggle')!;
     }
 
     isInited(): boolean {

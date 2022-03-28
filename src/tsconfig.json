@@ -6,6 +6,8 @@
         "baseUrl": "./",
         "outDir": "./dist/",
         "noImplicitAny": true,
+        //"noUnusedLocals": true,
+        //"strictNullChecks": true,
         "module": "es6",
         "target": "es6",
         "downlevelIteration": true,

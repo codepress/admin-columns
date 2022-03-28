@@ -1,23 +1,13 @@
 import AcHtmlElement from "./html-element";
 
 export const insertAfter = (newNode: HTMLElement, referenceNode: HTMLElement): void => {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    referenceNode?.parentNode?.insertBefore(newNode, referenceNode.nextSibling);
 }
 
 export const insertBefore = (newNode: HTMLElement, referenceNode: HTMLElement): void => {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode);
+    referenceNode?.parentNode?.insertBefore(newNode, referenceNode);
 }
 
 export const createElementFromString = (content: string, baseElement: string = 'div'): HTMLElement => {
     return AcHtmlElement.create(baseElement).addHtml(content).element;
-}
-
-function isInViewport(element: HTMLElement): boolean {
-    var rect = element.getBoundingClientRect();
-
-    return (
-        rect.top >= 0 && rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
 }
