@@ -2,6 +2,7 @@
 
 namespace AC\Admin;
 
+use AC\Asset\Location\Absolute;
 use AC\Registrable;
 
 class AdminNetwork implements Registrable {
@@ -12,18 +13,18 @@ class AdminNetwork implements Registrable {
 	private $request_handler;
 
 	/**
-	 * @var WpMenuFactory
+	 * @var Absolute
 	 */
-	private $wp_menu_factory;
+	private $location_core;
 
 	/**
 	 * @var AdminScripts
 	 */
 	private $scripts;
 
-	public function __construct( RequestHandlerInterface $request_handler, WpMenuFactory $wp_menu_factory, AdminScripts $scripts ) {
+	public function __construct( RequestHandlerInterface $request_handler, Absolute $location_core, AdminScripts $scripts ) {
 		$this->request_handler = $request_handler;
-		$this->wp_menu_factory = $wp_menu_factory;
+		$this->location_core = $location_core;
 		$this->scripts = $scripts;
 	}
 
@@ -31,8 +32,18 @@ class AdminNetwork implements Registrable {
 		add_action( 'network_admin_menu', [ $this, 'init' ] );
 	}
 
+	private function get_menu_page_factory() {
+		return apply_filters(
+			'acp/menu_network_page_factory',
+			new MenuPageFactory\SubMenu()
+		);
+	}
+
 	public function init() {
-		$hook = $this->wp_menu_factory->create_sub_menu( 'settings.php' );
+		$hook = $this->get_menu_page_factory()->create( [
+			'parent' => 'settings.php',
+			'icon'   => $this->location_core->with_suffix( 'assets/images/page-menu-icon.svg' )->get_url(),
+		] );
 
 		$loader = new AdminLoader( $hook, $this->request_handler, $this->scripts );
 		$loader->register();
