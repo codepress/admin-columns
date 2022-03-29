@@ -1435,7 +1435,8 @@ class Cell {
         return this.el.parentElement;
     }
     getSettings() {
-        return AC_SERVICES.getService('Table').Columns.get(this.getName());
+        var _a;
+        return (_a = AC_SERVICES.getService('Table')) === null || _a === void 0 ? void 0 : _a.Columns.get(this.getName());
     }
     hasChanged(content) {
         return this.original_value !== content;

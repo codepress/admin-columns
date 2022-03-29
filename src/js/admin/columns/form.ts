@@ -49,8 +49,8 @@ export class Form {
     getSortedColumns(): Array<Column> {
         let result: Array<Column> = [];
         this.getElement().querySelectorAll<HTMLFormElement>('form.ac-column').forEach(column => {
-            let c: Column = this.columns.find(c => c.getName() === column.dataset.columnName);
-            if (c) {
+            let c = this.columns.find(c => c.getName() === column.dataset.columnName);
+            if (!!c) {
                 result.push(c);
             }
         });
@@ -58,11 +58,11 @@ export class Form {
         return result;
     }
 
-    placeColumn(column: Column, after: HTMLElement = null): this {
+    placeColumn(column: Column, after: HTMLElement | null = null): this {
         if (after) {
             insertAfter(column.getElement(), after);
         } else {
-            this.getElement().querySelector('.ac-columns').append(column.getElement());
+            this.getElement().querySelector('.ac-columns')?.append(column.getElement());
         }
 
         setTimeout(() => {
@@ -96,7 +96,7 @@ export class Form {
 
     initColumns() {
         this.getElement().querySelectorAll('.ac-column').forEach((element: HTMLFormElement) => {
-            let column = new Column(element, element.dataset.columnName, this.services);
+            let column = new Column(element, element.dataset.columnName ?? '', this.services);
             this.columns.push(column);
             this.bindColumnEvents(column);
         });
@@ -169,11 +169,13 @@ export class Form {
     }
 
     showMessage(message: string, className: string = 'updated') {
-        let element = AcHtmlElement.create('div').addClass('ac-message').addClasses(...className.split(' ')).addHtml(`<p>${message}</p>`).element;
+        let element = AcHtmlElement.create<HTMLDivElement>('div').addClass('ac-message').addClasses(...className.split(' ')).addHtml(`<p>${message}</p>`).getElement();
         let messageContainer = document.querySelector('.ac-admin__main');
 
-        messageContainer.querySelectorAll('.ac-message').forEach((el: HTMLElement) => el.remove());
-        messageContainer.insertAdjacentElement('afterbegin', element);
+        if (messageContainer) {
+            messageContainer.querySelectorAll('.ac-message').forEach((el: HTMLElement) => el.remove());
+            messageContainer.insertAdjacentElement('afterbegin', element);
+        }
         fadeIn(element, 600);
     }
 
@@ -195,7 +197,7 @@ export class Form {
                 let value = entry[1];
 
                 // @ts-ignore
-                let element:any = el.elements[key];
+                let element: any = el.elements[key];
 
                 data[key] = element.tagName === 'SELECT' && element.hasAttribute('multiple')
                     ? fData.getAll(key)
@@ -208,7 +210,7 @@ export class Form {
 }
 
 const createColumnFromTemplate = (services: AcServices) => {
-    let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true) as HTMLFormElement;
+    let columnElement = document.querySelector<HTMLFormElement>('#add-new-column-template .ac-column')?.cloneNode(true) as HTMLFormElement;
     const newColumnName = uniqid();
     columnElement.querySelectorAll<HTMLLabelElement>('label[for]').forEach(label => {
         let relatedId = label.getAttribute('for');

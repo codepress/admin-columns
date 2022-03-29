@@ -48,7 +48,7 @@ export class Column {
     }
 
     private setPropertiesByElement(element: HTMLElement) {
-        this.type = element.dataset.type;
+        this.type = element.dataset.type as string;
         this.original = element.dataset.original === '1';
         this.disabled = element.classList.contains('disabled');
         element.dataset.columnName = this.name;
@@ -210,7 +210,7 @@ export class Column {
     }
 
     private reinitColumnFromElement(element: HTMLFormElement) {
-        this.getElement().parentNode.replaceChild(element, this.getElement());
+        this.getElement().parentNode?.replaceChild(element, this.getElement());
         this.element = element;
         this.setPropertiesByElement(element).init();
 

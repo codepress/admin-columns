@@ -3,25 +3,25 @@ import {Column} from "../column";
 import Nanobus from "nanobus";
 
 export const initLabelSetting = (column: Column) => {
-    let setting: HTMLElement = column.getElement().querySelector('.ac-column-setting--label');
+    let setting = column.getElement().querySelector<HTMLElement>('.ac-column-setting--label');
     if (setting) {
         new LabelSetting(column, setting);
     }
 }
 
 class LabelSetting {
-    column: Column
-    setting: HTMLElement
     modal: IconPickerModal
-    field: HTMLInputElement
+    field: HTMLInputElement | null
 
-    constructor(column: Column, setting: HTMLElement) {
+    constructor(private column: Column, private setting: HTMLElement) {
         this.column = column;
         this.setting = setting;
         this.field = this.setting.querySelector<HTMLInputElement>('.ac-setting-input_label');
 
-        if (column.getElement().querySelector('.-iconpicker')) {
-            this.modal = new IconPickerModal(column.getElement().querySelector('.-iconpicker'));
+        let iconPicker = column.getElement().querySelector<HTMLElement>('.-iconpicker');
+
+        if (iconPicker) {
+            this.modal = new IconPickerModal(iconPicker);
             this.modal.setIconSelection(this.getDashIconFromValue());
             this.initEvents();
         }
@@ -43,8 +43,8 @@ class LabelSetting {
 
     getDashIconFromValue(): string {
         let html = document.createRange().createContextualFragment(this.getValue());
-        let dashicon = html.querySelector('.dashicons');
-        let value = null;
+        let dashicon = html.querySelector<HTMLElement>('.dashicons');
+        let value = '';
 
         if (!dashicon) {
             return value;
@@ -60,7 +60,7 @@ class LabelSetting {
     }
 
     getValue() {
-        return this.field.value;
+        return this.field?.value ?? '';
     }
 
     setLabel(label: string) {
@@ -80,7 +80,7 @@ class IconPickerModal extends Modal {
     constructor(element: HTMLElement) {
         super(element);
         this.events = new Nanobus()
-        this.dashIcon = null;
+        this.dashIcon = '';
         this.search = new IconSearch(this);
     }
 
@@ -109,7 +109,7 @@ class IconPickerModal extends Modal {
         this.getIconElements().forEach(icon => {
             icon.addEventListener('click', (e) => {
                 e.preventDefault();
-                this.setIconSelection(icon.dataset.dashicon);
+                this.setIconSelection(icon.dataset.dashicon ?? '');
 
                 this.getIconElements().forEach(el => el.classList.remove('active'));
                 icon.classList.add('active');
@@ -130,11 +130,13 @@ class IconPickerModal extends Modal {
     }
 
     setIconSelection(dashicon: string) {
-        let selection: HTMLElement = this.getElement().querySelector('.ac-ipicker__selection');
+        let selection = this.getElement().querySelector<HTMLElement>('.ac-ipicker__selection');
 
         this.dashIcon = dashicon;
-        selection.innerHTML = this.getDashIconMarkup();
-        selection.style.visibility = 'visible';
+        if (selection) {
+            selection.innerHTML = this.getDashIconMarkup();
+            selection.style.visibility = 'visible';
+        }
     }
 
 }
@@ -148,7 +150,7 @@ class IconSearch {
 
     searchFor(query: string) {
         this.modal.getElement().querySelectorAll<HTMLElement>('[data-dashicon]').forEach(el => {
-            if (el.dataset.dashicon.indexOf(query.toLowerCase()) !== -1) {
+            if (el.dataset.dashicon?.indexOf(query.toLowerCase()) !== -1) {
                 el.style.display = 'inline-block';
             } else {
                 el.style.display = 'none';
@@ -165,7 +167,11 @@ class IconSearch {
                 return (el.offsetParent === null);
             });
 
-            group.querySelector('h3').style.display = icons.length == hiddenItems.length ? 'none' : 'block';
+            let header = group.querySelector('h3');
+
+            if (header) {
+                header.style.display = icons.length == hiddenItems.length ? 'none' : 'block';
+            }
         });
     }
 

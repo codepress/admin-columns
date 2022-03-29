@@ -2251,10 +2251,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "refreshColumn": () => (/* binding */ refreshColumn)
 /* harmony export */ });
 const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-const mapDataToFormData = (data, formData = null) => {
-    if (!formData) {
-        formData = new FormData();
-    }
+const mapDataToFormData = (data, formData = new FormData()) => {
     Object.keys(data).forEach(key => {
         formData.append(key, data[key]);
     });
@@ -2269,10 +2266,11 @@ const submitColumnSettings = (data) => {
     }));
 };
 const switchColumnType = (type, list_screen = AC.list_screen) => {
+    var _a;
     return axios.post(ajaxurl, mapDataToFormData({
         _ajax_nonce: AC._ajax_nonce,
         action: 'ac-columns',
-        current_original_columns: JSON.stringify(AC_SERVICES.getService('Form').getOriginalColumns().map((e) => e.getName())),
+        current_original_columns: JSON.stringify((_a = AC_SERVICES.getService('Form')) === null || _a === void 0 ? void 0 : _a.getOriginalColumns().map((e) => e.getName())),
         id: 'select',
         list_screen: list_screen,
         type: type,
@@ -2546,7 +2544,8 @@ class Column {
         return (element && element.tagName === 'SELECT' && element.hasAttribute('multiple'));
     }
     reinitColumnFromElement(element) {
-        this.getElement().parentNode.replaceChild(element, this.getElement());
+        var _a;
+        (_a = this.getElement().parentNode) === null || _a === void 0 ? void 0 : _a.replaceChild(element, this.getElement());
         this.element = element;
         this.setPropertiesByElement(element).init();
         return this;
@@ -2676,8 +2675,9 @@ const initLabelTooltipsEvent = (column) => {
     });
 };
 const hoverTooltip = (label, display) => {
-    let related = label.closest('.col-label').querySelector('div.tooltip');
-    if (related) {
+    var _a;
+    let related = (_a = label.closest('.col-label')) === null || _a === void 0 ? void 0 : _a.querySelector('div.tooltip');
+    if (!!related) {
         related.style.display = display;
     }
 };
@@ -2870,18 +2870,19 @@ class Form {
         let result = [];
         this.getElement().querySelectorAll('form.ac-column').forEach(column => {
             let c = this.columns.find(c => c.getName() === column.dataset.columnName);
-            if (c) {
+            if (!!c) {
                 result.push(c);
             }
         });
         return result;
     }
     placeColumn(column, after = null) {
+        var _a;
         if (after) {
             (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_4__.insertAfter)(column.getElement(), after);
         }
         else {
-            this.getElement().querySelector('.ac-columns').append(column.getElement());
+            (_a = this.getElement().querySelector('.ac-columns')) === null || _a === void 0 ? void 0 : _a.append(column.getElement());
         }
         setTimeout(() => {
             (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_3__.scrollToElement)(column.getElement(), 300, { offset: -18 });
@@ -2907,7 +2908,8 @@ class Form {
     }
     initColumns() {
         this.getElement().querySelectorAll('.ac-column').forEach((element) => {
-            let column = new _column__WEBPACK_IMPORTED_MODULE_1__.Column(element, element.dataset.columnName, this.services);
+            var _a;
+            let column = new _column__WEBPACK_IMPORTED_MODULE_1__.Column(element, (_a = element.dataset.columnName) !== null && _a !== void 0 ? _a : '', this.services);
             this.columns.push(column);
             this.bindColumnEvents(column);
         });
@@ -2968,10 +2970,12 @@ class Form {
         });
     }
     showMessage(message, className = 'updated') {
-        let element = _helpers_html_element__WEBPACK_IMPORTED_MODULE_6__["default"].create('div').addClass('ac-message').addClasses(...className.split(' ')).addHtml(`<p>${message}</p>`).element;
+        let element = _helpers_html_element__WEBPACK_IMPORTED_MODULE_6__["default"].create('div').addClass('ac-message').addClasses(...className.split(' ')).addHtml(`<p>${message}</p>`).getElement();
         let messageContainer = document.querySelector('.ac-admin__main');
-        messageContainer.querySelectorAll('.ac-message').forEach((el) => el.remove());
-        messageContainer.insertAdjacentElement('afterbegin', element);
+        if (messageContainer) {
+            messageContainer.querySelectorAll('.ac-message').forEach((el) => el.remove());
+            messageContainer.insertAdjacentElement('afterbegin', element);
+        }
         (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_3__.fadeIn)(element, 600);
     }
     removeColumn(name) {
@@ -3000,7 +3004,8 @@ class Form {
     }
 }
 const createColumnFromTemplate = (services) => {
-    let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true);
+    var _a;
+    let columnElement = (_a = document.querySelector('#add-new-column-template .ac-column')) === null || _a === void 0 ? void 0 : _a.cloneNode(true);
     const newColumnName = (0,_helpers_string__WEBPACK_IMPORTED_MODULE_5__.uniqid)();
     columnElement.querySelectorAll('label[for]').forEach(label => {
         let relatedId = label.getAttribute('for');
@@ -3403,10 +3408,12 @@ class ImageSizeSetting {
         this.bindEvents();
     }
     getValue() {
-        return this.field.value;
+        var _a;
+        return (_a = this.field) === null || _a === void 0 ? void 0 : _a.value;
     }
     bindEvents() {
-        this.field.addEventListener('change', () => this.initState());
+        var _a;
+        (_a = this.field) === null || _a === void 0 ? void 0 : _a.addEventListener('change', () => this.initState());
     }
     initState() {
         this.toggleSubSettings('cpac-custom' === this.getValue());
@@ -3445,9 +3452,12 @@ class LabelSetting {
     constructor(column, setting) {
         this.column = column;
         this.setting = setting;
+        this.column = column;
+        this.setting = setting;
         this.field = this.setting.querySelector('.ac-setting-input_label');
-        if (column.getElement().querySelector('.-iconpicker')) {
-            this.modal = new IconPickerModal(column.getElement().querySelector('.-iconpicker'));
+        let iconPicker = column.getElement().querySelector('.-iconpicker');
+        if (iconPicker) {
+            this.modal = new IconPickerModal(iconPicker);
             this.modal.setIconSelection(this.getDashIconFromValue());
             this.initEvents();
         }
@@ -3467,7 +3477,7 @@ class LabelSetting {
     getDashIconFromValue() {
         let html = document.createRange().createContextualFragment(this.getValue());
         let dashicon = html.querySelector('.dashicons');
-        let value = null;
+        let value = '';
         if (!dashicon) {
             return value;
         }
@@ -3479,7 +3489,8 @@ class LabelSetting {
         return value;
     }
     getValue() {
-        return this.field.value;
+        var _a, _b;
+        return (_b = (_a = this.field) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : '';
     }
     setLabel(label) {
         if (this.field) {
@@ -3492,7 +3503,7 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
     constructor(element) {
         super(element);
         this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_1___default())();
-        this.dashIcon = null;
+        this.dashIcon = '';
         this.search = new IconSearch(this);
     }
     initEvents() {
@@ -3513,8 +3524,9 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
         });
         this.getIconElements().forEach(icon => {
             icon.addEventListener('click', (e) => {
+                var _a;
                 e.preventDefault();
-                this.setIconSelection(icon.dataset.dashicon);
+                this.setIconSelection((_a = icon.dataset.dashicon) !== null && _a !== void 0 ? _a : '');
                 this.getIconElements().forEach(el => el.classList.remove('active'));
                 icon.classList.add('active');
             });
@@ -3532,8 +3544,10 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
     setIconSelection(dashicon) {
         let selection = this.getElement().querySelector('.ac-ipicker__selection');
         this.dashIcon = dashicon;
-        selection.innerHTML = this.getDashIconMarkup();
-        selection.style.visibility = 'visible';
+        if (selection) {
+            selection.innerHTML = this.getDashIconMarkup();
+            selection.style.visibility = 'visible';
+        }
     }
 }
 class IconSearch {
@@ -3542,7 +3556,8 @@ class IconSearch {
     }
     searchFor(query) {
         this.modal.getElement().querySelectorAll('[data-dashicon]').forEach(el => {
-            if (el.dataset.dashicon.indexOf(query.toLowerCase()) !== -1) {
+            var _a;
+            if (((_a = el.dataset.dashicon) === null || _a === void 0 ? void 0 : _a.indexOf(query.toLowerCase())) !== -1) {
                 el.style.display = 'inline-block';
             }
             else {
@@ -3557,7 +3572,10 @@ class IconSearch {
             let hiddenItems = Array.from(icons).filter(el => {
                 return (el.offsetParent === null);
             });
-            group.querySelector('h3').style.display = icons.length == hiddenItems.length ? 'none' : 'block';
+            let header = group.querySelector('h3');
+            if (header) {
+                header.style.display = icons.length == hiddenItems.length ? 'none' : 'block';
+            }
         });
     }
 }
@@ -3835,19 +3853,22 @@ class WidthSetting {
         this.init();
     }
     getWidth() {
-        let widthValue = this.widthInput.value;
-        return widthValue ? parseInt(widthValue) : null;
+        var _a, _b;
+        let widthValue = (_b = (_a = this.widthInput) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : 0;
+        return +widthValue;
     }
     setWidth(width) {
-        this.widthInput.value = width ? width.toString() : null;
+        if (this.widthInput) {
+            this.widthInput.value = width ? width.toString() : '';
+        }
         this.updateIndicator();
     }
     updateUnit() {
         this.setting.querySelector('.description .unit').innerHTML = this.getUnit();
     }
     getUnit() {
-        let input = this.setting.querySelector('[data-unit-input] input:checked');
-        return input ? input.value : null;
+        var _a, _b;
+        return (_b = (_a = this.setting.querySelector('[data-unit-input] input:checked')) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : '0';
     }
     getValue() {
         return {
@@ -3858,7 +3879,7 @@ class WidthSetting {
     validate() {
         let width = this.getWidth();
         if (width === 0 || width < 0) {
-            this.setWidth(null);
+            this.setWidth('');
         }
         if (this.getUnit() === '%') {
             if (width > 100) {
@@ -3867,7 +3888,8 @@ class WidthSetting {
         }
     }
     init() {
-        this.widthInput.addEventListener('keyup', () => {
+        var _a;
+        (_a = this.widthInput) === null || _a === void 0 ? void 0 : _a.addEventListener('keyup', () => {
             this.updateIndicator();
             this.initSlider();
             this.validate();
@@ -3886,15 +3908,16 @@ class WidthSetting {
         this.indicator.setValue(this.getWidth(), this.getUnit());
     }
     initSlider() {
-        let sliderElement = this.column.getElement().querySelector('.width-slider');
-        jquery__WEBPACK_IMPORTED_MODULE_1___default()(sliderElement).slider({
-            range: 'min',
-            min: 0,
-            max: '%' === this.getUnit() ? 100 : 500,
-            value: this.getWidth(),
-            slide: (event, ui) => {
-                this.setWidth(ui.value);
-            }
+        this.column.getElement().querySelectorAll('.width-slider').forEach(el => {
+            jquery__WEBPACK_IMPORTED_MODULE_1___default()(el).slider({
+                range: 'min',
+                min: 0,
+                max: '%' === this.getUnit() ? 100 : 500,
+                value: this.getWidth(),
+                slide: (event, ui) => {
+                    this.setWidth(ui.value);
+                }
+            });
         });
     }
 }
