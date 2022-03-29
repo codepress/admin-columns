@@ -51,7 +51,7 @@ class ListScreens implements Registrable {
 			'show_ui'  => true,
 		] );
 
-		foreach ( [ 'post', 'page' ] as $builtin ) {
+		foreach ( [ 'post', 'page', 'wp_block' ] as $builtin ) {
 			if ( post_type_exists( $builtin ) ) {
 				$post_types[ $builtin ] = $builtin;
 			}
