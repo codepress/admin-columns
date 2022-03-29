@@ -1,7 +1,7 @@
 export default class Modal {
     dialog: HTMLElement
 
-    constructor(private el: HTMLElement) {
+    constructor(protected el: HTMLElement) {
         this.dialog = el.querySelector('.ac-modal__dialogs') ?? document.createElement('div');
         this.initEvents();
     }
