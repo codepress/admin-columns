@@ -144,7 +144,9 @@ final class Storage implements ListScreenRepositoryWritable {
 
 						break;
 					case 'delete':
-						$repository->delete( $list_screen );
+						if ( $repository->find( $list_screen->get_id() ) ) {
+							$repository->delete( $list_screen );
+						}
 
 						break;
 					default:

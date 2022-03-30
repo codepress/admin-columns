@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Fixed] Prevent fatal error, when removing a non-existent column set from a Local Storage repository
+
 = 4.5 =
 Release Date: March 22nd, 2022
 
