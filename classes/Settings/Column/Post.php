@@ -32,20 +32,26 @@ class Post extends Settings\Column
 	}
 
 	public function get_dependent_settings() {
-		$setting = [];
+		$settings = [];
 
 		switch ( $this->get_post_property_display() ) {
 			case self::PROPERTY_FEATURED_IMAGE :
-				$setting[] = new Settings\Column\Image( $this->column );
+				$settings[] = new Settings\Column\Image( $this->column );
 				break;
 			case self::PROPERTY_DATE :
-				$setting[] = new Settings\Column\Date( $this->column );
+				$settings[] = new Settings\Column\Date( $this->column );
+				break;
+			case self::PROPERTY_TITLE :
+				$setting = new Settings\Column\CharacterLimit( $this->column );
+				$setting->set_default( 30 );
+
+				$settings[] = $setting;
 				break;
 		}
 
-		$setting[] = new Settings\Column\PostLink( $this->column );
+		$settings[] = new Settings\Column\PostLink( $this->column );
 
-		return $setting;
+		return $settings;
 	}
 
 	/**

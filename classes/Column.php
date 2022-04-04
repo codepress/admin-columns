@@ -419,7 +419,7 @@ class Column {
 	 * @return string
 	 */
 	public function get_separator() {
-		return ', ';
+		return ( new ApplyFilter\ColumnSeparator( $this ) )->apply_filters( ', ' );
 	}
 
 	/**
