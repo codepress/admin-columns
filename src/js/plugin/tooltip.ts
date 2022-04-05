@@ -1,4 +1,5 @@
 export const initAcTooltips = () => {
+    document.querySelectorAll('.ac-tooltip').forEach( el => el.remove() );
     document.querySelectorAll('[data-ac-tip]').forEach((element: HTMLElement) => {
         new Tooltip(element);
     });
