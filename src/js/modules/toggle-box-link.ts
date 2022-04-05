@@ -2,6 +2,7 @@ import {insertAfter} from "../helpers/elements";
 import AcServices from "./ac-services";
 import Tooltips from "./tooltips";
 import {LocalizedAcTable} from "../types/table";
+import {initAcTooltips} from "../plugin/tooltip";
 
 const $ = require("jquery");
 
@@ -10,9 +11,9 @@ declare const AC: LocalizedAcTable
 declare const AC_SERVICES: AcServices
 
 export default class ToggleBoxLink {
-    contentBox: HTMLElement|null
+    contentBox: HTMLElement | null
 
-    constructor( private element: HTMLLinkElement) {
+    constructor(private element: HTMLLinkElement) {
         this.element = element;
         this.initEvents();
 
@@ -85,6 +86,7 @@ export default class ToggleBoxLink {
         }
 
         this.element.innerHTML = label + '<span class="spinner"></span>';
+        initAcTooltips();
     }
 
     toggleContentBox() {

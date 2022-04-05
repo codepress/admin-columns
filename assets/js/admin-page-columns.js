@@ -4729,6 +4729,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Tooltip": () => (/* binding */ Tooltip)
 /* harmony export */ });
 const initAcTooltips = () => {
+    document.querySelectorAll('.ac-tooltip').forEach(el => el.remove());
     document.querySelectorAll('[data-ac-tip]').forEach((element) => {
         new Tooltip(element);
     });

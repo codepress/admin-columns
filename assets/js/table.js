@@ -1092,6 +1092,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ ToggleBoxLink)
 /* harmony export */ });
 /* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/elements */ "./js/helpers/elements.ts");
+/* harmony import */ var _plugin_tooltip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../plugin/tooltip */ "./js/plugin/tooltip.ts");
+
 
 const $ = __webpack_require__(/*! jquery */ "jquery");
 class ToggleBoxLink {
@@ -1150,6 +1152,7 @@ class ToggleBoxLink {
             label = this.element.dataset.labelClose;
         }
         this.element.innerHTML = label + '<span class="spinner"></span>';
+        (0,_plugin_tooltip__WEBPACK_IMPORTED_MODULE_1__.initAcTooltips)();
     }
     toggleContentBox() {
         if (this.getContentBox().classList.contains('-open')) {
@@ -1301,6 +1304,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Tooltip": () => (/* binding */ Tooltip)
 /* harmony export */ });
 const initAcTooltips = () => {
+    document.querySelectorAll('.ac-tooltip').forEach(el => el.remove());
     document.querySelectorAll('[data-ac-tip]').forEach((element) => {
         new Tooltip(element);
     });
