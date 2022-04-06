@@ -19,7 +19,7 @@ export default class ToggleBoxLink {
 
         this.contentBox = element?.parentElement?.querySelector('.ac-toggle-box-contents') ?? null;
         if (!this.contentBox) {
-            this.createContenBox();
+            this.createContentBox();
         }
     }
 
@@ -31,7 +31,7 @@ export default class ToggleBoxLink {
         return this.element.dataset.toggleBoxInit;
     }
 
-    createContenBox() {
+    private createContentBox() {
         let contentBox = document.createElement('div');
 
         contentBox.classList.add('ac-toggle-box-contents');
@@ -72,7 +72,7 @@ export default class ToggleBoxLink {
     getContentBox() {
         if (!this.contentBox) {
 
-            return this.createContenBox();
+            return this.createContentBox();
         }
 
         return this.contentBox;
