@@ -10,8 +10,9 @@ class Artist extends Meta {
 	public function __construct() {
 		parent::__construct();
 
-		$this->set_type( 'column-meta_artist' );
-		$this->set_label( __( 'Artist', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-meta_artist' )
+		     ->set_group( 'media-audio' )
+		     ->set_label( __( 'Artist', 'codepress-admin-columns' ) );
 	}
 
 	protected function get_sub_key() {

@@ -13,8 +13,9 @@ class AvailableSizes extends Column\Media\MetaValue {
 	public function __construct() {
 		parent::__construct();
 
-		$this->set_type( 'column-available_sizes' );
-		$this->set_label( __( 'Available Sizes', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-available_sizes' )
+		     ->set_group( 'media-image' )
+		     ->set_label( __( 'Available Sizes', 'codepress-admin-columns' ) );
 	}
 
 	protected function get_option_name() {
