@@ -2147,7 +2147,7 @@ function instance($$self, $$props, $$invalidate) {
   const updateData = item => {
     $$invalidate(8, objectId = item.objectId);
     $$invalidate(3, title = 'Loading');
-    $$invalidate(4, content = 'Loading');
+    $$invalidate(4, content = '<span class="loading">Loading</span>');
 
     if (source) {
       source.cancel();
