@@ -1104,7 +1104,7 @@ class ToggleBoxLink {
         this.initEvents();
         this.contentBox = (_b = (_a = element === null || element === void 0 ? void 0 : element.parentElement) === null || _a === void 0 ? void 0 : _a.querySelector('.ac-toggle-box-contents')) !== null && _b !== void 0 ? _b : null;
         if (!this.contentBox) {
-            this.createContenBox();
+            this.createContentBox();
         }
     }
     isAjax() {
@@ -1114,7 +1114,7 @@ class ToggleBoxLink {
     isInited() {
         return this.element.dataset.toggleBoxInit;
     }
-    createContenBox() {
+    createContentBox() {
         let contentBox = document.createElement('div');
         contentBox.classList.add('ac-toggle-box-contents');
         (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_0__.insertAfter)(contentBox, this.element);
@@ -1142,7 +1142,7 @@ class ToggleBoxLink {
     }
     getContentBox() {
         if (!this.contentBox) {
-            return this.createContenBox();
+            return this.createContentBox();
         }
         return this.contentBox;
     }

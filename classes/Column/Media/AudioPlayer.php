@@ -22,7 +22,7 @@ class AudioPlayer extends Column {
 			return $this->get_empty_char();
 		}
 
-		return '<audio controls src="' . esc_url( $url ) . '">No support for audio player</audio>';
+		return '<audio controls class="wp-audio-shortcode" preload="none" src="' . esc_url( $url ) . '">No support for audio player</audio>';
 	}
 
 	private function is_valid_mime_type( $id ) {
