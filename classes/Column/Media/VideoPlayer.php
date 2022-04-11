@@ -5,9 +5,6 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\Settings\Column\VideoDisplay;
 
-/**
- * @since NEWVERSION
- */
 class VideoPlayer extends Column implements Column\DetailedValue {
 
 	public function __construct() {
@@ -34,8 +31,8 @@ class VideoPlayer extends Column implements Column\DetailedValue {
 		}
 
 		return 'modal' === $this->get_display_type()
-			? '<a data-modal-value href="#" data-modal-title="' . get_the_title( $id ) . '">' . __( 'View video', 'codepress-admin-columns' ) . '</a>'
-			: $this->get_video_embed( $url, 300 );
+			? sprintf( '<a data-modal-value="%s" data-modal-title="' . get_the_title( $id ) . '">%s</a>', $url, __( 'Play', 'codepress-admin-columns' ) )
+			: $this->get_video_embed( $url );
 	}
 
 	private function is_valid_mime_type( $id ) {
@@ -48,14 +45,14 @@ class VideoPlayer extends Column implements Column\DetailedValue {
 		return get_post_field( 'post_mime_type', $id );
 	}
 
-	private function get_video_embed( $url, $width, $attributes = [] ) {
-		$attribute_markup = '';
+	private function get_video_embed( $url, array $attributes = [] ) {
+		$attribute_markup = [];
 
 		foreach ( $attributes as $key => $value ) {
-			$attribute_markup .= ' ' . $key . '=' . esc_attr__( $value );
+			$attribute_markup[] = sprintf( '%s="%s"', $key, esc_attr__( $value ) );
 		}
 
-		return '<video controls ' . $attribute_markup . ' width="' . $width . '" src="' . esc_url( $url ) . '"></video>';
+		return sprintf( '<video controls %s src="%s"></video>', implode( ' ', $attribute_markup ), esc_url( $url ) );
 	}
 
 	public function get_raw_value( $id ) {
@@ -64,12 +61,12 @@ class VideoPlayer extends Column implements Column\DetailedValue {
 			: false;
 	}
 
-	public function get_detailed_value( $id ) {
+	public function get_modal_value( $id ) {
 		$url = $this->get_raw_value( $id );
 
 		return $url
-			? $this->get_video_embed( $url, 600, [ 'autoplay' => 'true' ] )
-			: $this->get_empty_char();
+			? $this->get_video_embed( $url, [ 'width' => 600, 'autoplay' => 'true' ] )
+			: null;
 	}
 
 }

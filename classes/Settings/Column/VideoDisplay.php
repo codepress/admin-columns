@@ -16,11 +16,10 @@ class VideoDisplay extends Settings\Column {
 	}
 
 	public function create_view() {
-
 		$setting = $this->create_element( 'select' )
 		                ->set_options( [
 			                'embed' => __( 'Embed', 'codepress-admin-columns' ),
-			                'modal' => __( 'Modal', 'codepress-admin-columns' ),
+			                'modal' => __( 'Pop Up', 'codepress-admin-columns' ),
 		                ] );
 
 		return new View( [

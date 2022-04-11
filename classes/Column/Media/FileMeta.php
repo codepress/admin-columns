@@ -29,21 +29,25 @@ abstract class FileMeta extends Column\Meta {
 		return $this->get_media_setting()->get_media_meta_keys();
 	}
 
+	protected function get_metadata_value( array $data, array $keys ) {
+		if ( isset( $keys[0] ) && isset( $data[ $keys[0] ] ) ) {
+			$data = $data[ $keys[0] ];
+		}
+
+		if ( isset( $keys[1] ) && isset( $data[ $keys[1] ] ) ) {
+			$data = $data[ $keys[1] ];
+		}
+
+		return is_scalar( $data )
+			? $data
+			: null;
+	}
+
 	public function get_raw_value( $id ) {
-		$value = $this->get_meta_value( $id, $this->get_meta_key() );
+		$data = $this->get_meta_value( $id, $this->get_meta_key() );
 
-		$keys = $this->get_sub_keys();
-
-		if ( isset( $keys[0] ) && isset( $value[ $keys[0] ] ) ) {
-			$value = $value[ $keys[0] ];
-		}
-
-		if ( isset( $keys[1] ) && isset( $value[ $keys[1] ] ) ) {
-			$value = $value[ $keys[1] ];
-		}
-
-		return is_scalar( $value )
-			? $value
+		return is_array( $data )
+			? $this->get_metadata_value( $data, $this->get_sub_keys() )
 			: null;
 	}
 

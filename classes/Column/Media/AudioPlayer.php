@@ -4,15 +4,12 @@ namespace AC\Column\Media;
 
 use AC\Column;
 
-/**
- * @since NEWVERSION
- */
 class AudioPlayer extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-audio_player' )
 		     ->set_group( 'media-audio' )
-		     ->set_label( __( 'Player', 'codepress-admin-columns' ) );
+		     ->set_label( __( 'Audio Player', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {
@@ -22,17 +19,19 @@ class AudioPlayer extends Column {
 			return $this->get_empty_char();
 		}
 
-		return '<audio controls class="wp-audio-shortcode" preload="none" src="' . esc_url( $url ) . '">No support for audio player</audio>';
+		return sprintf( '<audio controls preload="none" src="%s">%s</audio>', esc_url( $url ), __( 'No support for audio player', 'codepress-admin-columns' ) );
+	}
+
+	private function get_valid_mime_types() {
+		return (array) apply_filters( 'ac/column/audio_player/valid_mime_types', [ 'audio/mpeg', 'audio/flac', 'audio/wav' ], $this );
 	}
 
 	private function is_valid_mime_type( $id ) {
-		$valid_mime_types = apply_filters( 'ac/column/player/valid_audio_mime_types', [ 'audio/mpeg', 'audio/flac', 'audio/wav' ], $this );
-
-		return in_array( $this->get_mime_type( $id ), $valid_mime_types );
+		return in_array( $this->get_mime_type( $id ), $this->get_valid_mime_types() );
 	}
 
 	private function get_mime_type( $id ) {
-		return get_post_field( 'post_mime_type', $id );
+		return (string) get_post_field( 'post_mime_type', $id );
 	}
 
 	public function get_raw_value( $id ) {

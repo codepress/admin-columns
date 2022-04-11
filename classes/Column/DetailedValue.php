@@ -9,6 +9,6 @@ interface DetailedValue {
 	 *
 	 * @return string
 	 */
-	public function get_detailed_value( $id );
+	public function get_modal_value( $id );
 
 }
