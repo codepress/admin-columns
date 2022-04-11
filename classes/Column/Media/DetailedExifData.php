@@ -5,9 +5,6 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\View;
 
-/**
- * @since 2.0
- */
 class DetailedExifData extends Column\Media\MetaValue
 	implements Column\DetailedValue {
 
@@ -19,15 +16,16 @@ class DetailedExifData extends Column\Media\MetaValue
 	}
 
 	public function get_value( $id ) {
-		return '<a data-modal-value href="#">' . __( 'View Exif Data', 'codepress-admin-columns' ) . '</a>';
+		return sprintf( '<a data-modal-value href="#">%s</a>', __( 'View', 'codepress-admin-columns' ) );
 	}
 
-	public function get_detailed_value( $id ) {
+	public function get_modal_value( $id ) {
+		// TODO TEST
 		$view = new View( [
 			'title'     => get_the_title( $id ),
 			'file_name' => get_post_meta( $id, '_wp_attached_file', true ),
 			'file_url'  => wp_get_attachment_url( $id ),
-			'exif_data'      => $this->map_exif_data( $this->get_raw_value( $id ) ),
+			'exif_data' => $this->map_exif_data( $this->get_raw_value( $id ) ),
 		] );
 
 		return $view->set_template( 'column/value/exif' )
