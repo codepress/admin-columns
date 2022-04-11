@@ -40,7 +40,6 @@
         if (items.length > 1) {
             document.addEventListener('keydown', initMouseDown);
         }
-        console.log(item);
         title = item.title ?? `#${item.objectId}`;
         updateData(item);
     });
