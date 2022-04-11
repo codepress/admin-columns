@@ -6,8 +6,7 @@ use AC\Column;
 use AC\Settings;
 use AC\View;
 
-class MediaMeta extends Settings\Column
-	implements Settings\FormatValue {
+class MediaMeta extends Settings\Column {
 
 	const NAME = 'media_meta';
 
@@ -71,22 +70,11 @@ class MediaMeta extends Settings\Column
 		return true;
 	}
 
-	public function format( $value, $original_value ) {
-		$keys = explode( '/', $this->media_meta_key );
-
-		$_value = $value;
-
-		if ( isset( $keys[0] ) && isset( $_value[ $keys[0] ] ) ) {
-			$_value = $_value[ $keys[0] ];
-		}
-
-		if ( isset( $keys[1] ) && isset( $_value[ $keys[1] ] ) ) {
-			$_value = $_value[ $keys[1] ];
-		}
-
-		return is_scalar( $_value )
-			? $_value
-			: '';
+	/**
+	 * @return array
+	 */
+	public function get_media_meta_keys() {
+		return explode( '/', $this->get_media_meta_key() );
 	}
 
 }

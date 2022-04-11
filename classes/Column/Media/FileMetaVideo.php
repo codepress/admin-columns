@@ -4,11 +4,9 @@ namespace AC\Column\Media;
 
 use AC\Settings;
 
-class MetaVideo extends Meta {
+class FileMetaVideo extends FileMeta {
 
 	public function __construct() {
-		parent::__construct();
-
 		$this->set_type( 'column-meta_video' )
 		     ->set_group( 'media-meta' )
 		     ->set_label( __( 'Video Data', 'codepress-admin-columns' ) );

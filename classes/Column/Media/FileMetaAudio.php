@@ -4,11 +4,9 @@ namespace AC\Column\Media;
 
 use AC\Settings;
 
-class MetaAudio extends Meta {
+class FileMetaAudio extends FileMeta {
 
 	public function __construct() {
-		parent::__construct();
-
 		$this->set_type( 'column-meta_audio' )
 		     ->set_group( 'media-meta' )
 		     ->set_label( __( 'Audio Data', 'codepress-admin-columns' ) );
