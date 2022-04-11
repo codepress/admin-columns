@@ -212,6 +212,7 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: tbd
 
+* [Added] New Audio player column for Media list table
 * [Fixed] Prevent fatal error, when removing a non-existent column set from a Local Storage repository
 
 = 4.5 =
