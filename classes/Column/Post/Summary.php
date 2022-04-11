@@ -5,7 +5,7 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\View;
 
-class Summary extends Column implements Column\DetailedValue {
+class Summary extends Column implements Column\ModalValue {
 
 	public function __construct() {
 		$this->set_type( 'column-summary' );

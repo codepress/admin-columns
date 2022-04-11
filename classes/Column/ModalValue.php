@@ -2,7 +2,7 @@
 
 namespace AC\Column;
 
-interface DetailedValue {
+interface ModalValue {
 
 	/**
 	 * @param int $id

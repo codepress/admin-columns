@@ -5,7 +5,7 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\Settings\Column\VideoDisplay;
 
-class VideoPlayer extends Column implements Column\DetailedValue {
+class VideoPlayer extends Column implements Column\ModalValue {
 
 	public function __construct() {
 		$this->set_type( 'column-video_player' )

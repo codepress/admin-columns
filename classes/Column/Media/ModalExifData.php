@@ -5,8 +5,8 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\View;
 
-class DetailedExifData extends Column\Media\MetaValue
-	implements Column\DetailedValue {
+class ModalExifData extends Column\Media\MetaValue
+	implements Column\ModalValue {
 
 	public function __construct() {
 		parent::__construct();
