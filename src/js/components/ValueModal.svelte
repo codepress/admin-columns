@@ -11,6 +11,7 @@
     export let objectId;
     export let destroyHandler: Function;
 
+    let modalClass = '';
     let columnTitle;
     let mainElement;
     let title;
@@ -37,9 +38,13 @@
     onMount(() => {
         let item = items.find(i => i.objectId === objectId);
         columnTitle = item.element.closest('td').dataset.colname as string;
+
         if (items.length > 1) {
             document.addEventListener('keydown', initMouseDown);
         }
+
+        modalClass = item.element.dataset.modalClass;
+
         title = item.title ?? `#${item.objectId}`;
         updateData(item);
     });
@@ -92,7 +97,7 @@
     }
 </script>
 
-<div class="ac-value-modal" bind:this={mainElement}>
+<div class="ac-value-modal {modalClass}" bind:this={mainElement}>
 	<div class="ac-value-modal-background" on:click={close}>
 	</div>
 	<div class="ac-value-modal-panel">

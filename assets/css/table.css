@@ -503,6 +503,9 @@ html.wp-toolbar .ac-tooltip {
 .ac-value-modal .ac-value-modal-panel__body {
   padding: 20px;
 }
+.ac-value-modal .ac-value-modal-panel__body video {
+  display: block;
+}
 .ac-value-modal .ac-value-modal-panel__footer {
   display: flex;
   justify-content: flex-end;
@@ -516,6 +519,9 @@ html.wp-toolbar .ac-tooltip {
   border-left: 1px solid #ccc;
   cursor: pointer;
   background: none;
+}
+.ac-value-modal.-nopadding .ac-value-modal-panel__body {
+  padding: 0;
 }
 
 [data-modal-value] {

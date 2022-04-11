@@ -1,5 +1,6 @@
 $modalZindex: 10000000000;
 .ac-value-modal {
+	$e: &;
 
 	.ac-value-modal-background {
 		position: fixed;
@@ -58,6 +59,10 @@ $modalZindex: 10000000000;
 
 		&__body {
 			padding: 20px;
+
+			video {
+				display: block;
+			}
 		}
 
 		&__footer {
@@ -74,6 +79,12 @@ $modalZindex: 10000000000;
 				cursor: pointer;
 				background: none;
 			}
+		}
+	}
+
+	&.-nopadding {
+		.ac-value-modal-panel__body {
+			padding: 0;
 		}
 	}
 
