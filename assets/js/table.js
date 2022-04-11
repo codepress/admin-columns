@@ -1886,7 +1886,7 @@ function create_if_block_1(ctx) {
     }
 
   };
-} // (106:2) {#if items.length > 1 }
+} // (105:2) {#if items.length > 1 }
 
 
 function create_if_block(ctx) {
@@ -2118,7 +2118,6 @@ function instance($$self, $$props, $$invalidate) {
       document.addEventListener('keydown', initMouseDown);
     }
 
-    console.log(item);
     $$invalidate(2, title = (_a = item.title) !== null && _a !== void 0 ? _a : `#${item.objectId}`);
     updateData(item);
   });
