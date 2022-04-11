@@ -34,7 +34,7 @@ class VideoPlayer extends Column implements Column\DetailedValue {
 		}
 
 		return 'modal' === $this->get_display_type()
-			? '<a data-modal-value href="#">' . __( 'View video', 'codepress-admin-columns' ) . '</a>'
+			? '<a data-modal-value href="#" data-modal-title="' . get_the_title( $id ) . '">' . __( 'View video', 'codepress-admin-columns' ) . '</a>'
 			: $this->get_video_embed( $url, 300 );
 	}
 
