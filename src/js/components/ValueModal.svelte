@@ -57,7 +57,7 @@
     const updateData = (item: ValueModalItem) => {
         objectId = item.objectId;
         title = 'Loading';
-        content = 'Loading';
+        content = '<span class="loading">Loading</span>';
         if (source) {
             source.cancel();
         }
