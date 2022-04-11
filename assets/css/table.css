@@ -522,6 +522,15 @@ html.wp-toolbar .ac-tooltip {
   border-left: 1px solid #ccc;
   cursor: pointer;
   background: none;
+  display: flex;
+  align-items: center;
+}
+.ac-value-modal .ac-value-modal-panel__footer button .dashicons {
+  transform: translateY(2px);
+  font-size: 16px;
+}
+.ac-value-modal .ac-value-modal-panel__footer button:hover {
+  background: #efefef;
 }
 .ac-value-modal.-nopadding .ac-value-modal-panel__body {
   padding: 0;

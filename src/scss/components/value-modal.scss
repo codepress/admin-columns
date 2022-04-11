@@ -81,6 +81,17 @@ $modalZindex: 10000000000;
 				border-left: 1px solid #ccc;
 				cursor: pointer;
 				background: none;
+				display: flex;
+				align-items: center;
+
+				.dashicons {
+					transform: translateY(2px);
+					font-size: 16px;
+				}
+
+				&:hover {
+					background: #efefef;
+				}
 			}
 		}
 	}
