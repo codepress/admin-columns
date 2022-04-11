@@ -13,7 +13,7 @@ class FileMetaAudio extends FileMeta {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new Settings\Column\Media\AudioMeta( $this ) );
+		$this->add_setting( new Settings\Column\FileMetaAudio( $this ) );
 	}
 
 }
