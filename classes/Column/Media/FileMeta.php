@@ -46,10 +46,9 @@ abstract class FileMeta extends Column\Meta {
 	public function get_raw_value( $id ) {
 		$data = $this->get_meta_value( $id, $this->get_meta_key() );
 
-		return $this->get_metadata_value(
-			$data,
-			$this->get_sub_keys()
-		);
+		return is_array( $data )
+			? $this->get_metadata_value( $data, $this->get_sub_keys() )
+			: null;
 	}
 
 }
