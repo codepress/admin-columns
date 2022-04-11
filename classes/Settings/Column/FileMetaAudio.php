@@ -1,12 +1,11 @@
 <?php
 
-namespace AC\Settings\Column\Media;
+namespace AC\Settings\Column;
 
 use AC\Column;
-use AC\Settings\Column\MediaMeta;
 use AC\Settings\FormatValue;
 
-class AudioMeta extends MediaMeta implements FormatValue {
+class FileMetaAudio extends FileMeta implements FormatValue {
 
 	public function __construct( Column $column ) {
 		$types = [

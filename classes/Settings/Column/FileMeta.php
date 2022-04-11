@@ -6,7 +6,7 @@ use AC\Column;
 use AC\Settings;
 use AC\View;
 
-class MediaMeta extends Settings\Column {
+class FileMeta extends Settings\Column {
 
 	const NAME = 'media_meta';
 
@@ -65,7 +65,7 @@ class MediaMeta extends Settings\Column {
 	 * @return bool
 	 */
 	public function set_media_meta_key( $media_meta_key ) {
-		$this->media_meta_key = $media_meta_key;
+		$this->media_meta_key = (string) $media_meta_key;
 
 		return true;
 	}

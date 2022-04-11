@@ -13,7 +13,7 @@ class FileMetaVideo extends FileMeta {
 	}
 
 	public function register_settings() {
-		$this->add_setting( new Settings\Column\Media\VideoMeta( $this ) );
+		$this->add_setting( new Settings\Column\FileMetaVideo( $this ) );
 	}
 
 }
