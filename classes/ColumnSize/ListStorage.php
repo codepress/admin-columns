@@ -38,7 +38,7 @@ class ListStorage {
 				continue;
 			}
 
-			$settings[ $_column_name ]['width'] = $column_width->get_value();
+			$settings[ $_column_name ]['width'] = (string) $column_width->get_value();
 			$settings[ $_column_name ]['width_unit'] = $column_width->get_unit();
 		}
 

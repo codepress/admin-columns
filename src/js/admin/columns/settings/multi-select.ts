@@ -21,7 +21,7 @@ class MultiSelect {
     bindEvents() {
         // First remove all cloned Select2 elements
         this.select.removeAttribute('data-select2-id');
-        this.select.parentElement.querySelectorAll('.select2').forEach(el => {
+        this.select.parentElement?.querySelectorAll('.select2').forEach(el => {
             el.remove();
         });
 

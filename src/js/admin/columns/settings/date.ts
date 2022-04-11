@@ -22,18 +22,18 @@ class DateSetting {
         this.column = column;
         this.setting = setting;
         this.options = this.setting.querySelectorAll('.radio-labels input[type=radio]');
-        this.valueInput = this.setting.querySelector('[data-value-input]');
+        this.valueInput = this.setting.querySelector('[data-value-input]')!;
 
         let defaultElement = this.setting.querySelector('.radio-labels code');
-        this.defaultFormat = defaultElement ? defaultElement.textContent : 'Y-m-d';
+        this.defaultFormat = defaultElement ? defaultElement.textContent! : 'Y-m-d';
 
         // @ts-ignore
         let customInput = [...this.options].filter(radio => typeof radio.dataset.custom !== 'undefined');
 
         this.customOption = new CustomOption(
             customInput[0],
-            this.setting.querySelector('[data-custom-date]'),
-            this.setting.querySelector('.ac-setting-input-date__example'),
+            this.setting.querySelector('[data-custom-date]')!,
+            this.setting.querySelector('.ac-setting-input-date__example')!,
             this.valueInput
         );
 
@@ -44,7 +44,7 @@ class DateSetting {
         return Array.from(this.options);
     }
 
-    getSelectionOption(): HTMLInputElement {
+    getSelectionOption(): HTMLInputElement|null {
         let selected = this.getOptionsAsArray().filter(option => option.checked);
 
         return selected ? selected[0] : null;
@@ -71,7 +71,10 @@ class DateSetting {
     handleUpdate(input: HTMLInputElement) {
         this.valueInput.value = input.value;
         this.customOption.toggle(typeof input.dataset.custom !== 'undefined');
-        this.setHelpText(this.getHelpTextFromType(input));
+
+        let helpText = input.closest('label')?.querySelector<HTMLElement>('[data-help]')?.innerHTML ?? '';
+
+        this.setHelpText(helpText);
 
         if( typeof input.dataset.custom !== 'undefined' ){
             return;
@@ -96,17 +99,13 @@ class DateSetting {
     }
 
     setHelpText(text: string) {
-        let element: HTMLElement = this.setting.querySelector('.help-msg');
-        element.innerHTML = text;
-        element.style.display = 'block';
+        let element = this.setting.querySelector<HTMLElement>('.help-msg');
+
+        if( element ){
+            element.innerHTML = text;
+            element.style.display = 'block';
+        }
     }
-
-    private getHelpTextFromType(type: HTMLElement): string {
-        let helpText = type.closest('label').querySelector('[data-help]');
-
-        return helpText ? helpText.innerHTML : null;
-    }
-
 
 }
 

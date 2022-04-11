@@ -18,7 +18,7 @@ export default class Table {
     private AcServices: AcServices
     Columns: Columns
     Cells: Cells
-    Actions: Actions
+    Actions: Actions | null
     Selection: RowSelection
     Services: ServiceContainer
 
@@ -28,7 +28,8 @@ export default class Table {
         this.Services = new ServiceContainer();
         this.Columns = new Columns(el);
         this.Cells = new Cells();
-        this.Actions = document.getElementById('ac-table-actions') ? new Actions(document.getElementById('ac-table-actions')) : null;
+        let actionsElement = document.getElementById('ac-table-actions');
+        this.Actions = actionsElement ? new Actions(actionsElement) : null;
         this.Selection = new RowSelection(this);
     }
 
@@ -58,12 +59,14 @@ export default class Table {
 
     addCellClasses() {
         this.Columns.getColumnNames().forEach((name) => {
-            let type = this.Columns.get(name).type;
+            let type = this.Columns.get(name)?.type;
             let cells = this.Cells.getByName(name);
 
-            cells.forEach((cell: Cell) => {
-                cell.getElement().classList.add(type);
-            });
+            if (type) {
+                cells.forEach((cell: Cell) => {
+                    cell.getElement().classList.add(type ?? '');
+                });
+            }
         });
     }
 

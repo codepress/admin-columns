@@ -118,14 +118,28 @@ final class Storage implements ListScreenRepositoryWritable {
 	}
 
 	public function save( ListScreen $list_screen ) {
-		$this->update( $list_screen, 'save' );
+		$repository = $this->get_writable_repositories( $list_screen );
+
+		if ( empty( $repository ) ) {
+			return;
+		}
+
+		// Only write in one repository
+		$repository[0]->save( $list_screen );
 	}
 
 	public function delete( ListScreen $list_screen ) {
-		$this->update( $list_screen, 'delete' );
+		foreach ( $this->get_writable_repositories( $list_screen ) as $repository ) {
+			if ( $repository->find( $list_screen->get_id() ) ) {
+				$repository->delete( $list_screen );
+				break;
+			}
+		}
 	}
 
-	private function update( ListScreen $list_screen, $action ) {
+	private function get_writable_repositories( ListScreen $list_screen ) {
+		$repositories = [];
+
 		foreach ( $this->repositories as $repository ) {
 			$match = true;
 
@@ -138,22 +152,11 @@ final class Storage implements ListScreenRepositoryWritable {
 			}
 
 			if ( $match && $repository->is_writable() ) {
-				switch ( $action ) {
-					case 'save':
-						$repository->save( $list_screen );
-
-						break;
-					case 'delete':
-						$repository->delete( $list_screen );
-
-						break;
-					default:
-						throw new LogicException( 'Invalid action for update call.' );
-				}
-
-				return;
+				$repositories[] = $repository;
 			}
 		}
+
+		return $repositories;
 	}
 
 }

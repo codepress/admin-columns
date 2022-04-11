@@ -67,7 +67,7 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
-#: classes/Admin/WpMenuFactory.php:19, classes/Admin/WpMenuFactory.php:34, classes/Check/Review.php:160, classes/Table/Screen.php:416
+#: classes/Admin/WpMenuFactory.php:19, classes/Admin/WpMenuFactory.php:34, classes/Check/Review.php:160, classes/Table/Screen.php:413
 msgid "Admin Columns"
 msgstr ""
 
@@ -191,7 +191,7 @@ msgstr ""
 msgid "Settings for %s restored successfully."
 msgstr ""
 
-#: classes/Controller/RestoreSettingsRequest.php:45
+#: classes/Controller/RestoreSettingsRequest.php:47
 msgid "Default settings successfully restored."
 msgstr ""
 
@@ -412,7 +412,7 @@ msgid "Export"
 msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:62, templates/admin/page/settings-section-pro-cta.php:146
-msgid "Quick Add"
+msgid "Add Row"
 msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:63

@@ -11,8 +11,8 @@ use AC\Settings;
 class FeaturedImage extends Column\Meta {
 
 	public function __construct() {
-		$this->set_type( 'column-featured_image' );
-		$this->set_label( __( 'Featured Image', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-featured_image' )
+		     ->set_label( __( 'Featured Image', 'codepress-admin-columns' ) );
 	}
 
 	public function get_meta_key() {

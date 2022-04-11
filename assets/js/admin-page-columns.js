@@ -2251,10 +2251,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "refreshColumn": () => (/* binding */ refreshColumn)
 /* harmony export */ });
 const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-const mapDataToFormData = (data, formData = null) => {
-    if (!formData) {
-        formData = new FormData();
-    }
+const mapDataToFormData = (data, formData = new FormData()) => {
     Object.keys(data).forEach(key => {
         formData.append(key, data[key]);
     });
@@ -2269,10 +2266,11 @@ const submitColumnSettings = (data) => {
     }));
 };
 const switchColumnType = (type, list_screen = AC.list_screen) => {
+    var _a;
     return axios.post(ajaxurl, mapDataToFormData({
         _ajax_nonce: AC._ajax_nonce,
         action: 'ac-columns',
-        current_original_columns: JSON.stringify(AC_SERVICES.getService('Form').getOriginalColumns().map((e) => e.getName())),
+        current_original_columns: JSON.stringify((_a = AC_SERVICES.getService('Form')) === null || _a === void 0 ? void 0 : _a.getOriginalColumns().map((e) => e.getName())),
         id: 'select',
         list_screen: list_screen,
         type: type,
@@ -2546,7 +2544,8 @@ class Column {
         return (element && element.tagName === 'SELECT' && element.hasAttribute('multiple'));
     }
     reinitColumnFromElement(element) {
-        this.getElement().parentNode.replaceChild(element, this.getElement());
+        var _a;
+        (_a = this.getElement().parentNode) === null || _a === void 0 ? void 0 : _a.replaceChild(element, this.getElement());
         this.element = element;
         this.setPropertiesByElement(element).init();
         return this;
@@ -2676,8 +2675,9 @@ const initLabelTooltipsEvent = (column) => {
     });
 };
 const hoverTooltip = (label, display) => {
-    let related = label.closest('.col-label').querySelector('div.tooltip');
-    if (related) {
+    var _a;
+    let related = (_a = label.closest('.col-label')) === null || _a === void 0 ? void 0 : _a.querySelector('div.tooltip');
+    if (!!related) {
         related.style.display = display;
     }
 };
@@ -2798,13 +2798,14 @@ class Feedback {
         this.init();
     }
     init() {
-        this.element.querySelector('a.no').addEventListener('click', (e) => {
+        var _a, _b;
+        (_a = this.element.querySelector('a.no')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', (e) => {
             e.preventDefault();
             (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_0__.fadeOut)(this.element.querySelector('#feedback-choice'), 300, () => {
                 (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_0__.fadeIn)(this.element.querySelector('#feedback-support'), 300);
             });
         });
-        this.element.querySelector('a.yes').addEventListener('click', (e) => {
+        (_b = this.element.querySelector('a.yes')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', (e) => {
             e.preventDefault();
             (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_0__.fadeOut)(this.element.querySelector('#feedback-choice'), 300, () => {
                 (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_0__.fadeIn)(this.element.querySelector('#feedback-rate'), 300);
@@ -2869,18 +2870,19 @@ class Form {
         let result = [];
         this.getElement().querySelectorAll('form.ac-column').forEach(column => {
             let c = this.columns.find(c => c.getName() === column.dataset.columnName);
-            if (c) {
+            if (!!c) {
                 result.push(c);
             }
         });
         return result;
     }
     placeColumn(column, after = null) {
+        var _a;
         if (after) {
             (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_4__.insertAfter)(column.getElement(), after);
         }
         else {
-            this.getElement().querySelector('.ac-columns').append(column.getElement());
+            (_a = this.getElement().querySelector('.ac-columns')) === null || _a === void 0 ? void 0 : _a.append(column.getElement());
         }
         setTimeout(() => {
             (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_3__.scrollToElement)(column.getElement(), 300, { offset: -18 });
@@ -2906,7 +2908,8 @@ class Form {
     }
     initColumns() {
         this.getElement().querySelectorAll('.ac-column').forEach((element) => {
-            let column = new _column__WEBPACK_IMPORTED_MODULE_1__.Column(element, element.dataset.columnName, this.services);
+            var _a;
+            let column = new _column__WEBPACK_IMPORTED_MODULE_1__.Column(element, (_a = element.dataset.columnName) !== null && _a !== void 0 ? _a : '', this.services);
             this.columns.push(column);
             this.bindColumnEvents(column);
         });
@@ -2967,10 +2970,12 @@ class Form {
         });
     }
     showMessage(message, className = 'updated') {
-        let element = _helpers_html_element__WEBPACK_IMPORTED_MODULE_6__["default"].create('div').addClass('ac-message').addClasses(...className.split(' ')).addHtml(`<p>${message}</p>`).element;
+        let element = _helpers_html_element__WEBPACK_IMPORTED_MODULE_6__["default"].create('div').addClass('ac-message').addClasses(...className.split(' ')).addHtml(`<p>${message}</p>`).getElement();
         let messageContainer = document.querySelector('.ac-admin__main');
-        messageContainer.querySelectorAll('.ac-message').forEach((el) => el.remove());
-        messageContainer.insertAdjacentElement('afterbegin', element);
+        if (messageContainer) {
+            messageContainer.querySelectorAll('.ac-message').forEach((el) => el.remove());
+            messageContainer.insertAdjacentElement('afterbegin', element);
+        }
         (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_3__.fadeIn)(element, 600);
     }
     removeColumn(name) {
@@ -2999,7 +3004,8 @@ class Form {
     }
 }
 const createColumnFromTemplate = (services) => {
-    let columnElement = document.querySelector('#add-new-column-template .ac-column').cloneNode(true);
+    var _a;
+    let columnElement = (_a = document.querySelector('#add-new-column-template .ac-column')) === null || _a === void 0 ? void 0 : _a.cloneNode(true);
     const newColumnName = (0,_helpers_string__WEBPACK_IMPORTED_MODULE_5__.uniqid)();
     columnElement.querySelectorAll('label[for]').forEach(label => {
         let relatedId = label.getAttribute('for');
@@ -3171,7 +3177,8 @@ class CustomField {
         this.bindEvents();
     }
     bindEvents() {
-        const request = loadSingleRequestManager(this.select.dataset.type, this.select.dataset.post_type);
+        var _a, _b;
+        const request = loadSingleRequestManager((_a = this.select.dataset.type) !== null && _a !== void 0 ? _a : '', (_b = this.select.dataset.post_type) !== null && _b !== void 0 ? _b : '');
         const editingAvailable = this.column.getElement().querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0;
         // Ensure you won't get any duplicates on clone
         this.select.querySelectorAll('optgroup').forEach(el => {
@@ -3296,9 +3303,11 @@ class DateSetting {
         }
     }
     handleUpdate(input) {
+        var _a, _b, _c;
         this.valueInput.value = input.value;
         this.customOption.toggle(typeof input.dataset.custom !== 'undefined');
-        this.setHelpText(this.getHelpTextFromType(input));
+        let helpText = (_c = (_b = (_a = input.closest('label')) === null || _a === void 0 ? void 0 : _a.querySelector('[data-help]')) === null || _b === void 0 ? void 0 : _b.innerHTML) !== null && _c !== void 0 ? _c : '';
+        this.setHelpText(helpText);
         if (typeof input.dataset.custom !== 'undefined') {
             return;
         }
@@ -3319,12 +3328,10 @@ class DateSetting {
     }
     setHelpText(text) {
         let element = this.setting.querySelector('.help-msg');
-        element.innerHTML = text;
-        element.style.display = 'block';
-    }
-    getHelpTextFromType(type) {
-        let helpText = type.closest('label').querySelector('[data-help]');
-        return helpText ? helpText.innerHTML : null;
+        if (element) {
+            element.innerHTML = text;
+            element.style.display = 'block';
+        }
     }
 }
 class CustomOption {
@@ -3401,10 +3408,12 @@ class ImageSizeSetting {
         this.bindEvents();
     }
     getValue() {
-        return this.field.value;
+        var _a;
+        return (_a = this.field) === null || _a === void 0 ? void 0 : _a.value;
     }
     bindEvents() {
-        this.field.addEventListener('change', () => this.initState());
+        var _a;
+        (_a = this.field) === null || _a === void 0 ? void 0 : _a.addEventListener('change', () => this.initState());
     }
     initState() {
         this.toggleSubSettings('cpac-custom' === this.getValue());
@@ -3443,9 +3452,12 @@ class LabelSetting {
     constructor(column, setting) {
         this.column = column;
         this.setting = setting;
+        this.column = column;
+        this.setting = setting;
         this.field = this.setting.querySelector('.ac-setting-input_label');
-        if (column.getElement().querySelector('.-iconpicker')) {
-            this.modal = new IconPickerModal(column.getElement().querySelector('.-iconpicker'));
+        let iconPicker = column.getElement().querySelector('.-iconpicker');
+        if (iconPicker) {
+            this.modal = new IconPickerModal(iconPicker);
             this.modal.setIconSelection(this.getDashIconFromValue());
             this.initEvents();
         }
@@ -3465,7 +3477,7 @@ class LabelSetting {
     getDashIconFromValue() {
         let html = document.createRange().createContextualFragment(this.getValue());
         let dashicon = html.querySelector('.dashicons');
-        let value = null;
+        let value = '';
         if (!dashicon) {
             return value;
         }
@@ -3477,7 +3489,8 @@ class LabelSetting {
         return value;
     }
     getValue() {
-        return this.field.value;
+        var _a, _b;
+        return (_b = (_a = this.field) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : '';
     }
     setLabel(label) {
         if (this.field) {
@@ -3490,7 +3503,7 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
     constructor(element) {
         super(element);
         this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_1___default())();
-        this.dashIcon = null;
+        this.dashIcon = '';
         this.search = new IconSearch(this);
     }
     initEvents() {
@@ -3511,8 +3524,9 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
         });
         this.getIconElements().forEach(icon => {
             icon.addEventListener('click', (e) => {
+                var _a;
                 e.preventDefault();
-                this.setIconSelection(icon.dataset.dashicon);
+                this.setIconSelection((_a = icon.dataset.dashicon) !== null && _a !== void 0 ? _a : '');
                 this.getIconElements().forEach(el => el.classList.remove('active'));
                 icon.classList.add('active');
             });
@@ -3530,8 +3544,10 @@ class IconPickerModal extends _modules_modal__WEBPACK_IMPORTED_MODULE_0__["defau
     setIconSelection(dashicon) {
         let selection = this.getElement().querySelector('.ac-ipicker__selection');
         this.dashIcon = dashicon;
-        selection.innerHTML = this.getDashIconMarkup();
-        selection.style.visibility = 'visible';
+        if (selection) {
+            selection.innerHTML = this.getDashIconMarkup();
+            selection.style.visibility = 'visible';
+        }
     }
 }
 class IconSearch {
@@ -3540,7 +3556,8 @@ class IconSearch {
     }
     searchFor(query) {
         this.modal.getElement().querySelectorAll('[data-dashicon]').forEach(el => {
-            if (el.dataset.dashicon.indexOf(query.toLowerCase()) !== -1) {
+            var _a;
+            if (((_a = el.dataset.dashicon) === null || _a === void 0 ? void 0 : _a.indexOf(query.toLowerCase())) !== -1) {
                 el.style.display = 'inline-block';
             }
             else {
@@ -3555,7 +3572,10 @@ class IconSearch {
             let hiddenItems = Array.from(icons).filter(el => {
                 return (el.offsetParent === null);
             });
-            group.querySelector('h3').style.display = icons.length == hiddenItems.length ? 'none' : 'block';
+            let header = group.querySelector('h3');
+            if (header) {
+                header.style.display = icons.length == hiddenItems.length ? 'none' : 'block';
+            }
         });
     }
 }
@@ -3590,9 +3610,10 @@ class MultiSelect {
         this.bindEvents();
     }
     bindEvents() {
+        var _a;
         // First remove all cloned Select2 elements
         this.select.removeAttribute('data-select2-id');
-        this.select.parentElement.querySelectorAll('.select2').forEach(el => {
+        (_a = this.select.parentElement) === null || _a === void 0 ? void 0 : _a.querySelectorAll('.select2').forEach(el => {
             el.remove();
         });
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.select).ac_select2({
@@ -3832,19 +3853,22 @@ class WidthSetting {
         this.init();
     }
     getWidth() {
-        let widthValue = this.widthInput.value;
-        return widthValue ? parseInt(widthValue) : null;
+        var _a, _b;
+        let widthValue = (_b = (_a = this.widthInput) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : 0;
+        return +widthValue;
     }
     setWidth(width) {
-        this.widthInput.value = width ? width.toString() : null;
+        if (this.widthInput) {
+            this.widthInput.value = width ? width.toString() : '';
+        }
         this.updateIndicator();
     }
     updateUnit() {
         this.setting.querySelector('.description .unit').innerHTML = this.getUnit();
     }
     getUnit() {
-        let input = this.setting.querySelector('[data-unit-input] input:checked');
-        return input ? input.value : null;
+        var _a, _b;
+        return (_b = (_a = this.setting.querySelector('[data-unit-input] input:checked')) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : '0';
     }
     getValue() {
         return {
@@ -3855,7 +3879,7 @@ class WidthSetting {
     validate() {
         let width = this.getWidth();
         if (width === 0 || width < 0) {
-            this.setWidth(null);
+            this.setWidth('');
         }
         if (this.getUnit() === '%') {
             if (width > 100) {
@@ -3864,7 +3888,8 @@ class WidthSetting {
         }
     }
     init() {
-        this.widthInput.addEventListener('keyup', () => {
+        var _a;
+        (_a = this.widthInput) === null || _a === void 0 ? void 0 : _a.addEventListener('keyup', () => {
             this.updateIndicator();
             this.initSlider();
             this.validate();
@@ -3883,15 +3908,16 @@ class WidthSetting {
         this.indicator.setValue(this.getWidth(), this.getUnit());
     }
     initSlider() {
-        let sliderElement = this.column.getElement().querySelector('.width-slider');
-        jquery__WEBPACK_IMPORTED_MODULE_1___default()(sliderElement).slider({
-            range: 'min',
-            min: 0,
-            max: '%' === this.getUnit() ? 100 : 500,
-            value: this.getWidth(),
-            slide: (event, ui) => {
-                this.setWidth(ui.value);
-            }
+        this.column.getElement().querySelectorAll('.width-slider').forEach(el => {
+            jquery__WEBPACK_IMPORTED_MODULE_1___default()(el).slider({
+                range: 'min',
+                min: 0,
+                max: '%' === this.getUnit() ? 100 : 500,
+                value: this.getWidth(),
+                slide: (event, ui) => {
+                    this.setWidth(ui.value);
+                }
+            });
         });
     }
 }
@@ -4007,11 +4033,12 @@ const fadeOut = (element, ms = 100, cb = null, display = 'none') => {
     }, { once: true });
 };
 const scrollToElement = (element, ms, options = {}) => {
+    var _a;
     let defaults = {
         offset: 0
     };
     let settings = Object.assign({}, defaults, options);
-    const elementY = element.offsetTop + settings.offset;
+    const elementY = element.offsetTop + ((_a = settings.offset) !== null && _a !== void 0 ? _a : 0);
     const startingY = window.pageYOffset;
     const diff = elementY - startingY;
     let start;
@@ -4048,20 +4075,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _html_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./html-element */ "./js/helpers/html-element.ts");
 
 const insertAfter = (newNode, referenceNode) => {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    var _a;
+    (_a = referenceNode === null || referenceNode === void 0 ? void 0 : referenceNode.parentNode) === null || _a === void 0 ? void 0 : _a.insertBefore(newNode, referenceNode.nextSibling);
 };
 const insertBefore = (newNode, referenceNode) => {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode);
+    var _a;
+    (_a = referenceNode === null || referenceNode === void 0 ? void 0 : referenceNode.parentNode) === null || _a === void 0 ? void 0 : _a.insertBefore(newNode, referenceNode);
 };
 const createElementFromString = (content, baseElement = 'div') => {
-    return _html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create(baseElement).addHtml(content).element;
+    return _html_element__WEBPACK_IMPORTED_MODULE_0__["default"].create(baseElement).addHtml(content).getElement();
 };
-function isInViewport(element) {
-    var rect = element.getBoundingClientRect();
-    return (rect.top >= 0 && rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth));
-}
 
 
 /***/ }),
@@ -4126,15 +4149,13 @@ const getParamFromUrl = (param, url) => {
     return params.get(param);
 };
 const mapDataToFormData = (data, formData = null) => {
-    if (!formData) {
-        formData = new FormData();
-    }
+    let fData = formData !== null && formData !== void 0 ? formData : new FormData();
     Object.keys(data).forEach(key => {
-        appendObjectToFormData(formData, data[key], key);
+        appendObjectToFormData(fData, data[key], key);
     });
-    return formData;
+    return fData;
 };
-const appendObjectToFormData = (formData, data, parentKey = null) => {
+const appendObjectToFormData = (formData, data, parentKey = '') => {
     if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
         Object.keys(data).forEach(key => {
             appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
@@ -4158,18 +4179,21 @@ const appendObjectToFormData = (formData, data, parentKey = null) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AcEl": () => (/* binding */ AcEl),
 /* harmony export */   "default": () => (/* binding */ AcHtmlElement)
 /* harmony export */ });
-const AcEl = (el) => {
-    return AcHtmlElement.create(el);
-};
 class AcHtmlElement {
-    constructor(el) {
-        this.element = el instanceof HTMLElement ? el : document.createElement(el);
+    constructor(element) {
+        this.element = element;
+    }
+    static find(selector) {
+        let element = document.querySelector(selector);
+        return element === null ? null : new AcHtmlElement(element);
     }
     static create(el) {
-        return new AcHtmlElement(el);
+        return new AcHtmlElement(document.createElement(el));
+    }
+    getElement() {
+        return this.element;
     }
     addId(id) {
         this.element.id = id;
@@ -4208,16 +4232,18 @@ class AcHtmlElement {
         return this;
     }
     insertAfter(insertedElement) {
+        var _a;
         try {
-            this.element.parentElement.insertBefore(insertedElement, this.element.nextElementSibling);
+            (_a = this.element.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(insertedElement, this.element.nextElementSibling);
         }
         catch (e) {
             console.error("Not able to insert element after current node", this.element);
         }
     }
     insertSelfBefore(referenceNode) {
+        var _a;
         try {
-            referenceNode.parentElement.insertBefore(this.element, referenceNode);
+            (_a = referenceNode.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(this.element, referenceNode);
         }
         catch (e) {
             console.error("Not able to insert element before current node", this.element);
@@ -4225,8 +4251,9 @@ class AcHtmlElement {
         return this;
     }
     insertBefore(insertedElement) {
+        var _a;
         try {
-            this.element.parentElement.insertBefore(insertedElement, this.element);
+            (_a = this.element.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(insertedElement, this.element);
         }
         catch (e) {
             console.error("Not able to insert element before current node", this.element);
@@ -4413,8 +4440,8 @@ class Pointer {
         return classes.join(' ');
     }
     getRelatedHTML() {
-        let related_element = document.getElementById(this.element.getAttribute('rel'));
-        return related_element ? related_element.innerHTML : '';
+        var _a, _b, _c;
+        return (_c = (_b = document.getElementById((_a = this.element.getAttribute('rel')) !== null && _a !== void 0 ? _a : '')) === null || _b === void 0 ? void 0 : _b.innerHTML) !== null && _c !== void 0 ? _c : '';
     }
     initEvents() {
         let el = $(this.element);
@@ -4507,7 +4534,7 @@ class AcServices {
         this.services = {};
         this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
         this.filters = new _ac_hookable_filters__WEBPACK_IMPORTED_MODULE_2__["default"]();
-        this.$ = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__.AcEl;
+        this.$ = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__["default"];
     }
     registerService(name, service) {
         this.services[name] = service;
@@ -4543,18 +4570,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class Modal {
     constructor(el) {
-        if (!el) {
-            return;
-        }
+        var _a;
         this.el = el;
-        this.dialog = el.querySelector('.ac-modal__dialog');
+        this.dialog = (_a = el.querySelector('.ac-modal__dialogs')) !== null && _a !== void 0 ? _a : document.createElement('div');
         this.initEvents();
     }
     getElement() {
         return this.el;
     }
     initEvents() {
-        let self = this;
         document.addEventListener('keydown', (e) => {
             const keyName = e.key;
             if (!this.isOpen()) {
@@ -4569,7 +4593,7 @@ class Modal {
             dismissButtons.forEach((b) => {
                 b.addEventListener('click', (e) => {
                     e.preventDefault();
-                    self.close();
+                    this.close();
                 });
             });
         }
@@ -4640,14 +4664,12 @@ class Modals {
         return this.modals.hasOwnProperty(key) ? this.modals[key] : null;
     }
     open(key) {
-        if (this.get(key)) {
-            this.get(key).open();
-        }
+        var _a;
+        (_a = this.get(key)) === null || _a === void 0 ? void 0 : _a.open();
     }
     close(key) {
-        if (this.get(key)) {
-            this.get(key).close();
-        }
+        var _a;
+        (_a = this.get(key)) === null || _a === void 0 ? void 0 : _a.close();
     }
     closeAll() {
         for (let key in this.modals) {
@@ -4707,6 +4729,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Tooltip": () => (/* binding */ Tooltip)
 /* harmony export */ });
 const initAcTooltips = () => {
+    document.querySelectorAll('.ac-tooltip').forEach(el => el.remove());
     document.querySelectorAll('[data-ac-tip]').forEach((element) => {
         new Tooltip(element);
     });
@@ -4869,13 +4892,17 @@ document.addEventListener('DOMContentLoaded', () => {
         AcServices.registerService('Form', new _admin_columns_form__WEBPACK_IMPORTED_MODULE_0__.Form(formElement, AcServices));
     });
     // Init the Pro promotion Modal
-    document.querySelectorAll('#ac-modal-pro').forEach(proModal => {
-        AcServices.getService('Modals').register(new _modules_modal__WEBPACK_IMPORTED_MODULE_5__["default"](proModal), 'pro');
-    });
+    if (AcServices.hasService('Modals')) {
+        document.querySelectorAll('#ac-modal-pro').forEach(proModal => {
+            var _a;
+            (_a = AcServices.getService('Modals')) === null || _a === void 0 ? void 0 : _a.register(new _modules_modal__WEBPACK_IMPORTED_MODULE_5__["default"](proModal), 'pro');
+        });
+    }
     document.querySelectorAll('#ac_list_screen').forEach(select => {
         select.addEventListener('change', () => {
+            var _a;
             document.querySelectorAll('.view-link').forEach(link => link.style.display = 'none');
-            select.closest('form').submit();
+            (_a = select.closest('form')) === null || _a === void 0 ? void 0 : _a.submit();
             select.disabled = true;
             select.nextElementSibling.style.display = 'inline-block';
         });
@@ -4900,11 +4927,13 @@ AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SE
         : $form.sortable({ items: '.ac-column', handle: '[data-sort-handle]' });
 });
 AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.FORM.SAVING, () => {
-    document.querySelector('#cpac .ac-admin').classList.add('saving');
+    var _a;
+    (_a = document.querySelector('#cpac .ac-admin')) === null || _a === void 0 ? void 0 : _a.classList.add('saving');
 });
 AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.FORM.SAVED, () => {
-    document.querySelector('#cpac .ac-admin').classList.remove('saving');
-    document.querySelector('#cpac .ac-admin').classList.add('stored');
+    var _a, _b;
+    (_a = document.querySelector('#cpac .ac-admin')) === null || _a === void 0 ? void 0 : _a.classList.remove('saving');
+    (_b = document.querySelector('#cpac .ac-admin')) === null || _b === void 0 ? void 0 : _b.classList.add('stored');
 });
 AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.COLUMN.INIT, (column) => {
     (0,_plugin_tooltip__WEBPACK_IMPORTED_MODULE_8__.initAcTooltips)();

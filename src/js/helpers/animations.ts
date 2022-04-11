@@ -1,4 +1,4 @@
-export const fadeIn = (element: HTMLElement, ms: number = 100, cb: Function = null, display: string = 'block') => {
+export const fadeIn = (element: HTMLElement, ms: number = 100, cb: Function | null = null, display: string = 'block') => {
     element.style.display = display;
     element.style.transition = `opacity ${ms}ms`;
     element.style.opacity = '0';
@@ -14,7 +14,7 @@ export const fadeIn = (element: HTMLElement, ms: number = 100, cb: Function = nu
 
 }
 
-export const fadeOut = (element: HTMLElement, ms: number = 100, cb: Function = null, display: string = 'none') => {
+export const fadeOut = (element: HTMLElement, ms: number = 100, cb: Function | null = null, display: string = 'none') => {
     element.style.transition = `opacity ${ms}ms`;
     element.style.opacity = '1';
 
@@ -41,7 +41,7 @@ export const scrollToElement = (element: HTMLElement, ms: number, options: scrol
     }
     let settings = Object.assign({}, defaults, options);
 
-    const elementY = element.offsetTop + settings.offset;
+    const elementY = element.offsetTop + (settings.offset ?? 0);
     const startingY = window.pageYOffset;
     const diff = elementY - startingY;
     let start: number;

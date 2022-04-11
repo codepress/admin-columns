@@ -539,6 +539,10 @@ html.wp-toolbar .ac-tooltip {
   color: #929292;
 }
 
+table .column-audio_player {
+  min-width: 310px !important;
+}
+
 /* =Comments bubble
 -------------------------------------------------------------- */
 .ac-comment-bubble .post-com-count {

@@ -10,8 +10,9 @@ use AC\Column;
 class Caption extends Column {
 
 	public function __construct() {
-		$this->set_type( 'column-caption' );
-		$this->set_label( __( 'Caption', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-caption' )
+		     ->set_group( 'media-image' )
+		     ->set_label( __( 'Caption', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

@@ -18,11 +18,7 @@ export interface ColumnSettingsResponse {
     }
 }
 
-const mapDataToFormData = (data: keyStringPair, formData: FormData = null): FormData => {
-    if (!formData) {
-        formData = new FormData();
-    }
-
+const mapDataToFormData = (data: keyStringPair, formData: FormData = new FormData()): FormData => {
     Object.keys(data).forEach(key => {
         formData.append(key, data[key]);
     });
@@ -43,7 +39,7 @@ export const switchColumnType = (type: string, list_screen: string = AC.list_scr
     return axios.post(ajaxurl, mapDataToFormData({
         _ajax_nonce: AC._ajax_nonce,
         action: 'ac-columns',
-        current_original_columns: JSON.stringify(AC_SERVICES.getService<Form>('Form').getOriginalColumns().map((e: Column) => e.getName())),
+        current_original_columns: JSON.stringify(AC_SERVICES.getService<Form>('Form')?.getOriginalColumns().map((e: Column) => e.getName())),
         id: 'select',
         list_screen: list_screen,
         type: type,

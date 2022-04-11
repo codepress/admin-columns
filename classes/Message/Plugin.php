@@ -79,10 +79,10 @@ class Plugin extends Message {
 	 */
 	protected function get_icon_by_current_type() {
 		$mapping = [
-			self::SUCCESS => '\f147',
-			self::WARNING => '\f348',
-			self::ERROR   => '\f534',
-			self::INFO    => '\f463',
+			self::SUCCESS => '\f147', // yes
+			self::WARNING => '\f348', // info
+			self::ERROR   => '\f534', // warning
+			self::INFO    => '\f14c', // info outline
 		];
 
 		if ( ! isset( $mapping[ $this->type ] ) ) {

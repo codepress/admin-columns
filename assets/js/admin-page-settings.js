@@ -2413,11 +2413,12 @@ const fadeOut = (element, ms = 100, cb = null, display = 'none') => {
     }, { once: true });
 };
 const scrollToElement = (element, ms, options = {}) => {
+    var _a;
     let defaults = {
         offset: 0
     };
     let settings = Object.assign({}, defaults, options);
-    const elementY = element.offsetTop + settings.offset;
+    const elementY = element.offsetTop + ((_a = settings.offset) !== null && _a !== void 0 ? _a : 0);
     const startingY = window.pageYOffset;
     const diff = elementY - startingY;
     let start;
@@ -2459,15 +2460,13 @@ const getParamFromUrl = (param, url) => {
     return params.get(param);
 };
 const mapDataToFormData = (data, formData = null) => {
-    if (!formData) {
-        formData = new FormData();
-    }
+    let fData = formData !== null && formData !== void 0 ? formData : new FormData();
     Object.keys(data).forEach(key => {
-        appendObjectToFormData(formData, data[key], key);
+        appendObjectToFormData(fData, data[key], key);
     });
-    return formData;
+    return fData;
 };
-const appendObjectToFormData = (formData, data, parentKey = null) => {
+const appendObjectToFormData = (formData, data, parentKey = '') => {
     if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
         Object.keys(data).forEach(key => {
             appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
@@ -2491,18 +2490,21 @@ const appendObjectToFormData = (formData, data, parentKey = null) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AcEl": () => (/* binding */ AcEl),
 /* harmony export */   "default": () => (/* binding */ AcHtmlElement)
 /* harmony export */ });
-const AcEl = (el) => {
-    return AcHtmlElement.create(el);
-};
 class AcHtmlElement {
-    constructor(el) {
-        this.element = el instanceof HTMLElement ? el : document.createElement(el);
+    constructor(element) {
+        this.element = element;
+    }
+    static find(selector) {
+        let element = document.querySelector(selector);
+        return element === null ? null : new AcHtmlElement(element);
     }
     static create(el) {
-        return new AcHtmlElement(el);
+        return new AcHtmlElement(document.createElement(el));
+    }
+    getElement() {
+        return this.element;
     }
     addId(id) {
         this.element.id = id;
@@ -2541,16 +2543,18 @@ class AcHtmlElement {
         return this;
     }
     insertAfter(insertedElement) {
+        var _a;
         try {
-            this.element.parentElement.insertBefore(insertedElement, this.element.nextElementSibling);
+            (_a = this.element.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(insertedElement, this.element.nextElementSibling);
         }
         catch (e) {
             console.error("Not able to insert element after current node", this.element);
         }
     }
     insertSelfBefore(referenceNode) {
+        var _a;
         try {
-            referenceNode.parentElement.insertBefore(this.element, referenceNode);
+            (_a = referenceNode.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(this.element, referenceNode);
         }
         catch (e) {
             console.error("Not able to insert element before current node", this.element);
@@ -2558,8 +2562,9 @@ class AcHtmlElement {
         return this;
     }
     insertBefore(insertedElement) {
+        var _a;
         try {
-            this.element.parentElement.insertBefore(insertedElement, this.element);
+            (_a = this.element.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(insertedElement, this.element);
         }
         catch (e) {
             console.error("Not able to insert element before current node", this.element);
@@ -2675,7 +2680,7 @@ const createMarkup = () => {
         <div class="ac-ajax-loading__spinner spinner"></div>
         <div class="ac-ajax-loading__icon"><span class="dashicons dashicons-yes-alt"></span></div>
         <div class="ac-ajax-loading__status">Saved</div>
-    `).element;
+    `).getElement();
 };
 
 
@@ -5034,7 +5039,8 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.ac-settings-box input[data-ajax-setting]').forEach(el => {
-        new GeneralAdminSetting(el, el.dataset.ajaxSetting);
+        var _a;
+        new GeneralAdminSetting(el, (_a = el.dataset.ajaxSetting) !== null && _a !== void 0 ? _a : '');
     });
     let restoreFormButton = document.querySelector('#frm-ac-restore [type=submit]');
     if (restoreFormButton) {
@@ -5043,7 +5049,8 @@ document.addEventListener('DOMContentLoaded', () => {
             new _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_3__["default"]({
                 message: AC_I18N.restore_settings,
                 confirm: () => {
-                    restoreFormButton.closest('form').submit();
+                    var _a;
+                    (_a = restoreFormButton === null || restoreFormButton === void 0 ? void 0 : restoreFormButton.closest('form')) === null || _a === void 0 ? void 0 : _a.submit();
                 },
                 lastFocus: restoreFormButton
             }).create();
@@ -5059,18 +5066,20 @@ class GeneralAdminSetting {
     }
     init() {
         this.element.addEventListener('change', () => {
+            var _a, _b, _c, _d;
             this.initNewLoader();
-            this.element.closest('.ac-toggle-v2').append(this.loader.getElement());
-            this.loader.setLoading(true);
+            (_a = this.element.closest('.ac-toggle-v2')) === null || _a === void 0 ? void 0 : _a.append((_c = (_b = this.loader) === null || _b === void 0 ? void 0 : _b.getElement()) !== null && _c !== void 0 ? _c : document.createElement('div'));
+            (_d = this.loader) === null || _d === void 0 ? void 0 : _d.setLoading(true);
             this.persist().then(() => {
-                this.loader.finish();
+                var _a;
+                (_a = this.loader) === null || _a === void 0 ? void 0 : _a.finish();
             });
         });
+        (0,_helpers_global__WEBPACK_IMPORTED_MODULE_1__.mapDataToFormData)({});
     }
     initNewLoader() {
-        if (this.loader !== null) {
-            this.loader.getElement().remove();
-        }
+        var _a;
+        (_a = this.loader) === null || _a === void 0 ? void 0 : _a.getElement().remove();
         this.loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_2__["default"]();
     }
     persist() {

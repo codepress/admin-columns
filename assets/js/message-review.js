@@ -118,15 +118,22 @@ __webpack_require__.r(__webpack_exports__);
 const $ = __webpack_require__(/*! jquery */ "jquery");
 document.addEventListener('DOMContentLoaded', () => {
     (0,_helpers_events__WEBPACK_IMPORTED_MODULE_0__.addEventListenerLive)('click', 'a.hide-review-notice-soft', (e) => {
+        var _a;
         e.preventDefault();
         let notice = e.target.closest('.ac-notice');
-        notice.querySelector('.info').remove();
-        notice.querySelector('.help').style.display = 'block';
-        $.post(ajaxurl, JSON.parse(notice.dataset.dismissibleCallback));
+        if (notice) {
+            (_a = notice.querySelector('.info')) === null || _a === void 0 ? void 0 : _a.remove();
+            let help = notice === null || notice === void 0 ? void 0 : notice.querySelector('.help');
+            if (help) {
+                help.style.display = 'block';
+            }
+            $.post(ajaxurl, JSON.parse(notice.dataset.dismissibleCallback || ''));
+        }
     });
     (0,_helpers_events__WEBPACK_IMPORTED_MODULE_0__.addEventListenerLive)('click', 'a.hide-review-notice', (e) => {
+        var _a, _b;
         e.preventDefault();
-        e.target.closest('.ac-notice').querySelector('.notice-dismiss').dispatchEvent(new Event('click'));
+        (_b = (_a = e.target.closest('.ac-notice')) === null || _a === void 0 ? void 0 : _a.querySelector('.notice-dismiss')) === null || _b === void 0 ? void 0 : _b.dispatchEvent(new Event('click'));
     });
 });
 

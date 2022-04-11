@@ -1,5 +1,5 @@
 import Nanobus from "nanobus";
-import {AcEl} from "../helpers/html-element";
+import AcHtmlElement from "../helpers/html-element";
 import AcHookableFilters from "./ac-hookable-filters";
 
 export default class AcServices {
@@ -7,13 +7,13 @@ export default class AcServices {
     public filters: AcHookableFilters
     private services: { [key: string]: any }
     private events: Nanobus
-    public $: typeof AcEl
+    public $: typeof AcHtmlElement
 
     constructor() {
         this.services = {};
         this.events = new Nanobus();
         this.filters = new AcHookableFilters();
-        this.$ = AcEl;
+        this.$ = AcHtmlElement;
     }
 
     registerService(name: string, service: any): this {

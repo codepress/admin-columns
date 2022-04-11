@@ -7,7 +7,6 @@ use AC\Admin\AdminScripts;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Admin\Preference;
-use AC\Admin\WpMenuFactory;
 use AC\Controller;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
@@ -65,7 +64,7 @@ class AdminColumns extends Plugin {
 		PageRequestHandlers::add_handler( $page_handler );
 
 		$services = [
-			new Admin\Admin( new PageRequestHandlers(), new WpMenuFactory(), new AdminScripts( $location ) ),
+			new Admin\Admin( new PageRequestHandlers(), $location, new AdminScripts( $location ) ),
 			new Admin\Notice\ReadOnlyListScreen(),
 			new Ajax\NumberFormat( new Request() ),
 			new ListScreens(),

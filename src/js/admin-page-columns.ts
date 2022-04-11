@@ -29,14 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Init the Pro promotion Modal
-    document.querySelectorAll<HTMLElement>('#ac-modal-pro').forEach(proModal => {
-        AcServices.getService<Modals>('Modals').register(new Modal(proModal), 'pro');
-    });
+    if( AcServices.hasService( 'Modals') ){
+        document.querySelectorAll<HTMLElement>('#ac-modal-pro').forEach(proModal => {
+            AcServices.getService<Modals>('Modals')?.register(new Modal(proModal), 'pro');
+        });
+    }
+
 
     document.querySelectorAll<HTMLSelectElement>('#ac_list_screen').forEach(select => {
         select.addEventListener('change', () => {
             document.querySelectorAll<HTMLElement>('.view-link').forEach(link => link.style.display = 'none');
-            select.closest<HTMLFormElement>('form').submit();
+            select.closest<HTMLFormElement>('form')?.submit();
             select.disabled = true;
             (select.nextElementSibling as HTMLElement).style.display = 'inline-block';
         });
@@ -49,10 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Screen Options
-    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_id"] input').forEach(el => new InfoScreenOption('show_column_id', el, 'show-column-id', document.querySelector('.ac-boxes')));
-    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_type"] input').forEach(el => new InfoScreenOption('show_column_type', el, 'show-column-type', document.querySelector('.ac-boxes')));
-    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_list_screen_id"] input').forEach(el => new InfoScreenOption('show_list_screen_id', el, 'show-list-screen-id', document.querySelector('.ac-admin')));
-    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_list_screen_type"] input').forEach(el => new InfoScreenOption('show_list_screen_type', el, 'show-list-screen-type', document.querySelector('.ac-admin')));
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_id"] input').forEach(el => new InfoScreenOption('show_column_id', el, 'show-column-id', document.querySelector('.ac-boxes')!));
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_column_type"] input').forEach(el => new InfoScreenOption('show_column_type', el, 'show-column-type', document.querySelector('.ac-boxes')!));
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_list_screen_id"] input').forEach(el => new InfoScreenOption('show_list_screen_id', el, 'show-list-screen-id', document.querySelector('.ac-admin')!));
+    document.querySelectorAll<HTMLInputElement>('[data-ac-screen-option="show_list_screen_type"] input').forEach(el => new InfoScreenOption('show_list_screen_type', el, 'show-list-screen-type', document.querySelector('.ac-admin')!));
 });
 
 AcServices.addListener(EventConstants.SETTINGS.FORM.LOADED, (form: Form) => {
@@ -67,12 +70,12 @@ AcServices.addListener(EventConstants.SETTINGS.FORM.LOADED, (form: Form) => {
 });
 
 AcServices.addListener(EventConstants.SETTINGS.FORM.SAVING, () => {
-    document.querySelector('#cpac .ac-admin').classList.add('saving');
+    document.querySelector('#cpac .ac-admin')?.classList.add('saving');
 });
 
 AcServices.addListener(EventConstants.SETTINGS.FORM.SAVED, () => {
-    document.querySelector('#cpac .ac-admin').classList.remove('saving');
-    document.querySelector('#cpac .ac-admin').classList.add('stored');
+    document.querySelector('#cpac .ac-admin')?.classList.remove('saving');
+    document.querySelector('#cpac .ac-admin')?.classList.add('stored');
 });
 
 AcServices.addListener(EventConstants.SETTINGS.COLUMN.INIT, (column: Column) => {

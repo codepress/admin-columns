@@ -27,20 +27,16 @@ export default class Modals {
         return modal;
     }
 
-    get(key: string): Modal {
+    get(key: string): Modal|null {
         return this.modals.hasOwnProperty(key) ? this.modals[key] : null;
     }
 
     open(key: string) {
-        if (this.get(key)) {
-            this.get(key).open()
-        }
+        this.get(key)?.open();
     }
 
     close(key: string) {
-        if (this.get(key)) {
-            this.get(key).close()
-        }
+        this.get(key)?.close();
     }
 
     closeAll() {

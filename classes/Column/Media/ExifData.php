@@ -14,7 +14,8 @@ class ExifData extends Column\Media\MetaValue {
 		parent::__construct();
 
 		$this->set_type( 'column-exif_data' )
-		     ->set_label( __( 'EXIF Data', 'codepress-admin-columns' ) );
+		     ->set_group( 'media-meta' )
+		     ->set_label( __( 'Image Data (EXIF)', 'codepress-admin-columns' ) );
 	}
 
 	protected function get_option_name() {
