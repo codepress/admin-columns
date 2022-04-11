@@ -40,17 +40,18 @@
         if (items.length > 1) {
             document.addEventListener('keydown', initMouseDown);
         }
-        title = `#${item.objectId}`;
-        updateDate(item.columnName, item.objectId)
+        console.log(item);
+        title = item.title ?? `#${item.objectId}`;
+        updateData(item);
     });
     onDestroy(() => {
         document.removeEventListener('keydown', initMouseDown);
     })
-    const getTitle = (id) => {
-        return `${columnTitle} #${id}`;
+    const getTitle = (item: ValueModalItem) => {
+        return item.title ?? `${columnTitle} #${item.objectId}`;
     }
-    const updateDate = (column, id) => {
-        objectId = id;
+    const updateData = (item: ValueModalItem) => {
+        objectId = item.objectId;
         title = 'Loading';
         content = 'Loading';
         if (source) {
@@ -65,18 +66,18 @@
             params: {
                 action: 'ac_get_column_modal_value',
                 layout: AC.layout,
-                column_name: column,
-                object_id: id,
+                column_name: item.columnName,
+                object_id: item.objectId,
                 _ajax_nonce: AC.ajax_nonce
             }
         }).then((response: AxiosResponse<string>) => {
             content = response.data
-            title = getTitle(objectId);
+            title = getTitle(item);
         });
     }
 
     const updateItem = (index) => {
-        updateDate(items[index].columnName, items[index].objectId);
+        updateData(items[index]);
     }
 
     const nextItem = () => {

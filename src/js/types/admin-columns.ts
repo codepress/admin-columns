@@ -42,6 +42,7 @@ export type ListScreenStorageType = {
 
 export type ValueModalItem = {
     element: HTMLLinkElement,
+    title: string,
     columnName: string,
     objectId: number
 }

@@ -3,6 +3,7 @@ import ValueModalComponent from "../components/ValueModal.svelte";
 
 export type ValueModal = {
     element: HTMLElement,
+    title: string|null,
     columnName: string,
     objectId: number
 }

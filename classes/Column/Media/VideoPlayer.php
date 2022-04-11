@@ -31,7 +31,7 @@ class VideoPlayer extends Column implements Column\DetailedValue {
 		}
 
 		return 'modal' === $this->get_display_type()
-			? sprintf( '<a data-modal-value href="#">%s</a>', __( 'Play', 'codepress-admin-columns' ) )
+			? sprintf( '<a data-modal-value="%s" data-modal-title="' . get_the_title( $id ) . '">%s</a>', $url, __( 'Play', 'codepress-admin-columns' ) )
 			: $this->get_video_embed( $url );
 	}
 

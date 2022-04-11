@@ -1886,7 +1886,7 @@ function create_if_block_1(ctx) {
     }
 
   };
-} // (103:2) {#if items.length > 1 }
+} // (106:2) {#if items.length > 1 }
 
 
 function create_if_block(ctx) {
@@ -2109,6 +2109,8 @@ function instance($$self, $$props, $$invalidate) {
   };
 
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
+    var _a;
+
     let item = items.find(i => i.objectId === objectId);
     columnTitle = item.element.closest('td').dataset.colname;
 
@@ -2116,19 +2118,22 @@ function instance($$self, $$props, $$invalidate) {
       document.addEventListener('keydown', initMouseDown);
     }
 
-    $$invalidate(2, title = `#${item.objectId}`);
-    updateDate(item.columnName, item.objectId);
+    console.log(item);
+    $$invalidate(2, title = (_a = item.title) !== null && _a !== void 0 ? _a : `#${item.objectId}`);
+    updateData(item);
   });
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onDestroy)(() => {
     document.removeEventListener('keydown', initMouseDown);
   });
 
-  const getTitle = id => {
-    return `${columnTitle} #${id}`;
+  const getTitle = item => {
+    var _a;
+
+    return (_a = item.title) !== null && _a !== void 0 ? _a : `${columnTitle} #${item.objectId}`;
   };
 
-  const updateDate = (column, id) => {
-    $$invalidate(7, objectId = id);
+  const updateData = item => {
+    $$invalidate(7, objectId = item.objectId);
     $$invalidate(2, title = 'Loading');
     $$invalidate(3, content = 'Loading');
 
@@ -2144,18 +2149,18 @@ function instance($$self, $$props, $$invalidate) {
       params: {
         action: 'ac_get_column_modal_value',
         layout: AC.layout,
-        column_name: column,
-        object_id: id,
+        column_name: item.columnName,
+        object_id: item.objectId,
         _ajax_nonce: AC.ajax_nonce
       }
     }).then(response => {
       $$invalidate(3, content = response.data);
-      $$invalidate(2, title = getTitle(objectId));
+      $$invalidate(2, title = getTitle(item));
     });
   };
 
   const updateItem = index => {
-    updateDate(items[index].columnName, items[index].objectId);
+    updateData(items[index]);
   };
 
   const nextItem = () => {
@@ -6503,6 +6508,7 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
     });
     let items = {};
     event.table.Cells.getAll().forEach(cell => {
+        var _a;
         let link = cell.getElement().querySelector('[data-modal-value]');
         if (link) {
             if (!items.hasOwnProperty(cell.getName())) {
@@ -6510,6 +6516,7 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
             }
             items[cell.getName()].push({
                 element: link,
+                title: (_a = link.dataset.modalTitle) !== null && _a !== void 0 ? _a : null,
                 columnName: cell.getName(),
                 objectId: cell.getObjectID()
             });

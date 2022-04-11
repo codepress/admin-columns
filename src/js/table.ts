@@ -20,7 +20,7 @@ declare let AC: LocalizedAcTable
 let AC_SERVICES = initAcServices();
 
 AC_SERVICES.registerService('Modals', new Modals());
-AC_SERVICES.registerService('tooltips', initAcTooltips );
+AC_SERVICES.registerService('tooltips', initAcTooltips);
 
 document.addEventListener('DOMContentLoaded', () => {
     let table = resolveTableBySelector(AC.table_id);
@@ -80,6 +80,7 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
 
             items[cell.getName()].push({
                 element: link,
+                title: link.dataset.modalTitle ?? null,
                 columnName: cell.getName(),
                 objectId: cell.getObjectID()
             });
