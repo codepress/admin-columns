@@ -5,7 +5,7 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\Settings\Column\VideoDisplay;
 
-class VideoPlayer extends Column implements Column\ModalValue {
+class VideoPlayer extends Column implements Column\AjaxValue {
 
 	public function __construct() {
 		$this->set_type( 'column-video_player' )
@@ -30,9 +30,19 @@ class VideoPlayer extends Column implements Column\ModalValue {
 			return $this->get_empty_char();
 		}
 
-		return 'modal' === $this->get_display_type()
-			? sprintf( '<a data-modal-value="%s" data-modal-class="-nopadding" data-modal-title="%s">%s</a>', $url, get_the_title( $id ),__( 'Play', 'codepress-admin-columns' ) )
-			: $this->get_video_embed( $url );
+		if ( 'modal' === $this->get_display_type() ) {
+			return ac_helper()->html->get_ajax_modal_link(
+				__( 'Play', 'codepress-admin-columns' ),
+				[
+					'title'     => get_the_title( $id ),
+					'edit_link' => get_edit_post_link( $id ),
+					'id'        => $id,
+					'class'     => "-nopadding",
+				]
+			);
+		}
+
+		return $this->get_video_embed( $url );
 	}
 
 	private function is_valid_mime_type( $id ) {
@@ -61,7 +71,7 @@ class VideoPlayer extends Column implements Column\ModalValue {
 			: false;
 	}
 
-	public function get_modal_value( $id ) {
+	public function get_ajax_value( $id ) {
 		$url = $this->get_raw_value( $id );
 
 		return $url
