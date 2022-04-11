@@ -35,7 +35,7 @@
         }
     }
     onMount(() => {
-        let item = items.find(i => i.objectId = objectId);
+        let item = items.find(i => i.objectId === objectId);
         columnTitle = item.element.closest('td').dataset.colname as string;
         if (items.length > 1) {
             document.addEventListener('keydown', initMouseDown);
