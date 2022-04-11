@@ -10,6 +10,10 @@
 @import 'components/toggle';
 @import 'components/value-modal';
 
+
+[data-modal-value] {
+	cursor: pointer;
+}
 /* =Status icons
 -------------------------------------------------------------- */
 .column-status {

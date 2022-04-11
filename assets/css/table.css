@@ -518,6 +518,10 @@ html.wp-toolbar .ac-tooltip {
   background: none;
 }
 
+[data-modal-value] {
+  cursor: pointer;
+}
+
 /* =Status icons
 -------------------------------------------------------------- */
 .column-status .dashicons {
