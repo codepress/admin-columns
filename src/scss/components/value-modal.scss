@@ -35,11 +35,12 @@ $modalZindex: 10000000000;
 
 				h2 {
 					margin: 0;
+					font-size: 15px;
 					padding: 10px 20px;
 				}
 			}
 			.ac-value-modal-actions {
-				width: 150px;
+				width: 70px;
 				display: flex;
 				align-items: center;
 				justify-content: flex-end;
@@ -75,10 +76,11 @@ $modalZindex: 10000000000;
 			background: #fafafa;
 
 			button {
-				width: 30px;
-				height: 30px;
+				width: 40px;
+				height: 40px;
 				border: none;
 				border-left: 1px solid #ccc;
+				justify-content: center;
 				cursor: pointer;
 				background: none;
 				display: flex;
@@ -94,6 +96,14 @@ $modalZindex: 10000000000;
 				}
 			}
 		}
+	}
+
+	.ac-badge {
+		background: #eee;
+		border-radius: 3px;
+		color: #464646;
+		font-size: 13px;
+		padding: 2px 10px;
 	}
 
 	&.-nopadding {

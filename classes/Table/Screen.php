@@ -246,6 +246,12 @@ final class Screen implements Registrable {
 			]
 		);
 
+		wp_localize_script( 'ac-table', 'AC_I18N',
+			[
+				'value_loading' => __('Loading', 'codepress-admin-columns')
+			]
+		);
+
 		/**
 		 * @param ListScreen $list_screen
 		 */

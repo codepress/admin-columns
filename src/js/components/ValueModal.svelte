@@ -2,10 +2,11 @@
     import {LocalizedAcTable} from "../types/table";
     import {onDestroy, onMount} from "svelte";
     import axios, {AxiosResponse} from "axios";
-    import {ValueModalItem} from "../types/admin-columns";
+    import {LocalizedAcTableI18n, ValueModalItem} from "../types/admin-columns";
 
     declare const ajaxurl: string;
     declare const AC: LocalizedAcTable;
+    declare const AC_I18N: LocalizedAcTableI18n;
 
     export let items: Array<ValueModalItem>
     export let objectId;
@@ -56,8 +57,8 @@
     }
     const updateData = (item: ValueModalItem) => {
         objectId = item.objectId;
-        title = 'Loading';
-        content = '<span class="loading">Loading</span>';
+        title = AC_I18N.value_loading;
+        content = `<span class="loading">${AC_I18N.value_loading}</span>`;
         if (source) {
             source.cancel();
         }
@@ -106,6 +107,7 @@
 				{#if title}
 					<h2>{title}</h2>
 				{/if}
+				<span class="ac-badge">#{objectId}</span>
 			</div>
 			<div class="ac-value-modal-actions">
 				<button on:click={close}><span class="dashicons dashicons-no-alt"></span></button>
