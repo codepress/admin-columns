@@ -34,7 +34,7 @@ class VideoPlayer extends Column implements Column\DetailedValue {
 		}
 
 		return 'modal' === $this->get_display_type()
-			? '<a data-modal-value href="#">' . __( 'View video', 'codepress-admin-columns' ) . '</a>'
+			? sprintf( '<a data-modal-value href="#">%s</a>', __( 'Play', 'codepress-admin-columns' ) )
 			: $this->get_video_embed( $url, 300 );
 	}
 
@@ -48,14 +48,14 @@ class VideoPlayer extends Column implements Column\DetailedValue {
 		return get_post_field( 'post_mime_type', $id );
 	}
 
-	private function get_video_embed( $url, $width, $attributes = [] ) {
-		$attribute_markup = '';
+	private function get_video_embed( $url, $attributes = [] ) {
+		$attribute_markup = [];
 
 		foreach ( $attributes as $key => $value ) {
-			$attribute_markup .= ' ' . $key . '=' . esc_attr__( $value );
+			$attribute_markup[] = sprintf( '%s="%s"', $key, esc_attr__( $value ) );
 		}
 
-		return '<video controls ' . $attribute_markup . ' width="' . $width . '" src="' . esc_url( $url ) . '"></video>';
+		return sprintf( '<video controls %s src="%s"></video>', implode( ' ', $attribute_markup ), esc_url( $url ) );
 	}
 
 	public function get_raw_value( $id ) {
@@ -68,7 +68,7 @@ class VideoPlayer extends Column implements Column\DetailedValue {
 		$url = $this->get_raw_value( $id );
 
 		return $url
-			? $this->get_video_embed( $url, 600, [ 'autoplay' => 'true' ] )
+			? $this->get_video_embed( $url, [ 'width' => 600, 'autoplay' => 'true' ] )
 			: $this->get_empty_char();
 	}
 
