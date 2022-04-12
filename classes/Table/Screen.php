@@ -248,7 +248,8 @@ final class Screen implements Registrable {
 
 		wp_localize_script( 'ac-table', 'AC_I18N',
 			[
-				'value_loading' => __('Loading', 'codepress-admin-columns')
+				'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
+				'edit'          => __( 'Edit', 'codepress-admin-columns' ),
 			]
 		);
 

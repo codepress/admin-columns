@@ -513,8 +513,13 @@ html.wp-toolbar .ac-tooltip {
   display: block;
 }
 .ac-value-modal .ac-value-modal-panel__body img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
+}
+.ac-value-modal .ac-value-modal-panel__body span.loading {
+  display: block;
+  margin: 20px;
+  text-align: center;
 }
 .ac-value-modal .ac-value-modal-panel__footer {
   display: flex;

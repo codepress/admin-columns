@@ -129,7 +129,7 @@
 		<div class="ac-value-modal-panel__footer">
 			<div class="ac-value-modal__edit">
 				{#if editLink }
-					<a class="edit btn button" href="">Edit</a>
+					<a class="edit btn button" href="{editLink}">{AC_I18N.edit}</a>
 				{/if}
 			</div>
 			{#if items.length > 1 }

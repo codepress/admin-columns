@@ -72,8 +72,14 @@ $modalZindex: 10000000000;
 			}
 
 			img {
-				max-width: 100%;
+				width: 100%;
 				height: auto;
+			}
+
+			span.loading {
+				display: block;
+				margin: 20px;
+				text-align: center;
 			}
 		}
 

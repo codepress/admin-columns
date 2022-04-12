@@ -5,15 +5,14 @@ namespace AC\Column\Media;
 
 use AC\Column;
 
-class DocumentPreview extends Column implements Column\AjaxValue {
+class Preview extends Column implements Column\AjaxValue {
 
 	public function __construct() {
-		$this->set_type( 'column-document-preview' )
-		     ->set_group( 'media-document' )
+		$this->set_type( 'column-preview' )
 		     ->set_label( __( 'Preview', 'codepress-admin-columns' ) );
 	}
 
-	private function has_preview( $id ) {
+	private function has_image( $id ) {
 		return null !== $this->get_image_url( $id );
 	}
 
@@ -28,7 +27,7 @@ class DocumentPreview extends Column implements Column\AjaxValue {
 	}
 
 	public function get_value( $id ) {
-		if ( ! $this->has_preview( $id ) ) {
+		if ( ! $this->has_image( $id ) ) {
 			return $this->get_empty_char();
 		}
 
@@ -44,7 +43,7 @@ class DocumentPreview extends Column implements Column\AjaxValue {
 	}
 
 	public function get_ajax_value( $id ) {
-		return sprintf( '<img src="%s" alt="">', $this->get_image_url( $id ) );
+		return sprintf( '<img src="%s" alt="">', esc_url( $this->get_image_url( $id ) ) );
 	}
 
 }

@@ -1891,16 +1891,31 @@ function create_if_block_2(ctx) {
 
 function create_if_block_1(ctx) {
   let a;
+  let t_value = AC_I18N.edit + "";
+  let t;
   return {
     c() {
       a = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("a");
-      a.textContent = "Edit";
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t_value);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "edit btn button");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", "");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href",
+      /*editLink*/
+      ctx[6]);
     },
 
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, a, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(a, t);
+    },
+
+    p(ctx, dirty) {
+      if (dirty &
+      /*editLink*/
+      64) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href",
+        /*editLink*/
+        ctx[6]);
+      }
     },
 
     d(detaching) {
@@ -2104,7 +2119,9 @@ function create_fragment(ctx) {
       if (
       /*editLink*/
       ctx[6]) {
-        if (if_block1) {} else {
+        if (if_block1) {
+          if_block1.p(ctx, dirty);
+        } else {
           if_block1 = create_if_block_1(ctx);
           if_block1.c();
           if_block1.m(div5, null);
