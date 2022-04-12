@@ -71,7 +71,6 @@ $modalZindex: 10000000000;
 
 		&__footer {
 			display: flex;
-			justify-content: flex-end;
 			border-top: 1px solid #ccc;
 			background: #fafafa;
 
@@ -96,6 +95,20 @@ $modalZindex: 10000000000;
 				}
 			}
 		}
+	}
+
+	&__edit {
+		flex-grow: 1;
+		padding-left: 10px;
+		display: flex;
+		align-items: center;
+	}
+
+	&__navigation {
+		flex-grow: 0;
+		width: 100px;
+		display: flex;
+		justify-content: flex-end;
 	}
 
 	.ac-badge {

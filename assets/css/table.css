@@ -512,7 +512,6 @@ html.wp-toolbar .ac-tooltip {
 }
 .ac-value-modal .ac-value-modal-panel__footer {
   display: flex;
-  justify-content: flex-end;
   border-top: 1px solid #ccc;
   background: #fafafa;
 }
@@ -533,6 +532,18 @@ html.wp-toolbar .ac-tooltip {
 }
 .ac-value-modal .ac-value-modal-panel__footer button:hover {
   background: #efefef;
+}
+.ac-value-modal__edit {
+  flex-grow: 1;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+}
+.ac-value-modal__navigation {
+  flex-grow: 0;
+  width: 100px;
+  display: flex;
+  justify-content: flex-end;
 }
 .ac-value-modal .ac-badge {
   background: #eee;
