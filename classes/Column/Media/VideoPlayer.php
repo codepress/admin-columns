@@ -34,10 +34,11 @@ class VideoPlayer extends Column implements Column\AjaxValue {
 			return ac_helper()->html->get_ajax_modal_link(
 				__( 'Play', 'codepress-admin-columns' ),
 				[
-					'title'     => get_the_title( $id ),
-					'edit_link' => get_edit_post_link( $id ),
-					'id'        => $id,
-					'class'     => "-nopadding",
+					'title'         => get_the_title( $id ),
+					'edit_link'     => get_edit_post_link( $id ),
+					'download_link' => $this->get_raw_value( $id ) ?: null,
+					'id'            => $id,
+					'class'         => "-nopadding",
 				]
 			);
 		}
@@ -46,7 +47,7 @@ class VideoPlayer extends Column implements Column\AjaxValue {
 	}
 
 	private function is_valid_mime_type( $id ) {
-		$valid_mime_types = apply_filters( 'ac/column/video_player/valid_mime_types', [ 'video/mp4', 'video/quicktime' ], $this );
+		$valid_mime_types = apply_filters( 'ac/column/video_player/valid_mime_types', [ 'video/mp4', 'video/webm', 'video/quicktime' ], $this );
 
 		return in_array( $this->get_mime_type( $id ), $valid_mime_types );
 	}

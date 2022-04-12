@@ -80,7 +80,8 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
 
             items[cell.getName()].push({
                 element: link,
-                edit: link.dataset.modalEditLink ?? '',
+                editLink: link.dataset.modalEditLink ?? '',
+                downloadLink: link.dataset.modalDownloadLink ?? '',
                 title: link.dataset.modalTitle ?? null,
                 columnName: cell.getName(),
                 objectId: cell.getObjectID()

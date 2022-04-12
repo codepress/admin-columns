@@ -115,6 +115,10 @@ $modalZindex: 10000000000;
 		padding-left: 10px;
 		display: flex;
 		align-items: center;
+
+		a.button {
+			margin-right: 5px;
+		}
 	}
 
 	&__navigation {

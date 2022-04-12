@@ -166,6 +166,9 @@ class Html {
 		if ( isset( $attributes['edit_link'] ) && $attributes['edit_link'] ) {
 			$attribute_markup[] = sprintf( 'data-modal-edit-link="%s"', esc_url( $attributes['edit_link'] ) );
 		}
+		if ( isset( $attributes['download_link'] ) && $attributes['download_link'] ) {
+			$attribute_markup[] = sprintf( 'data-modal-download-link="%s"', esc_url( $attributes['download_link'] ) );
+		}
 		if ( isset( $attributes['class'] ) && $attributes['class'] ) {
 			$attribute_markup[] = sprintf( 'data-modal-class="%s"', esc_attr( $attributes['class'] ) );
 		}

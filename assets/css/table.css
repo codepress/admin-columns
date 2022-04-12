@@ -549,6 +549,9 @@ html.wp-toolbar .ac-tooltip {
   display: flex;
   align-items: center;
 }
+.ac-value-modal__edit a.button {
+  margin-right: 5px;
+}
 .ac-value-modal__navigation {
   flex-grow: 0;
   width: 100px;
@@ -700,6 +703,9 @@ span.status-closed {
 .actions #post-query-submit {
   float: left;
   vertical-align: middle;
+}
+
+body:not(.post-type-attachment) .actions #post-query-submit {
   margin-bottom: 4px;
 }
 

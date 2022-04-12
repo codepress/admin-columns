@@ -5,6 +5,7 @@ namespace AC\Column\Media;
 
 use AC\Column;
 
+// TODO add support for video/pdf/audio
 class Preview extends Column implements Column\AjaxValue {
 
 	public function __construct() {
@@ -14,6 +15,10 @@ class Preview extends Column implements Column\AjaxValue {
 
 	private function has_image( $id ) {
 		return null !== $this->get_image_url( $id );
+	}
+
+	private function get_download_url( $id ) {
+		return wp_get_attachment_url( $id );
 	}
 
 	private function get_image_url( $id ) {
@@ -32,12 +37,13 @@ class Preview extends Column implements Column\AjaxValue {
 		}
 
 		return ac_helper()->html->get_ajax_modal_link(
-			__( 'Preview', 'codepress-admin-columns' ),
+			__( 'View', 'codepress-admin-columns' ),
 			[
-				'title'     => get_the_title( $id ),
-				'edit_link' => get_edit_post_link( $id ),
-				'id'        => $id,
-				'class'     => "-nopadding",
+				'title'         => get_the_title( $id ),
+				'edit_link'     => get_edit_post_link( $id ),
+				'download_link' => $this->get_download_url( $id ) ?: null,
+				'id'            => $id,
+				'class'         => "-nopadding",
 			]
 		);
 	}

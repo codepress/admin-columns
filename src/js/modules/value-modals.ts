@@ -3,8 +3,9 @@ import ValueModalComponent from "../components/ValueModal.svelte";
 
 export type ValueModal = {
     element: HTMLElement,
-    title: string|null,
-    edit: string,
+    title: string | null,
+    editLink: string,
+    downloadLink: string,
     columnName: string,
     objectId: number
 }

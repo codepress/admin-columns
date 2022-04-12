@@ -250,6 +250,7 @@ final class Screen implements Registrable {
 			[
 				'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
 				'edit'          => __( 'Edit', 'codepress-admin-columns' ),
+				'download'      => __( 'Download', 'codepress-admin-columns' ),
 			]
 		);
 

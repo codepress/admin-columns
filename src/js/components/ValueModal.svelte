@@ -18,6 +18,7 @@
     let title;
     let content;
     let editLink;
+    let downloadLink;
     let source;
 
     const CancelToken = axios.CancelToken;
@@ -66,7 +67,8 @@
         objectId = item.objectId;
         title = AC_I18N.value_loading;
         content = `<span class="loading">${AC_I18N.value_loading}</span>`;
-        editLink = item.edit;
+        editLink = item.editLink;
+        downloadLink = item.downloadLink;
         if (source) {
             source.cancel();
         }
@@ -130,6 +132,9 @@
 			<div class="ac-value-modal__edit">
 				{#if editLink }
 					<a class="edit btn button" href="{editLink}">{AC_I18N.edit}</a>
+				{/if}
+				{#if downloadLink }
+					<a class="edit btn button" href="{downloadLink}" download>{AC_I18N.download}</a>
 				{/if}
 			</div>
 			{#if items.length > 1 }

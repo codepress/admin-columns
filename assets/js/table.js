@@ -1857,7 +1857,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function create_if_block_2(ctx) {
+function create_if_block_3(ctx) {
   let h2;
   let t;
   return {
@@ -1886,10 +1886,10 @@ function create_if_block_2(ctx) {
     }
 
   };
-} // (112:4) {#if editLink }
+} // (114:4) {#if editLink }
 
 
-function create_if_block_1(ctx) {
+function create_if_block_2(ctx) {
   let a;
   let t_value = AC_I18N.edit + "";
   let t;
@@ -1923,7 +1923,45 @@ function create_if_block_1(ctx) {
     }
 
   };
-} // (116:3) {#if items.length > 1 }
+} // (117:4) {#if downloadLink }
+
+
+function create_if_block_1(ctx) {
+  let a;
+  let t_value = AC_I18N.download + "";
+  let t;
+  return {
+    c() {
+      a = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("a");
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t_value);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "edit btn button");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href",
+      /*downloadLink*/
+      ctx[7]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "download", "");
+    },
+
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, a, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(a, t);
+    },
+
+    p(ctx, dirty) {
+      if (dirty &
+      /*downloadLink*/
+      128) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href",
+        /*downloadLink*/
+        ctx[7]);
+      }
+    },
+
+    d(detaching) {
+      if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(a);
+    }
+
+  };
+} // (121:3) {#if items.length > 1 }
 
 
 function create_if_block(ctx) {
@@ -1957,9 +1995,9 @@ function create_if_block(ctx) {
       if (!mounted) {
         dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button0, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(
         /*prevItem*/
-        ctx[9])), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button1, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(
+        ctx[10])), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button1, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(
         /*nextItem*/
-        ctx[8]))];
+        ctx[9]))];
         mounted = true;
       }
     },
@@ -1995,16 +2033,20 @@ function create_fragment(ctx) {
   let div6;
   let div5;
   let t7;
+  let t8;
   let div8_class_value;
   let mounted;
   let dispose;
   let if_block0 =
   /*title*/
-  ctx[4] && create_if_block_2(ctx);
+  ctx[4] && create_if_block_3(ctx);
   let if_block1 =
   /*editLink*/
-  ctx[6] && create_if_block_1(ctx);
+  ctx[6] && create_if_block_2(ctx);
   let if_block2 =
+  /*downloadLink*/
+  ctx[7] && create_if_block_1(ctx);
+  let if_block3 =
   /*items*/
   ctx[1].length > 1 && create_if_block(ctx);
   return {
@@ -2034,6 +2076,8 @@ function create_fragment(ctx) {
       if (if_block1) if_block1.c();
       t7 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block2) if_block2.c();
+      t8 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block3) if_block3.c();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "ac-value-modal-background");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span0, "class", "ac-badge");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "ac-value-modal-title");
@@ -2072,18 +2116,20 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div7, div6);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div6, div5);
       if (if_block1) if_block1.m(div5, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div6, t7);
-      if (if_block2) if_block2.m(div6, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div5, t7);
+      if (if_block2) if_block2.m(div5, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div6, t8);
+      if (if_block3) if_block3.m(div6, null);
       /*div8_binding*/
 
-      ctx[11](div8);
+      ctx[12](div8);
 
       if (!mounted) {
         dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "click",
         /*close*/
-        ctx[7]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click",
+        ctx[8]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click",
         /*close*/
-        ctx[7])];
+        ctx[8])];
         mounted = true;
       }
     },
@@ -2095,7 +2141,7 @@ function create_fragment(ctx) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
-          if_block0 = create_if_block_2(ctx);
+          if_block0 = create_if_block_3(ctx);
           if_block0.c();
           if_block0.m(div1, t1);
         }
@@ -2122,9 +2168,9 @@ function create_fragment(ctx) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
         } else {
-          if_block1 = create_if_block_1(ctx);
+          if_block1 = create_if_block_2(ctx);
           if_block1.c();
-          if_block1.m(div5, null);
+          if_block1.m(div5, t7);
         }
       } else if (if_block1) {
         if_block1.d(1);
@@ -2132,18 +2178,33 @@ function create_fragment(ctx) {
       }
 
       if (
-      /*items*/
-      ctx[1].length > 1) {
+      /*downloadLink*/
+      ctx[7]) {
         if (if_block2) {
           if_block2.p(ctx, dirty);
         } else {
-          if_block2 = create_if_block(ctx);
+          if_block2 = create_if_block_1(ctx);
           if_block2.c();
-          if_block2.m(div6, null);
+          if_block2.m(div5, null);
         }
       } else if (if_block2) {
         if_block2.d(1);
         if_block2 = null;
+      }
+
+      if (
+      /*items*/
+      ctx[1].length > 1) {
+        if (if_block3) {
+          if_block3.p(ctx, dirty);
+        } else {
+          if_block3 = create_if_block(ctx);
+          if_block3.c();
+          if_block3.m(div6, null);
+        }
+      } else if (if_block3) {
+        if_block3.d(1);
+        if_block3 = null;
       }
 
       if (dirty &
@@ -2163,9 +2224,10 @@ function create_fragment(ctx) {
       if (if_block0) if_block0.d();
       if (if_block1) if_block1.d();
       if (if_block2) if_block2.d();
+      if (if_block3) if_block3.d();
       /*div8_binding*/
 
-      ctx[11](null);
+      ctx[12](null);
       mounted = false;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
     }
@@ -2189,6 +2251,7 @@ function instance($$self, $$props, $$invalidate) {
   let title;
   let content;
   let editLink;
+  let downloadLink;
   let source;
   const CancelToken = (axios__WEBPACK_IMPORTED_MODULE_3___default().CancelToken);
 
@@ -2240,7 +2303,8 @@ function instance($$self, $$props, $$invalidate) {
     $$invalidate(0, objectId = item.objectId);
     $$invalidate(4, title = AC_I18N.value_loading);
     $$invalidate(5, content = `<span class="loading">${AC_I18N.value_loading}</span>`);
-    $$invalidate(6, editLink = item.edit);
+    $$invalidate(6, editLink = item.editLink);
+    $$invalidate(7, downloadLink = item.downloadLink);
 
     if (source) {
       source.cancel();
@@ -2290,10 +2354,10 @@ function instance($$self, $$props, $$invalidate) {
   $$self.$$set = $$props => {
     if ('items' in $$props) $$invalidate(1, items = $$props.items);
     if ('objectId' in $$props) $$invalidate(0, objectId = $$props.objectId);
-    if ('destroyHandler' in $$props) $$invalidate(10, destroyHandler = $$props.destroyHandler);
+    if ('destroyHandler' in $$props) $$invalidate(11, destroyHandler = $$props.destroyHandler);
   };
 
-  return [objectId, items, modalClass, mainElement, title, content, editLink, close, nextItem, prevItem, destroyHandler, div8_binding];
+  return [objectId, items, modalClass, mainElement, title, content, editLink, downloadLink, close, nextItem, prevItem, destroyHandler, div8_binding];
 }
 
 class ValueModal extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
@@ -2302,7 +2366,7 @@ class ValueModal extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComp
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       items: 1,
       objectId: 0,
-      destroyHandler: 10
+      destroyHandler: 11
     });
   }
 
@@ -6613,7 +6677,7 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
     });
     let items = {};
     event.table.Cells.getAll().forEach(cell => {
-        var _a, _b;
+        var _a, _b, _c;
         let link = cell.getElement().querySelector('[data-modal-value]');
         if (link) {
             if (!items.hasOwnProperty(cell.getName())) {
@@ -6621,8 +6685,9 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
             }
             items[cell.getName()].push({
                 element: link,
-                edit: (_a = link.dataset.modalEditLink) !== null && _a !== void 0 ? _a : '',
-                title: (_b = link.dataset.modalTitle) !== null && _b !== void 0 ? _b : null,
+                editLink: (_a = link.dataset.modalEditLink) !== null && _a !== void 0 ? _a : '',
+                downloadLink: (_b = link.dataset.modalDownloadLink) !== null && _b !== void 0 ? _b : '',
+                title: (_c = link.dataset.modalTitle) !== null && _c !== void 0 ? _c : null,
                 columnName: cell.getName(),
                 objectId: cell.getObjectID()
             });

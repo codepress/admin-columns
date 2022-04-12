@@ -14,6 +14,7 @@
 [data-modal-value] {
 	cursor: pointer;
 }
+
 /* =Status icons
 -------------------------------------------------------------- */
 .column-status {
@@ -42,7 +43,7 @@
 }
 
 table .column-audio_player {
-	min-width: 310px!important;
+	min-width: 310px !important;
 }
 
 /* =Comments bubble
@@ -161,6 +162,9 @@ span.status-closed {
 .actions #post-query-submit {
 	float: left;
 	vertical-align: middle;
+}
+
+body:not(.post-type-attachment) .actions #post-query-submit {
 	margin-bottom: 4px;
 }
 
