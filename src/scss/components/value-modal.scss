@@ -38,8 +38,9 @@ $modalZindex: 10000000000;
 					padding: 10px 20px;
 				}
 			}
+
 			.ac-value-modal-actions {
-				width: 150px;
+				width: 50px;
 				display: flex;
 				align-items: center;
 				justify-content: flex-end;
@@ -62,9 +63,16 @@ $modalZindex: 10000000000;
 
 		&__body {
 			padding: 20px;
+			max-height: calc(100vh - 150px);
+			overflow: auto;
 
 			video {
 				display: block;
+			}
+
+			img {
+				max-width: 100%;
+				height: auto;
 			}
 		}
 
@@ -75,13 +83,12 @@ $modalZindex: 10000000000;
 			background: #fafafa;
 
 			button {
-				width: 30px;
-				height: 30px;
+				width: 40px;
+				height: 40px;
 				border: none;
 				border-left: 1px solid #ccc;
 				cursor: pointer;
 				background: none;
-				display: flex;
 				align-items: center;
 
 				.dashicons {

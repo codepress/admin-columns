@@ -33,7 +33,7 @@
   padding: 10px 20px;
 }
 .ac-value-modal .ac-value-modal-panel__header .ac-value-modal-actions {
-  width: 150px;
+  width: 50px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -52,9 +52,15 @@
 }
 .ac-value-modal .ac-value-modal-panel__body {
   padding: 20px;
+  max-height: calc(100vh - 150px);
+  overflow: auto;
 }
 .ac-value-modal .ac-value-modal-panel__body video {
   display: block;
+}
+.ac-value-modal .ac-value-modal-panel__body img {
+  max-width: 100%;
+  height: auto;
 }
 .ac-value-modal .ac-value-modal-panel__footer {
   display: flex;
@@ -63,13 +69,12 @@
   background: #fafafa;
 }
 .ac-value-modal .ac-value-modal-panel__footer button {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border: none;
   border-left: 1px solid #ccc;
   cursor: pointer;
   background: none;
-  display: flex;
   align-items: center;
 }
 .ac-value-modal .ac-value-modal-panel__footer button .dashicons {

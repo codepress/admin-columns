@@ -11,7 +11,7 @@ class Caption extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-caption' )
-		     ->set_group( 'media-image' )
+		     ->set_group( 'custom' )
 		     ->set_label( __( 'Caption', 'codepress-admin-columns' ) );
 	}
 
