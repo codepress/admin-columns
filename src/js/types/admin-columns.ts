@@ -9,6 +9,10 @@ export type LocalizedAcColumnSettings = {
     original_columns: Array<string>
 }
 
+export type LocalizedAcTableI18n = {
+    value_loading: string;
+}
+
 export type LocalizedAcAddonsi18n = { [key:string] : string }
 
 export type LocalizedAcAddonSettings = {
@@ -41,8 +45,9 @@ export type ListScreenStorageType = {
 }
 
 export type ValueModalItem = {
-    element: HTMLLinkElement,
-    title: string,
+    element: HTMLElement,
+    title: string|null,
+    edit: string,
     columnName: string,
     objectId: number
 }

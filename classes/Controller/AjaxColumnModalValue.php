@@ -58,7 +58,7 @@ class AjaxColumnModalValue implements Registrable {
 			wp_send_json_error( __( 'Invalid method.', 'codepress-admin-columns' ), 400 );
 		}
 
-		$seconds = 10;
+		$seconds = 60;
 		header( "Cache-Control: max-age=" . $seconds );
 
 		echo $column->get_ajax_value( $id );

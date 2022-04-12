@@ -2,10 +2,11 @@
     import {LocalizedAcTable} from "../types/table";
     import {onDestroy, onMount} from "svelte";
     import axios, {AxiosResponse} from "axios";
-    import {ValueModalItem} from "../types/admin-columns";
+    import {LocalizedAcTableI18n, ValueModalItem} from "../types/admin-columns";
 
     declare const ajaxurl: string;
     declare const AC: LocalizedAcTable;
+    declare const AC_I18N: LocalizedAcTableI18n;
 
     export let items: Array<ValueModalItem>
     export let objectId;
@@ -16,12 +17,15 @@
     let mainElement;
     let title;
     let content;
+    let editLink;
     let source;
 
     const CancelToken = axios.CancelToken;
+
     const close = () => {
         destroyHandler();
     }
+
     const initMouseDown = (e) => {
         if (e.key === 'Escape') {
             destroyHandler();
@@ -35,6 +39,7 @@
             e.preventDefault();
         }
     }
+
     onMount(() => {
         let item = items.find(i => i.objectId === objectId);
         columnTitle = item.element.closest('td').dataset.colname as string;
@@ -48,16 +53,20 @@
         title = item.title ?? `#${item.objectId}`;
         updateData(item);
     });
+
     onDestroy(() => {
         document.removeEventListener('keydown', initMouseDown);
-    })
+    });
+
     const getTitle = (item: ValueModalItem) => {
         return item.title ?? `${columnTitle} #${item.objectId}`;
     }
+
     const updateData = (item: ValueModalItem) => {
         objectId = item.objectId;
-        title = 'Loading';
-        content = '<span class="loading">Loading</span>';
+        title = AC_I18N.value_loading;
+        content = `<span class="loading">${AC_I18N.value_loading}</span>`;
+        editLink = item.edit;
         if (source) {
             source.cancel();
         }
@@ -106,6 +115,7 @@
 				{#if title}
 					<h2>{title}</h2>
 				{/if}
+				<span class="ac-badge">#{objectId}</span>
 			</div>
 			<div class="ac-value-modal-actions">
 				<button on:click={close}><span class="dashicons dashicons-no-alt"></span></button>
@@ -116,12 +126,19 @@
 			{@html content}
 		</div>
 
-		{#if items.length > 1 }
-			<div class="ac-value-modal-panel__footer">
-				<button on:click|preventDefault={prevItem} title="Previous"><span class="dashicons dashicons-arrow-left-alt2"></span></button>
-				<button on:click|preventDefault={nextItem} title="Next"><span class="dashicons dashicons-arrow-right-alt2"></span></button>
+		<div class="ac-value-modal-panel__footer">
+			<div class="ac-value-modal__edit">
+				{#if editLink }
+					<a class="edit btn button" href="">Edit</a>
+				{/if}
 			</div>
-		{/if}
+			{#if items.length > 1 }
+				<div class="ac-value-modal__navigation">
+					<button on:click|preventDefault={prevItem} title="Previous" class="btn"><span class="dashicons dashicons-arrow-left-alt2"></span></button>
+					<button on:click|preventDefault={nextItem} title="Next" class="btn"><span class="dashicons dashicons-arrow-right-alt2"></span></button>
+				</div>
+			{/if}
+		</div>
 
 	</div>
 </div>
