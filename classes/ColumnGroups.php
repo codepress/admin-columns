@@ -13,10 +13,12 @@ class ColumnGroups {
 		$groups->register_group( 'default', __( 'Default', 'codepress-admin-columns' ) );
 		$groups->register_group( 'plugin', __( 'Plugins' ), 20 );
 		$groups->register_group( 'custom_field', __( 'Custom Fields', 'codepress-admin-columns' ), 30 );
+		$groups->register_group( 'media-meta', __( 'Meta', 'codepress-admin-columns' ), 32 );
+		$groups->register_group( 'media-image', __( 'Image', 'codepress-admin-columns' ), 33 );
+		$groups->register_group( 'media-video', __( 'Video', 'codepress-admin-columns' ), 34 );
 		$groups->register_group( 'media-audio', __( 'Audio', 'codepress-admin-columns' ), 35 );
-		$groups->register_group( 'media-image', __( 'Image', 'codepress-admin-columns' ), 35 );
+		$groups->register_group( 'media-document', __( 'Document', 'codepress-admin-columns' ), 35 );
 		$groups->register_group( 'media-file', __( 'File', 'codepress-admin-columns' ), 35 );
-		$groups->register_group( 'media-meta', __( 'Meta', 'codepress-admin-columns' ), 35 );
 		$groups->register_group( 'custom', __( 'Custom', 'codepress-admin-columns' ), 40 );
 
 		$repo = new IntegrationRepository();

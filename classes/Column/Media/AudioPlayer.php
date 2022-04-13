@@ -9,7 +9,7 @@ class AudioPlayer extends Column {
 	public function __construct() {
 		$this->set_type( 'column-audio_player' )
 		     ->set_group( 'media-audio' )
-		     ->set_label( __( 'Player', 'codepress-admin-columns' ) );
+		     ->set_label( __( 'Audio Player', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

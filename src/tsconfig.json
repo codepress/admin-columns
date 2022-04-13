@@ -15,6 +15,9 @@
         "skipLibCheck": true,
         "moduleResolution": "Node",
         "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "noEmit": false,
+        "forceConsistentCasingInFileNames": true,
         "types": ["node", "svelte"]
     }
 }

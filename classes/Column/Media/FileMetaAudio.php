@@ -8,8 +8,8 @@ class FileMetaAudio extends FileMeta {
 
 	public function __construct() {
 		$this->set_type( 'column-meta_audio' )
-		     ->set_group( 'media-meta' )
-		     ->set_label( __( 'Audio Data', 'codepress-admin-columns' ) );
+		     ->set_group( 'media-audio' )
+		     ->set_label( __( 'Audio Meta', 'codepress-admin-columns' ) );
 	}
 
 	public function register_settings() {

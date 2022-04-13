@@ -79,6 +79,7 @@ class AdminColumns extends Plugin {
 			new Controller\AjaxColumnRequest( $this->storage, new Request() ),
 			new Controller\AjaxGeneralOptions( new GeneralOption() ),
 			new Controller\AjaxRequestCustomFieldKeys(),
+			new Controller\AjaxColumnModalValue( $this->storage ),
 			new Controller\AjaxColumnValue( $this->storage ),
 			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),

@@ -12,6 +12,7 @@ import {initAcServices} from "./helpers/admin-columns";
 import Modals from "./modules/modals";
 import {initPointers} from "./modules/ac-pointer";
 import {LocalizedAcTable} from "./types/table";
+import ValueModals, {ValueModalCollection} from "./modules/value-modals";
 import {initAcTooltips} from "./plugin/tooltip";
 
 declare let AC: LocalizedAcTable
@@ -19,7 +20,7 @@ declare let AC: LocalizedAcTable
 let AC_SERVICES = initAcServices();
 
 AC_SERVICES.registerService('Modals', new Modals());
-AC_SERVICES.registerService('tooltips', initAcTooltips );
+AC_SERVICES.registerService('tooltips', initAcTooltips);
 
 document.addEventListener('DOMContentLoaded', () => {
     let table = resolveTableBySelector(AC.table_id);
@@ -42,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         AC_SERVICES.getService<Table>('Table')!.addCellClasses();
         auto_init_show_more();
     });
+
 });
 
 AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) => {
@@ -64,7 +66,28 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
         cell.events.addListener('setValue', () => {
             auto_init_show_more();
         });
-    })
+    });
 
+    let items: { [key: string]: ValueModalCollection } = {};
 
+    event.table.Cells.getAll().forEach(cell => {
+
+        let link = cell.getElement().querySelector<HTMLElement>('[data-modal-value]');
+        if (link) {
+            if (!items.hasOwnProperty(cell.getName())) {
+                items[cell.getName()] = [];
+            }
+
+            items[cell.getName()].push({
+                element: link,
+                editLink: link.dataset.modalEditLink ?? '',
+                downloadLink: link.dataset.modalDownloadLink ?? '',
+                title: link.dataset.modalTitle ?? null,
+                columnName: cell.getName(),
+                objectId: cell.getObjectID()
+            });
+        }
+    });
+
+    Object.keys(items).forEach(i => new ValueModals(items[i]))
 });

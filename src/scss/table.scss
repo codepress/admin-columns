@@ -8,6 +8,12 @@
 @import 'components/confirmation';
 @import 'components/tooltip';
 @import 'components/toggle';
+@import 'components/value-modal';
+
+
+[data-modal-value] {
+	cursor: pointer;
+}
 
 /* =Status icons
 -------------------------------------------------------------- */
@@ -37,7 +43,7 @@
 }
 
 table .column-audio_player {
-	min-width: 310px!important;
+	min-width: 310px !important;
 }
 
 /* =Comments bubble
@@ -156,6 +162,9 @@ span.status-closed {
 .actions #post-query-submit {
 	float: left;
 	vertical-align: middle;
+}
+
+body:not(.post-type-attachment) .actions #post-query-submit {
 	margin-bottom: 4px;
 }
 
