@@ -43,7 +43,7 @@ class Preview extends Column implements Column\AjaxValue {
 				'edit_link'     => get_edit_post_link( $id ),
 				'download_link' => $this->get_download_url( $id ) ?: null,
 				'id'            => $id,
-				'class'         => "-nopadding",
+				'class'         => "-nopadding -preview",
 			]
 		);
 	}

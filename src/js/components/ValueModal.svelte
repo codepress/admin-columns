@@ -111,39 +111,41 @@
 <div class="ac-value-modal {modalClass}" bind:this={mainElement}>
 	<div class="ac-value-modal-background" on:click={close}>
 	</div>
-	<div class="ac-value-modal-panel">
-		<div class="ac-value-modal-panel__header">
-			<div class="ac-value-modal-title">
-				{#if title}
-					<h2>{title}</h2>
-				{/if}
-				<span class="ac-badge">#{objectId}</span>
-			</div>
-			<div class="ac-value-modal-actions">
-				<button on:click={close}><span class="dashicons dashicons-no-alt"></span></button>
-			</div>
-		</div>
-
-		<div class="ac-value-modal-panel__body">
-			{@html content}
-		</div>
-
-		<div class="ac-value-modal-panel__footer">
-			<div class="ac-value-modal__edit">
-				{#if editLink }
-					<a class="edit btn button" href="{editLink}">{AC_I18N.edit}</a>
-				{/if}
-				{#if downloadLink }
-					<a class="edit btn button" href="{downloadLink}" download>{AC_I18N.download}</a>
-				{/if}
-			</div>
-			{#if items.length > 1 }
-				<div class="ac-value-modal__navigation">
-					<button on:click|preventDefault={prevItem} title="Previous" class="btn"><span class="dashicons dashicons-arrow-left-alt2"></span></button>
-					<button on:click|preventDefault={nextItem} title="Next" class="btn"><span class="dashicons dashicons-arrow-right-alt2"></span></button>
+	<div class="ac-value-modal-container">
+		<div class="ac-value-modal-panel">
+			<div class="ac-value-modal-panel__header">
+				<div class="ac-value-modal-title">
+					{#if title}
+						<h2>{title}</h2>
+					{/if}
+					<span class="ac-badge">#{objectId}</span>
 				</div>
-			{/if}
-		</div>
+				<div class="ac-value-modal-actions">
+					<button on:click={close}><span class="dashicons dashicons-no-alt"></span></button>
+				</div>
+			</div>
 
+			<div class="ac-value-modal-panel__body">
+				{@html content}
+			</div>
+
+			<div class="ac-value-modal-panel__footer">
+				<div class="ac-value-modal__edit">
+					{#if editLink }
+						<a class="edit btn button" href="{editLink}">{AC_I18N.edit}</a>
+					{/if}
+					{#if downloadLink }
+						<a class="edit btn button" href="{downloadLink}" download>{AC_I18N.download}</a>
+					{/if}
+				</div>
+				{#if items.length > 1 }
+					<div class="ac-value-modal__navigation">
+						<button on:click|preventDefault={prevItem} title="Previous" class="btn"><span class="dashicons dashicons-arrow-left-alt2"></span></button>
+						<button on:click|preventDefault={nextItem} title="Next" class="btn"><span class="dashicons dashicons-arrow-right-alt2"></span></button>
+					</div>
+				{/if}
+			</div>
+
+		</div>
 	</div>
 </div>

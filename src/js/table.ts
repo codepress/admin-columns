@@ -12,8 +12,9 @@ import {initAcServices} from "./helpers/admin-columns";
 import Modals from "./modules/modals";
 import {initPointers} from "./modules/ac-pointer";
 import {LocalizedAcTable} from "./types/table";
-import ValueModals, {ValueModalCollection} from "./modules/value-modals";
+import ValueModals from "./modules/value-modals";
 import {initAcTooltips} from "./plugin/tooltip";
+import {ValueModalItemCollection} from "./types/admin-columns";
 
 declare let AC: LocalizedAcTable
 
@@ -68,7 +69,7 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
         });
     });
 
-    let items: { [key: string]: ValueModalCollection } = {};
+    let items: { [key: string]: ValueModalItemCollection } = {};
 
     event.table.Cells.getAll().forEach(cell => {
 
