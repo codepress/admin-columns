@@ -54,3 +54,5 @@ export type ValueModalItem = {
     columnName: string,
     objectId: number
 }
+
+export type ValueModalItemCollection = Array<ValueModalItem>

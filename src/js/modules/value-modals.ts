@@ -1,24 +1,13 @@
 // @ts-ignore
 import ValueModalComponent from "../components/ValueModal.svelte";
+import {ValueModalItemCollection} from "../types/admin-columns";
 
-export type ValueModal = {
-    element: HTMLElement,
-    title: string | null,
-    editLink: string,
-    downloadLink: string,
-    columnName: string,
-    objectId: number
-}
-
-export type ValueModalCollection = Array<ValueModal>
 
 export default class ValueModals {
 
-    links: Array<ValueModal>
     component: any;
 
-    constructor(links: Array<ValueModal>) {
-        this.links = links;
+    constructor(private links: ValueModalItemCollection) {
         this.component = null;
         this.initEventHandlers();
     }

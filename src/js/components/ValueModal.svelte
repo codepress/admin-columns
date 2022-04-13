@@ -2,13 +2,13 @@
     import {LocalizedAcTable} from "../types/table";
     import {onDestroy, onMount} from "svelte";
     import axios, {AxiosResponse} from "axios";
-    import {LocalizedAcTableI18n, ValueModalItem} from "../types/admin-columns";
+    import {LocalizedAcTableI18n, ValueModalItem, ValueModalItemCollection} from "../types/admin-columns";
 
     declare const ajaxurl: string;
     declare const AC: LocalizedAcTable;
     declare const AC_I18N: LocalizedAcTableI18n;
 
-    export let items: Array<ValueModalItem>
+    export let items: ValueModalItemCollection
     export let objectId;
     export let destroyHandler: Function;
 
