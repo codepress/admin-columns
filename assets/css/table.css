@@ -592,10 +592,6 @@ html.wp-toolbar .ac-tooltip {
   overflow: hidden;
   white-space: nowrap;
 }
-.ac-value-modal.-preview .ac-value-modal-panel .ac-value-modal-panel__body {
-  text-align: center;
-  background: #fff;
-}
 .ac-value-modal.-preview .ac-value-modal-panel .ac-value-modal-panel__body img {
   width: auto;
   min-width: 300px;
