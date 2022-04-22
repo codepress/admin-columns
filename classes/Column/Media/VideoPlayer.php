@@ -63,7 +63,7 @@ class VideoPlayer extends Column implements Column\AjaxValue {
 			$attribute_markup[] = sprintf( '%s="%s"', $key, esc_attr__( $value ) );
 		}
 
-		return sprintf( '<video controls %s src="%s"></video>', implode( ' ', $attribute_markup ), esc_url( $url ) );
+		return sprintf( '<video controls %s src="%s" preload="metadata"></video>', implode( ' ', $attribute_markup ), esc_url( $url ) );
 	}
 
 	public function get_raw_value( $id ) {
