@@ -76,8 +76,9 @@
 }
 
 .ac-toggle-v2 {
+	$e: &;
 	position: relative;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 
 	&.-disabled {
 		cursor: not-allowed;
@@ -91,7 +92,6 @@
 		position: relative;
 		display: inline-block;
 		margin-right: 5px;
-		transform: translateY(2px);
 
 		input[type=checkbox] {
 			position: absolute;
@@ -134,8 +134,8 @@
 			box-sizing: border-box;
 			vertical-align: top;
 			background-color: #D8D8D8;
-			width: 30px;
-			height: 18px;
+			width: 36px;
+			height: 22px;
 			border-radius: 11px;
 			transition: background .2s ease;
 		}
@@ -144,14 +144,34 @@
 			display: block;
 			position: absolute;
 			box-sizing: border-box;
-			top: 2px;
-			left: 2px;
-			width: 14px;
-			height: 14px;
+			top: 3px;
+			left: 3px;
+			width: 16px;
+			height: 16px;
 			border-radius: 50%;
 			transition: transform .1s ease;
 			background-color: #fff;
 			border: 5px solid #fff;
+		}
+	}
+
+	&.-small {
+		margin-bottom: 10px;
+
+		#{$e}__toggle {
+			transform: translateY(2px);
+
+			&__track {
+				width: 30px;
+				height: 18px;
+			}
+
+			&__thumb {
+				top: 2px;
+				left: 2px;
+				width: 14px;
+				height: 14px;
+			}
 		}
 	}
 }
