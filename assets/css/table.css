@@ -411,7 +411,7 @@ html.wp-toolbar .ac-tooltip {
   border: none;
 }
 .ac-toggle-v2__toggle input[type=checkbox]:checked ~ .ac-toggle-v2__toggle__thumb {
-  transform: translateX(12px);
+  transform: translateX(14px);
 }
 .ac-toggle-v2__toggle input[type=checkbox]:checked ~ .ac-toggle-v2__toggle__track {
   background: var(--ac-primary-color);
@@ -465,6 +465,9 @@ html.wp-toolbar .ac-tooltip {
   left: 2px;
   width: 14px;
   height: 14px;
+}
+.ac-toggle-v2.-small .ac-toggle-v2__toggle input[type=checkbox]:checked ~ .ac-toggle-v2__toggle__thumb {
+  transform: translateX(12px);
 }
 
 .ac-value-modal .ac-value-modal-background {
