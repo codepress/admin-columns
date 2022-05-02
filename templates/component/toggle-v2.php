@@ -11,6 +11,7 @@ $value = $this->value ?: '1';
 
 <div class="ac-toggle-v2">
 	<span class="ac-toggle-v2__toggle">
+		<input name="<?= $this->name; ?>" value="<?= esc_attr( $this->unchecked_value ); ?>" type="hidden">
 		<input class="ac-toggle-v2__toggle__input" <?= $this->attributes; ?> type="checkbox" value="<?= $value; ?>" <?php if ( $this->checked ): ?>checked="checked"<?php endif; ?>>
 		<span class="ac-toggle-v2__toggle__track"></span>
 		<span class="ac-toggle-v2__toggle__thumb"></span>
