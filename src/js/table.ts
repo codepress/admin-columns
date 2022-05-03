@@ -15,6 +15,7 @@ import {LocalizedAcTable} from "./types/table";
 import ValueModals from "./modules/value-modals";
 import {initAcTooltips} from "./plugin/tooltip";
 import {ValueModalItemCollection} from "./types/admin-columns";
+import JsonViewer from "./modules/json-viewer";
 
 declare let AC: LocalizedAcTable
 
@@ -91,4 +92,9 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
     });
 
     Object.keys(items).forEach(i => new ValueModals(items[i]))
+
+
+    document.querySelectorAll<HTMLElement>('[data-component="ac-json"]').forEach( el => {
+        new JsonViewer( el );
+    })
 });

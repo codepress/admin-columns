@@ -1,0 +1,21 @@
+[data-component=ac-json] {
+  overflow-x: scroll;
+  width: 100%;
+}
+[data-component=ac-json]::-webkit-scrollbar {
+  display: none;
+}
+[data-component=ac-json] .arrow {
+  width: auto;
+  height: auto;
+  left: inherit;
+  bottom: inherit;
+}
+[data-component=ac-json] .root {
+  white-space: nowrap;
+}
+[data-component=ac-json] ul ul .root {
+  display: none !important;
+}
+
+/*# sourceMappingURL=json-viewer.css.map */
