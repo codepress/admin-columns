@@ -1,0 +1,23 @@
+
+[data-component="ac-json"] {
+	overflow-x: scroll;
+	width: 100%;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	.arrow {
+		width: auto;
+		height: auto;
+		left: inherit;
+		bottom: inherit;
+	}
+
+	.root {
+		white-space: nowrap;
+	}
+	ul ul .root {
+		display: none !important;
+	}
+}
