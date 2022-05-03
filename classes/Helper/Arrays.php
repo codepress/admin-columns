@@ -24,6 +24,41 @@ class Arrays {
 	}
 
 	/**
+	 * @param array $keys
+	 * @param mixed $value
+	 * @param array $result
+	 *
+	 * @return array
+	 */
+	function add_nested_value( array $keys, $value, array $result = [] ) {
+		$key = array_shift( $keys );
+
+		if ( $keys ) {
+			$value = add_nested_value( $keys, $value, is_array( $result[ $key ] ) ? $result[ $key ] : [] );
+		}
+
+		$result[ $key ] = $value;
+
+		return $result;
+	}
+
+	/**
+	 * @param array $array
+	 * @param array $keys
+	 *
+	 * @return mixed
+	 */
+	public function get_nested_value( array $array, array $keys ) {
+		foreach ( $keys as $key ) {
+			if ( isset( $array[ $key ] ) ) {
+				$array = $array[ $key ];
+			}
+		}
+
+		return $array;
+	}
+
+	/**
 	 * @param array  $array
 	 * @param string $glue
 	 *

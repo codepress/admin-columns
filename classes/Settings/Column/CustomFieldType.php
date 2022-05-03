@@ -218,9 +218,10 @@ class CustomFieldType extends Settings\Column
 
 			case self::TYPE_ARRAY :
 				if ( ac_helper()->array->is_associative( $value ) ) {
-					return sprintf( '<div data-component="ac-json" data-json="%s" ></div>',
-						esc_attr( json_encode( $value ) ) );
-
+					return sprintf(
+						'<div data-component="ac-json" data-json="%s" ></div>',
+						esc_attr( json_encode( $value ) )
+					);
 				}
 
 				return ac_helper()->array->implode_recursive( __( ', ' ), $value );
