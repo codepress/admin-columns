@@ -14,6 +14,9 @@
 [data-component=ac-json] .root {
   white-space: nowrap;
 }
+[data-component=ac-json] li.indent {
+  white-space: nowrap;
+}
 [data-component=ac-json] ul ul .root {
   display: none !important;
 }

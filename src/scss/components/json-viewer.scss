@@ -17,6 +17,9 @@
 	.root {
 		white-space: nowrap;
 	}
+	li.indent {
+		white-space: nowrap;
+	}
 	ul ul .root {
 		display: none !important;
 	}

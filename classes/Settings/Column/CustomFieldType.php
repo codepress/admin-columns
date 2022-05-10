@@ -135,7 +135,7 @@ class CustomFieldType extends Settings\Column
 			],
 			'multiple'   => [
 				self::TYPE_COUNT => __( 'Number of Fields', 'codepress-admin-columns' ),
-				self::TYPE_ARRAY => __( 'Multiple Values', 'codepress-admin-columns' ),
+				self::TYPE_ARRAY => sprintf( '%s / %s', __( 'Multiple Values', 'codepress-admin-columns' ), __( 'Serialized', 'codepress-admin-columns' ) )
 			],
 		];
 
