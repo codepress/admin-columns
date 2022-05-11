@@ -113,7 +113,7 @@
 	<div class="ac-value-modal-background" on:click={close}>
 	</div>
 	<div class="ac-value-modal-container" on:click={close}>
-		<div class="ac-value-modal-panel">
+		<div class="ac-value-modal-panel" on:click|stopPropagation>
 			<div class="ac-value-modal-panel__header">
 				<div class="ac-value-modal-title">
 					{#if title}

@@ -2223,14 +2223,16 @@ function create_fragment(ctx) {
       if (if_block3) if_block3.m(div6, null);
       /*div9_binding*/
 
-      ctx[13](div9);
+      ctx[14](div9);
 
       if (!mounted) {
         dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "click",
         /*close*/
         ctx[9]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click",
         /*close*/
-        ctx[9]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div8, "click",
+        ctx[9]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div7, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(
+        /*click_handler*/
+        ctx[13])), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div8, "click",
         /*close*/
         ctx[9])];
         mounted = true;
@@ -2330,7 +2332,7 @@ function create_fragment(ctx) {
       if (if_block3) if_block3.d();
       /*div9_binding*/
 
-      ctx[13](null);
+      ctx[14](null);
       mounted = false;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
     }
@@ -2448,6 +2450,10 @@ function instance($$self, $$props, $$invalidate) {
     updateItem(newIndex < 0 ? items.length - 1 : newIndex);
   };
 
+  function click_handler(event) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
+  }
+
   function div9_binding($$value) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {
       mainElement = $$value;
@@ -2461,7 +2467,7 @@ function instance($$self, $$props, $$invalidate) {
     if ('destroyHandler' in $$props) $$invalidate(12, destroyHandler = $$props.destroyHandler);
   };
 
-  return [objectId, items, modalClass, mainElement, title, content, editLink, downloadLink, translation, close, nextItem, prevItem, destroyHandler, div9_binding];
+  return [objectId, items, modalClass, mainElement, title, content, editLink, downloadLink, translation, close, nextItem, prevItem, destroyHandler, click_handler, div9_binding];
 }
 
 class ValueModal extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
