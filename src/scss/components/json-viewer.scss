@@ -3,6 +3,11 @@
 	overflow-x: scroll;
 	width: 100%;
 	font-size: 12px !important;
+	cursor: pointer;
+
+	* {
+		cursor: pointer !important;
+	}
 
 	> div > ul {
 		margin-left: 0;
@@ -46,7 +51,14 @@
 
 	.acp-hts-wrapper & {
 		.root {
-			white-space: normal;
+			&:after {
+				content: 'Object';
+				cursor: pointer;
+			}
+
+			> span:not(.container) {
+				display: none;
+			}
 		}
 	}
 }

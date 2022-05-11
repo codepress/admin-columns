@@ -6,7 +6,6 @@
 
     declare const ajaxurl: string;
     declare const AC: LocalizedAcTable;
-    declare const AC_I18N: LocalizedAcTableI18n;
 
     export let items: ValueModalItemCollection
     export let objectId;
@@ -111,7 +110,7 @@
 <div class="ac-value-modal {modalClass}" bind:this={mainElement}>
 	<div class="ac-value-modal-background" on:click={close}>
 	</div>
-	<div class="ac-value-modal-container">
+	<div class="ac-value-modal-container" on:click={close}>
 		<div class="ac-value-modal-panel">
 			<div class="ac-value-modal-panel__header">
 				<div class="ac-value-modal-title">
