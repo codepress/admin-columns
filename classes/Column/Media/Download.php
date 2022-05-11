@@ -15,6 +15,10 @@ class Download extends Column {
 		return wp_get_attachment_url( $id );
 	}
 
+	private function create_relative_path( $url ) {
+		return str_replace( site_url(), '', $url );
+	}
+
 	public function get_value( $id ) {
 		$url = $this->get_raw_value( $id );
 
@@ -24,7 +28,7 @@ class Download extends Column {
 
 		return sprintf(
 			'<a class="ac-download cpacicon-download" href="%s" title="%s" download></a>',
-			$url,
+			$this->create_relative_path( $url ),
 			esc_attr( $this->get_label() )
 		);
 	}
