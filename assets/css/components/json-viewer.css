@@ -24,7 +24,9 @@
   bottom: inherit;
 }
 [data-component=ac-json] .root {
+  max-width: 100px;
   white-space: nowrap;
+  margin-bottom: 5px;
 }
 [data-component=ac-json] .root > .container {
   padding-left: 10px;
@@ -34,16 +36,6 @@
 }
 [data-component=ac-json] li.indent {
   white-space: nowrap;
-}
-[data-component=ac-json] ul ul .root {
-  display: none !important;
-}
-.acp-hts-wrapper [data-component=ac-json] .root:after {
-  content: "Object";
-  cursor: pointer;
-}
-.acp-hts-wrapper [data-component=ac-json] .root > span:not(.container) {
-  display: none;
 }
 
 /*# sourceMappingURL=json-viewer.css.map */

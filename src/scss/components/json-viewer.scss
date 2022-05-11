@@ -30,7 +30,9 @@
 	}
 
 	.root {
+		max-width: 100px;
 		white-space: nowrap;
+		margin-bottom: 5px;
 
 		> .container {
 			padding-left: 10px;
@@ -45,20 +47,5 @@
 		white-space: nowrap;
 	}
 
-	ul ul .root {
-		display: none !important;
-	}
 
-	.acp-hts-wrapper & {
-		.root {
-			&:after {
-				content: 'Object';
-				cursor: pointer;
-			}
-
-			> span:not(.container) {
-				display: none;
-			}
-		}
-	}
 }
