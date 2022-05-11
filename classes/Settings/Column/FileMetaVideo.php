@@ -21,13 +21,13 @@ class FileMetaVideo extends FileMeta implements FormatValue {
 		natcasesort( $video_types );
 
 		$audio_types = [
-			'audio/bits_per_sample' => __( 'Bits Per Sample', 'codepress-admin-columns' ),
-			'audio/channelmode'     => __( 'Channelmode', 'codepress-admin-columns' ),
-			'audio/channels'        => __( 'Channels', 'codepress-admin-columns' ),
-			'audio/codec'           => __( 'Codec', 'codepress-admin-columns' ),
-			'audio/dataformat'      => __( 'Dataformat', 'codepress-admin-columns' ),
-			'audio/lossless'        => __( 'Losless', 'codepress-admin-columns' ),
-			'audio/sample_rate'     => __( 'Sample Rate', 'codepress-admin-columns' ),
+			'audio.bits_per_sample' => __( 'Bits Per Sample', 'codepress-admin-columns' ),
+			'audio.channelmode'     => __( 'Channelmode', 'codepress-admin-columns' ),
+			'audio.channels'        => __( 'Channels', 'codepress-admin-columns' ),
+			'audio.codec'           => __( 'Codec', 'codepress-admin-columns' ),
+			'audio.dataformat'      => __( 'Dataformat', 'codepress-admin-columns' ),
+			'audio.lossless'        => __( 'Losless', 'codepress-admin-columns' ),
+			'audio.sample_rate'     => __( 'Sample Rate', 'codepress-admin-columns' ),
 		];
 
 		$audio_types = array_map( [ $this, 'wrap_audio_string' ], $audio_types );

@@ -74,7 +74,7 @@ class FileMeta extends Settings\Column {
 	 * @return array
 	 */
 	public function get_media_meta_keys() {
-		return explode( '/', $this->get_media_meta_key() );
+		return array_filter( array_map( 'trim', explode( '.', $this->media_meta_key ) ) );
 	}
 
 }
