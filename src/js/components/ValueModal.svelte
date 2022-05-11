@@ -3,6 +3,7 @@
     import {onDestroy, onMount} from "svelte";
     import axios, {AxiosResponse} from "axios";
     import {LocalizedAcTableI18n, ValueModalItem, ValueModalItemCollection} from "../types/admin-columns";
+    import {getTableTranslation} from "../helpers/translations";
 
     declare const ajaxurl: string;
     declare const AC: LocalizedAcTable;
@@ -19,6 +20,7 @@
     let editLink;
     let downloadLink;
     let source;
+    let translation = getTableTranslation();
 
     const CancelToken = axios.CancelToken;
 
@@ -64,8 +66,8 @@
 
     const updateData = (item: ValueModalItem) => {
         objectId = item.objectId;
-        title = AC_I18N.value_loading;
-        content = `<span class="loading">${AC_I18N.value_loading}</span>`;
+        title = translation.value_loading;
+        content = `<span class="loading">${translation.value_loading}</span>`;
         editLink = item.editLink;
         downloadLink = item.downloadLink;
         if (source) {
@@ -131,10 +133,10 @@
 			<div class="ac-value-modal-panel__footer">
 				<div class="ac-value-modal__edit">
 					{#if editLink }
-						<a class="edit btn button" href="{editLink}">{AC_I18N.edit}</a>
+						<a class="edit btn button" href="{editLink}">{translation.edit}</a>
 					{/if}
 					{#if downloadLink }
-						<a class="edit btn button" href="{downloadLink}" download>{AC_I18N.download}</a>
+						<a class="edit btn button" href="{downloadLink}" download>{translation.download}</a>
 					{/if}
 				</div>
 				{#if items.length > 1 }
