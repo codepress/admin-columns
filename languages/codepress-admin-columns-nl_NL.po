@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-03-19 15:41:11+0000\n"
+"PO-Revision-Date: 2022-03-31 09:13:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"X-Generator: GlotPress/4.0.0-alpha.1\n"
 "Language: nl\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
@@ -1737,7 +1737,7 @@ msgstr "Admin Columns forums op WordPress.org"
 
 #: classes/Check/Review.php:198
 msgid "You can also find help on the %s, and %s."
-msgstr "Je kunt ook hulp vinden op de %, en %s."
+msgstr "Je kunt ook hulp vinden op de %s, en %s."
 
 #: classes/Check/Review.php:194
 msgid "our forum"
