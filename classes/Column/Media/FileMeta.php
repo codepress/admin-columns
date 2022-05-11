@@ -30,13 +30,7 @@ abstract class FileMeta extends Column\Meta {
 	}
 
 	protected function get_metadata_value( array $data, array $keys ) {
-		if ( isset( $keys[0] ) && isset( $data[ $keys[0] ] ) ) {
-			$data = $data[ $keys[0] ];
-		}
-
-		if ( isset( $keys[1] ) && isset( $data[ $keys[1] ] ) ) {
-			$data = $data[ $keys[1] ];
-		}
+		$data = ac_helper()->array->get_nested_value( $data, $keys );
 
 		return is_scalar( $data )
 			? $data
