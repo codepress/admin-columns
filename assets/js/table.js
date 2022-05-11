@@ -1857,7 +1857,10 @@ function create_fragment(ctx) {
     props: {
       value:
       /*value*/
-      ctx[0]
+      ctx[0],
+      defaultExpandedLevel:
+      /*level*/
+      ctx[1]
     }
   });
   return {
@@ -1877,6 +1880,11 @@ function create_fragment(ctx) {
       1) jsontree_changes.value =
       /*value*/
       ctx[0];
+      if (dirty &
+      /*level*/
+      2) jsontree_changes.defaultExpandedLevel =
+      /*level*/
+      ctx[1];
       jsontree.$set(jsontree_changes);
     },
 
@@ -1902,19 +1910,24 @@ function instance($$self, $$props, $$invalidate) {
   let {
     value
   } = $$props;
+  let {
+    level
+  } = $$props;
 
   $$self.$$set = $$props => {
     if ('value' in $$props) $$invalidate(0, value = $$props.value);
+    if ('level' in $$props) $$invalidate(1, level = $$props.level);
   };
 
-  return [value];
+  return [value, level];
 }
 
 class JsonValue extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      value: 0
+      value: 0,
+      level: 1
     });
   }
 
@@ -8626,6 +8639,7 @@ class JsonViewer {
         var _a;
         this.element = element;
         this.value = (_a = element.dataset.json) !== null && _a !== void 0 ? _a : '';
+        this.level = element.dataset.level ? parseInt(element.dataset.level) : 0;
         this.initEventHandlers();
     }
     initEventHandlers() {
@@ -8635,7 +8649,8 @@ class JsonViewer {
         this.component = new _components_JsonValue_svelte__WEBPACK_IMPORTED_MODULE_0__["default"]({
             target: element,
             props: {
-                value: JSON.parse(this.value)
+                value: JSON.parse(this.value),
+                level: this.level
             }
         });
     }
