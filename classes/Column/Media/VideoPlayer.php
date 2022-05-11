@@ -23,6 +23,10 @@ class VideoPlayer extends Column implements Column\AjaxValue {
 		return $this->get_setting( 'video_display' )->get_value();
 	}
 
+	private function create_relative_path( $url ) {
+		return str_replace( site_url(), '', $url );
+	}
+
 	public function get_value( $id ) {
 		$url = $this->get_raw_value( $id );
 
@@ -31,12 +35,14 @@ class VideoPlayer extends Column implements Column\AjaxValue {
 		}
 
 		if ( 'modal' === $this->get_display_type() ) {
+			$url = $this->get_raw_value( $id );
+
 			return ac_helper()->html->get_ajax_modal_link(
 				__( 'Play', 'codepress-admin-columns' ),
 				[
 					'title'         => get_the_title( $id ),
 					'edit_link'     => get_edit_post_link( $id ),
-					'download_link' => $this->get_raw_value( $id ) ?: null,
+					'download_link' => $this->create_relative_path( $url ) ?: null,
 					'id'            => $id,
 					'class'         => "-nopadding",
 				]

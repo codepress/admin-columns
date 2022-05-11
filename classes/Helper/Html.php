@@ -178,7 +178,7 @@ class Html {
 
 		return sprintf( '<a data-modal-value %s>%s</a>',
 			implode( ' ', $attribute_markup ),
-			$label,
+			$label
 		);
 	}
 
