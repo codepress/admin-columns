@@ -50,9 +50,11 @@ class Arrays {
 	 */
 	public function get_nested_value( array $array, array $keys ) {
 		foreach ( $keys as $key ) {
-			if ( isset( $array[ $key ] ) ) {
-				$array = $array[ $key ];
+			if ( ! isset( $array[ $key ] ) ) {
+				return null;
 			}
+
+			$array = $array[ $key ];
 		}
 
 		return $array;
