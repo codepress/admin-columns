@@ -61,36 +61,6 @@ class Arrays {
 	}
 
 	/**
-	 * @param array  $array
-	 * @param string $glue
-	 *
-	 * @return string
-	 */
-	public function implode_associative( array $array, $glue ) {
-		$result = [];
-
-		foreach ( $array as $key => $item ) {
-			if ( is_array( $item ) ) {
-				$result[] = sprintf( '%s[ %s ]', $key, $this->implode_associative( $item, $glue ) );
-			} else if ( is_numeric( $key ) ) {
-				$result[] = $this->wrap_boolean_in_italic( $item );
-			} else {
-				$result[] = sprintf( '%s: %s', $key, $this->wrap_boolean_in_italic( $item ) );
-			}
-		}
-
-		return implode( $glue, $result );
-	}
-
-	private function wrap_boolean_in_italic( $value ) {
-		if ( is_bool( $value ) ) {
-			$value = sprintf( '<em>%s</em>', $value ? 'true' : 'false' );
-		}
-
-		return $value;
-	}
-
-	/**
 	 * Implode for multi dimensional array
 	 *
 	 * @param string       $glue
@@ -226,6 +196,18 @@ class Arrays {
 		$string = ac_helper()->array->implode_recursive( ',', $mixed );
 
 		return ac_helper()->string->string_to_array_integers( $string );
+	}
+
+	/**
+	 * @param array  $array
+	 * @param string $glue
+	 *
+	 * @return string
+	 */
+	public function implode_associative( array $array, $glue ) {
+		_deprecated_function( __METHOD__, '5.7.1' );
+
+		return '';
 	}
 
 }

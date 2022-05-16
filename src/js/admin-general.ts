@@ -6,6 +6,8 @@ const $ = require("jquery");
 
 initAcServices();
 
+initAcServices();
+
 $(document).ready(() => {
     initPointers();
 
