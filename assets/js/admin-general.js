@@ -1162,6 +1162,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const $ = __webpack_require__(/*! jquery */ "jquery");
 (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__.initAcServices)();
+(0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__.initAcServices)();
 $(document).ready(() => {
     (0,_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_1__.initPointers)();
     document.querySelectorAll('.ac-section').forEach(el => {
