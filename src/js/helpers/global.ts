@@ -1,4 +1,4 @@
-export const getParamFromUrl = (param: string, url: string) => {
+export const getParamFromUrl = (param: string, url: string): string | null => {
     if (!url.includes('?')) {
         return null;
     }
@@ -8,19 +8,17 @@ export const getParamFromUrl = (param: string, url: string) => {
     return params.get(param);
 }
 
-export const mapDataToFormData = (data: any, formData: FormData = null): FormData => {
-    if (!formData) {
-        formData = new FormData();
-    }
+export const mapDataToFormData = (data: any, formData: FormData | null = null): FormData => {
+    let fData: FormData = formData ?? new FormData();
 
     Object.keys(data).forEach(key => {
-        appendObjectToFormData(formData, data[key], key);
+        appendObjectToFormData(fData, data[key], key);
     });
 
-    return formData;
+    return fData;
 }
 
-export const appendObjectToFormData = (formData: FormData, data: { [key: string]: any }, parentKey: string = null) => {
+export const appendObjectToFormData = (formData: FormData, data: { [key: string]: any }, parentKey: string = '') => {
     if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
         Object.keys(data).forEach(key => {
             appendObjectToFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);

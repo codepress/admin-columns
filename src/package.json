@@ -47,5 +47,8 @@
         "templateFontPath": "../fonts/",
         "templateClassName": "cpacicon",
         "normalize": true
+    },
+    "dependencies": {
+        "svelte-json-tree": "^1.0.0"
     }
 }

@@ -142,7 +142,7 @@ class Strings {
 			$trail = __( '&hellip;' );
 		}
 
-		return mb_substr( $string, 0, $limit ) . $trail;
+		return trim( mb_substr( $string, 0, $limit ) ) . $trail;
 	}
 
 	/**

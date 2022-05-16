@@ -76,6 +76,7 @@
 }
 
 .ac-toggle-v2 {
+	$e: &;
 	position: relative;
 	margin-bottom: 15px;
 
@@ -151,6 +152,33 @@
 			transition: transform .1s ease;
 			background-color: #fff;
 			border: 5px solid #fff;
+		}
+	}
+
+	&.-small {
+		margin-bottom: 10px;
+
+		#{$e}__toggle {
+			transform: translateY(2px);
+
+			&__track {
+				width: 30px;
+				height: 18px;
+			}
+
+			&__thumb {
+				top: 2px;
+				left: 2px;
+				width: 14px;
+				height: 14px;
+			}
+			input[type=checkbox] {
+				&:checked {
+					~ .ac-toggle-v2__toggle__thumb {
+						transform: translateX(12px);
+					}
+				}
+			}
 		}
 	}
 }

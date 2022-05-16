@@ -482,14 +482,11 @@ class V4000 extends Update {
 		 */
 		$replaced_list_ids = [];
 
-		// 1. clear DB table
-		$this->clear_table();
-
-		// 2. Fetch data
+		// 1. Fetch data
 		$layouts_data = $this->get_layouts_data();
 		$columns_data = $this->get_columns_data();
 
-		// 3. Process Pro settings
+		// 2. Process Pro settings
 		foreach ( $layouts_data as $layout_data ) {
 
 			$list_key = $layout_data['key'];
@@ -534,7 +531,7 @@ class V4000 extends Update {
 			$migrate[] = $list_data;
 		}
 
-		// 4. Process Free column settings
+		// 3. Process Free column settings
 		foreach ( $columns_data as $list_key => $columns ) {
 			if ( empty( $columns ) ) {
 				continue;
@@ -561,12 +558,12 @@ class V4000 extends Update {
 			$replaced_list_ids[ $list_key ][''] = $list_id;
 		}
 
-		// 5. Make sure all ID's are unique.
+		// 4. Make sure all ID's are unique.
 		// A duplicate `id` is possible when a user manually exported their list screen settings and
 		// changed the list screen `key` (e.g. from post to page), without changing the `id`, and imported these settings.
 		$migrate = $this->unique_ids( $migrate );
 
-		// 6. Insert into DB
+		// 5. Insert into DB
 		foreach ( $migrate as $list_data ) {
 			$this->insert( $list_data );
 		}
@@ -622,18 +619,6 @@ class V4000 extends Update {
 		";
 
 		dbDelta( $sql );
-	}
-
-	private function clear_table() {
-		global $wpdb;
-
-		$table = $wpdb->prefix . self::DATABASE_TABLE;
-
-		$exists = $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table ) ) === $table;
-
-		if ( $exists ) {
-			$wpdb->query( "TRUNCATE TABLE " . $table );
-		}
 	}
 
 	private function insert( array $data ) {

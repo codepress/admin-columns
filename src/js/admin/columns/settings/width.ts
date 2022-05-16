@@ -17,14 +17,14 @@ class WidthSetting {
     setting: HTMLElement
     events: Nanobus
     indicator: WidthIndicator
-    widthInput: HTMLInputElement
+    widthInput: HTMLInputElement | null
     unitInput: NodeListOf<HTMLInputElement>
 
     constructor(column: Column, setting: HTMLElement) {
         this.column = column;
         this.setting = setting;
         this.events = new Nanobus();
-        this.indicator = new WidthIndicator(column.getElement().querySelector('.ac-column-heading-setting--width'));
+        this.indicator = new WidthIndicator(column.getElement().querySelector('.ac-column-heading-setting--width')!);
         this.widthInput = this.setting.querySelector<HTMLInputElement>('[data-width-input]');
         this.unitInput = this.setting.querySelectorAll<HTMLInputElement>('[data-unit-input] input')
 
@@ -32,23 +32,25 @@ class WidthSetting {
     }
 
     getWidth(): number {
-        let widthValue = this.widthInput.value;
-        return widthValue ? parseInt(widthValue) : null
+        let widthValue = this.widthInput?.value ?? 0;
+
+        return +widthValue;
     }
 
-    setWidth(width: number) {
-        this.widthInput.value = width ? width.toString() : null;
+    setWidth(width: number | string) {
+        if (this.widthInput) {
+            this.widthInput.value = width ? width.toString() : '';
+        }
+
         this.updateIndicator();
     }
 
     updateUnit() {
-        this.setting.querySelector('.description .unit').innerHTML = this.getUnit();
+        this.setting.querySelector('.description .unit')!.innerHTML = this.getUnit();
     }
 
     getUnit(): string {
-        let input = this.setting.querySelector<HTMLInputElement>('[data-unit-input] input:checked');
-
-        return input ? input.value : null;
+        return this.setting.querySelector<HTMLInputElement>('[data-unit-input] input:checked')?.value ?? '0';
     }
 
     getValue(): widthValue {
@@ -62,7 +64,7 @@ class WidthSetting {
         let width = this.getWidth();
 
         if (width === 0 || width < 0) {
-            this.setWidth(null);
+            this.setWidth('');
         }
 
         if (this.getUnit() === '%') {
@@ -73,7 +75,7 @@ class WidthSetting {
     }
 
     init() {
-        this.widthInput.addEventListener('keyup', () => {
+        this.widthInput?.addEventListener('keyup', () => {
             this.updateIndicator();
             this.initSlider();
             this.validate();
@@ -96,16 +98,16 @@ class WidthSetting {
     }
 
     initSlider() {
-        let sliderElement: HTMLElement = this.column.getElement().querySelector('.width-slider');
-
-        (<any>$(sliderElement)).slider({
-            range: 'min',
-            min: 0,
-            max: '%' === this.getUnit() ? 100 : 500,
-            value: this.getWidth(),
-            slide: (event: any, ui: any) => {
-                this.setWidth(ui.value);
-            }
+        this.column.getElement().querySelectorAll<HTMLElement>('.width-slider').forEach(el => {
+            (<any>$(el)).slider({
+                range: 'min',
+                min: 0,
+                max: '%' === this.getUnit() ? 100 : 500,
+                value: this.getWidth(),
+                slide: (event: any, ui: any) => {
+                    this.setWidth(ui.value);
+                }
+            });
         });
     }
 }

@@ -10,17 +10,18 @@ declare const AC_I18N: AcGeneralSettingsI18N
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll<HTMLInputElement>('.ac-settings-box input[data-ajax-setting]').forEach(el => {
-        new GeneralAdminSetting(el, el.dataset.ajaxSetting);
+        new GeneralAdminSetting(el, el.dataset.ajaxSetting ?? '');
     });
 
-    let restoreFormButton: HTMLInputElement = document.querySelector('#frm-ac-restore [type=submit]');
+    let restoreFormButton = document.querySelector<HTMLInputElement>('#frm-ac-restore [type=submit]');
+
     if (restoreFormButton) {
         restoreFormButton.addEventListener('click', (e) => {
             e.preventDefault();
             new AcConfirmation({
                 message: AC_I18N.restore_settings,
                 confirm: () => {
-                    restoreFormButton.closest('form').submit();
+                    restoreFormButton?.closest('form')?.submit();
                 },
                 lastFocus: restoreFormButton
             }).create();
@@ -33,7 +34,7 @@ class GeneralAdminSetting {
 
     element: HTMLInputElement
     name: string
-    loader: AjaxLoader
+    loader: AjaxLoader | null
 
     constructor(element: HTMLInputElement, name: string) {
         this.element = element;
@@ -46,19 +47,18 @@ class GeneralAdminSetting {
     init() {
         this.element.addEventListener('change', () => {
             this.initNewLoader();
-            this.element.closest('.ac-toggle-v2').append(this.loader.getElement());
-            this.loader.setLoading(true);
+            this.element.closest('.ac-toggle-v2')?.append(this.loader?.getElement() ?? document.createElement('div'));
+            this.loader?.setLoading(true);
             this.persist().then(() => {
-                this.loader.finish();
+                this.loader?.finish();
             });
         });
+
+        mapDataToFormData({});
     }
 
     private initNewLoader() {
-        if (this.loader !== null) {
-            this.loader.getElement().remove();
-        }
-
+        this.loader?.getElement().remove();
         this.loader = new AjaxLoader();
     }
 

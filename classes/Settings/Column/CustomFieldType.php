@@ -40,7 +40,6 @@ class CustomFieldType extends Settings\Column
 		$settings = [];
 
 		switch ( $this->get_field_type() ) {
-
 			case self::TYPE_DATE :
 				$settings[] = new Date( $this->column );
 
@@ -136,7 +135,7 @@ class CustomFieldType extends Settings\Column
 			],
 			'multiple'   => [
 				self::TYPE_COUNT => __( 'Number of Fields', 'codepress-admin-columns' ),
-				self::TYPE_ARRAY => __( 'Multiple Values', 'codepress-admin-columns' ),
+				self::TYPE_ARRAY => sprintf( '%s / %s', __( 'Multiple Values', 'codepress-admin-columns' ), __( 'Serialized', 'codepress-admin-columns' ) )
 			],
 		];
 
@@ -219,19 +218,20 @@ class CustomFieldType extends Settings\Column
 
 			case self::TYPE_ARRAY :
 				if ( ac_helper()->array->is_associative( $value ) ) {
-					$value = ac_helper()->array->implode_associative( $value, __( ', ' ) );
-				} else {
-					$value = ac_helper()->array->implode_recursive( __( ', ' ), $value );
+					return sprintf(
+						'<div data-component="ac-json" data-json="%s" ></div>',
+						esc_attr( json_encode( $value ) )
+					);
 				}
 
-				break;
+				return ac_helper()->array->implode_recursive( __( ', ' ), $value );
 			case self::TYPE_DATE :
 				$timestamp = ac_helper()->date->strtotime( $value );
 				if ( $timestamp ) {
-					$value = date( 'c', $timestamp );
+					return date( 'c', $timestamp );
 				}
 
-				break;
+				return $value;
 			case self::TYPE_POST :
 				$values = [];
 				foreach ( $this->get_ids_from_array_or_string( $value ) as $id ) {
@@ -239,9 +239,7 @@ class CustomFieldType extends Settings\Column
 					$values[] = ac_helper()->html->link( get_edit_post_link( $post ), $post->post_title );
 				}
 
-				$value = implode( ac_helper()->html->divider(), $values );
-
-				break;
+				return implode( ac_helper()->html->divider(), $values );
 			case self::TYPE_USER :
 				$values = [];
 				foreach ( $this->get_ids_from_array_or_string( $value ) as $id ) {
@@ -249,38 +247,29 @@ class CustomFieldType extends Settings\Column
 					$values[] = ac_helper()->html->link( get_edit_user_link( $id ), ac_helper()->user->get_display_name( $user ) );
 				}
 
-				$value = implode( ac_helper()->html->divider(), $values );
-
-				break;
+				return implode( ac_helper()->html->divider(), $values );
 			case self::TYPE_IMAGE :
-				$value = new Collection( $this->get_values_from_array_or_string( $value ) );
 
-				break;
+				return new Collection( $this->get_values_from_array_or_string( $value ) );
 			case self::TYPE_MEDIA :
-				$value = new Collection( $this->get_ids_from_array_or_string( $value ) );
 
-				break;
+				return new Collection( $this->get_ids_from_array_or_string( $value ) );
 			case self::TYPE_BOOLEAN :
 				$is_true = ! empty( $value ) && 'false' !== $value && '0' !== $value;
 
 				if ( $is_true ) {
-					$value = ac_helper()->icon->dashicon( [ 'icon' => 'yes', 'class' => 'green' ] );
-				} else {
-					$value = ac_helper()->icon->dashicon( [ 'icon' => 'no-alt', 'class' => 'red' ] );
+					return ac_helper()->icon->dashicon( [ 'icon' => 'yes', 'class' => 'green' ] );
 				}
 
-				break;
+				return ac_helper()->icon->dashicon( [ 'icon' => 'no-alt', 'class' => 'red' ] );
 			case self::TYPE_COLOR :
 
 				if ( $value && is_scalar( $value ) ) {
-					$value = ac_helper()->string->get_color_block( $value );
-				} else {
-					$value = false;
+					return ac_helper()->string->get_color_block( $value );
 				}
 
-				break;
+				return false;
 			case self::TYPE_COUNT :
-
 				if ( $this->column instanceof AC\Column\Meta ) {
 					$value = $this->column->get_meta_value( $original_value, $this->column->get_meta_key(), false );
 
@@ -288,27 +277,21 @@ class CustomFieldType extends Settings\Column
 						if ( 1 === count( $value ) && is_array( $value[0] ) ) {
 
 							// Value contains a single serialized array with multiple values
-							$value = count( $value[0] );
-						} else {
-
-							// Count multiple usage of meta keys
-							$value = count( $value );
+							return count( $value[0] );
 						}
-					} else {
-						$value = false;
+
+						// Count multiple usage of meta keys
+						return count( $value );
 					}
 				}
 
-				break;
+				return false;
 			case self::TYPE_NON_EMPTY :
-				$value = ac_helper()->icon->yes_or_no( $value, $value );
 
-				break;
+				return ac_helper()->icon->yes_or_no( $value, $value );
 			default :
-				$value = ac_helper()->array->implode_recursive( __( ', ' ), $value );
+				return ac_helper()->array->implode_recursive( __( ', ' ), $value );
 		}
-
-		return $value;
 	}
 
 	/**

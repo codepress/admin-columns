@@ -12,6 +12,7 @@ class Site implements Type\Url {
 
 	const PAGE_PRICING = '/pricing-purchase';
 	const PAGE_ABOUT_PRO = '/admin-columns-pro';
+	const PAGE_FEATURES = '/features';
 	const PAGE_ACCOUNT_SUBSCRIPTIONS = '/my-account/subscriptions';
 	const PAGE_FORUM = '/topics';
 	const PAGE_FORUM_BETA = '/forums/forum/beta-feedback/';

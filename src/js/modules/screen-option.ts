@@ -17,7 +17,7 @@ export default class ScreenOption {
     }
 
     getInput(): HTMLInputElement {
-        return this.element.querySelector<HTMLInputElement>('input');
+        return this.element.querySelector<HTMLInputElement>('input')!;
     }
 
     init() {

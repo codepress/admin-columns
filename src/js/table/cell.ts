@@ -48,7 +48,7 @@ export default class Cell {
     }
 
     getSettings() {
-        return AC_SERVICES.getService<Table>('Table').Columns.get(this.getName());
+        return AC_SERVICES.getService<Table>('Table')?.Columns.get(this.getName());
     }
 
     hasChanged(content: string) {

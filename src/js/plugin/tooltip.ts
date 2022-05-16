@@ -1,4 +1,5 @@
 export const initAcTooltips = () => {
+    document.querySelectorAll('.ac-tooltip').forEach( el => el.remove() );
     document.querySelectorAll('[data-ac-tip]').forEach((element: HTMLElement) => {
         new Tooltip(element);
     });
@@ -12,7 +13,7 @@ export class Tooltip {
 
     constructor(el: HTMLElement, content: string = '') {
         this.element = el;
-        this.content = content ? content : el.dataset.acTip;
+        this.content = content ? content : el.dataset.acTip as string;
         this.tip = createTooltip(this.content);
 
         this.initEvents();

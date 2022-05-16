@@ -8,16 +8,22 @@ document.addEventListener('DOMContentLoaded', () => {
     addEventListenerLive('click', 'a.hide-review-notice-soft', (e: Event) => {
         e.preventDefault();
 
-        let notice: HTMLElement = (<HTMLElement>e.target).closest('.ac-notice');
-        notice.querySelector('.info').remove();
-        notice.querySelector<HTMLElement>('.help').style.display = 'block';
+        let notice: HTMLElement | null = (<HTMLElement>e.target).closest('.ac-notice');
+        if (notice) {
+            notice.querySelector('.info')?.remove();
 
-        $.post(ajaxurl, JSON.parse(notice.dataset.dismissibleCallback));
+            let help = notice?.querySelector<HTMLElement>('.help');
+            if (help) {
+                help.style.display = 'block';
+            }
+            $.post(ajaxurl, JSON.parse(notice.dataset.dismissibleCallback || ''));
+        }
+
     });
 
     addEventListenerLive('click', 'a.hide-review-notice', (e: Event) => {
         e.preventDefault();
 
-        (<HTMLElement>e.target).closest('.ac-notice').querySelector('.notice-dismiss').dispatchEvent(new Event('click'));
+        (e.target as HTMLElement).closest('.ac-notice')?.querySelector('.notice-dismiss')?.dispatchEvent(new Event('click'));
     });
 })

@@ -41,7 +41,7 @@ let config = {
 		mainFields : ['svelte', 'browser', 'module', 'main'],
 		alias : {
 			svelte : path.resolve( 'node_modules', 'svelte' )
-		},
+		}
 	},
 	externals : {
 		jquery : 'jQuery',

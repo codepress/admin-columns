@@ -2,6 +2,7 @@ import {insertAfter} from "../helpers/elements";
 import AcServices from "./ac-services";
 import Tooltips from "./tooltips";
 import {LocalizedAcTable} from "../types/table";
+import {initAcTooltips} from "../plugin/tooltip";
 
 const $ = require("jquery");
 
@@ -10,28 +11,27 @@ declare const AC: LocalizedAcTable
 declare const AC_SERVICES: AcServices
 
 export default class ToggleBoxLink {
-    element: HTMLLinkElement
-    contentBox: HTMLElement
+    contentBox: HTMLElement | null
 
-    constructor(element: HTMLLinkElement) {
+    constructor(private element: HTMLLinkElement) {
         this.element = element;
         this.initEvents();
 
-        this.contentBox = this.element.parentElement.querySelector('.ac-toggle-box-contents');
+        this.contentBox = element?.parentElement?.querySelector('.ac-toggle-box-contents') ?? null;
         if (!this.contentBox) {
-            this.createContenBox();
+            this.createContentBox();
         }
     }
 
     isAjax() {
-        return parseInt(this.element.dataset.ajaxPopulate) === 1;
+        return parseInt(this.element.dataset.ajaxPopulate ?? '') === 1;
     }
 
     isInited() {
         return this.element.dataset.toggleBoxInit;
     }
 
-    createContenBox() {
+    private createContentBox() {
         let contentBox = document.createElement('div');
 
         contentBox.classList.add('ac-toggle-box-contents');
@@ -72,7 +72,7 @@ export default class ToggleBoxLink {
     getContentBox() {
         if (!this.contentBox) {
 
-            return this.createContenBox();
+            return this.createContentBox();
         }
 
         return this.contentBox;
@@ -86,6 +86,7 @@ export default class ToggleBoxLink {
         }
 
         this.element.innerHTML = label + '<span class="spinner"></span>';
+        initAcTooltips();
     }
 
     toggleContentBox() {
@@ -104,7 +105,7 @@ export default class ToggleBoxLink {
             this.setContent(response);
 
             $(this.element.parentElement).trigger('ajax_column_value_ready');
-            AC_SERVICES.getService<Tooltips>('Tooltips').init();
+            AC_SERVICES.getService<Tooltips>('Tooltips')?.init();
         }).always(() => {
             this.element.classList.remove('loading');
         });

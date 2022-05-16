@@ -12,8 +12,9 @@ class Dimensions extends Meta {
 	public function __construct() {
 		parent::__construct();
 
-		$this->set_type( 'column-dimensions' );
-		$this->set_label( __( 'Dimensions', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-dimensions' )
+		     ->set_group( 'media-image' )
+		     ->set_label( __( 'Dimensions', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {

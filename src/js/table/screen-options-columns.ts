@@ -1,28 +1,26 @@
-import Columns from "./columns";
 import columns from "./columns";
 import AcHtmlElement from "../helpers/html-element";
 
 export default class ScreenOptionsColumns {
 
-    private columns: Columns
+    constructor(private columns: columns) {
 
-    constructor(columns: columns) {
-        this.columns = columns;
-
-        columns.getColumnNames().forEach((column_name: string) => {
+        this.columns.getColumnNames().forEach((column_name: string) => {
             let column = columns.get(column_name);
-            let input = ScreenOptionsColumns.getInputByName(column.name);
 
-            if (input && input.parentElement.textContent.length === 0) {
-                input.parentElement.appendChild(AcHtmlElement.create('span').addHtml(column.label).element);
+            if (column) {
+                let input = ScreenOptionsColumns.getInputByName(column.name);
+
+                if (input && input?.parentElement?.textContent?.length === 0) {
+                    input.parentElement.appendChild(AcHtmlElement.create('span').addHtml(column.label).getElement());
+                }
             }
+
         });
     }
 
-    static getInputByName(name: string) {
-        let input = document.querySelector(`input[name='${name}-hide']`);
-
-        return input ? input : false;
+    static getInputByName(name: string): HTMLInputElement | null {
+        return document.querySelector(`input[name='${name}-hide']`);
     }
 
 }

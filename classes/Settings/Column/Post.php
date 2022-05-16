@@ -32,20 +32,26 @@ class Post extends Settings\Column
 	}
 
 	public function get_dependent_settings() {
-		$setting = [];
+		$settings = [];
 
 		switch ( $this->get_post_property_display() ) {
 			case self::PROPERTY_FEATURED_IMAGE :
-				$setting[] = new Settings\Column\Image( $this->column );
+				$settings[] = new Settings\Column\Image( $this->column );
 				break;
 			case self::PROPERTY_DATE :
-				$setting[] = new Settings\Column\Date( $this->column );
+				$settings[] = new Settings\Column\Date( $this->column );
+				break;
+			case self::PROPERTY_TITLE :
+				$setting = new Settings\Column\CharacterLimit( $this->column );
+				$setting->set_default( 30 );
+
+				$settings[] = $setting;
 				break;
 		}
 
-		$setting[] = new Settings\Column\PostLink( $this->column );
+		$settings[] = new Settings\Column\PostLink( $this->column );
 
-		return $setting;
+		return $settings;
 	}
 
 	/**
@@ -59,26 +65,16 @@ class Post extends Settings\Column
 		switch ( $this->get_post_property_display() ) {
 
 			case self::PROPERTY_AUTHOR :
-				$value = ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $id ) );
-
-				break;
+				return ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $id ) ) ?: sprintf( '%s (%s)', __( 'No author', 'codepress-admin-columns' ), $id );;
 			case self::PROPERTY_FEATURED_IMAGE :
-				$value = get_post_thumbnail_id( $id );
-
-				break;
+				return get_post_thumbnail_id( $id );
 			case self::PROPERTY_TITLE :
-				$value = ac_helper()->post->get_title( $id );
-
-				break;
+				return ac_helper()->post->get_title( $id ) ?: sprintf( '%s (%s)', __( 'No title', 'codepress-admin-columns' ), $id );
 			case self::PROPERTY_DATE :
-				$value = ac_helper()->post->get_raw_field( 'post_date', $id );
-
-				break;
+				return ac_helper()->post->get_raw_field( 'post_date', $id );
 			default :
-				$value = $id;
+				return $id;
 		}
-
-		return $value;
 	}
 
 	public function create_view() {

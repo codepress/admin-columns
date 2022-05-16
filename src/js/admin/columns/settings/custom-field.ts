@@ -27,12 +27,12 @@ class CustomField {
     constructor(column: Column, setting: HTMLElement) {
         this.column = column;
         this.setting = setting;
-        this.select = setting.querySelector('.custom_field');
+        this.select = setting.querySelector('.custom_field')!;
         this.bindEvents();
     }
 
     bindEvents() {
-        const request = loadSingleRequestManager(this.select.dataset.type, this.select.dataset.post_type);
+        const request = loadSingleRequestManager(this.select.dataset.type ?? '', this.select.dataset.post_type ?? '');
         const editingAvailable = this.column.getElement().querySelectorAll('[data-setting="edit"][data-indicator-toggle]').length > 0;
 
         // Ensure you won't get any duplicates on clone

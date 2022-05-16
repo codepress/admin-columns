@@ -17,13 +17,13 @@ export const getIdFromTableRow = (row: HTMLTableRowElement): number => {
 
     // Try to get the ID from the edit URL (MS Sites)
     if (!item_id) {
-        let link = row.parentElement.querySelector('.edit a');
+        let link = row.parentElement?.querySelector('.edit a');
 
-        if (link) {
+        if (!!link) {
             let href = link.getAttribute('href');
 
             if (href) {
-                item_id = parseInt(getParamFromUrl('id', href));
+                item_id = parseInt(getParamFromUrl('id', href) ?? '' );
             }
         }
     }
@@ -39,12 +39,12 @@ export const getIdFromString = (value: string): number => {
     return parseInt(id_parts[id_parts.length - 1]);
 }
 
-export const getRowCellByName = (row: HTMLTableRowElement, column_name: string): HTMLTableCellElement => {
+export const getRowCellByName = (row: HTMLTableRowElement, column_name: string): HTMLTableCellElement|null => {
     return row.querySelector<HTMLTableCellElement>(`td.column-${column_name}`);
 }
 
-export const resolveTableBySelector = (selector: string): HTMLTableElement => {
-    let table: HTMLTableElement = document.querySelector(selector);
+export const resolveTableBySelector = (selector: string): HTMLTableElement|null => {
+    let table: HTMLTableElement|null = document.querySelector(selector);
 
     if (!table) {
         return null;

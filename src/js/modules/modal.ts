@@ -1,14 +1,8 @@
 export default class Modal {
-    el: HTMLElement
     dialog: HTMLElement
 
-    constructor(el: HTMLElement) {
-        if (!el) {
-            return;
-        }
-        this.el = el;
-        this.dialog = el.querySelector('.ac-modal__dialog');
-
+    constructor(protected el: HTMLElement) {
+        this.dialog = el.querySelector('.ac-modal__dialogs') ?? document.createElement('div');
         this.initEvents();
     }
 
@@ -17,8 +11,6 @@ export default class Modal {
     }
 
     initEvents() {
-        let self = this;
-
         document.addEventListener('keydown', (e: KeyboardEvent) => {
             const keyName = e.key;
 
@@ -36,7 +28,7 @@ export default class Modal {
             dismissButtons.forEach((b) => {
                 b.addEventListener('click', (e) => {
                     e.preventDefault();
-                    self.close();
+                    this.close();
                 });
             });
         }

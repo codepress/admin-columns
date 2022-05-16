@@ -6,6 +6,8 @@
         "baseUrl": "./",
         "outDir": "./dist/",
         "noImplicitAny": true,
+        //"noUnusedLocals": true,
+        "strictNullChecks": true,
         "module": "es6",
         "target": "es6",
         "downlevelIteration": true,
@@ -13,6 +15,9 @@
         "skipLibCheck": true,
         "moduleResolution": "Node",
         "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "noEmit": false,
+        "forceConsistentCasingInFileNames": true,
         "types": ["node", "svelte"]
     }
 }

@@ -734,7 +734,7 @@ abstract class ListScreen {
 		 * Fires when a column is registered to a list screen, i.e. when it is created. Can be used
 		 * to attach additional functionality to a column, such as exporting, sorting or filtering
 		 *
-		 * @param Column     $column      Column type object
+		 * @param Column $column Column type object
 		 * @param ListScreen $list_screen List screen object to which the column was registered
 		 *
 		 * @since 3.0.5
@@ -788,7 +788,7 @@ abstract class ListScreen {
 	}
 
 	public function set_preferences( array $preferences ) {
-		$this->preferences = $preferences;
+		$this->preferences = apply_filters( 'ac/list_screen/preferences', $preferences, $this );
 
 		return $this;
 	}
@@ -815,8 +815,8 @@ abstract class ListScreen {
 
 	/**
 	 * @param string $column_name
-	 * @param int    $id
-	 * @param null   $original_value
+	 * @param int $id
+	 * @param null $original_value
 	 *
 	 * @return string
 	 */
@@ -837,8 +837,8 @@ abstract class ListScreen {
 		/**
 		 * Column display value
 		 *
-		 * @param string $value  Column display value
-		 * @param int    $id     Object ID
+		 * @param string $value Column display value
+		 * @param int $id Object ID
 		 * @param Column $column Column object
 		 *
 		 * @since 3.0

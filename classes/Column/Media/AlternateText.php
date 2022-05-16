@@ -10,8 +10,9 @@ use AC\Column;
 class AlternateText extends Column\Meta {
 
 	public function __construct() {
-		$this->set_type( 'column-alternate_text' );
-		$this->set_label( __( 'Alternative Text', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-alternate_text' )
+		     ->set_group( 'media-image' )
+		     ->set_label( __( 'Alternative Text', 'codepress-admin-columns' ) );
 	}
 
 	public function get_meta_key() {

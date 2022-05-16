@@ -1,8 +1,7 @@
-
 import {keyAnyPair} from "../helpers/types";
 import {LocalizedAcTable} from "../types/table";
 
-type columns = {
+type ColumnsValue = {
     [key: string]: ColumnTableSettings
 }
 
@@ -10,41 +9,19 @@ declare const AC: LocalizedAcTable
 
 export default class Columns {
 
-    table: HTMLTableElement
-    columns: { [key: string]: ColumnTableSettings }
-
-    constructor(table: HTMLTableElement) {
-        this.table = table;
-        this.columns = {};
-
+    constructor( private table: HTMLTableElement, private columns: ColumnsValue = {} ) {
         this.init();
     }
 
     init() {
-        let self = this;
-        let thead = this.table.querySelector('thead');
-        let headers = thead.querySelectorAll<HTMLTableHeaderCellElement>('th');
-
-        for (let i = 0; i < headers.length; i++) {
-            let headerName = headers[i].id;
-
-            self.columns[headers[i].id] = new ColumnTableSettings(headerName, AC.column_types[headerName], this.sanitizeLabel(headers[i]));
-        }
-    }
-
-    getColumns(): columns {
-        return this.columns;
-    }
-
-    getColumnsMap() {
-        let map = new Map();
-        let columns = this.getColumns();
-
-        Object.keys(columns).forEach((k) => {
-            map.set(k, columns[k])
+        this.table.querySelector('thead')?.querySelectorAll<HTMLTableHeaderCellElement>('th').forEach(cell => {
+            let headerName = cell?.id;
+            this.columns[headerName] = new ColumnTableSettings(headerName, AC.column_types[headerName], this.sanitizeLabel(cell));
         });
+    }
 
-        return map;
+    getColumns(): ColumnsValue {
+        return this.columns;
     }
 
     getColumnNames(): Array<string> {
