@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.5.1 =
-Release Date: May 11th, 2022
+Release Date: May 16th, 2022
 
 * [Added] New Audio player column for Media list table
 * [Fixed] Prevent fatal error, when removing a non-existent column set from a Local Storage repository
