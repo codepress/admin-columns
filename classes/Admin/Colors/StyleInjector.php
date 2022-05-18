@@ -24,7 +24,7 @@ final class StyleInjector {
 		<!-- Admin Columns color variables for custom and shipped WordPress colors -->
 		<style>
 			:root {
-			<?= "\t" . implode( "\n" . str_repeat( "\t", 4 ), $colors ) ?>
+			<?= "\t" . implode( "\n" . str_repeat( "\t", 4 ), $colors ) . "\n" ?>
 			}
 		</style>
 
