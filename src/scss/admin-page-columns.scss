@@ -589,6 +589,10 @@
 	padding: 10px;
 	line-height: 24px;
 
+	.ac-toggle-v2 {
+		margin-bottom: 0;
+	}
+
 	input[type=text], select {
 		width: 99.95%;
 		max-width: none;
