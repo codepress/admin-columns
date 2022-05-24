@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Added] It is now possible to select the Website display for User related columns
+
 = 4.5.1 =
 Release Date: May 16th, 2022
 
