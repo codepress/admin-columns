@@ -658,6 +658,10 @@
 .ac-column .ac-setting-input .ac-toggle-v2 {
   margin-bottom: 0;
 }
+.ac-column .ac-setting-input .ac-toggle-v2 .ac-toggle-v2__label {
+  display: inline-block;
+  transform: translateY(-3px);
+}
 .ac-column .ac-setting-input input[type=text], .ac-column .ac-setting-input select {
   width: 99.95%;
   max-width: none;

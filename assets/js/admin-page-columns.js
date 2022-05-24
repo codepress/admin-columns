@@ -3753,16 +3753,12 @@ const initSubSettings = (column) => {
 };
 class SubsettingSetting {
     constructor(element) {
+        var _a;
         this.element = element;
-        this.inputs = element.querySelectorAll('.ac-setting-input input[type="radio"]');
+        this.input = element.querySelector('.ac-setting-input input[type="checkbox"]');
         this.subFields = element.querySelectorAll('.ac-column-setting');
         this.initState();
-        this.initEvents();
-    }
-    initEvents() {
-        this.inputs.forEach(el => {
-            el.addEventListener('change', () => this.initState());
-        });
+        (_a = this.input) === null || _a === void 0 ? void 0 : _a.addEventListener('input', () => this.initState());
     }
     initState() {
         this.isOptionEnabled()
@@ -3770,10 +3766,8 @@ class SubsettingSetting {
             : this.subFields.forEach(el => el.style.display = 'none');
     }
     isOptionEnabled() {
-        let checked = Array.from(this.inputs).filter(input => {
-            return input.checked;
-        });
-        return checked.length ? checked[0].value === 'on' : false;
+        var _a, _b;
+        return (_b = (_a = this.input) === null || _a === void 0 ? void 0 : _a.checked) !== null && _b !== void 0 ? _b : false;
     }
 }
 
