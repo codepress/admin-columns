@@ -17,6 +17,7 @@ class User extends Settings\Column implements Settings\FormatValue {
 	const PROPERTY_LAST_NAME = 'last_name';
 	const PROPERTY_LOGIN = 'user_login';
 	const PROPERTY_NICENAME = 'user_nicename';
+	const PROPERTY_URL = 'user_url';
 	const PROPERTY_NICKNAME = 'nickname';
 	const PROPERTY_ROLES = 'roles';
 
@@ -83,6 +84,7 @@ class User extends Settings\Column implements Settings\FormatValue {
 			self::PROPERTY_EMAIL        => __( 'User Email', 'codepress-admin-columns' ),
 			self::PROPERTY_ID           => __( 'User ID', 'codepress-admin-columns' ),
 			self::PROPERTY_NICENAME     => __( 'User Nicename', 'codepress-admin-columns' ),
+			self::PROPERTY_URL          => __( 'User Website', 'codepress-admin-columns' ),
 		];
 
 		// resort for possible translations
