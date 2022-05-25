@@ -24,9 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<a class="ac-pointer ac-column-setting__instructions" rel="p-instruction-<?= $id; ?>" data-pos="right" data-width="300">
 						<img src="<?= AC()->get_url(); ?>assets/images/question.svg" alt="?">
 					</a>
-					<div id="p-instruction-<?= $id; ?>" style="display:none;">
+					<template id="p-instruction-<?= $id; ?>">
 						<?= $this->instructions; ?>
-					</div>
+					</template>
 				<?php endif; ?>
 
 				<?php if ( $this->read_more ) : ?>
