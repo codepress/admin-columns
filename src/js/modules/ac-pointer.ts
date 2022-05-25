@@ -20,7 +20,7 @@ export class Pointer {
             return;
         }
 
-        this.container = createPointerElement( );
+        this.container = createPointerElement();
         if (this.width) {
             this.container.style.width = `${this.width}px`;
         }
@@ -52,15 +52,19 @@ export class Pointer {
     setPosition() {
         const bodyOffset = document.body.getBoundingClientRect();
         const viewportOffset = this.element.getBoundingClientRect();
-        this.container.style.top = ((viewportOffset.top - bodyOffset.top) + this.element.offsetHeight - (this.container.offsetHeight / 2) + 24) + 'px';
+        this.container.style.top = ((viewportOffset.top - bodyOffset.top) + this.element.offsetHeight - (this.container.offsetHeight / 2) + 20) + 'px';
 
         switch (this.position) {
+            case'right_bottom':
+                this.container.style.top = ((viewportOffset.top - bodyOffset.top) - this.container.offsetHeight + 100) + 'px';
+                this.container.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth + 14) + 'px';
+                break;
             case'left':
                 this.container.style.left = ((viewportOffset.left - bodyOffset.left) - this.container.offsetWidth - 12) + 'px';
                 break;
 
             default:
-                this.container.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth + 14) + 'px';
+                this.container.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth + 10) + 'px';
         }
     }
 
@@ -98,7 +102,7 @@ export class Pointer {
     }
 }
 
-const createPointerElement = ( ) => {
+const createPointerElement = () => {
     const element = document.createElement('div');
     element.classList.add('ac-pointer-modal-container');
     element.style.position = 'absolute';

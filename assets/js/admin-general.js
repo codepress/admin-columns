@@ -913,13 +913,17 @@ class Pointer {
     setPosition() {
         const bodyOffset = document.body.getBoundingClientRect();
         const viewportOffset = this.element.getBoundingClientRect();
-        this.container.style.top = ((viewportOffset.top - bodyOffset.top) + this.element.offsetHeight - (this.container.offsetHeight / 2) + 24) + 'px';
+        this.container.style.top = ((viewportOffset.top - bodyOffset.top) + this.element.offsetHeight - (this.container.offsetHeight / 2) + 20) + 'px';
         switch (this.position) {
+            case 'right_bottom':
+                this.container.style.top = ((viewportOffset.top - bodyOffset.top) - this.container.offsetHeight + 100) + 'px';
+                this.container.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth + 14) + 'px';
+                break;
             case 'left':
                 this.container.style.left = ((viewportOffset.left - bodyOffset.left) - this.container.offsetWidth - 12) + 'px';
                 break;
             default:
-                this.container.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth + 14) + 'px';
+                this.container.style.left = ((viewportOffset.left - bodyOffset.left) + this.element.offsetWidth + 10) + 'px';
         }
     }
     checkClose() {

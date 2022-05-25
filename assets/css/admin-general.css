@@ -432,7 +432,7 @@ html.wp-toolbar .ac-tooltip {
 
 .ac-pointer-modal {
   background: #fff;
-  border: 1px solid #000;
+  border: 1px solid var(--ac-border-grey);
 }
 .ac-pointer-modal__content img {
   max-width: calc(100% - 30px);
@@ -456,8 +456,8 @@ html.wp-toolbar .ac-tooltip {
   display: block;
   width: 10px;
   height: 10px;
-  border-left: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border-left: 1px solid var(--ac-border-grey);
+  border-bottom: 1px solid var(--ac-border-grey);
   position: absolute;
   background: #fff;
   top: 50%;
@@ -468,6 +468,9 @@ html.wp-toolbar .ac-tooltip {
   left: inherit;
   right: -5px;
   transform: translateY(-5px) rotate(-135deg);
+}
+.ac-pointer-modal__arrow[data-pos=right_bottom] {
+  display: none;
 }
 
 .ac-toggle-container {

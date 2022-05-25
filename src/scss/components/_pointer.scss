@@ -6,7 +6,7 @@
 
 .ac-pointer-modal {
 	background: #fff;
-	border: 1px solid #000;
+	border: 1px solid var(--ac-border-grey);
 
 	&__content {
 		img {
@@ -35,8 +35,8 @@
 		display: block;
 		width: 10px;
 		height: 10px;
-		border-left: 1px solid #000;
-		border-bottom: 1px solid #000;
+		border-left: 1px solid var(--ac-border-grey);
+		border-bottom: 1px solid var(--ac-border-grey);
 
 		position: absolute;
 		background: #fff;
@@ -48,6 +48,9 @@
 			left: inherit;
 			right: -5px;
 			transform: translateY(-5px) rotate(-135deg);
+		}
+		&[data-pos="right_bottom"]{
+			display: none;
 		}
 
 	}
