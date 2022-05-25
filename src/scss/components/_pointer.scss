@@ -7,20 +7,22 @@
 .ac-pointer-modal {
 	background: #fff;
 	border: 1px solid var(--ac-border-grey);
+	box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
 
 	&__content {
-		padding-bottom: 30px;
+		padding-bottom: 20px;
 
 		img {
 			max-width: calc(100% - 30px);
 			margin: 0 15px;
+			margin-bottom: 5px;
 			height: auto;
 		}
 
 		h3 {
 			background: var(--ac-primary-color);
 			color: #fff;
-			padding: 15px;
+			padding: 10px 15px;
 			font-weight: 400;
 			font-size: 14px;
 			margin: 0;

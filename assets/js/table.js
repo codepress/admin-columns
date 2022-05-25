@@ -8635,7 +8635,7 @@ class Pointer {
     }
     checkClose() {
         setTimeout(() => {
-            if (!this.waitingForClose || !this.component.isOnElement()) {
+            if (!this.waitingForClose) {
                 this.closeHandler();
             }
         }, 50);
@@ -8658,7 +8658,7 @@ class Pointer {
             props: {
                 content: this.target.innerHTML,
                 position: this.position,
-                closeHandler: () => this.checkClose(),
+                closeHandler: () => this.closeHandler(),
                 destroyHandler: () => this.destroyComponent()
             }
         });
