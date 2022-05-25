@@ -8,10 +8,14 @@ export class Pointer {
     onScreen: boolean
     width: string | null
     position: string
+    noClick: boolean
+    waitingForClose: boolean;
 
     constructor(private element: HTMLElement, private target: HTMLElement) {
         this.width = element.dataset.width ?? null;
         this.position = element.dataset.pos ?? 'right';
+        this.noClick = typeof element.dataset.noclick !== 'undefined';
+        this.waitingForClose = false;
         this.initEvents();
     }
 
@@ -45,7 +49,16 @@ export class Pointer {
         });
 
         this.element.addEventListener('mouseleave', () => {
+            console.log( 'leave', this.noClick);
             this.checkClose();
+        });
+
+        this.element.addEventListener( 'click', () =>{
+            if( this.noClick ){
+                return;
+            }
+
+            this.waitingForClose = true;
         });
     }
 
@@ -70,7 +83,7 @@ export class Pointer {
 
     checkClose() {
         setTimeout(() => {
-            if (!this.component.isOnElement()) {
+            if ( ! this.waitingForClose ) {
                 this.closeHandler();
             }
         }, 50)
@@ -80,6 +93,7 @@ export class Pointer {
         if (this.onScreen) {
             document.body.removeChild(this.container);
             this.onScreen = false;
+            this.waitingForClose = false;
         }
     }
 
@@ -95,7 +109,7 @@ export class Pointer {
             props: {
                 content: this.target.innerHTML,
                 position: this.position,
-                closeHandler: () => this.checkClose(),
+                closeHandler: () => this.closeHandler(),
                 destroyHandler: () => this.destroyComponent()
             }
         });
