@@ -232,14 +232,6 @@ body .ac-modal.-blocking {
 
 /* =RTL language
 -------------------------------------------------------------- */
-body.rtl .wp-pointer-right {
-  margin-left: 15px;
-  margin-right: 0;
-}
-body.rtl .wp-pointer-right ol {
-  margin-right: 1.5em;
-  margin-left: 0;
-}
 body.rtl .button.loading {
   padding-left: 25px;
   padding-right: 0;
@@ -1102,41 +1094,6 @@ table.ac-form-table .general form div.checkbox-labels {
 }
 table.ac-form-table .general form p.save-button {
   margin-top: 10px;
-}
-
-/**
- * WP Pointer
- * ----------------------------------------------------------------------------
- */
-.wp-pointer-content {
-  overflow: hidden;
-}
-.wp-pointer-content ol {
-  margin-left: 1.5em;
-  padding: 0 15px;
-}
-
-.wp-pointer-right {
-  margin-right: 15px;
-}
-
-.wp-pointer.noclick .wp-pointer-buttons {
-  display: none;
-}
-
-.ac-wp-pointer img {
-  max-width: calc(100% - 40px);
-  height: auto;
-  margin: 20px;
-  margin-bottom: 5px;
-  margin-top: 0;
-}
-.ac-wp-pointer p.notice {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-.ac-wp-pointer .wp-pointer-arrow {
-  pointer-events: none;
 }
 
 .ac-section-group.-start {
