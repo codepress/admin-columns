@@ -9,6 +9,8 @@
 	border: 1px solid var(--ac-border-grey);
 
 	&__content {
+		padding-bottom: 30px;
+
 		img {
 			max-width: calc(100% - 30px);
 			margin: 0 15px;

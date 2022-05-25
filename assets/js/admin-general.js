@@ -882,6 +882,8 @@ class Pointer {
         this.target = target;
         this.width = (_a = element.dataset.width) !== null && _a !== void 0 ? _a : null;
         this.position = (_b = element.dataset.pos) !== null && _b !== void 0 ? _b : 'right';
+        this.noClick = typeof element.dataset.noclick !== 'undefined';
+        this.waitingForClose = false;
         this.initEvents();
     }
     initEvents() {
@@ -907,7 +909,14 @@ class Pointer {
             }, 100);
         });
         this.element.addEventListener('mouseleave', () => {
+            console.log('leave', this.noClick);
             this.checkClose();
+        });
+        this.element.addEventListener('click', () => {
+            if (this.noClick) {
+                return;
+            }
+            this.waitingForClose = true;
         });
     }
     setPosition() {
@@ -928,7 +937,7 @@ class Pointer {
     }
     checkClose() {
         setTimeout(() => {
-            if (!this.component.isOnElement()) {
+            if (!this.waitingForClose || !this.component.isOnElement()) {
                 this.closeHandler();
             }
         }, 50);
@@ -937,6 +946,7 @@ class Pointer {
         if (this.onScreen) {
             document.body.removeChild(this.container);
             this.onScreen = false;
+            this.waitingForClose = false;
         }
     }
     destroyComponent() {

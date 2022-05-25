@@ -434,6 +434,9 @@ html.wp-toolbar .ac-tooltip {
   background: #fff;
   border: 1px solid var(--ac-border-grey);
 }
+.ac-pointer-modal__content {
+  padding-bottom: 30px;
+}
 .ac-pointer-modal__content img {
   max-width: calc(100% - 30px);
   margin: 0 15px;
@@ -560,6 +563,7 @@ html.wp-toolbar .ac-tooltip {
   cursor: pointer;
   z-index: 2;
   border: none;
+  margin: 0 !important;
 }
 .ac-toggle-v2__toggle input[type=checkbox]:checked ~ .ac-toggle-v2__toggle__thumb {
   transform: translateX(14px);
