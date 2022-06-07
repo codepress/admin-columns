@@ -29,6 +29,10 @@ class ManualOrder implements Sort {
 	 * @return array
 	 */
 	public function sort( array $columns ) {
+		if ( ! $this->user_order->exists( $this->list_id ) ) {
+			return $columns;
+		}
+
 		$ordered = [];
 
 		foreach ( $this->user_order->get( $this->list_id ) as $column_name ) {
