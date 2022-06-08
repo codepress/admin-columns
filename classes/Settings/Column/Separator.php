@@ -9,6 +9,8 @@ use AC\View;
 class Separator extends Settings\Column
 	implements Settings\FormatCollection {
 
+	const NAME = 'separator';
+
 	/**
 	 * @var string
 	 */
@@ -19,20 +21,25 @@ class Separator extends Settings\Column
 	}
 
 	public function create_view() {
-		$element = $this
+		$options = [
+			'comma'           => __( 'Comma Separated', 'codepress-admin-columns' ),
+			'horizontal_rule' => __( 'Horizontal Rule', 'codepress-admin-columns' ),
+			'newline'         => __( 'New Line', 'codepress-admin-columns' ),
+			'none'            => __( 'None', 'codepress-admin-columns' ),
+			'white_space'     => __( 'Whitespace', 'codepress-admin-columns' ),
+		];
+
+		natcasesort( $options );
+
+		$options = [ '' => __( 'Default', 'codepress-admin-columns' ) ] + $options;
+
+		$select = $this
 			->create_element( 'select' )
-			->set_options( [
-				''            => __( 'Default', 'codepress-admin-columns' ),
-				'comma'       => __( 'Comma Separated', 'codepress-admin-columns' ),
-				'newline'     => __( 'New line', 'codepress-admin-columns' ),
-				'none'        => __( 'None', 'codepress-admin-columns' ),
-				'white_space' => __( 'Whitespace', 'codepress-admin-columns' ),
-			] );
+			->set_options( $options );
 
 		$view = new View( [
 			'label'   => __( 'Separator', 'codepress-admin-columns' ),
-			'tooltip' => __( 'Select a repeater sub field.', 'codepress-admin-columns' ),
-			'setting' => $element,
+			'setting' => $select,
 		] );
 
 		return $view;
@@ -48,29 +55,25 @@ class Separator extends Settings\Column
 		return $this;
 	}
 
-	public function format( Collection $collection, $original_value ) {
+	public function get_separator_formatted() {
 		switch ( $this->separator ) {
 			case 'comma' :
-				$separator = ', ';
-
-				break;
+				return ', ';
 			case 'newline' :
-				$separator = "<br/>";
-
-				break;
+				return "<br/>";
 			case 'none' :
-				$separator = '';
-
-				break;
+				return '';
 			case 'white_space' :
-				$separator = '&nbsp;';
-
-				break;
+				return '&nbsp;';
+			case 'horizontal_rule' :
+				return '<hr>';
 			default :
-				$separator = $this->column->get_separator();
+				return $this->column->get_separator();
 		}
+	}
 
-		return $collection->filter()->implode( $separator );
+	public function format( Collection $collection, $original_value ) {
+		return $collection->filter()->implode( $this->get_separator_formatted() );
 	}
 
 }
