@@ -9,6 +9,8 @@ use AC\View;
 class Separator extends Settings\Column
 	implements Settings\FormatCollection {
 
+	const NAME = 'separator';
+
 	/**
 	 * @var string
 	 */
@@ -31,7 +33,6 @@ class Separator extends Settings\Column
 
 		$view = new View( [
 			'label'   => __( 'Separator', 'codepress-admin-columns' ),
-			'tooltip' => __( 'Select a repeater sub field.', 'codepress-admin-columns' ),
 			'setting' => $element,
 		] );
 
@@ -48,29 +49,23 @@ class Separator extends Settings\Column
 		return $this;
 	}
 
-	public function format( Collection $collection, $original_value ) {
+	public function get_separator_formatted() {
 		switch ( $this->separator ) {
 			case 'comma' :
-				$separator = ', ';
-
-				break;
+				return ', ';
 			case 'newline' :
-				$separator = "<br/>";
-
-				break;
+				return "<br/>";
 			case 'none' :
-				$separator = '';
-
-				break;
+				return '';
 			case 'white_space' :
-				$separator = '&nbsp;';
-
-				break;
+				return '&nbsp;';
 			default :
-				$separator = $this->column->get_separator();
+				return $this->column->get_separator();
 		}
+	}
 
-		return $collection->filter()->implode( $separator );
+	public function format( Collection $collection, $original_value ) {
+		return $collection->filter()->implode( $this->get_separator_formatted() );
 	}
 
 }
