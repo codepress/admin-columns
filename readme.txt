@@ -213,6 +213,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: tbd
 
 * [Added] It is now possible to select the Website display for User related columns
+* [Added] New hook to disable the column value sanitation on the table `ac/column/value/sanitize`
 
 = 4.5.1 =
 Release Date: May 16th, 2022
