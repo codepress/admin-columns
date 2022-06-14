@@ -829,7 +829,7 @@ abstract class ListScreen {
 
 		$value = $column->get_value( $id );
 
-		if ( apply_filters( 'ac/column/value/sanitize', true, $column ) ) {
+		if ( apply_filters( 'ac/column/value/sanitize', true, $column, $id ) ) {
 			$value = ( new Kses() )->sanitize( $value );
 		}
 
