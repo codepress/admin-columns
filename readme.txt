@@ -209,8 +209,8 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
-Release Date: tbd
+= 4.5.2 =
+Release Date: Jun 14th, 2022
 
 * [Added] It is now possible to select the Website display for User related columns
 * [Added] New hook to disable the column value sanitation on the table `ac/column/value/sanitize`
