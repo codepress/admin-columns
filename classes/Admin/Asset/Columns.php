@@ -26,7 +26,6 @@ class Columns extends Script {
 			'jquery',
 			'jquery-ui-slider',
 			'jquery-ui-sortable',
-			'wp-pointer',
 		] );
 
 		$this->default_columns = $default_columns;

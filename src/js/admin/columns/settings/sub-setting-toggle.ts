@@ -7,22 +7,15 @@ export const initSubSettings = (column: Column) => {
 }
 
 class SubsettingSetting {
-    element: HTMLElement
-    inputs: NodeListOf<HTMLInputElement>
+    input: HTMLInputElement | null
     subFields: NodeListOf<HTMLElement>
 
-    constructor(element: HTMLElement) {
-        this.element = element;
-        this.inputs = element.querySelectorAll('.ac-setting-input input[type="radio"]');
+    constructor(private element: HTMLElement) {
+        this.input = element.querySelector('.ac-setting-input input[type="checkbox"]');
         this.subFields = element.querySelectorAll('.ac-column-setting');
         this.initState();
-        this.initEvents();
-    }
 
-    initEvents() {
-        this.inputs.forEach(el => {
-            el.addEventListener('change', () => this.initState());
-        })
+        this.input?.addEventListener('input', () => this.initState())
     }
 
     initState() {
@@ -32,10 +25,6 @@ class SubsettingSetting {
     }
 
     isOptionEnabled(): boolean {
-        let checked = Array.from(this.inputs).filter(input => {
-            return input.checked;
-        });
-
-        return checked.length ? checked[0].value === 'on' : false;
+        return this.input?.checked ?? false;
     }
 }
