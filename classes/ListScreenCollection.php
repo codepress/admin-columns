@@ -4,6 +4,7 @@ namespace AC;
 
 use Countable;
 use Iterator;
+use ReturnTypeWillChange;
 
 final class ListScreenCollection implements Iterator, Countable {
 
@@ -24,6 +25,7 @@ final class ListScreenCollection implements Iterator, Countable {
 		unset( $this->data[ $list_screen->get_layout_id() ] );
 	}
 
+	#[ReturnTypeWillChange]
 	public function rewind() {
 		reset( $this->data );
 	}
@@ -31,6 +33,7 @@ final class ListScreenCollection implements Iterator, Countable {
 	/**
 	 * @return ListScreen
 	 */
+	#[ReturnTypeWillChange]
 	public function current() {
 		return current( $this->data );
 	}
@@ -39,14 +42,17 @@ final class ListScreenCollection implements Iterator, Countable {
 		return reset( $this->data );
 	}
 
+	#[ReturnTypeWillChange]
 	public function key() {
 		return key( $this->data );
 	}
 
+	#[ReturnTypeWillChange]
 	public function next() {
 		return next( $this->data );
 	}
 
+	#[ReturnTypeWillChange]
 	public function valid() {
 		$key = $this->key();
 
@@ -56,6 +62,7 @@ final class ListScreenCollection implements Iterator, Countable {
 	/**
 	 * @return int
 	 */
+	#[ReturnTypeWillChange]
 	public function count() {
 		return count( $this->data );
 	}
