@@ -212,6 +212,8 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.5.3 =
 Release Date: July 1st, 2022
 
+* [Fixed] Suppress PHP 8.1 warnings
+
 = 4.5.2 =
 Release Date: June 14th, 2022
 
