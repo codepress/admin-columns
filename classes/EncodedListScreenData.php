@@ -3,7 +3,6 @@
 namespace AC;
 
 use Iterator;
-use ReturnTypeWillChange;
 
 final class EncodedListScreenData implements Iterator {
 
