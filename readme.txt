@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7.1
 Tested up to: 5.9
 Requires PHP: 5.6.20
-Stable tag: 4.5
+Stable tag: 4.5.3
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -209,8 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.5.3 =
+Release Date: July 1st, 2022
+
 = 4.5.2 =
-Release Date: Jun 14th, 2022
+Release Date: June 14th, 2022
 
 * [Added] It is now possible to select the Website display for User related columns
 * [Added] New hook to disable the column value sanitation on the table `ac/column/value/sanitize`
