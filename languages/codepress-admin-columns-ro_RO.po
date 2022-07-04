@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-04-28 14:08:43+0000\n"
+"PO-Revision-Date: 2022-06-18 18:39:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1260,7 +1260,7 @@ msgstr "Număr maxim de caractere"
 #: classes/Settings/Column/CharacterLimit.php:28
 #: classes/Settings/Column/StringLimit.php:36
 msgid "Character Limit"
-msgstr "Limită de caractere"
+msgstr "Număr limită de caractere"
 
 #: classes/Settings/Column/BeforeAfter.php:80
 msgid "Display Options"
