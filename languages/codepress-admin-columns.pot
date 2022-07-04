@@ -63,7 +63,7 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
-#: classes/Admin/AdminLoader.php:107, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:113, classes/Settings/Column/Post.php:86, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:54, classes/Settings/Column/VideoDisplay.php:26
+#: classes/Admin/AdminLoader.php:107, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:113, classes/Settings/Column/Post.php:86, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:55, classes/Settings/Column/VideoDisplay.php:26
 msgid "Display"
 msgstr ""
 
@@ -79,11 +79,11 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: classes/Admin/Tooltip.php:29
+#: classes/Admin/Tooltip.php:26
 msgid "Notice"
 msgstr ""
 
-#: classes/Admin/Tooltip.php:30
+#: classes/Admin/Tooltip.php:27
 msgid "Instructions"
 msgstr ""
 
@@ -203,7 +203,7 @@ msgstr ""
 msgid "Please visit the %s screen once to load all available columns"
 msgstr ""
 
-#: classes/Controller/ColumnRequest.php:39, classes/Admin/Asset/Columns.php:56
+#: classes/Controller/ColumnRequest.php:39, classes/Admin/Asset/Columns.php:55
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
@@ -375,7 +375,7 @@ msgstr ""
 msgid "Select type"
 msgstr ""
 
-#: templates/admin/edit-menu.php:27, classes/Column/Media/Preview.php:40, classes/Settings/Column/MediaLink.php:63
+#: templates/admin/edit-menu.php:27, classes/Column/Media/Preview.php:39, classes/Settings/Column/MediaLink.php:63
 msgid "View"
 msgstr ""
 
@@ -403,7 +403,7 @@ msgstr ""
 msgid "Make this column set available only for specific users or roles."
 msgstr ""
 
-#: templates/admin/list-screen-settings-mockup.php:36, classes/Settings/Column/User.php:81
+#: templates/admin/list-screen-settings-mockup.php:36, classes/Settings/Column/User.php:82
 msgid "Roles"
 msgstr ""
 
@@ -463,7 +463,7 @@ msgstr ""
 msgid "Horizontal Scrolling"
 msgstr ""
 
-#: templates/admin/list-screen-settings-mockup.php:101, templates/settings/setting-label-icons.php:43, templates/tooltip/sorting.php:7, classes/Settings/Column/Pro/Sorting.php:11
+#: templates/admin/list-screen-settings-mockup.php:101, templates/settings/setting-label-icons.php:43, templates/tooltip/sorting-include-empty.php:9, templates/tooltip/sorting.php:7, classes/Settings/Column/Pro/Sorting.php:11
 msgid "Sorting"
 msgstr ""
 
@@ -834,6 +834,14 @@ msgctxt "smart filtering help"
 msgid "When you return to your list table you can easily select them again from the menu."
 msgstr ""
 
+#: templates/tooltip/sorting-include-empty.php:12
+msgid "By enabling this setting the sorting results will include empty values."
+msgstr ""
+
+#: templates/tooltip/sorting-include-empty.php:17
+msgid "Read more &raquo;"
+msgstr ""
+
 #: templates/tooltip/sorting.php:10
 msgid "Sort by clicking the column header on the list table. Click the column header again to switch between <em>ascending</em> and <em>descending</em>."
 msgstr ""
@@ -862,15 +870,15 @@ msgstr ""
 msgid "The Add-on %s is activated."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:57
+#: classes/Admin/Asset/Columns.php:56
 msgid "Invalid response."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:59
+#: classes/Admin/Asset/Columns.php:58
 msgid "There was an error during saving the column settings."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:60
+#: classes/Admin/Asset/Columns.php:59
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
@@ -1124,7 +1132,7 @@ msgstr ""
 msgid "Mime Type"
 msgstr ""
 
-#: classes/Column/Media/Preview.php:13, classes/Settings/Column/NumberFormat.php:78
+#: classes/Column/Media/Preview.php:12, classes/Settings/Column/NumberFormat.php:78
 msgid "Preview"
 msgstr ""
 
@@ -1132,7 +1140,7 @@ msgstr ""
 msgid "Video Player"
 msgstr ""
 
-#: classes/Column/Media/VideoPlayer.php:35
+#: classes/Column/Media/VideoPlayer.php:41
 msgid "Play"
 msgstr ""
 
@@ -1244,11 +1252,11 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: classes/Column/User/DisplayName.php:14, classes/Settings/Column/User.php:76
+#: classes/Column/User/DisplayName.php:14, classes/Settings/Column/User.php:77
 msgid "Display Name"
 msgstr ""
 
-#: classes/Column/User/FirstName.php:14, classes/Settings/Column/User.php:77
+#: classes/Column/User/FirstName.php:14, classes/Settings/Column/User.php:78
 msgid "First Name"
 msgstr ""
 
@@ -1256,15 +1264,15 @@ msgstr ""
 msgid "First Post"
 msgstr ""
 
-#: classes/Column/User/FullName.php:11, classes/Settings/Column/User.php:78
+#: classes/Column/User/FullName.php:11, classes/Settings/Column/User.php:79
 msgid "Full Name"
 msgstr ""
 
-#: classes/Column/User/ID.php:14, classes/Settings/Column/User.php:84
+#: classes/Column/User/ID.php:14, classes/Settings/Column/User.php:85
 msgid "User ID"
 msgstr ""
 
-#: classes/Column/User/LastName.php:14, classes/Settings/Column/User.php:79
+#: classes/Column/User/LastName.php:14, classes/Settings/Column/User.php:80
 msgid "Last Name"
 msgstr ""
 
@@ -1280,7 +1288,7 @@ msgstr ""
 msgid "Author Slug"
 msgstr ""
 
-#: classes/Column/User/Nickname.php:14, classes/Settings/Column/User.php:80
+#: classes/Column/User/Nickname.php:14, classes/Settings/Column/User.php:81
 msgid "Nickname"
 msgstr ""
 
@@ -1928,16 +1936,20 @@ msgstr ""
 msgid "Choose a column type."
 msgstr ""
 
-#: classes/Settings/Column/User.php:82
+#: classes/Settings/Column/User.php:83
 msgid "User Login"
 msgstr ""
 
-#: classes/Settings/Column/User.php:83, classes/Settings/Column/UserLink.php:77
+#: classes/Settings/Column/User.php:84, classes/Settings/Column/UserLink.php:77
 msgid "User Email"
 msgstr ""
 
-#: classes/Settings/Column/User.php:85
+#: classes/Settings/Column/User.php:86
 msgid "User Nicename"
+msgstr ""
+
+#: classes/Settings/Column/User.php:87
+msgid "User Website"
 msgstr ""
 
 #: classes/Settings/Column/UserLink.php:76

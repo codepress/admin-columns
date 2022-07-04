@@ -3,6 +3,7 @@
 namespace AC;
 
 use Iterator;
+use ReturnTypeWillChange;
 
 final class EncodedListScreenData implements Iterator {
 
@@ -15,6 +16,7 @@ final class EncodedListScreenData implements Iterator {
 		$this->data[] = $data;
 	}
 
+	#[ReturnTypeWillChange]
 	public function rewind() {
 		reset( $this->data );
 	}
@@ -22,18 +24,22 @@ final class EncodedListScreenData implements Iterator {
 	/**
 	 * @return array
 	 */
+	#[ReturnTypeWillChange]
 	public function current() {
 		return current( $this->data );
 	}
 
+	#[ReturnTypeWillChange]
 	public function key() {
 		return key( $this->data );
 	}
 
+	#[ReturnTypeWillChange]
 	public function next() {
 		return next( $this->data );
 	}
 
+	#[ReturnTypeWillChange]
 	public function valid() {
 		$key = $this->key();
 

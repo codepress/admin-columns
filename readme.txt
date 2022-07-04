@@ -3,9 +3,9 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.7.1
-Tested up to: 5.9
+Tested up to: 6.0
 Requires PHP: 5.6.20
-Stable tag: 4.5
+Stable tag: 4.5.3
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -209,8 +209,13 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
-Release Date: tbd
+= 4.5.3 =
+Release Date: July 4th, 2022
+
+* [Fixed] Suppress PHP 8.1 warnings
+
+= 4.5.2 =
+Release Date: June 14th, 2022
 
 * [Added] It is now possible to select the Website display for User related columns
 * [Added] New hook to disable the column value sanitation on the table `ac/column/value/sanitize`
