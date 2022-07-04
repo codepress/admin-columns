@@ -29,12 +29,10 @@ class PostStatus extends Settings\Column {
 		$setting = $this->create_element( 'multi-select' )
 		                ->set_options( $options );
 
-		$view = new View( [
+		return new View( [
 			'label'   => __( 'Post Status', 'codepress-admin-columns' ),
 			'setting' => $setting,
 		] );
-
-		return $view;
 	}
 
 	private function get_post_status_label( $key ) {

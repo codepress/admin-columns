@@ -4666,6 +4666,7 @@ class AcServices {
     }
     registerService(name, service) {
         this.services[name] = service;
+        this.events.emit(`Service.Registered.${name}`, service);
         return this;
     }
     getService(name) {
