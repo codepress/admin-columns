@@ -9661,6 +9661,7 @@ class Table {
         this.el.getElementsByTagName('tbody')[0].querySelectorAll('tr').forEach(row => {
             result.push((0,_helpers_table__WEBPACK_IMPORTED_MODULE_5__.getIdFromTableRow)(row));
         });
+        result = result.filter(id => id !== 0);
         return result;
     }
     init() {
