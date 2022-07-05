@@ -30,11 +30,11 @@ class Arrays {
 	 *
 	 * @return array
 	 */
-	function add_nested_value( array $keys, $value, array $result = [] ) {
+	public function add_nested_value( array $keys, $value, array $result = [] ) {
 		$key = array_shift( $keys );
 
 		if ( $keys ) {
-			$value = add_nested_value( $keys, $value, is_array( $result[ $key ] ) ? $result[ $key ] : [] );
+			$value = $this->add_nested_value( $keys, $value, is_array( $result[ $key ] ) ? $result[ $key ] : [] );
 		}
 
 		$result[ $key ] = $value;
