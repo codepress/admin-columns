@@ -31,7 +31,7 @@ class UserLink extends Settings\Column
 
 		switch ( $this->get_user_link_to() ) {
 			case self::PROPERTY_EDIT_USER :
-				if ( current_user_can( 'edit_user' ) ) {
+				if ( current_user_can( 'edit_users' ) ) {
 					$link = add_query_arg( 'user_id', $user_id, self_admin_url( 'user-edit.php' ) );
 				}
 
