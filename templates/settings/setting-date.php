@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</label>
 		</td>
 		<td class="col-input">
-			<div class="ac-setting-input ac-setting-input-date">
+			<div class="ac-setting-input ac-setting-input-date" data-custom-formats="<?= esc_attr( json_encode( $this->custom_date_formats ) ); ?>">
 				<div class="radio-labels vertical">
 
 					<?php foreach ( $this->date_options as $key => $label ) : ?>

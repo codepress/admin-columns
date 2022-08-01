@@ -44,7 +44,7 @@ class DateSetting {
         return Array.from(this.options);
     }
 
-    getSelectionOption(): HTMLInputElement|null {
+    getSelectionOption(): HTMLInputElement | null {
         let selected = this.getOptionsAsArray().filter(option => option.checked);
 
         return selected ? selected[0] : null;
@@ -68,6 +68,10 @@ class DateSetting {
         }
     }
 
+    getCustomFormats() {
+        return JSON.parse(this.setting.querySelector<HTMLElement>('[data-custom-formats]')?.dataset.customFormats ?? '');
+    }
+
     handleUpdate(input: HTMLInputElement) {
         this.valueInput.value = input.value;
         this.customOption.toggle(typeof input.dataset.custom !== 'undefined');
@@ -76,21 +80,22 @@ class DateSetting {
 
         this.setHelpText(helpText);
 
-        if( typeof input.dataset.custom !== 'undefined' ){
+        if (typeof input.dataset.custom !== 'undefined') {
             return;
         }
 
         switch (this.valueInput.value) {
             case 'custom':
                 break;
-            case 'wp_default':
-            case 'diff':
-                this.customOption.setExample('')
-                break;
             default:
                 this.customOption.setExample(this.valueInput.value);
 
         }
+
+        if (this.getCustomFormats().includes(this.valueInput.value)) {
+            this.customOption.setExample('')
+        }
+
         this.customOption.updateExample();
     }
 
@@ -101,7 +106,7 @@ class DateSetting {
     setHelpText(text: string) {
         let element = this.setting.querySelector<HTMLElement>('.help-msg');
 
-        if( element ){
+        if (element) {
             element.innerHTML = text;
             element.style.display = 'block';
         }

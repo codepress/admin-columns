@@ -3473,6 +3473,10 @@ class DateSetting {
             selected.dispatchEvent(new Event('change'));
         }
     }
+    getCustomFormats() {
+        var _a, _b;
+        return JSON.parse((_b = (_a = this.setting.querySelector('[data-custom-formats]')) === null || _a === void 0 ? void 0 : _a.dataset.customFormats) !== null && _b !== void 0 ? _b : '');
+    }
     handleUpdate(input) {
         var _a, _b, _c;
         this.valueInput.value = input.value;
@@ -3485,12 +3489,11 @@ class DateSetting {
         switch (this.valueInput.value) {
             case 'custom':
                 break;
-            case 'wp_default':
-            case 'diff':
-                this.customOption.setExample('');
-                break;
             default:
                 this.customOption.setExample(this.valueInput.value);
+        }
+        if (this.getCustomFormats().includes(this.valueInput.value)) {
+            this.customOption.setExample('');
         }
         this.customOption.updateExample();
     }
