@@ -2,6 +2,7 @@
 
 namespace AC\Settings\Column;
 
+use AC\ApplyFilter;
 use AC\Collection;
 use AC\Settings;
 use AC\View;
@@ -68,7 +69,7 @@ class Separator extends Settings\Column
 			case 'horizontal_rule' :
 				return '<hr>';
 			default :
-				return $this->column->get_separator();
+				return ( new ApplyFilter\ColumnSeparator( $this->column ) )->apply_filters( ', ' );
 		}
 	}
 
