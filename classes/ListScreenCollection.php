@@ -4,7 +4,6 @@ namespace AC;
 
 use Countable;
 use Iterator;
-use ReturnTypeWillChange;
 
 final class ListScreenCollection implements Iterator, Countable {
 
