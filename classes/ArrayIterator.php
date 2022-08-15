@@ -15,22 +15,27 @@ class ArrayIterator implements Iterator {
 		$this->array = $array;
 	}
 
+	#[ReturnTypeWillChange]
 	public function current() {
 		return current( $this->array );
 	}
 
+	#[ReturnTypeWillChange]
 	public function next() {
 		return next( $this->array );
 	}
 
+	#[ReturnTypeWillChange]
 	public function key() {
 		return key( $this->array );
 	}
 
+	#[ReturnTypeWillChange]
 	public function valid() {
 		return $this->key() !== null;
 	}
 
+	#[ReturnTypeWillChange]
 	public function rewind() {
 		return reset( $this->array );
 	}
