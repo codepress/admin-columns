@@ -49,6 +49,21 @@ class ListStorage {
 
 	/**
 	 * @param ListScreen $list_screen
+	 *
+	 * @return ColumnWidth[]
+	 */
+	public function getAll( ListScreen $list_screen ) {
+		$results = [];
+
+		foreach ( $list_screen->get_columns() as $column ) {
+			$results[ $column->get_name() ] = $this->get( $list_screen, $column->get_name() );
+		}
+
+		return $results;
+	}
+
+	/**
+	 * @param ListScreen $list_screen
 	 * @param string     $column_name
 	 *
 	 * @return ColumnWidth|null
