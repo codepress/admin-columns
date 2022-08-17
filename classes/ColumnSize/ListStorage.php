@@ -59,7 +59,7 @@ class ListStorage {
 			$results[ $column->get_name() ] = $this->get( $list_screen, $column->get_name() );
 		}
 
-		return $results;
+		return array_filter( $results );
 	}
 
 	/**
