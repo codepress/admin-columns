@@ -52,7 +52,7 @@ class ListStorage {
 	 *
 	 * @return ColumnWidth[]
 	 */
-	public function getAll( ListScreen $list_screen ) {
+	public function get_all( ListScreen $list_screen ) {
 		$results = [];
 
 		foreach ( $list_screen->get_columns() as $column ) {
