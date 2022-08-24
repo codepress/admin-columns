@@ -23,6 +23,18 @@ export default class AcHtmlElement<T extends HTMLElement = HTMLElement> {
         return this;
     }
 
+    toggleClass(className: string, add: null | boolean = null) {
+        if (add === null) {
+            return this.element.classList.contains(className)
+                ? this.removeClass(className)
+                : this.addClass(className);
+        }
+
+        return add
+            ? this.addClass(className)
+            : this.removeClasses(className);
+    }
+
     addClass(className: string) {
         this.element.classList.add(className);
 
@@ -31,6 +43,18 @@ export default class AcHtmlElement<T extends HTMLElement = HTMLElement> {
 
     addClasses(...classNames: string[]) {
         classNames.forEach(className => this.addClass(className));
+
+        return this;
+    }
+
+    removeClasses(...classNames: string[]) {
+        classNames.forEach(className => this.removeClass(className));
+
+        return this;
+    }
+
+    removeClass(className: string) {
+        this.element.classList.remove(className);
 
         return this;
     }

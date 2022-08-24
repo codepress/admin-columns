@@ -8357,12 +8357,30 @@ class AcHtmlElement {
         this.element.id = id;
         return this;
     }
+    toggleClass(className, add = null) {
+        if (add === null) {
+            return this.element.classList.contains(className)
+                ? this.removeClass(className)
+                : this.addClass(className);
+        }
+        return add
+            ? this.addClass(className)
+            : this.removeClasses(className);
+    }
     addClass(className) {
         this.element.classList.add(className);
         return this;
     }
     addClasses(...classNames) {
         classNames.forEach(className => this.addClass(className));
+        return this;
+    }
+    removeClasses(...classNames) {
+        classNames.forEach(className => this.removeClass(className));
+        return this;
+    }
+    removeClass(className) {
+        this.element.classList.remove(className);
         return this;
     }
     setAttribute(name, value) {
