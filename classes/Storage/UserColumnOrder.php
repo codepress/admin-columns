@@ -20,7 +20,10 @@ class UserColumnOrder {
 	 * @param array $column_names
 	 */
 	public function save( ListScreenId $id, array $column_names ) {
-		$this->user_preference->set( $id->get_id(), $column_names );
+		$this->user_preference->set(
+			$id->get_id(),
+			$column_names
+		);
 	}
 
 	/**
@@ -29,7 +32,7 @@ class UserColumnOrder {
 	 * @return bool
 	 */
 	public function exists( ListScreenId $id ) {
-		return null !== $this->user_preference->get( $id->get_id() );
+		return null !== $this->get( $id );
 	}
 
 	/**
@@ -38,7 +41,9 @@ class UserColumnOrder {
 	 * @return array
 	 */
 	public function get( ListScreenId $id ) {
-		return $this->user_preference->get( $id->get_id() );
+		return $this->user_preference->get(
+			$id->get_id()
+		);
 	}
 
 	/**
@@ -47,7 +52,9 @@ class UserColumnOrder {
 	 * @return void
 	 */
 	public function delete( ListScreenId $id ) {
-		$this->user_preference->delete( $id->get_id() );
+		$this->user_preference->delete(
+			$id->get_id()
+		);
 	}
 
 }
