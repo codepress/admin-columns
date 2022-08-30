@@ -1,13 +1,15 @@
 <script lang="ts">
     import {onDestroy, onMount} from "svelte";
+    import {getTableTranslation} from "../helpers/translations";
 
     export let message: string;
     export let onConfirm: Function;
     export let onClose: Function;
     export let lastFocusElement: HTMLElement;
 
-
     let okButton;
+
+    let i18n = getTableTranslation();
 
     const confirm = () => {
         onConfirm();
@@ -15,9 +17,9 @@
     }
 
     const close = () => {
-        if( lastFocusElement ){
+        if (lastFocusElement) {
             lastFocusElement.focus();
-		}
+        }
         onClose();
     }
 
@@ -43,8 +45,8 @@
 			{message}
 		</div>
 		<div class="ac-confirmation__modal__footer">
-			<button on:click={close} class="button">Cancel</button>
-			<button on:click={confirm} class="button button-primary" bind:this={okButton}>Ok</button>
+			<button on:click={close} class="button">{i18n.cancel}</button>
+			<button on:click={confirm} class="button button-primary" bind:this={okButton}>{i18n.ok}</button>
 		</div>
 	</div>
 </div>

@@ -72,7 +72,7 @@ class UserStorage {
 	 *
 	 * @return ColumnWidth[]
 	 */
-	public function all( ListScreenId $list_id ) {
+	public function get_all( ListScreenId $list_id ) {
 		$widths = $this->user_preference->get(
 			$list_id->get_id()
 		);
