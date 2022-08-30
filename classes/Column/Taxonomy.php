@@ -5,6 +5,8 @@ namespace AC\Column;
 use AC\Collection;
 use AC\Column;
 use AC\Settings;
+use AC\Settings\Column\NumberOfItems;
+use AC\Settings\Column\Separator;
 
 /**
  * Taxonomy column, displaying terms from a taxonomy for any object type (i.e. posts)
@@ -24,14 +26,14 @@ class Taxonomy extends Column {
 
 	public function get_value( $post_id ) {
 		$_terms = $this->get_raw_value( $post_id );
+
 		if ( empty( $_terms ) ) {
 			return $this->get_empty_char();
 		}
 
-		$collection = new Collection( $_terms );
 		$terms = [];
 
-		foreach ( $collection as $term ) {
+		foreach ( $_terms as $term ) {
 			$terms[] = $this->get_formatted_value( $term->name, $term );
 		}
 
@@ -39,9 +41,33 @@ class Taxonomy extends Column {
 			return $this->get_empty_char();
 		}
 
-		$setting_limit = $this->get_setting( 'number_of_items' );
+		return ac_helper()->html->more(
+			$terms,
+			$this->get_items_limit(),
+			$this->get_separator()
+		);
+	}
 
-		return ac_helper()->html->more( $terms, $setting_limit ? $setting_limit->get_value() : false );
+	/**
+	 * @return string
+	 */
+	public function get_separator() {
+		$setting = $this->get_setting( Separator::NAME );
+
+		return $setting instanceof Separator
+			? $setting->get_separator_formatted()
+			: parent::get_separator();
+	}
+
+	/**
+	 * @return int
+	 */
+	private function get_items_limit() {
+		$setting_limit = $this->get_setting( NumberOfItems::NAME );
+
+		return $setting_limit instanceof NumberOfItems
+			? $setting_limit->get_number_of_items()
+			: 0;
 	}
 
 	/**
@@ -63,6 +89,7 @@ class Taxonomy extends Column {
 		$this->add_setting( new Settings\Column\Taxonomy( $this ) );
 		$this->add_setting( new Settings\Column\TermLink( $this ) );
 		$this->add_setting( new Settings\Column\NumberOfItems( $this ) );
+		$this->add_setting( new Settings\Column\Separator( $this ) );
 	}
 
 }

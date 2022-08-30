@@ -10,6 +10,8 @@ export type LocalizedAcColumnSettings = {
 }
 
 export type LocalizedAcTableI18n = {
+    ok: string;
+    cancel: string;
     value_loading: string;
     edit: string;
     download: string;

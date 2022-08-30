@@ -19,6 +19,8 @@ export default class AcServices {
     registerService(name: string, service: any): this {
         this.services[name] = service;
 
+        this.events.emit(`Service.Registered.${name}`, service);
+
         return this;
     }
 

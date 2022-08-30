@@ -6,6 +6,7 @@
 @import 'admin-rtl';
 @import 'components/confirmation';
 @import 'components/tooltip';
+@import 'components/pointer';
 @import 'components/toggle';
 @import 'components/forms';
 @import 'components/ajax-loader';
@@ -471,51 +472,6 @@ table.ac-form-table {
 
 	}
 }
-
-/**
- * WP Pointer
- * ----------------------------------------------------------------------------
- */
-.wp-pointer-content {
-	overflow: hidden;
-
-	ol {
-		margin-left: 1.5em;
-		padding: 0 15px;
-	}
-}
-
-.wp-pointer-right {
-	margin-right: 15px;
-}
-
-// WP Pointer
-.wp-pointer.noclick {
-	.wp-pointer-buttons {
-		display: none;
-	}
-}
-
-
-.ac-wp-pointer {
-	img {
-		max-width: calc(100% - 40px);
-		height: auto;
-		margin: 20px;
-		margin-bottom: 5px;
-		margin-top: 0;
-	}
-
-	p.notice {
-		padding-top: 10px;
-		padding-bottom: 10px;
-	}
-
-	.wp-pointer-arrow {
-		pointer-events: none;
-	}
-}
-
 
 .ac-section-group {
 	&.-start {

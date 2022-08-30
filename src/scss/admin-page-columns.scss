@@ -589,6 +589,14 @@
 	padding: 10px;
 	line-height: 24px;
 
+	.ac-toggle-v2 {
+		margin-bottom: 0;
+		.ac-toggle-v2__label {
+			display: inline-block;
+			transform: translateY(-3px);
+		}
+	}
+
 	input[type=text], select {
 		width: 99.95%;
 		max-width: none;

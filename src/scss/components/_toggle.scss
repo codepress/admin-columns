@@ -103,6 +103,7 @@
 			cursor: pointer;
 			z-index: 2;
 			border: none;
+			margin: 0 !important;
 
 			&:checked {
 				~ .ac-toggle-v2__toggle__thumb {

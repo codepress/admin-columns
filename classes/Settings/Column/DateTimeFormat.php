@@ -55,16 +55,21 @@ abstract class DateTimeFormat extends Settings\Column
 			->set_attribute( 'placeholder', $this->get_default() );
 
 		$view = new View( [
-			'setting'      => $setting,
-			'date_format'  => $this->get_date_format(),
-			'date_options' => $this->get_date_options(),
-			'label'        => __( 'Date Format', 'codepress-admin-columns' ),
-			'tooltip'      => __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ),
+			'custom_date_formats' => $this->get_custom_formats(),
+			'setting'             => $setting,
+			'date_format'         => $this->get_date_format(),
+			'date_options'        => $this->get_date_options(),
+			'label'               => __( 'Date Format', 'codepress-admin-columns' ),
+			'tooltip'             => __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ),
 		] );
 
 		$view->set_template( 'settings/setting-date' );
 
 		return $view;
+	}
+
+	protected function get_custom_formats() {
+		return [ 'wp_default', 'diff' ];
 	}
 
 	public function get_html_label_from_date_format( $date_format ) {
