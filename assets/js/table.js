@@ -9254,7 +9254,9 @@ class Tooltip {
         });
         this.element.addEventListener('mouseleave', () => {
             this.tip.classList.remove('hover');
-            document.body.removeChild(this.tip);
+            if (document.body.contains(this.tip)) {
+                document.body.removeChild(this.tip);
+            }
         });
     }
 }

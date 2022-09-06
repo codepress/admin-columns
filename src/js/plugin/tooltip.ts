@@ -1,5 +1,5 @@
 export const initAcTooltips = () => {
-    document.querySelectorAll('.ac-tooltip').forEach( el => el.remove() );
+    document.querySelectorAll('.ac-tooltip').forEach(el => el.remove());
     document.querySelectorAll('[data-ac-tip]').forEach((element: HTMLElement) => {
         new Tooltip(element);
     });
@@ -38,7 +38,10 @@ export class Tooltip {
 
         this.element.addEventListener('mouseleave', () => {
             this.tip.classList.remove('hover');
-            document.body.removeChild( this.tip );
+
+            if (document.body.contains(this.tip)) {
+                document.body.removeChild(this.tip);
+            }
         });
     }
 
