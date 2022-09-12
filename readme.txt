@@ -209,12 +209,18 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= 4.5.4 =
+= NEWVERSION =
 Release Date: tbd
 
 * [Improved] Styling for dynamic select boxes is improved
 * [Improved] It is now possible to set the separator for the Taxonomy column
 * [Improved] The date column setting has some minor UI improvements
+
+= 4.5.4 =
+Release Date: September 13th, 2022
+
+* [Fixed] JS null checks that could lead to JS errors
+* [Fixed] More PHP 8.1 compatibility fixes
 
 = 4.5.3 =
 Release Date: July 4th, 2022
