@@ -209,6 +209,12 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.5.4 =
+Release Date: July 4th, 2022
+
+* [Fixed] JS null checks that could lead to JS errors
+* [Fixed] More PHP 8.1 compatibility fixes
+
 = 4.5.3 =
 Release Date: July 4th, 2022
 
