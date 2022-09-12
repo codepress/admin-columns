@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-03-31 09:13:32+0000\n"
+"PO-Revision-Date: 2022-07-07 12:59:35+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -845,7 +845,7 @@ msgstr "Dit bepaalt hoe de tijd getoond wordt."
 
 #: classes/Settings/Column/Time.php:12
 msgid "Time Format"
-msgstr "Tijdformaat"
+msgstr "Tijd format"
 
 #: classes/Settings/Column/StringLimit.php:35
 msgid "No limit"
@@ -1640,7 +1640,7 @@ msgstr "Herstel Instellingen"
 
 #: templates/admin/edit-actions.php:24 templates/admin/edit-columns.php:39
 msgid "Save"
-msgstr "Bewaar"
+msgstr "Opslaan"
 
 #: classes/Admin/Section/General.php:36
 #: classes/Settings/Column/DateTimeFormat.php:45

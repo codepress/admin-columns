@@ -44,6 +44,8 @@ export default class Table {
             result.push(getIdFromTableRow(row));
         });
 
+        result = result.filter(id => id !== 0);
+
         return result;
     }
 
