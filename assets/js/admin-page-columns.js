@@ -3770,7 +3770,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../helpers/html-element */ "./js/helpers/html-element.ts");
 // @ts-ignore
+
 
 const initMultiSelectFields = (column) => {
     column.getElement().querySelectorAll('select[multiple]').forEach(select => {
@@ -3783,19 +3785,38 @@ class MultiSelect {
         this.select = select;
         this.bindEvents();
     }
+    getSelectedOptions() {
+        const selected = this.select.querySelectorAll('option:checked');
+        return Array.from(selected).map(el => el.value);
+    }
     bindEvents() {
-        var _a;
+        var _a, _b;
         // First remove all cloned Select2 elements
         this.select.removeAttribute('data-select2-id');
         (_a = this.select.parentElement) === null || _a === void 0 ? void 0 : _a.querySelectorAll('.select2').forEach(el => {
             el.remove();
         });
+        let fallBack = _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__["default"].create('input')
+            .setAttributes({
+            'name': (_b = this.select.getAttribute('name')) !== null && _b !== void 0 ? _b : '',
+            'type': 'hidden'
+        });
+        if (this.getSelectedOptions().length === 0) {
+            fallBack.insertSelfBefore(this.select);
+        }
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.select).ac_select2({
             theme: 'acs2',
             width: '100%',
+            closeOnSelect: false,
             escapeMarkup: function (text) {
                 return text;
             },
+        }).on('select2:selecting', () => {
+            fallBack.getElement().remove();
+        }).on('select2:unselect', () => {
+            if (this.getSelectedOptions().length === 0) {
+                fallBack.insertSelfBefore(this.select);
+            }
         });
     }
 }
