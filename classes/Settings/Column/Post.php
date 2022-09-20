@@ -65,7 +65,7 @@ class Post extends Settings\Column
 		switch ( $this->get_post_property_display() ) {
 
 			case self::PROPERTY_AUTHOR :
-				return ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $id ) ) ?: sprintf( '%s (%s)', __( 'No author', 'codepress-admin-columns' ), $id );;
+				return ac_helper()->user->get_display_name( ac_helper()->post->get_raw_field( 'post_author', $id ) ) ?: sprintf( '%s (%s)', __( 'No author', 'codepress-admin-columns' ), $id );
 			case self::PROPERTY_FEATURED_IMAGE :
 				return get_post_thumbnail_id( $id );
 			case self::PROPERTY_TITLE :
