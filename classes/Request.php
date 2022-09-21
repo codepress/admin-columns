@@ -97,14 +97,14 @@ class Request {
 	}
 
 	/**
-	 * @param string $key
-	 * @param null   $default
-	 * @param int    $filter
-	 * @param null   $options
+	 * @param string    $key
+	 * @param null      $default
+	 * @param int       $filter
+	 * @param array|int $options
 	 *
 	 * @return mixed
 	 */
-	public function filter( $key, $default = null, $filter = FILTER_DEFAULT, $options = null ) {
+	public function filter( $key, $default = null, $filter = FILTER_DEFAULT, $options = 0 ) {
 		return $this->get_parameters()->filter( $key, $default, $filter, $options );
 	}
 

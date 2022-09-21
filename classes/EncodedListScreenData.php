@@ -15,7 +15,7 @@ final class EncodedListScreenData implements Iterator {
 		$this->data[] = $data;
 	}
 
-	#[ReturnTypeWillChange]
+	#[\ReturnTypeWillChange]
 	public function rewind() {
 		reset( $this->data );
 	}
@@ -23,22 +23,22 @@ final class EncodedListScreenData implements Iterator {
 	/**
 	 * @return array
 	 */
-	#[ReturnTypeWillChange]
+	#[\ReturnTypeWillChange]
 	public function current() {
 		return current( $this->data );
 	}
 
-	#[ReturnTypeWillChange]
+	#[\ReturnTypeWillChange]
 	public function key() {
 		return key( $this->data );
 	}
 
-	#[ReturnTypeWillChange]
+	#[\ReturnTypeWillChange]
 	public function next() {
 		return next( $this->data );
 	}
 
-	#[ReturnTypeWillChange]
+	#[\ReturnTypeWillChange]
 	public function valid() {
 		$key = $this->key();
 

@@ -49,6 +49,7 @@ class Collection
 		return $this->get( $key );
 	}
 
+	#[\ReturnTypeWillChange]
 	public function rewind() {
 		reset( $this->items );
 	}
@@ -57,14 +58,17 @@ class Collection
 		return reset( $this->items );
 	}
 
+	#[\ReturnTypeWillChange]
 	public function current() {
 		return current( $this->items );
 	}
 
+	#[\ReturnTypeWillChange]
 	public function key() {
 		return key( $this->items );
 	}
 
+	#[\ReturnTypeWillChange]
 	public function next() {
 		return next( $this->items );
 	}
@@ -73,6 +77,7 @@ class Collection
 		return $this->items;
 	}
 
+	#[\ReturnTypeWillChange]
 	public function valid() {
 		$key = $this->key();
 
