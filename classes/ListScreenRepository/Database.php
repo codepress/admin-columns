@@ -210,11 +210,11 @@ final class Database implements ListScreenRepositoryWritable {
 			            ->set_updated( DateTime::createFromFormat( 'Y-m-d H:i:s', $data->date_modified ) );
 
 			if ( $data->settings ) {
-				$list_screen->set_preferences( unserialize( $data->settings ) ?: [] );
+				$list_screen->set_preferences( unserialize( $data->settings, [ 'allowed_classes' => false ] ) ?: [] );
 			}
 
 			if ( $data->columns ) {
-				$list_screen->set_settings( unserialize( $data->columns ) ?: [] );
+				$list_screen->set_settings( unserialize( $data->columns, [ 'allowed_classes' => false ] ) ?: [] );
 			}
 		}
 
