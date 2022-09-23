@@ -21,7 +21,7 @@ class CustomField extends Column\Meta {
 	}
 
 	public function get_meta_key() {
-		return $this->get_setting( Settings\Column\CustomField::NAME )->get_value();
+		return (string) $this->get_setting( Settings\Column\CustomField::NAME )->get_value();
 	}
 
 	public function register_settings() {
