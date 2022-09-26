@@ -49,12 +49,11 @@ export class Pointer {
         });
 
         this.element.addEventListener('mouseleave', () => {
-            console.log( 'leave', this.noClick);
             this.checkClose();
         });
 
-        this.element.addEventListener( 'click', () =>{
-            if( this.noClick ){
+        this.element.addEventListener('click', () => {
+            if (this.noClick) {
                 return;
             }
 
@@ -83,7 +82,7 @@ export class Pointer {
 
     checkClose() {
         setTimeout(() => {
-            if ( ! this.waitingForClose ) {
+            if (!this.waitingForClose) {
                 this.closeHandler();
             }
         }, 50)
