@@ -927,7 +927,6 @@ class Pointer {
             }, 100);
         });
         this.element.addEventListener('mouseleave', () => {
-            console.log('leave', this.noClick);
             this.checkClose();
         });
         this.element.addEventListener('click', () => {

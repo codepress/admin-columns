@@ -23,6 +23,7 @@ let AC_SERVICES = initAcServices();
 
 AC_SERVICES.registerService('Modals', new Modals());
 AC_SERVICES.registerService('tooltips', initAcTooltips);
+AC_SERVICES.registerService('initPointers', initPointers);
 
 document.addEventListener('DOMContentLoaded', () => {
     let table = resolveTableBySelector(AC.table_id);
