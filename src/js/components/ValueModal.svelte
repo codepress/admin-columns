@@ -96,13 +96,13 @@
         updateData(items[index]);
     }
 
-    const nextItem = () => {
+    const prevItem = () => {
         let index = items.findIndex(item => item.objectId === objectId);
         let newIndex = index + 1;
         updateItem(newIndex >= items.length ? 0 : newIndex);
     }
 
-    const prevItem = () => {
+    const nextItem = () => {
         let index = items.findIndex(item => item.objectId === objectId);
         let newIndex = index - 1;
         updateItem(newIndex < 0 ? items.length - 1 : newIndex);
