@@ -334,9 +334,10 @@ class Image {
 		}
 
 		$dom = new DOMDocument;
-		@$dom->loadHTML( $string );
+		libxml_use_internal_errors( true );
+		$dom->loadHTML( $string );
 		$dom->preserveWhiteSpace = false;
-
+		libxml_clear_errors();
 		$urls = [];
 
 		$images = $dom->getElementsByTagName( 'img' );
