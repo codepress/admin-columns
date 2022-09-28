@@ -9467,6 +9467,9 @@ class Cells {
         Object.keys(cells).forEach(name => result.push(cells[name]));
         return result;
     }
+    getByElement(el) {
+        return this.getAll().find(cell => cell.getElement() === el);
+    }
     getAll() {
         let results = [];
         Object.keys(this.cells).forEach(id => {
@@ -12343,24 +12346,24 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
         });
     });
     let items = {};
-    event.table.Cells.getAll().forEach(cell => {
-        var _a, _b, _c;
-        let link = cell.getElement().querySelector('[data-modal-value]');
-        if (link) {
+    event.table.getElement().querySelectorAll('td [data-modal-value]').forEach(link => {
+        var _a, _b, _c, _d;
+        let cell = event.table.Cells.getByElement((_a = link.closest('td')) !== null && _a !== void 0 ? _a : document.createElement('td'));
+        if (cell) {
             if (!items.hasOwnProperty(cell.getName())) {
                 items[cell.getName()] = [];
             }
             items[cell.getName()].push({
                 element: link,
-                editLink: (_a = link.dataset.modalEditLink) !== null && _a !== void 0 ? _a : '',
-                downloadLink: (_b = link.dataset.modalDownloadLink) !== null && _b !== void 0 ? _b : '',
-                title: (_c = link.dataset.modalTitle) !== null && _c !== void 0 ? _c : null,
+                editLink: (_b = link.dataset.modalEditLink) !== null && _b !== void 0 ? _b : '',
+                downloadLink: (_c = link.dataset.modalDownloadLink) !== null && _c !== void 0 ? _c : '',
+                title: (_d = link.dataset.modalTitle) !== null && _d !== void 0 ? _d : null,
                 columnName: cell.getName(),
                 objectId: cell.getObjectID()
             });
         }
     });
-    Object.keys(items).forEach(i => new _modules_value_modals__WEBPACK_IMPORTED_MODULE_12__["default"](items[i].reverse()));
+    Object.keys(items).forEach(i => new _modules_value_modals__WEBPACK_IMPORTED_MODULE_12__["default"](items[i]));
     document.querySelectorAll('[data-component="ac-json"]').forEach(el => {
         new _modules_json_viewer__WEBPACK_IMPORTED_MODULE_14__["default"](el);
     });
