@@ -2142,14 +2142,14 @@ function create_if_block_3(ctx) {
     }
 
   };
-} // (117:5) {#if editLink }
+} // (130:5) {#if editLink }
 
 
 function create_if_block_2(ctx) {
   let a;
   let t_value =
   /*translation*/
-  ctx[8].edit + "";
+  ctx[10].edit + "";
   let t;
   return {
     c() {
@@ -2181,14 +2181,14 @@ function create_if_block_2(ctx) {
     }
 
   };
-} // (120:5) {#if downloadLink }
+} // (133:5) {#if downloadLink }
 
 
 function create_if_block_1(ctx) {
   let a;
   let t_value =
   /*translation*/
-  ctx[8].download + "";
+  ctx[10].download + "";
   let t;
   return {
     c() {
@@ -2221,48 +2221,78 @@ function create_if_block_1(ctx) {
     }
 
   };
-} // (124:4) {#if items.length > 1 }
+} // (137:4) {#if items.length > 1 }
 
 
 function create_if_block(ctx) {
   let div;
   let button0;
+  let span0;
+  let button0_disabled_value;
   let t;
   let button1;
+  let span1;
+  let button1_disabled_value;
   let mounted;
   let dispose;
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       button0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
-      button0.innerHTML = `<span class="dashicons dashicons-arrow-left-alt2"></span>`;
+      span0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       button1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
-      button1.innerHTML = `<span class="dashicons dashicons-arrow-right-alt2"></span>`;
+      span1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span0, "class", "dashicons dashicons-arrow-left-alt2");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button0, "title", "Previous");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button0, "class", "btn");
+      button0.disabled = button0_disabled_value = !
+      /*hasPrev*/
+      ctx[9];
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span1, "class", "dashicons dashicons-arrow-right-alt2");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button1, "title", "Next");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button1, "class", "btn");
+      button1.disabled = button1_disabled_value = !
+      /*hasNext*/
+      ctx[8];
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "ac-value-modal__navigation");
     },
 
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, button0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button0, span0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, button1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button1, span1);
 
       if (!mounted) {
         dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button0, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(
         /*prevItem*/
-        ctx[11])), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button1, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(
+        ctx[13])), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button1, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.prevent_default)(
         /*nextItem*/
-        ctx[10]))];
+        ctx[12]))];
         mounted = true;
       }
     },
 
-    p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+    p(ctx, dirty) {
+      if (dirty &
+      /*hasPrev*/
+      512 && button0_disabled_value !== (button0_disabled_value = !
+      /*hasPrev*/
+      ctx[9])) {
+        button0.disabled = button0_disabled_value;
+      }
+
+      if (dirty &
+      /*hasNext*/
+      256 && button1_disabled_value !== (button1_disabled_value = !
+      /*hasNext*/
+      ctx[8])) {
+        button1.disabled = button1_disabled_value;
+      }
+    },
 
     d(detaching) {
       if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
@@ -2386,18 +2416,16 @@ function create_fragment(ctx) {
       if (if_block3) if_block3.m(div6, null);
       /*div9_binding*/
 
-      ctx[14](div9);
+      ctx[16](div9);
 
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "click",
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click",
         /*close*/
-        ctx[9]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(button, "click",
-        /*close*/
-        ctx[9]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div7, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(
+        ctx[11]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div7, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(
         /*click_handler*/
-        ctx[13])), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div8, "click",
+        ctx[15])), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div9, "click",
         /*close*/
-        ctx[9])];
+        ctx[11])];
         mounted = true;
       }
     },
@@ -2495,7 +2523,7 @@ function create_fragment(ctx) {
       if (if_block3) if_block3.d();
       /*div9_binding*/
 
-      ctx[14](null);
+      ctx[16](null);
       mounted = false;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
     }
@@ -2522,13 +2550,16 @@ function instance($$self, $$props, $$invalidate) {
   let downloadLink;
   let source;
   let translation = (0,_helpers_translations__WEBPACK_IMPORTED_MODULE_5__.getTableTranslation)();
+  let index;
+  let hasNext;
+  let hasPrev;
   const CancelToken = (axios__WEBPACK_IMPORTED_MODULE_3___default().CancelToken);
 
   const close = () => {
     destroyHandler();
   };
 
-  const initMouseDown = e => {
+  const initKeyPress = e => {
     if (e.key === 'Escape') {
       destroyHandler();
     }
@@ -2543,24 +2574,6 @@ function instance($$self, $$props, $$invalidate) {
       e.preventDefault();
     }
   };
-
-  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
-    var _a;
-
-    let item = items.find(i => i.objectId === objectId);
-    columnTitle = item.element.closest('td').dataset.colname;
-
-    if (items.length > 1) {
-      document.addEventListener('keydown', initMouseDown);
-    }
-
-    $$invalidate(2, modalClass = item.element.dataset.modalClass);
-    $$invalidate(4, title = (_a = item.title) !== null && _a !== void 0 ? _a : `#${item.objectId}`);
-    updateData(item);
-  });
-  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onDestroy)(() => {
-    document.removeEventListener('keydown', initMouseDown);
-  });
 
   const getTitle = item => {
     var _a;
@@ -2597,21 +2610,50 @@ function instance($$self, $$props, $$invalidate) {
     });
   };
 
+  const determineSiblings = () => {
+    $$invalidate(8, hasNext = index + 1 < items.length);
+    $$invalidate(9, hasPrev = index !== 0);
+  };
+
   const updateItem = index => {
     updateData(items[index]);
   };
 
   const nextItem = () => {
-    let index = items.findIndex(item => item.objectId === objectId);
-    let newIndex = index + 1;
-    updateItem(newIndex >= items.length ? 0 : newIndex);
+    if (hasNext) {
+      index = index + 1;
+      updateItem(index);
+      determineSiblings();
+    }
   };
 
   const prevItem = () => {
-    let index = items.findIndex(item => item.objectId === objectId);
-    let newIndex = index - 1;
-    updateItem(newIndex < 0 ? items.length - 1 : newIndex);
+    if (hasPrev) {
+      index = index - 1;
+      updateItem(index);
+      determineSiblings();
+    }
   };
+
+  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
+    var _a;
+
+    let item = items.find(i => i.objectId === objectId);
+    index = items.findIndex(item => item.objectId === objectId);
+    columnTitle = item.element.closest('td').dataset.colname;
+
+    if (items.length > 1) {
+      document.addEventListener('keydown', initKeyPress);
+    }
+
+    $$invalidate(2, modalClass = item.element.dataset.modalClass);
+    $$invalidate(4, title = (_a = item.title) !== null && _a !== void 0 ? _a : `#${item.objectId}`);
+    updateData(item);
+    determineSiblings();
+  });
+  (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onDestroy)(() => {
+    document.removeEventListener('keydown', initKeyPress);
+  });
 
   function click_handler(event) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
@@ -2627,10 +2669,10 @@ function instance($$self, $$props, $$invalidate) {
   $$self.$$set = $$props => {
     if ('items' in $$props) $$invalidate(1, items = $$props.items);
     if ('objectId' in $$props) $$invalidate(0, objectId = $$props.objectId);
-    if ('destroyHandler' in $$props) $$invalidate(12, destroyHandler = $$props.destroyHandler);
+    if ('destroyHandler' in $$props) $$invalidate(14, destroyHandler = $$props.destroyHandler);
   };
 
-  return [objectId, items, modalClass, mainElement, title, content, editLink, downloadLink, translation, close, nextItem, prevItem, destroyHandler, click_handler, div9_binding];
+  return [objectId, items, modalClass, mainElement, title, content, editLink, downloadLink, hasNext, hasPrev, translation, close, nextItem, prevItem, destroyHandler, click_handler, div9_binding];
 }
 
 class ValueModal extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
@@ -2639,7 +2681,7 @@ class ValueModal extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComp
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       items: 1,
       objectId: 0,
-      destroyHandler: 12
+      destroyHandler: 14
     });
   }
 
@@ -12318,7 +12360,7 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
             });
         }
     });
-    Object.keys(items).forEach(i => new _modules_value_modals__WEBPACK_IMPORTED_MODULE_12__["default"](items[i]));
+    Object.keys(items).forEach(i => new _modules_value_modals__WEBPACK_IMPORTED_MODULE_12__["default"](items[i].reverse()));
     document.querySelectorAll('[data-component="ac-json"]').forEach(el => {
         new _modules_json_viewer__WEBPACK_IMPORTED_MODULE_14__["default"](el);
     });

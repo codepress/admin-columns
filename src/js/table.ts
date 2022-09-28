@@ -91,7 +91,7 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
         }
     });
 
-    Object.keys(items).forEach(i => new ValueModals(items[i]))
+    Object.keys(items).forEach(i => new ValueModals(items[i].reverse()))
 
 
     document.querySelectorAll<HTMLElement>('[data-component="ac-json"]').forEach( el => {

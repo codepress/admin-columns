@@ -16,6 +16,7 @@
   --ac-notification-green: #00a32a;
   --ac-border-grey: #ddd;
   --ac-pink-color: #e9426e;
+  --ac-form-input-border: #757575;
 }
 
 :root body.admin-color-coffee {
