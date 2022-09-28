@@ -69,7 +69,7 @@
 
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=942947") format("woff2"), url("../fonts/cpac_icons.woff?v=452198") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=155337") format("woff2"), url("../fonts/cpac_icons.woff?v=250375") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -99,12 +99,16 @@
   content: "";
 }
 
-.cpacicon-segment::before {
+.cpacicon-move-sm::before {
   content: "";
 }
 
-.cpacicon-smart-filter::before {
+.cpacicon-segment::before {
   content: "";
+}
+
+.cpacicon-smart-filter::before {
+  content: "";
 }
 
 /**
