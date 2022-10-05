@@ -6,8 +6,9 @@
     export let onClose: Function;
     export let lastFocusElement: HTMLElement;
 
-    let ok;
-    let cancel;
+    export let ok;
+    export let cancel;
+
     let okButton;
 
     const confirm = () => {

@@ -1858,8 +1858,10 @@ function create_fragment(ctx) {
   let t1;
   let div1;
   let button0;
+  let t2;
   let t3;
   let button1;
+  let t4;
   let mounted;
   let dispose;
   return {
@@ -1873,14 +1875,14 @@ function create_fragment(ctx) {
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       button0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
-      button0.textContent = `${
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(
       /*cancel*/
-      ctx[3]}`;
+      ctx[2]);
       t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       button1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
-      button1.textContent = `${
+      t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(
       /*ok*/
-      ctx[2]}`;
+      ctx[1]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "ac-confirmation__modal__content");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button0, "class", "button");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button1, "class", "button button-primary");
@@ -1897,8 +1899,10 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, button0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button0, t2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t3);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, button1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button1, t4);
       /*button1_binding*/
 
       ctx[9](button1);
@@ -1919,6 +1923,16 @@ function create_fragment(ctx) {
       1) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0,
       /*message*/
       ctx[0]);
+      if (dirty &
+      /*cancel*/
+      4) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t2,
+      /*cancel*/
+      ctx[2]);
+      if (dirty &
+      /*ok*/
+      2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t4,
+      /*ok*/
+      ctx[1]);
     },
 
     i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
@@ -1949,8 +1963,12 @@ function instance($$self, $$props, $$invalidate) {
   let {
     lastFocusElement
   } = $$props;
-  let ok;
-  let cancel;
+  let {
+    ok
+  } = $$props;
+  let {
+    cancel
+  } = $$props;
   let okButton;
 
   const confirm = () => {
@@ -1983,7 +2001,7 @@ function instance($$self, $$props, $$invalidate) {
   function button1_binding($$value) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {
       okButton = $$value;
-      $$invalidate(1, okButton);
+      $$invalidate(3, okButton);
     });
   }
 
@@ -1992,9 +2010,11 @@ function instance($$self, $$props, $$invalidate) {
     if ('onConfirm' in $$props) $$invalidate(6, onConfirm = $$props.onConfirm);
     if ('onClose' in $$props) $$invalidate(7, onClose = $$props.onClose);
     if ('lastFocusElement' in $$props) $$invalidate(8, lastFocusElement = $$props.lastFocusElement);
+    if ('ok' in $$props) $$invalidate(1, ok = $$props.ok);
+    if ('cancel' in $$props) $$invalidate(2, cancel = $$props.cancel);
   };
 
-  return [message, okButton, ok, cancel, confirm, close, onConfirm, onClose, lastFocusElement, button1_binding];
+  return [message, ok, cancel, okButton, confirm, close, onConfirm, onClose, lastFocusElement, button1_binding];
 }
 
 class ConfirmationModal extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
@@ -2004,7 +2024,9 @@ class ConfirmationModal extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.Sve
       message: 0,
       onConfirm: 6,
       onClose: 7,
-      lastFocusElement: 8
+      lastFocusElement: 8,
+      ok: 1,
+      cancel: 2
     });
   }
 
@@ -2626,14 +2648,14 @@ class AcConfirmation {
         this.config = config;
     }
     create() {
-        var _a, _b;
+        var _a, _b, _c, _d, _e, _f;
         let element = document.createElement('div');
         document.body.appendChild(element);
         this.component = new _components_ConfirmationModal_svelte__WEBPACK_IMPORTED_MODULE_0__["default"]({
             target: element,
             props: {
-                ok: (_a = this.config.ok) !== null && _a !== void 0 ? _a : 'Ok',
-                cancel: (_b = this.config.cancel) !== null && _b !== void 0 ? _b : 'Cancel',
+                ok: (_c = (_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.translation) === null || _b === void 0 ? void 0 : _b.ok) !== null && _c !== void 0 ? _c : 'Ok',
+                cancel: (_f = (_e = (_d = this.config) === null || _d === void 0 ? void 0 : _d.translation) === null || _e === void 0 ? void 0 : _e.cancel) !== null && _f !== void 0 ? _f : 'Cancel',
                 message: this.config.message,
                 onConfirm: this.config.confirm,
                 lastFocusElement: this.config.lastFocus,
