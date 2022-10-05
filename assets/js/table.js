@@ -8667,7 +8667,6 @@ class Pointer {
             }, 100);
         });
         this.element.addEventListener('mouseleave', () => {
-            console.log('leave', this.noClick);
             this.checkClose();
         });
         this.element.addEventListener('click', () => {
@@ -12310,6 +12309,7 @@ __webpack_require__.r(__webpack_exports__);
 let AC_SERVICES = (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_9__.initAcServices)();
 AC_SERVICES.registerService('Modals', new _modules_modals__WEBPACK_IMPORTED_MODULE_10__["default"]());
 AC_SERVICES.registerService('tooltips', _plugin_tooltip__WEBPACK_IMPORTED_MODULE_13__.initAcTooltips);
+AC_SERVICES.registerService('initPointers', _modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__.initPointers);
 document.addEventListener('DOMContentLoaded', () => {
     let table = (0,_helpers_table__WEBPACK_IMPORTED_MODULE_8__.resolveTableBySelector)(AC.table_id);
     (0,_modules_ac_pointer__WEBPACK_IMPORTED_MODULE_11__.initPointers)();
