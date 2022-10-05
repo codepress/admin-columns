@@ -4,7 +4,7 @@ type ConfirmationConfig = {
     message: string,
     confirm: Function,
     lastFocus?: HTMLElement | null
-    translation?: ConfirmationTranslation
+    translation: ConfirmationTranslation
 }
 
 type ConfirmationTranslation = {

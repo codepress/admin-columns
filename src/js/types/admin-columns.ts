@@ -1,5 +1,10 @@
 import {keyAnyPair, keySpecificPair} from "../helpers/types";
 
+export type ModuleConfirmationTranslation = {
+    ok: string
+    cancel: string
+}
+
 export type LocalizedAcColumnSettings = {
     _ajax_nonce: string,
     i18n: any
@@ -15,6 +20,7 @@ export type LocalizedAcTableI18n = {
     value_loading: string;
     edit: string;
     download: string;
+    confirmation: ModuleConfirmationTranslation
 }
 
 export type LocalizedAcAddonsi18n = { [key: string]: string }
