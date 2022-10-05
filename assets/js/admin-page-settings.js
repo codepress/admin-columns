@@ -5097,6 +5097,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             new _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_3__["default"]({
                 message: AC_I18N.restore_settings,
+                translation: AC_I18N.confirmation,
                 confirm: () => {
                     var _a;
                     (_a = restoreFormButton === null || restoreFormButton === void 0 ? void 0 : restoreFormButton.closest('form')) === null || _a === void 0 ? void 0 : _a.submit();

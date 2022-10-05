@@ -35,7 +35,8 @@ export type LocalizedAcGeneralSettings = {
 }
 
 export type AcGeneralSettingsI18N = {
-    restore_settings: string
+    restore_settings: string,
+    confirmation: ModuleConfirmationTranslation
 }
 
 
