@@ -2648,14 +2648,14 @@ class AcConfirmation {
         this.config = config;
     }
     create() {
-        var _a, _b;
+        var _a, _b, _c, _d, _e, _f;
         let element = document.createElement('div');
         document.body.appendChild(element);
         this.component = new _components_ConfirmationModal_svelte__WEBPACK_IMPORTED_MODULE_0__["default"]({
             target: element,
             props: {
-                ok: (_a = this.config.ok) !== null && _a !== void 0 ? _a : 'Ok',
-                cancel: (_b = this.config.cancel) !== null && _b !== void 0 ? _b : 'Cancel',
+                ok: (_c = (_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.translation) === null || _b === void 0 ? void 0 : _b.ok) !== null && _c !== void 0 ? _c : 'Ok',
+                cancel: (_f = (_e = (_d = this.config) === null || _d === void 0 ? void 0 : _d.translation) === null || _e === void 0 ? void 0 : _e.cancel) !== null && _f !== void 0 ? _f : 'Cancel',
                 message: this.config.message,
                 onConfirm: this.config.confirm,
                 lastFocusElement: this.config.lastFocus,
@@ -5097,6 +5097,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             new _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_3__["default"]({
                 message: AC_I18N.restore_settings,
+                translation: AC_I18N.confirmation,
                 confirm: () => {
                     var _a;
                     (_a = restoreFormButton === null || restoreFormButton === void 0 ? void 0 : restoreFormButton.closest('form')) === null || _a === void 0 ? void 0 : _a.submit();

@@ -4,6 +4,7 @@ namespace AC\Admin\Asset;
 
 use AC\Asset\Script;
 use AC\Nonce;
+use AC\Translation;
 
 class Settings extends Script {
 
@@ -16,9 +17,9 @@ class Settings extends Script {
 			Nonce\Ajax::NAME => $nonce->create(),
 		] );
 
-		wp_localize_script( $this->handle, 'AC_I18N', [
+		wp_localize_script( $this->handle, 'AC_I18N', array_merge( [
 			'restore_settings' => __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ),
-		] );
+		], Translation\Confirmation::get() ) );
 	}
 
 }

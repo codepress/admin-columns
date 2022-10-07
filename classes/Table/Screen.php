@@ -46,7 +46,12 @@ final class Screen implements Registrable {
 	 */
 	private $column_size_user_storage;
 
-	public function __construct( Asset\Location\Absolute $location, ListScreen $list_screen, ColumnSize\ListStorage $column_size_list_storage, ColumnSize\UserStorage $column_size_user_storage ) {
+	public function __construct(
+		Asset\Location\Absolute $location,
+		ListScreen $list_screen,
+		ColumnSize\ListStorage $column_size_list_storage,
+		ColumnSize\UserStorage $column_size_user_storage
+	) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
 		$this->column_size_list_storage = $column_size_list_storage;
@@ -246,15 +251,15 @@ final class Screen implements Registrable {
 			]
 		);
 
-		wp_localize_script( 'ac-table', 'AC_I18N',
-			[
-				'ok'            => __( 'Ok', 'codepress-admin-columns' ),
-				'cancel'        => __( 'Cancel', 'codepress-admin-columns' ),
-				'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
-				'edit'          => __( 'Edit', 'codepress-admin-columns' ),
-				'download'      => __( 'Download', 'codepress-admin-columns' ),
-			]
-		);
+		$translations = [
+			'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
+			'edit'          => __( 'Edit', 'codepress-admin-columns' ),
+			'download'      => __( 'Download', 'codepress-admin-columns' ),
+		];
+
+		$translations = array_merge( $translations, AC\Translation\Confirmation::get() );
+
+		wp_localize_script( 'ac-table', 'AC_I18N', $translations );
 
 		/**
 		 * @param ListScreen $list_screen
