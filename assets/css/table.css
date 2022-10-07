@@ -934,7 +934,11 @@ body.upload-php .tablenav.top .ac-button {
   float: none;
   margin-top: -2px;
 }
+.ac-toggle-box-link .spinner {
+  display: none;
+}
 .ac-toggle-box-link.loading .spinner {
+  display: inline-block;
   visibility: visible;
 }
 
