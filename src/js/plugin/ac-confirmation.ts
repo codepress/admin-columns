@@ -1,17 +1,12 @@
 import ConfirmationModal from "../components/ConfirmationModal.svelte";
+import {ModuleConfirmationTranslation} from "../types/admin-columns";
 
 type ConfirmationConfig = {
     message: string,
     confirm: Function,
     lastFocus?: HTMLElement | null
-    translation: ConfirmationTranslation
+    translation: ModuleConfirmationTranslation
 }
-
-type ConfirmationTranslation = {
-    ok: string,
-    cancel: string
-}
-
 
 export default class AcConfirmation {
 

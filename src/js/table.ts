@@ -73,10 +73,10 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
 
     let items: { [key: string]: ValueModalItemCollection } = {};
 
-    event.table.Cells.getAll().forEach(cell => {
+    event.table.getElement().querySelectorAll<HTMLElement>('td [data-modal-value]').forEach(link => {
+        let cell = event.table.Cells.getByElement(link.closest('td') ?? document.createElement('td'));
 
-        let link = cell.getElement().querySelector<HTMLElement>('[data-modal-value]');
-        if (link) {
+        if (cell) {
             if (!items.hasOwnProperty(cell.getName())) {
                 items[cell.getName()] = [];
             }
@@ -94,8 +94,7 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
 
     Object.keys(items).forEach(i => new ValueModals(items[i]))
 
-
-    document.querySelectorAll<HTMLElement>('[data-component="ac-json"]').forEach( el => {
-        new JsonViewer( el );
+    document.querySelectorAll<HTMLElement>('[data-component="ac-json"]').forEach(el => {
+        new JsonViewer(el);
     })
 });

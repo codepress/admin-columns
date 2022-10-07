@@ -36,6 +36,10 @@ export default class Cells {
         return result;
     }
 
+    getByElement( el: HTMLElement ){
+        return this.getAll().find( cell => cell.getElement() === el );
+    }
+
     getAll() {
         let results: Array<Cell> = [];
 

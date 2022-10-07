@@ -63,6 +63,8 @@ class AdminColumns extends Plugin {
 
 		PageRequestHandlers::add_handler( $page_handler );
 
+		$color_repository = new Admin\Colors\ColorRepository( new Admin\Colors\Storage\OptionFactory() );
+
 		$services = [
 			new Admin\Admin( new PageRequestHandlers(), $location, new AdminScripts( $location ) ),
 			new Admin\Notice\ReadOnlyListScreen(),
@@ -88,6 +90,14 @@ class AdminColumns extends Plugin {
 			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
 			new Admin\Scripts( $location ),
+			new Service\Colors(
+				new Admin\Colors\Shipped\ColorUpdater(
+					new Admin\Colors\Shipped\ColorParser( ABSPATH . 'wp-admin/css/common.css' ),
+					$color_repository,
+					new Admin\Colors\Storage\OptionFactory()
+				),
+				new Admin\Colors\StyleInjector( $color_repository )
+			)
 		];
 
 		$setup_factory = new SetupFactory\AdminColumns( 'ac_version', $this->get_version() );
