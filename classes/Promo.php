@@ -9,7 +9,9 @@ use AC\Type\Url\UtmTags;
 
 abstract class Promo {
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $slug;
 
 	/**
@@ -22,7 +24,9 @@ abstract class Promo {
 	 */
 	private $discount;
 
-	/** @var DateRange */
+	/**
+	 * @var DateRange
+	 */
 	private $date_range;
 
 	public function __construct( $slug, $title, $discount, DateRange $date_range ) {

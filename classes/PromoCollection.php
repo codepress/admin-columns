@@ -3,6 +3,7 @@
 namespace AC;
 
 use AC\Promo\BlackFriday;
+use AC\Promo\Halloween;
 use AC\Type\DateRange;
 use DateTime;
 
@@ -10,7 +11,8 @@ class PromoCollection extends ArrayIterator {
 
 	public function __construct() {
 		parent::__construct( [
-			new BlackFriday( new DateRange( new DateTime( '2021-11-26' ), new DateTime( '2021-11-30' ) ), 'BlackFriday21' ),
+			new Halloween( new DateRange( new DateTime( '2022-10-28' ), new DateTime( '2022-11-01' ) ), 'Halloween22' ),
+			new BlackFriday( new DateRange( new DateTime( '2022-11-25' ), new DateTime( '2021-11-30' ) ), 'BlackFriday22' ),
 		] );
 	}
 
