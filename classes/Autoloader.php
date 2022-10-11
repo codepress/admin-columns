@@ -23,6 +23,7 @@ class Autoloader {
 	 */
 	protected $class_map = [];
 
+	// TODO David check if the spl hurts when composer also is in play for the pro
 	protected function __construct() {
 		$this->prefixes = [];
 
