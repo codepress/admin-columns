@@ -616,21 +616,24 @@ abstract class ListScreen {
 			$this->register_column_type( $column );
 		}
 
-		$integrations = new IntegrationRepository();
+		// TODO David check if this is the most elegant solution
+		if ( ! function_exists( 'ACP' ) || ! ACP()->is_version_gte( 6 ) ) {
+			$integrations = new IntegrationRepository();
 
-		// Placeholder columns
-		foreach ( $integrations->find_all() as $integration ) {
-			if ( ! $integration->show_placeholder( $this ) ) {
-				continue;
-			}
+			// Placeholder columns
+			foreach ( $integrations->find_all() as $integration ) {
+				if ( ! $integration->show_placeholder( $this ) ) {
+					continue;
+				}
 
-			$plugin_info = new PluginInformation( $integration->get_basename() );
+				$plugin_info = new PluginInformation( $integration->get_basename() );
 
-			if ( $integration->is_plugin_active() && ! $plugin_info->is_active() ) {
-				$column = new Placeholder();
-				$column->set_integration( $integration );
+				if ( $integration->is_plugin_active() && ! $plugin_info->is_active() ) {
+					$column = new Placeholder();
+					$column->set_integration( $integration );
 
-				$this->register_column_type( $column );
+					$this->register_column_type( $column );
+				}
 			}
 		}
 
