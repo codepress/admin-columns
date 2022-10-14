@@ -13,7 +13,9 @@ use AC\Screen;
 final class Promotion
 	implements Registrable {
 
-	/** @var Promo */
+	/**
+	 * @var Promo
+	 */
 	private $promo;
 
 	public function __construct( Promo $promo ) {
