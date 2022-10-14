@@ -31,8 +31,8 @@ final class Absolute implements Location {
 	 * @return self
 	 */
 	public function with_suffix( $suffix ) {
-		$url = $this->get_url() . $suffix;
-		$path = $this->get_path() . $suffix;
+		$url = rtrim( $this->get_url(), '/' ) . '/' . $suffix;
+		$path = rtrim( $this->get_path(), '/' ) . '/' . $suffix;
 
 		return new self( $url, $path );
 	}
