@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:13, classes/Settings/Column/CustomFieldType.php:188, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:25, templates/admin/help-tab/custom-fields.php:6, classes/Helper/Select/Group/CustomField/MultiSite.php:53
+#: classes/ColumnGroups.php:13, classes/Settings/Column/CustomFieldType.php:188, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:26, templates/admin/help-tab/custom-fields.php:6, classes/Helper/Select/Group/CustomField/MultiSite.php:53
 msgid "Default"
 msgstr ""
 
@@ -215,11 +215,11 @@ msgstr ""
 msgid "Default settings successfully restored."
 msgstr ""
 
-#: classes/Helper/Html.php:442
+#: classes/Helper/Html.php:447
 msgid "%s more"
 msgstr ""
 
-#: classes/Helper/Html.php:442
+#: classes/Helper/Html.php:447
 msgid "Hide"
 msgstr ""
 
@@ -375,7 +375,7 @@ msgstr ""
 msgid "Select type"
 msgstr ""
 
-#: templates/admin/edit-menu.php:27, classes/Column/Media/Preview.php:39, classes/Settings/Column/MediaLink.php:63
+#: templates/admin/edit-menu.php:27, classes/Column/Media/Preview.php:38, classes/Settings/Column/MediaLink.php:63
 msgid "View"
 msgstr ""
 
@@ -1132,7 +1132,7 @@ msgstr ""
 msgid "Mime Type"
 msgstr ""
 
-#: classes/Column/Media/Preview.php:12, classes/Settings/Column/NumberFormat.php:78
+#: classes/Column/Media/Preview.php:11, classes/Settings/Column/NumberFormat.php:78
 msgid "Preview"
 msgstr ""
 
@@ -1400,7 +1400,7 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: classes/Settings/Column/CommentLink.php:56, classes/Settings/Column/MediaLink.php:53, classes/Settings/Column/PostLink.php:58, classes/Settings/Column/TermLink.php:27, classes/Settings/Column/UserLink.php:67
+#: classes/Settings/Column/CommentLink.php:56, classes/Settings/Column/MediaLink.php:53, classes/Settings/Column/PostLink.php:58, classes/Settings/Column/TermLink.php:27, classes/Settings/Column/UserLink.php:69
 msgid "Link To"
 msgstr ""
 
@@ -1864,27 +1864,27 @@ msgstr ""
 msgid "All Post Types"
 msgstr ""
 
-#: classes/Settings/Column/Separator.php:26
+#: classes/Settings/Column/Separator.php:27
 msgid "Comma Separated"
 msgstr ""
 
-#: classes/Settings/Column/Separator.php:27
+#: classes/Settings/Column/Separator.php:28
 msgid "New line"
 msgstr ""
 
-#: classes/Settings/Column/Separator.php:28
+#: classes/Settings/Column/Separator.php:29
 msgid "None"
 msgstr ""
 
-#: classes/Settings/Column/Separator.php:29
+#: classes/Settings/Column/Separator.php:30
 msgid "Whitespace"
 msgstr ""
 
-#: classes/Settings/Column/Separator.php:33
+#: classes/Settings/Column/Separator.php:34
 msgid "Separator"
 msgstr ""
 
-#: classes/Settings/Column/Separator.php:34
+#: classes/Settings/Column/Separator.php:35
 msgid "Select a repeater sub field."
 msgstr ""
 
@@ -1940,7 +1940,7 @@ msgstr ""
 msgid "User Login"
 msgstr ""
 
-#: classes/Settings/Column/User.php:84, classes/Settings/Column/UserLink.php:77
+#: classes/Settings/Column/User.php:84, classes/Settings/Column/UserLink.php:79
 msgid "User Email"
 msgstr ""
 
@@ -1952,15 +1952,15 @@ msgstr ""
 msgid "User Website"
 msgstr ""
 
-#: classes/Settings/Column/UserLink.php:76
+#: classes/Settings/Column/UserLink.php:78
 msgid "Edit User Profile"
 msgstr ""
 
-#: classes/Settings/Column/UserLink.php:78
+#: classes/Settings/Column/UserLink.php:80
 msgid "View User Posts"
 msgstr ""
 
-#: classes/Settings/Column/UserLink.php:79
+#: classes/Settings/Column/UserLink.php:81
 msgid "View Public Author Page"
 msgstr ""
 
