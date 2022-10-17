@@ -102,7 +102,7 @@ class CustomField extends Settings\Column {
 	public function set_field( $field ) {
 
 		// Backwards compatible for WordPress Settings API not storing fields starting with _
-		if ( 0 === strpos( $field, 'cpachidden' ) ) {
+		if ( $field && 0 === strpos( $field, 'cpachidden' ) ) {
 			$field = substr( $field, strlen( 'cpachidden' ) );
 		}
 
