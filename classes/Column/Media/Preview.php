@@ -4,7 +4,6 @@ namespace AC\Column\Media;
 
 use AC\Column;
 
-// TODO add support for video/pdf/audio
 class Preview extends Column implements Column\AjaxValue {
 
 	public function __construct() {
