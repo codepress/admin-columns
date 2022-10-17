@@ -2,7 +2,6 @@
 
 namespace AC;
 
-use AC\Column\Placeholder;
 use AC\Sanitize\Kses;
 use AC\Type\ListScreenId;
 use AC\Type\Url\Editor;
@@ -615,7 +614,6 @@ abstract class ListScreen {
 
 			$this->register_column_type( $column );
 		}
-
 
 		// Load Custom columns
 		$this->register_column_types();
