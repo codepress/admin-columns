@@ -6,27 +6,27 @@ abstract class Iterator implements \Iterator {
 
 	protected $data = [];
 
-	#[ReturnTypeWillChange]
+	#[\ReturnTypeWillChange]
 	public function current() {
 		return current( $this->data );
 	}
 
-	#[ReturnTypeWillChange]
+	#[\ReturnTypeWillChange]
 	public function next() {
 		return next( $this->data );
 	}
 
-	#[ReturnTypeWillChange]
+	#[\ReturnTypeWillChange]
 	public function key() {
 		return key( $this->data );
 	}
 
-	#[ReturnTypeWillChange]
+	#[\ReturnTypeWillChange]
 	public function valid() {
 		return $this->key() !== null;
 	}
 
-	#[ReturnTypeWillChange]
+	#[\ReturnTypeWillChange]
 	public function rewind() {
 		reset( $this->data );
 	}

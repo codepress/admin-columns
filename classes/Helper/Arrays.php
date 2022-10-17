@@ -30,11 +30,11 @@ class Arrays {
 	 *
 	 * @return array
 	 */
-	function add_nested_value( array $keys, $value, array $result = [] ) {
+	public function add_nested_value( array $keys, $value, array $result = [] ) {
 		$key = array_shift( $keys );
 
 		if ( $keys ) {
-			$value = add_nested_value( $keys, $value, is_array( $result[ $key ] ) ? $result[ $key ] : [] );
+			$value = $this->add_nested_value( $keys, $value, is_array( $result[ $key ] ) ? $result[ $key ] : [] );
 		}
 
 		$result[ $key ] = $value;
@@ -125,7 +125,13 @@ class Arrays {
 	 * @return array Indented Array
 	 * @since 1.0
 	 */
-	public function indent( $array, $parentId = 0, $parentKey = 'post_parent', $selfKey = 'ID', $childrenKey = 'children' ) {
+	public function indent(
+		$array,
+		$parentId = 0,
+		$parentKey = 'post_parent',
+		$selfKey = 'ID',
+		$childrenKey = 'children'
+	) {
 		$indent = [];
 
 		$i = 0;
