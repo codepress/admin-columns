@@ -68,13 +68,13 @@ class Strings {
 	 */
 	public function word_count( $string ) {
 		if ( empty( $string ) ) {
-			return false;
+			return 0;
 		}
 
 		$string = $this->strip_trim( $string );
 
 		if ( empty( $string ) ) {
-			return false;
+			return 0;
 		}
 
 		$patterns = [

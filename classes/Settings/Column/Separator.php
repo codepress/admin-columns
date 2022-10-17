@@ -2,6 +2,7 @@
 
 namespace AC\Settings\Column;
 
+use AC\ApplyFilter;
 use AC\Collection;
 use AC\Settings;
 use AC\View;
@@ -48,29 +49,25 @@ class Separator extends Settings\Column
 		return $this;
 	}
 
-	public function format( Collection $collection, $original_value ) {
+	public function get_separator_formatted() {
 		switch ( $this->separator ) {
 			case 'comma' :
-				$separator = ', ';
-
-				break;
+				return ', ';
 			case 'newline' :
-				$separator = "<br/>";
-
-				break;
+				return "<br/>";
 			case 'none' :
-				$separator = '';
-
-				break;
+				return '';
 			case 'white_space' :
-				$separator = '&nbsp;';
-
-				break;
+				return '&nbsp;';
+			case 'horizontal_rule' :
+				return '<hr>';
 			default :
-				$separator = $this->column->get_separator();
+				return ( new ApplyFilter\ColumnSeparator( $this->column ) )->apply_filters( ', ' );
 		}
+	}
 
-		return $collection->filter()->implode( $separator );
+	public function format( Collection $collection, $original_value ) {
+		return $collection->filter()->implode( $this->get_separator_formatted() );
 	}
 
 }

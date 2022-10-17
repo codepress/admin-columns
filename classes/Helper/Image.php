@@ -20,7 +20,15 @@ class Image {
 	 *
 	 * @return false|string
 	 */
-	public function resize( $file, $max_w, $max_h, $crop = false, $suffix = null, $dest_path = null, $jpeg_quality = 90 ) {
+	public function resize(
+		$file,
+		$max_w,
+		$max_h,
+		$crop = false,
+		$suffix = null,
+		$dest_path = null,
+		$jpeg_quality = 90
+	) {
 		$editor = wp_get_image_editor( $file );
 
 		if ( is_wp_error( $editor ) ) {
@@ -334,8 +342,11 @@ class Image {
 		}
 
 		$dom = new DOMDocument;
-		@$dom->loadHTML( $string );
+
+		libxml_use_internal_errors( true );
+		$dom->loadHTML( $string );
 		$dom->preserveWhiteSpace = false;
+		libxml_clear_errors();
 
 		$urls = [];
 
