@@ -613,17 +613,14 @@ abstract class ListScreen {
 
 		// Register default columns
 		foreach ( $this->get_original_columns() as $type => $label ) {
-
 			// Ignore the mandatory checkbox column
 			if ( 'cb' === $type ) {
 				continue;
 			}
 
-			$column = new Column();
-
-			$column
-				->set_type( $type )
-				->set_original( true );
+			$column = new Column;
+			$column->set_type( $type )
+			       ->set_original( true );
 
 			$this->register_column_type( $column );
 		}
