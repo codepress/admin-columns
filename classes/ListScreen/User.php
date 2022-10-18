@@ -4,7 +4,6 @@ namespace AC\ListScreen;
 
 use AC;
 use AC\WpListTableFactory;
-use ReflectionException;
 use WP_User;
 use WP_Users_List_Table;
 
@@ -69,14 +68,32 @@ class User extends AC\ListScreenWP {
 		return $this->get_list_table()->single_row( $this->get_object( $id ) );
 	}
 
-	/**
-	 * @throws ReflectionException
-	 */
 	protected function register_column_types() {
-		$this->register_column_type( new AC\Column\CustomField );
-		$this->register_column_type( new AC\Column\Actions );
-
-		$this->register_column_types_from_dir( 'AC\Column\User' );
+		$this->register_column_types_from_list( [
+			AC\Column\CustomField::class,
+			AC\Column\Actions::class,
+			AC\Column\User\CommentCount::class,
+			AC\Column\User\Description::class,
+			AC\Column\User\DisplayName::class,
+			AC\Column\User\Email::class,
+			AC\Column\User\FirstName::class,
+			AC\Column\User\FirstPost::class,
+			AC\Column\User\FullName::class,
+			AC\Column\User\ID::class,
+			AC\Column\User\LastName::class,
+			AC\Column\User\Login::class,
+			AC\Column\User\Name::class,
+			AC\Column\User\Nicename::class,
+			AC\Column\User\Nickname::class,
+			AC\Column\User\PostCount::class,
+			AC\Column\User\Posts::class,
+			AC\Column\User\Registered::class,
+			AC\Column\User\RichEditing::class,
+			AC\Column\User\Role::class,
+			AC\Column\User\ShowToolbar::class,
+			AC\Column\User\Url::class,
+			AC\Column\User\Username::class,
+		] );
 	}
 
 	/**

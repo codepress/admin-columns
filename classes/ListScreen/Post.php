@@ -2,9 +2,9 @@
 
 namespace AC\ListScreen;
 
+use AC;
 use AC\ListScreenPost;
 use AC\WpListTableFactory;
-use ReflectionException;
 use WP_Posts_List_Table;
 
 class Post extends ListScreenPost {
@@ -63,13 +63,48 @@ class Post extends ListScreenPost {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
-	/**
-	 * @throws ReflectionException
-	 */
 	protected function register_column_types() {
 		parent::register_column_types();
 
-		$this->register_column_types_from_dir( 'AC\Column\Post' );
+		$this->register_column_types_from_list( [
+			AC\Column\Post\Attachment::class,
+			AC\Column\Post\Author::class,
+			AC\Column\Post\AuthorName::class,
+			AC\Column\Post\BeforeMoreTag::class,
+			AC\Column\Post\Categories::class,
+			AC\Column\Post\CommentCount::class,
+			AC\Column\Post\Comments::class,
+			AC\Column\Post\CommentStatus::class,
+			AC\Column\Post\Content::class,
+			AC\Column\Post\Date::class,
+			AC\Column\Post\DatePublished::class,
+			AC\Column\Post\Depth::class,
+			AC\Column\Post\EstimatedReadingTime::class,
+			AC\Column\Post\Excerpt::class,
+			AC\Column\Post\FeaturedImage::class,
+			AC\Column\Post\Formats::class,
+			AC\Column\Post\ID::class,
+			AC\Column\Post\LastModifiedAuthor::class,
+			AC\Column\Post\Menu::class,
+			AC\Column\Post\Modified::class,
+			AC\Column\Post\Order::class,
+			AC\Column\Post\PageTemplate::class,
+			AC\Column\Post\PasswordProtected::class,
+			AC\Column\Post\Path::class,
+			AC\Column\Post\Permalink::class,
+			AC\Column\Post\PingStatus::class,
+			AC\Column\Post\PostParent::class,
+			AC\Column\Post\Shortcodes::class,
+			AC\Column\Post\Shortlink::class,
+			AC\Column\Post\Slug::class,
+			AC\Column\Post\Status::class,
+			AC\Column\Post\Sticky::class,
+			AC\Column\Post\Tags::class,
+			AC\Column\Post\Taxonomy::class,
+			AC\Column\Post\Title::class,
+			AC\Column\Post\TitleRaw::class,
+			AC\Column\Post\WordCount::class,
+		] );
 	}
 
 }
