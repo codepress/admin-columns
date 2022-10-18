@@ -161,13 +161,13 @@ abstract class ListScreen {
 	abstract protected function register_column_types();
 
 	/**
-	 * Register column types from a list with class names
+	 * Register column types from a list with (fully qualified) class names
 	 *
-	 * @param string[] $fqn_list
+	 * @param string[] $list
 	 */
-	protected function register_column_types_from_fqn_list( array $fqn_list ): void {
-		foreach ( $fqn_list as $fqn ) {
-			$this->register_column_type( new $fqn );
+	protected function register_column_types_from_list( array $list ): void {
+		foreach ( $list as $column ) {
+			$this->register_column_type( new $column );
 		}
 	}
 
