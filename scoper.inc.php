@@ -15,9 +15,7 @@ return [
 	],
 	'exclude-files'           => [],
 	'patchers'                => [],
-	'exclude-namespaces'      => [
-		'AC',
-	],
+	'exclude-namespaces'      => [],
 	'exclude-classes'         => [],
 	'exclude-functions'       => [],
 	'exclude-constants'       => [],

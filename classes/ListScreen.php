@@ -118,7 +118,9 @@ abstract class ListScreen {
 	 */
 	private $network_only = false;
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $title;
 
 	/**
@@ -146,15 +148,46 @@ abstract class ListScreen {
 
 	/**
 	 * Contains the hook that contains the manage_value callback
+	 *
 	 * @return void
 	 */
 	abstract public function set_manage_value_callback();
 
 	/**
 	 * Register column types
+	 *
 	 * @return void
 	 */
 	abstract protected function register_column_types();
+
+	/**
+	 * Register column types from a list with class names
+	 *
+	 * @param string[] $fqn_list
+	 */
+	protected function register_column_types_from_fqn_list( array $fqn_list ): void {
+		foreach ( $fqn_list as $fqn ) {
+			$this->register_column_type( new $fqn );
+		}
+	}
+
+	/**
+	 * @param string $namespace Namespace from the current path
+	 *
+	 * @throws ReflectionException
+	 */
+	// TODO David remove?
+	public function register_column_types_from_dir( $namespace ) {
+		$classes = Autoloader::instance()->get_class_names_from_dir( $namespace );
+
+		foreach ( $classes as $class ) {
+			$reflection = new ReflectionClass( $class );
+
+			if ( $reflection->isInstantiable() ) {
+				$this->register_column_type( new $class );
+			}
+		}
+	}
 
 	/**
 	 * @return string
@@ -624,23 +657,6 @@ abstract class ListScreen {
 		 * @param ListScreen $this
 		 */
 		do_action( 'ac/column_types', $this );
-	}
-
-	/**
-	 * @param string $namespace Namespace from the current path
-	 *
-	 * @throws ReflectionException
-	 */
-	public function register_column_types_from_dir( $namespace ) {
-		$classes = Autoloader::instance()->get_class_names_from_dir( $namespace );
-
-		foreach ( $classes as $class ) {
-			$reflection = new ReflectionClass( $class );
-
-			if ( $reflection->isInstantiable() ) {
-				$this->register_column_type( new $class );
-			}
-		}
 	}
 
 	/**

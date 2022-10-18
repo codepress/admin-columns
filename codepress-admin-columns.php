@@ -41,15 +41,15 @@ define( 'AC_VERSION', '4.5.4' );
 require_once __DIR__ . '/classes/Dependencies.php';
 
 add_action( 'after_setup_theme', function () {
-	$dependencies = new AC\Dependencies( plugin_basename( AC_FILE ), AC_VERSION );
+	$dependencies = new AC\Dependencies( plugin_basename( __FILE__ ), AC_VERSION );
 	$dependencies->requires_php( '7.2' );
 
 	if ( $dependencies->has_missing() ) {
 		return;
 	}
 
-	require_once __DIR__ . '/api.php';
 	require_once __DIR__ . '/vendor/autoload.php';
+	require_once __DIR__ . '/api.php';
 
 	/**
 	 * For loading external resources, e.g. column settings.

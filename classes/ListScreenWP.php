@@ -9,6 +9,7 @@ use WP_List_Table;
  */
 abstract class ListScreenWP extends ListScreen {
 
+	// TODO Stefan it's private so remove?
 	/**
 	 * Class name of the \WP_List_Table instance
 	 * @see        WP_List_Table

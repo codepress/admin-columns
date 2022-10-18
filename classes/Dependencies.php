@@ -8,6 +8,7 @@ namespace AC;
  */
 final class Dependencies {
 
+	// TODO David remove?
 	const ACP_PLUGIN = 'Admin Columns Pro';
 
 	/**
@@ -138,6 +139,7 @@ final class Dependencies {
 		);
 	}
 
+	// TODO David remove?
 	/**
 	 * Check if Admin Columns Pro is installed
 	 *
