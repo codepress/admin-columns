@@ -3,6 +3,7 @@
 namespace AC\ListScreen;
 
 use AC;
+use AC\Column;
 use AC\WpListTableFactory;
 use WP_User;
 use WP_Users_List_Table;
@@ -70,29 +71,30 @@ class User extends AC\ListScreenWP {
 
 	protected function register_column_types() {
 		$this->register_column_types_from_list( [
-			AC\Column\CustomField::class,
-			AC\Column\Actions::class,
-			AC\Column\User\CommentCount::class,
-			AC\Column\User\Description::class,
-			AC\Column\User\DisplayName::class,
-			AC\Column\User\Email::class,
-			AC\Column\User\FirstName::class,
-			AC\Column\User\FirstPost::class,
-			AC\Column\User\FullName::class,
-			AC\Column\User\ID::class,
-			AC\Column\User\LastName::class,
-			AC\Column\User\Login::class,
-			AC\Column\User\Name::class,
-			AC\Column\User\Nicename::class,
-			AC\Column\User\Nickname::class,
-			AC\Column\User\PostCount::class,
-			AC\Column\User\Posts::class,
-			AC\Column\User\Registered::class,
-			AC\Column\User\RichEditing::class,
-			AC\Column\User\Role::class,
-			AC\Column\User\ShowToolbar::class,
-			AC\Column\User\Url::class,
-			AC\Column\User\Username::class,
+			Column\CustomField::class,
+			Column\Actions::class,
+			Column\User\CommentCount::class,
+			Column\User\Description::class,
+			Column\User\DisplayName::class,
+			Column\User\Email::class,
+			Column\User\FirstName::class,
+			Column\User\FirstPost::class,
+			Column\User\FullName::class,
+			Column\User\ID::class,
+			Column\User\LastName::class,
+			Column\User\LastPost::class,
+			Column\User\Login::class,
+			Column\User\Name::class,
+			Column\User\Nicename::class,
+			Column\User\Nickname::class,
+			Column\User\PostCount::class,
+			Column\User\Posts::class,
+			Column\User\Registered::class,
+			Column\User\RichEditing::class,
+			Column\User\Role::class,
+			Column\User\ShowToolbar::class,
+			Column\User\Url::class,
+			Column\User\Username::class,
 		] );
 	}
 
