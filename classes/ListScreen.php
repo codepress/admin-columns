@@ -7,8 +7,6 @@ use AC\Type\ListScreenId;
 use AC\Type\Url\Editor;
 use DateTime;
 use LogicException;
-use ReflectionClass;
-use ReflectionException;
 
 /**
  * List Screen
@@ -168,24 +166,6 @@ abstract class ListScreen {
 	protected function register_column_types_from_list( array $list ): void {
 		foreach ( $list as $column ) {
 			$this->register_column_type( new $column );
-		}
-	}
-
-	/**
-	 * @param string $namespace Namespace from the current path
-	 *
-	 * @throws ReflectionException
-	 */
-	// TODO David remove?
-	public function register_column_types_from_dir( $namespace ) {
-		$classes = Autoloader::instance()->get_class_names_from_dir( $namespace );
-
-		foreach ( $classes as $class ) {
-			$reflection = new ReflectionClass( $class );
-
-			if ( $reflection->isInstantiable() ) {
-				$this->register_column_type( new $class );
-			}
 		}
 	}
 
@@ -847,6 +827,15 @@ abstract class ListScreen {
 		$value = apply_filters( 'ac/column/value', $value, $id, $column );
 
 		return $value;
+	}
+
+	/**
+	 * @param string $namespace Namespace from the current path
+	 *
+	 * Can be removed after a short while from 6.0, e.g. 6.1 or after a few months, as this very custom to begin with
+	 */
+	public function register_column_types_from_dir( $namespace ) {
+		_deprecated_function( __FUNCTION__, '6.0' );
 	}
 
 	/**
