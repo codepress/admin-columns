@@ -16,3 +16,4 @@ Thumbs.d*
 # Development
 node_modules
 bower_components
+vendor
