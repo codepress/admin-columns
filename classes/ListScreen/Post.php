@@ -5,7 +5,6 @@ namespace AC\ListScreen;
 use AC\Column;
 use AC\ListScreenPost;
 use AC\WpListTableFactory;
-use ReflectionException;
 use WP_Posts_List_Table;
 
 class Post extends ListScreenPost {
@@ -64,9 +63,6 @@ class Post extends ListScreenPost {
 		echo $this->get_display_value_by_column_name( $column_name, $id );
 	}
 
-	/**
-	 * @throws ReflectionException
-	 */
 	protected function register_column_types() {
 		parent::register_column_types();
 
