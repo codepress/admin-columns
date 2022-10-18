@@ -64,6 +64,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 				<ul>
 					<?php
 					foreach ( $group['integrations'] as $addon ) {
+						$actions = $this->render_actions( $addon );
 						/* @var AC\Integration $addon */
 
 						$view = new AC\View( [
@@ -72,7 +73,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 							'slug'        => $addon->get_slug(),
 							'description' => $addon->get_description(),
 							'link'        => $addon->get_link(),
-							'actions'     => $this->render_actions( $addon )->render(),
+							'actions'     => $actions ? $actions->render() : null,
 						] );
 
 						echo $view->set_template( 'admin/edit-addon' );
@@ -92,14 +93,14 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 	 *
 	 * @return Renderable
 	 */
-	protected function render_actions( AC\Integration $addon ) {
+	protected function render_actions( AC\Integration $addon ): ?Renderable {
 		return new Admin\Section\AddonStatus( $addon );
 	}
 
 	/**
 	 * @return array
 	 */
-	private function get_grouped_addons() {
+	protected function get_grouped_addons() {
 
 		$active = $this->integrations->find_all( [
 			IntegrationRepository::ARG_FILTER => [

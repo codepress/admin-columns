@@ -17,7 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<a class="ac-addon__more-link" href="<?= esc_attr( $this->link ) ?>" target="_blank"><?= __( 'More details', 'codepress-admin-columns' ) ?> &raquo;</a>
 		</p>
 	</div>
+	<?php if( $this->actions ): ?>
 	<div class="ac-addon__actions">
 		<?= $this->actions ?>
 	</div>
+	<?php endif; ?>
 </li>
