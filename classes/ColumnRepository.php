@@ -7,6 +7,7 @@ use AC\ColumnRepository\Sort;
 
 class ColumnRepository {
 
+	const ARG_FILTERS = 'filters';
 	const ARG_FILTER = 'filter';
 	const ARG_SORT = 'sort';
 
@@ -40,14 +41,24 @@ class ColumnRepository {
 	 */
 	public function find_all( array $args = [] ) {
 		$args = array_merge( [
-			self::ARG_FILTER => null,
-			self::ARG_SORT   => null,
+			self::ARG_FILTERS => [],
+			self::ARG_FILTER  => null,
+			self::ARG_SORT    => null,
 		], $args );
 
 		$columns = $this->list_screen->get_columns();
 
+		// TODO remove
 		if ( $args[ self::ARG_FILTER ] instanceof Filter ) {
 			$columns = $args[ self::ARG_FILTER ]->filter( $columns );
+		}
+
+		if ( $args[ self::ARG_FILTERS ] ) {
+			foreach ( $args[ self::ARG_FILTERS ] as $filter ) {
+				if ( $filter instanceof Filter ) {
+					$columns = $filter->filter( $columns );
+				}
+			}
 		}
 
 		if ( $args[ self::ARG_SORT ] instanceof Sort ) {

@@ -4,6 +4,6 @@ namespace AC\ColumnRepository;
 
 interface Sort {
 
-	public function sort( array $columns );
+	public function sort( array $columns ): array;
 
 }

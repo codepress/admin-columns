@@ -4,6 +4,6 @@ namespace AC\ColumnRepository;
 
 interface Filter {
 
-	public function filter( $columns );
+	public function filter( array $columns ): array;
 
 }

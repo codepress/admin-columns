@@ -28,7 +28,7 @@ class ManualOrder implements Sort {
 	 *
 	 * @return array
 	 */
-	public function sort( array $columns ) {
+	public function sort( array $columns ): array {
 		if ( ! $this->user_order->exists( $this->list_id ) ) {
 			return $columns;
 		}
