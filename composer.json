@@ -1,0 +1,13 @@
+{
+  "autoload": {
+    "psr-4": {
+      "AC\\": "classes/"
+    }
+  },
+  "config": {
+    "autoloader-suffix": "AdminColumns"
+  },
+  "require": {
+    "php-di/php-di": "^6.4"
+  }
+}

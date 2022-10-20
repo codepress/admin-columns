@@ -90,6 +90,7 @@ class AdminColumns extends Plugin {
 			new NoticeChecks( $location ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
 			new Admin\Scripts( $location ),
+			new Service\IntegrationColumns( new IntegrationRepository() ),
 			new Service\Colors(
 				new Admin\Colors\Shipped\ColorUpdater(
 					new Admin\Colors\Shipped\ColorParser( ABSPATH . 'wp-admin/css/common.css' ),
@@ -97,7 +98,7 @@ class AdminColumns extends Plugin {
 					new Admin\Colors\Storage\OptionFactory()
 				),
 				new Admin\Colors\StyleInjector( $color_repository )
-			)
+			),
 		];
 
 		$setup_factory = new SetupFactory\AdminColumns( 'ac_version', $this->get_version() );

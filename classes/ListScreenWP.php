@@ -10,15 +10,6 @@ use WP_List_Table;
 abstract class ListScreenWP extends ListScreen {
 
 	/**
-	 * Class name of the \WP_List_Table instance
-	 * @see        WP_List_Table
-	 * @since      3.0
-	 * @deprecated 3.1
-	 * @var string
-	 */
-	private $list_table_class;
-
-	/**
 	 * @return WP_List_Table
 	 */
 	abstract protected function get_list_table();
