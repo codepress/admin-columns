@@ -73,6 +73,9 @@ body .ac-modal {
 				border-top: 1px solid #DBDBDB;
 				background: #F9F9F9;
 			}
+			&.-hide {
+				display: none;
+			}
 		}
 
 		&__list {
