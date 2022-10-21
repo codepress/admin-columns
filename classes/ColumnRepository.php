@@ -48,7 +48,6 @@ class ColumnRepository {
 
 		$columns = $this->list_screen->get_columns();
 
-		// TODO remove
 		if ( $args[ self::ARG_FILTER ] instanceof Filter ) {
 			$columns = $args[ self::ARG_FILTER ]->filter( $columns );
 		}
