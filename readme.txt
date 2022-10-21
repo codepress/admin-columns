@@ -3,9 +3,9 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.7.1
-Tested up to: 6.0.1
+Tested up to: 6.0.2
 Requires PHP: 7.2
-Stable tag: 4.5.4
+Stable tag: 4.5.5
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -213,8 +213,16 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: tbd
 
 * [Improved] Styling for dynamic select boxes is improved
-* [Improved] It is now possible to set the separator for the Taxonomy column
 * [Improved] The date column setting has some minor UI improvements
+
+= 4.5.5 =
+Release Date: October 17th, 2022
+
+* [Fixed] DOMDocument will use `libxml_clear_errors` to clear any possible errors
+* [Fixed] The `word_count` method will always return an `int`
+* [Fixed] The column separator will always go through the filter: `ac/column/separator`
+* [Fixed] The link to the user profile will only be visible for users than can access that particular profile page
+* [Improved] Added the atrribute tag `ReturnTypeWillChange` to be compliant with PHP 8.x
 
 = 4.5.4 =
 Release Date: September 13th, 2022

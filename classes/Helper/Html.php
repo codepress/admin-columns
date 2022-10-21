@@ -239,12 +239,17 @@ class Html {
 		$external_links = [];
 
 		$dom = new DOMDocument();
-		@$dom->loadHTML( $string );
+
+		libxml_use_internal_errors( true );
+		$dom->loadHTML( $string );
+		libxml_clear_errors();
 
 		$links = $dom->getElementsByTagName( 'a' );
 
 		foreach ( $links as $link ) {
-			/** @var DOMElement $link */
+			/**
+			 * @var DOMElement $link
+			 */
 			$href = $link->getAttribute( 'href' );
 
 			if ( 0 === strpos( $href, '#' ) ) {

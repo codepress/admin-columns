@@ -125,7 +125,13 @@ class Arrays {
 	 * @return array Indented Array
 	 * @since 1.0
 	 */
-	public function indent( $array, $parentId = 0, $parentKey = 'post_parent', $selfKey = 'ID', $childrenKey = 'children' ) {
+	public function indent(
+		$array,
+		$parentId = 0,
+		$parentKey = 'post_parent',
+		$selfKey = 'ID',
+		$childrenKey = 'children'
+	) {
 		$indent = [];
 
 		$i = 0;
