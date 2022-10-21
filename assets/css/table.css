@@ -139,11 +139,10 @@ body .ac-modal__dialog {
   max-width: 90%;
 }
 body .ac-modal__dialog__header {
-  background: #f5f5f5;
-  font-size: 18px;
-  line-height: 18px;
-  color: #807F7F;
-  padding: 17px 25px;
+  font-size: 16px;
+  line-height: 16px;
+  color: #555555;
+  padding: 17px 20px;
 }
 body .ac-modal__dialog__close {
   display: inline-block;
@@ -157,14 +156,14 @@ body .ac-modal__dialog__close {
   width: 52px;
   height: 52px;
   text-align: center;
-  color: #989797;
+  color: #555555;
   cursor: pointer;
 }
 body .ac-modal__dialog__close:hover {
   background: #e1e1e1;
 }
 body .ac-modal__dialog__content {
-  padding: 25px;
+  padding: 20px;
   max-height: calc(100vh - 200px);
   overflow: auto;
 }
@@ -177,6 +176,10 @@ body .ac-modal__dialog__content__lead {
 }
 body .ac-modal__dialog__content.-p0 {
   padding: 0;
+}
+body .ac-modal__dialog__content.-accent {
+  border-top: 1px solid #DBDBDB;
+  background: #F9F9F9;
 }
 body .ac-modal__dialog__list li {
   position: relative;
@@ -198,10 +201,10 @@ body .ac-modal__dialog__list li:nth-child(2n) {
   color: #e9426e;
 }
 body .ac-modal__dialog__footer {
-  padding: 20px 24px;
+  padding: 12px 20px;
   border-top: 1px solid #DBDBDB;
-  color: #979696;
-  font-size: 16px;
+  background: #F9F9F9;
+  font-size: 13px;
 }
 body .ac-modal__dialog__footer .button {
   margin-left: 0;
