@@ -66,10 +66,12 @@ final class AddonAvailable
 	 * @param Screen $screen
 	 */
 	public function display( Screen $screen ) {
+		// TODO test
 		if ( ! current_user_can( Capabilities::MANAGE )
 		     || ! $this->integration->show_notice( $screen )
 		     || ! $this->integration->is_plugin_active()
 		     || $this->get_preferences()->get( 'dismiss-notice' )
+		     || ac_is_pro_active()
 		) {
 			return;
 		}
