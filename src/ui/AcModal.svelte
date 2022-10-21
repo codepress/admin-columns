@@ -3,8 +3,9 @@
 
     const bodyScrollLock = require('body-scroll-lock');
 
-    export let contentNoPadding = false;
-    export let hideContent = false;
+    export let contentNoPadding: boolean = false;
+    export let hideContent: boolean = false;
+    export let disableClose: boolean = false;
     export let className = '';
     export let visible = false;
     export let disableScroll = null;
@@ -13,6 +14,10 @@
     const dispatch = createEventDispatcher();
 
     const close = () => {
+        if (disableClose) {
+            return;
+        }
+
         dispatch('close');
 
         if (disableScroll && element) {
@@ -36,17 +41,19 @@
 	<div class="ac-modal__dialog" on:click|stopPropagation>
 		<div class="ac-modal__dialog__header">
 			<slot name="header"></slot>
-			<button class="ac-modal__dialog__close" on:click={close}>
-				<span class="dashicons dashicons-no"></span>
-			</button>
+			{#if !disableClose}
+				<button class="ac-modal__dialog__close" on:click={close} disabled='{disableClose}'>
+					<span class="dashicons dashicons-no"></span>
+				</button>
+			{/if}
 		</div>
 
 		<slot name="before_content"></slot>
 
 		{#if $$slots.content && !hideContent }
-		<div class="ac-modal__dialog__content" class:-p0={contentNoPadding}>
-			<slot name="content"></slot>
-		</div>
+			<div class="ac-modal__dialog__content" class:-p0={contentNoPadding}>
+				<slot name="content"></slot>
+			</div>
 		{/if}
 
 		<slot name="after_content"></slot>
