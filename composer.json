@@ -9,5 +9,10 @@
   },
   "require": {
     "php-di/php-di": "^6.4"
+  },
+  "scripts": {
+    "post-update-cmd": [
+      "../bin/prefix-dependencies.sh"
+    ]
   }
 }
