@@ -43,6 +43,7 @@ class AdminColumns extends Plugin {
 
 		$plugin_information = new PluginInformation( $this->get_basename() );
 		$is_network_active = $plugin_information->is_network_active();
+		$is_acp_active = $this->is_acp_active();
 
 		$this->storage = new Storage();
 		$this->storage->set_repositories( [
@@ -56,8 +57,8 @@ class AdminColumns extends Plugin {
 		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
 
 		$page_handler = new PageRequestHandler();
-		$page_handler->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory ) )
-		             ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory ) )
+		$page_handler->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory, $is_acp_active ) )
+		             ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory, $is_acp_active ) )
 		             ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $menu_factory ) )
 		             ->add( 'help', new Admin\PageFactory\Help( $location, $menu_factory ) );
 
@@ -86,8 +87,8 @@ class AdminColumns extends Plugin {
 			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
-			new PluginActionLinks( $this->get_basename() ),
-			new NoticeChecks( $location ),
+			new PluginActionLinks( $this->get_basename(), $is_acp_active ),
+			new NoticeChecks( $location, $is_acp_active ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
 			new Admin\Scripts( $location ),
 			new Service\IntegrationColumns( new IntegrationRepository() ),
@@ -112,6 +113,10 @@ class AdminColumns extends Plugin {
 		array_map( static function ( Registrable $service ) {
 			$service->register();
 		}, $services );
+	}
+
+	private function is_acp_active(): bool {
+		return defined( 'ACP_FILE' );
 	}
 
 	/**

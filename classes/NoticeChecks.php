@@ -11,8 +11,14 @@ class NoticeChecks implements Registrable {
 	 */
 	private $location;
 
-	public function __construct( Absolute $location ) {
+	/**
+	 * @var bool
+	 */
+	private $is_acp_active;
+
+	public function __construct( Absolute $location, bool $is_acp_active ) {
 		$this->location = $location;
+		$this->is_acp_active = $is_acp_active;
 	}
 
 	public function register() {
@@ -27,14 +33,15 @@ class NoticeChecks implements Registrable {
 	private function get_checks() {
 		$checks = [];
 
-		if ( ! ac_is_pro_active() ) {
-			$checks[] = new Check\Review( $this->location );
+		// TODO
+		if ( ! $this->is_acp_active ) {
+			$checks[] = new Check\Review( $this->location, $this->is_acp_active );
 		}
 
 		$integrations = new IntegrationRepository();
 
 		foreach ( $integrations->find_all() as $integration ) {
-			$checks[] = new Check\AddonAvailable( $integration );
+			$checks[] = new Check\AddonAvailable( $integration, $this->is_acp_active );
 		}
 
 		return $checks;

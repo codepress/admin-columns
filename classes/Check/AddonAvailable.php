@@ -16,14 +16,19 @@ use Exception;
 final class AddonAvailable
 	implements Registrable {
 
-	/** @var Integration */
+	/**
+	 * @var Integration
+	 */
 	private $integration;
 
 	/**
-	 * @param Integration $integration
+	 * @var bool
 	 */
-	public function __construct( Integration $integration ) {
+	private $is_acp_active;
+
+	public function __construct( Integration $integration, bool $is_acp_active ) {
 		$this->integration = $integration;
+		$this->is_acp_active = $is_acp_active;
 	}
 
 	/**
@@ -66,12 +71,13 @@ final class AddonAvailable
 	 * @param Screen $screen
 	 */
 	public function display( Screen $screen ) {
-		// TODO test
-		if ( ! current_user_can( Capabilities::MANAGE )
+		if (
+			// TODO test
+			$this->is_acp_active
+		     || ! current_user_can( Capabilities::MANAGE )
 		     || ! $this->integration->show_notice( $screen )
 		     || ! $this->integration->is_plugin_active()
 		     || $this->get_preferences()->get( 'dismiss-notice' )
-		     || ac_is_pro_active()
 		) {
 			return;
 		}

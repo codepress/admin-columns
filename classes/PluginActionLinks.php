@@ -14,8 +14,14 @@ class PluginActionLinks implements Registrable {
 	 */
 	private $basename;
 
-	public function __construct( $basename ) {
+	/**
+	 * @var bool
+	 */
+	private $is_acp_active;
+
+	public function __construct( $basename, bool $is_acp_active ) {
 		$this->basename = $basename;
+		$this->is_acp_active = $is_acp_active;
 	}
 
 	public function register() {
@@ -51,7 +57,7 @@ class PluginActionLinks implements Registrable {
 
 		$upgrade_page_url = new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' );
 
-		if ( ! ac_is_pro_active() ) {
+		if ( ! $this->is_acp_active ) {
 			$links[] = sprintf(
 				'<a href="%s" target="_blank">%s</a>',
 				esc_url( $upgrade_page_url->get_url() ),

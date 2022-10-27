@@ -24,12 +24,18 @@ class Review
 	private $location;
 
 	/**
+	 * @var bool
+	 */
+	private $is_acp_active;
+
+	/**
 	 * @var int Show message after x days
 	 */
 	protected $show_after = 30;
 
-	public function __construct( Location\Absolute $location ) {
+	public function __construct( Location\Absolute $location, bool $is_acp_active ) {
 		$this->location = $location;
+		$this->is_acp_active = $is_acp_active;
 	}
 
 	/**
@@ -155,7 +161,7 @@ class Review
 	 * @return string
 	 */
 	protected function get_message() {
-		$product = ac_is_pro_active()
+		$product = $this->is_acp_active
 			? __( 'Admin Columns Pro', 'codepress-admin-columns' )
 			: __( 'Admin Columns', 'codepress-admin-columns' );
 
@@ -188,7 +194,7 @@ class Review
 					'<a href="' . esc_url( $this->get_documentation_url( 'review-notice' ) ) . '" target="_blank">' . __( 'documentation page', 'codepress-admin-columns' ) . '</a>'
 				);
 
-				if ( ac_is_pro_active() ) {
+				if ( $this->is_acp_active ) {
 					printf(
 						__( 'You can also use your admincolumns.com account to access support through %s!', 'codepress-admin-columns' ),
 						'<a href="' . esc_url( $this->get_forum_url( 'review-notice' ) ) . '" target="_blank">' . __( 'our forum', 'codepress-admin-columns' ) . '</a>'

@@ -128,15 +128,6 @@ if ( ! function_exists( 'ac_format_date' ) ) {
 }
 
 /**
- * We check the defined const because it is available before AC::__construct() runs.
- * @return bool
- */
-// TODO Stefan this should not be an api function?
-function ac_is_pro_active() {
-	return defined( 'ACP_FILE' );
-}
-
-/**
  * @param string|null $slug
  *
  * @return string
@@ -223,6 +214,16 @@ if ( ! function_exists( 'ac_load_columns' ) ) {
 		$factory = new EncodedListScreenDataFactory();
 		$factory->create()->add( $data );
 	}
+}
+
+/**
+ * @return bool
+ * @deprecated 6.0
+ */
+function ac_is_pro_active() {
+	_deprecated_function( __METHOD__, '6.0' );
+
+	return defined( 'ACP_FILE' );
 }
 
 

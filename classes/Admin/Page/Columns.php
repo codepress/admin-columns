@@ -66,6 +66,11 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	/**
 	 * @var bool
 	 */
+	private $is_acp_active;
+
+	/**
+	 * @var bool
+	 */
 	private $is_network;
 
 	public function __construct(
@@ -75,7 +80,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		Storage $storage,
 		Renderable $head,
 		Preference\ListScreen $preference,
-		$is_network = false
+		bool $is_acp_active,
+		bool $is_network = false
 	) {
 		$this->location = $location;
 		$this->default_columns = $default_columns;
@@ -83,7 +89,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		$this->storage = $storage;
 		$this->head = $head;
 		$this->preference = $preference;
-		$this->is_network = (bool) $is_network;
+		$this->is_acp_active = $is_acp_active;
+		$this->is_network = $is_network;
 	}
 
 	public function render_head() {
@@ -307,7 +314,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
 						do_action( 'ac/settings/after_columns', $list_screen );
 
-						if ( ! ac_is_pro_active() ) {
+						if ( ! $this->is_acp_active ) {
 							echo ( new View() )->set_template( 'admin/list-screen-settings-mockup' )->render();
 						}
 
