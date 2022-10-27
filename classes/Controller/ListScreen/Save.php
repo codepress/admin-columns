@@ -2,6 +2,7 @@
 
 namespace AC\Controller\ListScreen;
 
+use AC\Column\LabelEncoder;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Request;
@@ -69,7 +70,7 @@ class Save {
 	private function maybe_encode_urls( array $columndata ) {
 		foreach ( $columndata as $name => $data ) {
 			if ( isset( $data['label'] ) ) {
-				$columndata[ $name ]['label'] = ac_convert_site_url( $data['label'] );
+				$columndata[ $name ]['label'] = ( new LabelEncoder() )->encode( $data['label'] );
 			}
 		}
 
