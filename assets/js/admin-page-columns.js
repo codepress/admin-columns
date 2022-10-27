@@ -2606,7 +2606,7 @@ class Column {
     destroy() {
         this.element.remove();
     }
-    remove(duration = 350) {
+    remove(duration = 150) {
         this.events.emit(COLUMN_EVENTS.REMOVE, this);
         (0,_helpers_animations__WEBPACK_IMPORTED_MODULE_5__.fadeOut)(this.getElement(), duration, () => {
             this.destroy();

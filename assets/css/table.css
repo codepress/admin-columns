@@ -181,6 +181,9 @@ body .ac-modal__dialog__content.-accent {
   border-top: 1px solid #DBDBDB;
   background: #F9F9F9;
 }
+body .ac-modal__dialog__content.-hide {
+  display: none;
+}
 body .ac-modal__dialog__list li {
   position: relative;
   padding-left: 25px;
@@ -1647,7 +1650,7 @@ div.cpac-color span {
 }
 .ac-table-actions .ac-table-button.disabled {
   background: #ddd;
-  color: #aaa;
+  color: #484848;
   cursor: not-allowed;
 }
 .ac-table-actions .ac-table-button.active {
