@@ -26,7 +26,7 @@
 		<span class="ac-toggle-v2__toggle__thumb"></span>
 	</span>
 
-	<label class="ac-toggle-v2__label" on:click={() => checked = !checked} for={name}>
+	<label class="ac-toggle-v2__label" for={name}>
 		<slot></slot>
 	</label>
 </div>
