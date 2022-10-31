@@ -6,11 +6,9 @@ use AC\Ajax;
 use AC\Capabilities;
 use AC\Integration;
 use AC\Message\Notice\Dismissible;
-use AC\PluginInformation;
 use AC\Preferences;
 use AC\Registrable;
 use AC\Screen;
-use AC\Type\Url\Editor;
 use Exception;
 
 final class AddonAvailable
@@ -72,33 +70,22 @@ final class AddonAvailable
 	 */
 	public function display( Screen $screen ) {
 		if (
-			// TODO test
 			$this->is_acp_active
-		     || ! current_user_can( Capabilities::MANAGE )
-		     || ! $this->integration->show_notice( $screen )
-		     || ! $this->integration->is_plugin_active()
-		     || $this->get_preferences()->get( 'dismiss-notice' )
+			|| ! current_user_can( Capabilities::MANAGE )
+			|| ! $this->integration->show_notice( $screen )
+			|| ! $this->integration->is_plugin_active()
+			|| $this->get_preferences()->get( 'dismiss-notice' )
 		) {
 			return;
 		}
 
-		$integration_info = new PluginInformation( $this->integration->get_basename() );
-
-		if ( $integration_info->is_active() ) {
-			return;
-		}
-
-		$addon_url = new Editor( 'addons' );
-
-		$message = sprintf(
-			__( 'Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!', 'codepress-admin-columns' ),
-			sprintf( '<strong>%s</strong>', $this->integration->get_title() ),
-			sprintf(
-				'<a href="%s">%s</a>',
-				esc_url( $addon_url->get_url() ),
-				__( 'the addons page', 'codepress-admin-columns' )
-			)
+		$support_text = sprintf(
+			__( 'Did you know Admin Columns Pro has full support for %s?', 'codepress-admin-columns' ),
+			sprintf( '<strong>%s</strong>', $this->integration->get_title() )
 		);
+
+		$link = sprintf( '<a href="%s">%s</a>', 'http://www.google.com', __( 'Get Admin Columns Pro', 'codepress-admin-columns' ) );
+		$message = sprintf( '%s %s', $support_text, $link );
 
 		$notice = new Dismissible( $message, $this->get_ajax_handler() );
 		$notice->register();
