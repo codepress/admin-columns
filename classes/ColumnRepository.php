@@ -49,7 +49,7 @@ class ColumnRepository {
 
 		// Deprecated usage
 		if ( $args[ self::ARG_FILTER ] instanceof Filter ) {
-			$columns = $args[ self::ARG_FILTER ]->filter( $columns );
+			$args[ self::ARG_FILTER ] = [ $args[ self::ARG_FILTER ] ];
 		}
 
 		if ( $args[ self::ARG_FILTER ] ) {
