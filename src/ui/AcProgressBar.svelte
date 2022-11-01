@@ -3,7 +3,7 @@
     export let percentage = 0;
     export let customStyles = '';
 	export let finished = false;
-    let error = false;
+    export let error = false;
 </script>
 <style>
 	.acui-progress {

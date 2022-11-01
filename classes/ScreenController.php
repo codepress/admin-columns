@@ -73,7 +73,7 @@ class ScreenController implements Registrable {
 		$column_repository = new ColumnRepository( $this->list_screen );
 
 		$args = [
-			ColumnRepository::ARG_SORT => new ManualOrder( $this->list_screen->get_id(), new UserColumnOrder() ),
+			ColumnRepository::ARG_SORT => new ManualOrder( $this->list_screen->get_id() ),
 		];
 
 		foreach ( $column_repository->find_all( $args ) as $column ) {

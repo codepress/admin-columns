@@ -18,9 +18,9 @@ class ManualOrder implements Sort {
 	 */
 	private $user_order;
 
-	public function __construct( ListScreenId $list_id, Storage\UserColumnOrder $user_order ) {
+	public function __construct( ListScreenId $list_id ) {
 		$this->list_id = $list_id;
-		$this->user_order = $user_order;
+		$this->user_order = new Storage\UserColumnOrder();
 	}
 
 	/**
