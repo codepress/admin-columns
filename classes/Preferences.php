@@ -69,6 +69,10 @@ abstract class Preferences {
 		return $this->user_id;
 	}
 
+	public function exists( $key ): bool {
+		return null !== $this->get( $key );
+	}
+
 	/**
 	 * @param string $key
 	 *
