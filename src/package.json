@@ -31,7 +31,7 @@
         "wp-pot": "latest"
     },
     "scripts": {
-        "ac:build:production": "nps build",
+        "build": "nps build",
         "ac:build:development": "nps build.development",
         "ac:languages": "nps languages",
         "ac:webfont": "node ./scripts/webfont.js",

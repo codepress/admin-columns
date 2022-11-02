@@ -8,6 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
+"POT-Creation-Date: 2022-11-02 12:28+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -15,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:13, classes/Settings/Column/CustomFieldType.php:188, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:26, templates/admin/help-tab/custom-fields.php:6, classes/Helper/Select/Group/CustomField/MultiSite.php:53
+#: classes/ColumnGroups.php:13, classes/Settings/Column/CustomFieldType.php:188, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:35, templates/admin/help-tab/custom-fields.php:6, classes/Helper/Select/Group/CustomField/MultiSite.php:53
 msgid "Default"
 msgstr ""
 
@@ -55,11 +56,11 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: classes/PluginActionLinks.php:48, classes/Admin/MenuFactory.php:48, templates/admin/list-screen-settings-mockup.php:13, templates/admin/page/settings.php:7
+#: classes/PluginActionLinks.php:54, classes/Admin/MenuFactory.php:48, templates/admin/list-screen-settings-mockup.php:13, templates/admin/page/settings.php:7
 msgid "Settings"
 msgstr ""
 
-#: classes/PluginActionLinks.php:60
+#: classes/PluginActionLinks.php:66
 msgid "Go Pro"
 msgstr ""
 
@@ -67,7 +68,7 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:47, classes/Admin/Page/Columns.php:186
+#: classes/Admin/MenuFactory.php:47, classes/Admin/Page/Columns.php:212
 msgid "Columns"
 msgstr ""
 
@@ -87,67 +88,67 @@ msgstr ""
 msgid "Instructions"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:86
-msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
+#: classes/Check/AddonAvailable.php:83
+msgid "Did you know Admin Columns Pro has full support for %s?"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:91
-msgid "the addons page"
+#: classes/Check/AddonAvailable.php:87, templates/admin/side-banner.php:74
+msgid "Get Admin Columns Pro"
 msgstr ""
 
-#: classes/Check/Promotion.php:73
+#: classes/Check/Promotion.php:75
 msgid "Get %s now"
 msgstr ""
 
-#: classes/Check/Review.php:159
+#: classes/Check/Review.php:165
 msgid "Admin Columns Pro"
 msgstr ""
 
-#: classes/Check/Review.php:160, classes/Table/Screen.php:421, classes/Admin/MenuPageFactory/Menu.php:14, classes/Admin/MenuPageFactory/SubMenu.php:15
+#: classes/Check/Review.php:166, classes/Table/Screen.php:428, classes/Admin/MenuPageFactory/Menu.php:14, classes/Admin/MenuPageFactory/SubMenu.php:15
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/Check/Review.php:168
+#: classes/Check/Review.php:174
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr ""
 
-#: classes/Check/Review.php:172
+#: classes/Check/Review.php:178
 msgid "click here"
 msgstr ""
 
-#: classes/Check/Review.php:176
+#: classes/Check/Review.php:182
 msgid "Leave a review!"
 msgstr ""
 
-#: classes/Check/Review.php:177
+#: classes/Check/Review.php:183
 msgid "Permanently hide notice"
 msgstr ""
 
-#: classes/Check/Review.php:186
+#: classes/Check/Review.php:192
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr ""
 
-#: classes/Check/Review.php:188
+#: classes/Check/Review.php:194
 msgid "documentation page"
 msgstr ""
 
-#: classes/Check/Review.php:198
+#: classes/Check/Review.php:204
 msgid "You can also find help on the %s, and %s."
 msgstr ""
 
-#: classes/Check/Review.php:199
+#: classes/Check/Review.php:205
 msgid "Admin Columns forum on WordPress.org"
 msgstr ""
 
-#: classes/Check/Review.php:200
+#: classes/Check/Review.php:206
 msgid "find answers to frequently asked questions"
 msgstr ""
 
-#: classes/Check/Review.php:193
+#: classes/Check/Review.php:199
 msgid "You can also use your admincolumns.com account to access support through %s!"
 msgstr ""
 
-#: classes/Check/Review.php:194
+#: classes/Check/Review.php:200
 msgid "our forum"
 msgstr ""
 
@@ -163,23 +164,19 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: classes/Column/Placeholder.php:43
-msgid "The %s column is only available if you have installed the add-on."
+#: classes/Column/Placeholder.php:44
+msgid "%s support is only available in Admin Columns Pro."
 msgstr ""
 
-#: classes/Column/Placeholder.php:45
-msgid "Download & install the %s add-on from the <a href='%s'>add-ons tab</a>."
+#: classes/Column/Placeholder.php:47
+msgid "Admin Columns Pro offers full support for %s, allowing you to easily manage %s fields for your overviews."
 msgstr ""
 
-#: classes/Column/Placeholder.php:48
-msgid "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview."
-msgstr ""
-
-#: classes/Column/Placeholder.php:52
+#: classes/Column/Placeholder.php:51
 msgid "Find out more"
 msgstr ""
 
-#: classes/Column/Taxonomy.php:18, classes/Settings/Column/Taxonomy.php:51
+#: classes/Column/Taxonomy.php:20, classes/Settings/Column/Taxonomy.php:51
 msgid "Taxonomy"
 msgstr ""
 
@@ -203,7 +200,7 @@ msgstr ""
 msgid "Please visit the %s screen once to load all available columns"
 msgstr ""
 
-#: classes/Controller/ColumnRequest.php:39, classes/Admin/Asset/Columns.php:55
+#: classes/Controller/ColumnRequest.php:39, classes/Admin/Asset/Columns.php:56
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
@@ -311,20 +308,28 @@ msgstr ""
 msgid "%s Off from Black Friday to Cyber Monday"
 msgstr ""
 
-#: classes/Table/Screen.php:149, classes/Table/Screen.php:151, classes/Table/Screen.php:253, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
+#: classes/Table/Screen.php:154, classes/Table/Screen.php:156, classes/Table/Screen.php:257, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
 msgid "Download"
 msgstr ""
 
-#: classes/Table/Screen.php:218, classes/Admin/Section/Partial/ShowEditButton.php:21
+#: classes/Table/Screen.php:223, classes/Admin/Section/Partial/ShowEditButton.php:21
 msgid "Edit columns"
 msgstr ""
 
-#: classes/Table/Screen.php:251
+#: classes/Table/Screen.php:255
 msgid "Loading..."
 msgstr ""
 
-#: classes/Table/Screen.php:252, templates/admin/edit-column.php:35
+#: classes/Table/Screen.php:256, templates/admin/edit-column.php:35
 msgid "Edit"
+msgstr ""
+
+#: classes/Translation/Confirmation.php:11
+msgid "Ok"
+msgstr ""
+
+#: classes/Translation/Confirmation.php:12
+msgid "Cancel"
 msgstr ""
 
 #: templates/admin/edit-actions.php:37, templates/admin/edit-actions.php:34
@@ -559,10 +564,6 @@ msgstr ""
 msgid "Includes special integrations for:"
 msgstr ""
 
-#: templates/admin/side-banner.php:74
-msgid "Get Admin Columns Pro"
-msgstr ""
-
 #: templates/admin/side-banner.php:80
 msgid "Prices starting from %s"
 msgstr ""
@@ -621,10 +622,6 @@ msgstr ""
 
 #: templates/admin/side-feedback.php:51
 msgid "Rate"
-msgstr ""
-
-#: templates/admin/side-feedback.php:56
-msgid "I'm using Admin Columns for WordPress!"
 msgstr ""
 
 #: templates/admin/side-feedback.php:57
@@ -733,6 +730,15 @@ msgstr ""
 
 #: templates/tooltip/bulk-editing.php:25, templates/tooltip/custom-field.php:15, templates/tooltip/export-disabled.php:17, templates/tooltip/export.php:25, templates/tooltip/inline-editing.php:25, templates/tooltip/smart-filtering.php:28, templates/tooltip/sorting.php:29
 msgid "Learn more &raquo;"
+msgstr ""
+
+#: templates/tooltip/conditional-format.php:1
+msgid "Conditional Format"
+msgstr ""
+
+#: templates/tooltip/conditional-format.php:3
+msgctxt "conditional format help"
+msgid "Conditional Format allows you to format a value based on conditions you set."
 msgstr ""
 
 #: templates/tooltip/custom-field.php:10, templates/tooltip/inline-editing.php:13
@@ -870,19 +876,19 @@ msgstr ""
 msgid "The Add-on %s is activated."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:56
+#: classes/Admin/Asset/Columns.php:57
 msgid "Invalid response."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:58
+#: classes/Admin/Asset/Columns.php:59
 msgid "There was an error during saving the column settings."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:59
+#: classes/Admin/Asset/Columns.php:60
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
-#: classes/Admin/Asset/Settings.php:20
+#: classes/Admin/Asset/Settings.php:21
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -894,23 +900,27 @@ msgstr ""
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:128
+#: classes/Admin/Page/Addons.php:129
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:136, templates/admin/page/component/addon/active-label.php:3
+#: classes/Admin/Page/Addons.php:137, templates/admin/page/component/addon/active-label.php:3
 msgid "Active"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:144
+#: classes/Admin/Page/Addons.php:145
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:202
+#: classes/Admin/Page/Columns.php:171
+msgid "I'm using Admin Columns for WordPress!"
+msgstr ""
+
+#: classes/Admin/Page/Columns.php:228
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:211
+#: classes/Admin/Page/Columns.php:237
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -1312,15 +1322,15 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:31
+#: classes/Controller/ListScreen/Save.php:32
 msgid "You need at least one column"
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:59
+#: classes/Controller/ListScreen/Save.php:60
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:62
+#: classes/Controller/ListScreen/Save.php:63
 msgid "View %s screen"
 msgstr ""
 
@@ -1516,23 +1526,23 @@ msgstr ""
 msgid "The %s can be changed in %s."
 msgstr ""
 
-#: classes/Settings/Column/DateTimeFormat.php:61
+#: classes/Settings/Column/DateTimeFormat.php:62
 msgid "Date Format"
 msgstr ""
 
-#: classes/Settings/Column/DateTimeFormat.php:62
+#: classes/Settings/Column/DateTimeFormat.php:63
 msgid "This will determine how the date will be displayed."
 msgstr ""
 
-#: classes/Settings/Column/DateTimeFormat.php:114
+#: classes/Settings/Column/DateTimeFormat.php:119
 msgid "Custom:"
 msgstr ""
 
-#: classes/Settings/Column/DateTimeFormat.php:116
+#: classes/Settings/Column/DateTimeFormat.php:121
 msgid "Learn more about %s."
 msgstr ""
 
-#: classes/Settings/Column/DateTimeFormat.php:116
+#: classes/Settings/Column/DateTimeFormat.php:121
 msgid "date and time formatting"
 msgstr ""
 
@@ -1710,11 +1720,11 @@ msgstr ""
 msgid "Custom Size"
 msgstr ""
 
-#: classes/Settings/Column/Label.php:30
+#: classes/Settings/Column/Label.php:31
 msgid "Label"
 msgstr ""
 
-#: classes/Settings/Column/Label.php:31
+#: classes/Settings/Column/Label.php:32
 msgid "This is the name which will appear as the column header."
 msgstr ""
 
@@ -1864,12 +1874,16 @@ msgstr ""
 msgid "All Post Types"
 msgstr ""
 
-#: classes/Settings/Column/Separator.php:27
+#: classes/Settings/Column/Separator.php:26
 msgid "Comma Separated"
 msgstr ""
 
+#: classes/Settings/Column/Separator.php:27
+msgid "Horizontal Rule"
+msgstr ""
+
 #: classes/Settings/Column/Separator.php:28
-msgid "New line"
+msgid "New Line"
 msgstr ""
 
 #: classes/Settings/Column/Separator.php:29
@@ -1880,12 +1894,8 @@ msgstr ""
 msgid "Whitespace"
 msgstr ""
 
-#: classes/Settings/Column/Separator.php:34
+#: classes/Settings/Column/Separator.php:42
 msgid "Separator"
-msgstr ""
-
-#: classes/Settings/Column/Separator.php:35
-msgid "Select a repeater sub field."
 msgstr ""
 
 #: classes/Settings/Column/StatusIcon.php:30

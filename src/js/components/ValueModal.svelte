@@ -126,11 +126,11 @@
     });
 </script>
 
-<div class="ac-value-modal {modalClass}" bind:this={mainElement} on:click={close}>
+<div class="ac-value-modal {modalClass}" bind:this={mainElement} on:click={close} on:keypress={()=>{}}>
 	<div class="ac-value-modal-background">
 	</div>
 	<div class="ac-value-modal-container">
-		<div class="ac-value-modal-panel" on:click|stopPropagation>
+		<div class="ac-value-modal-panel" on:click|stopPropagation on:keypress={()=>{}}>
 			<div class="ac-value-modal-panel__header">
 				<div class="ac-value-modal-title">
 					{#if title}
