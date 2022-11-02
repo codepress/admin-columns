@@ -3,6 +3,7 @@
     export let percentage = 0;
     export let customStyles = '';
 	export let finished = false;
+    export let warning = false;
     export let error = false;
 </script>
 <style>
@@ -10,7 +11,8 @@
 		--containerWidth: 100%;
 		--baseBackground: #ddd;
 		--defaultBarBackground: #0073aa;
-		--errorBarBackground: #FFB900;
+		--warningBarBackground: #FFB900;
+		--errorBarBackground: var(--ac-notification-red);
 		--finishedBarBackground: #7ED321;
 
 		display: block;
@@ -36,6 +38,10 @@
 		background-color: var(--finishedBarBackground, #7ED321);
 	}
 
+	.-warning {
+		background-color: var(--warningBarBackground, #FFB900);
+	}
+
 	.-error {
 		background-color: var(--errorBarBackground, #FFB900);
 	}
@@ -43,6 +49,6 @@
 </style>
 <div class="acui-progress" style={customStyles}>
 	<div class="acui-progress__bar">
-		<div class="acui-progress__progress " class:-finished={finished} class:-error={error} style="width: {percentage}%;"></div>
+		<div class="acui-progress__progress " class:-finished={finished} class:-warning={warning} class:-error={error} style="width: {percentage}%;"></div>
 	</div>
 </div>
