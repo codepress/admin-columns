@@ -5,14 +5,17 @@
     }
   },
   "config": {
-    "autoloader-suffix": "AdminColumns"
+    "autoloader-suffix": "AdminColumns",
+    "platform": {
+      "php": "7.2.0"
+    }
   },
   "require": {
-    "php-di/php-di": "^6.4"
+    "php-di/php-di": "^6.3.5"
   },
   "scripts": {
     "post-update-cmd": [
-      "../bin/prefix-dependencies.sh"
+      "@php ../build/prefix.php"
     ]
   }
 }
