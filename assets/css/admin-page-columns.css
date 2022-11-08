@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=155337") format("woff2"), url("../fonts/cpac_icons.woff?v=250375") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=128224") format("woff2"), url("../fonts/cpac_icons.woff?v=509000") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -31,16 +31,12 @@
   content: "\ea04";
 }
 
-.cpacicon-move-sm::before {
+.cpacicon-segment::before {
   content: "\ea05";
 }
 
-.cpacicon-segment::before {
-  content: "\ea06";
-}
-
 .cpacicon-smart-filter::before {
-  content: "\ea07";
+  content: "\ea06";
 }
 
 .ac-setbox {
@@ -138,7 +134,7 @@
     display: block;
   }
   .ac-setbox__row.-sub .ac-setbox__row__th,
-.ac-setbox__row.-sub .ac-setbox__row__fields {
+  .ac-setbox__row.-sub .ac-setbox__row__fields {
     flex: 100%;
   }
 }
@@ -147,7 +143,7 @@
     display: flex;
   }
   .ac-setbox__row.-sub .ac-setbox__row__th,
-.ac-setbox__row.-sub .ac-setbox__row__fields {
+  .ac-setbox__row.-sub .ac-setbox__row__fields {
     flex: 100%;
   }
 }
@@ -1525,12 +1521,17 @@ div.ac-column-header span.vers {
   border-bottom: 0;
 }
 .ac-column__header__move {
-  font-size: 22px;
-  color: #bdbdbd;
+  font-size: 13px;
   padding: 10px 13px;
   cursor: move;
   display: flex;
   align-items: center;
+}
+.ac-column__header__move span {
+  visibility: hidden;
+}
+.ac-column__header:hover .ac-column__header__move span {
+  visibility: visible;
 }
 .ac-column__header__label {
   display: flex;

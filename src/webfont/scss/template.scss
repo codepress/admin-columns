@@ -2,15 +2,14 @@ $cpacicon-bulk-edit: "\ea01";
 $cpacicon-download: "\ea02";
 $cpacicon-draft: "\ea03";
 $cpacicon-move: "\ea04";
-$cpacicon-move-sm: "\ea05";
-$cpacicon-segment: "\ea06";
-$cpacicon-smart-filter: "\ea07";
+$cpacicon-segment: "\ea05";
+$cpacicon-smart-filter: "\ea06";
 
 @font-face {
     font-family: "cpac_icons";
     src:
-        url("../fonts/cpac_icons.woff2?v=155337") format("woff2"),
-        url("../fonts/cpac_icons.woff?v=250375") format("woff");
+        url("../fonts/cpac_icons.woff2?v=128224") format("woff2"),
+        url("../fonts/cpac_icons.woff?v=509000") format("woff");
     font-style: normal;
     font-weight: 400;
 }
@@ -45,10 +44,6 @@ $cpacicon-smart-filter: "\ea07";
 
 .cpacicon-move::before {
     content: $cpacicon-move;
-}
-
-.cpacicon-move-sm::before {
-    content: $cpacicon-move-sm;
 }
 
 .cpacicon-segment::before {
