@@ -1,8 +1,11 @@
 <?php
 
-namespace AC;
+namespace AC\Service;
 
 use AC\Asset\Location\Absolute;
+use AC\Check;
+use AC\IntegrationRepository;
+use AC\Registerable;
 
 class NoticeChecks implements Registerable {
 
@@ -11,14 +14,8 @@ class NoticeChecks implements Registerable {
 	 */
 	private $location;
 
-	/**
-	 * @var bool
-	 */
-	private $is_acp_active;
-
-	public function __construct( Absolute $location, bool $is_acp_active ) {
+	public function __construct( Absolute $location ) {
 		$this->location = $location;
-		$this->is_acp_active = $is_acp_active;
 	}
 
 	public function register() {
@@ -31,17 +28,14 @@ class NoticeChecks implements Registerable {
 	 * @return Registerable[]
 	 */
 	private function get_checks() {
-		$checks = [];
-
-		// TODO
-		if ( ! $this->is_acp_active ) {
-			$checks[] = new Check\Review( $this->location, $this->is_acp_active );
-		}
+		$checks = [
+			new Check\Review( $this->location )
+		];
 
 		$integrations = new IntegrationRepository();
 
 		foreach ( $integrations->find_all() as $integration ) {
-			$checks[] = new Check\AddonAvailable( $integration, $this->is_acp_active );
+			$checks[] = new Check\AddonAvailable( $integration );
 		}
 
 		return $checks;

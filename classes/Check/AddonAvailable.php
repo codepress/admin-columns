@@ -19,14 +19,8 @@ final class AddonAvailable
 	 */
 	private $integration;
 
-	/**
-	 * @var bool
-	 */
-	private $is_acp_active;
-
-	public function __construct( Integration $integration, bool $is_acp_active ) {
+	public function __construct( Integration $integration ) {
 		$this->integration = $integration;
-		$this->is_acp_active = $is_acp_active;
 	}
 
 	/**
@@ -70,8 +64,7 @@ final class AddonAvailable
 	 */
 	public function display( Screen $screen ) {
 		if (
-			$this->is_acp_active
-			|| ! current_user_can( Capabilities::MANAGE )
+			! current_user_can( Capabilities::MANAGE )
 			|| ! $this->integration->show_notice( $screen )
 			|| ! $this->integration->is_plugin_active()
 			|| $this->get_preferences()->get( 'dismiss-notice' )
@@ -84,7 +77,7 @@ final class AddonAvailable
 			sprintf( '<strong>%s</strong>', $this->integration->get_title() )
 		);
 
-		$link = sprintf( '<a href="%s">%s</a>', 'http://www.google.com', __( 'Get Admin Columns Pro', 'codepress-admin-columns' ) );
+		$link = sprintf( '<a href="%s">%s</a>', 'https://www.google.com', __( 'Get Admin Columns Pro', 'codepress-admin-columns' ) );
 		$message = sprintf( '%s %s', $support_text, $link );
 
 		$notice = new Dismissible( $message, $this->get_ajax_handler() );
