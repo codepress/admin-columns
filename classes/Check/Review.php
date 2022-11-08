@@ -64,11 +64,11 @@ class Review
 		}
 
 		if ( $this->get_preferences()->get( 'dismiss-review' ) ) {
-		//	return;
+			return;
 		}
 
 		if ( ! $this->first_login_compare() ) {
-			//return;
+			return;
 		}
 
 		$script = new Script( 'ac-notice-review', $this->location->with_suffix( 'assets/js/message-review.js' ), [ 'jquery' ] );
