@@ -4,9 +4,9 @@ namespace AC\Service;
 
 use AC\Admin\Colors\Shipped\ColorUpdater;
 use AC\Admin\Colors\StyleInjector;
-use AC\Registrable;
+use AC\Registerable;
 
-final class Colors implements Registrable {
+final class Colors implements Registerable {
 
 	private $shipped_colors_updater;
 

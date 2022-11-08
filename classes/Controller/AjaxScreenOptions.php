@@ -4,9 +4,9 @@ namespace AC\Controller;
 
 use AC\Admin\Preference\ScreenOptions;
 use AC\Ajax;
-use AC\Registrable;
+use AC\Registerable;
 
-class AjaxScreenOptions implements Registrable {
+class AjaxScreenOptions implements Registerable {
 
 	/**
 	 * @var ScreenOptions

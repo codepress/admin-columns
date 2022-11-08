@@ -7,12 +7,12 @@ use AC\Capabilities;
 use AC\Integration;
 use AC\Message\Notice\Dismissible;
 use AC\Preferences;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Screen;
 use Exception;
 
 final class AddonAvailable
-	implements Registrable {
+	implements Registerable {
 
 	/**
 	 * @var Integration

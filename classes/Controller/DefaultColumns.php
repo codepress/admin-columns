@@ -5,10 +5,10 @@ namespace AC\Controller;
 use AC;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Request;
 
-class DefaultColumns implements Registrable {
+class DefaultColumns implements Registerable {
 
 	const ACTION_KEY = 'save-default-headings';
 	const LISTSCREEN_KEY = 'list_screen';

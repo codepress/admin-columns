@@ -5,7 +5,7 @@ namespace AC;
 use AC\ColumnRepository\Sort\ManualOrder;
 use AC\Storage\UserColumnOrder;
 
-class ScreenController implements Registrable {
+class ScreenController implements Registerable {
 
 	/**
 	 * @var ListScreen

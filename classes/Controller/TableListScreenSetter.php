@@ -7,13 +7,13 @@ use AC\ColumnSize;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\PermissionChecker;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Request;
 use AC\Table;
 use AC\Type\ListScreenId;
 use WP_Screen;
 
-class TableListScreenSetter implements Registrable {
+class TableListScreenSetter implements Registerable {
 
 	/**
 	 * @var Storage

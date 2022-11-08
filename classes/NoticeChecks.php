@@ -4,7 +4,7 @@ namespace AC;
 
 use AC\Asset\Location\Absolute;
 
-class NoticeChecks implements Registrable {
+class NoticeChecks implements Registerable {
 
 	/**
 	 * @var Absolute
@@ -28,7 +28,7 @@ class NoticeChecks implements Registrable {
 	}
 
 	/**
-	 * @return Registrable[]
+	 * @return Registerable[]
 	 */
 	private function get_checks() {
 		$checks = [];

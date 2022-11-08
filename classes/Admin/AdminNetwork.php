@@ -3,9 +3,9 @@
 namespace AC\Admin;
 
 use AC\Asset\Location\Absolute;
-use AC\Registrable;
+use AC\Registerable;
 
-class AdminNetwork implements Registrable {
+class AdminNetwork implements Registerable {
 
 	/**
 	 * @var RequestHandlerInterface

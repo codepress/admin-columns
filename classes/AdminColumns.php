@@ -110,7 +110,7 @@ class AdminColumns extends Plugin {
 			$services[] = new Service\Setup( $setup_factory->create( SetupFactory::NETWORK ) );
 		}
 
-		array_map( static function ( Registrable $service ) {
+		array_map( static function ( Registerable $service ) {
 			$service->register();
 		}, $services );
 	}

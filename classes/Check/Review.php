@@ -8,7 +8,7 @@ use AC\Asset\Script;
 use AC\Capabilities;
 use AC\Message;
 use AC\Preferences;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Screen;
 use AC\Type\Url\Documentation;
 use AC\Type\Url\Site;
@@ -16,7 +16,7 @@ use AC\Type\Url\UtmTags;
 use Exception;
 
 class Review
-	implements Registrable {
+	implements Registerable {
 
 	/**
 	 * @var Location\Absolute

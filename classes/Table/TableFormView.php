@@ -3,9 +3,9 @@
 namespace AC\Table;
 
 use AC;
-use AC\Registrable;
+use AC\Registerable;
 
-final class TableFormView implements Registrable {
+final class TableFormView implements Registerable {
 
 	const PARAM_ACTION = 'ac-actions-form';
 

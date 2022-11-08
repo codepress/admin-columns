@@ -4,7 +4,7 @@ namespace AC;
 
 use WP_Roles;
 
-abstract class Capabilities implements Registrable {
+abstract class Capabilities implements Registerable {
 
 	// backwards compat
 	const MANAGE = 'manage_admin_columns';

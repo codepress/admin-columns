@@ -4,10 +4,10 @@ namespace AC\Message;
 
 use AC\Asset\Style;
 use AC\Message;
-use AC\Registrable;
+use AC\Registerable;
 use AC\View;
 
-class Notice extends Message implements Registrable {
+class Notice extends Message implements Registerable {
 
 	public function render() {
 		$data = [

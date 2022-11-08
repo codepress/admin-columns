@@ -7,11 +7,11 @@ use AC\Capabilities;
 use AC\Message\Notice\Dismissible;
 use AC\Preferences;
 use AC\Promo;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Screen;
 
 final class Promotion
-	implements Registrable {
+	implements Registerable {
 
 	/**
 	 * @var Promo

@@ -4,12 +4,12 @@ namespace AC\Admin;
 
 use AC\Asset\Enqueueable;
 use AC\Asset\Enqueueables;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Renderable;
 use AC\Request;
 use AC\View;
 
-class AdminLoader implements Registrable {
+class AdminLoader implements Registerable {
 
 	/**
 	 * @var string
@@ -53,7 +53,7 @@ class AdminLoader implements Registrable {
 			return;
 		}
 
-		if ( $this->page instanceof Registrable ) {
+		if ( $this->page instanceof Registerable ) {
 			$this->register();
 		}
 

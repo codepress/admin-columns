@@ -3,9 +3,9 @@
 namespace AC\Service;
 
 use AC\Plugin;
-use AC\Registrable;
+use AC\Registerable;
 
-final class Setup implements Registrable {
+final class Setup implements Registerable {
 
 	/**
 	 * @var Plugin\Setup

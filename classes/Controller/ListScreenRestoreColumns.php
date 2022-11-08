@@ -5,11 +5,11 @@ namespace AC\Controller;
 use AC\Capabilities;
 use AC\ListScreenRepository\Storage;
 use AC\Message\Notice;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Type\ListScreenId;
 use LogicException;
 
-class ListScreenRestoreColumns implements Registrable {
+class ListScreenRestoreColumns implements Registerable {
 
 	/**
 	 * @var Storage
