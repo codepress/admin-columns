@@ -3,9 +3,9 @@
 namespace AC\Admin;
 
 use AC\Asset\Location\Absolute;
-use AC\Registrable;
+use AC\Registerable;
 
-class Admin implements Registrable {
+class Admin implements Registerable {
 
 	const NAME = 'codepress-admin-columns';
 

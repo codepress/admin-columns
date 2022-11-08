@@ -3,12 +3,12 @@
 namespace AC\Screen;
 
 use AC\ListScreenRepository\Storage;
-use AC\Registrable;
+use AC\Registerable;
 use AC\ScreenController;
 use AC\Table\LayoutPreference;
 use AC\Type\ListScreenId;
 
-class QuickEdit implements Registrable {
+class QuickEdit implements Registerable {
 
 	/**
 	 * @var Storage

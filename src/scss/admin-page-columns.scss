@@ -1662,12 +1662,21 @@ div.ac-column-header {
 	border-bottom: 0;
 
 	&__move {
-		font-size: 22px;
-		color: #bdbdbd;
+		font-size: 13px;
 		padding: 10px 13px;
 		cursor: move;
 		display: flex;
 		align-items: center;
+
+		span {
+			visibility: hidden;
+		}
+	}
+
+	&:hover {
+		#{$e}__move span {
+			visibility: visible;
+		}
 	}
 
 	&__label {

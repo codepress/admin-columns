@@ -5,9 +5,9 @@ namespace AC\Admin;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Style;
-use AC\Registrable;
+use AC\Registerable;
 
-class Scripts implements Registrable {
+class Scripts implements Registerable {
 
 	/**
 	 * @var Absolute

@@ -6,7 +6,7 @@ use AC\Admin\Page\Columns;
 use AC\Admin\RequestHandlerInterface;
 use WP_Screen;
 
-class Screen implements Registrable {
+class Screen implements Registerable {
 
 	/**
 	 * @var WP_Screen

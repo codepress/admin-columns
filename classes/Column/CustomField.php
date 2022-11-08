@@ -32,7 +32,6 @@ class CustomField extends Column\Meta {
 		$this->add_setting( new Settings\Column\CustomField( $this ) )
 		     ->add_setting( new Settings\Column\BeforeAfter( $this ) );
 
-		// TODO David how to set without construct?
 		if ( ! $this->is_acp_active() ) {
 			$this->add_setting( new Settings\Column\Pro\Sorting( $this ) )
 			     ->add_setting( new Settings\Column\Pro\InlineEditing( $this ) )

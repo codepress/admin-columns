@@ -7,11 +7,11 @@ use AC\Controller\ColumnRequest\Refresh;
 use AC\Controller\ColumnRequest\Select;
 use AC\Controller\ListScreen\Save;
 use AC\ListScreenRepository\Storage;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Request;
 use LogicException;
 
-class AjaxColumnRequest implements Registrable {
+class AjaxColumnRequest implements Registerable {
 
 	/**
 	 * @var Storage

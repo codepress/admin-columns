@@ -8,13 +8,13 @@ use AC\Capabilities;
 use AC\ColumnSize;
 use AC\Form;
 use AC\ListScreen;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Renderable;
 use AC\ScreenController;
 use AC\Settings;
 use WP_Post;
 
-final class Screen implements Registrable {
+final class Screen implements Registerable {
 
 	/**
 	 * @var Asset\Location\Absolute

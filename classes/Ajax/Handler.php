@@ -2,10 +2,10 @@
 
 namespace AC\Ajax;
 
-use AC\Registrable;
+use AC\Registerable;
 use LogicException;
 
-class Handler implements Registrable {
+class Handler implements Registerable {
 
 	const NONCE_ACTION = 'ac-ajax';
 

@@ -88,7 +88,6 @@ class AdminColumns extends Plugin {
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename(), $is_acp_active ),
-			new NoticeChecks( $location, $is_acp_active ),
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
 			new Admin\Scripts( $location ),
 			new Service\IntegrationColumns( new IntegrationRepository() ),
@@ -102,6 +101,10 @@ class AdminColumns extends Plugin {
 			),
 		];
 
+		if ( ! $is_acp_active ) {
+			$services[] = new Service\NoticeChecks( $location );
+		}
+
 		$setup_factory = new SetupFactory\AdminColumns( 'ac_version', $this->get_version() );
 
 		$services[] = new Service\Setup( $setup_factory->create( SetupFactory::SITE ) );
@@ -110,7 +113,7 @@ class AdminColumns extends Plugin {
 			$services[] = new Service\Setup( $setup_factory->create( SetupFactory::NETWORK ) );
 		}
 
-		array_map( static function ( Registrable $service ) {
+		array_map( static function ( Registerable $service ) {
 			$service->register();
 		}, $services );
 	}

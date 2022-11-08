@@ -4,11 +4,11 @@ namespace AC\Controller;
 
 use AC\Ajax;
 use AC\Capabilities;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Request;
 use AC\Settings\GeneralOption;
 
-class AjaxGeneralOptions implements Registrable {
+class AjaxGeneralOptions implements Registerable {
 
 	/**
 	 * @var GeneralOption

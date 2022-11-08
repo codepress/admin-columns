@@ -5,9 +5,9 @@ namespace AC\Service;
 use AC\Column\Placeholder;
 use AC\IntegrationRepository;
 use AC\ListScreen;
-use AC\Registrable;
+use AC\Registerable;
 
-final class IntegrationColumns implements Registrable {
+final class IntegrationColumns implements Registerable {
 
 	/**
 	 * @var IntegrationRepository

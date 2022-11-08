@@ -7,7 +7,7 @@ use AC\Type\Url\Editor;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class PluginActionLinks implements Registrable {
+class PluginActionLinks implements Registerable {
 
 	/**
 	 * @var string

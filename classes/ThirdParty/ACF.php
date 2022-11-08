@@ -2,9 +2,9 @@
 
 namespace AC\ThirdParty;
 
-use AC\Registrable;
+use AC\Registerable;
 
-class ACF implements Registrable {
+class ACF implements Registerable {
 
 	public function register() {
 		add_filter( 'ac/post_types', [ $this, 'remove_acf_field_group' ] );

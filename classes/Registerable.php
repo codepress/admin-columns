@@ -1,9 +1,9 @@
-<?php declare( strict_types=1 );
+<?php
 
 namespace AC;
 
 interface Registerable {
 
-	public function register(): void;
+	public function register();
 
 }
