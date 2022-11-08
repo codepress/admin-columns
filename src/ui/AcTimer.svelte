@@ -37,7 +37,7 @@
 		if( autostart ){
 			start();
 		}
-	})
+	});
 
 </script>
 <div class="acui-timer">{displayMinutes}:{displaySeconds}</div>

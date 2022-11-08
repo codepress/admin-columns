@@ -1,22 +1,9 @@
 <script type="ts">
-    import {onMount} from "svelte";
+    import {generateGuid} from "../helpers/input";
 
     export let checked: boolean;
-    export let name: string = '';
 
-    const guid = () => {
-        let s4 = () => {
-            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-        }
-
-        return 'ac' + s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4();
-    }
-
-    onMount(() => {
-        if (name === '') {
-            name = guid();
-        }
-    });
+    let name: string = generateGuid();
 </script>
 
 <div class="ac-toggle-v2" data-dependent="" data-setting="hide_inline_edit">
