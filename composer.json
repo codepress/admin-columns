@@ -15,7 +15,7 @@
   },
   "scripts": {
     "post-update-cmd": [
-      "@php ../build/prefix.php"
+      "@php ../build/app.php prefix"
     ]
   }
 }
