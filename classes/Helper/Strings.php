@@ -18,6 +18,24 @@ class Strings {
 		return ac_helper()->html->link( $url, url_shorten( $url ), [ 'title' => $url ] );
 	}
 
+	public function contains( string $haystack, string $needle ): bool {
+		return '' === $needle || false !== strpos( $haystack, $needle );
+	}
+
+	public function starts_with( string $haystack, string $needle ): bool {
+		return '' === $needle || 0 === strpos( $haystack, $needle );
+	}
+
+	public function ends_with( string $haystack, string $needle ): bool {
+		if ( '' === $haystack && '' !== $needle ) {
+			return false;
+		}
+
+		$len = strlen( $needle );
+
+		return 0 === substr_compare( $haystack, $needle, -$len, $len );
+	}
+
 	/**
 	 * @param $string
 	 *
