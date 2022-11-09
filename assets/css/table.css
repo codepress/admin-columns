@@ -228,6 +228,14 @@ body .ac-modal.-blocking {
     margin-top: 10px;
   }
 }
+body .ac-modal .ac-modal-footer-actions {
+  display: flex;
+}
+body .ac-modal .ac-modal-footer-actions__info {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
 
 @keyframes ac-striped-animation {
   from {
@@ -298,7 +306,7 @@ body .ac-modal.-blocking {
 }
 
 .ac-tooltip {
-  background: rgba(0, 0, 0, 0.75);
+  background: #000;
   border-radius: 3px;
   padding: 5px 10px;
   color: #fff;

@@ -142,4 +142,14 @@ body .ac-modal {
 			}
 		}
 	}
+
+	.ac-modal-footer-actions {
+		display: flex;
+
+		&__info {
+			flex-grow: 1;
+			display: flex;
+			align-items: center;
+		}
+	}
 }
