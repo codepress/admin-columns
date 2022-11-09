@@ -276,7 +276,7 @@ final class Screen implements Registerable {
 		}
 	}
 
-	private function get_local_number_format( string $var ): ?string {
+	private function get_local_number_format( string $var ) {
 		global $wp_locale;
 
 		return $wp_locale->number_format[ $var ] ?? null;
