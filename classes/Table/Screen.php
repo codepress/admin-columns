@@ -248,6 +248,10 @@ final class Screen implements Registerable {
 				'screen'           => $this->get_current_screen_id(),
 				'meta_type'        => $this->list_screen->get_meta_type(),
 				'list_screen_link' => $this->get_list_screen_clear_link(),
+				'number_format'    => [
+					'decimal_point' => $this->get_local_number_format( 'decimal_point' ),
+					'thousands_sep' => $this->get_local_number_format( 'thousands_sep' ),
+				],
 			]
 		);
 
@@ -270,6 +274,12 @@ final class Screen implements Registerable {
 		foreach ( $this->list_screen->get_columns() as $column ) {
 			$column->scripts();
 		}
+	}
+
+	private function get_local_number_format( string $var ): ?string {
+		global $wp_locale;
+
+		return $wp_locale->number_format[ $var ] ?? null;
 	}
 
 	/**
