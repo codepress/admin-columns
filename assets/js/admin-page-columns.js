@@ -4294,7 +4294,7 @@ class WidthIndicator {
         this.events = new (nanobus__WEBPACK_IMPORTED_MODULE_0___default())();
     }
     setValue(width, unit) {
-        if (width === null) {
+        if (width === null || width === 0) {
             return this.element.innerText = '';
         }
         this.element.innerText = `${width.toString()}${unit}`;
