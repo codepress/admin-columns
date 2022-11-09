@@ -13,16 +13,19 @@
     let element;
     const dispatch = createEventDispatcher();
 
+    export const FreeScrollLock = () => {
+        if (disableScroll && element) {
+            bodyScrollLock.enableBodyScroll(element);
+        }
+	}
+
     const close = () => {
         if (disableClose) {
             return;
         }
 
         dispatch('close');
-
-        if (disableScroll && element) {
-            bodyScrollLock.enableBodyScroll(element);
-        }
+        FreeScrollLock();
     }
 
     onMount(() => {

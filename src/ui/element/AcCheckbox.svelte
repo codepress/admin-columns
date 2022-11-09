@@ -84,7 +84,7 @@
 		background: var(--ac-primary-color) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cpath fill='%23fff' d='M.15.4h.7v.2h-.7z'/%3E%3C/svg%3E") no-repeat 50%;
 	}
 	.acui-checkbox input[type=checkbox]:focus + .acui-checkbox__check {
-		box-shadow: 0 0 0.5em hsl(0deg 0% 48% / 80%)
+		box-shadow: 0 0 0.3em hsl(0deg 0% 48% / 80%)
 	}
 
 </style>
