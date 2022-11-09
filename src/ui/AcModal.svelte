@@ -43,7 +43,7 @@
 			<slot name="header"></slot>
 			{#if !disableClose}
 				<button class="ac-modal__dialog__close" on:click={close} disabled='{disableClose}'>
-					<span class="dashicons dashicons-no"></span>
+					<span class="dashicons dashicons-no-alt"></span>
 				</button>
 			{/if}
 		</div>

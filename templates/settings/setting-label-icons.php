@@ -23,7 +23,7 @@
 
 							<?php _e( 'Select Icon', 'codepress-admin-columns' ); ?>
 							<button class="ac-modal__dialog__close" data-dismiss="modal">
-								<span class="dashicons dashicons-no"></span>
+								<span class="dashicons dashicons-no-alt"></span>
 							</button>
 
 						</div>

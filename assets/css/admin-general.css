@@ -16,6 +16,7 @@
   --ac-border-grey: #ddd;
   --ac-pink-color: #e9426e;
   --ac-form-input-border: #757575;
+  --ac-table-border: #c3c4c7;
 }
 
 :root body.admin-color-coffee {
@@ -169,7 +170,13 @@ body .ac-modal__dialog__close {
   cursor: pointer;
 }
 body .ac-modal__dialog__close:hover {
-  background: #e1e1e1;
+  background-color: #f2f2f2;
+}
+body .ac-modal__dialog__close span.dashicons {
+  font-size: 22px;
+}
+body .ac-modal__dialog__close span.dashicons:hover {
+  color: var(--ac-primary-color-hover);
 }
 body .ac-modal__dialog__content {
   padding: 20px;
@@ -395,7 +402,7 @@ body.rtl .ac-setbox .radio-labels label {
 .ac-tooltip {
   background: rgba(0, 0, 0, 0.75);
   border-radius: 3px;
-  padding: 3px 9px;
+  padding: 5px 10px;
   color: #fff;
   position: absolute;
   transform: translateX(-50%);
@@ -408,6 +415,7 @@ body.rtl .ac-setbox .radio-labels label {
   font-size: 11px;
   line-height: 16px;
   z-index: 100000;
+  max-width: 200px;
 }
 .ac-tooltip:before {
   content: "";

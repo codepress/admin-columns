@@ -49,7 +49,15 @@ body .ac-modal {
 			cursor: pointer;
 
 			&:hover {
-				background: darken($bg-gray, 8);
+				background-color: #f2f2f2;
+			}
+
+			span.dashicons {
+				font-size: 22px;
+
+				&:hover {
+					color: var(--ac-primary-color-hover);
+				}
 			}
 		}
 
