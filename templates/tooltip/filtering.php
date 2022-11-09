@@ -6,9 +6,7 @@
 	<?= __( 'You can filter the contents by selecting the column value from the filter dropdown menu.', 'codepress-admin-columns' ); ?>
 </p>
 <img src="<?= esc_url( AC()->get_url() . 'assets/images/tooltip/filter.png' ); ?>" alt="Export" style="border:1px solid #ddd;">
-<h4>
-	<?= __( 'Filters vs Smart Filters', 'codepress-admin-columns' ); ?>
-</h4>
+<p><strong><?= __( 'Filters vs Smart Filters', 'codepress-admin-columns' ); ?></strong></p>
 <p class="notice notice-warning">
 	<?= sprintf( __( 'We recommend using %s', 'codepress-admin-columns' ), sprintf( '<strong>%s</strong>', __( 'Smart Filters', 'codepress-admin-columns' ) ) ); ?>
 </p>
