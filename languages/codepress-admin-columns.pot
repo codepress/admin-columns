@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2022-11-02 12:28+0000\n"
+"POT-Creation-Date: 2022-11-11 09:47+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -88,11 +88,11 @@ msgstr ""
 msgid "Instructions"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:83
+#: classes/Check/AddonAvailable.php:76
 msgid "Did you know Admin Columns Pro has full support for %s?"
 msgstr ""
 
-#: classes/Check/AddonAvailable.php:87, templates/admin/side-banner.php:74
+#: classes/Check/AddonAvailable.php:80, templates/admin/side-banner.php:74
 msgid "Get Admin Columns Pro"
 msgstr ""
 
@@ -100,56 +100,44 @@ msgstr ""
 msgid "Get %s now"
 msgstr ""
 
-#: classes/Check/Review.php:165
-msgid "Admin Columns Pro"
-msgstr ""
-
-#: classes/Check/Review.php:166, classes/Table/Screen.php:428, classes/Admin/MenuPageFactory/Menu.php:14, classes/Admin/MenuPageFactory/SubMenu.php:15
+#: classes/Check/Review.php:148, classes/Table/Screen.php:438, classes/Admin/MenuPageFactory/Menu.php:14, classes/Admin/MenuPageFactory/SubMenu.php:15
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/Check/Review.php:174
+#: classes/Check/Review.php:156
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr ""
 
-#: classes/Check/Review.php:178
+#: classes/Check/Review.php:160
 msgid "click here"
 msgstr ""
 
-#: classes/Check/Review.php:182
+#: classes/Check/Review.php:164
 msgid "Leave a review!"
 msgstr ""
 
-#: classes/Check/Review.php:183
+#: classes/Check/Review.php:165
 msgid "Permanently hide notice"
 msgstr ""
 
-#: classes/Check/Review.php:192
+#: classes/Check/Review.php:174
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr ""
 
-#: classes/Check/Review.php:194
+#: classes/Check/Review.php:176
 msgid "documentation page"
 msgstr ""
 
-#: classes/Check/Review.php:204
+#: classes/Check/Review.php:180
 msgid "You can also find help on the %s, and %s."
 msgstr ""
 
-#: classes/Check/Review.php:205
+#: classes/Check/Review.php:181
 msgid "Admin Columns forum on WordPress.org"
 msgstr ""
 
-#: classes/Check/Review.php:206
+#: classes/Check/Review.php:182
 msgid "find answers to frequently asked questions"
-msgstr ""
-
-#: classes/Check/Review.php:199
-msgid "You can also use your admincolumns.com account to access support through %s!"
-msgstr ""
-
-#: classes/Check/Review.php:200
-msgid "our forum"
 msgstr ""
 
 #: classes/Column/Actions.php:19
@@ -220,7 +208,7 @@ msgstr ""
 msgid "Hide"
 msgstr ""
 
-#: classes/Helper/Strings.php:332
+#: classes/Helper/Strings.php:350
 msgid " or "
 msgstr ""
 
@@ -308,7 +296,7 @@ msgstr ""
 msgid "%s Off from Black Friday to Cyber Monday"
 msgstr ""
 
-#: classes/Table/Screen.php:154, classes/Table/Screen.php:156, classes/Table/Screen.php:257, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
+#: classes/Table/Screen.php:154, classes/Table/Screen.php:156, classes/Table/Screen.php:261, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
 msgid "Download"
 msgstr ""
 
@@ -316,11 +304,11 @@ msgstr ""
 msgid "Edit columns"
 msgstr ""
 
-#: classes/Table/Screen.php:255
+#: classes/Table/Screen.php:259
 msgid "Loading..."
 msgstr ""
 
-#: classes/Table/Screen.php:256, templates/admin/edit-column.php:35
+#: classes/Table/Screen.php:260, templates/admin/edit-column.php:35
 msgid "Edit"
 msgstr ""
 
@@ -432,7 +420,7 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-#: templates/admin/list-screen-settings-mockup.php:60, templates/tooltip/filtering.php:13, templates/admin/page/settings-section-pro-cta.php:29
+#: templates/admin/list-screen-settings-mockup.php:60, templates/tooltip/filtering.php:11, templates/admin/page/settings-section-pro-cta.php:29
 msgid "Smart Filters"
 msgstr ""
 
@@ -773,7 +761,7 @@ msgstr ""
 msgid "You can use filters to segment your list before exporting."
 msgstr ""
 
-#: templates/tooltip/filtering.php:2, templates/tooltip/filtering.php:16
+#: templates/tooltip/filtering.php:2, templates/tooltip/filtering.php:14
 msgid "Filtering"
 msgstr ""
 
@@ -785,27 +773,27 @@ msgstr ""
 msgid "You can filter the contents by selecting the column value from the filter dropdown menu."
 msgstr ""
 
-#: templates/tooltip/filtering.php:10
+#: templates/tooltip/filtering.php:9
 msgid "Filters vs Smart Filters"
 msgstr ""
 
-#: templates/tooltip/filtering.php:13
+#: templates/tooltip/filtering.php:11
 msgid "We recommend using %s"
 msgstr ""
 
-#: templates/tooltip/filtering.php:16
+#: templates/tooltip/filtering.php:14
 msgid "%s is an improved version of %s."
 msgstr ""
 
-#: templates/tooltip/filtering.php:16, templates/tooltip/filtering.php:20, templates/tooltip/smart-filtering.php:6, classes/Settings/Column/Pro/SmartFiltering.php:11
+#: templates/tooltip/filtering.php:14, templates/tooltip/filtering.php:18, templates/tooltip/smart-filtering.php:6, classes/Settings/Column/Pro/SmartFiltering.php:11
 msgid "Smart Filtering"
 msgstr ""
 
-#: templates/tooltip/filtering.php:17
+#: templates/tooltip/filtering.php:15
 msgid "Finding the right content will be much easier with the use of conditionals, such as %s."
 msgstr ""
 
-#: templates/tooltip/filtering.php:20
+#: templates/tooltip/filtering.php:18
 msgid "%s also has better support for all the different types of fields, such as text, numbers and dates."
 msgstr ""
 

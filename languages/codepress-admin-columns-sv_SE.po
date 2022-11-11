@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-03-02 07:37:50+0000\n"
+"PO-Revision-Date: 2022-11-03 10:12:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: templates/tooltip/sorting-include-empty.php:17
 msgid "Read more &raquo;"
-msgstr ""
+msgstr "Läs mer &raquo;"
 
 #: templates/tooltip/sorting-include-empty.php:12
 msgid "By enabling this setting the sorting results will include empty values."
@@ -22,7 +22,7 @@ msgstr ""
 #: templates/admin/list-screen-settings-mockup.php:62
 #: templates/admin/page/settings-section-pro-cta.php:146
 msgid "Add Row"
-msgstr ""
+msgstr "Lägg till rad"
 
 #: templates/admin/list-screen-settings-mockup.php:49
 msgid "Show or hide elements from the table list screen."
@@ -30,43 +30,43 @@ msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:48
 msgid "Toggle Elements"
-msgstr ""
+msgstr "Slå på/av element"
 
 #: classes/Table/Screen.php:251
 msgid "Loading..."
-msgstr ""
+msgstr "Laddar in …"
 
 #: classes/Settings/Column/VideoDisplay.php:22
 msgid "Pop Up"
-msgstr ""
+msgstr "Pop-up"
 
 #: classes/Settings/Column/VideoDisplay.php:21
 msgid "Embed"
-msgstr ""
+msgstr "Bädda in"
 
 #: classes/Settings/Column/User.php:87
 msgid "User Website"
-msgstr ""
+msgstr "Användarens webbplats"
 
 #: classes/Settings/Column/Post.php:72
 msgid "No title"
-msgstr ""
+msgstr "Ingen rubrik"
 
 #: classes/Settings/Column/Post.php:68
 msgid "No author"
-msgstr ""
+msgstr "Ingen författare"
 
 #: classes/Settings/Column/FileMetaVideo.php:49
 msgid "px"
-msgstr ""
+msgstr "px"
 
 #: classes/Settings/Column/FileMetaVideo.php:41
 msgid "audio"
-msgstr ""
+msgstr "ljud"
 
 #: classes/Settings/Column/FileMetaVideo.php:27
 msgid "Codec"
-msgstr ""
+msgstr "Codec"
 
 #: classes/Settings/Column/FileMetaVideo.php:24
 msgid "Bits Per Sample"
@@ -75,38 +75,38 @@ msgstr ""
 #: classes/Settings/Column/FileMetaVideo.php:13
 #: classes/Settings/Column/FileMetaVideo.php:28
 msgid "Dataformat"
-msgstr ""
+msgstr "Dataformat"
 
 #: classes/Settings/Column/FileMetaAudio.php:68
 #: classes/Settings/Column/FileMetaVideo.php:67
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 #: classes/Settings/Column/FileMetaAudio.php:62
 #: classes/Settings/Column/FileMetaVideo.php:55
 msgid "sec"
-msgstr ""
+msgstr "sek."
 
 #: classes/Settings/Column/FileMetaAudio.php:44
 #: classes/Settings/Column/FileMetaVideo.php:61
 msgid "channels"
 msgid_plural "channels"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "kanal"
+msgstr[1] "kanaler"
 
 #: classes/Settings/Column/FileMetaAudio.php:38
 msgid "Kbps"
-msgstr ""
+msgstr "Kbps"
 
 #: classes/Settings/Column/FileMetaAudio.php:26
 #: classes/Settings/Column/FileMetaVideo.php:30
 msgid "Sample Rate"
-msgstr ""
+msgstr "Samplingshastighet"
 
 #: classes/Settings/Column/FileMetaAudio.php:24
 #: classes/Settings/Column/FileMetaVideo.php:29
 msgid "Losless"
-msgstr ""
+msgstr "Förlustfri"
 
 #: classes/Settings/Column/FileMetaAudio.php:23
 #: classes/Settings/Column/FileMetaVideo.php:17
@@ -115,12 +115,12 @@ msgstr ""
 
 #: classes/Settings/Column/FileMetaAudio.php:21
 msgid "Filesize"
-msgstr ""
+msgstr "Filstorlek"
 
 #: classes/Settings/Column/FileMetaAudio.php:20
 #: classes/Settings/Column/FileMetaVideo.php:14
 msgid "Fileformat"
-msgstr ""
+msgstr "Filformat"
 
 #: classes/Settings/Column/FileMetaAudio.php:19
 msgid "Encoder Options"
@@ -128,7 +128,7 @@ msgstr ""
 
 #: classes/Settings/Column/FileMetaAudio.php:18
 msgid "Data Format"
-msgstr ""
+msgstr "Dataformat"
 
 #: classes/Settings/Column/FileMetaAudio.php:17
 #: classes/Settings/Column/FileMetaVideo.php:12
@@ -142,7 +142,7 @@ msgstr ""
 #: classes/Settings/Column/FileMetaAudio.php:15
 #: classes/Settings/Column/FileMetaVideo.php:26
 msgid "Channels"
-msgstr ""
+msgstr "Kanaler"
 
 #: classes/Settings/Column/FileMetaAudio.php:14
 #: classes/Settings/Column/FileMetaVideo.php:25
@@ -155,7 +155,7 @@ msgstr ""
 
 #: classes/Settings/Column/FileMetaAudio.php:12
 msgid "Bitrate"
-msgstr ""
+msgstr "Bithastighet"
 
 #: classes/Settings/Column/CustomFieldType.php:138
 msgid "Serialized"
@@ -163,35 +163,35 @@ msgstr ""
 
 #: classes/ColumnGroups.php:21
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 #: classes/ColumnGroups.php:20
 msgid "Document"
-msgstr ""
+msgstr "Dokument"
 
 #: classes/ColumnGroups.php:19
 msgid "Audio"
-msgstr ""
+msgstr "Ljud"
 
 #: classes/ColumnGroups.php:18
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: classes/ColumnGroups.php:16
 msgid "Meta"
-msgstr ""
+msgstr "Meta"
 
 #: classes/Column/Media/VideoPlayer.php:41
 msgid "Play"
-msgstr ""
+msgstr "Spela"
 
 #: classes/Column/Media/VideoPlayer.php:13
 msgid "Video Player"
-msgstr ""
+msgstr "Videospelare"
 
 #: classes/Column/Media/FileMetaVideo.php:12
 msgid "Video Meta"
-msgstr ""
+msgstr "Video-meta"
 
 #: classes/Column/Media/FileMetaAudio.php:12
 msgid "Audio Meta"
@@ -199,15 +199,15 @@ msgstr ""
 
 #: classes/Column/Media/ExifData.php:18
 msgid "Image Meta (EXIF)"
-msgstr ""
+msgstr "Bildmeta (EXIF)"
 
 #: classes/Column/Media/AudioPlayer.php:22
 msgid "No support for audio player"
-msgstr ""
+msgstr "Inget stöd för ljudspelare"
 
 #: classes/Column/Media/AudioPlayer.php:12
 msgid "Audio Player"
-msgstr ""
+msgstr "Ljudspelare"
 
 #: classes/Integration/JetEngine.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your JetEngine contents on any admin list table."
@@ -398,7 +398,7 @@ msgstr "Sök"
 
 #: templates/admin/list-screen-settings-mockup.php:63
 msgid "Status (Quick Links)"
-msgstr ""
+msgstr "Status (snabblänkar)"
 
 #: templates/admin/list-screen-settings-mockup.php:59
 msgid "Filters"
