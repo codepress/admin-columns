@@ -22,7 +22,7 @@ class Permalink extends Column {
 	}
 
 	public function get_raw_value( $id ) {
-		return get_permalink( get_post( $id, OBJECT, 'sample' ) );
+		return get_permalink( $id );
 	}
 
 }
