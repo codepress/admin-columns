@@ -17,7 +17,7 @@
         if (disableScroll && element) {
             bodyScrollLock.enableBodyScroll(element);
         }
-	}
+    }
 
     const close = () => {
         if (disableClose) {
