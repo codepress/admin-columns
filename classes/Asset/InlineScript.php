@@ -13,7 +13,7 @@ class InlineScript {
 
 	protected $handle;
 
-	protected string $data;
+	protected $data;
 
 	public function __construct( string $handle, string $data, $position = null ) {
 		if ( null === $position ) {
