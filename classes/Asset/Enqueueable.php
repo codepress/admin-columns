@@ -21,7 +21,7 @@ abstract class Enqueueable {
 
 	/**
 	 * @param string   $handle
-	 * @param Location $location
+	 * @param Location|null $location
 	 * @param array    $dependencies
 	 */
 	public function __construct( $handle, Location $location = null, array $dependencies = [] ) {
@@ -51,13 +51,11 @@ abstract class Enqueueable {
 	/**
 	 * @return void
 	 */
-
 	abstract public function register();
 
 	/**
 	 * @return void
 	 */
-
 	abstract public function enqueue();
 
 }

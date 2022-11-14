@@ -11,25 +11,44 @@ class InlineScript {
 
 	protected $position;
 
-	protected Script $script;
+	protected $handle;
 
 	protected string $data;
 
-	public function __construct( Script $script, string $data, $position = null ) {
+	public function __construct( string $handle, string $data, $position = null ) {
 		if ( null === $position ) {
 			$position = self::AFTER;
 		}
 
-		$this->script = $script;
+		$this->handle = $handle;
 		$this->data = $data;
 		$this->position = $position;
 
 		$this->validate();
 	}
 
+	public function create_variable( string $handle, string $name, $data, string $position = null ): InlineScript {
+		$type = gettype( $data );
+
+		switch ( $type ) {
+			case 'array':
+				$data = json_encode( $data );
+
+				break;
+			case 'boolean':
+				$data = $data ? 'true' : 'false';
+
+				break;
+		}
+
+		$data = sprintf( "var %s = %s;", $name, $data );
+
+		return new self( $handle, $data, $position );
+	}
+
 	public function add(): void {
 		wp_add_inline_script(
-			$this->script->get_handle(),
+			$this->handle,
 			$this->data,
 			$this->position
 		);
