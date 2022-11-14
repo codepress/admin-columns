@@ -19,12 +19,16 @@ class Script extends Enqueueable {
 		);
 	}
 
-	public function localize( string $name, Translation $translation ): void {
+	public function localize( string $name, Translation $translation ): self {
 		wp_localize_script( $this->handle, $name, $translation->get_translation() );
+
+		return $this;
 	}
 
-	public function add_inline_script( InlineScript\Data $data, InlineScript\Position $position ): void {
+	public function add_inline_script( InlineScript\Data $data, InlineScript\Position $position ): self {
 		wp_add_inline_script( $this->handle, $data, (string) $position );
+
+		return $this;
 	}
 
 	public function enqueue() {
