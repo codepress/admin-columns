@@ -19,30 +19,12 @@ class Script extends Enqueueable {
 		);
 	}
 
-	public function localize( $name, Translation $translation ) : void {
-
+	public function localize( string $name, Translation $translation ): void {
+		wp_localize_script( $this->handle, $name, $translation->get_translation() );
 	}
 
-	public function add_data( $data, string $location = null ) {
-
-	}
-
-	public function add_inline_variable( $name, $variable, $before = true ) {
-		if ( is_array( $variable ) ) {
-			$variable = json_encode( $variable );
-		}
-
-		if ( is_bool( $variable ) ) {
-			$variable = $variable ? 'true' : 'false';
-		}
-
-		wp_add_inline_script(
-			$this->get_handle(),
-			sprintf( "var %s = %s;", $name, $variable ),
-			$before
-				? 'before'
-				: 'after'
-		);
+	public function add_inline_script( string $data, Position $position ): void {
+		wp_add_inline_script( $this->handle, $data, (string) $position );
 	}
 
 	public function enqueue() {
