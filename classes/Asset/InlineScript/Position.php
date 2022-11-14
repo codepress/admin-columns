@@ -1,6 +1,6 @@
 <?php declare( strict_types=1 );
 
-namespace AC\Asset;
+namespace AC\Asset\InlineScript;
 
 use InvalidArgumentException;
 

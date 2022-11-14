@@ -23,7 +23,7 @@ class Script extends Enqueueable {
 		wp_localize_script( $this->handle, $name, $translation->get_translation() );
 	}
 
-	public function add_inline_script( string $data, Position $position ): void {
+	public function add_inline_script( InlineScript\Data $data, InlineScript\Position $position ): void {
 		wp_add_inline_script( $this->handle, $data, (string) $position );
 	}
 
