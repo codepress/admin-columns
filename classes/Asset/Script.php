@@ -2,6 +2,8 @@
 
 namespace AC\Asset;
 
+use AC\Translation\Translation;
+
 class Script extends Enqueueable {
 
 	public function register() {
@@ -15,6 +17,14 @@ class Script extends Enqueueable {
 			$this->dependencies,
 			$this->get_version()
 		);
+	}
+
+	public function localize( $name, Translation $translation ) : void {
+
+	}
+
+	public function add_data( $data, string $location = null ) {
+
 	}
 
 	public function add_inline_variable( $name, $variable, $before = true ) {
