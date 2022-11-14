@@ -2,6 +2,7 @@
 
 namespace AC\Asset;
 
+use AC\Asset\Script\Inline\Position;
 use AC\Translation\Translation;
 
 class Script extends Enqueueable {
@@ -25,7 +26,11 @@ class Script extends Enqueueable {
 		return $this;
 	}
 
-	public function add_inline_script( InlineScript\Data $data, InlineScript\Position $position ): self {
+	public function add_inline_script( InlineScript\Data $data, Position $position = null ): self {
+		if ( null === $position ) {
+			$position = Position::after();
+		}
+
 		wp_add_inline_script( $this->handle, $data, (string) $position );
 
 		return $this;
