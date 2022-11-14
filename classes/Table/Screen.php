@@ -255,15 +255,16 @@ final class Screen implements Registerable {
 			]
 		);
 
-		$translations = [
+		$translation = new AC\Translation\BaseTranslation([
 			'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
 			'edit'          => __( 'Edit', 'codepress-admin-columns' ),
 			'download'      => __( 'Download', 'codepress-admin-columns' ),
-		];
+		]);
 
-		$translations = array_merge( $translations, AC\Translation\Confirmation::get() );
+		$translation = $translation->with_translation( new AC\Translation\Confirmation() );
 
-		wp_localize_script( 'ac-table', 'AC_I18N', $translations );
+
+		wp_localize_script( 'ac-table', 'AC_I18N', $translation->get_translation() );
 
 		/**
 		 * @param ListScreen $list_screen
