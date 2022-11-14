@@ -6,21 +6,21 @@ use AC\Translation\Translation;
 
 class LocalizedScript {
 
-	private Script $script;
+	private $handle;
 
-	private string $name;
+	private $name;
 
-	private Translation $translation;
+	private $translation;
 
-	public function __construct( Script $script, string $name, Translation $translation ) {
-		$this->script = $script;
+	public function __construct( string $handle, string $name, Translation $translation ) {
+		$this->handle = $handle;
 		$this->name = $name;
 		$this->translation = $translation;
 	}
 
 	public function localize(): void {
 		wp_localize_script(
-			$this->script->get_handle(),
+			$this->handle,
 			$this->name,
 			$this->translation->get_translation()
 		);

@@ -6,14 +6,14 @@ use InvalidArgumentException;
 
 class InlineScript {
 
-	const BEFORE = 'before';
-	const AFTER = 'after';
-
-	protected $position;
+	public const BEFORE = 'before';
+	public const AFTER = 'after';
 
 	protected $handle;
 
 	protected $data;
+
+	protected $position;
 
 	public function __construct( string $handle, string $data, $position = null ) {
 		if ( null === $position ) {
@@ -27,7 +27,12 @@ class InlineScript {
 		$this->validate();
 	}
 
-	public function create_variable( string $handle, string $name, $data, string $position = null ): InlineScript {
+	public function create_variable(
+		string $handle,
+		string $variable_name,
+		$data,
+		string $position = null
+	): InlineScript {
 		$type = gettype( $data );
 
 		switch ( $type ) {
@@ -41,7 +46,7 @@ class InlineScript {
 				break;
 		}
 
-		$data = sprintf( "var %s = %s;", $name, $data );
+		$data = sprintf( "var %s = %s;", $variable_name, $data );
 
 		return new self( $handle, $data, $position );
 	}
