@@ -27,6 +27,10 @@ class Script extends Enqueueable {
 		return $this;
 	}
 
+	public function add_inline_variable( $name, $data ){
+		$this->add_inline_script( (string) new Variable( $name, $data ), (string) Position::before() );
+	}
+
 	public function add_inline_script( string $data, Position $position = null ): self {
 		if ( null === $position ) {
 			$position = Position::after();
