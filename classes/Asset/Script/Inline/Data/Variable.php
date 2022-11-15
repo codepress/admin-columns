@@ -1,6 +1,6 @@
 <?php declare( strict_types=1 );
 
-namespace AC\Asset\Script\Inline;
+namespace AC\Asset\Script\Inline\Data;
 
 final class Variable {
 
@@ -9,17 +9,10 @@ final class Variable {
 	private $data;
 
 	public function __construct( string $name, $data ) {
-		$type = gettype( $data );
-
-		switch ( $type ) {
+		switch ( gettype( $data ) ) {
+			case 'boolean':
 			case 'array':
 				$data = json_encode( $data );
-
-				break;
-			case 'boolean':
-				$data = $data ? 'true' : 'false';
-
-				break;
 		}
 
 		$this->name = $name;
@@ -27,7 +20,7 @@ final class Variable {
 	}
 
 	public function __toString(): string {
-		return sprintf( "var %s = %s;", $this->name, $this->data );
+		return sprintf( 'var %s = %s;', $this->name, $this->data );
 	}
 
 }

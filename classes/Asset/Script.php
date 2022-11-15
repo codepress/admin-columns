@@ -3,7 +3,6 @@
 namespace AC\Asset;
 
 use AC\Asset\Script\Inline\Position;
-use AC\Asset\Script\Inline\Variable;
 use AC\Translation\Translation;
 
 class Script extends Enqueueable {
