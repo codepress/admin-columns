@@ -4,13 +4,19 @@ namespace AC\Asset;
 
 use AC\Asset\Script\Inline\Data\Variable;
 use AC\Asset\Script\Inline\Position;
+use AC\Stringable;
 use AC\Translation\Translation;
+use InvalidArgumentException;
 
 class Script extends Enqueueable {
 
-	public function register() {
-		if ( null === $this->location ) {
-			return $this;
+	protected function is_registered(): bool {
+		return wp_script_is( $this->get_handle(), 'registered' );
+	}
+
+	public function register(): void {
+		if ( ! $this->location instanceof Location ) {
+			return;
 		}
 
 		wp_register_script(
@@ -19,12 +25,22 @@ class Script extends Enqueueable {
 			$this->dependencies,
 			$this->get_version()
 		);
+	}
 
-		return $this;
+	public function enqueue(): void {
+		if ( wp_script_is( $this->get_handle() ) ) {
+			return;
+		}
+
+		if ( $this->is_registered() ) {
+			$this->register();
+		}
+
+		wp_enqueue_script( $this->get_handle() );
 	}
 
 	public function localize( string $name, Translation $translation ): self {
-		if ( ! wp_script_is( $this->get_handle(), 'registered' ) ) {
+		if ( ! $this->is_registered() ) {
 			$this->register();
 		}
 
@@ -33,41 +49,27 @@ class Script extends Enqueueable {
 		return $this;
 	}
 
-	/**
-	 * @param string $name
-	 * @param mixed  $data
-	 *
-	 * @return void
-	 * @deprecated
-	 */
-	public function add_inline_variable( $name, $data ) {
-		if ( ! wp_script_is( $this->get_handle(), 'registered' ) ) {
+	public function add_inline( $data, Position $position = null ): self {
+		if ( ! is_string( $data ) && ! $data instanceof Stringable ) {
+			throw new InvalidArgumentException( 'Expected string or an object that implements Stringable.' );
+		}
+
+		if ( ! $this->is_registered() ) {
 			$this->register();
 		}
 
-		$this->add_inline( (string) new Variable( $name, $data ), Position::before() );
-	}
-
-	public function add_inline( string $data, Position $position = null ): self {
 		if ( null === $position ) {
 			$position = Position::after();
 		}
 
-		wp_add_inline_script( $this->handle, $data, (string) $position );
+		wp_add_inline_script( $this->handle, (string) $data, (string) $position );
 
 		return $this;
 	}
 
-	public function enqueue() {
-		if ( wp_script_is( $this->get_handle() ) ) {
-			return;
-		}
-
-		if ( ! wp_script_is( $this->get_handle(), 'registered' ) ) {
-			$this->register();
-		}
-
-		wp_enqueue_script( $this->get_handle() );
+	// TODO Stefan remove once ported
+	public function add_inline_variable( $name, $data ) {
+		$this->add_inline( (string) new Variable( $name, $data ), Position::before() );
 	}
 
 }

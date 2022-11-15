@@ -2,7 +2,9 @@
 
 namespace AC\Asset\Script\Inline\Data;
 
-final class Variable {
+use AC\Stringable;
+
+final class Variable implements Stringable {
 
 	private $name;
 
