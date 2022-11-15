@@ -26,6 +26,8 @@ class Script extends Enqueueable {
 		return $this;
 	}
 
+	// TODO Stefan if you want to make it backwards compat; use a (deprecated) function that calls add_inline
+
 	public function add_inline( string $data, Position $position = null ): self {
 		if ( null === $position ) {
 			$position = Position::after();
