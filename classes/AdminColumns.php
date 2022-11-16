@@ -7,6 +7,7 @@ use AC\Admin\AdminScripts;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Admin\Preference;
+use AC\Asset\Script\Localize\Translation;
 use AC\Controller;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
@@ -17,6 +18,7 @@ use AC\Service;
 use AC\Settings\GeneralOption;
 use AC\Table;
 use AC\ThirdParty;
+use AC\Vendor\DI\ContainerBuilder;
 
 class AdminColumns extends Plugin {
 
@@ -52,6 +54,17 @@ class AdminColumns extends Plugin {
 				true
 			),
 		] );
+
+		// TODO Or we can just have the object Translation defined and not (yet) have a container in AC
+		$definitions = [
+			'translations.global' => function (): Translation {
+				return new Translation( require $this->get_dir() . '/settings/translations/global.php' );
+			},
+		];
+
+		$container = ( new ContainerBuilder() )
+			->addDefinitions( $definitions )
+			->build();
 
 		$location = $this->get_location();
 		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
