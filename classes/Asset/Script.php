@@ -14,7 +14,7 @@ class Script extends Enqueueable {
 		return wp_script_is( $this->get_handle(), 'registered' );
 	}
 
-	public function register(): void {
+	public function register() {
 		if ( ! $this->location instanceof Location ) {
 			return;
 		}
@@ -32,7 +32,7 @@ class Script extends Enqueueable {
 			return;
 		}
 
-		if ( $this->is_registered() ) {
+		if ( ! $this->is_registered() ) {
 			$this->register();
 		}
 
