@@ -66,18 +66,22 @@ class AdminColumns extends Plugin {
 			->addDefinitions( $definitions )
 			->build();
 
+		/** @var Translation $global_translations */
+		$global_translations = $container->get('translations.global');
+
 		$location = $this->get_location();
 		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
 
 		$page_handler = new PageRequestHandler();
 		$page_handler->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory, $is_acp_active ) )
-		             ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory, $is_acp_active ) )
+		             ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory, $is_acp_active, $global_translations ) )
 		             ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $menu_factory ) )
 		             ->add( 'help', new Admin\PageFactory\Help( $location, $menu_factory ) );
 
 		PageRequestHandlers::add_handler( $page_handler );
 
 		$color_repository = new Admin\Colors\ColorRepository( new Admin\Colors\Storage\OptionFactory() );
+
 
 		$services = [
 			new Admin\Admin( new PageRequestHandlers(), $location, new AdminScripts( $location ) ),

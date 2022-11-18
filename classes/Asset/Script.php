@@ -5,7 +5,6 @@ namespace AC\Asset;
 use AC\Asset\Script\Inline\Data\Variable;
 use AC\Asset\Script\Inline\Position;
 use AC\Stringable;
-use AC\Translation\Translation;
 use InvalidArgumentException;
 
 class Script extends Enqueueable {
@@ -39,7 +38,7 @@ class Script extends Enqueueable {
 		wp_enqueue_script( $this->get_handle() );
 	}
 
-	public function localize( string $name, Translation $translation ): self {
+	public function localize( string $name, Script\Localize\Translation $translation ): self {
 		if ( ! $this->is_registered() ) {
 			$this->register();
 		}

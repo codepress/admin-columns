@@ -9,6 +9,7 @@ use AC\Admin\SectionCollection;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
+use AC\Asset\Script\Localize\Translation;
 use AC\Renderable;
 use AC\View;
 
@@ -31,7 +32,12 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 	 */
 	private $location;
 
-	public function __construct( Renderable $head, Location\Absolute $location, SectionCollection $sections = null ) {
+	/**
+	 * @var Translation
+	 */
+	private $global_translation;
+
+	public function __construct( Renderable $head, Location\Absolute $location, Translation $global_translation, SectionCollection $sections = null ) {
 		if ( null === $sections ) {
 			$sections = new SectionCollection();
 		}
@@ -39,6 +45,7 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 		$this->head = $head;
 		$this->location = $location;
 		$this->sections = $sections;
+		$this->global_translation = $global_translation;
 	}
 
 	public function render_head() {
@@ -67,8 +74,16 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 	}
 
 	public function get_assets() {
+		$factory = new Admin\Asset\Script\SettingsFactory(
+			$this->location,
+			$this->global_translation
+		);
+		$factory->create();
+
+
 		$assets = new Assets( [
-			new Admin\Asset\Settings( 'ac-admin-page-settings', $this->location->with_suffix( 'assets/js/admin-page-settings.js' ) ),
+			$factory->create()
+			//new Admin\Asset\Settings( 'ac-admin-page-settings', $this->location->with_suffix( 'assets/js/admin-page-settings.js' ) ),
 		] );
 
 		foreach ( $this->sections->all() as $section ) {
