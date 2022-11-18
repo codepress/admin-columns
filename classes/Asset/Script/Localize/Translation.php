@@ -9,30 +9,34 @@ final class Translation {
 	/**
 	 * @var array
 	 */
-	private $data;
+	private $translations;
 
-	public function __construct( array $data ) {
-		$this->data = $data;
+	public function __construct( array $translations ) {
+		$this->translations = $translations;
 	}
 
-	public function get_translation( string $key = null ): array {
-		$data = $this->data;
+	public static function create( array $translations ): self {
+		return new self( $translations );
+	}
 
-		if ( $key ) {
-			if ( ! isset( $data[ $key ] ) ) {
-				throw new InvalidArgumentException( sprintf( 'Undefined key %s for translation.', $key ) );
+	public function with_translation( array $translations ): self {
+		return self::create( array_merge( $this->translations, $translations ) );
+	}
+
+	public function get_translation( string $component = null ): array {
+		$translations = $this->translations;
+
+		if ( $component ) {
+			if ( ! isset( $translations[ $component ] ) ) {
+				throw new InvalidArgumentException( sprintf( 'Undefined component %s for translation.', $component ) );
 			}
 
-			$data = $data[ $key ];
+			$translations = [
+				$component => $translations[ $component ],
+			];
 		}
 
-		return $data;
-	}
-
-	public function with_translation( Translation $translation ): self {
-		$data = $this->get_translation() + $translation->get_translation();
-
-		return new self( $data );
+		return $translations;
 	}
 
 }

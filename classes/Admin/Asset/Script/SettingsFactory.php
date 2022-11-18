@@ -6,12 +6,13 @@ use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Script\Inline\Data\Variable;
 use AC\Asset\Script\Inline\Position;
+use AC\Asset\Script\Localize\Translation;
 use AC\Asset\ScriptFactory;
 use AC\Nonce;
 
 class SettingsFactory implements ScriptFactory {
 
-	const HANDLE = 'ac-admin-page-settings';
+	public const HANDLE = 'ac-admin-page-settings';
 
 	/**
 	 * @var Location\Absolute
@@ -19,13 +20,13 @@ class SettingsFactory implements ScriptFactory {
 	private $location;
 
 	/**
-	 * @var Script\Localize\Translation
+	 * @var Translation
 	 */
-	private $global_translation;
+	private $global_translations;
 
-	public function __construct( Location\Absolute $location, Script\Localize\Translation $global_translation ) {
+	public function __construct( Location\Absolute $location, Translation $global_translations ) {
 		$this->location = $location;
-		$this->global_translation = $global_translation;
+		$this->global_translations = $global_translations;
 	}
 
 	public function create(): Script {
@@ -36,8 +37,12 @@ class SettingsFactory implements ScriptFactory {
 
 		$nonce = new Nonce\Ajax();
 
-		$translation = new Script\Localize\Translation( $this->global_translation->get_translation( 'settings' ) );
-		$translation = $translation->with_translation( new Script\Localize\Translation( [ 'confirmation' => $this->global_translation->get_translation( 'confirmation' ) ] ) );
+		$data = [
+			'restore_settings' => __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ),
+		];
+
+		$translation = Translation::create( $data )
+		                          ->with_translation( $this->global_translations->get_translation( 'confirmation' ) );
 
 		return $script->localize( 'AC_I18N', $translation )
 		              ->add_inline( new Variable( 'AC', [
