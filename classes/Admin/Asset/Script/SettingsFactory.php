@@ -8,7 +8,7 @@ use AC\Asset\Script\Inline\Data\Variable;
 use AC\Asset\Script\Inline\Position;
 use AC\Asset\Script\Localize\Translation;
 use AC\Asset\ScriptFactory;
-use AC\Nonce;
+use AC\Form\NonceFactory;
 
 class SettingsFactory implements ScriptFactory {
 
@@ -35,18 +35,18 @@ class SettingsFactory implements ScriptFactory {
 			$this->location->with_suffix( 'assets/js/admin-page-settings.js' )
 		);
 
-		$nonce = new Nonce\Ajax();
-
-		$data = [
+		$translations = [
 			'restore_settings' => __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ),
 		];
 
-		$translation = Translation::create( $data )
+		$translation = Translation::create( $translations )
 		                          ->with_translation( $this->global_translations->get_translation( 'confirmation' ) );
+
+		$nonce = ( new NonceFactory )->createAjax();
 
 		return $script->localize( 'AC_I18N', $translation )
 		              ->add_inline( new Variable( 'AC', [
-			              Nonce\Ajax::NAME => $nonce->create(),
+			              $nonce->get_name() => $nonce->create(),
 		              ] ), Position::before() );
 	}
 
