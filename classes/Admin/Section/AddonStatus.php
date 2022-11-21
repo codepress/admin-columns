@@ -11,7 +11,6 @@ class AddonStatus extends View {
 		parent::__construct( [
 			'url'      => $integration->get_link(),
 			'class'    => '-pink',
-			'template' => 'admin/page/component/addon/more-info',
 		] );
 
 		$this->set_template( 'admin/page/component/addon/more-info' );
