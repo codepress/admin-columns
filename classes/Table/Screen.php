@@ -50,7 +50,7 @@ final class Screen implements Registerable {
 		Asset\Location\Absolute $location,
 		ListScreen $list_screen,
 		ColumnSize\ListStorage $column_size_list_storage,
-		ColumnSize\UserStorage $column_size_user_storage,
+		ColumnSize\UserStorage $column_size_user_storage
 	) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
