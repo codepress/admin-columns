@@ -26,30 +26,20 @@ class Settings implements PageFactoryInterface {
 	 */
 	private $is_acp_active;
 
-	/**
-	 * @var AC\Asset\Script\Localize\Translation
-	 */
-	private $global_translation;
-
-
-
 	public function __construct(
 		Location\Absolute $location,
 		MenuFactoryInterface $menu_factory,
-		bool $is_acp_active,
-		AC\Asset\Script\Localize\Translation $global_translation
+		bool $is_acp_active
 	) {
 		$this->location = $location;
 		$this->menu_factory = $menu_factory;
 		$this->is_acp_active = $is_acp_active;
-		$this->global_translation = $global_translation;
 	}
 
 	public function create() {
 		$page = new Page\Settings(
 			new AC\Admin\View\Menu( $this->menu_factory->create( 'settings' ) ),
-			$this->location,
-			$this->global_translation
+			$this->location
 		);
 
 		$page->add_section( new Section\General( [ new Section\Partial\ShowEditButton() ] ) )

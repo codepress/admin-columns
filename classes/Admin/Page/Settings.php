@@ -32,12 +32,7 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 	 */
 	private $location;
 
-	/**
-	 * @var Translation
-	 */
-	private $global_translation;
-
-	public function __construct( Renderable $head, Location\Absolute $location, Translation $global_translation, SectionCollection $sections = null ) {
+	public function __construct( Renderable $head, Location\Absolute $location, SectionCollection $sections = null ) {
 		if ( null === $sections ) {
 			$sections = new SectionCollection();
 		}
@@ -45,7 +40,6 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 		$this->head = $head;
 		$this->location = $location;
 		$this->sections = $sections;
-		$this->global_translation = $global_translation;
 	}
 
 	public function render_head() {
@@ -75,8 +69,7 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 
 	public function get_assets() {
 		$factory = new Admin\Asset\Script\SettingsFactory(
-			$this->location,
-			$this->global_translation
+			$this->location
 		);
 		$factory->create();
 

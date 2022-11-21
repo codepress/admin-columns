@@ -3,7 +3,6 @@
 namespace AC\Controller;
 
 use AC\Asset\Location\Absolute;
-use AC\Asset\Script\Localize\Translation;
 use AC\ColumnSize;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
@@ -36,23 +35,16 @@ class TableListScreenSetter implements Registerable {
 	 */
 	private $preference;
 
-	/**
-	 * @var Translation
-	 */
-	private $global_translation;
-
 	public function __construct(
 		Storage $storage,
 		PermissionChecker $permission_checker,
 		Absolute $location,
-		Table\LayoutPreference $preference,
-		Translation $global_translation
+		Table\LayoutPreference $preference
 	) {
 		$this->storage = $storage;
 		$this->permission_checker = $permission_checker;
 		$this->location = $location;
 		$this->preference = $preference;
-		$this->global_translation = $global_translation;
 	}
 
 	public function register() {
@@ -91,8 +83,7 @@ class TableListScreenSetter implements Registerable {
 			$this->location,
 			$list_screen,
 			new ColumnSize\ListStorage( $this->storage ),
-			new ColumnSize\UserStorage( new ColumnSize\UserPreference( get_current_user_id() ) ),
-			$this->global_translation
+			new ColumnSize\UserStorage( new ColumnSize\UserPreference( get_current_user_id() ) )
 		);
 		$table_screen->register();
 

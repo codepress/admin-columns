@@ -67,21 +67,20 @@ class AdminColumns extends Plugin {
 			->build();
 
 		/** @var Translation $global_translations */
-		$global_translations = $container->get('translations.global');
+		$global_translations = $container->get( 'translations.global' );
 
 		$location = $this->get_location();
 		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
 
 		$page_handler = new PageRequestHandler();
 		$page_handler->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory, $is_acp_active ) )
-		             ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory, $is_acp_active, $global_translations ) )
+		             ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory, $is_acp_active ) )
 		             ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $menu_factory ) )
 		             ->add( 'help', new Admin\PageFactory\Help( $location, $menu_factory ) );
 
 		PageRequestHandlers::add_handler( $page_handler );
 
 		$color_repository = new Admin\Colors\ColorRepository( new Admin\Colors\Storage\OptionFactory() );
-
 
 		$services = [
 			new Admin\Admin( new PageRequestHandlers(), $location, new AdminScripts( $location ) ),
@@ -105,9 +104,10 @@ class AdminColumns extends Plugin {
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename(), $is_acp_active ),
-			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference(), $global_translations ),
+			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
 			new Admin\Scripts( $location ),
 			new Service\IntegrationColumns( new IntegrationRepository() ),
+			new Service\Scripts( $location, $global_translations ),
 			new Service\Colors(
 				new Admin\Colors\Shipped\ColorUpdater(
 					new Admin\Colors\Shipped\ColorParser( ABSPATH . 'wp-admin/css/common.css' ),

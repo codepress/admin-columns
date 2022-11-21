@@ -17,28 +17,19 @@ final class SettingsFactory implements ScriptFactory {
 	 */
 	private $location;
 
-	/**
-	 * @var Translation
-	 */
-	private $global_translations;
-
-	public function __construct( Location\Absolute $location, Translation $global_translations ) {
+	public function __construct( Location\Absolute $location ) {
 		$this->location = $location;
-		$this->global_translations = $global_translations;
 	}
 
 	public function create(): Script {
 		$translations = [
 			'restore_settings' => __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ),
-		];
-
-		$translation = Translation::create( $translations )
-		                          ->with_translation( $this->global_translations->get_translation( 'confirmation' ) );
+		];;
 
 		$nonce = ( new NonceFactory )->createAjax();
 
-		$script = new Script( self::HANDLE, $this->location->with_suffix( 'assets/js/admin-page-settings.js' ) );
-		$script->localize( 'AC_I18N', $translation )
+		$script = new Script( self::HANDLE, $this->location->with_suffix( 'assets/js/admin-page-settings.js' ), [ Script\GlobalTranslationFactory::HANDLE ] );
+		$script->localize( 'AC_I18N', Translation::create( $translations ) )
 		       ->add_inline_variable( 'AC', [
 			       $nonce->get_name() => $nonce->create(),
 		       ] );
