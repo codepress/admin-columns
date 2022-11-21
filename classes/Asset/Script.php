@@ -2,10 +2,7 @@
 
 namespace AC\Asset;
 
-use AC\Asset\Script\Inline\Data\Variable;
 use AC\Asset\Script\Inline\Position;
-use AC\Stringable;
-use InvalidArgumentException;
 
 class Script extends Enqueueable {
 
@@ -48,27 +45,25 @@ class Script extends Enqueueable {
 		return $this;
 	}
 
-	public function add_inline( $data, Position $position = null ): self {
-		if ( ! is_string( $data ) && ! $data instanceof Stringable ) {
-			throw new InvalidArgumentException( 'Expected string or an object that implements Stringable.' );
+	public function add_inline( string $data, Position $position = null ): self {
+		if ( null === $position ) {
+			$position = Position::after();
 		}
 
 		if ( ! $this->is_registered() ) {
 			$this->register();
 		}
 
-		if ( null === $position ) {
-			$position = Position::after();
-		}
-
-		wp_add_inline_script( $this->handle, (string) $data, (string) $position );
+		wp_add_inline_script( $this->handle, $data, (string) $position );
 
 		return $this;
 	}
 
-	// TODO Stefan remove once ported
-	public function add_inline_variable( $name, $data ) {
-		$this->add_inline( (string) new Variable( $name, $data ), Position::before() );
+	public function add_inline_variable( string $name, $data ): self {
+		return $this->add_inline(
+			sprintf( 'var %s = %s;', $name, json_encode( $data ) ),
+			Position::before()
+		);
 	}
 
 }
