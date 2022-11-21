@@ -29,3 +29,7 @@ export const appendObjectToFormData = (formData: FormData, data: { [key: string]
         formData.append(parentKey, value as string);
     }
 }
+
+export const sanitizeColumnSelector = ( name: string ) => {
+    return name.replace(/\./g, '\\.');
+}
