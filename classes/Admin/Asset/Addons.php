@@ -19,10 +19,10 @@ class Addons extends Script {
 
 		$this->localize( 'ACi18n', new Script\Localize\Translation( [
 			'plugin_installed' => __( 'The Add-on %s is activated.', 'codepress-admin-columns' ),
-		] ) )->add_inline( new Script\Inline\Data\Variable( 'AC', [
+		] ) )->add_inline_variable( 'AC', [
 			Nonce\Ajax::NAME   => $nonce->create(),
 			'is_network_admin' => is_network_admin(),
-		] ), Script\Inline\Position::before() );
+		] );
 	}
 
 }
