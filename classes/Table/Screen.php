@@ -46,16 +46,23 @@ final class Screen implements Registerable {
 	 */
 	private $column_size_user_storage;
 
+	/**
+	 * @var Asset\Script\Localize\Translation
+	 */
+	private $global_translation;
+
 	public function __construct(
 		Asset\Location\Absolute $location,
 		ListScreen $list_screen,
 		ColumnSize\ListStorage $column_size_list_storage,
-		ColumnSize\UserStorage $column_size_user_storage
+		ColumnSize\UserStorage $column_size_user_storage,
+		Asset\Script\Localize\Translation $global_translation
 	) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
 		$this->column_size_list_storage = $column_size_list_storage;
 		$this->column_size_user_storage = $column_size_user_storage;
+		$this->global_translation = $global_translation;
 	}
 
 	/**
@@ -231,14 +238,19 @@ final class Screen implements Registerable {
 	 * @since 2.2.4
 	 */
 	public function admin_scripts() {
-		$script = new Asset\Script( 'ac-table', $this->location->with_suffix( 'assets/js/table.js' ), [ 'jquery' ] );
-		$script->enqueue();
 
 		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ) );
 		$style->enqueue();
 
-		wp_localize_script( 'ac-table', 'AC',
-			[
+		$table_translation = Asset\Script\Localize\Translation::create( [
+			'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
+			'edit'          => __( 'Edit', 'codepress-admin-columns' ),
+			'download'      => __( 'Download', 'codepress-admin-columns' ),
+		] )->with_translation( $this->global_translation->get_translation() );
+
+		$script = new Asset\Script( 'ac-table', $this->location->with_suffix( 'assets/js/table.js' ), [ 'jquery' ] );
+		$script
+			->add_inline_variable( 'AC', [
 				'assets'           => $this->location->with_suffix( 'assets/' )->get_url(),
 				'list_screen'      => $this->list_screen->get_key(),
 				'layout'           => $this->list_screen->get_layout_id(),
@@ -252,19 +264,9 @@ final class Screen implements Registerable {
 					'decimal_point' => $this->get_local_number_format( 'decimal_point' ),
 					'thousands_sep' => $this->get_local_number_format( 'thousands_sep' ),
 				],
-			]
-		);
-
-		$translation = new AC\Translation\BaseTranslation([
-			'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
-			'edit'          => __( 'Edit', 'codepress-admin-columns' ),
-			'download'      => __( 'Download', 'codepress-admin-columns' ),
-		]);
-
-		$translation = $translation->with_translation( new AC\Translation\Confirmation() );
-
-
-		wp_localize_script( 'ac-table', 'AC_I18N', $translation->get_translation() );
+			] )
+			->localize( 'AC_I18N', $table_translation )
+			->enqueue();
 
 		/**
 		 * @param ListScreen $list_screen

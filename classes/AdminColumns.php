@@ -105,7 +105,7 @@ class AdminColumns extends Plugin {
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename(), $is_acp_active ),
-			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
+			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference(), $global_translations ),
 			new Admin\Scripts( $location ),
 			new Service\IntegrationColumns( new IntegrationRepository() ),
 			new Service\Colors(
