@@ -5,7 +5,6 @@ namespace AC\Admin\Asset\Script;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Script\Inline\Data\Variable;
-use AC\Asset\Script\Inline\Position;
 use AC\Asset\Script\Localize\Translation;
 use AC\Asset\ScriptFactory;
 use AC\Form\NonceFactory;
@@ -45,9 +44,9 @@ class SettingsFactory implements ScriptFactory {
 		$nonce = ( new NonceFactory )->createAjax();
 
 		return $script->localize( 'AC_I18N', $translation )
-		              ->add_inline( new Variable( 'AC', [
+		              ->add_inline_variable( 'AC', [
 			              $nonce->get_name() => $nonce->create(),
-		              ] ), Position::before() );
+		              ] );
 	}
 
 }
