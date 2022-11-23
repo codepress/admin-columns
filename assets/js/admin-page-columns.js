@@ -7778,7 +7778,12 @@ AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SE
         let $form = jquery__WEBPACK_IMPORTED_MODULE_3___default()(form.getElement());
         $form.hasClass('ui-sortable')
             ? $form.sortable('refresh')
-            : $form.sortable({ items: '.ac-column', handle: '[data-sort-handle]' });
+            : $form.sortable({
+                axis: 'y',
+                items: '.ac-column',
+                handle: '[data-sort-handle]',
+                containment: $form
+            });
     }
 });
 AcServices.addListener(_constants__WEBPACK_IMPORTED_MODULE_1__.EventConstants.SETTINGS.FORM.SAVING, () => {

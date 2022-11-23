@@ -65,9 +65,15 @@ AcServices.addListener(EventConstants.SETTINGS.FORM.LOADED, (form: Form) => {
     if (!form.getElement().classList.contains('-disabled')) {
         // Make column settings sortable
         let $form = $(form.getElement()) as any;
+
         $form.hasClass('ui-sortable')
             ? $form.sortable('refresh')
-            : $form.sortable({items: '.ac-column', handle: '[data-sort-handle]'});
+            : $form.sortable({
+                axis: 'y',
+                items: '.ac-column',
+                handle: '[data-sort-handle]',
+                containment: $form
+            });
     }
 });
 
