@@ -1890,3 +1890,12 @@ div.ac-column-header {
 	height: 20px;
 	margin-right: 5px;
 }
+
+#listscreen_settings.-disabled {
+	.ac-column__header__move {
+		span {
+			visibility: hidden!important;
+		}
+		cursor: default!important;
+	}
+}
