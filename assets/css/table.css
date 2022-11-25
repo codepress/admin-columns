@@ -701,17 +701,16 @@ html.wp-toolbar .ac-tooltip {
   overflow-x: scroll;
   width: 100%;
   font-size: 12px !important;
-  cursor: pointer;
-}
-[data-component=ac-json] * {
-  cursor: pointer !important;
-}
-[data-component=ac-json] > div > ul {
-  margin-left: 0;
-  padding-left: 10px;
 }
 [data-component=ac-json] ul {
   font-size: 13px !important;
+}
+[data-component=ac-json] > div > ul {
+  margin-left: 0;
+}
+[data-component=ac-json] > div > ul > ul > li.indent {
+  margin-left: 0;
+  padding-left: 0;
 }
 [data-component=ac-json]::-webkit-scrollbar {
   display: none;
@@ -733,8 +732,26 @@ html.wp-toolbar .ac-tooltip {
 [data-component=ac-json] .root > .container .arrow {
   margin-left: -6px;
 }
-[data-component=ac-json] li.indent {
+[data-component=ac-json] ul .root {
+  display: none;
+}
+[data-component=ac-json] ul li.indent {
   white-space: nowrap;
+  margin-bottom: 0;
+}
+[data-component=ac-json] ul li.indent ul {
+  margin-top: 4px;
+}
+[data-component=ac-json] ul li span.container {
+  display: none;
+}
+[data-component=ac-json] ul li span.container + span.property {
+  color: var(--ac-link);
+  cursor: pointer !important;
+  font-style: italic;
+}
+[data-component=ac-json] ul li span.container ~ span.operator {
+  display: none;
 }
 
 [data-modal-value] {
