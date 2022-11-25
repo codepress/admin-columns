@@ -709,10 +709,10 @@ html.wp-toolbar .ac-tooltip {
 [data-component=ac-json] ul {
   font-size: 13px !important;
 }
-[data-component=ac-json] > div > ul {
+[data-component=ac-json] > div > div > ul {
   margin-left: 0;
 }
-[data-component=ac-json] > div > ul > ul > li.indent {
+[data-component=ac-json] > div > div > ul > ul > li.indent {
   margin-left: 0;
   padding-left: 0;
 }
