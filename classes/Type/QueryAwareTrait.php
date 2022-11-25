@@ -9,6 +9,10 @@ trait QueryAwareTrait {
 	 */
 	protected $url;
 
+	public function set_url( string $url ): void {
+		$this->url = $url;
+	}
+
 	public function add_one( $key, $value ) {
 		$this->url = add_query_arg( $key, $value, $this->url );
 	}
