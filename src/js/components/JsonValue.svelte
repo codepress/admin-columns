@@ -5,5 +5,9 @@
 	export let level;
 </script>
 
-<JSONTree {value} defaultExpandedLevel={level}/>
+<JSONTree
+		{value}
+		defaultExpandedLevel={level}
+		--json-tree-number-color="#2e7d24"
+/>
 

@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Init the Pro promotion Modal
-    if( AcServices.hasService( 'Modals') ){
+    if (AcServices.hasService('Modals')) {
         document.querySelectorAll<HTMLElement>('#ac-modal-pro').forEach(proModal => {
             AcServices.getService<Modals>('Modals')?.register(new Modal(proModal), 'pro');
         });
@@ -62,11 +62,19 @@ AcServices.addListener(EventConstants.SETTINGS.FORM.LOADED, (form: Form) => {
     document.querySelectorAll('.add_column').forEach(el => el.addEventListener('click', () => form.createNewColumn()));
     document.querySelectorAll('a[data-clear-columns]').forEach(el => el.addEventListener('click', () => form.resetColumns()));
 
-    // Make column settings sortable
-    let $form = $(form.getElement()) as any;
-    $form.hasClass('ui-sortable')
-        ? $form.sortable('refresh')
-        : $form.sortable({items: '.ac-column', handle: '[data-sort-handle]'});
+    if (!form.getElement().classList.contains('-disabled')) {
+        // Make column settings sortable
+        let $form = $(form.getElement()) as any;
+
+        $form.hasClass('ui-sortable')
+            ? $form.sortable('refresh')
+            : $form.sortable({
+                axis: 'y',
+                items: '.ac-column',
+                handle: '[data-sort-handle]',
+                containment: $form
+            });
+    }
 });
 
 AcServices.addListener(EventConstants.SETTINGS.FORM.SAVING, () => {
