@@ -522,6 +522,10 @@ html.wp-toolbar .ac-tooltip {
   margin: 0;
   margin-bottom: 10px;
 }
+.ac-pointer-modal__content h4 {
+  padding: 0 15px;
+  margin-bottom: 10px;
+}
 .ac-pointer-modal__content p {
   padding: 0 15px;
   margin-bottom: 10px;
@@ -741,6 +745,7 @@ html.wp-toolbar .ac-tooltip {
 }
 [data-component=ac-json] ul li.indent ul {
   margin-top: 4px;
+  margin-bottom: 4px;
 }
 [data-component=ac-json] ul li span.container {
   display: none;

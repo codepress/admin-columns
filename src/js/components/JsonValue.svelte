@@ -8,5 +8,6 @@
 <JSONTree
 		{value}
 		defaultExpandedLevel={level}
+		--json-tree-number-color="#2e7d24"
 />
 

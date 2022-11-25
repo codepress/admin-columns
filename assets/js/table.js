@@ -2071,6 +2071,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function create_fragment(ctx) {
   let jsontree;
+  let div;
   let current;
   jsontree = new svelte_json_tree__WEBPACK_IMPORTED_MODULE_1__["default"]({
     props: {
@@ -2080,10 +2081,14 @@ function create_fragment(ctx) {
   });
   return {
     c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(jsontree.$$.fragment);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div, "display", "contents");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div, "--json-tree-number-color", "#2e7d24");
     },
     m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(jsontree, target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(jsontree, div, null);
       current = true;
     },
     p(ctx, [dirty]) {
@@ -2102,6 +2107,7 @@ function create_fragment(ctx) {
       current = false;
     },
     d(detaching) {
+      if (detaching && jsontree) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(jsontree, detaching);
     }
   };

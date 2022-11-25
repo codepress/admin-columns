@@ -42,6 +42,7 @@
 }
 [data-component=ac-json] ul li.indent ul {
   margin-top: 4px;
+  margin-bottom: 4px;
 }
 [data-component=ac-json] ul li span.container {
   display: none;
