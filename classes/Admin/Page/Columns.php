@@ -100,7 +100,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	/**
 	 * @return ListScreen|null
 	 */
-	private function get_list_screen_from_request() {
+	public function get_list_screen_from_request() {
 		$request = new Request();
 		$request->add_middleware( new Middleware\ListScreenAdmin( $this->storage, $this->preference, $this->is_network ) );
 
