@@ -3198,6 +3198,7 @@ class Form {
         this.form = element;
         this.services = services;
         this.columns = [];
+        this.preferences = [];
         this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__.EventConstants.SETTINGS.FORM.LOADED, this);
         this.init();
     }
@@ -3334,8 +3335,16 @@ class Form {
             }
         });
     }
+    registerPreference(preference) {
+        this.preferences.push(preference);
+    }
     getPreferences() {
         let data = {};
+        this.preferences.forEach((p) => {
+            data = p.getPreferences(data);
+        });
+        console.log(data);
+        return data;
         document.querySelectorAll('form[data-form-part=preferences]').forEach(el => {
             let fData = new FormData(el);
             // @ts-ignore
