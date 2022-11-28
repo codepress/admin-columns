@@ -1,5 +1,5 @@
 <script type="ts">
-    import {onMount} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
 
     export let value: boolean | Array<string>;
     export let trueValue: string = '';
@@ -10,6 +10,8 @@
     let input: HTMLInputElement;
     let checked = false;
 
+    let dispatch = createEventDispatcher();
+
     let onClick = () => {
         indeterminate = false;
         if (input.checked) {
@@ -17,6 +19,8 @@
         } else {
             setUnchecked();
         }
+
+
     }
 
     const setChecked = () => {
@@ -26,6 +30,8 @@
         } else {
             value = true;
         }
+
+        dispatch('input');
     }
 
     const setUnchecked = () => {
@@ -35,16 +41,26 @@
         } else {
             value = false;
         }
+
+        dispatch('input');
     }
 
-    onMount(() => {
-        if (Array.isArray(value)) {
-            let found = value.find(v => v === nativeValue);
+    const updateCheckedOnValue = ( new_value ) => {
+        if (Array.isArray(new_value)) {
+            let found = new_value.find(v => v === nativeValue);
             checked = typeof found !== 'undefined';
         } else {
-            checked = value;
+            checked = new_value;
         }
+	}
+
+    onMount(() => {
+        updateCheckedOnValue( value );
     });
+
+    $: {
+        updateCheckedOnValue( value );
+    }
 
     $:finalFalseLabel = falseValue ?? trueValue;
     $:checkedLabel = checked ? trueValue : finalFalseLabel;
@@ -100,5 +116,6 @@
 		{/if}
 	</span>
 </label>
+[[ {value}  ]]
 
 
