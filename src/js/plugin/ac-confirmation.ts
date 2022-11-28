@@ -1,11 +1,12 @@
 import ConfirmationModal from "../components/ConfirmationModal.svelte";
 import {ModuleConfirmationTranslation} from "../types/admin-columns";
+import {getGlobalTranslation} from "../global-translations";
 
 type ConfirmationConfig = {
     message: string,
     confirm: Function,
     lastFocus?: HTMLElement | null
-    translation: ModuleConfirmationTranslation
+    translation?: ModuleConfirmationTranslation
 }
 
 export default class AcConfirmation {
@@ -24,8 +25,8 @@ export default class AcConfirmation {
         this.component = new ConfirmationModal({
             target: element,
             props: {
-                ok: this.config?.translation?.ok ?? 'Ok',
-                cancel: this.config?.translation?.cancel ?? 'Cancel',
+                ok: this.config?.translation?.ok ?? getGlobalTranslation().confirmation.ok,
+                cancel: this.config?.translation?.cancel ?? getGlobalTranslation().confirmation.cancel,
                 message: this.config.message,
                 onConfirm: this.config.confirm,
                 lastFocusElement: this.config.lastFocus,

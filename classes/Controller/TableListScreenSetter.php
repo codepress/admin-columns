@@ -35,7 +35,12 @@ class TableListScreenSetter implements Registerable {
 	 */
 	private $preference;
 
-	public function __construct( Storage $storage, PermissionChecker $permission_checker, Absolute $location, Table\LayoutPreference $preference ) {
+	public function __construct(
+		Storage $storage,
+		PermissionChecker $permission_checker,
+		Absolute $location,
+		Table\LayoutPreference $preference
+	) {
 		$this->storage = $storage;
 		$this->permission_checker = $permission_checker;
 		$this->location = $location;

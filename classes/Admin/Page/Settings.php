@@ -9,6 +9,7 @@ use AC\Admin\SectionCollection;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
+use AC\Asset\Script\Localize\Translation;
 use AC\Renderable;
 use AC\View;
 
@@ -67,8 +68,15 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 	}
 
 	public function get_assets() {
+		$factory = new Admin\Asset\Script\SettingsFactory(
+			$this->location
+		);
+		$factory->create();
+
+
 		$assets = new Assets( [
-			new Admin\Asset\Settings( 'ac-admin-page-settings', $this->location->with_suffix( 'assets/js/admin-page-settings.js' ) ),
+			$factory->create()
+			//new Admin\Asset\Settings( 'ac-admin-page-settings', $this->location->with_suffix( 'assets/js/admin-page-settings.js' ) ),
 		] );
 
 		foreach ( $this->sections->all() as $section ) {

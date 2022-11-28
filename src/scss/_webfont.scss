@@ -1,15 +1,19 @@
 $cpacicon-bulk-edit: "\ea01";
-$cpacicon-download: "\ea02";
-$cpacicon-draft: "\ea03";
-$cpacicon-move: "\ea04";
-$cpacicon-segment: "\ea05";
-$cpacicon-smart-filter: "\ea06";
+$cpacicon-delete: "\ea02";
+$cpacicon-download: "\ea03";
+$cpacicon-draft: "\ea04";
+$cpacicon-duplicate: "\ea05";
+$cpacicon-more: "\ea06";
+$cpacicon-move: "\ea07";
+$cpacicon-rename: "\ea08";
+$cpacicon-segment: "\ea09";
+$cpacicon-smart-filter: "\ea0a";
 
 @font-face {
     font-family: "cpac_icons";
     src:
-        url("../fonts/cpac_icons.woff2?v=128224") format("woff2"),
-        url("../fonts/cpac_icons.woff?v=509000") format("woff");
+        url("../fonts/cpac_icons.woff2?v=362614") format("woff2"),
+        url("../fonts/cpac_icons.woff?v=106752") format("woff");
     font-style: normal;
     font-weight: 400;
 }
@@ -34,6 +38,10 @@ $cpacicon-smart-filter: "\ea06";
     content: $cpacicon-bulk-edit;
 }
 
+.cpacicon-delete::before {
+    content: $cpacicon-delete;
+}
+
 .cpacicon-download::before {
     content: $cpacicon-download;
 }
@@ -42,8 +50,20 @@ $cpacicon-smart-filter: "\ea06";
     content: $cpacicon-draft;
 }
 
+.cpacicon-duplicate::before {
+    content: $cpacicon-duplicate;
+}
+
+.cpacicon-more::before {
+    content: $cpacicon-more;
+}
+
 .cpacicon-move::before {
     content: $cpacicon-move;
+}
+
+.cpacicon-rename::before {
+    content: $cpacicon-rename;
 }
 
 .cpacicon-segment::before {
