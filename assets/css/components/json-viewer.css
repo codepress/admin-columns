@@ -1,1 +1,62 @@
-[data-component=ac-json]{overflow-x:scroll;width:100%;font-size:12px !important}[data-component=ac-json] ul{font-size:13px !important}[data-component=ac-json]>div>div>ul{margin-left:0}[data-component=ac-json]>div>div>ul>ul>li.indent{margin-left:0;padding-left:0}[data-component=ac-json]::-webkit-scrollbar{display:none}[data-component=ac-json] .arrow{width:auto;height:auto;left:inherit;bottom:inherit}[data-component=ac-json] .root{max-width:100px;white-space:nowrap;margin-bottom:5px}[data-component=ac-json] .root>.container{padding-left:10px}[data-component=ac-json] .root>.container .arrow{margin-left:-6px}[data-component=ac-json] ul .root{display:none}[data-component=ac-json] ul li.indent{white-space:nowrap;margin-bottom:0}[data-component=ac-json] ul li.indent ul{margin-top:4px;margin-bottom:4px}[data-component=ac-json] ul li span.container{display:none}[data-component=ac-json] ul li span.container+span.property{color:var(--ac-link);cursor:pointer !important;font-style:italic}[data-component=ac-json] ul li span.container~span.operator{display:none}
+[data-component=ac-json] {
+  overflow-x: scroll;
+  width: 100%;
+  font-size: 12px !important;
+}
+[data-component=ac-json] ul {
+  font-size: 13px !important;
+}
+[data-component=ac-json] > div > div > ul {
+  margin-left: 0;
+}
+[data-component=ac-json] > div > div > ul > ul > li.indent {
+  margin-left: 0;
+  padding-left: 0;
+}
+[data-component=ac-json]::-webkit-scrollbar {
+  display: none;
+}
+[data-component=ac-json] .arrow {
+  width: auto;
+  height: auto;
+  left: inherit;
+  bottom: inherit;
+}
+[data-component=ac-json] .root {
+  max-width: 100px;
+  white-space: nowrap;
+  margin-bottom: 5px;
+}
+[data-component=ac-json] .root > .container {
+  padding-left: 10px;
+}
+[data-component=ac-json] .root > .container .arrow {
+  margin-left: -6px;
+}
+[data-component=ac-json] ul .root {
+  display: none;
+}
+[data-component=ac-json] ul li.indent {
+  white-space: nowrap;
+  margin-bottom: 0;
+}
+[data-component=ac-json] ul li.indent ul {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+[data-component=ac-json] ul li span.container {
+  display: none;
+}
+[data-component=ac-json] ul li span.container + span.property {
+  color: var(--ac-primary-color);
+  cursor: pointer !important;
+  font-style: italic;
+}
+[data-component=ac-json] ul li span.container + span.property:hover {
+  color: var(--ac-primary-color-hover);
+}
+[data-component=ac-json] ul li span.container ~ span.operator {
+  display: none;
+}
+
+/*# sourceMappingURL=json-viewer.css.map */
