@@ -6,6 +6,7 @@
     export let falseValue: string = '';
     export let nativeValue: null | string = null;
     export let indeterminate: boolean = false;
+    export let disabled: boolean = false;
 
     let input: HTMLInputElement;
     let checked = false;
@@ -45,21 +46,21 @@
         dispatch('input');
     }
 
-    const updateCheckedOnValue = ( new_value ) => {
+    const updateCheckedOnValue = (new_value) => {
         if (Array.isArray(new_value)) {
             let found = new_value.find(v => v === nativeValue);
             checked = typeof found !== 'undefined';
         } else {
             checked = new_value;
         }
-	}
+    }
 
     onMount(() => {
-        updateCheckedOnValue( value );
+        updateCheckedOnValue(value);
     });
 
     $: {
-        updateCheckedOnValue( value );
+        updateCheckedOnValue(value);
     }
 
     $:finalFalseLabel = falseValue ?? trueValue;
@@ -84,7 +85,7 @@
 		width: 1.25em;
 		height: 1.25em;
 		background: #fff;
-		border: 2px solid #eee;
+		border: 1px solid #8c8f94;
 		transform: scale(80%);
 		margin-right: 5px;
 	}
@@ -100,13 +101,18 @@
 	}
 
 	.acui-checkbox input[type=checkbox]:focus + .acui-checkbox__check {
-		box-shadow: 0 0 0.3em rgba(0, 0, 0, .8);
+		box-shadow: 0 0 0.3em rgba(0, 0, 0, .4);
+	}
+
+	.acui-checkbox input[disabled] + .acui-checkbox__check {
+		cursor: not-allowed;
+		opacity: .4;
 	}
 
 </style>
 
-<label class="acui-checkbox" class:indeterminate={indeterminate}>
-	<input type="checkbox" bind:checked={checked} value={nativeValue} on:input={onClick} bind:this={input}>
+<label class="acui-checkbox" class:indeterminate={indeterminate} class:disabled={disabled}>
+	<input type="checkbox" bind:checked={checked} value={nativeValue} on:input={onClick} bind:this={input} {disabled}>
 	<span class="acui-checkbox__check"></span>
 	<span class="acui-checkbox__label">
 		{#if checkedLabel}
@@ -116,6 +122,5 @@
 		{/if}
 	</span>
 </label>
-[[ {value}  ]]
 
 

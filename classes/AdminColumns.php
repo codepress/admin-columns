@@ -107,7 +107,7 @@ class AdminColumns extends Plugin {
 			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
 			new Admin\Scripts( $location ),
 			new Service\IntegrationColumns( new IntegrationRepository() ),
-			new Service\Scripts( $location, $global_translations ),
+			new Service\CommonAssets( $location, $global_translations ),
 			new Service\Colors(
 				new Admin\Colors\Shipped\ColorUpdater(
 					new Admin\Colors\Shipped\ColorParser( ABSPATH . 'wp-admin/css/common.css' ),

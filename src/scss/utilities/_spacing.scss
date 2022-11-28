@@ -1,0 +1,61 @@
+@mixin createPaddingUtilities( $number, $unit ) {
+	.#{$acu-prefix}p-#{$number} {
+		padding: $unit;
+	}
+	.#{$acu-prefix}py-#{$number} {
+		padding-top: $unit;
+		padding-bottom: $unit;
+	}
+	.#{$acu-prefix}px-#{$number} {
+		padding-left: $unit;
+		padding-right: $unit;
+	}
+	.#{$acu-prefix}pt-#{$number} {
+		padding-top: $unit;
+	}
+	.#{$acu-prefix}pb-#{$number} {
+		padding-bottom: $unit;
+	}
+	.#{$acu-prefix}pl-#{$number} {
+		padding-left: $unit;
+	}
+	.#{$acu-prefix}pr-#{$number} {
+		padding-right: $unit;
+	}
+}
+
+@mixin createMarginUtilities( $number, $unit ) {
+	.#{$acu-prefix}m-#{$number} {
+		padding: $unit;
+	}
+	.#{$acu-prefix}my-#{$number} {
+		padding-top: $unit;
+		padding-bottom: $unit;
+	}
+	.#{$acu-prefix}mx-#{$number} {
+		padding-left: $unit;
+		padding-right: $unit;
+	}
+	.#{$acu-prefix}mt-#{$number} {
+		padding-top: $unit;
+	}
+	.#{$acu-prefix}mb-#{$number} {
+		padding-bottom: $unit;
+	}
+	.#{$acu-prefix}ml-#{$number} {
+		padding-left: $unit;
+	}
+	.#{$acu-prefix}mr-#{$number} {
+		padding-right: $unit;
+	}
+}
+
+@include createPaddingUtilities(0, 0);
+@include createPaddingUtilities(1, 5px);
+@include createPaddingUtilities(2, 10px);
+@include createPaddingUtilities(3, 15px);
+
+@include createMarginUtilities(0, 0);
+@include createMarginUtilities(1, 5px);
+@include createMarginUtilities(2, 10px);
+@include createMarginUtilities(3, 15px);
