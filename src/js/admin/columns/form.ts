@@ -12,10 +12,10 @@ import AcHtmlElement from "../../helpers/html-element";
 
 declare const AC: LocalizedAcColumnSettings;
 
-export type ListScreenPreferencesValue = {[key:string] : any }
+export type ListScreenPreferencesValue = { [key: string]: any }
 
 export interface ListScreenPreference {
-    getPreferences( preferences: ListScreenPreferencesValue ): ListScreenPreferencesValue
+    getPreferences(preferences: ListScreenPreferencesValue): ListScreenPreferencesValue
 }
 
 export class Form {
@@ -195,35 +195,15 @@ export class Form {
         });
     }
 
-    registerPreference( preference: ListScreenPreference ){
-        this.preferences.push( preference );
+    registerPreference(preference: ListScreenPreference) {
+        this.preferences.push(preference);
     }
 
     private getPreferences(): keyAnyPair {
         let data: { [key: string]: any } = {};
 
-        this.preferences.forEach( ( p ) => {
-           data =  p.getPreferences( data )
-        });
-
-        console.log( data );
-
-        return data;
-
-        document.querySelectorAll<HTMLFormElement>('form[data-form-part=preferences]').forEach(el => {
-            let fData = new FormData(el);
-            // @ts-ignore
-            for (let entry of fData.entries()) {
-                let key: string = entry[0];
-                let value = entry[1];
-
-                // @ts-ignore
-                let element: any = el.elements[key];
-
-                data[key] = element.tagName === 'SELECT' && element.hasAttribute('multiple')
-                    ? fData.getAll(key)
-                    : data[key] = value;
-            }
+        this.preferences.forEach((p) => {
+            data = p.getPreferences(data)
         });
 
         return data;

@@ -2407,7 +2407,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_addon_download__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/addon-download */ "./js/modules/addon-download.ts");
 
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.ac-addon').forEach(element => {
+    document.querySelectorAll('.ac-addon .acu-pt-3').forEach(element => {
         if (!!element.dataset.slug) {
             new _modules_addon_download__WEBPACK_IMPORTED_MODULE_0__.AddonDownload(element, element.dataset.slug);
         }

@@ -18,6 +18,10 @@
   flex-grow: 1
 }
 
+.acu-pb-6 {
+  padding-bottom: 30px
+}
+
 .acu-pr-1 {
   padding-right: 5px
 }
@@ -26,12 +30,16 @@
   padding-top: 15px
 }
 
-.acu-uppercase {
-  text-transform: uppercase
+.acu-pl-8\.5 {
+  padding-left: 43px
 }
 
-.\[key\:string\] {
-  key: string
+.acu-pl-8 {
+  padding-left: 40px
+}
+
+.acu-uppercase {
+  text-transform: uppercase
 }
 
 @media (min-width: 1024px) {
