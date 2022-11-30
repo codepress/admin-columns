@@ -39,7 +39,7 @@
     });
 </script>
 
-<div class="ac-confirmation">
+<div class="ac-confirmation acu-mb-">
 	<div class="ac-confirmation__modal">
 		<div class="ac-confirmation__modal__content">
 			{message}
