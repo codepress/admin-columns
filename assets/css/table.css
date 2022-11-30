@@ -766,9 +766,12 @@ html.wp-toolbar .ac-tooltip {
   display: none;
 }
 [data-component=ac-json] ul li span.container + span.property {
-  color: var(--ac-link);
+  color: var(--ac-primary-color);
   cursor: pointer !important;
   font-style: italic;
+}
+[data-component=ac-json] ul li span.container + span.property:hover {
+  color: var(--ac-primary-color-hover);
 }
 [data-component=ac-json] ul li span.container ~ span.operator {
   display: none;
