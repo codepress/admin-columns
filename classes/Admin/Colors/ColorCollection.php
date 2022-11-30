@@ -2,8 +2,8 @@
 
 namespace AC\Admin\Colors;
 
-use AC\Iterator;
 use AC\Admin\Colors\Type\Color;
+use AC\Iterator;
 
 final class ColorCollection extends Iterator {
 

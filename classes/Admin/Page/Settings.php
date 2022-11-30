@@ -9,7 +9,6 @@ use AC\Admin\SectionCollection;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
-use AC\Asset\Script\Localize\Translation;
 use AC\Renderable;
 use AC\View;
 

@@ -2,9 +2,9 @@
 
 namespace AC\Admin\Colors;
 
-use AC\Storage\Option;
 use AC\Admin\Colors\Storage\OptionFactory;
 use AC\Admin\Colors\Type\Color;
+use AC\Storage\Option;
 
 final class ColorRepository implements ColorReader {
 

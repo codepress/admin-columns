@@ -2,7 +2,6 @@
 
 namespace AC\Column;
 
-use AC\Collection;
 use AC\Column;
 use AC\Settings;
 use AC\Settings\Column\NumberOfItems;
