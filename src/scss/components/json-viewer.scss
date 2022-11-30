@@ -62,9 +62,13 @@
 				display: none;
 
 				& + span.property {
-					color: var(--ac-link);
+					color: var(--ac-primary-color);
 					cursor: pointer !important;
 					font-style: italic;
+
+					&:hover {
+						color: var(--ac-primary-color-hover);
+					}
 				}
 
 				& ~ span.operator {
