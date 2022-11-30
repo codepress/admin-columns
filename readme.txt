@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.6 =
-Release Date: tbd
+Release Date: November 30th, 2022
 
 * [Improved] Styling for dynamic select boxes is improved
 * [Improved] The date column setting has some minor UI improvements
