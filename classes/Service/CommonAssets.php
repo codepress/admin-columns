@@ -4,9 +4,10 @@ namespace AC\Service;
 
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
+use AC\Asset\Style;
 use AC\Registerable;
 
-class Scripts implements Registerable {
+class CommonAssets implements Registerable {
 
 	/**
 	 * @var Absolute
@@ -25,6 +26,7 @@ class Scripts implements Registerable {
 
 	public function register() {
 		( new Script\GlobalTranslationFactory( $this->location, $this->translation ) )->create();
+		( new Style( 'ac-utilities', $this->location->with_suffix( 'assets/css/utilities.css' ) ) )->register();
 	}
 
 }

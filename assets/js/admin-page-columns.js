@@ -3198,6 +3198,7 @@ class Form {
         this.form = element;
         this.services = services;
         this.columns = [];
+        this.preferences = [];
         this.services.emitEvent(_constants__WEBPACK_IMPORTED_MODULE_0__.EventConstants.SETTINGS.FORM.LOADED, this);
         this.init();
     }
@@ -3334,20 +3335,13 @@ class Form {
             }
         });
     }
+    registerPreference(preference) {
+        this.preferences.push(preference);
+    }
     getPreferences() {
         let data = {};
-        document.querySelectorAll('form[data-form-part=preferences]').forEach(el => {
-            let fData = new FormData(el);
-            // @ts-ignore
-            for (let entry of fData.entries()) {
-                let key = entry[0];
-                let value = entry[1];
-                // @ts-ignore
-                let element = el.elements[key];
-                data[key] = element.tagName === 'SELECT' && element.hasAttribute('multiple')
-                    ? fData.getAll(key)
-                    : data[key] = value;
-            }
+        this.preferences.forEach((p) => {
+            data = p.getPreferences(data);
         });
         return data;
     }

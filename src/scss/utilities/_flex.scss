@@ -1,0 +1,36 @@
+@mixin createDisplay( $name, $display ) {
+	.acu-#{$name} {
+		display: $display
+	}
+}
+
+@include createDisplay(flex, flex);
+@include createDisplay(block, block);
+@include createDisplay(inline-block, inline-block);
+@include createDisplay(inline-flex, inline-flex);
+@include createDisplay(inline, inline);
+
+
+.acu-flex-row {
+	flex-direction: row;
+}
+
+.acu-flex-col {
+	flex-direction: column;
+}
+
+.acu-grow {
+	flex-grow: 1;
+}
+
+.acu-grow-0 {
+	flex-grow: 0;
+}
+
+.acu-shrink {
+	flex-shrink: 0;
+}
+
+.acu-shrink-0 {
+	flex-shrink: 0;
+}
