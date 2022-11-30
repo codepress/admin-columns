@@ -26,6 +26,7 @@ class Columns extends Script {
 			'jquery',
 			'jquery-ui-slider',
 			'jquery-ui-sortable',
+			'jquery-touch-punch',
 		] );
 
 		$this->default_columns = $default_columns;

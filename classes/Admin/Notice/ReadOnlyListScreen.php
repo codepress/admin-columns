@@ -4,9 +4,9 @@ namespace AC\Admin\Notice;
 
 use AC\ListScreen;
 use AC\Message;
-use AC\Registrable;
+use AC\Registerable;
 
-class ReadOnlyListScreen implements Registrable {
+class ReadOnlyListScreen implements Registerable {
 
 	public function register() {
 		add_action( 'ac/settings/notice', [ $this, 'render_notice' ] );

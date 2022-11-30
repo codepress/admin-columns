@@ -123,7 +123,7 @@ class WidthIndicator {
     }
 
     setValue(width: number, unit: string) {
-        if (width === null) {
+        if (width === null || width === 0) {
             return this.element.innerText = '';
         }
 

@@ -272,8 +272,13 @@ body.upload-php .tablenav.top .ac-button {
 		margin-top: -2px;
 	}
 
+	.spinner {
+		display: none;
+	}
+
 	&.loading {
 		.spinner {
+			display: inline-block;
 			visibility: visible;
 		}
 	}
@@ -1015,7 +1020,7 @@ div.cpac-color span {
 
 		&.disabled {
 			background: #ddd;
-			color: #aaa;
+			color: #484848;
 			cursor: not-allowed;
 		}
 

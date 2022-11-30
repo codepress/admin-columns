@@ -2,7 +2,7 @@
 
 namespace AC;
 
-class ListScreens implements Registrable {
+class ListScreens implements Registerable {
 
 	public function register() {
 		add_action( 'init', [ $this, 'register_list_screens' ], 1000 ); // run after all post types are registered

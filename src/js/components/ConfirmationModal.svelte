@@ -6,6 +6,8 @@
     export let onClose: Function;
     export let lastFocusElement: HTMLElement;
 
+    export let ok;
+    export let cancel;
 
     let okButton;
 
@@ -15,9 +17,9 @@
     }
 
     const close = () => {
-        if( lastFocusElement ){
+        if (lastFocusElement) {
             lastFocusElement.focus();
-		}
+        }
         onClose();
     }
 
@@ -43,8 +45,8 @@
 			{message}
 		</div>
 		<div class="ac-confirmation__modal__footer">
-			<button on:click={close} class="button">Cancel</button>
-			<button on:click={confirm} class="button button-primary" bind:this={okButton}>Ok</button>
+			<button on:click={close} class="button">{cancel}</button>
+			<button on:click={confirm} class="button button-primary" bind:this={okButton}>{ok}</button>
 		</div>
 	</div>
 </div>

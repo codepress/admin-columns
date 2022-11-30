@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Admin Columns
-Version: 4.5.5
+Version: 4.6
 Description: Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
 Plugin URI: https://www.admincolumns.com
-Requires PHP: 5.6.20
+Requires PHP: 7.2
 Text Domain: codepress-admin-columns
 Domain Path: /languages
 License: GPL v3
@@ -36,34 +36,20 @@ if ( ! is_admin() ) {
 }
 
 define( 'AC_FILE', __FILE__ );
-define( 'AC_VERSION', '4.5.5' );
+define( 'AC_VERSION', '4.6' );
 
 require_once __DIR__ . '/classes/Dependencies.php';
 
 add_action( 'after_setup_theme', function () {
-	$dependencies = new AC\Dependencies( plugin_basename( AC_FILE ), AC_VERSION );
-	$dependencies->requires_php( '5.6.20' );
+	$dependencies = new AC\Dependencies( plugin_basename( __FILE__ ), AC_VERSION );
+	$dependencies->requires_php( '7.2' );
 
 	if ( $dependencies->has_missing() ) {
 		return;
 	}
 
+	require_once __DIR__ . '/vendor/autoload.php';
 	require_once __DIR__ . '/api.php';
-	require_once __DIR__ . '/classes/Autoloader.php';
-
-	$class_map = __DIR__ . '/config/autoload-classmap.php';
-
-	if ( is_readable( $class_map ) ) {
-		AC\Autoloader::instance()->register_class_map( require $class_map );
-	} else {
-		AC\Autoloader::instance()->register_prefix( 'AC', __DIR__ . '/classes' );
-	}
-
-	AC\Autoloader\Underscore::instance()
-	                        ->add_alias( 'AC\ListScreen', 'AC_ListScreen' )
-	                        ->add_alias( 'AC\Settings\FormatValue', 'AC_Settings_FormatValueInterface' )
-	                        ->add_alias( 'AC\Column\Media\MediaParent', 'AC_Column_Media_Parent' )
-	                        ->add_alias( 'AC\Column\Post\PostParent', 'AC_Column_Post_Parent' );
 
 	/**
 	 * For loading external resources, e.g. column settings.

@@ -2,7 +2,10 @@
 
 namespace AC;
 
-class ScreenController implements Registrable {
+use AC\ColumnRepository\Sort\ManualOrder;
+use AC\Storage\UserColumnOrder;
+
+class ScreenController implements Registerable {
 
 	/**
 	 * @var ListScreen
@@ -67,7 +70,13 @@ class ScreenController implements Registrable {
 			$this->headings['cb'] = $columns['cb'];
 		}
 
-		foreach ( $this->list_screen->get_columns() as $column ) {
+		$column_repository = new ColumnRepository( $this->list_screen );
+
+		$args = [
+			ColumnRepository::ARG_SORT => new ManualOrder( $this->list_screen->get_id() ),
+		];
+
+		foreach ( $column_repository->find_all( $args ) as $column ) {
 			$this->headings[ $column->get_name() ] = $column->get_custom_label();
 		}
 

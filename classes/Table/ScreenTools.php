@@ -3,9 +3,9 @@
 namespace AC\Table;
 
 use AC;
-use AC\Registrable;
+use AC\Registerable;
 
-final class ScreenTools implements Registrable {
+final class ScreenTools implements Registerable {
 
 	public function register() {
 		add_action( 'ac/table', function ( Screen $screen ) {

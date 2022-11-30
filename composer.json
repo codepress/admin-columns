@@ -1,0 +1,21 @@
+{
+  "autoload": {
+    "psr-4": {
+      "AC\\": "classes/"
+    }
+  },
+  "config": {
+    "autoloader-suffix": "AdminColumns",
+    "platform": {
+      "php": "7.2.0"
+    }
+  },
+  "require": {
+    "php-di/php-di": "^6.3.5"
+  },
+  "scripts": {
+    "post-update-cmd": [
+      "@php ../build/app.php prefix"
+    ]
+  }
+}

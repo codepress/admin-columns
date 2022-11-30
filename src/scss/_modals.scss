@@ -27,11 +27,10 @@ body .ac-modal {
 		max-width: 90%;
 
 		&__header {
-			background: $bg-gray;
-			font-size: 18px;
-			line-height: 18px;
-			color: #807F7F;
-			padding: 17px 25px;
+			font-size: 16px;
+			line-height: 16px;
+			color: #555555;
+			padding: 17px 20px;
 		}
 
 		&__close {
@@ -46,16 +45,24 @@ body .ac-modal {
 			width: 52px;
 			height: 52px;
 			text-align: center;
-			color: #989797;
+			color: #555555;
 			cursor: pointer;
 
 			&:hover {
-				background: darken($bg-gray, 8);
+				background-color: #f2f2f2;
+			}
+
+			span.dashicons {
+				font-size: 22px;
+
+				&:hover {
+					color: var(--ac-primary-color-hover);
+				}
 			}
 		}
 
 		&__content {
-			padding: 25px;
+			padding: 20px;
 			max-height: calc(100vh - 200px);
 			overflow: auto;
 
@@ -69,6 +76,13 @@ body .ac-modal {
 
 			&.-p0 {
 				padding: 0;
+			}
+			&.-accent {
+				border-top: 1px solid #DBDBDB;
+				background: #F9F9F9;
+			}
+			&.-hide {
+				display: none;
 			}
 		}
 
@@ -97,10 +111,10 @@ body .ac-modal {
 		}
 
 		&__footer {
-			padding: 20px 24px;
+			padding: 12px 20px;
 			border-top: 1px solid #DBDBDB;
-			color: #979696;
-			font-size: 16px;
+			background: #F9F9F9;
+			font-size: 13px;
 
 			.button {
 				margin-left: 0;
@@ -120,11 +134,22 @@ body .ac-modal {
 				&__content {
 					display: block;
 				}
+
 				.button {
 					margin-left: 0;
 					margin-top: 10px;
 				}
 			}
+		}
+	}
+
+	.ac-modal-footer-actions {
+		display: flex;
+
+		&__info {
+			flex-grow: 1;
+			display: flex;
+			align-items: center;
 		}
 	}
 }

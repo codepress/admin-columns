@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             new AcConfirmation({
                 message: AC_I18N.restore_settings,
+                translation: AC_I18N.confirmation,
                 confirm: () => {
                     restoreFormButton?.closest('form')?.submit();
                 },

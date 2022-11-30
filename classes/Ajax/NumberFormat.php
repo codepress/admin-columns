@@ -5,7 +5,7 @@ namespace AC\Ajax;
 use AC;
 use AC\Request;
 
-final class NumberFormat implements AC\Registrable {
+final class NumberFormat implements AC\Registerable {
 
 	/**
 	 * @var Request

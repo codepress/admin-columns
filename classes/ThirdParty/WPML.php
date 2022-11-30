@@ -3,12 +3,12 @@
 namespace AC\ThirdParty;
 
 use AC\ListScreenRepository\Storage;
-use AC\Registrable;
+use AC\Registerable;
 
 /**
  * WPML compatibility
  */
-class WPML implements Registrable {
+class WPML implements Registerable {
 
 	/**
 	 * @var Storage

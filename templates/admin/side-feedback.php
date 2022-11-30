@@ -47,13 +47,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</p>
 			<ul class="share">
 				<li>
-					<a href="http://wordpress.org/support/view/plugin-reviews/codepress-admin-columns#postform" target="_blank">
+					<a href="<?= esc_url( $this->review_url ) ?>" target="_blank">
 						<div class="dashicons dashicons-star-empty"></div> <?php _e( 'Rate', 'codepress-admin-columns' ); ?>
 					</a>
 				</li>
 
 				<li>
-					<a href="<?= esc_url( add_query_arg( [ 'hashtags' => 'admincolumns', 'text' => urlencode( __( "I'm using Admin Columns for WordPress!", 'codepress-admin-columns' ) ), 'url' => urlencode( 'http://wordpress.org/plugins/codepress-admin-columns/' ), 'via' => ac_get_twitter_handle() ], 'https://twitter.com/intent/tweet' ) ); ?>" target="_blank">
+					<a href="<?= esc_url( $this->tweet_url ) ?>" target="_blank">
 						<div class="dashicons dashicons-twitter"></div> <?php _e( 'Tweet', 'codepress-admin-columns' ); ?>
 					</a>
 				</li>

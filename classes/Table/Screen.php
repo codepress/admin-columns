@@ -8,13 +8,13 @@ use AC\Capabilities;
 use AC\ColumnSize;
 use AC\Form;
 use AC\ListScreen;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Renderable;
 use AC\ScreenController;
 use AC\Settings;
 use WP_Post;
 
-final class Screen implements Registrable {
+final class Screen implements Registerable {
 
 	/**
 	 * @var Asset\Location\Absolute
@@ -46,7 +46,12 @@ final class Screen implements Registrable {
 	 */
 	private $column_size_user_storage;
 
-	public function __construct( Asset\Location\Absolute $location, ListScreen $list_screen, ColumnSize\ListStorage $column_size_list_storage, ColumnSize\UserStorage $column_size_user_storage ) {
+	public function __construct(
+		Asset\Location\Absolute $location,
+		ListScreen $list_screen,
+		ColumnSize\ListStorage $column_size_list_storage,
+		ColumnSize\UserStorage $column_size_user_storage
+	) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
 		$this->column_size_list_storage = $column_size_list_storage;
@@ -243,16 +248,22 @@ final class Screen implements Registrable {
 				'screen'           => $this->get_current_screen_id(),
 				'meta_type'        => $this->list_screen->get_meta_type(),
 				'list_screen_link' => $this->get_list_screen_clear_link(),
+				'number_format'    => [
+					'decimal_point' => $this->get_local_number_format( 'decimal_point' ),
+					'thousands_sep' => $this->get_local_number_format( 'thousands_sep' ),
+				],
 			]
 		);
 
-		wp_localize_script( 'ac-table', 'AC_I18N',
-			[
-				'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
-				'edit'          => __( 'Edit', 'codepress-admin-columns' ),
-				'download'      => __( 'Download', 'codepress-admin-columns' ),
-			]
-		);
+		$translations = [
+			'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
+			'edit'          => __( 'Edit', 'codepress-admin-columns' ),
+			'download'      => __( 'Download', 'codepress-admin-columns' ),
+		];
+
+		$translations = array_merge( $translations, AC\Translation\Confirmation::get() );
+
+		wp_localize_script( 'ac-table', 'AC_I18N', $translations );
 
 		/**
 		 * @param ListScreen $list_screen
@@ -263,6 +274,12 @@ final class Screen implements Registrable {
 		foreach ( $this->list_screen->get_columns() as $column ) {
 			$column->scripts();
 		}
+	}
+
+	private function get_local_number_format( string $var ) {
+		global $wp_locale;
+
+		return $wp_locale->number_format[ $var ] ?? null;
 	}
 
 	/**

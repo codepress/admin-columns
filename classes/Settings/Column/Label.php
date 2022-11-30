@@ -2,6 +2,7 @@
 
 namespace AC\Settings\Column;
 
+use AC\Column\LabelEncoder;
 use AC\Sanitize\Kses;
 use AC\Settings;
 use AC\View;
@@ -38,22 +39,10 @@ class Label extends Settings\Column {
 	}
 
 	/**
-	 * Convert site_url() to [cpac_site_url] and back for easy migration
-	 *
-	 * @param string $label
-	 * @param string $action
-	 *
-	 * @return string
-	 */
-	private function convert_site_url( $label, $action = 'encode' ) {
-		return ac_convert_site_url( $label, $action );
-	}
-
-	/**
 	 * @return string
 	 */
 	public function get_label() {
-		return $this->convert_site_url( $this->label, 'decode' );
+		return ( new LabelEncoder() )->decode( $this->label );
 	}
 
 	/**
@@ -63,15 +52,6 @@ class Label extends Settings\Column {
 		$sanitize = new Kses();
 
 		$this->label = apply_filters( 'ac/column/label', $sanitize->sanitize( $label ), $label );
-	}
-
-	/**
-	 * Encode label with site_url.
-	 * Used when loading the setting from PHP or when a site is migrated to another domain.
-	 * @return string
-	 */
-	public function get_encoded_label() {
-		return $this->convert_site_url( $this->label );
 	}
 
 }

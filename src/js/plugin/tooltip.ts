@@ -38,7 +38,7 @@ export class Tooltip {
 
         this.element.addEventListener('mouseleave', () => {
             this.tip.classList.remove('hover');
-            
+
             if (document.body.contains(this.tip)) {
                 document.body.removeChild(this.tip);
             }

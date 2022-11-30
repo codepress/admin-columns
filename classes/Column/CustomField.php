@@ -21,14 +21,18 @@ class CustomField extends Column\Meta {
 	}
 
 	public function get_meta_key() {
-		return $this->get_setting( Settings\Column\CustomField::NAME )->get_value();
+		return (string) $this->get_setting( Settings\Column\CustomField::NAME )->get_value();
+	}
+
+	private function is_acp_active(): bool {
+		return defined( 'ACP_FILE' );
 	}
 
 	public function register_settings() {
 		$this->add_setting( new Settings\Column\CustomField( $this ) )
 		     ->add_setting( new Settings\Column\BeforeAfter( $this ) );
 
-		if ( ! ac_is_pro_active() ) {
+		if ( ! $this->is_acp_active() ) {
 			$this->add_setting( new Settings\Column\Pro\Sorting( $this ) )
 			     ->add_setting( new Settings\Column\Pro\InlineEditing( $this ) )
 			     ->add_setting( new Settings\Column\Pro\BulkEditing( $this ) )

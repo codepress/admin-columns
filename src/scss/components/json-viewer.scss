@@ -3,19 +3,18 @@
 	overflow-x: scroll;
 	width: 100%;
 	font-size: 12px !important;
-	cursor: pointer;
-
-	* {
-		cursor: pointer !important;
-	}
-
-	> div > ul {
-		margin-left: 0;
-		padding-left: 10px;
-	}
 
 	ul {
 		font-size: 13px !important;
+	}
+
+	> div > div > ul {
+		margin-left: 0;
+
+		> ul > li.indent {
+			margin-left: 0;
+			padding-left: 0;
+		}
 	}
 
 	&::-webkit-scrollbar {
@@ -43,9 +42,40 @@
 		}
 	}
 
-	li.indent {
-		white-space: nowrap;
+	ul .root {
+		display: none;
 	}
 
+	ul {
+		li {
+			&.indent {
+				white-space: nowrap;
+				margin-bottom: 0;
+
+				ul {
+					margin-top: 4px;
+					margin-bottom: 4px;
+				}
+			}
+
+			span.container {
+				display: none;
+
+				& + span.property {
+					color: var(--ac-primary-color);
+					cursor: pointer !important;
+					font-style: italic;
+
+					&:hover {
+						color: var(--ac-primary-color-hover);
+					}
+				}
+
+				& ~ span.operator {
+					display: none;
+				}
+			}
+		}
+	}
 
 }

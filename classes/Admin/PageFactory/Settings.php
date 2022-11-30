@@ -21,9 +21,19 @@ class Settings implements PageFactoryInterface {
 	 */
 	protected $menu_factory;
 
-	public function __construct( Location\Absolute $location, MenuFactoryInterface $menu_factory ) {
+	/**
+	 * @var bool
+	 */
+	private $is_acp_active;
+
+	public function __construct(
+		Location\Absolute $location,
+		MenuFactoryInterface $menu_factory,
+		bool $is_acp_active
+	) {
 		$this->location = $location;
 		$this->menu_factory = $menu_factory;
+		$this->is_acp_active = $is_acp_active;
 	}
 
 	public function create() {
@@ -35,7 +45,7 @@ class Settings implements PageFactoryInterface {
 		$page->add_section( new Section\General( [ new Section\Partial\ShowEditButton() ] ) )
 		     ->add_section( new Section\Restore(), 40 );
 
-		if ( ! ac_is_pro_active() ) {
+		if ( ! $this->is_acp_active ) {
 			$page->add_section( new Section\ProCta(), 50 );
 		}
 

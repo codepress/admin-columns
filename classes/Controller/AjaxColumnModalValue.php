@@ -5,10 +5,10 @@ namespace AC\Controller;
 use AC\Ajax;
 use AC\Column\AjaxValue;
 use AC\ListScreenRepository;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Type\ListScreenId;
 
-class AjaxColumnModalValue implements Registrable {
+class AjaxColumnModalValue implements Registerable {
 
 	/**
 	 * @var ListScreenRepository

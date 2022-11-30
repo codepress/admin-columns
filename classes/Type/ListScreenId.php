@@ -46,4 +46,8 @@ final class ListScreenId {
 		return $this->id === $id->get_id();
 	}
 
+	public function __toString(): string {
+		return $this->id;
+	}
+
 }

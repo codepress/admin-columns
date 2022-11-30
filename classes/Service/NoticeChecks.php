@@ -1,10 +1,13 @@
 <?php
 
-namespace AC;
+namespace AC\Service;
 
 use AC\Asset\Location\Absolute;
+use AC\Check;
+use AC\IntegrationRepository;
+use AC\Registerable;
 
-class NoticeChecks implements Registrable {
+class NoticeChecks implements Registerable {
 
 	/**
 	 * @var Absolute
@@ -22,14 +25,12 @@ class NoticeChecks implements Registrable {
 	}
 
 	/**
-	 * @return Registrable[]
+	 * @return Registerable[]
 	 */
 	private function get_checks() {
-		$checks = [];
-
-		if ( ! ac_is_pro_active() ) {
-			$checks[] = new Check\Review( $this->location );
-		}
+		$checks = [
+			new Check\Review( $this->location )
+		];
 
 		$integrations = new IntegrationRepository();
 

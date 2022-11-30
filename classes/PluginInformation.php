@@ -15,87 +15,60 @@ class PluginInformation {
 		$this->basename = (string) $basename;
 	}
 
-	public static function create_by_file( $file ) {
+	public static function create_by_file( $file ): self {
 		return new self( plugin_basename( $file ) );
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_basename() {
+	public function get_basename(): string {
 		return $this->basename;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_dirname() {
+	public function get_dirname(): string {
 		return dirname( $this->basename );
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function is_installed() {
+	public function is_installed(): bool {
 		return null !== $this->get_header_data();
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function is_active() {
+	public function is_active(): bool {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 		return is_plugin_active( $this->basename );
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function is_network_active() {
+	public function is_network_active(): bool {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 		return is_plugin_active_for_network( $this->basename );
 	}
 
-	/**
-	 * @return Version
-	 */
-	public function get_version() {
+	public function get_version(): Version {
 		return new Version( (string) $this->get_header( 'Version' ) );
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_name() {
+	public function get_name(): ?string {
 		return $this->get_header( 'Name' );
 	}
 
-	/**
-	 * @return array
-	 */
-	private function get_plugins() {
+	private function get_plugins(): array {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 		// use `get_plugins` (cached) over `get_plugin_data` (non cached)
-		return (array) get_plugins();
+		return get_plugins();
 	}
 
-	/**
-	 * @return array
-	 */
-	private function get_plugin_updates() {
+	private function get_plugin_updates(): array {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 		return get_plugin_updates();
 	}
 
-	public function has_update() {
+	public function has_update(): bool {
 		return null !== $this->get_update();
 	}
 
-	public function get_update() {
+	public function get_update(): ?PluginUpdate {
 		$updates = $this->get_plugin_updates();
 
 		if ( ! array_key_exists( $this->basename, $updates ) ) {
@@ -125,25 +98,15 @@ class PluginInformation {
 		return new PluginUpdate( new Version( $data->update->new_version ), $package );
 	}
 
-	/**
-	 * @return array|null
-	 */
-	private function get_header_data() {
+	private function get_header_data(): ?array {
 		$plugins = $this->get_plugins();
 
-		if ( ! array_key_exists( $this->basename, $plugins ) ) {
-			return null;
-		}
-
-		return $plugins[ $this->basename ];
+		return $plugins && isset( $plugins[ $this->basename ] )
+			? (array) $plugins[ $this->basename ]
+			: null;
 	}
 
-	/**
-	 * @param string $var
-	 *
-	 * @return string|null
-	 */
-	public function get_header( $var ) {
+	public function get_header( string $var ): ?string {
 		$info = $this->get_header_data();
 
 		return $info && isset( $info[ $var ] )
