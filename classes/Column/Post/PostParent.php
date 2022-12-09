@@ -27,7 +27,9 @@ class PostParent extends Column {
 	public function get_raw_value( $post_id ) {
 		$parent_id = ac_helper()->post->get_raw_field( 'post_parent', $post_id );
 
-		return $parent_id && is_numeric( $parent_id ) ? (int) $parent_id : false;
+		return $parent_id && is_numeric( $parent_id )
+			? (int) $parent_id
+			: false;
 	}
 
 	public function is_valid() {
