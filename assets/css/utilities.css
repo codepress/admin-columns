@@ -14,8 +14,24 @@
   display: block
 }
 
+.acu-flex {
+  display: flex
+}
+
 .acu-grow {
   flex-grow: 1
+}
+
+.acu-flex-row-reverse {
+  flex-direction: row-reverse
+}
+
+.acu-pl-8\.5 {
+  padding-left: 43px
+}
+
+.acu-pl-8 {
+  padding-left: 40px
 }
 
 .acu-pb-6 {
@@ -28,14 +44,6 @@
 
 .acu-pt-3 {
   padding-top: 15px
-}
-
-.acu-pl-8\.5 {
-  padding-left: 43px
-}
-
-.acu-pl-8 {
-  padding-left: 40px
 }
 
 .acu-uppercase {
