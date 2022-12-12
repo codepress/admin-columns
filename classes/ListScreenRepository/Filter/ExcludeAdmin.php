@@ -5,9 +5,12 @@ namespace AC\ListScreenRepository\Filter;
 
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Filter;
+use AC\ListScreenRepository\ListScreenPermissionTrait;
 use WP_User;
 
 class ExcludeAdmin implements Filter {
+
+	use ListScreenPermissionTrait;
 
 	private $user;
 
@@ -16,10 +19,15 @@ class ExcludeAdmin implements Filter {
 	}
 
 	public function filter( ListScreenCollection $list_screens ): ListScreenCollection {
-		// TODO Tobias
-		$user = $this->user;
+		$collection = new ListScreenCollection();
 
-		return $list_screens;
+		foreach ( $list_screens as $list_screen ) {
+			if ( $this->user_can_view_list_screen( $list_screen, $this->user, false ) ) {
+				$collection->add( $list_screen );
+			}
+		}
+
+		return $collection;
 	}
 
 }

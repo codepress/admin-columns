@@ -8,8 +8,8 @@ use WP_User;
 
 trait ListScreenPermissionTrait {
 
-	public function user_can_view_list_screen( ListScreen $list_screen, WP_User $user ): bool {
-		if ( user_can( $user, Capabilities::MANAGE ) ) {
+	public function user_can_view_list_screen( ListScreen $list_screen, WP_User $user, bool $allow_admin = true ): bool {
+		if ( $allow_admin && user_can( $user, Capabilities::MANAGE ) ) {
 			return true;
 		}
 

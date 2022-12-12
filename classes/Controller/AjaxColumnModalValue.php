@@ -52,8 +52,7 @@ class AjaxColumnModalValue implements Registerable {
 
 		$list_id = new ListScreenId( $id );
 
-		// TODO test permission..
-		$list_screen = $this->repository->find_using_permissions( $list_id, wp_get_current_user() );
+		$list_screen = $this->repository->find_by_user( $list_id, wp_get_current_user() );
 
 		if ( ! $list_screen ) {
 			wp_send_json_error( __( 'Invalid list screen.', 'codepress-admin-columns' ), 400 );

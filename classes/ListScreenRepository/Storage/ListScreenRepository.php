@@ -1,4 +1,4 @@
-<?php
+<?php declare( strict_types=1 );
 
 namespace AC\ListScreenRepository\Storage;
 
@@ -14,26 +14,12 @@ use WP_User;
 
 class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAware {
 
-	/**
-	 * @var AC\ListScreenRepository
-	 */
 	private $repository;
 
-	/**
-	 * @var bool
-	 */
 	private $writable;
 
-	/**
-	 * @var Rules
-	 */
 	private $rules;
 
-	/**
-	 * @param AC\ListScreenRepository $repository
-	 * @param bool|null               $writable
-	 * @param Rules|null              $rules
-	 */
 	public function __construct( AC\ListScreenRepository $repository, bool $writable = null, Rules $rules = null ) {
 		if ( null === $writable ) {
 			$writable = false;
@@ -68,8 +54,8 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
 		return $this->rules !== null;
 	}
 
-	public function find_using_permissions( ListScreenId $id, WP_User $user ): ?ListScreen {
-		$list_screen = $this->repository->find_using_permissions( $id, $user );
+	public function find_by_user( ListScreenId $id, WP_User $user ): ?ListScreen {
+		$list_screen = $this->repository->find_by_user( $id, $user );
 
 		if ( $list_screen && ! $this->is_writable() ) {
 			$list_screen->set_read_only( true );
@@ -88,28 +74,56 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
 		return $list_screen;
 	}
 
+	public function find_all_by_key( string $key, string $order_by = null ): ListScreenCollection {
+		$list_screens = $this->repository->find_all_by_key( $key, $order_by );
+
+		if ( ! $this->is_writable() ) {
+			$this->set_all_read_only( $list_screens );
+		}
+
+		return $list_screens;
+	}
+
+	public function find_all_by_user( string $key, WP_User $user, string $order_by = null ): ListScreenCollection {
+		$list_screens = $this->repository->find_all_by_user( $key, $user, $order_by );
+
+		if ( ! $this->is_writable() ) {
+			$this->set_all_read_only( $list_screens );
+		}
+
+		return $list_screens;
+	}
+
+	private function set_all_read_only( ListScreenCollection $list_screens ): void {
+		foreach ( $list_screens as $list_screen ) {
+			$list_screen->set_read_only( true );
+		}
+	}
+
 	public function exists( ListScreenId $id ): bool {
 		return $this->repository->exists( $id );
 	}
 
-	public function find_all( array $args = [] ): ListScreenCollection {
-		$list_screens = $this->repository->find_all( $args );
+	public function find_all( string $order_by = null ): ListScreenCollection {
+		$list_screens = $this->repository->find_all( $order_by );
 
 		if ( ! $this->is_writable() ) {
-			foreach ( $list_screens as $list_screen ) {
-				$list_screen->set_read_only( true );
-			}
+			$this->set_all_read_only( $list_screens );
 		}
 
 		return $list_screens;
 	}
 
 	public function save( ListScreen $list_screen ): void {
-		$this->repository->save( $list_screen );
+		if ( $this->repository instanceof AC\ListScreenRepositoryWritable ) {
+			$this->repository->save( $list_screen );
+		}
 	}
 
 	public function delete( ListScreen $list_screen ): void {
-		$this->repository->delete( $list_screen );
+		if ( $this->repository instanceof AC\ListScreenRepositoryWritable ) {
+			$this->repository->delete( $list_screen );
+		}
 	}
 
 	public function get_source( ListScreenId $id ): string {

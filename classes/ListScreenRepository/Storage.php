@@ -7,16 +7,12 @@ use AC\ListScreenCollection;
 use AC\ListScreenRepository;
 use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
-use InvalidArgumentException;
 use LogicException;
 use WP_User;
 
 final class Storage implements ListScreenRepositoryWritable {
 
 	use ListScreenPermissionTrait;
-
-	public const ARG_FILTER = 'filter';
-	public const ARG_SORT = 'sort';
 
 	/**
 	 * @var Storage\ListScreenRepository[]
@@ -52,69 +48,70 @@ final class Storage implements ListScreenRepositoryWritable {
 		return $this->repositories[ $key ];
 	}
 
-	public function find_using_permissions( ListScreenId $id, WP_User $user ): ?ListScreen {
-		return $this->find_all( [ self::ID => $id, self::REQUIRE_USER => $user ] )->get_first();
+	public function find_by_user( ListScreenId $id, WP_User $user ): ?ListScreen {
+		foreach ( $this->repositories as $repository ) {
+			$list_screen = $repository->find_by_user( $id, $user );
+
+			if ( $list_screen ) {
+				break;
+			}
+		}
+
+		return $list_screen ?? null;
 	}
 
-	public function find_by_key( string $key, Sort $sort = null ): ListScreenCollection {
-		return $this->find_all( [
-			ListScreenRepository::KEY => $key,
-		] );
-	}
-
-	// TODO make obsolete...
-	public function find_all( array $args = [] ): ListScreenCollection {
-		$args = array_merge( [
-			self::ARG_FILTER   => [],
-			self::ARG_SORT     => null,
-			self::REQUIRE_USER => null,
-		], $args );
-
+	public function find_all_by_user( string $key, WP_User $user, string $order_by = null ): ListScreenCollection {
 		$list_screens = new ListScreenCollection();
 
 		foreach ( $this->repositories as $repository ) {
-			foreach ( $repository->find_all( $args ) as $list_screen ) {
+			foreach ( $repository->find_all_by_user( $key, $user ) as $list_screen ) {
 				if ( ! $list_screens->contains( $list_screen ) ) {
 					$list_screens->add( $list_screen );
 				}
 			}
 		}
 
-		if ( $args[ self::REQUIRE_USER ] instanceof WP_User ) {
-			$list_screens = $this->filter_by_permission( $list_screens, $args[ self::REQUIRE_USER ] );
-		}
-
-		// TODO can this be removed?
-		foreach ( $args[ self::ARG_FILTER ] as $filter ) {
-			if ( ! $filter instanceof Filter ) {
-				throw new InvalidArgumentException( 'Invalid filter supplied.' );
-			}
-
-			$list_screens = $filter->filter( $list_screens );
-		}
-
-		// TODO can this be removed?
-		if ( $args[ self::ARG_SORT ] instanceof Sort ) {
-			$list_screens = $args[ self::ARG_SORT ]->sort( $list_screens );
-		}
-
-		return $list_screens;
+		return ( new OrderByFactory() )->create( $order_by )->sort( $list_screens );
 	}
 
-	private function filter_by_permission( ListScreenCollection $list_screens, WP_User $user ): ListScreenCollection {
-		$collection = new ListScreenCollection();
+	public function find_all_by_key( string $key, string $order_by = null ): ListScreenCollection {
+		$list_screens = new ListScreenCollection();
 
-		foreach ( $list_screens as $list_screen ) {
-			if ( $this->user_can_view_list_screen( $list_screen, $user ) ) {
-				$collection->add( $list_screen );
+		foreach ( $this->repositories as $repository ) {
+			foreach ( $repository->find_all_by_key( $key ) as $list_screen ) {
+				if ( ! $list_screens->contains( $list_screen ) ) {
+					$list_screens->add( $list_screen );
+				}
 			}
 		}
 
-		return $collection;
+		return ( new OrderByFactory() )->create( $order_by )->sort( $list_screens );
+	}
+
+	public function find_all( string $order_by = null ): ListScreenCollection {
+		$list_screens = new ListScreenCollection();
+
+		foreach ( $this->repositories as $repository ) {
+			foreach ( $repository->find_all() as $list_screen ) {
+				if ( ! $list_screens->contains( $list_screen ) ) {
+					$list_screens->add( $list_screen );
+				}
+			}
+		}
+
+		return ( new OrderByFactory() )->create( $order_by )->sort( $list_screens );
 	}
 
 	public function find( ListScreenId $id ): ?ListScreen {
-		return $this->find_all( [ self::ID => $id ] )->get_first() ?: null;
+		foreach ( $this->repositories as $repository ) {
+			$list_screen = $repository->find( $id );
+
+			if ( $list_screen ) {
+				break;
+			}
+		}
+
+		return $list_screen ?? null;
 	}
 
 	public function exists( ListScreenId $id ): bool {

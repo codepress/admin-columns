@@ -97,7 +97,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		return $this->head;
 	}
 
-	public function get_list_screen_from_request(): ListScreen {
+	public function get_list_screen_from_request():? ListScreen {
 		$request = new Request();
 		$request->add_middleware(
 			new Middleware\ListScreenAdmin( $this->storage, $this->preference, $this->is_network )
@@ -174,6 +174,10 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
 	public function render() {
 		$list_screen = $this->get_list_screen_from_request();
+
+		if ( ! $list_screen ) {
+			return '';
+		}
 
 		$this->set_preference_screen( $list_screen );
 

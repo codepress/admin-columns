@@ -30,6 +30,8 @@ class ListScreenAdmin implements Middleware {
 	}
 
 	public function handle( Request $request ) {
+
+		// TODO
 		$list_key = $request->get( 'list_screen' );
 
 		if ( ! $list_key ) {
@@ -48,7 +50,6 @@ class ListScreenAdmin implements Middleware {
 			return;
 		}
 
-		// TODO
 		$list_id = $request->get( 'layout_id' );
 
 		if ( ! ListScreenId::is_valid_id( $list_id ) ) {
