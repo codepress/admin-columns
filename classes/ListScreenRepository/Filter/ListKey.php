@@ -14,15 +14,15 @@ class ListKey implements Filter {
 	}
 
 	public function filter( ListScreenCollection $list_screens ): ListScreenCollection {
-		$filtered = new ListScreenCollection();
+		$collection = new ListScreenCollection();
 
 		foreach ( $list_screens as $list_screen ) {
 			if ( $this->key === $list_screen->get_key() ) {
-				$filtered->add( $list_screen );
+				$collection->add( $list_screen );
 			}
 		}
 
-		return $filtered;
+		return $collection;
 	}
 
 }
