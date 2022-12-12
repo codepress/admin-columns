@@ -5,18 +5,15 @@ namespace AC\ListScreenRepository\Filter;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Filter;
 
-class HasKey implements Filter {
+class ListKey implements Filter {
 
-	/**
-	 * @var string
-	 */
 	private $key;
 
-	public function __construct( $key ) {
+	public function __construct( string $key ) {
 		$this->key = $key;
 	}
 
-	public function filter( ListScreenCollection $list_screens ) {
+	public function filter( ListScreenCollection $list_screens ): ListScreenCollection {
 		$filtered = new ListScreenCollection();
 
 		foreach ( $list_screens as $list_screen ) {

@@ -6,6 +6,7 @@ use AC\Ajax;
 use AC\Column\AjaxValue;
 use AC\ListScreenRepository;
 use AC\Registerable;
+use AC\Request;
 use AC\Type\ListScreenId;
 
 class AjaxColumnModalValue implements Registerable {
@@ -35,20 +36,30 @@ class AjaxColumnModalValue implements Registerable {
 	public function get_value() {
 		check_ajax_referer( 'ac-ajax' );
 
-		// Get ID of entry to edit
-		$id = (int) filter_input( INPUT_GET, 'object_id' );
+		$request = new Request();
+
+		$id = (int) $request->filter( 'object_id', null, FILTER_SANITIZE_NUMBER_INT );
+		$list_id = $request->filter( 'layout', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		$column_name = $request->filter( 'column_name', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 
 		if ( ! $id ) {
 			wp_send_json_error( __( 'Invalid item ID.', 'codepress-admin-columns' ), 400 );
 		}
 
-		$list_screen = $this->repository->find( new ListScreenId( filter_input( INPUT_GET, 'layout' ) ) );
+		if ( ! ListScreenId::is_valid_id( $list_id ) ) {
+			wp_send_json_error( __( 'Invalid list ID.', 'codepress-admin-columns' ), 400 );
+		}
+
+		$list_id = new ListScreenId( $id );
+
+		// TODO test permission..
+		$list_screen = $this->repository->find_using_permissions( $list_id, wp_get_current_user() );
 
 		if ( ! $list_screen ) {
 			wp_send_json_error( __( 'Invalid list screen.', 'codepress-admin-columns' ), 400 );
 		}
 
-		$column = $list_screen->get_column_by_name( filter_input( INPUT_GET, 'column_name' ) );
+		$column = $list_screen->get_column_by_name( $column_name );
 
 		if ( ! $column ) {
 			wp_send_json_error( __( 'Invalid column.', 'codepress-admin-columns' ), 400 );

@@ -10,30 +10,27 @@ use AC\ListScreenTypes;
 use AC\Type\ListScreenId;
 use DateTime;
 use LogicException;
+use stdClass;
+use WP_User;
 
 final class Database implements ListScreenRepositoryWritable {
 
-	const TABLE = 'admin_columns';
+	use ListScreenPermissionTrait;
 
-	/**
-	 * @var ListScreenTypes
-	 */
+	private const TABLE = 'admin_columns';
+
 	private $list_screen_types;
 
 	public function __construct( ListScreenTypes $list_screen_types ) {
 		$this->list_screen_types = $list_screen_types;
 	}
 
-	/**
-	 * @param array $args
-	 *
-	 * @return array
-	 */
-	private function find_all_from_database( array $args = [] ) {
+	private function find_all_from_database( array $args = [] ): array {
 		global $wpdb;
 
 		$args = array_merge( [
-			self::KEY => null,
+			'key' => null,
+			'id'  => null,
 		], $args );
 
 		$sql = '
@@ -45,7 +42,11 @@ final class Database implements ListScreenRepositoryWritable {
 		$where = [];
 
 		if ( $args[ self::KEY ] ) {
-			$where[] = $wpdb->prepare( 'AND list_key = %s', $args[ self::KEY ] );
+			$where[] = $wpdb->prepare( 'AND list_key = %s', (string) $args[ self::KEY ] );
+		}
+
+		if ( $args[ self::ID ] instanceof ListScreenId ) {
+			$where[] = $wpdb->prepare( 'AND list_id = %s', (string) $args[ self::ID ] );
 		}
 
 		$sql .= implode( "\n", $where );
@@ -53,79 +54,97 @@ final class Database implements ListScreenRepositoryWritable {
 		return $wpdb->get_results( $sql );
 	}
 
-	/**
-	 * @param array $args
-	 *
-	 * @return ListScreenCollection
-	 */
-	public function find_all( array $args = [] ) {
+	public function find_by_user( ListScreenId $id, WP_User $user ): ?ListScreen {
+		$list_screen = $this->find( $id );
+
+		return $list_screen && $this->user_can_view_list_screen( $list_screen, $user )
+			? $list_screen
+			: null;
+	}
+
+	public function find_all_by_key( string $key, string $order_by = null ): ListScreenCollection {
 		$list_screens = new ListScreenCollection();
 
-		foreach ( $this->find_all_from_database( $args ) as $list_data ) {
+		foreach ( $this->find_all_from_database( [ self::KEY => $key ] ) as $list_data ) {
 			$list_screen = $this->create_list_screen( $list_data );
 
-			if ( $list_screen instanceof ListScreen ) {
-				$list_screens->add( $list_screen );
+			if ( ! $list_screen instanceof ListScreen ) {
+				continue;
 			}
+
+			$list_screens->add( $list_screen );
 		}
 
-		return $list_screens;
+		return $this->order_list_screens( $list_screens, $order_by );
 	}
 
-	/**
-	 * @param ListScreenId $id
-	 *
-	 * @return object|null
-	 */
-	private function find_from_database( ListScreenId $id ) {
-		global $wpdb;
+	private function order_list_screens(
+		ListScreenCollection $list_screens,
+		string $order_by = null
+	): ListScreenCollection {
+		return ( new OrderByFactory() )->create( $order_by )
+		                               ->sort( $list_screens );
+	}
 
-		$sql = '
-			SELECT *
-			FROM ' . $wpdb->prefix . self::TABLE . '
-			WHERE list_id = %s
-			LIMIT 1;
-		';
+	public function find_all_by_user( string $key, WP_User $user, string $order_by = null ): ListScreenCollection {
+		$list_screens = $this->find_all_by_key( $key, $order_by );
 
-		$data = $wpdb->get_row( $wpdb->prepare( $sql, $id->get_id() ) );
+		// TODO test
+		$list_screens = array_filter( (array) $list_screens, [ $this, 'user_can_view_list_screen' ] );
 
-		if ( ! isset( $data->list_id ) ) {
-			return null;
+		return $this->order_list_screens(
+			new ListScreenCollection( $list_screens ),
+			$order_by
+		);
+	}
+
+	public function find_all( string $order_by = null ): ListScreenCollection {
+		$list_screens = new ListScreenCollection();
+
+		foreach ( $this->find_all_from_database() as $list_data ) {
+			$list_screen = $this->create_list_screen( $list_data );
+
+			if ( ! $list_screen instanceof ListScreen ) {
+				continue;
+			}
+
+			$list_screens->add( $list_screen );
 		}
 
-		return $data;
+		return $this->order_list_screens(
+			$list_screens,
+			$order_by
+		);
 	}
 
-	/**
-	 * @param ListScreenId $id
-	 *
-	 * @return ListScreen|null
-	 */
-	public function find( ListScreenId $id ) {
-		$data = $this->find_from_database( $id );
+	private function find_from_database( ListScreenId $id ): ?stdClass {
+		$rows = $this->find_all_from_database( [ 'id' => $id ] );
 
-		if ( ! $data ) {
-			return null;
-		}
-
-		return $this->create_list_screen( $data );
+		// TODO Test
+		return $rows
+			? $rows[0]
+			: null;
 	}
 
-	/**
-	 * @param ListScreenId $list_screen_id
-	 *
-	 * @return bool
-	 */
-	public function exists( ListScreenId $list_screen_id ) {
-		return null !== $this->find_from_database( $list_screen_id );
+	private function create_list_screens( array $rows ): ListScreenCollection {
+		$list_screens = array_filter( array_map( [ $this, 'create_list_screen' ], $rows ) );
+
+		return new ListScreenCollection( $list_screens );
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return void
-	 */
-	public function save( ListScreen $list_screen ) {
+	public function find( ListScreenId $id ): ?ListScreen {
+		$row = $this->find_from_database( $id );
+
+		return $row
+			? $this->create_list_screen( $row )
+			: null;
+	}
+
+	public function exists( ListScreenId $id ): bool {
+		return null !== $this->find( $id );
+	}
+
+	public function save( ListScreen $list_screen ): void {
 		global $wpdb;
 
 		if ( ! $list_screen->has_id() ) {
@@ -167,7 +186,7 @@ final class Database implements ListScreenRepositoryWritable {
 		}
 	}
 
-	public function delete( ListScreen $list_screen ) {
+	public function delete( ListScreen $list_screen ): void {
 		global $wpdb;
 
 		if ( ! $list_screen->has_id() ) {
@@ -196,12 +215,7 @@ final class Database implements ListScreenRepositoryWritable {
 		);
 	}
 
-	/**
-	 * @param $data
-	 *
-	 * @return ListScreen
-	 */
-	private function create_list_screen( $data ) {
+	private function create_list_screen( object $data ): ?ListScreen {
 		$list_screen = $this->list_screen_types->get_list_screen_by_key( $data->list_key );
 
 		if ( $list_screen ) {
