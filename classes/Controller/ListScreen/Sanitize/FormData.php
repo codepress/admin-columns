@@ -6,14 +6,9 @@ use AC\Sanitize;
 
 class FormData implements Sanitize {
 
-	/**
-	 * @param array $data
-	 *
-	 * @return array
-	 */
-	public function sanitize( $data ) {
-		if ( isset( $data[ Title::FIELD ] ) ) {
-			$data[ Title::FIELD ] = ( new Title() )->sanitize( $data[ Title::FIELD ] );
+	public function sanitize( array $data ): array {
+		if ( isset( $data['title'] ) ) {
+			$data['title'] = wp_kses( $data['title'], true );
 		}
 
 		return $data;

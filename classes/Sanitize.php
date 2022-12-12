@@ -4,6 +4,6 @@ namespace AC;
 
 interface Sanitize {
 
-	public function sanitize( $data );
+	public function sanitize( array $data ): array;
 
 }

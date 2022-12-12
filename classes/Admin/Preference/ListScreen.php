@@ -6,7 +6,7 @@ use AC\Preferences\Site;
 
 class ListScreen extends Site {
 
-	const OPTION_LAST_VISITED = 'last_visited_list_key';
+	private const OPTION_LAST_VISITED = 'last_visited_list_key';
 
 	public function __construct( $is_network = false ) {
 		parent::__construct( $is_network ? 'network_settings' : 'settings' );

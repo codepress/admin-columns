@@ -3,11 +3,15 @@
 namespace AC\Controller\ColumnRequest;
 
 use AC;
+use AC\Column;
+use AC\Controller\ColumnRequest;
+use AC\ListScreen;
+use AC\Request;
 
-class Select extends AC\Controller\ColumnRequest {
+class Select extends ColumnRequest {
 
-	protected function get_column( AC\Request $request, AC\ListScreen $list_screen ) {
-		return $list_screen->get_column_by_type( $request->get( 'type' ) );
+	protected function get_column( Request $request, ListScreen $list_screen ): ?Column {
+		return $list_screen->get_column_by_type( $request->get( 'type' ) ) ?: null;
 	}
 
 }
