@@ -146,14 +146,12 @@ abstract class ListScreen {
 
 	/**
 	 * Contains the hook that contains the manage_value callback
-	 *
 	 * @return void
 	 */
 	abstract public function set_manage_value_callback();
 
 	/**
 	 * Register column types
-	 *
 	 * @return void
 	 */
 	abstract protected function register_column_types();
@@ -795,6 +793,8 @@ abstract class ListScreen {
 	 * @return string
 	 */
 	public function get_display_value_by_column_name( $column_name, $id, $original_value = null ) {
+		$id = (int) $id;
+
 		$column = $this->get_column_by_name( $column_name );
 
 		if ( ! $column ) {
@@ -821,15 +821,12 @@ abstract class ListScreen {
 		 *
 		 * @since 3.0
 		 */
-		$value = apply_filters( 'ac/column/value', $value, $id, $column );
-
-		return $value;
+		return (string) apply_filters( 'ac/column/value', $value, $id, $column );
 	}
 
 	/**
 	 * @param string $namespace Namespace from the current path
-	 *
-	 * Can be removed after a short while from 6.0, e.g. 6.1 or after a few months, as this very custom to begin with
+	 *                          Can be removed after a short while from 6.0, e.g. 6.1 or after a few months, as this very custom to begin with
 	 */
 	public function register_column_types_from_dir( $namespace ) {
 		_deprecated_function( __FUNCTION__, '6.0' );
