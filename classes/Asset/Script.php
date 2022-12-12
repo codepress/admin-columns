@@ -10,7 +10,7 @@ class Script extends Enqueueable {
 		return wp_script_is( $this->get_handle(), 'registered' );
 	}
 
-	public function register() {
+	public function register(): void {
 		if ( ! $this->location instanceof Location ) {
 			return;
 		}
