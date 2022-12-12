@@ -183,7 +183,7 @@ final class Database implements ListScreenRepositoryWritable {
 		$wpdb->delete(
 			$wpdb->prefix . self::TABLE,
 			[
-				'list_id' => $list_screen->get_id()->get_id(),
+				'list_id' => (string) $list_screen->get_id(),
 			],
 			[
 				'%s',
