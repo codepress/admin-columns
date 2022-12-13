@@ -33,6 +33,10 @@ module.exports = {
 			'lg' : '1024px',
 			'xl' : '1280px'
 		},
+		colors: {
+			'notification-red': 'var(--ac-notification-red)',
+			'notification-blue': 'var(--ac-notification-blue)'
+		},
 		extend : {},
 	},
 	plugins : [],
