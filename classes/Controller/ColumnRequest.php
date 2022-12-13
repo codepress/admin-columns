@@ -3,17 +3,17 @@
 namespace AC\Controller;
 
 use AC;
+use AC\Column;
 use AC\Column\Placeholder;
+use AC\ListScreen;
+use AC\Request;
 use AC\View;
 
 abstract class ColumnRequest {
 
-	/**
-	 * @return AC\Column
-	 */
-	abstract protected function get_column( AC\Request $request, AC\ListScreen $list_screen );
+	abstract protected function get_column( Request $request, ListScreen $list_screen ): ?Column;
 
-	public function request( AC\Request $request ) {
+	public function request( Request $request ): void {
 		$list_screen = AC\ListScreenTypes::instance()->get_list_screen_by_key( $request->get( 'list_screen' ) );
 
 		if ( ! $list_screen ) {
@@ -32,7 +32,7 @@ abstract class ColumnRequest {
 		$current_original_columns = (array) json_decode( $request->get( 'current_original_columns', '' ), true );
 
 		// Not cloneable message
-		if ( in_array( $column->get_type(), $current_original_columns ) ) {
+		if ( in_array( $column->get_type(), $current_original_columns, true ) ) {
 			wp_send_json_error( [
 				'type'  => 'message',
 				'error' => sprintf(
@@ -52,12 +52,7 @@ abstract class ColumnRequest {
 		wp_send_json_success( $this->render_column( $column ) );
 	}
 
-	/**
-	 * @param AC\Column $column
-	 *
-	 * @return string
-	 */
-	private function render_column( AC\Column $column ) {
+	private function render_column( Column $column ): string {
 		$view = new View( [
 			'column' => $column,
 		] );

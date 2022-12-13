@@ -10,22 +10,13 @@ use AC\Type\ListScreenId;
 
 class Save {
 
-	/**
-	 * @var Storage
-	 */
 	private $storage;
-
-	/**
-	 * @var Sanitize\FormData
-	 */
-	private $sanitizer;
 
 	public function __construct( Storage $storage ) {
 		$this->storage = $storage;
-		$this->sanitizer = new Sanitize\FormData();
 	}
 
-	public function request( Request $request ) {
+	public function request( Request $request ): void {
 		$data = json_decode( $request->get( 'data' ), true );
 
 		if ( ! isset( $data['columns'] ) ) {
@@ -42,7 +33,7 @@ class Save {
 			? new ListScreenId( $data['list_screen_id'] )
 			: ListScreenId::generate();
 
-		$data = $this->sanitizer->sanitize( $data );
+		$data = ( new Sanitize\FormData() )->sanitize( $data );
 
 		$list_screen->set_title( ! empty( $data['title'] ) ? $data['title'] : $list_screen->get_label() )
 		            ->set_settings( isset( $data['columns'] ) ? $this->maybe_encode_urls( $data['columns'] ) : [] )
@@ -54,20 +45,19 @@ class Save {
 		do_action( 'ac/columns_stored', $list_screen );
 
 		wp_send_json_success( [
-				'message' => sprintf(
-					'%s %s',
-					sprintf(
-						__( 'Settings for %s updated successfully.', 'codepress-admin-columns' ),
-						sprintf( '<strong>%s</strong>', esc_html( $list_screen->get_title() ) )
-					),
-					ac_helper()->html->link( $list_screen->get_screen_link(), sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) )
+			'message' => sprintf(
+				'%s %s',
+				sprintf(
+					__( 'Settings for %s updated successfully.', 'codepress-admin-columns' ),
+					sprintf( '<strong>%s</strong>', esc_html( $list_screen->get_title() ) )
 				),
-				'list_id' => $list_id->get_id(),
-			]
-		);
+				ac_helper()->html->link( $list_screen->get_screen_link(), sprintf( __( 'View %s screen', 'codepress-admin-columns' ), $list_screen->get_label() ) )
+			),
+			'list_id' => $list_id->get_id(),
+		] );
 	}
 
-	private function maybe_encode_urls( array $columndata ) {
+	private function maybe_encode_urls( array $columndata ): array {
 		foreach ( $columndata as $name => $data ) {
 			if ( isset( $data['label'] ) ) {
 				$columndata[ $name ]['label'] = ( new LabelEncoder() )->encode( $data['label'] );

@@ -674,7 +674,9 @@ abstract class ListScreen {
 			return false;
 		}
 
-		/* @var Column $column */
+		/**
+		 * @var Column $column
+		 */
 		$column = new $class();
 		$column->set_list_screen( $this )
 		       ->set_type( $settings['type'] );
@@ -803,8 +805,8 @@ abstract class ListScreen {
 
 		$value = $column->get_value( $id );
 
-		if ( apply_filters( 'ac/column/value/sanitize', true, $column, $id ) ) {
-			$value = ( new Kses() )->sanitize( $value );
+		if ( is_scalar( $value ) && apply_filters( 'ac/column/value/sanitize', true, $column, $id )  ) {
+			$value = ( new Kses() )->sanitize( (string) $value );
 		}
 
 		// You can overwrite the display value for original columns by making sure get_value() does not return an empty string.

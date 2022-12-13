@@ -5,6 +5,7 @@ module.exports = {
 	prefix : 'acu-',
 	content : [
 		"./../../src/core/**/*.{js,ts,svelte}",
+		"./../../src/editing/**/*.{js,ts,svelte}",
 		"./js/**/*.{js,ts}",
 	],
 	theme : {

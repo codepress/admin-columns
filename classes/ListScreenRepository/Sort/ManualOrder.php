@@ -8,16 +8,13 @@ use AC\Storage;
 
 class ManualOrder implements Sort {
 
-	/**
-	 * @var Storage\ListScreenOrder
-	 */
 	private $list_screen_order;
 
 	public function __construct() {
 		$this->list_screen_order = new Storage\ListScreenOrder();
 	}
 
-	public function sort( ListScreenCollection $list_screens ) {
+	public function sort( ListScreenCollection $list_screens ): ListScreenCollection {
 		if ( ! $list_screens->count() ) {
 			return $list_screens;
 		}

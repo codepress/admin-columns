@@ -11,27 +11,25 @@ use AC\Type\ListScreenId;
 
 class ListScreenAdmin implements Middleware {
 
-	const PARAM_LIST_ID = 'list_id';
-	const PARAM_LIST_KEY = 'list_key';
+	public const PARAM_LIST_ID = 'list_id';
+	public const PARAM_LIST_KEY = 'list_key';
 
-	/** @var Storage */
 	private $storage;
 
-	/** @var Preference\ListScreen */
 	private $preference;
 
-	/** @var bool */
 	private $is_network;
 
-	public function __construct( Storage $storage, Preference\ListScreen $preference, $is_network = false ) {
+	public function __construct( Storage $storage, Preference\ListScreen $preference, bool $is_network = false ) {
 		$this->storage = $storage;
 		$this->preference = $preference;
-		$this->is_network = (bool) $is_network;
+		$this->is_network = $is_network;
 	}
 
 	public function handle( Request $request ) {
 		$list_key = $request->get( 'list_screen' );
 
+		// TODO
 		if ( ! $list_key ) {
 			$list_key = $this->preference->get_last_visited_list_key();
 		}
@@ -55,10 +53,7 @@ class ListScreenAdmin implements Middleware {
 		}
 
 		if ( ! ListScreenId::is_valid_id( $list_id ) || ! $this->storage->exists( new ListScreenId( $list_id ) ) ) {
-
-			$list_screens = $this->storage->find_all( [
-				Storage::KEY => $list_key,
-			] );
+			$list_screens = $this->storage->find_all_by_key( $list_key );
 
 			$list_id = $list_screens->count() > 0
 				? $list_screens->get_first()->get_id()->get_id()

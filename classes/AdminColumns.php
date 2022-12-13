@@ -66,7 +66,9 @@ class AdminColumns extends Plugin {
 			->addDefinitions( $definitions )
 			->build();
 
-		/** @var Translation $global_translations */
+		/**
+		 * @var Translation $global_translations
+		 */
 		$global_translations = $container->get( 'translations.global' );
 
 		$location = $this->get_location();
@@ -104,7 +106,7 @@ class AdminColumns extends Plugin {
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename(), $is_acp_active ),
-			new Controller\TableListScreenSetter( $this->storage, new PermissionChecker(), $location, new Table\LayoutPreference() ),
+			new Controller\TableListScreenSetter( $this->storage, $location, new Table\LayoutPreference() ),
 			new Admin\Scripts( $location ),
 			new Service\IntegrationColumns( new IntegrationRepository() ),
 			new Service\CommonAssets( $location, $global_translations ),
@@ -139,17 +141,14 @@ class AdminColumns extends Plugin {
 		return defined( 'ACP_FILE' );
 	}
 
-	/**
-	 * @return Storage
-	 */
-	public function get_storage() {
+	public function get_storage(): Storage {
 		return $this->storage;
 	}
 
 	/**
 	 * @deprecated 4.3.1
 	 */
-	public function admin() {
+	public function admin(): void {
 		_deprecated_function( __METHOD__, '4.3.1' );
 	}
 
@@ -157,7 +156,7 @@ class AdminColumns extends Plugin {
 	 * @since      3.0
 	 * @deprecated 4.0
 	 */
-	public function api() {
+	public function api(): void {
 		_deprecated_function( __METHOD__, '4.0' );
 	}
 
@@ -165,7 +164,7 @@ class AdminColumns extends Plugin {
 	 * @return ListScreen[]
 	 * @deprecated 4.0
 	 */
-	public function get_list_screens() {
+	public function get_list_screens(): array {
 		_deprecated_function( __METHOD__, '4.0', 'ListScreenTypes::instance()->get_list_screens()' );
 
 		return ListScreenTypes::instance()->get_list_screens();
@@ -173,10 +172,9 @@ class AdminColumns extends Plugin {
 
 	/**
 	 * @return array
-	 * @since      1.0
 	 * @deprecated 4.1
 	 */
-	public function get_post_types() {
+	public function get_post_types(): array {
 		_deprecated_function( __METHOD__, '4.1' );
 
 		return ( new ListScreens )->get_post_types();
@@ -188,7 +186,7 @@ class AdminColumns extends Plugin {
 	 * @return self
 	 * @deprecated 4.1
 	 */
-	public function register_list_screen( ListScreen $list_screen ) {
+	public function register_list_screen( ListScreen $list_screen ): self {
 		_deprecated_function( __METHOD__, '4.1', 'ListScreenTypes::instance()->register_list_screen()' );
 
 		ListScreenTypes::instance()->register_list_screen( $list_screen );

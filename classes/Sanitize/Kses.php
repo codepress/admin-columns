@@ -2,20 +2,13 @@
 
 namespace AC\Sanitize;
 
-use AC\Sanitize;
+class Kses {
 
-class Kses implements Sanitize {
-
-	/**
-	 * @param string $data
-	 *
-	 * @return string
-	 */
-	public function sanitize( $data ) {
-		return wp_kses( $data, true, $this->get_allowed_protocols() );
+	public function sanitize( string $string ): string {
+		return wp_kses( $string, true, $this->get_allowed_protocols() );
 	}
 
-	protected function get_allowed_protocols() {
+	protected function get_allowed_protocols(): array {
 		return array_merge(
 			wp_allowed_protocols(),
 			[ 'data' ]

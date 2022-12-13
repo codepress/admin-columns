@@ -2,25 +2,18 @@
 
 namespace AC\Storage;
 
-use AC\ListScreenRepository;
+use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
 
 class ListColumnOrder {
 
-	/**
-	 * @var ListScreenRepository
-	 */
 	private $list_screen_repository;
 
-	public function __construct( ListScreenRepository $list_screen_repository ) {
+	public function __construct( ListScreenRepositoryWritable $list_screen_repository ) {
 		$this->list_screen_repository = $list_screen_repository;
 	}
 
-	/**
-	 * @param ListScreenId $list_id
-	 * @param array        $column_names
-	 */
-	public function save( ListScreenId $list_id, array $column_names ) {
+	public function save( ListScreenId $list_id, array $column_names ): void {
 		$list_screen = $this->list_screen_repository->find( $list_id );
 
 		if ( ! $list_screen ) {

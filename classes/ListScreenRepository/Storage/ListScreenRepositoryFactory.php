@@ -6,13 +6,6 @@ use AC\ListScreenRepository\Rules;
 
 interface ListScreenRepositoryFactory {
 
-	/**
-	 * @param string     $path
-	 * @param bool       $writable
-	 * @param Rules|null $rules
-	 *
-	 * @return ListScreenRepository
-	 */
-	public function create( $path, $writable, Rules $rules = null );
+	public function create( string $path, bool $writable, Rules $rules = null ): ListScreenRepository;
 
 }

@@ -97,24 +97,21 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		return $this->head;
 	}
 
-	/**
-	 * @return ListScreen|null
-	 */
-	public function get_list_screen_from_request() {
+	public function get_list_screen_from_request():? ListScreen {
 		$request = new Request();
-		$request->add_middleware( new Middleware\ListScreenAdmin( $this->storage, $this->preference, $this->is_network ) );
-
-		$list_key = $request->get( Middleware\ListScreenAdmin::PARAM_LIST_KEY );
-
-		if ( ! $list_key ) {
-			return null;
-		}
+		$request->add_middleware(
+			new Middleware\ListScreenAdmin( $this->storage, $this->preference, $this->is_network )
+		);
 
 		$list_id = $request->get( Middleware\ListScreenAdmin::PARAM_LIST_ID );
 
-		return $list_id && ListScreenId::is_valid_id( $list_id )
-			? $this->storage->find( new ListScreenId( $list_id ) )
-			: ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+		if ( ListScreenId::is_valid_id( $list_id ) ) {
+			return $this->storage->find( new ListScreenId( $list_id ) );
+		}
+
+		$list_key = $request->get( Middleware\ListScreenAdmin::PARAM_LIST_KEY );
+
+		return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
 	}
 
 	public function get_assets() {
