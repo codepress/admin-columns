@@ -10,22 +10,22 @@ use AC\View;
 class CustomFieldType extends Settings\Column
 	implements Settings\FormatValue {
 
-	const NAME = 'field_type';
+	public const NAME = 'field_type';
 
-	const TYPE_DEFAULT = '';
-	const TYPE_ARRAY = 'array';
-	const TYPE_BOOLEAN = 'checkmark';
-	const TYPE_COLOR = 'color';
-	const TYPE_COUNT = 'count';
-	const TYPE_DATE = 'date';
-	const TYPE_IMAGE = 'image';
-	const TYPE_MEDIA = 'library_id';
-	const TYPE_NON_EMPTY = 'has_content';
-	const TYPE_NUMERIC = 'numeric';
-	const TYPE_POST = 'title_by_id';
-	const TYPE_TEXT = 'excerpt';
-	const TYPE_URL = 'link';
-	const TYPE_USER = 'user_by_id';
+	public const TYPE_DEFAULT = '';
+	public const TYPE_ARRAY = 'array';
+	public const TYPE_BOOLEAN = 'checkmark';
+	public const TYPE_COLOR = 'color';
+	public const TYPE_COUNT = 'count';
+	public const TYPE_DATE = 'date';
+	public const TYPE_IMAGE = 'image';
+	public const TYPE_MEDIA = 'library_id';
+	public const TYPE_NON_EMPTY = 'has_content';
+	public const TYPE_NUMERIC = 'numeric';
+	public const TYPE_POST = 'title_by_id';
+	public const TYPE_TEXT = 'excerpt';
+	public const TYPE_URL = 'link';
+	public const TYPE_USER = 'user_by_id';
 
 	/**
 	 * @var string
@@ -135,7 +135,7 @@ class CustomFieldType extends Settings\Column
 			],
 			'multiple'   => [
 				self::TYPE_COUNT => __( 'Number of Fields', 'codepress-admin-columns' ),
-				self::TYPE_ARRAY => sprintf( '%s / %s', __( 'Multiple Values', 'codepress-admin-columns' ), __( 'Serialized', 'codepress-admin-columns' ) )
+				self::TYPE_ARRAY => sprintf( '%s / %s', __( 'Multiple Values', 'codepress-admin-columns' ), __( 'Serialized', 'codepress-admin-columns' ) ),
 			],
 		];
 
@@ -202,12 +202,12 @@ class CustomFieldType extends Settings\Column
 	}
 
 	/**
-	 * @param string|array $string
+	 * @param string|array $mixed
 	 *
 	 * @return array
 	 */
-	private function get_ids_from_array_or_string( $string ) {
-		$string = ac_helper()->array->implode_recursive( ',', $string );
+	private function get_ids_from_array_or_string( $mixed ): array {
+		$string = ac_helper()->array->implode_recursive( ',', $mixed );
 
 		return ac_helper()->string->string_to_array_integers( $string );
 	}
