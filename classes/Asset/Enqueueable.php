@@ -19,28 +19,17 @@ abstract class Enqueueable {
 	 */
 	protected $dependencies;
 
-	/**
-	 * @param string        $handle
-	 * @param Location|null $location
-	 * @param array         $dependencies
-	 */
-	public function __construct( $handle, Location $location = null, array $dependencies = [] ) {
-		$this->handle = (string) $handle;
+	public function __construct( string $handle, Location $location = null, array $dependencies = [] ) {
+		$this->handle = $handle;
 		$this->location = $location;
 		$this->dependencies = $dependencies;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_handle() {
+	public function get_handle(): string {
 		return $this->handle;
 	}
 
-	/**
-	 * @return int|null
-	 */
-	protected function get_version() {
+	protected function get_version(): ?int {
 		$path = $this->location->get_path();
 
 		return file_exists( $path )
@@ -48,14 +37,8 @@ abstract class Enqueueable {
 			: null;
 	}
 
-	/**
-	 * @return void
-	 */
-	abstract public function register();
+	abstract public function register(): void;
 
-	/**
-	 * @return void
-	 */
-	abstract public function enqueue();
+	abstract public function enqueue(): void;
 
 }

@@ -7,7 +7,7 @@ use AC\ListScreenRepository\Sort;
 
 class Label implements Sort {
 
-	public function sort( ListScreenCollection $list_screens ) {
+	public function sort( ListScreenCollection $list_screens ): ListScreenCollection {
 		$labels = [];
 
 		foreach ( $list_screens as $list_screen ) {

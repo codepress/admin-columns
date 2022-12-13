@@ -5,6 +5,7 @@ module.exports = {
 	prefix : 'acu-',
 	content : [
 		"./../../src/core/**/*.{js,ts,svelte}",
+		"./../../src/editing/**/*.{js,ts,svelte}",
 		"./js/**/*.{js,ts}",
 	],
 	theme : {
@@ -31,6 +32,10 @@ module.exports = {
 			'md' : '783px',
 			'lg' : '1024px',
 			'xl' : '1280px'
+		},
+		colors: {
+			'notification-red': 'var(--ac-notification-red)',
+			'notification-blue': 'var(--ac-notification-blue)'
 		},
 		extend : {},
 	},

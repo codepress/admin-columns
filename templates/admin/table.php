@@ -6,7 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/** @var Table $table */
+/**
+ * @var Table $table
+ */
 $table = $this->table;
 
 ?>

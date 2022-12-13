@@ -32,10 +32,7 @@ class AjaxColumnRequest implements Registerable {
 		$this->get_ajax_handler()->register();
 	}
 
-	/**
-	 * @return Ajax\Handler
-	 */
-	private function get_ajax_handler() {
+	private function get_ajax_handler(): Ajax\Handler {
 		$handler = new Ajax\Handler();
 		$handler
 			->set_action( 'ac-columns' )
@@ -44,7 +41,7 @@ class AjaxColumnRequest implements Registerable {
 		return $handler;
 	}
 
-	public function handle_ajax_request() {
+	public function handle_ajax_request(): void {
 		$this->get_ajax_handler()->verify_request();
 
 		switch ( $this->request->get( 'id' ) ) {

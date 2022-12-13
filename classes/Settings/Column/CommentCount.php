@@ -92,17 +92,17 @@ class CommentCount extends Settings\Column
 	/**
 	 * @param int $post_id
 	 *
-	 * @return int
+	 * @return int|null
 	 */
 	public function get_comment_count( $post_id ) {
 		$status = $this->get_comment_status();
 		$count = wp_count_comments( $post_id );
 
-		if ( empty( $count->$status ) ) {
-			return false;
+		if ( empty( $count->{$status} ) ) {
+			return null;
 		}
 
-		return $count->$status;
+		return (int) $count->{$status};
 	}
 
 	/**
