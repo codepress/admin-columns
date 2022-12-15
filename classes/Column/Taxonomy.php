@@ -20,7 +20,7 @@ class Taxonomy extends Column {
 	}
 
 	public function get_taxonomy() {
-		return $this->get_option( 'taxonomy' );
+		return $this->get_option( 'taxonomy' ) ?? '';
 	}
 
 	public function get_value( $post_id ) {
