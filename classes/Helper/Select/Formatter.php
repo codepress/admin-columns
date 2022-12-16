@@ -16,10 +16,6 @@ abstract class Formatter extends ArrayIterator {
 	 */
 	protected $value;
 
-	/**
-	 * @param Entities $entities
-	 * @param Value    $value
-	 */
 	public function __construct( Entities $entities, Value $value = null ) {
 		$this->entities = $entities;
 		$this->value = $value;
@@ -72,7 +68,7 @@ abstract class Formatter extends ArrayIterator {
 	protected abstract function get_label( $entity );
 
 	/**
-	 * @param $labels
+	 * @param array $labels
 	 *
 	 * @return array
 	 */
@@ -105,7 +101,7 @@ abstract class Formatter extends ArrayIterator {
 	 *
 	 * @return Option[]
 	 */
-	private function get_options( array $labels ) {
+	private function get_options( array $labels ): array {
 		$options = [];
 
 		foreach ( $labels as $value => $label ) {
