@@ -125,12 +125,12 @@ class Column {
 	}
 
 	/**
-	 * @param string $label
+	 * @param string|null $label
 	 *
 	 * @return $this
 	 */
 	public function set_label( $label ) {
-		$this->label = (string) $label;
+		$this->label = $label ? (string) $label : null;
 
 		return $this;
 	}
