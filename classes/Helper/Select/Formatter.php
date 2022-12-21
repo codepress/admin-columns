@@ -4,7 +4,8 @@ namespace AC\Helper\Select;
 
 use AC\ArrayIterator;
 
-abstract class Formatter extends ArrayIterator {
+// TODO create PostFormatter, UserFormatter etc..
+class Formatter extends ArrayIterator {
 
 	private $entities;
 

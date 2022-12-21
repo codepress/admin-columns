@@ -4,14 +4,17 @@ declare( strict_types=1 );
 namespace AC\Helper\Select\ValueFormatter;
 
 use AC\Helper\Select\ValueFormatter;
-use LogicException;
 use WP_Post;
 
 class PostTitle implements ValueFormatter {
 
 	public function format_value( $entity ): string {
+		if ( is_numeric( $entity ) ) {
+			$entity = get_post( (int) $entity );
+		}
+
 		if ( ! $entity instanceof WP_Post ) {
-			throw new LogicException( 'Invalid post' );
+			return '';
 		}
 
 		$label = $entity->post_title;

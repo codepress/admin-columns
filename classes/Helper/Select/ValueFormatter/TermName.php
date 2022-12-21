@@ -4,14 +4,17 @@ declare( strict_types=1 );
 namespace AC\Helper\Select\ValueFormatter;
 
 use AC\Helper\Select\ValueFormatter;
-use LogicException;
 use WP_Term;
 
 class TermName implements ValueFormatter {
 
 	public function format_value( $entity ): string {
+		if ( is_numeric( $entity ) ) {
+			$entity = get_term( $entity );
+		}
+
 		if ( ! $entity instanceof WP_Term ) {
-			throw new LogicException( 'Invalid term' );
+			return '';
 		}
 
 		return $this->get_label( $entity );

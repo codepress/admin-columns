@@ -4,10 +4,9 @@ declare( strict_types=1 );
 namespace AC\Helper\Select\ValueFormatter;
 
 use AC\Helper\Select\ValueFormatter;
-use LogicException;
 use WP_User;
 
-class UserName  implements ValueFormatter {
+class UserName implements ValueFormatter {
 
 	private $properties;
 
@@ -19,8 +18,12 @@ class UserName  implements ValueFormatter {
 	}
 
 	public function format_value( $entity ): string {
+		if ( is_numeric( $entity ) ) {
+			$entity = get_userdata( $entity );
+		}
+
 		if ( ! $entity instanceof WP_User ) {
-			throw new LogicException( 'Invalid user' );
+			return '';
 		}
 
 		return $this->get_label_user( $entity );

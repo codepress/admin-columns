@@ -5,14 +5,17 @@ namespace AC\Helper\Select\ValueFormatter;
 
 use AC\Helper\Select\ValueFormatter;
 use DateTime;
-use LogicException;
 use WP_Comment;
 
 class CommentSummary implements ValueFormatter {
 
 	public function format_value( $entity ): string {
+		if ( is_numeric( $entity ) ) {
+			$entity = get_comment( (int) $entity );
+		}
+
 		if ( ! $entity instanceof WP_Comment ) {
-			throw new LogicException( 'Invalid comment.' );
+			return '';
 		}
 
 		$date = new DateTime( $entity->comment_date );

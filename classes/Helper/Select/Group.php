@@ -70,6 +70,6 @@ abstract class Group extends ArrayIterator {
 	 *
 	 * @return string
 	 */
-	protected abstract function get_label( $entity, Option $option );
+	abstract protected function get_label( $entity, Option $option );
 
 }
