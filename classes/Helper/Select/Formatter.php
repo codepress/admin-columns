@@ -54,7 +54,6 @@ abstract class Formatter extends ArrayIterator {
 		}
 
 		if ( $this->unique_value_formatter ) {
-			// TODO get_value_formatted_unique()
 			$labels = $this->get_labels_unique( $labels );
 		}
 
@@ -69,12 +68,7 @@ abstract class Formatter extends ArrayIterator {
 	// TODO remove
 	protected abstract function get_label( $entity );
 
-	/**
-	 * @param array $labels
-	 *
-	 * @return array
-	 */
-	protected function get_labels_unique( array $labels ) {
+	protected function get_labels_unique( array $labels ): array {
 		$duplicates = array_diff_assoc( $labels, array_unique( $labels ) );
 
 		foreach ( $labels as $value => $label ) {
@@ -94,8 +88,8 @@ abstract class Formatter extends ArrayIterator {
 	 *
 	 * @return string
 	 */
-	protected function get_label_unique( $label, $entity ) {
-		return $label . sprintf( ' (%s)', $this->unique_value_formatter->format_value_unique( $entity ) );
+	protected function get_label_unique( $label, $entity ): string {
+		return sprintf( '%s (%s)', $label, $this->unique_value_formatter->format_value_unique( $entity ) );
 	}
 
 	/**

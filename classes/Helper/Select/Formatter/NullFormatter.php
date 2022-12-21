@@ -8,7 +8,7 @@ class NullFormatter extends Select\Formatter {
 
 	public function __construct( Select\Entities $entities, Select\UnqiueValueFormatter $value = null ) {
 		if ( null === $value ) {
-			$value = new Select\Value\NullFormatter();
+			$value = new Select\EntityFormatter\NullFormatter();
 		}
 
 		parent::__construct( $entities, $value );

@@ -4,20 +4,12 @@ namespace AC\Helper\Select\Entities;
 
 use AC;
 use AC\Helper\Select;
-use AC\Helper\Select\UnqiueValueFormatter;
+use AC\Helper\Select\EntityFormatter;
 
 class CustomFields extends Select\Entities
 	implements Select\Paginated {
 
-	/**
-	 * @param array                $args
-	 * @param UnqiueValueFormatter $value
-	 */
-	public function __construct( array $args = [], UnqiueValueFormatter $value = null ) {
-		if ( null === $value ) {
-			$value = new Value\NullFormatter();
-		}
-
+	public function __construct( array $args = [] ) {
 		$args = array_merge( [
 			'meta_type' => 'post',
 			'post_type' => false,
@@ -33,7 +25,7 @@ class CustomFields extends Select\Entities
 			$query->where_post_type( $args['post_type'] );
 		}
 
-		parent::__construct( $query->get(), $value );
+		parent::__construct( $query->get(), new EntityFormatter\NullFormatter() );
 	}
 
 	public function get_total_pages() {
