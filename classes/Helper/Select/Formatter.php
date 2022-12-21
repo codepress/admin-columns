@@ -66,7 +66,7 @@ abstract class Formatter extends ArrayIterator {
 	 * @return string
 	 */
 	// TODO remove
-	protected abstract function get_label( $entity );
+	protected function get_label( $entity ){ return ''; }
 
 	protected function get_labels_unique( array $labels ): array {
 		$duplicates = array_diff_assoc( $labels, array_unique( $labels ) );
