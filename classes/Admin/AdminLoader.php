@@ -11,19 +11,10 @@ use AC\View;
 
 class AdminLoader implements Registerable {
 
-	/**
-	 * @var string
-	 */
 	protected $hook;
 
-	/**
-	 * @var RequestHandlerInterface
-	 */
 	protected $request_handler;
 
-	/**
-	 * @var Enqueueables
-	 */
 	protected $assets;
 
 	/**
@@ -31,7 +22,7 @@ class AdminLoader implements Registerable {
 	 */
 	private $page;
 
-	public function __construct( $hook, RequestHandlerInterface $request_handler, Enqueueables $assets ) {
+	public function __construct( string $hook, RequestHandlerInterface $request_handler, Enqueueables $assets ) {
 		$this->hook = $hook;
 		$this->request_handler = $request_handler;
 		$this->assets = $assets;
@@ -82,13 +73,13 @@ class AdminLoader implements Registerable {
 		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
 	}
 
-	public function head() {
+	public function head(): void {
 		if ( $this->page instanceof RenderableHead ) {
 			echo $this->page->render_head();
 		}
 	}
 
-	public function body() {
+	public function body(): void {
 		if ( $this->page instanceof Renderable ) {
 			$view = new View( [
 				'content' => $this->page->render(),
@@ -98,7 +89,7 @@ class AdminLoader implements Registerable {
 		}
 	}
 
-	protected function enqueue( Enqueueable $asset ) {
+	protected function enqueue( Enqueueable $asset ): void {
 		$asset->enqueue();
 	}
 
