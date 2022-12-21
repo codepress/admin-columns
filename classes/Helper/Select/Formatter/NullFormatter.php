@@ -6,7 +6,7 @@ use AC\Helper\Select;
 
 class NullFormatter extends Select\Formatter {
 
-	public function __construct( Select\Entities $entities, Select\Value $value = null ) {
+	public function __construct( Select\Entities $entities, Select\UnqiueValueFormatter $value = null ) {
 		if ( null === $value ) {
 			$value = new Select\Value\NullFormatter();
 		}

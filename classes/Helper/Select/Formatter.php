@@ -6,27 +6,27 @@ use AC\ArrayIterator;
 
 abstract class Formatter extends ArrayIterator {
 
-	/**
-	 * @var Entities
-	 */
 	private $entities;
 
-	/**
-	 * @var Value
-	 */
-	protected $value;
+	protected $value_formatter;
 
-	public function __construct( Entities $entities, Value $value = null ) {
+	protected $unique_value_formatter;
+
+	public function __construct(
+		Entities $entities,
+		ValueFormatter $value_formatter,
+		UnqiueValueFormatter $unique_value_formatter = null
+	) {
 		$this->entities = $entities;
-		$this->value = $value;
+		$this->value_formatter = $value_formatter;
+		$this->unique_value_formatter = $unique_value_formatter;
+
+		// TODO implement null formatters
 
 		parent::__construct( $this->get_labels() );
 	}
 
-	/**
-	 * @return Entities
-	 */
-	public function get_entities() {
+	public function get_entities(): Entities {
 		return $this->entities;
 	}
 
@@ -46,14 +46,15 @@ abstract class Formatter extends ArrayIterator {
 	/**
 	 * @return Option[]
 	 */
-	protected function get_labels() {
+	protected function get_labels(): array {
 		$labels = [];
 
 		foreach ( $this->entities as $value => $entity ) {
-			$labels[ $value ] = $this->get_label( $entity );
+			$labels[ $value ] = $this->value_formatter->format_value( $entity );
 		}
 
-		if ( $this->value ) {
+		if ( $this->unique_value_formatter ) {
+			// TODO get_value_formatted_unique()
 			$labels = $this->get_labels_unique( $labels );
 		}
 
@@ -65,6 +66,7 @@ abstract class Formatter extends ArrayIterator {
 	 *
 	 * @return string
 	 */
+	// TODO remove
 	protected abstract function get_label( $entity );
 
 	/**
@@ -76,7 +78,7 @@ abstract class Formatter extends ArrayIterator {
 		$duplicates = array_diff_assoc( $labels, array_unique( $labels ) );
 
 		foreach ( $labels as $value => $label ) {
-			if ( ! in_array( $label, $duplicates ) ) {
+			if ( ! in_array( $label, $duplicates, true ) ) {
 				continue;
 			}
 
@@ -93,7 +95,7 @@ abstract class Formatter extends ArrayIterator {
 	 * @return string
 	 */
 	protected function get_label_unique( $label, $entity ) {
-		return $label . sprintf( ' (%s)', $this->value->get_value( $entity ) );
+		return $label . sprintf( ' (%s)', $this->unique_value_formatter->format_value_unique( $entity ) );
 	}
 
 	/**

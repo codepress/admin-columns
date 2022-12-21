@@ -4,16 +4,16 @@ namespace AC\Helper\Select\Entities;
 
 use AC;
 use AC\Helper\Select;
-use AC\Helper\Select\Value;
+use AC\Helper\Select\UnqiueValueFormatter;
 
 class CustomFields extends Select\Entities
 	implements Select\Paginated {
 
 	/**
-	 * @param array $args
-	 * @param Value $value
+	 * @param array                $args
+	 * @param UnqiueValueFormatter $value
 	 */
-	public function __construct( array $args = [], Value $value = null ) {
+	public function __construct( array $args = [], UnqiueValueFormatter $value = null ) {
 		if ( null === $value ) {
 			$value = new Value\NullFormatter();
 		}
