@@ -30,7 +30,7 @@ class TermName implements ValueFormatter {
 	private function is_term_post_format( WP_Term $term ): bool {
 		$slug = str_replace( 'post-format-', '', $term->slug );
 
-		return 0 === strpos( $term->slug, 'post-format-' ) && in_array( $slug, get_post_format_slugs() );
+		return 0 === strpos( $term->slug, 'post-format-' ) && in_array( $slug, get_post_format_slugs(), true );
 	}
 
 	protected function get_label( WP_Term $term ): string {
@@ -41,7 +41,7 @@ class TermName implements ValueFormatter {
 		}
 
 		// Extra check if the taxonomy (still) exists
-		if ( ! in_array( $term->taxonomy, $this->get_taxonomies() ) ) {
+		if ( ! in_array( $term->taxonomy, $this->get_taxonomies(), true ) ) {
 			return '';
 		}
 
