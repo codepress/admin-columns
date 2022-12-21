@@ -89,6 +89,18 @@ export default class AcHtmlElement<T extends HTMLElement = HTMLElement> {
         return this;
     }
 
+    prepend(element: HTMLElement) {
+        this.element.prepend(element);
+
+        return this;
+    }
+
+    prependSelfTo(element: HTMLElement) {
+        element.prepend(this.element);
+
+        return this;
+    }
+
     css(property: any, value: any) {
         this.element.style[property] = value;
 
