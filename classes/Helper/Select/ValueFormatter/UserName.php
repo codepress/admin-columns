@@ -18,10 +18,6 @@ class UserName implements ValueFormatter {
 	}
 
 	public function format_value( $entity ): string {
-		if ( is_numeric( $entity ) ) {
-			$entity = get_userdata( $entity );
-		}
-
 		if ( ! $entity instanceof WP_User ) {
 			return '';
 		}

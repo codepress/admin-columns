@@ -4,19 +4,10 @@ namespace AC\Helper\Select;
 
 interface Paginated {
 
-	/**
-	 * @return int
-	 */
-	public function get_total_pages();
+	public function get_total_pages(): int;
 
-	/**
-	 * @return int
-	 */
-	public function get_page();
+	public function get_page(): int;
 
-	/**
-	 * @return bool
-	 */
-	public function is_last_page();
+	public function is_last_page(): bool;
 
 }

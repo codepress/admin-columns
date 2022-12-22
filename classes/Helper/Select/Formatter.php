@@ -4,7 +4,7 @@ namespace AC\Helper\Select;
 
 use AC\ArrayIterator;
 
-// TODO create PostFormatter, UserFormatter etc..
+// TODO this is not a Formatter but a OptionCollection..
 class Formatter extends ArrayIterator {
 
 	private $entities;
@@ -22,17 +22,11 @@ class Formatter extends ArrayIterator {
 		$this->value_formatter = $value_formatter;
 		$this->unique_value_formatter = $unique_value_formatter;
 
-		// TODO implement null formatters
-
 		parent::__construct( $this->get_labels() );
 	}
 
-	public function get_entities(): Entities {
-		return $this->entities;
-	}
-
 	/**
-	 * @param $value
+	 * @param mixed $value
 	 *
 	 * @return mixed
 	 */
@@ -54,20 +48,10 @@ class Formatter extends ArrayIterator {
 			$labels[ $value ] = $this->value_formatter->format_value( $entity );
 		}
 
-		if ( $this->unique_value_formatter ) {
-			$labels = $this->get_labels_unique( $labels );
-		}
+		$labels = $this->get_labels_unique( $labels );
 
 		return $this->get_options( $labels );
 	}
-
-	/**
-	 * @param $entity
-	 *
-	 * @return string
-	 */
-	// TODO remove
-	protected function get_label( $entity ){ return ''; }
 
 	protected function get_labels_unique( array $labels ): array {
 		$duplicates = array_diff_assoc( $labels, array_unique( $labels ) );
@@ -77,27 +61,22 @@ class Formatter extends ArrayIterator {
 				continue;
 			}
 
-			$labels[ $value ] = $this->get_label_unique( $label, $this->get_entity( $value ) );
+			$entity = $this->get_entity( $value );
+			$unique_label = $this->unique_value_formatter->format_value_unique( $entity );
+
+			$labels[ $value ] = $this->render_label_unique(
+				$label,
+				$unique_label
+			);
 		}
 
 		return $labels;
 	}
 
-	/**
-	 * @param string $label
-	 * @param mixed  $entity
-	 *
-	 * @return string
-	 */
-	protected function get_label_unique( $label, $entity ): string {
-		return sprintf( '%s (%s)', $label, $this->unique_value_formatter->format_value_unique( $entity ) );
+	protected function render_label_unique( string $label, string $unique_label ): string {
+		return sprintf( '%s (%s)', $label, $unique_label );
 	}
 
-	/**
-	 * @param array $labels
-	 *
-	 * @return Option[]
-	 */
 	private function get_options( array $labels ): array {
 		$options = [];
 

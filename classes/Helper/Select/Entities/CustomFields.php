@@ -28,15 +28,15 @@ class CustomFields extends Select\Entities
 		parent::__construct( $query->get(), new EntityFormatter\NullFormatter() );
 	}
 
-	public function get_total_pages() {
+	public function get_total_pages(): int {
 		return 1;
 	}
 
-	public function get_page() {
+	public function get_page(): int {
 		return 1;
 	}
 
-	public function is_last_page() {
+	public function is_last_page(): bool {
 		return true;
 	}
 

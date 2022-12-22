@@ -65,7 +65,7 @@ abstract class Group extends ArrayIterator {
 	}
 
 	/**
-	 * @param        $entity
+	 * @param mixed  $entity
 	 * @param Option $option
 	 *
 	 * @return string

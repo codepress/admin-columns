@@ -19,15 +19,15 @@ class Paginated extends Select\Options
 		parent::__construct( $options->get_copy() );
 	}
 
-	public function get_total_pages() {
+	public function get_total_pages(): int {
 		return $this->paginated->get_total_pages();
 	}
 
-	public function get_page() {
+	public function get_page(): int {
 		return $this->paginated->get_page();
 	}
 
-	public function is_last_page() {
+	public function is_last_page(): bool {
 		return $this->paginated->is_last_page();
 	}
 
