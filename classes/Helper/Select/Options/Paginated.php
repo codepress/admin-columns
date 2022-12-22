@@ -8,9 +8,6 @@ use AC\Helper\Select;
 class Paginated extends Select\Options
 	implements Select\Paginated {
 
-	/**
-	 * @var Paginated
-	 */
 	protected $paginated;
 
 	public function __construct( Select\Paginated $paginated, ArrayIterator $options ) {

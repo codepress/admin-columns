@@ -2,10 +2,9 @@
 
 namespace AC\Helper\Select;
 
-// TODO implement
+// TODO remove. use Select\Post\LabelFormatter
 interface UnqiueValueFormatter {
 
-	// TODO rename format_value
 	public function format_value_unique( $value ): string;
 
 }

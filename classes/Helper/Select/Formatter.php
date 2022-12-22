@@ -4,7 +4,7 @@ namespace AC\Helper\Select;
 
 use AC\ArrayIterator;
 
-// TODO this is not a Formatter but a OptionCollection..
+// TODO remove use Select\Post\Options
 class Formatter extends ArrayIterator {
 
 	private $entities;

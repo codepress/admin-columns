@@ -4,6 +4,7 @@ namespace AC\Helper\Select;
 
 use AC\ArrayIterator;
 
+// TODO remove this base class
 class Entities extends ArrayIterator {
 
 	// TODO why the extra formatter?
