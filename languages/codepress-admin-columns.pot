@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2022-11-30 09:17+0000\n"
+"POT-Creation-Date: 2022-12-23 07:51+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -64,11 +64,11 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
-#: classes/Admin/AdminLoader.php:107, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:113, classes/Settings/Column/Post.php:86, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:55, classes/Settings/Column/VideoDisplay.php:26
+#: classes/Admin/AdminLoader.php:98, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:113, classes/Settings/Column/Post.php:86, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:55, classes/Settings/Column/VideoDisplay.php:26
 msgid "Display"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:47, classes/Admin/Page/Columns.php:212
+#: classes/Admin/MenuFactory.php:47, classes/Admin/Page/Columns.php:209
 msgid "Columns"
 msgstr ""
 
@@ -100,7 +100,7 @@ msgstr ""
 msgid "Get %s now"
 msgstr ""
 
-#: classes/Check/Review.php:148, classes/Table/Screen.php:438, classes/Admin/MenuPageFactory/Menu.php:14, classes/Admin/MenuPageFactory/SubMenu.php:15
+#: classes/Check/Review.php:148, classes/Table/Screen.php:434, classes/Admin/MenuPageFactory/Menu.php:14, classes/Admin/MenuPageFactory/SubMenu.php:15
 msgid "Admin Columns"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: classes/Column/CustomField.php:19, templates/tooltip/custom-field.php:7
+#: classes/Column/CustomField.php:18, templates/tooltip/custom-field.php:7
 msgid "Custom Field"
 msgstr ""
 
@@ -164,23 +164,27 @@ msgstr ""
 msgid "Find out more"
 msgstr ""
 
-#: classes/Column/Taxonomy.php:20, classes/Settings/Column/Taxonomy.php:51
+#: classes/Column/Taxonomy.php:19, classes/Settings/Column/Taxonomy.php:51
 msgid "Taxonomy"
 msgstr ""
 
-#: classes/Controller/AjaxColumnModalValue.php:42, classes/Controller/AjaxColumnValue.php:42
+#: classes/Controller/AjaxColumnModalValue.php:46, classes/Controller/AjaxColumnValue.php:42
 msgid "Invalid item ID."
 msgstr ""
 
-#: classes/Controller/AjaxColumnModalValue.php:48, classes/Controller/AjaxColumnValue.php:48
+#: classes/Controller/AjaxColumnModalValue.php:50, classes/Controller/AjaxColumnValue.php:48
+msgid "Invalid list ID."
+msgstr ""
+
+#: classes/Controller/AjaxColumnModalValue.php:59, classes/Controller/AjaxColumnValue.php:54
 msgid "Invalid list screen."
 msgstr ""
 
-#: classes/Controller/AjaxColumnModalValue.php:54, classes/Controller/AjaxColumnValue.php:54
+#: classes/Controller/AjaxColumnModalValue.php:65, classes/Controller/AjaxColumnValue.php:60
 msgid "Invalid column."
 msgstr ""
 
-#: classes/Controller/AjaxColumnModalValue.php:58, classes/Controller/AjaxColumnValue.php:58
+#: classes/Controller/AjaxColumnModalValue.php:69, classes/Controller/AjaxColumnValue.php:64
 msgid "Invalid method."
 msgstr ""
 
@@ -188,7 +192,7 @@ msgstr ""
 msgid "Please visit the %s screen once to load all available columns"
 msgstr ""
 
-#: classes/Controller/ColumnRequest.php:39, classes/Admin/Asset/Columns.php:56
+#: classes/Controller/ColumnRequest.php:39, classes/Admin/Asset/Columns.php:61
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
@@ -296,7 +300,7 @@ msgstr ""
 msgid "%s Off from Black Friday to Cyber Monday"
 msgstr ""
 
-#: classes/Table/Screen.php:154, classes/Table/Screen.php:156, classes/Table/Screen.php:261, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
+#: classes/Table/Screen.php:154, classes/Table/Screen.php:156, classes/Table/Screen.php:241, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
 msgid "Download"
 msgstr ""
 
@@ -304,19 +308,19 @@ msgstr ""
 msgid "Edit columns"
 msgstr ""
 
-#: classes/Table/Screen.php:259
+#: classes/Table/Screen.php:239
 msgid "Loading..."
 msgstr ""
 
-#: classes/Table/Screen.php:260, templates/admin/edit-column.php:35
+#: classes/Table/Screen.php:240, templates/admin/edit-column.php:35
 msgid "Edit"
 msgstr ""
 
-#: classes/Translation/Confirmation.php:11
+#: settings/translations/global.php:5
 msgid "Ok"
 msgstr ""
 
-#: classes/Translation/Confirmation.php:12
+#: settings/translations/global.php:6
 msgid "Cancel"
 msgstr ""
 
@@ -401,7 +405,7 @@ msgid "Roles"
 msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:48
-msgid "Toggle Elements"
+msgid "Table Elements"
 msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:49
@@ -860,24 +864,20 @@ msgstr ""
 msgid "You can change the default sorted column in the optional settings below."
 msgstr ""
 
-#: classes/Admin/Asset/Addons.php:21
+#: classes/Admin/Asset/Addons.php:19
 msgid "The Add-on %s is activated."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:57
+#: classes/Admin/Asset/Columns.php:62
 msgid "Invalid response."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:59
+#: classes/Admin/Asset/Columns.php:64
 msgid "There was an error during saving the column settings."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:60
+#: classes/Admin/Asset/Columns.php:65
 msgid "The column could not be loaded because of an unknown error"
-msgstr ""
-
-#: classes/Admin/Asset/Settings.php:21
-msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
 #: classes/Admin/MenuPageFactory/Menu.php:13, classes/Admin/MenuPageFactory/SubMenu.php:14
@@ -888,27 +888,23 @@ msgstr ""
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:129
+#: classes/Admin/Page/Addons.php:120
 msgid "Recommended"
 msgstr ""
 
-#: classes/Admin/Page/Addons.php:137, templates/admin/page/component/addon/active-label.php:3
-msgid "Active"
-msgstr ""
-
-#: classes/Admin/Page/Addons.php:145
+#: classes/Admin/Page/Addons.php:128
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:171
+#: classes/Admin/Page/Columns.php:168
 msgid "I'm using Admin Columns for WordPress!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:228
+#: classes/Admin/Page/Columns.php:225
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:237
+#: classes/Admin/Page/Columns.php:234
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -1310,15 +1306,15 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:32
+#: classes/Controller/ListScreen/Save.php:23
 msgid "You need at least one column"
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:60
+#: classes/Controller/ListScreen/Save.php:51
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:63
+#: classes/Controller/ListScreen/Save.php:54
 msgid "View %s screen"
 msgstr ""
 
@@ -2242,12 +2238,20 @@ msgstr ""
 msgid "Restore settings"
 msgstr ""
 
+#: classes/Admin/Asset/Script/SettingsFactory.php:26
+msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
+msgstr ""
+
 #: classes/Admin/Section/Partial/ShowEditButton.php:21
 msgid "Show %s button on table screen."
 msgstr ""
 
 #: templates/admin/page/component/addon/activate-disabled.php:2, templates/admin/page/component/addon/install.php:2
 msgid "Enable"
+msgstr ""
+
+#: templates/admin/page/component/addon/active-label.php:3
+msgid "Active"
 msgstr ""
 
 #: templates/admin/page/component/addon/deactivate.php:2
