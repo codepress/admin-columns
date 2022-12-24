@@ -13,7 +13,7 @@ class MetaValuesFactory {
 	 *
 	 * @return array
 	 */
-	public static function create( $meta_type, $meta_key, $post_type = null ) {
+	public static function create( $meta_type, $meta_key, string $post_type = null ): array {
 		global $wpdb;
 
 		switch ( $meta_type ) {
@@ -28,7 +28,7 @@ class MetaValuesFactory {
 				", (string) $meta_key );
 
 				if ( $post_type ) {
-					$sql .= $wpdb->prepare( " AND ps.post_type = %s", (string) $post_type );
+					$sql .= $wpdb->prepare( " AND ps.post_type = %s", $post_type );
 				}
 
 				return $wpdb->get_col( $sql );
