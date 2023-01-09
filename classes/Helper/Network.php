@@ -18,8 +18,8 @@ class Network {
 		$table = $wpdb->get_blog_prefix( $blog_id ) . 'options';
 
 		$sql = "
-			SELECT {$table}.option_value 
-			FROM {$table}
+			SELECT $table.option_value 
+			FROM $table
 			WHERE option_name = %s
 		";
 
