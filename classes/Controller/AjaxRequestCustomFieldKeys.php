@@ -8,10 +8,10 @@ use AC\Meta\Query;
 use AC\Registerable;
 use AC\Request;
 use AC\Response;
-use ACP\Helper\Select\MetaValues\GroupFormatter\BlogSite;
-use ACP\Helper\Select\MetaValues\GroupFormatter\VisibilityType;
-use ACP\Helper\Select\MetaValues\Groups;
-use ACP\Helper\Select\MetaValues\Options;
+use ACP\Helper\Select\Generic\GroupFormatter\BlogSite;
+use ACP\Helper\Select\Generic\GroupFormatter\VisibilityType;
+use ACP\Helper\Select\Generic\Groups;
+use ACP\Helper\Select\Generic\Options;
 
 class AjaxRequestCustomFieldKeys implements Registerable {
 
