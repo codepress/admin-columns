@@ -92,6 +92,7 @@ class AdminColumns extends Plugin {
 			new Screen(),
 			new ThirdParty\ACF(),
 			new ThirdParty\NinjaForms(),
+			new ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant(),
 			new ThirdParty\WooCommerce(),
 			new ThirdParty\WPML( $this->storage ),
 			new Controller\DefaultColumns( new Request(), new DefaultColumnsRepository() ),
