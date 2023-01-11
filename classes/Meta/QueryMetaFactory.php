@@ -17,13 +17,8 @@ final class QueryMetaFactory {
 	}
 
 	public function create_with_post_type( string $meta_key, string $meta_type, string $post_type ): Query {
-		$query = $this->create( $meta_key, $meta_type );
-
-		if ( $post_type ) {
-			$query->where_post_type( $post_type );
-		}
-
-		return $query;
+		return $this->create( $meta_key, $meta_type )
+		            ->where_post_type( $post_type );
 	}
 
 }
