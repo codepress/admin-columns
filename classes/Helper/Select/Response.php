@@ -21,7 +21,7 @@ final class Response {
 
 	public function __invoke() {
 		return [
-			'results'    => ( new JsonMapper )->map( $this->options ),
+			'results'    => JsonMapper::map( $this->options ),
 			'pagination' => [
 				'more' => $this->more,
 			],

@@ -4,29 +4,24 @@ namespace AC\Helper\Select;
 
 final class JsonMapper {
 
-	public function map( Options $options ): array {
-		$mapping = [];
+	public static function map( Options $options ): array {
+		$items = [];
 
 		foreach ( $options as $option ) {
-			switch ( true ) {
-				case $option instanceof OptionGroup:
-					$mapping[] = [
-						'text'     => $option->get_label(),
-						'children' => self::map( $option->get_options() ),
-					];
+			$item = [
+				'text' => $option->get_label(),
+			];
 
-					break;
-				case $option instanceof Option:
-					$mapping[] = [
-						'id'   => $option->get_value(),
-						'text' => $option->get_label(),
-					];
-
-					break;
+			if ( $option instanceof OptionGroup ) {
+				$item['children'] = self::map( $option->get_options() );
+			} else {
+				$item['id'] = $option->get_value();
 			}
+
+			$items[] = $item;
 		}
 
-		return $mapping;
+		return $items;
 	}
 
 }
