@@ -13,7 +13,7 @@ final class JsonMapper {
 			];
 
 			if ( $option instanceof OptionGroup ) {
-				$item['children'] = self::map( $option->get_options() );
+				$item['children'] = self::map( new Options( $option->get_options() ) );
 			} else {
 				$item['id'] = $option->get_value();
 			}
