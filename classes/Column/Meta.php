@@ -13,31 +13,10 @@ abstract class Meta extends Column {
 	abstract public function get_meta_key();
 
 	/**
-	 * Is data stored serialized?
-	 * @var bool
-	 */
-	private $serialized = false;
-
-	/**
-	 * @return bool
-	 */
-	public function is_serialized() {
-		return $this->serialized;
-	}
-
-	/**
-	 * @param bool $serialized
-	 */
-	public function set_serialized( $serialized ) {
-		$this->serialized = (bool) $serialized;
-	}
-
-	/**
 	 * @param $id
 	 *
 	 * @return bool|mixed
 	 * @see   Column::get_raw_value()
-	 * @since 2.0.3
 	 */
 	public function get_raw_value( $id ) {
 		return $this->get_meta_value( $id, $this->get_meta_key() );
@@ -46,7 +25,6 @@ abstract class Meta extends Column {
 	/**
 	 * Retrieve metadata object type (e.g., comment, post, or user)
 	 * @return string
-	 * @since 3.0
 	 */
 	public function get_meta_type() {
 		return $this->get_list_screen()->get_meta_type();

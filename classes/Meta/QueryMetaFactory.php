@@ -19,15 +19,20 @@ final class QueryMetaFactory {
 		return $query;
 	}
 
-	public function create_with_post_type( string $meta_key, string $meta_type, string $post_type ): Query {
-		return $this->create( $meta_key, $meta_type )
+	public function create_with_post_type( string $meta_key, string $post_type ): Query {
+		return $this->create( $meta_key, MetaType::POST )
 		            ->where_post_type( $post_type );
 	}
 
-	public function create_by_meta_column( Meta $column ) {
+	public function create_with_post_types( string $meta_key, array $post_types ): Query {
+		return $this->create( $meta_key, MetaType::POST )
+		            ->where_post_types( $post_types );
+	}
+
+	public function create_by_meta_column( Meta $column ): Query {
 		switch ( $column->get_meta_key() ) {
 			case MetaType::POST:
-				return $this->create_with_post_type( $column->get_meta_key(), $column->get_meta_type(), $column->get_post_type() );
+				return $this->create_with_post_type( $column->get_meta_key(), $column->get_post_type() );
 			default:
 				return $this->create( $column->get_meta_key(), $column->get_meta_type() );
 		}

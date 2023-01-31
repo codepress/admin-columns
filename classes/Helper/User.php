@@ -15,7 +15,7 @@ class User {
 	public function get_user_field( $field, $user_id ) {
 		$user = get_user_by( 'id', $user_id );
 
-		return isset( $user->{$field} ) ? $user->{$field} : false;
+		return $user->{$field} ?? false;
 	}
 
 	/**
@@ -88,9 +88,7 @@ class User {
 			case 'roles' :
 				return ac_helper()->string->enumeration_list( $this->get_roles_names( $user->roles ), 'and' );
 			default :
-				return isset( $user->{$format} )
-					? $user->{$format}
-					: $user->display_name;
+				return $user->{$format} ?? $user->display_name;
 		}
 	}
 

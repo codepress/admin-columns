@@ -131,7 +131,7 @@ class Query {
 	 * @return $this
 	 * @see get_where_clause()
 	 */
-	public function join_where( $field, $operator = null, $value = null, $boolean = 'AND' ) {
+	public function join_where( $field, $operator = null, $value = null, $boolean = 'AND' ): self {
 		// set default join
 		if ( ! $this->join ) {
 			$this->join();
@@ -273,8 +273,13 @@ class Query {
 		return $this->where( $field, '', 'IS NULL' );
 	}
 
-	public function where_post_type( $post_type ) {
+	public function where_post_type( $post_type ): self {
 		return $this->where( 'post_type', '=', $post_type );
+	}
+
+	// TODO test
+	public function where_post_types( array $post_types ): self {
+		return $this->where( 'post_type', 'in', $post_types );
 	}
 
 	private function parse_field( $field ) {
