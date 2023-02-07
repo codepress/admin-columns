@@ -3,6 +3,8 @@
     import {onMount} from "svelte";
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
 
+    export let closeOnClick: boolean = true;
+
     let opened: boolean = false;
 
     const toggle = () => {
@@ -44,6 +46,12 @@
         document.removeEventListener('focusout', handleOutsideClick);
     }
 
+    const handleSelect = () => {
+        if (opened && closeOnClick) {
+            opened = false;
+        }
+    }
+
     onMount(() => {
         if (opened) {
             registerCloseHandlers();
@@ -56,12 +64,12 @@
 		position: relative;
 	}
 </style>
-<div class="acui-dropdown" on:click|stopPropagation>
-	<div class="acui-dropdown-trigger" on:click={toggle}>
-		<slot name="trigger"></slot>
+<div class="acui-dropdown">
+	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle}>
+		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}
-		<AcDropdownMenu>
+		<AcDropdownMenu on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
 			<slot></slot>
 		</AcDropdownMenu>
 	{/if}

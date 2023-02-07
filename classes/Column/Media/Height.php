@@ -10,8 +10,6 @@ use AC\Column;
 class Height extends Column\Media\MetaValue {
 
 	public function __construct() {
-		parent::__construct();
-
 		$this->set_type( 'column-height' )
 		     ->set_group( 'media-image' )
 		     ->set_label( __( 'Height', 'codepress-admin-columns' ) );
