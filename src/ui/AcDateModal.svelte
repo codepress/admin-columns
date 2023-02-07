@@ -36,7 +36,13 @@
 	}
 
     onMount( () => {
-        console.log( value );
+        if( value.length === 7){
+            let date = new Date( value );
+
+            valueYear = date.getFullYear();
+            valueMonth = date.getMonth() + 1
+            displayYear = valueYear;
+		}
 	})
 
 </script>
@@ -44,6 +50,8 @@
 	.acui-picker {
 		background: #fff;
 		width: 250px;
+		position: relative;
+		z-index: 10;
 	}
 
 	.acui-datepicker-header {
@@ -64,10 +72,15 @@
 	.acui-datepicker-months {
 		display: flex;
 		flex-wrap: wrap;
+		padding: 10px;
 	}
 
 	.acui-datepicker-months button {
 		flex: 33%;
+		background: none;
+		border: 1px solid transparent;
+		height: 40px;
+		cursor: pointer;
 	}
 
 	.acui-datepicker-table table {
@@ -91,8 +104,8 @@
 		background: #eee;
 	}
 	.acui-datepicker-month.-active {
-		background: var(--ac-primary-color);
-		color: #fff;
+		border-color: var(--ac-primary-color);
+		color: var(--ac-primary-color);
 	}
 </style>
 <div class="acui-picker">
@@ -123,5 +136,6 @@
 			{/each}
 
 		</div>
+
 	</div>
 </div>
