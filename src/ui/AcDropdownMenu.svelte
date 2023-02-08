@@ -7,9 +7,10 @@
 		top: 100%;
 		background: #fff;
 		box-shadow: 0 2px 4px -1px rgb(0 0 0 / 14%);
-		z-index: 10;
+
 		min-width: 200px;
 		padding: 8px 0;
+		z-index: var(--menu-z-index, 20);
 	}
 </style>
 
