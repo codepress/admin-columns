@@ -2,6 +2,7 @@
 
 namespace AC;
 
+use AC\ListScreenRepository\Sort;
 use AC\Type\ListScreenId;
 use WP_User;
 
@@ -13,10 +14,10 @@ interface ListScreenRepository {
 
 	public function exists( ListScreenId $id ): bool;
 
-	public function find_all( string $order_by = null ): ListScreenCollection;
+	public function find_all( Sort $sort = null ): ListScreenCollection;
 
-	public function find_all_by_key( string $key, string $order_by = null ): ListScreenCollection;
+	public function find_all_by_key( string $key, Sort $sort = null ): ListScreenCollection;
 
-	public function find_all_by_user( string $key, WP_User $user, string $order_by = null ): ListScreenCollection;
+	public function find_all_by_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection;
 
 }
