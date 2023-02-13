@@ -1,10 +1,10 @@
 <script type="ts">
 
-    import {onMount, tick} from "svelte";
+    import {onMount} from "svelte";
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
 
     export let closeOnClick: boolean = true;
-    export let position: string|null;
+    export let position: string | null;
 
     let opened: boolean = false;
     let trigger: HTMLElement;
@@ -54,10 +54,10 @@
         }
     }
 
-    const handleKeyDown = ( e ) => {
-        if( e.key === 'Enter' ){
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
             toggle();
-		}
+        }
     }
 
     let test: HTMLElement;
@@ -74,7 +74,7 @@
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}
-		<AcDropdownMenu appendToBody trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
+		<AcDropdownMenu trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
 			<slot></slot>
 		</AcDropdownMenu>
 	{/if}
