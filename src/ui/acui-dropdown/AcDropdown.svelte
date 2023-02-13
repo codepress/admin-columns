@@ -4,9 +4,10 @@
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
 
     export let closeOnClick: boolean = true;
-    export let position: string|null;
+    export let position: string | null;
 
     let opened: boolean = false;
+    let trigger: HTMLElement;
 
     const toggle = () => {
         if (opened) {
@@ -16,7 +17,7 @@
         }
     }
 
-    const open = () => {
+    const open = async () => {
         opened = true;
         registerCloseHandlers();
     }
@@ -53,11 +54,13 @@
         }
     }
 
-    const handleKeyDown = ( e ) => {
-        if( e.key === 'Enter' ){
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
             toggle();
-		}
+        }
     }
+
+    let test: HTMLElement;
 
     onMount(() => {
         if (opened) {
@@ -67,11 +70,11 @@
 
 </script>
 <div class="acui-dropdown">
-	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown}>
+	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown} aria-haspopup="true" bind:this={trigger}>
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}
-		<AcDropdownMenu position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
+		<AcDropdownMenu trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
 			<slot></slot>
 		</AcDropdownMenu>
 	{/if}
