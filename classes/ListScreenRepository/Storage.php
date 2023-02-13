@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types=1 );
+
 namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
@@ -60,7 +62,7 @@ final class Storage implements ListScreenRepositoryWritable {
 		return $list_screen ?? null;
 	}
 
-	public function find_all_by_user( string $key, WP_User $user, string $order_by = null ): ListScreenCollection {
+	public function find_all_by_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
 		$list_screens = new ListScreenCollection();
 
 		foreach ( $this->repositories as $repository ) {
@@ -71,10 +73,12 @@ final class Storage implements ListScreenRepositoryWritable {
 			}
 		}
 
-		return ( new OrderByFactory() )->create( $order_by )->sort( $list_screens );
+		return $sort
+			? $sort->sort( $list_screens )
+			: $list_screens;
 	}
 
-	public function find_all_by_key( string $key, string $order_by = null ): ListScreenCollection {
+	public function find_all_by_key( string $key, Sort $sort = null ): ListScreenCollection {
 		$list_screens = new ListScreenCollection();
 
 		foreach ( $this->repositories as $repository ) {
@@ -85,10 +89,12 @@ final class Storage implements ListScreenRepositoryWritable {
 			}
 		}
 
-		return ( new OrderByFactory() )->create( $order_by )->sort( $list_screens );
+		return $sort
+			? $sort->sort( $list_screens )
+			: $list_screens;
 	}
 
-	public function find_all( string $order_by = null ): ListScreenCollection {
+	public function find_all( Sort $sort = null ): ListScreenCollection {
 		$list_screens = new ListScreenCollection();
 
 		foreach ( $this->repositories as $repository ) {
@@ -99,7 +105,9 @@ final class Storage implements ListScreenRepositoryWritable {
 			}
 		}
 
-		return ( new OrderByFactory() )->create( $order_by )->sort( $list_screens );
+		return $sort
+			? $sort->sort( $list_screens )
+			: $list_screens;
 	}
 
 	public function find( ListScreenId $id ): ?ListScreen {

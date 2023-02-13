@@ -130,7 +130,7 @@ class Column {
 	 * @return $this
 	 */
 	public function set_label( $label ) {
-		$this->label = $label;
+		$this->label = $label ? (string) $label : null;
 
 		return $this;
 	}
