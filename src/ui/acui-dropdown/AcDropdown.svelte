@@ -1,12 +1,13 @@
 <script type="ts">
 
-    import {onMount} from "svelte";
+    import {onMount, tick} from "svelte";
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
 
     export let closeOnClick: boolean = true;
     export let position: string|null;
 
     let opened: boolean = false;
+    let trigger: HTMLElement;
 
     const toggle = () => {
         if (opened) {
@@ -16,7 +17,7 @@
         }
     }
 
-    const open = () => {
+    const open = async () => {
         opened = true;
         registerCloseHandlers();
     }
@@ -59,6 +60,8 @@
 		}
     }
 
+    let test: HTMLElement;
+
     onMount(() => {
         if (opened) {
             registerCloseHandlers();
@@ -67,11 +70,11 @@
 
 </script>
 <div class="acui-dropdown">
-	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown}>
+	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown} aria-haspopup="true" bind:this={trigger}>
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}
-		<AcDropdownMenu position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
+		<AcDropdownMenu appendToBody trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
 			<slot></slot>
 		</AcDropdownMenu>
 	{/if}
