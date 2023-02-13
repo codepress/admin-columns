@@ -53,6 +53,12 @@
         }
     }
 
+    const handleKeyDown = ( e ) => {
+        if( e.key === 'Enter' ){
+            toggle();
+		}
+    }
+
     onMount(() => {
         if (opened) {
             registerCloseHandlers();
@@ -60,14 +66,8 @@
     });
 
 </script>
-<style>
-	.acui-dropdown {
-		position: relative;
-		display: inline-block;
-	}
-</style>
 <div class="acui-dropdown">
-	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle}>
+	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown}>
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}

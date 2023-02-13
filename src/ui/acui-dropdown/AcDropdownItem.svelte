@@ -24,22 +24,6 @@
     }
 
 </script>
-<style>
-	.acui-dropdown-item {
-		margin: 0 2px;
-		padding: 5px 20px;
-		cursor: pointer;
-		display: block;
-		white-space: nowrap;
-	}
-
-	.acui-dropdown-item:hover,
-	.acui-dropdown-item:focus {
-		background: var(--ac-primary-color);
-		color: #fff;
-		border-radius: 5px;
-	}
-</style>
 
 <a class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} tabindex="0" role="list" bind:this={element}>
 	<slot></slot>

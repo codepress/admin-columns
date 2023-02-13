@@ -32,6 +32,7 @@ class CommonAssets implements Registerable {
 	public function register_global_assets() {
 		( new Script\GlobalTranslationFactory( $this->location, $this->translation ) )->create();
 		( new Style( 'ac-utilities', $this->location->with_suffix( 'assets/css/utilities.css' ) ) )->register();
+		( new Style( 'ac-ui', $this->location->with_suffix( 'assets/css/acui.css' ) ) )->register();
 	}
 
 }
