@@ -24,6 +24,6 @@
 
 </script>
 
-<a class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} tabindex="0" role="list" bind:this={element}>
+<a class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} tabindex="0" role="listitem" bind:this={element}>
 	<slot></slot>
 </a>

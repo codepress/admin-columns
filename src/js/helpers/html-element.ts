@@ -83,6 +83,12 @@ export default class AcHtmlElement<T extends HTMLElement = HTMLElement> {
         return this;
     }
 
+    appendFound(selector: string) {
+        document.querySelectorAll<HTMLElement>(selector).forEach(el => this.append(el));
+
+        return this;
+    }
+
     appendSelfTo(element: HTMLElement) {
         element.append(this.element);
 
@@ -146,6 +152,10 @@ export default class AcHtmlElement<T extends HTMLElement = HTMLElement> {
         events.forEach(e => this.addEventListener(e, listener));
 
         return this;
+    }
+
+    $() {
+        return this.getElement();
     }
 
 }
