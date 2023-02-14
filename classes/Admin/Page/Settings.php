@@ -70,12 +70,9 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 		$factory = new Admin\Asset\Script\SettingsFactory(
 			$this->location
 		);
-		$factory->create();
-
 
 		$assets = new Assets( [
-			$factory->create()
-			//new Admin\Asset\Settings( 'ac-admin-page-settings', $this->location->with_suffix( 'assets/js/admin-page-settings.js' ) ),
+			$factory->create(),
 		] );
 
 		foreach ( $this->sections->all() as $section ) {
