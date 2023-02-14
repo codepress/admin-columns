@@ -26,7 +26,7 @@ class ListIds implements Sort {
 
 		$ordered = new ListScreenCollection();
 
-		foreach ( $this->list_ids as $list_id ) {
+		foreach ( array_unique( $this->list_ids ) as $list_id ) {
 			if ( ! isset( $lists[ $list_id ] ) ) {
 				continue;
 			}

@@ -1,69 +1,43 @@
 <?php
 
+declare( strict_types=1 );
+
 namespace AC\Form;
 
 use AC\Request;
 
 class Nonce {
 
-	/**
-	 * @var string
-	 */
 	private $action;
 
-	/**
-	 * @var string
-	 */
 	private $name;
 
-	public function __construct( $action, $name ) {
-		$this->action = (string) $action;
-		$this->name = (string) $name;
+	public function __construct( string $action, string $name ) {
+		$this->action = $action;
+		$this->name = $name;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_action() {
+	public function get_action(): string {
 		return $this->action;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_name() {
+	public function get_name(): string {
 		return $this->name;
 	}
 
-	/**
-	 * @return string|null
-	 */
-	public function create() {
+	public function create(): ?string {
 		return wp_create_nonce( $this->action ) ?: null;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function create_field() {
+	public function create_field(): string {
 		return wp_nonce_field( $this->action, $this->name, true, false );
 	}
 
-	/**
-	 * @param string $nonce
-	 *
-	 * @return bool
-	 */
-	public function verify_nonce( $nonce ) {
-		return (bool) wp_verify_nonce( (string) $nonce, $this->action );
+	public function verify_nonce( string $nonce ): bool {
+		return (bool) wp_verify_nonce( $nonce, $this->action );
 	}
 
-	/**
-	 * @param Request $request
-	 *
-	 * @return bool
-	 */
-	public function verify( Request $request ) {
+	public function verify( Request $request ): bool {
 		return $this->verify_nonce( $request->get( $this->name ) );
 	}
 

@@ -3,21 +3,6 @@
 	display: inline-block;
 }
 
-.acui-dropdown-item {
-	margin: 0 2px;
-	padding: 5px 20px;
-	cursor: pointer;
-	display: block;
-	white-space: nowrap;
-
-	&:hover,
-	&:focus {
-		background: var(--ac-primary-color);
-		color: #fff;
-		border-radius: 5px;
-	}
-}
-
 .acui-dropdown-trigger {
 
 }
@@ -36,4 +21,20 @@
 
 .acui-dropdown-menu.-bottom-left {
 	right: 0;
+}
+
+.acui-dropdown-item {
+	margin: 0 2px;
+	padding: 6px 10px;
+	cursor: pointer;
+	display: block;
+	white-space: nowrap;
+	text-decoration: none;
+	color: var(--ac-text-color);
+
+	&:hover,
+	&:focus {
+		background: var(--ac-button-bg);
+		border-radius: 5px;
+	}
 }

@@ -60,8 +60,6 @@
         }
     }
 
-    let test: HTMLElement;
-
     onMount(() => {
         if (opened) {
             registerCloseHandlers();

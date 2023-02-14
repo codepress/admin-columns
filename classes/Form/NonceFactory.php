@@ -4,8 +4,8 @@ namespace AC\Form;
 
 class NonceFactory {
 
-	public function createAjax(): Nonce {
-		return new Nonce( '_ajax_nonce', 'ac-ajax' );
+	public function create_ajax(): Nonce {
+		return new Nonce( 'ac-ajax', '_ajax_nonce' );
 	}
 
 }
