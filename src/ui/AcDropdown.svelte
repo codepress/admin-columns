@@ -4,6 +4,7 @@
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
 
     export let closeOnClick: boolean = true;
+    export let maxHeight: string = null;
 
     let opened: boolean = false;
 
@@ -59,17 +60,12 @@
     });
 
 </script>
-<style>
-	.acui-dropdown {
-		position: relative;
-	}
-</style>
 <div class="acui-dropdown">
 	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle}>
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}
-		<AcDropdownMenu on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
+		<AcDropdownMenu {maxHeight} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
 			<slot></slot>
 		</AcDropdownMenu>
 	{/if}
