@@ -7,6 +7,7 @@ use AC\Exception;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Rules;
+use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\SourceAware;
 use AC\Type\ListScreenId;
 use LogicException;
@@ -74,8 +75,8 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
 		return $list_screen;
 	}
 
-	public function find_all_by_key( string $key, string $order_by = null ): ListScreenCollection {
-		$list_screens = $this->repository->find_all_by_key( $key, $order_by );
+	public function find_all_by_key( string $key, Sort $sort = null ): ListScreenCollection {
+		$list_screens = $this->repository->find_all_by_key( $key, $sort );
 
 		if ( ! $this->is_writable() ) {
 			$this->set_all_read_only( $list_screens );
@@ -84,8 +85,8 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
 		return $list_screens;
 	}
 
-	public function find_all_by_user( string $key, WP_User $user, string $order_by = null ): ListScreenCollection {
-		$list_screens = $this->repository->find_all_by_user( $key, $user, $order_by );
+	public function find_all_by_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
+		$list_screens = $this->repository->find_all_by_user( $key, $user, $sort );
 
 		if ( ! $this->is_writable() ) {
 			$this->set_all_read_only( $list_screens );
@@ -104,8 +105,8 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
 		return $this->repository->exists( $id );
 	}
 
-	public function find_all( string $order_by = null ): ListScreenCollection {
-		$list_screens = $this->repository->find_all( $order_by );
+	public function find_all( Sort $sort = null ): ListScreenCollection {
+		$list_screens = $this->repository->find_all( $sort );
 
 		if ( ! $this->is_writable() ) {
 			$this->set_all_read_only( $list_screens );

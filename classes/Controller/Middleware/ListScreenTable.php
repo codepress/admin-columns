@@ -3,6 +3,7 @@
 namespace AC\Controller\Middleware;
 
 use AC\ListScreen;
+use AC\ListScreenRepository\Sort\ManualOrder;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Middleware;
@@ -35,7 +36,7 @@ class ListScreenTable implements Middleware {
 	}
 
 	private function get_first_list_screen_by_key( string $key, WP_User $user ): ?ListScreen {
-		$list_screens = $this->storage->find_all_by_user( $key, $user, 'manual' );
+		$list_screens = $this->storage->find_all_by_user( $key, $user, new ManualOrder() );
 
 		return $list_screens->get_first() ?: null;
 	}

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types=1 );
+
 namespace AC\ListScreenRepository;
 
 use AC\Exception\MissingListScreenIdException;
@@ -72,29 +74,28 @@ final class Database implements ListScreenRepositoryWritable {
 			: null;
 	}
 
-	public function find_all_by_key( string $key, string $order_by = null ): ListScreenCollection {
+	public function find_all_by_key( string $key, Sort $sort = null ): ListScreenCollection {
 		$list_screens = $this->create_list_screens(
 			$this->find_all_by_key_from_database( $key )
 		);
 
-		return $this->order_by( $list_screens, $order_by );
+		return $sort
+			? $sort->sort( $list_screens )
+			: $list_screens;
 	}
 
-	public function find_all_by_user( string $key, WP_User $user, string $order_by = null ): ListScreenCollection {
-		$list_screens = $this->find_all_by_key( $key, $order_by );
+	public function find_all_by_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
+		$list_screens = $this->find_all_by_key( $key, $sort );
 
-		$list_screens = ( new Filter\User( $user ) )->filter( $list_screens );
-
-		return $this->order_by( $list_screens, $order_by );
+		return ( new Filter\User( $user ) )->filter( $list_screens );
 	}
 
-	public function find_all( string $order_by = null ): ListScreenCollection {
+	public function find_all( Sort $sort = null ): ListScreenCollection {
 		$list_screens = $this->create_list_screens( $this->find_all_from_database() );
 
-		return $this->order_by(
-			$list_screens,
-			$order_by
-		);
+		return $sort
+			? $sort->sort( $list_screens )
+			: $list_screens;
 	}
 
 	private function create_list_screens( array $rows ): ListScreenCollection {
@@ -109,11 +110,6 @@ final class Database implements ListScreenRepositoryWritable {
 		return $row
 			? $this->create_list_screen( $row )
 			: null;
-	}
-
-	private function order_by( ListScreenCollection $list_screens, string $order_by = null ): ListScreenCollection {
-		return ( new OrderByFactory() )->create( $order_by )
-		                               ->sort( $list_screens );
 	}
 
 	public function exists( ListScreenId $id ): bool {

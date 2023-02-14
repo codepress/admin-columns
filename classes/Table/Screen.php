@@ -232,7 +232,7 @@ final class Screen implements Registerable {
 	 */
 	public function admin_scripts() {
 
-		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ) );
+		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ), [ 'ac-ui' ] );
 		$style->enqueue();
 
 		$table_translation = Asset\Script\Localize\Translation::create( [
