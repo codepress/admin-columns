@@ -26,7 +26,7 @@ final class SettingsFactory implements ScriptFactory {
 			'restore_settings' => __( "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop", 'codepress-admin-columns' ),
 		];;
 
-		$nonce = ( new NonceFactory )->createAjax();
+		$nonce = ( new NonceFactory )->create_ajax();
 
 		$script = new Script( self::HANDLE, $this->location->with_suffix( 'assets/js/admin-page-settings.js' ), [ Script\GlobalTranslationFactory::HANDLE ] );
 		$script->localize( 'AC_I18N', Translation::create( $translations ) )
