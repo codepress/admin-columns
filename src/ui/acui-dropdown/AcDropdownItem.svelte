@@ -1,8 +1,8 @@
 <script type="ts">
     import {createEventDispatcher} from "svelte";
 
-    export let ariaRole: string = 'listitem';
     export let custom: boolean = false;
+    export let href: string = null;
 
     const dispatch = createEventDispatcher();
 
@@ -31,9 +31,15 @@
 		<slot></slot>
 	</div>
 {:else}
-	<!-- svelte-ignore a11y-positive-tabindex -->
-	<span class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} tabindex="0" role={ariaRole} bind:this={element}>
-		<slot></slot>
-	</span>
+	{#if href}
+		<a class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} bind:this={element} {href}>
+			<slot></slot>
+		</a>
+	{:else}
+		<div class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} tabindex="0" role="button" bind:this={element}>
+			<slot></slot>
+		</div>
+	{/if}
+
 {/if}
 
