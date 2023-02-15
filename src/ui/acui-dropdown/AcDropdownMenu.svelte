@@ -4,6 +4,7 @@
 
     export let trigger: HTMLElement;
     export let appendToBody: boolean = false;
+    export let maxHeight: string = null;
 
     let rootElement: HTMLElement;
     let menuElement: HTMLElement;
@@ -38,9 +39,8 @@
 
 </script>
 
-
 {#if appendToBody}
-	<div style="position: absolute; left:0; top:0;" bind:this={rootElement}>
+	<div style="position: absolute; left:0; top:0;" style:max-height={maxHeight}  bind:this={rootElement}>
 
 	</div>
 {/if}
@@ -49,6 +49,7 @@
 		class:-append-to-body={appendToBody}
 		class:-bottom-left={!appendToBody && position ==='bottom-left'}
 		style={rootElementStyle}
+		style:max-height={maxHeight}
 		in:fade={{ duration: 100}} out:fade={{ duration: 100}}
 		bind:this={menuElement}
 >
