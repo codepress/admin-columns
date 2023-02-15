@@ -5,9 +5,6 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 2.0
- */
 class Attachment extends Column {
 
 	public function __construct() {
@@ -16,15 +13,10 @@ class Attachment extends Column {
 	}
 
 	public function get_raw_value( $post_id ) {
-		return $this->get_attachment_ids( $post_id );
+		return $this->get_attachment_ids( (int) $post_id );
 	}
 
-	/**
-	 * @param $post_id
-	 *
-	 * @return int[] Attachment ID's
-	 */
-	private function get_attachment_ids( $post_id ) {
+	public function get_attachment_ids( int $post_id ): array {
 		$attachment_ids = get_posts( [
 			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
