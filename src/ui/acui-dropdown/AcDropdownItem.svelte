@@ -27,12 +27,13 @@
 </script>
 
 {#if custom }
-	<div class="acui-dropdown-item" tabindex="0" role="{ariaRole}">
+	<div class="acui-dropdown-item" role="listitem">
 		<slot></slot>
 	</div>
 {:else}
-	<a class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} tabindex="0" role={ariaRole} bind:this={element}>
+	<!-- svelte-ignore a11y-positive-tabindex -->
+	<span class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} tabindex="0" role={ariaRole} bind:this={element}>
 		<slot></slot>
-	</a>
+	</span>
 {/if}
 
