@@ -9,6 +9,7 @@
 
     let opened: boolean = false;
     let trigger: HTMLElement;
+    let container: HTMLElement;
 
     const toggle = () => {
         if (opened) {
@@ -34,8 +35,12 @@
         }
     }
 
-    const handleOutsideClick = () => {
-        opened = false;
+    const handleOutsideClick = ( e ) => {
+        if( container && ! container.contains( e.target ) ){
+            opened = false;
+		}
+
+
     }
 
     const registerCloseHandlers = () => {
@@ -68,8 +73,8 @@
     });
 
 </script>
-<div class="acui-dropdown">
-	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown} aria-haspopup="true" bind:this={trigger}>
+<div class="acui-dropdown" bind:this={container}>
+	<div class="acui-dropdown-trigger" on:click={toggle} on:keydown={handleKeyDown} aria-haspopup="true" bind:this={trigger}>
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}

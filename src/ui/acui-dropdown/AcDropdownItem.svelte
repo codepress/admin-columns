@@ -9,8 +9,7 @@
     let element: HTMLElement;
 
     const dispatchSelectItem = () => {
-        dispatch('click');
-        element.dispatchEvent(new CustomEvent('itemSelect', {bubbles: true}))
+        element.closest('.acui-dropdown')?.dispatchEvent(new CustomEvent('itemSelect', {bubbles: true}))
     }
 
     const handleClick = () => {
@@ -24,10 +23,11 @@
         }
     }
 
+
 </script>
 
 {#if custom }
-	<div class="acui-dropdown-item" role="listitem">
+	<div class="acui-dropdown-item" role="listitem" bind:this={element}>
 		<slot></slot>
 	</div>
 {:else}

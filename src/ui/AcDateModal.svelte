@@ -1,11 +1,15 @@
 <script type="ts">
 
-	import {onMount} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
 
     export let value: string = null;
+
+    const dispatch = createEventDispatcher();
+
     let displayYear: number = new Date().getFullYear();
     let valueYear: number = new Date().getFullYear();
     let valueMonth: number = new Date().getMonth();
+
     const shortMonth = (month: number): string => {
         let padded = month.toString().length === 1 ? '0' + month.toString() : month.toString();
 
@@ -20,30 +24,34 @@
         displayYear--;
     }
 
-    const setMonth = ( month: number, year: number  ) => {
-		valueMonth = month;
+    const setMonth = (month: number, year: number) => {
+        valueMonth = month;
         valueYear = year;
         updateValue();
-	}
+    }
 
     const updateValue = () => {
         let month = valueMonth.toString().length === 1 ? '0' + valueMonth.toString() : valueMonth.toString()
         value = valueYear.toString() + '-' + month;
-	}
 
-    const isActive = ( month: number ) => {
+        dispatch('change', value);
+        dispatch('click');
+    }
+
+    const isActive = (month: number) => {
         return month === valueMonth;
-	}
+    }
 
-    onMount( () => {
-        if( value.length === 7){
-            let date = new Date( value );
+    onMount(() => {
+        if (value.length === 7) {
+            let date = new Date(value);
 
             valueYear = date.getFullYear();
-            valueMonth = date.getMonth() + 1
+            valueMonth = date.getMonth() + 1;
             displayYear = valueYear;
-		}
-	})
+
+        }
+    })
 
 </script>
 <style>
@@ -52,11 +60,15 @@
 		width: 250px;
 		position: relative;
 		z-index: 10;
+		padding: 5px;
 	}
 
 	.acui-datepicker-header {
 		display: flex;
 		align-items: center;
+		margin: 0 4px;
+		padding: 2px 0;
+		border-bottom: 1px solid #eee;
 	}
 
 	.acui-datepicker-header__year {
@@ -103,24 +115,23 @@
 	.acui-datepicker-month:hover {
 		background: #eee;
 	}
+
 	.acui-datepicker-month.-active {
 		border-color: var(--ac-primary-color);
 		color: var(--ac-primary-color);
 	}
 </style>
 <div class="acui-picker">
-	<div>
-		Value: {value}
-	</div>
 	<div class="acui-picker__header">
 
 	</div>
 	<div class="acui-picker__body">
 		<div class="acui-datepicker-header">
-			<button on:click|preventDefault={handlePreviousYear}>
-				<span class="dashicons dashicons-arrow-left-alt2"></span></button>
+			<button on:click|preventDefault={handlePreviousYear} class="button button-primary">
+				<span class="dashicons dashicons-arrow-left-alt2"></span>
+			</button>
 			<div class="acui-datepicker-header__year">{displayYear}</div>
-			<button on:click|preventDefault={handleNextYear}>
+			<button on:click|preventDefault={handleNextYear} class="button button-primary">
 				<span class="dashicons dashicons-arrow-right-alt2"></span>
 			</button>
 		</div>
