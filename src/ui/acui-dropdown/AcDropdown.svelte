@@ -1,17 +1,20 @@
 <script type="ts">
 
-    import {onMount} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
 
     export let closeOnClick: boolean = true;
     export let position: string | null;
-	export let maxHeight: string|null;
+    export let maxHeight: string | null;
+    export let value;
+
+    const dispatch = createEventDispatcher();
 
     let opened: boolean = false;
     let trigger: HTMLElement;
     let container: HTMLElement;
 
-    const toggle = () => {
+    export const toggle = () => {
         if (opened) {
             close();
         } else {
@@ -35,12 +38,10 @@
         }
     }
 
-    const handleOutsideClick = ( e ) => {
-        if( container && ! container.contains( e.target ) ){
+    const handleOutsideClick = (e) => {
+        if (container && !container.contains(e.target)) {
             opened = false;
-		}
-
-
+        }
     }
 
     const registerCloseHandlers = () => {
@@ -54,7 +55,9 @@
         document.removeEventListener('focusout', handleOutsideClick);
     }
 
-    const handleSelect = () => {
+    const handleSelect = (e) => {
+        value = e.detail;
+        dispatch('change', value);
         if (opened && closeOnClick) {
             opened = false;
         }
@@ -73,7 +76,7 @@
     });
 
 </script>
-<div class="acui-dropdown" bind:this={container}>
+<div class="acui-dropdown" bind:this={container} on:change={ handleSelect }>
 	<div class="acui-dropdown-trigger" on:click={toggle} on:keydown={handleKeyDown} aria-haspopup="true" bind:this={trigger}>
 		<slot name="trigger" active={opened}></slot>
 	</div>

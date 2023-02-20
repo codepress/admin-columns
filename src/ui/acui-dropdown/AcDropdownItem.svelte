@@ -3,27 +3,28 @@
 
     export let custom: boolean = false;
     export let href: string = null;
+    export let value: string = null;
 
     const dispatch = createEventDispatcher();
 
     let element: HTMLElement;
 
     const dispatchSelectItem = () => {
-        element.closest('.acui-dropdown')?.dispatchEvent(new CustomEvent('itemSelect', {bubbles: true}))
+        element.closest('.acui-dropdown')?.dispatchEvent(new CustomEvent('change', {bubbles: true, detail: value}));
     }
 
     const handleClick = () => {
         dispatchSelectItem();
+        dispatch('click');
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             dispatchSelectItem();
+            dispatch('click');
         }
     }
-
-
 </script>
 
 {#if custom }
