@@ -41,8 +41,9 @@ let config = {
 		extensions : ['.mjs', '.js', '.svelte', '.ts'],
 		mainFields : ['svelte', 'browser', 'module', 'main'],
 		alias : {
-			svelte : path.resolve( 'node_modules', 'svelte' )
-		}
+			svelte : path.resolve( 'node_modules', 'svelte' ),
+			ACUi : path.resolve( __dirname, 'ui' ),
+		},
 	},
 	externals : {
 		jquery : 'jQuery',

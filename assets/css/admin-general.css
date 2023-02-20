@@ -1195,4 +1195,19 @@ table.ac-form-table .general form p.save-button {
   display: none;
 }
 
+.ac-general-setting-row {
+  margin-bottom: 30px;
+}
+.ac-general-setting-row .ac-ajax-loading {
+  position: relative;
+}
+.ac-general-setting-row p {
+  margin-top: 5px;
+}
+
+.ac-general-setting-row__layout {
+  display: flex;
+  align-items: center;
+}
+
 /*# sourceMappingURL=admin-general.css.map */

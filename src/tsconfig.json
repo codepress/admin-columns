@@ -18,6 +18,11 @@
         "esModuleInterop": true,
         "noEmit": false,
         "forceConsistentCasingInFileNames": true,
-        "types": ["node", "svelte"]
+        "types": ["node", "svelte"],
+        "paths": {
+            "ACUi/*": [
+                "ui/*"
+            ]
+        }
     }
 }

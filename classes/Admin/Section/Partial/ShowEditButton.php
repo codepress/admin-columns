@@ -5,6 +5,7 @@ namespace AC\Admin\Section\Partial;
 use AC\Form\Element\Toggle;
 use AC\Renderable;
 use AC\Settings\Option\EditButton;
+use AC\View;
 
 class ShowEditButton implements Renderable {
 
@@ -29,7 +30,9 @@ class ShowEditButton implements Renderable {
 		$toggle->set_value( '1' );
 		$toggle->set_attribute( 'data-ajax-setting', $this->option->get_name() );
 
-		return $toggle->render();
+		$view = new View( [ 'setting' => $toggle->render() ] );
+
+		return $view->set_template( 'admin/settings/setting-row' )->render();
 	}
 
 }
