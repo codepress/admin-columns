@@ -76,6 +76,14 @@
 .acui-toggle-buttons .button:active, .acui-toggle-buttons .button:focus {
   box-shadow: none !important;
 }
+.acui-toggle-buttons .button:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.acui-toggle-buttons .button:last-child {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
 .acui-toggle-buttons .button.button-primary {
   padding-left: 3px;
 }

@@ -11,11 +11,18 @@
 			box-shadow: none!important;
 		}
 
+		&:first-child {
+			border-top-left-radius: 3px;
+			border-bottom-left-radius: 3px;
+		}
+		&:last-child {
+			border-top-right-radius: 3px;
+			border-bottom-right-radius: 3px;
+		}
 	}
 	.button.button-primary {
 		padding-left: 3px;
 	}
-
 }
 
 .acui-button {
