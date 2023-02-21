@@ -17,6 +17,7 @@ use AC\Column;
 use AC\Controller\Middleware;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
+use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Renderable;
@@ -28,6 +29,7 @@ use AC\Type\Url\Site;
 use AC\Type\Url\Tweet;
 use AC\Type\Url\UtmTags;
 use AC\View;
+use ACP\Search\TableScreenFactory;
 
 class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, RenderableHead {
 
@@ -97,6 +99,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		return $this->head;
 	}
 
+	// TODO remove
 	public function get_list_screen_from_request():? ListScreen {
 		$request = new Request();
 		$request->add_middleware(
@@ -109,9 +112,10 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 			return $this->storage->find( new ListScreenId( $list_id ) );
 		}
 
-		$list_key = $request->get( Middleware\ListScreenAdmin::PARAM_LIST_KEY );
+		return $request->get( Middleware\ListScreenAdmin::PARAM_LIST_KEY );
 
-		return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+
+//		return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
 	}
 
 	public function get_assets() {
@@ -122,6 +126,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 				'ac-admin-page-columns',
 				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
 				$this->default_columns,
+				// TODO refactor next...
 				$this->get_list_screen_from_request()
 			),
 			new Style( 'ac-admin-page-columns-css', $this->location->with_suffix( 'assets/css/admin-page-columns.css' ) ),
@@ -173,21 +178,24 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	}
 
 	public function render() {
-		$list_screen = $this->get_list_screen_from_request();
+		// TODO
+//		$list_screen = $this->get_list_screen_from_request();
+//
+//		if ( ! $list_screen ) {
+//			return '';
+//		}
 
-		if ( ! $list_screen ) {
-			return '';
-		}
+//		$this->set_preference_screen( $list_screen );
 
-		$this->set_preference_screen( $list_screen );
+		$list_key = 'post';
 
-		if ( ! $this->default_columns->exists( $list_screen->get_key() ) ) {
+		if ( ! $this->default_columns->exists( $list_key ) ) {
 			$modal = new View( [
 				'message' => 'Loading columns',
 			] );
 			$modal->set_template( 'admin/loading-message' );
 
-			return $this->menu->render( $list_screen, true ) . $modal->render();
+			return $this->menu->render( $list_key, true ) . $modal->render();
 		}
 
 		$classes = [];

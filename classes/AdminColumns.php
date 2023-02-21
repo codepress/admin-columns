@@ -9,6 +9,8 @@ use AC\Admin\PageRequestHandlers;
 use AC\Admin\Preference;
 use AC\Asset\Script\Localize\Translation;
 use AC\Controller;
+use AC\ListScreenFactory\PostFactory;
+use AC\ListScreenFactory\UserFactory;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\SetupFactory;
@@ -54,6 +56,9 @@ class AdminColumns extends Plugin {
 				true
 			),
 		] );
+
+		ListScreenFactory::add( new PostFactory() );
+		ListScreenFactory::add( new UserFactory() );
 
 		// TODO Or we can just have the object Translation defined and not (yet) have a container in AC
 		$definitions = [

@@ -2,12 +2,24 @@
 
 namespace AC;
 
+use AC\Admin\ListMenu;
+use AC\Admin\TableScreen;
+use AC\Admin\TableScreens;
+
 class ListScreens implements Registerable {
 
 	public function register() {
-		add_action( 'init', [ $this, 'register_list_screens' ], 1000 ); // run after all post types are registered
+		add_action( 'init', [ $this, 'add_list_menu_items' ], 1000 ); // run after all post types are registered
+		//add_action( 'init', [ $this, 'register_list_screens' ], 1000 ); // run after all post types are registered
 	}
 
+	public function add_list_menu_items() {
+		foreach ( $this->get_post_types() as $post_type ) {
+			TableScreens::add( new TableScreen( $post_type, get_post_type_object( $post_type )->label, admin_url() ) );
+		}
+	}
+
+	// TODO remove
 	public function register_list_screens() {
 		$list_screens = [];
 

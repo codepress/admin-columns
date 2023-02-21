@@ -2,7 +2,9 @@
 
 namespace AC\Controller\Middleware;
 
+use AC\Admin\ListMenuFactory;
 use AC\Admin\Preference;
+use AC\Admin\TableScreens;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Middleware;
@@ -34,12 +36,16 @@ class ListScreenAdmin implements Middleware {
 			$list_key = $this->preference->get_last_visited_list_key();
 		}
 
-		if ( ! $list_key || ! ListScreenTypes::instance()->get_list_screen_by_key( $list_key, $this->is_network ) ) {
-			$args = $this->is_network
-				? [ 'network_only' => true ]
-				: [ 'site_only' => true ];
+		if ( ! $list_key ) {
 
-			$list_key = current( ListScreenTypes::instance()->get_list_screens( $args ) )->get_key();
+			$screen = current( TableScreens::get_screens() );
+			$list_key = $screen->get_key();
+
+			// TODO
+//			$args = $this->is_network
+//				? [ 'network_only' => true ]
+//				: [ 'site_only' => true ];
+//			$list_key = current( ListScreenTypes::instance()->get_list_screens( $args ) )->get_key();
 		}
 
 		if ( ! $list_key ) {

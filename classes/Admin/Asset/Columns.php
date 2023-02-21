@@ -38,11 +38,11 @@ class Columns extends Script {
 		$this->list_screen = $list_screen;
 	}
 
-	private function get_list_screens(): array {
-		return is_network_admin()
-			? ListScreenTypes::instance()->get_list_screens( [ ListScreenTypes::ARG_NETWORK => true ] )
-			: ListScreenTypes::instance()->get_list_screens( [ ListScreenTypes::ARG_SITE => true ] );
-	}
+//	private function get_list_screens(): array {
+//		return is_network_admin()
+//			? ListScreenTypes::instance()->get_list_screens( [ ListScreenTypes::ARG_NETWORK => true ] )
+//			: ListScreenTypes::instance()->get_list_screens( [ ListScreenTypes::ARG_SITE => true ] );
+//	}
 
 	public function register(): void {
 		parent::register();
@@ -67,18 +67,19 @@ class Columns extends Script {
 			],
 		];
 
-		foreach ( $this->get_list_screens() as $list_screen ) {
-			$list_key = $list_screen->get_key();
-
-			if ( $this->default_columns->exists( $list_key ) ) {
-				continue;
-			}
-
-			$params['uninitialized_list_screens'][ $list_key ] = [
-				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $list_key ], $list_screen->get_screen_link() ),
-				'label'       => $list_screen->get_label(),
-			];
-		}
+		// TODO
+//		foreach ( $this->get_list_screens() as $list_screen ) {
+//			$list_key = $list_screen->get_key();
+//
+//			if ( $this->default_columns->exists( $list_key ) ) {
+//				continue;
+//			}
+//
+//			$params['uninitialized_list_screens'][ $list_key ] = [
+//				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $list_key ], $list_screen->get_screen_link() ),
+//				'label'       => $list_screen->get_label(),
+//			];
+//		}
 
 		wp_localize_script( 'ac-admin-page-columns', 'AC', $params );
 	}

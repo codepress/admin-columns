@@ -2,16 +2,21 @@
 
 namespace AC;
 
-/**
- * @deprecated 4.0
- */
-class ListScreenFactory {
+class ListScreenFactory implements ListScreenFactoryInterface {
 
-	public static function create( $key, $id = null ) {
-		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $key );
+	private static $factories = [];
 
-		if ( $list_screen ) {
-			return clone $list_screen;
+	public static function add( ListScreenFactoryInterface $factory ): void {
+		self::$factories[] = $factory;
+	}
+
+	public function create( string $key, array $settings ): ?ListScreen {
+		foreach ( self::$factories as $factory ) {
+			$list_screen = $factory->create( $key, $settings );
+
+			if ( $list_screen ) {
+				return $list_screen;
+			}
 		}
 
 		return null;
