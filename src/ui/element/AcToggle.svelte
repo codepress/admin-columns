@@ -28,7 +28,7 @@
 	}
 
 	.ac-toggle-v2 input[type=checkbox]:focus + .ac-toggle-v2__toggle__track {
-		box-shadow: 0 0 0.3em rgba(0, 0, 0, .5);
+		box-shadow: 0 0 0 2px #fff,0 0 0 4px var(--ac-primary-color);
 	}
 </style>
 
