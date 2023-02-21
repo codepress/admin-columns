@@ -51,7 +51,7 @@ class Label extends Settings\Column {
 	public function set_label( $label ) {
 		$sanitize = new Kses();
 
-		$this->label = apply_filters( 'ac/column/label', $sanitize->sanitize( $label ), $label );
+		$this->label = (string) apply_filters( 'ac/column/label', $sanitize->sanitize( (string) $label ), $label );
 	}
 
 }
