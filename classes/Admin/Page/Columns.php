@@ -19,7 +19,6 @@ use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
-use AC\ListScreenTypes;
 use AC\Renderable;
 use AC\Request;
 use AC\Type\ListScreenId;
@@ -29,7 +28,6 @@ use AC\Type\Url\Site;
 use AC\Type\Url\Tweet;
 use AC\Type\Url\UtmTags;
 use AC\View;
-use ACP\Search\TableScreenFactory;
 
 class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, RenderableHead {
 
@@ -100,7 +98,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	}
 
 	// TODO remove
-	public function get_list_screen_from_request():? ListScreen {
+	public function get_list_screen_from_request(): ?ListScreen {
 		$request = new Request();
 		$request->add_middleware(
 			new Middleware\ListScreenAdmin( $this->storage, $this->preference, $this->is_network )
@@ -114,11 +112,13 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
 		return $request->get( Middleware\ListScreenAdmin::PARAM_LIST_KEY );
 
-
-//		return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+		//		return ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
 	}
 
 	public function get_assets() {
+		$list_key = 'post';
+		$list_id = null;
+
 		return new Assets( [
 			new Style( 'jquery-ui-lightness', $this->location->with_suffix( 'assets/ui-theme/jquery-ui-1.8.18.custom.css' ) ),
 			new Script( 'jquery-ui-slider' ),
@@ -127,7 +127,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
 				$this->default_columns,
 				// TODO refactor next...
-				$this->get_list_screen_from_request()
+				$list_key,
+				$list_id
 			),
 			new Style( 'ac-admin-page-columns-css', $this->location->with_suffix( 'assets/css/admin-page-columns.css' ) ),
 			new Style( 'ac-select2' ),
@@ -178,16 +179,18 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	}
 
 	public function render() {
+		$list_key = filter_input( INPUT_GET, 'list_screen') ?? 'post';
+		$list_id = null;
+		$list_screen = ( new ListScreenFactory() )->create( $list_key, [] );
+
 		// TODO
-//		$list_screen = $this->get_list_screen_from_request();
-//
-//		if ( ! $list_screen ) {
-//			return '';
-//		}
+		//		$list_screen = $this->get_list_screen_from_request();
+		//
+		//		if ( ! $list_screen ) {
+		//			return '';
+		//		}
 
-//		$this->set_preference_screen( $list_screen );
-
-		$list_key = 'post';
+		//		$this->set_preference_screen( $list_screen );
 
 		if ( ! $this->default_columns->exists( $list_key ) ) {
 			$modal = new View( [
@@ -195,30 +198,32 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 			] );
 			$modal->set_template( 'admin/loading-message' );
 
-			return $this->menu->render( $list_key, true ) . $modal->render();
+			// TODO
+			return $this->menu->render( $list_key, 'https://', true ) . $modal->render();
 		}
 
 		$classes = [];
 
-		if ( $list_screen->get_settings() ) {
-			$classes[] = 'stored';
-		}
-
-		if ( $this->get_list_screen_id()->is_active() ) {
-			$classes[] = 'show-list-screen-id';
-		}
-
-		if ( $this->get_list_screen_type()->is_active() ) {
-			$classes[] = 'show-list-screen-type';
-		}
+		// TODO
+//		if ( $list_screen->get_settings() ) {
+//			$classes[] = 'stored';
+//		}
+//
+//		if ( $this->get_list_screen_id()->is_active() ) {
+//			$classes[] = 'show-list-screen-id';
+//		}
+//
+//		if ( $this->get_list_screen_type()->is_active() ) {
+//			$classes[] = 'show-list-screen-type';
+//		}
 
 		ob_start();
 		?>
 		<h1 class="screen-reader-text"><?= __( 'Columns', 'codepress-admin-columns' ); ?></h1>
-		<div class="ac-admin <?= esc_attr( implode( ' ', $classes ) ); ?>" data-type="<?= esc_attr( $list_screen->get_key() ); ?>">
+		<div class="ac-admin <?= esc_attr( implode( ' ', $classes ) ); ?>" data-type="<?= esc_attr( $list_key ); ?>">
 			<div class="ac-admin__header">
 
-				<?= $this->menu->render( $list_screen ); ?>
+				<?= $this->menu->render( $list_key, 'https://' ); ?>
 
 				<?php do_action( 'ac/settings/after_title', $list_screen ); ?>
 

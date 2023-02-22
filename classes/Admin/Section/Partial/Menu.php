@@ -15,11 +15,11 @@ class Menu {
 		$this->is_network = (bool) $is_network;
 	}
 
-	public function render( TableScreen $screen, $is_hidden = false ): string {
+	public function render( string $current, string $url, $is_hidden = false ): string {
 		$menu = new View( [
 			'items'       => $this->get_menu_items(),
-			'current'     => $screen->get_key(),
-			'screen_link' => $screen->get_url(),
+			'current'     => $current,
+			'screen_link' => $url,
 			'class'       => $is_hidden ? 'hidden' : '',
 		] );
 

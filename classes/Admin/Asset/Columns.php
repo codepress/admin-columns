@@ -6,8 +6,6 @@ use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\DefaultColumnsRepository;
-use AC\ListScreen;
-use AC\ListScreenTypes;
 
 class Columns extends Script {
 
@@ -16,16 +14,16 @@ class Columns extends Script {
 	 */
 	private $default_columns;
 
-	/**
-	 * @var ListScreen
-	 */
-	private $list_screen;
+	private $list_key;
+
+	private $list_id;
 
 	public function __construct(
 		string $handle,
 		Location $location,
 		DefaultColumnsRepository $default_columns,
-		ListScreen $list_screen
+		string $list_key,
+		string $list_id = null
 	) {
 		parent::__construct( $handle, $location, [
 			'jquery',
@@ -35,26 +33,28 @@ class Columns extends Script {
 		] );
 
 		$this->default_columns = $default_columns;
-		$this->list_screen = $list_screen;
+		$this->list_key = $list_key;
+		$this->list_id = $list_id;
 	}
 
-//	private function get_list_screens(): array {
-//		return is_network_admin()
-//			? ListScreenTypes::instance()->get_list_screens( [ ListScreenTypes::ARG_NETWORK => true ] )
-//			: ListScreenTypes::instance()->get_list_screens( [ ListScreenTypes::ARG_SITE => true ] );
-//	}
+	//	private function get_list_screens(): array {
+	//		return is_network_admin()
+	//			? ListScreenTypes::instance()->get_list_screens( [ ListScreenTypes::ARG_NETWORK => true ] )
+	//			: ListScreenTypes::instance()->get_list_screens( [ ListScreenTypes::ARG_SITE => true ] );
+	//	}
 
 	public function register(): void {
 		parent::register();
 
-		if ( null === $this->list_screen ) {
-			return;
-		}
+		// TODO
+//		if ( null === $this->list_screen ) {
+//			return;
+//		}
 
 		$params = [
 			'_ajax_nonce'                => wp_create_nonce( AC\Ajax\Handler::NONCE_ACTION ),
-			'list_screen'                => $this->list_screen->get_key(),
-			'layout'                     => $this->list_screen->has_id() ? $this->list_screen->get_id()->get_id() : null,
+			'list_screen'                => $this->list_key,
+			'layout'                     => $this->list_id,
 			'original_columns'           => [],
 			'uninitialized_list_screens' => [],
 			'i18n'                       => [
@@ -68,18 +68,18 @@ class Columns extends Script {
 		];
 
 		// TODO
-//		foreach ( $this->get_list_screens() as $list_screen ) {
-//			$list_key = $list_screen->get_key();
-//
-//			if ( $this->default_columns->exists( $list_key ) ) {
-//				continue;
-//			}
-//
-//			$params['uninitialized_list_screens'][ $list_key ] = [
-//				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $list_key ], $list_screen->get_screen_link() ),
-//				'label'       => $list_screen->get_label(),
-//			];
-//		}
+		//		foreach ( $this->get_list_screens() as $list_screen ) {
+		//			$list_key = $list_screen->get_key();
+		//
+		//			if ( $this->default_columns->exists( $list_key ) ) {
+		//				continue;
+		//			}
+		//
+		//			$params['uninitialized_list_screens'][ $list_key ] = [
+		//				'screen_link' => add_query_arg( [ 'save-default-headings' => '1', 'list_screen' => $list_key ], $list_screen->get_screen_link() ),
+		//				'label'       => $list_screen->get_label(),
+		//			];
+		//		}
 
 		wp_localize_script( 'ac-admin-page-columns', 'AC', $params );
 	}
