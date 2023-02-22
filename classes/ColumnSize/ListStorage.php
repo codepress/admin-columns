@@ -4,27 +4,22 @@ namespace AC\ColumnSize;
 
 use AC;
 use AC\ListScreen;
-use AC\ListScreenRepository;
+use AC\ListScreenRepositoryWritable;
 use AC\Type\ColumnWidth;
 use AC\Type\ListScreenId;
 
 class ListStorage {
 
 	/**
-	 * @var ListScreenRepository
+	 * @var ListScreenRepositoryWritable
 	 */
 	private $list_screen_repository;
 
-	public function __construct( ListScreenRepository $list_screen_repository ) {
+	public function __construct( ListScreenRepositoryWritable $list_screen_repository ) {
 		$this->list_screen_repository = $list_screen_repository;
 	}
 
-	/**
-	 * @param ListScreenId $list_id
-	 * @param string       $column_name
-	 * @param ColumnWidth  $column_width
-	 */
-	public function save( ListScreenId $list_id, $column_name, ColumnWidth $column_width ) {
+	public function save( ListScreenId $list_id, string $column_name, ColumnWidth $column_width ): void {
 		$list_screen = $this->list_screen_repository->find( $list_id );
 
 		if ( ! $list_screen ) {
@@ -56,7 +51,9 @@ class ListStorage {
 		$results = [];
 
 		foreach ( $list_screen->get_columns() as $column ) {
-			$results[ $column->get_name() ] = $this->get( $list_screen, $column->get_name() );
+			$name = $column->get_name();
+
+			$results[ $name ] = $this->get( $list_screen, $name );
 		}
 
 		return array_filter( $results );

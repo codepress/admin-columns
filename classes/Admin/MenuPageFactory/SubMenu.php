@@ -16,7 +16,7 @@ class SubMenu implements MenuPageFactory {
 			Capabilities::MANAGE,
 			Admin::NAME,
 			null,
-			isset( $args['position'] ) ? $args['position'] : null
+			$args['position'] ?? null
 		);
 	}
 

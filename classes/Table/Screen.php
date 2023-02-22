@@ -231,14 +231,19 @@ final class Screen implements Registerable {
 	 * @since 2.2.4
 	 */
 	public function admin_scripts() {
-		$script = new Asset\Script( 'ac-table', $this->location->with_suffix( 'assets/js/table.js' ), [ 'jquery' ] );
-		$script->enqueue();
 
-		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ) );
+		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ), [ 'ac-ui' ] );
 		$style->enqueue();
 
-		wp_localize_script( 'ac-table', 'AC',
-			[
+		$table_translation = Asset\Script\Localize\Translation::create( [
+			'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
+			'edit'          => __( 'Edit', 'codepress-admin-columns' ),
+			'download'      => __( 'Download', 'codepress-admin-columns' ),
+		] );
+
+		$script = new Asset\Script( 'ac-table', $this->location->with_suffix( 'assets/js/table.js' ), [ 'jquery', Asset\Script\GlobalTranslationFactory::HANDLE ] );
+		$script
+			->add_inline_variable( 'AC', [
 				'assets'           => $this->location->with_suffix( 'assets/' )->get_url(),
 				'list_screen'      => $this->list_screen->get_key(),
 				'layout'           => $this->list_screen->get_layout_id(),
@@ -252,18 +257,9 @@ final class Screen implements Registerable {
 					'decimal_point' => $this->get_local_number_format( 'decimal_point' ),
 					'thousands_sep' => $this->get_local_number_format( 'thousands_sep' ),
 				],
-			]
-		);
-
-		$translations = [
-			'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
-			'edit'          => __( 'Edit', 'codepress-admin-columns' ),
-			'download'      => __( 'Download', 'codepress-admin-columns' ),
-		];
-
-		$translations = array_merge( $translations, AC\Translation\Confirmation::get() );
-
-		wp_localize_script( 'ac-table', 'AC_I18N', $translations );
+			] )
+			->localize( 'AC_I18N', $table_translation )
+			->enqueue();
 
 		/**
 		 * @param ListScreen $list_screen

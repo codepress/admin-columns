@@ -6,10 +6,6 @@ use AC\ArrayIterator;
 
 class Entities extends ArrayIterator {
 
-	/**
-	 * @param array $entities
-	 * @param Value $value
-	 */
 	public function __construct( array $entities, Value $value ) {
 		$value_entity_map = [];
 		$entities = array_filter( $entities );

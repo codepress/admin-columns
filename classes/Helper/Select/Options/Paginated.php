@@ -13,10 +13,6 @@ class Paginated extends Select\Options
 	 */
 	protected $paginated;
 
-	/**
-	 * @param Select\Paginated $paginated
-	 * @param ArrayIterator    $options
-	 */
 	public function __construct( Select\Paginated $paginated, ArrayIterator $options ) {
 		$this->paginated = $paginated;
 

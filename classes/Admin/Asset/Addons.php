@@ -8,23 +8,24 @@ use AC\Nonce;
 
 class Addons extends Script {
 
-	public function __construct( $handle, Location $location = null ) {
+	public function __construct( string $handle, Location $location = null ) {
 		parent::__construct( $handle, $location, [ 'jquery' ] );
 	}
 
-	public function register() {
+	public function register(): void {
 		parent::register();
 
-		$nonce = new Nonce\Ajax();
-
-		wp_localize_script( $this->handle, 'ACi18n', [
+		$translation = new Script\Localize\Translation( [
 			'plugin_installed' => __( 'The Add-on %s is activated.', 'codepress-admin-columns' ),
 		] );
 
-		$this->add_inline_variable( 'AC', [
-			Nonce\Ajax::NAME   => $nonce->create(),
-			'is_network_admin' => is_network_admin(),
-		] );
+		$this->localize( 'ACi18n', $translation )
+		     ->add_inline_variable(
+			     'AC', [
+				     Nonce\Ajax::NAME   => ( new Nonce\Ajax() )->create(),
+				     'is_network_admin' => is_network_admin(),
+			     ]
+		     );
 	}
 
 }

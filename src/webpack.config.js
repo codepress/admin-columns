@@ -7,6 +7,7 @@ let config = {
 		'admin-page-columns' : ['./js/admin-page-columns.ts'],
 		'admin-page-settings' : ['./js/admin-page-settings.ts'],
 		'admin-page-addons' : './js/admin-page-addons.ts',
+		'global-translations' : './js/global-translations.ts',
 		'message-review' : './js/message-review.ts',
 		'notice-dismissible' : './js/notice-dismissible.ts',
 		'table' : './js/table.ts'

@@ -3,7 +3,6 @@
 namespace AC;
 
 use AC\ColumnRepository\Sort\ManualOrder;
-use AC\Storage\UserColumnOrder;
 
 class ScreenController implements Registerable {
 

@@ -62,11 +62,11 @@ class QuickEdit implements Registerable {
 
 		$id = $this->preference->get( $type );
 
-		if ( ! $id ) {
+		if ( ! ListScreenId::is_valid_id( $id ) ) {
 			return;
 		}
 
-		$list_screen = $this->storage->find( new ListScreenId( $id ) );
+		$list_screen = $this->storage->find_by_user( new ListScreenId( $id ), wp_get_current_user() );
 
 		if ( ! $list_screen ) {
 			return;

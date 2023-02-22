@@ -1,14 +1,17 @@
 <script type="ts">
-    import {onMount} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
 
     export let value: boolean | Array<string>;
     export let trueValue: string = '';
     export let falseValue: string = '';
     export let nativeValue: null | string = null;
     export let indeterminate: boolean = false;
+    export let disabled: boolean = false;
 
     let input: HTMLInputElement;
     let checked = false;
+
+    let dispatch = createEventDispatcher();
 
     let onClick = () => {
         indeterminate = false;
@@ -17,6 +20,8 @@
         } else {
             setUnchecked();
         }
+
+
     }
 
     const setChecked = () => {
@@ -26,6 +31,8 @@
         } else {
             value = true;
         }
+
+        dispatch('input');
     }
 
     const setUnchecked = () => {
@@ -35,16 +42,26 @@
         } else {
             value = false;
         }
+
+        dispatch('input');
+    }
+
+    const updateCheckedOnValue = (new_value) => {
+        if (Array.isArray(new_value)) {
+            let found = new_value.find(v => v === nativeValue);
+            checked = typeof found !== 'undefined';
+        } else {
+            checked = new_value;
+        }
     }
 
     onMount(() => {
-        if (Array.isArray(value)) {
-            let found = value.find(v => v === nativeValue);
-            checked = typeof found !== 'undefined';
-        } else {
-            checked = value;
-        }
+        updateCheckedOnValue(value);
     });
+
+    $: {
+        updateCheckedOnValue(value);
+    }
 
     $:finalFalseLabel = falseValue ?? trueValue;
     $:checkedLabel = checked ? trueValue : finalFalseLabel;
@@ -63,19 +80,35 @@
 	}
 
 	.acui-checkbox__check {
+		position: relative;
 		display: inline-block;
-		border-radius: 4px;
-		width: 1.25em;
-		height: 1.25em;
+		align-items: center;
+		justify-content: center;
+		border-radius: 1px;
+		width: 20px;
+		height: 20px;
 		background: #fff;
-		border: 2px solid #eee;
-		transform: scale(80%);
+		border: 1px solid #8c8f94;
+		transform: scale(80%) translateY(-2px);
 		margin-right: 5px;
+		text-align: center;
+	}
+
+	.acui-checkbox__check svg {
+		position: absolute;
+		left: -2px;
+		top: -2px;
+		fill: white;
+		display: none;
 	}
 
 	.acui-checkbox input[type=checkbox]:checked + .acui-checkbox__check {
 		border-color: var(--ac-primary-color);
-		background: var(--ac-primary-color) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cpath d='M.04.627L.146.52.43.804.323.91zm.177.177L.854.167.96.273.323.91z' fill='%23fff'/%3E%3C/svg%3E") no-repeat 50%;
+		background: var(--ac-primary-color);
+	}
+
+	.acui-checkbox input[type=checkbox]:checked + .acui-checkbox__check svg {
+		display: block;
 	}
 
 	.acui-checkbox.indeterminate input[type=checkbox] + .acui-checkbox__check {
@@ -84,14 +117,22 @@
 	}
 
 	.acui-checkbox input[type=checkbox]:focus + .acui-checkbox__check {
-		box-shadow: 0 0 0.3em rgba(0, 0, 0, .8);
+		box-shadow: 0 0 0 2px #fff,0 0 0 4px var(--ac-primary-color);
+
+	}
+
+	.acui-checkbox input[disabled] + .acui-checkbox__check {
+		cursor: not-allowed;
+		opacity: .4;
 	}
 
 </style>
 
-<label class="acui-checkbox" class:indeterminate={indeterminate}>
-	<input type="checkbox" bind:checked={checked} value={nativeValue} on:input={onClick} bind:this={input}>
-	<span class="acui-checkbox__check"></span>
+<label class="acui-checkbox" class:indeterminate={indeterminate} class:disabled={disabled}>
+	<input type="checkbox" bind:checked={checked} value={nativeValue} on:input={onClick} bind:this={input} {disabled}>
+	<span class="acui-checkbox__check">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="presentation" class="components-checkbox-control__checked" aria-hidden="true" focusable="false"><path d="M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"></path></svg>
+	</span>
 	<span class="acui-checkbox__label">
 		{#if checkedLabel}
 			{checkedLabel}

@@ -44,8 +44,8 @@ class AjaxGeneralOptions implements Registerable {
 
 		$request = new Request();
 
-		$name = (string) $request->filter( 'option_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		$value = (string) $request->filter( 'option_value', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		$name = (string) $request->filter( 'option_name' );
+		$value = (string) $request->filter( 'option_value' );
 
 		$options = $this->general_option->get();
 

@@ -12,7 +12,7 @@ class IsPluginNotActive implements Filter {
 		return new Integrations( array_filter( $integrations->all(), [ $this, 'is_not_active' ] ) );
 	}
 
-	private function is_not_active( Integration $integration ) {
+	private function is_not_active( Integration $integration ): bool {
 		return ! $integration->is_plugin_active();
 	}
 

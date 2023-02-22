@@ -10,7 +10,6 @@ use AC\Settings;
  * Suited for all list screens supporting WordPress' default way of handling meta data.
  * Supports different types of meta fields, including dates, serialized data, linked content,
  * and boolean values.
- * @since 1.0
  */
 class CustomField extends Column\Meta {
 
@@ -46,12 +45,9 @@ class CustomField extends Column\Meta {
 	 * @see Settings\Column\CustomFieldType
 	 */
 	public function get_field_type() {
-		return $this->get_setting( Settings\Column\CustomFieldType::NAME )->get_value();
+		return $this->get_setting( Settings\Column\CustomFieldType::NAME )->get_value() ?: '';
 	}
 
-	/**
-	 * @since 3.2.1
-	 */
 	public function get_field() {
 		return $this->get_meta_key();
 	}

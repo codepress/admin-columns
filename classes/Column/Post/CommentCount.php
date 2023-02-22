@@ -29,4 +29,12 @@ class CommentCount extends Column {
 		$this->add_setting( new Settings\Column\CommentCount( $this ) );
 	}
 
+	public function get_setting_comment_count(): ?Settings\Column\CommentCount {
+		$setting = $this->get_setting( 'comment_count' );
+
+		return $setting instanceof Settings\Column\CommentCount
+			? $setting
+			: null;
+	}
+
 }

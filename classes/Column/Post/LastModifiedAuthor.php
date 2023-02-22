@@ -14,8 +14,8 @@ use AC\Settings;
 class LastModifiedAuthor extends Column\Meta {
 
 	public function __construct() {
-		$this->set_type( 'column-last_modified_author' );
-		$this->set_label( __( 'Last Modified Author', 'codepress-admin-columns' ) );
+		$this->set_type( 'column-last_modified_author' )
+		     ->set_label( __( 'Last Modified Author', 'codepress-admin-columns' ) );
 	}
 
 	public function get_value( $id ) {
@@ -36,7 +36,9 @@ class LastModifiedAuthor extends Column\Meta {
 	 * @return string
 	 */
 	protected function get_user_setting_display() {
-		/* @var AC\Settings\Column\User $setting */
+		/**
+		 * @var AC\Settings\Column\User $setting
+		 */
 		$setting = $this->get_setting( 'user' );
 
 		return $setting->get_display_author_as();

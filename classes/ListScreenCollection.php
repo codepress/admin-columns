@@ -75,4 +75,12 @@ final class ListScreenCollection implements Iterator, Countable {
 		return isset( $this->data[ $list_screen->get_layout_id() ] );
 	}
 
+	public function get_copy(): array {
+		$copy = $this->data;
+
+		reset( $copy );
+
+		return $copy;
+	}
+
 }

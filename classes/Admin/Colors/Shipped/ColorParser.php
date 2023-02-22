@@ -2,9 +2,9 @@
 
 namespace AC\Admin\Colors\Shipped;
 
-use AC\Admin\Colors\Type\Color;
 use AC\Admin\Colors\ColorCollection;
 use AC\Admin\Colors\Colors;
+use AC\Admin\Colors\Type\Color;
 
 final class ColorParser {
 

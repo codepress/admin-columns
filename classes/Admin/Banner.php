@@ -20,21 +20,14 @@ class Banner {
 		$this->integrations = new IntegrationRepository();
 	}
 
-	/**
-	 * @return Promo|null
-	 */
-	private function get_active_promotion() {
+	private function get_active_promotion(): ?Promo {
 		return ( new PromoCollection() )->find_active();
 	}
 
-	/**
-	 * @return Integrations
-	 */
-	private function get_missing_integrations() {
+	private function get_missing_integrations(): Integrations {
 		return $this->integrations->find_all( [
 			'filter' => [
 				new Integration\Filter\IsPluginActive(),
-				new Integration\Filter\IsNotActive( is_multisite(), is_network_admin() ),
 			],
 		] );
 	}

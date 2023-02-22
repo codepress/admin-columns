@@ -78,7 +78,6 @@
 .ac-toggle-v2 {
 	$e: &;
 	position: relative;
-	margin-bottom: 15px;
 
 	&.-disabled {
 		cursor: not-allowed;
@@ -104,6 +103,12 @@
 			z-index: 2;
 			border: none;
 			margin: 0 !important;
+
+			&:focus, &:active {
+				~ .ac-toggle-v2__toggle__track {
+					box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ac-primary-color);
+				}
+			}
 
 			&:checked {
 				~ .ac-toggle-v2__toggle__thumb {
@@ -173,6 +178,7 @@
 				width: 14px;
 				height: 14px;
 			}
+
 			input[type=checkbox] {
 				&:checked {
 					~ .ac-toggle-v2__toggle__thumb {

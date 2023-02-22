@@ -42,7 +42,13 @@ class AjaxColumnValue implements Registerable {
 			wp_send_json_error( __( 'Invalid item ID.', 'codepress-admin-columns' ), 400 );
 		}
 
-		$list_screen = $this->repository->find( new ListScreenId( filter_input( INPUT_POST, 'layout' ) ) );
+		$list_id = filter_input( INPUT_POST, 'layout' );
+
+		if ( ! ListScreenId::is_valid_id( $list_id ) ) {
+			wp_send_json_error( __( 'Invalid list ID.', 'codepress-admin-columns' ), 400 );
+		}
+
+		$list_screen = $this->repository->find_by_user( new ListScreenId( $list_id ), wp_get_current_user() );
 
 		if ( ! $list_screen ) {
 			wp_send_json_error( __( 'Invalid list screen.', 'codepress-admin-columns' ), 400 );

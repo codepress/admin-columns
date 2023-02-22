@@ -50,4 +50,8 @@ final class MetaType {
 		}
 	}
 
+	public function __toString(): string {
+		return $this->meta_type;
+	}
+
 }

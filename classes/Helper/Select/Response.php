@@ -14,21 +14,12 @@ final class Response {
 	 */
 	private $more;
 
-	/**
-	 * @param Options $options
-	 * @param bool    $more
-	 */
-	public function __construct( Options $options, $more = false ) {
+	public function __construct( Options $options, bool $more = false ) {
 		$this->options = $options;
-		$this->more = (bool) $more;
+		$this->more = $more;
 	}
 
-	/**
-	 * @param array $options
-	 *
-	 * @return array
-	 */
-	private function parse_options( array $options ) {
+	private function parse_options( array $options ): array {
 		$results = [];
 
 		foreach ( $options as $option ) {

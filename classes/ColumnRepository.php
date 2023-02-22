@@ -7,9 +7,8 @@ use AC\ColumnRepository\Sort;
 
 class ColumnRepository {
 
-	const ARG_FILTERS = 'filters';
-	const ARG_FILTER = 'filter';
-	const ARG_SORT = 'sort';
+	public const ARG_FILTER = 'filter';
+	public const ARG_SORT = 'sort';
 
 	/**
 	 * @var ListScreen
