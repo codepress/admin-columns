@@ -548,6 +548,9 @@ table.ac-form-table {
 	.ac-ajax-loading {
 		position: relative;
 	}
+	.ac-toggle-v2 .ac-ajax-loading{
+		position: absolute;
+	}
 
 	p {
 		margin-top: 5px;

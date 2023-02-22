@@ -1204,6 +1204,9 @@ table.ac-form-table .general form p.save-button {
 .ac-general-setting-row .ac-ajax-loading {
   position: relative;
 }
+.ac-general-setting-row .ac-toggle-v2 .ac-ajax-loading {
+  position: absolute;
+}
 .ac-general-setting-row p {
   margin-top: 5px;
 }

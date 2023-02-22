@@ -18,20 +18,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initPointers();
     initUiToggleButtons();
-
-    const layoutStyle: HTMLInputElement | null = document.querySelector('input[name="layout_style"]');
-    if (layoutStyle) {
-        let loader = new AjaxLoader();
-
-        layoutStyle.addEventListener('input', () => {
-            loader?.getElement().remove();
-            loader = new AjaxLoader();
-            layoutStyle.closest('.ac-general-setting-row__layout')?.append( loader.getElement() );
-            loader.setActive(true).setLoading( true );
-            persistGeneralSetting('layout_style', layoutStyle.value).then( ()=>{
-                loader.finish();
-            });
-        });
-    }
-
 });
