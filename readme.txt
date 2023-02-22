@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.6.1 =
-Release Date: tbd
+Release Date: February 22nd, 2022
 
 * [Added] Integration for Media Library Assistant
 
