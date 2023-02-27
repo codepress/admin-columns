@@ -29,7 +29,6 @@ class ListScreenAdmin implements Middleware {
 	public function handle( Request $request ) {
 		$list_key = $request->get( 'list_screen' );
 
-		// TODO
 		if ( ! $list_key ) {
 			$list_key = $this->preference->get_last_visited_list_key();
 		}

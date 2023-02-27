@@ -1,4 +1,4 @@
-# Copyright (C) 2022 Admin Columns
+# Copyright (C) 2023 Admin Columns
 # This file is distributed under the same license as the Admin Columns package.
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2022-12-23 07:51+0000\n"
+"POT-Creation-Date: 2023-02-22 09:12+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -262,6 +262,14 @@ msgstr ""
 
 #: classes/Integration/JetEngine.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your JetEngine contents on any admin list table."
+msgstr ""
+
+#: classes/Integration/MediaLibraryAssistant.php:14
+msgid "Media Library Assistant"
+msgstr ""
+
+#: classes/Integration/MediaLibraryAssistant.php:16
+msgid "The Media Library Assistant plugin from David Lingren provides several enhancements for managing the Media Library."
 msgstr ""
 
 #: classes/Integration/MetaBox.php:14, classes/Integration/MetaBox.php:18, classes/Integration/MetaBox.php:19
@@ -1142,7 +1150,7 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: classes/Column/Post/Attachment.php:15
+#: classes/Column/Post/Attachment.php:12
 msgid "Attachments"
 msgstr ""
 

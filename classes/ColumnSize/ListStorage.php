@@ -51,7 +51,9 @@ class ListStorage {
 		$results = [];
 
 		foreach ( $list_screen->get_columns() as $column ) {
-			$results[ $column->get_name() ] = $this->get( $list_screen, $column->get_name() );
+			$name = $column->get_name();
+
+			$results[ $name ] = $this->get( $list_screen, $name );
 		}
 
 		return array_filter( $results );

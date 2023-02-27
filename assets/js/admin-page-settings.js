@@ -2578,6 +2578,34 @@ module.exports = function removeItems (arr, startIdx, removeCount) {
 
 /***/ }),
 
+/***/ "./js/ajax/settings.ts":
+/*!*****************************!*\
+  !*** ./js/ajax/settings.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "persistGeneralSetting": () => (/* binding */ persistGeneralSetting)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/global */ "./js/helpers/global.ts");
+
+
+const persistGeneralSetting = (name, value) => {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().post(ajaxurl, (0,_helpers_global__WEBPACK_IMPORTED_MODULE_1__.mapDataToFormData)({
+        action: 'ac_admin_general_options',
+        _ajax_nonce: AC._ajax_nonce,
+        option_name: name,
+        option_value: value
+    }));
+};
+
+
+/***/ }),
+
 /***/ "./js/global-translations.ts":
 /*!***********************************!*\
   !*** ./js/global-translations.ts ***!
@@ -5573,11 +5601,10 @@ var __webpack_exports__ = {};
   !*** ./js/admin-page-settings.ts ***!
   \***********************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers/global */ "./js/helpers/global.ts");
-/* harmony import */ var _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugin/ajax-loader */ "./js/plugin/ajax-loader.ts");
-/* harmony import */ var _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugin/ac-confirmation */ "./js/plugin/ac-confirmation.ts");
+/* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/global */ "./js/helpers/global.ts");
+/* harmony import */ var _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./plugin/ajax-loader */ "./js/plugin/ajax-loader.ts");
+/* harmony import */ var _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugin/ac-confirmation */ "./js/plugin/ac-confirmation.ts");
+/* harmony import */ var _ajax_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ajax/settings */ "./js/ajax/settings.ts");
 
 
 
@@ -5585,13 +5612,13 @@ __webpack_require__.r(__webpack_exports__);
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.ac-settings-box input[data-ajax-setting]').forEach(el => {
         var _a;
-        new GeneralAdminSetting(el, (_a = el.dataset.ajaxSetting) !== null && _a !== void 0 ? _a : '');
+        new GeneralAdminToggleSetting(el, (_a = el.dataset.ajaxSetting) !== null && _a !== void 0 ? _a : '');
     });
     let restoreFormButton = document.querySelector('#frm-ac-restore [type=submit]');
     if (restoreFormButton) {
         restoreFormButton.addEventListener('click', (e) => {
             e.preventDefault();
-            new _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_3__["default"]({
+            new _plugin_ac_confirmation__WEBPACK_IMPORTED_MODULE_2__["default"]({
                 message: AC_I18N.restore_settings,
                 confirm: () => {
                     var _a;
@@ -5601,8 +5628,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }).create();
         });
     }
+    const layoutStyle = document.querySelector('input[name="layout_style"]');
+    if (layoutStyle) {
+        let loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__["default"]();
+        layoutStyle.addEventListener('input', () => {
+            var _a;
+            loader === null || loader === void 0 ? void 0 : loader.getElement().remove();
+            loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__["default"]();
+            (_a = layoutStyle.closest('.ac-general-setting-row__layout')) === null || _a === void 0 ? void 0 : _a.append(loader.getElement());
+            loader.setActive(true).setLoading(true);
+            (0,_ajax_settings__WEBPACK_IMPORTED_MODULE_3__.persistGeneralSetting)('layout_style', layoutStyle.value).then(() => {
+                loader.finish();
+            });
+        });
+    }
 });
-class GeneralAdminSetting {
+class GeneralAdminToggleSetting {
     constructor(element, name) {
         this.element = element;
         this.name = name;
@@ -5620,20 +5661,15 @@ class GeneralAdminSetting {
                 (_a = this.loader) === null || _a === void 0 ? void 0 : _a.finish();
             });
         });
-        (0,_helpers_global__WEBPACK_IMPORTED_MODULE_1__.mapDataToFormData)({});
+        (0,_helpers_global__WEBPACK_IMPORTED_MODULE_0__.mapDataToFormData)({});
     }
     initNewLoader() {
         var _a;
         (_a = this.loader) === null || _a === void 0 ? void 0 : _a.getElement().remove();
-        this.loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_2__["default"]();
+        this.loader = new _plugin_ajax_loader__WEBPACK_IMPORTED_MODULE_1__["default"]();
     }
     persist() {
-        return axios__WEBPACK_IMPORTED_MODULE_0___default().post(ajaxurl, (0,_helpers_global__WEBPACK_IMPORTED_MODULE_1__.mapDataToFormData)({
-            action: 'ac_admin_general_options',
-            _ajax_nonce: AC._ajax_nonce,
-            option_name: this.name,
-            option_value: this.element.checked ? '1' : '0'
-        }));
+        return (0,_ajax_settings__WEBPACK_IMPORTED_MODULE_3__.persistGeneralSetting)(this.name, this.element.checked ? '1' : '0');
     }
 }
 

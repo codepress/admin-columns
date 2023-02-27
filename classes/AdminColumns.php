@@ -55,7 +55,6 @@ class AdminColumns extends Plugin {
 			),
 		] );
 
-		// TODO Or we can just have the object Translation defined and not (yet) have a container in AC
 		$definitions = [
 			'translations.global' => function (): Translation {
 				return new Translation( require $this->get_dir() . '/settings/translations/global.php' );
