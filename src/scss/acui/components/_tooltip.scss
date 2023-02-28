@@ -1,0 +1,40 @@
+.acui-tooltip {
+
+
+
+}
+
+.acui-tooltip-content{
+	background: #000;
+	border-radius: 3px;
+	padding: 5px 10px;
+	color: #fff;
+	position: absolute;
+	min-width: 30px;
+	margin-top: 5px;
+	display: block;
+	transition: opacity .3s;
+	pointer-events: none;
+	font-size: 11px;
+	line-height: 16px;
+	z-index: 100000;
+	max-width: 200px;
+
+	&:before {
+		content: '';
+		display: block;
+		width: 0;
+		height: 0;
+		border-bottom: 4px solid rgba(0, 0, 0, .8);
+		border-left: 6px solid transparent;
+		border-right: 6px solid transparent;
+		position: absolute;
+		left: 50%;
+		top: -4px;
+		transform: translateX(-4px);
+	}
+
+	&.hover {
+		opacity: 1;
+	}
+}
