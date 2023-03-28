@@ -24,12 +24,11 @@ class PostFactory implements ListScreenFactoryInterface {
 	}
 
 	public function create_by_wp_screen( WP_Screen $screen, array $settings ): ?ListScreen {
-		// TODO test
-		if ( 'edit' !== $screen->base || ! $screen->post_type ) {
-			return null;
+		if ( 'edit' === $screen->base && $screen->post_type ) {
+			return $this->create( $screen->post_type, $settings );
 		}
 
-		return $this->create( $screen->post_type, $settings );
+		return null;
 	}
 
 }

@@ -104,6 +104,7 @@ class Screen implements Registerable {
 	/**
 	 * @return bool
 	 */
+	// TODO remove
 	public function is_list_screen() {
 		return null !== $this->get_list_screen();
 	}

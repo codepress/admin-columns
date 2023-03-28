@@ -19,14 +19,14 @@ class UserFactory implements ListScreenFactoryInterface {
 			return null;
 		}
 
-		return $this->add_settings(
-			new User(),
-			$settings
-		);
+		return $this->add_settings( new User(), $settings );
 	}
 
 	public function create_by_wp_screen( WP_Screen $screen, array $settings ): ?ListScreen {
-		// todo
+		if ( 'users' === $screen->base && 'users' === $screen->id ) {
+			return $this->add_settings( new User(), $settings );
+		}
+
 		return null;
 	}
 
