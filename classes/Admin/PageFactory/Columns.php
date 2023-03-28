@@ -10,8 +10,10 @@ use AC\Admin\PageFactoryInterface;
 use AC\Admin\Preference;
 use AC\Admin\Section;
 use AC\Asset\Location;
+use AC\Controller\Middleware;
 use AC\DefaultColumnsRepository;
 use AC\ListScreenRepository\Storage;
+use InvalidArgumentException;
 
 class Columns implements PageFactoryInterface {
 
@@ -48,13 +50,28 @@ class Columns implements PageFactoryInterface {
 	}
 
 	public function create() {
+		$request = new AC\Request();
+
+		$request->add_middleware(
+			new Middleware\ListScreenAdmin(
+				$this->storage,
+				new Preference\ListScreen(),
+				false
+			)
+		);
+
+		$list_screen = $request->get( 'list_screen' );
+
+		if ( ! $list_screen ) {
+			throw new InvalidArgumentException( 'Invalid screen.' );
+		}
+
 		return new Page\Columns(
 			$this->location,
+			$list_screen,
 			new DefaultColumnsRepository(),
 			new Section\Partial\Menu(),
-			$this->storage,
 			new Admin\View\Menu( $this->menu_factory->create( 'columns' ) ),
-			new Preference\ListScreen(),
 			$this->is_acp_active
 		);
 	}

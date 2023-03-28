@@ -3,6 +3,7 @@
 namespace AC\Controller\ListScreen;
 
 use AC\Column\LabelEncoder;
+use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
 use AC\Request;
@@ -23,7 +24,7 @@ class Save {
 			wp_send_json_error( [ 'message' => __( 'You need at least one column', 'codepress-admin-columns' ) ] );
 		}
 
-		$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $data['list_screen'] );
+		$list_screen = ( new ListScreenFactory() )->create( $data['list_screen'], [] );
 
 		if ( ! $list_screen ) {
 			wp_send_json_error( [ 'message' => 'List screen not found' ] );

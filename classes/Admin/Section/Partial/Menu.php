@@ -8,11 +8,10 @@ use AC\View;
 
 class Menu {
 
-	/** @var bool */
 	private $is_network;
 
-	public function __construct( $is_network = false ) {
-		$this->is_network = (bool) $is_network;
+	public function __construct( bool $is_network = false ) {
+		$this->is_network = $is_network;
 	}
 
 	public function render( string $current, string $url, $is_hidden = false ): string {

@@ -88,6 +88,7 @@ class AdminColumns extends Plugin {
 		PageRequestHandlers::add_handler( $page_handler );
 
 		$color_repository = new Admin\Colors\ColorRepository( new Admin\Colors\Storage\OptionFactory() );
+		$list_screen_factory = new ListScreenFactory();
 
 		$services = [
 			new Admin\Admin( new PageRequestHandlers(), $location, new AdminScripts( $location ) ),
@@ -112,7 +113,7 @@ class AdminColumns extends Plugin {
 			new Controller\ListScreenRestoreColumns( $this->storage ),
 			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
 			new PluginActionLinks( $this->get_basename(), $is_acp_active ),
-			new Controller\TableListScreenSetter( $this->storage, $location, new Table\LayoutPreference() ),
+			new Controller\TableListScreenSetter( $this->storage, $location, $list_screen_factory, new Table\LayoutPreference() ),
 			new Admin\Scripts( $location ),
 			new Service\IntegrationColumns( new IntegrationRepository() ),
 			new Service\CommonAssets( $location, $global_translations ),

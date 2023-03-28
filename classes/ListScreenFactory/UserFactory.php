@@ -6,6 +6,7 @@ namespace AC\ListScreenFactory;
 use AC\ListScreen;
 use AC\ListScreen\User;
 use AC\ListScreenFactoryInterface;
+use WP_Screen;
 
 class UserFactory implements ListScreenFactoryInterface {
 
@@ -22,6 +23,11 @@ class UserFactory implements ListScreenFactoryInterface {
 			new User(),
 			$settings
 		);
+	}
+
+	public function create_by_wp_screen( WP_Screen $screen, array $settings ): ?ListScreen {
+		// todo
+		return null;
 	}
 
 }
