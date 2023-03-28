@@ -6,7 +6,6 @@ use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Sort\ManualOrder;
 use AC\ListScreenRepository\Storage;
-use AC\ListScreenTypes;
 use AC\Middleware;
 use AC\Request;
 use AC\Table;
@@ -16,9 +15,6 @@ use WP_Screen;
 use WP_User;
 
 class ListScreenTable implements Middleware {
-
-	private const PARAM_LIST_ID = 'list_id';
-	private const PARAM_LIST_KEY = 'list_key';
 
 	private $storage;
 
@@ -57,7 +53,7 @@ class ListScreenTable implements Middleware {
 	}
 
 	private function get_list_id( Request $request ): ?ListScreenId {
-		$list_key = $this->get_list_key( $request );
+		$list_key = $this->get_list_key();
 
 		if ( ! $list_key ) {
 			return null;
@@ -74,18 +70,12 @@ class ListScreenTable implements Middleware {
 		return $list_id;
 	}
 
-	private function get_list_key( Request $request ): ?string {
-		$list_key = (string) $request->get( 'list_key' );
-
-		if ( ! $list_key ) {
-			$list_key = $this->get_list_key_from_screen();
-		}
-
-		return $list_key ?: null;
+	private function get_list_key(): ?string {
+		return $this->get_list_key_from_screen() ?: null;
 	}
 
 	private function get_list_screen( Request $request ): ?ListScreen {
-		$list_key = $this->get_list_key( $request );
+		$list_key = $this->get_list_key();
 		$list_id = $this->get_list_id( $request );
 
 		if ( ! $list_key ) {
@@ -117,44 +107,44 @@ class ListScreenTable implements Middleware {
 		}
 
 		$request->get_parameters()->merge( [
-			'list_screen_object' => $list_screen,
+			'list_screen' => $list_screen,
 		] );
 	}
 
 	// TODO remove
-//	public function ___handle( Request $request ) {
-//		$user = wp_get_current_user();
-//
-//		if ( ! $user ) {
-//			return;
-//		}
-//
-//		$list_key = $request->get( 'list_key' ) ?: $this->get_list_key_from_screen();
-//
-//		if ( ! $list_key || ! is_string( $list_key ) ) {
-//			return;
-//		}
-//
-//		$list_id = $request->get( 'layout' ) ?: $this->preference->get( $list_key );
-//
-//		$list_screen = null;
-//
-//		if ( ListScreenId::is_valid_id( $list_id ) ) {
-//			$list_screen = $this->storage->find_by_user( new ListScreenId( $list_id ), $user );
-//		}
-//
-//		if ( ! $list_screen ) {
-//			$list_screen = $this->get_first_list_screen_by_key( $list_key, $user );
-//		}
-//
-//		if ( ! $list_screen ) {
-//			$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
-//		}
-//
-//		$request->get_parameters()->merge( [
-//			self::PARAM_LIST_KEY => $list_screen ? $list_screen->get_key() : null,
-//			self::PARAM_LIST_ID  => $list_screen && $list_screen->has_id() ? (string) $list_screen->get_id() : null,
-//		] );
-//	}
+	//	public function ___handle( Request $request ) {
+	//		$user = wp_get_current_user();
+	//
+	//		if ( ! $user ) {
+	//			return;
+	//		}
+	//
+	//		$list_key = $request->get( 'list_key' ) ?: $this->get_list_key_from_screen();
+	//
+	//		if ( ! $list_key || ! is_string( $list_key ) ) {
+	//			return;
+	//		}
+	//
+	//		$list_id = $request->get( 'layout' ) ?: $this->preference->get( $list_key );
+	//
+	//		$list_screen = null;
+	//
+	//		if ( ListScreenId::is_valid_id( $list_id ) ) {
+	//			$list_screen = $this->storage->find_by_user( new ListScreenId( $list_id ), $user );
+	//		}
+	//
+	//		if ( ! $list_screen ) {
+	//			$list_screen = $this->get_first_list_screen_by_key( $list_key, $user );
+	//		}
+	//
+	//		if ( ! $list_screen ) {
+	//			$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
+	//		}
+	//
+	//		$request->get_parameters()->merge( [
+	//			self::PARAM_LIST_KEY => $list_screen ? $list_screen->get_key() : null,
+	//			self::PARAM_LIST_ID  => $list_screen && $list_screen->has_id() ? (string) $list_screen->get_id() : null,
+	//		] );
+	//	}
 
 }

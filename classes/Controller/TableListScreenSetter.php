@@ -50,12 +50,9 @@ class TableListScreenSetter implements Registerable {
 			)
 		);
 
-		/**
-		 * @var ListScreen $list_screen
-		 */
-		$list_screen = $request->get( 'list_screen_object' );
+		$list_screen = $request->get( 'list_screen' );
 
-		if ( ! $list_screen ) {
+		if ( ! $list_screen instanceof ListScreen ) {
 			return;
 		}
 
