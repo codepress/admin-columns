@@ -93,7 +93,7 @@ class ListScreenTable implements Middleware {
 		}
 
 		if ( ! $list_screen ) {
-			$list_screen = ( new ListScreenFactory() )->create( $list_key, [] );
+			$list_screen = $this->list_screen_factory->create( $list_key, [] );
 		}
 
 		return $list_screen;

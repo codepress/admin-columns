@@ -4,7 +4,6 @@ namespace AC\Admin\Page;
 
 use AC\Admin;
 use AC\Admin\Banner;
-use AC\Admin\Preference;
 use AC\Admin\RenderableHead;
 use AC\Admin\ScreenOption;
 use AC\Admin\Section\Partial\Menu;

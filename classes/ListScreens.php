@@ -55,9 +55,8 @@ class ListScreens implements Registerable {
 	/**
 	 * Get a list of post types for which Admin Columns is active
 	 * @return array List of post type keys (e.g. post, page)
-	 * @since 1.0
 	 */
-	public function get_post_types() {
+	public function get_post_types(): array {
 		$post_types = get_post_types( [
 			'_builtin' => false,
 			'show_ui'  => true,

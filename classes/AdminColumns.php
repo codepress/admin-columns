@@ -78,9 +78,10 @@ class AdminColumns extends Plugin {
 
 		$location = $this->get_location();
 		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
+		$list_screen_factory = new ListScreenFactory();
 
 		$page_handler = new PageRequestHandler();
-		$page_handler->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory, $is_acp_active ) )
+		$page_handler->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory, $list_screen_factory, $is_acp_active ) )
 		             ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory, $is_acp_active ) )
 		             ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $menu_factory ) )
 		             ->add( 'help', new Admin\PageFactory\Help( $location, $menu_factory ) );
@@ -88,7 +89,6 @@ class AdminColumns extends Plugin {
 		PageRequestHandlers::add_handler( $page_handler );
 
 		$color_repository = new Admin\Colors\ColorRepository( new Admin\Colors\Storage\OptionFactory() );
-		$list_screen_factory = new ListScreenFactory();
 
 		$services = [
 			new Admin\Admin( new PageRequestHandlers(), $location, new AdminScripts( $location ) ),
@@ -104,7 +104,7 @@ class AdminColumns extends Plugin {
 			new Controller\DefaultColumns( new Request(), new DefaultColumnsRepository() ),
 			new QuickEdit( $this->storage, new Table\LayoutPreference() ),
 			new Capabilities\Manage(),
-			new Controller\AjaxColumnRequest( $this->storage, new Request() ),
+			new Controller\AjaxColumnRequest( $this->storage, new Request(), $list_screen_factory ),
 			new Controller\AjaxGeneralOptions( new GeneralOption() ),
 			new Controller\AjaxRequestCustomFieldKeys(),
 			new Controller\AjaxColumnModalValue( $this->storage ),

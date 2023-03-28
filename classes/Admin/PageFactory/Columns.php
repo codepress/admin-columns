@@ -12,40 +12,33 @@ use AC\Admin\Section;
 use AC\Asset\Location;
 use AC\Controller\Middleware;
 use AC\DefaultColumnsRepository;
+use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use InvalidArgumentException;
 
 class Columns implements PageFactoryInterface {
 
-	/**
-	 * @var Storage
-	 */
 	protected $storage;
 
-	/**
-	 * @var Location\Absolute
-	 */
 	protected $location;
 
-	/**
-	 * @var MenuFactoryInterface
-	 */
 	protected $menu_factory;
 
-	/**
-	 * @var bool
-	 */
+	protected $list_screen_factory;
+
 	private $is_acp_active;
 
 	public function __construct(
 		Storage $storage,
 		Location\Absolute $location,
 		MenuFactoryInterface $menu_factory,
+		ListScreenFactory $list_screen_factory,
 		bool $is_acp_active
 	) {
 		$this->storage = $storage;
 		$this->location = $location;
 		$this->menu_factory = $menu_factory;
+		$this->list_screen_factory = $list_screen_factory;
 		$this->is_acp_active = $is_acp_active;
 	}
 
@@ -56,6 +49,7 @@ class Columns implements PageFactoryInterface {
 			new Middleware\ListScreenAdmin(
 				$this->storage,
 				new Preference\ListScreen(),
+				$this->list_screen_factory,
 				false
 			)
 		);

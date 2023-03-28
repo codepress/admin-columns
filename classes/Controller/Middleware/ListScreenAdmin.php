@@ -14,20 +14,23 @@ use Exception;
 
 class ListScreenAdmin implements Middleware {
 
-	// TODO
-	//	public const PARAM_LIST_ID = 'list_id';
-	//	public const PARAM_LIST_KEY = 'list_key';
-	public const PARAM_LIST_SCREEN = 'list_screen';
-
 	private $storage;
 
 	private $preference;
 
+	private $list_screen_factory;
+
 	private $is_network;
 
-	public function __construct( Storage $storage, Preference\ListScreen $preference, bool $is_network = false ) {
+	public function __construct(
+		Storage $storage,
+		Preference\ListScreen $preference,
+		ListScreenFactory $list_screen_factory,
+		bool $is_network = false
+	) {
 		$this->storage = $storage;
 		$this->preference = $preference;
+		$this->list_screen_factory = $list_screen_factory;
 		$this->is_network = $is_network;
 	}
 
@@ -81,8 +84,7 @@ class ListScreenAdmin implements Middleware {
 			return $list_screens->current();
 		}
 
-		// TODO DI
-		return ( new ListScreenFactory() )->create( $list_key, [] );
+		return $this->list_screen_factory->create( $list_key, [] );
 	}
 
 	private function get_last_visited_list_id( string $list_key ): ?ListScreenId {
@@ -113,7 +115,7 @@ class ListScreenAdmin implements Middleware {
 		$this->set_preference_screen( $list_screen );
 
 		$request->get_parameters()->merge( [
-			self::PARAM_LIST_SCREEN => $list_screen,
+			'list_screen' => $list_screen,
 		] );
 	}
 

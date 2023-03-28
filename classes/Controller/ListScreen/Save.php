@@ -5,7 +5,6 @@ namespace AC\Controller\ListScreen;
 use AC\Column\LabelEncoder;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
-use AC\ListScreenTypes;
 use AC\Request;
 use AC\Type\ListScreenId;
 
@@ -13,8 +12,11 @@ class Save {
 
 	private $storage;
 
-	public function __construct( Storage $storage ) {
+	private $list_screen_factory;
+
+	public function __construct( Storage $storage, ListScreenFactory $list_screen_factory ) {
 		$this->storage = $storage;
+		$this->list_screen_factory = $list_screen_factory;
 	}
 
 	public function request( Request $request ): void {
@@ -24,7 +26,7 @@ class Save {
 			wp_send_json_error( [ 'message' => __( 'You need at least one column', 'codepress-admin-columns' ) ] );
 		}
 
-		$list_screen = ( new ListScreenFactory() )->create( $data['list_screen'], [] );
+		$list_screen = $this->list_screen_factory->create( $data['list_screen'], [] );
 
 		if ( ! $list_screen ) {
 			wp_send_json_error( [ 'message' => 'List screen not found' ] );
