@@ -45,18 +45,24 @@ class ListScreenAdmin implements Middleware {
 	}
 
 	private function get_list_key( Request $request ): ?string {
-		$list_key = $request->get( 'list_screen' );
+		$list_key = (string) $request->get( 'list_screen' );
 
-		if ( ! $list_key ) {
+		if ( ! $this->list_key_exists( $list_key ) ) {
 			$list_key = $this->preference->get_last_visited_list_key();
 		}
 
-		if ( ! $list_key ) {
+		if ( ! $this->list_key_exists( $list_key ) ) {
 			// TODO network
 			$list_key = current( TableScreens::get_screens() )->get_key();
 		}
 
-		return $list_key ?: null;
+		return $this->list_key_exists( $list_key )
+			? $list_key
+			: null;
+	}
+
+	private function list_key_exists( string $list_key ): bool {
+		return $this->list_screen_factory->create( $list_key, [] ) !== null;
 	}
 
 	private function get_list_screen( Request $request ): ?ListScreen {
@@ -89,7 +95,7 @@ class ListScreenAdmin implements Middleware {
 
 	private function get_last_visited_list_id( string $list_key ): ?ListScreenId {
 		try {
-			$list_id = new ListScreenId( $this->preference->get_list_id( $list_key ) );
+			$list_id = new ListScreenId( (string) $this->preference->get_list_id( $list_key ) );
 		} catch ( Exception $e ) {
 			return null;
 		}
