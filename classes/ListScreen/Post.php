@@ -12,9 +12,12 @@ class Post extends ListScreenPost {
 	public function __construct( $post_type ) {
 		parent::__construct( $post_type );
 
+		// TODO `set_screen_base` can be removed when `get_screen_link` has made abstract
 		$this->set_screen_base( 'edit' )
+			// TODO `set_group` can be removed
 		     ->set_group( 'post' )
 		     ->set_key( $post_type )
+			// TODO `set_screen_id` can be removed
 		     ->set_screen_id( $this->get_screen_base() . '-' . $post_type );
 	}
 
@@ -28,6 +31,7 @@ class Post extends ListScreenPost {
 	/**
 	 * @return WP_Posts_List_Table
 	 */
+	// TODO `get_list_table` can this be removed?
 	protected function get_list_table() {
 		return ( new WpListTableFactory() )->create_post_table( $this->get_screen_id() );
 	}

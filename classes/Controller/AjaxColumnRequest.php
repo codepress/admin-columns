@@ -47,10 +47,10 @@ class AjaxColumnRequest implements Registerable {
 				( new Save( $this->storage, $this->list_screen_factory ) )->request( $this->request );
 				break;
 			case 'select':
-				( new Select() )->request( $this->request );
+				( new Select( $this->list_screen_factory ) )->request( $this->request );
 				break;
 			case 'refresh':
-				( new Refresh() )->request( $this->request );
+				( new Refresh( $this->list_screen_factory ) )->request( $this->request );
 				break;
 		}
 

@@ -4,24 +4,25 @@ declare( strict_types=1 );
 namespace AC\ListScreenFactory;
 
 use AC\ListScreen;
-use AC\ListScreen\Post;
+use AC\ListScreen\Media;
+use AC\ListScreen\User;
 use AC\ListScreenFactoryInterface;
 use WP_Screen;
 
-class PostFactory implements ListScreenFactoryInterface {
+class MediaFactory implements ListScreenFactoryInterface {
 
 	use ListSettingsTrait;
 
 	public function create( string $key, array $settings = [] ): ?ListScreen {
-		if ( ! post_type_exists( $key ) ) {
-			return null;
+		if ( 'wp-media' === $key ) {
+			return $this->add_settings( new Media(), $settings );
 		}
 
-		return $this->add_settings( new Post( $key ), $settings );
+		return null;
 	}
 
 	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ?ListScreen {
-		if ( 'edit' === $screen->base && $screen->post_type ) {
+		if ( 'edit' === $screen->base && 'attachment' === $screen->post_type ) {
 			return $this->create( $screen->post_type, $settings );
 		}
 

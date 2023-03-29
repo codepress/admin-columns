@@ -3,10 +3,11 @@
 namespace AC\Controller\Middleware;
 
 use AC\Admin\Preference;
-use AC\Admin\TableScreens;
+use AC\Admin\MenuListItems;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
+use AC\MenuListFactory;
 use AC\Middleware;
 use AC\Request;
 use AC\Type\ListScreenId;
@@ -52,8 +53,8 @@ class ListScreenAdmin implements Middleware {
 		}
 
 		if ( ! $this->list_key_exists( $list_key ) ) {
-			// TODO network
-			$list_key = current( TableScreens::get_screens() )->get_key();
+			// TODO should we rely on this factory...
+			$list_key = current( ( new MenuListFactory() )->create()->all() )->get_key();
 		}
 
 		return $this->list_key_exists( $list_key )
@@ -62,7 +63,7 @@ class ListScreenAdmin implements Middleware {
 	}
 
 	private function list_key_exists( string $list_key ): bool {
-		return $this->list_screen_factory->create( $list_key, [] ) !== null;
+		return $this->list_screen_factory->create( $list_key ) !== null;
 	}
 
 	private function get_list_screen( Request $request ): ?ListScreen {
@@ -90,7 +91,7 @@ class ListScreenAdmin implements Middleware {
 			return $list_screens->current();
 		}
 
-		return $this->list_screen_factory->create( $list_key, [] );
+		return $this->list_screen_factory->create( $list_key );
 	}
 
 	private function get_last_visited_list_id( string $list_key ): ?ListScreenId {

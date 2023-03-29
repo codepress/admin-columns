@@ -14,6 +14,7 @@ use AC\Controller\Middleware;
 use AC\DefaultColumnsRepository;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
+use AC\Request;
 use InvalidArgumentException;
 
 class Columns implements PageFactoryInterface {
@@ -43,7 +44,7 @@ class Columns implements PageFactoryInterface {
 	}
 
 	public function create() {
-		$request = new AC\Request();
+		$request = new Request();
 
 		$request->add_middleware(
 			new Middleware\ListScreenAdmin(
@@ -64,6 +65,7 @@ class Columns implements PageFactoryInterface {
 			$this->location,
 			$list_screen,
 			new DefaultColumnsRepository(),
+			$this->list_screen_factory,
 			new Section\Partial\Menu(),
 			new Admin\View\Menu( $this->menu_factory->create( 'columns' ) ),
 			$this->is_acp_active

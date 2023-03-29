@@ -26,7 +26,7 @@ class Save {
 			wp_send_json_error( [ 'message' => __( 'You need at least one column', 'codepress-admin-columns' ) ] );
 		}
 
-		$list_screen = $this->list_screen_factory->create( $data['list_screen'], [] );
+		$list_screen = $this->list_screen_factory->create( (string) ( $data['list_screen'] ?? '' ) );
 
 		if ( ! $list_screen ) {
 			wp_send_json_error( [ 'message' => 'List screen not found' ] );

@@ -8,13 +8,23 @@ class ListScreenFactory implements ListScreenFactoryInterface {
 
 	private static $factories = [];
 
-	// TODO should we add a priority variable to this?
-	public static function add( ListScreenFactoryInterface $factory ): void {
-		self::$factories[] = $factory;
+	public static function add( ListScreenFactoryInterface $factory, int $priority = 10 ): void {
+		self::$factories[ $priority ][] = $factory;
 	}
 
-	public function create( string $key, array $settings ): ?ListScreen {
-		foreach ( self::$factories as $factory ) {
+	/**
+	 * @return ListScreenFactoryInterface[]
+	 */
+	public function all(): array {
+		$factories = self::$factories;
+
+		ksort( $factories );
+
+		return array_merge( ...$factories );
+	}
+
+	public function create( string $key, array $settings = [] ): ?ListScreen {
+		foreach ( $this->all() as $factory ) {
 			$list_screen = $factory->create( $key, $settings );
 
 			if ( $list_screen ) {
@@ -25,8 +35,8 @@ class ListScreenFactory implements ListScreenFactoryInterface {
 		return null;
 	}
 
-	public function create_by_wp_screen( WP_Screen $screen, array $settings ): ?ListScreen {
-		foreach ( self::$factories as $factory ) {
+	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ?ListScreen {
+		foreach ( $this->all() as $factory ) {
 			$list_screen = $factory->create_by_wp_screen( $screen, $settings );
 
 			if ( $list_screen ) {

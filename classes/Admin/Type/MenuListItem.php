@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace AC\Admin;
+namespace AC\Admin\Type;
 
-class TableScreen {
+class MenuListItem {
 
 	private $key;
 
@@ -11,10 +11,13 @@ class TableScreen {
 
 	private $url;
 
-	public function __construct( string $key, string $label, string $url ) {
+	private $group;
+
+	public function __construct( string $key, string $label, string $url, string $group ) {
 		$this->key = $key;
 		$this->label = $label;
 		$this->url = $url;
+		$this->group = $group;
 	}
 
 	public function get_key(): string {
@@ -27,6 +30,10 @@ class TableScreen {
 
 	public function get_url(): string {
 		return $this->url;
+	}
+
+	public function get_group(): string {
+		return $this->group;
 	}
 
 }

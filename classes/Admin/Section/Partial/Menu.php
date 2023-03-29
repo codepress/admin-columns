@@ -3,7 +3,8 @@
 namespace AC\Admin\Section\Partial;
 
 use AC\Admin\ListMenuFactory;
-use AC\Admin\TableScreen;
+use AC\Admin\MenuListItems;
+use AC\MenuListFactory;
 use AC\View;
 
 class Menu {
@@ -27,25 +28,22 @@ class Menu {
 		return $menu->render();
 	}
 
-	//	private function get_network_list_screens() {
-	//		return ListScreenTypes::instance()->get_list_screens( [ 'network_only' => true ] );
-	//	}
-
-	//	private function get_site_list_screens() {
-	//		return ListScreenTypes::instance()->get_list_screens( [ 'site_only' => true ] );
-	//	}
-
 	private function get_menu_items(): array {
 		$groups = [];
 
-		$menu_factory = ( new ListMenuFactory() )->create( false );
+		$menu_factory = new MenuListFactory();
 
-		// TODO
-		$groups['post']['title'] = 'Post Type';
+		foreach ( $menu_factory->create()->all() as $menu_item ) {
+			$group = $menu_item->get_group();
 
-		foreach ( $menu_factory->get_items() as $key => $label ) {
-			$groups['post']['options'][ $key ] = $label;
+			if ( ! isset( $groups[ $group ] ) ) {
+				$groups[ $group ]['title'] = $group;
+			}
+
+			$groups[ $group ]['options'][ $menu_item->get_key() ] = $menu_item->get_label();
 		}
+
+		// TODO sort
 
 		return $groups;
 	}

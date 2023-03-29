@@ -47,9 +47,6 @@ class Review
 		$this->get_ajax_handler()->register();
 	}
 
-	/**
-	 * @param Screen $screen
-	 */
 	public function display( Screen $screen ) {
 		if ( ! $screen->has_screen() ) {
 			return;
@@ -103,7 +100,7 @@ class Review
 	 * Check if the amount of days is larger then the first login
 	 * @return bool
 	 */
-	protected function first_login_compare() {
+	protected function first_login_compare(): bool {
 		return time() - $this->show_after * DAY_IN_SECONDS > $this->get_first_login();
 	}
 

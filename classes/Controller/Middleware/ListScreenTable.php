@@ -37,7 +37,7 @@ class ListScreenTable implements Middleware {
 	}
 
 	private function get_list_key_from_screen(): ?string {
-		$list_screen = $this->list_screen_factory->create_by_wp_screen( $this->wp_screen, [] );
+		$list_screen = $this->list_screen_factory->create_by_wp_screen( $this->wp_screen );
 
 		return $list_screen
 			? $list_screen->get_key()
@@ -93,21 +93,15 @@ class ListScreenTable implements Middleware {
 		}
 
 		if ( ! $list_screen ) {
-			$list_screen = $this->list_screen_factory->create( $list_key, [] );
+			$list_screen = $this->list_screen_factory->create( $list_key );
 		}
 
 		return $list_screen;
 	}
 
 	public function handle( Request $request ) {
-		$list_screen = $this->get_list_screen( $request );
-
-		if ( ! $list_screen ) {
-			return;
-		}
-
 		$request->get_parameters()->merge( [
-			'list_screen' => $list_screen,
+			'list_screen' => $this->get_list_screen( $request ),
 		] );
 	}
 

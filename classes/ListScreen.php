@@ -8,16 +8,7 @@ use AC\Type\Url\Editor;
 use DateTime;
 use LogicException;
 
-/**
- * List Screen
- * @since 2.0
- */
 abstract class ListScreen {
-
-	/**
-	 * @deprecated 4.0
-	 */
-	const OPTIONS_KEY = 'cpac_options_';
 
 	/**
 	 * Unique Identifier for List Screen.
@@ -388,16 +379,6 @@ abstract class ListScreen {
 	}
 
 	/**
-	 * @param $wp_screen
-	 *
-	 * @return boolean
-	 * @since 2.0.3
-	 */
-	public function is_current_screen( $wp_screen ) {
-		return $wp_screen && $wp_screen->id === $this->get_screen_id() && $wp_screen->base === $this->get_screen_base();
-	}
-
-	/**
 	 * Settings can not be overwritten
 	 */
 	public function is_read_only() {
@@ -511,7 +492,7 @@ abstract class ListScreen {
 		$columns = $this->get_columns();
 
 		foreach ( $columns as $column ) {
-			// Do not do a strict comparision. All column names are stored as strings, even integers.
+			// Do not do a strict comparison. All column names are stored as strings, even integers.
 			if ( $column->get_name() == $name ) {
 				return $column;
 			}

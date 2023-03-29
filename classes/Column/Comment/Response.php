@@ -26,9 +26,10 @@ class Response extends Column {
 	public function is_valid() {
 		global $current_screen, $post_id;
 
-		if ( $current_screen && $this->get_list_screen()->is_current_screen( $current_screen ) && $post_id ) {
-			return false;
-		}
+		// TODO fix
+//		if ( $current_screen && $this->get_list_screen()->is_current_screen( $current_screen ) && $post_id ) {
+//			return false;
+//		}
 
 		return true;
 

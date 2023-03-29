@@ -9,7 +9,6 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenFactory;
 use AC\ListScreenRepositoryWritable;
-use AC\ListScreenTypes;
 use AC\Type\ListScreenId;
 use LogicException;
 use stdClass;
@@ -21,10 +20,10 @@ final class Database implements ListScreenRepositoryWritable {
 
 	private const TABLE = 'admin_columns';
 
-	private $list_screen_types;
+	private $list_screen_factory;
 
-	public function __construct( ListScreenTypes $list_screen_types ) {
-		$this->list_screen_types = $list_screen_types;
+	public function __construct( ListScreenFactory $list_screen_factory ) {
+		$this->list_screen_factory = $list_screen_factory;
 	}
 
 	private function find_from_database( ListScreenId $id ): ?stdClass {
@@ -188,7 +187,7 @@ final class Database implements ListScreenRepositoryWritable {
 	}
 
 	private function create_list_screen( object $data ): ?ListScreen {
-		return ( new ListScreenFactory() )->create(
+		return $this->list_screen_factory->create(
 			$data->list_key,
 			[
 				'title'       => $data->title,
@@ -199,25 +198,6 @@ final class Database implements ListScreenRepositoryWritable {
 				'group'       => null,
 			]
 		);
-
-		//		return $list_screen;
-		//		$list_screen = $this->list_screen_types->get_list_screen_by_key( $data->list_key );
-		//
-		//		if ( $list_screen ) {
-		//			$list_screen->set_title( $data->title )
-		//			            ->set_layout_id( $data->list_id )
-		//			            ->set_updated( DateTime::createFromFormat( 'Y-m-d H:i:s', $data->date_modified ) );
-		//
-		//			if ( $data->settings ) {
-		//				$list_screen->set_preferences( unserialize( $data->settings, [ 'allowed_classes' => false ] ) ?: [] );
-		//			}
-		//
-		//			if ( $data->columns ) {
-		//				$list_screen->set_settings( unserialize( $data->columns, [ 'allowed_classes' => false ] ) ?: [] );
-		//			}
-		//		}
-		//
-		//		return $list_screen;
 	}
 
 }

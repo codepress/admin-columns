@@ -2,6 +2,7 @@
 
 namespace AC;
 
+// TODO remove..
 class ListScreenTypes {
 
 	public const ARG_NETWORK = 'network_only';

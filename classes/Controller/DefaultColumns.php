@@ -3,60 +3,72 @@
 namespace AC\Controller;
 
 use AC;
+use AC\Capabilities;
 use AC\DefaultColumnsRepository;
-use AC\ListScreen;
+use AC\ListScreenFactory;
 use AC\Registerable;
 use AC\Request;
 
 class DefaultColumns implements Registerable {
 
-	const ACTION_KEY = 'save-default-headings';
-	const LISTSCREEN_KEY = 'list_screen';
+	public const QUERY_PARAM = 'save-default-headings';
 
-	/** @var ListScreen */
 	private $list_screen;
 
-	/** @var Request */
 	private $request;
 
-	/** @var DefaultColumns */
+	private $list_screen_factory;
+
 	private $default_columns;
 
-	public function __construct( Request $request, DefaultColumnsRepository $default_columns ) {
+	public function __construct(
+		Request $request,
+		ListScreenFactory $list_screen_factory,
+		DefaultColumnsRepository $default_columns
+	) {
 		$this->request = $request;
+		$this->list_screen_factory = $list_screen_factory;
 		$this->default_columns = $default_columns;
 	}
 
 	public function register() {
-		add_action( 'admin_init', [ $this, 'handle_request' ] );
+		add_action( 'current_screen', [ $this, 'handle_request' ] );
 	}
 
 	public function handle_request() {
-		if ( '1' !== $this->request->get( self::ACTION_KEY ) ) {
+		if ( '1' !== $this->request->get( self::QUERY_PARAM ) ) {
 			return;
 		}
 
-		if ( ! current_user_can( AC\Capabilities::MANAGE ) ) {
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			return;
 		}
 
-		$this->list_screen = AC\ListScreenTypes::instance()->get_list_screen_by_key( $this->request->get( self::LISTSCREEN_KEY ) );
+		$screen = get_current_screen();
 
-		if ( null === $this->list_screen ) {
+		if ( ! $screen ) {
 			return;
 		}
+
+		$list_screen = $this->list_screen_factory->create_by_wp_screen( $screen );
+
+		if ( null === $list_screen ) {
+			return;
+		}
+
+		$this->list_screen = $list_screen;
 
 		// Save an empty array in case the hook does not run properly.
-		$this->default_columns->update( $this->list_screen->get_key(), [] );
+		$this->default_columns->update( $list_screen->get_key(), [] );
 
 		// Our custom columns are set at priority 200. Before they are added we need to store the default column headings.
-		add_filter( $this->list_screen->get_heading_hookname(), [ $this, 'save_headings' ], 199 );
+		add_filter( $list_screen->get_heading_hookname(), [ $this, 'save_headings' ], 199 );
 
 		// no render needed
 		ob_start();
 	}
 
-	public function save_headings( $columns ) {
+	public function save_headings( $columns ): void {
 		ob_end_clean();
 
 		$this->default_columns->update( $this->list_screen->get_key(), $columns && is_array( $columns ) ? $columns : [] );

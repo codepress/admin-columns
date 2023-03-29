@@ -7,6 +7,7 @@ use AC\Admin\Banner;
 use AC\Admin\RenderableHead;
 use AC\Admin\ScreenOption;
 use AC\Admin\Section\Partial\Menu;
+use AC\Admin\MenuListItems;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
@@ -15,6 +16,9 @@ use AC\Asset\Style;
 use AC\Column;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
+use AC\ListScreenCollection;
+use AC\ListScreenFactory;
+use AC\MenuListFactory;
 use AC\Renderable;
 use AC\Type\Url;
 use AC\Type\Url\Documentation;
@@ -43,6 +47,11 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	private $list_screen;
 
 	/**
+	 * @var ListScreenFactory
+	 */
+	private $list_screen_factory;
+
+	/**
 	 * @var Menu
 	 */
 	private $menu;
@@ -66,6 +75,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		Location\Absolute $location,
 		ListScreen $list_screen,
 		DefaultColumnsRepository $default_columns,
+		ListScreenFactory $list_screen_factory,
 		Menu $menu,
 		Renderable $head,
 		bool $is_acp_active,
@@ -74,6 +84,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		$this->location = $location;
 		$this->list_screen = $list_screen;
 		$this->default_columns = $default_columns;
+		$this->list_screen_factory = $list_screen_factory;
 		$this->menu = $menu;
 		$this->head = $head;
 		$this->is_acp_active = $is_acp_active;
@@ -91,7 +102,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 			new Admin\Asset\Columns(
 				'ac-admin-page-columns',
 				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
-				$this->default_columns,
+				$this->get_uninitialized_list_screens(),
 				$this->list_screen->get_key(),
 				$this->list_screen->has_id() ? $this->list_screen->get_id()->get_id() : ''
 			),
@@ -99,6 +110,29 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 			new Style( 'ac-select2' ),
 			new Script( 'ac-select2' ),
 		] );
+	}
+
+	private function get_uninitialized_list_screens(): ListScreenCollection {
+		$list_screens = [];
+
+		$menu_factory = new MenuListFactory();
+
+		// TODO test on multisite
+		foreach ( $menu_factory->create()->all() as $item ) {
+			$list_screen = $this->list_screen_factory->create( $item->get_key() );
+
+			if ( ! $list_screen ) {
+				continue;
+			}
+
+			if ( $this->default_columns->exists( $list_screen->get_key() ) ) {
+				continue;
+			}
+
+			$list_screens[] = $list_screen;
+		}
+
+		return new ListScreenCollection( $list_screens );
 	}
 
 	private function get_column_id() {
