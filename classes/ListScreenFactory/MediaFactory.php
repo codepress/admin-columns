@@ -5,7 +5,6 @@ namespace AC\ListScreenFactory;
 
 use AC\ListScreen;
 use AC\ListScreen\Media;
-use AC\ListScreen\User;
 use AC\ListScreenFactoryInterface;
 use WP_Screen;
 
@@ -13,9 +12,13 @@ class MediaFactory implements ListScreenFactoryInterface {
 
 	use ListSettingsTrait;
 
+	protected function create_list_screen(): Media {
+		return new Media();
+	}
+
 	public function create( string $key, array $settings = [] ): ?ListScreen {
 		if ( 'wp-media' === $key ) {
-			return $this->add_settings( new Media(), $settings );
+			return $this->add_settings( $this->create_list_screen(), $settings );
 		}
 
 		return null;

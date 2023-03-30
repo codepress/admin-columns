@@ -67,6 +67,14 @@ class Screen implements Registerable {
 		return null !== $this->list_screen_factory->create_by_wp_screen( $this->screen );
 	}
 
+	public function is_plugin_screen(): bool {
+		$screen = $this->is_admin_network()
+			? 'plugins-network'
+			: 'plugins';
+
+		return $this->is_screen( $screen );
+	}
+
 	public function is_admin_screen( string $slug = null ): bool {
 		if ( null !== $slug ) {
 			$tabs = [ $slug ];

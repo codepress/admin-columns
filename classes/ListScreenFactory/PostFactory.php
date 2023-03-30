@@ -12,12 +12,16 @@ class PostFactory implements ListScreenFactoryInterface {
 
 	use ListSettingsTrait;
 
+	protected function create_list_screen( string $key ): Post {
+		return new Post( $key );
+	}
+
 	public function create( string $key, array $settings = [] ): ?ListScreen {
-		if ( ! post_type_exists( $key ) ) {
-			return null;
+		if ( post_type_exists( $key ) ) {
+			return $this->add_settings( $this->create_list_screen( $key ), $settings );
 		}
 
-		return $this->add_settings( new Post( $key ), $settings );
+		return null;
 	}
 
 	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ?ListScreen {

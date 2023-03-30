@@ -56,10 +56,12 @@ class AdminColumns extends Plugin {
 			),
 		] );
 
-		ListScreenFactory::add( new ListScreenFactory\MediaFactory() );
-		ListScreenFactory::add( new ListScreenFactory\UserFactory() );
-		ListScreenFactory::add( new ListScreenFactory\CommentFactory() );
-		ListScreenFactory::add( new ListScreenFactory\PostFactory(), 20 );
+		if ( ! is_network_admin() ) {
+			ListScreenFactory::add( new ListScreenFactory\MediaFactory() );
+			ListScreenFactory::add( new ListScreenFactory\UserFactory() );
+			ListScreenFactory::add( new ListScreenFactory\CommentFactory() );
+			ListScreenFactory::add( new ListScreenFactory\PostFactory(), 20 );
+		}
 
 		$definitions = [
 			'translations.global' => function (): Translation {

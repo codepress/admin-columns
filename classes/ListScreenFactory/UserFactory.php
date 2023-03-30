@@ -12,12 +12,16 @@ class UserFactory implements ListScreenFactoryInterface {
 
 	use ListSettingsTrait;
 
+	protected function create_list_screen(): User {
+		return new User();
+	}
+
 	public function create( string $key, array $settings = [] ): ?ListScreen {
-		if ( 'wp-users' !== $key ) {
-			return null;
+		if ( 'wp-users' === $key ) {
+			return $this->add_settings( $this->create_list_screen(), $settings );
 		}
 
-		return $this->add_settings( new User(), $settings );
+		return null;
 	}
 
 	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ?ListScreen {
@@ -26,7 +30,7 @@ class UserFactory implements ListScreenFactoryInterface {
 		}
 
 		if ( 'users' === $screen->base && 'users' === $screen->id ) {
-			return $this->add_settings( new User(), $settings );
+			return $this->add_settings( $this->create_list_screen(), $settings );
 		}
 
 		return null;

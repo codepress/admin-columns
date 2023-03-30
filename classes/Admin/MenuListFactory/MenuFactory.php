@@ -1,13 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace AC;
+namespace AC\Admin\MenuListFactory;
 
+use AC\Admin\MenuListFactory;
 use AC\Admin\MenuListItems;
 use AC\Admin\Type\MenuListItem;
 use LogicException;
 
-class MenuListFactory {
+class MenuFactory implements MenuListFactory {
 
 	public function create(): MenuListItems {
 		if ( ! did_action( 'init' ) ) {

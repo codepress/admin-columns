@@ -13,7 +13,7 @@ class MenuListItems {
 		array_map( [ $this, 'add' ], $items );
 	}
 
-	private function add( MenuListItem $item ): void {
+	public function add( MenuListItem $item ): void {
 		$this->items[] = $item;
 	}
 

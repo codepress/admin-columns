@@ -2,12 +2,11 @@
 
 namespace AC\Controller\Middleware;
 
+use AC;
 use AC\Admin\Preference;
-use AC\Admin\MenuListItems;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
-use AC\MenuListFactory;
 use AC\Middleware;
 use AC\Request;
 use AC\Type\ListScreenId;
@@ -21,18 +20,18 @@ class ListScreenAdmin implements Middleware {
 
 	private $list_screen_factory;
 
-	private $is_network;
+	private $menu_list_factory;
 
 	public function __construct(
 		Storage $storage,
 		Preference\ListScreen $preference,
 		ListScreenFactory $list_screen_factory,
-		bool $is_network = false
+		AC\Admin\MenuListFactory $menu_list_factory
 	) {
 		$this->storage = $storage;
 		$this->preference = $preference;
 		$this->list_screen_factory = $list_screen_factory;
-		$this->is_network = $is_network;
+		$this->menu_list_factory = $menu_list_factory;
 	}
 
 	private function get_list_id( Request $request ): ?ListScreenId {
@@ -54,7 +53,7 @@ class ListScreenAdmin implements Middleware {
 
 		if ( ! $this->list_key_exists( $list_key ) ) {
 			// TODO should we rely on this factory...
-			$list_key = current( ( new MenuListFactory() )->create()->all() )->get_key();
+			$list_key = current( $this->menu_list_factory->create()->all() )->get_key();
 		}
 
 		return $this->list_key_exists( $list_key )

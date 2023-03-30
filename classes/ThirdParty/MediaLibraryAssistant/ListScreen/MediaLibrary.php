@@ -49,10 +49,6 @@ class MediaLibrary extends AC\ListScreen\Media {
 		return ( new WpListTableFactory() )->create();
 	}
 
-	public function is_current_screen( $wp_screen ) {
-		return $wp_screen && $wp_screen->id === $this->get_screen_id();
-	}
-
 	/**
 	 * Remove duplicate columns that are provided by MLA
 	 */

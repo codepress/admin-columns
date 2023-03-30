@@ -46,12 +46,14 @@ class Columns implements PageFactoryInterface {
 	public function create() {
 		$request = new Request();
 
+		$menu_factory = new Admin\MenuListFactory\MenuFactory();
+
 		$request->add_middleware(
 			new Middleware\ListScreenAdmin(
 				$this->storage,
 				new Preference\ListScreen(),
 				$this->list_screen_factory,
-				false
+				$menu_factory
 			)
 		);
 
@@ -66,7 +68,8 @@ class Columns implements PageFactoryInterface {
 			$list_screen,
 			new DefaultColumnsRepository(),
 			$this->list_screen_factory,
-			new Section\Partial\Menu(),
+			$menu_factory,
+			new Section\Partial\Menu( $menu_factory ),
 			new Admin\View\Menu( $this->menu_factory->create( 'columns' ) ),
 			$this->is_acp_active
 		);

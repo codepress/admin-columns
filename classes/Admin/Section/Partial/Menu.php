@@ -2,16 +2,17 @@
 
 namespace AC\Admin\Section\Partial;
 
-use AC\Admin\ListMenuFactory;
-use AC\Admin\MenuListItems;
-use AC\MenuListFactory;
+use AC\Admin\MenuListFactory;
 use AC\View;
 
 class Menu {
 
+	private $menu_factory;
+
 	private $is_network;
 
-	public function __construct( bool $is_network = false ) {
+	public function __construct( MenuListFactory $menu_factory, bool $is_network = false ) {
+		$this->menu_factory = $menu_factory;
 		$this->is_network = $is_network;
 	}
 
@@ -31,9 +32,7 @@ class Menu {
 	private function get_menu_items(): array {
 		$groups = [];
 
-		$menu_factory = new MenuListFactory();
-
-		foreach ( $menu_factory->create()->all() as $menu_item ) {
+		foreach ( $this->menu_factory->create()->all() as $menu_item ) {
 			$group = $menu_item->get_group();
 
 			if ( ! isset( $groups[ $group ] ) ) {

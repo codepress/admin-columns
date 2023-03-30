@@ -7,7 +7,6 @@ use AC\Admin\Banner;
 use AC\Admin\RenderableHead;
 use AC\Admin\ScreenOption;
 use AC\Admin\Section\Partial\Menu;
-use AC\Admin\MenuListItems;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
@@ -52,6 +51,11 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	private $list_screen_factory;
 
 	/**
+	 * @var Admin\MenuListFactory
+	 */
+	private $menu_list_factory;
+
+	/**
 	 * @var Menu
 	 */
 	private $menu;
@@ -76,6 +80,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		ListScreen $list_screen,
 		DefaultColumnsRepository $default_columns,
 		ListScreenFactory $list_screen_factory,
+		Admin\MenuListFactory $menu_list_factory,
 		Menu $menu,
 		Renderable $head,
 		bool $is_acp_active,
@@ -85,10 +90,15 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		$this->list_screen = $list_screen;
 		$this->default_columns = $default_columns;
 		$this->list_screen_factory = $list_screen_factory;
+		$this->menu_list_factory = $menu_list_factory;
 		$this->menu = $menu;
 		$this->head = $head;
 		$this->is_acp_active = $is_acp_active;
 		$this->is_network = $is_network;
+	}
+
+	public function get_list_screen(): ListScreen {
+		return $this->list_screen;
 	}
 
 	public function render_head() {
@@ -112,13 +122,11 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		] );
 	}
 
+	// TODO move to factory
 	private function get_uninitialized_list_screens(): ListScreenCollection {
 		$list_screens = [];
 
-		$menu_factory = new MenuListFactory();
-
-		// TODO test on multisite
-		foreach ( $menu_factory->create()->all() as $item ) {
+		foreach ( $this->menu_list_factory->create()->all() as $item ) {
 			$list_screen = $this->list_screen_factory->create( $item->get_key() );
 
 			if ( ! $list_screen ) {
@@ -294,11 +302,11 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 							'show_clear_all' => apply_filters( 'ac/enable_clear_columns_button', false ),
 						] );
 
-						do_action( 'ac/settings/before_columns', $list_screen );
+						do_action( 'ac/settings/before_columns', $this->list_screen );
 
 						echo $columns->set_template( 'admin/edit-columns' );
 
-						do_action( 'ac/settings/after_columns', $list_screen );
+						do_action( 'ac/settings/after_columns', $this->list_screen );
 
 						if ( ! $this->is_acp_active ) {
 							echo ( new View() )->set_template( 'admin/list-screen-settings-mockup' )->render();
