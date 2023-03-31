@@ -20,18 +20,18 @@ class ListScreenAdmin implements Middleware {
 
 	private $list_screen_factory;
 
-	private $menu_list_factory;
+	private $supported_list_keys;
 
 	public function __construct(
 		Storage $storage,
 		Preference\ListScreen $preference,
 		ListScreenFactory $list_screen_factory,
-		AC\Admin\MenuListFactory $menu_list_factory
+		array $supported_list_keys
 	) {
 		$this->storage = $storage;
 		$this->preference = $preference;
 		$this->list_screen_factory = $list_screen_factory;
-		$this->menu_list_factory = $menu_list_factory;
+		$this->supported_list_keys = $supported_list_keys;
 	}
 
 	private function get_list_id( Request $request ): ?ListScreenId {
@@ -52,8 +52,7 @@ class ListScreenAdmin implements Middleware {
 		}
 
 		if ( ! $this->list_key_exists( $list_key ) ) {
-			// TODO should we rely on this factory...
-			$list_key = current( $this->menu_list_factory->create()->all() )->get_key();
+			$list_key = $this->supported_list_keys[0];
 		}
 
 		return $this->list_key_exists( $list_key )

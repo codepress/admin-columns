@@ -25,7 +25,7 @@ class MediaFactory implements ListScreenFactoryInterface {
 	}
 
 	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ?ListScreen {
-		if ( 'edit' === $screen->base && 'attachment' === $screen->post_type ) {
+		if ( 'upload' === $screen->base && 'upload' === $screen->id && 'attachment' === $screen->post_type ) {
 			return $this->create( $screen->post_type, $settings );
 		}
 

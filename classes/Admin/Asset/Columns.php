@@ -56,10 +56,7 @@ class Columns extends Script {
 
 		foreach ( $this->list_screens as $list_screen ) {
 			$params['uninitialized_list_screens'][ $list_screen->get_key() ] = [
-				// TODO test on multisite URL...
 				'screen_link' => add_query_arg( [ DefaultColumns::QUERY_PARAM => '1' ], $list_screen->get_screen_link() ),
-				// TODO remove?
-				'label'       => '',
 			];
 		}
 

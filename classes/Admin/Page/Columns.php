@@ -1,4 +1,5 @@
 <?php
+declare( strict_types=1 );
 
 namespace AC\Admin\Page;
 
@@ -13,11 +14,8 @@ use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Column;
-use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenFactory;
-use AC\MenuListFactory;
 use AC\Renderable;
 use AC\Type\Url;
 use AC\Type\Url\Documentation;
@@ -30,71 +28,32 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
 	public const NAME = 'columns';
 
-	/**
-	 * @var Location\Absolute
-	 */
 	private $location;
 
-	/**
-	 * @var DefaultColumnsRepository
-	 */
-	private $default_columns;
-
-	/**
-	 * @var ListScreen
-	 */
 	private $list_screen;
 
-	/**
-	 * @var ListScreenFactory
-	 */
-	private $list_screen_factory;
+	private $list_screens_uninitialized;
 
-	/**
-	 * @var Admin\MenuListFactory
-	 */
-	private $menu_list_factory;
-
-	/**
-	 * @var Menu
-	 */
 	private $menu;
 
-	/**
-	 * @var Renderable
-	 */
 	private $head;
 
-	/**
-	 * @var bool
-	 */
 	private $is_acp_active;
-
-	/**
-	 * @var bool
-	 */
-	private $is_network;
 
 	public function __construct(
 		Location\Absolute $location,
 		ListScreen $list_screen,
-		DefaultColumnsRepository $default_columns,
-		ListScreenFactory $list_screen_factory,
-		Admin\MenuListFactory $menu_list_factory,
+		ListScreenCollection $list_screens_uninitialized,
 		Menu $menu,
 		Renderable $head,
-		bool $is_acp_active,
-		bool $is_network = false
+		bool $is_acp_active
 	) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
-		$this->default_columns = $default_columns;
-		$this->list_screen_factory = $list_screen_factory;
-		$this->menu_list_factory = $menu_list_factory;
+		$this->list_screens_uninitialized = $list_screens_uninitialized;
 		$this->menu = $menu;
 		$this->head = $head;
 		$this->is_acp_active = $is_acp_active;
-		$this->is_network = $is_network;
 	}
 
 	public function get_list_screen(): ListScreen {
@@ -112,7 +71,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 			new Admin\Asset\Columns(
 				'ac-admin-page-columns',
 				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
-				$this->get_uninitialized_list_screens(),
+				$this->list_screens_uninitialized,
 				$this->list_screen->get_key(),
 				$this->list_screen->has_id() ? $this->list_screen->get_id()->get_id() : ''
 			),
@@ -122,40 +81,19 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		] );
 	}
 
-	// TODO move to factory
-	private function get_uninitialized_list_screens(): ListScreenCollection {
-		$list_screens = [];
-
-		foreach ( $this->menu_list_factory->create()->all() as $item ) {
-			$list_screen = $this->list_screen_factory->create( $item->get_key() );
-
-			if ( ! $list_screen ) {
-				continue;
-			}
-
-			if ( $this->default_columns->exists( $list_screen->get_key() ) ) {
-				continue;
-			}
-
-			$list_screens[] = $list_screen;
-		}
-
-		return new ListScreenCollection( $list_screens );
-	}
-
-	private function get_column_id() {
+	private function get_column_id(): ScreenOption\ColumnId {
 		return new ScreenOption\ColumnId( new Admin\Preference\ScreenOptions() );
 	}
 
-	private function get_column_type() {
+	private function get_column_type(): ScreenOption\ColumnType {
 		return new ScreenOption\ColumnType( new Admin\Preference\ScreenOptions() );
 	}
 
-	private function get_list_screen_id() {
+	private function get_list_screen_id(): ScreenOption\ListScreenId {
 		return new ScreenOption\ListScreenId( new Admin\Preference\ScreenOptions() );
 	}
 
-	private function get_list_screen_type() {
+	private function get_list_screen_type(): ScreenOption\ListScreenType {
 		return new ScreenOption\ListScreenType( new Admin\Preference\ScreenOptions() );
 	}
 
@@ -178,7 +116,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	}
 
 	public function render() {
-		if ( ! $this->default_columns->exists( $this->list_screen->get_key() ) ) {
+		if ( $this->list_screens_uninitialized->count() > 0 ) {
 			$modal = new View( [
 				'message' => 'Loading columns',
 			] );
@@ -344,7 +282,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	 *
 	 * @return Column|false
 	 */
-	private function get_column_template_by_group( array $column_types, bool $group = false ) {
+	private function get_column_template_by_group( array $column_types, string $group = '' ) {
 		if ( ! $group ) {
 			return array_shift( $column_types );
 		}

@@ -25,7 +25,7 @@ class PostFactory implements ListScreenFactoryInterface {
 	}
 
 	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ?ListScreen {
-		if ( 'edit' === $screen->base && $screen->post_type ) {
+		if ( 'edit' === $screen->base && $screen->post_type && 'edit-' . $screen->post_type === $screen->id ) {
 			return $this->create( $screen->post_type, $settings );
 		}
 
