@@ -22,7 +22,11 @@ class MenuFactory implements MenuListFactory {
 		$items = [];
 
 		foreach ( $this->get_post_types() as $post_type ) {
-			$items[] = new MenuListItem( $post_type, get_post_type_object( $post_type )->label, admin_url(), __( 'Post Type', 'codepress-admin-columns' ) );
+			$post_type_object = get_post_type_object( $post_type );
+
+			if ( $post_type_object ) {
+				$items[] = new MenuListItem( $post_type, $post_type_object->label, admin_url(), __( 'Post Type', 'codepress-admin-columns' ) );
+			}
 		}
 
 		$items[] = new MenuListItem( 'wp-comments', __( 'Comments', 'codepress-admin-columns' ), admin_url(), __( 'Comments', 'codepress-admin-columns' ) );
