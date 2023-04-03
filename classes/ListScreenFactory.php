@@ -19,10 +19,8 @@ class ListScreenFactory implements ListScreenFactoryInterface {
 
 	public function create( string $key, array $settings = [] ): ListScreen {
 		foreach ( self::$factories as $factory ) {
-			$list_screen = $factory->create( $key, $settings );
-
-			if ( $list_screen ) {
-				return $list_screen;
+			if ( $factory->can_create( $key ) ) {
+				return $factory->create( $key, $settings );
 			}
 		}
 
@@ -51,10 +49,8 @@ class ListScreenFactory implements ListScreenFactoryInterface {
 
 	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
 		foreach ( self::$factories as $factory ) {
-			$list_screen = $factory->create_by_wp_screen( $screen, $settings );
-
-			if ( $list_screen ) {
-				return $list_screen;
+			if ( $factory->can_create_by_wp_screen( $screen ) ) {
+				return $factory->create_by_wp_screen( $screen, $settings );
 			}
 		}
 
