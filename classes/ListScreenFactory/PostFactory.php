@@ -6,6 +6,7 @@ namespace AC\ListScreenFactory;
 use AC\ListScreen;
 use AC\ListScreen\Post;
 use AC\ListScreenFactoryInterface;
+use InvalidArgumentException;
 use WP_Screen;
 
 class PostFactory implements ListScreenFactoryInterface {
@@ -16,20 +17,28 @@ class PostFactory implements ListScreenFactoryInterface {
 		return new Post( $key );
 	}
 
-	public function create( string $key, array $settings = [] ): ?ListScreen {
-		if ( post_type_exists( $key ) ) {
-			return $this->add_settings( $this->create_list_screen( $key ), $settings );
+	public function create( string $key, array $settings = [] ): ListScreen {
+		if ( ! $this->can_create( $key ) ) {
+			throw new InvalidArgumentException( 'Invalid key.' );
 		}
 
-		return null;
+		return $this->add_settings( $this->create_list_screen( $key ), $settings );
 	}
 
-	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ?ListScreen {
-		if ( 'edit' === $screen->base && $screen->post_type && 'edit-' . $screen->post_type === $screen->id ) {
-			return $this->create( $screen->post_type, $settings );
+	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
+		if ( ! $this->can_create_by_wp_screen( $screen ) ) {
+			throw new InvalidArgumentException( 'Invalid screen.' );
 		}
 
-		return null;
+		return $this->create( $screen->post_type, $settings );
+	}
+
+	public function can_create( string $key ): bool {
+		return post_type_exists( $key );
+	}
+
+	public function can_create_by_wp_screen( WP_Screen $screen ): bool {
+		return 'edit' === $screen->base && $screen->post_type && 'edit-' . $screen->post_type === $screen->id;
 	}
 
 }

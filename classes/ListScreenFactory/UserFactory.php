@@ -6,6 +6,7 @@ namespace AC\ListScreenFactory;
 use AC\ListScreen;
 use AC\ListScreen\User;
 use AC\ListScreenFactoryInterface;
+use LogicException;
 use WP_Screen;
 
 class UserFactory implements ListScreenFactoryInterface {
@@ -16,24 +17,28 @@ class UserFactory implements ListScreenFactoryInterface {
 		return new User();
 	}
 
-	public function create( string $key, array $settings = [] ): ?ListScreen {
-		if ( 'wp-users' === $key ) {
-			return $this->add_settings( $this->create_list_screen(), $settings );
-		}
-
-		return null;
+	public function can_create( string $key ): bool {
+		return 'wp-users' === $key;
 	}
 
-	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ?ListScreen {
-		if ( 'delete' === filter_input( INPUT_GET, 'action' ) ) {
-			return null;
+	public function can_create_by_wp_screen( WP_Screen $screen ): bool {
+		return 'delete' !== filter_input( INPUT_GET, 'action' ) && 'users' === $screen->base && 'users' === $screen->id;
+	}
+
+	public function create( string $key, array $settings = [] ): ListScreen {
+		if ( ! $this->can_create( $key ) ) {
+			throw new LogicException( 'Invalid key' );
 		}
 
-		if ( 'users' === $screen->base && 'users' === $screen->id ) {
-			return $this->add_settings( $this->create_list_screen(), $settings );
+		return $this->add_settings( $this->create_list_screen(), $settings );
+	}
+
+	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
+		if ( ! $this->can_create_by_wp_screen( $screen ) ) {
+			throw new LogicException( 'Invalid screen' );
 		}
 
-		return null;
+		return $this->add_settings( $this->create_list_screen(), $settings );
 	}
 
 }

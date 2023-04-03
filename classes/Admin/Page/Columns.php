@@ -276,15 +276,9 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		return ob_get_clean();
 	}
 
-	/**
-	 * @param array $column_types
-	 * @param bool  $group
-	 *
-	 * @return Column|false
-	 */
-	private function get_column_template_by_group( array $column_types, string $group = '' ) {
+	private function get_column_template_by_group( array $column_types, string $group = '' ): ?Column {
 		if ( ! $group ) {
-			return array_shift( $column_types );
+			return array_shift( $column_types ) ?: null;
 		}
 
 		$columns = [];
@@ -301,17 +295,12 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		$column = array_shift( $columns );
 
 		if ( ! $column ) {
-			return false;
+			return null;
 		}
 
 		return $column;
 	}
 
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return string
-	 */
 	private function render_column_template( ListScreen $list_screen ): string {
 		$column = $this->get_column_template_by_group( $list_screen->get_column_types(), 'custom' );
 

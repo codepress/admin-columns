@@ -20,11 +20,13 @@ abstract class ColumnRequest {
 	abstract protected function get_column( Request $request, ListScreen $list_screen ): ?Column;
 
 	public function request( Request $request ): void {
-		$list_screen = $this->list_screen_factory->create( (string) $request->get( 'list_screen' ) );
+		$list_key = (string) $request->get( 'list_screen' );
 
-		if ( ! $list_screen ) {
+		if ( ! $this->list_screen_factory->can_create( $list_key ) ) {
 			exit;
 		}
+
+		$list_screen = $this->list_screen_factory->create( $list_key );
 
 		$column = $this->get_column( $request, $list_screen );
 

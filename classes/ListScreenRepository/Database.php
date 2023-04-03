@@ -187,6 +187,10 @@ final class Database implements ListScreenRepositoryWritable {
 	}
 
 	private function create_list_screen( object $data ): ?ListScreen {
+		if ( ! $this->list_screen_factory->can_create( $data->list_key ) ) {
+			return null;
+		}
+
 		return $this->list_screen_factory->create(
 			$data->list_key,
 			[
