@@ -2,12 +2,9 @@
 
 namespace AC;
 
-class ListScreenGroups {
+class ListScreenGroupsFactory {
 
-	/**
-	 * @return Groups
-	 */
-	public static function get_groups() {
+	public static function create(): Groups {
 		$groups = new Groups();
 
 		$groups->add( 'post', __( 'Post Type', 'codepress-admin-columns' ), 5 );

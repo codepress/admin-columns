@@ -58,6 +58,10 @@ final class Groups {
 		return $sorted;
 	}
 
+	public function get( string $slug ): ?array {
+		return $this->groups[ $slug ] ?? null;
+	}
+
 	public function add( string $slug, string $label, int $priority = 10 ): bool {
 		if ( isset( $this->groups[ $slug ] ) ) {
 			return false;

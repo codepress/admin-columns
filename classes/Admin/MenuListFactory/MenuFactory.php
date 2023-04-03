@@ -15,25 +15,23 @@ class MenuFactory implements MenuListFactory {
 			throw new LogicException( "Call after the `init` hook." );
 		}
 
-		if ( is_network_admin() ) {
-			return new MenuListItems();
-		}
-
-		$items = [];
+		$menu = new MenuListItems();
 
 		foreach ( $this->get_post_types() as $post_type ) {
 			$post_type_object = get_post_type_object( $post_type );
 
 			if ( $post_type_object ) {
-				$items[] = new MenuListItem( $post_type, $post_type_object->label, admin_url(), __( 'Post Type', 'codepress-admin-columns' ) );
+				$menu->add( new MenuListItem( $post_type, $post_type_object->label, admin_url(), 'post' ) );
 			}
 		}
 
-		$items[] = new MenuListItem( 'wp-comments', __( 'Comments', 'codepress-admin-columns' ), admin_url(), __( 'Comments', 'codepress-admin-columns' ) );
-		$items[] = new MenuListItem( 'wp-users', __( 'Users', 'codepress-admin-columns' ), admin_url(), __( 'Users', 'codepress-admin-columns' ) );
-		$items[] = new MenuListItem( 'wp-media', __( 'Media', 'codepress-admin-columns' ), admin_url(), __( 'Media', 'codepress-admin-columns' ) );
+		$menu->add( new MenuListItem( 'wp-comments', __( 'Comments', 'codepress-admin-columns' ), admin_url(), 'comment' ) );
+		$menu->add( new MenuListItem( 'wp-users', __( 'Users', 'codepress-admin-columns' ), admin_url(), 'user' ) );
+		$menu->add( new MenuListItem( 'wp-media', __( 'Media', 'codepress-admin-columns' ), admin_url(), 'media' ) );
 
-		return new MenuListItems( $items );
+		do_action( 'ac/admin/menu_list', $menu );
+
+		return $menu;
 	}
 
 	protected function get_post_types(): array {
