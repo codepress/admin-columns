@@ -10,17 +10,17 @@ use AC\ListScreenFactoryInterface;
 
 class ListScreenUninitialized {
 
-	private $storage;
+	private $default_storage;
 
 	private $list_screen_factory;
 
 	public function __construct( DefaultColumnsRepository $storage, ListScreenFactoryInterface $list_screen_factory ) {
-		$this->storage = $storage;
+		$this->default_storage = $storage;
 		$this->list_screen_factory = $list_screen_factory;
 	}
 
 	public function find( string $list_key ): ?ListScreen {
-		if ( $this->storage->exists( $list_key ) ) {
+		if ( $this->default_storage->exists( $list_key ) ) {
 			return null;
 		}
 

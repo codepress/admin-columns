@@ -9,6 +9,7 @@ use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
 use AC\Admin\Preference;
 use AC\Admin\Section;
+use AC\Admin\SupportedListScreens;
 use AC\Asset\Location;
 use AC\Controller\Middleware;
 use AC\ListScreenFactory;
@@ -50,20 +51,10 @@ class Columns implements PageFactoryInterface {
 		$this->is_acp_active = $is_acp_active;
 	}
 
-	private function get_supported_list_keys(): array {
-		$keys = [];
-
-		foreach ( $this->menu_list_factory->create()->all() as $item ) {
-			$keys[] = $item->get_key();
-		}
-
-		return $keys;
-	}
-
 	public function create() {
 		$request = new Request();
 
-		$list_keys = $this->get_supported_list_keys();
+		$list_keys = ( new SupportedListScreens( $this->menu_list_factory ) )->find_all();
 
 		$request->add_middleware(
 			new Middleware\ListScreenAdmin(
