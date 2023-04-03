@@ -10,11 +10,11 @@ class ListScreenGroups {
 	public static function get_groups() {
 		$groups = new Groups();
 
-		$groups->register_group( 'post', __( 'Post Type', 'codepress-admin-columns' ), 5 );
-		$groups->register_group( 'user', __( 'Users' ) );
-		$groups->register_group( 'media', __( 'Media' ) );
-		$groups->register_group( 'comment', __( 'Comments' ) );
-		$groups->register_group( 'link', __( 'Links' ), 15 );
+		$groups->add( 'post', __( 'Post Type', 'codepress-admin-columns' ), 5 );
+		$groups->add( 'user', __( 'Users' ) );
+		$groups->add( 'media', __( 'Media' ) );
+		$groups->add( 'comment', __( 'Comments' ) );
+		$groups->add( 'link', __( 'Links' ), 15 );
 
 		do_action( 'ac/list_screen_groups', $groups );
 

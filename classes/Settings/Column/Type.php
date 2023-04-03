@@ -112,7 +112,7 @@ class Type extends Column {
 		$grouped = [];
 
 		// create select options
-		foreach ( $this->column_groups()->get_groups_sorted() as $group ) {
+		foreach ( $this->column_groups()->get_all() as $group ) {
 			$slug = $group['slug'];
 
 			// hide empty groups
