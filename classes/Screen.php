@@ -64,7 +64,7 @@ class Screen implements Registerable {
 	}
 
 	public function is_list_screen(): bool {
-		return null !== $this->list_screen_factory->create_by_wp_screen( $this->screen );
+		return $this->list_screen_factory->can_create_by_wp_screen( $this->screen );
 	}
 
 	public function is_plugin_screen(): bool {

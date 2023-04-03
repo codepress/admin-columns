@@ -35,7 +35,7 @@ class DefaultColumns implements Registerable {
 		add_action( 'current_screen', [ $this, 'handle_request' ] );
 	}
 
-	public function handle_request() {
+	public function handle_request(): void {
 		if ( '1' !== $this->request->get( self::QUERY_PARAM ) ) {
 			return;
 		}
@@ -50,19 +50,17 @@ class DefaultColumns implements Registerable {
 			return;
 		}
 
-		$list_screen = $this->list_screen_factory->create_by_wp_screen( $screen );
-
-		if ( null === $list_screen ) {
+		if ( ! $this->list_screen_factory->can_create_by_wp_screen( $screen ) ) {
 			return;
 		}
 
-		$this->list_screen = $list_screen;
+		$this->list_screen = $this->list_screen_factory->create_by_wp_screen( $screen );
 
 		// Save an empty array in case the hook does not run properly.
-		$this->default_columns->update( $list_screen->get_key(), [] );
+		$this->default_columns->update( $this->list_screen->get_key(), [] );
 
 		// Our custom columns are set at priority 200. Before they are added we need to store the default column headings.
-		add_filter( $list_screen->get_heading_hookname(), [ $this, 'save_headings' ], 199 );
+		add_filter( $this->list_screen->get_heading_hookname(), [ $this, 'save_headings' ], 199 );
 
 		// no render needed
 		ob_start();

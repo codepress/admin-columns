@@ -6,6 +6,7 @@ namespace AC\ListScreenFactory;
 use AC\ListScreen;
 use AC\ListScreen\Comment;
 use AC\ListScreenFactoryInterface;
+use LogicException;
 use WP_Screen;
 
 class CommentFactory implements ListScreenFactoryInterface {
@@ -16,20 +17,28 @@ class CommentFactory implements ListScreenFactoryInterface {
 		return new Comment();
 	}
 
-	public function create( string $key, array $settings = [] ): ?ListScreen {
-		if ( 'wp-comments' === $key ) {
-			return $this->add_settings( $this->create_list_screen(), $settings );
-		}
-
-		return null;
+	public function can_create( string $key ): bool {
+		return 'wp-comments' === $key;
 	}
 
-	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ?ListScreen {
-		if ( 'edit-comments' === $screen->base && 'edit-comments' === $screen->id ) {
-			return $this->add_settings( $this->create_list_screen(), $settings );
+	public function can_create_by_wp_screen( WP_Screen $screen ): bool {
+		return 'edit-comments' === $screen->base && 'edit-comments' === $screen->id;
+	}
+
+	public function create( string $key, array $settings = [] ): ListScreen {
+		if ( ! $this->can_create( $key ) ) {
+			throw new LogicException( 'Invalid key' );
 		}
 
-		return null;
+		return $this->add_settings( $this->create_list_screen(), $settings );
+	}
+
+	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
+		if ( ! $this->can_create_by_wp_screen( $screen ) ) {
+			throw new LogicException( 'Invalid screen' );
+		}
+
+		return $this->add_settings( $this->create_list_screen(), $settings );
 	}
 
 }
