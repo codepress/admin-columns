@@ -14,6 +14,7 @@ use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Column;
+use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\Renderable;
@@ -32,6 +33,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
 	private $list_screen;
 
+	private $default_columns_repository;
 	private $list_screens_uninitialized;
 
 	private $menu;
@@ -43,6 +45,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	public function __construct(
 		Location\Absolute $location,
 		ListScreen $list_screen,
+		DefaultColumnsRepository $default_columns_repository,
 		array $list_screens_uninitialized,
 		Menu $menu,
 		Renderable $head,
@@ -50,6 +53,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
+		$this->default_columns_repository = $default_columns_repository;
 		$this->list_screens_uninitialized = $list_screens_uninitialized;
 		$this->menu = $menu;
 		$this->head = $head;
@@ -116,7 +120,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	}
 
 	public function render() {
-		if ( count( $this->list_screens_uninitialized ) > 0 ) {
+		if ( ! $this->default_columns_repository->exists( $this->list_screen->get_key() ) ) {
 			$modal = new View( [
 				'message' => 'Loading columns',
 			] );
