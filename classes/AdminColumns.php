@@ -4,6 +4,7 @@ namespace AC;
 
 use AC\Admin;
 use AC\Admin\AdminScripts;
+use AC\Admin\MenuListFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Admin\Preference;
@@ -19,7 +20,6 @@ use AC\Settings\GeneralOption;
 use AC\Table;
 use AC\ThirdParty;
 use AC\Vendor\DI\ContainerBuilder;
-use AC\Admin\MenuListFactory;
 
 class AdminColumns extends Plugin {
 

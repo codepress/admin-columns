@@ -1,0 +1,31 @@
+.acui-toggle-buttons {
+
+	.button {
+		border-radius: 0;
+
+		.dashicons {
+			transform: translateY(4px);
+		}
+
+		&:active, &:focus {
+			box-shadow: none!important;
+		}
+
+		&:first-child {
+			border-top-left-radius: 3px;
+			border-bottom-left-radius: 3px;
+		}
+		&:last-child {
+			border-top-right-radius: 3px;
+			border-bottom-right-radius: 3px;
+		}
+	}
+	.button.button-primary {
+		padding-left: 3px;
+	}
+}
+
+.acui-button {
+	background :#f6f7f7;
+	border-color: var(--ac-primary-color);
+}

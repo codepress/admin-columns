@@ -22,7 +22,7 @@ class AdminScripts implements Enqueueables {
 	public function get_assets() {
 		return new Assets( [
 			new Script( 'ac-admin-general', $this->location->with_suffix( 'assets/js/admin-general.js' ), [ 'jquery' ] ),
-			new Style( 'ac-admin', $this->location->with_suffix( 'assets/css/admin-general.css' ) ),
+			new Style( 'ac-admin', $this->location->with_suffix( 'assets/css/admin-general.css' ), ['ac-ui'] ),
 		] );
 	}
 

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=362614") format("woff2"), url("../fonts/cpac_icons.woff?v=106752") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=955237") format("woff2"), url("../fonts/cpac_icons.woff?v=928084") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -35,24 +35,28 @@
   content: "\ea05";
 }
 
-.cpacicon-more::before {
+.cpacicon-filter::before {
   content: "\ea06";
 }
 
-.cpacicon-move::before {
+.cpacicon-more::before {
   content: "\ea07";
 }
 
-.cpacicon-rename::before {
+.cpacicon-move::before {
   content: "\ea08";
 }
 
-.cpacicon-segment::before {
+.cpacicon-rename::before {
   content: "\ea09";
 }
 
-.cpacicon-smart-filter::before {
+.cpacicon-segment::before {
   content: "\ea0a";
+}
+
+.cpacicon-smart-filter::before {
+  content: "\ea0b";
 }
 
 .ac-setbox {
