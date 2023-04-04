@@ -21,7 +21,6 @@ trait ListSettingsTrait {
 			$list_screen->set_updated( DateTime::createFromFormat( 'Y-m-d H:i:s', $settings['date'] ) );
 		}
 
-		// TODO remove..
 		$list_screen->set_group( $settings['group'] ?? '' );
 
 		return $list_screen;

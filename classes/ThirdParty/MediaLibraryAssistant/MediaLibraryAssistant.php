@@ -16,7 +16,6 @@ class MediaLibraryAssistant implements Registerable {
 			remove_action( 'ac/list_screens', 'MLACore::register_list_screen' );
 		}
 
-		// TODO test
 		AC\ListScreenFactory::add( new ListScreenFactory() );
 	}
 
