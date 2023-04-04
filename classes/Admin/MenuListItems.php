@@ -17,25 +17,15 @@ class MenuListItems {
 	}
 
 	public function add( MenuListItem $item ): void {
-		$this->items[] = $item;
+		$this->items[ $item->get_key() ] = $item;
 	}
 
-	public function find_by_key( string $key ): ?MenuListItem {
-		foreach ( $this->items as $item ) {
-			if ( $item->get_key() === $key ) {
-				return $item;
-			}
-		}
-
-		return null;
+	public function get( string $key ): ?MenuListItem {
+		return $this->items[ $key ] ?? null;
 	}
 
 	public function remove( MenuListItem $item ): void {
-		foreach ( $this->items as $k => $_item ) {
-			if ( $item->get_key() === $_item->get_key() ) {
-				unset( $this->items[ $k ] );
-			}
-		}
+		unset( $this->items[ $item->get_key() ] );
 	}
 
 	/**

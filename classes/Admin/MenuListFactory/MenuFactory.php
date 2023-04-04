@@ -40,13 +40,26 @@ class MenuFactory implements MenuListFactory {
 			'show_ui'  => true,
 		] );
 
-		foreach ( [ 'post', 'page', 'wp_block' ] as $builtin ) {
+		foreach ( [ 'post', 'page' ] as $builtin ) {
 			if ( post_type_exists( $builtin ) ) {
 				$post_types[ $builtin ] = $builtin;
 			}
 		}
 
+		// Reusable content blocks for Gutenberg
+		$wp_block = 'post';
+
+		if ( post_type_exists( $wp_block ) && $this->has_post( $wp_block ) ) {
+			$post_types[ $wp_block ] = $wp_block;
+		}
+
 		return apply_filters( 'ac/post_types', $post_types );
+	}
+
+	private function has_post( string $post_type ): bool {
+		global $wpdb;
+
+		return (bool) $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = %s LIMIT 1", $post_type ) );
 	}
 
 }
