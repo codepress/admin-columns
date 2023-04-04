@@ -159,9 +159,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
 						$label_main = __( 'Store settings', 'codepress-admin-columns' );
 						$label_second = sprintf( '<span class="clear contenttype">%s</span>', esc_html( $this->list_screen->get_label() ) );
-						if ( 18 > strlen( $label_main ) && ( $truncated_label = $this->get_truncated_side_label( $this->list_screen->get_label(), $label_main ) ) ) {
-							$label_second = sprintf( '<span class="right contenttype">%s</span>', esc_html( $truncated_label ) );
-						}
 
 						$delete_confirmation_message = false;
 
@@ -314,19 +311,4 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
 		return $view->set_template( 'admin/edit-column' )->render();
 	}
-
-	/**
-	 * @param string $label
-	 * @param string $main_label
-	 *
-	 * @return string
-	 */
-	private function get_truncated_side_label( $label, $main_label = '' ) {
-		if ( 34 < ( strlen( $label ) + ( strlen( $main_label ) * 1.1 ) ) ) {
-			$label = substr( $label, 0, 34 - ( strlen( $main_label ) * 1.1 ) ) . '...';
-		}
-
-		return $label;
-	}
-
 }
