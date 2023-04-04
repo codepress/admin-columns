@@ -43,7 +43,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	public function __construct(
 		Location\Absolute $location,
 		ListScreen $list_screen,
-		ListScreenCollection $list_screens_uninitialized,
+		array $list_screens_uninitialized,
 		Menu $menu,
 		Renderable $head,
 		bool $is_acp_active
@@ -116,7 +116,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	}
 
 	public function render() {
-		if ( $this->list_screens_uninitialized->count() > 0 ) {
+		if ( count( $this->list_screens_uninitialized ) > 0 ) {
 			$modal = new View( [
 				'message' => 'Loading columns',
 			] );

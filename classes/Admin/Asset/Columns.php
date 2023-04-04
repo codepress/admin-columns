@@ -6,7 +6,6 @@ use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Controller\DefaultColumns;
-use AC\ListScreenCollection;
 
 class Columns extends Script {
 
@@ -19,7 +18,7 @@ class Columns extends Script {
 	public function __construct(
 		string $handle,
 		Location $location,
-		ListScreenCollection $list_screens,
+		array $list_screens,
 		string $list_key,
 		string $list_id = null
 	) {

@@ -5,7 +5,6 @@ namespace AC\Admin;
 
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
-use AC\ListScreenCollection;
 use AC\ListScreenFactoryInterface;
 
 class ListScreenUninitialized {
@@ -31,10 +30,10 @@ class ListScreenUninitialized {
 		return $this->list_screen_factory->create( $list_key );
 	}
 
-	public function find_all( array $list_keys ): ListScreenCollection {
-		$list_screens = array_filter( array_map( [ $this, 'find' ], $list_keys ) ) ?: [];
+	public function find_all( array $list_keys ): array {
+		$list_screens = array_map( [ $this, 'find' ], $list_keys );
 
-		return new ListScreenCollection( $list_screens );
+		return array_filter( $list_screens );
 	}
 
 }
