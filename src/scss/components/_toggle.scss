@@ -104,6 +104,12 @@
 			border: none;
 			margin: 0 !important;
 
+			&:focus, &:active {
+				~ .ac-toggle-v2__toggle__track {
+					box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ac-primary-color);
+				}
+			}
+
 			&:checked {
 				~ .ac-toggle-v2__toggle__thumb {
 					transform: translateX(14px);
@@ -172,6 +178,7 @@
 				width: 14px;
 				height: 14px;
 			}
+
 			input[type=checkbox] {
 				&:checked {
 					~ .ac-toggle-v2__toggle__thumb {

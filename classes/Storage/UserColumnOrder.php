@@ -16,45 +16,20 @@ class UserColumnOrder {
 		$this->user_preference = new Site( 'column_order' );
 	}
 
-	/**
-	 * @param array $column_names
-	 */
-	public function save( ListScreenId $id, array $column_names ) {
-		$this->user_preference->set(
-			$id->get_id(),
-			$column_names
-		);
+	public function save( ListScreenId $id, array $column_names ): void {
+		$this->user_preference->set( $id->get_id(), $column_names );
 	}
 
-	/**
-	 * @param ListScreenId $id
-	 *
-	 * @return bool
-	 */
-	public function exists( ListScreenId $id ) {
+	public function exists( ListScreenId $id ): bool {
 		return null !== $this->get( $id );
 	}
 
-	/**
-	 * @param ListScreenId $id
-	 *
-	 * @return array
-	 */
-	public function get( ListScreenId $id ) {
-		return $this->user_preference->get(
-			$id->get_id()
-		);
+	public function get( ListScreenId $id ): array {
+		return $this->user_preference->get( $id->get_id() ) ?: [];
 	}
 
-	/**
-	 * @param ListScreenId $id
-	 *
-	 * @return void
-	 */
-	public function delete( ListScreenId $id ) {
-		$this->user_preference->delete(
-			$id->get_id()
-		);
+	public function delete( ListScreenId $id ): void {
+		$this->user_preference->delete( $id->get_id() );
 	}
 
 }

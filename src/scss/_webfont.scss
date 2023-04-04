@@ -3,17 +3,18 @@ $cpacicon-delete: "\ea02";
 $cpacicon-download: "\ea03";
 $cpacicon-draft: "\ea04";
 $cpacicon-duplicate: "\ea05";
-$cpacicon-more: "\ea06";
-$cpacicon-move: "\ea07";
-$cpacicon-rename: "\ea08";
-$cpacicon-segment: "\ea09";
-$cpacicon-smart-filter: "\ea0a";
+$cpacicon-filter: "\ea06";
+$cpacicon-more: "\ea07";
+$cpacicon-move: "\ea08";
+$cpacicon-rename: "\ea09";
+$cpacicon-segment: "\ea0a";
+$cpacicon-smart-filter: "\ea0b";
 
 @font-face {
     font-family: "cpac_icons";
     src:
-        url("../fonts/cpac_icons.woff2?v=362614") format("woff2"),
-        url("../fonts/cpac_icons.woff?v=106752") format("woff");
+        url("../fonts/cpac_icons.woff2?v=955237") format("woff2"),
+        url("../fonts/cpac_icons.woff?v=928084") format("woff");
     font-style: normal;
     font-weight: 400;
 }
@@ -52,6 +53,10 @@ $cpacicon-smart-filter: "\ea0a";
 
 .cpacicon-duplicate::before {
     content: $cpacicon-duplicate;
+}
+
+.cpacicon-filter::before {
+    content: $cpacicon-filter;
 }
 
 .cpacicon-more::before {

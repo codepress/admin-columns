@@ -84,7 +84,7 @@
 
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=362614") format("woff2"), url("../fonts/cpac_icons.woff?v=106752") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=955237") format("woff2"), url("../fonts/cpac_icons.woff?v=928084") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -118,24 +118,28 @@
   content: "\ea05";
 }
 
-.cpacicon-more::before {
+.cpacicon-filter::before {
   content: "\ea06";
 }
 
-.cpacicon-move::before {
+.cpacicon-more::before {
   content: "\ea07";
 }
 
-.cpacicon-rename::before {
+.cpacicon-move::before {
   content: "\ea08";
 }
 
-.cpacicon-segment::before {
+.cpacicon-rename::before {
   content: "\ea09";
 }
 
-.cpacicon-smart-filter::before {
+.cpacicon-segment::before {
   content: "\ea0a";
+}
+
+.cpacicon-smart-filter::before {
+  content: "\ea0b";
 }
 
 /**
@@ -607,6 +611,9 @@ html.wp-toolbar .ac-tooltip {
   z-index: 2;
   border: none;
   margin: 0 !important;
+}
+.ac-toggle-v2__toggle input[type=checkbox]:focus ~ .ac-toggle-v2__toggle__track, .ac-toggle-v2__toggle input[type=checkbox]:active ~ .ac-toggle-v2__toggle__track {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ac-primary-color);
 }
 .ac-toggle-v2__toggle input[type=checkbox]:checked ~ .ac-toggle-v2__toggle__thumb {
   transform: translateX(14px);
@@ -1193,6 +1200,24 @@ table.ac-form-table .general form p.save-button {
 }
 .ac-section.-closable.-closed .ac-section__body {
   display: none;
+}
+
+.ac-general-setting-row {
+  margin-bottom: 30px;
+}
+.ac-general-setting-row .ac-ajax-loading {
+  position: relative;
+}
+.ac-general-setting-row .ac-toggle-v2 .ac-ajax-loading {
+  position: absolute;
+}
+.ac-general-setting-row p {
+  margin-top: 5px;
+}
+
+.ac-general-setting-row__layout {
+  display: flex;
+  align-items: center;
 }
 
 /*# sourceMappingURL=admin-general.css.map */

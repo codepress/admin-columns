@@ -19,6 +19,7 @@ class IntegrationRepository {
 			new Integration\Pods(),
 			new Integration\Types(),
 			new Integration\MetaBox(),
+			new Integration\MediaLibraryAssistant(),
 			new Integration\WooCommerce(),
 			new Integration\YoastSeo(),
 		] );
