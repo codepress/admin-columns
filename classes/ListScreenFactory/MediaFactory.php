@@ -38,7 +38,7 @@ class MediaFactory implements ListScreenFactoryInterface {
 			throw new LogicException( 'Invalid screen' );
 		}
 
-		return $this->create( $screen->post_type, $settings );
+		return $this->add_settings( $this->create_list_screen(), $settings );
 	}
 
 }
