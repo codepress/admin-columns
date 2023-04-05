@@ -20,8 +20,8 @@ trait ListSettingsTrait {
 		$list_screen->set_layout_id( $settings['list_id'] ?? '' );
 		$list_screen->set_preferences( $preferences ?: [] );
 		$list_screen->set_settings( $columns ?: [] );
-		$list_screen->set_updated( $date );
 		$list_screen->set_group( $settings['group'] ?? '' );
+		$list_screen->set_updated( $date );
 
 		return $list_screen;
 	}
