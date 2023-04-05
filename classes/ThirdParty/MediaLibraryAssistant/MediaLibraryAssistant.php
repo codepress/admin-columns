@@ -26,7 +26,7 @@ class MediaLibraryAssistant implements Registerable {
 		$menu->add( new AC\Admin\Type\MenuListItem(
 			'mla-media-assistant',
 			__( 'Media Library Assistant' ),
-			add_query_arg( 'page', \MLACore::ADMIN_PAGE_SLUG, get_admin_url( 'upload.php' ) ),
+			admin_url(),
 			'media'
 		) );
 	}
