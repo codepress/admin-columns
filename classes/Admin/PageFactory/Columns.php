@@ -12,6 +12,7 @@ use AC\Admin\Section;
 use AC\Admin\SupportedListScreens;
 use AC\Asset\Location;
 use AC\Controller\Middleware;
+use AC\DefaultColumnsRepository;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
@@ -74,6 +75,7 @@ class Columns implements PageFactoryInterface {
 		return new Page\Columns(
 			$this->location,
 			$list_screen,
+			new DefaultColumnsRepository(),
 			$this->list_screen_uninitialized->find_all( $list_keys ),
 			new Section\Partial\Menu( $this->menu_list_factory ),
 			new Admin\View\Menu( $this->menu_factory->create( 'columns' ) ),
