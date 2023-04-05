@@ -6,6 +6,7 @@ use AC\Ajax;
 use AC\Controller\ColumnRequest\Refresh;
 use AC\Controller\ColumnRequest\Select;
 use AC\Controller\ListScreen\Save;
+use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Request;
@@ -13,19 +14,16 @@ use LogicException;
 
 class AjaxColumnRequest implements Registerable {
 
-	/**
-	 * @var Storage
-	 */
 	private $storage;
 
-	/**
-	 * @var Request
-	 */
 	private $request;
 
-	public function __construct( Storage $storage, Request $request ) {
+	private $list_screen_factory;
+
+	public function __construct( Storage $storage, Request $request, ListScreenFactory $list_screen_factory ) {
 		$this->storage = $storage;
 		$this->request = $request;
+		$this->list_screen_factory = $list_screen_factory;
 	}
 
 	public function register() {
@@ -46,13 +44,13 @@ class AjaxColumnRequest implements Registerable {
 
 		switch ( $this->request->get( 'id' ) ) {
 			case 'save':
-				( new Save( $this->storage ) )->request( $this->request );
+				( new Save( $this->storage, $this->list_screen_factory ) )->request( $this->request );
 				break;
 			case 'select':
-				( new Select() )->request( $this->request );
+				( new Select( $this->list_screen_factory ) )->request( $this->request );
 				break;
 			case 'refresh':
-				( new Refresh() )->request( $this->request );
+				( new Refresh( $this->list_screen_factory ) )->request( $this->request );
 				break;
 		}
 

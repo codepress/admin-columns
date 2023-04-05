@@ -6,37 +6,28 @@ use LogicException;
 
 final class MetaType {
 
-	const POST = 'post';
-	const USER = 'user';
-	const COMMENT = 'comment';
-	const TERM = 'term';
-	const SITE = 'site';
+	public const POST = 'post';
+	public const USER = 'user';
+	public const COMMENT = 'comment';
+	public const TERM = 'term';
+	public const SITE = 'site';
 
-	/**
-	 * @var string
-	 */
 	private $meta_type;
 
-	/**
-	 * @param string $meta_type
-	 */
-	public function __construct( $meta_type ) {
+	public function __construct( string $meta_type ) {
 		$this->meta_type = $meta_type;
 
 		$this->validate();
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get() {
+	public function get(): string {
 		return $this->meta_type;
 	}
 
 	/**
 	 * @throws LogicException
 	 */
-	private function validate() {
+	private function validate(): void {
 		$types = [
 			self::POST,
 			self::USER,

@@ -1006,6 +1006,10 @@ div.ac-column-header span.vers {
   text-transform: uppercase;
   color: #808080;
   margin-top: 4px;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .ac-admin__sidebar .sidebox h3 span.contenttype.right {
   position: absolute;

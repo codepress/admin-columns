@@ -4,7 +4,7 @@ namespace AC;
 
 class DefaultColumnsRepository {
 
-	const OPTIONS_KEY = 'cpac_options_';
+	private const OPTIONS_KEY = 'cpac_options_';
 
 	/**
 	 * @param string $list_screen_key

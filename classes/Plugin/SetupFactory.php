@@ -8,8 +8,8 @@ use InvalidArgumentException;
 
 class SetupFactory {
 
-	const SITE = 'site';
-	const NETWORK = 'network';
+	public const SITE = 'site';
+	public const NETWORK = 'network';
 
 	/**
 	 * @var string

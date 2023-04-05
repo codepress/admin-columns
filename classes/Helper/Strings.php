@@ -26,6 +26,12 @@ class Strings {
 		return '' === $needle || 0 === strpos( $haystack, $needle );
 	}
 
+	public function remove_prefix( string $string, string $prefix ): string {
+		return $this->starts_with( $string, $prefix )
+			? substr( $string, strlen( $prefix ) )
+			: $string;
+	}
+
 	public function ends_with( string $haystack, string $needle ): bool {
 		if ( '' === $haystack && '' !== $needle ) {
 			return false;
