@@ -47,7 +47,7 @@ class MenuFactory implements MenuListFactory {
 		}
 
 		// Reusable content blocks for Gutenberg
-		$wp_block = 'post';
+		$wp_block = 'wp_block';
 
 		if ( post_type_exists( $wp_block ) && $this->has_post( $wp_block ) ) {
 			$post_types[ $wp_block ] = $wp_block;
