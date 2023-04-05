@@ -30,7 +30,6 @@ class Menu {
 		$items = [];
 
 		foreach ( $this->menu_factory->create()->all() as $item ) {
-			// TODO check if list_key is supported?
 			$items[ $item->get_group() ][ $item->get_key() ] = $item->get_label();
 		}
 

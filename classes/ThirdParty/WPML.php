@@ -28,8 +28,8 @@ class WPML implements Registerable {
 		add_action( 'ac/table/list_screen', [ $this, 'replace_flags' ] );
 
 		// enable the translation of the column labels
-		// TODO use other hook
-		add_action( 'ac/list_screens', [ $this, 'register_column_labels' ], 300 );
+		// TODO test
+		add_action( 'ac/ready', [ $this, 'register_column_labels' ], 300 );
 
 		// enable the WPML translation of column headings
 		add_filter( 'ac/headings/label', [ $this, 'register_translated_label' ], 100 );
