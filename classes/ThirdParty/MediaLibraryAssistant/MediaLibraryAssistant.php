@@ -4,6 +4,7 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
 use AC\Admin\MenuListItems;
+use AC\Admin\Type\MenuListItem;
 use AC\Registerable;
 
 class MediaLibraryAssistant implements Registerable {
@@ -23,12 +24,13 @@ class MediaLibraryAssistant implements Registerable {
 	}
 
 	public function update_menu_list_groups( MenuListItems $menu ): void {
-		$menu->add( new AC\Admin\Type\MenuListItem(
-			'mla-media-assistant',
-			__( 'Media Library Assistant' ),
-			admin_url(),
-			'media'
-		) );
+		$menu->add(
+			new MenuListItem(
+				'mla-media-assistant',
+				__( 'Media Library Assistant' ),
+				'media'
+			)
+		);
 	}
 
 }

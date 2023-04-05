@@ -9,14 +9,11 @@ class MenuListItem {
 
 	private $label;
 
-	private $url;
-
 	private $group;
 
-	public function __construct( string $key, string $label, string $url, string $group ) {
+	public function __construct( string $key, string $label, string $group ) {
 		$this->key = $key;
 		$this->label = $label;
-		$this->url = $url;
 		$this->group = $group;
 	}
 
@@ -26,10 +23,6 @@ class MenuListItem {
 
 	public function get_label(): string {
 		return $this->label;
-	}
-
-	public function get_url(): string {
-		return $this->url;
 	}
 
 	public function get_group(): string {

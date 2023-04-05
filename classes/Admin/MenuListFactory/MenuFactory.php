@@ -21,13 +21,13 @@ class MenuFactory implements MenuListFactory {
 			$post_type_object = get_post_type_object( $post_type );
 
 			if ( $post_type_object ) {
-				$menu->add( new MenuListItem( $post_type, $post_type_object->label, admin_url(), 'post' ) );
+				$menu->add( new MenuListItem( $post_type, $post_type_object->label, 'post' ) );
 			}
 		}
 
-		$menu->add( new MenuListItem( 'wp-comments', __( 'Comments', 'codepress-admin-columns' ), admin_url(), 'comment' ) );
-		$menu->add( new MenuListItem( 'wp-users', __( 'Users', 'codepress-admin-columns' ), admin_url(), 'user' ) );
-		$menu->add( new MenuListItem( 'wp-media', __( 'Media', 'codepress-admin-columns' ), admin_url(), 'media' ) );
+		$menu->add( new MenuListItem( 'wp-comments', __( 'Comments', 'codepress-admin-columns' ), 'comment' ) );
+		$menu->add( new MenuListItem( 'wp-users', __( 'Users', 'codepress-admin-columns' ), 'user' ) );
+		$menu->add( new MenuListItem( 'wp-media', __( 'Media', 'codepress-admin-columns' ), 'media' ) );
 
 		do_action( 'ac/admin/menu_list', $menu );
 
