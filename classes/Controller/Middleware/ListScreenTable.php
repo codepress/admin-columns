@@ -1,4 +1,5 @@
 <?php
+declare( strict_types=1 );
 
 namespace AC\Controller\Middleware;
 
@@ -12,7 +13,6 @@ use AC\Table;
 use AC\Type\ListScreenId;
 use Exception;
 use WP_Screen;
-use WP_User;
 
 class ListScreenTable implements Middleware {
 
@@ -36,21 +36,25 @@ class ListScreenTable implements Middleware {
 		$this->preference = $preference;
 	}
 
-	private function get_list_key_from_screen(): ?string {
-		return $this->list_screen_factory->can_create_by_wp_screen( $this->wp_screen )
-			? $this->list_screen_factory->create_by_wp_screen( $this->wp_screen )->get_key()
+	private function get_first_list_screen(): ?ListScreen {
+		$list_key = $this->get_list_key();
+
+		if ( ! $list_key ) {
+			return null;
+		}
+
+		$list_screens = $this->storage->find_all_by_user( $list_key, wp_get_current_user(), new ManualOrder() );
+
+		if ( $list_screens->valid() ) {
+			return $list_screens->current();
+		}
+
+		return $this->list_screen_factory->can_create( $list_key )
+			? $this->list_screen_factory->create( $list_key )
 			: null;
 	}
 
-	private function get_first_list_screen_by_key( string $key, WP_User $user ): ?ListScreen {
-		$list_screens = $this->storage->find_all_by_user( $key, $user, new ManualOrder() );
-
-		return $list_screens->valid()
-			? $list_screens->current()
-			: null;
-	}
-
-	private function get_list_id( Request $request ): ?ListScreenId {
+	private function get_requested_list_screen( Request $request ): ?ListScreen {
 		$list_key = $this->get_list_key();
 
 		if ( ! $list_key ) {
@@ -65,36 +69,23 @@ class ListScreenTable implements Middleware {
 			return null;
 		}
 
-		return $list_id;
+		$list_screen = $this->storage->find_by_user( $list_id, wp_get_current_user() );
+
+		return $list_screen && $list_screen->get_key() === $list_key
+			? $list_screen
+			: null;
 	}
 
 	private function get_list_key(): ?string {
-		return $this->get_list_key_from_screen() ?: null;
+		return $this->list_screen_factory->can_create_by_wp_screen( $this->wp_screen )
+			? $this->list_screen_factory->create_by_wp_screen( $this->wp_screen )->get_key()
+			: null;
 	}
 
 	private function get_list_screen( Request $request ): ?ListScreen {
-		$list_key = $this->get_list_key();
-		$list_id = $this->get_list_id( $request );
+		$list_screen = $this->get_requested_list_screen( $request );
 
-		if ( ! $list_key ) {
-			return null;
-		}
-
-		$list_screen = null;
-
-		if ( $list_id ) {
-			$list_screen = $this->storage->find_by_user( $list_id, wp_get_current_user() );
-		}
-
-		if ( ! $list_screen ) {
-			$list_screen = $this->get_first_list_screen_by_key( $list_key, wp_get_current_user() );
-		}
-
-		if ( ! $list_screen ) {
-			$list_screen = $this->list_screen_factory->create( $list_key );
-		}
-
-		return $list_screen;
+		return $list_screen ?: $this->get_first_list_screen();
 	}
 
 	public function handle( Request $request ) {

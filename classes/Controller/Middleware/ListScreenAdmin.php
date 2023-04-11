@@ -77,33 +77,43 @@ class ListScreenAdmin implements Middleware {
 			return null;
 		}
 
-		$list_id = $this->get_last_visited_list_id( $list_key );
-
-		if ( $list_id && $this->storage->exists( $list_id ) ) {
-			return $this->storage->find( $list_id );
-		}
-
-		$list_screens = $this->storage->find_all_by_key( $list_key );
-
-		if ( $list_screens->count() > 0 ) {
-			return $list_screens->current();
-		}
-
 		if ( ! $this->list_screen_factory->can_create( $list_key ) ) {
 			return null;
 		}
 
-		return $this->list_screen_factory->create( $list_key );
+		$list_screen = $this->get_last_visited_listscreen( $list_key );
+
+		if ( ! $list_screen ) {
+			$list_screen = $this->get_first_listscreen( $list_key );
+		}
+
+		if ( ! $list_screen ) {
+			$list_screen = $this->list_screen_factory->create( $list_key );
+		}
+
+		return $list_screen;
 	}
 
-	private function get_last_visited_list_id( string $list_key ): ?ListScreenId {
+	private function get_first_listscreen( string $list_key ): ?ListScreen {
+		$list_screens = $this->storage->find_all_by_key( $list_key );
+
+		return $list_screens->count() > 0
+			? $list_screens->current()
+			: null;
+	}
+
+	private function get_last_visited_listscreen( string $list_key ): ?ListScreen {
 		try {
 			$list_id = new ListScreenId( (string) $this->preference->get_list_id( $list_key ) );
 		} catch ( Exception $e ) {
 			return null;
 		}
 
-		return $list_id;
+		$list_screen = $this->storage->find( $list_id );
+
+		return $list_screen && $list_screen->get_key() === $list_key
+			? $list_screen
+			: null;
 	}
 
 	private function set_preference_screen( ListScreen $list_screen ): void {
