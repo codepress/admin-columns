@@ -10,6 +10,7 @@ trait ListSettingsTrait {
 	private function add_settings( ListScreen $list_screen, array $settings ): ListScreen {
 		$columns = $settings['columns'] ?? [];
 		$preferences = $settings['preferences'] ?? [];
+		$group = $settings['group'] ?? '';
 		$date = $settings['date'] ?? new DateTime();
 
 		if ( is_string( $date ) ) {
@@ -20,8 +21,11 @@ trait ListSettingsTrait {
 		$list_screen->set_layout_id( $settings['list_id'] ?? '' );
 		$list_screen->set_preferences( $preferences ?: [] );
 		$list_screen->set_settings( $columns ?: [] );
-		$list_screen->set_group( $settings['group'] ?? '' );
 		$list_screen->set_updated( $date );
+
+		if ( $group ) {
+			$list_screen->set_group( $group );
+		}
 
 		return $list_screen;
 	}

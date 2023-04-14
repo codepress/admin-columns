@@ -16,7 +16,6 @@ use AC\Asset\Style;
 use AC\Column;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
-use AC\ListScreenCollection;
 use AC\Renderable;
 use AC\Type\Url;
 use AC\Type\Url\Documentation;
@@ -34,7 +33,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 	private $list_screen;
 
 	private $default_columns_repository;
-	private $list_screens_uninitialized;
+
+	private $list_screen_uninitialized;
 
 	private $menu;
 
@@ -46,7 +46,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		Location\Absolute $location,
 		ListScreen $list_screen,
 		DefaultColumnsRepository $default_columns_repository,
-		array $list_screens_uninitialized,
+		Admin\ListScreenUninitialized $list_screen_uninitialized,
 		Menu $menu,
 		Renderable $head,
 		bool $is_acp_active
@@ -54,7 +54,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		$this->location = $location;
 		$this->list_screen = $list_screen;
 		$this->default_columns_repository = $default_columns_repository;
-		$this->list_screens_uninitialized = $list_screens_uninitialized;
+		$this->list_screen_uninitialized = $list_screen_uninitialized;
 		$this->menu = $menu;
 		$this->head = $head;
 		$this->is_acp_active = $is_acp_active;
@@ -75,7 +75,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 			new Admin\Asset\Columns(
 				'ac-admin-page-columns',
 				$this->location->with_suffix( 'assets/js/admin-page-columns.js' ),
-				$this->list_screens_uninitialized,
+				$this->list_screen_uninitialized->find_all(),
 				$this->list_screen->get_key(),
 				$this->list_screen->has_id() ? $this->list_screen->get_id()->get_id() : ''
 			),

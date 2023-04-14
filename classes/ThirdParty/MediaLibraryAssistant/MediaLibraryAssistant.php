@@ -20,7 +20,8 @@ class MediaLibraryAssistant implements Registerable {
 
 		AC\ListScreenFactory::add( new ListScreenFactory() );
 
-		add_action( 'acp/admin/menu_list', [ $this, 'update_menu_list_groups' ] );
+		// TODO replace with 'ac/admin/menu_group'
+		add_action( 'ac/admin/menu_list', [ $this, 'update_menu_list_groups' ] );
 	}
 
 	public function update_menu_list_groups( MenuListItems $menu ): void {

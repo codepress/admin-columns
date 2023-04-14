@@ -80,10 +80,11 @@ class AdminColumns extends Plugin {
 		$location = $this->get_location();
 		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
 		$default_repository = new DefaultColumnsRepository();
-		$list_screens_uninitialized = new Admin\ListScreenUninitialized( $default_repository, $list_screen_factory );
+		$list_keys_factory = new Table\ListKeysFactory();
+		$list_screens_uninitialized = new Admin\ListScreenUninitialized( $default_repository, $list_screen_factory, $list_keys_factory );
 
 		$page_handler = new PageRequestHandler();
-		$page_handler->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory, $list_screen_factory, $list_screens_uninitialized, new MenuListFactory\MenuFactory(), $is_acp_active ) )
+		$page_handler->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory, $list_screen_factory, $list_screens_uninitialized, new MenuListFactory\MenuFactory( $list_keys_factory, $list_screen_factory ), $list_keys_factory, $is_acp_active ) )
 		             ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory, $is_acp_active ) )
 		             ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $menu_factory ) )
 		             ->add( 'help', new Admin\PageFactory\Help( $location, $menu_factory ) );

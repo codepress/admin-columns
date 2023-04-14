@@ -12,6 +12,7 @@ class ListScreenGroupsFactory {
 		$groups->add( 'media', __( 'Media' ) );
 		$groups->add( 'comment', __( 'Comments' ), 20 );
 		$groups->add( 'link', __( 'Links' ), 40 );
+		$groups->add( 'other', __( 'Other' ), 50 );
 
 		do_action( 'ac/list_screen_groups', $groups );
 

@@ -6,60 +6,48 @@ namespace AC\Admin\MenuListFactory;
 use AC\Admin\MenuListFactory;
 use AC\Admin\MenuListItems;
 use AC\Admin\Type\MenuListItem;
-use LogicException;
+use AC\ListScreen;
+use AC\ListScreenFactory;
+use AC\Table\ListKeysFactoryInterface;
 
+// TODO naming
 class MenuFactory implements MenuListFactory {
 
-	public function create(): MenuListItems {
-		if ( ! did_action( 'init' ) ) {
-			throw new LogicException( "Call after the `init` hook." );
-		}
+	private $list_keys_factory;
 
+	private $list_screen_factory;
+
+	public function __construct( ListKeysFactoryInterface $factory, ListScreenFactory $list_screen_factory ) {
+		$this->list_keys_factory = $factory;
+		$this->list_screen_factory = $list_screen_factory;
+	}
+
+	private function create_menu_item( ListScreen $list_screen ): MenuListItem {
+		$group = (string) apply_filters( 'ac/admin/menu_group', $list_screen->get_group(), $list_screen );
+
+		return new MenuListItem(
+			$list_screen->get_key(),
+			$list_screen->get_label(),
+			$group ?: 'other'
+		);
+	}
+
+	public function create(): MenuListItems {
 		$menu = new MenuListItems();
 
-		foreach ( $this->get_post_types() as $post_type ) {
-			$post_type_object = get_post_type_object( $post_type );
+		foreach ( $this->list_keys_factory->create()->all() as $list_key ) {
+			if ( $list_key->is_network() ) {
+				continue;
+			}
 
-			if ( $post_type_object ) {
-				$menu->add( new MenuListItem( $post_type, $post_type_object->label, 'post' ) );
+			if ( $this->list_screen_factory->can_create( (string) $list_key ) ) {
+				$menu->add( $this->create_menu_item( $this->list_screen_factory->create( (string) $list_key ) ) );
 			}
 		}
-
-		$menu->add( new MenuListItem( 'wp-comments', __( 'Comments', 'codepress-admin-columns' ), 'comment' ) );
-		$menu->add( new MenuListItem( 'wp-users', __( 'Users', 'codepress-admin-columns' ), 'user' ) );
-		$menu->add( new MenuListItem( 'wp-media', __( 'Media', 'codepress-admin-columns' ), 'media' ) );
 
 		do_action( 'ac/admin/menu_list', $menu );
 
 		return $menu;
-	}
-
-	protected function get_post_types(): array {
-		$post_types = get_post_types( [
-			'_builtin' => false,
-			'show_ui'  => true,
-		] );
-
-		foreach ( [ 'post', 'page' ] as $builtin ) {
-			if ( post_type_exists( $builtin ) ) {
-				$post_types[ $builtin ] = $builtin;
-			}
-		}
-
-		// Reusable content blocks for Gutenberg
-		$wp_block = 'wp_block';
-
-		if ( post_type_exists( $wp_block ) && $this->has_post( $wp_block ) ) {
-			$post_types[ $wp_block ] = $wp_block;
-		}
-
-		return apply_filters( 'ac/post_types', $post_types );
-	}
-
-	private function has_post( string $post_type ): bool {
-		global $wpdb;
-
-		return (bool) $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = %s LIMIT 1", $post_type ) );
 	}
 
 }
