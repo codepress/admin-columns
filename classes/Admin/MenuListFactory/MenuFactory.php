@@ -10,7 +10,6 @@ use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\Table\ListKeysFactoryInterface;
 
-// TODO naming
 class MenuFactory implements MenuListFactory {
 
 	private $list_keys_factory;
