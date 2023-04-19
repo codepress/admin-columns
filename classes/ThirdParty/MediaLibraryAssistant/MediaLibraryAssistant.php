@@ -17,6 +17,18 @@ class MediaLibraryAssistant implements Registerable {
 		}
 
 		AC\ListScreenFactory::add( new ListScreenFactory() );
+
+		add_action( 'ac/admin/menu_list', [ $this, 'add_menu_item' ] );
+	}
+
+	public function add_menu_item( AC\Admin\MenuListItems $menu ) {
+		$menu->add(
+			new AC\Admin\Type\MenuListItem(
+				'mla-media-assistant',
+				__( 'Media Library Assistant', 'codepress-admin-columns' ),
+				'media'
+			)
+		);
 	}
 
 }

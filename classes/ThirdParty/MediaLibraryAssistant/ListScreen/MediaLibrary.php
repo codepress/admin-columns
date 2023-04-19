@@ -13,8 +13,8 @@ class MediaLibrary extends AC\ListScreen\Media {
 		parent::__construct();
 
 		$this->set_key( 'mla-media-assistant' )
-		     ->set_label( __( 'Media Library Assistant' ) )
-		     ->set_singular_label( __( 'Assistant' ) )
+		     ->set_label( __( 'Media Library Assistant', 'codepress-admin-columns' ) )
+		     ->set_singular_label( __( 'Assistant', 'codepress-admin-columns'  ) )
 		     ->set_screen_id( 'media_page_' . MLACore::ADMIN_PAGE_SLUG )
 		     ->set_page( MLACore::ADMIN_PAGE_SLUG );
 	}
