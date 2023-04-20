@@ -123,7 +123,8 @@
 
 	.acui-checkbox input[disabled] + .acui-checkbox__check {
 		cursor: not-allowed;
-		opacity: .4;
+		filter: grayscale(100%);
+		opacity: .3;
 	}
 
 </style>
