@@ -4,6 +4,8 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
 use AC\Registerable;
+use AC\Table\ListKeyCollection;
+use AC\Type\ListKey;
 
 class MediaLibraryAssistant implements Registerable {
 
@@ -17,18 +19,11 @@ class MediaLibraryAssistant implements Registerable {
 		}
 
 		AC\ListScreenFactory::add( new ListScreenFactory() );
-
-		add_action( 'ac/admin/menu_list', [ $this, 'add_menu_item' ] );
+		add_action( 'ac/list_keys', [ $this, 'add_list_keys' ] );
 	}
 
-	public function add_menu_item( AC\Admin\MenuListItems $menu ) {
-		$menu->add(
-			new AC\Admin\Type\MenuListItem(
-				'mla-media-assistant',
-				__( 'Media Library Assistant', 'codepress-admin-columns' ),
-				'media'
-			)
-		);
+	public function add_list_keys( ListKeyCollection $list_keys ): void {
+		$list_keys->add( new ListKey( 'mla-media-assistant' ) );
 	}
 
 }
