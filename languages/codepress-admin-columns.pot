@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2023-02-28 12:53+0000\n"
+"POT-Creation-Date: 2023-04-24 07:36+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -16,43 +16,43 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:13, classes/Settings/Column/CustomFieldType.php:188, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:35, templates/admin/help-tab/custom-fields.php:6, classes/Helper/Select/Group/CustomField/MultiSite.php:53
+#: classes/ColumnGroups.php:10, classes/Settings/Column/CustomFieldType.php:188, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:35, templates/admin/help-tab/custom-fields.php:6, classes/Helper/Select/Group/CustomField/MultiSite.php:53
 msgid "Default"
 msgstr ""
 
-#: classes/ColumnGroups.php:15
+#: classes/ColumnGroups.php:12
 msgid "Custom Fields"
 msgstr ""
 
-#: classes/ColumnGroups.php:16
+#: classes/ColumnGroups.php:13
 msgid "Meta"
 msgstr ""
 
-#: classes/ColumnGroups.php:17, classes/Column/Media/Image.php:12, classes/Settings/Column/CustomFieldType.php:123, templates/admin/help-tab/custom-fields.php:30
+#: classes/ColumnGroups.php:14, classes/Column/Media/Image.php:12, classes/Settings/Column/CustomFieldType.php:123, templates/admin/help-tab/custom-fields.php:30
 msgid "Image"
 msgstr ""
 
-#: classes/ColumnGroups.php:18
+#: classes/ColumnGroups.php:15
 msgid "Video"
 msgstr ""
 
-#: classes/ColumnGroups.php:19
+#: classes/ColumnGroups.php:16
 msgid "Audio"
 msgstr ""
 
-#: classes/ColumnGroups.php:20
+#: classes/ColumnGroups.php:17
 msgid "Document"
 msgstr ""
 
-#: classes/ColumnGroups.php:21
+#: classes/ColumnGroups.php:18
 msgid "File"
 msgstr ""
 
-#: classes/ColumnGroups.php:22, classes/Settings/Column/CustomFieldType.php:173, classes/Settings/Column/Image.php:112
+#: classes/ColumnGroups.php:19, classes/Settings/Column/CustomFieldType.php:173, classes/Settings/Column/Image.php:112
 msgid "Custom"
 msgstr ""
 
-#: classes/ListScreenGroups.php:13, classes/Settings/Column/CustomFieldType.php:101, classes/Settings/Column/PostType.php:43
+#: classes/ListScreenGroupsFactory.php:10, classes/Settings/Column/CustomFieldType.php:101, classes/Settings/Column/PostType.php:43
 msgid "Post Type"
 msgstr ""
 
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:47, classes/Admin/Page/Columns.php:209
+#: classes/Admin/MenuFactory.php:47, classes/Admin/Page/Columns.php:148
 msgid "Columns"
 msgstr ""
 
@@ -100,43 +100,43 @@ msgstr ""
 msgid "Get %s now"
 msgstr ""
 
-#: classes/Check/Review.php:148, classes/Table/Screen.php:434, classes/Admin/MenuPageFactory/Menu.php:14, classes/Admin/MenuPageFactory/SubMenu.php:15
+#: classes/Check/Review.php:145, classes/Table/Screen.php:434, classes/Admin/MenuPageFactory/Menu.php:14, classes/Admin/MenuPageFactory/SubMenu.php:15
 msgid "Admin Columns"
 msgstr ""
 
-#: classes/Check/Review.php:156
+#: classes/Check/Review.php:153
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
 msgstr ""
 
-#: classes/Check/Review.php:160
+#: classes/Check/Review.php:157
 msgid "click here"
 msgstr ""
 
-#: classes/Check/Review.php:164
+#: classes/Check/Review.php:161
 msgid "Leave a review!"
 msgstr ""
 
-#: classes/Check/Review.php:165
+#: classes/Check/Review.php:162
 msgid "Permanently hide notice"
 msgstr ""
 
-#: classes/Check/Review.php:174
+#: classes/Check/Review.php:171
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
 msgstr ""
 
-#: classes/Check/Review.php:176
+#: classes/Check/Review.php:173
 msgid "documentation page"
 msgstr ""
 
-#: classes/Check/Review.php:180
+#: classes/Check/Review.php:177
 msgid "You can also find help on the %s, and %s."
 msgstr ""
 
-#: classes/Check/Review.php:181
+#: classes/Check/Review.php:178
 msgid "Admin Columns forum on WordPress.org"
 msgstr ""
 
-#: classes/Check/Review.php:182
+#: classes/Check/Review.php:179
 msgid "find answers to frequently asked questions"
 msgstr ""
 
@@ -188,11 +188,11 @@ msgstr ""
 msgid "Invalid method."
 msgstr ""
 
-#: classes/Controller/ColumnRequest.php:28
+#: classes/Controller/ColumnRequest.php:36
 msgid "Please visit the %s screen once to load all available columns"
 msgstr ""
 
-#: classes/Controller/ColumnRequest.php:39, classes/Admin/Asset/Columns.php:61
+#: classes/Controller/ColumnRequest.php:47, classes/Admin/Asset/Columns.php:47
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
@@ -212,7 +212,7 @@ msgstr ""
 msgid "Hide"
 msgstr ""
 
-#: classes/Helper/Strings.php:350
+#: classes/Helper/Strings.php:356
 msgid " or "
 msgstr ""
 
@@ -264,7 +264,7 @@ msgstr ""
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your JetEngine contents on any admin list table."
 msgstr ""
 
-#: classes/Integration/MediaLibraryAssistant.php:14
+#: classes/Integration/MediaLibraryAssistant.php:14, classes/ThirdParty/MediaLibraryAssistant/MediaLibraryAssistant.php:28, classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:16
 msgid "Media Library Assistant"
 msgstr ""
 
@@ -385,7 +385,7 @@ msgid "View"
 msgstr ""
 
 #: templates/admin/edit-submenu.php:10
-msgid "Column Sets"
+msgid "Table Views"
 msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:14, templates/admin/list-screen-settings-mockup.php:37
@@ -405,7 +405,7 @@ msgid "Conditionals"
 msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:30
-msgid "Make this column set available only for specific users or roles."
+msgid "Make this table view available only for specific users or roles."
 msgstr ""
 
 #: templates/admin/list-screen-settings-mockup.php:36, classes/Settings/Column/User.php:82
@@ -876,15 +876,15 @@ msgstr ""
 msgid "The Add-on %s is activated."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:62
+#: classes/Admin/Asset/Columns.php:48
 msgid "Invalid response."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:64
+#: classes/Admin/Asset/Columns.php:50
 msgid "There was an error during saving the column settings."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:65
+#: classes/Admin/Asset/Columns.php:51
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
@@ -904,15 +904,15 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:168
+#: classes/Admin/Page/Columns.php:115
 msgid "I'm using Admin Columns for WordPress!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:225
+#: classes/Admin/Page/Columns.php:164
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:234
+#: classes/Admin/Page/Columns.php:173
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -1314,15 +1314,15 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:23
+#: classes/Controller/ListScreen/Save.php:26
 msgid "You need at least one column"
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:51
+#: classes/Controller/ListScreen/Save.php:60
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:54
+#: classes/Controller/ListScreen/Save.php:63
 msgid "View %s screen"
 msgstr ""
 
@@ -2252,6 +2252,10 @@ msgstr ""
 
 #: classes/Admin/Section/Partial/ShowEditButton.php:22
 msgid "Show %s button on table screen."
+msgstr ""
+
+#: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:17
+msgid "Assistant"
 msgstr ""
 
 #: templates/admin/page/component/addon/activate-disabled.php:2, templates/admin/page/component/addon/install.php:2
