@@ -78,20 +78,11 @@ final class Screen implements Registerable {
 		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
 	}
 
-	/**
-	 * @return Button[]
-	 */
-	public function get_buttons() {
+	public function get_buttons(): array {
 		return array_merge( [], ...$this->buttons );
 	}
 
-	/**
-	 * @param Button $button
-	 * @param int    $priority
-	 *
-	 * @return bool
-	 */
-	public function register_button( Button $button, $priority = 10 ) {
+	public function register_button( Button $button, int $priority = 10 ): bool {
 		$this->buttons[ $priority ][] = $button;
 
 		ksort( $this->buttons, SORT_NUMERIC );
@@ -108,7 +99,6 @@ final class Screen implements Registerable {
 	 * @since 2.5.5
 	 */
 	public function set_primary_column( $default ) {
-
 		if ( ! $this->list_screen->get_column_by_name( $default ) ) {
 			$default = key( $this->list_screen->get_columns() );
 		}
@@ -148,7 +138,7 @@ final class Screen implements Registerable {
 	 *
 	 * @return array
 	 */
-	public function set_media_row_actions( $actions, $post ) {
+	public function set_media_row_actions( $actions, $post ): array {
 		$link_attributes = [
 			'download' => '',
 			'title'    => __( 'Download', 'codepress-admin-columns' ),
@@ -368,26 +358,11 @@ final class Screen implements Registerable {
 		do_action( 'ac/admin_head', $this->list_screen, $this );
 	}
 
-	/**
-	 * Admin footer scripts
-	 * @since 1.4.0
-	 */
-	public function admin_footer_scripts() {
-		/**
-		 * Add footer scripts that only apply to column screens.
-		 *
-		 * @param ListScreen
-		 * @param self
-		 *
-		 * @since 2.3.5
-		 */
-		do_action( 'ac/admin_footer', $this->list_screen, $this );
+	public function admin_footer_scripts(): void {
+		do_action( 'ac/table/admin_footer', $this->list_screen, $this );
 	}
 
-	/**
-	 * @since 3.2.5
-	 */
-	public function render_actions() {
+	public function render_actions(): void {
 		?>
 		<div id="ac-table-actions" class="ac-table-actions">
 
@@ -398,7 +373,7 @@ final class Screen implements Registerable {
 		<?php
 	}
 
-	private function render_buttons() {
+	private function render_buttons(): void {
 		?>
 		<div class="ac-table-actions-buttons">
 			<?php
@@ -410,10 +385,7 @@ final class Screen implements Registerable {
 		<?php
 	}
 
-	/**
-	 * @param Renderable $option
-	 */
-	public function register_screen_option( Renderable $option ) {
+	public function register_screen_option( Renderable $option ): void {
 		$this->screen_options[] = $option;
 	}
 
