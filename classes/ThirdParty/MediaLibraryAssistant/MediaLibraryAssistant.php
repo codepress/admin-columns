@@ -14,10 +14,6 @@ class MediaLibraryAssistant implements Registerable {
 			return;
 		}
 
-		if ( method_exists( 'MLACore', 'register_list_screen' ) ) {
-			remove_action( 'ac/list_screens', 'MLACore::register_list_screen' );
-		}
-
 		AC\ListScreenFactory::add( new ListScreenFactory() );
 		add_action( 'ac/list_keys', [ $this, 'add_list_keys' ] );
 	}
