@@ -19,7 +19,7 @@ class Taxonomy implements ListTable {
 		$this->taxonomy = (string) $taxonomy;
 	}
 
-	public function get_column_value( $column, $id ) {
+	public function get_column_value( string $column, int $id ): string {
 		return apply_filters( "manage_{$this->taxonomy}_custom_column", '', $column, $id );
 	}
 

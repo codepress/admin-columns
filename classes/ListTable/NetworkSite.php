@@ -13,7 +13,7 @@ class NetworkSite implements ListTable {
 		$this->table = $table;
 	}
 
-	public function get_column_value( $column, $id ) {
+	public function get_column_value( string $column, int $id ): string {
 		ob_start();
 
 		$method = 'column_' . $column;
