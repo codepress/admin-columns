@@ -994,6 +994,10 @@ div.ac-column-header {
 				text-transform: uppercase;
 				color: #808080;
 				margin-top: 4px;
+				max-width: 250px;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
 
 				&.right {
 					position: absolute;

@@ -15,8 +15,10 @@ export default class ValueModals {
 
     private initEventHandlers() {
         this.links.forEach(item => {
+
             item.element.addEventListener('click', (e) => {
                 e.preventDefault();
+
                 this.displayModal(item.objectId)
             });
         });

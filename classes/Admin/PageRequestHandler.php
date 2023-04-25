@@ -12,14 +12,8 @@ class PageRequestHandler implements RequestHandlerInterface {
 	 */
 	private $factories;
 
-	/**
-	 * @param string               $slug
-	 * @param PageFactoryInterface $factory
-	 *
-	 * @return $this
-	 */
-	public function add( $slug, PageFactoryInterface $factory ) {
-		$this->factories[ (string) $slug ] = $factory;
+	public function add( string $slug, PageFactoryInterface $factory ): self {
+		$this->factories[ $slug ] = $factory;
 
 		return $this;
 	}

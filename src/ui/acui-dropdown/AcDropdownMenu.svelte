@@ -12,25 +12,33 @@
 
     export let position: string = 'bottom-right';
 
+    const positionBodyElement = () => {
+        let triggetBox = trigger.getBoundingClientRect();
+        rootElement.append(menuElement);
+        document.body.append(rootElement);
+
+        pos = {
+            position: 'absolute',
+            top: (triggetBox.top + triggetBox.height).toString() + 'px',
+            left: triggetBox.left + 'px'
+        }
+
+        console.log(pos);
+
+        if (position === 'bottom-left') {
+            pos.left = (triggetBox.left - menuElement.getBoundingClientRect().width + triggetBox.width) + 'px';
+        }
+    }
+
     onMount(() => {
         if (appendToBody && rootElement) {
-            let triggetBox = trigger.getBoundingClientRect();
-            rootElement.append(menuElement);
-            document.body.append(rootElement);
-
-
-
-            pos = {
-                position: 'absolute',
-                top: (triggetBox.top + triggetBox.height).toString() + 'px',
-                left: triggetBox.left + 'px'
-            }
-
-            if (position === 'bottom-left') {
-                pos.left = (triggetBox.left - menuElement.getBoundingClientRect().width + triggetBox.width) + 'px';
-            }
-
+            positionBodyElement();
+            window.addEventListener('resize', () => {
+                positionBodyElement();
+            });
         }
+
+
     });
 
     $:rootElementStyle = Object.entries(pos)

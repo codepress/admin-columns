@@ -2,62 +2,30 @@
 
 namespace AC;
 
-/**
- * Holds the groups to which columns can belong.
- */
 final class Groups {
 
-	const SORT_PRIORITY = 1;
+	private $groups;
 
-	const SORT_SLUG = 2;
+	public const SORT_PRIORITY = 1;
+	public const SORT_SLUG = 2;
+	public const SORT_LABEL = 3;
 
-	const SORT_LABEL = 3;
-
-	/**
-	 * @var array
-	 */
-	private $groups = [];
-
-	/**
-	 * @return array
-	 */
-	public function get_groups() {
-		return $this->groups;
+	public function __construct( array $groups = [] ) {
+		$this->groups = $groups;
 	}
 
-	/**
-	 * Return the registered groups sorted by either label, slug or priority
-	 *
-	 * @param int $sort_by Default is self::SORT_PRIORITY
-	 *
-	 * @return array
-	 */
-	public function get_groups_sorted( $sort_by = null ) {
+	public function get_all( $sort_by = null ): array {
 		switch ( $sort_by ) {
 			case self::SORT_LABEL :
-				$sorted = $this->sort_groups_by_string( $this->get_groups(), 'label' );
-
-				break;
+				return $this->sort_groups_by_string( $this->groups, 'label' );
 			case self::SORT_SLUG :
-				$sorted = $this->sort_groups_by_string( $this->get_groups(), 'slug' );
-
-				break;
+				return $this->sort_groups_by_string( $this->groups, 'slug' );
 			default :
-				$sorted = $this->sort_groups_by_priority( $this->get_groups() );
+				return $this->sort_groups_by_priority( $this->groups );
 		}
-
-		return $sorted;
 	}
 
-	/**
-	 * Sort the group by priority
-	 * If there are more groups with the same priority it will those groups by label
-	 *
-	 * @param array $groups
-	 *
-	 * @return array
-	 */
-	private function sort_groups_by_priority( array $groups ) {
+	private function sort_groups_by_priority( array $groups ): array {
 		$aggregated = $sorted = [];
 
 		foreach ( $groups as $group ) {
@@ -73,15 +41,7 @@ final class Groups {
 		return $sorted;
 	}
 
-	/**
-	 * Sort the group by label or slug
-	 *
-	 * @param array  $groups
-	 * @param string $key
-	 *
-	 * @return array
-	 */
-	private function sort_groups_by_string( array $groups, $key ) {
+	private function sort_groups_by_string( array $groups, string $key ): array {
 		$sorted = [];
 
 		foreach ( $groups as $k => $group ) {
@@ -97,45 +57,12 @@ final class Groups {
 		return $sorted;
 	}
 
-	/**
-	 * @param string $slug
-	 *
-	 * @return bool|mixed
-	 */
-	public function get_group( $slug ) {
-		if ( ! $this->has_group( $slug ) ) {
-			return false;
-		}
-
-		return $this->groups[ $slug ];
+	public function get( string $slug ): ?array {
+		return $this->groups[ $slug ] ?? null;
 	}
 
-	public function get_group_label( $slug ) {
-		$group = $this->get_group( $slug );
-
-		return $group ? $group['label'] : false;
-	}
-
-	/**
-	 * @param string $slug
-	 *
-	 * @return bool
-	 */
-	public function has_group( $slug ) {
-		return isset( $this->groups[ $slug ] );
-	}
-
-	/**
-	 * Register a (column) group
-	 *
-	 * @param string $slug
-	 * @param string $label Should be translatable
-	 * @param int    $priority
-	 *
-	 * @return bool
-	 */
-	public function register_group( $slug, $label, $priority = 10 ) {
-		if ( $this->has_group( $slug ) ) {
+	public function add( string $slug, string $label, int $priority = 10 ): bool {
+		if ( isset( $this->groups[ $slug ] ) ) {
 			return false;
 		}
 

@@ -3,6 +3,7 @@
     import {createEventDispatcher, onMount} from "svelte";
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
 
+    export let appendToBody: boolean = false;
     export let closeOnClick: boolean = true;
     export let position: string | null;
     export let maxHeight: string | null;
@@ -81,7 +82,7 @@
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}
-		<AcDropdownMenu trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}} {maxHeight}>
+		<AcDropdownMenu {appendToBody} trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
 			<slot></slot>
 		</AcDropdownMenu>
 	{/if}

@@ -11,14 +11,22 @@ use AC\View;
 
 abstract class ColumnRequest {
 
+	private $list_screen_factory;
+
+	public function __construct( AC\ListScreenFactory $list_screen_factory ) {
+		$this->list_screen_factory = $list_screen_factory;
+	}
+
 	abstract protected function get_column( Request $request, ListScreen $list_screen ): ?Column;
 
 	public function request( Request $request ): void {
-		$list_screen = AC\ListScreenTypes::instance()->get_list_screen_by_key( $request->get( 'list_screen' ) );
+		$list_key = (string) $request->get( 'list_screen' );
 
-		if ( ! $list_screen ) {
+		if ( ! $this->list_screen_factory->can_create( $list_key ) ) {
 			exit;
 		}
+
+		$list_screen = $this->list_screen_factory->create( $list_key );
 
 		$column = $this->get_column( $request, $list_screen );
 

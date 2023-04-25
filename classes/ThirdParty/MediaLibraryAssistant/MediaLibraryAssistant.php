@@ -16,11 +16,19 @@ class MediaLibraryAssistant implements Registerable {
 			remove_action( 'ac/list_screens', 'MLACore::register_list_screen' );
 		}
 
-		add_action( 'ac/list_screens', [ $this, 'register_list_screens' ] );
+		AC\ListScreenFactory::add( new ListScreenFactory() );
+
+		add_action( 'ac/admin/menu_list', [ $this, 'add_menu_item' ] );
 	}
 
-	public function register_list_screens(): void {
-		AC\ListScreenTypes::instance()->register_list_screen( new ListScreen\MediaLibrary() );
+	public function add_menu_item( AC\Admin\MenuListItems $menu ) {
+		$menu->add(
+			new AC\Admin\Type\MenuListItem(
+				'mla-media-assistant',
+				__( 'Media Library Assistant', 'codepress-admin-columns' ),
+				'media'
+			)
+		);
 	}
 
 }

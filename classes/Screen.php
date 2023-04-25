@@ -8,126 +8,74 @@ use WP_Screen;
 
 class Screen implements Registerable {
 
+	private $list_screen_factory;
+
 	/**
 	 * @var WP_Screen
 	 */
 	protected $screen;
 
+	public function __construct( ListScreenFactory $list_screen_factory ) {
+		$this->list_screen_factory = $list_screen_factory;
+	}
+
 	public function register() {
 		add_action( 'current_screen', [ $this, 'init' ] );
 	}
 
-	/**
-	 * @param WP_Screen $screen
-	 */
-	public function init( WP_Screen $screen ) {
+	public function init( WP_Screen $screen ): void {
 		$this->set_screen( $screen );
 
 		do_action( 'ac/screen', $this, $this->screen->id );
 	}
 
-	/**
-	 * @param $id
-	 *
-	 * @return bool
-	 */
-	public function is_screen( $id ) {
+	public function is_screen( string $id ): bool {
 		return $this->has_screen() && $this->get_screen()->id === $id;
 	}
 
-	/**
-	 * @param WP_Screen $screen
-	 *
-	 * @return $this
-	 */
-	public function set_screen( WP_Screen $screen ) {
+	public function set_screen( WP_Screen $screen ): self {
 		$this->screen = $screen;
 
 		return $this;
 	}
 
-	/**
-	 * @return WP_Screen
-	 */
-	public function get_screen() {
+	public function get_screen(): WP_Screen {
 		return $this->screen;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function has_screen() {
+	public function has_screen(): bool {
 		return $this->screen instanceof WP_Screen;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_id() {
+	public function get_id(): string {
 		return $this->screen->id;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_base() {
+	public function get_base(): string {
 		return $this->screen->base;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_post_type() {
+	public function get_post_type(): string {
 		return $this->screen->post_type;
 	}
 
-	/**
-	 * @return string|null
-	 */
-	public function get_list_screen() {
-		foreach ( ListScreenTypes::instance()->get_list_screens() as $list_screen ) {
-			if ( $list_screen->is_current_screen( $this->screen ) ) {
-				return $list_screen->get_key();
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * @return bool
-	 */
-	private function is_admin_network() {
+	private function is_admin_network(): bool {
 		return $this->screen->in_admin( 'network' );
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function is_list_screen() {
-		return null !== $this->get_list_screen();
+	public function is_list_screen(): bool {
+		return $this->list_screen_factory->can_create_by_wp_screen( $this->screen );
 	}
 
-	/**
-	 * Check if current screen is plugins screen
-	 * @return bool
-	 */
-	public function is_plugin_screen() {
-		$id = 'plugins';
+	public function is_plugin_screen(): bool {
+		$screen = $this->is_admin_network()
+			? 'plugins-network'
+			: 'plugins';
 
-		if ( $this->is_admin_network() ) {
-			$id .= '-network';
-		}
-
-		return $this->is_screen( $id );
+		return $this->is_screen( $screen );
 	}
 
-	/**
-	 * @param string|null $slug
-	 *
-	 * @return bool
-	 */
-	public function is_admin_screen( $slug = null ) {
+	public function is_admin_screen( string $slug = null ): bool {
 		if ( null !== $slug ) {
 			$tabs = [ $slug ];
 
@@ -142,10 +90,7 @@ class Screen implements Registerable {
 		return $this->is_main_admin_screen();
 	}
 
-	/**
-	 * @return bool
-	 */
-	private function is_main_admin_screen() {
+	private function is_main_admin_screen(): bool {
 		$id = 'settings_page_' . Admin\Admin::NAME;
 
 		if ( $this->is_admin_network() ) {

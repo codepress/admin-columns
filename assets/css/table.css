@@ -452,7 +452,7 @@ html.wp-toolbar .ac-tooltip {
   border: none;
   margin: 0 !important;
 }
-.ac-toggle-v2__toggle input[type=checkbox]:focus ~ .ac-toggle-v2__toggle__track, .ac-toggle-v2__toggle input[type=checkbox]:active ~ .ac-toggle-v2__toggle__track {
+.ac-toggle-v2__toggle input[type=checkbox]:focus:not(:disabled) ~ .ac-toggle-v2__toggle__track, .ac-toggle-v2__toggle input[type=checkbox]:active:not(:disabled) ~ .ac-toggle-v2__toggle__track {
   box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ac-primary-color);
 }
 .ac-toggle-v2__toggle input[type=checkbox]:checked ~ .ac-toggle-v2__toggle__thumb {
