@@ -8,6 +8,7 @@ use AC\DefaultColumnsRepository;
 use AC\ListScreenFactory;
 use AC\Registerable;
 use AC\Request;
+use WP_Screen;
 
 class DefaultColumns implements Registerable {
 
@@ -46,7 +47,7 @@ class DefaultColumns implements Registerable {
 
 		$screen = get_current_screen();
 
-		if ( ! $screen ) {
+		if ( ! $screen instanceof WP_Screen ) {
 			return;
 		}
 
