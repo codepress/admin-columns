@@ -4,12 +4,12 @@ namespace AC\Controller;
 
 use AC\Asset\Location\Absolute;
 use AC\ColumnSize;
+use AC\ListScreen;
+use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
-use AC\ListScreenTypes;
 use AC\Registerable;
 use AC\Request;
 use AC\Table;
-use AC\Type\ListScreenId;
 use WP_Screen;
 
 class TableListScreenSetter implements Registerable {
@@ -18,14 +18,18 @@ class TableListScreenSetter implements Registerable {
 
 	private $location;
 
+	private $list_screen_factory;
+
 	private $preference;
 
 	public function __construct(
 		Storage $storage,
 		Absolute $location,
+		ListScreenFactory $list_screen_factory,
 		Table\LayoutPreference $preference
 	) {
 		$this->storage = $storage;
+		$this->list_screen_factory = $list_screen_factory;
 		$this->location = $location;
 		$this->preference = $preference;
 	}
@@ -36,33 +40,24 @@ class TableListScreenSetter implements Registerable {
 
 	public function handle( WP_Screen $wp_screen ): void {
 		$request = new Request();
+
 		$request->add_middleware(
 			new Middleware\ListScreenTable(
 				$this->storage,
+				$this->list_screen_factory,
 				$wp_screen,
 				$this->preference
 			)
 		);
 
-		$list_key = $request->get( 'list_key' );
-		$list_id = $request->get( 'list_id' );
+		$list_screen = $request->get( 'list_screen' );
 
-		$list_screen = null;
-
-		if ( ListScreenId::is_valid_id( $list_id ) ) {
-			$list_screen = $this->storage->find( new ListScreenId( $list_id ) );
-		}
-
-		if ( ! $list_screen && $list_key && is_string( $list_key ) ) {
-			$list_screen = ListScreenTypes::instance()->get_list_screen_by_key( $list_key );
-		}
-
-		if ( ! $list_screen ) {
+		if ( ! $list_screen instanceof ListScreen ) {
 			return;
 		}
 
 		if ( $list_screen->has_id() ) {
-			$this->preference->set( $list_screen->get_key(), $list_screen->get_id()->get_id() );
+			$this->preference->set( $list_screen->get_key(), (string) $list_screen->get_id() );
 		}
 
 		$table_screen = new Table\Screen(

@@ -104,7 +104,7 @@
 			border: none;
 			margin: 0 !important;
 
-			&:focus, &:active {
+			&:focus:not(:disabled), &:active:not(:disabled) {
 				~ .ac-toggle-v2__toggle__track {
 					box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ac-primary-color);
 				}

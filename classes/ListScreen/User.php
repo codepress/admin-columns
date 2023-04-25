@@ -4,6 +4,7 @@ namespace AC\ListScreen;
 
 use AC;
 use AC\Column;
+use AC\MetaType;
 use AC\WpListTableFactory;
 use WP_User;
 use WP_Users_List_Table;
@@ -14,7 +15,7 @@ class User extends AC\ListScreenWP {
 
 		$this->set_label( __( 'Users' ) )
 		     ->set_singular_label( __( 'User' ) )
-		     ->set_meta_type( AC\MetaType::USER )
+		     ->set_meta_type( MetaType::USER )
 		     ->set_screen_base( 'users' )
 		     ->set_screen_id( 'users' )
 		     ->set_key( 'wp-users' )
@@ -26,16 +27,6 @@ class User extends AC\ListScreenWP {
 	 */
 	public function set_manage_value_callback() {
 		add_filter( 'manage_users_custom_column', [ $this, 'manage_value' ], 100, 3 );
-	}
-
-	/**
-	 * @param $wp_screen
-	 *
-	 * @return bool
-	 * @since 2.4.10
-	 */
-	public function is_current_screen( $wp_screen ) {
-		return parent::is_current_screen( $wp_screen ) && 'delete' !== filter_input( INPUT_GET, 'action' );
 	}
 
 	/**

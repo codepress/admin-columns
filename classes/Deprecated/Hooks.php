@@ -4,7 +4,6 @@ namespace AC\Deprecated;
 
 use AC\Deprecated\Hook\Action;
 use AC\Deprecated\Hook\Filter;
-use AC\ListScreenTypes;
 use AC\Transient;
 
 class Hooks {
@@ -67,16 +66,7 @@ class Hooks {
 		}
 
 		$hooks[] = new Filter( 'cac/editable/column_value', '3.0', 'cac-editable-column_value' );
-
-		foreach ( $this->get_columns() as $column_type ) {
-			$hooks[] = new Filter( 'cac/editable/column_value/column=' . $column_type, '3.0', 'cac-editable-column_value' );
-		}
-
 		$hooks[] = new Filter( 'cac/editable/column_save', '3.0', 'cac-editable-column_save' );
-
-		foreach ( $this->get_columns() as $column_type ) {
-			$hooks[] = new Filter( 'cac/editable/column_save/column=' . $column_type, '3.0', 'cac-editable-column_save' );
-		}
 
 		return $hooks;
 	}
@@ -86,22 +76,6 @@ class Hooks {
 	 */
 	private function get_types() {
 		return [ 'post', 'user', 'comment', 'link', 'media' ];
-	}
-
-	/**
-	 * @return array
-	 */
-	private function get_columns() {
-		$columns = [];
-		foreach ( ListScreenTypes::instance()->get_list_screens() as $list_screen ) {
-			foreach ( $list_screen->get_column_types() as $column ) {
-				$column_type = $column->get_type();
-
-				$columns[ $column_type ] = $column_type;
-			}
-		}
-
-		return $columns;
 	}
 
 	/**

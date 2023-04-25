@@ -540,3 +540,26 @@ table.ac-form-table {
 
 	}
 }
+
+
+.ac-general-setting-row {
+	margin-bottom: 30px;
+
+	.ac-ajax-loading {
+		position: relative;
+	}
+	.ac-toggle-v2 .ac-ajax-loading{
+		position: absolute;
+	}
+
+	p {
+		margin-top: 5px;
+	}
+}
+
+.ac-general-setting-row__layout {
+	display: flex;
+	align-items: center;
+
+
+}
