@@ -210,12 +210,12 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.6.2 =
-Release Date: April 25th, 2021
+Release Date: April 25th, 2023
 
 * [Improved] Minor changes
 
 = 4.6.1 =
-Release Date: February 22nd, 2021
+Release Date: February 22nd, 2023
 
 * [Added] Integration for Media Library Assistant
 
