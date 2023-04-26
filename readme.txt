@@ -212,6 +212,7 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.6.3 =
 Release Date: April 26th, 2023
 
+* [Fixed] Fixed the array helper that could throw an error when an array contained an object
 * [Fixed] Re-added deprecated register_group function to prevent fatal errors for third-party plugins
 
 = 4.6.2 =
