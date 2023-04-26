@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7.1
 Tested up to: 6.1.1
 Requires PHP: 7.2
-Stable tag: 4.6.1
+Stable tag: 4.6.2
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -209,6 +209,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+
 = NEWVERSION =
 Release Date: tbd
 
@@ -217,9 +218,10 @@ Release Date: tbd
 = 4.6.2 =
 Release Date: April 25th, 2023
 
+* [Improved] Minor changes
+
 = 4.6.1 =
 Release Date: February 22nd, 2023
-
 * [Added] Integration for Media Library Assistant
 
 = 4.6 =
