@@ -69,29 +69,25 @@ class Arrays {
 	 * @return string Imploded array
 	 * @since 3.0
 	 */
-	public function implode_recursive( $glue, $pieces ) {
-		if ( is_array( $pieces ) ) {
-			foreach ( $pieces as $r_pieces ) {
-				if ( is_object( $r_pieces ) ) {
-					continue;
-				}
-
-				if ( is_array( $r_pieces ) ) {
-					$retVal[] = $this->implode_recursive( $glue, $r_pieces );
-				} else {
-					$retVal[] = $r_pieces;
-				}
-			}
-			if ( isset( $retVal ) && is_array( $retVal ) ) {
-				return implode( $glue, $retVal );
-			}
-		}
-
+	public function implode_recursive( string $glue, $pieces ): string {
 		if ( is_scalar( $pieces ) ) {
 			return $pieces;
 		}
 
-		return false;
+		$scalars = [];
+
+		if ( is_array( $pieces ) ) {
+			foreach ( $pieces as $r_pieces ) {
+				if ( is_array( $r_pieces ) ) {
+					$scalars[] = $this->implode_recursive( $glue, $r_pieces );
+				}
+				if ( is_scalar( $r_pieces ) ) {
+					$scalars[] = $r_pieces;
+				}
+			}
+		}
+
+		return implode( $glue, array_filter( $scalars, 'strlen' ) );
 	}
 
 	/**
