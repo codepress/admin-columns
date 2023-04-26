@@ -61,6 +61,10 @@ final class Groups {
 		return $this->groups[ $slug ] ?? null;
 	}
 
+	public function register_group( string $slug, string $label, int $priority = 10 ): bool {
+		return $this->add( $slug, $label, $priority );
+	}
+
 	public function add( string $slug, string $label, int $priority = 10 ): bool {
 		if ( isset( $this->groups[ $slug ] ) ) {
 			return false;
