@@ -72,6 +72,10 @@ class Arrays {
 	public function implode_recursive( $glue, $pieces ) {
 		if ( is_array( $pieces ) ) {
 			foreach ( $pieces as $r_pieces ) {
+				if ( is_object( $r_pieces ) ) {
+					continue;
+				}
+
 				if ( is_array( $r_pieces ) ) {
 					$retVal[] = $this->implode_recursive( $glue, $r_pieces );
 				} else {

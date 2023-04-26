@@ -209,8 +209,16 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Fixed] Fixed the array helper that could throw an error when an array contained an object
+
+= 4.6.2 =
+Release Date: April 25th, 2023
+
 = 4.6.1 =
-Release Date: February 22nd, 2022
+Release Date: February 22nd, 2023
 
 * [Added] Integration for Media Library Assistant
 
