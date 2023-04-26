@@ -13,7 +13,7 @@ class User implements ListTable {
 		$this->table = $table;
 	}
 
-	public function get_column_value( $column, $id ) {
+	public function get_column_value( string $column, int $id ): string {
 		return apply_filters( 'manage_users_custom_column', '', $column, $id );
 	}
 

@@ -6,8 +6,25 @@ use AC\Asset\Script\Inline\Position;
 
 class Script extends Enqueueable {
 
+	protected $in_footer;
+
+	public function __construct(
+		string $handle,
+		Location $location = null,
+		array $dependencies = [],
+		bool $in_footer = false
+	) {
+		parent::__construct( $handle, $location, $dependencies );
+
+		$this->in_footer = $in_footer;
+	}
+
 	protected function is_registered(): bool {
 		return wp_script_is( $this->get_handle(), 'registered' );
+	}
+
+	public function in_footer(): bool {
+		return $this->in_footer;
 	}
 
 	public function register(): void {

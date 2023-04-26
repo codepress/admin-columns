@@ -48,11 +48,11 @@ class ListScreenAdmin implements Middleware {
 		$list_key = (string) $request->get( 'list_screen' );
 
 		if ( ! $this->list_key_exists( $list_key ) ) {
-			$list_key = $this->preference->get_last_visited_list_key();
+			$list_key = (string) $this->preference->get_last_visited_list_key();
 		}
 
 		if ( ! $this->list_key_exists( $list_key ) ) {
-			$list_key = $this->list_keys_factory->create()->current();
+			$list_key = (string) $this->list_keys_factory->create()->current();
 		}
 
 		return $this->list_key_exists( $list_key )

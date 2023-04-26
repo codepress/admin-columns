@@ -11,11 +11,8 @@ trait WpListTableTrait {
 	 */
 	protected $table;
 
-	/**
-	 * @return int
-	 */
-	public function get_total_items() {
-		return (int) $this->table->get_pagination_arg( 'total_items' );
+	public function get_total_items(): int {
+		return $this->table->get_pagination_arg( 'total_items' );
 	}
 
 	public function set_list_table( WP_List_Table $table ): void {

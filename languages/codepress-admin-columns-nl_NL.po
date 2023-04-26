@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-31 18:31:26+0000\n"
+"PO-Revision-Date: 2023-03-21 12:00:52+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,57 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.4\n"
 "Language: nl\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
+
+#: templates/tooltip/conditional-format.php:3
+msgctxt "conditional format help"
+msgid "Conditional Format allows you to format a value based on conditions you set."
+msgstr "Met voorwaardelijke format kun je een waarde opmaken op basis van voorwaarden die je stelt."
+
+#: templates/tooltip/conditional-format.php:1
+msgid "Conditional Format"
+msgstr "Voorwaardelijk format"
+
+#: settings/translations/global.php:6
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: settings/translations/global.php:5
+msgid "Ok"
+msgstr "Ok"
+
+#: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:17
+msgid "Assistant"
+msgstr "Assistent"
+
+#: classes/Settings/Column/Separator.php:27
+msgid "Horizontal Rule"
+msgstr "Horizontale regel"
+
+#: classes/Integration/MediaLibraryAssistant.php:16
+msgid "The Media Library Assistant plugin from David Lingren provides several enhancements for managing the Media Library."
+msgstr "De Media Library Assistant plugin van David Lngren biedt verschillende verbeteringen voor het beheren van de media library."
+
+#: classes/Integration/MediaLibraryAssistant.php:14
+#: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:16
+msgid "Media Library Assistant"
+msgstr "Media Library Assistant"
+
+#: classes/Controller/AjaxColumnModalValue.php:50
+#: classes/Controller/AjaxColumnValue.php:48
+msgid "Invalid list ID."
+msgstr "Ongeldige lijst ID."
+
+#: classes/Column/Placeholder.php:47
+msgid "Admin Columns Pro offers full support for %s, allowing you to easily manage %s fields for your overviews."
+msgstr "Admin Columns Pro biedt volledige ondersteuning voor %s, zodat je eenvoudig %s velden kunt beheren voor je overzichten."
+
+#: classes/Column/Placeholder.php:44
+msgid "%s support is only available in Admin Columns Pro."
+msgstr "Ondersteuning voor %s is alleen beschikbaar in Admin Columns Pro."
+
+#: classes/Check/AddonAvailable.php:76
+msgid "Did you know Admin Columns Pro has full support for %s?"
+msgstr "Wist je dat Admin Columns Pro volledige ondersteuning heeft voor %s?"
 
 #: templates/tooltip/sorting-include-empty.php:17
 msgid "Read more &raquo;"
@@ -29,10 +80,10 @@ msgid "Show or hide elements from the table list screen."
 msgstr "Toon of verberg elementen van de tabel lijst scherm."
 
 #: templates/admin/list-screen-settings-mockup.php:48
-msgid "Toggle Elements"
-msgstr "Toggle elementen"
+msgid "Table Elements"
+msgstr "Tabel elementen"
 
-#: classes/Table/Screen.php:251
+#: classes/Table/Screen.php:239
 msgid "Loading..."
 msgstr "Aan het laden..."
 
@@ -46,7 +97,7 @@ msgstr "Insluiten"
 
 #: classes/Settings/Column/User.php:87
 msgid "User Website"
-msgstr "Gebruiker Site"
+msgstr "Gebruiker site"
 
 #: classes/Settings/Column/Post.php:72
 msgid "No title"
@@ -101,7 +152,7 @@ msgstr "Kbps"
 #: classes/Settings/Column/FileMetaAudio.php:26
 #: classes/Settings/Column/FileMetaVideo.php:30
 msgid "Sample Rate"
-msgstr "Steekproefsnelheid"
+msgstr "Sample rate"
 
 #: classes/Settings/Column/FileMetaAudio.php:24
 #: classes/Settings/Column/FileMetaVideo.php:29
@@ -120,7 +171,7 @@ msgstr "Bestandsgrootte"
 #: classes/Settings/Column/FileMetaAudio.php:20
 #: classes/Settings/Column/FileMetaVideo.php:14
 msgid "Fileformat"
-msgstr "Bestands format"
+msgstr "Bestandsformat"
 
 #: classes/Settings/Column/FileMetaAudio.php:19
 msgid "Encoder Options"
@@ -211,15 +262,15 @@ msgstr "Audiospeler"
 
 #: classes/Integration/JetEngine.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your JetEngine contents on any admin list table."
-msgstr "Toon, inline- en bulk-edit, export, slim filteren en sorteren van je JetEngine inhoud op elke beheer lijst tabel."
+msgstr "Toon, inline- en bulk-bewerken, export, slim filteren en sorteren van je JetEngine inhoud op elke beheerder lijst tabel."
 
 #: classes/Integration/JetEngine.php:18
 msgid "Integrates JetEngine with Admin Columns."
-msgstr "Integreert JetEngine met beheer kolommen."
+msgstr "Integreert JetEngine met Admin Columns."
 
 #: templates/admin/page/settings-section-restore.php:4
 msgid "Restore settings"
-msgstr "Instellingen herstellen"
+msgstr "Instellingen terugzetten"
 
 #: templates/admin/page/settings-section-pro-cta.php:159
 msgid "Upgrade to Admin Columns Pro"
@@ -243,7 +294,7 @@ msgstr "Alle integratie add-ons"
 
 #: templates/admin/page/settings-section-pro-cta.php:133
 msgid "Manage columns for your Taxonomy overview pages"
-msgstr "Kolommen beheren voor je Taxonomie overzichtspagina's"
+msgstr "Kolommen beheren voor je taxonomie overzichtspagina's"
 
 #: templates/admin/page/settings-section-pro-cta.php:132
 msgid "Taxonomy Support"
@@ -263,7 +314,7 @@ msgstr "En natuurlijk kunnen alle netwerksites beheer-kolommen gebruiken."
 
 #: templates/admin/page/settings-section-pro-cta.php:117
 msgid "Get insights about your entire network of sites."
-msgstr "Krijg inzicht in het hele netwerk van sites."
+msgstr "Krijg inzicht in je hele netwerk van sites."
 
 #: templates/admin/page/settings-section-pro-cta.php:114
 msgid "Multisite Support"
@@ -291,7 +342,7 @@ msgstr "Meer kolommen nodig dan de grootte van het scherm?"
 
 #: templates/admin/page/settings-section-pro-cta.php:85
 msgid "With Bulk Edit you can update thousands of values at once."
-msgstr "Met bulk edit kun je duizenden waarden tegelijk updaten."
+msgstr "Met bulk bewerken, kan je duizenden waarden tegelijk updaten."
 
 #: templates/admin/page/settings-section-pro-cta.php:84
 msgid "Need to update multiple values at once?"
@@ -323,7 +374,7 @@ msgstr "Maak voorinstellingen voor meerdere kolommen."
 
 #: templates/admin/page/settings-section-pro-cta.php:50
 msgid "Need certain columns for certain tasks?"
-msgstr "Hebt je bepaalde kolommen nodig voor bepaalde taken?"
+msgstr "Heb je bepaalde kolommen nodig voor bepaalde taken?"
 
 #: templates/admin/page/settings-section-pro-cta.php:47
 msgid "Multiple Table Views"
@@ -398,7 +449,7 @@ msgstr "Zoeken"
 
 #: templates/admin/list-screen-settings-mockup.php:63
 msgid "Status (Quick Links)"
-msgstr "Status (snelkoppelingen)"
+msgstr "Status (snelle links)"
 
 #: templates/admin/list-screen-settings-mockup.php:59
 msgid "Filters"
@@ -431,7 +482,7 @@ msgstr "Meer details"
 
 #: classes/Integration/YoastSeo.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Yoast SEO contents on any admin list table."
-msgstr "Toon, inline- en bulk edit, export, slim filteren en sorteren van je Yoast SEO inhoud op elke beheer lijst tabel."
+msgstr "Toon, inline- en bulk-bewerken, export, slim filteren en sorteren van je Yoast SEO inhoud op elke beheerder lijst tabel."
 
 #: classes/Integration/YoastSeo.php:18 classes/Integration/YoastSeo.php:19
 msgid "Yoast SEO"
@@ -439,7 +490,7 @@ msgstr "Yoast SEO"
 
 #: classes/Integration/WooCommerce.php:21
 msgid "Display, inline- and bulk-edit, smart filter and sort your Products, Variations, Orders and Customers"
-msgstr "Display, inline- en bulk-edit, slim filteren en sorteren van producten, variaties, bestellingen en klanten"
+msgstr "Tonen, inline en bulk bewerken, slim filteren en sorteren van producten, variaties, bestellingen en klanten"
 
 #: classes/Integration/MetaBox.php:19 classes/Integration/Pods.php:19
 #: classes/Integration/Types.php:19
@@ -448,7 +499,7 @@ msgstr "Toon, inline- en bulk edit, exporteren, slim filteren en sorteren van je
 
 #: classes/Integration/GravityForms.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your %s Entries."
-msgstr "Toon, inline- en bulk edit, exporteren, slim filteren en sorteren van je %s vermeldingen."
+msgstr "Toon, inline- en bulk-bewerken, exporteren, slim filteren en sorteren van je %s ingaves."
 
 #: classes/Integration/GravityForms.php:20
 #: classes/Integration/GravityForms.php:21
@@ -457,11 +508,11 @@ msgstr "Gravity Forms"
 
 #: classes/Integration/EventsCalendar.php:21
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Events, Organizers and Venues."
-msgstr "Toon, inline- en bulk edit, exporteren, slim filteren en sorteren van evenementen, organisatoren en locaties."
+msgstr "Toon, inline- en bulk-bewerken, exporteren, slim filteren en sorteren van je evenementen, organisatoren en locaties."
 
 #: classes/Integration/BuddyPress.php:20
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your BuddyPress data fields on the Users page."
-msgstr "Toon, inline- en bulk edit, exporteren, slim filteren en sorteren van je BuddyPress gegevensvelden op de gebruikerspagina."
+msgstr "Toon, inline- en bulk-bewerken, exporteren, slim filteren en sorteren van je BuddyPress gegevensvelden op de gebruikerspagina."
 
 #: classes/Integration/BuddyPress.php:19
 #: classes/Integration/EventsCalendar.php:20
@@ -469,23 +520,23 @@ msgstr "Toon, inline- en bulk edit, exporteren, slim filteren en sorteren van je
 #: classes/Integration/Pods.php:18 classes/Integration/Types.php:18
 #: classes/Integration/WooCommerce.php:20 classes/Integration/YoastSeo.php:18
 msgid "Integrates %s with Admin Columns."
-msgstr "Integreert %s met beheerderskolommen."
+msgstr "Integreert %s met Admin Columns."
 
 #: classes/Integration/ACF.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your ACF contents on any admin list table."
-msgstr "Toon, inline en bulk-bewerk, export, slim filter en sorteer je ACF-inhoud op elke beheer lijsttabel."
+msgstr "Toon, inline en bulk-bewerk, export, slim filter en sorteer je ACF inhoud op elke beheer lijsttabel."
 
 #: classes/Integration/ACF.php:18
 msgid "Integrates ACF with Admin Columns."
-msgstr "Integreert ACF met beheerderskolommen."
+msgstr "Integreert ACF met Admin Columns."
 
 #: classes/Admin/Section/ProCta.php:19
 msgid "Upgrade to Admin Columns Pro and unlock all the awesome features."
 msgstr "Upgrade naar Admin Columns Pro en ontgrendel alle geweldige functies."
 
-#: classes/Admin/Asset/Addons.php:21
+#: classes/Admin/Asset/Addons.php:19
 msgid "The Add-on %s is activated."
-msgstr "De Add-on %s is geactiveerd."
+msgstr "De add-on %s is geactiveerd."
 
 #: classes/Column/Media/Album.php:15
 msgid "Album"
@@ -510,14 +561,6 @@ msgstr "Eerste bericht"
 #: classes/Settings/Column/PostStatus.php:33
 msgid "Post Status"
 msgstr "Berichtstatus"
-
-#: classes/Column/Placeholder.php:45
-msgid "Download & install the %s add-on from the <a href='%s'>add-ons tab</a>."
-msgstr "Download en installeer de %s add-on van het <a href='%s'>add-ons tabblad</a>."
-
-#: classes/Column/Placeholder.php:43
-msgid "The %s column is only available if you have installed the add-on."
-msgstr "De %s kolom is alleen beschikbaar als je de add-on hebt geïnstalleerd."
 
 #: templates/settings/setting-label-icons.php:51
 msgid "Misc"
@@ -549,7 +592,7 @@ msgstr "Sociaal"
 
 #: templates/settings/setting-label-icons.php:42
 msgid "Posts Screen"
-msgstr "Berichten-scherm"
+msgstr "Berichten scherm"
 
 #: templates/settings/setting-label-icons.php:41
 msgid "TinyMCE"
@@ -592,7 +635,7 @@ msgstr "Exporteer tabelinhouden naar CSV"
 #: templates/tooltip/inline-editing.php:25
 #: templates/tooltip/smart-filtering.php:28 templates/tooltip/sorting.php:29
 msgid "Learn more &raquo;"
-msgstr "Lees meer &raquo;"
+msgstr "Leer meer &raquo;"
 
 #: classes/Column/User/Login.php:24
 msgid "Super Admin"
@@ -608,11 +651,11 @@ msgstr "Kolomnaam"
 
 #: classes/Admin/ScreenOption/ListScreenType.php:32
 msgid "List Screen Key"
-msgstr "Lijst scherm-sleutel"
+msgstr "Lijst scherm sleutel"
 
 #: classes/Admin/ScreenOption/ListScreenId.php:32
 msgid "List Screen ID"
-msgstr "Lijst scherm-ID"
+msgstr "Lijst scherm ID"
 
 #: classes/Column/User/FullName.php:11 classes/Settings/Column/User.php:79
 msgid "Full Name"
@@ -637,15 +680,15 @@ msgstr "Bulkbewerking"
 
 #: templates/tooltip/bulk-editing.php:18
 msgid "Clicking the %s button will display a popup that allows you to add or change the current value of all selected items."
-msgstr "Als je op de knop %s klikt, wordt er een pop-up weergegeven waarin je de huidige waarde van alle geselecteerde items kan toevoegen of wijzigen."
+msgstr "Als je op de knop %s klikt, wordt er een pop-up getoond waarin je de huidige waarde van alle geselecteerde items kan toevoegen of wijzigen."
 
 #: templates/tooltip/bulk-editing.php:13
 msgid "Select more than one row from the list table to show the bulk edit buttons."
-msgstr "Selecteer meer dan één rij in de lijsttabel om de knoppen voor bulkbewerking weer te geven."
+msgstr "Selecteer meer dan één rij in de lijsttabel om de knoppen voor bulkbewerking te tonen."
 
 #: templates/tooltip/bulk-editing.php:10
 msgid "Bulk Edit allows you to update multiple values at once."
-msgstr "Met Bulk Edit kan je meerdere waarden tegelijk bijwerken."
+msgstr "Met bulk bewerken kan je meerdere waarden tegelijk updaten."
 
 #: templates/tooltip/sorting.php:25
 msgid "You can change the default sorted column in the optional settings below."
@@ -653,11 +696,11 @@ msgstr "Je kan de standaard gesorteerde kolom wijzigen in de optionele instellin
 
 #: templates/tooltip/sorting.php:20
 msgid "Reset Sorting"
-msgstr "Sortering opnieuw instellen"
+msgstr "Sortering resetten"
 
 #: templates/tooltip/sorting.php:19
 msgid "Reset the sorting by clicking the %s button."
-msgstr "Reset de sortering door op de %s-knop te klikken."
+msgstr "Reset de sortering door op de %s knop te klikken."
 
 #: templates/tooltip/sorting.php:15
 msgid "When you come back the content is sorted just the way you left it."
@@ -669,37 +712,37 @@ msgstr "De gesorteerde kolom wordt opgeslagen als je persoonlijke voorkeur."
 
 #: templates/tooltip/sorting.php:10
 msgid "Sort by clicking the column header on the list table. Click the column header again to switch between <em>ascending</em> and <em>descending</em>."
-msgstr "Sorteer door op de kolomkop in de lijsttabel te klikken. Klik nogmaals op de kolomkop om te schakelen tussen <em> oplopend </em> en <em> aflopend </em>."
+msgstr "Sorteer door op de kolom header in de lijsttabel te klikken. Klik nogmaals op de kolom header om te wisselen tussen <em>oplopend</em> en <em>aflopend</em>."
 
 #: templates/admin/list-screen-settings-mockup.php:60
 #: templates/admin/page/settings-section-pro-cta.php:29
-#: templates/tooltip/filtering.php:13
+#: templates/tooltip/filtering.php:11
 msgid "Smart Filters"
 msgstr "Slimme filters"
 
-#: templates/tooltip/filtering.php:13
+#: templates/tooltip/filtering.php:11
 msgid "We recommend using %s"
-msgstr "We raden aan %s \"te gebruiken"
+msgstr "We raden aan %s te gebruiken"
 
-#: templates/tooltip/filtering.php:20
+#: templates/tooltip/filtering.php:18
 msgid "%s also has better support for all the different types of fields, such as text, numbers and dates."
 msgstr "%s heeft ook een betere ondersteuning voor alle verschillende soorten velden, zoals tekst, cijfers en datums."
 
-#: templates/tooltip/filtering.php:17
+#: templates/tooltip/filtering.php:15
 msgid "Finding the right content will be much easier with the use of conditionals, such as %s."
 msgstr "Het vinden van de juiste inhoud wordt veel gemakkelijker met het gebruik van conditionals, zoals %s."
 
-#: templates/tooltip/filtering.php:16
+#: templates/tooltip/filtering.php:14
 msgid "%s is an improved version of %s."
 msgstr "%s is een verbeterde versie van %s."
 
-#: templates/tooltip/filtering.php:10
+#: templates/tooltip/filtering.php:9
 msgid "Filters vs Smart Filters"
 msgstr "Filters versus slimme filters"
 
 #: templates/tooltip/filtering.php:6
 msgid "You can filter the contents by selecting the column value from the filter dropdown menu."
-msgstr "Je kan de inhoud filteren door de kolomwaarde te selecteren in het vervolgkeuzemenu voor filters."
+msgstr "Je kan de inhoud filteren door de kolomwaarde te selecteren in het dropdown menu voor filters."
 
 #: templates/tooltip/filtering.php:5
 msgid "This will allow the column to be filtered."
@@ -730,7 +773,7 @@ msgstr "Je kan filters gebruiken om je lijst te segmenteren voordat je ze export
 
 #: templates/tooltip/export.php:17
 msgid "The result is a CSV file."
-msgstr "Het resultaat is een CSV-bestand."
+msgstr "Het resultaat is een CSV bestand."
 
 #: templates/tooltip/export.php:13
 msgid "Click the export button and all items will be exported to CSV."
@@ -742,28 +785,28 @@ msgstr "Exporteren voor Admin Columns Pro, hiermee kan je de inhoud van je kolom
 
 #: templates/tooltip/inline-editing.php:21
 msgid "It is possible to undo and redo all changes made with Inline Editing, so using it is without risk."
-msgstr "Het is mogelijk om alle wijzigingen die zijn aangebracht met Inline Editing ongedaan te maken en opnieuw uit te voeren, dus het gebruik ervan is zonder risico."
+msgstr "Het is mogelijk om alle wijzigingen die zijn aangebracht met inline bewerken ongedaan te maken en opnieuw uit te voeren, dus het gebruik ervan is zonder risico."
 
 #: templates/tooltip/inline-editing.php:17
 msgid "Click on the pencil icon to start editing the value of a field."
-msgstr "Klik op het potloodpictogram om de waarde van een veld te bewerken."
+msgstr "Klik op het potlood pictogram om de waarde van een veld te bewerken."
 
 #: templates/tooltip/custom-field.php:10
 #: templates/tooltip/inline-editing.php:13
 msgid "To start inline editing, toggle the “Inline Edit” button on top of the list table."
-msgstr "Om te beginnen met inline bewerken, schakel je de knop \"Inline bewerken\" bovenaan de lijsttabel."
+msgstr "Om te beginnen met inline bewerken, toggle je de knop \"Inline bewerken\" bovenaan de lijsttabel."
 
 #: templates/tooltip/inline-editing.php:10
 msgid "With Inline Edit, you can update your content quick and easy, without having to open each %s one at the time."
-msgstr "Met Inline Edit kan je je inhoud snel en gemakkelijk bijwerken, zonder dat je elke %s een voor een hoeft te openen."
+msgstr "Met inline bewerken kan je je inhoud snel en gemakkelijk bijwerken, zonder dat je elke %s een voor een hoeft te openen."
 
 #: templates/admin/modal-pro.php:26
 msgid "Create multiple list table views with different columns."
-msgstr "Maak meerdere lijsttabelweergaven met verschillende kolommen."
+msgstr "Maak meerdere lijst tabel weergaven met verschillende kolommen."
 
 #: templates/admin/modal-pro.php:24
 msgid "Quick edit any content with Inline Editing, including custom fields."
-msgstr "Bewerk snel alle inhoud met Inline Editing, inclusief aangepaste velden."
+msgstr "Bewerk snel alle inhoud met inline bewerken, inclusief aangepaste velden."
 
 #: templates/admin/modal-pro.php:22
 msgid "Search the contents of your columns."
@@ -772,7 +815,7 @@ msgstr "Doorzoek de inhoud van je kolommen."
 #: classes/Integration/MetaBox.php:14 classes/Integration/MetaBox.php:18
 #: classes/Integration/MetaBox.php:19
 msgid "Meta Box"
-msgstr "Meta Box"
+msgstr "Meta box"
 
 #: classes/Admin/ScreenOption/ColumnType.php:32
 msgid "Column Type"
@@ -783,7 +826,7 @@ msgid "No deprecated hooks or filters found."
 msgstr "Geen verouderde hooks of filters gevonden."
 
 #: classes/Settings/Column/Pro/SmartFiltering.php:11
-#: templates/tooltip/filtering.php:16 templates/tooltip/filtering.php:20
+#: templates/tooltip/filtering.php:14 templates/tooltip/filtering.php:18
 #: templates/tooltip/smart-filtering.php:6
 msgid "Smart Filtering"
 msgstr "Slim filteren"
@@ -810,15 +853,15 @@ msgstr "Bewerk alle inhoud in bulk, inclusief aangepaste velden."
 
 #: templates/admin/loading-message.php:11
 msgid "Loading Columns"
-msgstr "Kolommen laden"
+msgstr "Kolommen aan het laden"
 
 #: templates/admin/edit-submenu.php:10
 msgid "Column Sets"
 msgstr "Kolomsets"
 
-#: classes/PluginActionLinks.php:60
+#: classes/PluginActionLinks.php:66
 msgid "Go Pro"
-msgstr "Go Pro"
+msgstr "Ga voor Pro"
 
 #: classes/Plugin/Update/V4000.php:550
 msgid "Original"
@@ -842,7 +885,7 @@ msgstr "Opgemaakt"
 
 #: classes/Settings/Column/NumberFormat.php:69
 msgid "Thousands separator"
-msgstr "Duizenden scheidingstekens"
+msgstr "Scheidingsteken duizendtallen"
 
 #: classes/Settings/Column/NumberFormat.php:58
 msgid "Decimal point"
@@ -864,7 +907,7 @@ msgstr "Filteren op term"
 msgid "%s Off from Black Friday to Cyber Monday"
 msgstr "%s korting van Black Friday tot Cyber ​​Monday"
 
-#: classes/Check/Promotion.php:73
+#: classes/Check/Promotion.php:75
 msgid "Get %s now"
 msgstr "Download %s nu"
 
@@ -876,11 +919,11 @@ msgstr "%s meer"
 msgid "View Comment"
 msgstr "Reactie bekijken"
 
-#: classes/Admin/Asset/Columns.php:59
+#: classes/Admin/Asset/Columns.php:65
 msgid "The column could not be loaded because of an unknown error"
 msgstr "De kolom kan niet worden geladen vanwege een onbekende fout"
 
-#: classes/Admin/Asset/Columns.php:58
+#: classes/Admin/Asset/Columns.php:64
 msgid "There was an error during saving the column settings."
 msgstr "Er is een fout opgetreden bij het opslaan van de kolominstellingen."
 
@@ -890,15 +933,15 @@ msgstr "Bevat speciale integraties voor:"
 
 #: templates/admin/side-banner.php:42
 msgid "Inline Edit any content"
-msgstr "Inline Bewerk elke inhoud"
+msgstr "Elke inhoud inline bewerken"
 
 #: templates/admin/side-banner.php:45
 msgid "Filter any content"
-msgstr "Filter content"
+msgstr "Filter elke inhoud"
 
 #: templates/admin/side-banner.php:44
 msgid "Sort any content"
-msgstr "Sorteer alle content"
+msgstr "Sorteer alle inhoud"
 
 #: templates/admin/side-banner.php:43
 msgid "Bulk Edit any content"
@@ -906,7 +949,7 @@ msgstr "Alle inhoud in bulk bewerken"
 
 #: templates/admin/side-banner.php:41
 msgid "Search any content"
-msgstr "Zoek door alle content"
+msgstr "Zoek door alle inhoud"
 
 #: templates/settings/setting-label-icons.php:74
 msgid "Select"
@@ -914,7 +957,7 @@ msgstr "Selecteer"
 
 #: templates/settings/setting-label-icons.php:24
 msgid "Select Icon"
-msgstr "Selecteer Icoon"
+msgstr "Selecteer pictogram"
 
 #: classes/Settings/Column/PathScope.php:28
 msgid "Local Path"
@@ -927,15 +970,11 @@ msgstr "Events Calendar"
 
 #: classes/Settings/Column/CustomFieldType.php:90
 msgid "Uses one or more %s IDs to display information about it."
-msgstr "Gebruikt een of meer %s ID's om er informatie over weer te geven."
-
-#: classes/Check/Review.php:193
-msgid "You can also use your admincolumns.com account to access support through %s!"
-msgstr "Je kan ook je admincolumns.com-account gebruiken om toegang te krijgen tot ondersteuning via %s!"
+msgstr "Gebruikt een of meer %s ID's om er informatie over te tonen."
 
 #: templates/admin/help-tab/custom-fields.php:59
 msgid "Value: Should contain one or more User IDs, separated by commas."
-msgstr "Waarde: moet een of meer gebruikers-ID's bevatten, gescheiden door komma's."
+msgstr "Waarde: moet een of meer gebruiker ID's bevatten, gescheiden door komma's."
 
 #: templates/admin/help-tab/custom-fields.php:55
 msgid "Value: Should contain a URL."
@@ -948,19 +987,19 @@ msgstr "URL"
 
 #: templates/admin/help-tab/custom-fields.php:47
 msgid "Value: Should contain one or more Post IDs, separated by commas."
-msgstr "Waarde: moet een of meer bericht-ID's bevatten, gescheiden door komma's."
+msgstr "Waarde: moet een of meer bericht ID's bevatten, gescheiden door komma's."
 
 #: templates/admin/help-tab/custom-fields.php:35
 msgid "Value: Should contain one or more Attachment IDs, separated by commas."
-msgstr "Waarde: moet een of meer bijlage-ID's bevatten, gescheiden door komma's."
+msgstr "Waarde: moet een of meer bijlage ID's bevatten, gescheiden door komma's."
 
 #: templates/admin/help-tab/custom-fields.php:31
 msgid "Value: Should contain one or more Image URLs or Attachment IDs, separated by commas."
-msgstr "Waarde: moet een of meer afbeeldings-URL's of bijlage-ID's bevatten, gescheiden door komma's."
+msgstr "Waarde: moet een of meer afbeelding URL's of bijlage ID's bevatten, gescheiden door komma's."
 
 #: templates/admin/help-tab/custom-fields.php:27
 msgid "Value: This will show if the field has content or not."
-msgstr "Waarde: dit wordt weergegeven als het veld inhoud heeft of niet."
+msgstr "Waarde: getoond als het veld inhoud heeft of niet."
 
 #: classes/Settings/Column/Pro/Sorting.php:11
 #: templates/admin/list-screen-settings-mockup.php:101
@@ -970,7 +1009,7 @@ msgstr "Waarde: dit wordt weergegeven als het veld inhoud heeft of niet."
 msgid "Sorting"
 msgstr "Sorteren"
 
-#: templates/tooltip/filtering.php:2 templates/tooltip/filtering.php:16
+#: templates/tooltip/filtering.php:2 templates/tooltip/filtering.php:14
 msgid "Filtering"
 msgstr "Filteren"
 
@@ -982,11 +1021,11 @@ msgstr "Export"
 
 #: templates/admin/page/settings-section-pro-cta.php:74
 msgid "Edit your content directly from the overview."
-msgstr "Wijzig je content direct vanaf het overzicht."
+msgstr "Bewerk je inhoud direct vanaf het overzicht."
 
 #: templates/admin/modal-pro.php:33
 msgid "Only %s for 1 site"
-msgstr "Vanaf %s for 1 site"
+msgstr "Vanaf %s voor 1 site"
 
 #: templates/admin/modal-pro.php:27
 msgid "Get add-ons for ACF, WooCommerce and many more"
@@ -1002,7 +1041,7 @@ msgstr "Sorteer en filter op al je inhoud."
 
 #: templates/admin/modal-pro.php:18
 msgid "Upgrade to PRO, and take Admin Columns to the next level:"
-msgstr "Upgrade naar PRO en breng Admin Columns naar het volgende niveau"
+msgstr "Upgrade naar PRO en breng Admin Columns naar het volgende niveau:"
 
 #: templates/admin/modal-pro.php:11
 msgid "Do you like Admin Columns?"
@@ -1014,7 +1053,7 @@ msgstr "Selecteer een type"
 
 #: classes/Settings/Column/Time.php:19
 msgid "WordPress Time Format"
-msgstr "WordPress tijd formaat"
+msgstr "WordPress tijd format"
 
 #: classes/Settings/Column/Time.php:13
 msgid "This will determine how the time will be displayed."
@@ -1022,7 +1061,7 @@ msgstr "Dit bepaalt hoe de tijd getoond wordt."
 
 #: classes/Settings/Column/Time.php:12
 msgid "Time Format"
-msgstr "Tijd format"
+msgstr "Tijdformat"
 
 #: classes/Settings/Column/StringLimit.php:35
 msgid "No limit"
@@ -1037,8 +1076,8 @@ msgid "Text Limit"
 msgstr "Tekstlimiet"
 
 #: classes/Column/Media/Download.php:11
-#: classes/Settings/Column/MediaLink.php:64 classes/Table/Screen.php:149
-#: classes/Table/Screen.php:151 classes/Table/Screen.php:253
+#: classes/Settings/Column/MediaLink.php:64 classes/Table/Screen.php:154
+#: classes/Table/Screen.php:156 classes/Table/Screen.php:241
 msgid "Download"
 msgstr "Download"
 
@@ -1064,7 +1103,7 @@ msgstr "Bewerk %s"
 
 #: classes/Settings/Column/PostFormatIcon.php:30
 msgid "Use an icon instead of text for displaying."
-msgstr "Vertoon met een icoon in plaats van tekst."
+msgstr "Toon een pictogram in plaats van tekst."
 
 #: classes/Settings/Column/Post.php:98
 msgctxt "post"
@@ -1081,11 +1120,11 @@ msgstr "Hoeveelheid items"
 
 #: classes/Settings/Column/MissingImageSize.php:28
 msgid "Include sizes that are missing an image file."
-msgstr "Gebruik ook groottes zonder afbeeldingsbestand."
+msgstr "Inclusief groottes zonder afbeeldingsbestand."
 
 #: classes/Settings/Column/MissingImageSize.php:27
 msgid "Include missing sizes?"
-msgstr "Gebruik ook ontbrekende groottes?"
+msgstr "Inclusief ontbrekende groottes?"
 
 #: classes/Settings/Column/Meta.php:135
 msgid "Site Options"
@@ -1099,7 +1138,7 @@ msgstr "huidig"
 #: classes/Helper/Select/Group/CustomField/MultiSite.php:28
 #: classes/Settings/Column/Meta.php:126
 msgid "Network Site:"
-msgstr "Netwerk site"
+msgstr "Netwerk site:"
 
 #: classes/Settings/Column/Meta.php:118
 msgid "Hidden"
@@ -1111,7 +1150,7 @@ msgstr "Publiek"
 
 #: classes/Settings/Column/ExifData.php:83
 msgid "Keywords"
-msgstr "Trefwoorden"
+msgstr "Keywords"
 
 #: classes/Settings/Column/ExifData.php:82
 msgid "Orientation"
@@ -1147,7 +1186,7 @@ msgstr "Reacties toestaan"
 
 #: classes/Column/Post/BeforeMoreTag.php:15
 msgid "More Tag"
-msgstr "More Tag"
+msgstr "Meer tag"
 
 #: classes/Column/Menu.php:18
 msgid "Menu"
@@ -1167,7 +1206,7 @@ msgstr "Ontbrekend afbeeldingsbestand voor grootte %s."
 
 #: classes/Column/Media/AvailableSizes.php:39
 msgid "original"
-msgstr "Origineel"
+msgstr "origineel"
 
 #: classes/Column/Media/AlternateText.php:15
 msgid "Alternative Text"
@@ -1179,7 +1218,7 @@ msgstr "Wachtwoord beschermd"
 
 #: classes/Helper/Post.php:138
 msgid "Pending for review"
-msgstr "Wachtend op beoordeling"
+msgstr "In afwachting van beoordeling"
 
 #: classes/Helper/Post.php:135
 msgid "Draft"
@@ -1195,14 +1234,14 @@ msgstr "Privé"
 
 #: classes/Settings/Column/StatusIcon.php:30
 msgid "Use an icon instead of text for displaying the status."
-msgstr "Toon een icoon in plaats van een tekst voor het tonen van de status."
+msgstr "Toon een pictogram in plaats van een tekst voor de status te tonen."
 
 #: classes/Settings/Column/PostFormatIcon.php:29
 #: classes/Settings/Column/StatusIcon.php:29
 msgid "Use an icon?"
-msgstr "Icoon gebruiken?"
+msgstr "Pictogram gebruiken?"
 
-#: classes/Helper/Strings.php:142
+#: classes/Helper/Strings.php:160
 msgid "&hellip;"
 msgstr "&hellip;"
 
@@ -1230,25 +1269,25 @@ msgstr "Prijzen vanaf %s"
 msgid "BuddyPress"
 msgstr "BuddyPress"
 
-#: classes/Controller/AjaxColumnModalValue.php:58
-#: classes/Controller/AjaxColumnValue.php:58
+#: classes/Controller/AjaxColumnModalValue.php:69
+#: classes/Controller/AjaxColumnValue.php:64
 msgid "Invalid method."
 msgstr "Ongeldige methode."
 
-#: classes/Controller/AjaxColumnModalValue.php:54
-#: classes/Controller/AjaxColumnValue.php:54
+#: classes/Controller/AjaxColumnModalValue.php:65
+#: classes/Controller/AjaxColumnValue.php:60
 msgid "Invalid column."
 msgstr "Ongeldige kolom."
 
-#: classes/Controller/AjaxColumnModalValue.php:48
-#: classes/Controller/AjaxColumnValue.php:48
+#: classes/Controller/AjaxColumnModalValue.php:59
+#: classes/Controller/AjaxColumnValue.php:54
 msgid "Invalid list screen."
-msgstr "Ongeldige lijst-weergave."
+msgstr "Ongeldige lijst weergave."
 
-#: classes/Controller/AjaxColumnModalValue.php:42
+#: classes/Controller/AjaxColumnModalValue.php:46
 #: classes/Controller/AjaxColumnValue.php:42
 msgid "Invalid item ID."
-msgstr "Ongeldig item-ID."
+msgstr "Ongeldig item ID."
 
 #: classes/Settings/Column/WordsPerMinute.php:33
 msgid "By default: %s"
@@ -1267,7 +1306,7 @@ msgstr "Woordlimiet"
 msgid "Auto"
 msgstr "Auto"
 
-#: classes/Admin/AdminLoader.php:107
+#: classes/Admin/AdminLoader.php:98
 #: classes/Settings/Column/AttachmentDisplay.php:42
 #: classes/Settings/Column/Comment.php:113 classes/Settings/Column/Post.php:86
 #: classes/Settings/Column/Term.php:36 classes/Settings/Column/User.php:55
@@ -1277,13 +1316,9 @@ msgstr "Tonen"
 
 #: classes/Settings/Column/Taxonomy.php:44
 msgid "No taxonomies available."
-msgstr "Geen taxonomiën beschikbaar."
+msgstr "Geen taxonomieën beschikbaar."
 
-#: classes/Settings/Column/Separator.php:35
-msgid "Select a repeater sub field."
-msgstr "Selecteer een repeater-subveld"
-
-#: classes/Settings/Column/Separator.php:34
+#: classes/Settings/Column/Separator.php:42
 msgid "Separator"
 msgstr "Scheidingsteken"
 
@@ -1292,10 +1327,10 @@ msgid "Whitespace"
 msgstr "Witruimte"
 
 #: classes/Settings/Column/Separator.php:28
-msgid "New line"
+msgid "New Line"
 msgstr "Nieuwe regel"
 
-#: classes/Settings/Column/Separator.php:27
+#: classes/Settings/Column/Separator.php:26
 msgid "Comma Separated"
 msgstr "Kommagescheiden"
 
@@ -1340,21 +1375,21 @@ msgstr "in %s"
 msgid "%s ago"
 msgstr "%s geleden"
 
-#: classes/Settings/Column/DateTimeFormat.php:116
+#: classes/Settings/Column/DateTimeFormat.php:121
 msgid "date and time formatting"
-msgstr "datum- en tijdopmaak"
+msgstr "datum en tijd notatie"
 
-#: classes/Settings/Column/DateTimeFormat.php:116
+#: classes/Settings/Column/DateTimeFormat.php:121
 msgid "Learn more about %s."
 msgstr "Leer meer over %s."
 
-#: classes/Settings/Column/DateTimeFormat.php:114
+#: classes/Settings/Column/DateTimeFormat.php:119
 msgid "Custom:"
 msgstr "Aangepast:"
 
 #: classes/Settings/Column/DateTimeFormat.php:43
 msgid "The %s can be changed in %s."
-msgstr "De %s kun je aanpassen in %s."
+msgstr "De %s kan je aanpassen in %s."
 
 #: classes/Settings/Column/Date.php:23
 msgid "WordPress Date Format"
@@ -1399,7 +1434,7 @@ msgstr "Aantal velden"
 #: classes/Settings/Column/CustomFieldType.php:129
 #: templates/admin/help-tab/custom-fields.php:50
 msgid "True / False"
-msgstr "True / false"
+msgstr "Waar / Niet waar"
 
 #: classes/Settings/Column/CustomFieldType.php:128
 #: templates/admin/help-tab/custom-fields.php:26
@@ -1417,7 +1452,7 @@ msgstr "Tekst"
 
 #: classes/Settings/Column/CustomFieldType.php:91
 msgid "Multiple IDs should be separated by commas."
-msgstr "Meerdere ID's moeten worden gescheiden door een komma. "
+msgstr "Meerdere ID's moeten worden gescheiden door een komma's."
 
 #: classes/Settings/Column/CustomField.php:27
 #: classes/Settings/Column/Meta.php:73
@@ -1432,7 +1467,7 @@ msgstr "Laat leeg voor geen limiet"
 
 #: classes/Settings/Column/CharacterLimit.php:29
 msgid "Maximum number of characters"
-msgstr "Maximum aantal karakters."
+msgstr "Maximum aantal karakters"
 
 #: classes/Settings/Column/CharacterLimit.php:28
 #: classes/Settings/Column/StringLimit.php:36
@@ -1447,7 +1482,7 @@ msgstr "Weergaveopties"
 msgid "This text will appear after the column value."
 msgstr "Deze tekst zal na de kolomwaarde verschijnen."
 
-#: classes/Helper/Strings.php:332
+#: classes/Helper/Strings.php:350
 msgid " or "
 msgstr " of "
 
@@ -1486,11 +1521,11 @@ msgstr "Korting is geldig tot %s"
 
 #: classes/Admin/Section/Partial/ShowEditButton.php:21
 msgid "Show %s button on table screen."
-msgstr "Toon %s-knop bij tabel-weergave."
+msgstr "Toon %s knop bij tabel scherm."
 
 #: classes/Admin/Tooltip.php:26
 msgid "Notice"
-msgstr "Opmerking"
+msgstr "Melding"
 
 #: classes/Admin/Tooltip.php:27
 msgid "Instructions"
@@ -1516,15 +1551,15 @@ msgstr[1] "De callbacks die worden gebruikt zijn %s."
 
 #: classes/Admin/Page/Help.php:55
 msgid "View documentation"
-msgstr "Bekijk documentatie."
+msgstr "Bekijk documentatie"
 
 #: classes/Admin/Page/Help.php:87
 msgid "The action %s used on this website is deprecated since %s."
-msgstr "De actie %s die wordt gebruikt op deze website is verouderd sinds %s."
+msgstr "De actie %s die wordt gebruikt op deze site is verouderd sinds %s."
 
 #: classes/Admin/Page/Help.php:116
 msgid "The filter %s used on this website is deprecated since %s."
-msgstr "Het filter %s dat wordt gebruikt op deze website is verouderd sinds %s."
+msgstr "De filter %s dat wordt gebruikt op deze site is verouderd sinds %s."
 
 #: classes/Admin/Page/Help.php:83
 msgid "Deprecated Actions"
@@ -1546,9 +1581,9 @@ msgstr "Sluiten"
 msgid "Clear all columns "
 msgstr "Alle kolommen legen "
 
-#: templates/admin/side-feedback.php:56
+#: classes/Admin/Page/Columns.php:168
 msgid "I'm using Admin Columns for WordPress!"
-msgstr "Ik gebruik Admin Columns voor WordPress."
+msgstr "Ik gebruik Admin Columns voor WordPress!"
 
 #: templates/admin/side-banner.php:114
 msgid "Your First Name"
@@ -1564,28 +1599,28 @@ msgstr "Stuur je e-mail en wij sturen je een code voor %s korting."
 
 #: templates/admin/side-banner.php:93 templates/admin/side-banner.php:104
 msgid "Get %s Off!"
-msgstr "Krijg %s korting."
+msgstr "Krijg %s korting!"
 
 #: templates/admin/side-banner.php:31
 msgid "Pro"
 msgstr "Pro"
 
-#: classes/Controller/ListScreen/Save.php:31
+#: classes/Controller/ListScreen/Save.php:23
 msgid "You need at least one column"
 msgstr "Je hebt minstens één kolom nodig"
 
-#: classes/Admin/Page/Addons.php:144
+#: classes/Admin/Page/Addons.php:128
 msgid "Available"
 msgstr "Beschikbaar"
 
-#: classes/Admin/Page/Addons.php:128
+#: classes/Admin/Page/Addons.php:120
 msgid "Recommended"
-msgstr "Aangeraden"
+msgstr "Aanbevolen"
 
 #: classes/Integration/Types.php:14 classes/Integration/Types.php:18
 #: classes/Integration/Types.php:19
 msgid "Toolset Types"
-msgstr "Toolset-types"
+msgstr "Toolset types"
 
 #: classes/Integration/Pods.php:14 classes/Integration/Pods.php:18
 #: classes/Integration/Pods.php:19
@@ -1594,7 +1629,7 @@ msgstr "Pods"
 
 #: templates/admin/side-banner.php:46
 msgid "Create multiple columns sets"
-msgstr "Maak meerdere kolommenverzamelingen."
+msgstr "Maak meerdere kolom sets"
 
 #: templates/admin/side-banner.php:36
 msgid "Take Admin Columns to the next level:"
@@ -1610,7 +1645,7 @@ msgstr "De kolommen voor %s zijn 'alleen lezen', en kunnen daarom niet bewerkt w
 
 #: classes/Controller/ColumnRequest.php:28
 msgid "Please visit the %s screen once to load all available columns"
-msgstr "Bezoek eenmalig het %s-scherm om alle beschikbare kolommen te laden"
+msgstr "Bezoek eenmalig het %s scherm om alle beschikbare kolommen te laden"
 
 #: templates/admin/edit-actions.php:34 templates/admin/edit-actions.php:37
 msgid "Restore columns"
@@ -1618,35 +1653,27 @@ msgstr "Herstel originele kolommen"
 
 #: classes/Controller/ListScreenRestoreColumns.php:51
 msgid "Settings for %s restored successfully."
-msgstr "Kolom-instellingen voor %s succesvol hersteld in originele staat."
+msgstr "Instellingen voor %s succesvol hersteld."
 
-#: classes/Controller/ListScreen/Save.php:62
+#: classes/Controller/ListScreen/Save.php:54
 msgid "View %s screen"
-msgstr "Bekijk %s-scherm"
+msgstr "Bekijk %s scherm"
 
-#: classes/Admin/Asset/Columns.php:56
+#: classes/Admin/Asset/Columns.php:62
 msgid "Invalid response."
 msgstr "Ongeldige respons."
 
 #: classes/Settings/Column/LinkLabel.php:24
 msgid "Leave blank to display the URL"
-msgstr "Laat leeg om URL weer te geven"
+msgstr "Laat leeg om URL te tonen"
 
 #: classes/Settings/Column/LinkLabel.php:23
 msgid "Link Label"
 msgstr "Link label"
 
-#: classes/Check/AddonAvailable.php:91
-msgid "the addons page"
-msgstr "de add-ons-pagina"
-
-#: classes/Check/AddonAvailable.php:86
-msgid "Did you know Admin Columns Pro has an integration addon for %s? With the proper Admin Columns Pro license, you can download them from %s!"
-msgstr "Wist je dat Admin Columns Pro een add-on heeft voor integratie met %s? Met de juiste licentie kun je onze add-ons downloaden via %s."
-
 #: classes/ColumnGroups.php:15
 msgid "Custom Fields"
-msgstr "Extra velden"
+msgstr "Aangepaste velden"
 
 #. Author of the plugin
 msgid "AdminColumns.com"
@@ -1654,7 +1681,7 @@ msgstr "AdminColumns.com"
 
 #. Description of the plugin
 msgid "Customize columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface."
-msgstr "Pas de kolommen aan op de beheerschermen van post(types), pagina's, media, reacties en gebruikers met een eenvoudige drag-and-drop-interface."
+msgstr "Pas de kolommen aan op de beheerder schermen van berichten, berichttypen, pagina's, media, reacties, links en gebruikers met een eenvoudige verslepen interface."
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
@@ -1662,7 +1689,7 @@ msgid "https://www.admincolumns.com"
 msgstr "https://www.admincolumns.com"
 
 #: classes/Admin/Section/Partial/ShowEditButton.php:21
-#: classes/Table/Screen.php:218
+#: classes/Table/Screen.php:223
 msgid "Edit columns"
 msgstr "Kolommen bewerken"
 
@@ -1671,7 +1698,7 @@ msgstr "Kolommen bewerken"
 msgid "Upgrade"
 msgstr "Upgraden"
 
-#: classes/Controller/ListScreen/Save.php:59
+#: classes/Controller/ListScreen/Save.php:51
 msgid "Settings for %s updated successfully."
 msgstr "Instellingen voor %s succesvol bijgewerkt."
 
@@ -1707,7 +1734,6 @@ msgstr "Ga naar deze add-on"
 msgid "Deactivate"
 msgstr "Deactiveren"
 
-#: classes/Admin/Page/Addons.php:136
 #: templates/admin/page/component/addon/active-label.php:3
 msgid "Active"
 msgstr "Actief"
@@ -1718,7 +1744,7 @@ msgstr "Kolom toevoegen"
 
 #: templates/admin/side-support.php:14
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>."
-msgstr "Voor de volledige documentatie, bug reports, suggesties en tips <a href='%s'>bezoek de Admin Columns site</a>."
+msgstr "Voor de volledige documentatie, bug rapportering, suggesties en tips <a href='%s'>bezoek de Admin Columns site</a>."
 
 #: templates/admin/side-support.php:10
 msgid "Support"
@@ -1726,19 +1752,19 @@ msgstr "Ondersteuning"
 
 #: templates/admin/side-feedback.php:63
 msgid "Buy Pro"
-msgstr "Pro kopen"
+msgstr "Koop Pro"
 
 #: templates/admin/side-feedback.php:57
 msgid "Tweet"
-msgstr "Tweeten"
+msgstr "Tweet"
 
 #: templates/admin/side-feedback.php:51
 msgid "Rate"
-msgstr "Beoordelen"
+msgstr "Waardeer"
 
 #: templates/admin/side-feedback.php:46
 msgid "We would really love it if you could show your appreciation by giving us a rating on WordPress.org or tweet about Admin Columns!"
-msgstr "We zouden het fanatastisch vinden als je eeb beoordeling zou kunnen achterlaten op WordPress.org of een tweet over Admin Columns!"
+msgstr "We zouden het fantastisch vinden als je een waardering zou kunnen achterlaten op WordPress.org of een tweet over Admin Columns!"
 
 #: templates/admin/side-feedback.php:43
 msgid "Woohoo! We're glad to hear that!"
@@ -1754,7 +1780,7 @@ msgstr "Documenten"
 
 #: templates/admin/side-feedback.php:23
 msgid "Check out our extensive documentation, or you can open a support topic on WordPress.org!"
-msgstr "Bekijk onze uitgebreide documentatie, of je kunt een support ticket openen op WordPress.org!"
+msgstr "Bekijk onze uitgebreide documentatie, of je kan een ondersteuning ticket openen op WordPress.org!"
 
 #: templates/admin/side-feedback.php:20
 msgid "What's wrong? Need help? Let us know!"
@@ -1764,23 +1790,23 @@ msgstr "Wat is er aan de hand? Hulp nodig? Vertel het ons!"
 msgid "Are you happy with Admin Columns?"
 msgstr "Ben je blij met Admin Columns?"
 
-#: templates/admin/side-banner.php:74
+#: classes/Check/AddonAvailable.php:80 templates/admin/side-banner.php:74
 msgid "Get Admin Columns Pro"
-msgstr "Bestel Admin Columns Pro"
+msgstr "Verkrijg Admin Columns Pro"
 
-#: classes/Admin/MenuFactory.php:47 classes/Admin/Page/Columns.php:186
+#: classes/Admin/MenuFactory.php:47 classes/Admin/Page/Columns.php:209
 msgid "Columns"
 msgstr "Kolommen"
 
-#: classes/Admin/Page/Columns.php:211
+#: classes/Admin/Page/Columns.php:234
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
-msgstr "Waarschuwing. De kolomdata van %s wordt verwijderd. Dit kan niet ongedaan gemaakt worden. 'OK' om te verwijderen, 'Annuleren' om te stoppen met verwijderen."
+msgstr "Waarschuwing. De kolomgegevens van %s worden verwijderd. Dit kan niet ongedaan gemaakt worden. 'OK' om te verwijderen, 'Annuleren' om te stoppen met verwijderen"
 
 #: templates/admin/edit-actions.php:23 templates/admin/edit-columns.php:38
 msgid "Update"
 msgstr "Update"
 
-#: classes/Admin/Page/Columns.php:202
+#: classes/Admin/Page/Columns.php:225
 msgid "Store settings"
 msgstr "Instellingen opslaan"
 
@@ -1788,7 +1814,7 @@ msgstr "Instellingen opslaan"
 msgid "Add-ons"
 msgstr "Add-ons"
 
-#: classes/Admin/MenuFactory.php:48 classes/PluginActionLinks.php:48
+#: classes/Admin/MenuFactory.php:48 classes/PluginActionLinks.php:54
 #: templates/admin/list-screen-settings-mockup.php:13
 #: templates/admin/page/settings.php:7
 msgid "Settings"
@@ -1802,7 +1828,7 @@ msgstr "Taxonomieën"
 msgid "Others"
 msgstr "Overige"
 
-#: classes/Admin/Asset/Settings.php:20
+#: classes/Admin/Asset/Script/SettingsFactory.php:26
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr "Waarschuwing! ALLE gegevens van de opgeslagen beheerderskolommen zullen worden verwijderd. Dit kan niet ongedaan gemaakt worden. 'OK' om te verwijderen, 'Annuleren' om te stoppen"
 
@@ -1812,7 +1838,7 @@ msgstr "Verwijder alle kolom instellingen, en zet de standaardinstellingen terug
 
 #: classes/Admin/Section/Restore.php:20
 msgid "Restore Settings"
-msgstr "Herstel Instellingen"
+msgstr "Instellingen terugzetten"
 
 #: templates/admin/edit-actions.php:24 templates/admin/edit-columns.php:39
 msgid "Save"
@@ -1825,7 +1851,7 @@ msgstr "Algemene instellingen"
 
 #: templates/admin/help-tab/custom-fields.php:15
 msgid "Value: Can be either a string or array. This will display a count of the number of times the meta key is used by the item."
-msgstr "Waarde: Kan een string of een array zijn. Dit zal een teller weergeven met het aantal keren dat een metatoets door het item werd gebruikt."
+msgstr "Waarde: kan een string of een array zijn. Dit zal een teller weergeven met het aantal keren dat een meta sleutel door het item werd gebruikt."
 
 #: templates/admin/help-tab/custom-fields.php:11
 msgid "Value: Hex value color, such as #808080."
@@ -1833,7 +1859,7 @@ msgstr "Waarde: hex waarde kleur, zoals: #808080."
 
 #: templates/admin/help-tab/custom-fields.php:51
 msgid "Value: Should be a 1 (one) or 0 (zero)."
-msgstr "Waarde: moet 1 of 0 zijn."
+msgstr "Waarde: moet 1 (een) of 0 (nul) zijn."
 
 #: classes/Column/User/Login.php:11
 msgid "Username"
@@ -1841,11 +1867,11 @@ msgstr "Gebruikersnaam"
 
 #: templates/admin/help-tab/custom-fields.php:19
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
-msgstr "Waarde: Kan een unix tijdstempel zijn, of een datumnotatie, zoals beschreven in de <a href='%s'>Codex</a>. Je kunt de uitgestuurde datumnotatie wijzigen in de pagina met <a href='%s'>algemene instellingen</a>."
+msgstr "Waarde: kan een unix tijdstempel zijn, of een datumformat, zoals beschreven in de <a href='%s'>Codex</a>. Je kan de uitgestuurde datumformat wijzigen in de pagina met <a href='%s'>algemene instellingen</a>."
 
 #: templates/admin/help-tab/custom-fields.php:43
 msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
-msgstr "Waarde: Enkel reeksen.<br/>Als je de 'sorteer-addon' hebt, zal die gebruikt worden voor het sorteren, zodat je je berichten kunt sorteren volgens de numerieke waarden (van aangepaste velden)."
+msgstr "Waarde: allen integers.<br/>Als je de 'sorting add-on' hebt, zal die gebruikt worden voor het sorteren, zodat je je berichten kan sorteren volgens de numerieke waarden (van aangepaste velden)."
 
 #: templates/admin/help-tab/custom-fields.php:39
 msgid "Value: Should be an array. This will flatten any ( multi dimensional ) array."
@@ -1853,11 +1879,11 @@ msgstr "Waarde: moet een array zijn. Dit zal elke (multi-dimensionale) array afv
 
 #: templates/admin/help-tab/custom-fields.php:23
 msgid "Value: This will show the first 20 words of the Post content."
-msgstr "Waarde: Deze toont de eerste 20 woorden van een bericht."
+msgstr "Waarde: deze toont de eerste 20 woorden van een bericht inhoud."
 
 #: templates/admin/help-tab/custom-fields.php:7
 msgid "Value: Can be either a string or array. Arrays will be flattened and values are seperated by commas."
-msgstr "Waarde: Kan een string of array zijn. Arrays worden plat gemaakt en de waarden gescheiden door komma's."
+msgstr "Waarde: kan een string of array zijn. Arrays worden plat gemaakt en de waarden gescheiden door komma's."
 
 #: templates/admin/help-tab/custom-fields.php:2
 msgid "The custom field column uses the custom fields from posts and users. There are 14 types which you can set."
@@ -1865,7 +1891,7 @@ msgstr "De aangepaste veld kolom gebruikt aangepaste velden voor berichten en ge
 
 #: templates/admin/help-tab/basics.php:13
 msgid "By clicking on the triangle you will see the column options. By using the draggable slider you can set the width of the columns in percentages."
-msgstr "Klik je op de driehoek, dan krijg je de kolomopties te zien. En met de versleepbare slider kun je de breedte van kolommen bepalen, uitgedrukt in percentages."
+msgstr "Klik je op de driehoek, dan krijg je de kolomopties te zien. En met de versleepbare slider kan je de breedte van kolommen bepalen, uitgedrukt in percentages."
 
 #: templates/admin/help-tab/basics.php:11
 msgid "Change column width"
@@ -1873,7 +1899,7 @@ msgstr "Verander kolom breedte"
 
 #: templates/admin/help-tab/basics.php:8
 msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
-msgstr "Klik op het kleine driehoekje om de kolom opties te tonen. Hier kan je de kolom label aanpassen."
+msgstr "Door op het driehoekje te klikken zie je de kolomopties. Hier kan je elk label van de kolomkoptekst wijzigen."
 
 #: templates/admin/help-tab/basics.php:6
 msgid "Change label"
@@ -1889,87 +1915,75 @@ msgstr "Verander volgorde"
 
 #: templates/admin/help-tab/introduction.php:2
 msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
-msgstr "Met deze plugin kun je bijkomende kolommen toevoegen en verwijderen van uit de administratieschermen van van berichten(types), pagina's, mediabibliotheken, reacties, links and gebruikers. Wijzig en herschik de kolomlabels."
+msgstr "Met deze plugin kan je bijkomende kolommen toevoegen en verwijderen van uit de beheerder schermen van berichten, berichttypes, pagina's, mediabibliotheken, reacties, links en gebruikers. Wijzig en herschik de kolomlabels."
 
 #: classes/Controller/RestoreSettingsRequest.php:47
 msgid "Default settings successfully restored."
-msgstr "Standaard instellingen met succes hersteld."
+msgstr "Standaard instellingen succesvol teruggezet."
 
-#: classes/Admin/Asset/Columns.php:55 classes/Controller/ColumnRequest.php:39
+#: classes/Admin/Asset/Columns.php:61 classes/Controller/ColumnRequest.php:39
 msgid "%s column is already present and can not be duplicated."
 msgstr "%s kolom is al in gebruik en kan niet worden gedupliceerd."
 
 #: classes/Admin/MenuPageFactory/Menu.php:13
 #: classes/Admin/MenuPageFactory/SubMenu.php:14
 msgid "Admin Columns Settings"
-msgstr "Admin Columns Instellingen"
+msgstr "Admin Columns instellingen"
 
-#: classes/Check/Review.php:200
+#: classes/Check/Review.php:182
 msgid "find answers to frequently asked questions"
 msgstr "vind antwoorden op veel gestelde vragen"
 
-#: classes/Check/Review.php:199
+#: classes/Check/Review.php:181
 msgid "Admin Columns forum on WordPress.org"
-msgstr "Admin Columns forums op WordPress.org"
+msgstr "Admin Columns forum op WordPress.org"
 
-#: classes/Check/Review.php:198
+#: classes/Check/Review.php:180
 msgid "You can also find help on the %s, and %s."
-msgstr "Je kunt ook hulp vinden op de %s, en %s."
+msgstr "Je kan ook hulp vinden op de %s, en %s."
 
-#: classes/Check/Review.php:194
-msgid "our forum"
-msgstr "onze forums"
-
-#: classes/Check/Review.php:188
+#: classes/Check/Review.php:176
 msgid "documentation page"
 msgstr "documentatie pagina"
 
-#: classes/Check/Review.php:186
+#: classes/Check/Review.php:174
 msgid "We're sorry to hear that; maybe we can help! If you're having problems properly setting up %s or if you would like help with some more advanced features, please visit our %s."
-msgstr "Dat is vervelend om te horen; misschien kunnen we helpen! Als je problemen hebt met de basis instellingen %s of als je hulp wilt met geavanceerdere features, bezoek dan onze %s."
+msgstr "Dat is vervelend om te horen; misschien kunnen we helpen! Als je problemen hebt met de basis instellingen %s of als je hulp wilt met geavanceerdere functies, bezoek dan onze %s."
 
-#: classes/Check/Review.php:177
+#: classes/Check/Review.php:165
 msgid "Permanently hide notice"
-msgstr "Verberg deze notice permanent"
+msgstr "Permanent bericht verbergen"
 
-#: classes/Check/Review.php:176
+#: classes/Check/Review.php:164
 msgid "Leave a review!"
-msgstr "Laat een review achter!"
+msgstr "Laat een beoordeling achter!"
 
-#: classes/Check/Review.php:172
+#: classes/Check/Review.php:160
 msgid "click here"
 msgstr "klik hier"
 
-#: classes/Check/Review.php:168
+#: classes/Check/Review.php:156
 msgid "We don't mean to bug you, but you've been using %s for some time now, and we were wondering if you're happy with the plugin. If so, could you please leave a review at wordpress.org? If you're not happy with %s, please %s."
-msgstr "We willen je niet storen, maar je gebruikt %s nu al een tijdje, en we vroegen ons af of je tevreden was met de plugin. Zo ja, zou je dan een review achter willen laten op WordPress.org? Als je niet blij bent met %s, %s a.u.b."
-
-#: classes/Check/Review.php:159
-msgid "Admin Columns Pro"
-msgstr "Admin Columns Pro"
+msgstr "We willen je niet storen, maar je gebruikt %s nu al een tijdje, en we vroegen ons af of je tevreden was met de plugin. Zo ja, zou je dan een beoordeling achter willen laten op WordPress.org? Als je niet blij bent met %s, %s."
 
 #. Plugin Name of the plugin
 #: classes/Admin/MenuPageFactory/Menu.php:14
-#: classes/Admin/MenuPageFactory/SubMenu.php:15 classes/Check/Review.php:160
-#: classes/Table/Screen.php:421
+#: classes/Admin/MenuPageFactory/SubMenu.php:15 classes/Check/Review.php:148
+#: classes/Table/Screen.php:434
 msgid "Admin Columns"
 msgstr "Admin Columns"
 
-#: classes/Column/Placeholder.php:52
+#: classes/Column/Placeholder.php:51
 msgid "Find out more"
 msgstr "Meer weten"
 
-#: classes/Column/Placeholder.php:48
-msgid "Admin Columns Pro offers full %s integration, allowing you to easily display and edit %s fields from within your overview."
-msgstr "Admin Columns Pro biedt volledige integratie met %s, waardoor je eenvoudig specifieke %s-velden kunt weergeven, sorteren en aanpassen."
-
 #: classes/Settings/Column/PostLink.php:72
 msgid "View Public Post Author Page"
-msgstr "Bekijk Publieke Bericht Auteur pagina"
+msgstr "Bekijk publieke bericht auteur pagina"
 
 #: classes/Settings/Column/PostLink.php:71
 msgid "Edit Post Author"
-msgstr "Wijzig Bericht Auteur"
+msgstr "Bewerk bericht auteur"
 
 #: classes/Settings/Column/PostLink.php:70
 msgid "View Post"
@@ -1979,11 +1993,11 @@ msgstr "Bericht bekijken"
 msgid "Edit Post"
 msgstr "Bericht bewerken"
 
-#: classes/Settings/Column/Label.php:31
+#: classes/Settings/Column/Label.php:32
 msgid "This is the name which will appear as the column header."
-msgstr "Deze naam zal verschijnen als kolom kop."
+msgstr "Deze naam zal verschijnen als kolom header."
 
-#: classes/Settings/Column/Label.php:30
+#: classes/Settings/Column/Label.php:31
 msgid "Label"
 msgstr "Label"
 
@@ -2001,15 +2015,15 @@ msgstr "Kloon"
 
 #: classes/Settings/Column/Password.php:28
 msgid "Display format"
-msgstr "Weergave formaat"
+msgstr "Weergave format"
 
 #: classes/Settings/Column/User.php:84 classes/Settings/Column/UserLink.php:79
 msgid "User Email"
-msgstr "Gebruiker Email"
+msgstr "Gebruiker e-mail"
 
 #: classes/Settings/Column/User.php:83
 msgid "User Login"
-msgstr "Gebruikers login"
+msgstr "Gebruiker login"
 
 #: classes/Column/User/LastName.php:14 classes/Settings/Column/User.php:80
 msgid "Last Name"
@@ -2021,7 +2035,7 @@ msgstr "Voornaam"
 
 #: classes/Column/User/DisplayName.php:14 classes/Settings/Column/User.php:77
 msgid "Display Name"
-msgstr "Schermnaam"
+msgstr "Weergave naam"
 
 #: classes/Settings/Column/BeforeAfter.php:73
 msgid "After"
@@ -2044,13 +2058,13 @@ msgstr "breedte"
 msgid "Custom"
 msgstr "Aangepast"
 
-#: classes/Settings/Column/DateTimeFormat.php:62
+#: classes/Settings/Column/DateTimeFormat.php:63
 msgid "This will determine how the date will be displayed."
-msgstr "Dit bepaald hoe de datum wordt weergegeven."
+msgstr "Dit bepaald hoe de datum wordt getoond."
 
-#: classes/Settings/Column/DateTimeFormat.php:61
+#: classes/Settings/Column/DateTimeFormat.php:62
 msgid "Date Format"
-msgstr "Datumnotatie"
+msgstr "Datum format"
 
 #: classes/Settings/Column/Image.php:76
 msgid "Large"
@@ -2076,19 +2090,19 @@ msgstr "Registratie"
 #: classes/Settings/Column/CustomFieldType.php:101
 #: classes/Settings/Column/PostType.php:43
 msgid "Post Type"
-msgstr "Post Type"
+msgstr "Berichttype"
 
 #: classes/Column/User/PostCount.php:15
 msgid "Post Count"
-msgstr "Aantal posts"
+msgstr "Bericht aantal"
 
 #: classes/Column/User/Nickname.php:14 classes/Settings/Column/User.php:81
 msgid "Nickname"
-msgstr "Nickname"
+msgstr "Schermnaam"
 
 #: classes/Column/Post/CommentCount.php:17
 msgid "Comment Count"
-msgstr "Reacties-telling"
+msgstr "Aantal reacties"
 
 #: templates/admin/edit-column.php:40 templates/admin/edit-column.php:84
 msgid "Remove"
@@ -2100,15 +2114,15 @@ msgstr "Gebruiker ID"
 
 #: classes/Settings/Column/LinkToMenu.php:26
 msgid "This will make the title link to the menu."
-msgstr "Dit linkt de titel naar het menu"
+msgstr "Hierdoor zal de titel linken naar het menu."
 
 #: classes/Settings/Column/LinkToMenu.php:25
 msgid "Link to menu"
 msgstr "Link naar menu"
 
-#: classes/Column/Taxonomy.php:18 classes/Settings/Column/Taxonomy.php:51
+#: classes/Column/Taxonomy.php:19 classes/Settings/Column/Taxonomy.php:51
 msgid "Taxonomy"
-msgstr "Taxonomy"
+msgstr "Taxonomie"
 
 #: classes/Column/Post/Sticky.php:16
 msgid "Sticky"
@@ -2149,7 +2163,7 @@ msgstr "Hoofd"
 
 #: classes/Column/Post/PageTemplate.php:14
 msgid "Page Template"
-msgstr "Pagina Template"
+msgstr "Pagina template"
 
 #: classes/Column/Post/Order.php:14
 msgid "Order"
@@ -2161,11 +2175,11 @@ msgstr "Laatst gewijzigd"
 
 #: classes/Column/Post/LastModifiedAuthor.php:18
 msgid "Last Modified Author"
-msgstr "Laatst Gewijzigd Auteur"
+msgstr "Laatst gewijzigd auteur"
 
 #: classes/Column/Post/Formats.php:15
 msgid "Post Format"
-msgstr "Post formaat"
+msgstr "Berichtformat"
 
 #: classes/Column/Post/FeaturedImage.php:15
 msgid "Featured Image"
@@ -2197,15 +2211,15 @@ msgstr "Diepte"
 
 #: classes/Column/Post/DatePublished.php:15
 msgid "Date Published"
-msgstr "Datum gepubliceerd "
+msgstr "Datum van publicatie"
 
 #: classes/Settings/Column/CommentCount.php:44
 msgid "Select which comment status you like to display."
-msgstr "Selecteer welke reactie status die je wil weergeven."
+msgstr "Selecteer welke reactie status die je wil tonen."
 
 #: classes/Settings/Column/CommentCount.php:43
 msgid "Comment status"
-msgstr "Comment status"
+msgstr "Reactie status"
 
 #: classes/Column/Comment/Status.php:33
 #: classes/Settings/Column/CommentCount.php:58
@@ -2215,7 +2229,7 @@ msgstr "Spam"
 #: classes/Column/Comment/Status.php:35
 #: classes/Settings/Column/CommentCount.php:57
 msgid "Pending"
-msgstr "Pending"
+msgstr "In afwachting"
 
 #: classes/Settings/Column/CommentCount.php:65
 msgid "Total"
@@ -2223,11 +2237,11 @@ msgstr "Totaal"
 
 #: classes/Settings/Column/UserLink.php:81
 msgid "View Public Author Page"
-msgstr "Bekijk Publieke Auteur Pagina"
+msgstr "Bekijk publieke auteur pagina"
 
 #: classes/Settings/Column/UserLink.php:80
 msgid "View User Posts"
-msgstr "Bekijk gebruikersberichten"
+msgstr "Bekijk gebruiker berichten"
 
 #: classes/Settings/Column/UserLink.php:78
 msgid "Edit User Profile"
@@ -2250,9 +2264,9 @@ msgstr "Geen"
 msgid "Link To"
 msgstr "Link aan"
 
-#: classes/Column/Post/Attachment.php:15
+#: classes/Column/Post/Attachment.php:12
 msgid "Attachments"
-msgstr "Attachments"
+msgstr "Bijlagen"
 
 #: classes/Column/Media/Preview.php:11
 #: classes/Settings/Column/NumberFormat.php:78
@@ -2268,7 +2282,7 @@ msgstr "Breedte"
 #: classes/Column/Media/MimeType.php:14
 #: classes/Settings/Column/FileMetaAudio.php:25
 msgid "Mime Type"
-msgstr "Mime-type"
+msgstr "MIME type"
 
 #: classes/Column/Media/Height.php:17
 #: classes/Settings/Column/FileMetaVideo.php:15
@@ -2286,11 +2300,11 @@ msgstr "Relatief aan het domein"
 
 #: classes/Settings/Column/PathScope.php:33
 msgid "Part of the file path to display"
-msgstr "Deel van bestands locatie voor weergave"
+msgstr "Deel van het bestandspad dat moet worden getoond"
 
 #: classes/Settings/Column/PathScope.php:32
 msgid "Path scope"
-msgstr "Path scope"
+msgstr "Pad scope"
 
 #: classes/Column/Media/FileSize.php:14
 msgid "File Size"
@@ -2315,11 +2329,11 @@ msgstr "ISO"
 
 #: classes/Settings/Column/ExifData.php:78
 msgid "Focal Length"
-msgstr "Brandpuntsafstand"
+msgstr "Focuslengte"
 
 #: classes/Settings/Column/ExifData.php:76
 msgid "Timestamp"
-msgstr "Timestamp"
+msgstr "Tijdstempel"
 
 #: classes/Settings/Column/ExifData.php:74
 msgid "Camera"
@@ -2343,12 +2357,12 @@ msgstr "Bijschrift"
 
 #: classes/Column/Media/AvailableSizes.php:18
 msgid "Available Sizes"
-msgstr "Beschikbare Afmetingen"
+msgstr "Beschikbare grootte"
 
 #: classes/Column/Media/Preview.php:38 classes/Settings/Column/MediaLink.php:63
 #: templates/admin/edit-menu.php:27
 msgid "View"
-msgstr "Bekijk"
+msgstr "Bekijken"
 
 #: classes/Column/Comment/Status.php:31 classes/Column/Comment/Status.php:32
 #: classes/Settings/Column/CommentCount.php:59
@@ -2367,7 +2381,7 @@ msgstr "Beschrijving"
 
 #: classes/Settings/Column/CustomFieldType.php:76
 msgid "This will determine how the value will be displayed."
-msgstr "Dit zal bepalen hoe de waarde wordt weergeven."
+msgstr "Dit zal bepalen hoe de waarde wordt getoond."
 
 #: classes/Settings/Column/CustomFieldType.php:83
 msgid "Field Type"
@@ -2403,14 +2417,14 @@ msgstr "Kleur"
 #: classes/Settings/Column/CustomFieldType.php:188
 #: classes/Settings/Column/Image.php:72
 #: classes/Settings/Column/NumberFormat.php:88
-#: classes/Settings/Column/Separator.php:26
+#: classes/Settings/Column/Separator.php:35
 #: templates/admin/help-tab/custom-fields.php:6
 msgid "Default"
 msgstr "Standaard"
 
-#: classes/Column/CustomField.php:19 templates/tooltip/custom-field.php:7
+#: classes/Column/CustomField.php:18 templates/tooltip/custom-field.php:7
 msgid "Custom Field"
-msgstr "Custom veld"
+msgstr "Aangepast veld"
 
 #: classes/Column/Comment/WordCount.php:14 classes/Column/Post/WordCount.php:14
 msgid "Word Count"
@@ -2432,7 +2446,7 @@ msgstr "Type"
 
 #: classes/Column/Comment/ReplyTo.php:14
 msgid "In Reply To"
-msgstr "Antwoord op"
+msgstr "In antwoord op"
 
 #: classes/Column/Comment/Post.php:15
 #: classes/Settings/Column/CustomFieldType.php:133
@@ -2442,7 +2456,7 @@ msgstr "Bericht"
 
 #: classes/Column/Comment/Excerpt.php:15 classes/Column/Post/Content.php:15
 msgid "Content"
-msgstr "Content"
+msgstr "Inhoud"
 
 #: classes/Settings/Column/Comment.php:126
 #: classes/Settings/Column/CustomFieldType.php:121
@@ -2466,11 +2480,11 @@ msgstr "Auteur"
 
 #: classes/Column/Comment/AuthorUrl.php:14
 msgid "Author URL"
-msgstr "Auteur url"
+msgstr "Auteur URL"
 
 #: classes/Column/Comment/AuthorName.php:14
 msgid "Author Name"
-msgstr "Auteur naam"
+msgstr "Auteursnaam"
 
 #: classes/Column/Comment/AuthorIP.php:11
 msgid "Author IP"
@@ -2479,7 +2493,7 @@ msgstr "Auteur IP"
 #: classes/Column/Comment/AuthorEmail.php:14
 #: classes/Settings/Column/Comment.php:125
 msgid "Author Email"
-msgstr "Auteur e-mailadres"
+msgstr "Auteur e-mail"
 
 #: classes/Column/Comment/AuthorAvatar.php:14
 msgid "Avatar"
@@ -2494,7 +2508,7 @@ msgstr "Goedgekeurd"
 msgid "Agent"
 msgstr "Agent"
 
-#: classes/Table/Screen.php:252 templates/admin/edit-column.php:35
+#: classes/Table/Screen.php:240 templates/admin/edit-column.php:35
 msgid "Edit"
 msgstr "Bewerken"
 
@@ -2531,11 +2545,11 @@ msgstr "Ja"
 
 #: classes/Settings/Column/ActionIcons.php:28
 msgid "Use icons instead of text for displaying the actions."
-msgstr "Gebruik iconen in plaats van tekst om actions te tonen."
+msgstr "Gebruik pictogrammen in plaats van tekst om acties te tonen."
 
 #: classes/Settings/Column/ActionIcons.php:27
 msgid "Use icons?"
-msgstr "Gebruik iconen?"
+msgstr "Gebruik pictogrammen?"
 
 #: classes/Column/Actions.php:19
 msgid "Actions"
