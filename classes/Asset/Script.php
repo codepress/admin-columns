@@ -23,7 +23,7 @@ class Script extends Enqueueable {
 		return wp_script_is( $this->get_handle(), 'registered' );
 	}
 
-	public function in_footer(): bool {
+	public function is_in_footer(): bool {
 		return $this->in_footer;
 	}
 
@@ -36,7 +36,8 @@ class Script extends Enqueueable {
 			$this->get_handle(),
 			$this->location->get_url(),
 			$this->dependencies,
-			$this->get_version()
+			$this->get_version(),
+			$this->is_in_footer()
 		);
 	}
 
