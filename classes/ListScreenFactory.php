@@ -30,7 +30,7 @@ class ListScreenFactory implements ListScreenFactoryInterface {
 	public function can_create( string $key ): bool {
 		foreach ( self::$factories as $factory ) {
 			if ( $factory->can_create( $key ) ) {
-				return true;
+				return (bool) apply_filters( 'ac/list_screen/key/is_active', true, $key );
 			}
 		}
 
@@ -40,7 +40,7 @@ class ListScreenFactory implements ListScreenFactoryInterface {
 	public function can_create_by_wp_screen( WP_Screen $screen ): bool {
 		foreach ( self::$factories as $factory ) {
 			if ( $factory->can_create_by_wp_screen( $screen ) ) {
-				return true;
+				return (bool) apply_filters( 'ac/list_screen/is_active', true, $screen );
 			}
 		}
 
