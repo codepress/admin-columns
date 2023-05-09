@@ -14,6 +14,7 @@ use AC\Table;
 use AC\Type\ListScreenId;
 use Exception;
 use WP_Screen;
+use WP_User;
 
 class ListScreenTable implements Middleware {
 
@@ -39,16 +40,10 @@ class ListScreenTable implements Middleware {
 		$this->preference = $preference;
 	}
 
-	private function get_first_list_screen(): ?ListScreen {
+	private function get_first_list_screen( WP_User $user ): ?ListScreen {
 		$list_key = $this->get_list_key();
 
 		if ( ! $list_key ) {
-			return null;
-		}
-
-		$user = wp_get_current_user();
-
-		if ( ! $user ) {
 			return null;
 		}
 
@@ -67,7 +62,7 @@ class ListScreenTable implements Middleware {
 			: null;
 	}
 
-	private function get_preference_list_screen(): ?ListScreen {
+	private function get_preference_list_screen( WP_User $user ): ?ListScreen {
 		$list_key = $this->get_list_key();
 
 		if ( ! $list_key ) {
@@ -86,23 +81,23 @@ class ListScreenTable implements Middleware {
 			return null;
 		}
 
-		if ( ! $this->user_is_assigned_to_list_screen( $list_screen, wp_get_current_user() ) ) {
+		if ( ! $this->user_is_assigned_to_list_screen( $list_screen, $user ) ) {
 			return null;
 		}
 
-		return $list_screen->get_key() === $this->get_list_key()
+		return $list_screen->get_key() === $list_key
 			? $list_screen
 			: null;
 	}
 
-	private function get_requested_list_screen( Request $request ): ?ListScreen {
+	private function get_requested_list_screen( Request $request, WP_User $user ): ?ListScreen {
 		try {
 			$list_id = new ListScreenId( (string) $request->get( 'layout' ) );
 		} catch ( Exception $e ) {
 			return null;
 		}
 
-		$list_screen = $this->storage->find_by_user( $list_id, wp_get_current_user() );
+		$list_screen = $this->storage->find_by_user( $list_id, $user );
 
 		return $list_screen && $list_screen->get_key() === $this->get_list_key()
 			? $list_screen
@@ -116,13 +111,19 @@ class ListScreenTable implements Middleware {
 	}
 
 	private function get_list_screen( Request $request ): ?ListScreen {
-		$list_screen = $this->get_requested_list_screen( $request );
+		$user = wp_get_current_user();
 
-		if ( ! $list_screen ) {
-			$list_screen = $this->get_preference_list_screen();
+		if ( ! $user ) {
+			return null;
 		}
 
-		return $list_screen ?: $this->get_first_list_screen();
+		$list_screen = $this->get_requested_list_screen( $request, $user );
+
+		if ( ! $list_screen ) {
+			$list_screen = $this->get_preference_list_screen( $user );
+		}
+
+		return $list_screen ?: $this->get_first_list_screen( $user );
 	}
 
 	public function handle( Request $request ) {
