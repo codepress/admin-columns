@@ -16,18 +16,14 @@ class DefaultColumns implements Registerable {
 
 	private $list_screen;
 
-	private $request;
-
 	private $list_screen_factory;
 
 	private $default_columns;
 
 	public function __construct(
-		Request $request,
 		ListScreenFactory $list_screen_factory,
 		DefaultColumnsRepository $default_columns
 	) {
-		$this->request = $request;
 		$this->list_screen_factory = $list_screen_factory;
 		$this->default_columns = $default_columns;
 	}
@@ -37,7 +33,9 @@ class DefaultColumns implements Registerable {
 	}
 
 	public function handle_request(): void {
-		if ( '1' !== $this->request->get( self::QUERY_PARAM ) ) {
+		$request = new Request();
+
+		if ( '1' !== $request->get( self::QUERY_PARAM ) ) {
 			return;
 		}
 

@@ -9,17 +9,11 @@ use AC\Type\Url\UtmTags;
 
 class PluginActionLinks implements Registerable {
 
-	/**
-	 * @var string
-	 */
 	private $basename;
 
-	/**
-	 * @var bool
-	 */
 	private $is_acp_active;
 
-	public function __construct( $basename, bool $is_acp_active ) {
+	public function __construct( string $basename, bool $is_acp_active ) {
 		$this->basename = $basename;
 		$this->is_acp_active = $is_acp_active;
 	}

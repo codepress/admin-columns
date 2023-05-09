@@ -20,7 +20,7 @@ class MenuFactory implements MenuFactoryInterface {
 	 */
 	protected $location;
 
-	public function __construct( $url, Location\Absolute $location ) {
+	public function __construct( string $url, Location\Absolute $location ) {
 		$this->url = (string) $url;
 		$this->location = $location;
 	}

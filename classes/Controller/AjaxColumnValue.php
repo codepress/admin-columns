@@ -4,18 +4,15 @@ namespace AC\Controller;
 
 use AC\Ajax;
 use AC\Column\AjaxValue;
-use AC\ListScreenRepository;
+use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Type\ListScreenId;
 
 class AjaxColumnValue implements Registerable {
 
-	/**
-	 * @var ListScreenRepository
-	 */
 	private $repository;
 
-	public function __construct( ListScreenRepository $repository ) {
+	public function __construct( Storage $repository ) {
 		$this->repository = $repository;
 	}
 
