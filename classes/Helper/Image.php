@@ -186,9 +186,9 @@ class Image {
 	}
 
 	/**
-	 * @param int|string $image ID of Url
-	 * @param string     $size
-	 * @param bool       $skip_image_check
+	 * @param int|string   $image ID of Url
+	 * @param string|array $size
+	 * @param bool         $skip_image_check
 	 *
 	 * @return string
 	 */

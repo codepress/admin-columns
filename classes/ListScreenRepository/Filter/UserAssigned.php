@@ -8,7 +8,7 @@ use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\ListScreenPermissionTrait;
 use WP_User;
 
-class User implements Filter {
+class UserAssigned implements Filter {
 
 	use ListScreenPermissionTrait;
 
@@ -22,7 +22,7 @@ class User implements Filter {
 		$collection = new ListScreenCollection();
 
 		foreach ( $list_screens as $list_screen ) {
-			if ( $this->user_can_view_list_screen( $list_screen, $this->user ) ) {
+			if ( $this->user_is_assigned_to_list_screen( $list_screen, $this->user ) ) {
 				$collection->add( $list_screen );
 			}
 		}

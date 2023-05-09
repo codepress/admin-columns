@@ -4,15 +4,9 @@ namespace AC;
 
 final class EncodedListScreenDataFactory {
 
-	/**
-	 * @var EncodedListScreenData
-	 */
 	private static $instance;
 
-	/**
-	 * @return EncodedListScreenData
-	 */
-	public function create() {
+	public static function create(): EncodedListScreenData {
 		if ( self::$instance === null ) {
 			self::$instance = new EncodedListScreenData();
 		}

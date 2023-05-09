@@ -4,6 +4,7 @@ declare( strict_types=1 );
 
 namespace AC\ListScreenRepository;
 
+use AC\Capabilities;
 use AC\Exception\MissingListScreenIdException;
 use AC\ListScreen;
 use AC\ListScreenCollection;
@@ -68,7 +69,7 @@ final class Database implements ListScreenRepositoryWritable {
 	public function find_by_user( ListScreenId $id, WP_User $user ): ?ListScreen {
 		$list_screen = $this->find( $id );
 
-		return $list_screen && $this->user_can_view_list_screen( $list_screen, $user )
+		return $list_screen && ( user_can( $user, Capabilities::MANAGE ) || $this->user_is_assigned_to_list_screen( $list_screen, $user ) )
 			? $list_screen
 			: null;
 	}
@@ -83,10 +84,10 @@ final class Database implements ListScreenRepositoryWritable {
 			: $list_screens;
 	}
 
-	public function find_all_by_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
+	public function find_all_by_assigned_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
 		$list_screens = $this->find_all_by_key( $key, $sort );
 
-		return ( new Filter\User( $user ) )->filter( $list_screens );
+		return ( new Filter\UserAssigned( $user ) )->filter( $list_screens );
 	}
 
 	public function find_all( Sort $sort = null ): ListScreenCollection {
@@ -163,17 +164,6 @@ final class Database implements ListScreenRepositoryWritable {
 		if ( ! $list_screen->has_id() ) {
 			throw new LogicException( 'Cannot delete a ListScreen without an identity.' );
 		}
-
-		/**
-		 * Fires before a column setup is removed from the database
-		 * Primarily used when columns are deleted through the Admin Columns settings screen
-		 *
-		 * @param ListScreen $list_screen
-		 *
-		 * @deprecated 4.0
-		 * @since      3.0.8
-		 */
-		do_action( 'ac/columns_delete', $list_screen );
 
 		$wpdb->delete(
 			$wpdb->prefix . self::TABLE,

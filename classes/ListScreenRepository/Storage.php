@@ -62,11 +62,11 @@ final class Storage implements ListScreenRepositoryWritable {
 		return $list_screen ?? null;
 	}
 
-	public function find_all_by_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
+	public function find_all_by_assigned_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
 		$list_screens = new ListScreenCollection();
 
 		foreach ( $this->repositories as $repository ) {
-			foreach ( $repository->find_all_by_user( $key, $user ) as $list_screen ) {
+			foreach ( $repository->find_all_by_assigned_user( $key, $user ) as $list_screen ) {
 				if ( ! $list_screens->contains( $list_screen ) ) {
 					$list_screens->add( $list_screen );
 				}

@@ -6,6 +6,7 @@ namespace AC\ListScreenFactory;
 use AC\ListScreen;
 use AC\ListScreen\Post;
 use AC\ListScreenFactoryInterface;
+use AC\PostTypeRepository;
 use InvalidArgumentException;
 use WP_Screen;
 
@@ -34,11 +35,15 @@ class PostFactory implements ListScreenFactoryInterface {
 	}
 
 	public function can_create( string $key ): bool {
-		return post_type_exists( $key );
+		return post_type_exists( $key ) && $this->is_supported_post_type( $key );
+	}
+
+	private function is_supported_post_type( string $post_type ): bool {
+		return ( new PostTypeRepository() )->exists( $post_type );
 	}
 
 	public function can_create_by_wp_screen( WP_Screen $screen ): bool {
-		return 'edit' === $screen->base && $screen->post_type && 'edit-' . $screen->post_type === $screen->id;
+		return 'edit' === $screen->base && $screen->post_type && 'edit-' . $screen->post_type === $screen->id && $this->is_supported_post_type( $screen->post_type );
 	}
 
 }

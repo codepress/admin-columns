@@ -80,7 +80,7 @@ class AdminColumns extends Plugin {
 		$location = $this->get_location();
 		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
 		$default_repository = new DefaultColumnsRepository();
-		$list_keys_factory = new Table\ListKeysFactory();
+		$list_keys_factory = new Table\ListKeysFactory( new PostTypeRepository() );
 		$list_screens_uninitialized = new Admin\ListScreenUninitialized( $default_repository, $list_screen_factory, $list_keys_factory );
 
 		$page_handler = new PageRequestHandler();
