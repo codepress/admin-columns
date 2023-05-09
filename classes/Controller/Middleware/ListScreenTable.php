@@ -6,7 +6,7 @@ namespace AC\Controller\Middleware;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\ListScreenPermissionTrait;
-use AC\ListScreenRepository\Sort\ManualOrder;
+use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\Storage;
 use AC\Middleware;
 use AC\Request;
@@ -46,7 +46,17 @@ class ListScreenTable implements Middleware {
 			return null;
 		}
 
-		$list_screens = $this->storage->find_all_by_assigned_user( $list_key, wp_get_current_user(), new ManualOrder() );
+		$user = wp_get_current_user();
+
+		if ( ! $user ) {
+			return null;
+		}
+
+		$list_screens = $this->storage->find_all_by_assigned_user(
+			$list_key,
+			$user,
+			new Sort\UserOrder( $user, $list_key )
+		);
 
 		if ( $list_screens->valid() ) {
 			return $list_screens->current();
