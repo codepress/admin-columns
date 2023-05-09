@@ -76,7 +76,7 @@ class ListScreenTable implements Middleware {
 			return null;
 		}
 
-		if ( ! $this->user_can_view_list_screen( $list_screen, wp_get_current_user() ) ) {
+		if ( ! $this->user_is_assigned_to_list_screen( $list_screen, wp_get_current_user() ) ) {
 			return null;
 		}
 

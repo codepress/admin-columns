@@ -7,7 +7,7 @@ use WP_User;
 
 trait ListScreenPermissionTrait {
 
-	public function user_can_view_list_screen( ListScreen $list_screen, WP_User $user ): bool {
+	public function user_is_assigned_to_list_screen( ListScreen $list_screen, WP_User $user ): bool {
 		$user_ids = $list_screen->get_preference( 'users' );
 		$roles = $list_screen->get_preference( 'roles' );
 

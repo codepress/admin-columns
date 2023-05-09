@@ -69,7 +69,7 @@ final class Database implements ListScreenRepositoryWritable {
 	public function find_by_user( ListScreenId $id, WP_User $user ): ?ListScreen {
 		$list_screen = $this->find( $id );
 
-		return $list_screen && ( user_can( $user, Capabilities::MANAGE ) || $this->user_can_view_list_screen( $list_screen, $user ) )
+		return $list_screen && ( user_can( $user, Capabilities::MANAGE ) || $this->user_is_assigned_to_list_screen( $list_screen, $user ) )
 			? $list_screen
 			: null;
 	}
