@@ -3,16 +3,16 @@
 namespace AC;
 
 use AC\Admin;
-use AC\Admin\AdminScripts;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
+use AC\Asset\Location\Absolute;
 use AC\Asset\Script\Localize\Translation;
 use AC\Controller;
+use AC\Controller\RestoreSettingsRequest;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
-use AC\Screen\QuickEdit;
 use AC\Service;
 use AC\Table;
 use AC\ThirdParty;
@@ -42,18 +42,16 @@ class AdminColumns extends Plugin {
 	protected function __construct() {
 		parent::__construct( AC_FILE, new Version( AC_VERSION ) );
 
-		$plugin_information = new PluginInformation( $this->get_basename() );
-		$is_network_active = $plugin_information->is_network_active();
 		$is_acp_active = defined( 'ACP_FILE' );
 
 		$definitions = [
-			'translations.global'                    => function (): Translation {
+			'translations.global'                   => function (): Translation {
 				return new Translation( require $this->get_dir() . '/settings/translations/global.php' );
 			},
-			Database::class                          => static function (): Database {
+			Database::class                         => static function (): Database {
 				return new Database( new ListScreenFactory() );
 			},
-			Storage::class                           => static function ( Database $database ): Storage {
+			Storage::class                          => static function ( Database $database ): Storage {
 				$storage = new Storage();
 				$storage->set_repositories( [
 					'acp-database' => new ListScreenRepository\Storage\ListScreenRepository( $database, true ),
@@ -61,49 +59,37 @@ class AdminColumns extends Plugin {
 
 				return $storage;
 			},
-			Controller\RestoreSettingsRequest::class => static function ( Storage $storage ) {
-				return new Controller\RestoreSettingsRequest( $storage->get_repository( 'acp-database' ) );
+			RestoreSettingsRequest::class           => static function ( Storage $storage ): RestoreSettingsRequest {
+				return new RestoreSettingsRequest( $storage->get_repository( 'acp-database' ) );
 			},
-			PluginActionLinks::class                 => DI\autowire()
+			Absolute::class                         => DI\autowire()
+				->constructorParameter( 0, $this->get_url() )
+				->constructorParameter( 1, $this->get_dir() ),
+			PluginActionLinks::class                => DI\autowire()
 				->constructorParameter( 0, $this->get_basename() )
 				->constructorParameter( 1, $is_acp_active ),
-			Controller\TableListScreenSetter::class  => DI\autowire()
-				->constructorParameter( 1, $this->get_location() ),
-			Admin\Scripts::class                     => DI\autowire()
-				->constructorParameter( 0, $this->get_location() ),
-			Service\CommonAssets::class              => DI\autowire()
-				->constructorParameter( 0, $this->get_location() )
+			Service\CommonAssets::class             => DI\autowire()
 				->constructorParameter( 1, DI\get( 'translations.global' ) ),
-			Admin\Colors\Shipped\ColorParser::class  => DI\autowire()
+			Admin\Colors\Shipped\ColorParser::class => DI\autowire()
 				->constructorParameter( 0, ABSPATH . 'wp-admin/css/common.css' ),
-			Admin\Colors\ColorReader::class          => DI\autowire( Admin\Colors\ColorRepository::class ),
-			AdminScripts::class                      => DI\autowire()
-				->constructorParameter( 0, $this->get_location() ),
-			Admin\Admin::class                       => DI\autowire()
-				->constructorParameter( 0, DI\get( PageRequestHandlers::class ) )
-				->constructorParameter( 1, $this->get_location() ),
-			Service\NoticeChecks::class              => DI\autowire()
-				->constructorParameter( 0, $this->get_location() ),
-			Admin\MenuFactory::class                 => DI\autowire()
-				->constructorParameter( 0, admin_url( 'options-general.php' ) )
-				->constructorParameter( 1, $this->get_location() ),
-			Table\ListKeysFactoryInterface::class    => DI\autowire( Table\ListKeysFactory::class ),
-			Admin\MenuListFactory::class             => DI\autowire( Admin\MenuListFactory\MenuFactory::class ),
-			Admin\PageFactory\Columns::class         => DI\autowire()
-				->constructorParameter( 1, $this->get_location() )
+			Admin\Colors\ColorReader::class         => DI\autowire( Admin\Colors\ColorRepository::class ),
+			Admin\Admin::class                      => DI\autowire()
+				->constructorParameter( 0, DI\get( PageRequestHandlers::class ) ),
+			Admin\MenuFactory::class                => DI\autowire()
+				->constructorParameter( 0, admin_url( 'options-general.php' ) ),
+			Table\ListKeysFactoryInterface::class   => DI\autowire( Table\ListKeysFactory::class ),
+			Admin\MenuListFactory::class            => DI\autowire( Admin\MenuListFactory\MenuFactory::class ),
+			Admin\PageFactory\Columns::class        => DI\autowire()
 				->constructorParameter( 2, DI\get( Admin\MenuFactory::class ) )
 				->constructorParameter( 7, $is_acp_active ),
-			Admin\PageFactory\Settings::class        => DI\autowire()
-				->constructorParameter( 0, $this->get_location() )
+			Admin\PageFactory\Settings::class       => DI\autowire()
 				->constructorParameter( 1, DI\get( Admin\MenuFactory::class ) )
 				->constructorParameter( 2, $is_acp_active ),
-			Admin\PageFactory\Addons::class          => DI\autowire()
-				->constructorParameter( 0, $this->get_location() )
+			Admin\PageFactory\Addons::class         => DI\autowire()
 				->constructorParameter( 2, DI\get( Admin\MenuFactory::class ) ),
-			Admin\PageFactory\Help::class            => DI\autowire()
-				->constructorParameter( 0, $this->get_location() )
+			Admin\PageFactory\Help::class           => DI\autowire()
 				->constructorParameter( 1, DI\get( Admin\MenuFactory::class ) ),
-			SetupFactory\AdminColumns::class         => DI\autowire()
+			SetupFactory\AdminColumns::class        => DI\autowire()
 				->constructorParameter( 0, 'ac_version' )
 				->constructorParameter( 1, $this->get_version() ),
 		];
@@ -138,7 +124,7 @@ class AdminColumns extends Plugin {
 			ThirdParty\WooCommerce::class,
 			ThirdParty\WPML::class,
 			Controller\DefaultColumns::class,
-			QuickEdit::class,
+			Screen\QuickEdit::class,
 			Capabilities\Manage::class,
 			Controller\AjaxColumnRequest::class,
 			Controller\AjaxGeneralOptions::class,
@@ -147,7 +133,7 @@ class AdminColumns extends Plugin {
 			Controller\AjaxColumnValue::class,
 			Controller\AjaxScreenOptions::class,
 			Controller\ListScreenRestoreColumns::class,
-			Controller\RestoreSettingsRequest::class,
+			RestoreSettingsRequest::class,
 			PluginActionLinks::class,
 			Controller\TableListScreenSetter::class,
 			Admin\Scripts::class,
@@ -166,7 +152,9 @@ class AdminColumns extends Plugin {
 
 		$services[] = new Service\Setup( $container->get( SetupFactory\AdminColumns::class )->create( SetupFactory::SITE ) );
 
-		if ( $is_network_active ) {
+		$plugin = new PluginInformation( $this->get_basename() );
+
+		if ( $plugin->is_network_active() ) {
 			$services[] = new Service\Setup( $container->get( SetupFactory\AdminColumns::class )->create( SetupFactory::NETWORK ) );
 		}
 

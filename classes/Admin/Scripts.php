@@ -9,9 +9,6 @@ use AC\Registerable;
 
 class Scripts implements Registerable {
 
-	/**
-	 * @var Absolute
-	 */
 	private $location;
 
 	public function __construct( Absolute $location ) {
