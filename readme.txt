@@ -212,6 +212,10 @@ You can find a list of the available actions and filters (and examples on how to
 = NEWVERSION =
 Release Date: tbd
 
+* [Added] New hook to disable Admin Columns for certain list tables `ac/list_screen/is_active`
+* [Added] New hook to disable Admin Columns for certain list tables based on keys `ac/list_screen/key/is_active`
+* [Fixed] The hook `ac/post_types` works again to disable Admin Columns for specific post types
+
 = 4.6.3 =
 Release Date: April 26th, 2023
 
