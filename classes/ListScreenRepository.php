@@ -18,6 +18,6 @@ interface ListScreenRepository {
 
 	public function find_all_by_key( string $key, Sort $sort = null ): ListScreenCollection;
 
-	public function find_all_by_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection;
+	public function find_all_by_assigned_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection;
 
 }

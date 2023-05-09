@@ -46,7 +46,7 @@ class ListScreenTable implements Middleware {
 			return null;
 		}
 
-		$list_screens = $this->storage->find_all_by_user( $list_key, wp_get_current_user(), new ManualOrder() );
+		$list_screens = $this->storage->find_all_by_assigned_user( $list_key, wp_get_current_user(), new ManualOrder() );
 
 		if ( $list_screens->valid() ) {
 			return $list_screens->current();

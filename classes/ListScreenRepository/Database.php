@@ -84,7 +84,7 @@ final class Database implements ListScreenRepositoryWritable {
 			: $list_screens;
 	}
 
-	public function find_all_by_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
+	public function find_all_by_assigned_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
 		$list_screens = $this->find_all_by_key( $key, $sort );
 
 		return ( new Filter\UserAssigned( $user ) )->filter( $list_screens );

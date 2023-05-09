@@ -85,8 +85,8 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
 		return $list_screens;
 	}
 
-	public function find_all_by_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
-		$list_screens = $this->repository->find_all_by_user( $key, $user, $sort );
+	public function find_all_by_assigned_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
+		$list_screens = $this->repository->find_all_by_assigned_user( $key, $user, $sort );
 
 		if ( ! $this->is_writable() ) {
 			$this->set_all_read_only( $list_screens );
