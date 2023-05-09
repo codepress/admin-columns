@@ -8,7 +8,7 @@ use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\ListScreenPermissionTrait;
 use WP_User;
 
-class User implements Filter {
+class UserAssigned implements Filter {
 
 	use ListScreenPermissionTrait;
 
