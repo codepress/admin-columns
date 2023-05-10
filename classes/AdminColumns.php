@@ -24,30 +24,12 @@ use AC\Vendor\DI\ContainerBuilder;
 
 class AdminColumns extends Plugin {
 
-	/**
-	 * @var Storage
-	 */
-	private $storage;
-
-	/**
-	 * @var self
-	 */
-	private static $instance;
-
-	public static function instance(): self {
-		if ( null === self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
-	}
-
-	protected function __construct() {
+	public function __construct() {
 		parent::__construct( AC_FILE, new Version( AC_VERSION ) );
 
 		$container = $this->create_container();
 
-		$this->storage = $container->get( Storage::class );
+		Container::set_container( $container );
 
 		ListScreenFactory::add( $container->get( ListScreenFactory\UserFactory::class ) );
 		ListScreenFactory::add( $container->get( ListScreenFactory\CommentFactory::class ) );
@@ -169,7 +151,7 @@ class AdminColumns extends Plugin {
 	}
 
 	public function get_storage(): Storage {
-		return $this->storage;
+		return Container::get_storage();
 	}
 
 }

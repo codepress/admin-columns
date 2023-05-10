@@ -70,7 +70,7 @@ class View implements Renderable {
 		 * @param array  $paths    Template paths
 		 * @param string $template Current template path
 		 */
-		$paths = apply_filters( 'ac/view/templates', [ AC()->get_dir() . 'templates' ], $this->template );
+		$paths = apply_filters( 'ac/view/templates', [ Container::get_dir() . '/templates' ], $this->template );
 
 		foreach ( $paths as $path ) {
 			$file = $path . '/' . $this->template . '.php';

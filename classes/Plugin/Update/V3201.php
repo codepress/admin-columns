@@ -2,6 +2,7 @@
 
 namespace AC\Plugin\Update;
 
+use AC\Container;
 use AC\Plugin\Update;
 use AC\Plugin\Version;
 use AC\Preferences;
@@ -17,15 +18,13 @@ class V3201 extends Update {
 	}
 
 	public function apply_update() {
-		$this->uppercase_class_files( AC()->get_dir() . '/classes' );
+		$this->uppercase_class_files( Container::get_dir() . '/classes' );
 		$this->update_notice_preference_review();
 		$this->update_notice_preference_addons();
 	}
 
 	/**
 	 * Set all files to the proper case
-	 *
-	 * @param string Directory
 	 */
 	protected function uppercase_class_files( $directory ) {
 		$iterator = new RecursiveIteratorIterator(
