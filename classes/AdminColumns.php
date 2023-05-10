@@ -1,4 +1,5 @@
 <?php
+declare( strict_types=1 );
 
 namespace AC;
 
@@ -15,7 +16,9 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\Service;
 use AC\Table;
+use AC\Table\ListKeysFactoryInterface;
 use AC\ThirdParty;
+use AC\Type\Basename;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
 
@@ -48,9 +51,8 @@ class AdminColumns extends Plugin {
 			'translations.global'                   => function (): Translation {
 				return new Translation( require $this->get_dir() . '/settings/translations/global.php' );
 			},
-			Database::class                         => static function (): Database {
-				return new Database( new ListScreenFactory() );
-			},
+			Database::class                         => DI\autowire()
+				->constructorParameter( 0, new ListScreenFactory() ),
 			Storage::class                          => static function ( Database $database ): Storage {
 				$storage = new Storage();
 				$storage->set_repositories( [
@@ -65,9 +67,9 @@ class AdminColumns extends Plugin {
 			Absolute::class                         => DI\autowire()
 				->constructorParameter( 0, $this->get_url() )
 				->constructorParameter( 1, $this->get_dir() ),
-			PluginActionLinks::class                => DI\autowire()
-				->constructorParameter( 0, $this->get_basename() )
-				->constructorParameter( 1, $is_acp_active ),
+			Basename::class                         => DI\autowire()
+				->constructorParameter( 0, $this->get_basename() ),
+			ListKeysFactoryInterface::class         => DI\autowire( Table\ListKeysFactory::class ),
 			Service\CommonAssets::class             => DI\autowire()
 				->constructorParameter( 1, DI\get( 'translations.global' ) ),
 			Admin\Colors\Shipped\ColorParser::class => DI\autowire()
@@ -75,23 +77,16 @@ class AdminColumns extends Plugin {
 			Admin\Colors\ColorReader::class         => DI\autowire( Admin\Colors\ColorRepository::class ),
 			Admin\Admin::class                      => DI\autowire()
 				->constructorParameter( 0, DI\get( PageRequestHandlers::class ) ),
-			Admin\MenuFactory::class                => DI\autowire()
+			Admin\MenuFactoryInterface::class       => DI\autowire( Admin\MenuFactory::class )
 				->constructorParameter( 0, admin_url( 'options-general.php' ) ),
-			Table\ListKeysFactoryInterface::class   => DI\autowire( Table\ListKeysFactory::class ),
 			Admin\MenuListFactory::class            => DI\autowire( Admin\MenuListFactory\MenuFactory::class ),
-			Admin\PageFactory\Columns::class        => DI\autowire()
-				->constructorParameter( 2, DI\get( Admin\MenuFactory::class ) )
-				->constructorParameter( 7, $is_acp_active ),
 			Admin\PageFactory\Settings::class       => DI\autowire()
-				->constructorParameter( 1, DI\get( Admin\MenuFactory::class ) )
 				->constructorParameter( 2, $is_acp_active ),
-			Admin\PageFactory\Addons::class         => DI\autowire()
-				->constructorParameter( 2, DI\get( Admin\MenuFactory::class ) ),
-			Admin\PageFactory\Help::class           => DI\autowire()
-				->constructorParameter( 1, DI\get( Admin\MenuFactory::class ) ),
 			SetupFactory\AdminColumns::class        => DI\autowire()
 				->constructorParameter( 0, 'ac_version' )
 				->constructorParameter( 1, $this->get_version() ),
+			Service\Setup::class                    => DI\autowire()
+				->constructorParameter( 0, DI\get( SetupFactory\AdminColumns::class ) ),
 		];
 
 		$container = ( new ContainerBuilder() )
@@ -114,10 +109,12 @@ class AdminColumns extends Plugin {
 		PageRequestHandlers::add_handler( $page_handler );
 
 		$services_fqn = [
+			PluginActionLinks::class,
+			Screen::class,
 			Admin\Admin::class,
+			Admin\Scripts::class,
 			Admin\Notice\ReadOnlyListScreen::class,
 			Ajax\NumberFormat::class,
-			Screen::class,
 			ThirdParty\ACF::class,
 			ThirdParty\NinjaForms::class,
 			ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant::class,
@@ -134,9 +131,7 @@ class AdminColumns extends Plugin {
 			Controller\AjaxScreenOptions::class,
 			Controller\ListScreenRestoreColumns::class,
 			RestoreSettingsRequest::class,
-			PluginActionLinks::class,
 			Controller\TableListScreenSetter::class,
-			Admin\Scripts::class,
 			Service\IntegrationColumns::class,
 			Service\CommonAssets::class,
 			Service\Colors::class,
@@ -144,6 +139,8 @@ class AdminColumns extends Plugin {
 
 		if ( ! $is_acp_active ) {
 			$services_fqn[] = Service\NoticeChecks::class;
+			$services_fqn[] = PluginActionUpgrade::class;
+			$services_fqn[] = Service\ColumnsMockup::class;
 		}
 
 		array_map( static function ( string $service ) use ( $container ): void {
@@ -152,15 +149,17 @@ class AdminColumns extends Plugin {
 
 		$services[] = new Service\Setup( $container->get( SetupFactory\AdminColumns::class )->create( SetupFactory::SITE ) );
 
-		$plugin = new PluginInformation( $this->get_basename() );
-
-		if ( $plugin->is_network_active() ) {
+		if ( $this->is_network_active() ) {
 			$services[] = new Service\Setup( $container->get( SetupFactory\AdminColumns::class )->create( SetupFactory::NETWORK ) );
 		}
 
-		array_map( static function ( Registerable $service ) {
+		array_map( static function ( Registerable $service ): void {
 			$service->register();
 		}, $services );
+	}
+
+	private function is_network_active(): bool {
+		return ( new PluginInformation( $this->get_basename() ) )->is_network_active();
 	}
 
 	public function get_storage(): Storage {
