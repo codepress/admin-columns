@@ -44,10 +44,11 @@ class AdminColumns extends Plugin {
 
 		PageRequestHandlers::add_handler( $page_handler );
 
-		$this->register_services( $container );
+		$this->create_services( $container )
+		     ->register();
 	}
 
-	private function register_services( DI\Container $container ): void {
+	private function create_services( DI\Container $container ): Services {
 		$services_fqn = [
 			PluginActionLinks::class,
 			Screen::class,
@@ -83,19 +84,19 @@ class AdminColumns extends Plugin {
 			$services_fqn[] = Service\ColumnsMockup::class;
 		}
 
-		array_map( static function ( string $service ) use ( $container ): void {
-			$container->get( $service )->register();
-		}, $services_fqn );
+		$services = new Services( [
+			new Service\Setup( $container->get( SetupFactory\AdminColumns::class )->create( SetupFactory::SITE ) ),
+		] );
 
-		$services[] = new Service\Setup( $container->get( SetupFactory\AdminColumns::class )->create( SetupFactory::SITE ) );
-
-		if ( $this->is_network_active() ) {
-			$services[] = new Service\Setup( $container->get( SetupFactory\AdminColumns::class )->create( SetupFactory::NETWORK ) );
+		foreach ( $services_fqn as $service_fqn ) {
+			$services->add( $container->get( $service_fqn ) );
 		}
 
-		array_map( static function ( Registerable $service ): void {
-			$service->register();
-		}, $services );
+		if ( $this->is_network_active() ) {
+			$services->add( new Service\Setup( $container->get( SetupFactory\AdminColumns::class )->create( SetupFactory::NETWORK ) ) );
+		}
+
+		return $services;
 	}
 
 	private function create_container(): DI\Container {
