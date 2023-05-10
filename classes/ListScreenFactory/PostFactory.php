@@ -14,6 +14,12 @@ class PostFactory implements ListScreenFactoryInterface {
 
 	use ListSettingsTrait;
 
+	private $post_type_repository;
+
+	public function __construct( PostTypeRepository $post_type_repository ) {
+		$this->post_type_repository = $post_type_repository;
+	}
+
 	protected function create_list_screen( string $key ): Post {
 		return new Post( $key );
 	}
@@ -39,7 +45,7 @@ class PostFactory implements ListScreenFactoryInterface {
 	}
 
 	private function is_supported_post_type( string $post_type ): bool {
-		return ( new PostTypeRepository() )->exists( $post_type );
+		return $this->post_type_repository->exists( $post_type );
 	}
 
 	public function can_create_by_wp_screen( WP_Screen $screen ): bool {

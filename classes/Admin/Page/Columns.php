@@ -40,16 +40,13 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
 	private $head;
 
-	private $is_acp_active;
-
 	public function __construct(
 		Location\Absolute $location,
 		ListScreen $list_screen,
 		DefaultColumnsRepository $default_columns_repository,
 		Admin\ListScreenUninitialized $list_screen_uninitialized,
 		Menu $menu,
-		Renderable $head,
-		bool $is_acp_active
+		Renderable $head
 	) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
@@ -57,7 +54,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 		$this->list_screen_uninitialized = $list_screen_uninitialized;
 		$this->menu = $menu;
 		$this->head = $head;
-		$this->is_acp_active = $is_acp_active;
 	}
 
 	public function get_list_screen(): ListScreen {
@@ -249,10 +245,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 						echo $columns->set_template( 'admin/edit-columns' );
 
 						do_action( 'ac/settings/after_columns', $this->list_screen );
-
-						if ( ! $this->is_acp_active ) {
-							echo ( new View() )->set_template( 'admin/list-screen-settings-mockup' )->render();
-						}
 
 						?>
 					</div>

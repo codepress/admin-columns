@@ -28,27 +28,14 @@ class PostTypeRepository {
 			'show_ui'  => true,
 		] );
 
-		foreach ( [ 'post', 'page' ] as $builtin ) {
+		// Reusable content blocks 'wp_block' for Gutenberg
+		foreach ( [ 'post', 'page', 'wp_block' ] as $builtin ) {
 			if ( post_type_exists( $builtin ) ) {
 				$post_types[ $builtin ] = $builtin;
 			}
 		}
 
-		// Reusable content blocks for Gutenberg
-		$wp_block = 'wp_block';
-
-		if ( post_type_exists( $wp_block ) && $this->has_post( $wp_block ) ) {
-			$post_types[ $wp_block ] = $wp_block;
-		}
-
 		return ( new PostTypes() )->apply_filters( $post_types );
-	}
-
-	private function has_post( string $post_type ): bool {
-		global $wpdb;
-
-		// TODO do we want a DB call here?
-		return (bool) $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = %s LIMIT 1", $post_type ) );
 	}
 
 }

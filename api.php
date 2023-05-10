@@ -1,5 +1,6 @@
 <?php
 
+use AC\Container;
 use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
@@ -11,7 +12,7 @@ if ( ! function_exists( 'AC' ) ) {
 		static $ac = null;
 
 		if ( $ac === null ) {
-			$ac = AC\AdminColumns::instance();
+			$ac = new AC\AdminColumns();
 		}
 
 		return $ac;
@@ -32,7 +33,7 @@ if ( ! function_exists( 'ac_helper' ) ) {
  */
 if ( ! function_exists( 'ac_get_list_screen' ) ) {
 	function ac_get_list_screen( $id ) {
-		return AC()->get_storage()->find( new ListScreenId( $id ) );
+		return Container::get_storage()->find( new ListScreenId( $id ) );
 	}
 }
 
@@ -46,7 +47,7 @@ if ( ! function_exists( 'ac_get_list_screen' ) ) {
  */
 if ( ! function_exists( 'ac_get_list_screens' ) ) {
 	function ac_get_list_screens( $key ) {
-		return AC()->get_storage()->find_all_by_key( $key );
+		return Container::get_storage()->find_all_by_key( $key );
 	}
 }
 
@@ -67,7 +68,7 @@ if ( ! function_exists( 'ac_get_column' ) ) {
 			return null;
 		}
 
-		$list_screen = AC()->get_storage()->find( $list_id );
+		$list_screen = Container::get_storage()->find( $list_id );
 
 		if ( ! $list_screen ) {
 			return null;
@@ -99,7 +100,7 @@ if ( ! function_exists( 'ac_get_columns' ) ) {
 			return [];
 		}
 
-		$list_screen = AC()->get_storage()->find( $list_id );
+		$list_screen = Container::get_storage()->find( $list_id );
 
 		if ( ! $list_screen ) {
 			return [];

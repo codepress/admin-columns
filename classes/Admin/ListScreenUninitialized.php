@@ -5,7 +5,7 @@ namespace AC\Admin;
 
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
-use AC\ListScreenFactoryInterface;
+use AC\ListScreenFactory;
 use AC\Table\ListKeysFactoryInterface;
 use AC\Type\ListKey;
 
@@ -19,7 +19,7 @@ class ListScreenUninitialized {
 
 	public function __construct(
 		DefaultColumnsRepository $storage,
-		ListScreenFactoryInterface $list_screen_factory,
+		ListScreenFactory $list_screen_factory,
 		ListKeysFactoryInterface $list_keys_factory
 	) {
 		$this->default_storage = $storage;
