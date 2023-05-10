@@ -9,6 +9,7 @@ use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Style;
+use AC\Container;
 use AC\Integration\Filter;
 use AC\IntegrationRepository;
 use AC\Renderable;
@@ -68,7 +69,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead {
 						/* @var AC\Integration $addon */
 
 						$view = new AC\View( [
-							'logo'        => AC()->get_url() . $addon->get_logo(),
+							'logo'        => sprintf( '%s/%s', Container::get_url(), $addon->get_logo() ),
 							'title'       => $addon->get_title(),
 							'slug'        => $addon->get_slug(),
 							'description' => $addon->get_description(),

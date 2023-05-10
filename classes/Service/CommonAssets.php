@@ -26,7 +26,6 @@ class CommonAssets implements Registerable {
 
 	public function register() {
 		add_action( 'admin_enqueue_scripts', [ $this, 'register_global_assets' ], 1 );
-		//( new Script\GlobalTranslationFactory( $this->location, $this->translation ) )->create();
 	}
 
 	public function register_global_assets() {

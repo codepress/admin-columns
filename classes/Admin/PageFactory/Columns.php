@@ -34,8 +34,6 @@ class Columns implements PageFactoryInterface {
 
 	private $list_keys_factory;
 
-	private $is_acp_active;
-
 	public function __construct(
 		Storage $storage,
 		Location\Absolute $location,
@@ -43,8 +41,7 @@ class Columns implements PageFactoryInterface {
 		ListScreenFactory $list_screen_factory,
 		Admin\ListScreenUninitialized $list_screen_uninitialized,
 		Admin\MenuListFactory $menu_list_factory,
-		ListKeysFactoryInterface $list_keys_factory,
-		bool $is_acp_active
+		ListKeysFactoryInterface $list_keys_factory
 	) {
 		$this->storage = $storage;
 		$this->location = $location;
@@ -53,7 +50,6 @@ class Columns implements PageFactoryInterface {
 		$this->list_screen_uninitialized = $list_screen_uninitialized;
 		$this->menu_list_factory = $menu_list_factory;
 		$this->list_keys_factory = $list_keys_factory;
-		$this->is_acp_active = $is_acp_active;
 	}
 
 	public function create() {
@@ -78,10 +74,9 @@ class Columns implements PageFactoryInterface {
 			$this->location,
 			$list_screen,
 			new DefaultColumnsRepository(),
-			$this->list_screen_uninitialized,
+			$this->list_screen_uninitialized->find_all_sites(),
 			new Section\Partial\Menu( $this->menu_list_factory ),
-			new Admin\View\Menu( $this->menu_factory->create( 'columns' ) ),
-			$this->is_acp_active
+			new Admin\View\Menu( $this->menu_factory->create( 'columns' ) )
 		);
 	}
 

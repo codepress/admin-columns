@@ -1,153 +1,158 @@
 <?php
+declare( strict_types=1 );
 
 namespace AC;
 
 use AC\Admin;
-use AC\Admin\AdminScripts;
-use AC\Admin\MenuListFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
-use AC\Admin\Preference;
+use AC\Asset\Location\Absolute;
 use AC\Asset\Script\Localize\Translation;
 use AC\Controller;
+use AC\Controller\RestoreSettingsRequest;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
-use AC\Screen\QuickEdit;
 use AC\Service;
-use AC\Settings\GeneralOption;
 use AC\Table;
+use AC\Table\ListKeysFactoryInterface;
 use AC\ThirdParty;
+use AC\Type\Basename;
+use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
 
 class AdminColumns extends Plugin {
 
-	/**
-	 * @var Storage
-	 */
-	private $storage;
-
-	/**
-	 * @var self
-	 */
-	private static $instance;
-
-	public static function instance(): self {
-		if ( null === self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
-	}
-
-	protected function __construct() {
+	public function __construct() {
 		parent::__construct( AC_FILE, new Version( AC_VERSION ) );
 
-		$plugin_information = new PluginInformation( $this->get_basename() );
-		$is_network_active = $plugin_information->is_network_active();
-		$is_acp_active = defined( 'ACP_FILE' );
-		$list_screen_factory = new ListScreenFactory();
+		$container = $this->create_container();
 
-		$this->storage = new Storage();
-		$this->storage->set_repositories( [
-			'acp-database' => new ListScreenRepository\Storage\ListScreenRepository(
-				new Database( $list_screen_factory ),
-				true
-			),
-		] );
+		Container::set_container( $container );
 
-		ListScreenFactory::add( new ListScreenFactory\UserFactory() );
-		ListScreenFactory::add( new ListScreenFactory\CommentFactory() );
-		ListScreenFactory::add( new ListScreenFactory\PostFactory() );
-		ListScreenFactory::add( new ListScreenFactory\MediaFactory() );
-
-		$definitions = [
-			'translations.global' => function (): Translation {
-				return new Translation( require $this->get_dir() . '/settings/translations/global.php' );
-			},
-		];
-
-		$container = ( new ContainerBuilder() )
-			->addDefinitions( $definitions )
-			->build();
-
-		/**
-		 * @var Translation $global_translations
-		 */
-		$global_translations = $container->get( 'translations.global' );
-
-		$location = $this->get_location();
-		$menu_factory = new Admin\MenuFactory( admin_url( 'options-general.php' ), $location );
-		$default_repository = new DefaultColumnsRepository();
-		$list_keys_factory = new Table\ListKeysFactory( new PostTypeRepository() );
-		$list_screens_uninitialized = new Admin\ListScreenUninitialized( $default_repository, $list_screen_factory, $list_keys_factory );
+		ListScreenFactory::add( $container->get( ListScreenFactory\UserFactory::class ) );
+		ListScreenFactory::add( $container->get( ListScreenFactory\CommentFactory::class ) );
+		ListScreenFactory::add( $container->get( ListScreenFactory\PostFactory::class ) );
+		ListScreenFactory::add( $container->get( ListScreenFactory\MediaFactory::class ) );
 
 		$page_handler = new PageRequestHandler();
-		$page_handler->add( 'columns', new Admin\PageFactory\Columns( $this->storage, $location, $menu_factory, $list_screen_factory, $list_screens_uninitialized, new MenuListFactory\MenuFactory( $list_keys_factory, $list_screen_factory ), $list_keys_factory, $is_acp_active ) )
-		             ->add( 'settings', new Admin\PageFactory\Settings( $location, $menu_factory, $is_acp_active ) )
-		             ->add( 'addons', new Admin\PageFactory\Addons( $location, new IntegrationRepository(), $menu_factory ) )
-		             ->add( 'help', new Admin\PageFactory\Help( $location, $menu_factory ) );
+		$page_handler->add( 'columns', $container->get( Admin\PageFactory\Columns::class ) )
+		             ->add( 'settings', $container->get( Admin\PageFactory\Settings::class ) )
+		             ->add( 'addons', $container->get( Admin\PageFactory\Addons::class ) )
+		             ->add( 'help', $container->get( Admin\PageFactory\Help::class ) );
 
 		PageRequestHandlers::add_handler( $page_handler );
 
-		$color_repository = new Admin\Colors\ColorRepository( new Admin\Colors\Storage\OptionFactory() );
+		$this->create_services( $container )
+		     ->register();
+	}
 
-		$services = [
-			new Admin\Admin( new PageRequestHandlers(), $location, new AdminScripts( $location ) ),
-			new Admin\Notice\ReadOnlyListScreen(),
-			new Ajax\NumberFormat( new Request() ),
-			new Screen( $list_screen_factory ),
-			new ThirdParty\ACF(),
-			new ThirdParty\NinjaForms(),
-			new ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant(),
-			new ThirdParty\WooCommerce(),
-			new ThirdParty\WPML( $this->storage ),
-			new Controller\DefaultColumns( new Request(), $list_screen_factory, new DefaultColumnsRepository() ),
-			new QuickEdit( $this->storage, new Table\LayoutPreference() ),
-			new Capabilities\Manage(),
-			new Controller\AjaxColumnRequest( $this->storage, new Request(), $list_screen_factory ),
-			new Controller\AjaxGeneralOptions( new GeneralOption() ),
-			new Controller\AjaxRequestCustomFieldKeys(),
-			new Controller\AjaxColumnModalValue( $this->storage ),
-			new Controller\AjaxColumnValue( $this->storage ),
-			new Controller\AjaxScreenOptions( new Preference\ScreenOptions() ),
-			new Controller\ListScreenRestoreColumns( $this->storage ),
-			new Controller\RestoreSettingsRequest( $this->storage->get_repository( 'acp-database' ) ),
-			new PluginActionLinks( $this->get_basename(), $is_acp_active ),
-			new Controller\TableListScreenSetter( $this->storage, $location, $list_screen_factory, new Table\LayoutPreference() ),
-			new Admin\Scripts( $location ),
-			new Service\IntegrationColumns( new IntegrationRepository() ),
-			new Service\CommonAssets( $location, $global_translations ),
-			new Service\Colors(
-				new Admin\Colors\Shipped\ColorUpdater(
-					new Admin\Colors\Shipped\ColorParser( ABSPATH . 'wp-admin/css/common.css' ),
-					$color_repository,
-					new Admin\Colors\Storage\OptionFactory()
-				),
-				new Admin\Colors\StyleInjector( $color_repository )
-			),
+	private function create_services( DI\Container $container ): Services {
+		$services_fqn = [
+			PluginActionLinks::class,
+			Screen::class,
+			Admin\Admin::class,
+			Admin\Scripts::class,
+			Admin\Notice\ReadOnlyListScreen::class,
+			Ajax\NumberFormat::class,
+			ThirdParty\ACF::class,
+			ThirdParty\NinjaForms::class,
+			ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant::class,
+			ThirdParty\WooCommerce::class,
+			ThirdParty\WPML::class,
+			Controller\DefaultColumns::class,
+			Screen\QuickEdit::class,
+			Capabilities\Manage::class,
+			Controller\AjaxColumnRequest::class,
+			Controller\AjaxGeneralOptions::class,
+			Controller\AjaxRequestCustomFieldKeys::class,
+			Controller\AjaxColumnModalValue::class,
+			Controller\AjaxColumnValue::class,
+			Controller\AjaxScreenOptions::class,
+			Controller\ListScreenRestoreColumns::class,
+			RestoreSettingsRequest::class,
+			Controller\TableListScreenSetter::class,
+			Service\IntegrationColumns::class,
+			Service\CommonAssets::class,
+			Service\Colors::class,
 		];
 
-		if ( ! $is_acp_active ) {
-			$services[] = new Service\NoticeChecks( $location );
+		if ( ! defined( 'ACP_FILE' ) ) {
+			$services_fqn[] = Service\NoticeChecks::class;
+			$services_fqn[] = PluginActionUpgrade::class;
+			$services_fqn[] = Service\ColumnsMockup::class;
 		}
 
-		$setup_factory = new SetupFactory\AdminColumns( 'ac_version', $this->get_version() );
+		$services = new Services( [
+			new Service\Setup( $container->get( SetupFactory\AdminColumns::class )->create( SetupFactory::SITE ) ),
+		] );
 
-		$services[] = new Service\Setup( $setup_factory->create( SetupFactory::SITE ) );
-
-		if ( $is_network_active ) {
-			$services[] = new Service\Setup( $setup_factory->create( SetupFactory::NETWORK ) );
+		foreach ( $services_fqn as $service_fqn ) {
+			$services->add( $container->get( $service_fqn ) );
 		}
 
-		array_map( static function ( Registerable $service ) {
-			$service->register();
-		}, $services );
+		if ( $this->is_network_active() ) {
+			$services->add( new Service\Setup( $container->get( SetupFactory\AdminColumns::class )->create( SetupFactory::NETWORK ) ) );
+		}
+
+		return $services;
+	}
+
+	private function create_container(): DI\Container {
+		$definitions = [
+			'translations.global'                   => function (): Translation {
+				return new Translation( require $this->get_dir() . '/settings/translations/global.php' );
+			},
+			Database::class                         => DI\autowire()
+				->constructorParameter( 0, new ListScreenFactory() ),
+			Storage::class                          => static function ( Database $database ): Storage {
+				$storage = new Storage();
+				$storage->set_repositories( [
+					'acp-database' => new ListScreenRepository\Storage\ListScreenRepository( $database, true ),
+				] );
+
+				return $storage;
+			},
+			RestoreSettingsRequest::class           => static function ( Storage $storage ): RestoreSettingsRequest {
+				return new RestoreSettingsRequest( $storage->get_repository( 'acp-database' ) );
+			},
+			Absolute::class                         => DI\autowire()
+				->constructorParameter( 0, $this->get_url() )
+				->constructorParameter( 1, $this->get_dir() ),
+			Basename::class                         => DI\autowire()
+				->constructorParameter( 0, $this->get_basename() ),
+			ListKeysFactoryInterface::class         => DI\autowire( Table\ListKeysFactory::class ),
+			Service\CommonAssets::class             => DI\autowire()
+				->constructorParameter( 1, DI\get( 'translations.global' ) ),
+			Admin\Colors\Shipped\ColorParser::class => DI\autowire()
+				->constructorParameter( 0, ABSPATH . 'wp-admin/css/common.css' ),
+			Admin\Colors\ColorReader::class         => DI\autowire( Admin\Colors\ColorRepository::class ),
+			Admin\Admin::class                      => DI\autowire()
+				->constructorParameter( 0, DI\get( PageRequestHandlers::class ) ),
+			Admin\MenuFactoryInterface::class       => DI\autowire( Admin\MenuFactory::class )
+				->constructorParameter( 0, admin_url( 'options-general.php' ) ),
+			Admin\MenuListFactory::class            => DI\autowire( Admin\MenuListFactory\MenuFactory::class ),
+			Admin\PageFactory\Settings::class       => DI\autowire()
+				->constructorParameter( 2, defined( 'ACP_FILE' ) ),
+			SetupFactory\AdminColumns::class        => DI\autowire()
+				->constructorParameter( 0, 'ac_version' )
+				->constructorParameter( 1, $this->get_version() ),
+			Service\Setup::class                    => DI\autowire()
+				->constructorParameter( 0, DI\get( SetupFactory\AdminColumns::class ) ),
+		];
+
+		return ( new ContainerBuilder() )
+			->addDefinitions( $definitions )
+			->build();
+	}
+
+	private function is_network_active(): bool {
+		return ( new PluginInformation( $this->get_basename() ) )->is_network_active();
 	}
 
 	public function get_storage(): Storage {
-		return $this->storage;
+		return Container::get_storage();
 	}
 
 }

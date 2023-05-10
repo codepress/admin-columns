@@ -12,7 +12,7 @@ class PageRequestHandlers implements RequestHandlerInterface {
 	 */
 	public static $handlers;
 
-	public static function add_handler( RequestHandlerInterface $handler ) {
+	public static function add_handler( RequestHandlerInterface $handler ): void {
 		self::$handlers[] = $handler;
 	}
 
