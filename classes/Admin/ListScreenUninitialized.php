@@ -39,11 +39,34 @@ class ListScreenUninitialized {
 		return $this->list_screen_factory->create( (string) $list_key );
 	}
 
-	public function find_all(): array {
+	private function is_network( ListKey $list_key ): bool {
+		return $list_key->is_network();
+	}
+
+	private function is_site( ListKey $list_key ): bool {
+		return ! $list_key->is_network();
+	}
+
+	private function find_all( bool $is_network ): array {
 		$list_keys = $this->list_keys_factory->create()->all();
+
+		$filter_callback = $is_network
+			? [ $this, 'is_network' ]
+			: [ $this, 'is_site' ];
+
+		$list_keys = array_filter( $list_keys, $filter_callback );
+
 		$list_screens = array_map( [ $this, 'find' ], $list_keys );
 
 		return array_filter( $list_screens );
+	}
+
+	public function find_all_network(): array {
+		return $this->find_all( true );
+	}
+
+	public function find_all_sites(): array {
+		return $this->find_all( false );
 	}
 
 }

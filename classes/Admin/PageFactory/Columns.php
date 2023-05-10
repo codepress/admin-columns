@@ -74,7 +74,7 @@ class Columns implements PageFactoryInterface {
 			$this->location,
 			$list_screen,
 			new DefaultColumnsRepository(),
-			$this->list_screen_uninitialized,
+			$this->list_screen_uninitialized->find_all_sites(),
 			new Section\Partial\Menu( $this->menu_list_factory ),
 			new Admin\View\Menu( $this->menu_factory->create( 'columns' ) )
 		);
