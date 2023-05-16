@@ -1658,23 +1658,21 @@ div.cpac-color span {
 }
 .ac-table-actions .ac-table-actions-buttons {
   white-space: nowrap;
-  display: inline-block;
+  display: inline-flex;
   vertical-align: top;
+  border: 1px solid var(--ac-button-border);
+  border-radius: 3px;
+  overflow: hidden;
 }
 .ac-table-actions .ac-table-actions-buttons .ac-table-button {
-  float: left;
-  border-radius: 0;
-  border-right: none;
-}
-.ac-table-actions .ac-table-actions-buttons .ac-table-button:first-child {
-  border-radius: 3px 0 0 3px;
+  display: flex;
 }
 .ac-table-actions .ac-table-button {
   display: inline-block;
   padding: 2px 12px;
   cursor: pointer;
   color: var(--ac-button-color);
-  border: 1px solid var(--ac-button-border);
+  border-right: 1px solid var(--ac-button-border);
   background: var(--ac-button-bg);
   text-decoration: none;
   font-size: 13px;
@@ -1682,17 +1680,9 @@ div.cpac-color span {
   line-height: 24px;
   text-align: center;
   transform: translateX(-1px);
-  border-radius: 3px;
 }
-.ac-table-actions .ac-table-button:last-child, .ac-table-actions .ac-table-button.last {
-  border-radius: 0 3px 3px 0;
-  border-right: 1px solid var(--ac-button-border);
-}
-.ac-table-actions .ac-table-button:last-child.active, .ac-table-actions .ac-table-button.last.active {
-  border-right: 1px solid var(--ac-button-border);
-}
-.ac-table-actions .ac-table-button:last-child:first-child, .ac-table-actions .ac-table-button.last:first-child {
-  border-radius: 3px;
+.ac-table-actions .ac-table-button:last-child {
+  border-right: none !important;
 }
 .ac-table-actions .ac-table-button:hover, .ac-table-actions .ac-table-button:focus, .ac-table-actions .ac-table-button:active {
   outline: none;

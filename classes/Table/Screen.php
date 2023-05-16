@@ -83,6 +83,7 @@ final class Screen implements Registerable {
 	}
 
 	public function register_button( Button $button, int $priority = 10 ): bool {
+		$button->set_attribute( 'data-priority', $priority );
 		$this->buttons[ $priority ][] = $button;
 
 		ksort( $this->buttons, SORT_NUMERIC );

@@ -9376,43 +9376,110 @@ const createTooltip = (content) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ActionButton": () => (/* binding */ ActionButton),
 /* harmony export */   "default": () => (/* binding */ Actions)
 /* harmony export */ });
 /* harmony import */ var _helpers_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/elements */ "./js/helpers/elements.ts");
+/* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
+
 
 var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
+class ActionButton {
+    constructor(el) {
+        this.el = el;
+        this.visible = true;
+    }
+    toggle(show) {
+        this.visible = show;
+        return this;
+    }
+    isHidden() {
+        return !this.visible;
+    }
+    getElement() {
+        return new _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__["default"](this.el);
+    }
+    setTooltip(tooltip) {
+        this.el.dataset.acTip = tooltip;
+        return this;
+    }
+    static createWithMarkup(slug, label) {
+        return new ActionButton(_helpers_html_element__WEBPACK_IMPORTED_MODULE_1__["default"].create('a')
+            .setAttribute('data-slug', slug)
+            .addClasses('ac-table-button')
+            .addHtml(label).getElement());
+    }
+}
+class ActionButtonCollection {
+    constructor(data) {
+        this.data = data;
+    }
+    add(button, priority) {
+        if (!(priority in this.data)) {
+            this.data[priority] = [];
+        }
+        this.data[priority].push(button);
+    }
+    getById(id) {
+        this.getButtons().find(b => b.getElement().getElement().id === id);
+    }
+    getButtons() {
+        let result = [];
+        Object.keys(this.data).forEach((priority) => {
+            this.data[parseInt(priority)].forEach(button => {
+                result.push(button);
+            });
+        });
+        return result;
+    }
+    getReversedButtons() {
+        return this.getButtons().reverse();
+    }
+}
 class Actions {
     constructor(element) {
+        this.buttons = new ActionButtonCollection({});
         this.container = element;
         this.events = nanobus();
         this.init();
+    }
+    getButton(id) {
+        return this.buttons.getById(id);
+    }
+    addButton(button, priority) {
+        this.buttons.add(button, priority);
     }
     init() {
         this.container.addEventListener('update', () => {
             this.refresh();
         });
-        let reference = document.querySelectorAll('.tablenav.top .actions');
-        if (reference && reference.length) {
-            (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_0__.insertAfter)(this.container, reference[reference.length - 1]);
+        document.querySelectorAll('.tablenav.top .actions').forEach(el => {
+            (0,_helpers_elements__WEBPACK_IMPORTED_MODULE_0__.insertAfter)(this.container, el);
             this.container.classList.add('-init');
-            this.container.dispatchEvent(new CustomEvent('update'));
-        }
+        });
+        this.container.querySelectorAll('.ac-table-actions-buttons .ac-table-button').forEach(button => {
+            var _a, _b;
+            let actionButton = new ActionButton(button);
+            if (!button.offsetParent) {
+                actionButton.toggle(false);
+                actionButton.getElement().getElement().remove();
+            }
+            this.addButton(actionButton, parseInt((_b = (_a = button.dataset) === null || _a === void 0 ? void 0 : _a.priority) !== null && _b !== void 0 ? _b : '10'));
+        });
     }
     getElement() {
         return this.container;
     }
     refresh() {
-        this.container.querySelectorAll('.ac-table-actions-buttons > a').forEach((element) => {
-            element.classList.remove('last');
-        });
-        let buttons = [].slice.call(this.container.querySelectorAll('.ac-table-actions-buttons > a'), 0);
-        buttons.reverse();
-        for (var i = 0; i < buttons.length; i++) {
-            if (buttons[i].offsetParent) {
-                buttons[i].classList.add('last');
-                break;
+        this.buttons.getButtons().forEach(button => {
+            var _a;
+            if (button.isHidden()) {
+                button.getElement().getElement().remove();
             }
-        }
+            else {
+                (_a = this.container.querySelector('.ac-table-actions-buttons')) === null || _a === void 0 ? void 0 : _a.append(button.getElement().getElement());
+            }
+        });
     }
 }
 

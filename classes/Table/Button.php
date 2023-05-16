@@ -192,6 +192,7 @@ class Button {
 	public function render() {
 		$attributes = $this->get_attributes();
 		$attributes['data-ac-tip'] = $this->get_label();
+		$attributes['data-slug'] = $this->get_slug();
 
 		$template = '<a %s>%s%s</a>';
 

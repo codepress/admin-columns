@@ -1,16 +1,104 @@
 import {insertAfter} from "../helpers/elements";
+import AcHtmlElement from "../helpers/html-element";
 
 var nanobus = require('nanobus')
 
+export class ActionButton {
+
+    private visible: boolean = true;
+
+    constructor(private el: HTMLElement) {
+    }
+
+    toggle(show: boolean) {
+        this.visible = show;
+
+        return this;
+    }
+
+    isHidden() {
+        return !this.visible;
+    }
+
+    getElement() {
+        return new AcHtmlElement(this.el);
+    }
+
+    setTooltip( tooltip: string ){
+        this.el.dataset.acTip = tooltip;
+
+        return this;
+    }
+
+    static createWithMarkup( slug: string, label: string) {
+        return new ActionButton(AcHtmlElement
+            .create('a')
+            .setAttribute( 'data-slug', slug )
+            .addClasses('ac-table-button')
+            .addHtml(label).getElement());
+    }
+
+}
+
+class ActionButtonCollection {
+    constructor(private data: ActionButtonData) {
+    }
+
+    add(button: ActionButton, priority: number) {
+        if (!(priority in this.data)) {
+            this.data[priority] = [];
+        }
+        this.data[priority].push(button);
+    }
+
+    getById(id: string) {
+        this.getButtons().find(b => b.getElement().getElement().id === id);
+    }
+
+    getButtons(): ActionButtonArray {
+        let result: ActionButtonArray = [];
+
+        Object.keys(this.data).forEach((priority) => {
+            this.data[parseInt(priority)].forEach(button => {
+                result.push(button);
+            })
+        })
+
+        return result;
+    }
+
+    getReversedButtons(): ActionButtonArray {
+        return this.getButtons().reverse();
+    }
+
+
+}
+
+type ActionButtonData = {
+    [key: number]: ActionButtonArray;
+}
+
+type ActionButtonArray = Array<ActionButton>;
+
 export default class Actions {
 
+    private buttons: ActionButtonCollection
     private container: HTMLElement
     events: any
 
     constructor(element: HTMLElement) {
+        this.buttons = new ActionButtonCollection({});
         this.container = element;
         this.events = nanobus();
         this.init();
+    }
+
+    getButton(id: string) {
+        return this.buttons.getById(id);
+    }
+
+    addButton(button: ActionButton, priority: number) {
+        this.buttons.add(button, priority);
     }
 
     init() {
@@ -18,33 +106,37 @@ export default class Actions {
             this.refresh();
         });
 
-        let reference = document.querySelectorAll<HTMLElement>('.tablenav.top .actions');
 
-        if (reference && reference.length) {
-            insertAfter(this.container, reference[reference.length - 1])
+        document.querySelectorAll<HTMLElement>('.tablenav.top .actions').forEach(el => {
+            insertAfter(this.container, el);
             this.container.classList.add('-init');
-            this.container.dispatchEvent(new CustomEvent('update'));
-        }
+        });
+
+        this.container.querySelectorAll<HTMLElement>('.ac-table-actions-buttons .ac-table-button').forEach(button => {
+            let actionButton = new ActionButton(button);
+
+            if (!button.offsetParent) {
+                actionButton.toggle(false);
+                actionButton.getElement().getElement().remove();
+            }
+
+            this.addButton(actionButton, parseInt(button.dataset?.priority ?? '10'))
+        });
     }
 
-    getElement(){
+    getElement() {
         return this.container;
     }
 
     refresh() {
-        this.container.querySelectorAll('.ac-table-actions-buttons > a').forEach((element) => {
-            element.classList.remove('last');
-        });
-
-        let buttons = [].slice.call(this.container.querySelectorAll('.ac-table-actions-buttons > a'), 0);
-        buttons.reverse();
-
-        for (var i = 0; i < buttons.length; i++) {
-            if (buttons[i].offsetParent) {
-                buttons[i].classList.add('last');
-                break;
+        this.buttons.getButtons().forEach(button => {
+            if (button.isHidden()) {
+                button.getElement().getElement().remove();
+            } else {
+                this.container.querySelector('.ac-table-actions-buttons')?.append(button.getElement().getElement());
             }
-        }
+
+        });
     }
 
 }
