@@ -243,6 +243,7 @@ final class Screen implements Registerable {
 				'screen'           => $this->get_current_screen_id(),
 				'meta_type'        => $this->list_screen->get_meta_type(),
 				'list_screen_link' => $this->get_list_screen_clear_link(),
+				'current_user_id'  => get_current_user_id(),
 				'number_format'    => [
 					'decimal_point' => $this->get_local_number_format( 'decimal_point' ),
 					'thousands_sep' => $this->get_local_number_format( 'thousands_sep' ),

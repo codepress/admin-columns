@@ -10,4 +10,5 @@ export type LocalizedAcTable = {
     meta_type: string,
     screen: string
     table_id: string,
+    current_user_id: number
 }
