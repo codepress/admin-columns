@@ -21,7 +21,7 @@ class NetworkSite implements ListTable {
 		$blog = get_site( $id );
 
 		if ( ! $blog ) {
-			return null;
+			return '';
 		}
 
 		if ( method_exists( $this->table, $method ) ) {
