@@ -1,7 +1,12 @@
 import {insertAfter} from "../helpers/elements";
 import AcHtmlElement from "../helpers/html-element";
 
-var nanobus = require('nanobus')
+type ActionButtonData = {
+    [key: number]: ActionButtonArray;
+}
+
+type ActionButtonArray = Array<ActionButton>;
+
 
 export class ActionButton {
 
@@ -24,16 +29,16 @@ export class ActionButton {
         return new AcHtmlElement(this.el);
     }
 
-    setTooltip( tooltip: string ){
+    setTooltip(tooltip: string) {
         this.el.dataset.acTip = tooltip;
 
         return this;
     }
 
-    static createWithMarkup( slug: string, label: string) {
+    static createWithMarkup(slug: string, label: string) {
         return new ActionButton(AcHtmlElement
             .create('a')
-            .setAttribute( 'data-slug', slug )
+            .setAttribute('data-slug', slug)
             .addClasses('ac-table-button')
             .addHtml(label).getElement());
     }
@@ -74,22 +79,12 @@ class ActionButtonCollection {
 
 }
 
-type ActionButtonData = {
-    [key: number]: ActionButtonArray;
-}
-
-type ActionButtonArray = Array<ActionButton>;
-
 export default class Actions {
 
     private buttons: ActionButtonCollection
-    private container: HTMLElement
-    events: any
 
-    constructor(element: HTMLElement) {
+    constructor(private container: HTMLElement) {
         this.buttons = new ActionButtonCollection({});
-        this.container = element;
-        this.events = nanobus();
         this.init();
     }
 
@@ -105,7 +100,6 @@ export default class Actions {
         this.container.addEventListener('update', () => {
             this.refresh();
         });
-
 
         document.querySelectorAll<HTMLElement>('.tablenav.top .actions').forEach(el => {
             insertAfter(this.container, el);

@@ -9383,7 +9383,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_html_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/html-element */ "./js/helpers/html-element.ts");
 
 
-var nanobus = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 class ActionButton {
     constructor(el) {
         this.el = el;
@@ -9437,10 +9436,9 @@ class ActionButtonCollection {
     }
 }
 class Actions {
-    constructor(element) {
+    constructor(container) {
+        this.container = container;
         this.buttons = new ActionButtonCollection({});
-        this.container = element;
-        this.events = nanobus();
         this.init();
     }
     getButton(id) {
@@ -9836,9 +9834,9 @@ class Table {
         this.Services = new _modules_service_container__WEBPACK_IMPORTED_MODULE_7__["default"]();
         this.Columns = new _columns__WEBPACK_IMPORTED_MODULE_2__["default"](el);
         this.Cells = new _cells__WEBPACK_IMPORTED_MODULE_1__["default"]();
+        this.Selection = new _row_selection__WEBPACK_IMPORTED_MODULE_4__["default"](this);
         let actionsElement = document.getElementById('ac-table-actions');
         this.Actions = actionsElement ? new _actions__WEBPACK_IMPORTED_MODULE_0__["default"](actionsElement) : null;
-        this.Selection = new _row_selection__WEBPACK_IMPORTED_MODULE_4__["default"](this);
     }
     getElement() {
         return this.el;
