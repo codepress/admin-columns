@@ -16,6 +16,7 @@ import ValueModals from "./modules/value-modals";
 import {initAcTooltips} from "./plugin/tooltip";
 import {ValueModalItemCollection} from "./types/admin-columns";
 import JsonViewer from "./modules/json-viewer";
+import {HTMLAnchorAttributes} from "svelte/elements";
 
 declare let AC: LocalizedAcTable
 

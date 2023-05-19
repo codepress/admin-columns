@@ -121,7 +121,7 @@ class Column {
 			$this->set_label( $this->get_list_screen()->get_original_label( $this->get_type() ) );
 		}
 
-		return $this->label;
+		return (string) $this->label;
 	}
 
 	/**
