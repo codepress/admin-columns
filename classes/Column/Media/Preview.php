@@ -32,12 +32,13 @@ class Preview extends Column implements Column\AjaxValue {
 			case in_array( $mime_type, ( new ValidAudioMimetypes( $this ) )->apply_filters(), true ):
 				return 'audio';
 
-			case file_is_valid_image( $this->get_raw_value( $id ) ):
+			case wp_get_attachment_image_src( $id ):
 				return 'image';
 
 			default:
 				return null;
 		}
+
 	}
 
 	public function get_value( $id ) {
