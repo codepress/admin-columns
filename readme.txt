@@ -214,6 +214,7 @@ Release Date: tbd
 
 * [Added] New hook to disable Admin Columns for certain list tables `ac/list_screen/is_active`
 * [Added] New hook to disable Admin Columns for certain list tables based on keys `ac/list_screen/key/is_active`
+* [Improved] The Preview Column now also show a preview for video and audio files
 * [Fixed] The hook `ac/post_types` works again to disable Admin Columns for specific post types
 
 = 4.6.3 =
