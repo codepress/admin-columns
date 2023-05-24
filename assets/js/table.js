@@ -8470,6 +8470,10 @@ class AcHtmlElement {
         this.element.appendChild(element);
         return this;
     }
+    appendFound(selector) {
+        document.querySelectorAll(selector).forEach(el => this.append(el));
+        return this;
+    }
     appendSelfTo(element) {
         element.append(this.element);
         return this;
@@ -8522,6 +8526,9 @@ class AcHtmlElement {
     addEventListeners(events, listener) {
         events.forEach(e => this.addEventListener(e, listener));
         return this;
+    }
+    $() {
+        return this.getElement();
     }
 }
 

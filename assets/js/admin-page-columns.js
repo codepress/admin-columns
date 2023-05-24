@@ -4606,6 +4606,10 @@ class AcHtmlElement {
         this.element.appendChild(element);
         return this;
     }
+    appendFound(selector) {
+        document.querySelectorAll(selector).forEach(el => this.append(el));
+        return this;
+    }
     appendSelfTo(element) {
         element.append(this.element);
         return this;
@@ -4659,6 +4663,9 @@ class AcHtmlElement {
         events.forEach(e => this.addEventListener(e, listener));
         return this;
     }
+    $() {
+        return this.getElement();
+    }
 }
 
 
@@ -4677,7 +4684,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "uniqid": () => (/* binding */ uniqid)
 /* harmony export */ });
 const uniqid = (prefix = "", moreEntropy = false) => {
-    const c = Date.now() / 1000;
+    const c = Math.floor(Math.random() * Date.now()) / 1000;
     let d = c.toString(16).split(".").join("");
     while (d.length < 14)
         d += "0";

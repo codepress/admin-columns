@@ -373,7 +373,10 @@
   display: block;
 }
 .ac-admin.show-list-screen-id .layouts__item__title small.layouts__item__id {
-  display: inline;
+  display: block;
+  line-height: 14px;
+  padding: 0;
+  margin: 0 0 10px 0;
 }
 
 /**
