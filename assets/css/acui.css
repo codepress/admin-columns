@@ -33,6 +33,64 @@
   border-radius: 5px;
 }
 
+.acui-datepicker-header {
+  display: flex;
+  align-items: center;
+  margin: 0 4px;
+  padding: 2px 0;
+  border-bottom: 1px solid #eee;
+}
+.acui-datepicker-header__controls {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+.acui-datepicker-header__controls select {
+  width: 100px;
+}
+
+.acui-datepicker-positioning {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 260px;
+}
+
+.acui-datepicker-month-container.-prev, .acui-datepicker-month-container.-next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.acui-datepicker-month-container.-prev {
+  right: 120%;
+}
+.acui-datepicker-month-container.-next {
+  left: 120%;
+}
+
+.acui-datepicker-months {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.acui-datepicker-months button {
+  flex: 33%;
+  background: none;
+  border: 1px solid transparent;
+  height: 40px;
+  cursor: pointer;
+}
+
+.acui-datepicker-months button:hover {
+  background: var(--ac-button-bg);
+}
+
+.acui-datepicker-months button.-active {
+  background: var(--ac-primary-color);
+  color: #fff;
+  border-radius: 3px;
+}
+
 .acui-progress {
   --containerWidth: 100%;
   --baseBackground: #ddd;

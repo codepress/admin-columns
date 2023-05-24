@@ -16,10 +16,6 @@
 		}
 	}
 
-    onMount( () => {
-        value = '2023-01';
-	})
-
 </script>
 
 <AcDropdown --menu-z-index="30000" bind:this={dropdown} closeOnClick={true}>

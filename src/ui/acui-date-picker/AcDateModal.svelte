@@ -19,6 +19,10 @@
         return new Date('2022-' + padded).toLocaleString('default', {month: 'short'})
     }
 
+    const padMonth = ( month: number ): string => {
+        return month.toString().length === 1 ? '0' + month.toString() : month.toString();
+	}
+
     const handleNextYear = () => {
         displayYear++;
     }
@@ -45,6 +49,10 @@
     }
 
     onMount(() => {
+        if( value === null ){
+            let newDate = new Date();
+            value = newDate.getFullYear() + '-' + padMonth( newDate.getMonth() + 1 );
+		}
         if (value.length === 7) {
             let date = new Date(value);
 
@@ -72,7 +80,7 @@
 			<span class="dashicons dashicons-arrow-left-alt2"></span>
 		</button>
 		<div class="acui-datepicker-header__controls">
-			<select bind:value={displayYear}>
+			<select bind:value={displayYear} on:change|stopPropagation={()=>{}}>
 				{#each Array( 100 ) as _, index (index)}
 					<option value={1970+ index}>{1970 + index}</option>
 				{/each}
