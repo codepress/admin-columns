@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.6.4 =
+Release Date: May 25th, 2023
+
+* [MLA] Media Library Assistant columns were not loaded correctly
+
 = 4.6.3 =
 Release Date: April 26th, 2023
 
