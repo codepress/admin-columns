@@ -22,16 +22,20 @@ class TableListScreenSetter implements Registerable {
 
 	private $preference;
 
+	private $primary_column_factory;
+
 	public function __construct(
 		Storage $storage,
 		Absolute $location,
 		ListScreenFactory $list_screen_factory,
-		Table\LayoutPreference $preference
+		Table\LayoutPreference $preference,
+		Table\PrimaryColumnFactory $primary_column_factory
 	) {
 		$this->storage = $storage;
 		$this->list_screen_factory = $list_screen_factory;
 		$this->location = $location;
 		$this->preference = $preference;
+		$this->primary_column_factory = $primary_column_factory;
 	}
 
 	public function register() {
@@ -64,7 +68,8 @@ class TableListScreenSetter implements Registerable {
 			$this->location,
 			$list_screen,
 			new ColumnSize\ListStorage( $this->storage ),
-			new ColumnSize\UserStorage( new ColumnSize\UserPreference( get_current_user_id() ) )
+			new ColumnSize\UserStorage( new ColumnSize\UserPreference( get_current_user_id() ) ),
+			$this->primary_column_factory
 		);
 		$table_screen->register();
 

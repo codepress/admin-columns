@@ -6,6 +6,7 @@ use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\ScreenController;
 use AC\Table\LayoutPreference;
+use AC\Table\PrimaryColumnFactory;
 use AC\Type\ListScreenId;
 
 class QuickEdit implements Registerable
@@ -21,11 +22,17 @@ class QuickEdit implements Registerable
      */
     private $preference;
 
-    public function __construct(Storage $storage, LayoutPreference $preference)
-    {
-        $this->storage = $storage;
-        $this->preference = $preference;
-    }
+	private $primary_column_factory;
+
+	public function __construct(
+		Storage $storage,
+		LayoutPreference $preference,
+		PrimaryColumnFactory $primary_column_factory
+	) {
+		$this->storage = $storage;
+		$this->preference = $preference;
+		$this->primary_column_factory = $primary_column_factory;
+	}
 
     public function register()
     {
@@ -75,8 +82,14 @@ class QuickEdit implements Registerable
             return;
         }
 
-        $screen_controller = new ScreenController($list_screen);
-        $screen_controller->register();
-    }
+		if ( ! $list_screen ) {
+			return;
+		}
+
+		add_filter( 'list_table_primary_column', [ $this->primary_column_factory->create( $list_screen ), 'set_primary_column' ], 20 );
+
+		$screen_controller = new ScreenController( $list_screen );
+		$screen_controller->register();
+	}
 
 }

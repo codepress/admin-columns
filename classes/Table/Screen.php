@@ -12,7 +12,6 @@ use AC\Registerable;
 use AC\Renderable;
 use AC\ScreenController;
 use AC\Settings;
-use WP_Post;
 
 final class Screen implements Registerable {
 
@@ -46,16 +45,20 @@ final class Screen implements Registerable {
 	 */
 	private $column_size_user_storage;
 
+	private $primary_column_factory;
+
 	public function __construct(
 		Asset\Location\Absolute $location,
 		ListScreen $list_screen,
 		ColumnSize\ListStorage $column_size_list_storage,
-		ColumnSize\UserStorage $column_size_user_storage
+		ColumnSize\UserStorage $column_size_user_storage,
+		PrimaryColumnFactory $primary_column_factory
 	) {
 		$this->location = $location;
 		$this->list_screen = $list_screen;
 		$this->column_size_list_storage = $column_size_list_storage;
 		$this->column_size_user_storage = $column_size_user_storage;
+		$this->primary_column_factory = $primary_column_factory;
 	}
 
 	/**
@@ -68,12 +71,12 @@ final class Screen implements Registerable {
 		$render = new TableFormView( $this->list_screen->get_meta_type(), sprintf( '<input type="hidden" name="layout" value="%s">', $this->list_screen->get_layout_id() ) );
 		$render->register();
 
+		add_filter( 'list_table_primary_column', [ $this->primary_column_factory->create( $this->list_screen ), 'set_primary_column' ], 20 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] );
 		add_action( 'admin_footer', [ $this, 'admin_footer_scripts' ] );
 		add_action( 'admin_head', [ $this, 'admin_head_scripts' ] );
 		add_action( 'admin_head', [ $this, 'register_settings_button' ] );
 		add_filter( 'admin_body_class', [ $this, 'admin_class' ] );
-		add_filter( 'list_table_primary_column', [ $this, 'set_primary_column' ], 20 );
 		add_action( 'admin_footer', [ $this, 'render_actions' ] );
 		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
 	}
@@ -89,91 +92,6 @@ final class Screen implements Registerable {
 		ksort( $this->buttons, SORT_NUMERIC );
 
 		return true;
-	}
-
-	/**
-	 * Set the primary columns. Used to place the actions bar.
-	 *
-	 * @param $default
-	 *
-	 * @return int|null|string
-	 * @since 2.5.5
-	 */
-	public function set_primary_column( $default ) {
-		if ( ! $this->list_screen->get_column_by_name( $default ) ) {
-			$default = key( $this->list_screen->get_columns() );
-		}
-
-		// If actions column is present, set it as primary
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			if ( 'column-actions' === $column->get_type() ) {
-				$default = $column->get_name();
-
-				if ( $this->list_screen instanceof ListScreen\Media ) {
-
-					// Add download button to the actions column
-					add_filter( 'media_row_actions', [ $this, 'set_media_row_actions' ], 10, 2 );
-				}
-			}
-		}
-
-		// Set inline edit data if the default column (title) is not present
-		if ( $this->list_screen instanceof ListScreen\Post && 'title' !== $default ) {
-			add_filter( 'page_row_actions', [ $this, 'set_inline_edit_data' ], 20, 2 );
-			add_filter( 'post_row_actions', [ $this, 'set_inline_edit_data' ], 20, 2 );
-		}
-
-		// Remove inline edit action if the default column (author) is not present
-		if ( $this->list_screen instanceof ListScreen\Comment && 'comment' !== $default ) {
-			add_filter( 'comment_row_actions', [ $this, 'remove_quick_edit_from_actions' ], 20, 2 );
-		}
-
-		return $default;
-	}
-
-	/**
-	 * Add a download link to the table screen
-	 *
-	 * @param array   $actions
-	 * @param WP_Post $post
-	 *
-	 * @return array
-	 */
-	public function set_media_row_actions( $actions, $post ): array {
-		$link_attributes = [
-			'download' => '',
-			'title'    => __( 'Download', 'codepress-admin-columns' ),
-		];
-		$actions['download'] = ac_helper()->html->link( wp_get_attachment_url( $post->ID ), __( 'Download', 'codepress-admin-columns' ), $link_attributes );
-
-		return $actions;
-	}
-
-	/**
-	 * Sets the inline data when the title columns is not present on a AC\ListScreen_Post screen
-	 *
-	 * @param array   $actions
-	 * @param WP_Post $post
-	 *
-	 * @return array
-	 */
-	public function set_inline_edit_data( $actions, $post ) {
-		get_inline_data( $post );
-
-		return $actions;
-	}
-
-	/**
-	 * Remove quick edit from actions
-	 *
-	 * @param array $actions
-	 *
-	 * @return array
-	 */
-	public function remove_quick_edit_from_actions( $actions ) {
-		unset( $actions['quickedit'] );
-
-		return $actions;
 	}
 
 	/**
