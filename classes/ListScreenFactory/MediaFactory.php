@@ -18,7 +18,7 @@ class MediaFactory extends BaseFactory
 
     protected function create_list_screen_from_wp_screen(WP_Screen $screen): ListScreen
     {
-        return new Media();
+        return $this->create_list_screen($screen->post_type);
     }
 
     public function can_create(string $key): bool
