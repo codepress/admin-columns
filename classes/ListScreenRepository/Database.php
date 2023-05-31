@@ -7,7 +7,7 @@ namespace AC\ListScreenRepository;
 use AC\Exception\MissingListScreenIdException;
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenFactoryInterface;
+use AC\ListScreenFactory;
 use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
 use LogicException;
@@ -21,7 +21,7 @@ final class Database implements ListScreenRepositoryWritable
 
     private $list_screen_factory;
 
-    public function __construct(ListScreenFactoryInterface $list_screen_factory)
+    public function __construct(ListScreenFactory $list_screen_factory)
     {
         $this->list_screen_factory = $list_screen_factory;
     }

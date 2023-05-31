@@ -5,12 +5,12 @@ namespace AC\ListScreenFactory;
 
 use AC\ListScreen;
 use AC\ListScreen\Post;
-use AC\ListScreenFactoryInterface;
+use AC\ListScreenFactory;
 use AC\PostTypeRepository;
 use InvalidArgumentException;
 use WP_Screen;
 
-class PostFactory implements ListScreenFactoryInterface {
+class PostFactory implements ListScreenFactory {
 
 	use ListSettingsTrait;
 
@@ -32,8 +32,8 @@ class PostFactory implements ListScreenFactoryInterface {
 		return $this->add_settings( $this->create_list_screen( $key ), $settings );
 	}
 
-	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
-		if ( ! $this->can_create_by_wp_screen( $screen ) ) {
+	public function create_from_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
+		if ( ! $this->can_create_from_wp_screen( $screen ) ) {
 			throw new InvalidArgumentException( 'Invalid screen.' );
 		}
 
@@ -48,7 +48,7 @@ class PostFactory implements ListScreenFactoryInterface {
 		return $this->post_type_repository->exists( $post_type );
 	}
 
-	public function can_create_by_wp_screen( WP_Screen $screen ): bool {
+	public function can_create_from_wp_screen( WP_Screen $screen ): bool {
 		return 'edit' === $screen->base && $screen->post_type && 'edit-' . $screen->post_type === $screen->id && $this->is_supported_post_type( $screen->post_type );
 	}
 

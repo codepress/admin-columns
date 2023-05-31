@@ -31,10 +31,10 @@ class AdminColumns extends Plugin {
 
 		Container::set_container( $container );
 
-		ListScreenFactory::add( $container->get( ListScreenFactory\UserFactory::class ) );
-		ListScreenFactory::add( $container->get( ListScreenFactory\CommentFactory::class ) );
-		ListScreenFactory::add( $container->get( ListScreenFactory\PostFactory::class ) );
-		ListScreenFactory::add( $container->get( ListScreenFactory\MediaFactory::class ) );
+        ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\UserFactory::class ) );
+        ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\CommentFactory::class ) );
+        ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\PostFactory::class ) );
+        ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\MediaFactory::class ) );
 
 		$page_handler = new PageRequestHandler();
 		$page_handler->add( 'columns', $container->get( Admin\PageFactory\Columns::class ) )
@@ -105,7 +105,7 @@ class AdminColumns extends Plugin {
 				return new Translation( require $this->get_dir() . '/settings/translations/global.php' );
 			},
 			Database::class                         => DI\autowire()
-				->constructorParameter( 0, new ListScreenFactory() ),
+				->constructorParameter( 0, new ListScreenFactory\Aggregate() ),
 			Storage::class                          => static function ( Database $database ): Storage {
 				$storage = new Storage();
 				$storage->set_repositories( [

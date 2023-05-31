@@ -5,11 +5,11 @@ namespace AC\ListScreenFactory;
 
 use AC\ListScreen;
 use AC\ListScreen\Comment;
-use AC\ListScreenFactoryInterface;
+use AC\ListScreenFactory;
 use LogicException;
 use WP_Screen;
 
-class CommentFactory implements ListScreenFactoryInterface {
+class CommentFactory implements ListScreenFactory {
 
 	use ListSettingsTrait;
 
@@ -21,7 +21,7 @@ class CommentFactory implements ListScreenFactoryInterface {
 		return 'wp-comments' === $key;
 	}
 
-	public function can_create_by_wp_screen( WP_Screen $screen ): bool {
+	public function can_create_from_wp_screen( WP_Screen $screen ): bool {
 		return 'edit-comments' === $screen->base && 'edit-comments' === $screen->id;
 	}
 
@@ -33,8 +33,8 @@ class CommentFactory implements ListScreenFactoryInterface {
 		return $this->add_settings( $this->create_list_screen(), $settings );
 	}
 
-	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
-		if ( ! $this->can_create_by_wp_screen( $screen ) ) {
+	public function create_from_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
+		if ( ! $this->can_create_from_wp_screen( $screen ) ) {
 			throw new LogicException( 'Invalid screen' );
 		}
 

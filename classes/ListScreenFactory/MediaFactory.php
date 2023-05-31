@@ -5,11 +5,11 @@ namespace AC\ListScreenFactory;
 
 use AC\ListScreen;
 use AC\ListScreen\Media;
-use AC\ListScreenFactoryInterface;
+use AC\ListScreenFactory;
 use LogicException;
 use WP_Screen;
 
-class MediaFactory implements ListScreenFactoryInterface {
+class MediaFactory implements ListScreenFactory {
 
 	use ListSettingsTrait;
 
@@ -21,7 +21,7 @@ class MediaFactory implements ListScreenFactoryInterface {
 		return 'wp-media' === $key;
 	}
 
-	public function can_create_by_wp_screen( WP_Screen $screen ): bool {
+	public function can_create_from_wp_screen( WP_Screen $screen ): bool {
 		return 'upload' === $screen->base && 'upload' === $screen->id && 'attachment' === $screen->post_type;
 	}
 
@@ -33,8 +33,8 @@ class MediaFactory implements ListScreenFactoryInterface {
 		return $this->add_settings( $this->create_list_screen(), $settings );
 	}
 
-	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
-		if ( ! $this->can_create_by_wp_screen( $screen ) ) {
+	public function create_from_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
+		if ( ! $this->can_create_from_wp_screen( $screen ) ) {
 			throw new LogicException( 'Invalid screen' );
 		}
 

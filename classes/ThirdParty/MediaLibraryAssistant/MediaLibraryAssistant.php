@@ -14,7 +14,7 @@ class MediaLibraryAssistant implements Registerable {
 			return;
 		}
 
-		AC\ListScreenFactory::add( new ListScreenFactory() );
+		AC\ListScreenFactory\Aggregate::add( new ListScreenFactory() );
 		add_action( 'ac/list_keys', [ $this, 'add_list_keys' ] );
 	}
 

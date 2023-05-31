@@ -110,8 +110,8 @@ class ListScreenTable implements Middleware
 
     private function get_list_key(): ?string
     {
-        return $this->list_screen_factory->can_create_by_wp_screen($this->wp_screen)
-            ? $this->list_screen_factory->create_by_wp_screen($this->wp_screen)->get_key()
+        return $this->list_screen_factory->can_create_from_wp_screen($this->wp_screen)
+            ? $this->list_screen_factory->create_from_wp_screen($this->wp_screen)->get_key()
             : null;
     }
 
