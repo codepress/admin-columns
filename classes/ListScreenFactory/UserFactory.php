@@ -5,16 +5,16 @@ namespace AC\ListScreenFactory;
 
 use AC\ListScreen;
 use AC\ListScreen\User;
-use AC\ListScreenFactory;
-use LogicException;
 use WP_Screen;
 
-class UserFactory implements ListScreenFactory {
+class UserFactory extends BaseFactory {
 
-	use ListSettingsTrait;
-
-	protected function create_list_screen(): User {
+	protected function create_list_screen( string $key ): ListScreen {
 		return new User();
+	}
+
+	protected function create_list_screen_from_wp_screen( WP_Screen $screen ): ListScreen {
+		return $this->create_list_screen( 'wp-users' );
 	}
 
 	public function can_create( string $key ): bool {
@@ -23,22 +23,6 @@ class UserFactory implements ListScreenFactory {
 
 	public function can_create_from_wp_screen( WP_Screen $screen ): bool {
 		return 'delete' !== filter_input( INPUT_GET, 'action' ) && 'users' === $screen->base && 'users' === $screen->id;
-	}
-
-	public function create( string $key, array $settings = [] ): ListScreen {
-		if ( ! $this->can_create( $key ) ) {
-			throw new LogicException( 'Invalid key' );
-		}
-
-		return $this->add_settings( $this->create_list_screen(), $settings );
-	}
-
-	public function create_from_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
-		if ( ! $this->can_create_from_wp_screen( $screen ) ) {
-			throw new LogicException( 'Invalid screen' );
-		}
-
-		return $this->add_settings( $this->create_list_screen(), $settings );
 	}
 
 }
