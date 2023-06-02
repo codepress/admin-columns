@@ -105,12 +105,9 @@ final class Database implements ListScreenRepositoryWritable
                 $table,
                 $args,
                 [
-                    'id' => (string)$list_screen->get_id(),
+                    'list_id' => (string)$list_screen->get_id(),
                 ],
-                array_fill(0, 6, '%s'),
-                [
-                    '%d',
-                ]
+                array_fill(0, 6, '%s')
             );
         } else {
             $args['date_created'] = $args['date_modified'];
