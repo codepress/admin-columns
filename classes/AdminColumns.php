@@ -10,6 +10,7 @@ use AC\Asset\Location\Absolute;
 use AC\Asset\Script\Localize\Translation;
 use AC\Controller;
 use AC\Controller\RestoreSettingsRequest;
+use AC\ListScreenFactory\Aggregate;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\SetupFactory;
@@ -31,10 +32,10 @@ class AdminColumns extends Plugin {
 
 		Container::set_container( $container );
 
-        ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\UserFactory::class ) );
-        ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\CommentFactory::class ) );
-        ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\PostFactory::class ) );
-        ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\MediaFactory::class ) );
+		ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\UserFactory::class ) );
+		ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\CommentFactory::class ) );
+		ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\PostFactory::class ) );
+		ListScreenFactory\Aggregate::add( $container->get( ListScreenFactory\MediaFactory::class ) );
 
 		$page_handler = new PageRequestHandler();
 		$page_handler->add( 'columns', $container->get( Admin\PageFactory\Columns::class ) )
@@ -117,6 +118,7 @@ class AdminColumns extends Plugin {
 			RestoreSettingsRequest::class           => static function ( Storage $storage ): RestoreSettingsRequest {
 				return new RestoreSettingsRequest( $storage->get_repository( 'acp-database' ) );
 			},
+			ListScreenFactory::class                => DI\autowire( Aggregate::class ),
 			Absolute::class                         => DI\autowire()
 				->constructorParameter( 0, $this->get_url() )
 				->constructorParameter( 1, $this->get_dir() ),
