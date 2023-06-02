@@ -7,18 +7,11 @@ namespace AC\ListScreenFactory;
 use AC\Exception\InvalidListScreenException;
 use AC\ListScreen;
 use AC\ListScreenFactory;
-use ACP\Bookmark\SegmentRepository;
 use DateTime;
 use WP_Screen;
 
 abstract class BaseFactory implements ListScreenFactory
 {
-
-    private $segment_repository;
-
-    public function __construct( SegmentRepository $segment_repository ) {
-        $this->segment_repository = $segment_repository;
-    }
 
     protected function add_settings(ListScreen $list_screen, array $settings): ListScreen
     {
@@ -26,9 +19,6 @@ abstract class BaseFactory implements ListScreenFactory
         $preferences = $settings['preferences'] ?? [];
         $group = $settings['group'] ?? '';
         $date = $settings['date'] ?? new DateTime();
-        $segments = $this->segment_repository->find_all( [
-            SegmentRepository::FILTER_LIST_SCREEN => $list_screen->get_id(),
-        ] );
 
         if (is_string($date)) {
             $date = DateTime::createFromFormat('Y-m-d H:i:s', $date);
@@ -37,7 +27,6 @@ abstract class BaseFactory implements ListScreenFactory
         $list_screen->set_title($settings['title'] ?? '');
         $list_screen->set_layout_id($settings['list_id'] ?? '');
         $list_screen->set_preferences($preferences ?: []);
-        $list_screen->set_segments($segments);
         $list_screen->set_settings($columns ?: []);
         $list_screen->set_updated($date);
 
