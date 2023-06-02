@@ -7,7 +7,6 @@ namespace AC\ListScreenFactory;
 use AC\ListScreen;
 use AC\ListScreen\Post;
 use AC\PostTypeRepository;
-use ACP\Bookmark\SegmentRepository;
 use WP_Screen;
 
 class PostFactory extends BaseFactory
@@ -15,10 +14,8 @@ class PostFactory extends BaseFactory
 
     private $post_type_repository;
 
-    public function __construct(PostTypeRepository $post_type_repository, SegmentRepository $segment_repository )
+    public function __construct(PostTypeRepository $post_type_repository)
     {
-        parent::__construct( $segment_repository );
-
         $this->post_type_repository = $post_type_repository;
     }
 
