@@ -7,6 +7,7 @@ namespace AC;
 use AC\Sanitize\Kses;
 use AC\Type\ListScreenId;
 use AC\Type\Url\Editor;
+use ACP\Bookmark\Entity\Segment;
 use DateTime;
 use LogicException;
 use WP_User;
@@ -102,7 +103,7 @@ abstract class ListScreen
     private $preferences = [];
 
     /**
-     * @var array
+     * @var Segment[]
      */
     private $segments = [];
 
@@ -872,6 +873,28 @@ abstract class ListScreen
     public function get_segments(): array
     {
         return $this->segments;
+    }
+
+    public function get_default_segment(): ?Segment
+    {
+        if ( ! $this->has_default_segment()) {
+            return null;
+        }
+
+        $segment_id = $this->get_preference('filter_segment');
+
+        foreach ($this->segments as $segment) {
+            if ((string)$segment->get_id() === (string)$segment_id) {
+                return $segment;
+            }
+        }
+
+        return null;
+    }
+
+    public function has_default_segment(): bool
+    {
+        return ! empty($this->segments) && $this->get_preference('filter_segment') ?? false;
     }
 
     /**
