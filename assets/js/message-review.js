@@ -10,9 +10,9 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addEventListenerLive": () => (/* binding */ addEventListenerLive),
-/* harmony export */   "addEventListeners": () => (/* binding */ addEventListeners),
-/* harmony export */   "onHover": () => (/* binding */ onHover)
+/* harmony export */   addEventListenerLive: () => (/* binding */ addEventListenerLive),
+/* harmony export */   addEventListeners: () => (/* binding */ addEventListeners),
+/* harmony export */   onHover: () => (/* binding */ onHover)
 /* harmony export */ });
 const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement = null) => {
     let element = rootElement ? rootElement : document;

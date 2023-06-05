@@ -29,7 +29,7 @@
   color: var(--ac-text-color);
 }
 .acui-dropdown-item:hover, .acui-dropdown-item:focus {
-  background: var(--ac-button-bg);
+  background: var(--ac-primary-color);
   border-radius: 5px;
 }
 
