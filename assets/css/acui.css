@@ -30,6 +30,7 @@
 }
 .acui-dropdown-item:hover, .acui-dropdown-item:focus {
   background: var(--ac-primary-color);
+  color: #fff;
   border-radius: 5px;
 }
 
