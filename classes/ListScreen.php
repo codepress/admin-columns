@@ -864,11 +864,13 @@ abstract class ListScreen
         return $this->preferences[$key];
     }
 
+    // TODO David think about this: storage encode/decode depends on this
     public function set_segments(array $segments): void
     {
         $this->segments = $segments;
     }
 
+    // TODO David think about this: storage encode/decode depends on this
     public function get_segments(): array
     {
         return $this->segments;
