@@ -1,6 +1,6 @@
 .acui-dropdown {
 	--acui-dropdown-text-color: var(--ac-text-color);
-	--acui-dropdown-hover-background: var(--ac-primary-color);
+	--acui-dropdown-hover-background: var(--ac-select-hover-bg);
 	--acui-dropdown-hover-color: #fff;
 
 	position: relative;
@@ -15,7 +15,6 @@
 	border-radius: 2px;
 
 	min-width: 200px;
-	padding: 8px 0;
 	z-index: var(--menu-z-index, 20);
 	overflow:auto;
 }
@@ -25,7 +24,7 @@
 }
 
 .acui-dropdown-item {
-	margin: 0 2px;
+	margin: 0;
 	padding: 6px 10px;
 	cursor: pointer;
 	display: block;
@@ -37,6 +36,5 @@
 	&:focus {
 		background: var(--acui-dropdown-hover-background);
 		color: var( --acui-dropdown-hover-color );
-		border-radius: 5px;
 	}
 }

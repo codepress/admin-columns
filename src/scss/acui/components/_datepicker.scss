@@ -15,7 +15,15 @@
 		justify-content: center;
 
 		select {
-			 width: 100px;
+			 width: 100%;
+		}
+	}
+
+	button.acui-datepicker-button {
+		background: none;
+		border: none;
+		&:hover {
+			color: var(--ac-primary-color)
 		}
 	}
 }

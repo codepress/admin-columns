@@ -1,6 +1,6 @@
 .acui-dropdown {
   --acui-dropdown-text-color: var(--ac-text-color);
-  --acui-dropdown-hover-background: var(--ac-primary-color);
+  --acui-dropdown-hover-background: var(--ac-select-hover-bg);
   --acui-dropdown-hover-color: #fff;
   position: relative;
   display: inline-block;
@@ -13,7 +13,6 @@
   box-shadow: 0 9px 24px 0 rgba(15, 15, 15, 0.2), 0 3px 6px 0 rgba(15, 15, 15, 0.1), 0 0 0 1px rgba(15, 15, 15, 0.05);
   border-radius: 2px;
   min-width: 200px;
-  padding: 8px 0;
   z-index: var(--menu-z-index, 20);
   overflow: auto;
 }
@@ -23,7 +22,7 @@
 }
 
 .acui-dropdown-item {
-  margin: 0 2px;
+  margin: 0;
   padding: 6px 10px;
   cursor: pointer;
   display: block;
@@ -34,7 +33,6 @@
 .acui-dropdown-item:hover, .acui-dropdown-item:focus {
   background: var(--acui-dropdown-hover-background);
   color: var(--acui-dropdown-hover-color);
-  border-radius: 5px;
 }
 
 .acui-datepicker-header {
@@ -50,7 +48,14 @@
   justify-content: center;
 }
 .acui-datepicker-header__controls select {
-  width: 100px;
+  width: 100%;
+}
+.acui-datepicker-header button.acui-datepicker-button {
+  background: none;
+  border: none;
+}
+.acui-datepicker-header button.acui-datepicker-button:hover {
+  color: var(--ac-primary-color);
 }
 
 .acui-datepicker-positioning {

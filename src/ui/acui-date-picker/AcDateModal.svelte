@@ -50,7 +50,6 @@
 
     onMount(() => {
         if (value === null) {
-            console.log( value );
             value = '';
             //let newDate = new Date();
             //value = newDate.getFullYear() + '-' + padMonth(newDate.getMonth() + 1);
@@ -77,7 +76,7 @@
 
 <div class="acui-datepicker">
 	<div class="acui-datepicker-header">
-		<button on:click|preventDefault={handlePreviousYear} class="button button-primary">
+		<button on:click|preventDefault={handlePreviousYear} class="acui-datepicker-button -prev">
 			<span class="dashicons dashicons-arrow-left-alt2"></span>
 		</button>
 		<div class="acui-datepicker-header__controls">
@@ -87,7 +86,7 @@
 				{/each}
 			</select>
 		</div>
-		<button on:click|preventDefault={handleNextYear} class="button button-primary">
+		<button on:click|preventDefault={handleNextYear} class="acui-datepicker-button -next">
 			<span class="dashicons dashicons-arrow-right-alt2"></span>
 		</button>
 	</div>
