@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Storage;
 
+use LogicException;
+
 abstract class Table
 {
 
@@ -21,9 +23,15 @@ abstract class Table
         return $wpdb->get_var($query) === $this->get_name();
     }
 
-    public function delta(): void
+    public function create(): bool
     {
-        dbDelta($this->get_schema());
+        global $wpdb;
+
+        if ( $this->exists()) {
+            throw new LogicException(sprintf('Table %s does already exist', $this->get_name()));
+        }
+
+        return $wpdb->query($this->get_schema()) === true;
     }
 
     /**
