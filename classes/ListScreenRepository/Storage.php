@@ -99,14 +99,11 @@ final class Storage implements ListScreenRepositoryWritable
 
     public function save(ListScreen $list_screen): void
     {
-        $repository = $this->get_writable_repositories($list_screen);
+        $repository = $this->get_writable_repository($list_screen);
 
-        if (empty($repository)) {
-            return;
+        if ($repository) {
+            $repository->save($list_screen);
         }
-
-        // Only write in one repository
-        $repository[0]->save($list_screen);
     }
 
     public function delete(ListScreen $list_screen): void
@@ -117,6 +114,11 @@ final class Storage implements ListScreenRepositoryWritable
                 break;
             }
         }
+    }
+
+    public function get_writable_repository(ListScreen $list_screen): ?ListScreenRepositoryWritable
+    {
+        return $this->get_writable_repositories($list_screen)[0] ?? null;
     }
 
     private function get_writable_repositories(ListScreen $list_screen): array
