@@ -122,7 +122,7 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
         }
     }
 
-    public function get_source(ListScreenId $id): string
+    public function get_source(ListScreenId $id = null): string
     {
         if ( ! $this->has_source($id)) {
             throw new Exception\SourceNotAvailableException();
@@ -131,7 +131,7 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
         return $this->repository->get_source($id);
     }
 
-    public function has_source(ListScreenId $id): bool
+    public function has_source(ListScreenId $id = null): bool
     {
         return $this->repository instanceof SourceAware && $this->repository->has_source($id);
     }
