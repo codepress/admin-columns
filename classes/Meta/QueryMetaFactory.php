@@ -35,7 +35,7 @@ final class QueryMetaFactory
 
     public function create_by_meta_column(Meta $column): Query
     {
-        switch ($column->get_meta_key()) {
+        switch ($column->get_meta_type()) {
             case MetaType::POST:
                 return $this->create_with_post_type($column->get_meta_key(), $column->get_post_type());
             default:
