@@ -1,10 +1,10 @@
 .acui-dropdown {
+	--acui-dropdown-text-color: var(--ac-text-color);
+	--acui-dropdown-hover-background: var(--ac-primary-color);
+	--acui-dropdown-hover-color: #fff;
+
 	position: relative;
 	display: inline-block;
-}
-
-.acui-dropdown-trigger {
-
 }
 
 .acui-dropdown-menu {
@@ -30,11 +30,12 @@
 	display: block;
 	white-space: nowrap;
 	text-decoration: none;
-	color: var(--ac-text-color);
+	color: var(--acui-dropdown-text-color);
 
 	&:hover,
 	&:focus {
-		background: var(--ac-button-bg);
+		background: var(--acui-dropdown-hover-background);
+		color: var( --acui-dropdown-hover-color );
 		border-radius: 5px;
 	}
 }

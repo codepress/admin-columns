@@ -10,9 +10,9 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addEventListenerLive": () => (/* binding */ addEventListenerLive),
-/* harmony export */   "addEventListeners": () => (/* binding */ addEventListeners),
-/* harmony export */   "onHover": () => (/* binding */ onHover)
+/* harmony export */   addEventListenerLive: () => (/* binding */ addEventListenerLive),
+/* harmony export */   addEventListeners: () => (/* binding */ addEventListeners),
+/* harmony export */   onHover: () => (/* binding */ onHover)
 /* harmony export */ });
 const addEventListenerLive = (eventType, elementQuerySelector, cb, rootElement = null) => {
     let element = rootElement ? rootElement : document;
@@ -48,8 +48,8 @@ const addEventListeners = (el, events, callback) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "dismissNotice": () => (/* binding */ dismissNotice),
-/* harmony export */   "initDismissibleNotices": () => (/* binding */ initDismissibleNotices)
+/* harmony export */   dismissNotice: () => (/* binding */ dismissNotice),
+/* harmony export */   initDismissibleNotices: () => (/* binding */ initDismissibleNotices)
 /* harmony export */ });
 /* harmony import */ var _helpers_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/events */ "./js/helpers/events.ts");
 

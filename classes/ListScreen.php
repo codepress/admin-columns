@@ -780,9 +780,13 @@ abstract class ListScreen
         // Nothing stored. Use WP default columns.
         if (null === $this->columns) {
             foreach ($this->get_original_columns() as $type => $label) {
-                if ($column = $this->create_column(['type' => $type, 'original' => true])) {
-                    $this->register_column($column);
+                $column = $this->create_column(['type' => $type, 'original' => true]);
+
+                if ( ! $column) {
+                    continue;
                 }
+
+                $this->register_column($column);
             }
         }
 

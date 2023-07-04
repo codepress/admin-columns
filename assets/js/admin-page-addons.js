@@ -2062,10 +2062,10 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "appendObjectToFormData": () => (/* binding */ appendObjectToFormData),
-/* harmony export */   "getParamFromUrl": () => (/* binding */ getParamFromUrl),
-/* harmony export */   "mapDataToFormData": () => (/* binding */ mapDataToFormData),
-/* harmony export */   "sanitizeColumnSelector": () => (/* binding */ sanitizeColumnSelector)
+/* harmony export */   appendObjectToFormData: () => (/* binding */ appendObjectToFormData),
+/* harmony export */   getParamFromUrl: () => (/* binding */ getParamFromUrl),
+/* harmony export */   mapDataToFormData: () => (/* binding */ mapDataToFormData),
+/* harmony export */   sanitizeColumnSelector: () => (/* binding */ sanitizeColumnSelector)
 /* harmony export */ });
 const getParamFromUrl = (param, url) => {
     if (!url.includes('?')) {
@@ -2108,7 +2108,7 @@ const sanitizeColumnSelector = (name) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AddonDownload": () => (/* binding */ AddonDownload)
+/* harmony export */   AddonDownload: () => (/* binding */ AddonDownload)
 /* harmony export */ });
 /* harmony import */ var _notice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./notice */ "./js/modules/notice.ts");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "jquery");
