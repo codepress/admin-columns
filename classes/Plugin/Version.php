@@ -2,105 +2,76 @@
 
 namespace AC\Plugin;
 
-class Version {
+class Version
+{
 
-	/**
-	 * @var string
-	 */
-	private $value;
+    private $value;
 
-	public function __construct( $version ) {
-		$this->value = (string) $version;
-	}
+    public function __construct(string $version)
+    {
+        $this->value = $version;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_value() {
-		return $this->value;
-	}
+    public function get_value(): string
+    {
+        return $this->value;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function is_valid() {
-		return ! empty( $this->value );
-	}
+    public function is_valid(): bool
+    {
+        return ! empty($this->value);
+    }
 
-	/**
-	 * Greater than
-	 *
-	 * @param Version $version
-	 *
-	 * @return bool
-	 */
-	public function is_gt( Version $version ) {
-		return version_compare( $this->value, $version->get_value(), '>' );
-	}
+    /**
+     * Greater than
+     */
+    public function is_gt(Version $version): bool
+    {
+        return version_compare($this->value, $version->get_value(), '>');
+    }
 
-	/**
-	 * Lesser than
-	 *
-	 * @param Version $version
-	 *
-	 * @return bool
-	 */
-	public function is_lt( Version $version ) {
-		return version_compare( $this->value, $version->get_value(), '<' );
-	}
+    /**
+     * Lesser than
+     */
+    public function is_lt(Version $version): bool
+    {
+        return version_compare($this->value, $version->get_value(), '<');
+    }
 
-	/**
-	 * Greater than or Equal
-	 *
-	 * @param Version $version
-	 *
-	 * @return bool
-	 */
-	public function is_gte( Version $version ) {
-		return version_compare( $this->value, $version->get_value(), '>=' );
-	}
+    /**
+     * Greater than or Equal
+     */
+    public function is_gte(Version $version): bool
+    {
+        return version_compare($this->value, $version->get_value(), '>=');
+    }
 
-	/**
-	 * Lesser than or Equal
-	 *
-	 * @param Version $version
-	 *
-	 * @return bool
-	 */
-	public function is_lte( Version $version ) {
-		return version_compare( $this->value, $version->get_value(), '<=' );
-	}
+    /**
+     * Lesser than or Equal
+     */
+    public function is_lte(Version $version): bool
+    {
+        return version_compare($this->value, $version->get_value(), '<=');
+    }
 
-	/**
-	 * @param Version $version
-	 *
-	 * @return bool
-	 */
-	public function is_equal( Version $version ) {
-		return 0 === version_compare( $this->value, $version->get_value() );
-	}
+    public function is_equal(Version $version): bool
+    {
+        return 0 === version_compare($this->value, $version->get_value());
+    }
 
-	/**
-	 * @param Version $version
-	 *
-	 * @return bool
-	 */
-	public function is_not_equal( Version $version ) {
-		return ! $this->is_equal( $version );
-	}
+    public function is_not_equal(Version $version): bool
+    {
+        return ! $this->is_equal($version);
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function is_beta() {
-		return false !== strpos( $this->value, 'beta' );
-	}
+    public function is_beta(): bool
+    {
+        return false !== strpos($this->value, 'beta');
+    }
 
-	/**
-	 * @return string
-	 */
-	public function __toString() {
-		return $this->value;
-	}
+    public function __toString()
+    {
+        return $this->value;
+    }
 
 }

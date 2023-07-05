@@ -33,12 +33,12 @@ class SetupFactory
     protected $updates;
 
     public function __construct(
-        $version_key,
+        string $version_key,
         Version $version,
         InstallCollection $installers = null,
         UpdateCollection $updates = null
     ) {
-        $this->version_key = (string)$version_key;
+        $this->version_key = $version_key;
         $this->version = $version;
         $this->installers = $installers;
         $this->updates = $updates;
