@@ -1,26 +1,34 @@
 <?php
-declare( strict_types=1 );
+
+declare(strict_types=1);
 
 namespace AC;
 
-class Services {
+class Services
+{
 
-	private $services;
+    private $services;
 
-	public function __construct( array $services = [] ) {
-		$this->services = $services;
-	}
+    public function __construct(array $services = [])
+    {
+        $this->services = $services;
+    }
 
-	public function add( Registerable $service ): void {
-		$this->services[] = $service;
-	}
+    public function add(Registerable $service): self
+    {
+        $this->services[] = $service;
 
-	public function register(): void {
-		array_map( [ $this, 'register_service' ], $this->services );
-	}
+        return $this;
+    }
 
-	private function register_service( Registerable $service ): void {
-		$service->register();
-	}
+    public function register(): void
+    {
+        array_map([$this, 'register_service'], $this->services);
+    }
+
+    private function register_service(Registerable $service): void
+    {
+        $service->register();
+    }
 
 }

@@ -49,11 +49,11 @@ class DefaultColumns implements Registerable {
 			return;
 		}
 
-		if ( ! $this->list_screen_factory->can_create_by_wp_screen( $screen ) ) {
+		if ( ! $this->list_screen_factory->can_create_from_wp_screen( $screen ) ) {
 			return;
 		}
 
-		$this->list_screen = $this->list_screen_factory->create_by_wp_screen( $screen );
+		$this->list_screen = $this->list_screen_factory->create_from_wp_screen( $screen );
 
 		// Save an empty array in case the hook does not run properly.
 		$this->default_columns->update( $this->list_screen->get_key(), [] );

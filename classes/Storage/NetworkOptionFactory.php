@@ -4,7 +4,8 @@ namespace AC\Storage;
 
 class NetworkOptionFactory implements KeyValueFactory {
 
-	public function create( $key ) {
+	public function create( string $key ): KeyValuePair
+    {
 		return new SiteOption( $key );
 	}
 

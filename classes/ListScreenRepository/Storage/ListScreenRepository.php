@@ -1,4 +1,6 @@
-<?php declare( strict_types=1 );
+<?php
+
+declare(strict_types=1);
 
 namespace AC\ListScreenRepository\Storage;
 
@@ -7,136 +9,131 @@ use AC\Exception;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Rules;
-use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\SourceAware;
 use AC\Type\ListScreenId;
 use LogicException;
-use WP_User;
 
-class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAware {
+class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAware
+{
 
-	private $repository;
+    use AC\ListScreenRepository\ListScreenRepositoryTrait;
 
-	private $writable;
+    private $repository;
 
-	private $rules;
+    private $writable;
 
-	public function __construct( AC\ListScreenRepository $repository, bool $writable = null, Rules $rules = null ) {
-		if ( null === $writable ) {
-			$writable = false;
-		}
+    private $rules;
 
-		$this->repository = $repository;
-		$this->writable = $writable && $this->repository instanceof AC\ListScreenRepositoryWritable;
-		$this->rules = $rules;
-	}
+    public function __construct(AC\ListScreenRepository $repository, bool $writable = null, Rules $rules = null)
+    {
+        if (null === $writable) {
+            $writable = false;
+        }
 
-	public function is_writable(): bool {
-		return $this->writable;
-	}
+        $this->repository = $repository;
+        $this->writable = $writable && $this->repository instanceof AC\ListScreenRepositoryWritable;
+        $this->rules = $rules;
+    }
 
-	public function with_writable( bool $writable ): self {
-		return new self(
-			$this->repository,
-			$writable,
-			$this->rules
-		);
-	}
+    protected function find_from_source(ListScreenId $id): ?ListScreen
+    {
+        $list_screen = $this->repository->find($id);
 
-	public function get_rules(): Rules {
-		if ( ! $this->has_rules() ) {
-			throw new LogicException( 'No rules defined.' );
-		}
+        if ($list_screen && ! $this->is_writable()) {
+            $list_screen->set_read_only(true);
+        }
 
-		return $this->rules;
-	}
+        return $list_screen;
+    }
 
-	public function has_rules(): bool {
-		return $this->rules !== null;
-	}
+    protected function find_all_from_source(): ListScreenCollection
+    {
+        $list_screens = $this->repository->find_all();
 
-	public function find_by_user( ListScreenId $id, WP_User $user ): ?ListScreen {
-		$list_screen = $this->repository->find_by_user( $id, $user );
+        if ( ! $this->is_writable()) {
+            $this->set_all_read_only($list_screens);
+        }
 
-		if ( $list_screen && ! $this->is_writable() ) {
-			$list_screen->set_read_only( true );
-		}
+        return $list_screens;
+    }
 
-		return $list_screen;
-	}
+    protected function find_all_by_key_from_source(string $key): ListScreenCollection
+    {
+        $list_screens = $this->repository->find_all_by_key($key);
 
-	public function find( ListScreenId $id ): ?ListScreen {
-		$list_screen = $this->repository->find( $id );
+        if ( ! $this->is_writable()) {
+            $this->set_all_read_only($list_screens);
+        }
 
-		if ( $list_screen && ! $this->is_writable() ) {
-			$list_screen->set_read_only( true );
-		}
+        return $list_screens;
+    }
 
-		return $list_screen;
-	}
+    public function is_writable(): bool
+    {
+        return $this->writable;
+    }
 
-	public function find_all_by_key( string $key, Sort $sort = null ): ListScreenCollection {
-		$list_screens = $this->repository->find_all_by_key( $key, $sort );
+    public function with_writable(bool $writable): self
+    {
+        return new self(
+            $this->repository,
+            $writable,
+            $this->rules
+        );
+    }
 
-		if ( ! $this->is_writable() ) {
-			$this->set_all_read_only( $list_screens );
-		}
+    public function get_rules(): Rules
+    {
+        if ( ! $this->has_rules()) {
+            throw new LogicException('No rules defined.');
+        }
 
-		return $list_screens;
-	}
+        return $this->rules;
+    }
 
-	public function find_all_by_assigned_user( string $key, WP_User $user, Sort $sort = null ): ListScreenCollection {
-		$list_screens = $this->repository->find_all_by_assigned_user( $key, $user, $sort );
+    public function has_rules(): bool
+    {
+        return $this->rules !== null;
+    }
 
-		if ( ! $this->is_writable() ) {
-			$this->set_all_read_only( $list_screens );
-		}
+    private function set_all_read_only(ListScreenCollection $list_screens): void
+    {
+        foreach ($list_screens as $list_screen) {
+            $list_screen->set_read_only(true);
+        }
+    }
 
-		return $list_screens;
-	}
+    public function exists(ListScreenId $id): bool
+    {
+        return $this->repository->exists($id);
+    }
 
-	private function set_all_read_only( ListScreenCollection $list_screens ): void {
-		foreach ( $list_screens as $list_screen ) {
-			$list_screen->set_read_only( true );
-		}
-	}
+    public function save(ListScreen $list_screen): void
+    {
+        if ($this->repository instanceof AC\ListScreenRepositoryWritable) {
+            $this->repository->save($list_screen);
+        }
+    }
 
-	public function exists( ListScreenId $id ): bool {
-		return $this->repository->exists( $id );
-	}
+    public function delete(ListScreen $list_screen): void
+    {
+        if ($this->repository instanceof AC\ListScreenRepositoryWritable) {
+            $this->repository->delete($list_screen);
+        }
+    }
 
-	public function find_all( Sort $sort = null ): ListScreenCollection {
-		$list_screens = $this->repository->find_all( $sort );
+    public function get_source(ListScreenId $id = null): string
+    {
+        if ( ! $this->has_source($id)) {
+            throw new Exception\SourceNotAvailableException();
+        }
 
-		if ( ! $this->is_writable() ) {
-			$this->set_all_read_only( $list_screens );
-		}
+        return $this->repository->get_source($id);
+    }
 
-		return $list_screens;
-	}
-
-	public function save( ListScreen $list_screen ): void {
-		if ( $this->repository instanceof AC\ListScreenRepositoryWritable ) {
-			$this->repository->save( $list_screen );
-		}
-	}
-
-	public function delete( ListScreen $list_screen ): void {
-		if ( $this->repository instanceof AC\ListScreenRepositoryWritable ) {
-			$this->repository->delete( $list_screen );
-		}
-	}
-
-	public function get_source( ListScreenId $id ): string {
-		if ( ! $this->has_source( $id ) ) {
-			throw new Exception\SourceNotAvailableException();
-		}
-
-		return $this->repository->get_source( $id );
-	}
-
-	public function has_source( ListScreenId $id ): bool {
-		return $this->repository instanceof SourceAware && $this->repository->has_source( $id );
-	}
+    public function has_source(ListScreenId $id = null): bool
+    {
+        return $this->repository instanceof SourceAware && $this->repository->has_source($id);
+    }
 
 }

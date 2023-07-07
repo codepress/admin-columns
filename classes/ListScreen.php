@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 use AC\Sanitize\Kses;
@@ -7,6 +9,7 @@ use AC\Type\ListScreenId;
 use AC\Type\Url\Editor;
 use DateTime;
 use LogicException;
+use WP_User;
 
 abstract class ListScreen
 {
@@ -798,6 +801,37 @@ abstract class ListScreen
     public function get_settings()
     {
         return $this->settings;
+    }
+
+    public function is_user_allowed(WP_User $user): bool
+    {
+        return user_can($user, Capabilities::MANAGE) || $this->is_user_assigned($user);
+    }
+
+    public function is_user_assigned(WP_User $user): bool
+    {
+        $user_ids = $this->get_preference('users');
+        $roles = $this->get_preference('roles');
+
+        $user_ids = is_array($user_ids)
+            ? array_filter(array_map('intval', $user_ids))
+            : [];
+
+        $roles = is_array($roles)
+            ? array_filter(array_map('strval', $roles))
+            : [];
+
+        if ( ! $user_ids && ! $roles) {
+            return true;
+        }
+
+        foreach ($roles as $role) {
+            if ($user->has_cap($role)) {
+                return true;
+            }
+        }
+
+        return in_array($user->ID, $user_ids, true);
     }
 
     public function set_preferences(array $preferences)

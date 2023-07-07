@@ -1,60 +1,20 @@
 <?php
-declare( strict_types=1 );
+
+declare(strict_types=1);
 
 namespace AC;
 
-use InvalidArgumentException;
 use WP_Screen;
 
-class ListScreenFactory implements ListScreenFactoryInterface {
+interface ListScreenFactory
+{
 
-	/**
-	 * @var ListScreenFactoryInterface[]
-	 */
-	private static $factories = [];
+    public function can_create(string $key): bool;
 
-	public static function add( ListScreenFactoryInterface $factory ): void {
-		array_unshift( self::$factories, $factory );
-	}
+    public function create(string $key, array $settings = []): ListScreen;
 
-	public function create( string $key, array $settings = [] ): ListScreen {
-		foreach ( self::$factories as $factory ) {
-			if ( $factory->can_create( $key ) ) {
-				return $factory->create( $key, $settings );
-			}
-		}
+    public function can_create_from_wp_screen(WP_Screen $screen): bool;
 
-		throw new InvalidArgumentException( 'Invalid key' );
-	}
-
-	public function can_create( string $key ): bool {
-		foreach ( self::$factories as $factory ) {
-			if ( $factory->can_create( $key ) ) {
-				return (bool) apply_filters( 'ac/list_screen/key/is_active', true, $key );
-			}
-		}
-
-		return false;
-	}
-
-	public function can_create_by_wp_screen( WP_Screen $screen ): bool {
-		foreach ( self::$factories as $factory ) {
-			if ( $factory->can_create_by_wp_screen( $screen ) ) {
-				return (bool) apply_filters( 'ac/list_screen/is_active', true, $screen );
-			}
-		}
-
-		return false;
-	}
-
-	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
-		foreach ( self::$factories as $factory ) {
-			if ( $factory->can_create_by_wp_screen( $screen ) ) {
-				return $factory->create_by_wp_screen( $screen, $settings );
-			}
-		}
-
-		throw new InvalidArgumentException( 'Invalid screen' );
-	}
+    public function create_from_wp_screen(WP_Screen $screen, array $settings = []): ListScreen;
 
 }
