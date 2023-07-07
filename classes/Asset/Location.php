@@ -2,16 +2,11 @@
 
 namespace AC\Asset;
 
-interface Location {
+interface Location
+{
 
-	/**
-	 * @return string
-	 */
-	public function get_url();
+    public function get_url(): string;
 
-	/**
-	 * @return string
-	 */
-	public function get_path();
+    public function get_path(): string;
 
 }
