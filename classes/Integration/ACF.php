@@ -23,11 +23,13 @@ final class ACF extends Integration {
 		);
 	}
 
-	public function is_plugin_active() {
+	public function is_plugin_active(): bool
+    {
 		return class_exists( 'acf', false ) || class_exists( 'ACF', false );
 	}
 
-	public function show_notice( Screen $screen ) {
+	public function show_notice( Screen $screen ): bool
+    {
 		return in_array( $screen->get_id(), [
 			'edit-acf-field-group',
 			'acf-field-group',

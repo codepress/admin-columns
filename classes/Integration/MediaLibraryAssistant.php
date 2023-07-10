@@ -19,11 +19,13 @@ final class MediaLibraryAssistant extends Integration {
 		);
 	}
 
-	public function is_plugin_active() {
+	public function is_plugin_active(): bool
+    {
 		return defined( 'MLA_PLUGIN_PATH' );
 	}
 
-	public function show_notice( Screen $screen ) {
+	public function show_notice( Screen $screen ): bool
+    {
 		return false;
 	}
 

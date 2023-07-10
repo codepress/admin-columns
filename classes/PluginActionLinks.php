@@ -3,15 +3,15 @@
 namespace AC;
 
 use AC\Admin\Page\Columns;
-use AC\Type\Basename;
 use AC\Type\Url\Editor;
+use AC\Entity;
 
 class PluginActionLinks implements Registerable {
 
-	private $basename;
+	private $plugin;
 
-	public function __construct( Basename $basename ) {
-		$this->basename = $basename;
+	public function __construct( Entity\Plugin $plugin ) {
+		$this->plugin = $plugin;
 	}
 
 	public function register() {
@@ -30,7 +30,7 @@ class PluginActionLinks implements Registerable {
 	 * @since 1.0
 	 */
 	public function add_settings_link( $links, $file ) {
-		if ( $file === (string) $this->basename ) {
+		if ( $file === $this->plugin->get_basename() ) {
 			array_unshift(
 				$links,
 				sprintf(

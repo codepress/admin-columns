@@ -23,11 +23,13 @@ final class JetEngine extends Integration {
 		);
 	}
 
-	public function is_plugin_active() {
+	public function is_plugin_active(): bool
+    {
 		return class_exists( 'Jet_Engine', false );
 	}
 
-	public function show_notice( Screen $screen ) {
+	public function show_notice( Screen $screen ): bool
+    {
 		return in_array( $screen->get_id(), [
 			'toplevel_page_jet-engine',
 			'jetengine_page_jet-engine-meta',

@@ -23,11 +23,13 @@ final class MetaBox extends Integration {
 		);
 	}
 
-	public function is_plugin_active() {
+	public function is_plugin_active(): bool
+    {
 		return class_exists( 'RWMB_Loader', false );
 	}
 
-	public function show_notice( Screen $screen ) {
+	public function show_notice( Screen $screen ): bool
+    {
 		return $screen->get_id() === 'edit-meta-box';
 	}
 

@@ -1,32 +1,49 @@
 <?php
 
-namespace AC;
+declare(strict_types=1);
 
+namespace AC\Entity;
+
+use AC\Asset\Location\Absolute;
 use AC\Plugin\Version;
+use AC\PluginUpdate;
 
-class PluginInformation
+class Plugin
 {
 
-    private $basename;
+    private $file;
 
-    public function __construct(string $basename)
+    private $version;
+
+    public function __construct(string $file, Version $version)
     {
-        $this->basename = $basename;
+        $this->file = $file;
+        $this->version = $version;
     }
 
-    public static function create_by_file(string $file): self
+    public function get_version(): Version
     {
-        return new self(plugin_basename($file));
+        return $this->version;
     }
 
     public function get_basename(): string
     {
-        return $this->basename;
+        return plugin_basename($this->file);
     }
 
     public function get_dirname(): string
     {
-        return dirname($this->basename);
+        return dirname($this->get_basename());
+    }
+
+    public function get_dir(): string
+    {
+        return plugin_dir_path($this->file);
+    }
+
+    public function get_url(): string
+    {
+        return plugin_dir_url($this->file);
     }
 
     public function is_installed(): bool
@@ -38,19 +55,14 @@ class PluginInformation
     {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-        return is_plugin_active($this->basename);
+        return is_plugin_active($this->get_basename());
     }
 
     public function is_network_active(): bool
     {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-        return is_plugin_active_for_network($this->basename);
-    }
-
-    public function get_version(): Version
-    {
-        return new Version((string)$this->get_header('Version'));
+        return is_plugin_active_for_network($this->get_basename());
     }
 
     public function get_name(): ?string
@@ -82,11 +94,12 @@ class PluginInformation
     {
         $updates = $this->get_plugin_updates();
 
-        if ( ! array_key_exists($this->basename, $updates)) {
+        $basename = $this->get_basename();
+        if ( ! array_key_exists($basename, $updates)) {
             return null;
         }
 
-        $data = $updates[$this->basename];
+        $data = $updates[$basename];
 
         if ( ! property_exists($data, 'update')) {
             return null;
@@ -112,9 +125,10 @@ class PluginInformation
     private function get_header_data(): ?array
     {
         $plugins = $this->get_plugins();
+        $basename = $this->get_basename();
 
-        return $plugins && isset($plugins[$this->basename])
-            ? (array)$plugins[$this->basename]
+        return $plugins && isset($plugins[$basename])
+            ? (array)$plugins[$basename]
             : null;
     }
 
@@ -125,6 +139,14 @@ class PluginInformation
         return $info && isset($info[$var])
             ? (string)$info[$var]
             : null;
+    }
+
+    public function get_location(): Absolute
+    {
+        return new Absolute(
+            $this->get_url(),
+            $this->get_dir()
+        );
     }
 
 }

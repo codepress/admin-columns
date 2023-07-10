@@ -23,11 +23,13 @@ final class Types extends Integration {
 		);
 	}
 
-	public function is_plugin_active() {
+	public function is_plugin_active(): bool
+    {
 		return class_exists( 'Types_Main', false );
 	}
 
-	public function show_notice( Screen $screen ) {
+	public function show_notice( Screen $screen ): bool
+    {
 		return in_array( $screen->get_id(), [
 			'toplevel_page_pods',
 			'pods-admin_page_pods-settings',

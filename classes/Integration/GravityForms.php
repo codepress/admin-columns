@@ -25,15 +25,18 @@ final class GravityForms extends Integration {
 		);
 	}
 
-	public function is_plugin_active() {
+	public function is_plugin_active(): bool
+    {
 		return class_exists( 'GFCommon', false );
 	}
 
-	public function show_notice( Screen $screen ) {
+	public function show_notice( Screen $screen ): bool
+    {
 		return 'forms_page_gf_entries' === $screen->get_id();
 	}
 
-	public function show_placeholder( ListScreen $list_screen ) {
+	public function show_placeholder( ListScreen $list_screen ): bool
+    {
 		return $list_screen instanceof ACA\GravityForms\ListScreen\Entry;
 	}
 

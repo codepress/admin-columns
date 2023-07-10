@@ -25,7 +25,8 @@ final class EventsCalendar extends Integration {
 		);
 	}
 
-	public function is_plugin_active() {
+	public function is_plugin_active(): bool
+    {
 		return class_exists( 'Tribe__Events__Main' );
 	}
 
@@ -37,12 +38,14 @@ final class EventsCalendar extends Integration {
 		];
 	}
 
-	public function show_notice( Screen $screen ) {
+	public function show_notice( Screen $screen ): bool
+    {
 		return 'edit' === $screen->get_base()
 		       && in_array( $screen->get_post_type(), $this->get_post_types() );
 	}
 
-	public function show_placeholder( ListScreen $list_screen ) {
+	public function show_placeholder( ListScreen $list_screen ): bool
+    {
 		return $list_screen instanceof ListScreenPost
 		       && in_array( $list_screen->get_post_type(), $this->get_post_types() );
 	}

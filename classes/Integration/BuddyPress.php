@@ -24,15 +24,18 @@ final class BuddyPress extends Integration {
 		);
 	}
 
-	public function is_plugin_active() {
+	public function is_plugin_active(): bool
+    {
 		return class_exists( 'BuddyPress', false );
 	}
 
-	public function show_notice( Screen $screen ) {
+	public function show_notice( Screen $screen ): bool
+    {
 		return 'users' === $screen->get_id();
 	}
 
-	public function show_placeholder( ListScreen $list_screen ) {
+	public function show_placeholder( ListScreen $list_screen ): bool
+    {
 		return $list_screen instanceof ListScreen\User;
 	}
 

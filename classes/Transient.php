@@ -33,7 +33,8 @@ class Transient implements Expirable {
 	 *
 	 * @return bool
 	 */
-	public function is_expired( $value = null ) {
+	public function is_expired( int $value = null ): bool
+    {
 		return $this->timestamp->is_expired( $value );
 	}
 
