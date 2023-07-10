@@ -2,8 +2,9 @@
 
 namespace AC;
 
-interface Registerable {
+interface Registerable
+{
 
-	public function register();
+    public function register(): void;
 
 }

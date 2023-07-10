@@ -12,7 +12,7 @@ final class WooCommerce extends Integration {
 
 	public function __construct() {
 		parent::__construct(
-			'ac-addon-woocommerce/ac-addon-woocommerce.php',
+			'ac-addon-woocommerce',
 			__( 'WooCommerce', 'codepress-admin-columns' ),
 			'assets/images/addons/woocommerce-icon.png',
 			sprintf(

@@ -27,7 +27,8 @@ trait QueryAwareTrait {
 		$this->url = remove_query_arg( $key, $this->url );
 	}
 
-	public function get_url() {
+	public function get_url(): string
+    {
 		return $this->url;
 	}
 

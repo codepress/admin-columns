@@ -23,7 +23,8 @@ class AjaxColumnRequest implements Registerable {
 		$this->list_screen_factory = $list_screen_factory;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		$this->get_ajax_handler()->register();
 	}
 

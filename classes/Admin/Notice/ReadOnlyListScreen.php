@@ -8,7 +8,8 @@ use AC\Registerable;
 
 class ReadOnlyListScreen implements Registerable {
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'ac/settings/notice', [ $this, 'render_notice' ] );
 	}
 

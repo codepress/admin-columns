@@ -33,14 +33,13 @@ class AdminNetwork implements Registerable
         $this->scripts = $scripts;
     }
 
-    public function register()
+    public function register(): void
     {
         add_action('network_admin_menu', [$this, 'init']);
     }
 
-    private function get_menu_page_factory()
+    private function get_menu_page_factory(): MenuPageFactory
     {
-        // TODO
         return apply_filters(
             'acp/menu_network_page_factory',
             new MenuPageFactory\SubMenu()

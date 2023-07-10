@@ -8,7 +8,6 @@ use ACP\Integration\Filter\IsActive;
 class IntegrationRepository
 {
 
-    // TODO populate DI
     public function find_all(): Integrations
     {
         return new Integrations([

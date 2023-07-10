@@ -35,7 +35,8 @@ class Help implements Enqueueables, Renderable, RenderableHead {
 		$this->head = $head;
 	}
 
-	public function render_head() {
+	public function render_head(): Renderable
+    {
 		return $this->head;
 	}
 

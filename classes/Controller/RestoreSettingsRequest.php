@@ -18,7 +18,8 @@ class RestoreSettingsRequest implements Registerable {
 		$this->repository = $repository;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'admin_init', [ $this, 'handle_request' ] );
 	}
 

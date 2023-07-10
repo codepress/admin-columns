@@ -29,7 +29,8 @@ class ScreenController implements Registerable {
 		$this->default_columns = new DefaultColumnsRepository();
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		// Headings
 		add_filter( $this->list_screen->get_heading_hookname(), [ $this, 'add_headings' ], 200 );
 

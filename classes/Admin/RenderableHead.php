@@ -4,11 +4,9 @@ namespace AC\Admin;
 
 use AC\Renderable;
 
-interface RenderableHead {
+interface RenderableHead
+{
 
-	/**
-	 * @return Renderable
-	 */
-	public function render_head();
+    public function render_head(): Renderable;
 
 }

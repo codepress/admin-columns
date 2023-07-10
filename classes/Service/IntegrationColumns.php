@@ -17,7 +17,7 @@ final class IntegrationColumns implements Registerable
         $this->repository = $repository;
     }
 
-    public function register()
+    public function register(): void
     {
         add_action('ac/column_types', [$this, 'register_integration_columns'], 1);
     }

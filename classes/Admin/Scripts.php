@@ -15,7 +15,8 @@ class Scripts implements Registerable {
 		$this->location = $location;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'init', [ $this, 'register_scripts' ] );
 	}
 

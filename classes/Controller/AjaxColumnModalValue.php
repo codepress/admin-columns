@@ -19,7 +19,7 @@ class AjaxColumnModalValue implements Registerable
         $this->repository = $repository;
     }
 
-    public function register()
+    public function register(): void
     {
         $this->get_ajax_handler()->register();
     }

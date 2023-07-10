@@ -8,7 +8,8 @@ use AC\View;
 
 class ColumnsMockup implements Registerable {
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'ac/settings/after_columns', [ $this, 'render' ] );
 	}
 

@@ -28,7 +28,8 @@ class AdminLoader implements Registerable {
 		$this->assets = $assets;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'load-' . $this->hook, [ $this, 'set_page' ] );
 		add_action( 'load-' . $this->hook, [ $this, 'load' ] );
 		add_action( 'in_admin_header', [ $this, 'head' ] );

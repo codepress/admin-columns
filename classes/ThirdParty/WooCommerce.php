@@ -6,7 +6,8 @@ use AC\Registerable;
 
 class WooCommerce implements Registerable {
 
-	public function register() {
+	public function register(): void
+    {
 		add_filter( 'ac/post_types', [ $this, 'remove_webhook' ] );
 	}
 

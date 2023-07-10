@@ -34,7 +34,7 @@ class QuickEdit implements Registerable
 		$this->primary_column_factory = $primary_column_factory;
 	}
 
-    public function register()
+    public function register(): void
     {
         add_action('admin_init', [$this, 'init_columns_on_quick_edit']);
     }

@@ -21,7 +21,8 @@ class Admin implements Registerable {
 		$this->scripts = $scripts;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'admin_menu', [ $this, 'init' ] );
 	}
 

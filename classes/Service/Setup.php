@@ -13,7 +13,8 @@ final class Setup implements Registerable {
 		$this->setup = $setup;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'init', [ $this, 'run' ], 1000 );
 	}
 

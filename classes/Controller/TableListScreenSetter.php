@@ -39,7 +39,7 @@ class TableListScreenSetter implements Registerable
         $this->primary_column_factory = $primary_column_factory;
     }
 
-    public function register()
+    public function register(): void
     {
         add_action('current_screen', [$this, 'handle']);
     }

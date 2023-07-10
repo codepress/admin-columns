@@ -63,7 +63,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         return $this->list_screen;
     }
 
-    public function render_head()
+    public function render_head(): Renderable
     {
         return $this->head;
     }

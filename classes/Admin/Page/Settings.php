@@ -41,7 +41,8 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 		$this->sections = $sections;
 	}
 
-	public function render_head() {
+	public function render_head(): Renderable
+    {
 		return $this->head;
 	}
 

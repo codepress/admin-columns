@@ -18,7 +18,8 @@ class InlineMessage extends Message {
 		$this->class = $class;
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		$view = new View( [
 			'message' => $this->message,
 			'class'   => trim( $this->type . ' ' . $this->class ),

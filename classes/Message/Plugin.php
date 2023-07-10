@@ -24,12 +24,12 @@ class Plugin extends Message
         $this->icon = $this->get_icon_by_current_type();
     }
 
-    public function register()
+    public function register(): void
     {
         add_action('after_plugin_row_' . $this->plugin_basename, [$this, 'display'], 11);
     }
 
-    public function render()
+    public function render(): string
     {
         switch ($this->type) {
             case self::SUCCESS :

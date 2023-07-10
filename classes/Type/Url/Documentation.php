@@ -43,7 +43,8 @@ class Documentation implements Type\Url {
 		}
 	}
 
-	public function get_url() {
+	public function get_url(): string
+    {
 		$url = self::URL . $this->get_path();
 
 		if ( $this->has_fragment() ) {

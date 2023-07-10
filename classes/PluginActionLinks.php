@@ -14,7 +14,8 @@ class PluginActionLinks implements Registerable {
 		$this->plugin = $plugin;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		add_filter( 'plugin_action_links', [ $this, 'add_settings_link' ], 1, 2 );
 		add_filter( 'network_admin_plugin_action_links', [ $this, 'add_settings_link' ], 1, 2 );
 	}

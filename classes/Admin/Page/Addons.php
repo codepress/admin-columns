@@ -16,21 +16,12 @@ use AC\Renderable;
 class Addons implements Enqueueables, Renderable, RenderableHead
 {
 
-    const NAME = 'addons';
+    public const NAME = 'addons';
 
-    /**
-     * @var Location\Absolute
-     */
     protected $location;
 
-    /**
-     * @var IntegrationRepository
-     */
     protected $integrations;
 
-    /**
-     * @var Renderable
-     */
     protected $head;
 
     public function __construct(Location\Absolute $location, IntegrationRepository $integrations, Renderable $head)
@@ -40,7 +31,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead
         $this->head = $head;
     }
 
-    public function render_head()
+    public function render_head(): Renderable
     {
         return $this->head;
     }
@@ -98,11 +89,6 @@ class Addons implements Enqueueables, Renderable, RenderableHead
         return ob_get_clean();
     }
 
-    /**
-     * @param AC\Integration $addon
-     *
-     * @return Renderable
-     */
     protected function render_actions(AC\Integration $addon): ?Renderable
     {
         return new Admin\Section\AddonStatus($addon);
@@ -110,7 +96,6 @@ class Addons implements Enqueueables, Renderable, RenderableHead
 
     protected function get_grouped_addons(): array
     {
-        // TODO test
         $recommended = $this->integrations->find_all_by_active_plugins();
         $available = $this->integrations->find_all_by_inactive_plugins();
 

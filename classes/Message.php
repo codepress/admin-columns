@@ -5,102 +5,76 @@ namespace AC;
 use Exception;
 use LogicException;
 
-abstract class Message {
+abstract class Message
+{
 
-	const SUCCESS = 'updated';
-	const ERROR = 'notice-error';
-	const WARNING = 'notice-warning';
-	const INFO = 'notice-info';
+    public const SUCCESS = 'updated';
+    public const ERROR = 'notice-error';
+    public const WARNING = 'notice-warning';
+    public const INFO = 'notice-info';
 
-	/**
-	 * @var string
-	 */
-	protected $message;
+    protected $message;
 
-	/**
-	 * @var string
-	 */
-	protected $type;
+    protected $type;
 
-	/**
-	 * @var string
-	 */
-	protected $id;
+    protected $id = '';
 
-	/**
-	 * @param string $message
-	 */
-	public function __construct( $message, $type = null ) {
-		if ( null === $type ) {
-			$type = self::SUCCESS;
-		}
+    public function __construct(string $message, string $type = null)
+    {
+        if (null === $type) {
+            $type = self::SUCCESS;
+        }
 
-		$this->type = $type;
-		$this->message = trim( $message );
+        $this->type = $type;
+        $this->message = trim($message);
 
-		$this->validate();
-	}
+        $this->validate();
+    }
 
-	protected function validate() {
-		if ( empty( $this->message ) ) {
-			throw new LogicException( 'Message cannot be empty' );
-		}
-	}
+    protected function validate(): void
+    {
+        if (empty($this->message)) {
+            throw new LogicException('Message cannot be empty');
+        }
+    }
 
-	/**
-	 * Render an View
-	 * @return string
-	 */
-	abstract public function render();
+    abstract public function render(): string;
 
-	/**
-	 * Display self::render to the screen
-	 * @throws Exception
-	 */
-	public function display() {
-		echo $this->render();
-	}
+    /**
+     * Display self::render to the screen
+     * @throws Exception
+     */
+    public function display(): void
+    {
+        echo $this->render();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_message() {
-		return $this->message;
-	}
+    public function get_message(): string
+    {
+        return $this->message;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_type() {
-		return $this->type;
-	}
+    public function get_type(): string
+    {
+        return $this->type;
+    }
 
-	/**
-	 * @param string $type
-	 *
-	 * @return $this
-	 */
-	public function set_type( $type ) {
-		$this->type = $type;
+    public function set_type(string $type): self
+    {
+        $this->type = $type;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_id() {
-		return $this->id;
-	}
+    public function get_id(): string
+    {
+        return $this->id;
+    }
 
-	/**
-	 * @param string $id
-	 *
-	 * @return $this
-	 */
-	public function set_id( $id ) {
-		$this->id = $id;
+    public function set_id(string $id): self
+    {
+        $this->id = $id;
 
-		return $this;
-	}
+        return $this;
+    }
 }

@@ -18,7 +18,8 @@ class NoticeChecks implements Registerable {
 		$this->location = $location;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		foreach ( $this->get_checks() as $check ) {
 			$check->register();
 		}
