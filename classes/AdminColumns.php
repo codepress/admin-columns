@@ -163,7 +163,7 @@ class AdminColumns
 
     public function get_url(): string
     {
-        return Container::get_url();
+        return trailingslashit(Container::get_url());
     }
 
     public function get_storage(): Storage
