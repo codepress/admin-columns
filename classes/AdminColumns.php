@@ -110,11 +110,9 @@ class AdminColumns
 
     private function create_container(): DI\Container
     {
-        $plugin = new Entity\Plugin(AC_FILE, new Version(AC_VERSION));
-
         $definitions = [
-            'translations.global'                   => function () use ($plugin): Translation {
-                return new Translation(require $plugin->get_dir() . '/settings/translations/global.php');
+            'translations.global'                   => static function (Entity\Plugin $plugin): Translation {
+                return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
             },
             Database::class                         => autowire()
                 ->constructorParameter(0, new ListScreenFactory\Aggregate()),
@@ -129,13 +127,17 @@ class AdminColumns
             RestoreSettingsRequest::class           => static function (Storage $storage): RestoreSettingsRequest {
                 return new RestoreSettingsRequest($storage->get_repository('acp-database'));
             },
-            Entity\Plugin::class                    => autowire()
-                ->constructorParameter(0, AC_FILE)
-                ->constructorParameter(1, new Version(AC_VERSION)),
+            Entity\Plugin::class                    => static function (): Entity\Plugin {
+                return Entity\Plugin::create(AC_FILE, new Version(AC_VERSION));
+            },
             ListScreenFactory::class                => autowire(Aggregate::class),
-            Absolute::class                         => autowire()
-                ->constructorParameter(0, $plugin->get_url())
-                ->constructorParameter(1, $plugin->get_dir()),
+            Absolute::class                         => static function (Entity\Plugin $plugin): Absolute {
+                return new Absolute($plugin->get_url(), $plugin->get_dir());
+            },
+            SetupFactory\AdminColumns::class        => static function (Entity\Plugin $plugin
+            ): SetupFactory\AdminColumns {
+                return new SetupFactory\AdminColumns('ac_version', $plugin->get_version());
+            },
             ListKeysFactoryInterface::class         => autowire(Table\ListKeysFactory::class),
             Service\CommonAssets::class             => autowire()
                 ->constructorParameter(1, DI\get('translations.global')),
@@ -149,9 +151,6 @@ class AdminColumns
             Admin\MenuListFactory::class            => autowire(Admin\MenuListFactory\MenuFactory::class),
             Admin\PageFactory\Settings::class       => autowire()
                 ->constructorParameter(2, defined('ACP_FILE')),
-            SetupFactory\AdminColumns::class        => autowire()
-                ->constructorParameter(0, 'ac_version')
-                ->constructorParameter(1, $plugin->get_version()),
             Service\Setup::class                    => autowire()
                 ->constructorParameter(0, DI\get(SetupFactory\AdminColumns::class)),
         ];
@@ -161,14 +160,18 @@ class AdminColumns
             ->build();
     }
 
-    public function get_url(): string
-    {
-        return trailingslashit(Container::get_url());
-    }
-
     public function get_storage(): Storage
     {
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\Container::get_storage()');
+
         return Container::get_storage();
+    }
+
+    public function get_url(): string
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'ac_get_url()');
+
+        return trailingslashit(Container::get_url());
     }
 
     /**
