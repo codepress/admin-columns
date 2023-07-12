@@ -153,6 +153,7 @@ class AdminColumns
                 ->constructorParameter(2, defined('ACP_FILE')),
             Service\Setup::class                    => autowire()
                 ->constructorParameter(0, DI\get(SetupFactory\AdminColumns::class)),
+            Service\IntegrationColumns::class       => autowire()->constructorParameter(1, defined('ACP_FILE')),
         ];
 
         return (new ContainerBuilder())

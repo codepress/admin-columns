@@ -12,9 +12,12 @@ final class IntegrationColumns implements Registerable
 
     private $repository;
 
-    public function __construct(IntegrationRepository $repository)
+    private $is_pro_active;
+
+    public function __construct(IntegrationRepository $repository, bool $is_pro_active)
     {
         $this->repository = $repository;
+        $this->is_pro_active = $is_pro_active;
     }
 
     public function register(): void
@@ -25,7 +28,7 @@ final class IntegrationColumns implements Registerable
     public function register_integration_columns(ListScreen $list_screen): void
     {
         // TODO test
-        if ( ! function_exists('ACP')) {
+        if ( ! $this->is_pro_active) {
             foreach ($this->repository->find_all_by_active_plugins() as $integration) {
                 if ( ! $integration->show_placeholder($list_screen)) {
                     continue;

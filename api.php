@@ -12,7 +12,7 @@ function ac_get_url(string $relative_file_path): string
     return Container::get_location()->with_suffix($relative_file_path)->get_url();
 }
 
-// TODO make deprecated..
+// TODO make `AC()` deprecated..
 if ( ! function_exists('AC')) {
     function AC(): AC\AdminColumns
     {
