@@ -2,6 +2,7 @@
 
 namespace AC;
 
+// TODO move to `Type` dir
 abstract class Relation {
 
 	/**

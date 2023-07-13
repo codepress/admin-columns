@@ -23,7 +23,8 @@ class ListScreenType extends ScreenOption {
 		return 1 === $this->preference->get( self::KEY );
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		ob_start();
 		?>
 

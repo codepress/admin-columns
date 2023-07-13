@@ -47,7 +47,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead
         ]);
     }
 
-    public function render()
+    public function render(): string
     {
         ob_start();
 

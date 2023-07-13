@@ -128,7 +128,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         );
     }
 
-    public function render()
+    public function render(): string
     {
         if ( ! $this->default_columns_repository->exists($this->list_screen->get_key())) {
             $modal = new View([

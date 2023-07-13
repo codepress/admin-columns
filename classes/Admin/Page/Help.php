@@ -136,7 +136,8 @@ class Help implements Enqueueables, Renderable, RenderableHead {
 		<?php
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		// Force cache refresh
 		$this->hooks->get_count( true );
 

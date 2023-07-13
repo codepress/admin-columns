@@ -89,7 +89,8 @@ class View implements Renderable {
 	 * Get a string representation of this object
 	 * @return string
 	 */
-	public function render() {
+	public function render(): string
+    {
 		ob_start();
 
 		$this->resolve_template();

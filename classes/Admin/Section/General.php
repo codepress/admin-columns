@@ -25,7 +25,8 @@ class General extends Section {
 		$this->options[] = $option;
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		$form = new View( [
 			'options' => $this->options,
 		] );

@@ -85,7 +85,8 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 		return $assets;
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		$view = new View( [
 			'sections' => $this->sections->all(),
 		] );

@@ -4,83 +4,86 @@ namespace AC;
 
 use AC\ColumnRepository\Sort\ManualOrder;
 
-class ScreenController implements Registerable {
+class ScreenController implements Registerable
+{
 
-	/**
-	 * @var ListScreen
-	 */
-	private $list_screen;
+    /**
+     * @var ListScreen
+     */
+    private $list_screen;
 
-	/**
-	 * @var array
-	 */
-	private $headings = [];
+    /**
+     * @var array
+     */
+    private $headings = [];
 
-	/**
-	 * @var DefaultColumnsRepository
-	 */
-	private $default_columns;
+    /**
+     * @var DefaultColumnsRepository
+     */
+    private $default_columns;
 
-	/**
-	 * @param ListScreen $list_screen
-	 */
-	public function __construct( ListScreen $list_screen ) {
-		$this->list_screen = $list_screen;
-		$this->default_columns = new DefaultColumnsRepository();
-	}
-
-	public function register(): void
+    /**
+     * @param ListScreen $list_screen
+     */
+    public function __construct(ListScreen $list_screen)
     {
-		// Headings
-		add_filter( $this->list_screen->get_heading_hookname(), [ $this, 'add_headings' ], 200 );
+        $this->list_screen = $list_screen;
+        $this->default_columns = new DefaultColumnsRepository();
+    }
 
-		// Values
-		$this->list_screen->set_manage_value_callback();
+    public function register(): void
+    {
+        // Headings
+        add_filter($this->list_screen->get_heading_hookname(), [$this, 'add_headings'], 200);
 
-		do_action( 'ac/table/list_screen', $this->list_screen );
-	}
+        // Values
+        $this->list_screen->set_manage_value_callback();
 
-	/**
-	 * @param $columns
-	 *
-	 * @return array
-	 * @since 2.0
-	 */
-	public function add_headings( $columns ) {
-		if ( empty( $columns ) ) {
-			return $columns;
-		}
+        do_action('ac/table/list_screen', $this->list_screen);
+    }
 
-		if ( ! wp_doing_ajax() ) {
-			$this->default_columns->update( $this->list_screen->get_key(), $columns );
-		}
+    /**
+     * @param $columns
+     *
+     * @return array
+     * @since 2.0
+     */
+    public function add_headings($columns)
+    {
+        if (empty($columns)) {
+            return $columns;
+        }
 
-		// Run once
-		if ( $this->headings ) {
-			return $this->headings;
-		}
+        if ( ! wp_doing_ajax()) {
+            $this->default_columns->update($this->list_screen->get_key(), $columns);
+        }
 
-		// Nothing stored. Show default columns on screen.
-		if ( ! $this->list_screen->get_settings() ) {
-			return $columns;
-		}
+        // Run once
+        if ($this->headings) {
+            return $this->headings;
+        }
 
-		// Add mandatory checkbox
-		if ( isset( $columns['cb'] ) ) {
-			$this->headings['cb'] = $columns['cb'];
-		}
+        // Nothing stored. Show default columns on screen.
+        if ( ! $this->list_screen->get_settings()) {
+            return $columns;
+        }
 
-		$column_repository = new ColumnRepository( $this->list_screen );
+        // Add mandatory checkbox
+        if (isset($columns['cb'])) {
+            $this->headings['cb'] = $columns['cb'];
+        }
 
-		$args = [
-			ColumnRepository::ARG_SORT => new ManualOrder( $this->list_screen->get_id() ),
-		];
+        $column_repository = new ColumnRepository($this->list_screen);
 
-		foreach ( $column_repository->find_all( $args ) as $column ) {
-			$this->headings[ $column->get_name() ] = $column->get_custom_label();
-		}
+        $args = [
+            ColumnRepository::ARG_SORT => new ManualOrder($this->list_screen->get_id()),
+        ];
 
-		return apply_filters( 'ac/headings', $this->headings, $this->list_screen );
-	}
+        foreach ($column_repository->find_all($args) as $column) {
+            $this->headings[$column->get_name()] = $column->get_custom_label();
+        }
+
+        return apply_filters('ac/headings', $this->headings, $this->list_screen);
+    }
 
 }

@@ -4,6 +4,6 @@ namespace AC;
 
 interface Middleware {
 
-	public function handle( Request $request );
+	public function handle( Request $request ): void;
 
 }

@@ -6,99 +6,118 @@ use AC\Admin\Page\Columns;
 use AC\Admin\RequestHandlerInterface;
 use WP_Screen;
 
-class Screen implements Registerable {
+class Screen implements Registerable
+{
 
-	private $list_screen_factory;
+    private $list_screen_factory;
 
-	/**
-	 * @var WP_Screen
-	 */
-	protected $screen;
+    /**
+     * @var WP_Screen
+     */
+    protected $screen;
 
-	public function __construct( ListScreenFactory $list_screen_factory ) {
-		$this->list_screen_factory = $list_screen_factory;
-	}
-
-	public function register(): void
+    public function __construct(ListScreenFactory $list_screen_factory)
     {
-		add_action( 'current_screen', [ $this, 'init' ] );
-	}
+        $this->list_screen_factory = $list_screen_factory;
+    }
 
-	public function init( WP_Screen $screen ): void {
-		$this->set_screen( $screen );
+    public function register(): void
+    {
+        add_action('current_screen', [$this, 'init']);
+    }
 
-		do_action( 'ac/screen', $this, $this->screen->id );
-	}
+    public function init(WP_Screen $screen): void
+    {
+        $this->set_screen($screen);
 
-	public function is_screen( string $id ): bool {
-		return $this->has_screen() && $this->get_screen()->id === $id;
-	}
+        do_action('ac/screen', $this, $this->screen->id);
+    }
 
-	public function set_screen( WP_Screen $screen ): self {
-		$this->screen = $screen;
+    public function is_screen(string $id): bool
+    {
+        return $this->has_screen() && $this->get_screen()->id === $id;
+    }
 
-		return $this;
-	}
+    public function set_screen(WP_Screen $screen): self
+    {
+        $this->screen = $screen;
 
-	public function get_screen(): WP_Screen {
-		return $this->screen;
-	}
+        return $this;
+    }
 
-	public function has_screen(): bool {
-		return $this->screen instanceof WP_Screen;
-	}
+    public function get_screen(): WP_Screen
+    {
+        return $this->screen;
+    }
 
-	public function get_id(): string {
-		return $this->screen->id;
-	}
+    public function has_screen(): bool
+    {
+        return $this->screen instanceof WP_Screen;
+    }
 
-	public function get_base(): string {
-		return $this->screen->base;
-	}
+    public function get_id(): string
+    {
+        return $this->screen->id;
+    }
 
-	public function get_post_type(): string {
-		return $this->screen->post_type;
-	}
+    public function get_base(): string
+    {
+        return $this->screen->base;
+    }
 
-	private function is_admin_network(): bool {
-		return $this->screen->in_admin( 'network' );
-	}
+    public function get_post_type(): string
+    {
+        return $this->screen->post_type;
+    }
 
-	public function is_list_screen(): bool {
-		return $this->list_screen_factory->can_create_from_wp_screen( $this->screen );
-	}
+    private function is_admin_network(): bool
+    {
+        return $this->screen->in_admin('network');
+    }
 
-	public function is_plugin_screen(): bool {
-		$screen = $this->is_admin_network()
-			? 'plugins-network'
-			: 'plugins';
+    public function is_list_screen(): bool
+    {
+        return $this->list_screen_factory->can_create_from_wp_screen($this->screen);
+    }
 
-		return $this->is_screen( $screen );
-	}
+    public function is_plugin_screen(): bool
+    {
+        $screen = $this->is_admin_network()
+            ? 'plugins-network'
+            : 'plugins';
 
-	public function is_admin_screen( string $slug = null ): bool {
-		if ( null !== $slug ) {
-			$tabs = [ $slug ];
+        return $this->is_screen($screen);
+    }
 
-			// When the column page is requested from the setting menu the 'tab' querystring is not set.
-			if ( Columns::NAME === $slug ) {
-				$tabs[] = null;
-			}
+    public function is_admin_screen(string $slug = null): bool
+    {
+        if (null !== $slug) {
+            $tabs = [$slug];
 
-			return $this->is_main_admin_screen() && in_array( filter_input( INPUT_GET, RequestHandlerInterface::PARAM_TAB ), $tabs, true );
-		}
+            // When the column page is requested from the setting menu the 'tab' querystring is not set.
+            if (Columns::NAME === $slug) {
+                $tabs[] = null;
+            }
 
-		return $this->is_main_admin_screen();
-	}
+            return $this->is_main_admin_screen() && in_array(
+                    filter_input(INPUT_GET, RequestHandlerInterface::PARAM_TAB),
+                    $tabs,
+                    true
+                );
+        }
 
-	private function is_main_admin_screen(): bool {
-		$id = 'settings_page_' . Admin\Admin::NAME;
+        return $this->is_main_admin_screen();
+    }
 
-		if ( $this->is_admin_network() ) {
-			$id .= '-network';
-		}
+    private function is_main_admin_screen(): bool
+    {
+        $id = 'settings_page_' . Admin\Admin::NAME;
 
-		return $this->is_screen( $id );
-	}
+        if ($this->is_admin_network()) {
+            $id .= '-network';
+        }
+
+        return $this->is_screen($id);
+    }
 
 }

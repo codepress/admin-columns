@@ -13,7 +13,8 @@ class ProCta extends Section {
 		parent::__construct( self::NAME );
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		$view = new View( [
 			'title'       => 'Admin Columns Pro',
 			'description' => __( 'Upgrade to Admin Columns Pro and unlock all the awesome features.', 'codepress-admin-columns' ),

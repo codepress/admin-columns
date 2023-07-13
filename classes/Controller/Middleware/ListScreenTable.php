@@ -132,7 +132,7 @@ class ListScreenTable implements Middleware
         return $list_screen ?: $this->get_first_list_screen($user);
     }
 
-    public function handle(Request $request)
+    public function handle(Request $request): void
     {
         $request->get_parameters()->merge([
             'list_screen' => $this->get_list_screen($request),

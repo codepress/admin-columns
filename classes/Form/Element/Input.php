@@ -19,7 +19,8 @@ class Input extends Element {
 		return in_array( $type, $valid_types );
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		$template = '<input %s>%s';
 
 		$attributes = $this->get_attributes();

@@ -2,22 +2,21 @@
 
 namespace AC\ApplyFilter;
 
-use AC\ApplyFilter;
 use AC\Column;
 
-class ColumnSeparator implements ApplyFilter {
+class ColumnSeparator
+{
 
-	/**
-	 * @var Column
-	 */
-	private $column;
+    private $column;
 
-	public function __construct( Column $column ) {
-		$this->column = $column;
-	}
+    public function __construct(Column $column)
+    {
+        $this->column = $column;
+    }
 
-	public function apply_filters( $value ) {
-		return (string) apply_filters( 'ac/column/separator', $value, $this->column );
-	}
+    public function apply_filters(string $value): string
+    {
+        return (string)apply_filters('ac/column/separator', $value, $this->column);
+    }
 
 }
