@@ -68,7 +68,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         return $this->head;
     }
 
-    public function get_assets()
+    public function get_assets(): Assets
     {
         return new Assets([
             new Style(

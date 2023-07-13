@@ -67,7 +67,8 @@ class Settings implements Enqueueables, Renderable, RenderableHead {
 		return $this;
 	}
 
-	public function get_assets() {
+	public function get_assets(): Assets
+    {
 		$factory = new Admin\Asset\Script\SettingsFactory(
 			$this->location
 		);

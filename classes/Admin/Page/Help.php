@@ -40,7 +40,8 @@ class Help implements Enqueueables, Renderable, RenderableHead {
 		return $this->head;
 	}
 
-	public function get_assets() {
+	public function get_assets(): Assets
+    {
 		return new Assets( [
 			new Style( 'ac-admin-page-help-css', $this->location->with_suffix( 'assets/css/admin-page-help.css' ) ),
 		] );

@@ -21,7 +21,7 @@ class AdminScripts implements Enqueueables
         $this->location = $location;
     }
 
-    public function get_assets()
+    public function get_assets(): Assets
     {
         return new Assets([
             new Script('ac-admin-general', $this->location->with_suffix('assets/js/admin-general.js'), ['jquery']),
