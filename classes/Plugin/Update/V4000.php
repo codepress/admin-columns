@@ -28,7 +28,8 @@ class V4000 extends Update {
 		parent::__construct( new Version( '4.0.0' ) );
 	}
 
-	public function apply_update() {
+	public function apply_update(): void
+    {
 		// just in case we need a bit of extra time to execute our upgrade script
 		if ( ini_get( 'max_execution_time' ) < 120 ) {
 			@set_time_limit( 120 );

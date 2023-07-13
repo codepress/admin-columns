@@ -134,9 +134,11 @@ class AdminColumns
             Absolute::class                         => static function (Entity\Plugin $plugin): Absolute {
                 return new Absolute($plugin->get_url(), $plugin->get_dir());
             },
-            SetupFactory\AdminColumns::class        => static function (Entity\Plugin $plugin
+            SetupFactory\AdminColumns::class        => static function (
+                Absolute $location,
+                Entity\Plugin $plugin
             ): SetupFactory\AdminColumns {
-                return new SetupFactory\AdminColumns('ac_version', $plugin->get_version());
+                return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
             },
             ListKeysFactoryInterface::class         => autowire(Table\ListKeysFactory::class),
             Service\CommonAssets::class             => autowire()
