@@ -28,16 +28,6 @@ class Container
         return self::$instance->get(Absolute::class);
     }
 
-    public static function get_url(): string
-    {
-        return self::get_location()->get_url();
-    }
-
-    public static function get_dir(): string
-    {
-        return self::get_location()->get_path();
-    }
-
     public static function get_storage(): Storage
     {
         return self::$instance->get(Storage::class);

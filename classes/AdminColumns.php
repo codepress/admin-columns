@@ -174,7 +174,7 @@ class AdminColumns
     {
         _deprecated_function(__METHOD__, 'NEWVERSION', 'ac_get_url()');
 
-        return trailingslashit(Container::get_url());
+        return trailingslashit(Container::get_location()->get_url());
     }
 
     /**

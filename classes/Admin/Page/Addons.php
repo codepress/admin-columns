@@ -68,7 +68,7 @@ class Addons implements Enqueueables, Renderable, RenderableHead
                         /* @var AC\Integration $addon */
 
                         $view = new AC\View([
-                            'logo'        => sprintf('%s/%s', Container::get_url(), $addon->get_logo()),
+                            'logo'        => Container::get_location()->with_suffix($addon->get_logo())->get_url(),
                             'title'       => $addon->get_title(),
                             'slug'        => $addon->get_slug(),
                             'description' => $addon->get_description(),
