@@ -11,9 +11,6 @@ use AC\View;
 class Banner
 {
 
-    /**
-     * @var IntegrationRepository
-     */
     private $integrations;
 
     public function __construct()
@@ -31,10 +28,7 @@ class Banner
         return $this->integrations->find_all_by_active_plugins();
     }
 
-    /**
-     * @return string
-     */
-    public function render()
+    public function render(): string
     {
         $banner = new View([
             'promo'        => $this->get_active_promotion(),

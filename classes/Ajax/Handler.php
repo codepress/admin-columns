@@ -5,209 +5,225 @@ namespace AC\Ajax;
 use AC\Registerable;
 use LogicException;
 
-class Handler implements Registerable {
+class Handler implements Registerable
+{
 
-	const NONCE_ACTION = 'ac-ajax';
+    public const NONCE_ACTION = 'ac-ajax';
 
-	/**
-	 * @var array
-	 */
-	protected $params;
+    /**
+     * @var array
+     */
+    protected $params;
 
-	/**
-	 * @var string|array
-	 */
-	protected $callback;
+    /**
+     * @var string|array
+     */
+    protected $callback;
 
-	/**
-	 * @var bool
-	 */
-	protected $wp_ajax;
+    /**
+     * @var bool
+     */
+    protected $wp_ajax;
 
-	/**
-	 * @var int
-	 */
-	protected $priority = 10;
+    /**
+     * @var int
+     */
+    protected $priority = 10;
 
-	/**
-	 * @param bool|null $wp_ajax Using the WP Ajax endpoint or custom
-	 */
-	public function __construct( $wp_ajax = null ) {
-		$this->wp_ajax = $wp_ajax === null;
-
-		$this->set_nonce();
-	}
-
-	public function register(): void
+    /**
+     * @param bool|null $wp_ajax Using the WP Ajax endpoint or custom
+     */
+    public function __construct($wp_ajax = null)
     {
-		if ( ! $this->get_action() ) {
-			throw new LogicException( 'Action parameter is missing.' );
-		}
+        $this->wp_ajax = $wp_ajax === null;
 
-		if ( ! $this->get_callback() ) {
-			throw new LogicException( 'Callback is missing.' );
-		}
+        $this->set_nonce();
+    }
 
-		add_action( $this->get_action(), $this->get_callback(), $this->priority );
-	}
+    public function register(): void
+    {
+        if ( ! $this->get_action()) {
+            throw new LogicException('Action parameter is missing.');
+        }
 
-	public function deregister() {
-		remove_action( $this->get_action(), $this->get_callback(), $this->priority );
-	}
+        if ( ! $this->get_callback()) {
+            throw new LogicException('Callback is missing.');
+        }
 
-	/**
-	 * @return string|null
-	 */
-	public function get_action() {
-		$action = $this->get_param( 'action' );
+        add_action($this->get_action(), $this->get_callback(), $this->priority);
+    }
 
-		if ( $this->wp_ajax ) {
-			$action = 'wp_ajax_' . $action;
-		}
+    public function deregister()
+    {
+        remove_action($this->get_action(), $this->get_callback(), $this->priority);
+    }
 
-		return $action;
-	}
+    /**
+     * @return string|null
+     */
+    public function get_action()
+    {
+        $action = $this->get_param('action');
 
-	/**
-	 * @param string $action
-	 *
-	 * @return $this
-	 */
-	public function set_action( $action ) {
-		$this->params['action'] = $action;
+        if ($this->wp_ajax) {
+            $action = 'wp_ajax_' . $action;
+        }
 
-		return $this;
-	}
+        return $action;
+    }
 
-	/**
-	 * @param int $priority
-	 *
-	 * @return Handler
-	 */
-	public function set_priority( $priority ) {
-		if ( ! is_int( $priority ) ) {
-			throw new LogicException( 'Priority can only be of type integer.' );
-		}
+    /**
+     * @param string $action
+     *
+     * @return $this
+     */
+    public function set_action($action)
+    {
+        $this->params['action'] = $action;
 
-		$this->priority = $priority;
+        return $this;
+    }
 
-		return $this;
-	}
+    /**
+     * @param int $priority
+     *
+     * @return Handler
+     */
+    public function set_priority($priority)
+    {
+        if ( ! is_int($priority)) {
+            throw new LogicException('Priority can only be of type integer.');
+        }
 
-	/**
-	 * @return int
-	 */
-	public function get_priority() {
-		return $this->priority;
-	}
+        $this->priority = $priority;
 
-	/**
-	 * @param string|array $callback
-	 *
-	 * @return $this
-	 */
-	public function set_callback( $callback ) {
-		$this->callback = $callback;
+        return $this;
+    }
 
-		return $this;
-	}
+    /**
+     * @return int
+     */
+    public function get_priority()
+    {
+        return $this->priority;
+    }
 
-	/**
-	 * @return array|string
-	 */
-	public function get_callback() {
-		return $this->callback;
-	}
+    /**
+     * @param string|array $callback
+     *
+     * @return $this
+     */
+    public function set_callback($callback)
+    {
+        $this->callback = $callback;
 
-	/**
-	 * @param null|string $nonce
-	 *
-	 * @return $this
-	 */
-	public function set_nonce( $nonce = null ) {
-		if ( null === $nonce ) {
-			$nonce = wp_create_nonce( self::NONCE_ACTION );
-		}
+        return $this;
+    }
 
-		$this->params['_ajax_nonce'] = $nonce;
+    /**
+     * @return array|string
+     */
+    public function get_callback()
+    {
+        return $this->callback;
+    }
 
-		return $this;
-	}
+    /**
+     * @param null|string $nonce
+     *
+     * @return $this
+     */
+    public function set_nonce($nonce = null)
+    {
+        if (null === $nonce) {
+            $nonce = wp_create_nonce(self::NONCE_ACTION);
+        }
 
-	/**
-	 * @return $this
-	 */
-	public function unset_nonce() {
-		unset( $this->params['_ajax_nonce'] );
+        $this->params['_ajax_nonce'] = $nonce;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $action
-	 */
-	public function verify_request( $action = null ) {
-		if ( null === $action ) {
-			$action = self::NONCE_ACTION;
-		}
+    /**
+     * @return $this
+     */
+    public function unset_nonce()
+    {
+        unset($this->params['_ajax_nonce']);
 
-		check_ajax_referer( $action );
-	}
+        return $this;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function get_params() {
-		return $this->params;
-	}
+    /**
+     * @param string $action
+     */
+    public function verify_request($action = null)
+    {
+        if (null === $action) {
+            $action = self::NONCE_ACTION;
+        }
 
-	/**
-	 * @param $key
-	 *
-	 * @return mixed|null
-	 */
-	public function get_param( $key ) {
-		if ( ! array_key_exists( $key, $this->params ) ) {
-			return null;
-		}
+        check_ajax_referer($action);
+    }
 
-		return $this->params[ $key ];
-	}
+    /**
+     * @return array
+     */
+    public function get_params()
+    {
+        return $this->params;
+    }
 
-	/**
-	 * @param array $params
-	 *
-	 * @return $this
-	 */
-	public function set_params( array $params ) {
-		foreach ( $params as $key => $value ) {
-			$this->set_param( $key, $value );
-		}
+    /**
+     * @param $key
+     *
+     * @return mixed|null
+     */
+    public function get_param($key)
+    {
+        if ( ! array_key_exists($key, $this->params)) {
+            return null;
+        }
 
-		return $this;
-	}
+        return $this->params[$key];
+    }
 
-	/**
-	 * @param string $key
-	 * @param mixed  $value
-	 *
-	 * @return $this
-	 */
-	public function set_param( $key, $value ) {
-		switch ( $key ) {
-			case 'action':
-				$this->set_action( $value );
+    /**
+     * @param array $params
+     *
+     * @return $this
+     */
+    public function set_params(array $params)
+    {
+        foreach ($params as $key => $value) {
+            $this->set_param($key, $value);
+        }
 
-				break;
-			case 'nonce':
-				$this->set_nonce( $value );
+        return $this;
+    }
 
-				break;
-			default:
-				$this->params[ $key ] = $value;
-		}
+    /**
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return $this
+     */
+    public function set_param($key, $value)
+    {
+        switch ($key) {
+            case 'action':
+                $this->set_action($value);
 
-		return $this;
-	}
+                break;
+            case 'nonce':
+                $this->set_nonce($value);
+
+                break;
+            default:
+                $this->params[$key] = $value;
+        }
+
+        return $this;
+    }
 
 }

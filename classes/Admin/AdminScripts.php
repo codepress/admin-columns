@@ -11,9 +11,6 @@ use AC\Asset\Style;
 class AdminScripts implements Enqueueables
 {
 
-    /**
-     * @var Location\Absolute
-     */
     private $location;
 
     public function __construct(Location\Absolute $location)

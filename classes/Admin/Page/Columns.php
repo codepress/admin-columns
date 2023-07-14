@@ -184,10 +184,12 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                             '<span class="clear contenttype">%s</span>',
                             esc_html($this->list_screen->get_label())
                         );
-                        if (18 > strlen($label_main) && ($truncated_label = $this->get_truncated_side_label(
-                                $this->list_screen->get_label(),
-                                $label_main
-                            ))) {
+
+                        $truncated_label = 18 > strlen($label_main)
+                            ? $this->get_truncated_side_label($this->list_screen->get_label(), $label_main)
+                            : null;
+
+                        if ($truncated_label) {
                             $label_second = sprintf(
                                 '<span class="right contenttype">%s</span>',
                                 esc_html($truncated_label)
@@ -363,13 +365,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         return $view->set_template('admin/edit-column')->render();
     }
 
-    /**
-     * @param string $label
-     * @param string $main_label
-     *
-     * @return string
-     */
-    private function get_truncated_side_label($label, $main_label = '')
+    private function get_truncated_side_label(string $label, string $main_label = ''): string
     {
         if (34 < (strlen($label) + (strlen($main_label) * 1.1))) {
             $label = substr($label, 0, absint(34 - (strlen($main_label) * 1.1))) . '...';

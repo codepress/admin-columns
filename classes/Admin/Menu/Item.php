@@ -2,74 +2,51 @@
 
 namespace AC\Admin\Menu;
 
-class Item {
+class Item
+{
 
-	/**
-	 * @var string
-	 */
-	private $slug;
+    private $slug;
 
-	/**
-	 * @var string
-	 */
-	private $url;
+    private $url;
 
-	/**
-	 * @var string
-	 */
-	private $label;
+    private $label;
 
-	/**
-	 * @var string
-	 */
-	private $class;
+    private $class;
 
-	/**
-	 * @var string
-	 */
-	private $target;
+    private $target;
 
-	public function __construct( $slug, $url, $label, $class = '', $target = '' ) {
-		$this->slug = (string) $slug;
-		$this->url = (string) $url;
-		$this->label = (string) $label;
-		$this->class = (string) $class;
-		$this->target = (string) $target;
-	}
+    public function __construct(string $slug, string $url, string $label, string $class = '', string $target = '')
+    {
+        $this->slug = $slug;
+        $this->url = $url;
+        $this->label = $label;
+        $this->class = $class;
+        $this->target = $target;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_slug() {
-		return $this->slug;
-	}
+    public function get_slug(): string
+    {
+        return $this->slug;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_url() {
-		return $this->url;
-	}
+    public function get_url(): string
+    {
+        return $this->url;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_label() {
-		return $this->label;
-	}
+    public function get_label(): string
+    {
+        return $this->label;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_class() {
-		return $this->class;
-	}
+    public function get_class(): string
+    {
+        return $this->class;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_target() {
-		return $this->target;
-	}
+    public function get_target(): string
+    {
+        return $this->target;
+    }
 
 }

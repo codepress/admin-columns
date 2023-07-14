@@ -5,24 +5,27 @@ namespace AC\Admin\Section;
 use AC\Admin\Section;
 use AC\View;
 
-class ProCta extends Section {
+class ProCta extends Section
+{
 
-	const NAME = 'pro-cta';
-
-	public function __construct() {
-		parent::__construct( self::NAME );
-	}
-
-	public function render(): string
+    public function __construct()
     {
-		$view = new View( [
-			'title'       => 'Admin Columns Pro',
-			'description' => __( 'Upgrade to Admin Columns Pro and unlock all the awesome features.', 'codepress-admin-columns' ),
-		] );
+        parent::__construct('pro-cta');
+    }
 
-		$view->set_template( 'admin/page/settings-section-pro-cta' );
+    public function render(): string
+    {
+        $view = new View([
+            'title' => 'Admin Columns Pro',
+            'description' => __(
+                'Upgrade to Admin Columns Pro and unlock all the awesome features.',
+                'codepress-admin-columns'
+            ),
+        ]);
 
-		return $view->render();
-	}
+        $view->set_template('admin/page/settings-section-pro-cta');
+
+        return $view->render();
+    }
 
 }

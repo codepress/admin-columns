@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace AC;
 
 use AC\Admin;
+use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script\Localize\Translation;
 use AC\Controller;
 use AC\Controller\RestoreSettingsRequest;
-use AC\Entity;
+use AC\Entity\Plugin;
 use AC\ListScreenFactory\Aggregate;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
@@ -41,10 +42,10 @@ class AdminColumns
         ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\MediaFactory::class));
 
         $page_handler = new PageRequestHandler();
-        $page_handler->add('columns', $container->get(Admin\PageFactory\Columns::class))
-                     ->add('settings', $container->get(Admin\PageFactory\Settings::class))
-                     ->add('addons', $container->get(Admin\PageFactory\Addons::class))
-                     ->add('help', $container->get(Admin\PageFactory\Help::class));
+        $page_handler->add('columns', $container->get(PageFactory\Columns::class))
+                     ->add('settings', $container->get(PageFactory\Settings::class))
+                     ->add('addons', $container->get(PageFactory\Addons::class))
+                     ->add('help', $container->get(PageFactory\Help::class));
 
         PageRequestHandlers::add_handler($page_handler);
 
@@ -76,7 +77,7 @@ class AdminColumns
             Controller\AjaxColumnValue::class,
             Controller\AjaxScreenOptions::class,
             Controller\ListScreenRestoreColumns::class,
-            RestoreSettingsRequest::class,
+            Controller\RestoreSettingsRequest::class,
             Controller\TableListScreenSetter::class,
             Service\IntegrationColumns::class,
             Service\CommonAssets::class,
@@ -89,17 +90,17 @@ class AdminColumns
             $services_fqn[] = Service\ColumnsMockup::class;
         }
 
-        $services = new Services([
-            new Service\Setup($container->get(SetupFactory\AdminColumns::class)->create(SetupFactory::SITE)),
-        ]);
+        $services = new Services();
 
         foreach ($services_fqn as $service_fqn) {
             $services->add($container->get($service_fqn));
         }
 
-        $plugin = $container->get(Entity\Plugin::class);
+        $services->add(
+            new Service\Setup($container->get(SetupFactory\AdminColumns::class)->create(SetupFactory::SITE))
+        );
 
-        if ($plugin->is_network_active()) {
+        if ($container->get(Plugin::class)->is_network_active()) {
             $services->add(
                 new Service\Setup($container->get(SetupFactory\AdminColumns::class)->create(SetupFactory::NETWORK))
             );
@@ -111,7 +112,7 @@ class AdminColumns
     private function create_container(): DI\Container
     {
         $definitions = [
-            'translations.global'                   => static function (Entity\Plugin $plugin): Translation {
+            'translations.global'                   => static function (Plugin $plugin): Translation {
                 return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
             },
             Database::class                         => autowire()
@@ -127,16 +128,16 @@ class AdminColumns
             RestoreSettingsRequest::class           => static function (Storage $storage): RestoreSettingsRequest {
                 return new RestoreSettingsRequest($storage->get_repository('acp-database'));
             },
-            Entity\Plugin::class                    => static function (): Entity\Plugin {
-                return Entity\Plugin::create(AC_FILE, new Version(AC_VERSION));
+            Plugin::class                           => static function (): Plugin {
+                return Plugin::create(AC_FILE, new Version(AC_VERSION));
             },
             ListScreenFactory::class                => autowire(Aggregate::class),
-            Absolute::class                         => static function (Entity\Plugin $plugin): Absolute {
+            Absolute::class                         => static function (Plugin $plugin): Absolute {
                 return new Absolute($plugin->get_url(), $plugin->get_dir());
             },
             SetupFactory\AdminColumns::class        => static function (
                 Absolute $location,
-                Entity\Plugin $plugin
+                Plugin $plugin
             ): SetupFactory\AdminColumns {
                 return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
             },
@@ -153,9 +154,8 @@ class AdminColumns
             Admin\MenuListFactory::class            => autowire(Admin\MenuListFactory\MenuFactory::class),
             Admin\PageFactory\Settings::class       => autowire()
                 ->constructorParameter(2, defined('ACP_FILE')),
-            Service\Setup::class                    => autowire()
-                ->constructorParameter(0, DI\get(SetupFactory\AdminColumns::class)),
-            Service\IntegrationColumns::class       => autowire()->constructorParameter(1, defined('ACP_FILE')),
+            Service\IntegrationColumns::class       => autowire()
+                ->constructorParameter(1, defined('ACP_FILE')),
         ];
 
         return (new ContainerBuilder())

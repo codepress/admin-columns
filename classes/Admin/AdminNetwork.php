@@ -46,7 +46,7 @@ class AdminNetwork implements Registerable
         );
     }
 
-    public function init()
+    public function init(): void
     {
         $hook = $this->get_menu_page_factory()->create([
             'parent' => 'settings.php',

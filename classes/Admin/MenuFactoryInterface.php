@@ -4,13 +4,9 @@ namespace AC\Admin;
 
 use AC;
 
-interface MenuFactoryInterface {
+interface MenuFactoryInterface
+{
 
-	/**
-	 * @param string $current
-	 *
-	 * @return Menu
-	 */
-	public function create( $current );
+    public function create(string $current): Menu;
 
 }

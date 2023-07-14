@@ -4,23 +4,27 @@ namespace AC\Type\Url;
 
 use AC\Type\QueryAware;
 use AC\Type\QueryAwareTrait;
+use AC\Type\Url;
 
-class CouponCode implements QueryAware {
+class CouponCode implements QueryAware
+{
 
-	use QueryAwareTrait;
+    use QueryAwareTrait;
 
-	const ARG_COUPON = 'coupon_code';
+    private const ARG_COUPON = 'coupon_code';
 
-	public function __construct( $url, $coupon_code ) {
-		$this->url = $url->get_url();
+    public function __construct(Url $url, string $coupon_code)
+    {
+        $this->url = $url->get_url();
 
-		$this->add_one( self::ARG_COUPON, $coupon_code );
-	}
+        $this->add_one(self::ARG_COUPON, $coupon_code);
+    }
 
-	public function add_coupon_code( $coupon_code ) {
-		$this->add_one( self::ARG_COUPON, $coupon_code );
+    public function add_coupon_code(string $coupon_code): CouponCode
+    {
+        $this->add_one(self::ARG_COUPON, $coupon_code);
 
-		return $this;
-	}
+        return $this;
+    }
 
 }

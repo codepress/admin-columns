@@ -12,19 +12,10 @@ use AC\Asset\Location;
 class Settings implements PageFactoryInterface
 {
 
-    /**
-     * @var Location\Absolute
-     */
     protected $location;
 
-    /**
-     * @var MenuFactoryInterface
-     */
     protected $menu_factory;
 
-    /**
-     * @var bool
-     */
     private $is_acp_active;
 
     public function __construct(
