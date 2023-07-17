@@ -10,7 +10,7 @@ class Editor implements Type\QueryAware {
 
 	use Type\QueryAwareTrait;
 
-	public function __construct( $slug = null ) {
+	public function __construct( string $slug = null ) {
 		$this->url = admin_url( 'options-general.php' );
 
 		$this->add_one( RequestHandlerInterface::PARAM_PAGE, Admin\Admin::NAME );
