@@ -2,11 +2,12 @@
 
 namespace AC\Admin;
 
-interface ScreenOptions {
+interface ScreenOptions
+{
 
-	/**
-	 * @return ScreenOption[]
-	 */
-	public function get_screen_options();
+    /**
+     * @return ScreenOption[]
+     */
+    public function get_screen_options(): array;
 
 }

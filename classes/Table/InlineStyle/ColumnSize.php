@@ -65,7 +65,8 @@ class ColumnSize implements Renderable {
 		return ob_get_clean();
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		if ( ! $this->list_screen->get_settings() ) {
 			return '';
 		}

@@ -4,13 +4,9 @@ namespace AC\Integration;
 
 use AC\Integrations;
 
-interface Filter {
+interface Filter
+{
 
-	/**
-	 * @param Integrations $integrations
-	 *
-	 * @return Integrations
-	 */
-	public function filter( Integrations $integrations );
+    public function filter(Integrations $integrations): Integrations;
 
 }

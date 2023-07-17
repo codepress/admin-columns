@@ -21,28 +21,28 @@ use AC;
  * @property Helper\Network  network
  * @property Helper\File     file
  */
-final class Helper {
+final class Helper
+{
 
-	public function __get( $helper ) {
+    public function __get($helper)
+    {
+        switch ($helper) {
+            // Hotfix
+            case 'string' :
+                return new AC\Helper\Strings();
 
-		switch ( $helper ) {
+            case 'array' :
+                return new AC\Helper\Arrays();
 
-			// Hotfix
-			case 'string' :
-				return new AC\Helper\Strings;
+            default :
+                $class = 'AC\Helper\\' . ucfirst($helper);
 
-			case 'array' :
-				return new AC\Helper\Arrays;
+                if (class_exists($class)) {
+                    return new $class();
+                }
+        }
 
-			default :
-				$class = 'AC\Helper\\' . ucfirst( $helper );
-
-				if ( class_exists( $class ) ) {
-					return new $class;
-				}
-		}
-
-		return false;
-	}
+        return false;
+    }
 
 }

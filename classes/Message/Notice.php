@@ -10,7 +10,8 @@ use AC\View;
 
 class Notice extends Message implements Registerable {
 
-	public function render() {
+	public function render(): string
+    {
 		$data = [
 			'message' => $this->message,
 			'type'    => $this->type,
@@ -23,7 +24,8 @@ class Notice extends Message implements Registerable {
 		return $view->render();
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		if ( apply_filters( 'ac/suppress_site_wide_notices', false ) ) {
 			return;
 		}

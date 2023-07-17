@@ -2,11 +2,12 @@
 
 namespace AC\Admin;
 
-interface Helpable {
+interface Helpable
+{
 
-	/**
-	 * @return HelpTab[]
-	 */
-	public function get_help_tabs();
+    /**
+     * @return HelpTab[]
+     */
+    public function get_help_tabs(): array;
 
 }

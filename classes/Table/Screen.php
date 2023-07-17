@@ -64,7 +64,8 @@ final class Screen implements Registerable {
 	/**
 	 * Register hooks
 	 */
-	public function register() {
+	public function register(): void
+    {
 		$controller = new ScreenController( $this->list_screen );
 		$controller->register();
 

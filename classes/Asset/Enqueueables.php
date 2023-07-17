@@ -2,11 +2,9 @@
 
 namespace AC\Asset;
 
-interface Enqueueables {
+interface Enqueueables
+{
 
-	/**
-	 * @return Assets
-	 */
-	public function get_assets();
+    public function get_assets(): Assets;
 
 }

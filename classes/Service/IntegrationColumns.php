@@ -7,37 +7,39 @@ use AC\IntegrationRepository;
 use AC\ListScreen;
 use AC\Registerable;
 
-final class IntegrationColumns implements Registerable {
+final class IntegrationColumns implements Registerable
+{
 
-	/**
-	 * @var IntegrationRepository
-	 */
-	private $repository;
+    private $repository;
 
-	public function __construct( IntegrationRepository $repository ) {
-		$this->repository = $repository;
-	}
+    private $is_pro_active;
 
-	public function register() {
-		add_action( 'ac/column_types', [ $this, 'register_integration_columns' ], 1 );
-	}
+    public function __construct(IntegrationRepository $repository, bool $is_pro_active)
+    {
+        $this->repository = $repository;
+        $this->is_pro_active = $is_pro_active;
+    }
 
-	public function register_integration_columns( ListScreen $list_screen ) {
-		if ( ! function_exists( 'ACP' ) ) {
+    public function register(): void
+    {
+        add_action('ac/column_types', [$this, 'register_integration_columns'], 1);
+    }
 
-			foreach ( $this->repository->find_all() as $integration ) {
-				if ( ! $integration->show_placeholder( $list_screen ) ) {
-					continue;
-				}
+    public function register_integration_columns(ListScreen $list_screen): void
+    {
+        // TODO test
+        if ( ! $this->is_pro_active) {
+            foreach ($this->repository->find_all_by_active_plugins() as $integration) {
+                if ( ! $integration->show_placeholder($list_screen)) {
+                    continue;
+                }
 
-				if ( $integration->is_plugin_active() ) {
-					$column = new Placeholder();
-					$column->set_integration( $integration );
+                $column = new Placeholder();
+                $column->set_integration($integration);
 
-					$list_screen->register_column_type( $column );
-				}
-			}
-		}
-	}
+                $list_screen->register_column_type($column);
+            }
+        }
+    }
 
 }

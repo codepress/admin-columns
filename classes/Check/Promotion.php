@@ -22,7 +22,8 @@ final class Promotion
 		$this->promo = $promo;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'ac/screen', [ $this, 'display' ] );
 
 		$this->get_ajax_handler()->register();

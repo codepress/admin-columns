@@ -30,7 +30,8 @@ class Dismissible extends Notice {
 		parent::__construct( $message );
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		$data = [
 			'message'              => $this->message,
 			'type'                 => $this->type,

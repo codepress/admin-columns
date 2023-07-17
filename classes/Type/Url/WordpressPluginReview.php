@@ -20,7 +20,8 @@ class WordpressPluginReview implements Url {
 		return $this->handle;
 	}
 
-	public function get_url() {
+	public function get_url(): string
+    {
 		return sprintf( 'https://wordpress.org/support/plugin/%s/reviews/#postform', $this->handle );
 	}
 

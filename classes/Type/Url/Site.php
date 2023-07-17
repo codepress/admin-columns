@@ -40,7 +40,7 @@ class Site implements Type\Url
         }
     }
 
-    public function get_url()
+    public function get_url(): string
     {
         return self::URL . $this->get_path();
     }

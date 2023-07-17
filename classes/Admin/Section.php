@@ -4,22 +4,19 @@ namespace AC\Admin;
 
 use AC\Renderable;
 
-abstract class Section implements Renderable {
+abstract class Section implements Renderable
+{
 
-	/**
-	 * @var string
-	 */
-	protected $slug;
+    protected $slug;
 
-	public function __construct( $slug ) {
-		$this->slug = (string) $slug;
-	}
+    public function __construct(string $slug)
+    {
+        $this->slug = $slug;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_slug() {
-		return $this->slug;
-	}
+    public function get_slug(): string
+    {
+        return $this->slug;
+    }
 
 }

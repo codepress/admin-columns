@@ -28,7 +28,8 @@ class DefaultColumns implements Registerable {
 		$this->default_columns = $default_columns;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'current_screen', [ $this, 'handle_request' ] );
 	}
 

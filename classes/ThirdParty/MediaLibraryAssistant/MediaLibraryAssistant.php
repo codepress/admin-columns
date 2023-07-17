@@ -9,7 +9,8 @@ use AC\Type\ListKey;
 
 class MediaLibraryAssistant implements Registerable {
 
-	public function register() {
+	public function register(): void
+    {
 		if ( ! defined( 'MLA_PLUGIN_PATH' ) ) {
 			return;
 		}

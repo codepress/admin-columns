@@ -2,8 +2,9 @@
 
 namespace AC\Admin;
 
-interface MenuPageFactory {
+interface MenuPageFactory
+{
 
-	public function create( array $args = [] );
+    public function create(array $args = []): string;
 
 }

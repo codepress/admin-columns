@@ -22,7 +22,8 @@ class WPML implements Registerable {
 		$this->storage = $storage;
 	}
 
-	function register() {
+	function register(): void
+    {
 
 		// display correct flags on the overview screens
 		add_action( 'ac/table/list_screen', [ $this, 'replace_flags' ] );

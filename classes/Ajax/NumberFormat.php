@@ -7,7 +7,8 @@ use AC\Request;
 
 final class NumberFormat implements AC\Registerable {
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'wp_ajax_ac_number_format', [ $this, 'request' ] );
 	}
 

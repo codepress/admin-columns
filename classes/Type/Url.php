@@ -2,11 +2,9 @@
 
 namespace AC\Type;
 
-interface Url {
+interface Url
+{
 
-	/**
-	 * @return string
-	 */
-	public function get_url();
+    public function get_url(): string;
 
 }

@@ -1,5 +1,6 @@
 <?php
-declare( strict_types=1 );
+
+declare(strict_types=1);
 
 namespace AC;
 
@@ -8,32 +9,28 @@ use AC\ListScreenRepository\Storage;
 use AC\Vendor\Psr\Container\ContainerInterface;
 use LogicException;
 
-class Container {
+class Container
+{
 
-	private static $instance;
+    private static $instance;
 
-	public static function set_container( ContainerInterface $container ): void {
-		if ( self::$instance ) {
-			throw new LogicException( 'Container is already set.' );
-		}
+    public static function set_container(ContainerInterface $container): void
+    {
+        if (self::$instance) {
+            throw new LogicException('Container is already set.');
+        }
 
-		self::$instance = $container;
-	}
+        self::$instance = $container;
+    }
 
-	public static function get_location(): Absolute {
-		return self::$instance->get( Absolute::class );
-	}
+    public static function get_location(): Absolute
+    {
+        return self::$instance->get(Absolute::class);
+    }
 
-	public static function get_url(): string {
-		return self::get_location()->get_url();
-	}
-
-	public static function get_dir(): string {
-		return self::get_location()->get_path();
-	}
-
-	public static function get_storage(): Storage {
-		return self::$instance->get( Storage::class );
-	}
+    public static function get_storage(): Storage
+    {
+        return self::$instance->get(Storage::class);
+    }
 
 }

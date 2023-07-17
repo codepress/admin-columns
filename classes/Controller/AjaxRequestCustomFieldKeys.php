@@ -15,7 +15,8 @@ use ACP\Helper\Select\Generic\Options;
 
 class AjaxRequestCustomFieldKeys implements Registerable {
 
-	public function register() {
+	public function register(): void
+    {
 		$this->get_ajax_handler()->register();
 	}
 

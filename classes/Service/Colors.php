@@ -17,7 +17,8 @@ final class Colors implements Registerable {
 		$this->style_injector = $style_injector;
 	}
 
-	public function register(): void {
+	public function register(): void
+    {
 		add_action( 'admin_init', function () {
 			$this->shipped_colors_updater->update();
 		} );

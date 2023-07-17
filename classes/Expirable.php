@@ -2,13 +2,9 @@
 
 namespace AC;
 
-interface Expirable {
+interface Expirable
+{
 
-	/**
-	 * @param mixed $value
-	 *
-	 * @return bool
-	 */
-	public function is_expired( $value = null );
+    public function is_expired(int $value = null): bool;
 
 }

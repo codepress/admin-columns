@@ -53,7 +53,8 @@ class Toggle extends Element {
 		return 'checkbox';
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		$view = new View( [
 			'id'                   => $this->get_name(),
 			'name'                 => $this->get_name(),

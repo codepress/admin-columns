@@ -1,27 +1,59 @@
 <?php
 
-namespace AC;
+declare(strict_types=1);
+
+namespace AC\Entity;
 
 use AC\Plugin\Version;
+use AC\PluginUpdate;
 
-class PluginInformation
+class Plugin
 {
 
     private $basename;
 
-    public function __construct(string $basename)
+    private $dir;
+
+    private $url;
+
+    private $version;
+
+    public function __construct(string $basename, string $dir, string $url, Version $version)
     {
         $this->basename = $basename;
+        $this->dir = $dir;
+        $this->url = $url;
+        $this->version = $version;
     }
 
-    public static function create_by_file(string $file): self
+    public static function create(string $file, Version $version): self
     {
-        return new self(plugin_basename($file));
+        return new self(
+            plugin_basename($file),
+            plugin_dir_path($file),
+            plugin_dir_url($file),
+            $version
+        );
+    }
+
+    public function get_version(): Version
+    {
+        return $this->version;
     }
 
     public function get_basename(): string
     {
         return $this->basename;
+    }
+
+    public function get_dir(): string
+    {
+        return $this->dir;
+    }
+
+    public function get_url(): string
+    {
+        return $this->url;
     }
 
     public function get_dirname(): string
@@ -48,14 +80,9 @@ class PluginInformation
         return is_plugin_active_for_network($this->basename);
     }
 
-    public function get_version(): Version
-    {
-        return new Version((string)$this->get_header('Version'));
-    }
-
     public function get_name(): ?string
     {
-        return $this->get_header('Name');
+        return $this->get_header_var('Name');
     }
 
     private function get_plugins(): array
@@ -98,7 +125,7 @@ class PluginInformation
 
         $version = new Version($data->update->new_version);
 
-        if ( ! $version->is_valid() || $version->is_lte($this->get_version())) {
+        if ( ! $version->is_valid() || $version->is_lte($this->version)) {
             return null;
         }
 
@@ -113,18 +140,12 @@ class PluginInformation
     {
         $plugins = $this->get_plugins();
 
-        return $plugins && isset($plugins[$this->basename])
-            ? (array)$plugins[$this->basename]
-            : null;
+        return $plugins[$this->basename] ?? null;
     }
 
-    public function get_header(string $var): ?string
+    private function get_header_var(string $var): ?string
     {
-        $info = $this->get_header_data();
-
-        return $info && isset($info[$var])
-            ? (string)$info[$var]
-            : null;
+        return $this->get_header_data()[$var] ?? null;
     }
 
 }

@@ -29,7 +29,8 @@ class Checkbox extends Element {
 		return $classes;
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		$elements = $this->get_elements();
 
 		if ( ! $elements ) {

@@ -11,9 +11,6 @@ use AC\Asset\Style;
 class AdminScripts implements Enqueueables
 {
 
-    /**
-     * @var Location\Absolute
-     */
     private $location;
 
     public function __construct(Location\Absolute $location)
@@ -21,7 +18,7 @@ class AdminScripts implements Enqueueables
         $this->location = $location;
     }
 
-    public function get_assets()
+    public function get_assets(): Assets
     {
         return new Assets([
             new Script('ac-admin-general', $this->location->with_suffix('assets/js/admin-general.js'), ['jquery']),

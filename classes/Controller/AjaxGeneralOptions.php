@@ -19,7 +19,8 @@ class AjaxGeneralOptions implements Registerable {
 		$this->general_option = $general_option;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		$this->get_ajax_handler()->register();
 	}
 

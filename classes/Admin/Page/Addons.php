@@ -10,129 +10,114 @@ use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Style;
 use AC\Container;
-use AC\Integration\Filter;
 use AC\IntegrationRepository;
 use AC\Renderable;
 
-class Addons implements Enqueueables, Renderable, RenderableHead {
+class Addons implements Enqueueables, Renderable, RenderableHead
+{
 
-	const NAME = 'addons';
+    public const NAME = 'addons';
 
-	/**
-	 * @var Location\Absolute
-	 */
-	protected $location;
+    protected $location;
 
-	/**
-	 * @var IntegrationRepository
-	 */
-	protected $integrations;
+    protected $integrations;
 
-	/**
-	 * @var Renderable
-	 */
-	protected $head;
+    protected $head;
 
-	public function __construct( Location\Absolute $location, IntegrationRepository $integrations, Renderable $head ) {
-		$this->location = $location;
-		$this->integrations = $integrations;
-		$this->head = $head;
-	}
+    public function __construct(Location\Absolute $location, IntegrationRepository $integrations, Renderable $head)
+    {
+        $this->location = $location;
+        $this->integrations = $integrations;
+        $this->head = $head;
+    }
 
-	public function render_head() {
-		return $this->head;
-	}
+    public function render_head(): Renderable
+    {
+        return $this->head;
+    }
 
-	public function get_assets() {
-		return new Assets( [
-			new Style( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/css/admin-page-addons.css' ) ),
-			new Admin\Asset\Addons( 'ac-admin-page-addons', $this->location->with_suffix( 'assets/js/admin-page-addons.js' ) ),
-		] );
-	}
+    public function get_assets(): Assets
+    {
+        return new Assets([
+            new Style('ac-admin-page-addons', $this->location->with_suffix('assets/css/admin-page-addons.css')),
+            new Admin\Asset\Addons(
+                'ac-admin-page-addons',
+                $this->location->with_suffix('assets/js/admin-page-addons.js')
+            ),
+        ]);
+    }
 
-	public function render() {
-		ob_start();
+    public function render(): string
+    {
+        ob_start();
 
-		echo '<h1 class="screen-reader-text">' . __( 'Add-ons', 'codepress-admin-columns' ) . '</h1>';
-		echo '<div class="ac-addons-groups">';
+        echo '<h1 class="screen-reader-text">' . __('Add-ons', 'codepress-admin-columns') . '</h1>';
+        echo '<div class="ac-addons-groups">';
 
-		foreach ( $this->get_grouped_addons() as $group ) :
-			?>
+        foreach ($this->get_grouped_addons() as $group) :
+            ?>
 
-			<div class="ac-addons group-<?= esc_attr( $group['class'] ); ?>">
-				<h2 class="ac-lined-header"><?php echo $group['title']; ?></h2>
+			<div class="ac-addons group-<?= esc_attr($group['class']); ?>">
+				<h2 class="ac-lined-header"><?php
+                    echo $group['title']; ?></h2>
 
 				<ul>
-					<?php
-					foreach ( $group['integrations'] as $addon ) {
-						$actions = $this->render_actions( $addon );
-						/* @var AC\Integration $addon */
+                    <?php
+                    foreach ($group['integrations'] as $addon) {
+                        $actions = $this->render_actions($addon);
+                        /* @var AC\Integration $addon */
 
-						$view = new AC\View( [
-							'logo'        => sprintf( '%s/%s', Container::get_url(), $addon->get_logo() ),
-							'title'       => $addon->get_title(),
-							'slug'        => $addon->get_slug(),
-							'description' => $addon->get_description(),
-							'link'        => $addon->get_link(),
-							'actions'     => $actions ? $actions->render() : null,
-						] );
+                        $view = new AC\View([
+                            'logo'        => Container::get_location()->with_suffix($addon->get_logo())->get_url(),
+                            'title'       => $addon->get_title(),
+                            'slug'        => $addon->get_slug(),
+                            'description' => $addon->get_description(),
+                            'link'        => $addon->get_link(),
+                            'actions'     => $actions ? $actions->render() : null,
+                        ]);
 
-						echo $view->set_template( 'admin/edit-addon' );
-					}
-					?>
+                        echo $view->set_template('admin/edit-addon');
+                    }
+                    ?>
 				</ul>
 			</div>
-		<?php endforeach;
+        <?php
+        endforeach;
 
-		echo '</div>';
+        echo '</div>';
 
-		return ob_get_clean();
-	}
+        return ob_get_clean();
+    }
 
-	/**
-	 * @param AC\Integration $addon
-	 *
-	 * @return Renderable
-	 */
-	protected function render_actions( AC\Integration $addon ): ?Renderable {
-		return new Admin\Section\AddonStatus( $addon );
-	}
+    protected function render_actions(AC\Integration $addon): ?Renderable
+    {
+        return new Admin\Section\AddonStatus($addon);
+    }
 
-	/**
-	 * @return array
-	 */
-	protected function get_grouped_addons() {
-		$recommended = $this->integrations->find_all( [
-			IntegrationRepository::ARG_FILTER => [
-				new Filter\IsPluginActive(),
-			],
-		] );
+    protected function get_grouped_addons(): array
+    {
+        $recommended = $this->integrations->find_all_by_active_plugins();
+        $available = $this->integrations->find_all_by_inactive_plugins();
 
-		$available = $this->integrations->find_all( [
-			IntegrationRepository::ARG_FILTER => [
-				new Filter\IsPluginNotActive(),
-			],
-		] );
+        $groups = [];
 
-		$groups = [];
+        if ($recommended->exists()) {
+            $groups[] = [
+                'title'        => __('Recommended', 'codepress-admin-columns'),
+                'class'        => 'recommended',
+                'integrations' => $recommended,
+            ];
+        }
 
-		if ( $recommended->exists() ) {
-			$groups[] = [
-				'title'        => __( 'Recommended', 'codepress-admin-columns' ),
-				'class'        => 'recommended',
-				'integrations' => $recommended,
-			];
-		}
+        if ($available->exists()) {
+            $groups[] = [
+                'title'        => __('Available', 'codepress-admin-columns'),
+                'class'        => 'available',
+                'integrations' => $available,
+            ];
+        }
 
-		if ( $available->exists() ) {
-			$groups[] = [
-				'title'        => __( 'Available', 'codepress-admin-columns' ),
-				'class'        => 'available',
-				'integrations' => $available,
-			];
-		}
-
-		return $groups;
-	}
+        return $groups;
+    }
 
 }

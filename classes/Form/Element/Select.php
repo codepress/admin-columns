@@ -84,7 +84,8 @@ class Select extends Element {
 	/**
 	 * @return string
 	 */
-	public function render() {
+	public function render(): string
+    {
 		if ( ! $this->get_options() && $this->get_no_result() ) {
 			return $this->get_no_result();
 		}

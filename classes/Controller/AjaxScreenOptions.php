@@ -17,7 +17,8 @@ class AjaxScreenOptions implements Registerable {
 		$this->preference = $preference;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		$this->get_ajax_handler()->register();
 	}
 

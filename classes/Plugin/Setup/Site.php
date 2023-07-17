@@ -8,28 +8,35 @@ use AC\Plugin\UpdateCollection;
 use AC\Plugin\Version;
 use AC\Storage\Option;
 
-final class Site extends Setup {
+final class Site extends Setup
+{
 
-	public function __construct( Option $storage, Version $version, InstallCollection $installers = null, UpdateCollection $updates = null ) {
-		parent::__construct( $storage, $version, $installers, $updates );
-	}
+    public function __construct(
+        Option $storage,
+        Version $version,
+        InstallCollection $installers = null,
+        UpdateCollection $updates = null
+    ) {
+        parent::__construct($storage, $version, $installers, $updates);
+    }
 
-	protected function is_new_install() {
-		global $wpdb;
+    protected function is_new_install(): bool
+    {
+        global $wpdb;
 
-		$sql = "
+        $sql = "
 			SELECT option_id 
 			FROM $wpdb->options 
 			WHERE option_name LIKE 'cpac_options_%' LIMIT 1
 		";
 
-		$results = $wpdb->get_results( $sql );
+        $results = $wpdb->get_results($sql);
 
-		if ( $results ) {
-			return false;
-		}
+        if ($results) {
+            return false;
+        }
 
-		return ! $this->get_stored_version()->is_valid();
-	}
+        return ! $this->get_stored_version()->is_valid();
+    }
 
 }
