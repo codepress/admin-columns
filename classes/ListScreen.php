@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC;
 
-use AC\Sanitize\Kses;
 use AC\Type\ListScreenId;
 use AC\Type\Url\Editor;
 use DateTime;
@@ -38,7 +37,7 @@ abstract class ListScreen
      * @since 3.0
      * @var string
      */
-    private $meta_type;
+    protected $meta_type;
 
     /**
      * Page menu slug. Applies only when a menu page is used.
@@ -121,18 +120,12 @@ abstract class ListScreen
      */
     private $updated;
 
-    /**
-     * @return bool
-     */
-    public function has_id()
+    public function has_id(): bool
     {
         return ListScreenId::is_valid_id($this->layout_id);
     }
 
-    /**
-     * @return ListScreenId
-     */
-    public function get_id()
+    public function get_id(): ListScreenId
     {
         if ( ! $this->has_id()) {
             throw new LogicException('ListScreen has no identity.');
@@ -141,17 +134,7 @@ abstract class ListScreen
         return new ListScreenId($this->layout_id);
     }
 
-    /**
-     * Contains the hook that contains the manage_value callback
-     * @return void
-     */
-    abstract public function set_manage_value_callback();
-
-    /**
-     * Register column types
-     * @return void
-     */
-    abstract protected function register_column_types();
+    abstract protected function register_column_types(): void;
 
     /**
      * Register column types from a list with (fully qualified) class names
@@ -161,16 +144,13 @@ abstract class ListScreen
     protected function register_column_types_from_list(array $list): void
     {
         foreach ($list as $column) {
-            $this->register_column_type(new $column);
+            $this->register_column_type(new $column());
         }
     }
 
-    /**
-     * @return string
-     */
-    public function get_heading_hookname()
+    public function get_heading_hookname(): string
     {
-        return 'manage_' . $this->get_screen_id() . '_columns';
+        return sprintf('manage_%s_columns', $this->get_screen_id());
     }
 
     /**
@@ -647,7 +627,7 @@ abstract class ListScreen
                 continue;
             }
 
-            $column = new Column;
+            $column = new Column();
             $column->set_type($type)
                    ->set_original(true);
 
@@ -861,46 +841,6 @@ abstract class ListScreen
         }
 
         return $this->preferences[$key];
-    }
-
-    /**
-     * @param string $column_name
-     * @param int    $id
-     * @param null   $original_value
-     *
-     * @return string
-     */
-    public function get_display_value_by_column_name($column_name, $id, $original_value = null)
-    {
-        $id = (int)$id;
-
-        $column = $this->get_column_by_name($column_name);
-
-        if ( ! $column) {
-            return $original_value;
-        }
-
-        $value = $column->get_value($id);
-
-        if (is_scalar($value) && apply_filters('ac/column/value/sanitize', true, $column, $id)) {
-            $value = (new Kses())->sanitize((string)$value);
-        }
-
-        // You can overwrite the display value for original columns by making sure get_value() does not return an empty string.
-        if ($column->is_original() && ac_helper()->string->is_empty($value)) {
-            return $original_value;
-        }
-
-        /**
-         * Column display value
-         *
-         * @param string $value  Column display value
-         * @param int    $id     Object ID
-         * @param Column $column Column object
-         *
-         * @since 3.0
-         */
-        return (string)apply_filters('ac/column/value', $value, $id, $column);
     }
 
 }

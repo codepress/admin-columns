@@ -3,6 +3,7 @@
 namespace AC;
 
 use AC\ColumnRepository\Sort\ManualOrder;
+use AC\ListScreen\ManageValue;
 
 class ScreenController implements Registerable
 {
@@ -22,9 +23,6 @@ class ScreenController implements Registerable
      */
     private $default_columns;
 
-    /**
-     * @param ListScreen $list_screen
-     */
     public function __construct(ListScreen $list_screen)
     {
         $this->list_screen = $list_screen;
@@ -37,7 +35,9 @@ class ScreenController implements Registerable
         add_filter($this->list_screen->get_heading_hookname(), [$this, 'add_headings'], 200);
 
         // Values
-        $this->list_screen->set_manage_value_callback();
+        if ($this->list_screen instanceof ManageValue) {
+            $this->list_screen->manage_value()->register();
+        }
 
         do_action('ac/table/list_screen', $this->list_screen);
     }
