@@ -2,9 +2,7 @@
 
 namespace AC;
 
-use WP_Post;
-
-abstract class ListScreenPost extends ListScreenWP
+abstract class ListScreenPost extends ListScreen
 {
 
     protected $post_type;
@@ -20,35 +18,12 @@ abstract class ListScreenPost extends ListScreenWP
         return $this->post_type;
     }
 
-    /**
-     * @param int $id
-     *
-     * @return WP_Post
-     */
-    protected function get_object($id)
-    {
-        return get_post($id);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @return string|false
-     */
-    protected function get_post_type_label_var($var)
-    {
-        $post_type_object = get_post_type_object($this->get_post_type());
-
-        return $post_type_object && isset($post_type_object->labels->{$var}) ? $post_type_object->labels->{$var} : false;
-    }
-
-    /**
-     * Register post specific columns
-     */
     protected function register_column_types(): void
     {
-        $this->register_column_type(new Column\CustomField());
-        $this->register_column_type(new Column\Actions());
+        $this->register_column_types_from_list([
+            Column\CustomField::class,
+            Column\Actions::class,
+        ]);
     }
 
 }

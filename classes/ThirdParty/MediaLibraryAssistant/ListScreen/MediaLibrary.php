@@ -7,7 +7,6 @@ use AC\ColumnRepository;
 use AC\ThirdParty\MediaLibraryAssistant\ManageValue;
 use AC\ThirdParty\MediaLibraryAssistant\WpListTableFactory;
 use MLACore;
-use MLAData;
 
 class MediaLibrary extends AC\ListScreen\Media
 {
@@ -28,24 +27,9 @@ class MediaLibrary extends AC\ListScreen\Media
         return new ManageValue(new ColumnRepository($this));
     }
 
-    public function get_object($post_id)
+    public function list_table(): AC\ListTable
     {
-        // Author column depends on this global to be set.
-        global $authordata;
-
-        $authordata = get_userdata(get_post_field('post_author', $post_id));
-
-        if ( ! class_exists('MLAData')) {
-            require_once(MLA_PLUGIN_PATH . 'includes/class-mla-data.php');
-            MLAData::initialize();
-        }
-
-        return (object)MLAData::mla_get_attachment_by_id($post_id);
-    }
-
-    public function get_list_table($args = [])
-    {
-        return (new WpListTableFactory())->create();
+        return new AC\ThirdParty\MediaLibraryAssistant\ListTable((new WpListTableFactory())->create());
     }
 
     /**

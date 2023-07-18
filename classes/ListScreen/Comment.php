@@ -5,10 +5,8 @@ namespace AC\ListScreen;
 use AC;
 use AC\Column;
 use AC\WpListTableFactory;
-use WP_Comment;
-use WP_Comments_List_Table;
 
-class Comment extends AC\ListScreenWP implements ManageValue
+class Comment extends AC\ListScreen implements ManageValue, ListTable
 {
 
     public function __construct()
@@ -22,37 +20,21 @@ class Comment extends AC\ListScreenWP implements ManageValue
              ->set_group('comment');
     }
 
+    public function list_table(): AC\ListTable
+    {
+        return new AC\ListTable\Comment((new WpListTableFactory())->create_comment_table($this->get_screen_id()));
+    }
+
     public function manage_value(): AC\Table\ManageValue
     {
         return new AC\Table\ManageValue\Comment(new AC\ColumnRepository($this));
     }
 
-    /**
-     * @param int $id
-     *
-     * @return WP_Comment
-     */
-    protected function get_object($id)
-    {
-        return get_comment($id);
-    }
-
-    /**
-     * @return WP_Comments_List_Table
-     */
-    protected function get_list_table()
-    {
-        return (new WpListTableFactory())->create_comment_table($this->get_screen_id());
-    }
-
-    public function get_table_attr_id()
+    public function get_table_attr_id(): string
     {
         return '#the-comment-list';
     }
 
-    /**
-     * Register column types
-     */
     protected function register_column_types(): void
     {
         $this->register_column_types_from_list([

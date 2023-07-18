@@ -7,10 +7,8 @@ use AC\Column;
 use AC\ColumnRepository;
 use AC\MetaType;
 use AC\WpListTableFactory;
-use WP_User;
-use WP_Users_List_Table;
 
-class User extends AC\ListScreenWP implements ManageValue
+class User extends AC\ListScreen implements ManageValue, ListTable
 {
 
     public function __construct()
@@ -24,30 +22,14 @@ class User extends AC\ListScreenWP implements ManageValue
              ->set_group('user');
     }
 
+    public function list_table(): AC\ListTable
+    {
+        return new AC\ListTable\User((new WpListTableFactory())->create_user_table($this->get_screen_id()));
+    }
+
     public function manage_value(): AC\Table\ManageValue
     {
         return new AC\Table\ManageValue\User(new ColumnRepository($this));
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return WP_User
-     */
-    protected function get_object($id)
-    {
-        return get_userdata($id);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return string HTML
-     * @since 3.0
-     */
-    public function get_single_row($id)
-    {
-        return $this->get_list_table()->single_row($this->get_object($id));
     }
 
     protected function register_column_types(): void
@@ -78,14 +60,6 @@ class User extends AC\ListScreenWP implements ManageValue
             Column\User\Url::class,
             Column\User\Username::class,
         ]);
-    }
-
-    /**
-     * @return WP_Users_List_Table
-     */
-    protected function get_list_table()
-    {
-        return (new WpListTableFactory())->create_user_table($this->get_screen_id());
     }
 
 }

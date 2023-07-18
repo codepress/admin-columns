@@ -2,14 +2,14 @@
 
 namespace AC\ListScreen;
 
+use AC;
 use AC\Column;
 use AC\ColumnRepository;
 use AC\ListScreenPost;
 use AC\Table;
 use AC\WpListTableFactory;
-use WP_Posts_List_Table;
 
-class Post extends ListScreenPost implements ManageValue
+class Post extends ListScreenPost implements ManageValue, ListTable
 {
 
     public function __construct(string $post_type)
@@ -22,38 +22,33 @@ class Post extends ListScreenPost implements ManageValue
              ->set_screen_id($this->get_screen_base() . '-' . $post_type);
     }
 
+    public function list_table(): AC\ListTable
+    {
+        return new AC\ListTable\Post((new WpListTableFactory())->create_post_table($this->get_screen_id()));
+    }
+
     public function manage_value(): Table\ManageValue
     {
         return new Table\ManageValue\Post($this->post_type, new ColumnRepository($this));
     }
 
-    /**
-     * @return WP_Posts_List_Table
-     */
-    protected function get_list_table()
-    {
-        return (new WpListTableFactory())->create_post_table($this->get_screen_id());
-    }
-
-    /**
-     * @since 2.0
-     */
     public function get_screen_link()
     {
         return add_query_arg(['post_type' => $this->get_post_type()], parent::get_screen_link());
     }
 
-    /**
-     * @return string|false
-     */
+    protected function get_post_type_label_var(string $var): ?string
+    {
+        $post_type_object = get_post_type_object($this->get_post_type());
+
+        return $post_type_object->labels->{$var} ?? null;
+    }
+
     public function get_label()
     {
         return $this->get_post_type_label_var('name');
     }
 
-    /**
-     * @return false|string
-     */
     public function get_singular_label()
     {
         return $this->get_post_type_label_var('singular_name');

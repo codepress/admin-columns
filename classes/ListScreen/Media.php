@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListScreen;
 
 use AC;
 use AC\Column;
 use AC\ColumnRepository;
 use AC\WpListTableFactory;
-use WP_Media_List_Table;
 
-class Media extends AC\ListScreenPost implements ManageValue
+class Media extends AC\ListScreenPost implements ManageValue, ListTable
 {
 
     public function __construct()
@@ -22,42 +23,19 @@ class Media extends AC\ListScreenPost implements ManageValue
              ->set_label(__('Media'));
     }
 
+    public function list_table(): AC\ListTable
+    {
+        return new AC\ListTable\Media((new WpListTableFactory())->create_media_table($this->get_screen_id()));
+    }
+
     public function manage_value(): AC\Table\ManageValue
     {
         return new AC\Table\ManageValue\Media(new ColumnRepository($this));
     }
 
-    /**
-     * @return WP_Media_List_Table
-     */
-    protected function get_list_table()
-    {
-        return (new WpListTableFactory())->create_media_table($this->get_screen_id());
-    }
-
     public function get_screen_link()
     {
         return add_query_arg('mode', 'list', parent::get_screen_link());
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return string
-     */
-    public function get_single_row($id)
-    {
-        // Author column depends on this global to be set.
-        global $authordata;
-
-        // Title for some columns can only be retrieved when post is set globally
-        if ( ! isset($GLOBALS['post'])) {
-            $GLOBALS['post'] = get_post($id);
-        }
-
-        $authordata = get_userdata(get_post_field('post_author', $id));
-
-        return parent::get_single_row($id);
     }
 
     protected function register_column_types(): void

@@ -379,12 +379,7 @@ abstract class ListScreen
         return $this;
     }
 
-    /**
-     * ID attribute of targeted list table
-     * @return string
-     * @since 3.0
-     */
-    public function get_table_attr_id()
+    public function get_table_attr_id(): string
     {
         return '#the-list';
     }
