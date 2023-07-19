@@ -37,12 +37,6 @@ abstract class ListScreen
     protected $meta_type;
 
     /**
-     * Page menu slug. Applies only when a menu page is used.
-     * @var string
-     */
-    private $page = '';
-
-    /**
      * Group slug. Used for menu.
      * @var string
      */
@@ -69,11 +63,6 @@ abstract class ListScreen
      * @var string|null
      */
     protected $layout_id;
-
-    /**
-     * @var string Storage key used for saving column data to the database
-     */
-    private $storage_key;
 
     /**
      * @var array Column settings data
@@ -198,18 +187,6 @@ abstract class ListScreen
         return $this;
     }
 
-    public function get_page(): string
-    {
-        return $this->page;
-    }
-
-    protected function set_page(string $page): self
-    {
-        $this->page = $page;
-
-        return $this;
-    }
-
     public function get_group(): string
     {
         return $this->group;
@@ -236,11 +213,7 @@ abstract class ListScreen
 
     public function get_storage_key(): string
     {
-        if (null === $this->storage_key) {
-            $this->storage_key = $this->key;
-        }
-
-        return $this->storage_key;
+        return $this->key . $this->layout_id;
     }
 
     public function get_layout_id(): ?string
@@ -251,7 +224,6 @@ abstract class ListScreen
     public function set_layout_id(string $layout_id): self
     {
         $this->layout_id = $layout_id;
-        $this->storage_key = $this->key . $layout_id;
 
         return $this;
     }
@@ -290,20 +262,6 @@ abstract class ListScreen
     public function get_editor_url(): QueryAware
     {
         return new Url\EditorColumns($this->key, $this->has_id() ? $this->get_id() : null);
-    }
-
-    public function get_screen_link(): string
-    {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_table_url()');
-
-        return (string)$this->get_table_url();
-    }
-
-    public function get_edit_link(): string
-    {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_editor_url()');
-
-        return (string)$this->get_editor_url();
     }
 
     /**
@@ -575,6 +533,20 @@ abstract class ListScreen
     public function get_preference(string $key)
     {
         return $this->preferences[$key] ?? null;
+    }
+
+    public function get_screen_link(): string
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_table_url()');
+
+        return (string)$this->get_table_url();
+    }
+
+    public function get_edit_link(): string
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_editor_url()');
+
+        return (string)$this->get_editor_url();
     }
 
 }

@@ -35,10 +35,7 @@ class Post extends ListScreenPost implements ManageValue, ListTable
 
     public function get_table_url(): QueryAware
     {
-        $url = new Url\ListTable('edit.php', $this->has_id() ? $this->get_id() : null);
-        $url->add_one('post_type', $this->post_type);
-
-        return $url;
+        return new Url\ListTable\Post($this->post_type, $this->has_id() ? $this->get_id() : null);
     }
 
     protected function get_post_type_label_var(string $var): ?string

@@ -36,10 +36,7 @@ class Media extends AC\ListScreenPost implements ManageValue, ListTable
 
     public function get_table_url(): QueryAware
     {
-        $url = new Url\ListTable('upload.php', $this->has_id() ? $this->get_id() : null);
-        $url->add_one('mode', 'list');
-
-        return $url;
+        return new Url\ListTable\Media($this->has_id() ? $this->get_id() : null);
     }
 
     protected function register_column_types(): void

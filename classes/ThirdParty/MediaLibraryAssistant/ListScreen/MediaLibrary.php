@@ -3,31 +3,34 @@
 namespace AC\ThirdParty\MediaLibraryAssistant\ListScreen;
 
 use AC;
+use AC\Column;
 use AC\ColumnRepository;
 use AC\ThirdParty\MediaLibraryAssistant\ManageValue;
 use AC\ThirdParty\MediaLibraryAssistant\WpListTableFactory;
 use AC\Type\QueryAware;
+use AC\Type\Url;
 use MLACore;
 
-class MediaLibrary extends AC\ListScreen\Media
+class MediaLibrary extends AC\ListScreenPost
 {
 
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct('attachment');
 
         $this->set_key('mla-media-assistant')
              ->set_label(__('Media Library Assistant', 'codepress-admin-columns'))
              ->set_singular_label(__('Assistant', 'codepress-admin-columns'))
-             ->set_screen_id('media_page_' . MLACore::ADMIN_PAGE_SLUG);
+             ->set_screen_id('media_page_' . MLACore::ADMIN_PAGE_SLUG)
+             ->set_group('media');
     }
 
     public function get_table_url(): QueryAware
     {
-        $url = parent::get_table_url();
-        $url->add_one('page', MLACore::ADMIN_PAGE_SLUG);
-
-        return $url;
+        return new Url\ListTable\Media(
+            $this->has_id() ? $this->get_id() : null,
+            MLACore::ADMIN_PAGE_SLUG
+        );
     }
 
     public function manage_value(): AC\Table\ManageValue
@@ -40,30 +43,31 @@ class MediaLibrary extends AC\ListScreen\Media
         return new AC\ThirdParty\MediaLibraryAssistant\ListTable((new WpListTableFactory())->create());
     }
 
-    /**
-     * Remove duplicate columns that are provided by MLA
-     */
     public function register_column_types(): void
     {
         parent::register_column_types();
 
-        $exclude = [
-            'comments',
-            'title',
-            'column-actions',
-            'column-alternate_text',
-            'column-attached_to',
-            'column-author_name',
-            'column-caption',
-            'column-description',
-            'column-file_name',
-            'column-full_path',
-            'column-mediaid',
-            'column-mime_type',
-            'column-taxonomy',
-        ];
-
-        array_map([$this, 'deregister_column_type'], $exclude);
+        $this->register_column_types_from_list([
+            Column\Post\Slug::class,
+            Column\Post\TitleRaw::class,
+            Column\Media\Album::class,
+            Column\Media\Artist::class,
+            Column\Media\Author::class,
+            Column\Media\AvailableSizes::class,
+            Column\Media\Date::class,
+            Column\Media\Dimensions::class,
+            Column\Media\ExifData::class,
+            Column\Media\FileMetaAudio::class,
+            Column\Media\FileMetaVideo::class,
+            Column\Media\FileSize::class,
+            Column\Media\Height::class,
+            Column\Media\Image::class,
+            Column\Media\Menu::class,
+            Column\Media\Preview::class,
+            Column\Media\Title::class,
+            Column\Media\VideoPlayer::class,
+            Column\Media\Width::class,
+        ]);
     }
 
 }
