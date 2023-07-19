@@ -4,28 +4,29 @@ declare(strict_types=1);
 
 namespace AC\Type\Url;
 
-use AC\Type\Url;
+use AC\Type\QueryAware;
+use AC\Type\QueryAwareTrait;
 
-class PluginSearch implements Url
+class PluginSearch implements QueryAware
 {
+
+    use QueryAwareTrait;
 
     private $search;
 
     public function __construct(string $search)
     {
-        $this->search = $search;
+        $this->set_url(admin_url('plugin-install.php'));
+        $this->add([
+            'tab'  => 'search',
+            'type' => 'term',
+            's'    => $search,
+        ]);
     }
 
-    public function get_url(): string
+    public function __toString(): string
     {
-        return add_query_arg(
-            [
-                'tab'  => 'search',
-                'type' => 'term',
-                's'    => $this->search,
-            ],
-            admin_url('plugin-install.php')
-        );
+        return $this->get_url();
     }
 
 }

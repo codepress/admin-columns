@@ -7,6 +7,8 @@ use AC\Column;
 use AC\ColumnRepository;
 use AC\ListScreenPost;
 use AC\Table;
+use AC\Type\QueryAware;
+use AC\Type\Url;
 use AC\WpListTableFactory;
 
 class Post extends ListScreenPost implements ManageValue, ListTable
@@ -16,10 +18,9 @@ class Post extends ListScreenPost implements ManageValue, ListTable
     {
         parent::__construct($post_type);
 
-        $this->set_screen_base('edit')
-             ->set_group('post')
+        $this->set_group('post')
              ->set_key($post_type)
-             ->set_screen_id($this->get_screen_base() . '-' . $post_type);
+             ->set_screen_id('edit-' . $post_type);
     }
 
     public function list_table(): AC\ListTable
@@ -32,9 +33,12 @@ class Post extends ListScreenPost implements ManageValue, ListTable
         return new Table\ManageValue\Post($this->post_type, new ColumnRepository($this));
     }
 
-    public function get_screen_link()
+    public function get_table_url(): QueryAware
     {
-        return add_query_arg(['post_type' => $this->get_post_type()], parent::get_screen_link());
+        $url = new Url\ListTable('edit.php', $this->has_id() ? $this->get_id() : null);
+        $url->add_one('post_type', $this->post_type);
+
+        return $url;
     }
 
     protected function get_post_type_label_var(string $var): ?string
@@ -44,12 +48,12 @@ class Post extends ListScreenPost implements ManageValue, ListTable
         return $post_type_object->labels->{$var} ?? null;
     }
 
-    public function get_label()
+    public function get_label(): ?string
     {
         return $this->get_post_type_label_var('name');
     }
 
-    public function get_singular_label()
+    public function get_singular_label(): ?string
     {
         return $this->get_post_type_label_var('singular_name');
     }

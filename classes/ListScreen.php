@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace AC;
 
 use AC\Type\ListScreenId;
-use AC\Type\Url\Editor;
+use AC\Type\QueryAware;
+use AC\Type\Url;
 use DateTime;
 use LogicException;
 use WP_User;
@@ -15,75 +16,59 @@ abstract class ListScreen
 
     /**
      * Unique Identifier for List Screen.
-     * @since 2.0
      * @var string
      */
-    private $key;
+    protected $key;
 
     /**
-     * @since 2.0
      * @var string
      */
     private $label;
 
     /**
-     * @since 2.3.5
      * @var string
      */
     private $singular_label;
 
     /**
      * Meta type of list screen; post, user, comment. Mostly used for fetching metadata.
-     * @since 3.0
      * @var string
      */
     protected $meta_type;
 
     /**
      * Page menu slug. Applies only when a menu page is used.
-     * @since 2.4.10
      * @var string
      */
-    private $page;
+    private $page = '';
 
     /**
      * Group slug. Used for menu.
      * @var string
      */
-    private $group;
-
-    /**
-     * Name of the base PHP file (without extension).
-     * @see   \WP_Screen::base
-     * @since 2.0
-     * @var string
-     */
-    private $screen_base;
+    private $group = '';
 
     /**
      * The unique ID of the screen.
      * @see   \WP_Screen::id
-     * @since 2.5
      * @var string
      */
-    private $screen_id;
+    private $screen_id = '';
 
     /**
-     * @since 2.0.1
      * @var Column[]
      */
     private $columns;
 
     /**
-     * @since 2.2
      * @var Column[]
      */
     private $column_types;
 
     /**
-     * @var string Layout ID
+     * @var string|null
      */
-    private $layout_id;
+    protected $layout_id;
 
     /**
      * @var string Storage key used for saving column data to the database
@@ -104,11 +89,6 @@ abstract class ListScreen
      * @var bool True when column settings can not be overwritten
      */
     private $read_only = false;
-
-    /**
-     * @var bool
-     */
-    private $network_only = false;
 
     /**
      * @var string
@@ -153,228 +133,125 @@ abstract class ListScreen
         return sprintf('manage_%s_columns', $this->get_screen_id());
     }
 
-    /**
-     * @return string
-     */
-    public function get_key()
+    public function get_key(): string
     {
         return $this->key;
     }
 
-    /**
-     * @param string $key
-     *
-     * @return self
-     */
-    protected function set_key($key)
+    // TODO make construct..
+    protected function set_key(string $key): self
     {
         $this->key = $key;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function get_label()
+    public function get_label(): ?string
     {
         return $this->label;
     }
 
-    /**
-     * @param string $label
-     *
-     * @return self
-     */
-    protected function set_label($label)
+    protected function set_label(string $label): self
     {
         $this->label = $label;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function get_singular_label()
+    public function get_singular_label(): ?string
     {
         if (null === $this->singular_label) {
-            $this->set_singular_label($this->label);
+            $this->singular_label = $this->label;
         }
 
         return $this->singular_label;
     }
 
-    /**
-     * @param string $label
-     *
-     * @return self
-     */
-    protected function set_singular_label($label)
+    protected function set_singular_label(string $label): self
     {
         $this->singular_label = $label;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function get_meta_type()
+    public function get_meta_type(): string
     {
-        return $this->meta_type;
+        return $this->meta_type ?: '';
     }
 
-    /**
-     * @param string $meta_type
-     *
-     * @return self
-     */
-    protected function set_meta_type($meta_type)
+    protected function set_meta_type(string $meta_type): self
     {
         $this->meta_type = $meta_type;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function get_screen_base()
-    {
-        return $this->screen_base;
-    }
-
-    /**
-     * @param string $screen_base
-     *
-     * @return self
-     */
-    protected function set_screen_base($screen_base)
-    {
-        $this->screen_base = $screen_base;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function get_screen_id()
+    public function get_screen_id(): string
     {
         return $this->screen_id;
     }
 
-    /**
-     * @param string $screen_id
-     *
-     * @return self
-     */
-    protected function set_screen_id($screen_id)
+    protected function set_screen_id(string $screen_id): self
     {
         $this->screen_id = $screen_id;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function get_page()
+    public function get_page(): string
     {
         return $this->page;
     }
 
-    /**
-     * @param string $page
-     *
-     * @return self
-     */
-    protected function set_page($page)
+    protected function set_page(string $page): self
     {
         $this->page = $page;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function get_group()
+    public function get_group(): string
     {
         return $this->group;
     }
 
-    /**
-     * @param string $group
-     *
-     * @return self
-     */
-    public function set_group($group)
+    public function set_group(string $group): self
     {
         $this->group = $group;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function get_title()
+    public function get_title(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     *
-     * @return $this
-     */
-    public function set_title($title)
+    public function set_title(string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function get_storage_key()
+    public function get_storage_key(): string
     {
         if (null === $this->storage_key) {
-            $this->set_storage_key($this->get_key());
+            $this->storage_key = $this->key;
         }
 
         return $this->storage_key;
     }
 
-    /**
-     * @param string $key
-     */
-    private function set_storage_key($key)
-    {
-        $this->storage_key = $key;
-    }
-
-    /**
-     * @return string
-     */
-    public function get_layout_id()
+    public function get_layout_id(): ?string
     {
         return $this->layout_id;
     }
 
-    /**
-     * @param string $layout_id
-     *
-     * @return self
-     */
-    public function set_layout_id($layout_id)
+    public function set_layout_id(string $layout_id): self
     {
         $this->layout_id = $layout_id;
-
-        $this->set_storage_key($this->get_key() . $layout_id);
+        $this->storage_key = $this->key . $layout_id;
 
         return $this;
     }
@@ -384,101 +261,55 @@ abstract class ListScreen
         return '#the-list';
     }
 
-    /**
-     * Settings can not be overwritten
-     */
-    public function is_read_only()
+    public function is_read_only(): bool
     {
         return $this->read_only;
     }
 
-    /**
-     * @param bool $read_only
-     *
-     * @return $this
-     */
-    public function set_read_only($read_only)
+    public function set_read_only(bool $read_only): self
     {
-        $this->read_only = (bool)$read_only;
+        $this->read_only = $read_only;
 
         return $this;
     }
 
-    /**
-     * Settings can not be overwritten
-     */
-    public function is_network_only()
-    {
-        return $this->network_only;
-    }
-
-    /**
-     * @param bool $network_only
-     */
-    public function set_network_only($network_only)
-    {
-        $this->network_only = (bool)$network_only;
-    }
-
-    /**
-     * @param DateTime $updated
-     *
-     * @return $this
-     */
-    public function set_updated(DateTime $updated)
+    public function set_updated(DateTime $updated): self
     {
         $this->updated = $updated;
 
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function get_updated()
+    public function get_updated(): DateTime
     {
         return $this->updated ?: new DateTime();
     }
 
-    /**
-     * @return string
-     */
-    protected function get_admin_url()
+    abstract public function get_table_url(): QueryAware;
+
+    public function get_editor_url(): QueryAware
     {
-        return admin_url($this->get_screen_base() . '.php');
+        return new Url\EditorColumns($this->key, $this->has_id() ? $this->get_id() : null);
     }
 
-    /**
-     * @return string Link
-     * @since 2.0
-     */
-    public function get_screen_link()
+    public function get_screen_link(): string
     {
-        return add_query_arg([
-            'page'   => $this->get_page(),
-            'layout' => $this->get_layout_id(),
-        ], $this->get_admin_url());
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_table_url()');
+
+        return (string)$this->get_table_url();
     }
 
-    /**
-     * @since 2.0
-     */
-    public function get_edit_link()
+    public function get_edit_link(): string
     {
-        $url = new Editor('columns');
-        $url->add([
-            'list_screen' => $this->key,
-            'layout_id'   => $this->get_layout_id(),
-        ]);
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_editor_url()');
 
-        return $url->get_url();
+        return (string)$this->get_editor_url();
     }
 
     /**
      * @return Column[]
-     * @since 3.0
      */
-    public function get_columns()
+    public function get_columns(): array
     {
         if (null === $this->columns) {
             $this->set_columns();
@@ -490,7 +321,7 @@ abstract class ListScreen
     /**
      * @return Column[]
      */
-    public function get_column_types()
+    public function get_column_types(): array
     {
         if (null === $this->column_types) {
             $this->set_column_types();
@@ -499,72 +330,40 @@ abstract class ListScreen
         return $this->column_types;
     }
 
-    /**
-     * @param $name
-     *
-     * @return false|Column
-     * @since 2.0
-     */
-    public function get_column_by_name($name)
+    public function get_column_by_name($name): ?Column
     {
-        $columns = $this->get_columns();
-
-        foreach ($columns as $column) {
+        foreach ($this->get_columns() as $column) {
             // Do not do a strict comparison. All column names are stored as strings, even integers.
             if ($column->get_name() == $name) {
                 return $column;
             }
         }
 
-        return false;
+        return null;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return false|Column
-     */
-    public function get_column_by_type($type)
+    public function get_column_by_type(string $type): ?Column
     {
         $column_types = $this->get_column_types();
 
-        if ( ! isset($column_types[$type])) {
-            return false;
-        }
-
-        return $column_types[$type];
+        return $column_types[$type] ?? null;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return false|string
-     */
-    public function get_class_by_type($type)
+    public function get_class_by_type(string $type): ?string
     {
         $column = $this->get_column_by_type($type);
 
-        if ( ! $column) {
-            return false;
-        }
-
-        return get_class($column);
+        return $column
+            ? get_class($column)
+            : null;
     }
 
-    /**
-     * @param string $type Column type
-     */
-    public function deregister_column_type($type)
+    public function deregister_column_type(string $type): void
     {
-        if (isset($this->column_types[$type])) {
-            unset($this->column_types[$type]);
-        }
+        unset($this->column_types[$type]);
     }
 
-    /**
-     * @param Column $column
-     */
-    public function register_column_type(Column $column)
+    public function register_column_type(Column $column): void
     {
         if ( ! $column->get_type()) {
             return;
@@ -584,34 +383,19 @@ abstract class ListScreen
         $this->column_types[$column->get_type()] = $column;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return string Label
-     */
-    public function get_original_label($type)
+    public function get_original_label(string $type): ?string
     {
         $columns = $this->get_original_columns();
 
-        if ( ! isset($columns[$type])) {
-            return false;
-        }
-
-        return $columns[$type];
+        return $columns[$type] ?? null;
     }
 
-    /**
-     * @return array
-     */
-    public function get_original_columns()
+    public function get_original_columns(): array
     {
         return (new DefaultColumnsRepository())->get($this->get_key());
     }
 
-    /**
-     * Available column types
-     */
-    private function set_column_types()
+    private function set_column_types(): void
     {
         $this->column_types = [];
 
@@ -640,47 +424,28 @@ abstract class ListScreen
         do_action('ac/column_types', $this);
     }
 
-    /**
-     * @param string $type Column type
-     *
-     * @return bool
-     */
-    private function is_original_column($type)
+    private function is_original_column(string $type): bool
     {
         $column = $this->get_column_by_type($type);
 
-        if ( ! $column) {
-            return false;
-        }
-
-        return $column->is_original();
+        return $column && $column->is_original();
     }
 
-    /**
-     * @param string $column_name Column name
-     *
-     * @since 3.0
-     */
-    public function deregister_column($column_name)
+    public function deregister_column(string $column_name): void
     {
         unset($this->columns[$column_name]);
     }
 
-    /**
-     * @param array $settings Column options
-     *
-     * @return Column|false
-     */
-    public function create_column(array $settings)
+    public function create_column(array $settings): ?Column
     {
         if ( ! isset($settings['type'])) {
-            return false;
+            return null;
         }
 
-        $class = $this->get_class_by_type($settings['type']);
+        $class = $this->get_class_by_type((string)$settings['type']);
 
         if ( ! $class) {
-            return false;
+            return null;
         }
 
         /**
@@ -707,10 +472,7 @@ abstract class ListScreen
         return $column;
     }
 
-    /**
-     * @param Column $column
-     */
-    protected function register_column(Column $column)
+    protected function register_column(Column $column): void
     {
         $this->columns[$column->get_name()] = $column;
 
@@ -726,22 +488,14 @@ abstract class ListScreen
         do_action('ac/list_screen/column_registered', $column, $this);
     }
 
-    /**
-     * @param array $settings
-     *
-     * @return self
-     */
-    public function set_settings(array $settings)
+    public function set_settings(array $settings): self
     {
         $this->settings = $settings;
 
         return $this;
     }
 
-    /**
-     * @since 3.0
-     */
-    private function set_columns()
+    private function set_columns(): void
     {
         foreach ($this->get_settings() as $name => $data) {
             $data['name'] = $name;
@@ -770,10 +524,7 @@ abstract class ListScreen
         }
     }
 
-    /**
-     * @return array
-     */
-    public function get_settings()
+    public function get_settings(): array
     {
         return $this->settings;
     }
@@ -809,33 +560,21 @@ abstract class ListScreen
         return in_array($user->ID, $user_ids, true);
     }
 
-    public function set_preferences(array $preferences)
+    public function set_preferences(array $preferences): self
     {
         $this->preferences = apply_filters('ac/list_screen/preferences', $preferences, $this);
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function get_preferences()
+    public function get_preferences(): array
     {
         return $this->preferences;
     }
 
-    /**
-     * @param string $key
-     *
-     * @return mixed|null
-     */
-    public function get_preference($key)
+    public function get_preference(string $key)
     {
-        if ( ! isset($this->preferences[$key])) {
-            return null;
-        }
-
-        return $this->preferences[$key];
+        return $this->preferences[$key] ?? null;
     }
 
 }

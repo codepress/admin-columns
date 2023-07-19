@@ -17,4 +17,9 @@ class AdminSite implements QueryAware
         $this->url = admin_url($path);
     }
 
+    public function __toString(): string
+    {
+        return $this->get_url();
+    }
+
 }

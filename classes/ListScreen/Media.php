@@ -7,6 +7,8 @@ namespace AC\ListScreen;
 use AC;
 use AC\Column;
 use AC\ColumnRepository;
+use AC\Type\QueryAware;
+use AC\Type\Url;
 use AC\WpListTableFactory;
 
 class Media extends AC\ListScreenPost implements ManageValue, ListTable
@@ -17,7 +19,6 @@ class Media extends AC\ListScreenPost implements ManageValue, ListTable
         parent::__construct('attachment');
 
         $this->set_screen_id('upload')
-             ->set_screen_base('upload')
              ->set_key('wp-media')
              ->set_group('media')
              ->set_label(__('Media'));
@@ -33,9 +34,12 @@ class Media extends AC\ListScreenPost implements ManageValue, ListTable
         return new AC\Table\ManageValue\Media(new ColumnRepository($this));
     }
 
-    public function get_screen_link()
+    public function get_table_url(): QueryAware
     {
-        return add_query_arg('mode', 'list', parent::get_screen_link());
+        $url = new Url\ListTable('upload.php', $this->has_id() ? $this->get_id() : null);
+        $url->add_one('mode', 'list');
+
+        return $url;
     }
 
     protected function register_column_types(): void

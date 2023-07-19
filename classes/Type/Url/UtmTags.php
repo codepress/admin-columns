@@ -16,7 +16,7 @@ class UtmTags implements QueryAware
     public const ARG_CONTENT = 'utm_content';
     public const ARG_CAMPAIGN = 'utm_campaign';
 
-    public function __construct(Url $url, $medium, $content = null, $campaign = null)
+    public function __construct(Url $url, string $medium, string $content = null, string $campaign = null)
     {
         $this->url = $url->get_url();
         $this->add([
@@ -33,21 +33,21 @@ class UtmTags implements QueryAware
         }
     }
 
-    public function add_medium($medium)
+    public function add_medium(string $medium): self
     {
         $this->add_one(self::ARG_MEDIUM, $medium);
 
         return $this;
     }
 
-    public function add_content($content)
+    public function add_content(string $content): self
     {
         $this->add_one(self::ARG_CONTENT, $content);
 
         return $this;
     }
 
-    public function add_campaign($campaign)
+    public function add_campaign(string $campaign): self
     {
         $this->add_one(self::ARG_CAMPAIGN, $campaign);
 

@@ -6,6 +6,7 @@ use AC;
 use AC\ColumnRepository;
 use AC\ThirdParty\MediaLibraryAssistant\ManageValue;
 use AC\ThirdParty\MediaLibraryAssistant\WpListTableFactory;
+use AC\Type\QueryAware;
 use MLACore;
 
 class MediaLibrary extends AC\ListScreen\Media
@@ -18,8 +19,15 @@ class MediaLibrary extends AC\ListScreen\Media
         $this->set_key('mla-media-assistant')
              ->set_label(__('Media Library Assistant', 'codepress-admin-columns'))
              ->set_singular_label(__('Assistant', 'codepress-admin-columns'))
-             ->set_screen_id('media_page_' . MLACore::ADMIN_PAGE_SLUG)
-             ->set_page(MLACore::ADMIN_PAGE_SLUG);
+             ->set_screen_id('media_page_' . MLACore::ADMIN_PAGE_SLUG);
+    }
+
+    public function get_table_url(): QueryAware
+    {
+        $url = parent::get_table_url();
+        $url->add_one('page', MLACore::ADMIN_PAGE_SLUG);
+
+        return $url;
     }
 
     public function manage_value(): AC\Table\ManageValue

@@ -138,7 +138,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
             return $this->menu->render(
                     $this->list_screen->get_key(),
-                    $this->list_screen->get_screen_link(),
+                    (string)$this->list_screen->get_table_url(),
                     true
                 ) . $modal->render();
         }
@@ -165,7 +165,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         ); ?>">
 			<div class="ac-admin__header">
 
-                <?= $this->menu->render($this->list_screen->get_key(), $this->list_screen->get_screen_link()) ?>
+                <?= $this->menu->render($this->list_screen->get_key(), (string)$this->list_screen->get_table_url()) ?>
 
                 <?php
                 do_action('ac/settings/after_title', $this->list_screen); ?>

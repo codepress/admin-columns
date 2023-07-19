@@ -4,6 +4,9 @@ namespace AC\ListScreen;
 
 use AC;
 use AC\Column;
+use AC\MetaType;
+use AC\Type\QueryAware;
+use AC\Type\Url;
 use AC\WpListTableFactory;
 
 class Comment extends AC\ListScreen implements ManageValue, ListTable
@@ -13,11 +16,15 @@ class Comment extends AC\ListScreen implements ManageValue, ListTable
     {
         $this->set_label(__('Comments'))
              ->set_singular_label(__('Comment'))
-             ->set_meta_type('comment')
-             ->set_screen_base('edit-comments')
+             ->set_meta_type(MetaType::COMMENT)
              ->set_key('wp-comments')
              ->set_screen_id('edit-comments')
              ->set_group('comment');
+    }
+
+    public function get_table_url(): QueryAware
+    {
+        return new Url\ListTable('edit-comments.php', $this->has_id() ? $this->get_id() : null);
     }
 
     public function list_table(): AC\ListTable
