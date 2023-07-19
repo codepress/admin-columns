@@ -227,7 +227,7 @@ final class Screen implements Registerable
 
         foreach ($query_args_whitelist as $query_arg) {
             if (isset($_GET[$query_arg])) {
-                $url->add_one($query_arg, $_GET[$query_arg]);
+                $url = $url->with_arg($query_arg, $_GET[$query_arg]);
             }
         }
 

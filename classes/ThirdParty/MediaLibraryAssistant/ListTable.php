@@ -20,18 +20,19 @@ class ListTable implements AC\ListTable
 
     public function get_column_value(string $column, int $id): string
     {
-        // TODO Test with export
-        ob_start();
+        $item = (object)MLAData::mla_get_attachment_by_id($id);
+
+        if ( ! $item) {
+            return '';
+        }
 
         $method = 'column_' . $column;
 
         if (method_exists($this->table, $method)) {
-            call_user_func([$this->table, $method], $this->get_attachment($id));
-        } else {
-            $this->table->column_default($this->get_attachment($id), $column);
+            return (string)call_user_func([$this->table, $method], $item);
         }
 
-        return ob_get_clean();
+        return (string)$this->table->column_default($item, $column);
     }
 
     public function get_total_items(): int

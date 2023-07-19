@@ -4,27 +4,20 @@ namespace AC\Type\Url;
 
 use AC\Admin;
 use AC\Admin\RequestHandlerInterface;
-use AC\Type;
+use AC\Type\Uri;
 
-class EditorNetwork implements Type\QueryAware
+class EditorNetwork extends Uri
 {
-
-    use Type\QueryAwareTrait;
 
     public function __construct($slug = null)
     {
-        $this->url = network_admin_url('settings.php');
+        parent::__construct(network_admin_url('settings.php'));
 
-        $this->add_one(RequestHandlerInterface::PARAM_PAGE, Admin\Admin::NAME);
+        $this->add_arg(RequestHandlerInterface::PARAM_PAGE, Admin\Admin::NAME);
 
         if ($slug) {
-            $this->add_one(RequestHandlerInterface::PARAM_TAB, $slug);
+            $this->add_arg(RequestHandlerInterface::PARAM_TAB, $slug);
         }
-    }
-
-    public function __toString(): string
-    {
-        return $this->url;
     }
 
 }

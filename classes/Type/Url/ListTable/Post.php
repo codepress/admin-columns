@@ -14,7 +14,7 @@ class Post extends ListTable
     {
         parent::__construct('edit.php', $list_id);
 
-        $this->add_one('post_type', $post_type);
+        $this->add_arg('post_type', $post_type);
     }
 
 }

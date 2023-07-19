@@ -7,20 +7,25 @@ use AC\Column;
 use AC\ColumnRepository;
 use AC\ListScreenPost;
 use AC\Table;
-use AC\Type\QueryAware;
+use AC\Type\Uri;
 use AC\Type\Url;
 use AC\WpListTableFactory;
 
 class Post extends ListScreenPost implements ManageValue, ListTable
 {
 
-    public function __construct(string $post_type)
+    public function __construct(string $post_type, string $key = null, string $screen_id = null)
     {
-        parent::__construct($post_type);
+        if (null === $key) {
+            $key = $post_type;
+        }
 
-        $this->set_group('post')
-             ->set_key($post_type)
-             ->set_screen_id('edit-' . $post_type);
+        if (null === $screen_id) {
+            $screen_id = 'edit-' . $post_type;
+        }
+        parent::__construct($post_type, $key, $screen_id);
+
+        $this->group = 'post';
     }
 
     public function list_table(): AC\ListTable
@@ -33,7 +38,7 @@ class Post extends ListScreenPost implements ManageValue, ListTable
         return new Table\ManageValue\Post($this->post_type, new ColumnRepository($this));
     }
 
-    public function get_table_url(): QueryAware
+    public function get_table_url(): Uri
     {
         return new Url\ListTable\Post($this->post_type, $this->has_id() ? $this->get_id() : null);
     }

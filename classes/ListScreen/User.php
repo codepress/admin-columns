@@ -6,7 +6,7 @@ use AC;
 use AC\Column;
 use AC\ColumnRepository;
 use AC\MetaType;
-use AC\Type\QueryAware;
+use AC\Type\Uri;
 use AC\Type\Url;
 use AC\WpListTableFactory;
 
@@ -15,15 +15,16 @@ class User extends AC\ListScreen implements ManageValue, ListTable
 
     public function __construct()
     {
-        $this->set_label(__('Users'))
-             ->set_singular_label(__('User'))
-             ->set_meta_type(MetaType::USER)
-             ->set_screen_id('users')
-             ->set_key('wp-users')
-             ->set_group('user');
+        parent::__construct('wp-users', 'users');
+
+        $this->group = 'user';
+        $this->label = __('Users');
+        $this->singular_label = __('User');
+
+        $this->set_meta_type(MetaType::USER);
     }
 
-    public function get_table_url(): QueryAware
+    public function get_table_url(): Uri
     {
         return new Url\ListTable('users.php', $this->has_id() ? $this->get_id() : null);
     }

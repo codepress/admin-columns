@@ -7,7 +7,7 @@ use AC\Column;
 use AC\ColumnRepository;
 use AC\ThirdParty\MediaLibraryAssistant\ManageValue;
 use AC\ThirdParty\MediaLibraryAssistant\WpListTableFactory;
-use AC\Type\QueryAware;
+use AC\Type\Uri;
 use AC\Type\Url;
 use MLACore;
 
@@ -16,16 +16,14 @@ class MediaLibrary extends AC\ListScreenPost
 
     public function __construct()
     {
-        parent::__construct('attachment');
+        parent::__construct('attachment', 'mla-media-assistant', 'media_page_' . MLACore::ADMIN_PAGE_SLUG);
 
-        $this->set_key('mla-media-assistant')
-             ->set_label(__('Media Library Assistant', 'codepress-admin-columns'))
-             ->set_singular_label(__('Assistant', 'codepress-admin-columns'))
-             ->set_screen_id('media_page_' . MLACore::ADMIN_PAGE_SLUG)
-             ->set_group('media');
+        $this->group = 'media';
+        $this->label = __('Media Library Assistant', 'codepress-admin-columns');
+        $this->singular_label = __('Assistant', 'codepress-admin-columns');
     }
 
-    public function get_table_url(): QueryAware
+    public function get_table_url(): Uri
     {
         return new Url\ListTable\Media(
             $this->has_id() ? $this->get_id() : null,

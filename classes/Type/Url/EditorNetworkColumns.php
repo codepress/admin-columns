@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Type\Url;
 
-use AC\ListScreen;
 use AC\Type\ListScreenId;
 
 class EditorNetworkColumns extends EditorNetwork
@@ -14,18 +13,11 @@ class EditorNetworkColumns extends EditorNetwork
     {
         parent::__construct('columns');
 
-        $this->add([
-            'list_screen' => $list_key,
-            'layout_id'   => (string)$list_id,
-        ]);
-    }
+        $this->add_arg('list_screen', $list_key);
 
-    public static function create_by_list(ListScreen $list_screen): self
-    {
-        return new self(
-            $list_screen->get_key(),
-            $list_screen->has_id() ? $list_screen->get_id() : null
-        );
+        if ($list_id) {
+            $this->add_arg('layout_id', (string)$list_id);
+        }
     }
 
 }

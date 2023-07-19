@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC;
 
 use AC\Type\ListScreenId;
-use AC\Type\QueryAware;
+use AC\Type\Uri;
 use AC\Type\Url;
 use DateTime;
 use LogicException;
@@ -15,20 +15,26 @@ abstract class ListScreen
 {
 
     /**
-     * Unique Identifier for List Screen.
      * @var string
      */
     protected $key;
 
     /**
+     * The unique ID of the screen.
+     * @see   \WP_Screen::id
      * @var string
      */
-    private $label;
+    protected $screen_id;
 
     /**
      * @var string
      */
-    private $singular_label;
+    protected $label;
+
+    /**
+     * @var string
+     */
+    protected $singular_label;
 
     /**
      * Meta type of list screen; post, user, comment. Mostly used for fetching metadata.
@@ -40,14 +46,7 @@ abstract class ListScreen
      * Group slug. Used for menu.
      * @var string
      */
-    private $group = '';
-
-    /**
-     * The unique ID of the screen.
-     * @see   \WP_Screen::id
-     * @var string
-     */
-    private $screen_id = '';
+    protected $group = '';
 
     /**
      * @var Column[]
@@ -89,6 +88,12 @@ abstract class ListScreen
      */
     private $updated;
 
+    public function __construct(string $key, string $screen_id)
+    {
+        $this->key = $key;
+        $this->screen_id = $screen_id;
+    }
+
     public function has_id(): bool
     {
         return ListScreenId::is_valid_id($this->layout_id);
@@ -127,14 +132,6 @@ abstract class ListScreen
         return $this->key;
     }
 
-    // TODO make construct..
-    protected function set_key(string $key): self
-    {
-        $this->key = $key;
-
-        return $this;
-    }
-
     public function get_label(): ?string
     {
         return $this->label;
@@ -149,18 +146,7 @@ abstract class ListScreen
 
     public function get_singular_label(): ?string
     {
-        if (null === $this->singular_label) {
-            $this->singular_label = $this->label;
-        }
-
-        return $this->singular_label;
-    }
-
-    protected function set_singular_label(string $label): self
-    {
-        $this->singular_label = $label;
-
-        return $this;
+        return $this->singular_label ?: $this->label;
     }
 
     public function get_meta_type(): string
@@ -178,13 +164,6 @@ abstract class ListScreen
     public function get_screen_id(): string
     {
         return $this->screen_id;
-    }
-
-    protected function set_screen_id(string $screen_id): self
-    {
-        $this->screen_id = $screen_id;
-
-        return $this;
     }
 
     public function get_group(): string
@@ -257,9 +236,9 @@ abstract class ListScreen
         return $this->updated ?: new DateTime();
     }
 
-    abstract public function get_table_url(): QueryAware;
+    abstract public function get_table_url(): Uri;
 
-    public function get_editor_url(): QueryAware
+    public function get_editor_url(): Uri
     {
         return new Url\EditorColumns($this->key, $this->has_id() ? $this->get_id() : null);
     }
