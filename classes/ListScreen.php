@@ -306,6 +306,7 @@ abstract class ListScreen
             return;
         }
 
+        // TODO
         $column->set_list_screen($this);
 
         if ( ! $column->is_valid()) {
