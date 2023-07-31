@@ -2,25 +2,19 @@
 
 namespace AC\Type\Url;
 
-trait Path {
+trait Path
+{
 
-	/**
-	 * @var string
-	 */
-	protected $path;
+    protected $path = '';
 
-	/**
-	 * @param string $path
-	 */
-	protected function set_path( $path ) {
-		$this->path = '/' . trim( $path, '/' ) . '/';
-	}
+    protected function set_path(string $path): void
+    {
+        $this->path = '/' . trim($path, '/') . '/';
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function get_path() {
-		return $this->path;
-	}
+    protected function get_path(): string
+    {
+        return $this->path;
+    }
 
 }

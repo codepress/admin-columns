@@ -20,9 +20,7 @@ class ColumnRepository
 
     public function find(string $column_name): ?Column
     {
-        $column = $this->list_screen->get_column_by_name($column_name);
-
-        return $column ?: null;
+        return $this->list_screen->get_column_by_name($column_name);
     }
 
     /**

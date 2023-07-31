@@ -4,20 +4,20 @@ namespace AC\Type\Url;
 
 use AC\Admin;
 use AC\Admin\RequestHandlerInterface;
-use AC\Type;
+use AC\Type\Uri;
 
-class Editor implements Type\QueryAware {
+class Editor extends Uri
+{
 
-	use Type\QueryAwareTrait;
+    public function __construct(string $slug = null)
+    {
+        parent::__construct(admin_url('options-general.php'));
 
-	public function __construct( $slug = null ) {
-		$this->url = admin_url( 'options-general.php' );
+        $this->add_arg(RequestHandlerInterface::PARAM_PAGE, Admin\Admin::NAME);
 
-		$this->add_one( RequestHandlerInterface::PARAM_PAGE, Admin\Admin::NAME );
-
-		if ( $slug ) {
-			$this->add_one( RequestHandlerInterface::PARAM_TAB, $slug );
-		}
-	}
+        if ($slug) {
+            $this->add_arg(RequestHandlerInterface::PARAM_TAB, $slug);
+        }
+    }
 
 }

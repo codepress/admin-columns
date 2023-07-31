@@ -30,10 +30,7 @@ class Site implements Type\Url
     public const PAGE_ADDON_WOOCOMMERCE = '/woocommerce-columns';
     public const PAGE_ADDON_YOAST_SEO = '/yoast-seo';
 
-    /**
-     * @param string $path
-     */
-    public function __construct($path = null)
+    public function __construct(string $path = null)
     {
         if ($path) {
             $this->set_path($path);
@@ -43,6 +40,11 @@ class Site implements Type\Url
     public function get_url(): string
     {
         return self::URL . $this->get_path();
+    }
+
+    public function __toString(): string
+    {
+        return $this->get_url();
     }
 
 }

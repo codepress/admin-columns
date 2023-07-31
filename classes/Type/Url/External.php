@@ -31,4 +31,9 @@ class External implements Url
         return $this->url;
     }
 
+    public function __toString(): string
+    {
+        return $this->get_url();
+    }
+
 }

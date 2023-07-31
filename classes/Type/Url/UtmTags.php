@@ -2,56 +2,44 @@
 
 namespace AC\Type\Url;
 
-use AC\Type\QueryAware;
-use AC\Type\QueryAwareTrait;
+use AC\Type\Uri;
 use AC\Type\Url;
 
-class UtmTags implements QueryAware
+class UtmTags extends Uri
 {
-
-    use QueryAwareTrait;
 
     public const ARG_SOURCE = 'utm_source';
     public const ARG_MEDIUM = 'utm_medium';
     public const ARG_CONTENT = 'utm_content';
     public const ARG_CAMPAIGN = 'utm_campaign';
 
-    public function __construct(Url $url, $medium, $content = null, $campaign = null)
+    public function __construct(Url $url, string $medium = null, string $content = null, string $campaign = null)
     {
-        $this->url = $url->get_url();
-        $this->add([
-            self::ARG_SOURCE => 'plugin-installation',
-            self::ARG_MEDIUM => $medium,
-        ]);
+        parent::__construct($url->get_url());
+
+        $this->add_arg(self::ARG_SOURCE, 'plugin-installation');
+
+        if ($medium) {
+            $this->add_arg(self::ARG_MEDIUM, $medium);
+        }
 
         if ($content) {
-            $this->add_content($content);
+            $this->add_arg(self::ARG_CONTENT, $content);
         }
 
         if ($campaign) {
-            $this->add_campaign($campaign);
+            $this->add_arg(self::ARG_CAMPAIGN, $campaign);
         }
     }
 
-    public function add_medium($medium)
+    public function add_medium(string $medium): self
     {
-        $this->add_one(self::ARG_MEDIUM, $medium);
-
-        return $this;
+        return new self($this, $medium);
     }
 
-    public function add_content($content)
+    public function add_content(string $content): self
     {
-        $this->add_one(self::ARG_CONTENT, $content);
-
-        return $this;
-    }
-
-    public function add_campaign($campaign)
-    {
-        $this->add_one(self::ARG_CAMPAIGN, $campaign);
-
-        return $this;
+        return new self($this, null, $content);
     }
 
 }

@@ -2,28 +2,13 @@
 
 namespace AC\Type;
 
-interface QueryAware extends Url {
+interface QueryAware extends Url
+{
 
-	/**
-	 * @param string $key
-	 * @param string $value
-	 *
-	 * @return void
-	 */
-	public function add_one( $key, $value );
+    public function add_one(string $key, string $value): void;
 
-	/**
-	 * @param array $params
-	 *
-	 * @return void
-	 */
-	public function add( array $params = [] );
+    public function add(array $params = []): void;
 
-	/**
-	 * @param string $key
-	 *
-	 * @return void
-	 */
-	public function remove( $key );
+    public function remove(string $key): void;
 
 }

@@ -32,10 +32,7 @@ class Documentation implements Type\Url
     public const ARTICLE_UPGRADE_V3_TO_V4 = '/article/91-how-to-upgrade-from-v3-to-v4';
     public const ARTICLE_RELEASE_6 = '/article/109-admin-columns-pro-6-0-changes';
 
-    /**
-     * @param string $path
-     */
-    public function __construct($path = null, $fragment = null)
+    public function __construct(string $path = null, string $fragment = null)
     {
         if ($path) {
             $this->set_path($path);
@@ -62,7 +59,7 @@ class Documentation implements Type\Url
         return new self($path);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->get_url();
     }

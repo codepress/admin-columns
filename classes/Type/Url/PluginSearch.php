@@ -4,28 +4,17 @@ declare(strict_types=1);
 
 namespace AC\Type\Url;
 
-use AC\Type\Url;
+use AC\Type\Uri;
 
-class PluginSearch implements Url
+class PluginSearch extends Uri
 {
-
-    private $search;
 
     public function __construct(string $search)
     {
-        $this->search = $search;
-    }
-
-    public function get_url(): string
-    {
-        return add_query_arg(
-            [
-                'tab'  => 'search',
-                'type' => 'term',
-                's'    => $this->search,
-            ],
-            admin_url('plugin-install.php')
-        );
+        parent::__construct(admin_url('plugin-install.php'));
+        $this->add_arg('tab', 'search');
+        $this->add_arg('type', 'term');
+        $this->add_arg('s', $search);
     }
 
 }
