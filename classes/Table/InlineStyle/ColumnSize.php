@@ -35,7 +35,6 @@ class ColumnSize implements Renderable
 
     private function render_style($column_name, ColumnWidth $column_width, $type)
     {
-        // TODO register with AdminHeadScripts class
         $css_width = $column_width->get_value() . $column_width->get_unit();
 
         $css = sprintf(

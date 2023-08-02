@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace AC\Table;
 
 use AC\Registerable;
+use InvalidArgumentException;
 
-class AdminHeadScripts implements Registerable
+class AdminHeadStyle implements Registerable
 {
 
     private static $style_blocks = [];
@@ -18,6 +19,11 @@ class AdminHeadScripts implements Registerable
 
     public static function add(string $style_blocks): void
     {
+        if ( ! ac_helper()->string->starts_with($style_blocks, '<style>') ||
+             ! ac_helper()->string->ends_with($style_blocks, '</style>')) {
+            throw new InvalidArgumentException('Block needs to be wrapped in "style" tags');
+        }
+
         self::$style_blocks[] = $style_blocks;
     }
 
