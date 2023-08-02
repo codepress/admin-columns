@@ -9,31 +9,27 @@ use AC\Registerable;
 class AdminHeadScripts implements Registerable
 {
 
-    private static $rules = [];
+    private static $style_blocks = [];
 
     public function register(): void
     {
         add_action('admin_print_scripts', [$this, 'render']);
     }
 
-    public function add(string $css_rule): void
+    public static function add(string $style_blocks): void
     {
-        self::$rules[] = $css_rule;
+        self::$style_blocks[] = $style_blocks;
     }
 
     public function render(): void
     {
-        if ( ! self::$rules) {
+        if ( ! self::$style_blocks) {
             return;
         }
 
-        echo '<style>';
-
-        foreach (self::$rules as $rule) {
-            echo $rule;
+        foreach (self::$style_blocks as $block) {
+            echo $block;
         }
-
-        echo '</style>';
     }
 
 }
