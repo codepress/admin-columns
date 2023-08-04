@@ -12,77 +12,86 @@ use AC\Screen;
 use Exception;
 
 final class AddonAvailable
-	implements Registerable {
+    implements Registerable
+{
 
-	/**
-	 * @var Integration
-	 */
-	private $integration;
+    /**
+     * @var Integration
+     */
+    private $integration;
 
-	public function __construct( Integration $integration ) {
-		$this->integration = $integration;
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	public function register(): void
+    public function __construct(Integration $integration)
     {
-		add_action( 'ac/screen', [ $this, 'display' ] );
+        $this->integration = $integration;
+    }
 
-		$this->get_ajax_handler()->register();
-	}
+    /**
+     * @throws Exception
+     */
+    public function register(): void
+    {
+        add_action('ac/screen', [$this, 'display']);
 
-	/**
-	 * @return Ajax\Handler
-	 */
-	private function get_ajax_handler() {
-		$handler = new Ajax\Handler();
-		$handler
-			->set_action( 'ac_dismiss_notice_addon_' . $this->integration->get_slug() )
-			->set_callback( [ $this, 'ajax_dismiss_notice' ] );
+        $this->get_ajax_handler()->register();
+    }
 
-		return $handler;
-	}
+    /**
+     * @return Ajax\Handler
+     */
+    private function get_ajax_handler()
+    {
+        $handler = new Ajax\Handler();
+        $handler
+            ->set_action('ac_dismiss_notice_addon_' . $this->integration->get_slug())
+            ->set_callback([$this, 'ajax_dismiss_notice']);
 
-	/**
-	 * @return Preferences\User
-	 */
-	private function get_preferences() {
-		return new Preferences\User( 'check-addon-available-' . $this->integration->get_slug() );
-	}
+        return $handler;
+    }
 
-	/**
-	 * Dismiss notice
-	 */
-	public function ajax_dismiss_notice() {
-		$this->get_ajax_handler()->verify_request();
-		$this->get_preferences()->set( 'dismiss-notice', true );
-	}
+    /**
+     * @return Preferences\User
+     */
+    private function get_preferences()
+    {
+        return new Preferences\User('check-addon-available-' . $this->integration->get_slug());
+    }
 
-	/**
-	 * @param Screen $screen
-	 */
-	public function display( Screen $screen ) {
-		if (
-			! current_user_can( Capabilities::MANAGE )
-			|| ! $this->integration->show_notice( $screen )
-			|| ! $this->integration->is_plugin_active()
-			|| $this->get_preferences()->get( 'dismiss-notice' )
-		) {
-			return;
-		}
+    /**
+     * Dismiss notice
+     */
+    public function ajax_dismiss_notice()
+    {
+        $this->get_ajax_handler()->verify_request();
+        $this->get_preferences()->set('dismiss-notice', true);
+    }
 
-		$support_text = sprintf(
-			__( 'Did you know Admin Columns Pro has full support for %s?', 'codepress-admin-columns' ),
-			sprintf( '<strong>%s</strong>', $this->integration->get_title() )
-		);
+    /**
+     * @param Screen $screen
+     */
+    public function display(Screen $screen)
+    {
+        if (
+            ! current_user_can(Capabilities::MANAGE)
+            || ! $this->integration->show_notice($screen)
+            || $this->get_preferences()->get('dismiss-notice')
+        ) {
+            return;
+        }
 
-		$link = sprintf( '<a href="%s">%s</a>', 'https://www.google.com', __( 'Get Admin Columns Pro', 'codepress-admin-columns' ) );
-		$message = sprintf( '%s %s', $support_text, $link );
+        $support_text = sprintf(
+            __('Did you know Admin Columns Pro has full support for %s?', 'codepress-admin-columns'),
+            sprintf('<strong>%s</strong>', $this->integration->get_title())
+        );
 
-		$notice = new Dismissible( $message, $this->get_ajax_handler() );
-		$notice->register();
-	}
+        $link = sprintf(
+            '<a href="%s">%s</a>',
+            'https://www.google.com',
+            __('Get Admin Columns Pro', 'codepress-admin-columns')
+        );
+        $message = sprintf('%s %s', $support_text, $link);
+
+        $notice = new Dismissible($message, $this->get_ajax_handler());
+        $notice->register();
+    }
 
 }
