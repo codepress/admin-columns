@@ -9355,6 +9355,7 @@ class Tooltip {
                 document.body.removeChild(this.tip);
             }
         });
+        this.element.removeAttribute('title');
     }
 }
 const createTooltip = (content) => {

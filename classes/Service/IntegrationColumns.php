@@ -27,7 +27,6 @@ final class IntegrationColumns implements Registerable
 
     public function register_integration_columns(ListScreen $list_screen): void
     {
-        // TODO test
         if ( ! $this->is_pro_active) {
             foreach ($this->repository->find_all_by_active_plugins() as $integration) {
                 if ( ! $integration->show_placeholder($list_screen)) {

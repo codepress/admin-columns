@@ -28,7 +28,6 @@ class V3201 extends Update
 
     public function apply_update(): void
     {
-        // TODO test
         $this->uppercase_class_files($this->location->with_suffix('classes')->get_path());
         $this->update_notice_preference_review();
         $this->update_notice_preference_addons();
@@ -37,7 +36,7 @@ class V3201 extends Update
     /**
      * Set all files to the proper case
      */
-    protected function uppercase_class_files(string $directory):void
+    protected function uppercase_class_files(string $directory): void
     {
         $iterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($directory, FilesystemIterator::SKIP_DOTS)
@@ -56,7 +55,7 @@ class V3201 extends Update
     /**
      * Update user preferences for review
      */
-    private function update_notice_preference_review():void
+    private function update_notice_preference_review(): void
     {
         $mapping = [
             'ac_hide_notice_review'    => 'dismiss-review',
@@ -78,7 +77,7 @@ class V3201 extends Update
     /**
      * Update user preferences for addons
      */
-    private function update_notice_preference_addons():void
+    private function update_notice_preference_addons(): void
     {
         $mapping = [
             'ac_hide_notice_addons' => 'dismiss-notice',

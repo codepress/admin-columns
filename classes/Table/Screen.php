@@ -76,6 +76,8 @@ final class Screen implements Registerable
         );
         $render->register();
 
+        (new AdminHeadStyle())->register();
+
         add_filter(
             'list_table_primary_column',
             [

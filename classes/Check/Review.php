@@ -3,7 +3,7 @@
 namespace AC\Check;
 
 use AC\Ajax;
-use AC\Asset\Location;
+use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Capabilities;
 use AC\Message;
@@ -12,38 +12,18 @@ use AC\Registerable;
 use AC\Screen;
 use AC\Type\Url\Documentation;
 use AC\Type\Url\UtmTags;
-use Exception;
 
 class Review
     implements Registerable
 {
 
-    /**
-     * @var Location\Absolute
-     */
     private $location;
 
-    /**
-     * @var int Show message after x days
-     */
-    protected $show_after = 30;
-
-    public function __construct(Location\Absolute $location)
+    public function __construct(Absolute $location)
     {
         $this->location = $location;
     }
 
-    /**
-     * @param int $show_after_days
-     */
-    public function set_show_after($show_after_days)
-    {
-        $this->show_after = absint($show_after_days);
-    }
-
-    /**
-     * @throws Exception
-     */
     public function register(): void
     {
         add_action('ac/screen', [$this, 'display']);
@@ -51,7 +31,7 @@ class Review
         $this->get_ajax_handler()->register();
     }
 
-    public function display(Screen $screen)
+    public function display(Screen $screen): void
     {
         if ( ! $screen->has_screen()) {
             return;
@@ -83,10 +63,7 @@ class Review
             ->register();
     }
 
-    /**
-     * @return Ajax\Handler
-     */
-    protected function get_ajax_handler()
+    protected function get_ajax_handler(): Ajax\Handler
     {
         $handler = new Ajax\Handler();
         $handler
@@ -96,28 +73,21 @@ class Review
         return $handler;
     }
 
-    /**
-     * @return Preferences\User
-     */
-    protected function get_preferences()
+    protected function get_preferences(): Preferences\User
     {
         return new Preferences\User('check-review');
     }
 
-    /**
-     * Check if the amount of days is larger then the first login
-     * @return bool
-     */
     protected function first_login_compare(): bool
     {
-        return time() - $this->show_after * DAY_IN_SECONDS > $this->get_first_login();
+        // Show after 30 days
+        return time() - (30 * DAY_IN_SECONDS) > $this->get_first_login();
     }
 
     /**
      * Return the Unix timestamp of first login
-     * @return int
      */
-    protected function get_first_login()
+    protected function get_first_login(): int
     {
         $timestamp = $this->get_preferences()->get('first-login-review');
 
@@ -130,30 +100,18 @@ class Review
         return $timestamp;
     }
 
-    /**
-     * Ajax dismiss notice
-     * @since 3.2
-     */
-    public function ajax_dismiss_notice()
+    public function ajax_dismiss_notice(): void
     {
         $this->get_ajax_handler()->verify_request();
         $this->get_preferences()->set('dismiss-review', true);
     }
 
-    /**
-     * @param string $utm_medium
-     *
-     * @return string
-     */
-    private function get_documentation_url($utm_medium)
+    private function get_documentation_url(string $utm_medium): string
     {
         return (new UtmTags(new Documentation(), $utm_medium))->get_url();
     }
 
-    /**
-     * @return string
-     */
-    protected function get_message()
+    protected function get_message(): string
     {
         $product = __('Admin Columns', 'codepress-admin-columns');
 
