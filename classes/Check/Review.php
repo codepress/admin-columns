@@ -3,7 +3,7 @@
 namespace AC\Check;
 
 use AC\Ajax;
-use AC\Asset\Location;
+use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Capabilities;
 use AC\Message;
@@ -17,17 +17,9 @@ class Review
     implements Registerable
 {
 
-    /**
-     * @var Location\Absolute
-     */
     private $location;
 
-    /**
-     * @var int Show message after x days
-     */
-    protected $show_after = 30;
-
-    public function __construct(Location\Absolute $location)
+    public function __construct(Absolute $location)
     {
         $this->location = $location;
     }
@@ -39,7 +31,7 @@ class Review
         $this->get_ajax_handler()->register();
     }
 
-    public function display(Screen $screen)
+    public function display(Screen $screen): void
     {
         if ( ! $screen->has_screen()) {
             return;
@@ -88,7 +80,8 @@ class Review
 
     protected function first_login_compare(): bool
     {
-        return time() - $this->show_after * DAY_IN_SECONDS > $this->get_first_login();
+        // Show after 30 days
+        return time() - (30 * DAY_IN_SECONDS) > $this->get_first_login();
     }
 
     /**
@@ -107,10 +100,6 @@ class Review
         return $timestamp;
     }
 
-    /**
-     * Ajax dismiss notice
-     * @since 3.2
-     */
     public function ajax_dismiss_notice(): void
     {
         $this->get_ajax_handler()->verify_request();
