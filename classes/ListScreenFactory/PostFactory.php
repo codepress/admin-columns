@@ -31,7 +31,7 @@ class PostFactory extends BaseFactory
 
     public function can_create(string $key): bool
     {
-        return post_type_exists($key) && $this->is_supported_post_type($key);
+        return $this->is_supported_post_type($key);
     }
 
     private function is_supported_post_type(string $post_type): bool
