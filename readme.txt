@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7.1
 Tested up to: 6.2.2
 Requires PHP: 7.2
-Stable tag: 4.6.4
+Stable tag: 4.6.5
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -209,7 +209,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 4.6.5 =
 Release Date: tbd
 
 * [Added] New hook to disable Admin Columns for certain list tables `ac/list_screen/is_active`

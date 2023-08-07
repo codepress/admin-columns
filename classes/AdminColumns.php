@@ -165,14 +165,14 @@ class AdminColumns
 
     public function get_storage(): Storage
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\Container::get_storage()');
+        _deprecated_function(__METHOD__, '4.6.5', 'AC\Container::get_storage()');
 
         return Container::get_storage();
     }
 
     public function get_url(): string
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'ac_get_url()');
+        _deprecated_function(__METHOD__, '4.6.5', 'ac_get_url()');
 
         return trailingslashit(Container::get_location()->get_url());
     }
