@@ -122,7 +122,7 @@ class Column
 
     public function get_list_singular_label(): string
     {
-        return $this->list_screen->get_singular_label();
+        return $this->list_screen->get_singular_label() ?: $this->get_label();
     }
 
     /**
