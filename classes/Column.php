@@ -19,7 +19,7 @@ class Column
     private $type;
 
     /**
-     * @var string Label which describes this column
+     * @var string|null Label which describes this column
      */
     private $label;
 
@@ -133,8 +133,9 @@ class Column
     public function get_label()
     {
         if (null === $this->label) {
-            // TODO
-            $this->set_label($this->get_list_screen()->get_original_label($this->get_type()));
+            $this->set_label(
+                $this->get_list_screen()->get_original_label($this->get_type())
+            );
         }
 
         return (string)$this->label;
