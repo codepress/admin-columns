@@ -2,7 +2,6 @@
 
 namespace AC;
 
-use AC\Storage;
 use LogicException;
 
 class Transient implements Expirable

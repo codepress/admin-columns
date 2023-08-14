@@ -2,7 +2,6 @@
 
 namespace AC\Admin\PageFactory;
 
-use AC;
 use AC\Admin;
 use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;

@@ -2,7 +2,6 @@
 
 namespace AC\Controller\ColumnRequest;
 
-use AC;
 use AC\Column;
 use AC\Controller\ColumnRequest;
 use AC\ListScreen;

@@ -3,7 +3,6 @@
 namespace AC\Table;
 
 use AC\ListScreen;
-use AC\Registerable;
 use WP_Post;
 
 class PrimaryColumn {

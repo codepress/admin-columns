@@ -2,7 +2,6 @@
 
 namespace AC\Admin;
 
-use AC;
 use AC\Request;
 
 class PageNetworkRequestHandlers implements RequestHandlerInterface
