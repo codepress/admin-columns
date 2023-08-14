@@ -30,7 +30,7 @@ class MenuFactory implements MenuListFactory
 
         return new MenuListItem(
             $list_screen->get_key(),
-            $list_screen->get_label(),
+            (string)$list_screen->get_label(),
             $group ?: 'other'
         );
     }
