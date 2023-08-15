@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.6.5 =
-Release Date: tbd
+Release Date: 15th August, 2023
 
 * [Added] New hook to disable Admin Columns for certain list tables `ac/list_screen/is_active`
 * [Added] New hook to disable Admin Columns for certain list tables based on keys `ac/list_screen/key/is_active`
