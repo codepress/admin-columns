@@ -38,6 +38,7 @@ let config = {
 		]
 	},
 	resolve : {
+		conditionNames: ['svelte', 'browser', 'import'],
 		extensions : ['.mjs', '.js', '.svelte', '.ts'],
 		mainFields : ['svelte', 'browser', 'module', 'main'],
 		alias : {
