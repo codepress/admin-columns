@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace AC;
 
-use AC\Admin;
 use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script\Localize\Translation;
-use AC\Controller;
 use AC\Controller\RestoreSettingsRequest;
 use AC\Entity\Plugin;
 use AC\ListScreenFactory\Aggregate;
@@ -18,10 +16,7 @@ use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
-use AC\Service;
-use AC\Table;
 use AC\Table\ListKeysFactoryInterface;
-use AC\ThirdParty;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
 
@@ -165,14 +160,14 @@ class AdminColumns
 
     public function get_storage(): Storage
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\Container::get_storage()');
+        _deprecated_function(__METHOD__, '4.6.5', 'AC\Container::get_storage()');
 
         return Container::get_storage();
     }
 
     public function get_url(): string
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'ac_get_url()');
+        _deprecated_function(__METHOD__, '4.6.5', 'ac_get_url()');
 
         return trailingslashit(Container::get_location()->get_url());
     }

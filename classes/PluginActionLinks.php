@@ -3,7 +3,6 @@
 namespace AC;
 
 use AC\Admin\Page\Columns;
-use AC\Entity;
 use AC\Type\Url\Editor;
 
 class PluginActionLinks implements Registerable

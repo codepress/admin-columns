@@ -2,7 +2,6 @@
 
 namespace AC;
 
-use AC\Entity;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 

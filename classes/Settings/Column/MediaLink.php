@@ -2,7 +2,6 @@
 
 namespace AC\Settings\Column;
 
-use AC;
 use AC\Settings;
 use AC\View;
 

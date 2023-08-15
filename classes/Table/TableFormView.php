@@ -2,7 +2,6 @@
 
 namespace AC\Table;
 
-use AC;
 use AC\Registerable;
 
 final class TableFormView implements Registerable {

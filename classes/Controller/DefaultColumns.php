@@ -2,7 +2,6 @@
 
 namespace AC\Controller;
 
-use AC;
 use AC\Capabilities;
 use AC\DefaultColumnsRepository;
 use AC\ListScreenFactory;

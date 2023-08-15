@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Admin\Colors\Storage;
 
-use AC;
 use AC\Storage\Option;
 use InvalidArgumentException;
 

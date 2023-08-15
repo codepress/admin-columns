@@ -2,7 +2,6 @@
 
 namespace AC\Admin\Page;
 
-use AC;
 use AC\Admin\RenderableHead;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;

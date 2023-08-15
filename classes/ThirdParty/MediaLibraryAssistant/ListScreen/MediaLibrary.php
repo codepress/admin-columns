@@ -11,7 +11,7 @@ use AC\Type\Uri;
 use AC\Type\Url;
 use MLACore;
 
-class MediaLibrary extends AC\ListScreenPost
+class MediaLibrary extends AC\ListScreenPost implements AC\ListScreen\ListTable
 {
 
     public function __construct()

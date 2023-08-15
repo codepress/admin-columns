@@ -985,10 +985,9 @@ div.cpac-color span {
 
 		line-height: 24px;
 		text-align: center;
-		transform: translateX(-1px);
 
 		&:last-child {
-			border-right: none!important;
+			border-right: none !important;
 		}
 
 		&:hover, &:focus, &:active {

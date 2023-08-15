@@ -516,14 +516,14 @@ abstract class ListScreen
 
     public function get_screen_link(): string
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_table_url()');
+        _deprecated_function(__METHOD__, '4.6.5', 'AC\ListScreen::get_table_url()');
 
         return (string)$this->get_table_url();
     }
 
     public function get_edit_link(): string
     {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_editor_url()');
+        _deprecated_function(__METHOD__, '4.6.5', 'AC\ListScreen::get_editor_url()');
 
         return (string)$this->get_editor_url();
     }
