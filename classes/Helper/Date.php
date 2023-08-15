@@ -14,10 +14,13 @@ class Date
      *
      * @return int|false
      */
-    public function strtotime($date)
+    public function strtotime($date): ?int
     {
-        if (empty($date) || in_array($date, ['0000-00-00 00:00:00', '0000-00-00', '00:00:00']) || ! is_scalar($date)) {
-            return false;
+        if ( ! is_scalar($date) ||
+             empty($date) ||
+             in_array($date, ['0000-00-00 00:00:00', '0000-00-00', '00:00:00'], true)
+        ) {
+            return null;
         }
 
         // some plugins store dates in a jquery timestamp format, format is in ms since The Epoch.
@@ -30,19 +33,19 @@ class Date
             // For example the ACF Date and Time Picker uses this format.
             // credits: Ben C
             if (12 === $length || 13 === $length) {
-                $date = round($date / 1000); // remove the ms
+                $date = intval(round($date / 1000)); // remove the ms
             }
 
             // Date format: yyyymmdd ( often used by ACF ) must start with 19xx or 20xx and is 8 long
             // in theory a numeric string of 8 can also be a unix timestamp; no conversion would be needed
             if (8 === $length && (strpos($date, '20') === 0 || strpos($date, '19') === 0)) {
-                $date = strtotime($date);
+                return strtotime($date) ?: null;
             }
         } else {
-            $date = strtotime($date);
+            return strtotime($date) ?: null;
         }
 
-        return false;
+        return null;
     }
 
     /**
