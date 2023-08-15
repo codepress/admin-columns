@@ -2,65 +2,65 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-04-05 09:13:07+0000\n"
+"PO-Revision-Date: 2023-06-08 07:42:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.4\n"
+"X-Generator: GlotPress/4.0.0-alpha.7\n"
 "Language: it\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
 #: templates/tooltip/conditional-format.php:3
 msgctxt "conditional format help"
 msgid "Conditional Format allows you to format a value based on conditions you set."
-msgstr ""
+msgstr "La formattazione condizionale ti consente di formattare un valore basandoti su condizioni da te impostate"
 
 #: templates/tooltip/conditional-format.php:1
 msgid "Conditional Format"
-msgstr ""
+msgstr "Formattazione Condizionale"
 
 #: settings/translations/global.php:6
 msgid "Cancel"
-msgstr ""
+msgstr "Cancella"
 
 #: settings/translations/global.php:5
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:17
 msgid "Assistant"
-msgstr ""
+msgstr "Assistente"
 
 #: classes/Settings/Column/Separator.php:27
 msgid "Horizontal Rule"
-msgstr ""
+msgstr "Righello Orizzontale"
 
 #: classes/Integration/MediaLibraryAssistant.php:16
 msgid "The Media Library Assistant plugin from David Lingren provides several enhancements for managing the Media Library."
-msgstr ""
+msgstr "Il plugin 'Media Library Assistant' di David Lingren aggiunge molteplici miglioramenti per gestire la libreria dei media."
 
 #: classes/Integration/MediaLibraryAssistant.php:14
 #: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:16
 msgid "Media Library Assistant"
-msgstr ""
+msgstr "Assistente Libreria dei Media"
 
 #: classes/Controller/AjaxColumnModalValue.php:50
 #: classes/Controller/AjaxColumnValue.php:48
 msgid "Invalid list ID."
-msgstr ""
+msgstr "Lista ID non valida."
 
 #: classes/Column/Placeholder.php:47
 msgid "Admin Columns Pro offers full support for %s, allowing you to easily manage %s fields for your overviews."
-msgstr ""
+msgstr "Admin Columns Pro offre pieno supporto per %s, consentendoti di gestire facilmente i campi di %s per le tue anteprime."
 
 #: classes/Column/Placeholder.php:44
 msgid "%s support is only available in Admin Columns Pro."
-msgstr ""
+msgstr "il supporto per %s è disponibile solo con Admin Columns Pro."
 
 #: classes/Check/AddonAvailable.php:76
 msgid "Did you know Admin Columns Pro has full support for %s?"
-msgstr ""
+msgstr "Sapevi che Admin Columns Pro integra il supporto per %s?"
 
 #: templates/tooltip/sorting-include-empty.php:17
 msgid "Read more &raquo;"
@@ -152,7 +152,7 @@ msgstr "Kbps"
 #: classes/Settings/Column/FileMetaAudio.php:26
 #: classes/Settings/Column/FileMetaVideo.php:30
 msgid "Sample Rate"
-msgstr ""
+msgstr "Sample Rate"
 
 #: classes/Settings/Column/FileMetaAudio.php:24
 #: classes/Settings/Column/FileMetaVideo.php:29
@@ -162,7 +162,7 @@ msgstr "Losless"
 #: classes/Settings/Column/FileMetaAudio.php:23
 #: classes/Settings/Column/FileMetaVideo.php:17
 msgid "Length Formatted"
-msgstr ""
+msgstr "Lunghezza formattata"
 
 #: classes/Settings/Column/FileMetaAudio.php:21
 msgid "Filesize"
