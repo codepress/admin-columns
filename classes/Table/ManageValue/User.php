@@ -12,7 +12,7 @@ class User extends ManageValue
 
     public function register(): void
     {
-        if (did_filter('manage_users_custom_column')) {
+        if (function_exists('did_filter') && did_filter('manage_users_custom_column')) {
             throw new DomainException("Method should be called before the filter triggers.");
         }
 
