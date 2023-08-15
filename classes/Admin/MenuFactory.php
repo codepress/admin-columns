@@ -8,65 +8,73 @@ use AC\Deprecated\Hooks;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 
-class MenuFactory implements MenuFactoryInterface {
+class MenuFactory implements MenuFactoryInterface
+{
 
-	/**
-	 * @var string
-	 */
-	protected $url;
+    protected $url;
 
-	/**
-	 * @var Location\Absolute
-	 */
-	protected $location;
+    protected $location;
 
-	public function __construct( $url, Location\Absolute $location ) {
-		$this->url = (string) $url;
-		$this->location = $location;
-	}
+    public function __construct(string $url, Location\Absolute $location)
+    {
+        $this->url = $url;
+        $this->location = $location;
+    }
 
-	/**
-	 * @param string $slug
-	 *
-	 * @return string
-	 */
-	protected function create_menu_link( $slug ) {
-		return add_query_arg(
-			[
-				RequestHandlerInterface::PARAM_PAGE => Admin::NAME,
-				RequestHandlerInterface::PARAM_TAB  => $slug,
-			],
-			$this->url
-		);
-	}
+    protected function create_menu_link(string $slug): string
+    {
+        return add_query_arg(
+            [
+                RequestHandlerInterface::PARAM_PAGE => Admin::NAME,
+                RequestHandlerInterface::PARAM_TAB  => $slug,
+            ],
+            $this->url
+        );
+    }
 
-	public function create( $current ) {
-		$menu = new Menu();
+    public function create(string $current): Menu
+    {
+        $menu = new Menu();
 
-		$items = [
-			Page\Columns::NAME  => __( 'Columns', 'codepress-admin-columns' ),
-			Page\Settings::NAME => __( 'Settings', 'codepress-admin-columns' ),
-			Page\Addons::NAME   => __( 'Add-ons', 'codepress-admin-columns' ),
-		];
+        $items = [
+            Page\Columns::NAME => __('Columns', 'codepress-admin-columns'),
+            Page\Settings::NAME => __('Settings', 'codepress-admin-columns'),
+            Page\Addons::NAME => __('Add-ons', 'codepress-admin-columns'),
+        ];
 
-		$hooks = new Hooks();
+        $hooks = new Hooks();
 
-		if ( $hooks->get_count() > 0 ) {
-			$items[ Page\Help::NAME ] = sprintf( '%s %s', __( 'Help', 'codepress-admin-columns' ), '<span class="ac-badge">' . $hooks->get_count() . '</span>' );
-		}
+        if ($hooks->get_count() > 0) {
+            $items[Page\Help::NAME] = sprintf(
+                '%s %s',
+                __('Help', 'codepress-admin-columns'),
+                '<span class="ac-badge">' . $hooks->get_count() . '</span>'
+            );
+        }
 
-		foreach ( $items as $slug => $label ) {
-			$menu->add_item( new Item( $slug, $this->create_menu_link( $slug ), $label, sprintf( '-%s %s', $slug, $current === $slug ? '-active' : '' ) ) );
-		}
+        foreach ($items as $slug => $label) {
+            $menu->add_item(
+                new Item(
+                    $slug,
+                    $this->create_menu_link($slug),
+                    $label,
+                    sprintf('-%s %s', $slug, $current === $slug ? '-active' : '')
+                )
+            );
+        }
 
-		$url = ( new UtmTags( new Site( Site::PAGE_ABOUT_PRO ), 'upgrade' ) )->get_url();
-		$image = sprintf( '<img alt="%s" src="%s">', 'Admin Columns Pro', $this->location->with_suffix( '/assets/images/external.svg' )->get_url() );
+        $url = (new UtmTags(new Site(Site::PAGE_ABOUT_PRO), 'upgrade'))->get_url();
+        $image = sprintf(
+            '<img alt="%s" src="%s">',
+            'Admin Columns Pro',
+            $this->location->with_suffix('/assets/images/external.svg')->get_url()
+        );
 
-		$menu->add_item( new Item( 'pro', $url, sprintf( '%s %s', 'Admin Columns Pro', $image ), '-pro', '_blank' ) );
+        $menu->add_item(new Item('pro', $url, sprintf('%s %s', 'Admin Columns Pro', $image), '-pro', '_blank'));
 
-		do_action( 'ac/admin/page/menu', $menu );
+        do_action('ac/admin/page/menu', $menu);
 
-		return $menu;
-	}
+        return $menu;
+    }
 
 }

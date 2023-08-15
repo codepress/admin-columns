@@ -2,125 +2,119 @@
 
 namespace AC;
 
-class View implements Renderable {
+class View implements Renderable
+{
 
-	/**
-	 * @var array
-	 */
-	private $data = [];
+    /**
+     * @var array
+     */
+    private $data = [];
 
-	/**
-	 * @var string
-	 */
-	private $template;
+    /**
+     * @var string|null
+     */
+    private $template;
 
-	public function __construct( array $data = [] ) {
-		$this->set_data( $data );
-	}
+    public function __construct(array $data = [])
+    {
+        $this->set_data($data);
+    }
 
-	public function get( $key ) {
-		if ( ! isset( $this->data[ $key ] ) ) {
-			return null;
-		}
+    public function get(string $key)
+    {
+        return $this->data[$key] ?? null;
+    }
 
-		return $this->data[ $key ];
-	}
+    public function __get($key)
+    {
+        return $this->get($key);
+    }
 
-	public function __get( $key ) {
-		return $this->get( $key );
-	}
+    public function __set($key, $value)
+    {
+        return $this->set($key, $value);
+    }
 
-	public function __set( $key, $value ) {
-		return $this->set( $key, $value );
-	}
+    public function set(string $key, $value): self
+    {
+        $this->data[$key] = $value;
 
-	/**
-	 * @param $key
-	 * @param $value
-	 *
-	 * @return $this
-	 */
-	public function set( $key, $value ) {
-		$this->data[ $key ] = $value;
+        return $this;
+    }
 
-		return $this;
-	}
+    public function get_data(): array
+    {
+        return $this->data;
+    }
 
-	public function get_data() {
-		return $this->data;
-	}
+    public function set_data(array $data): self
+    {
+        foreach ($data as $key => $value) {
+            $this->set($key, $value);
+        }
 
-	public function set_data( array $data ) {
-		foreach ( $data as $key => $value ) {
-			$this->set( $key, $value );
-		}
+        return $this;
+    }
 
-		return $this;
-	}
+    /**
+     * Will try to resolve the current template to a file
+     */
+    public function resolve_template(): bool
+    {
+        /**
+         * Returns the available template paths for column settings
+         *
+         * @param array  $paths    Template paths
+         * @param string $template Current template path
+         */
+        $paths = apply_filters(
+            'ac/view/templates',
+            [
+                Container::get_location()->with_suffix('templates')->get_path(),
+            ],
+            $this->template
+        );
 
-	/**
-	 * Will try to resolve the current template to a file
-	 * @return false|string
-	 */
-	public function resolve_template() {
+        foreach ($paths as $path) {
+            $file = $path . '/' . $this->template . '.php';
 
-		/**
-		 * Returns the available template paths for column settings
-		 *
-		 * @param array  $paths    Template paths
-		 * @param string $template Current template path
-		 */
-		$paths = apply_filters( 'ac/view/templates', [ AC()->get_dir() . 'templates' ], $this->template );
+            if (is_readable($file)) {
+                include $file;
 
-		foreach ( $paths as $path ) {
-			$file = $path . '/' . $this->template . '.php';
+                return true;
+            }
+        }
 
-			if ( is_readable( $file ) ) {
-				include $file;
+        return false;
+    }
 
-				return true;
-			}
-		}
+    public function render(): string
+    {
+        ob_start();
 
-		return false;
-	}
+        $this->resolve_template();
 
-	/**
-	 * Get a string representation of this object
-	 * @return string
-	 */
-	public function render() {
-		ob_start();
+        return ob_get_clean();
+    }
 
-		$this->resolve_template();
+    public function get_template(): ?string
+    {
+        return $this->template;
+    }
 
-		return ob_get_clean();
-	}
+    public function set_template(string $template): self
+    {
+        $this->template = $template;
 
-	/**
-	 * @return string
-	 */
-	public function get_template() {
-		return $this->template;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $template
-	 *
-	 * @return $this
-	 */
-	public function set_template( $template ) {
-		$this->template = $template;
-
-		return $this;
-	}
-
-	/**
-	 * Should call self::render when treated as a string
-	 * @return string
-	 */
-	public function __toString() {
-		return $this->render();
-	}
+    /**
+     * Should call self::render when treated as a string
+     */
+    public function __toString(): string
+    {
+        return $this->render();
+    }
 
 }

@@ -28,9 +28,10 @@ export default class Table {
         this.Services = new ServiceContainer();
         this.Columns = new Columns(el);
         this.Cells = new Cells();
+        this.Selection = new RowSelection(this);
+
         let actionsElement = document.getElementById('ac-table-actions');
         this.Actions = actionsElement ? new Actions(actionsElement) : null;
-        this.Selection = new RowSelection(this);
     }
 
     getElement(): HTMLTableElement {

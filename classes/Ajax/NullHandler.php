@@ -4,7 +4,8 @@ namespace AC\Ajax;
 
 class NullHandler extends Handler {
 
-	public function register() {
+	public function register(): void
+    {
 
 	}
 

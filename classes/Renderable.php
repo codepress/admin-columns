@@ -2,11 +2,9 @@
 
 namespace AC;
 
-interface Renderable {
+interface Renderable
+{
 
-	/**
-	 * @return string
-	 */
-	public function render();
+    public function render(): string;
 
 }

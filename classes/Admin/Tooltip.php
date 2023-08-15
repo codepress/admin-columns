@@ -4,128 +4,99 @@ namespace AC\Admin;
 
 use AC\View;
 
-class Tooltip {
+class Tooltip
+{
 
-	/** @var string */
-	private $id;
+    private $id;
 
-	/** @var string */
-	private $content;
+    private $content;
 
-	/** @var string */
-	private $link_label;
+    private $link_label;
 
-	/** @var string */
-	private $title;
+    private $title;
 
-	/** @var string */
-	private $position = 'right';
+    private $position = 'right';
 
-	public function __construct( $id, array $args ) {
-		$this->id = $id;
-		$this->title = __( 'Notice', 'codepress-admin-columns' );
-		$this->link_label = __( 'Instructions', 'codepress-admin-columns' );
+    public function __construct(string $id, array $args = [])
+    {
+        $this->id = $id;
+        $this->title = __('Notice', 'codepress-admin-columns');
+        $this->link_label = __('Instructions', 'codepress-admin-columns');
 
-		$this->populate( $args );
-	}
+        $this->populate($args);
+    }
 
-	/**
-	 * @param array $args
-	 */
-	private function populate( $args ) {
-		foreach ( $args as $key => $value ) {
-			$method = 'set_' . $key;
+    private function populate($args): void
+    {
+        foreach ($args as $key => $value) {
+            $method = 'set_' . $key;
 
-			if ( method_exists( $this, $method ) ) {
-				call_user_func( [ $this, $method ], $value );
-			}
-		}
-	}
+            if (method_exists($this, $method)) {
+                call_user_func([$this, $method], $value);
+            }
+        }
+    }
 
-	/**
-	 * @param string $id
-	 *
-	 * @return Tooltip
-	 */
-	public function set_id( $id ) {
-		$this->id = $id;
+    public function set_id(string $id): Tooltip
+    {
+        $this->id = $id;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $content
-	 *
-	 * @return Tooltip
-	 */
-	public function set_content( $content ) {
-		$this->content = $content;
+    public function set_content(string $content): Tooltip
+    {
+        $this->content = $content;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $title
-	 *
-	 * @return Tooltip
-	 */
-	public function set_title( $title ) {
-		$this->title = $title;
+    public function set_title(string $title): Tooltip
+    {
+        $this->title = $title;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $label
-	 *
-	 * @return $this
-	 */
-	public function set_link_label( $label ) {
-		$this->link_label = $label;
+    public function set_link_label(string $label): Tooltip
+    {
+        $this->link_label = $label;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $position
-	 *
-	 * @return Tooltip
-	 */
-	public function set_position( $position ) {
-		$this->position = $position;
+    public function set_position(string $position): Tooltip
+    {
+        $this->position = $position;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_label() {
-		$view = new View( [
-			'id'       => $this->id,
-			'position' => $this->position,
-			'label'    => $this->link_label,
-		] );
+    public function get_label(): string
+    {
+        $view = new View([
+            'id'       => $this->id,
+            'position' => $this->position,
+            'label'    => $this->link_label,
+        ]);
 
-		$view->set_template( 'admin/tooltip-label' );
+        $view->set_template('admin/tooltip-label');
 
-		return $view->render();
-	}
+        return $view->render();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_instructions() {
-		$view = new View( [
-			'id'       => $this->id,
-			'title'    => $this->title,
-			'content'  => $this->content,
-			'position' => $this->position,
-		] );
+    public function get_instructions(): string
+    {
+        $view = new View([
+            'id'       => $this->id,
+            'title'    => $this->title,
+            'content'  => $this->content,
+            'position' => $this->position,
+        ]);
 
-		$view->set_template( 'admin/tooltip-body' );
+        $view->set_template('admin/tooltip-body');
 
-		return $view->render();
-	}
+        return $view->render();
+    }
 
 }

@@ -24,9 +24,9 @@ class CommonAssets implements Registerable {
 		$this->translation = $translation;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'admin_enqueue_scripts', [ $this, 'register_global_assets' ], 1 );
-		//( new Script\GlobalTranslationFactory( $this->location, $this->translation ) )->create();
 	}
 
 	public function register_global_assets() {

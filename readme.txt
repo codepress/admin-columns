@@ -3,9 +3,9 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.7.1
-Tested up to: 6.1.1
+Tested up to: 6.3
 Requires PHP: 7.2
-Stable tag: 4.6.4
+Stable tag: 4.6.5
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -208,6 +208,14 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.6.5 =
+Release Date: 15th August, 2023
+
+* [Added] New hook to disable Admin Columns for certain list tables `ac/list_screen/is_active`
+* [Added] New hook to disable Admin Columns for certain list tables based on keys `ac/list_screen/key/is_active`
+* [Improved] The Preview Column now also show a preview for video and audio files
+* [Fixed] The hook `ac/post_types` works again to disable Admin Columns for specific post types
 
 = 4.6.4 =
 Release Date: May 25th, 2023

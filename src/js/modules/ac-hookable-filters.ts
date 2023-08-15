@@ -6,6 +6,8 @@ type hookableFilters = {
     [name: string ] : prioritizedFilters
 }
 
+type FilterCallBack = ( value: any, payload: { [key:string] : any } ) => any;
+
 export default class AcHookableFilters {
 
     filters: hookableFilters;
@@ -14,7 +16,7 @@ export default class AcHookableFilters {
         this.filters = {};
     }
 
-    addFilter( name: string, callback: any, priority: number = 10 ){
+    addFilter( name: string, callback: FilterCallBack, priority: number = 10 ){
         if( ! this.filters.hasOwnProperty( name ) ){
             this.filters[name] = {};
         }
@@ -26,7 +28,7 @@ export default class AcHookableFilters {
         this.filters[name][ priority ].push( callback );
     }
 
-    applyFilters( name: string, value: any, payload: Object = {} ){
+    applyFilters( name: string, value: any, payload: { [key:string] : any } = {} ){
         if( ! this.filters.hasOwnProperty(name) ){
             return value;
         }

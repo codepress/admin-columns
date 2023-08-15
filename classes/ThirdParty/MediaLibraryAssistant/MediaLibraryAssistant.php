@@ -9,12 +9,13 @@ use AC\Type\ListKey;
 
 class MediaLibraryAssistant implements Registerable {
 
-	public function register() {
+	public function register(): void
+    {
 		if ( ! defined( 'MLA_PLUGIN_PATH' ) ) {
 			return;
 		}
 
-		AC\ListScreenFactory::add( new ListScreenFactory() );
+		AC\ListScreenFactory\Aggregate::add( new ListScreenFactory() );
 		add_action( 'ac/list_keys', [ $this, 'add_list_keys' ] );
 	}
 

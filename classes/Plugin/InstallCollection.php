@@ -10,7 +10,7 @@ final class InstallCollection extends AC\Iterator {
 		array_map( [ $this, 'add' ], $data );
 	}
 
-	protected function add( Install $install ) {
+	protected function add( Install $install ): void {
 		$this->data[] = $install;
 	}
 

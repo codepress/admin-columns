@@ -2,54 +2,34 @@
 
 namespace AC;
 
-class DefaultColumnsRepository {
+class DefaultColumnsRepository
+{
 
-	private const OPTIONS_KEY = 'cpac_options_';
+    private const OPTIONS_KEY = 'cpac_options_';
 
-	/**
-	 * @param string $list_screen_key
-	 *
-	 * @return string
-	 */
-	private function get_option_name( $list_screen_key ) {
-		return self::OPTIONS_KEY . $list_screen_key . "__default";
-	}
+    private function get_option_name(string $list_screen_key): string
+    {
+        return self::OPTIONS_KEY . $list_screen_key . "__default";
+    }
 
-	/**
-	 * @param string $list_screen_key
-	 * @param array  $columns
-	 *
-	 * @return void
-	 */
-	public function update( $list_screen_key, array $columns ) {
-		update_option( $this->get_option_name( $list_screen_key ), $columns, false );
-	}
+    public function update(string $list_screen_key, array $columns): void
+    {
+        update_option($this->get_option_name($list_screen_key), $columns, false);
+    }
 
-	/**
-	 * @param string $list_screen_key
-	 *
-	 * @return bool
-	 */
-	public function exists( $list_screen_key ) {
-		return false !== get_option( $this->get_option_name( $list_screen_key ) );
-	}
+    public function exists(string $list_screen_key): bool
+    {
+        return false !== get_option($this->get_option_name($list_screen_key));
+    }
 
-	/**
-	 * @param string $list_screen_key
-	 *
-	 * @return array
-	 */
-	public function get( $list_screen_key ) {
-		return get_option( $this->get_option_name( $list_screen_key ), [] );
-	}
+    public function get(string $list_screen_key): array
+    {
+        return get_option($this->get_option_name($list_screen_key), []);
+    }
 
-	/**
-	 * @param string $list_screen_key
-	 *
-	 * @return void
-	 */
-	public function delete( $list_screen_key ) {
-		delete_option( $this->get_option_name( $list_screen_key ) );
-	}
+    public function delete(string $list_screen_key): void
+    {
+        delete_option($this->get_option_name($list_screen_key));
+    }
 
 }

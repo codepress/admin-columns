@@ -1,4 +1,8 @@
 import {getParamFromUrl} from "./global";
+import {initAcServices} from "./admin-columns";
+import {LocalizedAcTable} from "../types/table";
+
+declare const AC: LocalizedAcTable;
 
 export const getIdFromTableRow = (row: HTMLTableRowElement): number => {
     if (row.classList.contains('no-items')) {
@@ -28,15 +32,19 @@ export const getIdFromTableRow = (row: HTMLTableRowElement): number => {
         }
     }
 
-    if( ! item_id ){
-        // TODO fix for WC with hook?
-        const orderCheckbox = row.querySelector<HTMLInputElement>('.check-column input[name="order[]"]');
-        if( orderCheckbox ){
-            item_id = parseInt( orderCheckbox.value );
-        }
+    // MS user Super Admin fix
+    if (Number.isNaN( item_id ) && row.closest('table')?.classList.contains('users-network')) {
+        let editLink = row.querySelector<HTMLAnchorElement>('.row-actions .edit a') ?? null;
 
+        if( editLink ){
+            let params = new URLSearchParams( editLink.href.split('?')[1] ?? '' );
+            let user_id = params.get('user_id')  ?? AC.current_user_id.toString();
+
+            item_id = parseInt( user_id );
+        }
     }
 
+    item_id = initAcServices().filters.applyFilters( 'table_row_id', item_id, { row: row })
 
     row.dataset.id = item_id.toString();
 

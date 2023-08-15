@@ -64,7 +64,7 @@ abstract class Element implements Renderable {
 	 * Render this element
 	 * @return string
 	 */
-	abstract public function render();
+	abstract public function render(): string;
 
 	/**
 	 * @param $key

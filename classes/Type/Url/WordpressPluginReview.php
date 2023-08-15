@@ -1,27 +1,34 @@
 <?php
-declare( strict_types=1 );
+
+declare(strict_types=1);
 
 namespace AC\Type\Url;
 
 use AC\Type\Url;
 
-class WordpressPluginReview implements Url {
+class WordpressPluginReview implements Url
+{
 
-	/**
-	 * @var string
-	 */
-	private $handle;
+    private $handle;
 
-	public function __construct() {
-		$this->handle = 'codepress-admin-columns';
-	}
+    public function __construct()
+    {
+        $this->handle = 'codepress-admin-columns';
+    }
 
-	public function get_handle(): string {
-		return $this->handle;
-	}
+    public function get_handle(): string
+    {
+        return $this->handle;
+    }
 
-	public function get_url() {
-		return sprintf( 'https://wordpress.org/support/plugin/%s/reviews/#postform', $this->handle );
-	}
+    public function get_url(): string
+    {
+        return sprintf('https://wordpress.org/support/plugin/%s/reviews/#postform', $this->handle);
+    }
+
+    public function __toString(): string
+    {
+        return $this->get_url();
+    }
 
 }

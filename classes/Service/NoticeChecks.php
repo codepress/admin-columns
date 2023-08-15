@@ -3,42 +3,43 @@
 namespace AC\Service;
 
 use AC\Asset\Location\Absolute;
+use AC\Capabilities;
 use AC\Check;
 use AC\IntegrationRepository;
 use AC\Registerable;
+use AC\Services;
 
-class NoticeChecks implements Registerable {
+class NoticeChecks implements Registerable
+{
 
-	/**
-	 * @var Absolute
-	 */
-	private $location;
+    private $location;
 
-	public function __construct( Absolute $location ) {
-		$this->location = $location;
-	}
+    private $integration_repository;
 
-	public function register() {
-		foreach ( $this->get_checks() as $check ) {
-			$check->register();
-		}
-	}
+    public function __construct(Absolute $location, IntegrationRepository $integration_repository)
+    {
+        $this->location = $location;
+        $this->integration_repository = $integration_repository;
+    }
 
-	/**
-	 * @return Registerable[]
-	 */
-	private function get_checks() {
-		$checks = [
-			new Check\Review( $this->location )
-		];
+    public function register(): void
+    {
+        $this->create_services()->register();
+    }
 
-		$integrations = new IntegrationRepository();
+    private function create_services(): Services
+    {
+        $services = new Services();
 
-		foreach ( $integrations->find_all() as $integration ) {
-			$checks[] = new Check\AddonAvailable( $integration );
-		}
+        if (current_user_can(Capabilities::MANAGE)) {
+            $services->add(new Check\Review($this->location));
 
-		return $checks;
-	}
+            foreach ($this->integration_repository->find_all_by_active_plugins() as $integration) {
+                $services->add(new Check\AddonAvailable($integration));
+            }
+        }
+
+        return $services;
+    }
 
 }

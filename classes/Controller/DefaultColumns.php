@@ -2,7 +2,6 @@
 
 namespace AC\Controller;
 
-use AC;
 use AC\Capabilities;
 use AC\DefaultColumnsRepository;
 use AC\ListScreenFactory;
@@ -16,28 +15,27 @@ class DefaultColumns implements Registerable {
 
 	private $list_screen;
 
-	private $request;
-
 	private $list_screen_factory;
 
 	private $default_columns;
 
 	public function __construct(
-		Request $request,
 		ListScreenFactory $list_screen_factory,
 		DefaultColumnsRepository $default_columns
 	) {
-		$this->request = $request;
 		$this->list_screen_factory = $list_screen_factory;
 		$this->default_columns = $default_columns;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'current_screen', [ $this, 'handle_request' ] );
 	}
 
 	public function handle_request(): void {
-		if ( '1' !== $this->request->get( self::QUERY_PARAM ) ) {
+		$request = new Request();
+
+		if ( '1' !== $request->get( self::QUERY_PARAM ) ) {
 			return;
 		}
 
@@ -51,11 +49,11 @@ class DefaultColumns implements Registerable {
 			return;
 		}
 
-		if ( ! $this->list_screen_factory->can_create_by_wp_screen( $screen ) ) {
+		if ( ! $this->list_screen_factory->can_create_from_wp_screen( $screen ) ) {
 			return;
 		}
 
-		$this->list_screen = $this->list_screen_factory->create_by_wp_screen( $screen );
+		$this->list_screen = $this->list_screen_factory->create_from_wp_screen( $screen );
 
 		// Save an empty array in case the hook does not run properly.
 		$this->default_columns->update( $this->list_screen->get_key(), [] );

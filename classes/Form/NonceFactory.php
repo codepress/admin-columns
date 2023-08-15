@@ -1,11 +1,14 @@
-<?php declare( strict_types=1 );
+<?php
+declare(strict_types=1);
 
 namespace AC\Form;
 
-class NonceFactory {
+class NonceFactory
+{
 
-	public function create_ajax(): Nonce {
-		return new Nonce( 'ac-ajax', '_ajax_nonce' );
-	}
+    public function create_ajax(): Nonce
+    {
+        return new Nonce('ac-ajax', '_ajax_nonce');
+    }
 
 }

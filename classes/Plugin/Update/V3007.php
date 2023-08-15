@@ -11,7 +11,8 @@ class V3007 extends Update {
 		parent::__construct( new Version( '3.0.7' ) );
 	}
 
-	public function apply_update() {
+	public function apply_update(): void
+    {
 		$this->update_roles_column();
 	}
 

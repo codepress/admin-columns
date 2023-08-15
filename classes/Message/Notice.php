@@ -3,13 +3,15 @@
 namespace AC\Message;
 
 use AC\Asset\Style;
+use AC\Container;
 use AC\Message;
 use AC\Registerable;
 use AC\View;
 
 class Notice extends Message implements Registerable {
 
-	public function render() {
+	public function render(): string
+    {
 		$data = [
 			'message' => $this->message,
 			'type'    => $this->type,
@@ -22,7 +24,8 @@ class Notice extends Message implements Registerable {
 		return $view->render();
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		if ( apply_filters( 'ac/suppress_site_wide_notices', false ) ) {
 			return;
 		}
@@ -33,7 +36,7 @@ class Notice extends Message implements Registerable {
 	}
 
 	public function enqueue_scripts() {
-		$style = new Style( 'ac-message', AC()->get_location()->with_suffix( 'assets/css/notice.css' ) );
+		$style = new Style( 'ac-message', Container::get_location()->with_suffix( 'assets/css/notice.css' ) );
 		$style->enqueue();
 	}
 

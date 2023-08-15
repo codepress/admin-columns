@@ -4,33 +4,32 @@ namespace AC;
 
 use AC\Plugin\Version;
 
-class PluginUpdate {
+class PluginUpdate
+{
 
-	/**
-	 * @var Version
-	 */
-	private $version;
+    private $version;
 
-	/**
-	 * @var string|null
-	 */
-	private $package;
+    private $package;
 
-	public function __construct( Version $version, $package = null ) {
-		$this->version = $version;
-		$this->package = $package;
-	}
+    public function __construct(Version $version, string $package = null)
+    {
+        $this->version = $version;
+        $this->package = $package;
+    }
 
-	public function get_version() {
-		return $this->version;
-	}
+    public function get_version(): Version
+    {
+        return $this->version;
+    }
 
-	public function has_package() {
-		return null !== $this->package;
-	}
+    public function has_package(): bool
+    {
+        return null !== $this->package;
+    }
 
-	public function get_package() {
-		return $this->package;
-	}
+    public function get_package(): string
+    {
+        return $this->package;
+    }
 
 }

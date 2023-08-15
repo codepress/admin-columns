@@ -13,7 +13,8 @@ class ViewCollection implements Renderable {
 		$this->views = $views;
 	}
 
-	public function render() {
+	public function render(): string
+    {
 		$html = '';
 
 		foreach ( $this->views as $view ) {

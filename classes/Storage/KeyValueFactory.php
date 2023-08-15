@@ -2,13 +2,9 @@
 
 namespace AC\Storage;
 
-interface KeyValueFactory {
+interface KeyValueFactory
+{
 
-	/**
-	 * @param string $key
-	 *
-	 * @return KeyValuePair
-	 */
-	public function create( $key );
+    public function create(string $key): KeyValuePair;
 
 }

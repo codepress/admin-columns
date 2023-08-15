@@ -2,53 +2,39 @@
 
 namespace AC\Admin;
 
+use AC\ListScreenCollection;
 use AC\View;
-use Traversable;
 
-abstract class Table {
+abstract class Table
+{
 
-	/**
-	 * @var string
-	 */
-	protected $message;
+    protected $message;
 
-	/**
-	 * @return array
-	 */
-	abstract public function get_headings();
+    abstract public function get_headings(): array;
 
-	/**
-	 * @return Traversable
-	 */
-	abstract public function get_rows();
+    abstract public function get_rows(): ListScreenCollection;
 
-	/**
-	 * @param string $key
-	 * @param mixed  $data
-	 *
-	 * @return string
-	 */
-	abstract public function get_column( $key, $data );
+    abstract public function get_column(string $key, $data): string;
 
-	/**
-	 * @return bool
-	 */
-	public function has_message() {
-		return null !== $this->message;
-	}
+    public function has_message(): bool
+    {
+        return null !== $this->message;
+    }
 
-	public function get_message() {
-		return $this->message;
-	}
+    public function get_message(): string
+    {
+        return $this->message;
+    }
 
-	public function render() {
-		$view = new View( [
-			'table' => $this,
-		] );
+    public function render(): string
+    {
+        $view = new View([
+            'table' => $this,
+        ]);
 
-		$view->set_template( 'admin/table' );
+        $view->set_template('admin/table');
 
-		return $view->render();
-	}
+        return $view->render();
+    }
 
 }

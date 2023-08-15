@@ -2,12 +2,12 @@
 
 namespace AC\Table;
 
-use AC;
 use AC\Registerable;
 
 final class ScreenTools implements Registerable {
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'ac/table', function ( Screen $screen ) {
 			$list_screen = $screen->get_list_screen();
 

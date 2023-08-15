@@ -5,17 +5,16 @@ namespace AC\Transient;
 use AC\Storage;
 use AC\Transient;
 
-class User extends Transient {
+class User extends Transient
+{
 
-	/**
-	 * @param string $key
-	 */
-	public function __construct( $key ) {
-		parent::__construct( $key );
+    public function __construct(string $key)
+    {
+        parent::__construct($key);
 
-		$this->option = new Storage\UserMeta( $key );
-		$this->timestamp = new Storage\Timestamp(
-			new Storage\UserMeta( $key . '_timestamp' )
-		);
-	}
+        $this->option = new Storage\UserMeta($key);
+        $this->timestamp = new Storage\Timestamp(
+            new Storage\UserMeta($key . '_timestamp')
+        );
+    }
 }

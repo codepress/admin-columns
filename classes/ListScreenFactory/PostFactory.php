@@ -1,44 +1,50 @@
 <?php
-declare( strict_types=1 );
+
+declare(strict_types=1);
 
 namespace AC\ListScreenFactory;
 
 use AC\ListScreen;
 use AC\ListScreen\Post;
-use AC\ListScreenFactoryInterface;
-use InvalidArgumentException;
+use AC\PostTypeRepository;
 use WP_Screen;
 
-class PostFactory implements ListScreenFactoryInterface {
+class PostFactory extends BaseFactory
+{
 
-	use ListSettingsTrait;
+    private $post_type_repository;
 
-	protected function create_list_screen( string $key ): Post {
-		return new Post( $key );
-	}
+    public function __construct(PostTypeRepository $post_type_repository)
+    {
+        $this->post_type_repository = $post_type_repository;
+    }
 
-	public function create( string $key, array $settings = [] ): ListScreen {
-		if ( ! $this->can_create( $key ) ) {
-			throw new InvalidArgumentException( 'Invalid key.' );
-		}
+    protected function create_list_screen_from_wp_screen(WP_Screen $screen): ListScreen
+    {
+        return $this->create_list_screen($screen->post_type);
+    }
 
-		return $this->add_settings( $this->create_list_screen( $key ), $settings );
-	}
+    protected function create_list_screen(string $key): ListScreen
+    {
+        return new Post($key);
+    }
 
-	public function create_by_wp_screen( WP_Screen $screen, array $settings = [] ): ListScreen {
-		if ( ! $this->can_create_by_wp_screen( $screen ) ) {
-			throw new InvalidArgumentException( 'Invalid screen.' );
-		}
+    public function can_create(string $key): bool
+    {
+        return $this->is_supported_post_type($key);
+    }
 
-		return $this->create( $screen->post_type, $settings );
-	}
+    private function is_supported_post_type(string $post_type): bool
+    {
+        return $this->post_type_repository->exists($post_type);
+    }
 
-	public function can_create( string $key ): bool {
-		return post_type_exists( $key );
-	}
-
-	public function can_create_by_wp_screen( WP_Screen $screen ): bool {
-		return 'edit' === $screen->base && $screen->post_type && 'edit-' . $screen->post_type === $screen->id;
-	}
+    public function can_create_from_wp_screen(WP_Screen $screen): bool
+    {
+        return 'edit' === $screen->base &&
+               $screen->post_type &&
+               'edit-' . $screen->post_type === $screen->id &&
+               $this->is_supported_post_type($screen->post_type);
+    }
 
 }

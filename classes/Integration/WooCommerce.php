@@ -12,7 +12,7 @@ final class WooCommerce extends Integration {
 
 	public function __construct() {
 		parent::__construct(
-			'ac-addon-woocommerce/ac-addon-woocommerce.php',
+			'ac-addon-woocommerce',
 			__( 'WooCommerce', 'codepress-admin-columns' ),
 			'assets/images/addons/woocommerce-icon.png',
 			sprintf(
@@ -25,7 +25,8 @@ final class WooCommerce extends Integration {
 		);
 	}
 
-	public function is_plugin_active() {
+	public function is_plugin_active(): bool
+    {
 		return class_exists( 'WooCommerce', false );
 	}
 
@@ -37,7 +38,8 @@ final class WooCommerce extends Integration {
 		];
 	}
 
-	public function show_notice( Screen $screen ) {
+	public function show_notice( Screen $screen ): bool
+    {
 		$is_user_screen = 'users' === $screen->get_id();
 		$is_post_screen = 'edit' === $screen->get_base()
 		                  && in_array( $screen->get_post_type(), $this->get_post_types() );
@@ -45,7 +47,8 @@ final class WooCommerce extends Integration {
 		return $is_user_screen || $is_post_screen;
 	}
 
-	public function show_placeholder( ListScreen $list_screen ) {
+	public function show_placeholder( ListScreen $list_screen ): bool
+    {
 		$is_user_screen = $list_screen instanceof ListScreen\User;
 		$is_post_screen = $list_screen instanceof ListScreenPost
 		                  && in_array( $list_screen->get_post_type(), $this->get_post_types() );

@@ -12,442 +12,359 @@ use AC\Registerable;
 use AC\Renderable;
 use AC\ScreenController;
 use AC\Settings;
-use WP_Post;
 
-final class Screen implements Registerable {
+final class Screen implements Registerable
+{
 
-	/**
-	 * @var Asset\Location\Absolute
-	 */
-	private $location;
+    /**
+     * @var Asset\Location\Absolute
+     */
+    private $location;
 
-	/**
-	 * @var ListScreen
-	 */
-	private $list_screen;
+    /**
+     * @var ListScreen
+     */
+    private $list_screen;
 
-	/**
-	 * @var Form\Element[]
-	 */
-	private $screen_options;
+    /**
+     * @var Form\Element[]
+     */
+    private $screen_options;
 
-	/**
-	 * @var Button[]
-	 */
-	private $buttons = [];
+    /**
+     * @var Button[]
+     */
+    private $buttons = [];
 
-	/**
-	 * @var ColumnSize\ListStorage
-	 */
-	private $column_size_list_storage;
+    /**
+     * @var ColumnSize\ListStorage
+     */
+    private $column_size_list_storage;
 
-	/**
-	 * @var ColumnSize\UserStorage
-	 */
-	private $column_size_user_storage;
+    /**
+     * @var ColumnSize\UserStorage
+     */
+    private $column_size_user_storage;
 
-	public function __construct(
-		Asset\Location\Absolute $location,
-		ListScreen $list_screen,
-		ColumnSize\ListStorage $column_size_list_storage,
-		ColumnSize\UserStorage $column_size_user_storage
-	) {
-		$this->location = $location;
-		$this->list_screen = $list_screen;
-		$this->column_size_list_storage = $column_size_list_storage;
-		$this->column_size_user_storage = $column_size_user_storage;
-	}
+    private $primary_column_factory;
 
-	/**
-	 * Register hooks
-	 */
-	public function register() {
-		$controller = new ScreenController( $this->list_screen );
-		$controller->register();
+    public function __construct(
+        Asset\Location\Absolute $location,
+        ListScreen $list_screen,
+        ColumnSize\ListStorage $column_size_list_storage,
+        ColumnSize\UserStorage $column_size_user_storage,
+        PrimaryColumnFactory $primary_column_factory
+    ) {
+        $this->location = $location;
+        $this->list_screen = $list_screen;
+        $this->column_size_list_storage = $column_size_list_storage;
+        $this->column_size_user_storage = $column_size_user_storage;
+        $this->primary_column_factory = $primary_column_factory;
+    }
 
-		$render = new TableFormView( $this->list_screen->get_meta_type(), sprintf( '<input type="hidden" name="layout" value="%s">', $this->list_screen->get_layout_id() ) );
-		$render->register();
+    /**
+     * Register hooks
+     */
+    public function register(): void
+    {
+        $controller = new ScreenController($this->list_screen);
+        $controller->register();
 
-		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] );
-		add_action( 'admin_footer', [ $this, 'admin_footer_scripts' ] );
-		add_action( 'admin_head', [ $this, 'admin_head_scripts' ] );
-		add_action( 'admin_head', [ $this, 'register_settings_button' ] );
-		add_filter( 'admin_body_class', [ $this, 'admin_class' ] );
-		add_filter( 'list_table_primary_column', [ $this, 'set_primary_column' ], 20 );
-		add_action( 'admin_footer', [ $this, 'render_actions' ] );
-		add_filter( 'screen_settings', [ $this, 'screen_options' ] );
-	}
+        $render = new TableFormView(
+            $this->list_screen->get_meta_type(),
+            sprintf('<input type="hidden" name="layout" value="%s">', $this->list_screen->get_layout_id())
+        );
+        $render->register();
 
-	/**
-	 * @return Button[]
-	 */
-	public function get_buttons() {
-		return array_merge( [], ...$this->buttons );
-	}
+        (new AdminHeadStyle())->register();
 
-	/**
-	 * @param Button $button
-	 * @param int    $priority
-	 *
-	 * @return bool
-	 */
-	public function register_button( Button $button, $priority = 10 ) {
-		$this->buttons[ $priority ][] = $button;
+        add_filter(
+            'list_table_primary_column',
+            [
+                $this->primary_column_factory->create($this->list_screen),
+                'set_primary_column',
+            ],
+            20
+        );
+        add_action('admin_enqueue_scripts', [$this, 'admin_scripts']);
+        add_action('admin_footer', [$this, 'admin_footer_scripts']);
+        add_action('admin_head', [$this, 'admin_head_scripts']);
+        add_action('admin_head', [$this, 'register_settings_button']);
+        add_filter('admin_body_class', [$this, 'admin_class']);
+        add_action('admin_footer', [$this, 'render_actions']);
+        add_filter('screen_settings', [$this, 'screen_options']);
+    }
 
-		ksort( $this->buttons, SORT_NUMERIC );
+    public function get_buttons(): array
+    {
+        return array_merge([], ...$this->buttons);
+    }
 
-		return true;
-	}
+    public function register_button(Button $button, int $priority = 10): bool
+    {
+        $button->set_attribute('data-priority', $priority);
+        $this->buttons[$priority][] = $button;
 
-	/**
-	 * Set the primary columns. Used to place the actions bar.
-	 *
-	 * @param $default
-	 *
-	 * @return int|null|string
-	 * @since 2.5.5
-	 */
-	public function set_primary_column( $default ) {
+        ksort($this->buttons, SORT_NUMERIC);
 
-		if ( ! $this->list_screen->get_column_by_name( $default ) ) {
-			$default = key( $this->list_screen->get_columns() );
-		}
+        return true;
+    }
 
-		// If actions column is present, set it as primary
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			if ( 'column-actions' === $column->get_type() ) {
-				$default = $column->get_name();
+    /**
+     * Adds a body class which is used to set individual column widths
+     *
+     * @param string $classes body classes
+     *
+     * @return string
+     * @since 1.4.0
+     */
+    public function admin_class($classes)
+    {
+        $classes .= ' ac-' . $this->list_screen->get_key();
 
-				if ( $this->list_screen instanceof ListScreen\Media ) {
+        return apply_filters('ac/table/body_class', $classes, $this);
+    }
 
-					// Add download button to the actions column
-					add_filter( 'media_row_actions', [ $this, 'set_media_row_actions' ], 10, 2 );
-				}
-			}
-		}
+    public function register_settings_button()
+    {
+        if ( ! current_user_can(Capabilities::MANAGE)) {
+            return;
+        }
 
-		// Set inline edit data if the default column (title) is not present
-		if ( $this->list_screen instanceof ListScreen\Post && 'title' !== $default ) {
-			add_filter( 'page_row_actions', [ $this, 'set_inline_edit_data' ], 20, 2 );
-			add_filter( 'post_row_actions', [ $this, 'set_inline_edit_data' ], 20, 2 );
-		}
+        $edit_button = new Settings\Option\EditButton();
 
-		// Remove inline edit action if the default column (author) is not present
-		if ( $this->list_screen instanceof ListScreen\Comment && 'comment' !== $default ) {
-			add_filter( 'comment_row_actions', [ $this, 'remove_quick_edit_from_actions' ], 20, 2 );
-		}
+        if ( ! $edit_button->is_enabled()) {
+            return;
+        }
 
-		return $default;
-	}
+        $button = new Button('edit-columns');
+        $button->set_label(__('Edit columns', 'codepress-admin-columns'))
+               ->set_url((string)$this->list_screen->get_editor_url())
+               ->set_dashicon('admin-generic');
 
-	/**
-	 * Add a download link to the table screen
-	 *
-	 * @param array   $actions
-	 * @param WP_Post $post
-	 *
-	 * @return array
-	 */
-	public function set_media_row_actions( $actions, $post ) {
-		$link_attributes = [
-			'download' => '',
-			'title'    => __( 'Download', 'codepress-admin-columns' ),
-		];
-		$actions['download'] = ac_helper()->html->link( wp_get_attachment_url( $post->ID ), __( 'Download', 'codepress-admin-columns' ), $link_attributes );
+        $this->register_button($button, 1);
+    }
 
-		return $actions;
-	}
+    /**
+     * @since 2.2.4
+     */
+    public function admin_scripts()
+    {
+        $style = new Asset\Style('ac-table', $this->location->with_suffix('assets/css/table.css'), ['ac-ui']);
+        $style->enqueue();
 
-	/**
-	 * Sets the inline data when the title columns is not present on a AC\ListScreen_Post screen
-	 *
-	 * @param array   $actions
-	 * @param WP_Post $post
-	 *
-	 * @return array
-	 */
-	public function set_inline_edit_data( $actions, $post ) {
-		get_inline_data( $post );
+        $table_translation = Asset\Script\Localize\Translation::create([
+            'value_loading' => __('Loading...', 'codepress-admin-columns'),
+            'edit'          => __('Edit', 'codepress-admin-columns'),
+            'download'      => __('Download', 'codepress-admin-columns'),
+        ]);
 
-		return $actions;
-	}
+        $script = new Asset\Script(
+            'ac-table',
+            $this->location->with_suffix('assets/js/table.js'),
+            ['jquery', Asset\Script\GlobalTranslationFactory::HANDLE]
+        );
+        $script
+            ->add_inline_variable('AC', [
+                'assets'           => $this->location->with_suffix('assets/')->get_url(),
+                'list_screen'      => $this->list_screen->get_key(),
+                'layout'           => $this->list_screen->get_layout_id(),
+                'column_types'     => $this->get_column_types_mapping(),
+                'ajax_nonce'       => wp_create_nonce('ac-ajax'),
+                'table_id'         => $this->list_screen->get_table_attr_id(),
+                'screen'           => $this->get_current_screen_id(),
+                'meta_type'        => $this->list_screen->get_meta_type(),
+                'list_screen_link' => $this->get_list_screen_clear_link(),
+                'current_user_id'  => get_current_user_id(),
+                'number_format'    => [
+                    'decimal_point' => $this->get_local_number_format('decimal_point'),
+                    'thousands_sep' => $this->get_local_number_format('thousands_sep'),
+                ],
+            ])
+            ->localize('AC_I18N', $table_translation)
+            ->enqueue();
 
-	/**
-	 * Remove quick edit from actions
-	 *
-	 * @param array $actions
-	 *
-	 * @return array
-	 */
-	public function remove_quick_edit_from_actions( $actions ) {
-		unset( $actions['quickedit'] );
+        /**
+         * @param ListScreen $list_screen
+         */
+        do_action('ac/table_scripts', $this->list_screen, $this);
 
-		return $actions;
-	}
+        // Column specific scripts
+        foreach ($this->list_screen->get_columns() as $column) {
+            $column->scripts();
+        }
+    }
 
-	/**
-	 * Adds a body class which is used to set individual column widths
-	 *
-	 * @param string $classes body classes
-	 *
-	 * @return string
-	 * @since 1.4.0
-	 */
-	public function admin_class( $classes ) {
-		$classes .= ' ac-' . $this->list_screen->get_key();
+    private function get_local_number_format(string $var)
+    {
+        global $wp_locale;
 
-		return apply_filters( 'ac/table/body_class', $classes, $this );
-	}
+        return $wp_locale->number_format[$var] ?? null;
+    }
 
-	/**
-	 * @since 3.2.5
-	 */
-	public function register_settings_button() {
-		if ( ! current_user_can( Capabilities::MANAGE ) ) {
-			return;
-		}
+    /**
+     * @return string
+     */
+    private function get_list_screen_clear_link(): string
+    {
+        $url = $this->list_screen->get_table_url();
 
-		$edit_button = new Settings\Option\EditButton();
+        $query_args_whitelist = [
+            'layout',
+            'orderby',
+            'order',
+        ];
 
-		if ( ! $edit_button->is_enabled() ) {
-			return;
-		}
+        switch (true) {
+            case $this->list_screen instanceof ListScreen\Post :
+                $query_args_whitelist[] = 'post_status';
+                break;
+            case $this->list_screen instanceof ListScreen\User :
+                $query_args_whitelist[] = 'role';
+                break;
+            case $this->list_screen instanceof ListScreen\Comment :
+                $query_args_whitelist[] = 'comment_status';
+                break;
+        }
 
-		$edit_link = $this->list_screen->get_edit_link();
+        foreach ($query_args_whitelist as $query_arg) {
+            if (isset($_GET[$query_arg])) {
+                $url = $url->with_arg($query_arg, $_GET[$query_arg]);
+            }
+        }
 
-		if ( ! $edit_link ) {
-			return;
-		}
+        return (string)$url;
+    }
 
-		$button = new Button( 'edit-columns' );
-		$button->set_label( __( 'Edit columns', 'codepress-admin-columns' ) )
-		       ->set_url( $edit_link )
-		       ->set_dashicon( 'admin-generic' );
+    /**
+     * @return false|string
+     */
+    private function get_current_screen_id()
+    {
+        $screen = get_current_screen();
 
-		$this->register_button( $button, 1 );
-	}
+        if ( ! $screen) {
+            return false;
+        }
 
-	/**
-	 * @since 2.2.4
-	 */
-	public function admin_scripts() {
+        return $screen->id;
+    }
 
-		$style = new Asset\Style( 'ac-table', $this->location->with_suffix( 'assets/css/table.css' ), [ 'ac-ui' ] );
-		$style->enqueue();
+    /**
+     * @return array
+     */
+    private function get_column_types_mapping()
+    {
+        $types = [];
+        foreach ($this->list_screen->get_columns() as $column) {
+            $types[$column->get_name()] = $column->get_type();
+        }
 
-		$table_translation = Asset\Script\Localize\Translation::create( [
-			'value_loading' => __( 'Loading...', 'codepress-admin-columns' ),
-			'edit'          => __( 'Edit', 'codepress-admin-columns' ),
-			'download'      => __( 'Download', 'codepress-admin-columns' ),
-		] );
+        return $types;
+    }
 
-		$script = new Asset\Script( 'ac-table', $this->location->with_suffix( 'assets/js/table.js' ), [ 'jquery', Asset\Script\GlobalTranslationFactory::HANDLE ] );
-		$script
-			->add_inline_variable( 'AC', [
-				'assets'           => $this->location->with_suffix( 'assets/' )->get_url(),
-				'list_screen'      => $this->list_screen->get_key(),
-				'layout'           => $this->list_screen->get_layout_id(),
-				'column_types'     => $this->get_column_types_mapping(),
-				'ajax_nonce'       => wp_create_nonce( 'ac-ajax' ),
-				'table_id'         => $this->list_screen->get_table_attr_id(),
-				'screen'           => $this->get_current_screen_id(),
-				'meta_type'        => $this->list_screen->get_meta_type(),
-				'list_screen_link' => $this->get_list_screen_clear_link(),
-				'number_format'    => [
-					'decimal_point' => $this->get_local_number_format( 'decimal_point' ),
-					'thousands_sep' => $this->get_local_number_format( 'thousands_sep' ),
-				],
-			] )
-			->localize( 'AC_I18N', $table_translation )
-			->enqueue();
+    /**
+     * @return ListScreen
+     */
+    public function get_list_screen()
+    {
+        return $this->list_screen;
+    }
 
-		/**
-		 * @param ListScreen $list_screen
-		 */
-		do_action( 'ac/table_scripts', $this->list_screen, $this );
+    /**
+     * Admin header scripts
+     * @since 3.1.4
+     */
+    public function admin_head_scripts()
+    {
+        $inline_style = new AC\Table\InlineStyle\ColumnSize(
+            $this->list_screen,
+            $this->column_size_list_storage,
+            $this->column_size_user_storage
+        );
 
-		// Column specific scripts
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			$column->scripts();
-		}
-	}
+        echo $inline_style->render();
 
-	private function get_local_number_format( string $var ) {
-		global $wp_locale;
+        /**
+         * Add header scripts that only apply to column screens.
+         *
+         * @param ListScreen
+         * @param self
+         *
+         * @since 3.1.4
+         */
+        do_action('ac/admin_head', $this->list_screen, $this);
+    }
 
-		return $wp_locale->number_format[ $var ] ?? null;
-	}
+    public function admin_footer_scripts(): void
+    {
+        do_action('ac/table/admin_footer', $this->list_screen, $this);
+    }
 
-	/**
-	 * @return string
-	 */
-	private function get_list_screen_clear_link() {
-
-		$query_args_whitelist = [
-			'layout',
-			'orderby',
-			'order',
-		];
-
-		switch ( true ) {
-			case $this->list_screen instanceof ListScreen\Post :
-				$query_args_whitelist[] = 'post_status';
-				break;
-			case $this->list_screen instanceof ListScreen\User :
-				$query_args_whitelist[] = 'role';
-				break;
-			case $this->list_screen instanceof ListScreen\Comment :
-				$query_args_whitelist[] = 'comment_status';
-				break;
-		}
-
-		$args = [];
-
-		foreach ( $query_args_whitelist as $query_arg ) {
-			if ( isset( $_GET[ $query_arg ] ) ) {
-				$args[ $query_arg ] = $_GET[ $query_arg ];
-			}
-		}
-
-		return add_query_arg( $args, $this->list_screen->get_screen_link() );
-	}
-
-	/**
-	 * @return false|string
-	 */
-	private function get_current_screen_id() {
-		$screen = get_current_screen();
-
-		if ( ! $screen ) {
-			return false;
-		}
-
-		return $screen->id;
-	}
-
-	/**
-	 * @return array
-	 */
-	private function get_column_types_mapping() {
-		$types = [];
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			$types[ $column->get_name() ] = $column->get_type();
-		}
-
-		return $types;
-	}
-
-	/**
-	 * @return ListScreen
-	 */
-	public function get_list_screen() {
-		return $this->list_screen;
-	}
-
-	/**
-	 * Admin header scripts
-	 * @since 3.1.4
-	 */
-	public function admin_head_scripts() {
-		$inline_style = new AC\Table\InlineStyle\ColumnSize(
-			$this->list_screen,
-			$this->column_size_list_storage,
-			$this->column_size_user_storage
-		);
-
-		echo $inline_style->render();
-
-		/**
-		 * Add header scripts that only apply to column screens.
-		 *
-		 * @param ListScreen
-		 * @param self
-		 *
-		 * @since 3.1.4
-		 */
-		do_action( 'ac/admin_head', $this->list_screen, $this );
-	}
-
-	/**
-	 * Admin footer scripts
-	 * @since 1.4.0
-	 */
-	public function admin_footer_scripts() {
-		/**
-		 * Add footer scripts that only apply to column screens.
-		 *
-		 * @param ListScreen
-		 * @param self
-		 *
-		 * @since 2.3.5
-		 */
-		do_action( 'ac/admin_footer', $this->list_screen, $this );
-	}
-
-	/**
-	 * @since 3.2.5
-	 */
-	public function render_actions() {
-		?>
+    public function render_actions(): void
+    {
+        ?>
 		<div id="ac-table-actions" class="ac-table-actions">
 
-			<?php $this->render_buttons(); ?>
+            <?php
+            $this->render_buttons(); ?>
 
-			<?php do_action( 'ac/table/actions', $this ); ?>
+            <?php
+            do_action('ac/table/actions', $this); ?>
 		</div>
-		<?php
-	}
+        <?php
+    }
 
-	private function render_buttons() {
-		?>
+    private function render_buttons(): void
+    {
+        ?>
 		<div class="ac-table-actions-buttons">
-			<?php
-			foreach ( $this->get_buttons() as $button ) {
-				$button->render();
-			}
-			?>
+            <?php
+            foreach ($this->get_buttons() as $button) {
+                $button->render();
+            }
+            ?>
 		</div>
-		<?php
-	}
+        <?php
+    }
 
-	/**
-	 * @param Renderable $option
-	 */
-	public function register_screen_option( Renderable $option ) {
-		$this->screen_options[] = $option;
-	}
+    public function register_screen_option(Renderable $option): void
+    {
+        $this->screen_options[] = $option;
+    }
 
-	/**
-	 * @param string $html
-	 *
-	 * @return string
-	 */
-	public function screen_options( $html ) {
-		if ( empty( $this->screen_options ) ) {
-			return $html;
-		}
+    /**
+     * @param string $html
+     *
+     * @return string
+     */
+    public function screen_options($html)
+    {
+        if (empty($this->screen_options)) {
+            return $html;
+        }
 
-		ob_start();
-		?>
+        ob_start();
+        ?>
 
 		<fieldset class='acp-screen-option-prefs'>
-			<legend><?= __( 'Admin Columns', 'codepress-admin-columns' ); ?></legend>
+			<legend><?= __('Admin Columns', 'codepress-admin-columns'); ?></legend>
 			<div class="acp-so-container">
-				<?php
+                <?php
 
-				foreach ( $this->screen_options as $option ) {
-					echo $option->render();
-				}
+                foreach ($this->screen_options as $option) {
+                    echo $option->render();
+                }
 
-				?>
+                ?>
 			</div>
 		</fieldset>
 
-		<?php
+        <?php
 
-		$html .= ob_get_clean();
+        $html .= ob_get_clean();
 
-		return $html;
-	}
+        return $html;
+    }
 
 }

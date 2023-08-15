@@ -2,8 +2,10 @@
 
 namespace AC\Column\Media;
 
+use AC\ApplyFilter\ValidVideoMimetypes;
 use AC\Column;
 use AC\Settings\Column\VideoDisplay;
+use AC\View\Embed\Video;
 
 class VideoPlayer extends Column implements Column\AjaxValue {
 
@@ -53,9 +55,7 @@ class VideoPlayer extends Column implements Column\AjaxValue {
 	}
 
 	private function is_valid_mime_type( $id ) {
-		$valid_mime_types = apply_filters( 'ac/column/video_player/valid_mime_types', [ 'video/mp4', 'video/webm', 'video/quicktime' ], $this );
-
-		return in_array( $this->get_mime_type( $id ), $valid_mime_types );
+		return in_array( $this->get_mime_type( $id ), ( new ValidVideoMimetypes( $this ) )->apply_filters() );
 	}
 
 	private function get_mime_type( $id ) {
@@ -63,13 +63,10 @@ class VideoPlayer extends Column implements Column\AjaxValue {
 	}
 
 	private function get_video_embed( $url, array $attributes = [] ) {
-		$attribute_markup = [];
+		$view = new Video( $attributes );
+		$view->set_src( $url );
 
-		foreach ( $attributes as $key => $value ) {
-			$attribute_markup[] = sprintf( '%s="%s"', $key, esc_attr__( $value ) );
-		}
-
-		return sprintf( '<video controls %s src="%s" preload="metadata"></video>', implode( ' ', $attribute_markup ), esc_url( $url ) );
+		return $view->render();
 	}
 
 	public function get_raw_value( $id ) {

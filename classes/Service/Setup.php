@@ -7,20 +7,18 @@ use AC\Registerable;
 
 final class Setup implements Registerable {
 
-	/**
-	 * @var Plugin\Setup
-	 */
 	private $setup;
 
 	public function __construct( Plugin\Setup $setup ) {
 		$this->setup = $setup;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 		add_action( 'init', [ $this, 'run' ], 1000 );
 	}
 
-	public function run() {
+	public function run(): void {
 		if ( wp_doing_ajax() ) {
 			return;
 		}

@@ -2,7 +2,6 @@
 
 namespace AC\Table;
 
-use AC;
 use AC\Registerable;
 
 final class TableFormView implements Registerable {
@@ -34,7 +33,8 @@ final class TableFormView implements Registerable {
 		$this->priority = (int) $priority;
 	}
 
-	public function register() {
+	public function register(): void
+    {
 
 		switch ( $this->type ) {
 			case 'post':

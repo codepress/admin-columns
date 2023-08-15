@@ -2,65 +2,65 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-03-21 22:05:53+0000\n"
+"PO-Revision-Date: 2023-06-08 11:23:19+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.4\n"
+"X-Generator: GlotPress/4.0.0-alpha.7\n"
 "Language: es\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
 #: templates/tooltip/conditional-format.php:3
 msgctxt "conditional format help"
 msgid "Conditional Format allows you to format a value based on conditions you set."
-msgstr ""
+msgstr "El formato condicional te permite dar formato a un valor según las condiciones que establezcas."
 
 #: templates/tooltip/conditional-format.php:1
 msgid "Conditional Format"
-msgstr ""
+msgstr "Formato condicional"
 
 #: settings/translations/global.php:6
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: settings/translations/global.php:5
 msgid "Ok"
-msgstr ""
+msgstr "Aceptar"
 
 #: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:17
 msgid "Assistant"
-msgstr ""
+msgstr "Asistente"
 
 #: classes/Settings/Column/Separator.php:27
 msgid "Horizontal Rule"
-msgstr ""
+msgstr "Regla horizontal"
 
 #: classes/Integration/MediaLibraryAssistant.php:16
 msgid "The Media Library Assistant plugin from David Lingren provides several enhancements for managing the Media Library."
-msgstr ""
+msgstr "El plugin Media Library Assistant de David Lingren proporciona varias mejoras para la gestión de la biblioteca de medios."
 
 #: classes/Integration/MediaLibraryAssistant.php:14
 #: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:16
 msgid "Media Library Assistant"
-msgstr ""
+msgstr "Asistente de biblioteca de medios"
 
 #: classes/Controller/AjaxColumnModalValue.php:50
 #: classes/Controller/AjaxColumnValue.php:48
 msgid "Invalid list ID."
-msgstr ""
+msgstr "ID de lista no válido."
 
 #: classes/Column/Placeholder.php:47
 msgid "Admin Columns Pro offers full support for %s, allowing you to easily manage %s fields for your overviews."
-msgstr ""
+msgstr "Admin Columns Pro ofrece compatibilidad total con %s, lo que te permite gestionar fácilmente los campos %s para tus vistas generales."
 
 #: classes/Column/Placeholder.php:44
 msgid "%s support is only available in Admin Columns Pro."
-msgstr ""
+msgstr "La compatibilidad con %s sólo está disponible en Admin Columns Pro."
 
 #: classes/Check/AddonAvailable.php:76
 msgid "Did you know Admin Columns Pro has full support for %s?"
-msgstr ""
+msgstr "¿Sabías que Admin Columns Pro es totalmente compatible con %s?"
 
 #: templates/tooltip/sorting-include-empty.php:17
 msgid "Read more &raquo;"

@@ -2,78 +2,42 @@
 
 namespace AC;
 
-class IntegrationRepository {
+use AC\Integration\Filter;
+use ACP\Integration\Filter\IsActive;
 
-	const ARG_FILTER = 'filter';
+class IntegrationRepository
+{
 
-	/**
-	 * @return Integrations
-	 */
-	private function all() {
-		return new Integrations( [
-			new Integration\ACF(),
-			new Integration\BuddyPress(),
-			new Integration\EventsCalendar(),
-			new Integration\GravityForms(),
-			new Integration\JetEngine(),
-			new Integration\Pods(),
-			new Integration\Types(),
-			new Integration\MetaBox(),
-			new Integration\MediaLibraryAssistant(),
-			new Integration\WooCommerce(),
-			new Integration\YoastSeo(),
-		] );
-	}
+    public function find_all(): Integrations
+    {
+        return new Integrations([
+            new Integration\ACF(),
+            new Integration\BuddyPress(),
+            new Integration\EventsCalendar(),
+            new Integration\GravityForms(),
+            new Integration\JetEngine(),
+            new Integration\Pods(),
+            new Integration\Types(),
+            new Integration\MetaBox(),
+            new Integration\MediaLibraryAssistant(),
+            new Integration\WooCommerce(),
+            new Integration\YoastSeo(),
+        ]);
+    }
 
-	/**
-	 * @param string $basename
-	 *
-	 * @return Integration|null
-	 */
-	public function find_by_basename( $basename ) {
-		foreach ( $this->find_all()->all() as $integration ) {
-			if ( $integration->get_basename() === $basename ) {
-				return $integration;
-			}
-		}
+    public function find_all_active(): Integrations
+    {
+        return (new IsActive())->filter($this->find_all());
+    }
 
-		return null;
-	}
+    public function find_all_by_active_plugins(): Integrations
+    {
+        return (new Filter\IsPluginActive())->filter($this->find_all());
+    }
 
-	/**
-	 * @param string $slug
-	 *
-	 * @return Integration|null
-	 */
-	public function find_by_slug( $slug ) {
-		foreach ( $this->find_all()->all() as $integration ) {
-			if ( $integration->get_slug() === $slug ) {
-				return $integration;
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * @param array $args
-	 *
-	 * @return Integrations
-	 */
-	public function find_all( array $args = [] ) {
-		$integrations = $this->all();
-
-		$args = array_merge( [
-			self::ARG_FILTER => [],
-		], $args );
-
-		foreach ( $args[ self::ARG_FILTER ] as $filter ) {
-			if ( $filter instanceof Integration\Filter ) {
-				$integrations = $filter->filter( $integrations );
-			}
-		}
-
-		return $integrations;
-	}
+    public function find_all_by_inactive_plugins(): Integrations
+    {
+        return (new Filter\IsPluginNotActive())->filter($this->find_all());
+    }
 
 }
