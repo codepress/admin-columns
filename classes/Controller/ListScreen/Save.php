@@ -33,7 +33,7 @@ class Save
         $list_id = $data['list_screen_id'] ?? '';
 
         if ( ! $this->list_screen_factory->can_create($list_key)) {
-            wp_send_json_error(['message' => 'List screen not found']);
+            wp_send_json_error(['message' => __('List screen not found', 'codepress-admin-columns')]);
         }
 
         $list_id = ListScreenId::is_valid_id($list_id)
@@ -53,6 +53,10 @@ class Save
         );
 
         $this->storage->save($list_screen);
+
+        if ( ! $this->storage->exists($list_id)) {
+            wp_send_json_error(['message' => __('Column settings could not be saved.', 'codepress-admin-columns')]);
+        }
 
         do_action('ac/columns_stored', $list_screen);
 
