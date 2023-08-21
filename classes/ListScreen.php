@@ -324,7 +324,11 @@ abstract class ListScreen
     {
         $columns = $this->get_original_columns();
 
-        return $columns[$type] ?? null;
+        $label = $columns[$type] ?? null;
+
+        return is_string($label)
+            ? $label
+            : null;
     }
 
     public function get_original_columns(): array
