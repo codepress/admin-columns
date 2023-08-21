@@ -8,6 +8,8 @@ use AC\Registerable;
 final class Setup implements Registerable
 {
 
+    public const PARAM_FORCE_INSTALL = 'ac-force-install';
+
     private $setup;
 
     public function __construct(Plugin\Setup $setup)
@@ -30,7 +32,7 @@ final class Setup implements Registerable
             return;
         }
 
-        $force_install = '1' === filter_input(INPUT_GET, 'ac-force-install');
+        $force_install = '1' === filter_input(INPUT_GET, self::PARAM_FORCE_INSTALL);
 
         $this->setup->run($force_install);
     }

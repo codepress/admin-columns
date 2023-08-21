@@ -16,10 +16,23 @@ final class Database implements AC\Plugin\Install
     {
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
-        dbDelta($this->get_schema());
+        dbDelta(self::get_schema());
     }
 
-    private function get_schema(): string
+    public static function verify_database_exists(): bool
+    {
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+        global $wpdb;
+
+        $suppress_errors = $wpdb->suppress_errors();
+        $created = dbDelta(self::get_schema(), false);
+        $wpdb->suppress_errors($suppress_errors);
+
+        return 1 !== count($created);
+    }
+
+    private static function get_schema(): string
     {
         global $wpdb;
 

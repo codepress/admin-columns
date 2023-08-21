@@ -56,6 +56,7 @@ class AdminColumns
             Admin\Admin::class,
             Admin\Scripts::class,
             Admin\Notice\ReadOnlyListScreen::class,
+            Admin\Notice\DatabaseMissing::class,
             Ajax\NumberFormat::class,
             ThirdParty\ACF::class,
             ThirdParty\NinjaForms::class,
