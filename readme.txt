@@ -212,6 +212,8 @@ You can find a list of the available actions and filters (and examples on how to
 = 4.6.6 =
 Release Date: 21st August, 2023
 
+* [Improved] Give better feedback when the settings could not be saved because of missing database tables
+* [Fixed] Error on the WPML string translation page
 * [Fixed] Some custom columns could give a fatal error on the settings page
 
 = 4.6.5 =
