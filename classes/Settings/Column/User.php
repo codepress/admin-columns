@@ -34,7 +34,7 @@ class User extends Settings\Column implements Settings\FormatValue
 
     protected function define_options()
     {
-        return ['display_author_as'];
+        return ['display_author_as' => ''];
     }
 
     public function get_dependent_settings()
@@ -105,7 +105,7 @@ class User extends Settings\Column implements Settings\FormatValue
      */
     public function get_display_author_as()
     {
-        return $this->display_author_as;
+        return $this->display_author_as ?: '';
     }
 
     /**
