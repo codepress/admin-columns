@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2023-08-15 11:04+0000\n"
+"POT-Creation-Date: 2023-08-21 11:19+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -892,6 +892,14 @@ msgstr ""
 msgid "Admin Columns Settings"
 msgstr ""
 
+#: classes/Admin/Notice/DatabaseMissing.php:25
+msgid "Database table %s is missing."
+msgstr ""
+
+#: classes/Admin/Notice/DatabaseMissing.php:35
+msgid "Create database table."
+msgstr ""
+
 #: classes/Admin/Notice/ReadOnlyListScreen.php:21
 msgid "The columns for %s are read only and can therefore not be edited."
 msgstr ""
@@ -1322,11 +1330,19 @@ msgstr ""
 msgid "You need at least one column"
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:63
+#: classes/Controller/ListScreen/Save.php:36
+msgid "List screen not found"
+msgstr ""
+
+#: classes/Controller/ListScreen/Save.php:58
+msgid "Column settings could not be saved."
+msgstr ""
+
+#: classes/Controller/ListScreen/Save.php:67
 msgid "Settings for %s updated successfully."
 msgstr ""
 
-#: classes/Controller/ListScreen/Save.php:68
+#: classes/Controller/ListScreen/Save.php:72
 msgid "View %s screen"
 msgstr ""
 
