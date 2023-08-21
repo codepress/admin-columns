@@ -4,29 +4,44 @@ namespace AC\Plugin\Install;
 
 use AC;
 
-final class Database implements AC\Plugin\Install {
+final class Database implements AC\Plugin\Install
+{
 
-	const TABLE = 'admin_columns';
+    public function install()
+    {
+        $this->create_database();
+    }
 
-	public function install() {
-		$this->create_database();
-	}
+    private function create_database(): void
+    {
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
-	private function create_database() {
-		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        dbDelta(self::get_schema());
+    }
 
-		dbDelta( $this->get_schema() );
-	}
+    public static function verify_database_exists(): bool
+    {
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
-	private function get_schema() {
-		global $wpdb;
+        global $wpdb;
 
-		$collate = $wpdb->get_charset_collate();
+        $suppress_errors = $wpdb->suppress_errors();
+        $created = dbDelta(self::get_schema(), false);
+        $wpdb->suppress_errors($suppress_errors);
 
-		$table_name = $wpdb->prefix . self::TABLE;
+        return 1 !== count($created);
+    }
 
-		$table = "
-		CREATE TABLE {$table_name} (
+    private static function get_schema(): string
+    {
+        global $wpdb;
+
+        $collate = $wpdb->has_cap('collation')
+            ? $wpdb->get_charset_collate()
+            : '';
+
+        $table = "
+		CREATE TABLE {$wpdb->prefix}admin_columns (
 			id bigint(20) unsigned NOT NULL auto_increment,
 			list_id varchar(20) NOT NULL default '',
 			list_key varchar(100) NOT NULL default '',
@@ -40,7 +55,7 @@ final class Database implements AC\Plugin\Install {
 		) $collate;
 		";
 
-		return $table;
-	}
+        return $table;
+    }
 
 }
