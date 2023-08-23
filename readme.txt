@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7.1
 Tested up to: 6.3
 Requires PHP: 7.2
-Stable tag: 4.6.6
+Stable tag: 4.6.7
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -208,6 +208,11 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.6.7 =
+Release Date: 23rd August, 2023
+
+* [Fixed] Error  when adding the 'Last Modified Author' column
 
 = 4.6.6 =
 Release Date: 21st August, 2023
