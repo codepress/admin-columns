@@ -10,9 +10,7 @@ class Date
 {
 
     /**
-     * @param string $date
-     *
-     * @return int|false
+     * @param string|int $date
      */
     public function strtotime($date): ?int
     {
@@ -33,7 +31,7 @@ class Date
             // For example the ACF Date and Time Picker uses this format.
             // credits: Ben C
             if (12 === $length || 13 === $length) {
-                $date = intval(round($date / 1000)); // remove the ms
+                return (int)round($date / 1000); // remove the ms
             }
 
             // Date format: yyyymmdd ( often used by ACF ) must start with 19xx or 20xx and is 8 long
@@ -41,11 +39,11 @@ class Date
             if (8 === $length && (strpos($date, '20') === 0 || strpos($date, '19') === 0)) {
                 return strtotime($date) ?: null;
             }
-        } else {
-            return strtotime($date) ?: null;
+
+            return (int)$date;
         }
 
-        return null;
+        return strtotime($date) ?: null;
     }
 
     /**
