@@ -10,7 +10,7 @@ class Date
 {
 
     /**
-     * @param string $date
+     * @param string|int $date
      */
     public function strtotime($date): ?int
     {
