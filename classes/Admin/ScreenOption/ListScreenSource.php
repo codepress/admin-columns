@@ -8,7 +8,7 @@ use AC\Admin\ScreenOption;
 class ListScreenSource extends ScreenOption
 {
 
-    private const KEY = 'show_list_screen_source';
+    private const KEY = 'show_tools_list_screen_source';
 
     private $preference;
 
