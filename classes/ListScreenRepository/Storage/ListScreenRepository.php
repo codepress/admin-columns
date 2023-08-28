@@ -11,7 +11,9 @@ use AC\ListScreenCollection;
 use AC\ListScreenRepository\Rules;
 use AC\ListScreenRepository\SourceAware;
 use AC\Type\ListScreenId;
+use ACP\Storage\Directory;
 use LogicException;
+use SplFileInfo;
 
 class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAware
 {
@@ -122,18 +124,32 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
         }
     }
 
-    public function get_source(ListScreenId $id = null): string
+    public function get_source(): Directory
     {
-        if ( ! $this->has_source($id)) {
+        if ( ! $this->has_source()) {
             throw new Exception\SourceNotAvailableException();
         }
 
-        return $this->repository->get_source($id);
+        return $this->repository->get_source();
     }
 
-    public function has_source(ListScreenId $id = null): bool
+    public function has_source(): bool
     {
-        return $this->repository instanceof SourceAware && $this->repository->has_source($id);
+        return $this->repository instanceof SourceAware && $this->repository->has_source();
+    }
+
+    public function get_file_source(ListScreenId $id): SplFileInfo
+    {
+        if ( ! $this->has_file_source($id)) {
+            throw new Exception\SourceNotAvailableException();
+        }
+
+        return $this->repository->get_file_source($id);
+    }
+
+    public function has_file_source(ListScreenId $id): bool
+    {
+        return $this->repository instanceof SourceAware && $this->repository->has_file_source($id);
     }
 
 }
