@@ -124,32 +124,32 @@ class ListScreenRepository implements AC\ListScreenRepositoryWritable, SourceAwa
         }
     }
 
-    public function get_source(): Directory
+    public function get_source_directory(): Directory
     {
-        if ( ! $this->has_source()) {
+        if ( ! $this->has_source_directory()) {
             throw new Exception\SourceNotAvailableException();
         }
 
-        return $this->repository->get_source();
+        return $this->repository->get_source_directory();
     }
 
-    public function has_source(): bool
+    public function has_source_directory(): bool
     {
-        return $this->repository instanceof SourceAware && $this->repository->has_source();
+        return $this->repository instanceof SourceAware && $this->repository->has_source_directory();
     }
 
-    public function get_file_source(ListScreenId $id): SplFileInfo
+    public function get_source_file(ListScreenId $id): SplFileInfo
     {
-        if ( ! $this->has_file_source($id)) {
+        if ( ! $this->has_source_file($id)) {
             throw new Exception\SourceNotAvailableException();
         }
 
-        return $this->repository->get_file_source($id);
+        return $this->repository->get_source_file($id);
     }
 
-    public function has_file_source(ListScreenId $id): bool
+    public function has_source_file(ListScreenId $id): bool
     {
-        return $this->repository instanceof SourceAware && $this->repository->has_file_source($id);
+        return $this->repository instanceof SourceAware && $this->repository->has_source_file($id);
     }
 
 }

@@ -9,12 +9,12 @@ use SplFileInfo;
 interface SourceAware
 {
 
-    public function get_source(): Directory;
+    public function get_source_directory(): Directory;
 
-    public function has_source(): bool;
+    public function has_source_directory(): bool;
 
-    public function get_file_source(ListScreenId $id): SplFileInfo;
+    public function get_source_file(ListScreenId $id): SplFileInfo;
 
-    public function has_file_source(ListScreenId $id): bool;
+    public function has_source_file(ListScreenId $id): bool;
 
 }
