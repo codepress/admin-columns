@@ -5,10 +5,10 @@ namespace AC\Admin\ScreenOption;
 use AC\Admin\Preference;
 use AC\Admin\ScreenOption;
 
-class ListScreenId extends ScreenOption
+class ListScreenSource extends ScreenOption
 {
 
-    private const KEY = 'show_tools_list_screen_id';
+    private const KEY = 'show_tools_list_screen_source';
 
     private $preference;
 
@@ -27,10 +27,10 @@ class ListScreenId extends ScreenOption
         ob_start();
         ?>
 
-		<label for="ac-list-screen-id" data-ac-screen-option="<?= self::KEY ?>">
-			<input id="ac-list-screen-id" type="checkbox" <?php
+		<label for="ac-list-screen-source" data-ac-screen-option="<?= self::KEY ?>">
+			<input id="ac-list-screen-source" type="checkbox" <?php
             checked($this->is_active()); ?>>
-            <?= __('List Screen ID', 'codepress-admin-columns') ?>
+            <?= __('List Screen Source', 'codepress-admin-columns') ?>
 		</label>
         <?php
         return ob_get_clean();
