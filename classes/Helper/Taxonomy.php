@@ -4,153 +4,166 @@ namespace AC\Helper;
 
 use WP_Term;
 
-class Taxonomy {
+class Taxonomy
+{
 
-	/**
-	 * @param WP_Term[]   $terms Term objects
-	 * @param null|string $post_type
-	 *
-	 * @return array
-	 */
-	public function get_term_links( $terms, $post_type = null ) {
-		if ( ! $terms || is_wp_error( $terms ) ) {
-			return [];
-		}
+    private $html;
 
-		$values = [];
+    public function __construct()
+    {
+        $this->html = new Html();
+    }
 
-		foreach ( $terms as $t ) {
-			if ( ! $t instanceof WP_Term ) {
-				continue;
-			}
+    public function get_term_links(array $terms, string $post_type = null): array
+    {
+        $values = [];
 
-			$values[] = ac_helper()->html->link( $this->get_term_url( $t, $post_type ), sanitize_term_field( 'name', $t->name, $t->term_id, $t->taxonomy, 'display' ) );
-		}
+        foreach ($terms as $term) {
+            if ( ! $term instanceof WP_Term) {
+                continue;
+            }
 
-		return $values;
-	}
+            $values[] = $this->html->link(
+                $this->get_filter_by_term_url($term, $post_type),
+                sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'display')
+            );
+        }
 
-	public function get_term_url( $term, $post_type = null ) {
-		if ( is_numeric( $term ) ) {
-			$term = get_term_by( 'term_taxonomy_id', $term );
-		}
+        return $values;
+    }
 
-		$args = [
-			'post_type' => $post_type,
-			'taxonomy'  => $term->taxonomy,
-			'term'      => $term->slug,
-		];
+    public function get_filter_by_term_url(WP_Term $term, string $post_type = null): string
+    {
+        $args = [
+            'taxonomy' => $term->taxonomy,
+            'term'     => $term->slug,
+        ];
 
-		$page = 'attachment' === $post_type ? 'upload' : 'edit';
+        if ($post_type) {
+            $args['post_type'] = $post_type;
+        }
 
-		return add_query_arg( $args, $page . '.php' );
-	}
+        $page = 'attachment' === $post_type
+            ? 'upload.php'
+            : 'edit.php';
 
-	/**
-	 * @param WP_Term $term
-	 *
-	 * @return false|string
-	 */
-	public function get_term_display_name( $term ) {
-		if ( ! $term || is_wp_error( $term ) ) {
-			return false;
-		}
+        return add_query_arg(
+            $args,
+            $page
+        );
+    }
 
-		return sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' );
-	}
+    /**
+     * @param WP_Term $term
+     *
+     * @return false|string
+     */
+    public function get_term_display_name($term)
+    {
+        if ( ! $term || is_wp_error($term)) {
+            return false;
+        }
 
-	/**
-	 * @param string $object_type post, page, user etc.
-	 * @param string $taxonomy    Taxonomy Name
-	 *
-	 * @return bool
-	 */
-	public function is_taxonomy_registered( $object_type, $taxonomy = '' ) {
-		if ( ! $object_type || ! $taxonomy ) {
-			return false;
-		}
+        return sanitize_term_field('name', $term->name, $term->term_id, $term->taxonomy, 'display');
+    }
 
-		return is_object_in_taxonomy( $object_type, $taxonomy );
-	}
+    /**
+     * @param string $object_type post, page, user etc.
+     * @param string $taxonomy    Taxonomy Name
+     *
+     * @return bool
+     */
+    public function is_taxonomy_registered($object_type, $taxonomy = '')
+    {
+        if ( ! $object_type || ! $taxonomy) {
+            return false;
+        }
 
-	/**
-	 * @param string $field
-	 * @param int    $term_id
-	 * @param string $taxonomy
-	 *
-	 * @return bool|mixed
-	 * @since 3.0
-	 */
-	public function get_term_field( $field, $term_id, $taxonomy ) {
-		$term = get_term_by( 'id', $term_id, $taxonomy );
+        return is_object_in_taxonomy($object_type, $taxonomy);
+    }
 
-		if ( ! $term || is_wp_error( $term ) ) {
-			return false;
-		}
+    /**
+     * @param string $field
+     * @param int    $term_id
+     * @param string $taxonomy
+     *
+     * @return bool|mixed
+     * @since 3.0
+     */
+    public function get_term_field($field, $term_id, $taxonomy)
+    {
+        $term = get_term_by('id', $term_id, $taxonomy);
 
-		if ( ! isset( $term->{$field} ) ) {
-			return false;
-		}
+        if ( ! $term || is_wp_error($term)) {
+            return false;
+        }
 
-		return $term->{$field};
-	}
+        if ( ! isset($term->{$field})) {
+            return false;
+        }
 
-	/**
-	 * @param $post_type
-	 *
-	 * @return array
-	 * @since 3.0
-	 */
-	public function get_taxonomy_selection_options( $post_type ) {
-		$taxonomies = get_object_taxonomies( $post_type, 'objects' );
+        return $term->{$field};
+    }
 
-		$options = [];
-		foreach ( $taxonomies as $index => $taxonomy ) {
-			if ( $taxonomy->name == 'post_format' ) {
-				unset( $taxonomies[ $index ] );
-			}
-			$options[ $taxonomy->name ] = $taxonomy->label;
-		}
+    /**
+     * @param $post_type
+     *
+     * @return array
+     * @since 3.0
+     */
+    public function get_taxonomy_selection_options($post_type)
+    {
+        $taxonomies = get_object_taxonomies($post_type, 'objects');
 
-		natcasesort( $options );
+        $options = [];
+        foreach ($taxonomies as $index => $taxonomy) {
+            if ($taxonomy->name == 'post_format') {
+                unset($taxonomies[$index]);
+            }
+            $options[$taxonomy->name] = $taxonomy->label;
+        }
 
-		return $options;
-	}
+        natcasesort($options);
 
-	/**
-	 * @param int    $term_ids
-	 * @param string $taxonomy
-	 *
-	 * @return WP_Term[]
-	 */
-	public function get_terms_by_ids( $term_ids, $taxonomy ) {
-		$terms = [];
+        return $options;
+    }
 
-		foreach ( (array) $term_ids as $term_id ) {
-			$term = get_term( $term_id, $taxonomy );
-			if ( $term && ! is_wp_error( $term ) ) {
-				$terms[] = $term;
-			}
-		}
+    /**
+     * @param int    $term_ids
+     * @param string $taxonomy
+     *
+     * @return WP_Term[]
+     */
+    public function get_terms_by_ids($term_ids, $taxonomy)
+    {
+        $terms = [];
 
-		return $terms;
-	}
+        foreach ((array)$term_ids as $term_id) {
+            $term = get_term($term_id, $taxonomy);
+            if ($term && ! is_wp_error($term)) {
+                $terms[] = $term;
+            }
+        }
 
-	public function get_taxonomy_label( $taxonomy, $key = 'name' ) {
-		$label = $taxonomy;
-		$taxonomy_object = get_taxonomy( $taxonomy );
+        return $terms;
+    }
 
-		if ( ! $taxonomy_object ) {
-			return $label;
-		}
+    public function get_taxonomy_label($taxonomy, $key = 'name')
+    {
+        $label = $taxonomy;
+        $taxonomy_object = get_taxonomy($taxonomy);
 
-		$labels = get_taxonomy_labels( $taxonomy_object );
+        if ( ! $taxonomy_object) {
+            return $label;
+        }
 
-		if ( property_exists( $labels, $key ) ) {
-			$label = $labels->$key;
-		}
+        $labels = get_taxonomy_labels($taxonomy_object);
 
-		return $label;
-	}
+        if (property_exists($labels, $key)) {
+            $label = $labels->$key;
+        }
+
+        return $label;
+    }
 
 }
