@@ -11,6 +11,7 @@ use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
 use LogicException;
 
+// TODO David find a solution to deal with the Storage\ListScreenRepository that marked LSn as 'read only' according to it' setting. That is gone now. See dev branch for how it used to be.
 final class Storage implements ListScreenRepositoryWritable
 {
 
