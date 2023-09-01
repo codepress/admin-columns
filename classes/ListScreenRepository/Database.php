@@ -12,7 +12,7 @@ use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
 use LogicException;
 
-final class Database implements ListScreenRepositoryWritable
+class Database implements ListScreenRepositoryWritable
 {
 
     use ListScreenRepositoryTrait;
