@@ -116,7 +116,7 @@ class AdminColumns
             Storage::class                          => static function (Database $database): Storage {
                 $storage = new Storage();
                 $storage->set_repositories([
-                    'acp-database' => new ListScreenRepository\Storage\ListScreenRepository($database, true),
+                    'ac-database' => new ListScreenRepository\Storage\ListScreenRepository($database, true),
                 ]);
 
                 return $storage;
