@@ -57,7 +57,7 @@ final class Storage implements ListScreenRepositoryWritable
     protected function find_from_source(ListScreenId $id): ?ListScreen
     {
         foreach ($this->repositories as $repository) {
-            $list_screen = $repository->find($id);
+            $list_screen = $repository->get_list_screen_repository()->find($id);
 
             if ($list_screen) {
                 return $list_screen;
@@ -72,7 +72,7 @@ final class Storage implements ListScreenRepositoryWritable
         $collection = new ListScreenCollection();
 
         foreach ($this->repositories as $repository) {
-            foreach ($repository->find_all() as $list_screen) {
+            foreach ($repository->get_list_screen_repository()->find_all() as $list_screen) {
                 if ( ! $collection->contains($list_screen)) {
                     $collection->add($list_screen);
                 }
@@ -87,7 +87,7 @@ final class Storage implements ListScreenRepositoryWritable
         $collection = new ListScreenCollection();
 
         foreach ($this->repositories as $repository) {
-            foreach ($repository->find_all_by_key($key) as $list_screen) {
+            foreach ($repository->get_list_screen_repository()->find_all_by_key($key) as $list_screen) {
                 if ( ! $collection->contains($list_screen)) {
                     $collection->add($list_screen);
                 }
