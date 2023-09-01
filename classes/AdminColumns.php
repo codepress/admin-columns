@@ -123,7 +123,7 @@ class AdminColumns
                 return $storage;
             },
             RestoreSettingsRequest::class           => static function (Storage $storage): RestoreSettingsRequest {
-                return new RestoreSettingsRequest($storage->get_repository('acp-database'));
+                return new RestoreSettingsRequest($storage->get_repository(Types::DATABASE));
             },
             Plugin::class                           => static function (): Plugin {
                 return Plugin::create(AC_FILE, new Version(AC_VERSION));
