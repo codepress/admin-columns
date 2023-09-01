@@ -121,6 +121,9 @@ final class Storage implements ListScreenRepositoryWritable
         return $this->get_writable_repositories($list_screen)[0] ?? null;
     }
 
+    /**
+     * @return ListScreenRepositoryWritable[]
+     */
     private function get_writable_repositories(ListScreen $list_screen): array
     {
         $repositories = [];
@@ -137,7 +140,7 @@ final class Storage implements ListScreenRepositoryWritable
             }
 
             if ($match && $repository->is_writable()) {
-                $repositories[] = $repository;
+                $repositories[] = $repository->get_list_screen_repository();
             }
         }
 
