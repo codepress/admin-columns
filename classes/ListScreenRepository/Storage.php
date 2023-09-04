@@ -11,7 +11,6 @@ use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
 use LogicException;
 
-// TODO David find a solution to deal with the Storage\ListScreenRepository that marked LSn as 'read only' according to it' setting. That is gone now. See dev branch for how it used to be.
 final class Storage implements ListScreenRepositoryWritable
 {
 
@@ -61,6 +60,8 @@ final class Storage implements ListScreenRepositoryWritable
             $list_screen = $repository->get_list_screen_repository()->find($id);
 
             if ($list_screen) {
+                $list_screen->set_read_only(! $repository->is_writable());
+
                 return $list_screen;
             }
         }
@@ -75,6 +76,8 @@ final class Storage implements ListScreenRepositoryWritable
         foreach ($this->repositories as $repository) {
             foreach ($repository->get_list_screen_repository()->find_all() as $list_screen) {
                 if ( ! $collection->contains($list_screen)) {
+                    $list_screen->set_read_only(! $repository->is_writable());
+
                     $collection->add($list_screen);
                 }
             }
@@ -90,6 +93,8 @@ final class Storage implements ListScreenRepositoryWritable
         foreach ($this->repositories as $repository) {
             foreach ($repository->get_list_screen_repository()->find_all_by_key($key) as $list_screen) {
                 if ( ! $collection->contains($list_screen)) {
+                    $list_screen->set_read_only(! $repository->is_writable());
+
                     $collection->add($list_screen);
                 }
             }
