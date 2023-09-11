@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEWVERSION =
+Release Date: tbd
+
+* [Improved] It is now possible to choose how dates are stored in the Custom Field column
+
 = 4.6.7 =
 Release Date: 25th August, 2023
 
