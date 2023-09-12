@@ -213,11 +213,12 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: tbd
 
 * [Improved] It is now possible to choose how dates are stored in the Custom Field column
+* [Fixed] Fixed an issue where non-existing terms could cause an error on the column settings page
 
 = 4.6.7 =
 Release Date: 25th August, 2023
 
-* [Fixed] Error  when adding the 'Last Modified Author' column
+* [Fixed] Error when adding the 'Last Modified Author' column
 
 = 4.6.6 =
 Release Date: 21st August, 2023
