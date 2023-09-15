@@ -9,9 +9,11 @@ use AC\ListScreenCollection;
 use AC\ListScreenRepository;
 use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
+use ACP\Search\SegmentRepository;
+use ACP\Search\SegmentRepositoryAware;
 use LogicException;
 
-final class Storage implements ListScreenRepositoryWritable
+final class Storage implements ListScreenRepositoryWritable, SegmentRepositoryAware
 {
 
     use ListScreenRepositoryTrait;
@@ -122,6 +124,36 @@ final class Storage implements ListScreenRepositoryWritable
         }
     }
 
+    public function get_segment_repository(ListScreen $list_screen): SegmentRepository
+    {
+        foreach( $this->get_repositories() as $repository ) {
+            if ( $repository->get_list_screen_repository( $list_screen->get_id() ) ) {
+                return $list_screen_repository->get_segment_repository( $list_screen );
+            }
+        }
+
+        return null;
+    }
+
+    public function get_repository_by_list_screen( ListScreen $list_screen ) : ?ListScreenRepository {
+        foreach( $this->repositories as $repository ) {
+            if ( $repository->get_list_screen_repository()->find( $list_screen->get_id() ) ) {
+                return $repository->get_list_screen_repository();
+            }
+        }
+
+        return null;
+    }
+
+
+
+    // TODO David consider get_repository_by_list_screen( ListScreen $list_screen )?
+    // TODO David maybe consider naming _by_list_screen
+    // TODO David get_segment_repository( ListScreen $list_screen );
+    // TODO David ALWAYS give a LS id or LS to use get_segment_repositoru. Chjange the interface
+    // TODO inject via de repository? And on save, get the proper repo? So it is stored properly?
+
+    // TODO is this still required?
     public function get_writable_repository(ListScreen $list_screen): ?ListScreenRepositoryWritable
     {
         return $this->get_writable_repositories($list_screen)[0] ?? null;
