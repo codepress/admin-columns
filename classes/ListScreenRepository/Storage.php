@@ -9,11 +9,9 @@ use AC\ListScreenCollection;
 use AC\ListScreenRepository;
 use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
-use ACP\Search\SegmentRepository;
-use ACP\Search\SegmentRepositoryAware;
 use LogicException;
 
-final class Storage implements ListScreenRepositoryWritable, SegmentRepositoryAware
+final class Storage implements ListScreenRepositoryWritable
 {
 
     use ListScreenRepositoryTrait;
@@ -123,28 +121,6 @@ final class Storage implements ListScreenRepositoryWritable, SegmentRepositoryAw
             }
         }
     }
-
-    public function get_segment_repository(ListScreen $list_screen): SegmentRepository
-    {
-        foreach( $this->get_repositories() as $repository ) {
-            if ( $repository->get_list_screen_repository( $list_screen->get_id() ) ) {
-                return $list_screen_repository->get_segment_repository( $list_screen );
-            }
-        }
-
-        return null;
-    }
-
-    public function get_repository_by_list_screen( ListScreen $list_screen ) : ?ListScreenRepository {
-        foreach( $this->repositories as $repository ) {
-            if ( $repository->get_list_screen_repository()->find( $list_screen->get_id() ) ) {
-                return $repository->get_list_screen_repository();
-            }
-        }
-
-        return null;
-    }
-
 
 
     // TODO David consider get_repository_by_list_screen( ListScreen $list_screen )?
