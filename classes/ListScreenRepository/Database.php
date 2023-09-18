@@ -139,6 +139,18 @@ class Database implements ListScreenRepositoryWritable
         );
     }
 
+    protected function get_settings(object $data): array
+    {
+        return [
+            'title'       => $data->title,
+            'list_id'     => $data->list_id,
+            'date'        => $data->date_modified,
+            'preferences' => $data->settings ? unserialize($data->settings, ['allowed_classes' => false]) : [],
+            'columns'     => $data->columns ? unserialize($data->columns, ['allowed_classes' => false]) : [],
+            'group'       => null,
+        ];
+    }
+
     private function create_list_screen(object $data): ?ListScreen
     {
         if ( ! $this->list_screen_factory->can_create($data->list_key)) {
@@ -147,14 +159,7 @@ class Database implements ListScreenRepositoryWritable
 
         return $this->list_screen_factory->create(
             $data->list_key,
-            [
-                'title'       => $data->title,
-                'list_id'     => $data->list_id,
-                'date'        => $data->date_modified,
-                'preferences' => $data->settings ? unserialize($data->settings, ['allowed_classes' => false]) : [],
-                'columns'     => $data->columns ? unserialize($data->columns, ['allowed_classes' => false]) : [],
-                'group'       => null,
-            ]
+            $this->get_settings($data)
         );
     }
 
