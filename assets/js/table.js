@@ -8558,6 +8558,9 @@ const getIdFromTableRow = (row) => {
     if (row.classList.contains('no-items')) {
         return 0;
     }
+    if (row.dataset.id) {
+        return parseInt(row.dataset.id);
+    }
     let item_id = getIdFromString(row.id);
     if (!item_id) {
         let input = row.querySelector('.check-column input[type=checkbox]');
