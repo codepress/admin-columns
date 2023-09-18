@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2023-08-25 07:57+0000\n"
+"POT-Creation-Date: 2023-09-18 13:42+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1422,7 +1422,7 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: classes/Settings/Column/CommentLink.php:56, classes/Settings/Column/MediaLink.php:52, classes/Settings/Column/PostLink.php:58, classes/Settings/Column/TermLink.php:26, classes/Settings/Column/UserLink.php:69
+#: classes/Settings/Column/CommentLink.php:56, classes/Settings/Column/MediaLink.php:52, classes/Settings/Column/PostLink.php:58, classes/Settings/Column/TermLink.php:30, classes/Settings/Column/UserLink.php:69
 msgid "Link To"
 msgstr ""
 
@@ -1934,11 +1934,11 @@ msgstr ""
 msgid "No taxonomies available."
 msgstr ""
 
-#: classes/Settings/Column/TermLink.php:36
+#: classes/Settings/Column/TermLink.php:41
 msgid "Filter by Term"
 msgstr ""
 
-#: classes/Settings/Column/TermLink.php:37
+#: classes/Settings/Column/TermLink.php:42
 msgid "Edit Term"
 msgstr ""
 
