@@ -74,7 +74,7 @@
 </script>
 
 <div class="acui-tooltip">
-	<div class="acui-tooltip-trigger" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseOut} bind:this={triggerEl}>
+	<div class="acui-tooltip-trigger" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseOut} bind:this={triggerEl} role="none">
 		<slot></slot>
 	</div>
 	{#if active }
