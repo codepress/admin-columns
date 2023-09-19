@@ -6,8 +6,9 @@ export const initLabel = (column: Column) => {
         select.addEventListener('change', () => {
             let labelSetting = column.getElement().querySelector<HTMLInputElement>('input.ac-setting-input_label');
             let option = select.selectedOptions.length > 0 ? select.selectedOptions[0] : null;
+            let isCustom = (labelSetting !== null && labelSetting.value !== labelSetting.getAttribute('placeholder'));
 
-            if (labelSetting && option) {
+            if (labelSetting && option && !isCustom) {
                 labelSetting.value = option.innerHTML;
                 labelSetting.dispatchEvent(new Event('change'));
             }

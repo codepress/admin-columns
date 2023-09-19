@@ -216,6 +216,11 @@ Release Date: tbd
 * [Fixed] Fixed an issue where non-existing terms could cause an error on the column settings page
 
 = 4.6.7 =
+Release Date: 19th September, 2023
+
+* [Improved] Taxonomy Helper fixes and improvements
+
+= 4.6.7 =
 Release Date: 25th August, 2023
 
 * [Fixed] Error when adding the 'Last Modified Author' column

@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
     export let customStyles = '';
     export let value: any = '';
     export let loading: boolean = false;

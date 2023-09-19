@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
     import {createEventDispatcher} from "svelte";
 
     export let custom: boolean = false;

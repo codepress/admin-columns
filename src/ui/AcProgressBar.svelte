@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 
     export let percentage = 0;
     export let customStyles = '';
