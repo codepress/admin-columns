@@ -531,7 +531,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   submitColumnSettings: () => (/* binding */ submitColumnSettings),
 /* harmony export */   switchColumnType: () => (/* binding */ switchColumnType)
 /* harmony export */ });
-const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+
 const mapDataToFormData = (data, formData = new FormData()) => {
     Object.keys(data).forEach(key => {
         formData.append(key, data[key]);
@@ -539,7 +540,7 @@ const mapDataToFormData = (data, formData = new FormData()) => {
     return formData;
 };
 const submitColumnSettings = (data) => {
-    return axios.post(ajaxurl, mapDataToFormData({
+    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(ajaxurl, mapDataToFormData({
         action: 'ac-columns',
         id: 'save',
         _ajax_nonce: AC._ajax_nonce,
@@ -548,7 +549,7 @@ const submitColumnSettings = (data) => {
 };
 const switchColumnType = (type, list_screen = AC.list_screen) => {
     var _a;
-    return axios.post(ajaxurl, mapDataToFormData({
+    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(ajaxurl, mapDataToFormData({
         _ajax_nonce: AC._ajax_nonce,
         action: 'ac-columns',
         current_original_columns: JSON.stringify((_a = AC_SERVICES.getService('Form')) === null || _a === void 0 ? void 0 : _a.getOriginalColumns().map((e) => e.getName())),
@@ -558,7 +559,7 @@ const switchColumnType = (type, list_screen = AC.list_screen) => {
     }));
 };
 const refreshColumn = (name, data, list_screen = AC.list_screen) => {
-    return axios.post(ajaxurl, mapDataToFormData({
+    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(ajaxurl, mapDataToFormData({
         _ajax_nonce: AC._ajax_nonce,
         action: 'ac-columns',
         column_name: name,
@@ -1334,8 +1335,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nanobus */ "./node_modules/nanobus/index.js");
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 
-const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 class ListScreenInitializer {
     constructor(list_screens) {
         this.listScreens = list_screens;
@@ -1346,7 +1348,7 @@ class ListScreenInitializer {
         this.run();
     }
     doAjaxCall(listScreen) {
-        return axios.get(listScreen.screen_link);
+        return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(listScreen.screen_link);
     }
     run() {
         Object.values(this.listScreens).forEach((l) => this.processListScreen(l));
@@ -1458,10 +1460,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var nanobus__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nanobus__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 
 // @ts-ignore
 
-const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 const initCustomFieldSelector = (column) => {
     column.getElement().querySelectorAll('[data-setting=custom_field]').forEach(setting => new CustomField(column, setting));
 };
@@ -1510,7 +1513,7 @@ class SingleCustomFieldRequestManager {
         formData.set('post_type', this.postType);
         formData.set('meta_type', this.metaType);
         formData.set('_ajax_nonce', AC._ajax_nonce);
-        return axios.post(ajaxurl, formData);
+        return axios__WEBPACK_IMPORTED_MODULE_2__["default"].post(ajaxurl, formData);
     }
     getOptions() {
         return new Promise((resolve, reject) => {
@@ -1560,7 +1563,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   initDateSetting: () => (/* binding */ initDateSetting)
 /* harmony export */ });
-const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+
 const initDateSetting = (column) => {
     column.getElement().querySelectorAll('[data-setting=date]').forEach(setting => new DateSetting(column, setting));
 };
@@ -1673,7 +1677,7 @@ class CustomOption {
         let data = new FormData();
         data.set('action', 'date_format');
         data.set('date', this.input.value);
-        return axios.post(ajaxurl, data, {});
+        return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(ajaxurl, data, {});
     }
 }
 
@@ -1960,7 +1964,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   initNumberFormatSetting: () => (/* binding */ initNumberFormatSetting)
 /* harmony export */ });
-const axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+
 const initNumberFormatSetting = (column) => {
     column.getElement().querySelectorAll('.ac-column-setting--number_format').forEach(setting => {
         new NumberFormat(column, setting);
@@ -2001,7 +2006,7 @@ class NumberFormat {
         data.set('decimals', value.decimals);
         data.set('decimal_point', value.decimal_point);
         data.set('thousands_sep', value.thousands_point);
-        return axios.post(ajaxurl, data, {});
+        return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(ajaxurl, data, {});
     }
 }
 
@@ -3095,63 +3100,6 @@ const createTooltip = (content) => {
 
 "use strict";
 module.exports = jQuery;
-
-/***/ }),
-
-/***/ "./node_modules/axios/index.js":
-/*!*************************************!*\
-  !*** ./node_modules/axios/index.js ***!
-  \*************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Axios: () => (/* binding */ Axios),
-/* harmony export */   AxiosError: () => (/* binding */ AxiosError),
-/* harmony export */   AxiosHeaders: () => (/* binding */ AxiosHeaders),
-/* harmony export */   Cancel: () => (/* binding */ Cancel),
-/* harmony export */   CancelToken: () => (/* binding */ CancelToken),
-/* harmony export */   CanceledError: () => (/* binding */ CanceledError),
-/* harmony export */   HttpStatusCode: () => (/* binding */ HttpStatusCode),
-/* harmony export */   VERSION: () => (/* binding */ VERSION),
-/* harmony export */   all: () => (/* binding */ all),
-/* harmony export */   "default": () => (/* reexport safe */ _lib_axios_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   formToJSON: () => (/* binding */ formToJSON),
-/* harmony export */   getAdapter: () => (/* binding */ getAdapter),
-/* harmony export */   isAxiosError: () => (/* binding */ isAxiosError),
-/* harmony export */   isCancel: () => (/* binding */ isCancel),
-/* harmony export */   mergeConfig: () => (/* binding */ mergeConfig),
-/* harmony export */   spread: () => (/* binding */ spread),
-/* harmony export */   toFormData: () => (/* binding */ toFormData)
-/* harmony export */ });
-/* harmony import */ var _lib_axios_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/axios.js */ "./node_modules/axios/lib/axios.js");
-
-
-// This module is intended to unwrap Axios default export as named.
-// Keep top-level export same with static properties
-// so that it can keep same with es module or cjs
-const {
-  Axios,
-  AxiosError,
-  CanceledError,
-  isCancel,
-  CancelToken,
-  VERSION,
-  all,
-  Cancel,
-  isAxiosError,
-  spread,
-  toFormData,
-  AxiosHeaders,
-  HttpStatusCode,
-  formToJSON,
-  getAdapter,
-  mergeConfig
-} = _lib_axios_js__WEBPACK_IMPORTED_MODULE_0__["default"];
-
-
-
 
 /***/ }),
 
