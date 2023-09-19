@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
     import {createEventDispatcher, onMount} from "svelte";
 
     export let value: boolean | Array<string>;
