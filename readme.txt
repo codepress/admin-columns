@@ -209,7 +209,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= 4.6.7 =
+= 4.6.8 =
 Release Date: 19th September, 2023
 
 * [Improved] Taxonomy Helper fixes and improvements
