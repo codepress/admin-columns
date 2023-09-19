@@ -3,8 +3,7 @@ import {keyStringPair} from "../../helpers/types";
 import AcServices from "../../modules/ac-services";
 import {Form} from "./form";
 import {ListScreenStorageType, LocalizedAcColumnSettings} from "../../types/admin-columns";
-
-const axios = require('axios');
+import axios from "axios";
 
 declare const ajaxurl: string;
 declare const AC: LocalizedAcColumnSettings;

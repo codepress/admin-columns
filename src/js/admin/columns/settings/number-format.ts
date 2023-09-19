@@ -1,7 +1,7 @@
 import {Column} from "../column";
 import {AxiosResponse} from "axios";
 
-const axios = require('axios');
+import axios from "axios";
 
 declare const ajaxurl: string;
 

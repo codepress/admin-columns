@@ -5,7 +5,7 @@ import $ from 'jquery';
 import {AxiosPromise, AxiosResponse} from "axios";
 import {LocalizedAcColumnSettings} from "../../../types/admin-columns";
 
-const axios = require('axios');
+import axios from "axios";
 
 declare const AC: LocalizedAcColumnSettings;
 declare const ajaxurl: string;
