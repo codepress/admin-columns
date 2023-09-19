@@ -210,6 +210,11 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.6.7 =
+Release Date: 19th September, 2023
+
+* [Improved] Taxonomy Helper fixes and improvements
+
+= 4.6.7 =
 Release Date: 25th August, 2023
 
 * [Fixed] Error  when adding the 'Last Modified Author' column
