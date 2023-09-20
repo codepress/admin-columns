@@ -210,8 +210,9 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = NEWVERSION =
-Release Date: <date>
+Release Date: tbd
 
+* [Improved] It is now possible to choose how dates are stored in the Custom Field column
 * [Fixed] Fixed an issue where non-existing terms could cause an error on the column settings page
 
 = 4.6.7 =

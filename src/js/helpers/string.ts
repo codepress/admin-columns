@@ -1,5 +1,6 @@
 export const uniqid = (prefix = "", moreEntropy = false): string => {
-    const c = Date.now() / 1000;
+
+    const c = Math.floor(Math.random() * Date.now()) / 1000;
     let d = c.toString(16).split(".").join("");
     while (d.length < 14) d += "0";
     let e = "";
@@ -7,6 +8,7 @@ export const uniqid = (prefix = "", moreEntropy = false): string => {
         e = ".";
         e += Math.round(Math.random() * 100000000);
     }
+
     return prefix + d + e;
 }
 

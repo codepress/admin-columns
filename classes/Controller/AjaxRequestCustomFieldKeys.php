@@ -4,58 +4,67 @@ namespace AC\Controller;
 
 use AC\Ajax;
 use AC\Helper\Select;
+use AC\Meta\Query;
 use AC\Registerable;
 use AC\Request;
 use AC\Response;
+use ACP\Helper\Select\Generic\GroupFormatter\BlogSite;
+use ACP\Helper\Select\Generic\GroupFormatter\VisibilityType;
+use ACP\Helper\Select\Generic\Groups;
 
-class AjaxRequestCustomFieldKeys implements Registerable {
+class AjaxRequestCustomFieldKeys implements Registerable
+{
 
-	public function register(): void
+    public function register(): void
     {
-		$this->get_ajax_handler()->register();
-	}
+        $this->get_ajax_handler()->register();
+    }
 
-	private function get_ajax_handler() {
-		$handler = new Ajax\Handler();
-		$handler
-			->set_action( 'ac_custom_field_options' )
-			->set_callback( [ $this, 'ajax_get_custom_fields' ] );
+    private function get_ajax_handler(): Ajax\Handler
+    {
+        $handler = new Ajax\Handler();
+        $handler
+            ->set_action('ac_custom_field_options')
+            ->set_callback([$this, 'ajax_get_custom_fields']);
 
-		return $handler;
-	}
+        return $handler;
+    }
 
-	public function ajax_get_custom_fields() {
-		$this->get_ajax_handler()->verify_request();
+    public function ajax_get_custom_fields(): void
+    {
+        $this->get_ajax_handler()->verify_request();
 
-		$request = new Request();
-		$response = new Response\Json();
+        $request = new Request();
+        $response = new Response\Json();
 
-		$args = [
-			'meta_type' => $request->get( 'meta_type' ),
-		];
+        $post_type = $request->get('post_type');
 
-		if ( $request->get( 'post_type' ) ) {
-			$args['post_type'] = $request->get( 'post_type' );
-		}
+        $query = new Query($request->get('meta_type'));
 
-		$entities = new Select\Entities\CustomFields( $args );
+        $query->select('meta_key')
+              ->distinct()
+              ->order_by('meta_key');
 
-		if ( is_multisite() ) {
-			$formatter = new Select\Group\CustomField\MultiSite(
-				new Select\Formatter\NullFormatter( $entities )
-			);
-		} else {
-			$formatter = new Select\Group\CustomField(
-				new Select\Formatter\NullFormatter( $entities )
-			);
-		}
+        if ($post_type) {
+            $query->where_post_type($post_type);
+        }
 
-		$options = new Select\Options\Paginated( $entities, $formatter );
-		$select = new Select\Response( $options );
+        $formatter = is_multisite()
+            ? new BlogSite()
+            : new VisibilityType();
 
-		$response
-			->set_parameters( $select() )
-			->success();
-	}
+        $meta_keys = $query->get();
+
+        $options = Select\Options::create_from_array(
+            array_combine($meta_keys, $meta_keys)
+        );
+        $options = new Groups($options, $formatter);
+
+        $select = new Select\Response($options);
+
+        $response
+            ->set_parameters($select())
+            ->success();
+    }
 
 }

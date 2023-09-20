@@ -6435,6 +6435,10 @@ class AcHtmlElement {
         this.element.appendChild(element);
         return this;
     }
+    appendFound(selector) {
+        document.querySelectorAll(selector).forEach(el => this.append(el));
+        return this;
+    }
     appendSelfTo(element) {
         element.append(this.element);
         return this;
@@ -6488,6 +6492,9 @@ class AcHtmlElement {
         events.forEach(e => this.addEventListener(e, listener));
         return this;
     }
+    $() {
+        return this.getElement();
+    }
 }
 
 
@@ -6515,6 +6522,9 @@ const getIdFromTableRow = (row) => {
     var _a, _b, _c, _d, _e, _f;
     if (row.classList.contains('no-items')) {
         return 0;
+    }
+    if (row.dataset.id) {
+        return parseInt(row.dataset.id);
     }
     let item_id = getIdFromString(row.id);
     if (!item_id) {

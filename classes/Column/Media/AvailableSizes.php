@@ -11,8 +11,6 @@ use AC\Settings;
 class AvailableSizes extends Column\Media\MetaValue {
 
 	public function __construct() {
-		parent::__construct();
-
 		$this->set_type( 'column-available_sizes' )
 		     ->set_group( 'media-image' )
 		     ->set_label( __( 'Available Sizes', 'codepress-admin-columns' ) );
