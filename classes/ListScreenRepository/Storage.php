@@ -122,15 +122,7 @@ final class Storage implements ListScreenRepositoryWritable
         }
     }
 
-
-    // TODO David consider get_repository_by_list_screen( ListScreen $list_screen )?
-    // TODO David maybe consider naming _by_list_screen
-    // TODO David get_segment_repository( ListScreen $list_screen );
-    // TODO David ALWAYS give a LS id or LS to use get_segment_repositoru. Chjange the interface
-    // TODO inject via de repository? And on save, get the proper repo? So it is stored properly?
-
-    // TODO is this still required?
-    public function get_writable_repository(ListScreen $list_screen): ?ListScreenRepositoryWritable
+    private function get_writable_repository(ListScreen $list_screen): ?ListScreenRepositoryWritable
     {
         return $this->get_writable_repositories($list_screen)[0] ?? null;
     }

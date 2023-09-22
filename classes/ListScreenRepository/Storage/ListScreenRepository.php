@@ -17,8 +17,6 @@ final class ListScreenRepository
 
     private $rules;
 
-    // TODO David ARE LSids unique? Can we enforce this?
-    // TODO David think about refactor of this class: supply a factory instead of LS Repo to 'skip' the writable flag.
     public function __construct(
         AC\ListScreenRepository $list_screen_repository,
         bool $writable = null,
