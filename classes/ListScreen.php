@@ -515,6 +515,12 @@ abstract class ListScreen
         return $this;
     }
 
+    public function unset_preference( string $key ) : self {
+        unset( $this->preferences[ $key ] );
+
+        return $this;
+    }
+
     public function get_preferences(): array
     {
         return $this->preferences;
