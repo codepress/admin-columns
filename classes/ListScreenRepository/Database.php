@@ -88,6 +88,8 @@ class Database implements ListScreenRepositoryWritable
             throw MissingListScreenIdException::from_saving_list_screen();
         }
 
+        $this->set_preferences( $list_screen, $list_screen->get_preferences() );
+
         $args = [
             'list_id'       => $list_screen->get_layout_id(),
             'list_key'      => $list_screen->get_key(),
@@ -139,16 +141,12 @@ class Database implements ListScreenRepositoryWritable
         );
     }
 
-    protected function get_settings(object $data): array
+    /**
+     * Template method to add and remove preferences runtime
+     */
+    protected function set_preferences( ListScreen $list_screen, array $preferences ): void
     {
-        return [
-            'title'       => $data->title,
-            'list_id'     => $data->list_id,
-            'date'        => $data->date_modified,
-            'preferences' => $data->settings ? unserialize($data->settings, ['allowed_classes' => false]) : [],
-            'columns'     => $data->columns ? unserialize($data->columns, ['allowed_classes' => false]) : [],
-            'group'       => null,
-        ];
+        $list_screen->set_preferences( $preferences );
     }
 
     private function create_list_screen(object $data): ?ListScreen
@@ -157,10 +155,24 @@ class Database implements ListScreenRepositoryWritable
             return null;
         }
 
-        return $this->list_screen_factory->create(
+        $list_screen = $this->list_screen_factory->create(
             $data->list_key,
-            $this->get_settings($data)
+            [
+                'title'       => $data->title,
+                'list_id'     => $data->list_id,
+                'date'        => $data->date_modified,
+                'preferences' => $data->settings ? unserialize($data->settings, ['allowed_classes' => false]) : [],
+                'columns'     => $data->columns ? unserialize($data->columns, ['allowed_classes' => false]) : [],
+                'group'       => null,
+            ]
         );
+
+        $this->set_preferences(
+            $list_screen,
+            $list_screen->get_preferences()
+        );
+
+        return $list_screen;
     }
 
     private function create_list_screens(array $rows): ListScreenCollection
