@@ -8,7 +8,7 @@ use AC\Admin\ScreenOption;
 class ListScreenId extends ScreenOption
 {
 
-    private const KEY = 'show_tools_list_screen_id';
+    private const KEY = 'show_list_screen_id';
 
     private $preference;
 
