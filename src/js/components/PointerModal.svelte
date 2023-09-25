@@ -16,7 +16,7 @@
 
 </script>
 
-<div class="ac-pointer-modal -{position} " on:mouseenter={()=> onElement = true} on:mouseleave={() => checkLeave()}>
+<div class="ac-pointer-modal -{position} " on:mouseenter={()=> onElement = true} on:mouseleave={() => checkLeave()} role="none">
 	<div class="ac-pointer-modal__arrow" data-pos={position}>
 	</div>
 	<div class="ac-pointer-modal__content">

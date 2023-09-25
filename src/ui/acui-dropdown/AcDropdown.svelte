@@ -1,16 +1,21 @@
-<script type="ts">
+<script lang="ts">
 
-    import {onMount} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
     import AcDropdownMenu from "./AcDropdownMenu.svelte";
 
     export let appendToBody: boolean = false;
     export let closeOnClick: boolean = true;
     export let position: string | null;
+    export let maxHeight: string | null;
+    export let value;
+
+    const dispatch = createEventDispatcher();
 
     let opened: boolean = false;
     let trigger: HTMLElement;
+    let container: HTMLElement;
 
-    const toggle = () => {
+    export const toggle = () => {
         if (opened) {
             close();
         } else {
@@ -34,8 +39,10 @@
         }
     }
 
-    const handleOutsideClick = () => {
-        opened = false;
+    const handleOutsideClick = (e) => {
+        if (container && !container.contains(e.target)) {
+            opened = false;
+        }
     }
 
     const registerCloseHandlers = () => {
@@ -49,7 +56,9 @@
         document.removeEventListener('focusout', handleOutsideClick);
     }
 
-    const handleSelect = () => {
+    const handleSelect = (e) => {
+        value = e.detail;
+        dispatch('change', value);
         if (opened && closeOnClick) {
             opened = false;
         }
@@ -69,11 +78,11 @@
 
 </script>
 <div class="acui-dropdown">
-	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown} aria-haspopup="true" bind:this={trigger}>
+	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown} aria-haspopup="true" bind:this={trigger} role="button" tabindex="-1">
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}
-		<AcDropdownMenu {appendToBody} trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
+		<AcDropdownMenu {maxHeight} {appendToBody} trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
 			<slot></slot>
 		</AcDropdownMenu>
 	{/if}

@@ -1,38 +1,46 @@
-<script type="ts">
+<script lang="ts">
     import {createEventDispatcher} from "svelte";
 
-    export let ariaRole: string = 'listitem';
     export let custom: boolean = false;
+    export let href: string = null;
+    export let value: string = null;
 
     const dispatch = createEventDispatcher();
 
     let element: HTMLElement;
 
     const dispatchSelectItem = () => {
-        dispatch('click');
-        element.dispatchEvent(new CustomEvent('itemSelect', {bubbles: true}))
+        element.closest('.acui-dropdown')?.dispatchEvent(new CustomEvent('change', {bubbles: true, detail: value}));
     }
 
     const handleClick = () => {
         dispatchSelectItem();
+        dispatch('click');
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             dispatchSelectItem();
+            dispatch('click');
         }
     }
-
 </script>
 
 {#if custom }
-	<div class="acui-dropdown-item" tabindex="0" role="{ariaRole}">
+	<div class="acui-dropdown-item" role="listitem" bind:this={element}>
 		<slot></slot>
 	</div>
 {:else}
-	<a class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} tabindex="0" role={ariaRole} bind:this={element}>
-		<slot></slot>
-	</a>
+	{#if href}
+		<a class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} bind:this={element} {href}>
+			<slot></slot>
+		</a>
+	{:else}
+		<div class="acui-dropdown-item" on:click={handleClick} on:keydown={handleKeyDown} tabindex="0" role="button" bind:this={element}>
+			<slot></slot>
+		</div>
+	{/if}
+
 {/if}
 

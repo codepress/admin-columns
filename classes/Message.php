@@ -8,10 +8,10 @@ use LogicException;
 abstract class Message
 {
 
-    public const SUCCESS = 'updated';
-    public const ERROR = 'notice-error';
-    public const WARNING = 'notice-warning';
-    public const INFO = 'notice-info';
+    public const SUCCESS = 'updated'; // green
+    public const ERROR = 'notice-error'; // red
+    public const WARNING = 'notice-warning'; // yellow
+    public const INFO = 'notice-info'; // blue
 
     protected $message;
 

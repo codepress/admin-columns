@@ -2,7 +2,7 @@ import Nanobus from "nanobus";
 import {AxiosPromise, AxiosResponse} from "axios";
 import {LocalizedAcColumnSettings, UninitializedListScreen, UninitializedListScreens} from "../../types/admin-columns";
 
-const axios = require('axios');
+import axios from "axios";
 
 declare const AC: LocalizedAcColumnSettings
 

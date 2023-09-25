@@ -9,6 +9,10 @@ export const getIdFromTableRow = (row: HTMLTableRowElement): number => {
         return 0;
     }
 
+    if( row.dataset.id ){
+        return parseInt( row.dataset.id );
+    }
+
     let item_id: number = getIdFromString(row.id);
 
     if (!item_id) {

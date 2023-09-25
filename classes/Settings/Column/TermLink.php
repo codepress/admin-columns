@@ -69,7 +69,7 @@ class TermLink extends Settings\Column
 
         switch ($this->get_term_link_to()) {
             case 'filter':
-                $term = get_term_by('term_taxonomy_id', $original_value);
+                $term = get_term($original_value);
 
                 if ($term instanceof WP_Term) {
                     $link = ac_helper()->taxonomy->get_filter_by_term_url(

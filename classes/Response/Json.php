@@ -17,30 +17,56 @@ class Json
     protected $parameters = [];
 
     /**
+     * @var array
+     */
+    protected $headers = [];
+
+    /**
      * @var int
      */
-    protected $status_code;
+    protected $status_code = 200;
 
-    #[NoReturn]
-    public function send()
+    public function __construct()
+    {
+        $this->set_header('Content-Type', 'application/json');
+    }
+
+    public function send(): void
     {
         if (empty($this->parameters)) {
             throw new LogicException('Missing response body.');
         }
 
+        $this->send_response($this->parameters);
         wp_send_json($this->parameters, $this->status_code);
     }
 
-    #[NoReturn]
-    public function error()
+    private function send_response($data): void
     {
-        wp_send_json_error($this->parameters, $this->status_code);
+        status_header($this->status_code);
+
+        foreach ($this->headers as $header) {
+            header($header);
+        }
+
+        echo json_encode($data);
+        exit;
     }
 
-    #[NoReturn]
-    public function success()
+    public function error(): void
     {
-        wp_send_json_success($this->parameters, $this->status_code);
+        $this->send_response([
+            'success' => false,
+            'data'    => $this->parameters,
+        ]);
+    }
+
+    public function success(): void
+    {
+        $this->send_response([
+            'success' => true,
+            'data'    => $this->parameters,
+        ]);
     }
 
     /**
@@ -49,19 +75,14 @@ class Json
      *
      * @return $this
      */
-    public function set_parameter($key, $value)
+    public function set_parameter($key, $value): self
     {
         $this->parameters[$key] = $value;
 
         return $this;
     }
 
-    /**
-     * @param array $values
-     *
-     * @return $this
-     */
-    public function set_parameters(array $values)
+    public function set_parameters(array $values): self
     {
         foreach ($values as $key => $value) {
             $this->set_parameter($key, $value);
@@ -70,24 +91,21 @@ class Json
         return $this;
     }
 
-    /**
-     * @param string $message
-     *
-     * @return $this
-     */
-    public function set_message($message)
+    public function set_header(string $name, string $value): self
+    {
+        $this->headers[] = sprintf('%s: %s', $name, $value);
+
+        return $this;
+    }
+
+    public function set_message(string $message): self
     {
         $this->set_parameter(self::MESSAGE, $message);
 
         return $this;
     }
 
-    /**
-     * @param int $code
-     *
-     * @return $this
-     */
-    public function set_status_code($code)
+    public function set_status_code(int $code): self
     {
         $this->status_code = $code;
 

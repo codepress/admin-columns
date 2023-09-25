@@ -41,8 +41,8 @@
     });
 </script>
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="ac-modal {className}" class:-active={visible} on:click={close} bind:this={element}>
-	<div class="ac-modal__dialog" on:click|stopPropagation>
+<div class="ac-modal {className}" class:-active={visible} on:click={close} bind:this={element} role="none">
+	<div class="ac-modal__dialog" on:click|stopPropagation role="none">
 		<div class="ac-modal__dialog__header">
 			<slot name="header"></slot>
 			{#if !disableClose}
