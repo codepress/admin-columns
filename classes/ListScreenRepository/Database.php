@@ -88,7 +88,7 @@ class Database implements ListScreenRepositoryWritable
             throw MissingListScreenIdException::from_saving_list_screen();
         }
 
-        $this->set_preferences( $list_screen, $list_screen->get_preferences() );
+        $this->set_preferences($list_screen, $list_screen->get_preferences(), 'write');
 
         $args = [
             'list_id'       => $list_screen->get_layout_id(),
@@ -143,10 +143,16 @@ class Database implements ListScreenRepositoryWritable
 
     /**
      * Template method to add and remove preferences runtime
+     *
+     * @param ListScreen     $list_screen
+     * @param array          $preferences
+     * @param "write"|"read" $context
+     *
+     * @return void
      */
-    protected function set_preferences( ListScreen $list_screen, array $preferences ): void
+    protected function set_preferences(ListScreen $list_screen, array $preferences, string $context): void
     {
-        $list_screen->set_preferences( $preferences );
+        $list_screen->set_preferences($preferences);
     }
 
     private function create_list_screen(object $data): ?ListScreen
@@ -169,7 +175,8 @@ class Database implements ListScreenRepositoryWritable
 
         $this->set_preferences(
             $list_screen,
-            $list_screen->get_preferences()
+            $list_screen->get_preferences(),
+            'read'
         );
 
         return $list_screen;
