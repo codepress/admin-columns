@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 use Countable;
@@ -18,78 +20,60 @@ final class ListScreenCollection implements Iterator, Countable
         array_map([$this, 'add'], $list_screens);
     }
 
-    public function add(ListScreen $list_screen)
+    public function add(ListScreen $list_screen): void
     {
-        $this->data[$list_screen->get_layout_id()] = $list_screen;
+        $this->data[(string)$list_screen->get_id()] = $list_screen;
     }
 
+    // TODO Stefan remove if no references
     public function add_collection(ListScreenCollection $collection): void
     {
         array_map([$this, 'add'], $collection->get_copy());
     }
 
-    public function remove(ListScreen $list_screen)
+    public function remove(ListScreen $list_screen): void
     {
-        unset($this->data[$list_screen->get_layout_id()]);
+        unset($this->data[(string)$list_screen->get_id()]);
     }
 
-    #[\ReturnTypeWillChange]
-    public function rewind()
+    public function contains(ListScreen $list_screen): bool
+    {
+        return isset($this->data[(string)$list_screen->get_id()]);
+    }
+
+    public function rewind(): void
     {
         reset($this->data);
     }
 
-    /**
-     * @return ListScreen
-     */
-    #[\ReturnTypeWillChange]
-    public function current()
+    public function current(): ListScreen
     {
         return current($this->data);
     }
 
-    public function get_first()
+    public function get_first(): ListScreen
     {
         return reset($this->data);
     }
 
-    #[\ReturnTypeWillChange]
-    public function key()
+    public function key(): string
     {
         return key($this->data);
     }
 
-    #[\ReturnTypeWillChange]
-    public function next()
+    public function next(): void
     {
-        return next($this->data);
+        next($this->data);
     }
 
-    #[\ReturnTypeWillChange]
-    public function valid()
+    public function valid(): bool
     {
-        $key = $this->key();
-
-        return ($key !== null && $key !== false);
+        return key($this->data) !== null;
     }
 
-    /**
-     * @return int
-     */
-    #[\ReturnTypeWillChange]
-    public function count()
+    public function count(): int
     {
         return count($this->data);
-    }
-
-    /**
-     * @param ListScreen $list_screen
-     *
-     * @return bool
-     */
-    public function contains(ListScreen $list_screen)
-    {
-        return isset($this->data[$list_screen->get_layout_id()]);
     }
 
     public function get_copy(): array

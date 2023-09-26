@@ -7,8 +7,8 @@ use AC\Type\ListScreenId;
 interface SourceAware
 {
 
-    public function get_source(ListScreenId $id): string;
+    public function get_source(ListScreenId $list_screen_id): string;
 
-    public function has_source(ListScreenId $id): bool;
+    public function has_source(ListScreenId $list_screen_id): bool;
 
 }
