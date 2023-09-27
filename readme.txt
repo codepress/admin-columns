@@ -213,6 +213,7 @@ You can find a list of the available actions and filters (and examples on how to
 Release Date: tbd
 
 * [Improved] It is now possible to choose how dates are stored in the Custom Field column
+* [Improved] Webp images are not recognized for the custom field column
 * [Fixed] Fixed an issue where non-existing terms could cause an error on the column settings page
 
 = 4.6.7 =
