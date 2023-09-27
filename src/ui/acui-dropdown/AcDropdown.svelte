@@ -23,12 +23,12 @@
         }
     }
 
-    const open = async () => {
+    export const open = async () => {
         opened = true;
         registerCloseHandlers();
     }
 
-    const close = () => {
+    export const close = () => {
         opened = false;
         deregisterCloseHandlers();
     }
@@ -77,7 +77,7 @@
     });
 
 </script>
-<div class="acui-dropdown">
+<div class="acui-dropdown" bind:this={container}>
 	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown} aria-haspopup="true" bind:this={trigger} role="button" tabindex="-1">
 		<slot name="trigger" active={opened}></slot>
 	</div>
