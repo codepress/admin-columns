@@ -7,7 +7,6 @@ namespace AC\ListScreenRepository\Filter;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Filter;
 
-// TODO Stefan is this ok to refactor? Internal use only?
 final class ListScreenKey implements Filter
 {
 

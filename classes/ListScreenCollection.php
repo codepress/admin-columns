@@ -25,12 +25,6 @@ final class ListScreenCollection implements Iterator, Countable
         $this->data[(string)$list_screen->get_id()] = $list_screen;
     }
 
-    // TODO Stefan remove if no references
-    public function add_collection(ListScreenCollection $collection): void
-    {
-        array_map([$this, 'add'], $collection->get_copy());
-    }
-
     public function remove(ListScreen $list_screen): void
     {
         unset($this->data[(string)$list_screen->get_id()]);

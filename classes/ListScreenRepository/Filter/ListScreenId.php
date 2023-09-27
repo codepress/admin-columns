@@ -8,7 +8,6 @@ use AC\ListScreenCollection;
 use AC\ListScreenRepository\Filter;
 use AC\Type;
 
-// TODO Stefan is this ok to refactor? Internal use only?
 final class ListScreenId implements Filter
 {
 
