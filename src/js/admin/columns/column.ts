@@ -193,7 +193,7 @@ export class Column {
             if (response.data.success) {
                 this.reinitColumnFromElement(createElementFromString(response.data.data.trim()).firstChild as HTMLFormElement);
                 this.services.emitEvent(EventConstants.SETTINGS.COLUMN.REFRESHED, this);
-                if( this.isOpen() ){
+                if (this.isOpen()) {
                     this.open();
                 }
             } else {
