@@ -169,7 +169,7 @@ export class Form {
             }
 
         }).catch(() => {
-            this.showMessage(AC.i18n.error.save_settings);
+            this.showMessage(AC.i18n.errors.save_settings);
         }).finally(() => {
             this.services.emitEvent(EventConstants.SETTINGS.FORM.SAVED, this);
         });
