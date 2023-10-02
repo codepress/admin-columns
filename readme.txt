@@ -3,9 +3,9 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.7.1
-Tested up to: 6.3
+Tested up to: 6.3.1
 Requires PHP: 7.2
-Stable tag: 4.6.7
+Stable tag: 4.6.9
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -216,25 +216,31 @@ Release Date: tbd
 * [Improved] Webp images are not recognized for the custom field column
 * [Fixed] Fixed an issue where non-existing terms could cause an error on the column settings page
 
-= 4.6.7 =
-Release Date: 19th September, 2023
+
+= 4.6.9 =
+Release Date: October 2nd, 2023
+
+* [Fixed] URLs for Terms in Taxonomy columns were incorrect
+
+= 4.6.8 =
+Release Date: September 19th, 2023
 
 * [Improved] Taxonomy Helper fixes and improvements
 
 = 4.6.7 =
-Release Date: 25th August, 2023
+Release Date: August 25th, 2023
 
 * [Fixed] Error when adding the 'Last Modified Author' column
 
 = 4.6.6 =
-Release Date: 21st August, 2023
+Release Date: August 21st, 2023
 
 * [Improved] Give better feedback when the settings could not be saved because of missing database tables
 * [Fixed] Error on the WPML string translation page
 * [Fixed] Some custom columns could give a fatal error on the settings page
 
 = 4.6.5 =
-Release Date: 15th August, 2023
+Release Date: August 15th, 2023
 
 * [Added] New hook to disable Admin Columns for certain list tables `ac/list_screen/is_active`
 * [Added] New hook to disable Admin Columns for certain list tables based on keys `ac/list_screen/key/is_active`
