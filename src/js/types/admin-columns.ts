@@ -5,9 +5,20 @@ export type ModuleConfirmationTranslation = {
     cancel: string
 }
 
+export type LocalizedAcColumnSettingsI18n = {
+    value: string,
+    label: string,
+    clone: string,
+    error: string,
+    errors: {
+        loading_column: string,
+        save_settings: string,
+    }
+}
+
 export type LocalizedAcColumnSettings = {
     _ajax_nonce: string,
-    i18n: any
+    i18n: LocalizedAcColumnSettingsI18n
     layout: string,
     list_screen: string,
     uninitialized_list_screens: UninitializedListScreens
