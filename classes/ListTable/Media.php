@@ -15,7 +15,7 @@ class Media implements ListTable
         $this->table = $table;
     }
 
-    public function get_column_value(string $column, int $id): string
+    public function get_column_value(string $column, $id): string
     {
         ob_start();
 
@@ -30,7 +30,7 @@ class Media implements ListTable
         return ob_get_clean();
     }
 
-    public function render_row(int $id): string
+    public function render_row($id): string
     {
         // Author column depends on this global to be set.
         global $authordata;
