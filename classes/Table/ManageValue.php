@@ -19,7 +19,7 @@ abstract class ManageValue implements Registerable
         $this->column_repository = $column_repository;
     }
 
-    public function render_cell(string $column_name, int $id, string $fallback_value = null): ?string
+    public function render_cell(string $column_name, $id, string $fallback_value = null): ?string
     {
         $column = $this->column_repository->find($column_name);
 
