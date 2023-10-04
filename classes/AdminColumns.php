@@ -14,6 +14,7 @@ use AC\Entity\Plugin;
 use AC\ListScreenFactory\Aggregate;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
+use AC\ListScreenRepository\Types;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\Table\ListKeysFactoryInterface;
@@ -116,13 +117,13 @@ class AdminColumns
             Storage::class                          => static function (Database $database): Storage {
                 $storage = new Storage();
                 $storage->set_repositories([
-                    'acp-database' => new ListScreenRepository\Storage\ListScreenRepository($database, true),
+                    Types::DATABASE => new ListScreenRepository\Storage\ListScreenRepository($database, true),
                 ]);
 
                 return $storage;
             },
             RestoreSettingsRequest::class           => static function (Storage $storage): RestoreSettingsRequest {
-                return new RestoreSettingsRequest($storage->get_repository('acp-database'));
+                return new RestoreSettingsRequest($storage->get_repository(Types::DATABASE));
             },
             Plugin::class                           => static function (): Plugin {
                 return Plugin::create(AC_FILE, new Version(AC_VERSION));

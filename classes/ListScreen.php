@@ -508,6 +508,13 @@ abstract class ListScreen
         return $this;
     }
 
+    public function set_preference(string $key, $value): self
+    {
+        $this->preferences[$key] = $value;
+
+        return $this;
+    }
+
     public function get_preferences(): array
     {
         return $this->preferences;

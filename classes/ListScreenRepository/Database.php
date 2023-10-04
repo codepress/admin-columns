@@ -12,7 +12,7 @@ use AC\ListScreenRepositoryWritable;
 use AC\Type\ListScreenId;
 use LogicException;
 
-final class Database implements ListScreenRepositoryWritable
+class Database implements ListScreenRepositoryWritable
 {
 
     use ListScreenRepositoryTrait;
@@ -88,6 +88,8 @@ final class Database implements ListScreenRepositoryWritable
             throw MissingListScreenIdException::from_saving_list_screen();
         }
 
+        $list_screen->set_preferences($this->save_preferences($list_screen));
+
         $args = [
             'list_id'       => $list_screen->get_layout_id(),
             'list_key'      => $list_screen->get_key(),
@@ -139,13 +141,29 @@ final class Database implements ListScreenRepositoryWritable
         );
     }
 
+    /**
+     * Template method to add and remove preferences before save
+     */
+    protected function save_preferences(ListScreen $list_screen): array
+    {
+        return $list_screen->get_preferences();
+    }
+
+    /**
+     * Template method to add and remove preferences before retrieval
+     */
+    protected function get_preferences(ListScreen $list_screen): array
+    {
+        return $list_screen->get_preferences();
+    }
+
     private function create_list_screen(object $data): ?ListScreen
     {
         if ( ! $this->list_screen_factory->can_create($data->list_key)) {
             return null;
         }
 
-        return $this->list_screen_factory->create(
+        $list_screen = $this->list_screen_factory->create(
             $data->list_key,
             [
                 'title'       => $data->title,
@@ -156,6 +174,10 @@ final class Database implements ListScreenRepositoryWritable
                 'group'       => null,
             ]
         );
+
+        $list_screen->set_preferences($this->get_preferences($list_screen));
+
+        return $list_screen;
     }
 
     private function create_list_screens(array $rows): ListScreenCollection

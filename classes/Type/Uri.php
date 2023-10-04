@@ -19,14 +19,20 @@ class Uri implements Url
         $this->url = add_query_arg($key, $value, $this->url);
     }
 
-    protected function remove_arg(string $key): void
-    {
-        $this->url = remove_query_arg($key, $this->url);
-    }
-
     public function with_arg(string $key, string $value): self
     {
         return new self(add_query_arg($key, $value, $this->url));
+    }
+
+    public function with_args(array $args): self
+    {
+        $url = new self($this->url);
+
+        foreach ($args as $key => $value) {
+            $url = $this->with_arg($key, $value);
+        }
+
+        return $url;
     }
 
     public function get_url(): string

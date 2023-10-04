@@ -7,6 +7,7 @@ Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
 Plugin URI: https://www.admincolumns.com
 Requires PHP: 7.2
+Requires at least: 5.9
 Text Domain: codepress-admin-columns
 Domain Path: /languages
 License: GPL v3
