@@ -17,6 +17,7 @@ use AC\ListScreenRepository\Storage;
 use AC\ListScreenRepository\Types;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
+use AC\RequestHandler\Ajax\ListScreenDelete;
 use AC\Table\ListKeysFactoryInterface;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
@@ -95,6 +96,13 @@ class AdminColumns
 
         $services->add(
             new Service\Setup($container->get(SetupFactory\AdminColumns::class)->create(SetupFactory::SITE))
+        );
+
+        $request_ajax_handlers = new RequestAjaxHandlers();
+        $request_ajax_handlers->add('ac-list-screen-delete', new ListScreenDelete());
+
+        $services->add(
+            new RequestAjaxParser($request_ajax_handlers)
         );
 
         if ($container->get(Plugin::class)->is_network_active()) {
