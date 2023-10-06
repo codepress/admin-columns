@@ -99,7 +99,7 @@ class AdminColumns
         );
 
         $request_ajax_handlers = new RequestAjaxHandlers();
-        $request_ajax_handlers->add('ac-list-screen-delete', new ListScreenDelete());
+        $request_ajax_handlers->add('ac-list-screen-delete', $container->get(ListScreenDelete::class));
 
         $services->add(
             new RequestAjaxParser($request_ajax_handlers)
