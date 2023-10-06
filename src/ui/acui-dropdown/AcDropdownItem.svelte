@@ -15,14 +15,14 @@
 
     const handleClick = () => {
         dispatchSelectItem();
-        dispatch('click');
+        dispatch('click', value);
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             dispatchSelectItem();
-            dispatch('click');
+            dispatch('click', value);
         }
     }
 </script>

@@ -5,8 +5,8 @@
 
     export let appendToBody: boolean = false;
     export let closeOnClick: boolean = true;
-    export let position: string | null;
-    export let maxHeight: string | null;
+    export let position: string | null = null;
+    export let maxHeight: string | null = null;
     export let value;
 
     const dispatch = createEventDispatcher();
@@ -59,6 +59,7 @@
     const handleSelect = (e) => {
         value = e.detail;
         dispatch('change', value);
+
         if (opened && closeOnClick) {
             opened = false;
         }
