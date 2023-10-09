@@ -42,7 +42,7 @@
 <div class="ac-confirmation acu-mb-">
 	<div class="ac-confirmation__modal">
 		<div class="ac-confirmation__modal__content">
-			{message}
+			{@html message}
 		</div>
 		<div class="ac-confirmation__modal__footer">
 			<button on:click={close} class="button">{cancel}</button>
