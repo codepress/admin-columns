@@ -171,6 +171,7 @@ final class Screen implements Registerable
                 'layout'           => $this->list_screen->get_layout_id(),
                 'column_types'     => $this->get_column_types_mapping(),
                 'ajax_nonce'       => wp_create_nonce('ac-ajax'),
+                'read_only'        => $this->list_screen->is_read_only(),
                 'table_id'         => $this->list_screen->get_table_attr_id(),
                 'screen'           => $this->get_current_screen_id(),
                 'meta_type'        => $this->list_screen->get_meta_type(),
