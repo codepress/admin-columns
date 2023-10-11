@@ -1,0 +1,1 @@
+<div>Dit is een width slot</div>

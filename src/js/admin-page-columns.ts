@@ -12,6 +12,12 @@ import {initUninitializedListScreens} from "./admin/columns/listscreen-initializ
 import Modals from "./modules/modals";
 import {Column} from "./admin/columns/column";
 import {LocalizedAcColumnSettings} from "./types/admin-columns";
+import ColumnsForm from "./columns/components/ColumnsForm.svelte";
+import {registerSettingType, test} from "./columns/helper";
+import LabelSetting from "./columns/components/settings/LabelSetting.svelte";
+import WidthSetting from "./columns/components/settings/WidthSetting.svelte";
+import TypeSetting from "./columns/components/settings/TypeSetting.svelte";
+import ToggleSetting from "./columns/components/settings/ToggleSetting.svelte";
 
 declare let AC: LocalizedAcColumnSettings
 
@@ -22,6 +28,19 @@ new ColumnConfigurator(AcServices);
 
 document.addEventListener('DOMContentLoaded', () => {
     initSaveHandlers();
+
+    registerSettingType( 'label', LabelSetting )
+    registerSettingType( 'width', WidthSetting )
+    registerSettingType( 'type', TypeSetting )
+    registerSettingType( 'toggle', ToggleSetting )
+
+    let target = document.createElement('div');
+
+    new ColumnsForm({
+        target: target
+    });
+
+    document.querySelector('#cpac')?.prepend( target );
 
     // Init the form
     document.querySelectorAll<HTMLFormElement>('#listscreen_settings').forEach((formElement: HTMLElement) => {

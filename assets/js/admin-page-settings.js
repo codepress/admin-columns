@@ -24,13 +24,12 @@ function create_fragment(ctx) {
   let div2;
   let div0;
   let t0;
-  let t1;
   let div1;
   let button0;
+  let t1;
   let t2;
-  let t3;
   let button1;
-  let t4;
+  let t3;
   let mounted;
   let dispose;
   return {
@@ -38,14 +37,13 @@ function create_fragment(ctx) {
       div3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)( /*message*/ctx[0]);
-      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       button0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
-      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)( /*cancel*/ctx[2]);
-      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)( /*cancel*/ctx[2]);
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       button1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
-      t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)( /*ok*/ctx[1]);
+      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)( /*ok*/ctx[1]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "ac-confirmation__modal__content");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button0, "class", "button");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button1, "class", "button button-primary");
@@ -57,14 +55,14 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div3, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, div2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t1);
+      div0.innerHTML = /*message*/ctx[0];
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, button0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button0, t2);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button0, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, button1);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button1, t4);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(button1, t3);
       /*button1_binding*/
       ctx[9](button1);
       if (!mounted) {
@@ -73,9 +71,10 @@ function create_fragment(ctx) {
       }
     },
     p(ctx, [dirty]) {
-      if (dirty & /*message*/1) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, /*message*/ctx[0]);
-      if (dirty & /*cancel*/4) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t2, /*cancel*/ctx[2]);
-      if (dirty & /*ok*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t4, /*ok*/ctx[1]);
+      if (dirty & /*message*/1) div0.innerHTML = /*message*/ctx[0];
+      ;
+      if (dirty & /*cancel*/4) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t1, /*cancel*/ctx[2]);
+      if (dirty & /*ok*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t3, /*ok*/ctx[1]);
     },
     i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
     o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
