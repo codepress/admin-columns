@@ -1660,6 +1660,8 @@ div.cpac-color span {
 .ac-table-actions .ac-table-actions-buttons {
   white-space: nowrap;
   display: inline-flex;
+  height: 30px;
+  box-sizing: border-box;
   vertical-align: top;
   border: 1px solid var(--ac-button-border);
   border-radius: 3px;
