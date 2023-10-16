@@ -16,6 +16,7 @@ class Post extends Settings\Column
     public const PROPERTY_ID = 'id';
     public const PROPERTY_TITLE = 'title';
     public const PROPERTY_DATE = 'date';
+    public const PROPERTY_STATUS = 'status';
 
     /**
      * @var string
@@ -51,6 +52,8 @@ class Post extends Settings\Column
 
                 $settings[] = $setting;
                 break;
+            case self::PROPERTY_STATUS :
+                $settings[] = new StatusIcon($this->column);
         }
 
         $settings[] = new Settings\Column\PostLink($this->column);
@@ -88,6 +91,9 @@ class Post extends Settings\Column
                 return '';
             case self::PROPERTY_DATE :
                 return ac_helper()->post->get_raw_field('post_date', $id);
+            case self::PROPERTY_STATUS:
+                return ac_helper()->post->get_raw_field('post_status', $id);
+
             default :
                 return $id;
         }
@@ -115,6 +121,7 @@ class Post extends Settings\Column
             self::PROPERTY_AUTHOR         => __('Author'),
             self::PROPERTY_FEATURED_IMAGE => _x('Featured Image', 'post'),
             self::PROPERTY_DATE           => __('Date'),
+            self::PROPERTY_STATUS         => __('Status'),
         ];
 
         asort($options);
