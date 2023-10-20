@@ -18,6 +18,7 @@ use AC\ListScreenRepository\Types;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\ListScreenDelete;
+use AC\RequestHandler\Ajax\ListScreenSettings;
 use AC\Table\ListKeysFactoryInterface;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
@@ -100,6 +101,7 @@ class AdminColumns
 
         $request_ajax_handlers = new RequestAjaxHandlers();
         $request_ajax_handlers->add('ac-list-screen-delete', $container->get(ListScreenDelete::class));
+        $request_ajax_handlers->add('ac-list-screen-settings', $container->get(ListScreenSettings::class));
 
         $services->add(
             new RequestAjaxParser($request_ajax_handlers)

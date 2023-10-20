@@ -52,6 +52,7 @@
         "normalize": true
     },
     "dependencies": {
-        "svelte-json-tree": "^1.0.0"
+        "svelte-json-tree": "^1.0.0",
+        "svelte-select": "^5.7.0"
     }
 }

@@ -3,16 +3,15 @@
 </script>
 <style>
 	.setting {
-		border-bottom: 1px solid #000;
 		display: flex;
 	}
 	.label {
 		width: 200px;
 		font-weight: bold;
-		background: #eee;
+		padding: 10px 30px;
 	}
 	.value {
-		padding: 5px 10px;
+		padding: 10px 10px;
 	}
 </style>
 <div class="setting">

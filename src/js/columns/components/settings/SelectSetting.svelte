@@ -2,10 +2,7 @@
 	import ColumnSetting from "../ColumnSetting.svelte";
 	import Select from "svelte-select"
 	import {onMount} from "svelte";
-	import {getColumnSettings} from "../../ajax";
-	import {columnSettingsStore} from "../../store/settings";
 
-	export let data;
 	export let config;
 	export let value;
 
@@ -17,22 +14,18 @@
 		Object.keys( config.options ).forEach( k => {
 			for ( const [ key, value ] of Object.entries( config.options[ k ].options ) ) {
 				options.push( {
-					group : config.options[k].title,
+					group : config.options[ k ].label,
 					value : key,
 					label : value
-				} );
+				} )
 			}
+
 		} )
 		collection = options
 	} )
 
 	const changeValue = ( d ) => {
 		value = selectValue;
-
-		getColumnSettings( 'post', value ).then( d => {
-			columnSettingsStore.changeSettings( data.name, d.data.data.columns.settings )
-		} );
-
 	}
 
 	const groupBy = ( item ) => item.group;

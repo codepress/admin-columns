@@ -18,6 +18,10 @@ import LabelSetting from "./columns/components/settings/LabelSetting.svelte";
 import WidthSetting from "./columns/components/settings/WidthSetting.svelte";
 import TypeSetting from "./columns/components/settings/TypeSetting.svelte";
 import ToggleSetting from "./columns/components/settings/ToggleSetting.svelte";
+import {getListScreenSettings} from "./columns/ajax";
+import {columnSettingsStore} from "./columns/store/settings";
+import TextSetting from "./columns/components/settings/TextSetting.svelte";
+import SelectSetting from "./columns/components/settings/SelectSetting.svelte";
 
 declare let AC: LocalizedAcColumnSettings
 
@@ -26,21 +30,52 @@ AcServices.registerService('Modals', new Modals());
 
 new ColumnConfigurator(AcServices);
 
+const mapListScreenData = ( d ) => {
+    let columns = d.columns
+
+    let arrayColumns: any[] = [];
+
+    Object.keys( columns ).forEach( k => {
+        arrayColumns.push( columns[k] );
+    });
+
+    d['columns'] = arrayColumns;
+
+    return d;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initSaveHandlers();
 
+    // START UI2.0
     registerSettingType( 'label', LabelSetting )
     registerSettingType( 'width', WidthSetting )
     registerSettingType( 'type', TypeSetting )
     registerSettingType( 'toggle', ToggleSetting )
+    registerSettingType( 'text', TextSetting )
+    registerSettingType( 'select', SelectSetting )
 
     let target = document.createElement('div');
 
-    new ColumnsForm({
-        target: target
-    });
+    getListScreenSettings( AC.layout ).then( (d ) => {
+        let data = mapListScreenData( d.data.data.list_screen_data.list_screen );
+
+        columnSettingsStore.set(d.data.data.settings );
+
+        new ColumnsForm({
+            target: target,
+            props: {
+                listScreenData: data
+            }
+        });
+
+    })
+
 
     document.querySelector('#cpac')?.prepend( target );
+
+    // END UI2.0
+
 
     // Init the form
     document.querySelectorAll<HTMLFormElement>('#listscreen_settings').forEach((formElement: HTMLElement) => {

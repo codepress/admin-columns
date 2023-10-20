@@ -123,4 +123,21 @@ class CustomField extends Settings\Column
         return $this;
     }
 
+    public function get_config(): ?array
+    {
+        return [
+            'type'    => 'select',
+            'options' => [
+                'custom' => [
+                    'label'   => 'Label',
+                    'options' => [
+                        'value'  => 's',
+                        'dvalue' => 'ssdf',
+                    ],
+                ],
+            ],
+            'label'   => 'Custom Field',
+        ];
+    }
+
 }
