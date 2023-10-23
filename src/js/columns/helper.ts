@@ -10,7 +10,6 @@ export const getSettingComponent = (type: string) => {
 
 }
 
-
 export const registerSettingType = (type: string, config: any) => {
     settingTypes.update(d => {
         d[type] = config;
@@ -18,6 +17,5 @@ export const registerSettingType = (type: string, config: any) => {
         return d;
     })
 }
-
 
 export const settingTypes: Writable<{ [key: string]: any }> = writable({});

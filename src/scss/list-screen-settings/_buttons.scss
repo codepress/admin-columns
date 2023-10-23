@@ -1,0 +1,12 @@
+.ac-button {
+	background: transparent;
+	border: 1px solid #616D77;
+	border-radius: 4px;
+	padding: 7px 15px;
+	color: #1E293B;
+	cursor: pointer;
+
+	&.-text {
+		border-color: transparent;
+	}
+}

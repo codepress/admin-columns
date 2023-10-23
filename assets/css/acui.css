@@ -1,3 +1,53 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.acui-button {
+  border: 1px solid #616D77;
+  position: relative;
+  background: transparent;
+  border-radius: 4px;
+  padding: 10px 15px;
+  color: #1E293B;
+  cursor: pointer;
+}
+
+.acui-button.button-text {
+  border-color: transparent;
+  background: transparent;
+}
+
+.acui-button :global(.acui-icon) {
+  transform: translateY(-2px);
+}
+
+.acui-button.is-loading {
+  color: transparent;
+  pointer-events: none;
+}
+
+.acui-button.is-loading:before {
+  border: 2px solid #fff;
+  border-radius: 9999px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  display: block;
+  height: 14px;
+  position: absolute;
+  width: 14px;
+  left: calc(50% - 7px);
+  top: calc(50% - 10px);
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
 .acui-dropdown {
   --acui-dropdown-text-color: var(--ac-text-color);
   --acui-dropdown-hover-background: var(--ac-select-hover-bg);
@@ -100,6 +150,38 @@
   border-radius: 3px;
 }
 
+.acui-input-group {
+  border-radius: 5px;
+  display: flex;
+  width: 600px;
+}
+
+.acui-input-group {
+  border: 1px solid #CBD5E1;
+  border-radius: 5px;
+}
+.acui-input-group > * {
+  display: block;
+}
+
+.acui-input-group input {
+  background: #fff;
+  flex-grow: 1;
+  height: 42px;
+  border: 1px solid transparent;
+}
+
+.acui-input-group-text {
+  background: #fff;
+  flex-grow: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 10px;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  text-transform: uppercase;
+}
+
 .acui-progress {
   --containerWidth: 100%;
   --baseBackground: #ddd;
@@ -154,11 +236,6 @@
 }
 .acui-toggle-buttons .button.button-primary {
   padding-left: 3px;
-}
-
-.acui-button {
-  background: #f6f7f7;
-  border-color: var(--ac-primary-color);
 }
 
 .acui-tooltip {

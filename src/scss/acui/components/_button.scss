@@ -1,0 +1,51 @@
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.acui-button {
+	border: 1px solid #616D77;
+	position: relative;
+	background: transparent;
+	border-radius: 4px;
+	padding: 10px 15px;
+	color: #1E293B;
+	cursor: pointer;
+
+}
+
+.acui-button.button-text {
+	border-color: transparent;
+	background: transparent;
+}
+
+.acui-button :global(.acui-icon) {
+	transform: translateY(-2px);
+}
+
+.acui-button.is-loading {
+	color: transparent;
+	pointer-events: none;
+}
+
+.acui-button.is-loading:before {
+	border: 2px solid #fff;
+	border-radius: 9999px;
+	border-right-color: transparent;
+	border-top-color: transparent;
+	content: "";
+	display: block;
+	height: 14px;
+	position: absolute;
+	width: 14px;
+	left: calc(50% - 7px);
+	top: calc(50% - 10px);
+	animation-name: spin;
+	animation-duration: 1000ms;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}

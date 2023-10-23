@@ -236,6 +236,118 @@
   padding-right: 20px;
 }
 
+.ac-button {
+  background: transparent;
+  border: 1px solid #616D77;
+  border-radius: 4px;
+  padding: 7px 15px;
+  color: #1E293B;
+  cursor: pointer;
+}
+.ac-button.-text {
+  border-color: transparent;
+}
+
+/**
+ ** Form that contains all column information
+ */
+.ac-columns {
+  background: #fff;
+  border: 1px solid #CBD5E1;
+  max-width: 1200px;
+  border-radius: 10px;
+}
+.ac-columns__header {
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 1px solid #CBD5E1;
+}
+.ac-columns__header h1 {
+  margin: 0;
+  padding: 0;
+  margin-right: 20px;
+  align-items: center;
+}
+.ac-columns__header input {
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #bbb;
+  padding: 5px 10px;
+  width: 100%;
+}
+.ac-columns__footer {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding: 19px 30px;
+  gap: 10px;
+}
+.ac-columns__footer button {
+  margin-left: 10px;
+}
+
+.ac-column {
+  border-bottom: 1px solid #CBD5E1;
+}
+.ac-column .ac-column-header {
+  display: flex;
+  padding: 10px 30px;
+  align-items: center;
+}
+.ac-column .ac-column-header__label {
+  flex-grow: 1;
+}
+.ac-column .ac-column-header__actions {
+  justify-content: right;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.ac-column .ac-column-header__open-indicator {
+  width: 30px;
+  display: flex;
+  justify-content: right;
+}
+.ac-column.opened .ac-column-header {
+  border-bottom: 2px solid #CBD5E1;
+  border-top: 1px solid #CBD5E1;
+  background-color: #EAF2FA;
+}
+.ac-column .ac-column-settings {
+  padding: 20px 0;
+}
+
+.ac-open-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+
+.ac-open-indicator.-open {
+  transform: rotate(180deg);
+}
+
+.ac-header-toggle {
+  border: 1px solid #C3CBD7;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  color: #C3CBD7;
+  border-radius: 5px;
+}
+
+.ac-header-toggle.-active {
+  background: #E2E8F0;
+  border-color: #E2E8F0;
+  color: #475569;
+}
+
 @keyframes deal_blur {
   0%, 60% {
     filter: grayscale(0);

@@ -1,0 +1,33 @@
+.acui-input-group {
+	border-radius: 5px;
+	display: flex;
+	width: 600px;
+}
+
+.acui-input-group {
+	border: 1px solid #CBD5E1;
+	border-radius: 5px;
+	> * {
+		display: block;
+
+	}
+
+}
+
+.acui-input-group input {
+	background: #fff;
+	flex-grow: 1;
+	height: 42px;
+	border: 1px solid transparent;
+}
+
+.acui-input-group-text {
+	background: #fff;
+	flex-grow: 0;
+	display: flex;
+	align-items: center;
+	padding: 0 10px;
+	font-size: 10px;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	text-transform: uppercase;
+}

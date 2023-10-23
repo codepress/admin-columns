@@ -41,6 +41,7 @@ class Json
         wp_send_json($this->parameters, $this->status_code);
     }
 
+    #Pure
     private function send_response($data): void
     {
         status_header($this->status_code);

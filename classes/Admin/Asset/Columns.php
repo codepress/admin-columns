@@ -19,9 +19,15 @@ class Columns extends Script
 
     private $list_id;
 
+    /**
+     * @var AC\ListScreen
+     */
+    private $list_screen;
+
     public function __construct(
         string $handle,
         Location $location,
+        AC\ListScreen $list_screen,
         array $list_screens,
         string $list_key,
         string $list_id = null
@@ -36,6 +42,7 @@ class Columns extends Script
         $this->list_screens = $list_screens;
         $this->list_key = $list_key;
         $this->list_id = $list_id;
+        $this->list_screen = $list_screen;
     }
 
     public function register(): void
@@ -48,6 +55,8 @@ class Columns extends Script
             'layout'                     => $this->list_id,
             'original_columns'           => [],
             'uninitialized_list_screens' => [],
+            'column_types'               => $this->get_column_types($this->list_screen),
+            'column_groups'              => AC\ColumnGroups::get_groups()->get_all(),
             'i18n'                       => [
                 'value'  => __('Value', 'codepress-admin-columns'),
                 'label'  => __('Label', 'codepress-admin-columns'),
@@ -73,6 +82,22 @@ class Columns extends Script
         }
 
         wp_localize_script('ac-admin-page-columns', 'AC', $params);
+    }
+
+    private function get_column_types(AC\ListScreen $list_screen): array
+    {
+        $column_types = [];
+
+        foreach ($list_screen->get_column_types() as $column) {
+            $column_types[] = [
+                'label'    => $column->get_label(),
+                'type'     => $column->get_type(),
+                'group'    => $column->get_group(),
+                'original' => $column->is_original(),
+            ];
+        }
+
+        return $column_types;
     }
 
 }

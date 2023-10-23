@@ -1,0 +1,45 @@
+/**
+ ** Form that contains all column information
+ */
+.ac-columns {
+	background: #fff;
+	border: 1px solid #CBD5E1;
+	max-width: 1200px;
+	border-radius: 10px;
+
+	&__header {
+		display: flex;
+		align-items: center;
+		padding: 20px 30px;
+		border-bottom: 1px solid #CBD5E1;
+
+		h1 {
+			margin: 0;
+			padding: 0;
+			margin-right: 20px;
+			align-items: center;
+		}
+
+		input {
+			height: 40px;
+			border-radius: 5px;
+			border: 1px solid #bbb;
+			padding: 5px 10px;
+			width: 100%
+		}
+	}
+
+
+	&__footer {
+		display: flex;
+		justify-content: right;
+		align-items: center;
+		padding: 19px 30px;
+		gap: 10px;
+
+		button {
+			margin-left: 10px;
+		}
+
+	}
+}

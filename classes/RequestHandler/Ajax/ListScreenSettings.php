@@ -46,10 +46,15 @@ class ListScreenSettings implements RequestAjaxHandler
         $request = new Request();
 
         switch ($request->get('method', '')) {
+            case 'save_settings':
+                $this->method_save_settings($request);
+                break;
             case 'get_settings':
                 $this->method_get_settings($request);
+                break;
             case 'add_column':
                 $this->method_add_column($request);
+                break;
         }
 
         echo 'EXIT';
@@ -112,6 +117,7 @@ class ListScreenSettings implements RequestAjaxHandler
         $list_screen = $this->list_screen_factory->create($list_key);
 
         if ( ! $list_screen) {
+            return;
         }
 
         $column = $list_screen->get_column_by_type($request->get('column_type'));
@@ -133,6 +139,37 @@ class ListScreenSettings implements RequestAjaxHandler
         $response->success();
 
         exit;
+    }
+
+    public function method_save_settings(Request $request)
+    {
+        $data = $request->get('data', '');
+        $data = json_decode($data, true);
+
+        $response = new Json();
+
+        $list_screen_id = $data['id'] ?? null;
+
+        if ( ! $list_screen_id) {
+            $response->error();
+
+            exit;
+        }
+
+        $list_screen = $this->storage->find(new ListScreenId($list_screen_id));
+
+        if ( ! $list_screen) {
+            $response->error();
+            exit;
+        }
+
+        $list_screen->set_title((string)$data['title']);
+        $list_screen->set_settings((array)$data['columns']);
+        $list_screen->set_preferences((array)$data['settings']);
+
+        $this->storage->save($list_screen);
+
+        $response->success();
     }
 
 }

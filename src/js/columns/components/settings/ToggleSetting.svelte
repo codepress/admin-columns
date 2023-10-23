@@ -23,6 +23,5 @@
 </script>
 
 <ColumnSetting {label}>
-	{JSON.stringify( data )}
 	<AcToggle bind:checked={checked} on:input={check}></AcToggle>
 </ColumnSetting>

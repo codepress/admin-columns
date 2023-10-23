@@ -9,7 +9,7 @@
 		if ( typeof value === 'undefined' ) {
 			value = config.default ? config.default : '';
 		}
-	});
+	} );
 </script>
 
 <ColumnSetting label={config.label}>

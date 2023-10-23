@@ -1,47 +1,52 @@
-<script>
-	import ColumnItem from "./ColumnItem.svelte";
-	import {columnSettingsStore} from "../store/settings";
-	import {getColumnSettings} from "../ajax";
-	import {openedColumnsStore} from "../store/opened-columns";
-	import ColumnUtils from "../utils/column";
+<script lang="ts">
+    import ColumnItem from "./ColumnItem.svelte";
+    import {columnSettingsStore} from "../store/settings";
+    import {getColumnSettings, saveListScreen} from "../ajax";
+    import {openedColumnsStore} from "../store/opened-columns";
+    import ColumnUtils from "../utils/column";
+    import AcDropdown from "ACUi/acui-dropdown/AcDropdown.svelte";
+    import AcDropdownItem from "ACUi/acui-dropdown/AcDropdownItem.svelte";
+    import {ColumnTypesUtils} from "../utils/column-types";
+    import {MappedListScreenData} from "../../types/admin-columns";
+    import AcButton from "ACUi/element/AcButton.svelte";
 
-	export let listScreenData = null;
+    export let listScreenData: MappedListScreenData;
 
-	const clearColumns = () => {
-		listScreenData[ 'columns' ] = [];
-	}
+    const columnTypes = ColumnTypesUtils.getColumnTypes();
 
-	const addColumn = () => {
-		const name = ColumnUtils.generateId();
-		const column_type = 'column-meta';
+    const clearColumns = () => {
+        listScreenData['columns'] = [];
+    }
 
-		getColumnSettings( 'post', column_type ).then( d => {
-			columnSettingsStore.changeSettings( name, d.data.data.columns.settings );
-			listScreenData[ 'columns' ].push( {
-				name : name,
-				type : column_type
-			} );
-			openedColumnsStore.open( name );
-		} );
-	}
+    const addColumn = (column_type: string) => {
+        const name = ColumnUtils.generateId();
 
-	const saveSettings = () => {
-		console.log( listScreenData );
+        getColumnSettings('post', column_type).then(d => {
+            columnSettingsStore.changeSettings(name, d.data.data.columns.settings);
+            listScreenData['columns'].push({
+                name: name,
+                type: column_type,
+                label: ''
+            });
+            openedColumnsStore.open(name);
+        });
+    }
 
-	}
-
+    const saveSettings = () => {
+        saveListScreen(listScreenData);
+    }
 </script>
 
 
 {#if listScreenData }
-	<div class="ac-columns-form">
-		<header>
+	<div class="ac-columns">
+		<header class="ac-columns__header">
 			<div>
 				<h1>{listScreenData.type}</h1>
 			</div>
 			<input bind:value={listScreenData.title}/>
 		</header>
-		<div class="ac-columns">
+		<div class="ac-columns__body">
 			{#each listScreenData.columns as column_data}
 				<ColumnItem
 						bind:config={ $columnSettingsStore[column_data.name] }
@@ -50,53 +55,22 @@
 				</ColumnItem>
 			{/each}
 		</div>
-		<footer>
+		<footer class="ac-columns__footer">
 			<div>
-				<button on:click={clearColumns}>Clear Columns</button>
-				<button on:click={addColumn}>+ Add Column</button>
+				<AcButton type="text" on:click={clearColumns}>Clear Columns</AcButton>
+				<AcDropdown maxHeight="300px">
+					<AcButton slot="trigger" on:click={clearColumns}>+ Add Column</AcButton>
+					{#each columnTypes as column, i}
+						<AcDropdownItem on:click={() => addColumn(column.type) }
+								value={column.type}>{@html column.label}</AcDropdownItem>
+					{/each}
+				</AcDropdown>
 			</div>
 		</footer>
 	</div>
-	<br><br><br>
+	<br>
 	<div>
-		<button class="save" on:click={saveSettings}>Save</button>
+		<AcButton on:click={saveSettings}>Save</AcButton>
 	</div>
 {/if}
 
-<style>
-	.ac-columns-form {
-		background: #fff;
-		border: 1px solid #CBD5E1;
-		max-width: 1200px;
-		border-radius: 10px;
-	}
-
-	header {
-		display: flex;
-		align-items: center;
-		padding: 20px 30px;
-		border-bottom: 1px solid #CBD5E1;
-	}
-
-	header h1 {
-		margin: 0;
-		padding: 0;
-		margin-right: 20px;
-		align-items: center;
-	}
-
-	header input {
-		height: 40px;
-		border-radius: 5px;
-		border: 1px solid #bbb;
-		padding: 5px 10px;
-	}
-
-	footer {
-		display: flex;
-		justify-content: right;
-		align-items: center;
-		padding: 20px 30px;
-	}
-
-</style>
