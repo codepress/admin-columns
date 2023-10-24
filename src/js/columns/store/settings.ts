@@ -5,9 +5,8 @@ type columnSettings = { [key: string]: columnSetting }
 type columnSetting = any;
 
 export interface ColumnSettingsStore extends Writable<columnSettings> {
-    changeSettings( column: string, settings: columnSetting ): void;
+    changeSettings(column: string, settings: columnSetting): void;
 }
-
 
 function createColumnSettings(): ColumnSettingsStore {
     const {subscribe, set, update} = writable<columnSettings>({});
@@ -17,10 +16,7 @@ function createColumnSettings(): ColumnSettingsStore {
         set,
         update,
         changeSettings: (column: string, settings: columnSetting) => update(items => {
-            console.log( 'before', column, items );
-            items[ column ] = settings;
-
-            console.log( 'after', items[column] );
+            items[column] = settings;
 
             return items;
         }),

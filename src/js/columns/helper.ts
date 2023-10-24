@@ -1,4 +1,5 @@
 import {get, Writable, writable} from "svelte/store";
+import {SvelteComponent} from "svelte";
 
 export const getSettingComponent = (type: string) => {
 
@@ -10,7 +11,7 @@ export const getSettingComponent = (type: string) => {
 
 }
 
-export const registerSettingType = (type: string, config: any) => {
+export const registerSettingType = (type: string, config: typeof SvelteComponent) => {
     settingTypes.update(d => {
         d[type] = config;
 

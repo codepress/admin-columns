@@ -5,7 +5,6 @@
 
 	export let value;
 	export let config;
-	export let data;
 
 	let label = config.label ?? 'UNKNOWN';
 	let checked = false;

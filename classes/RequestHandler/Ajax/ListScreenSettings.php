@@ -49,6 +49,8 @@ class ListScreenSettings implements RequestAjaxHandler
             case 'save_settings':
                 $this->method_save_settings($request);
                 break;
+            case 'get_settings_by_list_key':
+                $this->method_get_settings_by_list_key($request);
             case 'get_settings':
                 $this->method_get_settings($request);
                 break;
@@ -59,6 +61,34 @@ class ListScreenSettings implements RequestAjaxHandler
 
         echo 'EXIT';
         exit;
+    }
+
+    private function method_get_settings_by_list_key(Request $request)
+    {
+        $list_key = $request->get('list_key');
+        $list_screens = $this->storage->find_all_by_key($list_key);
+        $response = new Json();
+
+        if ($list_screens->count() > 0) {
+            $list_screen = $list_screens->current();
+        } else {
+            $list_screen = $this->list_screen_factory->create($list_key);
+        }
+
+        // THIS IS A PRO FEATURE!!! Move?
+        $encoder = new Encoder(new Version('6.3'));
+
+        $encoder->set_list_screen($list_screen);
+
+        $settings = [];
+
+        foreach ($list_screen->get_columns() as $column) {
+            $settings[$column->get_name()] = $this->get_column_settings($column);
+        }
+
+        $response->set_parameter('list_screen_data', $encoder->encode());
+        $response->set_parameter('settings', $settings);
+        $response->success();
     }
 
     private function method_get_settings(Request $request)

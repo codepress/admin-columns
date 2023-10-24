@@ -10,12 +10,12 @@
     import {MappedListScreenData} from "../../types/admin-columns";
     import AcButton from "ACUi/element/AcButton.svelte";
 
-    export let listScreenData: MappedListScreenData;
+    export let data: MappedListScreenData;
 
     const columnTypes = ColumnTypesUtils.getColumnTypes();
 
     const clearColumns = () => {
-        listScreenData['columns'] = [];
+        data['columns'] = [];
     }
 
     const addColumn = (column_type: string) => {
@@ -23,7 +23,7 @@
 
         getColumnSettings('post', column_type).then(d => {
             columnSettingsStore.changeSettings(name, d.data.data.columns.settings);
-            listScreenData['columns'].push({
+            data['columns'].push({
                 name: name,
                 type: column_type,
                 label: ''
@@ -33,21 +33,21 @@
     }
 
     const saveSettings = () => {
-        saveListScreen(listScreenData);
+        saveListScreen(data);
     }
 </script>
 
 
-{#if listScreenData }
+{#if data }
 	<div class="ac-columns">
 		<header class="ac-columns__header">
 			<div>
-				<h1>{listScreenData.type}</h1>
+				<h1>{data.type}</h1>
 			</div>
-			<input bind:value={listScreenData.title}/>
+			<input bind:value={data.title}/>
 		</header>
 		<div class="ac-columns__body">
-			{#each listScreenData.columns as column_data}
+			{#each data.columns as column_data}
 				<ColumnItem
 						bind:config={ $columnSettingsStore[column_data.name] }
 						bind:data={ column_data }>

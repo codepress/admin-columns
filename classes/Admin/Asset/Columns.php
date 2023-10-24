@@ -24,12 +24,15 @@ class Columns extends Script
      */
     private $list_screen;
 
+    private $menu;
+
     public function __construct(
         string $handle,
         Location $location,
         AC\ListScreen $list_screen,
         array $list_screens,
         string $list_key,
+        AC\Admin\Section\Partial\Menu $menu,
         string $list_id = null
     ) {
         parent::__construct($handle, $location, [
@@ -43,12 +46,14 @@ class Columns extends Script
         $this->list_key = $list_key;
         $this->list_id = $list_id;
         $this->list_screen = $list_screen;
+        $this->menu = $menu;
     }
 
     public function register(): void
     {
         parent::register();
 
+        // TODO Remove AC variable and use more specific
         $params = [
             '_ajax_nonce'                => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
             'list_screen'                => $this->list_key,
@@ -82,6 +87,22 @@ class Columns extends Script
         }
 
         wp_localize_script('ac-admin-page-columns', 'AC', $params);
+
+        // TODO Needed for UI2 Remove part above
+        $this->add_inline_variable('ac_admin_columns', [
+            'menu_items'     => $this->menu->get_menu_items(),
+            'list_key'       => $this->list_key,
+            'list_screen_id' => $this->list_id,
+            'column_types'   => $this->get_column_types($this->list_screen),
+            'column_groups'  => AC\ColumnGroups::get_groups()->get_all(),
+        ]);
+
+        $this->localize(
+            'ac_admin_columns_i18n',
+            new Script\Localize\Translation([
+
+            ])
+        );
     }
 
     private function get_column_types(AC\ListScreen $list_screen): array

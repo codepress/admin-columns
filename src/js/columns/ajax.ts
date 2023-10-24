@@ -5,7 +5,7 @@ declare const ajaxurl: string;
 
 export type listScreenSettingsResponse = {
     data: {
-        list_screen_data :{
+        list_screen_data: {
             version: string,
             list_screen: ListScreenData
         },
@@ -20,6 +20,16 @@ export const getListScreenSettings = (listId: string): AxiosPromise<listScreenSe
             action: 'ac-list-screen-settings',
             list_screen_id: listId,
             method: 'get_settings'
+        }
+    })
+}
+
+export const getListScreenSettingsByListKey = (listKey: string): AxiosPromise<listScreenSettingsResponse> => {
+    return axios.get(ajaxurl, {
+        params: {
+            action: 'ac-list-screen-settings',
+            list_key: listKey,
+            method: 'get_settings_by_list_key'
         }
     })
 }

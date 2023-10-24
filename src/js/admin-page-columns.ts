@@ -11,18 +11,18 @@ import {initPointers} from "./modules/ac-pointer";
 import {initUninitializedListScreens} from "./admin/columns/listscreen-initialize";
 import Modals from "./modules/modals";
 import {Column} from "./admin/columns/column";
-import {LocalizedAcColumnSettings, MappedListScreenData} from "./types/admin-columns";
-import ColumnsForm from "./columns/components/ColumnsForm.svelte";
+import {LocalizedAcColumnSettings} from "./types/admin-columns";
 import {registerSettingType} from "./columns/helper";
 import LabelSetting from "./columns/components/settings/LabelSetting.svelte";
 import WidthSetting from "./columns/components/settings/WidthSetting.svelte";
 import TypeSetting from "./columns/components/settings/TypeSetting.svelte";
 import ToggleSetting from "./columns/components/settings/ToggleSetting.svelte";
-import {getListScreenSettings} from "./columns/ajax";
-import {columnSettingsStore} from "./columns/store/settings";
 import TextSetting from "./columns/components/settings/TextSetting.svelte";
 import SelectSetting from "./columns/components/settings/SelectSetting.svelte";
-import {ListScreenColumnData, ListScreenData} from "./types/requests";
+import ColumnsPage from "./columns/components/ColumnsPage.svelte";
+import {currentListId, currentListKey} from "./columns/store/current-list-screen";
+import {getColumnSettingsConfig} from "./columns/utils/global";
+import ListScreenSections from "./columns/store/list-screen-sections";
 
 declare let AC: LocalizedAcColumnSettings
 
@@ -31,15 +31,14 @@ AcServices.registerService('Modals', new Modals());
 
 new ColumnConfigurator(AcServices);
 
-const mapListScreenData = (d: ListScreenData): MappedListScreenData => {
-    return Object.assign(d, {
-        columns: Object.values(d.columns)
-    });
-}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     initSaveHandlers();
+    const config = getColumnSettingsConfig();
 
+
+    ListScreenSections.registerSection('before_columns', LabelSetting );
 
     // START UI2.0
     registerSettingType('label', LabelSetting)
@@ -49,23 +48,31 @@ document.addEventListener('DOMContentLoaded', () => {
     registerSettingType('text', TextSetting)
     registerSettingType('select', SelectSetting)
 
+    currentListId.set(config.list_screen_id)
+    currentListKey.set(config.list_key);
+
     let target = document.createElement('div');
 
-    getListScreenSettings(AC.layout).then((d) => {
-        const data = mapListScreenData(d.data.data.list_screen_data.list_screen);
-
-        columnSettingsStore.set(d.data.data.settings);
-
-        new ColumnsForm({
-            target: target,
-            props: {
-                listScreenData: data
-            }
-        });
-    })
-
+    new ColumnsPage({
+        target: target,
+        props: {
+            menu: config.menu_items
+        }
+    });
 
     document.querySelector('#cpac')?.prepend(target);
+    //
+    // getListScreenSettings(getColumnSettingsConfig().list_screen_id).then((d) => {
+    //     x
+    //
+    //     new ColumnsForm({
+    //         target: target,
+    //         props: {
+    //             listScreenData: data
+    //         }
+    //     });
+    // })
+
 
     // END UI2.0
 

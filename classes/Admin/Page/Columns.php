@@ -81,6 +81,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->list_screen,
                 $this->list_screens_uninitialized,
                 $this->list_screen->get_key(),
+                $this->menu,
                 $this->list_screen->has_id() ? $this->list_screen->get_id()->get_id() : ''
             ),
             new Style('ac-admin-page-columns-css', $this->location->with_suffix('assets/css/admin-page-columns.css')),

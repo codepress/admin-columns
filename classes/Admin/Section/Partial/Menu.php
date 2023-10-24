@@ -29,7 +29,8 @@ class Menu
                     ->render();
     }
 
-    private function get_menu_items(): array
+    // TODO was private, needs to pass to script
+    public function get_menu_items(): array
     {
         $items = [];
 

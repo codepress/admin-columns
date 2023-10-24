@@ -17,19 +17,6 @@ export type LocalizedAcColumnSettingsI18n = {
     }
 }
 
-type ColumnGroup = {
-    slug: string
-    label: string
-    priority: number
-}
-
-type ColumnConfig = {
-    label: string
-    type: string
-    group: string
-    original: boolean
-}
-
 export type LocalizedAcColumnSettings = {
     _ajax_nonce: string
     i18n: LocalizedAcColumnSettingsI18n
@@ -37,8 +24,6 @@ export type LocalizedAcColumnSettings = {
     list_screen: string
     uninitialized_list_screens: UninitializedListScreens
     original_columns: Array<string>
-    column_groups: ColumnGroup[]
-    column_types: ColumnConfig[]
 }
 
 export type LocalizedAcTableI18n = {

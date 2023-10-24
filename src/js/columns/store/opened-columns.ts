@@ -1,9 +1,5 @@
 import {Writable, writable} from 'svelte/store';
 
-
-type columnSettings = { [key: string]: columnSetting }
-type columnSetting = any;
-
 export interface OpenedColumnsStore extends Writable<string[]> {
     open(column: string): void;
 
@@ -11,7 +7,6 @@ export interface OpenedColumnsStore extends Writable<string[]> {
 
     toggle(column: string): void;
 }
-
 
 function createOpenedColumnsStore(): OpenedColumnsStore {
     const {subscribe, set, update} = writable<string[]>([]);
@@ -30,10 +25,10 @@ function createOpenedColumnsStore(): OpenedColumnsStore {
             return items;
         }),
         toggle: (column: string) => update(items => {
-            if( items.includes( column ) ){
+            if (items.includes(column)) {
                 items = items.filter(s => s !== column);
             } else {
-                items.push( column );
+                items.push(column);
             }
 
             return items;
