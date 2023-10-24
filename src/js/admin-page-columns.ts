@@ -31,8 +31,6 @@ AcServices.registerService('Modals', new Modals());
 
 new ColumnConfigurator(AcServices);
 
-
-
 const mapListScreenData = (d: ListScreenData): MappedListScreenData => {
     return Object.assign(d, {
         columns: Object.values(d.columns)
@@ -41,6 +39,7 @@ const mapListScreenData = (d: ListScreenData): MappedListScreenData => {
 
 document.addEventListener('DOMContentLoaded', () => {
     initSaveHandlers();
+
 
     // START UI2.0
     registerSettingType('label', LabelSetting)
