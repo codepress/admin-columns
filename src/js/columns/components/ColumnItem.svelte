@@ -3,6 +3,7 @@
     import {getSettingComponent} from "../helper";
     import {openedColumnsStore} from "../store/opened-columns";
     import {slide} from 'svelte/transition';
+    import DynamicComponent from "./DynamicComponent.svelte";
 
     export let data: any;
     export let config;
@@ -41,8 +42,12 @@
 	{#if opened && config !== null}
 		<div class="ac-column-settings" transition:slide>
 			{#each config as setting}
-				<svelte:component this={getComponent(setting.type)} bind:value={data[setting.key]} bind:data={data}
-						config={setting}></svelte:component>
+				{JSON.stringify(data[setting.key])}
+				<DynamicComponent
+						this={getComponent(setting.type)}
+						bind:data={data}
+						config={setting}></DynamicComponent>
+
 			{/each}
 		</div>
 	{/if}

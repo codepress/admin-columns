@@ -16,7 +16,9 @@ export const registerSettingType = (type: string, config: typeof SvelteComponent
         d[type] = config;
 
         return d;
-    })
+    });
+
+    console.log( get( settingTypes ) );
 }
 
 export const settingTypes: Writable<{ [key: string]: any }> = writable({});

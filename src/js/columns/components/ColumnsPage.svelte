@@ -1,3 +1,5 @@
+<svelte:options accessors={true}/>
+
 <script lang="ts">
     import ListScreenForm from "./ListScreenForm.svelte";
     import {onMount} from "svelte";
@@ -6,8 +8,9 @@
     import {ListScreenData} from "../../types/requests";
     import {MappedListScreenData} from "../../types/admin-columns";
     import ListScreenSections from "../store/list-screen-sections";
-    import MenuItems = AC.Vars.Admin.Columns.MenuItems;
     import {columnSettingsStore} from "../store/settings";
+    import MenuItems = AC.Vars.Admin.Columns.MenuItems;
+    import DynamicSection from "./DynamicSection.svelte";
 
     export let menu: MenuItems;
 
@@ -37,6 +40,10 @@
 
     onMount(() => {
         handleListIdChange($currentListId);
+
+        currentListId.subscribe( ( d ) => {
+            handleListIdChange( d );
+		})
     });
 </script>
 <style>
@@ -83,12 +90,11 @@
 	</div>
 	<div class="right">
 		{#each ListScreenSections.getSections( 'before_columns' ) as component}
-			<svelte:component
+			<DynamicSection
 					this={component}
 					bind:data={listScreenData}
-			></svelte:component>
+			></DynamicSection>
 		{/each}
-
 
 		[ { $currentListId } - {$currentListKey} ]
 		{#if listScreenData !== null}

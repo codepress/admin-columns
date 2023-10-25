@@ -23,6 +23,8 @@ import ColumnsPage from "./columns/components/ColumnsPage.svelte";
 import {currentListId, currentListKey} from "./columns/store/current-list-screen";
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import ListScreenSections from "./columns/store/list-screen-sections";
+import {SvelteComponent} from "svelte";
+import TestApp from "./columns/components/TestApp.svelte";
 
 declare let AC: LocalizedAcColumnSettings
 
@@ -31,14 +33,22 @@ AcServices.registerService('Modals', new Modals());
 
 new ColumnConfigurator(AcServices);
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
     initSaveHandlers();
+
+
+
+
     const config = getColumnSettingsConfig();
+    const ConfigService = {
+        registerSettingType,
+        ListScreenSections,
+        updateId: ( newValue: string ) => {
+            currentListId.update( old => newValue)
+        }
+    }
 
-
-    ListScreenSections.registerSection('before_columns', LabelSetting );
+    AcServices.registerService( 'ColumnPage', ConfigService );
 
     // START UI2.0
     registerSettingType('label', LabelSetting)
@@ -48,15 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
     registerSettingType('text', TextSetting)
     registerSettingType('select', SelectSetting)
 
+
+
     currentListId.set(config.list_screen_id)
     currentListKey.set(config.list_key);
+
+    console.log( currentListId );
 
     let target = document.createElement('div');
 
     new ColumnsPage({
         target: target,
         props: {
-            menu: config.menu_items
+            menu: config.menu_items,
         }
     });
 
