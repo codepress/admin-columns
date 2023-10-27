@@ -1,7 +1,6 @@
 .acui-input-group {
 	border-radius: 5px;
 	display: flex;
-	width: 600px;
 }
 
 .acui-input-group {
@@ -19,10 +18,10 @@
 	flex-grow: 1;
 	height: 42px;
 	border: 1px solid transparent;
+	width: 1%;
 }
 
 .acui-input-group-text {
-	background: #fff;
 	flex-grow: 0;
 	display: flex;
 	align-items: center;

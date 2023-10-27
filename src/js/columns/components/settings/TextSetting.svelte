@@ -9,12 +9,6 @@
 
 	let value;
 
-	const changeValue = () => {
-		data[config.key] = value;
-		dispatch('change', data );
-		console.log('Change it');
-	}
-
 	onMount( () => {
 		value = data[config.key];
 		if ( typeof value === 'undefined' ) {
@@ -27,6 +21,6 @@
 
 <ColumnSetting label={config.label}>
 	<div>
-		<input type="text" bind:value={value} on:input={changeValue}>
+		<input type="text" bind:value={data[config.key]}>
 	</div>
 </ColumnSetting>

@@ -3,7 +3,6 @@
     import {getSettingComponent} from "../helper";
     import {openedColumnsStore} from "../store/opened-columns";
     import {slide} from 'svelte/transition';
-    import DynamicComponent from "./DynamicComponent.svelte";
 
     export let data: any;
     export let config;
@@ -25,13 +24,13 @@
 			<strong on:click={toggle} on:keydown role="none">{@html data.label}</strong>
 		</div>
 		<div class="ac-column-header__actions">
+			[ {data.width} {data.width_unit} ]
 			<button class="ac-header-toggle">
 				<span class="dashicons dashicons-filter on" title="Enable Filtering"></span>
 			</button>
 			<button class="ac-header-toggle -active">
 				<span class="dashicons dashicons-filter on" title="Enable Filtering"></span>
 			</button>
-
 		</div>
 		<div class="ac-column-header__open-indicator">
 			<button class="ac-open-indicator" class:-open={opened} on:click={toggle}>
@@ -42,12 +41,12 @@
 	{#if opened && config !== null}
 		<div class="ac-column-settings" transition:slide>
 			{#each config as setting}
-				{JSON.stringify(data[setting.key])}
-				<DynamicComponent
+				<svelte:component
 						this={getComponent(setting.type)}
 						bind:data={data}
-						config={setting}></DynamicComponent>
+						config={setting}>
 
+				</svelte:component>
 			{/each}
 		</div>
 	{/if}

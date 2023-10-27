@@ -9,6 +9,8 @@
 	let target
 	let cmp
 
+	let changing = false;
+
 	const create = () => {
 		cmp = new component( {
 			target,
@@ -32,9 +34,10 @@
 		cleanup()
 		create()
 	} )
-	
+
 	$: if ( cmp ) {
-		cmp.$set( $$restProps )
+		console.log( 'restPropes' );
+		//cmp.$set( $$restProps )
 	}
 
 	onDestroy( cleanup )

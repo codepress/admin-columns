@@ -1,5 +1,5 @@
 import axios, {AxiosPromise} from "axios";
-import {ListScreenData} from "../types/requests";
+import {ListScreenData} from "../../types/requests";
 
 declare const ajaxurl: string;
 

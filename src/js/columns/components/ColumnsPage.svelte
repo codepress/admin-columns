@@ -3,18 +3,19 @@
 <script lang="ts">
     import ListScreenForm from "./ListScreenForm.svelte";
     import {onMount} from "svelte";
-    import {getListScreenSettings, getListScreenSettingsByListKey} from "../ajax";
+    import {getListScreenSettings, getListScreenSettingsByListKey} from "../ajax/ajax";
     import {currentListId, currentListKey} from "../store/current-list-screen";
     import {ListScreenData} from "../../types/requests";
     import {MappedListScreenData} from "../../types/admin-columns";
     import ListScreenSections from "../store/list-screen-sections";
     import {columnSettingsStore} from "../store/settings";
-    import MenuItems = AC.Vars.Admin.Columns.MenuItems;
     import DynamicSection from "./DynamicSection.svelte";
+    import MenuItems = AC.Vars.Admin.Columns.MenuItems;
 
     export let menu: MenuItems;
 
     let listScreenData: MappedListScreenData | null = null;
+    let openedGroups: string[] = [];
 
     const mapListScreenData = (d: ListScreenData): MappedListScreenData => {
         return Object.assign(d, {
@@ -38,12 +39,32 @@
         })
     }
 
+    const toggleGroup = (group: string) => {
+        openedGroups.includes(group)
+            ? closeGroup(group)
+            : showGroup(group);
+
+        console.log(openedGroups);
+    }
+
+    const showGroup = (group: string) => {
+        openedGroups.push(group);
+        openedGroups = openedGroups;
+    }
+
+    const closeGroup = (group: string) => {
+        openedGroups = openedGroups.filter(d => d !== group);
+    }
+
     onMount(() => {
         handleListIdChange($currentListId);
 
-        currentListId.subscribe( ( d ) => {
-            handleListIdChange( d );
-		})
+        currentListId.subscribe((d) => {
+            handleListIdChange(d);
+        });
+
+        Object.keys(menu).forEach(g => showGroup(g));
+
     });
 </script>
 <style>
@@ -54,11 +75,18 @@
 
 	main .left {
 		width: 250px;
-		border-right: 1px solid #000;
 	}
 
 	.right {
 		flex-grow: 1;
+	}
+
+	.ac-menu-group {
+		margin-bottom: 30px;
+	}
+
+	ul {
+		margin-left: 13px;
 	}
 
 	li a {
@@ -75,16 +103,25 @@
 </style>
 <main>
 	<div class="left">
-		{#each Object.values( menu ) as group}
-			<strong>{group.title}</strong>
-			<ul>
-				{#each Object.entries( group.options ) as [ key, label ]}
-					<li class:active={$currentListKey === key}>
-						<a href={'#'}
-								on:click|preventDefault={ () => handleMenuSelect( key ) }>{label}</a>
-					</li>
-				{/each}
-			</ul>
+		{#each Object.entries( menu ) as [ key, group ]}
+			<div class="ac-menu-group">
+				<div on:click={() => toggleGroup( key )}>
+					<strong>
+						<span class="dashicons dashicons-flag" style="color: #999;"></span>
+						{group.title}
+					</strong>
+				</div>
+				{#if openedGroups.includes( key )}
+					<ul>
+						{#each Object.entries( group.options ) as [ key, label ]}
+							<li class:active={$currentListKey === key}>
+								<a href={'#'}
+										on:click|preventDefault={ () => handleMenuSelect( key ) }>{label}</a>
+							</li>
+						{/each}
+					</ul>
+				{/if}
+			</div>
 		{/each}
 
 	</div>
@@ -96,7 +133,6 @@
 			></DynamicSection>
 		{/each}
 
-		[ { $currentListId } - {$currentListKey} ]
 		{#if listScreenData !== null}
 			<ListScreenForm bind:data={listScreenData}></ListScreenForm>
 		{:else}

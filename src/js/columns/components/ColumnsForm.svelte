@@ -1,7 +1,7 @@
 <script lang="ts">
     import ColumnItem from "./ColumnItem.svelte";
     import {columnSettingsStore} from "../store/settings";
-    import {getColumnSettings, saveListScreen} from "../ajax";
+    import {getColumnSettings, saveListScreen} from "../ajax/ajax";
     import {openedColumnsStore} from "../store/opened-columns";
     import ColumnUtils from "../utils/column";
     import AcDropdown from "ACUi/acui-dropdown/AcDropdown.svelte";
@@ -9,6 +9,7 @@
     import {ColumnTypesUtils} from "../utils/column-types";
     import {MappedListScreenData} from "../../types/admin-columns";
     import AcButton from "ACUi/element/AcButton.svelte";
+    import ListKeys from "../utils/ListKeys";
 
     export let data: MappedListScreenData;
 
@@ -42,7 +43,7 @@
 	<div class="ac-columns">
 		<header class="ac-columns__header">
 			<div>
-				<h1>{data.type}</h1>
+				<h1>{ListKeys.getLabelForKey(data.type)}</h1>
 			</div>
 			<input bind:value={data.title}/>
 		</header>

@@ -2,7 +2,7 @@
 	import ColumnSetting from "../ColumnSetting.svelte";
 	import Select from "svelte-select"
 	import {onMount} from "svelte";
-	import {getColumnSettings} from "../../ajax";
+	import {getColumnSettings} from "../../ajax/ajax";
 	import {columnSettingsStore} from "../../store/settings";
 
 	export let data;
