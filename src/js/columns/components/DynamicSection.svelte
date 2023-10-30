@@ -2,7 +2,6 @@
 	import {onDestroy, onMount} from 'svelte'
 
 	export {component as this}
-	export let data;
 
 	let component
 	let target
@@ -10,10 +9,7 @@
 
 	const create = () => {
 		cmp = new component( {
-			target,
-			props : {
-				data : data
-			},
+			target
 		} );
 	}
 

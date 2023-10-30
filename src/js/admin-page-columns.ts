@@ -36,11 +36,12 @@ new ColumnConfigurator(AcServices);
 document.addEventListener('DOMContentLoaded', () => {
     initSaveHandlers();
 
-
-
-
     const config = getColumnSettingsConfig();
     const ConfigService = {
+        stores: {
+            currentListId,
+            currentListKey
+        },
         registerSettingType,
         ListScreenSections,
         updateId: ( newValue: string ) => {
@@ -58,12 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
     registerSettingType('text', TextSetting)
     registerSettingType('select', SelectSetting)
 
-
-
     currentListId.set(config.list_screen_id)
     currentListKey.set(config.list_key);
 
-    console.log( currentListId );
 
     let target = document.createElement('div');
 

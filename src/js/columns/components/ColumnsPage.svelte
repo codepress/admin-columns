@@ -9,10 +9,9 @@
     import {MappedListScreenData} from "../../types/admin-columns";
     import ListScreenSections from "../store/list-screen-sections";
     import {columnSettingsStore} from "../store/settings";
-    import DynamicSection from "./DynamicSection.svelte";
-    import MenuItems = AC.Vars.Admin.Columns.MenuItems;
+    import HtmlSection from "./HtmlSection.svelte";
 
-    export let menu: MenuItems;
+    export let menu: AC.Vars.Admin.Columns.MenuItems;
 
     let listScreenData: MappedListScreenData | null = null;
     let openedGroups: string[] = [];
@@ -43,8 +42,6 @@
         openedGroups.includes(group)
             ? closeGroup(group)
             : showGroup(group);
-
-        console.log(openedGroups);
     }
 
     const showGroup = (group: string) => {
@@ -57,14 +54,11 @@
     }
 
     onMount(() => {
-        handleListIdChange($currentListId);
-
         currentListId.subscribe((d) => {
             handleListIdChange(d);
         });
 
         Object.keys(menu).forEach(g => showGroup(g));
-
     });
 </script>
 <style>
@@ -127,10 +121,11 @@
 	</div>
 	<div class="right">
 		{#each ListScreenSections.getSections( 'before_columns' ) as component}
-			<DynamicSection
-					this={component}
-					bind:data={listScreenData}
-			></DynamicSection>
+			<!--<DynamicSection this={component}></DynamicSection>-->
+			<div bind:this={component}></div>
+			<HtmlSection component={component}></HtmlSection>
+
+
 		{/each}
 
 		{#if listScreenData !== null}

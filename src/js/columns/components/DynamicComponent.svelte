@@ -9,7 +9,6 @@
 	let target
 	let cmp
 
-	let changing = false;
 
 	const create = () => {
 		cmp = new component( {
