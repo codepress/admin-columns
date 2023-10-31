@@ -211,7 +211,7 @@ span.dashicons {
 	}
 
 	&.gray {
-		color: #8a8a8a;
+		color: var(--ac-table-color);
 	}
 
 	&.blue {
@@ -319,7 +319,7 @@ table.ac-table-items {
 -------------------------------------------------------------- */
 .ac-post-state-format {
 	&:before {
-		color: rgba(167, 167, 167, 1);
+		color: var(--ac-table-color);
 	}
 }
 
