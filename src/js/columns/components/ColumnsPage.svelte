@@ -121,11 +121,7 @@
 	</div>
 	<div class="right">
 		{#each ListScreenSections.getSections( 'before_columns' ) as component}
-			<!--<DynamicSection this={component}></DynamicSection>-->
-			<div bind:this={component}></div>
 			<HtmlSection component={component}></HtmlSection>
-
-
 		{/each}
 
 		{#if listScreenData !== null}

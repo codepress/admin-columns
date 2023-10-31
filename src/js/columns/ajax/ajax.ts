@@ -1,5 +1,6 @@
 import axios, {AxiosPromise} from "axios";
-import {ListScreenData} from "../../types/requests";
+import {ListScreenColumnData, ListScreenColumnsData, ListScreenData} from "../../types/requests";
+import {MappedListScreenData} from "../../types/admin-columns";
 
 declare const ajaxurl: string;
 
@@ -45,12 +46,21 @@ export const getColumnSettings = (ListScreen: string, columnType: string) => {
     })
 }
 
-export const saveListScreen = (data: any) => {
+export const saveListScreen = (data: MappedListScreenData) => {
     const formData = new FormData();
+    let columns: ListScreenColumnsData = {};
+
+    data.columns.forEach( c => {
+        columns[ c.name ] = c;
+    })
+
+    let listScreenData = Object.assign( data, {
+        columns: columns
+    } )
 
     formData.set('action', 'ac-list-screen-settings')
     formData.set('method', 'save_settings');
-    formData.set('data', JSON.stringify(data));
+    formData.set('data', JSON.stringify(listScreenData));
 
     axios.post(ajaxurl,
         formData

@@ -3,9 +3,10 @@
     import {getSettingComponent} from "../helper";
     import {openedColumnsStore} from "../store/opened-columns";
     import {slide} from 'svelte/transition';
+    import {onMount} from "svelte";
 
     export let data: any;
-    export let config;
+    export let config = [];
 
     const toggle = () => {
         openedColumnsStore.toggle(data.name);
@@ -14,6 +15,10 @@
     const getComponent = (type: string) => {
         return getSettingComponent(type);
     }
+
+    onMount( () => {
+        console.log( config );
+	})
 
     $: opened = $openedColumnsStore.includes(data.name);
 </script>
@@ -38,7 +43,7 @@
 			</button>
 		</div>
 	</header>
-	{#if opened && config !== null}
+	{#if opened && config !== null && typeof config !== 'undefined' }
 		<div class="ac-column-settings" transition:slide>
 			{#each config as setting}
 				<svelte:component

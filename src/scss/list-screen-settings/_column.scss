@@ -8,6 +8,8 @@
 
 		&__label {
 			flex-grow: 1;
+			color: var(--ac-link);
+			cursor: pointer;
 		}
 
 		&__actions {
@@ -21,6 +23,11 @@
 			width: 30px;
 			display: flex;
 			justify-content: right;
+
+			.ac-open-indicator {
+				background: none;
+				border: none;
+			}
 		}
 
 	}

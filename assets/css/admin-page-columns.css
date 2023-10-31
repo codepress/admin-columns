@@ -254,7 +254,6 @@
 .ac-columns {
   background: #fff;
   border: 1px solid #CBD5E1;
-  max-width: 1200px;
   border-radius: 10px;
 }
 .ac-columns__header {
@@ -268,6 +267,7 @@
   padding: 0;
   margin-right: 20px;
   align-items: center;
+  white-space: nowrap;
 }
 .ac-columns__header input {
   height: 40px;
@@ -297,6 +297,8 @@
 }
 .ac-column .ac-column-header__label {
   flex-grow: 1;
+  color: var(--ac-link);
+  cursor: pointer;
 }
 .ac-column .ac-column-header__actions {
   justify-content: right;
@@ -308,6 +310,10 @@
   width: 30px;
   display: flex;
   justify-content: right;
+}
+.ac-column .ac-column-header__open-indicator .ac-open-indicator {
+  background: none;
+  border: none;
 }
 .ac-column.opened .ac-column-header {
   border-bottom: 2px solid #CBD5E1;
