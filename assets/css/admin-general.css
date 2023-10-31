@@ -85,7 +85,7 @@
 
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=955237") format("woff2"), url("../fonts/cpac_icons.woff?v=928084") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=493495") format("woff2"), url("../fonts/cpac_icons.woff?v=815155") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -141,6 +141,14 @@
 
 .cpacicon-smart-filter::before {
   content: "\ea0b";
+}
+
+.cpacicon-text-clip::before {
+  content: "\ea0c";
+}
+
+.cpacicon-text-wrap::before {
+  content: "\ea0d";
 }
 
 /**
