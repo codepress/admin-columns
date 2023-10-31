@@ -5,36 +5,32 @@
     import {onMount} from "svelte";
     import {getListScreenSettings, getListScreenSettingsByListKey} from "../ajax/ajax";
     import {currentListId, currentListKey} from "../store/current-list-screen";
-    import {ListScreenData} from "../../types/requests";
-    import {MappedListScreenData} from "../../types/admin-columns";
     import ListScreenSections from "../store/list-screen-sections";
-    import {columnSettingsStore} from "../store/settings";
     import HtmlSection from "./HtmlSection.svelte";
     import ListScreenMenu from "./ListScreenMenu.svelte";
+    import {listScreenDataStore} from "../store/list-screen-data";
+    import AcSkeleton from "ACUi/element/AcSkeleton.svelte";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
 
-    let listScreenData: MappedListScreenData | null = null;
-
-    const mapListScreenData = (d: ListScreenData): MappedListScreenData => {
-        return Object.assign(d, {
-            columns: Object.values(d.columns)
-        });
-    }
+    let config;
 
     const handleMenuSelect = (e) => {
-        listScreenData = null;
         getListScreenSettingsByListKey(e.detail).then(response => {
-            listScreenData = mapListScreenData(response.data.data.list_screen_data.list_screen);
+            config = response.data.data.settings
             $currentListKey = e.detail;
-            columnSettingsStore.set(response.data.data.settings);
+            listScreenDataStore.update(d => {
+                return response.data.data.list_screen_data.list_screen;
+            })
         });
     }
 
     const handleListIdChange = (listId: string) => {
         getListScreenSettings(listId).then(response => {
-            listScreenData = mapListScreenData(response.data.data.list_screen_data.list_screen);
-            columnSettingsStore.set(response.data.data.settings);
+            config = response.data.data.settings;
+            listScreenDataStore.update(d => {
+                return response.data.data.list_screen_data.list_screen;
+            })
         })
     }
 
@@ -69,10 +65,47 @@
 			<HtmlSection component={component}></HtmlSection>
 		{/each}
 
-		{#if listScreenData !== null}
-			<ListScreenForm bind:data={listScreenData}></ListScreenForm>
+		<div class="ac-columns">
+			<header class="ac-columns__header">
+
+					<AcSkeleton count={3}></AcSkeleton>
+
+			</header>
+			<div class="ac-columns__body">
+				<div class="ac-column">
+					<header class="ac-column-header">
+						<div class="ac-column-header__label"><strong role="none">Slug</strong></div>
+						<div class="ac-column-header__actions">[ 360 px ]
+							<button class="ac-header-toggle">
+								<span class="dashicons dashicons-filter on" title="Enable Filtering"></span>
+							</button>
+							<button class="ac-header-toggle -active">
+								<span class="dashicons dashicons-filter on" title="Enable Filtering"></span>
+							</button>
+						</div>
+						<div class="ac-column-header__open-indicator">
+							<button class="ac-open-indicator">
+								<span class="dashicons dashicons-arrow-down-alt2"></span></button>
+						</div>
+					</header>
+				</div>
+			</div>
+			<footer class="ac-columns__footer">
+				<div>
+					<button class="acui-button button-text"> Clear Columns</button>
+					<div class="acui-dropdown">
+						<div class="acui-dropdown-trigger" aria-haspopup="true" role="button" tabindex="-1">
+							<button class="acui-button button-null"> + Add Column</button>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+
+		{#if $listScreenDataStore !== null}
+			<ListScreenForm bind:config={config}></ListScreenForm>
 		{:else}
-			LOADING
+
 		{/if}
 
 

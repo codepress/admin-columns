@@ -16,10 +16,6 @@
         return getSettingComponent(type);
     }
 
-    onMount( () => {
-        console.log( config );
-	})
-
     $: opened = $openedColumnsStore.includes(data.name);
 </script>
 
@@ -43,8 +39,10 @@
 			</button>
 		</div>
 	</header>
+
 	{#if opened && config !== null && typeof config !== 'undefined' }
 		<div class="ac-column-settings" transition:slide>
+
 			{#each config as setting}
 				<svelte:component
 						this={getComponent(setting.type)}

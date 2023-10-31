@@ -23,8 +23,7 @@ import ColumnsPage from "./columns/components/ColumnsPage.svelte";
 import {currentListId, currentListKey} from "./columns/store/current-list-screen";
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import ListScreenSections from "./columns/store/list-screen-sections";
-import {SvelteComponent} from "svelte";
-import TestApp from "./columns/components/TestApp.svelte";
+import {listScreenDataStore} from "./columns/store/list-screen-data";
 
 declare let AC: LocalizedAcColumnSettings
 
@@ -40,16 +39,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const ConfigService = {
         stores: {
             currentListId,
-            currentListKey
+            currentListKey,
+            listScreenDataStore
         },
         registerSettingType,
         ListScreenSections,
-        updateId: ( newValue: string ) => {
-            currentListId.update( old => newValue)
+        updateId: (newValue: string) => {
+            currentListId.update(old => newValue)
         }
     }
 
-    AcServices.registerService( 'ColumnPage', ConfigService );
+    AcServices.registerService('ColumnPage', ConfigService);
 
     // START UI2.0
     registerSettingType('label', LabelSetting)

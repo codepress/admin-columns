@@ -46,21 +46,12 @@ export const getColumnSettings = (ListScreen: string, columnType: string) => {
     })
 }
 
-export const saveListScreen = (data: MappedListScreenData) => {
+export const saveListScreen = (data: ListScreenData) => {
     const formData = new FormData();
-    let columns: ListScreenColumnsData = {};
-
-    data.columns.forEach( c => {
-        columns[ c.name ] = c;
-    })
-
-    let listScreenData = Object.assign( data, {
-        columns: columns
-    } )
 
     formData.set('action', 'ac-list-screen-settings')
     formData.set('method', 'save_settings');
-    formData.set('data', JSON.stringify(listScreenData));
+    formData.set('data', JSON.stringify(data));
 
     axios.post(ajaxurl,
         formData
