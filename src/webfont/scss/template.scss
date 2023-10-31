@@ -9,12 +9,14 @@ $cpacicon-move: "\ea08";
 $cpacicon-rename: "\ea09";
 $cpacicon-segment: "\ea0a";
 $cpacicon-smart-filter: "\ea0b";
+$cpacicon-text-clip: "\ea0c";
+$cpacicon-text-wrap: "\ea0d";
 
 @font-face {
     font-family: "cpac_icons";
     src:
-        url("../fonts/cpac_icons.woff2?v=955237") format("woff2"),
-        url("../fonts/cpac_icons.woff?v=928084") format("woff");
+        url("../fonts/cpac_icons.woff2?v=493495") format("woff2"),
+        url("../fonts/cpac_icons.woff?v=815155") format("woff");
     font-style: normal;
     font-weight: 400;
 }
@@ -77,4 +79,12 @@ $cpacicon-smart-filter: "\ea0b";
 
 .cpacicon-smart-filter::before {
     content: $cpacicon-smart-filter;
+}
+
+.cpacicon-text-clip::before {
+    content: $cpacicon-text-clip;
+}
+
+.cpacicon-text-wrap::before {
+    content: $cpacicon-text-wrap;
 }

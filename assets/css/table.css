@@ -18,7 +18,6 @@
   --ac-form-input-border: #757575;
   --ac-select-hover-bg: #5897fb;
   --ac-table-border: #c3c4c7;
-  --ac-table-color: #50575e;
 }
 
 :root body.admin-color-coffee {
@@ -72,7 +71,7 @@
 
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=955237") format("woff2"), url("../fonts/cpac_icons.woff?v=928084") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=493495") format("woff2"), url("../fonts/cpac_icons.woff?v=815155") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -128,6 +127,14 @@
 
 .cpacicon-smart-filter::before {
   content: "\ea0b";
+}
+
+.cpacicon-text-clip::before {
+  content: "\ea0c";
+}
+
+.cpacicon-text-wrap::before {
+  content: "\ea0d";
 }
 
 /**
@@ -954,7 +961,7 @@ span.dashicons.light-gray {
   color: #bbb;
 }
 span.dashicons.gray {
-  color: var(--ac-table-color);
+  color: #8a8a8a;
 }
 span.dashicons.blue {
   color: #0073aa;
@@ -1037,7 +1044,7 @@ table.ac-table-items tr td.ac-table-item-qty {
 /* =Post Format column
 -------------------------------------------------------------- */
 .ac-post-state-format:before {
-  color: var(--ac-table-color);
+  color: rgb(167, 167, 167);
 }
 
 /* =Image in Content column
