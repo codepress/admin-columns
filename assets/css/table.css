@@ -18,6 +18,7 @@
   --ac-form-input-border: #757575;
   --ac-select-hover-bg: #5897fb;
   --ac-table-border: #c3c4c7;
+  --ac-table-color: #50575e;
 }
 
 :root body.admin-color-coffee {
@@ -961,7 +962,7 @@ span.dashicons.light-gray {
   color: #bbb;
 }
 span.dashicons.gray {
-  color: #8a8a8a;
+  color: var(--ac-table-color);
 }
 span.dashicons.blue {
   color: #0073aa;
@@ -1044,7 +1045,7 @@ table.ac-table-items tr td.ac-table-item-qty {
 /* =Post Format column
 -------------------------------------------------------------- */
 .ac-post-state-format:before {
-  color: rgb(167, 167, 167);
+  color: var(--ac-table-color);
 }
 
 /* =Image in Content column
