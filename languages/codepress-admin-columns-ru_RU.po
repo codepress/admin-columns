@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-07-21 17:06:04+0000\n"
+"PO-Revision-Date: 2023-09-30 17:59:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
-"X-Generator: GlotPress/4.0.0-alpha.7\n"
+"X-Generator: GlotPress/4.0.0-alpha.11\n"
 "Language: ru\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
@@ -846,7 +846,7 @@ msgstr ""
 
 #: classes/Settings/Column/PostType.php:35
 msgid "All Post Types"
-msgstr "Все типы сообщений"
+msgstr "Все типы записи"
 
 #: templates/admin/modal-pro.php:23
 msgid "Bulk edit any content, including custom fields."
