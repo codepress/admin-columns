@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7.1
 Tested up to: 6.3.1
 Requires PHP: 7.2
-Stable tag: 4.6.9
+Stable tag: 4.7
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -209,7 +209,7 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEWVERSION =
+= 4.7 =
 Release Date: tbd
 
 * [Improved] It is now possible to choose how dates are stored in the Custom Field column
