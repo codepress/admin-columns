@@ -27,7 +27,7 @@ class CustomField {
     constructor(column: Column, setting: HTMLElement) {
         this.column = column;
         this.setting = setting;
-        this.select = setting.querySelector('.custom_field')!;
+        this.select = setting.querySelector<HTMLSelectElement>('.custom_field')!;
         this.bindEvents();
     }
 

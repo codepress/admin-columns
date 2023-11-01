@@ -2477,6 +2477,7 @@ class TypeSelector {
         const setting = this.setting;
         const column = this.column;
         if (select) {
+            select.removeAttribute('id');
             select.removeAttribute('data-select2-id');
             this.setting.querySelectorAll('.select2').forEach(el => {
                 el.remove();
@@ -2493,7 +2494,11 @@ class TypeSelector {
                     if (result.hasOwnProperty('id') && result.id.includes('placeholder-')) {
                         text += `<span style="background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;">PRO</span>`;
                     }
-                    return (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__.initAcServices)().filters.applyFilters('column_type_templates', text, { setting: setting, column: column, result: result });
+                    return (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__.initAcServices)().filters.applyFilters('column_type_templates', text, {
+                        setting: setting,
+                        column: column,
+                        result: result
+                    });
                 },
                 matcher: _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__["default"]
             });
