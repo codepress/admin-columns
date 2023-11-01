@@ -61,7 +61,7 @@
 		in:fade={{ duration: 100}} out:fade={{ duration: 100}}
 		bind:this={menuElement}
 >
-	<div class="acui-dropdown-content" role="list" on:itemSelect>
+	<div class="acui-dropdown-content" role="list">
 		<slot/>
 	</div>
 </div>

@@ -7,7 +7,7 @@
     export let closeOnClick: boolean = true;
     export let position: string | null = null;
     export let maxHeight: string | null = null;
-    export let value;
+    export let value: any | null | undefined = null;
 
     const dispatch = createEventDispatcher();
 
@@ -75,6 +75,7 @@
         if (opened) {
             registerCloseHandlers();
         }
+        container.addEventListener('itemSelect', handleSelect );
     });
 
 </script>
