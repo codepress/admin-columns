@@ -3,14 +3,16 @@
 
     export let custom: boolean = false;
     export let href: string = null;
-    export let value: string = null;
+    export let value: string | null = null;
 
     const dispatch = createEventDispatcher();
 
     let element: HTMLElement;
 
     const dispatchSelectItem = () => {
-        element.closest('.acui-dropdown')?.dispatchEvent(new CustomEvent('change', {bubbles: true, detail: value}));
+        if (value !== null) {
+            element.closest('.acui-dropdown')?.dispatchEvent(new CustomEvent('itemSelect', {bubbles: true, detail: value}));
+        }
     }
 
     const handleClick = () => {
@@ -43,4 +45,3 @@
 	{/if}
 
 {/if}
-
