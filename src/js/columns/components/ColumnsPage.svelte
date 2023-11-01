@@ -65,43 +65,6 @@
 			<HtmlSection component={component}></HtmlSection>
 		{/each}
 
-		<div class="ac-columns">
-			<header class="ac-columns__header">
-
-					<AcSkeleton count={3}></AcSkeleton>
-
-			</header>
-			<div class="ac-columns__body">
-				<div class="ac-column">
-					<header class="ac-column-header">
-						<div class="ac-column-header__label"><strong role="none">Slug</strong></div>
-						<div class="ac-column-header__actions">[ 360 px ]
-							<button class="ac-header-toggle">
-								<span class="dashicons dashicons-filter on" title="Enable Filtering"></span>
-							</button>
-							<button class="ac-header-toggle -active">
-								<span class="dashicons dashicons-filter on" title="Enable Filtering"></span>
-							</button>
-						</div>
-						<div class="ac-column-header__open-indicator">
-							<button class="ac-open-indicator">
-								<span class="dashicons dashicons-arrow-down-alt2"></span></button>
-						</div>
-					</header>
-				</div>
-			</div>
-			<footer class="ac-columns__footer">
-				<div>
-					<button class="acui-button button-text"> Clear Columns</button>
-					<div class="acui-dropdown">
-						<div class="acui-dropdown-trigger" aria-haspopup="true" role="button" tabindex="-1">
-							<button class="acui-button button-null"> + Add Column</button>
-						</div>
-					</div>
-				</div>
-			</footer>
-		</div>
-
 		{#if $listScreenDataStore !== null}
 			<ListScreenForm bind:config={config}></ListScreenForm>
 		{:else}

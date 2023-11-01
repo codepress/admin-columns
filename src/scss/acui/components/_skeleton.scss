@@ -1,0 +1,43 @@
+@layer acui {
+	.acui-skeleton {
+		+ .acui-skeleton {
+			margin-top: .5rem;
+		}
+
+		display: inline-flex;
+		flex-direction: column;
+		width: 100%;
+		vertical-align: middle;
+
+		&.-medium {
+			.acui-skeleton-item {
+				line-height: 1.3rem;
+			}
+		}
+		&.-large {
+			.acui-skeleton-item {
+				line-height: 1.5rem;
+			}
+		}
+		&.-circle {
+			.acui-skeleton-item {
+				border-radius: 50%;
+			}
+		}
+	}
+
+	.acui-skeleton-item {
+		+ .acui-skeleton-item {
+			margin-top: .5rem;
+		}
+
+		background: #eee;
+		border-radius: 3px;
+		line-height: 1rem;
+
+		&:before {
+			content: "\A0";
+
+		}
+	}
+}

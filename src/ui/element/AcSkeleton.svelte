@@ -1,30 +1,19 @@
 <script lang="ts">
     export let count: number = 1;
-    export let size: string = 'medium';
+    export let size: string = 'small';
+    export let height: string = null;
+    export let width: string = null;
+    export let circle: boolean = false;
 </script>
-<style>
-	.acui-skeleton {
-		display: inline-flex;
-		flex-direction: column;
-		width: 100%;
-		height: 30px;
-		vertical-align: middle;
-	}
-	.acui-skeleton + .acui-skeleton {
-		margin-top: .5rem;
-	}
-	.acui-skeleton-item {
-		background: #eee;
-		border-radius: 3px;
-		&:before {
-			content: "\A0";
-			line-height: 1rem;
-		}
-	}
-</style>
-<div class="acui-skeleton">
+<div
+		class="acui-skeleton"
+		class:-circle={circle}
+		class:-large={size==='large'}
+		class:-medium={size==='medium'}
+
+>
 	{#each Array( count ) as i}
-		<div class="acui-skeleton-item">
+		<div class="acui-skeleton-item" style:height={height} style:width={width}>
 		</div>
 	{/each}
 </div>
