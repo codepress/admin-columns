@@ -12520,7 +12520,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     document.querySelectorAll('#ac_list_screen').forEach(select => {
-        select.addEventListener('change', () => {
+        jQuery(select).ac_select2({
+            theme: 'acs2',
+            dropdownCssClass: '-listkeys',
+        }).on('select2:select', () => {
             var _a;
             document.querySelectorAll('.view-link').forEach(link => link.style.display = 'none');
             (_a = select.closest('form')) === null || _a === void 0 ? void 0 : _a.submit();

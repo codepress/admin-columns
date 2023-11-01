@@ -14,6 +14,7 @@ import {Column} from "./admin/columns/column";
 import {LocalizedAcColumnSettings} from "./types/admin-columns";
 
 declare let AC: LocalizedAcColumnSettings
+declare const jQuery: any;
 
 let AcServices = initAcServices();
 AcServices.registerService('Modals', new Modals());
@@ -37,12 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     document.querySelectorAll<HTMLSelectElement>('#ac_list_screen').forEach(select => {
-        select.addEventListener('change', () => {
+        (<any>jQuery(select)).ac_select2({
+            theme: 'acs2',
+            dropdownCssClass: '-listkeys',
+        }).on('select2:select', () => {
             document.querySelectorAll<HTMLElement>('.view-link').forEach(link => link.style.display = 'none');
             select.closest<HTMLFormElement>('form')?.submit();
             select.disabled = true;
             (select.nextElementSibling as HTMLElement).style.display = 'inline-block';
         });
+
     })
 
     document.querySelectorAll<HTMLElement>('#direct-feedback').forEach(feedbackElement => new Feedback(feedbackElement));
