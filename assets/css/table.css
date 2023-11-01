@@ -72,7 +72,7 @@
 
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=493495") format("woff2"), url("../fonts/cpac_icons.woff?v=815155") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=569879") format("woff2"), url("../fonts/cpac_icons.woff?v=134916") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -122,20 +122,28 @@
   content: "\ea09";
 }
 
-.cpacicon-segment::before {
+.cpacicon-reset-password::before {
   content: "\ea0a";
 }
 
-.cpacicon-smart-filter::before {
+.cpacicon-segment::before {
   content: "\ea0b";
 }
 
-.cpacicon-text-clip::before {
+.cpacicon-smart-filter::before {
   content: "\ea0c";
 }
 
-.cpacicon-text-wrap::before {
+.cpacicon-text-clip::before {
   content: "\ea0d";
+}
+
+.cpacicon-text-wrap::before {
+  content: "\ea0e";
+}
+
+.cpacicon-user-switch::before {
+  content: "\ea0f";
 }
 
 /**
@@ -1442,10 +1450,14 @@ div.cpac-color span {
 .column-actions .cpac_use_icons + .hidden + .row-actions > span a, .column-actions .cpac_use_icons + .hidden + .row-actions > span button,
 .column-actions .cpac_use_icons + .row-actions > span a,
 .column-actions .cpac_use_icons + .row-actions > span button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   min-width: 26px;
   margin-bottom: 5px;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span button:before,
 .column-actions .cpac_use_icons + .row-actions > span a:before,
@@ -1453,12 +1465,6 @@ div.cpac-color span {
   text-indent: 0;
   font-family: Dashicons, sans-serif;
   font-size: 16px;
-  position: absolute;
-  padding-left: 4px;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.edit a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.edit button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.inline a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.inline button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.trash a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.trash button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.view a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.view button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.quickedit a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.quickedit button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.approve a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.approve button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unapprove a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unapprove button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.spam a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.spam button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.untrash a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.untrash button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unspam a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unspam button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.reply a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.reply button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.delete a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.delete button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.backend a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.backend button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.visit a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.visit button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.deactivate a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.deactivate button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.archive a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.archive button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unarchive a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unarchive button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.activate a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.activate button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.download a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.download button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.duplicate a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.duplicate button.button-link,
 .column-actions .cpac_use_icons + .row-actions > span.edit a,
@@ -1547,19 +1553,11 @@ div.cpac-color span {
   text-indent: 0;
   font-family: Dashicons, sans-serif;
 }
-.column-actions .cpac_use_icons + .hidden + .row-actions > span.edit a:before,
-.column-actions .cpac_use_icons + .row-actions > span.edit a:before {
-  content: "\f464";
-}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.inline a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.inline.quickedit a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.inline button.button-link:before,
 .column-actions .cpac_use_icons + .row-actions > span.inline a:before,
 .column-actions .cpac_use_icons + .row-actions > span.inline.quickedit a:before,
 .column-actions .cpac_use_icons + .row-actions > span.inline button.button-link:before {
   content: "\f119";
-}
-.column-actions .cpac_use_icons + .hidden + .row-actions > span.duplicate a:before,
-.column-actions .cpac_use_icons + .row-actions > span.duplicate a:before {
-  content: "\f105";
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.trash a,
 .column-actions .cpac_use_icons + .row-actions > span.trash a {
@@ -1574,62 +1572,196 @@ div.cpac-color span {
 .column-actions .cpac_use_icons + .row-actions > span.trash a:hover {
   border-color: #999;
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.edit a,
+.column-actions .cpac_use_icons + .row-actions > span.edit a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.edit a:before,
+.column-actions .cpac_use_icons + .row-actions > span.edit a:before {
+  content: "\f464";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.duplicate a,
+.column-actions .cpac_use_icons + .row-actions > span.duplicate a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.duplicate a:before,
+.column-actions .cpac_use_icons + .row-actions > span.duplicate a:before {
+  content: "\f105";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.view a,
+.column-actions .cpac_use_icons + .row-actions > span.view a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.view a:before,
 .column-actions .cpac_use_icons + .row-actions > span.view a:before {
   content: "\f177";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.unapprove a,
+.column-actions .cpac_use_icons + .row-actions > span.unapprove a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.unapprove a:before,
 .column-actions .cpac_use_icons + .row-actions > span.unapprove a:before {
   content: "\f158";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.approve a,
+.column-actions .cpac_use_icons + .row-actions > span.approve a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.approve a:before,
 .column-actions .cpac_use_icons + .row-actions > span.approve a:before {
   content: "\f147";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.spam a,
+.column-actions .cpac_use_icons + .row-actions > span.spam a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.spam a:before,
 .column-actions .cpac_use_icons + .row-actions > span.spam a:before {
   content: "\f117";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.reply a,
+.column-actions .cpac_use_icons + .row-actions > span.reply a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.reply a:before,
 .column-actions .cpac_use_icons + .row-actions > span.reply a:before {
   content: "\f473";
 }
-.column-actions .cpac_use_icons + .hidden + .row-actions > span.untrash a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unspam a:before,
-.column-actions .cpac_use_icons + .row-actions > span.untrash a:before,
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.untrash a,
+.column-actions .cpac_use_icons + .row-actions > span.untrash a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.untrash a:before,
+.column-actions .cpac_use_icons + .row-actions > span.untrash a:before {
+  content: "\f171";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.unspam a,
+.column-actions .cpac_use_icons + .row-actions > span.unspam a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.unspam a:before,
 .column-actions .cpac_use_icons + .row-actions > span.unspam a:before {
   content: "\f171";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.delete a,
+.column-actions .cpac_use_icons + .row-actions > span.delete a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.delete a:before,
 .column-actions .cpac_use_icons + .row-actions > span.delete a:before {
   content: "\f182";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.backend a,
+.column-actions .cpac_use_icons + .row-actions > span.backend a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.backend a:before,
 .column-actions .cpac_use_icons + .row-actions > span.backend a:before {
   content: "\f226";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.visit a,
+.column-actions .cpac_use_icons + .row-actions > span.visit a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.visit a:before,
 .column-actions .cpac_use_icons + .row-actions > span.visit a:before {
   content: "\f115";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.deactivate a,
+.column-actions .cpac_use_icons + .row-actions > span.deactivate a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.deactivate a:before,
 .column-actions .cpac_use_icons + .row-actions > span.deactivate a:before {
   content: "\f530";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.archive a,
+.column-actions .cpac_use_icons + .row-actions > span.archive a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.archive a:before,
 .column-actions .cpac_use_icons + .row-actions > span.archive a:before {
   content: "\f480";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.unarchive a,
+.column-actions .cpac_use_icons + .row-actions > span.unarchive a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.unarchive a:before,
 .column-actions .cpac_use_icons + .row-actions > span.unarchive a:before {
   content: "\f322";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.activate a,
+.column-actions .cpac_use_icons + .row-actions > span.activate a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.activate a:before,
 .column-actions .cpac_use_icons + .row-actions > span.activate a:before {
   content: "\f177";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.download a,
+.column-actions .cpac_use_icons + .row-actions > span.download a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.download a:before,
 .column-actions .cpac_use_icons + .row-actions > span.download a:before {
   content: "\f316";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.resetpassword a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.resetpassword button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.switch_to_user a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.switch_to_user button.button-link,
+.column-actions .cpac_use_icons + .row-actions > span.resetpassword a,
+.column-actions .cpac_use_icons + .row-actions > span.resetpassword button.button-link,
+.column-actions .cpac_use_icons + .row-actions > span.switch_to_user a,
+.column-actions .cpac_use_icons + .row-actions > span.switch_to_user button.button-link {
+  text-indent: -3000em;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.resetpassword a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.resetpassword button.button-link:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.switch_to_user a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.switch_to_user button.button-link:before,
+.column-actions .cpac_use_icons + .row-actions > span.resetpassword a:before,
+.column-actions .cpac_use_icons + .row-actions > span.resetpassword button.button-link:before,
+.column-actions .cpac_use_icons + .row-actions > span.switch_to_user a:before,
+.column-actions .cpac_use_icons + .row-actions > span.switch_to_user button.button-link:before {
+  font-size: 13px;
+  text-indent: 0;
+  font-family: cpac_icons, sans-serif;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.resetpassword a:before,
+.column-actions .cpac_use_icons + .row-actions > span.resetpassword a:before {
+  content: "\ea0a";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.switch_to_user a:before,
+.column-actions .cpac_use_icons + .row-actions > span.switch_to_user a:before {
+  content: "\ea0f";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.copy,
+.column-actions .cpac_use_icons + .row-actions > span.copy {
+  background: red;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.copy .copy-to-clipboard-container button,
+.column-actions .cpac_use_icons + .row-actions > span.copy .copy-to-clipboard-container button {
+  text-indent: -3000em;
+  zoom: 0;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.copy .copy-to-clipboard-container button:before,
+.column-actions .cpac_use_icons + .row-actions > span.copy .copy-to-clipboard-container button:before {
+  font-family: Dashicons;
+  content: "\f481";
 }
 
 /* Responsive table screen
