@@ -88,6 +88,11 @@ abstract class ListScreen
      */
     private $updated;
 
+    /**
+     * @var string
+     */
+    protected $query_type;
+
     public function __construct(string $key, string $screen_id)
     {
         $this->key = $key;
@@ -157,6 +162,18 @@ abstract class ListScreen
     protected function set_meta_type(string $meta_type): self
     {
         $this->meta_type = $meta_type;
+
+        return $this;
+    }
+
+    public function get_query_type(): string
+    {
+        return $this->query_type ?: $this->get_meta_type();
+    }
+
+    protected function set_query_type(string $query_type): self
+    {
+        $this->query_type = $query_type;
 
         return $this;
     }
