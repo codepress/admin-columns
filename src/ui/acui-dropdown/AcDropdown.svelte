@@ -26,22 +26,24 @@
     export const open = async () => {
         opened = true;
         registerCloseHandlers();
+        dispatch('open');
     }
 
     export const close = () => {
         opened = false;
         deregisterCloseHandlers();
+        dispatch('close');
     }
 
     const handleEscapeKey = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
-            opened = false;
+            close();
         }
     }
 
     const handleOutsideClick = (e) => {
         if (container && !container.contains(e.target)) {
-            opened = false;
+            close();
         }
     }
 
@@ -67,6 +69,7 @@
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
+            e.preventDefault();
             toggle();
         }
     }
@@ -80,7 +83,8 @@
 
 </script>
 <div class="acui-dropdown" bind:this={container}>
-	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown} aria-haspopup="true" bind:this={trigger} role="button" tabindex="-1">
+	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown}
+			aria-haspopup="true" bind:this={trigger} role="button" tabindex="-1">
 		<slot name="trigger" active={opened}></slot>
 	</div>
 	{#if opened}
