@@ -12519,9 +12519,31 @@ document.addEventListener('DOMContentLoaded', () => {
             (_a = AcServices.getService('Modals')) === null || _a === void 0 ? void 0 : _a.register(new _modules_modal__WEBPACK_IMPORTED_MODULE_5__["default"](proModal), 'pro');
         });
     }
+    const matchStart = (params, data) => {
+        if (jQuery.trim(params.term) === '') {
+            return data;
+        }
+        if (typeof data.children === 'undefined') {
+            return null;
+        }
+        let filteredChildren = [];
+        jQuery.each(data.children, (idx, child) => {
+            if (child.text.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
+                filteredChildren.push(child);
+            }
+        });
+        if (filteredChildren.length) {
+            let d = Object.assign({}, data);
+            d.children = filteredChildren;
+            return d;
+        }
+        return null;
+    };
     document.querySelectorAll('#ac_list_screen').forEach(select => {
         jQuery(select).ac_select2({
             theme: 'acs2',
+            matcher: matchStart,
+            width: '250px',
             dropdownCssClass: '-listkeys',
         }).on('select2:select', () => {
             var _a;

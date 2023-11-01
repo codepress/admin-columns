@@ -36,10 +36,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const matchStart = (params, data) => {
+        if (jQuery.trim(params.term) === '') {
+            return data;
+        }
+
+        if (typeof data.children === 'undefined') {
+            return null;
+        }
+
+        let filteredChildren = [];
+
+        jQuery.each(data.children, (idx, child) => {
+            if (child.text.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
+                filteredChildren.push(child);
+            }
+        });
+
+        if (filteredChildren.length) {
+            let d = Object.assign({}, data);
+            d.children = filteredChildren;
+
+            return d;
+        }
+
+        return null;
+    }
 
     document.querySelectorAll<HTMLSelectElement>('#ac_list_screen').forEach(select => {
         (<any>jQuery(select)).ac_select2({
             theme: 'acs2',
+            matcher: matchStart,
+            width: '250px',
             dropdownCssClass: '-listkeys',
         }).on('select2:select', () => {
             document.querySelectorAll<HTMLElement>('.view-link').forEach(link => link.style.display = 'none');
