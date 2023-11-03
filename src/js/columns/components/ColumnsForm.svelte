@@ -36,9 +36,6 @@
         });
     }
 
-    const saveSettings = () => {
-        saveListScreen(data);
-    }
 </script>
 
 
@@ -72,9 +69,6 @@
 			</div>
 		</footer>
 	</div>
-	<br>
-	<div>
-		<AcButton on:click={saveSettings}>Save</AcButton>
-	</div>
+
 {/if}
 

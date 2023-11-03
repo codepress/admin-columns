@@ -66,7 +66,7 @@
 		{/each}
 
 		{#if $listScreenDataStore !== null}
-			<ListScreenForm bind:config={config}></ListScreenForm>
+			<ListScreenForm bind:config={config} bind:data={$listScreenDataStore}></ListScreenForm>
 		{:else}
 
 		{/if}

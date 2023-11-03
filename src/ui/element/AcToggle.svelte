@@ -12,7 +12,7 @@
     let dispatch = createEventDispatcher();
 
     const dispatchInput = () => {
-		setTimeout( () => dispatch('input') );
+		setTimeout( () => dispatch('input', checked) );
 	}
 
     $:finalFalseLabel = falseValue ?? trueValue;
