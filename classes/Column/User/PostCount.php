@@ -16,7 +16,9 @@ class PostCount extends Column
 
     public function get_value($user_id)
     {
-        $count = $this->get_post_count((int)$user_id);
+        $user_id = (int)$user_id;
+
+        $count = $this->get_post_count($user_id);
 
         if ($count < 1) {
             return $this->get_empty_char();
@@ -69,9 +71,15 @@ class PostCount extends Column
         return $this->get_post_count((int)$user_id);
     }
 
-    public function get_selected_post_status(): array
+    protected function get_selected_post_status(): array
     {
-        return (array)$this->get_setting('post_status')->get_value();
+        $post_status = $this->get_setting('post_status')->get_value();
+
+        if ('' === $post_status) {
+            return get_post_stati(['internal' => 0]);
+        }
+
+        return $post_status;
     }
 
     protected function register_settings()

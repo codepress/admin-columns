@@ -18,7 +18,10 @@
   justify-content: center;
   z-index: 10000000001;
 }
-.ac-value-modal .-w-large .ac-value-modal-panel {
+.ac-value-modal table td {
+  vertical-align: top;
+}
+.ac-value-modal.-w-large .ac-value-modal-panel {
   width: 800px;
 }
 .ac-value-modal .ac-value-modal-panel {

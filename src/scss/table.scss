@@ -315,6 +315,63 @@ table.ac-table-items {
 	}
 }
 
+a.ac-badge-post-count {
+	display: inline-block;
+	background: #eee;
+	border-radius: 3px;
+	font-size: 13px;
+	padding: 6px 14px;
+	text-decoration: none;
+	margin-right: 6px;
+
+	span.-label {
+		color: #464646;
+	}
+	&:hover {
+		background: #dcdcdc;
+	}
+}
+
+table.ac-table-items.-user-posts {
+	width: 100%;
+
+	tr {
+		td, th {
+			padding: 12px 20px 14px;
+		}
+	}
+
+	thead tr > * {
+		padding-bottom: 5px;
+		border-bottom: 1px solid #eee;
+	}
+
+	tbody {
+		tr {
+			td, th {
+				border-bottom: 1px solid #eee;
+			}
+		}
+
+		tr:last-child {
+			td, th {
+				border-bottom: none;
+			}
+		}
+	}
+
+	.col-id {
+		text-align: left;
+		font-size: 14px;
+		padding-left: 0;
+	}
+
+	.col-post-type {
+		text-align: right;
+		padding-right: 0;
+	}
+}
+
 /* =Post Format column
 -------------------------------------------------------------- */
 .ac-post-state-format {
@@ -886,16 +943,19 @@ div.cpac-color span {
 			&.resetpassword a:before {
 				content: $cpacicon-reset-password;
 			}
+
 			&.switch_to_user a:before {
 				content: $cpacicon-user-switch;
 			}
 
 			&.copy {
 				background: red;
+
 				.copy-to-clipboard-container {
 					button {
 						text-indent: -3000em;
 						zoom: 0;
+
 						&:before {
 							font-family: Dashicons;
 							content: "\f481";

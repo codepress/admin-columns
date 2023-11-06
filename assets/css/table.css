@@ -611,7 +611,10 @@ html.wp-toolbar .ac-tooltip {
   justify-content: center;
   z-index: 10000000001;
 }
-.ac-value-modal .-w-large .ac-value-modal-panel {
+.ac-value-modal table td {
+  vertical-align: top;
+}
+.ac-value-modal.-w-large .ac-value-modal-panel {
   width: 800px;
 }
 .ac-value-modal .ac-value-modal-panel {
@@ -1051,6 +1054,48 @@ table.ac-table-items tr td.ac-table-item-qty {
   color: #999;
   padding-right: 6px;
   text-align: left;
+}
+
+a.ac-badge-post-count {
+  display: inline-block;
+  background: #eee;
+  border-radius: 3px;
+  font-size: 13px;
+  padding: 6px 14px;
+  text-decoration: none;
+  margin-right: 6px;
+}
+a.ac-badge-post-count span.-label {
+  color: #464646;
+}
+a.ac-badge-post-count:hover {
+  background: #dcdcdc;
+}
+
+table.ac-table-items.-user-posts {
+  width: 100%;
+}
+table.ac-table-items.-user-posts tr td, table.ac-table-items.-user-posts tr th {
+  padding: 12px 20px 14px;
+}
+table.ac-table-items.-user-posts thead tr > * {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+table.ac-table-items.-user-posts tbody tr td, table.ac-table-items.-user-posts tbody tr th {
+  border-bottom: 1px solid #eee;
+}
+table.ac-table-items.-user-posts tbody tr:last-child td, table.ac-table-items.-user-posts tbody tr:last-child th {
+  border-bottom: none;
+}
+table.ac-table-items.-user-posts .col-id {
+  text-align: left;
+  font-size: 14px;
+  padding-left: 0;
+}
+table.ac-table-items.-user-posts .col-post-type {
+  text-align: right;
+  padding-right: 0;
 }
 
 /* =Post Format column

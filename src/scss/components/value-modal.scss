@@ -24,7 +24,11 @@ $modalZindex: 10000000000;
 		z-index: $modalZindex + 1;
 	}
 
-	.-w-large .ac-value-modal-panel {
+	table td {
+		vertical-align: top;
+	}
+
+	&.-w-large .ac-value-modal-panel {
 		width: 800px;
 	}
 
