@@ -24,7 +24,7 @@ $modalZindex: 10000000000;
 		z-index: $modalZindex + 1;
 	}
 
-	.-w-large {
+	.-w-large .ac-value-modal-panel {
 		width: 800px;
 	}
 
