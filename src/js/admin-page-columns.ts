@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const matchStart = (params, data) => {
+    const matchStart = (params: any, data: any) => {
         if (jQuery.trim(params.term) === '') {
             return data;
         }
@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return null;
         }
 
-        let filteredChildren = [];
+        let filteredChildren: any[] = [];
 
-        jQuery.each(data.children, (idx, child) => {
+        jQuery.each(data.children, (idx: any, child: any) => {
             if (child.text.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
                 filteredChildren.push(child);
             }
