@@ -5,68 +5,79 @@ namespace AC\Column\User;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 2.0
- */
-class PostCount extends Column {
+class PostCount extends Column
+{
 
-	public function __construct() {
-		$this->set_type( 'column-user_postcount' )
-		     ->set_label( __( 'Post Count', 'codepress-admin-columns' ) );
-	}
+    public function __construct()
+    {
+        $this->set_type('column-user_postcount')
+             ->set_label(__('Post Count', 'codepress-admin-columns'));
+    }
 
-	public function get_value( $user_id ) {
-		$ids = $this->get_raw_value( $user_id );
+    public function get_value($user_id)
+    {
+        $count = $this->get_post_count((int)$user_id);
 
-		if ( empty( $ids ) ) {
-			return $this->get_empty_char();
-		}
+        if ($count < 1) {
+            return $this->get_empty_char();
+        }
 
-		$value = number_format_i18n( count( $ids ) );
+        $value = number_format_i18n($count);
 
-		if ( post_type_exists( $this->get_selected_post_type() ) ) {
-			$link = add_query_arg( [
-				'post_type' => $this->get_selected_post_type(),
-				'author'    => $user_id,
-			], admin_url( 'edit.php' ) );
+        $post_types = $this->get_selected_post_types();
 
-			$value = sprintf( '<a href="%s">%s</a>', $link, $value );
-		}
+        // single post type
+        if (1 === count($post_types)) {
+            $link = add_query_arg([
+                'post_type' => $post_types[0],
+                'author'    => $user_id,
+            ], admin_url('edit.php'));
 
-		return $value;
-	}
+            $value = sprintf('<a href="%s">%s</a>', $link, $value);
+        }
 
-	protected function get_selected_post_type() {
-		return $this->get_setting( 'post_type' )->get_post_type();
-	}
+        return $value;
+    }
 
-	public function get_raw_value( $user_id ) {
-		$post_type = $this->get_selected_post_type();
+    private function get_post_count(int $user_id): int
+    {
+        return ac_helper()->post->count_user_posts(
+            $user_id,
+            $this->get_selected_post_types(),
+            $this->get_selected_post_status()
+        );
+    }
 
-		if ( 'any' === $post_type ) {
-			// All post types, including the ones that are marked "exclude from search"
-			$post_type = get_post_types();
-		}
+    protected function get_selected_post_types(): array
+    {
+        $post_type = (string)$this->get_setting('post_type')->get_post_type();
 
-		return get_posts( [
-			'fields'         => 'ids',
-			'author'         => $user_id,
-			'post_type'      => $post_type,
-			'posts_per_page' => -1,
-			'post_status'    => $this->get_selected_post_status(),
-		] );
-	}
+        if ('any' === $post_type) {
+            // All post types, including the ones that are marked "exclude from search"
+            return array_keys(get_post_types(['show_ui' => true]));
+        }
 
-	/**
-	 * @return array
-	 */
-	public function get_selected_post_status() {
-		return $this->get_setting( 'post_status' )->get_value();
-	}
+        if (post_type_exists($post_type)) {
+            return [$post_type];
+        }
 
-	protected function register_settings() {
-		$this->add_setting( new Settings\Column\PostType( $this, true ) );
-		$this->add_setting( new Settings\Column\PostStatus( $this ) );
-	}
+        return [];
+    }
+
+    public function get_raw_value($user_id)
+    {
+        return $this->get_post_count((int)$user_id);
+    }
+
+    public function get_selected_post_status(): array
+    {
+        return (array)$this->get_setting('post_status')->get_value();
+    }
+
+    protected function register_settings()
+    {
+        $this->add_setting(new Settings\Column\PostType($this, true));
+        $this->add_setting(new Settings\Column\PostStatus($this));
+    }
 
 }

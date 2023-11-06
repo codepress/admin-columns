@@ -24,6 +24,10 @@ $modalZindex: 10000000000;
 		z-index: $modalZindex + 1;
 	}
 
+	.-w-large {
+		width: 800px;
+	}
+
 	.ac-value-modal-panel {
 		background: #fff;
 		width: 600px;
