@@ -347,20 +347,13 @@ class Image
         return $path;
     }
 
-    /**
-     * @param string $url
-     *
-     * @return false|int
-     */
-    public function get_local_image_size($url)
+    public function get_local_image_size($url): ?int
     {
         $path = $this->get_local_image_path($url);
 
-        if ( ! $path) {
-            return false;
-        }
-
-        return filesize($path);
+        return $path
+            ? filesize($path)
+            : null;
     }
 
     /**
