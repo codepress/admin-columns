@@ -32,6 +32,12 @@
 
 	}
 
+	&:hover {
+		.ac-column-row-actions {
+			visibility: visible;
+		}
+	}
+
 	&.opened .ac-column-header {
 		border-bottom: 2px solid #CBD5E1;
 		border-top: 1px solid #CBD5E1;
@@ -43,6 +49,23 @@
 	}
 }
 
+.ac-column-row-actions {
+	visibility: hidden;
+
+	.ac-column-row-action {
+		text-decoration: none;
+		margin-right: 5px;
+		font-size: 12px;
+
+		&:hover, &:focus {
+			text-decoration: underline;
+		}
+
+		&.-delete {
+			color: #AA0000;
+		}
+	}
+}
 
 
 .ac-open-indicator {

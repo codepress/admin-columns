@@ -6,4 +6,8 @@ export class ColumnTypesUtils {
         return getColumnSettingsConfig().column_types
     }
 
+    static getOriginalColumnTypes() {
+        return getColumnSettingsConfig().column_types.filter( c => c.original );
+    }
+
 }

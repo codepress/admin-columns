@@ -2,7 +2,7 @@ import {Writable, writable} from 'svelte/store';
 import {ListScreenData} from "../../types/requests";
 
 export interface ListScreenDataStore extends Writable<ListScreenData> {
-
+    deleteColumn(columnName: string): void;
 }
 
 function createListScreenData(): ListScreenDataStore {
@@ -11,7 +11,12 @@ function createListScreenData(): ListScreenDataStore {
     return {
         subscribe,
         set,
-        update
+        update,
+        deleteColumn: (columnName: string) => update(items => {
+            delete items.columns[ columnName ];
+
+            return items;
+        }),
     };
 }
 

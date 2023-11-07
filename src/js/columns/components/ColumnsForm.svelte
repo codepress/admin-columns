@@ -11,12 +11,12 @@
     import AcButton from "ACUi/element/AcButton.svelte";
     import ListKeys from "../utils/ListKeys";
     import {ListScreenData} from "../../types/requests";
+    import {listScreenDataStore} from "../store/list-screen-data";
 
     export let data: ListScreenData;
     export let config;
 
     const columnTypes = ColumnTypesUtils.getColumnTypes();
-
 
     const clearColumns = () => {
         data['columns'] = {};
@@ -36,6 +36,10 @@
         });
     }
 
+    const deleteColumn = ( columnName: string ) => {
+		listScreenDataStore.deleteColumn( columnName );
+	}
+
 </script>
 
 
@@ -51,7 +55,9 @@
 			{#each Object.values(data.columns) as column_data}
 				<ColumnItem
 						bind:config={ config[column_data.name] }
-						bind:data={ column_data }>
+						bind:data={ column_data }
+						on:delete={ ( e ) => deleteColumn( e.detail ) }
+				>
 
 				</ColumnItem>
 			{/each}

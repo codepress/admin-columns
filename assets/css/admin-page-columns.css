@@ -315,6 +315,9 @@
   background: none;
   border: none;
 }
+.ac-column:hover .ac-column-row-actions {
+  visibility: visible;
+}
 .ac-column.opened .ac-column-header {
   border-bottom: 2px solid #CBD5E1;
   border-top: 1px solid #CBD5E1;
@@ -322,6 +325,21 @@
 }
 .ac-column .ac-column-settings {
   padding: 20px 0;
+}
+
+.ac-column-row-actions {
+  visibility: hidden;
+}
+.ac-column-row-actions .ac-column-row-action {
+  text-decoration: none;
+  margin-right: 5px;
+  font-size: 12px;
+}
+.ac-column-row-actions .ac-column-row-action:hover, .ac-column-row-actions .ac-column-row-action:focus {
+  text-decoration: underline;
+}
+.ac-column-row-actions .ac-column-row-action.-delete {
+  color: #AA0000;
 }
 
 .ac-open-indicator {

@@ -3,10 +3,14 @@
     import {getSettingComponent} from "../helper";
     import {openedColumnsStore} from "../store/opened-columns";
     import {slide} from 'svelte/transition';
-    import {onMount} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
+    import {ColumnTypesUtils} from "../utils/column-types";
 
     export let data: any;
     export let config = [];
+
+    const dispatch = createEventDispatcher();
+    const originalsColumns = ColumnTypesUtils.getOriginalColumnTypes();
 
     const toggle = () => {
         openedColumnsStore.toggle(data.name);
@@ -16,6 +20,17 @@
         return getSettingComponent(type);
     }
 
+    const handleDelete = () => {
+        dispatch('delete', data.name);
+    }
+
+    let isOriginalColumn: boolean = false;
+
+    onMount( () => {
+        let test = originalsColumns.find( c => c.type === data.type );
+        isOriginalColumn = typeof test !== 'undefined';
+	})
+
     $: opened = $openedColumnsStore.includes(data.name);
 </script>
 
@@ -23,8 +38,14 @@
 	<header class="ac-column-header">
 		<div class="ac-column-header__label">
 			<strong on:click={toggle} on:keydown role="none">{@html data.label}</strong>
+			<div class="ac-column-row-actions">
+				<a class="ac-column-row-action -edit" href="#">Edit</a>
+				<a class="ac-column-row-action -duplicate" href="#">Duplicate</a>
+				<a class="ac-column-row-action -delete" href="#" on:click={handleDelete}>Delete</a>
+			</div>
 		</div>
 		<div class="ac-column-header__actions">
+			{isOriginalColumn}
 			[ {data.width} {data.width_unit} ]
 			<button class="ac-header-toggle">
 				<span class="dashicons dashicons-filter on" title="Enable Filtering"></span>
