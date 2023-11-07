@@ -628,15 +628,19 @@ html.wp-toolbar .ac-tooltip {
   display: flex;
 }
 .ac-value-modal .ac-value-modal-panel__header .ac-value-modal-title {
-  flex-grow: 1;
   text-align: left;
   display: flex;
   align-items: center;
+  flex: 1;
+  overflow: hidden;
 }
 .ac-value-modal .ac-value-modal-panel__header .ac-value-modal-title h2 {
   margin: 0;
   font-size: 15px;
   padding: 10px 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .ac-value-modal .ac-value-modal-panel__header .ac-value-modal-actions {
   width: 70px;
