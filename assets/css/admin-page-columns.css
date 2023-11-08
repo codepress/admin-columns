@@ -236,6 +236,207 @@
   padding-right: 20px;
 }
 
+.svelte-select.-wordpress {
+  --padding: 0 0 0 8px;
+  --border: 1px solid #8c8f94;
+  --border-radius: 3px;
+  --border-hover: 1px solid #8c8f94;
+  --border-focused: 1px solid var(--ac-primary-color);
+  --font-size: 14px;
+  --height: 25px;
+  --chevron-width: 25px;
+  --chevron-height: 28px;
+  --loading-width: 20px;
+  --clear-select-width: 10px;
+  --icons-color: #838a92;
+  --input-color: $input-text-color;
+  --placeholder-color: $input-text-color;
+  --selected-item-padding: 0 1px 0 0;
+  --item-padding: 0 10px;
+  --item-hover-bg: #5897fb;
+  --item-is-active-bg: #ddd;
+  --item-is-active-color: #000;
+  --item-hover-color: #fff;
+  --group-title-text-transform: none;
+}
+.svelte-select.-wordpress:hover, .svelte-select.-wordpress input {
+  cursor: pointer !important;
+}
+.svelte-select.-wordpress.focused {
+  box-shadow: 0 0 0 1px #2271b1;
+}
+.svelte-select.-wordpress:hover {
+  --input-color: #2271b1;
+}
+.svelte-select.-wordpress.-active {
+  --border: 1px solid #2271b1;
+}
+.svelte-select.-wordpress .svelte-select-list {
+  max-width: 500px !important;
+  min-width: 100%;
+}
+.svelte-select.-wordpress .list-item {
+  font-size: 13px;
+}
+.svelte-select.-wordpress .list-item .item {
+  cursor: pointer !important;
+}
+.svelte-select.-wordpress .list-item .item.not-selectable {
+  cursor: default !important;
+}
+.svelte-select.-wordpress .list-item.svelte-empty {
+  padding: 10px;
+}
+.svelte-select.-wordpress .selected-item {
+  height: 17px;
+  cursor: pointer;
+}
+.svelte-select.-wordpress .value-container input {
+  height: 28px;
+  min-height: 28px;
+}
+.svelte-select.-wordpress .value-container input:focus {
+  box-shadow: none;
+}
+.svelte-select.-wordpress .indicators .icon.chevron {
+  justify-content: left;
+}
+.svelte-select.-wordpress .item.list-group-title {
+  color: black;
+}
+.svelte-select.-wordpress .icon.chevron {
+  font-weight: 100;
+}
+.svelte-select.-wordpress .icon.chevron > * {
+  display: none;
+}
+.svelte-select.-wordpress .icon.chevron:before {
+  display: block;
+  transform: translateY(1px);
+  font-family: Dashicons, monospace;
+  content: "\f347";
+  font-weight: 100;
+  font-size: 16px;
+}
+.svelte-select.-wordpress .icon.clear-select:before {
+  display: block;
+  transform: translateY(1px);
+  font-family: Dashicons, monospace;
+  content: "\f335";
+  font-weight: 100;
+  font-size: 18px;
+}
+.svelte-select.-wordpress .icon.clear-select:focus, .svelte-select.-wordpress .icon.clear-select:hover {
+  color: var(--ac-link);
+}
+.svelte-select.-wordpress .icon.clear-select > * {
+  display: none;
+}
+
+.svelte-select.-acui {
+  --padding: 0 0 0 8px;
+  --border: 1px solid #8c8f94;
+  --border-radius: 3px;
+  --border-hover: 1px solid #8c8f94;
+  --border-focused: 1px solid var(--ac-primary-color);
+  --font-size: 14px;
+  --height: 40px;
+  --chevron-width: 25px;
+  --chevron-height: 28px;
+  --loading-width: 20px;
+  --clear-select-width: 10px;
+  --icons-color: #838a92;
+  --input-color: $input-text-color;
+  --placeholder-color: $input-text-color;
+  --selected-item-padding: 0 1px 0 0;
+  --item-height: 30px;
+  --item-line-height: 30px;
+  --item-padding: 0 10px;
+  --item-hover-bg: var(--ac-link);
+  --item-is-active-bg: #ddd;
+  --item-is-active-color: #000;
+  --item-hover-color: #fff;
+  --group-title-text-transform: "none";
+  --group-item-padding-left: 10px;
+  --group-title-font-size: 12px;
+}
+.svelte-select.-acui:hover, .svelte-select.-acui input {
+  cursor: pointer !important;
+}
+.svelte-select.-acui.focused {
+  box-shadow: 0 0 0 1px #2271b1;
+}
+.svelte-select.-acui:hover {
+  --input-color: #2271b1;
+}
+.svelte-select.-acui.-active {
+  --border: 1px solid #2271b1;
+}
+.svelte-select.-acui .svelte-select-list {
+  min-width: 100%;
+}
+.svelte-select.-acui .list-item {
+  font-size: 13px;
+}
+.svelte-select.-acui .list-item .item {
+  cursor: pointer !important;
+}
+.svelte-select.-acui .list-item .item.not-selectable {
+  cursor: default !important;
+}
+.svelte-select.-acui .list-item .item.list-group-title.not-selectable {
+  background-color: #eee;
+  color: #aaa;
+  font-size: 12px !important;
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #888;
+}
+.svelte-select.-acui .list-item.svelte-empty {
+  padding: 10px;
+}
+.svelte-select.-acui .selected-item {
+  height: 17px;
+  cursor: pointer;
+}
+.svelte-select.-acui .value-container input {
+  height: 28px;
+  min-height: 28px;
+}
+.svelte-select.-acui .value-container input:focus {
+  box-shadow: none;
+}
+.svelte-select.-acui .indicators .icon.chevron {
+  justify-content: left;
+}
+.svelte-select.-acui .icon.chevron {
+  font-weight: 100;
+}
+.svelte-select.-acui .icon.chevron > * {
+  display: none;
+}
+.svelte-select.-acui .icon.chevron:before {
+  display: block;
+  transform: translateY(1px);
+  font-family: Dashicons, monospace;
+  content: "\f347";
+  font-weight: 100;
+  font-size: 16px;
+}
+.svelte-select.-acui .icon.clear-select:before {
+  display: block;
+  transform: translateY(1px);
+  font-family: Dashicons, monospace;
+  content: "\f335";
+  font-weight: 100;
+  font-size: 18px;
+}
+.svelte-select.-acui .icon.clear-select:focus, .svelte-select.-acui .icon.clear-select:hover {
+  color: var(--ac-link);
+}
+.svelte-select.-acui .icon.clear-select > * {
+  display: none;
+}
+
 .ac-button {
   background: transparent;
   border: 1px solid #616D77;
@@ -318,7 +519,7 @@
 .ac-column:hover .ac-column-row-actions {
   visibility: visible;
 }
-.ac-column.opened .ac-column-header {
+.ac-column.-opened .ac-column-header {
   border-bottom: 2px solid #CBD5E1;
   border-top: 1px solid #CBD5E1;
   background-color: #EAF2FA;

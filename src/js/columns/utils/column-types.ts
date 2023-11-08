@@ -7,7 +7,15 @@ export class ColumnTypesUtils {
     }
 
     static getOriginalColumnTypes() {
-        return getColumnSettingsConfig().column_types.filter( c => c.original );
+        return ColumnTypesUtils.getColumnTypes().filter( c => c.original );
+    }
+
+    static getColumnType( type: string ){
+        const columnType =  ColumnTypesUtils.getColumnTypes().find( ct => ct.type === type );
+
+        return typeof columnType !== 'undefined'
+            ? columnType
+            : null;
     }
 
 }

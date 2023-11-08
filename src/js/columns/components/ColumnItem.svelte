@@ -24,29 +24,35 @@
         dispatch('delete', data.name);
     }
 
+    const handleDuplicate = () => {
+        dispatch('duplicate', data.name);
+    }
+
     let isOriginalColumn: boolean = false;
 
-    onMount( () => {
-        let test = originalsColumns.find( c => c.type === data.type );
-        isOriginalColumn = typeof test !== 'undefined';
-	})
+    onMount(() => {
+        isOriginalColumn = originalsColumns.find(c => c.type === data.type) !== undefined;
+    })
 
     $: opened = $openedColumnsStore.includes(data.name);
 </script>
 
-<div class="ac-column" class:opened={opened}>
+<div class="ac-column" class:-opened={opened}>
 	<header class="ac-column-header">
 		<div class="ac-column-header__label">
 			<strong on:click={toggle} on:keydown role="none">{@html data.label}</strong>
 			<div class="ac-column-row-actions">
-				<a class="ac-column-row-action -edit" href="#">Edit</a>
-				<a class="ac-column-row-action -duplicate" href="#">Duplicate</a>
-				<a class="ac-column-row-action -delete" href="#" on:click={handleDelete}>Delete</a>
+				<a class="ac-column-row-action -edit" href={'#'} on:click={toggle}>Edit</a>
+				{#if !isOriginalColumn}
+					<a class="ac-column-row-action -duplicate" href={'#'} on:click={handleDuplicate}>Duplicate</a>
+				{/if}
+				<a class="ac-column-row-action -delete" href={'#'} on:click={handleDelete}>Delete</a>
 			</div>
 		</div>
 		<div class="ac-column-header__actions">
-			{isOriginalColumn}
-			[ {data.width} {data.width_unit} ]
+			{#if data.width }
+				{data.width} {data.width_unit}
+			{/if}
 			<button class="ac-header-toggle">
 				<span class="dashicons dashicons-filter on" title="Enable Filtering"></span>
 			</button>
@@ -68,6 +74,7 @@
 				<svelte:component
 						this={getComponent(setting.type)}
 						bind:data={data}
+						bind:columnConfig={config}
 						config={setting}>
 
 				</svelte:component>

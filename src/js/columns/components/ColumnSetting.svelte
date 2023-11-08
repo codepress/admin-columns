@@ -12,6 +12,8 @@
 	}
 	.value {
 		padding: 10px 10px;
+		flex-grow: 1;
+		max-width: 500px;
 	}
 </style>
 <div class="setting">

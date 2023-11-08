@@ -3,11 +3,10 @@
 	import Select from "svelte-select"
 	import {onMount} from "svelte";
 	import {getColumnSettings} from "../../ajax/ajax";
-	import {columnSettingsStore} from "../../store/settings";
 
 	export let data;
 	export let config;
-	export let value;
+	export let columnConfig;
 
 	let collection = [];
 	let selectValue;
@@ -17,7 +16,7 @@
 		Object.keys( config.options ).forEach( k => {
 			for ( const [ key, value ] of Object.entries( config.options[ k ].options ) ) {
 				options.push( {
-					group : config.options[k].title,
+					group : config.options[ k ].title,
 					value : key,
 					label : value
 				} );
@@ -27,10 +26,10 @@
 	} )
 
 	const changeValue = ( d ) => {
-		value = selectValue;
+		data[ 'type' ] = selectValue;
 
-		getColumnSettings( 'post', value ).then( d => {
-			columnSettingsStore.changeSettings( data.name, d.data.data.columns.settings )
+		getColumnSettings( 'post', selectValue ).then( response => {
+			columnConfig = response.data.data.columns.settings;
 		} );
 
 	}
@@ -39,9 +38,15 @@
 </script>
 
 <ColumnSetting label={config.label}>
-	<div style="width:300px">
-		<Select items={collection} {groupBy} value={value} on:change={ changeValue } bind:justValue={selectValue}>
+	<Select class="-acui"
+			--list-max-height="400px"
+			showChevron
+			clearable={false}
+			items={collection}
+			{groupBy}
+			value={data['type']}
+			on:change={ changeValue }
+			bind:justValue={selectValue}>
 
-		</Select>
-	</div>
+	</Select>
 </ColumnSetting>

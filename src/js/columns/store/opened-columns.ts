@@ -20,11 +20,12 @@ function createOpenedColumnsStore(): OpenedColumnsStore {
             return items;
         }),
         close: (column: string) => update(items => {
-            items.filter(s => s !== column);
+            items = items.filter(s => s !== column);
 
             return items;
         }),
         toggle: (column: string) => update(items => {
+
             if (items.includes(column)) {
                 items = items.filter(s => s !== column);
             } else {
