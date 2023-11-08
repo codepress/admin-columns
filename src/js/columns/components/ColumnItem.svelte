@@ -42,11 +42,11 @@
 		<div class="ac-column-header__label">
 			<strong on:click={toggle} on:keydown role="none">{@html data.label}</strong>
 			<div class="ac-column-row-actions">
-				<a class="ac-column-row-action -edit" href={'#'} on:click={toggle}>Edit</a>
+				<a class="ac-column-row-action -edit" href={'#'} on:click|preventDefault={toggle}>Edit</a>
 				{#if !isOriginalColumn}
-					<a class="ac-column-row-action -duplicate" href={'#'} on:click={handleDuplicate}>Duplicate</a>
+					<a class="ac-column-row-action -duplicate" href={'#'} on:click|preventDefault={handleDuplicate}>Duplicate</a>
 				{/if}
-				<a class="ac-column-row-action -delete" href={'#'} on:click={handleDelete}>Delete</a>
+				<a class="ac-column-row-action -delete" href={'#'} on:click|preventDefault={handleDelete}>Delete</a>
 			</div>
 		</div>
 		<div class="ac-column-header__actions">

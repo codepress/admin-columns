@@ -4,17 +4,24 @@ $cpacicon-download: "\ea03";
 $cpacicon-draft: "\ea04";
 $cpacicon-duplicate: "\ea05";
 $cpacicon-filter: "\ea06";
-$cpacicon-more: "\ea07";
-$cpacicon-move: "\ea08";
-$cpacicon-rename: "\ea09";
-$cpacicon-segment: "\ea0a";
-$cpacicon-smart-filter: "\ea0b";
+$cpacicon-gf-article: "\ea07";
+$cpacicon-gf-auto-stories: "\ea08";
+$cpacicon-gf-comment: "\ea09";
+$cpacicon-gf-label: "\ea0a";
+$cpacicon-gf-media: "\ea0b";
+$cpacicon-gf-user: "\ea0c";
+$cpacicon-more: "\ea0d";
+$cpacicon-move: "\ea0e";
+$cpacicon-rename: "\ea0f";
+$cpacicon-segment: "\ea10";
+$cpacicon-smart-filter: "\ea11";
+$cpacicon-woo: "\ea12";
 
 @font-face {
     font-family: "cpac_icons";
     src:
-        url("../fonts/cpac_icons.woff2?v=955237") format("woff2"),
-        url("../fonts/cpac_icons.woff?v=928084") format("woff");
+        url("../fonts/cpac_icons.woff2?v=44758") format("woff2"),
+        url("../fonts/cpac_icons.woff?v=357095") format("woff");
     font-style: normal;
     font-weight: 400;
 }
@@ -59,6 +66,30 @@ $cpacicon-smart-filter: "\ea0b";
     content: $cpacicon-filter;
 }
 
+.cpacicon-gf-article::before {
+    content: $cpacicon-gf-article;
+}
+
+.cpacicon-gf-auto-stories::before {
+    content: $cpacicon-gf-auto-stories;
+}
+
+.cpacicon-gf-comment::before {
+    content: $cpacicon-gf-comment;
+}
+
+.cpacicon-gf-label::before {
+    content: $cpacicon-gf-label;
+}
+
+.cpacicon-gf-media::before {
+    content: $cpacicon-gf-media;
+}
+
+.cpacicon-gf-user::before {
+    content: $cpacicon-gf-user;
+}
+
 .cpacicon-more::before {
     content: $cpacicon-more;
 }
@@ -77,4 +108,8 @@ $cpacicon-smart-filter: "\ea0b";
 
 .cpacicon-smart-filter::before {
     content: $cpacicon-smart-filter;
+}
+
+.cpacicon-woo::before {
+    content: $cpacicon-woo;
 }

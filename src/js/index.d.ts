@@ -19,6 +19,7 @@ declare namespace AC.Vars.Admin.Columns {
     type MenuGroup = {
         options: MenuOptions
         title: string
+        icon: string | null
     }
     type MenuItems = { [key: string]: MenuGroup }
 

@@ -71,7 +71,7 @@
 
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=955237") format("woff2"), url("../fonts/cpac_icons.woff?v=928084") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=44758") format("woff2"), url("../fonts/cpac_icons.woff?v=357095") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -109,24 +109,52 @@
   content: "\ea06";
 }
 
-.cpacicon-more::before {
+.cpacicon-gf-article::before {
   content: "\ea07";
 }
 
-.cpacicon-move::before {
+.cpacicon-gf-auto-stories::before {
   content: "\ea08";
 }
 
-.cpacicon-rename::before {
+.cpacicon-gf-comment::before {
   content: "\ea09";
 }
 
-.cpacicon-segment::before {
+.cpacicon-gf-label::before {
   content: "\ea0a";
 }
 
-.cpacicon-smart-filter::before {
+.cpacicon-gf-media::before {
   content: "\ea0b";
+}
+
+.cpacicon-gf-user::before {
+  content: "\ea0c";
+}
+
+.cpacicon-more::before {
+  content: "\ea0d";
+}
+
+.cpacicon-move::before {
+  content: "\ea0e";
+}
+
+.cpacicon-rename::before {
+  content: "\ea0f";
+}
+
+.cpacicon-segment::before {
+  content: "\ea10";
+}
+
+.cpacicon-smart-filter::before {
+  content: "\ea11";
+}
+
+.cpacicon-woo::before {
+  content: "\ea12";
 }
 
 /**

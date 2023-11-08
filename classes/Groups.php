@@ -2,81 +2,90 @@
 
 namespace AC;
 
-final class Groups {
+final class Groups
+{
 
-	private $groups;
+    private $groups;
 
-	public const SORT_PRIORITY = 1;
-	public const SORT_SLUG = 2;
-	public const SORT_LABEL = 3;
+    public const SORT_PRIORITY = 1;
+    public const SORT_SLUG = 2;
+    public const SORT_LABEL = 3;
 
-	public function __construct( array $groups = [] ) {
-		$this->groups = $groups;
-	}
+    public function __construct(array $groups = [])
+    {
+        $this->groups = $groups;
+    }
 
-	public function get_all( $sort_by = null ): array {
-		switch ( $sort_by ) {
-			case self::SORT_LABEL :
-				return $this->sort_groups_by_string( $this->groups, 'label' );
-			case self::SORT_SLUG :
-				return $this->sort_groups_by_string( $this->groups, 'slug' );
-			default :
-				return $this->sort_groups_by_priority( $this->groups );
-		}
-	}
+    public function get_all($sort_by = null): array
+    {
+        switch ($sort_by) {
+            case self::SORT_LABEL :
+                return $this->sort_groups_by_string($this->groups, 'label');
+            case self::SORT_SLUG :
+                return $this->sort_groups_by_string($this->groups, 'slug');
+            default :
+                return $this->sort_groups_by_priority($this->groups);
+        }
+    }
 
-	private function sort_groups_by_priority( array $groups ): array {
-		$aggregated = $sorted = [];
+    private function sort_groups_by_priority(array $groups): array
+    {
+        $aggregated = $sorted = [];
 
-		foreach ( $groups as $group ) {
-			$aggregated[ $group['priority'] ][] = $group;
-		}
+        foreach ($groups as $group) {
+            $aggregated[$group['priority']][] = $group;
+        }
 
-		ksort( $aggregated, SORT_NUMERIC );
+        ksort($aggregated, SORT_NUMERIC);
 
-		foreach ( $aggregated as $_groups ) {
-			$sorted = array_merge( $sorted, $this->sort_groups_by_string( $_groups, 'label' ) );
-		}
+        foreach ($aggregated as $_groups) {
+            $sorted = array_merge($sorted, $this->sort_groups_by_string($_groups, 'label'));
+        }
 
-		return $sorted;
-	}
+        return $sorted;
+    }
 
-	private function sort_groups_by_string( array $groups, string $key ): array {
-		$sorted = [];
+    private function sort_groups_by_string(array $groups, string $key): array
+    {
+        $sorted = [];
 
-		foreach ( $groups as $k => $group ) {
-			$sorted[ $k ] = $group[ $key ];
-		}
+        foreach ($groups as $k => $group) {
+            $sorted[$k] = $group[$key];
+        }
 
-		natcasesort( $sorted );
+        natcasesort($sorted);
 
-		foreach ( array_keys( $sorted ) as $k ) {
-			$sorted[ $k ] = $groups[ $k ];
-		}
+        foreach (array_keys($sorted) as $k) {
+            $sorted[$k] = $groups[$k];
+        }
 
-		return $sorted;
-	}
+        return $sorted;
+    }
 
-	public function get( string $slug ): ?array {
-		return $this->groups[ $slug ] ?? null;
-	}
+    public function get(string $slug): ?array
+    {
+        return $this->groups[$slug] ?? null;
+    }
 
-	public function register_group( string $slug, string $label, int $priority = 10 ): bool {
-		return $this->add( $slug, $label, $priority );
-	}
+    public function register_group(string $slug, string $label, int $priority = 10): bool
+    {
+        return $this->add($slug, $label, $priority);
+    }
 
-	public function add( string $slug, string $label, int $priority = 10 ): bool {
-		if ( isset( $this->groups[ $slug ] ) ) {
-			return false;
-		}
+    public function add(string $slug, string $label, int $priority = 10, string $icon = null): bool
+    {
+        if (isset($this->groups[$slug])) {
+            return false;
+        }
 
-		$this->groups[ $slug ] = [
-			'slug'     => $slug,
-			'label'    => $label,
-			'priority' => $priority,
-		];
+        $this->groups[$slug] = [
+            'slug'     => $slug,
+            'label'    => $label,
+            'priority' => $priority,
+            'icon'     => $icon,
+        ];
 
-		return true;
-	}
+        return true;
+    }
 
 }

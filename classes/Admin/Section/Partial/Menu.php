@@ -49,6 +49,7 @@ class Menu
 
             if ( ! isset($grouped[$slug])) {
                 $grouped[$slug]['title'] = $group['label'];
+                $grouped[$slug]['icon'] = $group['icon'];
             }
 
             natcasesort($items[$slug]);

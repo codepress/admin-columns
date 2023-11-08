@@ -1,6 +1,7 @@
 <script lang="ts">
     import {currentListKey} from "../store/current-list-screen";
     import {createEventDispatcher, onMount} from "svelte";
+    import GroupIcon from "./GroupIcon.svelte";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
 
@@ -37,7 +38,7 @@
 	}
 
 	ul {
-		margin-left: 13px;
+		margin-left: 20px;
 	}
 
 	li a {
@@ -56,7 +57,7 @@
 	<div class="ac-menu-group">
 		<div role="none" on:click={() => toggleGroup( key )}>
 			<strong>
-				<span class="dashicons dashicons-flag" style="color: #999;"></span>
+				<GroupIcon icon={group.icon} defaultIcon="cpacicon-gf-article"></GroupIcon>
 				{group.title}
 			</strong>
 		</div>
