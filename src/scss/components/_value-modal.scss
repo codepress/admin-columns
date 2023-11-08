@@ -108,6 +108,13 @@ $modalZindex: 10000000000;
 			border-top: 1px solid #ccc;
 			background: #fafafa;
 
+			.ac-value-modal__edit {
+				a {
+					margin-top: 5px;
+					margin-bottom: 5px;
+				}
+			}
+
 			button {
 				width: 40px;
 				height: 40px;

@@ -682,6 +682,10 @@ html.wp-toolbar .ac-tooltip {
   border-top: 1px solid #ccc;
   background: #fafafa;
 }
+.ac-value-modal .ac-value-modal-panel__footer .ac-value-modal__edit a {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 .ac-value-modal .ac-value-modal-panel__footer button {
   width: 40px;
   height: 40px;
