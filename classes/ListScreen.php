@@ -485,6 +485,15 @@ abstract class ListScreen implements PostType
         return $this->preferences[$key] ?? null;
     }
 
+    /**
+     * @return string|null
+     * @deprecated NEWVERSION
+     */
+    public function get_layout_id(): ?string
+    {
+        return (string)$this->id;
+    }
+
     public function get_screen_link(): string
     {
         _deprecated_function(__METHOD__, '4.6.5', 'AC\ListScreen::get_table_url()');
@@ -504,13 +513,6 @@ abstract class ListScreen implements PostType
         _deprecated_function(__METHOD__, 'NEWVERSION');
 
         $this->meta_type = $meta_type;
-    }
-
-    public function get_layout_id(): ?string
-    {
-        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_id()');
-
-        return (string)$this->id;
     }
 
     public function deregister_column(string $column_name): void
