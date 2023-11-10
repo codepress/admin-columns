@@ -5,42 +5,47 @@ namespace AC\ListScreenRepository\Sort;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Sort;
 
-class ListIds implements Sort {
+class ListIds implements Sort
+{
 
-	private $list_ids;
+    private $list_ids;
 
-	public function __construct( array $list_ids = [] ) {
-		$this->list_ids = $list_ids;
-	}
+    public function __construct(array $list_ids = [])
+    {
+        $this->list_ids = $list_ids;
+    }
 
-	public function sort( ListScreenCollection $list_screens ): ListScreenCollection {
-		if ( ! $list_screens->count() ) {
-			return $list_screens;
-		}
+    public function sort(ListScreenCollection $list_screens): ListScreenCollection
+    {
+        if ( ! $list_screens->count()) {
+            return $list_screens;
+        }
 
-		$lists = [];
+        $lists = [];
 
-		foreach ( $list_screens as $list_screen ) {
-			$lists[ $list_screen->get_layout_id() ] = $list_screen;
-		}
+        foreach ($list_screens as $list_screen) {
+            if ($list_screen->has_id()) {
+                $lists[(string)$list_screen->get_id()] = $list_screen;
+            }
+        }
 
-		$ordered = new ListScreenCollection();
+        $ordered = new ListScreenCollection();
 
-		foreach ( array_unique( $this->list_ids ) as $list_id ) {
-			if ( ! isset( $lists[ $list_id ] ) ) {
-				continue;
-			}
+        foreach (array_unique($this->list_ids) as $list_id) {
+            if ( ! isset($lists[$list_id])) {
+                continue;
+            }
 
-			$ordered->add( $lists[ $list_id ] );
+            $ordered->add($lists[$list_id]);
 
-			unset( $lists[ $list_id ] );
-		}
+            unset($lists[$list_id]);
+        }
 
-		foreach ( $lists as $list_screen ) {
-			$ordered->add( $list_screen );
-		}
+        foreach ($lists as $list_screen) {
+            $ordered->add($list_screen);
+        }
 
-		return $ordered;
-	}
+        return $ordered;
+    }
 
 }

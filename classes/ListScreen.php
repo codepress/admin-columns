@@ -92,6 +92,7 @@ abstract class ListScreen implements PostType
      * @var string
      */
     protected $query_type;
+
     protected $post_type = '';
 
     public function __construct(string $key, string $screen_id)
@@ -165,23 +166,9 @@ abstract class ListScreen implements PostType
         return $this->meta_type ?: '';
     }
 
-    protected function set_meta_type(string $meta_type): self
-    {
-        $this->meta_type = $meta_type;
-
-        return $this;
-    }
-
     public function get_query_type(): string
     {
         return $this->query_type ?: $this->get_meta_type();
-    }
-
-    protected function set_query_type(string $query_type): self
-    {
-        $this->query_type = $query_type;
-
-        return $this;
     }
 
     public function get_screen_id(): string
@@ -216,11 +203,6 @@ abstract class ListScreen implements PostType
     public function get_storage_key(): string
     {
         return $this->key . $this->layout_id;
-    }
-
-    public function get_layout_id(): ?string
-    {
-        return $this->layout_id;
     }
 
     public function set_layout_id(string $layout_id): self
@@ -560,6 +542,22 @@ abstract class ListScreen implements PostType
         _deprecated_function(__METHOD__, '4.6.5', 'AC\ListScreen::get_editor_url()');
 
         return (string)$this->get_editor_url();
+    }
+
+    protected function set_meta_type(string $meta_type): self
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::meta_type');
+
+        $this->meta_type = $meta_type;
+
+        return $this;
+    }
+
+    public function get_layout_id(): ?string
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_id()');
+
+        return $this->layout_id;
     }
 
 }

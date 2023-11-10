@@ -2,8 +2,8 @@
 
 use AC\Admin\Table;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( ! defined('ABSPATH')) {
+    exit;
 }
 
 /**
@@ -15,28 +15,36 @@ $table = $this->table;
 
 <table class="widefat fixed ac-table">
 	<thead>
-	<?php foreach ( $table->get_headings() as $key => $label ) : ?>
+    <?php
+    foreach ($table->get_headings() as $key => $label) : ?>
 		<th class="<?= $key ?>"><?= $label ?></th>
-	<?php endforeach; ?>
+    <?php
+    endforeach; ?>
 	</thead>
 	<tbody>
-	<?php foreach ( $table->get_rows() as $row ) : ?>
+    <?php
+    foreach ($table->get_rows() as $list_screen) : ?>
 		<tr>
-			<?php foreach ( array_keys( $table->get_headings() ) as $key ) : ?>
+            <?php
+            foreach (array_keys($table->get_headings()) as $key) : ?>
 				<td class="<?= $key ?>">
-					<?= $table->get_column( $key, $row ) ?>
+                    <?= $table->get_column($key, $list_screen) ?>
 				</td>
-			<?php endforeach; ?>
+            <?php
+            endforeach; ?>
 		</tr>
-	<?php endforeach; ?>
+    <?php
+    endforeach; ?>
 	</tbody>
-	<?php if ( $table->has_message() ) : ?>
+    <?php
+    if ($table->has_message()) : ?>
 		<tfoot>
 		<tr class="message">
-			<td colspan="<?= count( $table->get_headings() ) ?>">
-				<?= $table->get_message() ?>
+			<td colspan="<?= count($table->get_headings()) ?>">
+                <?= $table->get_message() ?>
 			</td>
 		</tr>
 		</tfoot>
-	<?php endif; ?>
+    <?php
+    endif; ?>
 </table>
