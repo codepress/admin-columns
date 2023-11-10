@@ -377,11 +377,6 @@ abstract class ListScreen implements PostType
         return $column && $column->is_original();
     }
 
-    public function deregister_column(string $column_name): void
-    {
-        unset($this->columns[$column_name]);
-    }
-
     public function create_column(array $settings): ?Column
     {
         if ( ! isset($settings['type'])) {
@@ -558,6 +553,13 @@ abstract class ListScreen implements PostType
         _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_id()');
 
         return $this->layout_id;
+    }
+
+    public function deregister_column(string $column_name): void
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION');
+
+        unset($this->columns[$column_name]);
     }
 
 }
