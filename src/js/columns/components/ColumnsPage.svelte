@@ -9,7 +9,6 @@
     import HtmlSection from "./HtmlSection.svelte";
     import ListScreenMenu from "./ListScreenMenu.svelte";
     import {listScreenDataStore} from "../store/list-screen-data";
-    import AcSkeleton from "ACUi/element/AcSkeleton.svelte";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
 
@@ -19,6 +18,8 @@
         getListScreenSettingsByListKey(e.detail).then(response => {
             config = response.data.data.settings
             $currentListKey = e.detail;
+            $currentListId = response.data.data.list_screen_data.list_screen.id;
+            
             listScreenDataStore.update(d => {
                 return response.data.data.list_screen_data.list_screen;
             })

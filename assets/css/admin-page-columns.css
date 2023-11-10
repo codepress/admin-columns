@@ -586,13 +586,16 @@
 }
 
 .ac-header-toggle {
-  border: 1px solid #C3CBD7;
-  cursor: pointer;
-  width: 34px;
-  height: 34px;
+  align-items: center;
   background: transparent;
-  color: #C3CBD7;
+  border: 1px solid #C3CBD7;
   border-radius: 5px;
+  color: #C3CBD7;
+  cursor: pointer;
+  display: inline-flex;
+  height: 34px;
+  justify-content: center;
+  width: 34px;
 }
 
 .ac-header-toggle.-active {

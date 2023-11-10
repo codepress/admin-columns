@@ -5,6 +5,7 @@
     import {slide} from 'svelte/transition';
     import {createEventDispatcher, onMount} from "svelte";
     import {ColumnTypesUtils} from "../utils/column-types";
+    import HeaderToggle from "./settings/HeaderToggle.svelte";
 
     export let data: any;
     export let config = [];
@@ -53,12 +54,24 @@
 			{#if data.width }
 				{data.width} {data.width_unit}
 			{/if}
-			<button class="ac-header-toggle">
-				<span class="dashicons dashicons-filter on" title="Enable Filtering"></span>
-			</button>
-			<button class="ac-header-toggle -active">
-				<span class="dashicons dashicons-filter on" title="Enable Filtering"></span>
-			</button>
+			<HeaderToggle bind:value={data.export} title="Enable Export">
+				<span class="cpacicon cpacicon-download"></span>
+			</HeaderToggle>
+			<HeaderToggle bind:value={data.sort} title="Enable Sorting">
+				<span class="dashicons dashicons-sort"></span>
+			</HeaderToggle>
+			<HeaderToggle bind:value={data.edit} title="Enable Edit">
+				<span class="dashicons dashicons-edit"></span>
+			</HeaderToggle>
+			<HeaderToggle bind:value={data.bulk_edit} title="Enable Bulk Edit">
+				<span class="cpacicon-bulk-edit" style="scale:1.4;"></span>
+			</HeaderToggle>
+			<HeaderToggle bind:value={data.search} title="Enable Smart Filtering">
+				<span class="cpacicon-smart-filter" style="scale:1.2;"></span>
+			</HeaderToggle>
+			<HeaderToggle bind:value={data.filter} title="Enable Filtering">
+				<span class="dashicons dashicons-filter"></span>
+			</HeaderToggle>
 		</div>
 		<div class="ac-column-header__open-indicator">
 			<button class="ac-open-indicator" class:-open={opened} on:click={toggle}>

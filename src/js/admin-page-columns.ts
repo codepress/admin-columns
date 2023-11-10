@@ -49,6 +49,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    currentListKey.subscribe( (d ) =>{
+        const url = new URL( window.location.href );
+
+        url.searchParams.set('list_screen', d );
+
+        window.history.replaceState(null, '', url );
+    })
+
+    currentListId.subscribe( (d ) =>{
+        const url = new URL( window.location.href );
+
+        url.searchParams.set('layout_id', d );
+
+        window.history.replaceState(null, '', url );
+    })
+
+
     AcServices.registerService('ColumnPage', ConfigService);
 
     // START UI2.0

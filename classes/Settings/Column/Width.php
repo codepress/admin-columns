@@ -154,7 +154,6 @@ class Width extends Settings\Column
     {
         return [
             'type'    => 'width',
-            'key'     => 'width',
             'default' => '',
             'label'   => __('Width', 'codepress-admin-columns'),
         ];
