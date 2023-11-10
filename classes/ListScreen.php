@@ -11,7 +11,7 @@ use DateTime;
 use LogicException;
 use WP_User;
 
-abstract class ListScreen
+abstract class ListScreen implements PostType
 {
 
     /**
@@ -92,11 +92,17 @@ abstract class ListScreen
      * @var string
      */
     protected $query_type;
+    protected $post_type = '';
 
     public function __construct(string $key, string $screen_id)
     {
         $this->key = $key;
         $this->screen_id = $screen_id;
+    }
+
+    public function get_post_type(): string
+    {
+        return $this->post_type;
     }
 
     public function has_id(): bool
