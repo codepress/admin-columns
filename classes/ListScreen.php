@@ -486,7 +486,6 @@ abstract class ListScreen implements PostType
     }
 
     /**
-     * @return string|null
      * @deprecated NEWVERSION
      */
     public function get_layout_id(): ?string
