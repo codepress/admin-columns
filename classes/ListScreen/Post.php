@@ -4,62 +4,14 @@ namespace AC\ListScreen;
 
 use AC;
 use AC\Column;
-use AC\ColumnRepository;
-use AC\MetaType;
-use AC\Table;
-use AC\Type\Uri;
-use AC\Type\Url;
 use AC\WpListTableFactory;
 
-class Post extends AC\ListScreenPost implements ManageValue, ListTable
+class Post extends AC\ListScreenPost implements ListTable
 {
-
-    public function __construct(string $post_type, string $key = null, string $screen_id = null)
-    {
-        if (null === $key) {
-            $key = $post_type;
-        }
-
-        if (null === $screen_id) {
-            $screen_id = 'edit-' . $post_type;
-        }
-        parent::__construct($key, $screen_id);
-
-        $this->meta_type = MetaType::POST;
-        $this->post_type = $post_type;
-        $this->group = 'post';
-    }
 
     public function list_table(): AC\ListTable
     {
         return new AC\ListTable\Post((new WpListTableFactory())->create_post_table($this->get_screen_id()));
-    }
-
-    public function manage_value(): Table\ManageValue
-    {
-        return new Table\ManageValue\Post($this->post_type, new ColumnRepository($this));
-    }
-
-    public function get_table_url(): Uri
-    {
-        return new Url\ListTable\Post($this->post_type, $this->has_id() ? $this->get_id() : null);
-    }
-
-    protected function get_post_type_label_var(string $var): ?string
-    {
-        $post_type_object = get_post_type_object($this->get_post_type());
-
-        return $post_type_object->labels->{$var} ?? null;
-    }
-
-    public function get_label(): ?string
-    {
-        return $this->get_post_type_label_var('name');
-    }
-
-    public function get_singular_label(): ?string
-    {
-        return $this->get_post_type_label_var('singular_name');
     }
 
     protected function register_column_types(): void

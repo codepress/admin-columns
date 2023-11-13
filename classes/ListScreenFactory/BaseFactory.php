@@ -9,7 +9,6 @@ use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\Type\ListScreenId;
 use DateTime;
-use WP_Screen;
 
 abstract class BaseFactory implements ListScreenFactory
 {
@@ -34,7 +33,7 @@ abstract class BaseFactory implements ListScreenFactory
         $list_screen->set_preferences($preferences ?: []);
         $list_screen->set_settings($columns ?: []);
         $list_screen->set_updated($date);
-
+        
         if ($group) {
             $list_screen->set_group($group);
         }
@@ -51,17 +50,9 @@ abstract class BaseFactory implements ListScreenFactory
         return $this->add_settings($this->create_list_screen($key), $settings);
     }
 
-    public function create_from_wp_screen(WP_Screen $screen, array $settings = []): ListScreen
-    {
-        if ( ! $this->can_create_from_wp_screen($screen)) {
-            throw InvalidListScreenException::from_invalid_screen($screen);
-        }
-
-        return $this->add_settings($this->create_list_screen_from_wp_screen($screen), $settings);
-    }
-
     abstract protected function create_list_screen(string $key): ListScreen;
 
-    abstract protected function create_list_screen_from_wp_screen(WP_Screen $screen): ListScreen;
+    // TODO remove
+    //    abstract protected function create_list_screen_from_wp_screen(WP_Screen $screen): ListScreen;
 
 }

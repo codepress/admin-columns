@@ -6,45 +6,29 @@ namespace AC\ListScreenFactory;
 
 use AC\ListScreen;
 use AC\ListScreen\Post;
-use AC\PostTypeRepository;
-use WP_Screen;
+use AC\TableScreenFactory;
+use AC\Type\ListKey;
 
 class PostFactory extends BaseFactory
 {
 
-    private $post_type_repository;
+    private $table_screen_factory;
 
-    public function __construct(PostTypeRepository $post_type_repository)
+    public function __construct(TableScreenFactory $table_screen_factory)
     {
-        $this->post_type_repository = $post_type_repository;
-    }
-
-    protected function create_list_screen_from_wp_screen(WP_Screen $screen): ListScreen
-    {
-        return $this->create_list_screen($screen->post_type);
+        $this->table_screen_factory = $table_screen_factory;
     }
 
     protected function create_list_screen(string $key): ListScreen
     {
-        return new Post($key);
+        return new Post(
+            $this->table_screen_factory->create(new ListKey($key))
+        );
     }
 
     public function can_create(string $key): bool
     {
-        return $this->is_supported_post_type($key);
-    }
-
-    private function is_supported_post_type(string $post_type): bool
-    {
-        return $this->post_type_repository->exists($post_type);
-    }
-
-    public function can_create_from_wp_screen(WP_Screen $screen): bool
-    {
-        return 'edit' === $screen->base &&
-               $screen->post_type &&
-               'edit-' . $screen->post_type === $screen->id &&
-               $this->is_supported_post_type($screen->post_type);
+        return $this->table_screen_factory->can_create(new ListKey($key));
     }
 
 }

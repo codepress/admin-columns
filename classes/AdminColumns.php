@@ -33,6 +33,10 @@ class AdminColumns
 
         Container::set_container($container);
 
+        // TODO add
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\Post::class));
+
+        // TODO remove
         ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\UserFactory::class));
         ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\CommentFactory::class));
         ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\PostFactory::class));
@@ -137,6 +141,7 @@ class AdminColumns
                 return Plugin::create(AC_FILE, new Version(AC_VERSION));
             },
             ListScreenFactory::class                => autowire(Aggregate::class),
+            TableScreenFactory::class               => autowire(TableScreenFactory\Aggregate::class),
             Absolute::class                         => static function (Plugin $plugin): Absolute {
                 return new Absolute($plugin->get_url(), $plugin->get_dir());
             },

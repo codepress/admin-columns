@@ -95,15 +95,18 @@ abstract class ListScreen implements PostType
 
     protected $post_type = '';
 
-    public function __construct(string $key, string $screen_id)
+    protected $table_screen;
+
+    public function __construct(TableScreen $table_screen)
     {
-        $this->key = $key;
-        $this->screen_id = $screen_id;
+        $this->table_screen = $table_screen;
     }
 
     public function get_post_type(): string
     {
-        return $this->post_type;
+        return $this->table_screen instanceof PostType
+            ? $this->table_screen->get_post_type()
+            : '';
     }
 
     public function has_id(): bool
@@ -134,46 +137,52 @@ abstract class ListScreen implements PostType
         }
     }
 
+    public function get_table_screen(): TableScreen
+    {
+        return $this->table_screen;
+    }
+
     public function get_heading_hookname(): string
     {
-        return sprintf('manage_%s_columns', $this->get_screen_id());
+        return $this->table_screen->get_heading_hookname();
     }
 
     public function get_key(): string
     {
-        return $this->key;
+        return (string)$this->table_screen->get_key();
     }
 
     public function get_label(): ?string
     {
-        return $this->label;
+        return $this->table_screen->get_labels()->get_plural();
     }
 
     public function get_singular_label(): ?string
     {
-        return $this->singular_label ?: $this->label;
+        return $this->table_screen->get_labels()->get_singular() ?: $this->get_label();
     }
 
     public function get_meta_type(): string
     {
-        return $this->meta_type ?: '';
+        return (string)$this->table_screen->get_meta_type();
     }
 
     public function get_query_type(): string
     {
-        return $this->query_type ?: $this->get_meta_type();
+        return $this->table_screen->get_query_type() ?: $this->get_meta_type();
     }
 
     public function get_screen_id(): string
     {
-        return $this->screen_id;
+        return $this->table_screen->get_screen_id();
     }
 
     public function get_group(): string
     {
-        return $this->group;
+        return $this->table_screen->get_group();
     }
 
+    // TODO remove
     public function set_group(string $group): void
     {
         $this->group = $group;
@@ -201,7 +210,7 @@ abstract class ListScreen implements PostType
 
     public function get_table_attr_id(): string
     {
-        return '#the-list';
+        return $this->table_screen->get_attr_id();
     }
 
     public function is_read_only(): bool
@@ -224,11 +233,14 @@ abstract class ListScreen implements PostType
         return $this->updated ?: new DateTime();
     }
 
-    abstract public function get_table_url(): Uri;
+    public function get_table_url(): Uri
+    {
+        return $this->table_screen->get_url()->with_arg('layout', (string)$this->id);
+    }
 
     public function get_editor_url(): Uri
     {
-        return new Url\EditorColumns($this->key, $this->id);
+        return new Url\EditorColumns($this->get_key(), $this->id);
     }
 
     /**

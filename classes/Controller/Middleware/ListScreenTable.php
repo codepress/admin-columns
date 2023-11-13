@@ -9,8 +9,10 @@ use AC\ListScreenFactory;
 use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\Storage;
 use AC\Middleware;
+use AC\PostTypeRepository;
 use AC\Request;
 use AC\Table;
+use AC\TableScreenFactory\Post;
 use AC\Type\ListScreenId;
 use Exception;
 use WP_Screen;
@@ -110,8 +112,10 @@ class ListScreenTable implements Middleware
 
     private function get_list_key(): ?string
     {
-        return $this->list_screen_factory->can_create_from_wp_screen($this->wp_screen)
-            ? $this->list_screen_factory->create_from_wp_screen($this->wp_screen)->get_key()
+        $factory = new Post(new PostTypeRepository());
+
+        return $factory->can_create_from_wp_screen($this->wp_screen)
+            ? (string)$factory->create_from_wp_screen($this->wp_screen)->get_key()
             : null;
     }
 

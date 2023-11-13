@@ -7,7 +7,6 @@ namespace AC\ListScreenFactory;
 use AC\Exception\InvalidListScreenException;
 use AC\ListScreen;
 use AC\ListScreenFactory;
-use WP_Screen;
 
 final class Aggregate implements ListScreenFactory
 {
@@ -42,28 +41,6 @@ final class Aggregate implements ListScreenFactory
         }
 
         return false;
-    }
-
-    public function can_create_from_wp_screen(WP_Screen $screen): bool
-    {
-        foreach (self::$factories as $factory) {
-            if ($factory->can_create_from_wp_screen($screen)) {
-                return (bool)apply_filters('ac/list_screen/is_active', true, $screen);
-            }
-        }
-
-        return false;
-    }
-
-    public function create_from_wp_screen(WP_Screen $screen, array $settings = []): ListScreen
-    {
-        foreach (self::$factories as $factory) {
-            if ($factory->can_create_from_wp_screen($screen)) {
-                return $factory->create_from_wp_screen($screen, $settings);
-            }
-        }
-
-        throw InvalidListScreenException::from_invalid_screen($screen);
     }
 
 }

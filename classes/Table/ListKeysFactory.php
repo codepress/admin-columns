@@ -1,37 +1,50 @@
 <?php
-declare( strict_types=1 );
+
+declare(strict_types=1);
 
 namespace AC\Table;
 
 use AC\PostTypeRepository;
+use AC\TableScreenFactory\Aggregate;
 use AC\Type\ListKey;
 
-class ListKeysFactory implements ListKeysFactoryInterface {
+class ListKeysFactory implements ListKeysFactoryInterface
+{
 
-	private $post_type_repository;
+    private $post_type_repository;
 
-	public function __construct( PostTypeRepository $post_type_repository ) {
-		$this->post_type_repository = $post_type_repository;
-	}
+    private $table_screen_factory;
 
-	public function create(): ListKeyCollection {
-		$keys = new ListKeyCollection();
+    public function __construct(PostTypeRepository $post_type_repository, Aggregate $table_screen_factory)
+    {
+        $this->post_type_repository = $post_type_repository;
+        $this->table_screen_factory = $table_screen_factory;
+    }
 
-		foreach ( $this->post_type_repository->find_all() as $post_type ) {
-			$post_type_object = get_post_type_object( $post_type );
+    public function create(): ListKeyCollection
+    {
+        $keys = $this->post_type_repository->find_all();
 
-			if ( $post_type_object ) {
-				$keys->add( new ListKey( $post_type ) );
-			}
-		}
+        $keys[] = 'wp-comments';
+        $keys[] = 'wp-users';
+        $keys[] = 'wp-media';
 
-		$keys->add( new ListKey( 'wp-comments' ) );
-		$keys->add( new ListKey( 'wp-users' ) );
-		$keys->add( new ListKey( 'wp-media' ) );
+        $list_keys = array_map(static function (string $key): ListKey {
+            return new ListKey($key);
+        }, $keys);
 
-		do_action( 'ac/list_keys', $keys );
+        $list_keys = array_filter($list_keys, [$this->table_screen_factory, 'can_create']);
 
-		return $keys;
-	}
+        $collection = new ListKeyCollection($list_keys);
+
+        do_action('ac/list_keys', $collection);
+
+        return $collection;
+    }
+
+    private function create_key(string $key): ListKey
+    {
+        return new ListKey($key);
+    }
 
 }
