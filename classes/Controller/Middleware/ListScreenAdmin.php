@@ -66,7 +66,7 @@ class ListScreenAdmin implements Middleware
 
     private function list_key_exists(string $list_key): bool
     {
-        return $this->list_screen_factory->can_create(new ListKey($list_key));
+        return ListKey::validate($list_key) && $this->list_screen_factory->can_create(new ListKey($list_key));
     }
 
     private function get_list_screen(Request $request): ?ListScreen

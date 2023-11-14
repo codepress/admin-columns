@@ -15,14 +15,14 @@ final class ListKey
     {
         $this->key = $key;
 
-        $this->validate();
-    }
-
-    private function validate(): void
-    {
-        if ('' === $this->key) {
+        if ( ! self::validate($key)) {
             throw new InvalidArgumentException('List key can not be empty.');
         }
+    }
+
+    public static function validate(string $key): bool
+    {
+        return '' !== $key;
     }
 
     public function is_network(): bool

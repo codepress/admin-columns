@@ -21,6 +21,7 @@ class PostFactory extends BaseFactory
 
     protected function create_list_screen(ListKey $key): ListScreen
     {
+        // TODO remove TableScreen dependency from ListScreen 
         return new Post(
             $this->table_screen_factory->create($key)
         );
