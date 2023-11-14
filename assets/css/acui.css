@@ -50,6 +50,14 @@
   animation-timing-function: linear;
 }
 
+.acui-button-primary {
+  background-color: var(--ac-primary-color);
+  color: #fff;
+}
+.acui-button-primary:hover {
+  background-color: var(--ac-primary-color-hover);
+}
+
 .acui-dropdown {
   --acui-dropdown-text-color: var(--ac-text-color);
   --acui-dropdown-hover-background: var(--ac-select-hover-bg);

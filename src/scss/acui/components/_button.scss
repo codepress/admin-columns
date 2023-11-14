@@ -49,3 +49,12 @@
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
 }
+
+.acui-button-primary {
+	background-color: var(--ac-primary-color);
+	color: #fff;
+
+	&:hover {
+		background-color: var(--ac-primary-color-hover);
+	}
+}

@@ -1,9 +1,9 @@
 <script lang="ts">
     import {onMount} from "svelte";
 
-    export let icon: string = '';
-    export let size: string = 'md';
-    export let pack: string = 'ac'; // ac|dash
+    export let icon: string|null = '';
+    export let size: string|null = 'md';
+    export let pack: string|null = 'ac'; // ac|dashicons
 
     let iconName = '';
 

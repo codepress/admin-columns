@@ -25,15 +25,6 @@ export default class ListScreenSections {
     }
 
 
-
-    static _registerSection(location: Location, component: typeof SvelteComponent, priority: number = 10) {
-        if (!ListScreenSections.sections.hasOwnProperty(location)) {
-            ListScreenSections.sections[location] = [];
-        }
-
-        ListScreenSections.sections[location].push({priority, component})
-    }
-
     //static getSections(location: Location): typeof SvelteComponent [] {
     static getSections(location: Location): HTMLElement [] {
         if (!ListScreenSections.sections.hasOwnProperty(location)) {

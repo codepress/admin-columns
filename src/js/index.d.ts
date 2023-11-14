@@ -2,6 +2,7 @@ import AcAdminColumnsVar = AC.Vars.Admin.Columns.AcAdminColumnsVar;
 
 declare namespace AC.Vars.Admin.Columns {
 
+    import ColumnSetting = AC.Vars.Settings.ColumnSetting;
     type ColumnGroup = {
         slug: string
         label: string
@@ -29,6 +30,10 @@ declare namespace AC.Vars.Admin.Columns {
         column_types: ColumnConfig[]
         list_key: string
         list_screen_id: string
+    }
+
+    interface test extends ColumnSetting {
+        test: string
     }
 }
 

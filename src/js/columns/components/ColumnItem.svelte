@@ -87,6 +87,7 @@
 				<svelte:component
 						this={getComponent(setting.type)}
 						bind:data={data}
+						bind:value={data[setting.key]}
 						bind:columnConfig={config}
 						config={setting}>
 

@@ -1,26 +1,21 @@
 <script>
 	import ColumnSetting from "../ColumnSetting.svelte";
-	import {createEventDispatcher, onMount} from "svelte";
+	import {onMount} from "svelte";
+	import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
 
-	const dispatch = createEventDispatcher();
-
-	export let data;
 	export let config;
-
-	let value;
+	export let value;
 
 	onMount( () => {
-		value = data[config.key];
 		if ( typeof value === 'undefined' ) {
 			value = config.default ? config.default : '';
 		}
 	} );
 
-
 </script>
 
 <ColumnSetting label={config.label}>
-	<div>
-		<input type="text" bind:value={data[config.key]}>
-	</div>
+	<AcInputGroup>
+		<input type="text" bind:value={value}>
+	</AcInputGroup>
 </ColumnSetting>

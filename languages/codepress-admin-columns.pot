@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2023-10-24 07:18+0000\n"
+"POT-Creation-Date: 2023-11-13 09:29+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -52,7 +52,7 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: classes/ListScreenGroupsFactory.php:10, classes/Settings/Column/CustomFieldType.php:111, classes/Settings/Column/PostType.php:43
+#: classes/ListScreenGroupsFactory.php:12, classes/Settings/Column/CustomFieldType.php:111, classes/Settings/Column/PostType.php:43
 msgid "Post Type"
 msgstr ""
 
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:40, classes/Admin/Page/Columns.php:163
+#: classes/Admin/MenuFactory.php:40, classes/Admin/Page/Columns.php:164
 msgid "Columns"
 msgstr ""
 
@@ -192,7 +192,7 @@ msgstr ""
 msgid "Please visit the %s screen once to load all available columns"
 msgstr ""
 
-#: classes/Controller/ColumnRequest.php:53, classes/Admin/Asset/Columns.php:63
+#: classes/Controller/ColumnRequest.php:53, classes/Admin/Asset/Columns.php:68
 msgid "%s column is already present and can not be duplicated."
 msgstr ""
 
@@ -880,23 +880,23 @@ msgstr ""
 msgid "The Add-on %s is activated."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:61
+#: classes/Admin/Asset/Columns.php:66
 msgid "Value"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:62, classes/Settings/Column/Label.php:33, classes/Settings/Column/Label.php:66
+#: classes/Admin/Asset/Columns.php:67, classes/Settings/Column/Label.php:33, classes/Settings/Column/Label.php:66
 msgid "Label"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:64
+#: classes/Admin/Asset/Columns.php:69
 msgid "Invalid response."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:66
+#: classes/Admin/Asset/Columns.php:71
 msgid "There was an error during saving the column settings."
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:70
+#: classes/Admin/Asset/Columns.php:75
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
@@ -924,15 +924,15 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:125
+#: classes/Admin/Page/Columns.php:126
 msgid "I'm using Admin Columns for WordPress!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:183
+#: classes/Admin/Page/Columns.php:184
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:204
+#: classes/Admin/Page/Columns.php:205
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -1174,7 +1174,7 @@ msgstr ""
 msgid "Play"
 msgstr ""
 
-#: classes/Column/Media/Width.php:17, classes/Settings/Column/FileMetaVideo.php:18, classes/Settings/Column/Image.php:41, classes/Settings/Column/Width.php:62, classes/Settings/Column/Width.php:159
+#: classes/Column/Media/Width.php:17, classes/Settings/Column/FileMetaVideo.php:18, classes/Settings/Column/Image.php:41, classes/Settings/Column/Width.php:62, classes/Settings/Column/Width.php:158
 msgid "Width"
 msgstr ""
 

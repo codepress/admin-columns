@@ -32,9 +32,17 @@
 </script>
 
 <ColumnSetting label={config.label}>
-	<div style="width:300px">
-		<Select items={collection} {groupBy} value={value} on:change={ changeValue } bind:justValue={selectValue}>
+
+		<Select
+				--list-max-height="400px"
+				class="-acui"
+				showChevron
+				items={collection}
+				value={value}
+				{groupBy}
+				on:change={ changeValue }
+				bind:justValue={selectValue}>
 
 		</Select>
-	</div>
+
 </ColumnSetting>
