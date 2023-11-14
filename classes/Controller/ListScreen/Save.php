@@ -6,6 +6,7 @@ use AC\Column\LabelEncoder;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
+use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 
 class Save
@@ -29,12 +30,13 @@ class Save
             wp_send_json_error(['message' => __('You need at least one column', 'codepress-admin-columns')]);
         }
 
-        $list_key = (string)($data['list_screen'] ?? '');
-        $list_id = $data['list_screen_id'] ?? '';
+        $list_key = new ListKey($data['list_screen'] ?? '');
 
         if ( ! $this->list_screen_factory->can_create($list_key)) {
             wp_send_json_error(['message' => __('List screen not found', 'codepress-admin-columns')]);
         }
+
+        $list_id = $data['list_screen_id'] ?? '';
 
         $list_id = ListScreenId::is_valid_id($list_id)
             ? new ListScreenId($list_id)

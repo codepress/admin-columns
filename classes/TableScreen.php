@@ -16,15 +16,23 @@ abstract class TableScreen implements ManageValue
 
     protected $screen_id;
 
-    public function __construct(ListKey $key, string $screen_id)
+    protected $network;
+
+    public function __construct(ListKey $key, string $screen_id, bool $network)
     {
         $this->key = $key;
         $this->screen_id = $screen_id;
+        $this->network = $network;
     }
 
     public function get_key(): ListKey
     {
         return $this->key;
+    }
+
+    public function is_network(): bool
+    {
+        return $this->network;
     }
 
     public function get_screen_id(): string

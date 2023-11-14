@@ -1,28 +1,34 @@
 <?php
-declare( strict_types=1 );
+
+declare(strict_types=1);
 
 namespace AC\ListScreenFactory;
 
 use AC\ListScreen;
 use AC\ListScreen\Comment;
-use WP_Screen;
+use AC\TableScreenFactory;
+use AC\Type\ListKey;
 
-class CommentFactory extends BaseFactory {
+class CommentFactory extends BaseFactory
+{
 
-	protected function create_list_screen( string $key ): ListScreen {
-		return new Comment();
-	}
+    private $table_screen_factory;
 
-	protected function create_list_screen_from_wp_screen( WP_Screen $screen ): ListScreen {
-		return $this->create_list_screen( 'wp-comments' );
-	}
+    public function __construct(TableScreenFactory\Comment $table_screen_factory)
+    {
+        $this->table_screen_factory = $table_screen_factory;
+    }
 
-	public function can_create( string $key ): bool {
-		return 'wp-comments' === $key;
-	}
+    protected function create_list_screen(ListKey $key): ListScreen
+    {
+        return new Comment(
+            $this->table_screen_factory->create($key)
+        );
+    }
 
-	public function can_create_from_wp_screen( WP_Screen $screen ): bool {
-		return 'edit-comments' === $screen->base && 'edit-comments' === $screen->id;
-	}
+    public function can_create(ListKey $key): bool
+    {
+        return $this->table_screen_factory->can_create($key);
+    }
 
 }

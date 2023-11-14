@@ -97,6 +97,7 @@ abstract class ListScreen implements PostType
 
     protected $table_screen;
 
+    // TODO construct should only contain settings (from DB), nothing else.
     public function __construct(TableScreen $table_screen)
     {
         $this->table_screen = $table_screen;
@@ -137,6 +138,7 @@ abstract class ListScreen implements PostType
         }
     }
 
+    // TODO should we even pass the TableScreen object to the ListScreen. It seems to be here for convenience only.
     public function get_table_screen(): TableScreen
     {
         return $this->table_screen;
@@ -147,6 +149,7 @@ abstract class ListScreen implements PostType
         return $this->table_screen->get_heading_hookname();
     }
 
+    // TODO return ListKey object, not a string
     public function get_key(): string
     {
         return (string)$this->table_screen->get_key();

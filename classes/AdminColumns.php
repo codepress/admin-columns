@@ -33,8 +33,11 @@ class AdminColumns
 
         Container::set_container($container);
 
-        // TODO add
+        // TODO add more
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\Post::class));
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\Comment::class));
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\Media::class));
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\User::class));
 
         // TODO remove
         ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\UserFactory::class));

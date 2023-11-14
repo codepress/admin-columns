@@ -7,6 +7,7 @@ namespace AC\ListScreenFactory;
 use AC\Exception\InvalidListScreenException;
 use AC\ListScreen;
 use AC\ListScreenFactory;
+use AC\Type\ListKey;
 
 final class Aggregate implements ListScreenFactory
 {
@@ -21,7 +22,7 @@ final class Aggregate implements ListScreenFactory
         array_unshift(self::$factories, $factory);
     }
 
-    public function create(string $key, array $settings = []): ListScreen
+    public function create(ListKey $key, array $settings = []): ListScreen
     {
         foreach (self::$factories as $factory) {
             if ($factory->can_create($key)) {
@@ -32,11 +33,11 @@ final class Aggregate implements ListScreenFactory
         throw InvalidListScreenException::from_invalid_key($key);
     }
 
-    public function can_create(string $key): bool
+    public function can_create(ListKey $key): bool
     {
         foreach (self::$factories as $factory) {
             if ($factory->can_create($key)) {
-                return (bool)apply_filters('ac/list_screen/key/is_active', true, $key);
+                return (bool)apply_filters('ac/list_screen/key/is_active', true, (string)$key);
             }
         }
 

@@ -9,6 +9,7 @@ use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Middleware;
 use AC\Request;
+use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use Exception;
 
@@ -46,7 +47,7 @@ class ListScreenAdmin implements Middleware
         return $list_id;
     }
 
-    private function get_list_key(Request $request): ?string
+    private function get_list_key(Request $request): ?ListKey
     {
         $list_key = (string)$request->get('list_screen');
 
@@ -59,13 +60,13 @@ class ListScreenAdmin implements Middleware
         }
 
         return $this->list_key_exists($list_key)
-            ? $list_key
+            ? new ListKey($list_key)
             : null;
     }
 
     private function list_key_exists(string $list_key): bool
     {
-        return $this->list_screen_factory->can_create($list_key);
+        return $this->list_screen_factory->can_create(new ListKey($list_key));
     }
 
     private function get_list_screen(Request $request): ?ListScreen

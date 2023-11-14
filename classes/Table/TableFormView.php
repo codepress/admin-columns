@@ -4,56 +4,50 @@ namespace AC\Table;
 
 use AC\Registerable;
 
-final class TableFormView implements Registerable {
+// TODO
+final class TableFormView implements Registerable
+{
 
-	const PARAM_ACTION = 'ac-actions-form';
+    public const PARAM_ACTION = 'ac-actions-form';
 
-	/**
-	 * @var string
-	 */
-	private $type;
+    private $type;
 
-	/**
-	 * @var string
-	 */
-	private $html;
+    private $html;
 
-	/**
-	 * @var int
-	 */
-	private $priority;
+    private $priority;
 
-	public function __construct( $type, $html, $priority = null ) {
-		if ( null === $priority ) {
-			$priority = 10;
-		}
-
-		$this->type = (string) $type;
-		$this->html = (string) $html;
-		$this->priority = (int) $priority;
-	}
-
-	public function register(): void
+    public function __construct(string $type, string $html, int $priority = null)
     {
+        if (null === $priority) {
+            $priority = 10;
+        }
 
-		switch ( $this->type ) {
-			case 'post':
-				add_action( 'restrict_manage_posts', [ $this, 'render' ], $this->priority );
+        $this->type = $type;
+        $this->html = $html;
+        $this->priority = $priority;
+    }
 
-				break;
-			case'user':
-				add_action( 'restrict_manage_users', [ $this, 'render' ], $this->priority );
+    public function register(): void
+    {
+        switch ($this->type) {
+            case 'post':
+                add_action('restrict_manage_posts', [$this, 'render'], $this->priority);
 
-				break;
-			case 'comment':
-				add_action( 'restrict_manage_comment', [ $this, 'render' ], $this->priority );
+                break;
+            case'user':
+                add_action('restrict_manage_users', [$this, 'render'], $this->priority);
 
-				break;
-		}
-	}
+                break;
+            case 'comment':
+                add_action('restrict_manage_comment', [$this, 'render'], $this->priority);
 
-	public function render() {
-		echo $this->html;
-	}
+                break;
+        }
+    }
+
+    public function render()
+    {
+        echo $this->html;
+    }
 
 }

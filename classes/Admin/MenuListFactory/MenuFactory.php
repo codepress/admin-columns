@@ -44,8 +44,8 @@ class MenuFactory implements MenuListFactory
                 continue;
             }
 
-            if ($this->list_screen_factory->can_create((string)$list_key)) {
-                $menu->add($this->create_menu_item($this->list_screen_factory->create((string)$list_key)));
+            if ($this->list_screen_factory->can_create($list_key)) {
+                $menu->add($this->create_menu_item($this->list_screen_factory->create($list_key)));
             }
         }
 

@@ -7,7 +7,9 @@ use AC\Column;
 use AC\Column\Placeholder;
 use AC\ListScreen;
 use AC\Request;
+use AC\Type\ListKey;
 use AC\View;
+use Exception;
 
 abstract class ColumnRequest
 {
@@ -23,7 +25,11 @@ abstract class ColumnRequest
 
     public function request(Request $request): void
     {
-        $list_key = (string)$request->get('list_screen');
+        try {
+            $list_key = new ListKey((string)$request->get('list_screen'));
+        } catch (Exception $e) {
+            exit;
+        }
 
         if ( ! $this->list_screen_factory->can_create($list_key)) {
             exit;

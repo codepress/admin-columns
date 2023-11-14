@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Type\ListKey;
+
 interface ListScreenFactory
 {
 
-    public function can_create(string $key): bool;
+    public function can_create(ListKey $key): bool;
 
-    public function create(string $key, array $settings = []): ListScreen;
-
-    // TODO remove
-    // TODO replace with AC\TableScreenFactory
-    //    public function can_create_from_wp_screen(WP_Screen $screen): bool;
-
-    //    public function create_from_wp_screen(WP_Screen $screen, array $settings = []): ListScreen;
+    public function create(ListKey $key, array $settings = []): ListScreen;
 
 }

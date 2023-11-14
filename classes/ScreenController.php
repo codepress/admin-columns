@@ -9,11 +9,6 @@ class ScreenController implements Registerable
 {
 
     /**
-     * @var ListScreen
-     */
-    private $list_screen;
-
-    /**
      * @var array
      */
     private $headings = [];
@@ -23,10 +18,15 @@ class ScreenController implements Registerable
      */
     private $default_columns;
 
-    public function __construct(ListScreen $list_screen)
+    private $list_screen;
+
+    private $table_screen;
+
+    public function __construct(ListScreen $list_screen, TableScreen $table_screen)
     {
-        $this->list_screen = $list_screen;
         $this->default_columns = new DefaultColumnsRepository();
+        $this->list_screen = $list_screen;
+        $this->table_screen = $table_screen;
     }
 
     public function register(): void
@@ -35,13 +35,13 @@ class ScreenController implements Registerable
         add_filter($this->list_screen->get_heading_hookname(), [$this, 'add_headings'], 200);
 
         // Values
-        if ($this->list_screen->get_table_screen() instanceof ManageValue) {
+        if ($this->table_screen instanceof ManageValue) {
             $column_repository = new ColumnRepository($this->list_screen);
 
-            $this->list_screen->get_table_screen()->manage_value($column_repository)->register();
+            $this->table_screen->manage_value($column_repository)->register();
         }
 
-        do_action('ac/table/list_screen', $this->list_screen);
+        do_action('ac/table/list_screen', $this->list_screen, $this->table_screen);
     }
 
     /**

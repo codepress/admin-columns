@@ -6,6 +6,7 @@ namespace AC\TableScreen;
 
 use AC;
 use AC\ColumnRepository;
+use AC\ListScreen\ListTable;
 use AC\MetaType;
 use AC\PostType;
 use AC\Table;
@@ -14,17 +15,23 @@ use AC\Type\Labels;
 use AC\Type\ListKey;
 use AC\Type\Uri;
 use AC\Type\Url;
+use AC\WpListTableFactory;
 
-class Post extends TableScreen implements PostType
+class Post extends TableScreen implements PostType, ListTable
 {
 
     private $post_type;
 
     public function __construct(string $post_type, ListKey $key, string $screen_id)
     {
-        parent::__construct($key, $screen_id);
+        parent::__construct($key, $screen_id, false);
 
         $this->post_type = $post_type;
+    }
+
+    public function list_table(): AC\ListTable
+    {
+        return new AC\ListTable\Post((new WpListTableFactory())->create_post_table($this->screen_id));
     }
 
     public function manage_value(ColumnRepository $column_repository): AC\Table\ManageValue

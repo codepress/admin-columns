@@ -4,15 +4,9 @@ namespace AC\ListScreen;
 
 use AC;
 use AC\Column;
-use AC\WpListTableFactory;
 
-class Post extends AC\ListScreenPost implements ListTable
+class Post extends AC\ListScreenPost
 {
-
-    public function list_table(): AC\ListTable
-    {
-        return new AC\ListTable\Post((new WpListTableFactory())->create_post_table($this->get_screen_id()));
-    }
 
     protected function register_column_types(): void
     {

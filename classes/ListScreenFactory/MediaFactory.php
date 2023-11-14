@@ -5,30 +5,27 @@ declare(strict_types=1);
 namespace AC\ListScreenFactory;
 
 use AC\ListScreen;
-use AC\ListScreen\Media;
-use WP_Screen;
+use AC\TableScreenFactory;
+use AC\Type\ListKey;
 
 class MediaFactory extends BaseFactory
 {
 
-    protected function create_list_screen(string $key): ListScreen
+    private $table_screen_factory;
+
+    public function __construct(TableScreenFactory\Media $table_screen_factory)
     {
-        return new Media();
+        $this->table_screen_factory = $table_screen_factory;
     }
 
-    protected function create_list_screen_from_wp_screen(WP_Screen $screen): ListScreen
+    protected function create_list_screen(ListKey $key): ListScreen
     {
-        return $this->create_list_screen($screen->post_type);
+        return new ListScreen\Media($this->table_screen_factory->create($key));
     }
 
-    public function can_create(string $key): bool
+    public function can_create(ListKey $key): bool
     {
-        return 'wp-media' === $key;
-    }
-
-    public function can_create_from_wp_screen(WP_Screen $screen): bool
-    {
-        return 'upload' === $screen->base && 'upload' === $screen->id && 'attachment' === $screen->post_type;
+        return $this->table_screen_factory->can_create($key);
     }
 
 }

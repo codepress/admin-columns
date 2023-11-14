@@ -9,6 +9,7 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenFactory;
 use AC\ListScreenRepositoryWritable;
+use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use LogicException;
 
@@ -159,12 +160,14 @@ class Database implements ListScreenRepositoryWritable
 
     private function create_list_screen(object $data): ?ListScreen
     {
-        if ( ! $this->list_screen_factory->can_create($data->list_key)) {
+        $list_key = new ListKey($data->list_key);
+
+        if ( ! $this->list_screen_factory->can_create($list_key)) {
             return null;
         }
 
         $list_screen = $this->list_screen_factory->create(
-            $data->list_key,
+            $list_key,
             [
                 'title'       => $data->title,
                 'list_id'     => $data->list_id,

@@ -6,6 +6,7 @@ namespace AC\ListScreen;
 
 use AC;
 
+// TODO check instanceof uses. This should only be used with a TableScreen
 interface ListTable
 {
 

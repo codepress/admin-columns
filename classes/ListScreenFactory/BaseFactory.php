@@ -7,6 +7,7 @@ namespace AC\ListScreenFactory;
 use AC\Exception\InvalidListScreenException;
 use AC\ListScreen;
 use AC\ListScreenFactory;
+use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use DateTime;
 
@@ -33,7 +34,7 @@ abstract class BaseFactory implements ListScreenFactory
         $list_screen->set_preferences($preferences ?: []);
         $list_screen->set_settings($columns ?: []);
         $list_screen->set_updated($date);
-        
+
         if ($group) {
             $list_screen->set_group($group);
         }
@@ -41,7 +42,7 @@ abstract class BaseFactory implements ListScreenFactory
         return $list_screen;
     }
 
-    public function create(string $key, array $settings = []): ListScreen
+    public function create(ListKey $key, array $settings = []): ListScreen
     {
         if ( ! $this->can_create($key)) {
             throw InvalidListScreenException::from_invalid_key($key);
@@ -50,9 +51,6 @@ abstract class BaseFactory implements ListScreenFactory
         return $this->add_settings($this->create_list_screen($key), $settings);
     }
 
-    abstract protected function create_list_screen(string $key): ListScreen;
-
-    // TODO remove
-    //    abstract protected function create_list_screen_from_wp_screen(WP_Screen $screen): ListScreen;
+    abstract protected function create_list_screen(ListKey $key): ListScreen;
 
 }

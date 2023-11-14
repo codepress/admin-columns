@@ -6,29 +6,27 @@ namespace AC\ListScreenFactory;
 
 use AC\ListScreen;
 use AC\ListScreen\User;
-use WP_Screen;
+use AC\TableScreenFactory;
+use AC\Type\ListKey;
 
 class UserFactory extends BaseFactory
 {
 
-    protected function create_list_screen(string $key): ListScreen
+    private $table_screen_factory;
+
+    public function __construct(TableScreenFactory\User $table_screen_factory)
     {
-        return new User();
+        $this->table_screen_factory = $table_screen_factory;
     }
 
-    protected function create_list_screen_from_wp_screen(WP_Screen $screen): ListScreen
+    protected function create_list_screen(ListKey $key): ListScreen
     {
-        return $this->create_list_screen('wp-users');
+        return new User($this->table_screen_factory->create($key));
     }
 
-    public function can_create(string $key): bool
+    public function can_create(ListKey $key): bool
     {
-        return 'wp-users' === $key;
-    }
-
-    public function can_create_from_wp_screen(WP_Screen $screen): bool
-    {
-        return 'users' === $screen->base && 'users' === $screen->id && 'delete' !== filter_input(INPUT_GET, 'action');
+        return $this->table_screen_factory->can_create($key);
     }
 
 }
