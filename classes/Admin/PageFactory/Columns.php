@@ -11,10 +11,15 @@ use AC\Admin\Section;
 use AC\Asset\Location;
 use AC\Controller\Middleware;
 use AC\DefaultColumnsRepository;
+use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\Table\ListKeysFactoryInterface;
+use AC\TableScreen;
+use AC\TableScreenFactory;
+use AC\Type\ListKey;
+use AC\Type\ListScreenId;
 use InvalidArgumentException;
 
 class Columns implements PageFactoryInterface
@@ -34,13 +39,19 @@ class Columns implements PageFactoryInterface
 
     private $list_keys_factory;
 
+    private $table_screen_factory;
+
+    private $preference;
+
     public function __construct(
         Storage $storage,
         Location\Absolute $location,
         MenuFactoryInterface $menu_factory,
         ListScreenFactory $list_screen_factory,
+        TableScreenFactory $table_screen_factory,
         Admin\ListScreenUninitialized $list_screen_uninitialized,
         Admin\MenuListFactory $menu_list_factory,
+        Preference\ListScreen $preference,
         ListKeysFactoryInterface $list_keys_factory
     ) {
         $this->storage = $storage;
@@ -50,6 +61,8 @@ class Columns implements PageFactoryInterface
         $this->list_screen_uninitialized = $list_screen_uninitialized;
         $this->menu_list_factory = $menu_list_factory;
         $this->list_keys_factory = $list_keys_factory;
+        $this->table_screen_factory = $table_screen_factory;
+        $this->preference = $preference;
     }
 
     public function create()
@@ -57,28 +70,52 @@ class Columns implements PageFactoryInterface
         $request = new Request();
 
         $request->add_middleware(
+            new Middleware\TableScreenAdmin(
+                new Preference\ListScreen(),
+                $this->table_screen_factory,
+                $this->list_keys_factory
+            )
+        );
+
+        $table_screen = $request->get('table_screen');
+
+        if ( ! $table_screen instanceof TableScreen) {
+            throw new InvalidArgumentException('Invalid screen.');
+        }
+
+        $request->add_middleware(
             new Middleware\ListScreenAdmin(
                 $this->storage,
-                new Preference\ListScreen(),
-                $this->list_screen_factory,
-                $this->list_keys_factory
+                $table_screen->get_key(),
+                $this->preference
             )
         );
 
         $list_screen = $request->get('list_screen');
 
-        if ( ! $list_screen) {
-            throw new InvalidArgumentException('Invalid screen.');
-        }
+        $this->set_preference(
+            $table_screen->get_key(),
+            $list_screen instanceof ListScreen && $list_screen->has_id() ? $list_screen->get_id() : null
+        );
 
         return new Page\Columns(
             $this->location,
-            $list_screen,
             new DefaultColumnsRepository(),
             $this->list_screen_uninitialized->find_all_sites(),
             new Section\Partial\Menu($this->menu_list_factory),
-            new Admin\View\Menu($this->menu_factory->create('columns'))
+            new Admin\View\Menu($this->menu_factory->create('columns')),
+            $table_screen,
+            $list_screen
         );
+    }
+
+    private function set_preference(ListKey $key, ListScreenId $id = null): void
+    {
+        $this->preference->set_last_visited_list_key((string)$key);
+
+        if ($id) {
+            $this->preference->set_list_id((string)$key, (string)$id);
+        }
     }
 
 }

@@ -124,7 +124,8 @@ abstract class ListScreen implements PostType
         return $this->id;
     }
 
-    abstract protected function register_column_types(): void;
+    // TODO remove from inheritors
+    //    abstract protected function register_column_types(): void;
 
     /**
      * Register column types from a list with (fully qualified) class names
@@ -251,80 +252,12 @@ abstract class ListScreen implements PostType
      */
     public function get_columns(): array
     {
-        if (null === $this->columns) {
-            $this->set_columns();
-        }
-
         return $this->columns;
     }
 
-    private function set_columns(): void
+    public function set_columns(array $columns): void
     {
-        foreach ($this->get_settings() as $name => $data) {
-            $data['name'] = $name;
-            $column = $this->create_column($data);
-
-            if ($column) {
-                $this->columns[$column->get_name()] = $column;
-            }
-        }
-
-        // Nothing stored. Use WP default columns.
-        if (null === $this->columns) {
-            foreach ($this->get_original_columns() as $type => $label) {
-                $column = $this->create_column(['type' => $type, 'original' => true]);
-
-                if ( ! $column) {
-                    continue;
-                }
-
-                $this->columns[$column->get_name()] = $column;
-            }
-        }
-
-        if (null === $this->columns) {
-            $this->columns = [];
-        }
-    }
-
-    /**
-     * @return Column[]
-     */
-    public function get_column_types(): array
-    {
-        if (null === $this->column_types) {
-            $this->set_column_types();
-        }
-
-        return $this->column_types;
-    }
-
-    private function set_column_types(): void
-    {
-        $this->column_types = [];
-
-        foreach ($this->get_original_columns() as $type => $label) {
-            // Ignore the mandatory checkbox column
-            if ('cb' === $type) {
-                continue;
-            }
-
-            $column = new Column();
-            $column->set_type($type)
-                   ->set_original(true);
-
-            $this->register_column_type($column);
-        }
-
-        // Load Custom columns
-        $this->register_column_types();
-
-        /**
-         * Register column types
-         *
-         * @param ListScreen $this
-         */
-        do_action('ac/column_types', $this);
+        $this->columns = $columns;
     }
 
     public function get_column_by_name($name): ?Column
@@ -337,22 +270,6 @@ abstract class ListScreen implements PostType
         }
 
         return null;
-    }
-
-    public function get_column_by_type(string $type): ?Column
-    {
-        $column_types = $this->get_column_types();
-
-        return $column_types[$type] ?? null;
-    }
-
-    private function get_class_by_type(string $type): ?string
-    {
-        $column = $this->get_column_by_type($type);
-
-        return $column
-            ? get_class($column)
-            : null;
     }
 
     public function deregister_column_type(string $type): void
@@ -380,63 +297,9 @@ abstract class ListScreen implements PostType
         $this->column_types[$column->get_type()] = $column;
     }
 
-    public function get_original_label(string $type): ?string
-    {
-        $columns = $this->get_original_columns();
-
-        $label = $columns[$type] ?? null;
-
-        return is_string($label)
-            ? $label
-            : null;
-    }
-
     public function get_original_columns(): array
     {
         return (new DefaultColumnsRepository())->get($this->get_key());
-    }
-
-    private function is_original_column(string $type): bool
-    {
-        $column = $this->get_column_by_type($type);
-
-        return $column && $column->is_original();
-    }
-
-    public function create_column(array $settings): ?Column
-    {
-        if ( ! isset($settings['type'])) {
-            return null;
-        }
-
-        $class = $this->get_class_by_type((string)$settings['type']);
-
-        if ( ! $class) {
-            return null;
-        }
-
-        /**
-         * @var Column $column
-         */
-        $column = new $class();
-        $column->set_list_screen($this)
-               ->set_type($settings['type']);
-
-        if (isset($settings['name'])) {
-            $column->set_name($settings['name']);
-        }
-
-        // Mark as original
-        if ($this->is_original_column($settings['type'])) {
-            $column->set_original(true);
-            $column->set_name($settings['type']);
-        }
-
-        $column->set_options($settings);
-
-        do_action('ac/list_screen/column_created', $column, $this);
-
-        return $column;
     }
 
     public function set_settings(array $settings): void

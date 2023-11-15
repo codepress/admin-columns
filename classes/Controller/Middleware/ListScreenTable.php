@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Controller\Middleware;
 
 use AC\ListScreen;
-use AC\ListScreenFactory;
 use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\Storage;
 use AC\Middleware;
@@ -21,8 +20,6 @@ class ListScreenTable implements Middleware
 
     private $storage;
 
-    private $list_screen_factory;
-
     private $preference;
 
     private $list_key;
@@ -30,12 +27,10 @@ class ListScreenTable implements Middleware
     public function __construct(
         Storage $storage,
         ListKey $list_key,
-        ListScreenFactory $list_screen_factory,
         Table\LayoutPreference $preference
     ) {
         $this->storage = $storage;
         $this->list_key = $list_key;
-        $this->list_screen_factory = $list_screen_factory;
         $this->preference = $preference;
     }
 
@@ -47,46 +42,38 @@ class ListScreenTable implements Middleware
             new Sort\UserOrder($user, (string)$this->list_key)
         );
 
-        if ($list_screens->valid()) {
-            return $list_screens->current();
+        if ( ! $list_screens->valid()) {
+            return null;
         }
 
-        return $this->list_screen_factory->can_create($this->list_key)
-            ? $this->list_screen_factory->create($this->list_key)
-            : null;
+        return $list_screens->current();
     }
 
     private function get_preference_list_screen(WP_User $user): ?ListScreen
     {
-        $list_key = (string)$this->list_key;
-
         try {
-            $list_id = new ListScreenId((string)$this->preference->get($list_key));
+            $id = new ListScreenId((string)$this->preference->get((string)$this->list_key));
         } catch (Exception $e) {
             return null;
         }
 
-        $list_screen = $this->storage->find($list_id);
-
-        if ( ! $list_screen ||
-             ! $list_screen->is_user_assigned($user) ||
-             ! $this->list_key->equals(new ListKey($list_screen->get_key()))
-        ) {
-            return null;
-        }
-
-        return $list_screen;
+        return $this->get_list_screen_by_id($id, $user);
     }
 
     private function get_requested_list_screen(Request $request, WP_User $user): ?ListScreen
     {
         try {
-            $list_id = new ListScreenId((string)$request->get('layout'));
+            $id = new ListScreenId((string)$request->get('layout'));
         } catch (Exception $e) {
             return null;
         }
 
-        $list_screen = $this->storage->find($list_id);
+        return $this->get_list_screen_by_id($id, $user);
+    }
+
+    private function get_list_screen_by_id(ListScreenId $id, WP_User $user): ?ListScreen
+    {
+        $list_screen = $this->storage->find($id);
 
         if ( ! $list_screen ||
              ! $list_screen->is_user_allowed($user) ||

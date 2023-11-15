@@ -71,4 +71,9 @@ class Media extends TableScreen implements AC\ListScreen\ListTable, AC\PostType
         );
     }
 
+    protected function get_columns_fqn(): array
+    {
+        return [];
+    }
+
 }

@@ -27,4 +27,9 @@ class Labels
         return $this->plural;
     }
 
+    public function __toString(): string
+    {
+        return $this->plural;
+    }
+
 }

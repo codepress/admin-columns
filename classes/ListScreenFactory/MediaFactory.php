@@ -11,11 +11,9 @@ use AC\Type\ListKey;
 class MediaFactory extends BaseFactory
 {
 
-    private $table_screen_factory;
-
     public function __construct(TableScreenFactory\Media $table_screen_factory)
     {
-        $this->table_screen_factory = $table_screen_factory;
+        parent::__construct($table_screen_factory);
     }
 
     protected function create_list_screen(ListKey $key): ListScreen

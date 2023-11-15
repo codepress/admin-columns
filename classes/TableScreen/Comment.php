@@ -66,4 +66,9 @@ class Comment extends TableScreen implements AC\ListScreen\ListTable
         );
     }
 
+    protected function get_columns_fqn(): array
+    {
+        return [];
+    }
+
 }

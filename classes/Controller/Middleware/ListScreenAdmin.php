@@ -2,10 +2,8 @@
 
 namespace AC\Controller\Middleware;
 
-use AC;
 use AC\Admin\Preference;
 use AC\ListScreen;
-use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Middleware;
 use AC\Request;
@@ -18,133 +16,79 @@ class ListScreenAdmin implements Middleware
 
     private $storage;
 
+    private $list_key;
+
     private $preference;
-
-    private $list_screen_factory;
-
-    private $list_keys_factory;
 
     public function __construct(
         Storage $storage,
-        Preference\ListScreen $preference,
-        ListScreenFactory $list_screen_factory,
-        AC\Table\ListKeysFactoryInterface $list_keys_factory
+        ListKey $list_key,
+        Preference\ListScreen $preference
     ) {
         $this->storage = $storage;
+        $this->list_key = $list_key;
         $this->preference = $preference;
-        $this->list_screen_factory = $list_screen_factory;
-        $this->list_keys_factory = $list_keys_factory;
     }
 
-    private function get_list_id(Request $request): ?ListScreenId
+    private function get_requested_list_screen(Request $request): ?ListScreen
     {
         try {
-            $list_id = new ListScreenId((string)$request->get('layout_id'));
+            $id = new ListScreenId((string)$request->get('layout_id'));
         } catch (Exception $e) {
             return null;
         }
 
-        return $list_id;
+        return $this->get_list_screen_by_id($id);
     }
 
-    private function get_list_key(Request $request): ?ListKey
+    private function get_list_screen_by_id(ListScreenId $id): ?ListScreen
     {
-        $list_key = (string)$request->get('list_screen');
+        $list_screen = $this->storage->find($id);
 
-        if ( ! $this->list_key_exists($list_key)) {
-            $list_key = (string)$this->preference->get_last_visited_list_key();
-        }
-
-        if ( ! $this->list_key_exists($list_key)) {
-            $list_key = (string)$this->list_keys_factory->create()->current();
-        }
-
-        return $this->list_key_exists($list_key)
-            ? new ListKey($list_key)
+        return $list_screen && $this->list_key->equals(new ListKey($list_screen->get_key()))
+            ? $list_screen
             : null;
-    }
-
-    private function list_key_exists(string $list_key): bool
-    {
-        return ListKey::validate($list_key) && $this->list_screen_factory->can_create(new ListKey($list_key));
     }
 
     private function get_list_screen(Request $request): ?ListScreen
     {
-        $list_id = $this->get_list_id($request);
-
-        if ($list_id && $this->storage->exists($list_id)) {
-            return $this->storage->find($list_id);
-        }
-
-        $list_key = $this->get_list_key($request);
-
-        if ( ! $list_key) {
-            return null;
-        }
-
-        if ( ! $this->list_screen_factory->can_create($list_key)) {
-            return null;
-        }
-
-        $list_screen = $this->get_last_visited_listscreen($list_key);
+        $list_screen = $this->get_requested_list_screen($request);
 
         if ( ! $list_screen) {
-            $list_screen = $this->get_first_listscreen($list_key);
+            $list_screen = $this->get_last_visited_listscreen();
         }
 
         if ( ! $list_screen) {
-            $list_screen = $this->list_screen_factory->create($list_key);
+            $list_screen = $this->get_first_listscreen();
         }
 
         return $list_screen;
     }
 
-    private function get_first_listscreen(string $list_key): ?ListScreen
+    private function get_first_listscreen(): ?ListScreen
     {
-        $list_screens = $this->storage->find_all_by_key($list_key);
+        $list_screens = $this->storage->find_all_by_key((string)$this->list_key);
 
         return $list_screens->count() > 0
             ? $list_screens->current()
             : null;
     }
 
-    private function get_last_visited_listscreen(string $list_key): ?ListScreen
+    private function get_last_visited_listscreen(): ?ListScreen
     {
         try {
-            $list_id = new ListScreenId((string)$this->preference->get_list_id($list_key));
+            $list_id = new ListScreenId((string)$this->preference->get_list_id((string)$this->list_key));
         } catch (Exception $e) {
             return null;
         }
 
-        $list_screen = $this->storage->find($list_id);
-
-        return $list_screen && $list_screen->get_key() === $list_key
-            ? $list_screen
-            : null;
-    }
-
-    private function set_preference_screen(ListScreen $list_screen): void
-    {
-        $this->preference->set_last_visited_list_key($list_screen->get_key());
-
-        if ($list_screen->has_id()) {
-            $this->preference->set_list_id($list_screen->get_key(), $list_screen->get_id()->get_id());
-        }
+        return $this->get_list_screen_by_id($list_id);
     }
 
     public function handle(Request $request): void
     {
-        $list_screen = $this->get_list_screen($request);
-
-        if ( ! $list_screen) {
-            return;
-        }
-
-        $this->set_preference_screen($list_screen);
-
         $request->get_parameters()->merge([
-            'list_screen' => $list_screen,
+            'list_screen' => $this->get_list_screen($request),
         ]);
     }
 

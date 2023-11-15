@@ -62,7 +62,6 @@ class TableListScreenSetter implements Registerable
             new Middleware\ListScreenTable(
                 $this->storage,
                 $table_screen->get_key(),
-                $this->list_screen_factory,
                 $this->preference
             )
         );

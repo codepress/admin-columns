@@ -49,6 +49,11 @@ class Column
     protected $list_screen;
 
     /**
+     * @var TableScreen
+     */
+    protected $table_screen;
+
+    /**
      * The options managed by the settings
      * @var array
      */
@@ -112,7 +117,7 @@ class Column
 
     public function get_meta_type(): string
     {
-        return $this->list_screen->get_meta_type();
+        return $this->list_screen ? $this->list_screen->get_meta_type() : '';
     }
 
     public function get_list_key(): string
@@ -122,33 +127,17 @@ class Column
 
     public function get_list_singular_label(): string
     {
-        return $this->list_screen->get_singular_label() ?: $this->get_label();
-    }
-
-    /**
-     * Get the type of the column.
-     * @return string Label of column's type
-     * @since 2.4.9
-     */
-    public function get_label()
-    {
-        if (null === $this->label) {
-            $this->set_label(
-                $this->get_list_screen()->get_original_label($this->get_type())
-            );
-        }
-
         return (string)$this->label;
     }
 
-    /**
-     * @param string|null $label
-     *
-     * @return $this
-     */
-    public function set_label($label)
+    public function get_label(): string
     {
-        $this->label = $label ? (string)$label : null;
+        return (string)$this->label;
+    }
+
+    public function set_label(string $label = null): self
+    {
+        $this->label = $label;
 
         return $this;
     }
@@ -187,7 +176,10 @@ class Column
      */
     public function get_post_type()
     {
-        return method_exists($this->list_screen, 'get_post_type') ? $this->list_screen->get_post_type() : false;
+        return $this->list_screen && method_exists(
+            $this->list_screen,
+            'get_post_type'
+        ) ? $this->list_screen->get_post_type() : false;
     }
 
     /**
@@ -195,7 +187,18 @@ class Column
      */
     public function get_taxonomy()
     {
-        return method_exists($this->list_screen, 'get_taxonomy') ? $this->list_screen->get_taxonomy() : false;
+        return $this->list_screen && method_exists(
+            $this->list_screen,
+            'get_taxonomy'
+        ) ? $this->list_screen->get_taxonomy() : false;
+    }
+
+    // TODO
+    public function set_table_screen(TableScreen $table_screen): self
+    {
+        $this->table_screen = $table_screen;
+
+        return $this;
     }
 
     /**
@@ -304,7 +307,6 @@ class Column
     {
         if (null === $this->settings) {
             $settings = [
-                new Settings\Column\Type($this),
                 new Settings\Column\Label($this),
                 new Settings\Column\Width($this),
             ];

@@ -37,7 +37,7 @@ class Post implements TableScreenFactory
     private function create_by_post_type(WP_Post_Type $post_type): TableScreen
     {
         return new TableScreen\Post(
-            $post_type->name,
+            $post_type,
             new ListKey($post_type->name),
             sprintf('edit-%s', $post_type->name)
         );

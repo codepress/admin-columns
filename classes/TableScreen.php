@@ -53,6 +53,22 @@ abstract class TableScreen implements ManageValue
 
     abstract public function get_attr_id(): string;
 
+    abstract protected function get_columns_fqn(): array;
+
+    /**
+     * @return Column[]
+     */
+    public function get_columns(): array
+    {
+        $columns = [];
+
+        foreach ($this->get_columns_fqn() as $fqn_name) {
+            $columns[] = new $fqn_name();
+        }
+
+        return $columns;
+    }
+
     abstract public function get_url(): Uri;
 
     // TODO move out of this scope
