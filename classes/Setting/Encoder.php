@@ -27,17 +27,25 @@ final class Encoder
 
     private function encode_setting(Setting $setting): array
     {
+        $input = $setting->get_input();
+
         $encoded = [
             'name'        => $setting->get_name(),
             'label'       => $setting->get_label(),
             'description' => $setting->get_description(),
+            'input'       => [
+                'type' => $input->get_type(),
+            ],
         ];
 
-        if ($setting instanceof Multiple) {
+        if ($setting instanceof Option) {
             $encoded['options'] = [
-                'has_other_option' => $setting->has_other_option(),
-                'options'          => $this->encode_options($setting->get_options()),
+                'options' => $this->encode_options($setting->get_options()),
             ];
+
+            if ($input->is_multiple()) {
+                $encoded['input']['multiple'] = $input->is_multiple();
+            }
         }
 
         if ($setting instanceof Recursive) {

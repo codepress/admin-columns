@@ -159,6 +159,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
             $classes[] = 'show-list-screen-type';
         }
 
+		return '<div></div>';
+
         ob_start();
         ?>
 		<h1 class="screen-reader-text"><?= __('Columns', 'codepress-admin-columns'); ?></h1>

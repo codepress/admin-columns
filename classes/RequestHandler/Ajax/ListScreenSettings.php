@@ -100,7 +100,7 @@ class ListScreenSettings implements RequestAjaxHandler
             $response->error();
         }
 
-        // THIS IS A PRO FEATURE!!! Move?
+        // TODO Stefan THIS IS A PRO FEATURE!!! Move?
         $encoder = new Encoder(new Version('6.3'));
 
         $encoder->set_list_screen($list_screen);
@@ -120,19 +120,25 @@ class ListScreenSettings implements RequestAjaxHandler
     {
         $settings = [];
 
-        foreach ($column->get_settings() as $setting) {
-            if ( ! $setting instanceof Column) {
-                continue;
-            }
+        $encoder = new \AC\Setting\Encoder( $column->get_settings() );
 
-            $setting_config = $setting->get_config();
+        return $encoder->encode();
 
-            if ($setting_config) {
-                $settings[] = $setting_config;
-            }
-        }
-
-        return $settings;
+//        foreach ($column->get_settings() as $setting) {
+//            if ( ! $setting instanceof Column) {
+//                continue;
+//            }
+//
+//
+//
+//            $setting_config = $setting->get_config();
+//
+//            if ($setting_config) {
+//                $settings[] = $setting_config;
+//            }
+//        }
+//
+//        return $settings;
     }
 
     public function method_add_column(Request $request)

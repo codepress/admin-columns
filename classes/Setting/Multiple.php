@@ -4,52 +4,43 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-class Multiple implements Setting
+class Multiple implements Setting, Option
 {
 
     use SettingTrait;
+    use OptionTrait;
 
-    private $options;
-
-    private $other_option;
-
-    public function __construct(
+    private function __construct(
         string $name,
         OptionCollection $options,
-        bool $other_option = false,
+        Input\Multiple $input = null,
         string $label = '',
         string $description = ''
     ) {
+        if ($input === null) {
+            $input = Input\Multiple::create_select();
+        }
+
         $this->name = $name;
         $this->label = $label;
         $this->description = $description;
         $this->options = $options;
-        $this->other_option = $other_option;
+        $this->input = $input;
     }
 
-    public static function create($name, OptionCollection $options, bool $other_option = false): self
+    public static function create($name, OptionCollection $options, Input $input = null): self
     {
-        return new self($name, $options, $other_option);
+        return new self($name, $options, $input);
     }
 
     public function with_label(string $label): self
     {
-        return new self($this->name, $this->options, $this->other_option, $label, $this->description);
+        return new self($this->name, $this->options, $this->input, $label, $this->description);
     }
 
     public function with_description(string $description): self
     {
-        return new self($this->name, $this->options, $this->other_option, $this->label, $description);
-    }
-
-    public function get_options(): OptionCollection
-    {
-        return $this->options;
-    }
-
-    public function has_other_option(): bool
-    {
-        return $this->other_option;
+        return new self($this->name, $this->options, $this->input, $this->label, $description);
     }
 
 }

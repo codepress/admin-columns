@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use AC\Setting\SettingCollection;
+
 /**
  * @since 3.0
  */
@@ -238,13 +240,15 @@ class Column
      */
     public function add_setting(Settings\Column $setting)
     {
-        $setting->set_values($this->options);
+        // TODO David Check
+        //$setting->set_values($this->options);
 
         $this->settings[$setting->get_name()] = $setting;
 
-        foreach ((array)$setting->get_dependent_settings() as $dependent_setting) {
-            $this->add_setting($dependent_setting);
-        }
+        // TODO David check
+//        foreach ((array)$setting->get_dependent_settings() as $dependent_setting) {
+//            $this->add_setting($dependent_setting);
+//        }
 
         return $this;
     }
@@ -288,22 +292,25 @@ class Column
      */
     public function get_custom_label()
     {
+        return 'LABEL PLACEHOLDER';
+        // TODO David check
         /**
          * @param string $label
          * @param Column $column
          *
          * @since 3.0
          */
-        return (string)apply_filters('ac/headings/label', $this->get_setting('label')->get_value(), $this);
+        //return (string)apply_filters('ac/headings/label', $this->get_setting('label')->get_value(), $this);
     }
 
     /**
-     * @return Collection
+     * @return SettingCollection
      */
     public function get_settings()
     {
         if (null === $this->settings) {
             $settings = [
+                // TODO David check
                 new Settings\Column\Type($this),
                 new Settings\Column\Label($this),
                 new Settings\Column\Width($this),
@@ -313,12 +320,13 @@ class Column
                 $this->add_setting($setting);
             }
 
-            $this->register_settings();
+            // TODO David check
+            //$this->register_settings();
 
-            do_action('ac/column/settings', $this);
+            //do_action('ac/column/settings', $this);
         }
 
-        return new Collection($this->settings);
+        return new SettingCollection($this->settings);
     }
 
     /**

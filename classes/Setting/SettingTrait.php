@@ -7,11 +7,13 @@ namespace AC\Setting;
 trait SettingTrait
 {
 
-    private $name;
+    protected $name;
 
-    private $label = '';
+    protected $label = '';
 
-    private $description = '';
+    protected $description = '';
+
+    protected $input;
 
     public function get_name(): string
     {
@@ -26,6 +28,11 @@ trait SettingTrait
     public function get_description(): string
     {
         return $this->description;
+    }
+
+    public function get_input(): Input
+    {
+        return $this->input;
     }
 
 }
