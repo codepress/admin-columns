@@ -33,13 +33,25 @@ declare namespace AC.Vars.Admin.Columns {
 
 }
 
-declare namespace AC.Vars.Admin.Settings {
+declare namespace AC.Vars.Column.Settings {
 
     type ColumnSettingCollection = ColumnSetting[]
     type ColumnSetting = AbstractColumnSetting;
 
     interface AbstractColumnSetting {
-        type: string
+        name: string
+        label: string
+        description: string
+        input: {
+            type: string
+        }
+    }
+
+    interface TypeSetting extends AbstractColumnSetting {
+        input: {
+            type: string,
+            options: Array<string>
+        }
     }
 
 }

@@ -10,18 +10,7 @@
 	let selectValue;
 
 	onMount( () => {
-		let options = [];
-		Object.keys( config.options ).forEach( k => {
-			for ( const [ key, value ] of Object.entries( config.options[ k ].options ) ) {
-				options.push( {
-					group : config.options[ k ].label,
-					value : key,
-					label : value
-				} )
-			}
-
-		} )
-		collection = options
+		collection = config.options.options
 	} )
 
 	const changeValue = ( d ) => {

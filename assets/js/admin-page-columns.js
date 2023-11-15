@@ -379,7 +379,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (36:4) {#if !isOriginalColumn}
+// (37:4) {#if !isOriginalColumn}
 function create_if_block_2(ctx) {
   let a;
   let a_href_value;
@@ -410,7 +410,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (43:3) {#if data.width }
+// (44:3) {#if data.width }
 function create_if_block_1(ctx) {
   let t0_value = /*data*/ctx[0].width + "";
   let t0;
@@ -442,7 +442,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (46:3) <HeaderToggle bind:value={data.export} title="Enable Export">
+// (47:3) <HeaderToggle bind:value={data.export} title="Enable Export">
 function create_default_slot_5(ctx) {
   let span;
   return {
@@ -462,7 +462,7 @@ function create_default_slot_5(ctx) {
   };
 }
 
-// (49:3) <HeaderToggle bind:value={data.sort} title="Enable Sorting">
+// (50:3) <HeaderToggle bind:value={data.sort} title="Enable Sorting">
 function create_default_slot_4(ctx) {
   let span;
   return {
@@ -482,7 +482,7 @@ function create_default_slot_4(ctx) {
   };
 }
 
-// (52:3) <HeaderToggle bind:value={data.edit} title="Enable Edit">
+// (53:3) <HeaderToggle bind:value={data.edit} title="Enable Edit">
 function create_default_slot_3(ctx) {
   let span;
   return {
@@ -502,7 +502,7 @@ function create_default_slot_3(ctx) {
   };
 }
 
-// (55:3) <HeaderToggle bind:value={data.bulk_edit} title="Enable Bulk Edit">
+// (56:3) <HeaderToggle bind:value={data.bulk_edit} title="Enable Bulk Edit">
 function create_default_slot_2(ctx) {
   let span;
   return {
@@ -523,7 +523,7 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (58:3) <HeaderToggle bind:value={data.search} title="Enable Smart Filtering">
+// (59:3) <HeaderToggle bind:value={data.search} title="Enable Smart Filtering">
 function create_default_slot_1(ctx) {
   let span;
   return {
@@ -544,7 +544,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (61:3) <HeaderToggle bind:value={data.filter} title="Enable Filtering">
+// (62:3) <HeaderToggle bind:value={data.filter} title="Enable Filtering">
 function create_default_slot(ctx) {
   let span;
   return {
@@ -564,9 +564,12 @@ function create_default_slot(ctx) {
   };
 }
 
-// (72:1) {#if opened && config !== null && typeof config !== 'undefined' }
+// (73:1) {#if opened && config !== null }
 function create_if_block(ctx) {
   let div;
+  let t0_value = JSON.stringify( /*config*/ctx[1]) + "";
+  let t0;
+  let t1;
   let div_transition;
   let current;
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*config*/ctx[1]);
@@ -580,6 +583,8 @@ function create_if_block(ctx) {
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
@@ -587,6 +592,8 @@ function create_if_block(ctx) {
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t1);
       for (let i = 0; i < each_blocks.length; i += 1) {
         if (each_blocks[i]) {
           each_blocks[i].m(div, null);
@@ -595,6 +602,7 @@ function create_if_block(ctx) {
       current = true;
     },
     p(ctx, dirty) {
+      if ((!current || dirty & /*config*/2) && t0_value !== (t0_value = JSON.stringify( /*config*/ctx[1]) + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, t0_value);
       if (dirty & /*getComponent, config, data*/35) {
         each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*config*/ctx[1]);
         let i;
@@ -652,7 +660,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (75:3) {#each config as setting}
+// (76:3) {#each config as setting}
 function create_each_block(ctx) {
   let switch_instance;
   let updating_data;
@@ -669,7 +677,7 @@ function create_each_block(ctx) {
   function switch_instance_columnConfig_binding(value) {
     /*switch_instance_columnConfig_binding*/ctx[18](value);
   }
-  var switch_value = /*getComponent*/ctx[5]( /*setting*/ctx[21].type);
+  var switch_value = /*getComponent*/ctx[5]( /*setting*/ctx[21].input.type);
   function switch_props(ctx, dirty) {
     let switch_instance_props = {
       config: /*setting*/ctx[21]
@@ -677,8 +685,8 @@ function create_each_block(ctx) {
     if ( /*data*/ctx[0] !== void 0) {
       switch_instance_props.data = /*data*/ctx[0];
     }
-    if ( /*data*/ctx[0][/*setting*/ctx[21].key] !== void 0) {
-      switch_instance_props.value = /*data*/ctx[0][/*setting*/ctx[21].key];
+    if ( /*data*/ctx[0][/*setting*/ctx[21].name] !== void 0) {
+      switch_instance_props.value = /*data*/ctx[0][/*setting*/ctx[21].name];
     }
     if ( /*config*/ctx[1] !== void 0) {
       switch_instance_props.columnConfig = /*config*/ctx[1];
@@ -705,7 +713,7 @@ function create_each_block(ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & /*config*/2 && switch_value !== (switch_value = /*getComponent*/ctx[5]( /*setting*/ctx[21].type))) {
+      if (dirty & /*config*/2 && switch_value !== (switch_value = /*getComponent*/ctx[5]( /*setting*/ctx[21].input.type))) {
         if (switch_instance) {
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
           const old_component = switch_instance;
@@ -735,7 +743,7 @@ function create_each_block(ctx) {
         }
         if (!updating_value && dirty & /*data, config*/3) {
           updating_value = true;
-          switch_instance_changes.value = /*data*/ctx[0][/*setting*/ctx[21].key];
+          switch_instance_changes.value = /*data*/ctx[0][/*setting*/ctx[21].name];
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_value = false);
         }
         if (!updating_columnConfig && dirty & /*config*/2) {
@@ -920,7 +928,7 @@ function create_fragment(ctx) {
     props: headertoggle5_props
   });
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(headertoggle5, 'value', headertoggle5_value_binding));
-  let if_block2 = /*opened*/ctx[3] && /*config*/ctx[1] !== null && typeof /*config*/ctx[1] !== 'undefined' && create_if_block(ctx);
+  let if_block2 = /*opened*/ctx[3] && /*config*/ctx[1] !== null && create_if_block(ctx);
   return {
     c() {
       div4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -1119,7 +1127,7 @@ function create_fragment(ctx) {
       if (!current || dirty & /*opened*/8) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "-open", /*opened*/ctx[3]);
       }
-      if ( /*opened*/ctx[3] && /*config*/ctx[1] !== null && typeof /*config*/ctx[1] !== 'undefined') {
+      if ( /*opened*/ctx[3] && /*config*/ctx[1] !== null) {
         if (if_block2) {
           if_block2.p(ctx, dirty);
           if (dirty & /*opened, config*/10) {
@@ -1197,6 +1205,7 @@ function instance($$self, $$props, $$invalidate) {
     _store_opened_columns__WEBPACK_IMPORTED_MODULE_3__.openedColumnsStore.toggle(data.name);
   };
   const getComponent = type => {
+    console.log('type', type);
     return (0,_helper__WEBPACK_IMPORTED_MODULE_2__.getSettingComponent)(type);
   };
   const handleDelete = () => {
@@ -1253,8 +1262,8 @@ function instance($$self, $$props, $$invalidate) {
     $$invalidate(0, data);
   }
   function switch_instance_value_binding(value, setting) {
-    if ($$self.$$.not_equal(data[setting.key], value)) {
-      data[setting.key] = value;
+    if ($$self.$$.not_equal(data[setting.name], value)) {
+      data[setting.name] = value;
       $$invalidate(0, data);
     }
   }
@@ -3423,27 +3432,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/src/runtime/internal/index.js");
 /* harmony import */ var svelte_internal_disclose_version__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/internal/disclose-version */ "./node_modules/svelte/src/runtime/internal/disclose-version/index.js");
 /* harmony import */ var _ColumnSetting_svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ColumnSetting.svelte */ "./js/columns/components/ColumnSetting.svelte");
+/* harmony import */ var ACUi_acui_form_AcInputGroup_svelte__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ACUi/acui-form/AcInputGroup.svelte */ "./ui/acui-form/AcInputGroup.svelte");
 /* js/columns/components/settings/LabelSetting.svelte generated by Svelte v4.2.0 */
 
 
 
-function create_default_slot(ctx) {
-  let div;
+
+function create_default_slot_1(ctx) {
   let input;
   let mounted;
   let dispose;
   return {
     c() {
-      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       input = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("input");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "type", "");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "type", "text");
     },
     m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, input);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, input, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*value*/ctx[0]);
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[1]);
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[2]);
         mounted = true;
       }
     },
@@ -3454,10 +3462,57 @@ function create_default_slot(ctx) {
     },
     d(detaching) {
       if (detaching) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(input);
       }
       mounted = false;
       dispose();
+    }
+  };
+}
+
+// (7:0) <ColumnSetting label={config.label}>
+function create_default_slot(ctx) {
+  let acinputgroup;
+  let current;
+  acinputgroup = new ACUi_acui_form_AcInputGroup_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
+    props: {
+      $$slots: {
+        default: [create_default_slot_1]
+      },
+      $$scope: {
+        ctx
+      }
+    }
+  });
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acinputgroup.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acinputgroup, target, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const acinputgroup_changes = {};
+      if (dirty & /*$$scope, value*/9) {
+        acinputgroup_changes.$$scope = {
+          dirty,
+          ctx
+        };
+      }
+      acinputgroup.$set(acinputgroup_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(acinputgroup.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(acinputgroup.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acinputgroup, detaching);
     }
   };
 }
@@ -3466,6 +3521,7 @@ function create_fragment(ctx) {
   let current;
   columnsetting = new _ColumnSetting_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: {
+      label: /*config*/ctx[1].label,
       $$slots: {
         default: [create_default_slot]
       },
@@ -3484,7 +3540,8 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const columnsetting_changes = {};
-      if (dirty & /*$$scope, value*/5) {
+      if (dirty & /*config*/2) columnsetting_changes.label = /*config*/ctx[1].label;
+      if (dirty & /*$$scope, value*/9) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
@@ -3508,6 +3565,9 @@ function create_fragment(ctx) {
 }
 function instance($$self, $$props, $$invalidate) {
   let {
+    config
+  } = $$props;
+  let {
     value
   } = $$props;
   function input_input_handler() {
@@ -3515,14 +3575,16 @@ function instance($$self, $$props, $$invalidate) {
     $$invalidate(0, value);
   }
   $$self.$$set = $$props => {
+    if ('config' in $$props) $$invalidate(1, config = $$props.config);
     if ('value' in $$props) $$invalidate(0, value = $$props.value);
   };
-  return [value, input_input_handler];
+  return [value, config, input_input_handler];
 }
 class LabelSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
+      config: 1,
       value: 0
     });
   }
@@ -3671,17 +3733,7 @@ function instance($$self, $$props, $$invalidate) {
   let collection = [];
   let selectValue;
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onMount)(() => {
-    let options = [];
-    Object.keys(config.options).forEach(k => {
-      for (const [key, value] of Object.entries(config.options[k].options)) {
-        options.push({
-          group: config.options[k].label,
-          value: key,
-          label: value
-        });
-      }
-    });
-    $$invalidate(2, collection = options);
+    $$invalidate(2, collection = config.options.options);
   });
   const changeValue = d => {
     $$invalidate(0, value = selectValue);
