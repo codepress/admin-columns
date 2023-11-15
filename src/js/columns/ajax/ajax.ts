@@ -1,6 +1,6 @@
 import axios, {AxiosPromise} from "axios";
-import {ListScreenColumnData, ListScreenColumnsData, ListScreenData} from "../../types/requests";
-import {MappedListScreenData} from "../../types/admin-columns";
+import {ListScreenData} from "../../types/requests";
+
 
 declare const ajaxurl: string;
 
@@ -10,7 +10,7 @@ export type listScreenSettingsResponse = {
             version: string,
             list_screen: ListScreenData
         },
-        settings: any
+        settings: AC.Vars.Admin.Settings.ColumnSettingCollection
     },
     success: true
 }
