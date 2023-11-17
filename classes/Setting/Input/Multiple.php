@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace AC\Setting\Input;
 
 use AC\Setting\Input;
+use AC\Setting\OptionCollection;
+use AC\Setting\OptionCollectionFactory\OnOffOptionCollection;
 
-// TODO David put the options here instead of in the setting? That solves some issues for decoration / trees
 final class Multiple implements Input
 {
 
@@ -14,30 +15,33 @@ final class Multiple implements Input
 
     private $multiple;
 
-    private function __construct(string $type, bool $multiple = false)
+    private $options;
+
+    private function __construct(string $type, bool $multiple, OptionCollection $options)
     {
         $this->type = $type;
         $this->multiple = $multiple;
+        $this->options = $options;
     }
 
-    public static function create_select(bool $multiple = false): self
+    public static function create_select(OptionCollection $options, bool $multiple = false): self
     {
-        return new self('select', $multiple);
+        return new self('select', $multiple, $options);
     }
 
-    public static function create_radio(): self
+    public static function create_radio(OptionCollection $options): self
     {
-        return new self('radio');
+        return new self('radio', false, $options);
     }
 
     public static function create_toggle(): self
     {
-        return new self('toggle');
+        return new self('toggle', false, (new OnOffOptionCollection())->create());
     }
 
-    public static function create_checkbox(): self
+    public static function create_checkbox(OptionCollection $options): self
     {
-        return new self('checkbox', true);
+        return new self('checkbox', true, $options);
     }
 
     public function get_type(): string
@@ -48,6 +52,11 @@ final class Multiple implements Input
     public function is_multiple(): bool
     {
         return $this->multiple;
+    }
+
+    public function get_options(): OptionCollection
+    {
+        return $this->options;
     }
 
 }

@@ -7,13 +7,18 @@ namespace AC\Setting;
 trait SettingTrait
 {
 
-    protected $name;
+    private $name;
 
-    protected $label = '';
+    private $label = '';
 
-    protected $description = '';
+    private $description = '';
 
-    protected $input;
+    private $input;
+
+    /**
+     * @var ConditionCollection
+     */
+    private $conditions;
 
     public function get_name(): string
     {
@@ -33,6 +38,16 @@ trait SettingTrait
     public function get_input(): Input
     {
         return $this->input;
+    }
+
+    public function has_conditions(): bool
+    {
+        return $this->conditions->count() > 0;
+    }
+
+    public function get_conditions(): ConditionCollection
+    {
+        return $this->conditions;
     }
 
 }

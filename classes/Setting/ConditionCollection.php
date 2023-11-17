@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace AC\Setting;
 
 use AC\Setting\Type\Condition;
+use Countable;
 
-final class ConditionCollection extends Collection
+final class ConditionCollection extends Collection implements Countable
 {
 
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         array_map([$this, 'add'], $data);
     }
@@ -22,6 +23,11 @@ final class ConditionCollection extends Collection
     public function current(): Condition
     {
         return parent::current();
+    }
+
+    public function count(): int
+    {
+        return count($this->data);
     }
 
 }

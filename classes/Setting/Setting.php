@@ -6,7 +6,6 @@ namespace AC\Setting;
 
 // TODO David defaults
 // TODO David value from settings
-// TODO David conditionals
 interface Setting
 {
 
@@ -17,5 +16,9 @@ interface Setting
     public function get_description(): string;
 
     public function get_input(): Input;
+
+    public function has_conditions(): bool;
+
+    public function get_conditions(): ConditionCollection;
 
 }
