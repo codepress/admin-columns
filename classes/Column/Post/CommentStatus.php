@@ -7,17 +7,12 @@ use AC\Column;
 /**
  * Column displaying whether an item is open for comments, i.e. whether users can
  * comment on this item.
- * @since 2.0
  */
 class CommentStatus extends Column {
 
 	public function __construct() {
 		$this->set_type( 'column-comment_status' );
 		$this->set_label( __( 'Allow Comments', 'codepress-admin-columns' ) );
-	}
-
-	public function is_valid() {
-		return post_type_supports( $this->get_post_type(), 'comments' );
 	}
 
 	public function get_value( $post_id ) {

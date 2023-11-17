@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace AC\TableScreen;
 
 use AC;
+use AC\Column;
 use AC\ColumnRepository;
+use AC\ListScreen\ListTable;
 use AC\MetaType;
+use AC\PostType;
 use AC\Table;
 use AC\TableScreen;
 use AC\Type\Labels;
@@ -15,7 +18,7 @@ use AC\Type\Uri;
 use AC\Type\Url;
 use AC\WpListTableFactory;
 
-class Media extends TableScreen implements AC\ListScreen\ListTable, AC\PostType
+class Media extends TableScreen implements ListTable, PostType
 {
 
     public function __construct(ListKey $key)
@@ -73,7 +76,41 @@ class Media extends TableScreen implements AC\ListScreen\ListTable, AC\PostType
 
     protected function get_columns_fqn(): array
     {
-        return [];
+        return [
+            Column\CustomField::class,
+            Column\Actions::class,
+            Column\Post\TitleRaw::class,
+            Column\Post\Slug::class,
+            Column\Post\TitleRaw::class,
+            Column\Media\Album::class,
+            Column\Media\AlternateText::class,
+            Column\Media\Artist::class,
+            Column\Media\Author::class,
+            Column\Media\AuthorName::class,
+            Column\Media\AvailableSizes::class,
+            Column\Media\Caption::class,
+            Column\Media\Comments::class,
+            Column\Media\Date::class,
+            Column\Media\Description::class,
+            Column\Media\Dimensions::class,
+            Column\Media\ExifData::class,
+            Column\Media\FileMetaAudio::class,
+            Column\Media\FileMetaVideo::class,
+            Column\Media\FileName::class,
+            Column\Media\FileSize::class,
+            Column\Media\FullPath::class,
+            Column\Media\Height::class,
+            Column\Media\ID::class,
+            Column\Media\Image::class,
+            Column\Media\MediaParent::class,
+            Column\Media\Menu::class,
+            Column\Media\MimeType::class,
+            Column\Media\Preview::class,
+            Column\Media\Taxonomy::class,
+            Column\Media\Title::class,
+            Column\Media\VideoPlayer::class,
+            Column\Media\Width::class,
+        ];
     }
 
 }

@@ -77,7 +77,7 @@ class ListScreenTable implements Middleware
 
         if ( ! $list_screen ||
              ! $list_screen->is_user_allowed($user) ||
-             ! $this->list_key->equals(new ListKey($list_screen->get_key()))
+             ! $this->list_key->equals($list_screen->get_key())
         ) {
             return null;
         }

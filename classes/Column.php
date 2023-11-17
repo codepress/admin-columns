@@ -2,16 +2,8 @@
 
 namespace AC;
 
-/**
- * @since 3.0
- */
 class Column
 {
-
-    /**
-     * @var string Unique Name
-     */
-    private $name;
 
     /**
      * @var string Unique type
@@ -24,9 +16,9 @@ class Column
     private $label;
 
     /**
-     * @var string Group name
+     * @var string Unique Name
      */
-    private $group;
+    private $name = '';
 
     /**
      * @var bool An original column will use the already defined column value and label.
@@ -44,85 +36,56 @@ class Column
     private $formatters;
 
     /**
+     * @deprecated NEWVERSION
      * @var ListScreen
      */
     protected $list_screen;
 
-    /**
-     * @var TableScreen
-     */
-    protected $table_screen;
+    private $group = 'custom';
 
-    /**
-     * The options managed by the settings
-     * @var array
-     */
     protected $options = [];
 
-    /**
-     * Get the unique name of the column
-     * @return string Column name
-     * @since 2.3.4
-     */
-    public function get_name()
+    protected $meta_type = '';
+
+    protected $post_type = '';
+
+    protected $taxonomy = '';
+
+    public function get_name(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function set_name($name)
+    public function set_name(string $name): self
     {
-        $this->name = (string)$name;
+        $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get the type of the column.
-     * @return string Type
-     * @since 2.3.4
-     */
-    public function get_type()
+    public function get_type(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return $this
-     */
-    public function set_type($type)
+    public function set_type($type): self
     {
         $this->type = (string)$type;
 
         return $this;
     }
 
-    public function get_list_screen(): ListScreen
-    {
-        return $this->list_screen;
-    }
-
-    public function set_list_screen(ListScreen $list_screen): self
-    {
-        $this->list_screen = $list_screen;
-
-        return $this;
-    }
-
+    // TODO implement MetaDataInterface
     public function get_meta_type(): string
     {
-        return $this->list_screen ? $this->list_screen->get_meta_type() : '';
+        return $this->meta_type;
     }
 
-    public function get_list_key(): string
+    public function set_meta_type(string $meta_type): self
     {
-        return $this->list_screen->get_key();
+        $this->meta_type = $meta_type;
+
+        return $this;
     }
 
     public function get_list_singular_label(): string
@@ -142,61 +105,38 @@ class Column
         return $this;
     }
 
-    /**
-     * @return string Group
-     * @since 3.0
-     */
-    public function get_group()
+    public function get_group(): string
     {
-        if (null === $this->group) {
-            $this->set_group('custom');
-
-            if ($this->is_original()) {
-                $this->set_group('default');
-            }
-        }
-
         return $this->group;
     }
 
-    /**
-     * @param string $group Group label
-     *
-     * @return $this
-     */
-    public function set_group($group)
+    public function set_group(string $group): self
     {
         $this->group = $group;
 
         return $this;
     }
 
-    /**
-     * @return string Post type
-     */
-    public function get_post_type()
+    public function get_post_type(): string
     {
-        return $this->list_screen && method_exists(
-            $this->list_screen,
-            'get_post_type'
-        ) ? $this->list_screen->get_post_type() : false;
+        return $this->post_type;
     }
 
-    /**
-     * @return string Taxonomy
-     */
+    public function set_taxonomy(string $taxonomy): self
+    {
+        $this->taxonomy = $taxonomy;
+
+        return $this;
+    }
+
     public function get_taxonomy()
     {
-        return $this->list_screen && method_exists(
-            $this->list_screen,
-            'get_taxonomy'
-        ) ? $this->list_screen->get_taxonomy() : false;
+        return $this->taxonomy;
     }
 
-    // TODO
-    public function set_table_screen(TableScreen $table_screen): self
+    public function set_post_type(string $post_type): self
     {
-        $this->table_screen = $table_screen;
+        $this->post_type = $post_type;
 
         return $this;
     }
@@ -204,21 +144,15 @@ class Column
     /**
      * Return true when a default column has been replaced by a custom column.
      * An original column will then use the original label and value.
-     * @since 3.0
      */
-    public function is_original()
+    public function is_original(): bool
     {
         return $this->original;
     }
 
-    /**
-     * @param bool $boolean
-     *
-     * @return $this
-     */
-    public function set_original($boolean)
+    public function set_original(bool $boolean): self
     {
-        $this->original = (bool)$boolean;
+        $this->original = $boolean;
 
         return $this;
     }
@@ -229,6 +163,7 @@ class Column
      * @return bool Whether the column type should be available
      * @since 2.2
      */
+    // TODO remove
     public function is_valid()
     {
         return true;
@@ -285,11 +220,7 @@ class Column
         return $this->formatters;
     }
 
-    /**
-     * @return string
-     * @since 3.2.5
-     */
-    public function get_custom_label()
+    public function get_custom_label(): string
     {
         /**
          * @param string $label
@@ -297,6 +228,7 @@ class Column
          *
          * @since 3.0
          */
+        // TODO filters
         return (string)apply_filters('ac/headings/label', $this->get_setting('label')->get_value(), $this);
     }
 
@@ -338,9 +270,7 @@ class Column
      */
     public function get_option($key)
     {
-        $options = $this->get_options();
-
-        return isset($options[$key]) ? $options[$key] : null;
+        return $this->get_options()[$key] ?? null;
     }
 
     /**
@@ -370,7 +300,7 @@ class Column
      * Use this action to add CSS + JavaScript
      * @since 2.3.4
      */
-    public function scripts()
+    public function scripts(): void
     {
         // Overwrite in child class
     }
@@ -469,6 +399,25 @@ class Column
     public function get_empty_char()
     {
         return '&ndash;';
+    }
+
+    public function get_list_screen(): ListScreen
+    {
+        return $this->list_screen;
+    }
+
+    public function set_list_screen(ListScreen $list_screen): self
+    {
+        $this->list_screen = $list_screen;
+
+        return $this;
+    }
+
+    public function get_list_key(): string
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION');
+
+        return '';
     }
 
 }

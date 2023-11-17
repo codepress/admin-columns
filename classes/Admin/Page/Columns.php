@@ -37,7 +37,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $default_columns_repository;
 
-    private $list_screens_uninitialized;
+    private $uninitialized_screens;
 
     private $menu;
 
@@ -48,7 +48,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
     public function __construct(
         Location\Absolute $location,
         DefaultColumnsRepository $default_columns_repository,
-        array $list_screens_uninitialized,
+        array $uninitialized_screens,
         Menu $menu,
         Renderable $head,
         TableScreen $table_screen,
@@ -56,7 +56,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
     ) {
         $this->location = $location;
         $this->default_columns_repository = $default_columns_repository;
-        $this->list_screens_uninitialized = $list_screens_uninitialized;
+        $this->uninitialized_screens = $uninitialized_screens;
         $this->menu = $menu;
         $this->head = $head;
         $this->table_screen = $table_screen;
@@ -89,7 +89,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
             new Admin\Asset\Columns(
                 'ac-admin-page-columns',
                 $this->location->with_suffix('assets/js/admin-page-columns.js'),
-                $this->list_screens_uninitialized,
+                $this->uninitialized_screens,
                 (string)$this->table_screen->get_key(),
                 $this->list_screen && $this->list_screen->has_id() ? (string)$this->list_screen->get_id() : ''
             ),
@@ -141,7 +141,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     public function render(): string
     {
-        if ( ! $this->default_columns_repository->exists((string)$this->table_screen->get_key())) {
+        if ( ! $this->default_columns_repository->exists()) {
             $modal = new View([
                 'message' => 'Loading columns',
             ]);
@@ -303,7 +303,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                     'list_id'        => $list_id,
                     'is_disabled'    => $this->list_screen && $this->list_screen->is_read_only(),
                     'title'          => $this->list_screen ? $this->list_screen->get_title() : '',
-                    'columns'        => $this->get_columns(),
+                    'columns'        => $this->list_screen ? $this->list_screen->get_columns() : [],
                     'column_types'   => $this->table_screen->get_columns(),
                     // TODO
                     'show_actions'   => ! $this->list_screen || ! $this->list_screen->is_read_only(),
@@ -333,31 +333,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         echo $modal->set_template('admin/modal-pro');
 
         return ob_get_clean();
-    }
-
-    private function get_columns(): array
-    {
-        if ($this->list_screen) {
-            return $this->list_screen->get_columns();
-        }
-
-        return $this->get_default_columns();
-    }
-
-    private function get_default_columns(): array
-    {
-        $columns = [];
-        foreach ($this->default_columns_repository->get((string)$this->table_screen->get_key()) as $name => $label) {
-            $column = new Column();
-            $column->set_type($name)
-                   ->set_name($name)
-                   ->set_label($label)
-                   ->set_original(true);
-
-            $columns[] = $column;
-        }
-
-        return $columns;
     }
 
     private function get_column_template_by_group(array $column_types, string $group = ''): ?Column

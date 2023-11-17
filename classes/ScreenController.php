@@ -24,7 +24,7 @@ class ScreenController implements Registerable
 
     public function __construct(ListScreen $list_screen, TableScreen $table_screen)
     {
-        $this->default_columns = new DefaultColumnsRepository();
+        $this->default_columns = new DefaultColumnsRepository($table_screen->get_key());
         $this->list_screen = $list_screen;
         $this->table_screen = $table_screen;
     }
@@ -44,12 +44,6 @@ class ScreenController implements Registerable
         do_action('ac/table/list_screen', $this->list_screen, $this->table_screen);
     }
 
-    /**
-     * @param $columns
-     *
-     * @return array
-     * @since 2.0
-     */
     public function add_headings($columns)
     {
         if (empty($columns)) {
@@ -57,7 +51,7 @@ class ScreenController implements Registerable
         }
 
         if ( ! wp_doing_ajax()) {
-            $this->default_columns->update($this->list_screen->get_key(), $columns);
+            $this->default_columns->update($columns);
         }
 
         // Run once

@@ -22,7 +22,7 @@ class TableScreenAdmin implements Middleware
     public function __construct(
         Preference\ListScreen $preference,
         AC\TableScreenFactory $table_screen_factory,
-        AC\Table\ListKeysFactoryInterface $list_keys_factory
+        AC\Table\TableScreensInterface $list_keys_factory
     ) {
         $this->preference = $preference;
         $this->list_keys_factory = $list_keys_factory;

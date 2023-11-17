@@ -4,7 +4,7 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
 use AC\Registerable;
-use AC\Table\ListKeyCollection;
+use AC\Table\TableScreens;
 use AC\Type\ListKey;
 
 class MediaLibraryAssistant implements Registerable {
@@ -19,7 +19,7 @@ class MediaLibraryAssistant implements Registerable {
 		add_action( 'ac/list_keys', [ $this, 'add_list_keys' ] );
 	}
 
-	public function add_list_keys( ListKeyCollection $list_keys ): void {
+	public function add_list_keys( TableScreens $list_keys ): void {
 		$list_keys->add( new ListKey( 'mla-media-assistant' ) );
 	}
 

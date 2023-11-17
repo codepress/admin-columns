@@ -36,7 +36,8 @@ final class IntegrationColumns implements Registerable
                 $column = new Placeholder();
                 $column->set_integration($integration);
 
-                $list_screen->register_column_type($column);
+                // TODO use TableScreen::set_column_type()
+//                $list_screen->register_column_type($column);
             }
         }
     }

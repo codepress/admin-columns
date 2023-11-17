@@ -5,7 +5,6 @@ namespace AC\Controller\ColumnRequest;
 use AC\Column;
 use AC\Column\Placeholder;
 use AC\ColumnFactory;
-use AC\DefaultColumnsRepository;
 use AC\Request;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
@@ -36,7 +35,7 @@ class Select
 
         $table_screen = $this->table_screen_factory->create($list_key);
 
-        $column_factory = new ColumnFactory($table_screen, new DefaultColumnsRepository());
+        $column_factory = new ColumnFactory($table_screen);
 
         $column = $column_factory->create([
             'type' => (string)$request->get('type'),

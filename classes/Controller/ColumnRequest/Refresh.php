@@ -37,7 +37,7 @@ class Refresh
         $settings = json_decode($request->get('data'), true);
         $settings['name'] = $request->get('column_name');
 
-        $column_factory = new AC\ColumnFactory($table_screen, new AC\DefaultColumnsRepository());
+        $column_factory = new AC\ColumnFactory($table_screen);
 
         $column = $column_factory->create($settings);
 
@@ -72,13 +72,16 @@ class Refresh
             ]);
         }
 
-        wp_send_json_success($this->render_column($column));
+        wp_send_json_success(
+            $this->render_column($column, $table_screen->get_columns())
+        );
     }
 
-    private function render_column(Column $column): string
+    private function render_column(Column $column, array $column_types): string
     {
         $view = new View([
-            'column' => $column,
+            'column'       => $column,
+            'column_types' => $column_types,
         ]);
 
         $view->set_template('admin/edit-column');

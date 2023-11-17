@@ -17,10 +17,10 @@ $column_types = $this->column_types;
 
 ?>
 
-<form class="ac-column ac-<?= esc_attr($column->get_type()); ?>"
-		data-type="<?= esc_attr($column->get_type()); ?>"
-		data-original="<?= esc_attr($column->is_original()); ?>"
-		data-column-name="<?= esc_attr($column->get_name()); ?>">
+<form class="ac-column ac-<?= esc_attr($column->get_type()) ?>"
+		data-type="<?= esc_attr($column->get_type()) ?>"
+		data-original="<?= esc_attr($column->is_original()) ?>"
+		data-column-name="<?= esc_attr($column->get_name()) ?>">
 
 	<div class="ac-column__header">
 		<div class="ac-column__header__move" data-sort-handle>
@@ -28,7 +28,7 @@ $column_types = $this->column_types;
 		</div>
 		<div class="ac-column__header__label">
 			<a class="ac-column__header__label__link" data-toggle="column" data-column-label>
-                <?= $column->get_setting('label')->get_value(); ?>
+                <?= $column->get_setting('label')->get_value() ?>
 			</a>
 
 			<div class="ac-column__header__info">
@@ -84,7 +84,7 @@ $column_types = $this->column_types;
             ?>
 		</div>
 		<div class="ac-column__header__type" data-toggle="column">
-			<span><?= ac_helper()->html->strip_attributes($column->get_label(), ['style', 'class']); ?></span>
+			<span><?= ac_helper()->html->strip_attributes($column->get_label(), ['style', 'class']) ?></span>
 		</div>
 		<div class="ac-column__header__arrow" data-toggle="column">
 			<span class="dashicons dashicons-arrow-down"></span>
@@ -110,16 +110,22 @@ $column_types = $this->column_types;
 					<td class="col-label"></td>
 					<td class="col-settings">
 						<p>
-							<a href="#" class="close-button" data-toggle="column"><?php
-                                _e('Close', 'codepress-admin-columns'); ?></a>
+							<a href="#" class="close-button" data-toggle="column">
+                                <?php
+                                _e('Close', 'codepress-admin-columns'); ?>
+							</a>
                             <?php
                             if ( ! $column->is_original()) : ?>
-								<a class="clone-button" href="#"><?php
-                                    _e('Clone', 'codepress-admin-columns'); ?></a>
+								<a class="clone-button" href="#">
+                                    <?php
+                                    _e('Clone', 'codepress-admin-columns'); ?>
+								</a>
                             <?php
                             endif; ?>
-							<a href="#" class="remove-button" data-remove-column><?php
-                                _e('Remove'); ?></a>
+							<a href="#" class="remove-button" data-remove-column>
+                                <?php
+                                _e('Remove'); ?>
+							</a>
 						</p>
 					</td>
 				</tr>

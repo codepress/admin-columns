@@ -53,7 +53,7 @@ class AjaxRequestCustomFieldKeys implements Registerable
         $formatter = is_multisite()
             ? new BlogSite()
             : new VisibilityType();
-
+        
         $meta_keys = $query->get();
 
         $options = Select\Options::create_from_array(

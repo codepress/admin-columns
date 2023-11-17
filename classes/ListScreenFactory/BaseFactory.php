@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\ListScreenFactory;
 
 use AC\ColumnFactory;
-use AC\DefaultColumnsRepository;
 use AC\Exception\InvalidListScreenException;
 use AC\ListScreen;
 use AC\ListScreenFactory;
@@ -49,7 +48,9 @@ abstract class BaseFactory implements ListScreenFactory
             $list_screen->set_group($group);
         }
 
-        $list_screen->set_columns($this->get_columns($key, $columns));
+        $list_screen->set_columns(
+            $this->get_columns($key, $columns) ?: $this->get_default_columns($key)
+        );
 
         return $list_screen;
     }
@@ -73,17 +74,43 @@ abstract class BaseFactory implements ListScreenFactory
         $columns = [];
 
         $column_factory = new ColumnFactory(
-            $this->table_screen_factory->create($key),
-            new DefaultColumnsRepository()
+            $this->table_screen_factory->create($key)
         );
 
         foreach ($settings as $name => $data) {
-            $data['name'] = $name;
+            $data['name'] = (string)$name;
 
-            $columns[$name] = $column_factory->create($data);
+            $columns[] = $column_factory->create($data);
         }
 
         return array_filter($columns);
+    }
+
+    private function get_default_columns(ListKey $key): array
+    {
+        if ( ! $this->table_screen_factory->can_create($key)) {
+            return [];
+        }
+
+        $table_screen = $this->table_screen_factory->create($key);
+
+        $columns = [];
+
+        $column_factory = new ColumnFactory(
+            $this->table_screen_factory->create($key)
+        );
+
+        // TODO
+        foreach ($table_screen->get_columns() as $column) {
+            if ($column->is_original()) {
+                $columns[] = $column_factory->create([
+                    'type'  => $column->get_type(),
+                    'label' => $column->get_label(),
+                ]);
+            }
+        }
+
+        return $columns;
     }
 
     abstract protected function create_list_screen(ListKey $key): ListScreen;

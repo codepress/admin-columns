@@ -18,7 +18,7 @@ use AC\ListScreenRepository\Types;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\ListScreenDelete;
-use AC\Table\ListKeysFactoryInterface;
+use AC\Table\TableScreensInterface;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
 
@@ -154,7 +154,7 @@ class AdminColumns
             ): SetupFactory\AdminColumns {
                 return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
             },
-            ListKeysFactoryInterface::class         => autowire(Table\ListKeysFactory::class),
+            TableScreensInterface::class            => autowire(Table\TableScreensFactory::class),
             Service\CommonAssets::class             => autowire()
                 ->constructorParameter(1, DI\get('translations.global')),
             Admin\Colors\Shipped\ColorParser::class => autowire()

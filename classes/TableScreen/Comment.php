@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\TableScreen;
 
 use AC;
+use AC\Column;
 use AC\ColumnRepository;
 use AC\MetaType;
 use AC\Table;
@@ -68,7 +69,30 @@ class Comment extends TableScreen implements AC\ListScreen\ListTable
 
     protected function get_columns_fqn(): array
     {
-        return [];
+        return [
+            AC\Column\CustomField::class,
+            AC\Column\Actions::class,
+            Column\Comment\Agent::class,
+            Column\Comment\Approved::class,
+            Column\Comment\Author::class,
+            Column\Comment\AuthorAvatar::class,
+            Column\Comment\AuthorEmail::class,
+            Column\Comment\AuthorIP::class,
+            Column\Comment\AuthorName::class,
+            Column\Comment\AuthorUrl::class,
+            Column\Comment\Comment::class,
+            Column\Comment\Date::class,
+            Column\Comment\DateGmt::class,
+            Column\Comment\Excerpt::class,
+            Column\Comment\ID::class,
+            Column\Comment\Post::class,
+            Column\Comment\ReplyTo::class,
+            Column\Comment\Response::class,
+            Column\Comment\Status::class,
+            Column\Comment\Type::class,
+            Column\Comment\User::class,
+            Column\Comment\WordCount::class,
+        ];
     }
 
 }

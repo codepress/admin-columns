@@ -11,8 +11,8 @@ class EditorUrlFactory
     public static function create(ListKey $key, bool $is_network, ListScreenId $id = null): Uri
     {
         return $is_network
-            ? new EditorNetworkColumns((string)$key, $id)
-            : new EditorColumns((string)$key, $id);
+            ? new EditorNetworkColumns($key, $id)
+            : new EditorColumns($key, $id);
     }
 
 }

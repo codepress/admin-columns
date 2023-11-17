@@ -15,7 +15,7 @@ use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
-use AC\Table\ListKeysFactoryInterface;
+use AC\Table\TableScreensInterface;
 use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
@@ -33,7 +33,7 @@ class Columns implements PageFactoryInterface
 
     protected $list_screen_factory;
 
-    protected $list_screen_uninitialized;
+    protected $uninitialized_screens;
 
     private $menu_list_factory;
 
@@ -49,16 +49,16 @@ class Columns implements PageFactoryInterface
         MenuFactoryInterface $menu_factory,
         ListScreenFactory $list_screen_factory,
         TableScreenFactory $table_screen_factory,
-        Admin\ListScreenUninitialized $list_screen_uninitialized,
+        Admin\UninitializedScreens $uninitialized_screens,
         Admin\MenuListFactory $menu_list_factory,
         Preference\ListScreen $preference,
-        ListKeysFactoryInterface $list_keys_factory
+        TableScreensInterface $list_keys_factory
     ) {
         $this->storage = $storage;
         $this->location = $location;
         $this->menu_factory = $menu_factory;
         $this->list_screen_factory = $list_screen_factory;
-        $this->list_screen_uninitialized = $list_screen_uninitialized;
+        $this->uninitialized_screens = $uninitialized_screens;
         $this->menu_list_factory = $menu_list_factory;
         $this->list_keys_factory = $list_keys_factory;
         $this->table_screen_factory = $table_screen_factory;
@@ -87,7 +87,8 @@ class Columns implements PageFactoryInterface
             new Middleware\ListScreenAdmin(
                 $this->storage,
                 $table_screen->get_key(),
-                $this->preference
+                $this->preference,
+                $this->list_screen_factory
             )
         );
 
@@ -100,8 +101,8 @@ class Columns implements PageFactoryInterface
 
         return new Page\Columns(
             $this->location,
-            new DefaultColumnsRepository(),
-            $this->list_screen_uninitialized->find_all_sites(),
+            new DefaultColumnsRepository($table_screen->get_key()),
+            $this->uninitialized_screens->find_all_sites(),
             new Section\Partial\Menu($this->menu_list_factory),
             new Admin\View\Menu($this->menu_factory->create('columns')),
             $table_screen,

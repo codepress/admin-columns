@@ -7,30 +7,27 @@ namespace AC\Admin\MenuListFactory;
 use AC\Admin\MenuListFactory;
 use AC\Admin\MenuListItems;
 use AC\Admin\Type\MenuListItem;
-use AC\ListScreen;
-use AC\ListScreenFactory;
-use AC\Table\ListKeysFactoryInterface;
+use AC\Table\TableScreensInterface;
+use AC\TableScreen;
 
 class MenuFactory implements MenuListFactory
 {
 
-    private $list_keys_factory;
+    private $table_screens_factory;
 
-    private $list_screen_factory;
-
-    public function __construct(ListKeysFactoryInterface $factory, ListScreenFactory\Aggregate $list_screen_factory)
+    public function __construct(TableScreensInterface $factory)
     {
-        $this->list_keys_factory = $factory;
-        $this->list_screen_factory = $list_screen_factory;
+        $this->table_screens_factory = $factory;
     }
 
-    private function create_menu_item(ListScreen $list_screen): MenuListItem
+    private function create_menu_item(TableScreen $table_screen): MenuListItem
     {
-        $group = (string)apply_filters('ac/admin/menu_group', $list_screen->get_group(), $list_screen);
+        // TODO check all usages of filter
+        $group = (string)apply_filters('ac/admin/menu_group', $table_screen->get_group(), $table_screen);
 
         return new MenuListItem(
-            $list_screen->get_key(),
-            (string)$list_screen->get_label(),
+            (string)$table_screen->get_key(),
+            (string)$table_screen->get_labels(),
             $group ?: 'other'
         );
     }
@@ -39,14 +36,12 @@ class MenuFactory implements MenuListFactory
     {
         $menu = new MenuListItems();
 
-        foreach ($this->list_keys_factory->create()->all() as $list_key) {
-            if ($list_key->is_network()) {
+        foreach ($this->table_screens_factory->create()->all() as $table_screen) {
+            if ($table_screen->is_network()) {
                 continue;
             }
 
-            if ($this->list_screen_factory->can_create($list_key)) {
-                $menu->add($this->create_menu_item($this->list_screen_factory->create($list_key)));
-            }
+            $menu->add($this->create_menu_item($table_screen));
         }
 
         do_action('ac/admin/menu_list', $menu);

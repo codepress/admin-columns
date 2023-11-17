@@ -93,7 +93,7 @@ class Database implements ListScreenRepositoryWritable
 
         $args = [
             'list_id'       => (string)$list_screen->get_id(),
-            'list_key'      => $list_screen->get_key(),
+            'list_key'      => (string)$list_screen->get_key(),
             'title'         => $list_screen->get_title(),
             'columns'       => $list_screen->get_settings() ? serialize($list_screen->get_settings()) : null,
             'settings'      => $list_screen->get_preferences() ? serialize($list_screen->get_preferences()) : null,

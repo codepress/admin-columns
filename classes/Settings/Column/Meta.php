@@ -51,18 +51,12 @@ abstract class Meta extends Column
         return $keys;
     }
 
-    /**
-     * @return string
-     */
-    protected function get_cache_key()
+    protected function get_cache_key(): string
     {
-        return $this->column->get_list_key();
+        return $this->column->get_type() . $this->column->get_meta_type() . $this->column->get_post_type();
     }
 
-    /**
-     * @return string
-     */
-    protected function get_meta_type()
+    protected function get_meta_type(): string
     {
         return $this->column->get_meta_type();
     }
