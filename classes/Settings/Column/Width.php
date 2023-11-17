@@ -3,6 +3,7 @@
 namespace AC\Settings\Column;
 
 use AC\Column;
+use AC\Setting\Input;
 use AC\Setting\Multiple;
 use AC\Setting\OptionCollection;
 use AC\Setting\Recursive;
@@ -12,10 +13,6 @@ use AC\Setting\SettingTrait;
 use AC\Setting\Single;
 use AC\Setting\Type\Option;
 use AC\Settings;
-use AC\Type\ColumnWidth;
-use AC\View;
-use InvalidArgumentException;
-use AC\Setting\Input;
 
 class Width extends Settings\Column implements Recursive
 {
@@ -27,6 +24,7 @@ class Width extends Settings\Column implements Recursive
     {
         $this->name = 'width';
         $this->label = __('Width', 'codepress-admin-columns');
+        $this->input = new Input\Custom('width');
 
         parent::__construct($column);
     }

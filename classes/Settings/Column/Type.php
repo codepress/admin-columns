@@ -9,6 +9,7 @@ class Type extends Column implements AC\Setting\Option
 {
 
     use AC\Setting\OptionTrait;
+    use AC\Setting\SettingTrait;
 
     public function __construct(AC\Column $column)
     {

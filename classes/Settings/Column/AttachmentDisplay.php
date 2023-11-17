@@ -13,6 +13,7 @@ class AttachmentDisplay extends Settings\Column implements AC\Setting\Option
     //implements Settings\FormatValue {
 
     use AC\Setting\OptionTrait;
+    use AC\Setting\SettingTrait;
 
     public function __construct(AC\Column $column)
     {
