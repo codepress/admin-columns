@@ -28,6 +28,7 @@
 				showChevron
 				items={collection}
 				value={value}
+				clearable={false}
 				{groupBy}
 				on:change={ changeValue }
 				bind:justValue={selectValue}>

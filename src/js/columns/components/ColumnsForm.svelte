@@ -94,6 +94,5 @@
 			</div>
 		</footer>
 	</div>
-
 {/if}
 

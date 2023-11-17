@@ -1,5 +1,3 @@
-<svelte:options accessors={true}/>
-
 <script lang="ts">
     import ListScreenForm from "./ListScreenForm.svelte";
     import {onMount} from "svelte";
@@ -19,7 +17,7 @@
             config = response.data.data.settings
             $currentListKey = e.detail;
             $currentListId = response.data.data.list_screen_data.list_screen.id;
-            
+
             listScreenDataStore.update(d => {
                 return response.data.data.list_screen_data.list_screen;
             })
@@ -49,11 +47,14 @@
 
 	main .left {
 		width: 250px;
+		flex-shrink: 0;
 	}
 
 	.right {
 		flex-grow: 1;
 	}
+
+
 </style>
 <main>
 	<div class="left">
@@ -68,10 +69,6 @@
 
 		{#if $listScreenDataStore !== null}
 			<ListScreenForm bind:config={config} bind:data={$listScreenDataStore}></ListScreenForm>
-		{:else}
-
 		{/if}
-
-
 	</div>
 </main>

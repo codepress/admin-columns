@@ -4,6 +4,7 @@
 <style>
 	.setting {
 		display: flex;
+		align-items: center;
 	}
 	.label {
 		width: 200px;

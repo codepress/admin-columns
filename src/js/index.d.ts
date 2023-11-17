@@ -37,6 +37,7 @@ declare namespace AC.Vars.Column.Settings {
 
     type ColumnSettingCollection = ColumnSetting[]
     type ColumnSetting = AbstractColumnSetting;
+    type SettingOption = { value: string, label: string, group: string | null }
 
     interface AbstractColumnSetting {
         name: string
@@ -50,7 +51,18 @@ declare namespace AC.Vars.Column.Settings {
     interface TypeSetting extends AbstractColumnSetting {
         input: {
             type: string,
-            options: Array<string>
+        }
+        options: {
+            options: SettingOption[]
+        }
+    }
+
+    interface ToggleSetting extends AbstractColumnSetting {
+        input: {
+            type: 'toggle'
+        }
+        options: {
+            options: SettingOption[]
         }
     }
 

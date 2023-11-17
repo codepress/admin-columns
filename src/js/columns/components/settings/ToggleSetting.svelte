@@ -1,30 +1,29 @@
-<script>
-	import ColumnSetting from "../ColumnSetting.svelte";
-	import AcToggle from "ACUi/element/AcToggle.svelte";
-	import {afterUpdate, onMount} from "svelte";
+<script lang="ts">
+    import ColumnSetting from "../ColumnSetting.svelte";
+    import AcToggle from "ACUi/element/AcToggle.svelte";
+    import {afterUpdate, onMount} from "svelte";
 
-	export let data;
-	export let value;
-	export let config;
+    export let value: string;
+    export let config: AC.Vars.Column.Settings.ToggleSetting;
 
-	let label = config.label ?? '';
-	let checked = false;
+    let label = config.label ?? '';
+    let checked = false;
 
-	const check = ( e ) => {
-		value = e.detail ? 'on' : 'off';
-	}
+    const check = (e:CustomEvent<string>) => {
+        value = e.detail ? config.options.options[0].value : config.options.options[1].value;
+    }
 
-	afterUpdate( () => {
-		checked = value === 'on';
-	} )
+    afterUpdate(() => {
+        checked = value === config.options.options[0].value;
+    })
 
-	onMount( () => {
-		if ( value === 'undefined' ) {
-			value = config.default ? config.default : 'off';
-		}
+    onMount(() => {
+        if (typeof value === 'undefined') {
+            value = config.options.options[0].value
+        }
 
-		checked = value === 'on';
-	} );
+        checked = value === config.options.options[0].value;
+    });
 
 </script>
 

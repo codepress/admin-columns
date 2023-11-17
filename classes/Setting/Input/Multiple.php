@@ -29,6 +29,11 @@ final class Multiple implements Input
         return new self('radio');
     }
 
+    public static function create_toggle(): self
+    {
+        return new self('toggle');
+    }
+
     public static function create_checkbox(): self
     {
         return new self('checkbox', true);

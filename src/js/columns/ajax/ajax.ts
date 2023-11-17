@@ -53,8 +53,7 @@ export const saveListScreen = (data: ListScreenData) => {
     formData.set('method', 'save_settings');
     formData.set('data', JSON.stringify(data));
 
-    axios.post(ajaxurl,
+    return axios.post(ajaxurl,
         formData
     )
-
 }
