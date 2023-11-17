@@ -1,16 +1,16 @@
-<script>
+<script lang="ts">
 	import ColumnSetting from "../ColumnSetting.svelte";
 	import Select from "svelte-select"
 	import {onMount} from "svelte";
 
-	export let config;
-	export let value;
+	export let config: AC.Column.Settings.SelectSetting;
+	export let value: string;
 
-	let collection = [];
-	let selectValue;
+	let collection: AC.Column.Settings.SettingOption[] = [];
+	let selectValue: string;
 
 	onMount( () => {
-		collection = config.options.options
+		collection = config.input.options
 	} )
 
 	const changeValue = ( d ) => {

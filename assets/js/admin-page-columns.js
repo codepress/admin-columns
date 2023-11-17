@@ -567,9 +567,6 @@ function create_default_slot(ctx) {
 // (72:1) {#if opened && config !== null }
 function create_if_block(ctx) {
   let div;
-  let t0_value = JSON.stringify( /*data*/ctx[0]) + "";
-  let t0;
-  let t1;
   let div_transition;
   let current;
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*config*/ctx[1]);
@@ -583,8 +580,6 @@ function create_if_block(ctx) {
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
-      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
@@ -592,8 +587,6 @@ function create_if_block(ctx) {
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t1);
       for (let i = 0; i < each_blocks.length; i += 1) {
         if (each_blocks[i]) {
           each_blocks[i].m(div, null);
@@ -602,7 +595,6 @@ function create_if_block(ctx) {
       current = true;
     },
     p(ctx, dirty) {
-      if ((!current || dirty & /*data*/1) && t0_value !== (t0_value = JSON.stringify( /*data*/ctx[0]) + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, t0_value);
       if (dirty & /*getComponent, config, data*/35) {
         each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*config*/ctx[1]);
         let i;
@@ -660,7 +652,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (75:3) {#each config as setting}
+// (74:3) {#each config as setting}
 function create_each_block(ctx) {
   let switch_instance;
   let updating_data;
@@ -3712,7 +3704,7 @@ function instance($$self, $$props, $$invalidate) {
   let collection = [];
   let selectValue;
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onMount)(() => {
-    $$invalidate(2, collection = config.options.options);
+    $$invalidate(2, collection = config.input.options);
   });
   const changeValue = d => {
     $$invalidate(0, value = selectValue);
@@ -3795,7 +3787,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (17:0) <ColumnSetting label={config.label}>
+// (13:0) <ColumnSetting label={config.label}>
 function create_default_slot(ctx) {
   let acinputgroup;
   let current;
@@ -4038,16 +4030,16 @@ function instance($$self, $$props, $$invalidate) {
   let label = (_a = config.label) !== null && _a !== void 0 ? _a : '';
   let checked = false;
   const check = e => {
-    $$invalidate(3, value = e.detail ? config.options.options[0].value : config.options.options[1].value);
+    $$invalidate(3, value = e.detail ? config.input.options[0].value : config.input.options[1].value);
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.afterUpdate)(() => {
-    $$invalidate(0, checked = value === config.options.options[0].value);
+    $$invalidate(0, checked = value === config.input.options[0].value);
   });
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onMount)(() => {
     if (typeof value === 'undefined') {
-      $$invalidate(3, value = config.options.options[0].value);
+      $$invalidate(3, value = config.input.options[0].value);
     }
-    $$invalidate(0, checked = value === config.options.options[0].value);
+    $$invalidate(0, checked = value === config.input.options[0].value);
   });
   $$self.$$set = $$props => {
     if ('value' in $$props) $$invalidate(3, value = $$props.value);

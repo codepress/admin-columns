@@ -1,6 +1,4 @@
 <script lang="ts">
-	import {onMount} from "svelte";
-
     export let value: string = 'off';
     export let title: string;
 

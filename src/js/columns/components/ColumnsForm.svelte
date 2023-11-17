@@ -13,7 +13,7 @@
     import {tick} from "svelte";
 
     export let data: ListScreenData;
-    export let config;
+    export let config: { [key:string]: AC.Vars.Column.Settings.ColumnSettingCollection};
 
     const columnTypes = ColumnTypesUtils.getColumnTypes();
 

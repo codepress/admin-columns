@@ -33,13 +33,13 @@ declare namespace AC.Vars.Admin.Columns {
 
 }
 
-declare namespace AC.Vars.Column.Settings {
+declare namespace AC.Column.Settings {
 
     type ColumnSettingCollection = ColumnSetting[]
     type ColumnSetting = AbstractColumnSetting;
     type SettingOption = { value: string, label: string, group: string | null }
 
-    interface AbstractColumnSetting<Type = string, Name = string> {
+    interface AbstractColumnSetting<Type = string, Name = null> {
         name: Name
         label: string
         description: string
@@ -48,20 +48,32 @@ declare namespace AC.Vars.Column.Settings {
         }
     }
 
+    type LabelSetting = AbstractColumnSetting<'label'>;
+    type TextSetting = AbstractColumnSetting<'text'>;
+
+    interface SelectSetting extends AbstractColumnSetting {
+        input: {
+            type: 'select'
+            options: SettingOption[]
+        }
+    }
+
     interface TypeSetting extends AbstractColumnSetting<'type'> {
-        options: {
+        input: {
             options: SettingOption[]
         }
     }
 
-    interface ToggleSetting<Name> extends AbstractColumnSetting<'toggle',Name> {
-        options: {
+    interface ToggleSetting extends SelectSetting {
+        input: {
+            type: 'toggle'
             options: SettingOption[]
         }
     }
 
-    interface WidthSetting extends AbstractColumnSetting<'width'> {
-        children : [
+    interface WidthSetting extends AbstractColumnSetting {
+        name: 'width'
+        children: [
             AbstractColumnSetting<'width', 'width'>,
             ToggleSetting<'width_unit'>
         ]

@@ -4,25 +4,25 @@
     import {afterUpdate, onMount} from "svelte";
 
     export let value: string;
-    export let config: AC.Vars.Column.Settings.ToggleSetting;
+    export let config: AC.Column.Settings.ToggleSetting;
 
     let label = config.label ?? '';
     let checked = false;
 
     const check = (e:CustomEvent<string>) => {
-        value = e.detail ? config.options.options[0].value : config.options.options[1].value;
+        value = e.detail ? config.input.options[0].value : config.input.options[1].value;
     }
 
     afterUpdate(() => {
-        checked = value === config.options.options[0].value;
+        checked = value === config.input.options[0].value;
     })
 
     onMount(() => {
         if (typeof value === 'undefined') {
-            value = config.options.options[0].value
+            value = config.input.options[0].value
         }
 
-        checked = value === config.options.options[0].value;
+        checked = value === config.input.options[0].value;
     });
 
 </script>

@@ -82,7 +82,6 @@
 
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
-			{JSON.stringify(data)}
 			{#each config as setting}
 				<svelte:component
 						this={getComponent(setting.input.type)}

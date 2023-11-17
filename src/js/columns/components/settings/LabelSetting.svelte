@@ -2,7 +2,7 @@
 	import ColumnSetting from "../ColumnSetting.svelte";
 	import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
 
-	export let config: AC.Vars.Column.Settings.AbstractColumnSetting;
+	export let config: AC.Column.Settings.AbstractColumnSetting;
 	export let value: string;
 </script>
 
