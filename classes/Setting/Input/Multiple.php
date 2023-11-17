@@ -6,6 +6,7 @@ namespace AC\Setting\Input;
 
 use AC\Setting\Input;
 
+// TODO David put the options here instead of in the setting? That solves some issues for decoration / trees
 final class Multiple implements Input
 {
 
