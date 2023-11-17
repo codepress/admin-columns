@@ -2,7 +2,6 @@ import AcAdminColumnsVar = AC.Vars.Admin.Columns.AcAdminColumnsVar;
 
 declare namespace AC.Vars.Admin.Columns {
 
-    import ColumnSetting = AC.Vars.Settings.ColumnSetting;
     type ColumnGroup = {
         slug: string
         label: string
@@ -32,9 +31,41 @@ declare namespace AC.Vars.Admin.Columns {
         list_screen_id: string
     }
 
-    interface test extends ColumnSetting {
-        test: string
+}
+
+declare namespace AC.Vars.Column.Settings {
+
+    type ColumnSettingCollection = ColumnSetting[]
+    type ColumnSetting = AbstractColumnSetting;
+    type SettingOption = { value: string, label: string, group: string | null }
+
+    interface AbstractColumnSetting {
+        name: string
+        label: string
+        description: string
+        input: {
+            type: string
+        }
     }
+
+    interface TypeSetting extends AbstractColumnSetting {
+        input: {
+            type: string,
+        }
+        options: {
+            options: SettingOption[]
+        }
+    }
+
+    interface ToggleSetting extends AbstractColumnSetting {
+        input: {
+            type: 'toggle'
+        }
+        options: {
+            options: SettingOption[]
+        }
+    }
+
 }
 
 declare const ac_admin_columns: AcAdminColumnsVar;

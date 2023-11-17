@@ -52,6 +52,7 @@ $input-hover-text-color: #2271b1;
 
 	.list-item {
 		font-size: 13px;
+
 		.item {
 			cursor: pointer !important;
 
@@ -59,6 +60,7 @@ $input-hover-text-color: #2271b1;
 				cursor: default !important;
 			}
 		}
+
 		&.svelte-empty {
 			padding: 10px;
 		}
@@ -147,7 +149,7 @@ $input-hover-text-color: #2271b1;
 	--chevron-width: 25px;
 	--chevron-height: 28px;
 	--loading-width: 20px;
-	--clear-select-width: 10px;
+	--clear-select-width: 40px;
 	--icons-color: #838a92;
 	--input-color: $input-text-color;
 	--placeholder-color: $input-text-color;
@@ -161,9 +163,15 @@ $input-hover-text-color: #2271b1;
 	--item-is-active-color: #000;
 	--item-hover-color: #fff;
 
+	--multi-select-padding: 0 0 0 8px;
+	--multi-item-outline: none;
+	--multi-item-bg: #EAF2FA;
+
 	--group-title-text-transform: 'none';
 	--group-item-padding-left: 10px;
 	--group-title-font-size: 12px;
+
+	--value-container-padding: 0;
 
 	&:hover, input {
 		cursor: pointer !important;
@@ -187,6 +195,7 @@ $input-hover-text-color: #2271b1;
 
 	.list-item {
 		font-size: 13px;
+
 		.item {
 			cursor: pointer !important;
 
@@ -202,14 +211,24 @@ $input-hover-text-color: #2271b1;
 			&.list-group-title.not-selectable {
 				background-color: #eee;
 				color: #aaa;
-				font-size: 12px!important;
+				font-size: 12px !important;
 				border-top: 1px solid #888;
 				border-bottom: 1px solid #888;
 			}
 		}
+
 		&.svelte-empty {
 			padding: 10px;
 		}
+	}
+
+	.multi-item {
+		flex-direction: row-reverse;
+	}
+
+	.multi-item-clear {
+		color: #006BA1;
+		cursor: pointer;
 	}
 
 	.selected-item {

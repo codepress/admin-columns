@@ -17,7 +17,7 @@
 		{disabled}
 		on:click
 >
-	{#if iconLeft !== '' }
+	{#if iconLeft }
 		<AcIcon icon={iconLeft} pack={iconLeftPack} size="sm"></AcIcon>
 	{/if}
 	<slot></slot>

@@ -8,7 +8,7 @@
     import HeaderToggle from "./settings/HeaderToggle.svelte";
 
     export let data: any;
-    export let config = [];
+    export let config: AC.Vars.Column.Settings.ColumnSettingCollection = [];
 
     const dispatch = createEventDispatcher();
     const originalsColumns = ColumnTypesUtils.getOriginalColumnTypes();
@@ -18,6 +18,7 @@
     }
 
     const getComponent = (type: string) => {
+        console.log( 'type', type);
         return getSettingComponent(type);
     }
 
@@ -80,14 +81,14 @@
 		</div>
 	</header>
 
-	{#if opened && config !== null && typeof config !== 'undefined' }
+	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
-
+			{JSON.stringify(config)}
 			{#each config as setting}
 				<svelte:component
-						this={getComponent(setting.type)}
+						this={getComponent(setting.input.type)}
 						bind:data={data}
-						bind:value={data[setting.key]}
+						bind:value={data[setting.name]}
 						bind:columnConfig={config}
 						config={setting}>
 

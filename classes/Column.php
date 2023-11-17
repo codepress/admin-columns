@@ -246,9 +246,9 @@ class Column
         $this->settings[$setting->get_name()] = $setting;
 
         // TODO David check
-//        foreach ((array)$setting->get_dependent_settings() as $dependent_setting) {
-//            $this->add_setting($dependent_setting);
-//        }
+        //        foreach ((array)$setting->get_dependent_settings() as $dependent_setting) {
+        //            $this->add_setting($dependent_setting);
+        //        }
 
         return $this;
     }
@@ -315,6 +315,10 @@ class Column
                 new Settings\Column\Label($this),
                 new Settings\Column\Width($this),
             ];
+
+            // TODO Stefan test settings
+            $settings[] = new Settings\Column\ActionIcons($this);
+            $settings[] = new Settings\Column\AttachmentDisplay($this);
 
             foreach ($settings as $setting) {
                 $this->add_setting($setting);
