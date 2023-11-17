@@ -10,7 +10,7 @@ export type listScreenSettingsResponse = {
             version: string,
             list_screen: ListScreenData
         },
-        settings: AC.Vars.Admin.Settings.ColumnSettingCollection
+        settings: { [key:string]: AC.Vars.Settings.ColumnSetting[] }
     },
     success: true
 }

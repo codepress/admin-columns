@@ -18,7 +18,6 @@
     }
 
     const getComponent = (type: string) => {
-        console.log( 'type', type);
         return getSettingComponent(type);
     }
 
@@ -83,7 +82,7 @@
 
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
-			{JSON.stringify(config)}
+			{JSON.stringify(data)}
 			{#each config as setting}
 				<svelte:component
 						this={getComponent(setting.input.type)}

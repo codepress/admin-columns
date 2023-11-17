@@ -1,29 +1,32 @@
-<script>
+<script lang="ts">
 	import ColumnSetting from "../ColumnSetting.svelte";
 	import {onMount} from "svelte";
 	import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
 
-	export let data;
-	export let config;
+	export let data:any;
+	export let config: AC.Vars.Column.Settings.WidthSetting;
+
+	const keyUnit = config.children[1].name;
+    const keyWidth = config.children[0].name;
+
 
 	const changeUnit = () => {
-		switch ( data[ 'width_unit' ] ) {
+		switch ( data[ keyUnit ] ) {
 			case 'px':
-				data[ 'width_unit' ] = '%';
+				data[ keyUnit ] = '%';
 				break;
 			case '%':
-				data[ 'width_unit' ] = 'px';
+				data[ keyUnit ] = 'px';
 				break;
 		}
 	}
-
 	onMount( () => {
-		if ( typeof data.width === 'undefined' ) {
-			data[ 'width' ] = '';
+		if ( typeof data[keyWidth] === 'undefined' ) {
+			data[ keyWidth ] = '';
 		}
 
-		if ( typeof data.width_unit === 'undefined' ) {
-			data[ 'width_unit' ] = 'px';
+		if ( typeof data[keyUnit] === 'undefined' ) {
+			data[ keyUnit ] = 'px';
 		}
 	} );
 </script>
@@ -48,12 +51,12 @@
 	<div class="width-setting">
 		<div style="width: 120px;">
 			<AcInputGroup>
-				<input type="text" bind:value={data.width} placeholder="Auto">
-				<div class="acui-input-group-text" on:click={changeUnit}>{data.width_unit}</div>
+				<input type="text" bind:value={data[keyWidth]} placeholder="Auto">
+				<div role="none" class="acui-input-group-text" on:click={changeUnit} on:keypress>{data[keyUnit]}</div>
 			</AcInputGroup>
 		</div>
 		<div class="width-setting__slider">
-			<input type="range" bind:value={data.width} on:input={()=>console.log('update')}>
+			<input type="range" bind:value={data[keyWidth]}>
 		</div>
 	</div>
 </ColumnSetting>

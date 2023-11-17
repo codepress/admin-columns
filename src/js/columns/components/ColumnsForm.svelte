@@ -25,8 +25,6 @@
         const name = ColumnUtils.generateId();
 
         getColumnSettings('post', column_type).then(d => {
-
-            config[name] = d.data.data.columns.settings;
             const columnLabel = ColumnTypesUtils.getColumnType(column_type)?.label;
 
             data['columns'][name] = {
