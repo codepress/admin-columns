@@ -21,6 +21,7 @@ class Width extends Settings\Column implements Recursive
 {
 
     use RecursiveTrait;
+    use SettingTrait;
 
     public function __construct(Column $column)
     {
