@@ -37,8 +37,7 @@ class TableScreensFactory implements TableScreensInterface
             }
         }
 
-        // TODO
-//        do_action('ac/list_keys', $collection);
+        do_action('ac/list_keys', $collection);
 
         return $collection;
     }

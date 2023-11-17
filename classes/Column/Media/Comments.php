@@ -13,9 +13,4 @@ class Comments extends Column
         $this->set_type('comments');
     }
 
-    public function is_valid()
-    {
-        return post_type_supports($this->get_post_type(), 'comments');
-    }
-
 }

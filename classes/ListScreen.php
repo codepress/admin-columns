@@ -100,6 +100,7 @@ class ListScreen implements PostType
         $this->table_screen = $table_screen;
     }
 
+    // TODO remove any utility methods. USe TableScreen instead.
     public function get_post_type(): string
     {
         return $this->table_screen instanceof PostType

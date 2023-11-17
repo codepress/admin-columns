@@ -40,6 +40,7 @@ abstract class TableScreen implements ManageValue
         return $this->screen_id;
     }
 
+    // TODO abstract?
     public function get_heading_hookname(): string
     {
         return sprintf('manage_%s_columns', $this->screen_id);
@@ -53,6 +54,12 @@ abstract class TableScreen implements ManageValue
     abstract public function get_meta_type(): MetaType;
 
     abstract public function get_attr_id(): string;
+
+    abstract public function get_url(): Uri;
+
+    // TODO move out of this scope
+
+    abstract public function get_group(): string;
 
     abstract protected function get_columns_fqn(): array;
 
@@ -101,10 +108,5 @@ abstract class TableScreen implements ManageValue
 
         return $columns;
     }
-
-    abstract public function get_url(): Uri;
-
-    // TODO move out of this scope
-    abstract public function get_group(): string;
 
 }

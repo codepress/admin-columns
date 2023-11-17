@@ -4,18 +4,18 @@ namespace AC\Column\Media;
 
 use AC\Column;
 
-/**
- * @since 3.0
- */
-class Date extends Column {
+class Date extends Column
+{
 
-	public function __construct() {
-		$this->set_original( true );
-		$this->set_type( 'date' );
-	}
+    public function __construct()
+    {
+        $this->set_original(true);
+        $this->set_type('date');
+    }
 
-	public function register_settings() {
-		$this->get_setting( 'width' )->set_default( 10 );
-	}
+    public function register_settings()
+    {
+        $this->get_setting('width')->set_default(10);
+    }
 
 }

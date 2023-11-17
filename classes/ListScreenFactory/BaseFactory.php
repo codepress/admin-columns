@@ -8,12 +8,13 @@ use AC\ColumnFactory;
 use AC\Exception\InvalidListScreenException;
 use AC\ListScreen;
 use AC\ListScreenFactory;
+use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use DateTime;
 
-abstract class BaseFactory implements ListScreenFactory
+class BaseFactory implements ListScreenFactory
 {
 
     protected $table_screen_factory;
@@ -23,7 +24,7 @@ abstract class BaseFactory implements ListScreenFactory
         $this->table_screen_factory = $table_screen_factory;
     }
 
-    protected function add_settings(ListScreen $list_screen, ListKey $key, array $settings): ListScreen
+    protected function add_settings(ListScreen $list_screen, TableScreen $table_screen, array $settings): ListScreen
     {
         $columns = $settings['columns'] ?? [];
         $preferences = $settings['preferences'] ?? [];
@@ -49,10 +50,15 @@ abstract class BaseFactory implements ListScreenFactory
         }
 
         $list_screen->set_columns(
-            $this->get_columns($key, $columns) ?: $this->get_default_columns($key)
+            $this->get_columns($table_screen, $columns) ?: $this->get_default_columns($table_screen)
         );
 
         return $list_screen;
+    }
+
+    public function can_create(ListKey $key): bool
+    {
+        return $this->table_screen_factory->can_create($key);
     }
 
     public function create(ListKey $key, array $settings = []): ListScreen
@@ -61,21 +67,20 @@ abstract class BaseFactory implements ListScreenFactory
             throw InvalidListScreenException::from_invalid_key($key);
         }
 
-        return $this->add_settings($this->create_list_screen($key), $key, $settings);
+        $table_screen = $this->table_screen_factory->create($key);
+
+        return $this->add_settings(
+            new ListScreen($table_screen),
+            $table_screen,
+            $settings
+        );
     }
 
-    // TODO create trait or factory
-    private function get_columns(ListKey $key, array $settings): array
+    private function get_columns(TableScreen $table_screen, array $settings): array
     {
-        if ( ! $this->table_screen_factory->can_create($key)) {
-            return [];
-        }
-
         $columns = [];
 
-        $column_factory = new ColumnFactory(
-            $this->table_screen_factory->create($key)
-        );
+        $column_factory = new ColumnFactory($table_screen);
 
         foreach ($settings as $name => $data) {
             $data['name'] = (string)$name;
@@ -86,19 +91,11 @@ abstract class BaseFactory implements ListScreenFactory
         return array_filter($columns);
     }
 
-    private function get_default_columns(ListKey $key): array
+    private function get_default_columns(TableScreen $table_screen): array
     {
-        if ( ! $this->table_screen_factory->can_create($key)) {
-            return [];
-        }
-
-        $table_screen = $this->table_screen_factory->create($key);
-
         $columns = [];
 
-        $column_factory = new ColumnFactory(
-            $this->table_screen_factory->create($key)
-        );
+        $column_factory = new ColumnFactory($table_screen);
 
         // TODO
         foreach ($table_screen->get_columns() as $column) {
@@ -112,7 +109,5 @@ abstract class BaseFactory implements ListScreenFactory
 
         return $columns;
     }
-
-    abstract protected function create_list_screen(ListKey $key): ListScreen;
 
 }

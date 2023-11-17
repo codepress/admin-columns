@@ -12,6 +12,7 @@ use AC\Asset\Script\Localize\Translation;
 use AC\Controller\RestoreSettingsRequest;
 use AC\Entity\Plugin;
 use AC\ListScreenFactory\Aggregate;
+use AC\ListScreenFactory\BaseFactory;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenRepository\Types;
@@ -40,10 +41,10 @@ class AdminColumns
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\User::class));
 
         // TODO remove
-        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\UserFactory::class));
-        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\CommentFactory::class));
-        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\PostFactory::class));
-        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\MediaFactory::class));
+        //        ListScreenFactory\Aggregatxe::add($container->get(ListScreenFactory\UserFactory::class));
+        //        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\CommentFactory::class));
+        //        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\PostFactory::class));
+        //        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\MediaFactory::class));
 
         $page_handler = new PageRequestHandler();
         $page_handler->add('columns', $container->get(PageFactory\Columns::class))
@@ -127,8 +128,6 @@ class AdminColumns
             'translations.global'                   => static function (Plugin $plugin): Translation {
                 return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
             },
-            Database::class                         => autowire()
-                ->constructorParameter(0, new ListScreenFactory\Aggregate()),
             Storage::class                          => static function (Database $database): Storage {
                 $storage = new Storage();
                 $storage->set_repositories([
@@ -143,7 +142,7 @@ class AdminColumns
             Plugin::class                           => static function (): Plugin {
                 return Plugin::create(AC_FILE, new Version(AC_VERSION));
             },
-            ListScreenFactory::class                => autowire(Aggregate::class),
+            ListScreenFactory::class                => autowire(BaseFactory::class),
             TableScreenFactory::class               => autowire(TableScreenFactory\Aggregate::class),
             Absolute::class                         => static function (Plugin $plugin): Absolute {
                 return new Absolute($plugin->get_url(), $plugin->get_dir());

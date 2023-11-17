@@ -76,7 +76,7 @@ class Media extends TableScreen implements ListTable, PostType
 
     protected function get_columns_fqn(): array
     {
-        return [
+        $columns = [
             Column\CustomField::class,
             Column\Actions::class,
             Column\Post\TitleRaw::class,
@@ -89,11 +89,9 @@ class Media extends TableScreen implements ListTable, PostType
             Column\Media\AuthorName::class,
             Column\Media\AvailableSizes::class,
             Column\Media\Caption::class,
-            Column\Media\Comments::class,
             Column\Media\Date::class,
             Column\Media\Description::class,
             Column\Media\Dimensions::class,
-            Column\Media\ExifData::class,
             Column\Media\FileMetaAudio::class,
             Column\Media\FileMetaVideo::class,
             Column\Media\FileName::class,
@@ -111,6 +109,15 @@ class Media extends TableScreen implements ListTable, PostType
             Column\Media\VideoPlayer::class,
             Column\Media\Width::class,
         ];
+
+        if (post_type_supports($this->get_post_type(), 'comments')) {
+            $columns[] = Column\Media\Comments::class;
+        }
+        if (function_exists('exif_read_data')) {
+            $columns[] = Column\Media\ExifData::class;
+        }
+
+        return $columns;
     }
 
 }

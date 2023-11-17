@@ -15,12 +15,14 @@ class MediaLibraryAssistant implements Registerable {
 			return;
 		}
 
-		AC\ListScreenFactory\Aggregate::add( new ListScreenFactory() );
+        AC\TableScreenFactory\Aggregate::add(new TableScreenFactory());
+
+        // TODO
 		add_action( 'ac/list_keys', [ $this, 'add_list_keys' ] );
 	}
 
-	public function add_list_keys( TableScreens $list_keys ): void {
-		$list_keys->add( new ListKey( 'mla-media-assistant' ) );
+	public function add_list_keys( TableScreens $table_screens ): void {
+        $table_screens->add( new TableScreen() );
 	}
 
 }

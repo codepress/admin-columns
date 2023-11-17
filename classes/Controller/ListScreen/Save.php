@@ -47,7 +47,7 @@ class Save
         $list_screen = $this->list_screen_factory->create(
             $list_key,
             [
-                'list_id' => $list_id->get_id(),
+                'list_id' => (string)$list_id,
                 'columns' => $this->maybe_encode_urls($data['columns']),
                 'preferences' => $data['settings'] ?? [],
                 'title' => $data['title'] ?? '',
