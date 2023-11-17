@@ -5,21 +5,20 @@ declare(strict_types=1);
 namespace AC\Setting\Input;
 
 use AC\Setting\Input;
-use AC\Setting\Setting;
 
 final class Custom implements Input
 {
 
-    private $setting;
+    private $type;
 
-    public function __construct(Setting $setting)
+    public function __construct(string $type)
     {
-        $this->setting = $setting;
+        $this->type = $type;
     }
 
     public function get_type(): string
     {
-        return $this->setting->get_name();
+        return $this->type;
     }
 
 }

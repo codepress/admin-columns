@@ -6,17 +6,14 @@ use AC;
 use AC\Form\Element;
 use AC\View;
 
+// TODO David make single and multiple column?
 abstract class Column implements AC\Setting\Setting
 {
-    use AC\Setting\SettingTrait;
 
-    private $column;
+    protected $column;
 
     public function __construct( AC\Column $column ) {
         //$this->column = $column;
-        if ( null === $this->input ) {
-            $this->input = new AC\Setting\Input\Custom( $this );
-        }
     }
 
 //    /**

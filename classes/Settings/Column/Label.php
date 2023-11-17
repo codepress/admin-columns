@@ -9,15 +9,14 @@ use AC\Setting\SettingTrait;
 use AC\Settings;
 use AC\View;
 
-class Label extends Settings\Column
+class Label extends Single
 {
 
     public function __construct(AC\Column $column)
     {
-        $this->name = 'label';
-        $this->label = __('Label', 'codepress-admin-columns');
+        parent::__construct($column, 'label');
 
-        parent::__construct($column);
+        $this->label = __('Label', 'codepress-admin-columns');
     }
 
     //    /**
