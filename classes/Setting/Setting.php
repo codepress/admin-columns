@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-// TODO David conditionals vs subsettings
-// TODO David extra description "settings" text only?
-// TODO conditionals/ dependent settings based on values
+// TODO David defaults
+// TODO David value from settings
+// TODO David conditionals
 interface Setting
 {
 

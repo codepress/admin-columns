@@ -18,7 +18,7 @@ class Single implements Setting
         string $description = ''
     ) {
         if (null === $input) {
-            $input = new Custom($this);
+            $input = new Custom($this->name);
         }
 
         $this->name = $name;

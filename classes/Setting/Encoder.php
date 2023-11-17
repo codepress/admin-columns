@@ -39,9 +39,7 @@ final class Encoder
         ];
 
         if ($setting instanceof Option) {
-            $encoded['options'] = [
-                'options' => $this->encode_options($setting->get_options()),
-            ];
+            $encoded['input']['options'] = $this->encode_options($setting->get_options());
 
             if ($input->is_multiple()) {
                 $encoded['input']['multiple'] = $input->is_multiple();
