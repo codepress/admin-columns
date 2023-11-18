@@ -3,8 +3,9 @@
 namespace AC\Integration;
 
 use AC\Integration;
-use AC\ListScreen;
+use AC\PostType;
 use AC\Screen;
+use AC\TableScreen;
 use AC\Type\Url\Site;
 
 final class WooCommerce extends Integration
@@ -55,10 +56,15 @@ final class WooCommerce extends Integration
         return $is_user_screen || $is_post_screen;
     }
 
-    public function show_placeholder(ListScreen $list_screen): bool
+    public function show_placeholder(TableScreen $table_screen): bool
     {
-        $is_user_screen = $list_screen instanceof ListScreen\User;
-        $is_post_screen = in_array($list_screen->get_post_type(), $this->get_post_types());
+        // TODO HPOS order table
+        $is_user_screen = $table_screen instanceof TableScreen\User;
+        $is_post_screen = $table_screen instanceof PostType
+                          && in_array(
+                              $table_screen->get_post_type(),
+                              $this->get_post_types()
+                          );
 
         return $is_user_screen || $is_post_screen;
     }

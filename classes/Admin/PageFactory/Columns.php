@@ -94,9 +94,13 @@ class Columns implements PageFactoryInterface
 
         $list_screen = $request->get('list_screen');
 
+        if ( ! $list_screen instanceof ListScreen) {
+            throw new InvalidArgumentException('Invalid screen.');
+        }
+
         $this->set_preference(
             $table_screen->get_key(),
-            $list_screen instanceof ListScreen && $list_screen->has_id() ? $list_screen->get_id() : null
+            $list_screen->has_id() ? $list_screen->get_id() : null
         );
 
         return new Page\Columns(

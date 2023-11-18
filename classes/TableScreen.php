@@ -40,11 +40,7 @@ abstract class TableScreen implements ManageValue
         return $this->screen_id;
     }
 
-    // TODO abstract?
-    public function get_heading_hookname(): string
-    {
-        return sprintf('manage_%s_columns', $this->screen_id);
-    }
+    abstract public function get_heading_hookname(): string;
 
     abstract public function get_labels(): Labels;
 
@@ -106,7 +102,10 @@ abstract class TableScreen implements ManageValue
             $columns[$column->get_type()] = $column;
         }
 
-        return $columns;
+        $columns = array_values( $columns );
+
+//  TODO check usages: do_action('ac/column_types', $this);
+        return (array) apply_filters('ac/column_types', $columns, $this);
     }
 
 }

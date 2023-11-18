@@ -80,7 +80,7 @@ abstract class Integration
     /**
      * Determines when the placeholder column is shown for a particular list screen.
      */
-    public function show_placeholder(ListScreen $list_screen): bool
+    public function show_placeholder(TableScreen $table_screen): bool
     {
         return true;
     }

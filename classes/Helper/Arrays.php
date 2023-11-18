@@ -144,6 +144,7 @@ class Arrays {
 	 *
 	 * @return array
 	 */
+    // TODO remove
 	public function insert( $array, $insert, $position ) {
 		$new = [];
 		foreach ( $array as $key => $value ) {

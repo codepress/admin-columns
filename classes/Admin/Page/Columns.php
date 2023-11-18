@@ -52,7 +52,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         Menu $menu,
         Renderable $head,
         TableScreen $table_screen,
-        ListScreen $list_screen = null
+        ListScreen $list_screen
     ) {
         $this->location = $location;
         $this->default_columns_repository = $default_columns_repository;
@@ -156,36 +156,33 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
         $classes = [];
 
-        if ($this->list_screen) {
-            if ($this->list_screen->get_settings()) {
-                $classes[] = 'stored';
-            }
-
-            if ($this->get_list_screen_id()->is_active()) {
-                $classes[] = 'show-list-screen-id';
-            }
-
-            if ($this->get_list_screen_type()->is_active()) {
-                $classes[] = 'show-list-screen-type';
-            }
+        if ($this->list_screen->get_settings()) {
+            $classes[] = 'stored';
         }
 
-        $list_id = $this->list_screen && $this->list_screen->has_id()
+        if ($this->get_list_screen_id()->is_active()) {
+            $classes[] = 'show-list-screen-id';
+        }
+
+        if ($this->get_list_screen_type()->is_active()) {
+            $classes[] = 'show-list-screen-type';
+        }
+
+        $list_id = $this->list_screen->has_id()
             ? (string)$this->list_screen->get_id()
             : '';
 
         ob_start();
         ?>
 		<h1 class="screen-reader-text"><?= __('Columns', 'codepress-admin-columns'); ?></h1>
-		<div class="ac-admin <?= esc_attr(implode(' ', $classes)); ?>" data-type="<?= esc_attr(
+		<div class="ac-admin <?= esc_attr(implode(' ', $classes)) ?>" data-type="<?= esc_attr(
             (string)$this->table_screen->get_key()
         ); ?>">
 			<div class="ac-admin__header">
 
                 <?= $this->menu->render(
                     (string)$this->table_screen->get_key(),
-                    // TODO add list_id arg to URL?
-                    (string)$this->table_screen->get_url()
+                    (string)$this->list_screen->get_table_url()
                 ) ?>
 
                 <?php
@@ -196,7 +193,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
 				<div class="ac-admin__sidebar">
                     <?php
-                    if ($this->list_screen && ! $this->list_screen->is_read_only()) : ?>
+                    if ( ! $this->list_screen->is_read_only()) : ?>
 
                         <?php
 
@@ -283,30 +280,27 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
                 $classes = [];
 
-                if ($this->list_screen) {
-                    if ($this->list_screen->is_read_only()) {
-                        $classes[] = 'disabled';
-                    }
+                if ($this->list_screen->is_read_only()) {
+                    $classes[] = 'disabled';
+                }
 
-                    if ($this->get_column_id()->is_active()) {
-                        $classes[] = 'show-column-id';
-                    }
+                if ($this->get_column_id()->is_active()) {
+                    $classes[] = 'show-column-id';
+                }
 
-                    if ($this->get_column_type()->is_active()) {
-                        $classes[] = 'show-column-type';
-                    }
+                if ($this->get_column_type()->is_active()) {
+                    $classes[] = 'show-column-type';
                 }
 
                 $columns = new View([
                     'class'          => implode(' ', $classes),
                     'list_key'       => (string)$this->table_screen->get_key(),
                     'list_id'        => $list_id,
-                    'is_disabled'    => $this->list_screen && $this->list_screen->is_read_only(),
-                    'title'          => $this->list_screen ? $this->list_screen->get_title() : '',
-                    'columns'        => $this->list_screen ? $this->list_screen->get_columns() : [],
+                    'is_disabled'    => $this->list_screen->is_read_only(),
+                    'title'          => $this->list_screen->get_title(),
+                    'columns'        => $this->list_screen->get_columns(),
                     'column_types'   => $this->table_screen->get_columns(),
-                    // TODO
-                    'show_actions'   => ! $this->list_screen || ! $this->list_screen->is_read_only(),
+                    'show_actions'   => ! $this->list_screen->is_read_only(),
                     'show_clear_all' => apply_filters('ac/enable_clear_columns_button', false),
                 ]);
 

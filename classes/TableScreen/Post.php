@@ -66,6 +66,11 @@ class Post extends TableScreen implements PostType, ListTable
         return '#the-list';
     }
 
+    public function get_heading_hookname(): string
+    {
+        return sprintf('manage_%s_columns', $this->screen_id);
+    }
+
     public function get_url(): Uri
     {
         return new Url\ListTable\Post($this->post_type->name);

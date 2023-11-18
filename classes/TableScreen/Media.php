@@ -74,6 +74,11 @@ class Media extends TableScreen implements ListTable, PostType
         );
     }
 
+    public function get_heading_hookname(): string
+    {
+        return sprintf('manage_%s_columns', $this->screen_id);
+    }
+
     protected function get_columns_fqn(): array
     {
         $columns = [

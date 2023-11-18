@@ -11,7 +11,6 @@ use AC\Asset\Location\Absolute;
 use AC\Asset\Script\Localize\Translation;
 use AC\Controller\RestoreSettingsRequest;
 use AC\Entity\Plugin;
-use AC\ListScreenFactory\Aggregate;
 use AC\ListScreenFactory\BaseFactory;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
@@ -34,17 +33,10 @@ class AdminColumns
 
         Container::set_container($container);
 
-        // TODO add more
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\Post::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\Comment::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\Media::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\User::class));
-
-        // TODO remove
-        //        ListScreenFactory\Aggregatxe::add($container->get(ListScreenFactory\UserFactory::class));
-        //        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\CommentFactory::class));
-        //        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\PostFactory::class));
-        //        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\MediaFactory::class));
 
         $page_handler = new PageRequestHandler();
         $page_handler->add('columns', $container->get(PageFactory\Columns::class))

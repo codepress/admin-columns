@@ -4,7 +4,6 @@ namespace AC\Controller;
 
 use AC\Asset\Location\Absolute;
 use AC\ColumnSize;
-use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Request;
@@ -19,8 +18,6 @@ class TableListScreenSetter implements Registerable
 
     private $location;
 
-    private $list_screen_factory;
-
     private $preference;
 
     private $primary_column_factory;
@@ -31,12 +28,10 @@ class TableListScreenSetter implements Registerable
         Storage $storage,
         Absolute $location,
         TableScreenFactory $table_screen_factory,
-        ListScreenFactory $list_screen_factory,
         Table\LayoutPreference $preference,
         Table\PrimaryColumnFactory $primary_column_factory
     ) {
         $this->storage = $storage;
-        $this->list_screen_factory = $list_screen_factory;
         $this->location = $location;
         $this->preference = $preference;
         $this->primary_column_factory = $primary_column_factory;

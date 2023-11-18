@@ -20,6 +20,9 @@ class Type extends Column
      */
     private $type;
 
+    /**
+     * @var Column[]
+     */
     private $column_types;
 
     public function __construct(AC\Column $column, array $column_types)
@@ -78,9 +81,9 @@ class Type extends Column
      *
      * @return string
      */
-    private function get_clean_label(AC\Column $column)
+    private function get_clean_label(AC\Column $column):string
     {
-        $label = (string)$column->get_label();
+        $label = $column->get_label();
 
         if (strip_tags($label) === '') {
             $label = ucfirst(str_replace('_', ' ', $column->get_type()));
@@ -107,6 +110,8 @@ class Type extends Column
             $this->column_types,
             $this->column
         );
+
+        $columns = [];
 
         // get columns and sort them
         foreach ($column_types as $column) {

@@ -5,7 +5,6 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 use AC;
 use AC\Registerable;
 use AC\Table\TableScreens;
-use AC\Type\ListKey;
 
 class MediaLibraryAssistant implements Registerable {
 

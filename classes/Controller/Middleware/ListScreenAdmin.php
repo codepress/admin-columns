@@ -3,7 +3,6 @@
 namespace AC\Controller\Middleware;
 
 use AC\Admin\Preference;
-use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;

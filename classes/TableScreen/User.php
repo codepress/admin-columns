@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AC\TableScreen;
 
 use AC;
-use AC\ColumnRepository;
 use AC\Column;
+use AC\ColumnRepository;
 use AC\MetaType;
 use AC\Table;
 use AC\TableScreen;
@@ -58,6 +58,11 @@ class User extends TableScreen implements AC\ListScreen\ListTable
     public function get_url(): Uri
     {
         return new Url\ListTable('users.php');
+    }
+
+    public function get_heading_hookname(): string
+    {
+        return sprintf('manage_%s_columns', $this->screen_id);
     }
 
     public function get_labels(): Labels

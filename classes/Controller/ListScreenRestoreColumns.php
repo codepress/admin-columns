@@ -48,7 +48,6 @@ class ListScreenRestoreColumns implements Registerable
                         return;
                     }
 
-                    // TODO add default columns...
                     $list_screen->set_settings([]);
                     $this->repository->save($list_screen);
 

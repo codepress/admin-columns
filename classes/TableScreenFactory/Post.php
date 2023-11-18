@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\TableScreenFactory;
 
+use AC\Exception\InvalidListScreenException;
 use AC\PostTypeRepository;
 use AC\TableScreen;
 use AC\TableScreenFactory;
@@ -50,6 +51,10 @@ class Post implements TableScreenFactory
 
     public function create(ListKey $key): TableScreen
     {
+        if ( ! $this->can_create($key)) {
+            throw InvalidListScreenException::from_invalid_key($key);
+        }
+
         return $this->create_by_post_type(get_post_type_object((string)$key));
     }
 

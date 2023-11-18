@@ -3,11 +3,12 @@
 namespace AC\Integration;
 
 use AC\Integration;
-use AC\ListScreen;
 use AC\Screen;
+use AC\TableScreen;
 use AC\Type\Url\Site;
 use ACA;
 
+// TODO move to GF add-on
 final class GravityForms extends Integration
 {
 
@@ -46,9 +47,10 @@ final class GravityForms extends Integration
         return 'forms_page_gf_entries' === $screen->get_id();
     }
 
-    public function show_placeholder(ListScreen $list_screen): bool
+    public function show_placeholder(TableScreen $table_screen): bool
     {
-        return $list_screen instanceof ACA\GravityForms\ListScreen\Entry;
+        // TODO
+        return $table_screen instanceof ACA\GravityForms\ListScreen\Entry;
     }
 
 }

@@ -9,6 +9,8 @@ class ColumnFactory
 
     private $table_screen;
 
+    private $column_types;
+
     public function __construct(TableScreen $table_screen)
     {
         $this->table_screen = $table_screen;
@@ -38,29 +40,33 @@ class ColumnFactory
 
         $column->set_meta_type((string)$this->table_screen->get_meta_type());
 
-        // TODO do_action('ac/list_screen/column_created', $column, $this);
+        do_action('ac/list_screen/column_created', $column, $this);
 
         return $column;
     }
 
+    private function get_column_types(): array
+    {
+        if (null === $this->column_types) {
+            $this->column_types = $this->table_screen->get_columns();
+        }
+
+        return $this->column_types;
+    }
+
     private function get_column(string $type, array $settings): ?Column
     {
-        $column_types = $this->table_screen->get_columns();
-
-        // TODO do_action('ac/column_types', $this);
-
-        foreach ($column_types as $column) {
-            $column = clone $column;
-
+        foreach ($this->get_column_types() as $column) {
             if ($column->get_type() !== $type) {
                 continue;
             }
 
+            $column = clone $column;
+
             $column->set_options($settings);
 
             if ($column->is_original()) {
-
-                if ( isset($settings['label'])) {
+                if (isset($settings['label'])) {
                     $column->set_label($settings['label']);
                 }
 

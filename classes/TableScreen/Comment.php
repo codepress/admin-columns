@@ -24,6 +24,11 @@ class Comment extends TableScreen implements AC\ListScreen\ListTable
         parent::__construct($key, $screen_id, false);
     }
 
+    public function get_heading_hookname(): string
+    {
+        return sprintf('manage_%s_columns', $this->screen_id);
+    }
+
     public function manage_value(ColumnRepository $column_repository): AC\Table\ManageValue
     {
         return new Table\ManageValue\Comment($column_repository);
