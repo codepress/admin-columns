@@ -6,7 +6,7 @@ namespace AC\Setting\Input;
 
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
-use AC\Setting\OptionCollectionFactory\OnOffOptionCollection;
+use AC\Setting\OptionCollectionFactory\ToggleOptionCollection;
 
 final class Multiple implements Input
 {
@@ -36,7 +36,7 @@ final class Multiple implements Input
 
     public static function create_toggle(): self
     {
-        return new self('toggle', false, (new OnOffOptionCollection())->create());
+        return new self('toggle', false, (new ToggleOptionCollection())->create());
     }
 
     public static function create_checkbox(OptionCollection $options): self

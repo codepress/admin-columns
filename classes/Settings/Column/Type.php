@@ -16,7 +16,7 @@ class Type extends Column implements AC\Setting\Option
         $this->name = 'type';
         $this->label = __('Type', 'codepress-admin-columns');
         $this->input = AC\Setting\Input\Multiple::create_select();
-        $this->options = (new AC\Setting\OptionCollectionFactory\OnOffOptionCollection())->create();
+        $this->options = (new AC\Setting\OptionCollectionFactory\ToggleOptionCollection())->create();
 
         parent::__construct($column);
     }
