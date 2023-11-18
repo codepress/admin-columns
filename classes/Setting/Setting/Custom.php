@@ -9,6 +9,7 @@ use AC\Setting\Input;
 use AC\Setting\Setting;
 use AC\Setting\SettingTrait;
 
+// TODO David think about name, also towards Recursive or CustomRecursive?
 class Custom implements Setting
 {
 
