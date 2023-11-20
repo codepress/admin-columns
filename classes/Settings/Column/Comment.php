@@ -33,7 +33,7 @@ class Comment extends Settings\Column implements Recursive
     public function __construct(Column $column)
     {
         $this->name = 'comment';
-        $this->input = Input\Multiple::create_select(
+        $this->input = Input\Option\Multiple::create_select(
             OptionCollection::from_array([
                 self::PROPERTY_COMMENT      => __('Comment'),
                 self::PROPERTY_ID           => __('ID'),

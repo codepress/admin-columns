@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use AC\Setting\Input\Option;
+use AC\Setting\Input\Single;
+
 final class Encoder
 {
 
@@ -38,11 +41,19 @@ final class Encoder
             ],
         ];
 
-        if ($input instanceof Input\Multiple) {
+        if ($input instanceof Single && $input->has_default()) {
+            $encoded['input']['default'] = $input->get_default();
+        }
+
+        if ($input instanceof Option) {
             $encoded['input']['options'] = $this->encode_options($input->get_options());
 
-            if ($input->is_multiple()) {
+            if ($input instanceof Option\Multiple) {
                 $encoded['input']['multiple'] = true;
+
+                if ($input->has_defaults()) {
+                    $encoded['input']['defaults'] = $input->get_defaults();
+                }
             }
         }
 

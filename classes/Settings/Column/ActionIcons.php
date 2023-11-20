@@ -3,8 +3,6 @@
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\OptionCollection;
-use AC\Setting\Type\Option;
 use AC\Settings\Column;
 
 class ActionIcons extends Column
@@ -16,7 +14,7 @@ class ActionIcons extends Column
     {
         $this->name = 'use_icons';
         $this->label = __('Use icons?', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Multiple::create_toggle();
+        $this->input = AC\Setting\Input\Option\Multiple::create_toggle();
 
         parent::__construct($column);
     }
