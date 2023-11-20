@@ -9,7 +9,7 @@ trait SettingTrait
 
     private $name;
 
-    private $label = '';
+    protected $label = '';
 
     private $description = '';
 
@@ -18,7 +18,7 @@ trait SettingTrait
     /**
      * @var ConditionCollection
      */
-    private $conditions;
+    protected $conditions;
 
     public function get_name(): string
     {

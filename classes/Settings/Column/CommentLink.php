@@ -4,6 +4,8 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Setting\ConditionCollection;
+use AC\Setting\Input;
+use AC\Setting\OptionCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
 
@@ -15,11 +17,20 @@ class CommentLink extends Settings\Column
 
     use SettingTrait;
 
-    public function __construct(AC\Column $column, ConditionCollection $conditions = null )
+    public function __construct(AC\Column $column, ConditionCollection $conditions = null)
     {
         $this->name = 'comment_link_to';
-
-        parent::__construct($column, $conditions );
+        $this->input = Input\Multiple::create_select(
+            OptionCollection::from_values(
+                array_keys([
+                    ''             => __('None'),
+                    'view_comment' => __('View Comment', 'codepress-admin-columns'),
+                    'edit_comment' => __('Edit Comment', 'codepress-admin-columns'),
+                ])
+            )
+        );
+        
+        parent::__construct($column, $conditions);
     }
 
     //	/**

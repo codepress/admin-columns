@@ -13,7 +13,7 @@
 
 	onMount( () => {
 		let options = [];
-		Object.keys( config.options ).forEach( k => {
+/*		Object.keys( config.options ).forEach( k => {
 			for ( const [ key, value ] of Object.entries( config.options[ k ].options ) ) {
 				options.push( {
 					group : config.options[ k ].title,
@@ -21,7 +21,7 @@
 					label : value
 				} );
 			}
-		} )
+		} )*/
 		collection = options
 	} )
 

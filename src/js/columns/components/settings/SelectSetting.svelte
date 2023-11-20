@@ -5,6 +5,7 @@
     import {SvelteSelectItem} from "../../../types/select";
 
     export let config: AC.Column.Settings.SelectSetting;
+    export let data: any;
     export let value: string | undefined | number;
 
     let selectValue: SvelteSelectItem;
@@ -27,16 +28,17 @@
     const groupBy = (item: SvelteSelectItem) => item.group;
 </script>
 
-<ColumnSetting label={config.label}>
-    <Select
-            --list-max-height="400px"
-            class="-acui"
-            clearable={false}
-            items={options}
-            showChevron
-            value={selectValue}
-            {groupBy}
-            on:change={ changeValue }>
 
-    </Select>
+<ColumnSetting label={config.label} children={config.children ?? []} bind:data={data}>
+	<Select
+			--list-max-height="400px"
+			class="-acui"
+			clearable={false}
+			items={options}
+			showChevron
+			value={selectValue}
+			{groupBy}
+			on:change={ changeValue }>
+
+	</Select>
 </ColumnSetting>

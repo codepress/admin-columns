@@ -39,7 +39,11 @@ declare namespace AC.Column.Settings {
     type ColumnSetting = AbstractColumnSetting;
     type SettingOption = { value: string, label: string, group: string | null }
 
-    interface AbstractColumnSetting<Type = string, Name = null> {
+    type ColumnConditionOperator = '===';
+    type ColumnCondition = { setting: string, value: string, operator: ColumnConditionOperator }
+    type ColumnConditions = ColumnCondition[]
+
+    interface AbstractColumnSetting<Type = string, Name = string> {
         name: Name
         label: string
         description: string
@@ -47,6 +51,8 @@ declare namespace AC.Column.Settings {
             type: Type
         }
         default?: any
+        children?: ColumnSettingCollection
+        conditions?: ColumnConditions
     }
 
     type LabelSetting = AbstractColumnSetting<'label'>;

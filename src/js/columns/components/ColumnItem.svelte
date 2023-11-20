@@ -6,9 +6,10 @@
     import {createEventDispatcher, onMount} from "svelte";
     import {ColumnTypesUtils} from "../utils/column-types";
     import HeaderToggle from "./settings/HeaderToggle.svelte";
+    import ColumnSettings from "./ColumnSettings.svelte";
 
     export let data: any;
-    export let config: AC.Vars.Column.Settings.ColumnSettingCollection = [];
+    export let config: AC.Column.Settings.ColumnSettingCollection = [];
 
     const dispatch = createEventDispatcher();
     const originalsColumns = ColumnTypesUtils.getOriginalColumnTypes();
@@ -82,16 +83,10 @@
 
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
-			{#each config as setting}
-				<svelte:component
-						this={getComponent(setting.input.type)}
-						bind:data={data}
-						bind:value={data[setting.name]}
-						bind:columnConfig={config}
-						config={setting}>
-
-				</svelte:component>
-			{/each}
+			<ColumnSettings
+					bind:data={data}
+					bind:settings={config}
+			/>
 		</div>
 	{/if}
 </div>

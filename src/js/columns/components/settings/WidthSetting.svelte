@@ -4,11 +4,10 @@
 	import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
 
 	export let data:any;
-	export let config: AC.Vars.Column.Settings.WidthSetting;
+	export let config: AC.Column.Settings.WidthSetting;
 
-	const keyUnit = config.children[1].name;
-    const keyWidth = config.children[0].name;
-
+    const keyWidth = config.name;
+    const keyUnit = config.children[0].name;
 
 	const changeUnit = () => {
 		switch ( data[ keyUnit ] ) {

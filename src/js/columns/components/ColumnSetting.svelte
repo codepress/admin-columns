@@ -1,27 +1,22 @@
 <script lang="ts">
-	export let label: string;
+    import ColumnSettings from "./ColumnSettings.svelte";
+
+    export let label: string;
+    export let children: AC.Column.Settings.ColumnSetting[] = []
+	export let data: any;
 </script>
 <style>
-	.setting {
-		display: flex;
-		align-items: center;
-	}
-	.label {
-		width: 200px;
-		font-weight: bold;
-		padding: 10px 30px;
-	}
-	.value {
-		padding: 10px 10px;
-		flex-grow: 1;
-		max-width: 500px;
-	}
-</style>
-<div class="setting">
-	<div class="label">{label}</div>
-	<div class="value">
-	<slot>
 
-	</slot>
+
+</style>
+<div class="acp-column-setting">
+	<div class="acp-column-setting__label">{label}</div>
+	<div class="acp-column-setting__value">
+		<slot>
+
+		</slot>
 	</div>
 </div>
+{#if children.length > 0}
+	<ColumnSettings bind:data={data} settings={children}></ColumnSettings>
+{/if}

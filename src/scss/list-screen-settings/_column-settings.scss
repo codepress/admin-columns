@@ -1,0 +1,16 @@
+.acp-column-setting {
+	display: flex;
+	align-items: center;
+}
+
+.acp-column-setting__label {
+	width: 200px;
+	font-weight: bold;
+	padding: 10px 30px;
+}
+
+.acp-column-setting__value {
+	padding: 10px 10px;
+	flex-grow: 1;
+	max-width: 500px;
+}
