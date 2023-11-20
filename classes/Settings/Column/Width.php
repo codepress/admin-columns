@@ -35,7 +35,7 @@ class Width extends Settings\Column implements Recursive
                 $this->name . '_unit',
                 '',
                 '',
-                Input\Option\Multiple::create_radio(
+                Input\Option\Single::create_radio(
                     OptionCollection::from_array([
                         '%',
                         'px',
