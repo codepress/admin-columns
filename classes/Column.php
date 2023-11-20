@@ -270,6 +270,9 @@ class Column
      */
     public function get_setting($id)
     {
+        // TODO David, reimplement
+        return null;
+
         return $this->get_settings()->get($id);
     }
 
@@ -319,6 +322,7 @@ class Column
             // TODO Stefan test settings
             $settings[] = new Settings\Column\ActionIcons($this);
             $settings[] = new Settings\Column\AttachmentDisplay($this);
+            $settings[] = new Settings\Column\Comment($this);
 
             foreach ($settings as $setting) {
                 $this->add_setting($setting);

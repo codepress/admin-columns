@@ -22,19 +22,19 @@ class Comment extends Settings\Column implements Recursive
     use SettingTrait;
     use RecursiveTrait;
 
-    const NAME = 'comment';
+    public const NAME = 'comment';
 
-    const PROPERTY_COMMENT = 'comment';
-    const PROPERTY_DATE = 'date';
-    const PROPERTY_ID = 'id';
-    const PROPERTY_AUTHOR = 'author';
-    const PROPERTY_AUTHOR_EMAIL = 'author_email';
+    public const PROPERTY_COMMENT = 'comment';
+    public const PROPERTY_DATE = 'date';
+    public const PROPERTY_ID = 'id';
+    public const PROPERTY_AUTHOR = 'author';
+    public const PROPERTY_AUTHOR_EMAIL = 'author_email';
 
     public function __construct(Column $column)
     {
         $this->name = 'comment';
         $this->input = Input\Multiple::create_select(
-            new OptionCollection([
+            OptionCollection::from_array([
                 self::PROPERTY_COMMENT      => __('Comment'),
                 self::PROPERTY_ID           => __('ID'),
                 self::PROPERTY_AUTHOR       => __('Author'),
