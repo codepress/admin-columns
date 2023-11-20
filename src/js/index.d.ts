@@ -46,6 +46,7 @@ declare namespace AC.Column.Settings {
         input: {
             type: Type
         }
+        default?: any
     }
 
     type LabelSetting = AbstractColumnSetting<'label'>;

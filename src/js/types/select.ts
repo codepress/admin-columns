@@ -21,7 +21,7 @@ export type AcRemoteSelectValues = Array<AcRemoteSelectValue | AcRemoteSelectGro
 export interface SvelteSelectItem {
     value: string | number
     label: string
-    group?: string
+    group?: string|null
 }
 
 export interface SvelteSelectValueItem extends SvelteSelectItem {

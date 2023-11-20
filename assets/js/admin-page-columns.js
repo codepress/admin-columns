@@ -3588,27 +3588,18 @@ __webpack_require__.r(__webpack_exports__);
 function create_default_slot(ctx) {
   let select;
   let div;
-  let updating_justValue;
   let current;
-  function select_justValue_binding(value) {
-    /*select_justValue_binding*/ctx[6](value);
-  }
-  let select_props = {
-    class: "-acui",
-    showChevron: true,
-    items: /*collection*/ctx[2],
-    value: /*value*/ctx[0],
-    clearable: false,
-    groupBy: /*groupBy*/ctx[5]
-  };
-  if ( /*selectValue*/ctx[3] !== void 0) {
-    select_props.justValue = /*selectValue*/ctx[3];
-  }
   select = new svelte_select__WEBPACK_IMPORTED_MODULE_3__["default"]({
-    props: select_props
+    props: {
+      class: "-acui",
+      clearable: false,
+      items: /*options*/ctx[2],
+      showChevron: true,
+      value: /*selectValue*/ctx[1],
+      groupBy: /*groupBy*/ctx[4]
+    }
   });
-  svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(select, 'justValue', select_justValue_binding));
-  select.$on("change", /*changeValue*/ctx[4]);
+  select.$on("change", /*changeValue*/ctx[3]);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -3623,13 +3614,8 @@ function create_default_slot(ctx) {
     },
     p(ctx, dirty) {
       const select_changes = {};
-      if (dirty & /*collection*/4) select_changes.items = /*collection*/ctx[2];
-      if (dirty & /*value*/1) select_changes.value = /*value*/ctx[0];
-      if (!updating_justValue && dirty & /*selectValue*/8) {
-        updating_justValue = true;
-        select_changes.justValue = /*selectValue*/ctx[3];
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_justValue = false);
-      }
+      if (dirty & /*options*/4) select_changes.items = /*options*/ctx[2];
+      if (dirty & /*selectValue*/2) select_changes.value = /*selectValue*/ctx[1];
       select.$set(select_changes);
     },
     i(local) {
@@ -3652,7 +3638,7 @@ function create_fragment(ctx) {
   let current;
   columnsetting = new _ColumnSetting_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: {
-      label: /*config*/ctx[1].label,
+      label: /*config*/ctx[0].label,
       $$slots: {
         default: [create_default_slot]
       },
@@ -3671,8 +3657,8 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const columnsetting_changes = {};
-      if (dirty & /*config*/2) columnsetting_changes.label = /*config*/ctx[1].label;
-      if (dirty & /*$$scope, collection, value, selectValue*/141) {
+      if (dirty & /*config*/1) columnsetting_changes.label = /*config*/ctx[0].label;
+      if (dirty & /*$$scope, options, selectValue*/70) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
@@ -3701,31 +3687,31 @@ function instance($$self, $$props, $$invalidate) {
   let {
     value
   } = $$props;
-  let collection = [];
   let selectValue;
+  let options = [];
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onMount)(() => {
-    $$invalidate(2, collection = config.input.options);
+    $$invalidate(2, options = config.input.options);
+    if (typeof value === 'undefined') {
+      $$invalidate(1, selectValue = config.input.options[0]);
+      $$invalidate(5, value = config.input.options[0].value);
+    }
   });
-  const changeValue = d => {
-    $$invalidate(0, value = selectValue);
+  const changeValue = e => {
+    $$invalidate(5, value = e.detail.value);
   };
   const groupBy = item => item.group;
-  function select_justValue_binding(value) {
-    selectValue = value;
-    $$invalidate(3, selectValue);
-  }
   $$self.$$set = $$props => {
-    if ('config' in $$props) $$invalidate(1, config = $$props.config);
-    if ('value' in $$props) $$invalidate(0, value = $$props.value);
+    if ('config' in $$props) $$invalidate(0, config = $$props.config);
+    if ('value' in $$props) $$invalidate(5, value = $$props.value);
   };
-  return [value, config, collection, selectValue, changeValue, groupBy, select_justValue_binding];
+  return [config, selectValue, options, changeValue, groupBy, value];
 }
 class SelectSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      config: 1,
-      value: 0
+      config: 0,
+      value: 5
     });
   }
 }

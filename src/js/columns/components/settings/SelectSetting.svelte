@@ -1,38 +1,42 @@
 <script lang="ts">
-	import ColumnSetting from "../ColumnSetting.svelte";
-	import Select from "svelte-select"
-	import {onMount} from "svelte";
+    import ColumnSetting from "../ColumnSetting.svelte";
+    import Select from "svelte-select"
+    import {onMount} from "svelte";
+    import {SvelteSelectItem} from "../../../types/select";
 
-	export let config: AC.Column.Settings.SelectSetting;
-	export let value: string;
+    export let config: AC.Column.Settings.SelectSetting;
+    export let value: string | undefined | number;
 
-	let collection: AC.Column.Settings.SettingOption[] = [];
-	let selectValue: string;
+    let selectValue: SvelteSelectItem;
+    let options: AC.Column.Settings.SettingOption[] = [];
 
-	onMount( () => {
-		collection = config.input.options
-	} )
+    onMount(() => {
+        options = config.input.options;
 
-	const changeValue = ( d ) => {
-		value = selectValue;
-	}
+        if (typeof value === 'undefined') {
+            selectValue = config.input.options[0]
+            value = config.input.options[0].value;
+        }
 
-	const groupBy = ( item ) => item.group;
+    })
+
+    const changeValue = (e: CustomEvent<SvelteSelectItem>) => {
+        value = e.detail.value;
+    }
+
+    const groupBy = (item: SvelteSelectItem) => item.group;
 </script>
 
 <ColumnSetting label={config.label}>
+    <Select
+            --list-max-height="400px"
+            class="-acui"
+            clearable={false}
+            items={options}
+            showChevron
+            value={selectValue}
+            {groupBy}
+            on:change={ changeValue }>
 
-		<Select
-				--list-max-height="400px"
-				class="-acui"
-				showChevron
-				items={collection}
-				value={value}
-				clearable={false}
-				{groupBy}
-				on:change={ changeValue }
-				bind:justValue={selectValue}>
-
-		</Select>
-
+    </Select>
 </ColumnSetting>
