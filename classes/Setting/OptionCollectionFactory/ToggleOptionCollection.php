@@ -6,16 +6,15 @@ namespace AC\Setting\OptionCollectionFactory;
 
 use AC\Setting\OptionCollection;
 use AC\Setting\OptionCollectionFactory;
-use AC\Setting\Type\Option;
 
 final class ToggleOptionCollection implements OptionCollectionFactory
 {
 
     public function create(): OptionCollection
     {
-        return new OptionCollection([
-            Option::from_value('on'),
-            Option::from_value('off'),
+        return OptionCollection::from_values([
+            'on',
+            'off',
         ]);
     }
 

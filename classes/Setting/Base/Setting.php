@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Setting;
+namespace AC\Setting\Base;
 
+use AC;
 use AC\Setting\ConditionCollection;
 use AC\Setting\Input;
-use AC\Setting\Setting;
 use AC\Setting\SettingTrait;
 
-// TODO David think about name, also towards Recursive or CustomRecursive?
-class Custom implements Setting
+class Setting implements AC\Setting\Setting
 {
 
     use SettingTrait;

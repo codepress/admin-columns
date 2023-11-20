@@ -5,18 +5,15 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Settings\Column;
 
-class Type extends Column implements AC\Setting\Option
+class Type extends Column
 {
 
-    use AC\Setting\OptionTrait;
     use AC\Setting\SettingTrait;
 
     public function __construct(AC\Column $column)
     {
         $this->name = 'type';
         $this->label = __('Type', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Multiple::create_select();
-        $this->options = (new AC\Setting\OptionCollectionFactory\ToggleOptionCollection())->create();
 
         parent::__construct($column);
     }

@@ -3,15 +3,13 @@
 namespace AC\Settings\Column;
 
 use AC\Column;
+use AC\Setting\Base;
 use AC\Setting\Input;
-use AC\Setting\Multiple;
 use AC\Setting\OptionCollection;
 use AC\Setting\Recursive;
 use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
-use AC\Setting\Single;
-use AC\Setting\Type\Option;
 use AC\Settings;
 
 class Width extends Settings\Column implements Recursive
@@ -32,14 +30,16 @@ class Width extends Settings\Column implements Recursive
     public function get_children(): SettingCollection
     {
         $settings = [
-            Single::create('width'),
-            Multiple::create(
-                'width_unit',
-                new OptionCollection([
-                    Option::from_value('%'),
-                    Option::from_value('px'),
-                ]),
-                Input\Multiple::create_radio()
+            new Base\Setting(
+                $this->name . '_unit',
+                '',
+                '',
+                Input\Multiple::create_radio(
+                    OptionCollection::from_values([
+                        '%',
+                        'px',
+                    ])
+                )
             ),
         ];
 

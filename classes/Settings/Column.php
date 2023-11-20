@@ -4,16 +4,18 @@ namespace AC\Settings;
 
 use AC;
 use AC\Form\Element;
+use AC\Setting\ConditionCollection;
 use AC\View;
 
-// TODO David make single and multiple column?
 abstract class Column implements AC\Setting\Setting
 {
+    use AC\Setting\SettingTrait;
 
     protected $column;
 
-    public function __construct( AC\Column $column ) {
+    public function __construct( AC\Column $column, ConditionCollection $conditions = null ) {
         //$this->column = $column;
+        $this->conditions = $conditions;
     }
 
 //    /**

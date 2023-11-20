@@ -12,9 +12,20 @@ final class OptionCollection implements Iterator
 
     private $data = [];
 
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         array_map([$this, 'add'], $data);
+    }
+
+    public static function from_values(array $data): self
+    {
+        $self = new self();
+
+        foreach ($data as $value) {
+            $self->add(Option::from_value($value));
+        }
+
+        return $self;
     }
 
     public function add(Option $item): void

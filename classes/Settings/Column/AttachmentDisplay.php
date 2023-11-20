@@ -7,30 +7,25 @@ use AC\Setting\OptionCollection;
 use AC\Setting\Type\Option;
 use AC\Settings;
 
-class AttachmentDisplay extends Settings\Column implements AC\Setting\Option
+class AttachmentDisplay extends Settings\Column
 {
 
     //implements Settings\FormatValue {
 
-    use AC\Setting\OptionTrait;
     use AC\Setting\SettingTrait;
 
     public function __construct(AC\Column $column)
     {
         $this->name = 'attachment_display';
         $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Multiple::create_select();
-        $this->options = $this->get_display_options();
+        $this->input = AC\Setting\Input\Multiple::create_select(
+            new OptionCollection([
+                new Option(__('Thumbnails', 'codepress-admin-columns'), 'thumbnail'),
+                new Option(__('Count', 'codepress-admin-columns'), 'count'),
+            ])
+        );
 
         parent::__construct($column);
-    }
-
-    private function get_display_options(): AC\Setting\OptionCollection
-    {
-        return new OptionCollection([
-            new Option(__('Thumbnails', 'codepress-admin-columns'), 'thumbnail'),
-            new Option(__('Count', 'codepress-admin-columns'), 'count'),
-        ]);
     }
 
     //	private $attachment_display;

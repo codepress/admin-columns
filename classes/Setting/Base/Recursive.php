@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Setting;
+namespace AC\Setting\Base;
 
-use AC\Setting;
+use AC;
 use AC\Setting\ConditionCollection;
+use AC\Setting\Input;
 use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
 
-class Recursive implements Setting\Recursive
+class Recursive implements AC\Setting\Recursive
 {
 
     use SettingTrait;
@@ -34,7 +35,7 @@ class Recursive implements Setting\Recursive
         $this->label = $label;
         $this->description = $description;
         $this->conditions = $conditions;
-        $this->input = new Custom($name);
+        $this->input = new Input\Custom($name);
     }
 
     public function get_children(): SettingCollection

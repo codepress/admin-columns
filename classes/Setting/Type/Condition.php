@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Setting\Type;
 
-use AC\Setting\Setting;
-
 final class Condition
 {
 
@@ -17,14 +15,14 @@ final class Condition
 
     private $operator;
 
-    public function __construct(Setting $setting, string $value, string $operator)
+    public function __construct(string $setting, string $value, string $operator)
     {
         $this->setting = $setting;
         $this->value = $value;
         $this->operator = $operator;
     }
 
-    public function get_setting(): Setting
+    public function get_setting(): string
     {
         return $this->setting;
     }
