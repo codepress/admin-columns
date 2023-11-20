@@ -18,7 +18,7 @@ abstract class Recursive extends Column implements AC\Setting\Recursive
     public function __construct(AC\Column $column, string $name, OptionCollection $options)
     {
         if (null === $this->input) {
-            $this->input = AC\Setting\Input\Multiple::create_select($options);
+            $this->input = AC\Setting\Input\Option\Multiple::create_select($options);
         }
 
         $this->name = $name;

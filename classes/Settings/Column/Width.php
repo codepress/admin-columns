@@ -30,15 +30,16 @@ class Width extends Settings\Column implements Recursive
     public function get_children(): SettingCollection
     {
         $settings = [
+            new Base\Setting($this->name),
             new Base\Setting(
                 $this->name . '_unit',
                 '',
                 '',
-                Input\Multiple::create_radio(
-                    OptionCollection::from_values([
+                Input\Option\Multiple::create_radio(
+                    OptionCollection::from_array([
                         '%',
                         'px',
-                    ])
+                    ], false)
                 )
             ),
         ];

@@ -19,7 +19,7 @@ abstract class Multiple extends Column implements Option
     public function __construct(AC\Column $column, string $name, OptionCollection $options)
     {
         if (null === $this->input) {
-            $this->input = AC\Setting\Input\Multiple::create_select();
+            $this->input = AC\Setting\Input\Option\Multiple::create_select();
         }
 
         $this->options = $options;

@@ -12,10 +12,10 @@ final class ToggleOptionCollection implements OptionCollectionFactory
 
     public function create(): OptionCollection
     {
-        return OptionCollection::from_values([
+        return OptionCollection::from_array([
             'on',
             'off',
-        ]);
+        ], false);
     }
 
 }

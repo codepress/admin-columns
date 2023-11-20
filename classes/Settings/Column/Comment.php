@@ -33,17 +33,16 @@ class Comment extends Settings\Column implements Recursive
     public function __construct(Column $column)
     {
         $this->name = 'comment';
+
         $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = Input\Multiple::create_select(
-            OptionCollection::from_values(
-                array_keys([
-                    self::PROPERTY_COMMENT      => __('Comment'),
-                    self::PROPERTY_ID           => __('ID'),
-                    self::PROPERTY_AUTHOR       => __('Author'),
-                    self::PROPERTY_AUTHOR_EMAIL => __('Author Email', 'codepress-admin-column'),
-                    self::PROPERTY_DATE         => __('Date'),
-                ])
-            )
+        $this->input = Input\Option\Multiple::create_select(
+            OptionCollection::from_array([
+                self::PROPERTY_COMMENT      => __('Comment'),
+                self::PROPERTY_ID           => __('ID'),
+                self::PROPERTY_AUTHOR       => __('Author'),
+                self::PROPERTY_AUTHOR_EMAIL => __('Author Email', 'codepress-admin-column'),
+                self::PROPERTY_DATE         => __('Date'),
+            ])
         );
 
         parent::__construct($column);
