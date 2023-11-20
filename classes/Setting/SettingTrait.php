@@ -42,7 +42,7 @@ trait SettingTrait
 
     public function has_conditions(): bool
     {
-        return $this->conditions->count() > 0;
+        return $this->conditions !== null;
     }
 
     public function get_conditions(): ConditionCollection
