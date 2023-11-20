@@ -270,6 +270,9 @@ class Column
      */
     public function get_setting($id)
     {
+        // TODO David, reimplement
+        return null;
+
         return $this->get_settings()->get($id);
     }
 
