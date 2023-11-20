@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+// TODO David remove?
 class Multiple implements Setting, Option
 {
 

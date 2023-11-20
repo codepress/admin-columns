@@ -8,7 +8,7 @@ use AC\Setting\OptionCollection;
 use AC\Setting\OptionCollectionFactory;
 use AC\Setting\Type\Option;
 
-final class OnOffOptionCollection implements OptionCollectionFactory
+final class ToggleOptionCollection implements OptionCollectionFactory
 {
 
     public function create(): OptionCollection
