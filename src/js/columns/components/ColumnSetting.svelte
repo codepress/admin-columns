@@ -3,7 +3,7 @@
 
     export let label: string;
     export let children: AC.Column.Settings.ColumnSetting[] = []
-	export let data: any;
+	export let data: any = {};
 </script>
 <style>
 

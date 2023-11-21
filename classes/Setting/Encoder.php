@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use AC\Setting\Input\Number;
 use AC\Setting\Input\Option;
 use AC\Setting\Input\Single;
 
@@ -55,6 +56,12 @@ final class Encoder
                     $encoded['input']['defaults'] = $input->get_defaults();
                 }
             }
+        }
+
+        if ($input instanceof Number) {
+            $encoded['input']['min'] = $input->get_min();
+            $encoded['input']['max'] = $input->get_max();
+            $encoded['input']['step'] = $input->get_step();
         }
 
         if ($setting instanceof Recursive) {

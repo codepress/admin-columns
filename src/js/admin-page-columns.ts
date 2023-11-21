@@ -18,6 +18,7 @@ import WidthSetting from "./columns/components/settings/WidthSetting.svelte";
 import TypeSetting from "./columns/components/settings/TypeSetting.svelte";
 import ToggleSetting from "./columns/components/settings/ToggleSetting.svelte";
 import TextSetting from "./columns/components/settings/TextSetting.svelte";
+import NumberSetting from "./columns/components/settings/Number.svelte";
 import SelectSetting from "./columns/components/settings/SelectSetting.svelte";
 import ColumnsPage from "./columns/components/ColumnsPage.svelte";
 import {currentListId, currentListKey} from "./columns/store/current-list-screen";
@@ -74,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     registerSettingType('type', TypeSetting)
     registerSettingType('toggle', ToggleSetting)
     registerSettingType('text', TextSetting)
+    registerSettingType('number', NumberSetting)
     registerSettingType('select', SelectSetting)
 
     currentListId.set(config.list_screen_id)

@@ -20,16 +20,17 @@ class CommentLink extends Settings\Column
     public function __construct(AC\Column $column, ConditionCollection $conditions = null)
     {
         $this->name = 'comment_link_to';
-        $this->input = Input\Multiple::create_select(
-            OptionCollection::from_values(
-                array_keys([
+        $this->label = __('Link To', 'codepress-admin-columns');
+        $this->input = Input\Option\Multiple::create_select(
+            OptionCollection::from_array(
+                [
                     ''             => __('None'),
                     'view_comment' => __('View Comment', 'codepress-admin-columns'),
                     'edit_comment' => __('Edit Comment', 'codepress-admin-columns'),
-                ])
+                ]
             )
         );
-        
+
         parent::__construct($column, $conditions);
     }
 

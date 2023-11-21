@@ -1,14 +1,16 @@
 <script lang="ts">
     import ColumnSetting from "../ColumnSetting.svelte";
     import Select from "svelte-select"
-    import {onMount} from "svelte";
+    import {createEventDispatcher, onDestroy, onMount} from "svelte";
     import {SvelteSelectItem} from "../../../types/select";
 
     export let config: AC.Column.Settings.SelectSetting;
     export let data: any;
     export let value: string | undefined | number;
 
-    let selectValue: SvelteSelectItem;
+    const dispatch = createEventDispatcher();
+
+    let selectValue: SvelteSelectItem|null;
     let options: AC.Column.Settings.SettingOption[] = [];
 
     onMount(() => {
@@ -17,9 +19,15 @@
         if (typeof value === 'undefined') {
             selectValue = config.input.options[0]
             value = config.input.options[0].value;
-        }
+        } else {
+            selectValue = config.input.options.find( o => o.value === value ) ?? null;
+		}
 
     })
+
+    onDestroy(() => {
+        dispatch('destroy', config);
+    });
 
     const changeValue = (e: CustomEvent<SvelteSelectItem>) => {
         value = e.detail.value;

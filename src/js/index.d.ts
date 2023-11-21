@@ -49,6 +49,7 @@ declare namespace AC.Column.Settings {
         description: string
         input: {
             type: Type
+            default?: any
         }
         default?: any
         children?: ColumnSettingCollection
@@ -58,6 +59,21 @@ declare namespace AC.Column.Settings {
     type LabelSetting = AbstractColumnSetting<'label'>;
     type TextSetting = AbstractColumnSetting<'text'>;
 
+    interface NumberSettings extends AbstractColumnSetting {
+        input: {
+            type: 'number'
+            default: string
+            min: string|null
+            max: string|null
+            step: string
+        }
+    }
+    interface SelectSetting extends AbstractColumnSetting {
+        input: {
+            type: 'select'
+            options: SettingOption[]
+        }
+    }
     interface SelectSetting extends AbstractColumnSetting {
         input: {
             type: 'select'

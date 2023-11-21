@@ -22,11 +22,11 @@ final class OptionCollection implements Iterator
         $self = new self();
 
         foreach ($options as $key => $value) {
-            if ( ! $associative ) {
+            if ( ! $associative) {
                 $key = $value;
             }
 
-            $self->add(new Option( $key, $value ));
+            $self->add(new Option($value, $key));
         }
 
         return $self;

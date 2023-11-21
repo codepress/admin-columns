@@ -50,14 +50,20 @@ class Comment extends Settings\Column implements Recursive
 
     public function get_children(): SettingCollection
     {
-        $conditions = new ConditionCollection();
-        $condition = new Condition($this->name, self::PROPERTY_ID, Condition::EQUALS);
-        $conditions->add($condition);
-
         return new SettingCollection([
-            new Settings\Column\CommentLink($this->column, $conditions),
+            new Settings\Column\CommentLink(
+                $this->column,
+                new ConditionCollection([
+                    new Condition($this->name, self::PROPERTY_ID, Condition::EQUALS),
+                ])
+            ),
             //new Settings\Column\Date($this->column),
-            //new Settings\Column\StringLimit($this->column),
+            new Settings\Column\StringLimit(
+                $this->column,
+                new ConditionCollection([
+                    new Condition($this->name, self::PROPERTY_COMMENT, Condition::EQUALS),
+                ])
+            ),
         ]);
     }
 

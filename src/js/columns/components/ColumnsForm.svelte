@@ -13,7 +13,7 @@
     import {tick} from "svelte";
 
     export let data: ListScreenData;
-    export let config: { [key:string]: AC.Vars.Column.Settings.ColumnSettingCollection};
+    export let config: { [key: string]: AC.Vars.Column.Settings.ColumnSettingCollection };
 
     const columnTypes = ColumnTypesUtils.getColumnTypes();
 
@@ -26,6 +26,7 @@
 
         getColumnSettings('post', column_type).then(d => {
             const columnLabel = ColumnTypesUtils.getColumnType(column_type)?.label;
+            config[name] = d.data.data.columns.settings;
 
             data['columns'][name] = {
                 name: name,
