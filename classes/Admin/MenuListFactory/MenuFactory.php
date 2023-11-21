@@ -7,7 +7,7 @@ namespace AC\Admin\MenuListFactory;
 use AC\Admin\MenuListFactory;
 use AC\Admin\MenuListItems;
 use AC\Admin\Type\MenuListItem;
-use AC\Table\TableScreensInterface;
+use AC\Table\TableScreensFactoryInterface;
 use AC\TableScreen;
 
 class MenuFactory implements MenuListFactory
@@ -15,7 +15,7 @@ class MenuFactory implements MenuListFactory
 
     private $table_screens_factory;
 
-    public function __construct(TableScreensInterface $factory)
+    public function __construct(TableScreensFactoryInterface $factory)
     {
         $this->table_screens_factory = $factory;
     }

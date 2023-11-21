@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace AC\TableScreen;
 
 use AC;
-use AC\Column;
-use AC\ColumnRepository;
+use AC\ListScreen;
 use AC\ListScreen\ListTable;
 use AC\MetaType;
 use AC\PostType;
@@ -21,14 +20,14 @@ use AC\WpListTableFactory;
 class Media extends TableScreen implements ListTable, PostType
 {
 
-    public function __construct(ListKey $key)
+    public function __construct(array $columns)
     {
-        parent::__construct($key, 'upload', false);
+        parent::__construct(new ListKey('wp-media'), 'upload', $columns);
     }
 
-    public function manage_value(ColumnRepository $column_repository): AC\Table\ManageValue
+    public function manage_value(ListScreen $list_screen): AC\Table\ManageValue
     {
-        return new Table\ManageValue\Media($column_repository);
+        return new Table\ManageValue\Media($list_screen);
     }
 
     public function list_table(): AC\ListTable
@@ -77,52 +76,6 @@ class Media extends TableScreen implements ListTable, PostType
     public function get_heading_hookname(): string
     {
         return sprintf('manage_%s_columns', $this->screen_id);
-    }
-
-    protected function get_columns_fqn(): array
-    {
-        $columns = [
-            Column\CustomField::class,
-            Column\Actions::class,
-            Column\Post\TitleRaw::class,
-            Column\Post\Slug::class,
-            Column\Post\TitleRaw::class,
-            Column\Media\Album::class,
-            Column\Media\AlternateText::class,
-            Column\Media\Artist::class,
-            Column\Media\Author::class,
-            Column\Media\AuthorName::class,
-            Column\Media\AvailableSizes::class,
-            Column\Media\Caption::class,
-            Column\Media\Date::class,
-            Column\Media\Description::class,
-            Column\Media\Dimensions::class,
-            Column\Media\FileMetaAudio::class,
-            Column\Media\FileMetaVideo::class,
-            Column\Media\FileName::class,
-            Column\Media\FileSize::class,
-            Column\Media\FullPath::class,
-            Column\Media\Height::class,
-            Column\Media\ID::class,
-            Column\Media\Image::class,
-            Column\Media\MediaParent::class,
-            Column\Media\Menu::class,
-            Column\Media\MimeType::class,
-            Column\Media\Preview::class,
-            Column\Media\Taxonomy::class,
-            Column\Media\Title::class,
-            Column\Media\VideoPlayer::class,
-            Column\Media\Width::class,
-        ];
-
-        if (post_type_supports($this->get_post_type(), 'comments')) {
-            $columns[] = Column\Media\Comments::class;
-        }
-        if (function_exists('exif_read_data')) {
-            $columns[] = Column\Media\ExifData::class;
-        }
-
-        return $columns;
     }
 
 }

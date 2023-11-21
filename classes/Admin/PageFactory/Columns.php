@@ -15,7 +15,7 @@ use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
-use AC\Table\TableScreensInterface;
+use AC\Table\TableScreensFactoryInterface;
 use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
@@ -37,11 +37,11 @@ class Columns implements PageFactoryInterface
 
     private $menu_list_factory;
 
-    private $list_keys_factory;
-
     private $table_screen_factory;
 
     private $preference;
+
+    private $table_screens_factory;
 
     public function __construct(
         Storage $storage,
@@ -52,7 +52,7 @@ class Columns implements PageFactoryInterface
         Admin\UninitializedScreens $uninitialized_screens,
         Admin\MenuListFactory $menu_list_factory,
         Preference\ListScreen $preference,
-        TableScreensInterface $list_keys_factory
+        TableScreensFactoryInterface $table_screens_factory
     ) {
         $this->storage = $storage;
         $this->location = $location;
@@ -60,9 +60,9 @@ class Columns implements PageFactoryInterface
         $this->list_screen_factory = $list_screen_factory;
         $this->uninitialized_screens = $uninitialized_screens;
         $this->menu_list_factory = $menu_list_factory;
-        $this->list_keys_factory = $list_keys_factory;
         $this->table_screen_factory = $table_screen_factory;
         $this->preference = $preference;
+        $this->table_screens_factory = $table_screens_factory;
     }
 
     public function create()
@@ -73,7 +73,7 @@ class Columns implements PageFactoryInterface
             new Middleware\TableScreenAdmin(
                 new Preference\ListScreen(),
                 $this->table_screen_factory,
-                $this->list_keys_factory
+                $this->table_screens_factory
             )
         );
 

@@ -8,12 +8,12 @@ use AC\PostTypeRepository;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
 
-class TableScreensFactory implements TableScreensInterface
+class TableScreensFactory implements TableScreensFactoryInterface
 {
 
-    private $post_type_repository;
+    protected $post_type_repository;
 
-    private $table_screen_factory;
+    protected $table_screen_factory;
 
     public function __construct(PostTypeRepository $post_type_repository, TableScreenFactory $table_screen_factory)
     {

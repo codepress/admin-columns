@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace AC\TableScreen;
 
 use AC;
-use AC\Column;
-use AC\ColumnRepository;
+use AC\ListScreen;
 use AC\MetaType;
 use AC\Table;
 use AC\TableScreen;
@@ -19,9 +18,9 @@ use AC\WpListTableFactory;
 class Comment extends TableScreen implements AC\ListScreen\ListTable
 {
 
-    public function __construct(ListKey $key, string $screen_id)
+    public function __construct(array $columns)
     {
-        parent::__construct($key, $screen_id, false);
+        parent::__construct(new ListKey('wp-comments'), 'edit-comments', $columns);
     }
 
     public function get_heading_hookname(): string
@@ -29,9 +28,9 @@ class Comment extends TableScreen implements AC\ListScreen\ListTable
         return sprintf('manage_%s_columns', $this->screen_id);
     }
 
-    public function manage_value(ColumnRepository $column_repository): AC\Table\ManageValue
+    public function manage_value(ListScreen $list_screen): AC\Table\ManageValue
     {
-        return new Table\ManageValue\Comment($column_repository);
+        return new Table\ManageValue\Comment($list_screen);
     }
 
     public function list_table(): AC\ListTable
@@ -70,34 +69,6 @@ class Comment extends TableScreen implements AC\ListScreen\ListTable
             __('Comments'),
             __('Comment')
         );
-    }
-
-    protected function get_columns_fqn(): array
-    {
-        return [
-            AC\Column\CustomField::class,
-            AC\Column\Actions::class,
-            Column\Comment\Agent::class,
-            Column\Comment\Approved::class,
-            Column\Comment\Author::class,
-            Column\Comment\AuthorAvatar::class,
-            Column\Comment\AuthorEmail::class,
-            Column\Comment\AuthorIP::class,
-            Column\Comment\AuthorName::class,
-            Column\Comment\AuthorUrl::class,
-            Column\Comment\Comment::class,
-            Column\Comment\Date::class,
-            Column\Comment\DateGmt::class,
-            Column\Comment\Excerpt::class,
-            Column\Comment\ID::class,
-            Column\Comment\Post::class,
-            Column\Comment\ReplyTo::class,
-            Column\Comment\Response::class,
-            Column\Comment\Status::class,
-            Column\Comment\Type::class,
-            Column\Comment\User::class,
-            Column\Comment\WordCount::class,
-        ];
     }
 
 }

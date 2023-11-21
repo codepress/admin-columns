@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AC\ListScreen;
 
 use AC;
-use AC\ColumnRepository;
+use AC\ListScreen;
 
 interface ManageValue
 {
 
-    public function manage_value(ColumnRepository $column_repository): AC\Table\ManageValue;
+    public function manage_value(ListScreen $list_screen): AC\Table\ManageValue;
 
 }

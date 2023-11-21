@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
-use AC\ColumnRepository;
+use AC\ListScreen;
 use AC\Table\ManageValue;
 use DomainException;
 
@@ -13,9 +13,9 @@ class Taxonomy extends ManageValue
 
     private $taxonomy;
 
-    public function __construct(string $taxonomy, ColumnRepository $column_repository)
+    public function __construct(string $taxonomy, ListScreen $list_screen)
     {
-        parent::__construct($column_repository);
+        parent::__construct($list_screen);
 
         $this->taxonomy = $taxonomy;
     }

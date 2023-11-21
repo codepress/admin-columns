@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace AC\TableScreen;
 
 use AC;
-use AC\Column;
-use AC\ColumnRepository;
+use AC\ListScreen;
 use AC\MetaType;
 use AC\Table;
 use AC\TableScreen;
@@ -19,14 +18,14 @@ use AC\WpListTableFactory;
 class User extends TableScreen implements AC\ListScreen\ListTable
 {
 
-    public function __construct(ListKey $key)
+    public function __construct(array $columns)
     {
-        parent::__construct($key, 'users', false);
+        parent::__construct(new ListKey('wp-users'), 'users', $columns);
     }
 
-    public function manage_value(ColumnRepository $column_repository): AC\Table\ManageValue
+    public function manage_value(ListScreen $list_screen): AC\Table\ManageValue
     {
-        return new Table\ManageValue\User($column_repository);
+        return new Table\ManageValue\User($list_screen);
     }
 
     public function list_table(): AC\ListTable
@@ -51,7 +50,6 @@ class User extends TableScreen implements AC\ListScreen\ListTable
 
     public function get_attr_id(): string
     {
-        // TODO
         return '#the-list';
     }
 
@@ -71,36 +69,6 @@ class User extends TableScreen implements AC\ListScreen\ListTable
             __('Users'),
             __('User')
         );
-    }
-
-    protected function get_columns_fqn(): array
-    {
-        return [
-            Column\CustomField::class,
-            Column\Actions::class,
-            Column\User\CommentCount::class,
-            Column\User\Description::class,
-            Column\User\DisplayName::class,
-            Column\User\Email::class,
-            Column\User\FirstName::class,
-            Column\User\FirstPost::class,
-            Column\User\FullName::class,
-            Column\User\ID::class,
-            Column\User\LastName::class,
-            Column\User\LastPost::class,
-            Column\User\Login::class,
-            Column\User\Name::class,
-            Column\User\Nicename::class,
-            Column\User\Nickname::class,
-            Column\User\PostCount::class,
-            Column\User\Posts::class,
-            Column\User\Registered::class,
-            Column\User\RichEditing::class,
-            Column\User\Role::class,
-            Column\User\ShowToolbar::class,
-            Column\User\Url::class,
-            Column\User\Username::class,
-        ];
     }
 
 }

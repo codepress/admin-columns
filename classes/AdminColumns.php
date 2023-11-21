@@ -18,6 +18,7 @@ use AC\ListScreenRepository\Types;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\ListScreenDelete;
+use AC\Table\TableScreensFactoryInterface;
 use AC\Table\TableScreensInterface;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
@@ -33,10 +34,10 @@ class AdminColumns
 
         Container::set_container($container);
 
-        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\Post::class));
-        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\Comment::class));
-        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\Media::class));
-        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\User::class));
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\PostFactory::class));
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\CommentFactory::class));
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\MediaFactory::class));
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\UserFactory::class));
 
         $page_handler = new PageRequestHandler();
         $page_handler->add('columns', $container->get(PageFactory\Columns::class))
@@ -145,7 +146,7 @@ class AdminColumns
             ): SetupFactory\AdminColumns {
                 return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
             },
-            TableScreensInterface::class            => autowire(Table\TableScreensFactory::class),
+            TableScreensFactoryInterface::class     => autowire(Table\TableScreensFactory::class),
             Service\CommonAssets::class             => autowire()
                 ->constructorParameter(1, DI\get('translations.global')),
             Admin\Colors\Shipped\ColorParser::class => autowire()

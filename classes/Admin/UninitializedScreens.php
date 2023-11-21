@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Admin;
 
 use AC\DefaultColumnsRepository;
-use AC\Table\TableScreensInterface;
+use AC\Table\TableScreensFactoryInterface;
 use AC\TableScreen;
 
 class UninitializedScreens
@@ -13,7 +13,7 @@ class UninitializedScreens
 
     private $table_screens_factory;
 
-    public function __construct(TableScreensInterface $table_screens_factory)
+    public function __construct(TableScreensFactoryInterface $table_screens_factory)
     {
         $this->table_screens_factory = $table_screens_factory;
     }

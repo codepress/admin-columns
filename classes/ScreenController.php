@@ -32,13 +32,11 @@ class ScreenController implements Registerable
     public function register(): void
     {
         // Headings
-        add_filter($this->list_screen->get_heading_hookname(), [$this, 'add_headings'], 200);
+        add_filter($this->table_screen->get_heading_hookname(), [$this, 'add_headings'], 200);
 
         // Values
         if ($this->table_screen instanceof ManageValue) {
-            $column_repository = new ColumnRepository($this->list_screen);
-
-            $this->table_screen->manage_value($column_repository)->register();
+            $this->table_screen->manage_value($this->list_screen)->register();
         }
 
         do_action('ac/table/list_screen', $this->list_screen, $this->table_screen);

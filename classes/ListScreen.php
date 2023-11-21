@@ -165,6 +165,11 @@ class ListScreen implements PostType
         return $this->table_screen->get_group();
     }
 
+    public function get_table_screen(): TableScreen
+    {
+        return $this->table_screen;
+    }
+
     // TODO remove
     public function set_group(string $group): void
     {

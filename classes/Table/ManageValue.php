@@ -4,32 +4,33 @@ declare(strict_types=1);
 
 namespace AC\Table;
 
-use AC\Column;
 use AC\ColumnRepository;
+use AC\ListScreen;
 use AC\Registerable;
 use AC\Sanitize\Kses;
 
 abstract class ManageValue implements Registerable
 {
 
-    private $column_repository;
+    private $list_screen;
 
-    public function __construct(ColumnRepository $column_repository)
+    public function __construct(ListScreen $list_screen)
     {
-        $this->column_repository = $column_repository;
+        $this->list_screen = $list_screen;
     }
 
     public function render_cell(string $column_name, $id, string $fallback_value = null): ?string
     {
-        $column = $this->column_repository->find($column_name);
+        $column = (new ColumnRepository($this->list_screen))->find($column_name);
 
         if ( ! $column) {
             return $fallback_value;
         }
 
+        $list_id = $this->list_screen->get_id();
         $value = $column->get_value($id);
 
-        if (is_scalar($value) && apply_filters('ac/column/value/sanitize', true, $column, $id)) {
+        if (is_scalar($value) && apply_filters('ac/column/value/sanitize', true, $column, $id, $this->list_screen)) {
             $value = (new Kses())->sanitize((string)$value);
         }
 
@@ -38,15 +39,6 @@ abstract class ManageValue implements Registerable
             return $fallback_value;
         }
 
-        /**
-         * Column display value
-         *
-         * @param string $value  Column display value
-         * @param int    $id     Object ID
-         * @param Column $column Column object
-         *
-         * @since 3.0
-         */
-        return (string)apply_filters('ac/column/value', $value, $id, $column);
+        return (string)apply_filters('ac/column/value', $value, $id, $column, $this->list_screen);
     }
 }

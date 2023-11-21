@@ -2,6 +2,8 @@
 
 namespace AC;
 
+use AC\Type\ListKey;
+
 class Column
 {
 
@@ -50,6 +52,8 @@ class Column
     protected $post_type = '';
 
     protected $taxonomy = '';
+
+    protected $list_key = '';
 
     public function get_name(): string
     {
@@ -127,6 +131,16 @@ class Column
         $this->taxonomy = $taxonomy;
 
         return $this;
+    }
+
+    public function set_list_key(ListKey $list_key): void
+    {
+        $this->list_key = $list_key;
+    }
+
+    public function get_list_key(): ListKey
+    {
+        return $this->list_key;
     }
 
     public function get_taxonomy()
@@ -401,23 +415,22 @@ class Column
         return '&ndash;';
     }
 
-    public function get_list_screen(): ListScreen
+    /**
+     * @deprecated NEWVERSION
+     */
+    public function get_list_screen(): void
     {
-        return $this->list_screen;
+        _deprecated_function(__METHOD__, 'NEWVERSION');
     }
 
+    /**
+     * @deprecated NEWVERSION
+     */
     public function set_list_screen(ListScreen $list_screen): self
-    {
-        $this->list_screen = $list_screen;
-
-        return $this;
-    }
-
-    public function get_list_key(): string
     {
         _deprecated_function(__METHOD__, 'NEWVERSION');
 
-        return '';
+        return $this;
     }
 
 }

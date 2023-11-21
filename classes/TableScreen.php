@@ -9,6 +9,7 @@ use AC\Type\Labels;
 use AC\Type\ListKey;
 use AC\Type\Uri;
 
+// TODO make manage_value an abstract method
 abstract class TableScreen implements ManageValue
 {
 
@@ -18,11 +19,14 @@ abstract class TableScreen implements ManageValue
 
     protected $network;
 
-    public function __construct(ListKey $key, string $screen_id, bool $network)
+    protected $columns;
+
+    public function __construct(ListKey $key, string $screen_id, array $columns, bool $network = false)
     {
         $this->key = $key;
         $this->screen_id = $screen_id;
         $this->network = $network;
+        $this->columns = $columns;
     }
 
     public function get_key(): ListKey
@@ -57,8 +61,6 @@ abstract class TableScreen implements ManageValue
 
     abstract public function get_group(): string;
 
-    abstract protected function get_columns_fqn(): array;
-
     /**
      * @return Column[]
      */
@@ -80,7 +82,7 @@ abstract class TableScreen implements ManageValue
                                             ->set_original(true);
         }
 
-        foreach ($this->get_columns_fqn() as $fqn_name) {
+        foreach ($this->columns as $fqn_name) {
             /**
              * @var Column $columnn
              */
@@ -102,10 +104,10 @@ abstract class TableScreen implements ManageValue
             $columns[$column->get_type()] = $column;
         }
 
-        $columns = array_values( $columns );
+        $columns = array_values($columns);
 
-//  TODO check usages: do_action('ac/column_types', $this);
-        return (array) apply_filters('ac/column_types', $columns, $this);
+        //  TODO check usages: do_action('ac/column_types', $this);
+        return (array)apply_filters('ac/column_types', $columns, $this);
     }
 
 }

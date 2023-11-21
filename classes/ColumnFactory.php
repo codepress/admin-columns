@@ -39,6 +39,7 @@ class ColumnFactory
         }
 
         $column->set_meta_type((string)$this->table_screen->get_meta_type());
+        $column->set_list_key($this->table_screen->get_key());
 
         do_action('ac/list_screen/column_created', $column, $this);
 

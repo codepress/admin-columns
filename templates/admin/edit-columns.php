@@ -9,9 +9,9 @@ if ( ! defined('ABSPATH')) {
 }
 
 /**
- * @var Column[]        $columns
- * @var Column[]        $column_types
- * @var ListScreen|null $list_screen
+ * @var Column[]   $columns
+ * @var Column[]   $column_types
+ * @var ListScreen $list_screen
  */
 $columns = $this->columns;
 $column_types = $this->column_types;
@@ -22,15 +22,14 @@ $list_screen = $this->list_screen;
 <div class="ac-admin__main">
 
     <?php
-    if ($list_screen) :
-        do_action('ac/settings/notice', $this->list_screen);
-    endif;
+
+    do_action('ac/settings/notice', $list_screen);
     ?>
 
 	<div id="listscreen_settings" data-form="listscreen" class="<?= $this->is_disabled ? '-disabled' : ''; ?>">
 
         <?php
-        do_action('ac/settings/before_columns', $this->list_screen); ?>
+        do_action('ac/settings/before_columns', $list_screen); ?>
 
 		<div class="ac-boxes <?= esc_attr($this->class); ?>">
 			<div class="ac-columns">

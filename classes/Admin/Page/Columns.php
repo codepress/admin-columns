@@ -300,6 +300,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                     'title'          => $this->list_screen->get_title(),
                     'columns'        => $this->list_screen->get_columns(),
                     'column_types'   => $this->table_screen->get_columns(),
+                    'list_screen'    => $this->list_screen,
                     'show_actions'   => ! $this->list_screen->is_read_only(),
                     'show_clear_all' => apply_filters('ac/enable_clear_columns_button', false),
                 ]);

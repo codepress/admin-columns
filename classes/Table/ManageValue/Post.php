@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
-use AC\ColumnRepository;
+use AC\ListScreen;
 use AC\Table\ManageValue;
 use DomainException;
 
@@ -13,9 +13,9 @@ class Post extends ManageValue
 
     private $post_type;
 
-    public function __construct(string $post_type, ColumnRepository $column_repository)
+    public function __construct(string $post_type, ListScreen $list_screen)
     {
-        parent::__construct($column_repository);
+        parent::__construct($list_screen);
 
         $this->post_type = $post_type;
     }
