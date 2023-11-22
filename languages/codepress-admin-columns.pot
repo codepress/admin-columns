@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2023-11-13 09:29+0000\n"
+"POT-Creation-Date: 2023-11-21 15:10+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -64,11 +64,11 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
-#: classes/Admin/AdminLoader.php:107, classes/Settings/Column/AttachmentDisplay.php:42, classes/Settings/Column/Comment.php:113, classes/Settings/Column/Post.php:109, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:60, classes/Settings/Column/VideoDisplay.php:26
+#: classes/Admin/AdminLoader.php:107, classes/Settings/Column/AttachmentDisplay.php:20, classes/Settings/Column/Comment.php:37, classes/Settings/Column/Post.php:109, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:60, classes/Settings/Column/VideoDisplay.php:26
 msgid "Display"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:40, classes/Admin/Page/Columns.php:164
+#: classes/Admin/MenuFactory.php:40, classes/Admin/Page/Columns.php:166
 msgid "Columns"
 msgstr ""
 
@@ -352,11 +352,11 @@ msgstr ""
 msgid "More details"
 msgstr ""
 
-#: templates/admin/edit-column.php:30, classes/Settings/Column/Type.php:48
+#: templates/admin/edit-column.php:30
 msgid "Name"
 msgstr ""
 
-#: templates/admin/edit-column.php:31, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:84, classes/Settings/Column/Type.php:45, classes/Settings/Column/Type.php:54, classes/Settings/Column/Type.php:178
+#: templates/admin/edit-column.php:31, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:84, classes/Settings/Column/Type.php:17
 msgid "Type"
 msgstr ""
 
@@ -884,7 +884,7 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: classes/Admin/Asset/Columns.php:67, classes/Settings/Column/Label.php:33, classes/Settings/Column/Label.php:66
+#: classes/Admin/Asset/Columns.php:67, classes/Settings/Column/Label.php:19
 msgid "Label"
 msgstr ""
 
@@ -928,11 +928,11 @@ msgstr ""
 msgid "I'm using Admin Columns for WordPress!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:184
+#: classes/Admin/Page/Columns.php:186
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:205
+#: classes/Admin/Page/Columns.php:207
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -1174,7 +1174,7 @@ msgstr ""
 msgid "Play"
 msgstr ""
 
-#: classes/Column/Media/Width.php:17, classes/Settings/Column/FileMetaVideo.php:18, classes/Settings/Column/Image.php:41, classes/Settings/Column/Width.php:62, classes/Settings/Column/Width.php:158
+#: classes/Column/Media/Width.php:17, classes/Settings/Column/FileMetaVideo.php:18, classes/Settings/Column/Image.php:41, classes/Settings/Column/Width.php:24
 msgid "Width"
 msgstr ""
 
@@ -1370,19 +1370,15 @@ msgstr ""
 msgid "Table view %s successfully deleted."
 msgstr ""
 
-#: classes/Settings/Column/ActionIcons.php:27
+#: classes/Settings/Column/ActionIcons.php:16
 msgid "Use icons?"
 msgstr ""
 
-#: classes/Settings/Column/ActionIcons.php:28
-msgid "Use icons instead of text for displaying the actions."
-msgstr ""
-
-#: classes/Settings/Column/AttachmentDisplay.php:37
+#: classes/Settings/Column/AttachmentDisplay.php:23
 msgid "Thumbnails"
 msgstr ""
 
-#: classes/Settings/Column/AttachmentDisplay.php:38
+#: classes/Settings/Column/AttachmentDisplay.php:24
 msgid "Count"
 msgstr ""
 
@@ -1406,16 +1402,8 @@ msgstr ""
 msgid "Display Options"
 msgstr ""
 
-#: classes/Settings/Column/CharacterLimit.php:28, classes/Settings/Column/StringLimit.php:36
+#: classes/Settings/Column/CharacterLimit.php:20, classes/Settings/Column/StringLimit.php:28
 msgid "Character Limit"
-msgstr ""
-
-#: classes/Settings/Column/CharacterLimit.php:29
-msgid "Maximum number of characters"
-msgstr ""
-
-#: classes/Settings/Column/CharacterLimit.php:29, classes/Settings/Column/NumberOfItems.php:33, classes/Settings/Column/WordLimit.php:35
-msgid "Leave empty for no limit"
 msgstr ""
 
 #: classes/Settings/Column/CommentCount.php:43
@@ -1442,15 +1430,15 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: classes/Settings/Column/CommentLink.php:56, classes/Settings/Column/MediaLink.php:52, classes/Settings/Column/PostLink.php:62, classes/Settings/Column/TermLink.php:30, classes/Settings/Column/UserLink.php:69
+#: classes/Settings/Column/CommentLink.php:23, classes/Settings/Column/MediaLink.php:52, classes/Settings/Column/PostLink.php:62, classes/Settings/Column/TermLink.php:30, classes/Settings/Column/UserLink.php:69
 msgid "Link To"
 msgstr ""
 
-#: classes/Settings/Column/CommentLink.php:66
+#: classes/Settings/Column/CommentLink.php:28
 msgid "View Comment"
 msgstr ""
 
-#: classes/Settings/Column/CommentLink.php:67
+#: classes/Settings/Column/CommentLink.php:29
 msgid "Edit Comment"
 msgstr ""
 
@@ -1760,10 +1748,6 @@ msgstr ""
 msgid "Custom Size"
 msgstr ""
 
-#: classes/Settings/Column/Label.php:34
-msgid "This is the name which will appear as the column header."
-msgstr ""
-
 #: classes/Settings/Column/LinkLabel.php:23
 msgid "Link Label"
 msgstr ""
@@ -1834,6 +1818,10 @@ msgstr ""
 
 #: classes/Settings/Column/NumberOfItems.php:33
 msgid "Maximum number of items"
+msgstr ""
+
+#: classes/Settings/Column/NumberOfItems.php:33
+msgid "Leave empty for no limit"
 msgstr ""
 
 #: classes/Settings/Column/Password.php:28
@@ -1938,19 +1926,15 @@ msgstr ""
 msgid "Use an icon instead of text for displaying the status."
 msgstr ""
 
-#: classes/Settings/Column/StringLimit.php:25
+#: classes/Settings/Column/StringLimit.php:23
 msgid "Text Limit"
 msgstr ""
 
-#: classes/Settings/Column/StringLimit.php:26
-msgid "Limit text to a certain number of characters or words"
-msgstr ""
-
-#: classes/Settings/Column/StringLimit.php:35
+#: classes/Settings/Column/StringLimit.php:27
 msgid "No limit"
 msgstr ""
 
-#: classes/Settings/Column/StringLimit.php:37, classes/Settings/Column/WordLimit.php:34
+#: classes/Settings/Column/StringLimit.php:29, classes/Settings/Column/WordLimit.php:20
 msgid "Word Limit"
 msgstr ""
 
@@ -1976,10 +1960,6 @@ msgstr ""
 
 #: classes/Settings/Column/Time.php:19
 msgid "WordPress Time Format"
-msgstr ""
-
-#: classes/Settings/Column/Type.php:42
-msgid "Choose a column type."
 msgstr ""
 
 #: classes/Settings/Column/User.php:90
@@ -2016,18 +1996,6 @@ msgstr ""
 
 #: classes/Settings/Column/VideoDisplay.php:22
 msgid "Pop Up"
-msgstr ""
-
-#: classes/Settings/Column/Width.php:48
-msgid "Auto"
-msgstr ""
-
-#: classes/Settings/Column/Width.php:74
-msgid "width"
-msgstr ""
-
-#: classes/Settings/Column/WordLimit.php:35
-msgid "Maximum number of words"
 msgstr ""
 
 #: classes/Settings/Column/WordsPerMinute.php:32

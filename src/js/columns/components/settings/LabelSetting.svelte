@@ -22,7 +22,7 @@
         icons.forEach(g => {
             let groupIcons: string[] = [];
             g.items.forEach(i => {
-                if (i.indexOf(searchQuery.toLowerCase()) > -1) {
+                if (i.includes(searchQuery.toLowerCase())) {
                     groupIcons.push(i)
                 }
             });
@@ -110,10 +110,12 @@
 	.acp-iconmodal-footer {
 		display: flex;
 	}
-	.acp-iconmodal-footer__buttons{
+
+	.acp-iconmodal-footer__buttons {
 		display: flex;
 		gap: 10px;
 	}
+
 	.acp-iconmodal-footer__input {
 		display: flex;
 		align-items: center;
