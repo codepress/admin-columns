@@ -80,7 +80,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     public function get_assets(): Assets
     {
-        // TODO link
         return new Assets([
             new Style(
                 'jquery-ui-lightness', $this->location->with_suffix('assets/ui-theme/jquery-ui-1.8.18.custom.css')
@@ -91,7 +90,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->location->with_suffix('assets/js/admin-page-columns.js'),
                 $this->uninitialized_screens,
                 (string)$this->table_screen->get_key(),
-                $this->list_screen && $this->list_screen->has_id() ? (string)$this->list_screen->get_id() : ''
+                $this->list_screen->has_id() ? (string)$this->list_screen->get_id() : ''
             ),
             new Style('ac-admin-page-columns-css', $this->location->with_suffix('assets/css/admin-page-columns.css')),
             new Style('ac-select2'),

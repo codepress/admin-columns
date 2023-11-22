@@ -79,7 +79,6 @@ class Column
         return $this;
     }
 
-    // TODO implement MetaDataInterface
     public function get_meta_type(): string
     {
         return $this->meta_type;

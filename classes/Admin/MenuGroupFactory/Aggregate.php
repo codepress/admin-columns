@@ -14,16 +14,16 @@ class Aggregate implements MenuGroupFactory
     /**
      * @var MenuGroupFactory[]
      */
-    private static $fatories = [];
+    private static $factories = [];
 
     public static function add(MenuGroupFactory $factory): void
     {
-        self::$fatories[] = $factory;
+        self::$factories[] = $factory;
     }
 
     public function create(TableScreen $table_screen): MenuGroup
     {
-        foreach (self::$fatories as $factory) {
+        foreach (self::$factories as $factory) {
             $group = $factory->create($table_screen);
 
             if ($group) {
