@@ -287,12 +287,7 @@ class Column
         return $this->get_options()[$key] ?? null;
     }
 
-    /**
-     * @param array $options
-     *
-     * @return $this
-     */
-    public function set_options(array $options)
+    public function set_options(array $options): self
     {
         $this->options = $options;
 
@@ -370,7 +365,6 @@ class Column
      * @param int $id
      *
      * @return string|array
-     * @since 2.0.3
      */
     public function get_raw_value($id)
     {
@@ -399,18 +393,12 @@ class Column
         return (string)$value;
     }
 
-    /**
-     * @return string
-     */
-    public function get_separator()
+    public function get_separator(): string
     {
         return (new ApplyFilter\ColumnSeparator($this))->apply_filters(', ');
     }
 
-    /**
-     * @return string
-     */
-    public function get_empty_char()
+    public function get_empty_char(): string
     {
         return '&ndash;';
     }

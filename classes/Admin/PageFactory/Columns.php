@@ -2,12 +2,12 @@
 
 namespace AC\Admin\PageFactory;
 
+use AC;
 use AC\Admin;
 use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
 use AC\Admin\Preference;
-use AC\Admin\Section;
 use AC\Asset\Location;
 use AC\Controller\Middleware;
 use AC\DefaultColumnsRepository;
@@ -15,6 +15,7 @@ use AC\ListScreen;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
+use AC\Table\TableScreens;
 use AC\Table\TableScreensFactoryInterface;
 use AC\TableScreen;
 use AC\TableScreenFactory;
@@ -107,7 +108,7 @@ class Columns implements PageFactoryInterface
             $this->location,
             new DefaultColumnsRepository($table_screen->get_key()),
             $this->uninitialized_screens->find_all_sites(),
-            new Section\Partial\Menu($this->menu_list_factory),
+            new AC\Admin\Section\Partial\Menu($this->menu_list_factory->create($this->get_table_sceens())),
             new Admin\View\Menu($this->menu_factory->create('columns')),
             $table_screen,
             $list_screen
@@ -121,6 +122,16 @@ class Columns implements PageFactoryInterface
         if ($id) {
             $this->preference->set_list_id((string)$key, (string)$id);
         }
+    }
+
+    private function get_table_sceens(): TableScreens
+    {
+        return new TableScreens(array_filter($this->table_screens_factory->create()->all(), [$this, 'is_site']));
+    }
+
+    public function is_site(TableScreen $table_screen): bool
+    {
+        return ! $table_screen->is_network();
     }
 
 }

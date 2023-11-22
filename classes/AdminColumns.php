@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Admin\MenuGroupFactory;
+use AC\Admin\MenuGroupFactory\DefaultGroups;
 use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
@@ -19,7 +21,6 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\ListScreenDelete;
 use AC\Table\TableScreensFactoryInterface;
-use AC\Table\TableScreensInterface;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
 
@@ -38,6 +39,8 @@ class AdminColumns
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\CommentFactory::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\MediaFactory::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\UserFactory::class));
+
+        MenuGroupFactory\Aggregate::add(new DefaultGroups());
 
         $page_handler = new PageRequestHandler();
         $page_handler->add('columns', $container->get(PageFactory\Columns::class))
@@ -156,7 +159,6 @@ class AdminColumns
                 ->constructorParameter(0, DI\get(PageRequestHandlers::class)),
             Admin\MenuFactoryInterface::class       => autowire(Admin\MenuFactory::class)
                 ->constructorParameter(0, admin_url('options-general.php')),
-            Admin\MenuListFactory::class            => autowire(Admin\MenuListFactory\MenuFactory::class),
             Admin\PageFactory\Settings::class       => autowire()
                 ->constructorParameter(2, defined('ACP_FILE')),
             Service\IntegrationColumns::class       => autowire()

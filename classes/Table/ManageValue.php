@@ -27,7 +27,6 @@ abstract class ManageValue implements Registerable
             return $fallback_value;
         }
 
-        $list_id = $this->list_screen->get_id();
         $value = $column->get_value($id);
 
         if (is_scalar($value) && apply_filters('ac/column/value/sanitize', true, $column, $id, $this->list_screen)) {

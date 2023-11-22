@@ -152,7 +152,7 @@ class ListScreen implements PostType
 
     public function get_query_type(): string
     {
-        return $this->table_screen->get_query_type() ?: $this->get_meta_type();
+        return $this->table_screen->get_query_type();
     }
 
     public function get_screen_id(): string
@@ -160,20 +160,9 @@ class ListScreen implements PostType
         return $this->table_screen->get_screen_id();
     }
 
-    public function get_group(): string
-    {
-        return $this->table_screen->get_group();
-    }
-
     public function get_table_screen(): TableScreen
     {
         return $this->table_screen;
-    }
-
-    // TODO remove
-    public function set_group(string $group): void
-    {
-        $this->group = $group;
     }
 
     public function get_title(): string

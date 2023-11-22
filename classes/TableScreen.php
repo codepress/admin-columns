@@ -51,42 +51,25 @@ abstract class TableScreen implements ManageValue
     abstract public function get_query_type(): string;
 
     // TODO interface
+
     abstract public function get_meta_type(): MetaType;
 
     abstract public function get_attr_id(): string;
 
     abstract public function get_url(): Uri;
 
-    // TODO move out of this scope
-
     abstract public function get_group(): string;
 
-    /**
-     * @return Column[]
-     */
     public function get_columns(): array
     {
-        $columns = [];
+        // original WP columns
+        $columns = (new DefaultColumnsRepository($this->key))->find_all();
 
-        $repo = new DefaultColumnsRepository($this->key);
-
-        // Add original WP columns
-        foreach ($repo->get() as $type => $label) {
-            if ('cb' === $type) {
-                continue;
-            }
-
-            $columns[$type] = (new Column())->set_type($type)
-                                            ->set_label($label)
-                                            ->set_group('default')
-                                            ->set_original(true);
-        }
-
-        foreach ($this->columns as $fqn_name) {
+        foreach ($this->columns as $column_fqn) {
             /**
              * @var Column $columnn
              */
-            $column = new $fqn_name();
+            $column = new $column_fqn();
 
             $original = $columns[$column->get_type()] ?? null;
 
@@ -96,7 +79,6 @@ abstract class TableScreen implements ManageValue
             }
 
             if ($original) {
-                // columns defined as 'original' do not have a label (nor a group)
                 $column->set_label($original->get_label())
                        ->set_group($original->get_group());
             }

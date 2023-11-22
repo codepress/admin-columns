@@ -44,11 +44,6 @@ class BaseFactory implements ListScreenFactory
         $list_screen->set_preferences($preferences ?: []);
         $list_screen->set_settings($columns ?: []);
         $list_screen->set_updated($date);
-
-        if ($group) {
-            $list_screen->set_group($group);
-        }
-
         $list_screen->set_columns(
             $this->get_columns($table_screen, $columns) ?: $this->get_default_columns($table_screen)
         );

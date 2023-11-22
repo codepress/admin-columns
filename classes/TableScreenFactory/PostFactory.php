@@ -85,7 +85,7 @@ class PostFactory implements TableScreenFactory
             $columns[] = Column\Post\CommentCount::class;
             $columns[] = Column\Post\PingStatus::class;
         }
-        if ($this->supports_template()) {
+        if ($this->supports_template($post_type->name)) {
             $columns[] = Column\Post\PageTemplate::class;
         }
         if (post_type_supports($post_type->name, 'title')) {
@@ -128,9 +128,9 @@ class PostFactory implements TableScreenFactory
         return new TableScreen\Post($post_type, $columns);
     }
 
-    private function supports_template(): bool
+    protected function supports_template(string $post_type): bool
     {
-        return function_exists('get_page_templates') && get_page_templates(null, $this->post_type->name);
+        return function_exists('get_page_templates') && get_page_templates(null, $post_type);
     }
 
 }

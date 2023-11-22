@@ -18,6 +18,21 @@ class UserFactory implements TableScreenFactory
         return $this->create_table_screen();
     }
 
+    public function can_create(ListKey $key): bool
+    {
+        return $key->equals(new ListKey('wp-users'));
+    }
+
+    public function create_from_wp_screen(WP_Screen $screen): TableScreen
+    {
+        return $this->create(new ListKey('wp-users'));
+    }
+
+    public function can_create_from_wp_screen(WP_Screen $screen): bool
+    {
+        return 'users' === $screen->base && 'users' === $screen->id && 'delete' !== filter_input(INPUT_GET, 'action');
+    }
+
     protected function create_table_screen(): TableScreen\User
     {
         return new TableScreen\User(
@@ -48,21 +63,6 @@ class UserFactory implements TableScreenFactory
                 Column\User\Username::class,
             ]
         );
-    }
-
-    public function can_create(ListKey $key): bool
-    {
-        return $key->equals(new ListKey('wp-users'));
-    }
-
-    public function create_from_wp_screen(WP_Screen $screen): TableScreen
-    {
-        return $this->create(new ListKey('wp-users'));
-    }
-
-    public function can_create_from_wp_screen(WP_Screen $screen): bool
-    {
-        return 'users' === $screen->base && 'users' === $screen->id && 'delete' !== filter_input(INPUT_GET, 'action');
     }
 
 }
