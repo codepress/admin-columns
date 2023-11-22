@@ -33,9 +33,11 @@
     }
 
     const destroySetting = (e: CustomEvent<AC.Column.Settings.ColumnSetting>) => {
-        if (data.hasOwnProperty(e.detail.name)) {
-            delete data[e.detail.name];
-            data = data;
+        if (!filteredSettings.find(s => s.name === e.detail.name)) {
+            if (data.hasOwnProperty(e.detail.name)) {
+                delete data[e.detail.name];
+                data = data;
+            }
         }
     }
 

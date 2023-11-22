@@ -23,7 +23,7 @@ body .ac-modal {
 		border: 1px solid #C8C8C8;
 		background: #fff;
 		position: fixed;
-		width: 650px;
+		width: var(--modalWidth,650px);
 		max-width: 90%;
 
 		&__header {

@@ -83,7 +83,6 @@
 
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
-			{JSON.stringify( data )}
 			<ColumnSettings
 					bind:data={data}
 					bind:settings={config}

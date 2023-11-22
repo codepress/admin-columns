@@ -20,7 +20,7 @@
 
 </script>
 
-<ColumnSetting label={config.label}>
+<ColumnSetting label={config.label} name="text">
 	<AcInputGroup>
 		<input type="text" bind:value={value}>
 	</AcInputGroup>

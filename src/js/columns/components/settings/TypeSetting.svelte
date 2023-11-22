@@ -37,13 +37,13 @@
 	const groupBy = ( item ) => item.group;
 </script>
 
-<ColumnSetting label={config.label}>
+<ColumnSetting label={config.label} name="type">
 	<Select class="-acui"
 			--list-max-height="400px"
 			showChevron
 			clearable={false}
 			items={collection}
-			{groupBy}
+			groupby={groupBy}
 			value={data['type']}
 			on:change={ changeValue }
 			bind:justValue={selectValue}>

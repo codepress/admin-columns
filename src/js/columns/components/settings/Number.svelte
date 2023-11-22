@@ -20,7 +20,7 @@
 
 </script>
 
-<ColumnSetting label={config.label}>
+<ColumnSetting label={config.label} name="number">
 	<AcInputGroup>
 		<input type="number" bind:value={value} step={config.input.step} min={config.input.min} max={config.input.max}>
 	</AcInputGroup>

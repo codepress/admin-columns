@@ -46,7 +46,7 @@
 		accent-color: var(--ac-link);
 	}
 </style>
-<ColumnSetting label={config.label}>
+<ColumnSetting label={config.label} name="width">
 	<div class="width-setting">
 		<div style="width: 120px;">
 			<AcInputGroup>

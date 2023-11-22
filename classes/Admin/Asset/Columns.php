@@ -100,7 +100,15 @@ class Columns extends Script
         $this->localize(
             'ac_admin_columns_i18n',
             new Script\Localize\Translation([
-
+                'global'   => [
+                    'search' => __('Search', 'codepress-admin-columns'),
+                    'select' => __('Select', 'codepress-admin-columns'),
+                ],
+                'settings' => [
+                    'label' => [
+                        'select-icon' => __('Select Icon', 'codepress-admin-columns'),
+                    ],
+                ],
             ])
         );
     }

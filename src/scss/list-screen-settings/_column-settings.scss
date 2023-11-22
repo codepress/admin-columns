@@ -1,16 +1,93 @@
 .acp-column-setting {
 	display: flex;
 	align-items: center;
+
+	&__label {
+		width: 200px;
+		font-weight: bold;
+		padding: 10px 30px;
+	}
+
+	&__value {
+		padding: 10px 10px;
+		flex-grow: 1;
+		max-width: 500px;
+	}
 }
 
-.acp-column-setting__label {
-	width: 200px;
-	font-weight: bold;
-	padding: 10px 30px;
+
+.acp-column-setting[data-setting=label] {
+	.acui-input-group-text {
+		color: #ccc;
+		transition: color .2s;
+		cursor: pointer;
+		&:hover {
+			color: #555;
+		}
+	}
+	// Modal
+	.ac-modal.-iconpicker {
+		h3 {
+			font-weight: 300;
+			margin: 30px 0 10px 0;
+			font-size: 16px;
+		}
+		.acp-iconpicker__icon {
+			cursor: pointer;
+			width: 45px;
+			height: 45px;
+			display: inline-flex;
+			align-items: center;
+			background: none;
+			border: none;
+
+			.dashicons {
+				font-size: 28px;
+			}
+
+			&:hover {
+				color: var(--ac-primary-color-hover)
+			}
+		}
+		.ac-modal__dialog__footer {
+			padding: 0;
+		}
+		.acp-iconmodal-footer {
+			display: flex;
+			&__input {
+				display: flex;
+				align-items: center;
+				flex-grow: 1;
+				padding: 10px;
+			}
+			&__selection {
+				width: 60px;
+				background: #e5e5e5;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				.dashicons {
+					font-size: 30px;
+					width: 30px;
+					height: 30px;
+				}
+			}
+			&__action {
+				padding: 10px;
+				display: flex;
+				align-items: center;
+			}
+
+
+			input[type=search] {
+				border: 1px solid #666;
+			}
+			button {
+				padding-left: 30px;
+				padding-right: 30px;
+			}
+		}
+	}
 }
 
-.acp-column-setting__value {
-	padding: 10px 10px;
-	flex-grow: 1;
-	max-width: 500px;
-}
+
