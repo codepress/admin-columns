@@ -8,6 +8,7 @@ use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
+use ACP\Expression\Specification;
 
 /**
  * @since 3.4.6
@@ -17,7 +18,7 @@ class CommentLink extends Settings\Column
 
     use SettingTrait;
 
-    public function __construct(AC\Column $column, ConditionCollection $conditions = null)
+    public function __construct(AC\Column $column, Specification $conditions = null)
     {
         $this->name = 'comment_link_to';
         $this->label = __('Link To', 'codepress-admin-columns');

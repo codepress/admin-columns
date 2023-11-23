@@ -3,15 +3,14 @@
 namespace AC\Settings\Column;
 
 use AC\Column;
-use AC\Setting\ConditionCollection;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\Recursive;
 use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
-use AC\Setting\Type\Condition;
 use AC\Settings;
+use ACP\Expression\StringComparisonSpecification;
 
 /**
  * @since 3.0.8
@@ -53,16 +52,12 @@ class Comment extends Settings\Column implements Recursive
         return new SettingCollection([
             new Settings\Column\CommentLink(
                 $this->column,
-                new ConditionCollection([
-                    new Condition($this->name, self::PROPERTY_ID, Condition::EQUALS),
-                ])
+                StringComparisonSpecification::equal(self::PROPERTY_ID)
             ),
             //new Settings\Column\Date($this->column),
             new Settings\Column\StringLimit(
                 $this->column,
-                new ConditionCollection([
-                    new Condition($this->name, self::PROPERTY_COMMENT, Condition::EQUALS),
-                ])
+                StringComparisonSpecification::equal(self::PROPERTY_COMMENT)
             ),
         ]);
     }
