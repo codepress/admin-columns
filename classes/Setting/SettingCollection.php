@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use Countable;
 use Iterator;
 
-final class SettingCollection implements Iterator
+final class SettingCollection implements Iterator, Countable
 {
 
     private $data = [];
@@ -46,4 +47,8 @@ final class SettingCollection implements Iterator
         reset($this->data);
     }
 
+    public function count(): int
+    {
+        return count($this->data);
+    }
 }

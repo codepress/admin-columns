@@ -7,11 +7,11 @@ namespace AC\Setting;
 trait RecursiveTrait
 {
 
-    public function has_children(): bool
-    {
-        return true;
-    }
-
     abstract public function get_children(): SettingCollection;
+
+    public function is_parent(): bool
+    {
+        return false;
+    }
 
 }
