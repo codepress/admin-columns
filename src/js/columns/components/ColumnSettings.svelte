@@ -22,6 +22,7 @@
 
     const checkCondition = (conditions: AC.Column.Settings.ColumnConditions) => {
         let valid = false;
+        return true;
 
         conditions.forEach((c: AC.Column.Settings.ColumnCondition) => {
             if (data[c.setting] === c.value) {

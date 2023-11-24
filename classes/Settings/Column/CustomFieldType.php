@@ -10,6 +10,7 @@ use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
+use ACP\Expression\StringComparisonSpecification;
 
 class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
 {
@@ -51,16 +52,16 @@ class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
     {
         return new SettingCollection([
             new StringLimit(
-                $this->column
-            //                new AC\Setting\ConditionCollection([
-            //                    new Condition(self::NAME, self::TYPE_TEXT, Condition::EQUALS),
-            //                ])
+                $this->column,
+                StringComparisonSpecification::equal(self::TYPE_TEXT)
             ),
             new Date(
-                $this->column
-            //                new AC\Setting\ConditionCollection([
-            //                    new Condition(self::NAME, self::TYPE_DATE, Condition::EQUALS),
-            //                ])
+                $this->column,
+                StringComparisonSpecification::equal(self::TYPE_DATE)
+            ),
+            new Image(
+                $this->column,
+                StringComparisonSpecification::equal(self::TYPE_IMAGE)
             ),
         ]);
     }

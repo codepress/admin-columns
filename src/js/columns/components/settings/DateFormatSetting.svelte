@@ -62,11 +62,12 @@
 
 <ColumnSetting label={config.label} name="date_format" top>
 	{#each options as option}
-		<AcRadio disabled bind:group={selectedOption} value={option.value}
+		<AcRadio bind:group={selectedOption}
+				value={option.value}
 				--AcuiRadioMarginBottom="5px">{option.label}</AcRadio>
 	{/each}
 	<div class="custom">
-		<AcRadio bind:group={selectedOption} value="custom" >Custom</AcRadio>
+		<AcRadio bind:group={selectedOption} value="custom">Custom</AcRadio>
 		<div class="custom-input">
 			<input type="text" bind:value={customDateFormat} on:keyup={ debounceInput } disabled={!isCustom}/>
 			<div>

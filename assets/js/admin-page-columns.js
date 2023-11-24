@@ -1395,7 +1395,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (36:0) {#each filteredSettings as setting (setting.name)}
+// (37:0) {#each filteredSettings as setting (setting.name)}
 function create_each_block(key_1, ctx) {
   let first;
   let switch_instance;
@@ -1595,6 +1595,7 @@ function instance($$self, $$props, $$invalidate) {
   };
   const checkCondition = conditions => {
     let valid = false;
+    return true;
     conditions.forEach(c => {
       if (data[c.setting] === c.value) {
         valid = true;
@@ -3567,7 +3568,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (51:2) <AcRadio disabled bind:group={selectedOption} value={option.value}     --AcuiRadioMarginBottom="5px">
+// (51:2) <AcRadio bind:group={selectedOption}     value={option.value}     --AcuiRadioMarginBottom="5px">
 function create_default_slot_2(ctx) {
   let t_value = /*option*/ctx[14].label + "";
   let t;
@@ -3599,7 +3600,6 @@ function create_each_block(ctx) {
     /*acradio_group_binding*/ctx[8](value);
   }
   let acradio_props = {
-    disabled: true,
     value: /*option*/ctx[14].value,
     $$slots: {
       default: [create_default_slot_2]
@@ -3659,7 +3659,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (55:2) <AcRadio bind:group={selectedOption} value="custom" >
+// (56:2) <AcRadio bind:group={selectedOption} value="custom">
 function create_default_slot_1(ctx) {
   let t;
   return {

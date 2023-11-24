@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AC\Setting\Base;
 
 use AC;
-use AC\Setting\ConditionCollection;
 use AC\Setting\Input;
 use AC\Setting\SettingTrait;
+use ACP\Expression\Specification;
 
 class Setting implements AC\Setting\Setting
 {
@@ -19,14 +19,14 @@ class Setting implements AC\Setting\Setting
         string $label = '',
         string $description = '',
         Input $input = null,
-        ConditionCollection $conditions = null
+        Specification $conditions = null
     ) {
         if (null === $input) {
             $input = new Input\Custom($name);
         }
 
         if (null === $conditions) {
-            $conditions = new ConditionCollection();
+            //$conditions = new Specification();
         }
 
         $this->name = $name;

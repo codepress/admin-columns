@@ -3,9 +3,9 @@
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\ConditionCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
+use ACP\Expression\Specification;
 
 class WordLimit extends Settings\Column
 {
@@ -14,7 +14,7 @@ class WordLimit extends Settings\Column
 
     use SettingTrait;
 
-    public function __construct(AC\Column $column, ConditionCollection $conditions = null)
+    public function __construct(AC\Column $column, Specification $conditions = null)
     {
         $this->name = 'word_limit';
         $this->label = __('Word Limit', 'codepress-admin-columns');
