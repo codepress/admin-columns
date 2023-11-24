@@ -14,7 +14,7 @@ use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use DateTime;
 
-class Aggregate implements ListScreenFactory
+class BaseFactory implements ListScreenFactory
 {
 
     protected $table_screen_factory;
@@ -37,50 +37,57 @@ class Aggregate implements ListScreenFactory
 
         $table_screen = $this->table_screen_factory->create($key);
 
-        // TODO
-        $date = $settings['date'] ?? new DateTime();
-
-        if (is_string($date)) {
-            $date = DateTime::createFromFormat('Y-m-d H:i:s', $date);
-        }
-
         return new ListScreen(
             new ListScreenId($settings['list_id']),
-            $this->get_columns($table_screen, $settings['columns'] ?? []) ?: $this->get_default_columns($table_screen),
-            $table_screen,
+            $settings['title'],
+            $this->get_columns($table_screen, $settings),
             $settings['preferences'] ?? [],
-            $settings['title'] ?? '',
-            $date
+            $table_screen,
+            $this->get_date($settings)
         );
     }
 
-    private function get_columns(TableScreen $table_screen, array $settings): array
+    protected function get_date(array $settings): DateTime
     {
-        $columns = [];
+        $date = $settings['date'] ?? new DateTime();
 
-        $column_factory = new ColumnFactory($table_screen);
-
-        foreach ($settings as $name => $data) {
-            $data['name'] = (string)$name;
-
-            $columns[] = $column_factory->create($data);
+        if (is_string($date)) {
+            return DateTime::createFromFormat('Y-m-d H:i:s', $date);
         }
 
-        return array_filter($columns);
+        return $date;
     }
 
-    private function get_default_columns(TableScreen $table_screen): array
+    protected function get_columns(TableScreen $table_screen, array $settings): array
     {
         $columns = [];
 
         $column_factory = new ColumnFactory($table_screen);
 
-        foreach ($table_screen->get_columns() as $column) {
-            if ($column->is_original()) {
-                $columns[] = $column_factory->create([
+        foreach ($settings['columns'] as $name => $data) {
+            $data['name'] = (string)$name;
+
+            $column = $column_factory->create($data);
+
+            if ($column) {
+                $columns[] = $column;
+            }
+        }
+
+        // use original columns when empty
+        if ( ! $columns) {
+            foreach ($table_screen->get_columns() as $column) {
+                if ( ! $column->is_original()) {
+                    continue;
+                }
+                $column = $column_factory->create([
                     'type'  => $column->get_type(),
                     'label' => $column->get_label(),
                 ]);
+
+                if ($column) {
+                    $columns[] = $column;
+                }
             }
         }
 

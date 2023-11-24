@@ -13,7 +13,7 @@ use AC\Asset\Location\Absolute;
 use AC\Asset\Script\Localize\Translation;
 use AC\Controller\RestoreSettingsRequest;
 use AC\Entity\Plugin;
-use AC\ListScreenFactory\Aggregate;
+use AC\ListScreenFactory\BaseFactory;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenRepository\Types;
@@ -139,7 +139,7 @@ class AdminColumns
             Plugin::class                           => static function (): Plugin {
                 return Plugin::create(AC_FILE, new Version(AC_VERSION));
             },
-            ListScreenFactory::class                => autowire(Aggregate::class),
+            ListScreenFactory::class                => autowire(BaseFactory::class),
             TableScreenFactory::class               => autowire(TableScreenFactory\Aggregate::class),
             Absolute::class                         => static function (Plugin $plugin): Absolute {
                 return new Absolute($plugin->get_url(), $plugin->get_dir());

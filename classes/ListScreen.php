@@ -33,10 +33,10 @@ class ListScreen implements PostType
 
     public function __construct(
         ListScreenId $id,
+        string $title,
         array $columns,
+        array $preferences,
         TableScreen $table_screen,
-        array $preferences = [],
-        string $title = '',
         DateTime $updated = null
     ) {
         if (null === $updated) {
