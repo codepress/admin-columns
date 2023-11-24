@@ -11,14 +11,22 @@ final class Custom implements Input
 
     private $type;
 
-    public function __construct(string $type)
+    private $data;
+
+    public function __construct(string $type, array $data = [])
     {
         $this->type = $type;
+        $this->data = $data;
     }
 
     public function get_type(): string
     {
         return $this->type;
+    }
+
+    public function get_data(): array
+    {
+        return $this->data;
     }
 
 }
