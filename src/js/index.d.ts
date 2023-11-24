@@ -59,21 +59,39 @@ declare namespace AC.Column.Settings {
     type LabelSetting = AbstractColumnSetting<'label'>;
     type TextSetting = AbstractColumnSetting<'text'>;
 
+    interface DateFormatSetting extends AbstractColumnSetting {
+        input: {
+            type: 'date_format'
+            default: string,
+            children: [
+                {
+                    name: 'date_format'
+                    input: {
+                        type: 'radio',
+                        options: SettingOption[]
+                    }
+                }
+            ]
+        }
+    }
+
     interface NumberSettings extends AbstractColumnSetting {
         input: {
             type: 'number'
             default: string
-            min: string|null
-            max: string|null
+            min: string | null
+            max: string | null
             step: string
         }
     }
+
     interface SelectSetting extends AbstractColumnSetting {
         input: {
             type: 'select'
             options: SettingOption[]
         }
     }
+
     interface SelectSetting extends AbstractColumnSetting {
         input: {
             type: 'select'

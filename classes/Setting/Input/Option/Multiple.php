@@ -16,7 +16,7 @@ final class Multiple implements Option
 
     private $defaults;
 
-    private function __construct(string $type, OptionCollection $options, array $defaults = [])
+    public function __construct(string $type, OptionCollection $options, array $defaults = [])
     {
         $this->type = $type;
         $this->options = $options;

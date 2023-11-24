@@ -18,6 +18,7 @@ import WidthSetting from "./columns/components/settings/WidthSetting.svelte";
 import TypeSetting from "./columns/components/settings/TypeSetting.svelte";
 import ToggleSetting from "./columns/components/settings/ToggleSetting.svelte";
 import TextSetting from "./columns/components/settings/TextSetting.svelte";
+import DateFormatSetting from "./columns/components/settings/DateFormatSetting.svelte";
 import NumberSetting from "./columns/components/settings/Number.svelte";
 import SelectSetting from "./columns/components/settings/SelectSetting.svelte";
 import ColumnsPage from "./columns/components/ColumnsPage.svelte";
@@ -77,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     registerSettingType('text', TextSetting)
     registerSettingType('number', NumberSetting)
     registerSettingType('select', SelectSetting)
+    registerSettingType('date_format', DateFormatSetting)
 
     currentListId.set(config.list_screen_id)
     currentListKey.set(config.list_key);
