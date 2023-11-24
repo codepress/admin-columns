@@ -620,6 +620,9 @@
   display: flex;
   align-items: center;
 }
+.acp-column-setting.-align-top {
+  align-items: flex-start;
+}
 .acp-column-setting__label {
   width: 200px;
   font-weight: bold;

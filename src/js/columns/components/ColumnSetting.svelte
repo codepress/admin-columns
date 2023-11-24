@@ -5,12 +5,13 @@
     export let label: string;
     export let children: AC.Column.Settings.ColumnSetting[] = []
 	export let data: any = {};
+    export let top: boolean = false;
 </script>
 <style>
 
 
 </style>
-<div class="acp-column-setting" data-setting={name}>
+<div class="acp-column-setting" data-setting={name} class:-align-top={top}>
 	<div class="acp-column-setting__label">{label}</div>
 	<div class="acp-column-setting__value">
 		<slot>

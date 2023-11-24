@@ -9,7 +9,6 @@ use AC\Setting\OptionCollection;
 use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
-use AC\Setting\Type\Condition;
 use AC\Settings;
 
 class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
@@ -52,14 +51,16 @@ class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
     {
         return new SettingCollection([
             new StringLimit(
-                $this->column, new AC\Setting\ConditionCollection([
-                    new Condition(self::NAME, self::TYPE_TEXT, Condition::EQUALS),
-                ])
+                $this->column
+            //                new AC\Setting\ConditionCollection([
+            //                    new Condition(self::NAME, self::TYPE_TEXT, Condition::EQUALS),
+            //                ])
             ),
             new Date(
-                $this->column, new AC\Setting\ConditionCollection([
-                    new Condition(self::NAME, self::TYPE_DATE, Condition::EQUALS),
-                ])
+                $this->column
+            //                new AC\Setting\ConditionCollection([
+            //                    new Condition(self::NAME, self::TYPE_DATE, Condition::EQUALS),
+            //                ])
             ),
         ]);
     }

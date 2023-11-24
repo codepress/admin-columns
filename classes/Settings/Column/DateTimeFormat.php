@@ -39,7 +39,8 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
                 '',
                 '',
                 Input\Option\Single::create_radio(
-                    OptionCollection::from_array($this->get_custom_format_options())
+                    OptionCollection::from_array($this->get_date_options()),
+                    'wp_default'
                 )
             ),
         ];
@@ -51,7 +52,7 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
     {
         $options = $this->get_custom_format_options();
 
-        $options['custom'] = __('Custom:', 'codepress-admin-columns');
+        //$options['custom'] = __('Custom:', 'codepress-admin-columns');
 
         return $options;
     }

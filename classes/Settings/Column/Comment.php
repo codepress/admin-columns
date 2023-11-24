@@ -10,7 +10,6 @@ use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
-use ACP\Expression\StringComparisonSpecification;
 
 /**
  * @since 3.0.8
@@ -52,12 +51,12 @@ class Comment extends Settings\Column implements Recursive
         return new SettingCollection([
             new Settings\Column\CommentLink(
                 $this->column,
-                StringComparisonSpecification::equal(self::PROPERTY_ID)
+                null//StringComparisonSpecification::equal(self::PROPERTY_ID)
             ),
             //new Settings\Column\Date($this->column),
             new Settings\Column\StringLimit(
                 $this->column,
-                StringComparisonSpecification::equal(self::PROPERTY_COMMENT)
+                null//StringComparisonSpecification::equal(self::PROPERTY_COMMENT)
             ),
         ]);
     }
