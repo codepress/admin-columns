@@ -1,12 +1,6 @@
-import Specification from "./specification";
-import BaseSpecification from "./base-specification";
+import AggregateSpecification from "./aggregate-specification";
 
-export default class OrSpecification extends BaseSpecification {
-
-
-    constructor(private specifications: Array<Specification>) {
-        super();
-    }
+export default class OrSpecification extends AggregateSpecification {
 
     isSatisfiedBy(value: string): boolean {
         this.specifications.forEach(specification => {

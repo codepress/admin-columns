@@ -68,7 +68,7 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
     //		];
     //	}
     //
-    //	abstract protected function get_custom_format_options();
+    	abstract protected function get_custom_format_options();
     //
     //	abstract protected function get_wp_default_format();
     //
