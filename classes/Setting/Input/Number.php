@@ -13,13 +13,18 @@ final class Number extends Single
 
     private $step;
 
-    public function __construct(string $default = null, string $min = null, string $max = null, string $step = '1')
+    public function __construct(string $min = null, string $max = null, string $step = null, string $default = null)
     {
         parent::__construct($default);
 
         $this->min = $min;
         $this->max = $max;
         $this->step = $step;
+    }
+
+    public static function create_single_step(int $min = null, int $max = null, int $default = null): self
+    {
+        return new self((string)$min, (string)$max, '1', (string)$default);
     }
 
     public function get_type(): string
@@ -41,5 +46,5 @@ final class Number extends Single
     {
         return $this->step;
     }
-    
+
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-// TODO David defaults
-// TODO David value from settings
+use ACP\Expression\Specification;
+
 interface Setting
 {
 
@@ -19,6 +19,6 @@ interface Setting
 
     public function has_conditions(): bool;
 
-    public function get_conditions(): ConditionCollection;
+    public function get_conditions(): Specification;
 
 }

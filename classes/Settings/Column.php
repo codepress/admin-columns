@@ -18,6 +18,8 @@ abstract class Column implements AC\Setting\Setting
         $this->conditions = $conditions;
     }
 
+
+
     //    /**
     //     * A (short) reference to this setting
     //     * @var string

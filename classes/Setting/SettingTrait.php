@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use ACP\Expression\Specification;
+
 trait SettingTrait
 {
 
@@ -16,7 +18,7 @@ trait SettingTrait
     private $input;
 
     /**
-     * @var ConditionCollection
+     * @var Specification
      */
     protected $conditions;
 
@@ -45,7 +47,7 @@ trait SettingTrait
         return $this->conditions !== null;
     }
 
-    public function get_conditions(): ConditionCollection
+    public function get_conditions(): Specification
     {
         return $this->conditions;
     }
