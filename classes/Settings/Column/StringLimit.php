@@ -10,6 +10,7 @@ use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
 use AC\Setting\Type\Condition;
 use AC\Settings;
+use ACP\Expression\Specification;
 
 class StringLimit extends Settings\Column implements AC\Setting\Recursive
 {
@@ -17,7 +18,7 @@ class StringLimit extends Settings\Column implements AC\Setting\Recursive
     use SettingTrait;
     use AC\Setting\RecursiveTrait;
 
-    public function __construct(AC\Column $column, ConditionCollection $conditions = null)
+    public function __construct(AC\Column $column, Specification $conditions = null)
     {
         $this->name = 'string_limit';
         $this->label = __('Text Limit', 'codepress-admin-columns');

@@ -3,7 +3,7 @@
 namespace AC\Settings;
 
 use AC;
-use AC\Setting\ConditionCollection;
+use ACP\Expression\Specification;
 
 abstract class Column implements AC\Setting\Setting
 {
@@ -12,7 +12,7 @@ abstract class Column implements AC\Setting\Setting
 
     protected $column;
 
-    public function __construct(AC\Column $column, ConditionCollection $conditions = null)
+    public function __construct(AC\Column $column, Specification $conditions = null)
     {
         $this->column = $column;
         $this->conditions = $conditions;
