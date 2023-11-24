@@ -12,6 +12,7 @@
         "target": "es6",
         "downlevelIteration": true,
         "allowJs": true,
+        "emitDecoratorMetadata":false,
         "skipLibCheck": true,
         "moduleResolution": "Node",
         "resolveJsonModule": true,

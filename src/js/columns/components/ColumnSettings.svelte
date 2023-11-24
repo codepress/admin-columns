@@ -1,6 +1,7 @@
 <script lang="ts">
 
     import {getSettingComponent} from "../helper";
+    import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
 
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
@@ -22,6 +23,9 @@
 
     const checkCondition = (conditions: AC.Column.Settings.ColumnConditions) => {
         let valid = false;
+
+        RuleSpecificationMapper.map( conditions)
+
         return true;
 
         conditions.forEach((c: AC.Column.Settings.ColumnCondition) => {

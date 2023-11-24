@@ -29,6 +29,7 @@ import {listScreenDataStore} from "./columns/store/list-screen-data";
 
 declare let AC: LocalizedAcColumnSettings
 
+
 let AcServices = initAcServices();
 AcServices.registerService('Modals', new Modals());
 
