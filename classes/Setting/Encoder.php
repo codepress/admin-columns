@@ -73,13 +73,7 @@ final class Encoder
         }
 
         if ($setting->has_conditions()) {
-            foreach ($setting->get_conditions() as $condition) {
-                $encoded['conditions'][] = [
-                    'setting'  => $condition->get_setting(),
-                    'value'    => $condition->get_value(),
-                    'operator' => $condition->get_operator(),
-                ];
-            }
+            $encoded['conditions'] = $setting->get_conditions()->get_rules($setting->get_name());
         }
 
         return $encoded;

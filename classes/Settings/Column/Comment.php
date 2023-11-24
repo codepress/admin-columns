@@ -10,6 +10,7 @@ use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
+use ACP\Expression;
 
 /**
  * @since 3.0.8
@@ -28,7 +29,7 @@ class Comment extends Settings\Column implements Recursive
     public const PROPERTY_AUTHOR = 'author';
     public const PROPERTY_AUTHOR_EMAIL = 'author_email';
 
-    public function __construct(Column $column)
+    public function __construct(Column $column, Expression\Specification $specification = null)
     {
         $this->name = 'comment';
 
@@ -43,7 +44,7 @@ class Comment extends Settings\Column implements Recursive
             ])
         );
 
-        parent::__construct($column);
+        parent::__construct($column, $specification);
     }
 
     public function get_children(): SettingCollection
@@ -51,12 +52,19 @@ class Comment extends Settings\Column implements Recursive
         return new SettingCollection([
             new Settings\Column\CommentLink(
                 $this->column,
-                null//StringComparisonSpecification::equal(self::PROPERTY_ID)
+                new Expression\AndSpecification([
+                    Expression\StringComparisonSpecification::equal(self::PROPERTY_ID),
+                    Expression\StringComparisonSpecification::equal(self::PROPERTY_DATE),
+                ])
+
             ),
-            //new Settings\Column\Date($this->column),
+            new Settings\Column\Date(
+                $this->column,
+                Expression\StringComparisonSpecification::equal(self::PROPERTY_DATE)
+            ),
             new Settings\Column\StringLimit(
                 $this->column,
-                null//StringComparisonSpecification::equal(self::PROPERTY_COMMENT)
+                Expression\StringComparisonSpecification::equal(self::PROPERTY_COMMENT)
             ),
         ]);
     }

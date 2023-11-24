@@ -3,9 +3,9 @@
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\ConditionCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
+use ACP\Expression\Specification;
 
 class CharacterLimit extends Settings\Column
 {
@@ -14,11 +14,11 @@ class CharacterLimit extends Settings\Column
 
     use SettingTrait;
 
-    public function __construct(AC\Column $column, ConditionCollection $conditions = null)
+    public function __construct(AC\Column $column, Specification $conditions = null)
     {
         $this->name = 'character_limit';
         $this->label = __('Character Limit', 'codepress-admin-columns');
-        $this->input = new AC\Setting\Input\Number('1', 0);
+        $this->input = AC\Setting\Input\Number::create_single_step(0);
 
         parent::__construct($column, $conditions);
     }

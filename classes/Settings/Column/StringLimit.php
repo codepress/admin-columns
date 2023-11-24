@@ -9,6 +9,7 @@ use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
 use ACP\Expression\Specification;
+use ACP\Expression\StringComparisonSpecification;
 
 class StringLimit extends Settings\Column implements AC\Setting\Recursive
 {
@@ -38,18 +39,12 @@ class StringLimit extends Settings\Column implements AC\Setting\Recursive
     {
         return new SettingCollection([
             new Settings\Column\CharacterLimit(
-                $this->column
-            //TODO reimplement
-            //                new ConditionCollection([
-            //                    new Condition($this->name, 'character_limit', Condition::EQUALS),
-            //                ])
+                $this->column,
+                StringComparisonSpecification::equal('character_limit')
             ),
             new Settings\Column\WordLimit(
-                $this->column
-            //TODO reimplement
-            //                new ConditionCollection([
-            //                    new Condition($this->name, 'word_limit', Condition::EQUALS),
-            //                ])
+                $this->column,
+                StringComparisonSpecification::equal('word_limit')
             ),
         ]);
     }

@@ -42,7 +42,7 @@ final class Number extends Single
         return $this->max;
     }
 
-    public function get_step(): string
+    public function get_step(): ?string
     {
         return $this->step;
     }

@@ -4,13 +4,13 @@ namespace AC\Settings\Column;
 
 use AC\Column;
 use AC\Setting\Base;
-use AC\Setting\ConditionCollection;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
+use ACP\Expression\Specification;
 
 abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Recursive
 {
@@ -22,7 +22,7 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
 
     const NAME = 'date';
 
-    public function __construct(Column $column, ConditionCollection $conditions = null)
+    public function __construct(Column $column, Specification $conditions = null)
     {
         $this->name = self::NAME;
         $this->label = __('Date Format', 'codepress-admin-columns');
