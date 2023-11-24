@@ -15,7 +15,7 @@ final class Single extends Input\Single implements Input\Option
 
     private $options;
 
-    private function __construct(string $type, OptionCollection $options, string $default = null)
+    public function __construct(string $type, OptionCollection $options, string $default = null)
     {
         $this->type = $type;
         $this->options = $options;

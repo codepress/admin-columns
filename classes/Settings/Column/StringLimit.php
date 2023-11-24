@@ -3,12 +3,10 @@
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\ConditionCollection;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
-use AC\Setting\Type\Condition;
 use AC\Settings;
 use ACP\Expression\Specification;
 
@@ -40,16 +38,18 @@ class StringLimit extends Settings\Column implements AC\Setting\Recursive
     {
         return new SettingCollection([
             new Settings\Column\CharacterLimit(
-                $this->column,
-                new ConditionCollection([
-                    new Condition($this->name, 'character_limit', Condition::EQUALS),
-                ])
+                $this->column
+            //TODO reimplement
+            //                new ConditionCollection([
+            //                    new Condition($this->name, 'character_limit', Condition::EQUALS),
+            //                ])
             ),
             new Settings\Column\WordLimit(
-                $this->column,
-                new ConditionCollection([
-                    new Condition($this->name, 'word_limit', Condition::EQUALS),
-                ])
+                $this->column
+            //TODO reimplement
+            //                new ConditionCollection([
+            //                    new Condition($this->name, 'word_limit', Condition::EQUALS),
+            //                ])
             ),
         ]);
     }

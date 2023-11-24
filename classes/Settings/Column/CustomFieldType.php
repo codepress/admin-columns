@@ -38,8 +38,7 @@ class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
 
     public function __construct(Column $column)
     {
-        $this->name = 'comment';
-
+        $this->name = self::NAME;
         $this->label = __('Field Type', 'codepress-admin-columns');
         $this->input = Input\Option\Multiple::create_select(
             $this->get_field_type_options()
@@ -50,7 +49,20 @@ class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
 
     public function get_children(): SettingCollection
     {
-        return new SettingCollection([]);
+        return new SettingCollection([
+            new StringLimit(
+                $this->column
+            //                new AC\Setting\ConditionCollection([
+            //                    new Condition(self::NAME, self::TYPE_TEXT, Condition::EQUALS),
+            //                ])
+            ),
+            new Date(
+                $this->column
+            //                new AC\Setting\ConditionCollection([
+            //                    new Condition(self::NAME, self::TYPE_DATE, Condition::EQUALS),
+            //                ])
+            ),
+        ]);
     }
 
     protected function get_field_type_options(): OptionCollection
@@ -64,6 +76,7 @@ class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
         ];
 
         $collection = new OptionCollection();
+        $collection->add(new AC\Setting\Type\Option(__('Default', 'codepress-admin-columns'), ''));
 
         foreach ($this->get_field_types() as $group => $options) {
             foreach ($options as $value => $label) {

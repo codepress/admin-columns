@@ -320,9 +320,9 @@ class Column
             ];
 
             // TODO Stefan test settings
-            $settings[] = new Settings\Column\ActionIcons($this);
-            $settings[] = new Settings\Column\AttachmentDisplay($this);
-            $settings[] = new Settings\Column\Comment($this);
+            //$settings[] = new Settings\Column\ActionIcons($this);
+            //$settings[] = new Settings\Column\AttachmentDisplay($this);
+            //$settings[] = new Settings\Column\Comment($this);
             $settings[] = new Settings\Column\CustomFieldType($this);
 
             foreach ($settings as $setting) {

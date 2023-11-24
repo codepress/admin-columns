@@ -2,6 +2,10 @@
 	display: flex;
 	align-items: center;
 
+	&.-align-top {
+		align-items: flex-start;
+	}
+
 	&__label {
 		width: 200px;
 		font-weight: bold;
