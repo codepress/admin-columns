@@ -101,7 +101,7 @@ class Columns implements PageFactoryInterface
 
         $this->set_preference(
             $table_screen->get_key(),
-            $list_screen->has_id() ? $list_screen->get_id() : null
+            $list_screen->get_id()
         );
 
         return new Page\Columns(
@@ -115,13 +115,10 @@ class Columns implements PageFactoryInterface
         );
     }
 
-    private function set_preference(ListKey $key, ListScreenId $id = null): void
+    private function set_preference(ListKey $key, ListScreenId $id): void
     {
         $this->preference->set_last_visited_list_key((string)$key);
-
-        if ($id) {
-            $this->preference->set_list_id((string)$key, (string)$id);
-        }
+        $this->preference->set_list_id((string)$key, (string)$id);
     }
 
     private function get_table_sceens(): TableScreens

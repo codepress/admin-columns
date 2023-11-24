@@ -2,6 +2,7 @@
 
 namespace AC\Screen;
 
+use AC\DefaultColumnsRepository;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\ScreenController;
@@ -98,7 +99,11 @@ class QuickEdit implements Registerable
             20
         );
 
-        $screen_controller = new ScreenController($list_screen, $table_screen);
+        $screen_controller = new ScreenController(
+            new DefaultColumnsRepository($table_screen->get_key()),
+            $table_screen,
+            $list_screen
+        );
         $screen_controller->register();
     }
 

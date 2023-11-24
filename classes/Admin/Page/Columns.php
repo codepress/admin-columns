@@ -90,7 +90,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->location->with_suffix('assets/js/admin-page-columns.js'),
                 $this->uninitialized_screens,
                 (string)$this->table_screen->get_key(),
-                $this->list_screen->has_id() ? (string)$this->list_screen->get_id() : ''
+                (string)$this->list_screen->get_id()
             ),
             new Style('ac-admin-page-columns-css', $this->location->with_suffix('assets/css/admin-page-columns.css')),
             new Style('ac-select2'),
@@ -155,9 +155,10 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
         $classes = [];
 
-        if ($this->list_screen->get_settings()) {
-            $classes[] = 'stored';
-        }
+        // TODO
+        //        if ($this->list_screen->get_settings()) {
+        //            $classes[] = 'stored';
+        //        }
 
         if ($this->get_list_screen_id()->is_active()) {
             $classes[] = 'show-list-screen-id';
@@ -167,9 +168,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
             $classes[] = 'show-list-screen-type';
         }
 
-        $list_id = $this->list_screen->has_id()
-            ? (string)$this->list_screen->get_id()
-            : '';
+        $list_id = (string)$this->list_screen->get_id();
 
         ob_start();
         ?>

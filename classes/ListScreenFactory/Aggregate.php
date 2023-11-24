@@ -24,32 +24,6 @@ class Aggregate implements ListScreenFactory
         $this->table_screen_factory = $table_screen_factory;
     }
 
-    protected function add_settings(ListScreen $list_screen, TableScreen $table_screen, array $settings): ListScreen
-    {
-        $columns = $settings['columns'] ?? [];
-        $preferences = $settings['preferences'] ?? [];
-        $date = $settings['date'] ?? new DateTime();
-        $list_id = $settings['list_id'] ?? null;
-
-        if (is_string($date)) {
-            $date = DateTime::createFromFormat('Y-m-d H:i:s', $date);
-        }
-
-        if (ListScreenId::is_valid_id($list_id)) {
-            $list_screen->set_id(new ListScreenId($list_id));
-        }
-
-        $list_screen->set_title($settings['title'] ?? '');
-        $list_screen->set_preferences($preferences ?: []);
-        $list_screen->set_settings($columns ?: []);
-        $list_screen->set_updated($date);
-        $list_screen->set_columns(
-            $this->get_columns($table_screen, $columns) ?: $this->get_default_columns($table_screen)
-        );
-
-        return $list_screen;
-    }
-
     public function can_create(ListKey $key): bool
     {
         return $this->table_screen_factory->can_create($key);
@@ -63,10 +37,20 @@ class Aggregate implements ListScreenFactory
 
         $table_screen = $this->table_screen_factory->create($key);
 
-        return $this->add_settings(
-            new ListScreen($table_screen),
+        // TODO
+        $date = $settings['date'] ?? new DateTime();
+
+        if (is_string($date)) {
+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $date);
+        }
+
+        return new ListScreen(
+            new ListScreenId($settings['list_id']),
+            $this->get_columns($table_screen, $settings['columns'] ?? []) ?: $this->get_default_columns($table_screen),
             $table_screen,
-            $settings
+            $settings['preferences'] ?? [],
+            $settings['title'] ?? '',
+            $date
         );
     }
 
@@ -91,7 +75,6 @@ class Aggregate implements ListScreenFactory
 
         $column_factory = new ColumnFactory($table_screen);
 
-        // TODO
         foreach ($table_screen->get_columns() as $column) {
             if ($column->is_original()) {
                 $columns[] = $column_factory->create([

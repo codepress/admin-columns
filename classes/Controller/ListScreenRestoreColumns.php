@@ -48,7 +48,8 @@ class ListScreenRestoreColumns implements Registerable
                         return;
                     }
 
-                    $list_screen->set_settings([]);
+                    // TODO
+                    //                    $list_screen->set_settings([]);
                     $this->repository->save($list_screen);
 
                     $notice = new Notice(

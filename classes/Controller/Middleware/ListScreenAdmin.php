@@ -88,7 +88,12 @@ class ListScreenAdmin implements Middleware
         }
 
         if ( ! $list_screen && $this->list_screen_factory->can_create($this->list_key)) {
-            $list_screen = $this->list_screen_factory->create($this->list_key);
+            $list_screen = $this->list_screen_factory->create(
+                $this->list_key,
+                [
+                    'list_id' => (string)ListScreenId::generate(),
+                ]
+            );
         }
 
         return $list_screen;

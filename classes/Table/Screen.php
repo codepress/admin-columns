@@ -6,6 +6,7 @@ use AC;
 use AC\Asset;
 use AC\Capabilities;
 use AC\ColumnSize;
+use AC\DefaultColumnsRepository;
 use AC\Form;
 use AC\ListScreen;
 use AC\Registerable;
@@ -72,10 +73,14 @@ final class Screen implements Registerable
      */
     public function register(): void
     {
-        if ($this->list_screen && $this->list_screen->has_id()) {
-            $controller = new ScreenController($this->list_screen, $this->table_screen);
-            $controller->register();
+        $controller = new ScreenController(
+            new DefaultColumnsRepository($this->table_screen->get_key()),
+            $this->table_screen,
+            $this->list_screen
+        );
+        $controller->register();
 
+        if ($this->list_screen) {
             $render = new TableFormView(
                 $this->list_screen->get_meta_type(),
                 sprintf('<input type="hidden" name="layout" value="%s">', $this->list_screen->get_id())
@@ -147,9 +152,7 @@ final class Screen implements Registerable
         $url = EditorUrlFactory::create(
             $this->table_screen->get_key(),
             $this->table_screen->is_network(),
-            $this->list_screen && $this->list_screen->has_id()
-                ? $this->list_screen->get_id()
-                : null
+            $this->list_screen ? $this->list_screen->get_id() : null
         );
 
         $button = new Button('edit-columns');
@@ -195,8 +198,7 @@ final class Screen implements Registerable
             ],
         ];
 
-        // ListScreen specific properties
-        if ($this->list_screen && $this->list_screen->has_id()) {
+        if ($this->list_screen) {
             $args['column_types'] = $this->get_column_types_mapping();
             $args['layout'] = (string)$this->list_screen->get_id();
             $args['read_only'] = $this->list_screen->is_read_only();

@@ -276,30 +276,24 @@ class Column
         // Overwrite in child class
     }
 
-    /**
-     * @param string $key
-     *
-     * @return null|string|bool
-     */
-    public function get_option($key)
+    public function get_option(string $key)
     {
-        return $this->get_options()[$key] ?? null;
+        return $this->options[$key] ?? null;
     }
 
-    public function set_options(array $options): self
+    public function set_options(array $options): void
     {
         $this->options = $options;
-
-        return $this;
     }
 
-    /**
-     * Get the current options
-     * @return array
-     */
-    public function get_options()
+    public function get_options(): array
     {
         return $this->options;
+    }
+
+    public function set_option(string $key, $value): void
+    {
+        $this->options[$key] = $value;
     }
 
     /**
@@ -418,6 +412,11 @@ class Column
         _deprecated_function(__METHOD__, 'NEWVERSION');
 
         return $this;
+    }
+
+    public function toArray(): array
+    {
+        return $this->options;
     }
 
 }

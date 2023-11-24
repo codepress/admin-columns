@@ -13,20 +13,20 @@ class ScreenController implements Registerable
      */
     private $headings = [];
 
-    /**
-     * @var DefaultColumnsRepository
-     */
-    private $default_columns;
+    private $table_screen;
 
     private $list_screen;
 
-    private $table_screen;
+    private $default_column_repository;
 
-    public function __construct(ListScreen $list_screen, TableScreen $table_screen)
-    {
-        $this->default_columns = new DefaultColumnsRepository($table_screen->get_key());
-        $this->list_screen = $list_screen;
+    public function __construct(
+        DefaultColumnsRepository $default_column_repository,
+        TableScreen $table_screen,
+        ListScreen $list_screen = null
+    ) {
         $this->table_screen = $table_screen;
+        $this->list_screen = $list_screen;
+        $this->default_column_repository = $default_column_repository;
     }
 
     public function register(): void
@@ -49,7 +49,7 @@ class ScreenController implements Registerable
         }
 
         if ( ! wp_doing_ajax()) {
-            $this->default_columns->update($columns);
+            $this->default_column_repository->update($columns);
         }
 
         // Run once
@@ -58,7 +58,7 @@ class ScreenController implements Registerable
         }
 
         // Nothing stored. Show default columns on screen.
-        if ( ! $this->list_screen->get_settings()) {
+        if ( ! $this->list_screen) {
             return $columns;
         }
 

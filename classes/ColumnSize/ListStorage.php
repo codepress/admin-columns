@@ -5,45 +5,38 @@ namespace AC\ColumnSize;
 use AC;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
-use AC\ListScreenRepositoryWritable;
 use AC\Type\ColumnWidth;
 use AC\Type\ListScreenId;
 
 class ListStorage
 {
 
-    /**
-     * @var ListScreenRepositoryWritable
-     */
-    private $list_screen_repository;
+    private $storage;
 
-    public function __construct(Storage $list_screen_repository)
+    public function __construct(Storage $storage)
     {
-        $this->list_screen_repository = $list_screen_repository;
+        $this->storage = $storage;
     }
 
     public function save(ListScreenId $list_id, string $column_name, ColumnWidth $column_width): void
     {
-        $list_screen = $this->list_screen_repository->find($list_id);
+        $list_screen = $this->storage->find($list_id);
 
         if ( ! $list_screen) {
             return;
         }
 
-        $settings = $list_screen->get_settings();
+        $column = $list_screen->get_column_by_name($column_name);
 
-        foreach ($settings as $_column_name => $setting) {
-            if ($_column_name !== $column_name) {
-                continue;
-            }
-
-            $settings[$_column_name]['width'] = (string)$column_width->get_value();
-            $settings[$_column_name]['width_unit'] = $column_width->get_unit();
+        if ( ! $column) {
+            return;
         }
 
-        $list_screen->set_settings($settings);
+        // TODO test. Does the Column object persist?
+        $column->set_option('width', (string)$column_width->get_value());
+        $column->set_option('width_unit', $column_width->get_unit());
 
-        $this->list_screen_repository->save($list_screen);
+        $this->storage->save($list_screen);
     }
 
     /**

@@ -20,6 +20,7 @@ use AC\ListScreenRepository\Types;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\ListScreenDelete;
+use AC\Storage\EncoderFactory;
 use AC\Table\TableScreensFactoryInterface;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
@@ -163,6 +164,9 @@ class AdminColumns
                 ->constructorParameter(2, defined('ACP_FILE')),
             Service\IntegrationColumns::class       => autowire()
                 ->constructorParameter(1, defined('ACP_FILE')),
+            EncoderFactory::class                   => static function (Plugin $plugin) {
+                return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
+            },
         ];
 
         return (new ContainerBuilder())

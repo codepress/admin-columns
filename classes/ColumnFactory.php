@@ -57,12 +57,15 @@ class ColumnFactory
 
     private function get_column(string $type, array $settings): ?Column
     {
-        foreach ($this->get_column_types() as $column) {
-            if ($column->get_type() !== $type) {
+        foreach ($this->get_column_types() as $column_type) {
+            if ($column_type->get_type() !== $type) {
                 continue;
             }
 
-            $column = clone $column;
+            /**
+             * @var Column $column
+             */
+            $column = clone $column_type;
 
             $column->set_options($settings);
 

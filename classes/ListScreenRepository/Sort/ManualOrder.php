@@ -22,14 +22,12 @@ class ManualOrder implements Sort
             return $list_screens;
         }
 
-        $key = (string)$list_screens->get_first()->get_key();
+        $key = $list_screens->get_first()->get_key();
 
         $layouts = [];
 
         foreach ($list_screens as $list_screen) {
-            if ($list_screen->has_id()) {
-                $layouts[(string)$list_screen->get_id()] = $list_screen;
-            }
+            $layouts[(string)$list_screen->get_id()] = $list_screen;
         }
 
         $ordered = new ListScreenCollection();

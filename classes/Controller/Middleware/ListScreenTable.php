@@ -39,7 +39,7 @@ class ListScreenTable implements Middleware
         $list_screens = $this->storage->find_all_by_assigned_user(
             (string)$this->list_key,
             $user,
-            new Sort\UserOrder($user, (string)$this->list_key)
+            new Sort\UserOrder($user, $this->list_key)
         );
 
         if ( ! $list_screens->valid()) {

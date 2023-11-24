@@ -11,19 +11,10 @@ use AC\Type\ColumnWidth;
 class ColumnSize implements Renderable
 {
 
-    /**
-     * @var ListScreen
-     */
     private $list_screen;
 
-    /**
-     * @var ListStorage
-     */
     private $list_storage;
 
-    /**
-     * @var UserStorage
-     */
     private $user_storage;
 
     public function __construct(ListScreen $list_screen, ListStorage $list_storage, UserStorage $user_storage)
@@ -70,10 +61,6 @@ class ColumnSize implements Renderable
 
     public function render(): string
     {
-        if ( ! $this->list_screen->get_settings()) {
-            return '';
-        }
-
         $html = '';
 
         foreach ($this->list_screen->get_columns() as $column) {
