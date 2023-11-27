@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Setting;
 
 use ACP\Expression\Specification;
+use BadMethodCallException;
 
 trait SettingTrait
 {
@@ -49,6 +50,10 @@ trait SettingTrait
 
     public function get_conditions(): Specification
     {
+        if ( ! $this->has_conditions()) {
+            throw new BadMethodCallException('No conditions set.');
+        }
+
         return $this->conditions;
     }
 
