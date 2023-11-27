@@ -2,15 +2,11 @@
 
 namespace AC\ColumnRepository;
 
-use AC\Column;
+use AC\ColumnCollection;
 
-interface Sort {
+interface Sort
+{
 
-	/**
-	 * @param Column[] $columns
-	 *
-	 * @return Column[]
-	 */
-	public function sort( array $columns ): array;
+    public function sort(ColumnCollection $columns): ColumnCollection;
 
 }

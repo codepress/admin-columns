@@ -75,4 +75,9 @@ class ColumnCollection implements Iterator, Countable
         return count($this->data);
     }
 
+    public function get_keys(): array
+    {
+        return array_keys($this->data);
+    }
+
 }

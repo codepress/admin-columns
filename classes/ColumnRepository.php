@@ -20,15 +20,10 @@ class ColumnRepository
 
     public function find(string $column_name): ?Column
     {
-        return $this->list_screen->get_column_by_name($column_name);
+        return $this->list_screen->get_columns()->get($column_name);
     }
 
-    /**
-     * @param array $args
-     *
-     * @return Column[]
-     */
-    public function find_all(array $args = []): array
+    public function find_all(array $args = []): ColumnCollection
     {
         $args = array_merge([
             self::ARG_SORT   => null,

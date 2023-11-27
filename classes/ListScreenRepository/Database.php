@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\ListScreenRepository;
 
+use AC\ColumnCollection;
 use AC\ColumnFactory;
 use AC\ListScreen;
 use AC\ListScreenCollection;
@@ -181,7 +182,7 @@ class Database implements ListScreenRepositoryWritable
         );
     }
 
-    private function get_columns(ColumnFactory $factory, object $data): array
+    private function get_columns(ColumnFactory $factory, object $data): ColumnCollection
     {
         $columns = [];
 
@@ -198,7 +199,7 @@ class Database implements ListScreenRepositoryWritable
             $columns[] = $factory->create($column_data);
         }
 
-        return array_filter($columns);
+        return new ColumnCollection(array_filter($columns));
     }
 
     private function create_list_screens(array $rows): ListScreenCollection

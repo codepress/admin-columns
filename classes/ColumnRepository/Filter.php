@@ -2,8 +2,11 @@
 
 namespace AC\ColumnRepository;
 
-interface Filter {
+use AC\ColumnCollection;
 
-	public function filter( array $columns ): array;
+interface Filter
+{
+
+    public function filter(ColumnCollection $columns): ColumnCollection;
 
 }

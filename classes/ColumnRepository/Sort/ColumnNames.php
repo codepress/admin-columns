@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\ColumnRepository\Sort;
 
+use AC\ColumnCollection;
 use AC\ColumnRepository\Sort;
 
 class ColumnNames implements Sort
@@ -16,7 +17,7 @@ class ColumnNames implements Sort
         $this->column_names = $column_names;
     }
 
-    public function sort(array $columns): array
+    public function sort(ColumnCollection $columns): ColumnCollection
     {
         $ordered = $last = [];
 
@@ -33,7 +34,7 @@ class ColumnNames implements Sort
 
         ksort($ordered);
 
-        return array_merge($ordered, $last);
+        return new ColumnCollection(array_merge($ordered, $last));
     }
 
 }

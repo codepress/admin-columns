@@ -20,9 +20,6 @@ final class ListScreen implements PostType
 
     protected $table_screen;
 
-    /**
-     * @var Column[]
-     */
     private $columns;
 
     private $preferences;
@@ -35,12 +32,15 @@ final class ListScreen implements PostType
         ListScreenId $id,
         string $title,
         TableScreen $table_screen,
-        array $columns = [],
+        ColumnCollection $columns = null,
         array $preferences = [],
         DateTime $updated = null
     ) {
         if (null === $updated) {
             $updated = new DateTime();
+        }
+        if (null === $columns) {
+            $columns = new ColumnCollection();
         }
 
         $this->id = $id;
@@ -66,17 +66,12 @@ final class ListScreen implements PostType
         $this->title = $title;
     }
 
-    /**
-     * @return Column[]
-     */
-
-    // TODO create ColumnCollection
-    public function get_columns(): array
+    public function get_columns(): ColumnCollection
     {
         return $this->columns;
     }
 
-    public function set_columns(array $columns): void
+    public function set_columns(ColumnCollection $columns): void
     {
         $this->columns = $columns;
     }
@@ -156,13 +151,9 @@ final class ListScreen implements PostType
 
     public function get_column_by_name($name): ?Column
     {
-        foreach ($this->get_columns() as $column) {
-            if ($column->get_name() === (string)$name) {
-                return $column;
-            }
-        }
-
-        return null;
+        return $this->columns->contains((string)$name)
+            ? $this->columns->get((string)$name)
+            : null;
     }
 
     public function is_user_allowed(WP_User $user): bool

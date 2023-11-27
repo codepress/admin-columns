@@ -2,6 +2,7 @@
 
 namespace AC\Storage;
 
+use AC\ColumnCollection;
 use AC\ColumnRepository;
 use AC\ColumnRepository\Sort\ColumnNames;
 use AC\ListScreen;
@@ -33,7 +34,7 @@ class ListColumnOrder
         $this->list_screen_repository->save($list_screen);
     }
 
-    private function get_columns(ListScreen $list_screen, array $names): array
+    private function get_columns(ListScreen $list_screen, array $names): ColumnCollection
     {
         return (new ColumnRepository($list_screen))->find_all([
             'sort' => new ColumnNames($names),

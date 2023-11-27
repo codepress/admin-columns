@@ -3,6 +3,7 @@
 namespace AC\Controller\ListScreen;
 
 use AC\Column\LabelEncoder;
+use AC\ColumnCollection;
 use AC\ColumnFactory;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
@@ -81,7 +82,7 @@ class Save
         ]);
     }
 
-    private function get_columns(ColumnFactory $column_factory, array $columndata): array
+    private function get_columns(ColumnFactory $column_factory, array $columndata): ColumnCollection
     {
         $columns = [];
 
@@ -93,7 +94,7 @@ class Save
             $columns[] = $column_factory->create($data);
         }
 
-        return array_filter($columns);
+        return new ColumnCollection(array_filter($columns));
     }
 
 }

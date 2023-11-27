@@ -61,7 +61,7 @@ class ScreenController implements Registerable
         ]);
 
         // Nothing stored. Show default columns on screen.
-        if ( ! $list_columns) {
+        if ( ! $list_columns->valid()) {
             return $columns;
         }
 

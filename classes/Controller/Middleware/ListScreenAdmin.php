@@ -3,6 +3,7 @@
 namespace AC\Controller\Middleware;
 
 use AC\Admin\Preference;
+use AC\ColumnCollection;
 use AC\ColumnFactory;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
@@ -98,7 +99,7 @@ class ListScreenAdmin implements Middleware
         return $list_screen;
     }
 
-    private function get_default_columns(): array
+    private function get_default_columns(): ColumnCollection
     {
         $columns = [];
 
@@ -119,7 +120,7 @@ class ListScreenAdmin implements Middleware
             }
         }
 
-        return $columns;
+        return new ColumnCollection($columns);
     }
 
     public function handle(Request $request): void

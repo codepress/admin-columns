@@ -3,6 +3,7 @@
 namespace AC\Controller;
 
 use AC\Capabilities;
+use AC\ColumnCollection;
 use AC\ListScreenRepository\Storage;
 use AC\Message\Notice;
 use AC\Registerable;
@@ -50,7 +51,7 @@ class ListScreenRestoreColumns implements Registerable
             return;
         }
 
-        $list_screen->set_columns([]);
+        $list_screen->set_columns(new ColumnCollection());
 
         $this->repository->save($list_screen);
 
