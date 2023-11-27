@@ -31,22 +31,27 @@ class Image extends Settings\Column implements AC\Setting\Recursive
         parent::__construct($column, $specification);
     }
 
+    public function is_parent(): bool
+    {
+        return true;
+    }
+
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
             new Base\Setting(
                 'image_size_w',
-                'Width',
+                __('Width', 'codepress-admin-columns'),
                 '',
-                Input\Number::create_single_step(0),
-                StringComparisonSpecification::equal('custom')
+                Input\Number::create_single_step(0, null, 60),
+                StringComparisonSpecification::equal('cpac-custom')
             ),
             new Base\Setting(
                 'image_size_h',
-                'Height',
+                __('Height', 'codepress-admin-columns'),
                 '',
-                Input\Number::create_single_step(0),
-                StringComparisonSpecification::equal('custom')
+                Input\Number::create_single_step(0, null, 60),
+                StringComparisonSpecification::equal('cpac-custom')
             ),
         ]);
     }

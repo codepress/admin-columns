@@ -33,15 +33,12 @@ declare namespace AC.Vars.Admin.Columns {
 
 }
 
-declare namespace AC.Column.Settings {
 
+declare namespace AC.Column.Settings {
+    import Rule = AC.Specification.Rule;
     type ColumnSettingCollection = ColumnSetting[]
     type ColumnSetting = AbstractColumnSetting;
     type SettingOption = { value: string, label: string, group: string | null }
-
-    type ColumnConditionOperator = '===';
-    type ColumnCondition = { setting: string, value: string, operator: ColumnConditionOperator }
-    type ColumnConditions = ColumnCondition[]
 
     interface AbstractColumnSetting<Type = string, Name = string> {
         name: Name
@@ -53,7 +50,8 @@ declare namespace AC.Column.Settings {
         }
         default?: any
         children?: ColumnSettingCollection
-        conditions?: ColumnConditions
+        is_parent?: boolean
+        conditions?: Rule
     }
 
     type LabelSetting = AbstractColumnSetting<'label'>;

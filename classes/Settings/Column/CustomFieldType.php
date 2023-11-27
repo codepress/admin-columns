@@ -10,6 +10,7 @@ use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
+use ACP\Expression\OrSpecification;
 use ACP\Expression\StringComparisonSpecification;
 
 class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
@@ -55,13 +56,31 @@ class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
                 $this->column,
                 StringComparisonSpecification::equal(self::TYPE_TEXT)
             ),
+            new NumberFormat(
+                $this->column,
+                StringComparisonSpecification::equal(self::TYPE_NUMERIC)
+            ),
             new Date(
+                $this->column,
+                StringComparisonSpecification::equal(self::TYPE_DATE)
+            ),
+            new DateFormat(
                 $this->column,
                 StringComparisonSpecification::equal(self::TYPE_DATE)
             ),
             new Image(
                 $this->column,
-                StringComparisonSpecification::equal(self::TYPE_IMAGE)
+                new OrSpecification([
+                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
+                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
+                ])
+            ),
+            new MediaLink(
+                $this->column,
+                new OrSpecification([
+                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
+                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
+                ])
             ),
         ]);
     }

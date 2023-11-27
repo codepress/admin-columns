@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use AC\Setting\Input\Custom;
 use AC\Setting\Input\Number;
 use AC\Setting\Input\Open;
 use AC\Setting\Input\Option;
@@ -48,6 +49,10 @@ final class Encoder
             if ($input->has_append()) {
                 $encoded['input']['append'] = $input->get_append();
             }
+        }
+
+        if ($input instanceof Custom) {
+            $encoded['input']['data'] = $input->get_data();
         }
 
         if ($input instanceof Option) {

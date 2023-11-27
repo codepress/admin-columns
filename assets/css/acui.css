@@ -214,14 +214,16 @@
 .acui-input-group {
   border-radius: 5px;
   display: flex;
-}
-
-.acui-input-group {
   border: 1px solid #CBD5E1;
-  border-radius: 5px;
 }
 .acui-input-group > * {
   display: block;
+}
+.acui-input-group.-numeric {
+  display: inline-flex;
+}
+.acui-input-group.-numeric input {
+  width: 180px;
 }
 
 .acui-input-group input {

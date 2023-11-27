@@ -5,7 +5,7 @@
 
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
-	export let parent: string = '';
+    export let parent: string = '';
 
     let filteredSettings = settings;
 
@@ -15,29 +15,14 @@
 
     const checkConditions = (data) => {
         filteredSettings = settings.filter(s => {
-            if (s.conditions) {
-                return checkCondition(s.conditions, s.name)
-            }
-            return true;
+            return s.conditions
+                ? checkCondition(s.conditions)
+                : true;
         })
     }
 
-    const checkCondition = (conditions: AC.Column.Settings.ColumnConditions, name: string) => {
-        let valid = false;
-
-		console.log( data[parent], parent, conditions);
-        return RuleSpecificationMapper.map( conditions).isSatisfiedBy( data[parent] );
-
-
-        return true;
-
-        conditions.forEach((c: AC.Column.Settings.ColumnCondition) => {
-            if (data[c.setting] === c.value) {
-                valid = true;
-            }
-        });
-
-        return valid;
+    const checkCondition = (condition: AC.Column.Settings.ColumnConditions) => {
+        return RuleSpecificationMapper.map(condition).isSatisfiedBy(data[parent]);
     }
 
     const destroySetting = (e: CustomEvent<AC.Column.Settings.ColumnSetting>) => {

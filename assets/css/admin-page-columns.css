@@ -363,12 +363,12 @@
 
 .svelte-select.-acui {
   --padding: 0 0 0 8px;
-  --border: 1px solid #8c8f94;
-  --border-radius: 3px;
+  --border: 1px solid #CBD5E1;
+  --border-radius: 5px;
   --border-hover: 1px solid #8c8f94;
   --border-focused: 1px solid var(--ac-primary-color);
   --font-size: 14px;
-  --height: 40px;
+  --height: 42px;
   --chevron-width: 25px;
   --chevron-height: 28px;
   --loading-width: 20px;
@@ -628,20 +628,18 @@
 
 .acp-column-setting {
   display: flex;
-  align-items: center;
-}
-.acp-column-setting.-align-top {
-  align-items: flex-start;
 }
 .acp-column-setting__label {
+  -webkit-font-smoothing: antialiased;
   width: 200px;
-  font-weight: bold;
+  font-weight: 600;
   padding: 10px 30px;
+  padding-top: 21px;
 }
 .acp-column-setting__value {
-  padding: 10px 10px;
+  padding: 10px 20px;
   flex-grow: 1;
-  max-width: 500px;
+  max-width: 620px;
 }
 
 .acp-column-setting[data-setting=label] .acui-input-group-text {
@@ -707,6 +705,20 @@
 .acp-column-setting[data-setting=label] .ac-modal.-iconpicker .acp-iconmodal-footer button {
   padding-left: 30px;
   padding-right: 30px;
+}
+
+.ac-column-settings.-subsettings {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.ac-column-settings.-subsettings .acp-column-setting {
+  flex-direction: column;
+}
+.ac-column-settings.-subsettings .acp-column-setting .acp-column-setting__label {
+  padding: 10px 0;
+}
+.ac-column-settings.-subsettings .acp-column-setting .acp-column-setting__value {
+  padding: 0;
 }
 
 body {

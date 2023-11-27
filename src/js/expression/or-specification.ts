@@ -1,6 +1,6 @@
-import Specification from "./specification";
 import NotSpecification from "./not-specification";
 import AndSpecification from "./and-specification";
+import Specification = AC.Specification.Specification;
 
 export default class OrSpecification implements Specification {
 
@@ -20,13 +20,9 @@ export default class OrSpecification implements Specification {
     }
 
     isSatisfiedBy(value: string): boolean {
-        this.specifications.forEach(specification => {
-            if (specification.isSatisfiedBy(value)) {
-                return true;
-            }
+        return this.specifications.some(specification => {
+            return specification.isSatisfiedBy(value);
         });
-
-        return false;
     }
 
 }
