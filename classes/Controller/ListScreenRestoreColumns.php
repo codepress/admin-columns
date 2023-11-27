@@ -12,9 +12,6 @@ use LogicException;
 class ListScreenRestoreColumns implements Registerable
 {
 
-    /**
-     * @var Storage
-     */
     private $repository;
 
     public function __construct(Storage $repository)
@@ -33,43 +30,40 @@ class ListScreenRestoreColumns implements Registerable
             return;
         }
 
-        switch (filter_input(INPUT_POST, 'action')) {
-            case 'restore_by_type' :
-                if ($this->verify_nonce('restore-type')) {
-                    try {
-                        $id = new ListScreenId(filter_input(INPUT_POST, 'layout'));
-                    } catch (LogicException $e) {
-                        return;
-                    }
-
-                    $list_screen = $this->repository->find($id);
-
-                    if ( ! $list_screen) {
-                        return;
-                    }
-
-                    // TODO
-                    //                    $list_screen->set_settings([]);
-                    $this->repository->save($list_screen);
-
-                    $notice = new Notice(
-                        sprintf(
-                            __('Settings for %s restored successfully.', 'codepress-admin-columns'),
-                            "<strong>" . esc_html($list_screen->get_title()) . "</strong>"
-                        )
-                    );
-                    $notice->register();
-                }
-                break;
+        if ('restore_by_type' !== filter_input(INPUT_POST, 'action')) {
+            return;
         }
+
+        if ( ! $this->verify_nonce('restore-type')) {
+            return;
+        }
+
+        try {
+            $id = new ListScreenId(filter_input(INPUT_POST, 'layout'));
+        } catch (LogicException $e) {
+            return;
+        }
+
+        $list_screen = $this->repository->find($id);
+
+        if ( ! $list_screen) {
+            return;
+        }
+
+        $list_screen->set_columns([]);
+
+        $this->repository->save($list_screen);
+
+        $notice = new Notice(
+            sprintf(
+                __('Settings for %s restored successfully.', 'codepress-admin-columns'),
+                "<strong>" . esc_html($list_screen->get_title()) . "</strong>"
+            )
+        );
+        $notice->register();
     }
 
-    /**
-     * @param string $action
-     *
-     * @return bool
-     */
-    private function verify_nonce($action)
+    private function verify_nonce(string $action): bool
     {
         return wp_verify_nonce(filter_input(INPUT_POST, '_ac_nonce'), $action);
     }

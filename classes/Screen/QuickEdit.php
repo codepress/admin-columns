@@ -14,21 +14,12 @@ use AC\Type\ListScreenId;
 class QuickEdit implements Registerable
 {
 
-    /**
-     * @var Storage
-     */
     private $storage;
 
-    /**
-     * @var LayoutPreference
-     */
     private $preference;
 
     private $primary_column_factory;
 
-    /**
-     * @var TableScreenFactory
-     */
     private $table_screen_factory;
 
     public function __construct(

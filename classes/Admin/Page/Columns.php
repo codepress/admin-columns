@@ -17,6 +17,7 @@ use AC\Asset\Style;
 use AC\Column;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
+use AC\ListScreenRepository\Storage;
 use AC\Renderable;
 use AC\TableScreen;
 use AC\Type\Url;
@@ -45,6 +46,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $table_screen;
 
+    private $storage;
+
     public function __construct(
         Location\Absolute $location,
         DefaultColumnsRepository $default_columns_repository,
@@ -52,7 +55,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         Menu $menu,
         Renderable $head,
         TableScreen $table_screen,
-        ListScreen $list_screen
+        ListScreen $list_screen,
+        Storage $storage
     ) {
         $this->location = $location;
         $this->default_columns_repository = $default_columns_repository;
@@ -61,6 +65,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         $this->head = $head;
         $this->table_screen = $table_screen;
         $this->list_screen = $list_screen;
+        $this->storage = $storage;
     }
 
     public function get_list_screen(): ListScreen
@@ -155,10 +160,9 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
         $classes = [];
 
-        // TODO
-        //        if ($this->list_screen->get_settings()) {
-        //            $classes[] = 'stored';
-        //        }
+        if ($this->storage->exists($this->list_screen->get_id())) {
+            $classes[] = 'stored';
+        }
 
         if ($this->get_list_screen_id()->is_active()) {
             $classes[] = 'show-list-screen-id';

@@ -8,9 +8,6 @@ use AC\ListScreen\ManageValue;
 class ScreenController implements Registerable
 {
 
-    /**
-     * @var array
-     */
     private $headings = [];
 
     private $table_screen;
@@ -22,7 +19,7 @@ class ScreenController implements Registerable
     public function __construct(
         DefaultColumnsRepository $default_column_repository,
         TableScreen $table_screen,
-        ListScreen $list_screen = null
+        ListScreen $list_screen
     ) {
         $this->table_screen = $table_screen;
         $this->list_screen = $list_screen;
@@ -45,7 +42,7 @@ class ScreenController implements Registerable
     public function add_headings($columns)
     {
         if (empty($columns)) {
-            return $columns;
+            return [];
         }
 
         if ( ! wp_doing_ajax()) {
@@ -57,8 +54,14 @@ class ScreenController implements Registerable
             return $this->headings;
         }
 
+        $column_repository = new ColumnRepository($this->list_screen);
+
+        $list_columns = $column_repository->find_all([
+            ColumnRepository::ARG_SORT => new ManualOrder($this->list_screen->get_id()),
+        ]);
+
         // Nothing stored. Show default columns on screen.
-        if ( ! $this->list_screen) {
+        if ( ! $list_columns) {
             return $columns;
         }
 
@@ -67,13 +70,7 @@ class ScreenController implements Registerable
             $this->headings['cb'] = $columns['cb'];
         }
 
-        $column_repository = new ColumnRepository($this->list_screen);
-
-        $args = [
-            ColumnRepository::ARG_SORT => new ManualOrder($this->list_screen->get_id()),
-        ];
-
-        foreach ($column_repository->find_all($args) as $column) {
+        foreach ($list_columns as $column) {
             $this->headings[$column->get_name()] = $column->get_custom_label();
         }
 

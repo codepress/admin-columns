@@ -176,7 +176,7 @@ class Column
      * @return bool Whether the column type should be available
      * @since 2.2
      */
-    // TODO remove
+    // TODO remove usages
     public function is_valid()
     {
         return true;
@@ -241,7 +241,7 @@ class Column
          *
          * @since 3.0
          */
-        // TODO filters
+        // TODO check usages
         return (string)apply_filters('ac/headings/label', $this->get_setting('label')->get_value(), $this);
     }
 
@@ -399,6 +399,7 @@ class Column
     /**
      * @deprecated NEWVERSION
      */
+    // TODO check usages
     public function get_list_screen(): void
     {
         _deprecated_function(__METHOD__, 'NEWVERSION');

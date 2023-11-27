@@ -110,7 +110,8 @@ class Columns implements PageFactoryInterface
             new AC\Admin\Section\Partial\Menu($this->menu_list_factory->create($this->get_table_sceens())),
             new Admin\View\Menu($this->menu_factory->create('columns')),
             $table_screen,
-            $list_screen
+            $list_screen,
+            $this->storage
         );
     }
 

@@ -92,13 +92,13 @@ class ListScreenAdmin implements Middleware
         }
 
         if ( ! $list_screen->get_columns()) {
-            $list_screen->set_columns($this->get_columns());
+            $list_screen->set_columns($this->get_default_columns());
         }
 
         return $list_screen;
     }
 
-    private function get_columns(): array
+    private function get_default_columns(): array
     {
         $columns = [];
 

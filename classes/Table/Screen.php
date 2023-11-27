@@ -73,14 +73,14 @@ final class Screen implements Registerable
      */
     public function register(): void
     {
-        $controller = new ScreenController(
-            new DefaultColumnsRepository($this->table_screen->get_key()),
-            $this->table_screen,
-            $this->list_screen
-        );
-        $controller->register();
-
         if ($this->list_screen) {
+            $controller = new ScreenController(
+                new DefaultColumnsRepository($this->table_screen->get_key()),
+                $this->table_screen,
+                $this->list_screen
+            );
+            $controller->register();
+
             $render = new TableFormView(
                 $this->list_screen->get_meta_type(),
                 sprintf('<input type="hidden" name="layout" value="%s">', $this->list_screen->get_id())
@@ -185,11 +185,11 @@ final class Screen implements Registerable
             'column_types'     => '',
             'read_only'        => false,
             'assets'           => $this->location->with_suffix('assets/')->get_url(),
-            'list_screen'      => $this->table_screen->get_key(),
+            'list_screen'      => (string)$this->table_screen->get_key(),
             'ajax_nonce'       => wp_create_nonce('ac-ajax'),
             'table_id'         => $this->table_screen->get_attr_id(),
             'screen'           => $this->table_screen->get_screen_id(),
-            'meta_type'        => $this->table_screen->get_meta_type(),
+            'meta_type'        => (string)$this->table_screen->get_meta_type(),
             'list_screen_link' => $this->get_list_screen_clear_link(),
             'current_user_id'  => get_current_user_id(),
             'number_format'    => [
