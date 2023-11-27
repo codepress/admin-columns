@@ -93,7 +93,10 @@
 
 // Subsettings
 .ac-column-settings.-subsettings {
-	padding-top: 10px;
+	padding-top:0;
+	padding-bottom: 0;
+
+
 	.acp-column-setting {
 		flex-direction: column;
 		.acp-column-setting__label {

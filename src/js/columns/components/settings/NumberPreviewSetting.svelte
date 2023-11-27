@@ -1,16 +1,11 @@
 <script lang="ts">
     import ColumnSetting from "../ColumnSetting.svelte";
-    import {onMount} from "svelte";
-    import axios from "axios";
-
-    declare const ajaxurl: string;
 
     export let config: AC.Column.Settings.NumberSettings;
     export let data: any;
 
     const previewNumber: number = 7500000;
-    let preview = previewNumber;
-    let previewLocal: string = previewNumber.toString();
+    let preview: string = previewNumber.toString();
 
     const refreshPreview = (decimals: string, decimal_point: string, thousands_sep: string) => {
         let formatter = new Intl.NumberFormat('en-US', {
@@ -21,12 +16,12 @@
         const replaceDecimal = '[ac2]';
         decimal_point = decimal_point ? decimal_point : '.';
 
-        previewLocal = formatter.format(previewNumber);
-        previewLocal = previewLocal.replaceAll(',', replaceThousands);
-        previewLocal = previewLocal.replaceAll('.', replaceDecimal);
-
-        previewLocal = previewLocal.replaceAll(replaceThousands, thousands_sep)
-        previewLocal = previewLocal.replaceAll(replaceDecimal, decimal_point);
+        preview = formatter.format(previewNumber);
+        preview = preview
+					.replaceAll(',', replaceThousands)
+					.replaceAll('.', replaceDecimal)
+					.replaceAll(replaceThousands, thousands_sep)
+					.replaceAll(replaceDecimal, decimal_point);
     }
 
 
@@ -43,5 +38,5 @@
 </script>
 
 <ColumnSetting label={config.label} name="number_preview">
-	<code data-preview="">{previewLocal}</code>
+	<code data-preview="">{preview}</code>
 </ColumnSetting>

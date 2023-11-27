@@ -5097,7 +5097,7 @@ function create_default_slot(ctx) {
   return {
     c() {
       code = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("code");
-      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)( /*previewLocal*/ctx[1]);
+      t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)( /*preview*/ctx[1]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(code, "data-preview", "");
     },
     m(target, anchor) {
@@ -5105,7 +5105,7 @@ function create_default_slot(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(code, t);
     },
     p(ctx, dirty) {
-      if (dirty & /*previewLocal*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*previewLocal*/ctx[1]);
+      if (dirty & /*preview*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, /*preview*/ctx[1]);
     },
     d(detaching) {
       if (detaching) {
@@ -5140,7 +5140,7 @@ function create_fragment(ctx) {
     p(ctx, [dirty]) {
       const columnsetting_changes = {};
       if (dirty & /*config*/1) columnsetting_changes.label = /*config*/ctx[0].label;
-      if (dirty & /*$$scope, previewLocal*/66) {
+      if (dirty & /*$$scope, preview*/34) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
@@ -5170,8 +5170,7 @@ function instance($$self, $$props, $$invalidate) {
   let {
     data
   } = $$props;
-  let preview = previewNumber;
-  let previewLocal = previewNumber.toString();
+  let preview = previewNumber.toString();
   const refreshPreview = (decimals, decimal_point, thousands_sep) => {
     let formatter = new Intl.NumberFormat('en-US', {
       minimumFractionDigits: parseInt(decimals)
@@ -5179,11 +5178,8 @@ function instance($$self, $$props, $$invalidate) {
     const replaceThousands = '[ac1]';
     const replaceDecimal = '[ac2]';
     decimal_point = decimal_point ? decimal_point : '.';
-    $$invalidate(1, previewLocal = formatter.format(previewNumber));
-    $$invalidate(1, previewLocal = previewLocal.replaceAll(',', replaceThousands));
-    $$invalidate(1, previewLocal = previewLocal.replaceAll('.', replaceDecimal));
-    $$invalidate(1, previewLocal = previewLocal.replaceAll(replaceThousands, thousands_sep));
-    $$invalidate(1, previewLocal = previewLocal.replaceAll(replaceDecimal, decimal_point));
+    $$invalidate(1, preview = formatter.format(previewNumber));
+    $$invalidate(1, preview = preview.replaceAll(',', replaceThousands).replaceAll('.', replaceDecimal).replaceAll(replaceThousands, thousands_sep).replaceAll(replaceDecimal, decimal_point));
   };
   const watchData = data => {
     var _a, _b, _c;
@@ -5198,7 +5194,7 @@ function instance($$self, $$props, $$invalidate) {
       $: watchData(data);
     }
   };
-  return [config, previewLocal, data];
+  return [config, preview, data];
 }
 class NumberPreviewSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
