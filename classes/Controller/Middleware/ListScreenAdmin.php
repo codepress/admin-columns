@@ -3,12 +3,12 @@
 namespace AC\Controller\Middleware;
 
 use AC\Admin\Preference;
+use AC\ColumnFactory;
 use AC\ListScreen;
-use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Middleware;
 use AC\Request;
-use AC\Type\ListKey;
+use AC\TableScreen;
 use AC\Type\ListScreenId;
 use Exception;
 
@@ -17,22 +17,18 @@ class ListScreenAdmin implements Middleware
 
     private $storage;
 
-    private $list_key;
+    private $table_screen;
 
     private $preference;
 
-    private $list_screen_factory;
-
     public function __construct(
         Storage $storage,
-        ListKey $list_key,
-        Preference\ListScreen $preference,
-        ListScreenFactory $list_screen_factory
+        TableScreen $table_screen,
+        Preference\ListScreen $preference
     ) {
         $this->storage = $storage;
-        $this->list_key = $list_key;
+        $this->table_screen = $table_screen;
         $this->preference = $preference;
-        $this->list_screen_factory = $list_screen_factory;
     }
 
     private function get_requested_list_screen(Request $request): ?ListScreen
@@ -50,14 +46,14 @@ class ListScreenAdmin implements Middleware
     {
         $list_screen = $this->storage->find($id);
 
-        return $list_screen && $this->list_key->equals($list_screen->get_key())
+        return $list_screen && $this->table_screen->get_key()->equals($list_screen->get_key())
             ? $list_screen
             : null;
     }
 
     private function get_first_listscreen(): ?ListScreen
     {
-        $list_screens = $this->storage->find_all_by_key((string)$this->list_key);
+        $list_screens = $this->storage->find_all_by_key($this->table_screen->get_key());
 
         return $list_screens->count() > 0
             ? $list_screens->current()
@@ -66,13 +62,13 @@ class ListScreenAdmin implements Middleware
 
     private function get_last_visited_listscreen(): ?ListScreen
     {
-        try {
-            $list_id = new ListScreenId((string)$this->preference->get_list_id((string)$this->list_key));
-        } catch (Exception $e) {
-            return null;
-        }
+        $list_id = $this->preference->get_list_id(
+            $this->table_screen->get_key()
+        );
 
-        return $this->get_list_screen_by_id($list_id);
+        return $list_id
+            ? $this->get_list_screen_by_id($list_id)
+            : null;
     }
 
     private function get_list_screen(Request $request): ?ListScreen
@@ -87,16 +83,43 @@ class ListScreenAdmin implements Middleware
             $list_screen = $this->get_first_listscreen();
         }
 
-        if ( ! $list_screen && $this->list_screen_factory->can_create($this->list_key)) {
-            $list_screen = $this->list_screen_factory->create(
-                $this->list_key,
-                [
-                    'list_id' => (string)ListScreenId::generate(),
-                ]
+        if ( ! $list_screen) {
+            $list_screen = new ListScreen(
+                ListScreenId::generate(),
+                (string)$this->table_screen->get_labels(),
+                $this->table_screen
             );
         }
 
+        if ( ! $list_screen->get_columns()) {
+            $list_screen->set_columns($this->get_columns());
+        }
+
         return $list_screen;
+    }
+
+    private function get_columns(): array
+    {
+        $columns = [];
+
+        $column_factory = new ColumnFactory($this->table_screen);
+
+        foreach ($this->table_screen->get_columns() as $column) {
+            if ( ! $column->is_original()) {
+                continue;
+            }
+
+            $column = $column_factory->create([
+                'type'  => $column->get_type(),
+                'label' => $column->get_label(),
+            ]);
+
+            if ($column) {
+                $columns[] = $column;
+            }
+        }
+
+        return $columns;
     }
 
     public function handle(Request $request): void

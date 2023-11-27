@@ -11,21 +11,21 @@ use AC\Type\Url;
 use DateTime;
 use WP_User;
 
-class ListScreen implements PostType
+final class ListScreen implements PostType
 {
 
     protected $id;
+
+    private $title;
+
+    protected $table_screen;
 
     /**
      * @var Column[]
      */
     private $columns;
 
-    protected $table_screen;
-
     private $preferences;
-
-    private $title;
 
     private $updated;
 
@@ -34,9 +34,9 @@ class ListScreen implements PostType
     public function __construct(
         ListScreenId $id,
         string $title,
-        array $columns,
-        array $preferences,
         TableScreen $table_screen,
+        array $columns = [],
+        array $preferences = [],
         DateTime $updated = null
     ) {
         if (null === $updated) {
@@ -44,10 +44,10 @@ class ListScreen implements PostType
         }
 
         $this->id = $id;
+        $this->title = $title;
+        $this->table_screen = $table_screen;
         $this->columns = $columns;
         $this->preferences = $preferences;
-        $this->table_screen = $table_screen;
-        $this->title = $title;
         $this->updated = $updated;
     }
 
@@ -61,6 +61,11 @@ class ListScreen implements PostType
         return $this->title;
     }
 
+    public function set_title(string $title): void
+    {
+        $this->title = $title;
+    }
+
     /**
      * @return Column[]
      */
@@ -69,9 +74,29 @@ class ListScreen implements PostType
         return $this->columns;
     }
 
+    public function set_columns(array $columns): void
+    {
+        $this->columns = $columns;
+    }
+
     public function get_preferences(): array
     {
         return $this->preferences;
+    }
+
+    public function get_updated(): DateTime
+    {
+        return $this->updated;
+    }
+
+    public function is_read_only(): bool
+    {
+        return $this->read_only;
+    }
+
+    public function set_read_only(bool $read_only): void
+    {
+        $this->read_only = $read_only;
     }
 
     public function get_heading_hookname(): string
@@ -116,22 +141,6 @@ class ListScreen implements PostType
         return $this->table_screen;
     }
 
-    public function get_updated(): DateTime
-    {
-        return $this->updated;
-    }
-
-    public function is_read_only(): bool
-    {
-        return $this->read_only;
-    }
-
-    // TODO not setters. Make immutable.
-    public function set_read_only(bool $read_only): void
-    {
-        $this->read_only = $read_only;
-    }
-
     public function get_table_url(): Uri
     {
         return $this->table_screen->get_url()
@@ -143,11 +152,6 @@ class ListScreen implements PostType
         return new Url\EditorColumns($this->get_key(), $this->id);
     }
 
-    public function set_columns(array $columns): void
-    {
-        $this->columns = $columns;
-    }
-
     public function get_column_by_name($name): ?Column
     {
         foreach ($this->get_columns() as $column) {
@@ -157,12 +161,6 @@ class ListScreen implements PostType
         }
 
         return null;
-    }
-
-    // TODO remove
-    public function get_settings(): array
-    {
-        return [];
     }
 
     public function is_user_allowed(WP_User $user): bool
@@ -196,7 +194,6 @@ class ListScreen implements PostType
         return in_array($user->ID, $user_ids, true);
     }
 
-    // TODO remove setters...
     public function set_preferences(array $preferences): void
     {
         $this->preferences = $preferences;
@@ -207,7 +204,6 @@ class ListScreen implements PostType
         return $this->preferences[$key] ?? null;
     }
 
-    // TODO remove setters...
     public function set_preference(string $key, $value): void
     {
         $this->preferences[$key] = $value;
@@ -337,6 +333,13 @@ class ListScreen implements PostType
         _deprecated_function(__METHOD__, 'NEWVERSION');
 
         return $this->get_key() . $this->id;
+    }
+
+    public function get_settings(): array
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION');
+
+        return [];
     }
 
 }

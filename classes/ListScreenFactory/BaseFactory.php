@@ -29,7 +29,7 @@ class BaseFactory implements ListScreenFactory
         return $this->table_screen_factory->can_create($key);
     }
 
-    public function create(ListKey $key, array $settings = []): ListScreen
+    public function create_from_encoded_data(ListKey $key, array $encoded_data = []): ListScreen
     {
         if ( ! $this->can_create($key)) {
             throw InvalidListScreenException::from_invalid_key($key);
@@ -38,12 +38,12 @@ class BaseFactory implements ListScreenFactory
         $table_screen = $this->table_screen_factory->create($key);
 
         return new ListScreen(
-            new ListScreenId($settings['list_id']),
-            $settings['title'],
-            $this->get_columns($table_screen, $settings),
-            $settings['preferences'] ?? [],
+            new ListScreenId($encoded_data['list_id']),
+            $encoded_data['title'],
             $table_screen,
-            $this->get_date($settings)
+            $this->get_columns($table_screen, $encoded_data),
+            $encoded_data['preferences'] ?? [],
+            $this->get_date($encoded_data)
         );
     }
 
@@ -65,7 +65,10 @@ class BaseFactory implements ListScreenFactory
         $column_factory = new ColumnFactory($table_screen);
 
         foreach ($settings['columns'] as $name => $data) {
-            $data['name'] = (string)$name;
+            // TODO is $name key necessary?
+            if ( ! isset($data['name'])) {
+                $data['name'] = (string)$name;
+            }
 
             $column = $column_factory->create($data);
 
@@ -74,22 +77,23 @@ class BaseFactory implements ListScreenFactory
             }
         }
 
+        // TODO remove
         // use original columns when empty
-        if ( ! $columns) {
-            foreach ($table_screen->get_columns() as $column) {
-                if ( ! $column->is_original()) {
-                    continue;
-                }
-                $column = $column_factory->create([
-                    'type'  => $column->get_type(),
-                    'label' => $column->get_label(),
-                ]);
-
-                if ($column) {
-                    $columns[] = $column;
-                }
-            }
-        }
+        //        if ( ! $columns) {
+        //            foreach ($table_screen->get_columns() as $column) {
+        //                if ( ! $column->is_original()) {
+        //                    continue;
+        //                }
+        //                $column = $column_factory->create([
+        //                    'type'  => $column->get_type(),
+        //                    'label' => $column->get_label(),
+        //                ]);
+        //
+        //                if ($column) {
+        //                    $columns[] = $column;
+        //                }
+        //            }
+        //        }
 
         return $columns;
     }

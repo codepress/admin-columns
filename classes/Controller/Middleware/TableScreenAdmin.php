@@ -49,13 +49,11 @@ class TableScreenAdmin implements Middleware
 
     private function get_last_visited_table_screen(): ?TableScreen
     {
-        try {
-            $key = new ListKey((string)$this->preference->get_last_visited_list_key());
-        } catch (Exception $e) {
-            return null;
-        }
+        $list_key = $this->preference->get_last_visited_list_key();
 
-        return $this->get_table_screen_by_key($key);
+        return $list_key ?
+            $this->get_table_screen_by_key($list_key)
+            : null;
     }
 
     private function get_first_table_screen(): ?TableScreen

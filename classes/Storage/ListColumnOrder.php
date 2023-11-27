@@ -2,7 +2,9 @@
 
 namespace AC\Storage;
 
-use AC\Column;
+use AC\ColumnRepository;
+use AC\ColumnRepository\Sort\ColumnNames;
+use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Type\ListScreenId;
 
@@ -24,38 +26,18 @@ class ListColumnOrder
             return;
         }
 
-        $columns = $list_screen->get_columns();
-
         $list_screen->set_columns(
-            $this->order_columns($columns, $column_names)
+            $this->get_columns($list_screen, $column_names)
         );
 
         $this->list_screen_repository->save($list_screen);
     }
 
-    /**
-     * @param Column[] $columns
-     * @param array    $names
-     *
-     * @return Column[]
-     */
-    private function order_columns(array $columns, array $names): array
+    private function get_columns(ListScreen $list_screen, array $names): array
     {
-        $ordered = [];
-        $last = [];
-        foreach ($columns as $column) {
-            $key = array_search($column->get_name(), $names);
-
-            if (false === $key) {
-                $last[] = $column;
-                continue;
-            }
-
-            $ordered[$key] = $column;
-        }
-        ksort($ordered);
-
-        return array_merge($ordered, $last);
+        return (new ColumnRepository($list_screen))->find_all([
+            'sort' => new ColumnNames($names),
+        ]);
     }
 
 }

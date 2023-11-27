@@ -8,6 +8,7 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository;
 use AC\ListScreenRepositoryWritable;
+use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use LogicException;
 
@@ -86,7 +87,7 @@ final class Storage implements ListScreenRepositoryWritable
         return $collection;
     }
 
-    protected function find_all_by_key_from_source(string $key): ListScreenCollection
+    protected function find_all_by_key_from_source(ListKey $key): ListScreenCollection
     {
         $collection = new ListScreenCollection();
 

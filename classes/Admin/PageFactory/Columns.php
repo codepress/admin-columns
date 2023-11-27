@@ -87,9 +87,8 @@ class Columns implements PageFactoryInterface
         $request->add_middleware(
             new Middleware\ListScreenAdmin(
                 $this->storage,
-                $table_screen->get_key(),
-                $this->preference,
-                $this->list_screen_factory
+                $table_screen,
+                $this->preference
             )
         );
 
@@ -117,8 +116,8 @@ class Columns implements PageFactoryInterface
 
     private function set_preference(ListKey $key, ListScreenId $id): void
     {
-        $this->preference->set_last_visited_list_key((string)$key);
-        $this->preference->set_list_id((string)$key, (string)$id);
+        $this->preference->set_last_visited_list_key($key);
+        $this->preference->set_list_id($key, $id);
     }
 
     private function get_table_sceens(): TableScreens

@@ -44,15 +44,14 @@ class Save
 
         $data = (new Sanitize\FormData())->sanitize($data);
 
-        $list_screen = $this->list_screen_factory->create(
-            $list_key,
-            [
-                'list_id' => (string)$list_id,
-                'columns' => $this->maybe_encode_urls($data['columns']),
-                'preferences' => $data['settings'] ?? [],
-                'title' => $data['title'] ?? '',
-            ]
-        );
+        $encoded_data = [
+            'list_id'     => (string)$list_id,
+            'columns'     => $this->maybe_encode_urls($data['columns']),
+            'preferences' => $data['settings'] ?? [],
+            'title'       => $data['title'] ?? '',
+        ];
+
+        $list_screen = $this->list_screen_factory->create_from_encoded_data($list_key, $encoded_data);
 
         $this->storage->save($list_screen);
 

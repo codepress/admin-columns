@@ -37,7 +37,7 @@ class ListScreenTable implements Middleware
     private function get_first_list_screen(WP_User $user): ?ListScreen
     {
         $list_screens = $this->storage->find_all_by_assigned_user(
-            (string)$this->list_key,
+            $this->list_key,
             $user,
             new Sort\UserOrder($user, $this->list_key)
         );

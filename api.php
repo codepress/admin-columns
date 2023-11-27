@@ -1,9 +1,11 @@
 <?php
 
+use AC\Column;
 use AC\Container;
 use AC\Helper;
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use AC\Type\Url;
 
@@ -49,7 +51,7 @@ if ( ! function_exists('ac_get_list_screen')) {
 if ( ! function_exists('ac_get_list_screens')) {
     function ac_get_list_screens(string $key): ListScreenCollection
     {
-        return Container::get_storage()->find_all_by_key($key);
+        return Container::get_storage()->find_all_by_key(new ListKey($key));
     }
 }
 
@@ -57,7 +59,7 @@ if ( ! function_exists('ac_get_list_screens')) {
  * Usage: Load after or within the 'wp_loaded' action hook.
  */
 if ( ! function_exists('ac_get_column')) {
-    function ac_get_column(string $column_name, string $list_screen_id): ?\AC\Column
+    function ac_get_column(string $column_name, string $list_screen_id): ?Column
     {
         try {
             $list_id = new ListScreenId($list_screen_id);

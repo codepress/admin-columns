@@ -55,6 +55,25 @@ class ColumnFactory
         return $this->column_types;
     }
 
+    private function create_from_column_type(Column $column_type, array $settings): Column
+    {
+        $column = clone $column_type;
+
+        $column->set_options($settings);
+
+        if ($column->is_original()) {
+            if (isset($settings['label'])) {
+                $column->set_label($settings['label']);
+            }
+
+            return $column->set_name($column_type->get_type())
+                          ->set_group('default');
+        }
+
+        return $column->set_name((string)$settings['name'])
+                      ->set_group('custom');
+    }
+
     private function get_column(string $type, array $settings): ?Column
     {
         foreach ($this->get_column_types() as $column_type) {
@@ -62,24 +81,7 @@ class ColumnFactory
                 continue;
             }
 
-            /**
-             * @var Column $column
-             */
-            $column = clone $column_type;
-
-            $column->set_options($settings);
-
-            if ($column->is_original()) {
-                if (isset($settings['label'])) {
-                    $column->set_label($settings['label']);
-                }
-
-                return $column->set_name($type)
-                              ->set_group('default');
-            }
-
-            return $column->set_name((string)$settings['name'])
-                          ->set_group('custom');
+            return $this->create_from_column_type($column_type, $settings);
         }
 
         return null;

@@ -66,7 +66,7 @@ class Database implements ListScreenRepositoryWritable
         );
     }
 
-    protected function find_all_by_key_from_source(string $key): ListScreenCollection
+    protected function find_all_by_key_from_source(ListKey $key): ListScreenCollection
     {
         global $wpdb;
 
@@ -76,7 +76,7 @@ class Database implements ListScreenRepositoryWritable
 			FROM ' . $wpdb->prefix . self::TABLE . '
 			WHERE list_key = %s
 		',
-            $key
+            (string)$key
         );
 
         return $this->create_list_screens(
@@ -166,7 +166,7 @@ class Database implements ListScreenRepositoryWritable
             return null;
         }
 
-        return $this->list_screen_factory->create(
+        return $this->list_screen_factory->create_from_encoded_data(
             $list_key,
             [
                 'title'       => $data->title,
