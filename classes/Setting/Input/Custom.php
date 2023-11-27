@@ -6,22 +6,26 @@ namespace AC\Setting\Input;
 
 use AC\Setting\Input;
 
-final class Custom implements Input
+final class Custom extends Input
 {
-
-    private $type;
 
     private $data;
 
-    public function __construct(string $type, array $data = [])
-    {
-        $this->type = $type;
+    public function __construct(
+        string $type,
+        array $data = [],
+        $default = null,
+        string $placeholder = null,
+        string $class = null
+    ) {
+        parent::__construct($type, $default, $placeholder, $class);
+
         $this->data = $data;
     }
 
-    public function get_type(): string
+    public function has_data(): bool
     {
-        return $this->type;
+        return ! empty($this->data);
     }
 
     public function get_data(): array
