@@ -1177,10 +1177,11 @@ function create_if_block(ctx) {
   let updating_data;
   let current;
   function columnsettings_data_binding(value) {
-    /*columnsettings_data_binding*/ctx[7](value);
+    /*columnsettings_data_binding*/ctx[10](value);
   }
   let columnsettings_props = {
-    settings: /*children*/ctx[3]
+    settings: /*config*/ctx[4].children,
+    parent: /*config*/ctx[4].name
   };
   if ( /*data*/ctx[0] !== void 0) {
     columnsettings_props.data = /*data*/ctx[0];
@@ -1199,7 +1200,8 @@ function create_if_block(ctx) {
     },
     p(ctx, dirty) {
       const columnsettings_changes = {};
-      if (dirty & /*children*/8) columnsettings_changes.settings = /*children*/ctx[3];
+      if (dirty & /*config*/16) columnsettings_changes.settings = /*config*/ctx[4].children;
+      if (dirty & /*config*/16) columnsettings_changes.parent = /*config*/ctx[4].name;
       if (!updating_data && dirty & /*data*/1) {
         updating_data = true;
         columnsettings_changes.data = /*data*/ctx[0];
@@ -1230,9 +1232,9 @@ function create_fragment(ctx) {
   let t2;
   let if_block_anchor;
   let current;
-  const default_slot_template = /*#slots*/ctx[6].default;
-  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[5], null);
-  let if_block = /*children*/ctx[3].length > 0 && create_if_block(ctx);
+  const default_slot_template = /*#slots*/ctx[9].default;
+  const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[8], null);
+  let if_block = /*hasChildren*/ctx[5] && create_if_block(ctx);
   return {
     c() {
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -1248,7 +1250,7 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acp-column-setting__value");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "acp-column-setting");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "data-setting", /*name*/ctx[1]);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div2, "-align-top", /*top*/ctx[4]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div2, "-align-top", /*top*/ctx[3]);
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div2, anchor);
@@ -1267,20 +1269,20 @@ function create_fragment(ctx) {
     p(ctx, [dirty]) {
       if (!current || dirty & /*label*/4) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, /*label*/ctx[2]);
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/32)) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[5], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)( /*$$scope*/ctx[5]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[5], dirty, null), null);
+        if (default_slot.p && (!current || dirty & /*$$scope*/256)) {
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_slot_base)(default_slot, default_slot_template, ctx, /*$$scope*/ctx[8], !current ? (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_all_dirty_from_scope)( /*$$scope*/ctx[8]) : (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.get_slot_changes)(default_slot_template, /*$$scope*/ctx[8], dirty, null), null);
         }
       }
       if (!current || dirty & /*name*/2) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "data-setting", /*name*/ctx[1]);
       }
-      if (!current || dirty & /*top*/16) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div2, "-align-top", /*top*/ctx[4]);
+      if (!current || dirty & /*top*/8) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div2, "-align-top", /*top*/ctx[3]);
       }
-      if ( /*children*/ctx[3].length > 0) {
+      if ( /*hasChildren*/ctx[5]) {
         if (if_block) {
           if_block.p(ctx, dirty);
-          if (dirty & /*children*/8) {
+          if (dirty & /*hasChildren*/32) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
           }
         } else {
@@ -1320,10 +1322,12 @@ function create_fragment(ctx) {
   };
 }
 function instance($$self, $$props, $$invalidate) {
+  let hasChildren;
   let {
     $$slots: slots = {},
     $$scope
   } = $$props;
+  var _a, _b;
   let {
     name
   } = $$props;
@@ -1331,13 +1335,13 @@ function instance($$self, $$props, $$invalidate) {
     label
   } = $$props;
   let {
-    children = []
-  } = $$props;
-  let {
     data = {}
   } = $$props;
   let {
     top = false
+  } = $$props;
+  let {
+    config = null
   } = $$props;
   function columnsettings_data_binding(value) {
     data = value;
@@ -1346,12 +1350,17 @@ function instance($$self, $$props, $$invalidate) {
   $$self.$$set = $$props => {
     if ('name' in $$props) $$invalidate(1, name = $$props.name);
     if ('label' in $$props) $$invalidate(2, label = $$props.label);
-    if ('children' in $$props) $$invalidate(3, children = $$props.children);
     if ('data' in $$props) $$invalidate(0, data = $$props.data);
-    if ('top' in $$props) $$invalidate(4, top = $$props.top);
-    if ('$$scope' in $$props) $$invalidate(5, $$scope = $$props.$$scope);
+    if ('top' in $$props) $$invalidate(3, top = $$props.top);
+    if ('config' in $$props) $$invalidate(4, config = $$props.config);
+    if ('$$scope' in $$props) $$invalidate(8, $$scope = $$props.$$scope);
   };
-  return [data, name, label, children, top, $$scope, slots, columnsettings_data_binding];
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & /*config, _a, _b*/208) {
+      $: $$invalidate(5, hasChildren = $$invalidate(7, _b = ($$invalidate(6, _a = config === null || config === void 0 ? void 0 : config.children) === null || _a === void 0 ? void 0 : _a.length) > 0) !== null && _b !== void 0 ? _b : false);
+    }
+  };
+  return [data, name, label, top, config, hasChildren, _a, _b, $$scope, slots, columnsettings_data_binding];
 }
 class ColumnSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -1359,9 +1368,9 @@ class ColumnSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteC
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       name: 1,
       label: 2,
-      children: 3,
       data: 0,
-      top: 4
+      top: 3,
+      config: 4
     });
   }
 }
@@ -1391,13 +1400,13 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[10] = list[i];
-  child_ctx[11] = list;
-  child_ctx[12] = i;
+  child_ctx[11] = list[i];
+  child_ctx[12] = list;
+  child_ctx[13] = i;
   return child_ctx;
 }
 
-// (39:0) {#each filteredSettings as setting (setting.name)}
+// (41:0) {#each filteredSettings as setting (setting.name)}
 function create_each_block(key_1, ctx) {
   let first;
   let switch_instance;
@@ -1407,27 +1416,27 @@ function create_each_block(key_1, ctx) {
   let switch_instance_anchor;
   let current;
   function switch_instance_data_binding(value) {
-    /*switch_instance_data_binding*/ctx[5](value);
+    /*switch_instance_data_binding*/ctx[6](value);
   }
   function switch_instance_value_binding(value) {
-    /*switch_instance_value_binding*/ctx[6](value, /*setting*/ctx[10]);
+    /*switch_instance_value_binding*/ctx[7](value, /*setting*/ctx[11]);
   }
   function switch_instance_columnConfig_binding(value) {
-    /*switch_instance_columnConfig_binding*/ctx[7](value, /*setting*/ctx[10], /*each_value*/ctx[11], /*setting_index*/ctx[12]);
+    /*switch_instance_columnConfig_binding*/ctx[8](value, /*setting*/ctx[11], /*each_value*/ctx[12], /*setting_index*/ctx[13]);
   }
-  var switch_value = /*getComponent*/ctx[2]( /*setting*/ctx[10].input.type);
+  var switch_value = /*getComponent*/ctx[2]( /*setting*/ctx[11].input.type);
   function switch_props(ctx, dirty) {
     let switch_instance_props = {
-      config: /*setting*/ctx[10]
+      config: /*setting*/ctx[11]
     };
     if ( /*data*/ctx[0] !== void 0) {
       switch_instance_props.data = /*data*/ctx[0];
     }
-    if ( /*data*/ctx[0][/*setting*/ctx[10].name] !== void 0) {
-      switch_instance_props.value = /*data*/ctx[0][/*setting*/ctx[10].name];
+    if ( /*data*/ctx[0][/*setting*/ctx[11].name] !== void 0) {
+      switch_instance_props.value = /*data*/ctx[0][/*setting*/ctx[11].name];
     }
-    if ( /*setting*/ctx[10] !== void 0) {
-      switch_instance_props.columnConfig = /*setting*/ctx[10];
+    if ( /*setting*/ctx[11] !== void 0) {
+      switch_instance_props.columnConfig = /*setting*/ctx[11];
     }
     return {
       props: switch_instance_props
@@ -1457,7 +1466,7 @@ function create_each_block(key_1, ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & /*filteredSettings*/2 && switch_value !== (switch_value = /*getComponent*/ctx[2]( /*setting*/ctx[10].input.type))) {
+      if (dirty & /*filteredSettings*/2 && switch_value !== (switch_value = /*getComponent*/ctx[2]( /*setting*/ctx[11].input.type))) {
         if (switch_instance) {
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
           const old_component = switch_instance;
@@ -1480,7 +1489,7 @@ function create_each_block(key_1, ctx) {
         }
       } else if (switch_value) {
         const switch_instance_changes = {};
-        if (dirty & /*filteredSettings*/2) switch_instance_changes.config = /*setting*/ctx[10];
+        if (dirty & /*filteredSettings*/2) switch_instance_changes.config = /*setting*/ctx[11];
         if (!updating_data && dirty & /*data*/1) {
           updating_data = true;
           switch_instance_changes.data = /*data*/ctx[0];
@@ -1488,12 +1497,12 @@ function create_each_block(key_1, ctx) {
         }
         if (!updating_value && dirty & /*data, filteredSettings*/3) {
           updating_value = true;
-          switch_instance_changes.value = /*data*/ctx[0][/*setting*/ctx[10].name];
+          switch_instance_changes.value = /*data*/ctx[0][/*setting*/ctx[11].name];
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_value = false);
         }
         if (!updating_columnConfig && dirty & /*filteredSettings*/2) {
           updating_columnConfig = true;
-          switch_instance_changes.columnConfig = /*setting*/ctx[10];
+          switch_instance_changes.columnConfig = /*setting*/ctx[11];
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_columnConfig = false);
         }
         switch_instance.$set(switch_instance_changes);
@@ -1523,7 +1532,7 @@ function create_fragment(ctx) {
   let each_1_anchor;
   let current;
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*filteredSettings*/ctx[1]);
-  const get_key = ctx => /*setting*/ctx[10].name;
+  const get_key = ctx => /*setting*/ctx[11].name;
   for (let i = 0; i < each_value.length; i += 1) {
     let child_ctx = get_each_context(ctx, each_value, i);
     let key = get_key(child_ctx);
@@ -1583,6 +1592,9 @@ function instance($$self, $$props, $$invalidate) {
   let {
     settings
   } = $$props;
+  let {
+    parent = ''
+  } = $$props;
   let filteredSettings = settings;
   const getComponent = type => {
     return (0,_helper__WEBPACK_IMPORTED_MODULE_2__.getSettingComponent)(type);
@@ -1590,14 +1602,15 @@ function instance($$self, $$props, $$invalidate) {
   const checkConditions = data => {
     $$invalidate(1, filteredSettings = settings.filter(s => {
       if (s.conditions) {
-        return checkCondition(s.conditions);
+        return checkCondition(s.conditions, s.name);
       }
       return true;
     }));
   };
-  const checkCondition = conditions => {
+  const checkCondition = (conditions, name) => {
     let valid = false;
-    _expression_rule_specification_mapper__WEBPACK_IMPORTED_MODULE_3__["default"].map(conditions);
+    console.log(data[parent], parent, conditions);
+    return _expression_rule_specification_mapper__WEBPACK_IMPORTED_MODULE_3__["default"].map(conditions).isSatisfiedBy(data[parent]);
     return true;
     conditions.forEach(c => {
       if (data[c.setting] === c.value) {
@@ -1631,20 +1644,22 @@ function instance($$self, $$props, $$invalidate) {
   $$self.$$set = $$props => {
     if ('data' in $$props) $$invalidate(0, data = $$props.data);
     if ('settings' in $$props) $$invalidate(4, settings = $$props.settings);
+    if ('parent' in $$props) $$invalidate(5, parent = $$props.parent);
   };
   $$self.$$.update = () => {
     if ($$self.$$.dirty & /*data*/1) {
       $: checkConditions(data);
     }
   };
-  return [data, filteredSettings, getComponent, destroySetting, settings, switch_instance_data_binding, switch_instance_value_binding, switch_instance_columnConfig_binding];
+  return [data, filteredSettings, getComponent, destroySetting, settings, parent, switch_instance_data_binding, switch_instance_value_binding, switch_instance_columnConfig_binding];
 }
 class ColumnSettings extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       data: 0,
-      settings: 4
+      settings: 4,
+      parent: 5
     });
   }
 }
@@ -5056,6 +5071,7 @@ function create_fragment(ctx) {
   }
   let columnsetting_props = {
     label: /*config*/ctx[1].label,
+    config: /*config*/ctx[1],
     children: /*config*/ctx[1].children ?? [],
     name: "select",
     $$slots: {
@@ -5083,6 +5099,7 @@ function create_fragment(ctx) {
     p(ctx, [dirty]) {
       const columnsetting_changes = {};
       if (dirty & /*config*/2) columnsetting_changes.label = /*config*/ctx[1].label;
+      if (dirty & /*config*/2) columnsetting_changes.config = /*config*/ctx[1];
       if (dirty & /*config*/2) columnsetting_changes.children = /*config*/ctx[1].children ?? [];
       if (dirty & /*$$scope, options, selectValue*/524) {
         columnsetting_changes.$$scope = {
@@ -13959,12 +13976,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ AndSpecification)
 /* harmony export */ });
-/* harmony import */ var _base_specification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base-specification */ "./js/expression/base-specification.ts");
+/* harmony import */ var _not_specification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./not-specification */ "./js/expression/not-specification.ts");
+/* harmony import */ var _or_specification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./or-specification */ "./js/expression/or-specification.ts");
 
-class AndSpecification extends _base_specification__WEBPACK_IMPORTED_MODULE_0__["default"] {
+
+class AndSpecification {
     constructor(specifications) {
-        super();
         this.specifications = specifications;
+    }
+    andSpecification(specification) {
+        return new AndSpecification([specification, this]);
+    }
+    not() {
+        return new _not_specification__WEBPACK_IMPORTED_MODULE_0__["default"](this);
+    }
+    orSpecification(specification) {
+        return new _or_specification__WEBPACK_IMPORTED_MODULE_1__["default"]([specification, this]);
     }
     isSatisfiedBy(value) {
         this.specifications.forEach(specification => {
@@ -14079,12 +14106,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ OrSpecification)
 /* harmony export */ });
-/* harmony import */ var _base_specification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base-specification */ "./js/expression/base-specification.ts");
+/* harmony import */ var _not_specification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./not-specification */ "./js/expression/not-specification.ts");
+/* harmony import */ var _and_specification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./and-specification */ "./js/expression/and-specification.ts");
 
-class OrSpecification extends _base_specification__WEBPACK_IMPORTED_MODULE_0__["default"] {
+
+class OrSpecification {
     constructor(specifications) {
-        super();
         this.specifications = specifications;
+    }
+    andSpecification(specification) {
+        return new _and_specification__WEBPACK_IMPORTED_MODULE_1__["default"]([specification, this]);
+    }
+    not() {
+        return new _not_specification__WEBPACK_IMPORTED_MODULE_0__["default"](this);
+    }
+    orSpecification(specification) {
+        return new OrSpecification([specification, this]);
     }
     isSatisfiedBy(value) {
         this.specifications.forEach(specification => {
@@ -14107,6 +14144,9 @@ class OrSpecification extends _base_specification__WEBPACK_IMPORTED_MODULE_0__["
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ RuleSpecificationMapper)
+/* harmony export */ });
 /* harmony import */ var _or_specification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./or-specification */ "./js/expression/or-specification.ts");
 /* harmony import */ var _and_specification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./and-specification */ "./js/expression/and-specification.ts");
 /* harmony import */ var _not_specification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./not-specification */ "./js/expression/not-specification.ts");
@@ -14117,12 +14157,14 @@ __webpack_require__.r(__webpack_exports__);
 
 class RuleSpecificationMapper {
     static map(rule) {
+        console.log(rule);
         switch (rule.type) {
             case 'or':
             case 'and':
                 return this.createAggregate(rule);
             case 'not':
                 return new _not_specification__WEBPACK_IMPORTED_MODULE_2__["default"](this.map(rule));
+            case 'string_comparison':
             case 'comparison':
                 return this.createComparison(rule);
         }

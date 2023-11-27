@@ -1,11 +1,13 @@
 <script lang="ts">
     import ColumnSettings from "./ColumnSettings.svelte";
 
-    export let name: string|undefined;
+    export let name: string | undefined;
     export let label: string;
-    export let children: AC.Column.Settings.ColumnSetting[] = []
-	export let data: any = {};
+    export let data: any = {};
     export let top: boolean = false;
+    export let config: AC.Column.Settings.ColumnSetting|null = null;
+
+    $: hasChildren = config?.children?.length > 0 ?? false;
 </script>
 <style>
 
@@ -19,6 +21,6 @@
 		</slot>
 	</div>
 </div>
-{#if children.length > 0}
-	<ColumnSettings bind:data={data} settings={children}></ColumnSettings>
+{#if hasChildren}
+	<ColumnSettings bind:data={data} settings={config.children} parent={config.name}></ColumnSettings>
 {/if}

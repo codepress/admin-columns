@@ -5,6 +5,7 @@
 
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
+	export let parent: string = '';
 
     let filteredSettings = settings;
 
@@ -15,16 +16,18 @@
     const checkConditions = (data) => {
         filteredSettings = settings.filter(s => {
             if (s.conditions) {
-                return checkCondition(s.conditions)
+                return checkCondition(s.conditions, s.name)
             }
             return true;
         })
     }
 
-    const checkCondition = (conditions: AC.Column.Settings.ColumnConditions) => {
+    const checkCondition = (conditions: AC.Column.Settings.ColumnConditions, name: string) => {
         let valid = false;
 
-        RuleSpecificationMapper.map( conditions)
+		console.log( data[parent], parent, conditions);
+        return RuleSpecificationMapper.map( conditions).isSatisfiedBy( data[parent] );
+
 
         return true;
 
