@@ -56,7 +56,7 @@ class AjaxColumnValue implements Registerable
             wp_send_json_error(__('Invalid list screen.', 'codepress-admin-columns'), 400);
         }
 
-        $column = $list_screen->get_column_by_name(filter_input(INPUT_POST, 'column'));
+        $column = $list_screen->get_column((string)filter_input(INPUT_POST, 'column'));
 
         if ( ! $column) {
             wp_send_json_error(__('Invalid column.', 'codepress-admin-columns'), 400);

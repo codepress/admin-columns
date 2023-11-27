@@ -73,7 +73,7 @@ if ( ! function_exists('ac_get_column')) {
             return null;
         }
 
-        $column = $list_screen->get_column_by_name($column_name);
+        $column = $list_screen->get_column($column_name);
 
         return $column ?: null;
     }

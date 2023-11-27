@@ -20,7 +20,11 @@ class ColumnRepository
 
     public function find(string $column_name): ?Column
     {
-        return $this->list_screen->get_columns()->get($column_name);
+        $columns = $this->list_screen->get_columns();
+
+        return $columns->contains($column_name)
+            ? $columns->get($column_name)
+            : null;
     }
 
     public function find_all(array $args = []): ColumnCollection

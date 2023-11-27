@@ -76,6 +76,13 @@ final class ListScreen implements PostType
         $this->columns = $columns;
     }
 
+    public function get_column(string $name): ?Column
+    {
+        return $this->columns->contains($name)
+            ? $this->columns->get($name)
+            : null;
+    }
+
     public function get_preferences(): array
     {
         return $this->preferences;
@@ -149,13 +156,6 @@ final class ListScreen implements PostType
         return new Url\EditorColumns($this->get_key(), $this->id);
     }
 
-    public function get_column_by_name($name): ?Column
-    {
-        return $this->columns->contains((string)$name)
-            ? $this->columns->get((string)$name)
-            : null;
-    }
-
     public function is_user_allowed(WP_User $user): bool
     {
         return user_can($user, Capabilities::MANAGE) || $this->is_user_assigned($user);
@@ -208,6 +208,16 @@ final class ListScreen implements PostType
     public function get_layout_id(): ?string
     {
         return (string)$this->id;
+    }
+
+    /**
+     * @deprecated NEWVERSION
+     */
+    public function get_column_by_name(string $name): ?Column
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION', 'AC\ListScreen::get_column()');
+
+        return $this->get_column($name);
     }
 
     /**

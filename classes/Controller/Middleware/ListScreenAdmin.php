@@ -92,7 +92,7 @@ class ListScreenAdmin implements Middleware
             );
         }
 
-        if ( ! $list_screen->get_columns()) {
+        if ( ! $list_screen->get_columns()->valid()) {
             $list_screen->set_columns($this->get_default_columns());
         }
 

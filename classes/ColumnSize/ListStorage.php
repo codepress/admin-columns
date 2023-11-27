@@ -26,7 +26,7 @@ class ListStorage
             return;
         }
 
-        $column = $list_screen->get_column_by_name($column_name);
+        $column = $list_screen->get_column($column_name);
 
         if ( ! $column) {
             return;
@@ -59,7 +59,7 @@ class ListStorage
 
     public function get(ListScreen $list_screen, string $column_name): ?ColumnWidth
     {
-        $column = $list_screen->get_column_by_name($column_name);
+        $column = $list_screen->get_column($column_name);
 
         if ( ! $column) {
             return null;
