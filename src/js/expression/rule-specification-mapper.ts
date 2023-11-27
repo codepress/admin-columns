@@ -17,15 +17,17 @@ interface ComparisonRule extends Rule {
     operator: string;
 }
 
-class RuleSpecificationMapper {
+export default class RuleSpecificationMapper {
 
     static map(rule: Rule): Specification {
+        console.log( rule );
         switch (rule.type) {
             case 'or':
             case 'and':
                 return this.createAggregate(rule as AggregateRule);
             case 'not':
                 return new NotSpecification(this.map(rule));
+            case 'string_comparison':
             case 'comparison':
                 return this.createComparison(rule as ComparisonRule)
         }

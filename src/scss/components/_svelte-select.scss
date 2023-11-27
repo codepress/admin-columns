@@ -159,7 +159,7 @@ $input-hover-text-color: #2271b1;
 	--item-line-height: 30px;
 	--item-padding: 0 10px;
 	--item-hover-bg: var(--ac-link);
-	--item-is-active-bg: #ddd;
+	--item-is-active-bg: #EAF2FA;
 	--item-is-active-color: #000;
 	--item-hover-color: #fff;
 
@@ -214,6 +214,17 @@ $input-hover-text-color: #2271b1;
 				font-size: 12px !important;
 				border-top: 1px solid #888;
 				border-bottom: 1px solid #888;
+			}
+
+			&.active {
+				position: relative;
+				&:after {
+					content: '✓';
+					position: absolute;
+					right: 10px;
+					top: 0;
+					color: var(--ac-primary-color)
+				}
 			}
 		}
 
