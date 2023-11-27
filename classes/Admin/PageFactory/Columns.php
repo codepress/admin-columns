@@ -12,7 +12,6 @@ use AC\Asset\Location;
 use AC\Controller\Middleware;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
-use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\Table\TableScreens;
@@ -32,8 +31,6 @@ class Columns implements PageFactoryInterface
 
     protected $menu_factory;
 
-    protected $list_screen_factory;
-
     protected $uninitialized_screens;
 
     private $menu_list_factory;
@@ -48,7 +45,6 @@ class Columns implements PageFactoryInterface
         Storage $storage,
         Location\Absolute $location,
         MenuFactoryInterface $menu_factory,
-        ListScreenFactory $list_screen_factory,
         TableScreenFactory $table_screen_factory,
         Admin\UninitializedScreens $uninitialized_screens,
         Admin\MenuListFactory $menu_list_factory,
@@ -58,7 +54,6 @@ class Columns implements PageFactoryInterface
         $this->storage = $storage;
         $this->location = $location;
         $this->menu_factory = $menu_factory;
-        $this->list_screen_factory = $list_screen_factory;
         $this->uninitialized_screens = $uninitialized_screens;
         $this->menu_list_factory = $menu_list_factory;
         $this->table_screen_factory = $table_screen_factory;

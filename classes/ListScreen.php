@@ -69,6 +69,8 @@ final class ListScreen implements PostType
     /**
      * @return Column[]
      */
+
+    // TODO create ColumnCollection
     public function get_columns(): array
     {
         return $this->columns;

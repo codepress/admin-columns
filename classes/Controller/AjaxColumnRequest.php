@@ -6,7 +6,6 @@ use AC\Ajax;
 use AC\Controller\ColumnRequest\Refresh;
 use AC\Controller\ColumnRequest\Select;
 use AC\Controller\ListScreen\Save;
-use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Request;
@@ -18,17 +17,13 @@ class AjaxColumnRequest implements Registerable
 
     private $storage;
 
-    private $list_screen_factory;
-
     private $table_screen_factory;
 
     public function __construct(
         Storage $storage,
-        ListScreenFactory $list_screen_factory,
         TableScreenFactory $table_screen_factory
     ) {
         $this->storage = $storage;
-        $this->list_screen_factory = $list_screen_factory;
         $this->table_screen_factory = $table_screen_factory;
     }
 
@@ -55,7 +50,7 @@ class AjaxColumnRequest implements Registerable
 
         switch ($request->get('id')) {
             case 'save':
-                (new Save($this->storage, $this->list_screen_factory))->request($request);
+                (new Save($this->storage, $this->table_screen_factory))->request($request);
                 break;
             case 'select':
                 (new Select($this->table_screen_factory))->request($request);

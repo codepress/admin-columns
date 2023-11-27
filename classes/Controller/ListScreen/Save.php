@@ -3,9 +3,11 @@
 namespace AC\Controller\ListScreen;
 
 use AC\Column\LabelEncoder;
-use AC\ListScreenFactory;
+use AC\ColumnFactory;
+use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
+use AC\TableScreenFactory;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 
@@ -14,12 +16,12 @@ class Save
 
     private $storage;
 
-    private $list_screen_factory;
+    private $table_screen_factory;
 
-    public function __construct(Storage $storage, ListScreenFactory $list_screen_factory)
+    public function __construct(Storage $storage, TableScreenFactory $table_screen_factory)
     {
         $this->storage = $storage;
-        $this->list_screen_factory = $list_screen_factory;
+        $this->table_screen_factory = $table_screen_factory;
     }
 
     public function request(Request $request): void
@@ -32,9 +34,11 @@ class Save
 
         $list_key = new ListKey($data['list_screen'] ?? '');
 
-        if ( ! $this->list_screen_factory->can_create($list_key)) {
+        if ( ! $this->table_screen_factory->can_create($list_key)) {
             wp_send_json_error(['message' => __('List screen not found', 'codepress-admin-columns')]);
         }
+
+        $table_screen = $this->table_screen_factory->create($list_key);
 
         $list_id = $data['list_screen_id'] ?? '';
 
@@ -43,15 +47,15 @@ class Save
             : ListScreenId::generate();
 
         $data = (new Sanitize\FormData())->sanitize($data);
+        $column_factory = new ColumnFactory($table_screen);
 
-        $encoded_data = [
-            'list_id'     => (string)$list_id,
-            'columns'     => $this->maybe_encode_urls($data['columns']),
-            'preferences' => $data['settings'] ?? [],
-            'title'       => $data['title'] ?? '',
-        ];
-
-        $list_screen = $this->list_screen_factory->create_from_encoded_data($list_key, $encoded_data);
+        $list_screen = new ListScreen(
+            $list_id,
+            $data['title'] ?? '',
+            $table_screen,
+            $this->get_columns($column_factory, $data['columns'] ?? []),
+            $data['settings'] ?? []
+        );
 
         $this->storage->save($list_screen);
 
@@ -77,15 +81,19 @@ class Save
         ]);
     }
 
-    private function maybe_encode_urls(array $columndata): array
+    private function get_columns(ColumnFactory $column_factory, array $columndata): array
     {
-        foreach ($columndata as $name => $data) {
+        $columns = [];
+
+        foreach ($columndata as $data) {
             if (isset($data['label'])) {
-                $columndata[$name]['label'] = (new LabelEncoder())->encode($data['label']);
+                $data['label'] = (new LabelEncoder())->encode($data['label']);
             }
+
+            $columns[] = $column_factory->create($data);
         }
 
-        return $columndata;
+        return array_filter($columns);
     }
 
 }

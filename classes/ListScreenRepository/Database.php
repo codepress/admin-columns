@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace AC\ListScreenRepository;
 
+use AC\ColumnFactory;
 use AC\ListScreen;
 use AC\ListScreenCollection;
-use AC\ListScreenFactory;
 use AC\ListScreenRepositoryWritable;
 use AC\Storage\EncoderFactory;
+use AC\TableScreenFactory;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use DateTime;
@@ -20,13 +21,13 @@ class Database implements ListScreenRepositoryWritable
 
     private const TABLE = 'admin_columns';
 
-    private $list_screen_factory;
+    private $table_screen_factory;
 
     private $encoder_factory;
 
-    public function __construct(ListScreenFactory $list_screen_factory, EncoderFactory $encoder_factory)
+    public function __construct(TableScreenFactory $table_screen_factory, EncoderFactory $encoder_factory)
     {
-        $this->list_screen_factory = $list_screen_factory;
+        $this->table_screen_factory = $table_screen_factory;
         $this->encoder_factory = $encoder_factory;
     }
 
@@ -155,27 +156,49 @@ class Database implements ListScreenRepositoryWritable
      */
     protected function get_preferences(object $data): array
     {
-        return $data->settings ? unserialize($data->settings, ['allowed_classes' => false]) : [];
+        return $data->settings
+            ? unserialize($data->settings, ['allowed_classes' => false])
+            : [];
     }
 
     private function create_list_screen(object $data): ?ListScreen
     {
         $list_key = new ListKey($data->list_key);
 
-        if ( ! $this->list_screen_factory->can_create($list_key)) {
+        if ( ! $this->table_screen_factory->can_create($list_key)) {
             return null;
         }
 
-        return $this->list_screen_factory->create_from_encoded_data(
-            $list_key,
-            [
-                'title'       => $data->title,
-                'list_id'     => $data->list_id,
-                'date'        => $data->date_modified,
-                'preferences' => $this->get_preferences($data),
-                'columns'     => $data->columns ? unserialize($data->columns, ['allowed_classes' => false]) : [],
-            ]
+        $table_screen = $this->table_screen_factory->create($list_key);
+
+        return new ListScreen(
+            new ListScreenId($data->list_id),
+            $data->title,
+            $table_screen,
+            $this->get_columns(new ColumnFactory($table_screen), $data),
+            $this->get_preferences($data),
+            new DateTime($data->date_modified)
         );
+    }
+
+    private function get_columns(ColumnFactory $factory, object $data): array
+    {
+        $columns = [];
+
+        $columns_data = $data->columns
+            ? unserialize($data->columns, ['allowed_classes' => false])
+            : [];
+
+        foreach ($columns_data as $name => $column_data) {
+            // TODO is this needed?
+            if ( ! isset($column_data['name'])) {
+                $columns_data['name'] = $name;
+            }
+
+            $columns[] = $factory->create($column_data);
+        }
+
+        return array_filter($columns);
     }
 
     private function create_list_screens(array $rows): ListScreenCollection

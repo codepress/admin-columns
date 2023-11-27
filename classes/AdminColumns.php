@@ -139,7 +139,6 @@ class AdminColumns
             Plugin::class                           => static function (): Plugin {
                 return Plugin::create(AC_FILE, new Version(AC_VERSION));
             },
-            ListScreenFactory::class                => autowire(BaseFactory::class),
             TableScreenFactory::class               => autowire(TableScreenFactory\Aggregate::class),
             Absolute::class                         => static function (Plugin $plugin): Absolute {
                 return new Absolute($plugin->get_url(), $plugin->get_dir());
