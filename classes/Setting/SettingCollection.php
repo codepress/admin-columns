@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace AC\Setting;
 
 use Countable;
-use Iterator;
 
-final class SettingCollection implements Iterator, Countable
+final class SettingCollection extends Collection implements Countable
 {
-
-    private $data = [];
 
     public function __construct(array $data = [])
     {
@@ -24,27 +21,7 @@ final class SettingCollection implements Iterator, Countable
 
     public function current(): Setting
     {
-        return current($this->data);
-    }
-
-    public function next(): void
-    {
-        next($this->data);
-    }
-
-    public function key(): int
-    {
-        return key($this->data);
-    }
-
-    public function valid(): bool
-    {
-        return key($this->data) !== null;
-    }
-
-    public function rewind(): void
-    {
-        reset($this->data);
+        return parent::current();
     }
 
     public function count(): int

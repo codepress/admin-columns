@@ -59,9 +59,11 @@ final class Encoder
         }
 
         if ($input instanceof Number) {
-            $encoded['input']['min'] = $input->get_min();
-            $encoded['input']['max'] = $input->get_max();
-            $encoded['input']['step'] = $input->get_step();
+            $encoded['input'] += [
+                'min'  => $input->get_min(),
+                'max'  => $input->get_max(),
+                'step' => $input->get_step(),
+            ];
         }
 
         if ($setting instanceof Recursive) {

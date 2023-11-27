@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 use AC\Setting\SettingCollection;
@@ -402,7 +404,7 @@ class Column
     public function get_formatted_value($value, $original_value = null, $current = 0)
     {
         $formatters = $this->get_formatters();
-        $available = count((array)$formatters);
+        $available = count($formatters);
 
         if (null === $original_value) {
             $original_value = $value;

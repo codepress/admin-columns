@@ -3,7 +3,6 @@
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\ConditionCollection;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingTrait;

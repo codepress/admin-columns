@@ -6,7 +6,6 @@ namespace AC\Setting;
 
 use Iterator;
 
-// TODO David decide on generic component or not
 abstract class Collection implements Iterator
 {
 
