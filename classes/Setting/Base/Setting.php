@@ -25,10 +25,6 @@ class Setting implements AC\Setting\Setting
             $input = new Input\Custom($name);
         }
 
-        if (null === $conditions) {
-            //$conditions = new Specification();
-        }
-
         $this->name = $name;
         $this->label = $label;
         $this->description = $description;

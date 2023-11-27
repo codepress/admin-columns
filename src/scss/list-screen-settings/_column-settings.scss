@@ -1,24 +1,21 @@
 .acp-column-setting {
 	display: flex;
-	align-items: center;
 
-	&.-align-top {
-		align-items: flex-start;
-	}
 
 	&__label {
+		-webkit-font-smoothing: antialiased;
 		width: 200px;
-		font-weight: bold;
+		font-weight: 600;
 		padding: 10px 30px;
+		padding-top: 21px;
 	}
 
 	&__value {
-		padding: 10px 10px;
+		padding: 10px 20px;
 		flex-grow: 1;
-		max-width: 500px;
+		max-width: 620px;
 	}
 }
-
 
 .acp-column-setting[data-setting=label] {
 	.acui-input-group-text {
@@ -94,4 +91,16 @@
 	}
 }
 
-
+// Subsettings
+.ac-column-settings.-subsettings {
+	padding-top: 10px;
+	.acp-column-setting {
+		flex-direction: column;
+		.acp-column-setting__label {
+			padding: 10px 0;
+		}
+		.acp-column-setting__value {
+			padding: 0;
+		}
+	}
+}

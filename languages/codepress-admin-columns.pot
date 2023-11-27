@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2023-11-21 15:10+0000\n"
+"POT-Creation-Date: 2023-11-27 09:44+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:12, classes/Settings/Column/CustomFieldType.php:203, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:35, templates/admin/help-tab/custom-fields.php:6
+#: classes/ColumnGroups.php:12, classes/Settings/Column/CustomFieldType.php:80, classes/Settings/Column/Image.php:156, classes/Settings/Column/Separator.php:35, templates/admin/help-tab/custom-fields.php:6
 msgid "Default"
 msgstr ""
 
@@ -28,7 +28,7 @@ msgstr ""
 msgid "Meta"
 msgstr ""
 
-#: classes/ColumnGroups.php:16, classes/Column/Media/Image.php:12, classes/Settings/Column/CustomFieldType.php:134, templates/admin/help-tab/custom-fields.php:30
+#: classes/ColumnGroups.php:16, classes/Column/Media/Image.php:12, classes/Settings/Column/CustomFieldType.php:201, templates/admin/help-tab/custom-fields.php:30
 msgid "Image"
 msgstr ""
 
@@ -48,11 +48,11 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: classes/ColumnGroups.php:21, classes/Settings/Column/CustomFieldType.php:189, classes/Settings/Column/Image.php:112
+#: classes/ColumnGroups.php:21, classes/Settings/Column/CustomFieldType.php:76, classes/Settings/Column/Image.php:183
 msgid "Custom"
 msgstr ""
 
-#: classes/ListScreenGroupsFactory.php:12, classes/Settings/Column/CustomFieldType.php:111, classes/Settings/Column/PostType.php:43
+#: classes/ListScreenGroupsFactory.php:12, classes/Settings/Column/PostType.php:43
 msgid "Post Type"
 msgstr ""
 
@@ -64,7 +64,7 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
-#: classes/Admin/AdminLoader.php:107, classes/Settings/Column/AttachmentDisplay.php:20, classes/Settings/Column/Comment.php:37, classes/Settings/Column/Post.php:109, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:60, classes/Settings/Column/VideoDisplay.php:26
+#: classes/Admin/AdminLoader.php:107, classes/Settings/Column/AttachmentDisplay.php:20, classes/Settings/Column/Comment.php:36, classes/Settings/Column/Post.php:109, classes/Settings/Column/Term.php:36, classes/Settings/Column/User.php:60, classes/Settings/Column/VideoDisplay.php:26
 msgid "Display"
 msgstr ""
 
@@ -356,7 +356,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: templates/admin/edit-column.php:31, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:84, classes/Settings/Column/Type.php:17
+#: templates/admin/edit-column.php:31, classes/Column/Comment/Type.php:14, classes/Settings/Column/Type.php:17
 msgid "Type"
 msgstr ""
 
@@ -452,7 +452,7 @@ msgstr ""
 msgid "Status (Quick Links)"
 msgstr ""
 
-#: templates/admin/list-screen-settings-mockup.php:64
+#: templates/admin/list-screen-settings-mockup.php:64, classes/Admin/Asset/Columns.php:104
 msgid "Search"
 msgstr ""
 
@@ -644,7 +644,7 @@ msgstr ""
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>."
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:24
+#: templates/settings/setting-label-icons.php:24, classes/Admin/Asset/Columns.php:109
 msgid "Select Icon"
 msgstr ""
 
@@ -660,7 +660,7 @@ msgstr ""
 msgid "Post Formats"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:37, classes/Settings/Column/CustomFieldType.php:143, templates/admin/help-tab/custom-fields.php:34
+#: templates/settings/setting-label-icons.php:37, classes/Settings/Column/CustomFieldType.php:210, templates/admin/help-tab/custom-fields.php:34
 msgid "Media"
 msgstr ""
 
@@ -900,6 +900,10 @@ msgstr ""
 msgid "The column could not be loaded because of an unknown error"
 msgstr ""
 
+#: classes/Admin/Asset/Columns.php:105
+msgid "Select"
+msgstr ""
+
 #: classes/Admin/MenuPageFactory/Menu.php:15, classes/Admin/MenuPageFactory/SubMenu.php:16
 msgid "Admin Columns Settings"
 msgstr ""
@@ -1054,7 +1058,7 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: classes/Column/Comment/Post.php:14, classes/Settings/Column/CustomFieldType.php:144, templates/admin/help-tab/custom-fields.php:46
+#: classes/Column/Comment/Post.php:14, classes/Settings/Column/CustomFieldType.php:211, templates/admin/help-tab/custom-fields.php:46
 msgid "Post"
 msgstr ""
 
@@ -1066,7 +1070,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: classes/Column/Comment/User.php:15, classes/Settings/Column/CustomFieldType.php:115, classes/Settings/Column/CustomFieldType.php:145, templates/admin/help-tab/custom-fields.php:58
+#: classes/Column/Comment/User.php:15, classes/Settings/Column/CustomFieldType.php:212, templates/admin/help-tab/custom-fields.php:58
 msgid "User"
 msgstr ""
 
@@ -1150,7 +1154,7 @@ msgstr ""
 msgid "Path"
 msgstr ""
 
-#: classes/Column/Media/Height.php:15, classes/Settings/Column/FileMetaVideo.php:15, classes/Settings/Column/Image.php:47
+#: classes/Column/Media/Height.php:15, classes/Settings/Column/FileMetaVideo.php:15
 msgid "Height"
 msgstr ""
 
@@ -1174,7 +1178,7 @@ msgstr ""
 msgid "Play"
 msgstr ""
 
-#: classes/Column/Media/Width.php:17, classes/Settings/Column/FileMetaVideo.php:18, classes/Settings/Column/Image.php:41, classes/Settings/Column/Width.php:24
+#: classes/Column/Media/Width.php:17, classes/Settings/Column/FileMetaVideo.php:18, classes/Settings/Column/Width.php:24
 msgid "Width"
 msgstr ""
 
@@ -1430,15 +1434,15 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: classes/Settings/Column/CommentLink.php:23, classes/Settings/Column/MediaLink.php:52, classes/Settings/Column/PostLink.php:62, classes/Settings/Column/TermLink.php:30, classes/Settings/Column/UserLink.php:69
+#: classes/Settings/Column/CommentLink.php:24, classes/Settings/Column/MediaLink.php:52, classes/Settings/Column/PostLink.php:62, classes/Settings/Column/TermLink.php:30, classes/Settings/Column/UserLink.php:69
 msgid "Link To"
 msgstr ""
 
-#: classes/Settings/Column/CommentLink.php:28
+#: classes/Settings/Column/CommentLink.php:29
 msgid "View Comment"
 msgstr ""
 
-#: classes/Settings/Column/CommentLink.php:29
+#: classes/Settings/Column/CommentLink.php:30
 msgid "Edit Comment"
 msgstr ""
 
@@ -1446,100 +1450,72 @@ msgstr ""
 msgid "Field"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:81
-msgid "This will determine how the value will be displayed."
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:88
+#: classes/Settings/Column/CustomFieldType.php:43
 msgid "Field Type"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:97
-msgid "Uses one or more %s IDs to display information about it."
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:100
-msgid "Multiple IDs should be separated by commas."
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:131, templates/admin/help-tab/custom-fields.php:10
-msgid "Color"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:132, classes/Settings/Column/DateFormat.php:32, templates/admin/help-tab/custom-fields.php:18
-msgid "Date"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:133
-msgid "Text"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:135, templates/admin/help-tab/custom-fields.php:54
-msgid "URL"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:136, templates/admin/help-tab/custom-fields.php:42
-msgid "Number"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:139, templates/admin/help-tab/custom-fields.php:26
-msgid "Has Content"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:140, templates/admin/help-tab/custom-fields.php:50
-msgid "True / False"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:148
-msgid "Number of Fields"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:151, templates/admin/help-tab/custom-fields.php:38
-msgid "Multiple Values"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:152
-msgid "Serialized"
-msgstr ""
-
-#: classes/Settings/Column/CustomFieldType.php:185
+#: classes/Settings/Column/CustomFieldType.php:72
 msgid "Basic"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:186
+#: classes/Settings/Column/CustomFieldType.php:73
 msgid "Relational"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:187
+#: classes/Settings/Column/CustomFieldType.php:74
 msgid "Choice"
 msgstr ""
 
-#: classes/Settings/Column/CustomFieldType.php:188
+#: classes/Settings/Column/CustomFieldType.php:75
 msgid "Multiple"
 msgstr ""
 
-#: classes/Settings/Column/Date.php:10
-msgid "The difference is returned in a human readable format."
+#: classes/Settings/Column/CustomFieldType.php:198, templates/admin/help-tab/custom-fields.php:10
+msgid "Color"
 msgstr ""
 
-#: classes/Settings/Column/Date.php:11
-msgid "For example: %s."
+#: classes/Settings/Column/CustomFieldType.php:199, classes/Settings/Column/DateFormat.php:32, templates/admin/help-tab/custom-fields.php:18
+msgid "Date"
+msgstr ""
+
+#: classes/Settings/Column/CustomFieldType.php:200
+msgid "Text"
+msgstr ""
+
+#: classes/Settings/Column/CustomFieldType.php:202, templates/admin/help-tab/custom-fields.php:54
+msgid "URL"
+msgstr ""
+
+#: classes/Settings/Column/CustomFieldType.php:203, templates/admin/help-tab/custom-fields.php:42
+msgid "Number"
+msgstr ""
+
+#: classes/Settings/Column/CustomFieldType.php:206, templates/admin/help-tab/custom-fields.php:26
+msgid "Has Content"
+msgstr ""
+
+#: classes/Settings/Column/CustomFieldType.php:207, templates/admin/help-tab/custom-fields.php:50
+msgid "True / False"
+msgstr ""
+
+#: classes/Settings/Column/CustomFieldType.php:215
+msgid "Number of Fields"
+msgstr ""
+
+#: classes/Settings/Column/CustomFieldType.php:218, templates/admin/help-tab/custom-fields.php:38
+msgid "Multiple Values"
+msgstr ""
+
+#: classes/Settings/Column/CustomFieldType.php:219
+msgid "Serialized"
 msgstr ""
 
 #: classes/Settings/Column/Date.php:13
-msgid "or"
-msgstr ""
-
-#: classes/Settings/Column/Date.php:17
 msgid "Time Difference"
 msgstr ""
 
-#: classes/Settings/Column/Date.php:23
+#: classes/Settings/Column/Date.php:14
 msgid "WordPress Date Format"
-msgstr ""
-
-#: classes/Settings/Column/Date.php:79
-msgid "in %s"
 msgstr ""
 
 #: classes/Settings/Column/DateFormat.php:35
@@ -1554,28 +1530,8 @@ msgstr ""
 msgid "Date Save Format"
 msgstr ""
 
-#: classes/Settings/Column/DateTimeFormat.php:43
-msgid "The %s can be changed in %s."
-msgstr ""
-
-#: classes/Settings/Column/DateTimeFormat.php:62
+#: classes/Settings/Column/DateTimeFormat.php:28
 msgid "Date Format"
-msgstr ""
-
-#: classes/Settings/Column/DateTimeFormat.php:63
-msgid "This will determine how the date will be displayed."
-msgstr ""
-
-#: classes/Settings/Column/DateTimeFormat.php:119
-msgid "Custom:"
-msgstr ""
-
-#: classes/Settings/Column/DateTimeFormat.php:121
-msgid "Learn more about %s."
-msgstr ""
-
-#: classes/Settings/Column/DateTimeFormat.php:121
-msgid "date and time formatting"
 msgstr ""
 
 #: classes/Settings/Column/ExifData.php:72
@@ -1712,39 +1668,31 @@ msgstr ""
 msgid "px"
 msgstr ""
 
-#: classes/Settings/Column/Image.php:42
-msgid "Width in pixels"
-msgstr ""
-
-#: classes/Settings/Column/Image.php:48
-msgid "Height in pixels"
-msgstr ""
-
-#: classes/Settings/Column/Image.php:55
+#: classes/Settings/Column/Image.php:26
 msgid "Image Size"
 msgstr ""
 
-#: classes/Settings/Column/Image.php:74
+#: classes/Settings/Column/Image.php:158
 msgid "Thumbnail"
 msgstr ""
 
-#: classes/Settings/Column/Image.php:75
+#: classes/Settings/Column/Image.php:159
 msgid "Medium"
 msgstr ""
 
-#: classes/Settings/Column/Image.php:76
+#: classes/Settings/Column/Image.php:160
 msgid "Large"
 msgstr ""
 
-#: classes/Settings/Column/Image.php:90
-msgid "Others"
-msgstr ""
-
-#: classes/Settings/Column/Image.php:109
+#: classes/Settings/Column/Image.php:161
 msgid "Full Size"
 msgstr ""
 
-#: classes/Settings/Column/Image.php:113
+#: classes/Settings/Column/Image.php:164
+msgid "Others"
+msgstr ""
+
+#: classes/Settings/Column/Image.php:181
 msgid "Custom Size"
 msgstr ""
 

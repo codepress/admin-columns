@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use AC\Setting\Input\Custom;
 use AC\Setting\Input\Number;
 use AC\Setting\Input\Option;
 use AC\Setting\Input\Single;
@@ -46,6 +47,10 @@ final class Encoder
             $encoded['input']['default'] = $input->get_default();
         }
 
+        if ($input instanceof Custom) {
+            $encoded['input']['data'] = $input->get_data();
+        }
+
         if ($input instanceof Option) {
             $encoded['input']['options'] = $this->encode_options($input->get_options());
 
@@ -65,6 +70,7 @@ final class Encoder
         }
 
         if ($setting instanceof Recursive) {
+            $encoded['is_parent'] = $setting->is_parent();
             $encoded['children'] = [];
 
             foreach ($setting->get_children() as $child) {

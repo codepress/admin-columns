@@ -5,9 +5,9 @@
     export let label: string;
     export let data: any = {};
     export let top: boolean = false;
-    export let config: AC.Column.Settings.ColumnSetting|null = null;
+    export let config: AC.Column.Settings.ColumnSetting | null = null;
 
-    $: hasChildren = config?.children?.length > 0 ?? false;
+    $:isParent = config?.is_parent ?? false;
 </script>
 <style>
 
@@ -19,8 +19,13 @@
 		<slot>
 
 		</slot>
+		{#if config && config.children && isParent}
+			<div class="ac-column-settings -subsettings">
+				<ColumnSettings bind:data={data} settings={config.children} parent={config.name}></ColumnSettings>
+			</div>
+		{/if}
 	</div>
 </div>
-{#if hasChildren}
+{#if config && config.children && ! isParent }
 	<ColumnSettings bind:data={data} settings={config.children} parent={config.name}></ColumnSettings>
 {/if}

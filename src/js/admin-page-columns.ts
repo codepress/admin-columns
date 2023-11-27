@@ -20,6 +20,7 @@ import ToggleSetting from "./columns/components/settings/ToggleSetting.svelte";
 import TextSetting from "./columns/components/settings/TextSetting.svelte";
 import DateFormatSetting from "./columns/components/settings/DateFormatSetting.svelte";
 import NumberSetting from "./columns/components/settings/Number.svelte";
+import NumberPreviewSetting from "./columns/components/settings/NumberPreviewSetting.svelte";
 import SelectSetting from "./columns/components/settings/SelectSetting.svelte";
 import ColumnsPage from "./columns/components/ColumnsPage.svelte";
 import {currentListId, currentListKey} from "./columns/store/current-list-screen";
@@ -78,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     registerSettingType('toggle', ToggleSetting)
     registerSettingType('text', TextSetting)
     registerSettingType('number', NumberSetting)
+    registerSettingType('number_preview', NumberPreviewSetting)
     registerSettingType('select', SelectSetting)
     registerSettingType('date_format', DateFormatSetting)
 

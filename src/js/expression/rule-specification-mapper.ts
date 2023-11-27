@@ -1,26 +1,16 @@
-import Specification from "./specification";
 import OrSpecification from "./or-specification";
 import AndSpecification from "./and-specification";
 import NotSpecification from "./not-specification";
 import ComparisonSpecification from "./comparison-specification";
+import Specification = AC.Specification.Specification;
+import Rule = AC.Specification.Rule;
+import AggregateRule = AC.Specification.AggregateRule;
+import ComparisonRule = AC.Specification.ComparisonRule;
 
-interface Rule {
-    type: string;
-}
-
-interface AggregateRule extends Rule {
-    rules: Array<Rule>;
-}
-
-interface ComparisonRule extends Rule {
-    fact: string;
-    operator: string;
-}
 
 export default class RuleSpecificationMapper {
 
     static map(rule: Rule): Specification {
-        console.log( rule );
         switch (rule.type) {
             case 'or':
             case 'and':
