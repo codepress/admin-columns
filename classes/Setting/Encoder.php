@@ -65,6 +65,7 @@ final class Encoder
         }
 
         if ($setting instanceof Recursive) {
+            $encoded['is_parent'] = $setting->is_parent();
             $encoded['children'] = [];
 
             foreach ($setting->get_children() as $child) {

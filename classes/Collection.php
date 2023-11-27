@@ -1,125 +1,128 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
+use Countable;
 use Iterator;
 
-/**
- * Used to hold values from the same type
- */
-class Collection
-	implements Iterator {
+class Collection implements Iterator, Countable
+{
 
-	/**
-	 * @var array
-	 */
-	protected $items;
+    /**
+     * @var array
+     */
+    protected $items;
 
-	public function __construct( array $items = [] ) {
-		$this->items = $items;
-	}
+    public function __construct(array $items = [])
+    {
+        $this->items = $items;
+    }
 
-	public function all() {
-		return $this->items;
-	}
+    public function all(): array
+    {
+        return $this->items;
+    }
 
-	public function has( $key ) {
-		return isset( $this->items[ $key ] );
-	}
+    public function has($key): bool
+    {
+        return isset($this->items[$key]);
+    }
 
-	public function put( $key, $value ) {
-		$this->items[ $key ] = $value;
+    public function put($key, $value): self
+    {
+        $this->items[$key] = $value;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function push( $value ) {
-		$this->items[] = $value;
-	}
+    public function push($value): self
+    {
+        $this->items[] = $value;
 
-	public function get( $key, $default = null ) {
-		if ( $this->has( $key ) ) {
-			return $this->items[ $key ];
-		}
+        return $this;
+    }
 
-		return $default;
-	}
+    public function get($key, $default = null)
+    {
+        if ($this->has($key)) {
+            return $this->items[$key];
+        }
 
-	public function __get( $key ) {
-		return $this->get( $key );
-	}
+        return $default;
+    }
 
-	#[\ReturnTypeWillChange]
-	public function rewind() {
-		reset( $this->items );
-	}
+    public function __get($key)
+    {
+        return $this->get($key);
+    }
 
-	public function first() {
-		return reset( $this->items );
-	}
+    public function rewind(): void
+    {
+        reset($this->items);
+    }
 
-	#[\ReturnTypeWillChange]
-	public function current() {
-		return current( $this->items );
-	}
+    public function first()
+    {
+        return reset($this->items);
+    }
 
-	#[\ReturnTypeWillChange]
-	public function key() {
-		return key( $this->items );
-	}
+    public function current()
+    {
+        return current($this->items);
+    }
 
-	#[\ReturnTypeWillChange]
-	public function next() {
-		return next( $this->items );
-	}
+    public function key()
+    {
+        return key($this->items);
+    }
 
-	public function get_copy() {
-		return $this->items;
-	}
+    public function next(): void
+    {
+        next($this->items);
+    }
 
-	#[\ReturnTypeWillChange]
-	public function valid() {
-		$key = $this->key();
+    public function get_copy(): array
+    {
+        return $this->items;
+    }
 
-		return ( $key !== null && $key !== false );
-	}
+    public function valid(): bool
+    {
+        return key($this->items) !== null;
+    }
 
-	public function count() {
-		return count( $this->items );
-	}
+    public function count(): int
+    {
+        return count($this->items);
+    }
 
-	/**
-	 * Filter collection items
-	 * @return Collection
-	 */
-	public function filter() {
-		return new Collection( ac_helper()->array->filter( $this->items ) );
-	}
+    /**
+     * Filter collection items
+     */
+    public function filter(): self
+    {
+        return new Collection(ac_helper()->array->filter($this->items));
+    }
 
-	/**
-	 * Limit array to max number of items
-	 *
-	 * @param int $length
-	 *
-	 * @return int Number of removed items
-	 */
-	public function limit( $length ) {
-		$count = $this->count();
+    /**
+     * Limit array to max number of items
+     */
+    public function limit(int $length): int
+    {
+        $count = $this->count();
 
-		if ( 0 < $length ) {
-			$this->items = array_slice( $this->items, 0, $length );
-		}
+        if (0 < $length) {
+            $this->items = array_slice($this->items, 0, $length);
+        }
 
-		return $count - $this->count();
-	}
+        return $count - $this->count();
+    }
 
-	/**
-	 * @param string $glue
-	 *
-	 * @return string
-	 */
-	public function implode( $glue = '' ) {
-		return implode( $glue, $this->items );
-	}
+    public function implode(string $glue = ''): string
+    {
+        return implode($glue, $this->items);
+    }
 
 }

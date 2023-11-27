@@ -5,42 +5,47 @@ declare(strict_types=1);
 namespace AC\Setting\Base;
 
 use AC;
-use AC\Setting\ConditionCollection;
-use AC\Setting\Input;
 use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
-use AC\Setting\SettingTrait;
+use ACP\Expression\Specification;
 
-class Recursive implements AC\Setting\Recursive
+class Recursive extends Setting implements AC\Setting\Recursive
 {
 
-    use SettingTrait;
     use RecursiveTrait;
 
     private $settings;
+
+    private $parent;
 
     public function __construct(
         string $name,
         SettingCollection $settings,
         string $label = '',
         string $description = '',
-        ConditionCollection $conditions = null
+        Specification $conditions = null,
+        bool $parent = false
     ) {
-        if (null === $this->conditions) {
-            $conditions = new ConditionCollection();
-        }
+        parent::__construct(
+            $name,
+            $label,
+            $description,
+            null,
+            $conditions
+        );
 
-        $this->name = $name;
         $this->settings = $settings;
-        $this->label = $label;
-        $this->description = $description;
-        $this->conditions = $conditions;
-        $this->input = new Input\Custom($name);
+        $this->parent = $parent;
     }
 
     public function get_children(): SettingCollection
     {
         return $this->settings;
+    }
+
+    public function is_parent(): bool
+    {
+        return $this->parent;
     }
 
 }
