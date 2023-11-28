@@ -21,4 +21,8 @@ interface Setting
 
     public function get_conditions(): Specification;
 
+    //public function has_formatter(): bool;
+
+    //public function get_formatter(): Formatter;
+
 }
