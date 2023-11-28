@@ -6,6 +6,7 @@ namespace AC\Setting;
 
 use AC\Setting\Input\Custom;
 use AC\Setting\Input\Number;
+use AC\Setting\Input\Open;
 use AC\Setting\Input\Option;
 use AC\Setting\Input\Single;
 
@@ -39,12 +40,15 @@ final class Encoder
             'label'       => $setting->get_label(),
             'description' => $setting->get_description(),
             'input'       => [
-                'type' => $input->get_type(),
+                'type'    => $input->get_type(),
+                'default' => $input->get_default(),
             ],
         ];
 
-        if ($input instanceof Single && $input->has_default()) {
-            $encoded['input']['default'] = $input->get_default();
+        if ($input instanceof Open) {
+            if ($input->has_append()) {
+                $encoded['input']['append'] = $input->get_append();
+            }
         }
 
         if ($input instanceof Custom) {
@@ -52,23 +56,24 @@ final class Encoder
         }
 
         if ($input instanceof Option) {
-            $encoded['input']['options'] = $this->encode_options($input->get_options());
-
-            if ($input instanceof Option\Multiple) {
-                $encoded['input']['multiple'] = true;
-
-                if ($input->has_defaults()) {
-                    $encoded['input']['defaults'] = $input->get_defaults();
-                }
-            }
+            $encoded['input'] += [
+                'options'  => $this->encode_options($input->get_options()),
+                'multiple' => $input instanceof Option\Multiple,
+            ];
         }
 
         if ($input instanceof Number) {
-            $encoded['input'] += [
-                'min'  => $input->get_min(),
-                'max'  => $input->get_max(),
-                'step' => $input->get_step(),
-            ];
+            if ($input->has_min()) {
+                $encoded['input']['min'] = $input->get_min();
+            }
+
+            if ($input->has_max()) {
+                $encoded['input']['max'] = $input->get_max();
+            }
+
+            if ($input->has_step()) {
+                $encoded['input']['step'] = $input->get_step();
+            }
         }
 
         if ($setting instanceof Recursive) {

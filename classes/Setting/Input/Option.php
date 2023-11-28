@@ -7,9 +7,26 @@ namespace AC\Setting\Input;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 
-interface Option extends Input
+abstract class Option extends Input
 {
 
-    public function get_options(): OptionCollection;
+    protected $options;
+
+    public function __construct(
+        string $type,
+        OptionCollection $options,
+        $default = null,
+        string $placeholder = null,
+        string $class = null
+    ) {
+        parent::__construct($type, $default, $placeholder, $class);
+
+        $this->options = $options;
+    }
+
+    public function get_options(): OptionCollection
+    {
+        return $this->options;
+    }
 
 }
