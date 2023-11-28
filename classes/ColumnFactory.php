@@ -14,6 +14,7 @@ class ColumnFactory
     public function __construct(TableScreen $table_screen)
     {
         $this->table_screen = $table_screen;
+        $this->column_types = $table_screen->get_columns();
     }
 
     public function create(array $settings): ?Column
@@ -46,13 +47,17 @@ class ColumnFactory
         return $column;
     }
 
-    private function get_column_types(): array
+    private function get_column(string $type, array $settings): ?Column
     {
-        if (null === $this->column_types) {
-            $this->column_types = $this->table_screen->get_columns();
+        foreach ($this->column_types as $column_type) {
+            if ($column_type->get_type() !== $type) {
+                continue;
+            }
+
+            return $this->create_from_column_type($column_type, $settings);
         }
 
-        return $this->column_types;
+        return null;
     }
 
     private function create_from_column_type(Column $column_type, array $settings): Column
@@ -72,19 +77,6 @@ class ColumnFactory
 
         return $column->set_name((string)$settings['name'])
                       ->set_group('custom');
-    }
-
-    private function get_column(string $type, array $settings): ?Column
-    {
-        foreach ($this->get_column_types() as $column_type) {
-            if ($column_type->get_type() !== $type) {
-                continue;
-            }
-
-            return $this->create_from_column_type($column_type, $settings);
-        }
-
-        return null;
     }
 
 }

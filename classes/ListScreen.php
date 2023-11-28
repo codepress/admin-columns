@@ -11,7 +11,7 @@ use AC\Type\Url;
 use DateTime;
 use WP_User;
 
-final class ListScreen implements PostType
+final class ListScreen
 {
 
     protected $id;
@@ -68,6 +68,8 @@ final class ListScreen implements PostType
 
     public function get_columns(): ColumnCollection
     {
+        // TODO use ColumnRepo and delay the creation of the actual Column objects.
+        // TODO Because the file storage loads all ListScreen objects it will also populate these columns.
         return $this->columns;
     }
 
@@ -133,11 +135,12 @@ final class ListScreen implements PostType
         return $this->table_screen->get_screen_id();
     }
 
-    public function get_post_type(): string
+    // TODO check usages..
+    public function get_post_type(): ?string
     {
         return $this->table_screen instanceof PostType
             ? $this->table_screen->get_post_type()
-            : '';
+            : null;
     }
 
     public function get_table_screen(): TableScreen
@@ -324,6 +327,10 @@ final class ListScreen implements PostType
         return '';
     }
 
+    /**
+     * @deprecated NEWVERSION
+     */
+
     public function has_id(): bool
     {
         _deprecated_function(__METHOD__, 'NEWVERSION');
@@ -331,6 +338,9 @@ final class ListScreen implements PostType
         return true;
     }
 
+    /**
+     * @deprecated NEWVERSION
+     */
     public function get_storage_key(): string
     {
         _deprecated_function(__METHOD__, 'NEWVERSION');
@@ -338,6 +348,9 @@ final class ListScreen implements PostType
         return $this->get_key() . $this->id;
     }
 
+    /**
+     * @deprecated NEWVERSION
+     */
     public function get_settings(): array
     {
         _deprecated_function(__METHOD__, 'NEWVERSION');

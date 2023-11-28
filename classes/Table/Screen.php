@@ -13,20 +13,13 @@ use AC\Registerable;
 use AC\Renderable;
 use AC\ScreenController;
 use AC\Settings;
+use AC\TableScreen;
 use AC\Type\EditorUrlFactory;
 
 final class Screen implements Registerable
 {
 
-    /**
-     * @var Asset\Location\Absolute
-     */
     private $location;
-
-    /**
-     * @var ListScreen
-     */
-    private $list_screen;
 
     /**
      * @var Form\Element[]
@@ -38,23 +31,19 @@ final class Screen implements Registerable
      */
     private $buttons = [];
 
-    /**
-     * @var ColumnSize\ListStorage
-     */
     private $column_size_list_storage;
 
-    /**
-     * @var ColumnSize\UserStorage
-     */
     private $column_size_user_storage;
 
     private $primary_column_factory;
 
     private $table_screen;
 
+    private $list_screen;
+
     public function __construct(
         Asset\Location\Absolute $location,
-        AC\TableScreen $table_screen,
+        TableScreen $table_screen,
         ColumnSize\ListStorage $column_size_list_storage,
         ColumnSize\UserStorage $column_size_user_storage,
         PrimaryColumnFactory $primary_column_factory,
