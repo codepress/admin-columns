@@ -1,6 +1,6 @@
 <script lang="ts">
     import ColumnSetting from "../ColumnSetting.svelte";
-    import {createEventDispatcher, onDestroy, onMount} from "svelte";
+    import {createEventDispatcher, onDestroy, onMount, tick} from "svelte";
     import AcRadio from "ACUi/element/AcRadio.svelte";
     import axios from "axios";
     import SettingOption = AC.Column.Settings.SettingOption;
@@ -36,6 +36,10 @@
         });
     }
 
+    const handleSelection =  ( e ) => {
+        value = selectedOption;
+	}
+
     onMount(() => {
         options = config.children[0].input.options;
 
@@ -61,10 +65,12 @@
 </script>
 
 <ColumnSetting label={config.label} description={config.description} name="date_format" top>
+	{selectedOption}
 	<div style="padding-top: 5px;">
 		{#each options as option}
 			<AcRadio bind:group={selectedOption}
 					value={option.value}
+					on:change={handleSelection}
 					--AcuiRadioMarginBottom="5px">{option.label}</AcRadio>
 		{/each}
 		<div class="custom">

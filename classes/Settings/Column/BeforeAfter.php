@@ -21,7 +21,7 @@ class BeforeAfter extends Column implements Setting\Recursive
     public function __construct(\AC\Column $column, Specification $specification = null)
     {
         $this->name = 'before_after';
-        $this->label = __('Display', 'codepress-admin-columns');
+        $this->label = __('Display Options', 'codepress-admin-columns');
         $this->input = new Input\Custom('empty');
 
         parent::__construct($column, $specification);

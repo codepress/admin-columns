@@ -333,8 +333,8 @@ class Column
 
             // TODO David check
 
-            $this->register_settings_temp();
-            //$this->register_settings();
+            //$this->register_settings_temp();
+            $this->register_settings();
             //do_action('ac/column/settings', $this);
         }
 

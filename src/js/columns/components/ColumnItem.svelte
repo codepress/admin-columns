@@ -8,7 +8,7 @@
     import HeaderToggle from "./settings/HeaderToggle.svelte";
     import ColumnSettings from "./ColumnSettings.svelte";
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
-    import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
+    import ColumnSetting = AC.Column.Settings.ColumnSetting;
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -38,41 +38,35 @@
         isOriginalColumn = originalsColumns.find(c => c.type === data.type) !== undefined;
     })
 
-
-    const checkConditions = (settings: ColumnConfig[], parent: string) => {
-        return settings.filter(s => {
-            return s.conditions
-                ? checkCondition(s.conditions, parent)
-                : true;
-        });
-    }
-
     const checkCondition = (condition: AC.Column.Settings.ColumnConditions, parent) => {
         return RuleSpecificationMapper.map(condition).isSatisfiedBy(data[parent]);
     }
 
-    const checkAppliedSettings = () => {
-        let settings: String[] = [ 'name' ];
-        config.forEach(s => {
-            settings.push(s.name);
-            if (s.children) {
-                s.children.filter(sub => {
-                    return sub.conditions
-                        ? checkCondition(sub.conditions, s.name)
-                        : true;
-                }).forEach(found => {
-                    settings.push(found.name)
-                });
+    const checkAppliedSubSettings = (validSettings: String[], children: ColumnSetting[], parent) => {
+        children.filter(sub => {
+            return sub.conditions
+                ? checkCondition(sub.conditions, parent)
+                : true;
+        }).forEach(setting => {
+            validSettings.push(setting.name);
+            if (setting.children) {
+                checkAppliedSubSettings(validSettings, setting.children, setting.name);
             }
         })
 
-        Object.keys( data ).forEach( settingName => {
-            if( ! settings.includes( settingName ) ){
-                delete( data[ settingName ]);
-			}
-		})
-		data = data;
+        return validSettings;
+    }
 
+    const checkAppliedSettings = () => {
+        let settings: string[] = checkAppliedSubSettings(['name'], config);
+
+        Object.keys(data).forEach(settingName => {
+            if (!settings.includes(settingName)) {
+                delete (data[settingName]);
+            }
+        });
+
+        data = data;
     }
 
     $: opened = $openedColumnsStore.includes(data.name);
@@ -122,11 +116,12 @@
 
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
-			<textarea style="width:100%; height: 150px;" value={JSON.stringify(data)}></textarea>
+
 			<ColumnSettings
 					bind:data={data}
 					bind:settings={config}
 			/>
+			<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
 			<button on:click={checkAppliedSettings}>Check settings</button>
 		</div>
 	{/if}

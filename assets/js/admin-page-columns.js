@@ -405,7 +405,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (76:3) {#if data.width }
+// (70:3) {#if data.width }
 function create_if_block_1(ctx) {
   let t0_value = /*data*/ctx[0].width + "";
   let t0;
@@ -437,7 +437,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (79:3) <HeaderToggle bind:value={data.export} title="Enable Export">
+// (73:3) <HeaderToggle bind:value={data.export} title="Enable Export">
 function create_default_slot_5(ctx) {
   let span;
   return {
@@ -457,7 +457,7 @@ function create_default_slot_5(ctx) {
   };
 }
 
-// (82:3) <HeaderToggle bind:value={data.sort} title="Enable Sorting">
+// (76:3) <HeaderToggle bind:value={data.sort} title="Enable Sorting">
 function create_default_slot_4(ctx) {
   let span;
   return {
@@ -477,7 +477,7 @@ function create_default_slot_4(ctx) {
   };
 }
 
-// (85:3) <HeaderToggle bind:value={data.edit} title="Enable Edit">
+// (79:3) <HeaderToggle bind:value={data.edit} title="Enable Edit">
 function create_default_slot_3(ctx) {
   let span;
   return {
@@ -497,7 +497,7 @@ function create_default_slot_3(ctx) {
   };
 }
 
-// (88:3) <HeaderToggle bind:value={data.bulk_edit} title="Enable Bulk Edit">
+// (82:3) <HeaderToggle bind:value={data.bulk_edit} title="Enable Bulk Edit">
 function create_default_slot_2(ctx) {
   let span;
   return {
@@ -518,7 +518,7 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (91:3) <HeaderToggle bind:value={data.search} title="Enable Smart Filtering">
+// (85:3) <HeaderToggle bind:value={data.search} title="Enable Smart Filtering">
 function create_default_slot_1(ctx) {
   let span;
   return {
@@ -539,7 +539,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (94:3) <HeaderToggle bind:value={data.filter} title="Enable Filtering">
+// (88:3) <HeaderToggle bind:value={data.filter} title="Enable Filtering">
 function create_default_slot(ctx) {
   let span;
   return {
@@ -559,15 +559,15 @@ function create_default_slot(ctx) {
   };
 }
 
-// (105:1) {#if opened && config !== null }
+// (99:1) {#if opened && config !== null }
 function create_if_block(ctx) {
   let div;
-  let textarea;
-  let textarea_value_value;
-  let t0;
   let columnsettings;
   let updating_data;
   let updating_settings;
+  let t0;
+  let textarea;
+  let textarea_value_value;
   let t1;
   let button;
   let div_transition;
@@ -595,22 +595,22 @@ function create_if_block(ctx) {
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      textarea = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("textarea");
-      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(columnsettings.$$.fragment);
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      textarea = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("textarea");
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       button = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
       button.textContent = "Check settings";
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(textarea, "width", "100%");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(textarea, "height", "150px");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(textarea, "height", "90px");
       textarea.value = textarea_value_value = JSON.stringify( /*data*/ctx[0]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "ac-column-settings");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, textarea);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(columnsettings, div, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, textarea);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, button);
       current = true;
@@ -620,9 +620,6 @@ function create_if_block(ctx) {
       }
     },
     p(ctx, dirty) {
-      if (!current || dirty & /*data*/1 && textarea_value_value !== (textarea_value_value = JSON.stringify( /*data*/ctx[0]))) {
-        textarea.value = textarea_value_value;
-      }
       const columnsettings_changes = {};
       if (!updating_data && dirty & /*data*/1) {
         updating_data = true;
@@ -635,6 +632,9 @@ function create_if_block(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_settings = false);
       }
       columnsettings.$set(columnsettings_changes);
+      if (!current || dirty & /*data*/1 && textarea_value_value !== (textarea_value_value = JSON.stringify( /*data*/ctx[0]))) {
+        textarea.value = textarea_value_value;
+      }
     },
     i(local) {
       if (current) return;
@@ -1113,26 +1113,22 @@ function instance($$self, $$props, $$invalidate) {
   (0,svelte__WEBPACK_IMPORTED_MODULE_5__.onMount)(() => {
     $$invalidate(2, isOriginalColumn = originalsColumns.find(c => c.type === data.type) !== undefined);
   });
-  const checkConditions = (settings, parent) => {
-    return settings.filter(s => {
-      return s.conditions ? checkCondition(s.conditions, parent) : true;
-    });
-  };
   const checkCondition = (condition, parent) => {
     return _expression_rule_specification_mapper__WEBPACK_IMPORTED_MODULE_9__["default"].map(condition).isSatisfiedBy(data[parent]);
   };
-  const checkAppliedSettings = () => {
-    let settings = ['name'];
-    config.forEach(s => {
-      settings.push(s.name);
-      if (s.children) {
-        s.children.filter(sub => {
-          return sub.conditions ? checkCondition(sub.conditions, s.name) : true;
-        }).forEach(found => {
-          settings.push(found.name);
-        });
+  const checkAppliedSubSettings = (validSettings, children, parent) => {
+    children.filter(sub => {
+      return sub.conditions ? checkCondition(sub.conditions, parent) : true;
+    }).forEach(setting => {
+      validSettings.push(setting.name);
+      if (setting.children) {
+        checkAppliedSubSettings(validSettings, setting.children, setting.name);
       }
     });
+    return validSettings;
+  };
+  const checkAppliedSettings = () => {
+    let settings = checkAppliedSubSettings(['name'], config);
     Object.keys(data).forEach(settingName => {
       if (!settings.includes(settingName)) {
         delete data[settingName];
@@ -3842,13 +3838,13 @@ function add_css(target) {
 }
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[14] = list[i];
+  child_ctx[15] = list[i];
   return child_ctx;
 }
 
-// (52:3) <AcRadio bind:group={selectedOption}      value={option.value}      --AcuiRadioMarginBottom="5px">
+// (56:3) <AcRadio bind:group={selectedOption}      value={option.value}      on:change={handleSelection}      --AcuiRadioMarginBottom="5px">
 function create_default_slot_2(ctx) {
-  let t_value = /*option*/ctx[14].label + "";
+  let t_value = /*option*/ctx[15].label + "";
   let t;
   return {
     c() {
@@ -3858,7 +3854,7 @@ function create_default_slot_2(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
     },
     p(ctx, dirty) {
-      if (dirty & /*options*/4 && t_value !== (t_value = /*option*/ctx[14].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, t_value);
+      if (dirty & /*options*/4 && t_value !== (t_value = /*option*/ctx[15].label + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t, t_value);
     },
     d(detaching) {
       if (detaching) {
@@ -3868,17 +3864,17 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (51:2) {#each options as option}
+// (55:2) {#each options as option}
 function create_each_block(ctx) {
   let acradio;
   let div;
   let updating_group;
   let current;
   function acradio_group_binding(value) {
-    /*acradio_group_binding*/ctx[8](value);
+    /*acradio_group_binding*/ctx[9](value);
   }
   let acradio_props = {
-    value: /*option*/ctx[14].value,
+    value: /*option*/ctx[15].value,
     $$slots: {
       default: [create_default_slot_2]
     },
@@ -3893,6 +3889,7 @@ function create_each_block(ctx) {
     props: acradio_props
   });
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(acradio, 'group', acradio_group_binding));
+  acradio.$on("change", /*handleSelection*/ctx[7]);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -3907,8 +3904,8 @@ function create_each_block(ctx) {
     },
     p(ctx, dirty) {
       const acradio_changes = {};
-      if (dirty & /*options*/4) acradio_changes.value = /*option*/ctx[14].value;
-      if (dirty & /*$$scope, options*/131076) {
+      if (dirty & /*options*/4) acradio_changes.value = /*option*/ctx[15].value;
+      if (dirty & /*$$scope, options*/262148) {
         acradio_changes.$$scope = {
           dirty,
           ctx
@@ -3937,7 +3934,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (57:3) <AcRadio bind:group={selectedOption} value="custom">
+// (62:3) <AcRadio bind:group={selectedOption} value="custom">
 function create_default_slot_1(ctx) {
   let t;
   return {
@@ -3955,20 +3952,22 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (49:0) <ColumnSetting label={config.label} description={config.description} name="date_format" top>
+// (52:0) <ColumnSetting label={config.label} description={config.description} name="date_format" top>
 function create_default_slot(ctx) {
-  let div3;
   let t0;
+  let t1;
+  let div3;
+  let t2;
   let div2;
   let acradio;
   let updating_group;
-  let t1;
+  let t3;
   let div1;
   let input;
   let input_disabled_value;
-  let t2;
+  let t4;
   let div0;
-  let t3;
+  let t5;
   let current;
   let mounted;
   let dispose;
@@ -3981,7 +3980,7 @@ function create_default_slot(ctx) {
     each_blocks[i] = null;
   });
   function acradio_group_binding_1(value) {
-    /*acradio_group_binding_1*/ctx[9](value);
+    /*acradio_group_binding_1*/ctx[10](value);
   }
   let acradio_props = {
     value: "custom",
@@ -4001,19 +4000,21 @@ function create_default_slot(ctx) {
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(acradio, 'group', acradio_group_binding_1));
   return {
     c() {
+      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)( /*selectedOption*/ctx[1]);
+      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acradio.$$.fragment);
-      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       input = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("input");
-      t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)( /*customDateExample*/ctx[5]);
+      t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)( /*customDateExample*/ctx[5]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "type", "text");
       input.disabled = input_disabled_value = ! /*isCustom*/ctx[3];
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "custom-input svelte-171t23n");
@@ -4021,30 +4022,33 @@ function create_default_slot(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div3, "padding-top", "5px");
     },
     m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t0, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t1, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div3, anchor);
       for (let i = 0; i < each_blocks.length; i += 1) {
         if (each_blocks[i]) {
           each_blocks[i].m(div3, null);
         }
       }
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, t0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, t2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, div2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acradio, div2, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t3);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, input);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*customDateFormat*/ctx[4]);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t4);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, div0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div0, t5);
       current = true;
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[10]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "keyup", /*debounceInput*/ctx[6])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[11]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "keyup", /*debounceInput*/ctx[6])];
         mounted = true;
       }
     },
     p(ctx, dirty) {
-      if (dirty & /*options, selectedOption*/6) {
+      if (!current || dirty & /*selectedOption*/2) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, /*selectedOption*/ctx[1]);
+      if (dirty & /*options, selectedOption, handleSelection*/134) {
         each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*options*/ctx[2]);
         let i;
         for (i = 0; i < each_value.length; i += 1) {
@@ -4056,7 +4060,7 @@ function create_default_slot(ctx) {
             each_blocks[i] = create_each_block(child_ctx);
             each_blocks[i].c();
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(each_blocks[i], 1);
-            each_blocks[i].m(div3, t0);
+            each_blocks[i].m(div3, t2);
           }
         }
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
@@ -4066,7 +4070,7 @@ function create_default_slot(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
       const acradio_changes = {};
-      if (dirty & /*$$scope*/131072) {
+      if (dirty & /*$$scope*/262144) {
         acradio_changes.$$scope = {
           dirty,
           ctx
@@ -4084,7 +4088,7 @@ function create_default_slot(ctx) {
       if (dirty & /*customDateFormat*/16 && input.value !== /*customDateFormat*/ctx[4]) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*customDateFormat*/ctx[4]);
       }
-      if (!current || dirty & /*customDateExample*/32) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t3, /*customDateExample*/ctx[5]);
+      if (!current || dirty & /*customDateExample*/32) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t5, /*customDateExample*/ctx[5]);
     },
     i(local) {
       if (current) return;
@@ -4104,6 +4108,8 @@ function create_default_slot(ctx) {
     },
     d(detaching) {
       if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t0);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t1);
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div3);
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
@@ -4142,7 +4148,7 @@ function create_fragment(ctx) {
       const columnsetting_changes = {};
       if (dirty & /*config*/1) columnsetting_changes.label = /*config*/ctx[0].label;
       if (dirty & /*config*/1) columnsetting_changes.description = /*config*/ctx[0].description;
-      if (dirty & /*$$scope, customDateExample, isCustom, customDateFormat, selectedOption, options*/131134) {
+      if (dirty & /*$$scope, customDateExample, isCustom, customDateFormat, selectedOption, options*/262206) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
@@ -4180,7 +4186,7 @@ function instance($$self, $$props, $$invalidate) {
   const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_3__.createEventDispatcher)();
   const debounceInput = v => {
     clearTimeout(timer);
-    $$invalidate(7, value = customDateFormat);
+    $$invalidate(8, value = customDateFormat);
     timer = setTimeout(() => {
       retrieveDateExample();
     }, 750);
@@ -4193,12 +4199,15 @@ function instance($$self, $$props, $$invalidate) {
       $$invalidate(5, customDateExample = response.data);
     });
   };
+  const handleSelection = e => {
+    $$invalidate(8, value = selectedOption);
+  };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
     var _a, _b;
     $$invalidate(2, options = config.children[0].input.options);
     if (value === '' || typeof value === 'undefined') {
       let defaultValue = (_b = (_a = config.children[0].input) === null || _a === void 0 ? void 0 : _a.default) !== null && _b !== void 0 ? _b : null;
-      $$invalidate(7, value = defaultValue ? defaultValue : options[0].value);
+      $$invalidate(8, value = defaultValue ? defaultValue : options[0].value);
     }
     $$invalidate(1, selectedOption = value);
     if (!options.find(o => o.value === selectedOption)) {
@@ -4224,21 +4233,21 @@ function instance($$self, $$props, $$invalidate) {
   }
   $$self.$$set = $$props => {
     if ('config' in $$props) $$invalidate(0, config = $$props.config);
-    if ('value' in $$props) $$invalidate(7, value = $$props.value);
+    if ('value' in $$props) $$invalidate(8, value = $$props.value);
   };
   $$self.$$.update = () => {
     if ($$self.$$.dirty & /*selectedOption*/2) {
       $: $$invalidate(3, isCustom = selectedOption === 'custom');
     }
   };
-  return [config, selectedOption, options, isCustom, customDateFormat, customDateExample, debounceInput, value, acradio_group_binding, acradio_group_binding_1, input_input_handler];
+  return [config, selectedOption, options, isCustom, customDateFormat, customDateExample, debounceInput, handleSelection, value, acradio_group_binding, acradio_group_binding_1, input_input_handler];
 }
 class DateFormatSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       config: 0,
-      value: 7
+      value: 8
     }, add_css);
   }
 }
@@ -11594,7 +11603,7 @@ function create_fragment(ctx) {
   let dispose;
   const default_slot_template = /*#slots*/ctx[5].default;
   const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[4], null);
-  binding_group = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init_binding_group)( /*$$binding_groups*/ctx[7][0]);
+  binding_group = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init_binding_group)( /*$$binding_groups*/ctx[10][0]);
   return {
     c() {
       label = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("label");
@@ -11629,7 +11638,7 @@ function create_fragment(ctx) {
       }
       current = true;
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "change", /*input_change_handler*/ctx[6]);
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "change", /*input_change_handler*/ctx[9]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "click", /*click_handler*/ctx[6]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_handler*/ctx[7]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "change", /*change_handler*/ctx[8])];
         mounted = true;
       }
     },
@@ -11673,7 +11682,7 @@ function create_fragment(ctx) {
       if (default_slot) default_slot.d(detaching);
       binding_group.r();
       mounted = false;
-      dispose();
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
     }
   };
 }
@@ -11697,6 +11706,15 @@ function instance($$self, $$props, $$invalidate) {
   let dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_2__.createEventDispatcher)();
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {});
   const $$binding_groups = [[]];
+  function click_handler(event) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
+  }
+  function input_handler(event) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
+  }
+  function change_handler(event) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
+  }
   function input_change_handler() {
     group = this.__value;
     $$invalidate(0, group);
@@ -11708,7 +11726,7 @@ function instance($$self, $$props, $$invalidate) {
     if ('inline' in $$props) $$invalidate(3, inline = $$props.inline);
     if ('$$scope' in $$props) $$invalidate(4, $$scope = $$props.$$scope);
   };
-  return [group, value, disabled, inline, $$scope, slots, input_change_handler, $$binding_groups];
+  return [group, value, disabled, inline, $$scope, slots, click_handler, input_handler, change_handler, input_change_handler, $$binding_groups];
 }
 class AcRadio extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -14745,7 +14763,7 @@ class ColumnTypesUtils {
         return ColumnTypesUtils.getColumnTypes().filter(c => c.original);
     }
     static getColumnType(type) {
-        const columnType = ColumnTypesUtils.getColumnTypes().find(ct => ct.type === type);
+        const columnType = ColumnTypesUtils.getColumnTypes().find(ct => ct.valueCustom === type);
         return typeof columnType !== 'undefined'
             ? columnType
             : null;

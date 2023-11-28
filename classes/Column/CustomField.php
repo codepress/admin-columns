@@ -36,19 +36,13 @@ class CustomField extends Column\Meta
         $this->add_setting(new Settings\Column\CustomField($this))
              ->add_setting(new Settings\Column\BeforeAfter($this));
 
-        if ( ! $this->is_acp_active()) {
-            $this->add_setting(new Settings\Column\Pro\Sorting($this))
-                 ->add_setting(new Settings\Column\Pro\InlineEditing($this))
-                 ->add_setting(new Settings\Column\Pro\BulkEditing($this))
-                 ->add_setting(new Settings\Column\Pro\SmartFiltering($this))
-                 ->add_setting(new Settings\Column\Pro\Export($this));
-        }
-    }
-
-    public function register_settings_temp()
-    {
-        $this->add_setting(new Settings\Column\CustomField($this))
-             ->add_setting(new Settings\Column\BeforeAfter($this));
+        //        if ( ! $this->is_acp_active()) {
+        //            $this->add_setting(new Settings\Column\Pro\Sorting($this))
+        //                 ->add_setting(new Settings\Column\Pro\InlineEditing($this))
+        //                 ->add_setting(new Settings\Column\Pro\BulkEditing($this))
+        //                 ->add_setting(new Settings\Column\Pro\SmartFiltering($this))
+        //                 ->add_setting(new Settings\Column\Pro\Export($this));
+        //        }
     }
 
     /**
@@ -57,6 +51,8 @@ class CustomField extends Column\Meta
      */
     public function get_field_type()
     {
+        return $this->get_option('field');
+
         return (string)($this->get_setting(Settings\Column\CustomFieldType::NAME)->get_value() ?: '');
     }
 
