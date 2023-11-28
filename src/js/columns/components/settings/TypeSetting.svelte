@@ -3,6 +3,7 @@
 	import Select from "svelte-select"
 	import {onMount} from "svelte";
 	import {getColumnSettings} from "../../ajax/ajax";
+	import {columnTypesStore} from "../../store/column-types";
 
 	export let data;
 	export let config;
@@ -12,17 +13,7 @@
 	let selectValue;
 
 	onMount( () => {
-		let options = [];
-/*		Object.keys( config.options ).forEach( k => {
-			for ( const [ key, value ] of Object.entries( config.options[ k ].options ) ) {
-				options.push( {
-					group : config.options[ k ].title,
-					value : key,
-					label : value
-				} );
-			}
-		} )*/
-		collection = options
+		collection = $columnTypesStore
 	} )
 
 	const changeValue = ( d ) => {
@@ -30,6 +21,11 @@
 
 		getColumnSettings( 'post', selectValue ).then( response => {
 			columnConfig = response.data.data.columns.settings;
+
+			setTimeout(()=>{
+				columnConfig = columnConfig;
+				console.log('Doit');
+			},1000)
 		} );
 
 	}
@@ -37,13 +33,13 @@
 	const groupBy = ( item ) => item.group;
 </script>
 
-<ColumnSetting label={config.label} name="type">
+<ColumnSetting label={config.label} description={config.description} name="type">
 	<Select class="-acui"
 			--list-max-height="400px"
 			showChevron
 			clearable={false}
-			items={collection}
-			groupby={groupBy}
+			items={$columnTypesStore}
+			{groupBy}
 			value={data['type']}
 			on:change={ changeValue }
 			bind:justValue={selectValue}>

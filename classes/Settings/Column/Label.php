@@ -3,11 +3,6 @@
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Column\LabelEncoder;
-use AC\Sanitize\Kses;
-use AC\Setting\SettingTrait;
-use AC\Settings;
-use AC\View;
 
 class Label extends Single
 {
@@ -17,6 +12,7 @@ class Label extends Single
         parent::__construct($column, 'label');
 
         $this->label = __('Label', 'codepress-admin-columns');
+        $this->description = __('This is the name which will appear as the column header.', 'codepress-admin-columns');
     }
 
     //    /**

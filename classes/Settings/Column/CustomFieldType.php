@@ -42,6 +42,7 @@ class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
     {
         $this->name = self::NAME;
         $this->label = __('Field Type', 'codepress-admin-columns');
+        $this->description = __('This will determine how the value will be displayed.', 'codepress-admin-columns');
         $this->input = Input\Option\Multiple::create_select(
             $this->get_field_type_options()
         );
@@ -81,6 +82,10 @@ class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
                     StringComparisonSpecification::equal(self::TYPE_IMAGE),
                     StringComparisonSpecification::equal(self::TYPE_MEDIA),
                 ])
+            ),
+            new LinkLabel(
+                $this->column,
+                StringComparisonSpecification::equal(self::TYPE_URL)
             ),
         ]);
     }

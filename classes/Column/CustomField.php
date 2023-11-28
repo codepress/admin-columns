@@ -45,6 +45,12 @@ class CustomField extends Column\Meta
         }
     }
 
+    public function register_settings_temp()
+    {
+        $this->add_setting(new Settings\Column\CustomField($this))
+             ->add_setting(new Settings\Column\BeforeAfter($this));
+    }
+
     /**
      * @return string e.g. excerpt|color|date|numeric|image|has_content|link|checkmark|library_id|title_by_id|user_by_id|array|count
      * @see Settings\Column\CustomFieldType

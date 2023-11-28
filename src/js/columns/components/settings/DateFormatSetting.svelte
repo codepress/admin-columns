@@ -60,18 +60,20 @@
 
 </script>
 
-<ColumnSetting label={config.label} name="date_format" top>
-	{#each options as option}
-		<AcRadio bind:group={selectedOption}
-				value={option.value}
-				--AcuiRadioMarginBottom="5px">{option.label}</AcRadio>
-	{/each}
-	<div class="custom">
-		<AcRadio bind:group={selectedOption} value="custom">Custom</AcRadio>
-		<div class="custom-input">
-			<input type="text" bind:value={customDateFormat} on:keyup={ debounceInput } disabled={!isCustom}/>
-			<div>
-				{customDateExample}
+<ColumnSetting label={config.label} description={config.description} name="date_format" top>
+	<div style="padding-top: 5px;">
+		{#each options as option}
+			<AcRadio bind:group={selectedOption}
+					value={option.value}
+					--AcuiRadioMarginBottom="5px">{option.label}</AcRadio>
+		{/each}
+		<div class="custom">
+			<AcRadio bind:group={selectedOption} value="custom">Custom</AcRadio>
+			<div class="custom-input">
+				<input type="text" bind:value={customDateFormat} on:keyup={ debounceInput } disabled={!isCustom}/>
+				<div>
+					{customDateExample}
+				</div>
 			</div>
 		</div>
 	</div>

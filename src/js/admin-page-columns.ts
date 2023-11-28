@@ -14,6 +14,7 @@ import {Column} from "./admin/columns/column";
 import {LocalizedAcColumnSettings} from "./types/admin-columns";
 import {registerSettingType} from "./columns/helper";
 import LabelSetting from "./columns/components/settings/LabelSetting.svelte";
+import EmptySetting from "./columns/components/settings/EmptySetting.svelte";
 import WidthSetting from "./columns/components/settings/WidthSetting.svelte";
 import TypeSetting from "./columns/components/settings/TypeSetting.svelte";
 import ToggleSetting from "./columns/components/settings/ToggleSetting.svelte";
@@ -27,6 +28,8 @@ import {currentListId, currentListKey} from "./columns/store/current-list-screen
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import ListScreenSections from "./columns/store/list-screen-sections";
 import {listScreenDataStore} from "./columns/store/list-screen-data";
+import {columnTypesStore} from "./columns/store/column-types";
+import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
 
 declare let AC: LocalizedAcColumnSettings
 
@@ -53,20 +56,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    currentListKey.subscribe( (d ) =>{
-        const url = new URL( window.location.href );
+    currentListKey.subscribe((d) => {
+        const url = new URL(window.location.href);
 
-        url.searchParams.set('list_screen', d );
+        url.searchParams.set('list_screen', d);
 
-        window.history.replaceState(null, '', url );
+        window.history.replaceState(null, '', url);
     })
 
-    currentListId.subscribe( (d ) =>{
-        const url = new URL( window.location.href );
+    currentListId.subscribe((d) => {
+        const url = new URL(window.location.href);
 
-        url.searchParams.set('layout_id', d );
+        url.searchParams.set('layout_id', d);
 
-        window.history.replaceState(null, '', url );
+        window.history.replaceState(null, '', url);
     })
 
 
@@ -75,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // START UI2.0
     registerSettingType('label', LabelSetting)
     registerSettingType('width', WidthSetting)
+    registerSettingType('empty', EmptySetting)
     registerSettingType('type', TypeSetting)
     registerSettingType('toggle', ToggleSetting)
     registerSettingType('text', TextSetting)
@@ -85,6 +89,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentListId.set(config.list_screen_id)
     currentListKey.set(config.list_key);
+
+    const sortedColumnGroups = config.column_groups.map(g => g.slug);
+    const customComparator = (a: ColumnConfig, b: ColumnConfig) => {
+        // Compare based on group priority
+        const groupPriorityA = sortedColumnGroups.indexOf(a.group);
+        const groupPriorityB = sortedColumnGroups.indexOf(b.group);
+
+        if (groupPriorityA !== groupPriorityB) {
+            return groupPriorityA - groupPriorityB;
+        }
+
+        // If the groups have the same priority, compare based on the value
+        if (a.value < b.value) return -1;
+        if (a.value > b.value) return 1;
+        return 0;
+    }
+
+    columnTypesStore.set(config.column_types.sort(customComparator));
 
 
     let target = document.createElement('div');

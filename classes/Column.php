@@ -325,15 +325,16 @@ class Column
             //$settings[] = new Settings\Column\ActionIcons($this);
             //$settings[] = new Settings\Column\AttachmentDisplay($this);
             //$settings[] = new Settings\Column\Comment($this);
-            $settings[] = new Settings\Column\CustomFieldType($this);
+            //$settings[] = new Settings\Column\CustomFieldType($this);
 
             foreach ($settings as $setting) {
                 $this->add_setting($setting);
             }
 
             // TODO David check
-            //$this->register_settings();
 
+            $this->register_settings_temp();
+            //$this->register_settings();
             //do_action('ac/column/settings', $this);
         }
 
@@ -344,6 +345,12 @@ class Column
      * Register settings
      */
     protected function register_settings()
+    {
+        // Overwrite in child class
+    }
+
+    // TODO Stefan Only for test
+    protected function register_settings_temp()
     {
         // Overwrite in child class
     }

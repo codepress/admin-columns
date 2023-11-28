@@ -86,8 +86,8 @@
 				<AcDropdown maxHeight="300px" value>
 					<AcButton slot="trigger">+ Add Column</AcButton>
 					{#each columnTypes as column, i}
-						<AcDropdownItem on:click={() => addColumn(column.type) }
-								value={column.type}>{@html column.label}</AcDropdownItem>
+						<AcDropdownItem on:click={() => addColumn(column.value) }
+								value={column.value}>{@html column.label}</AcDropdownItem>
 					{/each}
 				</AcDropdown>
 			</div>

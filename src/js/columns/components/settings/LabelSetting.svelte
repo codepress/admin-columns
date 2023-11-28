@@ -54,7 +54,7 @@
 
 </script>
 
-<ColumnSetting label={config.label} name="label">
+<ColumnSetting label={config.label} description={config.description} name="label">
 	<AcInputGroup>
 		<input type="text" bind:value={value}>
 		<div role="none" class="acui-input-group-text" on:click={addIcon} on:keypress>

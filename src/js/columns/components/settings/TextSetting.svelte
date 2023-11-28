@@ -5,6 +5,7 @@
 
     export let config: AC.Column.Settings.TextSetting;
     export let value: any;
+    export let data: any;
 
     const dispatch = createEventDispatcher();
 
@@ -20,7 +21,10 @@
 
 </script>
 
-<ColumnSetting label={config.label} name="text">
+<ColumnSetting label={config.label} description={config.description} name="text"
+		config={config}
+		children={config.children ?? []}
+		bind:data={data} >
 	<AcInputGroup>
 		<input type="text" bind:value={value}>
 	</AcInputGroup>

@@ -7,7 +7,7 @@
 	export let config: AC.Column.Settings.WidthSetting;
 
     const keyWidth = config.name;
-    const keyUnit = config.children[0].name;
+    const keyUnit = config.children[1].name;
 
 	const changeUnit = () => {
 		switch ( data[ keyUnit ] ) {
@@ -46,7 +46,7 @@
 		accent-color: var(--ac-link);
 	}
 </style>
-<ColumnSetting label={config.label} name="width">
+<ColumnSetting label={config.label} description={config.description} name="width">
 	<div class="width-setting">
 		<div style="width: 120px;">
 			<AcInputGroup>
