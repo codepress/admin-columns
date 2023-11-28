@@ -417,7 +417,7 @@
   cursor: default !important;
 }
 .svelte-select.-acui .list-item .item.list-group-title.not-selectable {
-  background-color: #eee;
+  background-color: #eee !important;
   color: #aaa;
   font-size: 12px !important;
   border-top: 1px solid #888;

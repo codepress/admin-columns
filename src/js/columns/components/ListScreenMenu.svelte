@@ -2,15 +2,24 @@
     import {currentListKey} from "../store/current-list-screen";
     import {createEventDispatcher, onMount} from "svelte";
     import GroupIcon from "./GroupIcon.svelte";
+    import {SvelteSelectItem} from "../../types/select";
+    import Select from "svelte-select";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
 
     const dispatch = createEventDispatcher();
 
     let openedGroups: string[] = [];
+    let options: SvelteSelectItem[];
+    let selectValue = '';
 
     const handleMenuSelect = (key: string) => {
         dispatch('itemSelect', key)
+        selectValue = key;
+    }
+
+    const handleSelect = (e: CustomEvent<SvelteSelectItem>) => {
+        handleMenuSelect(e.detail.value.toString());
     }
 
     const toggleGroup = (group: string) => {
@@ -28,8 +37,30 @@
         openedGroups = openedGroups.filter(d => d !== group);
     }
 
+
+    const mapMenutoSelect = (menu: AC.Vars.Admin.Columns.MenuItems): SvelteSelectItem[] => {
+        let result: SvelteSelectItem[] = [];
+
+        Object.values(menu).forEach(group => {
+            for (const [value, label] of Object.entries(group.options)) {
+                result.push({
+                    value,
+                    label,
+                    group: group.title
+                });
+            }
+        });
+
+        selectValue = $currentListKey;
+
+        return result;
+    }
+
+    const groupBy = (item: SvelteSelectItem) => item.group;
+
     onMount(() => {
         Object.keys(menu).forEach(g => showGroup(g));
+        options = mapMenutoSelect(menu);
     })
 </script>
 <style>
@@ -53,6 +84,19 @@
 		color: #FE3D6C;
 	}
 </style>
+
+<Select
+		bind:value={selectValue}
+		items={options}
+		{groupBy}
+		class="-acui"
+		placeholder="Select"
+		clearable={false}
+		showChevron
+		on:input={handleSelect }>
+
+</Select>
+<br><br>
 {#each Object.entries( menu ) as [ key, group ]}
 	<div class="ac-menu-group">
 		<div role="none" on:click={() => toggleGroup( key )}>
