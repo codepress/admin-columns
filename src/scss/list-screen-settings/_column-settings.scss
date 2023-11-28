@@ -15,6 +15,13 @@
 		flex-grow: 1;
 		max-width: 620px;
 	}
+
+	&__description {
+		padding: 5px 0;
+		display: block;
+		color: #888;
+		font-size: 12px;
+	}
 }
 
 .acp-column-setting[data-setting=label] {

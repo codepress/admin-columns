@@ -2,6 +2,7 @@
     import ColumnSettings from "./ColumnSettings.svelte";
 
     export let name: string | undefined;
+    export let description: string;
     export let label: string;
     export let data: any = {};
     export let top: boolean = false;
@@ -19,6 +20,9 @@
 		<slot>
 
 		</slot>
+		{#if description}
+			<small class="acp-column-setting__description">{description}</small>
+		{/if}
 		{#if config && config.children && isParent}
 			<div class="ac-column-settings -subsettings">
 				<ColumnSettings bind:data={data} settings={config.children} parent={config.name}></ColumnSettings>
@@ -26,6 +30,6 @@
 		{/if}
 	</div>
 </div>
-{#if config && config.children && ! isParent }
+{#if config && config.children && !isParent }
 	<ColumnSettings bind:data={data} settings={config.children} parent={config.name}></ColumnSettings>
 {/if}

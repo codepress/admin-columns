@@ -37,7 +37,13 @@
 </script>
 
 
-<ColumnSetting label={config.label} config={config} children={config.children ?? []} bind:data={data} name="select">
+<ColumnSetting
+		label={config.label}
+		description={config.description}
+		config={config}
+		children={config.children ?? []}
+		bind:data={data}
+		name="select">
 	<Select
 			--list-max-height="400px"
 			class="-acui"

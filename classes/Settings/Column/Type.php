@@ -16,6 +16,7 @@ class Type extends Column
         $this->name = 'type';
         $this->label = __('Type', 'codepress-admin-columns');
         $this->input = new Input\Custom($this->name);
+        $this->description = __('Choose a column type.', 'codepress-admin-columns');
 
         parent::__construct($column);
     }

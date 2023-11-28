@@ -51,14 +51,14 @@ class NumberFormat extends Settings\Column implements AC\Setting\Recursive
                 'number_decimal_point',
                 __('Decimal point', 'codepress-admin-columns'),
                 '',
-                new Input\Text(),
+                Input\Open::create_text(null, '.'),
                 StringComparisonSpecification::equal('formatted')
             ),
             new Base\Setting(
                 'number_thousands_separator',
                 __('Thousands separator', 'codepress-admin-columns'),
                 '',
-                new Input\Text(),
+                Input\Open::create_text(),
                 StringComparisonSpecification::equal('formatted')
             ),
             new Base\Setting(

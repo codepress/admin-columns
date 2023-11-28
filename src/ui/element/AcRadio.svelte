@@ -8,14 +8,13 @@
 
     let dispatch = createEventDispatcher();
 
-
     onMount(() => {
 
     });
 </script>
 
 <label class="acui-radio" class:disabled={disabled} class:-inline={inline}>
-	<input type="radio" bind:group={group} {value} {disabled}>
+	<input type="radio" bind:group={group} {value} {disabled} on:click on:input on:change>
 	<span class="acui-radio__check">
 
 	</span>

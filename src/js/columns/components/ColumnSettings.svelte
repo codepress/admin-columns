@@ -18,23 +18,19 @@
             return s.conditions
                 ? checkCondition(s.conditions)
                 : true;
-        })
+        });
     }
 
     const checkCondition = (condition: AC.Column.Settings.ColumnConditions) => {
         return RuleSpecificationMapper.map(condition).isSatisfiedBy(data[parent]);
     }
 
-    const destroySetting = (e: CustomEvent<AC.Column.Settings.ColumnSetting>) => {
-        if (!filteredSettings.find(s => s.name === e.detail.name)) {
-            if (data.hasOwnProperty(e.detail.name)) {
-                delete data[e.detail.name];
-                data = data;
-            }
-        }
+    const configChange = () => {
+        checkConditions(data);
     }
 
     $: checkConditions(data);
+    $: configChange(settings);
 </script>
 
 {#each filteredSettings as setting (setting.name)}
@@ -43,8 +39,7 @@
 			this={getComponent(setting.input.type)}
 			bind:data={data}
 			bind:value={data[setting.name]}
-			bind:columnConfig={setting}
-			on:destroy={destroySetting}
+			bind:columnConfig={settings}
 			config={setting}>
 	</svelte:component>
 {/each}

@@ -10,8 +10,9 @@ declare namespace AC.Vars.Admin.Columns {
 
     type ColumnConfig = {
         label: string
-        type: string
+        value: string
         group: string
+        group_key: string
         original: boolean
     }
 
@@ -47,6 +48,7 @@ declare namespace AC.Column.Settings {
         input: {
             type: Type
             default?: any
+            append?: string
         }
         default?: any
         children?: ColumnSettingCollection
@@ -80,6 +82,7 @@ declare namespace AC.Column.Settings {
             min: string | null
             max: string | null
             step: string
+            append?: string
         }
     }
 

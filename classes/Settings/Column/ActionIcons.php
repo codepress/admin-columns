@@ -14,7 +14,10 @@ class ActionIcons extends Column
     {
         $this->name = 'use_icons';
         $this->label = __('Use icons?', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Single::create_toggle();
+        $this->description = __('Use icons instead of text for displaying the actions.', 'codepress-admin-columns');
+        $this->input = AC\Setting\Input\Option\Single::create_toggle(
+            (new AC\Setting\OptionCollectionFactory\ToggleOptionCollection)->create()
+        );
 
         parent::__construct($column);
     }

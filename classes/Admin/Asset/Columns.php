@@ -119,10 +119,11 @@ class Columns extends Script
 
         foreach ($list_screen->get_column_types() as $column) {
             $column_types[] = [
-                'label'    => $column->get_label(),
-                'type'     => $column->get_type(),
-                'group'    => $column->get_group(),
-                'original' => $column->is_original(),
+                'label'     => $column->get_label(),
+                'value'     => $column->get_type(),
+                'group'     => AC\ColumnGroups::get_groups()->get($column->get_group())['label'],
+                'group_key' => $column->get_group(),
+                'original'  => $column->is_original(),
             ];
         }
 

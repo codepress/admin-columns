@@ -18,7 +18,14 @@ class WordLimit extends Settings\Column
     {
         $this->name = 'word_limit';
         $this->label = __('Word Limit', 'codepress-admin-columns');
-        $this->input = new AC\Setting\Input\Number('20', 0);
+        $this->input = AC\Setting\Input\Number::create_single_step(
+            0,
+            null,
+            20,
+            null,
+            null,
+            __('Words', 'codepress-admin-columns')
+        );
 
         parent::__construct($column, $conditions);
     }

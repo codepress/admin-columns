@@ -641,6 +641,12 @@
   flex-grow: 1;
   max-width: 620px;
 }
+.acp-column-setting__description {
+  padding: 5px 0;
+  display: block;
+  color: #888;
+  font-size: 12px;
+}
 
 .acp-column-setting[data-setting=label] .acui-input-group-text {
   color: #ccc;

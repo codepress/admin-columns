@@ -18,7 +18,14 @@ class CharacterLimit extends Settings\Column
     {
         $this->name = 'character_limit';
         $this->label = __('Character Limit', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Number::create_single_step(0);
+        $this->input = AC\Setting\Input\Number::create_single_step(
+            0,
+            null,
+            20,
+            null,
+            'tiny',
+            __('Characters', 'codepress-admin-columns')
+        );
 
         parent::__construct($column, $conditions);
     }

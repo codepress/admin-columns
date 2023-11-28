@@ -18,11 +18,13 @@ class AttachmentDisplay extends Settings\Column
     {
         $this->name = 'attachment_display';
         $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Multiple::create_select(
+        $this->input = AC\Setting\Input\Option\Single::create_select(
             new OptionCollection([
                 new Option(__('Thumbnails', 'codepress-admin-columns'), 'thumbnail'),
                 new Option(__('Count', 'codepress-admin-columns'), 'count'),
             ])
+            ,
+            'thumbnail'
         );
 
         parent::__construct($column);

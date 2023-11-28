@@ -14,7 +14,7 @@ trait SettingTrait
 
     protected $label = '';
 
-    private $description = '';
+    protected $description = '';
 
     private $input;
 

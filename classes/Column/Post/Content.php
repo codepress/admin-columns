@@ -8,20 +8,30 @@ use AC\Settings;
 /**
  * @since 2.4
  */
-class Content extends Column {
+class Content extends Column
+{
 
-	public function __construct() {
-		$this->set_type( 'column-content' );
-		$this->set_label( __( 'Content', 'codepress-admin-columns' ) );
-	}
+    public function __construct()
+    {
+        $this->set_type('column-content');
+        $this->set_label(__('Content', 'codepress-admin-columns'));
+    }
 
-	public function get_raw_value( $post_id ) {
-		return get_post_field( 'post_content', $post_id, 'raw' );
-	}
+    public function get_raw_value($post_id)
+    {
+        return get_post_field('post_content', $post_id, 'raw');
+    }
 
-	public function register_settings() {
-		$this->add_setting( new Settings\Column\StringLimit( $this ) );
-		$this->add_setting( new Settings\Column\BeforeAfter( $this ) );
-	}
+    public function register_settings()
+    {
+        $this->add_setting(new Settings\Column\StringLimit($this));
+        $this->add_setting(new Settings\Column\BeforeAfter($this));
+    }
+
+    public function register_settings_temp()
+    {
+        $this->add_setting(new Settings\Column\StringLimit($this));
+        $this->add_setting(new Settings\Column\BeforeAfter($this));
+    }
 
 }

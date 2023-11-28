@@ -27,8 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }).create();
         });
     }
-
-
+    
     const layoutStyle: HTMLInputElement | null = document.querySelector('input[name="layout_style"]');
     if (layoutStyle) {
         let loader = new AjaxLoader();
