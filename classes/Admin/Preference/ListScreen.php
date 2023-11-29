@@ -24,7 +24,7 @@ class ListScreen extends Site
     public function get_last_visited_list_key(): ?ListKey
     {
         try {
-            $list_key = new ListKey($this->get(self::OPTION_LAST_VISITED));
+            $list_key = new ListKey((string)$this->get(self::OPTION_LAST_VISITED));
         } catch (Exception $e) {
             return null;
         }

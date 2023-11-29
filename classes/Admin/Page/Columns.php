@@ -19,6 +19,7 @@ use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Renderable;
+use AC\Table\TableScreenCollection;
 use AC\TableScreen;
 use AC\Type\Url;
 use AC\Type\Url\Documentation;
@@ -51,7 +52,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
     public function __construct(
         Location\Absolute $location,
         DefaultColumnsRepository $default_columns_repository,
-        array $uninitialized_screens,
+        TableScreenCollection $uninitialized_screens,
         Menu $menu,
         Renderable $head,
         TableScreen $table_screen,

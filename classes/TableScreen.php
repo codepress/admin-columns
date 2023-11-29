@@ -9,7 +9,6 @@ use AC\Type\Labels;
 use AC\Type\ListKey;
 use AC\Type\Uri;
 
-// TODO make manage_value an abstract method
 abstract class TableScreen implements ManageValue
 {
 
@@ -50,22 +49,19 @@ abstract class TableScreen implements ManageValue
 
     abstract public function get_query_type(): string;
 
-    // TODO interface
-
-    abstract public function get_meta_type(): MetaType;
-
     abstract public function get_attr_id(): string;
 
     abstract public function get_url(): Uri;
-
-    abstract public function get_group(): string;
 
     public function get_columns(): array
     {
         // original WP columns
         $columns = (new DefaultColumnsRepository($this->key))->find_all();
 
-        foreach ($this->columns as $column_fqn) {
+        // TODO
+        $columns_fqn = (array)apply_filters('ac/column_types_fqn', $this->columns, $this);
+
+        foreach ($columns_fqn as $column_fqn) {
             /**
              * @var Column $columnn
              */

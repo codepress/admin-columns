@@ -17,7 +17,7 @@ use AC\Type\Uri;
 use AC\Type\Url;
 use AC\WpListTableFactory;
 
-class Media extends TableScreen implements ListTable, PostType
+class Media extends TableScreen implements ListTable, PostType, TableScreen\MetaType
 {
 
     public function __construct(array $columns)
@@ -35,14 +35,9 @@ class Media extends TableScreen implements ListTable, PostType
         return new AC\ListTable\Media((new WpListTableFactory())->create_media_table($this->screen_id));
     }
 
-    public function get_group(): string
-    {
-        return 'media';
-    }
-
     public function get_query_type(): string
     {
-        return MetaType::POST;
+        return 'post';
     }
 
     public function get_meta_type(): MetaType

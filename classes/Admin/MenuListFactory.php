@@ -6,7 +6,7 @@ namespace AC\Admin;
 
 use AC\Admin\MenuGroupFactory\Aggregate;
 use AC\Admin\Type\MenuListItem;
-use AC\Table\TableScreens;
+use AC\Table\TableScreenCollection;
 
 class MenuListFactory
 {
@@ -18,7 +18,7 @@ class MenuListFactory
         $this->group_factory = $group_factory;
     }
 
-    public function create(TableScreens $table_screens): MenuListItems
+    public function create(TableScreenCollection $table_screens): MenuListItems
     {
         $items = [];
 

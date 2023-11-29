@@ -13,7 +13,6 @@ use AC\Asset\Location\Absolute;
 use AC\Asset\Script\Localize\Translation;
 use AC\Controller\RestoreSettingsRequest;
 use AC\Entity\Plugin;
-use AC\ListScreenFactory\BaseFactory;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenRepository\Types;
@@ -21,7 +20,6 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\ListScreenDelete;
 use AC\Storage\EncoderFactory;
-use AC\Table\TableScreensFactoryInterface;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
 
@@ -42,6 +40,8 @@ class AdminColumns
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\UserFactory::class));
 
         MenuGroupFactory\Aggregate::add(new DefaultGroups());
+
+        ListKeysFactory\Aggregate::add($container->get(ListKeysFactory\BaseFactory::class));
 
         $page_handler = new PageRequestHandler();
         $page_handler->add('columns', $container->get(PageFactory\Columns::class))
@@ -149,7 +149,7 @@ class AdminColumns
             ): SetupFactory\AdminColumns {
                 return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
             },
-            TableScreensFactoryInterface::class     => autowire(Table\TableScreensFactory::class),
+            ListKeysFactory::class                  => autowire(ListKeysFactory\Aggregate::class),
             Service\CommonAssets::class             => autowire()
                 ->constructorParameter(1, DI\get('translations.global')),
             Admin\Colors\Shipped\ColorParser::class => autowire()

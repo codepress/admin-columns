@@ -122,7 +122,9 @@ final class ListScreen
 
     public function get_meta_type(): string
     {
-        return (string)$this->table_screen->get_meta_type();
+        return $this->table_screen instanceof TableScreen\MetaType
+            ? (string)$this->table_screen->get_meta_type()
+            : '';
     }
 
     public function get_query_type(): string
@@ -135,7 +137,6 @@ final class ListScreen
         return $this->table_screen->get_screen_id();
     }
 
-    // TODO check usages..
     public function get_post_type(): ?string
     {
         return $this->table_screen instanceof PostType

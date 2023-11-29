@@ -17,7 +17,7 @@ use AC\Type\Url;
 use AC\WpListTableFactory;
 use WP_Post_Type;
 
-class Post extends TableScreen implements PostType, ListTable
+class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaType
 {
 
     protected $post_type;
@@ -46,11 +46,6 @@ class Post extends TableScreen implements PostType, ListTable
     public function get_post_type(): string
     {
         return $this->post_type->name;
-    }
-
-    public function get_group(): string
-    {
-        return 'post';
     }
 
     public function get_query_type(): string

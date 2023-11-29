@@ -178,13 +178,15 @@ final class Screen implements Registerable
             'ajax_nonce'       => wp_create_nonce('ac-ajax'),
             'table_id'         => $this->table_screen->get_attr_id(),
             'screen'           => $this->table_screen->get_screen_id(),
-            'meta_type'        => (string)$this->table_screen->get_meta_type(),
             'list_screen_link' => $this->get_list_screen_clear_link(),
             'current_user_id'  => get_current_user_id(),
             'number_format'    => [
                 'decimal_point' => $this->get_local_number_format('decimal_point'),
                 'thousands_sep' => $this->get_local_number_format('thousands_sep'),
             ],
+            'meta_type'        => $this->table_screen instanceof TableScreen\MetaType
+                ? (string)$this->table_screen->get_meta_type()
+                : '',
         ];
 
         if ($this->list_screen) {
@@ -282,7 +284,9 @@ final class Screen implements Registerable
 
     public function admin_footer_scripts(): void
     {
-        do_action('ac/table/admin_footer', $this->list_screen, $this);
+        if ($this->list_screen) {
+            do_action('ac/table/admin_footer', $this->list_screen, $this);
+        }
     }
 
     public function render_actions(): void

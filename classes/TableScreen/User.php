@@ -15,7 +15,7 @@ use AC\Type\Uri;
 use AC\Type\Url;
 use AC\WpListTableFactory;
 
-class User extends TableScreen implements AC\ListScreen\ListTable
+class User extends TableScreen implements AC\ListScreen\ListTable, TableScreen\MetaType
 {
 
     public function __construct(array $columns)
@@ -33,14 +33,9 @@ class User extends TableScreen implements AC\ListScreen\ListTable
         return new AC\ListTable\User((new WpListTableFactory())->create_user_table($this->screen_id));
     }
 
-    public function get_group(): string
-    {
-        return 'user';
-    }
-
     public function get_query_type(): string
     {
-        return MetaType::USER;
+        return 'user';
     }
 
     public function get_meta_type(): MetaType

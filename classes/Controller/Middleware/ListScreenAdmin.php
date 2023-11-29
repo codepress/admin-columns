@@ -10,6 +10,7 @@ use AC\ListScreenRepository\Storage;
 use AC\Middleware;
 use AC\Request;
 use AC\TableScreen;
+use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use Exception;
 
@@ -125,9 +126,21 @@ class ListScreenAdmin implements Middleware
 
     public function handle(Request $request): void
     {
+        $list_screen = $this->get_list_screen($request);
+
+        if ($list_screen) {
+            $this->set_preference($list_screen->get_key(), $list_screen->get_id());
+        }
+
         $request->get_parameters()->merge([
             'list_screen' => $this->get_list_screen($request),
         ]);
+    }
+
+    private function set_preference(ListKey $key, ListScreenId $id): void
+    {
+        $this->preference->set_last_visited_list_key($key);
+        $this->preference->set_list_id($key, $id);
     }
 
 }

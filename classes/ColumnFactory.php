@@ -39,9 +39,13 @@ class ColumnFactory
             $column->set_taxonomy($this->table_screen->get_taxonomy());
         }
 
-        $column->set_meta_type((string)$this->table_screen->get_meta_type());
+        if ($this->table_screen instanceof TableScreen\MetaType) {
+            $column->set_meta_type((string)$this->table_screen->get_meta_type());
+        }
+
         $column->set_list_key($this->table_screen->get_key());
 
+        // TODO
         do_action('ac/list_screen/column_created', $column, $this);
 
         return $column;

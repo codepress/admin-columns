@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace AC\Admin;
 
 use AC\DefaultColumnsRepository;
-use AC\Table\TableScreensFactoryInterface;
+use AC\Table\TableScreenCollection;
+use AC\Table\TableScreensFactory;
 use AC\TableScreen;
 
 class UninitializedScreens
@@ -13,7 +14,7 @@ class UninitializedScreens
 
     private $table_screens_factory;
 
-    public function __construct(TableScreensFactoryInterface $table_screens_factory)
+    public function __construct(TableScreensFactory $table_screens_factory)
     {
         $this->table_screens_factory = $table_screens_factory;
     }
@@ -28,9 +29,9 @@ class UninitializedScreens
         return ! $table_screen->is_network();
     }
 
-    private function find_all(bool $is_network): array
+    private function find_all(bool $is_network): TableScreenCollection
     {
-        $table_screens = $this->table_screens_factory->create()->all();
+        $table_screens = iterator_to_array($this->table_screens_factory->create());
 
         $filter_callback = $is_network
             ? [$this, 'is_network']
@@ -39,7 +40,7 @@ class UninitializedScreens
         $table_screens = array_filter($table_screens, $filter_callback);
         $table_screens = array_filter($table_screens, [$this, 'exists']);
 
-        return array_filter($table_screens);
+        return new TableScreenCollection(array_filter($table_screens));
     }
 
     private function exists(TableScreen $screen): bool
@@ -47,18 +48,12 @@ class UninitializedScreens
         return ! (new DefaultColumnsRepository($screen->get_key()))->exists();
     }
 
-    /**
-     * @return TableScreen[]
-     */
-    public function find_all_network(): array
+    public function find_all_network(): TableScreenCollection
     {
         return $this->find_all(true);
     }
 
-    /**
-     * @return TableScreen[]
-     */
-    public function find_all_sites(): array
+    public function find_all_sites(): TableScreenCollection
     {
         return $this->find_all(false);
     }

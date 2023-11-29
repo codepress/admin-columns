@@ -14,12 +14,10 @@ use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
-use AC\Table\TableScreens;
-use AC\Table\TableScreensFactoryInterface;
+use AC\Table\TableScreenCollection;
+use AC\Table\TableScreensFactory;
 use AC\TableScreen;
 use AC\TableScreenFactory;
-use AC\Type\ListKey;
-use AC\Type\ListScreenId;
 use InvalidArgumentException;
 
 class Columns implements PageFactoryInterface
@@ -49,7 +47,7 @@ class Columns implements PageFactoryInterface
         Admin\UninitializedScreens $uninitialized_screens,
         Admin\MenuListFactory $menu_list_factory,
         Preference\ListScreen $preference,
-        TableScreensFactoryInterface $table_screens_factory
+        TableScreensFactory $table_screens_factory
     ) {
         $this->storage = $storage;
         $this->location = $location;
@@ -93,11 +91,6 @@ class Columns implements PageFactoryInterface
             throw new InvalidArgumentException('Invalid screen.');
         }
 
-        $this->set_preference(
-            $table_screen->get_key(),
-            $list_screen->get_id()
-        );
-
         return new Page\Columns(
             $this->location,
             new DefaultColumnsRepository($table_screen->get_key()),
@@ -110,15 +103,11 @@ class Columns implements PageFactoryInterface
         );
     }
 
-    private function set_preference(ListKey $key, ListScreenId $id): void
+    private function get_table_sceens(): TableScreenCollection
     {
-        $this->preference->set_last_visited_list_key($key);
-        $this->preference->set_list_id($key, $id);
-    }
-
-    private function get_table_sceens(): TableScreens
-    {
-        return new TableScreens(array_filter($this->table_screens_factory->create()->all(), [$this, 'is_site']));
+        return new TableScreenCollection(
+            array_filter(iterator_to_array($this->table_screens_factory->create()), [$this, 'is_site'])
+        );
     }
 
     public function is_site(TableScreen $table_screen): bool

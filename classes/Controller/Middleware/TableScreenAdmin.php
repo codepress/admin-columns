@@ -22,7 +22,7 @@ class TableScreenAdmin implements Middleware
     public function __construct(
         Preference\ListScreen $preference,
         AC\TableScreenFactory $table_screen_factory,
-        AC\Table\TableScreensFactoryInterface $list_keys_factory
+        AC\Table\TableScreensFactory $list_keys_factory
     ) {
         $this->preference = $preference;
         $this->list_keys_factory = $list_keys_factory;
@@ -58,7 +58,7 @@ class TableScreenAdmin implements Middleware
 
     private function get_first_table_screen(): ?TableScreen
     {
-        return $this->get_table_screen_by_key($this->list_keys_factory->create()->current());
+        return $this->list_keys_factory->create()->current();
     }
 
     private function get_table_screen(Request $request): ?TableScreen

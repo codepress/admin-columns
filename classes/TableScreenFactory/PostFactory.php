@@ -50,7 +50,7 @@ class PostFactory implements TableScreenFactory
         return $this->create_table_screen(get_post_type_object((string)$key));
     }
 
-    protected function create_table_screen(WP_Post_Type $post_type): TableScreen\Post
+    protected function get_columns(WP_Post_Type $post_type): array
     {
         $columns = [
             Column\CustomField::class,
@@ -122,10 +122,13 @@ class PostFactory implements TableScreenFactory
         if ('post' === $post_type->name) {
             $columns[] = Column\Post\Sticky::class;
         }
+        
+        return $columns;
+    }
 
-        // TODO check all column for conditionals 'is_valid'
-
-        return new TableScreen\Post($post_type, $columns);
+    protected function create_table_screen(WP_Post_Type $post_type): TableScreen\Post
+    {
+        return new TableScreen\Post($post_type, $this->get_columns($post_type));
     }
 
     protected function supports_template(string $post_type): bool

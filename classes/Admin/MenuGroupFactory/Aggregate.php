@@ -18,7 +18,7 @@ class Aggregate implements MenuGroupFactory
 
     public static function add(MenuGroupFactory $factory): void
     {
-        self::$factories[] = $factory;
+        array_unshift(self::$factories, $factory);
     }
 
     public function create(TableScreen $table_screen): MenuGroup
@@ -31,7 +31,7 @@ class Aggregate implements MenuGroupFactory
             }
         }
 
-        return new MenuGroup('other', __('Other'));
+        return new MenuGroup('other', __('Other', 'codepress-admin-columns'));
     }
 
 }
