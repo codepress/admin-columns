@@ -21,7 +21,7 @@ final class Value
         $this->value = $value;
     }
 
-    public function get_id()
+    public function get_id(): int
     {
         return $this->id;
     }

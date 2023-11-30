@@ -4,6 +4,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Column;
+use AC\Setting\Formatter;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\RecursiveTrait;
@@ -88,6 +89,14 @@ class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
                 StringComparisonSpecification::equal(self::TYPE_URL)
             ),
         ]);
+    }
+
+    public function get_formatter($value): Formatter
+    {
+        switch( $value ){
+            case self::TYPE_POST:
+                return new PostTitleWithLinkFormatter()
+        }
     }
 
     protected function get_field_type_options(): OptionCollection
