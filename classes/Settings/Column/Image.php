@@ -14,10 +14,11 @@ use AC\Settings;
 use ACP\Expression\Specification;
 use ACP\Expression\StringComparisonSpecification;
 
-class Image extends Settings\Column implements AC\Setting\Recursive
+class Image extends Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     use SettingTrait;
+    use AC\Setting\FormatterByValueTrait;
     use AC\Setting\RecursiveTrait;
 
     public function __construct(Column $column, Specification $specification = null)
@@ -34,6 +35,12 @@ class Image extends Settings\Column implements AC\Setting\Recursive
     public function is_parent(): bool
     {
         return true;
+    }
+
+    public function get_formatter_by_value($value): AC\Formatter
+    {
+        // TODO read subsettings
+        return new AC\Formatter\Image($value);
     }
 
     public function get_children(): SettingCollection

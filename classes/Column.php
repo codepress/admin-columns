@@ -7,8 +7,6 @@ namespace AC;
 use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use ACP\Settings\Column\User;
-use ACP\Expression\StringComparisonSpecification;
 
 /**
  * @since 3.0
@@ -414,102 +412,70 @@ class Column
      * @return mixed
      */
     //public function get_formatted_value($value, $original_value = null, $current = 0)
-//    public function get_formatted_value($value, int $id = null) : string
-//    {
-//        $formatters = $this->get_formatters();
-//        $available = count($formatters);
-//
-//        if (null === $original_value) {
-//            $original_value = $value;
-//        }
-//
-//        if ($available > $current) {
-//            $is_collection = $value instanceof Collection;
-//            $is_value_formatter = $formatters[$current] instanceof Settings\FormatValue;
-//
-//            if ($is_collection && $is_value_formatter) {
-//                foreach ($value as $k => $v) {
-//                    $value->put($k, $this->get_formatted_value($v, null, $current));
-//                }
-//
-//                while ($available > $current) {
-//                    if ($formatters[$current] instanceof Settings\FormatCollection) {
-//                        return $this->get_formatted_value($value, $original_value, $current);
-//                    }
-//
-//                    ++$current;
-//                }
-//            } elseif (($is_collection && ! $is_value_formatter) || $is_value_formatter) {
-//                $value = $formatters[$current]->format($value, $original_value);
-//
-//                return $this->get_formatted_value($value, $original_value, ++$current);
-//            }
-//        }
-//
-//        return $value;
-//    }
+    //    public function get_formatted_value($value, int $id = null) : string
+    //    {
+    //        $formatters = $this->get_formatters();
+    //        $available = count($formatters);
+    //
+    //        if (null === $original_value) {
+    //            $original_value = $value;
+    //        }
+    //
+    //        if ($available > $current) {
+    //            $is_collection = $value instanceof Collection;
+    //            $is_value_formatter = $formatters[$current] instanceof Settings\FormatValue;
+    //
+    //            if ($is_collection && $is_value_formatter) {
+    //                foreach ($value as $k => $v) {
+    //                    $value->put($k, $this->get_formatted_value($v, null, $current));
+    //                }
+    //
+    //                while ($available > $current) {
+    //                    if ($formatters[$current] instanceof Settings\FormatCollection) {
+    //                        return $this->get_formatted_value($value, $original_value, $current);
+    //                    }
+    //
+    //                    ++$current;
+    //                }
+    //            } elseif (($is_collection && ! $is_value_formatter) || $is_value_formatter) {
+    //                $value = $formatters[$current]->format($value, $original_value);
+    //
+    //                return $this->get_formatted_value($value, $original_value, ++$current);
+    //            }
+    //        }
+    //
+    //        return $value;
+    //    }
 
-
-    public function get_formatted_value($value, int $id = null) : string
+    public function get_formatted_value($value, int $id = null): string
     {
+
         $value = new Value( $value, $id );
 
-        // TODO David move this to an object that can do this nested as well, but this remains the basic theory
-        $positions = [];
-
-        foreach( $this->settings as $setting ) {
-            if ( $setting instanceof Formatter ) {
-                $position = 0;
-
-                if ( $setting instanceof Formatter\PositionAware ) {
-                    $position = $setting->get_position();
-                }
-
-                $positions[ $position ][] = $setting;
-            }
-        }
-
-        ksort( $positions, SORT_NUMERIC );
-
-        foreach( $positions as $settings ) {
-            foreach( $settings as $setting ) {
-                $value = $setting->format( $value, $this->options );
-            }
-        }
-
-//        foreach( $this->options as $option ) {
-//
-//        }
-//
-//        foreach( $this->settings as $setting ) {
-//
-//        }
-//
-//        $setting = new User( $this, StringComparisonSpecification::equal('') );
-//
-//        $formatter = $setting->get_formatter(User::PROPERTY_META);
-//
-//        $options['field'] = '_color';
-//
-//        $setting->get_name() <- 'field';
-//
-//
-//        $value = ('fff', user_id);
-//
-//        $value = $formatter->format( $value );
-
-
-
-
+        //        foreach( $this->options as $option ) {
+        //
+        //        }
+        //
+        //        foreach( $this->settings as $setting ) {
+        //
+        //        }
+        //
+        //        $setting = new User( $this, StringComparisonSpecification::equal('') );
+        //
+        //        $formatter = $setting->get_formatter(User::PROPERTY_META);
+        //
+        //        $options['field'] = '_color';
+        //
+        //        $setting->get_name() <- 'field';
+        //
+        //
+        //        $value = ('fff', user_id);
+        //
+        //        $value = $formatter->format( $value );
 
         // TODO David loop over options to see which settings are actually stored
 
-
-
-
-
-
-        return (string) $value;
+        return (string)$value;
     }
 
     /**
@@ -535,7 +501,7 @@ class Column
      */
     public function get_value($id)
     {
-        $value = $this->get_formatted_value($this->get_raw_value($id), $id);
+        $value = $this->get_formatted_value($this->get_raw_value($id), (int)$id);
 
         if ($value instanceof Collection) {
             $value = $value->filter()->implode($this->get_separator());

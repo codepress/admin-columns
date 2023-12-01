@@ -8,45 +8,49 @@ use AC\Settings;
 /**
  * @since 2.4
  */
-class DatePublished extends Column {
+class DatePublished extends Column
+{
 
-	public function __construct() {
-		$this->set_type( 'column-date_published' );
-		$this->set_label( __( 'Date Published', 'codepress-admin-columns' ) );
-	}
+    public function __construct()
+    {
+        $this->set_type('column-date_published');
+        $this->set_label(__('Date Published', 'codepress-admin-columns'));
+    }
 
-	public function get_value( $id ) {
-		$value = parent::get_value( $id );
+    public function get_value($id)
+    {
+        $value = parent::get_value($id);
 
-		$post = get_post( $id );
+        $post = get_post($id);
 
-		switch ( get_post_status( $id ) ) {
+        switch (get_post_status($id)) {
+            // Icons
+            case 'private' :
+            case 'draft' :
+            case 'pending' :
+            case 'future' :
+                $value = ac_helper()->post->get_status_icon($post);
 
-			// Icons
-			case 'private' :
-			case 'draft' :
-			case 'pending' :
-			case 'future' :
-				$value = ac_helper()->post->get_status_icon( $post );
+                break;
 
-				break;
+            // Tooltip
+            default :
+                $value = ac_helper()->html->tooltip($value, ac_helper()->date->date($post->post_date, 'wp_date_time'));
+        }
 
-			// Tooltip
-			default :
-				$value = ac_helper()->html->tooltip( $value, ac_helper()->date->date( $post->post_date, 'wp_date_time' ) );
-		}
+        return $value;
+    }
 
-		return $value;
-	}
+    public function get_raw_value($post_id)
+    {
+        $post = get_post($post_id);
 
-	public function get_raw_value( $post_id ) {
-		$post = get_post( $post_id );
+        return $post->post_date;
+    }
 
-		return $post->post_date;
-	}
-
-	public function register_settings() {
-		$this->add_setting( new Settings\Column\Date( $this ) );
-	}
+    public function register_settings()
+    {
+        $this->add_setting(new Settings\Column\Date($this));
+    }
 
 }
