@@ -448,7 +448,7 @@ class Column
 
     public function get_formatted_value($value, int $id = null): string
     {
-        $value = new Value($value, $id);
+        $value = new Value($id, $value);
 
         //        foreach( $this->options as $option ) {
         //
@@ -499,7 +499,7 @@ class Column
      */
     public function get_value($id)
     {
-        $value = $this->get_formatted_value($this->get_raw_value($id), $id);
+        $value = $this->get_formatted_value($this->get_raw_value($id), (int)$id);
 
         if ($value instanceof Collection) {
             $value = $value->filter()->implode($this->get_separator());
