@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC;
 
 use AC\Setting\SettingCollection;
+use AC\Setting\Type\Value;
 
 /**
  * @since 3.0
@@ -399,6 +400,7 @@ class Column
         // Overwrite in child class
     }
 
+
     /**
      * Apply available formatters (recursive) on the value
      *
@@ -408,39 +410,51 @@ class Column
      *
      * @return mixed
      */
-    public function get_formatted_value($value, $original_value = null, $current = 0)
+    //public function get_formatted_value($value, $original_value = null, $current = 0)
+//    public function get_formatted_value($value, int $id = null) : string
+//    {
+//        $formatters = $this->get_formatters();
+//        $available = count($formatters);
+//
+//        if (null === $original_value) {
+//            $original_value = $value;
+//        }
+//
+//        if ($available > $current) {
+//            $is_collection = $value instanceof Collection;
+//            $is_value_formatter = $formatters[$current] instanceof Settings\FormatValue;
+//
+//            if ($is_collection && $is_value_formatter) {
+//                foreach ($value as $k => $v) {
+//                    $value->put($k, $this->get_formatted_value($v, null, $current));
+//                }
+//
+//                while ($available > $current) {
+//                    if ($formatters[$current] instanceof Settings\FormatCollection) {
+//                        return $this->get_formatted_value($value, $original_value, $current);
+//                    }
+//
+//                    ++$current;
+//                }
+//            } elseif (($is_collection && ! $is_value_formatter) || $is_value_formatter) {
+//                $value = $formatters[$current]->format($value, $original_value);
+//
+//                return $this->get_formatted_value($value, $original_value, ++$current);
+//            }
+//        }
+//
+//        return $value;
+//    }
+
+
+    public function get_formatted_value($value, int $id = null) : string
     {
-        $formatters = $this->get_formatters();
-        $available = count($formatters);
+        $value = new Value( $value, $id );
 
-        if (null === $original_value) {
-            $original_value = $value;
-        }
+        // TODO David
 
-        if ($available > $current) {
-            $is_collection = $value instanceof Collection;
-            $is_value_formatter = $formatters[$current] instanceof Settings\FormatValue;
 
-            if ($is_collection && $is_value_formatter) {
-                foreach ($value as $k => $v) {
-                    $value->put($k, $this->get_formatted_value($v, null, $current));
-                }
-
-                while ($available > $current) {
-                    if ($formatters[$current] instanceof Settings\FormatCollection) {
-                        return $this->get_formatted_value($value, $original_value, $current);
-                    }
-
-                    ++$current;
-                }
-            } elseif (($is_collection && ! $is_value_formatter) || $is_value_formatter) {
-                $value = $formatters[$current]->format($value, $original_value);
-
-                return $this->get_formatted_value($value, $original_value, ++$current);
-            }
-        }
-
-        return $value;
+        return (string) $value;
     }
 
     /**
