@@ -45,6 +45,8 @@ final class Encoder
             ],
         ];
 
+        // TODO David $add;
+
         if ($input instanceof Open) {
             if ($input->has_append()) {
                 $encoded['input']['append'] = $input->get_append();

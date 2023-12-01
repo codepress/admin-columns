@@ -32,6 +32,7 @@ class Taxonomy extends Column {
 
 		$terms = [];
 
+        // TODO Stefan check formatted value original value. Can be ID or link?
 		foreach ( $_terms as $term ) {
 			$terms[] = $this->get_formatted_value( $term->name, $term );
 		}
