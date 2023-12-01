@@ -19,9 +19,10 @@ final class ForeignId implements Formatter
 
     public function format(Value $value): Value
     {
-        return new Value(
-        //$this->formatter->format(new Value($value->get_value()))->get_value(),
-            $value->get_id()
+        return $value->with_value(
+            $this->formatter->format(
+                new Value($value->get_value())
+            )->get_value()
         );
     }
 

@@ -21,8 +21,8 @@ interface Setting
 
     public function get_conditions(): Specification;
 
-    //public function has_formatter(): bool;
+    //public function has_formatter($value): bool;
 
-    //public function get_formatter(): Formatter;
+    //public function get_formatter($value): Formatter;
 
 }
