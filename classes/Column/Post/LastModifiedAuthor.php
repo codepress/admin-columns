@@ -25,6 +25,7 @@ class LastModifiedAuthor extends Column\Meta {
 			return $this->get_empty_char();
 		}
 
+        // TODO Stefan make sure this follows new (int) $id for get_formatted_value()
 		return $this->get_formatted_value( $raw_value, $raw_value );
 	}
 
