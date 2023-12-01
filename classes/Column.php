@@ -6,6 +6,8 @@ namespace AC;
 
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
+use ACP\Settings\Column\User;
+use ACP\Expression\StringComparisonSpecification;
 
 /**
  * @since 3.0
@@ -451,7 +453,37 @@ class Column
     {
         $value = new Value( $value, $id );
 
-        // TODO David
+
+//        foreach( $this->options as $option ) {
+//
+//        }
+//
+//        foreach( $this->settings as $setting ) {
+//
+//        }
+//
+//        $setting = new User( $this, StringComparisonSpecification::equal('') );
+//
+//        $formatter = $setting->get_formatter(User::PROPERTY_META);
+//
+//        $options['field'] = '_color';
+//
+//        $setting->get_name() <- 'field';
+//
+//
+//        $value = ('fff', user_id);
+//
+//        $value = $formatter->format( $value );
+
+
+
+
+
+        // TODO David loop over options to see which settings are actually stored
+
+
+
+
 
 
         return (string) $value;
