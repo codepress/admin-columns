@@ -9,7 +9,7 @@
     let label = config.label ?? '';
     let checked = false;
 
-    const check = (e:CustomEvent<string>) => {
+    const check = (e: CustomEvent<string>) => {
         value = e.detail ? config.input.options[0].value : config.input.options[1].value;
     }
 
@@ -19,7 +19,7 @@
 
     onMount(() => {
         if (typeof value === 'undefined') {
-            value = config.input.options[0].value
+            value = config.input.default ?? config.input.options[1].value
         }
 
         checked = value === config.input.options[0].value;

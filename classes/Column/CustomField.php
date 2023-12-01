@@ -23,6 +23,9 @@ class CustomField extends Column\Meta
 
     public function get_meta_key()
     {
+        return (string)$this->get_option('field');
+
+        //TODO Check
         return (string)$this->get_setting(Settings\Column\CustomField::NAME)->get_value();
     }
 

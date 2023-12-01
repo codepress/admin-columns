@@ -335,7 +335,7 @@ class Column
 
             //$this->register_settings_temp();
             $this->register_settings();
-            //do_action('ac/column/settings', $this);
+            do_action('ac/column/settings', $this);
         }
 
         return new SettingCollection($this->settings);

@@ -4,13 +4,14 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Settings\Column;
+use ACP\Expression\Specification;
 
 class ActionIcons extends Column
 {
 
     use AC\Setting\SettingTrait;
 
-    public function __construct(AC\Column $column)
+    public function __construct(AC\Column $column, Specification $conditionals = null)
     {
         $this->name = 'use_icons';
         $this->label = __('Use icons?', 'codepress-admin-columns');
@@ -19,7 +20,7 @@ class ActionIcons extends Column
             (new AC\Setting\OptionCollectionFactory\ToggleOptionCollection)->create()
         );
 
-        parent::__construct($column);
+        parent::__construct($column, $conditionals);
     }
 
     //	private $use_icons;

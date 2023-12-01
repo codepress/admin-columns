@@ -8,7 +8,7 @@
     import HeaderToggle from "./settings/HeaderToggle.svelte";
     import ColumnSettings from "./ColumnSettings.svelte";
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
-    import ColumnSetting = AC.Column.Settings.ColumnSetting;
+    import ProFeatureToggles from "./ProFeatureToggles.svelte";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -35,14 +35,14 @@
     let isOriginalColumn: boolean = false;
 
     onMount(() => {
-        isOriginalColumn = originalsColumns.find(c => c.type === data.type) !== undefined;
+        isOriginalColumn = typeof originalsColumns.find(c => c.value === data.type) !== 'undefined';
     })
 
-    const checkCondition = (condition: AC.Column.Settings.ColumnConditions, parent) => {
+    const checkCondition = (condition: AC.Specification.Rule, parent: string) => {
         return RuleSpecificationMapper.map(condition).isSatisfiedBy(data[parent]);
     }
 
-    const checkAppliedSubSettings = (validSettings: String[], children: ColumnSetting[], parent) => {
+    const checkAppliedSubSettings = (validSettings: string[], children: AC.Column.Settings.ColumnSetting[], parent: string) => {
         children.filter(sub => {
             return sub.conditions
                 ? checkCondition(sub.conditions, parent)
@@ -58,7 +58,7 @@
     }
 
     const checkAppliedSettings = () => {
-        let settings: string[] = checkAppliedSubSettings(['name'], config);
+        let settings: string[] = checkAppliedSubSettings(['name'], config, '');
 
         Object.keys(data).forEach(settingName => {
             if (!settings.includes(settingName)) {
@@ -88,24 +88,9 @@
 			{#if data.width }
 				{data.width} {data.width_unit}
 			{/if}
-			<HeaderToggle bind:value={data.export} title="Enable Export">
-				<span class="cpacicon cpacicon-download"></span>
-			</HeaderToggle>
-			<HeaderToggle bind:value={data.sort} title="Enable Sorting">
-				<span class="dashicons dashicons-sort"></span>
-			</HeaderToggle>
-			<HeaderToggle bind:value={data.edit} title="Enable Edit">
-				<span class="dashicons dashicons-edit"></span>
-			</HeaderToggle>
-			<HeaderToggle bind:value={data.bulk_edit} title="Enable Bulk Edit">
-				<span class="cpacicon-bulk-edit" style="scale:1.4;"></span>
-			</HeaderToggle>
-			<HeaderToggle bind:value={data.search} title="Enable Smart Filtering">
-				<span class="cpacicon-smart-filter" style="scale:1.2;"></span>
-			</HeaderToggle>
-			<HeaderToggle bind:value={data.filter} title="Enable Filtering">
-				<span class="dashicons dashicons-filter"></span>
-			</HeaderToggle>
+			<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
+			<ProFeatureToggles bind:data={data} bind:config={config}></ProFeatureToggles>
+
 		</div>
 		<div class="ac-column-header__open-indicator">
 			<button class="ac-open-indicator" class:-open={opened} on:click={toggle}>

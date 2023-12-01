@@ -16,6 +16,8 @@ class CustomField extends Settings\Column implements Setting\Recursive
     use SettingTrait;
     use Setting\RecursiveTrait;
 
+    public const NAME = 'custom_field';
+
     public function __construct(Column $column, Specification $specification = null)
     {
         $this->name = 'field';
