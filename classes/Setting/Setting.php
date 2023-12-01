@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use AC\Formatter;
 use ACP\Expression\Specification;
 
 interface Setting

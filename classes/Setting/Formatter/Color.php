@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Formatter;
+namespace AC\Setting\Formatter;
 
 use AC\Formatter;
 use AC\Setting\Type\Value;

@@ -4,19 +4,11 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use AC;
+use AC\Setting\Type\Value;
 
 interface Formatter
 {
 
-    /**
-     * @param mixed $value
-     */
-    public function has_formatter($value): bool;
-
-    /**
-     * @param mixed $value
-     */
-    public function get_formatter($value): AC\Formatter;
+    public function format(Value $value, array $options): Value;
 
 }

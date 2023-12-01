@@ -2,8 +2,8 @@
 
 namespace AC\Settings\Column;
 
-use AC\Column;
 use AC;
+use AC\Column;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterByValueTrait;
 use AC\Setting\Input;
@@ -46,7 +46,7 @@ class User extends Settings\Column implements Formatter
 
     protected function get_formatter_by_value($value): ?AC\Formatter
     {
-        return new AC\Formatter\User\Property($value);
+        return new Formatter\User\Property($value);
     }
 
     protected function get_select_options()

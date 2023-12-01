@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use ACP\Settings\Column\User;
@@ -453,6 +454,28 @@ class Column
     {
         $value = new Value( $value, $id );
 
+        // TODO David move this to an object that can do this nested as well, but this remains the basic theory
+        $positions = [];
+
+        foreach( $this->settings as $setting ) {
+            if ( $setting instanceof Formatter ) {
+                $position = 0;
+
+                if ( $setting instanceof Formatter\PositionAware ) {
+                    $position = $setting->get_position();
+                }
+
+                $positions[ $position ][] = $setting;
+            }
+        }
+
+        ksort( $positions, SORT_NUMERIC );
+
+        foreach( $positions as $settings ) {
+            foreach( $settings as $setting ) {
+                $value = $setting->format( $value, $this->options );
+            }
+        }
 
 //        foreach( $this->options as $option ) {
 //
