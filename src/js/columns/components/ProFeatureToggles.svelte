@@ -36,9 +36,6 @@
 
 </style>
 <div style="display: flex; align-items: center; gap: 5px;">
-	<HeaderToggle bind:value={data.search} title='s'>
-		d
-	</HeaderToggle>
 	{#each proFeatures as feature}
 
 		{#if config.find( c => c.name === feature.feature )}

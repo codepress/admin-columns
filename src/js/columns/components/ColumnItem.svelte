@@ -5,7 +5,6 @@
     import {slide} from 'svelte/transition';
     import {createEventDispatcher, onMount} from "svelte";
     import {ColumnTypesUtils} from "../utils/column-types";
-    import HeaderToggle from "./settings/HeaderToggle.svelte";
     import ColumnSettings from "./ColumnSettings.svelte";
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
     import ProFeatureToggles from "./ProFeatureToggles.svelte";
@@ -88,7 +87,6 @@
 			{#if data.width }
 				{data.width} {data.width_unit}
 			{/if}
-			<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
 			<ProFeatureToggles bind:data={data} bind:config={config}></ProFeatureToggles>
 
 		</div>
