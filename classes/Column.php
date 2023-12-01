@@ -410,6 +410,8 @@ class Column
      */
     public function get_formatted_value($value, $original_value = null, $current = 0)
     {
+        // TODO Formatters
+        return $value;
         $formatters = $this->get_formatters();
         $available = count($formatters);
 
