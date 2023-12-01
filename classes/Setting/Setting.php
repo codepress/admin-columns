@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use AC\Formatter;
 use ACP\Expression\Specification;
 
 interface Setting
@@ -20,9 +21,5 @@ interface Setting
     public function has_conditions(): bool;
 
     public function get_conditions(): Specification;
-
-    //public function has_formatter($value): bool;
-
-    //public function get_formatter($value): Formatter;
 
 }

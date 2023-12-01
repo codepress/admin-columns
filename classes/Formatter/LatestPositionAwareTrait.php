@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Formatter;
+namespace AC\Formatter;
 
 trait LatestPositionAwareTrait
 {

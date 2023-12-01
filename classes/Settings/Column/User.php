@@ -3,16 +3,20 @@
 namespace AC\Settings\Column;
 
 use AC\Column;
+use AC;
+use AC\Setting\Formatter;
+use AC\Setting\FormatterByValueTrait;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
 use ACP\Expression\Specification;
 
-class User extends Settings\Column
+class User extends Settings\Column implements Formatter
 {
 
     use SettingTrait;
+    use FormatterByValueTrait;
 
     // TODO Stefan: old name was user, we changed it to display_author_as
     public const NAME = 'display_author_as';
@@ -32,13 +36,17 @@ class User extends Settings\Column
     public function __construct(Column $column, Specification $specification = null)
     {
         $this->name = self::NAME;
-
         $this->label = __('Display', 'codepress-admin-columns');
         $this->input = Input\Option\Single::create_select(
             OptionCollection::from_array($this->get_select_options())
         );
 
         parent::__construct($column, $specification);
+    }
+
+    protected function get_formatter_by_value($value): ?AC\Formatter
+    {
+        return new AC\Formatter\User\Property($value);
     }
 
     protected function get_select_options()
