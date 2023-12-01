@@ -6,6 +6,7 @@ namespace AC\Setting\Input\Option;
 
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
+use AC\Setting\OptionCollectionFactory\ToggleOptionCollection;
 
 final class Single extends Input\Option
 {
@@ -38,10 +39,14 @@ final class Single extends Input\Option
     }
 
     public static function create_toggle(
-        OptionCollection $options,
+        OptionCollection $options = null,
         string $default = null,
         string $class = null
     ): self {
+        if (null === $options) {
+            $options = (new ToggleOptionCollection())->create();
+        }
+
         return new self('toggle', $options, $default, null, $class);
     }
 

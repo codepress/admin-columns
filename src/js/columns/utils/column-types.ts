@@ -11,7 +11,7 @@ export class ColumnTypesUtils {
     }
 
     static getColumnType( type: string ){
-        const columnType =  ColumnTypesUtils.getColumnTypes().find( ct => ct.valueCustom === type );
+        const columnType =  ColumnTypesUtils.getColumnTypes().find( ct => ct.value === type );
 
         return typeof columnType !== 'undefined'
             ? columnType
