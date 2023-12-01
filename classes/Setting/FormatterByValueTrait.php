@@ -10,11 +10,6 @@ use AC\Formatter;
 trait FormatterByValueTrait
 {
 
-    /**
-     * @var Formatter
-     */
-    protected $formatter;
-
     public function has_formatter($value): bool
     {
         return $this->get_formatter_by_value($value) instanceof Formatter;
