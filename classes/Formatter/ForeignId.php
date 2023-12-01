@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Formatter;
+namespace AC\Formatter;
 
-use AC\Setting\Formatter;
+use AC\Formatter;
 use AC\Setting\Type\Value;
 
 final class ForeignId implements Formatter
