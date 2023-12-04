@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
@@ -10,6 +12,7 @@ use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
 use AC\Setting\Type\Option;
+use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
 use ACP\Expression\StringComparisonSpecification;
@@ -17,8 +20,10 @@ use ACP\Expression\StringComparisonSpecification;
 class Image extends Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
+    private const SETTING_WIDTH = 'image_size_w';
+    private const SETTING_HEIGHT = 'image_size_h';
+
     use SettingTrait;
-    use AC\Setting\FormatterByValueTrait;
     use AC\Setting\RecursiveTrait;
 
     public function __construct(Column $column, Specification $specification = null)
@@ -37,24 +42,41 @@ class Image extends Settings\Column implements AC\Setting\Recursive, AC\Setting\
         return true;
     }
 
-    public function get_formatter_by_value($value): AC\Formatter
+    public function format(Value $value, array $options): Value
     {
-        // TODO read subsettings
-        return new AC\Formatter\Image($value);
+        $size = $options[$this->get_name()] ?? null;
+
+        if ('cpac-custom' === $size) {
+            $width = $options[self::SETTING_WIDTH] ?? null;
+            $height = $options[self::SETTING_HEIGHT] ?? null;
+
+            if ($width && $height) {
+                $size = [$width, $height];
+            }
+        }
+
+        // Default
+        if (null === $size) {
+            $size = [60, 60];
+        }
+
+        return $value->with_value(
+            ac_helper()->image->get_image($value, $size)
+        );
     }
 
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
             new Base\Setting(
-                'image_size_w',
+                self::SETTING_WIDTH,
                 __('Width', 'codepress-admin-columns'),
                 '',
                 Input\Number::create_single_step(0, null, 60),
                 StringComparisonSpecification::equal('cpac-custom')
             ),
             new Base\Setting(
-                'image_size_h',
+                self::SETTING_HEIGHT,
                 __('Height', 'codepress-admin-columns'),
                 '',
                 Input\Number::create_single_step(0, null, 60),
