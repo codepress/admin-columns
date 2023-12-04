@@ -9,15 +9,14 @@ use AC\Setting\OptionCollection;
 use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
+use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\OrSpecification;
 use ACP\Expression\StringComparisonSpecification;
 
-class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
+class CustomFieldType extends Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
-    //implements Settings\FormatValue
-    //{
     use SettingTrait;
     use RecursiveTrait;
 
@@ -116,6 +115,23 @@ class CustomFieldType extends Settings\Column implements AC\Setting\Recursive
         }
 
         return $collection;
+    }
+
+    public function format(Value $value, array $options): Value
+    {
+        switch ($options[$this->name] ?? '') {
+            case self::TYPE_COLOR:
+                return (new AC\Setting\Formatter\Color())->format($value, $options);
+            case self::TYPE_DATE:
+                $timestamp = ac_helper()->date->strtotime($value->get_value());
+                if ($timestamp) {
+                    return $value->with_value(date('c', $timestamp));
+                }
+
+                return $value;
+        }
+
+        return $value;
     }
 
     //
