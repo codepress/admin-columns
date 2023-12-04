@@ -39,6 +39,7 @@ final class Aggregate implements Formatter
         return new self(self::get_formatters($settings));
     }
 
+    // TODO David check if this is ever required, otherwise remove and stick to static factory
     public function with_settings(SettingCollection $settings)
     {
         $formatters = array_merge(

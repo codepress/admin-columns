@@ -449,6 +449,8 @@ class Column
     //        return $value;
     //    }
 
+    // TODO David check if $id cannot be null
+    // TODO David can tis method be protected/private, even just by comment if need be
     public function get_formatted_value($value, int $id = null): string
     {
         $formatter = Formatter\Aggregate::from_settings($this->get_settings());
