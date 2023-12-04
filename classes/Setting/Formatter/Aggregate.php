@@ -8,12 +8,11 @@ use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 
-// TODO David consider the factory methods in a trait, as it's basically just calling 'add' many times over
 final class Aggregate implements Formatter
 {
 
     /**
-     * @var Formatter[][]
+     * @var Formatter[]
      */
     private $data = [];
 
@@ -22,7 +21,7 @@ final class Aggregate implements Formatter
         array_map([$this, 'add'], $formatters);
     }
 
-    public static function from_settings(SettingCollection $settings): self
+    private static function get_formatters(SettingCollection $settings): array
     {
         $formatters = [];
 
@@ -32,18 +31,20 @@ final class Aggregate implements Formatter
             }
         }
 
-        return new self($formatters);
+        return $formatters;
+    }
+
+    public static function from_settings(SettingCollection $settings): self
+    {
+        return new self(self::get_formatters($settings));
     }
 
     public function with_settings(SettingCollection $settings)
     {
-        $formatters = array_merge(...$this->data);
-
-        foreach ($settings as $setting) {
-            if ($setting instanceof Formatter) {
-                $formatters[] = $setting;
-            }
-        }
+        $formatters = array_merge(
+            $this->data,
+            self::get_formatters($settings)
+        );
 
         return new self($formatters);
     }
@@ -61,9 +62,21 @@ final class Aggregate implements Formatter
 
     public function format(Value $value, array $options): Value
     {
-        ksort($this->data);
+        $positioned_formatters = [];
 
-        foreach ($this->data as $formatters) {
+        foreach ($this->data as $formatter) {
+            $position = 0;
+
+            if ($formatter instanceof PositionAware) {
+                $position = $formatter->get_position();
+            }
+
+            $positioned_formatters[$position][] = $formatter;
+        }
+
+        ksort($positioned_formatters);
+
+        foreach ($positioned_formatters as $formatters) {
             foreach ($formatters as $formatter) {
                 $value = $formatter->format($value, $options);
             }
