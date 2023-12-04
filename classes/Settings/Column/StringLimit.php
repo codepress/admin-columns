@@ -7,11 +7,12 @@ use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
+use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
 use ACP\Expression\StringComparisonSpecification;
 
-class StringLimit extends Settings\Column implements AC\Setting\Recursive
+class StringLimit extends Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     use SettingTrait;
@@ -33,6 +34,11 @@ class StringLimit extends Settings\Column implements AC\Setting\Recursive
         );
 
         parent::__construct($column, $conditions);
+    }
+
+    public function format(Value $value, array $options): Value
+    {
+        return AC\Setting\Formatter\Aggregate::from_settings($this->get_children())->format($value, $options);
     }
 
     public function get_children(): SettingCollection
