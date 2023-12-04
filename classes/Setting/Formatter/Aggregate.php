@@ -53,13 +53,7 @@ final class Aggregate implements Formatter
 
     public function add(Formatter $formatter): void
     {
-        $position = 0;
-
-        if ($formatter instanceof PositionAware) {
-            $position = $formatter->get_position();
-        }
-
-        $this->data[$position][] = $formatter;
+        $this->data[] = $formatter;
     }
 
     public function format(Value $value, ArrayImmutable $options): Value
@@ -83,7 +77,7 @@ final class Aggregate implements Formatter
                 $value = $formatter->format($value, $options);
             }
         }
-
+ 
         return $value;
     }
 

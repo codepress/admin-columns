@@ -12,14 +12,18 @@ use ACP\Expression\Specification;
 class WordLimit extends Settings\Column implements AC\Setting\Formatter
 {
 
-    //implements Settings\FormatValue {
-
     use SettingTrait;
+
+    // TODO Stefan Test -> name was word_limit, option 'excerpt_length'
 
     public function __construct(AC\Column $column, Specification $conditions = null)
     {
-        $this->name = 'word_limit';
+        $this->name = 'excerpt_length';
         $this->label = __('Word Limit', 'codepress-admin-columns');
+        $this->description = __('Maximum number of words', 'codepress-admin-columns') . '<em>' . __(
+                'Leave empty for no limit',
+                'codepress-admin-columns'
+            ) . '</em>';
         $this->input = AC\Setting\Input\Number::create_single_step(
             0,
             null,
@@ -35,7 +39,10 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
     public function format(Value $value, ArrayImmutable $options): Value
     {
         return $value->with_value(
-            ac_helper()->string->trim_words($value->get_value(), $options->get('word_limit'))
+            ac_helper()->string->trim_words(
+                $value->get_value(),
+                $options->get('excerpt_length') ?? 20
+            )
         );
     }
 

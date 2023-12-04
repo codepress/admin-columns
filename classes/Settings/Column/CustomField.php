@@ -10,11 +10,12 @@ use AC\Setting\SettingTrait;
 use AC\Settings;
 use ACP\Expression\Specification;
 
-class CustomField extends Settings\Column implements Setting\Recursive
+class CustomField extends Settings\Column implements Setting\Recursive, Setting\Formatter
 {
 
     use SettingTrait;
     use Setting\RecursiveTrait;
+    use Setting\RecursiveFormatterTrait;
 
     public const NAME = 'custom_field';
 

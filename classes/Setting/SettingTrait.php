@@ -10,7 +10,7 @@ use BadMethodCallException;
 trait SettingTrait
 {
 
-    private $name;
+    protected $name;
 
     protected $label = '';
 

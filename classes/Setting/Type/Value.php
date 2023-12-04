@@ -28,7 +28,7 @@ final class Value
 
     public function with_value($value): self
     {
-        return new self($value, $this->id);
+        return new self($this->id, $value);
     }
 
     public function get_value()

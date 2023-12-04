@@ -4,15 +4,17 @@ namespace AC\Settings\Column;
 
 use AC\Column;
 use AC\Setting\Base;
+use AC\Setting\Formatter;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\SettingTrait;
+use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
 
-abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Recursive
+abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Recursive, Formatter
 {
 
     use RecursiveTrait;
@@ -50,13 +52,8 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
 
     protected function get_date_options()
     {
-        $options = $this->get_custom_format_options();
-
-        //$options['custom'] = __('Custom:', 'codepress-admin-columns');
-
-        return $options;
+        return $this->get_custom_format_options();
     }
-    //	private $date_format;
     //
     //	protected function set_name() {
     //		$this->name = self::NAME;
@@ -68,7 +65,7 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
     //		];
     //	}
     //
-    	abstract protected function get_custom_format_options();
+    abstract protected function get_custom_format_options();
     //
     //	abstract protected function get_wp_default_format();
     //
@@ -138,13 +135,6 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
     //		return $options;
     //	}
     //
-    //	/**
-    //	 * @param string $label
-    //	 * @param string $date_format
-    //	 * @param string $description
-    //	 *
-    //	 * @return string
-    //	 */
     //	protected function get_html_label( $label, $date_format = '', $description = '' ) {
     //		$output = '<span class="ac-setting-input-date__value">' . $label . '</span>';
     //
@@ -179,73 +169,41 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
     //	/**
     //	 * @return mixed
     //	 */
-    //	public function get_date_format() {
-    //		$date_format = $this->date_format;
-    //
-    //		if ( ! $date_format ) {
-    //			$date_format = $this->get_default();
-    //		}
-    //
-    //		return $date_format;
-    //	}
-    //
-    //	/**
-    //	 * @param mixed $date_format
-    //	 *
-    //	 * @return bool
-    //	 */
-    //	public function set_date_format( $date_format ) {
-    //		$this->date_format = trim( $date_format );
-    //
-    //		return true;
-    //	}
-    //
-    //	/**
-    //	 * @param $date
-    //	 *
-    //	 * @return false|int
-    //	 */
-    //	protected function get_timestamp( $date ) {
-    //		if ( empty( $date ) ) {
-    //			return false;
-    //		}
-    //
-    //		if ( ! is_scalar( $date ) ) {
-    //			return false;
-    //		}
-    //
-    //		if ( is_numeric( $date ) ) {
-    //			return $date;
-    //		}
-    //
-    //		return strtotime( $date );
-    //	}
-    //
-    //	/**
-    //	 * @param string $date
-    //	 * @param        $original_value
-    //	 *
-    //	 * @return string
-    //	 */
-    //	public function format( $date, $original_value ) {
-    //		$timestamp = $this->get_timestamp( $date );
-    //
-    //		if ( ! $timestamp ) {
-    //			return false;
-    //		}
-    //
-    //		$date_format = $this->get_date_format();
-    //
-    //		switch ( $date_format ) {
-    //			case 'wp_default' :
-    //				$date = ac_helper()->date->format_date( $this->get_wp_default_format(), $timestamp );
-    //
-    //				break;
-    //			default :
-    //				$date = ac_helper()->date->format_date( $date_format, $timestamp );
-    //		}
-    //
-    //		return $date;
-    //	}
+
+    protected function get_timestamp($date): ?int
+    {
+        if (empty($date)) {
+            return null;
+        }
+
+        if ( ! is_scalar($date)) {
+            return null;
+        }
+
+        if (is_numeric($date)) {
+            return (int)$date;
+        }
+
+        return strtotime($date) ?: null;
+    }
+
+    public function format(Value $value, array $options): Value
+    {
+        $timestamp = $this->get_timestamp($value->get_value());
+
+        if ( ! $timestamp) {
+            return $value->with_value(false);
+        }
+
+        $date_format = $options[$this->name] ?? '';
+
+        switch ($date_format) {
+            case 'wp_default' :
+                return $value->with_value(ac_helper()->date->format_date($this->get_wp_default_format(), $timestamp));
+
+            default:
+                return $value->with_value(ac_helper()->date->format_date($date_format, $timestamp));
+        }
+    }
 
 }

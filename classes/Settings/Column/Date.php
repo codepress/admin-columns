@@ -2,6 +2,7 @@
 
 namespace AC\Settings\Column;
 
+use AC\Setting\Type\Value;
 use AC\Settings;
 
 class Date extends Settings\Column\DateTimeFormat
@@ -26,6 +27,17 @@ class Date extends Settings\Column\DateTimeFormat
         }
 
         return $options;
+    }
+
+    public function format(Value $value, array $options): Value
+    {
+        if ('diff' === $options[$this->name]) {
+            $timestamp = $this->get_timestamp($value->get_value());
+
+            return $value->with_value($timestamp ? $this->format_human_time_diff($timestamp) : false);
+        }
+
+        return parent::format($value, $options);
     }
 
     //	private function get_diff_html_label() {
@@ -59,9 +71,10 @@ class Date extends Settings\Column\DateTimeFormat
     //		return $options;
     //	}
     //
-    //	protected function get_wp_default_format() {
-    //		return get_option( 'date_format' );
-    //	}
+    protected function get_wp_default_format()
+    {
+        return get_option('date_format');
+    }
     //
     //	/**
     //	 * @param string $date
@@ -88,20 +101,21 @@ class Date extends Settings\Column\DateTimeFormat
     //	 *
     //	 * @return string
     //	 */
-    //	public function format_human_time_diff( $timestamp ) {
-    //		if ( ! $timestamp ) {
-    //			return false;
-    //		}
-    //
-    //		$current_time = current_time( 'timestamp' );
-    //
-    //		$tpl = __( '%s ago' );
-    //
-    //		if ( $timestamp > $current_time ) {
-    //			$tpl = __( 'in %s', 'codepress-admin-columns' );
-    //		}
-    //
-    //		return sprintf( $tpl, human_time_diff( $timestamp, $current_time ) );
-    //	}
+    public function format_human_time_diff($timestamp): ?string
+    {
+        if ( ! $timestamp) {
+            return null;
+        }
+
+        $current_time = current_time('timestamp');
+
+        $tpl = __('%s ago');
+
+        if ($timestamp > $current_time) {
+            $tpl = __('in %s', 'codepress-admin-columns');
+        }
+
+        return sprintf($tpl, human_time_diff($timestamp, $current_time));
+    }
 
 }
