@@ -12,7 +12,7 @@ trait RecursiveFormatterTrait
 
     abstract public function get_children(): SettingCollection;
 
-    public function format(Value $value, array $options): Value
+    public function format(Value $value, ArrayImmutable $options): Value
     {
         return Aggregate::from_settings($this->get_children())->format($value, $options);
     }

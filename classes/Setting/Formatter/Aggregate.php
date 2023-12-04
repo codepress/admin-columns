@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter;
 
+use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
@@ -61,7 +62,7 @@ final class Aggregate implements Formatter
         $this->data[$position][] = $formatter;
     }
 
-    public function format(Value $value, array $options): Value
+    public function format(Value $value, ArrayImmutable $options): Value
     {
         $positioned_formatters = [];
 

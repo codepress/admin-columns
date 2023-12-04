@@ -6,6 +6,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Column;
+use AC\Setting\ArrayImmutable;
 use AC\Setting\Base;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
@@ -42,13 +43,13 @@ class Image extends Settings\Column implements AC\Setting\Recursive, AC\Setting\
         return true;
     }
 
-    public function format(Value $value, array $options): Value
+    public function format(Value $value, ArrayImmutable $options): Value
     {
-        $size = $options[$this->get_name()] ?? null;
+        $size = $options->get($this->get_name());
 
         if ('cpac-custom' === $size) {
-            $width = $options[self::SETTING_WIDTH] ?? null;
-            $height = $options[self::SETTING_HEIGHT] ?? null;
+            $width = $options->get(self::SETTING_WIDTH);
+            $height = $options->get(self::SETTING_HEIGHT);
 
             if ($width && $height) {
                 $size = [$width, $height];
