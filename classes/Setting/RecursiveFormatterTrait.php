@@ -14,7 +14,18 @@ trait RecursiveFormatterTrait
 
     public function format(Value $value, ArrayImmutable $options): Value
     {
-        return Aggregate::from_settings($this->get_children())->format($value, $options);
+        $settings = [];
+
+        foreach ($this->get_children() as $setting) {
+            if (
+                ! $setting->has_conditions() ||
+                $setting->get_conditions()->is_satisfied_by($options->get($this->name))
+            ) {
+                $settings[] = $setting;
+            }
+        }
+
+        return Aggregate::from_settings(new SettingCollection($settings))->format($value, $options);
     }
 
 }
