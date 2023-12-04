@@ -196,7 +196,7 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
             return $value->with_value(false);
         }
 
-        $date_format = $options->get($this->name) ?? '';
+        $date_format = (string) $options->get($this->name);
 
         switch ($date_format) {
             case 'wp_default' :
