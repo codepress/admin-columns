@@ -6,17 +6,12 @@ use AC;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
-use AC\Setting\SettingTrait;
 use AC\Settings;
 use ACP\Expression\Specification;
 use ACP\Expression\StringComparisonSpecification;
 
-class StringLimit extends Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
+class StringLimit extends Recursive
 {
-
-    use SettingTrait;
-    use AC\Setting\RecursiveTrait;
-    use AC\Setting\RecursiveFormatterTrait;
 
     public function __construct(AC\Column $column, Specification $conditions = null)
     {

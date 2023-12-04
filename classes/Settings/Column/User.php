@@ -5,18 +5,13 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Column;
 use AC\Setting\Formatter;
-use AC\Setting\FormatterByValueTrait;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
-use AC\Setting\SettingTrait;
 use AC\Settings;
 use ACP\Expression\Specification;
 
 class User extends Settings\Column implements Formatter
 {
-
-    use SettingTrait;
-    use FormatterByValueTrait;
 
     // TODO Stefan: old name was user, we changed it to display_author_as
     public const NAME = 'display_author_as';

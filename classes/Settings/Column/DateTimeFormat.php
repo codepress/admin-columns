@@ -5,23 +5,16 @@ namespace AC\Settings\Column;
 use AC\Column;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Base;
-use AC\Setting\Formatter;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
-use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
-use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
-use AC\Settings;
 use ACP\Expression\Specification;
 
-abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Recursive, Formatter
+abstract class DateTimeFormat extends Recursive
 {
 
-    use RecursiveTrait;
-    use SettingTrait;
-
-    //	implements Settings\FormatValue {
+    // TODO Stefan is the general formatter ok here?
 
     const NAME = 'date';
 
@@ -196,7 +189,7 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
             return $value->with_value(false);
         }
 
-        $date_format = (string) $options->get($this->name);
+        $date_format = (string)$options->get($this->name);
 
         switch ($date_format) {
             case 'wp_default' :

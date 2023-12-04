@@ -11,21 +11,16 @@ use AC\Setting\Base;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
-use AC\Setting\SettingTrait;
 use AC\Setting\Type\Option;
 use AC\Setting\Type\Value;
-use AC\Settings;
 use ACP\Expression\Specification;
 use ACP\Expression\StringComparisonSpecification;
 
-class Image extends Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
+class Image extends AC\Settings\Column implements AC\Setting\Formatter
 {
 
     private const SETTING_WIDTH = 'image_size_w';
     private const SETTING_HEIGHT = 'image_size_h';
-
-    use SettingTrait;
-    use AC\Setting\RecursiveTrait;
 
     public function __construct(Column $column, Specification $specification = null)
     {
@@ -146,6 +141,7 @@ class Image extends Settings\Column implements AC\Setting\Recursive, AC\Setting\
     //	 * @since 1.0
     //	 */
 
+    // TODO Stefan fix?
     private function get_dimension_for_size(string $size)
     {
         global $_wp_additional_image_sizes;

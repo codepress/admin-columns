@@ -2,23 +2,18 @@
 
 namespace AC\Settings\Column;
 
-use AC\Setting;
+use AC\Column;
 use AC\Setting\Base;
 use AC\Setting\Input;
-use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
-use AC\Setting\SettingTrait;
-use AC\Settings\Column;
 use ACP\Expression\Specification;
 
-// TODO Implement Formatter
-class BeforeAfter extends Column implements Setting\Recursive
+// TODO Stefan Implement Formatter
+// TODO David good use case to think about BaseFormatter/ Runtime extension
+class BeforeAfter extends Recursive
 {
 
-    use SettingTrait;
-    use RecursiveTrait;
-
-    public function __construct(\AC\Column $column, Specification $specification = null)
+    public function __construct(Column $column, Specification $specification = null)
     {
         $this->name = 'before_after';
         $this->label = __('Display Options', 'codepress-admin-columns');

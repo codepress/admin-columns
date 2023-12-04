@@ -6,17 +6,10 @@ use AC\Column;
 use AC\Setting\Base;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
-use AC\Setting\Recursive;
-use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
-use AC\Setting\SettingTrait;
-use AC\Settings;
 
-class Width extends Settings\Column implements Recursive
+class Width extends Recursive
 {
-
-    use RecursiveTrait;
-    use SettingTrait;
 
     public function __construct(Column $column)
     {

@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace AC\Setting\Base;
 
 use AC;
-use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
 use ACP\Expression\Specification;
 
 class Recursive extends Setting implements AC\Setting\Recursive
 {
-
-    use RecursiveTrait;
 
     private $settings;
 

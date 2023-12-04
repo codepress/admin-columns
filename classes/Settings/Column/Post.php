@@ -5,17 +5,11 @@ namespace AC\Settings\Column;
 use AC\Column;
 use AC\Setting;
 use AC\Setting\SettingCollection;
-use AC\Setting\SettingTrait;
-use AC\Settings;
 use ACP\Expression\Specification;
 use ACP\Expression\StringComparisonSpecification;
 
-class Post extends Settings\Column implements Setting\Recursive
-    //implements Settings\FormatValue
+class Post extends Recursive
 {
-
-    use SettingTrait;
-    use Setting\RecursiveTrait;
 
     public const NAME = 'post';
 

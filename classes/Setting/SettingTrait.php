@@ -16,7 +16,7 @@ trait SettingTrait
 
     protected $description = '';
 
-    private $input;
+    protected $input;
 
     /**
      * @var Specification

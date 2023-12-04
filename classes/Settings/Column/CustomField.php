@@ -3,19 +3,12 @@
 namespace AC\Settings\Column;
 
 use AC\Column;
-use AC\Setting;
 use AC\Setting\Input;
 use AC\Setting\SettingCollection;
-use AC\Setting\SettingTrait;
-use AC\Settings;
 use ACP\Expression\Specification;
 
-class CustomField extends Settings\Column implements Setting\Recursive, Setting\Formatter
+class CustomField extends Recursive
 {
-
-    use SettingTrait;
-    use Setting\RecursiveTrait;
-    use Setting\RecursiveFormatterTrait;
 
     public const NAME = 'custom_field';
 

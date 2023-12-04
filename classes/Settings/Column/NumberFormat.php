@@ -7,16 +7,11 @@ use AC\Column;
 use AC\Setting\Base;
 use AC\Setting\Input;
 use AC\Setting\SettingCollection;
-use AC\Setting\SettingTrait;
-use AC\Settings;
 use ACP\Expression\Specification;
 use ACP\Expression\StringComparisonSpecification;
 
-class NumberFormat extends Settings\Column implements AC\Setting\Recursive
+class NumberFormat extends Recursive
 {
-
-    use SettingTrait;
-    use AC\Setting\RecursiveTrait;
 
     public function __construct(Column $column, Specification $specification = null)
     {

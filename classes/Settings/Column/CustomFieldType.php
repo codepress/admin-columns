@@ -6,19 +6,13 @@ use AC;
 use AC\Column;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
-use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
-use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
-use AC\Settings;
 use ACP\Expression\OrSpecification;
 use ACP\Expression\StringComparisonSpecification;
 
-class CustomFieldType extends Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
+class CustomFieldType extends Recursive
 {
-
-    use SettingTrait;
-    use RecursiveTrait;
 
     public const NAME = 'field_type';
 

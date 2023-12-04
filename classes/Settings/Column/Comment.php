@@ -5,21 +5,15 @@ namespace AC\Settings\Column;
 use AC\Column;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
-use AC\Setting\Recursive;
-use AC\Setting\RecursiveTrait;
 use AC\Setting\SettingCollection;
-use AC\Setting\SettingTrait;
 use AC\Settings;
 use ACP\Expression;
 
 /**
  * @since 3.0.8
  */
-class Comment extends Settings\Column implements Recursive
+class Comment extends Recursive
 {
-
-    use SettingTrait;
-    use RecursiveTrait;
 
     public const NAME = 'comment';
 
@@ -32,7 +26,6 @@ class Comment extends Settings\Column implements Recursive
     public function __construct(Column $column, Expression\Specification $specification = null)
     {
         $this->name = 'comment';
-
         $this->label = __('Display', 'codepress-admin-columns');
         $this->input = Input\Option\Single::create_select(
             OptionCollection::from_array([
