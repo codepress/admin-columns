@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter;
 
-use AC\Formatter;
+use AC\Setting\ArrayImmutable;
+use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
 final class ForeignId implements Formatter
@@ -17,11 +18,12 @@ final class ForeignId implements Formatter
         $this->formatter = $formatter;
     }
 
-    public function format(Value $value): Value
+    public function format(Value $value, ArrayImmutable $options): Value
     {
         return $value->with_value(
             $this->formatter->format(
-                new Value($value->get_value())
+                new Value($value->get_value()),
+                $options
             )->get_value()
         );
     }
