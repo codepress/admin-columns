@@ -16,6 +16,7 @@ trait RecursiveFormatterTrait
     {
         $settings = new SettingCollection();
 
+        // TODO Stefan how does $this->get_name() work?
         foreach ($this->get_children() as $setting) {
             if (
                 ! $setting->has_conditions() ||
