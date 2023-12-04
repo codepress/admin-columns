@@ -449,8 +449,12 @@ class Column
 
     public function get_formatted_value($value, int $id = null): string
     {
+        $formatter = Formatter\Aggregate::from_settings($this->get_settings());
 
-        $value = new Value( $value, $id );
+        return (string)$formatter->format(
+            new Value($value, $id),
+            $this->get_options()
+        );
 
         //        foreach( $this->options as $option ) {
         //
@@ -472,10 +476,6 @@ class Column
         //        $value = ('fff', user_id);
         //
         //        $value = $formatter->format( $value );
-
-        // TODO David loop over options to see which settings are actually stored
-
-        return (string)$value;
     }
 
     /**
