@@ -61,7 +61,7 @@ class Image extends Settings\Column implements AC\Setting\Recursive, AC\Setting\
         }
 
         return $value->with_value(
-            ac_helper()->image->get_image($value, $size)
+            ac_helper()->image->get_image($value->get_value(), $size)
         );
     }
 

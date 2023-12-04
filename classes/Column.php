@@ -299,7 +299,9 @@ class Column
      */
     public function get_custom_label()
     {
-        return 'LABEL PLACEHOLDER';
+        $label = $this->get_option('label') ?: $this->get_type();
+
+        return (string)apply_filters('ac/headings/label', $label, $this);
         // TODO David check
         /**
          * @param string $label
@@ -452,7 +454,7 @@ class Column
         $formatter = Formatter\Aggregate::from_settings($this->get_settings());
 
         return (string)$formatter->format(
-            new Value($value, $id),
+            new Value($id, $value),
             $this->get_options()
         );
 

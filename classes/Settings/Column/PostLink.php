@@ -3,69 +3,85 @@
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Setting\Input;
+use AC\Setting\OptionCollection;
 use AC\Settings;
-use AC\View;
+use ACP\Expression\Specification;
 
 class PostLink extends Settings\Column
-    implements Settings\FormatValue
 {
 
-    /**
-     * @var string
-     */
-    protected $post_link_to;
+    use AC\Setting\SettingTrait;
 
-    protected function define_options()
+    public function __construct(AC\Column $column, Specification $conditions = null)
     {
-        return [
-            'post_link_to' => 'edit_post',
-        ];
+        $this->name = 'post_link_to';
+        $this->label = __('Link To', 'codepress-admin-columns');
+        $this->input = Input\Option\Single::create_select(
+            OptionCollection::from_array($this->get_display_options()),
+            'edit_post'
+        );
+
+        parent::__construct($column, $conditions);
     }
 
-    public function format($value, $original_value)
-    {
-        $id = $original_value;
-
-        switch ($this->get_post_link_to()) {
-            case 'edit_post' :
-                $link = get_edit_post_link($id);
-
-                break;
-            case 'view_post' :
-                $link = get_permalink($id);
-
-                break;
-            case 'edit_author' :
-                $link = get_edit_user_link(ac_helper()->post->get_raw_field('post_author', $id));
-
-                break;
-            case 'view_author' :
-                $link = get_author_posts_url(ac_helper()->post->get_raw_field('post_author', $id));
-
-                break;
-            default :
-                $link = false;
-        }
-
-        if ($link) {
-            $value = ac_helper()->html->link($link, $value);
-        }
-
-        return $value;
-    }
-
-    public function create_view()
-    {
-        $select = $this->create_element('select')->set_options($this->get_display_options());
-
-        $view = new View([
-            'label'   => __('Link To', 'codepress-admin-columns'),
-            'setting' => $select,
-        ]);
-
-        return $view;
-    }
-
+    //
+    //    /**
+    //     * @var string
+    //     */
+    //    protected $post_link_to;
+    //
+    //    protected function define_options()
+    //    {
+    //        return [
+    //            'post_link_to' => 'edit_post',
+    //        ];
+    //    }
+    //
+    //    public function format($value, $original_value)
+    //    {
+    //        $id = $original_value;
+    //
+    //        switch ($this->get_post_link_to()) {
+    //            case 'edit_post' :
+    //                $link = get_edit_post_link($id);
+    //
+    //                break;
+    //            case 'view_post' :
+    //                $link = get_permalink($id);
+    //
+    //                break;
+    //            case 'edit_author' :
+    //                $link = get_edit_user_link(ac_helper()->post->get_raw_field('post_author', $id));
+    //
+    //                break;
+    //            case 'view_author' :
+    //                $link = get_author_posts_url(ac_helper()->post->get_raw_field('post_author', $id));
+    //
+    //                break;
+    //            default :
+    //                $link = false;
+    //        }
+    //
+    //        if ($link) {
+    //            $value = ac_helper()->html->link($link, $value);
+    //        }
+    //
+    //        return $value;
+    //    }
+    //
+    //    public function create_view()
+    //    {
+    //        $select = $this->create_element('select')->set_options($this->get_display_options());
+    //
+    //        $view = new View([
+    //            'label'   => __('Link To', 'codepress-admin-columns'),
+    //            'setting' => $select,
+    //        ]);
+    //
+    //        return $view;
+    //    }
+    //
     protected function get_display_options()
     {
         // Default options
@@ -94,25 +110,25 @@ class PostLink extends Settings\Column
 
         return $options;
     }
-
-    /**
-     * @return string
-     */
-    public function get_post_link_to()
-    {
-        return $this->post_link_to;
-    }
-
-    /**
-     * @param string $post_link_to
-     *
-     * @return bool
-     */
-    public function set_post_link_to($post_link_to)
-    {
-        $this->post_link_to = $post_link_to;
-
-        return true;
-    }
+    //
+    //    /**
+    //     * @return string
+    //     */
+    //    public function get_post_link_to()
+    //    {
+    //        return $this->post_link_to;
+    //    }
+    //
+    //    /**
+    //     * @param string $post_link_to
+    //     *
+    //     * @return bool
+    //     */
+    //    public function set_post_link_to($post_link_to)
+    //    {
+    //        $this->post_link_to = $post_link_to;
+    //
+    //        return true;
+    //    }
 
 }

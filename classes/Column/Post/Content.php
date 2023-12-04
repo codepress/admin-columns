@@ -28,10 +28,4 @@ class Content extends Column
         $this->add_setting(new Settings\Column\BeforeAfter($this));
     }
 
-    public function register_settings_temp()
-    {
-        $this->add_setting(new Settings\Column\StringLimit($this));
-        $this->add_setting(new Settings\Column\BeforeAfter($this));
-    }
-
 }

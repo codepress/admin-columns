@@ -4,10 +4,11 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Setting\SettingTrait;
+use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
 
-class WordLimit extends Settings\Column
+class WordLimit extends Settings\Column implements AC\Setting\Formatter
 {
 
     //implements Settings\FormatValue {
@@ -28,6 +29,13 @@ class WordLimit extends Settings\Column
         );
 
         parent::__construct($column, $conditions);
+    }
+
+    public function format(Value $value, array $options): Value
+    {
+        return $value->with_value(
+            ac_helper()->string->trim_words($value->get_value(), $options['word_limit'])
+        );
     }
 
     //	/**
