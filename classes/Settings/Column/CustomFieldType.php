@@ -117,9 +117,9 @@ class CustomFieldType extends Settings\Column implements AC\Setting\Recursive, A
         return $collection;
     }
 
-    public function format(Value $value, array $options): Value
+    public function format(Value $value, AC\Setting\ArrayImmutable $options): Value
     {
-        switch ($options[$this->name] ?? '') {
+        switch ($options->get($this->name) ?? '') {
             case self::TYPE_COLOR:
                 return (new AC\Setting\Formatter\Color())->format($value, $options);
             case self::TYPE_DATE:

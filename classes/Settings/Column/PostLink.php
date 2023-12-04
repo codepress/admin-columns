@@ -26,9 +26,9 @@ class PostLink extends Settings\Column implements AC\Setting\Formatter
         parent::__construct($column, $conditions);
     }
 
-    public function format(Value $value, array $options): Value
+    public function format(Value $value, AC\Setting\ArrayImmutable $options): Value
     {
-        switch ($options[$this->name] ?? '') {
+        switch ($options->get($this->name) ?? '') {
             case 'edit_post':
                 $link = get_edit_post_link($value->get_id());
 

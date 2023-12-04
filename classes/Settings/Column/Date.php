@@ -2,6 +2,7 @@
 
 namespace AC\Settings\Column;
 
+use AC\Setting\ArrayImmutable;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -29,9 +30,9 @@ class Date extends Settings\Column\DateTimeFormat
         return $options;
     }
 
-    public function format(Value $value, array $options): Value
+    public function format(Value $value, ArrayImmutable $options): Value
     {
-        if ('diff' === $options[$this->name]) {
+        if ('diff' === $options->get($this->name)) {
             $timestamp = $this->get_timestamp($value->get_value());
 
             return $value->with_value($timestamp ? $this->format_human_time_diff($timestamp) : false);

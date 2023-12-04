@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
@@ -457,7 +458,7 @@ class Column
 
         return (string)$formatter->format(
             new Value($id, $value),
-            $this->get_options()
+            new ArrayImmutable($this->get_options())
         );
 
         //        foreach( $this->options as $option ) {

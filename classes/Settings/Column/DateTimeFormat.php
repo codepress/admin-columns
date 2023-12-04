@@ -3,6 +3,7 @@
 namespace AC\Settings\Column;
 
 use AC\Column;
+use AC\Setting\ArrayImmutable;
 use AC\Setting\Base;
 use AC\Setting\Formatter;
 use AC\Setting\Input;
@@ -187,7 +188,7 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
         return strtotime($date) ?: null;
     }
 
-    public function format(Value $value, array $options): Value
+    public function format(Value $value, ArrayImmutable $options): Value
     {
         $timestamp = $this->get_timestamp($value->get_value());
 
@@ -195,7 +196,7 @@ abstract class DateTimeFormat extends Settings\Column implements \AC\Setting\Rec
             return $value->with_value(false);
         }
 
-        $date_format = $options[$this->name] ?? '';
+        $date_format = $options->get($this->name) ?? '';
 
         switch ($date_format) {
             case 'wp_default' :
