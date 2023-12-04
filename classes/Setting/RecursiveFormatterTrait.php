@@ -17,11 +17,10 @@ trait RecursiveFormatterTrait
         $settings = [];
 
         foreach ($this->get_children() as $setting) {
-            $conditions = $setting->has_conditions()
-                ? $setting->get_conditions()
-                : null;
-
-            if ( ! $conditions || $conditions->is_satisfied_by($options->get($this->name))) {
+            if (
+                ! $setting->has_conditions() ||
+                $setting->get_conditions()->is_satisfied_by($options->get($this->name))
+            ) {
                 $settings[] = $setting;
             }
         }

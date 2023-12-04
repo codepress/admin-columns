@@ -17,14 +17,14 @@ final class ArrayImmutable
         $this->values = $values;
     }
 
-    public function has($name): bool
+    public function has($key): bool
     {
-        return isset($this->values[$name]);
+        return isset($this->values[$key]);
     }
 
-    public function get($name)
+    public function get($key)
     {
-        return $this->values[$name] ?? null;
+        return $this->values[$key] ?? null;
     }
 
 }
