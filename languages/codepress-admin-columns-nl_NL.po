@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-03-21 12:00:52+0000\n"
+"PO-Revision-Date: 2023-12-01 08:14:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -152,7 +152,7 @@ msgstr "Kbps"
 #: classes/Settings/Column/FileMetaAudio.php:26
 #: classes/Settings/Column/FileMetaVideo.php:30
 msgid "Sample Rate"
-msgstr "Sample rate"
+msgstr "Steekproef percentage"
 
 #: classes/Settings/Column/FileMetaAudio.php:24
 #: classes/Settings/Column/FileMetaVideo.php:29
@@ -310,7 +310,7 @@ msgstr "Lijsttabel aanpassen"
 
 #: templates/admin/page/settings-section-pro-cta.php:118
 msgid "And of course, all network sites can use Admin Columns."
-msgstr "En natuurlijk kunnen alle netwerksites beheer-kolommen gebruiken."
+msgstr "En natuurlijk kunnen alle netwerksites Admin Columns gebruiken."
 
 #: templates/admin/page/settings-section-pro-cta.php:117
 msgid "Get insights about your entire network of sites."
@@ -798,7 +798,7 @@ msgstr "Om te beginnen met inline bewerken, toggle je de knop \"Inline bewerken\
 
 #: templates/tooltip/inline-editing.php:10
 msgid "With Inline Edit, you can update your content quick and easy, without having to open each %s one at the time."
-msgstr "Met inline bewerken kan je je inhoud snel en gemakkelijk bijwerken, zonder dat je elke %s een voor een hoeft te openen."
+msgstr "Met inline bewerken kan je je inhoud snel en gemakkelijk updaten, zonder dat je elke %s één voor één hoeft te openen."
 
 #: templates/admin/modal-pro.php:26
 msgid "Create multiple list table views with different columns."
@@ -857,7 +857,7 @@ msgstr "Kolommen aan het laden"
 
 #: templates/admin/edit-submenu.php:10
 msgid "Column Sets"
-msgstr "Kolomsets"
+msgstr "Kolom sets"
 
 #: classes/PluginActionLinks.php:66
 msgid "Go Pro"
@@ -1061,7 +1061,7 @@ msgstr "Dit bepaalt hoe de tijd getoond wordt."
 
 #: classes/Settings/Column/Time.php:12
 msgid "Time Format"
-msgstr "Tijdformat"
+msgstr "Tijd format"
 
 #: classes/Settings/Column/StringLimit.php:35
 msgid "No limit"
@@ -1084,7 +1084,7 @@ msgstr "Download"
 #: classes/Settings/Column/PostLink.php:80
 msgctxt "post"
 msgid "View Public %s Author Page"
-msgstr "Bekijk publieke %s auteurpagina"
+msgstr "Bekijk publieke %s auteur pagina"
 
 #: classes/Settings/Column/PostLink.php:79
 msgctxt "post"
@@ -1332,7 +1332,7 @@ msgstr "Nieuwe regel"
 
 #: classes/Settings/Column/Separator.php:26
 msgid "Comma Separated"
-msgstr "Kommagescheiden"
+msgstr "Komma gescheiden"
 
 #: classes/Settings/Column/Password.php:24
 msgid "Plain text"
@@ -1525,7 +1525,7 @@ msgstr "Toon %s knop bij tabel scherm."
 
 #: classes/Admin/Tooltip.php:26
 msgid "Notice"
-msgstr "Melding"
+msgstr "Bericht"
 
 #: classes/Admin/Tooltip.php:27
 msgid "Instructions"
@@ -1661,7 +1661,7 @@ msgstr "Bekijk %s scherm"
 
 #: classes/Admin/Asset/Columns.php:62
 msgid "Invalid response."
-msgstr "Ongeldige respons."
+msgstr "Ongeldige reactie."
 
 #: classes/Settings/Column/LinkLabel.php:24
 msgid "Leave blank to display the URL"
@@ -1700,7 +1700,7 @@ msgstr "Upgraden"
 
 #: classes/Controller/ListScreen/Save.php:51
 msgid "Settings for %s updated successfully."
-msgstr "Instellingen voor %s succesvol bijgewerkt."
+msgstr "Instellingen voor %s succesvol geüpdatet."
 
 #: classes/ListScreen/User.php:15 classes/ListScreenGroups.php:14
 msgid "Users"
@@ -1830,7 +1830,7 @@ msgstr "Overige"
 
 #: classes/Admin/Asset/Script/SettingsFactory.php:26
 msgid "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
-msgstr "Waarschuwing! ALLE gegevens van de opgeslagen beheerderskolommen zullen worden verwijderd. Dit kan niet ongedaan gemaakt worden. 'OK' om te verwijderen, 'Annuleren' om te stoppen"
+msgstr "Waarschuwing! ALLE gegevens van opgeslagen Admin Columns zullen worden verwijderd. Dit kan niet ongedaan gemaakt worden. 'OK' om te verwijderen, 'Annuleren' om te stoppen"
 
 #: classes/Admin/Section/Restore.php:21
 msgid "Delete all column settings and restore the default settings."
@@ -1867,7 +1867,7 @@ msgstr "Gebruikersnaam"
 
 #: templates/admin/help-tab/custom-fields.php:19
 msgid "Value: Can be unix time stamp or a date format as described in the <a href='%s'>Codex</a>. You can change the outputted date format at the <a href='%s'>general settings</a> page."
-msgstr "Waarde: kan een unix tijdstempel zijn, of een datumformat, zoals beschreven in de <a href='%s'>Codex</a>. Je kan de uitgestuurde datumformat wijzigen in de pagina met <a href='%s'>algemene instellingen</a>."
+msgstr "Waarde: kan een Unix tijdstempel zijn, of een datum format, zoals beschreven in de <a href='%s'>Codex</a>. Je kunt de uitgestuurde datum format wijzigen in de pagina met <a href='%s'>algemene instellingen</a>."
 
 #: templates/admin/help-tab/custom-fields.php:43
 msgid "Value: Integers only.<br/>If you have the 'sorting addon' this will be used for sorting, so you can sort your posts on numeric (custom field) values."
@@ -1899,7 +1899,7 @@ msgstr "Verander kolom breedte"
 
 #: templates/admin/help-tab/basics.php:8
 msgid "By clicking on the triangle you will see the column options. Here you can change each label of the columns heading."
-msgstr "Door op het driehoekje te klikken zie je de kolomopties. Hier kan je elk label van de kolomkoptekst wijzigen."
+msgstr "Door op het driehoekje te klikken zie je de kolom opties. Hier kun je elk label van de kolom koptekst wijzigen."
 
 #: templates/admin/help-tab/basics.php:6
 msgid "Change label"
@@ -1915,7 +1915,7 @@ msgstr "Verander volgorde"
 
 #: templates/admin/help-tab/introduction.php:2
 msgid "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them."
-msgstr "Met deze plugin kan je bijkomende kolommen toevoegen en verwijderen van uit de beheerder schermen van berichten, berichttypes, pagina's, mediabibliotheken, reacties, links en gebruikers. Wijzig en herschik de kolomlabels."
+msgstr "Met deze plugin kun je bijkomende kolommen toevoegen en verwijderen van uit de beheerder schermen van berichten, berichttypes, pagina's, mediabibliotheken, reacties, links en gebruikers. Wijzig en herschik de kolom labels."
 
 #: classes/Controller/RestoreSettingsRequest.php:47
 msgid "Default settings successfully restored."
@@ -2060,7 +2060,7 @@ msgstr "Aangepast"
 
 #: classes/Settings/Column/DateTimeFormat.php:63
 msgid "This will determine how the date will be displayed."
-msgstr "Dit bepaald hoe de datum wordt getoond."
+msgstr "Dit bepaalt hoe de datum wordt getoond."
 
 #: classes/Settings/Column/DateTimeFormat.php:62
 msgid "Date Format"
@@ -2245,7 +2245,7 @@ msgstr "Bekijk gebruiker berichten"
 
 #: classes/Settings/Column/UserLink.php:78
 msgid "Edit User Profile"
-msgstr "Gebruikersprofiel aanpassen"
+msgstr "Gebruikersprofiel bewerken"
 
 #: classes/Settings/Column/CommentLink.php:65
 #: classes/Settings/Column/MediaLink.php:62
@@ -2502,7 +2502,7 @@ msgstr "Avatar"
 #: classes/Column/Comment/Approved.php:14 classes/Column/Comment/Status.php:34
 #: classes/Settings/Column/CommentCount.php:56
 msgid "Approved"
-msgstr "Goedgekeurd"
+msgstr "Toegestaan"
 
 #: classes/Column/Comment/Agent.php:14
 msgid "Agent"
