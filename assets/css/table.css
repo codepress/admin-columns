@@ -1107,9 +1107,11 @@ table.ac-table-items.-user-posts .col-id {
 }
 table.ac-table-items.-user-posts .col-date {
   white-space: nowrap;
+  width: 1px;
 }
 table.ac-table-items.-user-posts .col-post-type {
   white-space: nowrap;
+  width: 1px;
 }
 table.ac-table-items.-user-posts .col-post-type {
   text-align: right;
