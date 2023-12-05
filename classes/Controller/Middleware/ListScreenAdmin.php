@@ -5,6 +5,7 @@ namespace AC\Controller\Middleware;
 use AC\Admin\Preference;
 use AC\ColumnCollection;
 use AC\ColumnFactory;
+use AC\ColumnTypesFactory;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Middleware;
@@ -23,14 +24,22 @@ class ListScreenAdmin implements Middleware
 
     private $preference;
 
+    private $column_types_factory;
+
+    private $column_factory;
+
     public function __construct(
         Storage $storage,
         TableScreen $table_screen,
-        Preference\ListScreen $preference
+        Preference\ListScreen $preference,
+        ColumnTypesFactory $column_types_factory,
+        ColumnFactory $column_factory
     ) {
         $this->storage = $storage;
         $this->table_screen = $table_screen;
         $this->preference = $preference;
+        $this->column_types_factory = $column_types_factory;
+        $this->column_factory = $column_factory;
     }
 
     private function get_requested_list_screen(Request $request): ?ListScreen
@@ -104,17 +113,20 @@ class ListScreenAdmin implements Middleware
     {
         $columns = [];
 
-        $column_factory = new ColumnFactory($this->table_screen);
+        $column_types = $this->column_types_factory->create($this->table_screen);
 
-        foreach ($this->table_screen->get_columns() as $column) {
-            if ( ! $column->is_original()) {
+        foreach ($column_types as $column_type) {
+            if ( ! $column_type->is_original()) {
                 continue;
             }
 
-            $column = $column_factory->create([
-                'type'  => $column->get_type(),
-                'label' => $column->get_label(),
-            ]);
+            $column = $this->column_factory->create(
+                $this->table_screen,
+                [
+                    'type' => $column_type->get_type(),
+                    'label' => $column_type->get_label(),
+                ]
+            );
 
             if ($column) {
                 $columns[] = $column;

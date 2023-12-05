@@ -8,6 +8,7 @@ use AC\ColumnFactory;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
+use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
@@ -19,10 +20,16 @@ class Save
 
     private $table_screen_factory;
 
-    public function __construct(Storage $storage, TableScreenFactory $table_screen_factory)
-    {
+    private $column_factory;
+
+    public function __construct(
+        Storage $storage,
+        TableScreenFactory $table_screen_factory,
+        ColumnFactory $column_factory
+    ) {
         $this->storage = $storage;
         $this->table_screen_factory = $table_screen_factory;
+        $this->column_factory = $column_factory;
     }
 
     public function request(Request $request): void
@@ -48,13 +55,12 @@ class Save
             : ListScreenId::generate();
 
         $data = (new Sanitize\FormData())->sanitize($data);
-        $column_factory = new ColumnFactory($table_screen);
 
         $list_screen = new ListScreen(
             $list_id,
             $data['title'] ?? '',
             $table_screen,
-            $this->get_columns($column_factory, $data['columns'] ?? []),
+            $this->get_columns($table_screen, $data['columns'] ?? []),
             $data['settings'] ?? []
         );
 
@@ -82,7 +88,7 @@ class Save
         ]);
     }
 
-    private function get_columns(ColumnFactory $column_factory, array $columndata): ColumnCollection
+    private function get_columns(TableScreen $table_screen, array $columndata): ColumnCollection
     {
         $columns = [];
 
@@ -91,7 +97,7 @@ class Save
                 $data['label'] = (new LabelEncoder())->encode($data['label']);
             }
 
-            $columns[] = $column_factory->create($data);
+            $columns[] = $this->column_factory->create($table_screen, $data);
         }
 
         return new ColumnCollection(array_filter($columns));

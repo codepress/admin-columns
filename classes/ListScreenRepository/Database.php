@@ -10,6 +10,7 @@ use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepositoryWritable;
 use AC\Storage\EncoderFactory;
+use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
@@ -26,10 +27,16 @@ class Database implements ListScreenRepositoryWritable
 
     private $encoder_factory;
 
-    public function __construct(TableScreenFactory $table_screen_factory, EncoderFactory $encoder_factory)
-    {
+    private $column_factory;
+
+    public function __construct(
+        TableScreenFactory $table_screen_factory,
+        EncoderFactory $encoder_factory,
+        ColumnFactory $column_factory
+    ) {
         $this->table_screen_factory = $table_screen_factory;
         $this->encoder_factory = $encoder_factory;
+        $this->column_factory = $column_factory;
     }
 
     protected function find_from_source(ListScreenId $id): ?ListScreen
@@ -176,13 +183,13 @@ class Database implements ListScreenRepositoryWritable
             new ListScreenId($data->list_id),
             $data->title,
             $table_screen,
-            $this->get_columns(new ColumnFactory($table_screen), $data),
+            $this->get_columns($table_screen, $data),
             $this->get_preferences($data),
             new DateTime($data->date_modified)
         );
     }
 
-    private function get_columns(ColumnFactory $factory, object $data): ColumnCollection
+    private function get_columns(TableScreen $table_screen, object $data): ColumnCollection
     {
         $columns = [];
 
@@ -196,7 +203,7 @@ class Database implements ListScreenRepositoryWritable
                 $columns_data['name'] = $name;
             }
 
-            $columns[] = $factory->create($column_data);
+            $columns[] = $this->column_factory->create($table_screen, $column_data);
         }
 
         return new ColumnCollection(array_filter($columns));

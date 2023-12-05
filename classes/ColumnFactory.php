@@ -7,17 +7,14 @@ namespace AC;
 class ColumnFactory
 {
 
-    private $table_screen;
+    private $column_types_factory;
 
-    private $column_types;
-
-    public function __construct(TableScreen $table_screen)
+    public function __construct(ColumnTypesFactory $column_types_factory)
     {
-        $this->table_screen = $table_screen;
-        $this->column_types = $table_screen->get_columns();
+        $this->column_types_factory = $column_types_factory;
     }
 
-    public function create(array $settings): ?Column
+    public function create(TableScreen $table_screen, array $settings): ?Column
     {
         $type = $settings['type'] ?? null;
 
@@ -25,25 +22,28 @@ class ColumnFactory
             return null;
         }
 
-        $column = $this->get_column((string)$type, $settings);
+        // TODO lazy load?
+        $column_types = $this->column_types_factory->create($table_screen);
+
+        $column = $this->get_column($column_types, (string)$type, $settings);
 
         if ( ! $column) {
             return null;
         }
 
-        if ($this->table_screen instanceof PostType) {
-            $column->set_post_type($this->table_screen->get_post_type());
+        if ($table_screen instanceof PostType) {
+            $column->set_post_type($table_screen->get_post_type());
         }
 
-        if ($this->table_screen instanceof Taxonomy) {
-            $column->set_taxonomy($this->table_screen->get_taxonomy());
+        if ($table_screen instanceof Taxonomy) {
+            $column->set_taxonomy($table_screen->get_taxonomy());
         }
 
-        if ($this->table_screen instanceof TableScreen\MetaType) {
-            $column->set_meta_type((string)$this->table_screen->get_meta_type());
+        if ($table_screen instanceof TableScreen\MetaType) {
+            $column->set_meta_type((string)$table_screen->get_meta_type());
         }
 
-        $column->set_list_key($this->table_screen->get_key());
+        $column->set_list_key($table_screen->get_key());
 
         // TODO
         do_action('ac/list_screen/column_created', $column, $this);
@@ -51,9 +51,9 @@ class ColumnFactory
         return $column;
     }
 
-    private function get_column(string $type, array $settings): ?Column
+    private function get_column(array $column_types, string $type, array $settings): ?Column
     {
-        foreach ($this->column_types as $column_type) {
+        foreach ($column_types as $column_type) {
             if ($column_type->get_type() !== $type) {
                 continue;
             }

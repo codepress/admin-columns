@@ -5,6 +5,7 @@ namespace AC\Controller\ColumnRequest;
 use AC\Column;
 use AC\Column\Placeholder;
 use AC\ColumnFactory;
+use AC\ColumnTypesFactory;
 use AC\Request;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
@@ -16,9 +17,18 @@ class Select
 
     private $table_screen_factory;
 
-    public function __construct(TableScreenFactory $table_screen_factory)
-    {
+    private $column_types_factory;
+
+    private $column_factory;
+
+    public function __construct(
+        TableScreenFactory $table_screen_factory,
+        ColumnTypesFactory $column_types_factory,
+        ColumnFactory $column_factory
+    ) {
         $this->table_screen_factory = $table_screen_factory;
+        $this->column_types_factory = $column_types_factory;
+        $this->column_factory = $column_factory;
     }
 
     public function request(Request $request): void
@@ -35,11 +45,12 @@ class Select
 
         $table_screen = $this->table_screen_factory->create($list_key);
 
-        $column_factory = new ColumnFactory($table_screen);
-
-        $column = $column_factory->create([
-            'type' => (string)$request->get('type'),
-        ]);
+        $column = $this->column_factory->create(
+            $table_screen,
+            [
+                'type' => (string)$request->get('type'),
+            ]
+        );
 
         if ( ! $column) {
             wp_send_json_error([
@@ -72,7 +83,12 @@ class Select
             ]);
         }
 
-        wp_send_json_success($this->render_column($column, $table_screen->get_columns()));
+        wp_send_json_success(
+            $this->render_column(
+                $column,
+                $this->column_types_factory->create($table_screen)
+            )
+        );
     }
 
     private function render_column(Column $column, array $column_types): string

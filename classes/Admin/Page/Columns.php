@@ -15,6 +15,7 @@ use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Column;
+use AC\ColumnTypesFactory;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
@@ -49,6 +50,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $storage;
 
+    private $column_types_factory;
+
     public function __construct(
         Location\Absolute $location,
         DefaultColumnsRepository $default_columns_repository,
@@ -57,7 +60,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         Renderable $head,
         TableScreen $table_screen,
         ListScreen $list_screen,
-        Storage $storage
+        Storage $storage,
+        ColumnTypesFactory $column_types_factory
     ) {
         $this->location = $location;
         $this->default_columns_repository = $default_columns_repository;
@@ -67,6 +71,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         $this->table_screen = $table_screen;
         $this->list_screen = $list_screen;
         $this->storage = $storage;
+        $this->column_types_factory = $column_types_factory;
     }
 
     public function get_list_screen(): ListScreen
@@ -302,7 +307,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                     'is_disabled'    => $this->list_screen->is_read_only(),
                     'title'          => $this->list_screen->get_title(),
                     'columns'        => $this->list_screen->get_columns(),
-                    'column_types'   => $this->table_screen->get_columns(),
+                    'column_types'   => $this->column_types_factory->create($this->table_screen),
                     'list_screen'    => $this->list_screen,
                     'show_actions'   => ! $this->list_screen->is_read_only(),
                     'show_clear_all' => apply_filters('ac/enable_clear_columns_button', false),
@@ -361,7 +366,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private function render_column_template(): string
     {
-        $column_types = $this->table_screen->get_columns();
+        $column_types = $this->column_types_factory->create($this->table_screen);
 
         $column = $this->get_column_template_by_group($column_types, 'custom');
 

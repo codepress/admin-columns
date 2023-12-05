@@ -28,6 +28,16 @@ abstract class TableScreen implements ManageValue
         $this->columns = $columns;
     }
 
+    abstract public function get_heading_hookname(): string;
+
+    abstract public function get_labels(): Labels;
+
+    abstract public function get_query_type(): string;
+
+    abstract public function get_attr_id(): string;
+
+    abstract public function get_url(): Uri;
+
     public function get_key(): ListKey
     {
         return $this->key;
@@ -43,49 +53,12 @@ abstract class TableScreen implements ManageValue
         return $this->screen_id;
     }
 
-    abstract public function get_heading_hookname(): string;
-
-    abstract public function get_labels(): Labels;
-
-    abstract public function get_query_type(): string;
-
-    abstract public function get_attr_id(): string;
-
-    abstract public function get_url(): Uri;
-
+    /**
+     * @return string[]
+     */
     public function get_columns(): array
     {
-        // original WP columns
-        $columns = (new DefaultColumnsRepository($this->key))->find_all();
-
-        // TODO
-        $columns_fqn = (array)apply_filters('ac/column_types_fqn', $this->columns, $this);
-
-        foreach ($columns_fqn as $column_fqn) {
-            /**
-             * @var Column $columnn
-             */
-            $column = new $column_fqn();
-
-            $original = $columns[$column->get_type()] ?? null;
-
-            // skip original column types that do not exist
-            if ( ! $original && $column->is_original()) {
-                continue;
-            }
-
-            if ($original) {
-                $column->set_label($original->get_label())
-                       ->set_group($original->get_group());
-            }
-
-            $columns[$column->get_type()] = $column;
-        }
-
-        $columns = array_values($columns);
-
-        //  TODO check usages: do_action('ac/column_types', $this);
-        return (array)apply_filters('ac/column_types', $columns, $this);
+        return $this->columns;
     }
 
 }

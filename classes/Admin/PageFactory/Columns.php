@@ -9,6 +9,8 @@ use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
 use AC\Admin\Preference;
 use AC\Asset\Location;
+use AC\ColumnFactory;
+use AC\ColumnTypesFactory;
 use AC\Controller\Middleware;
 use AC\DefaultColumnsRepository;
 use AC\ListScreen;
@@ -39,6 +41,10 @@ class Columns implements PageFactoryInterface
 
     private $table_screens_factory;
 
+    private $column_types_factory;
+
+    private $column_factory;
+
     public function __construct(
         Storage $storage,
         Location\Absolute $location,
@@ -47,7 +53,9 @@ class Columns implements PageFactoryInterface
         Admin\UninitializedScreens $uninitialized_screens,
         Admin\MenuListFactory $menu_list_factory,
         Preference\ListScreen $preference,
-        TableScreensFactory $table_screens_factory
+        TableScreensFactory $table_screens_factory,
+        ColumnTypesFactory $column_types_factory,
+        ColumnFactory $column_factory
     ) {
         $this->storage = $storage;
         $this->location = $location;
@@ -57,6 +65,8 @@ class Columns implements PageFactoryInterface
         $this->table_screen_factory = $table_screen_factory;
         $this->preference = $preference;
         $this->table_screens_factory = $table_screens_factory;
+        $this->column_types_factory = $column_types_factory;
+        $this->column_factory = $column_factory;
     }
 
     public function create()
@@ -81,7 +91,9 @@ class Columns implements PageFactoryInterface
             new Middleware\ListScreenAdmin(
                 $this->storage,
                 $table_screen,
-                $this->preference
+                $this->preference,
+                $this->column_types_factory,
+                $this->column_factory
             )
         );
 
@@ -99,7 +111,8 @@ class Columns implements PageFactoryInterface
             new Admin\View\Menu($this->menu_factory->create('columns')),
             $table_screen,
             $list_screen,
-            $this->storage
+            $this->storage,
+            $this->column_types_factory
         );
     }
 
