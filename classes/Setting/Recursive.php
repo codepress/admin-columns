@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-interface Recursive extends Setting
+interface Recursive
 {
 
     public function get_children(): SettingCollection;

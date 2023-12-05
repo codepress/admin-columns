@@ -22,7 +22,7 @@ final class Aggregate implements Formatter
         array_map([$this, 'add'], $formatters);
     }
 
-    private static function get_formatters(SettingCollection $settings): array
+    public static function from_settings(SettingCollection $settings): self
     {
         $formatters = [];
 
@@ -31,22 +31,6 @@ final class Aggregate implements Formatter
                 $formatters[] = $setting;
             }
         }
-
-        return $formatters;
-    }
-
-    public static function from_settings(SettingCollection $settings): self
-    {
-        return new self(self::get_formatters($settings));
-    }
-
-    // TODO David check if this is ever required, otherwise remove and stick to static factory
-    public function with_settings(SettingCollection $settings)
-    {
-        $formatters = array_merge(
-            $this->data,
-            self::get_formatters($settings)
-        );
 
         return new self($formatters);
     }
@@ -77,7 +61,7 @@ final class Aggregate implements Formatter
                 $value = $formatter->format($value, $options);
             }
         }
- 
+
         return $value;
     }
 
