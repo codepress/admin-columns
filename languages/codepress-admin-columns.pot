@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Admin Columns <info@admincolumns.com>\n"
 "Last-Translator: Codepress <info@codepress.nl\n"
-"POT-Creation-Date: 2023-10-31 09:19+0000\n"
+"POT-Creation-Date: 2023-12-05 10:40+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: classes/ColumnGroups.php:12, classes/Settings/Column/CustomFieldType.php:203, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:35, templates/admin/help-tab/custom-fields.php:6
+#: classes/ColumnGroups.php:12, classes/Settings/Column/CustomFieldType.php:203, classes/Settings/Column/Image.php:72, classes/Settings/Column/Separator.php:35, templates/admin/help-tab/custom-fields.php:6, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:20, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:17
 msgid "Default"
 msgstr ""
 
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: classes/Admin/MenuFactory.php:40, classes/Admin/Page/Columns.php:162
+#: classes/Admin/MenuFactory.php:40, classes/Admin/Page/Columns.php:166
 msgid "Columns"
 msgstr ""
 
@@ -100,7 +100,7 @@ msgstr ""
 msgid "Get %s now"
 msgstr ""
 
-#: classes/Check/Review.php:116, classes/Table/Screen.php:352, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17
+#: classes/Check/Review.php:116, classes/Table/Screen.php:354, classes/Admin/MenuPageFactory/Menu.php:16, classes/Admin/MenuPageFactory/SubMenu.php:17
 msgid "Admin Columns"
 msgstr ""
 
@@ -204,11 +204,11 @@ msgstr ""
 msgid "Default settings successfully restored."
 msgstr ""
 
-#: classes/Helper/Html.php:488
+#: classes/Helper/Html.php:484
 msgid "%s more"
 msgstr ""
 
-#: classes/Helper/Html.php:489
+#: classes/Helper/Html.php:485
 msgid "Hide"
 msgstr ""
 
@@ -232,7 +232,7 @@ msgstr ""
 msgid "BuddyPress"
 msgstr ""
 
-#: classes/Integration/BuddyPress.php:22, classes/Integration/EventsCalendar.php:23, classes/Integration/GravityForms.php:23, classes/Integration/MetaBox.php:21, classes/Integration/Pods.php:21, classes/Integration/Types.php:21, classes/Integration/WooCommerce.php:20, classes/Integration/YoastSeo.php:21
+#: classes/Integration/BuddyPress.php:22, classes/Integration/EventsCalendar.php:22, classes/Integration/GravityForms.php:23, classes/Integration/MetaBox.php:21, classes/Integration/Pods.php:21, classes/Integration/Types.php:21, classes/Integration/WooCommerce.php:22, classes/Integration/YoastSeo.php:21
 msgid "Integrates %s with Admin Columns."
 msgstr ""
 
@@ -240,11 +240,11 @@ msgstr ""
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your BuddyPress data fields on the Users page."
 msgstr ""
 
-#: classes/Integration/EventsCalendar.php:18, classes/Integration/EventsCalendar.php:24
+#: classes/Integration/EventsCalendar.php:17, classes/Integration/EventsCalendar.php:23
 msgid "Events Calendar"
 msgstr ""
 
-#: classes/Integration/EventsCalendar.php:26
+#: classes/Integration/EventsCalendar.php:25
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your Events, Organizers and Venues."
 msgstr ""
 
@@ -264,7 +264,7 @@ msgstr ""
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your JetEngine contents on any admin list table."
 msgstr ""
 
-#: classes/Integration/MediaLibraryAssistant.php:16, classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:22
+#: classes/Integration/MediaLibraryAssistant.php:16, classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:25
 msgid "Media Library Assistant"
 msgstr ""
 
@@ -288,11 +288,11 @@ msgstr ""
 msgid "Toolset Types"
 msgstr ""
 
-#: classes/Integration/WooCommerce.php:16, classes/Integration/WooCommerce.php:20
+#: classes/Integration/WooCommerce.php:17, classes/Integration/WooCommerce.php:23
 msgid "WooCommerce"
 msgstr ""
 
-#: classes/Integration/WooCommerce.php:21
+#: classes/Integration/WooCommerce.php:25
 msgid "Display, inline- and bulk-edit, smart filter and sort your Products, Variations, Orders and Customers"
 msgstr ""
 
@@ -308,19 +308,19 @@ msgstr ""
 msgid "%s Off from Black Friday to Cyber Monday"
 msgstr ""
 
-#: classes/Table/PrimaryColumn.php:48, classes/Table/PrimaryColumn.php:50, classes/Table/Screen.php:159, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
+#: classes/Table/PrimaryColumn.php:48, classes/Table/PrimaryColumn.php:50, classes/Table/Screen.php:161, classes/Column/Media/Download.php:11, classes/Settings/Column/MediaLink.php:64
 msgid "Download"
 msgstr ""
 
-#: classes/Table/Screen.php:141, classes/Admin/Section/Partial/ShowEditButton.php:24
+#: classes/Table/Screen.php:143, classes/Admin/Section/Partial/ShowEditButton.php:24
 msgid "Edit columns"
 msgstr ""
 
-#: classes/Table/Screen.php:157
+#: classes/Table/Screen.php:159
 msgid "Loading..."
 msgstr ""
 
-#: classes/Table/Screen.php:158, templates/admin/edit-column.php:35
+#: classes/Table/Screen.php:160, templates/admin/edit-column.php:35
 msgid "Edit"
 msgstr ""
 
@@ -352,11 +352,11 @@ msgstr ""
 msgid "More details"
 msgstr ""
 
-#: templates/admin/edit-column.php:30, classes/Settings/Column/Type.php:44
+#: templates/admin/edit-column.php:30, classes/Settings/Column/Type.php:48
 msgid "Name"
 msgstr ""
 
-#: templates/admin/edit-column.php:31, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:84, classes/Settings/Column/Type.php:41, classes/Settings/Column/Type.php:50
+#: templates/admin/edit-column.php:31, classes/Column/Comment/Type.php:14, classes/Settings/Column/CustomFieldType.php:84, classes/Settings/Column/Type.php:45, classes/Settings/Column/Type.php:54
 msgid "Type"
 msgstr ""
 
@@ -472,7 +472,7 @@ msgstr ""
 msgid "Horizontal Scrolling"
 msgstr ""
 
-#: templates/admin/list-screen-settings-mockup.php:101, templates/settings/setting-label-icons.php:43, templates/tooltip/sorting-include-empty.php:9, templates/tooltip/sorting.php:7, classes/Settings/Column/Pro/Sorting.php:11
+#: templates/admin/list-screen-settings-mockup.php:101, templates/settings/setting-label-icons.php:223, templates/tooltip/sorting-include-empty.php:9, templates/tooltip/sorting.php:7, classes/Settings/Column/Pro/Sorting.php:11
 msgid "Sorting"
 msgstr ""
 
@@ -644,76 +644,76 @@ msgstr ""
 msgid "For full documentation, bug reports, feature suggestions and other tips <a href='%s'>visit the Admin Columns website</a>."
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:24
+#: templates/settings/setting-label-icons.php:33
 msgid "Select Icon"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:34
+#: templates/settings/setting-label-icons.php:43
 msgid "Admin Menu"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:35
+#: templates/settings/setting-label-icons.php:72
 msgid "Welcome Screen"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:36
+#: templates/settings/setting-label-icons.php:80
 msgid "Post Formats"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:37, classes/Settings/Column/CustomFieldType.php:143, templates/admin/help-tab/custom-fields.php:34
+#: templates/settings/setting-label-icons.php:97, classes/Settings/Column/CustomFieldType.php:143, templates/admin/help-tab/custom-fields.php:34
 msgid "Media"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:38
+#: templates/settings/setting-label-icons.php:119
 msgid "Image Editing"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:39
+#: templates/settings/setting-label-icons.php:130
 msgid "Databases"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:40
+#: templates/settings/setting-label-icons.php:138
 msgid "Block Editor"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:41
+#: templates/settings/setting-label-icons.php:172
 msgid "TinyMCE"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:42
+#: templates/settings/setting-label-icons.php:207
 msgid "Posts Screen"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:44
+#: templates/settings/setting-label-icons.php:245
 msgid "Social"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:45
+#: templates/settings/setting-label-icons.php:271
 msgid "WordPress.org"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:46
+#: templates/settings/setting-label-icons.php:288
 msgid "Buddicons"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:47
+#: templates/settings/setting-label-icons.php:301
 msgid "Products"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:48
+#: templates/settings/setting-label-icons.php:314
 msgid "Taxonomies"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:49
+#: templates/settings/setting-label-icons.php:315
 msgid "Widgets"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:50
+#: templates/settings/setting-label-icons.php:316
 msgid "Notifications"
 msgstr ""
 
-#: templates/settings/setting-label-icons.php:51
-msgid "Misc"
+#: templates/settings/setting-label-icons.php:334
+msgid "Miscellaneous"
 msgstr ""
 
 #: templates/tooltip/bulk-editing.php:7, templates/admin/page/settings-section-pro-cta.php:81, classes/Settings/Column/Pro/BulkEditing.php:11
@@ -928,11 +928,11 @@ msgstr ""
 msgid "I'm using Admin Columns for WordPress!"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:182
+#: classes/Admin/Page/Columns.php:186
 msgid "Store settings"
 msgstr ""
 
-#: classes/Admin/Page/Columns.php:203
+#: classes/Admin/Page/Columns.php:207
 msgid "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop"
 msgstr ""
 
@@ -1110,7 +1110,7 @@ msgstr ""
 msgid "Caption"
 msgstr ""
 
-#: classes/Column/Media/Description.php:13, classes/Column/User/Description.php:15
+#: classes/Column/Media/Description.php:13, classes/Column/User/Description.php:14
 msgid "Description"
 msgstr ""
 
@@ -1154,7 +1154,7 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-#: classes/Column/Media/MimeType.php:16, classes/Settings/Column/FileMetaAudio.php:25
+#: classes/Column/Media/MimeType.php:16, classes/Settings/Column/FileMetaAudio.php:27
 msgid "Mime Type"
 msgstr ""
 
@@ -1266,7 +1266,7 @@ msgstr ""
 msgid "Shortlink"
 msgstr ""
 
-#: classes/Column/Post/Slug.php:14
+#: classes/Column/Post/Slug.php:17
 msgid "Slug"
 msgstr ""
 
@@ -1274,7 +1274,7 @@ msgstr ""
 msgid "Sticky"
 msgstr ""
 
-#: classes/Column/Post/TitleRaw.php:15
+#: classes/Column/Post/TitleRaw.php:17
 msgid "Title Only"
 msgstr ""
 
@@ -1322,7 +1322,7 @@ msgstr ""
 msgid "Nickname"
 msgstr ""
 
-#: classes/Column/User/PostCount.php:15
+#: classes/Column/User/PostCount.php:14
 msgid "Post Count"
 msgstr ""
 
@@ -1630,77 +1630,77 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:12
+#: classes/Settings/Column/FileMetaAudio.php:14
 msgid "Bitrate"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:13
+#: classes/Settings/Column/FileMetaAudio.php:15
 msgid "Bitrate Mode"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:14, classes/Settings/Column/FileMetaVideo.php:25
+#: classes/Settings/Column/FileMetaAudio.php:16, classes/Settings/Column/FileMetaVideo.php:25
 msgid "Channelmode"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:15, classes/Settings/Column/FileMetaVideo.php:26
+#: classes/Settings/Column/FileMetaAudio.php:17, classes/Settings/Column/FileMetaVideo.php:26
 msgid "Channels"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:16
+#: classes/Settings/Column/FileMetaAudio.php:18
 msgid "Compression Ratio"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:17, classes/Settings/Column/FileMetaVideo.php:12
+#: classes/Settings/Column/FileMetaAudio.php:19, classes/Settings/Column/FileMetaVideo.php:12
 msgid "Created Timestamp"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:18
+#: classes/Settings/Column/FileMetaAudio.php:20
 msgid "Data Format"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:19
+#: classes/Settings/Column/FileMetaAudio.php:21
 msgid "Encoder Options"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:20, classes/Settings/Column/FileMetaVideo.php:14
+#: classes/Settings/Column/FileMetaAudio.php:22, classes/Settings/Column/FileMetaVideo.php:14
 msgid "Fileformat"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:21
+#: classes/Settings/Column/FileMetaAudio.php:23
 msgid "Filesize"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:22, classes/Settings/Column/FileMetaVideo.php:16
+#: classes/Settings/Column/FileMetaAudio.php:24, classes/Settings/Column/FileMetaVideo.php:16
 msgid "Length"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:23, classes/Settings/Column/FileMetaVideo.php:17
+#: classes/Settings/Column/FileMetaAudio.php:25, classes/Settings/Column/FileMetaVideo.php:17
 msgid "Length Formatted"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:24, classes/Settings/Column/FileMetaVideo.php:29
+#: classes/Settings/Column/FileMetaAudio.php:26, classes/Settings/Column/FileMetaVideo.php:29
 msgid "Losless"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:26, classes/Settings/Column/FileMetaVideo.php:30
+#: classes/Settings/Column/FileMetaAudio.php:28, classes/Settings/Column/FileMetaVideo.php:30
 msgid "Sample Rate"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:38
+#: classes/Settings/Column/FileMetaAudio.php:41
 msgid "Kbps"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:44, classes/Settings/Column/FileMetaVideo.php:61
-msgid "channels"
+#: classes/Settings/Column/FileMetaAudio.php:50
+msgid "channel"
 msgid_plural "channels"
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/Settings/Column/FileMetaAudio.php:62, classes/Settings/Column/FileMetaVideo.php:55
+#: classes/Settings/Column/FileMetaAudio.php:72, classes/Settings/Column/FileMetaVideo.php:55
 msgid "sec"
 msgstr ""
 
-#: classes/Settings/Column/FileMetaAudio.php:68, classes/Settings/Column/FileMetaVideo.php:67
+#: classes/Settings/Column/FileMetaAudio.php:78, classes/Settings/Column/FileMetaVideo.php:67
 msgid "Hz"
 msgstr ""
 
@@ -1723,6 +1723,12 @@ msgstr ""
 #: classes/Settings/Column/FileMetaVideo.php:49
 msgid "px"
 msgstr ""
+
+#: classes/Settings/Column/FileMetaVideo.php:61
+msgid "channels"
+msgid_plural "channels"
+msgstr[0] ""
+msgstr[1] ""
 
 #: classes/Settings/Column/Image.php:42
 msgid "Width in pixels"
@@ -1788,7 +1794,7 @@ msgstr ""
 msgid "Public"
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:131
+#: classes/Settings/Column/Meta.php:131, classes/Helper/Select/Generic/GroupFormatter/VisibilityType.php:26
 msgid "Hidden"
 msgstr ""
 
@@ -1796,11 +1802,11 @@ msgstr ""
 msgid "Site Options"
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:138
+#: classes/Settings/Column/Meta.php:138, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:35
 msgid "Network Site:"
 msgstr ""
 
-#: classes/Settings/Column/Meta.php:142
+#: classes/Settings/Column/Meta.php:142, classes/Helper/Select/Generic/GroupFormatter/BlogSite.php:40
 msgid "current"
 msgstr ""
 
@@ -1978,7 +1984,7 @@ msgstr ""
 msgid "WordPress Time Format"
 msgstr ""
 
-#: classes/Settings/Column/Type.php:38
+#: classes/Settings/Column/Type.php:42
 msgid "Choose a column type."
 msgstr ""
 
@@ -2298,7 +2304,7 @@ msgstr ""
 msgid "Show %s button on table screen."
 msgstr ""
 
-#: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:23
+#: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:26
 msgid "Assistant"
 msgstr ""
 
