@@ -1072,6 +1072,7 @@ a.ac-badge-post-count {
   padding: 6px 14px;
   text-decoration: none;
   margin-right: 6px;
+  margin-bottom: 6px;
 }
 a.ac-badge-post-count span.-label {
   color: #464646;
@@ -1102,6 +1103,13 @@ table.ac-table-items.-user-posts .col-id {
   padding-left: 0;
   padding-right: 0;
   width: 40px;
+  white-space: nowrap;
+}
+table.ac-table-items.-user-posts .col-date {
+  white-space: nowrap;
+}
+table.ac-table-items.-user-posts .col-post-type {
+  white-space: nowrap;
 }
 table.ac-table-items.-user-posts .col-post-type {
   text-align: right;
