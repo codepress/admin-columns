@@ -10,6 +10,7 @@
 
 	export let config: any
 	export let data: ListScreenData
+	export let tableUrl: string;
 
 	let isSaving = false;
 
@@ -36,7 +37,7 @@
 	}
 </style>
 <section>
-	<ColumnsForm bind:data={data} bind:config={config}></ColumnsForm>
+	<ColumnsForm bind:data={data} bind:config={config} {tableUrl}></ColumnsForm>
 	{#each ListScreenSections.getSections( 'after_columns' ) as component}
 		<HtmlSection component={component}></HtmlSection>
 	{/each}

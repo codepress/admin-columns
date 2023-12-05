@@ -1524,19 +1524,19 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[14] = list[i];
-  child_ctx[16] = i;
+  child_ctx[15] = list[i];
+  child_ctx[17] = i;
   return child_ctx;
 }
 function get_each_context_1(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[17] = list[i];
-  child_ctx[18] = list;
-  child_ctx[19] = i;
+  child_ctx[18] = list[i];
+  child_ctx[19] = list;
+  child_ctx[20] = i;
   return child_ctx;
 }
 
-// (60:0) {#if data }
+// (61:0) {#if data }
 function create_if_block(ctx) {
   let div3;
   let header;
@@ -1547,12 +1547,15 @@ function create_if_block(ctx) {
   let t1;
   let input;
   let t2;
-  let div1;
+  let a;
   let t3;
+  let t4;
+  let div1;
+  let t5;
   let footer;
   let div2;
   let acbutton;
-  let t4;
+  let t6;
   let acdropdown;
   let current;
   let mounted;
@@ -1576,7 +1579,7 @@ function create_if_block(ctx) {
       }
     }
   });
-  acbutton.$on("click", /*clearColumns*/ctx[3]);
+  acbutton.$on("click", /*clearColumns*/ctx[4]);
   acdropdown = new ACUi_acui_dropdown_AcDropdown_svelte__WEBPACK_IMPORTED_MODULE_6__["default"]({
     props: {
       maxHeight: "300px",
@@ -1600,16 +1603,21 @@ function create_if_block(ctx) {
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       input = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("input");
       t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      a = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("a");
+      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("View");
+      t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       footer = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("footer");
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acbutton.$$.fragment);
-      t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      t6 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acdropdown.$$.fragment);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*tableUrl*/ctx[2]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "button button-primary");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(header, "class", "ac-columns__header");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "ac-columns__body");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(footer, "class", "ac-columns__footer");
@@ -1624,22 +1632,25 @@ function create_if_block(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, input);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*data*/ctx[0].title);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, t2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, t2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, a);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(a, t3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, t4);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, div1);
       for (let i = 0; i < each_blocks.length; i += 1) {
         if (each_blocks[i]) {
           each_blocks[i].m(div1, null);
         }
       }
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, t3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, t5);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, footer);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(footer, div2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acbutton, div2, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t4);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t6);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acdropdown, div2, null);
       current = true;
       if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[7]);
+        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[8]);
         mounted = true;
       }
     },
@@ -1648,7 +1659,10 @@ function create_if_block(ctx) {
       if (dirty & /*data*/1 && input.value !== /*data*/ctx[0].title) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*data*/ctx[0].title);
       }
-      if (dirty & /*config, Object, data, deleteColumn, duplicateColumn*/99) {
+      if (!current || dirty & /*tableUrl*/4) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*tableUrl*/ctx[2]);
+      }
+      if (dirty & /*config, Object, data, deleteColumn, duplicateColumn*/195) {
         each_value_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(Object.values( /*data*/ctx[0].columns));
         let i;
         for (i = 0; i < each_value_1.length; i += 1) {
@@ -1670,7 +1684,7 @@ function create_if_block(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
       const acbutton_changes = {};
-      if (dirty & /*$$scope*/1048576) {
+      if (dirty & /*$$scope*/2097152) {
         acbutton_changes.$$scope = {
           dirty,
           ctx
@@ -1678,7 +1692,7 @@ function create_if_block(ctx) {
       }
       acbutton.$set(acbutton_changes);
       const acdropdown_changes = {};
-      if (dirty & /*$$scope*/1048576) {
+      if (dirty & /*$$scope*/2097152) {
         acdropdown_changes.$$scope = {
           dirty,
           ctx
@@ -1717,32 +1731,32 @@ function create_if_block(ctx) {
   };
 }
 
-// (69:3) {#each Object.values( data.columns ) as column_data}
+// (71:3) {#each Object.values( data.columns ) as column_data}
 function create_each_block_1(ctx) {
   let columnitem;
   let updating_config;
   let updating_data;
   let current;
   function columnitem_config_binding(value) {
-    /*columnitem_config_binding*/ctx[8](value, /*column_data*/ctx[17]);
+    /*columnitem_config_binding*/ctx[9](value, /*column_data*/ctx[18]);
   }
   function columnitem_data_binding(value) {
-    /*columnitem_data_binding*/ctx[9](value, /*column_data*/ctx[17], /*each_value_1*/ctx[18], /*column_data_index*/ctx[19]);
+    /*columnitem_data_binding*/ctx[10](value, /*column_data*/ctx[18], /*each_value_1*/ctx[19], /*column_data_index*/ctx[20]);
   }
   let columnitem_props = {};
-  if ( /*config*/ctx[1][/*column_data*/ctx[17].name] !== void 0) {
-    columnitem_props.config = /*config*/ctx[1][/*column_data*/ctx[17].name];
+  if ( /*config*/ctx[1][/*column_data*/ctx[18].name] !== void 0) {
+    columnitem_props.config = /*config*/ctx[1][/*column_data*/ctx[18].name];
   }
-  if ( /*column_data*/ctx[17] !== void 0) {
-    columnitem_props.data = /*column_data*/ctx[17];
+  if ( /*column_data*/ctx[18] !== void 0) {
+    columnitem_props.data = /*column_data*/ctx[18];
   }
   columnitem = new _ColumnItem_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: columnitem_props
   });
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(columnitem, 'config', columnitem_config_binding));
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(columnitem, 'data', columnitem_data_binding));
-  columnitem.$on("delete", /*delete_handler*/ctx[10]);
-  columnitem.$on("duplicate", /*duplicate_handler*/ctx[11]);
+  columnitem.$on("delete", /*delete_handler*/ctx[11]);
+  columnitem.$on("duplicate", /*duplicate_handler*/ctx[12]);
   return {
     c() {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(columnitem.$$.fragment);
@@ -1756,12 +1770,12 @@ function create_each_block_1(ctx) {
       const columnitem_changes = {};
       if (!updating_config && dirty & /*config, Object, data*/3) {
         updating_config = true;
-        columnitem_changes.config = /*config*/ctx[1][/*column_data*/ctx[17].name];
+        columnitem_changes.config = /*config*/ctx[1][/*column_data*/ctx[18].name];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_config = false);
       }
       if (!updating_data && dirty & /*Object, data*/1) {
         updating_data = true;
-        columnitem_changes.data = /*column_data*/ctx[17];
+        columnitem_changes.data = /*column_data*/ctx[18];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_data = false);
       }
       columnitem.$set(columnitem_changes);
@@ -1781,7 +1795,7 @@ function create_each_block_1(ctx) {
   };
 }
 
-// (82:4) <AcButton type="text" on:click={clearColumns}>
+// (84:4) <AcButton type="text" on:click={clearColumns}>
 function create_default_slot_3(ctx) {
   let t;
   return {
@@ -1799,10 +1813,10 @@ function create_default_slot_3(ctx) {
   };
 }
 
-// (86:6) <AcDropdownItem on:click={() => addColumn(column.value) }         value={column.value}>
+// (88:6) <AcDropdownItem on:click={() => addColumn(column.value) }         value={column.value}>
 function create_default_slot_2(ctx) {
   let html_tag;
-  let raw_value = /*column*/ctx[14].label + "";
+  let raw_value = /*column*/ctx[15].label + "";
   let html_anchor;
   return {
     c() {
@@ -1824,17 +1838,17 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (85:5) {#each columnTypes as column, i}
+// (87:5) {#each columnTypes as column, i}
 function create_each_block(ctx) {
   let acdropdownitem;
   let current;
   function click_handler() {
-    return (/*click_handler*/ctx[12]( /*column*/ctx[14])
+    return (/*click_handler*/ctx[13]( /*column*/ctx[15])
     );
   }
   acdropdownitem = new ACUi_acui_dropdown_AcDropdownItem_svelte__WEBPACK_IMPORTED_MODULE_7__["default"]({
     props: {
-      value: /*column*/ctx[14].value,
+      value: /*column*/ctx[15].value,
       $$slots: {
         default: [create_default_slot_2]
       },
@@ -1855,7 +1869,7 @@ function create_each_block(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       const acdropdownitem_changes = {};
-      if (dirty & /*$$scope*/1048576) {
+      if (dirty & /*$$scope*/2097152) {
         acdropdownitem_changes.$$scope = {
           dirty,
           ctx
@@ -1878,11 +1892,11 @@ function create_each_block(ctx) {
   };
 }
 
-// (83:4) <AcDropdown maxHeight="300px" value>
+// (85:4) <AcDropdown maxHeight="300px" value>
 function create_default_slot_1(ctx) {
   let each_1_anchor;
   let current;
-  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*columnTypes*/ctx[2]);
+  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*columnTypes*/ctx[3]);
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
@@ -1907,8 +1921,8 @@ function create_default_slot_1(ctx) {
       current = true;
     },
     p(ctx, dirty) {
-      if (dirty & /*columnTypes, addColumn*/20) {
-        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*columnTypes*/ctx[2]);
+      if (dirty & /*columnTypes, addColumn*/40) {
+        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*columnTypes*/ctx[3]);
         let i;
         for (i = 0; i < each_value.length; i += 1) {
           const child_ctx = get_each_context(ctx, each_value, i);
@@ -1952,7 +1966,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (84:5) <AcButton slot="trigger">
+// (86:5) <AcButton slot="trigger">
 function create_default_slot(ctx) {
   let t;
   return {
@@ -1970,7 +1984,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (84:5) 
+// (86:5) 
 function create_trigger_slot(ctx) {
   let acbutton;
   let current;
@@ -1995,7 +2009,7 @@ function create_trigger_slot(ctx) {
     },
     p(ctx, dirty) {
       const acbutton_changes = {};
-      if (dirty & /*$$scope*/1048576) {
+      if (dirty & /*$$scope*/2097152) {
         acbutton_changes.$$scope = {
           dirty,
           ctx
@@ -2103,6 +2117,9 @@ function instance($$self, $$props, $$invalidate) {
   let {
     config
   } = $$props;
+  let {
+    tableUrl
+  } = $$props;
   const columnTypes = _utils_column_types__WEBPACK_IMPORTED_MODULE_8__.ColumnTypesUtils.getColumnTypes();
   const clearColumns = () => {
     $$invalidate(0, data['columns'] = {}, data);
@@ -2158,15 +2175,17 @@ function instance($$self, $$props, $$invalidate) {
   $$self.$$set = $$props => {
     if ('data' in $$props) $$invalidate(0, data = $$props.data);
     if ('config' in $$props) $$invalidate(1, config = $$props.config);
+    if ('tableUrl' in $$props) $$invalidate(2, tableUrl = $$props.tableUrl);
   };
-  return [data, config, columnTypes, clearColumns, addColumn, duplicateColumn, deleteColumn, input_input_handler, columnitem_config_binding, columnitem_data_binding, delete_handler, duplicate_handler, click_handler];
+  return [data, config, tableUrl, columnTypes, clearColumns, addColumn, duplicateColumn, deleteColumn, input_input_handler, columnitem_config_binding, columnitem_data_binding, delete_handler, duplicate_handler, click_handler];
 }
 class ColumnsForm extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       data: 0,
-      config: 1
+      config: 1,
+      tableUrl: 2
     });
   }
 }
@@ -2211,17 +2230,17 @@ function add_css(target) {
 }
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[9] = list[i];
+  child_ctx[10] = list[i];
   return child_ctx;
 }
 
-// (59:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
+// (62:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_7__["default"]({
     props: {
-      component: /*component*/ctx[9]
+      component: /*component*/ctx[10]
     }
   });
   return {
@@ -2248,24 +2267,26 @@ function create_each_block(ctx) {
   };
 }
 
-// (63:2) {#if $listScreenDataStore !== null}
+// (66:2) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
   let updating_data;
   let current;
   function listscreenform_config_binding(value) {
-    /*listscreenform_config_binding*/ctx[4](value);
+    /*listscreenform_config_binding*/ctx[5](value);
   }
   function listscreenform_data_binding(value) {
-    /*listscreenform_data_binding*/ctx[5](value);
+    /*listscreenform_data_binding*/ctx[6](value);
   }
-  let listscreenform_props = {};
+  let listscreenform_props = {
+    tableUrl: /*tableUrl*/ctx[2]
+  };
   if ( /*config*/ctx[1] !== void 0) {
     listscreenform_props.config = /*config*/ctx[1];
   }
-  if ( /*$listScreenDataStore*/ctx[2] !== void 0) {
-    listscreenform_props.data = /*$listScreenDataStore*/ctx[2];
+  if ( /*$listScreenDataStore*/ctx[3] !== void 0) {
+    listscreenform_props.data = /*$listScreenDataStore*/ctx[3];
   }
   listscreenform = new _ListScreenForm_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: listscreenform_props
@@ -2282,14 +2303,15 @@ function create_if_block(ctx) {
     },
     p(ctx, dirty) {
       const listscreenform_changes = {};
+      if (dirty & /*tableUrl*/4) listscreenform_changes.tableUrl = /*tableUrl*/ctx[2];
       if (!updating_config && dirty & /*config*/2) {
         updating_config = true;
         listscreenform_changes.config = /*config*/ctx[1];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_config = false);
       }
-      if (!updating_data && dirty & /*$listScreenDataStore*/4) {
+      if (!updating_data && dirty & /*$listScreenDataStore*/8) {
         updating_data = true;
-        listscreenform_changes.data = /*$listScreenDataStore*/ctx[2];
+        listscreenform_changes.data = /*$listScreenDataStore*/ctx[3];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_data = false);
       }
       listscreenform.$set(listscreenform_changes);
@@ -2321,13 +2343,13 @@ function create_fragment(ctx) {
       menu: /*menu*/ctx[0]
     }
   });
-  listscreenmenu.$on("itemSelect", /*handleMenuSelect*/ctx[3]);
+  listscreenmenu.$on("itemSelect", /*handleMenuSelect*/ctx[4]);
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(_store_list_screen_sections__WEBPACK_IMPORTED_MODULE_6__["default"].getSections('before_columns'));
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
   }
-  let if_block = /*$listScreenDataStore*/ctx[2] !== null && create_if_block(ctx);
+  let if_block = /*$listScreenDataStore*/ctx[3] !== null && create_if_block(ctx);
   return {
     c() {
       main = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("main");
@@ -2363,10 +2385,10 @@ function create_fragment(ctx) {
       const listscreenmenu_changes = {};
       if (dirty & /*menu*/1) listscreenmenu_changes.menu = /*menu*/ctx[0];
       listscreenmenu.$set(listscreenmenu_changes);
-      if ( /*$listScreenDataStore*/ctx[2] !== null) {
+      if ( /*$listScreenDataStore*/ctx[3] !== null) {
         if (if_block) {
           if_block.p(ctx, dirty);
-          if (dirty & /*$listScreenDataStore*/4) {
+          if (dirty & /*$listScreenDataStore*/8) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
           }
         } else {
@@ -2415,16 +2437,18 @@ function instance($$self, $$props, $$invalidate) {
   let $currentListId;
   let $currentListKey;
   let $listScreenDataStore;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(6, $currentListId = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(7, $currentListKey = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(2, $listScreenDataStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(7, $currentListId = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(8, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(3, $listScreenDataStore = $$value));
   let {
     menu
   } = $$props;
   let config;
+  let tableUrl;
   const handleMenuSelect = e => {
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettingsByListKey)(e.detail).then(response => {
       $$invalidate(1, config = response.data.data.settings);
+      $$invalidate(2, tableUrl = response.data.data.table_url);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $currentListKey = e.detail, $currentListKey);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $currentListId = response.data.data.list_screen_data.list_screen.id, $currentListId);
       _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore.update(d => {
@@ -2435,6 +2459,7 @@ function instance($$self, $$props, $$invalidate) {
   const handleListIdChange = listId => {
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettings)(listId).then(response => {
       $$invalidate(1, config = response.data.data.settings);
+      $$invalidate(2, tableUrl = response.data.data.table_url);
       _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore.update(d => {
         return response.data.data.list_screen_data.list_screen;
       });
@@ -2456,7 +2481,7 @@ function instance($$self, $$props, $$invalidate) {
   $$self.$$set = $$props => {
     if ('menu' in $$props) $$invalidate(0, menu = $$props.menu);
   };
-  return [menu, config, $listScreenDataStore, handleMenuSelect, listscreenform_config_binding, listscreenform_data_binding];
+  return [menu, config, tableUrl, $listScreenDataStore, handleMenuSelect, listscreenform_config_binding, listscreenform_data_binding];
 }
 class ColumnsPage extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -2797,17 +2822,17 @@ function add_css(target) {
 }
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[6] = list[i];
+  child_ctx[7] = list[i];
   return child_ctx;
 }
 
-// (32:1) {#each ListScreenSections.getSections( 'after_columns' ) as component}
+// (33:1) {#each ListScreenSections.getSections( 'after_columns' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
     props: {
-      component: /*component*/ctx[6]
+      component: /*component*/ctx[7]
     }
   });
   return {
@@ -2834,7 +2859,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (37:2) <AcButton on:click={saveSettings} type="primary" loading={isSaving}>
+// (38:2) <AcButton on:click={saveSettings} type="primary" loading={isSaving}>
 function create_default_slot(ctx) {
   let t;
   return {
@@ -2862,12 +2887,14 @@ function create_fragment(ctx) {
   let acbutton;
   let current;
   function columnsform_data_binding(value) {
-    /*columnsform_data_binding*/ctx[4](value);
+    /*columnsform_data_binding*/ctx[5](value);
   }
   function columnsform_config_binding(value) {
-    /*columnsform_config_binding*/ctx[5](value);
+    /*columnsform_config_binding*/ctx[6](value);
   }
-  let columnsform_props = {};
+  let columnsform_props = {
+    tableUrl: /*tableUrl*/ctx[2]
+  };
   if ( /*data*/ctx[1] !== void 0) {
     columnsform_props.data = /*data*/ctx[1];
   }
@@ -2887,7 +2914,7 @@ function create_fragment(ctx) {
   acbutton = new ACUi_element_AcButton_svelte__WEBPACK_IMPORTED_MODULE_5__["default"]({
     props: {
       type: "primary",
-      loading: /*isSaving*/ctx[2],
+      loading: /*isSaving*/ctx[3],
       $$slots: {
         default: [create_default_slot]
       },
@@ -2896,7 +2923,7 @@ function create_fragment(ctx) {
       }
     }
   });
-  acbutton.$on("click", /*saveSettings*/ctx[3]);
+  acbutton.$on("click", /*saveSettings*/ctx[4]);
   return {
     c() {
       section = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("section");
@@ -2926,6 +2953,7 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const columnsform_changes = {};
+      if (dirty & /*tableUrl*/4) columnsform_changes.tableUrl = /*tableUrl*/ctx[2];
       if (!updating_data && dirty & /*data*/2) {
         updating_data = true;
         columnsform_changes.data = /*data*/ctx[1];
@@ -2938,8 +2966,8 @@ function create_fragment(ctx) {
       }
       columnsform.$set(columnsform_changes);
       const acbutton_changes = {};
-      if (dirty & /*isSaving*/4) acbutton_changes.loading = /*isSaving*/ctx[2];
-      if (dirty & /*$$scope*/512) {
+      if (dirty & /*isSaving*/8) acbutton_changes.loading = /*isSaving*/ctx[3];
+      if (dirty & /*$$scope*/1024) {
         acbutton_changes.$$scope = {
           dirty,
           ctx
@@ -2982,11 +3010,14 @@ function instance($$self, $$props, $$invalidate) {
   let {
     data
   } = $$props;
+  let {
+    tableUrl
+  } = $$props;
   let isSaving = false;
   const saveSettings = () => {
-    $$invalidate(2, isSaving = true);
+    $$invalidate(3, isSaving = true);
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_6__.saveListScreen)(data).then(() => {
-      $$invalidate(2, isSaving = false);
+      $$invalidate(3, isSaving = false);
     });
   };
   function columnsform_data_binding(value) {
@@ -3000,15 +3031,17 @@ function instance($$self, $$props, $$invalidate) {
   $$self.$$set = $$props => {
     if ('config' in $$props) $$invalidate(0, config = $$props.config);
     if ('data' in $$props) $$invalidate(1, data = $$props.data);
+    if ('tableUrl' in $$props) $$invalidate(2, tableUrl = $$props.tableUrl);
   };
-  return [config, data, isSaving, saveSettings, columnsform_data_binding, columnsform_config_binding];
+  return [config, data, tableUrl, isSaving, saveSettings, columnsform_data_binding, columnsform_config_binding];
 }
 class ListScreenForm extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       config: 0,
-      data: 1
+      data: 1,
+      tableUrl: 2
     }, add_css);
   }
 }

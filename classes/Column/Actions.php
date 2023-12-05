@@ -29,7 +29,7 @@ class Actions extends Column
      */
     public function get_value($id)
     {
-        if ($this->get_setting('use_icons')->get_value()) {
+        if ($this->get_option('use_icons')) {
             return '<span class="cpac_use_icons"></span>';
         }
 
@@ -37,12 +37,6 @@ class Actions extends Column
     }
 
     public function register_settings()
-    {
-        $this->add_setting(new Settings\Column\ActionIcons($this));
-    }
-
-    // TODO remove
-    public function register_settings_temp()
     {
         $this->add_setting(new Settings\Column\ActionIcons($this));
     }

@@ -11,7 +11,6 @@ use AC\Plugin\Version;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
-use AC\Settings\Column;
 use AC\Type\ListScreenId;
 use ACP\Storage\Decoder;
 use ACP\Storage\Encoder;
@@ -112,6 +111,7 @@ class ListScreenSettings implements RequestAjaxHandler
         }
 
         $response->set_parameter('list_screen_data', $encoder->encode());
+        $response->set_parameter('table_url', (string)$list_screen->get_table_url());
         $response->set_parameter('settings', $settings);
         $response->success();
     }
@@ -120,25 +120,25 @@ class ListScreenSettings implements RequestAjaxHandler
     {
         $settings = [];
 
-        $encoder = new \AC\Setting\Encoder( $column->get_settings() );
+        $encoder = new \AC\Setting\Encoder($column->get_settings());
 
         return $encoder->encode();
 
-//        foreach ($column->get_settings() as $setting) {
-//            if ( ! $setting instanceof Column) {
-//                continue;
-//            }
-//
-//
-//
-//            $setting_config = $setting->get_config();
-//
-//            if ($setting_config) {
-//                $settings[] = $setting_config;
-//            }
-//        }
-//
-//        return $settings;
+        //        foreach ($column->get_settings() as $setting) {
+        //            if ( ! $setting instanceof Column) {
+        //                continue;
+        //            }
+        //
+        //
+        //
+        //            $setting_config = $setting->get_config();
+        //
+        //            if ($setting_config) {
+        //                $settings[] = $setting_config;
+        //            }
+        //        }
+        //
+        //        return $settings;
     }
 
     public function method_add_column(Request $request)

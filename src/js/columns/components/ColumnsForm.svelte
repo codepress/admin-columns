@@ -14,6 +14,7 @@
 
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
+    export let tableUrl:string;
 
     const columnTypes = ColumnTypesUtils.getColumnTypes();
 
@@ -67,6 +68,7 @@
 				<h1>{ListKeys.getLabelForKey( data.type )}</h1>
 			</div>
 			<input bind:value={data.title}/>
+			<a href={tableUrl} class="button button-primary">View</a>
 		</header>
 		<div class="ac-columns__body">
 			{#each Object.values( data.columns ) as column_data}

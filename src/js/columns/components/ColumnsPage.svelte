@@ -7,14 +7,17 @@
     import HtmlSection from "./HtmlSection.svelte";
     import ListScreenMenu from "./ListScreenMenu.svelte";
     import {listScreenDataStore} from "../store/list-screen-data";
+    import ColumnSetting = AC.Vars.Settings.ColumnSetting;
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
 
-    let config;
+    let config: {[key:string] : ColumnSetting[]};
+    let tableUrl: string;
 
     const handleMenuSelect = (e) => {
         getListScreenSettingsByListKey(e.detail).then(response => {
             config = response.data.data.settings
+            tableUrl = response.data.data.table_url;
             $currentListKey = e.detail;
             $currentListId = response.data.data.list_screen_data.list_screen.id;
 
@@ -27,6 +30,7 @@
     const handleListIdChange = (listId: string) => {
         getListScreenSettings(listId).then(response => {
             config = response.data.data.settings;
+            tableUrl = response.data.data.table_url;
             listScreenDataStore.update(d => {
                 return response.data.data.list_screen_data.list_screen;
             })
@@ -68,7 +72,7 @@
 		{/each}
 
 		{#if $listScreenDataStore !== null}
-			<ListScreenForm bind:config={config} bind:data={$listScreenDataStore}></ListScreenForm>
+			<ListScreenForm bind:config={config} bind:data={$listScreenDataStore} tableUrl={tableUrl}></ListScreenForm>
 		{/if}
 	</div>
 </main>
