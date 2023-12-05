@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
+use AC;
 use AC\Column;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Base;
@@ -10,7 +13,7 @@ use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use ACP\Expression\Specification;
 
-class BeforeAfter extends Recursive
+class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive
 {
 
     private $default_before;

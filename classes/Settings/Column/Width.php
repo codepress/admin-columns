@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC\Column;
@@ -8,22 +10,35 @@ use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 
-class Width extends Recursive
+final class Width extends Recursive
 {
 
-    public function __construct(Column $column)
+    private $default;
+
+    public function __construct(Column $column, int $default = null)
     {
         $this->name = 'width';
         $this->label = __('Width', 'codepress-admin-columns');
         $this->input = new Input\Custom('width');
+        $this->default = $default;
 
         parent::__construct($column);
+    }
+
+    public function with_default(int $default): self
+    {
+        return new self($this->column, $default);
     }
 
     public function get_children(): SettingCollection
     {
         $settings = [
-            new Base\Setting($this->name),
+            new Base\Setting(
+                $this->name,
+                '',
+                '',
+                new Input\Number(0, null, 1, $this->default)
+            ),
             new Base\Setting(
                 $this->name . '_unit',
                 '',
