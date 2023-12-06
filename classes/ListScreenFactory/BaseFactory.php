@@ -7,6 +7,7 @@ namespace AC\ListScreenFactory;
 use AC\Exception\InvalidListScreenException;
 use AC\ListScreen;
 use AC\ListScreenFactory;
+use AC\Type\ListScreenId;
 use DateTime;
 use WP_Screen;
 
@@ -19,13 +20,17 @@ abstract class BaseFactory implements ListScreenFactory
         $preferences = $settings['preferences'] ?? [];
         $group = $settings['group'] ?? '';
         $date = $settings['date'] ?? new DateTime();
+        $list_id = $settings['list_id'] ?? null;
 
         if (is_string($date)) {
             $date = DateTime::createFromFormat('Y-m-d H:i:s', $date);
         }
 
+        if (ListScreenId::is_valid_id($list_id)) {
+            $list_screen->set_id(new ListScreenId($list_id));
+        }
+
         $list_screen->set_title($settings['title'] ?? '');
-        $list_screen->set_layout_id($settings['list_id'] ?? '');
         $list_screen->set_preferences($preferences ?: []);
         $list_screen->set_settings($columns ?: []);
         $list_screen->set_updated($date);

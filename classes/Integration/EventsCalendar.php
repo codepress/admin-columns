@@ -4,7 +4,6 @@ namespace AC\Integration;
 
 use AC\Integration;
 use AC\ListScreen;
-use AC\ListScreenPost;
 use AC\Screen;
 use AC\Type\Url\Site;
 
@@ -55,8 +54,7 @@ final class EventsCalendar extends Integration
 
     public function show_placeholder(ListScreen $list_screen): bool
     {
-        return $list_screen instanceof ListScreenPost
-               && in_array($list_screen->get_post_type(), $this->get_post_types());
+        return in_array($list_screen->get_post_type(), $this->get_post_types());
     }
 
 }

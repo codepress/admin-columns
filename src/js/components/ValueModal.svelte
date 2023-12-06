@@ -134,7 +134,7 @@
 			<div class="ac-value-modal-panel__header">
 				<div class="ac-value-modal-title">
 					{#if title}
-						<h2>{title}</h2>
+						<h2 title={title}>{title}</h2>
 					{/if}
 					<span class="ac-badge">#{objectId}</span>
 				</div>
@@ -158,8 +158,10 @@
 				</div>
 				{#if items.length > 1 }
 					<div class="ac-value-modal__navigation">
-						<button on:click|preventDefault={prevItem} title="Previous" class="btn" disabled='{!hasPrev}'><span class="dashicons dashicons-arrow-left-alt2"></span></button>
-						<button on:click|preventDefault={nextItem} title="Next" class="btn" disabled='{!hasNext}'><span class="dashicons dashicons-arrow-right-alt2"></span></button>
+						<button on:click|preventDefault={prevItem} title="Previous" class="btn" disabled='{!hasPrev}'>
+							<span class="dashicons dashicons-arrow-left-alt2"></span></button>
+						<button on:click|preventDefault={nextItem} title="Next" class="btn" disabled='{!hasNext}'>
+							<span class="dashicons dashicons-arrow-right-alt2"></span></button>
 					</div>
 				{/if}
 			</div>

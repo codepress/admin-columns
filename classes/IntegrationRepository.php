@@ -3,7 +3,6 @@
 namespace AC;
 
 use AC\Integration\Filter;
-use ACP\Integration\Filter\IsActive;
 
 class IntegrationRepository
 {
@@ -27,7 +26,7 @@ class IntegrationRepository
 
     public function find_all_active(): Integrations
     {
-        return (new IsActive())->filter($this->find_all());
+        return (new Filter\IsActive())->filter($this->find_all());
     }
 
     public function find_all_by_active_plugins(): Integrations

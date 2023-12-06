@@ -58,7 +58,7 @@ class LastPost extends Column
 
     protected function register_settings()
     {
-        $this->add_setting(new Settings\Column\PostType($this));
+        $this->add_setting(new Settings\Column\PostType($this, true));
         $this->add_setting(new Settings\Column\PostStatus($this));
         $this->add_setting(new Settings\Column\Post($this));
     }
