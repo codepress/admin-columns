@@ -4,10 +4,11 @@
     import {SvelteSelectItem} from "../../types/select";
     import AcDropdownItem from "ACUi/acui-dropdown/AcDropdownItem.svelte";
     import AcDropdownGroup from "ACUi/acui-dropdown/AcDropdownGroup.svelte";
-    import {createEventDispatcher} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
 
     let items = $columnTypesStore
     let filterText: string = '';
+    let inputElement: HTMLInputElement;
 
     const dispatch = createEventDispatcher();
 
@@ -22,6 +23,7 @@
     }
 
     const handleSelect = ( e: CustomEvent<string>) => {
+        console.log('DDD', e.detail );
         dispatch('selectItem', e.detail );
 	}
 
@@ -69,6 +71,10 @@
         return filterResults
     }
 
+    onMount(()=>{
+        inputElement.focus();
+	})
+
     $: filteredItems = filter({
         filterText,
         items,
@@ -82,6 +88,7 @@
 		top: 0;
 		background: #fff;
 		display: flex;
+		padding: 2px;
 	}
 
 	.acui-dropdown-search input {
@@ -90,7 +97,7 @@
 	}
 </style>
 <div class="acui-dropdown-search">
-	<input bind:value={filterText}>
+	<input bind:value={filterText} bind:this={inputElement} on:change|preventDefault|stopPropagation>
 </div>
 {#if filteredItems.length > 0 }
 	{#each filteredItems as item}
