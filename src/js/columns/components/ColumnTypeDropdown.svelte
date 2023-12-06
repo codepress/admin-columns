@@ -18,10 +18,11 @@
 				groupValues.push( groupLabel )
 				groups[ groupLabel ] = [];
 
-                //groups[groupLabel].push({})
+                groups[groupLabel].push(Object.assign(item,{ groupHeader: true } ) )
 			}
 
-		})
+            groups[groupLabel].push( item );
+		});
 
 		return items;
 	}
