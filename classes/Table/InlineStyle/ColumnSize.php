@@ -38,14 +38,14 @@ class ColumnSize implements Renderable
         $css_width = $column_width->get_value() . $column_width->get_unit();
 
         $css = sprintf(
-            '.ac-%s .wrap table th.column-%s { width: %s !important; }',
+            '.ac-%1$s .wrap table th.column-%2$s, .ac-%1$s .wrap table td.column-%2$s   { width: %3$s !important; }',
             esc_attr($this->list_screen->get_key()),
             esc_attr($column_name),
             $css_width
         );
 
         $css .= sprintf(
-            'body.acp-overflow-table.ac-%s .wrap th.column-%s { min-width: %s !important; }',
+            'body.acp-overflow-table.ac-%1$s .wrap th.column-%2$s, body.acp-overflow-table.ac-%1$s .wrap td.column-%2$s { min-width: %3$s !important; max-width: %3$s !important }',
             esc_attr($this->list_screen->get_key()),
             esc_attr($column_name),
             $css_width

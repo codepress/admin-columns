@@ -6,10 +6,6 @@ use AC\Column;
 
 abstract class Meta extends Column\Meta {
 
-	public function __construct() {
-		$this->set_serialized( true );
-	}
-
 	public function get_meta_key() {
 		return '_wp_attachment_metadata';
 	}

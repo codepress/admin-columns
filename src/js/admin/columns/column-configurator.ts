@@ -18,6 +18,7 @@ import {initCustomFieldSelector} from "./settings/custom-field";
 import {initSubSettings} from "./settings/sub-setting-toggle";
 import {initMultiSelectFields} from "./settings/multi-select";
 import AcServices from "../../modules/ac-services";
+import {initSelectOptions} from "./settings/select-options";
 
 export default class ColumnConfigurator {
 
@@ -43,6 +44,7 @@ export default class ColumnConfigurator {
             initProSetting(column);
             initCustomFieldSelector(column);
             initSubSettings(column);
+            initSelectOptions(column)
         });
     }
 

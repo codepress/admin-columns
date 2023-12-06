@@ -5,19 +5,22 @@ namespace AC\ThirdParty\MediaLibraryAssistant\ListScreen;
 use AC;
 use AC\Column;
 use AC\ColumnRepository;
+use AC\MetaType;
 use AC\ThirdParty\MediaLibraryAssistant\ManageValue;
 use AC\ThirdParty\MediaLibraryAssistant\WpListTableFactory;
 use AC\Type\Uri;
 use AC\Type\Url;
 use MLACore;
 
-class MediaLibrary extends AC\ListScreenPost implements AC\ListScreen\ListTable
+class MediaLibrary extends AC\ListScreenPost implements AC\ListScreen\ListTable, AC\ListScreen\ManageValue
 {
 
     public function __construct()
     {
-        parent::__construct('attachment', 'mla-media-assistant', 'media_page_' . MLACore::ADMIN_PAGE_SLUG);
+        parent::__construct('mla-media-assistant', 'media_page_' . MLACore::ADMIN_PAGE_SLUG);
 
+        $this->meta_type = MetaType::POST;
+        $this->post_type = 'attachment';
         $this->group = 'media';
         $this->label = __('Media Library Assistant', 'codepress-admin-columns');
         $this->singular_label = __('Assistant', 'codepress-admin-columns');
@@ -43,9 +46,9 @@ class MediaLibrary extends AC\ListScreenPost implements AC\ListScreen\ListTable
 
     public function register_column_types(): void
     {
-        parent::register_column_types();
-
         $this->register_column_types_from_list([
+            Column\CustomField::class,
+            Column\Actions::class,
             Column\Post\Slug::class,
             Column\Post\TitleRaw::class,
             Column\Media\Album::class,

@@ -7,6 +7,7 @@ namespace AC\ListScreen;
 use AC;
 use AC\Column;
 use AC\ColumnRepository;
+use AC\MetaType;
 use AC\Type\Uri;
 use AC\Type\Url;
 use AC\WpListTableFactory;
@@ -16,8 +17,10 @@ class Media extends AC\ListScreenPost implements ManageValue, ListTable
 
     public function __construct()
     {
-        parent::__construct('attachment', 'wp-media', 'upload');
+        parent::__construct('wp-media', 'upload');
 
+        $this->meta_type = MetaType::POST;
+        $this->post_type = 'attachment';
         $this->group = 'media';
         $this->label = __('Media');
     }
@@ -39,9 +42,9 @@ class Media extends AC\ListScreenPost implements ManageValue, ListTable
 
     protected function register_column_types(): void
     {
-        parent::register_column_types();
-
         $this->register_column_types_from_list([
+            Column\CustomField::class,
+            Column\Actions::class,
             Column\Post\TitleRaw::class,
             Column\Post\Slug::class,
             Column\Post\TitleRaw::class,

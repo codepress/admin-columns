@@ -19,12 +19,12 @@ class Taxonomy implements ListTable
         $this->taxonomy = $taxonomy;
     }
 
-    public function get_column_value(string $column, int $id): string
+    public function get_column_value(string $column, $id): string
     {
         return (string)apply_filters("manage_{$this->taxonomy}_custom_column", '', $column, $id);
     }
 
-    public function render_row(int $id): string
+    public function render_row($id): string
     {
         $term = get_term_by('id', $id, $this->taxonomy);
 

@@ -15,12 +15,12 @@ class User implements ListTable
         $this->table = $table;
     }
 
-    public function get_column_value(string $column, int $id): string
+    public function get_column_value(string $column, $id): string
     {
         return (string)apply_filters('manage_users_custom_column', '', $column, $id);
     }
 
-    public function render_row(int $id): string
+    public function render_row($id): string
     {
         return $this->table->single_row(get_userdata($id));
     }

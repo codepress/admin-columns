@@ -49,6 +49,8 @@ class Columns extends Script
             'original_columns'           => [],
             'uninitialized_list_screens' => [],
             'i18n'                       => [
+                'value'  => __('Value', 'codepress-admin-columns'),
+                'label'  => __('Label', 'codepress-admin-columns'),
                 'clone'  => __('%s column is already present and can not be duplicated.', 'codepress-admin-columns'),
                 'error'  => __('Invalid response.', 'codepress-admin-columns'),
                 'errors' => [

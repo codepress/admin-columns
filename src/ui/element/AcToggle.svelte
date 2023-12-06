@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
     import {generateGuid} from "../helpers/input";
     import {createEventDispatcher} from "svelte";
 

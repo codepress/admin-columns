@@ -5,6 +5,9 @@ namespace AC\Helper\Select;
 use AC\ArrayIterator;
 use LogicException;
 
+/**
+ * @property $array Option[]|OptionGroup[]
+ */
 class Options extends ArrayIterator {
 
 	public function __construct( array $options ) {

@@ -3,6 +3,7 @@
 namespace AC;
 
 use AC;
+use InvalidArgumentException;
 
 /**
  * Class AC\Helper
@@ -24,7 +25,7 @@ use AC;
 final class Helper
 {
 
-    public function __get($helper)
+    public function __get(string $helper)
     {
         switch ($helper) {
             // Hotfix
@@ -42,7 +43,7 @@ final class Helper
                 }
         }
 
-        return false;
+        throw new InvalidArgumentException('Invalid helper.');
     }
 
 }

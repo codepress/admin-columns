@@ -1,0 +1,30 @@
+{
+    "include": [
+        "js/**/*"
+    ],
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "./dist/",
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "module": "es6",
+        "target": "es6",
+        "downlevelIteration": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "moduleResolution": "Node",
+        "allowSyntheticDefaultImports": true,
+        "types": [
+            "node",
+            "svelte"
+        ],
+        "paths": {
+            "AC/*": [
+                "../../admin-columns/src/js/*"
+            ],
+            "ACUi/*": [
+                "../../admin-columns/src/ui/*"
+            ]
+        }
+    }
+}

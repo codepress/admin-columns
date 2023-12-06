@@ -18,7 +18,7 @@ class ListTable implements AC\ListTable
         $this->table = $table;
     }
 
-    public function get_column_value(string $column, int $id): string
+    public function get_column_value(string $column, $id): string
     {
         $item = (object)MLAData::mla_get_attachment_by_id($id);
 
@@ -40,7 +40,7 @@ class ListTable implements AC\ListTable
         return $this->table->get_pagination_arg('total_items');
     }
 
-    public function render_row(int $id): string
+    public function render_row($id): string
     {
         ob_start();
 

@@ -70,11 +70,13 @@ final class Screen implements Registerable
         $controller = new ScreenController($this->list_screen);
         $controller->register();
 
-        $render = new TableFormView(
-            $this->list_screen->get_meta_type(),
-            sprintf('<input type="hidden" name="layout" value="%s">', $this->list_screen->get_layout_id())
-        );
-        $render->register();
+        if ($this->list_screen->has_id()) {
+            $render = new TableFormView(
+                $this->list_screen->get_meta_type(),
+                sprintf('<input type="hidden" name="layout" value="%s">', $this->list_screen->get_id())
+            );
+            $render->register();
+        }
 
         (new AdminHeadStyle())->register();
 
@@ -168,9 +170,10 @@ final class Screen implements Registerable
             ->add_inline_variable('AC', [
                 'assets'           => $this->location->with_suffix('assets/')->get_url(),
                 'list_screen'      => $this->list_screen->get_key(),
-                'layout'           => $this->list_screen->get_layout_id(),
+                'layout'           => $this->list_screen->has_id() ? (string)$this->list_screen->get_id() : '',
                 'column_types'     => $this->get_column_types_mapping(),
                 'ajax_nonce'       => wp_create_nonce('ac-ajax'),
+                'read_only'        => $this->list_screen->is_read_only(),
                 'table_id'         => $this->list_screen->get_table_attr_id(),
                 'screen'           => $this->get_current_screen_id(),
                 'meta_type'        => $this->list_screen->get_meta_type(),
@@ -228,7 +231,7 @@ final class Screen implements Registerable
         }
 
         foreach ($query_args_whitelist as $query_arg) {
-            if (isset($_GET[$query_arg])) {
+            if (isset($_GET[$query_arg]) && is_string($_GET[$query_arg])) {
                 $url = $url->with_arg($query_arg, $_GET[$query_arg]);
             }
         }

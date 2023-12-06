@@ -57,9 +57,11 @@ final class Storage implements ListScreenRepositoryWritable
     protected function find_from_source(ListScreenId $id): ?ListScreen
     {
         foreach ($this->repositories as $repository) {
-            $list_screen = $repository->find($id);
+            $list_screen = $repository->get_list_screen_repository()->find($id);
 
             if ($list_screen) {
+                $list_screen->set_read_only(! $repository->is_writable());
+
                 return $list_screen;
             }
         }
@@ -72,8 +74,10 @@ final class Storage implements ListScreenRepositoryWritable
         $collection = new ListScreenCollection();
 
         foreach ($this->repositories as $repository) {
-            foreach ($repository->find_all() as $list_screen) {
+            foreach ($repository->get_list_screen_repository()->find_all() as $list_screen) {
                 if ( ! $collection->contains($list_screen)) {
+                    $list_screen->set_read_only(! $repository->is_writable());
+
                     $collection->add($list_screen);
                 }
             }
@@ -87,8 +91,10 @@ final class Storage implements ListScreenRepositoryWritable
         $collection = new ListScreenCollection();
 
         foreach ($this->repositories as $repository) {
-            foreach ($repository->find_all_by_key($key) as $list_screen) {
+            foreach ($repository->get_list_screen_repository()->find_all_by_key($key) as $list_screen) {
                 if ( ! $collection->contains($list_screen)) {
+                    $list_screen->set_read_only(! $repository->is_writable());
+
                     $collection->add($list_screen);
                 }
             }
@@ -116,11 +122,14 @@ final class Storage implements ListScreenRepositoryWritable
         }
     }
 
-    public function get_writable_repository(ListScreen $list_screen): ?ListScreenRepositoryWritable
+    private function get_writable_repository(ListScreen $list_screen): ?ListScreenRepositoryWritable
     {
         return $this->get_writable_repositories($list_screen)[0] ?? null;
     }
 
+    /**
+     * @return ListScreenRepositoryWritable[]
+     */
     private function get_writable_repositories(ListScreen $list_screen): array
     {
         $repositories = [];
@@ -137,7 +146,7 @@ final class Storage implements ListScreenRepositoryWritable
             }
 
             if ($match && $repository->is_writable()) {
-                $repositories[] = $repository;
+                $repositories[] = $repository->get_list_screen_repository();
             }
         }
 

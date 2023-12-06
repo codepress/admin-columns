@@ -19,8 +19,7 @@ class Comment extends AC\ListScreen implements ManageValue, ListTable
         $this->label = __('Comments');
         $this->singular_label = __('Comments');
         $this->group = 'comment';
-
-        $this->set_meta_type(MetaType::COMMENT);
+        $this->meta_type = MetaType::COMMENT;
     }
 
     public function get_table_url(): Uri

@@ -14,6 +14,7 @@ import {Column} from "./admin/columns/column";
 import {LocalizedAcColumnSettings} from "./types/admin-columns";
 
 declare let AC: LocalizedAcColumnSettings
+declare const jQuery: any;
 
 let AcServices = initAcServices();
 AcServices.registerService('Modals', new Modals());
@@ -35,14 +36,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const matchStart = (params: any, data: any) => {
+        if (jQuery.trim(params.term) === '') {
+            return data;
+        }
+
+        if (typeof data.children === 'undefined') {
+            return null;
+        }
+
+        let filteredChildren: any[] = [];
+
+        jQuery.each(data.children, (idx: any, child: any) => {
+            if (child.text.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
+                filteredChildren.push(child);
+            }
+        });
+
+        if (filteredChildren.length) {
+            let d = Object.assign({}, data);
+            d.children = filteredChildren;
+
+            return d;
+        }
+
+        return null;
+    }
 
     document.querySelectorAll<HTMLSelectElement>('#ac_list_screen').forEach(select => {
-        select.addEventListener('change', () => {
+        (<any>jQuery(select)).ac_select2({
+            theme: 'acs2',
+            matcher: matchStart,
+            width: '250px',
+            dropdownCssClass: '-listkeys',
+        }).on('select2:select', () => {
             document.querySelectorAll<HTMLElement>('.view-link').forEach(link => link.style.display = 'none');
             select.closest<HTMLFormElement>('form')?.submit();
             select.disabled = true;
             (select.nextElementSibling as HTMLElement).style.display = 'inline-block';
         });
+
     })
 
     document.querySelectorAll<HTMLElement>('#direct-feedback').forEach(feedbackElement => new Feedback(feedbackElement));

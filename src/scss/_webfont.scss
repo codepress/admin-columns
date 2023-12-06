@@ -7,14 +7,18 @@ $cpacicon-filter: "\ea06";
 $cpacicon-more: "\ea07";
 $cpacicon-move: "\ea08";
 $cpacicon-rename: "\ea09";
-$cpacicon-segment: "\ea0a";
-$cpacicon-smart-filter: "\ea0b";
+$cpacicon-reset-password: "\ea0a";
+$cpacicon-segment: "\ea0b";
+$cpacicon-smart-filter: "\ea0c";
+$cpacicon-text-clip: "\ea0d";
+$cpacicon-text-wrap: "\ea0e";
+$cpacicon-user-switch: "\ea0f";
 
 @font-face {
     font-family: "cpac_icons";
     src:
-        url("../fonts/cpac_icons.woff2?v=955237") format("woff2"),
-        url("../fonts/cpac_icons.woff?v=928084") format("woff");
+        url("../fonts/cpac_icons.woff2?v=569879") format("woff2"),
+        url("../fonts/cpac_icons.woff?v=134916") format("woff");
     font-style: normal;
     font-weight: 400;
 }
@@ -71,10 +75,26 @@ $cpacicon-smart-filter: "\ea0b";
     content: $cpacicon-rename;
 }
 
+.cpacicon-reset-password::before {
+    content: $cpacicon-reset-password;
+}
+
 .cpacicon-segment::before {
     content: $cpacicon-segment;
 }
 
 .cpacicon-smart-filter::before {
     content: $cpacicon-smart-filter;
+}
+
+.cpacicon-text-clip::before {
+    content: $cpacicon-text-clip;
+}
+
+.cpacicon-text-wrap::before {
+    content: $cpacicon-text-wrap;
+}
+
+.cpacicon-user-switch::before {
+    content: $cpacicon-user-switch;
 }

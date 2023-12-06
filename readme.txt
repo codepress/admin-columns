@@ -5,7 +5,7 @@ Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields,
 Requires at least: 4.7.1
 Tested up to: 6.3.1
 Requires PHP: 7.2
-Stable tag: 4.6.9
+Stable tag: 4.7
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -209,6 +209,14 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.7 =
+Release Date: December 6th, 2023
+
+* [Improved] It is now possible to choose how dates are stored in the Custom Field column
+* [Improved] Webp images are not recognized for the custom field column
+* [Fixed] Fixed an issue where non-existing terms could cause an error on the column settings page
+
+
 = 4.6.9 =
 Release Date: October 2nd, 2023
 
@@ -222,7 +230,7 @@ Release Date: September 19th, 2023
 = 4.6.7 =
 Release Date: August 25th, 2023
 
-* [Fixed] Error  when adding the 'Last Modified Author' column
+* [Fixed] Error when adding the 'Last Modified Author' column
 
 = 4.6.6 =
 Release Date: August 21st, 2023

@@ -8,6 +8,7 @@ export type LocalizedAcTable = {
     list_screen: string,
     list_screen_link: string,
     meta_type: string,
+    read_only: boolean
     screen: string
     table_id: string,
     current_user_id: number

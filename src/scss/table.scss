@@ -211,7 +211,7 @@ span.dashicons {
 	}
 
 	&.gray {
-		color: #8a8a8a;
+		color: var(--ac-table-color);
 	}
 
 	&.blue {
@@ -315,11 +315,76 @@ table.ac-table-items {
 	}
 }
 
+a.ac-badge-post-count {
+	display: inline-block;
+	background: #eee;
+	border-radius: 3px;
+	font-size: 13px;
+	padding: 6px 14px;
+	text-decoration: none;
+	margin-right: 6px;
+	margin-bottom: 6px;
+
+	span.-label {
+		color: #464646;
+	}
+
+	&:hover {
+		background: #dcdcdc;
+	}
+}
+
+table.ac-table-items.-user-posts {
+	width: 100%;
+
+	tr {
+		td, th {
+			padding: 12px 20px 14px;
+		}
+	}
+
+	thead tr > * {
+		padding-bottom: 5px;
+		border-bottom: 1px solid #eee;
+	}
+
+	tbody {
+		tr {
+			td, th {
+				border-bottom: 1px solid #eee;
+			}
+		}
+
+		tr:last-child {
+			td, th {
+				border-bottom: none;
+			}
+		}
+	}
+
+	.col-id {
+		text-align: left;
+		font-size: 14px;
+		padding-left: 0;
+		padding-right: 0;
+		width: 40px;
+		white-space: nowrap;
+	}
+
+	.col-date {white-space: nowrap; width: 1px;}
+	.col-post-type {white-space: nowrap; width: 1px;}
+
+	.col-post-type {
+		text-align: right;
+		padding-right: 0;
+	}
+}
+
 /* =Post Format column
 -------------------------------------------------------------- */
 .ac-post-state-format {
 	&:before {
-		color: rgba(167, 167, 167, 1);
+		color: var(--ac-table-color);
 	}
 }
 
@@ -789,21 +854,19 @@ div.cpac-color span {
 
 			a, button {
 				@extend .cpac_wp_button;
-				display: inline-block;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
 				position: relative;
 				min-width: 26px;
 				margin-bottom: 5px;
+				padding-left: 6px;
+				padding-right: 6px;
 
 				&:before {
 					text-indent: 0;
 					font-family: Dashicons, sans-serif;
 					font-size: 16px;
-					position: absolute;
-					padding-left: 4px;
-					top: 0;
-					left: 0;
-					width: 100%;
-					height: 100%;
 				}
 			}
 
@@ -821,19 +884,9 @@ div.cpac-color span {
 				}
 			}
 
-			&.edit a:before {
-				content: "\f464";
-			}
-
 			&.inline {
 				a:before, &.quickedit a:before, button.button-link:before {
 					content: "\f119";
-				}
-			}
-
-			&.duplicate {
-				a:before {
-					content: "\f105";
 				}
 			}
 
@@ -850,63 +903,73 @@ div.cpac-color span {
 						border-color: #999;
 					}
 				}
-
 			}
 
-			&.view a:before {
-				content: "\f177";
+			$iconmapping: (
+					'edit': "\f464",
+					'duplicate': "\f105",
+					'view': "\f177",
+					'unapprove': "\f158",
+					'approve': "\f147",
+					'spam': "\f117",
+					'reply': "\f473",
+					'untrash': "\f171",
+					'unspam': "\f171",
+					'delete': "\f182",
+					'backend': "\f226",
+					'visit': "\f115",
+					'deactivate': "\f530",
+					'archive': "\f480",
+					'unarchive': "\f322",
+					'activate': "\f177",
+					'download': "\f316",
+			);
+
+			@each $name, $glyph in $iconmapping {
+				&.#{$name} a {
+					padding-left: 4px;
+					padding-right: 5px;
+				}
+				&.#{$name} a:before {
+					content: $glyph;
+				}
 			}
 
-			&.unapprove a:before {
-				content: "\f158";
+			// Custom Icons
+			&.resetpassword, &.switch_to_user {
+				a, button.button-link {
+					text-indent: -3000em;
+
+					&:before {
+						font-size: 13px;
+						text-indent: 0;
+						font-family: cpac_icons, sans-serif;
+					}
+				}
 			}
 
-			&.approve a:before {
-				content: "\f147";
+			&.resetpassword a:before {
+				content: $cpacicon-reset-password;
 			}
 
-			&.spam a:before {
-				content: "\f117";
+			&.switch_to_user a:before {
+				content: $cpacicon-user-switch;
 			}
 
-			&.reply a:before {
-				content: "\f473";
-			}
+			&.copy {
+				background: red;
 
-			&.untrash a:before, &.unspam a:before {
-				content: "\f171";
-			}
+				.copy-to-clipboard-container {
+					button {
+						text-indent: -3000em;
+						zoom: 0;
 
-			&.delete a:before {
-				content: "\f182";
-			}
-
-			&.backend a:before {
-				content: "\f226";
-			}
-
-			&.visit a:before {
-				content: "\f115";
-			}
-
-			&.deactivate a:before {
-				content: "\f530";
-			}
-
-			&.archive a:before {
-				content: "\f480";
-			}
-
-			&.unarchive a:before {
-				content: "\f322";
-			}
-
-			&.activate a:before {
-				content: "\f177";
-			}
-
-			&.download a:before {
-				content: "\f316";
+						&:before {
+							font-family: Dashicons;
+							content: "\f481";
+						}
+					}
+				}
 			}
 		}
 	}
@@ -962,6 +1025,8 @@ div.cpac-color span {
 	.ac-table-actions-buttons {
 		white-space: nowrap;
 		display: inline-flex;
+		height: 30px;
+		box-sizing: border-box;
 		vertical-align: top;
 		border: 1px solid var(--ac-button-border);
 		border-radius: 3px;
@@ -1073,5 +1138,43 @@ div.cpac-color span {
 	.dashicons {
 		transform: translateY(5px);
 		margin-left: 3px;
+	}
+}
+
+/* Ajax Modal
+-------------------------------------------------------------- */
+.ac-value-modal-container .ac-modal-images-container {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-auto-rows: min-content;
+	grid-gap: 10px;
+	width: 100%;
+
+	@media screen and (max-width: 782px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.ac-image-container {
+		border: 1px solid #c3c4c7;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+		background: #fff;
+		margin-bottom: 0;
+		border-radius: 2px;
+
+		.ac-image-center img {
+			display: block;
+			width: 100%;
+			aspect-ratio: 4/3;
+			object-fit: cover;
+		}
+
+		.ac-image-meta {
+			padding: 6px 0;
+
+			.ac-image-meta-item {
+				word-break: break-word;
+				padding: 6px 10px 8px;
+			}
+		}
 	}
 }

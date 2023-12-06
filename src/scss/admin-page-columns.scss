@@ -11,6 +11,11 @@
 	}
 }
 
+
+.select2-container--acs2 .-listkeys .select2-results>.select2-results__options {
+	max-height: 50vh;
+}
+
 /**
  * UI Sortable Plugin
  * ----------------------------------------------------------------------------
@@ -190,7 +195,10 @@
 	}
 
 	&.show-list-screen-id .layouts__item__title small.layouts__item__id {
-		display: inline;
+		display: block;
+		line-height: 14px;
+		padding: 0;
+		margin: 0 0 10px 0;
 	}
 }
 
@@ -655,7 +663,7 @@
 
 	.ac-setting-input-date__custom {
 		display: inline-block;
-		width: 71px !important;
+		width: 110px !important;
 		margin-right: 5px;
 	}
 
