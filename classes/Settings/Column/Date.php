@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC\Setting\ArrayImmutable;
@@ -9,7 +11,7 @@ use AC\Settings;
 class Date extends Settings\Column\DateTimeFormat
 {
 
-    protected function get_custom_format_options()
+    protected function get_custom_format_options(): array
     {
         $options = [
             'diff'       => __('Time Difference', 'codepress-admin-columns'),
@@ -102,7 +104,7 @@ class Date extends Settings\Column\DateTimeFormat
     //	 *
     //	 * @return string
     //	 */
-    public function format_human_time_diff($timestamp): ?string
+    protected function format_human_time_diff($timestamp): ?string
     {
         if ( ! $timestamp) {
             return null;

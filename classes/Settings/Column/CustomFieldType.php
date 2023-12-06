@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
 use AC\Column;
+use AC\Setting\ArrayImmutable;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
@@ -111,13 +114,14 @@ class CustomFieldType extends Recursive
         return $collection;
     }
 
-    public function format(Value $value, AC\Setting\ArrayImmutable $options): Value
+    public function format(Value $value, ArrayImmutable $options): Value
     {
         switch ((string)$options->get($this->name)) {
             case self::TYPE_COLOR:
                 return (new AC\Setting\Formatter\Color())->format($value, $options);
             case self::TYPE_DATE:
                 $timestamp = ac_helper()->date->strtotime($value->get_value());
+
                 if ($timestamp) {
                     return $value->with_value(date('c', $timestamp));
                 }

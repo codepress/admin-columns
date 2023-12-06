@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC\Column;
@@ -14,9 +16,7 @@ use ACP\Expression\Specification;
 abstract class DateTimeFormat extends Recursive
 {
 
-    // TODO Stefan is the general formatter ok here?
-
-    const NAME = 'date';
+    public const NAME = 'date';
 
     public function __construct(Column $column, Specification $conditions = null)
     {
@@ -44,6 +44,25 @@ abstract class DateTimeFormat extends Recursive
         return new SettingCollection($settings);
     }
 
+    public function format(Value $value, ArrayImmutable $options): Value
+    {
+        $timestamp = $this->get_timestamp($value->get_value());
+
+        if ( ! $timestamp) {
+            return $value->with_value(false);
+        }
+
+        $date_format = (string)$options->get($this->name);
+
+        if ($date_format === 'wp_default') {
+            $date_format = $this->get_wp_default_format();
+        }
+
+        return $value->with_value(
+            ac_helper()->date->format_date($date_format, $timestamp)
+        );
+    }
+
     protected function get_date_options()
     {
         return $this->get_custom_format_options();
@@ -60,8 +79,9 @@ abstract class DateTimeFormat extends Recursive
     //	}
     //
     abstract protected function get_custom_format_options();
+
     //
-    //	abstract protected function get_wp_default_format();
+    abstract protected function get_wp_default_format();
     //
     //	/**
     //	 * @param string $label
@@ -109,7 +129,7 @@ abstract class DateTimeFormat extends Recursive
     //		return [ 'wp_default', 'diff' ];
     //	}
     //
-    public function get_html_label_from_date_format($date_format)
+    protected function get_html_label_from_date_format($date_format)
     {
         return ac_helper()->date->format_date($date_format, null, ac_helper()->date->timezone());
     }
@@ -179,25 +199,6 @@ abstract class DateTimeFormat extends Recursive
         }
 
         return strtotime($date) ?: null;
-    }
-
-    public function format(Value $value, ArrayImmutable $options): Value
-    {
-        $timestamp = $this->get_timestamp($value->get_value());
-
-        if ( ! $timestamp) {
-            return $value->with_value(false);
-        }
-
-        $date_format = (string)$options->get($this->name);
-
-        switch ($date_format) {
-            case 'wp_default' :
-                return $value->with_value(ac_helper()->date->format_date($this->get_wp_default_format(), $timestamp));
-
-            default:
-                return $value->with_value(ac_helper()->date->format_date($date_format, $timestamp));
-        }
     }
 
 }
