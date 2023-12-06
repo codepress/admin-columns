@@ -1510,7 +1510,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (40:0) {#each filteredItems as item}
+// (41:0) {#each filteredItems as item}
 function create_each_block(ctx) {
   let div;
   let t_value = /*item*/ctx[7].label + "";
@@ -1621,9 +1621,12 @@ function instance($$self, $$props, $$invalidate) {
       if (!groupValues.includes(groupLabel)) {
         groupValues.push(groupLabel);
         groups[groupLabel] = [];
-      } //groups[groupLabel].push({})
+        groups[groupLabel].push(Object.assign(item, {
+          groupHeader: true
+        }));
+      }
+      groups[groupLabel].push(item);
     });
-
     return items;
   };
   const filter = ({
