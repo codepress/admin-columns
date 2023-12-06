@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\ColumnRepository\Filter;
+use AC\ColumnRepository\Sort;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use AC\Type\Uri;
@@ -66,11 +68,18 @@ final class ListScreen
         $this->title = $title;
     }
 
-    public function get_columns(): ColumnIterator
+    public function get_columns(Filter $filter = null, Sort $sort = null): ColumnIterator
     {
-        // TODO use ColumnRepo and delay the creation of the actual Column objects.
-        // TODO Because the file storage loads all ListScreen objects it will also populate these columns.
-        return $this->columns;
+        $columns = $this->columns;
+
+        if ($filter) {
+            $columns = $filter->filter($columns);
+        }
+        if ($sort) {
+            $columns = $sort->sort($columns);
+        }
+
+        return $columns;
     }
 
     public function set_columns(ColumnIterator $columns): void

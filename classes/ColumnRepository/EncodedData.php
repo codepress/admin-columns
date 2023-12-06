@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\ColumnRepository;
 
-use AC\Column;
 use AC\ColumnCollection;
 use AC\ColumnFactory;
 use AC\ColumnRepository;
@@ -26,7 +25,7 @@ class EncodedData implements ColumnRepository
         $this->columns_data = $columns_data;
     }
 
-    public function find_all(Filter $filter = null, Sort $sort = null): ColumnCollection
+    public function find_all(): ColumnCollection
     {
         $columns = new ColumnCollection();
 
@@ -39,15 +38,6 @@ class EncodedData implements ColumnRepository
         }
 
         return $columns;
-    }
-
-    public function find(string $name): ?Column
-    {
-        $columns = $this->find_all();
-
-        return $columns->exists($name)
-            ? $columns->get($name)
-            : null;
     }
 
 }

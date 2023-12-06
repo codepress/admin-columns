@@ -3,10 +3,11 @@
 namespace AC\ColumnRepository;
 
 use AC\ColumnCollection;
+use AC\ColumnIterator;
 
 interface Sort
 {
 
-    public function sort(ColumnCollection $columns): ColumnCollection;
+    public function sort(ColumnIterator $columns): ColumnCollection;
 
 }

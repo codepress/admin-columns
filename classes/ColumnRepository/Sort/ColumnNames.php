@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\ColumnRepository\Sort;
 
 use AC\ColumnCollection;
+use AC\ColumnIterator;
 use AC\ColumnRepository\Sort;
 
 class ColumnNames implements Sort
@@ -17,7 +18,7 @@ class ColumnNames implements Sort
         $this->column_names = $column_names;
     }
 
-    public function sort(ColumnCollection $columns): ColumnCollection
+    public function sort(ColumnIterator $columns): ColumnCollection
     {
         $ordered = $last = [];
 

@@ -3,11 +3,11 @@
 namespace AC\Storage;
 
 use AC\ColumnCollection;
-use AC\ColumnListScreenRepository;
 use AC\ColumnRepository\Sort\ColumnNames;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Type\ListScreenId;
+use LogicException;
 
 class ListColumnOrder
 {
@@ -27,18 +27,24 @@ class ListColumnOrder
             return;
         }
 
+        // TODO test
         $list_screen->set_columns(
-            $this->get_columns($list_screen, $column_names)
+            $this->create_sorted_columns($list_screen, $column_names)
         );
 
         $this->list_screen_repository->save($list_screen);
     }
 
-    private function get_columns(ListScreen $list_screen, array $names): ColumnCollection
+    private function create_sorted_columns(ListScreen $list_screen, array $names): ColumnCollection
     {
-        return (new ColumnListScreenRepository($list_screen))->find_all([
-            'sort' => new ColumnNames($names),
-        ]);
+        // The Sort strategy forces a ColumnCollection
+        $columns = $list_screen->get_columns(null, new ColumnNames($names));
+
+        if ( ! $columns instanceof ColumnCollection) {
+            throw new LogicException('Something went wrong.');
+        }
+
+        return $columns;
     }
 
 }

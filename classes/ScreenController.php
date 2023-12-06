@@ -39,14 +39,14 @@ class ScreenController implements Registerable
         do_action('ac/table/list_screen', $this->list_screen, $this->table_screen);
     }
 
-    public function add_headings($columns)
+    public function add_headings($headings)
     {
-        if (empty($columns)) {
+        if (empty($headings)) {
             return [];
         }
 
         if ( ! wp_doing_ajax()) {
-            $this->default_column_repository->update($columns);
+            $this->default_column_repository->update($headings);
         }
 
         // Run once
@@ -54,23 +54,19 @@ class ScreenController implements Registerable
             return $this->headings;
         }
 
-        $column_repository = new ColumnListScreenRepository($this->list_screen);
-
-        $list_columns = $column_repository->find_all([
-            ColumnListScreenRepository::ARG_SORT => new ManualOrder($this->list_screen->get_id()),
-        ]);
+        $columns = $this->list_screen->get_columns(null, new ManualOrder($this->list_screen->get_id()));
 
         // Nothing stored. Show default columns on screen.
-        if ( ! $list_columns->valid()) {
-            return $columns;
+        if ( ! $columns->count()) {
+            return $headings;
         }
 
         // Add mandatory checkbox
-        if (isset($columns['cb'])) {
-            $this->headings['cb'] = $columns['cb'];
+        if (isset($headings['cb'])) {
+            $this->headings['cb'] = $headings['cb'];
         }
 
-        foreach ($list_columns as $column) {
+        foreach ($columns as $column) {
             $this->headings[$column->get_name()] = $column->get_custom_label();
         }
 

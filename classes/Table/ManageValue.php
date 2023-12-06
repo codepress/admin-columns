@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Table;
 
-use AC\ColumnListScreenRepository;
 use AC\ListScreen;
 use AC\Registerable;
 use AC\Sanitize\Kses;
@@ -21,11 +20,13 @@ abstract class ManageValue implements Registerable
 
     public function render_cell(string $column_name, $id, string $fallback_value = null): ?string
     {
-        $column = (new ColumnListScreenRepository($this->list_screen))->find($column_name);
+        $columns = $this->list_screen->get_columns();
 
-        if ( ! $column) {
+        if ( ! $columns->exists($column_name)) {
             return $fallback_value;
         }
+
+        $column = $columns->get($column_name);
 
         $value = $column->get_value($id);
 
