@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace AC;
 
-use Countable;
 use InvalidArgumentException;
-use Iterator;
 
-class ColumnCollection implements Iterator, Countable
+class ColumnCollection implements ColumnIterator
 {
 
     /**
@@ -26,19 +24,14 @@ class ColumnCollection implements Iterator, Countable
         $this->data[$column->get_name()] = $column;
     }
 
-    public function remove(string $name): void
-    {
-        unset($this->data[$name]);
-    }
-
-    public function contains(string $name): bool
+    public function exists(string $name): bool
     {
         return isset($this->data[$name]);
     }
 
     public function get(string $name): Column
     {
-        if ( ! $this->contains($name)) {
+        if ( ! $this->exists($name)) {
             throw new InvalidArgumentException(sprintf('No column found for name %s.', $name));
         }
 
@@ -75,7 +68,7 @@ class ColumnCollection implements Iterator, Countable
         return count($this->data);
     }
 
-    public function get_keys(): array
+    public function keys(): array
     {
         return array_keys($this->data);
     }

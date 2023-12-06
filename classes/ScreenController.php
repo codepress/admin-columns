@@ -54,10 +54,10 @@ class ScreenController implements Registerable
             return $this->headings;
         }
 
-        $column_repository = new ColumnRepository($this->list_screen);
+        $column_repository = new ColumnListScreenRepository($this->list_screen);
 
         $list_columns = $column_repository->find_all([
-            ColumnRepository::ARG_SORT => new ManualOrder($this->list_screen->get_id()),
+            ColumnListScreenRepository::ARG_SORT => new ManualOrder($this->list_screen->get_id()),
         ]);
 
         // Nothing stored. Show default columns on screen.

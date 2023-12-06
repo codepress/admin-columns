@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace AC\ListScreenRepository;
 
-use AC\ColumnCollection;
 use AC\ColumnFactory;
+use AC\ColumnIterator;
+use AC\ColumnIterator\ProxyColumnIterator;
+use AC\ColumnRepository\EncodedData;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepositoryWritable;
@@ -183,30 +185,27 @@ class Database implements ListScreenRepositoryWritable
             new ListScreenId($data->list_id),
             $data->title,
             $table_screen,
-            $this->get_columns($table_screen, $data),
+            $this->create_column_iterator($table_screen, $data),
             $this->get_preferences($data),
             new DateTime($data->date_modified)
         );
     }
 
-    private function get_columns(TableScreen $table_screen, object $data): ColumnCollection
+    private function create_column_iterator(TableScreen $table_screen, object $data): ColumnIterator
     {
-        $columns = [];
-
         $columns_data = $data->columns
             ? unserialize($data->columns, ['allowed_classes' => false])
             : [];
 
         foreach ($columns_data as $name => $column_data) {
-            // TODO is this needed?
             if ( ! isset($column_data['name'])) {
                 $columns_data['name'] = $name;
             }
-
-            $columns[] = $this->column_factory->create($table_screen, $column_data);
         }
 
-        return new ColumnCollection(array_filter($columns));
+        return new ProxyColumnIterator(
+            new EncodedData($this->column_factory, $table_screen, $columns_data)
+        );
     }
 
     private function create_list_screens(array $rows): ListScreenCollection

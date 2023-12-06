@@ -32,7 +32,7 @@ final class ListScreen
         ListScreenId $id,
         string $title,
         TableScreen $table_screen,
-        ColumnCollection $columns = null,
+        ColumnIterator $columns = null,
         array $preferences = [],
         DateTime $updated = null
     ) {
@@ -66,21 +66,21 @@ final class ListScreen
         $this->title = $title;
     }
 
-    public function get_columns(): ColumnCollection
+    public function get_columns(): ColumnIterator
     {
         // TODO use ColumnRepo and delay the creation of the actual Column objects.
         // TODO Because the file storage loads all ListScreen objects it will also populate these columns.
         return $this->columns;
     }
 
-    public function set_columns(ColumnCollection $columns): void
+    public function set_columns(ColumnIterator $columns): void
     {
         $this->columns = $columns;
     }
 
     public function get_column(string $name): ?Column
     {
-        return $this->columns->contains($name)
+        return $this->columns->exists($name)
             ? $this->columns->get($name)
             : null;
     }

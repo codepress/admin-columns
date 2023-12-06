@@ -19,7 +19,7 @@ class PrimaryColumn
     {
         $columns = $this->list_screen->get_columns();
 
-        if ($columns->valid() && ! $columns->contains($default)) {
+        if ($columns->valid() && ! $columns->exists($default)) {
             $default = $columns->key();
         }
 

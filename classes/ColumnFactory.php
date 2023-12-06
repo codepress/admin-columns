@@ -14,6 +14,19 @@ class ColumnFactory
         $this->column_types_factory = $column_types_factory;
     }
 
+    private function get_column_types(TableScreen $table_screen): array
+    {
+        static $types;
+
+        $key = (string)$table_screen->get_key();
+
+        if ( ! isset($types[$key])) {
+            $types[$key] = $this->column_types_factory->create($table_screen);
+        }
+
+        return $types[$key];
+    }
+
     public function create(TableScreen $table_screen, array $settings): ?Column
     {
         $type = $settings['type'] ?? null;
@@ -22,10 +35,9 @@ class ColumnFactory
             return null;
         }
 
-        // TODO lazy load?
-        $column_types = $this->column_types_factory->create($table_screen);
+        $column_types = $this->get_column_types($table_screen);
 
-        $column = $this->get_column($column_types, (string)$type, $settings);
+        $column = $this->create_column($column_types, (string)$type, $settings);
 
         if ( ! $column) {
             return null;
@@ -51,7 +63,7 @@ class ColumnFactory
         return $column;
     }
 
-    private function get_column(array $column_types, string $type, array $settings): ?Column
+    private function create_column(array $column_types, string $type, array $settings): ?Column
     {
         foreach ($column_types as $column_type) {
             if ($column_type->get_type() !== $type) {
