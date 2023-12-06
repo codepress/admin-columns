@@ -4,7 +4,9 @@ namespace AC\Settings\Column;
 
 use AC\Column;
 use AC\Setting;
+use AC\Setting\ArrayImmutable;
 use AC\Setting\SettingCollection;
+use AC\Setting\Type\Value;
 use ACP\Expression\Specification;
 use ACP\Expression\StringComparisonSpecification;
 
@@ -29,6 +31,20 @@ class Post extends Recursive
         );
 
         parent::__construct($column, $conditionals);
+    }
+
+    public function format(Value $value, ArrayImmutable $options): Value
+    {
+        $option = $options->get($this->get_name());
+
+        switch ($option) {
+            case self::PROPERTY_FEATURED_IMAGE:
+                $value = $value->with_value( get_post_thumbnail_id( $value->get_value() ) );
+
+                break;
+        }
+
+        return parent::format($value, $options);
     }
 
     public function get_children(): SettingCollection
@@ -148,7 +164,7 @@ class Post extends Recursive
     //        return $view;
     //    }
     //
-    protected function get_display_options()
+    protected function get_display_options(): array
     {
         $options = [
             self::PROPERTY_TITLE          => __('Title'),

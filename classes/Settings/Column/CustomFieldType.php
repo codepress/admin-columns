@@ -129,7 +129,7 @@ class CustomFieldType extends Recursive
                 return $value;
         }
 
-        return $value;
+        return parent::format( $value, $options );
     }
 
     //
