@@ -4,13 +4,12 @@
 
     export let trigger: HTMLElement;
     export let appendToBody: boolean = false;
-    export let maxHeight: string = null;
+    export let maxHeight: string|null = null;
+    export let position: string = 'bottom-right';
 
     let rootElement: HTMLElement;
     let menuElement: HTMLElement;
     let pos: any = {};
-
-    export let position: string = 'bottom-right';
 
     const positionBodyElement = () => {
         let triggetBox = trigger.getBoundingClientRect();

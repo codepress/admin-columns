@@ -86,15 +86,11 @@
 		<footer class="ac-columns__footer">
 			<div>
 				<AcButton type="text" on:click={clearColumns}>Clear Columns</AcButton>
-				<AcDropdown maxHeight="300px" value>
+				<AcDropdown maxHeight="300px" value position="bottom-left">
 					<AcButton slot="trigger">+ Add Column</AcButton>
-					<ColumnTypeDropdown>
+					<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>
 
 					</ColumnTypeDropdown>
-					{#each columnTypes as column, i}
-						<AcDropdownItem on:click={() => addColumn(column.value) }
-								value={column.value}>{@html column.label}</AcDropdownItem>
-					{/each}
 				</AcDropdown>
 			</div>
 		</footer>

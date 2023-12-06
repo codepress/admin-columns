@@ -38,3 +38,17 @@
 		color: var( --acui-dropdown-hover-color );
 	}
 }
+.acui-dropdown-group {
+	margin: 0;
+	padding: 6px 10px;
+	display: block;
+	white-space: nowrap;
+	text-decoration: none;
+	background-color: #eee;
+	color: #aaa;
+	font-size: 12px;
+	border-top: 1px solid #888;
+	border-bottom: 1px solid #888;
+
+
+}
