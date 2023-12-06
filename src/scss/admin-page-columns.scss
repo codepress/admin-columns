@@ -17,6 +17,11 @@ body {
 	}
 }
 
+
+.select2-container--acs2 .-listkeys .select2-results>.select2-results__options {
+	max-height: 50vh;
+}
+
 /**
  * UI Sortable Plugin
  * ----------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=44758") format("woff2"), url("../fonts/cpac_icons.woff?v=357095") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=187999") format("woff2"), url("../fonts/cpac_icons.woff?v=8083") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -75,16 +75,32 @@
   content: "\ea0f";
 }
 
-.cpacicon-segment::before {
+.cpacicon-reset-password::before {
   content: "\ea10";
 }
 
-.cpacicon-smart-filter::before {
+.cpacicon-segment::before {
   content: "\ea11";
 }
 
-.cpacicon-woo::before {
+.cpacicon-smart-filter::before {
   content: "\ea12";
+}
+
+.cpacicon-text-clip::before {
+  content: "\ea13";
+}
+
+.cpacicon-text-wrap::before {
+  content: "\ea14";
+}
+
+.cpacicon-user-switch::before {
+  content: "\ea15";
+}
+
+.cpacicon-woo::before {
+  content: "\ea16";
 }
 
 .ac-setbox {
@@ -739,6 +755,10 @@ body {
     filter: grayscale(0.2);
   }
 }
+.select2-container--acs2 .-listkeys .select2-results > .select2-results__options {
+  max-height: 50vh;
+}
+
 /**
  * UI Sortable Plugin
  * ----------------------------------------------------------------------------

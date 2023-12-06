@@ -18,6 +18,7 @@
   --ac-form-input-border: #757575;
   --ac-select-hover-bg: #5897fb;
   --ac-table-border: #c3c4c7;
+  --ac-table-color: #50575e;
 }
 
 :root body.admin-color-coffee {
@@ -71,7 +72,7 @@
 
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=44758") format("woff2"), url("../fonts/cpac_icons.woff?v=357095") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=187999") format("woff2"), url("../fonts/cpac_icons.woff?v=8083") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -145,16 +146,32 @@
   content: "\ea0f";
 }
 
-.cpacicon-segment::before {
+.cpacicon-reset-password::before {
   content: "\ea10";
 }
 
-.cpacicon-smart-filter::before {
+.cpacicon-segment::before {
   content: "\ea11";
 }
 
-.cpacicon-woo::before {
+.cpacicon-smart-filter::before {
   content: "\ea12";
+}
+
+.cpacicon-text-clip::before {
+  content: "\ea13";
+}
+
+.cpacicon-text-wrap::before {
+  content: "\ea14";
+}
+
+.cpacicon-user-switch::before {
+  content: "\ea15";
+}
+
+.cpacicon-woo::before {
+  content: "\ea16";
 }
 
 /**
@@ -622,6 +639,12 @@ html.wp-toolbar .ac-tooltip {
   justify-content: center;
   z-index: 10000000001;
 }
+.ac-value-modal table td {
+  vertical-align: top;
+}
+.ac-value-modal.-w-large .ac-value-modal-panel {
+  width: 800px;
+}
 .ac-value-modal .ac-value-modal-panel {
   background: #fff;
   width: 600px;
@@ -633,15 +656,19 @@ html.wp-toolbar .ac-tooltip {
   display: flex;
 }
 .ac-value-modal .ac-value-modal-panel__header .ac-value-modal-title {
-  flex-grow: 1;
   text-align: left;
   display: flex;
   align-items: center;
+  flex: 1;
+  overflow: hidden;
 }
 .ac-value-modal .ac-value-modal-panel__header .ac-value-modal-title h2 {
   margin: 0;
   font-size: 15px;
   padding: 10px 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .ac-value-modal .ac-value-modal-panel__header .ac-value-modal-actions {
   width: 70px;
@@ -682,6 +709,10 @@ html.wp-toolbar .ac-tooltip {
   display: flex;
   border-top: 1px solid #ccc;
   background: #fafafa;
+}
+.ac-value-modal .ac-value-modal-panel__footer .ac-value-modal__edit a {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .ac-value-modal .ac-value-modal-panel__footer button {
   width: 40px;
@@ -981,7 +1012,7 @@ span.dashicons.light-gray {
   color: #bbb;
 }
 span.dashicons.gray {
-  color: #8a8a8a;
+  color: var(--ac-table-color);
 }
 span.dashicons.blue {
   color: #0073aa;
@@ -1061,10 +1092,64 @@ table.ac-table-items tr td.ac-table-item-qty {
   text-align: left;
 }
 
+a.ac-badge-post-count {
+  display: inline-block;
+  background: #eee;
+  border-radius: 3px;
+  font-size: 13px;
+  padding: 6px 14px;
+  text-decoration: none;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+a.ac-badge-post-count span.-label {
+  color: #464646;
+}
+a.ac-badge-post-count:hover {
+  background: #dcdcdc;
+}
+
+table.ac-table-items.-user-posts {
+  width: 100%;
+}
+table.ac-table-items.-user-posts tr td, table.ac-table-items.-user-posts tr th {
+  padding: 12px 20px 14px;
+}
+table.ac-table-items.-user-posts thead tr > * {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+table.ac-table-items.-user-posts tbody tr td, table.ac-table-items.-user-posts tbody tr th {
+  border-bottom: 1px solid #eee;
+}
+table.ac-table-items.-user-posts tbody tr:last-child td, table.ac-table-items.-user-posts tbody tr:last-child th {
+  border-bottom: none;
+}
+table.ac-table-items.-user-posts .col-id {
+  text-align: left;
+  font-size: 14px;
+  padding-left: 0;
+  padding-right: 0;
+  width: 40px;
+  white-space: nowrap;
+}
+table.ac-table-items.-user-posts .col-date {
+  white-space: nowrap;
+  width: 1px;
+}
+table.ac-table-items.-user-posts .col-post-type {
+  white-space: nowrap;
+  width: 1px;
+}
+table.ac-table-items.-user-posts .col-post-type {
+  text-align: right;
+  padding-right: 0;
+}
+
 /* =Post Format column
 -------------------------------------------------------------- */
 .ac-post-state-format:before {
-  color: rgb(167, 167, 167);
+  color: var(--ac-table-color);
 }
 
 /* =Image in Content column
@@ -1461,10 +1546,14 @@ div.cpac-color span {
 .column-actions .cpac_use_icons + .hidden + .row-actions > span a, .column-actions .cpac_use_icons + .hidden + .row-actions > span button,
 .column-actions .cpac_use_icons + .row-actions > span a,
 .column-actions .cpac_use_icons + .row-actions > span button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   min-width: 26px;
   margin-bottom: 5px;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span button:before,
 .column-actions .cpac_use_icons + .row-actions > span a:before,
@@ -1472,12 +1561,6 @@ div.cpac-color span {
   text-indent: 0;
   font-family: Dashicons, sans-serif;
   font-size: 16px;
-  position: absolute;
-  padding-left: 4px;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.edit a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.edit button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.inline a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.inline button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.trash a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.trash button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.view a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.view button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.quickedit a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.quickedit button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.approve a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.approve button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unapprove a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unapprove button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.spam a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.spam button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.untrash a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.untrash button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unspam a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unspam button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.reply a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.reply button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.delete a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.delete button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.backend a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.backend button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.visit a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.visit button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.deactivate a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.deactivate button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.archive a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.archive button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unarchive a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unarchive button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.activate a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.activate button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.download a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.download button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.duplicate a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.duplicate button.button-link,
 .column-actions .cpac_use_icons + .row-actions > span.edit a,
@@ -1566,19 +1649,11 @@ div.cpac-color span {
   text-indent: 0;
   font-family: Dashicons, sans-serif;
 }
-.column-actions .cpac_use_icons + .hidden + .row-actions > span.edit a:before,
-.column-actions .cpac_use_icons + .row-actions > span.edit a:before {
-  content: "\f464";
-}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.inline a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.inline.quickedit a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.inline button.button-link:before,
 .column-actions .cpac_use_icons + .row-actions > span.inline a:before,
 .column-actions .cpac_use_icons + .row-actions > span.inline.quickedit a:before,
 .column-actions .cpac_use_icons + .row-actions > span.inline button.button-link:before {
   content: "\f119";
-}
-.column-actions .cpac_use_icons + .hidden + .row-actions > span.duplicate a:before,
-.column-actions .cpac_use_icons + .row-actions > span.duplicate a:before {
-  content: "\f105";
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.trash a,
 .column-actions .cpac_use_icons + .row-actions > span.trash a {
@@ -1593,62 +1668,196 @@ div.cpac-color span {
 .column-actions .cpac_use_icons + .row-actions > span.trash a:hover {
   border-color: #999;
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.edit a,
+.column-actions .cpac_use_icons + .row-actions > span.edit a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.edit a:before,
+.column-actions .cpac_use_icons + .row-actions > span.edit a:before {
+  content: "\f464";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.duplicate a,
+.column-actions .cpac_use_icons + .row-actions > span.duplicate a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.duplicate a:before,
+.column-actions .cpac_use_icons + .row-actions > span.duplicate a:before {
+  content: "\f105";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.view a,
+.column-actions .cpac_use_icons + .row-actions > span.view a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.view a:before,
 .column-actions .cpac_use_icons + .row-actions > span.view a:before {
   content: "\f177";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.unapprove a,
+.column-actions .cpac_use_icons + .row-actions > span.unapprove a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.unapprove a:before,
 .column-actions .cpac_use_icons + .row-actions > span.unapprove a:before {
   content: "\f158";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.approve a,
+.column-actions .cpac_use_icons + .row-actions > span.approve a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.approve a:before,
 .column-actions .cpac_use_icons + .row-actions > span.approve a:before {
   content: "\f147";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.spam a,
+.column-actions .cpac_use_icons + .row-actions > span.spam a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.spam a:before,
 .column-actions .cpac_use_icons + .row-actions > span.spam a:before {
   content: "\f117";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.reply a,
+.column-actions .cpac_use_icons + .row-actions > span.reply a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.reply a:before,
 .column-actions .cpac_use_icons + .row-actions > span.reply a:before {
   content: "\f473";
 }
-.column-actions .cpac_use_icons + .hidden + .row-actions > span.untrash a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.unspam a:before,
-.column-actions .cpac_use_icons + .row-actions > span.untrash a:before,
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.untrash a,
+.column-actions .cpac_use_icons + .row-actions > span.untrash a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.untrash a:before,
+.column-actions .cpac_use_icons + .row-actions > span.untrash a:before {
+  content: "\f171";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.unspam a,
+.column-actions .cpac_use_icons + .row-actions > span.unspam a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.unspam a:before,
 .column-actions .cpac_use_icons + .row-actions > span.unspam a:before {
   content: "\f171";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.delete a,
+.column-actions .cpac_use_icons + .row-actions > span.delete a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.delete a:before,
 .column-actions .cpac_use_icons + .row-actions > span.delete a:before {
   content: "\f182";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.backend a,
+.column-actions .cpac_use_icons + .row-actions > span.backend a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.backend a:before,
 .column-actions .cpac_use_icons + .row-actions > span.backend a:before {
   content: "\f226";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.visit a,
+.column-actions .cpac_use_icons + .row-actions > span.visit a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.visit a:before,
 .column-actions .cpac_use_icons + .row-actions > span.visit a:before {
   content: "\f115";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.deactivate a,
+.column-actions .cpac_use_icons + .row-actions > span.deactivate a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.deactivate a:before,
 .column-actions .cpac_use_icons + .row-actions > span.deactivate a:before {
   content: "\f530";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.archive a,
+.column-actions .cpac_use_icons + .row-actions > span.archive a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.archive a:before,
 .column-actions .cpac_use_icons + .row-actions > span.archive a:before {
   content: "\f480";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.unarchive a,
+.column-actions .cpac_use_icons + .row-actions > span.unarchive a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.unarchive a:before,
 .column-actions .cpac_use_icons + .row-actions > span.unarchive a:before {
   content: "\f322";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.activate a,
+.column-actions .cpac_use_icons + .row-actions > span.activate a {
+  padding-left: 4px;
+  padding-right: 5px;
 }
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.activate a:before,
 .column-actions .cpac_use_icons + .row-actions > span.activate a:before {
   content: "\f177";
 }
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.download a,
+.column-actions .cpac_use_icons + .row-actions > span.download a {
+  padding-left: 4px;
+  padding-right: 5px;
+}
 .column-actions .cpac_use_icons + .hidden + .row-actions > span.download a:before,
 .column-actions .cpac_use_icons + .row-actions > span.download a:before {
   content: "\f316";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.resetpassword a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.resetpassword button.button-link, .column-actions .cpac_use_icons + .hidden + .row-actions > span.switch_to_user a, .column-actions .cpac_use_icons + .hidden + .row-actions > span.switch_to_user button.button-link,
+.column-actions .cpac_use_icons + .row-actions > span.resetpassword a,
+.column-actions .cpac_use_icons + .row-actions > span.resetpassword button.button-link,
+.column-actions .cpac_use_icons + .row-actions > span.switch_to_user a,
+.column-actions .cpac_use_icons + .row-actions > span.switch_to_user button.button-link {
+  text-indent: -3000em;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.resetpassword a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.resetpassword button.button-link:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.switch_to_user a:before, .column-actions .cpac_use_icons + .hidden + .row-actions > span.switch_to_user button.button-link:before,
+.column-actions .cpac_use_icons + .row-actions > span.resetpassword a:before,
+.column-actions .cpac_use_icons + .row-actions > span.resetpassword button.button-link:before,
+.column-actions .cpac_use_icons + .row-actions > span.switch_to_user a:before,
+.column-actions .cpac_use_icons + .row-actions > span.switch_to_user button.button-link:before {
+  font-size: 13px;
+  text-indent: 0;
+  font-family: cpac_icons, sans-serif;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.resetpassword a:before,
+.column-actions .cpac_use_icons + .row-actions > span.resetpassword a:before {
+  content: "\ea10";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.switch_to_user a:before,
+.column-actions .cpac_use_icons + .row-actions > span.switch_to_user a:before {
+  content: "\ea15";
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.copy,
+.column-actions .cpac_use_icons + .row-actions > span.copy {
+  background: red;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.copy .copy-to-clipboard-container button,
+.column-actions .cpac_use_icons + .row-actions > span.copy .copy-to-clipboard-container button {
+  text-indent: -3000em;
+  zoom: 0;
+}
+.column-actions .cpac_use_icons + .hidden + .row-actions > span.copy .copy-to-clipboard-container button:before,
+.column-actions .cpac_use_icons + .row-actions > span.copy .copy-to-clipboard-container button:before {
+  font-family: Dashicons;
+  content: "\f481";
 }
 
 /* Responsive table screen
@@ -1776,6 +1985,41 @@ div.cpac-color span {
 .hide-column-tog + span .dashicons {
   transform: translateY(5px);
   margin-left: 3px;
+}
+
+/* Ajax Modal
+-------------------------------------------------------------- */
+.ac-value-modal-container .ac-modal-images-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: min-content;
+  grid-gap: 10px;
+  width: 100%;
+}
+@media screen and (max-width: 782px) {
+  .ac-value-modal-container .ac-modal-images-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.ac-value-modal-container .ac-modal-images-container .ac-image-container {
+  border: 1px solid #c3c4c7;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  background: #fff;
+  margin-bottom: 0;
+  border-radius: 2px;
+}
+.ac-value-modal-container .ac-modal-images-container .ac-image-container .ac-image-center img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+.ac-value-modal-container .ac-modal-images-container .ac-image-container .ac-image-meta {
+  padding: 6px 0;
+}
+.ac-value-modal-container .ac-modal-images-container .ac-image-container .ac-image-meta .ac-image-meta-item {
+  word-break: break-word;
+  padding: 6px 10px 8px;
 }
 
 /*# sourceMappingURL=table.css.map */

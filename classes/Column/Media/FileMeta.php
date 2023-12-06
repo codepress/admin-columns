@@ -5,44 +5,54 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\Settings;
 
-abstract class FileMeta extends Column\Meta {
+abstract class FileMeta extends Column\Meta
+{
 
-	public function get_meta_key() {
-		return '_wp_attachment_metadata';
-	}
+    public function get_meta_key()
+    {
+        return '_wp_attachment_metadata';
+    }
 
-	/**
-	 * @return Settings\Column\FileMeta
-	 */
-	protected function get_media_setting() {
-		$setting = $this->get_setting( 'media_meta' );
+    /**
+     * @return Settings\Column\FileMeta
+     */
+    protected function get_media_setting()
+    {
+        $setting = $this->get_setting('media_meta');
 
-		return $setting instanceof Settings\Column\FileMeta
-			? $setting
-			: null;
-	}
+        return $setting instanceof Settings\Column\FileMeta
+            ? $setting
+            : null;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function get_sub_keys() {
-		return $this->get_media_setting()->get_media_meta_keys();
-	}
+    /**
+     * @return array
+     */
+    public function get_sub_keys()
+    {
+        $media_settings = $this->get_media_setting();
 
-	protected function get_metadata_value( array $data, array $keys ) {
-		$data = ac_helper()->array->get_nested_value( $data, $keys );
+        return $media_settings
+            ? $media_settings->get_media_meta_keys()
+            : [];
+    }
 
-		return is_scalar( $data )
-			? $data
-			: null;
-	}
+    protected function get_metadata_value(array $data, array $keys)
+    {
+        $data = ac_helper()->array->get_nested_value($data, $keys);
 
-	public function get_raw_value( $id ) {
-		$data = $this->get_meta_value( $id, $this->get_meta_key() );
+        return is_scalar($data)
+            ? $data
+            : null;
+    }
 
-		return is_array( $data )
-			? $this->get_metadata_value( $data, $this->get_sub_keys() )
-			: null;
-	}
+    public function get_raw_value($id)
+    {
+        $data = $this->get_meta_value($id, $this->get_meta_key());
+
+        return is_array($data)
+            ? $this->get_metadata_value($data, $this->get_sub_keys())
+            : null;
+    }
 
 }

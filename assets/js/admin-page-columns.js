@@ -10497,7 +10497,7 @@ const get_trigger_slot_context = ctx => ({
   active: /*opened*/ctx[4]
 });
 
-// (79:1) {#if opened}
+// (83:1) {#if opened}
 function create_if_block(ctx) {
   let acdropdownmenu;
   let current;
@@ -10554,7 +10554,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (80:2) <AcDropdownMenu {maxHeight} {appendToBody} trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
+// (84:2) <AcDropdownMenu {maxHeight} {appendToBody} trigger={trigger} position={position} on:click={handleSelect} on:itemSelect={( e ) => { e.stopPropagation(); handleSelect()}}>
 function create_default_slot(ctx) {
   let current;
   const default_slot_template = /*#slots*/ctx[13].default;
@@ -10745,19 +10745,21 @@ function instance($$self, $$props, $$invalidate) {
   const open = () => __awaiter(void 0, void 0, void 0, function* () {
     $$invalidate(4, opened = true);
     registerCloseHandlers();
+    dispatch('open');
   });
   const close = () => {
     $$invalidate(4, opened = false);
     deregisterCloseHandlers();
+    dispatch('close');
   };
   const handleEscapeKey = e => {
     if (e.key === 'Escape') {
-      $$invalidate(4, opened = false);
+      close();
     }
   };
   const handleOutsideClick = e => {
     if (container && !container.contains(e.target)) {
-      $$invalidate(4, opened = false);
+      close();
     }
   };
   const registerCloseHandlers = () => {
@@ -10778,6 +10780,7 @@ function instance($$self, $$props, $$invalidate) {
   };
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
+      e.preventDefault();
       toggle();
     }
   };
@@ -10785,7 +10788,7 @@ function instance($$self, $$props, $$invalidate) {
     if (opened) {
       registerCloseHandlers();
     }
-    container.addEventListener('change', handleSelect);
+    container.addEventListener('itemSelect', handleSelect);
   });
   function div0_binding($$value) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {
@@ -11278,7 +11281,7 @@ function create_if_block(ctx) {
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
       /*div_binding*/
-      ctx[11](div);
+      ctx[10](div);
     },
     p(ctx, dirty) {
       if (dirty & /*maxHeight*/2) {
@@ -11291,7 +11294,7 @@ function create_if_block(ctx) {
       }
 
       /*div_binding*/
-      ctx[11](null);
+      ctx[10](null);
     }
   };
 }
@@ -11302,8 +11305,6 @@ function create_fragment(ctx) {
   let div1_intro;
   let div1_outro;
   let current;
-  let mounted;
-  let dispose;
   let if_block = /*appendToBody*/ctx[0] && create_if_block(ctx);
   const default_slot_template = /*#slots*/ctx[9].default;
   const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[8], null);
@@ -11332,12 +11333,8 @@ function create_fragment(ctx) {
       }
 
       /*div1_binding*/
-      ctx[12](div1);
+      ctx[11](div1);
       current = true;
-      if (!mounted) {
-        dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div0, "itemSelect", /*itemSelect_handler*/ctx[10]);
-        mounted = true;
-      }
     },
     p(ctx, [dirty]) {
       if ( /*appendToBody*/ctx[0]) {
@@ -11404,10 +11401,8 @@ function create_fragment(ctx) {
       if (if_block) if_block.d(detaching);
       if (default_slot) default_slot.d(detaching);
       /*div1_binding*/
-      ctx[12](null);
+      ctx[11](null);
       if (detaching && div1_outro) div1_outro.end();
-      mounted = false;
-      dispose();
     }
   };
 }
@@ -11454,9 +11449,6 @@ function instance($$self, $$props, $$invalidate) {
       });
     }
   });
-  function itemSelect_handler(event) {
-    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
-  }
   function div_binding($$value) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {
       rootElement = $$value;
@@ -11481,7 +11473,7 @@ function instance($$self, $$props, $$invalidate) {
       $: $$invalidate(5, rootElementStyle = Object.entries(pos).map(([key, value]) => `${key}:${value}`).join(';'));
     }
   };
-  return [appendToBody, maxHeight, position, rootElement, menuElement, rootElementStyle, trigger, pos, $$scope, slots, itemSelect_handler, div_binding, div1_binding];
+  return [appendToBody, maxHeight, position, rootElement, menuElement, rootElementStyle, trigger, pos, $$scope, slots, div_binding, div1_binding];
 }
 class AcDropdownMenu extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -14861,6 +14853,7 @@ class TypeSelector {
         const setting = this.setting;
         const column = this.column;
         if (select) {
+            select.removeAttribute('id');
             select.removeAttribute('data-select2-id');
             this.setting.querySelectorAll('.select2').forEach(el => {
                 el.remove();
@@ -14877,7 +14870,11 @@ class TypeSelector {
                     if (result.hasOwnProperty('id') && result.id.includes('placeholder-')) {
                         text += `<span style="background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;">PRO</span>`;
                     }
-                    return (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__.initAcServices)().filters.applyFilters('column_type_templates', text, { setting: setting, column: column, result: result });
+                    return (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_2__.initAcServices)().filters.applyFilters('column_type_templates', text, {
+                        setting: setting,
+                        column: column,
+                        result: result
+                    });
                 },
                 matcher: _select2_excludegroup_matcher__WEBPACK_IMPORTED_MODULE_0__["default"]
             });
@@ -28678,8 +28675,33 @@ document.addEventListener('DOMContentLoaded', () => {
             (_a = AcServices.getService('Modals')) === null || _a === void 0 ? void 0 : _a.register(new _modules_modal__WEBPACK_IMPORTED_MODULE_5__["default"](proModal), 'pro');
         });
     }
+    const matchStart = (params, data) => {
+        if (jQuery.trim(params.term) === '') {
+            return data;
+        }
+        if (typeof data.children === 'undefined') {
+            return null;
+        }
+        let filteredChildren = [];
+        jQuery.each(data.children, (idx, child) => {
+            if (child.text.toUpperCase().indexOf(params.term.toUpperCase()) > -1) {
+                filteredChildren.push(child);
+            }
+        });
+        if (filteredChildren.length) {
+            let d = Object.assign({}, data);
+            d.children = filteredChildren;
+            return d;
+        }
+        return null;
+    };
     document.querySelectorAll('#ac_list_screen').forEach(select => {
-        select.addEventListener('change', () => {
+        jQuery(select).ac_select2({
+            theme: 'acs2',
+            matcher: matchStart,
+            width: '250px',
+            dropdownCssClass: '-listkeys',
+        }).on('select2:select', () => {
             var _a;
             document.querySelectorAll('.view-link').forEach(link => link.style.display = 'none');
             (_a = select.closest('form')) === null || _a === void 0 ? void 0 : _a.submit();

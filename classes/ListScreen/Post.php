@@ -5,13 +5,13 @@ namespace AC\ListScreen;
 use AC;
 use AC\Column;
 use AC\ColumnRepository;
-use AC\ListScreenPost;
+use AC\MetaType;
 use AC\Table;
 use AC\Type\Uri;
 use AC\Type\Url;
 use AC\WpListTableFactory;
 
-class Post extends ListScreenPost implements ManageValue, ListTable
+class Post extends AC\ListScreenPost implements ManageValue, ListTable
 {
 
     public function __construct(string $post_type, string $key = null, string $screen_id = null)
@@ -23,8 +23,10 @@ class Post extends ListScreenPost implements ManageValue, ListTable
         if (null === $screen_id) {
             $screen_id = 'edit-' . $post_type;
         }
-        parent::__construct($post_type, $key, $screen_id);
+        parent::__construct($key, $screen_id);
 
+        $this->meta_type = MetaType::POST;
+        $this->post_type = $post_type;
         $this->group = 'post';
     }
 
@@ -62,9 +64,9 @@ class Post extends ListScreenPost implements ManageValue, ListTable
 
     protected function register_column_types(): void
     {
-        parent::register_column_types();
-
         $this->register_column_types_from_list([
+            Column\CustomField::class,
+            Column\Actions::class,
             Column\Post\Attachment::class,
             Column\Post\Author::class,
             Column\Post\AuthorName::class,

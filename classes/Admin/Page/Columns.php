@@ -159,7 +159,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
             $classes[] = 'show-list-screen-type';
         }
 
-		return '<div></div>';
+        return '<div></div>';
 
         ob_start();
         ?>
@@ -216,7 +216,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                             'label_main'                  => $label_main,
                             'label_second'                => $label_second,
                             'list_screen_key'             => $this->list_screen->get_key(),
-                            'list_screen_id'              => $this->list_screen->get_layout_id(),
+                            'list_screen_id'              => $list_id,
                             'delete_confirmation_message' => $delete_confirmation_message,
                         ]);
 
@@ -285,7 +285,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                         $columns = new View([
                             'class'          => implode(' ', $classes),
                             'list_screen'    => $this->list_screen->get_key(),
-                            'list_screen_id' => $this->list_screen->get_layout_id(),
+                            'list_screen_id' => $list_id,
                             'title'          => $this->list_screen->get_title(),
                             'columns'        => $this->list_screen->get_columns(),
                             'show_actions'   => ! $this->list_screen->is_read_only(),

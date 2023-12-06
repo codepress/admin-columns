@@ -18,6 +18,7 @@
   --ac-form-input-border: #757575;
   --ac-select-hover-bg: #5897fb;
   --ac-table-border: #c3c4c7;
+  --ac-table-color: #50575e;
 }
 
 :root body.admin-color-coffee {
@@ -85,7 +86,7 @@
 
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=44758") format("woff2"), url("../fonts/cpac_icons.woff?v=357095") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=187999") format("woff2"), url("../fonts/cpac_icons.woff?v=8083") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -159,16 +160,32 @@
   content: "\ea0f";
 }
 
-.cpacicon-segment::before {
+.cpacicon-reset-password::before {
   content: "\ea10";
 }
 
-.cpacicon-smart-filter::before {
+.cpacicon-segment::before {
   content: "\ea11";
 }
 
-.cpacicon-woo::before {
+.cpacicon-smart-filter::before {
   content: "\ea12";
+}
+
+.cpacicon-text-clip::before {
+  content: "\ea13";
+}
+
+.cpacicon-text-wrap::before {
+  content: "\ea14";
+}
+
+.cpacicon-user-switch::before {
+  content: "\ea15";
+}
+
+.cpacicon-woo::before {
+  content: "\ea16";
 }
 
 /**

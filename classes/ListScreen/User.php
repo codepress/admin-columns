@@ -20,8 +20,7 @@ class User extends AC\ListScreen implements ManageValue, ListTable
         $this->group = 'user';
         $this->label = __('Users');
         $this->singular_label = __('User');
-
-        $this->set_meta_type(MetaType::USER);
+        $this->meta_type = MetaType::USER;
     }
 
     public function get_table_url(): Uri

@@ -26,6 +26,8 @@ class TypeSelector {
         const column = this.column;
 
         if (select) {
+            
+            select.removeAttribute('id');
             select.removeAttribute('data-select2-id');
 
             this.setting.querySelectorAll('.select2').forEach(el => {
@@ -46,7 +48,11 @@ class TypeSelector {
                         text += `<span style="background-color:#FE3D6C; color:#fff; font-size: 10px; margin-top: -1px; padding: 1px 5px; border-radius: 2px; text-transform: uppercase;float: right; margin-right 10px;">PRO</span>`;
                     }
 
-                    return initAcServices().filters.applyFilters('column_type_templates', text, {setting: setting, column: column, result: result});
+                    return initAcServices().filters.applyFilters('column_type_templates', text, {
+                        setting: setting,
+                        column: column,
+                        result: result
+                    });
                 },
                 matcher: excludeGroupsMather
             });
