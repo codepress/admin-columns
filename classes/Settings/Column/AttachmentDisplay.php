@@ -5,11 +5,13 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\OptionCollection;
+use AC\Setting\SettingCollection;
 use AC\Setting\Type\Option;
 use AC\Setting\Type\Value;
 use AC\Settings;
+use ACP\Expression\StringComparisonSpecification;
 
-class AttachmentDisplay extends Settings\Column implements AC\Setting\Formatter
+class AttachmentDisplay extends Settings\Column\Recursive implements AC\Setting\Formatter
 {
 
     use AC\Setting\SettingTrait;
@@ -30,14 +32,21 @@ class AttachmentDisplay extends Settings\Column implements AC\Setting\Formatter
         parent::__construct($column);
     }
 
+    public function get_children(): SettingCollection
+    {
+        return new SettingCollection([
+            new Images($this->column, StringComparisonSpecification::equal('thumbnail')),
+        ]);
+    }
+
     public function format(Value $value, ArrayImmutable $options): Value
     {
         switch ($options->get($this->name)) {
             case 'count':
-                return $value->with_value(count($value->get_value()));
-            default:
-                return $value;
+                $value = $value->with_value(count($value->get_value()));
         }
+
+        return parent::format($value, $options);
     }
 
     //	private $attachment_display;

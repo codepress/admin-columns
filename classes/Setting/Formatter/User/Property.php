@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter\User;
 
-use AC\Formatter;
 use AC\Setting\Type\Value;
 
-class Property implements Formatter
+class Property implements \AC\Setting\Formatter
 {
 
     private $property;

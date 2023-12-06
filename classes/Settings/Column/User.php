@@ -2,11 +2,12 @@
 
 namespace AC\Settings\Column;
 
-use AC;
 use AC\Column;
+use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
+use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
 
@@ -39,9 +40,14 @@ class User extends Settings\Column implements Formatter
         parent::__construct($column, $specification);
     }
 
-    protected function get_formatter_by_value($value): ?AC\Formatter
+    public function format(Value $value, ArrayImmutable $options): Value
     {
-        return new Formatter\User\Property($value);
+        return $value->with_value(
+            ac_helper()->user->get_display_name(
+                $value->get_id(),
+                $options->get(self::NAME)
+            )
+        );
     }
 
     protected function get_select_options()
