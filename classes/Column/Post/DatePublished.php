@@ -45,7 +45,7 @@ class DatePublished extends Column
     {
         $post = get_post($post_id);
 
-        return $post->post_date;
+        return $post->post_date ?? null;
     }
 
     public function register_settings()

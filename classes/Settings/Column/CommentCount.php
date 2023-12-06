@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
@@ -14,14 +16,13 @@ class CommentCount extends Settings\Column
 
     use SettingTrait;
 
-    const NAME = 'comment_status';
+    public const NAME = 'comment_status';
 
-    const STATUS_ALL = 'all';
-    const STATUS_APPROVED = 'approved';
-    const STATUS_PENDING = 'moderated';
-    const STATUS_SPAM = 'spam';
-    const STATUS_TRASH = 'trash';
-    const STATUS_TOTAL_COMMENTS = 'total_comments';
+    public const STATUS_ALL = 'all';
+    public const STATUS_APPROVED = 'approved';
+    public const STATUS_PENDING = 'moderated';
+    public const STATUS_SPAM = 'spam';
+    public const STATUS_TRASH = 'trash';
 
     public function __construct(AC\Column $column, Specification $conditionals = null)
     {
@@ -48,9 +49,7 @@ class CommentCount extends Settings\Column
         natcasesort($options);
 
         // First
-        $options = [self::STATUS_ALL => __('Total', 'codepress-admin-columns')] + $options;
-
-        return $options;
+        return [self::STATUS_ALL => __('Total', 'codepress-admin-columns')] + $options;
     }
 
 }
