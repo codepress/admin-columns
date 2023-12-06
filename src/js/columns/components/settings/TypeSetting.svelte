@@ -24,7 +24,6 @@
 
 			setTimeout(()=>{
 				columnConfig = columnConfig;
-				console.log('Doit');
 			},1000)
 		} );
 

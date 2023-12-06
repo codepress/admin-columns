@@ -37,7 +37,7 @@ final class Width extends Recursive
                 $this->name,
                 '',
                 '',
-                new Input\Number(0, null, 1, $this->default)
+                Input\Number::create_single_step(0, null, $this->default)
             ),
             new Base\Setting(
                 $this->name . '_unit',

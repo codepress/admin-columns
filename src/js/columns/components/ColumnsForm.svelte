@@ -11,6 +11,7 @@
     import {ListScreenData} from "../../types/requests";
     import {listScreenDataStore} from "../store/list-screen-data";
     import {tick} from "svelte";
+    import ColumnTypeDropdown from "./ColumnTypeDropdown.svelte";
 
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
@@ -87,6 +88,9 @@
 				<AcButton type="text" on:click={clearColumns}>Clear Columns</AcButton>
 				<AcDropdown maxHeight="300px" value>
 					<AcButton slot="trigger">+ Add Column</AcButton>
+					<ColumnTypeDropdown>
+
+					</ColumnTypeDropdown>
 					{#each columnTypes as column, i}
 						<AcDropdownItem on:click={() => addColumn(column.value) }
 								value={column.value}>{@html column.label}</AcDropdownItem>
