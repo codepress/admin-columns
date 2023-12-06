@@ -3,14 +3,14 @@
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Setting\ArrayImmutable;
 use AC\Setting\OptionCollection;
 use AC\Setting\Type\Option;
+use AC\Setting\Type\Value;
 use AC\Settings;
 
-class AttachmentDisplay extends Settings\Column
+class AttachmentDisplay extends Settings\Column implements AC\Setting\Formatter
 {
-
-    //implements Settings\FormatValue {
 
     use AC\Setting\SettingTrait;
 
@@ -28,6 +28,16 @@ class AttachmentDisplay extends Settings\Column
         );
 
         parent::__construct($column);
+    }
+
+    public function format(Value $value, ArrayImmutable $options): Value
+    {
+        switch ($options->get($this->name)) {
+            case 'count':
+                return $value->with_value(count($value->get_value()));
+            default:
+                return $value;
+        }
     }
 
     //	private $attachment_display;
@@ -50,47 +60,5 @@ class AttachmentDisplay extends Settings\Column
     //
     //		return $settings;
     //	}
-    //
-    //	public function create_view() {
-    //
-    //		$setting = $this->create_element( 'select' )
-    //		                ->set_attribute( 'data-refresh', 'column' )
-    //		                ->set_options( [
-    //			                'thumbnail' => __( 'Thumbnails', 'codepress-admin-columns' ),
-    //			                'count'     => __( 'Count', 'codepress-admin-columns' ),
-    //		                ] );
-    //
-    //		return new View( [
-    //			'label'   => __( 'Display', 'codepress-admin-columns' ),
-    //			'setting' => $setting,
-    //		] );
-    //	}
-    //
-    //	/**
-    //	 * @return int
-    //	 */
-    //	public function get_attachment_display() {
-    //		return $this->attachment_display;
-    //	}
-    //
-    //	/**
-    //	 * @param int $attachment_display
-    //	 *
-    //	 * @return bool
-    //	 */
-    //	public function set_attachment_display( $attachment_display ) {
-    //		$this->attachment_display = $attachment_display;
-    //
-    //		return true;
-    //	}
-    //
-    //	public function format( $value, $original_value ) {
-    //		switch ( $this->get_attachment_display() ) {
-    //			case 'count':
-    //				$value = count( $value );
-    //				break;
-    //		}
-    //
-    //		return $value;
-    //	}
+
 }
