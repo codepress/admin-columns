@@ -57,7 +57,7 @@ class ScreenController implements Registerable
         $columns = $this->list_screen->get_columns(null, new ManualOrder($this->list_screen->get_id()));
 
         // Nothing stored. Show default columns on screen.
-        if ( ! $columns->count()) {
+        if ($columns->count() < 1) {
             return $headings;
         }
 

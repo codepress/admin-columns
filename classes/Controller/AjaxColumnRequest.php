@@ -3,6 +3,8 @@
 namespace AC\Controller;
 
 use AC\Ajax;
+use AC\ColumnFactory;
+use AC\ColumnTypesFactory;
 use AC\Controller\ColumnRequest\Refresh;
 use AC\Controller\ColumnRequest\Select;
 use AC\Controller\ListScreen\Save;
@@ -19,12 +21,20 @@ class AjaxColumnRequest implements Registerable
 
     private $table_screen_factory;
 
+    private $column_factory;
+
+    private $column_types_factory;
+
     public function __construct(
         Storage $storage,
-        TableScreenFactory $table_screen_factory
+        TableScreenFactory $table_screen_factory,
+        ColumnTypesFactory $column_types_factory,
+        ColumnFactory $column_factory
     ) {
         $this->storage = $storage;
         $this->table_screen_factory = $table_screen_factory;
+        $this->column_factory = $column_factory;
+        $this->column_types_factory = $column_types_factory;
     }
 
     public function register(): void
@@ -50,13 +60,17 @@ class AjaxColumnRequest implements Registerable
 
         switch ($request->get('id')) {
             case 'save':
-                (new Save($this->storage, $this->table_screen_factory))->request($request);
+                (new Save($this->storage, $this->table_screen_factory, $this->column_factory))->request($request);
                 break;
             case 'select':
-                (new Select($this->table_screen_factory))->request($request);
+                (new Select($this->table_screen_factory, $this->column_types_factory, $this->column_factory))->request(
+                    $request
+                );
                 break;
             case 'refresh':
-                (new Refresh($this->table_screen_factory))->request($request);
+                (new Refresh($this->table_screen_factory, $this->column_types_factory, $this->column_factory))->request(
+                    $request
+                );
                 break;
         }
 
