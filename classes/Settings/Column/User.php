@@ -40,6 +40,8 @@ class User extends Settings\Column implements Formatter
         parent::__construct($column, $specification);
     }
 
+    // TODO David this column has a recursive extension, but not this one. The trait implements it as well
+    // TODO David and ::parent is now conflicting
     public function format(Value $value, ArrayImmutable $options): Value
     {
         return $value->with_value(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
@@ -19,6 +21,7 @@ class Images extends Settings\Column\Image implements AC\Setting\Recursive
         $this->name = 'images';
     }
 
+    // TODO David
     public function format(Value $value, ArrayImmutable $options): Value
     {
         //$images = ac_helper()->html->images(parent::format($collection->all(), $original_value), $removed);
@@ -37,7 +40,7 @@ class Images extends Settings\Column\Image implements AC\Setting\Recursive
             new NumberOfItems($this->column),
         ]);
     }
-    
+
     //
     //	public function format( $value, $original_value ) {
     //		$collection = new Collection( (array) $value );

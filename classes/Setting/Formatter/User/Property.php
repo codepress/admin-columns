@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter\User;
 
+use AC\Setting\ArrayImmutable;
+use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
-class Property implements \AC\Setting\Formatter
+class Property implements Formatter
 {
 
     private $property;
@@ -16,7 +18,7 @@ class Property implements \AC\Setting\Formatter
         $this->property = $property;
     }
 
-    public function format(Value $value): Value
+    public function format(Value $value, ArrayImmutable $options): Value
     {
         return $value->with_value(
             ac_helper()->user->get_display_name(

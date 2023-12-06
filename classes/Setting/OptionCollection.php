@@ -14,11 +14,11 @@ final class OptionCollection extends Collection
         array_map([$this, 'add'], $options);
     }
 
-    public static function from_array(array $options, bool $associative = true): self
+    public static function from_array(array $data, bool $associative = true): self
     {
         $self = new self();
 
-        foreach ($options as $key => $value) {
+        foreach ($data as $key => $value) {
             if ( ! $associative) {
                 $key = $value;
             }
