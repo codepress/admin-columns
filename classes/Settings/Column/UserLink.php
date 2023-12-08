@@ -2,109 +2,88 @@
 
 namespace AC\Settings\Column;
 
+use AC;
+use AC\Setting\ArrayImmutable;
+use AC\Setting\SettingTrait;
+use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\View;
+use ACP\Expression\Specification;
 
-class UserLink extends Settings\Column
-	implements Settings\FormatValue {
+class UserLink extends Settings\Column implements AC\Setting\Formatter
+{
 
-	const NAME = 'user_link_to';
+    use SettingTrait;
 
-	const PROPERTY_EDIT_USER = 'edit_user';
-	const PROPERTY_VIEW_POSTS = 'view_user_posts';
-	const PROPERTY_VIEW_AUTHOR = 'view_author';
-	const PROPERTY_EMAIL = 'email_user';
+    public const NAME = 'user_link_to';
 
-	/**
-	 * @var string
-	 */
-	protected $user_link_to;
+    public const PROPERTY_EDIT_USER = 'edit_user';
+    public const PROPERTY_VIEW_POSTS = 'view_user_posts';
+    public const PROPERTY_VIEW_AUTHOR = 'view_author';
+    public const PROPERTY_EMAIL = 'email_user';
 
-	protected function define_options() {
-		return [
-			self::NAME => self::PROPERTY_EDIT_USER,
-		];
-	}
+    public function __construct(AC\Column $column, Specification $conditions = null)
+    {
+        $this->name = self::NAME;
+        $this->label = __('Link To', 'codepress-admin-columns');
+        $this->input = AC\Setting\Input\Option\Single::create_select(
+            AC\Setting\OptionCollection::from_array($this->get_display_options()),
+            self::PROPERTY_EDIT_USER
+        );
 
-	public function format( $value, $user_id ) {
-		$link = false;
+        parent::__construct(
+            $column,
+            $conditions
+        );
+    }
 
-		switch ( $this->get_user_link_to() ) {
-			case self::PROPERTY_EDIT_USER :
-				if ( current_user_can( 'edit_users' ) ) {
-					$link = add_query_arg( 'user_id', $user_id, self_admin_url( 'user-edit.php' ) );
-				}
+    public function format(Value $value, ArrayImmutable $options): Value
+    {
+        switch ($options->get(self::NAME)) {
+            case self::PROPERTY_EDIT_USER:
+                if (current_user_can('edit_users')) {
+                    $link = add_query_arg('user_id', $value->get_id(), self_admin_url('user-edit.php'));
+                }
 
-				break;
-			case self::PROPERTY_VIEW_POSTS :
-				$link = add_query_arg( [
-					'post_type' => $this->column->get_post_type(),
-					'author'    => $user_id,
-				], 'edit.php' );
+                break;
+            case self::PROPERTY_VIEW_POSTS :
+                $link = add_query_arg([
+                    'post_type' => $this->column->get_post_type(),
+                    'author'    => $value->get_id(),
+                ], 'edit.php');
 
-				break;
-			case self::PROPERTY_VIEW_AUTHOR :
-				$link = get_author_posts_url( $user_id );
+                break;
+            case self::PROPERTY_VIEW_AUTHOR :
+                $link = get_author_posts_url($value->get_id());
 
-				break;
-			case self::PROPERTY_EMAIL :
-				if ( $email = get_the_author_meta( 'email', $user_id ) ) {
-					$link = 'mailto:' . $email;
-				}
+                break;
+            case self::PROPERTY_EMAIL :
+                if ($email = get_the_author_meta('email', $value->get_id())) {
+                    $link = 'mailto:' . $email;
+                }
 
-				break;
-		}
+                break;
+        }
 
-		if ( $link ) {
-			$value = ac_helper()->html->link( $link, $value );
-		}
+        return $link
+            ? $value->with_value(ac_helper()->html->link($link, $value->get_value()))
+            : $value;
+    }
 
-		return $value;
-	}
+    protected function get_display_options()
+    {
+        $options = [
+            self::PROPERTY_EDIT_USER   => __('Edit User Profile', 'codepress-admin-columns'),
+            self::PROPERTY_EMAIL       => __('User Email', 'codepress-admin-columns'),
+            self::PROPERTY_VIEW_POSTS  => __('View User Posts', 'codepress-admin-columns'),
+            self::PROPERTY_VIEW_AUTHOR => __('View Public Author Page', 'codepress-admin-columns'),
+        ];
 
-	public function create_view() {
-		$select = $this->create_element( 'select' )->set_options( $this->get_display_options() );
+        // resort for possible translations
+        natcasesort($options);
 
-		$view = new View( [
-			'label'   => __( 'Link To', 'codepress-admin-columns' ),
-			'setting' => $select,
-		] );
+        $options = array_merge(['' => __('None')], $options);
 
-		return $view;
-	}
-
-	protected function get_display_options() {
-		$options = [
-			self::PROPERTY_EDIT_USER   => __( 'Edit User Profile', 'codepress-admin-columns' ),
-			self::PROPERTY_EMAIL       => __( 'User Email', 'codepress-admin-columns' ),
-			self::PROPERTY_VIEW_POSTS  => __( 'View User Posts', 'codepress-admin-columns' ),
-			self::PROPERTY_VIEW_AUTHOR => __( 'View Public Author Page', 'codepress-admin-columns' ),
-		];
-
-		// resort for possible translations
-		natcasesort( $options );
-
-		$options = array_merge( [ '' => __( 'None' ) ], $options );
-
-		return $options;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_user_link_to() {
-		return $this->user_link_to;
-	}
-
-	/**
-	 * @param string $user_link_to
-	 *
-	 * @return bool
-	 */
-	public function set_user_link_to( $user_link_to ) {
-		$this->user_link_to = $user_link_to;
-
-		return true;
-	}
+        return $options;
+    }
 
 }
