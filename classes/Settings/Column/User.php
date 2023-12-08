@@ -24,9 +24,7 @@ class User extends Recursive
     {
         return $value->with_value(
             parent::format(
-                new Value(
-                    (int)$value->get_value()
-                ),
+                new Value((int)$value->get_value()),
                 $options
             )->get_value()
         );
@@ -34,11 +32,10 @@ class User extends Recursive
 
     public function get_children(): SettingCollection
     {
-        $settings = new SettingCollection();
-        $settings->add(new UserDisplay($this->column));
-        $settings->add(new UserLink($this->column));
-
-        return $settings;
+        return new SettingCollection([
+            new UserDisplay($this->column),
+            new UserLink($this->column),
+        ]);
     }
 
     //
