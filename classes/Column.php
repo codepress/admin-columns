@@ -8,6 +8,7 @@ use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
+use AC\Setting\ValueCollection;
 
 /**
  * @since 3.0
@@ -454,6 +455,20 @@ class Column
     // TODO David can tis method be protected/private, even just by comment if need be
     public function get_formatted_value($value, int $id = null): string
     {
+        $formatter = Formatter\Aggregate::from_settings($this->get_settings());
+
+        if ($value instanceof ValueCollection) {
+            $formatted_values = [];
+            foreach ($value as $single_value) {
+                $formatted_values[] = (string)$formatter->format(
+                    new Value($single_value->get_id(), $single_value->get_value()),
+                    new ArrayImmutable($this->get_options())
+                );
+            }
+
+            return implode($this->get_separator(), $formatted_values);
+        }
+
         $formatter = Formatter\Aggregate::from_settings($this->get_settings());
 
         return (string)$formatter->format(

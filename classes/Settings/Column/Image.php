@@ -77,8 +77,8 @@ class Image extends AC\Settings\Column implements AC\Setting\Formatter
         $size = $options->get($this->get_name());
 
         if (self::SIZE_CUSTOM === $size) {
-            $width = (int) $options->get(self::SETTING_WIDTH);
-            $height = (int) $options->get(self::SETTING_HEIGHT);
+            $width = (int)$options->get(self::SETTING_WIDTH);
+            $height = (int)$options->get(self::SETTING_HEIGHT);
 
             if ($width && $height) {
                 $size = [$width, $height];

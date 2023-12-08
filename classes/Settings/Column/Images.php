@@ -21,12 +21,23 @@ class Images extends Settings\Column\Image implements AC\Setting\Recursive
         $this->name = 'images';
     }
 
-    // TODO David
     public function format(Value $value, ArrayImmutable $options): Value
     {
-        //$images = ac_helper()->html->images(parent::format($collection->all(), $original_value), $removed);
-        // TODO David: implement value collection
-        return $value->with_value($value->get_value()[0] ?? null);
+        $values = [];
+        $image_ids = $value->get_value();
+
+        if ( ! is_array($image_ids)) {
+            return $value;
+        }
+
+        $ids_subset = array_slice($image_ids, 0, (int)$options->get('number_of_items'));
+        $removed = count($value->get_value()) - (int)$options->get('number_of_items');
+
+        foreach ($ids_subset as $id) {
+            $values[] = parent::format($value->with_value($id), $options)->get_value();
+        }
+
+        return $value->with_value(ac_helper()->html->images(implode(' ', $values), $removed));
     }
 
     public function is_parent(): bool
@@ -36,17 +47,10 @@ class Images extends Settings\Column\Image implements AC\Setting\Recursive
 
     public function get_children(): AC\Setting\SettingCollection
     {
-        return new AC\Setting\SettingCollection([
-            new NumberOfItems($this->column),
-        ]);
-    }
+        $settings = parent::get_children();
+        $settings->add(new NumberOfItems($this->column));
 
-    //
-    //	public function format( $value, $original_value ) {
-    //		$collection = new Collection( (array) $value );
-    //		$removed = $collection->limit( $this->column->get_setting( 'number_of_items' )->get_value() );
-    //
-    //		return ac_helper()->html->images( parent::format( $collection->all(), $original_value ), $removed );
-    //	}
+        return $settings;
+    }
 
 }

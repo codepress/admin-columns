@@ -11,10 +11,12 @@ use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\StringComparisonSpecification;
 
-class AttachmentDisplay extends Settings\Column\Recursive implements AC\Setting\Formatter
+class AttachmentDisplay extends Settings\Column\Recursive
 {
 
     use AC\Setting\SettingTrait;
+    use AC\Setting\RecursiveFormatterTrait {
+    }
 
     public function __construct(AC\Column $column)
     {
