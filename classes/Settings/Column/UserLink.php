@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
 use AC\Setting\ArrayImmutable;
-use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
 
 class UserLink extends Settings\Column implements AC\Setting\Formatter
 {
-
-    use SettingTrait;
 
     public const NAME = 'user_link_to';
 
@@ -26,14 +25,11 @@ class UserLink extends Settings\Column implements AC\Setting\Formatter
         $this->name = self::NAME;
         $this->label = __('Link To', 'codepress-admin-columns');
         $this->input = AC\Setting\Input\Option\Single::create_select(
-            AC\Setting\OptionCollection::from_array($this->get_display_options()),
+            AC\Setting\OptionCollection::from_array($this->get_input_options()),
             self::PROPERTY_EDIT_USER
         );
 
-        parent::__construct(
-            $column,
-            $conditions
-        );
+        parent::__construct($column, $conditions);
     }
 
     public function format(Value $value, ArrayImmutable $options): Value
@@ -64,26 +60,24 @@ class UserLink extends Settings\Column implements AC\Setting\Formatter
                 break;
         }
 
-        return $link
-            ? $value->with_value(ac_helper()->html->link($link, $value->get_value()))
-            : $value;
+        if (isset($link)) {
+            $value = $value->with_value(
+                ac_helper()->html->link($link, $value->get_value())
+            );
+        }
+
+        return $value;
     }
 
-    protected function get_display_options()
+    protected function get_input_options(): array
     {
-        $options = [
+        return [
+            ''                         => __('None'),
             self::PROPERTY_EDIT_USER   => __('Edit User Profile', 'codepress-admin-columns'),
             self::PROPERTY_EMAIL       => __('User Email', 'codepress-admin-columns'),
             self::PROPERTY_VIEW_POSTS  => __('View User Posts', 'codepress-admin-columns'),
             self::PROPERTY_VIEW_AUTHOR => __('View Public Author Page', 'codepress-admin-columns'),
         ];
-
-        // resort for possible translations
-        natcasesort($options);
-
-        $options = array_merge(['' => __('None')], $options);
-
-        return $options;
     }
 
 }
