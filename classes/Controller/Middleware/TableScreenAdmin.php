@@ -2,11 +2,11 @@
 
 namespace AC\Controller\Middleware;
 
-use AC;
 use AC\Admin\Preference;
 use AC\Middleware;
 use AC\Request;
 use AC\TableScreen;
+use AC\TableScreenFactory;
 use AC\Type\ListKey;
 use Exception;
 
@@ -15,18 +15,18 @@ class TableScreenAdmin implements Middleware
 
     private $preference;
 
-    private $list_keys_factory;
-
     private $table_screen_factory;
+
+    private $table_screen_fallback;
 
     public function __construct(
         Preference\ListScreen $preference,
-        AC\TableScreenFactory $table_screen_factory,
-        AC\Table\TableScreensFactory $list_keys_factory
+        TableScreenFactory $table_screen_factory,
+        TableScreen $table_screen_fallback
     ) {
         $this->preference = $preference;
-        $this->list_keys_factory = $list_keys_factory;
         $this->table_screen_factory = $table_screen_factory;
+        $this->table_screen_fallback = $table_screen_fallback;
     }
 
     private function get_table_screen_by_key(ListKey $key): ?TableScreen
@@ -58,7 +58,7 @@ class TableScreenAdmin implements Middleware
 
     private function get_first_table_screen(): ?TableScreen
     {
-        return $this->list_keys_factory->create()->current();
+        return $this->table_screen_fallback;
     }
 
     private function get_table_screen(Request $request): ?TableScreen

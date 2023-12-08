@@ -27,11 +27,11 @@ class DefaultGroups implements MenuGroupFactory
                     6
                 );
             case $table_screen instanceof TableScreen\User :
-                return new MenuGroup('user', __('Users'));
+                return new MenuGroup('user', __('Users'), 12);
             case $table_screen instanceof TableScreen\Media :
-                return new MenuGroup('media', __('Media'));
+                return new MenuGroup('media', __('Media'), 13);
             case $table_screen instanceof TableScreen\Comment :
-                return new MenuGroup('comment', __('Comments'));
+                return new MenuGroup('comment', __('Comments'), 14);
             default :
                 return null;
         }

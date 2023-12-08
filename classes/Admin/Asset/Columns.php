@@ -11,9 +11,6 @@ use AC\Table\TableScreenCollection;
 class Columns extends Script
 {
 
-    /**
-     * @var AC\TableScreen[]
-     */
     private $table_screens;
 
     private $list_key;

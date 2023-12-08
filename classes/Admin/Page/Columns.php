@@ -40,7 +40,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $default_columns_repository;
 
-    private $uninitialized_screens;
+    private $uninitialized_table_screens;
 
     private $menu;
 
@@ -55,7 +55,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
     public function __construct(
         Location\Absolute $location,
         DefaultColumnsRepository $default_columns_repository,
-        TableScreenCollection $uninitialized_screens,
+        TableScreenCollection $uninitialized_table_screens,
         Menu $menu,
         Renderable $head,
         TableScreen $table_screen,
@@ -65,7 +65,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
     ) {
         $this->location = $location;
         $this->default_columns_repository = $default_columns_repository;
-        $this->uninitialized_screens = $uninitialized_screens;
+        $this->uninitialized_table_screens = $uninitialized_table_screens;
         $this->menu = $menu;
         $this->head = $head;
         $this->table_screen = $table_screen;
@@ -99,7 +99,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
             new Admin\Asset\Columns(
                 'ac-admin-page-columns',
                 $this->location->with_suffix('assets/js/admin-page-columns.js'),
-                $this->uninitialized_screens,
+                $this->uninitialized_table_screens,
                 (string)$this->table_screen->get_key(),
                 (string)$this->list_screen->get_id()
             ),
@@ -151,7 +151,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     public function render(): string
     {
-        if ( ! $this->default_columns_repository->exists()) {
+        // TODO
+        if ($this->uninitialized_table_screens->count() > 0) {
             $modal = new View([
                 'message' => 'Loading columns',
             ]);

@@ -62,14 +62,14 @@ final class Screen implements Registerable
      */
     public function register(): void
     {
-        if ($this->list_screen) {
-            $controller = new ScreenController(
-                new DefaultColumnsRepository($this->table_screen->get_key()),
-                $this->table_screen,
-                $this->list_screen
-            );
-            $controller->register();
+        $controller = new ScreenController(
+            new DefaultColumnsRepository($this->table_screen->get_key()),
+            $this->table_screen,
+            $this->list_screen
+        );
+        $controller->register();
 
+        if ($this->list_screen) {
             $render = new TableFormView(
                 $this->list_screen->get_meta_type(),
                 sprintf('<input type="hidden" name="layout" value="%s">', $this->list_screen->get_id())
