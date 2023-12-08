@@ -57,8 +57,8 @@ class ColumnFactory
 
         $column->set_list_key($table_screen->get_key());
 
-        // TODO
-        do_action('ac/list_screen/column_created', $column, $this);
+        // TODO rename table_screen
+        do_action('ac/list_screen/column_created', $column, $table_screen);
 
         return $column;
     }
