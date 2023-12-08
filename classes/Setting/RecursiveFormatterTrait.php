@@ -19,7 +19,7 @@ trait RecursiveFormatterTrait
         foreach ($this->get_children() as $setting) {
             if (
                 ! $setting->has_conditions() ||
-                $setting->get_conditions()->is_satisfied_by($options->get($this->get_name()))
+                $setting->get_conditions()->is_satisfied_by($options->get($this->get_name()) ?: '')
             ) {
                 $settings->add($setting);
             }
