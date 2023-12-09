@@ -151,8 +151,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     public function render(): string
     {
-        // TODO
-        if ($this->uninitialized_table_screens->count() > 0) {
+        if ($this->uninitialized_table_screens->contains($this->table_screen->get_key())) {
             $modal = new View([
                 'message' => 'Loading columns',
             ]);

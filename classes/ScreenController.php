@@ -30,7 +30,7 @@ class ScreenController implements Registerable
     {
         // Headings
         // TODO move to new services..
-        add_filter($this->table_screen->get_heading_hookname(), [$this, 'save_headings'], 200);
+        add_filter($this->table_screen->get_heading_hookname(), [$this, 'save_headings'], 199);
 
         // Headings
         if ($this->list_screen) {
@@ -65,7 +65,6 @@ class ScreenController implements Registerable
             return $this->headings;
         }
 
-        // TODO
         $columns = $this->list_screen->get_columns(null, new ManualOrder($this->list_screen->get_id()));
 
         // Nothing stored. Show default columns on screen.
