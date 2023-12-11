@@ -307,7 +307,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                     'is_disabled'    => $this->list_screen->is_read_only(),
                     'title'          => $this->list_screen->get_title(),
                     'columns'        => $this->list_screen->get_columns(),
-                    'column_types'   => $this->column_types_factory->create($this->table_screen),
+                    'column_types'   => iterator_to_array($this->column_types_factory->create($this->table_screen)),
                     'list_screen'    => $this->list_screen,
                     'show_actions'   => ! $this->list_screen->is_read_only(),
                     'show_clear_all' => apply_filters('ac/enable_clear_columns_button', false),
@@ -366,7 +366,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private function render_column_template(): string
     {
-        $column_types = $this->column_types_factory->create($this->table_screen);
+        $column_types = iterator_to_array($this->column_types_factory->create($this->table_screen));
 
         $column = $this->get_column_template_by_group($column_types, 'custom');
 

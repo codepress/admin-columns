@@ -86,11 +86,11 @@ class Refresh
         );
     }
 
-    private function render_column(Column $column, array $column_types): string
+    private function render_column(Column $column, AC\ColumnTypeCollection $column_types): string
     {
         $view = new View([
             'column'       => $column,
-            'column_types' => $column_types,
+            'column_types' => iterator_to_array($column_types),
         ]);
 
         $view->set_template('admin/edit-column');

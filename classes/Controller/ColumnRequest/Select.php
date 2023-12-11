@@ -5,6 +5,7 @@ namespace AC\Controller\ColumnRequest;
 use AC\Column;
 use AC\Column\Placeholder;
 use AC\ColumnFactory;
+use AC\ColumnTypeCollection;
 use AC\ColumnTypesFactory;
 use AC\Request;
 use AC\TableScreenFactory;
@@ -91,11 +92,11 @@ class Select
         );
     }
 
-    private function render_column(Column $column, array $column_types): string
+    private function render_column(Column $column, ColumnTypeCollection $column_types): string
     {
         $view = new View([
             'column'       => $column,
-            'column_types' => $column_types,
+            'column_types' => iterator_to_array($column_types),
         ]);
 
         $view->set_template('admin/edit-column');

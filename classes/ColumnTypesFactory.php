@@ -7,17 +7,14 @@ namespace AC;
 class ColumnTypesFactory
 {
 
-    /**
-     * @param TableScreen $table_screen
-     *
-     * @return Column[]
-     */
-    public function create(TableScreen $table_screen): array
+    public function create(TableScreen $table_screen): ColumnTypeCollection
     {
         $columns = (new DefaultColumnsRepository($table_screen->get_key()))->find_all();
 
         // TODO
         $columns_fqn = (array)apply_filters('ac/column_types_fqn', $table_screen->get_columns(), $table_screen);
+
+        $collection = new ColumnTypeCollection();
 
         foreach ($columns_fqn as $column_fqn) {
             /**
@@ -37,13 +34,15 @@ class ColumnTypesFactory
                        ->set_group($original->get_group());
             }
 
-            $columns[$column->get_type()] = $column;
+            $collection->add($column);
         }
 
-        $columns = array_values($columns);
+        do_action('ac/column_type_collection', $collection, $table_screen);
 
-        //  TODO check usages: do_action('ac/column_types', $this);
-        return (array)apply_filters('ac/column_types', $columns, $table_screen);
+        return $collection;
+
+        //  TODO check usages: do_action('ac/column_types', $this); and rename filter
+        //        return apply_filters('ac/column_types', $collection, $table_screen);
     }
 
 }

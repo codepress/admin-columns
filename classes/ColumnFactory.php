@@ -13,8 +13,8 @@ class ColumnFactory
     {
         $this->column_types_factory = $column_types_factory;
     }
-
-    private function get_column_types(TableScreen $table_screen): array
+    
+    private function get_column_types(TableScreen $table_screen): ColumnTypeCollection
     {
         static $types;
 
@@ -63,7 +63,7 @@ class ColumnFactory
         return $column;
     }
 
-    private function create_column(array $column_types, string $type, array $settings): ?Column
+    private function create_column(ColumnTypeCollection $column_types, string $type, array $settings): ?Column
     {
         foreach ($column_types as $column_type) {
             if ($column_type->get_type() !== $type) {
