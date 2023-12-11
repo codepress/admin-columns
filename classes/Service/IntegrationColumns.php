@@ -3,6 +3,7 @@
 namespace AC\Service;
 
 use AC\Column\Placeholder;
+use AC\ColumnTypeCollection;
 use AC\IntegrationRepository;
 use AC\Registerable;
 use AC\TableScreen;
@@ -22,13 +23,13 @@ final class IntegrationColumns implements Registerable
 
     public function register(): void
     {
-        add_filter('ac/column_types', [$this, 'add_placeholder_column_types'], 1, 2);
+        add_action('ac/column_type_collection', [$this, 'add_placeholder_column_types'], 1, 2);
     }
 
-    public function add_placeholder_column_types(array $columns, TableScreen $table_screen): array
+    public function add_placeholder_column_types(ColumnTypeCollection $collection, TableScreen $table_screen): void
     {
         if ($this->is_pro_active) {
-            return $columns;
+            return;
         }
 
         foreach ($this->repository->find_all_by_active_plugins() as $integration) {
@@ -36,10 +37,8 @@ final class IntegrationColumns implements Registerable
                 continue;
             }
 
-            $columns[] = (new Placeholder())->set_integration($integration);
+            $collection->add((new Placeholder())->set_integration($integration));
         }
-
-        return $columns;
     }
 
 }
