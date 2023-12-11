@@ -34,6 +34,10 @@ class ColumnTypesFactory
                        ->set_group($original->get_group());
             }
 
+            if ($collection->contains($column)) {
+                $collection->remove($column);
+            }
+
             $collection->add($column);
         }
 

@@ -21,23 +21,36 @@ class ColumnTypeCollection implements Iterator, Countable
         array_map([$this, 'add'], $column_types);
     }
 
-    public function add(Column $column): void
+    public function add(Column $column_type): void
     {
-        $this->data[$column->get_type()] = $column;
+        $this->data[] = $column_type;
     }
 
-    public function exists(string $type): bool
+    public function remove(Column $column): void
     {
-        return isset($this->data[$type]);
-    }
+        $index = $this->search($column->get_type());
 
-    public function get(string $type): Column
-    {
-        if ( ! $this->exists($type)) {
-            throw new InvalidArgumentException(sprintf('No column found for type %s.', $type));
+        if (null === $index) {
+            throw new InvalidArgumentException('Index not found');
         }
 
-        return $this->data[$type];
+        unset($this->data[$index]);
+    }
+
+    public function contains(Column $column): bool
+    {
+        return null !== $this->search($column->get_type());
+    }
+
+    private function search(string $type): ?int
+    {
+        foreach ($this->data as $i => $column) {
+            if ($column->get_type() === $type) {
+                return $i;
+            }
+        }
+
+        return null;
     }
 
     public function current(): Column
@@ -50,7 +63,7 @@ class ColumnTypeCollection implements Iterator, Countable
         next($this->data);
     }
 
-    public function key(): string
+    public function key(): int
     {
         return key($this->data);
     }
