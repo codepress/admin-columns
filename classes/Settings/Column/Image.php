@@ -16,7 +16,7 @@ use AC\Setting\Type\Value;
 use ACP\Expression\Specification;
 use ACP\Expression\StringComparisonSpecification;
 
-class Image extends AC\Settings\Column implements AC\Setting\Formatter
+class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     private const SETTING_WIDTH = 'image_size_w';
@@ -29,7 +29,8 @@ class Image extends AC\Settings\Column implements AC\Setting\Formatter
         $this->name = 'image_size';
         $this->label = __('Image Size', 'codepress-admin-columns');
         $this->input = Input\Option\Single::create_select(
-            $this->get_grouped_image_sizes()
+            $this->get_grouped_image_sizes(),
+            self::SIZE_CUSTOM
         );
 
         parent::__construct($column, $specification);
@@ -163,146 +164,5 @@ class Image extends AC\Settings\Column implements AC\Setting\Formatter
 
         return $this->append_dimensions($options);
     }
-
-    //implements Settings\FormatValue {
-
-    //	/**
-    //	 * @var string
-    //	 */
-    //	private $image_size;
-    //
-    //	/**
-    //	 * @var integer
-    //	 */
-    //	private $image_size_w;
-    //
-    //	/**
-    //	 * @var integer
-    //	 */
-    //	private $image_size_h;
-    //
-    //	protected function set_name() {
-    //		return $this->name = 'image';
-    //	}
-    //
-    //	protected function define_options() {
-    //		return [
-    //			'image_size'   => 'cpac-custom',
-    //			'image_size_w' => 60,
-    //			'image_size_h' => 60,
-    //		];
-    //	}
-    //
-    //	public function create_view() {
-    //		$width = new View( [
-    //			'setting' => $this->create_element( 'number', 'image_size_w' ),
-    //			'label'   => __( 'Width', 'codepress-admin-columns' ),
-    //			'tooltip' => __( 'Width in pixels', 'codepress-admin-columns' ),
-    //		] );
-    //
-    //		$height = new View( [
-    //			'setting' => $this->create_element( 'number', 'image_size_h' ),
-    //			'label'   => __( 'Height', 'codepress-admin-columns' ),
-    //			'tooltip' => __( 'Height in pixels', 'codepress-admin-columns' ),
-    //		] );
-    //
-    //		$size = $this->create_element( 'select', 'image_size' )
-    //		             ->set_options( $this->get_grouped_image_sizes() );
-    //
-    //		$view = new View( [
-    //			'label'    => __( 'Image Size', 'codepress-admin-columns' ),
-    //			'setting'  => $size,
-    //			'sections' => [ $width, $height ],
-    //		] );
-    //
-    //		return $view;
-    //	}
-    //
-    //	/**
-    //	 * @return array
-    //	 * @since 1.0
-    //	 */
-
-    //
-    //	/**
-    //	 * @return string
-    //	 */
-    //	public function get_image_size() {
-    //		return $this->image_size;
-    //	}
-    //
-    //	/**
-    //	 * @param string $image_size
-    //	 *
-    //	 * @return bool
-    //	 */
-    //	public function set_image_size( $image_size ) {
-    //		$this->image_size = $image_size;
-    //
-    //		return true;
-    //	}
-    //
-    //	/**
-    //	 * @return int
-    //	 */
-    //	public function get_image_size_w() {
-    //		return $this->image_size_w;
-    //	}
-    //
-    //	/**
-    //	 * @param int $image_size_w
-    //	 *
-    //	 * @return bool
-    //	 */
-    //	public function set_image_size_w( $image_size_w ) {
-    //		if ( ! is_numeric( $image_size_w ) ) {
-    //			return false;
-    //		}
-    //
-    //		$this->image_size_w = $image_size_w;
-    //
-    //		return true;
-    //	}
-    //
-    //	/**
-    //	 * @return int
-    //	 */
-    //	public function get_image_size_h() {
-    //		return $this->image_size_h;
-    //	}
-    //
-    //	/**
-    //	 * @param int $image_size_h
-    //	 *
-    //	 * @return bool
-    //	 */
-    //	public function set_image_size_h( $image_size_h ) {
-    //		if ( ! is_numeric( $image_size_h ) ) {
-    //			return false;
-    //		}
-    //
-    //		$this->image_size_h = $image_size_h;
-    //
-    //		return true;
-    //	}
-    //
-    //	protected function get_size_args() {
-    //		$size = $this->get_image_size();
-    //
-    //		if ( 'cpac-custom' === $size ) {
-    //			$size = [ $this->get_image_size_w(), $this->get_image_size_h() ];
-    //		}
-    //
-    //		// fallback size
-    //		if ( empty( $size ) ) {
-    //			$size = [ 60, 60 ];
-    //		}
-    //
-    //		return $size;
-    //	}
-    //
-    //	public function format( $value, $original_value ) {
-    //		return ac_helper()->image->get_image( $value, $this->get_size_args() );
-    //	}
 
 }

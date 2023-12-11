@@ -40,10 +40,13 @@ final class Encoder
             'label'       => $setting->get_label(),
             'description' => $setting->get_description(),
             'input'       => [
-                'type'    => $input->get_type(),
-                'default' => $input->get_default(),
+                'type' => $input->get_type(),
             ],
         ];
+
+        if ($input->has_default()) {
+            $encoded['input']['default'] = $input->get_default();
+        }
 
         if ($input instanceof Open) {
             if ($input->has_append()) {

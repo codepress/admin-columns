@@ -4,6 +4,7 @@ namespace AC\Settings\Column;
 
 use AC\Column;
 use AC\Setting\ArrayImmutable;
+use AC\Setting\Input\Custom;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use ACP\Expression\Specification;
@@ -14,6 +15,7 @@ class User extends Recursive
     public function __construct(Column $column, Specification $specification = null)
     {
         $this->name = 'user';
+        $this->input = Custom::create_empty();
 
         parent::__construct($column, $specification);
     }

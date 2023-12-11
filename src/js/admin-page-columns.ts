@@ -88,8 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
     registerSettingType('select', SelectSetting)
     registerSettingType('date_format', DateFormatSetting)
 
-    currentListId.set(config.list_screen_id)
+
     currentListKey.set(config.list_key);
+    currentListId.set(config.list_screen_id)
 
     const sortedColumnGroups = config.column_groups.map(g => g.slug);
     const customComparator = (a: ColumnConfig, b: ColumnConfig) => {

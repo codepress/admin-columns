@@ -14,7 +14,11 @@
     let config: {[key:string] : ColumnSetting[]};
     let tableUrl: string;
 
-    const handleMenuSelect = (e) => {
+    const handleMenuSelect = (e: CustomEvent<string>) => {
+		if( $currentListKey === e.detail ){
+            return;
+		}
+
         getListScreenSettingsByListKey(e.detail).then(response => {
             config = response.data.data.settings
             tableUrl = response.data.data.table_url;

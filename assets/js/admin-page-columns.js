@@ -2665,7 +2665,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (62:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
+// (65:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
@@ -2698,7 +2698,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (66:2) {#if $listScreenDataStore !== null}
+// (69:2) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -2877,6 +2877,9 @@ function instance($$self, $$props, $$invalidate) {
   let config;
   let tableUrl;
   const handleMenuSelect = e => {
+    if ($currentListKey === e.detail) {
+      return;
+    }
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettingsByListKey)(e.detail).then(response => {
       $$invalidate(1, config = response.data.data.settings);
       $$invalidate(2, tableUrl = response.data.data.table_url);
@@ -6087,7 +6090,7 @@ function create_fragment(ctx) {
       if (dirty & /*config*/2) columnsetting_changes.description = /*config*/ctx[1].description;
       if (dirty & /*config*/2) columnsetting_changes.config = /*config*/ctx[1];
       if (dirty & /*config*/2) columnsetting_changes.children = /*config*/ctx[1].children ?? [];
-      if (dirty & /*$$scope, options, selectValue*/524) {
+      if (dirty & /*$$scope, options, selectValue*/1036) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
@@ -6127,14 +6130,23 @@ function instance($$self, $$props, $$invalidate) {
   const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_4__.createEventDispatcher)();
   let selectValue;
   let options = [];
+  const getValue = value => {
+    const found = options.find(o => o.value === value);
+    return found ? found : {
+      value,
+      label: value
+    };
+  };
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onMount)(() => {
     var _a;
     $$invalidate(3, options = config.input.options);
     if (typeof value === 'undefined') {
-      $$invalidate(2, selectValue = config.input.options[0]);
-      $$invalidate(6, value = config.input.options[0].value);
+      if (config.input.default) {
+        $$invalidate(2, selectValue = getValue(config.input.default));
+      }
+      $$invalidate(6, value = (_a = config.input.default) !== null && _a !== void 0 ? _a : '');
     } else {
-      $$invalidate(2, selectValue = (_a = config.input.options.find(o => o.value === value)) !== null && _a !== void 0 ? _a : null);
+      $$invalidate(2, selectValue = getValue(value.toString()));
     }
   });
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onDestroy)(() => {
@@ -28626,8 +28638,8 @@ document.addEventListener('DOMContentLoaded', () => {
     (0,_columns_helper__WEBPACK_IMPORTED_MODULE_12__.registerSettingType)('number_preview', _columns_components_settings_NumberPreviewSetting_svelte__WEBPACK_IMPORTED_MODULE_21__["default"]);
     (0,_columns_helper__WEBPACK_IMPORTED_MODULE_12__.registerSettingType)('select', _columns_components_settings_SelectSetting_svelte__WEBPACK_IMPORTED_MODULE_22__["default"]);
     (0,_columns_helper__WEBPACK_IMPORTED_MODULE_12__.registerSettingType)('date_format', _columns_components_settings_DateFormatSetting_svelte__WEBPACK_IMPORTED_MODULE_19__["default"]);
-    _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_24__.currentListId.set(config.list_screen_id);
     _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_24__.currentListKey.set(config.list_key);
+    _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_24__.currentListId.set(config.list_screen_id);
     const sortedColumnGroups = config.column_groups.map(g => g.slug);
     const customComparator = (a, b) => {
         // Compare based on group priority

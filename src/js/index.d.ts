@@ -50,7 +50,6 @@ declare namespace AC.Column.Settings {
             default?: any
             append?: string
         }
-        default?: any
         children?: ColumnSettingCollection
         is_parent?: boolean
         conditions?: Rule
@@ -90,6 +89,7 @@ declare namespace AC.Column.Settings {
         input: {
             type: 'select'
             options: SettingOption[]
+            default: string
         }
     }
 

@@ -13,14 +13,24 @@
     let selectValue: SvelteSelectItem|null;
     let options: AC.Column.Settings.SettingOption[] = [];
 
+
+    const getValue =  ( value: string ): SvelteSelectItem => {
+        const found = options.find( o => o.value === value );
+
+        return found ? found : { value: value, label: value };
+	}
+
     onMount(() => {
         options = config.input.options;
 
         if (typeof value === 'undefined') {
-            selectValue = config.input.options[0]
-            value = config.input.options[0].value;
+            if( config.input.default ){
+                selectValue = getValue( config.input.default );
+			}
+
+            value = config.input.default ?? '';
         } else {
-            selectValue = config.input.options.find( o => o.value === value ) ?? null;
+            selectValue = getValue( value.toString() );
 		}
 
     })
