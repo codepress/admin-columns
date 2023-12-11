@@ -15,6 +15,7 @@ interface Setting
 
     public function get_description(): string;
 
+    // TODO David consider if this violates interface segregation for recursive
     public function get_input(): Input;
 
     public function has_conditions(): bool;
