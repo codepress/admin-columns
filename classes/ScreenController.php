@@ -29,7 +29,6 @@ class ScreenController implements Registerable
     public function register(): void
     {
         // Headings
-        // TODO move to new services..
         add_filter($this->table_screen->get_heading_hookname(), [$this, 'save_headings'], 199);
 
         // Headings
