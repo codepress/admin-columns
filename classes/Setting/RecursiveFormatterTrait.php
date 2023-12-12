@@ -17,10 +17,9 @@ trait RecursiveFormatterTrait
         $settings = new SettingCollection();
 
         foreach ($this->get_children() as $setting) {
-            if (
-                ! $setting->has_conditions() ||
-                $setting->get_conditions()->is_satisfied_by($options->get($this->get_name()) ?: '')
-            ) {
+            $conditions = $setting->get_conditions();
+
+            if ( ! $conditions || $conditions->is_satisfied_by($options->get($this->get_name()) ?: '')) {
                 $settings->add($setting);
             }
         }

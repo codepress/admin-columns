@@ -23,12 +23,6 @@ final class Custom extends Input
         $this->data = $data;
     }
 
-    public static function create_empty(
-        array $data = []
-    ): self {
-        return new self('empty', $data);
-    }
-
     public function has_data(): bool
     {
         return ! empty($this->data);

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Setting;
 
 use ACP\Expression\Specification;
-use BadMethodCallException;
 
 trait SettingTrait
 {
@@ -16,6 +15,9 @@ trait SettingTrait
 
     protected $description = '';
 
+    /**
+     * @var Input
+     */
     protected $input;
 
     /**
@@ -38,22 +40,13 @@ trait SettingTrait
         return $this->description;
     }
 
-    public function get_input(): Input
+    public function get_input(): ?Input
     {
         return $this->input;
     }
 
-    public function has_conditions(): bool
+    public function get_conditions(): ?Specification
     {
-        return $this->conditions !== null;
-    }
-
-    public function get_conditions(): Specification
-    {
-        if ( ! $this->has_conditions()) {
-            throw new BadMethodCallException('No conditions set.');
-        }
-
         return $this->conditions;
     }
 

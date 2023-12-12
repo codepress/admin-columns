@@ -33,49 +33,50 @@ final class Encoder
 
     private function encode_setting(Setting $setting): array
     {
-        $input = $setting->get_input();
-
         $encoded = [
             'name'        => $setting->get_name(),
             'label'       => $setting->get_label(),
             'description' => $setting->get_description(),
-            'input'       => [
-                'type' => $input->get_type(),
-            ],
         ];
 
-        if ($input->has_default()) {
-            $encoded['input']['default'] = $input->get_default();
-        }
+        $input = $setting->get_input();
 
-        if ($input instanceof Open) {
-            if ($input->has_append()) {
-                $encoded['input']['append'] = $input->get_append();
-            }
-        }
+        if ($input) {
+            $encoded['input']['type'] = $input->get_type();
 
-        if ($input instanceof Custom) {
-            $encoded['input']['data'] = $input->get_data();
-        }
-
-        if ($input instanceof Option) {
-            $encoded['input'] += [
-                'options'  => $this->encode_options($input->get_options()),
-                'multiple' => $input instanceof Option\Multiple,
-            ];
-        }
-
-        if ($input instanceof Number) {
-            if ($input->has_min()) {
-                $encoded['input']['min'] = $input->get_min();
+            if ($input->has_default()) {
+                $encoded['input']['default'] = $input->get_default();
             }
 
-            if ($input->has_max()) {
-                $encoded['input']['max'] = $input->get_max();
+            if ($input instanceof Open) {
+                if ($input->has_append()) {
+                    $encoded['input']['append'] = $input->get_append();
+                }
             }
 
-            if ($input->has_step()) {
-                $encoded['input']['step'] = $input->get_step();
+            if ($input instanceof Custom) {
+                $encoded['input']['data'] = $input->get_data();
+            }
+
+            if ($input instanceof Option) {
+                $encoded['input'] += [
+                    'options'  => $this->encode_options($input->get_options()),
+                    'multiple' => $input instanceof Option\Multiple,
+                ];
+            }
+
+            if ($input instanceof Number) {
+                if ($input->has_min()) {
+                    $encoded['input']['min'] = $input->get_min();
+                }
+
+                if ($input->has_max()) {
+                    $encoded['input']['max'] = $input->get_max();
+                }
+
+                if ($input->has_step()) {
+                    $encoded['input']['step'] = $input->get_step();
+                }
             }
         }
 
@@ -88,8 +89,10 @@ final class Encoder
             }
         }
 
-        if ($setting->has_conditions()) {
-            $encoded['conditions'] = $setting->get_conditions()->get_rules($setting->get_name());
+        $conditions = $setting->get_conditions();
+
+        if ($conditions) {
+            $encoded['conditions'] = $conditions->get_rules($setting->get_name());
         }
 
         return $encoded;

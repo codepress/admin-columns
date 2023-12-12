@@ -28,7 +28,6 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
     ) {
         $this->name = 'before_after';
         $this->label = __('Display Options', 'codepress-admin-columns');
-        $this->input = Input\Custom::create_empty();
         $this->default_before = $default_before;
         $this->default_after = $default_after;
 
