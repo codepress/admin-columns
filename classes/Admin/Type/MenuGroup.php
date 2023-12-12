@@ -13,7 +13,7 @@ class MenuGroup
 
     private $priority;
 
-    public function __construct(string $name, string $label, int $priority = 10)
+    public function __construct(string $name, string $label, int $priority = 20)
     {
         $this->name = $name;
         $this->label = $label;
