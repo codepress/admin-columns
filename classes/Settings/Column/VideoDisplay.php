@@ -2,48 +2,29 @@
 
 namespace AC\Settings\Column;
 
+use AC;
 use AC\Settings;
-use AC\View;
+use ACP\Expression\Specification;
 
-class VideoDisplay extends Settings\Column {
+class VideoDisplay extends Settings\Column
+{
 
-	private $video_display;
+    public function __construct(AC\Column $column, Specification $conditions = null)
+    {
+        $this->name = 'video_display';
+        $this->label = __('Display', 'codepress-admin-columns');
+        $this->input = AC\Setting\Input\Option\Single::create_select(
+            AC\Setting\OptionCollection::from_array([
+                'embed' => __('Embed', 'codepress-admin-columns'),
+                'modal' => __('Pop Up', 'codepress-admin-columns'),
+            ]),
+            'embed'
+        );
 
-	protected function define_options() {
-		return [
-			'video_display' => 'embed',
-		];
-	}
-
-	public function create_view() {
-		$setting = $this->create_element( 'select' )
-		                ->set_options( [
-			                'embed' => __( 'Embed', 'codepress-admin-columns' ),
-			                'modal' => __( 'Pop Up', 'codepress-admin-columns' ),
-		                ] );
-
-		return new View( [
-			'label'   => __( 'Display', 'codepress-admin-columns' ),
-			'setting' => $setting,
-		] );
-	}
-
-	/**
-	 * @return int
-	 */
-	public function get_video_display() {
-		return $this->video_display;
-	}
-
-	/**
-	 * @param int $video_display
-	 *
-	 * @return bool
-	 */
-	public function set_video_display( $video_display ) {
-		$this->video_display = $video_display;
-
-		return true;
-	}
+        parent::__construct(
+            $column,
+            $conditions
+        );
+    }
 
 }

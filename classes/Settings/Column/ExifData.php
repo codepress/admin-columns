@@ -2,128 +2,117 @@
 
 namespace AC\Settings\Column;
 
+use AC;
+use AC\Setting\ArrayImmutable;
+use AC\Setting\SettingCollection;
+use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\View;
+use ACP\Expression\NotSpecification;
+use ACP\Expression\OrSpecification;
+use ACP\Expression\Specification;
+use ACP\Expression\StringComparisonSpecification;
 
-class ExifData extends Settings\Column
-	implements Settings\FormatValue {
+class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
+{
 
-	const NAME = 'exif_data';
+    use AC\Setting\RecursiveFormatterTrait {
+        AC\Setting\RecursiveFormatterTrait::format as format_recursive;
+    }
 
-	/**
-	 * @var string
-	 */
-	private $exif_datatype;
+    public const NAME = 'exif_data';
 
-	protected function set_name() {
-		$this->name = self::NAME;
-	}
+    public function __construct(AC\Column $column, Specification $conditions = null)
+    {
+        $this->name = self::NAME;
+        $this->label = $column->get_label();
+        $this->input = AC\Setting\Input\Option\Single::create_select(
+            AC\Setting\OptionCollection::from_array($this->get_exif_types()),
+            'aperture'
+        );
 
-	protected function define_options() {
-		return [ 'exif_datatype' => 'aperture' ];
-	}
+        parent::__construct(
+            $column,
+            $conditions
+        );
+    }
 
-	public function create_view() {
-		$setting = $this->create_element( 'select' )
-		                ->set_attribute( 'data-label', 'update' )
-		                ->set_attribute( 'data-refresh', 'column' )
-		                ->set_options( $this->get_exif_types() );
+    public function is_parent(): bool
+    {
+        return false;
+    }
 
-		return new View( [
-			'label'   => $this->column->get_label(),
-			'setting' => $setting,
-		] );
-	}
+    public function get_children(): SettingCollection
+    {
+        // TODO Stefan, default does not work once it is set. Discard subsettings or make it work?
+        return new SettingCollection([
+            new Settings\Column\BeforeAfter(
+                $this->column, StringComparisonSpecification::equal('aperture'), '/f'
+            ),
+            new Settings\Column\BeforeAfter(
+                $this->column, StringComparisonSpecification::equal('focal_length'), '', 'mm'
+            ),
+            new Settings\Column\BeforeAfter(
+                $this->column, StringComparisonSpecification::equal('iso'), 'ISO'
+            ),
+            new Settings\Column\BeforeAfter(
+                $this->column, StringComparisonSpecification::equal('shutter_speed'), '', 's'
+            ),
+            new Settings\Column\BeforeAfter(
+                $this->column,
+                new NotSpecification(
+                    new OrSpecification([
+                        StringComparisonSpecification::equal('aperture'),
+                        StringComparisonSpecification::equal('focal_length'),
+                        StringComparisonSpecification::equal('iso'),
+                        StringComparisonSpecification::equal('shutter_speed'),
+                    ])
+                )
+            ),
+        ]);
+    }
 
-	public function get_dependent_settings() {
+    private function get_exif_types(): array
+    {
+        $exif_types = [
+            'aperture'          => __('Aperture', 'codepress-admin-columns'),
+            'credit'            => __('Credit', 'codepress-admin-columns'),
+            'camera'            => __('Camera', 'codepress-admin-columns'),
+            'caption'           => __('Caption', 'codepress-admin-columns'),
+            'created_timestamp' => __('Timestamp', 'codepress-admin-columns'),
+            'copyright'         => __('Copyright', 'codepress-admin-columns'),
+            'focal_length'      => __('Focal Length', 'codepress-admin-columns'),
+            'iso'               => __('ISO', 'codepress-admin-columns'),
+            'shutter_speed'     => __('Shutter Speed', 'codepress-admin-columns'),
+            'title'             => __('Title', 'codepress-admin-columns'),
+            'orientation'       => __('Orientation', 'codepress-admin-columns'),
+            'keywords'          => __('Keywords', 'codepress-admin-columns'),
+        ];
 
-		switch ( $this->get_exif_datatype() ) {
-			case 'aperture' :
-				$settings = [ new Settings\Column\BeforeAfter\Aperture( $this->column ) ];
+        natcasesort($exif_types);
 
-				break;
-			case 'focal_length' :
-				$settings = [ new Settings\Column\BeforeAfter\FocalLength( $this->column ) ];
+        return $exif_types;
+    }
 
-				break;
-			case 'iso' :
-				$settings = [ new Settings\Column\BeforeAfter\ISO( $this->column ) ];
+    public function format(Value $value, ArrayImmutable $options): Value
+    {
+        $exif_datatype = $options->get(self::NAME) ?? '';
+        $raw_data = (array)$value->get_value();
 
-				break;
-			case 'shutter_speed' :
-				$settings = [ new Settings\Column\BeforeAfter\ShutterSpeed( $this->column ) ];
+        $exif_value = $raw_data[$exif_datatype] ?? '';
 
-				break;
-			default :
-				$settings = [ new Settings\Column\BeforeAfter( $this->column ) ];
-		}
+        if (false !== $exif_value) {
+            switch ($exif_value) {
+                case 'created_timestamp' :
+                    $exif_value = ac_format_date(
+                        get_option('date_format') . ' ' . get_option('time_format'),
+                        $exif_value
+                    );
+                case 'keywords' :
+                    $exif_value = $value->with_value(ac_helper()->array->implode_recursive(', ', $exif_value));
+            }
+        }
 
-		return $settings;
-	}
-
-	/**
-	 * Get EXIF data
-	 * Get extended image metadata
-	 * @return array EXIF data types
-	 * @since 2.0
-	 */
-	private function get_exif_types() {
-		$exif_types = [
-			'aperture'          => __( 'Aperture', 'codepress-admin-columns' ),
-			'credit'            => __( 'Credit', 'codepress-admin-columns' ),
-			'camera'            => __( 'Camera', 'codepress-admin-columns' ),
-			'caption'           => __( 'Caption', 'codepress-admin-columns' ),
-			'created_timestamp' => __( 'Timestamp', 'codepress-admin-columns' ),
-			'copyright'         => __( 'Copyright', 'codepress-admin-columns' ),
-			'focal_length'      => __( 'Focal Length', 'codepress-admin-columns' ),
-			'iso'               => __( 'ISO', 'codepress-admin-columns' ),
-			'shutter_speed'     => __( 'Shutter Speed', 'codepress-admin-columns' ),
-			'title'             => __( 'Title', 'codepress-admin-columns' ),
-			'orientation'       => __( 'Orientation', 'codepress-admin-columns' ),
-			'keywords'          => __( 'Keywords', 'codepress-admin-columns' ),
-		];
-
-		natcasesort( $exif_types );
-
-		return $exif_types;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_exif_datatype() {
-		return $this->exif_datatype;
-	}
-
-	/**
-	 * @param string $exif_datatype
-	 *
-	 * @return bool
-	 */
-	public function set_exif_datatype( $exif_datatype ) {
-		$this->exif_datatype = $exif_datatype;
-
-		return true;
-	}
-
-	public function format( $value, $original_value ) {
-		$exif_datatype = $this->get_exif_datatype();
-		$value = isset( $value[ $exif_datatype ] ) ? $value[ $exif_datatype ] : '';
-
-		if ( false != $value ) {
-			switch ( $exif_datatype ) {
-				case 'created_timestamp' :
-					$value = ac_format_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $value );
-
-					break;
-				case 'keywords' :
-					$value = ac_helper()->array->implode_recursive( ', ', $value );
-
-					break;
-			}
-		}
-
-		return $value;
-	}
+        return $this->format_recursive($value->with_value($exif_value), $options);
+    }
 
 }

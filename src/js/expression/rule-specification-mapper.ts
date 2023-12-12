@@ -6,6 +6,7 @@ import Specification = AC.Specification.Specification;
 import Rule = AC.Specification.Rule;
 import AggregateRule = AC.Specification.AggregateRule;
 import ComparisonRule = AC.Specification.ComparisonRule;
+import NotRule = AC.Specification.NotRule;
 
 
 export default class RuleSpecificationMapper {
@@ -16,7 +17,7 @@ export default class RuleSpecificationMapper {
             case 'and':
                 return this.createAggregate(rule as AggregateRule);
             case 'not':
-                return new NotSpecification(this.map(rule));
+                return new NotSpecification(this.map((rule as unknown as NotRule ).rule));
             case 'string_comparison':
             case 'comparison':
                 return this.createComparison(rule as ComparisonRule)
@@ -38,6 +39,7 @@ export default class RuleSpecificationMapper {
             case 'or':
                 return new OrSpecification(specifications);
             case 'and':
+                console.log('ANDDDD', specifications)
                 return new AndSpecification(specifications);
         }
 

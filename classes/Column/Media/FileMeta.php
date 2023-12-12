@@ -25,16 +25,9 @@ abstract class FileMeta extends Column\Meta
             : null;
     }
 
-    /**
-     * @return array
-     */
-    public function get_sub_keys()
+    public function get_sub_keys(): array
     {
-        $media_settings = $this->get_media_setting();
-
-        return $media_settings
-            ? $media_settings->get_media_meta_keys()
-            : [];
+        return array_filter(array_map('trim', explode('.', $this->get_option('media_meta_key'))));
     }
 
     protected function get_metadata_value(array $data, array $keys)

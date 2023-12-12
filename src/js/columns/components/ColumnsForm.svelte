@@ -12,6 +12,7 @@
     import {listScreenDataStore} from "../store/list-screen-data";
     import {tick} from "svelte";
     import ColumnTypeDropdown from "./ColumnTypeDropdown.svelte";
+    import {currentListKey} from "../store/current-list-screen";
 
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
@@ -26,7 +27,7 @@
     const addColumn = (column_type: string) => {
         const name = ColumnUtils.generateId();
 
-        getColumnSettings('post', column_type).then(d => {
+        getColumnSettings($currentListKey, column_type).then(d => {
             const columnLabel = ColumnTypesUtils.getColumnType(column_type)?.label;
             config[name] = d.data.data.columns.settings;
 

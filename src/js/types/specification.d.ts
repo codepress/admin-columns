@@ -18,6 +18,11 @@ declare namespace AC.Specification {
         operator: string
     }
 
+    interface NotRule {
+        type: 'not',
+        rule: Rule|AggregateRule
+    }
+
     interface AggregateRule extends Rule {
         rules: Array<Rule>;
     }

@@ -13,7 +13,7 @@ use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use ACP\Expression\Specification;
 
-class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive
+class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     private $default_before;
