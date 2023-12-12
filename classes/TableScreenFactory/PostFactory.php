@@ -44,6 +44,7 @@ class PostFactory implements TableScreenFactory
     public function create(ListKey $key): TableScreen
     {
         if ( ! $this->can_create($key)) {
+            // TODO 
             throw InvalidListScreenException::from_invalid_key($key);
         }
 
@@ -122,7 +123,7 @@ class PostFactory implements TableScreenFactory
         if ('post' === $post_type->name) {
             $columns[] = Column\Post\Sticky::class;
         }
-        
+
         return $columns;
     }
 
