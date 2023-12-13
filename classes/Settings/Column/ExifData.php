@@ -108,6 +108,8 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
                         get_option('date_format') . ' ' . get_option('time_format'),
                         $exif_value
                     );
+                    break;
+                    
                 case 'keywords' :
                     $exif_value = $value->with_value(ac_helper()->array->implode_recursive(', ', $exif_value));
             }
