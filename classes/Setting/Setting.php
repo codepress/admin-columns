@@ -6,6 +6,7 @@ namespace AC\Setting;
 
 use ACP\Expression\Specification;
 
+// TODO David sometimes you want to configure a behaviour, the setting should expose this. e.g. update label
 interface Setting
 {
 

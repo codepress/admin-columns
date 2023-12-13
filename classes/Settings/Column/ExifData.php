@@ -42,6 +42,7 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
         return false;
     }
 
+    // TODO David OR is redundant for above settings. Make conditions work DRY
     public function get_children(): SettingCollection
     {
         // TODO Stefan, default does not work once it is set. Discard subsettings or make it work?
