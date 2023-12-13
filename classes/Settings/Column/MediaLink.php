@@ -3,19 +3,19 @@
 namespace AC\Settings\Column;
 
 use AC\Column;
+use AC\Setting\ArrayImmutable;
+use AC\Setting\Formatter;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingTrait;
+use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
 
-class MediaLink extends Settings\Column
+class MediaLink extends Settings\Column implements Formatter
 {
 
     use SettingTrait;
-
-    //    implements Settings\FormatValue
-    //{
 
     public function __construct(Column $column, Specification $specification)
     {
@@ -31,18 +31,28 @@ class MediaLink extends Settings\Column
 
         parent::__construct($column, $specification);
     }
+
+    public function format(Value $value, ArrayImmutable $options): Value
+    {
+        switch ($options->get('media_link_to')) {
+            case 'view' :
+            case 'download' :
+                $link = wp_get_attachment_url($value->get_id());
+
+                if ($link) {
+                    $attributes = [];
+                    $attributes['download'] = '';
+
+                    return $value->with_value(ac_helper()->html->link($link, $value->get_value(), $attributes));
+                }
+
+                return $value;
+            default :
+                return $value;
+        }
+    }
     //
-    //    /**
-    //     * @var string
-    //     */
-    //    protected $media_link_to;
-    //
-    //    protected function define_options()
-    //    {
-    //        return [
-    //            'media_link_to' => '',
-    //        ];
-    //    }
+
     //
     //    public function format($value, $original_value)
     //    {

@@ -6428,10 +6428,10 @@ function create_default_slot(ctx) {
   let current;
   actoggle = new ACUi_element_AcToggle_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
     props: {
-      checked: /*checked*/ctx[0]
+      checked: /*checked*/ctx[1]
     }
   });
-  actoggle.$on("input", /*check*/ctx[2]);
+  actoggle.$on("input", /*check*/ctx[3]);
   return {
     c() {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(actoggle.$$.fragment);
@@ -6442,7 +6442,7 @@ function create_default_slot(ctx) {
     },
     p(ctx, dirty) {
       const actoggle_changes = {};
-      if (dirty & /*checked*/1) actoggle_changes.checked = /*checked*/ctx[0];
+      if (dirty & /*checked*/2) actoggle_changes.checked = /*checked*/ctx[1];
       actoggle.$set(actoggle_changes);
     },
     i(local) {
@@ -6464,8 +6464,9 @@ function create_fragment(ctx) {
   let current;
   columnsetting = new _ColumnSetting_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: {
-      label: /*label*/ctx[1],
+      label: /*label*/ctx[2],
       name: "toggle",
+      description: /*config*/ctx[0].description,
       $$slots: {
         default: [create_default_slot]
       },
@@ -6484,7 +6485,8 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const columnsetting_changes = {};
-      if (dirty & /*$$scope, checked*/65) {
+      if (dirty & /*config*/1) columnsetting_changes.description = /*config*/ctx[0].description;
+      if (dirty & /*$$scope, checked*/66) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
@@ -6517,30 +6519,30 @@ function instance($$self, $$props, $$invalidate) {
   let label = (_a = config.label) !== null && _a !== void 0 ? _a : '';
   let checked = false;
   const check = e => {
-    $$invalidate(3, value = e.detail ? config.input.options[0].value : config.input.options[1].value);
+    $$invalidate(4, value = e.detail ? config.input.options[0].value : config.input.options[1].value);
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.afterUpdate)(() => {
-    $$invalidate(0, checked = value === config.input.options[0].value);
+    $$invalidate(1, checked = value === config.input.options[0].value);
   });
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onMount)(() => {
     var _a;
     if (typeof value === 'undefined') {
-      $$invalidate(3, value = (_a = config.input.default) !== null && _a !== void 0 ? _a : config.input.options[1].value);
+      $$invalidate(4, value = (_a = config.input.default) !== null && _a !== void 0 ? _a : config.input.options[1].value);
     }
-    $$invalidate(0, checked = value === config.input.options[0].value);
+    $$invalidate(1, checked = value === config.input.options[0].value);
   });
   $$self.$$set = $$props => {
-    if ('value' in $$props) $$invalidate(3, value = $$props.value);
-    if ('config' in $$props) $$invalidate(4, config = $$props.config);
+    if ('value' in $$props) $$invalidate(4, value = $$props.value);
+    if ('config' in $$props) $$invalidate(0, config = $$props.config);
   };
-  return [checked, label, check, value, config];
+  return [config, checked, label, check, value];
 }
 class ToggleSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      value: 3,
-      config: 4
+      value: 4,
+      config: 0
     });
   }
 }
@@ -15529,6 +15531,31 @@ class NotSpecification extends _base_specification__WEBPACK_IMPORTED_MODULE_0__[
 
 /***/ }),
 
+/***/ "./js/expression/null-specification.ts":
+/*!*********************************************!*\
+  !*** ./js/expression/null-specification.ts ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ NullSpecification)
+/* harmony export */ });
+/* harmony import */ var _base_specification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base-specification */ "./js/expression/base-specification.ts");
+
+class NullSpecification extends _base_specification__WEBPACK_IMPORTED_MODULE_0__["default"] {
+    constructor() {
+        super();
+    }
+    isSatisfiedBy(value) {
+        return true;
+    }
+}
+
+
+/***/ }),
+
 /***/ "./js/expression/or-specification.ts":
 /*!*******************************************!*\
   !*** ./js/expression/or-specification.ts ***!
@@ -15582,6 +15609,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _and_specification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./and-specification */ "./js/expression/and-specification.ts");
 /* harmony import */ var _not_specification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./not-specification */ "./js/expression/not-specification.ts");
 /* harmony import */ var _comparison_specification__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./comparison-specification */ "./js/expression/comparison-specification.ts");
+/* harmony import */ var _null_specification__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./null-specification */ "./js/expression/null-specification.ts");
+
 
 
 
@@ -15589,6 +15618,8 @@ __webpack_require__.r(__webpack_exports__);
 class RuleSpecificationMapper {
     static map(rule) {
         switch (rule.type) {
+            case 'null':
+                return new _null_specification__WEBPACK_IMPORTED_MODULE_4__["default"]();
             case 'or':
             case 'and':
                 return this.createAggregate(rule);

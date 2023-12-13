@@ -118,31 +118,26 @@ class CustomFieldType extends Recursive
     {
         switch ((string)$options->get($this->name)) {
             case self::TYPE_COLOR:
-                return (new AC\Setting\Formatter\Color())->format($value, $options);
+                $value = (new AC\Setting\Formatter\Color())->format($value, $options);
+
+                break;
             case self::TYPE_DATE:
                 $timestamp = ac_helper()->date->strtotime($value->get_value());
 
                 if ($timestamp) {
-                    return $value->with_value(date('c', $timestamp));
+                    $value = $value->with_value(date('c', $timestamp));
                 }
 
-                return $value;
+                break;
+            case self::TYPE_IMAGE :
+                // TODO David, in the old formatter, we could return a valueCollection here and it would format each option, can we deal with that? Old example code below
+                //                return new Collection($this->get_values_from_array_or_string($value));
+                $value = new Value((int)$value->get_value(), $value->get_value());
         }
 
-        return parent::format( $value, $options );
+        return parent::format($value, $options);
     }
 
-    //
-    //    /**
-    //     * @var string
-    //     */
-    //    private $field_type;
-    //
-    //    protected function define_options()
-    //    {
-    //        return [self::NAME];
-    //    }
-    //
     //    public function get_dependent_settings()
     //    {
     //        $settings = [];
@@ -417,24 +412,5 @@ class CustomFieldType extends Recursive
     //        }
     //    }
     //
-    //    /**
-    //     * @return string
-    //     */
-    //    public function get_field_type()
-    //    {
-    //        return $this->field_type;
-    //    }
-    //
-    //    /**
-    //     * @param string $field_type
-    //     *
-    //     * @return bool
-    //     */
-    //    public function set_field_type($field_type)
-    //    {
-    //        $this->field_type = $field_type;
-    //
-    //        return true;
-    //    }
 
 }

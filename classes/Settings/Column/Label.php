@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
@@ -15,43 +17,8 @@ class Label extends Single
         $this->description = __('This is the name which will appear as the column header.', 'codepress-admin-columns');
     }
 
-    //    /**
-    //     * @var string
-    //     */
-    //    private $label;
-    //
-    //    protected function define_options()
-    //    {
-    //        return [
-    //            'label'      => $this->column->get_label(),
-    //            'label_type' => 'text',
-    //        ];
-    //    }
-    //
-    //    public function create_view()
-    //    {
-    //        $setting = $this
-    //            ->create_element('text')
-    //            ->set_attribute('placeholder', $this->column->get_label());
-    //
-    //        $view = new View([
-    //            'label'   => __('Label', 'codepress-admin-columns'),
-    //            'tooltip' => __('This is the name which will appear as the column header.', 'codepress-admin-columns'),
-    //            'setting' => $setting,
-    //        ]);
-    //
-    //        $view->set_template('settings/setting-label');
-    //
-    //        return $view;
-    //    }
-    //
-    //    /**
-    //     * @return string
-    //     */
-    //    public function get_label()
-    //    {
-    //        return (new LabelEncoder())->decode($this->label);
-    //    }
+    // TODO where to do the KSEs for label?
+
     //
     //    /**
     //     * @param string $label
@@ -63,15 +30,5 @@ class Label extends Single
     //        $this->label = (string)apply_filters('ac/column/label', $sanitize->sanitize((string)$label), $label);
     //    }
     //
-    //    public function get_config(): ?array
-    //    {
-    //        return [
-    //            'type'        => 'text',
-    //            'key'         => $this->get_name(),
-    //            'label'       => __('Label', 'codepress-admin-columns'),
-    //            'placeholder' => $this->column->get_label(),
-    //            'default'     => $this->get_default(),
-    //        ];
-    //    }
 
 }

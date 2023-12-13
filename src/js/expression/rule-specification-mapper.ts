@@ -7,12 +7,15 @@ import Rule = AC.Specification.Rule;
 import AggregateRule = AC.Specification.AggregateRule;
 import ComparisonRule = AC.Specification.ComparisonRule;
 import NotRule = AC.Specification.NotRule;
+import NullSpecification from "./null-specification";
 
 
 export default class RuleSpecificationMapper {
 
     static map(rule: Rule): Specification {
         switch (rule.type) {
+            case 'null':
+                return new NullSpecification();
             case 'or':
             case 'and':
                 return this.createAggregate(rule as AggregateRule);

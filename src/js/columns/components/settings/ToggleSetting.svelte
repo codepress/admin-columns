@@ -27,6 +27,6 @@
 
 </script>
 
-<ColumnSetting {label} name="toggle">
+<ColumnSetting {label} name="toggle" description={config.description}>
 	<AcToggle checked={checked} on:input={check}></AcToggle>
 </ColumnSetting>

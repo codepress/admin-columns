@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Column\LabelEncoder;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
@@ -302,16 +303,9 @@ class Column
     public function get_custom_label()
     {
         $label = $this->get_option('label') ?: $this->get_type();
+        $label = (new LabelEncoder())->decode($label);
 
         return (string)apply_filters('ac/headings/label', $label, $this);
-        // TODO David check
-        /**
-         * @param string $label
-         * @param Column $column
-         *
-         * @since 3.0
-         */
-        //return (string)apply_filters('ac/headings/label', $this->get_setting('label')->get_value(), $this);
     }
 
     /**

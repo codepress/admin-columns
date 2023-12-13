@@ -3,13 +3,16 @@
 namespace AC\Settings\Column;
 
 use AC\Column;
+use AC\Setting\ArrayImmutable;
+use AC\Setting\Formatter;
 use AC\Setting\Input;
 use AC\Setting\SettingTrait;
+use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
 
 // TODO formatter
-class LinkLabel extends Settings\Column
+class LinkLabel extends Settings\Column implements Formatter
 {
 
     use SettingTrait;
@@ -24,49 +27,21 @@ class LinkLabel extends Settings\Column
         parent::__construct($column, $specification);
     }
 
-    //	/**
-    //	 * @var string
-    //	 */
-    //	private $link_label;
-    //
-    //	protected function define_options() {
-    //		return [ 'link_label' ];
-    //	}
-    //
-    //	public function create_view() {
-    //		$view = new View( [
-    //			'setting' => $this->create_element( 'text' ),
-    //			'label'   => __( 'Link Label', 'codepress-admin-columns' ),
-    //			'tooltip' => __( 'Leave blank to display the URL', 'codepress-admin-columns' ),
-    //		] );
-    //
-    //		return $view;
-    //	}
-    //
-    //	public function get_link_label() {
-    //		return $this->link_label;
-    //	}
-    //
-    //	public function set_link_label( $link_label ) {
-    //		$this->link_label = $link_label;
-    //
-    //		return true;
-    //	}
-    //
-    //	public function format( $value, $original_value ) {
-    //		$url = $value;
-    //
-    //		if ( filter_var( $url, FILTER_VALIDATE_URL ) && preg_match( '/[^\w.-]/', $url ) ) {
-    //			$label = $this->get_value();
-    //
-    //			if ( ! $label ) {
-    //				$label = $url;
-    //			}
-    //
-    //			$value = ac_helper()->html->link( $url, $label );
-    //		}
-    //
-    //		return $value;
-    //	}
+    public function format(Value $value, ArrayImmutable $options): Value
+    {
+        $url = $value->get_value();
+
+        if (filter_var($url, FILTER_VALIDATE_URL) && preg_match('/[^\w.-]/', $url)) {
+            $label = $options->get('link_label');
+
+            if ( ! $label) {
+                $label = $url;
+            }
+
+            return $value->with_value(ac_helper()->html->link($url, $label));
+        }
+
+        return $value;
+    }
 
 }

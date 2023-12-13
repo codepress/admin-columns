@@ -1,76 +1,62 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
+use AC;
+use AC\Setting\ArrayImmutable;
+use AC\Setting\Formatter;
+use AC\Setting\Type\Value;
 use AC\Settings;
+use ACP\Expression\Specification;
+use WP_Term;
 
-class LinkToMenu extends Settings\Column\Toggle
-	implements Settings\FormatValue {
+class LinkToMenu extends Settings\Column\Toggle implements Formatter
+{
 
-	/**
-	 * @var string
-	 */
-	private $link_to_menu;
+    public function __construct(AC\Column $column, Specification $conditions = null)
+    {
+        parent::__construct(
+            $column,
+            $conditions
+        );
 
-	protected function define_options() {
-		return [
-			'link_to_menu' => 'on',
-		];
-	}
+        $this->name = 'link_to_menu';
+        $this->label = __('Link to menu', 'codepress-admin-columns');
+        $this->description = __('This will make the title link to the menu.', 'codepress-admin-columns');
+        $this->input = AC\Setting\Input\Option\Single::create_toggle(null, 'on');
+    }
 
-	public function create_view() {
-		$view = parent::create_view();
+    public function format(Value $value, ArrayImmutable $options): Value
+    {
+        $menu_ids = $value->get_value();
 
-		$view->set_data( [
-			'label'   => __( 'Link to menu', 'codepress-admin-columns' ),
-			'tooltip' => __( 'This will make the title link to the menu.', 'codepress-admin-columns' ),
-		] );
+        if ( ! $menu_ids) {
+            return $value->with_value(false);
+        }
 
-		return $view;
-	}
+        $values = [];
 
-	/**
-	 * @return string
-	 */
-	public function get_link_to_menu() {
-		return $this->link_to_menu;
-	}
+        foreach ($menu_ids as $menu_id) {
+            $term = get_term_by('id', $menu_id, 'nav_menu');
 
-	/**
-	 * @param string $link_to_menu
-	 *
-	 * @return bool
-	 */
-	public function set_link_to_menu( $link_to_menu ) {
-		$this->link_to_menu = $link_to_menu;
+            if ( ! $term instanceof WP_Term) {
+                continue;
+            }
 
-		return true;
-	}
+            $label = $term->name;
 
-	/**
-	 * @param int[] $menu_ids
-	 * @param mixed $original_value
-	 *
-	 * @return false|string
-	 */
-	public function format( $menu_ids, $original_value ) {
-		if ( ! $menu_ids ) {
-			return $this->column->get_empty_char();
-		}
+            if ('on' === $options->get('link_to_menu')) {
+                $label = ac_helper()->html->link(
+                    add_query_arg(['menu' => $menu_id], admin_url('nav-menus.php')),
+                    $label
+                );
+            }
+        }
 
-		$values = [];
+        $values[] = $label;
 
-		foreach ( $menu_ids as $menu_id ) {
-			$term = get_term_by( 'id', $menu_id, 'nav_menu' );
-
-			if ( 'on' === $this->get_link_to_menu() ) {
-				$term->name = ac_helper()->html->link( add_query_arg( [ 'menu' => $menu_id ], admin_url( 'nav-menus.php' ) ), $term->name );
-			}
-
-			$values[] = $term->name;
-		}
-
-		return wp_sprintf( '%l', $values );
-	}
-
+        return $value->with_value(wp_sprintf('%l', $values));
+    }
 }
