@@ -22,7 +22,7 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
 
     public function __construct(
         Column $column,
-        Specification $specification = null,
+        Specification $conditions = null,
         string $default_before = null,
         string $default_after = null
     ) {
@@ -31,7 +31,7 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
         $this->default_before = $default_before;
         $this->default_after = $default_after;
 
-        parent::__construct($column, $specification);
+        parent::__construct($column, $conditions);
     }
 
     public function is_parent(): bool

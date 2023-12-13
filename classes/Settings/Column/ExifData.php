@@ -10,7 +10,7 @@ use AC\Settings;
 use ACP\Expression\NotSpecification;
 use ACP\Expression\OrSpecification;
 use ACP\Expression\Specification;
-use ACP\Expression\StringComparisonSpecification;
+use ACP\Expression\StringComparisonSpecification as Compare;
 
 class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
@@ -42,35 +42,43 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
         return false;
     }
 
-    // TODO David OR is redundant for above settings. Make conditions work DRY
     public function get_children(): SettingCollection
     {
-        // TODO Stefan, default does not work once it is set. Discard subsettings or make it work?
-        return new SettingCollection([
-            new Settings\Column\BeforeAfter(
-                $this->column, StringComparisonSpecification::equal('aperture'), '/f'
-            ),
-            new Settings\Column\BeforeAfter(
-                $this->column, StringComparisonSpecification::equal('focal_length'), '', 'mm'
-            ),
-            new Settings\Column\BeforeAfter(
-                $this->column, StringComparisonSpecification::equal('iso'), 'ISO'
-            ),
-            new Settings\Column\BeforeAfter(
-                $this->column, StringComparisonSpecification::equal('shutter_speed'), '', 's'
-            ),
+        $settings = new SettingCollection();
+
+        $before_after = [
+            'aperture'      => ['/f', ''],
+            'focal_length'  => ['', 'mm'],
+            'iso'           => ['ISO', ''],
+            'shutter_speed' => ['', 's'],
+        ];
+
+        $not = [];
+
+        foreach ($before_after as $key => $defaults) {
+            $conditions = Compare::equal($key);
+
+            $settings->add(
+                new Settings\Column\BeforeAfter(
+                    $this->column,
+                    $conditions,
+                    ...$defaults
+                )
+            );
+
+            $not[] = $conditions;
+        }
+
+        $settings->add(
             new Settings\Column\BeforeAfter(
                 $this->column,
                 new NotSpecification(
-                    new OrSpecification([
-                        StringComparisonSpecification::equal('aperture'),
-                        StringComparisonSpecification::equal('focal_length'),
-                        StringComparisonSpecification::equal('iso'),
-                        StringComparisonSpecification::equal('shutter_speed'),
-                    ])
+                    new OrSpecification($not)
                 )
-            ),
-        ]);
+            )
+        );
+
+        return $settings;
     }
 
     private function get_exif_types(): array
@@ -110,7 +118,7 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
                         $exif_value
                     );
                     break;
-                    
+
                 case 'keywords' :
                     $exif_value = $value->with_value(ac_helper()->array->implode_recursive(', ', $exif_value));
             }
