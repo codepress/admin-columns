@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
@@ -43,33 +45,9 @@ class AttachmentDisplay extends Settings\Column\Recursive
 
     public function format(Value $value, ArrayImmutable $options): Value
     {
-        switch ($options->get($this->name)) {
-            case 'count':
-                $value = $value->with_value(count($value->get_value()));
-        }
-
-        return parent::format($value, $options);
+        return 'count' === $options->get($this->name)
+            ? $value->with_value(count($value->get_value()))
+            : parent::format($value, $options);
     }
-
-    //	private $attachment_display;
-    //
-    //	protected function define_options() {
-    //		return [
-    //			'attachment_display' => 'thumbnail',
-    //		];
-    //	}
-    //
-    //	public function get_dependent_settings() {
-    //		$settings = [];
-    //
-    //		switch ( $this->get_attachment_display() ) {
-    //			case 'thumbnail' :
-    //				$settings[] = new Settings\Column\Images( $this->column );
-    //
-    //				break;
-    //		}
-    //
-    //		return $settings;
-    //	}
 
 }

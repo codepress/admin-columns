@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC\Column;
+use AC\Setting\ArrayImmutable;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
+use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression;
 
-/**
- * @since 3.0.8
- */
 class Comment extends Recursive
 {
 
@@ -41,17 +42,14 @@ class Comment extends Recursive
         parent::__construct($column, $specification);
     }
 
+    public function is_parent(): bool
+    {
+        return false;
+    }
+
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new Settings\Column\CommentLink(
-                $this->column,
-                new Expression\AndSpecification([
-                    Expression\StringComparisonSpecification::equal(self::PROPERTY_ID),
-                    Expression\StringComparisonSpecification::equal(self::PROPERTY_DATE),
-                ])
-
-            ),
             new Settings\Column\Date(
                 $this->column,
                 Expression\StringComparisonSpecification::equal(self::PROPERTY_DATE)
@@ -60,25 +58,49 @@ class Comment extends Recursive
                 $this->column,
                 Expression\StringComparisonSpecification::equal(self::PROPERTY_COMMENT)
             ),
+            new Settings\Column\CommentLink(
+                $this->column
+            ),
         ]);
     }
 
+    public function format(Value $value, ArrayImmutable $options): Value
+    {
+        switch ($options->get(self::NAME)) {
+            case self::PROPERTY_DATE :
+                return parent::format(
+                    $value->with_value($this->get_comment_property('comment_date', $value->get_id()) ?: false),
+                    $options
+                );
+
+            case self::PROPERTY_AUTHOR :
+                return parent::format(
+                    $value->with_value($this->get_comment_property('comment_author', $value->get_id()) ?: false),
+                    $options
+                );
+
+            case self::PROPERTY_AUTHOR_EMAIL :
+                return parent::format(
+                    $value->with_value(
+                        $this->get_comment_property('comment_author_email', $value->get_id()) ?: false
+                    ),
+                    $options
+                );
+
+            case self::PROPERTY_COMMENT :
+                return parent::format(
+                    $value->with_value($this->get_comment_property('comment_content', $value->get_id()) ?: false),
+                    $options
+                );
+
+            case self::PROPERTY_ID :
+                return parent::format($value->with_value($value->get_id()), $options);
+            default :
+                return parent::format($value, $options);
+        }
+    }
 
 
-    //	/**
-    //	 * @var string
-    //	 */
-    //	private $comment_property;
-    //
-    //	protected function set_name() {
-    //		$this->name = self::NAME;
-    //	}
-    //
-    //	protected function define_options() {
-    //		return [
-    //			'comment_property_display' => 'comment',
-    //		];
-    //	}
     //
     //	public function get_dependent_settings() {
     //
@@ -134,21 +156,14 @@ class Comment extends Recursive
     //		return $value;
     //	}
     //
-    //	/**
-    //	 * @param string $property
-    //	 * @param int    $id
-    //	 *
-    //	 * @return false|string
-    //	 */
-    //	private function get_comment_property( $property, $id ) {
-    //		$comment = get_comment( $id );
-    //
-    //		if ( ! isset( $comment->{$property} ) ) {
-    //			return false;
-    //		}
-    //
-    //		return $comment->{$property};
-    //	}
+    private function get_comment_property(string $property, int $id): ?string
+    {
+        $comment = get_comment($id);
+
+        return isset($comment->{$property})
+            ? (string)$comment->{$property}
+            : null;
+    }
     //
     //	public function create_view() {
     //		$select = $this->create_element( 'select' )
@@ -177,22 +192,5 @@ class Comment extends Recursive
     //		return $options;
     //	}
     //
-    //	/**
-    //	 * @return string
-    //	 */
-    //	public function get_comment_property_display() {
-    //		return $this->comment_property;
-    //	}
-    //
-    //	/**
-    //	 * @param string $comment_property
-    //	 *
-    //	 * @return bool
-    //	 */
-    //	public function set_comment_property_display( $comment_property ) {
-    //		$this->comment_property = $comment_property;
-    //
-    //		return true;
-    //	}
 
 }

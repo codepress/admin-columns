@@ -486,14 +486,6 @@ class Column
         //
         //        $setting = new User( $this, StringComparisonSpecification::equal('') );
         //
-        //        $formatter = $setting->get_formatter(User::PROPERTY_META);
-        //
-        //        $options['field'] = '_color';
-        //
-        //        $setting->get_name() <- 'field';
-        //
-        //
-        //        $value = ('fff', user_id);
         //
         //        $value = $formatter->format( $value );
     }

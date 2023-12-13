@@ -12,6 +12,8 @@ class ColumnGroups
         $groups->add('default', __('Default', 'codepress-admin-columns'));
         $groups->add('plugin', __('Plugins'), 20);
         $groups->add('custom_field', __('Custom Fields', 'codepress-admin-columns'), 30);
+        $groups->add('media', __('Media', 'codepress-admin-columns'), 32);
+        $groups->add('media-meta', __('Meta', 'codepress-admin-columns'), 32);
         $groups->add('media-meta', __('Meta', 'codepress-admin-columns'), 32);
         $groups->add('media-image', __('Image', 'codepress-admin-columns'), 33);
         $groups->add('media-video', __('Video', 'codepress-admin-columns'), 34);

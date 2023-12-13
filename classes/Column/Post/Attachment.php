@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Column\Post;
 
 use AC\Column;
-use AC\Setting\ValueCollection;
 use AC\Settings\Column\AttachmentDisplay;
 
 class Attachment extends Column
@@ -18,8 +19,6 @@ class Attachment extends Column
     public function get_raw_value($post_id)
     {
         return $this->get_attachment_ids((int)$post_id);
-
-        return ValueCollection::from_ids($this->get_attachment_ids((int)$post_id));
     }
 
     public function get_attachment_ids(int $post_id): array
@@ -42,7 +41,6 @@ class Attachment extends Column
     public function register_settings()
     {
         $this->add_setting(new AttachmentDisplay($this));
-        //$this->add_setting(new Settings\Column\AttachmentDisplay($this));
     }
 
 }

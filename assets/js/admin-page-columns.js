@@ -1257,7 +1257,7 @@ function create_each_block(key_1, ctx) {
   function switch_instance_columnConfig_binding(value) {
     /*switch_instance_columnConfig_binding*/ctx[7](value);
   }
-  var switch_value = /*getComponent*/ctx[3]( /*setting*/ctx[11].input.type);
+  var switch_value = /*getComponent*/ctx[3]( /*setting*/ctx[11].input?.type ?? 'empty');
   function switch_props(ctx, dirty) {
     let switch_instance_props = {
       config: /*setting*/ctx[11]
@@ -1298,7 +1298,7 @@ function create_each_block(key_1, ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & /*filteredSettings*/4 && switch_value !== (switch_value = /*getComponent*/ctx[3]( /*setting*/ctx[11].input.type))) {
+      if (dirty & /*filteredSettings*/4 && switch_value !== (switch_value = /*getComponent*/ctx[3]( /*setting*/ctx[11].input?.type ?? 'empty'))) {
         if (switch_instance) {
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
           const old_component = switch_instance;

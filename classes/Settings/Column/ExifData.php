@@ -25,6 +25,7 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
     {
         $this->name = self::NAME;
         $this->label = $column->get_label();
+        // TODO Stefan: update label on update
         $this->input = AC\Setting\Input\Option\Single::create_select(
             AC\Setting\OptionCollection::from_array($this->get_exif_types()),
             'aperture'

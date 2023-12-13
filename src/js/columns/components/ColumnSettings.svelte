@@ -36,7 +36,7 @@
 {#each filteredSettings as setting (setting.name)}
 
 	<svelte:component
-			this={getComponent(setting.input.type)}
+			this={getComponent(setting.input?.type ?? 'empty')}
 			bind:data={data}
 			bind:value={data[setting.name]}
 			bind:columnConfig={settings}
