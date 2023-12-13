@@ -2,52 +2,30 @@
 
 namespace AC\Settings\Column;
 
+use AC;
 use AC\Settings;
-use AC\View;
+use ACP\Expression\Specification;
 
-class MissingImageSize extends Settings\Column {
+class MissingImageSize extends Settings\Column
+{
 
-	private $include_missing_sizes;
+    public function __construct(AC\Column $column, Specification $conditions = null)
+    {
+        $this->name = 'include_missing_sizes';
+        $this->label = __('Include missing sizes?', 'codepress-admin-columns');
+        $this->description = __('Include sizes that are missing an image file.', 'codepress-admin-columns');
+        $this->input = AC\Setting\Input\Option\Single::create_toggle(
+            AC\Setting\OptionCollection::from_array([
+                '1',
+                '',
+            ], false),
+            ''
+        );
 
-	protected function define_options() {
-		return [
-			'include_missing_sizes' => '',
-		];
-	}
-
-	public function create_view() {
-
-		$setting = $this->create_element( 'radio' )
-		                ->set_options( [
-			                '1' => __( 'Yes' ),
-			                ''  => __( 'No' ),
-		                ] );
-
-		$view = new View( [
-			'label'   => __( 'Include missing sizes?', 'codepress-admin-columns' ),
-			'tooltip' => __( 'Include sizes that are missing an image file.', 'codepress-admin-columns' ),
-			'setting' => $setting,
-		] );
-
-		return $view;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function get_include_missing_sizes() {
-		return $this->include_missing_sizes;
-	}
-
-	/**
-	 * @param int $include_missing_sizes
-	 *
-	 * @return bool
-	 */
-	public function set_include_missing_sizes( $include_missing_sizes ) {
-		$this->include_missing_sizes = $include_missing_sizes;
-
-		return true;
-	}
+        parent::__construct(
+            $column,
+            $conditions
+        );
+    }
 
 }
