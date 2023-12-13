@@ -17,6 +17,6 @@ interface Setting
 
     public function get_input(): ?Input;
 
-    public function get_conditions(): ?Specification;
+    public function get_conditions(): Specification;
 
 }

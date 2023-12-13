@@ -8,7 +8,6 @@ use AC\Setting\Input\Custom;
 use AC\Setting\Input\Number;
 use AC\Setting\Input\Open;
 use AC\Setting\Input\Option;
-use AC\Setting\Input\Single;
 
 final class Encoder
 {
@@ -37,6 +36,7 @@ final class Encoder
             'name'        => $setting->get_name(),
             'label'       => $setting->get_label(),
             'description' => $setting->get_description(),
+            'conditions'  => $setting->get_conditions()->get_rules($setting->get_name()),
         ];
 
         $input = $setting->get_input();
@@ -87,12 +87,6 @@ final class Encoder
             foreach ($setting->get_children() as $child) {
                 $encoded['children'][] = $this->encode_setting($child);
             }
-        }
-
-        $conditions = $setting->get_conditions();
-
-        if ($conditions) {
-            $encoded['conditions'] = $conditions->get_rules($setting->get_name());
         }
 
         return $encoded;

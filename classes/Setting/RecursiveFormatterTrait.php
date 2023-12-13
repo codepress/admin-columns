@@ -15,11 +15,10 @@ trait RecursiveFormatterTrait
     public function format(Value $value, ArrayImmutable $options): Value
     {
         $settings = new SettingCollection();
+        $option = $options->get($this->get_name()) ?: '';
 
         foreach ($this->get_children() as $setting) {
-            $conditions = $setting->get_conditions();
-
-            if ( ! $conditions || $conditions->is_satisfied_by($options->get($this->get_name()) ?: '')) {
+            if ($setting->get_conditions()->is_satisfied_by($option)) {
                 $settings->add($setting);
             }
         }

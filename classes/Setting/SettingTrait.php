@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use ACP\Expression\NullSpecification;
 use ACP\Expression\Specification;
 
 trait SettingTrait
@@ -45,9 +46,9 @@ trait SettingTrait
         return $this->input;
     }
 
-    public function get_conditions(): ?Specification
+    public function get_conditions(): Specification
     {
-        return $this->conditions;
+        return $this->conditions ?? new NullSpecification();
     }
 
 }
