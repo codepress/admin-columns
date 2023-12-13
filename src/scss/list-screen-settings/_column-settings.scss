@@ -1,7 +1,6 @@
 .acp-column-setting {
 	display: flex;
 
-
 	&__label {
 		-webkit-font-smoothing: antialiased;
 		width: 200px;
@@ -113,4 +112,8 @@
 			padding: 0;
 		}
 	}
+}
+
+.acp-column-setting[data-setting="hidden"] {
+	display: none;
 }

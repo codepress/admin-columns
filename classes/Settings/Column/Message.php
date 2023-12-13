@@ -2,42 +2,25 @@
 
 namespace AC\Settings\Column;
 
+use AC;
 use AC\Settings;
-use AC\View;
+use ACP\Expression\Specification;
 
-class Message extends Settings\Column {
+class Message extends Settings\Column
+{
 
-	private $label;
+    public function __construct(AC\Column $column, string $label, string $message, Specification $conditions = null)
+    {
+        $this->name = 'message';
+        $this->label = $label;
+        $this->input = new AC\Setting\Input\Custom('message', [
+            'message' => $message,
+        ]);
 
-	private $message;
-
-	protected function set_name() {
-		$this->name = 'message';
-	}
-
-	protected function define_options() {
-		return [];
-	}
-
-	public function set_label( $label ) {
-		$this->label = $label;
-
-		return $this;
-	}
-
-	public function set_message( $message ) {
-		$this->message = $message;
-
-		return $this;
-	}
-
-	public function create_view() {
-		$view = new View( [
-			'label'   => $this->label,
-			'setting' => $this->message,
-		] );
-
-		return $view;
-	}
+        parent::__construct(
+            $column,
+            $conditions
+        );
+    }
 
 }

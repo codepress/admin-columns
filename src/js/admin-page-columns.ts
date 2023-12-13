@@ -15,6 +15,8 @@ import {LocalizedAcColumnSettings} from "./types/admin-columns";
 import {registerSettingType} from "./columns/helper";
 import LabelSetting from "./columns/components/settings/LabelSetting.svelte";
 import EmptySetting from "./columns/components/settings/EmptySetting.svelte";
+import MessageSetting from "./columns/components/settings/MessageSetting.svelte";
+import HiddenSetting from "./columns/components/settings/HiddenSetting.svelte";
 import WidthSetting from "./columns/components/settings/WidthSetting.svelte";
 import TypeSetting from "./columns/components/settings/TypeSetting.svelte";
 import ToggleSetting from "./columns/components/settings/ToggleSetting.svelte";
@@ -83,10 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
     registerSettingType('type', TypeSetting)
     registerSettingType('toggle', ToggleSetting)
     registerSettingType('text', TextSetting)
+    registerSettingType('message', MessageSetting)
     registerSettingType('number', NumberSetting)
     registerSettingType('number_preview', NumberPreviewSetting)
     registerSettingType('select', SelectSetting)
     registerSettingType('date_format', DateFormatSetting)
+    registerSettingType('hidden', HiddenSetting)
 
 
     currentListKey.set(config.list_key);
@@ -121,18 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelector('#cpac')?.prepend(target);
-    //
-    // getListScreenSettings(getColumnSettingsConfig().list_screen_id).then((d) => {
-    //     x
-    //
-    //     new ColumnsForm({
-    //         target: target,
-    //         props: {
-    //             listScreenData: data
-    //         }
-    //     });
-    // })
-
 
     // END UI2.0
 

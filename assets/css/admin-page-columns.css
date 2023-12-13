@@ -743,6 +743,10 @@
   padding: 0;
 }
 
+.acp-column-setting[data-setting=hidden] {
+  display: none;
+}
+
 body {
   background-color: #F1F5F9;
 }
