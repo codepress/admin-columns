@@ -3,9 +3,11 @@
 namespace AC\Settings\Column;
 
 use AC\Column;
-use AC\Settings\FormatValue;
+use AC\Setting\ArrayImmutable;
+use AC\Setting\Formatter;
+use AC\Setting\Type\Value;
 
-class FileMetaAudio extends FileMeta implements FormatValue
+class FileMetaAudio extends FileMeta implements Formatter
 {
 
     public function __construct(Column $column)
@@ -33,7 +35,12 @@ class FileMetaAudio extends FileMeta implements FormatValue
         parent::__construct($column, $types, 'dataformat');
     }
 
-    public function format($value, $original_value)
+    public function format(Value $value, ArrayImmutable $options): Value
+    {
+        return $value;
+    }
+
+    public function format_($value, $original_value)
     {
         switch ($this->get_media_meta_key()) {
             case 'bitrate':

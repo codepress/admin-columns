@@ -1,28 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Column\Media;
 
 use AC\Column;
-use AC\Settings;
 
 abstract class FileMeta extends Column\Meta
 {
 
-    public function get_meta_key()
+    public function get_meta_key(): string
     {
         return '_wp_attachment_metadata';
-    }
-
-    /**
-     * @return Settings\Column\FileMeta
-     */
-    protected function get_media_setting()
-    {
-        $setting = $this->get_setting('media_meta');
-
-        return $setting instanceof Settings\Column\FileMeta
-            ? $setting
-            : null;
     }
 
     public function get_sub_keys(): array
@@ -32,10 +21,10 @@ abstract class FileMeta extends Column\Meta
 
     protected function get_metadata_value(array $data, array $keys)
     {
-        $data = ac_helper()->array->get_nested_value($data, $keys);
+        $value = ac_helper()->array->get_nested_value($data, $keys);
 
-        return is_scalar($data)
-            ? $data
+        return is_scalar($value)
+            ? $value
             : null;
     }
 
