@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
@@ -25,7 +27,6 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
     {
         $this->name = self::NAME;
         $this->label = $column->get_label();
-        // TODO Stefan: update label on update
         $this->input = AC\Setting\Input\Option\Single::create_select(
             AC\Setting\OptionCollection::from_array($this->get_exif_types()),
             'aperture'
@@ -106,9 +107,7 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
     public function format(Value $value, ArrayImmutable $options): Value
     {
         $exif_datatype = $options->get(self::NAME) ?? '';
-        $raw_data = (array)$value->get_value();
-
-        $exif_value = $raw_data[$exif_datatype] ?? '';
+        $exif_value = ((array)$value->get_value())[$exif_datatype] ?? '';
 
         if (false !== $exif_value) {
             switch ($exif_value) {
