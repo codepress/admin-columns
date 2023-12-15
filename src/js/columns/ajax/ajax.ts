@@ -1,5 +1,6 @@
 import axios, {AxiosPromise} from "axios";
 import {ListScreenData} from "../../types/requests";
+import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
 
 
 declare const ajaxurl: string;
@@ -12,6 +13,7 @@ export type listScreenSettingsResponse = {
         },
         table_url: string,
         settings: { [key:string]: AC.Vars.Settings.ColumnSetting[] }
+        column_types: ColumnConfig[]
     },
     success: true
 }

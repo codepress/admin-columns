@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\RequestHandler\Ajax;
 
+use AC;
 use AC\Capabilities;
 use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
@@ -87,7 +88,26 @@ class ListScreenSettings implements RequestAjaxHandler
 
         $response->set_parameter('list_screen_data', $encoder->encode());
         $response->set_parameter('settings', $settings);
+        $response->set_parameter('column_types', $this->get_column_types($list_screen));
+
         $response->success();
+    }
+
+    private function get_column_types(AC\ListScreen $list_screen): array
+    {
+        $column_types = [];
+
+        foreach ($list_screen->get_column_types() as $column) {
+            $column_types[] = [
+                'label'     => $column->get_label(),
+                'value'     => $column->get_type(),
+                'group'     => AC\ColumnGroups::get_groups()->get($column->get_group())['label'],
+                'group_key' => $column->get_group(),
+                'original'  => $column->is_original(),
+            ];
+        }
+
+        return $column_types;
     }
 
     private function method_get_settings(Request $request)

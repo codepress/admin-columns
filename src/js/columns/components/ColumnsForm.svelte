@@ -4,7 +4,6 @@
     import {openedColumnsStore} from "../store/opened-columns";
     import ColumnUtils from "../utils/column";
     import AcDropdown from "ACUi/acui-dropdown/AcDropdown.svelte";
-    import AcDropdownItem from "ACUi/acui-dropdown/AcDropdownItem.svelte";
     import {ColumnTypesUtils} from "../utils/column-types";
     import AcButton from "ACUi/element/AcButton.svelte";
     import ListKeys from "../utils/ListKeys";
@@ -16,7 +15,7 @@
 
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
-    export let tableUrl:string;
+    export let tableUrl: string;
 
     const columnTypes = ColumnTypesUtils.getColumnTypes();
 
@@ -66,11 +65,15 @@
 {#if data }
 	<div class="ac-columns">
 		<header class="ac-columns__header">
-			<div>
+			<div class="ac-columns__header__table">
 				<h1>{ListKeys.getLabelForKey( data.type )}</h1>
 			</div>
-			<input bind:value={data.title}/>
-			<a href={tableUrl} class="button button-primary">View</a>
+			<div class="ac-columns__header__title">
+				<input bind:value={data.title}/>
+			</div>
+			<div class="ac-columns__header__action">
+				<a href={tableUrl} class="button button-primary">View</a>
+			</div>
 		</header>
 		<div class="ac-columns__body">
 			{#each Object.values( data.columns ) as column_data}

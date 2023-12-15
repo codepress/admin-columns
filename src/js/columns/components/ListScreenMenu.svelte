@@ -15,7 +15,6 @@
 
     const handleMenuSelect = (key: string) => {
         dispatch('itemSelect', key)
-        selectValue = key;
     }
 
     const handleSelect = (e: CustomEvent<SvelteSelectItem>) => {
@@ -59,61 +58,51 @@
     const groupBy = (item: SvelteSelectItem) => item.group;
 
     onMount(() => {
-        Object.keys(menu).forEach(g => showGroup(g));
+
+        for (const [key, group] of Object.entries(menu)) {
+            if (group.options.hasOwnProperty($currentListKey)) {
+                showGroup(key);
+            }
+        }
         options = mapMenutoSelect(menu);
     })
 </script>
-<style>
-	.ac-menu-group {
-		margin-bottom: 30px;
-	}
+<nav class="ac-table-screen-nav">
+	<div class="ac-table-screen-nav__select">
+		<Select
+				bind:value={selectValue}
+				items={options}
+				{groupBy}
+				class="-acui"
+				placeholder="Select"
+				clearable={false}
+				showChevron
+				on:input={handleSelect }>
 
-	ul {
-		margin-left: 20px;
-	}
-
-	li a {
-		display: block;
-		padding: 5px 10px;
-		cursor: pointer;
-		text-decoration: none;
-	}
-
-	li.active a {
-		background: #E2E8F0;
-		color: #FE3D6C;
-	}
-</style>
-
-<Select
-		bind:value={selectValue}
-		items={options}
-		{groupBy}
-		class="-acui"
-		placeholder="Select"
-		clearable={false}
-		showChevron
-		on:input={handleSelect }>
-
-</Select>
-<br><br>
-{#each Object.entries( menu ) as [ key, group ]}
-	<div class="ac-menu-group">
-		<div role="none" on:click={() => toggleGroup( key )}>
-			<strong>
-				<GroupIcon icon={group.icon} defaultIcon="cpacicon-gf-article"></GroupIcon>
-				{group.title}
-			</strong>
-		</div>
-		{#if openedGroups.includes( key )}
-			<ul>
-				{#each Object.entries( group.options ) as [ key, label ]}
-					<li class:active={$currentListKey === key}>
-						<a href={'#'}
-								on:click|preventDefault={ () => handleMenuSelect( key ) }>{label}</a>
-					</li>
-				{/each}
-			</ul>
-		{/if}
+		</Select>
 	</div>
-{/each}
+	<div class="ac-table-screen-nav__list">
+		{#each Object.entries( menu ) as [ key, group ]}
+			<div class="ac-menu-group">
+				<button on:click={()=>toggleGroup(key)} class="ac-menu-group__header"
+						class:closed={!openedGroups.includes( key )}>
+					<GroupIcon icon={group.icon} defaultIcon="cpacicon-gf-article"></GroupIcon>
+					{group.title}
+					<span class="ac-menu-group__header__indicator dashicons dashicons-arrow-up-alt2"></span>
+				</button>
+				{#if openedGroups.includes( key )}
+					<ul class="ac-menu-group-list">
+						{#each Object.entries( group.options ) as [ key, label ]}
+							<li class="ac-menu-group-list__item" class:active={$currentListKey === key}>
+								<a
+										class:active={$currentListKey === key}
+										class="ac-menu-group-list__link" href={'#'}
+										on:click|preventDefault={ () => selectValue = key }>{label}</a>
+							</li>
+						{/each}
+					</ul>
+				{/if}
+			</div>
+		{/each}
+	</div>
+</nav>

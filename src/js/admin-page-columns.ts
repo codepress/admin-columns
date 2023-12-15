@@ -30,8 +30,9 @@ import {currentListId, currentListKey} from "./columns/store/current-list-screen
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import ListScreenSections from "./columns/store/list-screen-sections";
 import {listScreenDataStore} from "./columns/store/list-screen-data";
-import {columnTypesStore} from "./columns/store/column-types";
-import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
+import {columnTypeSorter, columnTypesStore} from "./columns/store/column-types";
+import {NotificationProgrammatic} from "./ui-wrapper/notification";
+
 
 declare let AC: LocalizedAcColumnSettings
 declare const jQuery: any;
@@ -46,6 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initSaveHandlers();
 
     const config = getColumnSettingsConfig();
+
+    // TODO make something more affording
     const ConfigService = {
         stores: {
             currentListId,
@@ -95,25 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentListKey.set(config.list_key);
     currentListId.set(config.list_screen_id)
-
-    const sortedColumnGroups = config.column_groups.map(g => g.slug);
-    const customComparator = (a: ColumnConfig, b: ColumnConfig) => {
-        // Compare based on group priority
-        const groupPriorityA = sortedColumnGroups.indexOf(a.group);
-        const groupPriorityB = sortedColumnGroups.indexOf(b.group);
-
-        if (groupPriorityA !== groupPriorityB) {
-            return groupPriorityA - groupPriorityB;
-        }
-
-        // If the groups have the same priority, compare based on the value
-        if (a.value < b.value) return -1;
-        if (a.value > b.value) return 1;
-        return 0;
-    }
-
-    columnTypesStore.set(config.column_types.sort(customComparator));
-
+    columnTypesStore.set(config.column_types.sort(columnTypeSorter));
 
     let target = document.createElement('div');
 
@@ -125,6 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelector('#cpac')?.prepend(target);
+
+    NotificationProgrammatic.open('HALLLO' );
 
     // END UI2.0
 
