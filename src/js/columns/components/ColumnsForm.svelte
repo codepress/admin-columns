@@ -12,6 +12,8 @@
     import {tick} from "svelte";
     import ColumnTypeDropdown from "./ColumnTypeDropdown.svelte";
     import {currentListKey} from "../store/current-list-screen";
+    import AcSkeleton from "ACUi/element/AcSkeleton.svelte";
+    import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
 
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
@@ -99,5 +101,7 @@
 			</div>
 		</footer>
 	</div>
+{:else}
+	<ColumnsFormSkeleton></ColumnsFormSkeleton>
 {/if}
 

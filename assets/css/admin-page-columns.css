@@ -351,12 +351,21 @@
   align-items: center;
   padding: 20px 30px;
   border-bottom: 1px solid #CBD5E1;
+  gap: 20px;
+}
+.ac-columns__header__table {
+  align-items: center;
+}
+.ac-columns__header__title {
+  width: 100%;
+}
+.ac-columns__header__title input {
+  width: 100%;
+  max-width: 400px;
 }
 .ac-columns__header h1 {
   margin: 0;
   padding: 0;
-  margin-right: 20px;
-  align-items: center;
   white-space: nowrap;
 }
 .ac-columns__header input {
@@ -364,7 +373,6 @@
   border-radius: 5px;
   border: 1px solid #bbb;
   padding: 5px 10px;
-  width: 100%;
 }
 .ac-columns__footer {
   display: flex;
