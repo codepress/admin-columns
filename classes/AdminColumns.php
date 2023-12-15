@@ -20,6 +20,8 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\ListScreenDelete;
 use AC\Storage\EncoderFactory;
+use AC\TableScreenFactory\ColumnTypes\PostFactory;
+use AC\TableScreenFactory\ColumnTypes\PostFactoryInterface;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
 
@@ -149,6 +151,7 @@ class AdminColumns
             ): SetupFactory\AdminColumns {
                 return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
             },
+            PostFactoryInterface::class             => autowire(PostFactory::class),
             ListKeysFactory::class                  => autowire(ListKeysFactory\Aggregate::class),
             Service\CommonAssets::class             => autowire()
                 ->constructorParameter(1, DI\get('translations.global')),

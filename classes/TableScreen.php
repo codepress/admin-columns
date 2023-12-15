@@ -53,9 +53,6 @@ abstract class TableScreen implements ManageValue
         return $this->screen_id;
     }
 
-    /**
-     * @return string[]
-     */
     public function get_columns(): array
     {
         return $this->columns;
