@@ -76,8 +76,8 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
     public function get_labels(): Labels
     {
         return new Labels(
-            $this->post_type->labels->name ?? '',
-            $this->post_type->labels->singular_name ?? ''
+            $this->post_type->labels->singular_name ?? '',
+            $this->post_type->labels->name ?? ''
         );
     }
 

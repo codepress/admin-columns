@@ -24,7 +24,7 @@ class DefaultGroups implements MenuGroupFactory
                 return new MenuGroup(
                     'post-hidden',
                     sprintf('%s (%s)', __('Post Type'), __('hidden', 'codepress-admin-columns')),
-                    6
+                    30
                 );
             case $table_screen instanceof TableScreen\User :
                 return new MenuGroup('user', __('Users'), 12);
