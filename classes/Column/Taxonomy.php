@@ -4,7 +4,6 @@ namespace AC\Column;
 
 use AC\Column;
 use AC\Settings;
-use AC\Settings\Column\Separator;
 
 /**
  * Taxonomy column, displaying terms from a taxonomy for any object type (i.e. posts)
@@ -37,7 +36,7 @@ class Taxonomy extends Column
 
         // TODO Stefan check formatted value original value. Can be ID or link?
         foreach ($_terms as $term) {
-            $terms[] = $this->get_formatted_value($term->name, $term);
+            $terms[] = $this->get_formatted_value($term->name, $term->term_id);
         }
 
         if (empty($terms)) {
@@ -52,23 +51,11 @@ class Taxonomy extends Column
     }
 
     /**
-     * @return string
-     */
-    public function get_separator()
-    {
-        $setting = $this->get_setting(Separator::NAME);
-
-        return $setting instanceof Separator
-            ? $setting->get_separator_formatted()
-            : parent::get_separator();
-    }
-
-    /**
      * @return int
      */
     private function get_items_limit()
     {
-        return $this->get_option('number_of_items') ?: 0;
+        return (int)$this->get_option('number_of_items') ?: 0;
     }
 
     /**

@@ -525,7 +525,21 @@ class Column
      */
     public function get_separator()
     {
-        return (new ApplyFilter\ColumnSeparator($this))->apply_filters(', ');
+        $default_separator = $this->get_option('separator') ?: ', ';
+        switch ($default_separator) {
+            case 'comma' :
+                return ', ';
+            case 'newline' :
+                return "<br/>";
+            case 'none' :
+                return '';
+            case 'white_space' :
+                return '&nbsp;';
+            case 'horizontal_rule' :
+                return '<hr>';
+            default :
+                return (new ApplyFilter\ColumnSeparator($this))->apply_filters(', ');
+        }
     }
 
     /**
