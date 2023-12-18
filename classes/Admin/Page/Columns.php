@@ -149,9 +149,20 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         );
     }
 
+    private function is_initialized(): bool
+    {
+        foreach ($this->uninitialized_table_screens as $uninitialized_table_screen) {
+            if ($uninitialized_table_screen->get_key()->equals($this->table_screen->get_key())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function render(): string
     {
-        if ($this->uninitialized_table_screens->contains($this->table_screen->get_key())) {
+        if ( ! $this->is_initialized()) {
             $modal = new View([
                 'message' => 'Loading columns',
             ]);

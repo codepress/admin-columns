@@ -260,7 +260,6 @@ final class Screen implements Registerable
         return $types;
     }
 
-    // TODO check consumers, because this can return `null` now
     public function get_list_screen(): ?ListScreen
     {
         return $this->list_screen;

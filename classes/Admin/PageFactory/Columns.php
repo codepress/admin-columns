@@ -67,15 +67,14 @@ class Columns implements PageFactoryInterface
         $this->table_screen_repository = $table_screen_repository;
     }
 
-    public function create()
+    public function create(): Page\Columns
     {
         $request = new Request();
 
         $request->add_middleware(
             new Middleware\TableScreenAdmin(
                 new Preference\ListScreen(),
-                $this->table_screen_factory,
-                $this->table_screen_repository->find_all_site()->current()
+                $this->table_screen_repository->find_all_site()
             )
         );
 

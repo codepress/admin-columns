@@ -21,6 +21,7 @@ class ColumnCollection implements ColumnIterator
 
     public function add(Column $column): void
     {
+        // TODO key needs to be an int
         $this->data[$column->get_name()] = $column;
     }
 

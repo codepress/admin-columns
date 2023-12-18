@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace AC\Table;
 
 use AC\TableScreen;
-use AC\Type\ListKey;
+use ArrayAccess;
 use Countable;
-use InvalidArgumentException;
 use Iterator;
 
-final class TableScreenCollection implements Iterator, Countable
+final class TableScreenCollection implements Iterator, Countable, ArrayAccess
 {
 
     /**
@@ -25,26 +24,7 @@ final class TableScreenCollection implements Iterator, Countable
 
     public function add(TableScreen $table_screen): void
     {
-        $this->data[(string)$table_screen->get_key()] = $table_screen;
-    }
-
-    public function remove(ListKey $key): void
-    {
-        unset($this->data[(string)$key]);
-    }
-
-    public function contains(ListKey $key): bool
-    {
-        return isset($this->data[(string)$key]);
-    }
-
-    public function get(ListKey $listKey): TableScreen
-    {
-        if ( ! $this->contains($listKey)) {
-            throw new InvalidArgumentException(sprintf('No segment found for key %s.', $listKey));
-        }
-
-        return $this->data[(string)$listKey];
+        $this->data[] = $table_screen;
     }
 
     public function current(): TableScreen
@@ -57,7 +37,7 @@ final class TableScreenCollection implements Iterator, Countable
         next($this->data);
     }
 
-    public function key(): string
+    public function key(): int
     {
         return key($this->data);
     }
@@ -75,6 +55,26 @@ final class TableScreenCollection implements Iterator, Countable
     public function count(): int
     {
         return count($this->data);
+    }
+
+    public function offsetExists($offset): bool
+    {
+        return isset($this->data[$offset]);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->data[$offset];
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        return $this->data[$offset] = $value;
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->data[$offset]);
     }
 
 }

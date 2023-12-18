@@ -5,8 +5,8 @@ namespace AC\Controller\Middleware;
 use AC\Admin\Preference;
 use AC\Middleware;
 use AC\Request;
+use AC\Table\TableScreenCollection;
 use AC\TableScreen;
-use AC\TableScreenFactory;
 use AC\Type\ListKey;
 use Exception;
 
@@ -15,25 +15,25 @@ class TableScreenAdmin implements Middleware
 
     private $preference;
 
-    private $table_screen_factory;
-
-    private $table_screen_fallback;
+    private $table_screens;
 
     public function __construct(
         Preference\ListScreen $preference,
-        TableScreenFactory $table_screen_factory,
-        TableScreen $table_screen_fallback
+        TableScreenCollection $table_screens
     ) {
         $this->preference = $preference;
-        $this->table_screen_factory = $table_screen_factory;
-        $this->table_screen_fallback = $table_screen_fallback;
+        $this->table_screens = $table_screens;
     }
 
     private function get_table_screen_by_key(ListKey $key): ?TableScreen
     {
-        return $this->table_screen_factory->can_create($key)
-            ? $this->table_screen_factory->create($key)
-            : null;
+        foreach ($this->table_screens as $table_screen) {
+            if ($table_screen->get_key()->equals($key)) {
+                return $table_screen;
+            }
+        }
+
+        return null;
     }
 
     private function get_requested_table_screen(Request $request): ?TableScreen
@@ -56,9 +56,11 @@ class TableScreenAdmin implements Middleware
             : null;
     }
 
-    private function get_first_table_screen(): ?TableScreen
+    private function get_first_visit_table_screen(): ?TableScreen
     {
-        return $this->table_screen_fallback;
+        $table_screen = $this->get_table_screen_by_key(new ListKey('post'));
+
+        return $table_screen ?: $this->table_screens->offsetGet($this->table_screens->count() - 1);
     }
 
     private function get_table_screen(Request $request): ?TableScreen
@@ -70,7 +72,7 @@ class TableScreenAdmin implements Middleware
         }
 
         if ( ! $table_screen) {
-            $table_screen = $this->get_first_table_screen();
+            $table_screen = $this->get_first_visit_table_screen();
         }
 
         return $table_screen;

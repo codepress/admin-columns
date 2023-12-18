@@ -21,7 +21,7 @@ final class ScreenTools implements Registerable
         });
     }
 
-    public function render($html)
+    public function render($html): string
     {
         ob_start();
 

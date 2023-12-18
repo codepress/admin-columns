@@ -3,6 +3,9 @@
 namespace AC\Table;
 
 use AC\ListScreen;
+use AC\ListTable\Comment;
+use AC\PostType;
+use AC\TableScreen\Media;
 use WP_Post;
 
 class PrimaryColumn
@@ -23,28 +26,28 @@ class PrimaryColumn
             $default = $columns->key();
         }
 
+        $table_screen = $this->list_screen->get_table_screen();
+
         // If actions column is present, set it as primary
         foreach ($columns as $column) {
             if ('column-actions' === $column->get_type()) {
                 $default = $column->get_name();
 
-                // TODO instanceof ListScreen
-                if ($this->list_screen instanceof ListScreen\Media) {
+                if ($table_screen instanceof Media) {
                     // Add download button to the actions column
                     add_filter('media_row_actions', [$this, 'set_media_download_row_action'], 10, 2);
                 }
             }
         }
 
-        // TODO
         // Set inline edit data if the default column (title) is not present
-        if ($this->list_screen instanceof ListScreen\Post && 'title' !== $default) {
+        if ($table_screen instanceof PostType && 'title' !== $default) {
             add_filter('page_row_actions', [$this, 'set_inline_edit_data'], 20, 2);
             add_filter('post_row_actions', [$this, 'set_inline_edit_data'], 20, 2);
         }
 
         // Remove inline edit action if the default column (author) is not present
-        if ($this->list_screen instanceof ListScreen\Comment && 'comment' !== $default) {
+        if ($table_screen instanceof Comment && 'comment' !== $default) {
             add_filter('comment_row_actions', [$this, 'remove_quick_edit_from_actions'], 20, 2);
         }
 
@@ -66,14 +69,14 @@ class PrimaryColumn
         return $actions;
     }
 
-    public function set_inline_edit_data(array $actions, WP_Post $post)
+    public function set_inline_edit_data($actions, WP_Post $post)
     {
         get_inline_data($post);
 
         return $actions;
     }
 
-    public function remove_quick_edit_from_actions(array $actions): array
+    public function remove_quick_edit_from_actions($actions)
     {
         unset($actions['quickedit']);
 

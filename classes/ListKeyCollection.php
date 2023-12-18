@@ -23,17 +23,7 @@ final class ListKeyCollection implements Iterator, Countable
 
     public function add(ListKey $key): void
     {
-        $this->data[(string)$key] = $key;
-    }
-
-    public function remove(ListKey $key): void
-    {
-        unset($this->data[(string)$key]);
-    }
-
-    public function contains(ListKey $key): bool
-    {
-        return isset($this->data[(string)$key]);
+        $this->data[] = $key;
     }
 
     public function current(): ListKey
@@ -46,9 +36,9 @@ final class ListKeyCollection implements Iterator, Countable
         next($this->data);
     }
 
-    public function key(): ListKey
+    public function key(): int
     {
-        return new ListKey(key($this->data));
+        return key($this->data);
     }
 
     public function valid(): bool

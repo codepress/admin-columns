@@ -59,7 +59,6 @@ class TableScreen extends AC\TableScreen implements AC\ListScreen\ListTable, AC\
 
     public function get_attr_id(): string
     {
-        // TODO test
         return '#the-list';
     }
 

@@ -7,6 +7,7 @@ namespace AC\Table;
 use AC\ListKeysFactory;
 use AC\TableScreen;
 use AC\TableScreenFactory;
+use AC\Type\ListKey;
 
 class TableScreenRepository
 {
@@ -19,6 +20,17 @@ class TableScreenRepository
     {
         $this->list_keys_factory = $list_keys_factory;
         $this->table_screen_factory = $table_screen_factory;
+    }
+
+    public function find(ListKey $key): ?TableScreen
+    {
+        foreach ($this->list_keys_factory->create() as $_key) {
+            if ($key->equals($_key) && $this->table_screen_factory->can_create($key)) {
+                return $this->table_screen_factory->create($key);
+            }
+        }
+
+        return null;
     }
 
     public function find_all(): TableScreenCollection

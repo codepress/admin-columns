@@ -25,7 +25,8 @@ class UninitializedScreens
             ? $this->table_screen_repository->find_all_network()
             : $this->table_screen_repository->find_all_site();
 
-        $table_screens = array_filter(iterator_to_array($collection), [$this, 'is_uninitialized']);
+        $table_screens = iterator_to_array($collection);
+        $table_screens = array_filter($table_screens, [$this, 'is_uninitialized']);
 
         return new TableScreenCollection(array_filter($table_screens));
     }
