@@ -16,11 +16,11 @@ use WP_User;
 final class ListScreen
 {
 
-    protected $id;
+    private $id;
 
     private $title;
 
-    protected $table_screen;
+    private $table_screen;
 
     private $columns;
 
