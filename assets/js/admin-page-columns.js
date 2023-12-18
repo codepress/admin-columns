@@ -2210,7 +2210,7 @@ function create_if_block(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "ac-columns__header__table");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "ac-columns__header__title");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*tableUrl*/ctx[2]);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "button button-primary");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "class", "acui-button acui-button-primary");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "ac-columns__header__action");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(header, "class", "ac-columns__header");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div3, "class", "ac-columns__body");
@@ -2720,7 +2720,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (55:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
+// (54:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
@@ -2753,7 +2753,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (59:2) {#if $listScreenDataStore !== null}
+// (58:2) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -2937,7 +2937,6 @@ function instance($$self, $$props, $$invalidate) {
     if ($currentListKey === e.detail) {
       return;
     }
-    console.log('NU');
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettingsByListKey)(e.detail).then(response => {
       $$invalidate(1, config = response.data.data.settings);
       $$invalidate(2, tableUrl = response.data.data.table_url);

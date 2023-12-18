@@ -74,7 +74,7 @@
 				<input bind:value={data.title}/>
 			</div>
 			<div class="ac-columns__header__action">
-				<a href={tableUrl} class="button button-primary">View</a>
+				<a href={tableUrl} class="acui-button  acui-button-primary">View</a>
 			</div>
 		</header>
 		<div class="ac-columns__body">

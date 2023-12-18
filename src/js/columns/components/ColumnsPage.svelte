@@ -21,7 +21,6 @@
             return;
         }
 
-        console.log('NU');
         getListScreenSettingsByListKey(e.detail).then(response => {
             config = response.data.data.settings
             tableUrl = response.data.data.table_url;

@@ -2,9 +2,9 @@
 
     export let value: string
     export let options: Array<{ value: string, label: string }>
-    export let onChange: (v: string) => {};
+    export let onChange: (v: string)=>void
 
-    const handleValue = (v) => {
+    const handleValue = (v: any) => {
         value = v;
         onChange(v);
     }

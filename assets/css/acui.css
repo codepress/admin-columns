@@ -16,6 +16,7 @@
   padding: 10px 15px;
   color: #1E293B;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .acui-button.acui-button-text {
@@ -56,6 +57,7 @@
 }
 .acui-button-primary:hover {
   background-color: var(--ac-primary-color-hover);
+  color: #fff;
 }
 
 .acui-dropdown {
