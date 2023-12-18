@@ -7,6 +7,7 @@ namespace AC\ColumnIterator;
 use AC\Column;
 use AC\ColumnIterator;
 use AC\ColumnRepository;
+use ReturnTypeWillChange;
 
 class ProxyColumnIterator implements ColumnIterator
 {
@@ -49,16 +50,19 @@ class ProxyColumnIterator implements ColumnIterator
         return $this->forward()->keys();
     }
 
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->forward()->current();
     }
 
+    #[ReturnTypeWillChange]
     public function next()
     {
         return $this->forward()->next();
     }
 
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->forward()->key();
@@ -69,6 +73,7 @@ class ProxyColumnIterator implements ColumnIterator
         return $this->forward()->valid();
     }
 
+    #[ReturnTypeWillChange]
     public function rewind()
     {
         return $this->forward()->rewind();

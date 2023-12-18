@@ -199,7 +199,7 @@ class Database implements ListScreenRepositoryWritable
 
         foreach ($columns_data as $name => $column_data) {
             if ( ! isset($column_data['name'])) {
-                $column_data['name'] = $name;
+                $columns_data[$name]['name'] = $name;
             }
         }
 

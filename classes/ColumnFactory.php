@@ -13,7 +13,7 @@ class ColumnFactory
     {
         $this->column_types_factory = $column_types_factory;
     }
-    
+
     private function get_column_types(TableScreen $table_screen): ColumnTypeCollection
     {
         static $types;
