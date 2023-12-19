@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC;
 
-use AC\ListScreen\ManageValue;
+use AC\TableScreen\ManageValue;
 use AC\Type\Labels;
 use AC\Type\ListKey;
 use AC\Type\Uri;

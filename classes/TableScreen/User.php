@@ -15,7 +15,7 @@ use AC\Type\Uri;
 use AC\Type\Url;
 use AC\WpListTableFactory;
 
-class User extends TableScreen implements AC\ListScreen\ListTable, TableScreen\MetaType
+class User extends TableScreen implements TableScreen\ListTable, TableScreen\MetaType
 {
 
     public function __construct(array $columns)

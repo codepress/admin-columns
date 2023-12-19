@@ -6,7 +6,6 @@ namespace AC\TableScreen;
 
 use AC;
 use AC\ListScreen;
-use AC\ListScreen\ListTable;
 use AC\MetaType;
 use AC\Table;
 use AC\TableScreen;

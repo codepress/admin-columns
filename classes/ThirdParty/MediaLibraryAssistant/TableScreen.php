@@ -12,7 +12,7 @@ use AC\Type\Uri;
 use AC\Type\Url;
 use MLACore;
 
-class TableScreen extends AC\TableScreen implements AC\ListScreen\ListTable, AC\TableScreen\MetaType
+class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC\TableScreen\MetaType
 {
 
     public function __construct(array $columns = [])

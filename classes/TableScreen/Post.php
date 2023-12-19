@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\TableScreen;
 
 use AC;
-use AC\ListScreen\ListTable;
 use AC\MetaType;
 use AC\PostType;
 use AC\Table;

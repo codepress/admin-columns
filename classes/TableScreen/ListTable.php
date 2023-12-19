@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\ListScreen;
+namespace AC\TableScreen;
 
 use AC;
 

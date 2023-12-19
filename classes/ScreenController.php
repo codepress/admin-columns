@@ -3,7 +3,7 @@
 namespace AC;
 
 use AC\ColumnRepository\Sort\ManualOrder;
-use AC\ListScreen\ManageValue;
+use AC\TableScreen\ManageValue;
 
 class ScreenController implements Registerable
 {
