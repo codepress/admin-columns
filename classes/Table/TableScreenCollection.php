@@ -8,6 +8,7 @@ use AC\TableScreen;
 use ArrayAccess;
 use Countable;
 use Iterator;
+use ReturnTypeWillChange;
 
 final class TableScreenCollection implements Iterator, Countable, ArrayAccess
 {
@@ -57,21 +58,25 @@ final class TableScreenCollection implements Iterator, Countable, ArrayAccess
         return count($this->data);
     }
 
+    #[ReturnTypeWillChange]
     public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
 
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->data[$offset];
     }
 
+    #[ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         return $this->data[$offset] = $value;
     }
 
+    #[ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->data[$offset]);
