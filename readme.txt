@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= NEW_VERSION =
+Release Date: tbd
+
+* [Fixed] When the edit columns button was disabled, a styled container was displayed
+
 = 4.7 =
 Release Date: December 6th, 2023
 
