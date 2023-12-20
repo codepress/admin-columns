@@ -20,8 +20,6 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\ListScreenDelete;
 use AC\Storage\EncoderFactory;
-use AC\TableScreenFactory\ColumnTypes\PostFactory;
-use AC\TableScreenFactory\ColumnTypes\PostFactoryInterface;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
 
@@ -36,12 +34,18 @@ class AdminColumns
 
         Container::set_container($container);
 
-        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\PostFactory::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\CommentFactory::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\MediaFactory::class));
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\PostFactory::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\UserFactory::class));
 
-        MenuGroupFactory\Aggregate::add(new DefaultGroups());
+        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\OriginalsFactory::class));
+        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\CommentFactory::class));
+        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\MediaFactory::class));
+        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\PostFactory::class));
+        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\UserFactory::class));
+
+        MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
 
         ListKeysFactory\Aggregate::add($container->get(ListKeysFactory\BaseFactory::class));
 
@@ -151,6 +155,7 @@ class AdminColumns
             ): SetupFactory\AdminColumns {
                 return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
             },
+            ColumnTypesFactory::class               => autowire(ColumnTypesFactory\Aggregate::class),
             PostFactoryInterface::class             => autowire(PostFactory::class),
             ListKeysFactory::class                  => autowire(ListKeysFactory\Aggregate::class),
             Service\CommonAssets::class             => autowire()

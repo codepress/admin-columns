@@ -46,8 +46,6 @@ class Refresh
         $settings = json_decode($request->get('data'), true);
         $settings['name'] = $request->get('column_name');
 
-        $column_types = $this->column_types_factory->create($table_screen);
-
         $column = $this->column_factory->create($table_screen, $settings);
 
         if ( ! $column) {
@@ -82,7 +80,7 @@ class Refresh
         }
 
         wp_send_json_success(
-            $this->render_column($column, $column_types)
+            $this->render_column($column, $this->column_types_factory->create($table_screen))
         );
     }
 

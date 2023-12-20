@@ -18,9 +18,9 @@ use AC\WpListTableFactory;
 class Comment extends TableScreen implements ListTable, TableScreen\MetaType
 {
 
-    public function __construct(array $columns)
+    public function __construct()
     {
-        parent::__construct(new ListKey('wp-comments'), 'edit-comments', $columns);
+        parent::__construct(new ListKey('wp-comments'), 'edit-comments');
     }
 
     public function get_heading_hookname(): string

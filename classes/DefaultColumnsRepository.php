@@ -29,30 +29,43 @@ class DefaultColumnsRepository
         delete_option($this->option_name());
     }
 
-    /**
-     * @return Column[]
-     */
-    public function find_all(): array
+    public function find_all(): ColumnTypeCollection
     {
         $columns = [];
 
-        // Add original WP columns
         foreach ($this->get() as $type => $label) {
             if ('cb' === $type) {
                 continue;
             }
 
-            $columns[$type] = (new Column())->set_type($type)
-                                            ->set_label($label)
-                                            ->set_group('default')
-                                            ->set_original(true);
+            $columns[] = $this->create_column($type, $label);
         }
 
-        return $columns;
+        return new ColumnTypeCollection($columns);
+    }
+
+    private function create_column(string $type, string $label): Column
+    {
+        return (new Column())->set_type($type)
+                             ->set_label($label)
+                             ->set_group('default')
+                             ->set_original(true);
+    }
+
+    public function find(string $column_type): ?Column
+    {
+        $label = $this->get()[$column_type] ?? null;
+
+        if ( ! $label) {
+            return null;
+        }
+
+        return $this->create_column($column_type, $label);
     }
 
     private function get(): array
     {
+        // TODO cache
         return get_option($this->option_name(), []);
     }
 

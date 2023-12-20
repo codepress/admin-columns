@@ -19,9 +19,9 @@ use AC\WpListTableFactory;
 class Media extends TableScreen implements ListTable, PostType, TableScreen\MetaType
 {
 
-    public function __construct(array $columns)
+    public function __construct()
     {
-        parent::__construct(new ListKey('wp-media'), 'upload', $columns);
+        parent::__construct(new ListKey('wp-media'), 'upload');
     }
 
     public function manage_value(ListScreen $list_screen): AC\Table\ManageValue

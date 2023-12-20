@@ -18,9 +18,9 @@ use AC\WpListTableFactory;
 class User extends TableScreen implements TableScreen\ListTable, TableScreen\MetaType
 {
 
-    public function __construct(array $columns)
+    public function __construct()
     {
-        parent::__construct(new ListKey('wp-users'), 'users', $columns);
+        parent::__construct(new ListKey('wp-users'), 'users');
     }
 
     public function manage_value(ListScreen $list_screen): AC\Table\ManageValue

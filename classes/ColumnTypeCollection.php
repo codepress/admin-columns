@@ -42,11 +42,11 @@ class ColumnTypeCollection implements Iterator, Countable
         return null !== $this->search($column->get_type());
     }
 
-    private function search(string $type): ?int
+    public function search(string $type): ?int
     {
-        foreach ($this->data as $i => $column) {
+        foreach ($this->data as $index => $column) {
             if ($column->get_type() === $type) {
-                return $i;
+                return $index;
             }
         }
 

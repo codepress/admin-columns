@@ -20,12 +20,11 @@ abstract class TableScreen implements ManageValue
 
     protected $columns;
 
-    public function __construct(ListKey $key, string $screen_id, array $columns, bool $network = false)
+    public function __construct(ListKey $key, string $screen_id, bool $network = false)
     {
         $this->key = $key;
         $this->screen_id = $screen_id;
         $this->network = $network;
-        $this->columns = $columns;
     }
 
     abstract public function get_heading_hookname(): string;
@@ -51,11 +50,6 @@ abstract class TableScreen implements ManageValue
     public function get_screen_id(): string
     {
         return $this->screen_id;
-    }
-
-    public function get_columns(): array
-    {
-        return $this->columns;
     }
 
 }

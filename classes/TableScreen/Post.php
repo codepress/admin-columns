@@ -21,12 +21,11 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
 
     protected $post_type;
 
-    public function __construct(WP_Post_Type $post_type, array $columns)
+    public function __construct(WP_Post_Type $post_type)
     {
         parent::__construct(
             new ListKey($post_type->name),
-            'edit-' . $post_type->name,
-            $columns
+            'edit-' . $post_type->name
         );
 
         $this->post_type = $post_type;

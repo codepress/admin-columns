@@ -2,15 +2,31 @@
 
 declare(strict_types=1);
 
-namespace AC\TableScreenFactory\ColumnTypes;
+namespace AC\ColumnTypesFactory;
 
+use AC;
 use AC\Column;
+use AC\ColumnTypeCollection;
+use AC\TableScreen;
 use WP_Post_Type;
 
-class PostFactory implements PostFactoryInterface
+class PostFactory implements AC\ColumnTypesFactory
 {
 
-    public function create(WP_Post_Type $post_type): array
+    use ColumnTypesTrait;
+
+    public function create(TableScreen $table_screen): ?ColumnTypeCollection
+    {
+        if ( ! $table_screen instanceof AC\PostType) {
+            return null;
+        }
+
+        return $this->create_from_list(
+            $this->get_columns(get_post_type_object($table_screen->get_post_type()))
+        );
+    }
+
+    private function get_columns(WP_Post_Type $post_type): array
     {
         $columns = [
             Column\CustomField::class,
