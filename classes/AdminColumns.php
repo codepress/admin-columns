@@ -71,7 +71,6 @@ class AdminColumns
             Admin\Notice\ReadOnlyListScreen::class,
             Admin\Notice\DatabaseMissing::class,
             Ajax\NumberFormat::class,
-            ThirdParty\ACF::class,
             ThirdParty\NinjaForms::class,
             ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant::class,
             ThirdParty\WooCommerce::class,
@@ -156,7 +155,6 @@ class AdminColumns
                 return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
             },
             ColumnTypesFactory::class               => autowire(ColumnTypesFactory\Aggregate::class),
-            PostFactoryInterface::class             => autowire(PostFactory::class),
             ListKeysFactory::class                  => autowire(ListKeysFactory\Aggregate::class),
             Service\CommonAssets::class             => autowire()
                 ->constructorParameter(1, DI\get('translations.global')),
