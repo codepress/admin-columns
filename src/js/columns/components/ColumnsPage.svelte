@@ -10,6 +10,7 @@
     import {columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import ColumnSetting = AC.Vars.Settings.ColumnSetting;
+    import {listScreenIsReadOnly} from "../store/read_only";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
 

@@ -15,7 +15,7 @@ class StatusIcon extends Settings\Column
 
     use SettingTrait;
 
-    public function __construct(Column $column, Specification $conditionals)
+    public function __construct(Column $column, Specification $conditionals = null)
     {
         $this->name = 'use_icon';
         $this->label = __('Use an icon?', 'codepress-admin-columns');

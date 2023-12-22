@@ -12,7 +12,8 @@ export type listScreenSettingsResponse = {
             list_screen: ListScreenData
         },
         table_url: string,
-        settings: { [key:string]: AC.Vars.Settings.ColumnSetting[] }
+        read_only: boolean
+        settings: { [key: string]: AC.Vars.Settings.ColumnSetting[] }
         column_types: ColumnConfig[]
     },
     success: true

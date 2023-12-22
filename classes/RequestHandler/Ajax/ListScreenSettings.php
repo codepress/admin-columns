@@ -132,6 +132,7 @@ class ListScreenSettings implements RequestAjaxHandler
 
         $response->set_parameter('list_screen_data', $encoder->encode());
         $response->set_parameter('table_url', (string)$list_screen->get_table_url());
+        $response->set_parameter('read_only', $list_screen->is_read_only());
         $response->set_parameter('settings', $settings);
         $response->success();
     }

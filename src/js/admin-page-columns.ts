@@ -32,6 +32,8 @@ import ListScreenSections from "./columns/store/list-screen-sections";
 import {listScreenDataStore} from "./columns/store/list-screen-data";
 import {columnTypeSorter, columnTypesStore} from "./columns/store/column-types";
 import {NotificationProgrammatic} from "./ui-wrapper/notification";
+import {listScreenIsReadOnly} from "./columns/store/read_only";
+import {SvelteComponent} from "svelte";
 
 
 declare let AC: LocalizedAcColumnSettings
@@ -82,23 +84,24 @@ document.addEventListener('DOMContentLoaded', () => {
     AcServices.registerService('ColumnPage', ConfigService);
 
     // START UI2.0
-    registerSettingType('label', LabelSetting)
-    registerSettingType('width', WidthSetting)
-    registerSettingType('empty', EmptySetting)
-    registerSettingType('type', TypeSetting)
-    registerSettingType('toggle', ToggleSetting)
-    registerSettingType('text', TextSetting)
-    registerSettingType('message', MessageSetting)
-    registerSettingType('number', NumberSetting)
-    registerSettingType('number_preview', NumberPreviewSetting)
-    registerSettingType('select', SelectSetting)
-    registerSettingType('date_format', DateFormatSetting)
-    registerSettingType('hidden', HiddenSetting)
+    registerSettingType('label', LabelSetting as typeof SvelteComponent)
+    registerSettingType('width', WidthSetting as typeof SvelteComponent)
+    registerSettingType('empty', EmptySetting as typeof SvelteComponent)
+    registerSettingType('type', TypeSetting as typeof SvelteComponent)
+    registerSettingType('toggle', ToggleSetting as typeof SvelteComponent)
+    registerSettingType('text', TextSetting as typeof SvelteComponent)
+    registerSettingType('message', MessageSetting as typeof SvelteComponent)
+    registerSettingType('number', NumberSetting as typeof SvelteComponent)
+    registerSettingType('number_preview', NumberPreviewSetting as typeof SvelteComponent)
+    registerSettingType('select', SelectSetting as typeof SvelteComponent)
+    registerSettingType('date_format', DateFormatSetting as typeof SvelteComponent)
+    registerSettingType('hidden', HiddenSetting as typeof SvelteComponent)
 
 
     currentListKey.set(config.list_key);
     currentListId.set(config.list_screen_id)
     columnTypesStore.set(config.column_types.sort(columnTypeSorter));
+    listScreenIsReadOnly.set(true);
 
     let target = document.createElement('div');
 
@@ -111,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('#cpac')?.prepend(target);
 
-    NotificationProgrammatic.open('HALLLO' );
+    NotificationProgrammatic.open('HALLLO');
 
     // END UI2.0
 

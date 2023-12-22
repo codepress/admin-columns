@@ -7442,6 +7442,14 @@ class Actions {
     getElement() {
         return this.container;
     }
+    toggle(show = true) {
+        if (show) {
+            this.getElement().classList.remove('-hidden');
+        }
+        else {
+            this.getElement().classList.add('-hidden');
+        }
+    }
     refresh() {
         this.buttons.getButtons().forEach(button => {
             var _a;
@@ -7452,6 +7460,7 @@ class Actions {
                 (_a = this.container.querySelector('.ac-table-actions-buttons')) === null || _a === void 0 ? void 0 : _a.append(button.getElement().getElement());
             }
         });
+        this.toggle(this.buttons.getButtons().length !== 0);
     }
 }
 
@@ -17151,6 +17160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.TABLE.READY, (event) => {
+    var _a;
     (0,_plugin_show_more__WEBPACK_IMPORTED_MODULE_5__.auto_init_show_more)();
     (0,_table_functions__WEBPACK_IMPORTED_MODULE_6__.init_actions_tooltips)();
     let observer = new MutationObserver(mutations => {
@@ -17190,6 +17200,7 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
     document.querySelectorAll('[data-component="ac-json"]').forEach(el => {
         new _modules_json_viewer__WEBPACK_IMPORTED_MODULE_14__["default"](el);
     });
+    (_a = event.table.Actions) === null || _a === void 0 ? void 0 : _a.refresh();
 });
 
 })();

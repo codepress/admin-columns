@@ -12,8 +12,8 @@
     import {tick} from "svelte";
     import ColumnTypeDropdown from "./ColumnTypeDropdown.svelte";
     import {currentListKey} from "../store/current-list-screen";
-    import AcSkeleton from "ACUi/element/AcSkeleton.svelte";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
+    import {listScreenIsReadOnly} from "../store/read_only";
 
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
@@ -68,10 +68,10 @@
 	<div class="ac-columns">
 		<header class="ac-columns__header">
 			<div class="ac-columns__header__table">
-				<h1>{ListKeys.getLabelForKey( data.type )}</h1>
+				<h1>{ListKeys.getLabelForKey( data.type )} <span class="dashicons dashicons-lock"></span></h1>
 			</div>
 			<div class="ac-columns__header__title">
-				<input bind:value={data.title}/>
+				<input bind:value={data.title} disabled={$listScreenIsReadOnly}/>
 			</div>
 			<div class="ac-columns__header__action">
 				<a href={tableUrl} class="acui-button  acui-button-primary">View</a>
@@ -89,17 +89,19 @@
 				</ColumnItem>
 			{/each}
 		</div>
-		<footer class="ac-columns__footer">
-			<div>
-				<AcButton type="text" on:click={clearColumns}>Clear Columns</AcButton>
-				<AcDropdown maxHeight="300px" value position="bottom-left">
-					<AcButton slot="trigger">+ Add Column</AcButton>
-					<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>
+		{#if !$listScreenIsReadOnly}
+			<footer class="ac-columns__footer">
+				<div>
+					<AcButton type="text" on:click={clearColumns}>Clear Columns</AcButton>
+					<AcDropdown maxHeight="300px" value position="bottom-left">
+						<AcButton slot="trigger">+ Add Column</AcButton>
+						<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>
 
-					</ColumnTypeDropdown>
-				</AcDropdown>
-			</div>
-		</footer>
+						</ColumnTypeDropdown>
+					</AcDropdown>
+				</div>
+			</footer>
+		{/if}
 	</div>
 {:else}
 	<ColumnsFormSkeleton></ColumnsFormSkeleton>
