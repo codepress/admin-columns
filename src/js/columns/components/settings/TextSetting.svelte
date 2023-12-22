@@ -6,6 +6,7 @@
     export let config: AC.Column.Settings.TextSetting;
     export let value: any;
     export let data: any;
+    export let disabled: boolean = false;
 
     const dispatch = createEventDispatcher();
 
@@ -26,6 +27,6 @@
 		children={config.children ?? []}
 		bind:data={data} >
 	<AcInputGroup>
-		<input type="text" bind:value={value}>
+		<input type="text" bind:value={value} {disabled}>
 	</AcInputGroup>
 </ColumnSetting>

@@ -2,6 +2,7 @@
 
     import HeaderToggle from "./settings/HeaderToggle.svelte";
     import {afterUpdate, onMount, tick} from "svelte";
+    import {listScreenIsReadOnly} from "../store/read_only";
 
 
     export let data: any = {};
@@ -39,7 +40,7 @@
 	{#each proFeatures as feature}
 
 		{#if config.find( c => c.name === feature.feature )}
-			<HeaderToggle bind:value={data[feature.feature]} title={feature.title}>
+			<HeaderToggle bind:value={data[feature.feature]} title={feature.title} disabled={listScreenIsReadOnly}>
 				<span class="{feature.iconClass}"></span>
 			</HeaderToggle>
 		{:else}

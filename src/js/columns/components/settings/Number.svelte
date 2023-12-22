@@ -5,6 +5,7 @@
 
     export let config: AC.Column.Settings.NumberSettings;
     export let value: any;
+    export let disabled: boolean = false;
 
     const dispatch = createEventDispatcher();
 
@@ -21,8 +22,8 @@
 
 </script>
 
-<ColumnSetting label={config.label} name="number">
-	<AcInputGroup containerClasses="-numeric" description={config.description} after={config.input.append}>
-		<input type="number" bind:value={value} step={config.input.step} min={config.input.min} max={config.input.max}>
+<ColumnSetting label={config.label} name="number" description={config.description}>
+	<AcInputGroup containerClasses="-numeric" after={config.input.append}>
+		<input type="number" bind:value={value} {disabled} step={config.input.step} min={config.input.min} max={config.input.max}>
 	</AcInputGroup>
 </ColumnSetting>

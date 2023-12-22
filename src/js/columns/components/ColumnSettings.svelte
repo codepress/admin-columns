@@ -2,6 +2,7 @@
 
     import {getSettingComponent} from "../helper";
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
+    import {listScreenIsReadOnly} from "../store/read_only";
 
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
@@ -39,6 +40,7 @@
 			this={getComponent(setting.input?.type ?? 'empty')}
 			bind:data={data}
 			bind:value={data[setting.name]}
+			disabled={$listScreenIsReadOnly}
 			bind:columnConfig={settings}
 			config={setting}>
 	</svelte:component>

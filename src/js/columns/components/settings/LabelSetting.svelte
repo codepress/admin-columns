@@ -8,6 +8,7 @@
 
     export let config: AC.Column.Settings.AbstractColumnSetting;
     export let value: string;
+    export let disabled: boolean = false;
 
     type iconsList = Array<{ name: string, items: string[] }>
 
@@ -56,13 +57,12 @@
 
 <ColumnSetting label={config.label} description={config.description} name="label">
 	<AcInputGroup>
-		<input type="text" bind:value={value}>
+		<input type="text" bind:value={value} {disabled}>
 		<div role="none" class="acui-input-group-text" on:click={addIcon} on:keypress>
 			<span class="dashicons dashicons-format-image"></span>
 		</div>
 
-
-		{#if showIconModal}
+		{#if showIconModal && ! disabled}
 			<AcModal visible on:close={()=>showIconModal = false} --modalWidth="960px" className="-iconpicker">
 				<span slot="header">{i18n.settings.label.select_label}</span>
 				<div slot="content">

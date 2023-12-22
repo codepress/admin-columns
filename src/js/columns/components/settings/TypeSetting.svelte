@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import ColumnSetting from "../ColumnSetting.svelte";
 	import Select from "svelte-select"
 	import {onMount} from "svelte";
@@ -8,6 +8,7 @@
 	export let data;
 	export let config;
 	export let columnConfig;
+	export let disabled: boolean = false;
 
 	let collection = [];
 	let selectValue;
@@ -39,6 +40,7 @@
 			clearable={false}
 			items={$columnTypesStore}
 			{groupBy}
+			{disabled}
 			value={data['type']}
 			on:change={ changeValue }
 			bind:justValue={selectValue}>

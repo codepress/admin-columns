@@ -5,6 +5,7 @@
 
 	export let data:any;
 	export let config: AC.Column.Settings.WidthSetting;
+    export let disabled: boolean = false;
 
     const keyWidth = config.name;
     const keyUnit = config.children[1].name;
@@ -50,12 +51,12 @@
 	<div class="width-setting">
 		<div style="width: 120px;">
 			<AcInputGroup>
-				<input type="text" bind:value={data[keyWidth]} placeholder="Auto">
+				<input type="text" bind:value={data[keyWidth]} placeholder="Auto" {disabled}>
 				<div role="none" class="acui-input-group-text" on:click={changeUnit} on:keypress>{data[keyUnit]}</div>
 			</AcInputGroup>
 		</div>
 		<div class="width-setting__slider">
-			<input type="range" bind:value={data[keyWidth]}>
+			<input type="range" bind:value={data[keyWidth]} {disabled}>
 		</div>
 	</div>
 </ColumnSetting>
