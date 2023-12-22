@@ -1021,6 +1021,9 @@ div.cpac-color span {
 	&.-init {
 		display: block;
 	}
+	&.-hidden {
+		display: none;
+	}
 
 	.ac-table-actions-buttons {
 		white-space: nowrap;
