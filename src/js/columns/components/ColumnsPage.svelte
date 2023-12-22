@@ -41,6 +41,7 @@
         getListScreenSettings(listId).then(response => {
             config = response.data.data.settings;
             tableUrl = response.data.data.table_url;
+            listScreenIsReadOnly.set( response.data.data.read_only );
             listScreenDataStore.update(d => {
                 return response.data.data.list_screen_data.list_screen;
             });

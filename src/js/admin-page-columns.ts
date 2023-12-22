@@ -101,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
     currentListKey.set(config.list_key);
     currentListId.set(config.list_screen_id)
     columnTypesStore.set(config.column_types.sort(columnTypeSorter));
-    listScreenIsReadOnly.set(true);
 
     let target = document.createElement('div');
 

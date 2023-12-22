@@ -19,8 +19,6 @@
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
     export let tableUrl: string;
 
-    const columnTypes = ColumnTypesUtils.getColumnTypes();
-
     const clearColumns = () => {
         data['columns'] = {};
     }
@@ -68,7 +66,12 @@
 	<div class="ac-columns">
 		<header class="ac-columns__header">
 			<div class="ac-columns__header__table">
-				<h1>{ListKeys.getLabelForKey( data.type )} <span class="dashicons dashicons-lock"></span></h1>
+				<h1>
+					{ListKeys.getLabelForKey( data.type )}
+					{#if $listScreenIsReadOnly}
+						<span class="dashicons dashicons-lock"></span>
+					{/if}
+				</h1>
 			</div>
 			<div class="ac-columns__header__title">
 				<input bind:value={data.title} disabled={$listScreenIsReadOnly}/>
