@@ -42,6 +42,8 @@ class ScreenController implements Registerable
 
             do_action('ac/table/list_screen', $this->list_screen, $this->table_screen);
         }
+
+        do_action('ac/table/screen', $this->table_screen);
     }
 
     public function save_headings($headings)

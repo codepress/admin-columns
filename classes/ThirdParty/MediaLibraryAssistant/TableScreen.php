@@ -15,13 +15,9 @@ use MLACore;
 class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC\TableScreen\MetaType
 {
 
-    public function __construct(array $columns = [])
+    public function __construct()
     {
-        parent::__construct(
-            new ListKey('mla-media-assistant'),
-            'media_page_' . MLACore::ADMIN_PAGE_SLUG,
-            $columns
-        );
+        parent::__construct(new ListKey('mla-media-assistant'), 'media_page_' . MLACore::ADMIN_PAGE_SLUG);
     }
 
     public function list_table(): AC\ListTable
