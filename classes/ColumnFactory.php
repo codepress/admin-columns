@@ -83,7 +83,7 @@ class ColumnFactory
         $column->set_options($settings);
 
         if ($column->is_original()) {
-            if (isset($settings['label'])) {
+            if (isset($settings['label']) && '' === $column->get_label()) {
                 $column->set_label($settings['label']);
             }
 
