@@ -171,18 +171,6 @@ class Column
     }
 
     /**
-     * Overwrite this function in child class.
-     * Determine whether this column type should be available
-     * @return bool Whether the column type should be available
-     * @since 2.2
-     */
-    // TODO remove usages
-    public function is_valid()
-    {
-        return true;
-    }
-
-    /**
      * @param Settings\Column $setting
      *
      * @return $this
@@ -418,6 +406,20 @@ class Column
     public function toArray(): array
     {
         return $this->options;
+    }
+
+    /**
+     * Overwrite this function in child class.
+     * Determine whether this column type should be available
+     * @return bool Whether the column type should be available
+     * @since      2.2
+     * @deprecated NEWVERSION
+     */
+    public function is_valid(): bool
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION');
+
+        return true;
     }
 
 }

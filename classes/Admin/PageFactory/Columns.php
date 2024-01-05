@@ -12,7 +12,6 @@ use AC\Asset\Location;
 use AC\ColumnFactory;
 use AC\ColumnTypesFactory;
 use AC\Controller\Middleware;
-use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
@@ -102,7 +101,6 @@ class Columns implements PageFactoryInterface
 
         return new Page\Columns(
             $this->location,
-            new DefaultColumnsRepository($table_screen->get_key()),
             $this->uninitialized_screens->find_all_site(),
             new AC\Admin\Section\Partial\Menu(
                 $this->menu_list_factory->create($this->table_screen_repository->find_all_site())

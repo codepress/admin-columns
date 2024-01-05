@@ -23,6 +23,7 @@ final class IntegrationColumns implements Registerable
 
     public function register(): void
     {
+        // TODO
         add_action('ac/column_type_collection', [$this, 'add_placeholder_column_types'], 1, 2);
     }
 

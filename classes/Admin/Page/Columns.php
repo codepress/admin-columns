@@ -16,7 +16,6 @@ use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Column;
 use AC\ColumnTypesFactory;
-use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Renderable;
@@ -38,9 +37,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $list_screen;
 
-    // TODO
-    private $default_columns_repository;
-
     private $uninitialized_table_screens;
 
     private $menu;
@@ -55,7 +51,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     public function __construct(
         Location\Absolute $location,
-        DefaultColumnsRepository $default_columns_repository,
         TableScreenCollection $uninitialized_table_screens,
         Menu $menu,
         Renderable $head,
@@ -65,7 +60,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         ColumnTypesFactory $column_types_factory
     ) {
         $this->location = $location;
-        $this->default_columns_repository = $default_columns_repository;
         $this->uninitialized_table_screens = $uninitialized_table_screens;
         $this->menu = $menu;
         $this->head = $head;
