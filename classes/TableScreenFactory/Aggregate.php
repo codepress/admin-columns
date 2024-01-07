@@ -38,8 +38,7 @@ class Aggregate implements TableScreenFactory
     {
         foreach (self::$factories as $factory) {
             if ($factory->can_create($key)) {
-                // TODO name
-                return (bool)apply_filters('ac/list_screen/key/is_active', true, $key);
+                return (bool)apply_filters('ac/list_screen/key/is_active', true, (string)$key);
             }
         }
 
@@ -61,7 +60,6 @@ class Aggregate implements TableScreenFactory
     {
         foreach (self::$factories as $factory) {
             if ($factory->can_create_from_wp_screen($screen)) {
-                // TODO name
                 return (bool)apply_filters('ac/list_screen/is_active', true, $screen);
             }
         }

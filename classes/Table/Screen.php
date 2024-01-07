@@ -50,11 +50,11 @@ final class Screen implements Registerable
         ListScreen $list_screen = null
     ) {
         $this->location = $location;
-        $this->list_screen = $list_screen;
+        $this->table_screen = $table_screen;
         $this->column_size_list_storage = $column_size_list_storage;
         $this->column_size_user_storage = $column_size_user_storage;
         $this->primary_column_factory = $primary_column_factory;
-        $this->table_screen = $table_screen;
+        $this->list_screen = $list_screen;
     }
 
     /**
@@ -229,14 +229,15 @@ final class Screen implements Registerable
             'order',
         ];
 
+        // TODO test
         switch (true) {
-            case $this->list_screen instanceof ListScreen\Post :
+            case $this->table_screen instanceof AC\PostType :
                 $query_args_whitelist[] = 'post_status';
                 break;
-            case $this->list_screen instanceof ListScreen\User :
+            case $this->table_screen instanceof TableScreen\User :
                 $query_args_whitelist[] = 'role';
                 break;
-            case $this->list_screen instanceof ListScreen\Comment :
+            case $this->table_screen instanceof TableScreen\Comment :
                 $query_args_whitelist[] = 'comment_status';
                 break;
         }
@@ -263,6 +264,11 @@ final class Screen implements Registerable
     public function get_list_screen(): ?ListScreen
     {
         return $this->list_screen;
+    }
+
+    public function get_table_screen(): TableScreen
+    {
+        return $this->table_screen;
     }
 
     public function admin_head_scripts(): void

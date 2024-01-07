@@ -23,10 +23,6 @@ class MenuListFactory
         $items = [];
 
         foreach ($table_screens as $table_screen) {
-            if ($table_screen->is_network()) {
-                continue;
-            }
-
             $items[] =
                 new MenuListItem(
                     (string)$table_screen->get_key(),

@@ -12,7 +12,6 @@ final class ScreenTools implements Registerable
         add_action('ac/table', function (Screen $screen) {
             $list_screen = $screen->get_list_screen();
 
-            // TODO
             if ( ! $list_screen) {
                 return;
             }

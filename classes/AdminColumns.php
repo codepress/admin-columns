@@ -45,6 +45,10 @@ class AdminColumns
         ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\PostFactory::class));
         ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\UserFactory::class));
 
+        if ( ! defined('ACP_FILE')) {
+            ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\IntegrationsFactory::class));
+        }
+
         MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
 
         ListKeysFactory\Aggregate::add($container->get(ListKeysFactory\BaseFactory::class));
@@ -87,7 +91,6 @@ class AdminColumns
             Controller\ListScreenRestoreColumns::class,
             Controller\RestoreSettingsRequest::class,
             Controller\TableListScreenSetter::class,
-            Service\IntegrationColumns::class,
             Service\CommonAssets::class,
             Service\Colors::class,
         ];
@@ -167,8 +170,6 @@ class AdminColumns
                 ->constructorParameter(0, admin_url('options-general.php')),
             Admin\PageFactory\Settings::class       => autowire()
                 ->constructorParameter(2, defined('ACP_FILE')),
-            Service\IntegrationColumns::class       => autowire()
-                ->constructorParameter(1, defined('ACP_FILE')),
             EncoderFactory::class                   => static function (Plugin $plugin) {
                 return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
             },
