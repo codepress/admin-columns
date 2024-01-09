@@ -65,7 +65,6 @@ class DefaultColumnsRepository
 
     private function get(): array
     {
-        // TODO cache
         return get_option($this->option_name(), []);
     }
 

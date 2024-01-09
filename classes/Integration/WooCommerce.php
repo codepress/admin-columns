@@ -3,7 +3,6 @@
 namespace AC\Integration;
 
 use AC\Integration;
-use AC\PostType;
 use AC\Screen;
 use AC\TableScreen;
 use AC\Type\Url\Site;
@@ -44,6 +43,7 @@ final class WooCommerce extends Integration
             'product',
             'shop_order',
             'shop_coupon',
+            'shop_subscription',
         ];
     }
 
@@ -51,22 +51,30 @@ final class WooCommerce extends Integration
     {
         $is_user_screen = 'users' === $screen->get_id();
         $is_post_screen = 'edit' === $screen->get_base()
-                          && in_array($screen->get_post_type(), $this->get_post_types());
+                          && in_array($screen->get_post_type(), $this->get_post_types(), true);
+        $is_order_screen = 'woocommerce_page_wc-orders' === $screen->get_id();
 
-        return $is_user_screen || $is_post_screen;
+        return $is_user_screen || $is_post_screen || $is_order_screen;
+    }
+
+    private function get_list_keys(): array
+    {
+        $keys = [
+            'wp-users',
+            'wc_order',
+            'wc_order_subscription',
+        ];
+
+        foreach ($this->get_post_types() as $post_type) {
+            $keys[] = $post_type;
+        }
+
+        return $keys;
     }
 
     public function show_placeholder(TableScreen $table_screen): bool
     {
-        // TODO HPOS order table
-        $is_user_screen = $table_screen instanceof TableScreen\User;
-        $is_post_screen = $table_screen instanceof PostType
-                          && in_array(
-                              $table_screen->get_post_type(),
-                              $this->get_post_types()
-                          );
-
-        return $is_user_screen || $is_post_screen;
+        return in_array((string)$table_screen->get_key(), $this->get_list_keys(), true);
     }
 
 }

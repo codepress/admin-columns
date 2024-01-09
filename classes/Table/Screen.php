@@ -229,7 +229,6 @@ final class Screen implements Registerable
             'order',
         ];
 
-        // TODO test
         switch (true) {
             case $this->table_screen instanceof AC\PostType :
                 $query_args_whitelist[] = 'post_status';

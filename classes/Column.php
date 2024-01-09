@@ -226,10 +226,7 @@ class Column
         /**
          * @param string $label
          * @param Column $column
-         *
-         * @since 3.0
          */
-        // TODO check usages
         return (string)apply_filters('ac/headings/label', $this->get_setting('label')->get_value(), $this);
     }
 
@@ -384,10 +381,14 @@ class Column
         return '&ndash;';
     }
 
+    public function toArray(): array
+    {
+        return $this->options;
+    }
+
     /**
      * @deprecated NEWVERSION
      */
-    // TODO check usages
     public function get_list_screen(): void
     {
         _deprecated_function(__METHOD__, 'NEWVERSION');
@@ -396,16 +397,9 @@ class Column
     /**
      * @deprecated NEWVERSION
      */
-    public function set_list_screen(ListScreen $list_screen): self
+    public function set_list_screen(ListScreen $list_screen): void
     {
         _deprecated_function(__METHOD__, 'NEWVERSION');
-
-        return $this;
-    }
-
-    public function toArray(): array
-    {
-        return $this->options;
     }
 
     /**
