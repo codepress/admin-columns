@@ -209,8 +209,8 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
-= NEW_VERSION =
-Release Date: tbd
+= 4.7.1 =
+Release Date: January 9th, 2024
 
 * [Fixed] When the edit columns button was disabled, a styled container was displayed
 
