@@ -99,7 +99,7 @@ if ( ! function_exists('ac_get_columns')) {
             return [];
         }
 
-        return $list_screen->get_columns();
+        return iterator_to_array($list_screen->get_columns());
     }
 }
 
