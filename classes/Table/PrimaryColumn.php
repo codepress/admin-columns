@@ -24,7 +24,7 @@ class PrimaryColumn
 
         $columns = $this->list_screen->get_columns();
 
-        if ( ! $default_column) {
+        if ( ! $default_column && $columns->valid()) {
             $default = $columns->current()->get_name();
         }
 

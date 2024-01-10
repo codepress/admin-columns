@@ -4,32 +4,31 @@ namespace AC\Table;
 
 use AC\Registerable;
 
-// TODO
 final class TableFormView implements Registerable
 {
 
     public const PARAM_ACTION = 'ac-actions-form';
 
-    private $type;
+    private $meta_type;
 
     private $html;
 
     private $priority;
 
-    public function __construct(string $type, string $html, int $priority = null)
+    public function __construct(string $meta_type, string $html, int $priority = null)
     {
         if (null === $priority) {
             $priority = 10;
         }
 
-        $this->type = $type;
+        $this->meta_type = $meta_type;
         $this->html = $html;
         $this->priority = $priority;
     }
 
     public function register(): void
     {
-        switch ($this->type) {
+        switch ($this->meta_type) {
             case 'post':
                 add_action('restrict_manage_posts', [$this, 'render'], $this->priority);
 

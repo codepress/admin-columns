@@ -32,7 +32,6 @@ class ListStorage
             return;
         }
 
-        // TODO test. Does the Column object persist?
         $column->set_option('width', (string)$column_width->get_value());
         $column->set_option('width_unit', $column_width->get_unit());
 

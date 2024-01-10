@@ -42,8 +42,6 @@ class Aggregate implements AC\ColumnTypesFactory
 
         $this->modify_original_columns(new DefaultColumnsRepository($table_screen->get_key()), $collection);
 
-        //  TODO check usages: apply_filters('ac/column_types', $this); and remove
-
         return $collection;
     }
 
