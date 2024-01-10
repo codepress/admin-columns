@@ -20,13 +20,11 @@ abstract class ManageValue implements Registerable
 
     public function render_cell(string $column_name, $id, string $fallback_value = null): ?string
     {
-        $columns = $this->list_screen->get_columns();
+        $column = $this->list_screen->get_column($column_name);
 
-        if ( ! $columns->exists($column_name)) {
+        if ( ! $column) {
             return $fallback_value;
         }
-
-        $column = $columns->get($column_name);
 
         $value = $column->get_value($id);
 

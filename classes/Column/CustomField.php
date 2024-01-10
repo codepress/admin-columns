@@ -21,7 +21,7 @@ class CustomField extends Column\Meta
              ->set_group('custom_field');
     }
 
-    public function get_meta_key()
+    public function get_meta_key(): string
     {
         return (string)$this->get_setting(Settings\Column\CustomField::NAME)->get_value();
     }
@@ -49,12 +49,12 @@ class CustomField extends Column\Meta
      * @return string e.g. excerpt|color|date|numeric|image|has_content|link|checkmark|library_id|title_by_id|user_by_id|array|count
      * @see Settings\Column\CustomFieldType
      */
-    public function get_field_type()
+    public function get_field_type(): string
     {
         return (string)($this->get_setting(Settings\Column\CustomFieldType::NAME)->get_value() ?: '');
     }
 
-    public function get_field()
+    public function get_field(): string
     {
         return $this->get_meta_key();
     }

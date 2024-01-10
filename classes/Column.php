@@ -227,7 +227,7 @@ class Column
          * @param string $label
          * @param Column $column
          */
-        return (string)apply_filters('ac/headings/label', $this->get_setting('label')->get_value(), $this);
+        return (string)apply_filters('ac/headings/label', (string)$this->get_setting('label')->get_value(), $this);
     }
 
     /**

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AC;
 
-use InvalidArgumentException;
-
 class ColumnCollection implements ColumnIterator
 {
 
@@ -21,22 +19,7 @@ class ColumnCollection implements ColumnIterator
 
     public function add(Column $column): void
     {
-        // TODO key needs to be an int
-        $this->data[$column->get_name()] = $column;
-    }
-
-    public function exists(string $name): bool
-    {
-        return isset($this->data[$name]);
-    }
-
-    public function get(string $name): Column
-    {
-        if ( ! $this->exists($name)) {
-            throw new InvalidArgumentException(sprintf('No column found for name %s.', $name));
-        }
-
-        return $this->data[$name];
+        $this->data[] = $column;
     }
 
     public function current(): Column
@@ -49,7 +32,7 @@ class ColumnCollection implements ColumnIterator
         next($this->data);
     }
 
-    public function key(): string
+    public function key(): int
     {
         return key($this->data);
     }
@@ -67,11 +50,6 @@ class ColumnCollection implements ColumnIterator
     public function count(): int
     {
         return count($this->data);
-    }
-
-    public function keys(): array
-    {
-        return array_keys($this->data);
     }
 
 }

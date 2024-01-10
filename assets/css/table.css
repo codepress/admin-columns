@@ -1951,11 +1951,15 @@ div.cpac-color span {
 
 /* Ajax Modal
 -------------------------------------------------------------- */
+.ac-value-modal.-images .ac-value-modal-panel__body {
+  background: #fafafa;
+}
+
 .ac-value-modal-container .ac-modal-images-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: min-content;
-  grid-gap: 10px;
+  grid-gap: 18px;
   width: 100%;
 }
 @media screen and (max-width: 782px) {
@@ -1969,6 +1973,7 @@ div.cpac-color span {
   background: #fff;
   margin-bottom: 0;
   border-radius: 2px;
+  overflow: hidden;
 }
 .ac-value-modal-container .ac-modal-images-container .ac-image-container .ac-image-center img {
   display: block;

@@ -89,9 +89,13 @@ final class ListScreen
 
     public function get_column(string $name): ?Column
     {
-        return $this->columns->exists($name)
-            ? $this->columns->get($name)
-            : null;
+        foreach ($this->columns as $column) {
+            if ($column->get_name() === $name) {
+                return $column;
+            }
+        }
+
+        return null;
     }
 
     public function get_preferences(): array

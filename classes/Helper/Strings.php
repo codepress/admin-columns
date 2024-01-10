@@ -329,32 +329,12 @@ class Strings
         return '&ndash;';
     }
 
-    /**
-     * @param string $string
-     *
-     * @return bool
-     */
-    public function contains_html_only($string)
-    {
-        return strlen($string) !== strlen(strip_tags($string));
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public function is_empty($value)
+    public function is_empty($value): bool
     {
         return ! $this->is_not_empty($value);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public function is_not_empty($value)
+    public function is_not_empty($value): bool
     {
         return $value || 0 === $value || '0' === $value;
     }
@@ -388,5 +368,5 @@ class Strings
 
         return str_replace($delimiter . $last, $compound . $last, implode($delimiter, $words));
     }
-
+    
 }

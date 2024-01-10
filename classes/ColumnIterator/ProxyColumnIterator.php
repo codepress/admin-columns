@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\ColumnIterator;
 
-use AC\Column;
 use AC\ColumnIterator;
 use AC\ColumnRepository;
 use ReturnTypeWillChange;
@@ -33,21 +32,6 @@ class ProxyColumnIterator implements ColumnIterator
         }
 
         return $this->columnCollection;
-    }
-
-    public function exists(string $name): bool
-    {
-        return $this->forward()->exists($name);
-    }
-
-    public function get(string $name): Column
-    {
-        return $this->forward()->get($name);
-    }
-
-    public function keys(): array
-    {
-        return $this->forward()->keys();
     }
 
     #[ReturnTypeWillChange]

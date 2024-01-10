@@ -20,10 +20,12 @@ class PrimaryColumn
 
     public function set_primary_column(string $default): string
     {
+        $default_column = $this->list_screen->get_column($default);
+
         $columns = $this->list_screen->get_columns();
 
-        if ($columns->valid() && ! $columns->exists($default)) {
-            $default = $columns->key();
+        if ( ! $default_column) {
+            $default = $columns->current()->get_name();
         }
 
         $table_screen = $this->list_screen->get_table_screen();
