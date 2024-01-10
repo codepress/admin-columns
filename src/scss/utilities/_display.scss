@@ -1,0 +1,11 @@
+@mixin createDisplay( $name, $display ) {
+	.acu-#{$name} {
+		display: $display
+	}
+}
+
+@include createDisplay(flex, flex);
+@include createDisplay(block, block);
+@include createDisplay(inline-block, inline-block);
+@include createDisplay(inline-flex, inline-flex);
+@include createDisplay(inline, inline);

@@ -1,13 +1,14 @@
 <script lang="ts">
     import {onMount} from "svelte";
 
+    export let customClass: string|null = '';
     export let icon: string|null = '';
     export let size: string|null = 'md';
     export let pack: string|null = 'ac'; // ac|dashicons
 
     let iconName = '';
-
     let sizeClass = `acui-icon--${size}`;
+    let customClasses = [sizeClass];
 
     onMount( () => {
 		if( pack === 'ac' ){
@@ -18,6 +19,9 @@
             iconName = `dashicons dashicons-${icon}`;
         }
 
+        if ( customClass ){
+            customClasses.push( customClass)
+		}
 	});
 </script>
 <style>
@@ -68,6 +72,6 @@
 	}
 
 </style>
-<span class="acui-icon {sizeClass}">
+<span class="acui-icon {sizeClass} {customClass}">
 	<span class="{iconName}"></span>
 </span>

@@ -1,51 +1,51 @@
 @mixin createPaddingUtilities( $number, $unit ) {
-	.#{$acu-prefix}p-#{$number} {
+	.acu-p-#{$number} {
 		padding: $unit;
 	}
-	.#{$acu-prefix}py-#{$number} {
+	.acu-py-#{$number} {
 		padding-top: $unit;
 		padding-bottom: $unit;
 	}
-	.#{$acu-prefix}px-#{$number} {
+	.acu-px-#{$number} {
 		padding-left: $unit;
 		padding-right: $unit;
 	}
-	.#{$acu-prefix}pt-#{$number} {
+	.acu-pt-#{$number} {
 		padding-top: $unit;
 	}
-	.#{$acu-prefix}pb-#{$number} {
+	.acu-pb-#{$number} {
 		padding-bottom: $unit;
 	}
-	.#{$acu-prefix}pl-#{$number} {
+	.acu-pl-#{$number} {
 		padding-left: $unit;
 	}
-	.#{$acu-prefix}pr-#{$number} {
+	.acu-pr-#{$number} {
 		padding-right: $unit;
 	}
 }
 
 @mixin createMarginUtilities( $number, $unit ) {
-	.#{$acu-prefix}m-#{$number} {
+	.acu-m-#{$number} {
 		padding: $unit;
 	}
-	.#{$acu-prefix}my-#{$number} {
+	.acu-my-#{$number} {
 		padding-top: $unit;
 		padding-bottom: $unit;
 	}
-	.#{$acu-prefix}mx-#{$number} {
+	.acu-mx-#{$number} {
 		padding-left: $unit;
 		padding-right: $unit;
 	}
-	.#{$acu-prefix}mt-#{$number} {
+	.acu-mt-#{$number} {
 		padding-top: $unit;
 	}
-	.#{$acu-prefix}mb-#{$number} {
+	.acu-mb-#{$number} {
 		padding-bottom: $unit;
 	}
-	.#{$acu-prefix}ml-#{$number} {
+	.acu-ml-#{$number} {
 		padding-left: $unit;
 	}
-	.#{$acu-prefix}mr-#{$number} {
+	.acu-mr-#{$number} {
 		padding-right: $unit;
 	}
 }

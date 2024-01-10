@@ -113,8 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('#cpac')?.prepend(target);
 
-    NotificationProgrammatic.open('HALLLO');
-
     // END UI2.0
 
 
