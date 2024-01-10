@@ -99,7 +99,6 @@
 
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
-
 			<ColumnSettings
 					bind:data={data}
 					bind:settings={config}

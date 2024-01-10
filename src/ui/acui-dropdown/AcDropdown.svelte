@@ -79,11 +79,11 @@
             registerCloseHandlers();
         }
 
-        container.addEventListener('itemSelect', handleSelect );
+        container.addEventListener('change', handleSelect);
     });
 
 </script>
-<div class="acui-dropdown" bind:this={container}>
+<div class="acui-dropdown" bind:this={container} on:change={handleSelect}>
 	<div class="acui-dropdown-trigger" on:click|stopPropagation={toggle} on:keydown={handleKeyDown}
 			aria-haspopup="true" bind:this={trigger} role="button" tabindex="-1">
 		<slot name="trigger" active={opened}></slot>

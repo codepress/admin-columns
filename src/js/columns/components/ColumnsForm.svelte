@@ -14,6 +14,8 @@
     import {currentListKey} from "../store/current-list-screen";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
     import {listScreenIsReadOnly} from "../store/read_only";
+    import {columnTypesStore} from "../store/column-types";
+    import {NotificationProgrammatic} from "../../ui-wrapper/notification";
 
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
@@ -24,7 +26,23 @@
     }
 
     const addColumn = (column_type: string) => {
-        const name = ColumnUtils.generateId();
+        const columninfo = $columnTypesStore.find(c => c.value === column_type) ?? null;
+        let name = ColumnUtils.generateId();
+
+        if (!columninfo) {
+            return;
+        }
+
+        if (columninfo.original) {
+            name = columninfo.value;
+
+            if (data.columns.hasOwnProperty(name)) {
+                return NotificationProgrammatic.open({
+                    message: 'Original column already available',
+                    type: 'warning'
+                });
+            }
+        }
 
         getColumnSettings($currentListKey, column_type).then(d => {
             const columnLabel = ColumnTypesUtils.getColumnType(column_type)?.label;

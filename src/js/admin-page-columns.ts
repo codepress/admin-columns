@@ -31,7 +31,6 @@ import {getColumnSettingsConfig} from "./columns/utils/global";
 import ListScreenSections from "./columns/store/list-screen-sections";
 import {listScreenDataStore} from "./columns/store/list-screen-data";
 import {columnTypeSorter, columnTypesStore} from "./columns/store/column-types";
-import {NotificationProgrammatic} from "./ui-wrapper/notification";
 import {listScreenIsReadOnly} from "./columns/store/read_only";
 import {SvelteComponent} from "svelte";
 
@@ -55,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         stores: {
             currentListId,
             currentListKey,
-            listScreenDataStore
+            listScreenDataStore,
+            listScreenIsReadOnly
         },
         registerSettingType,
         ListScreenSections,

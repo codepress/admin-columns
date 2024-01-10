@@ -15,7 +15,8 @@ module.exports = {
 				'scripts --mode=development'
 			),
 		},
-		clean : npsUtils.rimraf( `${core_path}*/*.map` ),
+		//clean_old : npsUtils.rimraf( `${core_path}*/*.map` ),
+		clean : '',
 		styles : `sass scss:${core_path}css/`,
 		scripts : 'webpack',
 		languages : {
