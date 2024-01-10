@@ -34,6 +34,13 @@ class AdminColumns
 
         Container::set_container($container);
 
+        $this->define_factories($container);
+        $this->create_services($container)
+             ->register();
+    }
+
+    private function define_factories(DI\Container $container): void
+    {
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\CommentFactory::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\MediaFactory::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\PostFactory::class));
@@ -60,9 +67,6 @@ class AdminColumns
                      ->add('help', $container->get(PageFactory\Help::class));
 
         PageRequestHandlers::add_handler($page_handler);
-
-        $this->create_services($container)
-             ->register();
     }
 
     private function create_services(DI\Container $container): Services

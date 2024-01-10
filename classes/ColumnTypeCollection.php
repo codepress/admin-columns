@@ -21,6 +21,15 @@ class ColumnTypeCollection implements Iterator, Countable
         array_map([$this, 'add'], $column_types);
     }
 
+    public static function from_list(array $column_types_fqn): self
+    {
+        return new self(
+            array_map(static function ($fqn): Column {
+                return new $fqn();
+            }, $column_types_fqn)
+        );
+    }
+
     public function add(Column $column_type): void
     {
         $this->data[] = $column_type;
