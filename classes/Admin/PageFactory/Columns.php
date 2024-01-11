@@ -16,7 +16,6 @@ use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\TableScreen;
-use AC\TableScreenFactory;
 use InvalidArgumentException;
 
 class Columns implements PageFactoryInterface
@@ -32,8 +31,6 @@ class Columns implements PageFactoryInterface
 
     private $menu_list_factory;
 
-    private $table_screen_factory;
-
     private $preference;
 
     private $column_types_factory;
@@ -46,7 +43,6 @@ class Columns implements PageFactoryInterface
         Storage $storage,
         Location\Absolute $location,
         MenuFactoryInterface $menu_factory,
-        TableScreenFactory $table_screen_factory,
         Admin\UninitializedScreens $uninitialized_screens,
         Admin\MenuListFactory $menu_list_factory,
         Preference\ListScreen $preference,
@@ -59,7 +55,6 @@ class Columns implements PageFactoryInterface
         $this->menu_factory = $menu_factory;
         $this->uninitialized_screens = $uninitialized_screens;
         $this->menu_list_factory = $menu_list_factory;
-        $this->table_screen_factory = $table_screen_factory;
         $this->preference = $preference;
         $this->column_types_factory = $column_types_factory;
         $this->column_factory = $column_factory;
