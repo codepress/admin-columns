@@ -15,7 +15,7 @@ abstract class Meta extends Column
      */
     private $field;
 
-    abstract protected function get_meta_keys();
+    abstract protected function get_meta_keys(): array;
 
     protected function define_options()
     {
@@ -104,19 +104,12 @@ abstract class Meta extends Column
         return wp_cache_get($this->get_cache_key(), $this->get_cache_group());
     }
 
-    /**
-     * @param array $data
-     * @param int   $expire Seconds
-     */
-    private function set_cache($data, $expire = 15)
+    private function set_cache(array $data): void
     {
-        wp_cache_add($this->get_cache_key(), $data, $this->get_cache_group(), $expire);
+        wp_cache_add($this->get_cache_key(), $data, $this->get_cache_group(), 15);
     }
 
-    /**
-     * @return array
-     */
-    protected function get_meta_groups()
+    protected function get_meta_groups(): array
     {
         global $wpdb;
 

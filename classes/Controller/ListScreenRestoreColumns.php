@@ -35,7 +35,7 @@ class ListScreenRestoreColumns implements Registerable
             return;
         }
 
-        if ( ! $this->verify_nonce('restore-type')) {
+        if ( ! $this->verify_nonce()) {
             return;
         }
 
@@ -64,9 +64,9 @@ class ListScreenRestoreColumns implements Registerable
         $notice->register();
     }
 
-    private function verify_nonce(string $action): bool
+    private function verify_nonce(): bool
     {
-        return wp_verify_nonce(filter_input(INPUT_POST, '_ac_nonce'), $action);
+        return wp_verify_nonce(filter_input(INPUT_POST, '_ac_nonce'), 'restore-type');
     }
 
 }
