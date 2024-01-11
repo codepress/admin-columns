@@ -2,8 +2,6 @@
 
 namespace AC;
 
-use AC\Type\ListKey;
-
 class Column
 {
 
@@ -37,12 +35,6 @@ class Column
      */
     private $formatters;
 
-    /**
-     * @deprecated NEWVERSION
-     * @var ListScreen
-     */
-    protected $list_screen;
-
     private $group = 'custom';
 
     protected $options = [];
@@ -53,7 +45,11 @@ class Column
 
     protected $taxonomy = '';
 
-    protected $list_key = '';
+    /**
+     * @deprecated NEWVERSION
+     * @var ListScreen
+     */
+    protected $list_screen;
 
     public function get_name(): string
     {
@@ -72,9 +68,9 @@ class Column
         return $this->type;
     }
 
-    public function set_type($type): self
+    public function set_type(string $type): self
     {
-        $this->type = (string)$type;
+        $this->type = $type;
 
         return $this;
     }
@@ -130,16 +126,6 @@ class Column
         $this->taxonomy = $taxonomy;
 
         return $this;
-    }
-
-    public function set_list_key(ListKey $list_key): void
-    {
-        $this->list_key = $list_key;
-    }
-
-    public function get_list_key(): ListKey
-    {
-        return $this->list_key;
     }
 
     public function get_taxonomy()
@@ -208,9 +194,11 @@ class Column
         return $this->get_settings()->get($id);
     }
 
-    public function get_formatters()
+    public function get_formatters(): array
     {
         if (null === $this->formatters) {
+            $this->formatters = [];
+
             foreach ($this->get_settings() as $setting) {
                 if ($setting instanceof Settings\FormatValue || $setting instanceof Settings\FormatCollection) {
                     $this->formatters[] = $setting;
@@ -301,10 +289,10 @@ class Column
      *
      * @return mixed
      */
-    public function get_formatted_value($value, $original_value = null, $current = 0)
+    public function get_formatted_value($value, $original_value = null, int $current = 0)
     {
         $formatters = $this->get_formatters();
-        $available = count((array)$formatters);
+        $available = count($formatters);
 
         if (null === $original_value) {
             $original_value = $value;
