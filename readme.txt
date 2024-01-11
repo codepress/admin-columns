@@ -209,8 +209,13 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.7.1 =
+Release Date: January 9th, 2024
+
+* [Fixed] When the edit columns button was disabled, a styled container was displayed
+
 = 4.7 =
-Release Date: tbd
+Release Date: December 6th, 2023
 
 * [Improved] It is now possible to choose how dates are stored in the Custom Field column
 * [Improved] Webp images are not recognized for the custom field column

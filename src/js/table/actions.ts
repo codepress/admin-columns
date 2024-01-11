@@ -122,6 +122,15 @@ export default class Actions {
         return this.container;
     }
 
+    toggle( show: boolean = true ){
+        if(  show ){
+            this.getElement().classList.remove( '-hidden' )
+        } else {
+            this.getElement().classList.add( '-hidden' )
+        }
+
+    }
+
     refresh() {
         this.buttons.getButtons().forEach(button => {
             if (button.isHidden()) {
@@ -129,8 +138,10 @@ export default class Actions {
             } else {
                 this.container.querySelector('.ac-table-actions-buttons')?.append(button.getElement().getElement());
             }
-
         });
+
+        this.toggle( this.buttons.getButtons().length !== 0 )
+
     }
 
 }
