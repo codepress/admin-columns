@@ -9,8 +9,8 @@
     import {listScreenDataStore} from "../store/list-screen-data";
     import {columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
-    import ColumnSetting = AC.Vars.Settings.ColumnSetting;
     import {listScreenIsReadOnly} from "../store/read_only";
+    import ColumnSetting = AC.Vars.Settings.ColumnSetting;
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
 
@@ -39,13 +39,19 @@
 
     const handleListIdChange = (listId: string) => {
         getListScreenSettings(listId).then(response => {
-            config = response.data.data.settings;
-            tableUrl = response.data.data.table_url;
-            listScreenIsReadOnly.set( response.data.data.read_only );
-            listScreenDataStore.update(d => {
-                return response.data.data.list_screen_data.list_screen;
-            });
-        })
+            if (response.data.success) {
+                config = response.data.data.settings;
+                tableUrl = response.data.data.table_url;
+                listScreenIsReadOnly.set(response.data.data.read_only);
+                listScreenDataStore.update(() => {
+                    return response.data.data.list_screen_data.list_screen;
+                });
+            } else {
+                NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
+			}
+        }).catch( d => {
+            NotificationProgrammatic.open({message: d.message, type: 'error'})
+		})
     }
 
     onMount(() => {

@@ -15,6 +15,11 @@
     }
 
     const checkConditions = (data) => {
+        if( typeof settings === 'undefined'){
+            console.log( 'Unsupported',data )
+			return;
+		}
+
         filteredSettings = settings.filter(s => {
             return s.conditions
                 ? checkCondition(s.conditions)

@@ -112,11 +112,18 @@ class ListScreenSettings implements RequestAjaxHandler
 
     private function method_get_settings(Request $request)
     {
-        $list_screen = $this->storage->find(new ListScreenId($request->get('list_screen_id')));
         $response = new Json();
+        $list_screen_id = $request->get('list_screen_id');
+
+        // TODO load empty list screen if no ID is present? Or do we need another request?
+        if ( ! $list_screen_id) {
+            $response->set_message('No list screen ID given')->error();
+        }
+
+        $list_screen = $this->storage->find(new ListScreenId($request->get($list_screen_id)));
 
         if ( ! $list_screen) {
-            $response->error();
+            $response->set_message('No list screen found')->error();
         }
 
         // TODO Stefan THIS IS A PRO FEATURE!!! Move?
