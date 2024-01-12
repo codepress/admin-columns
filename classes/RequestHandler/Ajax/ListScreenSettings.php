@@ -120,7 +120,7 @@ class ListScreenSettings implements RequestAjaxHandler
             $response->set_message('No list screen ID given')->error();
         }
 
-        $list_screen = $this->storage->find(new ListScreenId($request->get($list_screen_id)));
+        $list_screen = $this->storage->find(new ListScreenId($list_screen_id));
 
         if ( ! $list_screen) {
             $response->set_message('No list screen found')->error();
