@@ -57,8 +57,8 @@ class AdminColumns
         }
 
         MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
-
         ListKeysFactory\Aggregate::add($container->get(ListKeysFactory\BaseFactory::class));
+        TableScreen\TableRowsFactory\Aggregate::add(new TableScreen\TableRowsFactory\BaseFactory());
 
         $page_handler = new PageRequestHandler();
         $page_handler->add('columns', $container->get(PageFactory\Columns::class))
@@ -97,6 +97,7 @@ class AdminColumns
             Controller\TableListScreenSetter::class,
             Service\CommonAssets::class,
             Service\Colors::class,
+            Service\TableRows::class,
         ];
 
         if ( ! defined('ACP_FILE')) {
