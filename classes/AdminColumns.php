@@ -79,6 +79,7 @@ class AdminColumns
             Admin\Notice\ReadOnlyListScreen::class,
             Admin\Notice\DatabaseMissing::class,
             Ajax\NumberFormat::class,
+            ThirdParty\AdvancedCustomFields::class,
             ThirdParty\NinjaForms::class,
             ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant::class,
             ThirdParty\WooCommerce::class,
