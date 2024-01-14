@@ -2,34 +2,75 @@
 
 namespace AC;
 
+use AC\Type\ListKey;
+
 class DefaultColumnsRepository
 {
 
-    private const OPTIONS_KEY = 'cpac_options_';
+    private $key;
 
-    private function get_option_name(string $list_screen_key): string
+    public function __construct(ListKey $key)
     {
-        return self::OPTIONS_KEY . $list_screen_key . "__default";
+        $this->key = $key;
     }
 
-    public function update(string $list_screen_key, array $columns): void
+    public function update(array $columns): void
     {
-        update_option($this->get_option_name($list_screen_key), $columns, false);
+        update_option($this->option_name(), $columns, false);
     }
 
-    public function exists(string $list_screen_key): bool
+    public function exists(): bool
     {
-        return false !== get_option($this->get_option_name($list_screen_key));
+        return false !== get_option($this->option_name());
     }
 
-    public function get(string $list_screen_key): array
+    public function delete(): void
     {
-        return get_option($this->get_option_name($list_screen_key), []);
+        delete_option($this->option_name());
     }
 
-    public function delete(string $list_screen_key): void
+    public function find_all(): ColumnTypeCollection
     {
-        delete_option($this->get_option_name($list_screen_key));
+        $columns = [];
+
+        foreach ($this->get() as $type => $label) {
+            if ('cb' === $type) {
+                continue;
+            }
+
+            $columns[] = $this->create_column($type, $label);
+        }
+
+        return new ColumnTypeCollection($columns);
+    }
+
+    private function create_column(string $type, string $label): Column
+    {
+        return (new Column())->set_type($type)
+                             ->set_label($label)
+                             ->set_group('default')
+                             ->set_original(true);
+    }
+
+    public function find(string $column_type): ?Column
+    {
+        $label = $this->get()[$column_type] ?? null;
+
+        if ( ! $label) {
+            return null;
+        }
+
+        return $this->create_column($column_type, $label);
+    }
+
+    private function get(): array
+    {
+        return get_option($this->option_name(), []);
+    }
+
+    private function option_name(): string
+    {
+        return sprintf('cpac_options_%s__default', $this->key);
     }
 
 }

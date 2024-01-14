@@ -3,66 +3,70 @@
 namespace AC\Controller;
 
 use AC\Capabilities;
+use AC\ColumnCollection;
 use AC\ListScreenRepository\Storage;
 use AC\Message\Notice;
 use AC\Registerable;
 use AC\Type\ListScreenId;
 use LogicException;
 
-class ListScreenRestoreColumns implements Registerable {
+class ListScreenRestoreColumns implements Registerable
+{
 
-	/**
-	 * @var Storage
-	 */
-	private $repository;
+    private $repository;
 
-	public function __construct( Storage $repository ) {
-		$this->repository = $repository;
-	}
-
-	public function register(): void
+    public function __construct(Storage $repository)
     {
-		add_action( 'admin_init', [ $this, 'handle_request' ] );
-	}
+        $this->repository = $repository;
+    }
 
-	public function handle_request() {
-		if ( ! current_user_can( Capabilities::MANAGE ) ) {
-			return;
-		}
+    public function register(): void
+    {
+        add_action('admin_init', [$this, 'handle_request']);
+    }
 
-		switch ( filter_input( INPUT_POST, 'action' ) ) {
+    public function handle_request()
+    {
+        if ( ! current_user_can(Capabilities::MANAGE)) {
+            return;
+        }
 
-			case 'restore_by_type' :
-				if ( $this->verify_nonce( 'restore-type' ) ) {
-					try {
-						$id = new ListScreenId( filter_input( INPUT_POST, 'layout' ) );
-					} catch ( LogicException $e ) {
-						return;
-					}
+        if ('restore_by_type' !== filter_input(INPUT_POST, 'action')) {
+            return;
+        }
 
-					$list_screen = $this->repository->find( $id );
+        if ( ! $this->verify_nonce()) {
+            return;
+        }
 
-					if ( ! $list_screen ) {
-						return;
-					}
+        try {
+            $id = new ListScreenId(filter_input(INPUT_POST, 'layout'));
+        } catch (LogicException $e) {
+            return;
+        }
 
-					$list_screen->set_settings( [] );
-					$this->repository->save( $list_screen );
+        $list_screen = $this->repository->find($id);
 
-					$notice = new Notice( sprintf( __( 'Settings for %s restored successfully.', 'codepress-admin-columns' ), "<strong>" . esc_html( $list_screen->get_title() ) . "</strong>" ) );
-					$notice->register();
-				}
-				break;
-		}
-	}
+        if ( ! $list_screen) {
+            return;
+        }
 
-	/**
-	 * @param string $action
-	 *
-	 * @return bool
-	 */
-	private function verify_nonce( $action ) {
-		return wp_verify_nonce( filter_input( INPUT_POST, '_ac_nonce' ), $action );
-	}
+        $list_screen->set_columns(new ColumnCollection());
+
+        $this->repository->save($list_screen);
+
+        $notice = new Notice(
+            sprintf(
+                __('Settings for %s restored successfully.', 'codepress-admin-columns'),
+                "<strong>" . esc_html($list_screen->get_title()) . "</strong>"
+            )
+        );
+        $notice->register();
+    }
+
+    private function verify_nonce(): bool
+    {
+        return wp_verify_nonce(filter_input(INPUT_POST, '_ac_nonce'), 'restore-type');
+    }
 
 }

@@ -5,9 +5,6 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 2.2.4
- */
 class TitleRaw extends Column
 {
 

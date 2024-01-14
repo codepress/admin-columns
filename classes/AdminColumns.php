@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Admin\MenuGroupFactory;
+use AC\Admin\MenuGroupFactory\DefaultGroups;
 use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
@@ -11,14 +13,13 @@ use AC\Asset\Location\Absolute;
 use AC\Asset\Script\Localize\Translation;
 use AC\Controller\RestoreSettingsRequest;
 use AC\Entity\Plugin;
-use AC\ListScreenFactory\Aggregate;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenRepository\Types;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax\ListScreenDelete;
-use AC\Table\ListKeysFactoryInterface;
+use AC\Storage\EncoderFactory;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
 
@@ -33,10 +34,31 @@ class AdminColumns
 
         Container::set_container($container);
 
-        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\UserFactory::class));
-        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\CommentFactory::class));
-        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\PostFactory::class));
-        ListScreenFactory\Aggregate::add($container->get(ListScreenFactory\MediaFactory::class));
+        $this->define_factories($container);
+        $this->create_services($container)
+             ->register();
+    }
+
+    private function define_factories(DI\Container $container): void
+    {
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\CommentFactory::class));
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\MediaFactory::class));
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\PostFactory::class));
+        TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\UserFactory::class));
+
+        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\OriginalsFactory::class));
+        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\CommentFactory::class));
+        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\MediaFactory::class));
+        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\PostFactory::class));
+        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\UserFactory::class));
+
+        if ( ! defined('ACP_FILE')) {
+            ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\IntegrationsFactory::class));
+        }
+
+        MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
+        ListKeysFactory\Aggregate::add($container->get(ListKeysFactory\BaseFactory::class));
+        TableScreen\TableRowsFactory\Aggregate::add(new TableScreen\TableRowsFactory\BaseFactory());
 
         $page_handler = new PageRequestHandler();
         $page_handler->add('columns', $container->get(PageFactory\Columns::class))
@@ -45,9 +67,6 @@ class AdminColumns
                      ->add('help', $container->get(PageFactory\Help::class));
 
         PageRequestHandlers::add_handler($page_handler);
-
-        $this->create_services($container)
-             ->register();
     }
 
     private function create_services(DI\Container $container): Services
@@ -60,7 +79,6 @@ class AdminColumns
             Admin\Notice\ReadOnlyListScreen::class,
             Admin\Notice\DatabaseMissing::class,
             Ajax\NumberFormat::class,
-            ThirdParty\ACF::class,
             ThirdParty\NinjaForms::class,
             ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant::class,
             ThirdParty\WooCommerce::class,
@@ -77,9 +95,9 @@ class AdminColumns
             Controller\ListScreenRestoreColumns::class,
             Controller\RestoreSettingsRequest::class,
             Controller\TableListScreenSetter::class,
-            Service\IntegrationColumns::class,
             Service\CommonAssets::class,
             Service\Colors::class,
+            Service\TableRows::class,
         ];
 
         if ( ! defined('ACP_FILE')) {
@@ -120,8 +138,6 @@ class AdminColumns
             'translations.global'                   => static function (Plugin $plugin): Translation {
                 return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
             },
-            Database::class                         => autowire()
-                ->constructorParameter(0, new ListScreenFactory\Aggregate()),
             Storage::class                          => static function (Database $database): Storage {
                 $storage = new Storage();
                 $storage->set_repositories([
@@ -136,7 +152,7 @@ class AdminColumns
             Plugin::class                           => static function (): Plugin {
                 return Plugin::create(AC_FILE, new Version(AC_VERSION));
             },
-            ListScreenFactory::class                => autowire(Aggregate::class),
+            TableScreenFactory::class               => autowire(TableScreenFactory\Aggregate::class),
             Absolute::class                         => static function (Plugin $plugin): Absolute {
                 return new Absolute($plugin->get_url(), $plugin->get_dir());
             },
@@ -146,7 +162,8 @@ class AdminColumns
             ): SetupFactory\AdminColumns {
                 return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
             },
-            ListKeysFactoryInterface::class         => autowire(Table\ListKeysFactory::class),
+            ColumnTypesFactory::class               => autowire(ColumnTypesFactory\Aggregate::class),
+            ListKeysFactory::class                  => autowire(ListKeysFactory\Aggregate::class),
             Service\CommonAssets::class             => autowire()
                 ->constructorParameter(1, DI\get('translations.global')),
             Admin\Colors\Shipped\ColorParser::class => autowire()
@@ -156,11 +173,11 @@ class AdminColumns
                 ->constructorParameter(0, DI\get(PageRequestHandlers::class)),
             Admin\MenuFactoryInterface::class       => autowire(Admin\MenuFactory::class)
                 ->constructorParameter(0, admin_url('options-general.php')),
-            Admin\MenuListFactory::class            => autowire(Admin\MenuListFactory\MenuFactory::class),
             Admin\PageFactory\Settings::class       => autowire()
                 ->constructorParameter(2, defined('ACP_FILE')),
-            Service\IntegrationColumns::class       => autowire()
-                ->constructorParameter(1, defined('ACP_FILE')),
+            EncoderFactory::class                   => static function (Plugin $plugin) {
+                return new EncoderFactory\BaseEncoderFactory($plugin->get_version());
+            },
         ];
 
         return (new ContainerBuilder())

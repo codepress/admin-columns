@@ -9,7 +9,7 @@ class Post
 
     public function exists($id): bool
     {
-        return $this->get_raw_field('ID', $id) ? true : false;
+        return (bool)$this->get_raw_field('ID', $id);
     }
 
     private function esc_sql_array($array): string

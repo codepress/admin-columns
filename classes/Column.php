@@ -2,16 +2,8 @@
 
 namespace AC;
 
-/**
- * @since 3.0
- */
 class Column
 {
-
-    /**
-     * @var string Unique Name
-     */
-    private $name;
 
     /**
      * @var string Unique type
@@ -24,9 +16,9 @@ class Column
     private $label;
 
     /**
-     * @var string Group name
+     * @var string Unique Name
      */
-    private $group;
+    private $name = '';
 
     /**
      * @var bool An original column will use the already defined column value and label.
@@ -43,192 +35,125 @@ class Column
      */
     private $formatters;
 
+    private $group = 'custom';
+
+    protected $options = [];
+
+    protected $meta_type = '';
+
+    protected $post_type = '';
+
+    protected $taxonomy = '';
+
     /**
+     * @deprecated NEWVERSION
      * @var ListScreen
      */
     protected $list_screen;
 
-    /**
-     * The options managed by the settings
-     * @var array
-     */
-    protected $options = [];
-
-    /**
-     * Get the unique name of the column
-     * @return string Column name
-     * @since 2.3.4
-     */
-    public function get_name()
+    public function get_name(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function set_name($name)
+    public function set_name(string $name): self
     {
-        $this->name = (string)$name;
+        $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get the type of the column.
-     * @return string Type
-     * @since 2.3.4
-     */
-    public function get_type()
+    public function get_type(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return $this
-     */
-    public function set_type($type)
+    public function set_type(string $type): self
     {
-        $this->type = (string)$type;
-
-        return $this;
-    }
-
-    public function get_list_screen(): ListScreen
-    {
-        return $this->list_screen;
-    }
-
-    public function set_list_screen(ListScreen $list_screen): self
-    {
-        $this->list_screen = $list_screen;
+        $this->type = $type;
 
         return $this;
     }
 
     public function get_meta_type(): string
     {
-        return $this->list_screen->get_meta_type();
+        return $this->meta_type;
     }
 
-    public function get_list_key(): string
+    public function set_meta_type(string $meta_type): self
     {
-        return $this->list_screen->get_key();
-    }
-
-    public function get_list_singular_label(): string
-    {
-        return $this->list_screen->get_singular_label() ?: $this->get_label();
-    }
-
-    /**
-     * Get the type of the column.
-     * @return string Label of column's type
-     * @since 2.4.9
-     */
-    public function get_label()
-    {
-        if (null === $this->label) {
-            $this->set_label(
-                $this->get_list_screen()->get_original_label($this->get_type())
-            );
-        }
-
-        return (string)$this->label;
-    }
-
-    /**
-     * @param string|null $label
-     *
-     * @return $this
-     */
-    public function set_label($label)
-    {
-        $this->label = $label ? (string)$label : null;
+        $this->meta_type = $meta_type;
 
         return $this;
     }
 
-    /**
-     * @return string Group
-     * @since 3.0
-     */
-    public function get_group()
+    public function get_list_singular_label(): string
     {
-        if (null === $this->group) {
-            $this->set_group('custom');
+        return (string)$this->label;
+    }
 
-            if ($this->is_original()) {
-                $this->set_group('default');
-            }
-        }
+    public function get_label(): string
+    {
+        return (string)$this->label;
+    }
 
+    public function set_label(string $label = null): self
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    public function get_group(): string
+    {
         return $this->group;
     }
 
-    /**
-     * @param string $group Group label
-     *
-     * @return $this
-     */
-    public function set_group($group)
+    public function set_group(string $group): self
     {
         $this->group = $group;
 
         return $this;
     }
 
-    /**
-     * @return string Post type
-     */
-    public function get_post_type()
+    public function get_post_type(): string
     {
-        return method_exists($this->list_screen, 'get_post_type') ? $this->list_screen->get_post_type() : false;
+        return $this->post_type;
     }
 
-    /**
-     * @return string Taxonomy
-     */
+    public function set_taxonomy(string $taxonomy): self
+    {
+        $this->taxonomy = $taxonomy;
+
+        return $this;
+    }
+
     public function get_taxonomy()
     {
-        return method_exists($this->list_screen, 'get_taxonomy') ? $this->list_screen->get_taxonomy() : false;
+        return $this->taxonomy;
     }
 
-    /**
-     * Return true when a default column has been replaced by a custom column.
-     * An original column will then use the original label and value.
-     * @since 3.0
-     */
-    public function is_original()
+    public function set_post_type(string $post_type): self
     {
-        return $this->original;
-    }
-
-    /**
-     * @param bool $boolean
-     *
-     * @return $this
-     */
-    public function set_original($boolean)
-    {
-        $this->original = (bool)$boolean;
+        $this->post_type = $post_type;
 
         return $this;
     }
 
     /**
-     * Overwrite this function in child class.
-     * Determine whether this column type should be available
-     * @return bool Whether the column type should be available
-     * @since 2.2
+     * Return true when a default column has been replaced by a custom column.
+     * An original column will then use the original label and value.
      */
-    public function is_valid()
+    public function is_original(): bool
     {
-        return true;
+        return $this->original;
+    }
+
+    public function set_original(bool $boolean): self
+    {
+        $this->original = $boolean;
+
+        return $this;
     }
 
     /**
@@ -269,9 +194,11 @@ class Column
         return $this->get_settings()->get($id);
     }
 
-    public function get_formatters()
+    public function get_formatters(): array
     {
         if (null === $this->formatters) {
+            $this->formatters = [];
+
             foreach ($this->get_settings() as $setting) {
                 if ($setting instanceof Settings\FormatValue || $setting instanceof Settings\FormatCollection) {
                     $this->formatters[] = $setting;
@@ -282,19 +209,13 @@ class Column
         return $this->formatters;
     }
 
-    /**
-     * @return string
-     * @since 3.2.5
-     */
-    public function get_custom_label()
+    public function get_custom_label(): string
     {
         /**
          * @param string $label
          * @param Column $column
-         *
-         * @since 3.0
          */
-        return (string)apply_filters('ac/headings/label', $this->get_setting('label')->get_value(), $this);
+        return (string)apply_filters('ac/headings/label', (string)$this->get_setting('label')->get_value(), $this);
     }
 
     /**
@@ -304,7 +225,6 @@ class Column
     {
         if (null === $this->settings) {
             $settings = [
-                new Settings\Column\Type($this),
                 new Settings\Column\Label($this),
                 new Settings\Column\Width($this),
             ];
@@ -329,37 +249,24 @@ class Column
         // Overwrite in child class
     }
 
-    /**
-     * @param string $key
-     *
-     * @return null|string|bool
-     */
-    public function get_option($key)
+    public function get_option(string $key)
     {
-        $options = $this->get_options();
-
-        return isset($options[$key]) ? $options[$key] : null;
+        return $this->options[$key] ?? null;
     }
 
-    /**
-     * @param array $options
-     *
-     * @return $this
-     */
-    public function set_options(array $options)
+    public function set_options(array $options): void
     {
         $this->options = $options;
-
-        return $this;
     }
 
-    /**
-     * Get the current options
-     * @return array
-     */
-    public function get_options()
+    public function get_options(): array
     {
         return $this->options;
+    }
+
+    public function set_option(string $key, $value): void
+    {
+        $this->options[$key] = $value;
     }
 
     /**
@@ -368,7 +275,7 @@ class Column
      * Use this action to add CSS + JavaScript
      * @since 2.3.4
      */
-    public function scripts()
+    public function scripts(): void
     {
         // Overwrite in child class
     }
@@ -382,10 +289,10 @@ class Column
      *
      * @return mixed
      */
-    public function get_formatted_value($value, $original_value = null, $current = 0)
+    public function get_formatted_value($value, $original_value = null, int $current = 0)
     {
         $formatters = $this->get_formatters();
-        $available = count((array)$formatters);
+        $available = count($formatters);
 
         if (null === $original_value) {
             $original_value = $value;
@@ -424,7 +331,6 @@ class Column
      * @param int $id
      *
      * @return string|array
-     * @since 2.0.3
      */
     public function get_raw_value($id)
     {
@@ -453,20 +359,49 @@ class Column
         return (string)$value;
     }
 
-    /**
-     * @return string
-     */
-    public function get_separator()
+    public function get_separator(): string
     {
         return (new ApplyFilter\ColumnSeparator($this))->apply_filters(', ');
     }
 
-    /**
-     * @return string
-     */
-    public function get_empty_char()
+    public function get_empty_char(): string
     {
         return '&ndash;';
+    }
+
+    public function toArray(): array
+    {
+        return $this->options;
+    }
+
+    /**
+     * @deprecated NEWVERSION
+     */
+    public function get_list_screen(): void
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION');
+    }
+
+    /**
+     * @deprecated NEWVERSION
+     */
+    public function set_list_screen(ListScreen $list_screen): void
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION');
+    }
+
+    /**
+     * Overwrite this function in child class.
+     * Determine whether this column type should be available
+     * @return bool Whether the column type should be available
+     * @since      2.2
+     * @deprecated NEWVERSION
+     */
+    public function is_valid(): bool
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION');
+
+        return true;
     }
 
 }

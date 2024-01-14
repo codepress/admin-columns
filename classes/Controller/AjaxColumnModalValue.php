@@ -42,7 +42,7 @@ class AjaxColumnModalValue implements Registerable
 
         $id = (int)$request->filter('object_id', null, FILTER_SANITIZE_NUMBER_INT);
         $list_id = $request->filter('layout', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $column_name = $request->filter('column_name', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $column_name = (string)$request->filter('column_name', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if ( ! $id) {
             wp_send_json_error(__('Invalid item ID.', 'codepress-admin-columns'), 400);
@@ -58,7 +58,7 @@ class AjaxColumnModalValue implements Registerable
             wp_send_json_error(__('Invalid list screen.', 'codepress-admin-columns'), 400);
         }
 
-        $column = $list_screen->get_column_by_name($column_name);
+        $column = $list_screen->get_column($column_name);
 
         if ( ! $column) {
             wp_send_json_error(__('Invalid column.', 'codepress-admin-columns'), 400);

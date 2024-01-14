@@ -20,6 +20,18 @@ class Type extends Column
      */
     private $type;
 
+    /**
+     * @var Column[]
+     */
+    private $column_types;
+
+    public function __construct(AC\Column $column, array $column_types)
+    {
+        parent::__construct($column);
+
+        $this->column_types = $column_types;
+    }
+
     protected function define_options()
     {
         return [
@@ -63,15 +75,15 @@ class Type extends Column
     }
 
     /**
-     * Returns the type label as human readable: no tags, underscores and capitalized.
+     * Returns the type label as human-readable: no tags, underscores and capitalized.
      *
      * @param AC\Column|null $column
      *
      * @return string
      */
-    private function get_clean_label(AC\Column $column)
+    private function get_clean_label(AC\Column $column):string
     {
-        $label = (string)$column->get_label();
+        $label = $column->get_label();
 
         if (strip_tags($label) === '') {
             $label = ucfirst(str_replace('_', ' ', $column->get_type()));
@@ -91,21 +103,18 @@ class Type extends Column
     /**
      * @return array
      */
-    private function get_grouped_columns()
+    private function get_grouped_columns(): array
     {
-        $columns = [];
-
-        $list_screen = $this->column->get_list_screen();
-
-        $columns_types = apply_filters(
+        $column_types = apply_filters(
             'ac/column/settings/column_types',
-            $list_screen->get_column_types(),
-            $this->column,
-            $list_screen
+            $this->column_types,
+            $this->column
         );
 
+        $columns = [];
+
         // get columns and sort them
-        foreach ($columns_types as $column) {
+        foreach ($column_types as $column) {
             /**
              * @param string $group Group slug
              * @param Column $column

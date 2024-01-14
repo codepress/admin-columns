@@ -5,9 +5,6 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 2.0
- */
 class FeaturedImage extends Column\Meta {
 
 	public function __construct() {
@@ -46,10 +43,6 @@ class FeaturedImage extends Column\Meta {
 
 	public function register_settings() {
 		$this->add_setting( new Settings\Column\Image( $this ) );
-	}
-
-	public function is_valid() {
-		return post_type_supports( $this->get_post_type(), 'thumbnail' );
 	}
 
 }
