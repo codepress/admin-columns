@@ -55,8 +55,6 @@ class ColumnFactory
             $column->set_meta_type((string)$table_screen->get_meta_type());
         }
 
-        do_action('ac/column_init', $column, $table_screen);
-
         return $column;
     }
 
