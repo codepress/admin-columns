@@ -7,17 +7,14 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 use AC;
 use AC\Column;
 use AC\ColumnTypeCollection;
-use AC\ColumnTypesFactory\ColumnTypesTrait;
 
 class ColumnTypesFactory implements AC\ColumnTypesFactory
 {
 
-    use ColumnTypesTrait;
-
     public function create(AC\TableScreen $table_screen): ?ColumnTypeCollection
     {
         if ($table_screen instanceof TableScreen) {
-            return $this->create_from_list([
+            return ColumnTypeCollection::from_list([
                 Column\CustomField::class,
                 Column\Actions::class,
                 Column\Post\Slug::class,

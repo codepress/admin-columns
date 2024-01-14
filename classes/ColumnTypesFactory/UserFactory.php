@@ -12,15 +12,13 @@ use AC\TableScreen;
 class UserFactory implements AC\ColumnTypesFactory
 {
 
-    use ColumnTypesTrait;
-
     public function create(TableScreen $table_screen): ?ColumnTypeCollection
     {
         if ( ! $table_screen->get_key()->equals(new AC\Type\ListKey('wp-users'))) {
             return null;
         }
 
-        return $this->create_from_list($this->get_columns());
+        return ColumnTypeCollection::from_list($this->get_columns());
     }
 
     private function get_columns(): array

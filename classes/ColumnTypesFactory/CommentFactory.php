@@ -12,8 +12,6 @@ use AC\TableScreen;
 class CommentFactory implements AC\ColumnTypesFactory
 {
 
-    use ColumnTypesTrait;
-
     protected function can_create(TableScreen $table_screen): bool
     {
         return $table_screen->get_key()->equals(new AC\Type\ListKey('wp-comments'));
@@ -25,7 +23,7 @@ class CommentFactory implements AC\ColumnTypesFactory
             return null;
         }
 
-        return $this->create_from_list($this->get_columns());
+        return ColumnTypeCollection::from_list($this->get_columns());
     }
 
     private function get_columns(): array

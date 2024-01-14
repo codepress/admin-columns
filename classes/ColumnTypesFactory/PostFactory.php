@@ -13,15 +13,13 @@ use WP_Post_Type;
 class PostFactory implements AC\ColumnTypesFactory
 {
 
-    use ColumnTypesTrait;
-
     public function create(TableScreen $table_screen): ?ColumnTypeCollection
     {
         if ( ! $table_screen instanceof AC\PostType) {
             return null;
         }
 
-        return $this->create_from_list(
+        return ColumnTypeCollection::from_list(
             $this->get_columns(get_post_type_object($table_screen->get_post_type()))
         );
     }
