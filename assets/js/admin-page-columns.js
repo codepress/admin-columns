@@ -30545,6 +30545,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ListScreenSections: _columns_store_list_screen_sections__WEBPACK_IMPORTED_MODULE_5__["default"],
     };
     AcServices.registerService('ColumnPage', ConfigService);
+    _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.currentListId.set(config.list_screen_id);
     _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.currentListKey.set(config.list_key);
     _columns_store_column_types__WEBPACK_IMPORTED_MODULE_7__.columnTypesStore.set(config.column_types.sort(_columns_store_column_types__WEBPACK_IMPORTED_MODULE_7__.columnTypeSorter));
     const target = document.createElement('div');
