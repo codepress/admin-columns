@@ -2845,7 +2845,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (75:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
+// (74:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
@@ -2878,7 +2878,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (79:2) {#if $listScreenDataStore !== null}
+// (78:2) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -3063,11 +3063,10 @@ function instance($$self, $$props, $$invalidate) {
     if ($currentListKey === e.detail) {
       return;
     }
-    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettingsByListKey)(e.detail);
+    refreshListScreenData(e.detail);
   };
-  const updateDataByListKey = listKey => {
-    console.log('updateDataByListKey');
-    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettingsByListKey)(listKey).then(response => {
+  const refreshListScreenData = (listKey, listId = null) => {
+    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettings)(listKey, listId).then(response => {
       $$invalidate(1, config = response.data.data.column_settings);
       $$invalidate(2, tableUrl = response.data.data.table_url);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $currentListKey = listKey, $currentListKey);
@@ -3109,11 +3108,11 @@ function instance($$self, $$props, $$invalidate) {
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
     _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey.subscribe(listKey => {
-      updateDataByListKey(listKey);
+      refreshListScreenData(listKey);
     });
     _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId.subscribe(listId => {
       if (listId && loadedListId !== listId) {
-        handleListIdChange(listId);
+        refreshListScreenData($currentListKey, listId);
       }
     });
   });
