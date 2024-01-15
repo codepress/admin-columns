@@ -89,7 +89,7 @@ class ListScreenSettings implements RequestAjaxHandler
         $response->set_parameter('table_url', (string)$list_screen->get_table_url());
         $response->set_parameter('settings', $encoder->encode());
         $response->set_parameter('column_types', $this->get_column_types($table_screen));
-        $response->set_parameter('column_settings', $this->get_column_settings($table_screen));
+        $response->set_parameter('column_settings', $this->get_column_settings($list_screen->get_columns()));
 
         $response->success();
         exit;
@@ -114,12 +114,12 @@ class ListScreenSettings implements RequestAjaxHandler
         return $column_types;
     }
 
-    private function get_column_settings(AC\TableScreen $table_screen): array
+    private function get_column_settings(AC\ColumnIterator $columns): array
     {
         $settings = [];
 
-        foreach ($this->column_types_factory->create($table_screen) as $column_type) {
-            $settings[$column_type->get_type()] = (new Encoder($column_type->get_settings()))->encode();
+        foreach ($columns as $column) {
+            $settings[$column->get_name()] = (new Encoder($column->get_settings()))->encode();
         }
 
         return $settings;
