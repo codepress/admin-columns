@@ -5,30 +5,36 @@ namespace AC\Admin\Asset;
 use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
+use AC\ColumnTypesFactory\Aggregate;
 use AC\Controller\DefaultColumns;
 use AC\Table\TableScreenCollection;
+use AC\TableScreen;
+use AC\Type\ListScreenId;
 
 class Columns extends Script
 {
 
-    private $table_screens;
+    private $table_screen;
 
-    private $list_key;
+    private $table_screens;
 
     private $list_id;
 
-    private $list_screen;
+    private $column_types_factory;
 
+    /**
+     * @var AC\Admin\Section\Partial\Menu
+     */
     private $menu;
 
     public function __construct(
         string $handle,
         Location $location,
-        AC\ListScreen $list_screen,
+        TableScreen $table_screen,
+        Aggregate $column_types_factory,
         TableScreenCollection $table_screens,
-        string $list_key,
         AC\Admin\Section\Partial\Menu $menu,
-        string $list_id = null
+        ListScreenId $list_id = null
     ) {
         parent::__construct($handle, $location, [
             'jquery',
@@ -37,10 +43,10 @@ class Columns extends Script
             'jquery-touch-punch',
         ]);
 
+        $this->table_screen = $table_screen;
         $this->table_screens = $table_screens;
-        $this->list_key = $list_key;
         $this->list_id = $list_id;
-        $this->list_screen = $list_screen;
+        $this->column_types_factory = $column_types_factory;
         $this->menu = $menu;
     }
 
@@ -51,11 +57,11 @@ class Columns extends Script
         // TODO Remove AC variable and use more specific
         $params = [
             '_ajax_nonce'                => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
-            'list_screen'                => $this->list_key,
-            'layout'                     => $this->list_id,
+            'list_screen'                => $this->table_screen->get_key(),
+            'layout'                     => (string)$this->list_id,
             'original_columns'           => [],
             'uninitialized_list_screens' => [],
-            'column_types'               => $this->get_column_types($this->list_screen),
+            'column_types'               => $this->get_column_types(),
             'column_groups'              => AC\ColumnGroups::get_groups()->get_all(),
             'i18n'                       => [
                 'value'  => __('Value', 'codepress-admin-columns'),
@@ -85,10 +91,10 @@ class Columns extends Script
 
         // TODO Needed for UI2 Remove part above
         $this->add_inline_variable('ac_admin_columns', [
-            'menu_items'     => $this->menu->get_menu_items(),
-            'list_key'       => $this->list_key,
-            'list_screen_id' => $this->list_id,
-            'column_types'   => $this->get_column_types($this->list_screen),
+            'menu_items'     => $this->get_menu_items(),
+            'list_key'       => (string)$this->table_screen->get_key(),
+            'list_screen_id' => (string)$this->list_id,
+            'column_types'   => $this->get_column_types(),
             'column_groups'  => AC\ColumnGroups::get_groups()->get_all(),
         ]);
 
@@ -108,15 +114,24 @@ class Columns extends Script
         );
     }
 
-    private function get_column_types(AC\ListScreen $list_screen): array
+    private function get_menu_items(): array
+    {
+        // TODO simplify
+        return $this->menu->get_menu_items();
+    }
+
+    private function get_column_types(): array
     {
         $column_types = [];
 
-        foreach ($list_screen->get_column_types() as $column) {
+        // TODO cache
+        $groups = AC\ColumnGroups::get_groups();
+
+        foreach ($this->column_types_factory->create($this->table_screen) as $column) {
             $column_types[] = [
                 'label'     => $column->get_label(),
                 'value'     => $column->get_type(),
-                'group'     => AC\ColumnGroups::get_groups()->get($column->get_group())['label'],
+                'group'     => $groups->get($column->get_group())['label'],
                 'group_key' => $column->get_group(),
                 'original'  => $column->is_original(),
             ];

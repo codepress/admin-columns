@@ -6,14 +6,14 @@ namespace AC\RequestHandler\Ajax;
 
 use AC;
 use AC\Capabilities;
-use AC\ListScreenFactory;
+use AC\Column;
 use AC\ListScreenRepository\Storage;
 use AC\Plugin\Version;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
+use AC\Type\ListKey;
 use AC\Type\ListScreenId;
-use ACP\Storage\Decoder;
 use ACP\Storage\Encoder;
 
 class ListScreenSettings implements RequestAjaxHandler
@@ -21,20 +21,18 @@ class ListScreenSettings implements RequestAjaxHandler
 
     private $storage;
 
-    /**
-     * @var Decoder
-     */
-    private $decoder;
+    private $table_factory;
 
-    /**
-     * @var ListScreenFactory
-     */
-    private $list_screen_factory;
+    private $column_types_factory;
 
-    public function __construct(Storage $storage, ListScreenFactory $list_screen_factory)
-    {
+    public function __construct(
+        Storage $storage,
+        AC\TableScreenFactory\Aggregate $table_factory,
+        AC\ColumnTypesFactory\Aggregate $column_types_factory
+    ) {
         $this->storage = $storage;
-        $this->list_screen_factory = $list_screen_factory;
+        $this->table_factory = $table_factory;
+        $this->column_types_factory = $column_types_factory;
     }
 
     public function handle(): void
@@ -65,14 +63,27 @@ class ListScreenSettings implements RequestAjaxHandler
 
     private function method_get_settings_by_list_key(Request $request)
     {
-        $list_key = $request->get('list_key');
-        $list_screens = $this->storage->find_all_by_key($list_key);
+        $list_key = new ListKey($request->get('list_key'));
+
+        if ( ! $this->table_factory->can_create($list_key)) {
+            return;
+        }
+
+        $table_screen = $this->table_factory->create($list_key);
+
+        // TODO use ListScreenAdmin middleware...
+        $list_screens = $this->storage->find_all_by_key($table_screen->get_key());
         $response = new Json();
 
         if ($list_screens->count() > 0) {
             $list_screen = $list_screens->current();
         } else {
-            $list_screen = $this->list_screen_factory->create($list_key);
+            // TODO
+            $list_screen = new AC\ListScreen(
+                ListScreenId::generate(),
+                'New',
+                $table_screen
+            );
         }
 
         // THIS IS A PRO FEATURE!!! Move?
@@ -88,20 +99,22 @@ class ListScreenSettings implements RequestAjaxHandler
 
         $response->set_parameter('list_screen_data', $encoder->encode());
         $response->set_parameter('settings', $settings);
-        $response->set_parameter('column_types', $this->get_column_types($list_screen));
+        $response->set_parameter('column_types', $this->get_column_types($table_screen));
 
         $response->success();
     }
 
-    private function get_column_types(AC\ListScreen $list_screen): array
+    private function get_column_types(AC\TableScreen $table_screen): array
     {
         $column_types = [];
 
-        foreach ($list_screen->get_column_types() as $column) {
+        $groups = AC\ColumnGroups::get_groups();
+
+        foreach ($this->column_types_factory->create($table_screen) as $column) {
             $column_types[] = [
                 'label'     => $column->get_label(),
                 'value'     => $column->get_type(),
-                'group'     => AC\ColumnGroups::get_groups()->get($column->get_group())['label'],
+                'group'     => $groups->get($column->get_group())['label'],
                 'group_key' => $column->get_group(),
                 'original'  => $column->is_original(),
             ];
@@ -144,11 +157,11 @@ class ListScreenSettings implements RequestAjaxHandler
         $response->success();
     }
 
-    private function get_column_settings(\AC\Column $column)
+    private function get_column_settings(Column $column)
     {
         $settings = [];
 
-        $encoder = new \AC\Setting\Encoder($column->get_settings());
+        $encoder = new AC\Setting\Encoder($column->get_settings());
 
         return $encoder->encode();
 
@@ -186,7 +199,7 @@ class ListScreenSettings implements RequestAjaxHandler
 
         $column = $list_screen->get_column_by_type($request->get('column_type'));
 
-        if ( ! $column instanceof \AC\Column) {
+        if ( ! $column instanceof Column) {
             $response->error();
         }
 

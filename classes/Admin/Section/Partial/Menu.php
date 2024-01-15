@@ -3,8 +3,8 @@
 namespace AC\Admin\Section\Partial;
 
 use AC\Admin\MenuListItems;
-use AC\View;
 
+// TODO move out of section dir
 class Menu
 {
 
@@ -15,20 +15,20 @@ class Menu
         $this->menu_items = $menu_items;
     }
 
-    public function render(string $current, string $url, bool $is_hidden = false): string
-    {
-        $menu = new View([
-            'items'       => $this->get_menu_items(),
-            'current'     => $current,
-            'screen_link' => $url,
-            'class'       => $is_hidden ? 'hidden' : '',
-        ]);
+    // TODO remove
+    //    public function render(string $current, string $url, bool $is_hidden = false): string
+    //    {
+    //        $menu = new View([
+    //            'items'       => $this->get_menu_items(),
+    //            'current'     => $current,
+    //            'screen_link' => $url,
+    //            'class'       => $is_hidden ? 'hidden' : '',
+    //        ]);
+    //
+    //        return $menu->set_template('admin/edit-menu')
+    //                    ->render();
+    //    }
 
-        return $menu->set_template('admin/edit-menu')
-                    ->render();
-    }
-
-    // TODO was private, needs to pass to script
     public function get_menu_items(): array
     {
         $options = [];

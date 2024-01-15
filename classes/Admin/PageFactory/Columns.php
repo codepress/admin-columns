@@ -12,7 +12,6 @@ use AC\Asset\Location;
 use AC\ColumnFactory;
 use AC\ColumnTypesFactory;
 use AC\Controller\Middleware;
-use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\TableScreen;
@@ -46,7 +45,7 @@ class Columns implements PageFactoryInterface
         Admin\UninitializedScreens $uninitialized_screens,
         Admin\MenuListFactory $menu_list_factory,
         Preference\ListScreen $preference,
-        ColumnTypesFactory $column_types_factory,
+        ColumnTypesFactory\Aggregate $column_types_factory,
         ColumnFactory $column_factory,
         AC\Table\TableScreenRepository $table_screen_repository
     ) {
@@ -78,21 +77,22 @@ class Columns implements PageFactoryInterface
             throw new InvalidArgumentException('Invalid screen.');
         }
 
-        $request->add_middleware(
-            new Middleware\ListScreenAdmin(
-                $this->storage,
-                $table_screen,
-                $this->preference,
-                $this->column_types_factory,
-                $this->column_factory
-            )
-        );
+        // TODO
+        //        $request->add_middleware(
+        //            new Middleware\ListScreenAdmin(
+        //                $this->storage,
+        //                $table_screen,
+        //                $this->preference,
+        //                $this->column_types_factory,
+        //                $this->column_factory
+        //            )
+        //        );
 
-        $list_screen = $request->get('list_screen');
-
-        if ( ! $list_screen instanceof ListScreen) {
-            throw new InvalidArgumentException('Invalid screen.');
-        }
+        //        $list_screen = $request->get('list_screen');
+        //
+        //        if ( ! $list_screen instanceof ListScreen) {
+        //            throw new InvalidArgumentException('Invalid screen.');
+        //        }
 
         return new Page\Columns(
             $this->location,

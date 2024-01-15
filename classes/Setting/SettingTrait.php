@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+// TODO move to core
 use ACP\Expression\NullSpecification;
 use ACP\Expression\Specification;
 
 trait SettingTrait
 {
 
-    protected $name;
+    protected $name = '';
 
     protected $label = '';
 

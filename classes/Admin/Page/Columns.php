@@ -57,7 +57,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         TableScreen $table_screen,
         ListScreen $list_screen,
         Storage $storage,
-        ColumnTypesFactory $column_types_factory
+        ColumnTypesFactory\Aggregate $column_types_factory
     ) {
         $this->location = $location;
         $this->uninitialized_table_screens = $uninitialized_table_screens;
@@ -94,9 +94,11 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
             new Admin\Asset\Columns(
                 'ac-admin-page-columns',
                 $this->location->with_suffix('assets/js/admin-page-columns.js'),
+                $this->table_screen,
+                $this->column_types_factory,
                 $this->uninitialized_table_screens,
-                (string)$this->table_screen->get_key(),
-                (string)$this->list_screen->get_id()
+                $this->menu,
+                $this->list_screen->get_id()
             ),
             new Style('ac-admin-page-columns-css', $this->location->with_suffix('assets/css/admin-page-columns.css')),
             new Style('ac-select2'),
@@ -157,6 +159,9 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     public function render(): string
     {
+        return '<div></div>';
+
+        // TODO
         if ( ! $this->is_initialized()) {
             $modal = new View([
                 'message' => 'Loading columns',
