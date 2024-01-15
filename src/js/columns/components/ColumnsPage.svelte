@@ -1,7 +1,7 @@
 <script lang="ts">
     import ListScreenForm from "./ListScreenForm.svelte";
     import {onMount} from "svelte";
-    import {getListScreenSettings, getListScreenSettingsByListKey} from "../ajax/ajax";
+    import {getListScreenSettings} from "../ajax/ajax";
     import {currentListId, currentListKey} from "../store/current-list-screen";
     import ListScreenSections from "../store/list-screen-sections";
     import HtmlSection from "./HtmlSection.svelte";
@@ -23,12 +23,11 @@
             return;
         }
 
-        getListScreenSettingsByListKey(e.detail);
+        refreshListScreenData(e.detail);
     }
 
-    const updateDataByListKey = (listKey: string) => {
-        console.log('updateDataByListKey')
-        getListScreenSettingsByListKey(listKey).then(response => {
+    const refreshListScreenData = (listKey: string, listId: null|string = null) => {
+        getListScreenSettings(listKey, listId).then(response => {
             config = response.data.data.column_settings
             tableUrl = response.data.data.table_url;
             $currentListKey = listKey;
@@ -43,6 +42,7 @@
             NotificationProgrammatic.open({message: response.message, type: 'error'})
         });
     }
+
 
     const handleListIdChange = (listId: string) => {
         getListScreenSettings($currentListKey, listId).then(response => {
@@ -64,11 +64,12 @@
 
     onMount(() => {
         currentListKey.subscribe(listKey => {
-            updateDataByListKey(listKey);
-        })
+            refreshListScreenData(listKey);
+        });
+
         currentListId.subscribe((listId) => {
             if (listId && loadedListId !== listId) {
-                handleListIdChange(listId);
+                refreshListScreenData($currentListKey, listId);
             }
         });
     });
