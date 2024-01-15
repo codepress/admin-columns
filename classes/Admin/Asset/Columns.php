@@ -22,7 +22,7 @@ class Columns extends Script
 
     private $column_types_factory;
 
-    private $menu;
+    private $menu_items;
 
     public function __construct(
         string $handle,
@@ -30,7 +30,7 @@ class Columns extends Script
         TableScreen $table_screen,
         Aggregate $column_types_factory,
         TableScreenCollection $table_screens,
-        AC\Admin\Section\Partial\Menu $menu,
+        AC\Admin\MenuListItems $menu_items,
         ListScreenId $list_id = null
     ) {
         parent::__construct($handle, $location, [
@@ -44,7 +44,7 @@ class Columns extends Script
         $this->table_screens = $table_screens;
         $this->list_id = $list_id;
         $this->column_types_factory = $column_types_factory;
-        $this->menu = $menu;
+        $this->menu_items = $menu_items;
     }
 
     public function register(): void
@@ -112,10 +112,27 @@ class Columns extends Script
         );
     }
 
-    private function get_menu_items(): array
+    public function get_menu_items(): array
     {
-        // TODO simplify
-        return $this->menu->get_menu_items();
+        // TODO
+        $options = [];
+
+        foreach ($this->menu_items->all() as $item) {
+            $group = $item->get_group();
+            $group_name = $group->get_name();
+
+            if ( ! isset($options[$group_name])) {
+                $options[$group_name] = [
+                    'title'   => $group->get_label(),
+                    'icon'    => $group->has_icon() ? $group->get_icon() : '',
+                    'options' => [],
+                ];
+            }
+
+            $options[$group_name]['options'][$item->get_key()] = $item->get_label();
+        }
+
+        return $options;
     }
 
     private function get_column_types(): array

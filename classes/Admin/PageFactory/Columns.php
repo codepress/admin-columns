@@ -71,12 +71,10 @@ class Columns implements PageFactoryInterface
         return new Page\Columns(
             $this->location,
             $this->uninitialized_screens->find_all_site(),
-            new AC\Admin\Section\Partial\Menu(
-                $this->menu_list_factory->create($this->table_screen_repository->find_all_site())
-            ),
             new Admin\View\Menu($this->menu_factory->create('columns')),
             $table_screen,
             $this->column_types_factory,
+            $this->menu_list_factory->create($this->table_screen_repository->find_all_site()),
             $list_id
         );
     }

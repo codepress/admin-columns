@@ -8,7 +8,6 @@ use AC\Admin;
 use AC\Admin\Banner;
 use AC\Admin\RenderableHead;
 use AC\Admin\ScreenOption;
-use AC\Admin\Section\Partial\Menu;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
@@ -46,22 +45,24 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $list_id;
 
+    private $menu_items;
+
     public function __construct(
         Location\Absolute $location,
         TableScreenCollection $uninitialized_table_screens,
-        Menu $menu,
         Renderable $head,
         TableScreen $table_screen,
         ColumnTypesFactory\Aggregate $column_types_factory,
+        Admin\MenuListItems $menu_items,
         ListScreenId $list_id = null
     ) {
         $this->location = $location;
         $this->uninitialized_table_screens = $uninitialized_table_screens;
-        $this->menu = $menu;
         $this->head = $head;
         $this->table_screen = $table_screen;
         $this->column_types_factory = $column_types_factory;
         $this->list_id = $list_id;
+        $this->menu_items = $menu_items;
     }
 
     public function get_table_screen(): TableScreen
@@ -87,7 +88,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->table_screen,
                 $this->column_types_factory,
                 $this->uninitialized_table_screens,
-                $this->menu,
+                $this->menu_items,
                 $this->list_id
             ),
             new Style('ac-admin-page-columns-css', $this->location->with_suffix('assets/css/admin-page-columns.css')),
