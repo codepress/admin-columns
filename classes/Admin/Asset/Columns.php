@@ -34,6 +34,7 @@ class Columns extends Script
         ListScreenId $list_id = null
     ) {
         parent::__construct($handle, $location, [
+            // TODO do we still use these scripts
             'jquery',
             'jquery-ui-slider',
             'jquery-ui-sortable',
