@@ -25,11 +25,12 @@ declare namespace AC.Vars.Admin.Columns {
     type MenuItems = { [key: string]: MenuGroup }
 
     type AcAdminColumnsVar = {
+        nonce: string
         menu_items: MenuItems
         column_groups: ColumnGroup[]
         column_types: ColumnConfig[]
         list_key: string
-        list_screen_id: string
+        list_id: string
     }
 
 }

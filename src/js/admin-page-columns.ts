@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     AcServices.registerService('ColumnPage', ConfigService);
 
-    currentListId.set(config.list_screen_id)
+    currentListId.set(config.list_id)
     currentListKey.set(config.list_key);
     columnTypesStore.set(config.column_types.sort(columnTypeSorter));
 

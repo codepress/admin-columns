@@ -2845,7 +2845,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (73:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
+// (75:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
@@ -2878,7 +2878,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (77:2) {#if $listScreenDataStore !== null}
+// (79:2) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -3045,13 +3045,13 @@ function create_fragment(ctx) {
   };
 }
 function instance($$self, $$props, $$invalidate) {
+  let $currentListKey;
   let $columnTypesStore;
   let $currentListId;
-  let $currentListKey;
   let $listScreenDataStore;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(8, $columnTypesStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(9, $currentListId = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(10, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(8, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(9, $columnTypesStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(10, $currentListId = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(3, $listScreenDataStore = $$value));
   let {
     menu
@@ -3066,12 +3066,13 @@ function instance($$self, $$props, $$invalidate) {
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettingsByListKey)(e.detail);
   };
   const updateDataByListKey = listKey => {
+    console.log('updateDataByListKey');
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettingsByListKey)(listKey).then(response => {
-      $$invalidate(1, config = response.data.data.settings);
+      $$invalidate(1, config = response.data.data.column_settings);
       $$invalidate(2, tableUrl = response.data.data.table_url);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $currentListKey = listKey, $currentListKey);
-      loadedListId = response.data.data.list_screen_data.list_screen.id;
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $currentListId = response.data.data.list_screen_data.list_screen.id, $currentListId);
+      loadedListId = response.data.data.settings.list_screen.id;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $currentListId = response.data.data.settings.list_screen.id, $currentListId);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $columnTypesStore = response.data.data.column_types, $columnTypesStore);
       _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore.update(() => {
         return response.data.data.list_screen_data.list_screen;
@@ -3084,7 +3085,7 @@ function instance($$self, $$props, $$invalidate) {
     });
   };
   const handleListIdChange = listId => {
-    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettings)(listId).then(response => {
+    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettings)($currentListKey, listId).then(response => {
       if (response.data.success) {
         $$invalidate(1, config = response.data.data.settings);
         $$invalidate(2, tableUrl = response.data.data.table_url);
@@ -3099,6 +3100,7 @@ function instance($$self, $$props, $$invalidate) {
         });
       }
     }).catch(d => {
+      alert(d.message);
       _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_11__.NotificationProgrammatic.open({
         message: d.message,
         type: 'error'
@@ -16688,28 +16690,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getListScreenSettingsByListKey: () => (/* binding */ getListScreenSettingsByListKey),
 /* harmony export */   saveListScreen: () => (/* binding */ saveListScreen)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var _utils_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/global */ "./js/columns/utils/global.ts");
 
-const getListScreenSettings = (listId) => {
-    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(ajaxurl, {
+
+const getListScreenSettings = (listKey, listId = '') => {
+    const nonce = (0,_utils_global__WEBPACK_IMPORTED_MODULE_0__.getColumnSettingsConfig)().nonce;
+    return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(ajaxurl, {
         params: {
+            _ajax_nonce: nonce,
             action: 'ac-list-screen-settings',
+            list_key: listKey,
             list_screen_id: listId,
-            method: 'get_settings'
         }
     });
 };
 const getListScreenSettingsByListKey = (listKey) => {
-    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(ajaxurl, {
-        params: {
-            action: 'ac-list-screen-settings',
-            list_key: listKey,
-            method: 'get_settings_by_list_key'
-        }
-    });
+    return getListScreenSettings(listKey);
 };
 const getColumnSettings = (ListScreen, columnType) => {
-    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(ajaxurl, {
+    return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(ajaxurl, {
         params: {
             action: 'ac-list-screen-settings',
             method: 'add_column',
@@ -16723,7 +16723,7 @@ const saveListScreen = (data) => {
     formData.set('action', 'ac-list-screen-settings');
     formData.set('method', 'save_settings');
     formData.set('data', JSON.stringify(data));
-    return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(ajaxurl, formData);
+    return axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(ajaxurl, formData);
 };
 
 
@@ -30545,7 +30545,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ListScreenSections: _columns_store_list_screen_sections__WEBPACK_IMPORTED_MODULE_5__["default"],
     };
     AcServices.registerService('ColumnPage', ConfigService);
-    _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.currentListId.set(config.list_screen_id);
+    _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.currentListId.set(config.list_id);
     _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.currentListKey.set(config.list_key);
     _columns_store_column_types__WEBPACK_IMPORTED_MODULE_7__.columnTypesStore.set(config.column_types.sort(_columns_store_column_types__WEBPACK_IMPORTED_MODULE_7__.columnTypeSorter));
     const target = document.createElement('div');
