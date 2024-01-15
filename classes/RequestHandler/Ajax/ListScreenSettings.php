@@ -14,6 +14,7 @@ use AC\Nonce;
 use AC\Plugin\Version;
 use AC\Request;
 use AC\RequestAjaxHandler;
+use AC\Setting\Encoder;
 use AC\Type\ListKey;
 use InvalidArgumentException;
 
@@ -86,6 +87,7 @@ class ListScreenSettings implements RequestAjaxHandler
 
         $response->set_parameter('settings', $encoder->encode());
         $response->set_parameter('column_types', $this->get_column_types($table_screen));
+        $response->set_parameter('column_settings', $this->get_column_settings($table_screen));
 
         $response->success();
         exit;
@@ -108,6 +110,17 @@ class ListScreenSettings implements RequestAjaxHandler
         }
 
         return $column_types;
+    }
+
+    private function get_column_settings(AC\TableScreen $table_screen): array
+    {
+        $settings = [];
+
+        foreach ($this->column_types_factory->create($table_screen) as $column_type) {
+            $settings[$column_type->get_type()] = (new Encoder($column_type->get_settings()))->encode();
+        }
+
+        return $settings;
     }
 
     //    private function method_get_settings(Request $request)

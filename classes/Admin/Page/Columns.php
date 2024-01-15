@@ -16,11 +16,10 @@ use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Column;
 use AC\ColumnTypesFactory;
-use AC\ListScreen;
-use AC\ListScreenRepository\Storage;
 use AC\Renderable;
 use AC\Table\TableScreenCollection;
 use AC\TableScreen;
+use AC\Type\ListScreenId;
 use AC\Type\Url;
 use AC\Type\Url\Documentation;
 use AC\Type\Url\Site;
@@ -35,8 +34,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $location;
 
-    private $list_screen;
-
     private $uninitialized_table_screens;
 
     private $menu;
@@ -45,9 +42,9 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $table_screen;
 
-    private $storage;
-
     private $column_types_factory;
+
+    private $list_id;
 
     public function __construct(
         Location\Absolute $location,
@@ -55,23 +52,16 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         Menu $menu,
         Renderable $head,
         TableScreen $table_screen,
-        ListScreen $list_screen,
-        Storage $storage,
-        ColumnTypesFactory\Aggregate $column_types_factory
+        ColumnTypesFactory\Aggregate $column_types_factory,
+        ListScreenId $list_id = null
     ) {
         $this->location = $location;
         $this->uninitialized_table_screens = $uninitialized_table_screens;
         $this->menu = $menu;
         $this->head = $head;
         $this->table_screen = $table_screen;
-        $this->list_screen = $list_screen;
-        $this->storage = $storage;
         $this->column_types_factory = $column_types_factory;
-    }
-
-    public function get_list_screen(): ListScreen
-    {
-        return $this->list_screen;
+        $this->list_id = $list_id;
     }
 
     public function get_table_screen(): TableScreen
@@ -98,7 +88,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->column_types_factory,
                 $this->uninitialized_table_screens,
                 $this->menu,
-                $this->list_screen->get_id()
+                $this->list_id
             ),
             new Style('ac-admin-page-columns-css', $this->location->with_suffix('assets/css/admin-page-columns.css')),
             new Style('ac-select2'),
@@ -158,6 +148,12 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
     }
 
     public function render(): string
+    {
+        return '<div></div>';
+    }
+
+    // TODO remove
+    public function __render(): string
     {
         return '<div></div>';
 

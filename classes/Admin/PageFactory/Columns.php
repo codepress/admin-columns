@@ -94,6 +94,10 @@ class Columns implements PageFactoryInterface
         //            throw new InvalidArgumentException('Invalid screen.');
         //        }
 
+        $list_id = AC\Type\ListScreenId::is_valid_id($request->get('layout'))
+            ? new AC\Type\ListScreenId($request->get('layout'))
+            : null;
+
         return new Page\Columns(
             $this->location,
             $this->uninitialized_screens->find_all_site(),
@@ -102,9 +106,8 @@ class Columns implements PageFactoryInterface
             ),
             new Admin\View\Menu($this->menu_factory->create('columns')),
             $table_screen,
-            $list_screen,
-            $this->storage,
-            $this->column_types_factory
+            $this->column_types_factory,
+            $list_id
         );
     }
 
