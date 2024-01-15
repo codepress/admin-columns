@@ -78,7 +78,8 @@ class AdminColumns
             Admin\Scripts::class,
             Admin\Notice\ReadOnlyListScreen::class,
             Admin\Notice\DatabaseMissing::class,
-            Ajax\NumberFormat::class,
+            // TODO
+            //            Ajax\NumberFormat::class,
             ThirdParty\AdvancedCustomFields::class,
             ThirdParty\NinjaForms::class,
             ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant::class,
