@@ -16,24 +16,30 @@
 
     let config: { [key: string]: ColumnSetting[] };
     let tableUrl: string;
+    let loadedListId = null;
 
     const handleMenuSelect = (e: CustomEvent<string>) => {
         if ($currentListKey === e.detail) {
             return;
         }
 
-        getListScreenSettingsByListKey(e.detail).then(response => {
+        getListScreenSettingsByListKey(e.detail);
+    }
+
+    const updateDataByListKey = (listKey: string) => {
+        getListScreenSettingsByListKey(listKey).then(response => {
             config = response.data.data.settings
             tableUrl = response.data.data.table_url;
-            $currentListKey = e.detail;
+            $currentListKey = listKey;
+            loadedListId = response.data.data.list_screen_data.list_screen.id;
             $currentListId = response.data.data.list_screen_data.list_screen.id;
             $columnTypesStore = response.data.data.column_types;
 
             listScreenDataStore.update(() => {
                 return response.data.data.list_screen_data.list_screen;
             })
-        }).catch((d) => {
-            NotificationProgrammatic.open({message: d.message, type: 'error'})
+        }).catch((response) => {
+            NotificationProgrammatic.open({message: response.message, type: 'error'})
         });
     }
 
@@ -48,15 +54,20 @@
                 });
             } else {
                 NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
-			}
-        }).catch( d => {
+            }
+        }).catch(d => {
             NotificationProgrammatic.open({message: d.message, type: 'error'})
-		})
+        })
     }
 
     onMount(() => {
-        currentListId.subscribe((d) => {
-            handleListIdChange(d);
+        currentListKey.subscribe(listKey => {
+            updateDataByListKey(listKey);
+        })
+        currentListId.subscribe((listId) => {
+            if (listId && loadedListId !== listId) {
+                handleListIdChange(listId);
+            }
         });
     });
 </script>

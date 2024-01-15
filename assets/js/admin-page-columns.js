@@ -2841,17 +2841,17 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[11] = list[i];
+  child_ctx[13] = list[i];
   return child_ctx;
 }
 
-// (63:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
+// (73:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_7__["default"]({
     props: {
-      component: /*component*/ctx[11]
+      component: /*component*/ctx[13]
     }
   });
   return {
@@ -2878,7 +2878,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (67:2) {#if $listScreenDataStore !== null}
+// (77:2) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -3049,31 +3049,36 @@ function instance($$self, $$props, $$invalidate) {
   let $currentListId;
   let $currentListKey;
   let $listScreenDataStore;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(7, $columnTypesStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(8, $currentListId = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(9, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(8, $columnTypesStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(9, $currentListId = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(10, $currentListKey = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(3, $listScreenDataStore = $$value));
   let {
     menu
   } = $$props;
   let config;
   let tableUrl;
+  let loadedListId = null;
   const handleMenuSelect = e => {
     if ($currentListKey === e.detail) {
       return;
     }
-    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettingsByListKey)(e.detail).then(response => {
+    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettingsByListKey)(e.detail);
+  };
+  const updateDataByListKey = listKey => {
+    (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettingsByListKey)(listKey).then(response => {
       $$invalidate(1, config = response.data.data.settings);
       $$invalidate(2, tableUrl = response.data.data.table_url);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $currentListKey = e.detail, $currentListKey);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $currentListKey = listKey, $currentListKey);
+      loadedListId = response.data.data.list_screen_data.list_screen.id;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $currentListId = response.data.data.list_screen_data.list_screen.id, $currentListId);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $columnTypesStore = response.data.data.column_types, $columnTypesStore);
       _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore.update(() => {
         return response.data.data.list_screen_data.list_screen;
       });
-    }).catch(d => {
+    }).catch(response => {
       _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_11__.NotificationProgrammatic.open({
-        message: d.message,
+        message: response.message,
         type: 'error'
       });
     });
@@ -3101,8 +3106,13 @@ function instance($$self, $$props, $$invalidate) {
     });
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
-    _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId.subscribe(d => {
-      handleListIdChange(d);
+    _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey.subscribe(listKey => {
+      updateDataByListKey(listKey);
+    });
+    _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId.subscribe(listId => {
+      if (listId && loadedListId !== listId) {
+        handleListIdChange(listId);
+      }
     });
   });
   function listscreenform_config_binding(value) {
@@ -30536,7 +30546,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     AcServices.registerService('ColumnPage', ConfigService);
     _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.currentListKey.set(config.list_key);
-    _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.currentListId.set(config.list_screen_id);
     _columns_store_column_types__WEBPACK_IMPORTED_MODULE_7__.columnTypesStore.set(config.column_types.sort(_columns_store_column_types__WEBPACK_IMPORTED_MODULE_7__.columnTypeSorter));
     const target = document.createElement('div');
     new _columns_components_ColumnsPage_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
