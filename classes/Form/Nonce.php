@@ -46,7 +46,7 @@ class Nonce
 
     public function verify(Request $request): bool
     {
-        return $this->verify_nonce($request->get($this->name));
+        return $this->verify_nonce((string)$request->get($this->name));
     }
 
 }
