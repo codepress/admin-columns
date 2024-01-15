@@ -2841,17 +2841,17 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[12] = list[i];
+  child_ctx[13] = list[i];
   return child_ctx;
 }
 
-// (59:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
+// (60:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_7__["default"]({
     props: {
-      component: /*component*/ctx[12]
+      component: /*component*/ctx[13]
     }
   });
   return {
@@ -2878,7 +2878,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (63:2) {#if $listScreenDataStore !== null}
+// (64:2) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -3044,21 +3044,21 @@ function create_fragment(ctx) {
     }
   };
 }
-let loadedListId = null;
 function instance($$self, $$props, $$invalidate) {
   let $currentListKey;
   let $columnTypesStore;
   let $currentListId;
   let $listScreenDataStore;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(7, $currentListKey = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(8, $columnTypesStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(9, $currentListId = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(8, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(9, $columnTypesStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(10, $currentListId = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(3, $listScreenDataStore = $$value));
   let {
     menu
   } = $$props;
   let config;
   let tableUrl;
+  let loadedListId = null;
   const handleMenuSelect = e => {
     if ($currentListKey === e.detail) {
       return;
@@ -3070,6 +3070,7 @@ function instance($$self, $$props, $$invalidate) {
       $$invalidate(1, config = response.data.data.column_settings);
       $$invalidate(2, tableUrl = response.data.data.table_url);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $currentListKey = listKey, $currentListKey);
+      loadedListId = response.data.data.settings.list_screen.id;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $currentListId = response.data.data.settings.list_screen.id, $currentListId);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $columnTypesStore = response.data.data.column_types, $columnTypesStore);
       _store_read_only__WEBPACK_IMPORTED_MODULE_12__.listScreenIsReadOnly.set(response.data.data.read_only);
@@ -16688,19 +16689,21 @@ const getListScreenSettingsByListKey = (listKey) => {
     return getListScreenSettings(listKey);
 };
 const getColumnSettings = (ListScreen, columnType) => {
+    const nonce = (0,_utils_global__WEBPACK_IMPORTED_MODULE_0__.getColumnSettingsConfig)().nonce;
     return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(ajaxurl, {
         params: {
-            action: 'ac-list-screen-settings',
-            method: 'add_column',
+            _ajax_nonce: nonce,
+            action: 'ac-list-screen-add-column',
             list_screen: ListScreen,
             column_type: columnType
         }
     });
 };
 const saveListScreen = (data) => {
+    const nonce = (0,_utils_global__WEBPACK_IMPORTED_MODULE_0__.getColumnSettingsConfig)().nonce;
     const formData = new FormData();
-    formData.set('action', 'ac-list-screen-settings');
-    formData.set('method', 'save_settings');
+    formData.set('_ajax_nonce', nonce);
+    formData.set('action', 'ac-list-screen-save');
     formData.set('data', JSON.stringify(data));
     return axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(ajaxurl, formData);
 };

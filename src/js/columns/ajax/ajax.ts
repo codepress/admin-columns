@@ -38,10 +38,12 @@ export const getListScreenSettingsByListKey = (listKey: string): AxiosPromise<li
 }
 
 export const getColumnSettings = (ListScreen: string, columnType: string) => {
+    const nonce = getColumnSettingsConfig().nonce;
+
     return axios.get(ajaxurl, {
         params: {
-            action: 'ac-list-screen-settings',
-            method: 'add_column',
+            _ajax_nonce: nonce,
+            action: 'ac-list-screen-add-column',
             list_screen: ListScreen,
             column_type: columnType
         }
@@ -49,10 +51,11 @@ export const getColumnSettings = (ListScreen: string, columnType: string) => {
 }
 
 export const saveListScreen = (data: ListScreenData) => {
+    const nonce = getColumnSettingsConfig().nonce;
     const formData = new FormData();
 
-    formData.set('action', 'ac-list-screen-settings')
-    formData.set('method', 'save_settings');
+    formData.set( '_ajax_nonce', nonce );
+    formData.set('action', 'ac-list-screen-save')
     formData.set('data', JSON.stringify(data));
 
     return axios.post(ajaxurl,
