@@ -85,6 +85,8 @@ class ListScreenSettings implements RequestAjaxHandler
         $encoder = new AC\Storage\Encoder\BaseEncoder(new Version('6.3'));
         $encoder->set_list_screen($list_screen);
 
+        $response->set_parameter('read_only', $list_screen->is_read_only());
+        $response->set_parameter('table_url', (string)$list_screen->get_table_url());
         $response->set_parameter('settings', $encoder->encode());
         $response->set_parameter('column_types', $this->get_column_types($table_screen));
         $response->set_parameter('column_settings', $this->get_column_settings($table_screen));
