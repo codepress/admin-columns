@@ -26,15 +26,14 @@
         refreshListScreenData(e.detail);
     }
 
-    const refreshListScreenData = (listKey: string, listId: null|string = null) => {
+    const refreshListScreenData = (listKey: string, listId: null | string = null) => {
         getListScreenSettings(listKey, listId).then(response => {
             config = response.data.data.column_settings
             tableUrl = response.data.data.table_url;
             $currentListKey = listKey;
-            loadedListId = response.data.data.settings.list_screen.id;
             $currentListId = response.data.data.settings.list_screen.id;
             $columnTypesStore = response.data.data.column_types;
-
+            listScreenIsReadOnly.set(response.data.data.read_only);
             listScreenDataStore.update(() => {
                 return response.data.data.settings.list_screen;
             })
@@ -43,23 +42,8 @@
         });
     }
 
-
     const handleListIdChange = (listId: string) => {
-        getListScreenSettings($currentListKey, listId).then(response => {
-            if (response.data.success) {
-                config = response.data.data.settings;
-                tableUrl = response.data.data.table_url;
-                listScreenIsReadOnly.set(response.data.data.read_only);
-                listScreenDataStore.update(() => {
-                    return response.data.data.list_screen_data.list_screen;
-                });
-            } else {
-                NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
-            }
-        }).catch(d => {
-            alert(d.message);
-            NotificationProgrammatic.open({message: d.message, type: 'error'})
-        })
+        refreshListScreenData($currentListKey, listId);
     }
 
     onMount(() => {
