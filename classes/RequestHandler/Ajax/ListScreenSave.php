@@ -9,6 +9,7 @@ use AC\Column\LabelEncoder;
 use AC\ColumnCollection;
 use AC\ColumnFactory;
 use AC\ListScreenRepository\Storage;
+use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
@@ -35,11 +36,14 @@ class ListScreenSave implements RequestAjaxHandler
         }
 
         $request = new Request();
+        $response = new Json();
+
+        if ( ! (new Nonce\Ajax())->verify($request)) {
+            $response->error();
+        }
 
         $data = $request->get('data', '');
         $data = json_decode($data, true);
-
-        $response = new Json();
 
         $id = $data['id'] ?? null;
 

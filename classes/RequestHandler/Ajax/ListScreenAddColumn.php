@@ -7,6 +7,7 @@ namespace AC\RequestHandler\Ajax;
 use AC;
 use AC\Capabilities;
 use AC\Column;
+use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
@@ -35,6 +36,10 @@ class ListScreenAddColumn implements RequestAjaxHandler
 
         $request = new Request();
         $response = new Json();
+
+        if ( ! (new Nonce\Ajax())->verify($request)) {
+            $response->error();
+        }
 
         $list_key = new ListKey((string)$request->get('list_screen'));
 

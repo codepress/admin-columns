@@ -10,6 +10,7 @@ use AC\Capabilities;
 use AC\Controller\Middleware;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
+use AC\Nonce;
 use AC\Plugin\Version;
 use AC\Request;
 use AC\RequestAjaxHandler;
@@ -52,10 +53,14 @@ class ListScreenSettings implements RequestAjaxHandler
         $request = new Request();
         $response = new AC\Response\Json();
 
+        if ( ! (new Nonce\Ajax())->verify($request)) {
+            $response->error();
+        }
+
         $list_key = new ListKey((string)$request->get('list_key'));
 
         if ( ! $this->table_factory->can_create($list_key)) {
-            return;
+            throw new InvalidArgumentException('Invalid table screen.');
         }
 
         $table_screen = $this->table_factory->create($list_key);
@@ -73,7 +78,7 @@ class ListScreenSettings implements RequestAjaxHandler
         $list_screen = $request->get('list_screen');
 
         if ( ! $list_screen instanceof ListScreen) {
-            throw new InvalidArgumentException('Invalid screen.');
+            throw new InvalidArgumentException('Invalid list screen.');
         }
 
         $encoder = new AC\Storage\Encoder\BaseEncoder(new Version('6.3'));

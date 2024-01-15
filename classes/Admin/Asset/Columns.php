@@ -22,9 +22,6 @@ class Columns extends Script
 
     private $column_types_factory;
 
-    /**
-     * @var AC\Admin\Section\Partial\Menu
-     */
     private $menu;
 
     public function __construct(
