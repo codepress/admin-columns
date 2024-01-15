@@ -53,7 +53,7 @@ class Columns extends Script
 
         // TODO Remove AC variable and use more specific
         $params = [
-            '_ajax_nonce'                => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
+            //            '_ajax_nonce'                => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
             'list_screen'                => $this->table_screen->get_key(),
             'layout'                     => (string)$this->list_id,
             'original_columns'           => [],
@@ -88,11 +88,12 @@ class Columns extends Script
 
         // TODO Needed for UI2 Remove part above
         $this->add_inline_variable('ac_admin_columns', [
-            'menu_items'     => $this->get_menu_items(),
-            'list_key'       => (string)$this->table_screen->get_key(),
-            'list_screen_id' => (string)$this->list_id,
-            'column_types'   => $this->get_column_types(),
-            'column_groups'  => AC\ColumnGroups::get_groups()->get_all(),
+            'nonce'         => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
+            'menu_items'    => $this->get_menu_items(),
+            'list_key'      => (string)$this->table_screen->get_key(),
+            'list_id'       => (string)$this->list_id,
+            'column_types'  => $this->get_column_types(),
+            'column_groups' => AC\ColumnGroups::get_groups()->get_all(),
         ]);
 
         $this->localize(
