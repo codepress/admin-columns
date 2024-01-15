@@ -3074,7 +3074,7 @@ function instance($$self, $$props, $$invalidate) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $currentListId = response.data.data.settings.list_screen.id, $currentListId);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $columnTypesStore = response.data.data.column_types, $columnTypesStore);
       _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore.update(() => {
-        return response.data.data.list_screen_data.list_screen;
+        return response.data.data.settings.list_screen;
       });
     }).catch(response => {
       _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_11__.NotificationProgrammatic.open({

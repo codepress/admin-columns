@@ -36,7 +36,7 @@
             $columnTypesStore = response.data.data.column_types;
 
             listScreenDataStore.update(() => {
-                return response.data.data.list_screen_data.list_screen;
+                return response.data.data.settings.list_screen;
             })
         }).catch((response) => {
             NotificationProgrammatic.open({message: response.message, type: 'error'})
