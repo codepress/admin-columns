@@ -45,7 +45,7 @@ class ListScreenAdmin implements Middleware
     private function get_requested_list_screen(Request $request): ?ListScreen
     {
         try {
-            $id = new ListScreenId((string)$request->get('layout_id'));
+            $id = new ListScreenId((string)$request->get('list_screen_id'));
         } catch (Exception $e) {
             return null;
         }

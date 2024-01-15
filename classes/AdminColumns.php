@@ -18,8 +18,7 @@ use AC\ListScreenRepository\Storage;
 use AC\ListScreenRepository\Types;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
-use AC\RequestHandler\Ajax\ListScreenDelete;
-use AC\RequestHandler\Ajax\ListScreenSettings;
+use AC\RequestHandler\Ajax;
 use AC\Storage\EncoderFactory;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
@@ -119,8 +118,10 @@ class AdminColumns
         );
 
         $request_ajax_handlers = new RequestAjaxHandlers();
-        $request_ajax_handlers->add('ac-list-screen-delete', $container->get(ListScreenDelete::class));
-        $request_ajax_handlers->add('ac-list-screen-settings', $container->get(ListScreenSettings::class));
+        $request_ajax_handlers->add('ac-list-screen-settings', $container->get(Ajax\ListScreenSettings::class));
+        $request_ajax_handlers->add('ac-list-screen-delete', $container->get(Ajax\ListScreenDelete::class));
+        $request_ajax_handlers->add('ac-list-screen-save', $container->get(Ajax\ListScreenSave::class));
+        $request_ajax_handlers->add('ac-list-screen-add-column', $container->get(Ajax\ListScreenAddColumn::class));
 
         $services->add(
             new RequestAjaxParser($request_ajax_handlers)
