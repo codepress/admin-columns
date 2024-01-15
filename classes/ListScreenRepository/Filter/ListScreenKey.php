@@ -6,13 +6,14 @@ namespace AC\ListScreenRepository\Filter;
 
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Filter;
+use AC\Type\ListKey;
 
 final class ListScreenKey implements Filter
 {
 
     private $key;
 
-    public function __construct(string $key)
+    public function __construct(ListKey $key)
     {
         $this->key = $key;
     }
@@ -22,7 +23,7 @@ final class ListScreenKey implements Filter
         $collection = new ListScreenCollection();
 
         foreach ($list_screens as $list_screen) {
-            if ($this->key === $list_screen->get_key()) {
+            if ($this->key->equals($list_screen->get_key())) {
                 $collection->add($list_screen);
             }
         }

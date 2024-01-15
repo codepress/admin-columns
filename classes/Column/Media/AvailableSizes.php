@@ -5,9 +5,6 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 2.0
- */
 class AvailableSizes extends Column\Media\MetaValue
 {
 
@@ -52,6 +49,7 @@ class AvailableSizes extends Column\Media\MetaValue
         }
 
         // include missing image sizes?
+
         if ('1' === $this->get_option('include_missing_sizes')) {
             $missing = $this->get_missing_sizes($sizes);
 

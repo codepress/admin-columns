@@ -6,6 +6,7 @@ namespace AC\ListScreenRepository\Filter;
 
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Filter;
+use AC\Type\ListKey;
 
 class Site implements Filter
 {
@@ -23,9 +24,9 @@ class Site implements Filter
         return $collection;
     }
 
-    protected function is_site(string $list_key): bool
+    protected function is_site(ListKey $list_key): bool
     {
-        return ! in_array($list_key, Network::KEYS, true);
+        return ! in_array((string)$list_key, Network::KEYS, true);
     }
 
 }

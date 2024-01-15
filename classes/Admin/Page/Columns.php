@@ -15,9 +15,12 @@ use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Column;
-use AC\DefaultColumnsRepository;
+use AC\ColumnTypesFactory;
 use AC\ListScreen;
+use AC\ListScreenRepository\Storage;
 use AC\Renderable;
+use AC\Table\TableScreenCollection;
+use AC\TableScreen;
 use AC\Type\Url;
 use AC\Type\Url\Documentation;
 use AC\Type\Url\Site;
@@ -34,33 +37,46 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $list_screen;
 
-    private $default_columns_repository;
-
-    private $list_screens_uninitialized;
+    private $uninitialized_table_screens;
 
     private $menu;
 
     private $head;
 
+    private $table_screen;
+
+    private $storage;
+
+    private $column_types_factory;
+
     public function __construct(
         Location\Absolute $location,
-        ListScreen $list_screen,
-        DefaultColumnsRepository $default_columns_repository,
-        array $list_screens_uninitialized,
+        TableScreenCollection $uninitialized_table_screens,
         Menu $menu,
-        Renderable $head
+        Renderable $head,
+        TableScreen $table_screen,
+        ListScreen $list_screen,
+        Storage $storage,
+        ColumnTypesFactory $column_types_factory
     ) {
         $this->location = $location;
-        $this->list_screen = $list_screen;
-        $this->default_columns_repository = $default_columns_repository;
-        $this->list_screens_uninitialized = $list_screens_uninitialized;
+        $this->uninitialized_table_screens = $uninitialized_table_screens;
         $this->menu = $menu;
         $this->head = $head;
+        $this->table_screen = $table_screen;
+        $this->list_screen = $list_screen;
+        $this->storage = $storage;
+        $this->column_types_factory = $column_types_factory;
     }
 
     public function get_list_screen(): ListScreen
     {
         return $this->list_screen;
+    }
+
+    public function get_table_screen(): TableScreen
+    {
+        return $this->table_screen;
     }
 
     public function render_head(): Renderable
@@ -78,11 +94,9 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
             new Admin\Asset\Columns(
                 'ac-admin-page-columns',
                 $this->location->with_suffix('assets/js/admin-page-columns.js'),
-                $this->list_screen,
-                $this->list_screens_uninitialized,
-                $this->list_screen->get_key(),
-                $this->menu,
-                $this->list_screen->has_id() ? $this->list_screen->get_id()->get_id() : ''
+                $this->uninitialized_table_screens,
+                (string)$this->table_screen->get_key(),
+                (string)$this->list_screen->get_id()
             ),
             new Style('ac-admin-page-columns-css', $this->location->with_suffix('assets/css/admin-page-columns.css')),
             new Style('ac-select2'),
@@ -130,16 +144,27 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         );
     }
 
+    private function is_initialized(): bool
+    {
+        foreach ($this->uninitialized_table_screens as $uninitialized_table_screen) {
+            if ($uninitialized_table_screen->get_key()->equals($this->table_screen->get_key())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function render(): string
     {
-        if ( ! $this->default_columns_repository->exists($this->list_screen->get_key())) {
+        if ( ! $this->is_initialized()) {
             $modal = new View([
                 'message' => 'Loading columns',
             ]);
             $modal->set_template('admin/loading-message');
 
             return $this->menu->render(
-                    $this->list_screen->get_key(),
+                    (string)$this->table_screen->get_key(),
                     (string)$this->list_screen->get_table_url(),
                     true
                 ) . $modal->render();
@@ -147,7 +172,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
         $classes = [];
 
-        if ($this->list_screen->get_settings()) {
+        if ($this->storage->exists($this->list_screen->get_id())) {
             $classes[] = 'stored';
         }
 
@@ -161,15 +186,21 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
         return '<div></div>';
 
+        // TODO
+        //$list_id = (string)$this->list_screen->get_id();
+
         ob_start();
         ?>
 		<h1 class="screen-reader-text"><?= __('Columns', 'codepress-admin-columns'); ?></h1>
-		<div class="ac-admin <?= esc_attr(implode(' ', $classes)); ?>" data-type="<?= esc_attr(
-            $this->list_screen->get_key()
+		<div class="ac-admin <?= esc_attr(implode(' ', $classes)) ?>" data-type="<?= esc_attr(
+            (string)$this->table_screen->get_key()
         ); ?>">
 			<div class="ac-admin__header">
 
-                <?= $this->menu->render($this->list_screen->get_key(), (string)$this->list_screen->get_table_url()) ?>
+                <?= $this->menu->render(
+                    (string)$this->table_screen->get_key(),
+                    (string)$this->list_screen->get_table_url()
+                ) ?>
 
                 <?php
                 do_action('ac/settings/after_title', $this->list_screen); ?>
@@ -186,11 +217,14 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                         $label_main = __('Store settings', 'codepress-admin-columns');
                         $label_second = sprintf(
                             '<span class="clear contenttype">%s</span>',
-                            esc_html($this->list_screen->get_label())
+                            esc_html($this->table_screen->get_labels()->get_plural())
                         );
 
                         $truncated_label = 18 > strlen($label_main)
-                            ? $this->get_truncated_side_label($this->list_screen->get_label(), $label_main)
+                            ? $this->get_truncated_side_label(
+                                $this->table_screen->get_labels()->get_plural(),
+                                $label_main
+                            )
                             : null;
 
                         if ($truncated_label) {
@@ -215,7 +249,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                         $actions = new View([
                             'label_main'                  => $label_main,
                             'label_second'                => $label_second,
-                            'list_screen_key'             => $this->list_screen->get_key(),
+                            'list_screen_key'             => (string)$this->table_screen->get_key(),
                             'list_screen_id'              => $list_id,
                             'delete_confirmation_message' => $delete_confirmation_message,
                         ]);
@@ -259,54 +293,43 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
 				</div>
 
-				<div class="ac-admin__main">
+                <?php
 
-                    <?php
-                    do_action('ac/settings/notice', $this->list_screen); ?>
+                $classes = [];
 
-					<div id="listscreen_settings" data-form="listscreen" class="<?= $this->list_screen->is_read_only(
-                    ) ? '-disabled' : ''; ?>">
-                        <?php
+                if ($this->list_screen->is_read_only()) {
+                    $classes[] = 'disabled';
+                }
 
-                        $classes = [];
+                if ($this->get_column_id()->is_active()) {
+                    $classes[] = 'show-column-id';
+                }
 
-                        if ($this->list_screen->is_read_only()) {
-                            $classes[] = 'disabled';
-                        }
+                if ($this->get_column_type()->is_active()) {
+                    $classes[] = 'show-column-type';
+                }
 
-                        if ($this->get_column_id()->is_active()) {
-                            $classes[] = 'show-column-id';
-                        }
+                $columns = new View([
+                    'class'          => implode(' ', $classes),
+                    'list_key'       => (string)$this->table_screen->get_key(),
+                    'list_id'        => $list_id,
+                    'is_disabled'    => $this->list_screen->is_read_only(),
+                    'title'          => $this->list_screen->get_title(),
+                    'columns'        => $this->list_screen->get_columns(),
+                    'column_types'   => iterator_to_array($this->column_types_factory->create($this->table_screen)),
+                    'list_screen'    => $this->list_screen,
+                    'show_actions'   => ! $this->list_screen->is_read_only(),
+                    'show_clear_all' => apply_filters('ac/enable_clear_columns_button', false),
+                ]);
 
-                        if ($this->get_column_type()->is_active()) {
-                            $classes[] = 'show-column-type';
-                        }
+                echo $columns->set_template('admin/edit-columns');
 
-                        $columns = new View([
-                            'class'          => implode(' ', $classes),
-                            'list_screen'    => $this->list_screen->get_key(),
-                            'list_screen_id' => $list_id,
-                            'title'          => $this->list_screen->get_title(),
-                            'columns'        => $this->list_screen->get_columns(),
-                            'show_actions'   => ! $this->list_screen->is_read_only(),
-                            'show_clear_all' => apply_filters('ac/enable_clear_columns_button', false),
-                        ]);
-
-                        do_action('ac/settings/before_columns', $this->list_screen);
-
-                        echo $columns->set_template('admin/edit-columns');
-
-                        do_action('ac/settings/after_columns', $this->list_screen);
-
-                        ?>
-					</div>
-
-				</div>
+                ?>
 
 			</div>
 
 			<div id="add-new-column-template">
-                <?= $this->render_column_template($this->list_screen) ?>
+                <?= $this->render_column_template() ?>
 			</div>
 
 		</div>
@@ -350,12 +373,14 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         return $column;
     }
 
-    private function render_column_template(ListScreen $list_screen): string
+    private function render_column_template(): string
     {
-        $column = $this->get_column_template_by_group($list_screen->get_column_types(), 'custom');
+        $column_types = iterator_to_array($this->column_types_factory->create($this->table_screen));
+
+        $column = $this->get_column_template_by_group($column_types, 'custom');
 
         if ( ! $column) {
-            $column = $this->get_column_template_by_group($list_screen->get_column_types());
+            $column = $this->get_column_template_by_group($column_types);
         }
 
         if ( ! $column) {
@@ -363,7 +388,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         }
 
         $view = new View([
-            'column' => $column,
+            'column'       => $column,
+            'column_types' => $column_types,
         ]);
 
         return $view->set_template('admin/edit-column')->render();

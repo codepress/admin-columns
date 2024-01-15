@@ -4,73 +4,74 @@ namespace AC\Controller;
 
 use AC\Capabilities;
 use AC\DefaultColumnsRepository;
-use AC\ListScreenFactory;
 use AC\Registerable;
 use AC\Request;
+use AC\TableScreenFactory;
 use WP_Screen;
 
-class DefaultColumns implements Registerable {
+class DefaultColumns implements Registerable
+{
 
-	public const QUERY_PARAM = 'save-default-headings';
+    public const QUERY_PARAM = 'save-default-headings';
 
-	private $list_screen;
+    private $column_repository;
 
-	private $list_screen_factory;
+    private $table_screen_factory;
 
-	private $default_columns;
-
-	public function __construct(
-		ListScreenFactory $list_screen_factory,
-		DefaultColumnsRepository $default_columns
-	) {
-		$this->list_screen_factory = $list_screen_factory;
-		$this->default_columns = $default_columns;
-	}
-
-	public function register(): void
+    public function __construct(TableScreenFactory $table_screen_factory)
     {
-		add_action( 'current_screen', [ $this, 'handle_request' ] );
-	}
+        $this->table_screen_factory = $table_screen_factory;
+    }
 
-	public function handle_request(): void {
-		$request = new Request();
+    public function register(): void
+    {
+        add_action('current_screen', [$this, 'handle_request']);
+    }
 
-		if ( '1' !== $request->get( self::QUERY_PARAM ) ) {
-			return;
-		}
+    public function handle_request(): void
+    {
+        $request = new Request();
 
-		if ( ! current_user_can( Capabilities::MANAGE ) ) {
-			return;
-		}
+        if ('1' !== $request->get(self::QUERY_PARAM)) {
+            return;
+        }
 
-		$screen = get_current_screen();
+        if ( ! current_user_can(Capabilities::MANAGE)) {
+            return;
+        }
 
-		if ( ! $screen instanceof WP_Screen ) {
-			return;
-		}
+        $screen = get_current_screen();
 
-		if ( ! $this->list_screen_factory->can_create_from_wp_screen( $screen ) ) {
-			return;
-		}
+        if ( ! $screen instanceof WP_Screen) {
+            return;
+        }
 
-		$this->list_screen = $this->list_screen_factory->create_from_wp_screen( $screen );
+        if ( ! $this->table_screen_factory->can_create_from_wp_screen($screen)) {
+            return;
+        }
 
-		// Save an empty array in case the hook does not run properly.
-		$this->default_columns->update( $this->list_screen->get_key(), [] );
+        $table_screen = $this->table_screen_factory->create_from_wp_screen($screen);
 
-		// Our custom columns are set at priority 200. Before they are added we need to store the default column headings.
-		add_filter( $this->list_screen->get_heading_hookname(), [ $this, 'save_headings' ], 199 );
+        // Save an empty array in case the hook does not run properly.
+        $this->column_repository = new DefaultColumnsRepository($table_screen->get_key());
+        $this->column_repository->update([]);
 
-		// no render needed
-		ob_start();
-	}
+        // Our custom columns are set at priority 200. Before they are added we need to store the default column headings.
+        add_filter($table_screen->get_heading_hookname(), [$this, 'save_headings'], 199);
 
-	public function save_headings( $columns ): void {
-		ob_end_clean();
+        // no render needed
+        ob_start();
+    }
 
-		$this->default_columns->update( $this->list_screen->get_key(), $columns && is_array( $columns ) ? $columns : [] );
+    public function save_headings($columns): void
+    {
+        ob_end_clean();
 
-		exit( 'ac_success' );
-	}
+        $this->column_repository->update(
+            $columns && is_array($columns) ? $columns : []
+        );
+
+        exit('ac_success');
+    }
 
 }

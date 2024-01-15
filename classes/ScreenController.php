@@ -3,59 +3,62 @@
 namespace AC;
 
 use AC\ColumnRepository\Sort\ManualOrder;
-use AC\ListScreen\ManageValue;
+use AC\TableScreen\ManageValue;
 
 class ScreenController implements Registerable
 {
 
-    /**
-     * @var ListScreen
-     */
-    private $list_screen;
-
-    /**
-     * @var array
-     */
     private $headings = [];
 
-    /**
-     * @var DefaultColumnsRepository
-     */
-    private $default_columns;
+    private $table_screen;
 
-    public function __construct(ListScreen $list_screen)
-    {
+    private $default_column_repository;
+
+    private $list_screen;
+
+    public function __construct(
+        DefaultColumnsRepository $default_column_repository,
+        TableScreen $table_screen,
+        ListScreen $list_screen = null
+    ) {
+        $this->default_column_repository = $default_column_repository;
+        $this->table_screen = $table_screen;
         $this->list_screen = $list_screen;
-        $this->default_columns = new DefaultColumnsRepository();
     }
 
     public function register(): void
     {
         // Headings
-        add_filter($this->list_screen->get_heading_hookname(), [$this, 'add_headings'], 200);
+        add_filter($this->table_screen->get_heading_hookname(), [$this, 'save_headings'], 199);
 
-        // Values
-        if ($this->list_screen instanceof ManageValue) {
-            $this->list_screen->manage_value()->register();
+        // Headings
+        if ($this->list_screen) {
+            add_filter($this->table_screen->get_heading_hookname(), [$this, 'add_headings'], 200);
+
+            // Values
+            if ($this->table_screen instanceof ManageValue) {
+                $this->table_screen->manage_value($this->list_screen)->register();
+            }
+
+            do_action('ac/table/list_screen', $this->list_screen, $this->table_screen);
         }
 
-        do_action('ac/table/list_screen', $this->list_screen);
+        do_action('ac/table/screen', $this->table_screen);
     }
 
-    /**
-     * @param $columns
-     *
-     * @return array
-     * @since 2.0
-     */
-    public function add_headings($columns)
+    public function save_headings($headings)
     {
-        if (empty($columns)) {
-            return $columns;
+        if ( ! wp_doing_ajax() && $headings) {
+            $this->default_column_repository->update($headings);
         }
 
-        if ( ! wp_doing_ajax()) {
-            $this->default_columns->update($this->list_screen->get_key(), $columns);
+        return $headings;
+    }
+
+    public function add_headings($headings)
+    {
+        if (empty($headings)) {
+            return [];
         }
 
         // Run once
@@ -63,23 +66,19 @@ class ScreenController implements Registerable
             return $this->headings;
         }
 
+        $columns = $this->list_screen->get_columns(null, new ManualOrder($this->list_screen->get_id()));
+
         // Nothing stored. Show default columns on screen.
-        if ( ! $this->list_screen->get_settings()) {
-            return $columns;
+        if ($columns->count() < 1) {
+            return $headings;
         }
 
         // Add mandatory checkbox
-        if (isset($columns['cb'])) {
-            $this->headings['cb'] = $columns['cb'];
+        if (isset($headings['cb'])) {
+            $this->headings['cb'] = $headings['cb'];
         }
 
-        $column_repository = new ColumnRepository($this->list_screen);
-
-        $args = [
-            ColumnRepository::ARG_SORT => new ManualOrder($this->list_screen->get_id()),
-        ];
-
-        foreach ($column_repository->find_all($args) as $column) {
+        foreach ($columns as $column) {
             $this->headings[$column->get_name()] = $column->get_custom_label();
         }
 

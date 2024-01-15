@@ -3,8 +3,9 @@
 namespace AC\Integration;
 
 use AC\Integration;
-use AC\ListScreen;
+use AC\PostType;
 use AC\Screen;
+use AC\TableScreen;
 use AC\Type\Url\Site;
 
 final class EventsCalendar extends Integration
@@ -52,9 +53,9 @@ final class EventsCalendar extends Integration
                && in_array($screen->get_post_type(), $this->get_post_types());
     }
 
-    public function show_placeholder(ListScreen $list_screen): bool
+    public function show_placeholder(TableScreen $table_screen): bool
     {
-        return in_array($list_screen->get_post_type(), $this->get_post_types());
+        return $table_screen instanceof PostType && in_array($table_screen->get_post_type(), $this->get_post_types());
     }
 
 }

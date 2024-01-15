@@ -9,7 +9,7 @@ use LogicException;
 class Json
 {
 
-    const MESSAGE = 'message';
+    public const MESSAGE = 'message';
 
     /**
      * @var array

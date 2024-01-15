@@ -3,6 +3,9 @@
 namespace AC\Admin\Preference;
 
 use AC\Preferences\Site;
+use AC\Type\ListKey;
+use AC\Type\ListScreenId;
+use Exception;
 
 class ListScreen extends Site
 {
@@ -18,24 +21,39 @@ class ListScreen extends Site
         );
     }
 
-    public function get_last_visited_list_key(): ?string
+    public function get_last_visited_list_key(): ?ListKey
     {
-        return $this->get(self::OPTION_LAST_VISITED);
+        try {
+            $list_key = new ListKey((string)$this->get(self::OPTION_LAST_VISITED));
+        } catch (Exception $e) {
+            return null;
+        }
+
+        return $list_key;
     }
 
-    public function set_last_visited_list_key(string $list_key): void
+    public function set_last_visited_list_key(ListKey $list_key): void
     {
-        $this->set(self::OPTION_LAST_VISITED, $list_key);
+        $this->set(self::OPTION_LAST_VISITED, (string)$list_key);
     }
 
-    public function set_list_id(string $list_key, string $list_id): void
+    public function set_list_id(ListKey $list_key, ListScreenId $list_id): void
     {
-        $this->set($list_key, $list_id);
+        $this->set(
+            (string)$list_key,
+            (string)$list_id
+        );
     }
 
-    public function get_list_id(string $list_key): ?string
+    public function get_list_id(ListKey $list_key): ?ListScreenId
     {
-        return $this->get($list_key);
+        try {
+            $list_id = new ListScreenId((string)$this->get((string)$list_key));
+        } catch (Exception $e) {
+            return null;
+        }
+
+        return $list_id;
     }
 
 }

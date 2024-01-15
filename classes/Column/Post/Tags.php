@@ -4,9 +4,6 @@ namespace AC\Column\Post;
 
 use AC\Column;
 
-/**
- * @since 3.0
- */
 class Tags extends Column
 {
 
@@ -22,14 +19,10 @@ class Tags extends Column
         //$this->get_setting( 'width' )->set_default( 15 );
     }
 
+    // TODO remove
     public function get_taxonomy()
     {
         return 'post_tag';
-    }
-
-    public function is_valid()
-    {
-        return ac_helper()->taxonomy->is_taxonomy_registered($this->get_post_type(), $this->get_taxonomy());
     }
 
 }

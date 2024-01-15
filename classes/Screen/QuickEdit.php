@@ -2,37 +2,37 @@
 
 namespace AC\Screen;
 
+use AC\DefaultColumnsRepository;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\ScreenController;
 use AC\Table\LayoutPreference;
 use AC\Table\PrimaryColumnFactory;
+use AC\TableScreenFactory;
 use AC\Type\ListScreenId;
 
 class QuickEdit implements Registerable
 {
 
-    /**
-     * @var Storage
-     */
     private $storage;
 
-    /**
-     * @var LayoutPreference
-     */
     private $preference;
 
-	private $primary_column_factory;
+    private $primary_column_factory;
 
-	public function __construct(
-		Storage $storage,
-		LayoutPreference $preference,
-		PrimaryColumnFactory $primary_column_factory
-	) {
-		$this->storage = $storage;
-		$this->preference = $preference;
-		$this->primary_column_factory = $primary_column_factory;
-	}
+    private $table_screen_factory;
+
+    public function __construct(
+        Storage $storage,
+        LayoutPreference $preference,
+        PrimaryColumnFactory $primary_column_factory,
+        TableScreenFactory $table_screen_factory
+    ) {
+        $this->storage = $storage;
+        $this->preference = $preference;
+        $this->primary_column_factory = $primary_column_factory;
+        $this->table_screen_factory = $table_screen_factory;
+    }
 
     public function register(): void
     {
@@ -42,7 +42,7 @@ class QuickEdit implements Registerable
     /**
      * Get list screen when doing Quick Edit, a native WordPress ajax call
      */
-    public function init_columns_on_quick_edit()
+    public function init_columns_on_quick_edit(): void
     {
         if ( ! wp_doing_ajax()) {
             return;
@@ -82,14 +82,20 @@ class QuickEdit implements Registerable
             return;
         }
 
-		if ( ! $list_screen ) {
-			return;
-		}
+        $table_screen = $this->table_screen_factory->create($list_screen->get_key());
 
-		add_filter( 'list_table_primary_column', [ $this->primary_column_factory->create( $list_screen ), 'set_primary_column' ], 20 );
+        add_filter(
+            'list_table_primary_column',
+            [$this->primary_column_factory->create($list_screen), 'set_primary_column'],
+            20
+        );
 
-		$screen_controller = new ScreenController( $list_screen );
-		$screen_controller->register();
-	}
+        $screen_controller = new ScreenController(
+            new DefaultColumnsRepository($table_screen->get_key()),
+            $table_screen,
+            $list_screen
+        );
+        $screen_controller->register();
+    }
 
 }

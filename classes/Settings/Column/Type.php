@@ -21,6 +21,9 @@ class Type extends Column
         parent::__construct($column);
     }
 
+
+    // TODO remove
+
     //    /**
     //     * @var string
     //     */

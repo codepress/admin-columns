@@ -2,18 +2,17 @@
 
 namespace AC\Admin\Section\Partial;
 
-use AC\Admin\MenuListFactory;
-use AC\ListScreenGroupsFactory;
+use AC\Admin\MenuListItems;
 use AC\View;
 
 class Menu
 {
 
-    private $menu_factory;
+    private $menu_items;
 
-    public function __construct(MenuListFactory $menu_factory)
+    public function __construct(MenuListItems $menu_items)
     {
-        $this->menu_factory = $menu_factory;
+        $this->menu_items = $menu_items;
     }
 
     public function render(string $current, string $url, bool $is_hidden = false): string
@@ -32,34 +31,24 @@ class Menu
     // TODO was private, needs to pass to script
     public function get_menu_items(): array
     {
-        $items = [];
+        $options = [];
 
-        foreach ($this->menu_factory->create()->all() as $item) {
-            $items[$item->get_group()][$item->get_key()] = $item->get_label();
-        }
+        foreach ($this->menu_items->all() as $item) {
+            $group = $item->get_group();
+            $group_name = $group->get_name();
 
-        $grouped = [];
-
-        foreach (ListScreenGroupsFactory::create()->get_all() as $group) {
-            $slug = $group['slug'];
-
-            if (empty($items[$slug])) {
-                continue;
+            if ( ! isset($options[$group_name])) {
+                $options[$group_name] = [
+                    'title'   => $group->get_label(),
+                    'icon'    => $group->has_icon() ? $group->get_icon() : '',
+                    'options' => [],
+                ];
             }
 
-            if ( ! isset($grouped[$slug])) {
-                $grouped[$slug]['title'] = $group['label'];
-                $grouped[$slug]['icon'] = $group['icon'];
-            }
-
-            natcasesort($items[$slug]);
-
-            $grouped[$slug]['options'] = $items[$slug];
-
-            unset($items[$slug]);
+            $options[$group_name]['options'][$item->get_key()] = $item->get_label();
         }
 
-        return $grouped;
+        return $options;
     }
 
 }

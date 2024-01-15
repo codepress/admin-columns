@@ -11,19 +11,10 @@ use AC\Type\ColumnWidth;
 class ColumnSize implements Renderable
 {
 
-    /**
-     * @var ListScreen
-     */
     private $list_screen;
 
-    /**
-     * @var ListStorage
-     */
     private $list_storage;
 
-    /**
-     * @var UserStorage
-     */
     private $user_storage;
 
     public function __construct(ListScreen $list_screen, ListStorage $list_storage, UserStorage $user_storage)
@@ -39,14 +30,14 @@ class ColumnSize implements Renderable
 
         $css = sprintf(
             '.ac-%1$s .wrap table th.column-%2$s, .ac-%1$s .wrap table td.column-%2$s   { width: %3$s !important; }',
-            esc_attr($this->list_screen->get_key()),
+            esc_attr((string)$this->list_screen->get_key()),
             esc_attr($column_name),
             $css_width
         );
 
         $css .= sprintf(
             'body.acp-overflow-table.ac-%1$s .wrap th.column-%2$s, body.acp-overflow-table.ac-%1$s .wrap td.column-%2$s { min-width: %3$s !important; max-width: %3$s !important }',
-            esc_attr($this->list_screen->get_key()),
+            esc_attr((string)$this->list_screen->get_key()),
             esc_attr($column_name),
             $css_width
         );
@@ -70,10 +61,6 @@ class ColumnSize implements Renderable
 
     public function render(): string
     {
-        if ( ! $this->list_screen->get_settings()) {
-            return '';
-        }
-
         $html = '';
 
         foreach ($this->list_screen->get_columns() as $column) {

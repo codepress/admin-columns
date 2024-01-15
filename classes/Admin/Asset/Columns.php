@@ -6,22 +6,17 @@ use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Controller\DefaultColumns;
+use AC\Table\TableScreenCollection;
 
 class Columns extends Script
 {
 
-    /**
-     * @var AC\ListScreen[]
-     */
-    private $list_screens;
+    private $table_screens;
 
     private $list_key;
 
     private $list_id;
 
-    /**
-     * @var AC\ListScreen
-     */
     private $list_screen;
 
     private $menu;
@@ -30,7 +25,7 @@ class Columns extends Script
         string $handle,
         Location $location,
         AC\ListScreen $list_screen,
-        array $list_screens,
+        TableScreenCollection $table_screens,
         string $list_key,
         AC\Admin\Section\Partial\Menu $menu,
         string $list_id = null
@@ -42,7 +37,7 @@ class Columns extends Script
             'jquery-touch-punch',
         ]);
 
-        $this->list_screens = $list_screens;
+        $this->table_screens = $table_screens;
         $this->list_key = $list_key;
         $this->list_id = $list_id;
         $this->list_screen = $list_screen;
@@ -80,9 +75,9 @@ class Columns extends Script
             ],
         ];
 
-        foreach ($this->list_screens as $list_screen) {
-            $params['uninitialized_list_screens'][$list_screen->get_key()] = [
-                'screen_link' => (string)$list_screen->get_table_url()->with_arg(DefaultColumns::QUERY_PARAM, '1'),
+        foreach ($this->table_screens as $table_screen) {
+            $params['uninitialized_list_screens'][(string)$table_screen->get_key()] = [
+                'screen_link' => (string)$table_screen->get_url()->with_arg(DefaultColumns::QUERY_PARAM, '1'),
             ];
         }
 

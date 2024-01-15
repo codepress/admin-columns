@@ -2,34 +2,42 @@
 
 namespace AC\Storage;
 
-class ListScreenOrder {
+use AC\Type\ListKey;
+use AC\Type\ListScreenId;
 
-	private const KEY = 'ac_list_screens_order';
+class ListScreenOrder
+{
 
-	public function get( $key ): array {
-		$orders = $this->get_data();
+    private const KEY = 'ac_list_screens_order';
 
-		return $orders[ $key ] ?? [];
-	}
+    public function get(ListKey $key): array
+    {
+        $orders = $this->get_data();
 
-	public function set( $key, array $list_screen_ids ): void {
-		$data = $this->get_data();
+        return $orders[(string)$key] ?? [];
+    }
 
-		$data[ $key ] = $list_screen_ids;
+    public function set(ListKey $key, array $list_screen_ids): void
+    {
+        $data = $this->get_data();
 
-		update_option( self::KEY, $data, false );
-	}
+        $data[(string)$key] = $list_screen_ids;
 
-	public function add( $key, $id ): void {
-		$ids = $this->get( $key );
+        update_option(self::KEY, $data, false);
+    }
 
-		array_unshift( $ids, $id );
+    public function add(ListKey $key, ListScreenId $id): void
+    {
+        $ids = $this->get($key);
 
-		$this->set( $key, $ids );
-	}
+        array_unshift($ids, (string)$id);
 
-	private function get_data(): array {
-		return get_option( self::KEY, [] ) ?: [];
-	}
+        $this->set($key, $ids);
+    }
+
+    private function get_data(): array
+    {
+        return get_option(self::KEY, []) ?: [];
+    }
 
 }

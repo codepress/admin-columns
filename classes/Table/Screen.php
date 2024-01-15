@@ -6,25 +6,20 @@ use AC;
 use AC\Asset;
 use AC\Capabilities;
 use AC\ColumnSize;
+use AC\DefaultColumnsRepository;
 use AC\Form;
 use AC\ListScreen;
 use AC\Registerable;
 use AC\Renderable;
 use AC\ScreenController;
 use AC\Settings;
+use AC\TableScreen;
+use AC\Type\EditorUrlFactory;
 
 final class Screen implements Registerable
 {
 
-    /**
-     * @var Asset\Location\Absolute
-     */
     private $location;
-
-    /**
-     * @var ListScreen
-     */
-    private $list_screen;
 
     /**
      * @var Form\Element[]
@@ -36,30 +31,30 @@ final class Screen implements Registerable
      */
     private $buttons = [];
 
-    /**
-     * @var ColumnSize\ListStorage
-     */
     private $column_size_list_storage;
 
-    /**
-     * @var ColumnSize\UserStorage
-     */
     private $column_size_user_storage;
 
     private $primary_column_factory;
 
+    private $table_screen;
+
+    private $list_screen;
+
     public function __construct(
         Asset\Location\Absolute $location,
-        ListScreen $list_screen,
+        TableScreen $table_screen,
         ColumnSize\ListStorage $column_size_list_storage,
         ColumnSize\UserStorage $column_size_user_storage,
-        PrimaryColumnFactory $primary_column_factory
+        PrimaryColumnFactory $primary_column_factory,
+        ListScreen $list_screen = null
     ) {
         $this->location = $location;
-        $this->list_screen = $list_screen;
+        $this->table_screen = $table_screen;
         $this->column_size_list_storage = $column_size_list_storage;
         $this->column_size_user_storage = $column_size_user_storage;
         $this->primary_column_factory = $primary_column_factory;
+        $this->list_screen = $list_screen;
     }
 
     /**
@@ -67,34 +62,38 @@ final class Screen implements Registerable
      */
     public function register(): void
     {
-        $controller = new ScreenController($this->list_screen);
+        $controller = new ScreenController(
+            new DefaultColumnsRepository($this->table_screen->get_key()),
+            $this->table_screen,
+            $this->list_screen
+        );
         $controller->register();
 
-        if ($this->list_screen->has_id()) {
+        if ($this->list_screen) {
             $render = new TableFormView(
                 $this->list_screen->get_meta_type(),
                 sprintf('<input type="hidden" name="layout" value="%s">', $this->list_screen->get_id())
             );
             $render->register();
+
+            add_filter('list_table_primary_column', [$this, 'set_primary_column'], 20);
+            add_action('admin_head', [$this, 'admin_head_scripts']);
+            add_action('admin_footer', [$this, 'admin_footer_scripts']);
         }
 
         (new AdminHeadStyle())->register();
 
-        add_filter(
-            'list_table_primary_column',
-            [
-                $this->primary_column_factory->create($this->list_screen),
-                'set_primary_column',
-            ],
-            20
-        );
         add_action('admin_enqueue_scripts', [$this, 'admin_scripts']);
-        add_action('admin_footer', [$this, 'admin_footer_scripts']);
-        add_action('admin_head', [$this, 'admin_head_scripts']);
         add_action('admin_head', [$this, 'register_settings_button']);
         add_filter('admin_body_class', [$this, 'admin_class']);
         add_action('admin_footer', [$this, 'render_actions']);
         add_filter('screen_settings', [$this, 'screen_options']);
+    }
+
+    public function set_primary_column($default): string
+    {
+        return $this->primary_column_factory->create($this->list_screen)
+                                            ->set_primary_column($default);
     }
 
     public function get_buttons(): array
@@ -122,7 +121,7 @@ final class Screen implements Registerable
      */
     public function admin_class($classes)
     {
-        $classes .= ' ac-' . $this->list_screen->get_key();
+        $classes .= ' ac-' . $this->table_screen->get_key();
 
         return apply_filters('ac/table/body_class', $classes, $this);
     }
@@ -139,18 +138,21 @@ final class Screen implements Registerable
             return;
         }
 
+        $url = EditorUrlFactory::create(
+            $this->table_screen->get_key(),
+            $this->table_screen->is_network(),
+            $this->list_screen ? $this->list_screen->get_id() : null
+        );
+
         $button = new Button('edit-columns');
         $button->set_label(__('Edit columns', 'codepress-admin-columns'))
-               ->set_url((string)$this->list_screen->get_editor_url())
+               ->set_url((string)$url)
                ->set_dashicon('admin-generic');
 
         $this->register_button($button, 1);
     }
 
-    /**
-     * @since 2.2.4
-     */
-    public function admin_scripts()
+    public function admin_scripts(): void
     {
         $style = new Asset\Style('ac-table', $this->location->with_suffix('assets/css/table.css'), ['ac-ui']);
         $style->enqueue();
@@ -166,35 +168,45 @@ final class Screen implements Registerable
             $this->location->with_suffix('assets/js/table.js'),
             ['jquery', Asset\Script\GlobalTranslationFactory::HANDLE]
         );
+
+        $args = [
+            'layout'           => '',
+            'column_types'     => '',
+            'read_only'        => false,
+            'assets'           => $this->location->with_suffix('assets/')->get_url(),
+            'list_screen'      => (string)$this->table_screen->get_key(),
+            'ajax_nonce'       => wp_create_nonce('ac-ajax'),
+            'table_id'         => $this->table_screen->get_attr_id(),
+            'screen'           => $this->table_screen->get_screen_id(),
+            'list_screen_link' => $this->get_list_screen_clear_link(),
+            'current_user_id'  => get_current_user_id(),
+            'number_format'    => [
+                'decimal_point' => $this->get_local_number_format('decimal_point'),
+                'thousands_sep' => $this->get_local_number_format('thousands_sep'),
+            ],
+            'meta_type'        => $this->table_screen instanceof TableScreen\MetaType
+                ? (string)$this->table_screen->get_meta_type()
+                : '',
+        ];
+
+        if ($this->list_screen) {
+            $args['column_types'] = $this->get_column_types_mapping();
+            $args['layout'] = (string)$this->list_screen->get_id();
+            $args['read_only'] = $this->list_screen->is_read_only();
+
+            do_action('ac/table_scripts', $this->list_screen, $this);
+        }
+
         $script
-            ->add_inline_variable('AC', [
-                'assets'           => $this->location->with_suffix('assets/')->get_url(),
-                'list_screen'      => $this->list_screen->get_key(),
-                'layout'           => $this->list_screen->has_id() ? (string)$this->list_screen->get_id() : '',
-                'column_types'     => $this->get_column_types_mapping(),
-                'ajax_nonce'       => wp_create_nonce('ac-ajax'),
-                'read_only'        => $this->list_screen->is_read_only(),
-                'table_id'         => $this->list_screen->get_table_attr_id(),
-                'screen'           => $this->get_current_screen_id(),
-                'meta_type'        => $this->list_screen->get_meta_type(),
-                'list_screen_link' => $this->get_list_screen_clear_link(),
-                'current_user_id'  => get_current_user_id(),
-                'number_format'    => [
-                    'decimal_point' => $this->get_local_number_format('decimal_point'),
-                    'thousands_sep' => $this->get_local_number_format('thousands_sep'),
-                ],
-            ])
+            ->add_inline_variable('AC', $args)
             ->localize('AC_I18N', $table_translation)
             ->enqueue();
 
-        /**
-         * @param ListScreen $list_screen
-         */
-        do_action('ac/table_scripts', $this->list_screen, $this);
-
         // Column specific scripts
-        foreach ($this->list_screen->get_columns() as $column) {
-            $column->scripts();
+        if ($this->list_screen) {
+            foreach ($this->list_screen->get_columns() as $column) {
+                $column->scripts();
+            }
         }
     }
 
@@ -205,12 +217,11 @@ final class Screen implements Registerable
         return $wp_locale->number_format[$var] ?? null;
     }
 
-    /**
-     * @return string
-     */
     private function get_list_screen_clear_link(): string
     {
-        $url = $this->list_screen->get_table_url();
+        $url = $this->list_screen
+            ? $this->list_screen->get_table_url()
+            : $this->table_screen->get_url();
 
         $query_args_whitelist = [
             'layout',
@@ -219,13 +230,13 @@ final class Screen implements Registerable
         ];
 
         switch (true) {
-            case $this->list_screen instanceof ListScreen\Post :
+            case $this->table_screen instanceof AC\PostType :
                 $query_args_whitelist[] = 'post_status';
                 break;
-            case $this->list_screen instanceof ListScreen\User :
+            case $this->table_screen instanceof TableScreen\User :
                 $query_args_whitelist[] = 'role';
                 break;
-            case $this->list_screen instanceof ListScreen\Comment :
+            case $this->table_screen instanceof TableScreen\Comment :
                 $query_args_whitelist[] = 'comment_status';
                 break;
         }
@@ -239,24 +250,7 @@ final class Screen implements Registerable
         return (string)$url;
     }
 
-    /**
-     * @return false|string
-     */
-    private function get_current_screen_id()
-    {
-        $screen = get_current_screen();
-
-        if ( ! $screen) {
-            return false;
-        }
-
-        return $screen->id;
-    }
-
-    /**
-     * @return array
-     */
-    private function get_column_types_mapping()
+    private function get_column_types_mapping(): array
     {
         $types = [];
         foreach ($this->list_screen->get_columns() as $column) {
@@ -266,19 +260,17 @@ final class Screen implements Registerable
         return $types;
     }
 
-    /**
-     * @return ListScreen
-     */
-    public function get_list_screen()
+    public function get_list_screen(): ?ListScreen
     {
         return $this->list_screen;
     }
 
-    /**
-     * Admin header scripts
-     * @since 3.1.4
-     */
-    public function admin_head_scripts()
+    public function get_table_screen(): TableScreen
+    {
+        return $this->table_screen;
+    }
+
+    public function admin_head_scripts(): void
     {
         $inline_style = new AC\Table\InlineStyle\ColumnSize(
             $this->list_screen,
@@ -289,19 +281,16 @@ final class Screen implements Registerable
         echo $inline_style->render();
 
         /**
-         * Add header scripts that only apply to column screens.
-         *
-         * @param ListScreen
-         * @param self
-         *
-         * @since 3.1.4
+         * Add header scripts that only apply to column screens
          */
         do_action('ac/admin_head', $this->list_screen, $this);
     }
 
     public function admin_footer_scripts(): void
     {
-        do_action('ac/table/admin_footer', $this->list_screen, $this);
+        if ($this->list_screen) {
+            do_action('ac/table/admin_footer', $this->list_screen, $this);
+        }
     }
 
     public function render_actions(): void
