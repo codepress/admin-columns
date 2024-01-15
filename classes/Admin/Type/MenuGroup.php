@@ -13,11 +13,14 @@ class MenuGroup
 
     private $priority;
 
-    public function __construct(string $name, string $label, int $priority = 20)
+    private $icon;
+
+    public function __construct(string $name, string $label, int $priority = 20, string $icon = null)
     {
         $this->name = $name;
         $this->label = $label;
         $this->priority = $priority;
+        $this->icon = $icon;
     }
 
     public function get_name(): string
@@ -33,6 +36,16 @@ class MenuGroup
     public function get_priority(): int
     {
         return $this->priority;
+    }
+
+    public function has_icon(): bool
+    {
+        return null !== $this->icon;
+    }
+
+    public function get_icon(): string
+    {
+        return $this->icon;
     }
 
 }
