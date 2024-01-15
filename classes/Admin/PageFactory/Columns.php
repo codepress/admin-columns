@@ -13,6 +13,7 @@ use AC\ColumnTypesFactory;
 use AC\Controller\Middleware;
 use AC\Request;
 use AC\TableScreen;
+use AC\Type\ListScreenId;
 use InvalidArgumentException;
 
 class Columns implements PageFactoryInterface
@@ -63,8 +64,8 @@ class Columns implements PageFactoryInterface
             throw new InvalidArgumentException('Invalid screen.');
         }
 
-        $list_id = AC\Type\ListScreenId::is_valid_id($request->get('layout'))
-            ? new AC\Type\ListScreenId($request->get('layout'))
+        $list_id = ListScreenId::is_valid_id($request->get('layout_id'))
+            ? new ListScreenId($request->get('layout_id'))
             : null;
 
         return new Page\Columns(
