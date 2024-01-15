@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.7.2 =
+Release Date: tbd
+
+* [Fixed] Fatal error when Restoring the settings in the Settings tab
+
 = 4.7.1 =
 Release Date: January 9th, 2024
 
