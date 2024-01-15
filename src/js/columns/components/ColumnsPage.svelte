@@ -31,6 +31,7 @@
             config = response.data.data.column_settings
             tableUrl = response.data.data.table_url;
             $currentListKey = listKey;
+            loadedListId = response.data.data.settings.list_screen.id;
             $currentListId = response.data.data.settings.list_screen.id;
             $columnTypesStore = response.data.data.column_types;
             listScreenIsReadOnly.set(response.data.data.read_only);
