@@ -27,12 +27,13 @@
     }
 
     const updateDataByListKey = (listKey: string) => {
+        console.log('updateDataByListKey')
         getListScreenSettingsByListKey(listKey).then(response => {
-            config = response.data.data.settings
+            config = response.data.data.column_settings
             tableUrl = response.data.data.table_url;
             $currentListKey = listKey;
-            loadedListId = response.data.data.list_screen_data.list_screen.id;
-            $currentListId = response.data.data.list_screen_data.list_screen.id;
+            loadedListId = response.data.data.settings.list_screen.id;
+            $currentListId = response.data.data.settings.list_screen.id;
             $columnTypesStore = response.data.data.column_types;
 
             listScreenDataStore.update(() => {
@@ -44,7 +45,7 @@
     }
 
     const handleListIdChange = (listId: string) => {
-        getListScreenSettings(listId).then(response => {
+        getListScreenSettings($currentListKey, listId).then(response => {
             if (response.data.success) {
                 config = response.data.data.settings;
                 tableUrl = response.data.data.table_url;
@@ -56,6 +57,7 @@
                 NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
             }
         }).catch(d => {
+            alert(d.message);
             NotificationProgrammatic.open({message: d.message, type: 'error'})
         })
     }

@@ -1,42 +1,40 @@
 import axios, {AxiosPromise} from "axios";
 import {ListScreenData} from "../../types/requests";
 import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
+import {getColumnSettingsConfig} from "../utils/global";
 
 
 declare const ajaxurl: string;
 
 export type listScreenSettingsResponse = {
     data: {
-        list_screen_data: {
+        settings: {
             version: string,
             list_screen: ListScreenData
         },
         table_url: string,
         read_only: boolean
-        settings: { [key: string]: AC.Vars.Settings.ColumnSetting[] }
+        column_settings: { [key: string]: AC.Vars.Settings.ColumnSetting[] }
         column_types: ColumnConfig[]
     },
     success: true
 }
 
-export const getListScreenSettings = (listId: string): AxiosPromise<listScreenSettingsResponse> => {
+export const getListScreenSettings = (listKey: string, listId: string = ''): AxiosPromise<listScreenSettingsResponse> => {
+    const nonce = getColumnSettingsConfig().nonce;
+
     return axios.get(ajaxurl, {
         params: {
+            _ajax_nonce: nonce,
             action: 'ac-list-screen-settings',
+            list_key: listKey,
             list_screen_id: listId,
-            method: 'get_settings'
         }
     })
 }
 
 export const getListScreenSettingsByListKey = (listKey: string): AxiosPromise<listScreenSettingsResponse> => {
-    return axios.get(ajaxurl, {
-        params: {
-            action: 'ac-list-screen-settings',
-            list_key: listKey,
-            method: 'get_settings_by_list_key'
-        }
-    })
+    return getListScreenSettings(listKey);
 }
 
 export const getColumnSettings = (ListScreen: string, columnType: string) => {
