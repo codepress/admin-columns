@@ -20,11 +20,11 @@ abstract class DateTimeFormat extends Recursive
 
     public function __construct(Column $column, Specification $conditions = null)
     {
+        parent::__construct($column, $conditions);
+
         $this->name = self::NAME;
         $this->label = __('Date Format', 'codepress-admin-columns');
         $this->input = new Input\Custom('date_format');
-
-        parent::__construct($column, $conditions);
     }
 
     public function get_children(): SettingCollection

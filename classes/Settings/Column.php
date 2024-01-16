@@ -20,6 +20,8 @@ abstract class Column implements AC\Setting\Setting
 
 
 
+    // TODO
+    
     //    /**
     //     * A (short) reference to this setting
     //     * @var string
