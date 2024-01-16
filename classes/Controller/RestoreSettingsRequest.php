@@ -10,9 +10,12 @@ use AC\Registerable;
 class RestoreSettingsRequest implements Registerable
 {
 
+    /**
+     * @var ListScreenRepository
+     */
     private $repository;
 
-    public function __construct(ListScreenRepository\Storage\ListScreenRepository $repository)
+    public function __construct(ListScreenRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -22,7 +25,7 @@ class RestoreSettingsRequest implements Registerable
         add_action('admin_init', [$this, 'handle_request']);
     }
 
-    public function handle_request(): void
+    public function handle_request()
     {
         if ( ! current_user_can(Capabilities::MANAGE)) {
             return;
@@ -36,10 +39,8 @@ class RestoreSettingsRequest implements Registerable
             return;
         }
 
-        $repository = $this->repository->get_list_screen_repository();
-
-        foreach ($repository->find_all() as $list_screen) {
-            $repository->delete($list_screen);
+        foreach ($this->repository->find_all() as $list_screen) {
+            $this->repository->delete($list_screen);
         }
 
         $this->delete_options();
@@ -51,14 +52,14 @@ class RestoreSettingsRequest implements Registerable
         $notice->register();
     }
 
-    private function delete_user_preferences(): void
+    private function delete_user_preferences()
     {
         global $wpdb;
 
         $wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key LIKE '{$wpdb->get_blog_prefix()}ac_preferences_%'");
     }
 
-    private function delete_options(): void
+    private function delete_options()
     {
         global $wpdb;
 

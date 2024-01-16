@@ -148,7 +148,9 @@ class AdminColumns
                 return $storage;
             },
             RestoreSettingsRequest::class           => static function (Storage $storage): RestoreSettingsRequest {
-                return new RestoreSettingsRequest($storage->get_repository(Types::DATABASE));
+                return new RestoreSettingsRequest(
+                    $storage->get_repository(Types::DATABASE)->get_list_screen_repository()
+                );
             },
             Plugin::class                           => static function (): Plugin {
                 return Plugin::create(AC_FILE, new Version(AC_VERSION));
