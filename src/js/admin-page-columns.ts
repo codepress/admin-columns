@@ -1,7 +1,7 @@
 import {initAcServices} from "./helpers/admin-columns";
 import {registerSettingType} from "./columns/helper";
 import ColumnsPage from "./columns/components/ColumnsPage.svelte";
-import {currentListId, currentListKey} from "./columns/store/current-list-screen";
+import {currentListId, currentListKey, initialListId} from "./columns/store/current-list-screen";
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import ListScreenSections from "./columns/store/list-screen-sections";
 import {listScreenDataStore} from "./columns/store/list-screen-data";
@@ -9,11 +9,13 @@ import {columnTypeSorter, columnTypesStore} from "./columns/store/column-types";
 import {listScreenIsReadOnly} from "./columns/store/read_only";
 
 const AcServices = initAcServices();
-
+const config = getColumnSettingsConfig();
 
 // TODO clean up legacy columns and check what is necessary
 require('./_legacy-columns.ts');
 require('./columns/init/setting-types.ts');
+
+initialListId.set(config.list_id);
 
 currentListKey.subscribe((d) => {
     const url = new URL(window.location.href);
@@ -33,7 +35,7 @@ currentListId.subscribe((d) => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const config = getColumnSettingsConfig();
+
 
     // TODO make something more affording
     const ConfigService = {

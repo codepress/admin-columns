@@ -1,7 +1,6 @@
 <script lang="ts">
 
     import HeaderToggle from "./settings/HeaderToggle.svelte";
-    import {afterUpdate} from "svelte";
     import {listScreenIsReadOnly} from "../store/read_only";
 
     export let data: any = {};
@@ -15,17 +14,6 @@
         {feature: 'search', title: 'Enable Smart Filter', iconClass: 'cpacicon-smart-filter'},
         {feature: 'filter', title: 'Enable Filtering', iconClass: 'dashicons dashicons-filter'},
     ];
-
-    // afterUpdate(() => {
-    //     setTimeout(() => {
-    //         proFeatures.forEach(feature => {
-    //             console.log('S');
-    //             if (typeof data[feature.feature] === 'undefined') {
-    //                 data[feature.feature] = config.find(c => c.name === feature.feature)?.input?.default ?? 'off';
-    //             }
-    //         });
-    //     }, 100)
-    // })
 
 
 </script>
@@ -41,7 +29,7 @@
 		{#each proFeatures as feature}
 
 			{#if config.find( c => c.name === feature.feature )}
-				<HeaderToggle bind:value={data[feature.feature]} title={feature.title} disabled={listScreenIsReadOnly}>
+				<HeaderToggle bind:value={data[feature.feature]} title={feature.title} disabled={$listScreenIsReadOnly}>
 					<span class="{feature.iconClass}"></span>
 				</HeaderToggle>
 			{:else}

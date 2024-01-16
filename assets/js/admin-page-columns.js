@@ -2841,17 +2841,17 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[13] = list[i];
+  child_ctx[12] = list[i];
   return child_ctx;
 }
 
-// (60:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
+// (57:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_7__["default"]({
     props: {
-      component: /*component*/ctx[13]
+      component: /*component*/ctx[12]
     }
   });
   return {
@@ -2878,7 +2878,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (64:2) {#if $listScreenDataStore !== null}
+// (61:2) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -3083,9 +3083,6 @@ function instance($$self, $$props, $$invalidate) {
         type: 'error'
       });
     });
-  };
-  const handleListIdChange = listId => {
-    refreshListScreenData($currentListKey, listId);
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
     _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey.subscribe(listKey => {
@@ -4188,17 +4185,17 @@ function add_css(target) {
 }
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[5] = list[i];
-  child_ctx[6] = list;
-  child_ctx[7] = i;
+  child_ctx[6] = list[i];
+  child_ctx[7] = list;
+  child_ctx[8] = i;
   return child_ctx;
 }
 
-// (31:0) {#if config}
+// (21:0) {#if config}
 function create_if_block(ctx) {
   let div;
   let current;
-  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*proFeatures*/ctx[2]);
+  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*proFeatures*/ctx[3]);
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
@@ -4226,8 +4223,8 @@ function create_if_block(ctx) {
       current = true;
     },
     p(ctx, dirty) {
-      if (dirty & /*proFeatures, data, config*/7) {
-        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*proFeatures*/ctx[2]);
+      if (dirty & /*proFeatures, $listScreenIsReadOnly, data, config*/15) {
+        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*proFeatures*/ctx[3]);
         let i;
         for (i = 0; i < each_value.length; i += 1) {
           const child_ctx = get_each_context(ctx, each_value, i);
@@ -4271,7 +4268,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (39:3) {:else}
+// (29:3) {:else}
 function create_else_block(ctx) {
   let div;
   return {
@@ -4293,17 +4290,17 @@ function create_else_block(ctx) {
   };
 }
 
-// (35:3) {#if config.find( c => c.name === feature.feature )}
+// (25:3) {#if config.find( c => c.name === feature.feature )}
 function create_if_block_1(ctx) {
   let headertoggle;
   let updating_value;
   let current;
   function headertoggle_value_binding(value) {
-    /*headertoggle_value_binding*/ctx[4](value, /*feature*/ctx[5]);
+    /*headertoggle_value_binding*/ctx[5](value, /*feature*/ctx[6]);
   }
   let headertoggle_props = {
-    title: /*feature*/ctx[5].title,
-    disabled: _store_read_only__WEBPACK_IMPORTED_MODULE_3__.listScreenIsReadOnly,
+    title: /*feature*/ctx[6].title,
+    disabled: /*$listScreenIsReadOnly*/ctx[2],
     $$slots: {
       default: [create_default_slot]
     },
@@ -4311,8 +4308,8 @@ function create_if_block_1(ctx) {
       ctx
     }
   };
-  if ( /*data*/ctx[0][/*feature*/ctx[5].feature] !== void 0) {
-    headertoggle_props.value = /*data*/ctx[0][/*feature*/ctx[5].feature];
+  if ( /*data*/ctx[0][/*feature*/ctx[6].feature] !== void 0) {
+    headertoggle_props.value = /*data*/ctx[0][/*feature*/ctx[6].feature];
   }
   headertoggle = new _settings_HeaderToggle_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: headertoggle_props
@@ -4329,15 +4326,16 @@ function create_if_block_1(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       const headertoggle_changes = {};
-      if (dirty & /*$$scope*/256) {
+      if (dirty & /*$listScreenIsReadOnly*/4) headertoggle_changes.disabled = /*$listScreenIsReadOnly*/ctx[2];
+      if (dirty & /*$$scope*/512) {
         headertoggle_changes.$$scope = {
           dirty,
           ctx
         };
       }
-      if (!updating_value && dirty & /*data, proFeatures*/5) {
+      if (!updating_value && dirty & /*data, proFeatures*/9) {
         updating_value = true;
-        headertoggle_changes.value = /*data*/ctx[0][/*feature*/ctx[5].feature];
+        headertoggle_changes.value = /*data*/ctx[0][/*feature*/ctx[6].feature];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_value = false);
       }
       headertoggle.$set(headertoggle_changes);
@@ -4357,7 +4355,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (36:4) <HeaderToggle bind:value={data[feature.feature]} title={feature.title} disabled={listScreenIsReadOnly}>
+// (26:4) <HeaderToggle bind:value={data[feature.feature]} title={feature.title} disabled={$listScreenIsReadOnly}>
 function create_default_slot(ctx) {
   let span;
   let span_class_value;
@@ -4366,7 +4364,7 @@ function create_default_slot(ctx) {
     c() {
       span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value = "" + ((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.null_to_empty)( /*feature*/ctx[5].iconClass) + " svelte-7sm3ve"));
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value = "" + ((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.null_to_empty)( /*feature*/ctx[6].iconClass) + " svelte-7sm3ve"));
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, span, anchor);
@@ -4382,7 +4380,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (33:2) {#each proFeatures as feature}
+// (23:2) {#each proFeatures as feature}
 function create_each_block(ctx) {
   let show_if;
   let current_block_type_index;
@@ -4390,7 +4388,7 @@ function create_each_block(ctx) {
   let if_block_anchor;
   let current;
   function func(...args) {
-    return (/*func*/ctx[3]( /*feature*/ctx[5], ...args)
+    return (/*func*/ctx[4]( /*feature*/ctx[6], ...args)
     );
   }
   const if_block_creators = [create_if_block_1, create_else_block];
@@ -4506,6 +4504,8 @@ function create_fragment(ctx) {
   };
 }
 function instance($$self, $$props, $$invalidate) {
+  let $listScreenIsReadOnly;
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_read_only__WEBPACK_IMPORTED_MODULE_3__.listScreenIsReadOnly, $$value => $$invalidate(2, $listScreenIsReadOnly = $$value));
   let {
     data = {}
   } = $$props;
@@ -4548,7 +4548,7 @@ function instance($$self, $$props, $$invalidate) {
     if ('data' in $$props) $$invalidate(0, data = $$props.data);
     if ('config' in $$props) $$invalidate(1, config = $$props.config);
   };
-  return [data, config, proFeatures, func, headertoggle_value_binding];
+  return [data, config, $listScreenIsReadOnly, proFeatures, func, headertoggle_value_binding];
 }
 class ProFeatureToggles extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -16835,12 +16835,14 @@ const columnTypesStore = createColumnTypesStore();
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   currentListId: () => (/* binding */ currentListId),
-/* harmony export */   currentListKey: () => (/* binding */ currentListKey)
+/* harmony export */   currentListKey: () => (/* binding */ currentListKey),
+/* harmony export */   initialListId: () => (/* binding */ initialListId)
 /* harmony export */ });
 /* harmony import */ var svelte_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/store */ "./node_modules/svelte/src/runtime/store/index.js");
 
 const currentListKey = (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.writable)('');
 const currentListId = (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.writable)('');
+const initialListId = (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.writable)('');
 
 
 /***/ }),
@@ -30487,9 +30489,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AcServices = (0,_helpers_admin_columns__WEBPACK_IMPORTED_MODULE_0__.initAcServices)();
+const config = (0,_columns_utils_global__WEBPACK_IMPORTED_MODULE_4__.getColumnSettingsConfig)();
 // TODO clean up legacy columns and check what is necessary
 __webpack_require__(/*! ./_legacy-columns.ts */ "./js/_legacy-columns.ts");
 __webpack_require__(/*! ./columns/init/setting-types.ts */ "./js/columns/init/setting-types.ts");
+_columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.initialListId.set(config.list_id);
 _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.currentListKey.subscribe((d) => {
     const url = new URL(window.location.href);
     url.searchParams.set('list_screen', d);
@@ -30502,7 +30506,6 @@ _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.currentListId.su
 });
 document.addEventListener('DOMContentLoaded', () => {
     var _a;
-    const config = (0,_columns_utils_global__WEBPACK_IMPORTED_MODULE_4__.getColumnSettingsConfig)();
     // TODO make something more affording
     const ConfigService = {
         stores: {

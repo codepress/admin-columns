@@ -16,7 +16,7 @@
 
     let config: { [key: string]: ColumnSetting[] };
     let tableUrl: string;
-    let loadedListId = null;
+    let loadedListId: string | null = null;
 
     const handleMenuSelect = (e: CustomEvent<string>) => {
         if ($currentListKey === e.detail) {
@@ -41,10 +41,6 @@
         }).catch((response) => {
             NotificationProgrammatic.open({message: response.message, type: 'error'})
         });
-    }
-
-    const handleListIdChange = (listId: string) => {
-        refreshListScreenData($currentListKey, listId);
     }
 
     onMount(() => {

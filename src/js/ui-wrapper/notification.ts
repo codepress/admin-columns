@@ -5,7 +5,7 @@ const SELECTOR = 'acui-notifications';
 
 type notificationArguments = {
     message: string,
-    type?: 'success' | 'warning' | 'notify' | 'default';
+    type?: 'success' | 'warning' | 'notify' | 'default' | 'error';
     duration?: number
     closable?: boolean
     autoClose?: boolean
