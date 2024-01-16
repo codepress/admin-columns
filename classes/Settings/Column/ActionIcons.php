@@ -6,7 +6,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Settings\Column;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class ActionIcons extends Column
 {

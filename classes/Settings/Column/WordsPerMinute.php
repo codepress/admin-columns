@@ -8,7 +8,7 @@ use AC\Setting\Formatter;
 use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class WordsPerMinute extends Settings\Column implements Formatter
 {

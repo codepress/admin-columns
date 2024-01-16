@@ -4,7 +4,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class VideoDisplay extends Settings\Column
 {

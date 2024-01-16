@@ -6,13 +6,13 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Column;
+use AC\Expression\OrSpecification;
+use AC\Expression\StringComparisonSpecification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use ACP\Expression\OrSpecification;
-use ACP\Expression\StringComparisonSpecification;
 
 class CustomFieldType extends Recursive
 {

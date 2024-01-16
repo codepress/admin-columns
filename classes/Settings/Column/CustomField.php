@@ -5,7 +5,7 @@ namespace AC\Settings\Column;
 use AC\Column;
 use AC\Setting\Input;
 use AC\Setting\SettingCollection;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class CustomField extends Recursive
 {

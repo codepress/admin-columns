@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 // TODO David sometimes you want to configure a behaviour, the setting should expose this. e.g. update label
 interface Setting

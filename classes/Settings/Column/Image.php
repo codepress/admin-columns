@@ -6,6 +6,8 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Column;
+use AC\Expression\Specification;
+use AC\Expression\StringComparisonSpecification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Base;
 use AC\Setting\Input;
@@ -13,8 +15,6 @@ use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Option;
 use AC\Setting\Type\Value;
-use ACP\Expression\Specification;
-use ACP\Expression\StringComparisonSpecification;
 
 class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {

@@ -7,7 +7,7 @@ use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class PathScope extends Settings\Column implements Formatter
 {

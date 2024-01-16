@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Column;
+use AC\Expression;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression;
 
 class Comment extends Recursive
 {

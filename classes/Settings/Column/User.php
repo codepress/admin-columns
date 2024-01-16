@@ -6,7 +6,7 @@ use AC\Column;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class User extends Recursive
 {

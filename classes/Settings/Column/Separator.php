@@ -4,7 +4,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 // TODO implement formatter (Interface was CollectionFormatter)
 class Separator extends Settings\Column

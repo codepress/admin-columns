@@ -3,7 +3,7 @@
 namespace AC\Settings;
 
 use AC;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 abstract class Column implements AC\Setting\Setting
 {
@@ -21,7 +21,7 @@ abstract class Column implements AC\Setting\Setting
 
 
     // TODO
-    
+
     //    /**
     //     * A (short) reference to this setting
     //     * @var string

@@ -3,12 +3,12 @@
 namespace AC\Settings\Column;
 
 use AC\Column;
+use AC\Expression\Specification;
+use AC\Expression\StringComparisonSpecification;
 use AC\Setting;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use ACP\Expression\Specification;
-use ACP\Expression\StringComparisonSpecification;
 
 class Post extends Recursive
 {
@@ -39,7 +39,7 @@ class Post extends Recursive
 
         switch ($option) {
             case self::PROPERTY_FEATURED_IMAGE:
-                $value = $value->with_value( get_post_thumbnail_id( $value->get_value() ) );
+                $value = $value->with_value(get_post_thumbnail_id($value->get_value()));
 
                 break;
         }

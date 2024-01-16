@@ -9,7 +9,7 @@ use AC\Setting\Input;
 use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 // TODO formatter
 class LinkLabel extends Settings\Column implements Formatter

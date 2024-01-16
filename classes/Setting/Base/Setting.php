@@ -7,7 +7,7 @@ namespace AC\Setting\Base;
 use AC;
 use AC\Setting\Input;
 use AC\Setting\SettingTrait;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class Setting implements AC\Setting\Setting
 {
