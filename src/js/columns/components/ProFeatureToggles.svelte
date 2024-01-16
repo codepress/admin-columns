@@ -16,15 +16,16 @@
         {feature: 'filter', title: 'Enable Filtering', iconClass: 'dashicons dashicons-filter'},
     ];
 
-    afterUpdate(() => {
-        setTimeout(() => {
-            proFeatures.forEach(feature => {
-                if (typeof data[feature.feature] === 'undefined') {
-                    data[feature.feature] = config.find(c => c.name === feature.feature)?.input?.default ?? 'off';
-                }
-            });
-        }, 100)
-    })
+    // afterUpdate(() => {
+    //     setTimeout(() => {
+    //         proFeatures.forEach(feature => {
+    //             console.log('S');
+    //             if (typeof data[feature.feature] === 'undefined') {
+    //                 data[feature.feature] = config.find(c => c.name === feature.feature)?.input?.default ?? 'off';
+    //             }
+    //         });
+    //     }, 100)
+    // })
 
 
 </script>
