@@ -9,7 +9,7 @@ use AC\Setting\OptionCollection;
 use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class CommentLink extends Settings\Column implements AC\Setting\Formatter
 {

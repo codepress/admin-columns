@@ -9,7 +9,7 @@ use AC\Column;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class Images extends Settings\Column\Image implements AC\Setting\Recursive
 {

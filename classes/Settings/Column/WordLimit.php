@@ -7,7 +7,7 @@ use AC\Setting\ArrayImmutable;
 use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class WordLimit extends Settings\Column implements AC\Setting\Formatter
 {

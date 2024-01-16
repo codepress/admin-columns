@@ -8,7 +8,7 @@ use AC\Column;
 use AC\Setting\Input\Number;
 use AC\Setting\SettingTrait;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class NumberOfItems extends Settings\Column
 {

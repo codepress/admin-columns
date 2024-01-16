@@ -3,12 +3,12 @@
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Expression\Specification;
+use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Settings;
-use ACP\Expression\Specification;
-use ACP\Expression\StringComparisonSpecification;
 
 class StringLimit extends Recursive
 {

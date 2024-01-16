@@ -9,7 +9,7 @@ use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 use WP_Term;
 
 class LinkToMenu extends Settings\Column\Toggle implements Formatter

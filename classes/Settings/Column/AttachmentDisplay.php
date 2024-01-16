@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Expression\StringComparisonSpecification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Option;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\StringComparisonSpecification;
 
 class AttachmentDisplay extends Settings\Column\Recursive
 {

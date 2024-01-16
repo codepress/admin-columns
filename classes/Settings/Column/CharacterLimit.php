@@ -8,7 +8,7 @@ use AC;
 use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class CharacterLimit extends Settings\Column implements AC\Setting\Formatter
 {

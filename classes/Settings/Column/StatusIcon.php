@@ -6,7 +6,7 @@ use AC\Column;
 use AC\Setting;
 use AC\Setting\SettingTrait;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class StatusIcon extends Settings\Column
 {

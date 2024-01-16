@@ -11,7 +11,7 @@ use AC\Setting\Base;
 use AC\Setting\Input;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {

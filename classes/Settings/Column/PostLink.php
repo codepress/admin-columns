@@ -7,7 +7,7 @@ use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class PostLink extends Settings\Column implements AC\Setting\Formatter
 {
@@ -28,7 +28,7 @@ class PostLink extends Settings\Column implements AC\Setting\Formatter
 
     public function format(Value $value, AC\Setting\ArrayImmutable $options): Value
     {
-        switch ( (string) $options->get($this->name) ) {
+        switch ((string)$options->get($this->name)) {
             case 'edit_post':
                 $link = get_edit_post_link($value->get_id());
 

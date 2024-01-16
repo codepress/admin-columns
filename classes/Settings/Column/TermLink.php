@@ -6,7 +6,7 @@ use AC;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 use WP_Term;
 
 class TermLink extends Settings\Column implements AC\Setting\Formatter

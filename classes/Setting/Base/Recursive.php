@@ -6,7 +6,7 @@ namespace AC\Setting\Base;
 
 use AC;
 use AC\Setting\SettingCollection;
-use ACP\Expression\Specification;
+use AC\Expression\Specification;
 
 class Recursive extends Setting implements AC\Setting\Recursive
 {

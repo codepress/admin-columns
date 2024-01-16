@@ -45,7 +45,7 @@ class TableScreen extends AC\TableScreen implements AC\TableScreen\ListTable, AC
 
     public function get_query_type(): string
     {
-        return MetaType::POST;
+        return 'post';
     }
 
     public function get_meta_type(): MetaType
