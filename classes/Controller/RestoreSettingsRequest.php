@@ -3,66 +3,71 @@
 namespace AC\Controller;
 
 use AC\Capabilities;
-use AC\ListScreenRepository\Storage\ListScreenRepository;
+use AC\ListScreenRepository;
 use AC\Message\Notice;
 use AC\Registerable;
 
-class RestoreSettingsRequest implements Registerable {
+class RestoreSettingsRequest implements Registerable
+{
 
-	/**
-	 * @var ListScreenRepository
-	 */
-	private $repository;
+    /**
+     * @var ListScreenRepository
+     */
+    private $repository;
 
-	public function __construct( ListScreenRepository $repository ) {
-		$this->repository = $repository;
-	}
-
-	public function register(): void
+    public function __construct(ListScreenRepository $repository)
     {
-		add_action( 'admin_init', [ $this, 'handle_request' ] );
-	}
+        $this->repository = $repository;
+    }
 
-	public function handle_request() {
-		if ( ! current_user_can( Capabilities::MANAGE ) ) {
-			return;
-		}
+    public function register(): void
+    {
+        add_action('admin_init', [$this, 'handle_request']);
+    }
 
-		if ( 'restore' !== filter_input( INPUT_POST, 'ac_action' ) ) {
-			return;
-		}
+    public function handle_request()
+    {
+        if ( ! current_user_can(Capabilities::MANAGE)) {
+            return;
+        }
 
-		if ( ! wp_verify_nonce( filter_input( INPUT_POST, '_ac_nonce' ), 'restore' ) ) {
-			return;
-		}
+        if ('restore' !== filter_input(INPUT_POST, 'ac_action')) {
+            return;
+        }
 
-		foreach ( $this->repository->find_all() as $list_screen ) {
-			$this->repository->delete( $list_screen );
-		}
+        if ( ! wp_verify_nonce(filter_input(INPUT_POST, '_ac_nonce'), 'restore')) {
+            return;
+        }
 
-		$this->delete_options();
-		$this->delete_user_preferences();
+        foreach ($this->repository->find_all() as $list_screen) {
+            $this->repository->delete($list_screen);
+        }
 
-		do_action( 'ac/settings/restore' );
+        $this->delete_options();
+        $this->delete_user_preferences();
 
-		$notice = new Notice( __( 'Default settings successfully restored.', 'codepress-admin-columns' ) );
-		$notice->register();
-	}
+        do_action('ac/settings/restore');
 
-	private function delete_user_preferences() {
-		global $wpdb;
+        $notice = new Notice(__('Default settings successfully restored.', 'codepress-admin-columns'));
+        $notice->register();
+    }
 
-		$wpdb->query( "DELETE FROM $wpdb->usermeta WHERE meta_key LIKE '{$wpdb->get_blog_prefix()}ac_preferences_%'" );
-	}
+    private function delete_user_preferences()
+    {
+        global $wpdb;
 
-	private function delete_options() {
-		global $wpdb;
+        $wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key LIKE '{$wpdb->get_blog_prefix()}ac_preferences_%'");
+    }
 
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_api_request%'" );
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_cache_data%'" );
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_sorting_%'" );
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'cpac_options%__default'" );
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'cpac_general_options'" );
-	}
+    private function delete_options()
+    {
+        global $wpdb;
+
+        $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_api_request%'");
+        $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_cache_data%'");
+        $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'ac_sorting_%'");
+        $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'cpac_options%__default'");
+        $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'cpac_general_options'");
+    }
 
 }
