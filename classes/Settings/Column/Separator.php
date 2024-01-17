@@ -35,7 +35,7 @@ class Separator extends Settings\Column
         );
     }
 
-    // TODO
+    // TODO formatter
     //
     //    public function get_separator_formatted()
     //    {

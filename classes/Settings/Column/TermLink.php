@@ -3,31 +3,35 @@
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\Expression\Specification;
 use WP_Term;
 
 class TermLink extends Settings\Column implements AC\Setting\Formatter
 {
 
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    private $post_type;
+
+    public function __construct(string $post_type = null, Specification $conditions = null)
     {
-        $this->name = 'term_link_to';
-        $this->label = __('Link To', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Single::create_select(
+        $input = AC\Setting\Input\Option\Single::create_select(
             AC\Setting\OptionCollection::from_array($this->get_link_options()),
             'filter'
         );
 
         parent::__construct(
-            $column,
+            'term_link_to',
+            __('Link To', 'codepress-admin-columns'),
+            null,
+            $input,
             $conditions
         );
+        $this->post_type = $post_type;
     }
 
-    protected function get_link_options()
+    protected function get_link_options(): array
     {
         return [
             ''       => __('None'),
@@ -47,7 +51,7 @@ class TermLink extends Settings\Column implements AC\Setting\Formatter
                 if ($term instanceof WP_Term) {
                     $link = ac_helper()->taxonomy->get_filter_by_term_url(
                         $term,
-                        $this->column->get_post_type() ?: null
+                        $this->post_type
                     );
                 }
                 break;

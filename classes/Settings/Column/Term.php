@@ -2,72 +2,45 @@
 
 namespace AC\Settings\Column;
 
+use AC\Expression\Specification;
+use AC\Setting\ArrayImmutable;
+use AC\Setting\Formatter;
+use AC\Setting\Input;
+use AC\Setting\OptionCollection;
+use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\View;
 
-class Term extends Settings\Column
-    implements Settings\FormatValue
+class Term extends Settings\Column implements Formatter
 {
 
-    // TODO
     public const NAME = 'term';
 
-    /**
-     * @var string
-     */
-    private $term_property;
-
-    protected function set_name()
+    public function __construct(Specification $conditions = null)
     {
-        $this->name = self::NAME;
+        $input = Input\Option\Single::create_select(
+            OptionCollection::from_array(
+                [
+                    ''     => __('Title'),
+                    'slug' => __('Slug'),
+                    'id'   => __('ID'),
+                ]
+            ),
+            ''
+        );
+
+        parent::__construct(
+            'term_property',
+            __('Display', 'codepress-admin-columns'),
+            null,
+            $input,
+            $conditions
+        );
     }
 
-    protected function define_options()
+    // TODO test
+    public function format(Value $value, ArrayImmutable $options): Value
     {
-        return ['term_property'];
-    }
-
-    public function create_view()
-    {
-        $setting = $this
-            ->create_element('select')
-            ->set_options([
-                ''     => __('Title'),
-                'slug' => __('Slug'),
-                'id'   => __('ID'),
-            ]);
-
-        $view = new View([
-            'label'   => __('Display', 'codepress-admin-columns'),
-            'setting' => $setting,
-        ]);
-
-        return $view;
-    }
-
-    /**
-     * @return string
-     */
-    public function get_term_property()
-    {
-        return $this->term_property;
-    }
-
-    /**
-     * @param string $term_property
-     *
-     * @return bool
-     */
-    public function set_term_property($term_property)
-    {
-        $this->term_property = $term_property;
-
-        return true;
-    }
-
-    public function format($value, $original_value)
-    {
-        $term = $value;
+        $term = $value->get_value();
 
         if (is_numeric($term)) {
             $term = get_term($term);
@@ -77,7 +50,7 @@ class Term extends Settings\Column
             return $value;
         }
 
-        switch ($this->get_term_property()) {
+        switch ($options->get('term_property')) {
             case 'slug' :
                 return $term->slug;
             case 'id' :

@@ -6,10 +6,9 @@ use AC\Expression\Specification;
 use AC\Setting;
 use AC\Settings;
 
+// TODO formatter
 class StatusIcon extends Settings\Column
 {
-
-    //implements Settings\FormatValue {
 
     public function __construct(Specification $conditionals = null)
     {

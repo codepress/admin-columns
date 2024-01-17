@@ -8,7 +8,6 @@ use AC\Settings;
 /**
  * Taxonomy column, displaying terms from a taxonomy for any object type (i.e. posts)
  * supporting WordPress' native way of handling terms.
- * @since 2.0
  */
 class Taxonomy extends Column
 {
@@ -50,10 +49,7 @@ class Taxonomy extends Column
         );
     }
 
-    /**
-     * @return int
-     */
-    private function get_items_limit()
+    private function get_items_limit(): int
     {
         return (int)$this->get_option('number_of_items') ?: 0;
     }
@@ -76,10 +72,10 @@ class Taxonomy extends Column
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\Taxonomy($this));
-        $this->add_setting(new Settings\Column\TermLink($this));
-        $this->add_setting(new Settings\Column\NumberOfItems($this));
-        $this->add_setting(new Settings\Column\Separator($this));
+        $this->add_setting(new Settings\Column\Taxonomy());
+        $this->add_setting(new Settings\Column\TermLink());
+        $this->add_setting(new Settings\Column\NumberOfItems());
+        $this->add_setting(new Settings\Column\Separator());
     }
 
 }

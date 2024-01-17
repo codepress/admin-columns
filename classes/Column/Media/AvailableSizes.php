@@ -105,7 +105,7 @@ class AvailableSizes extends Column\Media\MetaValue
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\MissingImageSize($this));
+        $this->add_setting(new Settings\Column\MissingImageSize());
     }
 
 }

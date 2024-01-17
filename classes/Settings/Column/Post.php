@@ -68,18 +68,10 @@ class Post extends Recursive
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new Image(
-                StringComparisonSpecification::equal(self::PROPERTY_FEATURED_IMAGE)
-            ),
-            new Date(
-                StringComparisonSpecification::equal(self::PROPERTY_DATE)
-            ),
-            new CharacterLimit(
-                StringComparisonSpecification::equal(self::PROPERTY_TITLE)
-            ),
-            new StatusIcon(
-                StringComparisonSpecification::equal(self::PROPERTY_STATUS)
-            ),
+            new Image(StringComparisonSpecification::equal(self::PROPERTY_FEATURED_IMAGE)),
+            new Date(StringComparisonSpecification::equal(self::PROPERTY_DATE)),
+            new CharacterLimit(StringComparisonSpecification::equal(self::PROPERTY_TITLE)),
+            new StatusIcon(StringComparisonSpecification::equal(self::PROPERTY_STATUS)),
         ]);
     }
 

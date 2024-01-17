@@ -3,33 +3,18 @@
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\Expression\Specification;
 
 class PathScope extends Settings\Column implements Formatter
 {
 
-    /**
-     * @var string
-     */
-    private $path_scope;
-
-    protected function define_options()
+    public function __construct(Specification $conditions = null)
     {
-        return [
-            'path_scope' => 'full',
-        ];
-    }
-
-    public function __construct(AC\Column $column, Specification $conditions = null)
-    {
-        $this->name = 'path_scope';
-        $this->label = __('Path scope', 'codepress-admin-columns');
-        $this->description = __('Part of the file path to display', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Single::create_select(
+        $input = AC\Setting\Input\Option\Single::create_select(
             AC\Setting\OptionCollection::from_array([
                 'full'             => __('Full Path', 'codepress-admin-columns'),
                 'relative-domain'  => __('Relative to domain', 'codepress-admin-columns'),
@@ -40,7 +25,10 @@ class PathScope extends Settings\Column implements Formatter
         );
 
         parent::__construct(
-            $column,
+            'path_scope',
+            __('Path scope', 'codepress-admin-columns'),
+            __('Part of the file path to display', 'codepress-admin-columns'),
+            $input,
             $conditions
         );
     }

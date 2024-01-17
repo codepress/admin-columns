@@ -36,6 +36,7 @@ class StringLimit extends Recursive
 
     public function get_children(): SettingCollection
     {
+        // TODO test formatter
         return new SettingCollection([
             new Settings\Column\CharacterLimit(
                 StringComparisonSpecification::equal('character_limit')

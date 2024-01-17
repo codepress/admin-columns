@@ -53,6 +53,7 @@ class LastPost extends Column
      */
     public function get_related_post_stati()
     {
+        // TODO
         return $this->get_setting(Settings\Column\PostStatus::NAME)->get_value() ?: [];
     }
 

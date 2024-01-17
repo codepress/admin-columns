@@ -3,31 +3,29 @@
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Settings;
 use AC\Expression\Specification;
+use AC\Settings;
 
 class Taxonomy extends Settings\Column
 {
 
-    /**
-     * @var string
-     */
-    private $taxonomy;
+    // TODO implement Formatter
 
-    private $post_type;
-
-    public function __construct(AC\Column $column, string $post_type = null, Specification $conditions = null)
+    public function __construct(string $post_type = null, Specification $conditions = null)
     {
-        $this->post_type = $post_type ?: $column->get_post_type();
-        $this->name = 'taxonomy';
-        $this->label = __('Taxonomy', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Single::create_select(
+        $input = AC\Setting\Input\Option\Single::create_select(
             AC\Setting\OptionCollection::from_array(
-                ac_helper()->taxonomy->get_taxonomy_selection_options($this->post_type)
+                ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)
             )
         );
 
-        parent::__construct($column, $conditions);
+        parent::__construct(
+            'taxonomy',
+            __('Taxonomy', 'codepress-admin-columns'),
+            null,
+            $input,
+            $conditions
+        );
     }
 
     //    public function create_view()

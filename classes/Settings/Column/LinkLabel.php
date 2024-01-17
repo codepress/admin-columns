@@ -13,7 +13,7 @@ use AC\Settings;
 class LinkLabel extends Settings\Column implements Formatter
 {
 
-    public function __construct(Specification $specification)
+    public function __construct(Specification $specification = null)
     {
         parent::__construct(
             'link_label',

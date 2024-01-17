@@ -3,22 +3,21 @@
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Settings;
 use AC\Expression\Specification;
+use AC\Settings;
 
 class Message extends Settings\Column
 {
 
-    public function __construct(AC\Column $column, string $label, string $message, Specification $conditions = null)
+    public function __construct(string $label, string $message, Specification $conditions = null)
     {
-        $this->name = 'message';
-        $this->label = $label;
-        $this->input = new AC\Setting\Input\Custom('message', [
-            'message' => $message,
-        ]);
-
         parent::__construct(
-            $column,
+            'message',
+            $label,
+            '',
+            new AC\Setting\Input\Custom('message', [
+                'message' => $message,
+            ]),
             $conditions
         );
     }

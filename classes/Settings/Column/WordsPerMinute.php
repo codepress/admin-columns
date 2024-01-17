@@ -14,14 +14,6 @@ class WordsPerMinute extends Settings\Column implements Formatter
 
     public function __construct(Specification $conditions = null)
     {
-        $this->name = 'words_per_minute';
-        $this->label = __('Words per minute', 'codepress-admin-columns');
-        $this->description = __(
-            'Estimated reading time in words per minute.',
-            'codepress-admin-columns'
-        );
-        $this->input = Number::create_single_step(0, null, 200, '');
-
         parent::__construct(
             'words_per_minute',
             __('Words per minute', 'codepress-admin-columns'),

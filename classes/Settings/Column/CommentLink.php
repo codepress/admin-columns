@@ -2,15 +2,15 @@
 
 namespace AC\Settings\Column;
 
-use AC;
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
+use AC\Setting\Formatter;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class CommentLink extends Settings\Column implements AC\Setting\Formatter
+class CommentLink extends Settings\Column implements Formatter
 {
 
     public function __construct(Specification $conditions = null)

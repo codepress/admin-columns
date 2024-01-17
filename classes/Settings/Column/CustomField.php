@@ -20,6 +20,12 @@ class CustomField extends Recursive
             Input\Open::create_text(),
             $specification
         );
+
+        // TODO
+        // Backwards compatible for WordPress Settings API not storing fields starting with _
+        //        if ($field && 0 === strpos($field, 'cpachidden')) {
+        //            $field = substr($field, strlen('cpachidden'));
+        //        }
     }
 
     public function get_children(): SettingCollection
