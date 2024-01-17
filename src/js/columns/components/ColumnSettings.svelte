@@ -15,10 +15,10 @@
     }
 
     const checkConditions = (data) => {
-        if( typeof settings === 'undefined'){
-            console.log( 'Unsupported',data )
-			return;
-		}
+        if (typeof settings === 'undefined') {
+            console.log('Unsupported', data)
+            return;
+        }
 
         filteredSettings = settings.filter(s => {
             return s.conditions
@@ -39,14 +39,16 @@
     $: configChange(settings);
 </script>
 
-{#each filteredSettings as setting (setting.name)}
+{#if typeof filteredSettings !== 'undefined' }
+	{#each filteredSettings as setting (setting.name)}
 
-	<svelte:component
+		<svelte:component
 			this={getComponent(setting.input?.type ?? 'empty')}
 			bind:data={data}
 			bind:value={data[setting.name]}
 			disabled={$listScreenIsReadOnly}
 			bind:columnConfig={settings}
 			config={setting}>
-	</svelte:component>
-{/each}
+		</svelte:component>
+	{/each}
+{/if}

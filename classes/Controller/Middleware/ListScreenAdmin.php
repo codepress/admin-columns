@@ -125,6 +125,7 @@ class ListScreenAdmin implements Middleware
                 [
                     'type' => $column_type->get_type(),
                     'label' => $column_type->get_label(),
+                    'name' => $column_type->get_type(),
                 ]
             );
 

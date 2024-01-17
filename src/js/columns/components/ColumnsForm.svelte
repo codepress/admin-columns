@@ -98,16 +98,15 @@
 				<a href={tableUrl} class="acui-button  acui-button-primary">View</a>
 			</div>
 		</header>
+
 		<div class="ac-columns__body">
 			{#each Object.values( data.columns ) as column_data}
 				<ColumnItem
-						bind:config={ config[column_data.name] }
-						bind:data={ column_data }
-						on:delete={ ( e ) => deleteColumn( e.detail ) }
-						on:duplicate={ ( e ) => duplicateColumn( e.detail ) }
-				>
-
-				</ColumnItem>
+					bind:config={ config[column_data.name ?? column_data.type] }
+					bind:data={ column_data }
+					on:delete={ ( e ) => deleteColumn( e.detail ) }
+					on:duplicate={ ( e ) => duplicateColumn( e.detail ) }
+				/>
 			{/each}
 		</div>
 		{#if !$listScreenIsReadOnly}
