@@ -33,7 +33,7 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
             self::SIZE_CUSTOM
         );
 
-        parent::__construct($column, $specification);
+        parent::__construct(null, $specification);
     }
 
     public function is_parent(): bool

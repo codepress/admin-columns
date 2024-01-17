@@ -17,10 +17,9 @@ class AttachmentDisplay extends Settings\Column\Recursive
 {
 
     use AC\Setting\SettingTrait;
-    use AC\Setting\RecursiveFormatterTrait {
-    }
+    use AC\Setting\RecursiveFormatterTrait;
 
-    public function __construct(AC\Column $column)
+    public function __construct()
     {
         $this->name = 'attachment_display';
         $this->label = __('Display', 'codepress-admin-columns');
@@ -28,12 +27,12 @@ class AttachmentDisplay extends Settings\Column\Recursive
             new OptionCollection([
                 new Option(__('Thumbnails', 'codepress-admin-columns'), 'thumbnail'),
                 new Option(__('Count', 'codepress-admin-columns'), 'count'),
-            ])
-            ,
+            ]),
             'thumbnail'
         );
 
-        parent::__construct($column);
+        // TODO remove
+        parent::__construct();
     }
 
     public function get_children(): SettingCollection

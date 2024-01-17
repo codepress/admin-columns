@@ -3,11 +3,11 @@
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Expression\Specification;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\Expression\Specification;
 
 class PostLink extends Settings\Column implements AC\Setting\Formatter
 {
@@ -38,11 +38,11 @@ class PostLink extends Settings\Column implements AC\Setting\Formatter
 
                 break;
             case 'edit_author':
-                $link = get_edit_user_link(ac_helper()->post->get_raw_field('post_author', $value->get_value()));
+                $link = get_edit_user_link(ac_helper()->post->get_raw_field('post_author', (int)$value->get_value()));
 
                 break;
             case 'view_author':
-                $link = get_author_posts_url(ac_helper()->post->get_raw_field('post_author', $value->get_value()));
+                $link = get_author_posts_url(ac_helper()->post->get_raw_field('post_author', (int)$value->get_value()));
 
                 break;
 

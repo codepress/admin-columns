@@ -35,13 +35,30 @@ class Post extends Recursive
 
     public function format(Value $value, ArrayImmutable $options): Value
     {
+        $ids = $value->get_value();
+
+        if ( ! $ids) {
+            return $value->with_value('');
+        }
+
         $option = $options->get($this->get_name());
 
         switch ($option) {
             case self::PROPERTY_FEATURED_IMAGE:
-                $value = $value->with_value(get_post_thumbnail_id($value->get_value()));
+                $value = $value->with_value(get_post_thumbnail_id($ids[0]));
 
                 break;
+            case self::PROPERTY_AUTHOR :
+                return $value->with_value(
+                // TODO $ids[0]
+                    ac_helper()->user->get_display_name($ids[0])
+                        ?: sprintf(
+                        '<em>%s</em> (%s)',
+                        __('No author', 'codepress-admin-columns'),
+                        $ids[0]
+                    )
+                );
+            // TODO add formatter
         }
 
         return parent::format($value, $options);

@@ -27,7 +27,7 @@ class Caption extends Column
 
     public function get_raw_value($id)
     {
-        return ac_helper()->post->get_raw_field('post_excerpt', $id);
+        return ac_helper()->post->get_raw_field('post_excerpt', (int)$id);
     }
 
 }

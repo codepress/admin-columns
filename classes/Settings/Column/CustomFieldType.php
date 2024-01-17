@@ -12,6 +12,7 @@ use AC\Setting\ArrayImmutable;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
+use AC\Setting\Type\Option;
 use AC\Setting\Type\Value;
 
 class CustomFieldType extends Recursive
@@ -34,6 +35,7 @@ class CustomFieldType extends Recursive
     public const TYPE_URL = 'link';
     public const TYPE_USER = 'user_by_id';
 
+    // TODO remove Column dependency
     public function __construct(Column $column)
     {
         $this->name = self::NAME;
@@ -97,12 +99,12 @@ class CustomFieldType extends Recursive
         ];
 
         $collection = new OptionCollection();
-        $collection->add(new AC\Setting\Type\Option(__('Default', 'codepress-admin-columns'), ''));
+        $collection->add(new Option(__('Default', 'codepress-admin-columns'), ''));
 
         foreach ($this->get_field_types() as $group => $options) {
             foreach ($options as $value => $label) {
                 $collection->add(
-                    new AC\Setting\Type\Option(
+                    new Option(
                         $label,
                         $value,
                         $groups[$group] ?? $group
@@ -224,7 +226,7 @@ class CustomFieldType extends Recursive
     //     * Get possible field types
     //     * @return array
     //     */
-    protected function get_field_types()
+    protected function get_field_types(): array
     {
         $grouped_types = [
             'basic'      => [

@@ -9,7 +9,7 @@ class Post
 
     public function exists($id): bool
     {
-        return (bool)$this->get_raw_field('ID', $id);
+        return (bool)$this->get_raw_field('ID', (int)$id);
     }
 
     private function esc_sql_array($array): string
@@ -36,14 +36,7 @@ class Post
         return $wpdb->get_var($sql);
     }
 
-    /**
-     * @param int $post_id Post ID
-     * @param int $words
-     *
-     * @return string Post Excerpt.
-     * @since 1.0
-     */
-    public function excerpt($post_id, $words = 400)
+    public function excerpt(int $post_id, int $words = 400): string
     {
         global $post;
 
@@ -62,19 +55,9 @@ class Post
         return ac_helper()->string->trim_words($excerpt, $words);
     }
 
-    /**
-     * @param string $field Field
-     * @param int    $id    Post ID
-     *
-     * @return string|false
-     */
-    public function get_raw_field($field, $id)
+    public function get_raw_field(string $field, int $id): ?string
     {
         global $wpdb;
-
-        if ( ! $id || ! is_numeric($id)) {
-            return false;
-        }
 
         $sql = "
 			SELECT " . $wpdb->_real_escape($field) . "

@@ -165,12 +165,7 @@ class Column
         return $this;
     }
 
-    /**
-     * @param Settings\Column $setting
-     *
-     * @return $this
-     */
-    public function add_setting(Settings\Column $setting)
+    public function add_setting(Settings\Column $setting): self
     {
         // TODO David Check
         //$setting->set_values($this->options);
@@ -239,7 +234,7 @@ class Column
         if (null === $this->settings) {
             $settings = [
 
-                // TODO David check
+                // TODO remove
                 new Settings\Column\Type($this),
 
                 new Settings\Column\Label($this),

@@ -21,7 +21,7 @@ class AlternateText extends Column\Meta
 
     public function get_value($id)
     {
-        $value = ac_helper()->string->strip_trim($this->get_raw_value($id));
+        $value = ac_helper()->string->strip_trim((string)$this->get_raw_value($id));
 
         if (ac_helper()->string->is_empty($value)) {
             return $this->get_empty_char();
