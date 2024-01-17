@@ -572,6 +572,10 @@ video {
   margin-right: 10px;
 }
 
+.acu-mb-4 {
+  margin-bottom: 20px;
+}
+
 .acu-block {
   display: block;
 }
@@ -617,6 +621,18 @@ video {
   gap: 15px;
 }
 
+.acu-border {
+  border-width: 1px;
+}
+
+.acu-border-b-2 {
+  border-bottom-width: 2px;
+}
+
+.acu-border-b {
+  border-bottom-width: 1px;
+}
+
 .acu-p-2 {
   padding: 10px;
 }
@@ -629,6 +645,11 @@ video {
 .acu-py-0\.5 {
   padding-top: 3px;
   padding-bottom: 3px;
+}
+
+.acu-py-5 {
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 .acu-pl-3 {
@@ -645,6 +666,14 @@ video {
 
 .acu-pt-3 {
   padding-top: 15px;
+}
+
+.acu-pb-6 {
+  padding-bottom: 30px;
+}
+
+.acu-pb-4 {
+  padding-bottom: 20px;
 }
 
 .acu-text-right {

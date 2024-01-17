@@ -16806,6 +16806,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_settings_SelectSetting_svelte__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/settings/SelectSetting.svelte */ "./js/columns/components/settings/SelectSetting.svelte");
 /* harmony import */ var _components_settings_DateFormatSetting_svelte__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/settings/DateFormatSetting.svelte */ "./js/columns/components/settings/DateFormatSetting.svelte");
 /* harmony import */ var _components_settings_HiddenSetting_svelte__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/settings/HiddenSetting.svelte */ "./js/columns/components/settings/HiddenSetting.svelte");
+// @ts-nocheck
 
 
 

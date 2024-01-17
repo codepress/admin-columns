@@ -15,6 +15,7 @@ const config = getColumnSettingsConfig();
 require('./_legacy-columns.ts');
 require('./columns/init/setting-types.ts');
 
+
 initialListId.set(config.list_id);
 
 currentListKey.subscribe((d) => {
@@ -35,7 +36,6 @@ currentListId.subscribe((d) => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-
 
     // TODO make something more affording
     const ConfigService = {

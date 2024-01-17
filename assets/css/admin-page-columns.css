@@ -283,7 +283,7 @@
   cursor: pointer;
 }
 .svelte-select.-acui .selected-item {
-  height: 17px;
+  height: 20px;
   cursor: pointer;
 }
 .svelte-select.-acui .value-container input {
