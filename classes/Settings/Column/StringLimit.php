@@ -2,7 +2,6 @@
 
 namespace AC\Settings\Column;
 
-use AC;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Input;
@@ -13,11 +12,9 @@ use AC\Settings;
 class StringLimit extends Recursive
 {
 
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    public function __construct(Specification $conditions = null)
     {
-        $this->name = 'string_limit';
-        $this->label = __('Text Limit', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
+        $input = Input\Option\Single::create_select(
             OptionCollection::from_array(
                 [
                     ''                => __('No limit', 'codepress-admin-columns'),
@@ -28,24 +25,29 @@ class StringLimit extends Recursive
             'word_limit'
         );
 
-        parent::__construct($column, $conditions);
+        parent::__construct(
+            'string_limit',
+            __('Text Limit', 'codepress-admin-columns'),
+            '',
+            $input,
+            $conditions
+        );
     }
 
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
             new Settings\Column\CharacterLimit(
-                $this->column,
                 StringComparisonSpecification::equal('character_limit')
             ),
             new Settings\Column\WordLimit(
-                $this->column,
                 StringComparisonSpecification::equal('word_limit')
             ),
         ]);
     }
 
 
+    // TODO
     //	/**
     //	 * @var string
     //	 */

@@ -10,14 +10,14 @@ use AC\Setting\ArrayImmutable;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
+// TODO can it extend?
 class Images extends Settings\Column\Image implements AC\Setting\Recursive
 {
 
-    public function __construct(AC\Column $column, Specification $specification = null)
+    public function __construct(Specification $specification = null)
     {
-        parent::__construct($column, $specification);
-
-        $this->name = 'images';
+        // TODO $name = 'images';
+        parent::__construct($specification);
     }
 
     public function format(Value $value, ArrayImmutable $options): Value
@@ -51,7 +51,7 @@ class Images extends Settings\Column\Image implements AC\Setting\Recursive
     public function get_children(): AC\Setting\SettingCollection
     {
         $settings = parent::get_children();
-        $settings->add(new NumberOfItems($this->column));
+        $settings->add(new NumberOfItems());
 
         return $settings;
     }

@@ -2,35 +2,30 @@
 
 namespace AC\Settings\Column;
 
-use AC\Column;
-use AC\Setting;
-use AC\Setting\SettingTrait;
-use AC\Settings;
 use AC\Expression\Specification;
+use AC\Setting;
+use AC\Settings;
 
 class StatusIcon extends Settings\Column
 {
 
     //implements Settings\FormatValue {
 
-    use SettingTrait;
-
-    public function __construct(Column $column, Specification $conditionals = null)
+    public function __construct(Specification $conditionals = null)
     {
-        $this->name = 'use_icon';
-        $this->label = __('Use an icon?', 'codepress-admin-columns');
-        $this->description = __('Use an icon instead of text for displaying the status.', 'codepress-admin-columns');
-        $this->input = Setting\Input\Option\Single::create_toggle(
-            Setting\OptionCollection::from_array([
-                '1',
-                '0',
-            ], false)
+        parent::__construct(
+            'use_icon',
+            __('Use an icon?', 'codepress-admin-columns'),
+            __('Use an icon instead of text for displaying the status.', 'codepress-admin-columns'),
+            Setting\Input\Option\Single::create_toggle(
+                Setting\OptionCollection::from_array(['1', '0',], false)
+            ),
+            $conditionals
         );
-
-        parent::__construct($column, $conditionals);
     }
 
 
+    // TODO
     //	/**
     //	 * @var bool
     //	 */

@@ -15,7 +15,8 @@ class Date extends Column
 
     public function register_settings()
     {
-        $this->get_setting('width')->set_default(14);
+        // TODO
+        //        $this->get_setting('width')->set_default(14);
     }
 
 }

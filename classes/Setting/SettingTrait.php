@@ -7,6 +7,7 @@ namespace AC\Setting;
 use AC\Expression\NullSpecification;
 use AC\Expression\Specification;
 
+// TODO remove
 trait SettingTrait
 {
 

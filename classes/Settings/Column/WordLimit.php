@@ -5,26 +5,17 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
-use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
 class WordLimit extends Settings\Column implements AC\Setting\Formatter
 {
 
-    use SettingTrait;
-
     // TODO Stefan Test -> name was word_limit, option 'excerpt_length'
 
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    public function __construct(Specification $conditions = null)
     {
-        $this->name = 'excerpt_length';
-        $this->label = __('Word Limit', 'codepress-admin-columns');
-        $this->description = __('Maximum number of words', 'codepress-admin-columns') . '<em>' . __(
-                'Leave empty for no limit',
-                'codepress-admin-columns'
-            ) . '</em>';
-        $this->input = AC\Setting\Input\Number::create_single_step(
+        $input = AC\Setting\Input\Number::create_single_step(
             0,
             null,
             20,
@@ -33,7 +24,17 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
             __('Words', 'codepress-admin-columns')
         );
 
-        parent::__construct($column, $conditions);
+        parent::__construct(
+            'excerpt_length',
+            __('Word Limit', 'codepress-admin-columns'),
+            sprintf(
+                '%s <em>%s</em>',
+                __('Maximum number of words', 'codepress-admin-columns'),
+                __('Leave empty for no limit', 'codepress-admin-columns')
+            ),
+            $input,
+            $conditions
+        );
     }
 
     public function format(Value $value, ArrayImmutable $options): Value

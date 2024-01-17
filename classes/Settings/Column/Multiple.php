@@ -7,13 +7,14 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Setting\Option;
 use AC\Setting\OptionCollection;
-use AC\Setting\SettingTrait;
 use AC\Settings\Column;
 
+// TODO used?
 abstract class Multiple extends Column implements Option
 {
 
-    use SettingTrait;
+    // TODO
+    //    use SettingTrait;
     use AC\Setting\OptionTrait;
 
     public function __construct(AC\Column $column, string $name, OptionCollection $options)

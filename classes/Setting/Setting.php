@@ -6,6 +6,7 @@ namespace AC\Setting;
 
 use AC\Expression\Specification;
 
+// TODO Tobias can be removed, only used by AC\Settings\Column
 // TODO David sometimes you want to configure a behaviour, the setting should expose this. e.g. update label
 interface Setting
 {

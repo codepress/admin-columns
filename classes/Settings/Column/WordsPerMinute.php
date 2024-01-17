@@ -2,20 +2,17 @@
 
 namespace AC\Settings\Column;
 
-use AC;
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
-use AC\Setting\SettingTrait;
+use AC\Setting\Input\Number;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
 class WordsPerMinute extends Settings\Column implements Formatter
 {
 
-    use SettingTrait;
-
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    public function __construct(Specification $conditions = null)
     {
         $this->name = 'words_per_minute';
         $this->label = __('Words per minute', 'codepress-admin-columns');
@@ -23,10 +20,16 @@ class WordsPerMinute extends Settings\Column implements Formatter
             'Estimated reading time in words per minute.',
             'codepress-admin-columns'
         );
-        $this->input = AC\Setting\Input\Number::create_single_step(0, null, 200, '');
+        $this->input = Number::create_single_step(0, null, 200, '');
 
         parent::__construct(
-            $column,
+            'words_per_minute',
+            __('Words per minute', 'codepress-admin-columns'),
+            __(
+                'Estimated reading time in words per minute.',
+                'codepress-admin-columns'
+            ),
+            Number::create_single_step(0, null, 200, ''),
             $conditions
         );
     }

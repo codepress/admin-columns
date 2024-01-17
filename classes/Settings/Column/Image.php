@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Column;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\ArrayImmutable;
@@ -24,16 +23,18 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
 
     private const SIZE_CUSTOM = 'cpac-custom';
 
-    public function __construct(Column $column, Specification $specification = null)
+    public function __construct(Specification $specification = null)
     {
-        $this->name = 'image_size';
-        $this->label = __('Image Size', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
-            $this->get_grouped_image_sizes(),
-            self::SIZE_CUSTOM
+        parent::__construct(
+            'image_size',
+            __('Image Size', 'codepress-admin-columns'),
+            '',
+            Input\Option\Single::create_select(
+                $this->get_grouped_image_sizes(),
+                'cpac-custom'
+            ),
+            $specification
         );
-
-        parent::__construct(null, $specification);
     }
 
     public function is_parent(): bool

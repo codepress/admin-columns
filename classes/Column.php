@@ -190,13 +190,10 @@ class Column
         }
     }
 
-    /**
-     * @param string $id
-     *
-     * @return Settings\Column|Settings\Column\User|Settings\Column\Separator|Settings\Column\Label
-     */
-    public function get_setting($id)
+    public function get_setting($name): ?Settings\Column
     {
+        return $this->settings[$name] ?? null;
+
         // TODO David, reimplement
         return null;
 
@@ -235,10 +232,10 @@ class Column
             $settings = [
 
                 // TODO remove
-                new Settings\Column\Type($this),
+                new Settings\Column\Type(),
 
-                new Settings\Column\Label($this),
-                new Settings\Column\Width($this),
+                new Settings\Column\Label(),
+                new Settings\Column\Width(),
             ];
 
             // TODO Stefan test settings

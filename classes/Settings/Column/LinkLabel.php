@@ -2,29 +2,26 @@
 
 namespace AC\Settings\Column;
 
-use AC\Column;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\Input;
-use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\Expression\Specification;
 
 // TODO formatter
 class LinkLabel extends Settings\Column implements Formatter
 {
 
-    use SettingTrait;
-
-    public function __construct(Column $column, Specification $specification)
+    public function __construct(Specification $specification)
     {
-        $this->name = 'link_label';
-        $this->label = __('Link Label', 'codepress-admin-columns');
-        $this->description = __('Leave blank to display the URL', 'codepress-admin-columns');
-        $this->input = Input\Open::create_text();
-
-        parent::__construct($column, $specification);
+        parent::__construct(
+            'link_label',
+            __('Link Label', 'codepress-admin-columns'),
+            __('Leave blank to display the URL', 'codepress-admin-columns'),
+            Input\Open::create_text(),
+            $specification
+        );
     }
 
     public function format(Value $value, ArrayImmutable $options): Value

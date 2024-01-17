@@ -39,6 +39,7 @@ class Comment extends Recursive
             self::PROPERTY_COMMENT
         );
 
+        // TODO
         parent::__construct($column, $specification);
     }
 
@@ -50,17 +51,9 @@ class Comment extends Recursive
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new Settings\Column\Date(
-                $this->column,
-                Expression\StringComparisonSpecification::equal(self::PROPERTY_DATE)
-            ),
-            new Settings\Column\StringLimit(
-                $this->column,
-                Expression\StringComparisonSpecification::equal(self::PROPERTY_COMMENT)
-            ),
-            new Settings\Column\CommentLink(
-                $this->column
-            ),
+            new Settings\Column\Date(Expression\StringComparisonSpecification::equal(self::PROPERTY_DATE)),
+            new Settings\Column\StringLimit(Expression\StringComparisonSpecification::equal(self::PROPERTY_COMMENT)),
+            new Settings\Column\CommentLink(),
         ]);
     }
 

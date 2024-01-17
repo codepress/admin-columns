@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC;
-
+// TODO
 class Label extends Single
 {
 
-    public function __construct(AC\Column $column)
+    public function __construct()
     {
-        parent::__construct($column, 'label');
-
-        $this->label = __('Label', 'codepress-admin-columns');
-        $this->description = __('This is the name which will appear as the column header.', 'codepress-admin-columns');
+        parent::__construct(
+            'label',
+            __('Label', 'codepress-admin-columns'),
+            __('This is the name which will appear as the column header.', 'codepress-admin-columns')
+        );
     }
 
     // TODO where to do the KSEs for label?
