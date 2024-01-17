@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\Expression\Specification;
 
 class UserLink extends Settings\Column implements AC\Setting\Formatter
 {
@@ -20,16 +20,18 @@ class UserLink extends Settings\Column implements AC\Setting\Formatter
     public const PROPERTY_VIEW_AUTHOR = 'view_author';
     public const PROPERTY_EMAIL = 'email_user';
 
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    private $post_type;
+
+    public function __construct(string $post_type = null, Specification $conditions = null)
     {
-        $this->name = self::NAME;
-        $this->label = __('Link To', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Single::create_select(
+        $input = AC\Setting\Input\Option\Single::create_select(
             AC\Setting\OptionCollection::from_array($this->get_input_options()),
             self::PROPERTY_EDIT_USER
         );
 
-        parent::__construct($column, $conditions);
+        parent::__construct('user_link_to', __('Link To', 'codepress-admin-columns'), null, $input, $conditions);
+
+        $this->post_type = $post_type;
     }
 
     public function format(Value $value, ArrayImmutable $options): Value
@@ -43,7 +45,7 @@ class UserLink extends Settings\Column implements AC\Setting\Formatter
                 break;
             case self::PROPERTY_VIEW_POSTS :
                 $link = add_query_arg([
-                    'post_type' => $this->column->get_post_type(),
+                    'post_type' => $this->post_type,
                     'author'    => $value->get_id(),
                 ], 'edit.php');
 

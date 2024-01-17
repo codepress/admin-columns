@@ -35,11 +35,6 @@ final class Option
         return $this->value;
     }
 
-    public function has_group(): bool
-    {
-        return $this->group !== null;
-    }
-
     public function get_group(): ?string
     {
         return $this->group;

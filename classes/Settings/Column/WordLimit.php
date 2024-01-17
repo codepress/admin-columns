@@ -5,6 +5,7 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
+use AC\Setting\Input\Number;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -15,7 +16,7 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
 
     public function __construct(int $default = 20, Specification $conditions = null)
     {
-        $input = AC\Setting\Input\Number::create_single_step(
+        $input = Number::create_single_step(
             0,
             null,
             $default,

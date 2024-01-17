@@ -54,14 +54,14 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new Base\Setting(
+            new AC\Settings\Column(
                 self::SETTING_WIDTH,
                 __('Width', 'codepress-admin-columns'),
                 '',
                 Input\Number::create_single_step(0, null, 60),
                 StringComparisonSpecification::equal(self::SIZE_CUSTOM)
             ),
-            new Base\Setting(
+            new AC\Settings\Column(
                 self::SETTING_HEIGHT,
                 __('Height', 'codepress-admin-columns'),
                 '',

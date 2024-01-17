@@ -3,8 +3,8 @@
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Settings;
 use AC\Expression\Specification;
+use AC\Settings;
 
 // TODO implement formatter (Interface was CollectionFormatter)
 class Separator extends Settings\Column
@@ -12,11 +12,9 @@ class Separator extends Settings\Column
 
     public const NAME = 'separator';
 
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    public function __construct(Specification $conditions = null)
     {
-        $this->name = self::NAME;
-        $this->label = __('Separator', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Single::create_select(
+        $input = AC\Setting\Input\Option\Single::create_select(
             AC\Setting\OptionCollection::from_array([
                 ''                => __('Default', 'codepress-admin-columns'),
                 'comma'           => __('Comma Separated', 'codepress-admin-columns'),
@@ -29,11 +27,15 @@ class Separator extends Settings\Column
         );
 
         parent::__construct(
-            $column,
+            'separator',
+            __('Separator', 'codepress-admin-columns'),
+            '',
+            $input,
             $conditions
         );
     }
 
+    // TODO
     //
     //    public function get_separator_formatted()
     //    {

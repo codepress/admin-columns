@@ -7,6 +7,7 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\ArrayImmutable;
+use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Option;
@@ -24,7 +25,7 @@ class AttachmentDisplay extends Settings\Column\Recursive
             'attachment_display',
             __('Display', 'codepress-admin-columns'),
             '',
-            AC\Setting\Input\Option\Single::create_select(
+            Input\Option\Single::create_select(
                 new OptionCollection([
                     new Option(__('Thumbnails', 'codepress-admin-columns'), 'thumbnail'),
                     new Option(__('Count', 'codepress-admin-columns'), 'count'),

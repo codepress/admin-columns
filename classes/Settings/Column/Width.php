@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Setting\Base;
+use AC;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
@@ -35,13 +35,13 @@ final class Width extends Recursive
     public function get_children(): SettingCollection
     {
         $settings = [
-            new Base\Setting(
+            new AC\Settings\Column(
                 $this->name,
                 '',
                 '',
                 Input\Number::create_single_step(0, null, $this->default)
             ),
-            new Base\Setting(
+            new AC\Settings\Column(
                 $this->name . '_unit',
                 '',
                 '',
@@ -57,6 +57,7 @@ final class Width extends Recursive
         return new SettingCollection($settings);
     }
 
+    // TODO
     //    /**
     //     * @var integer
     //     */

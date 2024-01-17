@@ -24,11 +24,11 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
         string $default_before = null,
         string $default_after = null
     ) {
-        $this->default_before = $default_before;
-        $this->default_after = $default_after;
-
         // TODO input?
         parent::__construct('before_after', __('Display Options', 'codepress-admin-columns'), '', null, $conditions);
+
+        $this->default_before = $default_before;
+        $this->default_after = $default_after;
     }
 
     public function is_parent(): bool
@@ -39,13 +39,13 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new Base\Setting(
+            new AC\Settings\Column(
                 'before',
                 __('Before', 'codepress-admin-columns'),
                 '',
                 Input\Open::create_text($this->default_before)
             ),
-            new Base\Setting(
+            new AC\Settings\Column(
                 'after',
                 __('After', 'codepress-admin-columns'),
                 '',

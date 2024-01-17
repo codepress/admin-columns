@@ -7,9 +7,6 @@ namespace AC\Setting;
 final class ArrayImmutable
 {
 
-    /**
-     * @var array
-     */
     private $values;
 
     public function __construct(array $values)

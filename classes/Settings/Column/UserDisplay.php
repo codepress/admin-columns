@@ -2,14 +2,13 @@
 
 namespace AC\Settings\Column;
 
-use AC\Column;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\Expression\Specification;
 
 class UserDisplay extends Settings\Column implements Formatter
 {
@@ -28,18 +27,20 @@ class UserDisplay extends Settings\Column implements Formatter
     public const PROPERTY_NICKNAME = 'nickname';
     public const PROPERTY_ROLES = 'roles';
 
-    public function __construct(
-        Column $column,
-        Specification $specification = null
-    ) {
-        $this->name = self::NAME;
-        $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
+    public function __construct(Specification $specification = null)
+    {
+        $input = Input\Option\Single::create_select(
             OptionCollection::from_array($this->get_input_options()),
             self::PROPERTY_DISPLAY_NAME
         );
 
-        parent::__construct($column, $specification);
+        parent::__construct(
+            'display_author_as',
+            __('Display', 'codepress-admin-columns'),
+            null,
+            $input,
+            $specification
+        );
     }
 
     public function format(Value $value, ArrayImmutable $options): Value

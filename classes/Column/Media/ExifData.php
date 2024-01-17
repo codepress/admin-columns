@@ -22,7 +22,7 @@ class ExifData extends Column\Media\MetaValue
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\ExifData($this));
+        $this->add_setting(new Settings\Column\ExifData($this->get_label()));
     }
 
 }

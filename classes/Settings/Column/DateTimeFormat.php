@@ -11,6 +11,7 @@ use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
+use AC\Settings\Column;
 
 abstract class DateTimeFormat extends Recursive
 {
@@ -30,8 +31,8 @@ abstract class DateTimeFormat extends Recursive
 
     public function get_children(): SettingCollection
     {
-        $settings = [
-            new Base\Setting(
+        return new SettingCollection([
+            new Column(
                 'date_format',
                 '',
                 '',
@@ -40,9 +41,7 @@ abstract class DateTimeFormat extends Recursive
                     'wp_default'
                 )
             ),
-        ];
-
-        return new SettingCollection($settings);
+        ]);
     }
 
     public function format(Value $value, ArrayImmutable $options): Value

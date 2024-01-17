@@ -36,28 +36,28 @@ class NumberFormat extends Recursive
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new Base\Setting(
+            new AC\Settings\Column(
                 'number_decimals',
                 __('Decimals', 'codepress-admin-columns'),
                 '',
                 Input\Number::create_single_step(0, 20, 0),
                 StringComparisonSpecification::equal('formatted')
             ),
-            new Base\Setting(
+            new AC\Settings\Column(
                 'number_decimal_point',
                 __('Decimal point', 'codepress-admin-columns'),
                 '',
                 Input\Open::create_text(null, '.'),
                 StringComparisonSpecification::equal('formatted')
             ),
-            new Base\Setting(
+            new AC\Settings\Column(
                 'number_thousands_separator',
                 __('Thousands separator', 'codepress-admin-columns'),
                 '',
                 Input\Open::create_text(),
                 StringComparisonSpecification::equal('formatted')
             ),
-            new Base\Setting(
+            new AC\Settings\Column(
                 'number_preview',
                 __('Preview', 'codepress-admin-columns'),
                 '',

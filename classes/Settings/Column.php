@@ -6,7 +6,7 @@ use AC\Expression\NullSpecification;
 use AC\Expression\Specification;
 use AC\Setting\Input;
 
-abstract class Column
+class Column
 {
 
     protected $name;
