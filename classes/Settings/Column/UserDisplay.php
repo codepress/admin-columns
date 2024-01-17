@@ -37,7 +37,7 @@ class UserDisplay extends Settings\Column implements Formatter
         parent::__construct(
             'display_author_as',
             __('Display', 'codepress-admin-columns'),
-            null,
+            '',
             $input,
             $specification
         );

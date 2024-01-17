@@ -22,7 +22,7 @@ class Column
     public function __construct(
         string $name,
         string $label,
-        string $description,
+        string $description = null,
         Input $input = null,
         Specification $conditions = null
     ) {

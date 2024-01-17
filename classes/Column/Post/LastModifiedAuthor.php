@@ -46,7 +46,7 @@ class LastModifiedAuthor extends Column\Meta
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\User($this));
+        $this->add_setting(new Settings\Column\User());
     }
 
 }

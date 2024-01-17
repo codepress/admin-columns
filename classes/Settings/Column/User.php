@@ -12,7 +12,7 @@ class User extends Recursive
 
     public function __construct(Specification $specification = null)
     {
-        parent::__construct('user', __('Display', 'codepress-admin-columns'), null, null, $specification);
+        parent::__construct('user', __('Display', 'codepress-admin-columns'), '', null, $specification);
     }
 
     // TODO David this column has a recursive extension, but not this one. The trait implements it as well
