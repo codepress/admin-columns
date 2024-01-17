@@ -12,7 +12,7 @@ abstract class Column implements AC\Setting\Setting
 
     protected $column;
 
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    public function __construct(AC\Column $column = null, Specification $conditions = null)
     {
         $this->column = $column;
         $this->conditions = $conditions;

@@ -43,6 +43,7 @@ class Date extends Settings\Column\DateTimeFormat
         return parent::format($value, $options);
     }
 
+    // TODO
     //	private function get_diff_html_label() {
     //		$description = __( 'The difference is returned in a human readable format.', 'codepress-admin-columns' ) . ' <br/>' .
     //		               sprintf( __( 'For example: %s.', 'codepress-admin-columns' ),

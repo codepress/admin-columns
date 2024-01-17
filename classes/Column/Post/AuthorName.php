@@ -26,7 +26,7 @@ class AuthorName extends Column
 
     private function get_post_author($post_id)
     {
-        return ac_helper()->post->get_raw_field('post_author', $post_id);
+        return ac_helper()->post->get_raw_field('post_author', (int)$post_id);
     }
 
     public function register_settings()

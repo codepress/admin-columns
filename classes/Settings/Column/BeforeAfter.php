@@ -6,12 +6,12 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Column;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Base;
 use AC\Setting\Input;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use AC\Expression\Specification;
 
 class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
@@ -59,8 +59,8 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
 
     public function format(Value $value, ArrayImmutable $options): Value
     {
-        if ( ! ac_helper()->string->is_empty($value->get_value())) {
-            $value = $value->with_value(
+        if (is_string($value->get_value()) && ac_helper()->string->is_not_empty($value->get_value())) {
+            return $value->with_value(
                 $options->get('before') .
                 $value->get_value() .
                 $options->get('after')

@@ -3,11 +3,11 @@
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\Expression\Specification;
 
 class WordLimit extends Settings\Column implements AC\Setting\Formatter
 {
@@ -40,12 +40,13 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
     {
         return $value->with_value(
             ac_helper()->string->trim_words(
-                $value->get_value(),
+                (string)$value->get_value(),
                 $options->get('excerpt_length') ?? 20
             )
         );
     }
 
+    // TODO
     //	/**
     //	 * @var int
     //	 */

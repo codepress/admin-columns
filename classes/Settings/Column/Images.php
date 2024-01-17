@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Column;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\Expression\Specification;
 
 class Images extends Settings\Column\Image implements AC\Setting\Recursive
 {
 
-    public function __construct(Column $column, Specification $specification = null)
+    public function __construct(AC\Column $column, Specification $specification = null)
     {
         parent::__construct($column, $specification);
 
@@ -30,14 +29,18 @@ class Images extends Settings\Column\Image implements AC\Setting\Recursive
             return $value;
         }
 
-        $ids_subset = array_slice($image_ids, 0, (int)$options->get('number_of_items'));
-        $removed = count($value->get_value()) - (int)$options->get('number_of_items');
+        $image_count = (int)$options->get('number_of_items');
+
+        $ids_subset = array_slice($image_ids, 0, $image_count);
+        $hidden_count = count($value->get_value()) - $image_count;
 
         foreach ($ids_subset as $id) {
             $values[] = parent::format($value->with_value($id), $options)->get_value();
         }
 
-        return $value->with_value(ac_helper()->html->images(implode(' ', $values), $removed));
+        return $value->with_value(
+            ac_helper()->html->images(implode(' ', $values), $hidden_count)
+        );
     }
 
     public function is_parent(): bool
