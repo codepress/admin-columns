@@ -1,6 +1,7 @@
 import {registerSettingType} from "../helper";
-import LabelSetting from "../components/settings/LabelSetting.svelte";
 import {SvelteComponent} from "svelte";
+import LabelSetting from "../components/settings/LabelSetting.svelte";
+
 import WidthSetting from "../components/settings/WidthSetting.svelte";
 import EmptySetting from "../components/settings/EmptySetting.svelte";
 import TypeSetting from "../components/settings/TypeSetting.svelte";
