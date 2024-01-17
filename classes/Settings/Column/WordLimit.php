@@ -13,12 +13,12 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
 
     // TODO Stefan Test -> name was word_limit, option 'excerpt_length'
 
-    public function __construct(Specification $conditions = null)
+    public function __construct(int $default = 20, Specification $conditions = null)
     {
         $input = AC\Setting\Input\Number::create_single_step(
             0,
             null,
-            20,
+            $default,
             null,
             null,
             __('Words', 'codepress-admin-columns')

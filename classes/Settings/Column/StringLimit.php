@@ -41,6 +41,7 @@ class StringLimit extends Recursive
                 StringComparisonSpecification::equal('character_limit')
             ),
             new Settings\Column\WordLimit(
+                20,
                 StringComparisonSpecification::equal('word_limit')
             ),
         ]);

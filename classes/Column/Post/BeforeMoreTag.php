@@ -33,7 +33,7 @@ class BeforeMoreTag extends Column
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\WordLimit($this));
+        $this->add_setting(new Settings\Column\WordLimit());
     }
 
 }

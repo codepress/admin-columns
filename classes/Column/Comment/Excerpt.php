@@ -26,11 +26,7 @@ class Excerpt extends Column
 
     public function register_settings()
     {
-        $word_limit = new AC\Settings\Column\WordLimit($this);
-        // TODO
-        //$word_limit->set_default( 15 );
-
-        $this->add_setting($word_limit);
+        $this->add_setting(new AC\Settings\Column\WordLimit(15));
     }
 
 }

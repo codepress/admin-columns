@@ -21,7 +21,7 @@ class Post extends Recursive
     public const PROPERTY_DATE = 'date';
     public const PROPERTY_STATUS = 'status';
 
-    public function __construct(Specification $conditionals)
+    public function __construct(Specification $conditionals = null)
     {
         parent::__construct(
             'post',
