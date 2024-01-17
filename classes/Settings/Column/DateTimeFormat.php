@@ -4,27 +4,28 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Column;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Base;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use AC\Expression\Specification;
 
 abstract class DateTimeFormat extends Recursive
 {
 
     public const NAME = 'date';
 
-    public function __construct(Column $column, Specification $conditions = null)
+    public function __construct(Specification $conditions = null)
     {
-        parent::__construct($column, $conditions);
-
-        $this->name = self::NAME;
-        $this->label = __('Date Format', 'codepress-admin-columns');
-        $this->input = new Input\Custom('date_format');
+        parent::__construct(
+            'date',
+            __('Date Format', 'codepress-admin-columns'),
+            '',
+            new Input\Custom('date_format'),
+            $conditions
+        );
     }
 
     public function get_children(): SettingCollection

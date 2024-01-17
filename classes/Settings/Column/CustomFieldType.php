@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Column;
 use AC\Expression\OrSpecification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\ArrayImmutable;
@@ -35,54 +34,46 @@ class CustomFieldType extends Recursive
     public const TYPE_URL = 'link';
     public const TYPE_USER = 'user_by_id';
 
-    // TODO remove Column dependency
-    public function __construct(Column $column)
+    public function __construct()
     {
-        $this->name = self::NAME;
-        $this->label = __('Field Type', 'codepress-admin-columns');
-        $this->description = __('This will determine how the value will be displayed.', 'codepress-admin-columns');
-        $this->input = Input\Option\Multiple::create_select(
-            $this->get_field_type_options()
+        parent::__construct(
+            'field_type',
+            __('Field Type', 'codepress-admin-columns'),
+            __('This will determine how the value will be displayed.', 'codepress-admin-columns'),
+            Input\Option\Multiple::create_select(
+                $this->get_field_type_options()
+            )
         );
-
-        parent::__construct($column);
     }
 
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
             new StringLimit(
-                $this->column,
                 StringComparisonSpecification::equal(self::TYPE_TEXT)
             ),
             new NumberFormat(
-                $this->column,
                 StringComparisonSpecification::equal(self::TYPE_NUMERIC)
             ),
             new Date(
-                $this->column,
                 StringComparisonSpecification::equal(self::TYPE_DATE)
             ),
             new DateFormat(
-                $this->column,
                 StringComparisonSpecification::equal(self::TYPE_DATE)
             ),
             new Image(
-                $this->column,
                 new OrSpecification([
                     StringComparisonSpecification::equal(self::TYPE_IMAGE),
                     StringComparisonSpecification::equal(self::TYPE_MEDIA),
                 ])
             ),
             new MediaLink(
-                $this->column,
                 new OrSpecification([
                     StringComparisonSpecification::equal(self::TYPE_IMAGE),
                     StringComparisonSpecification::equal(self::TYPE_MEDIA),
                 ])
             ),
             new LinkLabel(
-                $this->column,
                 StringComparisonSpecification::equal(self::TYPE_URL)
             ),
         ]);
@@ -139,6 +130,8 @@ class CustomFieldType extends Recursive
 
         return parent::format($value, $options);
     }
+
+    // TODO
 
     //    public function get_dependent_settings()
     //    {

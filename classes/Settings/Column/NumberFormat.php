@@ -3,7 +3,6 @@
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Column;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Base;
@@ -13,18 +12,20 @@ use AC\Setting\SettingCollection;
 class NumberFormat extends Recursive
 {
 
-    public function __construct(Column $column, Specification $specification = null)
+    public function __construct(Specification $specification = null)
     {
-        $this->name = 'number_format';
-        $this->label = __('Number Format', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
-            AC\Setting\OptionCollection::from_array([
-                ''          => __('Default', 'codepress-admin-column'),
-                'formatted' => __('Formatted', 'codepress-admin-column'),
-            ])
+        parent::__construct(
+            'number_format',
+            __('Number Format', 'codepress-admin-columns'),
+            '',
+            Input\Option\Single::create_select(
+                AC\Setting\OptionCollection::from_array([
+                    ''          => __('Default', 'codepress-admin-column'),
+                    'formatted' => __('Formatted', 'codepress-admin-column'),
+                ])
+            ),
+            $specification
         );
-
-        parent::__construct($column, $specification);
     }
 
     public function is_parent(): bool
@@ -68,6 +69,7 @@ class NumberFormat extends Recursive
         ]);
     }
 
+    // TODO
     //implements Settings\FormatValue {
     //
     //	/**

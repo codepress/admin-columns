@@ -4,25 +4,20 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC;
+use AC\Setting\Input;
 use AC\Setting\Input\Custom;
-use AC\Setting\SettingTrait;
 use AC\Settings\Column;
 
 abstract class Single extends Column
 {
 
-    use SettingTrait;
-
-    public function __construct(AC\Column $column, string $name)
+    public function __construct(string $name, string $label, string $description, Input $input = null)
     {
-        if (null === $this->input) {
-            $this->input = new Custom($name);
+        if (null === $input) {
+            $input = new Custom($name);
         }
 
-        $this->name = $name;
-
-        parent::__construct($column);
+        parent::__construct($name, $label, $description, $input);
     }
 
 }

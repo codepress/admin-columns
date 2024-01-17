@@ -2,7 +2,6 @@
 
 namespace AC\Settings\Column;
 
-use AC\Column;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting;
@@ -22,15 +21,17 @@ class Post extends Recursive
     public const PROPERTY_DATE = 'date';
     public const PROPERTY_STATUS = 'status';
 
-    public function __construct(Column $column, Specification $conditionals)
+    public function __construct(Specification $conditionals)
     {
-        $this->name = self::NAME;
-        $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = Setting\Input\Option\Single::create_select(
-            Setting\OptionCollection::from_array($this->get_display_options())
+        parent::__construct(
+            'post',
+            __('Display', 'codepress-admin-columns'),
+            '',
+            Setting\Input\Option\Single::create_select(
+                Setting\OptionCollection::from_array($this->get_display_options())
+            ),
+            $conditionals
         );
-
-        parent::__construct($column, $conditionals);
     }
 
     public function format(Value $value, ArrayImmutable $options): Value
@@ -68,23 +69,21 @@ class Post extends Recursive
     {
         return new SettingCollection([
             new Image(
-                $this->column,
                 StringComparisonSpecification::equal(self::PROPERTY_FEATURED_IMAGE)
             ),
             new Date(
-                $this->column,
                 StringComparisonSpecification::equal(self::PROPERTY_DATE)
             ),
             new CharacterLimit(
-                $this->column,
                 StringComparisonSpecification::equal(self::PROPERTY_TITLE)
             ),
             new StatusIcon(
-                $this->column,
                 StringComparisonSpecification::equal(self::PROPERTY_STATUS)
             ),
         ]);
     }
+
+    // TODO
     //
     //    /**
     //     * @var string

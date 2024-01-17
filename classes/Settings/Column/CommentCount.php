@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC;
+use AC\Expression\Specification;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
-use AC\Setting\SettingTrait;
 use AC\Settings;
-use AC\Expression\Specification;
 
 class CommentCount extends Settings\Column
 {
-
-    use SettingTrait;
 
     public const NAME = 'comment_status';
 
@@ -24,17 +20,20 @@ class CommentCount extends Settings\Column
     public const STATUS_SPAM = 'spam';
     public const STATUS_TRASH = 'trash';
 
-    public function __construct(AC\Column $column, Specification $conditionals = null)
+    public function __construct(Specification $conditionals = null)
     {
-        $this->name = self::NAME;
-        $this->label = __('Comment status', 'codepress-admin-columns');
-        $this->description = __('Select which comment status you like to display.', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
+        $input = Input\Option\Single::create_select(
             OptionCollection::from_array($this->get_comment_statuses()),
             self::STATUS_ALL
         );
 
-        parent::__construct($column, $conditionals);
+        parent::__construct(
+            'comment_status',
+            __('Comment status', 'codepress-admin-columns'),
+            __('Select which comment status you like to display.', 'codepress-admin-columns'),
+            $input,
+            $conditionals
+        );
     }
 
     protected function get_comment_statuses(): array

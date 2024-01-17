@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use AC\Settings\Column;
 use Countable;
 
 final class SettingCollection extends Collection implements Countable
@@ -14,12 +15,12 @@ final class SettingCollection extends Collection implements Countable
         array_map([$this, 'add'], $data);
     }
 
-    public function add(Setting $item): void
+    public function add(Column $item): void
     {
         $this->data[] = $item;
     }
 
-    public function current(): Setting
+    public function current(): Column
     {
         return parent::current();
     }

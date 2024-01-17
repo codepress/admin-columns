@@ -12,18 +12,22 @@ use AC\Settings;
 class PostLink extends Settings\Column implements AC\Setting\Formatter
 {
 
-    use AC\Setting\SettingTrait;
+    private $relation;
 
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    public function __construct(AC\Relation $relation = null, Specification $conditions = null)
     {
-        $this->name = 'post_link_to';
-        $this->label = __('Link To', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
-            OptionCollection::from_array($this->get_display_options()),
-            'edit_post'
+        parent::__construct(
+            'post_link_to',
+            __('Link To', 'codepress-admin-columns'),
+            '',
+            Input\Option\Single::create_select(
+                OptionCollection::from_array($this->get_display_options()),
+                'edit_post'
+            ),
+            $conditions
         );
 
-        parent::__construct($column, $conditions);
+        $this->relation = $relation;
     }
 
     public function format(Value $value, AC\Setting\ArrayImmutable $options): Value
@@ -55,7 +59,7 @@ class PostLink extends Settings\Column implements AC\Setting\Formatter
             : $value;
     }
 
-    protected function get_display_options()
+    protected function get_display_options(): array
     {
         // Default options
         $options = [
@@ -66,7 +70,7 @@ class PostLink extends Settings\Column implements AC\Setting\Formatter
             'view_author' => __('View Public Post Author Page', 'codepress-admin-columns'),
         ];
 
-        if ($this->column instanceof AC\Column\Relation) {
+        if ($this->relation) {
             $relation_options = [
                 'edit_post'   => _x('Edit %s', 'post'),
                 'view_post'   => _x('View %s', 'post'),
@@ -74,7 +78,7 @@ class PostLink extends Settings\Column implements AC\Setting\Formatter
                 'view_author' => _x('View Public %s Author Page', 'post', 'codepress-admin-columns'),
             ];
 
-            $label = $this->column->get_relation_object()->get_labels()->singular_name;
+            $label = $this->relation->get_labels()->singular_name;
 
             foreach ($relation_options as $k => $option) {
                 $options[$k] = sprintf($option, $label);

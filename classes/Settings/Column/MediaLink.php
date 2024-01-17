@@ -2,34 +2,32 @@
 
 namespace AC\Settings\Column;
 
-use AC\Column;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
-use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\Expression\Specification;
 
 class MediaLink extends Settings\Column implements Formatter
 {
 
-    use SettingTrait;
-
-    public function __construct(Column $column, Specification $specification)
+    public function __construct(Specification $specification)
     {
-        $this->name = 'media_link_to';
-        $this->label = __('Link To', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
-            OptionCollection::from_array([
-                ''         => __('None'),
-                'view'     => __('View', 'codepress-admin-columns'),
-                'download' => __('Download', 'codepress-admin-columns'),
-            ])
+        parent::__construct(
+            'media_link_to',
+            __('Link To', 'codepress-admin-columns'),
+            '',
+            Input\Option\Single::create_select(
+                OptionCollection::from_array([
+                    ''         => __('None'),
+                    'view'     => __('View', 'codepress-admin-columns'),
+                    'download' => __('Download', 'codepress-admin-columns'),
+                ])
+            ),
+            $specification
         );
-
-        parent::__construct($column, $specification);
     }
 
     public function format(Value $value, ArrayImmutable $options): Value
@@ -51,8 +49,7 @@ class MediaLink extends Settings\Column implements Formatter
                 return $value;
         }
     }
-    //
-
+    // TODO
     //
     //    public function format($value, $original_value)
     //    {

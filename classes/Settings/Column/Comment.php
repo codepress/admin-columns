@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Column;
 use AC\Expression;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Input;
@@ -24,11 +23,9 @@ class Comment extends Recursive
     public const PROPERTY_AUTHOR = 'author';
     public const PROPERTY_AUTHOR_EMAIL = 'author_email';
 
-    public function __construct(Column $column, Expression\Specification $specification = null)
+    public function __construct(Expression\Specification $specification = null)
     {
-        $this->name = 'comment';
-        $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
+        $input = Input\Option\Single::create_select(
             OptionCollection::from_array([
                 self::PROPERTY_COMMENT      => __('Comment'),
                 self::PROPERTY_ID           => __('ID'),
@@ -39,7 +36,7 @@ class Comment extends Recursive
             self::PROPERTY_COMMENT
         );
 
-        parent::__construct($column, $specification);
+        parent::__construct('comment', __('Display', 'codepress-admin-columns'), '', $input, $specification);
     }
 
     public function is_parent(): bool
@@ -50,17 +47,9 @@ class Comment extends Recursive
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new Settings\Column\Date(
-                $this->column,
-                Expression\StringComparisonSpecification::equal(self::PROPERTY_DATE)
-            ),
-            new Settings\Column\StringLimit(
-                $this->column,
-                Expression\StringComparisonSpecification::equal(self::PROPERTY_COMMENT)
-            ),
-            new Settings\Column\CommentLink(
-                $this->column
-            ),
+            new Settings\Column\Date(Expression\StringComparisonSpecification::equal(self::PROPERTY_DATE)),
+            new Settings\Column\StringLimit(Expression\StringComparisonSpecification::equal(self::PROPERTY_COMMENT)),
+            new Settings\Column\CommentLink(),
         ]);
     }
 
