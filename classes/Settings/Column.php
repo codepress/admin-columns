@@ -5,16 +5,15 @@ namespace AC\Settings;
 use AC\Expression\NullSpecification;
 use AC\Expression\Specification;
 use AC\Setting\Input;
-use AC\Setting\Setting;
 
-abstract class Column implements Setting
+abstract class Column
 {
 
     protected $name;
 
     protected $label;
 
-    protected $description = '';
+    protected $description;
 
     protected $input;
 
@@ -23,7 +22,7 @@ abstract class Column implements Setting
     public function __construct(
         string $name,
         string $label,
-        string $description = null,
+        string $description,
         Input $input = null,
         Specification $conditions = null
     ) {
@@ -44,22 +43,12 @@ abstract class Column implements Setting
         return $this->label;
     }
 
-    public function has_description(): bool
-    {
-        return null !== $this->description;
-    }
-
-    public function get_description(): string
+    public function get_description(): ?string
     {
         return $this->description;
     }
 
-    public function has_input(): bool
-    {
-        return null !== $this->input;
-    }
-
-    public function get_input(): Input
+    public function get_input(): ?Input
     {
         return $this->input;
     }

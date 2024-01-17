@@ -36,8 +36,8 @@ class CustomField extends Column\Meta
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\CustomField($this))
-             ->add_setting(new Settings\Column\BeforeAfter($this));
+        $this->add_setting(new Settings\Column\CustomField())
+             ->add_setting(new Settings\Column\BeforeAfter());
 
         //        if ( ! $this->is_acp_active()) {
         //            $this->add_setting(new Settings\Column\Pro\Sorting($this))

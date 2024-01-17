@@ -15,7 +15,7 @@ interface Setting
 
     public function get_label(): string;
 
-    public function get_description(): string;
+    public function get_description(): ?string;
 
     public function get_input(): ?Input;
 

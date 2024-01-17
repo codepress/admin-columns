@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Column;
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Base;
@@ -21,17 +20,15 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
     private $default_after;
 
     public function __construct(
-        Column $column,
         Specification $conditions = null,
         string $default_before = null,
         string $default_after = null
     ) {
-        $this->name = 'before_after';
-        $this->label = __('Display Options', 'codepress-admin-columns');
         $this->default_before = $default_before;
         $this->default_after = $default_after;
 
-        parent::__construct($column, $conditions);
+        // TODO input?
+        parent::__construct('before_after', __('Display Options', 'codepress-admin-columns'), '', null, $conditions);
     }
 
     public function is_parent(): bool

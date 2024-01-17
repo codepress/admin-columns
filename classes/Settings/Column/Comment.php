@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Column;
 use AC\Expression;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Input;
@@ -24,11 +23,9 @@ class Comment extends Recursive
     public const PROPERTY_AUTHOR = 'author';
     public const PROPERTY_AUTHOR_EMAIL = 'author_email';
 
-    public function __construct(Column $column, Expression\Specification $specification = null)
+    public function __construct(Expression\Specification $specification = null)
     {
-        $this->name = 'comment';
-        $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
+        $input = Input\Option\Single::create_select(
             OptionCollection::from_array([
                 self::PROPERTY_COMMENT      => __('Comment'),
                 self::PROPERTY_ID           => __('ID'),
@@ -39,8 +36,7 @@ class Comment extends Recursive
             self::PROPERTY_COMMENT
         );
 
-        // TODO
-        parent::__construct($column, $specification);
+        parent::__construct('comment', __('Display', 'codepress-admin-columns'), '', $input, $specification);
     }
 
     public function is_parent(): bool

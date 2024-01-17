@@ -2,33 +2,34 @@
 
 namespace AC\Settings\Column;
 
-use AC\Column;
+use AC\Expression\Specification;
 use AC\Setting\Input;
 use AC\Setting\SettingCollection;
-use AC\Expression\Specification;
 
 class CustomField extends Recursive
 {
 
     public const NAME = 'custom_field';
 
-    public function __construct(Column $column, Specification $specification = null)
+    public function __construct(Specification $specification = null)
     {
-        $this->name = 'field';
-        $this->label = __('Field', 'codepress-admin-columns');
-        $this->description = __('Custom field key', 'codepress-admin-columns');
-        $this->input = Input\Open::create_text();
-
-        parent::__construct($column, $specification);
+        parent::__construct(
+            'field',
+            __('Field', 'codepress-admin-columns'),
+            __('Custom field key', 'codepress-admin-columns'),
+            Input\Open::create_text(),
+            $specification
+        );
     }
 
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new CustomFieldType($this->column),
+            new CustomFieldType(),
         ]);
     }
 
+    // TODO
     //    const NAME = 'custom_field';
     //
     //    /**
