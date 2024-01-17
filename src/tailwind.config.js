@@ -27,11 +27,12 @@ module.exports = {
 			'9' : '45px',
 			'10' : '50px',
 		},
-		sceens: {
+		screens: {
 			'sm': '640px',
 			'md' : '783px',
 			'lg' : '1024px',
-			'xl' : '1280px'
+			'xl' : '1280px',
+			'2xl' : '1450px'
 		},
 		colors: {
 			'notification-red': 'var(--ac-notification-red)',
