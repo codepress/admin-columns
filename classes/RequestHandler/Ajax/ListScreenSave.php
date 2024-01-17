@@ -53,10 +53,11 @@ class ListScreenSave implements RequestAjaxHandler
             exit;
         }
 
+        // It can be possible that a new ListID is created and thus not present in storage
         $list_screen = $this->storage->find(new ListScreenId($id));
 
         if ( ! $list_screen) {
-            $response->error();
+            $response->set_message('ID not found')->error();
             exit;
         }
 

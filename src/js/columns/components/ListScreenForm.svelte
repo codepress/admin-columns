@@ -6,6 +6,7 @@
     import AcButton from "ACUi/element/AcButton.svelte";
     import {saveListScreen} from "../ajax/ajax";
     import {listScreenIsReadOnly} from "../store/read_only";
+    import {NotificationProgrammatic} from "../../ui-wrapper/notification";
 
     export let config: any
     export let data: ListScreenData
@@ -15,8 +16,16 @@
 
     const saveSettings = () => {
         isSaving = true;
-        saveListScreen(data).then(() => {
-            isSaving = false;
+        saveListScreen(data).then((response) => {
+            if (response.data.success) {
+                isSaving = false;
+            } else {
+                NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
+            }
+
+
+        }).catch(() => {
+
         });
     }
 

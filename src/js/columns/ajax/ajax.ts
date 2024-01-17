@@ -50,6 +50,8 @@ export const getColumnSettings = (ListScreen: string, columnType: string) => {
     })
 }
 
+
+
 export const saveListScreen = (data: ListScreenData) => {
     const nonce = getColumnSettingsConfig().nonce;
     const formData = new FormData();

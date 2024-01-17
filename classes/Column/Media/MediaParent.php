@@ -7,15 +7,19 @@ use AC\Column;
 /**
  * @since 3.0
  */
-class MediaParent extends Column {
+class MediaParent extends Column
+{
 
-	public function __construct() {
-		$this->set_original( true );
-		$this->set_type( 'parent' );
-	}
+    public function __construct()
+    {
+        $this->set_original(true);
+        $this->set_type('parent');
+    }
 
-	public function register_settings() {
-		$this->get_setting( 'width' )->set_default( 15 );
-	}
+    public function register_settings()
+    {
+        // TODO set default value
+        //$this->get_setting( 'width' )->set_default( 15 );
+    }
 
 }
