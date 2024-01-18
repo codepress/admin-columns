@@ -7,9 +7,6 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 2.0
- */
 class Modified extends Column
 {
 
@@ -26,7 +23,8 @@ class Modified extends Column
 
     public function register_settings()
     {
-        $date = new Settings\Column\Date($this);
+        $date = new Settings\Column\Date();
+        // TODO
         //$date->set_default( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) );
 
         $this->add_setting($date);

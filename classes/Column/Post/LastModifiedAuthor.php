@@ -8,7 +8,6 @@ use AC\Settings;
 /**
  * Column displaying information about the author of a post, such as the
  * author's display name, user ID and email address.
- * @since 2.0
  */
 class LastModifiedAuthor extends Column\Meta
 {
@@ -31,15 +30,12 @@ class LastModifiedAuthor extends Column\Meta
         return $this->get_formatted_value($raw_value, $raw_value);
     }
 
-    public function get_meta_key()
+    public function get_meta_key(): string
     {
         return '_edit_last';
     }
 
-    /**
-     * @return string
-     */
-    protected function get_user_setting_display()
+    protected function get_user_setting_display(): string
     {
         return (string)$this->get_option('user');
     }

@@ -21,7 +21,7 @@ class VideoPlayer extends Column implements Column\AjaxValue
     {
         parent::register_settings();
 
-        $this->add_setting(new VideoDisplay($this));
+        $this->add_setting(new VideoDisplay());
     }
 
     private function get_display_type()

@@ -21,8 +21,8 @@ class Content extends Column
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\StringLimit($this));
-        $this->add_setting(new Settings\Column\BeforeAfter($this));
+        $this->add_setting(new Settings\Column\StringLimit());
+        $this->add_setting(new Settings\Column\BeforeAfter());
     }
 
 }

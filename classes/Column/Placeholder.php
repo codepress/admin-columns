@@ -25,6 +25,7 @@ class Placeholder extends Column
         return $this;
     }
 
+    // TODO remove?
     private function get_addons_page_url()
     {
         return new Editor('addons');

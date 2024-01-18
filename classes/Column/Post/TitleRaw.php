@@ -26,11 +26,7 @@ class TitleRaw extends Column
 
     public function register_settings()
     {
-        $setting_limit = new Settings\Column\CharacterLimit();
-        //TODO set new default
-        //$setting_limit->set_default(null);
-
-        $this->add_setting($setting_limit);
+        $this->add_setting(new Settings\Column\CharacterLimit(null, null));
         $this->add_setting(new Settings\Column\PostLink());
     }
 

@@ -20,11 +20,6 @@ class AuthorName extends Column
 
     public function get_raw_value($post_id)
     {
-        return $this->get_post_author($post_id);
-    }
-
-    private function get_post_author($post_id)
-    {
         return ac_helper()->post->get_raw_field('post_author', (int)$post_id);
     }
 

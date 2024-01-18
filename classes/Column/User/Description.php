@@ -14,7 +14,7 @@ class Description extends Column\Meta
         $this->set_label(__('Description', 'codepress-admin-columns'));
     }
 
-    public function get_meta_key()
+    public function get_meta_key(): string
     {
         return 'description';
     }

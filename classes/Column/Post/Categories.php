@@ -3,6 +3,7 @@
 namespace AC\Column\Post;
 
 use AC\Column;
+use AC\Settings\Column\Width;
 
 class Categories extends Column
 {
@@ -15,14 +16,9 @@ class Categories extends Column
 
     public function register_settings()
     {
-        // TODO
+        // TODO test
+        $this->add_setting(new Width(15, '%'));
         //$this->get_setting( 'width' )->set_default( 15 );
-    }
-
-    public function get_taxonomy()
-    {
-        // TODO remove?
-        return 'category';
     }
 
 }

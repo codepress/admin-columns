@@ -13,7 +13,7 @@ use AC\Settings;
 class CharacterLimit extends Settings\Column implements AC\Setting\Formatter
 {
 
-    public function __construct(Specification $conditions = null)
+    public function __construct(Specification $conditions = null, ?int $default = 20)
     {
         parent::__construct(
             'character_limit',
@@ -26,7 +26,7 @@ class CharacterLimit extends Settings\Column implements AC\Setting\Formatter
             Number::create_single_step(
                 0,
                 null,
-                20,
+                $default,
                 null,
                 'tiny',
                 __('Characters', 'codepress-admin-columns')

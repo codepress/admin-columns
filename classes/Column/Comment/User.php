@@ -5,9 +5,6 @@ namespace AC\Column\Comment;
 use AC;
 use AC\Column;
 
-/**
- * @since 2.4.2
- */
 class User extends Column
 {
 
@@ -24,11 +21,6 @@ class User extends Column
         return $this->get_formatted_value($raw_value, $raw_value);
     }
 
-    /**
-     * @param int $comment_id Comment ID
-     *
-     * @return int User ID
-     */
     public function get_raw_value($comment_id)
     {
         $comment = get_comment($comment_id);

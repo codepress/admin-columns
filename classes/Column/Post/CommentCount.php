@@ -48,7 +48,7 @@ class CommentCount extends Column
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\CommentCount($this));
+        $this->add_setting(new Settings\Column\CommentCount());
     }
 
 }

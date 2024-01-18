@@ -3,10 +3,8 @@
 namespace AC\Column\Post;
 
 use AC\Column;
+use AC\Settings\Column\Width;
 
-/**
- * @since 3.0
- */
 class Author extends Column
 {
 
@@ -16,10 +14,11 @@ class Author extends Column
         $this->set_type('author');
     }
 
-    // Todo does not work anymore
+    // Todo test
     public function register_settings()
     {
-        //$this->get_setting( 'width' )->set_default( 10 );
+        // set defaults
+        $this->add_setting(new Width(10, '%'));
     }
 
 }

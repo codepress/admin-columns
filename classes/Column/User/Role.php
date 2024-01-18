@@ -3,10 +3,8 @@
 namespace AC\Column\User;
 
 use AC\Column;
+use AC\Settings\Column\Width;
 
-/**
- * @since 3.0
- */
 class Role extends Column\Meta
 {
 
@@ -30,8 +28,7 @@ class Role extends Column\Meta
 
     public function register_settings()
     {
-        //TODO find a way for default
-        //$this->get_setting( 'width' )->set_default( 15 );
+        $this->add_setting(new Width(15, '%'));
     }
 
 }

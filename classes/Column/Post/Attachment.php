@@ -40,7 +40,7 @@ class Attachment extends Column
 
     public function register_settings()
     {
-        $this->add_setting(new AttachmentDisplay($this));
+        $this->add_setting(new AttachmentDisplay());
     }
 
 }

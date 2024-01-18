@@ -4,9 +4,6 @@ namespace AC\Column\Media;
 
 use AC\Settings;
 
-/**
- * @since 2.0
- */
 class Dimensions extends Meta
 {
 
@@ -37,7 +34,7 @@ class Dimensions extends Meta
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\BeforeAfter($this));
+        $this->add_setting(new Settings\Column\BeforeAfter());
     }
 
 }

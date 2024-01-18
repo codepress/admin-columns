@@ -12,7 +12,7 @@ class Album extends Meta
              ->set_label(__('Album', 'codepress-admin-columns'));
     }
 
-    protected function get_sub_key()
+    protected function get_sub_key(): string
     {
         return 'album';
     }

@@ -2,12 +2,9 @@
 
 namespace AC\Column\Comment;
 
-use AC;
 use AC\Column;
+use AC\Settings\Column\WordLimit;
 
-/**
- * @since 2.0
- */
 class Excerpt extends Column
 {
 
@@ -26,7 +23,7 @@ class Excerpt extends Column
 
     public function register_settings()
     {
-        $this->add_setting(new AC\Settings\Column\WordLimit(15));
+        $this->add_setting(new WordLimit(15));
     }
 
 }

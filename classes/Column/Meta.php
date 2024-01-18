@@ -4,6 +4,7 @@ namespace AC\Column;
 
 use AC\Column;
 
+// TODO obsolete?
 abstract class Meta extends Column
 {
 

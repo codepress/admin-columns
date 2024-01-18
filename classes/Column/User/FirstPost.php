@@ -5,9 +5,6 @@ namespace AC\Column\User;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 4.2.6
- */
 class FirstPost extends Column
 {
 
@@ -45,21 +42,22 @@ class FirstPost extends Column
         return empty($posts) ? null : $posts[0];
     }
 
-    public function get_related_post_stati()
+    public function get_related_post_stati(): array
     {
-        return (array)$this->get_setting(Settings\Column\PostStatus::NAME)->get_value();
+        // TODO test
+        return (array)$this->get_option('post_status');
     }
 
-    protected function get_related_post_type()
+    protected function get_related_post_type(): string
     {
-        return (string)$this->get_setting('post_type')->get_value();
+        return (string)$this->get_option('post_type');
     }
 
     protected function register_settings()
     {
-        $this->add_setting(new Settings\Column\PostType($this, true));
-        $this->add_setting(new Settings\Column\PostStatus($this));
-        $this->add_setting(new Settings\Column\Post($this));
+        $this->add_setting(new Settings\Column\PostType(true));
+        $this->add_setting(new Settings\Column\PostStatus());
+        $this->add_setting(new Settings\Column\Post());
     }
 
 }

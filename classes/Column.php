@@ -277,7 +277,7 @@ class Column
     /**
      * @param string $key
      *
-     * @return null|string|bool
+     * @return null|string|bool|array
      */
     public function get_option($key)
     {
@@ -405,6 +405,7 @@ class Column
      *
      * @return string|array
      */
+    // TODO where is this used? Besides `get_value`. Sorting should no longer use this, is there a possibility we can remove this?
     public function get_raw_value($id)
     {
         return null;

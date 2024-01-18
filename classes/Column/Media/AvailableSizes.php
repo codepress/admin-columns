@@ -5,6 +5,7 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\Settings;
 
+// TODO strict types
 class AvailableSizes extends Column\Media\MetaValue
 {
 
@@ -85,7 +86,7 @@ class AvailableSizes extends Column\Media\MetaValue
      *
      * @return array
      */
-    public function get_missing_sizes($image_sizes)
+    public function get_missing_sizes($image_sizes): array
     {
         global $_wp_additional_image_sizes;
 

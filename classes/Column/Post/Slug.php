@@ -32,7 +32,7 @@ class Slug extends Column
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\CharacterLimit($this));
+        $this->add_setting(new Settings\Column\CharacterLimit());
     }
 
 }

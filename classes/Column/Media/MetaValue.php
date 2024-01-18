@@ -2,23 +2,22 @@
 
 namespace AC\Column\Media;
 
-/**
- * @since 4.0.8
- */
-abstract class MetaValue extends Meta {
+abstract class MetaValue extends Meta
+{
 
-	abstract protected function get_option_name();
+    abstract protected function get_option_name();
 
-	public function get_raw_value( $id ) {
-		$value = parent::get_raw_value( $id );
+    public function get_raw_value($id)
+    {
+        $value = parent::get_raw_value($id);
 
-		$option = $this->get_option_name();
+        $option = $this->get_option_name();
 
-		if ( empty( $value[ $option ] ) ) {
-			return false;
-		}
+        if (empty($value[$option])) {
+            return false;
+        }
 
-		return $value[ $option ];
-	}
+        return $value[$option];
+    }
 
 }

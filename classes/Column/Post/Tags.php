@@ -3,6 +3,7 @@
 namespace AC\Column\Post;
 
 use AC\Column;
+use AC\Settings\Column\Width;
 
 class Tags extends Column
 {
@@ -15,14 +16,8 @@ class Tags extends Column
 
     public function register_settings()
     {
-        //TODO David, replace width setting with new default
-        //$this->get_setting( 'width' )->set_default( 15 );
-    }
-
-    // TODO remove
-    public function get_taxonomy()
-    {
-        return 'post_tag';
+        // TODO test
+        $this->add_setting(new Width(15, '%'));
     }
 
 }

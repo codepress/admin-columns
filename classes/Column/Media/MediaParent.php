@@ -2,11 +2,9 @@
 
 namespace AC\Column\Media;
 
+use AC;
 use AC\Column;
 
-/**
- * @since 3.0
- */
 class MediaParent extends Column
 {
 
@@ -18,8 +16,7 @@ class MediaParent extends Column
 
     public function register_settings()
     {
-        // TODO set default value
-        //$this->get_setting( 'width' )->set_default( 15 );
+        $this->add_setting(new AC\Settings\Column\Width(15, '%'));
     }
 
 }

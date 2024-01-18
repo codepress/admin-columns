@@ -28,7 +28,7 @@ class CustomField extends Column\Meta
         return (string)$this->get_option('field');
 
         //TODO Check
-        return (string)$this->get_setting(Settings\Column\CustomField::NAME)->get_value();
+        //        return (string)$this->get_setting(Settings\Column\CustomField::NAME)->get_value();
     }
 
     private function is_acp_active(): bool
@@ -41,6 +41,7 @@ class CustomField extends Column\Meta
         $this->add_setting(new Settings\Column\CustomField())
              ->add_setting(new Settings\Column\BeforeAfter());
 
+        // TODO
         //        if ( ! $this->is_acp_active()) {
         //            $this->add_setting(new Settings\Column\Pro\Sorting($this))
         //                 ->add_setting(new Settings\Column\Pro\InlineEditing($this))
@@ -56,9 +57,9 @@ class CustomField extends Column\Meta
      */
     public function get_field_type(): ?string
     {
-        return $this->get_option('field');
-
-        return (string)($this->get_setting(Settings\Column\CustomFieldType::NAME)->get_value() ?: '');
+        // TODO test
+        return (string)$this->get_option('field_type');
+        //return (string)($this->get_setting(Settings\Column\CustomFieldType::NAME)->get_value() ?: '');
     }
 
     public function get_field(): string

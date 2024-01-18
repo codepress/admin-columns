@@ -3,6 +3,7 @@
 namespace AC\Column\Comment;
 
 use AC\Column;
+use AC\Settings\Column\Width;
 
 class Response extends Column
 {
@@ -15,8 +16,7 @@ class Response extends Column
 
     public function register_settings()
     {
-        // TODO
-        //$this->get_setting( 'width' )->set_default( 15 );
+        $this->add_setting(new Width(15, '%'));
     }
 
 }

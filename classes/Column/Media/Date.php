@@ -2,6 +2,7 @@
 
 namespace AC\Column\Media;
 
+use AC;
 use AC\Column;
 
 class Date extends Column
@@ -15,8 +16,7 @@ class Date extends Column
 
     public function register_settings()
     {
-        // TODO Set default date value
-        //$this->get_setting('width')->set_default(10);
+        $this->add_setting(new AC\Settings\Column\Width(10, '%'));
     }
 
 }
