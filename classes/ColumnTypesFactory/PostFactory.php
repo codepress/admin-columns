@@ -7,6 +7,7 @@ namespace AC\ColumnTypesFactory;
 use AC;
 use AC\Column;
 use AC\ColumnTypeCollection;
+use AC\MetaType;
 use AC\TableScreen;
 use WP_Post_Type;
 
@@ -19,15 +20,14 @@ class PostFactory implements AC\ColumnTypesFactory
             return null;
         }
 
-        return ColumnTypeCollection::from_list(
-            $this->get_columns(get_post_type_object($table_screen->get_post_type()))
+        return $this->get_columns(
+            get_post_type_object($table_screen->get_post_type())
         );
     }
 
-    private function get_columns(WP_Post_Type $post_type): array
+    private function get_columns(WP_Post_Type $post_type): ColumnTypeCollection
     {
         $columns = [
-            Column\CustomField::class,
             Column\Actions::class,
             Column\Post\Attachment::class,
             Column\Post\Author::class,
@@ -96,6 +96,10 @@ class PostFactory implements AC\ColumnTypesFactory
         if ('post' === $post_type->name) {
             $columns[] = Column\Post\Sticky::class;
         }
+
+        $columns = ColumnTypeCollection::from_list($columns);
+
+        $columns->add(new Column\CustomField(new MetaType(MetaType::POST)));
 
         return $columns;
     }

@@ -6,7 +6,9 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
 use AC\Column;
+use AC\Column\CustomField;
 use AC\ColumnTypeCollection;
+use AC\MetaType;
 
 class ColumnTypesFactory implements AC\ColumnTypesFactory
 {
@@ -14,8 +16,7 @@ class ColumnTypesFactory implements AC\ColumnTypesFactory
     public function create(AC\TableScreen $table_screen): ?ColumnTypeCollection
     {
         if ($table_screen instanceof TableScreen) {
-            return ColumnTypeCollection::from_list([
-                Column\CustomField::class,
+            $collection = ColumnTypeCollection::from_list([
                 Column\Actions::class,
                 Column\Post\Slug::class,
                 Column\Post\TitleRaw::class,
@@ -37,6 +38,8 @@ class ColumnTypesFactory implements AC\ColumnTypesFactory
                 Column\Media\VideoPlayer::class,
                 Column\Media\Width::class,
             ]);
+
+            $collection->add(new CustomField(new MetaType(MetaType::POST)));
         }
 
         return null;

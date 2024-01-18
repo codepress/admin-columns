@@ -3,6 +3,7 @@
 namespace AC\Column;
 
 use AC\Column;
+use AC\MetaType;
 use AC\Settings;
 
 /**
@@ -14,11 +15,12 @@ use AC\Settings;
 class CustomField extends Column\Meta
 {
 
-    public function __construct()
+    public function __construct(MetaType $meta_type)
     {
         $this->set_type('column-meta')
              ->set_label(__('Custom Field', 'codepress-admin-columns'))
-             ->set_group('custom_field');
+             ->set_group('custom_field')
+             ->set_meta_type((string)$meta_type);
     }
 
     public function get_meta_key(): string

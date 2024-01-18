@@ -7,6 +7,7 @@ namespace AC\ColumnTypesFactory;
 use AC;
 use AC\Column;
 use AC\ColumnTypeCollection;
+use AC\MetaType;
 use AC\TableScreen;
 
 class UserFactory implements AC\ColumnTypesFactory
@@ -18,13 +19,12 @@ class UserFactory implements AC\ColumnTypesFactory
             return null;
         }
 
-        return ColumnTypeCollection::from_list($this->get_columns());
+        return $this->get_columns();
     }
 
-    private function get_columns(): array
+    private function get_columns(): ColumnTypeCollection
     {
-        return [
-            Column\CustomField::class,
+        $collection = ColumnTypeCollection::from_list([
             Column\Actions::class,
             Column\User\CommentCount::class,
             Column\User\Description::class,
@@ -48,7 +48,13 @@ class UserFactory implements AC\ColumnTypesFactory
             Column\User\ShowToolbar::class,
             Column\User\Url::class,
             Column\User\Username::class,
-        ];
+        ]);
+
+        $collection->add(
+            new Column\CustomField(new MetaType(MetaType::USER))
+        );
+
+        return $collection;
     }
 
 }

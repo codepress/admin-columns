@@ -6,7 +6,9 @@ namespace AC\ColumnTypesFactory;
 
 use AC;
 use AC\Column;
+use AC\Column\CustomField;
 use AC\ColumnTypeCollection;
+use AC\MetaType;
 use AC\TableScreen;
 
 class CommentFactory implements AC\ColumnTypesFactory
@@ -23,13 +25,12 @@ class CommentFactory implements AC\ColumnTypesFactory
             return null;
         }
 
-        return ColumnTypeCollection::from_list($this->get_columns());
+        return $this->get_columns();
     }
 
-    private function get_columns(): array
+    private function get_columns(): ColumnTypeCollection
     {
-        return [
-            Column\CustomField::class,
+        $collection = ColumnTypeCollection::from_list([
             Column\Actions::class,
             Column\Comment\Agent::class,
             Column\Comment\Approved::class,
@@ -51,7 +52,11 @@ class CommentFactory implements AC\ColumnTypesFactory
             Column\Comment\Type::class,
             Column\Comment\User::class,
             Column\Comment\WordCount::class,
-        ];
+        ]);
+
+        $collection->add(new CustomField(new MetaType(MetaType::COMMENT)));
+
+        return $collection;
     }
 
 }
