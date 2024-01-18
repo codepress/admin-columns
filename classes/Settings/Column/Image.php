@@ -8,7 +8,6 @@ use AC;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\ArrayImmutable;
-use AC\Setting\Base;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;

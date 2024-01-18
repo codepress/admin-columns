@@ -50,7 +50,7 @@ class ColumnFactory
         if ($table_screen instanceof Taxonomy) {
             $column->set_taxonomy($table_screen->get_taxonomy());
         }
-
+ 
         if ($table_screen instanceof TableScreen\MetaType) {
             $column->set_meta_type((string)$table_screen->get_meta_type());
         }

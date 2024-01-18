@@ -6,7 +6,6 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
-use AC\Setting\Base;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;

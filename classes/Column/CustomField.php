@@ -52,7 +52,7 @@ class CustomField extends Column\Meta
      * @return string e.g. excerpt|color|date|numeric|image|has_content|link|checkmark|library_id|title_by_id|user_by_id|array|count
      * @see Settings\Column\CustomFieldType
      */
-    public function get_field_type(): string
+    public function get_field_type(): ?string
     {
         return $this->get_option('field');
 

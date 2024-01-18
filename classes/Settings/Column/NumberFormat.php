@@ -5,7 +5,6 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\Base;
 use AC\Setting\Input;
 use AC\Setting\SettingCollection;
 
