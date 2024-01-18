@@ -17,12 +17,7 @@ use AC\Setting\Type\Value;
 class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
-    private const SETTING_WIDTH = 'image_size_w';
-    private const SETTING_HEIGHT = 'image_size_h';
-
-    private const SIZE_CUSTOM = 'cpac-custom';
-
-    public function __construct(Specification $specification = null)
+    public function __construct(Specification $specification = null, string $default = 'cpac-custom')
     {
         parent::__construct(
             'image_size',
@@ -30,7 +25,7 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
             '',
             Input\Option\Single::create_select(
                 $this->get_grouped_image_sizes(),
-                'cpac-custom'
+                $default
             ),
             $specification
         );
@@ -54,18 +49,18 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
     {
         return new SettingCollection([
             new AC\Settings\Column(
-                self::SETTING_WIDTH,
+                'image_size_w',
                 __('Width', 'codepress-admin-columns'),
                 '',
                 Input\Number::create_single_step(0, null, 60),
-                StringComparisonSpecification::equal(self::SIZE_CUSTOM)
+                StringComparisonSpecification::equal('cpac-custom')
             ),
             new AC\Settings\Column(
-                self::SETTING_HEIGHT,
+                'image_size_h',
                 __('Height', 'codepress-admin-columns'),
                 '',
                 Input\Number::create_single_step(0, null, 60),
-                StringComparisonSpecification::equal(self::SIZE_CUSTOM)
+                StringComparisonSpecification::equal('cpac-custom')
             ),
         ]);
     }
@@ -77,9 +72,9 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
     {
         $size = $options->get($this->get_name());
 
-        if (self::SIZE_CUSTOM === $size) {
-            $width = (int)$options->get(self::SETTING_WIDTH);
-            $height = (int)$options->get(self::SETTING_HEIGHT);
+        if ('cpac-custom' === $size) {
+            $width = (int)$options->get('image_size_w');
+            $height = (int)$options->get('image_size_h');
 
             if ($width && $height) {
                 $size = [$width, $height];
@@ -157,7 +152,7 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
         $options->add(
             new Option(
                 __('Custom Size', 'codepress-admin-columns'),
-                self::SIZE_CUSTOM,
+                'cpac-custom',
                 __('Custom', 'codepress-admin-columns')
             )
         );
