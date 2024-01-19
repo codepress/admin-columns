@@ -95,6 +95,17 @@ class ListScreenSettings implements RequestAjaxHandler
         exit;
     }
 
+    private function get_clean_label(AC\Column $column): string
+    {
+        $label = $column->get_label();
+
+        if (strip_tags($label) === '') {
+            $label = ucfirst(str_replace('_', ' ', $column->get_type()));
+        }
+
+        return strip_tags($label);
+    }
+
     private function get_column_types(AC\TableScreen $table_screen): array
     {
         $column_types = [];
@@ -103,7 +114,7 @@ class ListScreenSettings implements RequestAjaxHandler
 
         foreach ($this->column_types_factory->create($table_screen) as $column) {
             $column_types[] = [
-                'label'     => $column->get_label(),
+                'label'     => $this->get_clean_label($column),
                 'value'     => $column->get_type(),
                 'group'     => $groups->get($column->get_group())['label'],
                 'group_key' => $column->get_group(),
