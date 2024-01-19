@@ -21,6 +21,8 @@
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
     export let tableUrl: string;
 
+    let sortableContainer: HTMLElement | null;
+
     const clearColumns = () => {
         data['columns'] = {};
     }
@@ -100,14 +102,16 @@
 		</header>
 
 		<div class="ac-columns__body">
-			{#each Object.values( data.columns ) as column_data}
-				<ColumnItem
-					bind:config={ config[column_data.name ?? column_data.type] }
-					bind:data={ column_data }
-					on:delete={ ( e ) => deleteColumn( e.detail ) }
-					on:duplicate={ ( e ) => duplicateColumn( e.detail ) }
-				/>
-			{/each}
+			<div bind:this={sortableContainer}>
+				{#each Object.values( data.columns ) as column_data(column_data.name)}
+					<ColumnItem
+						bind:config={ config[column_data.name ?? column_data.type] }
+						bind:data={ column_data }
+						on:delete={ ( e ) => deleteColumn( e.detail ) }
+						on:duplicate={ ( e ) => duplicateColumn( e.detail ) }
+					/>
+				{/each}
+			</div>
 		</div>
 		{#if !$listScreenIsReadOnly}
 			<footer class="ac-columns__footer">

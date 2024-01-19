@@ -33,10 +33,6 @@ export const getListScreenSettings = (listKey: string, listId: string = ''): Axi
     })
 }
 
-export const getListScreenSettingsByListKey = (listKey: string): AxiosPromise<listScreenSettingsResponse> => {
-    return getListScreenSettings(listKey);
-}
-
 export const getColumnSettings = (ListScreen: string, columnType: string) => {
     const nonce = getColumnSettingsConfig().nonce;
 
@@ -49,8 +45,6 @@ export const getColumnSettings = (ListScreen: string, columnType: string) => {
         }
     })
 }
-
-
 
 export const saveListScreen = (data: ListScreenData, listKey: string) => {
     const nonce = getColumnSettingsConfig().nonce;

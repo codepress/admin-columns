@@ -29,8 +29,10 @@ export class NotificationProgrammatic {
 
         initNotificationContainer().append(container);
 
+
         const notification = new AcNotification({
             target: container,
+            // @ts-ignore
             props: finalArgs,
         });
 
