@@ -1,22 +1,17 @@
 <script lang="ts">
     import ColumnSetting from "../ColumnSetting.svelte";
     import Select from "svelte-select"
-    import {onMount} from "svelte";
     import {getColumnSettings} from "../../ajax/ajax";
     import {columnTypesStore} from "../../store/column-types";
-    import {ListScreenData} from "../../../types/requests";
+    import {ListScreenColumnData, ListScreenData} from "../../../types/requests";
+    import {SvelteSelectItem} from "../../../types/select";
 
     export let data: ListScreenData;
     export let config: AC.Column.Settings.ToggleSetting;
-    export let columnConfig;
+    export let columnConfig: ListScreenColumnData;
     export let disabled: boolean = false;
 
-    let collection = [];
     let selectValue: string;
-
-    onMount(() => {
-        collection = $columnTypesStore
-    })
 
     const changeValue = () => {
         data['type'] = selectValue;
@@ -31,7 +26,7 @@
 
     }
 
-    const groupBy = (item) => item.group;
+    const groupBy = (item: SvelteSelectItem) => item.group;
 </script>
 
 <ColumnSetting label={config.label} description={config.description} name="type">

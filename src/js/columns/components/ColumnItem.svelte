@@ -8,6 +8,7 @@
     import ColumnSettings from "./ColumnSettings.svelte";
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
     import ProFeatureToggles from "./ProFeatureToggles.svelte";
+    import AcIcon from "ACUi/AcIcon.svelte";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -73,6 +74,9 @@
 
 <div class="ac-column" class:-opened={opened}>
 	<header class="ac-column-header">
+		<div class="ac-column-header__move acu-cursor-move">
+			<AcIcon icon="move" size="sm" />
+		</div>
 		<div class="ac-column-header__label">
 			<strong on:click={toggle} on:keydown role="none">{@html data.label}</strong>
 			<div class="ac-column-row-actions">

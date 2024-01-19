@@ -7,7 +7,7 @@
     import {ColumnTypesUtils} from "../utils/column-types";
     import AcButton from "ACUi/element/AcButton.svelte";
     import ListKeys from "../utils/ListKeys";
-    import {ListScreenData} from "../../types/requests";
+    import {ListScreenColumnsData, ListScreenData} from "../../types/requests";
     import {listScreenDataStore} from "../store/list-screen-data";
     import {tick} from "svelte";
     import ColumnTypeDropdown from "./ColumnTypeDropdown.svelte";
@@ -17,9 +17,14 @@
     import {columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
 
+    declare const jQuery: any;
+
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
     export let tableUrl: string;
+
+    export let start: number | null = 0;
+    export let end: number | null = 0;
 
     let sortableContainer: HTMLElement | null;
 
@@ -79,6 +84,42 @@
         listScreenDataStore.deleteColumn(columnName);
     }
 
+    const applyNewColumnsOrder = (from: number, to: number) => {
+        let sorted_columns = Object.values(data.columns);
+        const item = sorted_columns[from];
+        sorted_columns.splice(from, 1);
+        sorted_columns.splice(to, 0, item);
+
+        let newSortedColumns: ListScreenColumnsData = {};
+
+        sorted_columns.forEach(d => {
+            newSortedColumns[d.name] = d;
+        });
+
+        data.columns = newSortedColumns;
+    }
+
+
+    listScreenDataStore.subscribe(() => {
+        jQuery(sortableContainer).sortable({
+            axis: 'y',
+			containment: jQuery(sortableContainer),
+			handle: '.ac-column-header__move',
+            start: (e: Event, ui: any) => {
+                start = parseInt(ui.item.index());
+            },
+            stop: (e: Event, ui: any) => {
+                end = ui.item.index();
+
+                if (start !== null && end !== null) {
+                    applyNewColumnsOrder(start, end);
+                    start = null;
+                    end = null;
+                }
+            }
+        });
+    })
+
 </script>
 
 
@@ -102,6 +143,8 @@
 		</header>
 
 		<div class="ac-columns__body">
+
+
 			<div bind:this={sortableContainer}>
 				{#each Object.values( data.columns ) as column_data(column_data.name)}
 					<ColumnItem

@@ -1,7 +1,7 @@
 import axios, {AxiosPromise} from "axios";
 import {ListScreenData} from "../../types/requests";
-import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
 import {getColumnSettingsConfig} from "../utils/global";
+import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
 
 
 declare const ajaxurl: string;
@@ -50,7 +50,7 @@ export const saveListScreen = (data: ListScreenData, listKey: string) => {
     const nonce = getColumnSettingsConfig().nonce;
     const formData = new FormData();
 
-    formData.set( '_ajax_nonce', nonce );
+    formData.set('_ajax_nonce', nonce);
     formData.set('action', 'ac-list-screen-save')
     formData.set('data', JSON.stringify(data));
     formData.set('list_key', listKey);

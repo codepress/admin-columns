@@ -14,10 +14,10 @@ type notificationArguments = {
 
 export class NotificationProgrammatic {
 
-    static open(args: notificationArguments|string) {
+    static open(args: notificationArguments | string) {
         const container = document.createElement('div')!;
 
-        if( typeof args === 'string'){
+        if (typeof args === 'string') {
             args = {
                 message: args
             }
@@ -47,13 +47,13 @@ const initNotificationContainer = (): HTMLElement => {
     let container = document.querySelector<HTMLElement>(`.${SELECTOR}`);
 
 
-    if( container ){
+    if (container) {
         return container;
     }
 
-    const newContainer = AcHtmlElement.create('div').addClass( SELECTOR ).getElement();
+    const newContainer = AcHtmlElement.create('div').addClass(SELECTOR).getElement();
 
-    document.body.append( newContainer );
+    document.body.append(newContainer);
 
     return newContainer;
 }
