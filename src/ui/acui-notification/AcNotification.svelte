@@ -45,7 +45,7 @@
 
 		</div>
 		<div class="ac-notification-media__content">
-			<slot></slot>{message}
+			<slot></slot>{@html  message}
 		</div>
 	</div>
 </article>

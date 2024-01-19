@@ -52,13 +52,14 @@ export const getColumnSettings = (ListScreen: string, columnType: string) => {
 
 
 
-export const saveListScreen = (data: ListScreenData) => {
+export const saveListScreen = (data: ListScreenData, listKey: string) => {
     const nonce = getColumnSettingsConfig().nonce;
     const formData = new FormData();
 
     formData.set( '_ajax_nonce', nonce );
     formData.set('action', 'ac-list-screen-save')
     formData.set('data', JSON.stringify(data));
+    formData.set('list_key', listKey);
 
     return axios.post(ajaxurl,
         formData

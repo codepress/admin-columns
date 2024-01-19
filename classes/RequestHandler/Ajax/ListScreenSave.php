@@ -8,12 +8,15 @@ use AC\Capabilities;
 use AC\Column\LabelEncoder;
 use AC\ColumnCollection;
 use AC\ColumnFactory;
+use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
 use AC\TableScreen;
+use AC\TableScreenFactory;
+use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 
 class ListScreenSave implements RequestAjaxHandler
@@ -23,10 +26,16 @@ class ListScreenSave implements RequestAjaxHandler
 
     private $column_factory;
 
-    public function __construct(Storage $storage, ColumnFactory $column_factory)
-    {
+    private $table_screen_factory;
+
+    public function __construct(
+        Storage $storage,
+        ColumnFactory $column_factory,
+        TableScreenFactory $table_screen_factory
+    ) {
         $this->storage = $storage;
         $this->column_factory = $column_factory;
+        $this->table_screen_factory = $table_screen_factory;
     }
 
     public function handle(): void
@@ -42,8 +51,13 @@ class ListScreenSave implements RequestAjaxHandler
             $response->error();
         }
 
+        $list_key = new ListKey($request->get('list_key', '') ?? '');
         $data = $request->get('data', '');
         $data = json_decode($data, true);
+
+        if ( ! $this->table_screen_factory->can_create($list_key)) {
+            wp_send_json_error(['message' => __('List screen not found', 'codepress-admin-columns')]);
+        }
 
         $id = $data['id'] ?? null;
 
@@ -53,12 +67,14 @@ class ListScreenSave implements RequestAjaxHandler
             exit;
         }
 
-        // It can be possible that a new ListID is created and thus not present in storage
         $list_screen = $this->storage->find(new ListScreenId($id));
 
         if ( ! $list_screen) {
-            $response->set_message('ID not found')->error();
-            exit;
+            $list_screen = new ListScreen(
+                new ListScreenId($id),
+                '',
+                $this->table_screen_factory->create($list_key)
+            );
         }
 
         $table_screen = $list_screen->get_table_screen();
@@ -69,7 +85,20 @@ class ListScreenSave implements RequestAjaxHandler
 
         $this->storage->save($list_screen);
 
-        $response->success();
+        $response
+            ->set_message(
+                sprintf(
+                    '%s %s',
+                    sprintf(
+                        __('Settings for %s updated successfully.', 'codepress-admin-columns'),
+                        sprintf('<strong>%s</strong>', esc_html($list_screen->get_title() ?: $list_screen->get_label()))
+                    ),
+                    ac_helper()->html->link(
+                        (string)$list_screen->get_table_url(),
+                        sprintf(__('View %s screen', 'codepress-admin-columns'), $list_screen->get_label())
+                    )
+                )
+            )->success();
     }
 
     private function get_columns(TableScreen $table_screen, array $columndata): ColumnCollection

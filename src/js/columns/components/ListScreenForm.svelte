@@ -7,6 +7,8 @@
     import {saveListScreen} from "../ajax/ajax";
     import {listScreenIsReadOnly} from "../store/read_only";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
+    import {currentListKey} from "../store/current-list-screen";
+    import {AxiosError} from "axios";
 
     export let config: any
     export let data: ListScreenData
@@ -16,16 +18,18 @@
 
     const saveSettings = () => {
         isSaving = true;
-        saveListScreen(data).then((response) => {
+        saveListScreen(data, $currentListKey).then((response) => {
             if (response.data.success) {
                 isSaving = false;
+                NotificationProgrammatic.open({message: response.data.data.message, type: 'success'})
             } else {
                 NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
             }
 
 
-        }).catch(() => {
-
+        }).catch((c: AxiosError) => {
+            NotificationProgrammatic.open({message: c.message, type: 'error'})
+            isSaving = false;
         });
     }
 
