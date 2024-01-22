@@ -104,6 +104,9 @@ class Columns extends Script
                     'search' => __('Search', 'codepress-admin-columns'),
                     'select' => __('Select', 'codepress-admin-columns'),
                 ],
+                'menu'     => [
+                    'favorites' => __('Favorites', 'codepress-admin-columns'),
+                ],
                 'settings' => [
                     'label' => [
                         'select-icon' => __('Select Icon', 'codepress-admin-columns'),

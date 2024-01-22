@@ -6,15 +6,16 @@
     import Select from "svelte-select";
     import {favoriteListKeysStore} from "../store/favorite-listkeys";
     import ListScreenMenuItem from "./ListScreenMenuItem.svelte";
+    import {getColumnSettingsTranslation} from "../utils/global";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
 
     const dispatch = createEventDispatcher();
+    const i18n = getColumnSettingsTranslation();
 
     let openedGroups: string[] = [];
     let options: SvelteSelectItem[];
     let selectValue = '';
-    let favorites: string[] = [];
     let favoriteItems: { [key: string]: string } = {}
 
     const handleMenuSelect = (key: string) => {
@@ -108,7 +109,7 @@
 			<div class="ac-menu-group">
 				<button class="ac-menu-group__header">
 					<GroupIcon icon="dashicons-star-empty" defaultIcon="cpacicon-gf-article"></GroupIcon>
-					Favorites
+					{i18n.menu.favorites}
 				</button>
 				<ul class="ac-menu-group-list">
 					{#each Object.entries( favoriteItems ) as [ key, label ]}
