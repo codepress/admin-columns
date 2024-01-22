@@ -28,13 +28,15 @@ class Post extends Recursive
             __('Display', 'codepress-admin-columns'),
             '',
             Setting\Input\Option\Single::create_select(
-                Setting\OptionCollection::from_array($this->get_display_options())
+                Setting\OptionCollection::from_array($this->get_display_options()),
+                'title'
             ),
             $conditionals
         );
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    // TODO
+    public function xxformat(Value $value, ArrayImmutable $options): Value
     {
         $ids = $value->get_value();
 
@@ -45,20 +47,20 @@ class Post extends Recursive
         $option = $options->get($this->get_name());
 
         switch ($option) {
-            case self::PROPERTY_FEATURED_IMAGE:
-                $value = $value->with_value(get_post_thumbnail_id($ids[0]));
-
-                break;
-            case self::PROPERTY_AUTHOR :
-                return $value->with_value(
-                // TODO $ids[0]
-                    ac_helper()->user->get_display_name($ids[0])
-                        ?: sprintf(
-                        '<em>%s</em> (%s)',
-                        __('No author', 'codepress-admin-columns'),
-                        $ids[0]
-                    )
-                );
+            //            case self::PROPERTY_FEATURED_IMAGE:
+            //                $value = $value->with_value(get_post_thumbnail_id($ids[0]));
+            //
+            //                break;
+            //            case self::PROPERTY_AUTHOR :
+            //                return $value->with_value(
+            //                // TODO $ids[0]
+            //                    ac_helper()->user->get_display_name($ids[0])
+            //                        ?: sprintf(
+            //                        '<em>%s</em> (%s)',
+            //                        __('No author', 'codepress-admin-columns'),
+            //                        $ids[0]
+            //                    )
+            //                );
             // TODO add formatter
         }
 
@@ -68,6 +70,8 @@ class Post extends Recursive
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
+            // TODO Title formatter
+            new User(StringComparisonSpecification::equal(self::PROPERTY_AUTHOR)),
             new Image(StringComparisonSpecification::equal(self::PROPERTY_FEATURED_IMAGE)),
             new Date(StringComparisonSpecification::equal(self::PROPERTY_DATE)),
             new CharacterLimit(StringComparisonSpecification::equal(self::PROPERTY_TITLE)),

@@ -200,6 +200,7 @@ class Column
         return $this->get_settings()->get($id);
     }
 
+    // TODO remove?
     public function get_formatters(): array
     {
         if (null === $this->formatters) {
@@ -223,34 +224,15 @@ class Column
         return (string)apply_filters('ac/headings/label', $label, $this);
     }
 
-    /**
-     * @return SettingCollection
-     */
-    public function get_settings()
+    public function get_settings(): SettingCollection
     {
         if (null === $this->settings) {
-            $settings = [
+            // TODO remove
+            $this->add_setting(new Settings\Column\Type());
 
-                // TODO remove
-                new Settings\Column\Type(),
+            $this->add_setting(new Settings\Column\Label());
+            $this->add_setting(new Settings\Column\Width());
 
-                new Settings\Column\Label(),
-                new Settings\Column\Width(),
-            ];
-
-            // TODO Stefan test settings
-            //$settings[] = new Settings\Column\ActionIcons($this);
-            //$settings[] = new Settings\Column\AttachmentDisplay($this);
-            //$settings[] = new Settings\Column\Comment($this);
-            //$settings[] = new Settings\Column\CustomFieldType($this);
-
-            foreach ($settings as $setting) {
-                $this->add_setting($setting);
-            }
-
-            // TODO David check
-
-            //$this->register_settings_temp();
             $this->register_settings();
 
             // TODO
@@ -268,18 +250,7 @@ class Column
         // Overwrite in child class
     }
 
-    // TODO Stefan Only for test
-    protected function register_settings_temp()
-    {
-        // Overwrite in child class
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return null|string|bool|array
-     */
-    public function get_option($key)
+    public function get_option(string $key)
     {
         return $this->options[$key] ?? null;
     }
@@ -300,26 +271,14 @@ class Column
     }
 
     /**
-     * Enqueue CSS + JavaScript on the admin listings screen!
+     * Use this action to Enqueue CSS + JavaScript on the list table
      * This action is called in the admin_head action on the listings screen where your column values are displayed.
-     * Use this action to add CSS + JavaScript
-     * @since 2.3.4
      */
     public function scripts(): void
     {
         // Overwrite in child class
     }
 
-
-    /**
-     * Apply available formatters (recursive) on the value
-     *
-     * @param mixed $value
-     * @param mixed $original_value
-     * @param int   $current Current index of self::$formatters
-     *
-     * @return mixed
-     */
 
     // TODO
     //public function get_formatted_value($value, $original_value = null, $current = 0)
@@ -382,28 +341,11 @@ class Column
             new Value($id, $value),
             new ArrayImmutable($this->get_options())
         );
-
-        //        foreach( $this->options as $option ) {
-        //
-        //        }
-        //
-        //        foreach( $this->settings as $setting ) {
-        //
-        //        }
-        //
-        //        $setting = new User( $this, StringComparisonSpecification::equal('') );
-        //
-        //
-        //        $value = $formatter->format( $value );
     }
 
     /**
      * Get the raw, underlying value for the column
      * Not suitable for direct display, use get_value() for that
-     *
-     * @param int $id
-     *
-     * @return string|array
      */
     // TODO where is this used? Besides `get_value`. Sorting should no longer use this, is there a possibility we can remove this?
     public function get_raw_value($id)
@@ -413,15 +355,12 @@ class Column
 
     /**
      * Display value
-     *
-     * @param int $id
-     *
-     * @return string
      */
     public function get_value($id)
     {
         $value = $this->get_formatted_value($this->get_raw_value($id), (int)$id);
 
+        // TODO remove?
         if ($value instanceof Collection) {
             $value = $value->filter()->implode($this->get_separator());
         }
@@ -430,13 +369,12 @@ class Column
             $value = $this->get_empty_char();
         }
 
-        return (string)$value;
+        return $value;
     }
 
     public function get_separator(): string
     {
-        $default_separator = $this->get_option('separator') ?: ', ';
-        switch ($default_separator) {
+        switch ($this->get_option('separator')) {
             case 'comma' :
                 return ', ';
             case 'newline' :

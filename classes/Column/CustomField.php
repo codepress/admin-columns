@@ -59,7 +59,6 @@ class CustomField extends Column\Meta
     {
         // TODO test
         return (string)$this->get_option('field_type');
-        //return (string)($this->get_setting(Settings\Column\CustomFieldType::NAME)->get_value() ?: '');
     }
 
     public function get_field(): string
