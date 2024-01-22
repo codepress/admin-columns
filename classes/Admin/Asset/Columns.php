@@ -7,6 +7,8 @@ use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\ColumnTypesFactory\Aggregate;
 use AC\Controller\DefaultColumns;
+use AC\Storage\Model\EditorFavorites;
+use AC\Storage\Model\EditorMenuStatus;
 use AC\Table\TableScreenCollection;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
@@ -89,12 +91,15 @@ class Columns extends Script
 
         // TODO Needed for UI2 Remove part above
         $this->add_inline_variable('ac_admin_columns', [
-            'nonce'         => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
-            'menu_items'    => $this->get_menu_items(),
-            'list_key'      => (string)$this->table_screen->get_key(),
-            'list_id'       => (string)$this->list_id,
-            'column_types'  => $this->get_column_types(),
-            'column_groups' => AC\ColumnGroups::get_groups()->get_all(),
+            'nonce'                => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
+            'list_key'             => (string)$this->table_screen->get_key(),
+            'list_id'              => (string)$this->list_id,
+            'column_types'         => $this->get_column_types(),
+            'column_groups'        => AC\ColumnGroups::get_groups()->get_all(),
+            'menu_items'           => $this->get_menu_items(),
+            // TODO
+            'menu_items_favorites' => (new EditorFavorites())->find_all_favorites(),
+            'menu_groups_opened'   => (new EditorMenuStatus())->find_all_active_groups(),
         ]);
 
         $this->localize(
