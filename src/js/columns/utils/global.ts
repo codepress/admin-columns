@@ -9,6 +9,9 @@ type AdminColumnsI18n = {
         search: string
         select: string
     }
+    menu: {
+        favorites: string
+    }
     settings : {
         label : {
             select_label: string

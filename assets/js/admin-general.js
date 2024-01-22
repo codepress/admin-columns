@@ -167,8 +167,7 @@ function create_each_block(ctx) {
   let dispose;
   let if_block = /*value*/ctx[0] === /*option*/ctx[5].value && create_if_block(ctx);
   function click_handler() {
-    return (/*click_handler*/ctx[4]( /*option*/ctx[5])
-    );
+    return /*click_handler*/ctx[4]( /*option*/ctx[5]);
   }
   return {
     c() {

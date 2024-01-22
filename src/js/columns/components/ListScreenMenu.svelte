@@ -4,14 +4,19 @@
     import GroupIcon from "./GroupIcon.svelte";
     import {SvelteSelectItem} from "../../types/select";
     import Select from "svelte-select";
+    import {favoriteListKeysStore} from "../store/favorite-listkeys";
+    import ListScreenMenuItem from "./ListScreenMenuItem.svelte";
+    import {getColumnSettingsTranslation} from "../utils/global";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
 
     const dispatch = createEventDispatcher();
+    const i18n = getColumnSettingsTranslation();
 
     let openedGroups: string[] = [];
     let options: SvelteSelectItem[];
     let selectValue = '';
+    let favoriteItems: { [key: string]: string } = {}
 
     const handleMenuSelect = (key: string) => {
         dispatch('itemSelect', key)
@@ -37,7 +42,7 @@
     }
 
 
-    const mapMenutoSelect = (menu: AC.Vars.Admin.Columns.MenuItems): SvelteSelectItem[] => {
+    const mapMenuToSelect = (menu: AC.Vars.Admin.Columns.MenuItems): SvelteSelectItem[] => {
         let result: SvelteSelectItem[] = [];
 
         Object.values(menu).forEach(group => {
@@ -57,35 +62,71 @@
 
     const groupBy = (item: SvelteSelectItem) => item.group;
 
-    onMount(() => {
+    const refreshFavoriteItems = () => {
+        let _favoriteItems: { [key: string]: string } = {};
 
+        Object.values(menu).forEach(group => {
+            for (const [value, label] of Object.entries(group.options)) {
+                if ($favoriteListKeysStore.includes(value)) {
+                    _favoriteItems[value] = label;
+                }
+            }
+        });
+
+        favoriteItems = _favoriteItems;
+    }
+
+    favoriteListKeysStore.subscribe(() => {
+        refreshFavoriteItems()
+    })
+
+    onMount(() => {
         for (const [key, group] of Object.entries(menu)) {
             if (group.options.hasOwnProperty($currentListKey)) {
                 showGroup(key);
             }
         }
-        options = mapMenutoSelect(menu);
+        options = mapMenuToSelect(menu);
     })
 </script>
 <nav class="ac-table-screen-nav">
 	<div class="ac-table-screen-nav__select">
 		<Select
-				bind:value={selectValue}
-				items={options}
-				{groupBy}
-				class="-acui"
-				placeholder="Select"
-				clearable={false}
-				showChevron
-				on:input={handleSelect }>
+			bind:value={selectValue}
+			items={options}
+			{groupBy}
+			class="-acui"
+			placeholder="Select"
+			clearable={false}
+			showChevron
+			on:input={handleSelect }>
 
 		</Select>
 	</div>
 	<div class="ac-table-screen-nav__list">
+
+		{#if Object.keys( favoriteItems ).length > 0}
+			<div class="ac-menu-group">
+				<button class="ac-menu-group__header">
+					<GroupIcon icon="dashicons-star-empty" defaultIcon="cpacicon-gf-article"></GroupIcon>
+					{i18n.menu.favorites}
+				</button>
+				<ul class="ac-menu-group-list">
+					{#each Object.entries( favoriteItems ) as [ key, label ]}
+						<ListScreenMenuItem
+							{key}
+							{label}
+							on:selectItem={ () => selectValue = key}
+						/>
+					{/each}
+				</ul>
+			</div>
+		{/if}
+
 		{#each Object.entries( menu ) as [ key, group ]}
 			<div class="ac-menu-group">
 				<button on:click={()=>toggleGroup(key)} class="ac-menu-group__header"
-						class:closed={!openedGroups.includes( key )}>
+					class:closed={!openedGroups.includes( key )}>
 					<GroupIcon icon={group.icon} defaultIcon="cpacicon-gf-article"></GroupIcon>
 					{group.title}
 					<span class="ac-menu-group__header__indicator dashicons dashicons-arrow-up-alt2"></span>
@@ -93,12 +134,11 @@
 				{#if openedGroups.includes( key )}
 					<ul class="ac-menu-group-list">
 						{#each Object.entries( group.options ) as [ key, label ]}
-							<li class="ac-menu-group-list__item" class:active={$currentListKey === key}>
-								<a
-										class:active={$currentListKey === key}
-										class="ac-menu-group-list__link" href={'#'}
-										on:click|preventDefault={ () => selectValue = key }>{label}</a>
-							</li>
+							<ListScreenMenuItem
+								{key}
+								{label}
+								on:selectItem={ () => selectValue = key}
+							/>
 						{/each}
 					</ul>
 				{/if}
