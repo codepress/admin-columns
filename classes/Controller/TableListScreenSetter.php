@@ -65,8 +65,8 @@ class TableListScreenSetter implements Registerable
 
         if ($list_screen) {
             $this->preference->save(
-                $list_screen->get_key(),
-                (string)$list_screen->get_id()
+                $table_screen->get_key(),
+                $list_screen->get_id()
             );
         }
 
@@ -74,7 +74,7 @@ class TableListScreenSetter implements Registerable
             $this->location,
             $table_screen,
             new ColumnSize\ListStorage($this->storage),
-            new ColumnSize\UserStorage(new ColumnSize\UserPreference()),
+            new ColumnSize\UserStorage(),
             $this->primary_column_factory,
             $list_screen
         );

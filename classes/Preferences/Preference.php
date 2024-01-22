@@ -6,7 +6,7 @@ namespace AC\Preferences;
 
 use AC\Storage\UserData;
 
-class Preference
+final class Preference
 {
 
     private $storage;
@@ -23,14 +23,14 @@ class Preference
 
     public function find(string $option)
     {
-        $data = $this->storage->get();
+        $data = $this->find_all();
 
         return $data[$option] ?? null;
     }
 
     public function save(string $option, $value): void
     {
-        $data = $this->storage->get();
+        $data = $this->find_all();
 
         $data[$option] = $value;
 
@@ -39,7 +39,7 @@ class Preference
 
     public function delete(string $option): void
     {
-        $data = $this->storage->get();
+        $data = $this->find_all();
 
         unset($data[$option]);
 

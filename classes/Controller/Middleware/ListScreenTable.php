@@ -51,13 +51,11 @@ class ListScreenTable implements Middleware
 
     private function get_preference_list_screen(WP_User $user): ?ListScreen
     {
-        try {
-            $id = new ListScreenId((string)$this->preference->find((string)$this->list_key));
-        } catch (Exception $e) {
-            return null;
-        }
+        $list_id = $this->preference->find_list_id($this->list_key);
 
-        return $this->get_list_screen_by_id($id, $user);
+        return $list_id
+            ? $this->get_list_screen_by_id($list_id, $user)
+            : null;
     }
 
     private function get_requested_list_screen(Request $request, WP_User $user): ?ListScreen

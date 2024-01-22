@@ -9,7 +9,7 @@ use AC\ScreenController;
 use AC\Table\LayoutPreference;
 use AC\Table\PrimaryColumnFactory;
 use AC\TableScreenFactory;
-use AC\Type\ListScreenId;
+use AC\Type\ListKey;
 
 class QuickEdit implements Registerable
 {
@@ -51,32 +51,32 @@ class QuickEdit implements Registerable
         switch (filter_input(INPUT_POST, 'action')) {
             // Quick edit post
             case 'inline-save' :
-                $type = filter_input(INPUT_POST, 'post_type');
+                $list_key = (string)filter_input(INPUT_POST, 'post_type');
                 break;
 
             // Adding term & Quick edit term
             case 'add-tag' :
             case 'inline-save-tax' :
-                $type = 'wp-taxonomy_' . filter_input(INPUT_POST, 'taxonomy');
+                $list_key = 'wp-taxonomy_' . filter_input(INPUT_POST, 'taxonomy');
                 break;
 
             // Quick edit comment & Inline reply on comment
             case 'edit-comment' :
             case 'replyto-comment' :
-                $type = 'wp-comments';
+                $list_key = 'wp-comments';
                 break;
 
             default:
                 return;
         }
 
-        $id = $this->preference->find($type);
+        $list_id = $this->preference->find_list_id(new ListKey($list_key));
 
-        if ( ! ListScreenId::is_valid_id($id)) {
+        if ( ! $list_id) {
             return;
         }
 
-        $list_screen = $this->storage->find(new ListScreenId($id));
+        $list_screen = $this->storage->find($list_id);
 
         if ( ! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
             return;

@@ -35,10 +35,13 @@ class AjaxScreenOptions implements Registerable
     {
         $this->get_ajax_handler()->verify_request();
 
-        $name = filter_input(INPUT_POST, 'option_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $value = (int)filter_input(INPUT_POST, 'option_value', FILTER_SANITIZE_NUMBER_INT);
+        $name = (string)filter_input(INPUT_POST, 'option_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $active = 1 === (int)filter_input(INPUT_POST, 'option_value', FILTER_SANITIZE_NUMBER_INT);
 
-        $this->preference->save($name, $value);
+        $this->preference->set_status(
+            $name,
+            $active
+        );
     }
 
 }
