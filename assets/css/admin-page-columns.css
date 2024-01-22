@@ -654,6 +654,7 @@ body {
   text-decoration: none;
   padding: 7px 10px;
   border-radius: 5px;
+  position: relative;
 }
 .ac-menu-group-list .ac-menu-group-list__link.active {
   background: #E2E8F0;
@@ -662,6 +663,16 @@ body {
 }
 .ac-menu-group-list .ac-menu-group-list__link:hover {
   background: #fff;
+}
+.ac-menu-group-list .ac-menu-group-list__link:hover .ac-menu-group-list__favorite {
+  display: block;
+}
+.ac-menu-group-list__favorite {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-10px);
 }
 
 .ac-menu-image {

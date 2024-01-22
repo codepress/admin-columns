@@ -85,9 +85,9 @@ body {
 		text-decoration: none;
 		padding: 7px 10px;
 		border-radius: 5px;
+		position: relative;
 
 		&.active {
-
 			background: #E2E8F0;
 			color: #FE3D6C;
 			font-weight: 500;
@@ -95,7 +95,19 @@ body {
 
 		&:hover {
 			background: #fff;
+
+			.ac-menu-group-list__favorite {
+				display: block;
+			}
+
 		}
+	}
+	&__favorite {
+		display: none;
+		position: absolute;
+		right: 10px;
+		top: 50%;
+		transform: translateY(-10px);
 	}
 }
 
