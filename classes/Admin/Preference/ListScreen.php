@@ -2,12 +2,13 @@
 
 namespace AC\Admin\Preference;
 
-use AC\Preferences\Site;
+use AC\Preferences\Preference;
+use AC\Storage\UserOption;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use Exception;
 
-class ListScreen extends Site
+class ListScreen extends Preference
 {
 
     private const OPTION_LAST_VISITED = 'last_visited_list_key';
@@ -15,16 +16,18 @@ class ListScreen extends Site
     public function __construct(bool $is_network = false)
     {
         parent::__construct(
-            $is_network
-                ? 'network_settings'
-                : 'settings'
+            new UserOption(
+                $is_network
+                    ? 'network_settings'
+                    : 'settings'
+            )
         );
     }
 
     public function get_last_visited_list_key(): ?ListKey
     {
         try {
-            $list_key = new ListKey((string)$this->get(self::OPTION_LAST_VISITED));
+            $list_key = new ListKey((string)$this->find(self::OPTION_LAST_VISITED));
         } catch (Exception $e) {
             return null;
         }
@@ -34,12 +37,15 @@ class ListScreen extends Site
 
     public function set_last_visited_list_key(ListKey $list_key): void
     {
-        $this->set(self::OPTION_LAST_VISITED, (string)$list_key);
+        $this->save(
+            self::OPTION_LAST_VISITED,
+            (string)$list_key
+        );
     }
 
     public function set_list_id(ListKey $list_key, ListScreenId $list_id): void
     {
-        $this->set(
+        $this->save(
             (string)$list_key,
             (string)$list_id
         );
@@ -48,7 +54,7 @@ class ListScreen extends Site
     public function get_list_id(ListKey $list_key): ?ListScreenId
     {
         try {
-            $list_id = new ListScreenId((string)$this->get((string)$list_key));
+            $list_id = new ListScreenId((string)$this->find((string)$list_key));
         } catch (Exception $e) {
             return null;
         }

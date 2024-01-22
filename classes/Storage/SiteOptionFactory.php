@@ -2,13 +2,12 @@
 
 namespace AC\Storage;
 
-class OptionFactory implements OptionDataFactory
+class SiteOptionFactory implements OptionDataFactory
 {
 
     public function create(string $key): OptionData
     {
-        // TODO
-        return new Option($key);
+        return new SiteOption($key);
     }
 
 }

@@ -20,7 +20,7 @@ class Transient implements Expirable
     public function __construct(string $key, bool $network_only = false)
     {
         $option_factory = $network_only
-            ? new Storage\NetworkOptionFactory()
+            ? new Storage\SiteOptionFactory()
             : new Storage\OptionFactory();
 
         $this->option = $option_factory->create($key);

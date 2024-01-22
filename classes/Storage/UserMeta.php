@@ -2,68 +2,40 @@
 
 namespace AC\Storage;
 
-use LogicException;
+class UserMeta implements UserData
+{
 
-class UserMeta implements KeyValuePair {
+    protected $user_id;
 
-	const OPTION_SINGLE = 'single';
+    protected $key;
 
-	/**
-	 * @var int
-	 */
-	protected $user_id;
+    public function __construct(string $key, int $user_id = null)
+    {
+        if (null === $user_id) {
+            $user_id = get_current_user_id();
+        }
 
-	/**
-	 * @var string
-	 */
-	protected $key;
+        $this->user_id = $user_id;
+        $this->key = $key;
+    }
 
-	/**
-	 * @param int    $user_id
-	 * @param string $key
-	 *
-	 * @throws LogicException
-	 */
-	public function __construct( $key, $user_id = null ) {
-		if ( null === $user_id ) {
-			$user_id = get_current_user_id();
-		}
+    public function get(array $args = [])
+    {
+        $args = array_merge([
+            'single' => true,
+        ], $args);
 
-		if ( ! preg_match( '/^[1-9][0-9]*$/', $user_id ) ) {
-			throw new LogicException( 'Storage cannot be initialized without a valid user id.' );
-		}
+        return get_user_meta($this->user_id, $this->key, $args['single']);
+    }
 
-		$this->user_id = $user_id;
-		$this->key = $key;
-	}
+    public function save($value): void
+    {
+        update_user_meta($this->user_id, $this->key, $value);
+    }
 
-	/**
-	 * @param array $args
-	 *
-	 * @return mixed
-	 */
-	public function get( array $args = [] ) {
-		$args = array_merge( [
-			self::OPTION_SINGLE => true,
-		], $args );
-
-		return get_user_meta( $this->user_id, $this->key, $args[ self::OPTION_SINGLE ] );
-	}
-
-	/**
-	 * @param $value
-	 *
-	 * @return bool|int
-	 */
-	public function save( $value ) {
-		return update_user_meta( $this->user_id, $this->key, $value );
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function delete() {
-		return delete_user_meta( $this->user_id, $this->key );
-	}
+    public function delete(): void
+    {
+        delete_user_meta($this->user_id, $this->key);
+    }
 
 }

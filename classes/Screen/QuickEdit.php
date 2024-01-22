@@ -70,7 +70,7 @@ class QuickEdit implements Registerable
                 return;
         }
 
-        $id = $this->preference->get($type);
+        $id = $this->preference->find($type);
 
         if ( ! ListScreenId::is_valid_id($id)) {
             return;

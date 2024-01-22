@@ -2,12 +2,15 @@
 
 namespace AC\Table;
 
-use AC\Preferences\Site;
+use AC\Preferences\Preference;
+use AC\Storage\UserOption;
 
-class LayoutPreference extends Site {
+class LayoutPreference extends Preference
+{
 
-	public function __construct() {
-		parent::__construct( 'layout_table' );
-	}
+    public function __construct()
+    {
+        parent::__construct(new UserOption('layout_table'));
+    }
 
 }

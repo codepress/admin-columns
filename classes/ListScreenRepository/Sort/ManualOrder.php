@@ -13,7 +13,7 @@ class ManualOrder implements Sort
 
     public function __construct()
     {
-        $this->list_screen_order = new Storage\ListScreenOrder();
+        $this->list_screen_order = new Storage\Model\ListScreenOrder();
     }
 
     public function sort(ListScreenCollection $list_screens): ListScreenCollection

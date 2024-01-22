@@ -10,12 +10,9 @@ class ManualOrder extends ColumnNames
 
     public function __construct(ListScreenId $list_id)
     {
-        $storage = new Storage\UserColumnOrder();
-        $column_names = $storage->exists($list_id)
-            ? $storage->get($list_id)
-            : [];
+        $storage = new Storage\Model\UserColumnOrder();
 
-        parent::__construct($column_names);
+        parent::__construct($storage->get($list_id));
     }
 
 }

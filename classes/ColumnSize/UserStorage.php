@@ -20,7 +20,7 @@ class UserStorage
 
     public function save(ListScreenId $list_id, string $column_name, ColumnWidth $column_width): void
     {
-        $widths = $this->user_preference->get($list_id->get_id());
+        $widths = $this->user_preference->find($list_id->get_id());
 
         if ( ! $widths) {
             $widths = [];
@@ -31,7 +31,7 @@ class UserStorage
             self::OPTION_VALUE => $column_width->get_value(),
         ];
 
-        $this->user_preference->set(
+        $this->user_preference->save(
             $list_id->get_id(),
             $widths
         );
@@ -39,12 +39,12 @@ class UserStorage
 
     public function exists(ListScreenId $list_id): bool
     {
-        return null !== $this->user_preference->get($list_id->get_id());
+        return null !== $this->user_preference->find($list_id->get_id());
     }
 
     public function get(ListScreenId $list_id, string $column_name): ?ColumnWidth
     {
-        $widths = $this->user_preference->get(
+        $widths = $this->user_preference->find(
             $list_id->get_id()
         );
 
@@ -65,7 +65,7 @@ class UserStorage
      */
     public function get_all(ListScreenId $list_id): array
     {
-        $widths = $this->user_preference->get(
+        $widths = $this->user_preference->find(
             $list_id->get_id()
         );
 
@@ -87,7 +87,7 @@ class UserStorage
 
     public function delete(ListScreenId $list_id, string $column_name): void
     {
-        $widths = $this->user_preference->get(
+        $widths = $this->user_preference->find(
             $list_id->get_id()
         );
 
@@ -98,14 +98,14 @@ class UserStorage
         unset($widths[$column_name]);
 
         $widths
-            ? $this->user_preference->set($list_id->get_id(), $widths)
+            ? $this->user_preference->save($list_id->get_id(), $widths)
             : $this->delete_by_list_id($list_id);
     }
 
     public function delete_by_list_id(ListScreenId $list_id): void
     {
         $this->user_preference->delete(
-            $list_id->get_id()
+            (string)$list_id
         );
     }
 

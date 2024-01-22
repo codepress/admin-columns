@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Storage;
+namespace AC\Storage\Model;
 
 use AC\ColumnCollection;
 use AC\ColumnRepository\Sort\ColumnNames;

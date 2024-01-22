@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Storage;
+namespace AC\Storage\Model;
 
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;

@@ -45,7 +45,7 @@ class Review
             return;
         }
 
-        if ($this->get_preferences()->get('dismiss-review')) {
+        if ($this->get_preferences()->find('dismiss-review')) {
             return;
         }
 
@@ -73,9 +73,9 @@ class Review
         return $handler;
     }
 
-    protected function get_preferences(): Preferences\User
+    protected function get_preferences(): Preferences\Preference
     {
-        return new Preferences\User('check-review');
+        return (new Preferences\UserFactory())->create('check-review');
     }
 
     protected function first_login_compare(): bool
@@ -89,12 +89,12 @@ class Review
      */
     protected function get_first_login(): int
     {
-        $timestamp = $this->get_preferences()->get('first-login-review');
+        $timestamp = $this->get_preferences()->find('first-login-review');
 
         if (empty($timestamp)) {
             $timestamp = time();
 
-            $this->get_preferences()->set('first-login-review', $timestamp);
+            $this->get_preferences()->save('first-login-review', $timestamp);
         }
 
         return $timestamp;
@@ -103,7 +103,7 @@ class Review
     public function ajax_dismiss_notice(): void
     {
         $this->get_ajax_handler()->verify_request();
-        $this->get_preferences()->set('dismiss-review', true);
+        $this->get_preferences()->save('dismiss-review', true);
     }
 
     private function get_documentation_url(string $utm_medium): string

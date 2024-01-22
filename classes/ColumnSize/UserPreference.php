@@ -2,14 +2,15 @@
 
 namespace AC\ColumnSize;
 
-use AC\Preferences\Site;
+use AC\Preferences\Preference;
+use AC\Storage\UserOption;
 
-class UserPreference extends Site
+class UserPreference extends Preference
 {
 
     public function __construct(int $user_id = null)
     {
-        parent::__construct('column_widths', $user_id);
+        parent::__construct(new UserOption('column_widths', $user_id));
     }
 
 }

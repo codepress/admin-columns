@@ -4,7 +4,7 @@ namespace AC\Plugin\Update;
 
 use AC\Plugin\Update;
 use AC\Plugin\Version;
-use AC\Storage\ListScreenOrder;
+use AC\Storage\Model\ListScreenOrder;
 use AC\Type\ListKey;
 use DateTime;
 
