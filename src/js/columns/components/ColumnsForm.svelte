@@ -103,8 +103,8 @@
     listScreenDataStore.subscribe(() => {
         jQuery(sortableContainer).sortable({
             axis: 'y',
-			containment: jQuery(sortableContainer),
-			handle: '.ac-column-header__move',
+            containment: jQuery(sortableContainer),
+            handle: '.ac-column-header__move',
             start: (e: Event, ui: any) => {
                 start = parseInt(ui.item.index());
             },
@@ -143,7 +143,28 @@
 		</header>
 
 		<div class="ac-columns__body">
+			{#if Object.keys( data.columns ).length === 0}
+				<div class="acu-p-10 acu-bg-[#F1F5F9]">
+					<div class="acu-text-center">
+						<h2>Add Columns</h2>
+						<p>The default columns will be shown on the list table when no columns are added.</p>
+					</div>
 
+					<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-py-8">
+						<AcDropdown maxHeight="300px" value position="bottom-left">
+							<AcButton slot="trigger">+ Add Column</AcButton>
+							<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>
+
+							</ColumnTypeDropdown>
+						</AcDropdown>
+						<span>Or</span>
+						<AcButton>Load default columns</AcButton>
+					</div>
+					<div class="acu-text-center">
+						<p>New to Admin Columns? Take a look at our <a href="#d">getting started guide</a>.</p>
+					</div>
+				</div>
+			{/if}
 
 			<div bind:this={sortableContainer}>
 				{#each Object.values( data.columns ) as column_data(column_data.name)}

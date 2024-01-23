@@ -1,3 +1,8 @@
+.acu-mx-auto {
+  margin-left: auto;
+  margin-right: auto
+}
+
 .acu-mb-1 {
   margin-bottom: 5px
 }
@@ -63,6 +68,10 @@
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 
+.acu-cursor-move {
+  cursor: move
+}
+
 .acu-cursor-pointer {
   cursor: pointer
 }
@@ -71,8 +80,30 @@
   flex-direction: row-reverse
 }
 
+.acu-items-center {
+  align-items: center
+}
+
+.acu-justify-center {
+  justify-content: center
+}
+
 .acu-gap-3 {
   gap: 15px
+}
+
+.acu-bg-\[\#fc0\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 204 0 / var(--tw-bg-opacity))
+}
+
+.acu-bg-\[\#F1F5F9\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity))
+}
+
+.acu-p-10 {
+  padding: 50px
 }
 
 .acu-px-2 {
@@ -83,6 +114,11 @@
 .acu-py-0\.5 {
   padding-top: 3px;
   padding-bottom: 3px
+}
+
+.acu-py-8 {
+  padding-top: 40px;
+  padding-bottom: 40px
 }
 
 .acu-pb-4 {
@@ -103,6 +139,10 @@
 
 .acu-pt-3 {
   padding-top: 15px
+}
+
+.acu-text-center {
+  text-align: center
 }
 
 .acu-text-right {

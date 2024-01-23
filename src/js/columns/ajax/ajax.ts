@@ -2,6 +2,7 @@ import axios, {AxiosPromise} from "axios";
 import {ListScreenColumnData, ListScreenData} from "../../types/requests";
 import {getColumnSettingsConfig} from "../utils/global";
 import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
+import JsonSuccessResponse = AC.Ajax.JsonSuccessResponse;
 
 
 declare const ajaxurl: string;
@@ -61,7 +62,16 @@ export const saveListScreen = (data: ListScreenData, listKey: string) => {
 }
 
 
-export const refreshColumn = (data: ListScreenColumnData, listKey: string) => {
+type columnConfigPayload = {
+    columns: {
+        settings: AC.Vars.Settings.ColumnSetting[]
+    }
+}
+
+type columnConfigSuccessResponse = JsonSuccessResponse<columnConfigPayload>
+
+
+export const refreshColumn = (data: ListScreenColumnData, listKey: string): AxiosPromise<columnConfigSuccessResponse> => {
     const nonce = getColumnSettingsConfig().nonce;
     const formData = new FormData();
 

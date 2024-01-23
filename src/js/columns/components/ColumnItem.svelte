@@ -72,8 +72,13 @@
     }
 
     const tempSelectColumn = () => {
-        refreshColumn( data, $currentListKey );
-	}
+        refreshColumn(data, $currentListKey).then(response => {
+            if (response.data.success === true) {
+                config = response.data.data.columns.settings
+                checkAppliedSettings();
+            }
+        });
+    }
 
     $: opened = $openedColumnsStore.includes(data.name);
 </script>
@@ -81,7 +86,7 @@
 <div class="ac-column" class:-opened={opened}>
 	<header class="ac-column-header">
 		<div class="ac-column-header__move acu-cursor-move">
-			<AcIcon icon="move" size="sm" />
+			<AcIcon icon="move" size="sm"/>
 		</div>
 		<div class="ac-column-header__label">
 			<strong on:click={toggle} on:keydown role="none">{@html data.label}</strong>
@@ -110,14 +115,14 @@
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
 			<ColumnSettings
-					bind:data={data}
-					bind:settings={config}
+				bind:data={data}
+				bind:settings={config}
 			/>
 
 			<div style="padding: 10px; background: #FFDCDCFF">
-			<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
-			<button class="button" on:click={checkAppliedSettings}>Check settings</button>
-			<button class="button" on:click={tempSelectColumn}>Check Select Column</button>
+				<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
+				<button class="button" on:click={checkAppliedSettings}>Check settings</button>
+				<button class="button" on:click={tempSelectColumn}>Refresh Column settings</button>
 			</div>
 		</div>
 	{/if}

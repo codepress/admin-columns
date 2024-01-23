@@ -6,7 +6,7 @@ module.exports = {
 	content : [
 		"./../../src/core/**/*.{js,ts,svelte}",
 		"./../../src/editing/**/*.{js,ts,svelte}",
-		"./js/**/*.{js,ts}",
+		"./js/**/*.{js,ts,svelte}",
 	],
 	theme : {
 		// Custom Spacing
