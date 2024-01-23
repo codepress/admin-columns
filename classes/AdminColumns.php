@@ -115,14 +115,16 @@ class AdminColumns
         $request_ajax_handlers->add('ac-list-screen-delete', $container->get(Ajax\ListScreenDelete::class));
         $request_ajax_handlers->add('ac-list-screen-save', $container->get(Ajax\ListScreenSave::class));
         $request_ajax_handlers->add('ac-list-screen-add-column', $container->get(Ajax\ListScreenAddColumn::class));
+        $request_ajax_handlers->add(
+            'ac-list-screen-select-column',
+            $container->get(Ajax\ListScreenSelectColumn::class)
+        );
         $request_ajax_handlers->add('ac-editor-menu-status', $container->get(Ajax\EditorMenuStatus::class));
         $request_ajax_handlers->add('ac-editor-menu-favorites', $container->get(Ajax\EditorMenuFavorites::class));
         $request_ajax_handlers->add('ac-custom-field-keys', $container->get(Ajax\CustomFieldKeys::class));
         $request_ajax_handlers->add('ac-admin-screen-options', $container->get(Ajax\ScreenOptions::class));
-        // TODO test
-        $request_ajax_handlers->add('ac-get-column-modal-value', $container->get(Ajax\ColumnValueModal::class));
-        // TODO test
         $request_ajax_handlers->add('ac-get-column-value', $container->get(Ajax\ColumnValue::class));
+        $request_ajax_handlers->add('ac-get-column-modal-value', $container->get(Ajax\ColumnValueModal::class));
         $request_ajax_handlers->add('ac-admin-general-options', $container->get(Ajax\AdminGeneralOptions::class));
         // TODO Stefan create ajax call in JS
         $request_ajax_handlers->add('ac-restore-settings', $container->get(Ajax\RestoreSettingsRequest::class));
