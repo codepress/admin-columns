@@ -105,6 +105,9 @@ class Columns extends Script
         $this->localize(
             'ac_admin_columns_i18n',
             new Script\Localize\Translation([
+                'errors'   => [
+                    'ajax_unknown' => __('Something went wrong.', 'codepress-admin-columns'),
+                ],
                 'global'   => [
                     'search' => __('Search', 'codepress-admin-columns'),
                     'select' => __('Select', 'codepress-admin-columns'),
