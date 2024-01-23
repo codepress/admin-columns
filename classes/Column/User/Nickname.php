@@ -4,7 +4,7 @@ namespace AC\Column\User;
 
 use AC\Column;
 
-class Nickname extends Column\Meta
+class Nickname extends Column
 {
 
     public function __construct()
@@ -13,19 +13,9 @@ class Nickname extends Column\Meta
         $this->set_label(__('Nickname', 'codepress-admin-columns'));
     }
 
-    public function get_meta_key()
+    public function get_value($id)
     {
-        return 'nickname';
-    }
-
-    public function get_value($user_id)
-    {
-        return $this->get_raw_value($user_id);
-    }
-
-    public function get_raw_value($user_id)
-    {
-        return $this->get_meta_value($user_id, $this->get_meta_key());
+        return get_user_meta($id, 'nickname');
     }
 
 }
