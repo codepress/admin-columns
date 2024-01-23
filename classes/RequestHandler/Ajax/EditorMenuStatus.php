@@ -34,6 +34,9 @@ class EditorMenuStatus implements RequestAjaxHandler
             'open' === $request->get('status')
         );
 
+        echo $request->get('group');
+        echo 'open' === $request->get('status');
+
         $response->success();
     }
 

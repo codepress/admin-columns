@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         target: target,
         props: {
             menu: config.menu_items,
+            openedGroups: config.menu_groups_opened
         }
     });
 
