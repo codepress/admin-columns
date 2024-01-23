@@ -45,13 +45,9 @@ class ListScreenSelectColumn implements RequestAjaxHandler
             $response->error();
         }
 
-        $list_key = new ListKey((string)$request->get('list_key'));
-
-        if ( ! $this->table_screen_factory->can_create($list_key)) {
-            $response->error();
-        }
-
-        $table_screen = $this->table_screen_factory->create($list_key);
+        $table_screen = $this->table_screen_factory->create(
+            new ListKey((string)$request->get('list_key'))
+        );
 
         $column = $this->column_factory->create(
             $table_screen,

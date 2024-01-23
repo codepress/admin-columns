@@ -5,7 +5,7 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\Settings;
 
-class FeaturedImage extends Column\Meta
+class FeaturedImage extends Column
 {
 
     public function __construct()
@@ -14,36 +14,19 @@ class FeaturedImage extends Column\Meta
              ->set_label(__('Featured Image', 'codepress-admin-columns'));
     }
 
-    public function get_meta_key()
+    public function get_value($id): string
     {
-        return '_thumbnail_id';
+        // TODO test
+        return parent::get_value($id) ?: $this->get_empty_char();
     }
 
-    public function get_value($id)
+    public function get_raw_value($id): ?int
     {
-        $value = parent::get_value($id);
-
-        if ( ! $value) {
-            return $this->get_empty_char();
+        if ( ! has_post_thumbnail($id)) {
+            return null;
         }
 
-        return $value;
-    }
-
-    /**
-     * Returns Attachment ID
-     *
-     * @param int $post_id
-     *
-     * @return int|false
-     */
-    public function get_raw_value($post_id)
-    {
-        if ( ! has_post_thumbnail($post_id)) {
-            return false;
-        }
-
-        return get_post_thumbnail_id($post_id);
+        return get_post_thumbnail_id($id);
     }
 
     public function register_settings()

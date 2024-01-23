@@ -2,7 +2,9 @@
 
 namespace AC\Column\Media;
 
-class Album extends Meta
+use AC\Column;
+
+class Album extends Column
 {
 
     public function __construct()
@@ -12,18 +14,13 @@ class Album extends Meta
              ->set_label(__('Album', 'codepress-admin-columns'));
     }
 
-    protected function get_sub_key(): string
-    {
-        return 'album';
-    }
-
     public function get_value($id)
     {
-        $meta = $this->get_raw_value($id);
+        $meta = get_post_meta($id, '_wp_attachment_metadata', true);
 
-        return empty($meta[$this->get_sub_key()])
-            ? $this->get_empty_char()
-            : $meta[$this->get_sub_key()];
+        $value = $meta['album'] ?? null;
+
+        return $value ?: $this->get_empty_char();
     }
 
 }
