@@ -26,9 +26,6 @@ class CustomField extends Column\Meta
     public function get_meta_key(): string
     {
         return (string)$this->get_option('field');
-
-        //TODO Check
-        //        return (string)$this->get_setting(Settings\Column\CustomField::NAME)->get_value();
     }
 
     private function is_acp_active(): bool
@@ -57,7 +54,6 @@ class CustomField extends Column\Meta
      */
     public function get_field_type(): ?string
     {
-        // TODO test
         return (string)$this->get_option('field_type');
     }
 
