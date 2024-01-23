@@ -85,7 +85,7 @@ class VideoPlayer extends Column implements Column\AjaxValue
             : false;
     }
 
-    public function get_ajax_value($id)
+    public function get_ajax_value($id): string
     {
         $url = $this->get_raw_value($id);
 

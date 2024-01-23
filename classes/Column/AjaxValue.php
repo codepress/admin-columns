@@ -2,13 +2,9 @@
 
 namespace AC\Column;
 
-interface AjaxValue {
+interface AjaxValue
+{
 
-	/**
-	 * @param int $id
-	 *
-	 * @return string
-	 */
-	public function get_ajax_value( $id );
+    public function get_ajax_value($id): string;
 
 }
