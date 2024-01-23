@@ -29,9 +29,11 @@
     }
 
     onMount(() => {
-        getRemoteSelectOptions(config.input.data.ajax_handler, $currentListKey).then((d) => {
-            originalOptions = d.data.data;
-            options = originalOptions;
+        getRemoteSelectOptions(config.input.data.ajax_handler, $currentListKey).then((response) => {
+            if (response.data.success) {
+                originalOptions = response.data.data.options;
+                options = originalOptions;
+            }
         });
 
         if (typeof value === 'undefined') {

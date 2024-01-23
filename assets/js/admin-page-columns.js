@@ -7302,7 +7302,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (85:4) {#if allowCreation}
+// (87:4) {#if allowCreation}
 function create_if_block(ctx) {
   let div;
   return {
@@ -7328,7 +7328,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (84:3) 
+// (86:3) 
 function create_empty_slot(ctx) {
   let div;
   function select_block_type(ctx, dirty) {
@@ -7359,7 +7359,7 @@ function create_empty_slot(ctx) {
   };
 }
 
-// (61:0) <ColumnSetting  label={config.label}  description={config.description}  config={config}  children={config.children ?? []}  bind:data={data}  name="select">
+// (63:0) <ColumnSetting  label={config.label}  description={config.description}  config={config}  children={config.children ?? []}  bind:data={data}  name="select">
 function create_default_slot(ctx) {
   let div;
   let select;
@@ -7553,9 +7553,11 @@ function instance($$self, $$props, $$invalidate) {
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onMount)(() => {
     var _a;
-    (0,_ajax_settings__WEBPACK_IMPORTED_MODULE_5__.getRemoteSelectOptions)(config.input.data.ajax_handler, $currentListKey).then(d => {
-      originalOptions = d.data.data;
-      $$invalidate(6, options = originalOptions);
+    (0,_ajax_settings__WEBPACK_IMPORTED_MODULE_5__.getRemoteSelectOptions)(config.input.data.ajax_handler, $currentListKey).then(response => {
+      if (response.data.success) {
+        originalOptions = response.data.data.options;
+        $$invalidate(6, options = originalOptions);
+      }
     });
     if (typeof value === 'undefined') {
       if (config.input.default) {
