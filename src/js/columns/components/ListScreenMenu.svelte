@@ -34,21 +34,20 @@
     }
 
     const showGroup = (group: string) => {
-        if( ! openedGroups.includes(group)){
+        if (!openedGroups.includes(group)) {
             openedGroups.push(group);
             openedGroups = openedGroups;
 
             persistMenuStatus(group, true);
-		}
+        }
     }
 
     const closeGroup = (group: string) => {
-        if( openedGroups.includes( group ) ){
+        if (openedGroups.includes(group)) {
             openedGroups = openedGroups.filter(d => d !== group);
 
             persistMenuStatus(group, false);
-		}
-
+        }
     }
 
     const mapMenuToSelect = (menu: AC.Vars.Admin.Columns.MenuItems): SvelteSelectItem[] => {

@@ -6,7 +6,7 @@ namespace AC\Setting\Input;
 
 use AC\Setting\Input;
 
-final class Custom extends Input
+class Custom extends Input
 {
 
     private $data;
