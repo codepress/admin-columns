@@ -90,13 +90,12 @@ class AdminColumns
             Capabilities\Manage::class,
             Controller\AjaxColumnRequest::class,
             Controller\AjaxGeneralOptions::class,
-            Controller\AjaxRequestCustomFieldKeys::class,
             Controller\AjaxColumnModalValue::class,
             Controller\AjaxColumnValue::class,
             Controller\AjaxScreenOptions::class,
             Controller\ListScreenRestoreColumns::class,
             Controller\RestoreSettingsRequest::class,
-            Controller\TableListScreenSetter::class,
+            Service\TableListScreenSetter::class,
             Service\CommonAssets::class,
             Service\Colors::class,
             Service\TableRows::class,
@@ -125,6 +124,7 @@ class AdminColumns
         $request_ajax_handlers->add('ac-list-screen-add-column', $container->get(Ajax\ListScreenAddColumn::class));
         $request_ajax_handlers->add('ac-editor-menu-status', $container->get(Ajax\EditorMenuStatus::class));
         $request_ajax_handlers->add('ac-editor-menu-favorites', $container->get(Ajax\EditorMenuFavorites::class));
+        $request_ajax_handlers->add('ac-custom-field-keys', $container->get(Ajax\CustomFieldKeys::class));
 
         $services->add(
             new RequestAjaxParser($request_ajax_handlers)

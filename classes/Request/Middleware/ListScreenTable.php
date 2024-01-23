@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Controller\Middleware;
+namespace AC\Request\Middleware;
 
 use AC\ListScreen;
 use AC\ListScreenRepository\Sort;

@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Controller\Middleware;
+namespace AC\Request\Middleware;
 
 use AC\Admin\Preference;
 use AC\ColumnCollection;

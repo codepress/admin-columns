@@ -52,7 +52,7 @@ class Columns implements PageFactoryInterface
         $request = new Request();
 
         $request->add_middleware(
-            new Middleware\TableScreenAdmin(
+            new Request\Middleware\TableScreenAdmin(
                 new Preference\ListScreen(),
                 $this->table_screen_repository->find_all_site()
             )

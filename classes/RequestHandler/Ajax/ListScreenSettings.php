@@ -67,7 +67,7 @@ class ListScreenSettings implements RequestAjaxHandler
         $table_screen = $this->table_factory->create($list_key);
 
         $request->add_middleware(
-            new Middleware\ListScreenAdmin(
+            new Request\Middleware\ListScreenAdmin(
                 $this->storage,
                 $table_screen,
                 $this->preference,

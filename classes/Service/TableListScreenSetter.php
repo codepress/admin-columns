@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Controller;
+namespace AC\Service;
 
 use AC\Asset\Location\Absolute;
 use AC\ColumnSize;
@@ -54,7 +54,7 @@ class TableListScreenSetter implements Registerable
         $request = new Request();
 
         $request->add_middleware(
-            new Middleware\ListScreenTable(
+            new Request\Middleware\ListScreenTable(
                 $this->storage,
                 $table_screen->get_key(),
                 $this->preference

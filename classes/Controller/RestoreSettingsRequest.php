@@ -39,6 +39,7 @@ class RestoreSettingsRequest implements Registerable
         $repository = $this->repository->get_list_screen_repository();
 
         foreach ($repository->find_all() as $list_screen) {
+            // TODO
             $repository->delete($list_screen);
         }
 
