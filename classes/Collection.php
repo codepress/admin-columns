@@ -6,6 +6,7 @@ namespace AC;
 
 use Countable;
 use Iterator;
+use ReturnTypeWillChange;
 
 class Collection implements Iterator, Countable
 {
@@ -58,6 +59,7 @@ class Collection implements Iterator, Countable
         return $this->get($key);
     }
 
+    #[ReturnTypeWillChange]
     public function rewind(): void
     {
         reset($this->items);
@@ -68,16 +70,19 @@ class Collection implements Iterator, Countable
         return reset($this->items);
     }
 
+    #[ReturnTypeWillChange]
     public function current()
     {
         return current($this->items);
     }
 
+    #[ReturnTypeWillChange]
     public function key()
     {
         return key($this->items);
     }
 
+    #[ReturnTypeWillChange]
     public function next(): void
     {
         next($this->items);
@@ -88,11 +93,13 @@ class Collection implements Iterator, Countable
         return $this->items;
     }
 
+    #[ReturnTypeWillChange]
     public function valid(): bool
     {
         return key($this->items) !== null;
     }
 
+    #[ReturnTypeWillChange]
     public function count(): int
     {
         return count($this->items);
