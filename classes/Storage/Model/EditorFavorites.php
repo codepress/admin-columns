@@ -20,7 +20,7 @@ class EditorFavorites
 
     public function set_as_favorite(ListKey $key): void
     {
-        $this->storage->save((string)$key, '1');
+        $this->storage->save((string)$key, 1);
     }
 
     public function remove_as_favorite(ListKey $key): void
@@ -30,9 +30,9 @@ class EditorFavorites
 
     public function find_all_favorites(): array
     {
-        $list_keys = $this->storage->find_all() ?: [];
-
-        return array_keys($list_keys);
+        return array_keys(
+            $this->storage->find_all()
+        );
     }
 
 }

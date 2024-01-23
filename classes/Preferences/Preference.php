@@ -16,7 +16,7 @@ final class Preference
         $this->storage = $storage;
     }
 
-    public function find_all(): ?array
+    public function find_all(): array
     {
         return $this->storage->get() ?: [];
     }

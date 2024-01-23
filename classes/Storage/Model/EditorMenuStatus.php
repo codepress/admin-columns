@@ -26,9 +26,9 @@ class EditorMenuStatus
 
     public function find_all_active_groups(): array
     {
-        $groups = $this->storage->find_all() ?: [];
-
-        return array_keys($groups);
+        return array_keys(
+            $this->storage->find_all()
+        );
     }
 
 }
