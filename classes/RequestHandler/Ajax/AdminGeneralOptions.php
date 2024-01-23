@@ -1,14 +1,17 @@
 <?php
 
-namespace AC\Controller;
+declare(strict_types=1);
 
-use AC\Ajax;
+namespace AC\RequestHandler\Ajax;
+
 use AC\Capabilities;
-use AC\Registerable;
+use AC\Nonce;
 use AC\Request;
+use AC\RequestAjaxHandler;
+use AC\Response\Json;
 use AC\Settings\GeneralOptionFactory;
 
-class AjaxGeneralOptions implements Registerable
+class AdminGeneralOptions implements RequestAjaxHandler
 {
 
     private $option_factory;
@@ -18,30 +21,18 @@ class AjaxGeneralOptions implements Registerable
         $this->option_factory = $option_factory;
     }
 
-    public function register(): void
+    public function handle(): void
     {
-        $this->get_ajax_handler()->register();
-    }
-
-    private function get_ajax_handler(): Ajax\Handler
-    {
-        $handler = new Ajax\Handler();
-        $handler
-            ->set_action('ac_admin_general_options')
-            ->set_callback([$this, 'handle_request']);
-
-        return $handler;
-    }
-
-    public function handle_request()
-    {
-        $this->get_ajax_handler()->verify_request();
-
         if ( ! current_user_can(Capabilities::MANAGE)) {
-            wp_send_json_error();
+            return;
         }
 
         $request = new Request();
+        $response = new Json();
+
+        if ( ! (new Nonce\Ajax())->verify($request)) {
+            $response->error();
+        }
 
         $name = (string)$request->filter('option_name');
         $value = (string)$request->filter('option_value');

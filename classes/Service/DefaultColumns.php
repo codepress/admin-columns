@@ -1,6 +1,6 @@
 <?php
 
-namespace AC\Controller;
+namespace AC\Service;
 
 use AC\Capabilities;
 use AC\DefaultColumnsRepository;

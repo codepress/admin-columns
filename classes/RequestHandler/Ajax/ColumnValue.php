@@ -1,14 +1,18 @@
 <?php
 
-namespace AC\Controller;
+declare(strict_types=1);
 
-use AC\Ajax;
+namespace AC\RequestHandler\Ajax;
+
 use AC\Column\AjaxValue;
 use AC\ListScreenRepository\Storage;
-use AC\Registerable;
+use AC\Nonce;
+use AC\Request;
+use AC\RequestAjaxHandler;
+use AC\Response\Json;
 use AC\Type\ListScreenId;
 
-class AjaxColumnValue implements Registerable
+class ColumnValue implements RequestAjaxHandler
 {
 
     private $repository;
@@ -18,26 +22,15 @@ class AjaxColumnValue implements Registerable
         $this->repository = $repository;
     }
 
-    public function register(): void
+    public function handle(): void
     {
-        $this->get_ajax_handler()->register();
-    }
+        $request = new Request();
+        $response = new Json();
 
-    private function get_ajax_handler()
-    {
-        $handler = new Ajax\Handler();
-        $handler
-            ->set_action('ac_get_column_value')
-            ->set_callback([$this, 'get_value']);
+        if ( ! (new Nonce\Ajax())->verify($request)) {
+            $response->error();
+        }
 
-        return $handler;
-    }
-
-    public function get_value()
-    {
-        check_ajax_referer('ac-ajax');
-
-        // Get ID of entry to edit
         $id = (int)filter_input(INPUT_POST, 'pk');
 
         if ( ! $id) {
@@ -58,15 +51,10 @@ class AjaxColumnValue implements Registerable
 
         $column = $list_screen->get_column((string)filter_input(INPUT_POST, 'column'));
 
-        if ( ! $column) {
+        if ( ! $column instanceof AjaxValue) {
             wp_send_json_error(__('Invalid column.', 'codepress-admin-columns'), 400);
         }
 
-        if ( ! $column instanceof AjaxValue) {
-            wp_send_json_error(__('Invalid method.', 'codepress-admin-columns'), 400);
-        }
-
-        // Trigger ajax callback
         echo $column->get_ajax_value($id);
         exit;
     }

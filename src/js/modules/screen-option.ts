@@ -5,6 +5,7 @@ const $ = require("jquery");
 declare const ajaxurl: string
 declare const AC: LocalizedAcTable
 
+// TODO remove?
 export default class ScreenOption {
 
     element: HTMLElement
