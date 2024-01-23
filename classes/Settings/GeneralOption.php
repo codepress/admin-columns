@@ -4,18 +4,41 @@ namespace AC\Settings;
 
 use AC\Storage;
 
-class GeneralOption extends Storage\Option {
+class GeneralOption
+{
 
-	const NAME = 'cpac_general_options';
+    private $storage;
 
-	public function __construct() {
-		parent::__construct( self::NAME );
-	}
+    public function __construct(Storage\OptionData $storage)
+    {
+        $this->storage = $storage;
+    }
 
-	public function get( array $args = [] ) {
-		$option = parent::get( $args );
+    public function get(string $key)
+    {
+        $data = $this->storage->get() ?: [];
 
-		return is_array( $option ) ? $option : [];
-	}
+        return $data[$key] ?? null;
+    }
+
+    public function delete(string $key): void
+    {
+        $data = $this->storage->get() ?: [];
+
+        unset($data[$key]);
+
+        $data
+            ? $this->storage->save($data)
+            : $this->storage->delete();
+    }
+
+    public function save(string $key, $value): void
+    {
+        $data = $this->storage->get() ?: [];
+
+        $data[$key] = $value;
+
+        $this->storage->save($data);
+    }
 
 }

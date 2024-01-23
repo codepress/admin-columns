@@ -12,7 +12,6 @@ use AC\ListScreen;
 use AC\Registerable;
 use AC\Renderable;
 use AC\ScreenController;
-use AC\Settings;
 use AC\TableScreen;
 use AC\Type\EditorUrlFactory;
 
@@ -132,9 +131,9 @@ final class Screen implements Registerable
             return;
         }
 
-        $edit_button = new Settings\Option\EditButton();
+        $edit_button = new AC\Storage\Model\EditButton();
 
-        if ( ! $edit_button->is_enabled()) {
+        if ( ! $edit_button->is_active()) {
             return;
         }
 
