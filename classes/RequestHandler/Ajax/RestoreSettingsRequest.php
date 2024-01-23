@@ -1,13 +1,18 @@
 <?php
 
-namespace AC\Controller;
+namespace AC\RequestHandler\Ajax;
 
 use AC\Capabilities;
 use AC\ListScreenRepository;
+use AC\ListScreenRepositoryWritable;
 use AC\Message\Notice;
-use AC\Registerable;
+use AC\Nonce;
+use AC\Request;
+use AC\RequestAjaxHandler;
+use AC\Response;
 
-class RestoreSettingsRequest implements Registerable
+// TODO create JS handler
+class RestoreSettingsRequest implements RequestAjaxHandler
 {
 
     private $repository;
@@ -17,29 +22,26 @@ class RestoreSettingsRequest implements Registerable
         $this->repository = $repository;
     }
 
-    public function register(): void
-    {
-        add_action('admin_init', [$this, 'handle_request']);
-    }
-
-    public function handle_request(): void
+    public function handle(): void
     {
         if ( ! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
-        if ('restore' !== filter_input(INPUT_POST, 'ac_action')) {
-            return;
-        }
+        $request = new Request();
+        $response = new Response\Json();
 
-        if ( ! wp_verify_nonce(filter_input(INPUT_POST, '_ac_nonce'), 'restore')) {
-            return;
+        if ( ! (new Nonce\Ajax())->verify($request)) {
+            $response->error();
         }
 
         $repository = $this->repository->get_list_screen_repository();
 
+        if ( ! $repository instanceof ListScreenRepositoryWritable) {
+            return;
+        }
+
         foreach ($repository->find_all() as $list_screen) {
-            // TODO
             $repository->delete($list_screen);
         }
 

@@ -607,7 +607,7 @@ function instance($$self, $$props, $$invalidate) {
       url: ajaxurl,
       cancelToken: source.token,
       params: {
-        action: 'ac_get_column_modal_value',
+        action: 'ac-get-column-modal-value',
         layout: AC.layout,
         column_name: item.columnName,
         object_id: item.objectId,
@@ -7122,7 +7122,7 @@ class ToggleBoxLink {
             url: ajaxurl,
             method: 'POST',
             data: {
-                action: 'ac_get_column_value',
+                action: 'ac-get-column-value',
                 list_screen: AC.list_screen,
                 layout: AC.layout,
                 column: this.element.dataset.column,

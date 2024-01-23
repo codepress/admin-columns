@@ -117,7 +117,7 @@ export default class ToggleBoxLink {
             url: ajaxurl,
             method: 'POST',
             data: {
-                action: 'ac_get_column_value',
+                action: 'ac-get-column-value',
                 list_screen: AC.list_screen,
                 layout: AC.layout,
                 column: this.element.dataset.column,

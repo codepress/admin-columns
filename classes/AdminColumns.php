@@ -11,7 +11,6 @@ use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Asset\Location\Absolute;
 use AC\Asset\Script\Localize\Translation;
-use AC\Controller\RestoreSettingsRequest;
 use AC\Entity\Plugin;
 use AC\ListScreenRepository\Database;
 use AC\ListScreenRepository\Storage;
@@ -19,6 +18,7 @@ use AC\ListScreenRepository\Types;
 use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax;
+use AC\RequestHandler\Ajax\RestoreSettingsRequest;
 use AC\Storage\EncoderFactory;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
@@ -85,16 +85,9 @@ class AdminColumns
             ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant::class,
             ThirdParty\WooCommerce::class,
             ThirdParty\WPML::class,
-            Controller\DefaultColumns::class,
+            Service\DefaultColumns::class,
             Screen\QuickEdit::class,
             Capabilities\Manage::class,
-            Controller\AjaxColumnRequest::class,
-            Controller\AjaxGeneralOptions::class,
-            Controller\AjaxColumnModalValue::class,
-            Controller\AjaxColumnValue::class,
-            Controller\AjaxScreenOptions::class,
-            Controller\ListScreenRestoreColumns::class,
-            Controller\RestoreSettingsRequest::class,
             Service\TableListScreenSetter::class,
             Service\CommonAssets::class,
             Service\Colors::class,
@@ -125,6 +118,14 @@ class AdminColumns
         $request_ajax_handlers->add('ac-editor-menu-status', $container->get(Ajax\EditorMenuStatus::class));
         $request_ajax_handlers->add('ac-editor-menu-favorites', $container->get(Ajax\EditorMenuFavorites::class));
         $request_ajax_handlers->add('ac-custom-field-keys', $container->get(Ajax\CustomFieldKeys::class));
+        $request_ajax_handlers->add('ac-admin-screen-options', $container->get(Ajax\ScreenOptions::class));
+        // TODO test
+        $request_ajax_handlers->add('ac-get-column-modal-value', $container->get(Ajax\ColumnValueModal::class));
+        // TODO test
+        $request_ajax_handlers->add('ac-get-column-value', $container->get(Ajax\ColumnValue::class));
+        $request_ajax_handlers->add('ac-admin-general-options', $container->get(Ajax\AdminGeneralOptions::class));
+        // TODO Stefan create ajax call in JS
+        $request_ajax_handlers->add('ac-restore-settings', $container->get(Ajax\RestoreSettingsRequest::class));
 
         $services->add(
             new RequestAjaxParser($request_ajax_handlers)

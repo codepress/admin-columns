@@ -70,13 +70,7 @@ class Json
         ]);
     }
 
-    /**
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return $this
-     */
-    public function set_parameter($key, $value): self
+    public function set_parameter(string $key, $value): self
     {
         $this->parameters[$key] = $value;
 

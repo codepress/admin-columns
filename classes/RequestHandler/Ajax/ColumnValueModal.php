@@ -1,15 +1,18 @@
 <?php
 
-namespace AC\Controller;
+declare(strict_types=1);
 
-use AC\Ajax;
+namespace AC\RequestHandler\Ajax;
+
 use AC\Column\AjaxValue;
 use AC\ListScreenRepository\Storage;
-use AC\Registerable;
+use AC\Nonce;
 use AC\Request;
+use AC\RequestAjaxHandler;
+use AC\Response\Json;
 use AC\Type\ListScreenId;
 
-class AjaxColumnModalValue implements Registerable
+class ColumnValueModal implements RequestAjaxHandler
 {
 
     private $repository;
@@ -19,29 +22,17 @@ class AjaxColumnModalValue implements Registerable
         $this->repository = $repository;
     }
 
-    public function register(): void
+    public function handle(): void
     {
-        $this->get_ajax_handler()->register();
-    }
-
-    private function get_ajax_handler()
-    {
-        $handler = new Ajax\Handler();
-        $handler
-            ->set_action('ac_get_column_modal_value')
-            ->set_callback([$this, 'get_value']);
-
-        return $handler;
-    }
-
-    public function get_value()
-    {
-        check_ajax_referer('ac-ajax');
-
         $request = new Request();
+        $response = new Json();
+
+        if ( ! (new Nonce\Ajax())->verify($request)) {
+            $response->error();
+        }
 
         $id = (int)$request->filter('object_id', null, FILTER_SANITIZE_NUMBER_INT);
-        $list_id = $request->filter('layout', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $list_id = (string)$request->filter('layout', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $column_name = (string)$request->filter('column_name', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if ( ! $id) {
@@ -60,16 +51,11 @@ class AjaxColumnModalValue implements Registerable
 
         $column = $list_screen->get_column($column_name);
 
-        if ( ! $column) {
+        if ( ! $column instanceof AjaxValue) {
             wp_send_json_error(__('Invalid column.', 'codepress-admin-columns'), 400);
         }
 
-        if ( ! $column instanceof AjaxValue) {
-            wp_send_json_error(__('Invalid method.', 'codepress-admin-columns'), 400);
-        }
-
-        $seconds = 60;
-        header("Cache-Control: max-age=" . $seconds);
+        header("Cache-Control: max-age=60");
 
         echo $column->get_ajax_value($id);
         exit;

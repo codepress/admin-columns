@@ -6,7 +6,7 @@ use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\ColumnTypesFactory\Aggregate;
-use AC\Controller\DefaultColumns;
+use AC\Service\DefaultColumns;
 use AC\Storage\Model\EditorFavorites;
 use AC\Storage\Model\EditorMenuStatus;
 use AC\Table\TableScreenCollection;

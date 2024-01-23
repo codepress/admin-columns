@@ -78,7 +78,7 @@ class CustomFieldKeys implements RequestAjaxHandler
         );
 
         $response
-            ->set_parameters($encoder->encode($collection))
+            ->set_parameter('options', $encoder->encode($collection))
             ->success();
     }
 
