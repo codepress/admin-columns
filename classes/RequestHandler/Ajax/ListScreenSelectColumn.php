@@ -6,12 +6,10 @@ namespace AC\RequestHandler\Ajax;
 
 use AC;
 use AC\Capabilities;
-use AC\Column;
 use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
-use AC\Setting\Encoder;
 use AC\TableScreenFactory\Aggregate;
 use AC\Type\ListKey;
 
@@ -22,12 +20,16 @@ class ListScreenSelectColumn implements RequestAjaxHandler
 
     private $column_factory;
 
+    private $json_response_factory;
+
     public function __construct(
         Aggregate $table_screen_factory,
-        AC\ColumnFactory $column_factory
+        AC\ColumnFactory $column_factory,
+        AC\Response\JsonColumnFactory $json_response_factory
     ) {
         $this->table_screen_factory = $table_screen_factory;
         $this->column_factory = $column_factory;
+        $this->json_response_factory = $json_response_factory;
     }
 
     public function handle(): void
@@ -53,32 +55,15 @@ class ListScreenSelectColumn implements RequestAjaxHandler
 
         $column = $this->column_factory->create(
             $table_screen,
-            // TODO expects 'type' and for e.g. 'field_type=color'
-            $request->get('column_settings') ?: []
+            json_decode((string)$request->get('data'), true)
         );
 
         if ( ! $column) {
             $response->error();
         }
 
-        $column_settings = $this->get_column_settings($column);
-
-        $column_config = [
-            'settings' => $column_settings,
-            'original' => $column->is_original(),
-            'id'       => $column->get_name(),
-        ];
-
-        $response->set_parameter('columns', $column_config);
-
-        $response->success();
-
-        exit;
-    }
-
-    private function get_column_settings(Column $column): array
-    {
-        return (new Encoder($column->get_settings()))->encode();
+        $this->json_response_factory->create_by_column($column)
+                                    ->success();
     }
 
 }
