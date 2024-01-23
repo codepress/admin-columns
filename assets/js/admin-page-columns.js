@@ -2967,17 +2967,17 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[12] = list[i];
+  child_ctx[13] = list[i];
   return child_ctx;
 }
 
-// (57:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
+// (61:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
   htmlsection = new _HtmlSection_svelte__WEBPACK_IMPORTED_MODULE_7__["default"]({
     props: {
-      component: /*component*/ctx[12]
+      component: /*component*/ctx[13]
     }
   });
   return {
@@ -3004,26 +3004,26 @@ function create_each_block(ctx) {
   };
 }
 
-// (61:2) {#if $listScreenDataStore !== null}
+// (65:2) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
   let updating_data;
   let current;
   function listscreenform_config_binding(value) {
-    /*listscreenform_config_binding*/ctx[5](value);
+    /*listscreenform_config_binding*/ctx[6](value);
   }
   function listscreenform_data_binding(value) {
-    /*listscreenform_data_binding*/ctx[6](value);
+    /*listscreenform_data_binding*/ctx[7](value);
   }
   let listscreenform_props = {
-    tableUrl: /*tableUrl*/ctx[2]
+    tableUrl: /*tableUrl*/ctx[3]
   };
-  if ( /*config*/ctx[1] !== void 0) {
-    listscreenform_props.config = /*config*/ctx[1];
+  if ( /*config*/ctx[2] !== void 0) {
+    listscreenform_props.config = /*config*/ctx[2];
   }
-  if ( /*$listScreenDataStore*/ctx[3] !== void 0) {
-    listscreenform_props.data = /*$listScreenDataStore*/ctx[3];
+  if ( /*$listScreenDataStore*/ctx[4] !== void 0) {
+    listscreenform_props.data = /*$listScreenDataStore*/ctx[4];
   }
   listscreenform = new _ListScreenForm_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: listscreenform_props
@@ -3040,15 +3040,15 @@ function create_if_block(ctx) {
     },
     p(ctx, dirty) {
       const listscreenform_changes = {};
-      if (dirty & /*tableUrl*/4) listscreenform_changes.tableUrl = /*tableUrl*/ctx[2];
-      if (!updating_config && dirty & /*config*/2) {
+      if (dirty & /*tableUrl*/8) listscreenform_changes.tableUrl = /*tableUrl*/ctx[3];
+      if (!updating_config && dirty & /*config*/4) {
         updating_config = true;
-        listscreenform_changes.config = /*config*/ctx[1];
+        listscreenform_changes.config = /*config*/ctx[2];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_config = false);
       }
-      if (!updating_data && dirty & /*$listScreenDataStore*/8) {
+      if (!updating_data && dirty & /*$listScreenDataStore*/16) {
         updating_data = true;
-        listscreenform_changes.data = /*$listScreenDataStore*/ctx[3];
+        listscreenform_changes.data = /*$listScreenDataStore*/ctx[4];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_data = false);
       }
       listscreenform.$set(listscreenform_changes);
@@ -3077,16 +3077,17 @@ function create_fragment(ctx) {
   let current;
   listscreenmenu = new _ListScreenMenu_svelte__WEBPACK_IMPORTED_MODULE_8__["default"]({
     props: {
-      menu: /*menu*/ctx[0]
+      menu: /*menu*/ctx[0],
+      openedGroups: /*openedGroups*/ctx[1]
     }
   });
-  listscreenmenu.$on("itemSelect", /*handleMenuSelect*/ctx[4]);
+  listscreenmenu.$on("itemSelect", /*handleMenuSelect*/ctx[5]);
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(_store_list_screen_sections__WEBPACK_IMPORTED_MODULE_6__["default"].getSections('before_columns'));
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
   }
-  let if_block = /*$listScreenDataStore*/ctx[3] !== null && create_if_block(ctx);
+  let if_block = /*$listScreenDataStore*/ctx[4] !== null && create_if_block(ctx);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -3121,11 +3122,12 @@ function create_fragment(ctx) {
     p(ctx, [dirty]) {
       const listscreenmenu_changes = {};
       if (dirty & /*menu*/1) listscreenmenu_changes.menu = /*menu*/ctx[0];
+      if (dirty & /*openedGroups*/2) listscreenmenu_changes.openedGroups = /*openedGroups*/ctx[1];
       listscreenmenu.$set(listscreenmenu_changes);
-      if ( /*$listScreenDataStore*/ctx[3] !== null) {
+      if ( /*$listScreenDataStore*/ctx[4] !== null) {
         if (if_block) {
           if_block.p(ctx, dirty);
-          if (dirty & /*$listScreenDataStore*/8) {
+          if (dirty & /*$listScreenDataStore*/16) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
           }
         } else {
@@ -3175,12 +3177,15 @@ function instance($$self, $$props, $$invalidate) {
   let $columnTypesStore;
   let $currentListId;
   let $listScreenDataStore;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(8, $currentListKey = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(9, $columnTypesStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(10, $currentListId = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(3, $listScreenDataStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(9, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $$value => $$invalidate(10, $columnTypesStore = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $$value => $$invalidate(11, $currentListId = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(4, $listScreenDataStore = $$value));
   let {
     menu
+  } = $$props;
+  let {
+    openedGroups
   } = $$props;
   let config;
   let tableUrl;
@@ -3193,8 +3198,8 @@ function instance($$self, $$props, $$invalidate) {
   };
   const refreshListScreenData = (listKey, listId = null) => {
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_4__.getListScreenSettings)(listKey, listId).then(response => {
-      $$invalidate(1, config = response.data.data.column_settings);
-      $$invalidate(2, tableUrl = response.data.data.table_url);
+      $$invalidate(2, config = response.data.data.column_settings);
+      $$invalidate(3, tableUrl = response.data.data.table_url);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $currentListKey = listKey, $currentListKey);
       loadedListId = response.data.data.settings.list_screen.id;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $currentListId = response.data.data.settings.list_screen.id, $currentListId);
@@ -3222,7 +3227,7 @@ function instance($$self, $$props, $$invalidate) {
   });
   function listscreenform_config_binding(value) {
     config = value;
-    $$invalidate(1, config);
+    $$invalidate(2, config);
   }
   function listscreenform_data_binding(value) {
     $listScreenDataStore = value;
@@ -3230,14 +3235,16 @@ function instance($$self, $$props, $$invalidate) {
   }
   $$self.$$set = $$props => {
     if ('menu' in $$props) $$invalidate(0, menu = $$props.menu);
+    if ('openedGroups' in $$props) $$invalidate(1, openedGroups = $$props.openedGroups);
   };
-  return [menu, config, tableUrl, $listScreenDataStore, handleMenuSelect, listscreenform_config_binding, listscreenform_data_binding];
+  return [menu, openedGroups, config, tableUrl, $listScreenDataStore, handleMenuSelect, listscreenform_config_binding, listscreenform_data_binding];
 }
 class ColumnsPage extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      menu: 0
+      menu: 0,
+      openedGroups: 1
     });
   }
 }
@@ -3889,7 +3896,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_favorite_listkeys__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../store/favorite-listkeys */ "./js/columns/store/favorite-listkeys.ts");
 /* harmony import */ var _ListScreenMenuItem_svelte__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ListScreenMenuItem.svelte */ "./js/columns/components/ListScreenMenuItem.svelte");
 /* harmony import */ var _utils_global__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../utils/global */ "./js/columns/utils/global.ts");
+/* harmony import */ var _ajax_menu__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../ajax/menu */ "./js/columns/ajax/menu.ts");
 /* js/columns/components/ListScreenMenu.svelte generated by Svelte v4.2.0 */
+
 
 
 
@@ -3918,7 +3927,7 @@ function get_each_context_2(ctx, list, i) {
   return child_ctx;
 }
 
-// (87:2) {#if Object.keys( favoriteItems ).length > 0}
+// (94:2) {#if Object.keys( favoriteItems ).length > 0}
 function create_if_block_1(ctx) {
   let div;
   let button;
@@ -4023,7 +4032,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (94:5) {#each Object.entries( favoriteItems ) as [ key, label ]}
+// (101:5) {#each Object.entries( favoriteItems ) as [ key, label ]}
 function create_each_block_2(ctx) {
   let listscreenmenuitem;
   let current;
@@ -4068,7 +4077,7 @@ function create_each_block_2(ctx) {
   };
 }
 
-// (113:4) {#if openedGroups.includes( key )}
+// (120:4) {#if openedGroups.includes( key )}
 function create_if_block(ctx) {
   let ul;
   let current;
@@ -4098,7 +4107,7 @@ function create_if_block(ctx) {
       current = true;
     },
     p(ctx, dirty) {
-      if (dirty & /*Object, menu, selectValue*/9) {
+      if (dirty & /*Object, menu, selectValue*/10) {
         each_value_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(Object.entries( /*group*/ctx[22].options));
         let i;
         for (i = 0; i < each_value_1.length; i += 1) {
@@ -4143,7 +4152,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (115:6) {#each Object.entries( group.options ) as [ key, label ]}
+// (122:6) {#each Object.entries( group.options ) as [ key, label ]}
 function create_each_block_1(ctx) {
   let listscreenmenuitem;
   let current;
@@ -4169,8 +4178,8 @@ function create_each_block_1(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       const listscreenmenuitem_changes = {};
-      if (dirty & /*menu*/1) listscreenmenuitem_changes.key = /*key*/ctx[21];
-      if (dirty & /*menu*/1) listscreenmenuitem_changes.label = /*label*/ctx[25];
+      if (dirty & /*menu*/2) listscreenmenuitem_changes.key = /*key*/ctx[21];
+      if (dirty & /*menu*/2) listscreenmenuitem_changes.label = /*label*/ctx[25];
       listscreenmenuitem.$set(listscreenmenuitem_changes);
     },
     i(local) {
@@ -4188,7 +4197,7 @@ function create_each_block_1(ctx) {
   };
 }
 
-// (105:2) {#each Object.entries( menu ) as [ key, group ]}
+// (112:2) {#each Object.entries( menu ) as [ key, group ]}
 function create_each_block(ctx) {
   let div;
   let button;
@@ -4199,7 +4208,7 @@ function create_each_block(ctx) {
   let t2;
   let span;
   let t3;
-  let show_if = /*openedGroups*/ctx[1].includes( /*key*/ctx[21]);
+  let show_if = /*openedGroups*/ctx[0].includes( /*key*/ctx[21]);
   let t4;
   let current;
   let mounted;
@@ -4229,7 +4238,7 @@ function create_each_block(ctx) {
       t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", "ac-menu-group__header__indicator dashicons dashicons-arrow-up-alt2");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", "ac-menu-group__header");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "closed", ! /*openedGroups*/ctx[1].includes( /*key*/ctx[21]));
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "closed", ! /*openedGroups*/ctx[0].includes( /*key*/ctx[21]));
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "ac-menu-group");
     },
     m(target, anchor) {
@@ -4252,13 +4261,13 @@ function create_each_block(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       const groupicon_changes = {};
-      if (dirty & /*menu*/1) groupicon_changes.icon = /*group*/ctx[22].icon;
+      if (dirty & /*menu*/2) groupicon_changes.icon = /*group*/ctx[22].icon;
       groupicon.$set(groupicon_changes);
-      if ((!current || dirty & /*menu*/1) && t1_value !== (t1_value = /*group*/ctx[22].title + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t1, t1_value);
+      if ((!current || dirty & /*menu*/2) && t1_value !== (t1_value = /*group*/ctx[22].title + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t1, t1_value);
       if (!current || dirty & /*openedGroups, Object, menu*/3) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "closed", ! /*openedGroups*/ctx[1].includes( /*key*/ctx[21]));
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(button, "closed", ! /*openedGroups*/ctx[0].includes( /*key*/ctx[21]));
       }
-      if (dirty & /*openedGroups, menu*/3) show_if = /*openedGroups*/ctx[1].includes( /*key*/ctx[21]);
+      if (dirty & /*openedGroups, menu*/3) show_if = /*openedGroups*/ctx[0].includes( /*key*/ctx[21]);
       if (show_if) {
         if (if_block) {
           if_block.p(ctx, dirty);
@@ -4331,7 +4340,7 @@ function create_fragment(ctx) {
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(select, 'value', select_value_binding));
   select.$on("input", /*handleSelect*/ctx[6]);
   let if_block = show_if && create_if_block_1(ctx);
-  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(Object.entries( /*menu*/ctx[0]));
+  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(Object.entries( /*menu*/ctx[1]));
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
@@ -4400,7 +4409,7 @@ function create_fragment(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
       if (dirty & /*Object, menu, selectValue, openedGroups, toggleGroup*/139) {
-        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(Object.entries( /*menu*/ctx[0]));
+        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(Object.entries( /*menu*/ctx[1]));
         let i;
         for (i = 0; i < each_value.length; i += 1) {
           const child_ctx = get_each_context(ctx, each_value, i);
@@ -4457,9 +4466,11 @@ function instance($$self, $$props, $$invalidate) {
   let {
     menu
   } = $$props;
+  let {
+    openedGroups = []
+  } = $$props;
   const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_3__.createEventDispatcher)();
   const i18n = (0,_utils_global__WEBPACK_IMPORTED_MODULE_8__.getColumnSettingsTranslation)();
-  let openedGroups = [];
   let options;
   let selectValue = '';
   let favoriteItems = {};
@@ -4473,11 +4484,17 @@ function instance($$self, $$props, $$invalidate) {
     openedGroups.includes(group) ? closeGroup(group) : showGroup(group);
   };
   const showGroup = group => {
-    openedGroups.push(group);
-    $$invalidate(1, openedGroups);
+    if (!openedGroups.includes(group)) {
+      openedGroups.push(group);
+      $$invalidate(0, openedGroups);
+      (0,_ajax_menu__WEBPACK_IMPORTED_MODULE_9__.persistMenuStatus)(group, true);
+    }
   };
   const closeGroup = group => {
-    $$invalidate(1, openedGroups = openedGroups.filter(d => d !== group));
+    if (openedGroups.includes(group)) {
+      $$invalidate(0, openedGroups = openedGroups.filter(d => d !== group));
+      (0,_ajax_menu__WEBPACK_IMPORTED_MODULE_9__.persistMenuStatus)(group, false);
+    }
   };
   const mapMenuToSelect = menu => {
     let result = [];
@@ -4524,15 +4541,17 @@ function instance($$self, $$props, $$invalidate) {
   const click_handler = key => toggleGroup(key);
   const selectItem_handler_1 = key => $$invalidate(3, selectValue = key);
   $$self.$$set = $$props => {
-    if ('menu' in $$props) $$invalidate(0, menu = $$props.menu);
+    if ('menu' in $$props) $$invalidate(1, menu = $$props.menu);
+    if ('openedGroups' in $$props) $$invalidate(0, openedGroups = $$props.openedGroups);
   };
-  return [menu, openedGroups, options, selectValue, favoriteItems, i18n, handleSelect, toggleGroup, groupBy, select_value_binding, selectItem_handler, click_handler, selectItem_handler_1];
+  return [openedGroups, menu, options, selectValue, favoriteItems, i18n, handleSelect, toggleGroup, groupBy, select_value_binding, selectItem_handler, click_handler, selectItem_handler_1];
 }
 class ListScreenMenu extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      menu: 0
+      menu: 1,
+      openedGroups: 0
     });
   }
 }
@@ -17297,7 +17316,8 @@ const saveListScreen = (data, listKey) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   persistMenuFavorite: () => (/* binding */ persistMenuFavorite)
+/* harmony export */   persistMenuFavorite: () => (/* binding */ persistMenuFavorite),
+/* harmony export */   persistMenuStatus: () => (/* binding */ persistMenuStatus)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 /* harmony import */ var _utils_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/global */ "./js/columns/utils/global.ts");
@@ -17309,6 +17329,14 @@ const persistMenuFavorite = (listKey, favorite) => {
     data.set('action', 'ac-editor-menu-favorites');
     data.set('list_key', listKey);
     data.set('status', favorite ? 'favorite' : '');
+    return axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(ajaxurl, data);
+};
+const persistMenuStatus = (group, open) => {
+    let data = new FormData();
+    data.set('_ajax_nonce', (0,_utils_global__WEBPACK_IMPORTED_MODULE_0__.getColumnSettingsConfig)().nonce);
+    data.set('action', 'ac-editor-menu-status');
+    data.set('group', group);
+    data.set('status', open ? 'open' : 'close');
     return axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(ajaxurl, data);
 };
 
@@ -31181,6 +31209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         target: target,
         props: {
             menu: config.menu_items,
+            openedGroups: config.menu_groups_opened
         }
     });
     (_a = document.querySelector('#cpac')) === null || _a === void 0 ? void 0 : _a.prepend(target);

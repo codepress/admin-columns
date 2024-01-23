@@ -13,6 +13,7 @@
     import ColumnSetting = AC.Vars.Settings.ColumnSetting;
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
+	export let openedGroups: string[];
 
     let config: { [key: string]: ColumnSetting[] };
     let tableUrl: string;
@@ -58,9 +59,12 @@
 
 <div class="ac-admin-page">
 	<aside class="ac-admin-page-menu">
-		<ListScreenMenu menu={menu} on:itemSelect={handleMenuSelect}>
+		<ListScreenMenu
+			menu={menu}
+			openedGroups={openedGroups}
+			on:itemSelect={handleMenuSelect}
+		/>
 
-		</ListScreenMenu>
 	</aside>
 	<main class="ac-admin-page-main">
 		{#each ListScreenSections.getSections( 'before_columns' ) as component}

@@ -7,13 +7,14 @@
     import {favoriteListKeysStore} from "../store/favorite-listkeys";
     import ListScreenMenuItem from "./ListScreenMenuItem.svelte";
     import {getColumnSettingsTranslation} from "../utils/global";
+    import {persistMenuStatus} from "../ajax/menu";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
+    export let openedGroups: string[] = [];
 
     const dispatch = createEventDispatcher();
     const i18n = getColumnSettingsTranslation();
 
-    let openedGroups: string[] = [];
     let options: SvelteSelectItem[];
     let selectValue = '';
     let favoriteItems: { [key: string]: string } = {}
@@ -33,14 +34,22 @@
     }
 
     const showGroup = (group: string) => {
-        openedGroups.push(group);
-        openedGroups = openedGroups;
+        if( ! openedGroups.includes(group)){
+            openedGroups.push(group);
+            openedGroups = openedGroups;
+
+            persistMenuStatus(group, true);
+		}
     }
 
     const closeGroup = (group: string) => {
-        openedGroups = openedGroups.filter(d => d !== group);
-    }
+        if( openedGroups.includes( group ) ){
+            openedGroups = openedGroups.filter(d => d !== group);
 
+            persistMenuStatus(group, false);
+		}
+
+    }
 
     const mapMenuToSelect = (menu: AC.Vars.Admin.Columns.MenuItems): SvelteSelectItem[] => {
         let result: SvelteSelectItem[] = [];
