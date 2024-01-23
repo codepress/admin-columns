@@ -113,9 +113,12 @@
 					bind:data={data}
 					bind:settings={config}
 			/>
+
+			<div style="padding: 10px; background: #FFDCDCFF">
 			<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
-			<button on:click={checkAppliedSettings}>Check settings</button>
-			<button on:click={tempSelectColumn}>Check Select Column</button>
+			<button class="button" on:click={checkAppliedSettings}>Check settings</button>
+			<button class="button" on:click={tempSelectColumn}>Check Select Column</button>
+			</div>
 		</div>
 	{/if}
 </div>
