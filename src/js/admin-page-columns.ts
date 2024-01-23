@@ -7,6 +7,7 @@ import ListScreenSections from "./columns/store/list-screen-sections";
 import {listScreenDataStore} from "./columns/store/list-screen-data";
 import {columnTypeSorter, columnTypesStore} from "./columns/store/column-types";
 import {listScreenIsReadOnly} from "./columns/store/read_only";
+import {favoriteListKeysStore} from "./columns/store/favorite-listkeys";
 
 const AcServices = initAcServices();
 const config = getColumnSettingsConfig();
@@ -14,7 +15,6 @@ const config = getColumnSettingsConfig();
 // TODO clean up legacy columns and check what is necessary
 require('./_legacy-columns.ts');
 require('./columns/init/setting-types.ts');
-
 
 initialListId.set(config.list_id);
 
@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentListId.set(config.list_id)
     currentListKey.set(config.list_key);
     columnTypesStore.set(config.column_types.sort(columnTypeSorter));
+    favoriteListKeysStore.set( config.menu_items_favorites );
 
     const target = document.createElement('div');
 

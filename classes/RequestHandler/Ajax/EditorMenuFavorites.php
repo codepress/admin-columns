@@ -10,6 +10,7 @@ use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
 use AC\Storage;
+use AC\Type\ListKey;
 
 class EditorMenuFavorites implements RequestAjaxHandler
 {
@@ -30,8 +31,8 @@ class EditorMenuFavorites implements RequestAjaxHandler
         $preference = new Storage\Model\EditorFavorites();
 
         'favorite' === $request->get('status')
-            ? $preference->set_as_favorite($request->get('list_key'))
-            : $preference->remove_as_favorite($request->get('list_key'));
+            ? $preference->set_as_favorite(new ListKey($request->get('list_key')))
+            : $preference->remove_as_favorite(new ListKey($request->get('list_key')));
 
         $response->success();
     }

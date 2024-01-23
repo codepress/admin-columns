@@ -26,9 +26,11 @@ declare namespace AC.Vars.Admin.Columns {
 
     type AcAdminColumnsVar = {
         nonce: string
-        menu_items: MenuItems
         column_groups: ColumnGroup[]
         column_types: ColumnConfig[]
+        menu_groups_opened: string[]
+        menu_items: MenuItems
+        menu_items_favorites: string[]
         list_key: string
         list_id: string
     }
@@ -126,3 +128,21 @@ declare namespace AC.Column.Settings {
 
 declare const ac_admin_columns: AcAdminColumnsVar;
 
+declare namespace AC.Ajax {
+    interface JsonResponse {
+        success: boolean,
+        data: any
+    }
+
+    interface JsonSuccessResponse<T = any> extends JsonResponse {
+        success: true,
+        data: T
+    }
+
+    interface JsonDefaultFailureResponse extends JsonResponse {
+        success: false,
+        data: {
+            message: string
+        }
+    }
+}
