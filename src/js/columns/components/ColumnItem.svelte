@@ -9,6 +9,8 @@
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
     import ProFeatureToggles from "./ProFeatureToggles.svelte";
     import AcIcon from "ACUi/AcIcon.svelte";
+    import {refreshColumn} from "../ajax/ajax";
+    import {currentListKey} from "../store/current-list-screen";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -69,6 +71,10 @@
         data = data;
     }
 
+    const tempSelectColumn = () => {
+        refreshColumn( data, $currentListKey );
+	}
+
     $: opened = $openedColumnsStore.includes(data.name);
 </script>
 
@@ -109,6 +115,7 @@
 			/>
 			<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
 			<button on:click={checkAppliedSettings}>Check settings</button>
+			<button on:click={tempSelectColumn}>Check Select Column</button>
 		</div>
 	{/if}
 </div>

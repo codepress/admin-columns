@@ -1,5 +1,5 @@
 import axios, {AxiosPromise} from "axios";
-import {ListScreenData} from "../../types/requests";
+import {ListScreenColumnData, ListScreenData} from "../../types/requests";
 import {getColumnSettingsConfig} from "../utils/global";
 import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
 
@@ -60,5 +60,19 @@ export const saveListScreen = (data: ListScreenData, listKey: string) => {
     )
 }
 
+
+export const refreshColumn = (data: ListScreenColumnData, listKey: string) => {
+    const nonce = getColumnSettingsConfig().nonce;
+    const formData = new FormData();
+
+    formData.set('_ajax_nonce', nonce);
+    formData.set('action', 'ac-list-screen-select-column')
+    formData.set('data', JSON.stringify(data));
+    formData.set('list_key', listKey);
+
+    return axios.post(ajaxurl,
+        formData
+    )
+}
 
 
