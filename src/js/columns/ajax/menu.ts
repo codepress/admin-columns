@@ -5,7 +5,6 @@ import JsonSuccessResponse = AC.Ajax.JsonSuccessResponse;
 
 declare const ajaxurl: string;
 
-
 type menuFavoriteResponse = JsonDefaultFailureResponse | JsonSuccessResponse
 
 export const persistMenuFavorite = (listKey: string, favorite: boolean): AxiosPromise<menuFavoriteResponse> => {

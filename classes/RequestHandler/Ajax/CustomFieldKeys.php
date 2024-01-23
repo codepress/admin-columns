@@ -13,9 +13,19 @@ use AC\Response\Json;
 use AC\Setting\OptionCollection;
 use AC\Setting\OptionCollectionEncoder;
 use AC\Setting\Type\Option;
+use AC\TableScreen;
+use AC\TableScreenFactory\Aggregate;
+use AC\Type\ListKey;
 
 class CustomFieldKeys implements RequestAjaxHandler
 {
+
+    private $table_screen_factory;
+
+    public function __construct(Aggregate $table_screen_factory)
+    {
+        $this->table_screen_factory = $table_screen_factory;
+    }
 
     public function handle(): void
     {
@@ -30,16 +40,20 @@ class CustomFieldKeys implements RequestAjaxHandler
             $response->error();
         }
 
-        $post_type = (string)$request->get('post_type');
+        $table_screen = $this->table_screen_factory->create(new ListKey($request->get('list_key')));
 
-        $query = new Query($request->get('meta_type'));
+        if ( ! $table_screen instanceof TableScreen\MetaType) {
+            $response->error();
+        }
+
+        $query = new Query((string)$table_screen->get_meta_type());
 
         $query->select('meta_key')
               ->distinct()
               ->order_by('meta_key');
 
-        if ($post_type) {
-            $query->where_post_type($post_type);
+        if ($table_screen instanceof TableScreen\Post) {
+            $query->where_post_type($table_screen->get_post_type());
         }
 
         $meta_keys = $query->get();
@@ -57,6 +71,11 @@ class CustomFieldKeys implements RequestAjaxHandler
         }
 
         $encoder = new OptionCollectionEncoder();
+
+        $response->set_header(
+            'Cache-Control',
+            'max-age=120'
+        );
 
         $response
             ->set_parameter('options', $encoder->encode($collection))

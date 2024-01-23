@@ -13,11 +13,14 @@ class CustomField extends Recursive
 
     public function __construct(Specification $specification = null)
     {
+        $input = Input\Open::create_text();
+        $input = Input\RemoteOptionsFactory::create_select('ac-custom-field-keys', [], null, 'Select');
+
         parent::__construct(
             'field',
             __('Field', 'codepress-admin-columns'),
             __('Custom field key', 'codepress-admin-columns'),
-            Input\Open::create_text(),
+            $input,
             $specification
         );
 

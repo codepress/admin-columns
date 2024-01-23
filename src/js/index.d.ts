@@ -103,6 +103,16 @@ declare namespace AC.Column.Settings {
         }
     }
 
+    interface RemoteSelectSetting extends SelectSetting {
+        input: {
+            type: 'remote_options'
+            data: {
+                ajax_handler: string
+            }
+        }
+    }
+
+
     interface TypeSetting extends AbstractColumnSetting<'type'> {
         input: {
             options: SettingOption[]
