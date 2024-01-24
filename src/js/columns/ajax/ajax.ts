@@ -34,14 +34,14 @@ export const getListScreenSettings = (listKey: string, listId: string = ''): Axi
     })
 }
 
-export const getColumnSettings = (ListScreen: string, columnType: string) => {
+export const getColumnSettings = (listKey: string, columnType: string) => {
     const nonce = getColumnSettingsConfig().nonce;
 
     return axios.get(ajaxurl, {
         params: {
             _ajax_nonce: nonce,
             action: 'ac-list-screen-add-column',
-            list_screen: ListScreen,
+            list_screen: listKey,
             column_type: columnType
         }
     })

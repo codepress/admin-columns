@@ -46,12 +46,12 @@
 
         data['type'] = selectValue;
 
-        getColumnSettings('post', selectValue).then(response => {
+        getColumnSettings($currentListKey, selectValue).then(response => {
             columnConfig = response.data.data.columns.settings;
 
             setTimeout(() => {
                 columnConfig = columnConfig;
-            }, 1000)
+            }, 500)
         });
 
     }
