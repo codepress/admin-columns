@@ -1,6 +1,6 @@
 <script lang="ts">
     import ColumnItem from "./ColumnItem.svelte";
-    import {getColumnSettings} from "../ajax/ajax";
+    import {getColumnSettings, loadDefaultColumns} from "../ajax/ajax";
     import {openedColumnsStore} from "../store/opened-columns";
     import ColumnUtils from "../utils/column";
     import AcDropdown from "ACUi/acui-dropdown/AcDropdown.svelte";
@@ -102,6 +102,14 @@
         data.columns = newSortedColumns;
     }
 
+    const handleLoadDefaultColumns = () => {
+        loadDefaultColumns( $currentListKey ).then( response => {
+            if( response.data.success ){
+                data.columns = response.data.data.columns
+            }
+        })
+    }
+
 
     listScreenDataStore.subscribe(() => {
         jQuery(sortableContainer).sortable({
@@ -164,7 +172,7 @@
 							</ColumnTypeDropdown>
 						</AcDropdown>
 						<span>Or</span>
-						<AcButton>Load default columns</AcButton>
+						<AcButton on:click={handleLoadDefaultColumns}>Load default columns</AcButton>
 					</div>
 					<div class="acu-text-center">
 						<p>New to Admin Columns? Take a look at our <a href="#d">getting started guide</a>.</p>

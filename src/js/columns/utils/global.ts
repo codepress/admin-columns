@@ -7,6 +7,7 @@ export const getColumnSettingsConfig = () => {
 type AdminColumnsI18n = {
     errors: {
         ajax_unknown: string
+        original_exist: string
     }
     global: {
         search: string
