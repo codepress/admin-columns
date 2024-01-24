@@ -42,7 +42,7 @@ class Column
     /**
      * @var Settings\FormatValue[]|Settings\FormatCollection[]
      */
-    private $formatters;
+    //    private $formatters;
 
     private $group = 'custom';
 
@@ -53,12 +53,6 @@ class Column
     protected $post_type = '';
 
     protected $taxonomy = '';
-
-    /**
-     * @deprecated NEWVERSION
-     * @var ListScreen
-     */
-    protected $list_screen;
 
     // TODO add __construct( string $type, string $label );
 
@@ -96,11 +90,6 @@ class Column
         $this->meta_type = $meta_type;
 
         return $this;
-    }
-
-    public function get_list_singular_label(): string
-    {
-        return (string)$this->label;
     }
 
     public function get_label(): string
@@ -169,54 +158,50 @@ class Column
 
     public function add_setting(Settings\Column $setting): self
     {
+        $this->settings[$setting->get_name()] = $setting;
+
+        return $this;
         // TODO David Check
         //$setting->set_values($this->options);
-
-        $this->settings[$setting->get_name()] = $setting;
 
         // TODO David check
         //        foreach ((array)$setting->get_dependent_settings() as $dependent_setting) {
         //            $this->add_setting($dependent_setting);
         //        }
-
-        return $this;
     }
 
-    /**
-     * @param string $id Settings ID
-     */
-    public function remove_setting($id)
-    {
-        if (isset($this->settings[$id])) {
-            unset($this->settings[$id]);
-        }
-    }
+    //    public function remove_setting($id)
+    //    {
+    //        if (isset($this->settings[$id])) {
+    //            unset($this->settings[$id]);
+    //        }
+    //    }
 
     public function get_setting($name): ?Settings\Column
     {
         return $this->settings[$name] ?? null;
 
         // TODO David, reimplement
-        return null;
-
-        return $this->get_settings()->get($id);
+        //        return null;
+        //
+        //        return $this->get_settings()->get($id);
     }
 
     // TODO remove?
-    public function get_formatters(): array
-    {
-        if (null === $this->formatters) {
-            $this->formatters = [];
-
-            foreach ($this->get_settings() as $setting) {
-                if ($setting instanceof Settings\FormatValue || $setting instanceof Settings\FormatCollection) {
-                    $this->formatters[] = $setting;
-                }
-            }
-        }
-
-        return $this->formatters;
-    }
+    //    public function get_formatters(): array
+    //    {
+    //        if (null === $this->formatters) {
+    //            $this->formatters = [];
+    //
+    //            foreach ($this->get_settings() as $setting) {
+    //                if ($setting instanceof Settings\FormatValue || $setting instanceof Settings\FormatCollection) {
+    //                    $this->formatters[] = $setting;
+    //                }
+    //            }
+    //        }
+    //
+    //        return $this->formatters;
+    //    }
 
     public function get_custom_label(): string
     {
@@ -237,16 +222,12 @@ class Column
 
             $this->register_settings();
 
-            // TODO
             do_action('ac/column/settings', $this);
         }
 
         return new SettingCollection($this->settings);
     }
 
-    /**
-     * Register settings
-     */
     protected function register_settings()
     {
         // Overwrite in child class
@@ -360,18 +341,21 @@ class Column
      */
     public function get_value($id)
     {
-        $value = $this->get_formatted_value($this->get_raw_value($id), (int)$id);
+        return $this->get_formatted_value(
+            $this->get_raw_value($id),
+            (int)$id
+        );
 
         // TODO remove?
-        if ($value instanceof Collection) {
-            $value = $value->filter()->implode($this->get_separator());
-        }
+        //        if ($value instanceof Collection) {
+        //            $value = $value->filter()->implode($this->get_separator());
+        //        }
+        //
+        //        if ( ! $this->is_original() && ac_helper()->string->is_empty($value)) {
+        //            $value = $this->get_empty_char();
+        //        }
 
-        if ( ! $this->is_original() && ac_helper()->string->is_empty($value)) {
-            $value = $this->get_empty_char();
-        }
-
-        return $value;
+        //        return $value;
     }
 
     public function get_separator(): string
@@ -400,36 +384,6 @@ class Column
     public function toArray(): array
     {
         return $this->options;
-    }
-
-    /**
-     * @deprecated NEWVERSION
-     */
-    public function get_list_screen(): void
-    {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
-    }
-
-    /**
-     * @deprecated NEWVERSION
-     */
-    public function set_list_screen(ListScreen $list_screen): void
-    {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
-    }
-
-    /**
-     * Overwrite this function in child class.
-     * Determine whether this column type should be available
-     * @return bool Whether the column type should be available
-     * @since      2.2
-     * @deprecated NEWVERSION
-     */
-    public function is_valid(): bool
-    {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
-
-        return true;
     }
 
 }
