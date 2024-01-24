@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Storage;
 
+/**
+ * Similar to storing metadata, but this prefixes the key with the site ID when running a multisite installation.
+ */
 class UserOption implements UserData
 {
 

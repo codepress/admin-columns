@@ -70,7 +70,7 @@ class Json
         ]);
     }
 
-    public function set_parameter(string $key, $value): self
+    public function set_parameter($key, $value): self
     {
         $this->parameters[$key] = $value;
 

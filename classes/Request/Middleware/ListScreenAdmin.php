@@ -98,17 +98,15 @@ class ListScreenAdmin implements Middleware
             $list_screen = new ListScreen(
                 ListScreenId::generate(),
                 (string)$this->table_screen->get_labels(),
-                $this->table_screen
+                $this->table_screen,
+                $this->get_default_columns()
             );
-        }
-
-        if ( ! $list_screen->get_columns()->valid()) {
-            $list_screen->set_columns($this->get_default_columns());
         }
 
         return $list_screen;
     }
 
+    // TODO create its own service
     private function get_default_columns(): ColumnCollection
     {
         $columns = [];
