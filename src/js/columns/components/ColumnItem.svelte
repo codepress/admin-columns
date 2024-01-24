@@ -15,6 +15,9 @@
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
 
+    let labelElement: HTMLElement|null;
+    let readableLabel: string = '';
+
     const dispatch = createEventDispatcher();
     const originalsColumns = ColumnTypesUtils.getOriginalColumnTypes();
 
@@ -80,6 +83,19 @@
         });
     }
 
+    const checkVisibleLabel = ( label: string ) => {
+        if( labelElement && labelElement.offsetWidth < 5 ){
+            readableLabel = document.createRange().createContextualFragment(data.label).textContent ?? '';
+            if( readableLabel.length === 0 ){
+                readableLabel = data.type;
+            }
+        } else {
+            readableLabel = '';
+        }
+    }
+
+    // TODO
+    //$: checkVisibleLabel( data.label) 
     $: opened = $openedColumnsStore.includes(data.name);
 </script>
 
@@ -89,7 +105,7 @@
 			<AcIcon icon="move" size="sm"/>
 		</div>
 		<div class="ac-column-header__label">
-			<strong on:click={toggle} on:keydown role="none">{@html data.label}</strong>
+			<strong on:click={toggle} on:keydown role="none" bind:this={labelElement}>{@html data.label}{readableLabel}</strong>
 			<div class="ac-column-row-actions">
 				<a class="ac-column-row-action -edit" href={'#'} on:click|preventDefault={toggle}>Edit</a>
 				{#if !isOriginalColumn}
