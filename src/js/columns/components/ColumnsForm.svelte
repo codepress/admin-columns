@@ -1,6 +1,6 @@
 <script lang="ts">
     import ColumnItem from "./ColumnItem.svelte";
-    import {getColumnSettings} from "../ajax/ajax";
+    import {getColumnSettings, loadDefaultColumns} from "../ajax/ajax";
     import {openedColumnsStore} from "../store/opened-columns";
     import ColumnUtils from "../utils/column";
     import AcDropdown from "ACUi/acui-dropdown/AcDropdown.svelte";
@@ -44,7 +44,7 @@
         if (columninfo.original) {
             name = columninfo.value;
 
-            if (data.columns.hasOwnProperty(name)) {
+            if (data.columns.find( c => c.name === name )) {
                 return NotificationProgrammatic.open({
                     message: 'Original column already available',
                     type: 'warning'
@@ -56,11 +56,11 @@
             const columnLabel = ColumnTypesUtils.getColumnType(column_type)?.label;
             config[name] = d.data.data.columns.settings;
 
-            data['columns'][name] = {
+            data['columns'].push({
                 name: name,
                 type: column_type,
                 label: columnLabel ?? name
-            };
+            });
             openedColumnsStore.open(name);
         });
     }
@@ -100,6 +100,14 @@
         });
 
         data.columns = newSortedColumns;
+    }
+
+    const handleLoadDefaultColumns = () => {
+        loadDefaultColumns( $currentListKey ).then( response => {
+            if( response.data.success ){
+                data.columns = response.data.data.columns
+            }
+        })
     }
 
 
@@ -164,7 +172,7 @@
 							</ColumnTypeDropdown>
 						</AcDropdown>
 						<span>Or</span>
-						<AcButton>Load default columns</AcButton>
+						<AcButton on:click={handleLoadDefaultColumns}>Load default columns</AcButton>
 					</div>
 					<div class="acu-text-center">
 						<p>New to Admin Columns? Take a look at our <a href="#d">getting started guide</a>.</p>

@@ -3,6 +3,8 @@ import {ListScreenColumnData, ListScreenData} from "../../types/requests";
 import {getColumnSettingsConfig} from "../utils/global";
 import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
 import JsonSuccessResponse = AC.Ajax.JsonSuccessResponse;
+import JsonDefaultFailureResponse = AC.Ajax.JsonDefaultFailureResponse;
+import ColumnSettingCollection = AC.Column.Settings.ColumnSettingCollection;
 
 
 declare const ajaxurl: string;
@@ -86,3 +88,20 @@ export const refreshColumn = (data: ListScreenColumnData, listKey: string): Axio
 }
 
 
+type defaultConfigPayload = {
+    columns: ListScreenColumnData[]
+    config: { [key: string ] : ColumnSettingCollection }
+}
+
+
+export const loadDefaultColumns = (listKey: string): AxiosPromise<JsonSuccessResponse<defaultConfigPayload>|JsonDefaultFailureResponse> => {
+    const nonce = getColumnSettingsConfig().nonce;
+
+    return axios.get( ajaxurl, {
+        params: {
+            _ajax_nonce: nonce,
+            action: 'ac-list-screen-select-column',
+            list_key: listKey
+        }
+    });
+}
