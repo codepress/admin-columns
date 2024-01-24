@@ -13,7 +13,8 @@
     }
 
     export let config: AC.Column.Settings.NumberSettings;
-    export let value: any = [];
+    export let value: string = '';
+    export let valueTest: string = '';
 
 
     const dispatch = createEventDispatcher();
@@ -51,7 +52,6 @@
 
     }
 
-
     const getMappedValue = () => {
         return activeOptions.map(ao => {
             return {
@@ -61,46 +61,78 @@
         });
     }
 
+    const dispatchValue = () => {
+        if( activeOptions.length ){
+            value = JSON.stringify(getMappedValue());
+        }
+        
+    }
 
     onMount(() => {
-        if( typeof value === undefined )
+        let data:selectOptionType[] = [];
+        
+        if( value.length> 0 ){
+            data = JSON.parse( value );
+        }
+                
 
-        activeOptions = value.map(o => {
+        activeOptions = data.map(o => {
             return Object.assign(o, {id: uniqid()})
         });
 
         if (!activeOptions.length) {
             activeOptions.push(createRow());
         }
+
+        activeOptions = activeOptions;
+
+
+        jQuery(sortEl).sortable({
+            axis: 'y',
+            handle: '.-drag',
+            stop: () => {
+                let newIndex = [];
+                let newItems = [];
+
+                sortEl.childNodes.forEach(el => newIndex.push(el.dataset.id))
+
+                newIndex.forEach(id => {
+                    newItems.push(activeOptions.find(i => i.id === id));
+                });
+
+                activeOptions = newItems;
+            }
+        });
+
     });
 
     onDestroy(() => {
         dispatch('destroy', config);
     })
 
+    $: activeOptions && dispatchValue();
+
 </script>
 
 <ColumnSetting label={config.label} name="number" description={config.description}>
-	
-
 
     <div class="ac-setting-selectoptions" bind:this={sortEl}>
         {#each activeOptions as option, index(option.id)}
-            <div class="ac-setting-selectoptions-row" data-id={option.id}>
-                <div class="ac-setting-selectoptions-row__drag">
+            <div class="ac-setting-selectoptions-row acu-flex acu-gap-2 acu-items-center acu-py-1" data-id={option.id}>
+                <div class="ac-setting-selectoptions-row__drag acu-cursor-pointer">
                     <span class="cpacicon-move -drag"></span>
                 </div>
-                <div class="ac-setting-selectoptions-row__input">
-                    <input type="text" bind:value={option.value} placeholder="Value">
+                <div class="ac-setting-selectoptions-row__input acu-flex-grow">
+                    <input type="text" bind:value={option.value} placeholder="Value" class="acu-w-full">
                 </div>
-                <div class="ac-setting-selectoptions-row__input">
-                    <input type="text" bind:value={option.label} placeholder="Label">
+                <div class="ac-setting-selectoptions-row__input acu-flex-grow">
+                    <input type="text" bind:value={option.label} placeholder="Label" class="acu-w-full">
                 </div>
                 <div class="ac-setting-selectoptions-row__actions">
-                    <button class="ac-setting-selectoptions-row__remove" on:click|preventDefault={() => removeRow(option.id)}>
+                    <button class="ac-setting-selectoptions-row__remove acu-border-none acu-cursor-pointer acu-p-[0] acu-bg-[transparent] acu-text-[#B4B4B4] hover:acu-text-notification-red" on:click|preventDefault={() => removeRow(option.id)}>
                         <span class="dashicons dashicons-remove acp-cf-delete-btn"></span>
                     </button>
-                    <button class="ac-setting-selectoptions-row__add" on:click|preventDefault={() => addAfter(option.id)}>
+                    <button class="ac-setting-selectoptions-row__add acu-border-none acu-cursor-pointer acu-p-[0] acu-bg-[transparent] acu-text-[#B4B4B4] hover:acu-text-notification-blue" on:click|preventDefault={() => addAfter(option.id)}>
                         <span class="dashicons dashicons-insert"></span>
                     </button>
                 </div>

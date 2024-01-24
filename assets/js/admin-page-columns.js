@@ -7941,13 +7941,13 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[16] = list[i];
-  child_ctx[17] = list;
-  child_ctx[18] = i;
+  child_ctx[18] = list[i];
+  child_ctx[19] = list;
+  child_ctx[20] = i;
   return child_ctx;
 }
 
-// (60:8) {#each activeOptions as option, index(option.id)}
+// (82:8) {#each activeOptions as option, index(option.id)}
 function create_each_block(key_1, ctx) {
   let div4;
   let div0;
@@ -7967,17 +7967,17 @@ function create_each_block(key_1, ctx) {
   let mounted;
   let dispose;
   function input0_input_handler() {
-    /*input0_input_handler*/ctx[6].call(input0, /*each_value*/ctx[17], /*index*/ctx[18]);
+    /*input0_input_handler*/ctx[7].call(input0, /*each_value*/ctx[19], /*index*/ctx[20]);
   }
   function input1_input_handler() {
-    /*input1_input_handler*/ctx[7].call(input1, /*each_value*/ctx[17], /*index*/ctx[18]);
+    /*input1_input_handler*/ctx[8].call(input1, /*each_value*/ctx[19], /*index*/ctx[20]);
   }
   function click_handler() {
-    return (/*click_handler*/ctx[8]( /*option*/ctx[16])
+    return (/*click_handler*/ctx[9]( /*option*/ctx[18])
     );
   }
   function click_handler_1() {
-    return (/*click_handler_1*/ctx[9]( /*option*/ctx[16])
+    return (/*click_handler_1*/ctx[10]( /*option*/ctx[18])
     );
   }
   return {
@@ -8001,18 +8001,20 @@ function create_each_block(key_1, ctx) {
       button1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
       button1.innerHTML = `<span class="dashicons dashicons-insert"></span>`;
       t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "ac-setting-selectoptions-row__drag");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "ac-setting-selectoptions-row__drag acu-cursor-pointer");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input0, "type", "text");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input0, "placeholder", "Value");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "ac-setting-selectoptions-row__input");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input0, "class", "acu-w-full");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "ac-setting-selectoptions-row__input acu-flex-grow");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input1, "type", "text");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input1, "placeholder", "Label");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "ac-setting-selectoptions-row__input");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button0, "class", "ac-setting-selectoptions-row__remove");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button1, "class", "ac-setting-selectoptions-row__add");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input1, "class", "acu-w-full");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "ac-setting-selectoptions-row__input acu-flex-grow");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button0, "class", "ac-setting-selectoptions-row__remove acu-border-none acu-cursor-pointer acu-p-[0] acu-bg-[transparent] acu-text-[#B4B4B4] hover:acu-text-notification-red");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button1, "class", "ac-setting-selectoptions-row__add acu-border-none acu-cursor-pointer acu-p-[0] acu-bg-[transparent] acu-text-[#B4B4B4] hover:acu-text-notification-blue");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div3, "class", "ac-setting-selectoptions-row__actions");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "class", "ac-setting-selectoptions-row");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "data-id", div4_data_id_value = /*option*/ctx[16].id);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "class", "ac-setting-selectoptions-row acu-flex acu-gap-2 acu-items-center acu-py-1");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "data-id", div4_data_id_value = /*option*/ctx[18].id);
       this.first = div4;
     },
     m(target, anchor) {
@@ -8021,11 +8023,11 @@ function create_each_block(key_1, ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, t0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, div1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, input0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[16].value);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[18].value);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, t1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, div2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, input1);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[16].label);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[18].label);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, t2);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div4, div3);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, button0);
@@ -8039,13 +8041,13 @@ function create_each_block(key_1, ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & /*activeOptions*/4 && input0.value !== /*option*/ctx[16].value) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[16].value);
+      if (dirty & /*activeOptions*/2 && input0.value !== /*option*/ctx[18].value) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input0, /*option*/ctx[18].value);
       }
-      if (dirty & /*activeOptions*/4 && input1.value !== /*option*/ctx[16].label) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[16].label);
+      if (dirty & /*activeOptions*/2 && input1.value !== /*option*/ctx[18].label) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input1, /*option*/ctx[18].label);
       }
-      if (dirty & /*activeOptions*/4 && div4_data_id_value !== (div4_data_id_value = /*option*/ctx[16].id)) {
+      if (dirty & /*activeOptions*/2 && div4_data_id_value !== (div4_data_id_value = /*option*/ctx[18].id)) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "data-id", div4_data_id_value);
       }
     },
@@ -8059,13 +8061,13 @@ function create_each_block(key_1, ctx) {
   };
 }
 
-// (55:0) <ColumnSetting label={config.label} name="number" description={config.description}>
+// (79:0) <ColumnSetting label={config.label} name="number" description={config.description}>
 function create_default_slot(ctx) {
   let div;
   let each_blocks = [];
   let each_1_lookup = new Map();
-  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*activeOptions*/ctx[2]);
-  const get_key = ctx => /*option*/ctx[16].id;
+  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*activeOptions*/ctx[1]);
+  const get_key = ctx => /*option*/ctx[18].id;
   for (let i = 0; i < each_value.length; i += 1) {
     let child_ctx = get_each_context(ctx, each_value, i);
     let key = get_key(child_ctx);
@@ -8088,11 +8090,11 @@ function create_default_slot(ctx) {
       }
 
       /*div_binding*/
-      ctx[10](div);
+      ctx[11](div);
     },
     p(ctx, dirty) {
-      if (dirty & /*activeOptions, addAfter, removeRow*/28) {
-        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*activeOptions*/ctx[2]);
+      if (dirty & /*activeOptions, addAfter, removeRow*/26) {
+        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*activeOptions*/ctx[1]);
         each_blocks = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_keyed_each)(each_blocks, dirty, get_key, 1, ctx, each_value, each_1_lookup, div, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_block, create_each_block, null, get_each_context);
       }
     },
@@ -8105,7 +8107,7 @@ function create_default_slot(ctx) {
       }
 
       /*div_binding*/
-      ctx[10](null);
+      ctx[11](null);
     }
   };
 }
@@ -8137,7 +8139,7 @@ function create_fragment(ctx) {
       const columnsetting_changes = {};
       if (dirty & /*config*/1) columnsetting_changes.label = /*config*/ctx[0].label;
       if (dirty & /*config*/1) columnsetting_changes.description = /*config*/ctx[0].description;
-      if (dirty & /*$$scope, sortEl, activeOptions*/524294) {
+      if (dirty & /*$$scope, sortEl, activeOptions*/2097158) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
@@ -8164,7 +8166,10 @@ function instance($$self, $$props, $$invalidate) {
     config
   } = $$props;
   let {
-    value = []
+    value = ''
+  } = $$props;
+  let {
+    valueTest = ''
   } = $$props;
   const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_3__.createEventDispatcher)();
   const i18n = (0,_utils_global__WEBPACK_IMPORTED_MODULE_5__.getColumnSettingsTranslation)();
@@ -8179,10 +8184,10 @@ function instance($$self, $$props, $$invalidate) {
   };
   const addRow = () => {
     activeOptions.push(createRow());
-    $$invalidate(2, activeOptions);
+    $$invalidate(1, activeOptions);
   };
   const removeRow = id => {
-    $$invalidate(2, activeOptions = activeOptions.filter(f => f.id !== id));
+    $$invalidate(1, activeOptions = activeOptions.filter(f => f.id !== id));
     if (!activeOptions.length) {
       activeOptions.push(createRow());
     }
@@ -8190,7 +8195,7 @@ function instance($$self, $$props, $$invalidate) {
   const addAfter = id => {
     const afterIndex = activeOptions.findIndex(d => d.id === id) + 1;
     activeOptions.splice(afterIndex, 0, createRow());
-    $$invalidate(2, activeOptions);
+    $$invalidate(1, activeOptions);
   };
   const getMappedValue = () => {
     return activeOptions.map(ao => {
@@ -8200,8 +8205,17 @@ function instance($$self, $$props, $$invalidate) {
       };
     });
   };
+  const dispatchValue = () => {
+    if (activeOptions.length) {
+      $$invalidate(5, value = JSON.stringify(getMappedValue()));
+    }
+  };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
-    if (typeof value === undefined) $$invalidate(2, activeOptions = value.map(o => {
+    let data = [];
+    if (value.length > 0) {
+      data = JSON.parse(value);
+    }
+    $$invalidate(1, activeOptions = data.map(o => {
       return Object.assign(o, {
         id: (0,_helpers_string__WEBPACK_IMPORTED_MODULE_4__.uniqid)()
       });
@@ -8209,38 +8223,59 @@ function instance($$self, $$props, $$invalidate) {
     if (!activeOptions.length) {
       activeOptions.push(createRow());
     }
+    $$invalidate(1, activeOptions);
+    jQuery(sortEl).sortable({
+      axis: 'y',
+      handle: '.-drag',
+      stop: () => {
+        let newIndex = [];
+        let newItems = [];
+        sortEl.childNodes.forEach(el => newIndex.push(el.dataset.id));
+        newIndex.forEach(id => {
+          newItems.push(activeOptions.find(i => i.id === id));
+        });
+        $$invalidate(1, activeOptions = newItems);
+      }
+    });
   });
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onDestroy)(() => {
     dispatch('destroy', config);
   });
   function input0_input_handler(each_value, index) {
     each_value[index].value = this.value;
-    $$invalidate(2, activeOptions);
+    $$invalidate(1, activeOptions);
   }
   function input1_input_handler(each_value, index) {
     each_value[index].label = this.value;
-    $$invalidate(2, activeOptions);
+    $$invalidate(1, activeOptions);
   }
   const click_handler = option => removeRow(option.id);
   const click_handler_1 = option => addAfter(option.id);
   function div_binding($$value) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks[$$value ? 'unshift' : 'push'](() => {
       sortEl = $$value;
-      $$invalidate(1, sortEl);
+      $$invalidate(2, sortEl);
     });
   }
   $$self.$$set = $$props => {
     if ('config' in $$props) $$invalidate(0, config = $$props.config);
     if ('value' in $$props) $$invalidate(5, value = $$props.value);
+    if ('valueTest' in $$props) $$invalidate(6, valueTest = $$props.valueTest);
   };
-  return [config, sortEl, activeOptions, removeRow, addAfter, value, input0_input_handler, input1_input_handler, click_handler, click_handler_1, div_binding];
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & /*activeOptions*/2) {
+      $: activeOptions && dispatchValue();
+    }
+  };
+  return [config, activeOptions, sortEl, removeRow, addAfter, value, valueTest, input0_input_handler, input1_input_handler, click_handler, click_handler_1, div_binding];
 }
 class SelectOptionsSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       config: 0,
-      value: 5
+      value: 5,
+      valueTest: 6
     });
   }
 }
