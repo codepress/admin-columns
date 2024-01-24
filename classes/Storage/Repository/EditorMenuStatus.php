@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Storage\Model;
+namespace AC\Storage\Repository;
 
 use AC\Preferences\Preference;
 use AC\Storage\UserOption;

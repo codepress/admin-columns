@@ -15,6 +15,13 @@ use AC\Type\ListKey;
 class EditorMenuFavorites implements RequestAjaxHandler
 {
 
+    private $favorite_repository;
+
+    public function __construct(Storage\Repository\EditorFavorites $favorite_repository)
+    {
+        $this->favorite_repository = $favorite_repository;
+    }
+
     public function handle(): void
     {
         if ( ! current_user_can(Capabilities::MANAGE)) {
@@ -28,11 +35,9 @@ class EditorMenuFavorites implements RequestAjaxHandler
             $response->error();
         }
 
-        $preference = new Storage\Model\EditorFavorites();
-
         'favorite' === $request->get('status')
-            ? $preference->set_as_favorite(new ListKey($request->get('list_key')))
-            : $preference->remove_as_favorite(new ListKey($request->get('list_key')));
+            ? $this->favorite_repository->add(new ListKey($request->get('list_key')))
+            : $this->favorite_repository->remove(new ListKey($request->get('list_key')));
 
         $response->success();
     }

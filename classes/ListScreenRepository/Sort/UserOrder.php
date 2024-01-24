@@ -2,8 +2,8 @@
 
 namespace AC\ListScreenRepository\Sort;
 
-use AC\Storage\Model\ListScreenOrder;
-use AC\Storage\Model\TableListOrder;
+use AC\Storage\Repository\ListScreenOrder;
+use AC\Storage\Repository\TableListOrder;
 use AC\Type\ListKey;
 use WP_User;
 

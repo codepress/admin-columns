@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Table;
 
+use AC\ListKeyCollection;
 use AC\ListKeysFactory;
+use AC\Table\TableScreenRepository\Sort;
 use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
@@ -24,28 +26,49 @@ class TableScreenRepository
 
     public function find(ListKey $key): ?TableScreen
     {
-        foreach ($this->list_keys_factory->create() as $_key) {
-            if ($key->equals($_key) && $this->table_screen_factory->can_create($key)) {
-                return $this->table_screen_factory->create($key);
+        return $this->table_screen_factory->can_create($key)
+            ? $this->table_screen_factory->create($key)
+            : null;
+    }
+
+    public function find_all_by_list_keys(ListKeyCollection $list_keys, Sort $sort = null): TableScreenCollection
+    {
+        $table_screens = new TableScreenCollection();
+
+        foreach ($list_keys as $key) {
+            if ($this->table_screen_factory->can_create($key)) {
+                $table_screens->add(
+                    $this->table_screen_factory->create($key)
+                );
             }
         }
 
-        return null;
+        if ($sort) {
+            $table_screens = $sort->sort($table_screens);
+        }
+
+        return $table_screens;
     }
 
-    public function find_all(): TableScreenCollection
+    public function find_all(Sort $sort = null): TableScreenCollection
     {
-        $table_screens = [];
+        $table_screens = new TableScreenCollection();
 
         foreach ($this->list_keys_factory->create() as $key) {
             if ( ! $this->table_screen_factory->can_create($key)) {
                 continue;
             }
 
-            $table_screens[] = $this->table_screen_factory->create($key);
+            $table_screens->add(
+                $this->table_screen_factory->create($key)
+            );
         }
 
-        return new TableScreenCollection($table_screens);
+        if ($sort) {
+            $table_screens = $sort->sort($table_screens);
+        }
+
+        return $table_screens;
     }
 
     public function find_all_site(): TableScreenCollection

@@ -14,7 +14,7 @@ class ShowEditButton implements Renderable
 
     public function __construct()
     {
-        $this->option = new Storage\Model\EditButton();
+        $this->option = new Storage\Repository\EditButton();
     }
 
     private function get_label(): string

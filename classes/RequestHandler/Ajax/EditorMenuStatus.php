@@ -27,7 +27,7 @@ class EditorMenuStatus implements RequestAjaxHandler
             $response->error();
         }
 
-        $preference = new Storage\Model\EditorMenuStatus();
+        $preference = new Storage\Repository\EditorMenuStatus();
 
         $preference->save_status(
             $request->get('group'),

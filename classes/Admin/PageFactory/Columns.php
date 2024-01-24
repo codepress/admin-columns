@@ -10,8 +10,8 @@ use AC\Admin\PageFactoryInterface;
 use AC\Admin\Preference;
 use AC\Asset\Location;
 use AC\ColumnTypesFactory;
-use AC\Controller\Middleware;
 use AC\Request;
+use AC\Storage\Repository\EditorFavorites;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
 use InvalidArgumentException;
@@ -31,13 +31,19 @@ class Columns implements PageFactoryInterface
 
     private $table_screen_repository;
 
+    /**
+     * @var EditorFavorites
+     */
+    private $favorite_repository;
+
     public function __construct(
         Location\Absolute $location,
         MenuFactoryInterface $menu_factory,
         Admin\UninitializedScreens $uninitialized_screens,
         Admin\MenuListFactory $menu_list_factory,
         ColumnTypesFactory\Aggregate $column_types_factory,
-        AC\Table\TableScreenRepository $table_screen_repository
+        AC\Table\TableScreenRepository $table_screen_repository,
+        EditorFavorites $favorite_repository
     ) {
         $this->location = $location;
         $this->menu_factory = $menu_factory;
@@ -45,6 +51,7 @@ class Columns implements PageFactoryInterface
         $this->menu_list_factory = $menu_list_factory;
         $this->column_types_factory = $column_types_factory;
         $this->table_screen_repository = $table_screen_repository;
+        $this->favorite_repository = $favorite_repository;
     }
 
     public function create(): Page\Columns
@@ -75,6 +82,8 @@ class Columns implements PageFactoryInterface
             $table_screen,
             $this->column_types_factory,
             $this->menu_list_factory->create($this->table_screen_repository->find_all_site()),
+            $this->favorite_repository,
+            $this->table_screen_repository,
             $list_id
         );
     }

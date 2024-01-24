@@ -131,7 +131,7 @@ final class Screen implements Registerable
             return;
         }
 
-        $edit_button = new AC\Storage\Model\EditButton();
+        $edit_button = new AC\Storage\Repository\EditButton();
 
         if ( ! $edit_button->is_active()) {
             return;

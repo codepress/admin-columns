@@ -5,11 +5,12 @@ namespace AC\Admin\Asset;
 use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
-use AC\ColumnTypesFactory\Aggregate;
+use AC\ColumnTypesFactory;
 use AC\Service\DefaultColumns;
-use AC\Storage\Model\EditorFavorites;
-use AC\Storage\Model\EditorMenuStatus;
+use AC\Storage\Repository\EditorFavorites;
+use AC\Storage\Repository\EditorMenuStatus;
 use AC\Table\TableScreenCollection;
+use AC\Table\TableScreenRepository\SortByLabel;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
 
@@ -26,13 +27,19 @@ class Columns extends Script
 
     private $menu_items;
 
+    private $favorite_repository;
+
+    private $table_screen_repository;
+
     public function __construct(
         string $handle,
         Location $location,
         TableScreen $table_screen,
-        Aggregate $column_types_factory,
+        ColumnTypesFactory\Aggregate $column_types_factory,
         TableScreenCollection $table_screens,
         AC\Admin\MenuListItems $menu_items,
+        AC\Table\TableScreenRepository $table_screen_repository,
+        EditorFavorites $favorite_repository,
         ListScreenId $list_id = null
     ) {
         parent::__construct($handle, $location, [
@@ -48,6 +55,8 @@ class Columns extends Script
         $this->list_id = $list_id;
         $this->column_types_factory = $column_types_factory;
         $this->menu_items = $menu_items;
+        $this->favorite_repository = $favorite_repository;
+        $this->table_screen_repository = $table_screen_repository;
     }
 
     public function register(): void
@@ -61,7 +70,7 @@ class Columns extends Script
             'layout'                     => (string)$this->list_id,
             'original_columns'           => [],
             'uninitialized_list_screens' => [],
-            'column_types'               => $this->get_column_types(),
+            //'column_types'               => $this->encode_column_types(),
             'column_groups'              => AC\ColumnGroups::get_groups()->get_all(),
             'i18n'                       => [
                 'value'  => __('Value', 'codepress-admin-columns'),
@@ -94,11 +103,14 @@ class Columns extends Script
             'nonce'                => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
             'list_key'             => (string)$this->table_screen->get_key(),
             'list_id'              => (string)$this->list_id,
-            'column_types'         => $this->get_column_types(),
+            'column_types'         => $this->encode_column_types(
+                $this->column_types_factory->create($this->table_screen)
+            ),
             'column_groups'        => AC\ColumnGroups::get_groups()->get_all(),
             'menu_items'           => $this->get_menu_items(),
-            // TODO
-            'menu_items_favorites' => (new EditorFavorites())->find_all_favorites(),
+            'menu_items_favorites' => $this->encode_favorites(
+                $this->get_favorite_table_screens()
+            ),
             'menu_groups_opened'   => (new EditorMenuStatus())->find_all_active_groups(),
         ]);
 
@@ -124,6 +136,25 @@ class Columns extends Script
         );
     }
 
+    private function get_favorite_table_screens(): TableScreenCollection
+    {
+        return $this->table_screen_repository->find_all_by_list_keys(
+            $this->favorite_repository->find_all(),
+            new SortByLabel()
+        );
+    }
+
+    private function encode_favorites(TableScreenCollection $collection): array
+    {
+        $keys = [];
+
+        foreach ($collection as $table_screen) {
+            $keys[] = (string)$table_screen->get_key();
+        }
+
+        return $keys;
+    }
+
     public function get_menu_items(): array
     {
         // TODO
@@ -147,14 +178,14 @@ class Columns extends Script
         return $options;
     }
 
-    private function get_column_types(): array
+    private function encode_column_types(AC\ColumnTypeCollection $collection): array
     {
         $column_types = [];
 
         // TODO cache
         $groups = AC\ColumnGroups::get_groups();
 
-        foreach ($this->column_types_factory->create($this->table_screen) as $column) {
+        foreach ($collection as $column) {
             $column_types[] = [
                 'label'     => $column->get_label(),
                 'value'     => $column->get_type(),

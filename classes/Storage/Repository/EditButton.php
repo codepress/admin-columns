@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Storage\Model;
+namespace AC\Storage\Repository;
 
 use AC\Settings\GeneralOption;
 use AC\Settings\GeneralOptionFactory;
