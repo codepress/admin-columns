@@ -60,7 +60,7 @@ class BaseEncoder implements AC\Storage\Encoder
         $encode = [];
 
         foreach ($this->list_screen->get_columns() as $column) {
-            $encode[$column->get_name()] = $column->toArray();
+            $encode[] = $column->toArray();
         }
 
         return $encode;

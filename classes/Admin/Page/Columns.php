@@ -16,7 +16,9 @@ use AC\Asset\Style;
 use AC\Column;
 use AC\ColumnTypesFactory;
 use AC\Renderable;
+use AC\Storage\Repository\EditorFavorites;
 use AC\Table\TableScreenCollection;
+use AC\Table\TableScreenRepository;
 use AC\TableScreen;
 use AC\Type\ListScreenId;
 use AC\Type\Url;
@@ -47,6 +49,10 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $menu_items;
 
+    private $favorite_repository;
+
+    private $table_screen_repository;
+
     public function __construct(
         Location\Absolute $location,
         TableScreenCollection $uninitialized_table_screens,
@@ -54,6 +60,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         TableScreen $table_screen,
         ColumnTypesFactory\Aggregate $column_types_factory,
         Admin\MenuListItems $menu_items,
+        EditorFavorites $favorite_repository,
+        TableScreenRepository $table_screen_repository,
         ListScreenId $list_id = null
     ) {
         $this->location = $location;
@@ -63,6 +71,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         $this->column_types_factory = $column_types_factory;
         $this->list_id = $list_id;
         $this->menu_items = $menu_items;
+        $this->favorite_repository = $favorite_repository;
+        $this->table_screen_repository = $table_screen_repository;
     }
 
     public function get_table_screen(): TableScreen
@@ -89,6 +99,8 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->column_types_factory,
                 $this->uninitialized_table_screens,
                 $this->menu_items,
+                $this->table_screen_repository,
+                $this->favorite_repository,
                 $this->list_id
             ),
             new Style('ac-admin-page-columns-css', $this->location->with_suffix('assets/css/admin-page-columns.css')),

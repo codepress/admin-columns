@@ -21,6 +21,22 @@ final class ListKeyCollection implements Iterator, Countable
         array_map([$this, 'add'], $keys);
     }
 
+    public function contains(ListKey $key): bool
+    {
+        return null !== $this->search($key);
+    }
+
+    private function search(ListKey $key): ?int
+    {
+        foreach ($this->data as $index => $list_key) {
+            if ($list_key->equals($key)) {
+                return $index;
+            }
+        }
+
+        return null;
+    }
+
     public function add(ListKey $key): void
     {
         $this->data[] = $key;
