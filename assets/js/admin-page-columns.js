@@ -18644,7 +18644,7 @@ const loadDefaultColumns = (listKey) => {
     return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(ajaxurl, {
         params: {
             _ajax_nonce: nonce,
-            action: 'ac-list-screen-select-column',
+            action: 'ac-list-screen-default-columns',
             list_key: listKey
         }
     });
