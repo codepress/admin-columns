@@ -16,7 +16,6 @@
 
     const checkConditions = (data) => {
         if (typeof settings === 'undefined') {
-            console.log('Unsupported', data)
             return;
         }
 
@@ -44,10 +43,10 @@
 
 		<svelte:component
 			this={getComponent(setting.input?.type ?? 'empty')}
+            bind:columnConfig={settings}
 			bind:data={data}
 			bind:value={data[setting.name]}
 			disabled={$listScreenIsReadOnly}
-			bind:columnConfig={settings}
 			config={setting}>
 		</svelte:component>
 	{/each}

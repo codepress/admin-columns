@@ -13,6 +13,7 @@
     import ColumnTypeDropdown from "./ColumnTypeDropdown.svelte";
     import {currentListKey} from "../store/current-list-screen";
     import ColumnsFormSkeleton from "./skeleton/ColumnsFormSkeleton.svelte";
+    import DebugToolbar from "./DebugToolbar.svelte";
     import {listScreenIsReadOnly} from "../store/read_only";
     import {columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
@@ -122,6 +123,8 @@
 
 </script>
 
+
+<DebugToolbar bind:data={data} bind:config={config} />
 
 {#if data }
 	<div class="ac-columns">
