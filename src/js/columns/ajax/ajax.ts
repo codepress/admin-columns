@@ -100,7 +100,7 @@ export const loadDefaultColumns = (listKey: string): AxiosPromise<JsonSuccessRes
     return axios.get( ajaxurl, {
         params: {
             _ajax_nonce: nonce,
-            action: 'ac-list-screen-select-column',
+            action: 'ac-list-screen-default-columns',
             list_key: listKey
         }
     });
