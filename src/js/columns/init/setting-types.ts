@@ -14,6 +14,7 @@ import SelectSetting from "../components/settings/SelectSetting.svelte";
 import DateFormatSetting from "../components/settings/DateFormatSetting.svelte";
 import HiddenSetting from "../components/settings/HiddenSetting.svelte";
 import RemoteSelectSetting from "../components/settings/RemoteSelectSetting.svelte";
+import SelectOptionsSetting from "../components/settings/SelectOptionsSetting.svelte";
 
 
 registerSettingType('label', LabelSetting)
@@ -29,3 +30,4 @@ registerSettingType('select', SelectSetting)
 registerSettingType('date_format', DateFormatSetting)
 registerSettingType('hidden', HiddenSetting)
 registerSettingType('remote_options', RemoteSelectSetting)
+registerSettingType('select_options', SelectOptionsSetting)
