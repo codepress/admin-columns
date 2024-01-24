@@ -6,12 +6,12 @@ use AC;
 use AC\Asset;
 use AC\Capabilities;
 use AC\ColumnSize;
-use AC\DefaultColumnsRepository;
 use AC\Form;
 use AC\ListScreen;
 use AC\Registerable;
 use AC\Renderable;
 use AC\ScreenController;
+use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\TableScreen;
 use AC\Type\EditorUrlFactory;
 
@@ -40,12 +40,15 @@ final class Screen implements Registerable
 
     private $list_screen;
 
+    private $default_columns_repository;
+
     public function __construct(
         Asset\Location\Absolute $location,
         TableScreen $table_screen,
         ColumnSize\ListStorage $column_size_list_storage,
         ColumnSize\UserStorage $column_size_user_storage,
         PrimaryColumnFactory $primary_column_factory,
+        DefaultColumnsRepository $default_columns_repository,
         ListScreen $list_screen = null
     ) {
         $this->location = $location;
@@ -54,6 +57,7 @@ final class Screen implements Registerable
         $this->column_size_user_storage = $column_size_user_storage;
         $this->primary_column_factory = $primary_column_factory;
         $this->list_screen = $list_screen;
+        $this->default_columns_repository = $default_columns_repository;
     }
 
     /**
@@ -62,7 +66,7 @@ final class Screen implements Registerable
     public function register(): void
     {
         $controller = new ScreenController(
-            new DefaultColumnsRepository($this->table_screen->get_key()),
+            $this->default_columns_repository,
             $this->table_screen,
             $this->list_screen
         );

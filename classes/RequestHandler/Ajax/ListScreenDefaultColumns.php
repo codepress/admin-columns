@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AC\RequestHandler\Ajax;
 
-use AC;
 use AC\Capabilities;
+use AC\ColumnTypesFactory;
 use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response;
 use AC\Setting\Encoder;
+use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\TableScreen;
 use AC\TableScreenFactory\Aggregate;
 use AC\Type\ListKey;
@@ -22,10 +23,16 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
 
     private $column_types_factory;
 
-    public function __construct(Aggregate $table_screen_factory, AC\ColumnTypesFactory\Aggregate $column_types_factory)
-    {
+    private $default_columns_repository;
+
+    public function __construct(
+        Aggregate $table_screen_factory,
+        ColumnTypesFactory\Aggregate $column_types_factory,
+        DefaultColumnsRepository $default_columns_repository
+    ) {
         $this->table_screen_factory = $table_screen_factory;
         $this->column_types_factory = $column_types_factory;
+        $this->default_columns_repository = $default_columns_repository;
     }
 
     public function handle(): void

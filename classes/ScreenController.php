@@ -3,6 +3,7 @@
 namespace AC;
 
 use AC\ColumnRepository\Sort\ManualOrder;
+use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\TableScreen\ManageValue;
 
 class ScreenController implements Registerable
@@ -49,7 +50,7 @@ class ScreenController implements Registerable
     public function save_headings($headings)
     {
         if ( ! wp_doing_ajax() && $headings) {
-            $this->default_column_repository->update($headings);
+            $this->default_column_repository->update($this->table_screen->get_key(), $headings);
         }
 
         return $headings;

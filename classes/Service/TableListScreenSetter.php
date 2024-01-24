@@ -7,6 +7,7 @@ use AC\ColumnSize;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Request;
+use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\Table;
 use AC\TableScreenFactory;
 use WP_Screen;
@@ -24,18 +25,22 @@ class TableListScreenSetter implements Registerable
 
     private $table_screen_factory;
 
+    private $default_columns_repository;
+
     public function __construct(
         Storage $storage,
         Absolute $location,
         TableScreenFactory $table_screen_factory,
         Table\LayoutPreference $preference,
-        Table\PrimaryColumnFactory $primary_column_factory
+        Table\PrimaryColumnFactory $primary_column_factory,
+        DefaultColumnsRepository $default_columns_repository
     ) {
         $this->storage = $storage;
         $this->location = $location;
         $this->preference = $preference;
         $this->primary_column_factory = $primary_column_factory;
         $this->table_screen_factory = $table_screen_factory;
+        $this->default_columns_repository = $default_columns_repository;
     }
 
     public function register(): void
@@ -76,6 +81,7 @@ class TableListScreenSetter implements Registerable
             new ColumnSize\ListStorage($this->storage),
             new ColumnSize\UserStorage(),
             $this->primary_column_factory,
+            $this->default_columns_repository,
             $list_screen
         );
         $table_screen->register();

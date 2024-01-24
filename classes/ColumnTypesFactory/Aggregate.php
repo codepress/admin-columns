@@ -6,7 +6,7 @@ namespace AC\ColumnTypesFactory;
 
 use AC;
 use AC\ColumnTypeCollection;
-use AC\DefaultColumnsRepository;
+use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\TableScreen;
 
 class Aggregate implements AC\ColumnTypesFactory
@@ -16,6 +16,13 @@ class Aggregate implements AC\ColumnTypesFactory
      * @var AC\ColumnTypesFactory[]
      */
     private static $factories = [];
+
+    private $default_columns_repository;
+
+    public function __construct(DefaultColumnsRepository $default_columns_repository)
+    {
+        $this->default_columns_repository = $default_columns_repository;
+    }
 
     public static function add(AC\ColumnTypesFactory $factory): void
     {
@@ -40,33 +47,37 @@ class Aggregate implements AC\ColumnTypesFactory
             }
         }
 
-        $this->modify_original_columns(new DefaultColumnsRepository($table_screen->get_key()), $collection);
+        $this->modify_original_columns($table_screen, $collection);
 
         return $collection;
     }
 
-    private function modify_original_columns(DefaultColumnsRepository $repo, ColumnTypeCollection $collection): void
+    private function modify_original_columns(TableScreen $table_screen, ColumnTypeCollection $collection): void
     {
-        // Remove non-existing originals
-        foreach ($collection as $column_type) {
-            if ($column_type->is_original() && ! $repo->find($column_type->get_type())) {
-                $collection->remove($column_type);
-            }
-        }
+        $defaults = $this->default_columns_repository->find_all(
+            $table_screen->get_key()
+        );
 
-        // Add missing labels to originals
-        foreach ($collection as $column_type) {
-            if ( ! $column_type->is_original()) {
+        foreach ($collection as $column) {
+            if ( ! $column->is_original()) {
                 continue;
             }
 
-            $original = $repo->find($column_type->get_type());
+            $label = $defaults[$column->get_type()] ?? null;
 
-            if ($original) {
-                $column_type->set_label($original->get_label())
-                            ->set_group($original->get_group());
+            // Remove non-existing originals
+            if ( ! $label) {
+                $collection->remove($column);
+                continue;
             }
+
+            // Add missing label to originals
+            $column->set_label($label)
+                   ->set_group('default');
         }
+
+        // Sort by original order
+        (new SortByTypes(array_keys($defaults)))->sort($collection);
     }
 
 }

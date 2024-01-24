@@ -77,6 +77,7 @@ class ColumnFactory
 
         $column->set_options($settings);
 
+        // TODO move to OrginalsFactory
         if ($column->is_original()) {
             if ( ! empty($settings['label']) && '' === $column->get_label()) {
                 $column->set_label($settings['label']);

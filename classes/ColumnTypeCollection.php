@@ -35,6 +35,7 @@ class ColumnTypeCollection implements Iterator, Countable
         $this->data[] = $column_type;
     }
 
+    // TODO can this can give issues? Do we need to rebase the keys. what happends while traversing?
     public function remove(Column $column): void
     {
         $index = $this->search($column->get_type());
