@@ -26,14 +26,7 @@ class UserOption implements UserData
 
     public function get(array $args = [])
     {
-        $args = array_merge(
-            [
-                'single' => true,
-            ],
-            $args
-        );
-
-        return get_user_option($this->key, $this->user_id, $args['single']);
+        return get_user_option($this->key, $this->user_id);
     }
 
     public function save($value): void
