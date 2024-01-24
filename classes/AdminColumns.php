@@ -116,6 +116,10 @@ class AdminColumns
         $request_ajax_handlers->add('ac-list-screen-save', $container->get(Ajax\ListScreenSave::class));
         $request_ajax_handlers->add('ac-list-screen-add-column', $container->get(Ajax\ListScreenAddColumn::class));
         $request_ajax_handlers->add(
+            'ac-list-screen-default-columns',
+            $container->get(Ajax\ListScreenDefaultColumns::class)
+        );
+        $request_ajax_handlers->add(
             'ac-list-screen-select-column',
             $container->get(Ajax\ListScreenSelectColumn::class)
         );

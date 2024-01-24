@@ -91,7 +91,6 @@ class ListScreenSettings implements RequestAjaxHandler
         $response->set_parameter('column_settings', $this->get_column_settings($list_screen->get_columns()));
 
         $response->success();
-        exit;
     }
 
     private function get_clean_label(AC\Column $column): string
