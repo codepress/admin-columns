@@ -35,9 +35,11 @@ class EditorMenuFavorites implements RequestAjaxHandler
             $response->error();
         }
 
+        $list_key = new ListKey($request->get('list_key'));
+
         'favorite' === $request->get('status')
-            ? $this->favorite_repository->add(new ListKey($request->get('list_key')))
-            : $this->favorite_repository->remove(new ListKey($request->get('list_key')));
+            ? $this->favorite_repository->add($list_key)
+            : $this->favorite_repository->remove($list_key);
 
         $response->success();
     }

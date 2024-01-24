@@ -27,7 +27,7 @@ class EditorFavorites
     {
         $data = $this->get_data();
 
-        if (in_array((string)$key, $data)) {
+        if (in_array((string)$key, $data, true)) {
             return;
         }
 
@@ -48,7 +48,9 @@ class EditorFavorites
             }
         }
 
-        $this->storage->save($data);
+        $this->storage->save(
+            array_values($data)
+        );
     }
 
     public function find_all(): ListKeyCollection
