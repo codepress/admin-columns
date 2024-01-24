@@ -2,8 +2,6 @@
 
 namespace AC;
 
-use LogicException;
-
 class Transient implements Expirable
 {
 
@@ -53,19 +51,12 @@ class Transient implements Expirable
         $this->timestamp->delete();
     }
 
-    /**
-     * @param mixed $data
-     * @param int   $expiration Time until expiration in seconds.
-     *
-     * @return bool
-     * @throws LogicException
-     */
-    public function save($data, int $expiration): bool
+    public function save($data, int $expiration): void
     {
         // Always store timestamp before option data.
         $this->timestamp->save(time() + $expiration);
 
-        return $this->option->save($data);
+        $this->option->save($data);
     }
 
 }
