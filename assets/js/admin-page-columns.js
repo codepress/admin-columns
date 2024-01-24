@@ -3139,7 +3139,7 @@ function instance($$self, $$props, $$invalidate) {
     }
     if (columninfo.original) {
       name = columninfo.value;
-      if (data.columns.hasOwnProperty(name)) {
+      if (data.columns.find(c => c.name === name)) {
         return _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_18__.NotificationProgrammatic.open({
           message: 'Original column already available',
           type: 'warning'

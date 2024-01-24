@@ -44,7 +44,7 @@
         if (columninfo.original) {
             name = columninfo.value;
 
-            if (data.columns.hasOwnProperty(name)) {
+            if (data.columns.find( c => c.name === name )) {
                 return NotificationProgrammatic.open({
                     message: 'Original column already available',
                     type: 'warning'
