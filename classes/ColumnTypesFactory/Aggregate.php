@@ -31,43 +31,48 @@ class Aggregate implements AC\ColumnTypesFactory
 
     public function create(TableScreen $table_screen): ColumnTypeCollection
     {
-        $collection = new ColumnTypeCollection();
+        $columns = [];
 
         foreach (self::$factories as $factory) {
-            $_collection = $factory->create($table_screen);
+            $collection = $factory->create($table_screen);
 
-            if ( ! $_collection) {
+            if ( ! $collection) {
                 continue;
             }
 
-            foreach ($_collection as $column) {
-                if ( ! $collection->contains($column)) {
-                    $collection->add($column);
+            foreach ($collection as $column) {
+                if (isset($columns[$column->get_type()])) {
+                    continue;
                 }
+
+                $columns[$column->get_type()] = $column;
             }
         }
 
-        $this->modify_original_columns($table_screen, $collection);
+        $columns = $this->modify_original_columns(
+            $table_screen,
+            $columns
+        );
 
-        return $collection;
+        return new ColumnTypeCollection($columns);
     }
 
-    private function modify_original_columns(TableScreen $table_screen, ColumnTypeCollection $collection): void
+    private function modify_original_columns(TableScreen $table_screen, array $columns): array
     {
         $defaults = $this->default_columns_repository->find_all(
             $table_screen->get_key()
         );
 
-        foreach ($collection as $column) {
+        foreach ($columns as $type => $column) {
             if ( ! $column->is_original()) {
                 continue;
             }
 
-            $label = $defaults[$column->get_type()] ?? null;
+            $label = $defaults[$type] ?? null;
 
             // Remove non-existing originals
             if ( ! $label) {
-                $collection->remove($column);
+                unset($columns[$type]);
                 continue;
             }
 
@@ -77,7 +82,7 @@ class Aggregate implements AC\ColumnTypesFactory
         }
 
         // Sort by original order
-        (new SortByTypes(array_keys($defaults)))->sort($collection);
+        return (new SortByTypes(array_keys($defaults)))->sort($columns);
     }
 
 }

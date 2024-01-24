@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AC\ColumnTypesFactory;
 
-use AC\ColumnTypeCollection;
-
 class SortByTypes
 {
 
@@ -16,14 +14,15 @@ class SortByTypes
         $this->column_types = $column_types;
     }
 
-    public function sort(ColumnTypeCollection $collection): void
+    public function sort(array $columns): array
     {
-        $ordered = [];
+        $ordered = $last = [];
 
-        foreach ($collection as $column) {
-            $key = array_search($column->get_type(), $this->column_types);
+        foreach ($columns as $type => $column) {
+            $key = array_search($type, $this->column_types);
 
             if (false === $key) {
+                $last[] = $column;
                 continue;
             }
 
@@ -32,13 +31,7 @@ class SortByTypes
 
         ksort($ordered);
 
-        foreach ($ordered as $column) {
-            $collection->remove($column);
-        }
-
-        foreach ($ordered as $column) {
-            $collection->add($column);
-        }
+        return array_merge($ordered, $last);
     }
 
 }
