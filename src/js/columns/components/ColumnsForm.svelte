@@ -56,11 +56,11 @@
             const columnLabel = ColumnTypesUtils.getColumnType(column_type)?.label;
             config[name] = d.data.data.columns.settings;
 
-            data['columns'][name] = {
+            data['columns'].push({
                 name: name,
                 type: column_type,
                 label: columnLabel ?? name
-            };
+            });
             openedColumnsStore.open(name);
         });
     }

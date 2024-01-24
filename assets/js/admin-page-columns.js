@@ -3150,11 +3150,11 @@ function instance($$self, $$props, $$invalidate) {
       var _a;
       const columnLabel = (_a = _utils_column_types__WEBPACK_IMPORTED_MODULE_7__.ColumnTypesUtils.getColumnType(column_type)) === null || _a === void 0 ? void 0 : _a.label;
       $$invalidate(1, config[name] = d.data.data.columns.settings, config);
-      $$invalidate(0, data['columns'][name] = {
+      data['columns'].push({
         name,
         type: column_type,
         label: columnLabel !== null && columnLabel !== void 0 ? columnLabel : name
-      }, data);
+      });
       _store_opened_columns__WEBPACK_IMPORTED_MODULE_4__.openedColumnsStore.open(name);
     });
   };
