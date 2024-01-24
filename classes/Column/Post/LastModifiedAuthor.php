@@ -5,11 +5,7 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\Settings;
 
-/**
- * Column displaying information about the author of a post, such as the
- * author's display name, user ID and email address.
- */
-class LastModifiedAuthor extends Column\Meta
+class LastModifiedAuthor extends Column
 {
 
     public function __construct()
@@ -18,21 +14,16 @@ class LastModifiedAuthor extends Column\Meta
              ->set_label(__('Last Modified Author', 'codepress-admin-columns'));
     }
 
-    public function get_value($id)
+    public function get_value($id): string
     {
-        $raw_value = $this->get_raw_value($id);
+        $user_id = get_post_meta($id, '_edit_last', true);
 
-        if ( ! $raw_value) {
+        if ( ! $user_id) {
             return $this->get_empty_char();
         }
 
         // TODO Stefan make sure this follows new (int) $id for get_formatted_value()
-        return $this->get_formatted_value($raw_value, $raw_value);
-    }
-
-    public function get_meta_key(): string
-    {
-        return '_edit_last';
+        return $this->get_formatted_value($user_id, $user_id);
     }
 
     protected function get_user_setting_display(): string

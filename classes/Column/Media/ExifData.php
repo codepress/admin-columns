@@ -5,7 +5,7 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\Settings;
 
-class ExifData extends Column\Media\MetaValue
+class ExifData extends Column
 {
 
     public function __construct()
@@ -15,9 +15,12 @@ class ExifData extends Column\Media\MetaValue
              ->set_label(__('Image Meta (EXIF)', 'codepress-admin-columns'));
     }
 
-    protected function get_option_name()
+    public function get_raw_value($id)
     {
-        return 'image_meta';
+        // TODO test
+        $meta = get_post_meta($id, '_wp_attachment_metadata', true);
+
+        return $meta['image_meta'] ?? [];
     }
 
     public function register_settings()

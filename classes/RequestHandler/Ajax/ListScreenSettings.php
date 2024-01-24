@@ -7,7 +7,6 @@ namespace AC\RequestHandler\Ajax;
 use AC;
 use AC\Admin\Preference;
 use AC\Capabilities;
-use AC\Controller\Middleware;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Nonce;

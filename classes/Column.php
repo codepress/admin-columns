@@ -17,12 +17,12 @@ class Column
     /**
      * @var string Unique type
      */
-    private $type;
+    protected $type;
 
     /**
      * @var string|null Label which describes this column
      */
-    private $label;
+    protected $label;
 
     /**
      * @var string Unique Name
@@ -59,6 +59,8 @@ class Column
      * @var ListScreen
      */
     protected $list_screen;
+
+    // TODO add __construct( string $type, string $label );
 
     public function get_name(): string
     {

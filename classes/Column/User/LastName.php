@@ -4,7 +4,7 @@ namespace AC\Column\User;
 
 use AC\Column;
 
-class LastName extends Column\Meta
+class LastName extends Column
 {
 
     public function __construct()
@@ -13,25 +13,9 @@ class LastName extends Column\Meta
         $this->set_label(__('Last Name', 'codepress-admin-columns'));
     }
 
-    public function get_meta_key(): string
+    public function get_value($id)
     {
-        return 'last_name';
-    }
-
-    public function get_value($user_id)
-    {
-        $value = $this->get_raw_value($user_id);
-
-        if ( ! $value) {
-            return $this->get_empty_char();
-        }
-
-        return $value;
-    }
-
-    public function get_raw_value($user_id)
-    {
-        return $this->get_meta_value($user_id, $this->get_meta_key());
+        return get_user_meta($id, 'last_name', true) ?: $this->get_empty_char();
     }
 
 }

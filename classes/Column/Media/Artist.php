@@ -2,7 +2,9 @@
 
 namespace AC\Column\Media;
 
-class Artist extends Meta
+use AC\Column;
+
+class Artist extends Column
 {
 
     public function __construct()
@@ -12,18 +14,13 @@ class Artist extends Meta
              ->set_label(__('Artist', 'codepress-admin-columns'));
     }
 
-    protected function get_sub_key()
-    {
-        return 'artist';
-    }
-
     public function get_value($id)
     {
-        $meta = $this->get_raw_value($id);
+        $meta = get_post_meta($id, '_wp_attachment_metadata', true);
 
-        return empty($meta[$this->get_sub_key()])
-            ? $this->get_empty_char()
-            : $meta[$this->get_sub_key()];
+        $value = $meta['artist'] ?? null;
+
+        return $value ?: $this->get_empty_char();
     }
 
 }

@@ -4,7 +4,7 @@ namespace AC\Column\Media;
 
 use AC\Column;
 
-class Height extends Column\Media\MetaValue
+class Height extends Column
 {
 
     public function __construct()
@@ -14,20 +14,15 @@ class Height extends Column\Media\MetaValue
              ->set_label(__('Height', 'codepress-admin-columns'));
     }
 
-    protected function get_option_name()
+    public function get_value($id): string
     {
-        return 'height';
-    }
+        $meta = get_post_meta($id, '_wp_attachment_metadata', true);
 
-    public function get_value($id)
-    {
-        $value = $this->get_raw_value($id);
+        $value = $meta['height'] ?? null;
 
-        if ( ! $value) {
-            return $this->get_empty_char();
-        }
-
-        return $value . 'px';
+        return $value
+            ? $value . 'px'
+            : $this->get_empty_char();
     }
 
 }
