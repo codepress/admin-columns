@@ -20,9 +20,12 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
 
     private $table_screen_factory;
 
-    public function __construct(Aggregate $table_screen_factory)
+    private $column_types_factory;
+
+    public function __construct(Aggregate $table_screen_factory, AC\ColumnTypesFactory\Aggregate $column_types_factory)
     {
         $this->table_screen_factory = $table_screen_factory;
+        $this->column_types_factory = $column_types_factory;
     }
 
     public function handle(): void
@@ -55,22 +58,32 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
     {
         $settings = [];
 
-        $repo = (new AC\DefaultColumnsRepository($table_screen->get_key()));
-
-        foreach ($repo->find_all() as $column) {
+        foreach ($this->get_default_column_types($table_screen) as $column) {
             $settings[$column->get_type()] = (new Encoder($column->get_settings()))->encode();
         }
 
         return $settings;
     }
 
+    private function get_default_column_types(TableScreen $table_screen): array
+    {
+        $columns = [];
+
+        // TODO Order of default column is wrong
+        foreach ($this->column_types_factory->create($table_screen) as $column) {
+            if ($column->is_original()) {
+                $columns[] = $column;
+            }
+        }
+
+        return $columns;
+    }
+
     private function get_columns(TableScreen $table_screen): array
     {
         $columns = [];
 
-        $repo = (new AC\DefaultColumnsRepository($table_screen->get_key()));
-
-        foreach ($repo->find_all() as $column) {
+        foreach ($this->get_default_column_types($table_screen) as $column) {
             $columns[] = [
                 'type'  => $column->get_type(),
                 'label' => $column->get_label(),
