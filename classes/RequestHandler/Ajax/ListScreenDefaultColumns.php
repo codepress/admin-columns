@@ -58,7 +58,7 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
         $repo = (new AC\DefaultColumnsRepository($table_screen->get_key()));
 
         foreach ($repo->find_all() as $column) {
-            $settings[$column->get_name()] = (new Encoder($column->get_settings()))->encode();
+            $settings[$column->get_type()] = (new Encoder($column->get_settings()))->encode();
         }
 
         return $settings;
