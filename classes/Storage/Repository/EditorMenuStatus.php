@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Storage\Repository;
 
-use AC\Preferences\Preference;
 use AC\Storage\UserOption;
 
 class EditorMenuStatus
@@ -14,20 +13,51 @@ class EditorMenuStatus
 
     public function __construct()
     {
-        $this->storage = new Preference(new UserOption('menu_status'));
+        $this->storage = new UserOption('ac_preferences_menu_status');
+    }
+
+    public function get_groups(): array
+    {
+        return $this->storage->get() ?: [];
     }
 
     public function save_status(string $group, bool $active): void
     {
         $active
-            ? $this->storage->save($group, '1')
-            : $this->storage->delete($group);
+            ? $this->add_group($group)
+            : $this->remove($group);
     }
 
-    public function find_all_active_groups(): array
+    private function add_group(string $group): void
     {
-        return array_keys(
-            $this->storage->find_all()
+        $data = $this->get_groups();
+
+        if ( ! in_array($group, $data, true)) {
+            $data[] = $group;
+        }
+
+        $this->save($data);
+    }
+
+    private function save(array $data): void
+    {
+        $data
+            ? $this->storage->save($data)
+            : $this->storage->delete();
+    }
+
+    private function remove(string $group): void
+    {
+        $data = $this->get_groups();
+
+        $key = array_search($group, $data);
+
+        if (false !== $key) {
+            unset($data[$key]);
+        }
+
+        $this->save(
+            array_values($data)
         );
     }
 

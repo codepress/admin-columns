@@ -26,6 +26,11 @@ class EditorFavorites
     public function add(ListKey $key): void
     {
         $data = $this->get_data();
+
+        if (in_array((string)$key, $data)) {
+            return;
+        }
+
         $data[] = (string)$key;
 
         $data

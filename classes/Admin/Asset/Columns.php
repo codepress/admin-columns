@@ -111,7 +111,7 @@ class Columns extends Script
             'menu_items_favorites' => $this->encode_favorites(
                 $this->get_favorite_table_screens()
             ),
-            'menu_groups_opened'   => (new EditorMenuStatus())->find_all_active_groups(),
+            'menu_groups_opened'   => (new EditorMenuStatus())->get_groups(),
         ]);
 
         $this->localize(
