@@ -105,7 +105,9 @@
     const handleLoadDefaultColumns = () => {
         loadDefaultColumns( $currentListKey ).then( response => {
             if( response.data.success ){
-                data.columns = response.data.data.columns
+                data.columns = response.data.data.columns;
+                config = response.data.data.config;
+                console.log( config );
             }
         })
     }
