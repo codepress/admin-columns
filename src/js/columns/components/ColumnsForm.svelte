@@ -7,7 +7,7 @@
     import {ColumnTypesUtils} from "../utils/column-types";
     import AcButton from "ACUi/element/AcButton.svelte";
     import ListKeys from "../utils/ListKeys";
-    import {ListScreenColumnsData, ListScreenData} from "../../types/requests";
+    import {ListScreenColumnData, ListScreenData} from "../../types/requests";
     import {listScreenDataStore} from "../store/list-screen-data";
     import {tick} from "svelte";
     import ColumnTypeDropdown from "./ColumnTypeDropdown.svelte";
@@ -66,16 +66,18 @@
     }
 
     const duplicateColumn = async (columnName: string) => {
-        let foundColumn = data['columns'][columnName] ?? null;
+        let foundColumn = data.columns.find( c => c.name === columnName ) ?? null;
 
         if (!foundColumn) {
             throw new Error(`Column ${columnName} could not be duplicated`);
         }
 
-        const clonedName = ColumnUtils.generateId()
+        const clonedName = ColumnUtils.generateId();
 
-        data['columns'][clonedName] = Object.assign({}, foundColumn, {name: clonedName});
+        data['columns'].push( Object.assign({}, foundColumn, {name: clonedName}) );
+
         await tick();
+        
         openedColumnsStore.close(foundColumn.name);
         openedColumnsStore.open(clonedName);
         config[clonedName] = config[foundColumn.name];
@@ -86,15 +88,15 @@
     }
 
     const applyNewColumnsOrder = (from: number, to: number) => {
-        let sorted_columns = Object.values(data.columns);
+        let sorted_columns = data.columns;
         const item = sorted_columns[from];
         sorted_columns.splice(from, 1);
         sorted_columns.splice(to, 0, item);
 
-        let newSortedColumns: ListScreenColumnsData = {};
+        let newSortedColumns: ListScreenColumnData[] = [];
 
         sorted_columns.forEach(d => {
-            newSortedColumns[d.name] = d;
+            newSortedColumns.push(d);
         });
 
         data.columns = newSortedColumns;
@@ -146,7 +148,7 @@
 		</header>
 
 		<div class="ac-columns__body">
-			{#if Object.keys( data.columns ).length === 0}
+			{#if data.columns.length === 0}
 				<div class="acu-p-10 acu-bg-[#F1F5F9]">
 					<div class="acu-text-center">
 						<h2>Add Columns</h2>
@@ -170,7 +172,7 @@
 			{/if}
 
 			<div bind:this={sortableContainer}>
-				{#each Object.values( data.columns ) as column_data(column_data.name)}
+				{#each data.columns as column_data(column_data.name)}
 					<ColumnItem
 						bind:config={ config[column_data.name ?? column_data.type] }
 						bind:data={ column_data }

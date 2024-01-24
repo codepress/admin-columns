@@ -118,7 +118,11 @@ class Columns extends Script
             'ac_admin_columns_i18n',
             new Script\Localize\Translation([
                 'errors'   => [
-                    'ajax_unknown' => __('Something went wrong.', 'codepress-admin-columns'),
+                    'ajax_unknown'   => __('Something went wrong.', 'codepress-admin-columns'),
+                    'original_exist' => __(
+                        '%s column is already present and can not be duplicated.',
+                        'codepress-admin-columns'
+                    ),
                 ],
                 'global'   => [
                     'search' => __('Search', 'codepress-admin-columns'),

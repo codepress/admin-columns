@@ -479,7 +479,6 @@ function create_if_block(ctx) {
   });
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(columnsettings, 'data', columnsettings_data_binding));
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(columnsettings, 'settings', columnsettings_settings_binding));
-  columnsettings.$on("typeChange", /*typeChange_handler*/ctx[15]);
   return {
     c() {
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -797,7 +796,7 @@ function instance($$self, $$props, $$invalidate) {
   let $openedColumnsStore;
   let $currentListKey;
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_opened_columns__WEBPACK_IMPORTED_MODULE_3__.openedColumnsStore, $$value => $$invalidate(9, $openedColumnsStore = $$value));
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_12__.currentListKey, $$value => $$invalidate(16, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_12__.currentListKey, $$value => $$invalidate(15, $currentListKey = $$value));
   let {
     data
   } = $$props;
@@ -872,7 +871,6 @@ function instance($$self, $$props, $$invalidate) {
     config = value;
     $$invalidate(1, config);
   }
-  const typeChange_handler = e => console.log('change', e.detail);
   $$self.$$set = $$props => {
     if ('data' in $$props) $$invalidate(0, data = $$props.data);
     if ('config' in $$props) $$invalidate(1, config = $$props.config);
@@ -882,7 +880,7 @@ function instance($$self, $$props, $$invalidate) {
       $: $$invalidate(3, opened = $openedColumnsStore.includes(data.name));
     }
   };
-  return [data, config, isOriginalColumn, opened, toggle, handleDelete, handleDuplicate, checkAppliedSettings, tempSelectColumn, $openedColumnsStore, keydown_handler, profeaturetoggles_data_binding, profeaturetoggles_config_binding, columnsettings_data_binding, columnsettings_settings_binding, typeChange_handler];
+  return [data, config, isOriginalColumn, opened, toggle, handleDelete, handleDuplicate, checkAppliedSettings, tempSelectColumn, $openedColumnsStore, keydown_handler, profeaturetoggles_data_binding, profeaturetoggles_config_binding, columnsettings_data_binding, columnsettings_settings_binding];
 }
 class ColumnItem extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -2261,7 +2259,6 @@ function create_if_block(ctx) {
   let t4;
   let t5;
   let div4;
-  let show_if = Object.keys( /*data*/ctx[0].columns).length === 0;
   let t6;
   let div3;
   let each_blocks = [];
@@ -2271,8 +2268,8 @@ function create_if_block(ctx) {
   let mounted;
   let dispose;
   let if_block0 = /*$listScreenIsReadOnly*/ctx[4] && create_if_block_3(ctx);
-  let if_block1 = show_if && create_if_block_2(ctx);
-  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(Object.values( /*data*/ctx[0].columns));
+  let if_block1 = /*data*/ctx[0].columns.length === 0 && create_if_block_2(ctx);
+  let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*data*/ctx[0].columns);
   const get_key = ctx => /*column_data*/ctx[25].name;
   for (let i = 0; i < each_value.length; i += 1) {
     let child_ctx = get_each_context(ctx, each_value, i);
@@ -2374,11 +2371,10 @@ function create_if_block(ctx) {
       if (!current || dirty & /*tableUrl*/4) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*tableUrl*/ctx[2]);
       }
-      if (dirty & /*Object, data*/1) show_if = Object.keys( /*data*/ctx[0].columns).length === 0;
-      if (show_if) {
+      if ( /*data*/ctx[0].columns.length === 0) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
-          if (dirty & /*Object, data*/1) {
+          if (dirty & /*data*/1) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
           }
         } else {
@@ -2394,8 +2390,8 @@ function create_if_block(ctx) {
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
-      if (dirty & /*config, Object, data, deleteColumn, duplicateColumn*/387) {
-        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)(Object.values( /*data*/ctx[0].columns));
+      if (dirty & /*config, data, deleteColumn, duplicateColumn*/387) {
+        each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*data*/ctx[0].columns);
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
         each_blocks = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.update_keyed_each)(each_blocks, dirty, get_key, 1, ctx, each_value, each_1_lookup, div3, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.outro_and_destroy_block, create_each_block, null, get_each_context);
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
@@ -2475,7 +2471,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (134:3) {#if Object.keys( data.columns ).length === 0}
+// (134:3) {#if data.columns.length === 0}
 function create_if_block_2(ctx) {
   let div3;
   let div0;
@@ -2701,7 +2697,7 @@ function create_default_slot_3(ctx) {
   };
 }
 
-// (158:4) {#each Object.values( data.columns ) as column_data(column_data.name)}
+// (158:4) {#each data.columns as column_data(column_data.name)}
 function create_each_block(key_1, ctx) {
   let first;
   let columnitem;
@@ -2744,12 +2740,12 @@ function create_each_block(key_1, ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       const columnitem_changes = {};
-      if (!updating_config && dirty & /*config, Object, data*/3) {
+      if (!updating_config && dirty & /*config, data*/3) {
         updating_config = true;
         columnitem_changes.config = /*config*/ctx[1][/*column_data*/ctx[25].name ?? /*column_data*/ctx[25].type];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_config = false);
       }
-      if (!updating_data && dirty & /*Object, data*/1) {
+      if (!updating_data && dirty & /*data*/1) {
         updating_data = true;
         columnitem_changes.data = /*column_data*/ctx[25];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_data = false);
@@ -3164,14 +3160,14 @@ function instance($$self, $$props, $$invalidate) {
   };
   const duplicateColumn = columnName => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    let foundColumn = (_a = data['columns'][columnName]) !== null && _a !== void 0 ? _a : null;
+    let foundColumn = (_a = data.columns.find(c => c.name === columnName)) !== null && _a !== void 0 ? _a : null;
     if (!foundColumn) {
       throw new Error(`Column ${columnName} could not be duplicated`);
     }
     const clonedName = _utils_column__WEBPACK_IMPORTED_MODULE_5__["default"].generateId();
-    $$invalidate(0, data['columns'][clonedName] = Object.assign({}, foundColumn, {
+    data['columns'].push(Object.assign({}, foundColumn, {
       name: clonedName
-    }), data);
+    }));
     yield (0,svelte__WEBPACK_IMPORTED_MODULE_11__.tick)();
     _store_opened_columns__WEBPACK_IMPORTED_MODULE_4__.openedColumnsStore.close(foundColumn.name);
     _store_opened_columns__WEBPACK_IMPORTED_MODULE_4__.openedColumnsStore.open(clonedName);
@@ -3181,13 +3177,13 @@ function instance($$self, $$props, $$invalidate) {
     _store_list_screen_data__WEBPACK_IMPORTED_MODULE_10__.listScreenDataStore.deleteColumn(columnName);
   };
   const applyNewColumnsOrder = (from, to) => {
-    let sorted_columns = Object.values(data.columns);
+    let sorted_columns = data.columns;
     const item = sorted_columns[from];
     sorted_columns.splice(from, 1);
     sorted_columns.splice(to, 0, item);
-    let newSortedColumns = {};
+    let newSortedColumns = [];
     sorted_columns.forEach(d => {
-      newSortedColumns[d.name] = d;
+      newSortedColumns.push(d);
     });
     $$invalidate(0, data.columns = newSortedColumns, data);
   };
@@ -3230,6 +3226,7 @@ function instance($$self, $$props, $$invalidate) {
   }
   function columnitem_data_binding(value, column_data, each_value, column_data_index) {
     each_value[column_data_index] = value;
+    $$invalidate(0, data);
   }
   const delete_handler = e => deleteColumn(e.detail);
   const duplicate_handler = e => duplicateColumn(e.detail);
@@ -9130,7 +9127,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var svelte_select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! svelte-select */ "./node_modules/svelte-select/index.js");
 /* harmony import */ var _ajax_ajax__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../ajax/ajax */ "./js/columns/ajax/ajax.ts");
 /* harmony import */ var _store_column_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../store/column-types */ "./js/columns/store/column-types.ts");
+/* harmony import */ var _utils_column__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../utils/column */ "./js/columns/utils/column.ts");
+/* harmony import */ var _utils_column_types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../utils/column-types */ "./js/columns/utils/column-types.ts");
+/* harmony import */ var _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../store/list-screen-data */ "./js/columns/store/list-screen-data.ts");
+/* harmony import */ var _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../ui-wrapper/notification */ "./js/ui-wrapper/notification.ts");
+/* harmony import */ var _utils_global__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../..//utils/global */ "./js/columns/utils/global.ts");
+/* harmony import */ var _store_opened_columns__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../store/opened-columns */ "./js/columns/store/opened-columns.ts");
 /* js/columns/components/settings/TypeSetting.svelte generated by Svelte v4.2.0 */
+
+
+
+
+
+
 
 
 
@@ -9141,10 +9150,14 @@ __webpack_require__.r(__webpack_exports__);
 function create_default_slot(ctx) {
   let select;
   let div;
+  let updating_value;
   let updating_justValue;
   let current;
+  function select_value_binding(value) {
+    /*select_value_binding*/ctx[9](value);
+  }
   function select_justValue_binding(value) {
-    /*select_justValue_binding*/ctx[8](value);
+    /*select_justValue_binding*/ctx[10](value);
   }
   let select_props = {
     class: "-acui",
@@ -9152,15 +9165,18 @@ function create_default_slot(ctx) {
     clearable: false,
     items: /*$columnTypesStore*/ctx[4],
     groupBy: /*groupBy*/ctx[6],
-    disabled: /*disabled*/ctx[2],
-    value: /*data*/ctx[0]['type']
+    disabled: /*disabled*/ctx[1]
   };
-  if ( /*selectValue*/ctx[3] !== void 0) {
-    select_props.justValue = /*selectValue*/ctx[3];
+  if ( /*value*/ctx[3] !== void 0) {
+    select_props.value = /*value*/ctx[3];
+  }
+  if ( /*selectValue*/ctx[2] !== void 0) {
+    select_props.justValue = /*selectValue*/ctx[2];
   }
   select = new svelte_select__WEBPACK_IMPORTED_MODULE_4__["default"]({
     props: select_props
   });
+  svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(select, 'value', select_value_binding));
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(select, 'justValue', select_justValue_binding));
   select.$on("change", /*changeValue*/ctx[5]);
   return {
@@ -9178,11 +9194,15 @@ function create_default_slot(ctx) {
     p(ctx, dirty) {
       const select_changes = {};
       if (dirty & /*$columnTypesStore*/16) select_changes.items = /*$columnTypesStore*/ctx[4];
-      if (dirty & /*disabled*/4) select_changes.disabled = /*disabled*/ctx[2];
-      if (dirty & /*data*/1) select_changes.value = /*data*/ctx[0]['type'];
-      if (!updating_justValue && dirty & /*selectValue*/8) {
+      if (dirty & /*disabled*/2) select_changes.disabled = /*disabled*/ctx[1];
+      if (!updating_value && dirty & /*value*/8) {
+        updating_value = true;
+        select_changes.value = /*value*/ctx[3];
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_value = false);
+      }
+      if (!updating_justValue && dirty & /*selectValue*/4) {
         updating_justValue = true;
-        select_changes.justValue = /*selectValue*/ctx[3];
+        select_changes.justValue = /*selectValue*/ctx[2];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_justValue = false);
       }
       select.$set(select_changes);
@@ -9207,8 +9227,8 @@ function create_fragment(ctx) {
   let current;
   columnsetting = new _ColumnSetting_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({
     props: {
-      label: /*config*/ctx[1].label,
-      description: /*config*/ctx[1].description,
+      label: /*config*/ctx[0].label,
+      description: /*config*/ctx[0].description,
       name: "type",
       $$slots: {
         default: [create_default_slot]
@@ -9228,9 +9248,9 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const columnsetting_changes = {};
-      if (dirty & /*config*/2) columnsetting_changes.label = /*config*/ctx[1].label;
-      if (dirty & /*config*/2) columnsetting_changes.description = /*config*/ctx[1].description;
-      if (dirty & /*$$scope, $columnTypesStore, disabled, data, selectValue*/1053) {
+      if (dirty & /*config*/1) columnsetting_changes.label = /*config*/ctx[0].label;
+      if (dirty & /*config*/1) columnsetting_changes.description = /*config*/ctx[0].description;
+      if (dirty & /*$$scope, $columnTypesStore, disabled, value, selectValue*/16414) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
@@ -9253,7 +9273,9 @@ function create_fragment(ctx) {
   };
 }
 function instance($$self, $$props, $$invalidate) {
+  let $listScreenDataStore;
   let $columnTypesStore;
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore, $$value => $$invalidate(11, $listScreenDataStore = $$value));
   (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_column_types__WEBPACK_IMPORTED_MODULE_6__.columnTypesStore, $$value => $$invalidate(4, $columnTypesStore = $$value));
   let {
     data
@@ -9268,43 +9290,59 @@ function instance($$self, $$props, $$invalidate) {
     disabled = false
   } = $$props;
   const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_2__.createEventDispatcher)();
+  const i18n = (0,_utils_global__WEBPACK_IMPORTED_MODULE_11__.getColumnSettingsTranslation)();
   let selectValue;
+  let value = data.type;
   const changeValue = () => {
-    dispatch('typeChange', {
-      name: data.name,
-      newType: selectValue
-    });
-    console.log(data);
-    return;
-    $$invalidate(0, data['type'] = selectValue, data);
+    const oldValue = data.type;
+    if (_utils_column_types__WEBPACK_IMPORTED_MODULE_8__.ColumnTypesUtils.isOriginalColumnType(selectValue)) {
+      if ($listScreenDataStore.columns.find(c => c.name === selectValue)) {
+        $$invalidate(3, value = data.type);
+        _ui_wrapper_notification__WEBPACK_IMPORTED_MODULE_10__.NotificationProgrammatic.open({
+          type: "error",
+          message: i18n.errors.original_exist.replace('%s', selectValue)
+        });
+        return;
+      }
+      $$invalidate(7, data.name = selectValue, data);
+    }
+    if (_utils_column_types__WEBPACK_IMPORTED_MODULE_8__.ColumnTypesUtils.isOriginalColumnType(oldValue)) {
+      $$invalidate(7, data.name = _utils_column__WEBPACK_IMPORTED_MODULE_7__["default"].generateId(), data);
+    }
+    _store_opened_columns__WEBPACK_IMPORTED_MODULE_12__.openedColumnsStore.open(data.name);
+    $$invalidate(7, data['type'] = selectValue, data);
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_5__.getColumnSettings)('post', selectValue).then(response => {
-      $$invalidate(7, columnConfig = response.data.data.columns.settings);
+      $$invalidate(8, columnConfig = response.data.data.columns.settings);
       setTimeout(() => {
-        $$invalidate(7, columnConfig);
+        $$invalidate(8, columnConfig);
       }, 1000);
     });
   };
   const groupBy = item => item.group;
+  function select_value_binding(value$1) {
+    value = value$1;
+    $$invalidate(3, value);
+  }
   function select_justValue_binding(value) {
     selectValue = value;
-    $$invalidate(3, selectValue);
+    $$invalidate(2, selectValue);
   }
   $$self.$$set = $$props => {
-    if ('data' in $$props) $$invalidate(0, data = $$props.data);
-    if ('config' in $$props) $$invalidate(1, config = $$props.config);
-    if ('columnConfig' in $$props) $$invalidate(7, columnConfig = $$props.columnConfig);
-    if ('disabled' in $$props) $$invalidate(2, disabled = $$props.disabled);
+    if ('data' in $$props) $$invalidate(7, data = $$props.data);
+    if ('config' in $$props) $$invalidate(0, config = $$props.config);
+    if ('columnConfig' in $$props) $$invalidate(8, columnConfig = $$props.columnConfig);
+    if ('disabled' in $$props) $$invalidate(1, disabled = $$props.disabled);
   };
-  return [data, config, disabled, selectValue, $columnTypesStore, changeValue, groupBy, columnConfig, select_justValue_binding];
+  return [config, disabled, selectValue, value, $columnTypesStore, changeValue, groupBy, data, columnConfig, select_value_binding, select_justValue_binding];
 }
 class TypeSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      data: 0,
-      config: 1,
-      columnConfig: 7,
-      disabled: 2
+      data: 7,
+      config: 0,
+      columnConfig: 8,
+      disabled: 1
     });
   }
 }
@@ -18864,9 +18902,9 @@ function createListScreenData() {
         subscribe,
         set,
         update,
-        deleteColumn: (columnName) => update(items => {
-            delete items.columns[columnName];
-            return items;
+        deleteColumn: (columnName) => update(data => {
+            data.columns = data.columns.filter(c => c.name !== columnName);
+            return data;
         }),
     };
 }
@@ -19023,6 +19061,13 @@ class ColumnTypesUtils {
     }
     static getOriginalColumnTypes() {
         return ColumnTypesUtils.getColumnTypes().filter(c => c.original);
+    }
+    static isOriginalColumnType(columnType) {
+        var _a;
+        let column = (_a = ColumnTypesUtils.getColumnTypes().find(c => c.value === columnType)) !== null && _a !== void 0 ? _a : null;
+        return column !== null
+            ? column.original
+            : false;
     }
     static getColumnType(type) {
         const columnType = ColumnTypesUtils.getColumnTypes().find(ct => ct.value === type);

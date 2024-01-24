@@ -117,7 +117,6 @@
 			<ColumnSettings
 				bind:data={data}
 				bind:settings={config}
-                on:typeChange={ (e) => console.log('change', e.detail)}
 			/>
 
 			<div style="padding: 10px; background: #FFDCDCFF">
