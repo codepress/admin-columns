@@ -2212,7 +2212,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (182:0) {:else}
+// (183:0) {:else}
 function create_else_block(ctx) {
   let columnsformskeleton;
   let current;
@@ -2268,7 +2268,7 @@ function create_if_block(ctx) {
   let mounted;
   let dispose;
   let if_block0 = /*$listScreenIsReadOnly*/ctx[4] && create_if_block_3(ctx);
-  let if_block1 = /*data*/ctx[0].columns.length === 0 && create_if_block_2(ctx);
+  let if_block1 = ( /*data*/ctx[0].columns.length === 0 || /*data*/ctx[0].columns === null) && create_if_block_2(ctx);
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*data*/ctx[0].columns);
   const get_key = ctx => /*column_data*/ctx[25].name;
   for (let i = 0; i < each_value.length; i += 1) {
@@ -2371,7 +2371,7 @@ function create_if_block(ctx) {
       if (!current || dirty & /*tableUrl*/4) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(a, "href", /*tableUrl*/ctx[2]);
       }
-      if ( /*data*/ctx[0].columns.length === 0) {
+      if ( /*data*/ctx[0].columns.length === 0 || /*data*/ctx[0].columns === null) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
           if (dirty & /*data*/1) {
@@ -2471,7 +2471,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (134:3) {#if data.columns.length === 0}
+// (135:3) {#if data.columns.length === 0 || data.columns === null}
 function create_if_block_2(ctx) {
   let div3;
   let div0;
@@ -2583,7 +2583,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (142:6) <AcDropdown maxHeight="300px" value position="bottom-left">
+// (143:6) <AcDropdown maxHeight="300px" value position="bottom-left">
 function create_default_slot_5(ctx) {
   let columntypedropdown;
   let current;
@@ -2613,7 +2613,7 @@ function create_default_slot_5(ctx) {
   };
 }
 
-// (143:7) <AcButton slot="trigger">
+// (144:7) <AcButton slot="trigger">
 function create_default_slot_4(ctx) {
   let t;
   return {
@@ -2631,7 +2631,7 @@ function create_default_slot_4(ctx) {
   };
 }
 
-// (143:7) 
+// (144:7) 
 function create_trigger_slot_1(ctx) {
   let acbutton;
   let current;
@@ -2679,7 +2679,7 @@ function create_trigger_slot_1(ctx) {
   };
 }
 
-// (149:6) <AcButton>
+// (150:6) <AcButton>
 function create_default_slot_3(ctx) {
   let t;
   return {
@@ -2697,7 +2697,7 @@ function create_default_slot_3(ctx) {
   };
 }
 
-// (158:4) {#each data.columns as column_data(column_data.name)}
+// (159:4) {#each data.columns as column_data(column_data.name)}
 function create_each_block(key_1, ctx) {
   let first;
   let columnitem;
@@ -2770,7 +2770,7 @@ function create_each_block(key_1, ctx) {
   };
 }
 
-// (168:2) {#if !$listScreenIsReadOnly}
+// (169:2) {#if !$listScreenIsReadOnly}
 function create_if_block_1(ctx) {
   let footer;
   let div;
@@ -2860,7 +2860,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (171:5) <AcButton type="text" on:click={clearColumns}>
+// (172:5) <AcButton type="text" on:click={clearColumns}>
 function create_default_slot_2(ctx) {
   let t;
   return {
@@ -2878,7 +2878,7 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (172:5) <AcDropdown maxHeight="300px" value position="bottom-left">
+// (173:5) <AcDropdown maxHeight="300px" value position="bottom-left">
 function create_default_slot_1(ctx) {
   let columntypedropdown;
   let current;
@@ -2908,7 +2908,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (173:6) <AcButton slot="trigger">
+// (174:6) <AcButton slot="trigger">
 function create_default_slot(ctx) {
   let t;
   return {
@@ -2926,7 +2926,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (173:6) 
+// (174:6) 
 function create_trigger_slot(ctx) {
   let acbutton;
   let current;
@@ -3128,7 +3128,7 @@ function instance($$self, $$props, $$invalidate) {
   } = $$props;
   let sortableContainer;
   const clearColumns = () => {
-    $$invalidate(0, data['columns'] = {}, data);
+    $$invalidate(0, data['columns'] = [], data);
   };
   const addColumn = column_type => {
     var _a;

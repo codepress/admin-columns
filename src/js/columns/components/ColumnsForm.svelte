@@ -30,7 +30,7 @@
     let sortableContainer: HTMLElement | null;
 
     const clearColumns = () => {
-        data['columns'] = {};
+        data['columns'] = [];
     }
 
     const addColumn = (column_type: string) => {
@@ -77,7 +77,7 @@
         data['columns'].push( Object.assign({}, foundColumn, {name: clonedName}) );
 
         await tick();
-        
+
         openedColumnsStore.close(foundColumn.name);
         openedColumnsStore.open(clonedName);
         config[clonedName] = config[foundColumn.name];
@@ -148,7 +148,8 @@
 		</header>
 
 		<div class="ac-columns__body">
-			{#if data.columns.length === 0}
+            
+			{#if data.columns.length === 0 || data.columns === null}
 				<div class="acu-p-10 acu-bg-[#F1F5F9]">
 					<div class="acu-text-center">
 						<h2>Add Columns</h2>
