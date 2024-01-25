@@ -76,7 +76,6 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
     {
         $columns = [];
 
-        // TODO Order of default column is wrong
         foreach ($this->column_types_factory->create($table_screen) as $column) {
             if ($column->is_original()) {
                 $columns[] = $column;

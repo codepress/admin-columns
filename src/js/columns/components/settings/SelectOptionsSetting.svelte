@@ -14,7 +14,6 @@
 
     export let config: AC.Column.Settings.NumberSettings;
     export let value: string = '';
-    export let valueTest: string = '';
 
 
     const dispatch = createEventDispatcher();

@@ -16,22 +16,22 @@ class SortByTypes
 
     public function sort(array $columns): array
     {
-        $ordered = $last = [];
+        $ordered = [];
 
-        foreach ($columns as $type => $column) {
-            $key = array_search($type, $this->column_types);
-
-            if (false === $key) {
-                $last[] = $column;
+        foreach ($this->column_types as $type) {
+            if ( ! isset($columns[$type])) {
                 continue;
             }
 
-            $ordered[$key] = $column;
+            $ordered[] = $columns[$type];
+
+            unset($columns[$type]);
         }
 
-        ksort($ordered);
-
-        return array_merge($ordered, $last);
+        return array_merge(
+            array_values($columns), // rebase keys
+            $ordered
+        );
     }
 
 }

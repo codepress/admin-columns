@@ -17,14 +17,17 @@
     import {listScreenIsReadOnly} from "../store/read_only";
     import {columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
+    import {getColumnSettingsTranslation} from "../utils/global";
+
+    const i18n = getColumnSettingsTranslation();
 
     declare const jQuery: any;
-
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
-    export let tableUrl: string;
 
+    export let tableUrl: string;
     export let start: number | null = 0;
+
     export let end: number | null = 0;
 
     let sortableContainer: HTMLElement | null;
@@ -162,22 +165,21 @@
 			{#if data.columns.length === 0 || data.columns === null}
 				<div class="acu-p-10 acu-bg-[#F1F5F9]">
 					<div class="acu-text-center">
-						<h2>Add Columns</h2>
-						<p>The default columns will be shown on the list table when no columns are added.</p>
+						<h2>{i18n.editor.label.add_columns}</h2>
+						<p>{i18n.editor.sentence.show_default_columns}</p>
 					</div>
 
-					<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-py-8">
+					<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-3 acu-pb-6">
 						<AcDropdown maxHeight="300px" value position="bottom-left">
-							<AcButton slot="trigger">+ Add Column</AcButton>
+							<AcButton slot="trigger">+ {i18n.editor.label.add_column}</AcButton>
 							<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>
 
 							</ColumnTypeDropdown>
 						</AcDropdown>
-						<span>Or</span>
-						<AcButton on:click={handleLoadDefaultColumns}>Load default columns</AcButton>
+						<AcButton on:click={handleLoadDefaultColumns}>{i18n.editor.label.load_default_columns}</AcButton>
 					</div>
 					<div class="acu-text-center">
-						<p>New to Admin Columns? Take a look at our <a href="#d">getting started guide</a>.</p>
+						<p>{@html i18n.editor.sentence.getting_started}</p>
 					</div>
 				</div>
 			{/if}
@@ -196,9 +198,9 @@
 		{#if !$listScreenIsReadOnly}
 			<footer class="ac-columns__footer">
 				<div>
-					<AcButton type="text" on:click={clearColumns}>Clear Columns</AcButton>
+					<AcButton type="text" on:click={clearColumns}>{i18n.editor.label.clear_columns}</AcButton>
 					<AcDropdown maxHeight="300px" value position="bottom-left">
-						<AcButton slot="trigger">+ Add Column</AcButton>
+						<AcButton slot="trigger">+ {i18n.editor.label.add_columns}</AcButton>
 						<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>
 
 						</ColumnTypeDropdown>

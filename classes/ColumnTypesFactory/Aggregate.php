@@ -71,7 +71,7 @@ class Aggregate implements AC\ColumnTypesFactory
             $label = $defaults[$type] ?? null;
 
             // Remove non-existing originals
-            if ( ! $label) {
+            if (null === $label) {
                 unset($columns[$type]);
                 continue;
             }

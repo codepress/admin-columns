@@ -54,8 +54,12 @@
 @include createPaddingUtilities(1, 5px);
 @include createPaddingUtilities(2, 10px);
 @include createPaddingUtilities(3, 15px);
+@include createPaddingUtilities(4, 20px);
+@include createPaddingUtilities(6, 30px);
 
 @include createMarginUtilities(0, 0);
 @include createMarginUtilities(1, 5px);
 @include createMarginUtilities(2, 10px);
 @include createMarginUtilities(3, 15px);
+@include createMarginUtilities(4, 20px);
+@include createMarginUtilities(6, 30px);

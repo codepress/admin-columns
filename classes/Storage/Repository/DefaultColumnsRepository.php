@@ -18,9 +18,7 @@ class DefaultColumnsRepository
     public function update(ListKey $key, array $columns): void
     {
         $this->get_storage($key)
-             ->save(
-                 $columns
-             );
+             ->save($columns);
     }
 
     public function exists(ListKey $key): bool

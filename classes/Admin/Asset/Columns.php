@@ -136,6 +136,30 @@ class Columns extends Script
                         'select-icon' => __('Select Icon', 'codepress-admin-columns'),
                     ],
                 ],
+                'editor'   => [
+                    'label'    => [
+                        'add_column'           => __('Add Column', 'codepress-admin-columns'),
+                        'add_columns'          => __('Add Columns', 'codepress-admin-columns'),
+                        'clear_columns'        => __('Clear columns', 'codepress-admin-columns'),
+                        'load_default_columns' => __('Load default columns', 'codepress-admin-columns'),
+                    ],
+                    'sentence' => [
+                        'show_default_columns' => __(
+                            'The default columns will be shown on the list table when no columns are added.',
+                            'codepress-admin-columns'
+                        ),
+                        'getting_started'      => sprintf(
+                            __('New to Admin Columns? Take a look at our %s', 'codepress-admin-columns'),
+                            sprintf(
+                                '<a target="_blank" href="%s">%s</a>',
+                                AC\Type\Url\Documentation::create_with_path(
+                                    AC\Type\Url\Documentation::ARTICLE_GETTING_STARTED
+                                ),
+                                __('getting started guide', 'codepress-admin-columns')
+                            )
+                        ),
+                    ],
+                ],
             ])
         );
     }

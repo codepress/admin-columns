@@ -1,4 +1,3 @@
-
 export const getColumnSettingsConfig = () => {
     return ac_admin_columns;
 }
@@ -16,9 +15,21 @@ type AdminColumnsI18n = {
     menu: {
         favorites: string
     }
-    settings : {
-        label : {
+    settings: {
+        label: {
             select_label: string
+        }
+    }
+    editor: {
+        label: {
+            add_column: string
+            add_columns: string
+            load_default_columns: string
+            clear_columns: string
+        }
+        sentence: {
+            show_default_columns: string
+            getting_started: string
         }
     }
 }
