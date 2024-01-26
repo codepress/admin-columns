@@ -9,7 +9,6 @@ use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Component;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\Input;
 use AC\Setting\SettingCollection;
 
 class NumberFormat extends Recursive
@@ -53,14 +52,14 @@ class NumberFormat extends Recursive
                 'number_decimal_point',
                 __('Decimal point', 'codepress-admin-columns'),
                 '',
-                Component\Input\OpenFactory::create_text(null, '.'),
+                Component\Input\OpenFactory::create_text('number_decimal_point', null, '.'),
                 StringComparisonSpecification::equal('formatted')
             ),
             new AC\Settings\Column(
                 'number_thousands_separator',
                 __('Thousands separator', 'codepress-admin-columns'),
                 '',
-                Component\Input\OpenFactory::create_text(),
+                Component\Input\OpenFactory::create_text('number_thousands_separator'),
                 StringComparisonSpecification::equal('formatted')
             ),
             new AC\Settings\Column(
@@ -68,9 +67,12 @@ class NumberFormat extends Recursive
                 __('Preview', 'codepress-admin-columns'),
                 '',
                 // TODO remove Custom
-                new Component\Input\Custom('number_preview', [
-                    'keys' => ['number_decimals', 'number_decimal_point', 'number_thousands_separator'],
-                ]),
+                new Component\Input\Custom(
+                    'number_preview',
+                    [
+                        'keys' => ['number_decimals', 'number_decimal_point', 'number_thousands_separator'],
+                    ]
+                ),
                 StringComparisonSpecification::equal('formatted')
             ),
         ]);

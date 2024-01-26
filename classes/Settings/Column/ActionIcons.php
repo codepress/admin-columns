@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollectionFactory\ToggleOptionCollection;
 use AC\Settings\Column;
 
 class ActionIcons extends Column
@@ -17,10 +16,7 @@ class ActionIcons extends Column
             'use_icons',
             __('Use icons?', 'codepress-admin-columns'),
             __('Use icons instead of text for displaying the actions.', 'codepress-admin-columns'),
-            OptionFactory::create_toggle(
-                'use_icons',
-                (new ToggleOptionCollection())->create()
-            )
+            OptionFactory::create_toggle('use_icons')
         );
     }
 

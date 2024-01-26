@@ -19,7 +19,7 @@ class LinkLabel extends Settings\Column implements Formatter
             'link_label',
             __('Link Label', 'codepress-admin-columns'),
             __('Leave blank to display the URL', 'codepress-admin-columns'),
-            Component\Input\OpenFactory::create_text(),
+            Component\Input\OpenFactory::create_text('link_label'),
             $specification
         );
     }
