@@ -2,11 +2,7 @@
 
 namespace AC\Settings\Column;
 
-<<<<<<< HEAD
-use AC;
-=======
 use AC\Setting\Input;
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Settings\Column;
 
 class Type extends Column
@@ -14,21 +10,13 @@ class Type extends Column
 
     public function __construct()
     {
-<<<<<<< HEAD
-        $this->name = 'type';
-        $this->label = __('Type', 'codepress-admin-columns');
-        $this->input = new Input\Element\Custom($this->name);
-        $this->description = __('Choose a column type.', 'codepress-admin-columns');
-
-        parent::__construct($column);
-=======
         parent::__construct(
             'type',
             __('Type', 'codepress-admin-columns'),
             __('Choose a column type.', 'codepress-admin-columns'),
+            // TODO Input\Custom
             new Input\Custom('type')
         );
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
     }
 
 

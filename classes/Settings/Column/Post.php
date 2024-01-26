@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-<<<<<<< HEAD
-use AC\Column;
-=======
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting;
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
@@ -31,22 +26,15 @@ class Post extends Recursive
 
     public function __construct(Specification $conditionals = null)
     {
-<<<<<<< HEAD
-        $this->name = self::NAME;
-        $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = OptionFactory::create_select(
-            OptionCollection::from_array($this->get_display_options())
-=======
         parent::__construct(
             'post',
             __('Display', 'codepress-admin-columns'),
             '',
-            Setting\Input\Option\Single::create_select(
-                Setting\OptionCollection::from_array($this->get_display_options()),
+            OptionFactory::create_select(
+                OptionCollection::from_array($this->get_display_options()),
                 'title'
             ),
             $conditionals
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         );
     }
 
@@ -62,12 +50,10 @@ class Post extends Recursive
         $option = $options->get($this->get_name());
 
         switch ($option) {
-<<<<<<< HEAD
             case self::PROPERTY_FEATURED_IMAGE:
                 $value = $value->with_value(get_post_thumbnail_id($value->get_value()));
 
                 break;
-=======
             //            case self::PROPERTY_FEATURED_IMAGE:
             //                $value = $value->with_value(get_post_thumbnail_id($ids[0]));
             //
@@ -83,7 +69,6 @@ class Post extends Recursive
             //                    )
             //                );
             // TODO add formatter
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         }
 
         return parent::format($value, $options);
