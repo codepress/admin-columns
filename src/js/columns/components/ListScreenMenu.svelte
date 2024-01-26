@@ -90,7 +90,7 @@
 
     onMount(() => {
         for (const [key, group] of Object.entries(menu)) {
-            if (group.options.hasOwnProperty($currentListKey)) {
+            if (group.options.hasOwnProperty($currentListKey) && !favoriteItems.hasOwnProperty( $currentListKey )) {
                 showGroup(key);
             }
         }

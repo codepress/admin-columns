@@ -5115,7 +5115,7 @@ function instance($$self, $$props, $$invalidate) {
   });
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
     for (const [key, group] of Object.entries(menu)) {
-      if (group.options.hasOwnProperty($currentListKey)) {
+      if (group.options.hasOwnProperty($currentListKey) && !favoriteItems.hasOwnProperty($currentListKey)) {
         showGroup(key);
       }
     }
@@ -18346,7 +18346,7 @@ class NumberFormat {
     getExampleRequest() {
         const value = this.getValue();
         let data = new FormData();
-        data.set('action', 'ac_number_format');
+        data.set('action', 'ac-number-format');
         data.set('number', '7500');
         data.set('decimals', value.decimals);
         data.set('decimal_point', value.decimal_point);
