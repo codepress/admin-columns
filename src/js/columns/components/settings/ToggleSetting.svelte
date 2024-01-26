@@ -5,6 +5,7 @@
 
     export let value: string;
     export let config: AC.Column.Settings.ToggleSetting;
+    export let disabled: boolean = false;
 
     let label = config.label ?? '';
     let checked = false;
@@ -28,5 +29,5 @@
 </script>
 
 <ColumnSetting {label} name="toggle" description={config.description}>
-	<AcToggle checked={checked} on:input={check}></AcToggle>
+	<AcToggle checked={checked} on:input={check} {disabled}></AcToggle>
 </ColumnSetting>

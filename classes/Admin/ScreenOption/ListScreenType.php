@@ -19,7 +19,7 @@ class ListScreenType extends ScreenOption
 
     public function is_active(): bool
     {
-        return 1 === $this->preference->get(self::KEY);
+        return $this->preference->is_active(self::KEY);
     }
 
     public function render(): string

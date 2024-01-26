@@ -6,6 +6,8 @@
     export let disabled: boolean = false;
     export let iconLeft: string | null = null;
     export let iconLeftPack: string | null = null;
+    export let iconRight: string | null = null;
+    export let iconRightPack: string | null = null;
     export let loading: boolean = false;
     export let customClass: string | undefined = '';
 
@@ -21,4 +23,7 @@
 		<AcIcon icon={iconLeft} pack={iconLeftPack} size="sm"></AcIcon>
 	{/if}
 	<slot></slot>
+	{#if iconRight }
+		<AcIcon icon={iconRight} pack={iconRightPack} size="sm"></AcIcon>
+	{/if}
 </button>

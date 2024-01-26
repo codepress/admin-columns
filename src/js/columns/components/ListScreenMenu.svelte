@@ -4,18 +4,23 @@
     import GroupIcon from "./GroupIcon.svelte";
     import {SvelteSelectItem} from "../../types/select";
     import Select from "svelte-select";
+    import {favoriteListKeysStore} from "../store/favorite-listkeys";
+    import ListScreenMenuItem from "./ListScreenMenuItem.svelte";
+    import {getColumnSettingsTranslation} from "../utils/global";
+    import {persistMenuStatus} from "../ajax/menu";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
+    export let openedGroups: string[] = [];
 
     const dispatch = createEventDispatcher();
+    const i18n = getColumnSettingsTranslation();
 
-    let openedGroups: string[] = [];
     let options: SvelteSelectItem[];
     let selectValue = '';
+    let favoriteItems: { [key: string]: string } = {}
 
     const handleMenuSelect = (key: string) => {
         dispatch('itemSelect', key)
-        selectValue = key;
     }
 
     const handleSelect = (e: CustomEvent<SvelteSelectItem>) => {
@@ -29,16 +34,23 @@
     }
 
     const showGroup = (group: string) => {
-        openedGroups.push(group);
-        openedGroups = openedGroups;
+        if (!openedGroups.includes(group)) {
+            openedGroups.push(group);
+            openedGroups = openedGroups;
+
+            persistMenuStatus(group, true);
+        }
     }
 
     const closeGroup = (group: string) => {
-        openedGroups = openedGroups.filter(d => d !== group);
+        if (openedGroups.includes(group)) {
+            openedGroups = openedGroups.filter(d => d !== group);
+
+            persistMenuStatus(group, false);
+        }
     }
 
-
-    const mapMenutoSelect = (menu: AC.Vars.Admin.Columns.MenuItems): SvelteSelectItem[] => {
+    const mapMenuToSelect = (menu: AC.Vars.Admin.Columns.MenuItems): SvelteSelectItem[] => {
         let result: SvelteSelectItem[] = [];
 
         Object.values(menu).forEach(group => {
@@ -58,62 +70,87 @@
 
     const groupBy = (item: SvelteSelectItem) => item.group;
 
+    const refreshFavoriteItems = () => {
+        let _favoriteItems: { [key: string]: string } = {};
+
+        Object.values(menu).forEach(group => {
+            for (const [value, label] of Object.entries(group.options)) {
+                if ($favoriteListKeysStore.includes(value)) {
+                    _favoriteItems[value] = label;
+                }
+            }
+        });
+
+        favoriteItems = _favoriteItems;
+    }
+
+    favoriteListKeysStore.subscribe(() => {
+        refreshFavoriteItems()
+    })
+
     onMount(() => {
-        Object.keys(menu).forEach(g => showGroup(g));
-        options = mapMenutoSelect(menu);
+        for (const [key, group] of Object.entries(menu)) {
+            if (group.options.hasOwnProperty($currentListKey) && !favoriteItems.hasOwnProperty( $currentListKey )) {
+                showGroup(key);
+            }
+        }
+        options = mapMenuToSelect(menu);
     })
 </script>
-<style>
-	.ac-menu-group {
-		margin-bottom: 30px;
-	}
+<nav class="ac-table-screen-nav">
+	<div class="ac-table-screen-nav__select">
+		<Select
+			bind:value={selectValue}
+			items={options}
+			{groupBy}
+			class="-acui"
+			placeholder="Select"
+			clearable={false}
+			showChevron
+			on:input={handleSelect }>
 
-	ul {
-		margin-left: 20px;
-	}
-
-	li a {
-		display: block;
-		padding: 5px 10px;
-		cursor: pointer;
-		text-decoration: none;
-	}
-
-	li.active a {
-		background: #E2E8F0;
-		color: #FE3D6C;
-	}
-</style>
-
-<Select
-		bind:value={selectValue}
-		items={options}
-		{groupBy}
-		class="-acui"
-		placeholder="Select"
-		clearable={false}
-		showChevron
-		on:input={handleSelect }>
-
-</Select>
-<br><br>
-{#each Object.entries( menu ) as [ key, group ]}
-	<div class="ac-menu-group">
-		<div role="none" on:click={() => toggleGroup( key )}>
-			<strong>
-				<GroupIcon icon={group.icon} defaultIcon="cpacicon-gf-article"></GroupIcon>
-				{group.title}
-			</strong>
-		</div>
-		{#if openedGroups.includes( key )}
-			<ul>
-				{#each Object.entries( group.options ) as [ key, label ]}
-					<li class:active={$currentListKey === key}>
-						<a href={'#'}
-								on:click|preventDefault={ () => handleMenuSelect( key ) }>{label}</a>
-					</li>
-				{/each}
-			</ul>
-		{/if}
+		</Select>
 	</div>
-{/each}
+	<div class="ac-table-screen-nav__list">
+
+		{#if Object.keys( favoriteItems ).length > 0}
+			<div class="ac-menu-group">
+				<button class="ac-menu-group__header">
+					<GroupIcon icon="dashicons-star-empty" defaultIcon="cpacicon-gf-article"></GroupIcon>
+					{i18n.menu.favorites}
+				</button>
+				<ul class="ac-menu-group-list">
+					{#each Object.entries( favoriteItems ) as [ key, label ]}
+						<ListScreenMenuItem
+							{key}
+							{label}
+							on:selectItem={ () => selectValue = key}
+						/>
+					{/each}
+				</ul>
+			</div>
+		{/if}
+
+		{#each Object.entries( menu ) as [ key, group ]}
+			<div class="ac-menu-group">
+				<button on:click={()=>toggleGroup(key)} class="ac-menu-group__header"
+					class:closed={!openedGroups.includes( key )}>
+					<GroupIcon icon={group.icon} defaultIcon="cpacicon-gf-article"></GroupIcon>
+					{group.title}
+					<span class="ac-menu-group__header__indicator dashicons dashicons-arrow-up-alt2"></span>
+				</button>
+				{#if openedGroups.includes( key )}
+					<ul class="ac-menu-group-list">
+						{#each Object.entries( group.options ) as [ key, label ]}
+							<ListScreenMenuItem
+								{key}
+								{label}
+								on:selectItem={ () => selectValue = key}
+							/>
+						{/each}
+					</ul>
+				{/if}
+			</div>
+		{/each}
+	</div>
+</nav>

@@ -27,7 +27,7 @@ class Post extends Column
 
     public function register_settings()
     {
-        $this->add_setting(new AC\Settings\Column\Post($this));
+        $this->add_setting(new AC\Settings\Column\Post());
     }
 
 }

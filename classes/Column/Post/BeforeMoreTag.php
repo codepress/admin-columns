@@ -5,9 +5,6 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 2.0
- */
 class BeforeMoreTag extends Column
 {
 
@@ -33,7 +30,7 @@ class BeforeMoreTag extends Column
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\WordLimit($this));
+        $this->add_setting(new Settings\Column\WordLimit());
     }
 
 }

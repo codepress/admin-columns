@@ -5,7 +5,7 @@ namespace AC\Column\User;
 use AC\Column;
 use AC\Settings;
 
-class Description extends Column\Meta
+class Description extends Column
 {
 
     public function __construct()
@@ -14,20 +14,15 @@ class Description extends Column\Meta
         $this->set_label(__('Description', 'codepress-admin-columns'));
     }
 
-    public function get_meta_key()
+    public function get_value($id): string
     {
-        return 'description';
-    }
-
-    public function get_raw_value($user_id)
-    {
-        return get_the_author_meta('user_description', $user_id);
+        return get_the_author_meta('user_description', $id);
     }
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\WordLimit($this));
-        $this->add_setting(new Settings\Column\BeforeAfter($this));
+        $this->add_setting(new Settings\Column\WordLimit());
+        $this->add_setting(new Settings\Column\BeforeAfter());
     }
 
 }

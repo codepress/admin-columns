@@ -3,6 +3,7 @@
 namespace AC\Column\Comment;
 
 use AC\Column;
+use AC\Settings\Column\Width;
 
 class Date extends Column
 {
@@ -15,7 +16,7 @@ class Date extends Column
 
     public function register_settings()
     {
-        $this->get_setting('width')->set_default(14);
+        $this->add_setting(new Width(14, '%'));
     }
 
 }

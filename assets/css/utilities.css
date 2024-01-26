@@ -1,13 +1,9 @@
-.acu-mb-4 {
-  margin-bottom: 20px
+.acu-mb-1 {
+  margin-bottom: 5px
 }
 
 .acu-mb-1\.5 {
   margin-bottom: 8px
-}
-
-.acu-mb-1 {
-  margin-bottom: 5px
 }
 
 .acu-mb-2 {
@@ -18,52 +14,224 @@
   margin-bottom: 15px
 }
 
+.acu-mb-4 {
+  margin-bottom: 20px
+}
+
+.acu-mb-6 {
+  margin-bottom: 30px
+}
+
+.acu-mr-1 {
+  margin-right: 5px
+}
+
+.acu-mr-2 {
+  margin-right: 10px
+}
+
 .acu-block {
   display: block
+}
+
+.acu-inline-block {
+  display: inline-block
 }
 
 .acu-flex {
   display: flex
 }
 
+.acu-w-1\/3 {
+  width: 33.333333%
+}
+
+.acu-w-\[120px\] {
+  width: 120px
+}
+
+.acu-w-full {
+  width: 100%
+}
+
+.acu-flex-1 {
+  flex: 1 1 0%
+}
+
+.acu-flex-grow {
+  flex-grow: 1
+}
+
 .acu-grow {
   flex-grow: 1
+}
+
+.acu-translate-y-\[-1px\] {
+  --tw-translate-y: -1px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.acu-cursor-move {
+  cursor: move
+}
+
+.acu-cursor-pointer {
+  cursor: pointer
 }
 
 .acu-flex-row-reverse {
   flex-direction: row-reverse
 }
 
-.acu-pl-8\.5 {
-  padding-left: 43px
+.acu-items-center {
+  align-items: center
 }
 
-.acu-pl-8 {
-  padding-left: 40px
+.acu-justify-center {
+  justify-content: center
+}
+
+.acu-gap-2 {
+  gap: 10px
+}
+
+.acu-gap-3 {
+  gap: 15px
+}
+
+.acu-border-none {
+  border-style: none
+}
+
+.acu-bg-\[\#F1F5F9\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity))
+}
+
+.acu-bg-\[transparent\] {
+  background-color: transparent
+}
+
+.acu-p-10 {
+  padding: 50px
+}
+
+.acu-p-\[0\] {
+  padding: 0
+}
+
+.acu-px-2 {
+  padding-left: 10px;
+  padding-right: 10px
+}
+
+.acu-py-0\.5 {
+  padding-top: 3px;
+  padding-bottom: 3px
+}
+
+.acu-py-1 {
+  padding-top: 5px;
+  padding-bottom: 5px
+}
+
+.acu-pb-4 {
+  padding-bottom: 20px
 }
 
 .acu-pb-6 {
   padding-bottom: 30px
 }
 
-.acu-pr-1 {
-  padding-right: 5px
+.acu-pl-3 {
+  padding-left: 15px
+}
+
+.acu-pl-8 {
+  padding-left: 40px
+}
+
+.acu-pl-8\.5 {
+  padding-left: 43px
 }
 
 .acu-pt-3 {
   padding-top: 15px
 }
 
+.acu-pt-4 {
+  padding-top: 20px
+}
+
+.acu-text-center {
+  text-align: center
+}
+
+.acu-text-right {
+  text-align: right
+}
+
+.acu-font-bold {
+  font-weight: 700
+}
+
+.acu-font-medium {
+  font-weight: 500
+}
+
 .acu-uppercase {
   text-transform: uppercase
+}
+
+.acu-text-\[\#777\] {
+  --tw-text-opacity: 1;
+  color: rgb(119 119 119 / var(--tw-text-opacity))
+}
+
+.acu-text-\[\#888\] {
+  --tw-text-opacity: 1;
+  color: rgb(136 136 136 / var(--tw-text-opacity))
+}
+
+.acu-text-\[\#B4B4B4\] {
+  --tw-text-opacity: 1;
+  color: rgb(180 180 180 / var(--tw-text-opacity))
+}
+
+.acu-text-notification-blue {
+  color: var(--ac-notification-blue)
 }
 
 .acu-text-notification-red {
   color: var(--ac-notification-red)
 }
 
-@media (min-width: 1024px) {
-  .lg\:acu-flex {
+.acu-text-link {
+  color: var(--ac-link)
+}
+
+.\[key\:string\] {
+  key: string
+}
+
+.hover\:acu-text-notification-blue:hover {
+  color: var(--ac-notification-blue)
+}
+
+.hover\:acu-text-notification-red:hover {
+  color: var(--ac-notification-red)
+}
+
+.hover\:acu-text-link-hover:hover {
+  color: var(--ac-link-hover)
+}
+
+.hover\:acu-accent-link-hover:hover {
+  accent-color: var(--ac-link-hover)
+}
+
+@media (min-width: 1280px) {
+  .xl\:acu-flex {
     display: flex
   }
 }

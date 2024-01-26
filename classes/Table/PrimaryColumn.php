@@ -3,65 +3,86 @@
 namespace AC\Table;
 
 use AC\ListScreen;
+use AC\ListTable\Comment;
+use AC\PostType;
+use AC\TableScreen\Media;
 use WP_Post;
 
-class PrimaryColumn {
+class PrimaryColumn
+{
 
-	private $list_screen;
+    private $list_screen;
 
-	public function __construct( ListScreen $list_screen ) {
-		$this->list_screen = $list_screen;
-	}
+    public function __construct(ListScreen $list_screen)
+    {
+        $this->list_screen = $list_screen;
+    }
 
-	public function set_primary_column( string $default ): string {
-		if ( ! $this->list_screen->get_column_by_name( $default ) ) {
-			$default = (string) key( $this->list_screen->get_columns() );
-		}
+    public function set_primary_column(string $default): string
+    {
+        $default_column = $this->list_screen->get_column($default);
 
-		// If actions column is present, set it as primary
-		foreach ( $this->list_screen->get_columns() as $column ) {
-			if ( 'column-actions' === $column->get_type() ) {
-				$default = $column->get_name();
-				if ( $this->list_screen instanceof ListScreen\Media ) {
-					// Add download button to the actions column
-					add_filter( 'media_row_actions', [ $this, 'set_media_download_row_action' ], 10, 2 );
-				}
-			}
-		}
-		// Set inline edit data if the default column (title) is not present
-		if ( $this->list_screen instanceof ListScreen\Post && 'title' !== $default ) {
-			add_filter( 'page_row_actions', [ $this, 'set_inline_edit_data' ], 20, 2 );
-			add_filter( 'post_row_actions', [ $this, 'set_inline_edit_data' ], 20, 2 );
-		}
+        $columns = $this->list_screen->get_columns();
 
-		// Remove inline edit action if the default column (author) is not present
-		if ( $this->list_screen instanceof ListScreen\Comment && 'comment' !== $default ) {
-			add_filter( 'comment_row_actions', [ $this, 'remove_quick_edit_from_actions' ], 20, 2 );
-		}
+        if ( ! $default_column && $columns->valid()) {
+            $default = $columns->current()->get_name();
+        }
 
-		return $default;
-	}
+        $table_screen = $this->list_screen->get_table_screen();
 
-	public function set_media_download_row_action( array $actions, WP_Post $post ): array {
-		$link_attributes = [
-			'download' => '',
-			'title'    => __( 'Download', 'codepress-admin-columns' ),
-		];
-		$actions['download'] = ac_helper()->html->link( wp_get_attachment_url( $post->ID ), __( 'Download', 'codepress-admin-columns' ), $link_attributes );
+        // If actions column is present, set it as primary
+        foreach ($columns as $column) {
+            if ('column-actions' === $column->get_type()) {
+                $default = $column->get_name();
 
-		return $actions;
-	}
+                if ($table_screen instanceof Media) {
+                    // Add download button to the actions column
+                    add_filter('media_row_actions', [$this, 'set_media_download_row_action'], 10, 2);
+                }
+            }
+        }
 
-	public function set_inline_edit_data( array $actions, WP_Post $post ) {
-		get_inline_data( $post );
+        // Set inline edit data if the default column (title) is not present
+        if ($table_screen instanceof PostType && 'title' !== $default) {
+            add_filter('page_row_actions', [$this, 'set_inline_edit_data'], 20, 2);
+            add_filter('post_row_actions', [$this, 'set_inline_edit_data'], 20, 2);
+        }
 
-		return $actions;
-	}
+        // Remove inline edit action if the default column (author) is not present
+        if ($table_screen instanceof Comment && 'comment' !== $default) {
+            add_filter('comment_row_actions', [$this, 'remove_quick_edit_from_actions'], 20, 2);
+        }
 
-	public function remove_quick_edit_from_actions( array $actions ): array {
-		unset( $actions['quickedit'] );
+        return $default;
+    }
 
-		return $actions;
-	}
+    public function set_media_download_row_action(array $actions, WP_Post $post): array
+    {
+        $link_attributes = [
+            'download' => '',
+            'title'    => __('Download', 'codepress-admin-columns'),
+        ];
+        $actions['download'] = ac_helper()->html->link(
+            wp_get_attachment_url($post->ID),
+            __('Download', 'codepress-admin-columns'),
+            $link_attributes
+        );
+
+        return $actions;
+    }
+
+    public function set_inline_edit_data($actions, WP_Post $post)
+    {
+        get_inline_data($post);
+
+        return $actions;
+    }
+
+    public function remove_quick_edit_from_actions($actions)
+    {
+        unset($actions['quickedit']);
+
+        return $actions;
+    }
 
 }

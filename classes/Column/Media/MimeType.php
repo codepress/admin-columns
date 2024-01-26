@@ -4,9 +4,6 @@ namespace AC\Column\Media;
 
 use AC\Column;
 
-/**
- * @since 2.0
- */
 class MimeType extends Column
 {
 

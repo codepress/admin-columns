@@ -20,23 +20,10 @@
         }
     });
 </script>
-<style>
-	.ac-menu-image {
-		transform: translateY(-2px);
-		width: 25px;
-		height: 25px;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		vertical-align: middle;
-		background-position: center;
-		background-repeat: no-repeat;
-	}
-</style>
 
 {#if type === 'dashicon' }
 	<div class="ac-menu-image">
-	<span class="dashicons {icon}" style="color: #999;"></span>
+	<span class="dashicons {icon}"></span>
 	</div>
 {/if}
 
@@ -50,6 +37,6 @@
 
 {#if type === 'cpacicon' }
 	<div class="ac-menu-image">
-		<span class="{icon}" style="color: #999;"></span>
+		<span class="{icon}"></span>
 	</div>
 {/if}

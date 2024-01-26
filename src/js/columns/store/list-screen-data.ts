@@ -12,10 +12,10 @@ function createListScreenData(): ListScreenDataStore {
         subscribe,
         set,
         update,
-        deleteColumn: (columnName: string) => update(items => {
-            delete items.columns[ columnName ];
-
-            return items;
+        deleteColumn: (columnName: string) => update(data => {
+            data.columns = data.columns.filter( c => c.name !== columnName );
+        
+            return data;
         }),
     };
 }

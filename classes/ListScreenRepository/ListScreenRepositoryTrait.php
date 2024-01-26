@@ -6,6 +6,7 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreen;
 use AC\ListScreenCollection;
+use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use WP_User;
 
@@ -41,7 +42,7 @@ trait ListScreenRepositoryTrait
 
     abstract protected function find_all_from_source(): ListScreenCollection;
 
-    public function find_all_by_key(string $key, Sort $sort = null): ListScreenCollection
+    public function find_all_by_key(ListKey $key, Sort $sort = null): ListScreenCollection
     {
         return $this->sort(
             $this->find_all_by_key_from_source($key),
@@ -49,9 +50,9 @@ trait ListScreenRepositoryTrait
         );
     }
 
-    abstract protected function find_all_by_key_from_source(string $key): ListScreenCollection;
+    abstract protected function find_all_by_key_from_source(ListKey $key): ListScreenCollection;
 
-    public function find_all_by_assigned_user(string $key, WP_User $user, Sort $sort = null): ListScreenCollection
+    public function find_all_by_assigned_user(ListKey $key, WP_User $user, Sort $sort = null): ListScreenCollection
     {
         $user_assigned_filter = new Filter\UserAssigned($user);
 

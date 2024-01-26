@@ -12,24 +12,12 @@ class SetupFactory
     public const SITE = 'site';
     public const NETWORK = 'network';
 
-    /**
-     * @var string
-     */
     private $version_key;
 
-    /**
-     * @var Version
-     */
     private $version;
 
-    /**
-     * @var InstallCollection
-     */
     protected $installers;
 
-    /**
-     * @var UpdateCollection
-     */
     protected $updates;
 
     public function __construct(

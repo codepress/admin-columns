@@ -1,30 +1,42 @@
 <script lang="ts">
-	import ColumnsForm from "./ColumnsForm.svelte";
-    import {MappedListScreenData} from "../../types/admin-columns";
+    import ColumnsForm from "./ColumnsForm.svelte";
     import {ListScreenData} from "../../types/requests";
-    import {listScreenDataStore} from "../store/list-screen-data";
     import ListScreenSections from "../store/list-screen-sections";
     import HtmlSection from "./HtmlSection.svelte";
     import AcButton from "ACUi/element/AcButton.svelte";
     import {saveListScreen} from "../ajax/ajax";
+    import {listScreenIsReadOnly} from "../store/read_only";
+    import {NotificationProgrammatic} from "../../ui-wrapper/notification";
+    import {currentListKey} from "../store/current-list-screen";
+    import {AxiosError} from "axios";
 
-	export let config: any
-	export let data: ListScreenData
-	export let tableUrl: string;
+    export let config: any
+    export let data: ListScreenData
+    export let tableUrl: string;
 
-	let isSaving = false;
+    let isSaving = false;
 
     const saveSettings = () => {
         isSaving = true;
-        saveListScreen(data).then( () => {
+        saveListScreen(data, $currentListKey).then((response) => {
+            if (response.data.success) {
+                isSaving = false;
+                NotificationProgrammatic.open({message: response.data.data.message, type: 'success'})
+            } else {
+                NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
+            }
+
+
+        }).catch((c: AxiosError) => {
+            NotificationProgrammatic.open({message: c.message, type: 'error'})
             isSaving = false;
-		});
+        });
     }
 
 </script>
 <style>
 	.acp-footer-bar {
-		display:flex;
+		display: flex;
 		justify-content: right;
 		margin-top: -40px;
 		border-radius: 0 0 10px 10px;
@@ -42,8 +54,10 @@
 		<HtmlSection component={component}></HtmlSection>
 	{/each}
 
-	<div class="acp-footer-bar">
-		<AcButton on:click={saveSettings} type="primary" loading={isSaving}>Save</AcButton>
-	</div>
+	{#if !$listScreenIsReadOnly}
+		<div class="acp-footer-bar">
+			<AcButton on:click={saveSettings} type="primary" loading={isSaving}>Save</AcButton>
+		</div>
+	{/if}
 
 </section>

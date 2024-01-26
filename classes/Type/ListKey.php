@@ -1,31 +1,43 @@
-<?php declare( strict_types=1 );
+<?php
+
+declare(strict_types=1);
 
 namespace AC\Type;
 
 use InvalidArgumentException;
 
-final class ListKey {
+final class ListKey
+{
 
-	private $key;
+    private $key;
 
-	public function __construct( string $key ) {
-		$this->key = $key;
+    public function __construct(string $key)
+    {
+        $this->key = $key;
 
-		$this->validate();
-	}
+        if ( ! self::validate($key)) {
+            throw new InvalidArgumentException('List key can not be empty.');
+        }
+    }
 
-	private function validate(): void {
-		if ( empty( $this->key ) ) {
-			throw new InvalidArgumentException( 'List key can not be empty.' );
-		}
-	}
+    public static function validate(string $key): bool
+    {
+        return '' !== $key;
+    }
 
-	public function is_network(): bool {
-		return ac_helper()->string->starts_with( $this->key, 'wp-ms_' );
-	}
+    public function is_network(): bool
+    {
+        return ac_helper()->string->starts_with($this->key, 'wp-ms_');
+    }
 
-	public function __toString(): string {
-		return $this->key;
-	}
+    public function equals(ListKey $key): bool
+    {
+        return $this->key === (string)$key;
+    }
+
+    public function __toString(): string
+    {
+        return $this->key;
+    }
 
 }

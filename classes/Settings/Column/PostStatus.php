@@ -2,60 +2,50 @@
 
 namespace AC\Settings\Column;
 
+use AC\Expression\Specification;
+use AC\Setting;
+use AC\Setting\OptionCollection;
 use AC\Settings;
-use AC\View;
 
-class PostStatus extends Settings\Column {
+class PostStatus extends Settings\Column
+{
 
-	const NAME = 'post_status';
+    // TODO remove
+    public const NAME = 'post_status';
 
-	/**
-	 * @var array
-	 */
-	private $post_status;
+    public function __construct(Specification $conditions = null)
+    {
+        $input = Setting\Input\Option\Multiple::create_select(
+            $this->create_options(),
+            ['publish', 'private']
+        );
 
-	protected function define_options() {
-		return [ self::NAME => [ 'publish', 'private' ] ];
-	}
+        parent::__construct(
+            'post_status',
+            __('Post Status', 'codepress-admin-columns'),
+            null,
+            $input,
+            $conditions
+        );
+    }
 
-	public function create_view() {
-		$options = [];
+    private function create_options(): OptionCollection
+    {
+        $options = [];
 
-		foreach ( get_post_stati( [ 'exclude_from_search' => false ] ) as $name ) {
-			$options[ $name ] = $this->get_post_status_label( $name );
-		}
+        // TODO test
+        foreach (get_post_stati(['exclude_from_search' => false]) as $name) {
+            $options[$name] = $this->get_post_status_label((string)$name);
+        }
 
-		$setting = $this->create_element( 'multi-select' )
-		                ->set_options( $options );
+        return OptionCollection::from_array($options);
+    }
 
-		return new View( [
-			'label'   => __( 'Post Status', 'codepress-admin-columns' ),
-			'setting' => $setting,
-		] );
-	}
+    private function get_post_status_label(string $key): string
+    {
+        $status = get_post_status_object($key);
 
-	private function get_post_status_label( $key ) {
-		$status = get_post_status_object( $key );
-
-		return $status ? $status->label : $key;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function get_post_status() {
-		return $this->post_status;
-	}
-
-	/**
-	 * @param array $post_status
-	 *
-	 * @return true
-	 */
-	public function set_post_status( $post_status ) {
-		$this->post_status = $post_status;
-
-		return true;
-	}
+        return $status->label ?? $key;
+    }
 
 }

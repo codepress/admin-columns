@@ -5,27 +5,27 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 2.0
- */
-class ExifData extends Column\Media\MetaValue {
+class ExifData extends Column
+{
 
-	public function __construct() {
-		$this->set_type( 'column-exif_data' )
-		     ->set_group( 'media-image' )
-		     ->set_label( __( 'Image Meta (EXIF)', 'codepress-admin-columns' ) );
-	}
+    public function __construct()
+    {
+        $this->set_type('column-exif_data')
+             ->set_group('media-image')
+             ->set_label(__('Image Meta (EXIF)', 'codepress-admin-columns'));
+    }
 
-	protected function get_option_name() {
-		return 'image_meta';
-	}
+    public function get_raw_value($id)
+    {
+        // TODO test
+        $meta = get_post_meta($id, '_wp_attachment_metadata', true) ?: [];
 
-	public function is_valid() {
-		return function_exists( 'exif_read_data' );
-	}
+        return $meta['image_meta'] ?? [];
+    }
 
-	public function register_settings() {
-		$this->add_setting( new Settings\Column\ExifData( $this ) );
-	}
+    public function register_settings()
+    {
+        $this->add_setting(new Settings\Column\ExifData($this->get_label()));
+    }
 
 }

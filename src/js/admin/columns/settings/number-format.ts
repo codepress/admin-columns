@@ -56,7 +56,7 @@ class NumberFormat {
         const value = this.getValue()
 
         let data = new FormData();
-        data.set('action', 'ac_number_format');
+        data.set('action', 'ac-number-format');
         data.set('number', '7500');
         data.set('decimals', value.decimals);
         data.set('decimal_point', value.decimal_point);

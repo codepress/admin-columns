@@ -5,34 +5,38 @@ namespace AC\Screen;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\ScreenController;
+use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\Table\LayoutPreference;
 use AC\Table\PrimaryColumnFactory;
-use AC\Type\ListScreenId;
+use AC\TableScreenFactory;
+use AC\Type\ListKey;
 
 class QuickEdit implements Registerable
 {
 
-    /**
-     * @var Storage
-     */
     private $storage;
 
-    /**
-     * @var LayoutPreference
-     */
     private $preference;
 
-	private $primary_column_factory;
+    private $primary_column_factory;
 
-	public function __construct(
-		Storage $storage,
-		LayoutPreference $preference,
-		PrimaryColumnFactory $primary_column_factory
-	) {
-		$this->storage = $storage;
-		$this->preference = $preference;
-		$this->primary_column_factory = $primary_column_factory;
-	}
+    private $table_screen_factory;
+
+    private $default_columns_repository;
+
+    public function __construct(
+        Storage $storage,
+        LayoutPreference $preference,
+        PrimaryColumnFactory $primary_column_factory,
+        TableScreenFactory $table_screen_factory,
+        DefaultColumnsRepository $default_columns_repository
+    ) {
+        $this->storage = $storage;
+        $this->preference = $preference;
+        $this->primary_column_factory = $primary_column_factory;
+        $this->table_screen_factory = $table_screen_factory;
+        $this->default_columns_repository = $default_columns_repository;
+    }
 
     public function register(): void
     {
@@ -42,7 +46,7 @@ class QuickEdit implements Registerable
     /**
      * Get list screen when doing Quick Edit, a native WordPress ajax call
      */
-    public function init_columns_on_quick_edit()
+    public function init_columns_on_quick_edit(): void
     {
         if ( ! wp_doing_ajax()) {
             return;
@@ -51,45 +55,51 @@ class QuickEdit implements Registerable
         switch (filter_input(INPUT_POST, 'action')) {
             // Quick edit post
             case 'inline-save' :
-                $type = filter_input(INPUT_POST, 'post_type');
+                $list_key = (string)filter_input(INPUT_POST, 'post_type');
                 break;
 
             // Adding term & Quick edit term
             case 'add-tag' :
             case 'inline-save-tax' :
-                $type = 'wp-taxonomy_' . filter_input(INPUT_POST, 'taxonomy');
+                $list_key = 'wp-taxonomy_' . filter_input(INPUT_POST, 'taxonomy');
                 break;
 
             // Quick edit comment & Inline reply on comment
             case 'edit-comment' :
             case 'replyto-comment' :
-                $type = 'wp-comments';
+                $list_key = 'wp-comments';
                 break;
 
             default:
                 return;
         }
 
-        $id = $this->preference->get($type);
+        $list_id = $this->preference->find_list_id(new ListKey($list_key));
 
-        if ( ! ListScreenId::is_valid_id($id)) {
+        if ( ! $list_id) {
             return;
         }
 
-        $list_screen = $this->storage->find(new ListScreenId($id));
+        $list_screen = $this->storage->find($list_id);
 
         if ( ! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
             return;
         }
 
-		if ( ! $list_screen ) {
-			return;
-		}
+        $table_screen = $this->table_screen_factory->create($list_screen->get_key());
 
-		add_filter( 'list_table_primary_column', [ $this->primary_column_factory->create( $list_screen ), 'set_primary_column' ], 20 );
+        add_filter(
+            'list_table_primary_column',
+            [$this->primary_column_factory->create($list_screen), 'set_primary_column'],
+            20
+        );
 
-		$screen_controller = new ScreenController( $list_screen );
-		$screen_controller->register();
-	}
+        $screen_controller = new ScreenController(
+            $this->default_columns_repository,
+            $table_screen,
+            $list_screen
+        );
+        $screen_controller->register();
+    }
 
 }

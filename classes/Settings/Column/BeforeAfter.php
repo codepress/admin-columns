@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Column;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
+<<<<<<< HEAD
 use AC\Setting\Base;
 use AC\Setting\Component;
+=======
+use AC\Setting\Input;
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use ACP\Expression\Specification;
 
 class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
@@ -21,17 +24,15 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
     private $default_after;
 
     public function __construct(
-        Column $column,
         Specification $conditions = null,
         string $default_before = null,
         string $default_after = null
     ) {
-        $this->name = 'before_after';
-        $this->label = __('Display Options', 'codepress-admin-columns');
+        // TODO input?
+        parent::__construct('before_after', __('Display Options', 'codepress-admin-columns'), '', null, $conditions);
+
         $this->default_before = $default_before;
         $this->default_after = $default_after;
-
-        parent::__construct($column, $conditions);
     }
 
     public function is_parent(): bool
@@ -42,13 +43,13 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new Base\Setting(
+            new AC\Settings\Column(
                 'before',
                 __('Before', 'codepress-admin-columns'),
                 '',
                 new Component\Open(null, $this->default_before)
             ),
-            new Base\Setting(
+            new AC\Settings\Column(
                 'after',
                 __('After', 'codepress-admin-columns'),
                 '',
@@ -59,8 +60,8 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
 
     public function format(Value $value, ArrayImmutable $options): Value
     {
-        if ( ! ac_helper()->string->is_empty($value->get_value())) {
-            $value = $value->with_value(
+        if (is_string($value->get_value()) && ac_helper()->string->is_not_empty($value->get_value())) {
+            return $value->with_value(
                 $options->get('before') .
                 $value->get_value() .
                 $options->get('after')

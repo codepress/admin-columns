@@ -3,21 +3,20 @@
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
-use AC\Setting\SettingTrait;
+use AC\Setting\Input\Number;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
 
 class WordLimit extends Settings\Column implements AC\Setting\Formatter
 {
 
-    use SettingTrait;
-
     // TODO Stefan Test -> name was word_limit, option 'excerpt_length'
 
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    public function __construct(int $default = 20, Specification $conditions = null)
     {
+<<<<<<< HEAD
         $this->name = 'excerpt_length';
         $this->label = __('Word Limit', 'codepress-admin-columns');
         $this->description = __('Maximum number of words', 'codepress-admin-columns') . '<em>' . __(
@@ -25,27 +24,41 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
                 'codepress-admin-columns'
             ) . '</em>';
         $this->input = AC\Setting\Component\Input\Number::create_single_step(
+=======
+        $input = Number::create_single_step(
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
             0,
             null,
-            20,
+            $default,
             null,
             null,
             __('Words', 'codepress-admin-columns')
         );
 
-        parent::__construct($column, $conditions);
+        parent::__construct(
+            'excerpt_length',
+            __('Word Limit', 'codepress-admin-columns'),
+            sprintf(
+                '%s <em>%s</em>',
+                __('Maximum number of words', 'codepress-admin-columns'),
+                __('Leave empty for no limit', 'codepress-admin-columns')
+            ),
+            $input,
+            $conditions
+        );
     }
 
     public function format(Value $value, ArrayImmutable $options): Value
     {
         return $value->with_value(
             ac_helper()->string->trim_words(
-                $value->get_value(),
+                (string)$value->get_value(),
                 $options->get('excerpt_length') ?? 20
             )
         );
     }
 
+    // TODO
     //	/**
     //	 * @var int
     //	 */

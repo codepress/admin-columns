@@ -2,12 +2,10 @@
 
 namespace AC\Column\Media;
 
+use AC\Column;
 use AC\Settings;
 
-/**
- * @since 2.0
- */
-class Dimensions extends Meta
+class Dimensions extends Column
 {
 
     public function __construct()
@@ -19,7 +17,7 @@ class Dimensions extends Meta
 
     public function get_value($id)
     {
-        $meta = $this->get_raw_value($id);
+        $meta = get_post_meta($id, '_wp_attachment_metadata', true);
 
         if (empty($meta['width']) || empty($meta['height'])) {
             return $this->get_empty_char();
@@ -37,7 +35,7 @@ class Dimensions extends Meta
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\BeforeAfter($this));
+        $this->add_setting(new Settings\Column\BeforeAfter());
     }
 
 }

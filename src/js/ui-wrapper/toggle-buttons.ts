@@ -36,7 +36,7 @@ export default class AcuiToggleButtonsWrapper {
         new AcToggleButtons({
             target: target.getElement(),
             props: {
-                onChange: (e: string) => {
+                onChange: (e: string): void => {
                     this.input.value = e;
                     this.input.dispatchEvent(new Event('change'));
                     this.input.dispatchEvent(new Event('input'));

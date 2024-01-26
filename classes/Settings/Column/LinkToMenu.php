@@ -5,28 +5,34 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
 use WP_Term;
 
-class LinkToMenu extends Settings\Column\Toggle implements Formatter
+class LinkToMenu extends Settings\Column implements Formatter
 {
 
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    public function __construct(Specification $conditions = null)
     {
         parent::__construct(
-            $column,
+            'link_to_menu',
+            __('Link to menu', 'codepress-admin-columns'),
+            __('This will make the title link to the menu.', 'codepress-admin-columns'),
+            AC\Setting\Input\Option\Single::create_toggle(null, 'on'),
             $conditions
         );
+<<<<<<< HEAD
 
         $this->name = 'link_to_menu';
         $this->label = __('Link to menu', 'codepress-admin-columns');
         $this->description = __('This will make the title link to the menu.', 'codepress-admin-columns');
         $this->input = OptionFactory::create_toggle(null, 'on');
+=======
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
     }
 
     public function format(Value $value, ArrayImmutable $options): Value
@@ -54,9 +60,9 @@ class LinkToMenu extends Settings\Column\Toggle implements Formatter
                     $label
                 );
             }
-        }
 
-        $values[] = $label;
+            $values[] = $label;
+        }
 
         return $value->with_value(wp_sprintf('%l', $values));
     }

@@ -2,82 +2,89 @@
 
 namespace AC\Admin\PageFactory;
 
+use AC;
 use AC\Admin;
 use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
 use AC\Admin\Preference;
-use AC\Admin\Section;
 use AC\Asset\Location;
-use AC\Controller\Middleware;
-use AC\DefaultColumnsRepository;
-use AC\ListScreenFactory;
-use AC\ListScreenRepository\Storage;
+use AC\ColumnTypesFactory;
 use AC\Request;
-use AC\Table\ListKeysFactoryInterface;
+use AC\Storage\Repository\EditorFavorites;
+use AC\TableScreen;
+use AC\Type\ListScreenId;
 use InvalidArgumentException;
 
 class Columns implements PageFactoryInterface
 {
 
-    protected $storage;
-
     protected $location;
 
     protected $menu_factory;
 
-    protected $list_screen_factory;
-
-    protected $list_screen_uninitialized;
+    protected $uninitialized_screens;
 
     private $menu_list_factory;
 
-    private $list_keys_factory;
+    private $column_types_factory;
+
+    private $table_screen_repository;
+
+    /**
+     * @var EditorFavorites
+     */
+    private $favorite_repository;
 
     public function __construct(
-        Storage $storage,
         Location\Absolute $location,
         MenuFactoryInterface $menu_factory,
-        ListScreenFactory $list_screen_factory,
-        Admin\ListScreenUninitialized $list_screen_uninitialized,
+        Admin\UninitializedScreens $uninitialized_screens,
         Admin\MenuListFactory $menu_list_factory,
-        ListKeysFactoryInterface $list_keys_factory
+        ColumnTypesFactory\Aggregate $column_types_factory,
+        AC\Table\TableScreenRepository $table_screen_repository,
+        EditorFavorites $favorite_repository
     ) {
-        $this->storage = $storage;
         $this->location = $location;
         $this->menu_factory = $menu_factory;
-        $this->list_screen_factory = $list_screen_factory;
-        $this->list_screen_uninitialized = $list_screen_uninitialized;
+        $this->uninitialized_screens = $uninitialized_screens;
         $this->menu_list_factory = $menu_list_factory;
-        $this->list_keys_factory = $list_keys_factory;
+        $this->column_types_factory = $column_types_factory;
+        $this->table_screen_repository = $table_screen_repository;
+        $this->favorite_repository = $favorite_repository;
     }
 
-    public function create()
+    public function create(): Page\Columns
     {
         $request = new Request();
 
         $request->add_middleware(
-            new Middleware\ListScreenAdmin(
-                $this->storage,
+            new Request\Middleware\TableScreenAdmin(
                 new Preference\ListScreen(),
-                $this->list_screen_factory,
-                $this->list_keys_factory
+                $this->table_screen_repository->find_all_site()
             )
         );
 
-        $list_screen = $request->get('list_screen');
+        $table_screen = $request->get('table_screen');
 
-        if ( ! $list_screen) {
+        if ( ! $table_screen instanceof TableScreen) {
             throw new InvalidArgumentException('Invalid screen.');
         }
 
+        $list_id = ListScreenId::is_valid_id($request->get('layout_id'))
+            ? new ListScreenId($request->get('layout_id'))
+            : null;
+
         return new Page\Columns(
             $this->location,
-            $list_screen,
-            new DefaultColumnsRepository(),
-            $this->list_screen_uninitialized->find_all_sites(),
-            new Section\Partial\Menu($this->menu_list_factory),
-            new Admin\View\Menu($this->menu_factory->create('columns'))
+            $this->uninitialized_screens->find_all_site(),
+            new Admin\View\Menu($this->menu_factory->create('columns')),
+            $table_screen,
+            $this->column_types_factory,
+            $this->menu_list_factory->create($this->table_screen_repository->find_all_site()),
+            $this->favorite_repository,
+            $this->table_screen_repository,
+            $list_id
         );
     }
 

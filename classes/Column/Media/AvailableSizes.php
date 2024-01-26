@@ -5,10 +5,7 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 2.0
- */
-class AvailableSizes extends Column\Media\MetaValue
+class AvailableSizes extends Column
 {
 
     public function __construct()
@@ -18,14 +15,12 @@ class AvailableSizes extends Column\Media\MetaValue
              ->set_label(__('Available Sizes', 'codepress-admin-columns'));
     }
 
-    protected function get_option_name()
+    public function get_value($id): string
     {
-        return 'sizes';
-    }
+        $meta = get_post_meta($id, '_wp_attachment_metadata', true);
 
-    public function get_value($id)
-    {
-        $sizes = $this->get_raw_value($id);
+        // TODO test
+        $sizes = $meta['sizes'] ?? null;
 
         if ( ! $sizes) {
             return $this->get_empty_char();
@@ -52,6 +47,7 @@ class AvailableSizes extends Column\Media\MetaValue
         }
 
         // include missing image sizes?
+
         if ('1' === $this->get_option('include_missing_sizes')) {
             $missing = $this->get_missing_sizes($sizes);
 
@@ -72,22 +68,12 @@ class AvailableSizes extends Column\Media\MetaValue
         return "<div class='ac-image-sizes'>" . implode(ac_helper()->html->divider(), $paths) . "</div>";
     }
 
-    /**
-     * @param array $image_sizes
-     *
-     * @return array
-     */
-    public function get_available_sizes($image_sizes)
+    public function get_available_sizes(array $image_sizes): array
     {
-        return array_intersect(array_keys((array)$image_sizes), (array)get_intermediate_image_sizes());
+        return array_intersect(array_keys($image_sizes), get_intermediate_image_sizes());
     }
 
-    /**
-     * @param array $image_sizes
-     *
-     * @return array
-     */
-    public function get_missing_sizes($image_sizes)
+    public function get_missing_sizes(array $image_sizes): array
     {
         global $_wp_additional_image_sizes;
 
@@ -102,12 +88,12 @@ class AvailableSizes extends Column\Media\MetaValue
         }
 
         // image does not have these additional sizes rendered yet
-        return array_diff(array_keys((array)$additional_size), array_keys((array)$image_sizes));
+        return array_diff(array_keys((array)$additional_size), array_keys($image_sizes));
     }
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\MissingImageSize($this));
+        $this->add_setting(new Settings\Column\MissingImageSize());
     }
 
 }

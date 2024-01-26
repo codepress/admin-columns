@@ -4,28 +4,32 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
+<<<<<<< HEAD
 use AC\Column;
 use AC\Setting\Component\Input\Number;
 use AC\Setting\SettingTrait;
+=======
+use AC\Expression\Specification;
+use AC\Setting\Input\Number;
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Settings;
-use ACP\Expression\Specification;
 
 class NumberOfItems extends Settings\Column
 {
 
-    use SettingTrait;
-
-    public function __construct(Column $column, Specification $specification = null)
+    public function __construct(Specification $specification = null)
     {
-        $this->name = 'number_of_items';
-        $this->label = __('Number of Items', 'codepress-admin-columns');
-        $this->description = __('Maximum number of items', 'codepress-admin-columns') . '<em>' . __(
-                'Leave empty for no limit',
-                'codepress-admin-columns'
-            ) . '</em>';
-        $this->input = Number::create_single_step(0, null, 10);
-
-        parent::__construct($column, $specification);
+        parent::__construct(
+            'number_of_items',
+            __('Number of Items', 'codepress-admin-columns'),
+            sprintf(
+                '%s <em>%s</em>',
+                __('Maximum number of items', 'codepress-admin-columns'),
+                __('Leave empty for no limit', 'codepress-admin-columns')
+            ),
+            Number::create_single_step(0, null, 10),
+            $specification
+        );
     }
 
 }

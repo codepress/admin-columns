@@ -5,16 +5,20 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Expression\NotSpecification;
+use AC\Expression\OrSpecification;
+use AC\Expression\Specification;
+use AC\Expression\StringComparisonSpecification as Compare;
 use AC\Setting\ArrayImmutable;
+<<<<<<< HEAD
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+=======
+use AC\Setting\OptionCollection;
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\NotSpecification;
-use ACP\Expression\OrSpecification;
-use ACP\Expression\Specification;
-use ACP\Expression\StringComparisonSpecification as Compare;
 
 class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
@@ -25,8 +29,9 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
 
     public const NAME = 'exif_data';
 
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    public function __construct(string $label, Specification $conditions = null)
     {
+<<<<<<< HEAD
         $this->name = self::NAME;
         $this->label = $column->get_label();
         $this->input = OptionFactory::create_select(
@@ -34,8 +39,16 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
             'aperture'
         );
 
+=======
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         parent::__construct(
-            $column,
+            'exif_data',
+            $label,
+            '',
+            AC\Setting\Input\Option\Single::create_select(
+                OptionCollection::from_array($this->get_exif_types()),
+                'aperture'
+            ),
             $conditions
         );
     }
@@ -63,7 +76,6 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
 
             $settings->add(
                 new Settings\Column\BeforeAfter(
-                    $this->column,
                     $conditions,
                     ...$defaults
                 )
@@ -74,7 +86,6 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
 
         $settings->add(
             new Settings\Column\BeforeAfter(
-                $this->column,
                 new NotSpecification(
                     new OrSpecification($not)
                 )

@@ -2,22 +2,24 @@
 
 namespace AC\Settings\Column;
 
+<<<<<<< HEAD
 use AC\Column;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingTrait;
+=======
+use AC\Expression\Specification;
+use AC\Setting;
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Settings;
-use ACP\Expression\Specification;
 
+// TODO formatter
 class StatusIcon extends Settings\Column
 {
 
-    //implements Settings\FormatValue {
-
-    use SettingTrait;
-
-    public function __construct(Column $column, Specification $conditionals)
+    public function __construct(Specification $conditionals = null)
     {
+<<<<<<< HEAD
         $this->name = 'use_icon';
         $this->label = __('Use an icon?', 'codepress-admin-columns');
         $this->description = __('Use an icon instead of text for displaying the status.', 'codepress-admin-columns');
@@ -26,12 +28,21 @@ class StatusIcon extends Settings\Column
                 '1',
                 '0',
             ], false)
+=======
+        parent::__construct(
+            'use_icon',
+            __('Use an icon?', 'codepress-admin-columns'),
+            __('Use an icon instead of text for displaying the status.', 'codepress-admin-columns'),
+            Setting\Input\Option\Single::create_toggle(
+                Setting\OptionCollection::from_array(['1', '0',], false)
+            ),
+            $conditionals
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         );
-
-        parent::__construct($column, $conditionals);
     }
 
 
+    // TODO
     //	/**
     //	 * @var bool
     //	 */

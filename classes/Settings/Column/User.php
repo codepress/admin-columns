@@ -2,20 +2,18 @@
 
 namespace AC\Settings\Column;
 
-use AC\Column;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use ACP\Expression\Specification;
 
 class User extends Recursive
 {
 
-    public function __construct(Column $column, Specification $specification = null)
+    public function __construct(Specification $specification = null)
     {
-        $this->name = 'user';
-
-        parent::__construct($column, $specification);
+        // TODO no label displays an empty <div> with padding in the editor
+        parent::__construct('user', '', '', null, $specification);
     }
 
     // TODO David this column has a recursive extension, but not this one. The trait implements it as well
@@ -32,11 +30,12 @@ class User extends Recursive
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new UserDisplay($this->column),
-            new UserLink($this->column),
+            new UserDisplay(),
+            new UserLink(),
         ]);
     }
 
+    // TODO
     //
     //    /**
     //     * @var string

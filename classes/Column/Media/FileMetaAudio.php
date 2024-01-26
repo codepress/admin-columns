@@ -18,7 +18,7 @@ class FileMetaAudio extends FileMeta
 
     public function register_settings(): void
     {
-        $this->add_setting(new Settings\Column\FileMetaAudio($this));
+        $this->add_setting(new Settings\Column\FileMetaAudio($this->get_label()));
     }
 
 }

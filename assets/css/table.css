@@ -72,7 +72,7 @@
 
 @font-face {
   font-family: "cpac_icons";
-  src: url("../fonts/cpac_icons.woff2?v=187999") format("woff2"), url("../fonts/cpac_icons.woff?v=8083") format("woff");
+  src: url("../fonts/cpac_icons.woff2?v=522085") format("woff2"), url("../fonts/cpac_icons.woff?v=161913") format("woff");
   font-style: normal;
   font-weight: 400;
 }
@@ -1894,6 +1894,9 @@ div.cpac-color span {
 .ac-table-actions.-init {
   display: block;
 }
+.ac-table-actions.-hidden {
+  display: none;
+}
 .ac-table-actions .ac-table-actions-buttons {
   white-space: nowrap;
   display: inline-flex;
@@ -1989,11 +1992,15 @@ div.cpac-color span {
 
 /* Ajax Modal
 -------------------------------------------------------------- */
+.ac-value-modal.-images .ac-value-modal-panel__body {
+  background: #fafafa;
+}
+
 .ac-value-modal-container .ac-modal-images-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: min-content;
-  grid-gap: 10px;
+  grid-gap: 18px;
   width: 100%;
 }
 @media screen and (max-width: 782px) {
@@ -2003,16 +2010,17 @@ div.cpac-color span {
 }
 .ac-value-modal-container .ac-modal-images-container .ac-image-container {
   border: 1px solid #c3c4c7;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 5px rgba(195, 182, 182, 0.35);
   background: #fff;
   margin-bottom: 0;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 .ac-value-modal-container .ac-modal-images-container .ac-image-container .ac-image-center img {
   display: block;
   width: 100%;
   aspect-ratio: 4/3;
   object-fit: cover;
+  border-radius: 4px 4px 0 0;
 }
 .ac-value-modal-container .ac-modal-images-container .ac-image-container .ac-image-meta {
   padding: 6px 0;
@@ -2020,6 +2028,12 @@ div.cpac-color span {
 .ac-value-modal-container .ac-modal-images-container .ac-image-container .ac-image-meta .ac-image-meta-item {
   word-break: break-word;
   padding: 6px 10px 8px;
+}
+.ac-value-modal-container .ac-modal-images-container .ac-image-container .ac-image-meta .ac-image-meta-item--label {
+  display: block;
+  font-size: 10px;
+  color: #6c6262;
+  text-transform: uppercase;
 }
 
 /*# sourceMappingURL=table.css.map */

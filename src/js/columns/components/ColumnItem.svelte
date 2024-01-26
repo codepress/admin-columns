@@ -8,9 +8,15 @@
     import ColumnSettings from "./ColumnSettings.svelte";
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
     import ProFeatureToggles from "./ProFeatureToggles.svelte";
+    import AcIcon from "ACUi/AcIcon.svelte";
+    import {refreshColumn} from "../ajax/ajax";
+    import {currentListKey} from "../store/current-list-screen";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
+
+    let labelElement: HTMLElement|null;
+    let readableLabel: string = '';
 
     const dispatch = createEventDispatcher();
     const originalsColumns = ColumnTypesUtils.getOriginalColumnTypes();
@@ -68,13 +74,38 @@
         data = data;
     }
 
+    const tempSelectColumn = () => {
+        refreshColumn(data, $currentListKey).then(response => {
+            if (response.data.success === true) {
+                config = response.data.data.columns.settings
+                checkAppliedSettings();
+            }
+        });
+    }
+
+    const checkVisibleLabel = ( label: string ) => {
+        if( labelElement && labelElement.offsetWidth < 5 ){
+            readableLabel = document.createRange().createContextualFragment(data.label).textContent ?? '';
+            if( readableLabel.length === 0 ){
+                readableLabel = data.type;
+            }
+        } else {
+            readableLabel = '';
+        }
+    }
+
+    // TODO
+    //$: checkVisibleLabel( data.label) 
     $: opened = $openedColumnsStore.includes(data.name);
 </script>
 
 <div class="ac-column" class:-opened={opened}>
 	<header class="ac-column-header">
+		<div class="ac-column-header__move acu-cursor-move">
+			<AcIcon icon="move" size="sm"/>
+		</div>
 		<div class="ac-column-header__label">
-			<strong on:click={toggle} on:keydown role="none">{@html data.label}</strong>
+			<strong on:click={toggle} on:keydown role="none" bind:this={labelElement}>{@html data.label}{readableLabel}</strong>
 			<div class="ac-column-row-actions">
 				<a class="ac-column-row-action -edit" href={'#'} on:click|preventDefault={toggle}>Edit</a>
 				{#if !isOriginalColumn}
@@ -99,13 +130,16 @@
 
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
-
 			<ColumnSettings
-					bind:data={data}
-					bind:settings={config}
+				bind:data={data}
+				bind:settings={config}
 			/>
-			<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
-			<button on:click={checkAppliedSettings}>Check settings</button>
+
+			<div style="padding: 10px; background: #FFDCDCFF">
+				<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
+				<button class="button" on:click={checkAppliedSettings}>Check settings</button>
+				<button class="button" on:click={tempSelectColumn}>Refresh Column settings</button>
+			</div>
 		</div>
 	{/if}
 </div>

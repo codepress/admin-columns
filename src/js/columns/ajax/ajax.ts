@@ -1,60 +1,107 @@
 import axios, {AxiosPromise} from "axios";
-import {ListScreenData} from "../../types/requests";
+import {ListScreenColumnData, ListScreenData} from "../../types/requests";
+import {getColumnSettingsConfig} from "../utils/global";
+import ColumnConfig = AC.Vars.Admin.Columns.ColumnConfig;
+import JsonSuccessResponse = AC.Ajax.JsonSuccessResponse;
+import JsonDefaultFailureResponse = AC.Ajax.JsonDefaultFailureResponse;
+import ColumnSettingCollection = AC.Column.Settings.ColumnSettingCollection;
 
 
 declare const ajaxurl: string;
 
 export type listScreenSettingsResponse = {
     data: {
-        list_screen_data: {
+        settings: {
             version: string,
             list_screen: ListScreenData
         },
         table_url: string,
-        settings: { [key:string]: AC.Vars.Settings.ColumnSetting[] }
+        read_only: boolean
+        column_settings: { [key: string]: AC.Vars.Settings.ColumnSetting[] }
+        column_types: ColumnConfig[]
     },
     success: true
 }
 
-export const getListScreenSettings = (listId: string): AxiosPromise<listScreenSettingsResponse> => {
-    return axios.get(ajaxurl, {
-        params: {
-            action: 'ac-list-screen-settings',
-            list_screen_id: listId,
-            method: 'get_settings'
-        }
-    })
-}
+export const getListScreenSettings = (listKey: string, listId: string = ''): AxiosPromise<listScreenSettingsResponse> => {
+    const nonce = getColumnSettingsConfig().nonce;
 
-export const getListScreenSettingsByListKey = (listKey: string): AxiosPromise<listScreenSettingsResponse> => {
     return axios.get(ajaxurl, {
         params: {
+            _ajax_nonce: nonce,
             action: 'ac-list-screen-settings',
             list_key: listKey,
-            method: 'get_settings_by_list_key'
+            list_screen_id: listId,
         }
     })
 }
 
-export const getColumnSettings = (ListScreen: string, columnType: string) => {
+export const getColumnSettings = (listKey: string, columnType: string) => {
+    const nonce = getColumnSettingsConfig().nonce;
+
     return axios.get(ajaxurl, {
         params: {
-            action: 'ac-list-screen-settings',
-            method: 'add_column',
-            list_screen: ListScreen,
+            _ajax_nonce: nonce,
+            action: 'ac-list-screen-add-column',
+            list_screen: listKey,
             column_type: columnType
         }
     })
 }
 
-export const saveListScreen = (data: ListScreenData) => {
+export const saveListScreen = (data: ListScreenData, listKey: string) => {
+    const nonce = getColumnSettingsConfig().nonce;
     const formData = new FormData();
 
-    formData.set('action', 'ac-list-screen-settings')
-    formData.set('method', 'save_settings');
+    formData.set('_ajax_nonce', nonce);
+    formData.set('action', 'ac-list-screen-save')
     formData.set('data', JSON.stringify(data));
+    formData.set('list_key', listKey);
 
     return axios.post(ajaxurl,
         formData
     )
+}
+
+
+type columnConfigPayload = {
+    columns: {
+        settings: AC.Vars.Settings.ColumnSetting[]
+    }
+}
+
+type columnConfigSuccessResponse = JsonSuccessResponse<columnConfigPayload>
+
+
+export const refreshColumn = (data: ListScreenColumnData, listKey: string): AxiosPromise<columnConfigSuccessResponse> => {
+    const nonce = getColumnSettingsConfig().nonce;
+    const formData = new FormData();
+
+    formData.set('_ajax_nonce', nonce);
+    formData.set('action', 'ac-list-screen-select-column')
+    formData.set('data', JSON.stringify(data));
+    formData.set('list_key', listKey);
+
+    return axios.post(ajaxurl,
+        formData
+    )
+}
+
+
+type defaultConfigPayload = {
+    columns: ListScreenColumnData[]
+    config: { [key: string ] : ColumnSettingCollection }
+}
+
+
+export const loadDefaultColumns = (listKey: string): AxiosPromise<JsonSuccessResponse<defaultConfigPayload>|JsonDefaultFailureResponse> => {
+    const nonce = getColumnSettingsConfig().nonce;
+
+    return axios.get( ajaxurl, {
+        params: {
+            _ajax_nonce: nonce,
+            action: 'ac-list-screen-default-columns',
+            list_key: listKey
+        }
+    });
 }

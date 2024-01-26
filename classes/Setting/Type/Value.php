@@ -11,7 +11,7 @@ final class Value
 
     private $value;
 
-    public function __construct(int $id, $value = null)
+    public function __construct($id, $value = null)
     {
         if (null === $value) {
             $value = $id;
@@ -21,7 +21,7 @@ final class Value
         $this->value = $value;
     }
 
-    public function get_id(): int
+    public function get_id()
     {
         return $this->id;
     }

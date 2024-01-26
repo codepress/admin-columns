@@ -29,9 +29,9 @@ export default class InfoScreenOption {
         });
     }
 
-    persist(){
-        axios.post( ajaxurl, mapDataToFormData({
-            action: 'ac_admin_screen_options',
+    persist() {
+        axios.post(ajaxurl, mapDataToFormData({
+            action: 'ac-admin-screen-options',
             _ajax_nonce: AC._ajax_nonce,
             option_name: this.name,
             option_value: this.input.checked ? 1 : 0

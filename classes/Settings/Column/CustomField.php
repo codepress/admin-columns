@@ -4,33 +4,55 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
+<<<<<<< HEAD
 use AC\Column;
 use AC\Setting\Component\Input\OpenFactory;
+=======
+use AC\Expression\Specification;
+use AC\Setting\Input;
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\SettingCollection;
-use ACP\Expression\Specification;
 
 class CustomField extends Recursive
 {
 
     public const NAME = 'custom_field';
 
-    public function __construct(Column $column, Specification $specification = null)
+    public function __construct(Specification $specification = null)
     {
+<<<<<<< HEAD
         $this->name = 'field';
         $this->label = __('Field', 'codepress-admin-columns');
         $this->description = __('Custom field key', 'codepress-admin-columns');
         $this->input = OpenFactory::create_text();
+=======
+        $input = Input\Open::create_text();
+        $input = Input\RemoteOptionsFactory::create_select('ac-custom-field-keys', [], null, 'Select');
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 
-        parent::__construct($column, $specification);
+        parent::__construct(
+            'field',
+            __('Field', 'codepress-admin-columns'),
+            __('Custom field key', 'codepress-admin-columns'),
+            $input,
+            $specification
+        );
+
+        // TODO
+        // Backwards compatible for WordPress Settings API not storing fields starting with _
+        //        if ($field && 0 === strpos($field, 'cpachidden')) {
+        //            $field = substr($field, strlen('cpachidden'));
+        //        }
     }
 
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new CustomFieldType($this->column),
+            new CustomFieldType(),
         ]);
     }
 
+    // TODO
     //    const NAME = 'custom_field';
     //
     //    /**

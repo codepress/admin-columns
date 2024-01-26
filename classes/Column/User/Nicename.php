@@ -4,31 +4,30 @@ namespace AC\Column\User;
 
 use AC\Column;
 
-class Nicename extends Column {
+class Nicename extends Column
+{
 
-	public function __construct() {
-		$this->set_type( 'column-user_nicename' )
-		     ->set_label( __( 'Author Slug', 'codepress-admin-columns' ) );
-	}
+    public function __construct()
+    {
+        $this->set_type('column-user_nicename')
+             ->set_label(__('Author Slug', 'codepress-admin-columns'));
+    }
 
-	public function get_value( $user_id ) {
-		$value = $this->get_raw_value( $user_id );
+    public function get_value($id): string
+    {
+        $value = get_userdata($id)->user_nicename ?? null;
 
-		if ( empty( $value ) ) {
-			return $this->get_empty_char();
-		}
+        if ( ! $value) {
+            return $this->get_empty_char();
+        }
 
-		$url = get_author_posts_url( $user_id );
+        $url = get_author_posts_url($id);
 
-		if ( $url ) {
-			$value = sprintf( '<a href="%s">%s</a>', $url, $value );
-		}
+        if ($url) {
+            $value = sprintf('<a href="%s">%s</a>', $url, $value);
+        }
 
-		return $value;
-	}
-
-	public function get_raw_value( $user_id ) {
-		return get_userdata( $user_id )->user_nicename;
-	}
+        return (string)$value;
+    }
 
 }

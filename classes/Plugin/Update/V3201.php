@@ -62,12 +62,14 @@ class V3201 extends Update
             'ac-first-login-timestamp' => 'first-login-review',
         ];
 
+        $factory = new Preferences\UserFactory();
+
         foreach ($mapping as $old => $new) {
             foreach ($this->get_users_by_meta_key($old) as $user_id) {
                 $value = get_user_meta($user_id, $old, true);
 
-                $option = new Preferences\User('check-review', $user_id);
-                $option->set($new, $value, true);
+                $factory->create('check-review', $user_id)
+                        ->save($new, $value);
 
                 delete_user_meta($user_id, $old);
             }
@@ -83,12 +85,14 @@ class V3201 extends Update
             'ac_hide_notice_addons' => 'dismiss-notice',
         ];
 
+        $factory = new Preferences\UserFactory();
+
         foreach ($mapping as $old => $new) {
             foreach ($this->get_users_by_meta_key($old) as $user_id) {
                 $value = get_user_meta($user_id, $old, true);
 
-                $option = new Preferences\User('check-addon-available', $user_id);
-                $option->set($new, $value, true);
+                $factory->create('check-addon-available', $user_id)
+                        ->save($new, $value);
 
                 delete_user_meta($user_id, $old);
             }

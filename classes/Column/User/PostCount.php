@@ -52,7 +52,7 @@ class PostCount extends Column
 
     protected function get_selected_post_types(): array
     {
-        $post_type = (string)$this->get_setting('post_type')->get_post_type();
+        $post_type = (string)$this->get_option('post_type');
 
         if ('any' === $post_type) {
             // All post types, including the ones that are marked "exclude from search"
@@ -73,7 +73,7 @@ class PostCount extends Column
 
     protected function get_selected_post_status(): array
     {
-        $post_status = $this->get_setting('post_status')->get_value();
+        $post_status = $this->get_option('post_status');
 
         if ('' === $post_status) {
             return get_post_stati(['internal' => 0]);
@@ -84,8 +84,8 @@ class PostCount extends Column
 
     protected function register_settings()
     {
-        $this->add_setting(new Settings\Column\PostType($this, true));
-        $this->add_setting(new Settings\Column\PostStatus($this));
+        $this->add_setting(new Settings\Column\PostType(true));
+        $this->add_setting(new Settings\Column\PostStatus());
     }
 
 }

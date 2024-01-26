@@ -2,27 +2,25 @@
 
 namespace AC\Column\Media;
 
-/**
- * @since 4.3.2
- */
-class Artist extends Meta {
+use AC\Column;
 
-	public function __construct() {
-		$this->set_type( 'column-meta_artist' )
-		     ->set_group( 'media-audio' )
-		     ->set_label( __( 'Artist', 'codepress-admin-columns' ) );
-	}
+class Artist extends Column
+{
 
-	protected function get_sub_key() {
-		return 'artist';
-	}
+    public function __construct()
+    {
+        $this->set_type('column-meta_artist')
+             ->set_group('media-audio')
+             ->set_label(__('Artist', 'codepress-admin-columns'));
+    }
 
-	public function get_value( $id ) {
-		$meta = $this->get_raw_value( $id );
+    public function get_value($id)
+    {
+        $meta = get_post_meta($id, '_wp_attachment_metadata', true);
 
-		return empty( $meta[ $this->get_sub_key() ] )
-			? $this->get_empty_char()
-			: $meta[ $this->get_sub_key() ];
-	}
+        $value = $meta['artist'] ?? null;
+
+        return $value ?: $this->get_empty_char();
+    }
 
 }

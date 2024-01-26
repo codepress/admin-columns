@@ -2,8 +2,6 @@
 
 namespace AC;
 
-use LogicException;
-
 class Transient implements Expirable
 {
 
@@ -20,7 +18,7 @@ class Transient implements Expirable
     public function __construct(string $key, bool $network_only = false)
     {
         $option_factory = $network_only
-            ? new Storage\NetworkOptionFactory()
+            ? new Storage\SiteOptionFactory()
             : new Storage\OptionFactory();
 
         $this->option = $option_factory->create($key);
@@ -53,19 +51,12 @@ class Transient implements Expirable
         $this->timestamp->delete();
     }
 
-    /**
-     * @param mixed $data
-     * @param int   $expiration Time until expiration in seconds.
-     *
-     * @return bool
-     * @throws LogicException
-     */
-    public function save($data, int $expiration): bool
+    public function save($data, int $expiration): void
     {
         // Always store timestamp before option data.
         $this->timestamp->save(time() + $expiration);
 
-        return $this->option->save($data);
+        $this->option->save($data);
     }
 
 }

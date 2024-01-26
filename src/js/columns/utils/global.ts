@@ -1,17 +1,35 @@
-
 export const getColumnSettingsConfig = () => {
     return ac_admin_columns;
 }
 
 
 type AdminColumnsI18n = {
+    errors: {
+        ajax_unknown: string
+        original_exist: string
+    }
     global: {
         search: string
         select: string
     }
-    settings : {
-        label : {
+    menu: {
+        favorites: string
+    }
+    settings: {
+        label: {
             select_label: string
+        }
+    }
+    editor: {
+        label: {
+            add_column: string
+            add_columns: string
+            load_default_columns: string
+            clear_columns: string
+        }
+        sentence: {
+            show_default_columns: string
+            getting_started: string
         }
     }
 }

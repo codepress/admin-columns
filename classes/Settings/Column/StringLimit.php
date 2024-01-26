@@ -4,22 +4,31 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
+<<<<<<< HEAD
 use AC;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+=======
+use AC\Expression\Specification;
+use AC\Expression\StringComparisonSpecification;
+use AC\Setting\Input;
+use AC\Setting\OptionCollection;
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\SettingCollection;
 use AC\Settings;
-use ACP\Expression\Specification;
-use ACP\Expression\StringComparisonSpecification;
 
 class StringLimit extends Recursive
 {
 
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    public function __construct(Specification $conditions = null)
     {
+<<<<<<< HEAD
         $this->name = 'string_limit';
         $this->label = __('Text Limit', 'codepress-admin-columns');
         $this->input = OptionFactory::create_select(
+=======
+        $input = Input\Option\Single::create_select(
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
             OptionCollection::from_array(
                 [
                     ''                => __('No limit', 'codepress-admin-columns'),
@@ -30,24 +39,31 @@ class StringLimit extends Recursive
             'word_limit'
         );
 
-        parent::__construct($column, $conditions);
+        parent::__construct(
+            'string_limit',
+            __('Text Limit', 'codepress-admin-columns'),
+            '',
+            $input,
+            $conditions
+        );
     }
 
     public function get_children(): SettingCollection
     {
+        // TODO test formatter
         return new SettingCollection([
             new Settings\Column\CharacterLimit(
-                $this->column,
                 StringComparisonSpecification::equal('character_limit')
             ),
             new Settings\Column\WordLimit(
-                $this->column,
+                20,
                 StringComparisonSpecification::equal('word_limit')
             ),
         ]);
     }
 
 
+    // TODO
     //	/**
     //	 * @var string
     //	 */

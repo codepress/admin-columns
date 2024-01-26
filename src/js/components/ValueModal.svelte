@@ -66,7 +66,7 @@
             url: ajaxurl,
             cancelToken: source.token,
             params: {
-                action: 'ac_get_column_modal_value',
+                action: 'ac-get-column-modal-value',
                 layout: AC.layout,
                 column_name: item.columnName,
                 object_id: item.objectId,

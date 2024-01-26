@@ -2,21 +2,19 @@
 
 namespace AC\Settings\Column;
 
-use AC;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
-use AC\Setting\SettingTrait;
+use AC\Setting\Input\Number;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression\Specification;
 
 class WordsPerMinute extends Settings\Column implements Formatter
 {
 
-    use SettingTrait;
-
-    public function __construct(AC\Column $column, Specification $conditions = null)
+    public function __construct(Specification $conditions = null)
     {
+<<<<<<< HEAD
         $this->name = 'words_per_minute';
         $this->label = __('Words per minute', 'codepress-admin-columns');
         $this->description = __(
@@ -25,8 +23,16 @@ class WordsPerMinute extends Settings\Column implements Formatter
         );
         $this->input = AC\Setting\Component\Input\Number::create_single_step(0, null, 200, '');
 
+=======
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         parent::__construct(
-            $column,
+            'words_per_minute',
+            __('Words per minute', 'codepress-admin-columns'),
+            __(
+                'Estimated reading time in words per minute.',
+                'codepress-admin-columns'
+            ),
+            Number::create_single_step(0, null, 200, ''),
             $conditions
         );
     }
@@ -34,50 +40,50 @@ class WordsPerMinute extends Settings\Column implements Formatter
     public function format(Value $value, ArrayImmutable $options): Value
     {
         $time = $this->make_human_readable(
-            $this->get_estimated_reading_time_in_seconds($value, $options->get($this->name) ?: 200)
+            $this->get_estimated_reading_time_in_seconds((string)$value, $options->get($this->name) ?: 200)
         );
 
         return $value->with_value($time);
     }
 
-    protected function make_human_readable($seconds): string
+    protected function make_human_readable(int $seconds): string
     {
-        $time = false;
+        if ($seconds <= 0) {
+            return '';
+        }
 
-        if (is_numeric($seconds)) {
-            $minutes = floor($seconds / 60);
-            $seconds = floor($seconds % 60);
+        $minutes = floor($seconds / 60);
+        $seconds = floor($seconds % 60);
 
-            $time = $minutes;
+        $time = $minutes;
 
-            if ($minutes && $seconds < 10) {
-                $seconds = '0' . $seconds;
-            }
+        if ($minutes && $seconds < 10) {
+            $seconds = '0' . $seconds;
+        }
 
-            if ('00' !== $seconds) {
-                $time .= ':' . $seconds;
-            }
+        if ('00' !== $seconds) {
+            $time .= ':' . $seconds;
+        }
 
-            if ($minutes < 1) {
-                $time = $seconds . ' ' . _n('second', 'seconds', $seconds, 'codepress-admin-columns');
-            } else {
-                $time .= ' ' . _n('minute', 'minutes', $minutes, 'codepress-admin-columns');
-            }
+        if ($minutes < 1) {
+            $time = $seconds . ' ' . _n('second', 'seconds', $seconds, 'codepress-admin-columns');
+        } else {
+            $time .= ' ' . _n('minute', 'minutes', $minutes, 'codepress-admin-columns');
         }
 
         return $time;
     }
 
-    protected function get_estimated_reading_time_in_seconds($string, $words_per_minute): int
+    protected function get_estimated_reading_time_in_seconds(string $string, int $words_per_minute): int
     {
         if ($words_per_minute <= 0) {
-            return false;
+            return 0;
         }
 
         $word_count = ac_helper()->string->word_count($string);
 
         if ( ! $word_count) {
-            return false;
+            return 0;
         }
 
         return (int)floor(($word_count / $words_per_minute) * 60);

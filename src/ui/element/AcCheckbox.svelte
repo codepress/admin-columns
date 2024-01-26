@@ -20,8 +20,6 @@
         } else {
             setUnchecked();
         }
-
-
     }
 
     const setChecked = () => {
@@ -32,7 +30,7 @@
             value = true;
         }
 
-        dispatch('input');
+        dispatch('input', value);
     }
 
     const setUnchecked = () => {

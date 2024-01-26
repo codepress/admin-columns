@@ -9,6 +9,7 @@
 
     export let config: AC.Column.Settings.DateFormatSetting;
     export let value: any;
+    export let disabled: boolean = false;
 
     let options: SettingOption[] = [];
     let isCustom: boolean = false;
@@ -65,18 +66,18 @@
 </script>
 
 <ColumnSetting label={config.label} description={config.description} name="date_format" top>
-	{selectedOption}
 	<div style="padding-top: 5px;">
 		{#each options as option}
 			<AcRadio bind:group={selectedOption}
 					value={option.value}
+					{disabled}
 					on:change={handleSelection}
 					--AcuiRadioMarginBottom="5px">{option.label}</AcRadio>
 		{/each}
 		<div class="custom">
-			<AcRadio bind:group={selectedOption} value="custom">Custom</AcRadio>
+			<AcRadio bind:group={selectedOption} value="custom" {disabled}>Custom</AcRadio>
 			<div class="custom-input">
-				<input type="text" bind:value={customDateFormat} on:keyup={ debounceInput } disabled={!isCustom}/>
+				<input type="text" bind:value={customDateFormat} on:keyup={ debounceInput } disabled={!isCustom || disabled}/>
 				<div>
 					{customDateExample}
 				</div>

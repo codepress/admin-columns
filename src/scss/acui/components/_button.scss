@@ -15,6 +15,12 @@
 	padding: 10px 15px;
 	color: #1E293B;
 	cursor: pointer;
+	text-decoration: none;
+
+
+	&:hover, &:focus, &:active {
+		border-color: #111;
+	}
 
 }
 
@@ -54,7 +60,8 @@
 	background-color: var(--ac-primary-color);
 	color: #fff;
 
-	&:hover {
+	&:hover, &:active, &:focus {
 		background-color: var(--ac-primary-color-hover);
+		color: #fff;
 	}
 }

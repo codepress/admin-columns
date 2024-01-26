@@ -5,9 +5,6 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 2.4
- */
 class DatePublished extends Column
 {
 
@@ -50,7 +47,7 @@ class DatePublished extends Column
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\Date($this));
+        $this->add_setting(new Settings\Column\Date());
     }
 
 }

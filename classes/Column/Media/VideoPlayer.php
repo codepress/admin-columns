@@ -21,7 +21,7 @@ class VideoPlayer extends Column implements Column\AjaxValue
     {
         parent::register_settings();
 
-        $this->add_setting(new VideoDisplay($this));
+        $this->add_setting(new VideoDisplay());
     }
 
     private function get_display_type()
@@ -85,7 +85,7 @@ class VideoPlayer extends Column implements Column\AjaxValue
             : false;
     }
 
-    public function get_ajax_value($id)
+    public function get_ajax_value($id): string
     {
         $url = $this->get_raw_value($id);
 

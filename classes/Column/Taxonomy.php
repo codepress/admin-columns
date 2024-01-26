@@ -4,12 +4,10 @@ namespace AC\Column;
 
 use AC\Column;
 use AC\Settings;
-use AC\Settings\Column\Separator;
 
 /**
  * Taxonomy column, displaying terms from a taxonomy for any object type (i.e. posts)
  * supporting WordPress' native way of handling terms.
- * @since 2.0
  */
 class Taxonomy extends Column
 {
@@ -37,7 +35,7 @@ class Taxonomy extends Column
 
         // TODO Stefan check formatted value original value. Can be ID or link?
         foreach ($_terms as $term) {
-            $terms[] = $this->get_formatted_value($term->name, $term);
+            $terms[] = $this->get_formatted_value($term->name, $term->term_id);
         }
 
         if (empty($terms)) {
@@ -51,24 +49,9 @@ class Taxonomy extends Column
         );
     }
 
-    /**
-     * @return string
-     */
-    public function get_separator()
+    private function get_items_limit(): int
     {
-        $setting = $this->get_setting(Separator::NAME);
-
-        return $setting instanceof Separator
-            ? $setting->get_separator_formatted()
-            : parent::get_separator();
-    }
-
-    /**
-     * @return int
-     */
-    private function get_items_limit()
-    {
-        return $this->get_option('number_of_items') ?: 0;
+        return (int)$this->get_option('number_of_items') ?: 0;
     }
 
     /**
@@ -89,10 +72,10 @@ class Taxonomy extends Column
 
     public function register_settings()
     {
-        $this->add_setting(new Settings\Column\Taxonomy($this));
-        $this->add_setting(new Settings\Column\TermLink($this));
-        $this->add_setting(new Settings\Column\NumberOfItems($this));
-        $this->add_setting(new Settings\Column\Separator($this));
+        $this->add_setting(new Settings\Column\Taxonomy());
+        $this->add_setting(new Settings\Column\TermLink());
+        $this->add_setting(new Settings\Column\NumberOfItems());
+        $this->add_setting(new Settings\Column\Separator());
     }
 
 }

@@ -25,11 +25,14 @@ declare namespace AC.Vars.Admin.Columns {
     type MenuItems = { [key: string]: MenuGroup }
 
     type AcAdminColumnsVar = {
-        menu_items: MenuItems
+        nonce: string
         column_groups: ColumnGroup[]
         column_types: ColumnConfig[]
+        menu_groups_opened: string[]
+        menu_items: MenuItems
+        menu_items_favorites: string[]
         list_key: string
-        list_screen_id: string
+        list_id: string
     }
 
 }
@@ -100,6 +103,16 @@ declare namespace AC.Column.Settings {
         }
     }
 
+    interface RemoteSelectSetting extends SelectSetting {
+        input: {
+            type: 'remote_options'
+            data: {
+                ajax_handler: string
+            }
+        }
+    }
+
+
     interface TypeSetting extends AbstractColumnSetting<'type'> {
         input: {
             options: SettingOption[]
@@ -125,3 +138,21 @@ declare namespace AC.Column.Settings {
 
 declare const ac_admin_columns: AcAdminColumnsVar;
 
+declare namespace AC.Ajax {
+    interface JsonResponse {
+        success: boolean,
+        data: any
+    }
+
+    interface JsonSuccessResponse<T = any> extends JsonResponse {
+        success: true,
+        data: T
+    }
+
+    interface JsonDefaultFailureResponse extends JsonResponse {
+        success: false,
+        data: {
+            message: string
+        }
+    }
+}

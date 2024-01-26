@@ -6,6 +6,7 @@
 
     export let config: AC.Column.Settings.SelectSetting;
     export let data: any;
+    export let disabled: boolean = false;
     export let value: string | undefined | number;
 
     const dispatch = createEventDispatcher();
@@ -62,6 +63,7 @@
 			showChevron
 			value={selectValue}
 			{groupBy}
+			{disabled}
 			on:change={ changeValue }>
 
 	</Select>

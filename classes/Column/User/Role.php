@@ -3,29 +3,21 @@
 namespace AC\Column\User;
 
 use AC\Column;
+use AC\Settings\Column\Width;
 
-/**
- * @since 3.0
- */
-class Role extends Column\Meta {
+class Role extends Column
+{
 
-	public function __construct() {
-		$this->set_type( 'role' );
-		$this->set_original( true );
-	}
+    public function __construct()
+    {
+        $this->set_type('role');
+        $this->set_original(true);
+    }
 
-	public function get_value( $id ) {
-		return null;
-	}
-
-	public function get_meta_key() {
-		global $wpdb;
-
-		return $wpdb->get_blog_prefix() . 'capabilities'; // WPMU compatible
-	}
-
-	public function register_settings() {
-		$this->get_setting( 'width' )->set_default( 15 );
-	}
+    public function register_settings()
+    {
+        // TODO implement in JS
+        $this->add_setting(new Width(15, '%'));
+    }
 
 }

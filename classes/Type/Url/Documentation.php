@@ -13,6 +13,7 @@ class Documentation implements Type\Url
     private const URL = 'https://docs.admincolumns.com';
 
     public const ARTICLE_ACF_UPGRADE_V2_TO_V3 = '/article/103-how-to-upgrade-the-acf-integration-from-v2-to-v3';
+    public const ARTICLE_GETTING_STARTED = '/article/25-basics-how-to-use-admin-columns-pro';
     public const ARTICLE_ACTIONS_FILTERS = '/article/15-hooks-and-filters';
     public const ARTICLE_BULK_EDITING = '/article/67-how-to-use-bulk-editing';
     public const ARTICLE_COLUMN_SETS = '/article/72-how-to-create-column-sets';

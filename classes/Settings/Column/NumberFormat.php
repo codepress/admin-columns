@@ -4,19 +4,25 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
+<<<<<<< HEAD
 use AC\Column;
 use AC\Setting\Base;
 use AC\Setting\Component;
 use AC\Setting\Component\OptionCollection;
+=======
+use AC;
+use AC\Expression\Specification;
+use AC\Expression\StringComparisonSpecification;
+use AC\Setting\Input;
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\SettingCollection;
-use ACP\Expression\Specification;
-use ACP\Expression\StringComparisonSpecification;
 
 class NumberFormat extends Recursive
 {
 
-    public function __construct(Column $column, Specification $specification = null)
+    public function __construct(Specification $specification = null)
     {
+<<<<<<< HEAD
         $this->name = 'number_format';
         $this->label = __('Number Format', 'codepress-admin-columns');
         $this->input = Component\OptionFactory::create_select(
@@ -24,9 +30,20 @@ class NumberFormat extends Recursive
                 ''          => __('Default', 'codepress-admin-column'),
                 'formatted' => __('Formatted', 'codepress-admin-column'),
             ])
+=======
+        parent::__construct(
+            'number_format',
+            __('Number Format', 'codepress-admin-columns'),
+            '',
+            Input\Option\Single::create_select(
+                AC\Setting\OptionCollection::from_array([
+                    ''          => __('Default', 'codepress-admin-column'),
+                    'formatted' => __('Formatted', 'codepress-admin-column'),
+                ])
+            ),
+            $specification
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         );
-
-        parent::__construct($column, $specification);
     }
 
     public function is_parent(): bool
@@ -37,30 +54,44 @@ class NumberFormat extends Recursive
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new Base\Setting(
+            new AC\Settings\Column(
                 'number_decimals',
                 __('Decimals', 'codepress-admin-columns'),
                 '',
                 Component\Number::create_single_step(0, 20, 0),
                 StringComparisonSpecification::equal('formatted')
             ),
-            new Base\Setting(
+            new AC\Settings\Column(
                 'number_decimal_point',
                 __('Decimal point', 'codepress-admin-columns'),
                 '',
                 Component\OpenFactory::create_text(null, '.'),
                 StringComparisonSpecification::equal('formatted')
             ),
-            new Base\Setting(
+            new AC\Settings\Column(
                 'number_thousands_separator',
                 __('Thousands separator', 'codepress-admin-columns'),
                 '',
+<<<<<<< HEAD
                 Component\OpenFactory::create_text(),
+=======
+                Input\Open::create_text(),
+                StringComparisonSpecification::equal('formatted')
+            ),
+            new AC\Settings\Column(
+                'number_preview',
+                __('Preview', 'codepress-admin-columns'),
+                '',
+                new Input\Custom('number_preview', [
+                    'keys' => ['number_decimals', 'number_decimal_point', 'number_thousands_separator'],
+                ]),
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
                 StringComparisonSpecification::equal('formatted')
             ),
         ]);
     }
 
+    // TODO
     //implements Settings\FormatValue {
     //
     //	/**

@@ -2,81 +2,62 @@
 
 namespace AC\Settings\Column;
 
+use AC\Expression\Specification;
+use AC\Setting\ArrayImmutable;
+use AC\Setting\Formatter;
+use AC\Setting\Input;
+use AC\Setting\OptionCollection;
+use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\View;
 
-class Term extends Settings\Column
-	implements Settings\FormatValue {
+class Term extends Settings\Column implements Formatter
+{
 
-	const NAME = 'term';
+    public const NAME = 'term';
 
-	/**
-	 * @var string
-	 */
-	private $term_property;
+    public function __construct(Specification $conditions = null)
+    {
+        $input = Input\Option\Single::create_select(
+            OptionCollection::from_array(
+                [
+                    ''     => __('Title'),
+                    'slug' => __('Slug'),
+                    'id'   => __('ID'),
+                ]
+            ),
+            ''
+        );
 
-	protected function set_name() {
-		$this->name = self::NAME;
-	}
+        parent::__construct(
+            'term_property',
+            __('Display', 'codepress-admin-columns'),
+            null,
+            $input,
+            $conditions
+        );
+    }
 
-	protected function define_options() {
-		return [ 'term_property' ];
-	}
+    // TODO test
+    public function format(Value $value, ArrayImmutable $options): Value
+    {
+        $term = $value->get_value();
 
-	public function create_view() {
-		$setting = $this
-			->create_element( 'select' )
-			->set_options( [
-				''     => __( 'Title' ),
-				'slug' => __( 'Slug' ),
-				'id'   => __( 'ID' ),
-			] );
+        if (is_numeric($term)) {
+            $term = get_term($term);
+        }
 
-		$view = new View( [
-			'label'   => __( 'Display', 'codepress-admin-columns' ),
-			'setting' => $setting,
-		] );
+        if ( ! $term || is_wp_error($term)) {
+            return $value;
+        }
 
-		return $view;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_term_property() {
-		return $this->term_property;
-	}
-
-	/**
-	 * @param string $term_property
-	 *
-	 * @return bool
-	 */
-	public function set_term_property( $term_property ) {
-		$this->term_property = $term_property;
-
-		return true;
-	}
-
-	public function format( $value, $original_value ) {
-		$term = $value;
-
-		if ( is_numeric( $term ) ) {
-			$term = get_term( $term );
-		}
-
-		if ( ! $term || is_wp_error( $term ) ) {
-			return $value;
-		}
-
-		switch ( $this->get_term_property() ) {
-			case 'slug' :
-				return $term->slug;
-			case 'id' :
-				return $term->term_id;
-			default :
-				return $term->name;
-		}
-	}
+        switch ($options->get('term_property')) {
+            case 'slug' :
+                return $term->slug;
+            case 'id' :
+                return $term->term_id;
+            default :
+                return $term->name;
+        }
+    }
 
 }

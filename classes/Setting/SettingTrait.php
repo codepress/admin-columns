@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use ACP\Expression\NullSpecification;
-use ACP\Expression\Specification;
+use AC\Expression\NullSpecification;
+use AC\Expression\Specification;
 
+// TODO remove
 trait SettingTrait
 {
 
+<<<<<<< HEAD
     protected $type = 'default';
+=======
+    protected $name = '';
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 
     protected $label = '';
 

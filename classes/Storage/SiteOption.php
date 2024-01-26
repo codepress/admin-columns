@@ -2,51 +2,35 @@
 
 namespace AC\Storage;
 
-class SiteOption implements KeyValuePair {
+class SiteOption implements OptionData
+{
 
-	const OPTION_DEFAULT = 'default';
+    protected $key;
 
-	/**
-	 * @var string
-	 */
-	protected $key;
+    public function __construct(string $key)
+    {
+        $this->key = $key;
+    }
 
-	/**
-	 * @param string $key
-	 */
-	public function __construct( $key ) {
-		$this->key = $key;
-	}
+    public function get(array $args = [])
+    {
+        $args = array_merge([
+            'default' => false,
+        ], $args);
 
-	/**
-	 * @param array $args
-	 *
-	 * @return mixed
-	 */
-	public function get( array $args = [] ) {
-		$args = array_merge( [
-			self::OPTION_DEFAULT => false,
-		], $args );
+        wp_cache_delete($this->key, 'site-options');
 
-		wp_cache_delete( $this->key, 'site-options' );
+        return get_site_option($this->key, $args['default']);
+    }
 
-		return get_site_option( $this->key, $args[ self::OPTION_DEFAULT ] );
-	}
+    public function save($value): void
+    {
+        update_site_option($this->key, $value);
+    }
 
-	/**
-	 * @param $value
-	 *
-	 * @return bool
-	 */
-	public function save( $value ) {
-		return update_site_option( $this->key, $value );
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function delete() {
-		return delete_site_option( $this->key );
-	}
+    public function delete(): void
+    {
+        delete_site_option($this->key);
+    }
 
 }

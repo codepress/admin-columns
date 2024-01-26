@@ -2,6 +2,7 @@
 
     import {getSettingComponent} from "../helper";
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
+    import {listScreenIsReadOnly} from "../store/read_only";
 
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
@@ -14,6 +15,10 @@
     }
 
     const checkConditions = (data) => {
+        if (typeof settings === 'undefined') {
+            return;
+        }
+
         filteredSettings = settings.filter(s => {
             return s.conditions
                 ? checkCondition(s.conditions)
@@ -33,13 +38,16 @@
     $: configChange(settings);
 </script>
 
-{#each filteredSettings as setting (setting.name)}
+{#if typeof filteredSettings !== 'undefined' }
+	{#each filteredSettings as setting (setting.name)}
 
-	<svelte:component
+		<svelte:component
 			this={getComponent(setting.input?.type ?? 'empty')}
+            bind:columnConfig={settings}
 			bind:data={data}
 			bind:value={data[setting.name]}
-			bind:columnConfig={settings}
+			disabled={$listScreenIsReadOnly}
 			config={setting}>
-	</svelte:component>
-{/each}
+		</svelte:component>
+	{/each}
+{/if}

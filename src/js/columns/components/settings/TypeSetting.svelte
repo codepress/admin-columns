@@ -1,47 +1,75 @@
-<script>
-	import ColumnSetting from "../ColumnSetting.svelte";
-	import Select from "svelte-select"
-	import {onMount} from "svelte";
-	import {getColumnSettings} from "../../ajax/ajax";
-	import {columnTypesStore} from "../../store/column-types";
+<script lang="ts">
+    import {createEventDispatcher} from "svelte";
+    import ColumnSetting from "../ColumnSetting.svelte";
+    import Select from "svelte-select"
+    import {getColumnSettings} from "../../ajax/ajax";
+    import {columnTypesStore} from "../../store/column-types";
+    import {ListScreenColumnData} from "../../../types/requests";
+    import {SvelteSelectItem} from "../../../types/select";
+    import ColumnUtils from "../../utils/column";
+    import { ColumnTypesUtils } from "../../utils/column-types";
+    import { listScreenDataStore } from "../../store/list-screen-data";
+    import { NotificationProgrammatic } from "../../../ui-wrapper/notification";
+    import { getColumnSettingsTranslation } from "../..//utils/global";
+    import { currentListKey } from "../../store/current-list-screen";
+    import { openedColumnsStore } from "../../store/opened-columns";
 
-	export let data;
-	export let config;
-	export let columnConfig;
 
-	let collection = [];
-	let selectValue;
+    export let data: ListScreenColumnData;
+    export let config: AC.Column.Settings.ToggleSetting;
+    export let columnConfig: ListScreenColumnData;
+    export let disabled: boolean = false;
 
-	onMount( () => {
-		collection = $columnTypesStore
-	} )
+    const dispatch = createEventDispatcher();
+    const i18n = getColumnSettingsTranslation(); 
 
-	const changeValue = ( d ) => {
-		data[ 'type' ] = selectValue;
+    let selectValue: string;
+    let value = data.type
 
-		getColumnSettings( 'post', selectValue ).then( response => {
-			columnConfig = response.data.data.columns.settings;
+    const changeValue = () => {
+        const oldValue = data.type;
+        
+        if( ColumnTypesUtils.isOriginalColumnType( selectValue ) ){
+            if( $listScreenDataStore.columns.find( c=> c.name === selectValue ) ){
+                value = data.type;
+                NotificationProgrammatic.open({ type: "error", message: i18n.errors.original_exist.replace('%s' ,selectValue) })
+                return;
+            }
+            data.name = selectValue;
+        }
 
-			setTimeout(()=>{
-				columnConfig = columnConfig;
-			},1000)
-		} );
+        if( ColumnTypesUtils.isOriginalColumnType( oldValue )  ){
+            data.name = ColumnUtils.generateId();
+        }
 
-	}
+        openedColumnsStore.open( data.name );
 
-	const groupBy = ( item ) => item.group;
+        data['type'] = selectValue;
+
+        getColumnSettings($currentListKey, selectValue).then(response => {
+            columnConfig = response.data.data.columns.settings;
+
+            setTimeout(() => {
+                columnConfig = columnConfig;
+            }, 500)
+        });
+
+    }
+
+    const groupBy = (item: SvelteSelectItem) => item.group;
 </script>
 
 <ColumnSetting label={config.label} description={config.description} name="type">
 	<Select class="-acui"
-			--list-max-height="400px"
-			showChevron
-			clearable={false}
-			items={$columnTypesStore}
-			{groupBy}
-			value={data['type']}
-			on:change={ changeValue }
-			bind:justValue={selectValue}>
+		--list-max-height="400px"
+		showChevron
+		clearable={false}
+		items={$columnTypesStore}
+		{groupBy}
+		{disabled}
+		bind:value={value}
+		on:change={ changeValue }
+		bind:justValue={selectValue}>
 
 	</Select>
 </ColumnSetting>

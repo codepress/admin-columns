@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
+<<<<<<< HEAD
 use AC\Column;
+=======
+use AC\Expression\Specification;
+use AC\Expression\StringComparisonSpecification;
+use AC\Setting;
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use ACP\Expression\Specification;
-use ACP\Expression\StringComparisonSpecification;
 
 class Post extends Recursive
 {
@@ -25,26 +29,61 @@ class Post extends Recursive
     public const PROPERTY_DATE = 'date';
     public const PROPERTY_STATUS = 'status';
 
-    public function __construct(Column $column, Specification $conditionals)
+    public function __construct(Specification $conditionals = null)
     {
+<<<<<<< HEAD
         $this->name = self::NAME;
         $this->label = __('Display', 'codepress-admin-columns');
         $this->input = OptionFactory::create_select(
             OptionCollection::from_array($this->get_display_options())
+=======
+        parent::__construct(
+            'post',
+            __('Display', 'codepress-admin-columns'),
+            '',
+            Setting\Input\Option\Single::create_select(
+                Setting\OptionCollection::from_array($this->get_display_options()),
+                'title'
+            ),
+            $conditionals
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         );
-
-        parent::__construct($column, $conditionals);
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    // TODO
+    public function xxformat(Value $value, ArrayImmutable $options): Value
     {
+        $ids = $value->get_value();
+
+        if ( ! $ids) {
+            return $value->with_value('');
+        }
+
         $option = $options->get($this->get_name());
 
         switch ($option) {
+<<<<<<< HEAD
             case self::PROPERTY_FEATURED_IMAGE:
                 $value = $value->with_value(get_post_thumbnail_id($value->get_value()));
 
                 break;
+=======
+            //            case self::PROPERTY_FEATURED_IMAGE:
+            //                $value = $value->with_value(get_post_thumbnail_id($ids[0]));
+            //
+            //                break;
+            //            case self::PROPERTY_AUTHOR :
+            //                return $value->with_value(
+            //                // TODO $ids[0]
+            //                    ac_helper()->user->get_display_name($ids[0])
+            //                        ?: sprintf(
+            //                        '<em>%s</em> (%s)',
+            //                        __('No author', 'codepress-admin-columns'),
+            //                        $ids[0]
+            //                    )
+            //                );
+            // TODO add formatter
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         }
 
         return parent::format($value, $options);
@@ -53,24 +92,16 @@ class Post extends Recursive
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new Image(
-                $this->column,
-                StringComparisonSpecification::equal(self::PROPERTY_FEATURED_IMAGE)
-            ),
-            new Date(
-                $this->column,
-                StringComparisonSpecification::equal(self::PROPERTY_DATE)
-            ),
-            new CharacterLimit(
-                $this->column,
-                StringComparisonSpecification::equal(self::PROPERTY_TITLE)
-            ),
-            new StatusIcon(
-                $this->column,
-                StringComparisonSpecification::equal(self::PROPERTY_STATUS)
-            ),
+            // TODO Title formatter
+            new User(StringComparisonSpecification::equal(self::PROPERTY_AUTHOR)),
+            new Image(StringComparisonSpecification::equal(self::PROPERTY_FEATURED_IMAGE)),
+            new Date(StringComparisonSpecification::equal(self::PROPERTY_DATE)),
+            new CharacterLimit(StringComparisonSpecification::equal(self::PROPERTY_TITLE)),
+            new StatusIcon(StringComparisonSpecification::equal(self::PROPERTY_STATUS)),
         ]);
     }
+
+    // TODO
     //
     //    /**
     //     * @var string

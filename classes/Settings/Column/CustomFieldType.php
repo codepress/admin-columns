@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Column;
+use AC\Expression\OrSpecification;
+use AC\Expression\StringComparisonSpecification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
+use AC\Setting\Type\Option;
 use AC\Setting\Type\Value;
-use ACP\Expression\OrSpecification;
-use ACP\Expression\StringComparisonSpecification;
 
 class CustomFieldType extends Recursive
 {
@@ -33,53 +33,54 @@ class CustomFieldType extends Recursive
     public const TYPE_URL = 'link';
     public const TYPE_USER = 'user_by_id';
 
-    public function __construct(Column $column)
+    public function __construct()
     {
+<<<<<<< HEAD
         $this->name = self::NAME;
         $this->label = __('Field Type', 'codepress-admin-columns');
         $this->description = __('This will determine how the value will be displayed.', 'codepress-admin-columns');
         $this->input = Input\Element\Multiple::create_select(
             $this->get_field_type_options()
+=======
+        parent::__construct(
+            'field_type',
+            __('Field Type', 'codepress-admin-columns'),
+            __('This will determine how the value will be displayed.', 'codepress-admin-columns'),
+            Input\Option\Single::create_select(
+                $this->get_field_type_options()
+            )
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         );
-
-        parent::__construct($column);
     }
 
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
             new StringLimit(
-                $this->column,
                 StringComparisonSpecification::equal(self::TYPE_TEXT)
             ),
             new NumberFormat(
-                $this->column,
                 StringComparisonSpecification::equal(self::TYPE_NUMERIC)
             ),
             new Date(
-                $this->column,
                 StringComparisonSpecification::equal(self::TYPE_DATE)
             ),
             new DateFormat(
-                $this->column,
                 StringComparisonSpecification::equal(self::TYPE_DATE)
             ),
             new Image(
-                $this->column,
                 new OrSpecification([
                     StringComparisonSpecification::equal(self::TYPE_IMAGE),
                     StringComparisonSpecification::equal(self::TYPE_MEDIA),
                 ])
             ),
             new MediaLink(
-                $this->column,
                 new OrSpecification([
                     StringComparisonSpecification::equal(self::TYPE_IMAGE),
                     StringComparisonSpecification::equal(self::TYPE_MEDIA),
                 ])
             ),
             new LinkLabel(
-                $this->column,
                 StringComparisonSpecification::equal(self::TYPE_URL)
             ),
         ]);
@@ -96,12 +97,20 @@ class CustomFieldType extends Recursive
         ];
 
         $collection = new OptionCollection();
+<<<<<<< HEAD
         $collection->add(new AC\Setting\Component\Type\Option(__('Default', 'codepress-admin-columns'), ''));
+=======
+        $collection->add(new Option(__('Default', 'codepress-admin-columns'), ''));
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 
         foreach ($this->get_field_types() as $group => $options) {
             foreach ($options as $value => $label) {
                 $collection->add(
+<<<<<<< HEAD
                     new AC\Setting\Component\Type\Option(
+=======
+                    new Option(
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
                         $label,
                         $value,
                         $groups[$group] ?? $group
@@ -136,6 +145,8 @@ class CustomFieldType extends Recursive
 
         return parent::format($value, $options);
     }
+
+    // TODO
 
     //    public function get_dependent_settings()
     //    {
@@ -223,7 +234,7 @@ class CustomFieldType extends Recursive
     //     * Get possible field types
     //     * @return array
     //     */
-    protected function get_field_types()
+    protected function get_field_types(): array
     {
         $grouped_types = [
             'basic'      => [

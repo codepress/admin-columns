@@ -15,7 +15,7 @@ export interface ListScreenPreferenceData {
 }
 
 export interface ListScreenData {
-    columns: ListScreenColumnsData
+    columns: ListScreenColumnData[]
     id: string
     settings: ListScreenPreferenceData
     title: string

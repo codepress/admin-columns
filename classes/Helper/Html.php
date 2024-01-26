@@ -15,17 +15,6 @@ class Html
             : $key;
     }
 
-    public function get_attributes_as_string(array $attributes): string
-    {
-        $output = [];
-
-        foreach ($attributes as $key => $value) {
-            $output[] = $this->get_attribute_as_string($key, $value);
-        }
-
-        return implode(' ', $output);
-    }
-
     /**
      * @param string $url
      * @param string $label
@@ -505,21 +494,14 @@ class Html
 
     /**
      * Returns star rating based on X start from $max count. Does support decimals.
-     *
-     * @param int $count
-     * @param int $max
-     *
-     * @return string
      */
-    public function stars($count, $max = 0)
+    public function stars(float $count, int $max = 0): string
     {
         $stars = [
             'filled' => floor($count),
             'half'   => floor(round(($count * 2)) - (floor($count) * 2)) ? 1 : 0,
             'empty'  => 0,
         ];
-
-        $max = absint($max);
 
         if ($max > 0) {
             $star_count = $stars['filled'] + $stars['half'];
@@ -550,23 +532,20 @@ class Html
         return ob_get_clean();
     }
 
-    /**
-     * @param string $value HTML
-     * @param bool   $removed
-     *
-     * @return string
-     */
-    public function images($value, $removed = false)
+    public function images(string $html, int $number_of_hidden_images = 0): string
     {
-        if ( ! $value) {
-            return false;
+        if ($number_of_hidden_images) {
+            $html .= ac_helper()->html->rounded('+' . $number_of_hidden_images);
         }
 
-        if ($removed) {
-            $value .= ac_helper()->html->rounded('+' . $removed);
-        }
+        return '<div class="ac-image-container">' . $html . '</div>';
+    }
 
-        return '<div class="ac-image-container">' . $value . '</div>';
+    public function get_attributes_as_string(array $attributes): string
+    {
+        _deprecated_function(__METHOD__, 'NEWVERSION');
+
+        return '';
     }
 
 }

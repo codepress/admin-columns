@@ -2,51 +2,35 @@
 
 namespace AC\Storage;
 
-class Option implements KeyValuePair {
+class Option implements OptionData
+{
 
-	const OPTION_DEFAULT = 'default';
+    protected $key;
 
-	/**
-	 * @var string
-	 */
-	protected $key;
+    public function __construct(string $key)
+    {
+        $this->key = $key;
+    }
 
-	/**
-	 * @param string $key
-	 */
-	public function __construct( $key ) {
-		$this->key = $key;
-	}
+    public function get(array $args = [])
+    {
+        $args = array_merge([
+            'default' => false,
+        ], $args);
 
-	/**
-	 * @param array $args
-	 *
-	 * @return mixed
-	 */
-	public function get( array $args = [] ) {
-		$args = array_merge( [
-			self::OPTION_DEFAULT => false,
-		], $args );
+        wp_cache_delete($this->key, 'options');
 
-		wp_cache_delete( $this->key, 'options' );
+        return get_option($this->key, $args['default']);
+    }
 
-		return get_option( $this->key, $args[ self::OPTION_DEFAULT ] );
-	}
+    public function save($value): void
+    {
+        update_option($this->key, $value, false);
+    }
 
-	/**
-	 * @param mixed $value
-	 *
-	 * @return bool
-	 */
-	public function save( $value ) {
-		return update_option( $this->key, $value, false );
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function delete() {
-		return delete_option( $this->key );
-	}
+    public function delete(): void
+    {
+        delete_option($this->key);
+    }
 
 }

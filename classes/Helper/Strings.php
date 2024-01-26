@@ -5,18 +5,8 @@ namespace AC\Helper;
 class Strings
 {
 
-    /**
-     * @param $url
-     *
-     * @return bool|false|string
-     * @since 1.3.1
-     */
-    public function shorten_url($url)
+    public function shorten_url(string $url): string
     {
-        if ( ! $url) {
-            return false;
-        }
-
         return ac_helper()->html->link($url, url_shorten($url), ['title' => $url]);
     }
 
@@ -48,13 +38,7 @@ class Strings
         return 0 === substr_compare($haystack, $needle, -$len, $len);
     }
 
-    /**
-     * @param $string
-     *
-     * @return string
-     * @since 1.3
-     */
-    public function strip_trim($string)
+    public function strip_trim(string $string): string
     {
         return trim(strip_tags($string));
     }
@@ -91,13 +75,8 @@ class Strings
 
     /**
      * Count the number of words in a string (multibyte-compatible)
-     *
-     * @param $string
-     *
-     * @return int Number of words
-     * @since 3.0
      */
-    public function word_count($string)
+    public function word_count(string $string): int
     {
         if (empty($string)) {
             return 0;
@@ -127,41 +106,20 @@ class Strings
         return preg_match_all($patterns['w'], $string, $matches) + 1;
     }
 
-    /**
-     * @param string $string
-     * @param int    $num_words
-     * @param null   $more
-     *
-     * @return false|string
-     * @see   wp_trim_words();
-     * @since 3.0
-     */
-    public function trim_words($string = '', $num_words = 30, $more = null)
+    public function trim_words(string $string, int $limit = 30, string $more = null): string
     {
-        if ($this->is_empty($string)) {
-            return false;
+        if ('' === $string || ! $limit) {
+            return '';
         }
 
-        if ( ! $num_words) {
-            return $string;
-        }
-
-        return wp_trim_words($string, $num_words, $more);
+        return wp_trim_words($string, $limit, $more);
     }
 
     /**
      * Trims a string and strips tags if there is any HTML
-     *
-     * @param string $string
-     * @param int    $limit
-     * @param null   $trail
-     *
-     * @return string
      */
-    public function trim_characters($string, $limit = 10, $trail = null)
+    public function trim_characters(string $string, int $limit = 10, string $trail = null): string
     {
-        $limit = absint($limit);
-
         if (1 > $limit) {
             return $string;
         }
@@ -298,6 +256,7 @@ class Strings
      * @return string
      * @since 3.0
      */
+    // TODO move to HTML or convert to View
     public function get_color_block($hex)
     {
         if ( ! $hex) {
@@ -329,32 +288,12 @@ class Strings
         return '&ndash;';
     }
 
-    /**
-     * @param string $string
-     *
-     * @return bool
-     */
-    public function contains_html_only($string)
-    {
-        return strlen($string) !== strlen(strip_tags($string));
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public function is_empty($value)
+    public function is_empty($value): bool
     {
         return ! $this->is_not_empty($value);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    public function is_not_empty($value)
+    public function is_not_empty($value): bool
     {
         return $value || 0 === $value || '0' === $value;
     }

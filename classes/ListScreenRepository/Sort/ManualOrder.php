@@ -13,7 +13,7 @@ class ManualOrder implements Sort
 
     public function __construct()
     {
-        $this->list_screen_order = new Storage\ListScreenOrder();
+        $this->list_screen_order = new Storage\Repository\ListScreenOrder();
     }
 
     public function sort(ListScreenCollection $list_screens): ListScreenCollection
@@ -27,9 +27,7 @@ class ManualOrder implements Sort
         $layouts = [];
 
         foreach ($list_screens as $list_screen) {
-            if ($list_screen->has_id()) {
-                $layouts[(string)$list_screen->get_id()] = $list_screen;
-            }
+            $layouts[(string)$list_screen->get_id()] = $list_screen;
         }
 
         $ordered = new ListScreenCollection();

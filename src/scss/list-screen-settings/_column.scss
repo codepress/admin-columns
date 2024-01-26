@@ -3,8 +3,24 @@
 
 	.ac-column-header {
 		display: flex;
-		padding: 10px 30px;
+		padding: 10px 30px 10px 0;
 		align-items: center;
+		background-color: #fff;
+
+		&__move {
+			color: #999;
+			width: 30px;
+			text-align: center;
+			opacity: 0;
+			font-size: 10px;
+			cursor: move;
+		}
+
+		&:hover {
+			.ac-column-header__move {
+				opacity: 1;
+			}
+		}
 
 		&__label {
 			flex-grow: 1;

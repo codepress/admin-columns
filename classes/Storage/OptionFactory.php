@@ -2,11 +2,12 @@
 
 namespace AC\Storage;
 
-class OptionFactory implements KeyValueFactory {
+class OptionFactory implements OptionDataFactory
+{
 
-	public function create( string $key ): KeyValuePair
+    public function create(string $key): OptionData
     {
-		return new Option( $key );
-	}
+        return new Option($key);
+    }
 
 }

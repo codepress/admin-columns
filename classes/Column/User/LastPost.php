@@ -5,9 +5,6 @@ namespace AC\Column\User;
 use AC\Column;
 use AC\Settings;
 
-/**
- * @since 4.2.6
- */
 class LastPost extends Column
 {
 
@@ -27,12 +24,13 @@ class LastPost extends Column
 
         $post = get_post($first_post_id);
 
+        // TODO
         return $this->get_formatted_value($post->ID);
     }
 
-    protected function get_related_post_type()
+    protected function get_related_post_type(): string
     {
-        return $this->get_setting('post_type')->get_value() ?: '';
+        return (string)$this->get_option('post_type');
     }
 
     public function get_raw_value($user_id)
@@ -48,19 +46,17 @@ class LastPost extends Column
         return empty($posts) ? null : $posts[0];
     }
 
-    /**
-     * @return array
-     */
-    public function get_related_post_stati()
+    public function get_related_post_stati(): array
     {
-        return $this->get_setting(Settings\Column\PostStatus::NAME)->get_value() ?: [];
+        // TODO
+        return (array)$this->get_option('post_status') ?: [];
     }
 
     protected function register_settings()
     {
-        $this->add_setting(new Settings\Column\PostType($this, true));
-        $this->add_setting(new Settings\Column\PostStatus($this));
-        $this->add_setting(new Settings\Column\Post($this));
+        $this->add_setting(new Settings\Column\PostType(true));
+        $this->add_setting(new Settings\Column\PostStatus());
+        $this->add_setting(new Settings\Column\Post());
     }
 
 }

@@ -98,4 +98,6 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
     document.querySelectorAll<HTMLElement>('[data-component="ac-json"]').forEach(el => {
         new JsonViewer(el);
     })
+
+    event.table.Actions?.refresh();
 });

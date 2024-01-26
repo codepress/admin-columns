@@ -22,10 +22,9 @@
         items: SvelteSelectItem[]
     }
 
-    const handleSelect = ( e: CustomEvent<string>) => {
-        console.log('DDD', e.detail );
-        dispatch('selectItem', e.detail );
-	}
+    const handleSelect = (e: CustomEvent<string>) => {
+        dispatch('selectItem', e.detail);
+    }
 
     const filterGroupItems = (items: SvelteSelectItem[]): ProcessedSvelteSelectItem[] => {
         const groupValues: string[] = [];
@@ -71,9 +70,9 @@
         return filterResults
     }
 
-    onMount(()=>{
+    onMount(() => {
         inputElement.focus();
-	})
+    })
 
     $: filteredItems = filter({
         filterText,

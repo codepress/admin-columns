@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Column;
+use AC\Expression;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use ACP\Expression;
 
 class Comment extends Recursive
 {
@@ -24,11 +23,15 @@ class Comment extends Recursive
     public const PROPERTY_AUTHOR = 'author';
     public const PROPERTY_AUTHOR_EMAIL = 'author_email';
 
-    public function __construct(Column $column, Expression\Specification $specification = null)
+    public function __construct(Expression\Specification $specification = null)
     {
+<<<<<<< HEAD
         $this->name = 'comment';
         $this->label = __('Display', 'codepress-admin-columns');
         $this->input = OptionFactory::create_select(
+=======
+        $input = Input\Option\Single::create_select(
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
             OptionCollection::from_array([
                 self::PROPERTY_COMMENT      => __('Comment'),
                 self::PROPERTY_ID           => __('ID'),
@@ -39,7 +42,7 @@ class Comment extends Recursive
             self::PROPERTY_COMMENT
         );
 
-        parent::__construct($column, $specification);
+        parent::__construct('comment', __('Display', 'codepress-admin-columns'), '', $input, $specification);
     }
 
     public function is_parent(): bool
@@ -50,17 +53,9 @@ class Comment extends Recursive
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new Settings\Column\Date(
-                $this->column,
-                Expression\StringComparisonSpecification::equal(self::PROPERTY_DATE)
-            ),
-            new Settings\Column\StringLimit(
-                $this->column,
-                Expression\StringComparisonSpecification::equal(self::PROPERTY_COMMENT)
-            ),
-            new Settings\Column\CommentLink(
-                $this->column
-            ),
+            new Settings\Column\Date(Expression\StringComparisonSpecification::equal(self::PROPERTY_DATE)),
+            new Settings\Column\StringLimit(Expression\StringComparisonSpecification::equal(self::PROPERTY_COMMENT)),
+            new Settings\Column\CommentLink(),
         ]);
     }
 
@@ -101,6 +96,7 @@ class Comment extends Recursive
     }
 
 
+    // TODO
     //
     //	public function get_dependent_settings() {
     //

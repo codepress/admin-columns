@@ -16,6 +16,10 @@
   padding: 10px 15px;
   color: #1E293B;
   cursor: pointer;
+  text-decoration: none;
+}
+.acui-button:hover, .acui-button:focus, .acui-button:active {
+  border-color: #111;
 }
 
 .acui-button.acui-button-text {
@@ -54,8 +58,9 @@
   background-color: var(--ac-primary-color);
   color: #fff;
 }
-.acui-button-primary:hover {
+.acui-button-primary:hover, .acui-button-primary:active, .acui-button-primary:focus {
   background-color: var(--ac-primary-color-hover);
+  color: #fff;
 }
 
 .acui-dropdown {
@@ -435,6 +440,67 @@
 }
 .acui-tooltip-content.hover {
   opacity: 1;
+}
+
+.acui-notifications {
+  position: fixed;
+  flex-direction: column;
+  display: flex;
+  bottom: 0;
+  left: 160px;
+  z-index: 100000;
+  padding: 4em;
+}
+.acui-notifications > * {
+  margin-bottom: 15px;
+}
+.acui-notifications > *:last-child {
+  margin-bottom: 0;
+}
+
+.acui-notification {
+  padding: 15px;
+  border-radius: 5px;
+  position: relative;
+  background: #bbb;
+}
+.acui-notification .acui-notification-close {
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  height: 19px;
+  width: 19px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.acui-notification .acui-notification-close span {
+  color: #fff;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+.acui-notification .acui-notification-close:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+.acui-notification.-success {
+  background: var(--ac-notification-green);
+  color: #fff;
+}
+.acui-notification.-warning {
+  background: var(--ac-notification-yellow);
+}
+.acui-notification.-error {
+  background: var(--ac-notification-red);
+  color: #fff;
+}
+.acui-notification.-closable {
+  padding-right: 30px;
 }
 
 /*# sourceMappingURL=acui.css.map */

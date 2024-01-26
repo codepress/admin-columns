@@ -2,39 +2,36 @@
 
 namespace AC\Settings\Column;
 
+use AC;
+use AC\Expression\Specification;
+use AC\Setting\ArrayImmutable;
+use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\View;
 use WP_Term;
 
-class TermLink extends Settings\Column
-    implements Settings\FormatValue
+class TermLink extends Settings\Column implements AC\Setting\Formatter
 {
 
-    /**
-     * @var string
-     */
-    protected $term_link_to;
+    private $post_type;
 
-    protected function define_options()
+    public function __construct(string $post_type = null, Specification $conditions = null)
     {
-        return [
-            'term_link_to' => 'filter',
-        ];
+        $input = AC\Setting\Input\Option\Single::create_select(
+            AC\Setting\OptionCollection::from_array($this->get_link_options()),
+            'filter'
+        );
+
+        parent::__construct(
+            'term_link_to',
+            __('Link To', 'codepress-admin-columns'),
+            null,
+            $input,
+            $conditions
+        );
+        $this->post_type = $post_type;
     }
 
-    public function create_view()
-    {
-        $select = $this->create_element('select')->set_options($this->get_link_options());
-
-        $view = new View([
-            'label'   => __('Link To', 'codepress-admin-columns'),
-            'setting' => $select,
-        ]);
-
-        return $view;
-    }
-
-    protected function get_link_options()
+    protected function get_link_options(): array
     {
         return [
             ''       => __('None'),
@@ -43,52 +40,30 @@ class TermLink extends Settings\Column
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function get_term_link_to()
+    public function format(Value $value, ArrayImmutable $options): Value
     {
-        return $this->term_link_to;
-    }
+        $link = null;
 
-    /**
-     * @param string $term_link_to
-     *
-     * @return bool
-     */
-    public function set_term_link_to($term_link_to)
-    {
-        $this->term_link_to = $term_link_to;
-
-        return true;
-    }
-
-    public function format($value, $original_value)
-    {
-        $link = false;
-
-        switch ($this->get_term_link_to()) {
+        switch ($options->get($this->name)) {
             case 'filter':
-                $term = get_term($original_value);
+                $term = get_term($value->get_id());
 
                 if ($term instanceof WP_Term) {
                     $link = ac_helper()->taxonomy->get_filter_by_term_url(
                         $term,
-                        $this->column->get_post_type() ?: null
+                        $this->post_type
                     );
                 }
                 break;
             case 'edit' :
-                $link = get_edit_term_link($original_value);
+                $link = get_edit_term_link($value->get_id());
 
                 break;
         }
 
-        if ($link) {
-            return sprintf('<a href="%s">%s</a>', $link, $value);
-        }
-
-        return $value;
+        return $link
+            ? $value->with_value(sprintf('<a href="%s">%s</a>', $link, $value))
+            : $value;
     }
 
 }

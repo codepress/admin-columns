@@ -8,8 +8,6 @@ use AC\Admin\ScreenOption;
 class ListScreenSource extends ScreenOption
 {
 
-    private const KEY = 'show_tools_list_screen_source';
-
     private $preference;
 
     public function __construct(Preference\ScreenOptions $preference)
@@ -19,7 +17,7 @@ class ListScreenSource extends ScreenOption
 
     public function is_active(): bool
     {
-        return 1 === $this->preference->get(self::KEY);
+        return $this->preference->is_active('show_tools_list_screen_source');
     }
 
     public function render(): string
@@ -27,7 +25,7 @@ class ListScreenSource extends ScreenOption
         ob_start();
         ?>
 
-		<label for="ac-list-screen-source" data-ac-screen-option="<?= self::KEY ?>">
+		<label for="ac-list-screen-source" data-ac-screen-option="show_tools_list_screen_source">
 			<input id="ac-list-screen-source" type="checkbox" <?php
             checked($this->is_active()); ?>>
             <?= __('List Screen Source', 'codepress-admin-columns') ?>

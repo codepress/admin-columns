@@ -4,11 +4,19 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+<<<<<<< HEAD
 use AC\Setting\Component\Input\Custom;
 use AC\Setting\Component\Input\Number;
 use AC\Setting\Component\Input\Open;
 use AC\Setting\Component\Input\Option;
 use AC\Setting\Component\OptionCollection;
+=======
+use AC\Setting\Input\Custom;
+use AC\Setting\Input\Number;
+use AC\Setting\Input\Open;
+use AC\Setting\Input\Option;
+use AC\Settings\Column;
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 
 final class Encoder
 {
@@ -31,7 +39,7 @@ final class Encoder
         return $encoded;
     }
 
-    private function encode_setting(Setting $setting): array
+    private function encode_setting(Column $setting): array
     {
         $encoded = [
             'name'        => $setting->get_name(),

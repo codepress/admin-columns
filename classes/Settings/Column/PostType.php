@@ -2,101 +2,76 @@
 
 namespace AC\Settings\Column;
 
-use AC;
+use AC\Setting;
+use AC\Setting\OptionCollection;
 use AC\Settings;
-use AC\View;
 
-class PostType extends Settings\Column {
+class PostType extends Settings\Column
+{
 
-	/**
-	 * @var string
-	 */
-	private $post_type;
+    private $show_any;
 
-	/**
-	 * @var bool
-	 */
-	private $show_any;
+    public function __construct(bool $show_any = false)
+    {
+        $input = Setting\Input\Option\Single::create_select(
+            $this->create_options()
+        );
 
-	public function __construct( AC\Column $column, $show_any = false ) {
-		parent::__construct( $column );
+        parent::__construct(
+            'post_type',
+            __('Post Type', 'codepress-admin-columns'),
+            null,
+            $input
+        );
 
-		$this->show_any = $show_any;
-	}
+        $this->show_any = $show_any;
+    }
 
-	protected function define_options() {
-		return [ 'post_type' ];
-	}
+    public function create_options(): OptionCollection
+    {
+        $options = $this->get_post_type_labels();
 
-	public function create_view() {
-		$options = $this->get_post_type_labels();
+        if ($this->show_any) {
+            $options = ['any' => __('All Post Types', 'codepress-admin-columns')] + $options;
+        }
 
-		if ( $this->show_any ) {
-			$options = [ 'any' => __( 'All Post Types', 'codepress-admin-columns' ) ] + $options;
-		}
+        return OptionCollection::from_array($options);
+    }
 
-		$setting = $this->create_element( 'select' )
-		                ->set_attribute( 'data-label', 'update' )
-		                ->set_options( $options );
+    private function add_slug_to_duplicate_post_type_label(array $options): array
+    {
+        $values = array_values($options);
 
-		$view = new View( [
-			'label'   => __( 'Post Type', 'codepress-admin-columns' ),
-			'setting' => $setting,
-		] );
+        // Add slug to duplicate post type labels
+        foreach ($options as $k => $label) {
+            if (count(array_keys($values, $label)) > 1) {
+                $options[$k] .= sprintf(' (%s)', $k);
+            }
+        }
 
-		return $view;
-	}
+        return $options;
+    }
 
-	private function add_slug_to_duplicate_post_type_label( $options ) {
-		$values = array_values( $options );
+    private function get_post_type_labels(): array
+    {
+        $options = [];
 
-		// Add slug to duplicate post type labels
-		foreach ( $options as $k => $label ) {
-			if ( count( array_keys( $values, $label ) ) > 1 ) {
-				$options[ $k ] .= sprintf( ' (%s)', $k );
-			}
-		}
+        $post_types = get_post_types();
 
-		return $options;
-	}
+        if ( ! is_array($post_types)) {
+            return $options;
+        }
 
-	private function get_post_type_labels() {
-		$options = [];
+        foreach ($post_types as $post_type) {
+            $post_type_object = get_post_type_object($post_type);
+            $options[$post_type] = $post_type_object->labels->name;
+        }
 
-		$post_types = get_post_types();
+        $options = $this->add_slug_to_duplicate_post_type_label($options);
 
-		if ( ! is_array( $post_types ) ) {
-			return $options;
-		}
+        natcasesort($options);
 
-		foreach ( $post_types as $post_type ) {
-			$post_type_object = get_post_type_object( $post_type );
-			$options[ $post_type ] = $post_type_object->labels->name;
-		}
-
-		$options = $this->add_slug_to_duplicate_post_type_label( $options );
-
-		natcasesort( $options );
-
-		return $options;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_post_type() {
-		return $this->post_type;
-	}
-
-	/**
-	 * @param string $post_type
-	 *
-	 * @return true
-	 */
-	public function set_post_type( $post_type ) {
-		$this->post_type = $post_type;
-
-		return true;
-	}
+        return $options;
+    }
 
 }

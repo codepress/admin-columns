@@ -4,32 +4,47 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Column;
+use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
+<<<<<<< HEAD
 use AC\Setting\Base;
 use AC\Setting\Component\OptionCollection;
+=======
+use AC\Setting\Input;
+use AC\Setting\OptionCollection;
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use ACP\Expression\Specification;
+use AC\Settings\Column;
 
 abstract class DateTimeFormat extends Recursive
 {
 
     public const NAME = 'date';
 
-    public function __construct(Column $column, Specification $conditions = null)
+    public function __construct(Specification $conditions = null)
     {
+<<<<<<< HEAD
         $this->name = self::NAME;
         $this->label = __('Date Format', 'codepress-admin-columns');
         $this->input = new Input\Element\Custom('date_format');
+=======
+        // TODO add default date format, see AC\Column\Post\Modified
+>>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 
-        parent::__construct($column, $conditions);
+        parent::__construct(
+            'date',
+            __('Date Format', 'codepress-admin-columns'),
+            '',
+            new Input\Custom('date_format'),
+            $conditions
+        );
     }
 
     public function get_children(): SettingCollection
     {
-        $settings = [
-            new Base\Setting(
+        return new SettingCollection([
+            new Column(
                 'date_format',
                 '',
                 '',
@@ -38,9 +53,7 @@ abstract class DateTimeFormat extends Recursive
                     'wp_default'
                 )
             ),
-        ];
-
-        return new SettingCollection($settings);
+        ]);
     }
 
     public function format(Value $value, ArrayImmutable $options): Value

@@ -4,26 +4,18 @@ namespace AC\Column\User;
 
 use AC\Column;
 
-/**
- * @since 2.0
- */
-class Nickname extends Column\Meta {
+class Nickname extends Column
+{
 
-	public function __construct() {
-		$this->set_type( 'column-nickname' );
-		$this->set_label( __( 'Nickname', 'codepress-admin-columns' ) );
-	}
+    public function __construct()
+    {
+        $this->set_type('column-nickname');
+        $this->set_label(__('Nickname', 'codepress-admin-columns'));
+    }
 
-	public function get_meta_key() {
-		return 'nickname';
-	}
-
-	public function get_value( $user_id ) {
-		return $this->get_raw_value( $user_id );
-	}
-
-	public function get_raw_value( $user_id ) {
-		return $this->get_meta_value( $user_id, $this->get_meta_key() );
-	}
+    public function get_value($id)
+    {
+        return get_user_meta($id, 'nickname');
+    }
 
 }

@@ -4,29 +4,25 @@ namespace AC\Column\Media;
 
 use AC\Column;
 
-/**
- * @since 2.0
- */
-class Height extends Column\Media\MetaValue {
+class Height extends Column
+{
 
-	public function __construct() {
-		$this->set_type( 'column-height' )
-		     ->set_group( 'media-image' )
-		     ->set_label( __( 'Height', 'codepress-admin-columns' ) );
-	}
+    public function __construct()
+    {
+        $this->set_type('column-height')
+             ->set_group('media-image')
+             ->set_label(__('Height', 'codepress-admin-columns'));
+    }
 
-	protected function get_option_name() {
-		return 'height';
-	}
+    public function get_value($id): string
+    {
+        $meta = get_post_meta($id, '_wp_attachment_metadata', true);
 
-	public function get_value( $id ) {
-		$value = $this->get_raw_value( $id );
+        $value = $meta['height'] ?? null;
 
-		if ( ! $value ) {
-			return $this->get_empty_char();
-		}
-
-		return $value . 'px';
-	}
+        return $value
+            ? $value . 'px'
+            : $this->get_empty_char();
+    }
 
 }
