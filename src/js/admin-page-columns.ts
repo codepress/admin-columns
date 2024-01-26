@@ -16,8 +16,6 @@ const config = getColumnSettingsConfig();
 require('./_legacy-columns.ts');
 require('./columns/init/setting-types.ts');
 
-initialListId.set(config.list_id);
-
 currentListKey.subscribe((d) => {
     const url = new URL(window.location.href);
 
@@ -61,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new ColumnsPage({
         target: target,
         props: {
+            initialListId: config.list_id,
             menu: config.menu_items,
             openedGroups: config.menu_groups_opened
         }

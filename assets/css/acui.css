@@ -37,7 +37,7 @@
 }
 
 .acui-button.is-loading:before {
-  border: 2px solid #fff;
+  border: 2px solid var(--acui-loading-color, #fff);
   border-radius: 9999px;
   border-right-color: transparent;
   border-top-color: transparent;
