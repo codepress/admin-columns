@@ -4,7 +4,7 @@ namespace AC\Settings;
 
 use AC\Expression\NullSpecification;
 use AC\Expression\Specification;
-use AC\Setting\Input;
+use AC\Setting\Component;
 
 class Column
 {
@@ -23,7 +23,7 @@ class Column
         string $name,
         string $label,
         string $description = null,
-        Input $input = null,
+        Component\Input $input = null,
         Specification $conditions = null
     ) {
         $this->name = $name;
@@ -48,7 +48,7 @@ class Column
         return $this->description;
     }
 
-    public function get_input(): ?Input
+    public function get_input(): ?Component\Input
     {
         return $this->input;
     }
