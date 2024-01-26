@@ -26,7 +26,7 @@ class ValueFormatter
         $this->separator = $separator;
     }
 
-    public function format($id, $value): string
+    public function format($value, $id): string
     {
         $formatter = Formatter\Aggregate::from_settings($this->settings);
 
@@ -41,6 +41,8 @@ class ValueFormatter
 
             return implode($this->separator, $formatted_values);
         }
+
+        // TODO original column will render the id, because Value object turns value into and an id when value=null.
 
         return (string)$formatter->format(
             new Value($id, $value),

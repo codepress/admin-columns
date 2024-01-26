@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter\User;
 
-use AC\Formatter;
+use AC\Setting\ArrayImmutable;
+use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
 class Meta implements Formatter
@@ -17,7 +18,7 @@ class Meta implements Formatter
         $this->key = $key;
     }
 
-    public function format(Value $value): Value
+    public function format(Value $value, ArrayImmutable $options): Value
     {
         return $value->with_value(
             get_user_meta($value->get_id(), $this->key, true)

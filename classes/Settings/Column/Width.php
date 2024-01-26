@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
+use AC;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Settings\Column;
 use InvalidArgumentException;
 
-final class Width extends Recursive
+final class Width extends Column implements AC\Setting\Recursive
 {
 
     private $default;
@@ -37,6 +38,11 @@ final class Width extends Recursive
         if ( ! in_array($this->default_unit, ['%', 'px'], true)) {
             throw new InvalidArgumentException('Invalid width unit');
         }
+    }
+
+    public function is_parent(): bool
+    {
+        return false;
     }
 
     public function get_children(): SettingCollection

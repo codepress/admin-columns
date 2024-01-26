@@ -305,7 +305,7 @@ class Column
         $factory = new ValueFormatterFactory();
 
         return $factory->create($this)
-                       ->format($id, $value);
+                       ->format($value, $id);
     }
 
     /**
