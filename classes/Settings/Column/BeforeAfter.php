@@ -49,14 +49,14 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
                 __('Before', 'codepress-admin-columns'),
                 '',
                 // TODO
-                new Component\Input\Open(null, $this->default_before)
+                new Component\Input\Open('before', $this->default_before)
             ),
             new AC\Settings\Column(
                 'after',
                 __('After', 'codepress-admin-columns'),
                 '',
                 // TODO
-                new Component\Input\Open(null, $this->default_after)
+                new Component\Input\Open('after', $this->default_after)
             ),
         ]);
     }
