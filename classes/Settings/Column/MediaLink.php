@@ -22,6 +22,7 @@ class MediaLink extends Settings\Column implements Formatter
             __('Link To', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
+                'media_link_to',
                 OptionCollection::from_array([
                     ''         => __('None'),
                     'view'     => __('View', 'codepress-admin-columns'),

@@ -19,6 +19,7 @@ class MissingImageSize extends Settings\Column
             __('Include missing sizes?', 'codepress-admin-columns'),
             __('Include sizes that are missing an image file.', 'codepress-admin-columns'),
             OptionFactory::create_toggle(
+                'include_missing_sizes',
                 OptionCollection::from_array([
                     '1',
                     '',

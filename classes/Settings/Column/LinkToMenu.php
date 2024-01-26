@@ -21,7 +21,7 @@ class LinkToMenu extends Settings\Column implements Formatter
             'link_to_menu',
             __('Link to menu', 'codepress-admin-columns'),
             __('This will make the title link to the menu.', 'codepress-admin-columns'),
-            OptionFactory::create_toggle(null, 'on'),
+            OptionFactory::create_toggle('link_to_menu', null, 'on'),
             $conditions
         );
     }

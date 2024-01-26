@@ -30,6 +30,7 @@ class Comment extends Recursive
             __('Display', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
+                'comment',
                 OptionCollection::from_array([
                     self::PROPERTY_COMMENT      => __('Comment'),
                     self::PROPERTY_ID           => __('ID'),

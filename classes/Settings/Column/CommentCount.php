@@ -27,6 +27,7 @@ class CommentCount extends Settings\Column
             __('Comment status', 'codepress-admin-columns'),
             __('Select which comment status you like to display.', 'codepress-admin-columns'),
             OptionFactory::create_select(
+                'comment_status',
                 OptionCollection::from_array($this->get_comment_statuses()),
                 self::STATUS_ALL
             ),

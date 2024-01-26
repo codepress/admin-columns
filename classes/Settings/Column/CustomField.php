@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Component\Input\RemoteOptionsFactory;
+use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\SettingCollection;
 
 class CustomField extends Recursive
@@ -19,7 +19,7 @@ class CustomField extends Recursive
             'field',
             __('Field', 'codepress-admin-columns'),
             __('Custom field key', 'codepress-admin-columns'),
-            RemoteOptionsFactory::create_select('ac-custom-field-keys', [], null, 'Select'),
+            OptionFactory::create_select_remote('field', 'ac-custom-field-keys', null, 'Select'),
             $specification
         );
 

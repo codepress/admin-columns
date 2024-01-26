@@ -37,6 +37,7 @@ abstract class DateTimeFormat extends Recursive
                 '',
                 '',
                 OptionFactory::create_radio(
+                    'date_format',
                     OptionCollection::from_array($this->get_date_options()),
                     'wp_default'
                 )

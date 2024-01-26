@@ -32,6 +32,7 @@ class UserDisplay extends Settings\Column implements Formatter
     public function __construct(Specification $specification = null)
     {
         $input = OptionFactory::create_select(
+            'display_author_as',
             OptionCollection::from_array($this->get_input_options()),
             self::PROPERTY_DISPLAY_NAME
         );

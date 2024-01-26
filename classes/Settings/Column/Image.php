@@ -24,6 +24,7 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
             __('Image Size', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
+                'image_size',
                 $this->get_grouped_image_sizes(),
                 $default
             ),

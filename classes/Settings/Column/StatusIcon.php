@@ -18,6 +18,7 @@ class StatusIcon extends Settings\Column
             __('Use an icon?', 'codepress-admin-columns'),
             __('Use an icon instead of text for displaying the status.', 'codepress-admin-columns'),
             OptionFactory::create_toggle(
+                'use_icon',
                 OptionCollection::from_array([
                     '1',
                     '0',

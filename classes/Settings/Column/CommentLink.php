@@ -20,6 +20,7 @@ class CommentLink extends Settings\Column implements Formatter
             __('Link To', 'codepress-admin-columns'),
             '',
             Input\OptionFactory::create_select(
+                'comment_link_to',
                 OptionCollection::from_array(
                     [
                         ''             => __('None'),

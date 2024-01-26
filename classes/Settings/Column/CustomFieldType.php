@@ -40,6 +40,7 @@ class CustomFieldType extends Recursive
             __('Field Type', 'codepress-admin-columns'),
             __('This will determine how the value will be displayed.', 'codepress-admin-columns'),
             AC\Setting\Component\Input\OptionFactory::create_select(
+                'field_type',
                 $this->get_field_type_options(),
                 '',
                 null,

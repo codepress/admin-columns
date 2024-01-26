@@ -49,13 +49,19 @@ final class Width extends Column implements AC\Setting\Recursive
                 $this->name,
                 '',
                 '',
-                AC\Setting\Component\Input\Number::create_single_step('width', 0, null, $this->default)
+                AC\Setting\Component\Input\Number::create_single_step(
+                    'width',
+                    0,
+                    null,
+                    $this->default
+                )
             ),
             new Column(
                 'width_unit',
                 '',
                 '',
                 AC\Setting\Component\Input\OptionFactory::create_radio(
+                    'width_unit',
                     OptionCollection::from_array([
                         '%',
                         'px',

@@ -25,6 +25,7 @@ class AttachmentDisplay extends Settings\Column\Recursive
             __('Display', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
+                'attachment_display',
                 OptionCollection::from_array([
                     'thumbnail' => __('Thumbnails', 'codepress-admin-columns'),
                     'count'     => __('Count', 'codepress-admin-columns'),

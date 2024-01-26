@@ -23,6 +23,7 @@ class DateFormat extends Settings\Column
             __('Date Save Format', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
+                'date_save_format',
                 OptionCollection::from_array([
                     self::FORMAT_DATE           => sprintf(
                         '%s (%s)',

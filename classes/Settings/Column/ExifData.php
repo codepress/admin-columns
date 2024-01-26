@@ -32,6 +32,7 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
             $label,
             '',
             OptionFactory::create_select(
+                'exif_data',
                 OptionCollection::from_array($this->get_exif_types()),
                 'aperture'
             ),

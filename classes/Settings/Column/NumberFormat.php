@@ -22,6 +22,7 @@ class NumberFormat extends Recursive
             __('Number Format', 'codepress-admin-columns'),
             '',
             Component\Input\OptionFactory::create_select(
+                'number_format',
                 OptionCollection::from_array([
                     ''          => __('Default', 'codepress-admin-column'),
                     'formatted' => __('Formatted', 'codepress-admin-column'),

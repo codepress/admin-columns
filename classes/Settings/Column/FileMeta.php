@@ -20,6 +20,7 @@ class FileMeta extends Settings\Column
             $label,
             '',
             OptionFactory::create_select(
+                'media_meta_key',
                 OptionCollection::from_array($meta_options),
                 $default_option
             )

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC;
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -18,7 +18,8 @@ class PathScope extends Settings\Column implements Formatter
     public function __construct(Specification $conditions = null)
     {
         $input = OptionFactory::create_select(
-            AC\Setting\Component\OptionCollection::from_array([
+            'path_scope',
+            OptionCollection::from_array([
                 'full'             => __('Full Path', 'codepress-admin-columns'),
                 'relative-domain'  => __('Relative to domain', 'codepress-admin-columns'),
                 'relative-uploads' => __('Relative to main uploads folder', 'codepress-admin-columns'),

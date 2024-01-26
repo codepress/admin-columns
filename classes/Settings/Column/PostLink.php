@@ -23,6 +23,7 @@ class PostLink extends Settings\Column implements AC\Setting\Formatter
             __('Link To', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
+                'post_link_to',
                 OptionCollection::from_array($this->get_display_options()),
                 'edit_post'
             ),

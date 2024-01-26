@@ -21,6 +21,7 @@ class StringLimit extends Recursive
             __('Text Limit', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
+                'string_limit',
                 OptionCollection::from_array(
                     [
                         ''                => __('No limit', 'codepress-admin-columns'),

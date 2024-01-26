@@ -31,6 +31,7 @@ class Post extends Recursive
             __('Display', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
+                'post',
                 OptionCollection::from_array($this->get_display_options()),
                 'title'
             ),

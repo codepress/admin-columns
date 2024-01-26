@@ -31,6 +31,7 @@ class UserLink extends Settings\Column implements AC\Setting\Formatter
             __('Link To', 'codepress-admin-columns'),
             null,
             OptionFactory::create_select(
+                'user_link_to',
                 OptionCollection::from_array(
                     $this->get_input_options()
                 ),
