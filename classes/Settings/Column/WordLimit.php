@@ -16,17 +16,8 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
 
     public function __construct(int $default = 20, Specification $conditions = null)
     {
-<<<<<<< HEAD
-        $this->name = 'excerpt_length';
-        $this->label = __('Word Limit', 'codepress-admin-columns');
-        $this->description = __('Maximum number of words', 'codepress-admin-columns') . '<em>' . __(
-                'Leave empty for no limit',
-                'codepress-admin-columns'
-            ) . '</em>';
-        $this->input = AC\Setting\Component\Input\Number::create_single_step(
-=======
-        $input = Number::create_single_step(
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
+        $input = AC\Setting\Component\Input\Number::create_single_step(
+            'excerpt_length',
             0,
             null,
             $default,
@@ -36,6 +27,7 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
         );
 
         parent::__construct(
+        // TODO name
             'excerpt_length',
             __('Word Limit', 'codepress-admin-columns'),
             sprintf(

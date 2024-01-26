@@ -11,11 +11,7 @@ use AC\Expression\Specification;
 trait SettingTrait
 {
 
-<<<<<<< HEAD
     protected $type = 'default';
-=======
-    protected $name = '';
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 
     protected $label = '';
 
@@ -31,7 +27,7 @@ trait SettingTrait
      */
     protected $conditions;
 
-    public function get_type() : string
+    public function get_type(): string
     {
         return $this->type;
     }

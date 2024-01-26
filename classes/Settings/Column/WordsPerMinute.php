@@ -4,8 +4,8 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
+use AC\Setting\Component\Input\Number;
 use AC\Setting\Formatter;
-use AC\Setting\Input\Number;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -14,25 +14,15 @@ class WordsPerMinute extends Settings\Column implements Formatter
 
     public function __construct(Specification $conditions = null)
     {
-<<<<<<< HEAD
-        $this->name = 'words_per_minute';
-        $this->label = __('Words per minute', 'codepress-admin-columns');
-        $this->description = __(
-            'Estimated reading time in words per minute.',
-            'codepress-admin-columns'
-        );
-        $this->input = AC\Setting\Component\Input\Number::create_single_step(0, null, 200, '');
-
-=======
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         parent::__construct(
+        // TODO
             'words_per_minute',
             __('Words per minute', 'codepress-admin-columns'),
             __(
                 'Estimated reading time in words per minute.',
                 'codepress-admin-columns'
             ),
-            Number::create_single_step(0, null, 200, ''),
+            Number::create_single_step('words_per_minute', 0, null, 200, ''),
             $conditions
         );
     }

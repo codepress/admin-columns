@@ -6,9 +6,9 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
-use AC\Setting\Formatter;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -29,19 +29,9 @@ class UserDisplay extends Settings\Column implements Formatter
     public const PROPERTY_NICKNAME = 'nickname';
     public const PROPERTY_ROLES = 'roles';
 
-<<<<<<< HEAD
-    public function __construct(
-        Column $column,
-        Specification $specification = null
-    ) {
-        $this->name = self::NAME;
-        $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = OptionFactory::create_select(
-=======
     public function __construct(Specification $specification = null)
     {
-        $input = Input\Option\Single::create_select(
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
+        $input = OptionFactory::create_select(
             OptionCollection::from_array($this->get_input_options()),
             self::PROPERTY_DISPLAY_NAME
         );
