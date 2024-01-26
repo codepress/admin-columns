@@ -20,6 +20,8 @@ class Column
     protected $conditions;
 
     public function __construct(
+
+        // TODO
         string $name,
         string $label,
         string $description = null,

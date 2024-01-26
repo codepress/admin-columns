@@ -35,27 +35,23 @@ class CustomFieldType extends Recursive
 
     public function __construct()
     {
-<<<<<<< HEAD
-        $this->name = self::NAME;
-        $this->label = __('Field Type', 'codepress-admin-columns');
-        $this->description = __('This will determine how the value will be displayed.', 'codepress-admin-columns');
-        $this->input = Input\Element\Multiple::create_select(
-            $this->get_field_type_options()
-=======
         parent::__construct(
             'field_type',
             __('Field Type', 'codepress-admin-columns'),
             __('This will determine how the value will be displayed.', 'codepress-admin-columns'),
-            Input\Option\Single::create_select(
-                $this->get_field_type_options()
+            AC\Setting\Component\Input\OptionFactory::create_select(
+                $this->get_field_type_options(),
+                '',
+                null,
+                true
             )
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         );
     }
 
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
+            // TODO
             new StringLimit(
                 StringComparisonSpecification::equal(self::TYPE_TEXT)
             ),
@@ -97,20 +93,14 @@ class CustomFieldType extends Recursive
         ];
 
         $collection = new OptionCollection();
-<<<<<<< HEAD
-        $collection->add(new AC\Setting\Component\Type\Option(__('Default', 'codepress-admin-columns'), ''));
-=======
-        $collection->add(new Option(__('Default', 'codepress-admin-columns'), ''));
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
+        $collection->add(
+            new AC\Setting\Component\Type\Option(__('Default', 'codepress-admin-columns'), '')
+        );
 
         foreach ($this->get_field_types() as $group => $options) {
             foreach ($options as $value => $label) {
                 $collection->add(
-<<<<<<< HEAD
                     new AC\Setting\Component\Type\Option(
-=======
-                    new Option(
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
                         $label,
                         $value,
                         $groups[$group] ?? $group

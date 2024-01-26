@@ -4,16 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-<<<<<<< HEAD
-use AC;
-use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollection;
-=======
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Settings;
 
@@ -22,28 +16,20 @@ class StringLimit extends Recursive
 
     public function __construct(Specification $conditions = null)
     {
-<<<<<<< HEAD
-        $this->name = 'string_limit';
-        $this->label = __('Text Limit', 'codepress-admin-columns');
-        $this->input = OptionFactory::create_select(
-=======
-        $input = Input\Option\Single::create_select(
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
-            OptionCollection::from_array(
-                [
-                    ''                => __('No limit', 'codepress-admin-columns'),
-                    'character_limit' => __('Character Limit', 'codepress-admin-columns'),
-                    'word_limit'      => __('Word Limit', 'codepress-admin-columns'),
-                ]
-            ),
-            'word_limit'
-        );
-
         parent::__construct(
             'string_limit',
             __('Text Limit', 'codepress-admin-columns'),
             '',
-            $input,
+            OptionFactory::create_select(
+                OptionCollection::from_array(
+                    [
+                        ''                => __('No limit', 'codepress-admin-columns'),
+                        'character_limit' => __('Character Limit', 'codepress-admin-columns'),
+                        'word_limit'      => __('Word Limit', 'codepress-admin-columns'),
+                    ]
+                ),
+                'word_limit'
+            ),
             $conditions
         );
     }

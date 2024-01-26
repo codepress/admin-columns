@@ -10,12 +10,8 @@ use AC\Expression\OrSpecification;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification as Compare;
 use AC\Setting\ArrayImmutable;
-<<<<<<< HEAD
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-=======
-use AC\Setting\OptionCollection;
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -31,21 +27,11 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
 
     public function __construct(string $label, Specification $conditions = null)
     {
-<<<<<<< HEAD
-        $this->name = self::NAME;
-        $this->label = $column->get_label();
-        $this->input = OptionFactory::create_select(
-            OptionCollection::from_array($this->get_exif_types()),
-            'aperture'
-        );
-
-=======
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         parent::__construct(
             'exif_data',
             $label,
             '',
-            AC\Setting\Input\Option\Single::create_select(
+            OptionFactory::create_select(
                 OptionCollection::from_array($this->get_exif_types()),
                 'aperture'
             ),

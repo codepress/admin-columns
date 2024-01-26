@@ -8,15 +8,9 @@ use AC;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\ArrayImmutable;
-<<<<<<< HEAD
-use AC\Setting\Base;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Component\Type\Option;
-=======
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 
@@ -25,23 +19,15 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
 
     public function __construct(Specification $specification = null, string $default = 'cpac-custom')
     {
-<<<<<<< HEAD
-        $this->name = 'image_size';
-        $this->label = __('Image Size', 'codepress-admin-columns');
-        $this->input = OptionFactory::create_select(
-            $this->get_grouped_image_sizes(),
-            self::SIZE_CUSTOM
-=======
         parent::__construct(
             'image_size',
             __('Image Size', 'codepress-admin-columns'),
             '',
-            Input\Option\Single::create_select(
+            OptionFactory::create_select(
                 $this->get_grouped_image_sizes(),
                 $default
             ),
             $specification
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
         );
     }
 
@@ -66,25 +52,17 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
                 'image_size_w',
                 __('Width', 'codepress-admin-columns'),
                 '',
-<<<<<<< HEAD
-                Input\Element\Number::create_single_step(0, null, 60),
-                StringComparisonSpecification::equal(self::SIZE_CUSTOM)
-=======
-                Input\Number::create_single_step(0, null, 60),
+                // TODO why name?
+                AC\Setting\Component\Input\Number::create_single_step('image_size_w', 0, null, 60),
                 StringComparisonSpecification::equal('cpac-custom')
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
             ),
             new AC\Settings\Column(
                 'image_size_h',
                 __('Height', 'codepress-admin-columns'),
                 '',
-<<<<<<< HEAD
-                Input\Element\Number::create_single_step(0, null, 60),
-                StringComparisonSpecification::equal(self::SIZE_CUSTOM)
-=======
-                Input\Number::create_single_step(0, null, 60),
+                // TODO why name?
+                AC\Setting\Component\Input\Number::create_single_step('image_size_w', 0, null, 60),
                 StringComparisonSpecification::equal('cpac-custom')
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
             ),
         ]);
     }

@@ -6,13 +6,9 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
-<<<<<<< HEAD
-use AC\Setting\Base;
+use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-=======
 use AC\Setting\Input;
-use AC\Setting\OptionCollection;
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Column;
@@ -24,18 +20,11 @@ abstract class DateTimeFormat extends Recursive
 
     public function __construct(Specification $conditions = null)
     {
-<<<<<<< HEAD
-        $this->name = self::NAME;
-        $this->label = __('Date Format', 'codepress-admin-columns');
-        $this->input = new Input\Element\Custom('date_format');
-=======
-        // TODO add default date format, see AC\Column\Post\Modified
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
-
         parent::__construct(
             'date',
             __('Date Format', 'codepress-admin-columns'),
             '',
+            // TODO David Custom input
             new Input\Custom('date_format'),
             $conditions
         );
@@ -48,7 +37,7 @@ abstract class DateTimeFormat extends Recursive
                 'date_format',
                 '',
                 '',
-                Input\Element\Single::create_radio(
+                OptionFactory::create_radio(
                     OptionCollection::from_array($this->get_date_options()),
                     'wp_default'
                 )
