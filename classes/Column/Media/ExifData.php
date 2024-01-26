@@ -18,7 +18,7 @@ class ExifData extends Column
     public function get_raw_value($id)
     {
         // TODO test
-        $meta = get_post_meta($id, '_wp_attachment_metadata', true);
+        $meta = get_post_meta($id, '_wp_attachment_metadata', true) ?: [];
 
         return $meta['image_meta'] ?? [];
     }

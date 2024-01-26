@@ -5,7 +5,6 @@ namespace AC\Column\Media;
 use AC\Column;
 use AC\Settings;
 
-// TODO strict types
 class AvailableSizes extends Column
 {
 
@@ -71,7 +70,7 @@ class AvailableSizes extends Column
 
     public function get_available_sizes(array $image_sizes): array
     {
-        return array_intersect(array_keys($image_sizes), (array)get_intermediate_image_sizes());
+        return array_intersect(array_keys($image_sizes), get_intermediate_image_sizes());
     }
 
     public function get_missing_sizes(array $image_sizes): array
