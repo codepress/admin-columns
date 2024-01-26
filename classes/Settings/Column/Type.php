@@ -3,7 +3,6 @@
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\Input;
 use AC\Settings\Column;
 
 class Type extends Column
@@ -15,7 +14,7 @@ class Type extends Column
     {
         $this->name = 'type';
         $this->label = __('Type', 'codepress-admin-columns');
-        $this->input = new Input\Custom($this->name);
+        $this->input = new Input\Element\Custom($this->name);
         $this->description = __('Choose a column type.', 'codepress-admin-columns');
 
         parent::__construct($column);

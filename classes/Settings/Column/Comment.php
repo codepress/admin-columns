@@ -6,8 +6,8 @@ namespace AC\Settings\Column;
 
 use AC\Column;
 use AC\Setting\ArrayImmutable;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -28,7 +28,7 @@ class Comment extends Recursive
     {
         $this->name = 'comment';
         $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
+        $this->input = OptionFactory::create_select(
             OptionCollection::from_array([
                 self::PROPERTY_COMMENT      => __('Comment'),
                 self::PROPERTY_ID           => __('ID'),

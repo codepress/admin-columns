@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting;
+namespace AC\Setting\Component;
 
-use AC\Setting\Type\Option;
+use AC\Setting\Collection;
+use AC\Setting\Component\Type\Option;
 
 final class OptionCollection extends Collection
 {

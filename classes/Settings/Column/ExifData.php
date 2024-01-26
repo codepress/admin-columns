@@ -6,6 +6,8 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Setting\ArrayImmutable;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -27,8 +29,8 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
     {
         $this->name = self::NAME;
         $this->label = $column->get_label();
-        $this->input = AC\Setting\Input\Option\Single::create_select(
-            AC\Setting\OptionCollection::from_array($this->get_exif_types()),
+        $this->input = OptionFactory::create_select(
+            OptionCollection::from_array($this->get_exif_types()),
             'aperture'
         );
 

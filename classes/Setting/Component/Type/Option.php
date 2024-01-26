@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Type;
+namespace AC\Setting\Component\Type;
 
 final class Option
 {

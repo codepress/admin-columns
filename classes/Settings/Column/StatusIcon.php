@@ -3,7 +3,8 @@
 namespace AC\Settings\Column;
 
 use AC\Column;
-use AC\Setting;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
 use ACP\Expression\Specification;
@@ -20,8 +21,8 @@ class StatusIcon extends Settings\Column
         $this->name = 'use_icon';
         $this->label = __('Use an icon?', 'codepress-admin-columns');
         $this->description = __('Use an icon instead of text for displaying the status.', 'codepress-admin-columns');
-        $this->input = Setting\Input\Option\Single::create_toggle(
-            Setting\OptionCollection::from_array([
+        $this->input = OptionFactory::create_toggle(
+            OptionCollection::from_array([
                 '1',
                 '0',
             ], false)

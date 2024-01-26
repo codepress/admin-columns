@@ -8,7 +8,7 @@ use AC;
 use AC\Column;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Base;
-use AC\Setting\Input;
+use AC\Setting\Component;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use ACP\Expression\Specification;
@@ -46,13 +46,13 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
                 'before',
                 __('Before', 'codepress-admin-columns'),
                 '',
-                Input\Open::create_text($this->default_before)
+                new Component\Open(null, $this->default_before)
             ),
             new Base\Setting(
                 'after',
                 __('After', 'codepress-admin-columns'),
                 '',
-                Input\Open::create_text($this->default_after)
+                new Component\Open(null, $this->default_after)
             ),
         ]);
     }

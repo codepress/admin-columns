@@ -2,29 +2,42 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting;
+namespace AC\Setting\Component;
 
-abstract class Input
+class Input
 {
 
-    protected $type;
+    private $name;
 
-    protected $default;
+    private $type;
 
-    protected $placeholder;
+    private $default;
 
-    protected $class;
+    private $placeholder;
+
+    private $attributes;
 
     public function __construct(
+        string $name,
         string $type,
         $default = null,
         string $placeholder = null,
-        string $class = null
+        AttributeCollection $attributes = null
     ) {
+        if ($attributes === null) {
+            $attributes = new AttributeCollection();
+        }
+
+        $this->name = $name;
         $this->type = $type;
         $this->default = $default;
         $this->placeholder = $placeholder;
-        $this->class = $class;
+        $this->attributes = $attributes;
+    }
+
+    public function get_name(): string
+    {
+        return $this->name;
     }
 
     public function get_type(): string
@@ -52,14 +65,9 @@ abstract class Input
         return $this->placeholder;
     }
 
-    public function has_class(): bool
+    public function get_attributes(): AttributeCollection
     {
-        return $this->class !== null;
-    }
-
-    public function get_class(): ?string
-    {
-        return $this->class;
+        return $this->attributes;
     }
 
 }

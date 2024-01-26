@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Column;
-use AC\Setting\Input\Number;
+use AC\Setting\Component\Input\Number;
 use AC\Setting\SettingTrait;
 use AC\Settings;
 use ACP\Expression\Specification;

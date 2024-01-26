@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollectionFactory\ToggleOptionCollection;
 use AC\Settings\Column;
 use ACP\Expression\Specification;
 
@@ -18,8 +20,8 @@ class ActionIcons extends Column
         $this->name = 'use_icons';
         $this->label = __('Use icons?', 'codepress-admin-columns');
         $this->description = __('Use icons instead of text for displaying the actions.', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Single::create_toggle(
-            (new AC\Setting\OptionCollectionFactory\ToggleOptionCollection)->create()
+        $this->input = OptionFactory::create_toggle(
+            (new ToggleOptionCollection())->create()
         );
 
         parent::__construct($column, $conditionals);

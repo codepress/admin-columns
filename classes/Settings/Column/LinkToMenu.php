@@ -7,6 +7,7 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
+use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
@@ -25,7 +26,7 @@ class LinkToMenu extends Settings\Column\Toggle implements Formatter
         $this->name = 'link_to_menu';
         $this->label = __('Link to menu', 'codepress-admin-columns');
         $this->description = __('This will make the title link to the menu.', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Single::create_toggle(null, 'on');
+        $this->input = OptionFactory::create_toggle(null, 'on');
     }
 
     public function format(Value $value, ArrayImmutable $options): Value

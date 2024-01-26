@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
-use AC;
 use AC\Column;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Settings;
 
 class FileMeta extends Settings\Column
@@ -15,8 +18,8 @@ class FileMeta extends Settings\Column
     {
         $this->name = self::NAME;
         $this->label = $column->get_label();
-        $this->input = AC\Setting\Input\Option\Single::create_select(
-            AC\Setting\OptionCollection::from_array($meta_options),
+        $this->input = OptionFactory::create_select(
+            OptionCollection::from_array($meta_options),
             $default_option
         );
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingTrait;
 use AC\Settings;
 use ACP\Expression\Specification;
@@ -29,7 +29,7 @@ class CommentCount extends Settings\Column
         $this->name = self::NAME;
         $this->label = __('Comment status', 'codepress-admin-columns');
         $this->description = __('Select which comment status you like to display.', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
+        $this->input = OptionFactory::create_select(
             OptionCollection::from_array($this->get_comment_statuses()),
             self::STATUS_ALL
         );

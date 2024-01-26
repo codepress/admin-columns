@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
-use AC;
 use AC\Column;
 use AC\Setting\Base;
-use AC\Setting\Input;
+use AC\Setting\Component;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
 use ACP\Expression\Specification;
 use ACP\Expression\StringComparisonSpecification;
@@ -17,8 +19,8 @@ class NumberFormat extends Recursive
     {
         $this->name = 'number_format';
         $this->label = __('Number Format', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
-            AC\Setting\OptionCollection::from_array([
+        $this->input = Component\OptionFactory::create_select(
+            OptionCollection::from_array([
                 ''          => __('Default', 'codepress-admin-column'),
                 'formatted' => __('Formatted', 'codepress-admin-column'),
             ])
@@ -39,30 +41,21 @@ class NumberFormat extends Recursive
                 'number_decimals',
                 __('Decimals', 'codepress-admin-columns'),
                 '',
-                Input\Number::create_single_step(0, 20, 0),
+                Component\Number::create_single_step(0, 20, 0),
                 StringComparisonSpecification::equal('formatted')
             ),
             new Base\Setting(
                 'number_decimal_point',
                 __('Decimal point', 'codepress-admin-columns'),
                 '',
-                Input\Open::create_text(null, '.'),
+                Component\OpenFactory::create_text(null, '.'),
                 StringComparisonSpecification::equal('formatted')
             ),
             new Base\Setting(
                 'number_thousands_separator',
                 __('Thousands separator', 'codepress-admin-columns'),
                 '',
-                Input\Open::create_text(),
-                StringComparisonSpecification::equal('formatted')
-            ),
-            new Base\Setting(
-                'number_preview',
-                __('Preview', 'codepress-admin-columns'),
-                '',
-                new Input\Custom('number_preview', [
-                    'keys' => ['number_decimals', 'number_decimal_point', 'number_thousands_separator'],
-                ]),
+                Component\OpenFactory::create_text(),
                 StringComparisonSpecification::equal('formatted')
             ),
         ]);

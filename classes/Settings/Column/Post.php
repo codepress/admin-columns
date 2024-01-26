@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC\Column;
-use AC\Setting;
 use AC\Setting\ArrayImmutable;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use ACP\Expression\Specification;
@@ -26,8 +29,8 @@ class Post extends Recursive
     {
         $this->name = self::NAME;
         $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = Setting\Input\Option\Single::create_select(
-            Setting\OptionCollection::from_array($this->get_display_options())
+        $this->input = OptionFactory::create_select(
+            OptionCollection::from_array($this->get_display_options())
         );
 
         parent::__construct($column, $conditionals);
@@ -39,7 +42,7 @@ class Post extends Recursive
 
         switch ($option) {
             case self::PROPERTY_FEATURED_IMAGE:
-                $value = $value->with_value( get_post_thumbnail_id( $value->get_value() ) );
+                $value = $value->with_value(get_post_thumbnail_id($value->get_value()));
 
                 break;
         }

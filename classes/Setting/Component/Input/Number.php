@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Input;
+namespace AC\Setting\Component\Input;
+
+use AC\Setting\Component\AttributeCollection;
 
 final class Number extends Open
 {
@@ -14,15 +16,16 @@ final class Number extends Open
     private $step;
 
     public function __construct(
+        string $name,
         string $min = null,
         string $max = null,
         string $step = null,
         string $default = null,
         string $placeholder = null,
-        string $class = null,
+        AttributeCollection $attributes = null,
         string $append = null
     ) {
-        parent::__construct('number', $default, $placeholder, $class, $append);
+        parent::__construct($name, 'number', $default, $placeholder, $attributes, $append);
 
         $this->min = $min;
         $this->max = $max;
@@ -30,19 +33,21 @@ final class Number extends Open
     }
 
     public static function create_single_step(
+        string $name,
         int $min = null,
         int $max = null,
         int $default = null,
         string $placeholder = null,
-        string $class = null,
+        AttributeCollection $attributes = null,
         string $append = null
     ): self {
         return new self(
+            $name,
             (string)$min,
             (string)$max, '1',
             (string)$default,
             $placeholder,
-            $class,
+            $attributes,
             $append
         );
     }

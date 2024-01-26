@@ -24,7 +24,7 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
                 'Leave empty for no limit',
                 'codepress-admin-columns'
             ) . '</em>';
-        $this->input = AC\Setting\Input\Number::create_single_step(
+        $this->input = AC\Setting\Component\Input\Number::create_single_step(
             0,
             null,
             20,

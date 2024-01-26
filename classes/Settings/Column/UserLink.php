@@ -6,6 +6,8 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Setting\ArrayImmutable;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
@@ -24,8 +26,8 @@ class UserLink extends Settings\Column implements AC\Setting\Formatter
     {
         $this->name = self::NAME;
         $this->label = __('Link To', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Single::create_select(
-            AC\Setting\OptionCollection::from_array($this->get_input_options()),
+        $this->input = OptionFactory::create_select(
+            OptionCollection::from_array($this->get_input_options()),
             self::PROPERTY_EDIT_USER
         );
 

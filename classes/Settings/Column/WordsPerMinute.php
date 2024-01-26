@@ -23,7 +23,7 @@ class WordsPerMinute extends Settings\Column implements Formatter
             'Estimated reading time in words per minute.',
             'codepress-admin-columns'
         );
-        $this->input = AC\Setting\Input\Number::create_single_step(0, null, 200, '');
+        $this->input = AC\Setting\Component\Input\Number::create_single_step(0, null, 200, '');
 
         parent::__construct(
             $column,

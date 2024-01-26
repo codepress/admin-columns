@@ -7,8 +7,7 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Column;
 use AC\Setting\ArrayImmutable;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use ACP\Expression\OrSpecification;
@@ -39,7 +38,7 @@ class CustomFieldType extends Recursive
         $this->name = self::NAME;
         $this->label = __('Field Type', 'codepress-admin-columns');
         $this->description = __('This will determine how the value will be displayed.', 'codepress-admin-columns');
-        $this->input = Input\Option\Multiple::create_select(
+        $this->input = Input\Element\Multiple::create_select(
             $this->get_field_type_options()
         );
 
@@ -97,12 +96,12 @@ class CustomFieldType extends Recursive
         ];
 
         $collection = new OptionCollection();
-        $collection->add(new AC\Setting\Type\Option(__('Default', 'codepress-admin-columns'), ''));
+        $collection->add(new AC\Setting\Component\Type\Option(__('Default', 'codepress-admin-columns'), ''));
 
         foreach ($this->get_field_types() as $group => $options) {
             foreach ($options as $value => $label) {
                 $collection->add(
-                    new AC\Setting\Type\Option(
+                    new AC\Setting\Component\Type\Option(
                         $label,
                         $value,
                         $groups[$group] ?? $group

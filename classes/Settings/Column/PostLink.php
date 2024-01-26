@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
@@ -18,7 +20,7 @@ class PostLink extends Settings\Column implements AC\Setting\Formatter
     {
         $this->name = 'post_link_to';
         $this->label = __('Link To', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
+        $this->input = OptionFactory::create_select(
             OptionCollection::from_array($this->get_display_options()),
             'edit_post'
         );
@@ -28,7 +30,7 @@ class PostLink extends Settings\Column implements AC\Setting\Formatter
 
     public function format(Value $value, AC\Setting\ArrayImmutable $options): Value
     {
-        switch ( (string) $options->get($this->name) ) {
+        switch ((string)$options->get($this->name)) {
             case 'edit_post':
                 $link = get_edit_post_link($value->get_id());
 

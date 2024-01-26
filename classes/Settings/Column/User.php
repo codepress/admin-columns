@@ -19,7 +19,6 @@ class User extends Recursive
     }
 
     // TODO David this column has a recursive extension, but not this one. The trait implements it as well
-    // TODO David and ::parent is now conflicting
     public function format(Value $value, ArrayImmutable $options): Value
     {
         return $value->with_value(

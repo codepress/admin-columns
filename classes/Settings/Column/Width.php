@@ -6,8 +6,7 @@ namespace AC\Settings\Column;
 
 use AC\Column;
 use AC\Setting\Base;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
 
 final class Width extends Recursive
@@ -19,7 +18,7 @@ final class Width extends Recursive
     {
         $this->name = 'width';
         $this->label = __('Width', 'codepress-admin-columns');
-        $this->input = new Input\Custom('width');
+        $this->input = new Input\Element\Custom('width');
         $this->default = $default;
 
         parent::__construct($column);
@@ -37,13 +36,13 @@ final class Width extends Recursive
                 $this->name,
                 '',
                 '',
-                Input\Number::create_single_step(0, null, $this->default)
+                Input\Element\Number::create_single_step(0, null, $this->default)
             ),
             new Base\Setting(
                 $this->name . '_unit',
                 '',
                 '',
-                Input\Option\Single::create_radio(
+                Input\Element\Single::create_radio(
                     OptionCollection::from_array([
                         '%',
                         'px',

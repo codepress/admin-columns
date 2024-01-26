@@ -20,7 +20,7 @@ class Recursive extends Setting implements AC\Setting\Recursive
         SettingCollection $settings,
         string $label = '',
         string $description = '',
-        AC\Setting\Input $input = null,
+        AC\Setting\Component $input = null,
         Specification $conditions = null,
         bool $parent = false
     ) {

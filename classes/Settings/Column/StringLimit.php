@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Settings;
 use ACP\Expression\Specification;
@@ -17,7 +19,7 @@ class StringLimit extends Recursive
     {
         $this->name = 'string_limit';
         $this->label = __('Text Limit', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
+        $this->input = OptionFactory::create_select(
             OptionCollection::from_array(
                 [
                     ''                => __('No limit', 'codepress-admin-columns'),

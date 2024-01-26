@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Setting\Base;
 
 use AC;
-use AC\Setting\Input;
+use AC\Setting\Component;
 use AC\Setting\SettingTrait;
 use ACP\Expression\Specification;
 
@@ -18,7 +18,7 @@ class Setting implements AC\Setting\Setting
         string $name,
         string $label = '',
         string $description = '',
-        Input $input = null,
+        Element $input = null,
         Specification $conditions = null
     ) {
         $this->name = $name;

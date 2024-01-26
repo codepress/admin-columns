@@ -8,10 +8,10 @@ use AC;
 use AC\Column;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Base;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
+use AC\Setting\Component\Type\Option;
 use AC\Setting\SettingCollection;
-use AC\Setting\Type\Option;
 use AC\Setting\Type\Value;
 use ACP\Expression\Specification;
 use ACP\Expression\StringComparisonSpecification;
@@ -28,7 +28,7 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
     {
         $this->name = 'image_size';
         $this->label = __('Image Size', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
+        $this->input = OptionFactory::create_select(
             $this->get_grouped_image_sizes(),
             self::SIZE_CUSTOM
         );
@@ -57,14 +57,14 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
                 self::SETTING_WIDTH,
                 __('Width', 'codepress-admin-columns'),
                 '',
-                Input\Number::create_single_step(0, null, 60),
+                Input\Element\Number::create_single_step(0, null, 60),
                 StringComparisonSpecification::equal(self::SIZE_CUSTOM)
             ),
             new Base\Setting(
                 self::SETTING_HEIGHT,
                 __('Height', 'codepress-admin-columns'),
                 '',
-                Input\Number::create_single_step(0, null, 60),
+                Input\Element\Number::create_single_step(0, null, 60),
                 StringComparisonSpecification::equal(self::SIZE_CUSTOM)
             ),
         ]);

@@ -4,8 +4,8 @@ namespace AC\Settings\Column;
 
 use AC\Column;
 use AC\Setting\ArrayImmutable;
+use AC\Setting\Component;
 use AC\Setting\Formatter;
-use AC\Setting\Input;
 use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -22,7 +22,7 @@ class LinkLabel extends Settings\Column implements Formatter
         $this->name = 'link_label';
         $this->label = __('Link Label', 'codepress-admin-columns');
         $this->description = __('Leave blank to display the URL', 'codepress-admin-columns');
-        $this->input = Input\Open::create_text();
+        $this->input = Component\OpenFactory::create_text();
 
         parent::__construct($column, $specification);
     }

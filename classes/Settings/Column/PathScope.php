@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
+use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Type\Value;
 use AC\Settings;
 use ACP\Expression\Specification;
@@ -29,8 +32,8 @@ class PathScope extends Settings\Column implements Formatter
         $this->name = 'path_scope';
         $this->label = __('Path scope', 'codepress-admin-columns');
         $this->description = __('Part of the file path to display', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Single::create_select(
-            AC\Setting\OptionCollection::from_array([
+        $this->input = OptionFactory::create_select(
+            AC\Setting\Component\OptionCollection::from_array([
                 'full'             => __('Full Path', 'codepress-admin-columns'),
                 'relative-domain'  => __('Relative to domain', 'codepress-admin-columns'),
                 'relative-uploads' => __('Relative to main uploads folder', 'codepress-admin-columns'),

@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Settings;
 use ACP\Expression\Specification;
 
@@ -13,8 +17,8 @@ class VideoDisplay extends Settings\Column
     {
         $this->name = 'video_display';
         $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = AC\Setting\Input\Option\Single::create_select(
-            AC\Setting\OptionCollection::from_array([
+        $this->input = OptionFactory::create_select(
+            OptionCollection::from_array([
                 'embed' => __('Embed', 'codepress-admin-columns'),
                 'modal' => __('Pop Up', 'codepress-admin-columns'),
             ]),

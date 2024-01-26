@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC\Column;
-use AC\Setting\Input;
+use AC\Setting\Component\Input\OpenFactory;
 use AC\Setting\SettingCollection;
 use ACP\Expression\Specification;
 
@@ -17,7 +19,7 @@ class CustomField extends Recursive
         $this->name = 'field';
         $this->label = __('Field', 'codepress-admin-columns');
         $this->description = __('Custom field key', 'codepress-admin-columns');
-        $this->input = Input\Open::create_text();
+        $this->input = OpenFactory::create_text();
 
         parent::__construct($column, $specification);
     }

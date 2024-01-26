@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC\Column;
 use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -21,7 +23,7 @@ class MediaLink extends Settings\Column implements Formatter
     {
         $this->name = 'media_link_to';
         $this->label = __('Link To', 'codepress-admin-columns');
-        $this->input = Input\Option\Single::create_select(
+        $this->input = OptionFactory::create_select(
             OptionCollection::from_array([
                 ''         => __('None'),
                 'view'     => __('View', 'codepress-admin-columns'),

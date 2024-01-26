@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use AC\Setting\Input\Custom;
-use AC\Setting\Input\Number;
-use AC\Setting\Input\Open;
-use AC\Setting\Input\Option;
+use AC\Setting\Component\Input\Custom;
+use AC\Setting\Component\Input\Number;
+use AC\Setting\Component\Input\Open;
+use AC\Setting\Component\Input\Option;
+use AC\Setting\Component\OptionCollection;
 
 final class Encoder
 {
@@ -54,14 +55,10 @@ final class Encoder
                 }
             }
 
-            if ($input instanceof Custom) {
-                $encoded['input']['data'] = $input->get_data();
-            }
-
             if ($input instanceof Option) {
                 $encoded['input'] += [
                     'options'  => $this->encode_options($input->get_options()),
-                    'multiple' => $input instanceof Option\Multiple,
+                    'multiple' => $input->is_multiple(),
                 ];
             }
 

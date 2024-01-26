@@ -10,14 +10,14 @@ use ACP\Expression\Specification;
 trait SettingTrait
 {
 
-    protected $name;
+    protected $type = 'default';
 
     protected $label = '';
 
     protected $description = '';
 
     /**
-     * @var Input
+     * @var Component
      */
     protected $input;
 
@@ -26,9 +26,9 @@ trait SettingTrait
      */
     protected $conditions;
 
-    public function get_name(): string
+    public function get_type() : string
     {
-        return $this->name;
+        return $this->type;
     }
 
     public function get_label(): string
@@ -41,7 +41,7 @@ trait SettingTrait
         return $this->description;
     }
 
-    public function get_input(): ?Input
+    public function get_input(): ?Component
     {
         return $this->input;
     }

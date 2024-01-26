@@ -4,8 +4,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Setting\ArrayImmutable;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -20,7 +19,7 @@ class CommentLink extends Settings\Column implements AC\Setting\Formatter
     {
         $this->name = 'comment_link_to';
         $this->label = __('Link To', 'codepress-admin-columns');
-        $this->input = Input\Option\Multiple::create_select(
+        $this->input = Input\Element\Multiple::create_select(
             OptionCollection::from_array(
                 [
                     ''             => __('None'),
