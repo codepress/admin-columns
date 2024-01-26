@@ -67,7 +67,7 @@ class NumberFormat extends Recursive
                 __('Preview', 'codepress-admin-columns'),
                 '',
                 // TODO remove Custom
-                new Input\Custom('number_preview', [
+                new Component\Input\Custom('number_preview', [
                     'keys' => ['number_decimals', 'number_decimal_point', 'number_thousands_separator'],
                 ]),
                 StringComparisonSpecification::equal('formatted')

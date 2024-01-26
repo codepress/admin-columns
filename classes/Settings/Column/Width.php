@@ -6,7 +6,6 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\Input;
 use AC\Setting\SettingCollection;
 use AC\Settings\Column;
 use InvalidArgumentException;
@@ -22,10 +21,7 @@ final class Width extends Column implements AC\Setting\Recursive
     {
         parent::__construct(
             'width',
-            __('Width', 'codepress-admin-columns'),
-            '',
-            // TODO
-            new Input\Custom('width')
+            __('Width', 'codepress-admin-columns')
         );
 
         $this->default = $default;
@@ -53,13 +49,13 @@ final class Width extends Column implements AC\Setting\Recursive
                 $this->name,
                 '',
                 '',
-                Input\Element\Number::create_single_step(0, null, $this->default)
+                AC\Setting\Component\Input\Number::create_single_step('width', 0, null, $this->default)
             ),
             new Column(
-                $this->name . '_unit',
+                'width_unit',
                 '',
                 '',
-                Input\Element\Single::create_radio(
+                AC\Setting\Component\Input\OptionFactory::create_radio(
                     OptionCollection::from_array([
                         '%',
                         'px',

@@ -16,6 +16,7 @@ class Option extends Input
     protected $multiple;
 
     public function __construct(
+        string $name,
         string $type,
         OptionCollection $options,
         $default = null,

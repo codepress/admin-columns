@@ -2,8 +2,6 @@
 
 namespace AC\Setting\Component\Input;
 
-use AC\Setting\Input\Custom;
-
 class RemoteOptionsFactory
 {
 

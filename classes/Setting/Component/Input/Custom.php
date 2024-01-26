@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Input;
+namespace AC\Setting\Component\Input;
 
-use AC\Setting\Input;
+use AC\Setting\Component\Input;
 
 // TODO David remove
 class Custom extends Input
@@ -19,7 +19,7 @@ class Custom extends Input
         string $placeholder = null,
         string $class = null
     ) {
-        parent::__construct($type, $default, $placeholder, $class);
+        parent::__construct($type, $type, $default, $placeholder, $class);
 
         $this->data = $data;
     }

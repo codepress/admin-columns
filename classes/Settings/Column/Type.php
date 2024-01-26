@@ -2,6 +2,7 @@
 
 namespace AC\Settings\Column;
 
+use AC\Setting\Component\Input\Custom;
 use AC\Setting\Input;
 use AC\Settings\Column;
 
@@ -15,7 +16,7 @@ class Type extends Column
             __('Type', 'codepress-admin-columns'),
             __('Choose a column type.', 'codepress-admin-columns'),
             // TODO Input\Custom
-            new Input\Custom('type')
+            new Custom('type')
         );
     }
 

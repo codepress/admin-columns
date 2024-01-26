@@ -6,9 +6,9 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
+use AC\Setting\Component\Input\Custom;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\Input;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Column;
@@ -24,8 +24,7 @@ abstract class DateTimeFormat extends Recursive
             'date',
             __('Date Format', 'codepress-admin-columns'),
             '',
-            // TODO David Custom input
-            new Input\Custom('date_format'),
+            new Custom('date_format'),
             $conditions
         );
     }
