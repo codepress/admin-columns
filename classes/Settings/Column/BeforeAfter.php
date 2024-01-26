@@ -7,12 +7,7 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Setting\ArrayImmutable;
-<<<<<<< HEAD
-use AC\Setting\Base;
 use AC\Setting\Component;
-=======
-use AC\Setting\Input;
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 
@@ -29,7 +24,13 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
         string $default_after = null
     ) {
         // TODO input?
-        parent::__construct('before_after', __('Display Options', 'codepress-admin-columns'), '', null, $conditions);
+        parent::__construct(
+            'before_after',
+            __('Display Options', 'codepress-admin-columns'),
+            '',
+            null,
+            $conditions
+        );
 
         $this->default_before = $default_before;
         $this->default_after = $default_after;
@@ -47,13 +48,15 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
                 'before',
                 __('Before', 'codepress-admin-columns'),
                 '',
-                new Component\Open(null, $this->default_before)
+                // TODO
+                new Component\Input\Open(null, $this->default_before)
             ),
             new AC\Settings\Column(
                 'after',
                 __('After', 'codepress-admin-columns'),
                 '',
-                new Component\Open(null, $this->default_after)
+                // TODO
+                new Component\Input\Open(null, $this->default_after)
             ),
         ]);
     }

@@ -25,24 +25,22 @@ class Comment extends Recursive
 
     public function __construct(Expression\Specification $specification = null)
     {
-<<<<<<< HEAD
-        $this->name = 'comment';
-        $this->label = __('Display', 'codepress-admin-columns');
-        $this->input = OptionFactory::create_select(
-=======
-        $input = Input\Option\Single::create_select(
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
-            OptionCollection::from_array([
-                self::PROPERTY_COMMENT      => __('Comment'),
-                self::PROPERTY_ID           => __('ID'),
-                self::PROPERTY_AUTHOR       => __('Author'),
-                self::PROPERTY_AUTHOR_EMAIL => __('Author Email', 'codepress-admin-column'),
-                self::PROPERTY_DATE         => __('Date'),
-            ]),
-            self::PROPERTY_COMMENT
+        parent::__construct(
+            'comment',
+            __('Display', 'codepress-admin-columns'),
+            '',
+            OptionFactory::create_select(
+                OptionCollection::from_array([
+                    self::PROPERTY_COMMENT      => __('Comment'),
+                    self::PROPERTY_ID           => __('ID'),
+                    self::PROPERTY_AUTHOR       => __('Author'),
+                    self::PROPERTY_AUTHOR_EMAIL => __('Author Email', 'codepress-admin-column'),
+                    self::PROPERTY_DATE         => __('Date'),
+                ]),
+                self::PROPERTY_COMMENT
+            ),
+            $specification
         );
-
-        parent::__construct('comment', __('Display', 'codepress-admin-columns'), '', $input, $specification);
     }
 
     public function is_parent(): bool
