@@ -8,6 +8,7 @@
     import ListScreenMenuItem from "./ListScreenMenuItem.svelte";
     import {getColumnSettingsTranslation} from "../utils/global";
     import {persistMenuStatus} from "../ajax/menu";
+    import {fade} from "svelte/transition";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[] = [];

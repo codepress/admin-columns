@@ -5,6 +5,7 @@
     import {persistMenuFavorite} from "../ajax/menu";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {getColumnSettingsTranslation} from "../utils/global";
+    import {fade} from 'svelte/transition';
 
     const dispatch = createEventDispatcher();
     const i18n = getColumnSettingsTranslation();
@@ -12,16 +13,16 @@
     export let key: string;
     export let label: string
 
-	const showUnknownErrorMessage = () => {
-        NotificationProgrammatic.open({ type: 'error', message: i18n.errors.ajax_unknown })
-	}
+    const showUnknownErrorMessage = () => {
+        NotificationProgrammatic.open({type: 'error', message: i18n.errors.ajax_unknown})
+    }
 
     const favoriteItem = () => {
         persistMenuFavorite(key, true).then((response) => {
-			if( ! response.data.success ){
+            if (!response.data.success) {
                 showUnknownErrorMessage()
-			}
-        }).catch( () => showUnknownErrorMessage() );
+            }
+        }).catch(() => showUnknownErrorMessage());
 
         favoriteListKeysStore.favorite(key);
         dispatch('favorite', key)
@@ -29,10 +30,10 @@
 
     const unfavoriteItem = () => {
         persistMenuFavorite(key, false).then((response) => {
-            if( ! response.data.success ){
+            if (!response.data.success) {
                 showUnknownErrorMessage()
             }
-        }).catch( () => showUnknownErrorMessage() );
+        }).catch(() => showUnknownErrorMessage());
 
         favoriteListKeysStore.unfavorite(key);
         dispatch('unfavorite', key)
@@ -44,7 +45,7 @@
 
 </script>
 
-<li class="ac-menu-group-list__item" class:active={$currentListKey === key}>
+<li class="ac-menu-group-list__item" class:active={$currentListKey === key} transition:fade={{ duration: 300 }}>
 	<a
 		class:active={$currentListKey === key}
 		class="ac-menu-group-list__link"

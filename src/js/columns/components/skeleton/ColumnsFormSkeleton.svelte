@@ -18,6 +18,9 @@
 		{#each new Array( 5 ) as i}
 			<div class="ac-column">
 				<header class="ac-column-header">
+					<div class="ac-column-header__move acu-cursor-move">
+
+					</div>
 					<div class="ac-column-header__label">
 						<AcSkeleton width="160px"/>
 					</div>

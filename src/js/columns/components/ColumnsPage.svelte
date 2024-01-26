@@ -10,12 +10,12 @@
     import {columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {listScreenIsReadOnly} from "../store/read_only";
-    import ColumnSetting = AC.Vars.Settings.ColumnSetting;
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
-	export let openedGroups: string[];
+    export let openedGroups: string[];
+    export let initialListId: string | null = null;
 
-    let config: { [key: string]: ColumnSetting[] };
+    let config: { [key: string]: AC.Vars.Settings.ColumnSetting[] };
     let tableUrl: string;
     let loadedListId: string | null = null;
 
@@ -27,8 +27,9 @@
         refreshListScreenData(e.detail);
     }
 
-    const refreshListScreenData = (listKey: string, listId: null | string = null) => {
+    const refreshListScreenData = (listKey: string, listId: string = '') => {
         getListScreenSettings(listKey, listId).then(response => {
+            initialListId = '';
             config = response.data.data.column_settings
             tableUrl = response.data.data.table_url;
             $currentListKey = listKey;
@@ -46,7 +47,9 @@
 
     onMount(() => {
         currentListKey.subscribe(listKey => {
-            refreshListScreenData(listKey);
+            if (initialListId === '') {
+                refreshListScreenData(listKey);
+            }
         });
 
         currentListId.subscribe((listId) => {
