@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Setting\Base;
 
 use AC;
-use AC\Setting\Component;
 use AC\Setting\SettingTrait;
 use ACP\Expression\Specification;
 
