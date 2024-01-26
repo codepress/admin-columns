@@ -112,10 +112,6 @@
   padding: 50px
 }
 
-.acu-p-1 {
-  padding: 5px
-}
-
 .acu-p-\[0\] {
   padding: 0
 }
@@ -135,17 +131,12 @@
   padding-bottom: 5px
 }
 
-.acu-py-8 {
-  padding-top: 40px;
-  padding-bottom: 40px
+.acu-pb-4 {
+  padding-bottom: 20px
 }
 
 .acu-pb-6 {
-	padding-bottom: 30px
-}
-
-.acu-pb-4 {
-  padding-bottom: 20px
+  padding-bottom: 30px
 }
 
 .acu-pl-3 {
@@ -162,6 +153,10 @@
 
 .acu-pt-3 {
   padding-top: 15px
+}
+
+.acu-pt-4 {
+  padding-top: 20px
 }
 
 .acu-text-center {
@@ -194,22 +189,17 @@
   color: rgb(136 136 136 / var(--tw-text-opacity))
 }
 
-.acu-text-notification-red {
-  color: var(--ac-notification-red)
-}
-
 .acu-text-\[\#B4B4B4\] {
   --tw-text-opacity: 1;
   color: rgb(180 180 180 / var(--tw-text-opacity))
 }
 
-.\[key\:string\] {
-  key: string
+.acu-text-notification-red {
+  color: var(--ac-notification-red)
 }
 
-.hover\:acu-text-\[red\]:hover {
-  --tw-text-opacity: 1;
-  color: rgb(255 0 0 / var(--tw-text-opacity))
+.\[key\:string\] {
+  key: string
 }
 
 .hover\:acu-text-notification-blue:hover {

@@ -2564,7 +2564,7 @@ function create_if_block_2(ctx) {
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       p1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("p");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acu-text-center");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-3 acu-pb-6");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-4 acu-pb-6");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "acu-text-center");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div3, "class", "acu-p-10 acu-bg-[#F1F5F9]");
     },

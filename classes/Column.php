@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace AC;
 
 use AC\Column\LabelEncoder;
-use AC\Setting\ArrayImmutable;
-use AC\Setting\Formatter;
+use AC\Column\Renderable\ValueFormatterFactory;
 use AC\Setting\SettingCollection;
-use AC\Setting\Type\Value;
-use AC\Setting\ValueCollection;
 
 class Column
 {
@@ -302,28 +299,13 @@ class Column
 
     // TODO David check if $id cannot be null
     // TODO David can tis method be protected/private, even just by comment if need be
-    public function get_formatted_value($value, int $id = null): string
+    // TODO Tobias can this method can be removed entirely?
+    public function get_formatted_value($value, $id = null): string
     {
-        $formatter = Formatter\Aggregate::from_settings($this->get_settings());
+        $factory = new ValueFormatterFactory();
 
-        if ($value instanceof ValueCollection) {
-            $formatted_values = [];
-            foreach ($value as $single_value) {
-                $formatted_values[] = (string)$formatter->format(
-                    new Value($single_value->get_id(), $single_value->get_value()),
-                    new ArrayImmutable($this->get_options())
-                );
-            }
-
-            return implode($this->get_separator(), $formatted_values);
-        }
-
-        $formatter = Formatter\Aggregate::from_settings($this->get_settings());
-
-        return (string)$formatter->format(
-            new Value($id, $value),
-            new ArrayImmutable($this->get_options())
-        );
+        return $factory->create($this)
+                       ->format($id, $value);
     }
 
     /**

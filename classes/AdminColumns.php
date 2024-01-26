@@ -78,8 +78,6 @@ class AdminColumns
             Admin\Scripts::class,
             Admin\Notice\ReadOnlyListScreen::class,
             Admin\Notice\DatabaseMissing::class,
-            // TODO
-            //            Ajax\NumberFormat::class,
             ThirdParty\AdvancedCustomFields::class,
             ThirdParty\NinjaForms::class,
             ThirdParty\MediaLibraryAssistant\MediaLibraryAssistant::class,
@@ -115,6 +113,7 @@ class AdminColumns
         $request_ajax_handlers->add('ac-list-screen-delete', $container->get(Ajax\ListScreenDelete::class));
         $request_ajax_handlers->add('ac-list-screen-save', $container->get(Ajax\ListScreenSave::class));
         $request_ajax_handlers->add('ac-list-screen-add-column', $container->get(Ajax\ListScreenAddColumn::class));
+        $request_ajax_handlers->add('ac-number-format', $container->get(Ajax\NumberFormat::class));
         $request_ajax_handlers->add(
             'ac-list-screen-default-columns',
             $container->get(Ajax\ListScreenDefaultColumns::class)

@@ -169,7 +169,7 @@
 						<p>{i18n.editor.sentence.show_default_columns}</p>
 					</div>
 
-					<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-3 acu-pb-6">
+					<div class="acu-flex acu-gap-3 acu-items-center acu-justify-center acu-pt-4 acu-pb-6">
 						<AcDropdown maxHeight="300px" value position="bottom-left">
 							<AcButton slot="trigger">+ {i18n.editor.label.add_column}</AcButton>
 							<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>

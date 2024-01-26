@@ -19,45 +19,29 @@ abstract class Menu extends Column
         $this->set_label(__('Menu', 'codepress-admin-columns'));
     }
 
-    public function get_raw_value($object_id)
+    abstract public function get_object_type(): string;
+
+    abstract public function get_item_type(): string;
+
+    public function get_raw_value($id): array
     {
-        return $this->get_menus($object_id, ['fields' => 'ids', 'orderby' => 'name']);
+        return $this->get_menus(
+            (int)$id,
+            [
+                'fields' => 'ids',
+                'orderby' => 'name',
+            ]
+        );
     }
 
-    /**
-     * @return string
-     */
-    abstract public function get_object_type();
-
-    /**
-     * @return string
-     */
-    abstract public function get_item_type();
-
-    /**
-     * @param int $object_id
-     *
-     * @return array
-     */
-    // TODO remove?
-    public function get_menu_item_ids($object_id)
+    public function get_menus(int $object_id, array $args = []): array
     {
         $helper = new AC\Helper\Menu();
 
-        return $helper->get_ids($object_id, $this->get_object_type());
-    }
-
-    /**
-     * @param int   $object_id
-     * @param array $args
-     *
-     * @return array
-     */
-    public function get_menus($object_id, array $args = [])
-    {
-        $helper = new AC\Helper\Menu();
-
-        return $helper->get_terms($helper->get_ids($object_id, $this->get_object_type()), $args);
+        return $helper->get_terms(
+            $helper->get_ids($object_id, $this->get_object_type()),
+            $args
+        );
     }
 
     public function register_settings()

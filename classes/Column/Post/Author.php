@@ -14,10 +14,8 @@ class Author extends Column
         $this->set_type('author');
     }
 
-    // Todo test
     public function register_settings()
     {
-        // set defaults
         $this->add_setting(new Width(10, '%'));
     }
 

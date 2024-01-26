@@ -22,7 +22,7 @@ class ColumnTypesFactory implements AC\ColumnTypesFactory
                 Column\Post\TitleRaw::class,
                 Column\Media\Album::class,
                 Column\Media\Artist::class,
-                Column\Media\Author::class,
+                Column\Post\Author::class,
                 Column\Media\AvailableSizes::class,
                 Column\Media\Date::class,
                 Column\Media\Dimensions::class,

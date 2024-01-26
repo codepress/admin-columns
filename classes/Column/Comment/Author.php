@@ -16,8 +16,7 @@ class Author extends Column
 
     public function register_settings()
     {
-        // TODO px or %
-        $this->add_setting(new Width(20));
+        $this->add_setting(new Width(20, '%'));
     }
 
 }

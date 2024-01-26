@@ -16,7 +16,6 @@ class Date extends Column
 
     public function register_settings()
     {
-        // TODO test
         $this->add_setting(new Width(14, '%'));
     }
 
