@@ -4,8 +4,9 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreenCollection;
 
-interface Filter {
+interface Filter
+{
 
-	public function filter( ListScreenCollection $list_screens ): ListScreenCollection;
+    public function filter(ListScreenCollection $list_screens): ListScreenCollection;
 
 }

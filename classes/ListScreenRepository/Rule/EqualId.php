@@ -5,23 +5,26 @@ namespace AC\ListScreenRepository\Rule;
 use AC\ListScreenRepository\Rule;
 use AC\Type\ListScreenId;
 
-class EqualId implements Rule {
+class EqualId implements Rule
+{
 
-	/**
-	 * @var ListScreenId
-	 */
-	private $id;
+    /**
+     * @var ListScreenId
+     */
+    private $id;
 
-	public function __construct( ListScreenId $id ) {
-		$this->id = $id;
-	}
+    public function __construct(ListScreenId $id)
+    {
+        $this->id = $id;
+    }
 
-	public function match( array $args ) {
-		if ( ! isset( $args[ self::ID ] ) ) {
-			return false;
-		}
+    public function match(array $args)
+    {
+        if ( ! isset($args[self::ID])) {
+            return false;
+        }
 
-		return $this->id->equals( $args[ self::ID ] );
-	}
+        return $this->id->equals($args[self::ID]);
+    }
 
 }

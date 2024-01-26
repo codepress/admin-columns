@@ -4,8 +4,9 @@ namespace AC\ListScreenRepository;
 
 use AC\ListScreenCollection;
 
-interface Sort {
+interface Sort
+{
 
-	public function sort( ListScreenCollection $list_screens ): ListScreenCollection;
+    public function sort(ListScreenCollection $list_screens): ListScreenCollection;
 
 }
