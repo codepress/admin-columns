@@ -35,6 +35,8 @@ module.exports = {
 			'2xl' : '1450px'
 		},
 		colors: {
+			'link': 'var(--ac-link)',
+			'link-hover': 'var(--ac-link-hover)',
 			'notification-red': 'var(--ac-notification-red)',
 			'notification-blue': 'var(--ac-notification-blue)'
 		},
