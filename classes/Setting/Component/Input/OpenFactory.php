@@ -10,6 +10,7 @@ final class OpenFactory
 {
 
     public static function create_text(
+        string $name,
         string $default = null,
         string $placeholder = null,
         AttributeCollection $attributes = null,

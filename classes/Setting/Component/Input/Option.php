@@ -28,7 +28,7 @@ class Option extends Input
             $this->multiple = false;
         }
 
-        parent::__construct($type, $default, $placeholder, $attributes);
+        parent::__construct($name, $type, $default, $placeholder, $attributes);
 
         $this->options = $options;
     }

@@ -15,20 +15,14 @@ class Custom extends Input
 
     public function __construct(
         string $name,
-        string $type,
         array $data = [],
         $default = null,
         string $placeholder = null,
         AttributeCollection $attributes = null
     ) {
-        parent::__construct($name, $type, $default, $placeholder, $attributes);
+        parent::__construct($name, 'custom', $default, $placeholder, $attributes);
 
         $this->data = $data;
-    }
-
-    public function has_data(): bool
-    {
-        return ! empty($this->data);
     }
 
     public function get_data(): array
