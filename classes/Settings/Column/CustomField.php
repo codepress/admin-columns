@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-<<<<<<< HEAD
-use AC\Column;
-use AC\Setting\Component\Input\OpenFactory;
-=======
 use AC\Expression\Specification;
-use AC\Setting\Input;
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
+use AC\Setting\Component\Input\RemoteOptionsFactory;
 use AC\Setting\SettingCollection;
 
 class CustomField extends Recursive
@@ -20,21 +15,11 @@ class CustomField extends Recursive
 
     public function __construct(Specification $specification = null)
     {
-<<<<<<< HEAD
-        $this->name = 'field';
-        $this->label = __('Field', 'codepress-admin-columns');
-        $this->description = __('Custom field key', 'codepress-admin-columns');
-        $this->input = OpenFactory::create_text();
-=======
-        $input = Input\Open::create_text();
-        $input = Input\RemoteOptionsFactory::create_select('ac-custom-field-keys', [], null, 'Select');
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
-
         parent::__construct(
             'field',
             __('Field', 'codepress-admin-columns'),
             __('Custom field key', 'codepress-admin-columns'),
-            $input,
+            RemoteOptionsFactory::create_select('ac-custom-field-keys', [], null, 'Select'),
             $specification
         );
 

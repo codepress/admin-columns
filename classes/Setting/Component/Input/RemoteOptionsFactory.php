@@ -1,6 +1,8 @@
 <?php
 
-namespace AC\Setting\Input;
+namespace AC\Setting\Component\Input;
+
+use AC\Setting\Input\Custom;
 
 class RemoteOptionsFactory
 {

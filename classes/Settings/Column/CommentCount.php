@@ -4,16 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-<<<<<<< HEAD
-use AC;
+use AC\Expression\Specification;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\SettingTrait;
-=======
-use AC\Expression\Specification;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
 use AC\Settings;
 
 class CommentCount extends Settings\Column
@@ -29,23 +22,14 @@ class CommentCount extends Settings\Column
 
     public function __construct(Specification $conditionals = null)
     {
-<<<<<<< HEAD
-        $this->name = self::NAME;
-        $this->label = __('Comment status', 'codepress-admin-columns');
-        $this->description = __('Select which comment status you like to display.', 'codepress-admin-columns');
-        $this->input = OptionFactory::create_select(
-=======
-        $input = Input\Option\Single::create_select(
->>>>>>> bf39a92dd4a8273b3c8a4ed1eb27b15114e9f4a2
-            OptionCollection::from_array($this->get_comment_statuses()),
-            self::STATUS_ALL
-        );
-
         parent::__construct(
             'comment_status',
             __('Comment status', 'codepress-admin-columns'),
             __('Select which comment status you like to display.', 'codepress-admin-columns'),
-            $input,
+            OptionFactory::create_select(
+                OptionCollection::from_array($this->get_comment_statuses()),
+                self::STATUS_ALL
+            ),
             $conditionals
         );
     }
