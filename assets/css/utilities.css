@@ -1,3 +1,7 @@
+.acu-relative {
+  position: relative
+}
+
 .acu-mb-1 {
   margin-bottom: 5px
 }
@@ -42,6 +46,14 @@
   display: flex
 }
 
+.acu-h-\[40px\] {
+  height: 40px
+}
+
+.acu-h-\[38px\] {
+  height: 38px
+}
+
 .acu-w-1\/3 {
   width: 33.333333%
 }
@@ -52,6 +64,10 @@
 
 .acu-w-full {
   width: 100%
+}
+
+.acu-max-w-full {
+  max-width: 100%
 }
 
 .acu-flex-1 {
@@ -83,6 +99,10 @@
   flex-direction: row-reverse
 }
 
+.acu-flex-wrap {
+  flex-wrap: wrap
+}
+
 .acu-items-center {
   align-items: center
 }
@@ -99,6 +119,22 @@
   gap: 15px
 }
 
+.acu-overflow-hidden {
+  overflow: hidden
+}
+
+.acu-whitespace-nowrap {
+  white-space: nowrap
+}
+
+.acu-rounded {
+  border-radius: 0.25rem
+}
+
+.acu-rounded-full {
+  border-radius: 9999px
+}
+
 .acu-border-none {
   border-style: none
 }
@@ -110,6 +146,11 @@
 
 .acu-bg-\[transparent\] {
   background-color: transparent
+}
+
+.acu-bg-\[\#E2E8F0\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity))
 }
 
 .acu-p-10 {
@@ -133,6 +174,26 @@
 .acu-py-1 {
   padding-top: 5px;
   padding-bottom: 5px
+}
+
+.acu-px-\[2px\] {
+  padding-left: 2px;
+  padding-right: 2px
+}
+
+.acu-px-1 {
+  padding-left: 5px;
+  padding-right: 5px
+}
+
+.acu-px-3 {
+  padding-left: 15px;
+  padding-right: 15px
+}
+
+.acu-py-2 {
+  padding-top: 10px;
+  padding-bottom: 10px
 }
 
 .acu-pb-4 {
@@ -161,6 +222,10 @@
 
 .acu-pt-4 {
   padding-top: 20px
+}
+
+.acu-pr-2 {
+  padding-right: 10px
 }
 
 .acu-text-center {
@@ -198,20 +263,20 @@
   color: rgb(180 180 180 / var(--tw-text-opacity))
 }
 
-.acu-text-notification-blue {
-  color: var(--ac-notification-blue)
+.acu-text-link {
+  color: var(--ac-link)
 }
 
 .acu-text-notification-red {
   color: var(--ac-notification-red)
 }
 
-.acu-text-link {
-  color: var(--ac-link)
-}
-
 .\[key\:string\] {
   key: string
+}
+
+.hover\:acu-text-link-hover:hover {
+  color: var(--ac-link-hover)
 }
 
 .hover\:acu-text-notification-blue:hover {
@@ -220,14 +285,6 @@
 
 .hover\:acu-text-notification-red:hover {
   color: var(--ac-notification-red)
-}
-
-.hover\:acu-text-link-hover:hover {
-  color: var(--ac-link-hover)
-}
-
-.hover\:acu-accent-link-hover:hover {
-  accent-color: var(--ac-link-hover)
 }
 
 @media (min-width: 1280px) {
