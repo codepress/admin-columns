@@ -2,7 +2,7 @@
 
 namespace AC\Settings\Column;
 
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
@@ -34,7 +34,7 @@ class FileMetaAudio extends FileMeta implements Formatter
         parent::__construct($label, $types, 'dataformat');
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         return $value;
     }

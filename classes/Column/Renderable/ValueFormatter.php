@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Column\Renderable;
 
-use AC\Setting\ArrayImmutable;
 use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
@@ -15,15 +14,9 @@ class ValueFormatter
 
     private $settings;
 
-    private $options;
-
-    private $separator;
-
-    public function __construct(SettingCollection $settings, ArrayImmutable $options, string $separator = '')
+    public function __construct(SettingCollection $settings)
     {
         $this->settings = $settings;
-        $this->options = $options;
-        $this->separator = $separator;
     }
 
     public function format($value, $id): string
@@ -34,19 +27,18 @@ class ValueFormatter
             $formatted_values = [];
             foreach ($value as $single_value) {
                 $formatted_values[] = (string)$formatter->format(
-                    new Value($single_value->get_id(), $single_value->get_value()),
-                    $this->options
+                    new Value($single_value->get_id(), $single_value->get_value())
                 );
             }
 
-            return implode($this->separator, $formatted_values);
+            // TODO modify separator
+            return implode(', ', $formatted_values);
         }
 
         // TODO original column will render the id, because Value object turns value into and an id when value=null.
 
         return (string)$formatter->format(
-            new Value($id, $value),
-            $this->options
+            new Value($id, $value)
         );
     }
 

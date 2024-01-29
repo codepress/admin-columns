@@ -4,7 +4,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Type\Value;
 use AC\Settings;
 use WP_Term;
@@ -40,7 +40,7 @@ class TermLink extends Settings\Column implements AC\Setting\Formatter
         ];
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         $link = null;
 

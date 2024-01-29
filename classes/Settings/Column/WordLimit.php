@@ -4,8 +4,6 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
-use AC\Setting\ArrayImmutable;
-use AC\Setting\Input\Number;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -14,20 +12,11 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
 
     // TODO Stefan Test -> name was word_limit, option 'excerpt_length'
 
-    public function __construct(int $default = 20, Specification $conditions = null)
-    {
-        $input = AC\Setting\Component\Input\Number::create_single_step(
-            'excerpt_length',
-            0,
-            null,
-            $default,
-            null,
-            null,
-            __('Words', 'codepress-admin-columns')
-        );
+    private $word_limit;
 
+    public function __construct(?int $word_limit = 20, Specification $conditions = null)
+    {
         parent::__construct(
-        // TODO name
             'excerpt_length',
             __('Word Limit', 'codepress-admin-columns'),
             sprintf(
@@ -35,20 +24,38 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
                 __('Maximum number of words', 'codepress-admin-columns'),
                 __('Leave empty for no limit', 'codepress-admin-columns')
             ),
-            $input,
+            AC\Setting\Component\Input\Number::create_single_step(
+                'excerpt_length',
+                0,
+                null,
+                $word_limit,
+                null,
+                null,
+                __('Words', 'codepress-admin-columns')
+            ),
             $conditions
         );
+        $this->word_limit = $word_limit;
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value): Value
     {
         return $value->with_value(
             ac_helper()->string->trim_words(
                 (string)$value->get_value(),
-                $options->get('excerpt_length') ?? 20
+                $this->get_word_limit()
+            // TODO remove
+            //$config->get('excerpt_length') ?? 20
             )
         );
     }
+
+    public function get_word_limit(): ?int
+    {
+        return $this->word_limit;
+    }
+
+
 
     // TODO
     //	/**

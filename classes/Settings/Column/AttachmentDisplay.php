@@ -6,7 +6,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
@@ -42,7 +42,7 @@ class AttachmentDisplay extends Settings\Column\Recursive
         ]);
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         return 'count' === $options->get($this->name)
             ? $value->with_value(count($value->get_value()))

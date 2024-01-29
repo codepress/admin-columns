@@ -7,6 +7,7 @@ namespace AC\ColumnRepository;
 use AC\ColumnCollection;
 use AC\ColumnFactory;
 use AC\ColumnRepository;
+use AC\Setting\Config;
 use AC\TableScreen;
 
 class EncodedData implements ColumnRepository
@@ -30,7 +31,10 @@ class EncodedData implements ColumnRepository
         $columns = new ColumnCollection();
 
         foreach ($this->columns_data as $column_data) {
-            $column = $this->column_factory->create($this->table_screen, $column_data);
+            $column = $this->column_factory->create(
+                $this->table_screen,
+                new Config($column_data)
+            );
 
             if ($column) {
                 $columns->add($column);

@@ -3,40 +3,41 @@
 namespace AC\Column\Post;
 
 use AC\Column;
-use AC\Settings;
+use AC\Column\Renderable;
+use AC\Setting\Config;
+use AC\Setting\SettingCollection;
 
-class Excerpt extends Column
+class Excerpt extends Column implements Column\Value
 {
 
-    public function __construct()
+    public function __construct(SettingCollection $settings)
     {
-        $this->set_type('column-excerpt');
-        $this->set_label(__('Excerpt', 'codepress-admin-columns'));
+        parent::__construct(
+            'column-excerpt',
+            __('Excerpt', 'codepress-admin-columns'),
+            $settings
+        );
     }
 
-    public function get_value($post_id)
+    public function renderable(Config $options): Renderable
     {
-        $value = parent::get_value($post_id);
-
-        if ($value && ! has_excerpt($post_id) && $value !== $this->get_empty_char()) {
-            $value = ac_helper()->html->tooltip(
-                    ac_helper()->icon->dashicon(['icon' => 'media-text', 'class' => 'gray']),
-                    __('Excerpt is missing.') . ' ' . __('Current excerpt is generated from the content.')
-                ) . ' ' . $value;
-        }
-
-        return $value;
+        return new Column\Post\Renderable\Excerpt(
+            new Renderable\ValueFormatter($this->get_settings())
+        );
     }
 
-    public function get_raw_value($post_id)
-    {
-        return ac_helper()->post->excerpt((int)$post_id);
-    }
-
-    public function register_settings()
-    {
-        $this->add_setting(new Settings\Column\WordLimit());
-        $this->add_setting(new Settings\Column\BeforeAfter());
-    }
-
+    //    public function get_value($post_id)
+    //    {
+    //        // TODO move to formatter
+    //        $value = parent::get_value($post_id);
+    //
+    //        if ($value && ! has_excerpt($post_id) && $value !== $this->get_empty_char()) {
+    //            $value = ac_helper()->html->tooltip(
+    //                    ac_helper()->icon->dashicon(['icon' => 'media-text', 'class' => 'gray']),
+    //                    __('Excerpt is missing.') . ' ' . __('Current excerpt is generated from the content.')
+    //                ) . ' ' . $value;
+    //        }
+    //
+    //        return $value;
+    //    }
 }

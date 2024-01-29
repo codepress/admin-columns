@@ -8,7 +8,7 @@ class ColumnCollection implements ColumnIterator
 {
 
     /**
-     * @var Column[]
+     * @var ColumnPrototype[]
      */
     private $data = [];
 
@@ -17,12 +17,12 @@ class ColumnCollection implements ColumnIterator
         array_map([$this, 'add'], $data);
     }
 
-    public function add(Column $column): void
+    public function add(ColumnPrototype $column): void
     {
         $this->data[] = $column;
     }
 
-    public function current(): Column
+    public function current(): ColumnPrototype
     {
         return current($this->data);
     }

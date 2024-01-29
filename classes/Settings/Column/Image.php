@@ -7,7 +7,7 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Component\Type\Option;
@@ -37,7 +37,7 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
         return true;
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         $size = $this->get_size($options);
 
@@ -71,7 +71,7 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
     /**
      * @return int[]|string
      */
-    protected function get_size(ArrayImmutable $options)
+    protected function get_size(Config $options)
     {
         $size = $options->get($this->get_name());
 

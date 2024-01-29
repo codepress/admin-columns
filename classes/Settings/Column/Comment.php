@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
@@ -58,7 +58,7 @@ class Comment extends Recursive
         ]);
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         switch ($options->get(self::NAME)) {
             case self::PROPERTY_DATE :

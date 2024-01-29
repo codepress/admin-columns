@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
@@ -26,7 +26,7 @@ class LinkToMenu extends Settings\Column implements Formatter
         );
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         $menu_ids = $value->get_value();
 

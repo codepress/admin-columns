@@ -12,7 +12,7 @@ trait RecursiveFormatterTrait
 
     abstract public function get_children(): SettingCollection;
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         $settings = new SettingCollection();
         $option = $options->get($this->get_name()) ?: '';

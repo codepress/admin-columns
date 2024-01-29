@@ -3,32 +3,45 @@
 namespace AC\Column;
 
 use AC\Column;
+use AC\Setting\Config;
+use AC\Setting\SettingCollection;
 use AC\Settings;
 
-/**
- * Base class for columns containing action links for items.
- */
-class Actions extends Column
+class Actions extends Column implements Renderable
 {
 
     public function __construct()
     {
-        $this->set_type('column-actions');
-        $this->set_label(__('Actions', 'codepress-admin-columns'));
+        parent::__construct(
+            'column-actions',
+            __('Actions', 'codepress-admin-columns'),
+            new SettingCollection([
+                new Settings\Column\ActionIcons(),
+            ])
+        );
     }
 
-    public function get_value($id)
+    public function render($id, Config $options = null): string
     {
-        if ($this->get_option('use_icons')) {
-            return '<span class="cpac_use_icons"></span>';
-        }
-
-        return '';
+        // todo
     }
 
-    public function register_settings()
-    {
-        $this->add_setting(new Settings\Column\ActionIcons());
-    }
+
+
+    // TODO remove
+
+    //    public function get_value($id)
+    //    {
+    //        if ($this->get_option('use_icons')) {
+    //            return '<span class="cpac_use_icons"></span>';
+    //        }
+    //
+    //        return '';
+    //    }
+    //
+    //    public function register_settings()
+    //    {
+    //        $this->add_setting(new Settings\Column\ActionIcons());
+    //    }
 
 }

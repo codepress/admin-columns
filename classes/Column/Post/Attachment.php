@@ -5,15 +5,30 @@ declare(strict_types=1);
 namespace AC\Column\Post;
 
 use AC\Column;
+use AC\Column\Renderable;
+use AC\Setting\Config;
+use AC\Setting\SettingCollection;
 use AC\Settings\Column\AttachmentDisplay;
 
-class Attachment extends Column
+class Attachment extends Column implements Column\Value
 {
 
     public function __construct()
     {
-        $this->set_type('column-attachment');
-        $this->set_label(__('Attachments', 'codepress-admin-columns'));
+        parent::__construct(
+            'column-attachment',
+            __('Attachments', 'codepress-admin-columns'),
+            new SettingCollection([
+                new AttachmentDisplay(),
+            ])
+        );
+    }
+
+    public function renderable(Config $options): Renderable
+    {
+        return new Column\Post\Renderable\Attachment(
+            new Renderable\ValueFormatter($this->get_settings())
+        );
     }
 
     public function get_raw_value($post_id)

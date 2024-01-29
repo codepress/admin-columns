@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-final class ArrayImmutable
+final class Config
 {
 
     private $values;

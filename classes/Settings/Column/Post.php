@@ -6,7 +6,7 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
@@ -40,7 +40,7 @@ class Post extends Recursive
     }
 
     // TODO
-    public function xxformat(Value $value, ArrayImmutable $options): Value
+    public function xxformat(Value $value, Config $options): Value
     {
         $ids = $value->get_value();
 

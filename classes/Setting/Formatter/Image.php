@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter;
 
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
@@ -24,7 +24,7 @@ class Image implements Formatter
         $this->skip_image_check = $skip_image_check;
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         return $value->with_value(
             ac_helper()->image->get_image($value, $this->size, $this->skip_image_check)

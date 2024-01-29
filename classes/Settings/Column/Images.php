@@ -6,7 +6,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -20,7 +20,7 @@ class Images extends Settings\Column\Image implements AC\Setting\Recursive
         parent::__construct($specification);
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         $values = [];
         $image_ids = $value->get_value();

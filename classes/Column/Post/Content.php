@@ -3,26 +3,40 @@
 namespace AC\Column\Post;
 
 use AC\Column;
+use AC\Column\Renderable;
+use AC\Column\Value;
+use AC\Setting\Config;
+use AC\Setting\SettingCollection;
 use AC\Settings;
 
-class Content extends Column
+// TODO Tobias this is a `Renderable` POC
+class Content extends Column implements Value
 {
 
     public function __construct()
     {
-        $this->set_type('column-content');
-        $this->set_label(__('Content', 'codepress-admin-columns'));
+        parent::__construct(
+            'column-content',
+            __('Content', 'codepress-admin-columns'),
+            new SettingCollection([
+                new Settings\Column\StringLimit(),
+                new Settings\Column\BeforeAfter(),
+            ])
+        );
     }
 
-    public function get_raw_value($post_id)
+    public function renderable(Config $options): Renderable
     {
-        return get_post_field('post_content', $post_id, 'raw');
+        return new Column\Post\Renderable\Content(
+            new Renderable\ValueFormatter($this->get_settings())
+        );
     }
 
-    public function register_settings()
-    {
-        $this->add_setting(new Settings\Column\StringLimit());
-        $this->add_setting(new Settings\Column\BeforeAfter());
-    }
+    // TODO remove
+    //    public function register_settings()
+    //    {
+    //        $this->add_setting(new Settings\Column\StringLimit());
+    //        $this->add_setting(new Settings\Column\BeforeAfter());
+    //    }
 
 }

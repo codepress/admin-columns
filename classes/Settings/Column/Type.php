@@ -336,7 +336,7 @@ class Type extends Column
     //    /**
     //     * @return string
     //     */
-    //    public function get_type()
+    //    public function get_type():string
     //    {
     //        return $this->type;
     //    }
@@ -348,7 +348,7 @@ class Type extends Column
     //     */
     //    public function set_type($type)
     //    {
-    //        $this->type = $type;
+    //        $this->type = (string)$type;
     //
     //        return true;
     //    }

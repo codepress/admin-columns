@@ -3,7 +3,7 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Component\Input\Number;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
@@ -27,7 +27,7 @@ class WordsPerMinute extends Settings\Column implements Formatter
         );
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         $time = $this->make_human_readable(
             $this->get_estimated_reading_time_in_seconds((string)$value, $options->get($this->name) ?: 200)

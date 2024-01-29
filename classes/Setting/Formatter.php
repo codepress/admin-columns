@@ -9,6 +9,6 @@ use AC\Setting\Type\Value;
 interface Formatter
 {
 
-    public function format(Value $value, ArrayImmutable $options): Value;
+    public function format(Value $value): Value;
 
 }

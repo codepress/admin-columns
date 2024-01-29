@@ -3,7 +3,7 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Component\Input;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
@@ -36,7 +36,7 @@ class CommentLink extends Settings\Column implements Formatter
         );
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         $link = null;
 

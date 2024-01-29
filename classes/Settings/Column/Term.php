@@ -3,7 +3,7 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
@@ -38,7 +38,7 @@ class Term extends Settings\Column implements Formatter
     }
 
     // TODO test
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         $term = $value->get_value();
 

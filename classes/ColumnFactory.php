@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Setting\Config;
+
 class ColumnFactory
 {
 
@@ -21,74 +23,62 @@ class ColumnFactory
         $key = (string)$table_screen->get_key();
 
         if ( ! isset($types[$key])) {
+            // TODO add `Config`
             $types[$key] = $this->column_types_factory->create($table_screen);
         }
 
         return $types[$key];
     }
 
-    public function create(TableScreen $table_screen, array $settings): ?Column
+    public function create(TableScreen $table_screen, Config $options): ?ColumnPrototype
     {
-        $type = $settings['type'] ?? null;
-
-        if ( ! $type) {
-            return null;
-        }
-
         $column_types = $this->get_column_types($table_screen);
 
-        $column = $this->create_column($column_types, (string)$type, $settings);
-
-        if ( ! $column) {
-            return null;
-        }
-
-        if ($table_screen instanceof PostType) {
-            $column->set_post_type($table_screen->get_post_type());
-        }
-
-        if ($table_screen instanceof Taxonomy) {
-            $column->set_taxonomy($table_screen->get_taxonomy());
-        }
-
-        if ($table_screen instanceof TableScreen\MetaType) {
-            $column->set_meta_type((string)$table_screen->get_meta_type());
-        }
-
-        return $column;
+        return $this->create_column(
+            $column_types,
+            $options
+        );
     }
 
-    private function create_column(ColumnTypeCollection $column_types, string $type, array $settings): ?Column
-    {
+    private function create_column(
+        ColumnTypeCollection $column_types,
+        Config $options
+    ): ?ColumnPrototype {
         foreach ($column_types as $column_type) {
-            if ($column_type->get_type() !== $type) {
+            if ($column_type->get_type() !== $options->get('type')) {
                 continue;
             }
 
-            return $this->create_from_column_type($column_type, $settings);
+            return new ColumnPrototype(
+                $options,
+                $column_type
+            );
         }
 
         return null;
     }
 
-    private function create_from_column_type(Column $column_type, array $settings): Column
-    {
-        $column = clone $column_type;
-
-        $column->set_options($settings);
-
-        // TODO move to OrginalsFactory
-        if ($column->is_original()) {
-            if ( ! empty($settings['label']) && '' === $column->get_label()) {
-                $column->set_label($settings['label']);
-            }
-
-            return $column->set_name($column_type->get_type())
-                          ->set_group('default');
-        }
-
-        return $column->set_name((string)$settings['name'])
-                      ->set_group('custom');
-    }
+    // TODO
+    //    private function create_from_column_type(Column $column_type, array $settings): ColumnPrototype
+    //    {
+    //        return new ColumnPrototype();
+    //
+    //        $column = clone $column_type;
+    //
+    //        $column->set_options($settings);
+    //
+    //        // TODO move to OrginalsFactory
+    //        if ($column->is_original()) {
+    //            if ( ! empty($settings['label']) && '' === $column->get_label()) {
+    //                $column->set_label($settings['label']);
+    //            }
+    //
+    //            return $column->set_name($column_type->get_type())
+    //                          ->set_group('default');
+    //        }
+    //
+    //        return $column->set_name((string)$settings['name'])
+    //                      ->set_group('custom');
+    //    }
 
 }

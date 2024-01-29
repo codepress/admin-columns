@@ -3,7 +3,7 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 
@@ -17,7 +17,7 @@ class User extends Recursive
     }
 
     // TODO David this column has a recursive extension, but not this one. The trait implements it as well
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         return $value->with_value(
             parent::format(

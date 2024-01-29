@@ -6,7 +6,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Type\Value;
@@ -43,7 +43,7 @@ class UserLink extends Settings\Column implements AC\Setting\Formatter
         $this->post_type = $post_type;
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         switch ($options->get(self::NAME)) {
             case self::PROPERTY_EDIT_USER:

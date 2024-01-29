@@ -202,6 +202,11 @@ class Database implements ListScreenRepositoryWritable
                 $columns_data[$name]['name'] = $name;
             }
         }
+        $x = new EncodedData($this->column_factory, $table_screen, $columns_data);
+        echo '<pre>';
+        print_r($x->find_all());
+        echo '</pre>';
+        exit;
 
         return new ProxyColumnIterator(
             new EncodedData($this->column_factory, $table_screen, $columns_data)

@@ -33,7 +33,7 @@ class PostLink extends Settings\Column implements AC\Setting\Formatter
         $this->relation = $relation;
     }
 
-    public function format(Value $value, AC\Setting\ArrayImmutable $options): Value
+    public function format(Value $value, AC\Setting\Config $options): Value
     {
         switch ((string)$options->get($this->name)) {
             case 'edit_post':

@@ -7,6 +7,8 @@ namespace AC\Settings\Column;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Settings\Column;
 
+// TODO implement formatter with '<span class="cpac_use_icons"></span>'
+
 class ActionIcons extends Column
 {
 

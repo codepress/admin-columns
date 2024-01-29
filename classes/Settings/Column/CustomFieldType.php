@@ -7,7 +7,7 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\OrSpecification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Option;
@@ -113,7 +113,7 @@ class CustomFieldType extends Recursive
         return $collection;
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         switch ((string)$options->get($this->name)) {
             case self::TYPE_COLOR:

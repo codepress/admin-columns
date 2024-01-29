@@ -36,7 +36,7 @@ class CharacterLimit extends Settings\Column implements AC\Setting\Formatter
         );
     }
 
-    public function format(Value $value, AC\Setting\ArrayImmutable $options): Value
+    public function format(Value $value, AC\Setting\Config $options): Value
     {
         return $value->with_value(
             ac_helper()->string->trim_characters(

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace AC;
 
-use AC\ColumnRepository\Filter;
-use AC\ColumnRepository\Sort;
+use AC\Setting\Config;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use AC\Type\Uri;
@@ -22,6 +21,9 @@ final class ListScreen
 
     private $table_screen;
 
+    /**
+     * @var Config[]
+     */
     private $columns;
 
     private $preferences;
@@ -42,7 +44,7 @@ final class ListScreen
             $updated = new DateTime();
         }
         if (null === $columns) {
-            $columns = new ColumnCollection();
+            $columns = [];
         }
 
         $this->id = $id;
@@ -68,26 +70,7 @@ final class ListScreen
         $this->title = $title;
     }
 
-    public function get_columns(Filter $filter = null, Sort $sort = null): ColumnIterator
-    {
-        $columns = $this->columns;
-
-        if ($filter) {
-            $columns = $filter->filter($columns);
-        }
-        if ($sort) {
-            $columns = $sort->sort($columns);
-        }
-
-        return $columns;
-    }
-
-    public function set_columns(ColumnIterator $columns): void
-    {
-        $this->columns = $columns;
-    }
-
-    public function get_column(string $name): ?Column
+    public function get_column(string $name): ?ColumnPrototype
     {
         foreach ($this->columns as $column) {
             if ($column->get_name() === $name) {
@@ -97,6 +80,41 @@ final class ListScreen
 
         return null;
     }
+
+    public function get_columns(): ColumnIterator
+    {
+        return $this->columns;
+    }
+
+    //    public function get_columns(Filter $filter = null, Sort $sort = null): ColumnIterator
+    //    {
+    //        $columns = $this->columns;
+    //
+    //        if ($filter) {
+    //            $columns = $filter->filter($columns);
+    //        }
+    //        if ($sort) {
+    //            $columns = $sort->sort($columns);
+    //        }
+    //
+    //        return $columns;
+    //    }
+    //
+    //    public function set_columns(ColumnIterator $columns): void
+    //    {
+    //        $this->columns = $columns;
+    //    }
+    //
+    //    public function get_column(string $name): ?Column
+    //    {
+    //        foreach ($this->columns as $column) {
+    //            if ($column->get_name() === $name) {
+    //                return $column;
+    //            }
+    //        }
+    //
+    //        return null;
+    //    }
 
     public function get_preferences(): array
     {
@@ -218,6 +236,8 @@ final class ListScreen
     {
         $this->preferences[$key] = $value;
     }
+
+    // TODO remove
 
     /**
      * @deprecated NEWVERSION

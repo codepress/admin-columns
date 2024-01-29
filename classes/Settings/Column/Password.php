@@ -4,7 +4,7 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting;
-use AC\Setting\ArrayImmutable;
+use AC\Setting\Config;
 use AC\Setting\Input;
 use AC\Setting\OptionCollection;
 use AC\Setting\Type\Value;
@@ -33,7 +33,7 @@ class Password extends Settings\Column implements Setting\Formatter
         );
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         if ('text' === $options->get('password')) {
             return $value;

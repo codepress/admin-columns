@@ -6,22 +6,22 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
-use AC\Setting\ArrayImmutable;
 use AC\Setting\Component;
+use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 
 class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
-    private $default_before;
+    private $before;
 
-    private $default_after;
+    private $after;
 
     public function __construct(
-        Specification $conditions = null,
-        string $default_before = null,
-        string $default_after = null
+        string $before = null,
+        string $after = null,
+        Specification $conditions = null
     ) {
         // TODO input?
         parent::__construct(
@@ -32,8 +32,8 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
             $conditions
         );
 
-        $this->default_before = $default_before;
-        $this->default_after = $default_after;
+        $this->before = $before;
+        $this->after = $after;
     }
 
     public function is_parent(): bool
@@ -49,29 +49,39 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
                 __('Before', 'codepress-admin-columns'),
                 '',
                 // TODO
-                new Component\Input\Open('before', $this->default_before)
+                new Component\Input\Open('before', $this->before)
             ),
             new AC\Settings\Column(
                 'after',
                 __('After', 'codepress-admin-columns'),
                 '',
                 // TODO
-                new Component\Input\Open('after', $this->default_after)
+                new Component\Input\Open('after', $this->after)
             ),
         ]);
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         if (is_string($value->get_value()) && ac_helper()->string->is_not_empty($value->get_value())) {
             return $value->with_value(
-                $options->get('before') .
+                $this->before .
                 $value->get_value() .
-                $options->get('after')
+                $this->after
             );
         }
 
         return $value;
+    }
+
+    public function get_before(): ?string
+    {
+        return $this->before;
+    }
+
+    public function get_after(): ?string
+    {
+        return $this->after;
     }
 
 }

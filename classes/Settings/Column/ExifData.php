@@ -9,9 +9,9 @@ use AC\Expression\NotSpecification;
 use AC\Expression\OrSpecification;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification as Compare;
-use AC\Setting\ArrayImmutable;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -63,8 +63,8 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
 
             $settings->add(
                 new Settings\Column\BeforeAfter(
-                    $conditions,
-                    ...$defaults
+                    ...$defaults,
+                    $conditions
                 )
             );
 
@@ -73,6 +73,8 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
 
         $settings->add(
             new Settings\Column\BeforeAfter(
+                null,
+                null,
                 new NotSpecification(
                     new OrSpecification($not)
                 )
@@ -104,7 +106,7 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
         return $exif_types;
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         $exif_datatype = $options->get(self::NAME) ?? '';
         $exif_value = ((array)$value->get_value())[$exif_datatype] ?? '';

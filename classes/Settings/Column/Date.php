@@ -4,12 +4,21 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Setting\ArrayImmutable;
+use AC\Expression\Specification;
+use AC\Setting\Config;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
 class Date extends Settings\Column\DateTimeFormat
 {
+
+    private $date_format;
+
+    public function __construct(Specification $conditions = null, string $date_format = null)
+    {
+        parent::__construct($conditions);
+        $this->date_format = $date_format ?? 'wp_default';
+    }
 
     protected function get_custom_format_options(): array
     {
@@ -32,7 +41,7 @@ class Date extends Settings\Column\DateTimeFormat
         return $options;
     }
 
-    public function format(Value $value, ArrayImmutable $options): Value
+    public function format(Value $value, Config $options): Value
     {
         if ('diff' === $options->get($this->name)) {
             $timestamp = $this->get_timestamp($value->get_value());
@@ -42,6 +51,13 @@ class Date extends Settings\Column\DateTimeFormat
 
         return parent::format($value, $options);
     }
+
+    public function get_date_format(): string
+    {
+        return $this->date_format;
+    }
+
+
 
     // TODO
     //	private function get_diff_html_label() {

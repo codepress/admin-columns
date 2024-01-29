@@ -7,6 +7,7 @@ namespace AC\Setting;
 final class OptionCollectionEncoder
 {
 
+    // TODO
     public function encode(OptionCollection $options): array
     {
         $encoded = [];
