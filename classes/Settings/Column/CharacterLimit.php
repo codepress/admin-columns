@@ -29,6 +29,7 @@ class CharacterLimit extends Settings\Column implements AC\Setting\Formatter
                 null,
                 $default,
                 null,
+                null,
                 __('Characters', 'codepress-admin-columns')
             ),
             $conditions

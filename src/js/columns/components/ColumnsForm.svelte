@@ -22,15 +22,15 @@
     const i18n = getColumnSettingsTranslation();
 
     declare const jQuery: any;
+
     export let data: ListScreenData;
     export let config: { [key: string]: AC.Column.Settings.ColumnSettingCollection };
-
     export let tableUrl: string;
-    export let start: number | null = 0;
 
-    export let end: number | null = 0;
-
+    let start: number | null = 0;
+    let end: number | null = 0;
     let sortableContainer: HTMLElement | null;
+    let loadingDefaultColumns: boolean = false;
 
     const clearColumns = () => {
         data['columns'] = [];
@@ -47,7 +47,7 @@
         if (columninfo.original) {
             name = columninfo.value;
 
-            if (data.columns.find( c => c.name === name )) {
+            if (data.columns.find(c => c.name === name)) {
                 return NotificationProgrammatic.open({
                     message: 'Original column already available',
                     type: 'warning'
@@ -69,7 +69,7 @@
     }
 
     const duplicateColumn = async (columnName: string) => {
-        let foundColumn = data.columns.find( c => c.name === columnName ) ?? null;
+        let foundColumn = data.columns.find(c => c.name === columnName) ?? null;
 
         if (!foundColumn) {
             throw new Error(`Column ${columnName} could not be duplicated`);
@@ -77,7 +77,7 @@
 
         const clonedName = ColumnUtils.generateId();
 
-        data['columns'].push( Object.assign({}, foundColumn, {name: clonedName}) );
+        data['columns'].push(Object.assign({}, foundColumn, {name: clonedName}));
 
         await tick();
 
@@ -106,11 +106,12 @@
     }
 
     const handleLoadDefaultColumns = () => {
-        loadDefaultColumns( $currentListKey ).then( response => {
-            if( response.data.success ){
+		loadingDefaultColumns = true;
+        loadDefaultColumns($currentListKey).then(response => {
+            if (response.data.success) {
                 data.columns = response.data.data.columns;
                 config = response.data.data.config;
-                console.log( config );
+                loadingDefaultColumns = false;
             }
         })
     }
@@ -139,7 +140,7 @@
 </script>
 
 
-<DebugToolbar bind:data={data} bind:config={config} />
+<DebugToolbar bind:data={data} bind:config={config}/>
 
 {#if data }
 	<div class="ac-columns">
@@ -161,7 +162,7 @@
 		</header>
 
 		<div class="ac-columns__body">
-            
+
 			{#if data.columns.length === 0 || data.columns === null}
 				<div class="acu-p-10 acu-bg-[#F1F5F9]">
 					<div class="acu-text-center">
@@ -176,7 +177,7 @@
 
 							</ColumnTypeDropdown>
 						</AcDropdown>
-						<AcButton on:click={handleLoadDefaultColumns}>{i18n.editor.label.load_default_columns}</AcButton>
+						<AcButton loading={loadingDefaultColumns} --acui-loading-color="#000" on:click={handleLoadDefaultColumns}>{i18n.editor.label.load_default_columns}</AcButton>
 					</div>
 					<div class="acu-text-center">
 						<p>{@html i18n.editor.sentence.getting_started}</p>
@@ -198,7 +199,9 @@
 		{#if !$listScreenIsReadOnly}
 			<footer class="ac-columns__footer">
 				<div>
-					<AcButton type="text" on:click={clearColumns}>{i18n.editor.label.clear_columns}</AcButton>
+					{#if data.columns.length > 0}
+						<AcButton type="text" on:click={clearColumns}>{i18n.editor.label.clear_columns}</AcButton>
+					{/if}
 					<AcDropdown maxHeight="300px" value position="bottom-left">
 						<AcButton slot="trigger">+ {i18n.editor.label.add_columns}</AcButton>
 						<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>

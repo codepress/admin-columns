@@ -16,7 +16,7 @@ final class OpenFactory
         AttributeCollection $attributes = null,
         string $append = null
     ): Open {
-        return new Open('text', $default, $placeholder, $attributes, $append);
+        return new Open($name, 'text', $default, $placeholder, $attributes, $append);
     }
 
 }

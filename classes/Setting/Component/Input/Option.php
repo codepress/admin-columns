@@ -24,13 +24,10 @@ class Option extends Input
         bool $multiple = null,
         AttributeCollection $attributes = null
     ) {
-        if (null === $multiple) {
-            $this->multiple = false;
-        }
-
         parent::__construct($name, $type, $default, $placeholder, $attributes);
 
         $this->options = $options;
+        $this->multiple = true === $multiple;
     }
 
     public function get_options(): OptionCollection
