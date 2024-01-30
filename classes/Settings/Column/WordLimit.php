@@ -35,6 +35,7 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
             ),
             $conditions
         );
+
         $this->word_limit = $word_limit;
     }
 
@@ -43,13 +44,14 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
         return $value->with_value(
             ac_helper()->string->trim_words(
                 (string)$value->get_value(),
-                $this->get_word_limit()
+                $this->word_limit
             // TODO remove
             //$config->get('excerpt_length') ?? 20
             )
         );
     }
 
+    // TODO implement usage
     public function get_word_limit(): ?int
     {
         return $this->word_limit;

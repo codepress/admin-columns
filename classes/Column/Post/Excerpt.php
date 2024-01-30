@@ -4,7 +4,6 @@ namespace AC\Column\Post;
 
 use AC\Column;
 use AC\Column\Renderable;
-use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 
 class Excerpt extends Column implements Column\Value
@@ -19,10 +18,10 @@ class Excerpt extends Column implements Column\Value
         );
     }
 
-    public function renderable(Config $options): Renderable
+    public function renderable(): Renderable
     {
         return new Column\Post\Renderable\Excerpt(
-            new Renderable\ValueFormatter($this->get_settings())
+            new Renderable\ValueFormatter($this->settings)
         );
     }
 

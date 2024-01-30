@@ -13,7 +13,9 @@ use AC\Settings;
 class CharacterLimit extends Settings\Column implements AC\Setting\Formatter
 {
 
-    public function __construct(Specification $conditions = null, ?int $default = 20)
+    private $limit;
+
+    public function __construct(?int $limit = 20, Specification $conditions = null)
     {
         parent::__construct(
             'character_limit',
@@ -27,23 +29,31 @@ class CharacterLimit extends Settings\Column implements AC\Setting\Formatter
                 'tiny',
                 0,
                 null,
-                $default,
+                $limit,
                 null,
                 null,
                 __('Characters', 'codepress-admin-columns')
             ),
             $conditions
         );
+        $this->limit = $limit;
     }
 
-    public function format(Value $value, AC\Setting\Config $options): Value
+    public function format(Value $value): Value
     {
         return $value->with_value(
             ac_helper()->string->trim_characters(
                 (string)$value->get_value(),
-                $options->get($this->name) ?? 20
+                $this->limit
             )
         );
     }
+
+    public function get_limit(): ?int
+    {
+        return $this->limit;
+    }
+
+
 
 }

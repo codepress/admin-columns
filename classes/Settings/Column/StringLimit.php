@@ -8,13 +8,19 @@ use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Config;
 use AC\Setting\SettingCollection;
+use AC\Setting\Type\Value;
 use AC\Settings;
+use AC\Setting;
 
-class StringLimit extends Recursive
+class StringLimit extends Settings\Column implements Setting\Recursive, Setting\Formatter
 {
 
-    public function __construct(Specification $conditions = null)
+    private $config;
+
+    // TODO inject the `child settings`
+    public function __construct(Config $config = null, Specification $conditions = null)
     {
         parent::__construct(
             'string_limit',
@@ -29,10 +35,31 @@ class StringLimit extends Recursive
                         'word_limit'      => __('Word Limit', 'codepress-admin-columns'),
                     ]
                 ),
-                'word_limit'
+                $this->get_string_limiter()
             ),
             $conditions
         );
+
+        $this->config = $config;
+    }
+
+    private function get_string_limiter():string
+    {
+        return $this->config && $this->config->has('string_limit')
+            ? $this->config->get('string_limit')
+            : 'word_limit';
+    }
+
+    public function is_parent(): bool
+    {
+
+        // TODO what is parent?
+        return false;
+    }
+
+    public function format(Value $value): Value
+    {
+        $settings = $this->get_children();
     }
 
     public function get_children(): SettingCollection
@@ -40,10 +67,12 @@ class StringLimit extends Recursive
         // TODO test formatter
         return new SettingCollection([
             new Settings\Column\CharacterLimit(
+            // TODO do we pass just the $char_limit and $word_limit or the whole Config
+                $this->config && $this->config->has('character_limit') ? (int)$this->config->get('character_limit') : null,
                 StringComparisonSpecification::equal('character_limit')
             ),
             new Settings\Column\WordLimit(
-                20,
+                $this->config && $this->config->has('word_limit') ? (int)$this->config->get('word_limit') : null,
                 StringComparisonSpecification::equal('word_limit')
             ),
         ]);

@@ -8,28 +8,24 @@ use AC;
 use AC\Column;
 use AC\ColumnTypeCollection;
 use AC\MetaType;
-use AC\Setting\Config;
-use AC\Setting\SettingCollection;
-use AC\Settings;
 use AC\TableScreen;
 use WP_Post_Type;
 
 class PostFactory implements AC\ColumnTypesFactory
 {
 
-    public function create(TableScreen $table_screen, Config $config = null): ?ColumnTypeCollection
+    public function create(TableScreen $table_screen): ?ColumnTypeCollection
     {
         if ( ! $table_screen instanceof AC\PostType) {
             return null;
         }
 
         return $this->get_columns(
-            get_post_type_object($table_screen->get_post_type()),
-            $config
+            get_post_type_object($table_screen->get_post_type())
         );
     }
 
-    private function get_columns(WP_Post_Type $post_type, Config $config = null): ColumnTypeCollection
+    private function get_columns(WP_Post_Type $post_type): ColumnTypeCollection
     {
         $columns = [
             Column\Actions::class,
@@ -104,21 +100,6 @@ class PostFactory implements AC\ColumnTypesFactory
         $columns = ColumnTypeCollection::from_list($columns);
 
         $columns->add(new Column\CustomField(new MetaType(MetaType::POST)));
-
-        // TODO Proof-of-concept POC
-        $columns->add(
-            new Column\Post\Excerpt(
-                new SettingCollection([
-                    new Settings\Column\WordLimit(
-                        $config ? (int)$config->get('excerpt_length') : null
-                    ),
-                    new Settings\Column\BeforeAfter(
-                        $config ? (string)$config->get('before') : null,
-                        $config ? (string)$config->get('after') : null
-                    ),
-                ])
-            )
-        );
 
         return $columns;
     }

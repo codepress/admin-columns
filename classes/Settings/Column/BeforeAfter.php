@@ -61,7 +61,7 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
         ]);
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
         if (is_string($value->get_value()) && ac_helper()->string->is_not_empty($value->get_value())) {
             return $value->with_value(

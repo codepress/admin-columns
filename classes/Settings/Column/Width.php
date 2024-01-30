@@ -46,7 +46,7 @@ final class Width extends Column implements AC\Setting\Recursive
     {
         $settings = [
             new Column(
-                $this->name,
+                'width',
                 '',
                 '',
                 AC\Setting\Component\Input\Number::create_single_step(
