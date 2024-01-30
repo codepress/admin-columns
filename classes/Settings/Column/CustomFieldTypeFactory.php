@@ -27,7 +27,10 @@ class CustomFieldTypeFactory implements SettingFactory
             $config->get('field_type') ?: '',
             new SettingCollection([
                 // TODO specification
-                $this->string_limit_factory->create($config, StringComparisonSpecification::equal(CustomFieldType::TYPE_TEXT))
+                $this->string_limit_factory->create(
+                    $config,
+                    StringComparisonSpecification::equal(CustomFieldType::TYPE_TEXT)
+                ),
             ])
         );
     }
