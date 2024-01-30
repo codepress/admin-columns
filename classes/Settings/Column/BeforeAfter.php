@@ -25,7 +25,6 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
     ) {
         // TODO input?
         parent::__construct(
-            'before_after',
             __('Display Options', 'codepress-admin-columns'),
             '',
             null,
@@ -45,14 +44,12 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
     {
         return new SettingCollection([
             new AC\Settings\Column(
-                'before',
                 __('Before', 'codepress-admin-columns'),
                 '',
                 // TODO
                 new Component\Input\Open('before', $this->before)
             ),
             new AC\Settings\Column(
-                'after',
                 __('After', 'codepress-admin-columns'),
                 '',
                 // TODO

@@ -15,8 +15,6 @@ class WordsPerMinute extends Settings\Column implements Formatter
     public function __construct(Specification $conditions = null)
     {
         parent::__construct(
-        // TODO
-            'words_per_minute',
             __('Words per minute', 'codepress-admin-columns'),
             __(
                 'Estimated reading time in words per minute.',
@@ -27,8 +25,9 @@ class WordsPerMinute extends Settings\Column implements Formatter
         );
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
+        // TODO
         $time = $this->make_human_readable(
             $this->get_estimated_reading_time_in_seconds((string)$value, $options->get($this->name) ?: 200)
         );

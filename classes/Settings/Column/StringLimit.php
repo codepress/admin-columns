@@ -23,7 +23,6 @@ class StringLimit extends Settings\Column implements Setting\Recursive, Setting\
     public function __construct(string $limiter, SettingCollection $settings, Specification $conditions = null)
     {
         parent::__construct(
-            'string_limit',
             __('Text Limit', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(

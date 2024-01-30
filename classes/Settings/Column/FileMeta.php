@@ -16,7 +16,6 @@ class FileMeta extends Settings\Column
     public function __construct(string $label, array $meta_options, string $default_option)
     {
         parent::__construct(
-            'media_meta_key',
             $label,
             '',
             OptionFactory::create_select(

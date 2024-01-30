@@ -19,15 +19,17 @@ class CustomField extends Column implements Formatter
 
     private $settings;
 
-    private $field;
-
     public function __construct(string $field, SettingCollection $settings, Specification $specification = null)
     {
         parent::__construct(
-            'field',
             __('Field', 'codepress-admin-columns'),
             __('Custom field key', 'codepress-admin-columns'),
-            OptionFactory::create_select_remote('field', 'ac-custom-field-keys', $field, 'Select'),
+            OptionFactory::create_select_remote(
+                'field',
+                'ac-custom-field-keys',
+                $field,
+                __('Select', 'codepress-admin-columns')
+            ),
             $specification
         );
 
@@ -37,7 +39,6 @@ class CustomField extends Column implements Formatter
         //            $field = substr($field, strlen('cpachidden'));
         //        }
         $this->settings = $settings;
-        $this->field = $field;
     }
 
     public function format(Value $value): Value

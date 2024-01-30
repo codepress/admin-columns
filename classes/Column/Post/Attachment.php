@@ -24,7 +24,7 @@ class Attachment extends Column implements Column\Value
         );
     }
 
-    public function renderable(Config $options): Renderable
+    public function renderable(): Renderable
     {
         return new Column\Post\Renderable\Attachment(
             new Renderable\ValueFormatter($this->get_settings())
