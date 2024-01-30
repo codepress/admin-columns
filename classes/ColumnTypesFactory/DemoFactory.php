@@ -10,10 +10,18 @@ use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Settings;
 use AC\TableScreen;
+use AC\Vendor\DI;
 
 // TODO Proof-of-concept POC
 class DemoFactory
 {
+
+    private $container;
+
+    public function __construct(DI\Container $container)
+    {
+        $this->container = $container;
+    }
 
     public function create(TableScreen $table_screen, string $type, Config $config): ?Column
     {
@@ -25,10 +33,10 @@ class DemoFactory
             case 'column-excerpt':
                 return new Column\Post\Excerpt(
                     new SettingCollection([
-                        Settings\Column\LabelFactory::create($config),
-                        Settings\Column\WidthFactory::create($config),
-                        Settings\Column\StringLimitFactory::create($config),
-                        Settings\Column\BeforeAfterFactory::create($config),
+                        $this->container->get(Settings\Column\LabelFactory::class)->create($config),
+                        $this->container->get(Settings\Column\WidthFactory::class)->create($config),
+                        $this->container->get(Settings\Column\StringLimitFactory::class)->create($config),
+                        $this->container->get(Settings\Column\BeforeAfterFactory::class)->create($config),
                     ])
                 );
             case 'column-meta':
@@ -39,7 +47,7 @@ class DemoFactory
                 return new Column\CustomField(
                     $table_screen->get_meta_type(),
                     new SettingCollection([
-                        Settings\Column\CustomFieldFactory::create($config),
+                        $this->container->get(Settings\Column\CustomFieldFactory::class)->create($config),
                     ])
                 );
             default:

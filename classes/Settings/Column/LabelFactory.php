@@ -13,7 +13,7 @@ use AC\Settings\SettingFactory;
 class LabelFactory implements SettingFactory
 {
 
-    public static function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Column
     {
         $label = $config->has('label')
             ? (string)$config->get('label')

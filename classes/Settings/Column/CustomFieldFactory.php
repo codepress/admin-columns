@@ -13,12 +13,19 @@ use AC\Settings\SettingFactory;
 class CustomFieldFactory implements SettingFactory
 {
 
-    public static function create(Config $config, Specification $specification = null): Column
+    private $custom_field_type_factory;
+
+    public function __construct(CustomFieldTypeFactory $custom_field_type_factory)
+    {
+        $this->custom_field_type_factory = $custom_field_type_factory;
+    }
+
+    public function create(Config $config, Specification $specification = null): Column
     {
         return new CustomField(
             $config->get('field') ?: '',
             new SettingCollection([
-                CustomFieldTypeFactory::create($config)
+                $this->custom_field_type_factory->create($config),
             ])
         );
     }

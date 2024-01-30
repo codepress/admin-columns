@@ -14,13 +14,20 @@ use AC\Settings\SettingFactory;
 class CustomFieldTypeFactory implements SettingFactory
 {
 
-    public static function create(Config $config, Specification $specification = null): Column
+    private $string_limit_factory;
+
+    public function __construct(StringLimitFactory $string_limit_factory)
+    {
+        $this->string_limit_factory = $string_limit_factory;
+    }
+
+    public function create(Config $config, Specification $specification = null): Column
     {
         return new CustomFieldType(
             $config->get('field_type') ?: '',
             new SettingCollection([
                 // TODO specification
-                StringLimitFactory::create($config, StringComparisonSpecification::equal(CustomFieldType::TYPE_TEXT))
+                $this->string_limit_factory->create($config, StringComparisonSpecification::equal(CustomFieldType::TYPE_TEXT))
             ])
         );
     }
