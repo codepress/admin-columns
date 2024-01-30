@@ -14,7 +14,7 @@ use AC\Settings\SettingFactory;
 class CustomFieldTypeFactory implements SettingFactory
 {
 
-    public static function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Column
     {
         return new CustomFieldType(
             $config->get('field_type') ?: '',
