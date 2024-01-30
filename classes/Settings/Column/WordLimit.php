@@ -4,27 +4,26 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
+use AC\Setting\Component\Input\Number;
+use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class WordLimit extends Settings\Column implements AC\Setting\Formatter
+class WordLimit extends Settings\Column implements Formatter
 {
-
-    // TODO Stefan Test -> name was word_limit, option 'excerpt_length'
 
     private $word_limit;
 
     public function __construct(?int $word_limit = 20, Specification $conditions = null)
     {
         parent::__construct(
-            'excerpt_length',
             __('Word Limit', 'codepress-admin-columns'),
             sprintf(
                 '%s <em>%s</em>',
                 __('Maximum number of words', 'codepress-admin-columns'),
                 __('Leave empty for no limit', 'codepress-admin-columns')
             ),
-            AC\Setting\Component\Input\Number::create_single_step(
+            Number::create_single_step(
                 'excerpt_length',
                 0,
                 null,
@@ -45,8 +44,6 @@ class WordLimit extends Settings\Column implements AC\Setting\Formatter
             ac_helper()->string->trim_words(
                 (string)$value->get_value(),
                 $this->word_limit
-            // TODO remove
-            //$config->get('excerpt_length') ?? 20
             )
         );
     }

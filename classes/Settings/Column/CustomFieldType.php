@@ -7,6 +7,7 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\OrSpecification;
 use AC\Expression\StringComparisonSpecification;
+use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Config;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter\Aggregate;
@@ -40,10 +41,9 @@ class CustomFieldType extends AC\Settings\Column implements AC\Setting\Formatter
     public function __construct(string $field_type, SettingCollection $settings)
     {
         parent::__construct(
-            'field_type',
             __('Field Type', 'codepress-admin-columns'),
             __('This will determine how the value will be displayed.', 'codepress-admin-columns'),
-            AC\Setting\Component\Input\OptionFactory::create_select(
+            OptionFactory::create_select(
                 'field_type',
                 $this->get_field_type_options(),
                 '',

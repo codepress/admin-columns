@@ -9,8 +9,6 @@ use AC\Setting\Component;
 class Column
 {
 
-    protected $name;
-
     protected $label;
 
     protected $description;
@@ -20,24 +18,20 @@ class Column
     protected $conditions;
 
     public function __construct(
-
-        // TODO
-        string $name,
         string $label,
         string $description = null,
         Component\Input $input = null,
         Specification $conditions = null
     ) {
-        $this->name = $name;
         $this->label = $label;
         $this->description = $description;
         $this->input = $input;
         $this->conditions = $conditions ?? new NullSpecification();
     }
 
-    public function get_name(): string
+    public function get_name():string
     {
-        return $this->name;
+        return $this->input->get_name();
     }
 
     public function get_label(): string

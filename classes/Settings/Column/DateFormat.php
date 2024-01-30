@@ -19,7 +19,6 @@ class DateFormat extends Settings\Column
     public function __construct(Specification $specification)
     {
         parent::__construct(
-            'date_save_format',
             __('Date Save Format', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(

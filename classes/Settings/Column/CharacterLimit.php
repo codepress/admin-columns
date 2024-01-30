@@ -18,7 +18,6 @@ class CharacterLimit extends Settings\Column implements AC\Setting\Formatter
     public function __construct(?int $limit = 20, Specification $conditions = null)
     {
         parent::__construct(
-            'character_limit',
             __('Character Limit', 'codepress-admin-columns'),
             sprintf(
                 '%s <em>%s</em>',
@@ -26,7 +25,7 @@ class CharacterLimit extends Settings\Column implements AC\Setting\Formatter
                 __('Leave empty for no limit', 'codepress-admin-columns')
             ),
             Number::create_single_step(
-                'tiny',
+                'character_limit',
                 0,
                 null,
                 $limit,

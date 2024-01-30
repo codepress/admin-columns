@@ -28,7 +28,6 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
     public function __construct(string $label, Specification $conditions = null)
     {
         parent::__construct(
-            'exif_data',
             $label,
             '',
             OptionFactory::create_select(
@@ -106,7 +105,7 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
         return $exif_types;
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
         $exif_datatype = $options->get(self::NAME) ?? '';
         $exif_value = ((array)$value->get_value())[$exif_datatype] ?? '';

@@ -16,7 +16,6 @@ class CommentLink extends Settings\Column implements Formatter
     public function __construct(Specification $conditions = null)
     {
         parent::__construct(
-            'comment_link_to',
             __('Link To', 'codepress-admin-columns'),
             '',
             Input\OptionFactory::create_select(

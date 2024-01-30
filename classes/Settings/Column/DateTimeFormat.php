@@ -21,7 +21,6 @@ abstract class DateTimeFormat extends Recursive
     public function __construct(Specification $conditions = null)
     {
         parent::__construct(
-            'date',
             __('Date Format', 'codepress-admin-columns'),
             '',
             new Custom('date_format'),
