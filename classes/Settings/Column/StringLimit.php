@@ -35,7 +35,6 @@ class StringLimit extends Settings\Column implements Setting\Recursive, Setting\
         );
 
         $this->settings = $settings;
-        $this->conditions = $conditions;
         $this->limiter = $limiter;
     }
 

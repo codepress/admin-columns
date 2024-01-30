@@ -9,11 +9,11 @@ use AC\Expression\OrSpecification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Config;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Formatter\Aggregate;
 use AC\Setting\SettingCollection;
-use AC\Setting\Type\Option;
 use AC\Setting\Type\Value;
 
-class CustomFieldType extends Recursive
+class CustomFieldType extends AC\Settings\Column implements AC\Setting\Formatter
 {
 
     public const NAME = 'field_type';
@@ -33,7 +33,11 @@ class CustomFieldType extends Recursive
     public const TYPE_URL = 'link';
     public const TYPE_USER = 'user_by_id';
 
-    public function __construct()
+    private $settings;
+
+    private $field_type;
+
+    public function __construct(string $field_type, SettingCollection $settings)
     {
         parent::__construct(
             'field_type',
@@ -47,40 +51,59 @@ class CustomFieldType extends Recursive
                 true
             )
         );
+        
+        $this->settings = $settings;
+        $this->field_type = $field_type;
+    }
+
+    public function format(Value $value): Value
+    {
+        $settings = new SettingCollection();
+
+        foreach ($this->settings as $setting) {
+            if ($setting->get_conditions()->is_satisfied_by($this->field_type)) {
+                $settings->add($setting);
+            }
+        }
+
+        return Aggregate::from_settings($settings)->format($value);
     }
 
     public function get_children(): SettingCollection
     {
-        return new SettingCollection([
-            // TODO
-            new StringLimit(
-                StringComparisonSpecification::equal(self::TYPE_TEXT)
-            ),
-            new NumberFormat(
-                StringComparisonSpecification::equal(self::TYPE_NUMERIC)
-            ),
-            new Date(
-                StringComparisonSpecification::equal(self::TYPE_DATE)
-            ),
-            new DateFormat(
-                StringComparisonSpecification::equal(self::TYPE_DATE)
-            ),
-            new Image(
-                new OrSpecification([
-                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
-                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
-                ])
-            ),
-            new MediaLink(
-                new OrSpecification([
-                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
-                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
-                ])
-            ),
-            new LinkLabel(
-                StringComparisonSpecification::equal(self::TYPE_URL)
-            ),
-        ]);
+
+        return $this->settings;
+
+//        return new SettingCollection([
+//            // TODO
+//            new StringLimit(
+//                StringComparisonSpecification::equal(self::TYPE_TEXT)
+//            ),
+//            new NumberFormat(
+//                StringComparisonSpecification::equal(self::TYPE_NUMERIC)
+//            ),
+//            new Date(
+//                StringComparisonSpecification::equal(self::TYPE_DATE)
+//            ),
+//            new DateFormat(
+//                StringComparisonSpecification::equal(self::TYPE_DATE)
+//            ),
+//            new Image(
+//                new OrSpecification([
+//                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
+//                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
+//                ])
+//            ),
+//            new MediaLink(
+//                new OrSpecification([
+//                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
+//                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
+//                ])
+//            ),
+//            new LinkLabel(
+//                StringComparisonSpecification::equal(self::TYPE_URL)
+//            ),
+//        ]);
     }
 
     protected function get_field_type_options(): OptionCollection
@@ -113,29 +136,29 @@ class CustomFieldType extends Recursive
         return $collection;
     }
 
-    public function format(Value $value, Config $options): Value
-    {
-        switch ((string)$options->get($this->name)) {
-            case self::TYPE_COLOR:
-                $value = (new AC\Setting\Formatter\Color())->format($value, $options);
-
-                break;
-            case self::TYPE_DATE:
-                $timestamp = ac_helper()->date->strtotime($value->get_value());
-
-                if ($timestamp) {
-                    $value = $value->with_value(date('c', $timestamp));
-                }
-
-                break;
-            case self::TYPE_IMAGE :
-                // TODO David, in the old formatter, we could return a valueCollection here and it would format each option, can we deal with that? Old example code below
-                //                return new Collection($this->get_values_from_array_or_string($value));
-                $value = new Value((int)$value->get_value(), $value->get_value());
-        }
-
-        return parent::format($value, $options);
-    }
+//    public function format(Value $value, Config $options): Value
+//    {
+//        switch ((string)$options->get($this->name)) {
+//            case self::TYPE_COLOR:
+//                $value = (new AC\Setting\Formatter\Color())->format($value, $options);
+//
+//                break;
+//            case self::TYPE_DATE:
+//                $timestamp = ac_helper()->date->strtotime($value->get_value());
+//
+//                if ($timestamp) {
+//                    $value = $value->with_value(date('c', $timestamp));
+//                }
+//
+//                break;
+//            case self::TYPE_IMAGE :
+//                // TODO David, in the old formatter, we could return a valueCollection here and it would format each option, can we deal with that? Old example code below
+//                //                return new Collection($this->get_values_from_array_or_string($value));
+//                $value = new Value((int)$value->get_value(), $value->get_value());
+//        }
+//
+//        return parent::format($value, $options);
+//    }
 
     // TODO
 

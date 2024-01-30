@@ -6,20 +6,28 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Formatter;
+use AC\Setting\Formatter\Aggregate;
 use AC\Setting\SettingCollection;
+use AC\Setting\Type\Value;
+use AC\Settings\Column;
 
-class CustomField extends Recursive
+class CustomField extends Column implements Formatter
 {
 
     public const NAME = 'custom_field';
 
-    public function __construct(Specification $specification = null)
+    private $settings;
+
+    private $field;
+
+    public function __construct(string $field, SettingCollection $settings, Specification $specification = null)
     {
         parent::__construct(
             'field',
             __('Field', 'codepress-admin-columns'),
             __('Custom field key', 'codepress-admin-columns'),
-            OptionFactory::create_select_remote('field', 'ac-custom-field-keys', null, 'Select'),
+            OptionFactory::create_select_remote('field', 'ac-custom-field-keys', $field, 'Select'),
             $specification
         );
 
@@ -28,14 +36,16 @@ class CustomField extends Recursive
         //        if ($field && 0 === strpos($field, 'cpachidden')) {
         //            $field = substr($field, strlen('cpachidden'));
         //        }
+        $this->settings = $settings;
+        $this->field = $field;
     }
 
-    public function get_children(): SettingCollection
+    public function format(Value $value): Value
     {
-        return new SettingCollection([
-            new CustomFieldType(),
-        ]);
+        return Aggregate::from_settings($this->settings)->format($value);
     }
+
+
 
     // TODO
     //    const NAME = 'custom_field';

@@ -11,16 +11,16 @@ use AC\Setting\SettingCollection;
 use AC\Settings\Column;
 use AC\Settings\SettingFactory;
 
-class StringLimitFactory implements SettingFactory
+class CustomFieldTypeFactory implements SettingFactory
 {
 
     public static function create(Config $config, Specification $specification = null): Column
     {
-        return new StringLimit(
-            $config->has('string_limit') ? $config->get('string_limit') : 'word_limit',
+        return new CustomFieldType(
+            $config->get('field_type') ?: '',
             new SettingCollection([
-                CharacterLimitFactory::create($config, StringComparisonSpecification::equal('character_limit')),
-                WordLimitFactory::create($config, StringComparisonSpecification::equal('word_limit')),
+                // TODO specification
+                StringLimitFactory::create($config, StringComparisonSpecification::equal(CustomFieldType::TYPE_TEXT))
             ])
         );
     }

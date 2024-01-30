@@ -31,6 +31,17 @@ class DemoFactory
                         Settings\Column\BeforeAfterFactory::create($config),
                     ])
                 );
+            case 'column-meta':
+                if ( ! $table_screen instanceof TableScreen\MetaType) {
+                    return null;
+                }
+
+                return new Column\CustomField(
+                    $table_screen->get_meta_type(),
+                    new SettingCollection([
+                        Settings\Column\CustomFieldFactory::create($config),
+                    ])
+                );
             default:
                 return null;
         }
