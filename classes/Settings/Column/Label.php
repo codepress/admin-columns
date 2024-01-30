@@ -5,16 +5,13 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 // TODO
-use AC\Setting;
 use AC\Setting\Component\Input\Custom;
-use AC\Setting\Config;
 use AC\Settings\Column;
 
 class Label extends Column
 {
 
     private $custom_label;
-
 
     public function __construct(string $custom_label)
     {
@@ -28,14 +25,9 @@ class Label extends Column
         $this->custom_label = $custom_label;
     }
 
-    // TODO create factory
-    public static function from_config(Config $config):self
-    {
-        return new self( $config->get('label') ?: '');
-    }
-
     public function get_custom_label(): string
     {
+        // TODO apply kses
         return $this->custom_label;
     }
 

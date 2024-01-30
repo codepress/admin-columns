@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Expression\StringComparisonSpecification;
+use AC\Setting;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\Config;
+use AC\Setting\Formatter\Aggregate;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
-use AC\Setting;
 
 class StringLimit extends Settings\Column implements Setting\Recursive, Setting\Formatter
 {
 
-    private $config;
+    private $limiter;
 
-    // TODO inject the `child settings`
-    public function __construct(Config $config = null, Specification $conditions = null)
+    private $settings;
+
+    public function __construct(string $limiter, SettingCollection $settings, Specification $conditions = null)
     {
         parent::__construct(
             'string_limit',
@@ -28,56 +28,70 @@ class StringLimit extends Settings\Column implements Setting\Recursive, Setting\
             '',
             OptionFactory::create_select(
                 'string_limit',
-                OptionCollection::from_array(
-                    [
-                        ''                => __('No limit', 'codepress-admin-columns'),
-                        'character_limit' => __('Character Limit', 'codepress-admin-columns'),
-                        'word_limit'      => __('Word Limit', 'codepress-admin-columns'),
-                    ]
-                ),
-                $this->get_string_limiter()
+                $this->create_option_collection($settings),
+                $limiter
             ),
             $conditions
         );
 
-        $this->config = $config;
+        $this->settings = $settings;
+        $this->conditions = $conditions;
+        $this->limiter = $limiter;
     }
 
-    private function get_string_limiter():string
+    private function create_option_collection(SettingCollection $settings): OptionCollection
     {
-        return $this->config && $this->config->has('string_limit')
-            ? $this->config->get('string_limit')
-            : 'word_limit';
+        $options = [
+            '' => __('No limit', 'codepress-admin-columns'),
+        ];
+
+        foreach ($settings as $setting) {
+            $options[$setting->get_name()] = $setting->get_label();
+        }
+
+        return OptionCollection::from_array($options);
     }
 
     public function is_parent(): bool
     {
-
         // TODO what is parent?
         return false;
     }
 
     public function format(Value $value): Value
     {
-        $settings = $this->get_children();
+        $settings = new SettingCollection();
+
+        foreach ($this->settings as $setting) {
+            if ($setting->get_conditions()->is_satisfied_by($this->limiter)) {
+                $settings->add($setting);
+            }
+        }
+
+        return Aggregate::from_settings($settings)->format($value);
     }
 
     public function get_children(): SettingCollection
     {
-        // TODO test formatter
-        return new SettingCollection([
-            new Settings\Column\CharacterLimit(
-            // TODO do we pass just the $char_limit and $word_limit or the whole Config
-                $this->config && $this->config->has('character_limit') ? (int)$this->config->get('character_limit') : null,
-                StringComparisonSpecification::equal('character_limit')
-            ),
-            new Settings\Column\WordLimit(
-                $this->config && $this->config->has('word_limit') ? (int)$this->config->get('word_limit') : null,
-                StringComparisonSpecification::equal('word_limit')
-            ),
-        ]);
+        return $this->settings;
     }
 
+    //    public function get_children(): SettingCollection
+    //    {
+
+    // TODO test formatter
+    //        return new SettingCollection([
+    //            new Settings\Column\CharacterLimit(
+    //            // TODO do we pass just the $char_limit and $word_limit or the whole Config
+    //                $this->config && $this->config->has('character_limit') ? (int)$this->config->get('character_limit') : null,
+    //                StringComparisonSpecification::equal('character_limit')
+    //            ),
+    //            new Settings\Column\WordLimit(
+    //                $this->config && $this->config->has('word_limit') ? (int)$this->config->get('word_limit') : null,
+    //                StringComparisonSpecification::equal('word_limit')
+    //            ),
+    //        ]);
+    //    }
 
     // TODO
     //	/**
