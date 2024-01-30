@@ -17,15 +17,8 @@
 
 
 </script>
-<style>
-	.ac-header-toggle.-skeleton {
-		border-color: transparent;
-		background: transparent;
-	}
-
-</style>
 {#if config}
-	<div style="display: flex; align-items: center; gap: 5px;">
+	<div class="acu-flex acu-items-center acu-gap-1">
 		{#each proFeatures as feature}
 
 			{#if config.find( c => c.name === feature.feature )}
@@ -33,9 +26,8 @@
 					<span class="{feature.iconClass}"></span>
 				</HeaderToggle>
 			{:else}
-				<div class="ac-header-toggle -skeleton"></div>
+				<div class="ac-header-toggle -skeleton acu-border-[transparent] acu-bg-none acu-cursor-default"></div>
 			{/if}
-
 
 		{/each}
 	</div>

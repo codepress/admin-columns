@@ -22,10 +22,6 @@
         dispatch('itemSelect', key)
     }
 
-    const handleSelect = (e: CustomEvent<SvelteSelectItem>) => {
-        handleMenuSelect(e.detail.value.toString());
-    }
-
     const toggleGroup = (group: string) => {
         openedGroups.includes(group)
             ? closeGroup(group)
@@ -122,7 +118,7 @@
 						<ListScreenMenuItem
 							{key}
 							{label}
-							on:selectItem={ () => selectValue = key}
+							on:selectItem={ () => handleMenuSelect(key)}
 						/>
 					{/each}
 				</ul>
@@ -143,7 +139,7 @@
 							<ListScreenMenuItem
 								{key}
 								{label}
-								on:selectItem={ () => selectValue = key}
+								on:selectItem={ () => handleMenuSelect(key) }
 							/>
 						{/each}
 					</ul>

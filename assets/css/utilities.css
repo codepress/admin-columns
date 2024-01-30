@@ -2,14 +2,17 @@
   position: relative
 }
 
+.acu-sticky {
+  position: sticky
+}
+
+.acu-bottom-\[0\] {
+  bottom: 0
+}
+
 .acu-my-6 {
   margin-top: 30px;
   margin-bottom: 30px
-}
-
-.acu-mx-6 {
-  margin-left: 30px;
-  margin-right: 30px
 }
 
 .acu-mb-1 {
@@ -36,6 +39,10 @@
   margin-bottom: 30px
 }
 
+.acu-mb-8 {
+  margin-bottom: 40px
+}
+
 .acu-mr-1 {
   margin-right: 5px
 }
@@ -44,8 +51,12 @@
   margin-right: 10px
 }
 
-.acu-mb-8 {
-  margin-bottom: 40px
+.acu-mt-\[-35px\] {
+  margin-top: -35px
+}
+
+.acu-mt-\[0\] {
+  margin-top: 0
 }
 
 .acu-block {
@@ -92,6 +103,10 @@
   flex: 1 1 0%
 }
 
+.acu-flex-auto {
+  flex: 1 1 auto
+}
+
 .acu-flex-grow {
   flex-grow: 1
 }
@@ -103,6 +118,10 @@
 .acu-translate-y-\[-1px\] {
   --tw-translate-y: -1px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.acu-cursor-default {
+  cursor: default
 }
 
 .acu-cursor-move {
@@ -161,12 +180,13 @@
   border-radius: 9999px
 }
 
-.acu-rounded-xl {
-  border-radius: 0.75rem
-}
-
 .acu-rounded-lg {
   border-radius: 0.5rem
+}
+
+.acu-rounded-b-lg {
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem
 }
 
 .acu-border {
@@ -187,6 +207,10 @@
 
 .acu-border-none {
   border-style: none
+}
+
+.acu-border-\[transparent\] {
+  border-color: transparent
 }
 
 .acu-border-ui-border {
@@ -212,16 +236,25 @@
   background-color: transparent
 }
 
+.acu-bg-\[white\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+}
+
+.acu-bg-none {
+  background-image: none
+}
+
 .acu-p-10 {
   padding: 50px
 }
 
-.acu-p-\[0\] {
-  padding: 0
-}
-
 .acu-p-4 {
   padding: 20px
+}
+
+.acu-p-\[0\] {
+  padding: 0
 }
 
 .acu-px-2 {
@@ -249,19 +282,9 @@
   padding-bottom: 10px
 }
 
-.acu-py-8 {
-  padding-top: 40px;
-  padding-bottom: 40px
-}
-
 .acu-py-6 {
   padding-top: 30px;
   padding-bottom: 30px
-}
-
-.acu-py-4 {
-  padding-top: 20px;
-  padding-bottom: 20px
 }
 
 .acu-pb-4 {
@@ -270,6 +293,10 @@
 
 .acu-pb-6 {
   padding-bottom: 30px
+}
+
+.acu-pb-8 {
+  padding-bottom: 40px
 }
 
 .acu-pl-3 {
@@ -300,14 +327,6 @@
   padding-top: 20px
 }
 
-.acu-pb-3 {
-  padding-bottom: 15px
-}
-
-.acu-pb-8 {
-  padding-bottom: 40px
-}
-
 .acu-text-center {
   text-align: center
 }
@@ -318,6 +337,11 @@
 
 .acu-text-\[12px\] {
   font-size: 12px
+}
+
+.acu-text-base {
+  font-size: 1rem;
+  line-height: 1.5rem
 }
 
 .acu-font-bold {
@@ -363,12 +387,12 @@
   key: string
 }
 
-.last\:acu-mb-1:last-child {
-  margin-bottom: 5px
-}
-
 .last\:acu-mb-\[0\]:last-child {
   margin-bottom: 0
+}
+
+.last\:acu-border-b-0:last-child {
+  border-bottom-width: 0px
 }
 
 .last\:acu-pb-\[0\]:last-child {
@@ -391,17 +415,13 @@
   .md\:acu-flex {
     display: flex
   }
-
-  .md\:acu-border-0 {
-    border-width: 0px
-  }
-
-  .md\:acu-border-b {
-    border-bottom-width: 1px
-  }
 }
 
 @media (min-width: 960px) {
+  .lg\:acu-mr-6 {
+    margin-right: 30px
+  }
+
   .lg\:acu-block {
     display: block
   }
@@ -418,10 +438,6 @@
     width: 200px
   }
 
-  .lg\:acu-w-\[250px\] {
-    width: 250px
-  }
-
   .lg\:acu-w-\[220px\] {
     width: 220px
   }
@@ -430,15 +446,6 @@
     padding-top: 10px;
     padding-bottom: 10px
   }
-
-  .lg\:acu-py-\[45px\] {
-    padding-top: 45px;
-    padding-bottom: 45px
-  }
-
-  .lg\:acu-pb-\[45px\] {
-    padding-bottom: 45px
-  }
 }
 
 @media (min-width: 1280px) {
@@ -446,16 +453,26 @@
     display: flex
   }
 
-  .xl\:acu-w-\[350px\] {
-    width: 350px
-  }
-
-  .xl\:acu-w-\[300px\] {
-    width: 300px
+  .xl\:acu-w-\[200px\] {
+    width: 200px
   }
 
   .xl\:acu-w-\[250px\] {
     width: 250px
+  }
+
+  .xl\:acu-w-1\/2 {
+    width: 50%
+  }
+}
+
+@media (min-width: 1450px) {
+  .\32xl\:acu-w-\[300px\] {
+    width: 300px
+  }
+
+  .\32xl\:acu-w-\[350px\] {
+    width: 350px
   }
 }
 

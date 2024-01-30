@@ -32,7 +32,8 @@ module.exports = {
 			'md' : '782px', // WordPress default mobile breakpoint
 			'lg' : '960px', // WordPress menu bar breakpoint
 			'xl' : '1280px',
-			'2xl' : '1450px'
+			'2xl' : '1450px',
+			'3xl' : '1600px'
 		},
 		colors: {
 			'ui-border': 'var(--acui-border)',

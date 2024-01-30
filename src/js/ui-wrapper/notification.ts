@@ -10,6 +10,7 @@ type notificationArguments = {
     closable?: boolean
     autoClose?: boolean
     active?: boolean
+    hideIcon?: boolean
 }
 
 export class NotificationProgrammatic {
@@ -45,7 +46,6 @@ export class NotificationProgrammatic {
 
 const initNotificationContainer = (): HTMLElement => {
     let container = document.querySelector<HTMLElement>(`.${SELECTOR}`);
-
 
     if (container) {
         return container;

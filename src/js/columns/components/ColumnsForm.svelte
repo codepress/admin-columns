@@ -65,7 +65,12 @@
                 label: columnLabel ?? name
             });
             openedColumnsStore.open(name);
-        });
+        }).catch( ( e ) => {
+            NotificationProgrammatic.open({
+                message: e.message,
+                type: 'error'
+            });
+		} );
     }
 
     const duplicateColumn = async (columnName: string) => {
@@ -135,6 +140,7 @@
                 }
             }
         });
+
     })
 
 </script>
