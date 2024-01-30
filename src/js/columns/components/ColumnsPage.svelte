@@ -61,13 +61,12 @@
 </script>
 
 <div class="ac-admin-page lg:acu-flex acu-gap-4">
-	<aside class="ac-admin-page-menu">
+	<aside class="ac-admin-page-menu lg:acu-w-[220px] xl:acu-w-[250px]">
 		<ListScreenMenu
 			menu={menu}
 			openedGroups={openedGroups}
 			on:itemSelect={handleMenuSelect}
 		/>
-
 	</aside>
 	<main class="ac-admin-page-main">
 		{#each ListScreenSections.getSections( 'before_columns' ) as component}

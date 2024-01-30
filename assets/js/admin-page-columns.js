@@ -3422,7 +3422,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (65:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
+// (64:2) {#each ListScreenSections.getSections( 'before_columns' ) as component}
 function create_each_block(ctx) {
   let htmlsection;
   let current;
@@ -3455,7 +3455,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (69:2) {#if $listScreenDataStore !== null}
+// (68:2) {#if $listScreenDataStore !== null}
 function create_if_block(ctx) {
   let listscreenform;
   let updating_config;
@@ -3551,7 +3551,7 @@ function create_fragment(ctx) {
       }
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block) if_block.c();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(aside, "class", "ac-admin-page-menu");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(aside, "class", "ac-admin-page-menu lg:acu-w-[220px] xl:acu-w-[250px]");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(main, "class", "ac-admin-page-main");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "ac-admin-page lg:acu-flex acu-gap-4");
     },
