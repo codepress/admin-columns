@@ -5,7 +5,6 @@
     import { uniqid } from "../../../helpers/string";
     import { getColumnSettingsTranslation } from "../../utils/global";
 
-
     type selectOptionType = {
         value: string
         label: string
@@ -113,7 +112,6 @@
 
 </script>
 
-<ColumnSetting label={config.label} name="number" description={config.description}>
 
     <div class="ac-setting-selectoptions" bind:this={sortEl}>
         {#each activeOptions as option, index(option.id)}
@@ -138,6 +136,3 @@
             </div>
         {/each}
     </div>
-
-
-</ColumnSetting>

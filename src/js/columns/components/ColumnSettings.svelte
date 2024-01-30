@@ -1,8 +1,8 @@
 <script lang="ts">
-
     import {getSettingComponent} from "../helper";
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
     import {listScreenIsReadOnly} from "../store/read_only";
+    import ColumnSetting from "./ColumnSetting.svelte";
 
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
@@ -14,7 +14,7 @@
         return getSettingComponent(type);
     }
 
-    const checkConditions = (data) => {
+    const checkConditions = () => {
         if (typeof settings === 'undefined') {
             return;
         }
@@ -26,28 +26,42 @@
         });
     }
 
-    const checkCondition = (condition: AC.Column.Settings.ColumnConditions) => {
+    const checkCondition = (condition: AC.Specification.Rule) => {
         return RuleSpecificationMapper.map(condition).isSatisfiedBy(data[parent]);
     }
 
     const configChange = () => {
-        checkConditions(data);
+        checkConditions();
     }
 
-    $: checkConditions(data);
-    $: configChange(settings);
+    $: data && checkConditions();
+    $: settings && configChange();
 </script>
 
 {#if typeof filteredSettings !== 'undefined' }
 	{#each filteredSettings as setting (setting.name)}
 
-		<svelte:component
-			this={getComponent(setting.input?.type ?? 'empty')}
-            bind:columnConfig={settings}
-			bind:data={data}
-			bind:value={data[setting.name]}
-			disabled={$listScreenIsReadOnly}
-			config={setting}>
-		</svelte:component>
+		<ColumnSetting name={setting.name} description={setting.description} label={setting.label}>
+
+			<svelte:component
+				this={getComponent(setting.input?.type ?? 'empty')}
+				bind:data={data}
+				bind:value={data[setting.name]}
+				disabled={$listScreenIsReadOnly}
+				config={setting}>
+			</svelte:component>
+
+			<!-- Subsettings -->
+			{#if setting.children && setting.is_parent }
+				<svelte:self bind:data={data} settings={setting.children} parent={setting.name}/>
+			{/if}
+
+		</ColumnSetting>
+
+		<!-- Dependent settings -->
+		{#if setting.children && !setting.is_parent }
+			<svelte:self bind:data={data} settings={setting.children} parent={setting.name}/>
+		{/if}
+
 	{/each}
 {/if}

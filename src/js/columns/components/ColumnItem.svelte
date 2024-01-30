@@ -1,6 +1,5 @@
 <script lang="ts">
 
-    import {getSettingComponent} from "../helper";
     import {openedColumnsStore} from "../store/opened-columns";
     import {slide} from 'svelte/transition';
     import {createEventDispatcher, onMount} from "svelte";
@@ -9,13 +8,14 @@
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
     import ProFeatureToggles from "./ProFeatureToggles.svelte";
     import AcIcon from "ACUi/AcIcon.svelte";
-    import {refreshColumn} from "../ajax/ajax";
-    import {currentListKey} from "../store/current-list-screen";
+    import ColumnSetting from "./ColumnSetting.svelte";
+    import TypeSetting from "./settings/TypeSetting.svelte";
+    import {listScreenIsReadOnly} from "../store/read_only";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
 
-    let labelElement: HTMLElement|null;
+    let labelElement: HTMLElement | null;
     let readableLabel: string = '';
 
     const dispatch = createEventDispatcher();
@@ -23,10 +23,6 @@
 
     const toggle = () => {
         openedColumnsStore.toggle(data.name);
-    }
-
-    const getComponent = (type: string) => {
-        return getSettingComponent(type);
     }
 
     const handleDelete = () => {
@@ -74,19 +70,10 @@
         data = data;
     }
 
-    const tempSelectColumn = () => {
-        refreshColumn(data, $currentListKey).then(response => {
-            if (response.data.success === true) {
-                config = response.data.data.columns.settings
-                checkAppliedSettings();
-            }
-        });
-    }
-
-    const checkVisibleLabel = ( label: string ) => {
-        if( labelElement && labelElement.offsetWidth < 5 ){
+    const checkVisibleLabel = (label: string) => {
+        if (labelElement && labelElement.offsetWidth < 5) {
             readableLabel = document.createRange().createContextualFragment(data.label).textContent ?? '';
-            if( readableLabel.length === 0 ){
+            if (readableLabel.length === 0) {
                 readableLabel = data.type;
             }
         } else {
@@ -95,7 +82,7 @@
     }
 
     // TODO
-    //$: checkVisibleLabel( data.label) 
+    //$: checkVisibleLabel( data.label)
     $: opened = $openedColumnsStore.includes(data.name);
 </script>
 
@@ -115,7 +102,7 @@
 			</div>
 		</div>
 		<div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
-			{#if data.width }
+			{#if data.width && data.width_unit}
 				{data.width} {data.width_unit}
 			{/if}
 			<ProFeatureToggles bind:data={data} bind:config={config}></ProFeatureToggles>
@@ -129,6 +116,13 @@
 
 	{#if opened && config !== null }
 		<div class="ac-column-settings" transition:slide>
+
+			<!-- Specific Type setting -->
+			<ColumnSetting name="type" description="" label="Type">
+				<TypeSetting bind:data={data} bind:columnConfig={config} disabled={$listScreenIsReadOnly}/>
+			</ColumnSetting>
+
+
 			<ColumnSettings
 				bind:data={data}
 				bind:settings={config}
@@ -137,7 +131,6 @@
 			<div style="padding: 10px; background: #FFDCDCFF">
 				<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
 				<button class="button" on:click={checkAppliedSettings}>Check settings</button>
-				<button class="button" on:click={tempSelectColumn}>Refresh Column settings</button>
 			</div>
 		</div>
 	{/if}

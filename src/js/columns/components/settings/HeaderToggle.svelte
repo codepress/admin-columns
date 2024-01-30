@@ -3,8 +3,6 @@
     export let title: string;
     export let disabled: boolean = false
 
-    const values = ['off', 'on'];
-
     const toggle = () => {
         if (disabled) {
             return;

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import ColumnSetting from "../ColumnSetting.svelte";
     import AcToggle from "ACUi/element/AcToggle.svelte";
     import {afterUpdate, onMount} from "svelte";
 
@@ -7,7 +6,6 @@
     export let config: AC.Column.Settings.ToggleSetting;
     export let disabled: boolean = false;
 
-    let label = config.label ?? '';
     let checked = false;
 
     const check = (e: CustomEvent<string>) => {
@@ -28,6 +26,4 @@
 
 </script>
 
-<ColumnSetting {label} name="toggle" description={config.description}>
-	<AcToggle checked={checked} on:input={check} {disabled}></AcToggle>
-</ColumnSetting>
+<AcToggle checked={checked} on:input={check} {disabled}></AcToggle>

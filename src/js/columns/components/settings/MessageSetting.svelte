@@ -13,6 +13,5 @@
 		padding: 10px 0;
 	}
 </style>
-<ColumnSetting label={config.label} name="message" config={config}>
+
 	<div class="ac-setting-message">{@html config.input.data.message}</div>
-</ColumnSetting>

@@ -73,13 +73,7 @@
 </script>
 
 
-<ColumnSetting
-	label={config.label}
-	description={config.description}
-	config={config}
-	children={config.children ?? []}
-	bind:data={data}
-	name="select">
+
 	<div on:keyup={selectEnter} role="none">
 		<Select
 			--list-max-height="400px"
@@ -108,4 +102,3 @@
 
 		</Select>
 	</div>
-</ColumnSetting>

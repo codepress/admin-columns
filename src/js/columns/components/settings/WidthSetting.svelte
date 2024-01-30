@@ -1,5 +1,4 @@
 <script lang="ts">
-    import ColumnSetting from "../ColumnSetting.svelte";
     import {onMount} from "svelte";
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
 
@@ -47,16 +46,15 @@
 
 </script>
 
-<ColumnSetting label={config.label} description={config.description} name="width">
-	<div class="acu-flex acu-items-center acu-gap-3">
-		<div class="acu-w-[120px]">
-			<AcInputGroup>
-				<input type="text" bind:value={data[keyWidth]} placeholder="Auto" {disabled}>
-				<div role="none" class="acui-input-group-text acu-cursor-pointer acu-text-link hover:acu-text-link-hover" on:click={changeUnit} on:keypress>{data[ keyUnit ]}</div>
-			</AcInputGroup>
-		</div>
-		<div class="acu-flex-grow">
-			<input type="range" min="0" max={maxWidth} step="1" bind:value={data[keyWidth]} {disabled} class="acu-w-full">
-		</div>
+
+<div class="acu-flex acu-items-center acu-gap-3">
+	<div class="acu-w-[120px]">
+		<AcInputGroup>
+			<input type="text" bind:value={data[keyWidth]} placeholder="Auto" {disabled}>
+			<div role="none" class="acui-input-group-text acu-cursor-pointer acu-text-link hover:acu-text-link-hover" on:click={changeUnit} on:keypress>{data[ keyUnit ]}</div>
+		</AcInputGroup>
 	</div>
-</ColumnSetting>
+	<div class="acu-flex-grow">
+		<input type="range" min="0" max={maxWidth} step="1" bind:value={data[keyWidth]} {disabled} class="acu-w-full">
+	</div>
+</div>
