@@ -1027,7 +1027,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function create_if_block_2(ctx) {
+function create_if_block_1(ctx) {
   let small;
   let t;
   return {
@@ -1052,7 +1052,7 @@ function create_if_block_2(ctx) {
 }
 
 // (29:2) {#if config && config.children && isParent}
-function create_if_block_1(ctx) {
+function create_if_block(ctx) {
   let div;
   let columnsettings;
   let updating_data;
@@ -1110,59 +1110,6 @@ function create_if_block_1(ctx) {
     }
   };
 }
-
-// (37:0) {#if config && config.children && !isParent }
-function create_if_block(ctx) {
-  let columnsettings;
-  let updating_data;
-  let current;
-  function columnsettings_data_binding_1(value) {
-    /*columnsettings_data_binding_1*/ctx[10](value);
-  }
-  let columnsettings_props = {
-    settings: /*config*/ctx[4].children,
-    parent: /*config*/ctx[4].name
-  };
-  if ( /*data*/ctx[0] !== void 0) {
-    columnsettings_props.data = /*data*/ctx[0];
-  }
-  columnsettings = new _ColumnSettings_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
-    props: columnsettings_props
-  });
-  svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(columnsettings, 'data', columnsettings_data_binding_1));
-  return {
-    c() {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(columnsettings.$$.fragment);
-    },
-    m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(columnsettings, target, anchor);
-      current = true;
-    },
-    p(ctx, dirty) {
-      const columnsettings_changes = {};
-      if (dirty & /*config*/16) columnsettings_changes.settings = /*config*/ctx[4].children;
-      if (dirty & /*config*/16) columnsettings_changes.parent = /*config*/ctx[4].name;
-      if (!updating_data && dirty & /*data*/1) {
-        updating_data = true;
-        columnsettings_changes.data = /*data*/ctx[0];
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_data = false);
-      }
-      columnsettings.$set(columnsettings_changes);
-    },
-    i(local) {
-      if (current) return;
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(columnsettings.$$.fragment, local);
-      current = true;
-    },
-    o(local) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(columnsettings.$$.fragment, local);
-      current = false;
-    },
-    d(detaching) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(columnsettings, detaching);
-    }
-  };
-}
 function create_fragment(ctx) {
   let div2;
   let div0;
@@ -1171,14 +1118,11 @@ function create_fragment(ctx) {
   let div1;
   let t2;
   let t3;
-  let t4;
-  let if_block2_anchor;
   let current;
   const default_slot_template = /*#slots*/ctx[8].default;
   const default_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(default_slot_template, ctx, /*$$scope*/ctx[7], null);
-  let if_block0 = /*description*/ctx[2] && create_if_block_2(ctx);
-  let if_block1 = /*config*/ctx[4] && /*config*/ctx[4].children && /*isParent*/ctx[5] && create_if_block_1(ctx);
-  let if_block2 = /*config*/ctx[4] && /*config*/ctx[4].children && ! /*isParent*/ctx[5] && create_if_block(ctx);
+  let if_block0 = /*description*/ctx[2] && create_if_block_1(ctx);
+  let if_block1 = /*config*/ctx[4] && /*config*/ctx[4].children && /*isParent*/ctx[5] && create_if_block(ctx);
   return {
     c() {
       div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -1191,9 +1135,6 @@ function create_fragment(ctx) {
       if (if_block0) if_block0.c();
       t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if (if_block1) if_block1.c();
-      t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      if (if_block2) if_block2.c();
-      if_block2_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px]");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acp-column-setting__value acu-flex-grow acu-py-1");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "acp-column-setting lg:acu-flex acu-px-6 acu-mb-2");
@@ -1212,9 +1153,6 @@ function create_fragment(ctx) {
       if (if_block0) if_block0.m(div1, null);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div1, t3);
       if (if_block1) if_block1.m(div1, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t4, anchor);
-      if (if_block2) if_block2.m(target, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block2_anchor, anchor);
       current = true;
     },
     p(ctx, [dirty]) {
@@ -1228,7 +1166,7 @@ function create_fragment(ctx) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
-          if_block0 = create_if_block_2(ctx);
+          if_block0 = create_if_block_1(ctx);
           if_block0.c();
           if_block0.m(div1, t3);
         }
@@ -1243,7 +1181,7 @@ function create_fragment(ctx) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
           }
         } else {
-          if_block1 = create_if_block_1(ctx);
+          if_block1 = create_if_block(ctx);
           if_block1.c();
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
           if_block1.m(div1, null);
@@ -1258,49 +1196,25 @@ function create_fragment(ctx) {
       if (!current || dirty & /*name*/2) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "data-setting", /*name*/ctx[1]);
       }
-      if ( /*config*/ctx[4] && /*config*/ctx[4].children && ! /*isParent*/ctx[5]) {
-        if (if_block2) {
-          if_block2.p(ctx, dirty);
-          if (dirty & /*config, isParent*/48) {
-            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
-          }
-        } else {
-          if_block2 = create_if_block(ctx);
-          if_block2.c();
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
-          if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
-        }
-      } else if (if_block2) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2, 1, 1, () => {
-          if_block2 = null;
-        });
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
-      }
     },
     i(local) {
       if (current) return;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(default_slot, local);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2);
       current = true;
     },
     o(local) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(default_slot, local);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block1);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2);
       current = false;
     },
     d(detaching) {
       if (detaching) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div2);
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t4);
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(if_block2_anchor);
       }
       if (default_slot) default_slot.d(detaching);
       if (if_block0) if_block0.d();
       if (if_block1) if_block1.d();
-      if (if_block2) if_block2.d(detaching);
     }
   };
 }
@@ -1330,10 +1244,6 @@ function instance($$self, $$props, $$invalidate) {
     data = value;
     $$invalidate(0, data);
   }
-  function columnsettings_data_binding_1(value) {
-    data = value;
-    $$invalidate(0, data);
-  }
   $$self.$$set = $$props => {
     if ('name' in $$props) $$invalidate(1, name = $$props.name);
     if ('description' in $$props) $$invalidate(2, description = $$props.description);
@@ -1347,7 +1257,7 @@ function instance($$self, $$props, $$invalidate) {
       $: $$invalidate(5, isParent = $$invalidate(6, _a = config === null || config === void 0 ? void 0 : config.is_parent) !== null && _a !== void 0 ? _a : false);
     }
   };
-  return [data, name, description, label, config, isParent, _a, $$scope, slots, columnsettings_data_binding, columnsettings_data_binding_1];
+  return [data, name, description, label, config, isParent, _a, $$scope, slots, columnsettings_data_binding];
 }
 class ColumnSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -6700,25 +6610,20 @@ function instance($$self, $$props, $$invalidate) {
   let {
     config
   } = $$props;
-  let {
-    data
-  } = $$props;
   const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_2__.createEventDispatcher)();
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onDestroy)(() => {
     dispatch('destroy', config);
   });
   $$self.$$set = $$props => {
     if ('config' in $$props) $$invalidate(0, config = $$props.config);
-    if ('data' in $$props) $$invalidate(1, data = $$props.data);
   };
-  return [config, data];
+  return [config];
 }
 class EmptySetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, null, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      config: 0,
-      data: 1
+      config: 0
     });
   }
 }
@@ -7015,16 +6920,16 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[18] = list[i];
+  child_ctx[17] = list[i];
   return child_ctx;
 }
 function get_each_context_1(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[21] = list[i];
+  child_ctx[20] = list[i];
   return child_ctx;
 }
 
-// (48:1) {#if showIconModal && !disabled}
+// (47:1) {#if showIconModal && !disabled}
 function create_if_block(ctx) {
   let acmodal;
   let div;
@@ -7043,7 +6948,7 @@ function create_if_block(ctx) {
       }
     }
   });
-  acmodal.$on("close", /*close_handler*/ctx[16]);
+  acmodal.$on("close", /*close_handler*/ctx[15]);
   return {
     c() {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
@@ -7058,7 +6963,7 @@ function create_if_block(ctx) {
     },
     p(ctx, dirty) {
       const acmodal_changes = {};
-      if (dirty & /*$$scope, selectedIcon, searchQuery, filteredIcons*/16777272) {
+      if (dirty & /*$$scope, selectedIcon, searchQuery, filteredIcons*/8388664) {
         acmodal_changes.$$scope = {
           dirty,
           ctx
@@ -7082,7 +6987,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (50:3) 
+// (49:3) 
 function create_header_slot(ctx) {
   let span;
   return {
@@ -7103,7 +7008,7 @@ function create_header_slot(ctx) {
   };
 }
 
-// (54:5) {#each icongroup.items as dashicon}
+// (53:5) {#each icongroup.items as dashicon}
 function create_each_block_1(ctx) {
   let button;
   let span;
@@ -7113,7 +7018,7 @@ function create_each_block_1(ctx) {
   let mounted;
   let dispose;
   function click_handler() {
-    return (/*click_handler*/ctx[15]( /*dashicon*/ctx[21])
+    return (/*click_handler*/ctx[14]( /*dashicon*/ctx[20])
     );
   }
   return {
@@ -7121,9 +7026,9 @@ function create_each_block_1(ctx) {
       button = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
       span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value = "dashicons dashicons-" + /*dashicon*/ctx[21]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value = "dashicons dashicons-" + /*dashicon*/ctx[20]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "class", "acp-iconpicker__icon");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "data-dashicon", button_data_dashicon_value = /*dashicon*/ctx[21]);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "data-dashicon", button_data_dashicon_value = /*dashicon*/ctx[20]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "tabindex", "0");
     },
     m(target, anchor) {
@@ -7137,10 +7042,10 @@ function create_each_block_1(ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & /*filteredIcons*/32 && span_class_value !== (span_class_value = "dashicons dashicons-" + /*dashicon*/ctx[21])) {
+      if (dirty & /*filteredIcons*/32 && span_class_value !== (span_class_value = "dashicons dashicons-" + /*dashicon*/ctx[20])) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(span, "class", span_class_value);
       }
-      if (dirty & /*filteredIcons*/32 && button_data_dashicon_value !== (button_data_dashicon_value = /*dashicon*/ctx[21])) {
+      if (dirty & /*filteredIcons*/32 && button_data_dashicon_value !== (button_data_dashicon_value = /*dashicon*/ctx[20])) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(button, "data-dashicon", button_data_dashicon_value);
       }
     },
@@ -7154,14 +7059,14 @@ function create_each_block_1(ctx) {
   };
 }
 
-// (52:4) {#each filteredIcons as icongroup}
+// (51:4) {#each filteredIcons as icongroup}
 function create_each_block(ctx) {
   let h3;
-  let t0_value = /*icongroup*/ctx[18].name + "";
+  let t0_value = /*icongroup*/ctx[17].name + "";
   let t0;
   let t1;
   let each_1_anchor;
-  let each_value_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*icongroup*/ctx[18].items);
+  let each_value_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*icongroup*/ctx[17].items);
   let each_blocks = [];
   for (let i = 0; i < each_value_1.length; i += 1) {
     each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
@@ -7188,9 +7093,9 @@ function create_each_block(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, each_1_anchor, anchor);
     },
     p(ctx, dirty) {
-      if (dirty & /*filteredIcons*/32 && t0_value !== (t0_value = /*icongroup*/ctx[18].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, t0_value);
+      if (dirty & /*filteredIcons*/32 && t0_value !== (t0_value = /*icongroup*/ctx[17].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t0, t0_value);
       if (dirty & /*filteredIcons, selectIcon*/1056) {
-        each_value_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*icongroup*/ctx[18].items);
+        each_value_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*icongroup*/ctx[17].items);
         let i;
         for (i = 0; i < each_value_1.length; i += 1) {
           const child_ctx = get_each_context_1(ctx, each_value_1, i);
@@ -7219,7 +7124,7 @@ function create_each_block(ctx) {
   };
 }
 
-// (51:3) 
+// (50:3) 
 function create_content_slot(ctx) {
   let div;
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*filteredIcons*/ctx[5]);
@@ -7272,7 +7177,7 @@ function create_content_slot(ctx) {
   };
 }
 
-// (73:5) {#if selectedIcon}
+// (72:5) {#if selectedIcon}
 function create_if_block_1(ctx) {
   let span;
   let span_class_value;
@@ -7297,7 +7202,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (78:5) <AcButton on:click={applyIcon} type="primary">
+// (77:5) <AcButton on:click={applyIcon} type="primary">
 function create_default_slot_1(ctx) {
   let t_value = /*i18n*/ctx[6].global.select + "";
   let t;
@@ -7317,7 +7222,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (68:3) 
+// (67:3) 
 function create_footer_slot(ctx) {
   let div3;
   let div0;
@@ -7376,7 +7281,7 @@ function create_footer_slot(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acbutton, div2, null);
       current = true;
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler_1*/ctx[14]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*searchIcons*/ctx[7])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler_1*/ctx[13]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*searchIcons*/ctx[7])];
         mounted = true;
       }
     },
@@ -7397,7 +7302,7 @@ function create_footer_slot(ctx) {
         if_block = null;
       }
       const acbutton_changes = {};
-      if (dirty & /*$$scope*/16777216) {
+      if (dirty & /*$$scope*/8388608) {
         acbutton_changes.$$scope = {
           dirty,
           ctx
@@ -7426,7 +7331,7 @@ function create_footer_slot(ctx) {
   };
 }
 
-// (42:0) <AcInputGroup>
+// (41:0) <AcInputGroup>
 function create_default_slot(ctx) {
   let input;
   let t0;
@@ -7461,7 +7366,7 @@ function create_default_slot(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
       current = true;
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[13]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "click", /*addIcon*/ctx[8]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "keypress", /*keypress_handler*/ctx[12])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[12]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "click", /*addIcon*/ctx[8]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "keypress", /*keypress_handler*/ctx[11])];
         mounted = true;
       }
     },
@@ -7538,7 +7443,7 @@ function create_fragment(ctx) {
     },
     p(ctx, [dirty]) {
       const acinputgroup_changes = {};
-      if (dirty & /*$$scope, showIconModal, selectedIcon, searchQuery, filteredIcons, disabled, value*/16777279) {
+      if (dirty & /*$$scope, showIconModal, selectedIcon, searchQuery, filteredIcons, disabled, value*/8388671) {
         acinputgroup_changes.$$scope = {
           dirty,
           ctx
@@ -7561,9 +7466,6 @@ function create_fragment(ctx) {
   };
 }
 function instance($$self, $$props, $$invalidate) {
-  let {
-    config
-  } = $$props;
   let {
     value
   } = $$props;
@@ -7618,17 +7520,15 @@ function instance($$self, $$props, $$invalidate) {
   const click_handler = dashicon => selectIcon(dashicon);
   const close_handler = () => $$invalidate(2, showIconModal = false);
   $$self.$$set = $$props => {
-    if ('config' in $$props) $$invalidate(11, config = $$props.config);
     if ('value' in $$props) $$invalidate(0, value = $$props.value);
     if ('disabled' in $$props) $$invalidate(1, disabled = $$props.disabled);
   };
-  return [value, disabled, showIconModal, selectedIcon, searchQuery, filteredIcons, i18n, searchIcons, addIcon, applyIcon, selectIcon, config, keypress_handler, input_input_handler, input_input_handler_1, click_handler, close_handler];
+  return [value, disabled, showIconModal, selectedIcon, searchQuery, filteredIcons, i18n, searchIcons, addIcon, applyIcon, selectIcon, keypress_handler, input_input_handler, input_input_handler_1, click_handler, close_handler];
 }
 class LabelSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      config: 11,
       value: 0,
       disabled: 1
     });
@@ -7915,9 +7815,6 @@ function create_fragment(ctx) {
 const previewNumber = 7500000;
 function instance($$self, $$props, $$invalidate) {
   let {
-    config
-  } = $$props;
-  let {
     data
   } = $$props;
   let preview = previewNumber.toString();
@@ -7936,22 +7833,20 @@ function instance($$self, $$props, $$invalidate) {
     refreshPreview((_a = data['number_decimals']) !== null && _a !== void 0 ? _a : 0, (_b = data['number_decimal_point']) !== null && _b !== void 0 ? _b : '.', (_c = data['number_thousands_separator']) !== null && _c !== void 0 ? _c : '');
   };
   $$self.$$set = $$props => {
-    if ('config' in $$props) $$invalidate(1, config = $$props.config);
-    if ('data' in $$props) $$invalidate(2, data = $$props.data);
+    if ('data' in $$props) $$invalidate(1, data = $$props.data);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & /*data*/4) {
+    if ($$self.$$.dirty & /*data*/2) {
       $: watchData(data);
     }
   };
-  return [preview, config, data];
+  return [preview, data];
 }
 class NumberPreviewSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      config: 1,
-      data: 2
+      data: 1
     });
   }
 }
@@ -8003,7 +7898,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (80:4) {#if allowCreation}
+// (77:3) {#if allowCreation}
 function create_if_block(ctx) {
   let div;
   return {
@@ -8015,7 +7910,7 @@ function create_if_block(ctx) {
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
       /*div_binding*/
-      ctx[12](div);
+      ctx[11](div);
     },
     p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
     d(detaching) {
@@ -8024,12 +7919,12 @@ function create_if_block(ctx) {
       }
 
       /*div_binding*/
-      ctx[12](null);
+      ctx[11](null);
     }
   };
 }
 
-// (79:3) 
+// (76:2) 
 function create_empty_slot(ctx) {
   let div;
   function select_block_type(ctx, dirty) {
@@ -8068,7 +7963,7 @@ function create_fragment(ctx) {
   let mounted;
   let dispose;
   function select_filterText_binding(value) {
-    /*select_filterText_binding*/ctx[13](value);
+    /*select_filterText_binding*/ctx[12](value);
   }
   let select_props = {
     class: "-acui",
@@ -8119,7 +8014,7 @@ function create_fragment(ctx) {
       if (dirty & /*selectValue*/4) select_changes.value = /*selectValue*/ctx[2];
       if (dirty & /*listOpen*/2) select_changes.listOpen = /*listOpen*/ctx[1];
       if (dirty & /*disabled*/1) select_changes.disabled = /*disabled*/ctx[0];
-      if (dirty & /*$$scope, emptyElement*/524320) {
+      if (dirty & /*$$scope, emptyElement*/262176) {
         select_changes.$$scope = {
           dirty,
           ctx
@@ -8154,12 +8049,9 @@ function create_fragment(ctx) {
 let allowCreation = true;
 function instance($$self, $$props, $$invalidate) {
   let $currentListKey;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(15, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(14, $currentListKey = $$value));
   let {
     config
-  } = $$props;
-  let {
-    data
   } = $$props;
   let {
     disabled = false
@@ -8236,18 +8128,16 @@ function instance($$self, $$props, $$invalidate) {
   }
   $$self.$$set = $$props => {
     if ('config' in $$props) $$invalidate(10, config = $$props.config);
-    if ('data' in $$props) $$invalidate(11, data = $$props.data);
     if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
     if ('value' in $$props) $$invalidate(9, value = $$props.value);
   };
-  return [disabled, listOpen, selectValue, searchTerm, options, emptyElement, selectEnter, changeValue, groupBy, value, config, data, div_binding, select_filterText_binding];
+  return [disabled, listOpen, selectValue, searchTerm, options, emptyElement, selectEnter, changeValue, groupBy, value, config, div_binding, select_filterText_binding];
 }
 class RemoteSelectSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       config: 10,
-      data: 11,
       disabled: 0,
       value: 9
     });

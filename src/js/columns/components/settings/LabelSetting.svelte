@@ -5,7 +5,6 @@
     import AcButton from "ACUi/element/AcButton.svelte";
     import {getColumnSettingsTranslation} from "../../utils/global";
 
-    export let config: AC.Column.Settings.AbstractColumnSetting;
     export let value: string;
     export let disabled: boolean = false;
 

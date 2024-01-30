@@ -36,6 +36,3 @@
 
 	</div>
 </div>
-{#if config && config.children && !isParent }
-	<ColumnSettings bind:data={data} settings={config.children} parent={config.name}></ColumnSettings>
-{/if}

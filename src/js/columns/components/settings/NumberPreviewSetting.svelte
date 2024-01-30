@@ -1,6 +1,4 @@
 <script lang="ts">
-
-    export let config: AC.Column.Settings.NumberSettings;
     export let data: any;
 
     const previewNumber: number = 7500000;
