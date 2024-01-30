@@ -17,11 +17,20 @@ class StringLimitFactory implements SettingFactory
     public static function create(Config $config, Specification $specification = null): Column
     {
         return new StringLimit(
-            $config->has('string_limit') ? $config->get('string_limit') : 'word_limit',
+            $config->has('string_limit')
+                ? $config->get('string_limit')
+                : '',
             new SettingCollection([
-                CharacterLimitFactory::create($config, StringComparisonSpecification::equal('character_limit')),
-                WordLimitFactory::create($config, StringComparisonSpecification::equal('word_limit')),
-            ])
+                CharacterLimitFactory::create(
+                    $config,
+                    StringComparisonSpecification::equal('character_limit')
+                ),
+                WordLimitFactory::create(
+                    $config,
+                    StringComparisonSpecification::equal('word_limit')
+                ),
+            ]),
+            $specification
         );
     }
 
