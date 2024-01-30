@@ -3,12 +3,10 @@
     import {createEventDispatcher, onMount} from "svelte";
     import GroupIcon from "./GroupIcon.svelte";
     import {SvelteSelectItem} from "../../types/select";
-    import Select from "svelte-select";
     import {favoriteListKeysStore} from "../store/favorite-listkeys";
     import ListScreenMenuItem from "./ListScreenMenuItem.svelte";
     import {getColumnSettingsTranslation} from "../utils/global";
     import {persistMenuStatus} from "../ajax/menu";
-    import {fade} from "svelte/transition";
 
     export let menu: AC.Vars.Admin.Columns.MenuItems;
     export let openedGroups: string[] = [];
@@ -17,8 +15,8 @@
     const i18n = getColumnSettingsTranslation();
 
     let options: SvelteSelectItem[];
-    let selectValue = '';
     let favoriteItems: { [key: string]: string } = {}
+    let groups: string[] = [];
 
     const handleMenuSelect = (key: string) => {
         dispatch('itemSelect', key)
@@ -64,12 +62,8 @@
             }
         });
 
-        selectValue = $currentListKey;
-
         return result;
     }
-
-    const groupBy = (item: SvelteSelectItem) => item.group;
 
     const refreshFavoriteItems = () => {
         let _favoriteItems: { [key: string]: string } = {};
@@ -91,28 +85,31 @@
 
     onMount(() => {
         for (const [key, group] of Object.entries(menu)) {
-            if (group.options.hasOwnProperty($currentListKey) && !favoriteItems.hasOwnProperty( $currentListKey )) {
+            if (group.options.hasOwnProperty($currentListKey) && !favoriteItems.hasOwnProperty($currentListKey)) {
                 showGroup(key);
             }
         }
+
         options = mapMenuToSelect(menu);
+        groups = [...new Set(options.map(o => typeof o.group === 'string' ? o.group : '') ?? [])];
     })
 </script>
 <nav class="ac-table-screen-nav">
-	<div class="ac-table-screen-nav__select">
-		<Select
-			bind:value={selectValue}
-			items={options}
-			{groupBy}
-			class="-acui"
-			placeholder="Select"
-			clearable={false}
-			showChevron
-			on:input={handleSelect }>
 
-		</Select>
+	<div class="ac-table-screen-nav__select lg:acu-hidden acu-mb-3">
+		{#if options }
+			<select bind:value={$currentListKey} class="acu-w-[100%]">
+				{#each groups as group}
+					<optgroup label={group}>
+						{#each options.filter( o => o.group === group ) as option}
+							<option value={option.value}>{option.label}</option>
+						{/each}
+					</optgroup>
+				{/each}
+			</select>
+		{/if}
 	</div>
-	<div class="ac-table-screen-nav__list">
+	<div class="ac-table-screen-nav__list acu-hidden lg:acu-block acu-flex-grow">
 
 		{#if Object.keys( favoriteItems ).length > 0}
 			<div class="ac-menu-group">

@@ -1,26 +1,20 @@
 .acp-column-setting {
-	display: flex;
-
-	&__label {
+	&__label__ {
 		-webkit-font-smoothing: antialiased;
-		width: 200px;
-		font-weight: 600;
-		padding: 10px 30px;
-		padding-top: 21px;
 	}
 
 	&__value {
-		padding: 10px 20px;
-		flex-grow: 1;
 		max-width: 620px;
 	}
 
 	&__description {
-		padding: 5px 0;
-		display: block;
-		color: #888;
-		font-size: 12px;
+
 	}
+
+	.acp-column-setting {
+		padding-left: 0;
+	}
+
 }
 
 .acp-column-setting[data-setting=label] {
@@ -103,9 +97,9 @@
 	padding-top:0;
 	padding-bottom: 0;
 
-
 	.acp-column-setting {
 		flex-direction: column;
+
 		.acp-column-setting__label {
 			padding: 10px 0;
 		}

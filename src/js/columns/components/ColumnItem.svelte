@@ -100,7 +100,7 @@
 </script>
 
 <div class="ac-column" class:-opened={opened}>
-	<header class="ac-column-header">
+	<header class="ac-column-header acu-flex acu-py-2 acu-pr-6 acu-items-center acu-bg-[#fff]">
 		<div class="ac-column-header__move acu-cursor-move">
 			<AcIcon icon="move" size="sm"/>
 		</div>
@@ -114,14 +114,13 @@
 				<a class="ac-column-row-action -delete" href={'#'} on:click|preventDefault={handleDelete}>Delete</a>
 			</div>
 		</div>
-		<div class="ac-column-header__actions">
+		<div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
 			{#if data.width }
 				{data.width} {data.width_unit}
 			{/if}
 			<ProFeatureToggles bind:data={data} bind:config={config}></ProFeatureToggles>
-
 		</div>
-		<div class="ac-column-header__open-indicator">
+		<div class="ac-column-header__open-indicator acu-flex acu-justify-end">
 			<button class="ac-open-indicator" class:-open={opened} on:click={toggle}>
 				<span class="dashicons dashicons-arrow-down-alt2"></span>
 			</button>

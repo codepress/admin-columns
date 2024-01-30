@@ -14,14 +14,14 @@
 
 
 </style>
-<div class="acp-column-setting" data-setting={name} class:-align-top={top}>
-	<div class="acp-column-setting__label">{label}</div>
-	<div class="acp-column-setting__value">
+<div class="acp-column-setting lg:acu-flex acu-px-6 acu-mb-2 " data-setting={name} class:-align-top={top}>
+	<div class="acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px]">{label}</div>
+	<div class="acp-column-setting__value acu-flex-grow acu-py-1">
 		<slot>
 
 		</slot>
 		{#if description}
-			<small class="acp-column-setting__description">{description}</small>
+			<small class="acp-column-setting__description acu-block acu-py-1 acu-text-[#888] acu-text-[12px]">{description}</small>
 		{/if}
 		{#if config && config.children && isParent}
 			<div class="ac-column-settings -subsettings">

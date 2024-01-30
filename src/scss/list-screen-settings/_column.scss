@@ -2,10 +2,6 @@
 	border-bottom: 1px solid #CBD5E1;
 
 	.ac-column-header {
-		display: flex;
-		padding: 10px 30px 10px 0;
-		align-items: center;
-		background-color: #fff;
 
 		&__move {
 			color: #999;
@@ -29,16 +25,11 @@
 		}
 
 		&__actions {
-			justify-content: right;
-			display: flex;
-			align-items: center;
-			gap: 5px;
+
 		}
 
 		&__open-indicator {
 			width: 30px;
-			display: flex;
-			justify-content: right;
 
 			.ac-open-indicator {
 				background: none;
@@ -100,7 +91,7 @@
 
 .ac-header-toggle {
 	align-items: center;
-	background: transparent;
+	//background: transparent;
 	border: 1px solid #C3CBD7;
 	border-radius: 5px;
 	color: #C3CBD7;
@@ -111,8 +102,3 @@
 	width: 34px;
 }
 
-.ac-header-toggle.-active {
-	background: #E2E8F0;
-	border-color: #E2E8F0;
-	color: #475569;
-}

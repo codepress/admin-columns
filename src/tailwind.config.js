@@ -29,12 +29,13 @@ module.exports = {
 		},
 		screens: {
 			'sm': '640px',
-			'md' : '783px',
-			'lg' : '1024px',
+			'md' : '782px', // WordPress default mobile breakpoint
+			'lg' : '960px', // WordPress menu bar breakpoint
 			'xl' : '1280px',
 			'2xl' : '1450px'
 		},
 		colors: {
+			'ui-border': 'var(--acui-border)',
 			'link': 'var(--ac-link)',
 			'link-hover': 'var(--ac-link-hover)',
 			'notification-red': 'var(--ac-notification-red)',
