@@ -12,7 +12,7 @@ use AC\Settings\SettingFactory;
 class WidthFactory implements SettingFactory
 {
 
-    public function create(Config $config, Specification $specification = null): Column
+    public static function create(Config $config, Specification $specification = null): Column
     {
         return new Width(
             $config->has('width') ? (int)$config->get('width') : null,

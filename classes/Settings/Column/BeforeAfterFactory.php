@@ -12,7 +12,7 @@ use AC\Settings\SettingFactory;
 class BeforeAfterFactory implements SettingFactory
 {
 
-    public function create(Config $config, Specification $specification = null): Column
+    public static function create(Config $config, Specification $specification = null): Column
     {
         return new BeforeAfter(
             $config->has('before') ? (string)$config->get('before') : null,

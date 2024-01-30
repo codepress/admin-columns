@@ -25,10 +25,10 @@ class DemoFactory
             case 'column-excerpt':
                 return new Column\Post\Excerpt(
                     new SettingCollection([
-//                        (new Settings\Column\LabelFactory())->create($config),
-//                        (new Settings\Column\WidthFactory())->create($config),
-                        (new Settings\Column\StringLimitFactory())->create($config),
-//                        (new Settings\Column\BeforeAfterFactory())->create($config),
+                        Settings\Column\LabelFactory::create($config),
+                        Settings\Column\WidthFactory::create($config),
+                        Settings\Column\StringLimitFactory::create($config),
+                        Settings\Column\BeforeAfterFactory::create($config),
                     ])
                 );
             default:
