@@ -53,7 +53,6 @@ class StringLimit extends Settings\Column implements Setting\Recursive, Setting\
 
     public function is_parent(): bool
     {
-        // TODO what is parent?
         return false;
     }
 

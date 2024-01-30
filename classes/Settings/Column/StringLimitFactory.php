@@ -11,15 +11,13 @@ use AC\Setting\SettingCollection;
 use AC\Settings\Column;
 use AC\Settings\SettingFactory;
 
-class StringLimitFactory implements SettingFactory
+final class StringLimitFactory implements SettingFactory
 {
 
     public static function create(Config $config, Specification $specification = null): Column
     {
         return new StringLimit(
-            $config->has('string_limit')
-                ? $config->get('string_limit')
-                : '',
+            $config->get('string_limit') ?: '',
             new SettingCollection([
                 CharacterLimitFactory::create(
                     $config,
