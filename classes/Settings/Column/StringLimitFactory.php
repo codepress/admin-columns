@@ -14,16 +14,28 @@ use AC\Settings\SettingFactory;
 final class StringLimitFactory implements SettingFactory
 {
 
-    public static function create(Config $config, Specification $specification = null): Column
+    private $characterLimitFactory;
+
+    private $wordLimitFactory;
+
+    public function __construct(
+        CharacterLimitFactory $characterLimitFactory,
+        WordLimitFactory $wordLimitFactory
+    ) {
+        $this->characterLimitFactory = $characterLimitFactory;
+        $this->wordLimitFactory = $wordLimitFactory;
+    }
+
+    public function create(Config $config, Specification $specification = null): Column
     {
         return new StringLimit(
             $config->get('string_limit') ?: '',
             new SettingCollection([
-                CharacterLimitFactory::create(
+                $this->characterLimitFactory->create(
                     $config,
                     StringComparisonSpecification::equal('character_limit')
                 ),
-                WordLimitFactory::create(
+                $this->wordLimitFactory->create(
                     $config,
                     StringComparisonSpecification::equal('word_limit')
                 ),

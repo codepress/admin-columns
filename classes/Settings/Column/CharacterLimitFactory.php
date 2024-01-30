@@ -9,10 +9,10 @@ use AC\Setting\Config;
 use AC\Settings\Column;
 use AC\Settings\SettingFactory;
 
-class CharacterLimitFactory implements SettingFactory
+final class CharacterLimitFactory implements SettingFactory
 {
 
-    public static function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Column
     {
         return new Column\CharacterLimit(
             $config->has('character_limit') ? (int)$config->get('character_limit') : null,

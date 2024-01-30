@@ -9,10 +9,10 @@ use AC\Setting\Config;
 use AC\Settings\Column;
 use AC\Settings\SettingFactory;
 
-class WordLimitFactory implements SettingFactory
+final class WordLimitFactory implements SettingFactory
 {
 
-    public static function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Column
     {
         return new Column\WordLimit(
             $config->has('word_limit') ? (int)$config->get('word_limit') : null,
