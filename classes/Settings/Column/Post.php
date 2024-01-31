@@ -37,7 +37,7 @@ class Post extends Column implements Formatter
             OptionFactory::create_select(
                 'post',
                 OptionCollection::from_array($this->get_display_options()),
-                'title'
+                $post_format
             ),
             $conditionals
         );
@@ -64,21 +64,29 @@ class Post extends Column implements Formatter
 
     public function format(Value $value): Value
     {
+        $id = $value->get_value();
+
+        if ( ! is_numeric($id)) {
+            return $value;
+        }
+
         switch ($this->post_format) {
+            // TODO should this be settings with just formatting?
             case self::PROPERTY_TITLE :
-                $value = $value->with_value(
-                    (string)get_post_field('post_title', (int)$value->get_value())
-                );
+                $title = (string)get_post_field('post_title', $id)
+                    ?: sprintf(
+                        '%s (%s)',
+                        __('No title', 'codepress-admin-columns'),
+                        $id
+                    );
 
-                return $this->format_from_settings($value);
+                return $this->format_from_settings($value->with_value($title), $this->post_format);
             case self::PROPERTY_FEATURED_IMAGE :
-                $value = $value->with_value(
-                    (int)get_post_meta((int)$value->get_value(), '_thumbnail_id', true)
-                );
+                $attachment_id = (int)get_post_meta($id, '_thumbnail_id', true);
 
-                return $this->format_from_settings($value);
+                return $this->format_from_settings($value->with_value($attachment_id), $this->post_format);
 
-                // TODO
+            // TODO
             case self::PROPERTY_AUTHOR :
             case self::PROPERTY_DATE :
             case self::PROPERTY_STATUS :
@@ -88,13 +96,13 @@ class Post extends Column implements Formatter
         }
     }
 
-    private function format_from_settings(Value $value): Value
+    // TODO create trait
+    private function format_from_settings(Value $value, string $fact): Value
     {
-        // TODO create trait
         $settings = new SettingCollection();
 
         foreach ($this->settings as $setting) {
-            if ($setting->get_conditions()->is_satisfied_by($this->post_format)) {
+            if ($setting->get_conditions()->is_satisfied_by($fact)) {
                 $settings->add($setting);
             }
         }
@@ -141,15 +149,6 @@ class Post extends Column implements Formatter
     public function get_children(): SettingCollection
     {
         return $this->settings;
-
-        //        return new SettingCollection([
-        //            // TODO Title formatter
-        //            new User(StringComparisonSpecification::equal(self::PROPERTY_AUTHOR)),
-        //            new Image(StringComparisonSpecification::equal(self::PROPERTY_FEATURED_IMAGE)),
-        //            new Date(StringComparisonSpecification::equal(self::PROPERTY_DATE)),
-        //            new CharacterLimit(StringComparisonSpecification::equal(self::PROPERTY_TITLE)),
-        //            new StatusIcon(StringComparisonSpecification::equal(self::PROPERTY_STATUS)),
-        //        ]);
     }
 
     // TODO

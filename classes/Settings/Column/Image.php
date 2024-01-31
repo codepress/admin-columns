@@ -7,6 +7,7 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
+use AC\Setting\Component\Input\Number;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Component\Type\Option;
@@ -75,13 +76,13 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
             new AC\Settings\Column(
                 __('Width', 'codepress-admin-columns'),
                 '',
-                AC\Setting\Component\Input\Number::create_single_step('image_size_w', 0, null, $this->width),
+                Number::create_single_step('image_size_w', 0, null, $this->width),
                 StringComparisonSpecification::equal('cpac-custom')
             ),
             new AC\Settings\Column(
                 __('Height', 'codepress-admin-columns'),
                 '',
-                AC\Setting\Component\Input\Number::create_single_step('image_size_h', 0, null, $this->height),
+                Number::create_single_step('image_size_h', 0, null, $this->height),
                 StringComparisonSpecification::equal('cpac-custom')
             ),
         ]);

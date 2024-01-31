@@ -29,7 +29,7 @@ class PostFactory implements SettingFactory
     public function create(Config $config, Specification $specification = null): Column
     {
         return new Post(
-            $config->has('post') ? (string)$config->get('post') : '',
+            $config->has('post') ? (string)$config->get('post') : 'title',
             new SettingCollection([
                 $this->character_limit_factory->create(
                     $config,
