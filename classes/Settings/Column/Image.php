@@ -51,12 +51,20 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
 
     public function format(Value $value): Value
     {
+        $id = $value->get_value();
+
+        if ( ! is_numeric($id)) {
+            return $value;
+        }
+
+        $size = 'cpac-custom' === $this->image_format
+            ? [$this->width, $this->height]
+            : $this->image_format;
+
         return $value->with_value(
-            // TODO verify it's an `id`
-            // TODO verify sizes
-            ac_helper()->image->get_image(
-                $value->get_value(),
-                $this->get_size()
+            ac_helper()->image->get_image_by_id(
+                (int)$id,
+                $size
             )
         );
     }
@@ -79,20 +87,6 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
         ]);
     }
 
-    protected function get_size(): array
-    {
-        if ('cpac-custom' === $this->image_format) {
-            return [
-                $this->width,
-                $this->height,
-            ];
-        }
-
-        // TODO custom sizes
-
-        return [60, 60];
-    }
-
     protected function get_dimension_for_size(string $size): ?array
     {
         global $_wp_additional_image_sizes;
@@ -100,7 +94,9 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
         $width = $_wp_additional_image_sizes[$size]['width'] ?? get_option("{$size}_size_w");
         $height = $_wp_additional_image_sizes[$size]['height'] ?? get_option("{$size}_size_h");
 
-        return $width && $height ? [$width, $height] : null;
+        return $width && $height
+            ? [$width, $height]
+            : null;
     }
 
     private function append_dimensions(OptionCollection $options): OptionCollection
