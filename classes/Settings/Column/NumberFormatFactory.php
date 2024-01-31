@@ -14,6 +14,7 @@ class NumberFormatFactory implements SettingFactory
 
     public function create(Config $config, Specification $specification = null): Column
     {
+        // TODO Tobias are the defaults not ok? The typecasting should do the trick?
         return new NumberFormat(
             $config->has('number_format') ? (string)$config->get('number_format') : '',
             $config->has('number_decimals') ? (int)$config->get('number_decimals') : 2,
