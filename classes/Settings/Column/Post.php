@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Expression\StringComparisonSpecification;
-use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Formatter;
+use AC\Setting\Formatter\Aggregate;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
+use AC\Settings\Column;
 
-class Post extends Recursive
+class Post extends Column implements Formatter
 {
 
     public const NAME = 'post';
@@ -24,10 +25,13 @@ class Post extends Recursive
     public const PROPERTY_DATE = 'date';
     public const PROPERTY_STATUS = 'status';
 
-    public function __construct(Specification $conditionals = null)
+    private $settings;
+
+    private $post_format;
+
+    public function __construct(string $post_format, SettingCollection $settings, Specification $conditionals = null)
     {
         parent::__construct(
-            'post',
             __('Display', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
@@ -37,54 +41,115 @@ class Post extends Recursive
             ),
             $conditionals
         );
+
+        $this->settings = $settings;
+        $this->post_format = $post_format;
+    }
+
+    protected function get_display_options(): array
+    {
+        $options = [
+            self::PROPERTY_TITLE          => __('Title'),
+            self::PROPERTY_ID             => __('ID'),
+            self::PROPERTY_AUTHOR         => __('Author'),
+            self::PROPERTY_FEATURED_IMAGE => _x('Featured Image', 'post'),
+            self::PROPERTY_DATE           => __('Date'),
+            self::PROPERTY_STATUS         => __('Status'),
+        ];
+
+        asort($options);
+
+        return $options;
+    }
+
+    public function format(Value $value): Value
+    {
+        switch ($this->post_format) {
+            case self::PROPERTY_TITLE :
+                $value = $value->with_value(
+                    (string)get_post_field('post_title', (int)$value->get_value())
+                );
+
+                return $this->format_from_settings($value);
+            case self::PROPERTY_FEATURED_IMAGE :
+                $value = $value->with_value(
+                    (int)get_post_meta((int)$value->get_value(), '_thumbnail_id', true)
+                );
+
+                return $this->format_from_settings($value);
+
+                // TODO
+            case self::PROPERTY_AUTHOR :
+            case self::PROPERTY_DATE :
+            case self::PROPERTY_STATUS :
+            case self::PROPERTY_ID :
+            default:
+                return $value;
+        }
+    }
+
+    private function format_from_settings(Value $value): Value
+    {
+        // TODO create trait
+        $settings = new SettingCollection();
+
+        foreach ($this->settings as $setting) {
+            if ($setting->get_conditions()->is_satisfied_by($this->post_format)) {
+                $settings->add($setting);
+            }
+        }
+
+        return Aggregate::from_settings($settings)->format($value);
     }
 
     // TODO
-    public function xxformat(Value $value, Config $options): Value
-    {
-        $ids = $value->get_value();
-
-        if ( ! $ids) {
-            return $value->with_value('');
-        }
-
-        $option = $options->get($this->get_name());
-
-        switch ($option) {
-            case self::PROPERTY_FEATURED_IMAGE:
-                $value = $value->with_value(get_post_thumbnail_id($value->get_value()));
-
-                break;
-            //            case self::PROPERTY_FEATURED_IMAGE:
-            //                $value = $value->with_value(get_post_thumbnail_id($ids[0]));
-            //
-            //                break;
-            //            case self::PROPERTY_AUTHOR :
-            //                return $value->with_value(
-            //                // TODO $ids[0]
-            //                    ac_helper()->user->get_display_name($ids[0])
-            //                        ?: sprintf(
-            //                        '<em>%s</em> (%s)',
-            //                        __('No author', 'codepress-admin-columns'),
-            //                        $ids[0]
-            //                    )
-            //                );
-            // TODO add formatter
-        }
-
-        return parent::format($value, $options);
-    }
+    //    public function xxformat(Value $value, Config $options): Value
+    //    {
+    //        $ids = $value->get_value();
+    //
+    //        if ( ! $ids) {
+    //            return $value->with_value('');
+    //        }
+    //
+    //        $option = $options->get($this->get_name());
+    //
+    //        switch ($option) {
+    //            case self::PROPERTY_FEATURED_IMAGE:
+    //                $value = $value->with_value(get_post_thumbnail_id($value->get_value()));
+    //
+    //                break;
+    //            case self::PROPERTY_FEATURED_IMAGE:
+    //                $value = $value->with_value(get_post_thumbnail_id($ids[0]));
+    //
+    //                break;
+    //            case self::PROPERTY_AUTHOR :
+    //                return $value->with_value(
+    //                // TODO $ids[0]
+    //                    ac_helper()->user->get_display_name($ids[0])
+    //                        ?: sprintf(
+    //                        '<em>%s</em> (%s)',
+    //                        __('No author', 'codepress-admin-columns'),
+    //                        $ids[0]
+    //                    )
+    //                );
+    // TODO add formatter
+    //        }
+    //
+    //        return parent::format($value, $options);
+    //    }
 
     public function get_children(): SettingCollection
     {
-        return new SettingCollection([
-            // TODO Title formatter
-            new User(StringComparisonSpecification::equal(self::PROPERTY_AUTHOR)),
-            new Image(StringComparisonSpecification::equal(self::PROPERTY_FEATURED_IMAGE)),
-            new Date(StringComparisonSpecification::equal(self::PROPERTY_DATE)),
-            new CharacterLimit(StringComparisonSpecification::equal(self::PROPERTY_TITLE)),
-            new StatusIcon(StringComparisonSpecification::equal(self::PROPERTY_STATUS)),
-        ]);
+        return $this->settings;
+
+        //        return new SettingCollection([
+        //            // TODO Title formatter
+        //            new User(StringComparisonSpecification::equal(self::PROPERTY_AUTHOR)),
+        //            new Image(StringComparisonSpecification::equal(self::PROPERTY_FEATURED_IMAGE)),
+        //            new Date(StringComparisonSpecification::equal(self::PROPERTY_DATE)),
+        //            new CharacterLimit(StringComparisonSpecification::equal(self::PROPERTY_TITLE)),
+        //            new StatusIcon(StringComparisonSpecification::equal(self::PROPERTY_STATUS)),
+        //        ]);
     }
 
     // TODO
@@ -184,21 +249,6 @@ class Post extends Recursive
     //        return $view;
     //    }
     //
-    protected function get_display_options(): array
-    {
-        $options = [
-            self::PROPERTY_TITLE          => __('Title'),
-            self::PROPERTY_ID             => __('ID'),
-            self::PROPERTY_AUTHOR         => __('Author'),
-            self::PROPERTY_FEATURED_IMAGE => _x('Featured Image', 'post'),
-            self::PROPERTY_DATE           => __('Date'),
-            self::PROPERTY_STATUS         => __('Status'),
-        ];
-
-        asort($options);
-
-        return $options;
-    }
     //
     //    /**
     //     * @return string

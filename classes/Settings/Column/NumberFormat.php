@@ -9,15 +9,29 @@ use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Component;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
+use AC\Setting\Type\Value;
 
-class NumberFormat extends Recursive
+class NumberFormat extends AC\Settings\Column implements Formatter
 {
 
-    public function __construct(Specification $specification = null)
-    {
+    private $format;
+
+    private $number_decimals;
+
+    private $number_decimal_separator;
+
+    private $number_thousands_separator;
+
+    public function __construct(
+        string $format,
+        int $number_decimals = 0,
+        string $number_decimal_separator = '',
+        string $number_thousands_separator = '',
+        Specification $specification = null
+    ) {
         parent::__construct(
-            'number_format',
             __('Number Format', 'codepress-admin-columns'),
             '',
             Component\Input\OptionFactory::create_select(
@@ -25,9 +39,35 @@ class NumberFormat extends Recursive
                 OptionCollection::from_array([
                     ''          => __('Default', 'codepress-admin-column'),
                     'formatted' => __('Formatted', 'codepress-admin-column'),
-                ])
+                ]),
+                $format
             ),
             $specification
+        );
+
+        $this->format = $format;
+        $this->number_decimals = $number_decimals;
+        $this->number_decimal_separator = $number_decimal_separator;
+        $this->number_thousands_separator = $number_thousands_separator;
+    }
+
+    public function format(Value $value): Value
+    {
+        if ('formatted' !== $this->format) {
+            return $value;
+        }
+
+        if ( ! is_numeric( $value->get_value() ) ) {
+            return $value;
+        }
+
+        return $value->with_value(
+            number_format(
+                (float)$value->get_value(),
+                $this->number_decimals,
+                $this->number_decimal_separator,
+                $this->number_thousands_separator
+            )
         );
     }
 
@@ -39,34 +79,40 @@ class NumberFormat extends Recursive
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-
-            // TODO
             new AC\Settings\Column(
-                'number_decimals',
                 __('Decimals', 'codepress-admin-columns'),
                 '',
-                Component\Input\Number::create_single_step('number_decimals', 0, 20, 0),
+                Component\Input\Number::create_single_step(
+                    'number_decimals',
+                    0,
+                    20,
+                    $this->number_decimals
+                ),
                 StringComparisonSpecification::equal('formatted')
             ),
             new AC\Settings\Column(
-                'number_decimal_point',
                 __('Decimal point', 'codepress-admin-columns'),
                 '',
-                Component\Input\OpenFactory::create_text('number_decimal_point', null, '.'),
+                Component\Input\OpenFactory::create_text(
+                    'number_decimal_point',
+                    $this->number_decimal_separator,
+                    '.'
+                ),
                 StringComparisonSpecification::equal('formatted')
             ),
             new AC\Settings\Column(
-                'number_thousands_separator',
                 __('Thousands separator', 'codepress-admin-columns'),
                 '',
-                Component\Input\OpenFactory::create_text('number_thousands_separator'),
+                Component\Input\OpenFactory::create_text(
+                    'number_thousands_separator',
+                    $this->number_thousands_separator,
+                    ','
+                ),
                 StringComparisonSpecification::equal('formatted')
             ),
             new AC\Settings\Column(
-                'number_preview',
                 __('Preview', 'codepress-admin-columns'),
                 '',
-                // TODO remove Custom
                 new Component\Input\Custom(
                     'number_preview',
                     [

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
+use AC\MetaType;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\Aggregate;
@@ -19,8 +20,16 @@ class CustomField extends Column implements Formatter
 
     private $settings;
 
-    public function __construct(string $field, SettingCollection $settings, Specification $specification = null)
-    {
+    private $field;
+
+    private $meta_type;
+
+    public function __construct(
+        string $field,
+        MetaType $meta_type,
+        SettingCollection $settings,
+        Specification $specification = null
+    ) {
         parent::__construct(
             __('Field', 'codepress-admin-columns'),
             __('Custom field key', 'codepress-admin-columns'),
@@ -33,16 +42,24 @@ class CustomField extends Column implements Formatter
             $specification
         );
 
-        // TODO
-        // Backwards compatible for WordPress Settings API not storing fields starting with _
-        //        if ($field && 0 === strpos($field, 'cpachidden')) {
-        //            $field = substr($field, strlen('cpachidden'));
-        //        }
         $this->settings = $settings;
+        $this->field = $field;
+        $this->meta_type = $meta_type;
     }
 
     public function format(Value $value): Value
     {
+        $field = $this->field;
+
+        // Backwards compatible for WordPress Settings API not storing fields starting with _
+        if ($field && 0 === strpos($field, 'cpachidden')) {
+            $field = substr($field, strlen('cpachidden'));
+        }
+
+        $value = $value->with_value(
+            get_metadata((string)$this->meta_type, (int)$value->get_id(), $field, true)
+        );
+
         return Aggregate::from_settings($this->settings)->format($value);
     }
 

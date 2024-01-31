@@ -7,7 +7,6 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Component\Type\Option;
@@ -17,19 +16,32 @@ use AC\Setting\Type\Value;
 class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
-    public function __construct(Specification $specification = null, string $default = 'cpac-custom')
-    {
+    private $image_format;
+
+    private $width;
+
+    private $height;
+
+    public function __construct(
+        string $image_format = null,
+        int $width = null,
+        int $height = null,
+        Specification $specification = null
+    ) {
         parent::__construct(
-            'image_size',
             __('Image Size', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
                 'image_size',
                 $this->get_grouped_image_sizes(),
-                $default
+                $image_format
             ),
             $specification
         );
+
+        $this->image_format = $image_format ?? 'cpac-custom';
+        $this->width = $width ?? 60;
+        $this->height = $height ?? 60;
     }
 
     public function is_parent(): bool
@@ -37,12 +49,15 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
         return true;
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
-        $size = $this->get_size($options);
-
         return $value->with_value(
-            ac_helper()->image->get_image($value->get_value(), $size)
+            // TODO verify it's an `id`
+            // TODO verify sizes
+            ac_helper()->image->get_image(
+                $value->get_value(),
+                $this->get_size()
+            )
         );
     }
 
@@ -50,46 +65,32 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
     {
         return new SettingCollection([
             new AC\Settings\Column(
-                'image_size_w',
                 __('Width', 'codepress-admin-columns'),
                 '',
-                // TODO why name?
-                AC\Setting\Component\Input\Number::create_single_step('image_size_w', 0, null, 60),
+                AC\Setting\Component\Input\Number::create_single_step('image_size_w', 0, null, $this->width),
                 StringComparisonSpecification::equal('cpac-custom')
             ),
             new AC\Settings\Column(
-                'image_size_h',
                 __('Height', 'codepress-admin-columns'),
                 '',
-                // TODO why name?
-                AC\Setting\Component\Input\Number::create_single_step('image_size_w', 0, null, 60),
+                AC\Setting\Component\Input\Number::create_single_step('image_size_h', 0, null, $this->height),
                 StringComparisonSpecification::equal('cpac-custom')
             ),
         ]);
     }
 
-    /**
-     * @return int[]|string
-     */
-    protected function get_size(Config $options)
+    protected function get_size(): array
     {
-        $size = $options->get($this->get_name());
-
-        if ('cpac-custom' === $size) {
-            $width = (int)$options->get('image_size_w');
-            $height = (int)$options->get('image_size_h');
-
-            if ($width && $height) {
-                $size = [$width, $height];
-            }
+        if ('cpac-custom' === $this->image_format) {
+            return [
+                $this->width,
+                $this->height,
+            ];
         }
 
-        // Default
-        if (null === $size) {
-            $size = [60, 60];
-        }
+        // TODO custom sizes
 
-        return $size;
+        return [60, 60];
     }
 
     protected function get_dimension_for_size(string $size): ?array
@@ -129,6 +130,7 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
     {
         $default_group = __('Default', 'codepress-admin-columns');
 
+        // TODO
         $options = new OptionCollection([
             new Option(__('Thumbnail', 'codepress-admin-columns'), 'thumbnail', $default_group),
             new Option(__('Medium', 'codepress-admin-columns'), 'medium', $default_group),

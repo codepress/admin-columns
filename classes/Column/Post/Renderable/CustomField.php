@@ -4,32 +4,22 @@ declare(strict_types=1);
 
 namespace AC\Column\Post\Renderable;
 
-use AC\Column\Renderable\ValueFormatter;
-use AC\MetaType;
+use AC\Column\Renderable;
 
-class CustomField extends Formatted
+class CustomField implements Renderable
 {
 
-    private $meta_type;
+    private $formatter;
 
-    private $meta_key;
-
-    public function __construct(ValueFormatter $formatter, MetaType $meta_type, string $meta_key)
+    public function __construct(Renderable\ValueFormatter $formatter)
     {
-        parent::__construct($formatter);
-
-        $this->meta_type = $meta_type;
-        $this->meta_key = $meta_key;
+        $this->formatter = $formatter;
     }
 
-    protected function get_pre_formatted_value($id): string
+    public function render($id): string
     {
-        return get_metadata(
-            (string)$this->meta_type,
-            (int)$id,
-            $this->meta_key,
-            true
-        );
+        return $this->formatter->format($id, $id);
     }
+
 
 }

@@ -45,7 +45,6 @@ class DemoFactory
                 }
 
                 return new Column\CustomField(
-                    $table_screen->get_meta_type(),
                     new SettingCollection([
                         $this->container->get(Settings\Column\CustomFieldFactory::class)->create($config),
                     ])

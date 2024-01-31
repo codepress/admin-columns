@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Expression\OrSpecification;
-use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Config;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter\Aggregate;
 use AC\Setting\SettingCollection;
@@ -51,7 +48,7 @@ class CustomFieldType extends AC\Settings\Column implements AC\Setting\Formatter
                 true
             )
         );
-        
+
         $this->settings = $settings;
         $this->field_type = $field_type;
     }
@@ -71,39 +68,32 @@ class CustomFieldType extends AC\Settings\Column implements AC\Setting\Formatter
 
     public function get_children(): SettingCollection
     {
-
         return $this->settings;
 
-//        return new SettingCollection([
-//            // TODO
-//            new StringLimit(
-//                StringComparisonSpecification::equal(self::TYPE_TEXT)
-//            ),
-//            new NumberFormat(
-//                StringComparisonSpecification::equal(self::TYPE_NUMERIC)
-//            ),
-//            new Date(
-//                StringComparisonSpecification::equal(self::TYPE_DATE)
-//            ),
-//            new DateFormat(
-//                StringComparisonSpecification::equal(self::TYPE_DATE)
-//            ),
-//            new Image(
-//                new OrSpecification([
-//                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
-//                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
-//                ])
-//            ),
-//            new MediaLink(
-//                new OrSpecification([
-//                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
-//                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
-//                ])
-//            ),
-//            new LinkLabel(
-//                StringComparisonSpecification::equal(self::TYPE_URL)
-//            ),
-//        ]);
+        //        return new SettingCollection([
+        //            // TODO
+        //            new Date(
+        //                StringComparisonSpecification::equal(self::TYPE_DATE)
+        //            ),
+        //            new DateFormat(
+        //                StringComparisonSpecification::equal(self::TYPE_DATE)
+        //            ),
+        //            new Image(
+        //                new OrSpecification([
+        //                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
+        //                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
+        //                ])
+        //            ),
+        //            new MediaLink(
+        //                new OrSpecification([
+        //                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
+        //                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
+        //                ])
+        //            ),
+        //            new LinkLabel(
+        //                StringComparisonSpecification::equal(self::TYPE_URL)
+        //            ),
+        //        ]);
     }
 
     protected function get_field_type_options(): OptionCollection
@@ -136,29 +126,29 @@ class CustomFieldType extends AC\Settings\Column implements AC\Setting\Formatter
         return $collection;
     }
 
-//    public function format(Value $value, Config $options): Value
-//    {
-//        switch ((string)$options->get($this->name)) {
-//            case self::TYPE_COLOR:
-//                $value = (new AC\Setting\Formatter\Color())->format($value, $options);
-//
-//                break;
-//            case self::TYPE_DATE:
-//                $timestamp = ac_helper()->date->strtotime($value->get_value());
-//
-//                if ($timestamp) {
-//                    $value = $value->with_value(date('c', $timestamp));
-//                }
-//
-//                break;
-//            case self::TYPE_IMAGE :
-//                // TODO David, in the old formatter, we could return a valueCollection here and it would format each option, can we deal with that? Old example code below
-//                //                return new Collection($this->get_values_from_array_or_string($value));
-//                $value = new Value((int)$value->get_value(), $value->get_value());
-//        }
-//
-//        return parent::format($value, $options);
-//    }
+    //    public function format(Value $value, Config $options): Value
+    //    {
+    //        switch ((string)$options->get($this->name)) {
+    //            case self::TYPE_COLOR:
+    //                $value = (new AC\Setting\Formatter\Color())->format($value, $options);
+    //
+    //                break;
+    //            case self::TYPE_DATE:
+    //                $timestamp = ac_helper()->date->strtotime($value->get_value());
+    //
+    //                if ($timestamp) {
+    //                    $value = $value->with_value(date('c', $timestamp));
+    //                }
+    //
+    //                break;
+    //            case self::TYPE_IMAGE :
+    //                // TODO David, in the old formatter, we could return a valueCollection here and it would format each option, can we deal with that? Old example code below
+    //                //                return new Collection($this->get_values_from_array_or_string($value));
+    //                $value = new Value((int)$value->get_value(), $value->get_value());
+    //        }
+    //
+    //        return parent::format($value, $options);
+    //    }
 
     // TODO
 
