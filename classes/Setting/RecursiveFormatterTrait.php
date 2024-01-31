@@ -12,15 +12,12 @@ trait RecursiveFormatterTrait
 
     abstract public function get_children(): SettingCollection;
 
-    public function format(Value $value): Value
+    public function format_by_condition(Value $value, string $condition): Value
     {
         $settings = new SettingCollection();
-        // TODO how to access `get_name`
-//        $option = $options->get($this->get_name()) ?: '';
 
         foreach ($this->get_children() as $setting) {
-//            if ($setting->get_conditions()->is_satisfied_by($option)) {
-            if ($setting->get_conditions()->is_satisfied_by('')) {
+            if ($setting->get_conditions()->is_satisfied_by($condition)) {
                 $settings->add($setting);
             }
         }

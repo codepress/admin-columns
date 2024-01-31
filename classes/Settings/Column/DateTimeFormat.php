@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Config;
 use AC\Setting\Component\Input\Custom;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
@@ -16,9 +15,9 @@ use AC\Settings\Column;
 abstract class DateTimeFormat extends Recursive
 {
 
-    public const NAME = 'date';
+    private $date_format;
 
-    public function __construct(Specification $conditions = null)
+    public function __construct(string $date_format = null, Specification $conditions = null)
     {
         parent::__construct(
             __('Date Format', 'codepress-admin-columns'),
@@ -26,25 +25,26 @@ abstract class DateTimeFormat extends Recursive
             new Custom('date_format'),
             $conditions
         );
+
+        $this->date_format = $date_format ?? 'wp_default';
     }
 
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
             new Column(
-                'date_format',
                 '',
                 '',
                 OptionFactory::create_radio(
                     'date_format',
                     OptionCollection::from_array($this->get_date_options()),
-                    'wp_default'
+                    $this->date_format
                 )
             ),
         ]);
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
         $timestamp = $this->get_timestamp($value->get_value());
 
@@ -52,14 +52,14 @@ abstract class DateTimeFormat extends Recursive
             return $value->with_value(false);
         }
 
-        $date_format = (string)$options->get($this->name);
+        $date_format = $this->date_format;
 
-        if ($date_format === 'wp_default') {
+        if ('wp_default' === $this->date_format) {
             $date_format = $this->get_wp_default_format();
         }
 
         return $value->with_value(
-            ac_helper()->date->format_date($date_format, $timestamp)
+            wp_date($date_format, $timestamp)
         );
     }
 
@@ -81,7 +81,7 @@ abstract class DateTimeFormat extends Recursive
     abstract protected function get_custom_format_options();
 
     //
-    abstract protected function get_wp_default_format();
+    abstract protected function get_wp_default_format() :string;
     //
     //	/**
     //	 * @param string $label
@@ -129,7 +129,7 @@ abstract class DateTimeFormat extends Recursive
     //		return [ 'wp_default', 'diff' ];
     //	}
     //
-    protected function get_html_label_from_date_format($date_format)
+    protected function create_date(string $date_format): string
     {
         return ac_helper()->date->format_date($date_format, null, ac_helper()->date->timezone());
     }

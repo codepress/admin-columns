@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Config;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -14,9 +13,10 @@ class Date extends Settings\Column\DateTimeFormat
 
     private $date_format;
 
-    public function __construct(Specification $conditions = null, string $date_format = null)
+    public function __construct(string $date_format = null, Specification $conditions = null)
     {
         parent::__construct($conditions);
+
         $this->date_format = $date_format ?? 'wp_default';
     }
 
@@ -35,28 +35,22 @@ class Date extends Settings\Column\DateTimeFormat
         ];
 
         foreach ($formats as $format) {
-            $options[$format] = $this->get_html_label_from_date_format($format);
+            $options[$format] = wp_date($format);
         }
 
         return $options;
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
-        if ('diff' === $options->get($this->name)) {
+        if ('diff' === $this->date_format) {
             $timestamp = $this->get_timestamp($value->get_value());
 
             return $value->with_value($timestamp ? $this->format_human_time_diff($timestamp) : false);
         }
 
-        return parent::format($value, $options);
+        return parent::format($value);
     }
-
-    public function get_date_format(): string
-    {
-        return $this->date_format;
-    }
-
 
 
     // TODO
@@ -91,7 +85,7 @@ class Date extends Settings\Column\DateTimeFormat
     //		return $options;
     //	}
     //
-    protected function get_wp_default_format()
+    protected function get_wp_default_format():string
     {
         return get_option('date_format');
     }

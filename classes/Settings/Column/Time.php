@@ -18,9 +18,9 @@ class Time extends Settings\Column\DateTimeFormat
         return $view;
     }
 
-    protected function get_custom_format_options()
+    protected function get_custom_format_options():array
     {
-        $options['wp_default'] = $this->get_default_html_label(__('WordPress Time Format', 'codepress-admin-columns'));
+        $options['wp_default'] = __('WordPress Time Format', 'codepress-admin-columns');
 
         $formats = [
             'H:i:s',
@@ -28,13 +28,13 @@ class Time extends Settings\Column\DateTimeFormat
         ];
 
         foreach ($formats as $format) {
-            $options[$format] = $this->get_html_label_from_date_format($format);
+            $options[$format] = wp_date($format);
         }
 
         return $options;
     }
 
-    protected function get_wp_default_format()
+    protected function get_wp_default_format():string
     {
         return get_option('time_format');
     }

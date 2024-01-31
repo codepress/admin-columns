@@ -8,7 +8,7 @@ use AC\Expression\Specification;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\Aggregate;
+use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Column;
@@ -16,7 +16,7 @@ use AC\Settings\Column;
 class Post extends Column implements Formatter
 {
 
-    public const NAME = 'post';
+    use RecursiveFormatterTrait;
 
     public const PROPERTY_AUTHOR = 'author';
     public const PROPERTY_FEATURED_IMAGE = 'thumbnail';
@@ -62,13 +62,9 @@ class Post extends Column implements Formatter
         return $options;
     }
 
-    public function format(Value $value): Value
+    public function pre_format_value(Value $value): Value
     {
-        $id = $value->get_value();
-
-        if ( ! is_numeric($id)) {
-            return $value;
-        }
+        $id = (int)$value->get_value();
 
         switch ($this->post_format) {
             // TODO should this be settings with just formatting?
@@ -80,14 +76,20 @@ class Post extends Column implements Formatter
                         $id
                     );
 
-                return $this->format_from_settings($value->with_value($title), $this->post_format);
+                return $value->with_value($title);
             case self::PROPERTY_FEATURED_IMAGE :
                 $attachment_id = (int)get_post_meta($id, '_thumbnail_id', true);
 
-                return $this->format_from_settings($value->with_value($attachment_id), $this->post_format);
-
-            // TODO
+                return $this->format_by_condition(
+                    $value->with_value($attachment_id),
+                    $this->post_format
+                );
             case self::PROPERTY_AUTHOR :
+                return $this->format_by_condition(
+                    $value->with_value((int)get_post_field('post_author', $id)),
+                    $this->post_format
+                );
+                // TODO
             case self::PROPERTY_DATE :
             case self::PROPERTY_STATUS :
             case self::PROPERTY_ID :
@@ -96,22 +98,26 @@ class Post extends Column implements Formatter
         }
     }
 
-    // TODO create trait
-    private function format_from_settings(Value $value, string $fact): Value
+    public function format(Value $value): Value
     {
-        $settings = new SettingCollection();
-
-        foreach ($this->settings as $setting) {
-            if ($setting->get_conditions()->is_satisfied_by($fact)) {
-                $settings->add($setting);
-            }
+        if ( ! is_numeric($value->get_value())) {
+            return $value;
         }
 
-        return Aggregate::from_settings($settings)->format($value);
+        return $this->format_by_condition(
+            $this->pre_format_value($value),
+            $this->post_format
+        );
+    }
+
+    public function get_children(): SettingCollection
+    {
+        return $this->settings;
     }
 
     // TODO
-    //    public function xxformat(Value $value, Config $options): Value
+    //
+    //    public function format(Value $value, Config $options): Value
     //    {
     //        $ids = $value->get_value();
     //
@@ -146,10 +152,6 @@ class Post extends Column implements Formatter
     //        return parent::format($value, $options);
     //    }
 
-    public function get_children(): SettingCollection
-    {
-        return $this->settings;
-    }
 
     // TODO
     //

@@ -3,141 +3,83 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Config;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
+use AC\Setting\Formatter;
+use AC\Setting\Formatter\Aggregate;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
+use AC\Settings\Column;
 
-class User extends Recursive
+class User extends Column implements Formatter
 {
 
-    public function __construct(Specification $specification = null)
+    private $user_format;
+
+    private $settings;
+
+    public function __construct(string $user_format, SettingCollection $settings, Specification $specification = null)
     {
-        // TODO no label displays an empty <div> with padding in the editor
-        parent::__construct('user', '', '', null, $specification);
+        parent::__construct(
+            __('Display', 'codepress-admin-columns'),
+            '',
+            OptionFactory::create_select(
+                'display_author_as',
+                $this->get_input_options(),
+                $user_format
+            ),
+            $specification
+        );
+
+        $this->user_format = $user_format ?: 'first_last_name';
+        $this->settings = $settings;
     }
 
-    // TODO David this column has a recursive extension, but not this one. The trait implements it as well
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
-        return $value->with_value(
-            parent::format(
-                new Value((int)$value->get_value()),
-                $options
-            )->get_value()
+        $user_id = $value->get_value();
+
+        if ( ! is_numeric($user_id)) {
+            return $value;
+        }
+
+        $user_id = (int)$user_id;
+
+        $value = new Value(
+            $user_id,
+            ac_helper()->user->get_display_name(
+                $user_id,
+                $this->user_format
+            )
         );
+
+        return Aggregate::from_settings($this->settings)->format($value);
+    }
+
+    protected function get_input_options(): OptionCollection
+    {
+        $options = [
+            'display_name'    => __('Display Name', 'codepress-admin-columns'),
+            'first_name'      => __('First Name', 'codepress-admin-columns'),
+            'first_last_name' => __('Full Name', 'codepress-admin-columns'),
+            'last_name'       => __('Last Name', 'codepress-admin-columns'),
+            'nickname'        => __('Nickname', 'codepress-admin-columns'),
+            'roles'           => __('Roles', 'codepress-admin-columns'),
+            'user_login'      => __('User Login', 'codepress-admin-columns'),
+            'user_email'      => __('User Email', 'codepress-admin-columns'),
+            'ID'              => __('User ID', 'codepress-admin-columns'),
+            'user_nicename'   => __('User Nicename', 'codepress-admin-columns'),
+            'user_url'        => __('User Website', 'codepress-admin-columns'),
+        ];
+
+        natcasesort($options);
+
+        return OptionCollection::from_array($options);
     }
 
     public function get_children(): SettingCollection
     {
-        return new SettingCollection([
-            new UserDisplay(),
-            new UserLink(),
-        ]);
+        return $this->settings;
     }
-
-    // TODO
-    //
-    //    /**
-    //     * @var string
-    //     */
-    //    private $display_author_as;
-    //
-    //    protected function set_name()
-    //    {
-    //        $this->name = self::NAME;
-    //    }
-    //
-    //    protected function define_options()
-    //    {
-    //        return ['display_author_as' => ''];
-    //    }
-    //
-    //    public function get_dependent_settings()
-    //    {
-    //        $settings = [];
-    //
-    //        $settings[] = new Settings\Column\UserLink($this->column);
-    //
-    //        return $settings;
-    //    }
-    //
-    //    /**
-    //     * @return View
-    //     */
-    //    public function create_view()
-    //    {
-    //        $select = $this->create_element('select', 'display_author_as')
-    //                       ->set_attribute('data-label', 'update')
-    //                       ->set_attribute('data-refresh', 'column')
-    //                       ->set_options($this->get_display_options());
-    //
-    //        $view = new View([
-    //            'label'   => __('Display', 'codepress-admin-columns'),
-    //            'setting' => $select,
-    //            'for'     => $select->get_id(),
-    //        ]);
-    //
-    //        return $view;
-    //    }
-    //
-    //    /**
-    //     * @param int $user_id
-    //     *
-    //     * @return false|string
-    //     */
-    //    public function get_user_name($user_id)
-    //    {
-    //        return ac_helper()->user->get_display_name($user_id, $this->get_display_author_as());
-    //    }
-    //
-    //    /**
-    //     * @return array
-    //     */
-    //    protected function get_display_options()
-    //    {
-    //        $options = [
-    //            self::PROPERTY_DISPLAY_NAME => __('Display Name', 'codepress-admin-columns'),
-    //            self::PROPERTY_FIRST_NAME   => __('First Name', 'codepress-admin-columns'),
-    //            self::PROPERTY_FULL_NAME    => __('Full Name', 'codepress-admin-columns'),
-    //            self::PROPERTY_LAST_NAME    => __('Last Name', 'codepress-admin-columns'),
-    //            self::PROPERTY_NICKNAME     => __('Nickname', 'codepress-admin-columns'),
-    //            self::PROPERTY_ROLES        => __('Roles', 'codepress-admin-columns'),
-    //            self::PROPERTY_LOGIN        => __('User Login', 'codepress-admin-columns'),
-    //            self::PROPERTY_EMAIL        => __('User Email', 'codepress-admin-columns'),
-    //            self::PROPERTY_ID           => __('User ID', 'codepress-admin-columns'),
-    //            self::PROPERTY_NICENAME     => __('User Nicename', 'codepress-admin-columns'),
-    //            self::PROPERTY_URL          => __('User Website', 'codepress-admin-columns'),
-    //        ];
-    //
-    //        // resort for possible translations
-    //        natcasesort($options);
-    //
-    //        return $options;
-    //    }
-    //
-    //    /**
-    //     * @return string
-    //     */
-    //    public function get_display_author_as()
-    //    {
-    //        return $this->display_author_as ?: '';
-    //    }
-    //
-    //    /**
-    //     * @param string $display_author_as
-    //     *
-    //     * @return bool
-    //     */
-    //    public function set_display_author_as($display_author_as)
-    //    {
-    //        $this->display_author_as = $display_author_as;
-    //
-    //        return true;
-    //    }
-    //
-    //    public function format($value, $original_value)
-    //    {
-    //        return $this->get_user_name($value);
-    //    }
 
 }

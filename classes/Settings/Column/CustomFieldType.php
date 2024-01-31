@@ -69,31 +69,6 @@ class CustomFieldType extends AC\Settings\Column implements AC\Setting\Formatter
     public function get_children(): SettingCollection
     {
         return $this->settings;
-
-        //        return new SettingCollection([
-        //            // TODO
-        //            new Date(
-        //                StringComparisonSpecification::equal(self::TYPE_DATE)
-        //            ),
-        //            new DateFormat(
-        //                StringComparisonSpecification::equal(self::TYPE_DATE)
-        //            ),
-        //            new Image(
-        //                new OrSpecification([
-        //                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
-        //                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
-        //                ])
-        //            ),
-        //            new MediaLink(
-        //                new OrSpecification([
-        //                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
-        //                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
-        //                ])
-        //            ),
-        //            new LinkLabel(
-        //                StringComparisonSpecification::equal(self::TYPE_URL)
-        //            ),
-        //        ]);
     }
 
     protected function get_field_type_options(): OptionCollection

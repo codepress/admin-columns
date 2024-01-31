@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
@@ -29,29 +28,26 @@ class UserDisplay extends Settings\Column implements Formatter
     public const PROPERTY_NICKNAME = 'nickname';
     public const PROPERTY_ROLES = 'roles';
 
-    public function __construct(Specification $specification = null)
+    public function __construct(string $user_format, Specification $specification = null)
     {
-        $input = OptionFactory::create_select(
-            'display_author_as',
-            OptionCollection::from_array($this->get_input_options()),
-            self::PROPERTY_DISPLAY_NAME
-        );
-
         parent::__construct(
-            'display_author_as',
             __('Display', 'codepress-admin-columns'),
             '',
-            $input,
+            OptionFactory::create_select(
+                'display_author_as',
+                OptionCollection::from_array($this->get_input_options()),
+                $user_format
+            ),
             $specification
         );
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
+        // TODO
         return $value->with_value(
             ac_helper()->user->get_display_name(
-                $value->get_id(),
-                $options->get(self::NAME)
+                (int)$value->get_value()
             )
         );
     }
