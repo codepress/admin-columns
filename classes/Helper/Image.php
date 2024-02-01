@@ -66,13 +66,13 @@ class Image
 
         $ids = is_array($ids) ? $ids : [$ids];
         foreach ($ids as $id) {
-            $images[] = $this->get_image_by_id($id, $size);
+            $images[] = $this->render_image_by_id($id, $size);
         }
 
         return implode($images);
     }
 
-    public function get_image_by_id(int $id, $size): ?string
+    public function render_image_by_id(int $id, $size): ?string
     {
         $attributes = wp_get_attachment_image_src($id, $size);
 
@@ -126,7 +126,7 @@ class Image
         return (bool)preg_match('/-[0-9]+x[0-9]+$/', $fileinfo['filename']);
     }
 
-    public function get_image_by_url(string $url, $size): string
+    public function render_image_by_url(string $url, $size): string
     {
         if (is_string($size) && ($sizes = $this->get_image_sizes_by_name($size))) {
             $dimensions = [$sizes['width'], $sizes['height']];
@@ -171,12 +171,12 @@ class Image
 
         foreach ((array)$images as $value) {
             if ($skip_image_check && $value && is_string($value)) {
-                $thumbnails[] = $this->get_image_by_url($value, $size);
+                $thumbnails[] = $this->render_image_by_url($value, $size);
             } elseif (ac_helper()->string->is_image($value)) {
-                $thumbnails[] = $this->get_image_by_url($value, $size);
+                $thumbnails[] = $this->render_image_by_url($value, $size);
             } // Media Attachment
 			elseif (is_numeric($value) && wp_get_attachment_url($value)) {
-                $thumbnails[] = $this->get_image_by_id($value, $size);
+                $thumbnails[] = $this->render_image_by_id($value, $size);
             }
         }
 

@@ -4,23 +4,15 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Expression\Specification;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
+// TODO
 class Date extends Settings\Column\DateTimeFormat
 {
 
-    private $date_format;
-
-    public function __construct(string $date_format = null, Specification $conditions = null)
-    {
-        parent::__construct($conditions);
-
-        $this->date_format = $date_format ?? 'wp_default';
-    }
-
-    protected function get_custom_format_options(): array
+    protected function get_date_options(): OptionCollection
     {
         $options = [
             'diff'       => __('Time Difference', 'codepress-admin-columns'),
@@ -38,7 +30,12 @@ class Date extends Settings\Column\DateTimeFormat
             $options[$format] = wp_date($format);
         }
 
-        return $options;
+        return OptionCollection::from_array($options);
+    }
+
+    public function is_parent(): bool
+    {
+        return false;
     }
 
     public function format(Value $value): Value
@@ -46,10 +43,32 @@ class Date extends Settings\Column\DateTimeFormat
         if ('diff' === $this->date_format) {
             $timestamp = $this->get_timestamp($value->get_value());
 
-            return $value->with_value($timestamp ? $this->format_human_time_diff($timestamp) : false);
+            return $value->with_value(
+                $timestamp
+                    ? $this->format_human_time_diff($timestamp)
+                    : false
+            );
         }
 
         return parent::format($value);
+    }
+
+    protected function get_wp_default_format(): string
+    {
+        return get_option('date_format');
+    }
+
+    protected function format_human_time_diff(int $timestamp): ?string
+    {
+        $current_time = (int)current_time('timestamp');
+
+        $tpl = __('%s ago');
+
+        if ($timestamp > $current_time) {
+            $tpl = __('in %s', 'codepress-admin-columns');
+        }
+
+        return sprintf($tpl, human_time_diff($timestamp, $current_time));
     }
 
 
@@ -85,51 +104,5 @@ class Date extends Settings\Column\DateTimeFormat
     //		return $options;
     //	}
     //
-    protected function get_wp_default_format():string
-    {
-        return get_option('date_format');
-    }
-    //
-    //	/**
-    //	 * @param string $date
-    //	 * @param        $original_value
-    //	 *
-    //	 * @return string
-    //	 */
-    //	public function format( $date, $original_value ) {
-    //		$timestamp = $this->get_timestamp( $date );
-    //
-    //		if ( ! $timestamp ) {
-    //			return false;
-    //		}
-    //
-    //		if ( 'diff' === $this->get_date_format() ) {
-    //			return $this->format_human_time_diff( $timestamp );
-    //		}
-    //
-    //		return parent::format( $date, $original_value );
-    //	}
-    //
-    //	/**
-    //	 * @param int $timestamp Unix time stamp
-    //	 *
-    //	 * @return string
-    //	 */
-    protected function format_human_time_diff($timestamp): ?string
-    {
-        if ( ! $timestamp) {
-            return null;
-        }
-
-        $current_time = current_time('timestamp');
-
-        $tpl = __('%s ago');
-
-        if ($timestamp > $current_time) {
-            $tpl = __('in %s', 'codepress-admin-columns');
-        }
-
-        return sprintf($tpl, human_time_diff($timestamp, $current_time));
-    }
 
 }

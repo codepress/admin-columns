@@ -268,12 +268,7 @@ class Strings
             ) . '">' . esc_html($hex) . '</span></div>';
     }
 
-    /**
-     * @param $url
-     *
-     * @return bool
-     */
-    public function is_valid_url($url)
+    public function is_valid_url(string $url): bool
     {
         return filter_var($url, FILTER_VALIDATE_URL) || preg_match('/[^\w.-]/', $url);
     }

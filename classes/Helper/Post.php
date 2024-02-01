@@ -7,11 +7,6 @@ use WP_Post;
 class Post
 {
 
-    public function exists($id): bool
-    {
-        return (bool)$this->get_raw_field('ID', (int)$id);
-    }
-
     private function esc_sql_array($array): string
     {
         return sprintf("'%s'", implode("','", array_map('esc_sql', $array)));
@@ -93,40 +88,33 @@ class Post
         return $title;
     }
 
-    /**
-     * @param WP_Post $post Post
-     *
-     * @return false|string Dash icon with tooltip
-     */
-    public function get_status_icon($post)
+    public function get_status_icon(WP_Post $post): ?string
     {
-        $icon = false;
-
         switch ($post->post_status) {
             case 'private' :
-                $icon = ac_helper()->html->tooltip(
+                return ac_helper()->html->tooltip(
                     ac_helper()->icon->dashicon(['icon' => 'hidden', 'class' => 'gray']),
                     __('Private')
                 );
-                break;
+
             case 'publish' :
-                $icon = ac_helper()->html->tooltip(
+                return ac_helper()->html->tooltip(
                     ac_helper()->icon->dashicon(['icon' => 'yes', 'class' => 'blue large']),
                     __('Published')
                 );
-                break;
+
             case 'draft' :
-                $icon = ac_helper()->html->tooltip(
+                return ac_helper()->html->tooltip(
                     ac_helper()->icon->dashicon(['icon' => 'edit', 'class' => 'green']),
                     __('Draft')
                 );
-                break;
+
             case 'pending' :
-                $icon = ac_helper()->html->tooltip(
+                return ac_helper()->html->tooltip(
                     ac_helper()->icon->dashicon(['icon' => 'backup', 'class' => 'orange']),
                     __('Pending for review')
                 );
-                break;
+
             case 'future' :
                 $icon = ac_helper()->html->tooltip(
                     ac_helper()->icon->dashicon(['icon' => 'clock']),
@@ -140,10 +128,11 @@ class Post
                         __('Missed schedule')
                     );
                 }
-                break;
-        }
 
-        return $icon;
+                return $icon;
+            default:
+                return null;
+        }
     }
 
 }

@@ -9,13 +9,13 @@ use AC\Setting\Config;
 use AC\Settings\Column;
 use AC\Settings\SettingFactory;
 
-class DateFactory implements SettingFactory
+class MediaLinkFactory implements SettingFactory
 {
 
     public function create(Config $config, Specification $specification = null): Column
     {
-        return new Date(
-            $config->get('date_format'),
+        return new MediaLink(
+            (string)$config->get('link_to'),
             $specification
         );
     }

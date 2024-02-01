@@ -9,13 +9,13 @@ use AC\Setting\Config;
 use AC\Settings\Column;
 use AC\Settings\SettingFactory;
 
-class DateFactory implements SettingFactory
+class LinkLabelFactory implements SettingFactory
 {
 
     public function create(Config $config, Specification $specification = null): Column
     {
-        return new Date(
-            $config->get('date_format'),
+        return new LinkLabel(
+            $config->get('link_label'),
             $specification
         );
     }

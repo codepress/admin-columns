@@ -18,19 +18,24 @@ class PostFactory implements SettingFactory
 
     private $image_factory;
 
-    /**
-     * @var UserFactory
-     */
     private $user_factory;
+
+    private $status_factory;
+
+    private $date_factory;
 
     public function __construct(
         CharacterLimitFactory $character_limit_factory,
         ImageFactory $image_factory,
-        UserFactory $user_factory
+        UserFactory $user_factory,
+        StatusFactory $status_factory,
+        DateFactory $date_factory
     ) {
         $this->character_limit_factory = $character_limit_factory;
         $this->image_factory = $image_factory;
         $this->user_factory = $user_factory;
+        $this->status_factory = $status_factory;
+        $this->date_factory = $date_factory;
     }
 
     public function create(Config $config, Specification $specification = null): Column
@@ -49,6 +54,18 @@ class PostFactory implements SettingFactory
                 $this->user_factory->create(
                     $config,
                     StringComparisonSpecification::equal(Post::PROPERTY_AUTHOR)
+                ),
+                $this->status_factory->create(
+                    $config,
+                    StringComparisonSpecification::equal(Post::PROPERTY_STATUS)
+                ),
+                $this->status_factory->create(
+                    $config,
+                    StringComparisonSpecification::equal(Post::PROPERTY_STATUS)
+                ),
+                $this->date_factory->create(
+                    $config,
+                    StringComparisonSpecification::equal(Post::PROPERTY_DATE)
                 ),
 
                 // TODO Title formatter

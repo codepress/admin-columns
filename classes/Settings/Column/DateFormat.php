@@ -16,7 +16,7 @@ class DateFormat extends Settings\Column
     public const FORMAT_DATETIME = 'Y-m-d H:i:s';
     public const FORMAT_DATE = 'Y-m-d';
 
-    public function __construct(Specification $specification)
+    public function __construct(string $date_format, Specification $specification)
     {
         parent::__construct(
             __('Date Save Format', 'codepress-admin-columns'),
@@ -32,7 +32,7 @@ class DateFormat extends Settings\Column
                     self::FORMAT_DATETIME       => __('Datetime (ISO)', 'codepress-admin-columns'),
                     self::FORMAT_UNIX_TIMESTAMP => __('Timestamp', 'codepress-admin-columns'),
                 ]),
-                self::FORMAT_DATE
+                $date_format
             ),
             $specification
         );

@@ -36,7 +36,7 @@ class Post extends Column implements Formatter
             '',
             OptionFactory::create_select(
                 'post',
-                OptionCollection::from_array($this->get_display_options()),
+                $this->get_display_options(),
                 $post_format
             ),
             $conditionals
@@ -46,7 +46,7 @@ class Post extends Column implements Formatter
         $this->post_format = $post_format;
     }
 
-    protected function get_display_options(): array
+    protected function get_display_options(): OptionCollection
     {
         $options = [
             self::PROPERTY_TITLE          => __('Title'),
@@ -59,17 +59,20 @@ class Post extends Column implements Formatter
 
         asort($options);
 
-        return $options;
+        return OptionCollection::from_array($options);
     }
 
     public function pre_format_value(Value $value): Value
     {
+        if ( ! is_numeric($value->get_value())) {
+            return $value;
+        }
+
         $id = (int)$value->get_value();
 
         switch ($this->post_format) {
-            // TODO should this be settings with just formatting?
             case self::PROPERTY_TITLE :
-                $title = (string)get_post_field('post_title', $id)
+                $title = get_post_field('post_title', $id)
                     ?: sprintf(
                         '%s (%s)',
                         __('No title', 'codepress-admin-columns'),
@@ -78,20 +81,14 @@ class Post extends Column implements Formatter
 
                 return $value->with_value($title);
             case self::PROPERTY_FEATURED_IMAGE :
-                $attachment_id = (int)get_post_meta($id, '_thumbnail_id', true);
-
-                return $this->format_by_condition(
-                    $value->with_value($attachment_id),
-                    $this->post_format
-                );
+                return $value->with_value(get_post_thumbnail_id($id));
             case self::PROPERTY_AUTHOR :
-                return $this->format_by_condition(
-                    $value->with_value((int)get_post_field('post_author', $id)),
-                    $this->post_format
-                );
-                // TODO
-            case self::PROPERTY_DATE :
+                return $value->with_value((int)get_post_field('post_author', $id));
             case self::PROPERTY_STATUS :
+                return $value->with_value((string)get_post_field('post_status', $id));
+            case self::PROPERTY_DATE :
+                // TODO
+                return $value->with_value((string)get_post_field('post_date_gmt', $id));
             case self::PROPERTY_ID :
             default:
                 return $value;
@@ -100,10 +97,6 @@ class Post extends Column implements Formatter
 
     public function format(Value $value): Value
     {
-        if ( ! is_numeric($value->get_value())) {
-            return $value;
-        }
-
         return $this->format_by_condition(
             $this->pre_format_value($value),
             $this->post_format
@@ -151,7 +144,6 @@ class Post extends Column implements Formatter
     //
     //        return parent::format($value, $options);
     //    }
-
 
     // TODO
     //

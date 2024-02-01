@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
@@ -15,10 +14,11 @@ use AC\Settings;
 class MediaLink extends Settings\Column implements Formatter
 {
 
-    public function __construct(Specification $specification)
+    private $link_to;
+
+    public function __construct(string $link_to, Specification $specification)
     {
         parent::__construct(
-            'media_link_to',
             __('Link To', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
@@ -27,15 +27,17 @@ class MediaLink extends Settings\Column implements Formatter
                     ''         => __('None'),
                     'view'     => __('View', 'codepress-admin-columns'),
                     'download' => __('Download', 'codepress-admin-columns'),
-                ])
+                ]),
+                $link_to
             ),
             $specification
         );
+        $this->link_to = $link_to;
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
-        switch ($options->get('media_link_to')) {
+        switch ($this->link_to) {
             case 'view' :
             case 'download' :
                 $link = wp_get_attachment_url($value->get_id());

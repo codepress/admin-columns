@@ -52,9 +52,9 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
 
     public function format(Value $value): Value
     {
-        $id = $value->get_value();
+        $image = $value->get_value();
 
-        if ( ! is_numeric($id)) {
+        if ( ! $image) {
             return $value;
         }
 
@@ -62,12 +62,25 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
             ? [$this->width, $this->height]
             : $this->image_format;
 
-        return $value->with_value(
-            ac_helper()->image->get_image_by_id(
-                (int)$id,
-                $size
-            )
-        );
+        if (is_numeric($image)) {
+            return $value->with_value(
+                ac_helper()->image->render_image_by_id(
+                    (int)$image,
+                    $size
+                )
+            );
+        }
+
+        if (is_string($image) && ac_helper()->string->is_valid_url($image)) {
+            return $value->with_value(
+                ac_helper()->image->render_image_by_url(
+                    $image,
+                    $size
+                )
+            );
+        }
+
+        return $value;
     }
 
     public function get_children(): SettingCollection

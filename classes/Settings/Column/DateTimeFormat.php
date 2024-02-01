@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
+use AC\Setting;
 use AC\Setting\Component\Input\Custom;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Column;
 
-abstract class DateTimeFormat extends Recursive
+abstract class DateTimeFormat extends Column implements Setting\Recursive, Formatter
 {
 
-    private $date_format;
+    protected $date_format;
 
     public function __construct(string $date_format = null, Specification $conditions = null)
     {
@@ -29,15 +31,20 @@ abstract class DateTimeFormat extends Recursive
         $this->date_format = $date_format ?? 'wp_default';
     }
 
+    abstract protected function get_date_options(): OptionCollection;
+
+    abstract protected function get_wp_default_format(): string;
+
     public function get_children(): SettingCollection
     {
+        // TODO do we need this when we use a Custom setting?
         return new SettingCollection([
             new Column(
                 '',
                 '',
                 OptionFactory::create_radio(
                     'date_format',
-                    OptionCollection::from_array($this->get_date_options()),
+                    $this->get_date_options(),
                     $this->date_format
                 )
             ),
@@ -63,25 +70,22 @@ abstract class DateTimeFormat extends Recursive
         );
     }
 
-    protected function get_date_options()
+    protected function get_timestamp($date): ?int
     {
-        return $this->get_custom_format_options();
-    }
-    //
-    //	protected function set_name() {
-    //		$this->name = self::NAME;
-    //	}
-    //
-    //	protected function define_options() {
-    //		return [
-    //			'date_format' => 'wp_default',
-    //		];
-    //	}
-    //
-    abstract protected function get_custom_format_options();
+        if (empty($date)) {
+            return null;
+        }
 
-    //
-    abstract protected function get_wp_default_format() :string;
+        if ( ! is_scalar($date)) {
+            return null;
+        }
+
+        if (is_numeric($date)) {
+            return (int)$date;
+        }
+
+        return strtotime($date) ?: null;
+    }
     //
     //	/**
     //	 * @param string $label
@@ -90,6 +94,7 @@ abstract class DateTimeFormat extends Recursive
     //	 *
     //	 * @return string
     //	 */
+    // TODO add descriptions to frontend
     //	protected function get_default_html_label( $label, $date_format = '', $description = '' ) {
     //		if ( ! $date_format ) {
     //			$date_format = $this->get_wp_default_format();
@@ -129,10 +134,10 @@ abstract class DateTimeFormat extends Recursive
     //		return [ 'wp_default', 'diff' ];
     //	}
     //
-    protected function create_date(string $date_format): string
-    {
-        return ac_helper()->date->format_date($date_format, null, ac_helper()->date->timezone());
-    }
+    //    protected function create_date(string $date_format): string
+    //    {
+    //        return ac_helper()->date->format_date($date_format, null, ac_helper()->date->timezone());
+    //    }
     //
     //	/**
     //	 * @param array $formats
@@ -183,22 +188,5 @@ abstract class DateTimeFormat extends Recursive
     //	/**
     //	 * @return mixed
     //	 */
-
-    protected function get_timestamp($date): ?int
-    {
-        if (empty($date)) {
-            return null;
-        }
-
-        if ( ! is_scalar($date)) {
-            return null;
-        }
-
-        if (is_numeric($date)) {
-            return (int)$date;
-        }
-
-        return strtotime($date) ?: null;
-    }
 
 }
