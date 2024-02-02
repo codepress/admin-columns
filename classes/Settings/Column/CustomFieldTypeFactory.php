@@ -106,29 +106,4 @@ class CustomFieldTypeFactory implements SettingFactory
         );
     }
 
-    //        return new SettingCollection([
-    //            // TODO
-    //            new Date(
-    //                StringComparisonSpecification::equal(self::TYPE_DATE)
-    //            ),
-    //            new DateFormat(
-    //                StringComparisonSpecification::equal(self::TYPE_DATE)
-    //            ),
-    //            new Image(
-    //                new OrSpecification([
-    //                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
-    //                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
-    //                ])
-    //            ),
-    //            new MediaLink(
-    //                new OrSpecification([
-    //                    StringComparisonSpecification::equal(self::TYPE_IMAGE),
-    //                    StringComparisonSpecification::equal(self::TYPE_MEDIA),
-    //                ])
-    //            ),
-    //            new LinkLabel(
-    //                StringComparisonSpecification::equal(self::TYPE_URL)
-    //            ),
-    //        ]);
-
 }
