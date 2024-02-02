@@ -41,7 +41,7 @@ class PostFactory implements SettingFactory
     public function create(Config $config, Specification $specification = null): Column
     {
         return new Post(
-            $config->has('post') ? (string)$config->get('post') : 'title',
+            $config->get('post') ?: Post::PROPERTY_TITLE,
             new SettingCollection([
                 $this->character_limit_factory->create(
                     $config,
@@ -67,12 +67,6 @@ class PostFactory implements SettingFactory
                     $config,
                     StringComparisonSpecification::equal(Post::PROPERTY_DATE)
                 ),
-
-                // TODO Title formatter
-                //                new User(StringComparisonSpecification::equal(self::PROPERTY_AUTHOR)),
-                //                new Date(StringComparisonSpecification::equal(self::PROPERTY_DATE)),
-                //                new CharacterLimit(StringComparisonSpecification::equal(self::PROPERTY_TITLE)),
-                //                new StatusIcon(StringComparisonSpecification::equal(self::PROPERTY_STATUS)),
             ]),
             $specification
         );

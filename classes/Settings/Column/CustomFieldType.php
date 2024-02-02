@@ -58,24 +58,24 @@ class CustomFieldType extends AC\Settings\Column implements Formatter
         $this->field_type = $field_type;
     }
 
-    private function get_pre_formatter(): Formatter
+    private function pre_format_value(Value $value):Value
     {
-        $aggregate = new Aggregate();
-
         switch ($this->field_type) {
             case self::TYPE_COLOR:
-                $aggregate->add(new Color());
-                break;
+                return $value->with_value(
+                    ac_helper()->string->get_color_block((string)$value)
+                );
+            case self::TYPE_POST:
+                return new Value((int)$value->get_value());
+
             // TODO
         }
-
-        return $aggregate;
     }
 
     public function format(Value $value): Value
     {
         return $this->format_by_condition(
-            $this->get_pre_formatter()->format($value),
+            $this->pre_format_value($value),
             $this->field_type
         );
     }

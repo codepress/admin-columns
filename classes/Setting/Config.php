@@ -9,7 +9,7 @@ final class Config
 
     private $values;
 
-    public function __construct(array $values)
+    public function __construct(array $values = [])
     {
         $this->values = $values;
     }

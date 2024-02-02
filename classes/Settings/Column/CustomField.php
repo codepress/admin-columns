@@ -56,6 +56,8 @@ class CustomField extends Column implements Formatter
             $field = substr($field, strlen('cpachidden'));
         }
 
+
+        // TODO pre formatted
         $value = $value->with_value(
             get_metadata((string)$this->meta_type, (int)$value->get_id(), $field, true)
         );
