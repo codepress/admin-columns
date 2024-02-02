@@ -20,18 +20,17 @@ class CommentCount extends Settings\Column
     public const STATUS_SPAM = 'spam';
     public const STATUS_TRASH = 'trash';
 
-    public function __construct(Specification $conditionals = null)
+    public function __construct(string $comment_status = null, Specification $specification = null)
     {
         parent::__construct(
-            'comment_status',
             __('Comment status', 'codepress-admin-columns'),
             __('Select which comment status you like to display.', 'codepress-admin-columns'),
             OptionFactory::create_select(
                 'comment_status',
                 OptionCollection::from_array($this->get_comment_statuses()),
-                self::STATUS_ALL
+                $comment_status ?: self::STATUS_ALL
             ),
-            $conditionals
+            $specification
         );
     }
 

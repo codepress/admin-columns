@@ -2,6 +2,7 @@
 
 namespace AC\Settings\Column;
 
+use AC\Expression\Specification;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
@@ -9,7 +10,7 @@ use AC\Setting\Type\Value;
 class FileMetaAudio extends FileMeta implements Formatter
 {
 
-    public function __construct(string $label)
+    public function __construct(string $meta_key, Specification $specification)
     {
         $types = [
             'bitrate'           => __('Bitrate', 'codepress-admin-columns'),
@@ -31,7 +32,7 @@ class FileMetaAudio extends FileMeta implements Formatter
 
         natcasesort($types);
 
-        parent::__construct($label, $types, 'dataformat');
+        parent::__construct(__('Audio Meta', 'codepress-admin-columns'), $types, $meta_key, $specification);
     }
 
     public function format(Value $value, Config $options): Value

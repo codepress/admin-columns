@@ -3,9 +3,9 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Config;
 use AC\Setting\Component\Input;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -13,7 +13,7 @@ use AC\Settings;
 class CommentLink extends Settings\Column implements Formatter
 {
 
-    public function __construct(Specification $conditions = null)
+    public function __construct(string $comment_link = null, Specification $specification = null)
     {
         parent::__construct(
             __('Link To', 'codepress-admin-columns'),
@@ -27,11 +27,11 @@ class CommentLink extends Settings\Column implements Formatter
                         'edit_comment' => __('Edit Comment', 'codepress-admin-columns'),
                     ]
                 ),
-                '',
+                $comment_link ?: '',
                 null,
                 true
             ),
-            $conditions
+            $specification
         );
     }
 

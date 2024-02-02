@@ -43,7 +43,7 @@ class CustomFieldType extends AC\Settings\Column implements AC\Setting\Formatter
             OptionFactory::create_select(
                 'field_type',
                 $this->get_field_type_options(),
-                '',
+                $field_type,
                 null,
                 true
             )

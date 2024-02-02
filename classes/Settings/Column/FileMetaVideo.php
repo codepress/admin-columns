@@ -2,12 +2,13 @@
 
 namespace AC\Settings\Column;
 
+use AC\Expression\Specification;
 use AC\Settings\FormatValue;
 
 class FileMetaVideo extends FileMeta implements FormatValue
 {
 
-    public function __construct(string $label)
+    public function __construct(string $meta_key, Specification $specification)
     {
         $video_types = [
             'created_timestamp' => __('Created Timestamp', 'codepress-admin-columns'),
@@ -35,7 +36,12 @@ class FileMetaVideo extends FileMeta implements FormatValue
 
         natcasesort($audio_types);
 
-        parent::__construct($label, array_merge($video_types, $audio_types), 'dataformat');
+        parent::__construct(
+            __('Audio Meta', 'codepress-admin-columns'),
+            array_merge($video_types, $audio_types),
+            $meta_key,
+            $specification
+        );
     }
 
     private function wrap_audio_string($string)

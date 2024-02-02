@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression;
-use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use AC\Settings;
 
 class Comment extends Recursive
 {
@@ -23,10 +22,16 @@ class Comment extends Recursive
     public const PROPERTY_AUTHOR = 'author';
     public const PROPERTY_AUTHOR_EMAIL = 'author_email';
 
-    public function __construct(Expression\Specification $specification = null)
-    {
+    private $settings;
+
+    private $comment_display;
+
+    public function __construct(
+        string $comment_display,
+        SettingCollection $settings,
+        Expression\Specification $specification = null
+    ) {
         parent::__construct(
-            'comment',
             __('Display', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
@@ -38,10 +43,12 @@ class Comment extends Recursive
                     self::PROPERTY_AUTHOR_EMAIL => __('Author Email', 'codepress-admin-column'),
                     self::PROPERTY_DATE         => __('Date'),
                 ]),
-                self::PROPERTY_COMMENT
+                $comment_display
             ),
             $specification
         );
+        $this->settings = $settings;
+        $this->comment_display = $comment_display;
     }
 
     public function is_parent(): bool
@@ -51,11 +58,7 @@ class Comment extends Recursive
 
     public function get_children(): SettingCollection
     {
-        return new SettingCollection([
-            new Settings\Column\Date(Expression\StringComparisonSpecification::equal(self::PROPERTY_DATE)),
-            new Settings\Column\StringLimit(Expression\StringComparisonSpecification::equal(self::PROPERTY_COMMENT)),
-            new Settings\Column\CommentLink(),
-        ]);
+        return $this->settings;
     }
 
     public function format(Value $value, Config $options): Value

@@ -12,12 +12,13 @@ use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
+// TODO Child collection and constructor params
 class AttachmentDisplay extends Settings\Column\Recursive
 {
 
     use AC\Setting\RecursiveFormatterTrait;
 
-    public function __construct()
+    public function __construct(string $attachment_type, AC\Expression\Specification $specification)
     {
         parent::__construct(
             __('Display', 'codepress-admin-columns'),
@@ -28,8 +29,9 @@ class AttachmentDisplay extends Settings\Column\Recursive
                     'thumbnail' => __('Thumbnails', 'codepress-admin-columns'),
                     'count'     => __('Count', 'codepress-admin-columns'),
                 ]),
-                'thumbnail'
-            )
+                $attachment_type ?: 'thumbnail'
+            ),
+            $specification
         );
     }
 

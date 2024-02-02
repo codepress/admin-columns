@@ -11,7 +11,6 @@ use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification as Compare;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -25,7 +24,9 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
 
     public const NAME = 'exif_data';
 
-    public function __construct(string $label, Specification $conditions = null)
+    private $exif_data;
+
+    public function __construct(string $label, string $exif_data, Specification $conditions = null)
     {
         parent::__construct(
             $label,
@@ -33,10 +34,12 @@ class ExifData extends Settings\Column implements AC\Setting\Recursive, AC\Setti
             OptionFactory::create_select(
                 'exif_data',
                 OptionCollection::from_array($this->get_exif_types()),
-                'aperture'
+                $exif_data
             ),
             $conditions
         );
+
+        $this->exif_data = $exif_data;
     }
 
     public function is_parent(): bool
