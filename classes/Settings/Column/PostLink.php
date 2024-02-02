@@ -16,16 +16,15 @@ class PostLink extends Settings\Column implements AC\Setting\Formatter
 
     private $relation;
 
-    public function __construct(AC\Relation $relation = null, Specification $conditions = null)
+    public function __construct(string $post_link_to, AC\Relation $relation = null, Specification $conditions = null)
     {
         parent::__construct(
-            'post_link_to',
             __('Link To', 'codepress-admin-columns'),
             '',
             OptionFactory::create_select(
                 'post_link_to',
                 OptionCollection::from_array($this->get_display_options()),
-                'edit_post'
+                $post_link_to
             ),
             $conditions
         );

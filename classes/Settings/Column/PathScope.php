@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Config;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -15,26 +15,27 @@ use AC\Settings;
 class PathScope extends Settings\Column implements Formatter
 {
 
-    public function __construct(Specification $conditions = null)
-    {
-        $input = OptionFactory::create_select(
-            'path_scope',
-            OptionCollection::from_array([
-                'full'             => __('Full Path', 'codepress-admin-columns'),
-                'relative-domain'  => __('Relative to domain', 'codepress-admin-columns'),
-                'relative-uploads' => __('Relative to main uploads folder', 'codepress-admin-columns'),
-                'local'            => __('Local Path', 'codepress-admin-columns'),
-            ]),
-            'full'
-        );
+    private $path_scope;
 
+    public function __construct(string $path_scope, Specification $conditions = null)
+    {
         parent::__construct(
-            'path_scope',
             __('Path scope', 'codepress-admin-columns'),
             __('Part of the file path to display', 'codepress-admin-columns'),
-            $input,
+            OptionFactory::create_select(
+                'path_scope',
+                OptionCollection::from_array([
+                    'full'             => __('Full Path', 'codepress-admin-columns'),
+                    'relative-domain'  => __('Relative to domain', 'codepress-admin-columns'),
+                    'relative-uploads' => __('Relative to main uploads folder', 'codepress-admin-columns'),
+                    'local'            => __('Local Path', 'codepress-admin-columns'),
+                ]),
+                $path_scope
+            ),
             $conditions
         );
+
+        $this->path_scope = $path_scope;
     }
 
     public function format(Value $value, Config $options): Value

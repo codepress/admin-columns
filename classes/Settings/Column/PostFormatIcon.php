@@ -3,22 +3,21 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
+use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Input;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
 class PostFormatIcon extends Settings\Column implements Formatter
 {
 
-    public function __construct(Specification $conditions = null)
+    public function __construct(bool $use_icon, Specification $conditions = null)
     {
         parent::__construct(
-            'use_icon',
             __('Use an icon?', 'codepress-admin-columns'),
             __('Use an icon instead of text for displaying.', 'codepress-admin-columns'),
-            Input\Option\Single::create_toggle(),
+            OptionFactory::create_toggle('use_icon', null, $use_icon ? 'on' : 'off'),
             $conditions
         );
     }

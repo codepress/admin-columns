@@ -12,7 +12,6 @@ class Message extends Settings\Column
     public function __construct(string $label, string $message, Specification $conditions = null)
     {
         parent::__construct(
-            'message',
             $label,
             '',
             null,

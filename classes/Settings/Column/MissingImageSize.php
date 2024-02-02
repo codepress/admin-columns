@@ -12,10 +12,9 @@ use AC\Settings;
 class MissingImageSize extends Settings\Column
 {
 
-    public function __construct(Specification $conditions = null)
+    public function __construct(string $include_missing_sizes, Specification $conditions = null)
     {
         parent::__construct(
-            'include_missing_sizes',
             __('Include missing sizes?', 'codepress-admin-columns'),
             __('Include sizes that are missing an image file.', 'codepress-admin-columns'),
             OptionFactory::create_toggle(
@@ -24,7 +23,7 @@ class MissingImageSize extends Settings\Column
                     '1',
                     '',
                 ], false),
-                ''
+                $include_missing_sizes
             ),
             $conditions
         );

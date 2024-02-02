@@ -46,10 +46,10 @@ class AttachmentDisplay extends Settings\Column\Recursive
     {
         // TODO
         return $value;
-
-        return 'count' === $options->get($this->name)
-            ? $value->with_value(count($value->get_value()))
-            : parent::format($value, $options);
+        //
+        //        return 'count' === $options->get($this->name)
+        //            ? $value->with_value(count($value->get_value()))
+        //            : parent::format($value, $options);
     }
 
 }

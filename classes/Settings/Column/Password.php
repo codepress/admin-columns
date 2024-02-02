@@ -5,30 +5,25 @@ namespace AC\Settings\Column;
 use AC\Expression\Specification;
 use AC\Setting;
 use AC\Setting\Config;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
 class Password extends Settings\Column implements Setting\Formatter
 {
 
-    public function __construct(Specification $conditions = null)
+    public function __construct(string $password = '', Specification $conditions = null)
     {
-        $input = Input\Option\Single::create_select(
-            OptionCollection::from_array(
-                [
-                    ''     => __('Password', 'codepress-admin-column'),
-                    'text' => __('Plain text', 'codepress-admin-column'),
-                ]
-            ),
-            ''
-        );
         parent::__construct(
-            'password',
             __('Display format', 'codepress-admin-columns'),
             null,
-            $input,
+            Setting\Component\Input\OptionFactory::create_select(
+                'password',
+                Setting\Component\OptionCollection::from_array([
+                    ''     => __('Password', 'codepress-admin-column'),
+                    'text' => __('Plain text', 'codepress-admin-column'),
+                ]),
+                $password
+            ),
             $conditions
         );
     }
