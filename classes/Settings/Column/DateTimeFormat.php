@@ -65,6 +65,8 @@ abstract class DateTimeFormat extends Column implements Setting\Recursive, Forma
             $date_format = $this->get_wp_default_format();
         }
 
+        // TODO validate date format
+
         return $value->with_value(
             wp_date($date_format, $timestamp)
         );

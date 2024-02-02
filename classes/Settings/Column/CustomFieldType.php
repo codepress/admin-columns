@@ -7,12 +7,17 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Formatter\Aggregate;
+use AC\Setting\Formatter\Color;
+use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 
-class CustomFieldType extends AC\Settings\Column implements AC\Setting\Formatter
+class CustomFieldType extends AC\Settings\Column implements Formatter
 {
+
+    use RecursiveFormatterTrait;
 
     public const NAME = 'field_type';
 
@@ -43,7 +48,7 @@ class CustomFieldType extends AC\Settings\Column implements AC\Setting\Formatter
             OptionFactory::create_select(
                 'field_type',
                 $this->get_field_type_options(),
-                '',
+                $field_type,
                 null,
                 true
             )
@@ -53,17 +58,26 @@ class CustomFieldType extends AC\Settings\Column implements AC\Setting\Formatter
         $this->field_type = $field_type;
     }
 
-    public function format(Value $value): Value
+    private function get_pre_formatter(): Formatter
     {
-        $settings = new SettingCollection();
+        $aggregate = new Aggregate();
 
-        foreach ($this->settings as $setting) {
-            if ($setting->get_conditions()->is_satisfied_by($this->field_type)) {
-                $settings->add($setting);
-            }
+        switch ($this->field_type) {
+            case self::TYPE_COLOR:
+                $aggregate->add(new Color());
+                break;
+            // TODO
         }
 
-        return Aggregate::from_settings($settings)->format($value);
+        return $aggregate;
+    }
+
+    public function format(Value $value): Value
+    {
+        return $this->format_by_condition(
+            $this->get_pre_formatter()->format($value),
+            $this->field_type
+        );
     }
 
     public function get_children(): SettingCollection

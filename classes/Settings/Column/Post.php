@@ -81,7 +81,7 @@ class Post extends Column implements Formatter
 
                 return $value->with_value($title);
             case self::PROPERTY_FEATURED_IMAGE :
-                return $value->with_value(get_post_thumbnail_id($id));
+                return ( new Formatter\Post\FeaturedImage())->format($value);
             case self::PROPERTY_AUTHOR :
                 return $value->with_value((int)get_post_field('post_author', $id));
             case self::PROPERTY_STATUS :
@@ -95,10 +95,20 @@ class Post extends Column implements Formatter
         }
     }
 
+    private function get_formatter():Formatter
+    {
+        switch ($this->post_format) {
+            case self::PROPERTY_FEATURED_IMAGE :
+                return new Formatter\Post\FeaturedImage();
+        }
+
+        return $value;
+    }
+
     public function format(Value $value): Value
     {
         return $this->format_by_condition(
-            $this->pre_format_value($value),
+            $this->get_formatter()->format($value),
             $this->post_format
         );
     }
