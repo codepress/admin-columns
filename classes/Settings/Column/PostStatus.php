@@ -4,7 +4,6 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting;
-use AC\Setting\OptionCollection;
 use AC\Settings;
 
 class PostStatus extends Settings\Column
@@ -13,15 +12,15 @@ class PostStatus extends Settings\Column
     // TODO remove
     public const NAME = 'post_status';
 
-    public function __construct(Specification $conditions = null)
+    public function __construct(array $post_status = null, Specification $conditions = null)
     {
-        $input = Setting\Input\Option\Multiple::create_select(
+        $input = Setting\Component\Input\OptionFactory::create_select(
+            'post_status',
             $this->create_options(),
-            ['publish', 'private']
+            $post_status ?: ['publish', 'private']
         );
 
         parent::__construct(
-            'post_status',
             __('Post Status', 'codepress-admin-columns'),
             null,
             $input,
@@ -29,7 +28,7 @@ class PostStatus extends Settings\Column
         );
     }
 
-    private function create_options(): OptionCollection
+    private function create_options(): Setting\Component\OptionCollection
     {
         $options = [];
 
@@ -38,7 +37,7 @@ class PostStatus extends Settings\Column
             $options[$name] = $this->get_post_status_label((string)$name);
         }
 
-        return OptionCollection::from_array($options);
+        return Setting\Component\OptionCollection::from_array($options);
     }
 
     private function get_post_status_label(string $key): string

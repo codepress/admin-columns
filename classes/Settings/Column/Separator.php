@@ -12,10 +12,11 @@ class Separator extends Settings\Column
 
     public const NAME = 'separator';
 
-    public function __construct(Specification $conditions = null)
+    public function __construct(string $separator = null, Specification $conditions = null)
     {
-        $input = AC\Setting\Input\Option\Single::create_select(
-            AC\Setting\OptionCollection::from_array([
+        $input = AC\Setting\Component\Input\OptionFactory::create_select(
+            'separator',
+            AC\Setting\Component\OptionCollection::from_array([
                 ''                => __('Default', 'codepress-admin-columns'),
                 'comma'           => __('Comma Separated', 'codepress-admin-columns'),
                 'horizontal_rule' => __('Horizontal Rule', 'codepress-admin-columns'),
@@ -23,11 +24,10 @@ class Separator extends Settings\Column
                 'none'            => __('None', 'codepress-admin-columns'),
                 'white_space'     => __('Whitespace', 'codepress-admin-columns'),
             ]),
-            'comma'
+            $separator ?: 'comma'
         );
 
         parent::__construct(
-            'separator',
             __('Separator', 'codepress-admin-columns'),
             '',
             $input,

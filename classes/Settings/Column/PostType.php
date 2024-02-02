@@ -2,8 +2,8 @@
 
 namespace AC\Settings\Column;
 
+use AC\Expression\Specification;
 use AC\Setting;
-use AC\Setting\OptionCollection;
 use AC\Settings;
 
 class PostType extends Settings\Column
@@ -11,23 +11,25 @@ class PostType extends Settings\Column
 
     private $show_any;
 
-    public function __construct(bool $show_any = false)
+    public function __construct(string $post_type = null, bool $show_any = false, Specification $specification = null)
     {
-        $input = Setting\Input\Option\Single::create_select(
-            $this->create_options()
+        $input = Setting\Component\Input\OptionFactory::create_select(
+            'post_type',
+            $this->create_options(),
+            $post_type
         );
 
         parent::__construct(
-            'post_type',
             __('Post Type', 'codepress-admin-columns'),
             null,
-            $input
+            $input,
+            $specification
         );
 
         $this->show_any = $show_any;
     }
 
-    public function create_options(): OptionCollection
+    public function create_options(): Setting\Component\OptionCollection
     {
         $options = $this->get_post_type_labels();
 
@@ -35,7 +37,7 @@ class PostType extends Settings\Column
             $options = ['any' => __('All Post Types', 'codepress-admin-columns')] + $options;
         }
 
-        return OptionCollection::from_array($options);
+        return Setting\Component\OptionCollection::from_array($options);
     }
 
     private function add_slug_to_duplicate_post_type_label(array $options): array
