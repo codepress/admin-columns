@@ -6,7 +6,6 @@ namespace AC\ColumnTypesFactory;
 
 use AC;
 use AC\ColumnTypeCollection;
-use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\TableScreen;
 
 class Aggregate implements AC\ColumnTypesFactory
@@ -23,7 +22,7 @@ class Aggregate implements AC\ColumnTypesFactory
     {
         $columns = new ColumnTypeCollection();
 
-        foreach ( $this->aggregate->create($table_screen) as $factory ) {
+        foreach ($this->aggregate->create($table_screen) as $factory) {
             $columns->add(
                 $factory->create(new AC\Setting\Config())
             );
@@ -31,7 +30,5 @@ class Aggregate implements AC\ColumnTypesFactory
 
         return $columns;
     }
-
-
 
 }

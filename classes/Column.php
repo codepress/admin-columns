@@ -30,9 +30,9 @@ class Column
     ) {
         $this->type = $type;
         $this->label = $label;
-        $this->settings = $settings;
-        $this->group = $group;
         $this->renderable = $formatter;
+        $this->settings = $settings;
+        $this->group = $group ?? 'custom';
     }
 
     public function get_type(): string
@@ -45,7 +45,7 @@ class Column
         return $this->label;
     }
 
-    public function get_group(): ?string
+    public function get_group(): string
     {
         return $this->group;
     }
@@ -83,12 +83,17 @@ class Column
         return null;
     }
 
+    // TODO remove
+    public function  is_original():bool
+    {
+        return false;
+    }
 
     // TODO remove
-    //    public function get_name(): string
-    //    {
-    //        return $this->name;
-    //    }
+//        public function get_name(): string
+//        {
+//            return $this->name;
+//        }
     //
     //    public function set_name(string $name): self
     //    {

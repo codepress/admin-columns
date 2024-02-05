@@ -9,7 +9,7 @@ use AC\ColumnTypeCollection;
 use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\TableScreen;
 
-class _Aggregate implements AC\ColumnTypesFactory
+class ___Aggregate implements AC\ColumnTypesFactory
 {
 
     /**

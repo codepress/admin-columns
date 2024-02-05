@@ -8,13 +8,11 @@ use AC;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\Aggregate;
-use AC\Setting\Formatter\Color;
 use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 
-class CustomFieldType extends AC\Settings\Setting implements Formatter
+class CustomFieldType extends AC\Settings\Setting implements Formatter, AC\Setting\Recursive
 {
 
     use RecursiveFormatterTrait;
@@ -58,8 +56,9 @@ class CustomFieldType extends AC\Settings\Setting implements Formatter
         $this->field_type = $field_type;
     }
 
-    private function pre_format_value(Value $value):Value
+    private function pre_format_value(Value $value): Value
     {
+        // TODO
         switch ($this->field_type) {
             case self::TYPE_COLOR:
                 return $value->with_value(
@@ -67,8 +66,9 @@ class CustomFieldType extends AC\Settings\Setting implements Formatter
                 );
             case self::TYPE_POST:
                 return new Value((int)$value->get_value());
-
             // TODO
+            default:
+                return $value;
         }
     }
 
@@ -78,6 +78,11 @@ class CustomFieldType extends AC\Settings\Setting implements Formatter
             $this->pre_format_value($value),
             $this->field_type
         );
+    }
+
+    public function is_parent(): bool
+    {
+        return false;
     }
 
     public function get_children(): SettingCollection

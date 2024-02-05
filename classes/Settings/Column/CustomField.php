@@ -13,7 +13,7 @@ use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Setting;
 
-class CustomField extends Setting implements Formatter
+class CustomField extends Setting implements Formatter, \AC\Setting\Recursive
 {
 
     public const NAME = 'custom_field';
@@ -64,6 +64,18 @@ class CustomField extends Setting implements Formatter
 
         return Aggregate::from_settings($this->settings)->format($value);
     }
+
+    public function get_children(): SettingCollection
+    {
+        return $this->settings;
+    }
+
+    public function is_parent(): bool
+    {
+        return false;
+    }
+
+
 
 
 

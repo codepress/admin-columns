@@ -130,7 +130,10 @@ class ListScreenSettings implements RequestAjaxHandler
         $settings = [];
 
         foreach ($columns as $column) {
-            $settings[$column->get_name()] = (new Encoder($column->get_settings()))->encode();
+
+            // TODO retrieve column name
+//            $settings[$column->get_name()] = (new Encoder($column->get_settings()))->encode();
+            $settings[uniqid('',true)] = (new Encoder($column->get_settings()))->encode();
         }
 
         return $settings;

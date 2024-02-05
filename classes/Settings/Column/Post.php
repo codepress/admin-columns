@@ -12,9 +12,9 @@ use AC\Setting\Formatter;
 use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use AC\Settings\Setting;
+use AC\Settings;
 
-class Post extends Setting implements Formatter, Setting\Recursive
+class Post extends Settings\Setting implements Formatter, Setting\Recursive
 {
 
     use RecursiveFormatterTrait;
@@ -81,7 +81,7 @@ class Post extends Setting implements Formatter, Setting\Recursive
                 // TODO test
                 return new Value((int)get_post_field('post_author', (int)$value->get_id()));
             case self::PROPERTY_STATUS :
-                return $value->with_value((string)get_post_field('post_status',(int) $value->get_id()));
+                return $value->with_value((string)get_post_field('post_status', (int)$value->get_id()));
             case self::PROPERTY_DATE :
                 // TODO
                 return $value->with_value((string)get_post_field('post_date_gmt', (int)$value->get_id()));

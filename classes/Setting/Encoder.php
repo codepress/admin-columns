@@ -40,9 +40,9 @@ final class Encoder
             'conditions'  => $setting->get_conditions()->get_rules($setting->get_name()),
         ];
 
-        $input = $setting->get_input();
+        if ($setting->has_input()) {
+            $input = $setting->get_input();
 
-        if ($input) {
             $encoded['input']['type'] = $input->get_type();
 
             if ($input->has_default()) {

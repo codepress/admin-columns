@@ -14,7 +14,7 @@ final class FileMetaVideoFormatFactory implements SettingFactory
 
     public function create(Config $config, Specification $specification = null): Setting
     {
-        return new Column\FileMetaVideo(
+        return new FileMetaVideo(
             (string)$config->get('media_meta_key') ?: 'dataformat',
             $specification
         );

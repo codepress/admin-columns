@@ -6,7 +6,6 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Settings\Setting;
 use InvalidArgumentException;
@@ -41,14 +40,6 @@ final class Width extends Setting implements AC\Setting\Recursive
     public function is_parent(): bool
     {
         return false;
-    }
-
-    public function get_config(): Config
-    {
-        return new Config([
-            'width'      => $this->width,
-            'width_unit' => $this->width_unit,
-        ]);
     }
 
     public function get_children(): SettingCollection

@@ -14,7 +14,7 @@ final class WordLimitFactory implements SettingFactory
 
     public function create(Config $config, Specification $specification = null): Setting
     {
-        return new Column\WordLimit(
+        return new WordLimit(
             $config->has('word_limit') ? (int)$config->get('word_limit') : null,
             $specification
         );

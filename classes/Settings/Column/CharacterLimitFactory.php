@@ -14,7 +14,7 @@ final class CharacterLimitFactory implements SettingFactory
 
     public function create(Config $config, Specification $specification = null): Setting
     {
-        return new Column\CharacterLimit(
+        return new CharacterLimit(
             $config->has('character_limit') ? (int)$config->get('character_limit') : null,
             $specification
         );

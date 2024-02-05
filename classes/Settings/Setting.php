@@ -5,7 +5,6 @@ namespace AC\Settings;
 use AC\Expression\NullSpecification;
 use AC\Expression\Specification;
 use AC\Setting\Component;
-use AC\Setting\Config;
 
 class Setting
 {
@@ -18,20 +17,16 @@ class Setting
 
     protected $conditions;
 
-    private $config;
-
     public function __construct(
         string $label,
         string $description = null,
         Component\Input $input = null,
-        Specification $conditions = null,
-        Config $config = null
+        Specification $conditions = null
     ) {
         $this->label = $label;
         $this->description = $description;
         $this->input = $input;
         $this->conditions = $conditions ?? new NullSpecification();
-        $this->config = $config;
     }
 
     public function get_name(): string
@@ -49,7 +44,12 @@ class Setting
         return $this->description;
     }
 
-    public function get_input(): ?Component\Input
+    public function has_input(): bool
+    {
+        return null !== $this->input;
+    }
+
+    public function get_input(): Component\Input
     {
         return $this->input;
     }
@@ -57,11 +57,6 @@ class Setting
     public function get_conditions(): Specification
     {
         return $this->conditions;
-    }
-
-    public function get_config(): ?Config
-    {
-        return $this->config;
     }
 
 }

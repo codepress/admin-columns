@@ -14,7 +14,7 @@ final class ExifDataFactory implements SettingFactory
 
     public function create(Config $config, Specification $specification = null): Setting
     {
-        return new Column\ExifData(
+        return new ExifData(
             __('Image Meta (EXIF)', 'codepress-admin-columns'),
             $config->get('exif_data') ?: 'aperture',
             $specification

@@ -14,7 +14,6 @@ class NumberOfItems extends Settings\Setting
     public function __construct(Specification $specification = null)
     {
         parent::__construct(
-            'number_of_items',
             __('Number of Items', 'codepress-admin-columns'),
             sprintf(
                 '%s <em>%s</em>',

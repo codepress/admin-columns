@@ -12,9 +12,9 @@ use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use AC\Settings\Setting;
+use AC\Settings;
 
-abstract class DateTimeFormat extends Setting implements Setting\Recursive, Formatter
+abstract class DateTimeFormat extends Settings\Setting implements Setting\Recursive, Formatter
 {
 
     protected $date_format;
@@ -39,7 +39,7 @@ abstract class DateTimeFormat extends Setting implements Setting\Recursive, Form
     {
         // TODO do we need this when we use a Custom setting?
         return new SettingCollection([
-            new Setting(
+            new Settings\Setting(
                 '',
                 '',
                 OptionFactory::create_radio(

@@ -48,11 +48,4 @@ class CharacterLimit extends Settings\Setting implements AC\Setting\Formatter
         );
     }
 
-    public function get_limit(): ?int
-    {
-        return $this->limit;
-    }
-
-
-
 }

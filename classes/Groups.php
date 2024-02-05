@@ -39,6 +39,7 @@ final class Groups
         ksort($aggregated, SORT_NUMERIC);
 
         foreach ($aggregated as $_groups) {
+            // TODO
             $sorted = array_merge($sorted, $this->sort_groups_by_string($_groups, 'label'));
         }
 
