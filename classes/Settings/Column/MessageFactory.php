@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Expression\Specification;
-use AC\Setting\Config;
-use AC\Settings\Setting;
-use AC\Settings\SettingFactory;
+use AC\Setting\Component\AttributeCollection;
+use AC\Setting\Component\Type\Attribute;
+use AC\Settings\Component;
+use AC\Settings\Form\ComponentFactory;
 
-class MessageFactory implements SettingFactory
+class MessageFactory implements ComponentFactory
 {
 
     private $label;
@@ -22,12 +22,15 @@ class MessageFactory implements SettingFactory
         $this->message = $message;
     }
 
-    public function create(Config $config, Specification $specification = null): Setting
+    public function create(): Component
     {
-        return new Message(
+        return new Component(
+            'message',
             $this->label,
-            $this->message,
-            $specification
+            '',
+            new AttributeCollection([
+                new Attribute('message', $this->message),
+            ])
         );
     }
 
