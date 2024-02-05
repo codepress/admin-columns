@@ -17,9 +17,9 @@ class Setting extends Component implements AC\Setting\Setting
     protected $conditions;
 
     public function __construct(
+        Input $input,
         string $label,
         string $description = null,
-        Input $input = null,
         Specification $conditions = null
     ) {
         parent::__construct(
@@ -41,6 +41,7 @@ class Setting extends Component implements AC\Setting\Setting
     {
         return $this->input->get_name();
     }
+
     public function get_conditions(): Specification
     {
         return $this->conditions;

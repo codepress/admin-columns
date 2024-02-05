@@ -15,6 +15,8 @@ class Component implements AC\Setting\Component
 
     private $attributes;
 
+    private $label;
+
     public function __construct(
         string $type,
         string $label,
@@ -33,6 +35,7 @@ class Component implements AC\Setting\Component
 
         $this->type = $type;
         $this->attributes = $attributes;
+        $this->label = $label;
     }
 
     public function get_type(): string
@@ -42,7 +45,13 @@ class Component implements AC\Setting\Component
 
     public function get_attributes(): AttributeCollection
     {
-        return $this->attributes;
+        // TODO David immutable, but not great for memory but almost used never
+        return clone $this->attributes;
+    }
+
+    public function get_label(): string
+    {
+        return $this->label;
     }
 
 }
