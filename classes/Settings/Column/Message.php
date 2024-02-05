@@ -2,24 +2,24 @@
 
 namespace AC\Settings\Column;
 
-use AC\Expression\Specification;
+use AC\Setting\Component\AttributeCollection;
+use AC\Setting\Component\Type\Attribute;
 use AC\Settings;
 
-class Message extends Settings\Setting
+class Message extends Settings\Component
 {
 
-    // TODO Discuss with Stefan e.g. custom setting
-    public function __construct(string $label, string $message, Specification $conditions = null)
+    // TODO David remove, just use the factory
+    // TODO Tobias remove, just use the factory
+    public function __construct(string $label, string $message)
     {
         parent::__construct(
+            'message',
             $label,
             '',
-            null,
-            // TODO create a component
-            //            new Element('message', null, null, new AttributeCollection([
-            //                AttributeFactory::create_data('message', $message),
-            //            ]),
-            $conditions
+            new AttributeCollection([
+                new Attribute('message', $message),
+            ])
         );
     }
 

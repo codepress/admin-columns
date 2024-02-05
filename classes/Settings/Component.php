@@ -11,24 +11,28 @@ use AC\Setting\Component\Type\Attribute;
 class Component implements AC\Setting\Component
 {
 
-    protected $label;
-
-    protected $description;
-
-    protected $input;
-
-    protected $conditions;
-
     private $type;
+
+    private $attributes;
 
     public function __construct(
         string $type,
         string $label,
-        string $description = null
+        string $description = null,
+        AttributeCollection $attributes = null
     ) {
+        if (null === $attributes) {
+            $attributes = new AttributeCollection();
+        }
+
+        $attributes->add(new Attribute('label', $label));
+
+        if ($description) {
+            $attributes->add(new Attribute('description', $description));
+        }
+
         $this->type = $type;
-        $this->label = $label;
-        $this->description = $description;
+        $this->attributes = $attributes;
     }
 
     public function get_type(): string
@@ -38,10 +42,7 @@ class Component implements AC\Setting\Component
 
     public function get_attributes(): AttributeCollection
     {
-        return new AttributeCollection([
-            new Attribute('label', $this->label),
-            new Attribute('description', $this->description),
-        ]);
+        return $this->attributes;
     }
 
 }
