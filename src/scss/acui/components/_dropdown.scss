@@ -15,6 +15,7 @@
 	border-radius: 2px;
 
 	min-width: 200px;
+	width: var(--acui-dropdown-width, 200px);
 	z-index: var(--menu-z-index, 20);
 	overflow:auto;
 }

@@ -3032,11 +3032,12 @@ function create_if_block_1(ctx) {
   let div;
   let t;
   let acdropdown;
+  let div_1;
   let current;
   let if_block = /*data*/ctx[0].columns.length > 0 && create_if_block_2(ctx);
   acdropdown = new ACUi_acui_dropdown_AcDropdown_svelte__WEBPACK_IMPORTED_MODULE_6__["default"]({
     props: {
-      maxHeight: "300px",
+      maxHeight: "400px",
       value: true,
       position: "bottom-left",
       $$slots: {
@@ -3054,7 +3055,10 @@ function create_if_block_1(ctx) {
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       if (if_block) if_block.c();
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acdropdown.$$.fragment);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div_1, "display", "contents");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div_1, "--acui-dropdown-width", "300px");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(footer, "class", "ac-columns__footer");
     },
     m(target, anchor) {
@@ -3062,7 +3066,8 @@ function create_if_block_1(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(footer, div);
       if (if_block) if_block.m(div, null);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acdropdown, div, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, div_1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acdropdown, div_1, null);
       current = true;
     },
     p(ctx, dirty) {
@@ -3184,7 +3189,7 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (192:5) <AcDropdown maxHeight="300px" value position="bottom-left">
+// (192:5) <AcDropdown maxHeight="400px" --acui-dropdown-width="300px" value position="bottom-left">
 function create_default_slot_1(ctx) {
   let columntypedropdown;
   let current;

@@ -208,7 +208,7 @@
 					{#if data.columns.length > 0}
 						<AcButton type="text" on:click={clearColumns}>{i18n.editor.label.clear_columns}</AcButton>
 					{/if}
-					<AcDropdown maxHeight="300px" value position="bottom-left">
+					<AcDropdown maxHeight="400px" --acui-dropdown-width="300px" value position="bottom-left">
 						<AcButton slot="trigger">+ {i18n.editor.label.add_columns}</AcButton>
 						<ColumnTypeDropdown on:selectItem={( e ) => addColumn(e.detail)}>
 

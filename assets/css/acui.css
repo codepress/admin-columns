@@ -78,6 +78,7 @@
   box-shadow: 0 9px 24px 0 rgba(15, 15, 15, 0.2), 0 3px 6px 0 rgba(15, 15, 15, 0.1), 0 0 0 1px rgba(15, 15, 15, 0.05);
   border-radius: 2px;
   min-width: 200px;
+  width: var(--acui-dropdown-width, 200px);
   z-index: var(--menu-z-index, 20);
   overflow: auto;
 }
