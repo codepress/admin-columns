@@ -6,23 +6,24 @@ use AC\Column;
 use AC\Column\Renderable;
 use AC\Setting\SettingCollection;
 
+// TODO obsolete
 class Excerpt extends Column implements Column\Value
 {
 
-    public function __construct(SettingCollection $settings)
+    private $renderable;
+
+
+
+    public function __construct(string $type, string $label, Renderable $renderable, SettingCollection $settings = null, string $group = null)
     {
-        parent::__construct(
-            'column-excerpt',
-            __('Excerpt', 'codepress-admin-columns'),
-            $settings
-        );
+        parent::__construct($type, $label, $settings, $group);
+
+        $this->renderable = $renderable;
     }
 
     public function renderable(): Renderable
     {
-        return new Column\Post\Renderable\Excerpt(
-            new Renderable\ValueFormatter($this->settings)
-        );
+        return $this->renderable;
     }
 
     //    public function get_value($post_id)

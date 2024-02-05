@@ -16,7 +16,7 @@ class WidthFactory implements SettingFactory
     {
         return new Width(
             $config->has('width') ? (int)$config->get('width') : null,
-            $config->has('width_unit') ? (string)$config->get('width_unit') : null
+            $config->get('width_unit')
         );
     }
 

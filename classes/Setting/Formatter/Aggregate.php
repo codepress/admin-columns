@@ -34,9 +34,18 @@ final class Aggregate implements Formatter
         return new self($formatters);
     }
 
-    public function add(Formatter $formatter): void
+    public function add(Formatter $formatter): self
     {
         $this->data[] = $formatter;
+
+        return $this;
+    }
+
+    public function prepend(Formatter $formatter): self
+    {
+        array_unshift($this->data, $formatter);
+
+        return $this;
     }
 
     public function format(Value $value): Value

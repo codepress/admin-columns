@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Setting\Formatter;
 use AC\Setting\Recursive;
 use AC\Setting\SettingCollection;
 
@@ -18,12 +19,20 @@ class Column
 
     protected $group;
 
-    public function __construct(string $type, string $label, SettingCollection $settings = null, string $group = null)
-    {
+    private $renderable;
+
+    public function __construct(
+        string $type,
+        string $label,
+        Formatter $formatter,
+        SettingCollection $settings = null,
+        string $group = null
+    ) {
         $this->type = $type;
         $this->label = $label;
         $this->settings = $settings;
         $this->group = $group;
+        $this->renderable = $formatter;
     }
 
     public function get_type(): string
@@ -44,15 +53,13 @@ class Column
     public function get_settings(): SettingCollection
     {
         return $this->settings;
-
-        //        $settings->add(new Settings\Column\Type());
-        //        $settings->add(new Settings\Column\Label());
-        //        $settings->add(new Settings\Column\Width());
-
         // TODO
         // do_action('ac/column/settings', $settings);
+    }
 
-//        return $settings;
+    public function renderable(): Formatter
+    {
+        return $this->renderable;
     }
 
     public function get_setting(string $name, SettingCollection $settings = null): ?Settings\Column
@@ -61,13 +68,13 @@ class Column
 
         foreach ($settings as $setting) {
             if ($setting instanceof Recursive) {
-               $found = $this->get_setting( $name, $setting->get_children());
+                $found = $this->get_setting($name, $setting->get_children());
 
-               if ( $found) {
-                   return $found;
-               }
+                if ($found) {
+                    return $found;
+                }
             }
-            
+
             if ($setting->get_name() === $name) {
                 return $setting;
             }

@@ -14,15 +14,6 @@ use AC\Setting\SettingCollection;
 class CustomField extends Column implements Value
 {
 
-    public function __construct(SettingCollection $settings)
-    {
-        parent::__construct(
-            'column-meta',
-            __('Custom Field', 'codepress-admin-columns'),
-            $settings,
-            'custom_field'
-        );
-    }
 
     public function renderable(): Renderable
     {

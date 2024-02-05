@@ -10,5 +10,7 @@ use AC\Setting\Config;
 interface ColumnFactory
 {
 
+    public function can_create(string $key): bool;
+
     public function create(Config $config): Column;
 }

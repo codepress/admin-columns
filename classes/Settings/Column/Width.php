@@ -17,7 +17,7 @@ final class Width extends Column implements AC\Setting\Recursive
 
     private $default_unit;
 
-    public function __construct(int $default = null, string $default_unit = 'px')
+    public function __construct(int $default = null, string $default_unit = null)
     {
         parent::__construct(
             'width',
@@ -25,7 +25,7 @@ final class Width extends Column implements AC\Setting\Recursive
         );
 
         $this->default = $default;
-        $this->default_unit = $default_unit;
+        $this->default_unit = $default_unit ?? 'px';
 
         $this->validate();
     }
@@ -46,7 +46,6 @@ final class Width extends Column implements AC\Setting\Recursive
     {
         $settings = [
             new Column(
-                'width',
                 '',
                 '',
                 AC\Setting\Component\Input\Number::create_single_step(
@@ -57,7 +56,6 @@ final class Width extends Column implements AC\Setting\Recursive
                 )
             ),
             new Column(
-                'width_unit',
                 '',
                 '',
                 AC\Setting\Component\Input\OptionFactory::create_radio(
