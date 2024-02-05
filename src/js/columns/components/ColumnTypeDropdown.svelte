@@ -10,6 +10,7 @@
     let filterText: string = '';
     let inputElement: HTMLInputElement;
 
+
     const dispatch = createEventDispatcher();
 
     interface ProcessedSvelteSelectItem extends SvelteSelectItem {
@@ -42,6 +43,8 @@
 
             groups[groupLabel].push(item);
         });
+
+
 
         const groupItems: SvelteSelectItem[] = [];
 
@@ -76,8 +79,8 @@
 
     $: filteredItems = filter({
         filterText,
-        items,
-        groupBy: true
+        groupBy: true,
+        items
     });
 
 </script>

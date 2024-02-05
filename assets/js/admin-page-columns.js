@@ -2368,8 +2368,8 @@ function instance($$self, $$props, $$invalidate) {
     if ($$self.$$.dirty & /*filterText*/1) {
       $: $$invalidate(2, filteredItems = filter({
         filterText,
-        items,
-        groupBy: true
+        groupBy: true,
+        items
       }));
     }
   };
@@ -3863,7 +3863,7 @@ function instance($$self, $$props, $$invalidate) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $currentListKey = listKey, $currentListKey);
       loadedListId = response.data.data.settings.list_screen.id;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListId, $currentListId = response.data.data.settings.list_screen.id, $currentListId);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $columnTypesStore = response.data.data.column_types, $columnTypesStore);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_store_value)(_store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypesStore, $columnTypesStore = response.data.data.column_types.sort(_store_column_types__WEBPACK_IMPORTED_MODULE_10__.columnTypeSorter), $columnTypesStore);
       _store_read_only__WEBPACK_IMPORTED_MODULE_12__.listScreenIsReadOnly.set(response.data.data.read_only);
       _store_list_screen_data__WEBPACK_IMPORTED_MODULE_9__.listScreenDataStore.update(() => {
         return response.data.data.settings.list_screen;
@@ -18546,8 +18546,8 @@ function createColumnTypesStore() {
 const columnTypeSorter = (a, b) => {
     // Compare based on group priority
     const sortedColumnGroups = (0,_utils_global__WEBPACK_IMPORTED_MODULE_1__.getColumnSettingsConfig)().column_groups.map(g => g.slug);
-    const groupPriorityA = sortedColumnGroups.indexOf(a.group);
-    const groupPriorityB = sortedColumnGroups.indexOf(b.group);
+    const groupPriorityA = sortedColumnGroups.indexOf(a.group_key);
+    const groupPriorityB = sortedColumnGroups.indexOf(b.group_key);
     if (groupPriorityA !== groupPriorityB) {
         return groupPriorityA - groupPriorityB;
     }

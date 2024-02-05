@@ -7,7 +7,7 @@
     import HtmlSection from "./HtmlSection.svelte";
     import ListScreenMenu from "./ListScreenMenu.svelte";
     import {listScreenDataStore} from "../store/list-screen-data";
-    import {columnTypesStore} from "../store/column-types";
+    import {columnTypeSorter, columnTypesStore} from "../store/column-types";
     import {NotificationProgrammatic} from "../../ui-wrapper/notification";
     import {listScreenIsReadOnly} from "../store/read_only";
 
@@ -35,7 +35,7 @@
             $currentListKey = listKey;
             loadedListId = response.data.data.settings.list_screen.id;
             $currentListId = response.data.data.settings.list_screen.id;
-            $columnTypesStore = response.data.data.column_types;
+            $columnTypesStore = response.data.data.column_types.sort(columnTypeSorter);
             listScreenIsReadOnly.set(response.data.data.read_only);
             listScreenDataStore.update(() => {
                 return response.data.data.settings.list_screen;
