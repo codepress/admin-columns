@@ -1851,16 +1851,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function add_css(target) {
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_styles)(target, "svelte-1xp79ks", ".acui-dropdown-search.svelte-1xp79ks.svelte-1xp79ks{position:sticky;top:0;background:#fff;display:flex;padding:2px}.acui-dropdown-search.svelte-1xp79ks input.svelte-1xp79ks{height:30px;width:100%}");
-}
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
   child_ctx[12] = list[i];
   return child_ctx;
 }
 
-// (77:0) {:else }
+// (64:0) {:else }
 function create_else_block_1(ctx) {
   let acdropdowngroup;
   let current;
@@ -1907,7 +1904,7 @@ function create_else_block_1(ctx) {
   };
 }
 
-// (68:0) {#if filteredItems.length > 0 }
+// (55:0) {#if filteredItems.length > 0 }
 function create_if_block(ctx) {
   let each_1_anchor;
   let current;
@@ -1981,7 +1978,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (78:1) <AcDropdownGroup>
+// (65:1) <AcDropdownGroup>
 function create_default_slot_2(ctx) {
   let t;
   return {
@@ -1999,7 +1996,7 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (72:2) {:else }
+// (59:2) {:else }
 function create_else_block(ctx) {
   let acdropdownitem;
   let current;
@@ -2049,7 +2046,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (70:2) {#if item.groupHeader}
+// (57:2) {#if item.groupHeader}
 function create_if_block_1(ctx) {
   let acdropdowngroup;
   let current;
@@ -2096,7 +2093,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (73:3) <AcDropdownItem on:click={handleSelect}      value={item.value.toString()}>
+// (60:3) <AcDropdownItem on:click={handleSelect}      value={item.value.toString()}>
 function create_default_slot_1(ctx) {
   let html_tag;
   let raw_value = /*item*/ctx[12].label + "";
@@ -2123,7 +2120,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (71:3) <AcDropdownGroup>
+// (58:3) <AcDropdownGroup>
 function create_default_slot(ctx) {
   let t_value = /*item*/ctx[12].label + "";
   let t;
@@ -2145,7 +2142,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (69:1) {#each filteredItems as item}
+// (56:1) {#each filteredItems as item}
 function create_each_block(ctx) {
   let current_block_type_index;
   let if_block;
@@ -2233,8 +2230,8 @@ function create_fragment(ctx) {
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       if_block.c();
       if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "class", "svelte-1xp79ks");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acui-dropdown-search svelte-1xp79ks");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "class", "acu-h-6 acu-w-full acu-py-0.5 acu-px-1");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acui-dropdown-search acu-sticky acu-top-[0] acu-bg-[white] acu-flex acu-p-[2px]");
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
@@ -2378,7 +2375,7 @@ function instance($$self, $$props, $$invalidate) {
 class ColumnTypeDropdown extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
-    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {}, add_css);
+    (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {});
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ColumnTypeDropdown);

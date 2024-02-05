@@ -2,7 +2,7 @@
     import {createEventDispatcher} from "svelte";
 
     export let custom: boolean = false;
-    export let href: string = null;
+    export let href: string | null = null;
     export let value: string | null = null;
 
     const dispatch = createEventDispatcher();
