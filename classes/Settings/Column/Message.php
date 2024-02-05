@@ -5,7 +5,7 @@ namespace AC\Settings\Column;
 use AC\Expression\Specification;
 use AC\Settings;
 
-class Message extends Settings\Column
+class Message extends Settings\Setting
 {
 
     // TODO Discuss with Stefan e.g. custom setting

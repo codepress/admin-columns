@@ -9,7 +9,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class Status extends Settings\Column implements Formatter
+class Status extends Settings\Setting implements Formatter
 {
 
     private $use_icon;
@@ -54,7 +54,7 @@ class Status extends Settings\Column implements Formatter
                     __('Password protected')
                 );
             }
-echo '<pre>'; print_r( $html ); echo '</pre>'; exit;
+
             return $value->with_value($html);
         }
 

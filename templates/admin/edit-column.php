@@ -1,6 +1,6 @@
 <?php
 
-use AC\Settings\Column;
+use AC\Settings\Setting;
 use AC\Settings\Column\Type;
 
 if ( ! defined('ABSPATH')) {
@@ -74,7 +74,7 @@ $column_types = $this->column_types;
             <?php
 
             foreach ($column->get_settings() as $setting) {
-                if ($setting instanceof Column) {
+                if ($setting instanceof Setting) {
                     echo $setting->render_header() . "\n";
                 }
             }

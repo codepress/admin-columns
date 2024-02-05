@@ -9,7 +9,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class PostFormatIcon extends Settings\Column implements Formatter
+class PostFormatIcon extends Settings\Setting implements Formatter
 {
 
     public function __construct(bool $use_icon, Specification $conditions = null)

@@ -7,10 +7,10 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Option;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 
 // TODO used?
-abstract class Multiple extends Column implements Option
+abstract class Multiple extends Setting implements Option
 {
 
     use AC\Setting\OptionTrait;

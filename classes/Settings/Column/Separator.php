@@ -7,7 +7,7 @@ use AC\Expression\Specification;
 use AC\Settings;
 
 // TODO implement formatter (Interface was CollectionFormatter)
-class Separator extends Settings\Column
+class Separator extends Settings\Setting
 {
 
     public const NAME = 'separator';

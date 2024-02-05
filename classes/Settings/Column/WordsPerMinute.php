@@ -9,7 +9,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class WordsPerMinute extends Settings\Column implements Formatter
+class WordsPerMinute extends Settings\Setting implements Formatter
 {
 
     public function __construct(Specification $conditions = null)

@@ -6,7 +6,7 @@ use AC\Expression\Specification;
 use AC\Setting;
 use AC\Settings;
 
-class PostType extends Settings\Column
+class PostType extends Settings\Setting
 {
 
     private $show_any;

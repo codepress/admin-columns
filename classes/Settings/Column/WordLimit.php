@@ -9,7 +9,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class WordLimit extends Settings\Column implements Formatter
+class WordLimit extends Settings\Setting implements Formatter
 {
 
     private $word_limit;

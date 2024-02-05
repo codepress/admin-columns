@@ -62,7 +62,7 @@ class Column
         return $this->renderable;
     }
 
-    public function get_setting(string $name, SettingCollection $settings = null): ?Settings\Column
+    public function get_setting(string $name, SettingCollection $settings = null): ?Settings\Setting
     {
         $settings = $settings ?: $this->settings;
 

@@ -6,7 +6,7 @@ use AC;
 use AC\Expression\Specification;
 use AC\Settings;
 
-class Taxonomy extends Settings\Column
+class Taxonomy extends Settings\Setting
 {
 
     // TODO implement Formatter

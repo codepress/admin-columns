@@ -13,7 +13,7 @@ use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class StringLimit extends Settings\Column implements Setting\Recursive, Setting\Formatter
+class StringLimit extends Settings\Setting implements Setting\Recursive, Setting\Formatter
 {
 
     private $limiter;

@@ -24,4 +24,9 @@ final class Config
         return $this->values[$key] ?? null;
     }
 
+    public function __toArray(): array
+    {
+        return $this->values;
+    }
+
 }

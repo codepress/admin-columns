@@ -11,9 +11,9 @@ use AC\Setting\Formatter;
 use AC\Setting\Formatter\Aggregate;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 
-class CustomField extends Column implements Formatter
+class CustomField extends Setting implements Formatter
 {
 
     public const NAME = 'custom_field';

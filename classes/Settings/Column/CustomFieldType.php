@@ -14,7 +14,7 @@ use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 
-class CustomFieldType extends AC\Settings\Column implements Formatter
+class CustomFieldType extends AC\Settings\Setting implements Formatter
 {
 
     use RecursiveFormatterTrait;

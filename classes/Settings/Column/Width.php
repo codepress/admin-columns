@@ -6,33 +6,34 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\Config;
 use AC\Setting\SettingCollection;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 use InvalidArgumentException;
 
-final class Width extends Column implements AC\Setting\Recursive
+final class Width extends Setting implements AC\Setting\Recursive
 {
 
-    private $default;
+    private $width;
 
-    private $default_unit;
+    private $width_unit;
 
-    public function __construct(int $default = null, string $default_unit = null)
+    public function __construct(int $width = null, string $width_unit = null)
     {
         parent::__construct(
             'width',
             __('Width', 'codepress-admin-columns')
         );
 
-        $this->default = $default;
-        $this->default_unit = $default_unit ?? 'px';
+        $this->width = $width;
+        $this->width_unit = $width_unit ?? 'px';
 
         $this->validate();
     }
 
     private function validate(): void
     {
-        if ( ! in_array($this->default_unit, ['%', 'px'], true)) {
+        if ( ! in_array($this->width_unit, ['%', 'px'], true)) {
             throw new InvalidArgumentException('Invalid width unit');
         }
     }
@@ -42,20 +43,28 @@ final class Width extends Column implements AC\Setting\Recursive
         return false;
     }
 
+    public function get_config(): Config
+    {
+        return new Config([
+            'width'      => $this->width,
+            'width_unit' => $this->width_unit,
+        ]);
+    }
+
     public function get_children(): SettingCollection
     {
         $settings = [
-            new Column(
+            new Setting(
                 '',
                 '',
                 AC\Setting\Component\Input\Number::create_single_step(
                     'width',
                     0,
                     null,
-                    $this->default
+                    $this->width
                 )
             ),
-            new Column(
+            new Setting(
                 '',
                 '',
                 AC\Setting\Component\Input\OptionFactory::create_radio(
@@ -64,7 +73,7 @@ final class Width extends Column implements AC\Setting\Recursive
                         '%',
                         'px',
                     ], false),
-                    $this->default_unit
+                    $this->width_unit
                 )
             ),
         ];

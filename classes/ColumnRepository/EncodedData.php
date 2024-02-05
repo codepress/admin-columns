@@ -30,18 +30,48 @@ class EncodedData implements ColumnRepository
     {
         $columns = new ColumnCollection();
 
-        foreach ($this->columns_data as $column_data) {
-            $column = $this->column_factory->create(
-                $this->table_screen,
-                new Config($column_data)
-            );
+        $factory = new \AC\ColumnFactories\Aggregate();
 
-            if ($column) {
-                $columns->add($column);
+        $factories = $factory->create($this->table_screen);
+
+        // TODO optimise
+        foreach ($this->columns_data as $config) {
+            foreach ($factories as $factory) {
+                if ($factory->can_create($config['type'])) {
+                    $columns->add(
+                        $factory->create(
+                            new Config($config)
+                        )
+                    );
+                }
             }
         }
 
         return $columns;
     }
+
+    //        foreach ($factories as $factory) {
+    //            if ( $factory->can_create('column-meta') ) {
+    //                $column = $factory->create(
+    //        }
+    //}
+
+    //    public function find_all(): ColumnCollection
+    //    {
+    //        $columns = new ColumnCollection();
+    //
+    //        foreach ($this->columns_data as $column_data) {
+    //            $column = $this->column_factory->create(
+    //                $this->table_screen,
+    //                new Config($column_data)
+    //            );
+    //
+    //            if ($column) {
+    //                $columns->add($column);
+    //            }
+    //        }
+    //
+    //        return $columns;
+    //    }
 
 }

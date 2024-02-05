@@ -46,15 +46,19 @@ class AdminColumns
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\PostFactory::class));
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\UserFactory::class));
 
-        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\OriginalsFactory::class));
-        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\CommentFactory::class));
-        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\MediaFactory::class));
-        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\PostFactory::class));
-        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\UserFactory::class));
-
-        if ( ! defined('ACP_FILE')) {
-            ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\IntegrationsFactory::class));
-        }
+        // TODO replace with factories
+        \AC\ColumnFactories\Aggregate::add(
+            new \AC\ColumnFactories\PostFactory($container)
+        );
+//        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\OriginalsFactory::class));
+//        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\CommentFactory::class));
+//        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\MediaFactory::class));
+//        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\PostFactory::class));
+//        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\UserFactory::class));
+//
+//        if ( ! defined('ACP_FILE')) {
+//            ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\IntegrationsFactory::class));
+//        }
 
         MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
         ListKeysFactory\Aggregate::add($container->get(ListKeysFactory\BaseFactory::class));

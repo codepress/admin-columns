@@ -9,7 +9,7 @@ use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Config;
 use AC\Setting\SettingCollection;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 class CustomFieldTypeFactory implements SettingFactory
@@ -55,7 +55,7 @@ class CustomFieldTypeFactory implements SettingFactory
         $this->media_link_factory = $media_link_factory;
     }
 
-    public function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Setting
     {
         return new CustomFieldType(
             $config->get('field_type') ?: '',

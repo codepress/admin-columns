@@ -8,7 +8,7 @@ use AC\Setting\Config;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class Password extends Settings\Column implements Setting\Formatter
+class Password extends Settings\Setting implements Setting\Formatter
 {
 
     public function __construct(string $password = '', Specification $conditions = null)

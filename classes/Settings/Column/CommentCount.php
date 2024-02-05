@@ -9,7 +9,7 @@ use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Settings;
 
-class CommentCount extends Settings\Column
+class CommentCount extends Settings\Setting
 {
 
     public const NAME = 'comment_status';

@@ -11,7 +11,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class UserDisplay extends Settings\Column implements Formatter
+class UserDisplay extends Settings\Setting implements Formatter
 {
 
     public const NAME = 'display_author_as';

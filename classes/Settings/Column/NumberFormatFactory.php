@@ -6,13 +6,13 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\Config;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 class NumberFormatFactory implements SettingFactory
 {
 
-    public function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Setting
     {
         // TODO Tobias are the defaults not ok? The typecasting should do the trick?
         return new NumberFormat(

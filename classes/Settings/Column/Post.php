@@ -12,9 +12,9 @@ use AC\Setting\Formatter;
 use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 
-class Post extends Column implements Formatter, Setting\Recursive
+class Post extends Setting implements Formatter, Setting\Recursive
 {
 
     use RecursiveFormatterTrait;

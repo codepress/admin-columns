@@ -7,7 +7,7 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Setting\Config;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 class PostLinkFactory implements SettingFactory
@@ -20,7 +20,7 @@ class PostLinkFactory implements SettingFactory
         $this->relation = $relation;
     }
 
-    public function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Setting
     {
         return new PostLink(
             $config->get('post_link_to'),

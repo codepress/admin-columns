@@ -7,12 +7,12 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Setting\Config;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 
 class ImageFactory implements AC\Settings\SettingFactory
 {
 
-    public function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Setting
     {
         return new Image(
             $config->has('image_size') ? (string)$config->get('image_size') : null,

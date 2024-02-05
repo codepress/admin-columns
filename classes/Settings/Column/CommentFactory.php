@@ -8,7 +8,7 @@ use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Config;
 use AC\Setting\SettingCollection;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 final class CommentFactory implements SettingFactory
@@ -30,7 +30,7 @@ final class CommentFactory implements SettingFactory
         $this->comment_link_factory = $comment_link_factory;
     }
 
-    public function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Setting
     {
         return new Column\Comment(
             (string)$config->get('comment') ?: Comment::PROPERTY_COMMENT,

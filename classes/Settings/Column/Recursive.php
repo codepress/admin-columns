@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 
-abstract class Recursive extends Column implements AC\Setting\Recursive, AC\Setting\Formatter
+abstract class Recursive extends Setting implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     use AC\Setting\RecursiveFormatterTrait;

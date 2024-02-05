@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Column\Post\Renderable;
 
+// TODO turn into formatter
 class Attachment extends Formatted
 {
 

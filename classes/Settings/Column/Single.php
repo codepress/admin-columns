@@ -6,9 +6,9 @@ namespace AC\Settings\Column;
 
 use AC\Setting\Component\Input\Custom;
 use AC\Setting\Input;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 
-abstract class Single extends Column
+abstract class Single extends Setting
 {
 
     public function __construct(

@@ -116,7 +116,9 @@ class ListScreenSettings implements RequestAjaxHandler
                 'value'     => $column->get_type(),
                 'group'     => $groups->get($column->get_group())['label'],
                 'group_key' => $column->get_group(),
-                'original'  => $column->is_original(),
+
+                // TODO
+                'original'  => false //$column->is_original(),
             ];
         }
 

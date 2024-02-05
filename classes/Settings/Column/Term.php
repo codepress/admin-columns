@@ -10,7 +10,7 @@ use AC\Setting\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class Term extends Settings\Column implements Formatter
+class Term extends Settings\Setting implements Formatter
 {
 
     public const NAME = 'term';

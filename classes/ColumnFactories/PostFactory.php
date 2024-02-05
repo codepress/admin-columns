@@ -37,7 +37,9 @@ class PostFactory implements ColumnFactories
 
         $factories[] = new CustomFieldFactory(new MetaType(MetaType::POST), $this->container);
 
-        return new Collection\ColumnFactories($factories);
+        return new Collection\ColumnFactories(
+            $factories
+        );
     }
 
 }

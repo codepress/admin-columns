@@ -6,7 +6,7 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\Config;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 class MessageFactory implements SettingFactory
@@ -22,7 +22,7 @@ class MessageFactory implements SettingFactory
         $this->message = $message;
     }
 
-    public function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Setting
     {
         return new Message(
             $this->label,

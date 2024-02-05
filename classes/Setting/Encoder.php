@@ -8,7 +8,7 @@ use AC\Setting\Component\Input\Number;
 use AC\Setting\Component\Input\Open;
 use AC\Setting\Component\Input\Option;
 use AC\Setting\Component\OptionCollection;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 
 final class Encoder
 {
@@ -31,7 +31,7 @@ final class Encoder
         return $encoded;
     }
 
-    private function encode_setting(Column $setting): array
+    private function encode_setting(Setting $setting): array
     {
         $encoded = [
             'name'        => $setting->get_name(),

@@ -7,13 +7,13 @@ namespace AC\Settings\Column;
 use AC\Expression\Specification;
 use AC\Sanitize\Kses;
 use AC\Setting\Config;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 class LabelFactory implements SettingFactory
 {
 
-    public function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Setting
     {
         $label = $config->has('label')
             ? (string)$config->get('label')

@@ -7,7 +7,6 @@ namespace AC\ColumnFactories;
 use AC\Collection;
 use AC\ColumnFactories;
 use AC\TableScreen;
-use AC;
 
 // TODO Proof-of-concept POC
 class Aggregate implements ColumnFactories
@@ -28,10 +27,16 @@ class Aggregate implements ColumnFactories
         $factories = [];
 
         foreach (self::$factories as $factory) {
-            $factories[] = iterator_to_array($factory->create($table_screen));
+            $column_factories = $factory->create($table_screen);
+
+            if ($column_factories) {
+                $factories[] = iterator_to_array($column_factories);
+            }
         }
 
-        return new Collection\ColumnFactories(array_filter(array_merge(...$factories)));
+        return new Collection\ColumnFactories(
+            array_merge(...$factories)
+        );
     }
 
 }

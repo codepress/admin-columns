@@ -6,7 +6,7 @@ use AC\Expression\Specification;
 use AC\Setting;
 use AC\Settings;
 
-class PostStatus extends Settings\Column
+class PostStatus extends Settings\Setting
 {
 
     // TODO remove

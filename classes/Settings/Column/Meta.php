@@ -4,11 +4,11 @@ namespace AC\Settings\Column;
 
 use AC\Form\Element\Select;
 use AC\MetaType;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 use AC\View;
 
 // TODO
-abstract class Meta extends Column
+abstract class Meta extends Setting
 {
 
     /**

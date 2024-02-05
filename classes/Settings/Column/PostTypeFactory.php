@@ -6,7 +6,7 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\Config;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 class PostTypeFactory implements SettingFactory
@@ -19,7 +19,7 @@ class PostTypeFactory implements SettingFactory
         $this->show_all = $show_all;
     }
 
-    public function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Setting
     {
         return new PostType(
             $config->has('post_type') ? $config->get('post_type') : null,

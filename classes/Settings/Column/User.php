@@ -9,9 +9,9 @@ use AC\Setting\Formatter;
 use AC\Setting\Formatter\Aggregate;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 
-class User extends Column implements Formatter
+class User extends Setting implements Formatter
 {
 
     private $user_format;

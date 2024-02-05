@@ -8,7 +8,7 @@ use AC\Expression\Specification;
 use AC\Setting\Component\Input\Number;
 use AC\Settings;
 
-class NumberOfItems extends Settings\Column
+class NumberOfItems extends Settings\Setting
 {
 
     public function __construct(Specification $specification = null)

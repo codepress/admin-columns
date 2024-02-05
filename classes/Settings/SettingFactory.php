@@ -10,6 +10,6 @@ use AC\Setting\Config;
 interface SettingFactory
 {
 
-    public function create(Config $config, Specification $specification = null): Column;
+    public function create(Config $config, Specification $specification = null): Setting;
 
 }

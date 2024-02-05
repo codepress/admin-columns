@@ -14,7 +14,7 @@ use AC\Setting\Component\Type\Option;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 
-class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
+class Image extends AC\Settings\Setting implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     private $image_format;
@@ -86,13 +86,13 @@ class Image extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setti
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new AC\Settings\Column(
+            new AC\Settings\Setting(
                 __('Width', 'codepress-admin-columns'),
                 '',
                 Number::create_single_step('image_size_w', 0, null, $this->width),
                 StringComparisonSpecification::equal('cpac-custom')
             ),
-            new AC\Settings\Column(
+            new AC\Settings\Setting(
                 __('Height', 'codepress-admin-columns'),
                 '',
                 Number::create_single_step('image_size_h', 0, null, $this->height),

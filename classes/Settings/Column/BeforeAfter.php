@@ -11,7 +11,7 @@ use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 
-class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC\Setting\Formatter
+class BeforeAfter extends AC\Settings\Setting implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     private $before;
@@ -43,13 +43,13 @@ class BeforeAfter extends AC\Settings\Column implements AC\Setting\Recursive, AC
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new AC\Settings\Column(
+            new AC\Settings\Setting(
                 __('Before', 'codepress-admin-columns'),
                 '',
                 // TODO
                 new Component\Input\Open('before', $this->before)
             ),
-            new AC\Settings\Column(
+            new AC\Settings\Setting(
                 __('After', 'codepress-admin-columns'),
                 '',
                 // TODO

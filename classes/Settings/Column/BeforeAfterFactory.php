@@ -6,13 +6,13 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\Config;
-use AC\Settings\Column;
+use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 class BeforeAfterFactory implements SettingFactory
 {
 
-    public function create(Config $config, Specification $specification = null): Column
+    public function create(Config $config, Specification $specification = null): Setting
     {
         return new BeforeAfter(
             $config->has('before') ? (string)$config->get('before') : null,
