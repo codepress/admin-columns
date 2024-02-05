@@ -44,6 +44,7 @@ class StringLimit extends Settings\Setting implements Setting\Recursive, Setting
         ];
 
         foreach ($settings as $setting) {
+            // TODO get_label
             $options[$setting->get_name()] = $setting->get_label();
         }
 
