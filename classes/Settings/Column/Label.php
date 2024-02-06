@@ -17,7 +17,8 @@ class Label extends Setting
     {
         parent::__construct(
             new Custom(
-                'label', [
+                'label',
+                [
                     $custom_label,
                 ]
             ),

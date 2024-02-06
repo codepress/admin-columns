@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
+use AC;
 use AC\Expression\Specification;
 use AC\MetaType;
 use AC\Setting\Component\Input\OptionFactory;
@@ -13,7 +14,7 @@ use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Setting;
 
-class CustomField extends Setting implements Formatter, \AC\Setting\Recursive
+class CustomField extends Setting implements Formatter, AC\Setting\Recursive
 {
 
     public const NAME = 'custom_field';

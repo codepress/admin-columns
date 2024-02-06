@@ -93,10 +93,10 @@ class Post extends Settings\Setting implements Formatter, Setting\Recursive
 
     public function format(Value $value): Value
     {
-        return $this->format_by_condition(
-            $this->pre_format_value($value),
-            $this->post_format
-        );
+        $value = $this->pre_format_value($value);
+
+        return $this->get_formatter_by_condition($this->post_format)
+                    ->format($value);
     }
 
     public function is_parent(): bool

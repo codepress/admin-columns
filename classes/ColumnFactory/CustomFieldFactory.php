@@ -7,6 +7,7 @@ use AC\Column\ColumnFactory;
 use AC\MetaType;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Aggregate;
+use AC\Setting\Formatter\Post\Meta;
 use AC\Setting\SettingCollection;
 use AC\Settings;
 use AC\Vendor\DI\Container;

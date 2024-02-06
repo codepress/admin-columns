@@ -56,28 +56,21 @@ class CustomFieldType extends AC\Settings\Setting implements Formatter, AC\Setti
         $this->field_type = $field_type;
     }
 
-    private function pre_format_value(Value $value): Value
-    {
-        // TODO
-        switch ($this->field_type) {
-            case self::TYPE_COLOR:
-                return $value->with_value(
-                    ac_helper()->string->get_color_block((string)$value)
-                );
-            case self::TYPE_POST:
-                return new Value((int)$value->get_value());
-            // TODO
-            default:
-                return $value;
-        }
-    }
-
     public function format(Value $value): Value
     {
-        return $this->format_by_condition(
-            $this->pre_format_value($value),
-            $this->field_type
-        );
+        switch ($this->field_type) {
+            case self::TYPE_COLOR:
+                $value = $value->with_value(
+                    ac_helper()->string->get_color_block((string)$value)
+                );
+                break;
+            case self::TYPE_POST:
+                $value = new Value((int)$value->get_value());
+                break;
+        }
+
+        return $this->get_recursive_formatter($this->field_type)
+                    ->format($value);
     }
 
     public function is_parent(): bool
