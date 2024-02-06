@@ -45,7 +45,6 @@ class Component implements AC\Setting\Component
 
     public function get_attributes(): AttributeCollection
     {
-        // TODO David immutable, but not great for memory but almost used never
         return clone $this->attributes;
     }
 
