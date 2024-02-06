@@ -14,8 +14,6 @@ use AC\Settings\SettingFactory;
 class PostFactory implements SettingFactory
 {
 
-    private $character_limit_factory;
-
     private $image_factory;
 
     private $user_factory;
@@ -24,14 +22,16 @@ class PostFactory implements SettingFactory
 
     private $date_factory;
 
+    private $string_limit_factory;
+
     public function __construct(
-        CharacterLimitFactory $character_limit_factory,
+        StringLimitFactory $string_limit_factory,
         ImageFactory $image_factory,
         UserFactory $user_factory,
         StatusFactory $status_factory,
         DateFactory $date_factory
     ) {
-        $this->character_limit_factory = $character_limit_factory;
+        $this->string_limit_factory = $string_limit_factory;
         $this->image_factory = $image_factory;
         $this->user_factory = $user_factory;
         $this->status_factory = $status_factory;
@@ -43,7 +43,7 @@ class PostFactory implements SettingFactory
         return new Post(
             $config->get('post') ?: Post::PROPERTY_TITLE,
             new SettingCollection([
-                $this->character_limit_factory->create(
+                $this->string_limit_factory->create(
                     $config,
                     StringComparisonSpecification::equal(Post::PROPERTY_TITLE)
                 ),

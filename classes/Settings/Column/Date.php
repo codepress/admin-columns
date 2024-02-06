@@ -41,7 +41,7 @@ class Date extends Settings\Column\DateTimeFormat
     public function format(Value $value): Value
     {
         if ('diff' === $this->date_format) {
-            $timestamp = $this->get_timestamp($value->get_value());
+            $timestamp = $this->create_timestamp($value->get_value());
 
             return $value->with_value(
                 $timestamp

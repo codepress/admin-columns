@@ -52,7 +52,9 @@ abstract class DateTimeFormat extends Settings\Setting implements Setting\Recurs
 
     public function format(Value $value): Value
     {
-        $timestamp = $this->get_timestamp($value->get_value());
+        $timestamp = $this->create_timestamp(
+            $value->get_value()
+        );
 
         if ( ! $timestamp) {
             return $value->with_value(false);
@@ -71,21 +73,17 @@ abstract class DateTimeFormat extends Settings\Setting implements Setting\Recurs
         );
     }
 
-    protected function get_timestamp($date): ?int
+    protected function create_timestamp($value): ?int
     {
-        if (empty($date)) {
+        if (empty($value) || ! is_scalar($value)) {
             return null;
         }
 
-        if ( ! is_scalar($date)) {
-            return null;
+        if (is_numeric($value)) {
+            return (int)$value;
         }
 
-        if (is_numeric($date)) {
-            return (int)$date;
-        }
-
-        return strtotime($date) ?: null;
+        return strtotime($value) ?: null;
     }
     //
     //	/**

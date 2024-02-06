@@ -7,7 +7,6 @@ use AC\Column\ColumnFactory;
 use AC\MetaType;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Aggregate;
-use AC\Setting\Formatter\Post\Meta;
 use AC\Setting\SettingCollection;
 use AC\Settings;
 use AC\Vendor\DI\Container;
@@ -40,6 +39,8 @@ class CustomFieldFactory implements ColumnFactory
 
         return new SettingCollection([
             $setting_factory->create($config),
+            $this->container->get(Settings\Column\LabelFactory::class)->create($config),
+            $this->container->get(Settings\Column\WidthFactory::class)->create($config),
         ]);
     }
 

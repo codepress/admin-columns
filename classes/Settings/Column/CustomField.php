@@ -50,6 +50,10 @@ class CustomField extends Setting implements Formatter, AC\Setting\Recursive
 
     public function format(Value $value): Value
     {
+        if ( ! $this->field) {
+            return $value;
+        }
+
         $field = $this->field;
 
         // Backwards compatible for WordPress Settings API not storing fields starting with _
@@ -57,7 +61,7 @@ class CustomField extends Setting implements Formatter, AC\Setting\Recursive
             $field = substr($field, strlen('cpachidden'));
         }
 
-        // TODO pre formatted
+        // TODO test serialized data
         $value = $value->with_value(
             get_metadata((string)$this->meta_type, (int)$value->get_id(), $field, true)
         );

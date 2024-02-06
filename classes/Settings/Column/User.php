@@ -37,12 +37,9 @@ class User extends Setting implements Formatter
 
     public function format(Value $value): Value
     {
-        $user_id = (int)$value->get_id();
-
-        $value = new Value(
-            $user_id,
+        $value = $value->with_value(
             ac_helper()->user->get_display_name(
-                $user_id,
+                $value->get_id(),
                 $this->user_format
             )
         );

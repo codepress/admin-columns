@@ -6,6 +6,7 @@ namespace AC\Setting;
 
 use Countable;
 
+// TODO Component Collection?
 final class SettingCollection extends Collection implements Countable
 {
 

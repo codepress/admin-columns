@@ -13,20 +13,21 @@ class Label extends Setting
 
     private $custom_label;
 
-    public function __construct(string $custom_label)
+    public function __construct(string $label)
     {
         parent::__construct(
             new Custom(
                 'label',
                 [
-                    $custom_label,
-                ]
+                    $label,
+                ],
+                $label
             ),
             __('Label', 'codepress-admin-columns'),
             __('This is the name which will appear as the column header.', 'codepress-admin-columns')
         );
 
-        $this->custom_label = $custom_label;
+        $this->custom_label = $label;
     }
 
     public function get_custom_label(): string

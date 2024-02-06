@@ -52,10 +52,12 @@ class Column
         return (string)$this->get_id();
     }
 
-    // TODO rename to get_setting_label
+    // TODO rename to something more affording
     public function get_custom_label():string
     {
-        return $this->get_label();
+        return (string) $this->get_setting('label')
+                             ->get_input()
+                             ->get_default();
     }
 
     public function get_label(): string

@@ -64,6 +64,10 @@ class CustomFieldType extends AC\Settings\Setting implements Formatter, AC\Setti
                     ac_helper()->string->get_color_block((string)$value)
                 );
                 break;
+            case self::TYPE_DATE:
+                // TODO
+            case self::TYPE_USER:
+            case self::TYPE_MEDIA:
             case self::TYPE_POST:
                 $value = new Value((int)$value->get_value());
                 break;
