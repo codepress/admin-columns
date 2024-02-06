@@ -21,9 +21,9 @@ class PostStatus extends Settings\Setting
         );
 
         parent::__construct(
+            $input,
             __('Post Status', 'codepress-admin-columns'),
             null,
-            $input,
             $conditions
         );
     }

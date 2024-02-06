@@ -31,9 +31,12 @@ final class AttributeCollection extends Collection
         $this->data[] = $item;
     }
 
-    public function get( string $key ) : string
+    public function get(string $key): string
     {
-        foreach( $this->data as $attribute )
+        //        foreach( $this->data as $attribute ) {
+        //            // TODO
+        //        }
+        return '';
     }
 
     public function current(): Attribute

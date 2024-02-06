@@ -23,13 +23,13 @@ class FileMeta extends Settings\Setting
         Specification $specification = null
     ) {
         parent::__construct(
-            $label,
-            '',
             OptionFactory::create_select(
                 'media_meta_key',
                 OptionCollection::from_array($meta_options),
                 $meta_key
             ),
+            $label,
+            null,
             $specification
         );
         $this->meta_key = $meta_key;

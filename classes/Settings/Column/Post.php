@@ -33,13 +33,13 @@ class Post extends Settings\Setting implements Formatter, Setting\Recursive
     public function __construct(string $post_format, SettingCollection $settings, Specification $conditionals = null)
     {
         parent::__construct(
-            __('Display', 'codepress-admin-columns'),
-            '',
             OptionFactory::create_select(
                 'post',
                 $this->get_display_options(),
                 $post_format
             ),
+            __('Display', 'codepress-admin-columns'),
+            null,
             $conditionals
         );
 

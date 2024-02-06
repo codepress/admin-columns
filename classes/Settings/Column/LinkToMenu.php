@@ -6,7 +6,6 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -20,15 +19,15 @@ class LinkToMenu extends Settings\Setting implements Formatter
     public function __construct(bool $is_linked, Specification $conditions = null)
     {
         parent::__construct(
+            OptionFactory::create_toggle('link_to_menu', null, $is_linked ? 'on' : 'off'),
             __('Link to menu', 'codepress-admin-columns'),
             __('This will make the title link to the menu.', 'codepress-admin-columns'),
-            OptionFactory::create_toggle('link_to_menu', null, $is_linked ? 'on' : 'off'),
             $conditions
         );
         $this->linked = $is_linked;
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
         $menu_ids = $value->get_value();
 

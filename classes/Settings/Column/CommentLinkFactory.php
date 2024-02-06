@@ -14,7 +14,7 @@ final class CommentLinkFactory implements SettingFactory
 
     public function create(Config $config, Specification $specification = null): Setting
     {
-        return new Column\CommentLink(
+        return new CommentLink(
             (string)$config->get('comment_link_to') ?: null,
             $specification
         );

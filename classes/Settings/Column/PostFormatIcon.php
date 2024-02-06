@@ -4,7 +4,6 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -12,19 +11,22 @@ use AC\Settings;
 class PostFormatIcon extends Settings\Setting implements Formatter
 {
 
+    private $use_icon;
+
     public function __construct(bool $use_icon, Specification $conditions = null)
     {
         parent::__construct(
+            OptionFactory::create_toggle('use_icon', null, $use_icon ? 'on' : 'off'),
             __('Use an icon?', 'codepress-admin-columns'),
             __('Use an icon instead of text for displaying.', 'codepress-admin-columns'),
-            OptionFactory::create_toggle('use_icon', null, $use_icon ? 'on' : 'off'),
             $conditions
         );
+        $this->use_icon = $use_icon;
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
-        if ('on' === $options->get('use_icon')) {
+        if ($this->use_icon) {
             return $value->get_value()
                 ? $value->with_value(
                     ac_helper()->html->tooltip(

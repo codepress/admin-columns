@@ -21,8 +21,6 @@ class AttachmentDisplay extends Settings\Column\Recursive
     public function __construct(string $attachment_type, AC\Expression\Specification $specification)
     {
         parent::__construct(
-            __('Display', 'codepress-admin-columns'),
-            '',
             OptionFactory::create_select(
                 'attachment_display',
                 OptionCollection::from_array([
@@ -31,6 +29,8 @@ class AttachmentDisplay extends Settings\Column\Recursive
                 ]),
                 $attachment_type ?: 'thumbnail'
             ),
+            __('Display', 'codepress-admin-columns'),
+            null,
             $specification
         );
     }

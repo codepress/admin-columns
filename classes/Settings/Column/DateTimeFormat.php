@@ -22,9 +22,9 @@ abstract class DateTimeFormat extends Settings\Setting implements Setting\Recurs
     public function __construct(string $date_format = null, Specification $conditions = null)
     {
         parent::__construct(
-            __('Date Format', 'codepress-admin-columns'),
-            '',
             new Custom('date_format'),
+            __('Date Format', 'codepress-admin-columns'),
+            null,
             $conditions
         );
 
@@ -40,13 +40,12 @@ abstract class DateTimeFormat extends Settings\Setting implements Setting\Recurs
         // TODO do we need this when we use a Custom setting?
         return new SettingCollection([
             new Settings\Setting(
-                '',
-                '',
                 OptionFactory::create_radio(
                     'date_format',
                     $this->get_date_options(),
                     $this->date_format
-                )
+                ),
+                ''
             ),
         ]);
     }

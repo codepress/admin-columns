@@ -32,8 +32,6 @@ class NumberFormat extends AC\Settings\Setting implements Formatter
         Specification $specification = null
     ) {
         parent::__construct(
-            __('Number Format', 'codepress-admin-columns'),
-            '',
             Component\Input\OptionFactory::create_select(
                 'number_format',
                 OptionCollection::from_array([
@@ -42,6 +40,8 @@ class NumberFormat extends AC\Settings\Setting implements Formatter
                 ]),
                 $format
             ),
+            __('Number Format', 'codepress-admin-columns'),
+            null,
             $specification
         );
 
@@ -57,7 +57,7 @@ class NumberFormat extends AC\Settings\Setting implements Formatter
             return $value;
         }
 
-        if ( ! is_numeric( $value->get_value() ) ) {
+        if ( ! is_numeric($value->get_value())) {
             return $value;
         }
 

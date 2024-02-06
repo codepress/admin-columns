@@ -14,7 +14,7 @@ final class CommentCountFactory implements SettingFactory
 
     public function create(Config $config, Specification $specification = null): Setting
     {
-        return new Column\CommentCount(
+        return new CommentCount(
             (string)$config->get('comment_status') ?: null,
             $specification
         );

@@ -3,7 +3,6 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Config;
 use AC\Setting\Component\Input\Number;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
@@ -12,24 +11,27 @@ use AC\Settings;
 class WordsPerMinute extends Settings\Setting implements Formatter
 {
 
-    public function __construct(Specification $conditions = null)
+    private $words_per_minute;
+
+    public function __construct(int $words_per_minute = null, Specification $conditions = null)
     {
         parent::__construct(
+            Number::create_single_step('words_per_minute', 0, null, 200, ''),
             __('Words per minute', 'codepress-admin-columns'),
             __(
                 'Estimated reading time in words per minute.',
                 'codepress-admin-columns'
             ),
-            Number::create_single_step('words_per_minute', 0, null, 200, ''),
             $conditions
         );
+        $this->words_per_minute = $words_per_minute ?? 200;
     }
 
     public function format(Value $value): Value
     {
         // TODO
         $time = $this->make_human_readable(
-            $this->get_estimated_reading_time_in_seconds((string)$value, $options->get($this->name) ?: 200)
+            $this->get_estimated_reading_time_in_seconds((string)$value, $this->words_per_minute)
         );
 
         return $value->with_value($time);

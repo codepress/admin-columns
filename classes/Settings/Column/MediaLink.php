@@ -19,8 +19,6 @@ class MediaLink extends Settings\Setting implements Formatter
     public function __construct(string $link_to, Specification $specification)
     {
         parent::__construct(
-            __('Link To', 'codepress-admin-columns'),
-            '',
             OptionFactory::create_select(
                 'media_link_to',
                 OptionCollection::from_array([
@@ -30,6 +28,8 @@ class MediaLink extends Settings\Setting implements Formatter
                 ]),
                 $link_to
             ),
+            __('Link To', 'codepress-admin-columns'),
+            null,
             $specification
         );
         $this->link_to = $link_to;

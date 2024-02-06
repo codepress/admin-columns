@@ -16,9 +16,9 @@ class ActionIcons extends Setting
     public function __construct(bool $use_icons, Specification $specification = null)
     {
         parent::__construct(
+            OptionFactory::create_toggle('use_icons', null, $use_icons ? 'on' : 'off'),
             __('Use icons?', 'codepress-admin-columns'),
             __('Use icons instead of text for displaying the actions.', 'codepress-admin-columns'),
-            OptionFactory::create_toggle('use_icons', null, $use_icons ? 'on' : 'off'),
             $specification
         );
     }

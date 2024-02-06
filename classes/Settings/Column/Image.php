@@ -30,13 +30,13 @@ class Image extends AC\Settings\Setting implements AC\Setting\Recursive, AC\Sett
         Specification $specification = null
     ) {
         parent::__construct(
-            __('Image Size', 'codepress-admin-columns'),
-            '',
             OptionFactory::create_select(
                 'image_size',
                 $this->get_grouped_image_sizes(),
                 $image_format
             ),
+            __('Image Size', 'codepress-admin-columns'),
+            null,
             $specification
         );
 
@@ -87,15 +87,15 @@ class Image extends AC\Settings\Setting implements AC\Setting\Recursive, AC\Sett
     {
         return new SettingCollection([
             new AC\Settings\Setting(
+                Number::create_single_step('image_size_w', 0, null, $this->width),
                 __('Width', 'codepress-admin-columns'),
                 '',
-                Number::create_single_step('image_size_w', 0, null, $this->width),
                 StringComparisonSpecification::equal('cpac-custom')
             ),
             new AC\Settings\Setting(
+                Number::create_single_step('image_size_h', 0, null, $this->height),
                 __('Height', 'codepress-admin-columns'),
                 '',
-                Number::create_single_step('image_size_h', 0, null, $this->height),
                 StringComparisonSpecification::equal('cpac-custom')
             ),
         ]);

@@ -28,8 +28,6 @@ class UserLink extends Settings\Setting implements AC\Setting\Formatter
     public function __construct(string $link_to = '', string $post_type = null, Specification $conditions = null)
     {
         parent::__construct(
-            __('Link To', 'codepress-admin-columns'),
-            null,
             OptionFactory::create_select(
                 'user_link_to',
                 OptionCollection::from_array(
@@ -37,6 +35,8 @@ class UserLink extends Settings\Setting implements AC\Setting\Formatter
                 ),
                 self::PROPERTY_EDIT_USER
             ),
+            __('Link To', 'codepress-admin-columns'),
+            null,
             $conditions
         );
 

@@ -23,13 +23,13 @@ class CommentCount extends Settings\Setting
     public function __construct(string $comment_status = null, Specification $specification = null)
     {
         parent::__construct(
-            __('Comment status', 'codepress-admin-columns'),
-            __('Select which comment status you like to display.', 'codepress-admin-columns'),
             OptionFactory::create_select(
                 'comment_status',
                 OptionCollection::from_array($this->get_comment_statuses()),
                 $comment_status ?: self::STATUS_ALL
             ),
+            __('Comment status', 'codepress-admin-columns'),
+            __('Select which comment status you like to display.', 'codepress-admin-columns'),
             $specification
         );
     }

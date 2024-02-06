@@ -17,8 +17,6 @@ class Status extends Settings\Setting implements Formatter
     public function __construct(bool $use_icon, Specification $conditionals = null)
     {
         parent::__construct(
-            __('Use an icon?', 'codepress-admin-columns'),
-            __('Use an icon instead of text for displaying the status.', 'codepress-admin-columns'),
             OptionFactory::create_toggle(
                 'use_icon',
                 OptionCollection::from_array([
@@ -27,6 +25,8 @@ class Status extends Settings\Setting implements Formatter
                 ], false),
                 $use_icon ? '1' : '0'
             ),
+            __('Use an icon?', 'codepress-admin-columns'),
+            __('Use an icon instead of text for displaying the status.', 'codepress-admin-columns'),
             $conditionals
         );
         $this->use_icon = $use_icon;

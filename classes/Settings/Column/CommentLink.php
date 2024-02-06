@@ -16,8 +16,6 @@ class CommentLink extends Settings\Setting implements Formatter
     public function __construct(string $comment_link = null, Specification $specification = null)
     {
         parent::__construct(
-            __('Link To', 'codepress-admin-columns'),
-            '',
             Input\OptionFactory::create_select(
                 'comment_link_to',
                 OptionCollection::from_array(
@@ -31,10 +29,14 @@ class CommentLink extends Settings\Setting implements Formatter
                 null,
                 true
             ),
+            __('Link To', 'codepress-admin-columns'),
+            null,
             $specification
         );
     }
 
+
+    // TODO
     public function format(Value $value, Config $options): Value
     {
         $link = null;

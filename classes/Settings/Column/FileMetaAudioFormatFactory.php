@@ -14,7 +14,7 @@ final class FileMetaAudioFormatFactory implements SettingFactory
 
     public function create(Config $config, Specification $specification = null): Setting
     {
-        return new Column\FileMetaAudio(
+        return new FileMetaAudio(
             (string)$config->get('media_meta_key') ?: 'dataformat',
             $specification
         );

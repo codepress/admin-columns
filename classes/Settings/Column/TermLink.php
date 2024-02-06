@@ -4,7 +4,8 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
-use AC\Setting\Config;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 use WP_Term;
@@ -14,21 +15,24 @@ class TermLink extends Settings\Setting implements AC\Setting\Formatter
 
     private $post_type;
 
-    public function __construct(string $post_type = null, Specification $conditions = null)
+    private $term_link_to;
+
+    public function __construct(string $term_link_to, string $post_type = null, Specification $conditions = null)
     {
-        $input = AC\Setting\Input\Option\Single::create_select(
-            AC\Setting\OptionCollection::from_array($this->get_link_options()),
-            'filter'
+        $input = OptionFactory::create_select(
+            'term_link_to',
+            OptionCollection::from_array($this->get_link_options())
         );
 
         parent::__construct(
-            'term_link_to',
+            $input,
             __('Link To', 'codepress-admin-columns'),
             null,
-            $input,
             $conditions
         );
+
         $this->post_type = $post_type;
+        $this->term_link_to = $term_link_to;
     }
 
     protected function get_link_options(): array
@@ -40,11 +44,11 @@ class TermLink extends Settings\Setting implements AC\Setting\Formatter
         ];
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
         $link = null;
 
-        switch ($options->get($this->name)) {
+        switch ($this->term_link_to) {
             case 'filter':
                 $term = get_term($value->get_id());
 

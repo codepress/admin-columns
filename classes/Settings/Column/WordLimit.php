@@ -2,7 +2,6 @@
 
 namespace AC\Settings\Column;
 
-use AC;
 use AC\Expression\Specification;
 use AC\Setting\Component\Input\Number;
 use AC\Setting\Formatter;
@@ -17,12 +16,6 @@ class WordLimit extends Settings\Setting implements Formatter
     public function __construct(?int $word_limit = 20, Specification $conditions = null)
     {
         parent::__construct(
-            __('Word Limit', 'codepress-admin-columns'),
-            sprintf(
-                '%s <em>%s</em>',
-                __('Maximum number of words', 'codepress-admin-columns'),
-                __('Leave empty for no limit', 'codepress-admin-columns')
-            ),
             Number::create_single_step(
                 'excerpt_length',
                 0,
@@ -31,6 +24,12 @@ class WordLimit extends Settings\Setting implements Formatter
                 null,
                 null,
                 __('Words', 'codepress-admin-columns')
+            ),
+            __('Word Limit', 'codepress-admin-columns'),
+            sprintf(
+                '%s <em>%s</em>',
+                __('Maximum number of words', 'codepress-admin-columns'),
+                __('Leave empty for no limit', 'codepress-admin-columns')
             ),
             $conditions
         );

@@ -35,11 +35,6 @@ class FileMetaAudio extends FileMeta implements Formatter
         parent::__construct(__('Audio Meta', 'codepress-admin-columns'), $types, $meta_key, $specification);
     }
 
-    public function format(Value $value, Config $options): Value
-    {
-        return $value;
-    }
-
     public function format_($value, $original_value)
     {
         switch ($this->get_media_meta_key()) {

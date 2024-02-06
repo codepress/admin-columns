@@ -20,8 +20,6 @@ class PathScope extends Settings\Setting implements Formatter
     public function __construct(string $path_scope, Specification $conditions = null)
     {
         parent::__construct(
-            __('Path scope', 'codepress-admin-columns'),
-            __('Part of the file path to display', 'codepress-admin-columns'),
             OptionFactory::create_select(
                 'path_scope',
                 OptionCollection::from_array([
@@ -32,13 +30,15 @@ class PathScope extends Settings\Setting implements Formatter
                 ]),
                 $path_scope
             ),
+            __('Path scope', 'codepress-admin-columns'),
+            __('Part of the file path to display', 'codepress-admin-columns'),
             $conditions
         );
 
         $this->path_scope = $path_scope;
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
         // TODO: Implement format() method.
         return $value;

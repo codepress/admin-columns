@@ -28,9 +28,9 @@ class Separator extends Settings\Setting
         );
 
         parent::__construct(
-            __('Separator', 'codepress-admin-columns'),
-            '',
             $input,
+            __('Separator', 'codepress-admin-columns'),
+            null,
             $conditions
         );
     }

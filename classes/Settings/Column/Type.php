@@ -12,11 +12,9 @@ class Type extends Setting
     public function __construct()
     {
         parent::__construct(
-            'type',
+            new Custom('type'),
             __('Type', 'codepress-admin-columns'),
             __('Choose a column type.', 'codepress-admin-columns'),
-            // TODO Input\Custom
-            new Custom('type')
         );
     }
 

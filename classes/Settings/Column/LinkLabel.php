@@ -16,9 +16,9 @@ class LinkLabel extends Settings\Setting implements Formatter
     public function __construct(string $link_label = null, Specification $specification = null)
     {
         parent::__construct(
+            Component\Input\OpenFactory::create_text('link_label', $link_label),
             __('Link Label', 'codepress-admin-columns'),
             __('Leave blank to display the URL', 'codepress-admin-columns'),
-            Component\Input\OpenFactory::create_text('link_label', $link_label),
             $specification
         );
         $this->link_label = $link_label;

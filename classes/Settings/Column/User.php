@@ -21,13 +21,13 @@ class User extends Setting implements Formatter
     public function __construct(string $user_format, SettingCollection $settings, Specification $specification = null)
     {
         parent::__construct(
-            __('Display', 'codepress-admin-columns'),
-            '',
             OptionFactory::create_select(
                 'display_author_as',
                 $this->get_input_options(),
                 $user_format
             ),
+            __('Display', 'codepress-admin-columns'),
+            null,
             $specification
         );
 

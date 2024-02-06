@@ -14,8 +14,6 @@ class Password extends Settings\Setting implements Setting\Formatter
     public function __construct(string $password = '', Specification $conditions = null)
     {
         parent::__construct(
-            __('Display format', 'codepress-admin-columns'),
-            null,
             Setting\Component\Input\OptionFactory::create_select(
                 'password',
                 Setting\Component\OptionCollection::from_array([
@@ -24,11 +22,13 @@ class Password extends Settings\Setting implements Setting\Formatter
                 ]),
                 $password
             ),
+            __('Display format', 'codepress-admin-columns'),
+            null,
             $conditions
         );
     }
 
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
         if ('text' === $options->get('password')) {
             return $value;

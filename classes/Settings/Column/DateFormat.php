@@ -19,8 +19,6 @@ class DateFormat extends Settings\Setting
     public function __construct(string $date_format, Specification $specification)
     {
         parent::__construct(
-            __('Date Save Format', 'codepress-admin-columns'),
-            '',
             OptionFactory::create_select(
                 'date_save_format',
                 OptionCollection::from_array([
@@ -34,6 +32,8 @@ class DateFormat extends Settings\Setting
                 ]),
                 $date_format
             ),
+            __('Date Save Format', 'codepress-admin-columns'),
+            null,
             $specification
         );
     }

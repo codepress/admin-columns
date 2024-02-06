@@ -4,6 +4,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
+use AC\Setting\Component\OptionCollection;
 use AC\Settings;
 
 class Taxonomy extends Settings\Setting
@@ -13,17 +14,17 @@ class Taxonomy extends Settings\Setting
 
     public function __construct(string $post_type = null, Specification $conditions = null)
     {
-        $input = AC\Setting\Input\Option\Single::create_select(
-            AC\Setting\OptionCollection::from_array(
+        $input = AC\Setting\Component\Input\OptionFactory::create_select(
+            'taxonomy',
+            OptionCollection::from_array(
                 ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)
             )
         );
 
         parent::__construct(
-            'taxonomy',
+            $input,
             __('Taxonomy', 'codepress-admin-columns'),
             null,
-            $input,
             $conditions
         );
     }

@@ -15,9 +15,6 @@ class VideoDisplay extends Settings\Setting
     public function __construct(Specification $conditions = null)
     {
         parent::__construct(
-            'video_display',
-            __('Display', 'codepress-admin-columns'),
-            null,
             OptionFactory::create_select(
                 'video_display',
                 OptionCollection::from_array([
@@ -26,6 +23,8 @@ class VideoDisplay extends Settings\Setting
                 ]),
                 'embed'
             ),
+            __('Display', 'codepress-admin-columns'),
+            null,
             $conditions
         );
     }

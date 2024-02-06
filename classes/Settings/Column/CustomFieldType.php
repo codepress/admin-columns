@@ -41,15 +41,15 @@ class CustomFieldType extends AC\Settings\Setting implements Formatter, AC\Setti
     public function __construct(string $field_type, SettingCollection $settings)
     {
         parent::__construct(
-            __('Field Type', 'codepress-admin-columns'),
-            __('This will determine how the value will be displayed.', 'codepress-admin-columns'),
             OptionFactory::create_select(
                 'field_type',
                 $this->get_field_type_options(),
                 $field_type,
                 null,
                 true
-            )
+            ),
+            __('Field Type', 'codepress-admin-columns'),
+            __('This will determine how the value will be displayed.', 'codepress-admin-columns')
         );
 
         $this->settings = $settings;

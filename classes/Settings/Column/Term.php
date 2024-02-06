@@ -3,10 +3,9 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Config;
+use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
-use AC\Setting\Input;
-use AC\Setting\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -15,9 +14,12 @@ class Term extends Settings\Setting implements Formatter
 
     public const NAME = 'term';
 
-    public function __construct(Specification $conditions = null)
+    private $term_property;
+
+    public function __construct(string $term_property, Specification $conditions = null)
     {
-        $input = Input\Option\Single::create_select(
+        $input = OptionFactory::create_select(
+            'term_property',
             OptionCollection::from_array(
                 [
                     ''     => __('Title'),
@@ -29,16 +31,16 @@ class Term extends Settings\Setting implements Formatter
         );
 
         parent::__construct(
-            'term_property',
+            $input,
             __('Display', 'codepress-admin-columns'),
             null,
-            $input,
             $conditions
         );
+        $this->term_property = $term_property;
     }
 
     // TODO test
-    public function format(Value $value, Config $options): Value
+    public function format(Value $value): Value
     {
         $term = $value->get_value();
 
@@ -50,7 +52,7 @@ class Term extends Settings\Setting implements Formatter
             return $value;
         }
 
-        switch ($options->get('term_property')) {
+        switch ($this->term_property) {
             case 'slug' :
                 return $term->slug;
             case 'id' :

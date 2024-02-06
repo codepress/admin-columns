@@ -31,14 +31,14 @@ class CustomField extends Setting implements Formatter, \AC\Setting\Recursive
         Specification $specification = null
     ) {
         parent::__construct(
-            __('Field', 'codepress-admin-columns'),
-            __('Custom field key', 'codepress-admin-columns'),
             OptionFactory::create_select_remote(
                 'field',
                 'ac-custom-field-keys',
                 $field,
                 __('Select', 'codepress-admin-columns')
             ),
+            __('Field', 'codepress-admin-columns'),
+            __('Custom field key', 'codepress-admin-columns'),
             $specification
         );
 
@@ -55,7 +55,6 @@ class CustomField extends Setting implements Formatter, \AC\Setting\Recursive
         if ($field && 0 === strpos($field, 'cpachidden')) {
             $field = substr($field, strlen('cpachidden'));
         }
-
 
         // TODO pre formatted
         $value = $value->with_value(

@@ -4,6 +4,7 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting;
+use AC\Setting\Component\Input\OptionFactory;
 use AC\Settings;
 
 class PostType extends Settings\Setting
@@ -13,16 +14,10 @@ class PostType extends Settings\Setting
 
     public function __construct(string $post_type = null, bool $show_any = false, Specification $specification = null)
     {
-        $input = Setting\Component\Input\OptionFactory::create_select(
-            'post_type',
-            $this->create_options(),
-            $post_type
-        );
-
         parent::__construct(
+            OptionFactory::create_select('post_type', $this->create_options(), $post_type),
             __('Post Type', 'codepress-admin-columns'),
             null,
-            $input,
             $specification
         );
 
@@ -66,7 +61,9 @@ class PostType extends Settings\Setting
 
         foreach ($post_types as $post_type) {
             $post_type_object = get_post_type_object($post_type);
-            $options[$post_type] = $post_type_object->labels->name;
+            if ($post_type_object) {
+                $options[$post_type] = $post_type_object->labels->name;
+            }
         }
 
         $options = $this->add_slug_to_duplicate_post_type_label($options);

@@ -7,7 +7,6 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Setting\Component;
-use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 
@@ -25,9 +24,8 @@ class BeforeAfter extends AC\Settings\Setting implements AC\Setting\Recursive, A
     ) {
         // TODO input?
         parent::__construct(
+            new Component\Input\Custom('width'),
             __('Display Options', 'codepress-admin-columns'),
-            '',
-            null,
             $conditions
         );
 
@@ -44,16 +42,12 @@ class BeforeAfter extends AC\Settings\Setting implements AC\Setting\Recursive, A
     {
         return new SettingCollection([
             new AC\Settings\Setting(
-                __('Before', 'codepress-admin-columns'),
-                '',
-                // TODO
-                new Component\Input\Open('before', $this->before)
+                new Component\Input\Open('before', $this->before),
+                __('Before', 'codepress-admin-columns')
             ),
             new AC\Settings\Setting(
-                __('After', 'codepress-admin-columns'),
-                '',
-                // TODO
-                new Component\Input\Open('after', $this->after)
+                new Component\Input\Open('after', $this->after),
+                __('After', 'codepress-admin-columns')
             ),
         ]);
     }

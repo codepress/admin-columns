@@ -32,7 +32,7 @@ final class CommentFactory implements SettingFactory
 
     public function create(Config $config, Specification $specification = null): Setting
     {
-        return new Column\Comment(
+        return new Comment(
             (string)$config->get('comment') ?: Comment::PROPERTY_COMMENT,
             new SettingCollection([
                 $this->date_factory->create(

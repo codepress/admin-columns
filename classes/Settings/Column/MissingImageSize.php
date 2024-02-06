@@ -15,8 +15,6 @@ class MissingImageSize extends Settings\Setting
     public function __construct(string $include_missing_sizes, Specification $conditions = null)
     {
         parent::__construct(
-            __('Include missing sizes?', 'codepress-admin-columns'),
-            __('Include sizes that are missing an image file.', 'codepress-admin-columns'),
             OptionFactory::create_toggle(
                 'include_missing_sizes',
                 OptionCollection::from_array([
@@ -25,6 +23,8 @@ class MissingImageSize extends Settings\Setting
                 ], false),
                 $include_missing_sizes
             ),
+            __('Include missing sizes?', 'codepress-admin-columns'),
+            __('Include sizes that are missing an image file.', 'codepress-admin-columns'),
             $conditions
         );
     }

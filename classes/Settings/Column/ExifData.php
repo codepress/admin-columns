@@ -29,13 +29,13 @@ class ExifData extends Settings\Setting implements AC\Setting\Recursive, AC\Sett
     public function __construct(string $label, string $exif_data, Specification $conditions = null)
     {
         parent::__construct(
-            $label,
-            '',
             OptionFactory::create_select(
                 'exif_data',
                 OptionCollection::from_array($this->get_exif_types()),
                 $exif_data
             ),
+            $label,
+            null,
             $conditions
         );
 

@@ -32,8 +32,6 @@ class Comment extends Recursive
         Expression\Specification $specification = null
     ) {
         parent::__construct(
-            __('Display', 'codepress-admin-columns'),
-            '',
             OptionFactory::create_select(
                 'comment',
                 OptionCollection::from_array([
@@ -45,15 +43,12 @@ class Comment extends Recursive
                 ]),
                 $comment_display
             ),
+            __('Display', 'codepress-admin-columns'),
+            null,
             $specification
         );
         $this->settings = $settings;
         $this->comment_display = $comment_display;
-    }
-
-    public function is_parent(): bool
-    {
-        return false;
     }
 
     public function get_children(): SettingCollection
@@ -61,7 +56,8 @@ class Comment extends Recursive
         return $this->settings;
     }
 
-    public function format(Value $value, Config $options): Value
+    // TODO
+    public function format(Value $value): Value
     {
         switch ($options->get(self::NAME)) {
             case self::PROPERTY_DATE :
