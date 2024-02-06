@@ -2,7 +2,7 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
-Requires at least: 4.7.1
+Requires at least: 4.7.3
 Tested up to: 6.4.2
 Requires PHP: 7.2
 Stable tag: 4.7.2
@@ -208,6 +208,11 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.7.3 =
+Release Date: February 6th, 2024
+
+* [Improved] Better loading of available integrations
 
 = 4.7.2 =
 Release Date: January 16th, 2024

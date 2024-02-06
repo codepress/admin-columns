@@ -9,19 +9,36 @@ class IntegrationRepository
 
     public function find_all(): Integrations
     {
-        return new Integrations([
-            new Integration\ACF(),
-            new Integration\BuddyPress(),
-            new Integration\EventsCalendar(),
-            new Integration\GravityForms(),
-            new Integration\JetEngine(),
-            new Integration\Pods(),
-            new Integration\Types(),
-            new Integration\MetaBox(),
-            new Integration\MediaLibraryAssistant(),
-            new Integration\WooCommerce(),
-            new Integration\YoastSeo(),
-        ]);
+        static $integrations = null;
+
+        if (null === $integrations) {
+            $integrations = new Integrations([
+                new Integration\ACF(),
+                new Integration\BuddyPress(),
+                new Integration\EventsCalendar(),
+                new Integration\GravityForms(),
+                new Integration\JetEngine(),
+                new Integration\Pods(),
+                new Integration\Types(),
+                new Integration\MetaBox(),
+                new Integration\MediaLibraryAssistant(),
+                new Integration\WooCommerce(),
+                new Integration\YoastSeo(),
+            ]);
+        }
+
+        return $integrations;
+    }
+
+    public function find_by_slug(string $slug): ?Integration
+    {
+        foreach ($this->find_all() as $integration) {
+            if ($integration->get_slug() === $slug) {
+                return $integration;
+            }
+        }
+
+        return null;
     }
 
     public function find_all_active(): Integrations
