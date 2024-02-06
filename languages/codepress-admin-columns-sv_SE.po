@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.11\n"
+"X-Generator: GlotPress/4.0.0-beta.2\n"
 "Language: sv_SE\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
@@ -2134,7 +2134,7 @@ msgstr "Status"
 
 #: classes/Column/Post/Slug.php:14 classes/Settings/Column/Term.php:31
 msgid "Slug"
-msgstr "Permalänk"
+msgstr ""
 
 #: classes/Column/Post/Shortcodes.php:15
 msgid "Shortcodes"
