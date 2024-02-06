@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.7.3 =
+Release Date: February 6th, 2024
+
+* [Improved] Better loading of available integrations
+
 = 4.7.2 =
 Release Date: January 16th, 2024
 
