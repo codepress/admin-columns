@@ -7,6 +7,7 @@ namespace AC;
 use AC\Setting\Formatter;
 use AC\Setting\Recursive;
 use AC\Setting\SettingCollection;
+use AC\Type\ColumnId;
 
 class Column
 {
@@ -38,6 +39,23 @@ class Column
     public function get_type(): string
     {
         return $this->type;
+    }
+
+    public function get_id():ColumnId
+    {
+        return ColumnId::generate();
+    }
+
+    // TODO remove; refactor to get_id().
+    public function get_name():string
+    {
+        return (string)$this->get_id();
+    }
+
+    // TODO rename to get_setting_label
+    public function get_custom_label():string
+    {
+        return $this->get_label();
     }
 
     public function get_label(): string

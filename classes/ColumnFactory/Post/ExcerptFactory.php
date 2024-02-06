@@ -30,6 +30,7 @@ class ExcerptFactory implements ColumnFactory
     protected function get_settings(Config $config):SettingCollection
     {
         return new SettingCollection([
+            $this->container->get(Settings\Column\NameFactory::class)->create($config),
             $this->container->get(Settings\Column\LabelFactory::class)->create($config),
             $this->container->get(Settings\Column\WidthFactory::class)->create($config),
             $this->container->get(Settings\Column\StringLimitFactory::class)->create($config),

@@ -206,11 +206,12 @@ final class Screen implements Registerable
             ->enqueue();
 
         // Column specific scripts
-        if ($this->list_screen) {
-            foreach ($this->list_screen->get_columns() as $column) {
-                $column->scripts();
-            }
-        }
+		// TODO
+//        if ($this->list_screen) {
+//            foreach ($this->list_screen->get_columns() as $column) {
+//                $column->scripts();
+//            }
+//        }
     }
 
     private function get_local_number_format(string $var)
