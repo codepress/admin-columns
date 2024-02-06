@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use AC\Settings\Setting;
 use Countable;
 
 final class SettingCollection extends Collection implements Countable
@@ -15,12 +14,12 @@ final class SettingCollection extends Collection implements Countable
         array_map([$this, 'add'], $data);
     }
 
-    public function add(Setting $item): void
+    public function add(Component $item): void
     {
         $this->data[] = $item;
     }
 
-    public function current(): Setting
+    public function current(): Component
     {
         return parent::current();
     }
