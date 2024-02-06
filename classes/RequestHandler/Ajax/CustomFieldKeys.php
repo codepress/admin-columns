@@ -10,9 +10,8 @@ use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
-use AC\Setting\OptionCollection;
-use AC\Setting\OptionCollectionEncoder;
-use AC\Setting\Type\Option;
+use AC\Setting\Component\OptionCollection;
+use AC\Setting\Component\Type\Option;
 use AC\TableScreen;
 use AC\TableScreenFactory\Aggregate;
 use AC\Type\ListKey;
@@ -56,6 +55,7 @@ class CustomFieldKeys implements RequestAjaxHandler
             $query->where_post_type($table_screen->get_post_type());
         }
 
+        // TODO David continue
         $meta_keys = $query->get();
 
         $collection = new OptionCollection();
@@ -69,6 +69,12 @@ class CustomFieldKeys implements RequestAjaxHandler
                 )
             );
         }
+
+        $encoded[] = [
+            'value' => $meta_key,
+            'label' => $meta_key,
+            'group' => $this->get_group($meta_key),
+        ];
 
         $encoder = new OptionCollectionEncoder();
 

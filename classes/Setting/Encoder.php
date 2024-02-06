@@ -8,7 +8,6 @@ use AC\Setting\Component\Input\Number;
 use AC\Setting\Component\Input\Open;
 use AC\Setting\Component\Input\Option;
 use AC\Setting\Component\OptionCollection;
-use AC\Settings\Setting;
 
 final class Encoder
 {
@@ -31,17 +30,23 @@ final class Encoder
         return $encoded;
     }
 
-    private function encode_setting(Setting $setting): array
+    private function encode_setting(Component $component): array
     {
         $encoded = [
-            'name'        => $setting->get_name(),
-            'label'       => $setting->get_label(),
-            'description' => $setting->get_description(),
-            'conditions'  => $setting->get_conditions()->get_rules($setting->get_name()),
+            'type' => $component->get_type(),
         ];
 
-        if ($setting->has_input()) {
-            $input = $setting->get_input();
+        foreach ($component->get_attributes() as $attribute) {
+            $encoded['attributes'][$attribute->get_name()] = $attribute->get_value();
+        }
+
+        if ($component instanceof Setting) {
+            $encoded = [
+                'name'       => $component->get_name(),
+                'conditions' => $component->get_conditions()->get_rules($component->get_name()),
+            ];
+
+            $input = $component->get_input();
 
             $encoded['input']['type'] = $input->get_type();
 
@@ -75,14 +80,14 @@ final class Encoder
                     $encoded['input']['step'] = $input->get_step();
                 }
             }
-        }
 
-        if ($setting instanceof Recursive) {
-            $encoded['is_parent'] = $setting->is_parent();
-            $encoded['children'] = [];
+            if ($component instanceof Recursive) {
+                $encoded['is_parent'] = $component->is_parent();
+                $encoded['children'] = [];
 
-            foreach ($setting->get_children() as $child) {
-                $encoded['children'][] = $this->encode_setting($child);
+                foreach ($component->get_children() as $child) {
+                    $encoded['children'][] = $this->encode_setting($child);
+                }
             }
         }
 

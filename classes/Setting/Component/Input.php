@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Setting\Component;
 
-class Input
+use AC\Setting\Component;
+
+class Input implements Component
 {
 
     private $name;
