@@ -29,4 +29,5 @@ final class SettingCollection extends Collection implements Countable
     {
         return count($this->data);
     }
+
 }
