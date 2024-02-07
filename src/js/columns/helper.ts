@@ -1,7 +1,7 @@
 import {get, Writable, writable} from "svelte/store";
 import {SvelteComponent} from "svelte";
 
-export const getSettingComponent = (type: string) => {
+export const getInputComponent = (type: string) => {
 
     let config = get(settingTypes);
 

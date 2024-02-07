@@ -9,7 +9,7 @@
     import ProFeatureToggles from "./ProFeatureToggles.svelte";
     import AcIcon from "ACUi/AcIcon.svelte";
     import ColumnSetting from "./ColumnSetting.svelte";
-    import TypeSetting from "./settings/TypeSetting.svelte";
+    import TypeSetting from "./settings/TypeInput.svelte";
     import {listScreenIsReadOnly} from "../store/read_only";
 
     export let data: any;

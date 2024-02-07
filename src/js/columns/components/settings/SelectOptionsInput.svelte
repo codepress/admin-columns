@@ -72,7 +72,6 @@
         if( value.length> 0 ){
             data = JSON.parse( value );
         }
-                
 
         activeOptions = data.map(o => {
             return Object.assign(o, {id: uniqid()})
