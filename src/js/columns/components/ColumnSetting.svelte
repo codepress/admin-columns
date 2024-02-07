@@ -1,13 +1,12 @@
 <script lang="ts">
-    export let name: string;
-    export let description: string;
+    export let description: string|null = null;
     export let label: string;
 </script>
 <style>
 
 
 </style>
-<div class="acp-column-setting lg:acu-flex acu-px-6 acu-mb-2" data-setting={name}>
+<div class="acp-column-setting lg:acu-flex acu-px-6 acu-mb-2">
 
 	<div class="acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px]">
 		{label}

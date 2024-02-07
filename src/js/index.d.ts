@@ -42,8 +42,8 @@ declare namespace AC.Column.Settings.Input {
         type: Type
         name: string
         default: string
+        attributes?: { [key:string] : string }
     }
-    document.querySelector()
 }
 
 declare namespace AC.Column.Settings {
@@ -53,19 +53,29 @@ declare namespace AC.Column.Settings {
     type ColumnSetting = AbstractColumnSetting;
     type SettingOption = { value: string, label: string, group: string | null }
 
-
-    interface AbstractColumnSetting<Input = AbstractSettingInput> {
+    interface AbstractColumnSetting {
         type: string,
         attributes: {
             label: string
             description?: string,
             [key:string] : any
         }
-        conditions: Rule
-        input: Input,
+        conditions?: Rule
         children?: ColumnSettingCollection
         is_parent?: boolean
     }
+
+    interface ColumnInputSetting extends AbstractColumnSetting {
+        type: 'row'
+        input: AbstractSettingInput
+    }
+
+    interface WidthSetting extends AbstractColumnSetting{
+        type: 'row_width'
+        children: AbstractSettingInput[]
+    }
+
+    let t : WidthSetting;
 
     type LabelSetting = AbstractColumnSetting;
     type TextSetting = AbstractColumnSetting;
@@ -139,10 +149,7 @@ declare namespace AC.Column.Settings {
         }
     }
 
-    interface WidthSetting extends AbstractColumnSetting {
-        name: 'width'
-        children: AbstractSettingInput[]
-    }
+
 
 }
 

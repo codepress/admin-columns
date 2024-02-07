@@ -107,7 +107,7 @@
 		<div class="ac-column-settings" transition:slide>
 
 			<!-- Specific Type setting -->
-			<ColumnSetting name="type" description="" label="Type">
+			<ColumnSetting description="" label="Type">
 				<TypeSetting bind:data={data} bind:columnConfig={config} disabled={$listScreenIsReadOnly}/>
 			</ColumnSetting>
 

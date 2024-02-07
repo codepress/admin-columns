@@ -1,9 +1,7 @@
 <script lang="ts">
-    import {getInputComponent} from "../helper";
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
-    import {listScreenIsReadOnly} from "../store/read_only";
-    import ColumnSetting from "./ColumnSetting.svelte";
-    import WidthInput from "./settings/input/WidthInput.svelte";
+    import RowSetting from "./settings/RowSetting.svelte";
+    import WidthRowSetting from "./settings/WidthRowSetting.svelte";
 
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
@@ -11,9 +9,6 @@
 
     let filteredSettings = settings;
 
-    const getInputType = (type: string) => {
-        return getInputComponent(type);
-    }
 
     const checkConditions = () => {
         if (typeof settings === 'undefined') {
@@ -40,37 +35,12 @@
 </script>
 
 {#if typeof filteredSettings !== 'undefined' }
-	{#each filteredSettings as setting (setting.type + setting?.input?.name) }
-
+	{#each filteredSettings as setting (JSON.stringify(setting)) }
 
 		{#if setting.type === 'row'}
-
-			<ColumnSetting name={setting.name} description={setting.description} label={setting.attributes?.label}>
-
-				<svelte:component
-					this={getInputType(setting.input?.type ?? 'empty')}
-					bind:data={data}
-					bind:value={data[setting?.input?.name]}
-					disabled={$listScreenIsReadOnly}
-					config={setting}>
-				</svelte:component>
-
-				{#if setting.children && setting.is_parent }
-					<svelte:self bind:data={data} settings={setting.children} parent={setting?.input?.name}/>
-				{/if}
-
-			</ColumnSetting>
-
-			{#if setting.children && !setting.is_parent }
-				<svelte:self bind:data={data} settings={setting.children} parent={setting?.input?.name}/>
-			{/if}
+			<RowSetting setting={setting} bind:data={data}  />
 		{:else if setting.type === 'row_width'}
-			<ColumnSetting name={setting.name} description={setting.description} label={setting.attributes?.label}>
-				<WidthInput
-					bind:data={data}
-					disabled={$listScreenIsReadOnly}
-					config={setting}/>
-			</ColumnSetting>
+			<WidthRowSetting setting={setting} bind:data={data}  />
 		{/if}
 
 	{/each}
