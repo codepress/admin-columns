@@ -32,7 +32,7 @@ class Column
         $this->type = $type;
         $this->label = $label;
         $this->renderable = $formatter;
-        $this->settings = $settings;
+        $this->settings = $settings ?? new SettingCollection();
         $this->group = $group ?? 'custom';
     }
 

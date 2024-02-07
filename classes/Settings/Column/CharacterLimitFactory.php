@@ -16,7 +16,7 @@ final class CharacterLimitFactory implements SettingFactory
     public function create(Config $config, Specification $specification = null): Component
     {
         return new CharacterLimit(
-            $config->has('character_limit') ? (int)$config->get('character_limit') : null,
+            (int)$config->get('character_limit') ?: null,
             $specification
         );
     }

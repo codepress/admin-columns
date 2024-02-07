@@ -16,8 +16,8 @@ class WidthFactory implements SettingFactory
     public function create(Config $config, Specification $specification = null): Component
     {
         return new Width(
-            $config->has('width') ? (int)$config->get('width') : null,
-            $config->get('width_unit')
+            (int)$config->get('width') ?: null,
+            $config->get('width_unit') ?: 'px'
         );
     }
 

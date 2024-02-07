@@ -7,7 +7,6 @@ namespace AC\Setting\Formatter;
 use AC\Setting\Formatter;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
-use AC\Setting\ValueCollection;
 
 final class Aggregate implements Formatter
 {

@@ -27,7 +27,7 @@ final class Width extends AC\Settings\Component implements AC\Setting\Recursive
         );
 
         $this->width = $width;
-        $this->width_unit = $width_unit ?? 'px';
+        $this->width_unit = $width_unit ?: 'px';
 
         $this->validate();
     }

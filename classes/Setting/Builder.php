@@ -21,31 +21,25 @@ class Builder
 
     public function set_defaults(): self
     {
-        $this->set(new NameFactory());
-        $this->set(new LabelFactory());
-        $this->set(new WidthFactory());
-
-        return $this;
+        return $this->set(new NameFactory())
+                    ->set(new LabelFactory())
+                    ->set(new WidthFactory());
     }
 
-    public function set_before_after(): self
+    public function set_before_after(Specification $specification = null): self
     {
-        $this->set(new BeforeAfterFactory());
-
-        return $this;
+        return $this->set(new BeforeAfterFactory(), $specification);
     }
 
     public function set_string_limit(Specification $specification = null): self
     {
-        $this->set(
+        return $this->set(
             new StringLimitFactory(
                 new CharacterLimitFactory(),
                 new WordLimitFactory()
             ),
             $specification
         );
-
-        return $this;
     }
 
     public function set(SettingFactory $factory, Specification $specification = null): self

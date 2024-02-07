@@ -7,10 +7,13 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Setting\Component;
+use AC\Setting\Component\Input\Open;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
+use AC\Settings\Setting;
 
-class BeforeAfter extends AC\Settings\Setting implements AC\Setting\Recursive, AC\Setting\Formatter
+// TODO component?
+class BeforeAfter extends Setting implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     private $before;
@@ -22,8 +25,8 @@ class BeforeAfter extends AC\Settings\Setting implements AC\Setting\Recursive, A
         string $after = null,
         Specification $conditions = null
     ) {
-        // TODO input?
         parent::__construct(
+        // TODO input?
             new Component\Input\Custom('width'),
             __('Display Options', 'codepress-admin-columns'),
             $conditions
@@ -41,12 +44,12 @@ class BeforeAfter extends AC\Settings\Setting implements AC\Setting\Recursive, A
     public function get_children(): SettingCollection
     {
         return new SettingCollection([
-            new AC\Settings\Setting(
-                new Component\Input\Open('before', $this->before),
+            new Setting(
+                new Open('before', null, $this->before),
                 __('Before', 'codepress-admin-columns')
             ),
-            new AC\Settings\Setting(
-                new Component\Input\Open('after', $this->after),
+            new Setting(
+                new Open('after', null, $this->after),
                 __('After', 'codepress-admin-columns')
             ),
         ]);
@@ -54,7 +57,7 @@ class BeforeAfter extends AC\Settings\Setting implements AC\Setting\Recursive, A
 
     public function format(Value $value): Value
     {
-        if (is_string($value->get_value()) && ac_helper()->string->is_not_empty($value->get_value())) {
+        if (is_scalar($value->get_value()) && ac_helper()->string->is_not_empty($value->get_value())) {
             return $value->with_value(
                 $this->before .
                 $value->get_value() .
@@ -63,16 +66,6 @@ class BeforeAfter extends AC\Settings\Setting implements AC\Setting\Recursive, A
         }
 
         return $value;
-    }
-
-    public function get_before(): ?string
-    {
-        return $this->before;
-    }
-
-    public function get_after(): ?string
-    {
-        return $this->after;
     }
 
 }
