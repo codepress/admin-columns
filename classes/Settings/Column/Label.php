@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 // TODO
-use AC\Setting\Component\Input\Custom;
+use AC\Setting\Component\Input;
 use AC\Settings\Setting;
 
 class Label extends Setting
@@ -16,13 +16,7 @@ class Label extends Setting
     public function __construct(string $label)
     {
         parent::__construct(
-            new Custom(
-                'label',
-                [
-                    $label,
-                ],
-                $label
-            ),
+            new Input('label', 'label', $label),
             __('Label', 'codepress-admin-columns'),
             __('This is the name which will appear as the column header.', 'codepress-admin-columns')
         );
