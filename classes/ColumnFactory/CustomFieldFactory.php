@@ -5,9 +5,11 @@ namespace AC\ColumnFactory;
 use AC\Column;
 use AC\Column\ColumnFactory;
 use AC\MetaType;
+use AC\Setting\Builder;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Aggregate;
-use AC\Setting\SettingCollection;
+use AC\Setting\SettingCollectionFactory;
+use AC\Setting\SettingFactoriesBuilder;
 use AC\Settings;
 use AC\Vendor\DI\Container;
 
@@ -25,29 +27,24 @@ class CustomFieldFactory implements ColumnFactory
         $this->container = $container;
     }
 
-    public function can_create(string $key): bool
+    public function can_create(string $type): bool
     {
-        return 'column-meta' === $key;
+        return 'column-meta' === $type;
     }
 
-    protected function get_settings(Config $config): SettingCollection
+    private function get_setting_factory(): Settings\Column\CustomFieldFactory
     {
-        $setting_factory = new Settings\Column\CustomFieldFactory(
+        return new Settings\Column\CustomFieldFactory(
             $this->meta_type,
             $this->container->get(Settings\Column\CustomFieldTypeFactory::class)
         );
-
-        return new SettingCollection([
-            $setting_factory->create($config),
-            $this->container->get(Settings\Column\NameFactory::class)->create($config),
-            $this->container->get(Settings\Column\LabelFactory::class)->create($config),
-            $this->container->get(Settings\Column\WidthFactory::class)->create($config),
-        ]);
     }
 
     public function create(Config $config): Column
     {
-        $settings = $this->get_settings($config);
+        $settings = (new Builder())->set_defaults()
+                                   ->set($this->get_setting_factory())
+                                   ->build($config);
 
         return new Column(
             'column-meta',

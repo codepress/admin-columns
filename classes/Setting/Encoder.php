@@ -50,6 +50,10 @@ final class Encoder
                 'name' => $input->get_name(),
             ];
 
+            foreach ($input->get_attributes() as $attribute) {
+                $encoded['attributes'][$attribute->get_name()] = $attribute->get_value();
+            }
+
             if ($input->has_default()) {
                 $encoded['input']['default'] = $input->get_default();
             }

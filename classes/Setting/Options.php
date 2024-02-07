@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Column;
+namespace AC\Setting;
 
 use AC\Iterator;
-use AC\Setting\Config;
 
 class Options extends Iterator
 {

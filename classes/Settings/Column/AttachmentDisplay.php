@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
+use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
@@ -13,12 +14,12 @@ use AC\Setting\Type\Value;
 use AC\Settings;
 
 // TODO Child collection and constructor params
-class AttachmentDisplay extends Settings\Column\Recursive
+class AttachmentDisplay implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     use AC\Setting\RecursiveFormatterTrait;
 
-    public function __construct(string $attachment_type, AC\Expression\Specification $specification)
+    public function __construct(string $attachment_type, Specification $specification)
     {
         parent::__construct(
             OptionFactory::create_select(
@@ -33,6 +34,11 @@ class AttachmentDisplay extends Settings\Column\Recursive
             null,
             $specification
         );
+    }
+
+    public function is_parent(): bool
+    {
+        // todo
     }
 
     public function get_children(): SettingCollection
