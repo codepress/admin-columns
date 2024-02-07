@@ -103,7 +103,11 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 $this->favorite_repository,
                 $this->list_id
             ),
-            new Style('ac-admin-page-columns-css', $this->location->with_suffix('assets/css/admin-page-columns.css')),
+            new Style(
+                'ac-admin-page-columns-css',
+                $this->location->with_suffix('assets/css/admin-page-columns.css'),
+                ['ac-utilities']
+            ),
             new Style('ac-select2'),
             new Script('ac-select2'),
         ]);
