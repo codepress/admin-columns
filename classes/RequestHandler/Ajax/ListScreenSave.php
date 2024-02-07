@@ -14,6 +14,7 @@ use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
+use AC\Setting\Config;
 use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
@@ -67,21 +68,24 @@ class ListScreenSave implements RequestAjaxHandler
             exit;
         }
 
-        $list_screen = $this->storage->find(new ListScreenId($id));
+        $id = new ListScreenId($id);
+        $table_screen = $this->table_screen_factory->create($list_key);
 
-        if ( ! $list_screen) {
+        if ($this->storage->exists($id)) {
             $list_screen = new ListScreen(
-                new ListScreenId($id),
-                '',
+                $id,
+                (string)$data['title'],
+                $table_screen,
+                $this->get_columns($table_screen, (array)$data['columns']),
+                (array)$data['settings']
+            );
+        } else {
+            $list_screen = new ListScreen(
+                $id,
+                (string)$table_screen->get_labels(),
                 $this->table_screen_factory->create($list_key)
             );
         }
-
-        $table_screen = $list_screen->get_table_screen();
-
-        $list_screen->set_title((string)$data['title']);
-        $list_screen->set_columns($this->get_columns($table_screen, (array)$data['columns']));
-        $list_screen->set_preferences((array)$data['settings']);
 
         $this->storage->save($list_screen);
 
@@ -106,11 +110,12 @@ class ListScreenSave implements RequestAjaxHandler
         $columns = [];
 
         foreach ($columndata as $data) {
+            // TODO
             if (isset($data['label'])) {
                 $data['label'] = (new LabelEncoder())->encode($data['label']);
             }
 
-            $columns[] = $this->column_factory->create($table_screen, $data);
+            $columns[] = $this->column_factory->create($table_screen, new Config($data));
         }
 
         return new ColumnCollection(array_filter($columns));

@@ -28,22 +28,19 @@ class EncodedData implements ColumnRepository
 
     public function find_all(): ColumnCollection
     {
+        // TODO test
         $columns = new ColumnCollection();
 
-        $factory = new \AC\ColumnFactories\Aggregate();
-
-        $factories = $factory->create($this->table_screen);
-
-        // TODO optimise
         foreach ($this->columns_data as $config) {
-            foreach ($factories as $factory) {
-                if ($factory->can_create($config['type'])) {
-                    $columns->add(
-                        $factory->create(
-                            new Config($config)
-                        )
-                    );
-                }
+            
+            $column = $this->column_factory->create(
+                $this->table_screen,
+                (string)$config['type'],
+                new Config($config)
+            );
+
+            if ($column) {
+                $columns->add($column);
             }
         }
 

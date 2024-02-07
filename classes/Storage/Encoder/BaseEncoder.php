@@ -7,7 +7,6 @@ namespace AC\Storage\Encoder;
 use AC;
 use AC\ListScreen;
 use AC\Plugin\Version;
-use AC\Setting\Component\Input;
 use AC\Setting\Recursive;
 use AC\Setting\SettingCollection;
 
@@ -58,23 +57,19 @@ class BaseEncoder implements AC\Storage\Encoder
         return $this->list_screen->get_preferences();
     }
 
-    /**
-     * @param SettingCollection $settings
-     * @param array             $inputs
-     *
-     * @return Input[]
-     */
-    private function get_inputs(SettingCollection $settings, array $inputs = []): array
+    private function encode_settings(SettingCollection $settings, array $encoded = []): array
     {
         foreach ($settings as $setting) {
-            $inputs[$setting->get_name()] = $setting->get_input()->get_default();
+            if ($setting instanceof AC\Setting\Setting) {
+                $encoded[$setting->get_input()->get_name()] = $setting->get_input()->get_default();
+            }
 
             if ($setting instanceof Recursive) {
-                $inputs = $this->get_inputs($setting->get_children(), $inputs);
+                $encoded = $this->encode_settings($setting->get_children(), $encoded);
             }
         }
 
-        return $inputs;
+        return $encoded;
     }
 
     private function get_columns(): array
@@ -85,7 +80,7 @@ class BaseEncoder implements AC\Storage\Encoder
          * @var AC\Column $column
          */
         foreach ($this->list_screen->get_columns() as $column) {
-            $encode[] = $this->get_inputs($column->get_settings());
+            $encode[] = $this->encode_settings($column->get_settings());
         }
 
         return $encode;
