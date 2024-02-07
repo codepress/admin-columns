@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use AC\Settings\Column\BeforeAfter;
+use AC\Settings\Column\BeforeAfterFactory;
 use AC\Settings\Column\CharacterLimitFactory;
 use AC\Settings\Column\LabelFactory;
 use AC\Settings\Column\NameFactory;
@@ -32,7 +32,7 @@ class Builder
 
     public function set_before_after(): self
     {
-        $this->factories[] = new BeforeAfter();
+        $this->factories[] = new BeforeAfterFactory();
 
         return $this;
     }

@@ -8341,7 +8341,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (77:3) {#if allowCreation}
+// (76:3) {#if allowCreation}
 function create_if_block(ctx) {
   let div;
   return {
@@ -8367,7 +8367,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (76:2) 
+// (75:2) 
 function create_empty_slot(ctx) {
   let div;
   function select_block_type(ctx, dirty) {
@@ -8510,7 +8510,6 @@ function instance($$self, $$props, $$invalidate) {
   let originalOptions = [];
   let emptyElement;
   const getValue = value => {
-    console.log(options);
     const found = options.find(o => o.value === value);
     return found ? found : {
       value,
@@ -8519,7 +8518,7 @@ function instance($$self, $$props, $$invalidate) {
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_3__.onMount)(() => {
     var _a;
-    (0,_ajax_settings__WEBPACK_IMPORTED_MODULE_4__.getRemoteSelectOptions)(config.input.data.ajax_handler, $currentListKey).then(response => {
+    (0,_ajax_settings__WEBPACK_IMPORTED_MODULE_4__.getRemoteSelectOptions)(config.input.attributes['data-handler'], $currentListKey).then(response => {
       if (response.data.success) {
         originalOptions = response.data.data.options;
         $$invalidate(4, options = originalOptions);
@@ -18512,7 +18511,7 @@ __webpack_require__.r(__webpack_exports__);
 (0,_helper__WEBPACK_IMPORTED_MODULE_0__.registerSettingType)('select', _components_settings_SelectInput_svelte__WEBPACK_IMPORTED_MODULE_9__["default"]);
 (0,_helper__WEBPACK_IMPORTED_MODULE_0__.registerSettingType)('date_format', _components_settings_DateFormatInput_svelte__WEBPACK_IMPORTED_MODULE_10__["default"]);
 (0,_helper__WEBPACK_IMPORTED_MODULE_0__.registerSettingType)('hidden', _components_settings_HiddenInput_svelte__WEBPACK_IMPORTED_MODULE_11__["default"]);
-(0,_helper__WEBPACK_IMPORTED_MODULE_0__.registerSettingType)('remote_options', _components_settings_SelectRemoteInput_svelte__WEBPACK_IMPORTED_MODULE_12__["default"]);
+(0,_helper__WEBPACK_IMPORTED_MODULE_0__.registerSettingType)('select_remote', _components_settings_SelectRemoteInput_svelte__WEBPACK_IMPORTED_MODULE_12__["default"]);
 (0,_helper__WEBPACK_IMPORTED_MODULE_0__.registerSettingType)('select_options', _components_settings_SelectOptionsInput_svelte__WEBPACK_IMPORTED_MODULE_13__["default"]);
 
 

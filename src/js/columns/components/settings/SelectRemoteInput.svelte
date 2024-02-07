@@ -20,14 +20,13 @@
     let emptyElement: HTMLElement | null;
 
     const getValue = (value: string): SvelteSelectItem => {
-        console.log(options);
         const found = options.find(o => o.value === value);
 
         return found ? found : {value: value, label: value};
     }
 
     onMount(() => {
-        getRemoteSelectOptions(config.input.data.ajax_handler, $currentListKey).then((response) => {
+        getRemoteSelectOptions(config.input.attributes['data-handler'], $currentListKey).then((response) => {
             if (response.data.success) {
                 originalOptions = response.data.data.options;
                 options = originalOptions;

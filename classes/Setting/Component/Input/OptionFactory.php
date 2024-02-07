@@ -50,8 +50,9 @@ final class OptionFactory
             )
         );
 
-        return self::create_select(
+        return new Option(
             $name,
+            'select_remote',
             new OptionCollection(),
             $default,
             $placeholder,
