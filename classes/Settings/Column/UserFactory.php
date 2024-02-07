@@ -6,7 +6,6 @@ use AC\Expression\Specification;
 use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Settings\Component;
-use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 class UserFactory implements SettingFactory

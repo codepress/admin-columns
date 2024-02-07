@@ -9,6 +9,7 @@ use AC\Collection;
 use AC\ColumnFactories;
 use AC\ColumnFactory\CustomFieldFactory;
 use AC\ColumnFactory\Post\AttachmentFactory;
+use AC\ColumnFactory\Post\AuthorFactory;
 use AC\ColumnFactory\Post\ExcerptFactory;
 use AC\MetaType;
 use AC\TableScreen;
@@ -31,7 +32,8 @@ class PostFactory implements ColumnFactories
         }
 
         $factories = [
-            new AttachmentFactory()
+            new AttachmentFactory(),
+            new AuthorFactory(),
         ];
 
         if (post_type_supports($table_screen->get_post_type(), 'excerpt')) {

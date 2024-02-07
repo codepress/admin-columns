@@ -2,6 +2,7 @@
 
 namespace AC\Settings\Column;
 
+use AC;
 use AC\Expression\Specification;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
@@ -11,7 +12,7 @@ use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Setting;
 
-class User extends Setting implements Formatter
+class User extends Setting implements Formatter, AC\Setting\Recursive
 {
 
     private $user_format;
@@ -45,6 +46,11 @@ class User extends Setting implements Formatter
         );
 
         return Aggregate::from_settings($this->settings)->format($value);
+    }
+
+    public function is_parent(): bool
+    {
+        return false;
     }
 
     protected function get_input_options(): OptionCollection
