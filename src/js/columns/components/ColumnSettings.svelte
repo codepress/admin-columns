@@ -10,7 +10,7 @@
 
     let filteredSettings = settings;
 
-    const getInputComponent = (type: string) => {
+    const getInputType = (type: string) => {
         return getInputComponent(type);
     }
 
@@ -40,11 +40,11 @@
 
 {#if typeof filteredSettings !== 'undefined' }
 	{#each filteredSettings as setting (setting.name)}
-
+s
 		<ColumnSetting name={setting.name} description={setting.description} label={setting.label}>
 
 			<svelte:component
-				this={getInputComponent(setting.input?.type ?? 'empty')}
+				this={getInputType(setting.input?.type ?? 'empty')}
 				bind:data={data}
 				bind:value={data[setting.name]}
 				disabled={$listScreenIsReadOnly}
@@ -52,16 +52,16 @@
 			</svelte:component>
 
 			<!-- Subsettings -->
-			{#if setting.children && setting.is_parent }
-				<svelte:self bind:data={data} settings={setting.children} parent={setting.name}/>
-			{/if}
+			<!--{#if setting.children && setting.is_parent }-->
+			<!--	<svelte:self bind:data={data} settings={setting.children} parent={setting.name}/>-->
+			<!--{/if}-->
 
 		</ColumnSetting>
 
 		<!-- Dependent settings -->
-		{#if setting.children && !setting.is_parent }
-			<svelte:self bind:data={data} settings={setting.children} parent={setting.name}/>
-		{/if}
+		<!--{#if setting.children && !setting.is_parent }-->
+		<!--	<svelte:self bind:data={data} settings={setting.children} parent={setting.name}/>-->
+		<!--{/if}-->
 
 	{/each}
 {/if}
