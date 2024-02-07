@@ -80,14 +80,14 @@ final class Encoder
                     $encoded['input']['step'] = $input->get_step();
                 }
             }
+        }
 
-            if ($component instanceof Recursive) {
-                $encoded['is_parent'] = $component->is_parent();
-                $encoded['children'] = [];
+        if ($component instanceof Recursive) {
+            $encoded['is_parent'] = $component->is_parent();
+            $encoded['children'] = [];
 
-                foreach ($component->get_children() as $child) {
-                    $encoded['children'][] = $this->encode_setting($child);
-                }
+            foreach ($component->get_children() as $child) {
+                $encoded['children'][] = $this->encode_setting($child);
             }
         }
 

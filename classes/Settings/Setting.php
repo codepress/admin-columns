@@ -23,7 +23,7 @@ class Setting extends Component implements AC\Setting\Setting
         Specification $conditions = null
     ) {
         parent::__construct(
-            'setting',
+            'row',
             $label,
             $description
         );

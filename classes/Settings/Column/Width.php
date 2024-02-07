@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\Component\Input;
 use AC\Setting\Component\Input\Number;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
@@ -13,7 +12,7 @@ use AC\Setting\SettingCollection;
 use AC\Settings\Setting;
 use InvalidArgumentException;
 
-final class Width extends Setting implements AC\Setting\Recursive
+final class Width extends AC\Settings\Component implements AC\Setting\Recursive
 {
 
     private $width;
@@ -23,7 +22,7 @@ final class Width extends Setting implements AC\Setting\Recursive
     public function __construct(int $width = null, string $width_unit = null)
     {
         parent::__construct(
-            new Input('width', 'custom'),
+            'row_width',
             __('Width', 'codepress-admin-columns')
         );
 
