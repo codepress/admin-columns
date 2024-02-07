@@ -13,7 +13,7 @@ class Input implements Component
 
     private $type;
 
-    private $default;
+    private $value;
 
     private $placeholder;
 
@@ -22,7 +22,7 @@ class Input implements Component
     public function __construct(
         string $name,
         string $type,
-        $default = null,
+        $value = null,
         string $placeholder = null,
         AttributeCollection $attributes = null
     ) {
@@ -32,7 +32,7 @@ class Input implements Component
 
         $this->name = $name;
         $this->type = $type;
-        $this->default = $default;
+        $this->value = $value;
         $this->placeholder = $placeholder;
         $this->attributes = $attributes;
     }
@@ -47,14 +47,14 @@ class Input implements Component
         return $this->type;
     }
 
-    public function has_default(): bool
+    public function has_value(): bool
     {
-        return $this->default !== null;
+        return $this->value !== null;
     }
 
-    public function get_default()
+    public function get_value()
     {
-        return $this->default;
+        return $this->value;
     }
 
     public function has_placeholder(): bool

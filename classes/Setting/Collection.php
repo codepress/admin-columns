@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use Countable;
 use Iterator;
 
-abstract class Collection implements Iterator
+abstract class Collection implements Iterator, Countable
 {
 
     protected $data = [];
@@ -34,6 +35,11 @@ abstract class Collection implements Iterator
     public function rewind(): void
     {
         reset($this->data);
+    }
+
+    public function count(): int
+    {
+        return count($this->data);
     }
 
 }

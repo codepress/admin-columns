@@ -40,7 +40,7 @@ class Image extends AC\Settings\Setting implements AC\Setting\Recursive, AC\Sett
             $specification
         );
 
-        $this->image_format = $image_format ?? 'cpac-custom';
+        $this->image_format = $image_format;
         $this->width = $width ?? 60;
         $this->height = $height ?? 60;
     }

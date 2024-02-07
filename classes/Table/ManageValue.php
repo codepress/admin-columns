@@ -7,6 +7,7 @@ namespace AC\Table;
 use AC\ListScreen;
 use AC\Registerable;
 use AC\Sanitize\Kses;
+use AC\Setting\Type\Value;
 
 abstract class ManageValue implements Registerable
 {
@@ -27,10 +28,17 @@ abstract class ManageValue implements Registerable
             return $fallback_value;
         }
 
-        $value = $column->get_value($id);
+        $value = $column->renderable()
+                        ->format(new Value($id));
 
-        if (is_scalar($value) && apply_filters('ac/column/value/sanitize', true, $column, $id, $this->list_screen)) {
-            $value = (new Kses())->sanitize((string)$value);
+        // TODO
+        if ( '' === $value->get_value()) {
+            $value->with_value( '&ndash;' );
+        }
+
+        if (is_scalar($value->get_value())
+            && apply_filters('ac/column/value/sanitize', true, $column, $id, $this->list_screen)) {
+            $value->with_value( (new Kses())->sanitize((string)$value) );
         }
 
         // You can overwrite the display value for original columns by making sure get_value() does not return an empty string.
@@ -38,6 +46,6 @@ abstract class ManageValue implements Registerable
             return $fallback_value;
         }
 
-        return (string)apply_filters('ac/column/value', $value, $id, $column, $this->list_screen);
+        return (string)apply_filters('ac/column/value', (string)$value, $id, $column, $this->list_screen);
     }
 }

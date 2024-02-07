@@ -1,30 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
+use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Settings\Component;
-use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
-class UserFactory implements SettingFactory
+class AttachmentsFactory implements SettingFactory
 {
-
-    private $user_link_factory;
-
-    public function __construct(UserLinkFactory $user_link_factory)
-    {
-        $this->user_link_factory = $user_link_factory;
-    }
 
     public function create(Config $config, Specification $specification = null): Component
     {
-        return new User(
-            (string)$config->get('display_author_as'),
+        return new Attachments(
+            $config->get('attachment_display') ?: 'thumbnail',
             new SettingCollection([
-                $this->user_link_factory->create($config),
+                (new ImageFactory())->create($config, StringComparisonSpecification::equal('thumbnail')),
             ]),
             $specification
         );

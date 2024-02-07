@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace AC\Column\Post;
 
 use AC\Column;
-use AC\Column\Renderable;
-use AC\Column\Renderable\ValueFormatter;
 use AC\Column\Value;
-use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Settings;
 
@@ -26,12 +23,12 @@ class Modified extends Column implements Value
         );
     }
 
-    public function renderable(Config $options): Renderable
-    {
-        return new Column\Post\Renderable\Modified(
-            new ValueFormatter($this->get_settings())
-        );
-    }
+    //    public function renderable(Config $options): Renderable
+    //    {
+    //        return new Column\Post\Renderable\Modified(
+    //            new ValueFormatter($this->get_settings())
+    //        );
+    //    }
     // TODO
     //    public function get_raw_value($post_id)
     //    {

@@ -51,7 +51,7 @@ class Column
     {
         return (string)$this->get_setting('name')
                             ->get_input()
-                            ->get_default();
+                            ->get_value();
     }
 
     // TODO remove
@@ -59,7 +59,7 @@ class Column
     {
         return (string)$this->get_setting('label')
                             ->get_input()
-                            ->get_default();
+                            ->get_value();
     }
 
     public function get_label(): string

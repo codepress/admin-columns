@@ -8,6 +8,7 @@ use AC;
 use AC\Collection;
 use AC\ColumnFactories;
 use AC\ColumnFactory\CustomFieldFactory;
+use AC\ColumnFactory\Post\AttachmentFactory;
 use AC\ColumnFactory\Post\ExcerptFactory;
 use AC\MetaType;
 use AC\TableScreen;
@@ -29,10 +30,12 @@ class PostFactory implements ColumnFactories
             return null;
         }
 
-        $factories = [];
+        $factories = [
+            new AttachmentFactory()
+        ];
 
         if (post_type_supports($table_screen->get_post_type(), 'excerpt')) {
-            $factories[] = new ExcerptFactory($this->container);
+            $factories[] = new ExcerptFactory();
         }
 
         $factories[] = new CustomFieldFactory(new MetaType(MetaType::POST), $this->container);
