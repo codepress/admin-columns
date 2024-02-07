@@ -85,9 +85,9 @@ class BaseEncoder implements AC\Storage\Encoder
          * @var AC\Column $column
          */
         foreach ($this->list_screen->get_columns() as $column) {
-            $encode[(string)$column->get_id()] = $this->get_inputs($column->get_settings());
+            $encode[] = $this->get_inputs($column->get_settings());
         }
-echo '<pre>'; print_r( $encode ); echo '</pre>'; exit;
+
         return $encode;
     }
 }

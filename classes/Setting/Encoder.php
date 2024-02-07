@@ -8,6 +8,7 @@ use AC\Setting\Component\Input\Number;
 use AC\Setting\Component\Input\Open;
 use AC\Setting\Component\Input\Option;
 use AC\Setting\Component\OptionCollection;
+use AC\Settings\Component;
 
 final class Encoder
 {
@@ -43,6 +44,7 @@ final class Encoder
         if ($component instanceof Setting) {
             $encoded = [
                 'name'       => $component->get_name(),
+                'label'      => $component->get_label(),
                 'conditions' => $component->get_conditions()->get_rules($component->get_name()),
             ];
 

@@ -41,23 +41,25 @@ class Column
         return $this->type;
     }
 
-    public function get_id():ColumnId
+    public function get_id(): ColumnId
     {
-        return ColumnId::generate();
+        return new ColumnId($this->get_name());
     }
 
     // TODO remove; refactor to get_id().
-    public function get_name():string
+    public function get_name(): string
     {
-        return (string)$this->get_id();
+        return (string)$this->get_setting('name')
+                            ->get_input()
+                            ->get_default();
     }
 
-    // TODO rename to something more affording
-    public function get_custom_label():string
+    // TODO remove
+    public function get_custom_label(): string
     {
-        return (string) $this->get_setting('label')
-                             ->get_input()
-                             ->get_default();
+        return (string)$this->get_setting('label')
+                            ->get_input()
+                            ->get_default();
     }
 
     public function get_label(): string
@@ -104,16 +106,16 @@ class Column
     }
 
     // TODO remove
-    public function  is_original():bool
+    public function is_original(): bool
     {
         return false;
     }
 
     // TODO remove
-//        public function get_name(): string
-//        {
-//            return $this->name;
-//        }
+    //        public function get_name(): string
+    //        {
+    //            return $this->name;
+    //        }
     //
     //    public function set_name(string $name): self
     //    {

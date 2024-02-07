@@ -39,6 +39,7 @@ class CustomFieldFactory implements ColumnFactory
 
         return new SettingCollection([
             $setting_factory->create($config),
+            $this->container->get(Settings\Column\NameFactory::class)->create($config),
             $this->container->get(Settings\Column\LabelFactory::class)->create($config),
             $this->container->get(Settings\Column\WidthFactory::class)->create($config),
         ]);
