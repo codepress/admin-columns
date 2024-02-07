@@ -49,9 +49,9 @@
                 ? checkCondition(sub.conditions, parent)
                 : true;
         }).forEach(setting => {
-            if( setting.hasOwnProperty('input') ){
+            if (setting.hasOwnProperty('input')) {
                 validSettings.push(setting?.input?.name);
-			}
+            }
             if (setting.children) {
                 checkAppliedSubSettings(validSettings, setting.children, setting?.input?.name);
             }
@@ -61,32 +61,17 @@
     }
 
     const checkAppliedSettings = () => {
-        let settings: string[] = checkAppliedSubSettings(['name','type'], config, '');
-
-        console.log( 'check settings', settings );
+        let settings: string[] = checkAppliedSubSettings(['name', 'type'], config, '');
 
         Object.keys(data).forEach(settingName => {
             if (!settings.includes(settingName)) {
-                //delete (data[settingName]);
+                delete (data[settingName]);
             }
         });
 
         data = data;
     }
 
-    const checkVisibleLabel = (label: string) => {
-        if (labelElement && labelElement.offsetWidth < 5) {
-            readableLabel = document.createRange().createContextualFragment(data.label).textContent ?? '';
-            if (readableLabel.length === 0) {
-                readableLabel = data.type;
-            }
-        } else {
-            readableLabel = '';
-        }
-    }
-
-    // TODO
-    //$: checkVisibleLabel( data.label)
     $: opened = $openedColumnsStore.includes(data.name);
 </script>
 

@@ -3,6 +3,7 @@
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
     import {listScreenIsReadOnly} from "../store/read_only";
     import ColumnSetting from "./ColumnSetting.svelte";
+    import WidthInput from "./settings/input/WidthInput.svelte";
 
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
@@ -41,24 +42,35 @@
 {#if typeof filteredSettings !== 'undefined' }
 	{#each filteredSettings as setting (setting.type + setting?.input?.name) }
 
-		<ColumnSetting name={setting.name} description={setting.description} label={setting.attributes?.label}>
 
-			<svelte:component
-				this={getInputType(setting.input?.type ?? 'empty')}
-				bind:data={data}
-				bind:value={data[setting?.input?.name]}
-				disabled={$listScreenIsReadOnly}
-				config={setting}>
-			</svelte:component>
+		{#if setting.type === 'row'}
 
-			{#if setting.children && setting.is_parent }
+			<ColumnSetting name={setting.name} description={setting.description} label={setting.attributes?.label}>
+
+				<svelte:component
+					this={getInputType(setting.input?.type ?? 'empty')}
+					bind:data={data}
+					bind:value={data[setting?.input?.name]}
+					disabled={$listScreenIsReadOnly}
+					config={setting}>
+				</svelte:component>
+
+				{#if setting.children && setting.is_parent }
+					<svelte:self bind:data={data} settings={setting.children} parent={setting?.input?.name}/>
+				{/if}
+
+			</ColumnSetting>
+
+			{#if setting.children && !setting.is_parent }
 				<svelte:self bind:data={data} settings={setting.children} parent={setting?.input?.name}/>
 			{/if}
-
-		</ColumnSetting>
-
-		{#if setting.children && !setting.is_parent }
-			<svelte:self bind:data={data} settings={setting.children} parent={setting?.input?.name}/>
+		{:else if setting.type === 'row_width'}
+			<ColumnSetting name={setting.name} description={setting.description} label={setting.attributes?.label}>
+				<WidthInput
+					bind:data={data}
+					disabled={$listScreenIsReadOnly}
+					config={setting}/>
+			</ColumnSetting>
 		{/if}
 
 	{/each}
