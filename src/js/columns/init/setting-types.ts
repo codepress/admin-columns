@@ -1,33 +1,31 @@
 // @ts-nocheck
 
 import {registerSettingType} from "../helper";
-import LabelSetting from "../components/settings/LabelSetting.svelte";
-import WidthSetting from "../components/settings/WidthSetting.svelte";
+import LabelInput from "../components/settings/LabelInput.svelte";
+import WidthInput from "../components/settings/WidthInput.svelte";
 import EmptySetting from "../components/settings/EmptySetting.svelte";
-import TypeSetting from "../components/settings/TypeSetting.svelte";
-import ToggleSetting from "../components/settings/ToggleSetting.svelte";
-import TextSetting from "../components/settings/TextSetting.svelte";
+import ToggleInput from "../components/settings/ToggleInput.svelte";
+import TextInput from "../components/settings/TextInput.svelte";
 import MessageSetting from "../components/settings/MessageSetting.svelte";
-import NumberSetting from "../components/settings/Number.svelte";
-import NumberPreviewSetting from "../components/settings/NumberPreviewSetting.svelte";
-import SelectSetting from "../components/settings/SelectSetting.svelte";
-import DateFormatSetting from "../components/settings/DateFormatSetting.svelte";
-import HiddenSetting from "../components/settings/HiddenSetting.svelte";
-import RemoteSelectSetting from "../components/settings/RemoteSelectSetting.svelte";
-import SelectOptionsSetting from "../components/settings/SelectOptionsSetting.svelte";
+import NumberInput from "../components/settings/NumberInput.svelte";
+import NumberPreviewInput from "../components/settings/NumberPreviewInput.svelte";
+import SelectInput from "../components/settings/SelectInput.svelte";
+import DateFormatSetting from "../components/settings/DateFormatInput.svelte";
+import HiddenInput from "../components/settings/HiddenInput.svelte";
+import SelectRemoteInput from "../components/settings/SelectRemoteInput.svelte";
+import SelectOptionsInput from "../components/settings/SelectOptionsInput.svelte";
 
 
-registerSettingType('label', LabelSetting)
-registerSettingType('width', WidthSetting)
+registerSettingType('label', LabelInput)
+registerSettingType('width', WidthInput)
 registerSettingType('empty', EmptySetting)
-registerSettingType('type', TypeSetting)
-registerSettingType('toggle', ToggleSetting)
-registerSettingType('text', TextSetting)
+registerSettingType('toggle', ToggleInput)
+registerSettingType('text', TextInput)
 registerSettingType('message', MessageSetting)
-registerSettingType('number', NumberSetting)
-registerSettingType('number_preview', NumberPreviewSetting)
-registerSettingType('select', SelectSetting)
+registerSettingType('number', NumberInput)
+registerSettingType('number_preview', NumberPreviewInput)
+registerSettingType('select', SelectInput)
 registerSettingType('date_format', DateFormatSetting)
-registerSettingType('hidden', HiddenSetting)
-registerSettingType('remote_options', RemoteSelectSetting)
-registerSettingType('select_options', SelectOptionsSetting)
+registerSettingType('hidden', HiddenInput)
+registerSettingType('remote_options', SelectRemoteInput)
+registerSettingType('select_options', SelectOptionsInput)

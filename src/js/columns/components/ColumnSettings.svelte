@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {getSettingComponent} from "../helper";
+    import {getInputComponent} from "../helper";
     import RuleSpecificationMapper from "../../expression/rule-specification-mapper";
     import {listScreenIsReadOnly} from "../store/read_only";
     import ColumnSetting from "./ColumnSetting.svelte";
@@ -11,7 +11,7 @@
     let filteredSettings = settings;
 
     const getComponent = (type: string) => {
-        return getSettingComponent(type);
+        return getInputComponent(type);
     }
 
     const checkConditions = () => {
