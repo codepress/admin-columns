@@ -921,12 +921,12 @@ function instance($$self, $$props, $$invalidate) {
     children.filter(sub => {
       return sub.conditions ? checkCondition(sub.conditions, parent) : true;
     }).forEach(setting => {
-      var _a, _b;
+      var _a, _b, _c;
       if (setting.hasOwnProperty('input')) {
-        validSettings.push((_a = setting === null || setting === void 0 ? void 0 : setting.input) === null || _a === void 0 ? void 0 : _a.name);
+        validSettings.push((_a = setting.input) === null || _a === void 0 ? void 0 : _a.name);
       }
       if (setting.children) {
-        checkAppliedSubSettings(validSettings, setting.children, (_b = setting === null || setting === void 0 ? void 0 : setting.input) === null || _b === void 0 ? void 0 : _b.name);
+        checkAppliedSubSettings(validSettings, setting.children, (_c = (_b = setting === null || setting === void 0 ? void 0 : setting.input) === null || _b === void 0 ? void 0 : _b.name) !== null && _c !== void 0 ? _c : '');
       }
     });
     return validSettings;

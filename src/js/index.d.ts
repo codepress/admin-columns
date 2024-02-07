@@ -60,6 +60,7 @@ declare namespace AC.Column.Settings {
             description?: string,
             [key:string] : any
         }
+        input ?: AbstractSettingInput
         conditions?: Rule
         children?: ColumnSettingCollection
         is_parent?: boolean
