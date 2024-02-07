@@ -40,8 +40,7 @@
 
 {#if typeof filteredSettings !== 'undefined' }
 	{#each filteredSettings as setting (setting.name)}
-s
-		<ColumnSetting name={setting.name} description={setting.description} label={setting.label}>
+		<ColumnSetting name={setting.name} description={setting.description} label={setting.attributes?.label}>
 
 			<svelte:component
 				this={getInputType(setting.input?.type ?? 'empty')}
@@ -51,10 +50,9 @@ s
 				config={setting}>
 			</svelte:component>
 
-			<!-- Subsettings -->
-			<!--{#if setting.children && setting.is_parent }-->
-			<!--	<svelte:self bind:data={data} settings={setting.children} parent={setting.name}/>-->
-			<!--{/if}-->
+			{#if setting.children && setting.is_parent }
+				<svelte:self bind:data={data} settings={setting.children} parent={setting.name}/>
+			{/if}
 
 		</ColumnSetting>
 
