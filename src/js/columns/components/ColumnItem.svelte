@@ -50,10 +50,10 @@
                 : true;
         }).forEach(setting => {
             if (setting.hasOwnProperty('input')) {
-                validSettings.push(setting?.input?.name);
+                validSettings.push((setting as any).input?.name);
             }
             if (setting.children) {
-                checkAppliedSubSettings(validSettings, setting.children, setting?.input?.name);
+                checkAppliedSubSettings(validSettings, setting.children, setting?.input?.name ?? '');
             }
         })
 
@@ -107,7 +107,7 @@
 		<div class="ac-column-settings" transition:slide>
 
 			<!-- Specific Type setting -->
-			<ColumnSetting name="type" description="" label="Type">
+			<ColumnSetting description="" label="Type">
 				<TypeSetting bind:data={data} bind:columnConfig={config} disabled={$listScreenIsReadOnly}/>
 			</ColumnSetting>
 
