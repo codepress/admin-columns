@@ -10,8 +10,6 @@ use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
-use AC\Setting\Component\OptionCollection;
-use AC\Setting\Component\Type\Option;
 use AC\TableScreen;
 use AC\TableScreenFactory\Aggregate;
 use AC\Type\ListKey;
@@ -57,26 +55,15 @@ class CustomFieldKeys implements RequestAjaxHandler
 
         // TODO David continue
         $meta_keys = $query->get();
-
-        $collection = new OptionCollection();
+        $encoded = [];
 
         foreach ($meta_keys as $meta_key) {
-            $collection->add(
-                new Option(
-                    $meta_key,
-                    $meta_key,
-                    $this->get_group($meta_key)
-                )
-            );
+            $encoded[] = [
+                'value' => $meta_key,
+                'label' => $meta_key,
+                'group' => $this->get_group($meta_key),
+            ];
         }
-
-        $encoded[] = [
-            'value' => $meta_key,
-            'label' => $meta_key,
-            'group' => $this->get_group($meta_key),
-        ];
-
-        $encoder = new OptionCollectionEncoder();
 
         $response->set_header(
             'Cache-Control',
@@ -84,7 +71,7 @@ class CustomFieldKeys implements RequestAjaxHandler
         );
 
         $response
-            ->set_parameter('options', $encoder->encode($collection))
+            ->set_parameter('options', $encoded)
             ->success();
     }
 

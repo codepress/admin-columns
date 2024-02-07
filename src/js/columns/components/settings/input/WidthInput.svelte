@@ -6,8 +6,8 @@
     export let config: AC.Column.Settings.WidthSetting;
     export let disabled: boolean = false;
 
-    const keyWidth = config.name;
-    const keyUnit = config.children[1].name;
+    const keyWidth = config.children[0].input.name;
+    const keyUnit = config.children[1].input.name;
 
     let maxWidth = 100;
 

@@ -55,7 +55,7 @@ final class Encoder
             }
 
             foreach ($input->get_attributes() as $attribute) {
-                $encoded['attributes'][$attribute->get_name()] = $attribute->get_value();
+                $encoded['input']['attributes'][$attribute->get_name()] = $attribute->get_value();
             }
 
             if ($input->has_value()) {

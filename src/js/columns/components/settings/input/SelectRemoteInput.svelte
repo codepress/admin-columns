@@ -1,11 +1,11 @@
 <script lang="ts">
     import Select from "svelte-select"
     import {createEventDispatcher, onDestroy, onMount} from "svelte";
-    import {SvelteSelectItem} from "../../../types/select";
-    import {getRemoteSelectOptions} from "../../ajax/settings";
-    import {currentListKey} from "../../store/current-list-screen";
+    import {SvelteSelectItem} from "../../../../types/select";
+    import {getRemoteSelectOptions} from "../../../ajax/settings";
+    import {currentListKey} from "../../../store/current-list-screen";
 
-    export let config: AC.Column.Settings.SelectSetting;
+    export let config: AC.Column.Settings.SelectRemoteSetting;
     export let disabled: boolean = false;
     export let value: string | undefined | number;
 
@@ -20,14 +20,13 @@
     let emptyElement: HTMLElement | null;
 
     const getValue = (value: string): SvelteSelectItem => {
-        console.log(options);
         const found = options.find(o => o.value === value);
 
         return found ? found : {value: value, label: value};
     }
 
     onMount(() => {
-        getRemoteSelectOptions(config.input.data.ajax_handler, $currentListKey).then((response) => {
+        getRemoteSelectOptions(config.input.attributes['data-handler'], $currentListKey).then((response) => {
             if (response.data.success) {
                 originalOptions = response.data.data.options;
                 options = originalOptions;

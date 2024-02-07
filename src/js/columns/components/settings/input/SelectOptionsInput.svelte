@@ -1,9 +1,9 @@
 <script lang="ts">
-    import ColumnSetting from "../ColumnSetting.svelte";
+    import ColumnSetting from "../../ColumnSetting.svelte";
     import {createEventDispatcher, onDestroy, onMount} from "svelte";
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
-    import { uniqid } from "../../../helpers/string";
-    import { getColumnSettingsTranslation } from "../../utils/global";
+    import { uniqid } from "../../../../helpers/string";
+    import { getColumnSettingsTranslation } from "../../../utils/global";
 
     type selectOptionType = {
         value: string
