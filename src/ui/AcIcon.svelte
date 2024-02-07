@@ -4,7 +4,7 @@
     export let customClass: string|null = '';
     export let icon: string|null = '';
     export let size: string|null = 'md';
-    export let pack: string|null = 'ac'; // ac|dashicons
+    export let pack: 'ac'|'dashicons'|null = 'ac'; // ac|dashicons
 
     let iconName = '';
     let sizeClass = `acui-icon--${size}`;

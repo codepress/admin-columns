@@ -78,6 +78,7 @@
   box-shadow: 0 9px 24px 0 rgba(15, 15, 15, 0.2), 0 3px 6px 0 rgba(15, 15, 15, 0.1), 0 0 0 1px rgba(15, 15, 15, 0.05);
   border-radius: 2px;
   min-width: 200px;
+  width: var(--acui-dropdown-width, 200px);
   z-index: var(--menu-z-index, 20);
   overflow: auto;
 }
@@ -460,9 +461,11 @@
 
 .acui-notification {
   padding: 15px;
+  padding-right: 30px;
   border-radius: 5px;
   position: relative;
   background: #bbb;
+  border: 1px solid #000;
 }
 .acui-notification .acui-notification-close {
   background: rgba(0, 0, 0, 0.2);
@@ -488,19 +491,42 @@
 .acui-notification .acui-notification-close:hover {
   background: rgba(0, 0, 0, 0.3);
 }
+.acui-notification.-notify {
+  background: #d1e5f9;
+  border-color: var(--ac-color-info);
+}
+.acui-notification.-notify .acui-icon {
+  color: var(--ac-color-info);
+}
 .acui-notification.-success {
-  background: var(--ac-notification-green);
-  color: #fff;
+  background: var(--ac-color-success-alt);
+  border-color: var(--ac-color-success);
+}
+.acui-notification.-success .acui-icon {
+  color: var(--ac-color-success);
 }
 .acui-notification.-warning {
-  background: var(--ac-notification-yellow);
+  background: var(--ac-color-warning-alt);
+  border-color: var(--ac-color-warning);
+}
+.acui-notification.-warning .acui-icon {
+  color: var(--ac-color-warning);
 }
 .acui-notification.-error {
-  background: var(--ac-notification-red);
-  color: #fff;
+  background: var(--ac-color-error-alt);
+  border-color: var(--ac-color-error);
+}
+.acui-notification.-error .acui-icon {
+  color: var(--ac-color-error);
 }
 .acui-notification.-closable {
   padding-right: 30px;
+}
+
+.acui-notification-media {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 /*# sourceMappingURL=acui.css.map */

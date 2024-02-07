@@ -10,6 +10,7 @@
     let filterText: string = '';
     let inputElement: HTMLInputElement;
 
+
     const dispatch = createEventDispatcher();
 
     interface ProcessedSvelteSelectItem extends SvelteSelectItem {
@@ -42,6 +43,8 @@
 
             groups[groupLabel].push(item);
         });
+
+
 
         const groupItems: SvelteSelectItem[] = [];
 
@@ -76,27 +79,14 @@
 
     $: filteredItems = filter({
         filterText,
-        items,
-        groupBy: true
+        groupBy: true,
+        items
     });
 
 </script>
-<style>
-	.acui-dropdown-search {
-		position: sticky;
-		top: 0;
-		background: #fff;
-		display: flex;
-		padding: 2px;
-	}
 
-	.acui-dropdown-search input {
-		height: 30px;
-		width: 100%;
-	}
-</style>
-<div class="acui-dropdown-search">
-	<input bind:value={filterText} bind:this={inputElement} on:change|preventDefault|stopPropagation>
+<div class="acui-dropdown-search acu-sticky acu-top-[0] acu-bg-[white] acu-flex acu-p-[2px]">
+	<input bind:value={filterText} bind:this={inputElement} on:change|preventDefault|stopPropagation class="acu-h-6 acu-w-full acu-py-0.5 acu-px-1">
 </div>
 {#if filteredItems.length > 0 }
 	{#each filteredItems as item}

@@ -26,7 +26,6 @@
                 NotificationProgrammatic.open({message: response.data.data.message, type: 'error'})
             }
 
-
         }).catch((c: AxiosError) => {
             NotificationProgrammatic.open({message: c.message, type: 'error'})
             isSaving = false;
@@ -34,20 +33,6 @@
     }
 
 </script>
-<style>
-	.acp-footer-bar {
-		display: flex;
-		justify-content: right;
-		margin-top: -40px;
-		border-radius: 0 0 10px 10px;
-		background: #fff;
-		padding: 20px;
-
-		border: 1px solid #CBD5E1;
-		position: sticky;
-		bottom: 0;
-	}
-</style>
 <section>
 	<ColumnsForm bind:data={data} bind:config={config} {tableUrl}></ColumnsForm>
 	{#each ListScreenSections.getSections( 'after_columns' ) as component}
@@ -55,7 +40,7 @@
 	{/each}
 
 	{#if !$listScreenIsReadOnly}
-		<div class="acp-footer-bar">
+		<div class="acp-footer-bar acu-flex acu-justify-end acu-mt-[-35px] acu-rounded-b-lg acu-bg-[white] acu-sticky acu-bottom-[0] acu-p-4 acu-border acu-border-solid acu-border-ui-border rounded-t-none">
 			<AcButton on:click={saveSettings} type="primary" loading={isSaving}>Save</AcButton>
 		</div>
 	{/if}

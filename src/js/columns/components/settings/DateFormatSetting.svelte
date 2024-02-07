@@ -1,11 +1,10 @@
 <script lang="ts">
-    import ColumnSetting from "../ColumnSetting.svelte";
-    import {createEventDispatcher, onDestroy, onMount, tick} from "svelte";
+    import {createEventDispatcher, onDestroy, onMount} from "svelte";
     import AcRadio from "ACUi/element/AcRadio.svelte";
     import axios from "axios";
     import SettingOption = AC.Column.Settings.SettingOption;
 
-    declare const ajax_url: string;
+    declare const ajaxurl: string;
 
     export let config: AC.Column.Settings.DateFormatSetting;
     export let value: any;
@@ -16,11 +15,11 @@
     let selectedOption: string = '';
     let customDateFormat: string = '';
     let customDateExample: string = '';
-    let timer;
+    let timer: ReturnType<typeof setTimeout>;
 
     const dispatch = createEventDispatcher();
 
-    const debounceInput = v => {
+    const debounceInput = () => {
         clearTimeout(timer);
         value = customDateFormat;
         timer = setTimeout(() => {
@@ -37,9 +36,9 @@
         });
     }
 
-    const handleSelection =  ( e ) => {
+    const handleSelection = (e) => {
         value = selectedOption;
-	}
+    }
 
     onMount(() => {
         options = config.children[0].input.options;
@@ -65,27 +64,26 @@
 
 </script>
 
-<ColumnSetting label={config.label} description={config.description} name="date_format" top>
-	<div style="padding-top: 5px;">
-		{#each options as option}
-			<AcRadio bind:group={selectedOption}
-					value={option.value}
-					{disabled}
-					on:change={handleSelection}
-					--AcuiRadioMarginBottom="5px">{option.label}</AcRadio>
-		{/each}
-		<div class="custom">
-			<AcRadio bind:group={selectedOption} value="custom" {disabled}>Custom</AcRadio>
-			<div class="custom-input">
-				<input type="text" bind:value={customDateFormat} on:keyup={ debounceInput } disabled={!isCustom || disabled}/>
-				<div>
-					{customDateExample}
-				</div>
+
+<div style="padding-top: 5px;">
+	{#each options as option}
+		<AcRadio bind:group={selectedOption}
+			value={option.value}
+			{disabled}
+			on:change={handleSelection}
+			--AcuiRadioMarginBottom="5px">{option.label}</AcRadio>
+	{/each}
+	<div class="custom">
+		<AcRadio bind:group={selectedOption} value="custom" {disabled}>Custom</AcRadio>
+		<div class="custom-input">
+			<input type="text" bind:value={customDateFormat} on:keyup={ debounceInput } disabled={!isCustom || disabled}/>
+			<div>
+				{customDateExample}
 			</div>
 		</div>
 	</div>
+</div>
 
-</ColumnSetting>
 
 <style>
 	.custom {

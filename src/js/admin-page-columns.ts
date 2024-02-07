@@ -1,7 +1,7 @@
 import {initAcServices} from "./helpers/admin-columns";
 import {registerSettingType} from "./columns/helper";
 import ColumnsPage from "./columns/components/ColumnsPage.svelte";
-import {currentListId, currentListKey, initialListId} from "./columns/store/current-list-screen";
+import {currentListId, currentListKey} from "./columns/store/current-list-screen";
 import {getColumnSettingsConfig} from "./columns/utils/global";
 import ListScreenSections from "./columns/store/list-screen-sections";
 import {listScreenDataStore} from "./columns/store/list-screen-data";
@@ -52,7 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
     currentListId.set(config.list_id)
     currentListKey.set(config.list_key);
     columnTypesStore.set(config.column_types.sort(columnTypeSorter));
-    favoriteListKeysStore.set( config.menu_items_favorites );
+    favoriteListKeysStore.set(config.menu_items_favorites);
+
 
     const target = document.createElement('div');
 

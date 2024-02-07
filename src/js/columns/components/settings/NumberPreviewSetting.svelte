@@ -1,7 +1,4 @@
 <script lang="ts">
-    import ColumnSetting from "../ColumnSetting.svelte";
-
-    export let config: AC.Column.Settings.NumberSettings;
     export let data: any;
 
     const previewNumber: number = 7500000;
@@ -18,10 +15,10 @@
 
         preview = formatter.format(previewNumber);
         preview = preview
-					.replaceAll(',', replaceThousands)
-					.replaceAll('.', replaceDecimal)
-					.replaceAll(replaceThousands, thousands_sep)
-					.replaceAll(replaceDecimal, decimal_point);
+            .replaceAll(',', replaceThousands)
+            .replaceAll('.', replaceDecimal)
+            .replaceAll(replaceThousands, thousands_sep)
+            .replaceAll(replaceDecimal, decimal_point);
     }
 
 
@@ -37,6 +34,4 @@
 
 </script>
 
-<ColumnSetting label={config.label} name="number_preview">
-	<code data-preview="">{preview}</code>
-</ColumnSetting>
+<code data-preview="">{preview}</code>

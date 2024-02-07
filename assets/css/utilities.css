@@ -1,3 +1,24 @@
+.acu-relative {
+  position: relative
+}
+
+.acu-sticky {
+  position: sticky
+}
+
+.acu-bottom-\[0\] {
+  bottom: 0
+}
+
+.acu-top-\[0\] {
+  top: 0
+}
+
+.acu-my-6 {
+  margin-top: 30px;
+  margin-bottom: 30px
+}
+
 .acu-mb-1 {
   margin-bottom: 5px
 }
@@ -22,12 +43,24 @@
   margin-bottom: 30px
 }
 
+.acu-mb-8 {
+  margin-bottom: 40px
+}
+
 .acu-mr-1 {
   margin-right: 5px
 }
 
 .acu-mr-2 {
   margin-right: 10px
+}
+
+.acu-mt-\[-35px\] {
+  margin-top: -35px
+}
+
+.acu-mt-\[0\] {
+  margin-top: 0
 }
 
 .acu-block {
@@ -42,8 +75,24 @@
   display: flex
 }
 
+.acu-hidden {
+  display: none
+}
+
+.acu-h-\[38px\] {
+  height: 38px
+}
+
+.acu-h-6 {
+  height: 30px
+}
+
 .acu-w-1\/3 {
   width: 33.333333%
+}
+
+.acu-w-\[100\%\] {
+  width: 100%
 }
 
 .acu-w-\[120px\] {
@@ -54,8 +103,16 @@
   width: 100%
 }
 
+.acu-max-w-full {
+  max-width: 100%
+}
+
 .acu-flex-1 {
   flex: 1 1 0%
+}
+
+.acu-flex-auto {
+  flex: 1 1 auto
 }
 
 .acu-flex-grow {
@@ -71,6 +128,10 @@
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 
+.acu-cursor-default {
+  cursor: default
+}
+
 .acu-cursor-move {
   cursor: move
 }
@@ -83,12 +144,24 @@
   flex-direction: row-reverse
 }
 
+.acu-flex-wrap {
+  flex-wrap: wrap
+}
+
 .acu-items-center {
   align-items: center
 }
 
+.acu-justify-end {
+  justify-content: flex-end
+}
+
 .acu-justify-center {
   justify-content: center
+}
+
+.acu-gap-1 {
+  gap: 5px
 }
 
 .acu-gap-2 {
@@ -99,8 +172,62 @@
   gap: 15px
 }
 
+.acu-gap-4 {
+  gap: 20px
+}
+
+.acu-overflow-hidden {
+  overflow: hidden
+}
+
+.acu-whitespace-nowrap {
+  white-space: nowrap
+}
+
+.acu-rounded-full {
+  border-radius: 9999px
+}
+
+.acu-rounded-lg {
+  border-radius: 0.5rem
+}
+
+.acu-rounded-b-lg {
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem
+}
+
+.acu-border {
+  border-width: 1px
+}
+
+.acu-border-0 {
+  border-width: 0px
+}
+
+.acu-border-b {
+  border-bottom-width: 1px
+}
+
+.acu-border-solid {
+  border-style: solid
+}
+
 .acu-border-none {
   border-style: none
+}
+
+.acu-border-\[transparent\] {
+  border-color: transparent
+}
+
+.acu-border-ui-border {
+  border-color: var(--acui-border)
+}
+
+.acu-bg-\[\#E2E8F0\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity))
 }
 
 .acu-bg-\[\#F1F5F9\] {
@@ -108,16 +235,42 @@
   background-color: rgb(241 245 249 / var(--tw-bg-opacity))
 }
 
+.acu-bg-\[\#fff\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+}
+
 .acu-bg-\[transparent\] {
   background-color: transparent
+}
+
+.acu-bg-\[white\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+}
+
+.acu-bg-none {
+  background-image: none
+}
+
+.acu-p-1 {
+  padding: 5px
 }
 
 .acu-p-10 {
   padding: 50px
 }
 
+.acu-p-4 {
+  padding: 20px
+}
+
 .acu-p-\[0\] {
   padding: 0
+}
+
+.acu-p-\[2px\] {
+  padding: 2px
 }
 
 .acu-px-2 {
@@ -125,14 +278,39 @@
   padding-right: 10px
 }
 
-.acu-py-0\.5 {
-  padding-top: 3px;
-  padding-bottom: 3px
+.acu-px-3 {
+  padding-left: 15px;
+  padding-right: 15px
+}
+
+.acu-px-6 {
+  padding-left: 30px;
+  padding-right: 30px
 }
 
 .acu-py-1 {
   padding-top: 5px;
   padding-bottom: 5px
+}
+
+.acu-py-2 {
+  padding-top: 10px;
+  padding-bottom: 10px
+}
+
+.acu-py-6 {
+  padding-top: 30px;
+  padding-bottom: 30px
+}
+
+.acu-px-1 {
+  padding-left: 5px;
+  padding-right: 5px
+}
+
+.acu-py-0\.5 {
+  padding-top: 3px;
+  padding-bottom: 3px
 }
 
 .acu-pb-4 {
@@ -141,6 +319,10 @@
 
 .acu-pb-6 {
   padding-bottom: 30px
+}
+
+.acu-pb-8 {
+  padding-bottom: 40px
 }
 
 .acu-pl-3 {
@@ -153,6 +335,14 @@
 
 .acu-pl-8\.5 {
   padding-left: 43px
+}
+
+.acu-pr-2 {
+  padding-right: 10px
+}
+
+.acu-pr-6 {
+  padding-right: 30px
 }
 
 .acu-pt-3 {
@@ -171,12 +361,25 @@
   text-align: right
 }
 
+.acu-text-\[12px\] {
+  font-size: 12px
+}
+
+.acu-text-base {
+  font-size: 1rem;
+  line-height: 1.5rem
+}
+
 .acu-font-bold {
   font-weight: 700
 }
 
 .acu-font-medium {
   font-weight: 500
+}
+
+.acu-font-semibold {
+  font-weight: 600
 }
 
 .acu-uppercase {
@@ -198,20 +401,32 @@
   color: rgb(180 180 180 / var(--tw-text-opacity))
 }
 
-.acu-text-notification-blue {
-  color: var(--ac-notification-blue)
+.acu-text-link {
+  color: var(--ac-link)
 }
 
 .acu-text-notification-red {
   color: var(--ac-notification-red)
 }
 
-.acu-text-link {
-  color: var(--ac-link)
-}
-
 .\[key\:string\] {
   key: string
+}
+
+.last\:acu-mb-\[0\]:last-child {
+  margin-bottom: 0
+}
+
+.last\:acu-border-b-0:last-child {
+  border-bottom-width: 0px
+}
+
+.last\:acu-pb-\[0\]:last-child {
+  padding-bottom: 0
+}
+
+.hover\:acu-text-link-hover:hover {
+  color: var(--ac-link-hover)
 }
 
 .hover\:acu-text-notification-blue:hover {
@@ -222,16 +437,77 @@
   color: var(--ac-notification-red)
 }
 
-.hover\:acu-text-link-hover:hover {
-  color: var(--ac-link-hover)
+@media (min-width: 782px) {
+  .md\:acu-flex {
+    display: flex
+  }
 }
 
-.hover\:acu-accent-link-hover:hover {
-  accent-color: var(--ac-link-hover)
+@media (min-width: 960px) {
+  .lg\:acu-mr-6 {
+    margin-right: 30px
+  }
+
+  .lg\:acu-block {
+    display: block
+  }
+
+  .lg\:acu-flex {
+    display: flex
+  }
+
+  .lg\:acu-hidden {
+    display: none
+  }
+
+  .lg\:acu-w-\[200px\] {
+    width: 200px
+  }
+
+  .lg\:acu-w-\[220px\] {
+    width: 220px
+  }
+
+  .lg\:acu-py-2 {
+    padding-top: 10px;
+    padding-bottom: 10px
+  }
 }
 
 @media (min-width: 1280px) {
   .xl\:acu-flex {
     display: flex
   }
+
+  .xl\:acu-w-1\/2 {
+    width: 50%
+  }
+
+  .xl\:acu-w-\[200px\] {
+    width: 200px
+  }
+
+  .xl\:acu-w-\[250px\] {
+    width: 250px
+  }
+}
+
+@media (min-width: 1450px) {
+  .\32xl\:acu-w-\[300px\] {
+    width: 300px
+  }
+
+  .\32xl\:acu-w-\[350px\] {
+    width: 350px
+  }
+}
+
+.\[\&\.-active\]\:acu-bg-\[\#E2E8F0\].-active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity))
+}
+
+.\[\&\.-active\]\:acu-text-\[\#475569\].-active {
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity))
 }

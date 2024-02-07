@@ -9,6 +9,7 @@
 
 	> * {
 		margin-bottom: 15px;
+
 		&:last-child {
 			margin-bottom: 0;
 		}
@@ -17,9 +18,11 @@
 
 .acui-notification {
 	padding: 15px;
+	padding-right: 30px;
 	border-radius: 5px;
 	position: relative;
 	background: #bbb;
+	border: 1px solid #000;
 
 	.acui-notification-close {
 		background: rgba(0, 0, 0, .2);
@@ -49,21 +52,49 @@
 
 	}
 
+	&.-notify {
+		background: #d1e5f9;
+		border-color: var(--ac-color-info);
+
+		.acui-icon {
+			color: var(--ac-color-info);
+		}
+	}
+
 	&.-success {
-		background: var(--ac-notification-green);
-		color: #fff;
+		background: var(--ac-color-success-alt);
+		border-color: var(--ac-color-success);
+
+		.acui-icon {
+			color: var(--ac-color-success);
+		}
 	}
 
 	&.-warning {
-		background: var(--ac-notification-yellow);
+		background: var(--ac-color-warning-alt);
+		border-color: var(--ac-color-warning);
+
+		.acui-icon {
+			color: var(--ac-color-warning);
+		}
 	}
 
 	&.-error {
-		background: var(--ac-notification-red);
-		color: #fff;
+		background: var(--ac-color-error-alt);
+		border-color: var(--ac-color-error);
+
+		.acui-icon {
+			color: var(--ac-color-error);
+		}
 	}
 
 	&.-closable {
 		padding-right: 30px;
 	}
+}
+
+.acui-notification-media {
+	display: flex;
+	align-items: center;
+	gap: 6px;
 }

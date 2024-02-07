@@ -1,5 +1,4 @@
 <script lang="ts">
-    import ColumnSetting from "../ColumnSetting.svelte";
     import Select from "svelte-select"
     import {createEventDispatcher, onDestroy, onMount} from "svelte";
     import {SvelteSelectItem} from "../../../types/select";
@@ -7,7 +6,6 @@
     import {currentListKey} from "../../store/current-list-screen";
 
     export let config: AC.Column.Settings.SelectSetting;
-    export let data: any;
     export let disabled: boolean = false;
     export let value: string | undefined | number;
 
@@ -73,39 +71,30 @@
 </script>
 
 
-<ColumnSetting
-	label={config.label}
-	description={config.description}
-	config={config}
-	children={config.children ?? []}
-	bind:data={data}
-	name="select">
-	<div on:keyup={selectEnter} role="none">
-		<Select
-			--list-max-height="400px"
-			class="-acui"
-			clearable={false}
-			items={options}
-			showChevron
-			value={selectValue}
-			{listOpen}
-			{groupBy}
-			{disabled}
-			bind:filterText={searchTerm}
-			on:change={ changeValue }
-		>
+<div on:keyup={selectEnter} role="none">
+	<Select
+		--list-max-height="400px"
+		class="-acui"
+		clearable={false}
+		items={options}
+		showChevron
+		value={selectValue}
+		{listOpen}
+		{groupBy}
+		{disabled}
+		bind:filterText={searchTerm}
+		on:change={ changeValue }
+	>
 
+		<div slot="empty">
+			{#if allowCreation}
+				<div class="list-item svelte-empty" bind:this={emptyElement}>
+					Press enter to add option
+				</div>
+			{:else}
+				<div class="list-item svelte-empty">No results found</div>
+			{/if}
+		</div>
 
-			<div slot="empty">
-				{#if allowCreation}
-					<div class="list-item svelte-empty" bind:this={emptyElement}>
-						Press enter to add option
-					</div>
-				{:else}
-					<div class="list-item svelte-empty">No results found</div>
-				{/if}
-			</div>
-
-		</Select>
-	</div>
-</ColumnSetting>
+	</Select>
+</div>
