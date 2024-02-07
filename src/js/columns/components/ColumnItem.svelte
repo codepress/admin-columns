@@ -9,7 +9,7 @@
     import ProFeatureToggles from "./ProFeatureToggles.svelte";
     import AcIcon from "ACUi/AcIcon.svelte";
     import ColumnSetting from "./ColumnSetting.svelte";
-    import TypeSetting from "./settings/TypeInput.svelte";
+    import TypeSetting from "./settings/input/TypeInput.svelte";
     import {listScreenIsReadOnly} from "../store/read_only";
 
     export let data: any;
@@ -49,9 +49,11 @@
                 ? checkCondition(sub.conditions, parent)
                 : true;
         }).forEach(setting => {
-            validSettings.push(setting.name);
+            if( setting.hasOwnProperty('input') ){
+                validSettings.push(setting?.input?.name);
+			}
             if (setting.children) {
-                checkAppliedSubSettings(validSettings, setting.children, setting.name);
+                checkAppliedSubSettings(validSettings, setting.children, setting?.input?.name);
             }
         })
 
@@ -59,11 +61,13 @@
     }
 
     const checkAppliedSettings = () => {
-        let settings: string[] = checkAppliedSubSettings(['name'], config, '');
+        let settings: string[] = checkAppliedSubSettings(['name','type'], config, '');
+
+        console.log( 'check settings', settings );
 
         Object.keys(data).forEach(settingName => {
             if (!settings.includes(settingName)) {
-                delete (data[settingName]);
+                //delete (data[settingName]);
             }
         });
 

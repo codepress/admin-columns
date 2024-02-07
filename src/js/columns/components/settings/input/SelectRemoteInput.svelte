@@ -1,11 +1,11 @@
 <script lang="ts">
     import Select from "svelte-select"
     import {createEventDispatcher, onDestroy, onMount} from "svelte";
-    import {SvelteSelectItem} from "../../../types/select";
-    import {getRemoteSelectOptions} from "../../ajax/settings";
-    import {currentListKey} from "../../store/current-list-screen";
+    import {SvelteSelectItem} from "../../../../types/select";
+    import {getRemoteSelectOptions} from "../../../ajax/settings";
+    import {currentListKey} from "../../../store/current-list-screen";
 
-    export let config: AC.Column.Settings.SelectSetting;
+    export let config: AC.Column.Settings.SelectRemoteSetting;
     export let disabled: boolean = false;
     export let value: string | undefined | number;
 

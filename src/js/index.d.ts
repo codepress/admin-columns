@@ -37,29 +37,38 @@ declare namespace AC.Vars.Admin.Columns {
 
 }
 
+declare namespace AC.Column.Settings.Input {
+    interface AbstractSettingInput<Type = string > {
+        type: Type
+        name: string
+        default: string
+    }
+    document.querySelector()
+}
 
 declare namespace AC.Column.Settings {
     import Rule = AC.Specification.Rule;
+    import AbstractSettingInput = AC.Column.Settings.Input.AbstractSettingInput;
     type ColumnSettingCollection = ColumnSetting[]
     type ColumnSetting = AbstractColumnSetting;
     type SettingOption = { value: string, label: string, group: string | null }
 
-    interface AbstractColumnSetting<Type = string, Name = string> {
-        name: Name
-        label: string
-        description: string
-        input: {
-            type: Type
-            default?: any
-            append?: string
+
+    interface AbstractColumnSetting<Input = AbstractSettingInput> {
+        type: string,
+        attributes: {
+            label: string
+            description?: string,
+            [key:string] : any
         }
+        conditions: Rule
+        input: Input,
         children?: ColumnSettingCollection
         is_parent?: boolean
-        conditions?: Rule
     }
 
-    type LabelSetting = AbstractColumnSetting<'label'>;
-    type TextSetting = AbstractColumnSetting<'text'>;
+    type LabelSetting = AbstractColumnSetting;
+    type TextSetting = AbstractColumnSetting;
 
     interface DateFormatSetting extends AbstractColumnSetting {
         input: {
@@ -103,12 +112,16 @@ declare namespace AC.Column.Settings {
         }
     }
 
-    interface RemoteSelectSetting extends SelectSetting {
+    interface SelectRemoteSetting extends AbstractColumnSetting {
         input: {
-            type: 'remote_options'
-            data: {
-                ajax_handler: string
+            type: 'select_remote'
+            name: string
+            default: string,
+            options: SettingOption[]
+            attributes: {
+                'data-handler': string
             }
+            multiple: false
         }
     }
 

@@ -1,7 +1,7 @@
 <script lang="ts">
     import Select from "svelte-select"
     import {createEventDispatcher, onDestroy, onMount} from "svelte";
-    import {SvelteSelectItem} from "../../../types/select";
+    import {SvelteSelectItem} from "../../../../types/select";
 
     export let config: AC.Column.Settings.SelectSetting;
     export let disabled: boolean = false;

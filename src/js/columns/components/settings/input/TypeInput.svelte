@@ -1,16 +1,16 @@
 <script lang="ts">
     import Select from "svelte-select"
-    import {getColumnSettings} from "../../ajax/ajax";
-    import {columnTypesStore} from "../../store/column-types";
-    import {ListScreenColumnData} from "../../../types/requests";
-    import {SvelteSelectItem} from "../../../types/select";
-    import ColumnUtils from "../../utils/column";
-    import {ColumnTypesUtils} from "../../utils/column-types";
-    import {listScreenDataStore} from "../../store/list-screen-data";
-    import {NotificationProgrammatic} from "../../../ui-wrapper/notification";
-    import {getColumnSettingsTranslation} from "../../utils/global";
-    import {currentListKey} from "../../store/current-list-screen";
-    import {openedColumnsStore} from "../../store/opened-columns";
+    import {getColumnSettings} from "../../../ajax/ajax";
+    import {columnTypesStore} from "../../../store/column-types";
+    import {ListScreenColumnData} from "../../../../types/requests";
+    import {SvelteSelectItem} from "../../../../types/select";
+    import ColumnUtils from "../../../utils/column";
+    import {ColumnTypesUtils} from "../../../utils/column-types";
+    import {listScreenDataStore} from "../../../store/list-screen-data";
+    import {NotificationProgrammatic} from "../../../../ui-wrapper/notification";
+    import {getColumnSettingsTranslation} from "../../../utils/global";
+    import {currentListKey} from "../../../store/current-list-screen";
+    import {openedColumnsStore} from "../../../store/opened-columns";
 
     export let data: ListScreenColumnData;
     export let columnConfig: AC.Column.Settings.ColumnSettingCollection;

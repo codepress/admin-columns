@@ -1,9 +1,9 @@
 <script lang="ts">
-    import dashicons from '../../config/dashicons.json';
+    import dashicons from '../../../config/dashicons.json';
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
     import AcModal from "ACUi/AcModal.svelte";
     import AcButton from "ACUi/element/AcButton.svelte";
-    import {getColumnSettingsTranslation} from "../../utils/global";
+    import {getColumnSettingsTranslation} from "../../../utils/global";
 
     export let value: string;
     export let disabled: boolean = false;
