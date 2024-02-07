@@ -41,14 +41,14 @@ final class Encoder
         }
 
         if ($component instanceof Setting) {
-            $encoded = [
-                'name'       => $component->get_name(),
-                'conditions' => $component->get_conditions()->get_rules($component->get_name()),
-            ];
+            $encoded['conditions'] = $component->get_conditions()->get_rules($component->get_name()),
 
             $input = $component->get_input();
 
-            $encoded['input']['type'] = $input->get_type();
+            $encoded['input'] = [
+                'type' => $input->get_type(),
+                'name' => $input->get_name(),
+            ];
 
             if ($input->has_default()) {
                 $encoded['input']['default'] = $input->get_default();
