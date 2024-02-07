@@ -39,27 +39,28 @@
 </script>
 
 {#if typeof filteredSettings !== 'undefined' }
-	{#each filteredSettings as setting (setting.name)}
+	{#each filteredSettings as setting (setting.type + setting?.input?.name) }
+
 		<ColumnSetting name={setting.name} description={setting.description} label={setting.attributes?.label}>
 
 			<svelte:component
 				this={getInputType(setting.input?.type ?? 'empty')}
 				bind:data={data}
-				bind:value={data[setting.name]}
+				bind:value={data[setting?.input?.name]}
 				disabled={$listScreenIsReadOnly}
 				config={setting}>
 			</svelte:component>
 
 			{#if setting.children && setting.is_parent }
-				<svelte:self bind:data={data} settings={setting.children} parent={setting.name}/>
+				<svelte:self bind:data={data} settings={setting.children} parent={setting?.input?.name}/>
 			{/if}
 
 		</ColumnSetting>
 
-		<!-- Dependent settings -->
-		<!--{#if setting.children && !setting.is_parent }-->
-		<!--	<svelte:self bind:data={data} settings={setting.children} parent={setting.name}/>-->
-		<!--{/if}-->
+		{#if setting.children && !setting.is_parent }
+			<svelte:self bind:data={data} settings={setting.children} parent={setting?.input?.name}/>
+		{/if}
 
 	{/each}
+
 {/if}

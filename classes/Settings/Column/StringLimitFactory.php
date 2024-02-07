@@ -37,7 +37,7 @@ final class StringLimitFactory implements SettingFactory
                 ),
                 $this->word_limit_factory->create(
                     $config,
-                    StringComparisonSpecification::equal('word_limit')
+                    StringComparisonSpecification::equal('excerpt_length')
                 ),
             ]),
             $specification

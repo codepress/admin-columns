@@ -1301,9 +1301,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[12] = list[i];
-  child_ctx[13] = list;
-  child_ctx[14] = i;
+  child_ctx[13] = list[i];
+  child_ctx[14] = list;
+  child_ctx[15] = i;
   return child_ctx;
 }
 
@@ -1314,7 +1314,7 @@ function create_if_block(ctx) {
   let each_1_anchor;
   let current;
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*filteredSettings*/ctx[1]);
-  const get_key = ctx => /*setting*/ctx[12].name;
+  const get_key = ctx => /*setting*/ctx[13].type + /*setting*/ctx[13]?.input?.name;
   for (let i = 0; i < each_value.length; i += 1) {
     let child_ctx = get_each_context(ctx, each_value, i);
     let key = get_key(child_ctx);
@@ -1368,8 +1368,8 @@ function create_if_block(ctx) {
   };
 }
 
-// (44:3) {#if setting.children && setting.is_parent }
-function create_if_block_1(ctx) {
+// (45:3) {#if setting.children && setting.is_parent }
+function create_if_block_2(ctx) {
   let columnsettings;
   let updating_data;
   let current;
@@ -1377,8 +1377,8 @@ function create_if_block_1(ctx) {
     /*columnsettings_data_binding*/ctx[8](value);
   }
   let columnsettings_props = {
-    settings: /*setting*/ctx[12].children,
-    parent: /*setting*/ctx[12].name
+    settings: /*setting*/ctx[13].children,
+    parent: /*setting*/ctx[13]?.input?.name
   };
   if ( /*data*/ctx[0] !== void 0) {
     columnsettings_props.data = /*data*/ctx[0];
@@ -1397,8 +1397,8 @@ function create_if_block_1(ctx) {
     },
     p(ctx, dirty) {
       const columnsettings_changes = {};
-      if (dirty & /*filteredSettings*/2) columnsettings_changes.settings = /*setting*/ctx[12].children;
-      if (dirty & /*filteredSettings*/2) columnsettings_changes.parent = /*setting*/ctx[12].name;
+      if (dirty & /*filteredSettings*/2) columnsettings_changes.settings = /*setting*/ctx[13].children;
+      if (dirty & /*filteredSettings*/2) columnsettings_changes.parent = /*setting*/ctx[13]?.input?.name;
       if (!updating_data && dirty & /*data*/1) {
         updating_data = true;
         columnsettings_changes.data = /*data*/ctx[0];
@@ -1421,7 +1421,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (34:2) <ColumnSetting name={setting.name} description={setting.description} label={setting.attributes?.label}>
+// (35:2) <ColumnSetting name={setting.name} description={setting.description} label={setting.attributes?.label}>
 function create_default_slot(ctx) {
   let switch_instance;
   let updating_data;
@@ -1433,19 +1433,19 @@ function create_default_slot(ctx) {
     /*switch_instance_data_binding*/ctx[6](value);
   }
   function switch_instance_value_binding(value) {
-    /*switch_instance_value_binding*/ctx[7](value, /*setting*/ctx[12]);
+    /*switch_instance_value_binding*/ctx[7](value, /*setting*/ctx[13]);
   }
-  var switch_value = /*getInputType*/ctx[3]( /*setting*/ctx[12].input?.type ?? 'empty');
+  var switch_value = /*getInputType*/ctx[3]( /*setting*/ctx[13].input?.type ?? 'empty');
   function switch_props(ctx, dirty) {
     let switch_instance_props = {
       disabled: /*$listScreenIsReadOnly*/ctx[2],
-      config: /*setting*/ctx[12]
+      config: /*setting*/ctx[13]
     };
     if ( /*data*/ctx[0] !== void 0) {
       switch_instance_props.data = /*data*/ctx[0];
     }
-    if ( /*data*/ctx[0][/*setting*/ctx[12].name] !== void 0) {
-      switch_instance_props.value = /*data*/ctx[0][/*setting*/ctx[12].name];
+    if ( /*data*/ctx[0][/*setting*/ctx[13]?.input?.name] !== void 0) {
+      switch_instance_props.value = /*data*/ctx[0][/*setting*/ctx[13]?.input?.name];
     }
     return {
       props: switch_instance_props
@@ -1456,7 +1456,7 @@ function create_default_slot(ctx) {
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(switch_instance, 'data', switch_instance_data_binding));
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(switch_instance, 'value', switch_instance_value_binding));
   }
-  let if_block = /*setting*/ctx[12].children && /*setting*/ctx[12].is_parent && create_if_block_1(ctx);
+  let if_block = /*setting*/ctx[13].children && /*setting*/ctx[13].is_parent && create_if_block_2(ctx);
   return {
     c() {
       if (switch_instance) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(switch_instance.$$.fragment);
@@ -1473,7 +1473,7 @@ function create_default_slot(ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & /*filteredSettings*/2 && switch_value !== (switch_value = /*getInputType*/ctx[3]( /*setting*/ctx[12].input?.type ?? 'empty'))) {
+      if (dirty & /*filteredSettings*/2 && switch_value !== (switch_value = /*getInputType*/ctx[3]( /*setting*/ctx[13].input?.type ?? 'empty'))) {
         if (switch_instance) {
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
           const old_component = switch_instance;
@@ -1495,7 +1495,7 @@ function create_default_slot(ctx) {
       } else if (switch_value) {
         const switch_instance_changes = {};
         if (dirty & /*$listScreenIsReadOnly*/4) switch_instance_changes.disabled = /*$listScreenIsReadOnly*/ctx[2];
-        if (dirty & /*filteredSettings*/2) switch_instance_changes.config = /*setting*/ctx[12];
+        if (dirty & /*filteredSettings*/2) switch_instance_changes.config = /*setting*/ctx[13];
         if (!updating_data && dirty & /*data*/1) {
           updating_data = true;
           switch_instance_changes.data = /*data*/ctx[0];
@@ -1503,19 +1503,19 @@ function create_default_slot(ctx) {
         }
         if (!updating_value && dirty & /*data, filteredSettings*/3) {
           updating_value = true;
-          switch_instance_changes.value = /*data*/ctx[0][/*setting*/ctx[12].name];
+          switch_instance_changes.value = /*data*/ctx[0][/*setting*/ctx[13]?.input?.name];
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_value = false);
         }
         switch_instance.$set(switch_instance_changes);
       }
-      if ( /*setting*/ctx[12].children && /*setting*/ctx[12].is_parent) {
+      if ( /*setting*/ctx[13].children && /*setting*/ctx[13].is_parent) {
         if (if_block) {
           if_block.p(ctx, dirty);
           if (dirty & /*filteredSettings*/2) {
             (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
           }
         } else {
-          if_block = create_if_block_1(ctx);
+          if_block = create_if_block_2(ctx);
           if_block.c();
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
           if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -1550,17 +1550,71 @@ function create_default_slot(ctx) {
   };
 }
 
-// (33:1) {#each filteredSettings as setting (setting.name)}
+// (51:2) {#if setting.children && !setting.is_parent }
+function create_if_block_1(ctx) {
+  let columnsettings;
+  let updating_data;
+  let current;
+  function columnsettings_data_binding_1(value) {
+    /*columnsettings_data_binding_1*/ctx[9](value);
+  }
+  let columnsettings_props = {
+    settings: /*setting*/ctx[13].children,
+    parent: /*setting*/ctx[13]?.input?.name
+  };
+  if ( /*data*/ctx[0] !== void 0) {
+    columnsettings_props.data = /*data*/ctx[0];
+  }
+  columnsettings = new ColumnSettings({
+    props: columnsettings_props
+  });
+  svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(columnsettings, 'data', columnsettings_data_binding_1));
+  return {
+    c() {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(columnsettings.$$.fragment);
+    },
+    m(target, anchor) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(columnsettings, target, anchor);
+      current = true;
+    },
+    p(ctx, dirty) {
+      const columnsettings_changes = {};
+      if (dirty & /*filteredSettings*/2) columnsettings_changes.settings = /*setting*/ctx[13].children;
+      if (dirty & /*filteredSettings*/2) columnsettings_changes.parent = /*setting*/ctx[13]?.input?.name;
+      if (!updating_data && dirty & /*data*/1) {
+        updating_data = true;
+        columnsettings_changes.data = /*data*/ctx[0];
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_data = false);
+      }
+      columnsettings.$set(columnsettings_changes);
+    },
+    i(local) {
+      if (current) return;
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(columnsettings.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(columnsettings.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(columnsettings, detaching);
+    }
+  };
+}
+
+// (33:1) {#each filteredSettings as setting (setting.type + setting?.input?.name) }
 function create_each_block(key_1, ctx) {
   let first;
   let columnsetting;
   let t;
+  let if_block_anchor;
   let current;
   columnsetting = new _ColumnSetting_svelte__WEBPACK_IMPORTED_MODULE_5__["default"]({
     props: {
-      name: /*setting*/ctx[12].name,
-      description: /*setting*/ctx[12].description,
-      label: /*setting*/ctx[12].attributes?.label,
+      name: /*setting*/ctx[13].name,
+      description: /*setting*/ctx[13].description,
+      label: /*setting*/ctx[13].attributes?.label,
       $$slots: {
         default: [create_default_slot]
       },
@@ -1569,6 +1623,7 @@ function create_each_block(key_1, ctx) {
       }
     }
   });
+  let if_block = /*setting*/ctx[13].children && ! /*setting*/ctx[13].is_parent && create_if_block_1(ctx);
   return {
     key: key_1,
     first: null,
@@ -1576,43 +1631,70 @@ function create_each_block(key_1, ctx) {
       first = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(columnsetting.$$.fragment);
       t = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      if (if_block) if_block.c();
+      if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
       this.first = first;
     },
     m(target, anchor) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, first, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(columnsetting, target, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
+      if (if_block) if_block.m(target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
       current = true;
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
       const columnsetting_changes = {};
-      if (dirty & /*filteredSettings*/2) columnsetting_changes.name = /*setting*/ctx[12].name;
-      if (dirty & /*filteredSettings*/2) columnsetting_changes.description = /*setting*/ctx[12].description;
-      if (dirty & /*filteredSettings*/2) columnsetting_changes.label = /*setting*/ctx[12].attributes?.label;
-      if (dirty & /*$$scope, filteredSettings, data, $listScreenIsReadOnly*/32775) {
+      if (dirty & /*filteredSettings*/2) columnsetting_changes.name = /*setting*/ctx[13].name;
+      if (dirty & /*filteredSettings*/2) columnsetting_changes.description = /*setting*/ctx[13].description;
+      if (dirty & /*filteredSettings*/2) columnsetting_changes.label = /*setting*/ctx[13].attributes?.label;
+      if (dirty & /*$$scope, filteredSettings, data, $listScreenIsReadOnly*/65543) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
         };
       }
       columnsetting.$set(columnsetting_changes);
+      if ( /*setting*/ctx[13].children && ! /*setting*/ctx[13].is_parent) {
+        if (if_block) {
+          if_block.p(ctx, dirty);
+          if (dirty & /*filteredSettings*/2) {
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
+          }
+        } else {
+          if_block = create_if_block_1(ctx);
+          if_block.c();
+          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      } else if (if_block) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block, 1, 1, () => {
+          if_block = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
     },
     i(local) {
       if (current) return;
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(columnsetting.$$.fragment, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block);
       current = true;
     },
     o(local) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(columnsetting.$$.fragment, local);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block);
       current = false;
     },
     d(detaching) {
       if (detaching) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(first);
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(t);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(if_block_anchor);
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(columnsetting, detaching);
+      if (if_block) if_block.d(detaching);
     }
   };
 }
@@ -1703,12 +1785,16 @@ function instance($$self, $$props, $$invalidate) {
     $$invalidate(0, data);
   }
   function switch_instance_value_binding(value, setting) {
-    if ($$self.$$.not_equal(data[setting.name], value)) {
-      data[setting.name] = value;
+    if ($$self.$$.not_equal(data[setting?.input?.name], value)) {
+      data[setting?.input?.name] = value;
       $$invalidate(0, data);
     }
   }
   function columnsettings_data_binding(value) {
+    data = value;
+    $$invalidate(0, data);
+  }
+  function columnsettings_data_binding_1(value) {
     data = value;
     $$invalidate(0, data);
   }
@@ -1725,7 +1811,7 @@ function instance($$self, $$props, $$invalidate) {
       $: settings && configChange();
     }
   };
-  return [data, filteredSettings, $listScreenIsReadOnly, getInputType, settings, parent, switch_instance_data_binding, switch_instance_value_binding, columnsettings_data_binding];
+  return [data, filteredSettings, $listScreenIsReadOnly, getInputType, settings, parent, switch_instance_data_binding, switch_instance_value_binding, columnsettings_data_binding, columnsettings_data_binding_1];
 }
 class ColumnSettings extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
