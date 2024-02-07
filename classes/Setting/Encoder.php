@@ -41,7 +41,7 @@ final class Encoder
         }
 
         if ($component instanceof Setting) {
-            $encoded['conditions'] = $component->get_conditions()->get_rules($component->get_name()),
+            $encoded['conditions'] = $component->get_conditions()->get_rules($component->get_name());
 
             $input = $component->get_input();
 

@@ -10,7 +10,7 @@
 
     let filteredSettings = settings;
 
-    const getComponent = (type: string) => {
+    const getInputComponent = (type: string) => {
         return getInputComponent(type);
     }
 
@@ -44,7 +44,7 @@
 		<ColumnSetting name={setting.name} description={setting.description} label={setting.label}>
 
 			<svelte:component
-				this={getComponent(setting.input?.type ?? 'empty')}
+				this={getInputComponent(setting.input?.type ?? 'empty')}
 				bind:data={data}
 				bind:value={data[setting.name]}
 				disabled={$listScreenIsReadOnly}
