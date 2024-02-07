@@ -8,7 +8,6 @@ use AC\Setting\Component\Input\Number;
 use AC\Setting\Component\Input\Open;
 use AC\Setting\Component\Input\Option;
 use AC\Setting\Component\OptionCollection;
-use AC\Settings\Component;
 
 final class Encoder
 {
@@ -42,15 +41,14 @@ final class Encoder
         }
 
         if ($component instanceof Setting) {
-            $encoded = [
-                'name'       => $component->get_name(),
-                'label'      => $component->get_label(),
-                'conditions' => $component->get_conditions()->get_rules($component->get_name()),
-            ];
+            $encoded['conditions'] = $component->get_conditions()->get_rules($component->get_name());
 
             $input = $component->get_input();
 
-            $encoded['input']['type'] = $input->get_type();
+            $encoded['input'] = [
+                'type' => $input->get_type(),
+                'name' => $input->get_name(),
+            ];
 
             if ($input->has_default()) {
                 $encoded['input']['default'] = $input->get_default();
@@ -82,14 +80,14 @@ final class Encoder
                     $encoded['input']['step'] = $input->get_step();
                 }
             }
+        }
 
-            if ($component instanceof Recursive) {
-                $encoded['is_parent'] = $component->is_parent();
-                $encoded['children'] = [];
+        if ($component instanceof Recursive) {
+            $encoded['is_parent'] = $component->is_parent();
+            $encoded['children'] = [];
 
-                foreach ($component->get_children() as $child) {
-                    $encoded['children'][] = $this->encode_setting($child);
-                }
+            foreach ($component->get_children() as $child) {
+                $encoded['children'][] = $this->encode_setting($child);
             }
         }
 

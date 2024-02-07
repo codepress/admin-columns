@@ -6,13 +6,12 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\Config;
-use AC\Settings\Setting;
-use AC\Settings\SettingFactory;
 
-class WidthFactory implements SettingFactory
+class WidthFactory
 {
 
-    public function create(Config $config, Specification $specification = null): Setting
+    // TODO David
+    public function create(Config $config, Specification $specification = null)
     {
         return new Width(
             $config->has('width') ? (int)$config->get('width') : null,
