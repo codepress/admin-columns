@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace AC\RequestHandler\Ajax;
 
 use AC\Capabilities;
-use AC\ColumnTypesFactory;
+use AC\ColumnTypeRepository;
 use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response;
 use AC\Setting\Encoder;
-use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\TableScreen;
 use AC\TableScreenFactory\Aggregate;
 use AC\Type\ListKey;
@@ -21,18 +20,14 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
 
     private $table_screen_factory;
 
-    private $column_types_factory;
-
-    private $default_columns_repository;
+    private $column_type_repository;
 
     public function __construct(
         Aggregate $table_screen_factory,
-        ColumnTypesFactory\Aggregate $column_types_factory,
-        DefaultColumnsRepository $default_columns_repository
+        ColumnTypeRepository $column_type_repository,
     ) {
         $this->table_screen_factory = $table_screen_factory;
-        $this->column_types_factory = $column_types_factory;
-        $this->default_columns_repository = $default_columns_repository;
+        $this->column_type_repository = $column_type_repository;
     }
 
     public function handle(): void
@@ -65,31 +60,19 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
     {
         $settings = [];
 
-        foreach ($this->get_default_column_types($table_screen) as $column) {
+        foreach ($this->column_type_repository->find_all_by_original($table_screen) as $column) {
             $settings[$column->get_type()] = (new Encoder($column->get_settings()))->encode();
         }
 
         return $settings;
     }
 
-    private function get_default_column_types(TableScreen $table_screen): array
-    {
-        $columns = [];
-
-        foreach ($this->column_types_factory->create($table_screen) as $column) {
-            if ($column->is_original()) {
-                $columns[] = $column;
-            }
-        }
-
-        return $columns;
-    }
-
     private function get_columns(TableScreen $table_screen): array
     {
         $columns = [];
 
-        foreach ($this->get_default_column_types($table_screen) as $column) {
+        // TODO test
+        foreach ($this->column_type_repository->find_all($table_screen) as $column) {
             $columns[] = [
                 'type'  => $column->get_type(),
                 'label' => $column->get_label(),

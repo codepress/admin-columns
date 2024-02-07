@@ -21,8 +21,7 @@ class ColumnFactory
     // TODO
     public function create(TableScreen $table_screen, string $type, Config $config): ?Column
     {
-        $this->factories->create($table_screen);
-
+        // TODO caching?
         foreach ($this->factories->create($table_screen) as $factory) {
             if ($factory->can_create($type)) {
                 return $factory->create($config);

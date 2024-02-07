@@ -8,6 +8,7 @@ use Countable;
 use InvalidArgumentException;
 use Iterator;
 
+// TODO obsolete. use ColumnCollection
 class ColumnTypeCollection implements Iterator, Countable
 {
 

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AC\RequestHandler\Ajax;
 
-use AC;
 use AC\Capabilities;
-use AC\Column;
+use AC\ColumnTypeRepository;
 use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response\Json;
+use AC\Response\JsonColumnFactory;
 use AC\TableScreenFactory\Aggregate;
 use AC\Type\ListKey;
 
@@ -19,17 +19,17 @@ class ListScreenAddColumn implements RequestAjaxHandler
 
     private $table_screen_factory;
 
-    private $column_types_factory;
-
     private $json_response_factory;
+
+    private $repository;
 
     public function __construct(
         Aggregate $table_screen_factory,
-        AC\ColumnTypesFactory\Aggregate $column_types_factory,
-        AC\Response\JsonColumnFactory $json_response_factory
+        ColumnTypeRepository $repository,
+        JsonColumnFactory $json_response_factory
     ) {
         $this->table_screen_factory = $table_screen_factory;
-        $this->column_types_factory = $column_types_factory;
+        $this->repository = $repository;
         $this->json_response_factory = $json_response_factory;
     }
 
@@ -52,11 +52,9 @@ class ListScreenAddColumn implements RequestAjaxHandler
             $response->error();
         }
 
-        $table_screen = $this->table_screen_factory->create($list_key);
-
-        $column = $this->get_column_type(
-            (string)$request->get('column_type'),
-            $this->column_types_factory->create($table_screen)
+        $column = $this->repository->find(
+            $this->table_screen_factory->create($list_key),
+            (string)$request->get('column_type')
         );
 
         if ( ! $column) {
@@ -65,17 +63,6 @@ class ListScreenAddColumn implements RequestAjaxHandler
 
         $this->json_response_factory->create_by_column($column)
                                     ->success();
-    }
-
-    private function get_column_type(string $type, AC\ColumnTypeCollection $collection): ?Column
-    {
-        foreach ($collection as $column) {
-            if ($column->get_type() === $type) {
-                return $column;
-            }
-        }
-
-        return null;
     }
 
 }

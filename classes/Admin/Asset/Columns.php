@@ -5,7 +5,7 @@ namespace AC\Admin\Asset;
 use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
-use AC\ColumnTypesFactory;
+use AC\ColumnCollection;
 use AC\Service\DefaultColumns;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Storage\Repository\EditorMenuStatus;
@@ -23,19 +23,19 @@ class Columns extends Script
 
     private $list_id;
 
-    private $column_types_factory;
-
     private $menu_items;
 
     private $favorite_repository;
 
     private $table_screen_repository;
 
+    private $column_type_repository;
+
     public function __construct(
         string $handle,
         Location $location,
         TableScreen $table_screen,
-        ColumnTypesFactory\Aggregate $column_types_factory,
+        AC\ColumnTypeRepository $column_type_repository,
         TableScreenCollection $table_screens,
         AC\Admin\MenuListItems $menu_items,
         AC\Table\TableScreenRepository $table_screen_repository,
@@ -52,8 +52,8 @@ class Columns extends Script
 
         $this->table_screen = $table_screen;
         $this->table_screens = $table_screens;
+        $this->column_type_repository = $column_type_repository;
         $this->list_id = $list_id;
-        $this->column_types_factory = $column_types_factory;
         $this->menu_items = $menu_items;
         $this->favorite_repository = $favorite_repository;
         $this->table_screen_repository = $table_screen_repository;
@@ -104,7 +104,7 @@ class Columns extends Script
             'list_key'             => (string)$this->table_screen->get_key(),
             'list_id'              => (string)$this->list_id,
             'column_types'         => $this->encode_column_types(
-                $this->column_types_factory->create($this->table_screen)
+                $this->column_type_repository->find_all($this->table_screen)
             ),
             'column_groups'        => AC\ColumnGroups::get_groups()->get_all(),
             'menu_items'           => $this->get_menu_items(),
@@ -206,15 +206,15 @@ class Columns extends Script
         return $options;
     }
 
-    private function encode_column_types(AC\ColumnTypeCollection $collection): array
+    private function encode_column_types(ColumnCollection $collection): array
     {
-        $column_types = [];
+        $encode = [];
 
         // TODO cache
         $groups = AC\ColumnGroups::get_groups();
 
         foreach ($collection as $column) {
-            $column_types[] = [
+            $encode[] = [
                 'label'     => $column->get_label(),
                 'value'     => $column->get_type(),
                 'group'     => $groups->get($column->get_group())['label'],
@@ -223,7 +223,7 @@ class Columns extends Script
             ];
         }
 
-        return $column_types;
+        return $encode;
     }
 
 }

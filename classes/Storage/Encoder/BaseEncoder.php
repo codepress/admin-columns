@@ -16,7 +16,7 @@ class BaseEncoder implements AC\Storage\Encoder
     private $version;
 
     /**
-     * @var ListScreen
+     * @var ListScreen|null
      */
     private $list_screen;
 
@@ -44,7 +44,7 @@ class BaseEncoder implements AC\Storage\Encoder
                 'type'     => (string)$this->list_screen->get_key(),
                 'id'       => (string)$this->list_screen->get_id(),
                 'updated'  => $this->list_screen->get_updated()->getTimestamp(),
-                'columns'  => $this->get_columns(),
+                'columns'  => $this->encode_columns(),
                 'settings' => $this->get_preferences(),
             ];
         }
@@ -72,7 +72,7 @@ class BaseEncoder implements AC\Storage\Encoder
         return $encoded;
     }
 
-    private function get_columns(): array
+    private function encode_columns(): array
     {
         $encode = [];
 
@@ -80,7 +80,10 @@ class BaseEncoder implements AC\Storage\Encoder
          * @var AC\Column $column
          */
         foreach ($this->list_screen->get_columns() as $column) {
-            $encode[] = $this->encode_settings($column->get_settings());
+            $data = $this->encode_settings($column->get_settings());
+            $data['type'] = $column->get_type();
+
+            $encode[] = $data;
         }
 
         return $encode;

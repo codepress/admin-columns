@@ -4,8 +4,7 @@ namespace AC\Request\Middleware;
 
 use AC\Admin\Preference;
 use AC\ColumnCollection;
-use AC\ColumnFactory;
-use AC\ColumnTypesFactory;
+use AC\ColumnTypeRepository;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Middleware;
@@ -24,22 +23,18 @@ class ListScreenAdmin implements Middleware
 
     private $preference;
 
-    private $column_types_factory;
-
-    private $column_factory;
+    private $column_type_repository;
 
     public function __construct(
         Storage $storage,
         TableScreen $table_screen,
         Preference\ListScreen $preference,
-        ColumnTypesFactory $column_types_factory,
-        ColumnFactory $column_factory
+        ColumnTypeRepository $column_type_repository
     ) {
         $this->storage = $storage;
         $this->table_screen = $table_screen;
         $this->preference = $preference;
-        $this->column_types_factory = $column_types_factory;
-        $this->column_factory = $column_factory;
+        $this->column_type_repository = $column_type_repository;
     }
 
     private function get_requested_list_screen(Request $request): ?ListScreen
@@ -106,33 +101,36 @@ class ListScreenAdmin implements Middleware
         return $list_screen;
     }
 
-    // TODO create its own service
     private function get_default_columns(): ColumnCollection
     {
-        $columns = [];
+        // TODO test
+        return $this->column_type_repository->find_all_by_original($this->table_screen);
 
-        $column_types = $this->column_types_factory->create($this->table_screen);
-
-        foreach ($column_types as $column_type) {
-            if ( ! $column_type->is_original()) {
-                continue;
-            }
-
-            $column = $this->column_factory->create(
-                $this->table_screen,
-                [
-                    'type' => $column_type->get_type(),
-                    'label' => $column_type->get_label(),
-                    'name' => $column_type->get_type(),
-                ]
-            );
-
-            if ($column) {
-                $columns[] = $column;
-            }
-        }
-
-        return new ColumnCollection($columns);
+        //        $columns = [];
+        //
+        //
+        //        $column_types = $this->column_types_factory->create($this->table_screen);
+        //
+        //        foreach ($column_types as $column_type) {
+        //            if ( ! $column_type->is_original()) {
+        //                continue;
+        //            }
+        //
+        //            $column = $this->column_factory->create(
+        //                $this->table_screen,
+        //                [
+        //                    'type' => $column_type->get_type(),
+        //                    'label' => $column_type->get_label(),
+        //                    'name' => $column_type->get_type(),
+        //                ]
+        //            );
+        //
+        //            if ($column) {
+        //                $columns[] = $column;
+        //            }
+        //        }
+        //
+        //        return new ColumnCollection($columns);
     }
 
     public function handle(Request $request): void

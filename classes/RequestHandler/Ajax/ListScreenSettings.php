@@ -24,24 +24,20 @@ class ListScreenSettings implements RequestAjaxHandler
 
     private $table_factory;
 
-    private $column_types_factory;
-
-    private $column_factory;
-
     private $preference;
+
+    private $type_repository;
 
     public function __construct(
         Storage $storage,
         AC\TableScreenFactory\Aggregate $table_factory,
-        AC\ColumnFactory $column_factory,
-        AC\ColumnTypesFactory\Aggregate $column_types_factory,
+        AC\ColumnTypeRepository $type_repository,
         Preference\ListScreen $preference
     ) {
         $this->storage = $storage;
         $this->table_factory = $table_factory;
-        $this->column_types_factory = $column_types_factory;
-        $this->column_factory = $column_factory;
         $this->preference = $preference;
+        $this->type_repository = $type_repository;
     }
 
     public function handle(): void
@@ -70,8 +66,7 @@ class ListScreenSettings implements RequestAjaxHandler
                 $this->storage,
                 $table_screen,
                 $this->preference,
-                $this->column_types_factory,
-                $this->column_factory
+                $this->type_repository
             )
         );
 
@@ -87,8 +82,8 @@ class ListScreenSettings implements RequestAjaxHandler
         $response->set_parameter('read_only', $list_screen->is_read_only());
         $response->set_parameter('table_url', (string)$list_screen->get_table_url());
         $response->set_parameter('settings', $encoder->encode());
-        $response->set_parameter('column_types', $this->get_column_types($table_screen));
-        $response->set_parameter('column_settings', $this->get_column_settings($list_screen->get_columns()));
+        $response->set_parameter('column_types', $this->encode_columns($table_screen));
+        $response->set_parameter('column_settings', $this->encode_column_settings($list_screen->get_columns()));
 
         $response->success();
     }
@@ -104,13 +99,13 @@ class ListScreenSettings implements RequestAjaxHandler
         return strip_tags($label);
     }
 
-    private function get_column_types(AC\TableScreen $table_screen): array
+    private function encode_columns(AC\TableScreen $table_screen): array
     {
         $column_types = [];
 
         $groups = AC\ColumnGroups::get_groups();
 
-        foreach ($this->column_types_factory->create($table_screen) as $column) {
+        foreach ($this->type_repository->find_all($table_screen) as $column) {
             $column_types[] = [
                 'label'     => $this->get_clean_label($column),
                 'value'     => $column->get_type(),
@@ -118,14 +113,14 @@ class ListScreenSettings implements RequestAjaxHandler
                 'group_key' => $column->get_group(),
 
                 // TODO
-                'original'  => false //$column->is_original(),
+                'original'  => $column->is_original(),
             ];
         }
 
         return $column_types;
     }
 
-    private function get_column_settings(AC\ColumnIterator $columns): array
+    private function encode_column_settings(AC\ColumnIterator $columns): array
     {
         $settings = [];
 

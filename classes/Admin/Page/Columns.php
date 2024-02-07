@@ -14,7 +14,7 @@ use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Column;
-use AC\ColumnTypesFactory;
+use AC\ColumnTypeRepository;
 use AC\Renderable;
 use AC\Storage\Repository\EditorFavorites;
 use AC\Table\TableScreenCollection;
@@ -43,8 +43,6 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $table_screen;
 
-    private $column_types_factory;
-
     private $list_id;
 
     private $menu_items;
@@ -53,12 +51,14 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     private $table_screen_repository;
 
+    private $column_type_repository;
+
     public function __construct(
         Location\Absolute $location,
         TableScreenCollection $uninitialized_table_screens,
         Renderable $head,
         TableScreen $table_screen,
-        ColumnTypesFactory\Aggregate $column_types_factory,
+        ColumnTypeRepository $column_type_repository,
         Admin\MenuListItems $menu_items,
         EditorFavorites $favorite_repository,
         TableScreenRepository $table_screen_repository,
@@ -68,7 +68,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
         $this->uninitialized_table_screens = $uninitialized_table_screens;
         $this->head = $head;
         $this->table_screen = $table_screen;
-        $this->column_types_factory = $column_types_factory;
+        $this->column_type_repository = $column_type_repository;
         $this->list_id = $list_id;
         $this->menu_items = $menu_items;
         $this->favorite_repository = $favorite_repository;
@@ -96,7 +96,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
                 'ac-admin-page-columns',
                 $this->location->with_suffix('assets/js/admin-page-columns.js'),
                 $this->table_screen,
-                $this->column_types_factory,
+                $this->column_type_repository,
                 $this->uninitialized_table_screens,
                 $this->menu_items,
                 $this->table_screen_repository,

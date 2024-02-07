@@ -11,6 +11,7 @@ use AC\ColumnRepository\EncodedData;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepositoryWritable;
+use AC\Setting\Config;
 use AC\Storage\EncoderFactory;
 use AC\TableScreen;
 use AC\TableScreenFactory;
@@ -193,19 +194,32 @@ class Database implements ListScreenRepositoryWritable
 
     private function create_column_iterator(TableScreen $table_screen, object $data): ColumnIterator
     {
-        $columns_data = $data->columns
+        return new ProxyColumnIterator(
+            new EncodedData(
+                $this->column_factory,
+                $table_screen,
+                $this->create_configs($data)
+            )
+        );
+    }
+
+    private function create_configs(object $data): array
+    {
+        $configs = [];
+
+        $columns = $data->columns
             ? unserialize($data->columns, ['allowed_classes' => false])
             : [];
 
-        foreach ($columns_data as $name => $column_data) {
-            if ( ! isset($column_data['name'])) {
-                $columns_data[$name]['name'] = $name;
+        foreach ($columns as $name => $config) {
+            if ( ! isset($config['name'])) {
+                $config['name'] = $name;
             }
+
+            $configs[] = new Config($config);
         }
 
-        return new ProxyColumnIterator(
-            new EncodedData($this->column_factory, $table_screen, $columns_data)
-        );
+        return $configs;
     }
 
     private function create_list_screens(array $rows): ListScreenCollection

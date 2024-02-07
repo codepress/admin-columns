@@ -19,6 +19,7 @@ use AC\TableScreen;
 use AC\TableScreenFactory;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
+use InvalidArgumentException;
 
 class ListScreenSave implements RequestAjaxHandler
 {
@@ -76,7 +77,7 @@ class ListScreenSave implements RequestAjaxHandler
                 $id,
                 (string)$data['title'],
                 $table_screen,
-                $this->get_columns($table_screen, (array)$data['columns']),
+                $this->decode_columns($table_screen, (array)$data['columns']),
                 (array)$data['settings']
             );
         } else {
@@ -105,17 +106,25 @@ class ListScreenSave implements RequestAjaxHandler
             )->success();
     }
 
-    private function get_columns(TableScreen $table_screen, array $columndata): ColumnCollection
+    private function decode_columns(TableScreen $table_screen, array $columndata): ColumnCollection
     {
         $columns = [];
 
         foreach ($columndata as $data) {
+            if ( ! isset($data['type'])) {
+                throw new InvalidArgumentException('Missing column type.');
+            }
+
             // TODO
             if (isset($data['label'])) {
                 $data['label'] = (new LabelEncoder())->encode($data['label']);
             }
 
-            $columns[] = $this->column_factory->create($table_screen, new Config($data));
+            $columns[] = $this->column_factory->create(
+                $table_screen,
+                $data['type'],
+                new Config($data)
+            );
         }
 
         return new ColumnCollection(array_filter($columns));

@@ -17,13 +17,16 @@ class EncodedData implements ColumnRepository
 
     private $table_screen;
 
-    private $columns_data;
+    /**
+     * @var Config[]
+     */
+    private $configs;
 
-    public function __construct(ColumnFactory $column_factory, TableScreen $table_screen, array $columns_data)
+    public function __construct(ColumnFactory $column_factory, TableScreen $table_screen, array $configs)
     {
         $this->column_factory = $column_factory;
         $this->table_screen = $table_screen;
-        $this->columns_data = $columns_data;
+        $this->configs = $configs;
     }
 
     public function find_all(): ColumnCollection
@@ -31,12 +34,11 @@ class EncodedData implements ColumnRepository
         // TODO test
         $columns = new ColumnCollection();
 
-        foreach ($this->columns_data as $config) {
-            
+        foreach ($this->configs as $config) {
             $column = $this->column_factory->create(
                 $this->table_screen,
-                (string)$config['type'],
-                new Config($config)
+                (string)$config->get('type'),
+                $config
             );
 
             if ($column) {

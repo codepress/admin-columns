@@ -47,18 +47,16 @@ class AdminColumns
         TableScreenFactory\Aggregate::add($container->get(TableScreenFactory\UserFactory::class));
 
         // TODO replace with factories
-        \AC\ColumnFactories\Aggregate::add(
-            new \AC\ColumnFactories\PostFactory($container)
-        );
-//        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\OriginalsFactory::class));
-//        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\CommentFactory::class));
-//        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\MediaFactory::class));
-//        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\PostFactory::class));
-//        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\UserFactory::class));
-//
-//        if ( ! defined('ACP_FILE')) {
-//            ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\IntegrationsFactory::class));
-//        }
+        ColumnFactories\Aggregate::add($container->get(ColumnFactories\PostFactory::class));
+        //        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\OriginalsFactory::class));
+        //        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\CommentFactory::class));
+        //        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\MediaFactory::class));
+        //        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\PostFactory::class));
+        //        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\UserFactory::class));
+        //
+        //        if ( ! defined('ACP_FILE')) {
+        //            ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\IntegrationsFactory::class));
+        //        }
 
         MenuGroupFactory\Aggregate::add($container->get(DefaultGroups::class));
         ListKeysFactory\Aggregate::add($container->get(ListKeysFactory\BaseFactory::class));
@@ -179,7 +177,6 @@ class AdminColumns
             ): SetupFactory\AdminColumns {
                 return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
             },
-            ColumnTypesFactory::class               => autowire(ColumnTypesFactory\Aggregate::class),
             ListKeysFactory::class                  => autowire(ListKeysFactory\Aggregate::class),
             Service\CommonAssets::class             => autowire()
                 ->constructorParameter(1, DI\get('translations.global')),

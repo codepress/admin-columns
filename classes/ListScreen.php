@@ -65,12 +65,7 @@ final class ListScreen
         return $this->title;
     }
 
-    public function set_title(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    public function get_column(string $name): ?ColumnPrototype
+    public function get_column(string $name): ?Column
     {
         foreach ($this->columns as $column) {
             if ($column->get_name() === $name) {
