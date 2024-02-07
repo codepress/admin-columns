@@ -61,7 +61,7 @@ class BaseEncoder implements AC\Storage\Encoder
     {
         foreach ($settings as $setting) {
             if ($setting instanceof AC\Setting\Setting) {
-                $encoded[$setting->get_input()->get_name()] = $setting->get_input()->get_default();
+                $encoded[$setting->get_input()->get_name()] = $setting->get_input()->get_value();
             }
 
             if ($setting instanceof Recursive) {

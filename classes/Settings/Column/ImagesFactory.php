@@ -4,23 +4,21 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
+use AC;
 use AC\Expression\Specification;
 use AC\Setting\Config;
+use AC\Setting\Type\Value;
+use AC\Settings;
 use AC\Settings\Component;
 use AC\Settings\Setting;
-use AC\Settings\SettingFactory;
 
-// TODO implement formatter with '<span class="cpac_use_icons"></span>'
-
-class ActionIconsFactory implements SettingFactory
+// TODO can it extend?
+class ImagesFactory implements Settings\SettingFactory
 {
 
     public function create(Config $config, Specification $specification = null): Component
     {
-        return new ActionIcons(
-            'on' === $config->get('use_icons'),
-            $specification
-        );
+        return new Images();
     }
 
 }

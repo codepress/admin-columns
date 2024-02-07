@@ -9,7 +9,7 @@ use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 use AC\Setting\ValueCollection;
 
-// TODO
+// TODO see AttachmentFactory for a implementation of ValueCollection formatter
 class ValueFormatter
 {
 

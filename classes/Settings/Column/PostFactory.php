@@ -8,6 +8,7 @@ use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Config;
 use AC\Setting\SettingCollection;
+use AC\Settings\Component;
 use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
@@ -38,7 +39,7 @@ class PostFactory implements SettingFactory
         $this->date_factory = $date_factory;
     }
 
-    public function create(Config $config, Specification $specification = null): Setting
+    public function create(Config $config, Specification $specification = null): Component
     {
         return new Post(
             $config->get('post') ?: Post::PROPERTY_TITLE,

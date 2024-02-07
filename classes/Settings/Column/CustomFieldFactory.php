@@ -8,6 +8,7 @@ use AC\Expression\Specification;
 use AC\MetaType;
 use AC\Setting\Config;
 use AC\Setting\SettingCollection;
+use AC\Settings\Component;
 use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
@@ -24,7 +25,7 @@ class CustomFieldFactory implements SettingFactory
         $this->custom_field_type_factory = $custom_field_type_factory;
     }
 
-    public function create(Config $config, Specification $specification = null): Setting
+    public function create(Config $config, Specification $specification = null): Component
     {
         return new CustomField(
             $config->get('field') ?: '',

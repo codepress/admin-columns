@@ -50,18 +50,20 @@ final class Encoder
                 'name' => $input->get_name(),
             ];
 
+            if ($input->has_placeholder()) {
+                $encoded['input']['placeholder'] = $input->get_placeholder();
+            }
+
             foreach ($input->get_attributes() as $attribute) {
                 $encoded['input']['attributes'][$attribute->get_name()] = $attribute->get_value();
             }
 
-            if ($input->has_default()) {
-                $encoded['input']['default'] = $input->get_default();
+            if ($input->has_value()) {
+                $encoded['input']['default'] = $input->get_value();
             }
 
-            if ($input instanceof Open) {
-                if ($input->has_append()) {
-                    $encoded['input']['append'] = $input->get_append();
-                }
+            if ($input instanceof Open && $input->has_append()) {
+                $encoded['input']['append'] = $input->get_append();
             }
 
             if ($input instanceof Option) {

@@ -7,8 +7,9 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\Column\Renderable;
 use AC\Setting\SettingCollection;
-use AC\Settings\Column\AttachmentDisplay;
+use AC\Settings\Column\Attachments;
 
+// TODO remove
 class Attachment extends Column implements Column\Value
 {
 
@@ -17,17 +18,15 @@ class Attachment extends Column implements Column\Value
         parent::__construct(
             'column-attachment',
             __('Attachments', 'codepress-admin-columns'),
-            new SettingCollection([
-                new AttachmentDisplay(),
-            ])
+
         );
     }
 
-    public function renderable(): Renderable
-    {
-        return new Column\Post\Renderable\Attachment(
-            new Renderable\ValueFormatter($this->settings)
-        );
-    }
+//    public function renderable(): Renderable
+//    {
+//        return new Column\Post\Renderable\Attachment(
+//            new Renderable\ValueFormatter($this->settings)
+//        );
+//    }
 
 }

@@ -72,7 +72,7 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
         $columns = [];
 
         // TODO test
-        foreach ($this->column_type_repository->find_all($table_screen) as $column) {
+        foreach ($this->column_type_repository->find_all_by_original($table_screen) as $column) {
             $columns[] = [
                 'type'  => $column->get_type(),
                 'label' => $column->get_label(),

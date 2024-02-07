@@ -11,13 +11,13 @@ use AC\Setting\Type\Value;
 use AC\Settings;
 
 // TODO can it extend?
-class Images extends Settings\Column\Image implements AC\Setting\Recursive
+class Images extends Settings\Setting
 {
 
     public function __construct(Specification $specification = null)
     {
         // TODO $name = 'images';
-        parent::__construct($specification);
+        parent::__construct('images', $specification);
     }
 
     public function format(Value $value, Config $options): Value
