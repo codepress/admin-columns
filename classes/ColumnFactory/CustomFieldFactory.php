@@ -9,6 +9,7 @@ use AC\Setting\ComponentCollectionBuilder;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Aggregate;
 use AC\Settings;
+use AC\Settings\Column\CustomFieldTypeFactory;
 use AC\Vendor\DI\Container;
 
 class CustomFieldFactory implements ColumnFactory
@@ -31,7 +32,7 @@ class CustomFieldFactory implements ColumnFactory
     {
         $factory = new Settings\Column\CustomFieldFactory(
             $this->meta_type,
-            $this->container->get(Settings\Column\CustomFieldTypeFactory::class)
+            $this->container->get(CustomFieldTypeFactory::class)
         );
 
         $settings = $this->builder->add_defaults()

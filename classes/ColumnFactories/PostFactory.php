@@ -49,7 +49,8 @@ class PostFactory implements ColumnFactories
         $factories['column-meta'] = new CustomFieldFactory(
             new MetaType(MetaType::POST),
             $this->container,
-            $this->container->get(ComponentCollectionBuilder::class)
+            // TODO use ComponentCollectionBuilderFactory? because it will be loaded static now, resulting in duplicate settings (label, width etc.)
+            $this->container->make(ComponentCollectionBuilder::class)
         );
 
         return new Collection\ColumnFactories($factories);
