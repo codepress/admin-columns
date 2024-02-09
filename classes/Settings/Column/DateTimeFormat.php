@@ -9,8 +9,8 @@ use AC\Setting;
 use AC\Setting\Component\Input\Custom;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\Formatter;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -22,7 +22,7 @@ abstract class DateTimeFormat extends Settings\Setting implements Setting\Recurs
     public function __construct(string $date_format = null, Specification $conditions = null)
     {
         parent::__construct(
-            new Custom('date_format'),
+            new Custom('date_format', 'date_format'),
             __('Date Format', 'codepress-admin-columns'),
             null,
             $conditions

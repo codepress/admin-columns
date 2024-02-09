@@ -27,7 +27,7 @@ class BeforeAfter extends Setting implements AC\Setting\Recursive, AC\Setting\Fo
     ) {
         parent::__construct(
         // TODO input?
-            new Component\Input\Custom('width'),
+            new Component\Input\Custom('display', 'empty'),
             __('Display Options', 'codepress-admin-columns'),
             $conditions
         );
