@@ -9,7 +9,6 @@ use AC\MetaType;
 use AC\Setting\Config;
 use AC\Setting\ComponentCollection;
 use AC\Settings\Component;
-use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 class CustomFieldFactory implements SettingFactory

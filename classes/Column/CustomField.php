@@ -3,7 +3,6 @@
 namespace AC\Column;
 
 use AC\Column;
-use AC\Setting\ComponentCollection;
 
 /**
  * Custom field column, displaying the contents of meta fields.
@@ -14,13 +13,12 @@ use AC\Setting\ComponentCollection;
 class CustomField extends Column implements Value
 {
 
-
-//    public function renderable(): Renderable
-//    {
-//        return new Column\Post\Renderable\CustomField(
-//            new Renderable\ValueFormatter($this->settings)
-//        );
-//    }
+    //    public function renderable(): Renderable
+    //    {
+    //        return new Column\Post\Renderable\CustomField(
+    //            new Renderable\ValueFormatter($this->settings)
+    //        );
+    //    }
 
     //    public function get_meta_key(): string
     //    {

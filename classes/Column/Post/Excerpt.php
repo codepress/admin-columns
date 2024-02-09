@@ -4,7 +4,6 @@ namespace AC\Column\Post;
 
 use AC\Column;
 use AC\Column\Renderable;
-use AC\Setting\ComponentCollection;
 
 // TODO obsolete
 class Excerpt extends Column implements Column\Value
@@ -12,10 +11,13 @@ class Excerpt extends Column implements Column\Value
 
     private $renderable;
 
-
-
-    public function __construct(string $type, string $label, Renderable $renderable, ComponentCollection $settings = null, string $group = null)
-    {
+    public function __construct(
+        string $type,
+        string $label,
+        Renderable $renderable,
+        SettingCollection $settings = null,
+        string $group = null
+    ) {
         parent::__construct($type, $label, $settings, $group);
 
         $this->renderable = $renderable;
