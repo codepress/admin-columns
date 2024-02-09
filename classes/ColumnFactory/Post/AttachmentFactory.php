@@ -4,7 +4,7 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\Builder;
+use AC\Setting\ComponentCollectionBuilder;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Aggregate;
 use AC\Settings\Column\AttachmentsFactory;
@@ -12,16 +12,21 @@ use AC\Settings\Column\AttachmentsFactory;
 class AttachmentFactory implements ColumnFactory
 {
 
-    public function can_create(string $type): bool
+    private $builder;
+
+    private $attachments_factory;
+
+    public function __construct(ComponentCollectionBuilder $builder, AttachmentsFactory $attachments_factory)
     {
-        return 'column-attachment' === $type;
+        $this->builder = $builder;
+        $this->attachments_factory = $attachments_factory;
     }
 
     public function create(Config $config): Column
     {
-        $settings = (new Builder())->set_defaults()
-                                   ->set(new AttachmentsFactory())
-                                   ->build($config);
+        $settings = $this->builder->add_defaults()
+                                  ->add($this->attachments_factory)
+                                  ->build($config);
 
         return new Column(
             'column-attachment',

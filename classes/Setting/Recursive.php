@@ -7,7 +7,7 @@ namespace AC\Setting;
 interface Recursive
 {
 
-    public function get_children(): SettingCollection;
+    public function get_children(): ComponentCollection;
 
     public function is_parent(): bool;
 

@@ -10,7 +10,7 @@ use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
 use AC\Setting\RecursiveFormatterTrait;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -30,7 +30,7 @@ class Post extends Settings\Setting implements Formatter, Setting\Recursive
 
     private $post_format;
 
-    public function __construct(string $post_format, SettingCollection $settings, Specification $conditionals = null)
+    public function __construct(string $post_format, ComponentCollection $settings, Specification $conditionals = null)
     {
         parent::__construct(
             OptionFactory::create_select(
@@ -104,7 +104,7 @@ class Post extends Settings\Setting implements Formatter, Setting\Recursive
         return false;
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
         return $this->settings;
     }

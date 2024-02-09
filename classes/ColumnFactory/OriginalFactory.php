@@ -6,7 +6,7 @@ namespace AC\ColumnFactory;
 
 use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\Builder;
+use AC\Setting\ComponentCollectionBuilder;
 use AC\Setting\Config;
 use AC\Setting\Formatter\NullFormatter;
 
@@ -17,10 +17,13 @@ class OriginalFactory implements ColumnFactory
 
     private $label;
 
-    public function __construct(string $type, string $label)
+    private $builder;
+
+    public function __construct(string $type, string $label, ComponentCollectionBuilder $builder)
     {
         $this->type = $type;
         $this->label = $label;
+        $this->builder = $builder;
     }
 
     public function can_create(string $type): bool
@@ -34,7 +37,7 @@ class OriginalFactory implements ColumnFactory
             $this->type,
             $this->label,
             new NullFormatter(),
-            (new Builder())->set_defaults()->build($config),
+            $this->builder->add_defaults()->build($config),
             'default'
         );
     }

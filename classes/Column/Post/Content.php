@@ -3,9 +3,8 @@
 namespace AC\Column\Post;
 
 use AC\Column;
-use AC\Column\Renderable;
 use AC\Column\Value;
-use AC\Setting\Config;
+use AC\Setting\ComponentCollection;
 use AC\Setting\SettingCollection;
 use AC\Settings;
 
@@ -18,19 +17,19 @@ class Content extends Column implements Value
         parent::__construct(
             'column-content',
             __('Content', 'codepress-admin-columns'),
-            new SettingCollection([
+            new ComponentCollection([
                 new Settings\Column\StringLimit(),
                 new Settings\Column\BeforeAfter(),
             ])
         );
     }
 
-//    public function renderable(Config $options): Renderable
-//    {
-//        return new Column\Post\Renderable\Content(
-//            new Renderable\ValueFormatter($this->get_settings())
-//        );
-//    }
+    //    public function renderable(Config $options): Renderable
+    //    {
+    //        return new Column\Post\Renderable\Content(
+    //            new Renderable\ValueFormatter($this->get_settings())
+    //        );
+    //    }
 
     // TODO remove
     //    public function register_settings()

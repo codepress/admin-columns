@@ -10,7 +10,7 @@ use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Component;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 
 class NumberFormat extends AC\Settings\Setting implements Formatter
@@ -76,9 +76,9 @@ class NumberFormat extends AC\Settings\Setting implements Formatter
         return true;
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
-        return new SettingCollection([
+        return new ComponentCollection([
             new AC\Settings\Setting(
                 __('Decimals', 'codepress-admin-columns'),
                 '',

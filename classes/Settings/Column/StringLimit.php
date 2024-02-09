@@ -9,7 +9,7 @@ use AC\Setting;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter\Aggregate;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -20,7 +20,7 @@ class StringLimit extends Settings\Setting implements Setting\Recursive, Setting
 
     private $settings;
 
-    public function __construct(string $limiter, SettingCollection $settings, Specification $conditions = null)
+    public function __construct(string $limiter, ComponentCollection $settings, Specification $conditions = null)
     {
         parent::__construct(
             OptionFactory::create_select(
@@ -37,7 +37,7 @@ class StringLimit extends Settings\Setting implements Setting\Recursive, Setting
         $this->limiter = $limiter;
     }
 
-    private function create_option_collection(SettingCollection $settings): OptionCollection
+    private function create_option_collection(ComponentCollection $settings): OptionCollection
     {
         $options = [
             '' => __('No limit', 'codepress-admin-columns'),
@@ -58,7 +58,7 @@ class StringLimit extends Settings\Setting implements Setting\Recursive, Setting
 
     public function format(Value $value): Value
     {
-        $settings = new SettingCollection();
+        $settings = new ComponentCollection();
 
         foreach ($this->settings as $setting) {
             if ($setting->get_conditions()->is_satisfied_by($this->limiter)) {
@@ -69,7 +69,7 @@ class StringLimit extends Settings\Setting implements Setting\Recursive, Setting
         return Aggregate::from_settings($settings)->format($value);
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
         return $this->settings;
     }

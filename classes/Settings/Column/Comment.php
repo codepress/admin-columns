@@ -7,7 +7,7 @@ namespace AC\Settings\Column;
 use AC\Expression;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 
 class Comment extends Recursive
@@ -27,7 +27,7 @@ class Comment extends Recursive
 
     public function __construct(
         string $comment_display,
-        SettingCollection $settings,
+        ComponentCollection $settings,
         Expression\Specification $specification = null
     ) {
         parent::__construct(
@@ -50,7 +50,7 @@ class Comment extends Recursive
         $this->comment_display = $comment_display;
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
         return $this->settings;
     }

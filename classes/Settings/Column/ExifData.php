@@ -11,7 +11,7 @@ use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification as Compare;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -47,9 +47,9 @@ class ExifData extends Settings\Setting implements AC\Setting\Recursive, AC\Sett
         return false;
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
-        $settings = new SettingCollection();
+        $settings = new ComponentCollection();
 
         $before_after = [
             'aperture'      => ['/f', ''],

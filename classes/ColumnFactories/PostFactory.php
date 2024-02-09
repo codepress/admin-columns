@@ -13,6 +13,7 @@ use AC\ColumnFactory\Post\AuthorFactory;
 use AC\ColumnFactory\Post\CommentFactory;
 use AC\ColumnFactory\Post\ExcerptFactory;
 use AC\MetaType;
+use AC\Setting\ComponentCollectionBuilder;
 use AC\TableScreen;
 use AC\Vendor\DI\Container;
 
@@ -34,18 +35,22 @@ class PostFactory implements ColumnFactories
 
         $post_type = $table_screen->get_post_type();
 
-        $factories['column-attachment'] = new AttachmentFactory();
-        $factories['column-author_name'] = new AuthorFactory();
+        $factories['column-attachment'] = $this->container->get(AttachmentFactory::class);
+        $factories['column-author_name'] = $this->container->get(AuthorFactory::class);
 
         if (post_type_supports($post_type, 'comments')) {
-            $factories['column-comment_count'] = new CommentFactory();
+            $factories['column-comment_count'] = $this->container->get(CommentFactory::class);
         }
 
         if (post_type_supports($post_type, 'excerpt')) {
-            $factories['column-excerpt'] = new ExcerptFactory();
+            $factories['column-excerpt'] = $this->container->get(ExcerptFactory::class);
         }
 
-        $factories['column-meta'] = new CustomFieldFactory(new MetaType(MetaType::POST), $this->container);
+        $factories['column-meta'] = new CustomFieldFactory(
+            new MetaType(MetaType::POST),
+            $this->container,
+            $this->container->get(ComponentCollectionBuilder::class)
+        );
 
         return new Collection\ColumnFactories($factories);
 

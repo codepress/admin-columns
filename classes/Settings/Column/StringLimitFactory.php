@@ -7,9 +7,8 @@ namespace AC\Settings\Column;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Config;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Settings\Component;
-use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 final class StringLimitFactory implements SettingFactory
@@ -31,7 +30,7 @@ final class StringLimitFactory implements SettingFactory
     {
         return new StringLimit(
             $config->get('string_limit') ?: '',
-            new SettingCollection([
+            new ComponentCollection([
                 $this->character_limit_factory->create(
                     $config,
                     StringComparisonSpecification::equal('character_limit')

@@ -10,7 +10,7 @@ use AC\MetaType;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\Aggregate;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Setting;
 
@@ -28,7 +28,7 @@ class CustomField extends Setting implements Formatter, AC\Setting\Recursive
     public function __construct(
         string $field,
         MetaType $meta_type,
-        SettingCollection $settings,
+        ComponentCollection $settings,
         Specification $specification = null
     ) {
         parent::__construct(
@@ -69,7 +69,7 @@ class CustomField extends Setting implements Formatter, AC\Setting\Recursive
         return Aggregate::from_settings($this->settings)->format($value);
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
         return $this->settings;
     }

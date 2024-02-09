@@ -6,8 +6,7 @@ namespace AC\Setting;
 
 use Countable;
 
-// TODO Component Collection?
-final class SettingCollection extends Collection implements Countable
+class ComponentCollection extends Collection implements Countable
 {
 
     public function __construct(array $data = [])

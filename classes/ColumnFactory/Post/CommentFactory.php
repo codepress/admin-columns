@@ -6,25 +6,31 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\Builder;
+use AC\Setting\ComponentCollectionBuilder;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Aggregate;
 use AC\Settings\Column\CommentsFactory;
+use AC\Settings\Column\StringLimitFactory;
 
 class CommentFactory implements ColumnFactory
 {
 
-    public function can_create(string $type): bool
+    private $builder;
+
+    private $string_limit_factory;
+
+    public function __construct(ComponentCollectionBuilder $builder, StringLimitFactory $string_limit_factory)
     {
-        return 'column-comment_count' === $type;
+        $this->builder = $builder;
+        $this->string_limit_factory = $string_limit_factory;
     }
 
     public function create(Config $config): Column
     {
-        $settings = (new Builder())->set_defaults()
-                                   ->set(new CommentsFactory())
-                                   ->set_string_limit()
-                                   ->build($config);
+        $settings = $this->builder->add_defaults()
+                                  ->add(new CommentsFactory())
+                                  ->add($this->string_limit_factory)
+                                  ->build($config);
 
         return new Column(
             'column-comment_count',
