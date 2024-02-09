@@ -4,7 +4,7 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\Builder;
+use AC\Setting\ComponentCollectionBuilder;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Aggregate;
 use AC\Setting\Formatter\Post\Excerpt;
@@ -19,10 +19,10 @@ class ExcerptFactory implements ColumnFactory
 
     public function create(Config $config): Column
     {
-        $settings = (new Builder())->set_defaults()
-                                   ->set_string_limit()
-                                   ->set_before_after()
-                                   ->build($config);
+        $settings = (new ComponentCollectionBuilder())->set_defaults()
+                                                      ->set_string_limit()
+                                                      ->set_before_after()
+                                                      ->build($config);
 
         return new Column(
             'column-excerpt',

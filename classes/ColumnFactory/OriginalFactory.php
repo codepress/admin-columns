@@ -6,7 +6,7 @@ namespace AC\ColumnFactory;
 
 use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\Builder;
+use AC\Setting\ComponentCollectionBuilder;
 use AC\Setting\Config;
 use AC\Setting\Formatter\NullFormatter;
 
@@ -34,7 +34,7 @@ class OriginalFactory implements ColumnFactory
             $this->type,
             $this->label,
             new NullFormatter(),
-            (new Builder())->set_defaults()->build($config),
+            (new ComponentCollectionBuilder())->set_defaults()->build($config),
             'default'
         );
     }
