@@ -19,6 +19,8 @@ class ComponentCollectionBuilder
 
     private $label_factory;
 
+    private $factories = [];
+
     public function __construct(
         NameFactory $name_factory,
         WidthFactory $width_factory,
@@ -29,11 +31,25 @@ class ComponentCollectionBuilder
         $this->label_factory = $label_factory;
     }
 
-    private $factories = [];
-
     public function add_defaults(): self
     {
-        $this->add_width();
+        $this->add_name()
+             ->add_label()
+             ->add_width();
+
+        return $this;
+    }
+
+    public function add_name(): self
+    {
+        $this->add($this->name_factory);
+
+        return $this;
+    }
+
+    public function add_label(): self
+    {
+        $this->add($this->label_factory);
 
         return $this;
     }
