@@ -7,7 +7,6 @@ namespace AC\Setting\Component\Input;
 use AC\Setting\Component\AttributeCollection;
 use AC\Setting\Component\Input;
 
-// TODO David remove
 class Custom extends Input
 {
 
@@ -15,12 +14,13 @@ class Custom extends Input
 
     public function __construct(
         string $name,
+        string $type,
         array $data = [],
-        $default = null,
+        $value = null,
         string $placeholder = null,
         AttributeCollection $attributes = null
     ) {
-        parent::__construct($name, 'custom', $default, $placeholder, $attributes);
+        parent::__construct($name, $type, $value, $placeholder, $attributes);
 
         $this->data = $data;
     }

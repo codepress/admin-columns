@@ -22,7 +22,7 @@ class Comments extends Settings\Setting implements Formatter
     public const STATUS_SPAM = 'spam';
     public const STATUS_TRASH = 'trash';
 
-    private $comment_status;
+    protected $comment_status;
 
     public function __construct(string $comment_status, Specification $specification = null)
     {

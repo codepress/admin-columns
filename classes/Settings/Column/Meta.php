@@ -2,8 +2,10 @@
 
 namespace AC\Settings\Column;
 
+use AC\Expression\Specification;
 use AC\Form\Element\Select;
 use AC\MetaType;
+use AC\Setting\Component\Input;
 use AC\Settings\Setting;
 use AC\View;
 
@@ -17,6 +19,17 @@ abstract class Meta extends Setting
     private $field;
 
     abstract protected function get_meta_keys(): array;
+
+    public function __construct(
+        Input $input,
+        string $label,
+        string $description = null,
+        Specification $conditions = null
+    )
+    {
+        parent::__construct(
+            , $label, $description, $conditions);
+    }
 
     protected function define_options()
     {
@@ -67,18 +80,7 @@ abstract class Meta extends Setting
         return 'ac_settings_meta';
     }
 
-    /**
-     * @return View
-     */
-    public function create_view()
-    {
-        $view = new View([
-            'label'   => __('Field', 'codepress-admin-columns'),
-            'setting' => $this->get_setting_field(),
-        ]);
 
-        return $view;
-    }
 
     /**
      * @return string

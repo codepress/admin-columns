@@ -28,6 +28,8 @@ class UserDisplay extends Settings\Setting implements Formatter
     public const PROPERTY_NICKNAME = 'nickname';
     public const PROPERTY_ROLES = 'roles';
 
+    protected $user_format;
+
     public function __construct(string $user_format, Specification $specification = null)
     {
         parent::__construct(
@@ -40,6 +42,7 @@ class UserDisplay extends Settings\Setting implements Formatter
             null,
             $specification
         );
+        $this->user_format = $user_format;
     }
 
     public function format(Value $value): Value

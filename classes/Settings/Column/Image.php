@@ -17,11 +17,11 @@ use AC\Setting\Type\Value;
 class Image extends AC\Settings\Setting implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
-    private $image_format;
+    protected $image_format;
 
-    private $width;
+    protected $width;
 
-    private $height;
+    protected $height;
 
     public function __construct(
         string $image_format = null,
