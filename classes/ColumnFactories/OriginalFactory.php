@@ -25,7 +25,7 @@ class OriginalFactory implements ColumnFactories
         $factories = [];
 
         foreach ($this->repository->find_all($table_screen->get_key()) as $type => $label) {
-            $factories[] = new ColumnFactory\OriginalFactory($type, $label);
+            $factories[$type] = new ColumnFactory\OriginalFactory($type, $label);
         }
 
         return $factories

@@ -5,6 +5,7 @@ namespace AC\Column\Post;
 use AC\Column;
 use AC\Settings;
 
+// TODO remove
 class CommentCount extends Column
 {
 
@@ -22,6 +23,7 @@ class CommentCount extends Column
             return $this->get_empty_char();
         }
 
+        // TODO
         return ac_helper()->html->link(
             add_query_arg([
                 'p'              => $id,

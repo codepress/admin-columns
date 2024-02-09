@@ -32,6 +32,7 @@ class ListStorage
             return;
         }
 
+        // TODO
         $column->set_option('width', (string)$column_width->get_value());
         $column->set_option('width_unit', $column_width->get_unit());
 

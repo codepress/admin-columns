@@ -10,6 +10,7 @@ use AC\ColumnFactories;
 use AC\ColumnFactory\CustomFieldFactory;
 use AC\ColumnFactory\Post\AttachmentFactory;
 use AC\ColumnFactory\Post\AuthorFactory;
+use AC\ColumnFactory\Post\CommentFactory;
 use AC\ColumnFactory\Post\ExcerptFactory;
 use AC\MetaType;
 use AC\TableScreen;
@@ -31,20 +32,41 @@ class PostFactory implements ColumnFactories
             return null;
         }
 
-        $factories = [
-            new AttachmentFactory(),
-            new AuthorFactory(),
-        ];
+        $post_type = $table_screen->get_post_type();
 
-        if (post_type_supports($table_screen->get_post_type(), 'excerpt')) {
-            $factories[] = new ExcerptFactory();
+        $factories['column-attachment'] = new AttachmentFactory();
+        $factories['column-author_name'] = new AuthorFactory();
+
+        if (post_type_supports($post_type, 'comments')) {
+            $factories['column-comment_count'] = new CommentFactory();
         }
 
-        $factories[] = new CustomFieldFactory(new MetaType(MetaType::POST), $this->container);
+        if (post_type_supports($post_type, 'excerpt')) {
+            $factories['column-excerpt'] = new ExcerptFactory();
+        }
 
-        return new Collection\ColumnFactories(
-            $factories
-        );
+        $factories['column-meta'] = new CustomFieldFactory(new MetaType(MetaType::POST), $this->container);
+
+        return new Collection\ColumnFactories($factories);
+
+        //        $factories = [
+        //            new AttachmentFactory(),
+        //            new AuthorFactory(),
+        //        ];
+        //
+        //        if (post_type_supports($post_type, 'comments')) {
+        //            $factories[] = new CommentFactory();
+        //        }
+        //
+        //        if (post_type_supports($post_type, 'excerpt')) {
+        //            $factories[] = new ExcerptFactory();
+        //        }
+        //
+        //        $factories[] = new CustomFieldFactory(new MetaType(MetaType::POST), $this->container);
+        //
+        //        return new Collection\ColumnFactories(
+        //            $factories
+        //        );
     }
 
 }

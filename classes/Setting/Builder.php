@@ -10,6 +10,8 @@ use AC\Settings\Column\CharacterLimitFactory;
 use AC\Settings\Column\LabelFactory;
 use AC\Settings\Column\NameFactory;
 use AC\Settings\Column\StringLimitFactory;
+use AC\Settings\Column\UserFactory;
+use AC\Settings\Column\UserLinkFactory;
 use AC\Settings\Column\WidthFactory;
 use AC\Settings\Column\WordLimitFactory;
 use AC\Settings\SettingFactory;
@@ -19,6 +21,7 @@ class Builder
 
     private $factories = [];
 
+    // TODO return :static not :self (since PHP 8)
     public function set_defaults(): self
     {
         return $this->set(new NameFactory())
@@ -29,6 +32,11 @@ class Builder
     public function set_before_after(Specification $specification = null): self
     {
         return $this->set(new BeforeAfterFactory(), $specification);
+    }
+
+    public function set_user(Specification $specification = null): self
+    {
+        return $this->set(new UserFactory(new UserLinkFactory()), $specification);
     }
 
     public function set_string_limit(Specification $specification = null): self

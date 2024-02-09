@@ -7,6 +7,7 @@ namespace AC;
 use AC\Setting\Formatter;
 use AC\Setting\Recursive;
 use AC\Setting\SettingCollection;
+use AC\Settings\Setting;
 use AC\Type\ColumnId;
 
 class Column
@@ -97,7 +98,7 @@ class Column
                 }
             }
 
-            if ($setting->get_name() === $name) {
+            if ($setting instanceof Setting && $setting->get_name() === $name) {
                 return $setting;
             }
         }

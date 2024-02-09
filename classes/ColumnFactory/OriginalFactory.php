@@ -30,14 +30,11 @@ class OriginalFactory implements ColumnFactory
 
     public function create(Config $config): Column
     {
-        $settings = (new Builder())->set_defaults()
-                                   ->build($config);
-
         return new Column(
             $this->type,
             $this->label,
             new NullFormatter(),
-            $settings,
+            (new Builder())->set_defaults()->build($config),
             'default'
         );
     }

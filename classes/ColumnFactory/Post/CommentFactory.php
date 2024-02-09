@@ -9,26 +9,27 @@ use AC\Column\ColumnFactory;
 use AC\Setting\Builder;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Aggregate;
-use AC\Setting\Formatter\Post\Author;
+use AC\Settings\Column\CommentsFactory;
 
-class AuthorFactory implements ColumnFactory
+class CommentFactory implements ColumnFactory
 {
 
     public function can_create(string $type): bool
     {
-        return 'column-author_name' === $type;
+        return 'column-comment_count' === $type;
     }
 
     public function create(Config $config): Column
     {
         $settings = (new Builder())->set_defaults()
-                                   ->set_user()
+                                   ->set(new CommentsFactory())
+                                   ->set_string_limit()
                                    ->build($config);
 
         return new Column(
-            'column-author_name',
-            __('Author', 'codepress-admin-columns'),
-            Aggregate::from_settings($settings)->prepend(new Author()),
+            'column-comment_count',
+            __('Comment Count', 'codepress-admin-columns'),
+            Aggregate::from_settings($settings),
             $settings
         );
     }

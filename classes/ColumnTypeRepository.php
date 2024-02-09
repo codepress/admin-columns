@@ -22,13 +22,11 @@ class ColumnTypeRepository
 
     public function find(TableScreen $table_screen, string $type): ?Column
     {
-        foreach ($this->aggregate->create($table_screen) as $factory) {
-            if ($factory->can_create($type)) {
-                return $factory->create(new Setting\Config());
-            }
-        }
+        $factory = iterator_to_array($this->aggregate->create($table_screen))[$type] ?? null;
 
-        return null;
+        return $factory
+            ? $factory->create(new Setting\Config())
+            : null;
     }
 
     public function find_all(TableScreen $table_screen): ColumnCollection
@@ -48,11 +46,9 @@ class ColumnTypeRepository
 
         $types = array_keys($this->default_columns_repository->find_all($table_screen->get_key()));
 
-        foreach ($this->aggregate->create($table_screen) as $factory) {
-            foreach ($types as $type) {
-                if ($factory->can_create($type)) {
-                    $columns->add($factory->create(new Setting\Config()));
-                }
+        foreach ($this->aggregate->create($table_screen) as $type => $factory) {
+            if (in_array($type, $types, true)) {
+                $columns->add($factory->create(new Setting\Config()));
             }
         }
 

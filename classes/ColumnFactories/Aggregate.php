@@ -19,7 +19,7 @@ class Aggregate implements ColumnFactories
 
     public static function add(ColumnFactories $factory): void
     {
-        array_unshift(self::$factories, $factory);
+        self::$factories[] = $factory;
     }
 
     public function create(TableScreen $table_screen): Collection\ColumnFactories

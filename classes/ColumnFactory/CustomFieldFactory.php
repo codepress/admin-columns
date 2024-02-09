@@ -8,8 +8,6 @@ use AC\MetaType;
 use AC\Setting\Builder;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Aggregate;
-use AC\Setting\SettingCollectionFactory;
-use AC\Setting\SettingFactoriesBuilder;
 use AC\Settings;
 use AC\Vendor\DI\Container;
 

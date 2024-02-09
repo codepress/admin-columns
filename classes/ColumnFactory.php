@@ -21,14 +21,11 @@ class ColumnFactory
     // TODO
     public function create(TableScreen $table_screen, string $type, Config $config): ?Column
     {
-        // TODO caching?
-        foreach ($this->factories->create($table_screen) as $factory) {
-            if ($factory->can_create($type)) {
-                return $factory->create($config);
-            }
-        }
+        $factory = iterator_to_array($this->factories->create($table_screen))[$type] ?? null;
 
-        return null;
+        return $factory
+            ? $factory->create($config)
+            : null;
     }
 
     //    private function get_column_types(TableScreen $table_screen): ColumnTypeCollection
@@ -45,14 +42,13 @@ class ColumnFactory
     //        return $types[$key];
     //    }
 
-
-        //        $column_types = $this->get_column_types($table_screen);
-        //
-        //        return $this->create_column(
-        //            $column_types,
-        //            $options
-        //        );
-//    }
+    //        $column_types = $this->get_column_types($table_screen);
+    //
+    //        return $this->create_column(
+    //            $column_types,
+    //            $options
+    //        );
+    //    }
 
     //    private function create_column(
     //        ColumnTypeCollection $column_types,

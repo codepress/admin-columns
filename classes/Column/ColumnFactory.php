@@ -10,7 +10,8 @@ use AC\Setting\Config;
 interface ColumnFactory
 {
 
-    public function can_create(string $type): bool;
+    // TODO remove this and assign type when registering the factory
+    //public function can_create(string $type): bool;
 
     public function create(Config $config): Column;
 }
