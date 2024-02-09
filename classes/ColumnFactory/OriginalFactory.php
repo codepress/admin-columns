@@ -17,10 +17,13 @@ class OriginalFactory implements ColumnFactory
 
     private $label;
 
-    public function __construct(string $type, string $label)
+    private $builder;
+
+    public function __construct(string $type, string $label, ComponentCollectionBuilder $builder)
     {
         $this->type = $type;
         $this->label = $label;
+        $this->builder = $builder;
     }
 
     public function can_create(string $type): bool
@@ -34,7 +37,7 @@ class OriginalFactory implements ColumnFactory
             $this->type,
             $this->label,
             new NullFormatter(),
-            (new ComponentCollectionBuilder())->set_defaults()->build($config),
+            $this->builder->add_defaults()->build($config),
             'default'
         );
     }

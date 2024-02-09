@@ -8,21 +8,34 @@ use AC\Setting\ComponentCollectionBuilder;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Aggregate;
 use AC\Setting\Formatter\Post\Excerpt;
+use AC\Settings\Column\BeforeAfterFactory;
+use AC\Settings\Column\StringLimitFactory;
 
 class ExcerptFactory implements ColumnFactory
 {
 
-    public function can_create(string $type): bool
-    {
-        return 'column-excerpt' === $type;
+    private $builder;
+
+    private $string_limit_factory;
+
+    private $before_after_factory;
+
+    public function __construct(
+        ComponentCollectionBuilder $builder,
+        StringLimitFactory $string_limit_factory,
+        BeforeAfterFactory $before_after_factory
+    ) {
+        $this->builder = $builder;
+        $this->string_limit_factory = $string_limit_factory;
+        $this->before_after_factory = $before_after_factory;
     }
 
     public function create(Config $config): Column
     {
-        $settings = (new ComponentCollectionBuilder())->set_defaults()
-                                                      ->set_string_limit()
-                                                      ->set_before_after()
-                                                      ->build($config);
+        $settings = $this->builder->add_defaults()
+                                  ->add($this->string_limit_factory)
+                                  ->add($this->before_after_factory)
+                                  ->build($config);
 
         return new Column(
             'column-excerpt',
