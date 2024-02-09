@@ -4,6 +4,7 @@ namespace AC\Column\Post;
 
 use AC\Column;
 use AC\Column\Value;
+use AC\Setting\ComponentCollection;
 use AC\Setting\SettingCollection;
 use AC\Settings;
 
@@ -16,7 +17,7 @@ class Content extends Column implements Value
         parent::__construct(
             'column-content',
             __('Content', 'codepress-admin-columns'),
-            new SettingCollection([
+            new ComponentCollection([
                 new Settings\Column\StringLimit(),
                 new Settings\Column\BeforeAfter(),
             ])

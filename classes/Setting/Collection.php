@@ -4,28 +4,23 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use Countable;
 use Iterator;
-use ReturnTypeWillChange;
 
-abstract class Collection implements Iterator, Countable
+abstract class Collection implements Iterator
 {
 
     protected $data = [];
 
-    #[ReturnTypeWillChange]
     public function current()
     {
         return current($this->data);
     }
 
-    #[ReturnTypeWillChange]
     public function next(): void
     {
         next($this->data);
     }
 
-    #[ReturnTypeWillChange]
     public function key(): int
     {
         return key($this->data);
@@ -36,15 +31,9 @@ abstract class Collection implements Iterator, Countable
         return key($this->data) !== null;
     }
 
-    #[ReturnTypeWillChange]
     public function rewind(): void
     {
         reset($this->data);
-    }
-
-    public function count(): int
-    {
-        return count($this->data);
     }
 
 }

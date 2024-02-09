@@ -6,7 +6,7 @@ namespace AC;
 
 use AC\Setting\Formatter;
 use AC\Setting\Recursive;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Settings\Setting;
 use AC\Type\ColumnId;
 
@@ -27,13 +27,13 @@ class Column
         string $type,
         string $label,
         Formatter $formatter,
-        SettingCollection $settings = null,
+        ComponentCollection $settings = null,
         string $group = null
     ) {
         $this->type = $type;
         $this->label = $label;
         $this->renderable = $formatter;
-        $this->settings = $settings ?? new SettingCollection();
+        $this->settings = $settings ?? new ComponentCollection();
         $this->group = $group ?? 'custom';
     }
 
@@ -73,7 +73,7 @@ class Column
         return $this->group;
     }
 
-    public function get_settings(): SettingCollection
+    public function get_settings(): ComponentCollection
     {
         return $this->settings;
         // TODO
@@ -85,7 +85,8 @@ class Column
         return $this->renderable;
     }
 
-    public function get_setting(string $name, SettingCollection $settings = null): ?Settings\Setting
+    // TODO David move the recursive initial outside this function for a cleaner API
+    public function get_setting(string $name, ComponentCollection $settings = null): ?Settings\Setting
     {
         $settings = $settings ?: $this->settings;
 

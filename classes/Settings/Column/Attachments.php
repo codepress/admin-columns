@@ -9,7 +9,7 @@ use AC\Expression\Specification;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Setting\ValueCollection;
 use AC\Settings;
@@ -25,7 +25,7 @@ class Attachments extends Settings\Setting implements AC\Setting\Recursive, Form
 
     public function __construct(
         string $attachment_type,
-        SettingCollection $settings,
+        ComponentCollection $settings,
         Specification $specification = null
     ) {
         parent::__construct(
@@ -51,7 +51,7 @@ class Attachments extends Settings\Setting implements AC\Setting\Recursive, Form
         return false;
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
         return $this->settings;
     }

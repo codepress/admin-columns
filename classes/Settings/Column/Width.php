@@ -8,7 +8,7 @@ use AC;
 use AC\Setting\Component\Input\Number;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Settings\Setting;
 use InvalidArgumentException;
 
@@ -44,7 +44,7 @@ final class Width extends AC\Settings\Component implements AC\Setting\Recursive
         return false;
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
         $settings = [
             new Setting(
@@ -72,7 +72,7 @@ final class Width extends AC\Settings\Component implements AC\Setting\Recursive
             ),
         ];
 
-        return new SettingCollection($settings);
+        return new ComponentCollection($settings);
     }
 
 }

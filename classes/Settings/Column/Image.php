@@ -11,7 +11,7 @@ use AC\Setting\Component\Input\Number;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Component\Type\Option;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 
 class Image extends AC\Settings\Setting implements AC\Setting\Recursive, AC\Setting\Formatter
@@ -83,9 +83,9 @@ class Image extends AC\Settings\Setting implements AC\Setting\Recursive, AC\Sett
         return $value;
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
-        return new SettingCollection([
+        return new ComponentCollection([
             new AC\Settings\Setting(
                 Number::create_single_step('image_size_w', 0, null, $this->width),
                 __('Width', 'codepress-admin-columns'),

@@ -10,7 +10,7 @@ use AC\Setting\Component\Input\Custom;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -35,10 +35,10 @@ abstract class DateTimeFormat extends Settings\Setting implements Setting\Recurs
 
     abstract protected function get_wp_default_format(): string;
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
         // TODO do we need this when we use a Custom setting?
-        return new SettingCollection([
+        return new ComponentCollection([
             new Settings\Setting(
                 OptionFactory::create_radio(
                     'date_format',

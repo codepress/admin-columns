@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Column\Renderable;
 
 use AC\Setting\Formatter;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Setting\ValueCollection;
 
@@ -15,7 +15,7 @@ class ValueFormatter
 
     private $settings;
 
-    public function __construct(SettingCollection $settings)
+    public function __construct(ComponentCollection $settings)
     {
         $this->settings = $settings;
     }

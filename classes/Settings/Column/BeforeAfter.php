@@ -8,7 +8,7 @@ use AC;
 use AC\Expression\Specification;
 use AC\Setting\Component;
 use AC\Setting\Component\Input\Open;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Setting;
 
@@ -41,9 +41,9 @@ class BeforeAfter extends Setting implements AC\Setting\Recursive, AC\Setting\Fo
         return true;
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
-        return new SettingCollection([
+        return new ComponentCollection([
             new Setting(
                 new Open('before', null, $this->before),
                 __('Before', 'codepress-admin-columns')

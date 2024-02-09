@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Setting\Formatter;
 
 use AC\Setting\Formatter;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 
 final class Aggregate implements Formatter
@@ -21,7 +21,7 @@ final class Aggregate implements Formatter
         array_map([$this, 'add'], $formatters);
     }
 
-    public static function from_settings(SettingCollection $settings): self
+    public static function from_settings(ComponentCollection $settings): self
     {
         $formatters = [];
 

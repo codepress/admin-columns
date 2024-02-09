@@ -4,7 +4,6 @@ namespace AC\Column\Post;
 
 use AC\Column;
 use AC\Column\Renderable;
-use AC\Setting\SettingCollection;
 
 // TODO obsolete
 class Excerpt extends Column implements Column\Value

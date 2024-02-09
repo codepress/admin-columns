@@ -9,7 +9,7 @@ use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
 use AC\Setting\RecursiveFormatterTrait;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 
 class CustomFieldType extends AC\Settings\Setting implements Formatter, AC\Setting\Recursive
@@ -38,7 +38,7 @@ class CustomFieldType extends AC\Settings\Setting implements Formatter, AC\Setti
 
     private $field_type;
 
-    public function __construct(string $field_type, SettingCollection $settings)
+    public function __construct(string $field_type, ComponentCollection $settings)
     {
         parent::__construct(
             OptionFactory::create_select(
@@ -82,7 +82,7 @@ class CustomFieldType extends AC\Settings\Setting implements Formatter, AC\Setti
         return false;
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
         return $this->settings;
     }

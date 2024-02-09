@@ -9,15 +9,14 @@ use AC\Setting\Formatter\Aggregate;
 trait RecursiveFormatterTrait
 {
 
-    abstract public function get_children(): SettingCollection;
+    abstract public function get_children(): ComponentCollection;
 
-    public function get_recursive_formatter(string $condition): Aggregate
+    private function get_recursive_formatter(string $condition): Aggregate
     {
-        $settings = new SettingCollection();
+        $settings = new ComponentCollection();
 
         foreach ($this->get_children() as $setting) {
-            // TODO expect Setting not Component
-            if (  $setting->get_conditions()->is_satisfied_by($condition)) {
+            if ($setting instanceof Setting && $setting->get_conditions()->is_satisfied_by($condition)) {
                 $settings->add($setting);
             }
         }

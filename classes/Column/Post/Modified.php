@@ -6,7 +6,7 @@ namespace AC\Column\Post;
 
 use AC\Column;
 use AC\Column\Value;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Settings;
 
 class Modified extends Column implements Value
@@ -17,7 +17,7 @@ class Modified extends Column implements Value
         parent::__construct(
             'column-modified',
             __('Last Modified', 'codepress-admin-columns'),
-            new SettingCollection([
+            new ComponentCollection([
                 new Settings\Column\Date(),
             ])
         );
