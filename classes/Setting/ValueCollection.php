@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace AC\Setting;
 
 use AC\Setting\Type\Value;
+use Countable;
 
-final class ValueCollection extends Collection
+final class ValueCollection extends Collection implements Countable
 {
 
     public function __construct(array $data = [])
@@ -33,6 +34,11 @@ final class ValueCollection extends Collection
     public function current(): Value
     {
         return parent::current();
+    }
+
+    public function count(): int
+    {
+        return count($this->data);
     }
 
 }

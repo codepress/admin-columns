@@ -6,7 +6,7 @@ namespace AC\Column\Post;
 
 use AC\Column;
 use AC\Column\Renderable;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Settings\Column\Attachments;
 
 // TODO remove

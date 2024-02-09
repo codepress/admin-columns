@@ -7,7 +7,7 @@ namespace AC\Settings\Column;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Config;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Settings\Component;
 use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
@@ -43,7 +43,7 @@ class PostFactory implements SettingFactory
     {
         return new Post(
             $config->get('post') ?: Post::PROPERTY_TITLE,
-            new SettingCollection([
+            new ComponentCollection([
                 $this->string_limit_factory->create(
                     $config,
                     StringComparisonSpecification::equal(Post::PROPERTY_TITLE)

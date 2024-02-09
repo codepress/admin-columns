@@ -4,7 +4,7 @@ namespace AC\Column;
 
 use AC\Column;
 use AC\Setting\Config;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Settings;
 
 class Actions extends Column implements Renderable
@@ -15,7 +15,7 @@ class Actions extends Column implements Renderable
         parent::__construct(
             'column-actions',
             __('Actions', 'codepress-admin-columns'),
-            new SettingCollection([
+            new ComponentCollection([
                 new Settings\Column\ActionIcons(),
             ])
         );

@@ -7,7 +7,7 @@ namespace AC\Settings\Column;
 use AC\Expression\Specification;
 use AC\MetaType;
 use AC\Setting\Config;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Settings\Component;
 use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
@@ -30,7 +30,7 @@ class CustomFieldFactory implements SettingFactory
         return new CustomField(
             $config->get('field') ?: '',
             $this->meta_type,
-            new SettingCollection([
+            new ComponentCollection([
                 $this->custom_field_type_factory->create($config),
             ])
         );

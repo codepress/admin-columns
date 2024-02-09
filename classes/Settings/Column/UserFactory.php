@@ -4,7 +4,7 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\Config;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Settings\Component;
 use AC\Settings\SettingFactory;
 
@@ -22,7 +22,7 @@ class UserFactory implements SettingFactory
     {
         return new User(
             (string)$config->get('display_author_as'),
-            new SettingCollection([
+            new ComponentCollection([
                 $this->user_link_factory->create($config),
             ]),
             $specification

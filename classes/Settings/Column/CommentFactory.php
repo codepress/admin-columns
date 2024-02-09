@@ -7,7 +7,7 @@ namespace AC\Settings\Column;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Config;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Settings\Component;
 use AC\Settings\SettingFactory;
 
@@ -34,7 +34,7 @@ final class CommentFactory implements SettingFactory
     {
         return new Comment(
             (string)$config->get('comment') ?: Comment::PROPERTY_COMMENT,
-            new SettingCollection([
+            new ComponentCollection([
                 $this->date_factory->create(
                     $config,
                     StringComparisonSpecification::equal(Comment::PROPERTY_DATE)

@@ -8,7 +8,7 @@ use AC;
 use AC\ListScreen;
 use AC\Plugin\Version;
 use AC\Setting\Recursive;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 
 class BaseEncoder implements AC\Storage\Encoder
 {
@@ -57,7 +57,7 @@ class BaseEncoder implements AC\Storage\Encoder
         return $this->list_screen->get_preferences();
     }
 
-    private function encode_settings(SettingCollection $settings, array $encoded = []): array
+    private function encode_settings(ComponentCollection $settings, array $encoded = []): array
     {
         foreach ($settings as $setting) {
             if ($setting instanceof AC\Setting\Setting) {

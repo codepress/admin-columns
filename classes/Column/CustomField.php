@@ -3,7 +3,7 @@
 namespace AC\Column;
 
 use AC\Column;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 
 /**
  * Custom field column, displaying the contents of meta fields.

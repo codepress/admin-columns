@@ -31,4 +31,5 @@ class ExcerptFactory implements ColumnFactory
             $settings
         );
     }
+
 }

@@ -6,7 +6,7 @@ use AC\Column;
 use AC\Column\Renderable;
 use AC\Column\Value;
 use AC\Setting\Config;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Settings;
 
 // TODO Tobias this is a `Renderable` POC
@@ -18,7 +18,7 @@ class Content extends Column implements Value
         parent::__construct(
             'column-content',
             __('Content', 'codepress-admin-columns'),
-            new SettingCollection([
+            new ComponentCollection([
                 new Settings\Column\StringLimit(),
                 new Settings\Column\BeforeAfter(),
             ])

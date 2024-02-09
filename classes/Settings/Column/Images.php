@@ -48,7 +48,7 @@ class Images extends Settings\Setting
         return false;
     }
 
-    public function get_children(): AC\Setting\SettingCollection
+    public function get_children(): AC\Setting\ComponentCollection
     {
         $settings = parent::get_children();
         $settings->add(new NumberOfItems());

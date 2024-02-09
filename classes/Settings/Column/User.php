@@ -8,7 +8,7 @@ use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\Aggregate;
-use AC\Setting\SettingCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Setting;
 
@@ -19,7 +19,7 @@ class User extends Setting implements Formatter, AC\Setting\Recursive
 
     private $settings;
 
-    public function __construct(string $user_format, SettingCollection $settings, Specification $specification = null)
+    public function __construct(string $user_format, ComponentCollection $settings, Specification $specification = null)
     {
         parent::__construct(
             OptionFactory::create_select(
@@ -74,7 +74,7 @@ class User extends Setting implements Formatter, AC\Setting\Recursive
         return OptionCollection::from_array($options);
     }
 
-    public function get_children(): SettingCollection
+    public function get_children(): ComponentCollection
     {
         return $this->settings;
     }

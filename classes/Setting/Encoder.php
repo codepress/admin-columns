@@ -14,7 +14,7 @@ final class Encoder
 
     private $settings;
 
-    public function __construct(SettingCollection $settings)
+    public function __construct(ComponentCollection $settings)
     {
         $this->settings = $settings;
     }

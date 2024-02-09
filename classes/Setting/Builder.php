@@ -60,9 +60,9 @@ class Builder
         return $this;
     }
 
-    public function build(Config $config): SettingCollection
+    public function build(Config $config): ComponentCollection
     {
-        $collection = new SettingCollection();
+        $collection = new ComponentCollection();
 
         foreach ($this->factories as $factory) {
             $collection->add(
