@@ -33,32 +33,24 @@ class ComponentCollectionBuilder
 
     public function add_defaults(): self
     {
-        $this->add_name()
-             ->add_label()
-             ->add_width();
-
-        return $this;
+        return $this->add_name()
+                    ->add_label()
+                    ->add_width();
     }
 
     public function add_name(): self
     {
-        $this->add($this->name_factory);
-
-        return $this;
+        return $this->add($this->name_factory);
     }
 
     public function add_label(): self
     {
-        $this->add($this->label_factory);
-
-        return $this;
+        return $this->add($this->label_factory);
     }
 
     public function add_width(): self
     {
-        $this->add($this->width_factory);
-
-        return $this;
+        return $this->add($this->width_factory);
     }
 
     public function add(SettingFactory $factory, Specification $specification = null): self
