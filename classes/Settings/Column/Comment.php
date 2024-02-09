@@ -7,7 +7,6 @@ namespace AC\Settings\Column;
 use AC\Expression;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Setting\Type\Value;
 

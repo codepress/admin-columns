@@ -35,7 +35,7 @@ class PostFactory implements ColumnFactories
         $post_type = $table_screen->get_post_type();
 
         $factories['column-attachment'] = new AttachmentFactory();
-        $factories['column-author_name'] = new AuthorFactory();
+        $factories['column-author_name'] = $this->container->get(AuthorFactory::class);
 
         if (post_type_supports($post_type, 'comments')) {
             $factories['column-comment_count'] = new CommentFactory();

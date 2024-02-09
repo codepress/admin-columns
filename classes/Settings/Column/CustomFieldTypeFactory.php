@@ -10,7 +10,6 @@ use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Settings\Component;
-use AC\Settings\Setting;
 use AC\Settings\SettingFactory;
 
 class CustomFieldTypeFactory implements SettingFactory

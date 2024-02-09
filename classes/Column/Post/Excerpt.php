@@ -12,10 +12,13 @@ class Excerpt extends Column implements Column\Value
 
     private $renderable;
 
-
-
-    public function __construct(string $type, string $label, Renderable $renderable, SettingCollection $settings = null, string $group = null)
-    {
+    public function __construct(
+        string $type,
+        string $label,
+        Renderable $renderable,
+        SettingCollection $settings = null,
+        string $group = null
+    ) {
         parent::__construct($type, $label, $settings, $group);
 
         $this->renderable = $renderable;

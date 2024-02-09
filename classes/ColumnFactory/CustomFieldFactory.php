@@ -25,10 +25,11 @@ class CustomFieldFactory implements ColumnFactory
         $this->container = $container;
     }
 
-    public function can_create(string $type): bool
-    {
-        return 'column-meta' === $type;
-    }
+    // TODO
+    //    public function can_create(string $type): bool
+    //    {
+    //        return 'column-meta' === $type;
+    //    }
 
     private function get_setting_factory(): Settings\Column\CustomFieldFactory
     {

@@ -3,9 +3,7 @@
 namespace AC\Column\Post;
 
 use AC\Column;
-use AC\Column\Renderable;
 use AC\Column\Value;
-use AC\Setting\Config;
 use AC\Setting\SettingCollection;
 use AC\Settings;
 
@@ -25,12 +23,12 @@ class Content extends Column implements Value
         );
     }
 
-//    public function renderable(Config $options): Renderable
-//    {
-//        return new Column\Post\Renderable\Content(
-//            new Renderable\ValueFormatter($this->get_settings())
-//        );
-//    }
+    //    public function renderable(Config $options): Renderable
+    //    {
+    //        return new Column\Post\Renderable\Content(
+    //            new Renderable\ValueFormatter($this->get_settings())
+    //        );
+    //    }
 
     // TODO remove
     //    public function register_settings()
