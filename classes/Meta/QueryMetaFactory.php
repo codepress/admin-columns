@@ -8,9 +8,9 @@ use AC\MetaType;
 final class QueryMetaFactory
 {
 
-    public function create(string $meta_key, string $meta_type): Query
+    public function create(string $meta_key, MetaType $meta_type): Query
     {
-        $query = new Query($meta_type);
+        $query = new Query((string)$meta_type);
         $query->select('meta_value')
               ->distinct()
               ->join()
@@ -23,19 +23,20 @@ final class QueryMetaFactory
 
     public function create_with_post_type(string $meta_key, string $post_type): Query
     {
-        return $this->create($meta_key, MetaType::POST)
+        return $this->create($meta_key, new MetaType(MetaType::POST))
                     ->where_post_type($post_type);
     }
 
     public function create_with_post_types(string $meta_key, array $post_types): Query
     {
-        return $this->create($meta_key, MetaType::POST)
+        return $this->create($meta_key, new MetaType(MetaType::POST))
                     ->where_post_types($post_types);
     }
 
+    // TODO remove
     public function create_by_meta_column(Meta $column): Query
     {
-        switch ($column->get_meta_type()) {
+        switch ((string)$column->get_meta_type()) {
             case MetaType::POST:
                 return $this->create_with_post_type($column->get_meta_key(), $column->get_post_type());
             default:

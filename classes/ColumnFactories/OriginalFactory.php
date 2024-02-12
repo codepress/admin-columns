@@ -7,7 +7,7 @@ namespace AC\ColumnFactories;
 use AC\Collection;
 use AC\ColumnFactories;
 use AC\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilder;
+use AC\Setting\ComponentCollectionBuilderFactory;
 use AC\Storage\Repository\DefaultColumnsRepository;
 use AC\TableScreen;
 
@@ -18,7 +18,7 @@ class OriginalFactory implements ColumnFactories
 
     private $builder;
 
-    public function __construct(DefaultColumnsRepository $repository, ComponentCollectionBuilder $builder)
+    public function __construct(DefaultColumnsRepository $repository, ComponentCollectionBuilderFactory $builder)
     {
         $this->repository = $repository;
         $this->builder = $builder;
@@ -29,7 +29,7 @@ class OriginalFactory implements ColumnFactories
         $factories = [];
 
         foreach ($this->repository->find_all($table_screen->get_key()) as $type => $label) {
-            $factories[$type] = new ColumnFactory\OriginalFactory($type, $label, $this->builder);
+            $factories[$type] = new ColumnFactory\OriginalFactory($type, $label, $this->builder->create());
         }
 
         return $factories

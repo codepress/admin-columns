@@ -9,10 +9,11 @@ use AC\Setting\Component\Input\Number;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\ComponentCollection;
+use AC\Settings\Component;
 use AC\Settings\Setting;
 use InvalidArgumentException;
 
-final class Width extends AC\Settings\Component implements AC\Setting\Recursive
+final class Width extends Component implements AC\Setting\Recursive
 {
 
     private $width;

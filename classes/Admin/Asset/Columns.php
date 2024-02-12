@@ -103,6 +103,7 @@ class Columns extends Script
             'nonce'                => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
             'list_key'             => (string)$this->table_screen->get_key(),
             'list_id'              => (string)$this->list_id,
+            // TODO remove. use ListScreenSettings.
             'column_types'         => $this->encode_column_types(
                 $this->column_type_repository->find_all($this->table_screen)
             ),
@@ -206,9 +207,21 @@ class Columns extends Script
         return $options;
     }
 
+    private function get_original_types(): array
+    {
+        $types = [];
+        foreach ($this->column_type_repository->find_all_by_orginal($this->table_screen) as $column) {
+            $types[] = $column->get_type();
+        }
+
+        return $types;
+    }
+
     private function encode_column_types(ColumnCollection $collection): array
     {
         $encode = [];
+
+        $original_types = $this->get_original_types();
 
         // TODO cache
         $groups = AC\ColumnGroups::get_groups();
@@ -219,7 +232,7 @@ class Columns extends Script
                 'value'     => $column->get_type(),
                 'group'     => $groups->get($column->get_group())['label'],
                 'group_key' => $column->get_group(),
-                'original'  => $column->is_original(),
+                'original'  => in_array($column->get_type(), $original_types, true),
             ];
         }
 
