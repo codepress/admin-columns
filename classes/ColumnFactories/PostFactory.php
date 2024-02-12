@@ -56,6 +56,10 @@ class PostFactory implements ColumnFactories
         $factories['column-comment_status'] = $this->container->get(AC\ColumnFactory\Post\CommentStatusFactory::class);
         $factories['column-content'] = $this->container->get(AC\ColumnFactory\Post\ContentFactory::class);
         $factories['column-date_published'] = $this->container->get(AC\ColumnFactory\Post\DatePublishFactory::class);
+        $factories['column-depth'] = $this->container->get(AC\ColumnFactory\Post\DepthFactory::class);
+        $factories['column-estimated_reading_time'] = $this->container->get(
+            AC\ColumnFactory\Post\EstimateReadingTimeFactory::class
+        );
 
         $factories['column-meta'] = new CustomFieldFactory(
             new MetaType(MetaType::POST),
