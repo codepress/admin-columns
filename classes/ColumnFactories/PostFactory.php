@@ -49,6 +49,9 @@ class PostFactory implements ColumnFactories
         $factories['column-featured_image'] = $this->container->get(AC\ColumnFactory\Post\FeaturedImageFactory::class);
         $factories['column-post_formats'] = $this->container->get(AC\ColumnFactory\Post\FormatsFactory::class);
         $factories['column-postid'] = $this->container->get(AC\ColumnFactory\Post\IdFactory::class);
+        $factories['column-last_modified_author'] = $this->container->get(
+            AC\ColumnFactory\Post\LastModifiedAuthorFactory::class
+        );
 
         $factories['column-meta'] = new CustomFieldFactory(
             new MetaType(MetaType::POST),

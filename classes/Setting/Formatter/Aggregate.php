@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter;
 
-use AC\Setting\Formatter;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
 final class Aggregate implements Formatter
@@ -51,7 +51,7 @@ final class Aggregate implements Formatter
     public function format(Value $value): Value
     {
         $positioned_formatters = [];
-
+        
         foreach ($this->data as $formatter) {
             $position = 0;
 
