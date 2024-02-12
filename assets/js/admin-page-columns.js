@@ -7910,9 +7910,8 @@ function instance($$self, $$props, $$invalidate) {
   const dispatch = (0,svelte__WEBPACK_IMPORTED_MODULE_2__.createEventDispatcher)();
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
     if (typeof value === 'undefined') {
-      $$invalidate(0, value = config.input.default ? config.input.default : '3');
+      $$invalidate(0, value = config.input.default ? config.input.default : '');
     }
-    console.log(config.input);
   });
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onDestroy)(() => {
     dispatch('destroy', config);
