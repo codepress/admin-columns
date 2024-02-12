@@ -46,11 +46,15 @@ class PostFactory implements ColumnFactories
             $factories['column-excerpt'] = $this->container->get(ExcerptFactory::class);
         }
 
+        $factories['column-featured_image'] = $this->container->get(AC\ColumnFactory\Post\FeaturedImageFactory::class);
+        $factories['column-post_formats'] = $this->container->get(AC\ColumnFactory\Post\FormatsFactory::class);
+        $factories['column-postid'] = $this->container->get(AC\ColumnFactory\Post\IdFactory::class);
+
         $factories['column-meta'] = new CustomFieldFactory(
             new MetaType(MetaType::POST),
             $this->container,
             // TODO use ComponentCollectionBuilderFactory? because it will be loaded static now, resulting in duplicate settings (label, width etc.)
-            $this->container->make(ComponentCollectionBuilder::class)
+            $this->container->get(ComponentCollectionBuilder::class)
         );
 
         return new Collection\ColumnFactories($factories);
