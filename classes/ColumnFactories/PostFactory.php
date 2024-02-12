@@ -49,6 +49,20 @@ class PostFactory implements ColumnFactories
         $factories['column-meta'] = $this->container->make(CustomFieldFactory::class, [
             'meta_type' => new MetaType(MetaType::POST),
         ]);
+        $factories['column-featured_image'] = $this->container->get(AC\ColumnFactory\Post\FeaturedImageFactory::class);
+        $factories['column-post_formats'] = $this->container->get(AC\ColumnFactory\Post\FormatsFactory::class);
+        $factories['column-postid'] = $this->container->get(AC\ColumnFactory\Post\IdFactory::class);
+        $factories['column-last_modified_author'] = $this->container->get(
+            AC\ColumnFactory\Post\LastModifiedAuthorFactory::class
+        );
+        $factories['column-before_moretag'] = $this->container->get(AC\ColumnFactory\Post\BeforeMoreFactory::class);
+        $factories['column-comment_status'] = $this->container->get(AC\ColumnFactory\Post\CommentStatusFactory::class);
+        $factories['column-content'] = $this->container->get(AC\ColumnFactory\Post\ContentFactory::class);
+        $factories['column-date_published'] = $this->container->get(AC\ColumnFactory\Post\DatePublishFactory::class);
+        $factories['column-depth'] = $this->container->get(AC\ColumnFactory\Post\DepthFactory::class);
+        $factories['column-estimated_reading_time'] = $this->container->get(
+            AC\ColumnFactory\Post\EstimateReadingTimeFactory::class
+        );
 
         return new Collection\ColumnFactories($factories);
     }

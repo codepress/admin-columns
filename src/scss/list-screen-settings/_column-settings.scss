@@ -15,6 +15,12 @@
 		padding-left: 0;
 	}
 
+	&.-type {
+		border-bottom: 1px solid #CBD5E1;
+		padding-bottom: 20px;
+		margin-bottom: -10px;
+	}
+
 }
 
 .acp-column-setting[data-setting=label] {

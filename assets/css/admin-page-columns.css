@@ -473,6 +473,11 @@
 .acp-column-setting .acp-column-setting {
   padding-left: 0;
 }
+.acp-column-setting.-type {
+  border-bottom: 1px solid #CBD5E1;
+  padding-bottom: 20px;
+  margin-bottom: -10px;
+}
 
 .acp-column-setting[data-setting=label] .acui-input-group-text {
   color: #ccc;

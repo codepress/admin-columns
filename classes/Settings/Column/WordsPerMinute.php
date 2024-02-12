@@ -16,7 +16,7 @@ class WordsPerMinute extends Settings\Setting implements Formatter
     public function __construct(int $words_per_minute = null, Specification $conditions = null)
     {
         parent::__construct(
-            Number::create_single_step('words_per_minute', 0, null, 200, ''),
+            Number::create_single_step('words_per_minute', 0, null, $words_per_minute, ''),
             __('Words per minute', 'codepress-admin-columns'),
             __(
                 'Estimated reading time in words per minute.',

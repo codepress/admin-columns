@@ -6,9 +6,9 @@ use AC;
 use AC\Expression\Specification;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\Aggregate;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Setting;
 

@@ -8,7 +8,7 @@ use AC\Settings\Column\LabelFactory;
 use AC\Settings\Column\NameFactory;
 use AC\Settings\Column\WidthFactory;
 
-class ComponentCollectionBuilderFactory
+final class ComponentCollectionBuilderFactory
 {
 
     private $name_factory;
@@ -16,9 +16,12 @@ class ComponentCollectionBuilderFactory
     private $width_factory;
 
     private $label_factory;
-
-    public function __construct(NameFactory $name_factory, WidthFactory $width_factory, LabelFactory $label_factory)
-    {
+    
+    public function __construct(
+        NameFactory $name_factory,
+        WidthFactory $width_factory,
+        LabelFactory $label_factory
+    ) {
         $this->name_factory = $name_factory;
         $this->width_factory = $width_factory;
         $this->label_factory = $label_factory;

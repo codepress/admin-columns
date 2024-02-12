@@ -35,6 +35,7 @@
 </script>
 <section>
 	<ColumnsForm bind:data={data} bind:config={config} {tableUrl}></ColumnsForm>
+
 	{#each ListScreenSections.getSections( 'after_columns' ) as component}
 		<HtmlSection component={component}></HtmlSection>
 	{/each}

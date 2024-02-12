@@ -19,6 +19,10 @@ use AC\Plugin\SetupFactory;
 use AC\Plugin\Version;
 use AC\RequestHandler\Ajax;
 use AC\RequestHandler\Ajax\RestoreSettingsRequest;
+use AC\Setting\ComponentCollectionBuilder;
+use AC\Settings\Column\LabelFactory;
+use AC\Settings\Column\NameFactory;
+use AC\Settings\Column\WidthFactory;
 use AC\Storage\EncoderFactory;
 use AC\Vendor\DI;
 use AC\Vendor\DI\ContainerBuilder;
@@ -153,6 +157,13 @@ class AdminColumns
         $definitions = [
             'translations.global'                   => static function (Plugin $plugin): Translation {
                 return new Translation(require $plugin->get_dir() . 'settings/translations/global.php');
+            },
+            ComponentCollectionBuilder::class       => function (
+                NameFactory $name_factory,
+                WidthFactory $width_factory,
+                LabelFactory $label_factory
+            ): ComponentCollectionBuilder {
+                return new ComponentCollectionBuilder($name_factory, $width_factory, $label_factory);
             },
             Storage::class                          => static function (Database $database): Storage {
                 $storage = new Storage();

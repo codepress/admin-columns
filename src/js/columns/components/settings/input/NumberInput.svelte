@@ -10,9 +10,8 @@
 
     onMount(() => {
         if (typeof value === 'undefined') {
-            value = config.input.default ? config.input.default : '3';
+            value = config.input.default ? config.input.default : '';
         }
-        console.log(config.input);
     });
 
     onDestroy(() => {
