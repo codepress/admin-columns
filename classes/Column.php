@@ -27,13 +27,13 @@ class Column
         string $type,
         string $label,
         Formatter $formatter,
-        ComponentCollection $settings = null,
+        ComponentCollection $settings,
         string $group = null
     ) {
         $this->type = $type;
         $this->label = $label;
         $this->renderable = $formatter;
-        $this->settings = $settings ?? new ComponentCollection();
+        $this->settings = $settings;
         $this->group = $group ?? 'custom';
     }
 
