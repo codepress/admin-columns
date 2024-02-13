@@ -3,6 +3,8 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
+use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Settings\Column\BeforeAfterFactory;
 use AC\Settings\Column\LabelFactory;
@@ -39,6 +41,11 @@ class ExcerptFactory extends ColumnFactory
     protected function get_label(): string
     {
         return __('Excerpt', 'codepress-admin-columns');
+    }
+
+    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    {
+        return parent::create_formatter_builder($components)->prepend(new Formatter\Post\Excerpt());
     }
 
 }

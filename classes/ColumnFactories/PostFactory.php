@@ -33,9 +33,9 @@ class PostFactory implements ColumnFactories
         //        $factories['column-attachment'] = $this->container->get(AttachmentFactory::class);
         //        $factories['column-author_name'] = $this->container->get(AuthorFactory::class);
         //
-        //        if (post_type_supports($post_type, 'comments')) {
-        //            $factories['column-comment_count'] = $this->container->get(CommentFactory::class);
-        //        }
+        if (post_type_supports($post_type, 'comments')) {
+            //$factories[] = $this->container->get(CommentFactory::class);
+        }
 
         if (post_type_supports($post_type, 'excerpt')) {
             $factories[] = $this->container->get(ExcerptFactory::class);
