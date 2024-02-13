@@ -4,42 +4,46 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilder;
-use AC\Setting\Config;
-use AC\Setting\Formatter\NullFormatter;
+use AC\Setting\Formatter\AggregateBuilderFactory;
+use AC\Settings\Column\LabelFactory;
+use AC\Settings\Column\NameFactory;
+use AC\Settings\Column\WidthFactory;
 
-class OriginalFactory implements ColumnFactory
+class OriginalFactory extends ColumnFactory
 {
 
     private $type;
 
     private $label;
 
-    private $builder;
+    public function __construct(
+        string $type,
+        string $label,
+        AggregateBuilderFactory $aggregate_formatter_builder_factory,
+        NameFactory $name_factory,
+        LabelFactory $label_factory,
+        WidthFactory $width_factory
+    ) {
+        parent::__construct($aggregate_formatter_builder_factory, $name_factory, $label_factory, $width_factory);
 
-    public function __construct(string $type, string $label, ComponentCollectionBuilder $builder)
-    {
         $this->type = $type;
         $this->label = $label;
-        $this->builder = $builder;
     }
 
-    public function can_create(string $type): bool
+    public function get_type(): string
     {
-        return $this->type === $type;
+        return $this->type;
     }
 
-    public function create(Config $config): Column
+    protected function get_label(): string
     {
-        return new Column(
-            $this->type,
-            $this->label,
-            new NullFormatter(),
-            $this->builder->add_defaults()->build($config),
-            'default'
-        );
+        return $this->label;
+    }
+
+    protected function get_group(): string
+    {
+        return 'default';
     }
 
 }
