@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC;
 
-use AC\Setting\Config;
 use AC\Type\ListKey;
 use AC\Type\ListScreenId;
 use AC\Type\Uri;
@@ -21,9 +20,6 @@ final class ListScreen
 
     private $table_screen;
 
-    /**
-     * @var Config[]
-     */
     private $columns;
 
     private $preferences;
@@ -44,7 +40,7 @@ final class ListScreen
             $updated = new DateTime();
         }
         if (null === $columns) {
-            $columns = [];
+            $columns = new ColumnCollection();
         }
 
         $this->id = $id;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Setting;
 
 use AC\Setting\Formatter\Aggregate;
+use AC\Setting\Formatter\AggregateBuilder;
 
 trait RecursiveFormatterTrait
 {
@@ -13,15 +14,15 @@ trait RecursiveFormatterTrait
 
     private function get_recursive_formatter(string $condition): Aggregate
     {
-        $settings = new ComponentCollection();
+        $builder = new AggregateBuilder();
 
         foreach ($this->get_children() as $setting) {
             if ($setting instanceof Setting && $setting->get_conditions()->is_satisfied_by($condition)) {
-                $settings->add($setting);
+                $builder->add($setting);
             }
         }
 
-        return Aggregate::from_settings($settings);
+        return $builder->build();
     }
 
 }
