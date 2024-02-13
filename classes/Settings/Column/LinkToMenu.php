@@ -46,7 +46,7 @@ class LinkToMenu extends Settings\Setting implements Formatter
 
             $label = $term->name;
 
-            if ('on' === $options->get('link_to_menu')) {
+            if ($this->linked) {
                 $label = ac_helper()->html->link(
                     add_query_arg(['menu' => $menu_id], admin_url('nav-menus.php')),
                     $label
