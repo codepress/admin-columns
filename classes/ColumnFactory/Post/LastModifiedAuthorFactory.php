@@ -2,41 +2,46 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilderFactory;
-use AC\Setting\Config;
-use AC\Setting\Formatter\Aggregate;
+use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
+use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\LastModifiedAuthor;
+use AC\Settings\Column\LabelFactory;
+use AC\Settings\Column\NameFactory;
 use AC\Settings\Column\UserFactory;
+use AC\Settings\Column\WidthFactory;
 
-class LastModifiedAuthorFactory implements ColumnFactory
+class LastModifiedAuthorFactory extends ColumnFactory
 {
 
-    private $builder;
-
-    private $user_factory;
+    protected $user_factory;
 
     public function __construct(
-        ComponentCollectionBuilderFactory $builder,
+        AggregateBuilderFactory $aggregate_formatter_builder_factory,
+        NameFactory $name_factory,
+        LabelFactory $label_factory,
+        WidthFactory $width_factory,
         UserFactory $user_factory
     ) {
-        $this->builder = $builder;
+        parent::__construct($aggregate_formatter_builder_factory, $name_factory, $label_factory, $width_factory);
+
         $this->user_factory = $user_factory;
     }
 
-    public function create(Config $config): Column
+    public function get_type(): string
     {
-        $settings = $this->builder->create()->add_defaults()
-                                  ->add($this->user_factory)
-                                  ->build($config);
+        return 'column-last_modified_author';
+    }
 
-        return new Column(
-            'column-last_modified_author',
-            __('Last Modified Author', 'codepress-admin-columns'),
-            Aggregate::from_settings($settings)->prepend(new LastModifiedAuthor()),
-            $settings
-        );
+    protected function get_label(): string
+    {
+        return __('Last Modified Author', 'codepress-admin-columns');
+    }
+
+    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    {
+        return parent::create_formatter_builder($components)->prepend(new LastModifiedAuthor());
     }
 
 }

@@ -4,33 +4,27 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilder;
-use AC\Setting\Config;
+use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Formatter\Post\HasCommentStatus;
 
-class CommentStatusFactory implements ColumnFactory
+class CommentStatusFactory extends ColumnFactory
 {
 
-    private $builder;
-
-    public function __construct(ComponentCollectionBuilder $builder)
+    public function get_type(): string
     {
-        $this->builder = $builder;
+        return 'column-comment_status';
     }
 
-    public function create(Config $config): Column
+    protected function get_label(): string
     {
-        $settings = $this->builder->add_defaults()
-                                  ->build($config);
+        return __('Allow Comments', 'codepress-admin-columns');
+    }
 
-        return new Column(
-            'column-comment_status',
-            __('Allow Comments', 'codepress-admin-columns'),
-            new HasCommentStatus('open'),
-            $settings
-        );
+    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    {
+        return parent::create_formatter_builder($components)->add(new HasCommentStatus('open'));
     }
 
 }

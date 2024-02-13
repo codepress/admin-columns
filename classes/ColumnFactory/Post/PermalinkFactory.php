@@ -2,42 +2,30 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilderFactory;
-use AC\Setting\Config;
-use AC\Setting\Formatter\Aggregate;
+use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Formatter\Linkable;
 use AC\Setting\Formatter\Post\Permalink;
 
-class PermalinkFactory implements ColumnFactory
+class PermalinkFactory extends ColumnFactory
 {
 
-    private $builder;
-
-    public function __construct(
-        ComponentCollectionBuilderFactory $builder
-    ) {
-        $this->builder = $builder;
+    public function get_type(): string
+    {
+        return 'column-permalink';
     }
 
-    public function create(Config $config): Column
+    protected function get_label(): string
     {
-        $settings = $this->builder->create()
-                                  ->add_defaults()
-                                  ->build($config);
+        return __('Permalink', 'codepress-admin-columns');
+    }
 
-        $formatter = new Aggregate([
-            new Permalink(),
-            new Linkable(),
-        ]);
-
-        return new Column(
-            'column-permalink',
-            __('Permalink', 'codepress-admin-columns'),
-            $formatter,
-            $settings
-        );
+    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    {
+        return parent::create_formatter_builder($components)
+                     ->add(new Permalink())
+                     ->add(new Linkable());
     }
 
 }

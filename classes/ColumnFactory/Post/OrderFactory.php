@@ -2,35 +2,27 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilderFactory;
-use AC\Setting\Config;
+use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Formatter\Post\Order;
 
-class OrderFactory implements ColumnFactory
+class OrderFactory extends ColumnFactory
 {
 
-    private $builder;
-
-    public function __construct(
-        ComponentCollectionBuilderFactory $builder
-    ) {
-        $this->builder = $builder;
+    public function get_type(): string
+    {
+        return 'column-order';
     }
 
-    public function create(Config $config): Column
+    protected function get_label(): string
     {
-        $settings = $this->builder->create()
-                                  ->add_defaults()
-                                  ->build($config);
+        return __('Order', 'codepress-admin-columns');
+    }
 
-        return new Column(
-            'column-order',
-            __('Order', 'codepress-admin-columns'),
-            new Order(),
-            $settings
-        );
+    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    {
+        return parent::create_formatter_builder($components)->add(new Order());
     }
 
 }

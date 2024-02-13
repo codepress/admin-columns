@@ -4,47 +4,47 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilderFactory;
-use AC\Setting\Config;
-use AC\Setting\Formatter\Aggregate;
+use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
+use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\DatePublishFormatted;
 use AC\Setting\Formatter\Post\PostDate;
 use AC\Settings\Column\DateFactory;
+use AC\Settings\Column\LabelFactory;
+use AC\Settings\Column\NameFactory;
+use AC\Settings\Column\WidthFactory;
 
-class DatePublishFactory implements ColumnFactory
+class DatePublishFactory extends ColumnFactory
 {
 
-    private $builder;
-
-    private $date_factory;
+    protected $date_factory;
 
     public function __construct(
-        ComponentCollectionBuilderFactory $builder,
+        AggregateBuilderFactory $aggregate_formatter_builder_factory,
+        NameFactory $name_factory,
+        LabelFactory $label_factory,
+        WidthFactory $width_factory,
         DateFactory $date_factory
     ) {
-        $this->builder = $builder;
+        parent::__construct($aggregate_formatter_builder_factory, $name_factory, $label_factory, $width_factory);
+
         $this->date_factory = $date_factory;
     }
 
-    public function create(Config $config): Column
+    public function get_type(): string
     {
-        $settings = $this->builder->create()
-                                  ->add_defaults()
-                                  ->add($this->date_factory)
-                                  ->build($config);
+        return 'column-date_published';
+    }
 
-        $formatter = Aggregate::from_settings($settings)
-                              ->prepend(new PostDate())
-                              ->add(new DatePublishFormatted());
+    protected function get_label(): string
+    {
+        return __('Date Published', 'codepress-admin-columns');
+    }
 
-        return new Column(
-            'column-date_published',
-            __('Date Published', 'codepress-admin-columns'),
-            $formatter,
-            $settings
-        );
+    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    {
+        return parent::create_formatter_builder($components)->prepend(new PostDate())->add(new DatePublishFormatted());
     }
 
 }

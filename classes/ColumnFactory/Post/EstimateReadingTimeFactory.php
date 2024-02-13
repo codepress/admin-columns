@@ -2,41 +2,45 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilderFactory;
-use AC\Setting\Config;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
+use AC\Setting\Formatter\AggregateBuilderFactory;
+use AC\Settings\Column\LabelFactory;
+use AC\Settings\Column\NameFactory;
+use AC\Settings\Column\WidthFactory;
 use AC\Settings\Column\WordsPerMinuteFactory;
 
-class EstimateReadingTimeFactory implements ColumnFactory
+class EstimateReadingTimeFactory extends ColumnFactory
 {
 
-    private $builder;
-
-    private $words_per_minute_factory;
+    protected $words_per_minute_factory;
 
     public function __construct(
-        ComponentCollectionBuilderFactory $builder,
+        AggregateBuilderFactory $aggregate_formatter_builder_factory,
+        NameFactory $name_factory,
+        LabelFactory $label_factory,
+        WidthFactory $width_factory,
         WordsPerMinuteFactory $words_per_minute_factory
     ) {
-        $this->builder = $builder;
+        parent::__construct($aggregate_formatter_builder_factory, $name_factory, $label_factory, $width_factory);
+
         $this->words_per_minute_factory = $words_per_minute_factory;
     }
 
-    public function create(Config $config): Column
+    public function get_type(): string
     {
-        $settings = $this->builder->create()
-                                  ->add_defaults()
-                                  ->add($this->words_per_minute_factory)
-                                  ->build($config);
+        return 'column-estimated_reading_time';
+    }
 
-        return new Column(
-            'column-estimated_reading_time',
-            __('Read Time', 'codepress-admin-columns'),
-            Formatter\Aggregate::from_settings($settings)->prepend(new Formatter\Post\PostContent()),
-            $settings
-        );
+    protected function get_label(): string
+    {
+        return __('Read Time', 'codepress-admin-columns');
+    }
+
+    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    {
+        return parent::create_formatter_builder($components)->prepend(new Formatter\Post\PostContent());
     }
 
 }

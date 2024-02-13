@@ -2,35 +2,27 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilderFactory;
-use AC\Setting\Config;
+use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Formatter\Post\Path;
 
-class PathFactory implements ColumnFactory
+class PathFactory extends ColumnFactory
 {
 
-    private $builder;
-
-    public function __construct(
-        ComponentCollectionBuilderFactory $builder
-    ) {
-        $this->builder = $builder;
+    public function get_type(): string
+    {
+        return 'column-path';
     }
 
-    public function create(Config $config): Column
+    protected function get_label(): string
     {
-        $settings = $this->builder->create()
-                                  ->add_defaults()
-                                  ->build($config);
+        return __('Path', 'codepress-admin-columns');
+    }
 
-        return new Column(
-            'column-path',
-            __('Path', 'codepress-admin-columns'),
-            new Path(),
-            $settings
-        );
+    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    {
+        return parent::create_formatter_builder($components)->add(new Path());
     }
 
 }
