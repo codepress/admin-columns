@@ -10,6 +10,7 @@ use AC\Setting\Formatter\AggregateBuilder;
 trait RecursiveFormatterTrait
 {
 
+    // TODO Tobias maybe add the Aggregatebuilder and or factory as a property? Now it just exist from a new ()
     abstract public function get_children(): ComponentCollection;
 
     private function get_recursive_formatter(string $condition): Aggregate
