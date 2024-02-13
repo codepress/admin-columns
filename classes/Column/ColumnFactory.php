@@ -87,7 +87,7 @@ abstract class ColumnFactory
         return $builder;
     }
 
-    abstract protected function get_type(): string;
+    abstract public function get_type(): string;
 
     abstract protected function get_label(): string;
 

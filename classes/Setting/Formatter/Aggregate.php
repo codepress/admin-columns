@@ -13,11 +13,11 @@ final class Aggregate implements Formatter
     /**
      * @var Formatter[]
      */
-    private $data = [];
+    private $data;
 
     public function __construct(array $formatters = [])
     {
-        array_map([$this, 'add'], $formatters);
+        $this->data = $formatters;
     }
 
     public function format(Value $value): Value

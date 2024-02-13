@@ -8,8 +8,8 @@ use AC\Expression\Specification;
 use AC\Setting;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
-use AC\Setting\Formatter\Aggregate;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -58,15 +58,15 @@ class StringLimit extends Settings\Setting implements Setting\Recursive, Setting
 
     public function format(Value $value): Value
     {
-        $settings = new ComponentCollection();
+        $builder = new AggregateBuilder();
 
         foreach ($this->settings as $setting) {
             if ($setting->get_conditions()->is_satisfied_by($this->limiter)) {
-                $settings->add($setting);
+                $builder->add($setting);
             }
         }
 
-        return Aggregate::from_settings($settings)->format($value);
+        return $builder->build()->format($value);
     }
 
     public function get_children(): ComponentCollection

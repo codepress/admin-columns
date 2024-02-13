@@ -12,7 +12,7 @@ final class AggregateBuilder
     /**
      * @var Formatter[]
      */
-    private $formatters;
+    private $formatters = [];
 
     public function add(Formatter $formatter): self
     {
