@@ -9,7 +9,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class Status extends Settings\Setting implements Formatter
+class PostStatusIcon extends Settings\Setting implements Formatter
 {
 
     private $use_icon;

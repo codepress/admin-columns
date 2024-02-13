@@ -6,8 +6,8 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\Config;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Config;
 use AC\Settings\Component;
 use AC\Settings\SettingFactory;
 
@@ -28,7 +28,7 @@ class PostFactory implements SettingFactory
         StringLimitFactory $string_limit_factory,
         ImageFactory $image_factory,
         UserFactory $user_factory,
-        StatusFactory $status_factory,
+        PostStatusIconFactory $status_factory,
         DateFactory $date_factory
     ) {
         $this->string_limit_factory = $string_limit_factory;

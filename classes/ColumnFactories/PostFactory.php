@@ -77,6 +77,10 @@ class PostFactory implements ColumnFactories
         $factories['column-permalink'] = $this->container->get(Post\PermalinkFactory::class);
         $factories['column-ping_status'] = $this->container->get(Post\PingStatusFactory::class);
         $factories['column-parent'] = $this->container->get(Post\ParentFactory::class);
+        $factories['column-shortcode'] = $this->container->get(Post\ShortcodesFactory::class);
+        $factories['column-shortlink'] = $this->container->get(Post\ShortLinkFactory::class);
+        $factories['column-slug'] = $this->container->get(Post\SlugFactory::class);
+        $factories['column-status'] = $this->container->get(Post\StatusFactory::class);
 
         return new Collection\ColumnFactories($factories);
     }

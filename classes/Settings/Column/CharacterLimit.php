@@ -40,6 +40,10 @@ class CharacterLimit extends Settings\Setting implements AC\Setting\Formatter
 
     public function format(Value $value): Value
     {
+        if ( ! $this->limit) {
+            return $value;
+        }
+
         return $value->with_value(
             ac_helper()->string->trim_characters(
                 (string)$value->get_value(),
