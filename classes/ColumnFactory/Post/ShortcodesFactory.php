@@ -2,35 +2,27 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilderFactory;
-use AC\Setting\Config;
+use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Formatter\Post\Shortcodes;
 
-class ShortcodesFactory implements ColumnFactory
+class ShortcodesFactory extends ColumnFactory
 {
 
-    private $builder;
-
-    public function __construct(
-        ComponentCollectionBuilderFactory $builder
-    ) {
-        $this->builder = $builder;
+    protected function get_label(): string
+    {
+        return __('Shortcodes', 'codepress-admin-columns');
     }
 
-    public function create(Config $config): Column
+    public function get_type(): string
     {
-        $settings = $this->builder->create()
-                                  ->add_defaults()
-                                  ->build($config);
+        return 'column-shortcode';
+    }
 
-        return new Column(
-            'column-shortcode',
-            __('Shortcodes', 'codepress-admin-columns'),
-            new Shortcodes(),
-            $settings
-        );
+    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    {
+        return parent::create_formatter_builder($components)->add(new Shortcodes());
     }
 
 }

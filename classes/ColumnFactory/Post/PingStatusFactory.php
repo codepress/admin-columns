@@ -2,35 +2,27 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilderFactory;
-use AC\Setting\Config;
+use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Formatter\Post\PingStatus;
 
-class PingStatusFactory implements ColumnFactory
+class PingStatusFactory extends ColumnFactory
 {
 
-    private $builder;
-
-    public function __construct(
-        ComponentCollectionBuilderFactory $builder
-    ) {
-        $this->builder = $builder;
+    protected function get_label(): string
+    {
+        return __('Ping Status', 'codepress-admin-columns');
     }
 
-    public function create(Config $config): Column
+    public function get_type(): string
     {
-        $settings = $this->builder->create()
-                                  ->add_defaults()
-                                  ->build($config);
+        return 'column-ping_status';
+    }
 
-        return new Column(
-            'column-ping_status',
-            __('Ping Status', 'codepress-admin-columns'),
-            new PingStatus(),
-            $settings
-        );
+    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    {
+        return parent::create_formatter_builder($components)->add(new PingStatus());
     }
 
 }
