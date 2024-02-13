@@ -8,9 +8,9 @@ use AC\Expression\Specification;
 use AC\Setting;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\RecursiveFormatterTrait;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
@@ -65,6 +65,10 @@ class Post extends Settings\Setting implements Formatter, Setting\Recursive
 
     public function pre_format_value(Value $value): Value
     {
+        if ( ! $value->get_id()) {
+            return $value->with_value(false);
+        }
+
         switch ($this->post_format) {
             case self::PROPERTY_TITLE :
                 $title = get_post_field('post_title', (int)$value->get_id())
