@@ -44,12 +44,23 @@ class ColumnTypeRepository
     {
         $columns = new ColumnCollection();
 
-        $types = array_keys($this->default_columns_repository->find_all($table_screen->get_key()));
+        $types = $this->default_columns_repository->find_all($table_screen->get_key());
 
         foreach ($this->aggregate->create($table_screen) as $type => $factory) {
-            if (in_array($type, $types, true)) {
-                $columns->add($factory->create(new Setting\Config()));
+            $label = $types[$type] ?? null;
+
+            if ( ! $label) {
+                continue;
             }
+
+            $columns->add(
+                $factory->create(
+                    new Setting\Config([
+                        'name'  => $type,
+                        'label' => $label,
+                    ])
+                )
+            );
         }
 
         return $columns;

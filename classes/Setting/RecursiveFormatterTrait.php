@@ -5,23 +5,25 @@ declare(strict_types=1);
 namespace AC\Setting;
 
 use AC\Setting\Formatter\Aggregate;
+use AC\Setting\Formatter\AggregateBuilder;
 
 trait RecursiveFormatterTrait
 {
 
+    // TODO Tobias maybe add the Aggregatebuilder and or factory as a property? Now it just exist from a new ()
     abstract public function get_children(): ComponentCollection;
 
     private function get_recursive_formatter(string $condition): Aggregate
     {
-        $settings = new ComponentCollection();
+        $builder = new AggregateBuilder();
 
         foreach ($this->get_children() as $setting) {
             if ($setting instanceof Setting && $setting->get_conditions()->is_satisfied_by($condition)) {
-                $settings->add($setting);
+                $builder->add($setting);
             }
         }
 
-        return Aggregate::from_settings($settings);
+        return $builder->build();
     }
 
 }

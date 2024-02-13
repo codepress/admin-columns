@@ -18,7 +18,7 @@ use AC\Settings\SettingFactory;
 abstract class ColumnFactory
 {
 
-    private $aggregate_formatter_builder_factory;
+    protected $aggregate_formatter_builder_factory;
 
     private $width_factory;
 
