@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter;
 
-use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
@@ -21,37 +20,10 @@ final class Aggregate implements Formatter
         array_map([$this, 'add'], $formatters);
     }
 
-    public static function from_settings(ComponentCollection $settings): self
-    {
-        $formatters = [];
-
-        foreach ($settings as $setting) {
-            if ($setting instanceof Formatter) {
-                $formatters[] = $setting;
-            }
-        }
-
-        return new self($formatters);
-    }
-
-    public function add(Formatter $formatter): self
-    {
-        $this->data[] = $formatter;
-
-        return $this;
-    }
-
-    public function prepend(Formatter $formatter): self
-    {
-        array_unshift($this->data, $formatter);
-
-        return $this;
-    }
-
     public function format(Value $value): Value
     {
         $positioned_formatters = [];
-        
+
         foreach ($this->data as $formatter) {
             $position = 0;
 
