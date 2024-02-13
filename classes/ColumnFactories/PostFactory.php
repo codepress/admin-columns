@@ -7,6 +7,7 @@ namespace AC\ColumnFactories;
 use AC;
 use AC\Collection;
 use AC\ColumnFactories;
+use AC\ColumnFactory\Post;
 use AC\ColumnFactory\Post\ExcerptFactory;
 use AC\TableScreen;
 use AC\Vendor\DI\Container;
@@ -72,9 +73,12 @@ class PostFactory implements ColumnFactories
         //        $factories['column-ping_status'] = $this->container->get(Post\PingStatusFactory::class);
         //        $factories['column-parent'] = $this->container->get(Post\ParentFactory::class);
         //        $factories['column-shortcode'] = $this->container->get(Post\ShortcodesFactory::class);
-        //        $factories['column-shortlink'] = $this->container->get(Post\ShortLinkFactory::class);
-        //        $factories['column-slug'] = $this->container->get(Post\SlugFactory::class);
-        //        $factories['column-status'] = $this->container->get(Post\StatusFactory::class);
+        $factories[] = $this->container->get(Post\ShortLinkFactory::class);
+        $factories[] = $this->container->get(Post\SlugFactory::class);
+        $factories[] = $this->container->get(Post\StatusFactory::class);
+        $factories[] = $this->container->get(Post\StickyFactory::class);
+        $factories[] = $this->container->get(Post\TitleRawFactory::class);
+        $factories[] = $this->container->get(Post\WordCountFactory::class);
 
         $_factories = [];
         foreach ($factories as $factory) {

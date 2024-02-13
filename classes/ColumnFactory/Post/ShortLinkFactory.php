@@ -2,42 +2,30 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilderFactory;
-use AC\Setting\Config;
-use AC\Setting\Formatter\Aggregate;
+use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Formatter\Linkable;
 use AC\Setting\Formatter\Post\ShortLink;
 
-class ShortLinkFactory implements ColumnFactory
+class ShortLinkFactory extends ColumnFactory
 {
 
-    private $builder;
-
-    public function __construct(
-        ComponentCollectionBuilderFactory $builder
-    ) {
-        $this->builder = $builder;
+    protected function get_label(): string
+    {
+        return __('Shortlink', 'codepress-admin-columns');
     }
 
-    public function create(Config $config): Column
+    public function get_type(): string
     {
-        $settings = $this->builder->create()
-                                  ->add_defaults()
-                                  ->build($config);
+        return 'column-shortlink';
+    }
 
-        $formatter = new Aggregate([
-            new ShortLink(),
-            new Linkable(),
-        ]);
-
-        return new Column(
-            'column-shortlink',
-            __('Shortlink', 'codepress-admin-columns'),
-            $formatter,
-            $settings
-        );
+    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    {
+        return parent::create_formatter_builder($components)
+                     ->add(new ShortLink())
+                     ->add(new Linkable());
     }
 
 }
