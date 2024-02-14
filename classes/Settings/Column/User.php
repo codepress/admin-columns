@@ -8,12 +8,14 @@ use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\Aggregate;
+use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\Type\Value;
 use AC\Settings\Setting;
 
 class User extends Setting implements Formatter, AC\Setting\Recursive
 {
+
+    use RecursiveFormatterTrait;
 
     private $user_format;
 
@@ -40,12 +42,13 @@ class User extends Setting implements Formatter, AC\Setting\Recursive
     {
         $value = $value->with_value(
             ac_helper()->user->get_display_name(
-                $value->get_id(),
+                (int)$value->get_id(),
                 $this->user_format
             )
         );
 
-        return Aggregate::from_settings($this->settings)->format($value);
+        return $this->get_recursive_formatter()
+                    ->format($value);
     }
 
     public function is_parent(): bool

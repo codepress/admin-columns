@@ -8,14 +8,16 @@ use AC;
 use AC\Expression\Specification;
 use AC\MetaType;
 use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Formatter;
-use AC\Setting\Formatter\Aggregate;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
+use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\Type\Value;
 use AC\Settings\Setting;
 
 class CustomField extends Setting implements Formatter, AC\Setting\Recursive
 {
+
+    use RecursiveFormatterTrait;
 
     public const NAME = 'custom_field';
 
@@ -57,7 +59,7 @@ class CustomField extends Setting implements Formatter, AC\Setting\Recursive
         $field = $this->field;
 
         // Backwards compatible for WordPress Settings API not storing fields starting with _
-        if ($field && 0 === strpos($field, 'cpachidden')) {
+        if (0 === strpos($field, 'cpachidden')) {
             $field = substr($field, strlen('cpachidden'));
         }
 
@@ -66,7 +68,8 @@ class CustomField extends Setting implements Formatter, AC\Setting\Recursive
             get_metadata((string)$this->meta_type, (int)$value->get_id(), $field, true)
         );
 
-        return Aggregate::from_settings($this->settings)->format($value);
+        return $this->get_recursive_formatter($this->field)
+                    ->format($value);
     }
 
     public function get_children(): ComponentCollection

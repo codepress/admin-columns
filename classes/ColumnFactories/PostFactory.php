@@ -7,8 +7,12 @@ namespace AC\ColumnFactories;
 use AC;
 use AC\Collection;
 use AC\ColumnFactories;
+use AC\ColumnFactory\CustomFieldFactory;
 use AC\ColumnFactory\Post;
 use AC\ColumnFactory\Post\ExcerptFactory;
+use AC\MetaType;
+use AC\Settings;
+use AC\Settings\Column\CustomFieldTypeFactory;
 use AC\TableScreen;
 use AC\Vendor\DI\Container;
 
@@ -42,7 +46,13 @@ class PostFactory implements ColumnFactories
             $factories[] = $this->container->get(ExcerptFactory::class);
         }
 
-        //        $factories['column-meta'] = $this->container->make(CustomFieldFactory::class, [
+        $factories[] = $this->container->make(CustomFieldFactory::class, [
+            'custom_field_factory' => new Settings\Column\CustomFieldFactory(
+                new MetaType(MetaType::POST),
+                $this->container->get(CustomFieldTypeFactory::class)
+            ),
+        ]);
+        //        $factories[] = $this->container->make(CustomFieldFactory::class, [
         //            'meta_type' => new MetaType(MetaType::POST),
         //        ]);
         $factories[] = $this->container->get(Post\FeaturedImageFactory::class);

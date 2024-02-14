@@ -2,50 +2,36 @@
 
 namespace AC\ColumnFactory;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\MetaType;
-use AC\Setting\ComponentCollectionBuilder;
-use AC\Setting\Config;
-use AC\Setting\Formatter\Aggregate;
+use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Settings;
-use AC\Settings\Column\CustomFieldTypeFactory;
-use AC\Vendor\DI\Container;
+use AC\Settings\Column\LabelFactory;
+use AC\Settings\Column\NameFactory;
+use AC\Settings\Column\WidthFactory;
 
-class CustomFieldFactory implements ColumnFactory
+class CustomFieldFactory extends ColumnFactory
 {
 
-    private $meta_type;
+    public function __construct(
+        AggregateBuilderFactory $aggregate_formatter_builder_factory,
+        NameFactory $name_factory,
+        LabelFactory $label_factory,
+        WidthFactory $width_factory,
+        Settings\Column\CustomFieldFactory $custom_field_factory
+    ) {
+        parent::__construct($aggregate_formatter_builder_factory, $name_factory, $label_factory, $width_factory);
 
-    private $container;
-
-    private $builder;
-
-    public function __construct(MetaType $meta_type, Container $container, ComponentCollectionBuilder $builder)
-    {
-        $this->meta_type = $meta_type;
-        $this->container = $container;
-        $this->builder = $builder;
+        $this->register_factory($custom_field_factory);
     }
 
-    public function create(Config $config): Column
+    public function get_type(): string
     {
-        $factory = new Settings\Column\CustomFieldFactory(
-            $this->meta_type,
-            $this->container->get(CustomFieldTypeFactory::class)
-        );
+        return 'column-meta';
+    }
 
-        $settings = $this->builder->add_defaults()
-                                  ->add($factory)
-                                  ->build($config);
-
-        return new Column(
-            'column-meta',
-            __('Custom Field', 'codepress-admin-columns'),
-            Aggregate::from_settings($settings),
-            $settings,
-            'custom_field'
-        );
+    protected function get_label(): string
+    {
+        return __('Custom Field', 'codepress-admin-columns');
     }
 
 }
