@@ -9,6 +9,7 @@ use AC\Setting\Config;
 use AC\Settings\Component;
 use AC\Settings\SettingFactory;
 
+// TODO move to Setting
 final class CommentsFactory implements SettingFactory
 {
 
