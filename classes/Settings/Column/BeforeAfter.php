@@ -10,10 +10,10 @@ use AC\Setting\Component;
 use AC\Setting\Component\Input\Open;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 
 // TODO component?
-class BeforeAfter extends Setting implements AC\Setting\Recursive, AC\Setting\Formatter
+class BeforeAfter extends Control implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     private $before;
@@ -44,11 +44,11 @@ class BeforeAfter extends Setting implements AC\Setting\Recursive, AC\Setting\Fo
     public function get_children(): ComponentCollection
     {
         return new ComponentCollection([
-            new Setting(
+            new Control(
                 new Open('before', null, $this->before),
                 __('Before', 'codepress-admin-columns')
             ),
-            new Setting(
+            new Control(
                 new Open('after', null, $this->after),
                 __('After', 'codepress-admin-columns')
             ),

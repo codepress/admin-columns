@@ -8,7 +8,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class PostFormatIcon extends Settings\Setting implements Formatter
+class PostFormatIcon extends Settings\Control implements Formatter
 {
 
     private $use_icon;

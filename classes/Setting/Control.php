@@ -7,7 +7,7 @@ namespace AC\Setting;
 use AC\Expression\Specification;
 use AC\Setting\Component\Input;
 
-interface Setting extends Component
+interface Control extends Component
 {
 
     /**

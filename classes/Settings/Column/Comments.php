@@ -11,7 +11,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class Comments extends Settings\Setting implements Formatter
+class Comments extends Settings\Control implements Formatter
 {
 
     public const NAME = 'comment_status';

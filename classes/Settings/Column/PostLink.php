@@ -11,7 +11,7 @@ use AC\Setting\Component\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class PostLink extends Settings\Setting implements AC\Setting\Formatter
+class PostLink extends Settings\Control implements AC\Setting\Formatter
 {
 
     private $relation;
