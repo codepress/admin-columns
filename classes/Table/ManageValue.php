@@ -31,14 +31,13 @@ abstract class ManageValue implements Registerable
         $value = $column->renderable()
                         ->format(new Value($id));
 
-        // TODO
-        if ( '' === $value->get_value()) {
-            $value->with_value( '&ndash;' );
+        if ('' === $value->get_value()) {
+            $value = $value->with_value('&ndash;');
         }
 
         if (is_scalar($value->get_value())
             && apply_filters('ac/column/value/sanitize', true, $column, $id, $this->list_screen)) {
-            $value->with_value( (new Kses())->sanitize((string)$value) );
+            $value->with_value((new Kses())->sanitize((string)$value));
         }
 
         // You can overwrite the display value for original columns by making sure get_value() does not return an empty string.

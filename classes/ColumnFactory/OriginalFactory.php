@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace AC\ColumnFactory;
 
 use AC\Column\ColumnFactory;
+use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Settings\Column\LabelFactory;
-use AC\Settings\Column\NameFactory;
-use AC\Settings\Column\WidthFactory;
 
 class OriginalFactory extends ColumnFactory
 {
@@ -21,11 +19,9 @@ class OriginalFactory extends ColumnFactory
         string $type,
         string $label,
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        NameFactory $name_factory,
-        LabelFactory $label_factory,
-        WidthFactory $width_factory
+        ComponentFactoryRegistry $component_factory_registry
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $name_factory, $label_factory, $width_factory);
+        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 
         $this->type = $type;
         $this->label = $label;

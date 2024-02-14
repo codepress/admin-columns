@@ -46,7 +46,7 @@ class User extends Setting implements Formatter, AC\Setting\Recursive
                 $this->user_format
             )
         );
-
+        
         return $this->get_recursive_formatter()
                     ->format($value);
     }

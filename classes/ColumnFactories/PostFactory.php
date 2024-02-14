@@ -9,6 +9,7 @@ use AC\Collection;
 use AC\ColumnFactories;
 use AC\ColumnFactory\CustomFieldFactory;
 use AC\ColumnFactory\Post;
+use AC\ColumnFactory\Post\CommentFactory;
 use AC\ColumnFactory\Post\ExcerptFactory;
 use AC\MetaType;
 use AC\Settings;
@@ -34,27 +35,25 @@ class PostFactory implements ColumnFactories
 
         $post_type = $table_screen->get_post_type();
 
-        // TODO use ComponentCollectionBuilderFactory? because it will be loaded static now, resulting in duplicate settings (label, width etc.)
-        //        $factories['column-attachment'] = $this->container->get(AttachmentFactory::class);
-        //        $factories['column-author_name'] = $this->container->get(AuthorFactory::class);
-        //
         if (post_type_supports($post_type, 'comments')) {
-            //$factories[] = $this->container->get(CommentFactory::class);
+            $factories[] = $this->container->get(CommentFactory::class);
         }
 
         if (post_type_supports($post_type, 'excerpt')) {
             $factories[] = $this->container->get(ExcerptFactory::class);
         }
 
-        $factories[] = $this->container->make(CustomFieldFactory::class, [
-            'custom_field_factory' => new Settings\Column\CustomFieldFactory(
-                new MetaType(MetaType::POST),
-                $this->container->get(CustomFieldTypeFactory::class)
-            ),
-        ]);
-        //        $factories[] = $this->container->make(CustomFieldFactory::class, [
-        //            'meta_type' => new MetaType(MetaType::POST),
-        //        ]);
+        $factories[] = $this->container->make(
+            CustomFieldFactory::class,
+            [
+                'custom_field_factory' => new Settings\Column\CustomFieldFactory(
+                    new MetaType(MetaType::POST),
+                    $this->container->get(CustomFieldTypeFactory::class)
+                ),
+            ]
+        );
+        $factories[] = $this->container->get(Post\AttachmentFactory::class);
+        $factories[] = $this->container->get(Post\AuthorFactory::class);
         $factories[] = $this->container->get(Post\FeaturedImageFactory::class);
         $factories[] = $this->container->get(Post\FormatsFactory::class);
         $factories[] = $this->container->get(Post\IdFactory::class);

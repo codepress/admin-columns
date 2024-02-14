@@ -37,15 +37,17 @@ class StringLimit extends Settings\Setting implements Setting\Recursive, Setting
         $this->limiter = $limiter;
     }
 
-    private function create_option_collection(ComponentCollection $settings): OptionCollection
+    private function create_option_collection(ComponentCollection $components): OptionCollection
     {
         $options = [
             '' => __('No limit', 'codepress-admin-columns'),
         ];
 
-        foreach ($settings as $setting) {
-            // TODO get_label
-            $options[$setting->get_name()] = $setting->get_label();
+        foreach ($components as $component) {
+            if ($component instanceof Setting\Setting) {
+                // TODO get label
+                $options[$component->get_name()] = 'TODO: Label';
+            }
         }
 
         return OptionCollection::from_array($options);
@@ -60,6 +62,7 @@ class StringLimit extends Settings\Setting implements Setting\Recursive, Setting
     {
         $builder = new AggregateBuilder();
 
+        // TODO
         foreach ($this->settings as $setting) {
             if ($setting->get_conditions()->is_satisfied_by($this->limiter)) {
                 $builder->add($setting);
