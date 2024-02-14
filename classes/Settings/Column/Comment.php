@@ -8,9 +8,10 @@ use AC\Expression;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
-class Comment extends Recursive
+class Comment extends Recursive implements Formatter
 {
 
     public const NAME = 'comment';
@@ -55,40 +56,28 @@ class Comment extends Recursive
         return $this->settings;
     }
 
-    // TODO
     public function format(Value $value): Value
     {
-        switch ($options->get(self::NAME)) {
+        switch ($this->comment_display) {
             case self::PROPERTY_DATE :
-                return parent::format(
-                    $value->with_value($this->get_comment_property('comment_date', $value->get_id()) ?: false),
-                    $options
+                return $value->with_value(
+                    $this->get_comment_property('comment_date', $value->get_id())
                 );
-
             case self::PROPERTY_AUTHOR :
-                return parent::format(
-                    $value->with_value($this->get_comment_property('comment_author', $value->get_id()) ?: false),
-                    $options
+                return new Value(
+                    (int)$this->get_comment_property('comment_author', $value->get_id())
                 );
-
             case self::PROPERTY_AUTHOR_EMAIL :
-                return parent::format(
-                    $value->with_value(
-                        $this->get_comment_property('comment_author_email', $value->get_id()) ?: false
-                    ),
-                    $options
+                return $value->with_value(
+                    $this->get_comment_property('comment_author_email', $value->get_id())
                 );
-
             case self::PROPERTY_COMMENT :
-                return parent::format(
-                    $value->with_value($this->get_comment_property('comment_content', $value->get_id()) ?: false),
-                    $options
+                return $value->with_value(
+                    $this->get_comment_property('comment_content', $value->get_id())
                 );
-
             case self::PROPERTY_ID :
-                return parent::format($value->with_value($value->get_id()), $options);
             default :
-                return parent::format($value, $options);
+                return $value;
         }
     }
 

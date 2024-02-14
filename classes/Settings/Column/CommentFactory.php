@@ -6,8 +6,8 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\Config;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Config;
 use AC\Settings\Component;
 use AC\Settings\SettingFactory;
 
@@ -20,14 +20,18 @@ final class CommentFactory implements SettingFactory
 
     private $comment_link_factory;
 
+    private $user_factory;
+
     public function __construct(
         DateFactory $date_factory,
         StringLimitFactory $string_limit_factory,
-        CommentLinkFactory $comment_link_factory
+        CommentLinkFactory $comment_link_factory,
+        UserFactory $user_factory
     ) {
         $this->date_factory = $date_factory;
         $this->string_limit_factory = $string_limit_factory;
         $this->comment_link_factory = $comment_link_factory;
+        $this->user_factory = $user_factory;
     }
 
     public function create(Config $config, Specification $specification = null): Component
@@ -42,6 +46,10 @@ final class CommentFactory implements SettingFactory
                 $this->string_limit_factory->create(
                     $config,
                     StringComparisonSpecification::equal(Comment::PROPERTY_COMMENT)
+                ),
+                $this->user_factory->create(
+                    $config,
+                    StringComparisonSpecification::equal(Comment::PROPERTY_AUTHOR)
                 ),
                 $this->comment_link_factory->create($config),
             ]),

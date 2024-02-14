@@ -230,7 +230,7 @@ class Columns extends Script
             $encode[] = [
                 'label'     => $column->get_label(),
                 'value'     => $column->get_type(),
-                'group'     => $groups->get($column->get_group())['label'],
+                'group'     => $groups->get($column->get_group())['label'] ?? 'default',
                 'group_key' => $column->get_group(),
                 'original'  => in_array($column->get_type(), $original_types, true),
             ];
