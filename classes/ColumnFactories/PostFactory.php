@@ -35,14 +35,6 @@ class PostFactory implements ColumnFactories
 
         $post_type = $table_screen->get_post_type();
 
-        if (post_type_supports($post_type, 'comments')) {
-            $factories[] = $this->container->get(CommentFactory::class);
-        }
-
-        if (post_type_supports($post_type, 'excerpt')) {
-            $factories[] = $this->container->get(ExcerptFactory::class);
-        }
-
         $factories[] = $this->container->make(
             CustomFieldFactory::class,
             [
@@ -85,12 +77,21 @@ class PostFactory implements ColumnFactories
         $factories[] = $this->container->get(Post\TitleRawFactory::class);
         $factories[] = $this->container->get(Post\WordCountFactory::class);
 
-        $_factories = [];
-        foreach ($factories as $factory) {
-            $_factories[$factory->get_type()] = $factory;
+        if (post_type_supports($post_type, 'comments')) {
+            $factories[] = $this->container->get(CommentFactory::class);
         }
 
-        return new Collection\ColumnFactories($_factories);
+        if (post_type_supports($post_type, 'excerpt')) {
+            $factories[] = $this->container->get(ExcerptFactory::class);
+        }
+
+        $collection = new Collection\ColumnFactories();
+
+        foreach ($factories as $factory) {
+            $collection->add($factory->get_type(), $factory);
+        }
+
+        return $collection;
     }
 
 }

@@ -77,7 +77,7 @@ abstract class ColumnFactory
         return $builder;
     }
 
-    protected function create_column(ComponentCollection $components, Formatter $formatter): Column
+    protected function create_column(ComponentCollection $components, Formatter $formatter, Config $config): Column
     {
         return new Column(
             $this->get_type(),
@@ -106,7 +106,8 @@ abstract class ColumnFactory
 
         return $this->create_column(
             $components,
-            $formatter_builder->build()
+            $formatter_builder->build(),
+            $config
         );
     }
 

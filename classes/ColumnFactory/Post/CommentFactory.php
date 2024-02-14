@@ -32,20 +32,4 @@ class CommentFactory extends ColumnFactory
         return __('Comment Count', 'codepress-admin-columns');
     }
 
-    //    public function create(Config $config): Column
-    //    {
-    //        $settings = $this->builder_factory->create()
-    //                                          ->add_defaults()
-    //                                          ->add(new CommentsFactory())
-    //                                          ->add($this->string_limit_factory)
-    //                                          ->build($config);
-    //
-    //        return new Column(
-    //            'column-comment_count',
-    //            __('Comment Count', 'codepress-admin-columns'),
-    //            Aggregate::from_settings($settings),
-    //            $settings
-    //        );
-    //    }
-
 }

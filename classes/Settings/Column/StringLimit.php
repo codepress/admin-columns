@@ -25,7 +25,11 @@ class StringLimit extends Settings\Setting implements Setting\Recursive, Setting
         parent::__construct(
             OptionFactory::create_select(
                 'string_limit',
-                $this->create_option_collection($settings),
+                OptionCollection::from_array([
+                    ''                => __('No limit', 'codepress-admin-columns'),
+                    'character_limit' => __('Character Limit', 'codepress-admin-columns'),
+                    'excerpt_length'  => __('Word Limit', 'codepress-admin-columns'),
+                ]),
                 $limiter
             ),
             __('Text Limit', 'codepress-admin-columns'),
@@ -35,22 +39,6 @@ class StringLimit extends Settings\Setting implements Setting\Recursive, Setting
 
         $this->settings = $settings;
         $this->limiter = $limiter;
-    }
-
-    private function create_option_collection(ComponentCollection $components): OptionCollection
-    {
-        $options = [
-            '' => __('No limit', 'codepress-admin-columns'),
-        ];
-
-        foreach ($components as $component) {
-            if ($component instanceof Setting\Setting) {
-                // TODO get label
-                $options[$component->get_name()] = 'TODO: Label';
-            }
-        }
-
-        return OptionCollection::from_array($options);
     }
 
     public function is_parent(): bool
