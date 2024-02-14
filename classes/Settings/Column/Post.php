@@ -14,7 +14,7 @@ use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class Post extends Settings\Setting implements Formatter, Setting\Recursive
+class Post extends Settings\Control implements Formatter, Setting\Recursive
 {
 
     use RecursiveFormatterTrait;

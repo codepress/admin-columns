@@ -60,7 +60,7 @@ class BaseEncoder implements AC\Storage\Encoder
     private function encode_settings(ComponentCollection $settings, array $encoded = []): array
     {
         foreach ($settings as $setting) {
-            if ($setting instanceof AC\Setting\Setting) {
+            if ($setting instanceof AC\Setting\Control) {
                 $encoded[$setting->get_input()->get_name()] = $setting->get_input()->get_value();
             }
 

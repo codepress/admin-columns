@@ -10,7 +10,7 @@ use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\ComponentCollection;
 use AC\Settings\Component;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 use InvalidArgumentException;
 
 final class Width extends Component implements AC\Setting\Recursive
@@ -48,7 +48,7 @@ final class Width extends Component implements AC\Setting\Recursive
     public function get_children(): ComponentCollection
     {
         $settings = [
-            new Setting(
+            new Control(
                 Number::create_single_step(
                     'width',
                     0,
@@ -57,7 +57,7 @@ final class Width extends Component implements AC\Setting\Recursive
                 ),
                 ''
             ),
-            new Setting(
+            new Control(
                 OptionFactory::create_radio(
                     'width_unit',
                     OptionCollection::from_array(

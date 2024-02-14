@@ -10,7 +10,7 @@ use AC\Setting\Component\Input\Number;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class CharacterLimit extends Settings\Setting implements AC\Setting\Formatter
+class CharacterLimit extends Settings\Control implements AC\Setting\Formatter
 {
 
     private $limit;

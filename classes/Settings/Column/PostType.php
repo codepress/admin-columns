@@ -7,7 +7,7 @@ use AC\Setting;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Settings;
 
-class PostType extends Settings\Setting
+class PostType extends Settings\Control
 {
 
     private $show_any;

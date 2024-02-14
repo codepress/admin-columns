@@ -8,7 +8,7 @@ use AC\Expression\Specification;
 use AC\Setting\Config;
 use AC\Settings;
 use AC\Settings\Component;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 
 class UserLinkFactory implements Settings\SettingFactory
 {

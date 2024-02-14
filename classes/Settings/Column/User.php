@@ -10,9 +10,9 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\Type\Value;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 
-class User extends Setting implements Formatter, AC\Setting\Recursive
+class User extends Control implements Formatter, AC\Setting\Recursive
 {
 
     use RecursiveFormatterTrait;

@@ -7,7 +7,7 @@ namespace AC\Settings\Column;
 use AC\Expression\Specification;
 use AC\Setting\Config;
 use AC\Settings\Component;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 use AC\Settings\SettingFactory;
 
 // TODO implement formatter with '<span class="cpac_use_icons"></span>'

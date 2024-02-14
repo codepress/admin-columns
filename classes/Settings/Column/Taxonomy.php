@@ -7,7 +7,7 @@ use AC\Expression\Specification;
 use AC\Setting\Component\OptionCollection;
 use AC\Settings;
 
-class Taxonomy extends Settings\Setting
+class Taxonomy extends Settings\Control
 {
 
     // TODO implement Formatter

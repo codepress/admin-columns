@@ -40,7 +40,7 @@ final class Encoder
             $encoded['attributes'][$attribute->get_name()] = $attribute->get_value();
         }
 
-        if ($component instanceof Setting) {
+        if ($component instanceof Control) {
             $encoded['conditions'] = $component->get_conditions()->get_rules($component->get_name());
 
             $input = $component->get_input();

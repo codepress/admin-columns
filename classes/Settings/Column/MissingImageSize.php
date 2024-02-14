@@ -9,7 +9,7 @@ use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Settings;
 
-class MissingImageSize extends Settings\Setting
+class MissingImageSize extends Settings\Control
 {
 
     public function __construct(string $include_missing_sizes, Specification $conditions = null)

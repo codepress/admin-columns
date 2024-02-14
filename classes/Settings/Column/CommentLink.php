@@ -10,7 +10,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class CommentLink extends Settings\Setting implements Formatter
+class CommentLink extends Settings\Control implements Formatter
 {
 
     public function __construct(string $comment_link = null, Specification $specification = null)
