@@ -7,11 +7,10 @@ namespace AC\Column;
 use AC\Column;
 use AC\Expression\Specification;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Settings\Column\LabelFactory;
-use AC\Settings\Column\NameFactory;
 use AC\Settings\Column\WidthFactory;
 use AC\Settings\SettingFactory;
 
@@ -20,24 +19,19 @@ abstract class ColumnFactory
 
     protected $aggregate_formatter_builder_factory;
 
-    private $width_factory;
+    protected $component_factory_registry;
 
     private $component_factories = [];
 
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        NameFactory $name_factory,
-        LabelFactory $label_factory,
-        WidthFactory $width_factory
+        ComponentFactoryRegistry $component_factory_registry
     ) {
         $this->aggregate_formatter_builder_factory = $aggregate_formatter_builder_factory;
-        $this->width_factory = $width_factory;
-
-        $this->register_factory($name_factory);
-        $this->register_factory($label_factory);
+        $this->component_factory_registry = $component_factory_registry;
     }
 
-    protected function register_factory(SettingFactory $factory, Specification $specification = null): void
+    protected function register_component_factory(SettingFactory $factory, Specification $specification = null): void
     {
         $this->component_factories[] = [
             $factory,
@@ -45,25 +39,18 @@ abstract class ColumnFactory
         ];
     }
 
-    protected function register_width_factory(): self
+    protected function register_component_factories(): void
     {
-        $this->register_factory($this->width_factory);
-
-        return $this;
-    }
-
-    protected function register_factories(): void
-    {
-        $this->register_width_factory();
+        $this->register_component_factory($this->component_factory_registry->get_width_factory());
 
         foreach (get_object_vars($this) as $property) {
             if ($property instanceof SettingFactory && ! $property instanceof WidthFactory) {
-                $this->register_factory($property);
+                $this->register_component_factory($property);
             }
         }
     }
 
-    protected function get_components(Config $config): ComponentCollection
+    protected function create_components(Config $config): ComponentCollection
     {
         $collection = new ComponentCollection();
 
@@ -87,6 +74,17 @@ abstract class ColumnFactory
         return $builder;
     }
 
+    protected function create_column(ComponentCollection $components, Formatter $formatter): Column
+    {
+        return new Column(
+            $this->get_type(),
+            $this->get_label(),
+            $formatter,
+            $components,
+            $this->get_group()
+        );
+    }
+
     abstract public function get_type(): string;
 
     abstract protected function get_label(): string;
@@ -98,17 +96,14 @@ abstract class ColumnFactory
 
     public function create(Config $config): Column
     {
-        $this->register_factories();
+        $this->register_component_factories();
 
-        $components = $this->get_components($config);
+        $components = $this->create_components($config);
         $formatter_builder = $this->create_formatter_builder($components);
 
-        return new Column(
-            $this->get_type(),
-            $this->get_label(),
-            $formatter_builder->build(),
+        return $this->create_column(
             $components,
-            $this->get_group()
+            $formatter_builder->build()
         );
     }
 
