@@ -18953,11 +18953,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ColumnTypesUtils: () => (/* binding */ ColumnTypesUtils)
 /* harmony export */ });
-/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global */ "./js/columns/utils/global.ts");
+/* harmony import */ var _store_column_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store/column-types */ "./js/columns/store/column-types.ts");
+/* harmony import */ var svelte_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte/store */ "./node_modules/svelte/src/runtime/store/index.js");
+
 
 class ColumnTypesUtils {
     static getColumnTypes() {
-        return (0,_global__WEBPACK_IMPORTED_MODULE_0__.getColumnSettingsConfig)().column_types;
+        return (0,svelte_store__WEBPACK_IMPORTED_MODULE_1__.get)(_store_column_types__WEBPACK_IMPORTED_MODULE_0__.columnTypesStore);
     }
     static getOriginalColumnTypes() {
         return ColumnTypesUtils.getColumnTypes().filter(c => c.original);
@@ -32465,7 +32467,7 @@ document.addEventListener('DOMContentLoaded', () => {
     AcServices.registerService('ColumnPage', ConfigService);
     _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.currentListId.set(config.list_id);
     _columns_store_current_list_screen__WEBPACK_IMPORTED_MODULE_3__.currentListKey.set(config.list_key);
-    _columns_store_column_types__WEBPACK_IMPORTED_MODULE_7__.columnTypesStore.set(config.column_types.sort(_columns_store_column_types__WEBPACK_IMPORTED_MODULE_7__.columnTypeSorter));
+    _columns_store_column_types__WEBPACK_IMPORTED_MODULE_7__.columnTypesStore.set([]);
     _columns_store_favorite_listkeys__WEBPACK_IMPORTED_MODULE_9__.favoriteListKeysStore.set(config.menu_items_favorites);
     const target = document.createElement('div');
     new _columns_components_ColumnsPage_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({

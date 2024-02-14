@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentListId.set(config.list_id)
     currentListKey.set(config.list_key);
-    columnTypesStore.set(config.column_types.sort(columnTypeSorter));
+    columnTypesStore.set([]);
     favoriteListKeysStore.set(config.menu_items_favorites);
 
 

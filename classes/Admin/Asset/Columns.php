@@ -103,10 +103,6 @@ class Columns extends Script
             'nonce'                => wp_create_nonce(AC\Ajax\Handler::NONCE_ACTION),
             'list_key'             => (string)$this->table_screen->get_key(),
             'list_id'              => (string)$this->list_id,
-            // TODO remove. use ListScreenSettings.
-            'column_types'         => $this->encode_column_types(
-                $this->column_type_repository->find_all($this->table_screen)
-            ),
             'column_groups'        => AC\ColumnGroups::get_groups()->get_all(),
             'menu_items'           => $this->get_menu_items(),
             'menu_items_favorites' => $this->encode_favorites(

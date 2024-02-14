@@ -1,9 +1,11 @@
 import {getColumnSettingsConfig} from "./global";
+import {columnTypesStore} from "../store/column-types";
+import {get} from "svelte/store";
 
 export class ColumnTypesUtils {
 
     static getColumnTypes() {
-        return getColumnSettingsConfig().column_types
+        return get( columnTypesStore )
     }
 
     static getOriginalColumnTypes() {
