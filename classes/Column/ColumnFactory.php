@@ -30,11 +30,11 @@ abstract class ColumnFactory
         $this->aggregate_formatter_builder_factory = $aggregate_formatter_builder_factory;
         $this->component_factory_registry = $component_factory_registry;
 
-        $this->register_component_factory($component_factory_registry->get_name_factory());
-        $this->register_component_factory($component_factory_registry->get_label_factory());
+        $this->add_component_factory($component_factory_registry->get_name_factory());
+        $this->add_component_factory($component_factory_registry->get_label_factory());
     }
 
-    protected function register_component_factory(SettingFactory $factory, Specification $specification = null): void
+    protected function add_component_factory(SettingFactory $factory, Specification $specification = null): void
     {
         $this->component_factories[] = [
             $factory,
@@ -42,13 +42,13 @@ abstract class ColumnFactory
         ];
     }
 
-    protected function register_component_factories(): void
+    protected function add_component_factories(): void
     {
-        $this->register_component_factory($this->component_factory_registry->get_width_factory());
+        $this->add_component_factory($this->component_factory_registry->get_width_factory());
 
         foreach (get_object_vars($this) as $property) {
             if ($property instanceof SettingFactory && ! $property instanceof WidthFactory) {
-                $this->register_component_factory($property);
+                $this->add_component_factory($property);
             }
         }
     }
@@ -99,7 +99,7 @@ abstract class ColumnFactory
 
     public function create(Config $config): Column
     {
-        $this->register_component_factories();
+        $this->add_component_factories();
 
         $components = $this->create_components($config);
         $formatter_builder = $this->create_formatter_builder($components);
