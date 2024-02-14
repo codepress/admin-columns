@@ -3,8 +3,8 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Config;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Config;
 use AC\Settings\Component;
 use AC\Settings\SettingFactory;
 

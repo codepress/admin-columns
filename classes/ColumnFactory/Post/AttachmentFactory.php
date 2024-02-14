@@ -2,37 +2,32 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column;
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollectionBuilderFactory;
-use AC\Setting\Config;
-use AC\Setting\Formatter\Aggregate;
+use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Settings\Column\AttachmentsFactory;
 
-class AttachmentFactory implements ColumnFactory
+class AttachmentFactory extends ColumnFactory
 {
 
-    private $builder;
+    public function __construct(
+        AggregateBuilderFactory $aggregate_formatter_builder_factory,
+        ComponentFactoryRegistry $component_factory_registry,
+        AttachmentsFactory $attachments_factory
+    ) {
+        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 
-    private $attachments_factory;
-
-    public function __construct(ComponentCollectionBuilderFactory $builder, AttachmentsFactory $attachments_factory)
-    {
-        $this->builder = $builder;
-        $this->attachments_factory = $attachments_factory;
+        $this->add_component_factory($attachments_factory);
     }
 
-    public function create(Config $config): Column
+    public function get_type(): string
     {
-        $settings = $this->builder->create()->add_defaults()
-                                  ->add($this->attachments_factory)
-                                  ->build($config);
-
-        return new Column(
-            'column-attachment',
-            __('Attachments', 'codepress-admin-columns'),
-            Aggregate::from_settings($settings),
-            $settings
-        );
+        return 'column-attachment';
     }
+
+    protected function get_label(): string
+    {
+        return __('Attachments', 'codepress-admin-columns');
+    }
+
 }

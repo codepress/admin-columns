@@ -3,27 +3,21 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
+use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Settings\Column\BeforeAfterFactory;
-use AC\Settings\Column\LabelFactory;
-use AC\Settings\Column\NameFactory;
-use AC\Settings\Column\WidthFactory;
 
 class IdFactory extends ColumnFactory
 {
 
-    protected $before_after_factory;
-
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        NameFactory $name_factory,
-        LabelFactory $label_factory,
-        WidthFactory $width_factory,
+        ComponentFactoryRegistry $component_factory_registry,
         BeforeAfterFactory $before_after_factory
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $name_factory, $label_factory, $width_factory);
+        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 
-        $this->before_after_factory = $before_after_factory;
+        $this->add_component_factory($before_after_factory);
     }
 
     public function get_type(): string

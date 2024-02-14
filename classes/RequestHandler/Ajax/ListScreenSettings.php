@@ -99,11 +99,22 @@ class ListScreenSettings implements RequestAjaxHandler
         return strip_tags($label);
     }
 
+    private function get_original_types(AC\TableScreen $table_screen): array
+    {
+        $types = [];
+        foreach ($this->type_repository->find_all_by_orginal($table_screen) as $column) {
+            $types[] = $column->get_type();
+        }
+
+        return $types;
+    }
+
     private function encode_columns(AC\TableScreen $table_screen): array
     {
         $column_types = [];
 
         $groups = AC\ColumnGroups::get_groups();
+        $original_types = $this->get_original_types($table_screen);
 
         foreach ($this->type_repository->find_all($table_screen) as $column) {
             $column_types[] = [
@@ -111,9 +122,7 @@ class ListScreenSettings implements RequestAjaxHandler
                 'value'     => $column->get_type(),
                 'group'     => $groups->get($column->get_group())['label'],
                 'group_key' => $column->get_group(),
-
-                // TODO
-                'original'  => $column->is_original(),
+                'original'  => in_array($column->get_type(), $original_types, true),
             ];
         }
 

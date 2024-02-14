@@ -3,25 +3,21 @@
 namespace AC\ColumnFactory;
 
 use AC\Column\ColumnFactory;
+use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Settings;
-use AC\Settings\Column\LabelFactory;
-use AC\Settings\Column\NameFactory;
-use AC\Settings\Column\WidthFactory;
 
 class CustomFieldFactory extends ColumnFactory
 {
 
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        NameFactory $name_factory,
-        LabelFactory $label_factory,
-        WidthFactory $width_factory,
+        ComponentFactoryRegistry $component_factory_registry,
         Settings\Column\CustomFieldFactory $custom_field_factory
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $name_factory, $label_factory, $width_factory);
+        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 
-        $this->register_factory($custom_field_factory);
+        $this->add_component_factory($custom_field_factory);
     }
 
     public function get_type(): string

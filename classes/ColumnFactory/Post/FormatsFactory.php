@@ -4,29 +4,23 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\PostFormat;
-use AC\Settings\Column\LabelFactory;
-use AC\Settings\Column\NameFactory;
 use AC\Settings\Column\PostFormatIconFactory;
-use AC\Settings\Column\WidthFactory;
 
 class FormatsFactory extends ColumnFactory
 {
 
-    protected $post_format_icon_factory;
-
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        NameFactory $name_factory,
-        LabelFactory $label_factory,
-        WidthFactory $width_factory,
+        ComponentFactoryRegistry $component_factory_registry,
         PostFormatIconFactory $post_format_icon_factory
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $name_factory, $label_factory, $width_factory);
+        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 
-        $this->post_format_icon_factory = $post_format_icon_factory;
+        $this->add_component_factory($post_format_icon_factory);
     }
 
     public function get_type(): string
