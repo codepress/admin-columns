@@ -9,7 +9,7 @@ use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Settings;
 
-class VideoDisplay extends Settings\Setting
+class VideoDisplay extends Settings\Control
 {
 
     public function __construct(Specification $conditions = null)

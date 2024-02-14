@@ -14,7 +14,7 @@ use AC\Setting\Type\Value;
 use AC\Setting\ValueCollection;
 use AC\Settings;
 
-class Attachments extends Settings\Setting implements AC\Setting\Recursive, Formatter
+class Attachments extends Settings\Control implements AC\Setting\Recursive, Formatter
 {
 
     use AC\Setting\RecursiveFormatterTrait;

@@ -10,7 +10,7 @@ use AC\Setting\Type\Value;
 use AC\Settings;
 use WP_Term;
 
-class TermLink extends Settings\Setting implements AC\Setting\Formatter
+class TermLink extends Settings\Control implements AC\Setting\Formatter
 {
 
     private $post_type;

@@ -6,10 +6,10 @@ namespace AC\Settings\Column;
 
 use AC\Setting\Component\Input\Custom;
 use AC\Setting\Input;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 
 // TODO remove..
-abstract class Single extends Setting
+abstract class Single extends Control
 {
 
     public function __construct(

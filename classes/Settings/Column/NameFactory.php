@@ -8,7 +8,7 @@ use AC\Expression\Specification;
 use AC\Setting\Component\Input;
 use AC\Setting\Config;
 use AC\Settings\Component;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 use AC\Settings\SettingFactory;
 
 class NameFactory implements SettingFactory
@@ -16,7 +16,7 @@ class NameFactory implements SettingFactory
 
     public function create(Config $config, Specification $specification = null): Component
     {
-        return new Setting(
+        return new Control(
             new Input(
                 'name',
                 'hidden',

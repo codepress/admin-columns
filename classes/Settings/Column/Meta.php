@@ -6,11 +6,11 @@ use AC\Expression\Specification;
 use AC\Form\Element\Select;
 use AC\MetaType;
 use AC\Setting\Component\Input;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 use AC\View;
 
 // TODO
-abstract class Meta extends Setting
+abstract class Meta extends Control
 {
 
     /**

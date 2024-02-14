@@ -9,7 +9,7 @@ use AC\Expression\NullSpecification;
 use AC\Expression\Specification;
 use AC\Setting\Component\Input;
 
-class Setting extends Component implements AC\Setting\Setting
+class Control extends Component implements AC\Setting\Control
 {
 
     protected $input;

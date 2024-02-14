@@ -19,7 +19,7 @@ trait RecursiveFormatterTrait
 
         foreach ($this->get_children() as $setting) {
             if (
-                $condition && $setting instanceof Setting &&
+                $condition && $setting instanceof Control &&
                 ! $setting->get_conditions()->is_satisfied_by($condition)
             ) {
                 continue;

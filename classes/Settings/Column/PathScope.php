@@ -12,7 +12,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class PathScope extends Settings\Setting implements Formatter
+class PathScope extends Settings\Control implements Formatter
 {
 
     private $path_scope;

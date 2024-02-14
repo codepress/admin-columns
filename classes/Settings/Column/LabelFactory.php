@@ -8,7 +8,7 @@ use AC\Expression\Specification;
 use AC\Sanitize\Kses;
 use AC\Setting\Config;
 use AC\Settings\Component;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 use AC\Settings\SettingFactory;
 
 class LabelFactory implements SettingFactory

@@ -11,7 +11,7 @@ use AC\Setting\Component\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class UserLink extends Settings\Setting implements AC\Setting\Formatter
+class UserLink extends Settings\Control implements AC\Setting\Formatter
 {
 
     public const NAME = 'user_link_to';

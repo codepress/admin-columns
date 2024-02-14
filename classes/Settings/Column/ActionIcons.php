@@ -6,11 +6,11 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\Component\Input\OptionFactory;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 
 // TODO implement formatter with '<span class="cpac_use_icons"></span>'
 
-class ActionIcons extends Setting
+class ActionIcons extends Control
 {
 
     public function __construct(bool $use_icons, Specification $specification = null)

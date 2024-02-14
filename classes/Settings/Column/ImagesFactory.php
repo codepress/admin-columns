@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\Type\Value;
 use AC\Settings;
 use AC\Settings\Component;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 
 // TODO can it extend?
 class ImagesFactory implements Settings\SettingFactory

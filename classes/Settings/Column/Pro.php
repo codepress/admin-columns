@@ -6,7 +6,7 @@ use AC\Settings;
 use AC\View;
 
 // TODO
-abstract class Pro extends Settings\Setting
+abstract class Pro extends Settings\Control
 {
 
     /**

@@ -11,7 +11,7 @@ use AC\Setting\Type\Value;
 use AC\Settings;
 use WP_Term;
 
-class LinkToMenu extends Settings\Setting implements Formatter
+class LinkToMenu extends Settings\Control implements Formatter
 {
 
     private $is_linked;

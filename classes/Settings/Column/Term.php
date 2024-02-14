@@ -9,7 +9,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class Term extends Settings\Setting implements Formatter
+class Term extends Settings\Control implements Formatter
 {
 
     public const NAME = 'term';

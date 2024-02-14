@@ -11,7 +11,7 @@ use AC\Setting\Type\Value;
 use AC\Settings;
 
 // TODO can it extend?
-class Images extends Settings\Setting
+class Images extends Settings\Control
 {
 
     public function __construct(Specification $specification = null)

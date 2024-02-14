@@ -11,7 +11,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class MediaLink extends Settings\Setting implements Formatter
+class MediaLink extends Settings\Control implements Formatter
 {
 
     private $link_to;

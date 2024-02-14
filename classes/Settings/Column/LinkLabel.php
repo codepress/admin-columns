@@ -8,7 +8,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class LinkLabel extends Settings\Setting implements Formatter
+class LinkLabel extends Settings\Control implements Formatter
 {
 
     private $link_label;

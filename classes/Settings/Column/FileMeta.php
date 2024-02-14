@@ -9,7 +9,7 @@ use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Settings;
 
-class FileMeta extends Settings\Setting
+class FileMeta extends Settings\Control
 {
 
     public const NAME = 'media_meta_key';

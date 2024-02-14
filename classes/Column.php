@@ -7,7 +7,7 @@ namespace AC;
 use AC\Setting\Formatter;
 use AC\Setting\Recursive;
 use AC\Setting\ComponentCollection;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 use AC\Type\ColumnId;
 
 class Column
@@ -86,7 +86,7 @@ class Column
     }
 
     // TODO David move the recursive initial outside this function for a cleaner API
-    public function get_setting(string $name, ComponentCollection $settings = null): ?Settings\Setting
+    public function get_setting(string $name, ComponentCollection $settings = null): ?Settings\Control
     {
         $settings = $settings ?: $this->settings;
 
@@ -99,7 +99,7 @@ class Column
                 }
             }
 
-            if ($setting instanceof Setting && $setting->get_name() === $name) {
+            if ($setting instanceof Control && $setting->get_name() === $name) {
                 return $setting;
             }
         }

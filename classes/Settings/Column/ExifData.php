@@ -15,7 +15,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class ExifData extends Settings\Setting implements AC\Setting\Recursive, AC\Setting\Formatter
+class ExifData extends Settings\Control implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     use AC\Setting\RecursiveFormatterTrait {

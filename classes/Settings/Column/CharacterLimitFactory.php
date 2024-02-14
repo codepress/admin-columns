@@ -7,7 +7,7 @@ namespace AC\Settings\Column;
 use AC\Expression\Specification;
 use AC\Setting\Config;
 use AC\Settings\Component;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 use AC\Settings\SettingFactory;
 
 final class CharacterLimitFactory implements SettingFactory

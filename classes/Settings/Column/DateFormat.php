@@ -9,7 +9,7 @@ use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Settings;
 
-class DateFormat extends Settings\Setting
+class DateFormat extends Settings\Control
 {
 
     public const FORMAT_UNIX_TIMESTAMP = 'U';

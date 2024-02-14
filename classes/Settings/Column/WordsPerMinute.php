@@ -8,7 +8,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class WordsPerMinute extends Settings\Setting implements Formatter
+class WordsPerMinute extends Settings\Control implements Formatter
 {
 
     private $words_per_minute;

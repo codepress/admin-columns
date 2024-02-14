@@ -13,7 +13,7 @@ use AC\Setting\Formatter;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 
-class NumberFormat extends AC\Settings\Setting implements Formatter
+class NumberFormat extends AC\Settings\Control implements Formatter
 {
 
     private $format;
@@ -79,7 +79,7 @@ class NumberFormat extends AC\Settings\Setting implements Formatter
     public function get_children(): ComponentCollection
     {
         return new ComponentCollection([
-            new AC\Settings\Setting(
+            new AC\Settings\Control(
                 __('Decimals', 'codepress-admin-columns'),
                 '',
                 Component\Input\Number::create_single_step(
@@ -90,7 +90,7 @@ class NumberFormat extends AC\Settings\Setting implements Formatter
                 ),
                 StringComparisonSpecification::equal('formatted')
             ),
-            new AC\Settings\Setting(
+            new AC\Settings\Control(
                 __('Decimal point', 'codepress-admin-columns'),
                 '',
                 Component\Input\OpenFactory::create_text(
@@ -100,7 +100,7 @@ class NumberFormat extends AC\Settings\Setting implements Formatter
                 ),
                 StringComparisonSpecification::equal('formatted')
             ),
-            new AC\Settings\Setting(
+            new AC\Settings\Control(
                 __('Thousands separator', 'codepress-admin-columns'),
                 '',
                 Component\Input\OpenFactory::create_text(
@@ -110,7 +110,7 @@ class NumberFormat extends AC\Settings\Setting implements Formatter
                 ),
                 StringComparisonSpecification::equal('formatted')
             ),
-            new AC\Settings\Setting(
+            new AC\Settings\Control(
                 __('Preview', 'codepress-admin-columns'),
                 '',
                 new Component\Input\Custom(

@@ -12,7 +12,7 @@ use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 
-class CustomFieldType extends AC\Settings\Setting implements Formatter, AC\Setting\Recursive
+class CustomFieldType extends AC\Settings\Control implements Formatter, AC\Setting\Recursive
 {
 
     use RecursiveFormatterTrait;

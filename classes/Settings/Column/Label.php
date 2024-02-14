@@ -6,9 +6,9 @@ namespace AC\Settings\Column;
 
 // TODO
 use AC\Setting\Component\Input;
-use AC\Settings\Setting;
+use AC\Settings\Control;
 
-class Label extends Setting
+class Label extends Control
 {
 
     private $custom_label;
