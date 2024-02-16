@@ -4,6 +4,7 @@ namespace AC\ColumnFactory\User;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 
 class AuthorSlugFactory extends ColumnFactory
@@ -19,9 +20,11 @@ class AuthorSlugFactory extends ColumnFactory
         return 'column-user_nicename';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
-    {
-        return parent::create_formatter_builder($components)
+    protected function create_formatter_builder(
+        ComponentCollection $components,
+        Config $config
+    ): Formatter\AggregateBuilder {
+        return parent::create_formatter_builder($components, $config)
                      ->add(new Formatter\User\Property('user_nicename'))
                      ->add(new Formatter\User\AuthorPostUrl());
     }

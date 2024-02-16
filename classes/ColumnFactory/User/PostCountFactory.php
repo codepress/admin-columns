@@ -5,6 +5,7 @@ namespace AC\ColumnFactory\User;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Settings\Column\PostStatusFactory;
@@ -35,10 +36,12 @@ class PostCountFactory extends ColumnFactory
         return 'column-user_postcount';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
-    {
+    protected function create_formatter_builder(
+        ComponentCollection $components,
+        Config $config
+    ): Formatter\AggregateBuilder {
         // TODO apply specific post count formatter based on PostCountColumn
-        return parent::create_formatter_builder($components);
+        return parent::create_formatter_builder($components, $config);
     }
 
 }

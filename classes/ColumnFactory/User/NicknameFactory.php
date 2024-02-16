@@ -5,6 +5,7 @@ namespace AC\ColumnFactory\User;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Settings\Column\UserLinkFactory;
@@ -32,9 +33,11 @@ class NicknameFactory extends ColumnFactory
         return 'column-nickname';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
-    {
-        return parent::create_formatter_builder($components)
+    protected function create_formatter_builder(
+        ComponentCollection $components,
+        Config $config
+    ): Formatter\AggregateBuilder {
+        return parent::create_formatter_builder($components, $config)
                      ->prepend(new Formatter\User\Meta('nickname'));
     }
 

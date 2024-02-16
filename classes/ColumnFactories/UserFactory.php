@@ -49,6 +49,7 @@ class UserFactory implements ColumnFactories
         $factories[] = $this->container->get(User\LastNameFactory::class);
         $factories[] = $this->container->get(User\NicknameFactory::class);
         $factories[] = $this->container->get(User\RegisteredDateFactory::class);
+        $factories[] = $this->container->get(User\RegisteredDateFactory::class);
         $factories[] = $this->container->get(User\UserNameFactory::class);
         $factories[] = $this->container->get(User\UserIdFactory::class);
 

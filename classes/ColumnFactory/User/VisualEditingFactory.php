@@ -7,24 +7,25 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 
-class UserNameFactory extends ColumnFactory
+class VisualEditingFactory extends ColumnFactory
 {
 
     protected function get_label(): string
     {
-        return __('Username', 'codepress-admin-columns');
+        return __('Visual Editor', 'codepress-admin-columns');
     }
 
     public function get_type(): string
     {
-        return 'column-user_login';
+        return 'column-rich_editing';
     }
 
     protected function create_formatter_builder(
         ComponentCollection $components,
         Config $config
     ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->prepend(new Formatter\User\UserName());
+        return parent::create_formatter_builder($components, $config)
+                     ->prepend(new Formatter\User\UserName());
     }
 
 }
