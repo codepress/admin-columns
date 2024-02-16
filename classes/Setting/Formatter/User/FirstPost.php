@@ -22,13 +22,9 @@ class FirstPost implements Formatter
 
     public function format(Value $value): Value
     {
-        $post_id = $this->get_first_post((int)$value->get_id());
-
-        if ( ! $post_id) {
-            return new Value(null);
-        }
-
-        return new Value($post_id);
+        return new Value(
+            $this->get_first_post((int)$value->get_id())
+        );
     }
 
     private function get_first_post(int $user_id): ?int
