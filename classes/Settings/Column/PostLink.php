@@ -10,6 +10,7 @@ use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
+use WP_Post;
 
 class PostLink extends Settings\Control implements AC\Setting\Formatter
 {
@@ -37,27 +38,29 @@ class PostLink extends Settings\Control implements AC\Setting\Formatter
 
     public function format(Value $value): Value
     {
-        $id = (int)$value->get_id();
+        $post = get_post(
+            $value->get_id()
+        );
 
-        if ( ! get_post($id)) {
+        if ( ! $post instanceof WP_Post) {
             return $value;
         }
 
         switch ($this->post_link_to) {
             case 'edit_post':
-                $link = get_edit_post_link($id);
+                $link = get_edit_post_link($post);
 
                 break;
             case 'view_post' :
-                $link = get_permalink($id);
+                $link = get_permalink($post);
 
                 break;
             case 'edit_author':
-                $link = get_edit_user_link(ac_helper()->post->get_raw_field('post_author', $id));
+                $link = get_edit_user_link($post->post_author);
 
                 break;
             case 'view_author':
-                $link = get_author_posts_url(ac_helper()->post->get_raw_field('post_author', $id));
+                $link = get_author_posts_url($post->post_author);
 
                 break;
             default:
