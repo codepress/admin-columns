@@ -37,6 +37,7 @@ class UserFactory implements ColumnFactories
         //            ]
         //        );
 
+        $factories[] = $this->container->get(User\AuthorSlugFactory::class);
         $factories[] = $this->container->get(User\CommentCountFactory::class);
         $factories[] = $this->container->get(User\DescriptionFactory::class);
         $factories[] = $this->container->get(User\DisplayNameFactory::class);
@@ -45,6 +46,11 @@ class UserFactory implements ColumnFactories
         $factories[] = $this->container->make(User\FirstPostFactory::class, [
             'post_type_factory' => new AC\Settings\Column\PostTypeFactory(true),
         ]);
+        $factories[] = $this->container->get(User\LastNameFactory::class);
+        $factories[] = $this->container->get(User\NicknameFactory::class);
+        $factories[] = $this->container->get(User\RegisteredDateFactory::class);
+        $factories[] = $this->container->get(User\UserNameFactory::class);
+        $factories[] = $this->container->get(User\UserIdFactory::class);
 
         $collection = new Collection\ColumnFactories();
 
