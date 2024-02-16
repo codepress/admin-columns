@@ -25,7 +25,7 @@ class FirstPost implements Formatter
         $post_id = $this->get_first_post((int)$value->get_id());
 
         if ( ! $post_id) {
-            return $value->with_value(false);
+            return new Value(null);
         }
 
         return new Value($post_id);
