@@ -4,6 +4,7 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 
 class WordCountFactory extends ColumnFactory
@@ -19,9 +20,11 @@ class WordCountFactory extends ColumnFactory
         return __('Word Count', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
-    {
-        return parent::create_formatter_builder($components)
+    protected function create_formatter_builder(
+        ComponentCollection $components,
+        Config $config
+    ): Formatter\AggregateBuilder {
+        return parent::create_formatter_builder($components, $config)
                      ->add(new Formatter\Post\PostContent())
                      ->add(new Formatter\Post\WordCount());
     }
