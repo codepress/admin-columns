@@ -5,6 +5,7 @@ namespace AC\ColumnFactory\Post;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\PageTemplate;
@@ -34,9 +35,11 @@ class PageTemplateFactory extends ColumnFactory
         return __('Page Template', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
-    {
-        return parent::create_formatter_builder($components)->add(new PageTemplate($this->post_type));
+    protected function create_formatter_builder(
+        ComponentCollection $components,
+        Config $config
+    ): Formatter\AggregateBuilder {
+        return parent::create_formatter_builder($components, $config)->add(new PageTemplate($this->post_type));
     }
 
 }

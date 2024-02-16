@@ -5,6 +5,7 @@ namespace AC\ColumnFactory\User;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 
@@ -28,9 +29,11 @@ class CommentCountFactory extends ColumnFactory
         return 'column-user_commentcount';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
-    {
-        return parent::create_formatter_builder($components)->add(new Formatter\User\CommentCount());
+    protected function create_formatter_builder(
+        ComponentCollection $components,
+        Config $config
+    ): Formatter\AggregateBuilder {
+        return parent::create_formatter_builder($components, $config)->add(new Formatter\User\CommentCount());
     }
 
 }

@@ -37,30 +37,35 @@ class PostLink extends Settings\Control implements AC\Setting\Formatter
 
     public function format(Value $value): Value
     {
+        $id = (int)$value->get_id();
+
+        if ( ! get_post($id)) {
+            return $value;
+        }
+
         switch ($this->post_link_to) {
             case 'edit_post':
-                $link = get_edit_post_link($value->get_id());
+                $link = get_edit_post_link($id);
 
                 break;
             case 'view_post' :
-                $link = get_permalink($value->get_id());
+                $link = get_permalink($id);
 
                 break;
             case 'edit_author':
-                $link = get_edit_user_link(ac_helper()->post->get_raw_field('post_author', (int)$value->get_value()));
+                $link = get_edit_user_link(ac_helper()->post->get_raw_field('post_author', $id));
 
                 break;
             case 'view_author':
-                $link = get_author_posts_url(ac_helper()->post->get_raw_field('post_author', (int)$value->get_value()));
+                $link = get_author_posts_url(ac_helper()->post->get_raw_field('post_author', $id));
 
                 break;
-
             default:
-                return $value;
+                $link = null;
         }
 
         return $link
-            ? $value->with_value(ac_helper()->html->link($link, $value))
+            ? $value->with_value(ac_helper()->html->link($link, (string)$value))
             : $value;
     }
 

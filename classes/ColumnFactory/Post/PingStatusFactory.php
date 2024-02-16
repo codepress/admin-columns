@@ -6,12 +6,13 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\Post\PingStatus;
 
 class PingStatusFactory extends ColumnFactory
 {
-    
+
     protected function get_label(): string
     {
         return __('Ping Status', 'codepress-admin-columns');
@@ -22,8 +23,10 @@ class PingStatusFactory extends ColumnFactory
         return 'column-ping_status';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
-    {
+    protected function create_formatter_builder(
+        ComponentCollection $components,
+        Config $config
+    ): Formatter\AggregateBuilder {
         return $this->aggregate_formatter_builder_factory
             ->create()
             ->add(new PingStatus());

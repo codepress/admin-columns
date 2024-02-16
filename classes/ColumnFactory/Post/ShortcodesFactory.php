@@ -4,6 +4,7 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\Post\Shortcodes;
 
@@ -20,9 +21,11 @@ class ShortcodesFactory extends ColumnFactory
         return 'column-shortcode';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
-    {
-        return parent::create_formatter_builder($components)->add(new Shortcodes());
+    protected function create_formatter_builder(
+        ComponentCollection $components,
+        Config $config
+    ): Formatter\AggregateBuilder {
+        return parent::create_formatter_builder($components, $config)->add(new Shortcodes());
     }
 
 }

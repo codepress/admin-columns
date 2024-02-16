@@ -10,6 +10,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Settings\Column\WidthFactory;
 use AC\Settings\SettingFactory;
@@ -64,7 +65,7 @@ abstract class ColumnFactory
         return $collection;
     }
 
-    protected function create_formatter_builder(ComponentCollection $components): Formatter\AggregateBuilder
+    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
     {
         $builder = $this->aggregate_formatter_builder_factory->create();
 
@@ -102,7 +103,7 @@ abstract class ColumnFactory
         $this->add_component_factories();
 
         $components = $this->create_components($config);
-        $formatter_builder = $this->create_formatter_builder($components);
+        $formatter_builder = $this->create_formatter_builder($components, $config);
 
         return $this->create_column(
             $components,
