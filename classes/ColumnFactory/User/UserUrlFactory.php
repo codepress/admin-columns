@@ -7,17 +7,17 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 
-class VisualEditingFactory extends ColumnFactory
+class UserUrlFactory extends ColumnFactory
 {
 
     protected function get_label(): string
     {
-        return __('Visual Editor', 'codepress-admin-columns');
+        return __('Website', 'codepress-admin-columns');
     }
 
     public function get_type(): string
     {
-        return 'column-rich_editing';
+        return 'column-user_url';
     }
 
     protected function create_formatter_builder(
@@ -25,8 +25,8 @@ class VisualEditingFactory extends ColumnFactory
         Config $config
     ): Formatter\AggregateBuilder {
         return parent::create_formatter_builder($components, $config)
-                     ->prepend(new Formatter\User\HasRichEditing())
-                     ->add(new Formatter\YesNoIcon());
+                     ->prepend(new Formatter\User\Property('user_url'))
+                     ->add(new Formatter\Linkable('_blank'));
     }
 
 }

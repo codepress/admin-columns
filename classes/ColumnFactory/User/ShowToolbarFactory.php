@@ -7,17 +7,17 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 
-class VisualEditingFactory extends ColumnFactory
+class ShowToolbarFactory extends ColumnFactory
 {
 
     protected function get_label(): string
     {
-        return __('Visual Editor', 'codepress-admin-columns');
+        return __('Show Toolbar', 'codepress-admin-columns');
     }
 
     public function get_type(): string
     {
-        return 'column-rich_editing';
+        return 'column-user_show_toolbar';
     }
 
     protected function create_formatter_builder(
@@ -25,7 +25,7 @@ class VisualEditingFactory extends ColumnFactory
         Config $config
     ): Formatter\AggregateBuilder {
         return parent::create_formatter_builder($components, $config)
-                     ->prepend(new Formatter\User\HasRichEditing())
+                     ->prepend(new Formatter\User\ShowToolbar())
                      ->add(new Formatter\YesNoIcon());
     }
 
