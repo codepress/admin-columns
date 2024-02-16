@@ -16,7 +16,7 @@ class DateFormat extends Settings\Control
     public const FORMAT_DATETIME = 'Y-m-d H:i:s';
     public const FORMAT_DATE = 'Y-m-d';
 
-    public function __construct(string $date_format, Specification $specification)
+    public function __construct(string $date_format, Specification $specification = null)
     {
         parent::__construct(
             OptionFactory::create_select(
