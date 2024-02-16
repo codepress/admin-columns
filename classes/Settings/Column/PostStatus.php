@@ -17,7 +17,9 @@ class PostStatus extends Settings\Control
         $input = Setting\Component\Input\OptionFactory::create_select(
             'post_status',
             $this->create_options(),
-            $post_status ?: ['publish', 'private']
+            $post_status ?: ['publish', 'private'],
+            null,
+            true
         );
 
         parent::__construct(

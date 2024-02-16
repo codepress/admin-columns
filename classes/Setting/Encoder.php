@@ -68,9 +68,12 @@ final class Encoder
 
             if ($input instanceof Option) {
                 $encoded['input'] += [
-                    'options'  => $this->encode_options($input->get_options()),
-                    'multiple' => $input->is_multiple(),
+                    'options' => $this->encode_options($input->get_options()),
                 ];
+
+                if ($input->is_multiple()) {
+                    $encoded['input']['type'] = 'select_multiple';
+                }
             }
 
             if ($input instanceof Number) {

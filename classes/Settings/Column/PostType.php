@@ -15,20 +15,18 @@ class PostType extends Settings\Control
     public function __construct(string $post_type = null, bool $show_any = false, Specification $specification = null)
     {
         parent::__construct(
-            OptionFactory::create_select('post_type', $this->create_options(), $post_type),
+            OptionFactory::create_select('post_type', $this->create_options($show_any), $post_type ?: 'any'),
             __('Post Type', 'codepress-admin-columns'),
             null,
             $specification
         );
-
-        $this->show_any = $show_any;
     }
 
-    public function create_options(): Setting\Component\OptionCollection
+    public function create_options($show_any): Setting\Component\OptionCollection
     {
         $options = $this->get_post_type_labels();
 
-        if ($this->show_any) {
+        if ($show_any) {
             $options = ['any' => __('All Post Types', 'codepress-admin-columns')] + $options;
         }
 

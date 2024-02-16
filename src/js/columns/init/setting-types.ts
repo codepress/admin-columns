@@ -13,6 +13,7 @@ import DateFormatSetting from "../components/settings/input/DateFormatInput.svel
 import HiddenInput from "../components/settings/input/HiddenInput.svelte";
 import SelectRemoteInput from "../components/settings/input/SelectRemoteInput.svelte";
 import SelectOptionsInput from "../components/settings/input/SelectOptionsInput.svelte";
+import SelectMultipleInput from "../components/settings/input/SelectMultipleInput.svelte";
 
 
 registerSettingType('label', LabelInput)
@@ -26,4 +27,5 @@ registerSettingType('select', SelectInput)
 registerSettingType('date_format', DateFormatSetting)
 registerSettingType('hidden', HiddenInput)
 registerSettingType('select_remote', SelectRemoteInput)
+registerSettingType('select_multiple', SelectMultipleInput)
 registerSettingType('select_options', SelectOptionsInput)
