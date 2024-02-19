@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Expression\NotSpecification;
-use AC\Expression\OrSpecification;
 use AC\Expression\Specification;
-use AC\Expression\StringComparisonSpecification as Compare;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
 use AC\Setting\ComponentCollection;
@@ -18,16 +15,20 @@ use AC\Settings;
 class ExifData extends Settings\Control implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
-    use AC\Setting\RecursiveFormatterTrait {
-        AC\Setting\RecursiveFormatterTrait::format as format_recursive;
-    }
+    use AC\Setting\RecursiveFormatterTrait;
 
     public const NAME = 'exif_data';
 
     private $exif_data;
 
-    public function __construct(string $label, string $exif_data, Specification $conditions = null)
-    {
+    private $settings;
+
+    public function __construct(
+        string $label,
+        string $exif_data,
+        ComponentCollection $settings,
+        Specification $conditions = null
+    ) {
         parent::__construct(
             OptionFactory::create_select(
                 'exif_data',
@@ -40,6 +41,7 @@ class ExifData extends Settings\Control implements AC\Setting\Recursive, AC\Sett
         );
 
         $this->exif_data = $exif_data;
+        $this->settings = $settings;
     }
 
     public function is_parent(): bool
@@ -49,41 +51,44 @@ class ExifData extends Settings\Control implements AC\Setting\Recursive, AC\Sett
 
     public function get_children(): ComponentCollection
     {
-        $settings = new ComponentCollection();
-
-        $before_after = [
-            'aperture'      => ['/f', ''],
-            'focal_length'  => ['', 'mm'],
-            'iso'           => ['ISO', ''],
-            'shutter_speed' => ['', 's'],
-        ];
-
-        $not = [];
-
-        foreach ($before_after as $key => $defaults) {
-            $conditions = Compare::equal($key);
-
-            $settings->add(
-                new Settings\Column\BeforeAfter(
-                    ...$defaults,
-                    $conditions
-                )
-            );
-
-            $not[] = $conditions;
-        }
-
-        $settings->add(
-            new Settings\Column\BeforeAfter(
-                null,
-                null,
-                new NotSpecification(
-                    new OrSpecification($not)
-                )
-            )
-        );
-
-        return $settings;
+        return $this->settings;
+        //
+        //        // TODO move to factory
+        //        $settings = new ComponentCollection();
+        //
+        //        $before_after = [
+        //            'aperture'      => ['/f', ''],
+        //            'focal_length'  => ['', 'mm'],
+        //            'iso'           => ['ISO', ''],
+        //            'shutter_speed' => ['', 's'],
+        //        ];
+        //
+        //        $not = [];
+        //
+        //        foreach ($before_after as $key => $defaults) {
+        //            $conditions = Compare::equal($key);
+        //
+        //            $settings->add(
+        //                new Settings\Column\BeforeAfter(
+        //                    ...$defaults,
+        //                    $conditions
+        //                )
+        //            );
+        //
+        //            $not[] = $conditions;
+        //        }
+        //
+        //        $settings->add(
+        //            new Settings\Column\BeforeAfter(
+        //                null,
+        //                null,
+        //                new NotSpecification(
+        //                    new OrSpecification($not)
+        //                )
+        //            )
+        //        );
+        //
+        //        return $settings;
     }
 
     private function get_exif_types(): array
@@ -110,7 +115,7 @@ class ExifData extends Settings\Control implements AC\Setting\Recursive, AC\Sett
 
     public function format(Value $value): Value
     {
-        $exif_datatype = $options->get(self::NAME) ?? '';
+        $exif_datatype = $this->exif_data;
         $exif_value = ((array)$value->get_value())[$exif_datatype] ?? '';
 
         if (false !== $exif_value) {
@@ -127,7 +132,8 @@ class ExifData extends Settings\Control implements AC\Setting\Recursive, AC\Sett
             }
         }
 
-        return $this->format_recursive($value->with_value($exif_value), $options);
+        return $this->get_recursive_formatter($this->exif_data)
+                    ->format($value->with_value($exif_value));
     }
 
 }

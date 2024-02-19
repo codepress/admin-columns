@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Formatter\Post;
+namespace AC\Setting\Formatter;
 
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;

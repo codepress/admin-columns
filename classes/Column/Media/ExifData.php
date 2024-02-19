@@ -29,3 +29,7 @@ class ExifData extends Column
     }
 
 }
+
+
+
+

@@ -39,6 +39,10 @@ class WordLimit extends Settings\Control implements Formatter
 
     public function format(Value $value): Value
     {
+        if ( ! $this->word_limit) {
+            return $value;
+        }
+
         return $value->with_value(
             ac_helper()->string->trim_words(
                 (string)$value->get_value(),
