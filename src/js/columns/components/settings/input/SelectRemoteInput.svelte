@@ -45,7 +45,7 @@
     })
 
     const selectEnter = (e) => {
-        if (e.key === 'Enter' && allowCreation && emptyElement !== null) {
+        if (e.key === 'Enter' && allowCreation && typeof emptyElement !== 'undefined' && emptyElement !== null) {
             selectNewItem();
         }
     }
@@ -77,7 +77,7 @@
 		clearable={false}
 		items={options}
 		showChevron
-		value={selectValue}
+		bind:value={selectValue}
 		{listOpen}
 		{groupBy}
 		{disabled}

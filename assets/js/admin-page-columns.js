@@ -8803,19 +8803,22 @@ function create_fragment(ctx) {
   let div;
   let select;
   let div_1;
+  let updating_value;
   let updating_filterText;
   let current;
   let mounted;
   let dispose;
+  function select_value_binding(value) {
+    /*select_value_binding*/ctx[12](value);
+  }
   function select_filterText_binding(value) {
-    /*select_filterText_binding*/ctx[12](value);
+    /*select_filterText_binding*/ctx[13](value);
   }
   let select_props = {
     class: "-acui",
     clearable: false,
     items: /*options*/ctx[4],
     showChevron: true,
-    value: /*selectValue*/ctx[2],
     listOpen: /*listOpen*/ctx[1],
     groupBy: /*groupBy*/ctx[8],
     disabled: /*disabled*/ctx[0],
@@ -8826,12 +8829,16 @@ function create_fragment(ctx) {
       ctx
     }
   };
+  if ( /*selectValue*/ctx[2] !== void 0) {
+    select_props.value = /*selectValue*/ctx[2];
+  }
   if ( /*searchTerm*/ctx[3] !== void 0) {
     select_props.filterText = /*searchTerm*/ctx[3];
   }
   select = new svelte_select__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: select_props
   });
+  svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(select, 'value', select_value_binding));
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(select, 'filterText', select_filterText_binding));
   select.$on("change", /*changeValue*/ctx[7]);
   return {
@@ -8856,14 +8863,18 @@ function create_fragment(ctx) {
     p(ctx, [dirty]) {
       const select_changes = {};
       if (dirty & /*options*/16) select_changes.items = /*options*/ctx[4];
-      if (dirty & /*selectValue*/4) select_changes.value = /*selectValue*/ctx[2];
       if (dirty & /*listOpen*/2) select_changes.listOpen = /*listOpen*/ctx[1];
       if (dirty & /*disabled*/1) select_changes.disabled = /*disabled*/ctx[0];
-      if (dirty & /*$$scope, emptyElement*/262176) {
+      if (dirty & /*$$scope, emptyElement*/524320) {
         select_changes.$$scope = {
           dirty,
           ctx
         };
+      }
+      if (!updating_value && dirty & /*selectValue*/4) {
+        updating_value = true;
+        select_changes.value = /*selectValue*/ctx[2];
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_value = false);
       }
       if (!updating_filterText && dirty & /*searchTerm*/8) {
         updating_filterText = true;
@@ -8894,7 +8905,7 @@ function create_fragment(ctx) {
 let allowCreation = true;
 function instance($$self, $$props, $$invalidate) {
   let $currentListKey;
-  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(14, $currentListKey = $$value));
+  (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _store_current_list_screen__WEBPACK_IMPORTED_MODULE_5__.currentListKey, $$value => $$invalidate(15, $currentListKey = $$value));
   let {
     config
   } = $$props;
@@ -8936,7 +8947,7 @@ function instance($$self, $$props, $$invalidate) {
     }
   });
   const selectEnter = e => {
-    if (e.key === 'Enter' && allowCreation && emptyElement !== null) {
+    if (e.key === 'Enter' && allowCreation && typeof emptyElement !== 'undefined' && emptyElement !== null) {
       selectNewItem();
     }
   };
@@ -8966,6 +8977,10 @@ function instance($$self, $$props, $$invalidate) {
       $$invalidate(5, emptyElement);
     });
   }
+  function select_value_binding(value) {
+    selectValue = value;
+    $$invalidate(2, selectValue);
+  }
   function select_filterText_binding(value) {
     searchTerm = value;
     $$invalidate(3, searchTerm);
@@ -8975,7 +8990,7 @@ function instance($$self, $$props, $$invalidate) {
     if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
     if ('value' in $$props) $$invalidate(9, value = $$props.value);
   };
-  return [disabled, listOpen, selectValue, searchTerm, options, emptyElement, selectEnter, changeValue, groupBy, value, config, div_binding, select_filterText_binding];
+  return [disabled, listOpen, selectValue, searchTerm, options, emptyElement, selectEnter, changeValue, groupBy, value, config, div_binding, select_value_binding, select_filterText_binding];
 }
 class SelectRemoteInput extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
