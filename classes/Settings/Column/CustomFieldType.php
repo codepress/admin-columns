@@ -7,9 +7,9 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Setting\Component\Input\OptionFactory;
 use AC\Setting\Component\OptionCollection;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\RecursiveFormatterTrait;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 
 class CustomFieldType extends AC\Settings\Control implements Formatter, AC\Setting\Recursive
@@ -44,9 +44,7 @@ class CustomFieldType extends AC\Settings\Control implements Formatter, AC\Setti
             OptionFactory::create_select(
                 'field_type',
                 $this->get_field_type_options(),
-                $field_type,
-                null,
-                true
+                $field_type
             ),
             __('Field Type', 'codepress-admin-columns'),
             __('This will determine how the value will be displayed.', 'codepress-admin-columns')

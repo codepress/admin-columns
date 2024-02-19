@@ -60,6 +60,13 @@
         return validSettings;
     }
 
+    const hasProfeatures = (config: AC.Column.Settings.ColumnSettingCollection) => {
+        const proFeatureNames: string[] = ['export', 'sort', 'edit', 'bulk_edit', 'search', 'filter'];
+
+        return config.filter(c => c.input && proFeatureNames.includes(c.input.name)).length > 0
+
+    }
+
     const checkAppliedSettings = () => {
         let settings: string[] = checkAppliedSubSettings(['name', 'type'], config, '');
 
@@ -94,7 +101,9 @@
 			{#if data.width && data.width_unit}
 				{data.width} {data.width_unit}
 			{/if}
-			<ProFeatureToggles bind:data={data} bind:config={config}></ProFeatureToggles>
+			{#if hasProfeatures( config )}
+				<ProFeatureToggles bind:data={data} bind:config={config}></ProFeatureToggles>
+			{/if}
 		</div>
 		<div class="ac-column-header__open-indicator acu-flex acu-justify-end">
 			<button class="ac-open-indicator" class:-open={opened} on:click={toggle}>

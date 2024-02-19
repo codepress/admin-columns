@@ -2,6 +2,7 @@
 
     import HeaderToggle from "./settings/HeaderToggle.svelte";
     import {listScreenIsReadOnly} from "../store/read_only";
+    import {onMount} from "svelte";
 
     export let data: any = {};
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -15,18 +16,20 @@
         {feature: 'filter', title: 'Enable Filtering', iconClass: 'dashicons dashicons-filter'},
     ];
 
+    onMount(() => {
+        console.log(config);
+    })
 
 </script>
 {#if config}
 	<div class="acu-flex acu-items-center acu-gap-1">
 		{#each proFeatures as feature}
-
-			{#if config.find( c => c.name === feature.feature )}
+			{#if config.find( c => c.input && c.input.name === feature.feature )}
 				<HeaderToggle bind:value={data[feature.feature]} title={feature.title} disabled={$listScreenIsReadOnly}>
 					<span class="{feature.iconClass}"></span>
 				</HeaderToggle>
 			{:else}
-				<div class="ac-header-toggle -skeleton acu-border-[transparent] acu-bg-none acu-cursor-default"></div>
+				<div class="ac-header-toggle acu-invisible -skeleton acu-border-[transparent] acu-bg-none acu-cursor-default"></div>
 			{/if}
 
 		{/each}
