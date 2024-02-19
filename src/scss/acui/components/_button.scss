@@ -16,6 +16,7 @@
 	color: #1E293B;
 	cursor: pointer;
 	text-decoration: none;
+	line-height: 18px;
 
 
 	&:hover, &:focus, &:active {
@@ -29,7 +30,12 @@
 	background: transparent;
 }
 
-.acui-button :global(.acui-icon) {
+.acui-button .acui-icon .dashicons {
+	transform: translateY(-2px);
+}
+
+.acui-button :global(.acui-icon),
+.acui-button .dashicons{
 	transform: translateY(-2px);
 }
 
