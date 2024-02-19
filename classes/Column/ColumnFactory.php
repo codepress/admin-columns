@@ -14,6 +14,7 @@ use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Settings\Column\WidthFactory;
 use AC\Settings\SettingFactory;
+use AC\Type\ColumnParent;
 
 abstract class ColumnFactory
 {
@@ -85,13 +86,19 @@ abstract class ColumnFactory
             $this->get_label(),
             $formatter,
             $components,
-            $this->get_group()
+            $this->get_group(),
+            $this->get_parent()
         );
     }
 
     abstract public function get_type(): string;
 
     abstract protected function get_label(): string;
+
+    protected function get_parent(): ?ColumnParent
+    {
+        return null;
+    }
 
     protected function get_group(): ?string
     {

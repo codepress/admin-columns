@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\Recursive;
-use AC\Setting\ComponentCollection;
 use AC\Settings\Control;
 use AC\Type\ColumnId;
+use AC\Type\ColumnParent;
 
 class Column
 {
@@ -23,18 +24,22 @@ class Column
 
     private $renderable;
 
+    private $parent;
+
     public function __construct(
         string $type,
         string $label,
         Formatter $formatter,
         ComponentCollection $settings,
-        string $group = null
+        string $group = null,
+        ColumnParent $parent = null
     ) {
         $this->type = $type;
         $this->label = $label;
         $this->renderable = $formatter;
         $this->settings = $settings;
         $this->group = $group ?? 'custom';
+        $this->parent = $parent;
     }
 
     public function get_type(): string
@@ -71,6 +76,11 @@ class Column
     public function get_group(): string
     {
         return $this->group;
+    }
+
+    public function get_parent(): ?ColumnParent
+    {
+        return $this->parent;
     }
 
     public function get_settings(): ComponentCollection

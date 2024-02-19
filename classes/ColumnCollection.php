@@ -52,4 +52,9 @@ class ColumnCollection implements ColumnIterator
         return count($this->data);
     }
 
+    public function first(): ?Column
+    {
+        return reset($this->data);
+    }
+
 }

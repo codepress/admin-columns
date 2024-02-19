@@ -9,9 +9,6 @@ use AC\Settings;
 class PostStatus extends Settings\Control
 {
 
-    // TODO remove
-    public const NAME = 'post_status';
-
     public function __construct(array $post_status = null, Specification $conditions = null)
     {
         $input = Setting\Component\Input\OptionFactory::create_select(

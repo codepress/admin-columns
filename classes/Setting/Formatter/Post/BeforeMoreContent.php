@@ -12,9 +12,15 @@ class BeforeMoreContent implements Formatter
 
     public function format(Value $value): Value
     {
+        $post = get_post((int)$value->get_id());
+
+        if ( ! $post) {
+            return $value->with_value(false);
+        }
+
         $content = '';
-        $p = get_post($value->get_id());
-        $extended = get_extended($p->post_content);
+
+        $extended = get_extended($post->post_content);
 
         if ( ! empty($extended['extended'])) {
             $content = $extended['main'];

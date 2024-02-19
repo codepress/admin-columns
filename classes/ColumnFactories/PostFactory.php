@@ -7,6 +7,7 @@ namespace AC\ColumnFactories;
 use AC;
 use AC\Collection;
 use AC\ColumnFactories;
+use AC\ColumnFactory\CustomField;
 use AC\ColumnFactory\CustomFieldFactory;
 use AC\ColumnFactory\Post;
 use AC\ColumnFactory\Post\CommentFactory;
@@ -34,6 +35,21 @@ class PostFactory implements ColumnFactories
         }
 
         $post_type = $table_screen->get_post_type();
+        $meta_type = new MetaType(MetaType::POST);
+        $meta_key_factory = $this->container->make(
+            Settings\Column\MetaKeyFactory::class,
+            [
+                'meta_type' => $meta_type,
+            ]
+        );
+
+        // TODO Test
+        $factories[] = $this->container->make(CustomField\TextFactory::class, [
+            'meta_key_factory' => $meta_key_factory,
+        ]);
+        $factories[] = $this->container->make(CustomField\NumberFactory::class, [
+            'meta_key_factory' => $meta_key_factory,
+        ]);
 
         $factories[] = $this->container->make(
             CustomFieldFactory::class,
@@ -44,6 +60,7 @@ class PostFactory implements ColumnFactories
                 ),
             ]
         );
+
         $factories[] = $this->container->get(Post\AttachmentFactory::class);
         $factories[] = $this->container->get(Post\AuthorFactory::class);
         $factories[] = $this->container->get(Post\FeaturedImageFactory::class);

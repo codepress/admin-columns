@@ -22,7 +22,7 @@ class Property implements Formatter
         $comment = get_comment($value->get_id());
 
         return $value->with_value(
-            $comment->{$this->property}
+            $comment->{$this->property} ?? false
         );
     }
 

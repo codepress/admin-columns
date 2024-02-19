@@ -23,9 +23,10 @@ class PrimaryColumn
         $default_column = $this->list_screen->get_column($default);
 
         $columns = $this->list_screen->get_columns();
+        $column = $columns->first();
 
-        if ( ! $default_column && $columns->valid()) {
-            $default = $columns->current()->get_name();
+        if ( ! $default_column && $column) {
+            $default = $column->get_name();
         }
 
         $table_screen = $this->list_screen->get_table_screen();

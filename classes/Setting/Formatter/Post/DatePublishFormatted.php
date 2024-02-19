@@ -12,7 +12,11 @@ class DatePublishFormatted implements Formatter
 
     public function format(Value $value): Value
     {
-        $post = get_post($value->get_id());
+        $post = get_post((int)$value->get_id());
+
+        if ( ! $post) {
+            return $value;
+        }
 
         switch ($post->post_status) {
             // Icons
