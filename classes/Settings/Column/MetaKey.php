@@ -39,7 +39,7 @@ class MetaKey extends Control implements Formatter
     public function format(Value $value): Value
     {
         return $value->with_value(
-            (string)get_metadata(
+            get_metadata(
                 (string)$this->meta_type,
                 (int)$value->get_id(),
                 $this->meta_key,

@@ -38,7 +38,9 @@ final class Value
 
     public function __toString(): string
     {
-        return (string)$this->value;
+        return is_scalar($this->value)
+            ? (string)$this->value
+            : '';
     }
 
 }
