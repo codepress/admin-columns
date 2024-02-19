@@ -34,7 +34,7 @@ class User extends Control implements Formatter, AC\Setting\Recursive
             $specification
         );
 
-        $this->user_format = $user_format ?: 'first_last_name';
+        $this->user_format = $user_format;
         $this->settings = $settings;
     }
 
@@ -46,7 +46,7 @@ class User extends Control implements Formatter, AC\Setting\Recursive
                 $this->user_format
             )
         );
-        
+
         return $this->get_recursive_formatter()
                     ->format($value);
     }

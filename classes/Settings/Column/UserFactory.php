@@ -21,7 +21,7 @@ class UserFactory implements SettingFactory
     public function create(Config $config, Specification $specification = null): Component
     {
         return new User(
-            (string)$config->get('display_author_as'),
+            (string)$config->get('display_author_as') ?: 'first_last_name',
             new ComponentCollection([
                 $this->user_link_factory->create($config),
             ]),

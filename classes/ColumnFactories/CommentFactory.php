@@ -26,19 +26,24 @@ class CommentFactory implements ColumnFactories
         if ( ! $table_screen instanceof AC\TableScreen\Comment) {
             return null;
         }
-        //
-        //        $factories[] = $this->container->make(
-        //            CustomFieldFactory::class,
-        //            [
-        //                'custom_field_factory' => new Settings\Column\CustomFieldFactory(
-        //                    new MetaType(MetaType::POST),
-        //                    $this->container->get(CustomFieldTypeFactory::class)
-        //                ),
-        //            ]
-        //        );
+
+        // Todo implement custom field
 
         $factories[] = $this->container->get(Comment\AgentFactory::class);
         $factories[] = $this->container->get(Comment\ApprovedFactory::class);
+        $factories[] = $this->container->get(Comment\AuthorAvatar::class);
+        $factories[] = $this->container->get(Comment\AuthorIpFactory::class);
+        $factories[] = $this->container->get(Comment\AuthorNameFactory::class);
+        $factories[] = $this->container->get(Comment\AuthorUrlFactory::class);
+        $factories[] = $this->container->get(Comment\DateGmtFactory::class);
+        $factories[] = $this->container->get(Comment\ExcerptFactory::class);
+        $factories[] = $this->container->get(Comment\IdFactory::class);
+        $factories[] = $this->container->get(Comment\PostFactory::class);
+        $factories[] = $this->container->get(Comment\ReplyToFactory::class);
+        $factories[] = $this->container->get(Comment\StatusFactory::class);
+        $factories[] = $this->container->get(Comment\CommentTypeFactory::class);
+        $factories[] = $this->container->get(Comment\UserFactory::class);
+        $factories[] = $this->container->get(Comment\WordCountFactory::class);
 
         $collection = new Collection\ColumnFactories();
 

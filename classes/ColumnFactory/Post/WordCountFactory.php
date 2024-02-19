@@ -26,6 +26,6 @@ class WordCountFactory extends ColumnFactory
     ): Formatter\AggregateBuilder {
         return parent::create_formatter_builder($components, $config)
                      ->add(new Formatter\Post\PostContent())
-                     ->add(new Formatter\Post\WordCount());
+                     ->add(new Formatter\WordCount());
     }
 }
