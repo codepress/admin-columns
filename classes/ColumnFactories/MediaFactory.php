@@ -8,6 +8,7 @@ use AC;
 use AC\Collection;
 use AC\ColumnFactories;
 use AC\ColumnFactory\Media;
+use AC\ColumnFactory\Post;
 use AC\TableScreen;
 use AC\Vendor\DI\Container;
 
@@ -39,9 +40,22 @@ class MediaFactory implements ColumnFactories
         $factories[] = $this->container->get(Media\ExifDataFactory::class);
         $factories[] = $this->container->get(Media\FileMetaAudioFactory::class);
         $factories[] = $this->container->get(Media\FileMetaVideoFactory::class);
+        $factories[] = $this->container->get(Media\FileNameFactory::class);
+        $factories[] = $this->container->get(Media\FileSizeFactory::class);
+        $factories[] = $this->container->get(Media\FullPathFactory::class);
+        $factories[] = $this->container->get(Media\HeightFactory::class);
+        $factories[] = $this->container->get(Media\ImageFactory::class);
+        $factories[] = $this->container->get(Media\MimeTypeFactory::class);
+        $factories[] = $this->container->get(Media\PreviewFactory::class);
+        $factories[] = $this->container->get(Media\WidthFactory::class);
+
         //        $factories[] = $this->container->make(Media\ExifData::class, [
         //            'exif_data_factory' => new AC\Settings\Column\ExifDataFactory(),
         //        ]);
+
+        $factories[] = $this->container->make(Post\MenuFactory::class, [
+            'post_type' => $table_screen->get_post_type(),
+        ]);
 
         $collection = new Collection\ColumnFactories();
 
