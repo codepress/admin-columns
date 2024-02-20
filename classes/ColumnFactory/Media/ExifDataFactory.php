@@ -8,15 +8,16 @@ use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Settings\Column\ExifDataFactory;
+use AC\Settings;
 
+// TODO finish
 class ExifDataFactory extends ColumnFactory
 {
 
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        ExifDataFactory $exif_data_factory
+        Settings\Column\ExifDataFactory $exif_data_factory
     ) {
         parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 

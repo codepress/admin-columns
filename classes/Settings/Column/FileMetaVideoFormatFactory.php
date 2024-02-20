@@ -7,7 +7,6 @@ namespace AC\Settings\Column;
 use AC\Expression\Specification;
 use AC\Setting\Config;
 use AC\Settings\Component;
-use AC\Settings\Control;
 use AC\Settings\SettingFactory;
 
 final class FileMetaVideoFormatFactory implements SettingFactory

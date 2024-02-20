@@ -3,14 +3,13 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
 class FileMetaAudio extends FileMeta implements Formatter
 {
 
-    public function __construct(string $meta_key, Specification $specification)
+    public function __construct(string $meta_key, Specification $specification = null)
     {
         $types = [
             'bitrate'           => __('Bitrate', 'codepress-admin-columns'),
@@ -35,52 +34,40 @@ class FileMetaAudio extends FileMeta implements Formatter
         parent::__construct(__('Audio Meta', 'codepress-admin-columns'), $types, $meta_key, $specification);
     }
 
-    public function format_($value, $original_value)
+    public function format(Value $value): Value
     {
-        switch ($this->get_media_meta_key()) {
+        switch ($this->meta_key) {
             case 'bitrate':
-                if ($value > 1000) {
-                    $value = sprintf('%s %s', number_format($value / 1000), __('Kbps', 'codepress-admin-columns'));
-                }
-
-                return $value;
+                return (new Formatter\Media\Audio\Bitrate())->format($value);
             case 'channels':
-                if ($value > 0) {
-                    $value = sprintf(
-                        '%s %s',
-                        number_format($value),
-                        _n('channel', 'channels', $value, 'codepress-admin-columns')
-                    );
-                }
-
-                return $value;
+                return (new Formatter\Media\Audio\Channels())->format($value);
             case 'compression_ratio':
-                if ($value > 0) {
-                    $value = number_format($value, 4);
-                }
-
-                return $value;
+                return $value->get_value() > 0
+                    ? $value->with_value(number_format($value->get_value(), 4))
+                    : $value;
             case 'created_timestamp':
-                return $value
-                    ? ac_helper()->date->format_date(
-                        sprintf('%s %s', get_option('date_format'), get_option('time_format')),
-                        $value
+                return $value->get_value()
+                    ? $value->with_value(
+                        ac_helper()->date->format_date(
+                            sprintf('%s %s', get_option('date_format'), get_option('time_format')),
+                            $value->get_value()
+                        )
                     )
-                    : '';
+                    : $value;
             case 'filesize':
-                return ac_helper()->file->get_readable_filesize($value);
+                return $value->with_value(ac_helper()->file->get_readable_filesize($value->get_value()));
             case 'length':
-                if ($value > 0) {
-                    $value = sprintf('%s %s', number_format($value), __('sec', 'codepress-admin-columns'));
-                }
-
-                return $value;
+                return $value->get_value() > 0
+                    ? $value->with_value(
+                        sprintf('%s %s', number_format($value->get_value()), __('sec', 'codepress-admin-columns'))
+                    )
+                    : $value;
             case 'sample_rate':
-                if ($value > 0) {
-                    $value = sprintf('%s %s', number_format($value), __('Hz', 'codepress-admin-columns'));
-                }
-
-                return $value;
+                return $value->get_value() > 0
+                    ? $value->with_value(
+                        sprintf('%s %s', number_format($value->get_value()), __('Hz', 'codepress-admin-columns'))
+                    )
+                    : $value;
             default:
                 return $value;
         }

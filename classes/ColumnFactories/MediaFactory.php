@@ -37,6 +37,8 @@ class MediaFactory implements ColumnFactories
         $factories[] = $this->container->get(Media\DimensionsFactory::class);
         $factories[] = $this->container->get(Media\DownloadFactory::class);
         $factories[] = $this->container->get(Media\ExifDataFactory::class);
+        $factories[] = $this->container->get(Media\FileMetaAudioFactory::class);
+        $factories[] = $this->container->get(Media\FileMetaVideoFactory::class);
         //        $factories[] = $this->container->make(Media\ExifData::class, [
         //            'exif_data_factory' => new AC\Settings\Column\ExifDataFactory(),
         //        ]);

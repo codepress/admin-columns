@@ -3,12 +3,13 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Settings\FormatValue;
+use AC\Setting\Formatter;
+use AC\Setting\Type\Value;
 
-class FileMetaVideo extends FileMeta implements FormatValue
+class FileMetaVideo extends FileMeta implements Formatter
 {
 
-    public function __construct(string $meta_key, Specification $specification)
+    public function __construct(string $meta_key, Specification $specification = null)
     {
         $video_types = [
             'created_timestamp' => __('Created Timestamp', 'codepress-admin-columns'),
@@ -44,54 +45,56 @@ class FileMetaVideo extends FileMeta implements FormatValue
         );
     }
 
-    private function wrap_audio_string($string)
+    private function format_suffix_number_format(Value $value, string $suffix): Value
     {
-        return sprintf('%s (%s)', $string, __('audio', 'codepress-admin-columns'));
+        return $value->with_value(
+            sprintf('%s %s', number_format($value->get_value()), $suffix)
+        );
     }
 
-    public function format($value, $original_value)
+    // TODO Test formatting
+    public function format(Value $value): Value
     {
-        // TODO
-        switch ($this->get_media_meta_key()) {
+        switch ($this->meta_key) {
             case 'height':
             case 'width':
-                if ($value > 0) {
-                    $value = sprintf('%s %s', number_format($value), __('px', 'codepress-admin-columns'));
-                }
-
-                return $value;
+                return $value->get_value() > 0
+                    ? $this->format_suffix_number_format($value, __('px', 'codepress-admin-columns'))
+                    : $value;
             case 'length':
-                if ($value > 0) {
-                    $value = sprintf('%s %s', number_format($value), __('sec', 'codepress-admin-columns'));
-                }
-
-                return $value;
-            case 'audio/channels':
-                if ($value > 0) {
-                    $value = sprintf(
-                        '%s %s',
-                        number_format($value),
-                        _n('channels', 'channels', $value, 'codepress-admin-columns')
-                    );
-                }
-
-                return $value;
-            case 'audio/sample_rate':
-                if ($value > 0) {
-                    $value = sprintf('%s %s', number_format($value), __('Hz', 'codepress-admin-columns'));
-                }
-
-                return $value;
-            case 'created_timestamp':
-                return $value
-                    ? ac_helper()->date->format_date(
-                        sprintf('%s %s', get_option('date_format'), get_option('time_format')),
-                        $value
+                return $value->get_value() > 0
+                    ? $this->format_suffix_number_format($value, __('sec', 'codepress-admin-columns'))
+                    : $value;
+            case 'audio.channels':
+                return $value->get_value() > 0
+                    ? $this->format_suffix_number_format(
+                        $value,
+                        _n('channels', 'channels', $value->get_value(), 'codepress-admin-columns')
                     )
-                    : '';
+                    : $value;
+
+            case 'audio.sample_rate':
+                return $value->get_value() > 0
+                    ? $this->format_suffix_number_format($value, __('Hz', 'codepress-admin-columns'))
+                    : $value;
+            case 'created_timestamp':
+                return $value->get_value()
+                    ? $value->with_value(
+                        ac_helper()->date->format_date(
+                            sprintf('%s %s', get_option('date_format'), get_option('time_format')),
+                            $value->get_value()
+                        )
+                    )
+                    : $value;
+
             default:
                 return $value;
         }
+    }
+
+    private function wrap_audio_string($string): string
+    {
+        return sprintf('%s (%s)', $string, __('audio', 'codepress-admin-columns'));
     }
 
 }
