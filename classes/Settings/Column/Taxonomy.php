@@ -12,13 +12,14 @@ class Taxonomy extends Settings\Control
 
     // TODO implement Formatter
 
-    public function __construct(string $post_type = null, Specification $conditions = null)
+    public function __construct(string $taxonomy = null, string $post_type = null, Specification $conditions = null)
     {
         $input = AC\Setting\Component\Input\OptionFactory::create_select(
             'taxonomy',
             OptionCollection::from_array(
                 ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)
-            )
+            ),
+            $taxonomy
         );
 
         parent::__construct(
@@ -28,19 +29,5 @@ class Taxonomy extends Settings\Control
             $conditions
         );
     }
-
-    //    public function create_view()
-    //    {
-    //        $taxonomy = $this->create_element('select', 'taxonomy');
-    //        $taxonomy->set_no_result(__('No taxonomies available.', 'codepress-admin-columns'))
-    //                 ->set_options(ac_helper()->taxonomy->get_taxonomy_selection_options($this->get_post_type()))
-    //                 ->set_attribute('data-label', 'update')
-    //                 ->set_attribute('data-refresh', 'column');
-    //
-    //        return new View([
-    //            'setting' => $taxonomy,
-    //            'label'   => __('Taxonomy', 'codepress-admin-columns'),
-    //        ]);
-    //    }
 
 }

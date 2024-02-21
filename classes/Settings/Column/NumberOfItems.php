@@ -11,10 +11,10 @@ use AC\Settings;
 class NumberOfItems extends Settings\Control
 {
 
-    public function __construct(Specification $specification = null)
+    public function __construct(int $number_of_items, Specification $specification = null)
     {
         parent::__construct(
-            Number::create_single_step('number_of_items', 0, null, 10),
+            Number::create_single_step('number_of_items', 0, null, $number_of_items),
             __('Number of Items', 'codepress-admin-columns'),
             sprintf(
                 '%s <em>%s</em>',

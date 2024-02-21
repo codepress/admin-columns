@@ -21,7 +21,8 @@ class TermLink extends Settings\Control implements AC\Setting\Formatter
     {
         $input = OptionFactory::create_select(
             'term_link_to',
-            OptionCollection::from_array($this->get_link_options())
+            OptionCollection::from_array($this->get_link_options()),
+            $term_link_to
         );
 
         parent::__construct(
