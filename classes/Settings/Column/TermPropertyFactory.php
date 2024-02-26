@@ -9,21 +9,13 @@ use AC\Setting\Config;
 use AC\Settings\Component;
 use AC\Settings\SettingFactory;
 
-final class TermLinkFactory implements SettingFactory
+final class TermPropertyFactory implements SettingFactory
 {
-
-    private $post_type;
-
-    public function __construct(string $post_type = null)
-    {
-        $this->post_type = $post_type;
-    }
 
     public function create(Config $config, Specification $specification = null): Component
     {
-        return new TermLink(
-            $config->get('term_link_to') ?: '',
-            $this->post_type,
+        return new TermProperty(
+            $config->get('term_property') ?: '',
             $specification
         );
     }

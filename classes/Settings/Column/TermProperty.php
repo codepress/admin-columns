@@ -9,7 +9,7 @@ use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class Term extends Settings\Control implements Formatter
+class TermProperty extends Settings\Control implements Formatter
 {
 
     public const NAME = 'term';
@@ -27,7 +27,7 @@ class Term extends Settings\Control implements Formatter
                     'id'   => __('ID'),
                 ]
             ),
-            ''
+            $term_property
         );
 
         parent::__construct(
@@ -42,11 +42,7 @@ class Term extends Settings\Control implements Formatter
     // TODO test
     public function format(Value $value): Value
     {
-        $term = $value->get_value();
-
-        if (is_numeric($term)) {
-            $term = get_term($term);
-        }
+        $term = get_term($value->get_id());
 
         if ( ! $term || is_wp_error($term)) {
             return $value;
@@ -54,11 +50,11 @@ class Term extends Settings\Control implements Formatter
 
         switch ($this->term_property) {
             case 'slug' :
-                return $term->slug;
+                return $value->with_value($term->slug);
             case 'id' :
-                return $term->term_id;
+                return $value->with_value($term->term_id);
             default :
-                return $term->name;
+                return $value->with_value($term->name);
         }
     }
 
