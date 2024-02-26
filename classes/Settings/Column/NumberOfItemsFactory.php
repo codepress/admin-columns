@@ -15,8 +15,7 @@ class NumberOfItemsFactory implements SettingFactory
     public function create(Config $config, Specification $specification = null): Component
     {
         return new NumberOfItems(
-            $config->has('number_of_items') ? $config->get('number_of_items') : 10,
-
+            $config->has('number_of_items') ? (int)$config->get('number_of_items') : 10,
             $specification
         );
     }
