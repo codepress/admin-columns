@@ -4,15 +4,18 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
+use AC\Setting\Type\Value;
 use AC\Settings;
 
 // TODO implement formatter (Interface was CollectionFormatter)
-class Separator extends Settings\Control
+class Separator extends Settings\Control implements AC\Setting\Formatter
 {
 
     public const NAME = 'separator';
 
-    public function __construct(string $separator = null, Specification $conditions = null)
+    private $separator;
+
+    public function __construct(string $separator, Specification $conditions = null)
     {
         $input = AC\Setting\Component\Input\OptionFactory::create_select(
             'separator',
@@ -24,7 +27,7 @@ class Separator extends Settings\Control
                 'none'            => __('None', 'codepress-admin-columns'),
                 'white_space'     => __('Whitespace', 'codepress-admin-columns'),
             ]),
-            $separator ?: 'comma'
+            $separator
         );
 
         parent::__construct(
@@ -33,18 +36,38 @@ class Separator extends Settings\Control
             null,
             $conditions
         );
+
+        $this->separator = $separator;
     }
 
-    // TODO formatter
-    //
-    //    public function get_separator_formatted()
-    //    {
+    private function create_separator(): string
+    {
+        switch ($this->separator) {
+            case 'white_space' :
+                return ' ';
+            case 'newline' :
+                return '<br>';
+            case 'horizontal_rule' :
+                return '<hr>';
+            case 'none';
+                return '';
+            case 'comma' :
+            default :
+                return ', ';
+        }
+    }
 
-    //    }
-    //
-    //    public function format(Collection $collection, $original_value)
-    //    {
-    //        return $collection->filter()->implode($this->get_separator_formatted());
-    //    }
+    public function format(Value $value): Value
+    {
+        $values = [];
+
+        foreach ($value->get_value() as $_value) {
+            $values[] = (string)$_value;
+        }
+
+        return $value->with_value(
+            implode($this->create_separator(), $values)
+        );
+    }
 
 }

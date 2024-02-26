@@ -29,7 +29,9 @@ class PostTerms implements Formatter
         $collection = new ValueCollection();
 
         foreach ($terms as $term) {
-            $collection->add(new Value($term->term_id));
+            $collection->add(
+                new Value($term->term_id, $term->name)
+            );
         }
 
         return $value->with_value($collection);

@@ -7,6 +7,7 @@ namespace AC\Setting\Formatter;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Setting\ValueCollection;
+use AC\Settings\Column\Separator;
 
 final class Aggregate implements Formatter
 {
@@ -54,6 +55,10 @@ final class Aggregate implements Formatter
         $collection = $value->get_value();
 
         if ( ! $collection instanceof ValueCollection) {
+            return $formatter->format($value);
+        }
+
+        if ($formatter instanceof Separator) {
             return $formatter->format($value);
         }
 
