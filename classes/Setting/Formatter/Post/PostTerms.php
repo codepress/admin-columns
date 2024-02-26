@@ -6,6 +6,7 @@ namespace AC\Setting\Formatter\Post;
 
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
+use AC\Setting\ValueCollection;
 
 class PostTerms implements Formatter
 {
@@ -25,8 +26,13 @@ class PostTerms implements Formatter
             return $value->with_value(false);
         }
 
-        // TODO Probably give back a value collection and let the other formatter each item
-        return $value->with_value($terms);
+        $value_collection = new ValueCollection([]);
+
+        foreach ($terms as $term) {
+            $value_collection->add(new Value($term->term_id));
+        }
+
+        return $value->with_value($value_collection);
     }
 
 }

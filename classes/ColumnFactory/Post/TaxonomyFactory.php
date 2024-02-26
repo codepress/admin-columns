@@ -44,6 +44,6 @@ class TaxonomyFactory extends ColumnFactory
         Config $config
     ): Formatter\AggregateBuilder {
         return parent::create_formatter_builder($components, $config)
-                     ->prepend(new Formatter\Post\PostTerms($config->get('taxonomy')));
+                     ->prepend(new Formatter\Post\PostTerms((string)$config->get('taxonomy')));
     }
 }
