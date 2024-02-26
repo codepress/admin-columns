@@ -293,22 +293,10 @@ class Strings
         return $value || 0 === $value || '0' === $value;
     }
 
-    /**
-     * Return an array into a comma separated sentence. For example [minute, hours, days] becomes: "minute, hours or days".
-     *
-     * @param array  $words
-     * @param string $compound
-     *
-     * @return string
-     */
-    public function enumeration_list($words, $compound = 'or')
+    public function enumeration_list(array $items, string $compound = 'or'): string
     {
-        if (empty($words) || ! is_array($words)) {
-            return false;
-        }
-
         if ('and' === $compound) {
-            return wp_sprintf('%l', $words);
+            return wp_sprintf('%l', $items);
         }
 
         if ('or' === $compound) {
@@ -317,10 +305,10 @@ class Strings
 
         $compound = sprintf(' %s ', trim($compound));
 
-        $last = end($words);
+        $last = end($items);
         $delimiter = ', ';
 
-        return str_replace($delimiter . $last, $compound . $last, implode($delimiter, $words));
+        return str_replace($delimiter . $last, $compound . $last, implode($delimiter, $items));
     }
 
 }

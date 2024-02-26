@@ -23,7 +23,7 @@ class PostTerms implements Formatter
         $terms = get_the_terms($value->get_id(), $this->taxonomy);
 
         if ( ! $terms || is_wp_error($terms)) {
-            return $value->with_value(false);
+            return new Value(null);
         }
 
         $collection = new ValueCollection();

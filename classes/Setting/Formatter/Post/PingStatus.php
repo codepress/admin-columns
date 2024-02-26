@@ -14,7 +14,9 @@ class PingStatus implements Formatter
     {
         $ping_status = get_post_field('ping_status', $value->get_id(), 'raw');
 
-        return $value->with_value(ac_helper()->icon->yes_or_no('open' === $ping_status, $ping_status));
+        return $value->with_value(
+            ac_helper()->icon->yes_or_no('open' === $ping_status, $ping_status)
+        );
     }
 
 }

@@ -12,7 +12,9 @@ class ShortLink implements Formatter
 
     public function format(Value $value): Value
     {
-        return $value->with_value(wp_get_shortlink($value->get_id()));
+        return $value->with_value(
+            wp_get_shortlink($value->get_id())
+        );
     }
 
 }

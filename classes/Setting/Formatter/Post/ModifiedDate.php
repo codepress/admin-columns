@@ -12,7 +12,9 @@ class ModifiedDate implements Formatter
 
     public function format(Value $value): Value
     {
-        return new Value(get_post_field('post_modified', $value->get_value()));
+        return $value->with_value(
+            get_post_field('post_modified', $value->get_value())
+        );
     }
 
 }

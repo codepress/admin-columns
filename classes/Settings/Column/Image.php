@@ -13,8 +13,9 @@ use AC\Setting\Component\OptionCollection;
 use AC\Setting\Component\Type\Option;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
+use AC\Settings\Control;
 
-class Image extends AC\Settings\Control implements AC\Setting\Recursive, AC\Setting\Formatter
+class Image extends Control implements AC\Setting\Recursive, AC\Setting\Formatter
 {
 
     protected $image_format;
@@ -86,13 +87,13 @@ class Image extends AC\Settings\Control implements AC\Setting\Recursive, AC\Sett
     public function get_children(): ComponentCollection
     {
         return new ComponentCollection([
-            new AC\Settings\Control(
+            new Control(
                 Number::create_single_step('image_size_w', 0, null, $this->width),
                 __('Width', 'codepress-admin-columns'),
                 '',
                 StringComparisonSpecification::equal('cpac-custom')
             ),
-            new AC\Settings\Control(
+            new Control(
                 Number::create_single_step('image_size_h', 0, null, $this->height),
                 __('Height', 'codepress-admin-columns'),
                 '',

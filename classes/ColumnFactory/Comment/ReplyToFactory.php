@@ -6,6 +6,8 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\Formatter\Comment\ParentId;
+use AC\Setting\Formatter\Comment\ReplyToLink;
 
 class ReplyToFactory extends ColumnFactory
 {
@@ -25,9 +27,8 @@ class ReplyToFactory extends ColumnFactory
         Config $config
     ): Formatter\AggregateBuilder {
         return parent::create_formatter_builder($components, $config)
-                     ->prepend(
-                         new Formatter\Comment\ParentId()
-                     )->add(new Formatter\Comment\ReplyToLink());
+                     ->prepend(new ParentId())
+                     ->add(new ReplyToLink());
     }
 
 }

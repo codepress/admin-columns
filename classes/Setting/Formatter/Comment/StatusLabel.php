@@ -15,7 +15,7 @@ class StatusLabel implements Formatter
         $comment = get_comment($value->get_id());
 
         if ( ! $comment) {
-            return $value->with_value(false);
+            return new Value(null);
         }
 
         $status = $comment->comment_approved;
@@ -28,7 +28,7 @@ class StatusLabel implements Formatter
         return $value->with_value($label);
     }
 
-    private function get_statuses()
+    private function get_statuses(): array
     {
         return [
             'trash'        => __('Trash'),

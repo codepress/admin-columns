@@ -15,7 +15,7 @@ class DatePublishFormatted implements Formatter
         $post = get_post((int)$value->get_id());
 
         if ( ! $post) {
-            return $value;
+            return new Value(null);
         }
 
         switch ($post->post_status) {

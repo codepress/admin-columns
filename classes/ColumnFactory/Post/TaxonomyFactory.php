@@ -6,8 +6,10 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
+use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\AggregateBuilderFactory;
+use AC\Setting\Formatter\Collection\LimitSeparator;
+use AC\Setting\Formatter\Post\PostTerms;
 use AC\Settings;
 
 class TaxonomyFactory extends ColumnFactory
@@ -39,11 +41,10 @@ class TaxonomyFactory extends ColumnFactory
         return __('Taxonomy', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(
-        ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
+    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
+    {
         return parent::create_formatter_builder($components, $config)
-                     ->prepend(new Formatter\Post\PostTerms((string)$config->get('taxonomy')));
+                     ->prepend(new PostTerms((string)$config->get('taxonomy')))
+                     ->add(LimitSeparator::create_by_config($config));
     }
 }

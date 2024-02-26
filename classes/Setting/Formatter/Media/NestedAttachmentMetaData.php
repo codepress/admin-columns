@@ -23,8 +23,9 @@ class NestedAttachmentMetaData implements Formatter
 
         $attachment_meta = ac_helper()->array->get_nested_value($meta, $this->keys);
 
+        // TODO test
         return is_scalar($attachment_meta)
-            ? new Value($attachment_meta)
+            ? $value->with_value($attachment_meta)
             : new Value(null);
     }
 

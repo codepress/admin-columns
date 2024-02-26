@@ -21,9 +21,11 @@ class Property implements Formatter
     {
         $comment = get_comment($value->get_id());
 
-        return $value->with_value(
-            $comment->{$this->property} ?? false
-        );
+        $property = $comment->{$this->property} ?? null;
+
+        return $property
+            ? $value->with_value($property)
+            : new Value(null);
     }
 
 }

@@ -15,7 +15,7 @@ class BeforeMoreContent implements Formatter
         $post = get_post((int)$value->get_id());
 
         if ( ! $post) {
-            return $value->with_value(false);
+            return new Value(null);
         }
 
         $content = '';

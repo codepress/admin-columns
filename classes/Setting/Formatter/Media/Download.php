@@ -15,7 +15,7 @@ class Download implements Formatter
         $url = wp_get_attachment_url($value->get_id());
 
         if ( ! $url) {
-            return $value->with_value(false);
+            return new Value(null);
         }
 
         return $value->with_value(

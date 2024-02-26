@@ -12,8 +12,13 @@ class LastModifiedAuthor implements Formatter
 
     public function format(Value $value): Value
     {
-        // TODO Test if null ID is possible
-        return new Value(get_post_meta($value->get_id(), '_edit_last', true));
+        $user_id = get_post_meta($value->get_id(), '_edit_last', true);
+
+        if ( ! get_userdata($user_id)) {
+            return new Value(null);
+        }
+
+        return new Value($user_id);
     }
 
 }

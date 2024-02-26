@@ -12,13 +12,15 @@ class FileSize implements Formatter
 
     public function format(Value $value): Value
     {
-        $abs = get_attached_file($value->get_id());
+        $file = get_attached_file($value->get_id());
 
-        if ( ! file_exists($abs)) {
-            return $value->with_value(false);
+        if ( ! file_exists($file)) {
+            return new Value(null);
         }
 
-        return $value->with_value(ac_helper()->file->get_readable_filesize(filesize($abs)));
+        return $value->with_value(
+            ac_helper()->file->get_readable_filesize(filesize($file))
+        );
     }
 
 }

@@ -14,11 +14,9 @@ class UserId implements Formatter
     {
         $comment = get_comment($value->get_id());
 
-        if ( ! $comment) {
-            return new Value(null);
-        }
-
-        return new Value($comment->user_id);
+        return new Value(
+            $comment->user_id ?? null
+        );
     }
 
 }
