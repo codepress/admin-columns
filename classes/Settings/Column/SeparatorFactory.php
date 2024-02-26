@@ -15,7 +15,7 @@ class SeparatorFactory implements SettingFactory
     public function create(Config $config, Specification $specification = null): Component
     {
         return new Separator(
-            $config->get('separator'),
+            (string)$config->get('separator'),
             $specification
         );
     }
