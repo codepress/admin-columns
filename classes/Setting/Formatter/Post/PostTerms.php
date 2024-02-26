@@ -25,7 +25,7 @@ class PostTerms implements Formatter
         if ( ! $terms || is_wp_error($terms)) {
             return $value->with_value(false);
         }
-
+        
         $value_collection = new ValueCollection([]);
 
         foreach ($terms as $term) {

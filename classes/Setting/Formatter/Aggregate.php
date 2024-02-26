@@ -6,6 +6,7 @@ namespace AC\Setting\Formatter;
 
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
+use AC\Setting\ValueCollection;
 
 final class Aggregate implements Formatter
 {
@@ -38,11 +39,33 @@ final class Aggregate implements Formatter
 
         foreach ($positioned_formatters as $formatters) {
             foreach ($formatters as $formatter) {
-                $value = $formatter->format($value);
+                $value = $this->format_collection(
+                    $value,
+                    $formatter
+                );
             }
         }
 
         return $value;
+    }
+
+    private function format_collection(Value $value, Formatter $formatter): Value
+    {
+        $collection = $value->get_value();
+
+        if ( ! $collection instanceof ValueCollection) {
+            return $formatter->format($value);
+        }
+
+        $values = new ValueCollection();
+
+        foreach ($collection as $_value) {
+            $values->add($formatter->format($_value));
+        }
+
+        return $value->with_value(
+            $values
+        );
     }
 
 }
