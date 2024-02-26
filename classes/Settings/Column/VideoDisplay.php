@@ -12,7 +12,7 @@ use AC\Settings;
 class VideoDisplay extends Settings\Control
 {
 
-    public function __construct(Specification $conditions = null)
+    public function __construct(string $video_display, Specification $conditions = null)
     {
         parent::__construct(
             OptionFactory::create_select(
@@ -21,7 +21,7 @@ class VideoDisplay extends Settings\Control
                     'embed' => __('Embed', 'codepress-admin-columns'),
                     'modal' => __('Pop Up', 'codepress-admin-columns'),
                 ]),
-                'embed'
+                $video_display
             ),
             __('Display', 'codepress-admin-columns'),
             null,

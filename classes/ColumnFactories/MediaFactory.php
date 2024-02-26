@@ -47,6 +47,7 @@ class MediaFactory implements ColumnFactories
         $factories[] = $this->container->get(Media\ImageFactory::class);
         $factories[] = $this->container->get(Media\MimeTypeFactory::class);
         $factories[] = $this->container->get(Media\PreviewFactory::class);
+        $factories[] = $this->container->get(Media\VideoPlayerFactory::class);
         $factories[] = $this->container->get(Media\WidthFactory::class);
 
         //        $factories[] = $this->container->make(Media\ExifData::class, [

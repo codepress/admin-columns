@@ -93,10 +93,12 @@ class PostFactory implements ColumnFactories
         $factories[] = $this->container->get(Post\StickyFactory::class);
         $factories[] = $this->container->get(Post\TitleRawFactory::class);
 
-        $factories[] = $this->container->make(Post\TaxonomyFactory::class, [
-            'taxonomy_factory' => new Settings\Column\TaxonomyFactory($post_type),
-            'term_link_factory' => new Settings\Column\TermLinkFactory($post_type),
-        ]);
+        if (count(ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)) > 0) {
+            $factories[] = $this->container->make(Post\TaxonomyFactory::class, [
+                'taxonomy_factory' => new Settings\Column\TaxonomyFactory($post_type),
+                'term_link_factory' => new Settings\Column\TermLinkFactory($post_type),
+            ]);
+        }
 
         $factories[] = $this->container->get(Post\WordCountFactory::class);
 
