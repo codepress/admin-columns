@@ -3,7 +3,6 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\Comment\Property;
@@ -21,13 +20,9 @@ class AgentFactory extends ColumnFactory
         return 'column-agent';
     }
 
-    protected function create_formatter_builder(
-        ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->prepend(
-            new Property('comment_agent')
-        );
+    protected function create_formatter(Config $config): Formatter
+    {
+        return new Property('comment_agent');
     }
 
 }
