@@ -12,7 +12,9 @@ class YesNoIcon implements Formatter
 
     public function format(Value $value): Value
     {
-        return $value->with_value(ac_helper()->icon->yes_or_no($value->get_value()));
+        return $value->with_value(
+            ac_helper()->icon->yes_or_no((bool)$value->get_value())
+        );
     }
 
 }
