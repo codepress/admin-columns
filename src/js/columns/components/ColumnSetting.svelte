@@ -9,7 +9,7 @@
 </style>
 <div class="acp-column-setting lg:acu-flex acu-px-6 acu-mb-2 {extraClass}">
 
-	<div class="acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px]">
+	<div class="acp-column-setting__label acu-font-semibold lg:acu-py-2 lg:acu-w-[200px] acu-flex-shrink-0">
 		{label}
 	</div>
 
