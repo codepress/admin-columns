@@ -8,7 +8,7 @@ use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Setting\Formatter\Collection\LimitSeparator;
+use AC\Setting\Formatter\Collection\Separator;
 use AC\Setting\Formatter\Post\PostTerms;
 use AC\Settings;
 
@@ -45,6 +45,6 @@ class TaxonomyFactory extends ColumnFactory
     {
         return parent::create_formatter_builder($components, $config)
                      ->prepend(new PostTerms((string)$config->get('taxonomy')))
-                     ->add(LimitSeparator::create_by_config($config));
+                     ->add(Separator::create_from_config($config));
     }
 }

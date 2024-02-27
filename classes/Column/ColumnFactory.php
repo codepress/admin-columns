@@ -105,16 +105,21 @@ abstract class ColumnFactory
         return null;
     }
 
+    protected function create_formatter(Config $config): Formatter
+    {
+        $components = $this->create_components($config);
+
+        return $this->create_formatter_builder($components, $config)
+                    ->build();
+    }
+
     public function create(Config $config): Column
     {
         $this->add_component_factories();
 
-        $components = $this->create_components($config);
-        $formatter_builder = $this->create_formatter_builder($components, $config);
-
         return $this->create_column(
-            $components,
-            $formatter_builder->build(),
+            $this->create_components($config),
+            $this->create_formatter($config),
             $config
         );
     }

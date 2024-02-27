@@ -74,6 +74,7 @@ class User
                 if ($user->last_name) {
                     $name_parts[] = $user->last_name;
                 }
+
                 return $name_parts
                     ? implode(' ', $name_parts)
                     : $user->display_name;
