@@ -2217,7 +2217,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (208:0) {:else}
+// (213:0) {:else}
 function create_else_block(ctx) {
   let columnsformskeleton;
   let current;
@@ -2246,7 +2246,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (138:0) {#if data }
+// (143:0) {#if data }
 function create_if_block(ctx) {
   let div5;
   let header;
@@ -2457,7 +2457,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (144:5) {#if $listScreenIsReadOnly}
+// (149:5) {#if $listScreenIsReadOnly}
 function create_if_block_4(ctx) {
   let span;
   return {
@@ -2476,7 +2476,7 @@ function create_if_block_4(ctx) {
   };
 }
 
-// (159:3) {#if data.columns.length === 0 || data.columns === null}
+// (164:3) {#if data.columns.length === 0 || data.columns === null}
 function create_if_block_3(ctx) {
   let div3;
   let div0;
@@ -2603,7 +2603,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (167:6) <AcDropdown maxHeight="300px" value position="bottom-left">
+// (172:6) <AcDropdown maxHeight="300px" value position="bottom-left">
 function create_default_slot_5(ctx) {
   let columntypedropdown;
   let current;
@@ -2633,7 +2633,7 @@ function create_default_slot_5(ctx) {
   };
 }
 
-// (168:7) <AcButton slot="trigger">
+// (173:7) <AcButton slot="trigger">
 function create_default_slot_4(ctx) {
   let t0;
   let t1_value = /*i18n*/ctx[6].editor.label.add_column + "";
@@ -2657,7 +2657,7 @@ function create_default_slot_4(ctx) {
   };
 }
 
-// (168:7) 
+// (173:7) 
 function create_trigger_slot_1(ctx) {
   let acbutton;
   let current;
@@ -2705,7 +2705,7 @@ function create_trigger_slot_1(ctx) {
   };
 }
 
-// (173:6) <AcButton loading={loadingDefaultColumns} --acui-loading-color="#000" on:click={handleLoadDefaultColumns}>
+// (178:6) <AcButton loading={loadingDefaultColumns} --acui-loading-color="#000" on:click={handleLoadDefaultColumns}>
 function create_default_slot_3(ctx) {
   let t_value = /*i18n*/ctx[6].editor.label.load_default_columns + "";
   let t;
@@ -2725,7 +2725,7 @@ function create_default_slot_3(ctx) {
   };
 }
 
-// (182:4) {#each data.columns as column_data(column_data.name)}
+// (187:4) {#each data.columns as column_data(column_data.name)}
 function create_each_block(key_1, ctx) {
   let first;
   let columnitem;
@@ -2798,7 +2798,7 @@ function create_each_block(key_1, ctx) {
   };
 }
 
-// (192:2) {#if !$listScreenIsReadOnly}
+// (197:2) {#if !$listScreenIsReadOnly}
 function create_if_block_1(ctx) {
   let footer;
   let div;
@@ -2892,7 +2892,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (195:5) {#if data.columns.length > 0}
+// (200:5) {#if data.columns.length > 0}
 function create_if_block_2(ctx) {
   let acbutton;
   let current;
@@ -2941,7 +2941,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (196:6) <AcButton type="text" on:click={clearColumns}>
+// (201:6) <AcButton type="text" on:click={clearColumns}>
 function create_default_slot_2(ctx) {
   let t_value = /*i18n*/ctx[6].editor.label.clear_columns + "";
   let t;
@@ -2961,7 +2961,7 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (198:5) <AcDropdown maxHeight="400px" --acui-dropdown-width="300px" value position="bottom-left">
+// (203:5) <AcDropdown maxHeight="400px" --acui-dropdown-width="300px" value position="bottom-left">
 function create_default_slot_1(ctx) {
   let columntypedropdown;
   let current;
@@ -2991,7 +2991,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (199:6) <AcButton slot="trigger">
+// (204:6) <AcButton slot="trigger">
 function create_default_slot(ctx) {
   let t0;
   let t1_value = /*i18n*/ctx[6].editor.label.add_columns + "";
@@ -3015,7 +3015,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (199:6) 
+// (204:6) 
 function create_trigger_slot(ctx) {
   let acbutton;
   let current;
@@ -3268,8 +3268,13 @@ function instance($$self, $$props, $$invalidate) {
     scrollToColumn(columnName);
   });
   const scrollToColumn = columnName => {
-    var _a;
-    (_a = document.querySelector(`.ac-column[data-name="${columnName}"]`)) === null || _a === void 0 ? void 0 : _a.scrollIntoView();
+    let columnElement = document.querySelector(`.ac-column[data-name="${columnName}"]`);
+    if (columnElement) {
+      window.scroll({
+        top: columnElement.offsetTop,
+        behavior: "smooth"
+      });
+    }
   };
   const deleteColumn = columnName => {
     _store_list_screen_data__WEBPACK_IMPORTED_MODULE_10__.listScreenDataStore.deleteColumn(columnName);

@@ -94,7 +94,14 @@
     }
 
     const scrollToColumn = ( columnName: string ) => {
-        document.querySelector(`.ac-column[data-name="${columnName}"]`)?.scrollIntoView();
+        let columnElement = document.querySelector<HTMLElement>(`.ac-column[data-name="${columnName}"]`);
+
+        if( columnElement ){
+			window.scroll({
+				top: columnElement.offsetTop,
+				behavior: "smooth"
+			})
+		}
 	}
 
     const deleteColumn = (columnName: string) => {
