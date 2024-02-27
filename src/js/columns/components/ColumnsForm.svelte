@@ -65,16 +65,17 @@
                 label: columnLabel ?? name
             });
             openedColumnsStore.open(name);
-        }).catch( ( e ) => {
+        }).catch((e) => {
             NotificationProgrammatic.open({
                 message: e.message,
                 type: 'error'
             });
-		} );
+        });
     }
 
     const duplicateColumn = async (columnName: string) => {
         let foundColumn = data.columns.find(c => c.name === columnName) ?? null;
+        let foundIndex = data.columns.findIndex(c => c.name === columnName) ?? null;
 
         if (!foundColumn) {
             throw new Error(`Column ${columnName} could not be duplicated`);
@@ -82,7 +83,7 @@
 
         const clonedName = ColumnUtils.generateId();
 
-        data['columns'].push(Object.assign({}, foundColumn, {name: clonedName}));
+        data.columns.splice(foundIndex + 1, 0, Object.assign({}, foundColumn, {name: clonedName}))
 
         await tick();
 
@@ -111,7 +112,7 @@
     }
 
     const handleLoadDefaultColumns = () => {
-		loadingDefaultColumns = true;
+        loadingDefaultColumns = true;
         loadDefaultColumns($currentListKey).then(response => {
             if (response.data.success) {
                 data.columns = response.data.data.columns;
