@@ -6,6 +6,7 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\Formatter\Comment\Property;
 
 class AgentFactory extends ColumnFactory
 {
@@ -25,7 +26,7 @@ class AgentFactory extends ColumnFactory
         Config $config
     ): Formatter\AggregateBuilder {
         return parent::create_formatter_builder($components, $config)->prepend(
-            new Formatter\Comment\Property('comment_agent')
+            new Property('comment_agent')
         );
     }
 

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter\Post;
 
-use AC;
+use AC\Helper\Menu;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
+use AC\Setting\ValueCollection;
 
 class UsedByMenu implements Formatter
 {
@@ -20,26 +21,26 @@ class UsedByMenu implements Formatter
 
     public function format(Value $value): Value
     {
-        $menus = $this->get_menus(
-            (int)$value->get_id(),
-            [
-                'fields' => 'ids',
-                'orderby' => 'name',
-            ]
-        );
+        $collection = new ValueCollection();
+
+        foreach ($this->get_menu_terms((int)$value->get_id()) as $term) {
+            $collection->add(new Value($term->term_id, $term->name));
+        }
 
         return $value->with_value(
-            $menus
+            $collection
         );
     }
 
-    private function get_menus(int $object_id, array $args = []): array
+    private function get_menu_terms(int $object_id): array
     {
-        $helper = new AC\Helper\Menu();
+        $helper = new Menu();
 
         return $helper->get_terms(
             $helper->get_ids($object_id, $this->post_type),
-            $args
+            [
+                'orderby' => 'name',
+            ]
         );
     }
 

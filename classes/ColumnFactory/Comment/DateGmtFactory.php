@@ -5,7 +5,9 @@ namespace AC\ColumnFactory\Comment;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
+use AC\Setting\Formatter\AggregateBuilder;
+use AC\Setting\Formatter\Comment\LinkableCommentDate;
+use AC\Setting\Formatter\Comment\Property;
 
 class DateGmtFactory extends ColumnFactory
 {
@@ -20,13 +22,11 @@ class DateGmtFactory extends ColumnFactory
         return 'column-date_gmt';
     }
 
-    protected function create_formatter_builder(
-        ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
+    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
+    {
         return parent::create_formatter_builder($components, $config)
-                     ->prepend(new Formatter\Comment\Property('comment_date_gmt'))
-                     ->add(new Formatter\Comment\LinkableCommentDate());
+                     ->prepend(new Property('comment_date_gmt'))
+                     ->add(new LinkableCommentDate());
     }
 
 }

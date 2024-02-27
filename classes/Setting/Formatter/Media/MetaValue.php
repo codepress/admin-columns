@@ -19,7 +19,9 @@ class MetaValue implements Formatter
 
     public function format(Value $value): Value
     {
-        return $value->with_value(get_post_meta($value->get_id(), $this->key, true));
+        return $value->with_value(
+            get_post_meta($value->get_id(), $this->key, true)
+        );
     }
 
 }

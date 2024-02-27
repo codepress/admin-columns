@@ -356,12 +356,8 @@ class Html
 
     /**
      * Small HTML block with grey background and rounded corners
-     *
-     * @param string|array $items
-     *
-     * @return string
      */
-    public function small_block($items)
+    public function small_block($items): string
     {
         $blocks = [];
 
@@ -374,12 +370,7 @@ class Html
         return implode($blocks);
     }
 
-    /**
-     * @param array $args
-     *
-     * @return string
-     */
-    public function progress_bar($args = [])
+    public function progress_bar($args = []): string
     {
         $defaults = [
             'current'     => 0,
@@ -449,9 +440,13 @@ class Html
         return ob_get_clean();
     }
 
-    public function more($array, $number = 10, $glue = ', ')
+    public function more(array $array, int $number = 10, string $glue = null): string
     {
-        if ( ! $number) {
+        if (null === $glue) {
+            $glue = ', ';
+        }
+
+        if (0 === $number || count($array) <= $number) {
             return implode($glue, $array);
         }
 
@@ -482,12 +477,8 @@ class Html
 
     /**
      * Return round HTML span
-     *
-     * @param $string
-     *
-     * @return string
      */
-    public function rounded($string)
+    public function rounded(string $string): string
     {
         return '<span class="ac-rounded">' . $string . '</span>';
     }

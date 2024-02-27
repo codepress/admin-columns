@@ -12,13 +12,9 @@ class PostParent implements Formatter
 
     public function format(Value $value): Value
     {
-        $parent = ac_helper()->post->get_raw_field('post_parent', (int)$value->get_id());
+        $parent = (int)ac_helper()->post->get_raw_field('post_parent', (int)$value->get_id());
 
-        if ($parent == 0) {
-            return new Value(false);
-        }
-
-        return new Value($parent);
+        return new Value($parent ?: null);
     }
 
 }

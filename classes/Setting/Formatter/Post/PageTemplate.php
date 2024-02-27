@@ -10,6 +10,8 @@ use AC\Setting\Type\Value;
 class PageTemplate implements Formatter
 {
 
+    private $post_type;
+
     public function __construct(string $post_type)
     {
         $this->post_type = $post_type;
@@ -21,7 +23,7 @@ class PageTemplate implements Formatter
         $template = array_search($template, $this->get_page_templates());
 
         return $value->with_value(
-            $template ?: false
+            $template ?: null
         );
     }
 

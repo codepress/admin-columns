@@ -15,7 +15,7 @@ class PostDate implements Formatter
         $post = get_post($value->get_id());
 
         return $value->with_value(
-            $post->post_date ?? null
+            $post->post_date ?? false
         );
     }
 

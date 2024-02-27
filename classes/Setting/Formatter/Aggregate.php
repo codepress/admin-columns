@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter;
 
+use AC\Setting\CollectionFormatter;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Setting\ValueCollection;
-use AC\Settings\Column\Separator;
 
 final class Aggregate implements Formatter
 {
@@ -40,6 +40,10 @@ final class Aggregate implements Formatter
 
         foreach ($positioned_formatters as $formatters) {
             foreach ($formatters as $formatter) {
+                if ( ! $this->is_valid($value)) {
+                    continue;
+                }
+
                 $value = $this->format_collection(
                     $value,
                     $formatter
@@ -50,6 +54,12 @@ final class Aggregate implements Formatter
         return $value;
     }
 
+    private function is_valid(Value $value): bool
+    {
+        return null !== $value->get_value() &&
+               null !== $value->get_id();
+    }
+
     private function format_collection(Value $value, Formatter $formatter): Value
     {
         $collection = $value->get_value();
@@ -58,13 +68,17 @@ final class Aggregate implements Formatter
             return $formatter->format($value);
         }
 
-        if ($formatter instanceof Separator) {
+        if ($formatter instanceof CollectionFormatter) {
             return $formatter->format($value);
         }
 
         $values = new ValueCollection();
 
         foreach ($collection as $_value) {
+            if ( ! $this->is_valid($_value)) {
+                continue;
+            }
+
             $values->add($formatter->format($_value));
         }
 

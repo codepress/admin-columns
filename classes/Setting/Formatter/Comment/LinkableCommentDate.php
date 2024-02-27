@@ -19,7 +19,9 @@ class LinkableCommentDate implements Formatter
             ac_helper()->date->time($value->get_value())
         );
 
-        return $value->with_value("<div class='submitted-on'>{$label}</div>");
+        return $value->with_value(
+            sprintf("<div class='submitted-on'>%s</div>", $label)
+        );
     }
 
 }
