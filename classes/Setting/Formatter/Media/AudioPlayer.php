@@ -30,7 +30,7 @@ class AudioPlayer implements Formatter
         );
     }
 
-    private function get_valid_mime_types()
+    private function get_valid_mime_types(): array
     {
         return (array)apply_filters(
             'ac/column/audio_player/valid_mime_types',
@@ -39,21 +39,14 @@ class AudioPlayer implements Formatter
         );
     }
 
-    private function is_valid_mime_type($id)
+    private function is_valid_mime_type($id): bool
     {
-        return in_array($this->get_mime_type($id), $this->get_valid_mime_types());
+        return in_array($this->get_mime_type($id), $this->get_valid_mime_types(), true);
     }
 
-    private function get_mime_type($id)
+    private function get_mime_type($id): string
     {
         return (string)get_post_field('post_mime_type', $id);
-    }
-
-    public function get_raw_value($id)
-    {
-        return $this->is_valid_mime_type($id)
-            ? wp_get_attachment_url($id)
-            : false;
     }
 
 }
