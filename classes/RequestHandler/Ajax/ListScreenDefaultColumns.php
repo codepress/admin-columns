@@ -24,7 +24,7 @@ class ListScreenDefaultColumns implements RequestAjaxHandler
 
     public function __construct(
         Aggregate $table_screen_factory,
-        ColumnTypeRepository $column_type_repository,
+        ColumnTypeRepository $column_type_repository
     ) {
         $this->table_screen_factory = $table_screen_factory;
         $this->column_type_repository = $column_type_repository;
