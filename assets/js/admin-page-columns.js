@@ -739,6 +739,7 @@ function create_fragment(ctx) {
   let div4;
   let button;
   let t10;
+  let div5_data_name_value;
   let current;
   let mounted;
   let dispose;
@@ -798,6 +799,7 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "class", "ac-column-header__open-indicator acu-flex acu-justify-end");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(header, "class", "ac-column-header acu-flex acu-py-2 acu-pr-6 acu-items-center acu-bg-[#fff]");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div5, "class", "ac-column");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div5, "data-name", div5_data_name_value = /*data*/ctx[0].name);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div5, "-opened", /*opened*/ctx[4]);
     },
     m(target, anchor) {
@@ -902,6 +904,9 @@ function create_fragment(ctx) {
           if_block3 = null;
         });
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
+      }
+      if (!current || dirty & /*data*/1 && div5_data_name_value !== (div5_data_name_value = /*data*/ctx[0].name)) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div5, "data-name", div5_data_name_value);
       }
       if (!current || dirty & /*opened*/16) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.toggle_class)(div5, "-opened", /*opened*/ctx[4]);
@@ -2206,13 +2211,13 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[28] = list[i];
-  child_ctx[29] = list;
-  child_ctx[30] = i;
+  child_ctx[29] = list[i];
+  child_ctx[30] = list;
+  child_ctx[31] = i;
   return child_ctx;
 }
 
-// (203:0) {:else}
+// (208:0) {:else}
 function create_else_block(ctx) {
   let columnsformskeleton;
   let current;
@@ -2241,7 +2246,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (133:0) {#if data }
+// (138:0) {#if data }
 function create_if_block(ctx) {
   let div5;
   let header;
@@ -2270,7 +2275,7 @@ function create_if_block(ctx) {
   let if_block0 = /*$listScreenIsReadOnly*/ctx[5] && create_if_block_4(ctx);
   let if_block1 = ( /*data*/ctx[0].columns.length === 0 || /*data*/ctx[0].columns === null) && create_if_block_3(ctx);
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*data*/ctx[0].columns);
-  const get_key = ctx => /*column_data*/ctx[28].name;
+  const get_key = ctx => /*column_data*/ctx[29].name;
   for (let i = 0; i < each_value.length; i += 1) {
     let child_ctx = get_each_context(ctx, each_value, i);
     let key = get_key(child_ctx);
@@ -2452,7 +2457,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (139:5) {#if $listScreenIsReadOnly}
+// (144:5) {#if $listScreenIsReadOnly}
 function create_if_block_4(ctx) {
   let span;
   return {
@@ -2471,7 +2476,7 @@ function create_if_block_4(ctx) {
   };
 }
 
-// (154:3) {#if data.columns.length === 0 || data.columns === null}
+// (159:3) {#if data.columns.length === 0 || data.columns === null}
 function create_if_block_3(ctx) {
   let div3;
   let div0;
@@ -2560,7 +2565,7 @@ function create_if_block_3(ctx) {
     },
     p(ctx, dirty) {
       const acdropdown_changes = {};
-      if (dirty[1] & /*$$scope*/1) {
+      if (dirty[1] & /*$$scope*/2) {
         acdropdown_changes.$$scope = {
           dirty,
           ctx
@@ -2569,7 +2574,7 @@ function create_if_block_3(ctx) {
       acdropdown.$set(acdropdown_changes);
       const acbutton_changes = {};
       if (dirty[0] & /*loadingDefaultColumns*/16) acbutton_changes.loading = /*loadingDefaultColumns*/ctx[4];
-      if (dirty[1] & /*$$scope*/1) {
+      if (dirty[1] & /*$$scope*/2) {
         acbutton_changes.$$scope = {
           dirty,
           ctx
@@ -2598,7 +2603,7 @@ function create_if_block_3(ctx) {
   };
 }
 
-// (162:6) <AcDropdown maxHeight="300px" value position="bottom-left">
+// (167:6) <AcDropdown maxHeight="300px" value position="bottom-left">
 function create_default_slot_5(ctx) {
   let columntypedropdown;
   let current;
@@ -2628,7 +2633,7 @@ function create_default_slot_5(ctx) {
   };
 }
 
-// (163:7) <AcButton slot="trigger">
+// (168:7) <AcButton slot="trigger">
 function create_default_slot_4(ctx) {
   let t0;
   let t1_value = /*i18n*/ctx[6].editor.label.add_column + "";
@@ -2652,7 +2657,7 @@ function create_default_slot_4(ctx) {
   };
 }
 
-// (163:7) 
+// (168:7) 
 function create_trigger_slot_1(ctx) {
   let acbutton;
   let current;
@@ -2677,7 +2682,7 @@ function create_trigger_slot_1(ctx) {
     },
     p(ctx, dirty) {
       const acbutton_changes = {};
-      if (dirty[1] & /*$$scope*/1) {
+      if (dirty[1] & /*$$scope*/2) {
         acbutton_changes.$$scope = {
           dirty,
           ctx
@@ -2700,7 +2705,7 @@ function create_trigger_slot_1(ctx) {
   };
 }
 
-// (168:6) <AcButton loading={loadingDefaultColumns} --acui-loading-color="#000" on:click={handleLoadDefaultColumns}>
+// (173:6) <AcButton loading={loadingDefaultColumns} --acui-loading-color="#000" on:click={handleLoadDefaultColumns}>
 function create_default_slot_3(ctx) {
   let t_value = /*i18n*/ctx[6].editor.label.load_default_columns + "";
   let t;
@@ -2720,7 +2725,7 @@ function create_default_slot_3(ctx) {
   };
 }
 
-// (177:4) {#each data.columns as column_data(column_data.name)}
+// (182:4) {#each data.columns as column_data(column_data.name)}
 function create_each_block(key_1, ctx) {
   let first;
   let columnitem;
@@ -2728,17 +2733,17 @@ function create_each_block(key_1, ctx) {
   let updating_data;
   let current;
   function columnitem_config_binding(value) {
-    /*columnitem_config_binding*/ctx[16](value, /*column_data*/ctx[28]);
+    /*columnitem_config_binding*/ctx[16](value, /*column_data*/ctx[29]);
   }
   function columnitem_data_binding(value) {
-    /*columnitem_data_binding*/ctx[17](value, /*column_data*/ctx[28], /*each_value*/ctx[29], /*column_data_index*/ctx[30]);
+    /*columnitem_data_binding*/ctx[17](value, /*column_data*/ctx[29], /*each_value*/ctx[30], /*column_data_index*/ctx[31]);
   }
   let columnitem_props = {};
-  if ( /*config*/ctx[1][/*column_data*/ctx[28].name ?? /*column_data*/ctx[28].type] !== void 0) {
-    columnitem_props.config = /*config*/ctx[1][/*column_data*/ctx[28].name ?? /*column_data*/ctx[28].type];
+  if ( /*config*/ctx[1][/*column_data*/ctx[29].name ?? /*column_data*/ctx[29].type] !== void 0) {
+    columnitem_props.config = /*config*/ctx[1][/*column_data*/ctx[29].name ?? /*column_data*/ctx[29].type];
   }
-  if ( /*column_data*/ctx[28] !== void 0) {
-    columnitem_props.data = /*column_data*/ctx[28];
+  if ( /*column_data*/ctx[29] !== void 0) {
+    columnitem_props.data = /*column_data*/ctx[29];
   }
   columnitem = new _ColumnItem_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: columnitem_props
@@ -2765,12 +2770,12 @@ function create_each_block(key_1, ctx) {
       const columnitem_changes = {};
       if (!updating_config && dirty[0] & /*config, data*/3) {
         updating_config = true;
-        columnitem_changes.config = /*config*/ctx[1][/*column_data*/ctx[28].name ?? /*column_data*/ctx[28].type];
+        columnitem_changes.config = /*config*/ctx[1][/*column_data*/ctx[29].name ?? /*column_data*/ctx[29].type];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_config = false);
       }
       if (!updating_data && dirty[0] & /*data*/1) {
         updating_data = true;
-        columnitem_changes.data = /*column_data*/ctx[28];
+        columnitem_changes.data = /*column_data*/ctx[29];
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_data = false);
       }
       columnitem.$set(columnitem_changes);
@@ -2793,7 +2798,7 @@ function create_each_block(key_1, ctx) {
   };
 }
 
-// (187:2) {#if !$listScreenIsReadOnly}
+// (192:2) {#if !$listScreenIsReadOnly}
 function create_if_block_1(ctx) {
   let footer;
   let div;
@@ -2858,7 +2863,7 @@ function create_if_block_1(ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
       const acdropdown_changes = {};
-      if (dirty[1] & /*$$scope*/1) {
+      if (dirty[1] & /*$$scope*/2) {
         acdropdown_changes.$$scope = {
           dirty,
           ctx
@@ -2887,7 +2892,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (190:5) {#if data.columns.length > 0}
+// (195:5) {#if data.columns.length > 0}
 function create_if_block_2(ctx) {
   let acbutton;
   let current;
@@ -2913,7 +2918,7 @@ function create_if_block_2(ctx) {
     },
     p(ctx, dirty) {
       const acbutton_changes = {};
-      if (dirty[1] & /*$$scope*/1) {
+      if (dirty[1] & /*$$scope*/2) {
         acbutton_changes.$$scope = {
           dirty,
           ctx
@@ -2936,7 +2941,7 @@ function create_if_block_2(ctx) {
   };
 }
 
-// (191:6) <AcButton type="text" on:click={clearColumns}>
+// (196:6) <AcButton type="text" on:click={clearColumns}>
 function create_default_slot_2(ctx) {
   let t_value = /*i18n*/ctx[6].editor.label.clear_columns + "";
   let t;
@@ -2956,7 +2961,7 @@ function create_default_slot_2(ctx) {
   };
 }
 
-// (193:5) <AcDropdown maxHeight="400px" --acui-dropdown-width="300px" value position="bottom-left">
+// (198:5) <AcDropdown maxHeight="400px" --acui-dropdown-width="300px" value position="bottom-left">
 function create_default_slot_1(ctx) {
   let columntypedropdown;
   let current;
@@ -2986,7 +2991,7 @@ function create_default_slot_1(ctx) {
   };
 }
 
-// (194:6) <AcButton slot="trigger">
+// (199:6) <AcButton slot="trigger">
 function create_default_slot(ctx) {
   let t0;
   let t1_value = /*i18n*/ctx[6].editor.label.add_columns + "";
@@ -3010,7 +3015,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (194:6) 
+// (199:6) 
 function create_trigger_slot(ctx) {
   let acbutton;
   let current;
@@ -3035,7 +3040,7 @@ function create_trigger_slot(ctx) {
     },
     p(ctx, dirty) {
       const acbutton_changes = {};
-      if (dirty[1] & /*$$scope*/1) {
+      if (dirty[1] & /*$$scope*/2) {
         acbutton_changes.$$scope = {
           dirty,
           ctx
@@ -3260,7 +3265,12 @@ function instance($$self, $$props, $$invalidate) {
     _store_opened_columns__WEBPACK_IMPORTED_MODULE_4__.openedColumnsStore.close(foundColumn.name);
     _store_opened_columns__WEBPACK_IMPORTED_MODULE_4__.openedColumnsStore.open(clonedName);
     $$invalidate(1, config[clonedName] = config[foundColumn.name], config);
+    scrollToColumn(columnName);
   });
+  const scrollToColumn = columnName => {
+    var _a;
+    (_a = document.querySelector(`.ac-column[data-name="${columnName}"]`)) === null || _a === void 0 ? void 0 : _a.scrollIntoView();
+  };
   const deleteColumn = columnName => {
     _store_list_screen_data__WEBPACK_IMPORTED_MODULE_10__.listScreenDataStore.deleteColumn(columnName);
   };

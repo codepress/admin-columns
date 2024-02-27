@@ -90,7 +90,12 @@
         openedColumnsStore.close(foundColumn.name);
         openedColumnsStore.open(clonedName);
         config[clonedName] = config[foundColumn.name];
+        scrollToColumn( columnName );
     }
+
+    const scrollToColumn = ( columnName: string ) => {
+        document.querySelector(`.ac-column[data-name="${columnName}"]`)?.scrollIntoView();
+	}
 
     const deleteColumn = (columnName: string) => {
         listScreenDataStore.deleteColumn(columnName);
