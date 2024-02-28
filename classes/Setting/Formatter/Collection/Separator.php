@@ -29,7 +29,7 @@ class Separator implements CollectionFormatter
     public static function create_from_config(Config $config): self
     {
         return new self(
-            self::get_separator($config->get('separator')),
+            self::get_separator((string)$config->get('separator')),
             (int)$config->get('number_of_items')
         );
     }

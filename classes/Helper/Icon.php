@@ -2,78 +2,77 @@
 
 namespace AC\Helper;
 
-class Icon {
+class Icon
+{
 
-	public function dashicon( $args = [] ) {
-		$defaults = [
-			'icon'    => '',
-			'title'   => '',
-			'class'   => '',
-			'tooltip' => '',
-		];
+    public function dashicon(array $args = []): string
+    {
+        $defaults = [
+            'icon'    => '',
+            'title'   => '',
+            'class'   => '',
+            'tooltip' => '',
+        ];
 
-		$data = (object) wp_parse_args( $args, $defaults );
+        $data = (object)wp_parse_args($args, $defaults);
 
-		$class = 'dashicons dashicons-' . $data->icon;
+        $class = 'dashicons dashicons-' . $data->icon;
 
-		if ( $data->class ) {
-			$class .= ' ' . trim( $data->class );
-		}
+        if ($data->class) {
+            $class .= ' ' . trim($data->class);
+        }
 
-		$attributes = [];
+        $attributes = [];
 
-		if ( $data->title ) {
-			$attributes[] = 'title="' . esc_attr( $data->title ) . '"';
-		}
+        if ($data->title) {
+            $attributes[] = sprintf('title="%s"', esc_attr($data->title));
+        }
 
-		if ( $data->tooltip && is_string( $data->tooltip ) ) {
-			$attributes[] = ac_helper()->html->get_tooltip_attr( $data->tooltip );
-		}
+        if ($data->tooltip && is_string($data->tooltip)) {
+            $attributes[] = ac_helper()->html->get_tooltip_attr($data->tooltip);
+        }
 
-		return '<span class="' . esc_attr( $class ) . '" ' . implode( ' ', $attributes ) . '></span>';
-	}
+        return sprintf(
+            '<span class="%s" %s></span>',
+            esc_attr($class),
+            implode(' ', $attributes)
+        );
+    }
 
-	/**
-	 * @param bool   $tooltip
-	 * @param bool   $title
-	 * @param string $class
-	 *
-	 * @return string
-	 * @since 3.0
-	 */
-	public function yes( $tooltip = false, $title = true, $class = 'green' ) {
-		if ( true === $title ) {
-			$title = __( 'Yes' );
-		}
+    public function yes(string $tooltip = null, string $title = null, string $class = 'green'): string
+    {
+        if (null === $title) {
+            $title = __('Yes');
+        }
 
-		return $this->dashicon( [ 'icon' => 'yes', 'class' => $class, 'title' => $title, 'tooltip' => $tooltip ] );
-	}
+        return $this->dashicon([
+            'icon'    => 'yes',
+            'class'   => $class,
+            'title'   => $title,
+            'tooltip' => $tooltip,
+        ]);
+    }
 
-	/**
-	 * @param bool   $tooltip
-	 * @param bool   $title
-	 * @param string $class
-	 *
-	 * @return string
-	 * @since 3.0
-	 */
-	public function no( $tooltip = false, $title = true, $class = 'red' ) {
-		if ( true === $title ) {
-			$title = __( 'No' );
-		}
+    public function no(string $tooltip = null, string $title = null, string $class = 'red'): string
+    {
+        if (null === $title) {
+            $title = __('No');
+        }
 
-		return $this->dashicon( [ 'icon' => 'no-alt', 'class' => $class, 'title' => $title, 'tooltip' => $tooltip ] );
-	}
+        return $this->dashicon([
+            'icon'    => 'no-alt',
+            'class'   => $class,
+            'title'   => $title,
+            'tooltip' => $tooltip,
+        ]);
+    }
 
-	/**
-	 * @param        $is_true
-	 * @param string $tooltip
-	 *
-	 * @return string HTML Dashicon
-	 * @since 3.0
-	 */
-	public function yes_or_no( $is_true, $tooltip = '' ) {
-		return $is_true ? $this->yes( $tooltip ) : $this->no( $tooltip );
-	}
+    // TODO check usages for `bool`
+    public function yes_or_no(bool $is_true, string $tooltip = null): string
+    {
+        return $is_true
+            ? $this->yes($tooltip)
+            : $this->no($tooltip);
+    }
 
 }

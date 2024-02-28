@@ -65,16 +65,17 @@
                 label: columnLabel ?? name
             });
             openedColumnsStore.open(name);
-        }).catch( ( e ) => {
+        }).catch((e) => {
             NotificationProgrammatic.open({
                 message: e.message,
                 type: 'error'
             });
-		} );
+        });
     }
 
     const duplicateColumn = async (columnName: string) => {
         let foundColumn = data.columns.find(c => c.name === columnName) ?? null;
+        let foundIndex = data.columns.findIndex(c => c.name === columnName) ?? null;
 
         if (!foundColumn) {
             throw new Error(`Column ${columnName} could not be duplicated`);
@@ -82,14 +83,26 @@
 
         const clonedName = ColumnUtils.generateId();
 
-        data['columns'].push(Object.assign({}, foundColumn, {name: clonedName}));
+        data.columns.splice(foundIndex + 1, 0, Object.assign({}, foundColumn, {name: clonedName}))
 
         await tick();
 
         openedColumnsStore.close(foundColumn.name);
         openedColumnsStore.open(clonedName);
         config[clonedName] = config[foundColumn.name];
+        scrollToColumn( columnName );
     }
+
+    const scrollToColumn = ( columnName: string ) => {
+        let columnElement = document.querySelector<HTMLElement>(`.ac-column[data-name="${columnName}"]`);
+
+        if( columnElement ){
+			window.scroll({
+				top: columnElement.offsetTop,
+				behavior: "smooth"
+			})
+		}
+	}
 
     const deleteColumn = (columnName: string) => {
         listScreenDataStore.deleteColumn(columnName);
@@ -111,7 +124,7 @@
     }
 
     const handleLoadDefaultColumns = () => {
-		loadingDefaultColumns = true;
+        loadingDefaultColumns = true;
         loadDefaultColumns($currentListKey).then(response => {
             if (response.data.success) {
                 data.columns = response.data.data.columns;

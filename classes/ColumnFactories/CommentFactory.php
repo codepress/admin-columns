@@ -31,7 +31,8 @@ class CommentFactory implements ColumnFactories
 
         $factories[] = $this->container->get(Comment\AgentFactory::class);
         $factories[] = $this->container->get(Comment\ApprovedFactory::class);
-        $factories[] = $this->container->get(Comment\AuthorAvatar::class);
+        $factories[] = $this->container->get(Comment\AuthorAvatarFactory::class);
+        $factories[] = $this->container->get(Comment\AuthorEmailFactory::class);
         $factories[] = $this->container->get(Comment\AuthorIpFactory::class);
         $factories[] = $this->container->get(Comment\AuthorNameFactory::class);
         $factories[] = $this->container->get(Comment\AuthorUrlFactory::class);

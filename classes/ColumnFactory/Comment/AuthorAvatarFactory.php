@@ -7,7 +7,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 
-class AuthorAvatar extends ColumnFactory
+class AuthorAvatarFactory extends ColumnFactory
 {
 
     protected function get_label(): string
