@@ -131,6 +131,10 @@
   flex-grow: 1
 }
 
+.acu-table-fixed {
+  table-layout: fixed
+}
+
 .acu-translate-y-\[-1px\] {
   --tw-translate-y: -1px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
@@ -265,6 +269,10 @@
   padding: 50px
 }
 
+.acu-p-2 {
+  padding: 10px
+}
+
 .acu-p-4 {
   padding: 20px
 }
@@ -275,6 +283,10 @@
 
 .acu-p-\[2px\] {
   padding: 2px
+}
+
+.acu-p-1 {
+  padding: 5px
 }
 
 .acu-px-1 {
@@ -315,6 +327,11 @@
 .acu-py-6 {
   padding-top: 30px;
   padding-bottom: 30px
+}
+
+.acu-py-1\.5 {
+  padding-top: 8px;
+  padding-bottom: 8px
 }
 
 .acu-pb-4 {

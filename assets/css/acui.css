@@ -336,6 +336,22 @@
     content: " ";
   }
 }
+.acui-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.acui-table thead td, .acui-table thead th {
+  border-bottom: 1px solid;
+  border-color: #E2E8F0;
+  background: #F9FAFB;
+  font-weight: bold;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.acui-table.ac-is-striped tbody tr:not(.is-selected):nth-child(2n) {
+  background: #F3F7FC;
+}
+
 .acui-toggle-buttons .button {
   border-radius: 0;
 }
