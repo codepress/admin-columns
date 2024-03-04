@@ -371,8 +371,15 @@ table.ac-table-items.-user-posts {
 		white-space: nowrap;
 	}
 
-	.col-date {white-space: nowrap; width: 1px;}
-	.col-post-type {white-space: nowrap; width: 1px;}
+	.col-date {
+		white-space: nowrap;
+		width: 1px;
+	}
+
+	.col-post-type {
+		white-space: nowrap;
+		width: 1px;
+	}
 
 	.col-post-type {
 		text-align: right;
@@ -1021,8 +1028,12 @@ div.cpac-color span {
 	&.-init {
 		display: block;
 	}
+
 	&.-hidden {
-		display: none;
+		margin:0;
+		.ac-table-actions-buttons {
+			display: none;
+		}
 	}
 
 	.ac-table-actions-buttons {

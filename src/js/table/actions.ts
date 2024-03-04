@@ -131,6 +131,7 @@ export default class Actions {
 
     }
 
+
     refresh() {
         this.buttons.getButtons().forEach(button => {
             if (button.isHidden()) {
