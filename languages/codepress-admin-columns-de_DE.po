@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-09-27 14:46:11+0000\n"
+"PO-Revision-Date: 2024-03-02 15:23:21+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-beta.2\n"
+"X-Generator: GlotPress/4.0.0-beta.3\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Admin Columns - Stable (latest release)\n"
 
@@ -2056,7 +2056,7 @@ msgstr ""
 #: classes/ColumnGroups.php:22 classes/Settings/Column/CustomFieldType.php:173
 #: classes/Settings/Column/Image.php:112
 msgid "Custom"
-msgstr "Benutzerdefiniert"
+msgstr "Individuell"
 
 #: classes/Settings/Column/DateTimeFormat.php:63
 msgid "This will determine how the date will be displayed."

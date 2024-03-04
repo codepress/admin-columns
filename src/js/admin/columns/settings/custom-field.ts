@@ -2,10 +2,8 @@ import {Column} from "../column";
 import Nanobus from "nanobus";
 // @ts-ignore
 import $ from 'jquery';
-import {AxiosPromise, AxiosResponse} from "axios";
+import axios, {AxiosPromise, AxiosResponse} from "axios";
 import {LocalizedAcColumnSettings} from "../../../types/admin-columns";
-
-import axios from "axios";
 
 declare const AC: LocalizedAcColumnSettings;
 declare const ajaxurl: string;
@@ -16,7 +14,11 @@ declare global {
 }
 
 export const initCustomFieldSelector = (column: Column) => {
-    column.getElement().querySelectorAll<HTMLElement>('[data-setting=custom_field]').forEach(setting => new CustomField(column, setting));
+    column.getElement().querySelectorAll<HTMLElement>('[data-setting=custom_field]').forEach(setting => {
+        if (setting.querySelectorAll('select').length > 0) {
+            new CustomField(column, setting)
+        }
+    });
 }
 
 class CustomField {
