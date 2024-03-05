@@ -11,6 +11,7 @@ use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Collection\LocalizeSeparator;
 use AC\Setting\Formatter\Post\UsedByMenu;
 use AC\Settings\Column\LinkToMenuFactory;
+use AC\Type\PostTypeSlug;
 
 class MenuFactory extends ColumnFactory
 {
@@ -21,7 +22,7 @@ class MenuFactory extends ColumnFactory
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
         LinkToMenuFactory $link_to_menu_factory,
-        string $post_type
+        PostTypeSlug $post_type
     ) {
         parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 

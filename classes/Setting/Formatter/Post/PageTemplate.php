@@ -23,7 +23,7 @@ class PageTemplate implements Formatter
         $template = array_search($template, $this->get_page_templates());
 
         return $value->with_value(
-            $template ?: null
+            $template ?: false
         );
     }
 
