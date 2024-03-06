@@ -8,7 +8,6 @@ use AC\Expression\Specification;
 use AC\Setting\Component;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
-use AC\Setting\Control;
 use AC\Setting\Control\Input;
 
 class Name implements ComponentFactory
@@ -19,14 +18,12 @@ class Name implements ComponentFactory
         return new Component(
             'Name',
             null,
-            new Control(
-                new Input(
-                    'name',
-                    'hidden',
-                    (string)$config->get('name')
-                ),
-                null
-            )
+            new Input(
+                'name',
+                'hidden',
+                (string)$config->get('name')
+            ),
+            null
         );
     }
 

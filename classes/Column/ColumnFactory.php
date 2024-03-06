@@ -33,7 +33,7 @@ abstract class ColumnFactory
         $this->aggregate_formatter_builder_factory = $aggregate_formatter_builder_factory;
         $this->component_factory_registry = $component_factory_registry;
 
-        //$this->add_component_factory($component_factory_registry->get_name_factory());
+        $this->add_component_factory($component_factory_registry->get_name_factory());
         //$this->add_component_factory($component_factory_registry->get_label_factory());
     }
 

@@ -33,11 +33,11 @@ final class Encoder
     private function encode_setting(Component $component): array
     {
         $encoded = [
-            'type' => $component->get_type(),
+            //'type'  => $component->get_type(),
             'label' => $component->get_label(),
         ];
 
-        if ( $component->has_description() ) {
+        if ($component->has_description()) {
             $encoded['description'] = $component->get_description();
         }
 
@@ -45,10 +45,12 @@ final class Encoder
             $encoded['attributes'][$attribute->get_name()] = $attribute->get_value();
         }
 
-        if ($component->has_control()) {
-            $input = $component->get_control()->get_input();
+        if ($component->has_input()) {
+            $input = $component->get_input();
 
-            $encoded['conditions'] = $component->get_control()->get_conditions()->get_rules($input->get_name());
+            if ($component->has_conditions()) {
+                $encoded['conditions'] = $component->get_conditions()->get_rules($input->get_name());
+            }
 
             $encoded['input'] = [
                 'type' => $input->get_type(),
