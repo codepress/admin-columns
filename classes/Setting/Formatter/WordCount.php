@@ -7,7 +7,7 @@ namespace AC\Setting\Formatter;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
-class WordCount implements Formatter
+final class WordCount implements Formatter
 {
 
     public function format(Value $value): Value

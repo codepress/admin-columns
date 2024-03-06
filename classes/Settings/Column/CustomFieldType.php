@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\Input\OptionFactory;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\Type\Value;
 
-class CustomFieldType extends AC\Settings\Control implements Formatter, AC\Setting\Recursive
+class CustomFieldType extends AC\Settings\Control implements Formatter, AC\Setting\Children
 {
 
     use RecursiveFormatterTrait;
@@ -80,7 +80,7 @@ class CustomFieldType extends AC\Settings\Control implements Formatter, AC\Setti
         return false;
     }
 
-    public function get_children(): ComponentCollection
+    public function get_iterator(): ComponentCollection
     {
         return $this->settings;
     }
@@ -97,13 +97,13 @@ class CustomFieldType extends AC\Settings\Control implements Formatter, AC\Setti
 
         $collection = new OptionCollection();
         $collection->add(
-            new AC\Setting\Component\Type\Option(__('Default', 'codepress-admin-columns'), '')
+            new AC\Setting\Control\Type\Option(__('Default', 'codepress-admin-columns'), '')
         );
 
         foreach ($this->get_field_types() as $group => $options) {
             foreach ($options as $value => $label) {
                 $collection->add(
-                    new AC\Setting\Component\Type\Option(
+                    new AC\Setting\Control\Type\Option(
                         $label,
                         $value,
                         $groups[$group] ?? $group

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Component;
+namespace AC\Setting\Control;
 
 use AC\Setting\Collection;
-use AC\Setting\Component\Type\Option;
+use AC\Setting\Control\Type\Option;
 
 final class OptionCollection extends Collection
 {
@@ -28,6 +28,22 @@ final class OptionCollection extends Collection
         }
 
         return $self;
+    }
+
+    public function contains(string $value): bool
+    {
+        return $this->find($value) !== null;
+    }
+
+    public function find(string $value): ?Option
+    {
+        foreach ($this->data as $option) {
+            if ($option->get_value() === $value) {
+                return $option;
+            }
+        }
+
+        return null;
     }
 
     public function add(Option $item): void

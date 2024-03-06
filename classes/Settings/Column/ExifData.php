@@ -6,13 +6,13 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
-use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\Input\OptionFactory;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class ExifData extends Settings\Control implements AC\Setting\Recursive, AC\Setting\Formatter
+class ExifData extends Settings\Control implements AC\Setting\Children, AC\Setting\Formatter
 {
 
     use AC\Setting\RecursiveFormatterTrait;
@@ -49,7 +49,7 @@ class ExifData extends Settings\Control implements AC\Setting\Recursive, AC\Sett
         return false;
     }
 
-    public function get_children(): ComponentCollection
+    public function get_iterator(): ComponentCollection
     {
         return $this->settings;
         //

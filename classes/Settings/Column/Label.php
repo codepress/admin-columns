@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 // TODO
-use AC\Setting\Component\Input;
+use AC\Setting\Control\Input;
 use AC\Settings\Control;
 
 class Label extends Control

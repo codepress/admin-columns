@@ -6,7 +6,7 @@ namespace AC;
 
 use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
-use AC\Setting\Recursive;
+use AC\Setting\Children;
 use AC\Settings\Control;
 use AC\Type\ColumnId;
 use AC\Type\ColumnParent;
@@ -101,8 +101,8 @@ class Column
         $settings = $settings ?: $this->settings;
 
         foreach ($settings as $setting) {
-            if ($setting instanceof Recursive) {
-                $found = $this->get_setting($name, $setting->get_children());
+            if ($setting instanceof Children) {
+                $found = $this->get_setting($name, $setting->get_iterator());
 
                 if ($found) {
                     return $found;

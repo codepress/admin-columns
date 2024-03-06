@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Component;
+namespace AC\Setting\Control;
 
 use AC\Setting\Collection;
-use AC\Setting\Component\Type\Attribute;
+use AC\Setting\Control\Type\Attribute;
 
 final class AttributeCollection extends Collection
 {

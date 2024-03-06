@@ -8,6 +8,7 @@ use AC\Settings\Column\LabelFactory;
 use AC\Settings\Column\NameFactory;
 use AC\Settings\Column\WidthFactory;
 
+// TODO David remove?
 final class ComponentCollectionBuilderFactory
 {
 
@@ -16,7 +17,7 @@ final class ComponentCollectionBuilderFactory
     private $width_factory;
 
     private $label_factory;
-    
+
     public function __construct(
         NameFactory $name_factory,
         WidthFactory $width_factory,

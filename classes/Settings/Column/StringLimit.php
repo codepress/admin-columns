@@ -6,14 +6,14 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting;
-use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\Input\OptionFactory;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class StringLimit extends Settings\Control implements Setting\Recursive, Setting\Formatter
+class StringLimit extends Settings\Control implements Setting\Children, Setting\Formatter
 {
 
     private $limiter;
@@ -60,7 +60,7 @@ class StringLimit extends Settings\Control implements Setting\Recursive, Setting
         return $builder->build()->format($value);
     }
 
-    public function get_children(): ComponentCollection
+    public function get_iterator(): ComponentCollection
     {
         return $this->settings;
     }

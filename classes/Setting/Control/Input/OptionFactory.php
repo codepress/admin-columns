@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Component\Input;
+namespace AC\Setting\Control\Input;
 
-use AC\Setting\Component\AttributeCollection;
-use AC\Setting\Component\AttributeFactory;
-use AC\Setting\Component\OptionCollection;
-use AC\Setting\Component\OptionCollectionFactory\ToggleOptionCollection;
+use AC\Setting\Control\AttributeCollection;
+use AC\Setting\Control\AttributeFactory;
+use AC\Setting\Control\OptionCollection;
+use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
 
 final class OptionFactory
 {

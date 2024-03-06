@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression;
-use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\Input\OptionFactory;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
-class Comment extends Recursive implements Formatter
+class Comment extends Children implements Formatter
 {
 
     public const NAME = 'comment';
@@ -51,7 +51,7 @@ class Comment extends Recursive implements Formatter
         $this->comment_display = $comment_display;
     }
 
-    public function get_children(): ComponentCollection
+    public function get_iterator(): ComponentCollection
     {
         return $this->settings;
     }

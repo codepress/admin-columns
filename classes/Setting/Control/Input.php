@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Component;
+namespace AC\Setting\Control;
 
-use AC\Setting\Component;
+use AC\Setting\Control;
 
 class Input implements Component
 {

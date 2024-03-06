@@ -6,7 +6,7 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
-use AC\Setting\Component\Input\Number;
+use AC\Setting\Control\Input\Number;
 use AC\Setting\Type\Value;
 use AC\Settings;
 

@@ -3,7 +3,7 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Component\Input\Number;
+use AC\Setting\Control\Input\Number;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -35,6 +35,11 @@ class WordLimit extends Settings\Control implements Formatter
         );
 
         $this->word_limit = $word_limit;
+    }
+
+    public function get_formatter(): Formatter
+    {
+        return new Formatter\WordLimit($this->word_limit);
     }
 
     public function format(Value $value): Value

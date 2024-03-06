@@ -6,15 +6,15 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting;
-use AC\Setting\Component\Input\Custom;
-use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\Input\Custom;
+use AC\Setting\Control\Input\OptionFactory;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-abstract class DateTimeFormat extends Settings\Control implements Setting\Recursive, Formatter
+abstract class DateTimeFormat extends Settings\Control implements Setting\Children, Formatter
 {
 
     protected $date_format;
@@ -35,7 +35,7 @@ abstract class DateTimeFormat extends Settings\Control implements Setting\Recurs
 
     abstract protected function get_wp_default_format(): string;
 
-    public function get_children(): ComponentCollection
+    public function get_iterator(): ComponentCollection
     {
         // TODO do we need this when we use a Custom setting?
         return new ComponentCollection([

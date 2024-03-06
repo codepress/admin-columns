@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Component\Input;
+namespace AC\Setting\Control\Input;
 
-use AC\Setting\Component\AttributeCollection;
-use AC\Setting\Component\Input;
+use AC\Setting\Control\AttributeCollection;
+use AC\Setting\Control\Input;
 
 class Custom extends Input
 {

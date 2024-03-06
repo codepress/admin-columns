@@ -7,26 +7,26 @@ namespace AC\Setting;
 final class Config
 {
 
-    private $values;
+    private $config;
 
-    public function __construct(array $values = [])
+    public function __construct(array $config = [])
     {
-        $this->values = $values;
+        $this->config = $config;
     }
 
     public function has($key): bool
     {
-        return isset($this->values[$key]);
+        return isset($this->config[$key]);
     }
 
-    public function get($key)
+    public function get($key, $default = null)
     {
-        return $this->values[$key] ?? null;
+        return $this->config[$key] ?? $default;
     }
 
-    public function __toArray(): array
+    public function all(): array
     {
-        return $this->values;
+        return $this->config;
     }
 
 }

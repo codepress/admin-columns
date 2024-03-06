@@ -6,7 +6,7 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\MetaType;
-use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings\Control;

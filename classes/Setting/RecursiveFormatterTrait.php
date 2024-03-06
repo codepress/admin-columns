@@ -7,17 +7,18 @@ namespace AC\Setting;
 use AC\Setting\Formatter\Aggregate;
 use AC\Setting\Formatter\AggregateBuilder;
 
+// TODO David remove or integrate?
 trait RecursiveFormatterTrait
 {
 
     // TODO Tobias maybe add the Aggregatebuilder and or factory as a property? Now it just exist from a new ()
-    abstract public function get_children(): ComponentCollection;
+    abstract public function get_iterator(): ComponentCollection;
 
     private function get_recursive_formatter(string $condition = null): Aggregate
     {
         $builder = new AggregateBuilder();
 
-        foreach ($this->get_children() as $setting) {
+        foreach ($this->get_iterator() as $setting) {
             if (
                 $condition && $setting instanceof Control &&
                 ! $setting->get_conditions()->is_satisfied_by($condition)

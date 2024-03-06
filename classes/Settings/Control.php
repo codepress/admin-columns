@@ -7,7 +7,7 @@ namespace AC\Settings;
 use AC;
 use AC\Expression\NullSpecification;
 use AC\Expression\Specification;
-use AC\Setting\Component\Input;
+use AC\Setting\Control\Input;
 
 class Control extends Component implements AC\Setting\Control
 {

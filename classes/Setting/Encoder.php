@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use AC\Setting\Component\Input\Number;
-use AC\Setting\Component\Input\Open;
-use AC\Setting\Component\Input\Option;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\Input\Number;
+use AC\Setting\Control\Input\Open;
+use AC\Setting\Control\Input\Option;
+use AC\Setting\Control\OptionCollection;
 
 final class Encoder
 {
@@ -34,16 +34,21 @@ final class Encoder
     {
         $encoded = [
             'type' => $component->get_type(),
+            'label' => $component->get_label(),
         ];
+
+        if ( $component->has_description() ) {
+            $encoded['description'] = $component->get_description();
+        }
 
         foreach ($component->get_attributes() as $attribute) {
             $encoded['attributes'][$attribute->get_name()] = $attribute->get_value();
         }
 
-        if ($component instanceof Control) {
-            $encoded['conditions'] = $component->get_conditions()->get_rules($component->get_name());
+        if ($component->has_control()) {
+            $input = $component->get_control()->get_input();
 
-            $input = $component->get_input();
+            $encoded['conditions'] = $component->get_control()->get_conditions()->get_rules($input->get_name());
 
             $encoded['input'] = [
                 'type' => $input->get_type(),
@@ -91,12 +96,12 @@ final class Encoder
             }
         }
 
-        if ($component instanceof Recursive) {
-            $encoded['is_parent'] = $component->is_parent();
+        if ($component->has_children()) {
+            $encoded['is_parent'] = $component->get_children()->is_parent();
             $encoded['children'] = [];
 
-            foreach ($component->get_children() as $child) {
-                $encoded['children'][] = $this->encode_setting($child);
+            foreach ($component->get_children()->get_iterator() as $item) {
+                $encoded['children'][] = $this->encode_setting($item);
             }
         }
 

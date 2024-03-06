@@ -10,6 +10,7 @@ use AC\Settings\Column\NameFactory;
 use AC\Settings\Column\WidthFactory;
 use AC\Settings\SettingFactory;
 
+// TODO David remove or reset?
 class ComponentCollectionBuilder
 {
 

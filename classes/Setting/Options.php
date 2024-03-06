@@ -6,6 +6,7 @@ namespace AC\Setting;
 
 use AC\Iterator;
 
+// TODO David remove?
 class Options extends Iterator
 {
 

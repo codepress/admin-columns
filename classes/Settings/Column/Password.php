@@ -14,9 +14,9 @@ class Password extends Settings\Control implements Setting\Formatter
     public function __construct(string $password = '', Specification $conditions = null)
     {
         parent::__construct(
-            Setting\Component\Input\OptionFactory::create_select(
+            Setting\Control\Input\OptionFactory::create_select(
                 'password',
-                Setting\Component\OptionCollection::from_array([
+                Setting\Control\OptionCollection::from_array([
                     ''     => __('Password', 'codepress-admin-column'),
                     'text' => __('Plain text', 'codepress-admin-column'),
                 ]),

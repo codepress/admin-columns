@@ -7,15 +7,15 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\Component\Input\Number;
-use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollection;
-use AC\Setting\Component\Type\Option;
+use AC\Setting\Control\Input\Number;
+use AC\Setting\Control\Input\OptionFactory;
+use AC\Setting\Control\OptionCollection;
+use AC\Setting\Control\Type\Option;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Control;
 
-class Image extends Control implements AC\Setting\Recursive, AC\Setting\Formatter
+class Image extends Control implements AC\Setting\Children, AC\Setting\Formatter
 {
 
     protected $image_format;
@@ -84,7 +84,7 @@ class Image extends Control implements AC\Setting\Recursive, AC\Setting\Formatte
         return $value;
     }
 
-    public function get_children(): ComponentCollection
+    public function get_iterator(): ComponentCollection
     {
         return new ComponentCollection([
             new Control(

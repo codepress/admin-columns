@@ -7,14 +7,14 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\MetaType;
-use AC\Setting\Component\Input\OptionFactory;
+use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\Type\Value;
 use AC\Settings\Control;
 
-class CustomField extends Control implements Formatter, AC\Setting\Recursive
+class CustomField extends Control implements Formatter, AC\Setting\Children
 {
 
     use RecursiveFormatterTrait;
@@ -72,7 +72,7 @@ class CustomField extends Control implements Formatter, AC\Setting\Recursive
                     ->format($value);
     }
 
-    public function get_children(): ComponentCollection
+    public function get_iterator(): ComponentCollection
     {
         return $this->settings;
     }

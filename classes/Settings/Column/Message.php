@@ -2,8 +2,8 @@
 
 namespace AC\Settings\Column;
 
-use AC\Setting\Component\AttributeCollection;
-use AC\Setting\Component\Type\Attribute;
+use AC\Setting\Control\AttributeCollection;
+use AC\Setting\Control\Type\Attribute;
 use AC\Settings;
 
 class Message extends Settings\Component

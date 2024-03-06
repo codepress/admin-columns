@@ -4,15 +4,15 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
-use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\Input\OptionFactory;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\Type\Value;
 use AC\Settings\Control;
 
-class User extends Control implements Formatter, AC\Setting\Recursive
+class User extends Control implements Formatter, AC\Setting\Children
 {
 
     use RecursiveFormatterTrait;
@@ -77,7 +77,7 @@ class User extends Control implements Formatter, AC\Setting\Recursive
         return OptionCollection::from_array($options);
     }
 
-    public function get_children(): ComponentCollection
+    public function get_iterator(): ComponentCollection
     {
         return $this->settings;
     }

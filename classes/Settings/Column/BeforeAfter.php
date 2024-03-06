@@ -6,14 +6,14 @@ namespace AC\Settings\Column;
 
 use AC;
 use AC\Expression\Specification;
-use AC\Setting\Component;
-use AC\Setting\Component\Input\Open;
+use AC\Setting\Control;
+use AC\Setting\Control\Input\Open;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
 use AC\Settings\Control;
 
 // TODO component?
-class BeforeAfter extends Control implements AC\Setting\Recursive, AC\Setting\Formatter
+class BeforeAfter extends Control implements AC\Setting\Children, AC\Setting\Formatter
 {
 
     private $before;
@@ -27,7 +27,7 @@ class BeforeAfter extends Control implements AC\Setting\Recursive, AC\Setting\Fo
     ) {
         parent::__construct(
         // TODO input?
-            new Component\Input\Custom('display', 'empty'),
+            new Control\Input\Custom('display', 'empty'),
             __('Display Options', 'codepress-admin-columns'),
             $conditions
         );
@@ -41,7 +41,7 @@ class BeforeAfter extends Control implements AC\Setting\Recursive, AC\Setting\Fo
         return true;
     }
 
-    public function get_children(): ComponentCollection
+    public function get_iterator(): ComponentCollection
     {
         return new ComponentCollection([
             new Control(

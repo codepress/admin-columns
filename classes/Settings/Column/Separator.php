@@ -21,9 +21,9 @@ final class Separator extends Settings\Control
     public function __construct(string $separator, Specification $specification = null)
     {
         parent::__construct(
-            AC\Setting\Component\Input\OptionFactory::create_select(
+            AC\Setting\Control\Input\OptionFactory::create_select(
                 'separator',
-                AC\Setting\Component\OptionCollection::from_array([
+                AC\Setting\Control\OptionCollection::from_array([
                     self::DEFAULT         => __('Default', 'codepress-admin-columns'),
                     self::COMMA           => __('Comma Separated', 'codepress-admin-columns'),
                     self::HORIZONTAL_RULE => __('Horizontal Rule', 'codepress-admin-columns'),

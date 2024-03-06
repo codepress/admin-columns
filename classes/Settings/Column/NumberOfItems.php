@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Component\Input\Number;
+use AC\Setting\Control\Input\Number;
 use AC\Settings;
 
 class NumberOfItems extends Settings\Control

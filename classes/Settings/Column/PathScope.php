@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\Input\OptionFactory;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -66,7 +66,7 @@ class PathScope extends Settings\Control implements Formatter
 
                 return $value->with_value($file);
             case 'local':
-                
+
                 return $value->with_value(get_attached_file($value->get_id()));
             default:
                 return $value;

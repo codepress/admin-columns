@@ -7,7 +7,7 @@ namespace AC\Storage\Encoder;
 use AC;
 use AC\ListScreen;
 use AC\Plugin\Version;
-use AC\Setting\Recursive;
+use AC\Setting\Children;
 use AC\Setting\ComponentCollection;
 
 class BaseEncoder implements AC\Storage\Encoder
@@ -64,8 +64,8 @@ class BaseEncoder implements AC\Storage\Encoder
                 $encoded[$setting->get_input()->get_name()] = $setting->get_input()->get_value();
             }
 
-            if ($setting instanceof Recursive) {
-                $encoded = $this->encode_settings($setting->get_children(), $encoded);
+            if ($setting instanceof Children) {
+                $encoded = $this->encode_settings($setting->get_iterator(), $encoded);
             }
         }
 

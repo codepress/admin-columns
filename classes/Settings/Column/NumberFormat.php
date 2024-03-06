@@ -7,8 +7,8 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\Component;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Type\Value;
@@ -32,7 +32,7 @@ class NumberFormat extends AC\Settings\Control implements Formatter
         Specification $specification = null
     ) {
         parent::__construct(
-            Component\Input\OptionFactory::create_select(
+            Control\Input\OptionFactory::create_select(
                 'number_format',
                 OptionCollection::from_array([
                     ''          => __('Default', 'codepress-admin-column'),
@@ -82,7 +82,7 @@ class NumberFormat extends AC\Settings\Control implements Formatter
             new AC\Settings\Control(
                 __('Decimals', 'codepress-admin-columns'),
                 '',
-                Component\Input\Number::create_single_step(
+                Control\Input\Number::create_single_step(
                     'number_decimals',
                     0,
                     20,
@@ -93,7 +93,7 @@ class NumberFormat extends AC\Settings\Control implements Formatter
             new AC\Settings\Control(
                 __('Decimal point', 'codepress-admin-columns'),
                 '',
-                Component\Input\OpenFactory::create_text(
+                Control\Input\OpenFactory::create_text(
                     'number_decimal_point',
                     $this->number_decimal_separator,
                     '.'
@@ -103,7 +103,7 @@ class NumberFormat extends AC\Settings\Control implements Formatter
             new AC\Settings\Control(
                 __('Thousands separator', 'codepress-admin-columns'),
                 '',
-                Component\Input\OpenFactory::create_text(
+                Control\Input\OpenFactory::create_text(
                     'number_thousands_separator',
                     $this->number_thousands_separator,
                     ','
@@ -113,7 +113,7 @@ class NumberFormat extends AC\Settings\Control implements Formatter
             new AC\Settings\Control(
                 __('Preview', 'codepress-admin-columns'),
                 '',
-                new Component\Input\Custom(
+                new Control\Input\Custom(
                     'number_preview',
                     [
                         'keys' => ['number_decimals', 'number_decimal_point', 'number_thousands_separator'],

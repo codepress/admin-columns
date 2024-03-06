@@ -6,15 +6,15 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting;
-use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\Input\OptionFactory;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\RecursiveFormatterTrait;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-class Post extends Settings\Control implements Formatter, Setting\Recursive
+class Post extends Settings\Control implements Formatter, Setting\Children
 {
 
     use RecursiveFormatterTrait;
@@ -108,7 +108,7 @@ class Post extends Settings\Control implements Formatter, Setting\Recursive
         return false;
     }
 
-    public function get_children(): ComponentCollection
+    public function get_iterator(): ComponentCollection
     {
         return $this->settings;
     }

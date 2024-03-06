@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Component\OptionCollectionFactory;
+namespace AC\Setting\Control\OptionCollectionFactory;
 
-use AC\Setting\Component\OptionCollection;
-use AC\Setting\Component\OptionCollectionFactory;
+use AC\Setting\Control\OptionCollection;
+use AC\Setting\Control\OptionCollectionFactory;
 
 final class ToggleOptionCollection implements OptionCollectionFactory
 {

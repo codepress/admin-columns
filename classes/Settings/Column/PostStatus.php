@@ -11,7 +11,7 @@ class PostStatus extends Settings\Control
 
     public function __construct(array $post_status = null, Specification $conditions = null)
     {
-        $input = Setting\Component\Input\OptionFactory::create_select(
+        $input = Setting\Control\Input\OptionFactory::create_select(
             'post_status',
             $this->create_options(),
             $post_status ?: ['publish', 'private'],
@@ -27,7 +27,7 @@ class PostStatus extends Settings\Control
         );
     }
 
-    private function create_options(): Setting\Component\OptionCollection
+    private function create_options(): Setting\Control\OptionCollection
     {
         $options = [];
 
@@ -36,7 +36,7 @@ class PostStatus extends Settings\Control
             $options[$name] = $this->get_post_status_label((string)$name);
         }
 
-        return Setting\Component\OptionCollection::from_array($options);
+        return Setting\Control\OptionCollection::from_array($options);
     }
 
     private function get_post_status_label(string $key): string

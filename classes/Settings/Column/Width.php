@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC;
-use AC\Setting\Component\Input\Number;
-use AC\Setting\Component\Input\OptionFactory;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\Input\Number;
+use AC\Setting\Control\Input\OptionFactory;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\ComponentCollection;
 use AC\Settings\Component;
 use AC\Settings\Control;
 use InvalidArgumentException;
 
-final class Width extends Component implements AC\Setting\Recursive
+final class Width extends Component implements AC\Setting\Children
 {
 
     private $width;
@@ -45,7 +45,7 @@ final class Width extends Component implements AC\Setting\Recursive
         return false;
     }
 
-    public function get_children(): ComponentCollection
+    public function get_iterator(): ComponentCollection
     {
         $settings = [
             new Control(

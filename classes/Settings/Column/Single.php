@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Setting\Component\Input\Custom;
+use AC\Setting\Control\Input\Custom;
 use AC\Setting\Input;
 use AC\Settings\Control;
 

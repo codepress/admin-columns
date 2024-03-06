@@ -5,7 +5,7 @@ namespace AC\Settings\Column;
 use AC\Expression\Specification;
 use AC\Form\Element\Select;
 use AC\MetaType;
-use AC\Setting\Component\Input;
+use AC\Setting\Control\Input;
 use AC\Settings\Control;
 use AC\View;
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Component\Input;
+use AC\Setting\Control\Input;
 use AC\Setting\Config;
 use AC\Settings\Component;
 use AC\Settings\Control;

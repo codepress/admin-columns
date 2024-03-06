@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 

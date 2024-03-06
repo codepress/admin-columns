@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Component\Input;
+namespace AC\Setting\Control\Input;
 
-use AC\Setting\Component\AttributeCollection;
+use AC\Setting\Control\AttributeCollection;
 
 final class Number extends Open
 {

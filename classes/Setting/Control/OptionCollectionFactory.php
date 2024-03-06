@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AC\Setting\Component;
+namespace AC\Setting\Control;
 
 interface OptionCollectionFactory
 {

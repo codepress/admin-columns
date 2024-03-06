@@ -3,8 +3,8 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Component\Input;
-use AC\Setting\Component\OptionCollection;
+use AC\Setting\Control\Input;
+use AC\Setting\Control\OptionCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;

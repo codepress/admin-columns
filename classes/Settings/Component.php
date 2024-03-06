@@ -5,37 +5,38 @@ declare(strict_types=1);
 namespace AC\Settings;
 
 use AC;
-use AC\Setting\Component\AttributeCollection;
-use AC\Setting\Component\Type\Attribute;
+use AC\Setting\Control\AttributeCollection;
+use BadMethodCallException;
 
 class Component implements AC\Setting\Component
 {
 
     private $type;
 
-    private $attributes;
-
     private $label;
+
+    private $description;
+
+    private $control;
+
+    private $attributes;
 
     public function __construct(
         string $type,
         string $label,
         string $description = null,
+        Control $control = null,
         AttributeCollection $attributes = null
     ) {
         if (null === $attributes) {
             $attributes = new AttributeCollection();
         }
 
-        $attributes->add(new Attribute('label', $label));
-
-        if ($description) {
-            $attributes->add(new Attribute('description', $description));
-        }
-
         $this->type = $type;
-        $this->attributes = $attributes;
         $this->label = $label;
+        $this->description = $description;
+        $this->control = $control;
+        $this->attributes = $attributes;
     }
 
     public function get_type(): string
@@ -51,6 +52,44 @@ class Component implements AC\Setting\Component
     public function get_label(): string
     {
         return $this->label;
+    }
+
+    public function has_description(): bool
+    {
+        return $this->has_description() !== null;
+    }
+
+    public function get_description(): string
+    {
+        if( ! $this->has_description() ) {
+            throw new BadMethodCallException();
+        }
+
+        return $this->description;
+    }
+
+    public function has_control() : bool
+    {
+        return $this->control instanceof Control;
+    }
+
+    public function get_control() : Control
+    {
+        if( ! $this->has_control() ) {
+            throw new BadMethodCallException();
+        }
+
+        return $this->control;
+    }
+
+    public function has_children()
+    {
+
+    }
+
+    public function get_children()
+    {
+
     }
 
 }
