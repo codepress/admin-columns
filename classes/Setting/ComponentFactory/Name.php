@@ -5,25 +5,32 @@ declare(strict_types=1);
 namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\Specification;
+use AC\Setting\AttributeCollection;
 use AC\Setting\Component;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
+use AC\Setting\Type\Attribute;
 
-class Name implements ComponentFactory
+final class Name implements ComponentFactory
 {
 
-    public function create(Config $config, Specification $specification = null): Component
+    public function create(Config $config, Specification $conditions = null): Component
     {
         return new Component(
-            'Name',
+            null,
             null,
             new Input(
                 'name',
                 'hidden',
                 (string)$config->get('name')
             ),
-            null
+            $conditions,
+            null,
+            null,
+            new AttributeCollection([
+                new Attribute('component', 'hidden'),
+            ])
         );
     }
 

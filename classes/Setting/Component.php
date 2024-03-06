@@ -27,7 +27,7 @@ class Component
     private $attributes;
 
     public function __construct(
-        string $label,
+        string $label = null,
         string $description = null,
         Input $input = null,
         Specification $conditions = null,
