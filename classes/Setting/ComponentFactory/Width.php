@@ -74,7 +74,7 @@ final class Width implements ComponentFactory
                 ])
             ),
             new AttributeCollection([
-                new Attribute('layout', 'width'),
+                new Attribute('component', 'width'),
             ])
         );
     }

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AC\Setting\Control\Input;
 
 use AC\Setting\AttributeCollection;
-use AC\Setting\Control\AttributeFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
+use AC\Setting\Type\Attribute;
 
 final class OptionFactory
 {
@@ -44,8 +44,8 @@ final class OptionFactory
         }
 
         $attributes->add(
-            AttributeFactory::create_data(
-                'handler',
+            new Attribute(
+                'data-handler',
                 $handler
             )
         );
