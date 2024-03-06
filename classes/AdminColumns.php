@@ -52,10 +52,11 @@ class AdminColumns
 
         // TODO replace with factories
         ColumnFactories\Aggregate::add($container->get(ColumnFactories\PostFactory::class));
-        ColumnFactories\Aggregate::add($container->get(ColumnFactories\CommentFactory::class));
-        ColumnFactories\Aggregate::add($container->get(ColumnFactories\MediaFactory::class));
-        ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
-        ColumnFactories\Aggregate::add($container->get(ColumnFactories\OriginalFactory::class));
+        //ColumnFactories\Aggregate::add($container->get(ColumnFactories\CommentFactory::class));
+        //ColumnFactories\Aggregate::add($container->get(ColumnFactories\MediaFactory::class));
+        //ColumnFactories\Aggregate::add($container->get(ColumnFactories\UserFactory::class));
+        //ColumnFactories\Aggregate::add($container->get(ColumnFactories\OriginalFactory::class));
+
         //        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\OriginalsFactory::class));
         //        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\CommentFactory::class));
         //        ColumnTypesFactory\Aggregate::add($container->get(ColumnTypesFactory\MediaFactory::class));

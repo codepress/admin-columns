@@ -34,6 +34,16 @@ class PostFactory implements ColumnFactories
             return null;
         }
 
+        $factories[] = $this->container->get(Post\IdFactory::class);
+
+        $collection = new Collection\ColumnFactories();
+
+        foreach ($factories as $factory) {
+            $collection->add($factory->get_type(), $factory);
+        }
+
+        return $collection;
+
         $post_type = $table_screen->get_post_type();
         $meta_type = new MetaType(MetaType::POST);
         $meta_key_factory = $this->container->make(
