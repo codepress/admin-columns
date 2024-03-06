@@ -17,7 +17,7 @@ class PostLink extends Settings\Control implements AC\Setting\Formatter
 
     private $relation;
 
-    private $post_link_to;
+    protected $post_link_to;
 
     public function __construct(string $post_link_to, AC\Relation $relation = null, Specification $conditions = null)
     {

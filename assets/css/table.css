@@ -244,7 +244,7 @@ body .ac-modal__dialog__content__lead {
   color: #6D6D6D;
 }
 body .ac-modal__dialog__content.-p0 {
-  padding: 0;
+  padding: 0 !important;
 }
 body .ac-modal__dialog__content.-accent {
   border-top: 1px solid #DBDBDB;

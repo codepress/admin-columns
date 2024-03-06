@@ -135,11 +135,11 @@ $input-hover-text-color: #2271b1;
 
 $input-border-color: #8c8f94;
 $input-active-border-color: #266fb1;
-$input-text-color: #2c3338;
+$input-text-color: #1E3133;
 $input-hover-text-color: #2271b1;
 
 .svelte-select.-acui {
-	--padding: 0 0 0 8px;
+	--padding: 0 0 0 13px;
 	--border: 1px solid #CBD5E1;
 	--border-radius: 5px;
 	--border-hover: 1px solid #8c8f94;
@@ -155,21 +155,24 @@ $input-hover-text-color: #2271b1;
 	--placeholder-color: $input-text-color;
 	--selected-item-padding: 0 1px 0 0;
 
-	--item-height: 30px;
-	--item-line-height: 30px;
-	--item-padding: 0 10px;
-	--item-hover-bg: var(--ac-link);
+	--list-border: 1px solid #ccc;
+	--list-border-radius: 0 0 4px 4px;
+
+	--item-height: 35px;
+	--item-line-height: 35px;
+	--item-padding: 0 13px;
+	--item-hover-bg: #EAF2FA;
+	//--item-hover-color: #fff;
 	--item-is-active-bg: #EAF2FA;
 	--item-is-active-color: #000;
-	--item-hover-color: #fff;
 
 	--multi-select-padding: 0 0 0 8px;
 	--multi-item-outline: none;
 	--multi-item-bg: #EAF2FA;
 
 	--group-title-text-transform: 'none';
-	--group-item-padding-left: 10px;
-	--group-title-font-size: 12px;
+	--group-item-padding-left: 30px;
+	--group-title-font-size: 14px;
 
 	--value-container-padding: 0;
 
@@ -179,6 +182,12 @@ $input-hover-text-color: #2271b1;
 
 	&.focused {
 		box-shadow: 0 0 0 1px #2271b1;
+	}
+
+	&.list-open {
+		border-width: 2px !important;
+		border-color: #266fb1 !important;
+		box-shadow: none !important;
 	}
 
 	&:hover {
@@ -209,15 +218,14 @@ $input-hover-text-color: #2271b1;
 			}
 
 			&.list-group-title.not-selectable {
-				background-color: #eee!important;
-				color: #aaa;
-				font-size: 12px !important;
-				border-top: 1px solid #888;
-				border-bottom: 1px solid #888;
+				color: #1E3133 !important;
+				font-weight: bold;
+				font-size: 13px;
 			}
 
 			&.active {
 				position: relative;
+
 				&:after {
 					content: '✓';
 					position: absolute;

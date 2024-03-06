@@ -9,6 +9,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\PageTemplate;
+use AC\Type\PostTypeSlug;
 
 class PageTemplateFactory extends ColumnFactory
 {
@@ -18,7 +19,7 @@ class PageTemplateFactory extends ColumnFactory
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        string $post_type
+        PostTypeSlug $post_type
     ) {
         parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 

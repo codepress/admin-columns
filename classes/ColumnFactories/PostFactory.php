@@ -43,6 +43,8 @@ class PostFactory implements ColumnFactories
             ]
         );
 
+        $this->container->set(AC\Type\PostTypeSlug::class, new AC\Type\PostTypeSlug($post_type));
+
         // TODO Test
         $factories[] = $this->container->make(CustomField\TextFactory::class, [
             'meta_key_factory' => $meta_key_factory,
@@ -73,14 +75,10 @@ class PostFactory implements ColumnFactories
         $factories[] = $this->container->get(Post\DatePublishFactory::class);
         $factories[] = $this->container->get(Post\DepthFactory::class);
         $factories[] = $this->container->get(Post\EstimateReadingTimeFactory::class);
-        $factories[] = $this->container->make(Post\MenuFactory::class, [
-            'post_type' => $table_screen->get_post_type(),
-        ]);
+        $factories[] = $this->container->get(Post\MenuFactory::class);
         $factories[] = $this->container->get(Post\LastModifiedFactory::class);
         $factories[] = $this->container->get(Post\OrderFactory::class);
-        $factories[] = $this->container->make(Post\PageTemplateFactory::class, [
-            'post_type' => $table_screen->get_post_type(),
-        ]);
+        $factories[] = $this->container->get(Post\PageTemplateFactory::class);
         $factories[] = $this->container->get(Post\PasswordProtectedFactory::class);
         $factories[] = $this->container->get(Post\PathFactory::class);
         $factories[] = $this->container->get(Post\PermalinkFactory::class);

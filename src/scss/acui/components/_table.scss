@@ -1,0 +1,24 @@
+.acui-table {
+	width: 100%;
+	border-collapse: collapse;
+
+	thead {
+		td, th {
+			border-bottom: 1px solid;
+			border-color: #E2E8F0;
+			background: #F9FAFB;
+			font-weight: bold;
+			padding-top: 8px;
+			padding-bottom: 8px;
+		}
+	}
+
+	&.ac-is-striped {
+		tbody {
+			tr:not(.is-selected):nth-child(2n) {
+				background: #F3F7FC;
+			}
+		}
+	}
+
+}
