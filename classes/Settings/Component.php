@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AC\Settings;
 
 use AC;
-use AC\Setting\Control\AttributeCollection;
+use AC\Setting\AttributeCollection;
 use BadMethodCallException;
 
 class Component implements AC\Setting\Component

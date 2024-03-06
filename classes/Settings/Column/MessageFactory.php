@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC\Setting\Control\AttributeCollection;
-use AC\Setting\Control\Type\Attribute;
+use AC\Setting\AttributeCollection;
+use AC\Setting\Type\Attribute;
 use AC\Settings\Component;
 use AC\Settings\Form\ComponentFactory;
 

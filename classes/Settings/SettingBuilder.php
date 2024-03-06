@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AC\Settings;
 
 use AC\Expression\Specification;
-use AC\Setting\Control\AttributeCollection;
-use AC\Setting\Control\Input;
-use AC\Setting\Control\Type\Attribute;
+use AC\Setting\AttributeCollection;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Control\Input;
 use AC\Setting\Formatter;
+use AC\Setting\Type\Attribute;
 
 final class SettingBuilder
 {

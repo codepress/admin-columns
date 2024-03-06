@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Control;
 
-use AC\Setting\Control\Type\Attribute;
+use AC\Setting\Type\Attribute;
 
 final class AttributeFactory
 {

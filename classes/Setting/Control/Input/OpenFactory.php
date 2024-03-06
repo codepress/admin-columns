@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Control\Input;
 
-use AC\Setting\Control\AttributeCollection;
+use AC\Setting\AttributeCollection;
 
 final class OpenFactory
 {

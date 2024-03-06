@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Control\AttributeCollection;
-use AC\Setting\Control\Input\Number;
+use AC\Setting\AttributeCollection;
 use AC\Setting\Config;
+use AC\Setting\Control\Input\Number;
 use AC\Setting\Formatter;
 use AC\Settings\Setting;
 use AC\Settings\SettingFactory;

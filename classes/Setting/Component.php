@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-use AC\Setting\Control\AttributeCollection;
 use InvalidArgumentException;
 
 class Component
 {
-
-    private $type;
 
     private $label;
 
@@ -25,9 +22,8 @@ class Component
     private $attributes;
 
     public function __construct(
-        string $type,
         string $label,
-        string $description,
+        string $description = null,
         Control $control = null,
         Formatter $formatter = null,
         Children $children = null,
@@ -37,18 +33,12 @@ class Component
             $attributes = new AttributeCollection();
         }
 
-        $this->type = $type;
         $this->label = $label;
         $this->description = $description;
         $this->control = $control;
         $this->formatter = $formatter;
         $this->children = $children;
         $this->attributes = $attributes;
-    }
-
-    public function get_type(): string
-    {
-        return $this->type;
     }
 
     public function get_label(): string
@@ -61,6 +51,8 @@ class Component
         if ( ! $this->has_description()) {
             throw new InvalidArgumentException();
         }
+
+        return $this->description;
     }
 
     public function has_description(): bool

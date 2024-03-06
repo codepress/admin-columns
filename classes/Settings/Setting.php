@@ -6,9 +6,9 @@ namespace AC\Settings;
 
 use AC\Expression\NullSpecification;
 use AC\Expression\Specification;
-use AC\Setting\Control\AttributeCollection;
-use AC\Setting\Control\Input;
+use AC\Setting\AttributeCollection;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Control\Input;
 use AC\Setting\Formatter;
 use BadMethodCallException;
 

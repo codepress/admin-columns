@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Control\Input;
 
-use AC\Setting\Control\AttributeCollection;
+use AC\Setting\AttributeCollection;
 use AC\Setting\Control\AttributeFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Control\OptionCollectionFactory\ToggleOptionCollection;
