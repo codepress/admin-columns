@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
+use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Settings\Column\BeforeAfterFactory;
 
 class IdFactory extends ColumnFactory
 {
@@ -13,7 +13,7 @@ class IdFactory extends ColumnFactory
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        BeforeAfterFactory $before_after_factory
+        BeforeAfter $before_after_factory
     ) {
         parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 

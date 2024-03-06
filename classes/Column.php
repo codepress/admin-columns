@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Setting\Component;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
-use AC\Setting\Children;
-use AC\Settings\Control;
 use AC\Type\ColumnId;
 use AC\Type\ColumnParent;
 
@@ -96,20 +95,20 @@ class Column
     }
 
     // TODO David move the recursive initial outside this function for a cleaner API
-    public function get_setting(string $name, ComponentCollection $settings = null): ?Settings\Control
+    public function get_setting(string $name, ComponentCollection $settings = null): ?Component
     {
         $settings = $settings ?: $this->settings;
 
         foreach ($settings as $setting) {
-            if ($setting instanceof Children) {
-                $found = $this->get_setting($name, $setting->get_iterator());
+            if ($setting->has_children()) {
+                $found = $this->get_setting($name, $setting->get_children()->get_iterator());
 
                 if ($found) {
                     return $found;
                 }
             }
 
-            if ($setting instanceof Control && $setting->get_name() === $name) {
+            if ($setting->has_input() && $name === $setting->get_input()->get_name()) {
                 return $setting;
             }
         }

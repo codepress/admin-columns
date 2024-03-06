@@ -7,6 +7,7 @@ namespace AC\Column;
 use AC\Column;
 use AC\Expression\Specification;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
@@ -33,10 +34,10 @@ abstract class ColumnFactory
         $this->component_factory_registry = $component_factory_registry;
 
         $this->add_component_factory($component_factory_registry->get_name_factory());
-        $this->add_component_factory($component_factory_registry->get_label_factory());
+        //$this->add_component_factory($component_factory_registry->get_label_factory());
     }
 
-    protected function add_component_factory(SettingFactory $factory, Specification $specification = null): void
+    protected function add_component_factory(ComponentFactory $factory, Specification $specification = null): void
     {
         $this->component_factories[] = [
             $factory,
@@ -46,7 +47,8 @@ abstract class ColumnFactory
 
     protected function add_component_factories(): void
     {
-        $this->add_component_factory($this->component_factory_registry->get_width_factory());
+        //TODO enable
+        //$this->add_component_factory($this->component_factory_registry->get_width_factory());
 
         foreach (get_object_vars($this) as $property) {
             if ($property instanceof SettingFactory && ! $property instanceof WidthFactory) {
