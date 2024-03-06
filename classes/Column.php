@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Setting\Children;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
-use AC\Setting\Children;
 use AC\Settings\Control;
 use AC\Type\ColumnId;
 use AC\Type\ColumnParent;
@@ -55,6 +55,11 @@ class Column
     // TODO remove; refactor to get_id().
     public function get_name(): string
     {
+        //TODO
+        echo '<pre>';
+        print_r($this->get_setting('name'));
+        echo '</pre>';
+
         return (string)$this->get_setting('name')
                             ->get_input()
                             ->get_value();
@@ -101,6 +106,8 @@ class Column
         $settings = $settings ?: $this->settings;
 
         foreach ($settings as $setting) {
+            if ($setting->has_children()) {
+            }
             if ($setting instanceof Children) {
                 $found = $this->get_setting($name, $setting->get_iterator());
 

@@ -8,7 +8,7 @@ use AC;
 use AC\Setting\AttributeCollection;
 use BadMethodCallException;
 
-class Component implements AC\Setting\Component
+class Component extends AC\Setting\Component
 {
 
     private $type;
@@ -21,7 +21,7 @@ class Component implements AC\Setting\Component
 
     private $attributes;
 
-    public function __construct(
+    public function ____construct(
         string $type,
         string $label,
         string $description = null,
@@ -61,35 +61,16 @@ class Component implements AC\Setting\Component
 
     public function get_description(): string
     {
-        if( ! $this->has_description() ) {
+        if ( ! $this->has_description()) {
             throw new BadMethodCallException();
         }
 
         return $this->description;
     }
 
-    public function has_control() : bool
+    public function has_control(): bool
     {
         return $this->control instanceof Control;
-    }
-
-    public function get_control() : Control
-    {
-        if( ! $this->has_control() ) {
-            throw new BadMethodCallException();
-        }
-
-        return $this->control;
-    }
-
-    public function has_children()
-    {
-
-    }
-
-    public function get_children()
-    {
-
     }
 
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use AC\Setting;
 use AC\Settings\Column\LabelFactory;
-use AC\Settings\Column\NameFactory;
 use AC\Settings\Column\WidthFactory;
 
 final class ComponentFactoryRegistry
@@ -18,16 +18,17 @@ final class ComponentFactoryRegistry
     private $width_factory;
 
     public function __construct(
-        NameFactory $name_factory,
-        LabelFactory $label_factory,
-        WidthFactory $width_factory
-    ) {
+        Setting\ComponentFactory\Name $name_factory
+        //        LabelFactory $label_factory,
+        //        WidthFactory $width_factory
+    )
+    {
         $this->name_factory = $name_factory;
-        $this->label_factory = $label_factory;
-        $this->width_factory = $width_factory;
+        //        $this->label_factory = $label_factory;
+        //        $this->width_factory = $width_factory;
     }
 
-    public function get_name_factory(): NameFactory
+    public function get_name_factory(): Setting\ComponentFactory\Name
     {
         return $this->name_factory;
     }
