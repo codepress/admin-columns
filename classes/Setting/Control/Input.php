@@ -6,7 +6,7 @@ namespace AC\Setting\Control;
 
 use AC\Setting\AttributeCollection;
 
-class Input implements Component
+class Input
 {
 
     private $name;

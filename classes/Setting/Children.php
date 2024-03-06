@@ -11,7 +11,7 @@ class Children
 
     private $parent;
 
-    public function __construct(ComponentCollection $components, bool $parent = true)
+    public function __construct(ComponentCollection $components, bool $parent = false)
     {
         $this->components = $components;
         $this->parent = $parent;
