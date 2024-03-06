@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use AC\Expression\NullSpecification;
+use AC\Expression\Specification;
+use AC\Setting\Control\Input;
 use InvalidArgumentException;
 
 class Component
@@ -13,18 +16,21 @@ class Component
 
     private $description;
 
-    private $control;
+    private $input;
 
     private $formatter;
 
     private $children;
+
+    private $conditions;
 
     private $attributes;
 
     public function __construct(
         string $label,
         string $description = null,
-        Control $control = null,
+        Input $input = null,
+        Specification $conditions = null,
         Formatter $formatter = null,
         Children $children = null,
         AttributeCollection $attributes = null
@@ -35,9 +41,10 @@ class Component
 
         $this->label = $label;
         $this->description = $description;
-        $this->control = $control;
+        $this->input = $input;
         $this->formatter = $formatter;
         $this->children = $children;
+        $this->conditions = $conditions;
         $this->attributes = $attributes;
     }
 
@@ -60,18 +67,18 @@ class Component
         return $this->description !== null;
     }
 
-    public function has_control(): bool
+    public function has_input(): bool
     {
-        return $this->control !== null;
+        return $this->input !== null;
     }
 
-    public function get_control(): Control
+    public function get_input(): Input
     {
-        if ( ! $this->has_control()) {
+        if ( ! $this->has_input()) {
             throw new InvalidArgumentException();
         }
 
-        return $this->control;
+        return $this->input;
     }
 
     public function has_formatter(): bool
@@ -100,6 +107,20 @@ class Component
         }
 
         return $this->children;
+    }
+
+    public function has_conditions(): bool
+    {
+        return $this->conditions !== null;
+    }
+
+    public function get_conditions(): Specification
+    {
+        if ($this->has_conditions()) {
+            return new NullSpecification();
+        }
+
+        return $this->conditions;
     }
 
     public function get_attributes(): AttributeCollection
