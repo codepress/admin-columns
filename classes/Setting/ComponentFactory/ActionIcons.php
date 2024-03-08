@@ -18,7 +18,11 @@ final class ActionIcons implements ComponentFactory
         return new Component(
             __('Use icons?', 'codepress-admin-columns'),
             __('Use icons instead of text for displaying the actions.', 'codepress-admin-columns'),
-            OptionFactory::create_toggle('use_icons', null, $config->get('use_icons') === 'on' ? 'on' : 'off'),
+            OptionFactory::create_toggle(
+                'use_icons',
+                null,
+                $config->get('use_icons') === 'on' ?: 'off'
+            ),
             $conditions
         );
     }
