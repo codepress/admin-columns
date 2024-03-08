@@ -48,8 +48,17 @@ class Component
         $this->attributes = $attributes;
     }
 
+    public function has_label(): bool
+    {
+        return $this->description !== null;
+    }
+
     public function get_label(): string
     {
+        if ( ! $this->has_label()) {
+            throw new InvalidArgumentException();
+        }
+
         return $this->label;
     }
 
