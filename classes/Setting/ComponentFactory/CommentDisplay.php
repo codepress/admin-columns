@@ -28,19 +28,23 @@ final class CommentDisplay implements ComponentFactory
 
     private $comment_link;
 
+    private $user_display;
+
     public function __construct(
         StringLimit $string_limit,
-        CommentLink $comment_link
+        CommentLink $comment_link,
+        UserDisplay $user_display
     ) {
         $this->string_limit = $string_limit;
         $this->comment_link = $comment_link;
+        $this->user_display = $user_display;
     }
 
     // Todo implement formatter
     public function create(Config $config, Specification $conditions = null): Component
     {
         $builder = (new ComponentBuilder())
-            ->set_label(__('Display', 'codepress-admin-columns'))
+            ->set_label(__('Comment Display', 'codepress-admin-columns'))
             ->set_input(
                 OptionFactory::create_select(
                     'comment',
@@ -64,6 +68,10 @@ final class CommentDisplay implements ComponentFactory
                         $this->comment_link->create(
                             $config,
                             StringComparisonSpecification::equal(self::PROPERTY_COMMENT)
+                        ),
+                        $this->user_display->create(
+                            $config,
+                            StringComparisonSpecification::equal(self::PROPERTY_AUTHOR)
                         ),
                     ])
                 )

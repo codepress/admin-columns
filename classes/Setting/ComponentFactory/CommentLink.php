@@ -16,7 +16,6 @@ use AC\Setting\Formatter;
 final class CommentLink implements ComponentFactory
 {
 
-    // Todo implement formatter
     public function create(Config $config, Specification $conditions = null): Component
     {
         $builder = (new ComponentBuilder())
@@ -32,7 +31,7 @@ final class CommentLink implements ComponentFactory
                     (string)$config->get('comment_link_to')
                 )
             )
-            ->set_formatter(new Formatter\Comment\CommentLink($config->get('comment_link_to')));
+            ->set_formatter(new Formatter\Comment\CommentLink((string)$config->get('comment_link_to')));
 
         if ($conditions) {
             $builder->set_conditions($conditions);
