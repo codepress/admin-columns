@@ -26,6 +26,8 @@ class Component
 
     private $attributes;
 
+    private $type;
+
     public function __construct(
         string $label = null,
         string $description = null,
@@ -33,10 +35,15 @@ class Component
         Specification $conditions = null,
         Formatter $formatter = null,
         Children $children = null,
-        AttributeCollection $attributes = null
+        AttributeCollection $attributes = null,
+        string $type = null
     ) {
         if ($attributes === null) {
             $attributes = new AttributeCollection();
+        }
+
+        if ($type === null) {
+            $type = 'default';
         }
 
         $this->label = $label;
@@ -46,11 +53,21 @@ class Component
         $this->children = $children;
         $this->conditions = $conditions;
         $this->attributes = $attributes;
+        $this->type = $type;
     }
 
     public function get_label(): string
     {
+        if ( ! $this->has_label()) {
+            throw new InvalidArgumentException();
+        }
+
         return $this->label;
+    }
+
+    public function has_label(): bool
+    {
+        return $this->label !== null;
     }
 
     public function get_description(): string
@@ -126,6 +143,11 @@ class Component
     public function get_attributes(): AttributeCollection
     {
         return $this->attributes;
+    }
+
+    public function get_type(): string
+    {
+        return $this->type;
     }
 
 }

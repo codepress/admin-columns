@@ -7,7 +7,7 @@ namespace AC\Setting\Control\Input;
 use AC\Setting\AttributeCollection;
 use AC\Setting\Control\Input;
 
-class Custom extends Input
+final class Custom extends Input
 {
 
     private $data;
