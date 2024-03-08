@@ -35,7 +35,7 @@ class PostFactory implements ColumnFactories
         }
 
         $factories = [];
-        $factories[] = $this->container->get(Post\IdFactory::class);
+        $factories[] = $this->container->get(AC\ColumnFactory\RemoveMeFactory::class);
 
         $collection = new Collection\ColumnFactories();
 
