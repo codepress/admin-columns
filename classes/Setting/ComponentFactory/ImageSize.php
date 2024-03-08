@@ -20,6 +20,7 @@ use AC\Setting\Control\Type\Option;
 final class ImageSize implements ComponentFactory
 {
 
+    // Todo implement formatter
     public function create(Config $config, Specification $conditions = null): Component
     {
         $width = $config->has('image_size_w') ? (int)$config->get('image_size_w') : 60;
@@ -59,7 +60,7 @@ final class ImageSize implements ComponentFactory
                             ),
                             StringComparisonSpecification::equal('cpac-custom')
                         ),
-                    ])
+                    ]), true
                 )
             );
 
