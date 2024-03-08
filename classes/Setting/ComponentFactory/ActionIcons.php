@@ -21,7 +21,7 @@ final class ActionIcons implements ComponentFactory
             OptionFactory::create_toggle(
                 'use_icons',
                 null,
-                $config->get('use_icons') === 'on' ?: 'off'
+                $config->get('use_icons') === 'on' ? 'on' : 'off'
             ),
             $conditions
         );

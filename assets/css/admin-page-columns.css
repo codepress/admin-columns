@@ -481,7 +481,7 @@
 .acp-column-setting.-type {
   border-bottom: 1px solid #CBD5E1;
   padding-bottom: 20px;
-  margin-bottom: -10px;
+  margin-bottom: 30px;
 }
 
 .acp-column-setting[data-setting=label] .acui-input-group-text {

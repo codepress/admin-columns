@@ -72,7 +72,8 @@ declare namespace AC.Column.Settings {
     }
 
     interface WidthSetting extends AbstractColumnSetting{
-        type: 'row_width'
+        type: 'width'
+        input: AbstractSettingInput,
         children: AbstractSettingInput[]
     }
 

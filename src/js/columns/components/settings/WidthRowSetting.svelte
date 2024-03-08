@@ -11,7 +11,7 @@
 
 </script>
 
-<ColumnSetting description="" label={widthRowSetting.attributes.label}>
+<ColumnSetting description="" label={widthRowSetting.label}>
 	<WidthInput
 		bind:data={data}
 		disabled={$listScreenIsReadOnly}

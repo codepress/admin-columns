@@ -48,7 +48,7 @@ abstract class ColumnFactory
     protected function add_component_factories(): void
     {
         //TODO enable
-        //$this->add_component_factory($this->component_factory_registry->get_width_factory());
+        $this->add_component_factory($this->component_factory_registry->get_width_factory());
 
         foreach (get_object_vars($this) as $property) {
             if ($property instanceof SettingFactory && ! $property instanceof WidthFactory) {
