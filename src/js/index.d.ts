@@ -55,9 +55,9 @@ declare namespace AC.Column.Settings {
 
     interface AbstractColumnSetting {
         type: string,
+        label: string,
+        description?: string
         attributes: {
-            label: string
-            description?: string,
             [key:string] : any
         }
         input ?: AbstractSettingInput
