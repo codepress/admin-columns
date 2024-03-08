@@ -46,6 +46,7 @@ final class BeforeAfter implements ComponentFactory
                             new Open(self::AFTER, null, $after)
                         ),
                     ])
+                    , true
                 )
             )
             ->build();

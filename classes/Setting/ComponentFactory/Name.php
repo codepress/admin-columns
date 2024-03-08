@@ -24,7 +24,7 @@ final class Name implements ComponentFactory
                     (string)$config->get('name')
                 )
             )
-            ->set_type('hidden')
+            ->set_type('input_only')
             ->build();
     }
 

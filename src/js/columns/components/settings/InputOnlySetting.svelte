@@ -10,7 +10,6 @@
     export let data: ListScreenColumnData;
 
     let inputSetting = setting as ColumnInputSetting;
-    console.log(inputSetting);
 
     const getInputType = (type: string) => {
         return getInputComponent(type);
@@ -18,23 +17,15 @@
 
 </script>
 
-<ColumnSetting description={setting.attributes?.description ?? ''} label={setting.label}>
-
-	{#if inputSetting.input}
-		<svelte:component
-			this={getInputType(inputSetting.input.type ?? '')}
-			bind:data={data}
-			bind:value={data[inputSetting.input?.name]}
-			disabled={$listScreenIsReadOnly}
-			config={setting}>
-		</svelte:component>
-	{/if}
-
-	{#if setting.children && setting.is_parent }
-		<ColumnSettings bind:data={data} settings={setting.children} parent={inputSetting.input ? inputSetting.input.name : null}/>
-	{/if}
-
-</ColumnSetting>
+{#if inputSetting.input}
+	<svelte:component
+		this={getInputType(inputSetting.input.type ?? '')}
+		bind:data={data}
+		bind:value={data[inputSetting.input?.name]}
+		disabled={$listScreenIsReadOnly}
+		config={setting}>
+	</svelte:component>
+{/if}
 
 {#if setting.children && !setting.is_parent }
 	<ColumnSettings bind:data={data} settings={setting.children} parent={inputSetting.input ? inputSetting.input.name : null}/>

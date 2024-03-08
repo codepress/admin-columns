@@ -7,7 +7,6 @@ namespace AC\Storage\Encoder;
 use AC;
 use AC\ListScreen;
 use AC\Plugin\Version;
-use AC\Setting\Children;
 use AC\Setting\ComponentCollection;
 
 class BaseEncoder implements AC\Storage\Encoder
@@ -60,12 +59,12 @@ class BaseEncoder implements AC\Storage\Encoder
     private function encode_settings(ComponentCollection $settings, array $encoded = []): array
     {
         foreach ($settings as $setting) {
-            if ($setting instanceof AC\Setting\Control) {
+            if ($setting->has_input()) {
                 $encoded[$setting->get_input()->get_name()] = $setting->get_input()->get_value();
             }
 
-            if ($setting instanceof Children) {
-                $encoded = $this->encode_settings($setting->get_iterator(), $encoded);
+            if ($setting->has_children()) {
+                $encoded = $this->encode_settings($setting->get_children()->get_iterator(), $encoded);
             }
         }
 
