@@ -7,6 +7,7 @@ namespace AC\Setting\ComponentFactory;
 use AC\Expression\Specification;
 use AC\Setting\Children;
 use AC\Setting\Component;
+use AC\Setting\ComponentBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
@@ -24,26 +25,30 @@ final class BeforeAfter implements ComponentFactory
         $before = $config->get(self::BEFORE);
         $after = $config->get(self::AFTER);
 
-        return new Component(
-            __('Display Options', 'codepress-admin-columns'),
-            null,
-            null,
-            null,
-            new Formatter\BeforeAfter($before, $after),
-            new Children(
-                new ComponentCollection([
-                    new Component(
-                        __('Before', 'codepress-admin-columns'),
-                        null,
-                        new Open(self::BEFORE, null, $before)
-                    ),
-                    new Component(
-                        __('After', 'codepress-admin-columns'),
-                        null,
-                        new Open(self::AFTER, null, $after),
-                    ),
-                ])
+        return (new ComponentBuilder())
+            ->set_label(
+                __('Display Options', 'codepress-admin-columns')
             )
-        );
+            ->set_formatter(
+                new Formatter\BeforeAfter($before, $after)
+            )
+            ->set_children(
+                new Children(
+                    new ComponentCollection([
+                        new Component(
+                            __('Before', 'codepress-admin-columns'),
+                            null,
+                            new Open(self::BEFORE, null, $before)
+                        ),
+                        new Component(
+                            __('After', 'codepress-admin-columns'),
+                            null,
+                            new Open(self::AFTER, null, $after)
+                        ),
+                    ])
+                )
+            )
+            ->build();
     }
+
 }

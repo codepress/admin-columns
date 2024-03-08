@@ -7,8 +7,7 @@ namespace AC\Setting;
 use AC\Expression\Specification;
 use AC\Setting\Control\Input;
 
-// TODO David this is cumbersome
-class ComponentBuilder
+final class ComponentBuilder
 {
 
     private $label;
@@ -24,6 +23,8 @@ class ComponentBuilder
     private $children;
 
     private $attributes;
+
+    private $type;
 
     public function set_label(string $label): self
     {
@@ -67,14 +68,16 @@ class ComponentBuilder
         return $this;
     }
 
-    public function set_children_from_iterator()
-    {
-
-    }
-
     public function set_attributes(AttributeCollection $attributes): self
     {
         $this->attributes = $attributes;
+
+        return $this;
+    }
+
+    public function set_type(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
@@ -88,7 +91,8 @@ class ComponentBuilder
             $this->conditions,
             $this->formatter,
             $this->children,
-            $this->attributes
+            $this->attributes,
+            $this->type
         );
     }
 
