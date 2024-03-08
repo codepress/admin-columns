@@ -6,16 +6,15 @@ namespace AC\Setting\ComponentFactory;
 
 use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
-use AC\Setting\AttributeCollection;
 use AC\Setting\Children;
 use AC\Setting\Component;
+use AC\Setting\ComponentBuilder;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input\Number;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\Type\Attribute;
 
 final class Width implements ComponentFactory
 {
@@ -34,48 +33,49 @@ final class Width implements ComponentFactory
         $unit = $config->get(self::UNIT, $unit_options[0]);
         $width = (int)$config->get(self::WIDTH);
 
-        return new Component(
-            __('Width', 'codepress-admin-columns'),
-            null,
-            OptionFactory::create_select(
-                self::UNIT,
-                OptionCollection::from_array(
-                    $unit_options,
-                    false
-                ),
-                $unit
-            ),
-            null,
-            null,
-            new Children(
-                new ComponentCollection([
-                    new Component(
-                        '',
-                        null,
-                        Number::create_single_step(
-                            self::WIDTH,
-                            0,
-                            100,
-                            $width
-                        ),
-                        StringComparisonSpecification::equal($unit_options[0])
+        return (new ComponentBuilder())
+            ->set_label(
+                __('Width', 'codepress-admin-columns')
+            )
+            ->set_input(
+                OptionFactory::create_select(
+                    self::UNIT,
+                    OptionCollection::from_array(
+                        $unit_options,
+                        false
                     ),
-                    new Component(
-                        '',
-                        null,
-                        Number::create_single_step(
-                            self::WIDTH,
-                            0,
+                    $unit
+                )
+            )
+            ->set_children(
+                new Children(
+                    new ComponentCollection([
+                        new Component(
                             null,
-                            $width
+                            null,
+                            Number::create_single_step(
+                                self::WIDTH,
+                                0,
+                                100,
+                                $width
+                            ),
+                            StringComparisonSpecification::equal($unit_options[0])
                         ),
-                        StringComparisonSpecification::equal($unit_options[1])
-                    ),
-                ])
-            ),
-            new AttributeCollection([
-                new Attribute('component', 'width'),
-            ])
-        );
+                        new Component(
+                            null,
+                            null,
+                            Number::create_single_step(
+                                self::WIDTH,
+                                0,
+                                null,
+                                $width
+                            ),
+                            StringComparisonSpecification::equal($unit_options[1])
+                        ),
+                    ])
+                )
+            )
+            ->set_type('width')
+            ->build();
     }
 }
