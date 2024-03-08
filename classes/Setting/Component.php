@@ -58,7 +58,7 @@ class Component
 
     public function has_label(): bool
     {
-        return $this->description !== null;
+        return $this->label !== null;
     }
 
     public function get_label(): string
@@ -70,9 +70,9 @@ class Component
         return $this->label;
     }
 
-    public function has_label(): bool
+    public function has_description(): bool
     {
-        return $this->label !== null;
+        return $this->description !== null;
     }
 
     public function get_description(): string
@@ -82,11 +82,6 @@ class Component
         }
 
         return $this->description;
-    }
-
-    public function has_description(): bool
-    {
-        return $this->description !== null;
     }
 
     public function has_input(): bool
