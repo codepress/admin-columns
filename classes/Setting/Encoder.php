@@ -33,8 +33,8 @@ final class Encoder
     private function encode_setting(Component $component): array
     {
         $encoded = [
-            //'type'  => $component->get_type(),
-            'label' => $component->get_label(),
+            'type'  => $component->get_type(),
+            'label' => $component->has_label() ? $component->get_label() : '',
         ];
 
         if ($component->has_description()) {
