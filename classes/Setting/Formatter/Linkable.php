@@ -12,7 +12,7 @@ class Linkable implements Formatter
 
     private $target;
 
-    public function __construct(string $target = '_self  ')
+    public function __construct(string $target = '_self')
     {
         $this->target = $target;
     }
