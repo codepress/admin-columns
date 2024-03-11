@@ -18,8 +18,12 @@ final class CommentLink implements ComponentFactory
 
     public function create(Config $config, Specification $conditions = null): Component
     {
+        $comment_link_to = (string)$config->get('comment_link_to');
+
         $builder = (new ComponentBuilder())
-            ->set_label(__('Link To', 'codepress-admin-columns'))
+            ->set_label(
+                __('Link To', 'codepress-admin-columns')
+            )
             ->set_input(
                 OptionFactory::create_select(
                     'comment_link_to',
@@ -28,10 +32,12 @@ final class CommentLink implements ComponentFactory
                         'view_comment' => __('View Comment', 'codepress-admin-columns'),
                         'edit_comment' => __('Edit Comment', 'codepress-admin-columns'),
                     ]),
-                    (string)$config->get('comment_link_to')
+                    $comment_link_to
                 )
             )
-            ->set_formatter(new Formatter\Comment\CommentLink((string)$config->get('comment_link_to')));
+            ->set_formatter(
+                new Formatter\Comment\CommentLink($comment_link_to)
+            );
 
         if ($conditions) {
             $builder->set_conditions($conditions);
