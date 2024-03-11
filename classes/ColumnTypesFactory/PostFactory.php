@@ -26,6 +26,7 @@ class PostFactory implements AC\ColumnTypesFactory
 
     private function get_columns(WP_Post_Type $post_type): array
     {
+        //TODO Check for duplicates with Media
         $columns = [
             Column\CustomField::class,
             Column\Actions::class,
