@@ -13,6 +13,7 @@ use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
+use AC\Setting\Formatter\User\Property;
 
 final class UserDisplay implements ComponentFactory
 {
@@ -37,7 +38,7 @@ final class UserDisplay implements ComponentFactory
             ->set_input(
                 OptionFactory::create_select(
                     'display_author_as',
-                    OptionCollection::from_array($this->get_input_options()),
+                    $this->get_input_options(),
                     $config->get('display_author_as') ?: 'display_name'
                 )
             )
@@ -47,6 +48,9 @@ final class UserDisplay implements ComponentFactory
 
                     ])
                 )
+            )
+            ->set_formatter(
+                new Property((string)$config->get('display_author_as'))
             );
 
         if ($conditions) {
@@ -56,9 +60,9 @@ final class UserDisplay implements ComponentFactory
         return $builder->build();
     }
 
-    protected function get_input_options(): array
+    protected function get_input_options(): OptionCollection
     {
-        return [
+        return OptionCollection::from_array([
             self::PROPERTY_DISPLAY_NAME => __('Display Name', 'codepress-admin-columns'),
             self::PROPERTY_FIRST_NAME   => __('First Name', 'codepress-admin-columns'),
             self::PROPERTY_FULL_NAME    => __('Full Name', 'codepress-admin-columns'),
@@ -70,7 +74,7 @@ final class UserDisplay implements ComponentFactory
             self::PROPERTY_ID           => __('User ID', 'codepress-admin-columns'),
             self::PROPERTY_NICENAME     => __('User Nicename', 'codepress-admin-columns'),
             self::PROPERTY_URL          => __('User Website', 'codepress-admin-columns'),
-        ];
+        ]);
     }
 
 }

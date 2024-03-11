@@ -25,6 +25,7 @@ final class AttachmentDisplay implements ComponentFactory
         $this->image_size = $image_size;
     }
 
+    // TODO formatter
     public function create(Config $config, Specification $conditions = null): Component
     {
         $builder = (new ComponentBuilder())
