@@ -8,7 +8,8 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\Type\Value;
 use AC\Settings;
 
-// TODO
+// TODO Formatter
+// TODO do we still want the extra tooltips in the settings?
 class Date extends Settings\Column\DateTimeFormat
 {
 

@@ -14,6 +14,7 @@ use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
+use AC\Setting\Formatter;
 
 final class CommentDisplay implements ComponentFactory
 {
@@ -75,6 +76,10 @@ final class CommentDisplay implements ComponentFactory
                         ),
                     ])
                 )
+            )
+            // TODO use the child formatters as well (Aggregate)
+            ->set_formatter(
+                $this->create_formatter($config)
             );
 
         if ($conditions) {
@@ -82,6 +87,23 @@ final class CommentDisplay implements ComponentFactory
         }
 
         return $builder->build();
+    }
+
+    private function create_formatter(Config $config): Formatter
+    {
+        switch ($config->get('comment')) {
+            case self::PROPERTY_DATE:
+                return new Formatter\Comment\Property('comment_date');
+            case self::PROPERTY_AUTHOR:
+                return new Formatter\Comment\Property('comment_author');
+            case self::PROPERTY_AUTHOR_EMAIL:
+                return new Formatter\Comment\Property('comment_author_email');
+            case self::PROPERTY_COMMENT:
+                return new Formatter\Comment\Property('comment_content');
+            case self::PROPERTY_ID:
+            default:
+                return new Formatter\NullFormatter();
+        }
     }
 
 }

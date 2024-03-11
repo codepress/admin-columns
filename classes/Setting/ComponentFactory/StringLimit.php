@@ -28,6 +28,7 @@ final class StringLimit implements ComponentFactory
         $this->word_limit = $word_limit;
     }
 
+    // TODO formatter
     public function create(Config $config, Specification $conditions = null): Component
     {
         $builder = (new ComponentBuilder())

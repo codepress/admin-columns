@@ -6,10 +6,10 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Control\Input\Custom;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use AC\Settings;
@@ -110,24 +110,6 @@ abstract class DateTimeFormat extends Settings\Control implements Setting\Childr
     //		return $this->get_html_label( $label, $date_format, $description );
     //	}
     //
-    //	public function create_view() {
-    //		$setting = $this
-    //			->create_element( 'text' )
-    //			->set_attribute( 'placeholder', $this->get_default() );
-    //
-    //		$view = new View( [
-    //			'custom_date_formats' => $this->get_custom_formats(),
-    //			'setting'             => $setting,
-    //			'date_format'         => $this->get_date_format(),
-    //			'date_options'        => $this->get_date_options(),
-    //			'label'               => __( 'Date Format', 'codepress-admin-columns' ),
-    //			'tooltip'             => __( 'This will determine how the date will be displayed.', 'codepress-admin-columns' ),
-    //		] );
-    //
-    //		$view->set_template( 'settings/setting-date' );
-    //
-    //		return $view;
-    //	}
     //
     //	protected function get_custom_formats() {
     //		return [ 'wp_default', 'diff' ];

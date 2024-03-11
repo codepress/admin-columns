@@ -36,6 +36,7 @@ final class AttachmentDisplay implements ComponentFactory
         $this->media_link_factory = $media_link_factory;
     }
 
+    // TODO formatter
     public function create(Config $config, Specification $conditions = null): Component
     {
         $value = (string)$config->get(self::NAME, 'thumbnail');
