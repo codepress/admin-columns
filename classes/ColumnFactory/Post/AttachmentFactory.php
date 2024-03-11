@@ -3,9 +3,9 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
+use AC\Setting\ComponentFactory\AttachmentDisplay;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Settings\Column\AttachmentsFactory;
 
 class AttachmentFactory extends ColumnFactory
 {
@@ -13,7 +13,7 @@ class AttachmentFactory extends ColumnFactory
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        AttachmentsFactory $attachments_factory
+        AttachmentDisplay $attachments_factory
     ) {
         parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 

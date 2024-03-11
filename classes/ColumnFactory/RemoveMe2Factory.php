@@ -13,11 +13,13 @@ class RemoveMe2Factory extends ColumnFactory
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        ComponentFactory\DateFormat\Date $date_format
+        ComponentFactory\DateFormat\Date $date_format,
+        ComponentFactory\UserDisplay $user_display
     ) {
         parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 
         $this->add_component_factory($date_format);
+        $this->add_component_factory($user_display);
     }
 
     public function get_type(): string

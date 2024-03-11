@@ -30,7 +30,15 @@ final class UserDisplay implements ComponentFactory
     public const PROPERTY_NICKNAME = 'nickname';
     public const PROPERTY_ROLES = 'roles';
 
-    // Todo implement formatter
+    private $user_link;
+
+    // TODO consider removing the UserLink as dependent setting and making it a separate setting
+    public function __construct(UserLink $user_link)
+    {
+        $this->user_link = $user_link;
+    }
+
+    // Todo implement child (Link) formatter
     public function create(Config $config, Specification $conditions = null): Component
     {
         $builder = (new ComponentBuilder())
@@ -45,7 +53,7 @@ final class UserDisplay implements ComponentFactory
             ->set_children(
                 new Children(
                     new ComponentCollection([
-
+                        $this->user_link->create($config, $conditions),
                     ])
                 )
             )

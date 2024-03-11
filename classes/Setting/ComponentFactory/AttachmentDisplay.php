@@ -79,7 +79,10 @@ final class AttachmentDisplay implements ComponentFactory
     private function get_formatter(string $value): Formatter
     {
         if ($value === self::OPTION_COUNT) {
-            return new Formatter\Count();
+            return new Formatter\Aggregate([
+                new Formatter\Post\Attachments(),
+                new Formatter\Count(),
+            ]);
         }
 
         return new Formatter\Aggregate(
