@@ -25,26 +25,9 @@ class Formatter
 
     private function set_formatters(Setting\FormatterCollection $formatters): void
     {
-        $this->formatters = [];
-
-        foreach ($formatters as $formatter) {
-            $position = 0;
-
-            if ($formatter instanceof PositionAware) {
-                $position = $formatter->get_position();
-            }
-
-            $this->formatters[$position][] = $formatter;
-        }
-
-        ksort($this->formatters);
-    }
-
-    public function format(int $id): string
-    {
         $positioned_formatters = [];
 
-        foreach ($this->formatters as $formatter) {
+        foreach ($formatters as $formatter) {
             $position = 0;
 
             if ($formatter instanceof PositionAware) {
@@ -55,6 +38,13 @@ class Formatter
         }
 
         ksort($positioned_formatters);
+
+        $this->formatters = new Setting\FormatterCollection( array_merge( ...$positioned_formatters ) )
+    }
+
+    public function format(int $id): string
+    {
+        
     }
 
     public function get_value(int $id): Value
