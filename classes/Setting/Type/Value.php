@@ -36,6 +36,7 @@ final class Value
         return $this->value;
     }
 
+    // TODO David remove?
     public function __toString(): string
     {
         return is_scalar($this->value)

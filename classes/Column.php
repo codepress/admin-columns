@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Column\Formatter;
 use AC\Setting\Component;
-use AC\Setting\ComponentCollection;
-use AC\Setting\Formatter;
 use AC\Type\ColumnId;
 use AC\Type\ColumnParent;
 
@@ -21,23 +20,27 @@ class Column
 
     protected $group;
 
-    private $renderable;
+    private $formatter;
 
     private $parent;
 
     public function __construct(
         string $type,
         string $label,
-        Formatter $formatter,
-        ComponentCollection $settings,
+        Setting\ComponentCollection $settings,
+        Formatter $formatter = null,
         string $group = null,
         ColumnParent $parent = null
     ) {
+        if ($group === null) {
+            $group = 'custom';
+        }
+
         $this->type = $type;
         $this->label = $label;
-        $this->renderable = $formatter;
         $this->settings = $settings;
-        $this->group = $group ?? 'custom';
+        $this->formatter = $formatter;
+        $this->group = $group;
         $this->parent = $parent;
     }
 
@@ -89,9 +92,9 @@ class Column
         // do_action('ac/column/settings', $settings);
     }
 
-    public function renderable(): Formatter
+    public function get_formatter(): ?Formatter
     {
-        return $this->renderable;
+        return $this->formatter;
     }
 
     // TODO David move the recursive initial outside this function for a cleaner API
