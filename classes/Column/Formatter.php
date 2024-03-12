@@ -12,6 +12,9 @@ use AC\Setting\ValueCollection;
 class Formatter
 {
 
+    /**
+     * @var Setting\FormatterCollection
+     */
     private $formatters;
 
     public function __construct(Setting\FormatterCollection $formatters = null)
@@ -20,29 +23,12 @@ class Formatter
             $formatters = new Setting\FormatterCollection();
         }
 
-        $this->set_formatters($formatters);
-    }
-
-    private function set_formatters(Setting\FormatterCollection $formatters): void
-    {
-        $this->formatters = [];
-
-        foreach ($formatters as $formatter) {
-            $position = 0;
-
-            if ($formatter instanceof PositionAware) {
-                $position = $formatter->get_position();
-            }
-
-            $this->formatters[$position][] = $formatter;
-        }
-
-        ksort($this->formatters);
+        $this->formatters = $formatters;
     }
 
     public function format(int $id): string
     {
-        $positioned_formatters = [];
+        $formatters = [];
 
         foreach ($this->formatters as $formatter) {
             $position = 0;
@@ -51,45 +37,35 @@ class Formatter
                 $position = $formatter->get_position();
             }
 
-            $positioned_formatters[$position][] = $formatter;
+            $formatters[$position][] = $formatter;
         }
 
-        ksort($positioned_formatters);
+        ksort($formatters);
 
-        //TODO implement
-        return '';
+        $formatters = new Setting\FormatterCollection(array_merge(...$formatters));
+
+        $value = $this->get_value($id);
+
+        foreach ($formatters as $formatter) {
+            if ($value->get_value() instanceof ValueCollection) {
+                $collection = new ValueCollection();
+
+                iterator_apply($value->get_value(), static function ($value) use ($collection, $formatter) {
+                    $collection->add($formatter->format($value));
+                });
+
+                $value = $value->with_value($collection);
+            } else {
+                $value = $formatter->format($value);
+            }
+        }
+
+        return (string)$value;
     }
 
     public function get_value(int $id): Value
     {
         return new Value($id);
-    }
-
-    protected function format_value(Value $value): Value
-    {
-        $positioned_formatters = [];
-
-        foreach ($this->formatters as $formatter) {
-            $position = 0;
-
-            if ($formatter instanceof PositionAware) {
-                $position = $formatter->get_position();
-            }
-
-            $positioned_formatters[$position][] = $formatter;
-        }
-
-        ksort($positioned_formatters);
-
-        if ($value->get_value() instanceof ValueCollection) {
-            $collection = new ValueCollection();
-
-            iterator_apply($value->get_value(), [$collection, 'add']);
-
-            $value = $value->with_value($collection);
-        }
-
-        return $value;
     }
 
 }
