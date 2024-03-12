@@ -55,6 +55,9 @@ class Formatter
         }
 
         ksort($positioned_formatters);
+
+        //TODO implement
+        return '';
     }
 
     public function get_value(int $id): Value

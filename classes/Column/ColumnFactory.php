@@ -13,6 +13,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\AggregateBuilderFactory;
+use AC\Setting\FormatterCollection;
 use AC\Settings\Column\WidthFactory;
 use AC\Settings\SettingFactory;
 use AC\Type\ColumnParent;
@@ -86,8 +87,9 @@ abstract class ColumnFactory
         return new Column(
             $this->get_type(),
             $this->get_label(),
-            $formatter,
             $components,
+            // TODO fix, it now just return what is needed to test further
+            new \AC\Column\Formatter(new FormatterCollection([$formatter])),
             $this->get_group(),
             $this->get_parent()
         );
