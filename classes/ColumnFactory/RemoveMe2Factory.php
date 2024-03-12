@@ -14,7 +14,7 @@ class RemoveMe2Factory extends ColumnFactory
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
         ComponentFactory\DateFormat\Date $date_format,
-        ComponentFactory\UserDisplay $user_display
+        ComponentFactory\UserProperty $user_display
     ) {
         parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 

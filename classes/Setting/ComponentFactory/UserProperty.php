@@ -15,7 +15,7 @@ use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter\User\Property;
 
-final class UserDisplay implements ComponentFactory
+final class UserProperty implements ComponentFactory
 {
 
     public const PROPERTY_DISPLAY_NAME = 'display_name';
