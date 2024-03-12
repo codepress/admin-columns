@@ -34,7 +34,7 @@ final class CommentDisplay implements ComponentFactory
     public function __construct(
         StringLimit $string_limit,
         CommentLink $comment_link,
-        UserDisplay $user_display
+        UserProperty $user_display
     ) {
         $this->string_limit = $string_limit;
         $this->comment_link = $comment_link;
