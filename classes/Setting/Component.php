@@ -18,7 +18,7 @@ class Component
 
     private $input;
 
-    private $formatter;
+    private $formatters;
 
     private $children;
 
@@ -33,11 +33,15 @@ class Component
         string $description = null,
         Input $input = null,
         Specification $conditions = null,
-        Formatter $formatter = null,
+        FormatterCollection $formatters = null,
         Children $children = null,
         AttributeCollection $attributes = null,
         string $type = null
     ) {
+        if ($formatters === null) {
+            $formatters = new FormatterCollection();
+        }
+
         if ($attributes === null) {
             $attributes = new AttributeCollection();
         }
@@ -49,7 +53,7 @@ class Component
         $this->label = $label;
         $this->description = $description;
         $this->input = $input;
-        $this->formatter = $formatter;
+        $this->formatters = $formatters;
         $this->children = $children;
         $this->conditions = $conditions;
         $this->attributes = $attributes;
@@ -98,18 +102,15 @@ class Component
         return $this->input;
     }
 
-    public function has_formatter(): bool
+    // TODO David THIS and/or the Base Formatter
+    public function has_formatters(): bool
     {
-        return $this->formatter !== null;
+        return $this->formatters->count() > 0;
     }
 
-    public function get_formatter(): Formatter
+    public function get_formatters(): FormatterCollection
     {
-        if ( ! $this->has_formatter()) {
-            return new Formatter\NullFormatter();
-        }
-
-        return $this->formatter;
+        return $this->formatters;
     }
 
     public function has_children(): bool
