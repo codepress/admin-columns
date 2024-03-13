@@ -26,7 +26,7 @@ class UserUrlFactory extends ColumnFactory
     ): Formatter\AggregateBuilder {
         return parent::create_formatter_builder($components, $config)
                      ->prepend(new Formatter\User\Property('user_url'))
-                     ->add(new Formatter\Linkable('_blank'));
+                     ->add(new Formatter\Linkable(null, '_blank'));
     }
 
 }

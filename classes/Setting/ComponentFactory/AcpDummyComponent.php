@@ -44,7 +44,8 @@ final class AcpDummyComponent implements ComponentFactory
                     ]),
                     (string)$config->get('dummy_select')
                 )
-            )->set_formatter($this->get_formatter($config))
+            )
+            ->set_formatter($this->get_formatter($config))
             ->set_children(
             // Use same
                 new Children(new ComponentCollection([
