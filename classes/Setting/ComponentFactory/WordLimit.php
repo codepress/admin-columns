@@ -13,6 +13,7 @@ use AC\Setting\FormatterCollection;
 final class WordLimit extends Builder
 {
 
+    // TODO David decide if this shortcut is worth it Builder
     private const NAME = 'word_limit';
 
     private function get_value_word_limit(Config $config): int
