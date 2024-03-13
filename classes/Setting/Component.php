@@ -127,6 +127,7 @@ class Component
         return $this->children;
     }
 
+    // TODO David is this required at all?
     public function has_conditions(): bool
     {
         return $this->conditions !== null;
