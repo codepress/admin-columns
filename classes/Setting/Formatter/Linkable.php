@@ -12,9 +12,12 @@ class Linkable implements Formatter
 
     private $target;
 
-    public function __construct(string $target = '_self')
+    private $custom_label;
+
+    public function __construct(string $custom_label = null, string $target = '_self')
     {
         $this->target = $target;
+        $this->custom_label = $custom_label;
     }
 
     public function format(Value $value): Value
@@ -22,7 +25,9 @@ class Linkable implements Formatter
         $url = $value->get_value();
 
         if (filter_var($url, FILTER_VALIDATE_URL) && preg_match('/[^\w.-]/', $url)) {
-            return $value->with_value(ac_helper()->html->link($url, $url, ['target' => $this->target]));
+            $link_label = $this->custom_label ?: $url;
+
+            return $value->with_value(ac_helper()->html->link($url, $link_label, ['target' => $this->target]));
         }
 
         return $value;
