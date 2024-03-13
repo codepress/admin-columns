@@ -12,8 +12,10 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input\Number;
 use AC\Setting\Formatter;
 
-final class WordLimit implements ComponentFactory
+final class WordLimit extends Builder
 {
+
+    private const NAME = 'word_limit';
 
     public function create(Config $config, Specification $conditions = null): Component
     {
@@ -46,6 +48,35 @@ final class WordLimit implements ComponentFactory
         }
 
         return $builder->build();
+    }
+
+    protected function configure_builder(Config $config, ComponentBuilder $builder): ComponentBuilder
+    {
+        $word_limit = (int)$config->get(self::NAME, 20);
+
+        return $builder
+            ->set_label(__('Word Limit', 'codepress-admin-columns'))
+            ->set_description(
+                sprintf(
+                    '%s <em>%s</em>',
+                    __('Maximum number of words', 'codepress-admin-columns'),
+                    __('Leave empty for no limit', 'codepress-admin-columns')
+                )
+            )
+            ->set_input(
+                Number::create_single_step(
+                    self::NAME,
+                    0,
+                    null,
+                    $word_limit,
+                    null,
+                    null,
+                    __('Words', 'codepress-admin-columns')
+                )
+            )
+            ->set_formatter(
+                new Formatter\CharacterLimit((int)$config->get('character_limit'))
+            );
     }
 
 }

@@ -38,6 +38,10 @@ class Component
         AttributeCollection $attributes = null,
         string $type = null
     ) {
+        if ($conditions === null) {
+            $conditions = new NullSpecification();
+        }
+
         if ($formatters === null) {
             $formatters = new FormatterCollection();
         }
@@ -102,12 +106,6 @@ class Component
         return $this->input;
     }
 
-    // TODO David THIS and/or the Base Formatter
-    public function has_formatters(): bool
-    {
-        return $this->formatters->count() > 0;
-    }
-
     public function get_formatters(): FormatterCollection
     {
         return $this->formatters;
@@ -127,18 +125,8 @@ class Component
         return $this->children;
     }
 
-    // TODO David is this required at all?
-    public function has_conditions(): bool
-    {
-        return $this->conditions !== null;
-    }
-
     public function get_conditions(): Specification
     {
-        if ( ! $this->has_conditions()) {
-            return new NullSpecification();
-        }
-
         return $this->conditions;
     }
 

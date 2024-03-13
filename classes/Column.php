@@ -219,10 +219,10 @@ class Column
     //        $this->settings[$setting->get_name()] = $setting;
     //
     //        return $this;
-    // TODO David Check
+    // TODO  Check
     //$setting->set_values($this->options);
 
-    // TODO David check
+    // TODO  check
     //        foreach ((array)$setting->get_dependent_settings() as $dependent_setting) {
     //            $this->add_setting($dependent_setting);
     //        }

@@ -18,7 +18,7 @@ final class ComponentBuilder
 
     private $conditions;
 
-    private $formatter;
+    private $formatters;
 
     private $children;
 
@@ -47,7 +47,9 @@ final class ComponentBuilder
         return $this;
     }
 
-    // TODO David maybe allow null here OR force a NULL condition?
+    /**
+     * Null conveniently allowed to pass on
+     */
     public function set_conditions(Specification $conditions): self
     {
         $this->conditions = $conditions;
@@ -55,11 +57,19 @@ final class ComponentBuilder
         return $this;
     }
 
-    public function set_formatter(Formatter $formatter): self
+    public function set_formatters(FormatterCollection $formatters): self
     {
-        $this->formatter = $formatter;
+        $this->formatters = $formatters;
 
         return $this;
+    }
+
+    public function set_formatter(Formatter $formatter): self
+    {
+        $formatters = new FormatterCollection();
+        $formatters->add($formatter);
+
+        return $this->set_formatters($formatters);
     }
 
     public function set_children(Children $children): self
@@ -90,7 +100,7 @@ final class ComponentBuilder
             $this->description,
             $this->input,
             $this->conditions,
-            $this->formatter,
+            $this->formatters,
             $this->children,
             $this->attributes,
             $this->type
