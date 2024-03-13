@@ -4,79 +4,56 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
-use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Number;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 final class WordLimit extends Builder
 {
 
     private const NAME = 'word_limit';
 
-    public function create(Config $config, Specification $conditions = null): Component
+    private function get_value_word_limit(Config $config): int
     {
-        $limit = $config->has('word_limit') ? (int)$config->get('word_limit') : 20;
-
-        $builder = (new ComponentBuilder())
-            ->set_label(__('Word Limit', 'codepress-admin-columns'))
-            ->set_description(
-                sprintf(
-                    '%s <em>%s</em>',
-                    __('Maximum number of words', 'codepress-admin-columns'),
-                    __('Leave empty for no limit', 'codepress-admin-columns')
-                )
-            )
-            ->set_input(
-                Number::create_single_step(
-                    'word_limit',
-                    0,
-                    null,
-                    $limit,
-                    null,
-                    null,
-                    __('Words', 'codepress-admin-columns')
-                )
-            )
-            ->set_formatter(new Formatter\CharacterLimit((int)$config->get('character_limit')));
-
-        if ($conditions) {
-            $builder->set_conditions($conditions);
-        }
-
-        return $builder->build();
+        return (int)$config->get(self::NAME, 20);
     }
 
-    protected function configure_builder(Config $config, ComponentBuilder $builder): ComponentBuilder
+    protected function get_label(Config $config): ?string
     {
-        $word_limit = (int)$config->get(self::NAME, 20);
+        return __('Word Limit', 'codepress-admin-columns');
+    }
 
-        return $builder
-            ->set_label(__('Word Limit', 'codepress-admin-columns'))
-            ->set_description(
-                sprintf(
-                    '%s <em>%s</em>',
-                    __('Maximum number of words', 'codepress-admin-columns'),
-                    __('Leave empty for no limit', 'codepress-admin-columns')
-                )
-            )
-            ->set_input(
-                Number::create_single_step(
-                    self::NAME,
-                    0,
-                    null,
-                    $word_limit,
-                    null,
-                    null,
-                    __('Words', 'codepress-admin-columns')
-                )
-            )
-            ->set_formatter(
-                new Formatter\CharacterLimit((int)$config->get('character_limit'))
-            );
+    protected function get_description(Config $config): ?string
+    {
+        return sprintf(
+            '%s <em>%s</em>',
+            __('Maximum number of words', 'codepress-admin-columns'),
+            __('Leave empty for no limit', 'codepress-admin-columns')
+        );
+    }
+
+    protected function get_input(Config $config): ?Input
+    {
+        return Number::create_single_step(
+            self::NAME,
+            0,
+            null,
+            $this->get_value_word_limit($config),
+            null,
+            null,
+            __('Words', 'codepress-admin-columns')
+        );
+    }
+
+    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    {
+        $formatters->add(
+            new Formatter\CharacterLimit($this->get_value_word_limit($config))
+        );
+
+        return $formatters;
     }
 
 }
