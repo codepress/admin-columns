@@ -47,6 +47,7 @@ final class ComponentBuilder
         return $this;
     }
 
+    // TODO David maybe allow null here OR force a NULL condition?
     public function set_conditions(Specification $conditions): self
     {
         $this->conditions = $conditions;
