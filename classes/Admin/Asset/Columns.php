@@ -79,7 +79,7 @@ class Columns extends Script
                 'error'  => __('Invalid response.', 'codepress-admin-columns'),
                 'errors' => [
                     'save_settings'  => __(
-                        'There was an error during saving the column settings.',
+                        'There was an error during the saving of the column settings.',
                         'codepress-admin-columns'
                     ),
                     'loading_column' => __(
