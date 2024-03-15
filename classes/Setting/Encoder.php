@@ -11,7 +11,6 @@ use AC\Setting\Control\OptionCollection;
 
 final class Encoder
 {
-
     private $settings;
 
     public function __construct(ComponentCollection $settings)
@@ -48,9 +47,7 @@ final class Encoder
         if ($component->has_input()) {
             $input = $component->get_input();
 
-            if ($component->has_conditions()) {
-                $encoded['conditions'] = $component->get_conditions()->get_rules($input->get_name());
-            }
+            $encoded['conditions'] = $component->get_conditions()->get_rules($input->get_name());
 
             $encoded['input'] = [
                 'type' => $input->get_type(),
