@@ -101,10 +101,12 @@ function create_each_block(key_1, ctx) {
     /*input1_input_handler*/ctx[8].call(input1, /*each_value*/ctx[17], /*index*/ctx[18]);
   }
   function click_handler() {
-    return /*click_handler*/ctx[9]( /*option*/ctx[16]);
+    return (/*click_handler*/ctx[9]( /*option*/ctx[16])
+    );
   }
   function click_handler_1() {
-    return /*click_handler_1*/ctx[10]( /*option*/ctx[16]);
+    return (/*click_handler_1*/ctx[10]( /*option*/ctx[16])
+    );
   }
   return {
     key: key_1,
@@ -4743,7 +4745,8 @@ function create_each_block_3(ctx) {
   let optgroup;
   let optgroup_label_value;
   function func(...args) {
-    return /*func*/ctx[9]( /*group*/ctx[21], ...args);
+    return (/*func*/ctx[9]( /*group*/ctx[21], ...args)
+    );
   }
   let each_value_4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*options*/ctx[2].filter(func));
   let each_blocks = [];
@@ -4909,7 +4912,8 @@ function create_each_block_2(ctx) {
   let listscreenmenuitem;
   let current;
   function selectItem_handler() {
-    return /*selectItem_handler*/ctx[11]( /*key*/ctx[20]);
+    return (/*selectItem_handler*/ctx[11]( /*key*/ctx[20])
+    );
   }
   listscreenmenuitem = new _ListScreenMenuItem_svelte__WEBPACK_IMPORTED_MODULE_6__["default"]({
     props: {
@@ -5028,7 +5032,8 @@ function create_each_block_1(ctx) {
   let listscreenmenuitem;
   let current;
   function selectItem_handler_1() {
-    return /*selectItem_handler_1*/ctx[13]( /*key*/ctx[20]);
+    return (/*selectItem_handler_1*/ctx[13]( /*key*/ctx[20])
+    );
   }
   listscreenmenuitem = new _ListScreenMenuItem_svelte__WEBPACK_IMPORTED_MODULE_6__["default"]({
     props: {
@@ -5090,7 +5095,8 @@ function create_each_block(ctx) {
     }
   });
   function click_handler() {
-    return /*click_handler*/ctx[12]( /*key*/ctx[20]);
+    return (/*click_handler*/ctx[12]( /*key*/ctx[20])
+    );
   }
   let if_block = show_if && create_if_block(ctx);
   return {
@@ -5878,7 +5884,8 @@ function create_each_block(ctx) {
   let if_block_anchor;
   let current;
   function func(...args) {
-    return /*func*/ctx[4]( /*feature*/ctx[6], ...args);
+    return (/*func*/ctx[4]( /*feature*/ctx[6], ...args)
+    );
   }
   const if_block_creators = [create_if_block_1, create_else_block];
   const if_blocks = [];
@@ -7716,7 +7723,8 @@ function create_each_block_1(ctx) {
   let mounted;
   let dispose;
   function click_handler() {
-    return /*click_handler*/ctx[14]( /*dashicon*/ctx[20]);
+    return (/*click_handler*/ctx[14]( /*dashicon*/ctx[20])
+    );
   }
   return {
     c() {
@@ -8841,10 +8849,12 @@ function create_each_block(key_1, ctx) {
     /*input1_input_handler*/ctx[7].call(input1, /*each_value*/ctx[18], /*index*/ctx[19]);
   }
   function click_handler() {
-    return /*click_handler*/ctx[8]( /*option*/ctx[17]);
+    return (/*click_handler*/ctx[8]( /*option*/ctx[17])
+    );
   }
   function click_handler_1() {
-    return /*click_handler_1*/ctx[9]( /*option*/ctx[17]);
+    return (/*click_handler_1*/ctx[9]( /*option*/ctx[17])
+    );
   }
   return {
     key: key_1,
@@ -10094,33 +10104,39 @@ function get_each_context(ctx, list, i) {
 
 // (18:2) {#each new Array( 5 ) as i}
 function create_each_block(ctx) {
-  let div5;
+  let div11;
   let header;
   let div0;
   let t0;
+  let div2;
   let div1;
   let acskeleton0;
   let t1;
+  let div9;
   let div3;
-  let div2;
   let acskeleton1;
   let t2;
+  let div4;
   let acskeleton2;
   let t3;
+  let div5;
   let acskeleton3;
   let t4;
+  let div6;
   let acskeleton4;
   let t5;
+  let div7;
   let acskeleton5;
   let t6;
+  let div8;
   let acskeleton6;
   let t7;
-  let div4;
+  let div10;
   let t8;
   let current;
   acskeleton0 = new ACUi_element_AcSkeleton_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
     props: {
-      width: "160px"
+      width: "260px"
     }
   });
   acskeleton1 = new ACUi_element_AcSkeleton_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
@@ -10161,66 +10177,75 @@ function create_each_block(ctx) {
   });
   return {
     c() {
-      div5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div11 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       header = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("header");
       div0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div0.innerHTML = ``;
       t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acskeleton0.$$.fragment);
       t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div9 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       div3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      div2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acskeleton1.$$.fragment);
       t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acskeleton2.$$.fragment);
       t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acskeleton3.$$.fragment);
       t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div6 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acskeleton4.$$.fragment);
       t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div7 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acskeleton5.$$.fragment);
       t6 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+      div8 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(acskeleton6.$$.fragment);
       t7 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-      div4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      div4.innerHTML = `<button class="ac-open-indicator"><span class="dashicons dashicons-arrow-down-alt2"></span></button>`;
+      div10 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+      div10.innerHTML = `<button class="ac-open-indicator"><span class="dashicons dashicons-arrow-down-alt2"></span></button>`;
       t8 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div0, "class", "ac-column-header__move acu-cursor-move");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "ac-column-header__label");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div2, "display", "flex");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div2, "height", "32px");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div2, "align-items", "center");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div2, "gap", "5px");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div3, "class", "ac-column-header__actions");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div4, "class", "ac-column-header__open-indicator");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(header, "class", "ac-column-header");
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div5, "class", "ac-column");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div1, "class", "acu-pb-4");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div2, "class", "ac-column-header__label");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div9, "class", "ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div10, "class", "ac-column-header__open-indicator acu-flex acu-justify-end");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(header, "class", "ac-column-header acu-flex acu-py-2 acu-pr-6 acu-items-center acu-bg-[#fff]");
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div11, "class", "ac-column");
     },
     m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div5, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div5, header);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div11, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div11, header);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, div0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, t0);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, div1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, div2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, div1);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton0, div1, null);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, t1);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, div3);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div3, div2);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton1, div2, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t2);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton2, div2, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t3);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton3, div2, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t4);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton4, div2, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t5);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton5, div2, null);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div2, t6);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton6, div2, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, div9);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div9, div3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton1, div3, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div9, t2);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div9, div4);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton2, div4, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div9, t3);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div9, div5);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton3, div5, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div9, t4);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div9, div6);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton4, div6, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div9, t5);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div9, div7);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton5, div7, null);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div9, t6);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div9, div8);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(acskeleton6, div8, null);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, t7);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, div4);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div5, t8);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(header, div10);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div11, t8);
       current = true;
     },
     p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
@@ -10247,7 +10272,7 @@ function create_each_block(ctx) {
     },
     d(detaching) {
       if (detaching) {
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div5);
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div11);
       }
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acskeleton0);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(acskeleton1);
@@ -11199,13 +11224,16 @@ function create_each_block_1(ctx) {
   const item_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(item_slot_template, ctx, /*$$scope*/ctx[81], get_item_slot_context);
   const item_slot_or_fallback = item_slot || fallback_block_8(ctx);
   function mouseover_handler() {
-    return /*mouseover_handler*/ctx[87]( /*i*/ctx[127]);
+    return (/*mouseover_handler*/ctx[87]( /*i*/ctx[127])
+    );
   }
   function focus_handler() {
-    return /*focus_handler*/ctx[88]( /*i*/ctx[127]);
+    return (/*focus_handler*/ctx[88]( /*i*/ctx[127])
+    );
   }
   function click_handler() {
-    return /*click_handler*/ctx[89]( /*item*/ctx[125], /*i*/ctx[127]);
+    return (/*click_handler*/ctx[89]( /*item*/ctx[125], /*i*/ctx[127])
+    );
   }
   return {
     c() {
@@ -11620,7 +11648,8 @@ function create_if_block_6(ctx) {
   const multi_clear_icon_slot = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_slot)(multi_clear_icon_slot_template, ctx, /*$$scope*/ctx[81], get_multi_clear_icon_slot_context);
   const multi_clear_icon_slot_or_fallback = multi_clear_icon_slot || fallback_block_5(ctx);
   function pointerup_handler_1() {
-    return /*pointerup_handler_1*/ctx[91]( /*i*/ctx[127]);
+    return (/*pointerup_handler_1*/ctx[91]( /*i*/ctx[127])
+    );
   }
   return {
     c() {
@@ -11709,7 +11738,8 @@ function create_each_block(ctx) {
   const selection_slot_or_fallback = selection_slot || fallback_block_6(ctx);
   let if_block = ! /*disabled*/ctx[11] && ! /*multiFullItemClearable*/ctx[10] && _ClearIcon_svelte__WEBPACK_IMPORTED_MODULE_7__["default"] && create_if_block_6(ctx);
   function click_handler_1() {
-    return /*click_handler_1*/ctx[92]( /*i*/ctx[127]);
+    return (/*click_handler_1*/ctx[92]( /*i*/ctx[127])
+    );
   }
   return {
     c() {
@@ -32977,7 +33007,7 @@ const PUBLIC_VERSION = '4';
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('[{"name":"Admin Menu","items":["menu","menu-alt","menu-alt2","menu-alt3","admin-site","admin-site-alt","admin-site-alt2","admin-site-alt3","dashboard","admin-post","admin-media","admin-links","admin-page","admin-comments","admin-appearance","admin-plugins","plugins-checked","admin-users","admin-tools","admin-settings","admin-network","admin-home","admin-generic","admin-collapse","filter","admin-customizer","admin-multisite"]},{"name":"Welcome Screen","items":["welcome-write-blog","welcome-add-page","welcome-view-site","welcome-widgets-menus","welcome-comments","welcome-learn-more"]},{"name":"Post Formats","items":["format-aside","format-image","format-gallery","format-video","format-status","format-quote","format-chat","format-audio","camera","camera-alt","images-alt","images-alt2","video-alt","video-alt2","video-alt3"]},{"name":"Media","items":["media-archive","media-audio","media-code","media-default","media-document","media-interactive","media-spreadsheet","media-text","media-video","playlist-audio","playlist-video","controls-play","controls-pause","controls-forward","controls-skipforward","controls-back","controls-skipback","controls-repeat","controls-volumeon","controls-volumeoff"]},{"name":"Image Editing","items":["image-crop","image-rotate","image-rotate-left","image-rotate-right","image-flip-vertical","image-flip-horizontal","image-filter","undo","redo"]},{"name":"Databases","items":["database-add","database","database-export","database-import","database-remove","database-view"]},{"name":"Block Editor","items":["align-full-width","align-pull-left","align-pull-right","align-wide","block-default","button","cloud-saved","cloud-upload","columns","cover-image","ellipsis","embed-audio","embed-generic","embed-photo","embed-post","embed-video","exit","heading","html","info-outline","insert","insert-after","insert-before","remove","saved","shortcode","table-col-after","table-col-before","table-col-delete","table-row-after","table-row-before","table-row-delete"]},{"name":"TinyMCE","items":["editor-bold","editor-italic","editor-ul","editor-ol","editor-ol-rtl","editor-quote","editor-alignleft","editor-aligncenter","editor-alignright","editor-insertmore","editor-spellcheck","editor-expand","editor-contract","editor-kitchensink","editor-underline","editor-justify","editor-textcolor","editor-paste-word","editor-paste-text","editor-removeformatting","editor-video","editor-customchar","editor-outdent","editor-indent","editor-help","editor-strikethrough","editor-unlink","editor-rtl","editor-ltr","editor-break","editor-code","editor-paragraph","editor-table"]},{"name":"Posts Screen","items":["align-left","align-right","align-center","align-none","lock","unlock","calendar","calendar-alt","visibility","hidden","post-status","edit","trash","sticky"]},{"name":"Sorting","items":["external","arrow-up","arrow-down","arrow-right","arrow-left","arrow-up-alt","arrow-down-alt","arrow-right-alt","arrow-left-alt","arrow-up-alt2","arrow-down-alt2","arrow-right-alt2","arrow-left-alt2","sort","leftright","randomize","list-view","excerpt-view","grid-view","move"]},{"name":"Social","items":["share","share-alt","share-alt2","rss","email","email-alt","email-alt2","networking","amazon","facebook","facebook-alt","google","instagram","linkedin","pinterest","podio","reddit","spotify","twitch","twitter","twitter-alt","whatsapp","xing","youtube"]},{"name":"WordPress.org","items":["hammer","art","migrate","performance","universal-access","universal-access-alt","tickets","nametag","clipboard","heart","megaphone","schedule","tide","rest-api","code-standards"]},{"name":"Buddicons","items":["buddicons-activity","buddicons-bbpress-logo","buddicons-buddypress-logo","buddicons-community","buddicons-forums","buddicons-friends","buddicons-groups","buddicons-pm","buddicons-replies","buddicons-topics","buddicons-tracking"]},{"name":"Products","items":["wordpress","wordpress-alt","pressthis","update","update-alt","screenoptions","info","cart","feedback","cloud","translation"]},{"name":"Taxonomies","items":["tag","category"]},{"name":"Widgets","items":["archive","tagcloud","text"]},{"name":"Notifications","items":["bell","yes","yes-alt","no","no-alt","plus","plus-alt","plus-alt2","minus","dismiss","marker","star-filled","star-half","star-empty","flag","warning"]},{"name":"Miscellaneous","items":["location","location-alt","vault","shield","shield-alt","sos","search","slides","text-page","analytics","chart-pie","chart-bar","chart-line","chart-area","groups","businessman","businesswoman","businessperson","id","id-alt","products","awards","forms","testimonial","portfolio","book","book-alt","download","upload","backup","clock","lightbulb","microphone","desktop","laptop","tablet","smartphone","phone","index-card","carrot","building","store","album","palmtree","tickets-alt","money","money-alt","smiley","thumbs-up","thumbs-down","layout","paperclip","color-picker","edit-large","edit-page","airplane","bank","beer","calculator","car","coffee","drumstick","food","fullscreen-alt","fullscreen-exit-alt","games","hourglass","open-folder","pdf","pets","printer","privacy","superhero","superhero-alt"]}]');
+module.exports = JSON.parse('[{"name":"Admin Menu","items":["menu","menu-alt","menu-alt2","menu-alt3","admin-site","admin-site-alt","admin-site-alt2","admin-site-alt3","dashboard","admin-post","admin-media","admin-links","admin-page","admin-comments","admin-appearance","admin-plugins","plugins-checked","admin-users","admin-tools","admin-settings","admin-network","admin-home","admin-generic","admin-collapse","filter","admin-customizer","admin-multisite"]},{"name":"Welcome Screen","items":["welcome-write-blog","welcome-add-page","welcome-view-site","welcome-widgets-menus","welcome-comments","welcome-learn-more"]},{"name":"Post Formats","items":["format-aside","format-image","format-gallery","format-video","format-status","format-quote","format-chat","format-audio","camera","camera-alt","images-alt","images-alt2","video-alt","video-alt2","video-alt3"]},{"name":"Media","items":["media-archive","media-audio","media-code","media-default","media-document","media-interactive","media-spreadsheet","media-text","media-video","playlist-audio","playlist-video","controls-play","controls-pause","controls-forward","controls-skipforward","controls-back","controls-skipback","controls-repeat","controls-volumeon","controls-volumeoff"]},{"name":"Image Editing","items":["image-crop","image-rotate","image-rotate-left","image-rotate-right","image-flip-vertical","image-flip-horizontal","image-filter","undo","redo"]},{"name":"Databases","items":["database-add","database","database-export","database-import","database-remove","database-view"]},{"name":"Block Editor","items":["align-full-width","align-pull-left","align-pull-right","align-wide","block-default","button","cloud-saved","cloud-upload","columns","cover-image","ellipsis","embed-audio","embed-generic","embed-photo","embed-post","embed-video","exit","heading","html","info-outline","insert","insert-after","insert-before","remove","saved","shortcode","table-col-after","table-col-before","table-col-delete","table-row-after","table-row-before","table-row-delete"]},{"name":"TinyMCE","items":["editor-bold","editor-italic","editor-ul","editor-ol","editor-ol-rtl","editor-quote","editor-alignleft","editor-aligncenter","editor-alignright","editor-insertmore","editor-spellcheck","editor-expand","editor-contract","editor-kitchensink","editor-underline","editor-justify","editor-textcolor","editor-paste-word","editor-paste-text","editor-removeformatting","editor-video","editor-customchar","editor-outdent","editor-indent","editor-help","editor-strikethrough","editor-unlink","editor-rtl","editor-ltr","editor-break","editor-code","editor-paragraph","editor-table"]},{"name":"Posts Screen","items":["align-left","align-right","align-center","align-none","lock","unlock","calendar","calendar-alt","visibility","hidden","post-status","edit","trash","sticky"]},{"name":"Sorting","items":["external","arrow-up","arrow-down","arrow-right","arrow-left","arrow-up-alt","arrow-down-alt","arrow-right-alt","arrow-left-alt","arrow-up-alt2","arrow-down-alt2","arrow-right-alt2","arrow-left-alt2","sort","leftright","randomize","list-view","excerpt-view","grid-view","move"]},{"name":"Social","items":["share","share-alt","share-alt2","rss","email","email-alt","email-alt2","networking","amazon","facebook","facebook-alt","google","instagram","linkedin","pinterest","podio","reddit","spotify","twitch","twitter","twitter-alt","whatsapp","xing","youtube"]},{"name":"WordPress.org","items":["hammer","art","migrate","performance","universal-access","universal-access-alt","tickets","nametag","clipboard","heart","megaphone","schedule","tide","rest-api","code-standards"]},{"name":"Buddicons","items":["buddicons-activity","buddicons-bbpress-logo","buddicons-buddypress-logo","buddicons-community","buddicons-forums","buddicons-friends","buddicons-groups","buddicons-pm","buddicons-replies","buddicons-topics","buddicons-tracking"]},{"name":"Products","items":["wordpress","wordpress-alt","pressthis","update","update-alt","screenoptions","info","cart","feedback","cloud","translation"]},{"name":"Taxonomies","items":["tag","category"]},{"name":"Widgets","items":["archive","tagcloud","text"]},{"name":"Notifications","items":["bell","yes","yes-alt","no","no-alt","plus","plus-alt","plus-alt2","minus","dismiss","marker","star-filled","star-half","star-empty","flag","warning"]},{"name":"Miscellaneous","items":["location","location-alt","vault","shield","shield-alt","sos","search","slides","text-page","analytics","chart-pie","chart-bar","chart-line","chart-area","groups","businessman","businesswoman","businessperson","id","id-alt","products","awards","forms","testimonial","portfolio","book","book-alt","download","upload","backup","clock","lightbulb","microphone","desktop","laptop","tablet","smartphone","phone","index-card","carrot","building","store","album","palmtree","tickets-alt","money","money-alt","smiley","thumbs-up","thumbs-down","layout","paperclip","color-picker","edit-large","edit-page","airplane","bank","beer","calculator","car","coffee","drumstick","food","fullscreen-alt","fullscreen-exit-alt","games","hourglass","open-folder","pdf","pets","printer","privacy","superhero","superhero-alt"]}]');
 
 /***/ })
 
