@@ -11,7 +11,7 @@ use AC\Setting\Control\OptionCollection;
 
 final class Encoder
 {
-    private $settings;
+    private ComponentCollection $settings;
 
     public function __construct(ComponentCollection $settings)
     {
