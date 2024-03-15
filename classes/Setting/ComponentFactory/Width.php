@@ -4,78 +4,83 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Children;
 use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
 use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Number;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 
-final class Width implements ComponentFactory
+final class Width extends Builder
 {
 
-    private const WIDTH = 'width';
-    private const UNIT = 'width_unit';
+    private const OPTION_PERCENT = '%';
+    private const OPTION_PIXELS = 'px';
 
-    public function create(Config $config, Specification $conditions = null): Component
+    private const OPTION_AUTO = 'auto';
+
+    protected function get_label(Config $config): ?string
     {
-        $unit_options = [
-            '%',
-            'px',
-            'auto',
-        ];
-
-        $unit = $config->get(self::UNIT, $unit_options[0]);
-        $width = (int)$config->get(self::WIDTH);
-
-        return (new ComponentBuilder())
-            ->set_label(
-                __('Width', 'codepress-admin-columns')
-            )
-            ->set_input(
-                OptionFactory::create_select(
-                    self::UNIT,
-                    OptionCollection::from_array(
-                        $unit_options,
-                        false
-                    ),
-                    $unit
-                )
-            )
-            ->set_children(
-                new Children(
-                    new ComponentCollection([
-                        new Component(
-                            null,
-                            null,
-                            Number::create_single_step(
-                                self::WIDTH,
-                                0,
-                                100,
-                                $width
-                            ),
-                            StringComparisonSpecification::equal($unit_options[0])
-                        ),
-                        new Component(
-                            null,
-                            null,
-                            Number::create_single_step(
-                                self::WIDTH,
-                                0,
-                                null,
-                                $width
-                            ),
-                            StringComparisonSpecification::equal($unit_options[1])
-                        ),
-                    ])
-                )
-            )
-            ->set_type('width')
-            ->build();
+        return __('Width', 'codepress-admin-columns');
     }
+
+    protected function get_input(Config $config): Input
+    {
+        $name = 'width_unit';
+
+        return OptionFactory::create_select(
+            $name,
+            OptionCollection::from_array(
+                [
+                    self::OPTION_PERCENT,
+                    self::OPTION_PIXELS,
+                    self::OPTION_AUTO,
+                ],
+                false
+            ),
+            $config->get($name, self::OPTION_PERCENT)
+        );
+    }
+
+    protected function get_children(Config $config): ?Children
+    {
+        $name = 'width';
+        $value = (int)$config->get($name);
+
+        return new Children(
+            new ComponentCollection([
+                new Component(
+                    null,
+                    null,
+                    Number::create_single_step(
+                        $name,
+                        0,
+                        100,
+                        $value
+                    ),
+                    StringComparisonSpecification::equal(self::OPTION_PERCENT)
+                ),
+                new Component(
+                    null,
+                    null,
+                    Number::create_single_step(
+                        $name,
+                        0,
+                        null,
+                        $value
+                    ),
+                    StringComparisonSpecification::equal(self::OPTION_PIXELS)
+                ),
+            ])
+        );
+    }
+
+    protected function get_type(Config $config): ?string
+    {
+        return 'width';
+    }
+
 }
