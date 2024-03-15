@@ -69,7 +69,7 @@ abstract class ColumnFactory
         return $collection;
     }
 
-    protected function create_formatter_builder(ComponentCollection $components): AggregateBuilder
+    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
     {
         $builder = $this->aggregate_formatter_builder_factory->create();
         $this->add_formatters_to_builder($builder, $components);
