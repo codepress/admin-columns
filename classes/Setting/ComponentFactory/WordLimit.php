@@ -13,14 +13,6 @@ use AC\Setting\FormatterCollection;
 final class WordLimit extends Builder
 {
 
-    // TODO David decide if this shortcut is worth it Builder
-    private const NAME = 'word_limit';
-
-    private function get_value_word_limit(Config $config): int
-    {
-        return (int)$config->get(self::NAME, 20);
-    }
-
     protected function get_label(Config $config): ?string
     {
         return __('Word Limit', 'codepress-admin-columns');
@@ -35,13 +27,15 @@ final class WordLimit extends Builder
         );
     }
 
-    protected function get_input(Config $config): ?Input
+    protected function get_input(Config $config): Input
     {
+        $name = 'word_limit';
+
         return Number::create_single_step(
-            self::NAME,
+            $name,
             0,
             null,
-            $this->get_value_word_limit($config),
+            (int)$config->get($name, 20),
             null,
             null,
             __('Words', 'codepress-admin-columns')
@@ -51,7 +45,7 @@ final class WordLimit extends Builder
     protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
     {
         $formatters->add(
-            new Formatter\CharacterLimit($this->get_value_word_limit($config))
+            new Formatter\CharacterLimit((int)$this->get_input($config)->get_value())
         );
 
         return $formatters;
