@@ -69,19 +69,20 @@ abstract class ColumnFactory
         return $collection;
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
+    protected function create_formatter_builder(ComponentCollection $components): AggregateBuilder
     {
         $builder = $this->aggregate_formatter_builder_factory->create();
+        $this->add_formatters_to_builder($builder, $components);
+        return $builder;
+    }
 
+    private function add_formatters_to_builder(AggregateBuilder $builder, ComponentCollection $components): void
+    {
         foreach ($components as $component) {
-            if ($component->get_formatters()->count() > 0) {
-                foreach ($component->get_formatters() as $formatter) {
-                    $builder->add($formatter);
-                }
+            foreach ($component->get_formatters() as $formatter) {
+                $builder->add($formatter);
             }
         }
-
-        return $builder;
     }
 
     protected function create_column(ComponentCollection $components, Formatter $formatter, Config $config): Column
