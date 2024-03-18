@@ -24,15 +24,12 @@ class Column
 
     private $formatters;
 
-    private $parent;
-
     public function __construct(
         string $type,
         string $label,
         Setting\ComponentCollection $settings,
         FormatterCollection $formatters = null,
-        string $group = null,
-        ColumnParent $parent = null
+        string $group = null
     ) {
         if ( $formatters === null ) {
             $formatters = new FormatterCollection();
@@ -47,7 +44,6 @@ class Column
         $this->settings = $settings;
         $this->formatters = $formatters;
         $this->group = $group;
-        $this->parent = $parent;
     }
 
     public function get_type(): string
@@ -84,11 +80,6 @@ class Column
     public function get_group(): string
     {
         return $this->group;
-    }
-
-    public function get_parent(): ?ColumnParent
-    {
-        return $this->parent;
     }
 
     public function get_settings(): ComponentCollection

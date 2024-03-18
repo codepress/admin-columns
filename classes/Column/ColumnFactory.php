@@ -12,10 +12,6 @@ use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Setting\FormatterCollection;
-use AC\Settings\Column\WidthFactory;
-use AC\Settings\SettingFactory;
 use AC\Type\ColumnParent;
 
 abstract class ColumnFactory
@@ -28,14 +24,12 @@ abstract class ColumnFactory
     private $component_factories = [];
 
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry
     ) {
-        $this->aggregate_formatter_builder_factory = $aggregate_formatter_builder_factory;
         $this->component_factory_registry = $component_factory_registry;
 
-        $this->add_component_factory($component_factory_registry->get_name_factory());
-        $this->add_component_factory($component_factory_registry->get_label_factory());
+        $this->add_component_factory($this->component_factory_registry->get_name_factory());
+        $this->add_component_factory($this->component_factory_registry->get_label_factory());
     }
 
     protected function add_component_factory(ComponentFactory $factory, Specification $specification = null): void
@@ -48,14 +42,9 @@ abstract class ColumnFactory
 
     protected function add_component_factories(): void
     {
-        //TODO enable
+
         $this->add_component_factory($this->component_factory_registry->get_width_factory());
 
-        foreach (get_object_vars($this) as $property) {
-            if ($property instanceof SettingFactory && ! $property instanceof WidthFactory) {
-                $this->add_component_factory($property);
-            }
-        }
     }
 
     protected function create_components(Config $config): ComponentCollection
@@ -69,7 +58,7 @@ abstract class ColumnFactory
         return $collection;
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
+    protected function get_formatters(ComponentCollection $components, Config $config): AggregateBuilder
     {
         $builder = $this->aggregate_formatter_builder_factory->create();
 
@@ -88,21 +77,14 @@ abstract class ColumnFactory
             $this->get_type(),
             $this->get_label(),
             $components,
-            // TODO fix, it now just return what is needed to test further
-            new \AC\Column\Formatter(new FormatterCollection([$formatter])),
-            $this->get_group(),
-            $this->get_parent()
+            $this->get_formatters( $components ),
+            $this->get_group()
         );
     }
 
     abstract public function get_type(): string;
 
     abstract protected function get_label(): string;
-
-    protected function get_parent(): ?ColumnParent
-    {
-        return null;
-    }
 
     protected function get_group(): ?string
     {
