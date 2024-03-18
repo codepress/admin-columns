@@ -6,22 +6,25 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ImageSize;
 use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\FeaturedImage;
 
 class FeaturedImageFactory extends ColumnFactory
 {
 
+    private $image_factory;
+
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
         ImageSize $image_factory
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
-        $this->add_component_factory($image_factory);
+        $this->image_factory = $image_factory;
+    }
+
+    protected function add_component_factories(): void
+    {
+        $this->add_component_factory($this->image_factory);
     }
 
     public function get_type(): string
@@ -34,10 +37,12 @@ class FeaturedImageFactory extends ColumnFactory
         return __('Featured Image', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
+    protected function get_formatters(ComponentCollection $components): array
     {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new FeaturedImage());
+        return array_merge(
+            [new FeaturedImage()],
+            parent::get_formatters($components)
+        );
     }
 
 }

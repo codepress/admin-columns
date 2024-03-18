@@ -59,15 +59,15 @@ class PostFactory implements ColumnFactories
         //        );
 
         //.START DEBUG
-        $factories[] = $this->container->get(AC\ColumnFactory\RemoveMeFactory::class);
-
-        $collection = new Collection\ColumnFactories();
-
-        foreach ($factories as $factory) {
-            $collection->add($factory->get_type(), $factory);
-        }
-
-        return $collection;
+        //        $factories[] = $this->container->get(AC\ColumnFactory\RemoveMeFactory::class);
+        //
+        //        $collection = new Collection\ColumnFactories();
+        //
+        //        foreach ($factories as $factory) {
+        //            $collection->add($factory->get_type(), $factory);
+        //        }
+        //
+        //        return $collection;
         // .END DEBUG
 
         $factories[] = $this->container->get(Post\AttachmentFactory::class);
