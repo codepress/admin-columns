@@ -6,6 +6,7 @@ namespace AC;
 
 use AC\Column\Formatter;
 use AC\Setting\Component;
+use AC\Setting\ComponentCollection;
 use AC\Type\ColumnId;
 use AC\Type\ColumnParent;
 

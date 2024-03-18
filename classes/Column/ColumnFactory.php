@@ -74,8 +74,8 @@ abstract class ColumnFactory
         $builder = $this->aggregate_formatter_builder_factory->create();
 
         foreach ($components as $component) {
-            if ($component->has_formatter()) {
-                $builder->add($component->get_formatter());
+            foreach ($component->get_formatters() as $formatter) {
+                $builder->add($formatter);
             }
         }
 

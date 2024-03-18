@@ -7,7 +7,6 @@ namespace AC\Table;
 use AC\ListScreen;
 use AC\Registerable;
 use AC\Sanitize\Kses;
-use AC\Setting\Type\Value;
 
 abstract class ManageValue implements Registerable
 {
@@ -28,8 +27,11 @@ abstract class ManageValue implements Registerable
             return $fallback_value;
         }
 
-        $value = $column->renderable()
-                        ->format(new Value($id));
+        $formatter = $column->get_formatter();
+
+        if ($formatter) {
+            $value = $formatter->get_value($id);
+        }
 
         if ('' === (string)$value) {
             $value = $value->with_value('&ndash;');
