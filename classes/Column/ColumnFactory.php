@@ -15,23 +15,17 @@ use AC\Setting\FormatterCollection;
 abstract class ColumnFactory
 {
 
+    /**
+     * @var ComponentFactoryRegistry
+     */
+    private $component_factory_registry;
+
     private $component_factories = [];
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry
     ) {
         $this->component_factory_registry = $component_factory_registry;
-
-        $this->add_component_factory(
-            $this->component_factory_registry->get_name(),
-            null,
-            5
-        );
-        $this->add_component_factory(
-            $this->component_factory_registry->get_label(),
-            null,
-            5
-        );
     }
 
     protected function add_component_factory(
@@ -43,6 +37,26 @@ abstract class ColumnFactory
             $factory,
             $specification,
         ];
+    }
+
+    protected function add_component_factories(): void
+    {
+        $this->add_required_component_factories();
+        $this->add_common_component_factories();
+    }
+
+    protected function add_required_component_factories(): void
+    {
+        $this->add_component_factory(
+            $this->component_factory_registry->get_name(),
+            null,
+            5
+        );
+        $this->add_component_factory(
+            $this->component_factory_registry->get_label(),
+            null,
+            5
+        );
     }
 
     protected function add_common_component_factories(): void
@@ -87,8 +101,7 @@ abstract class ColumnFactory
 
     public function create(Config $config): Column
     {
-        $this->add_required_component_factories();
-        $this->add_common_component_factories();
+        $this->add_component_factories();
 
         $components = $this->create_components($config);
 
