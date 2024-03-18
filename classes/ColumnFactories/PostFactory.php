@@ -58,6 +58,16 @@ class PostFactory implements ColumnFactories
         //            ]
         //        );
 
+        $factories[] = $this->container->get(AC\ColumnFactory\RemoveMeFactory::class);
+
+        $collection = new Collection\ColumnFactories();
+
+        foreach ($factories as $factory) {
+            $collection->add($factory->get_type(), $factory);
+        }
+
+        return $collection;
+
         $factories[] = $this->container->get(Post\AttachmentFactory::class);
         $factories[] = $this->container->get(Post\AuthorFactory::class);
         $factories[] = $this->container->get(Post\FeaturedImageFactory::class);
@@ -70,7 +80,7 @@ class PostFactory implements ColumnFactories
         $factories[] = $this->container->get(Post\DatePublishFactory::class);
         $factories[] = $this->container->get(Post\DepthFactory::class);
         $factories[] = $this->container->get(Post\EstimateReadingTimeFactory::class);
-        $factories[] = $this->container->get(Post\MenuFactory::class);
+        //$factories[] = $this->container->get(Post\MenuFactory::class);
         //        $factories[] = $this->container->get(Post\LastModifiedFactory::class);
         //        $factories[] = $this->container->get(Post\OrderFactory::class);
         //        $factories[] = $this->container->get(Post\PageTemplateFactory::class);
