@@ -28,8 +28,14 @@ abstract class ManageValue implements Registerable
             return $fallback_value;
         }
 
-        $value = $column->renderable()
-                        ->format(new Value($id));
+        $value = new Value($id);
+        $formatters = $column->get_formatter();
+
+        if ($formatters) {
+            foreach ($formatters as $formatter) {
+                $value = $formatter->format($value);
+            }
+        }
 
         if ('' === (string)$value) {
             $value = $value->with_value('&ndash;');

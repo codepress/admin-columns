@@ -6,23 +6,19 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\Config;
-use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\DatePublishFormatted;
 use AC\Setting\Formatter\Post\PostDate;
-use AC\Settings\Column\DateFactory;
 
 class DatePublishFactory extends ColumnFactory
 {
 
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        DateFactory $date_factory
+        Date $date_factory
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
         $this->add_component_factory($date_factory);
     }
@@ -37,13 +33,13 @@ class DatePublishFactory extends ColumnFactory
         return __('Date Published', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(
-        ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->prepend(new PostDate())->add(
-            new DatePublishFormatted()
-        );
+    protected function get_formatters(ComponentCollection $components): array
+    {
+        return array_merge([
+            new DatePublishFormatted(),
+        ], parent::get_formatters($components), [
+            new PostDate(),
+        ]);
     }
 
 }

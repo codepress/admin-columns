@@ -6,6 +6,8 @@ namespace AC;
 
 use AC\Column\Formatter;
 use AC\Setting\Component;
+use AC\Setting\ComponentCollection;
+use AC\Setting\FormatterCollection;
 use AC\Type\ColumnId;
 use AC\Type\ColumnParent;
 
@@ -20,18 +22,19 @@ class Column
 
     protected $group;
 
-    private $formatter;
-
-    private $parent;
+    private $formatters;
 
     public function __construct(
         string $type,
         string $label,
         Setting\ComponentCollection $settings,
-        Formatter $formatter = null,
-        string $group = null,
-        ColumnParent $parent = null
+        FormatterCollection $formatters = null,
+        string $group = null
     ) {
+        if ( $formatters === null ) {
+            $formatters = new FormatterCollection();
+        }
+
         if ($group === null) {
             $group = 'custom';
         }
@@ -39,9 +42,8 @@ class Column
         $this->type = $type;
         $this->label = $label;
         $this->settings = $settings;
-        $this->formatter = $formatter;
+        $this->formatters = $formatters;
         $this->group = $group;
-        $this->parent = $parent;
     }
 
     public function get_type(): string
@@ -80,11 +82,6 @@ class Column
         return $this->group;
     }
 
-    public function get_parent(): ?ColumnParent
-    {
-        return $this->parent;
-    }
-
     public function get_settings(): ComponentCollection
     {
         return $this->settings;
@@ -92,9 +89,9 @@ class Column
         // do_action('ac/column/settings', $settings);
     }
 
-    public function get_formatter(): ?Formatter
+    public function get_formatter(): FormatterCollection
     {
-        return $this->formatter;
+        return $this->formatters;
     }
 
     // TODO David move the recursive initial outside this function for a cleaner API

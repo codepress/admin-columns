@@ -23,6 +23,8 @@ abstract class DateFormat implements ComponentFactory
 
     abstract protected function get_date_options(): OptionCollection;
 
+    abstract protected function get_default_option(): string;
+
     public function create(Config $config, Specification $conditions = null): Component
     {
         $builder = (new ComponentBuilder())
@@ -39,7 +41,7 @@ abstract class DateFormat implements ComponentFactory
                         OptionFactory::create_radio(
                             'date_format',
                             $this->get_date_options(),
-                            (string)$config->get('date_format')
+                            (string)$config->get('date_format') ?: $this->get_default_option()
                         )
                     ),
                 ]))

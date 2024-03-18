@@ -17,8 +17,6 @@ use AC\Setting\FormatterCollection;
 abstract class Builder implements ComponentFactory
 {
 
-    // TODO David decide if this shortcut is worth it Builder
-
     public function create(Config $config, Specification $conditions = null): Component
     {
         $builder = new ComponentBuilder();
