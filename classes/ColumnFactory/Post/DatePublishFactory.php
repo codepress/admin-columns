@@ -6,13 +6,13 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\DatePublishFormatted;
 use AC\Setting\Formatter\Post\PostDate;
-use AC\Settings\Column\DateFactory;
 
 class DatePublishFactory extends ColumnFactory
 {
@@ -20,7 +20,7 @@ class DatePublishFactory extends ColumnFactory
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        DateFactory $date_factory
+        Date $date_factory
     ) {
         parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 

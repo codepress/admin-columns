@@ -6,12 +6,12 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\WordLimit;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\BeforeMoreContent;
-use AC\Settings\Column\WordLimitFactory;
 
 class BeforeMoreFactory extends ColumnFactory
 {
@@ -19,7 +19,7 @@ class BeforeMoreFactory extends ColumnFactory
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        WordLimitFactory $word_limit_factory
+        WordLimit $word_limit_factory
     ) {
         parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 

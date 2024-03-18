@@ -4,12 +4,12 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\LastModifiedAuthor;
-use AC\Settings\Column\UserFactory;
 
 class LastModifiedAuthorFactory extends ColumnFactory
 {
@@ -17,7 +17,7 @@ class LastModifiedAuthorFactory extends ColumnFactory
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        UserFactory $user_factory
+        UserProperty $user_factory
     ) {
         parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 

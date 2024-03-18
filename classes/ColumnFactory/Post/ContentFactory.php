@@ -6,13 +6,13 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\BeforeAfter;
+use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\PostContent;
-use AC\Settings\Column\BeforeAfterFactory;
-use AC\Settings\Column\StringLimitFactory;
 
 class ContentFactory extends ColumnFactory
 {
@@ -20,8 +20,8 @@ class ContentFactory extends ColumnFactory
     public function __construct(
         AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        StringLimitFactory $string_limit_factory,
-        BeforeAfterFactory $before_after_factory
+        StringLimit $string_limit_factory,
+        BeforeAfter $before_after_factory
     ) {
         parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
 
