@@ -41,11 +41,13 @@ final class BeforeMoreFactory extends ColumnFactory
         return __('More Tag', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components, $formatters = []): array
+    protected function get_formatters(ComponentCollection $components): array
     {
-        return parent::get_formatters($components, [
+        return array_merge([
             new BeforeMoreContent(),
-        ]);
+        ],
+            parent::get_formatters($components)
+        );
     }
 
 }

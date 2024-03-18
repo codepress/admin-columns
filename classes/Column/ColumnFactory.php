@@ -72,8 +72,10 @@ abstract class ColumnFactory
         return $collection;
     }
 
-    protected function get_formatters(ComponentCollection $components, $formatters = []): array
+    protected function get_formatters(ComponentCollection $components ): array
     {
+        $formatters = [];
+
         foreach ($components as $component) {
             foreach ($component->get_formatters() as $formatter) {
                 $formatters[] = $formatter;
