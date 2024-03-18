@@ -8,6 +8,7 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\Config;
 
 class CommentFactory extends ColumnFactory
 {
@@ -40,13 +41,13 @@ class CommentFactory extends ColumnFactory
         return __('Comment Count', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components): array
+    protected function get_formatters(ComponentCollection $components, Config $config): array
     {
         return array_merge(
             [
                 //new Formatter\Post\HasCommentStatus('open'),
             ],
-            parent::get_formatters($components)
+            parent::get_formatters($components, $config)
         );
     }
 

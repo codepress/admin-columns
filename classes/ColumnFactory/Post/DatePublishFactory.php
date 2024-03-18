@@ -8,6 +8,7 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\Config;
 use AC\Setting\Formatter\Post\DatePublishFormatted;
 use AC\Setting\Formatter\Post\PostDate;
 
@@ -33,11 +34,11 @@ class DatePublishFactory extends ColumnFactory
         return __('Date Published', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components): array
+    protected function get_formatters(ComponentCollection $components, Config $config): array
     {
         return array_merge([
             new DatePublishFormatted(),
-        ], parent::get_formatters($components), [
+        ], parent::get_formatters($components, $config), [
             new PostDate(),
         ]);
     }

@@ -40,11 +40,11 @@ class EstimateReadingTimeFactory extends ColumnFactory
         return __('Read Time', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(
-        ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->prepend(new Formatter\Post\PostContent());
+    protected function get_formatters(ComponentCollection $components, Config $config): array
+    {
+        return array_merge([
+            new Formatter\Post\PostContent(),
+        ], parent::get_formatters($components, $config));
     }
 
 }
