@@ -20,13 +20,12 @@ class RemoveMeFactory extends ColumnFactory
         $this->add_component_factory($image_size);
     }
 
-    protected function get_formatters(ComponentCollection $components, $formatters = []): array
+    protected function get_formatters(ComponentCollection $components): array
     {
-        return array_merge(
-            [
-                new FeaturedImage(),
-            ],
-            parent::get_formatters($components, $formatters)
+        return array_merge([
+            new FeaturedImage(),
+        ],
+            parent::get_formatters($components)
         );
     }
 
