@@ -9891,7 +9891,7 @@ function create_default_slot(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t1);
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[6]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "click", /*changeUnit*/ctx[3]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "keypress", /*keypress_handler*/ctx[5])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[5]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "click", /*changeUnit*/ctx[3]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "keypress", /*keypress_handler*/ctx[4])];
         mounted = true;
       }
     },
@@ -9963,13 +9963,13 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*data*/ctx[0][keyWidth]);
       current = true;
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "change", /*input_change_input_handler*/ctx[7]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_change_input_handler*/ctx[7])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "change", /*input_change_input_handler*/ctx[6]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_change_input_handler*/ctx[6])];
         mounted = true;
       }
     },
     p(ctx, [dirty]) {
       const acinputgroup_changes = {};
-      if (dirty & /*$$scope, data, disabled*/515) {
+      if (dirty & /*$$scope, data, disabled*/259) {
         acinputgroup_changes.$$scope = {
           dirty,
           ctx
@@ -10010,9 +10010,6 @@ const keyUnit = 'width_unit';
 function instance($$self, $$props, $$invalidate) {
   let {
     data
-  } = $$props;
-  let {
-    config
   } = $$props;
   let {
     disabled = false
@@ -10059,17 +10056,15 @@ function instance($$self, $$props, $$invalidate) {
   }
   $$self.$$set = $$props => {
     if ('data' in $$props) $$invalidate(0, data = $$props.data);
-    if ('config' in $$props) $$invalidate(4, config = $$props.config);
     if ('disabled' in $$props) $$invalidate(1, disabled = $$props.disabled);
   };
-  return [data, disabled, maxWidth, changeUnit, config, keypress_handler, input_input_handler, input_change_input_handler];
+  return [data, disabled, maxWidth, changeUnit, keypress_handler, input_input_handler, input_change_input_handler];
 }
 class WidthInput extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
       data: 0,
-      config: 4,
       disabled: 1
     });
   }

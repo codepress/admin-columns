@@ -23,16 +23,28 @@
 					</div>
 					<div class="ac-column-header__label">
 						<div class="acu-pb-4">
-						<AcSkeleton width="260px"/>
+							<AcSkeleton width="260px"/>
 						</div>
 					</div>
 					<div class="ac-column-header__actions acu-hidden lg:acu-flex acu-items-center acu-gap-1 acu-justify-end">
-						<div><AcSkeleton width="34px" height="34px"/></div>
-						<div><AcSkeleton width="34px" height="34px"/></div>
-						<div><AcSkeleton width="34px" height="34px"/></div>
-						<div><AcSkeleton width="34px" height="34px"/></div>
-						<div><AcSkeleton width="34px" height="34px"/></div>
-						<div><AcSkeleton width="34px" height="34px"/></div>
+						<div>
+							<AcSkeleton width="34px" height="34px"/>
+						</div>
+						<div>
+							<AcSkeleton width="34px" height="34px"/>
+						</div>
+						<div>
+							<AcSkeleton width="34px" height="34px"/>
+						</div>
+						<div>
+							<AcSkeleton width="34px" height="34px"/>
+						</div>
+						<div>
+							<AcSkeleton width="34px" height="34px"/>
+						</div>
+						<div>
+							<AcSkeleton width="34px" height="34px"/>
+						</div>
 					</div>
 					<div class="ac-column-header__open-indicator acu-flex acu-justify-end">
 						<button class="ac-open-indicator"><span class="dashicons dashicons-arrow-down-alt2"></span>
