@@ -19,9 +19,9 @@ class DepthFactory extends ColumnFactory
         return __('Depth', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components): array
+    protected function get_formatters(ComponentCollection $components, $config): array
     {
-        return array_merge(parent::get_formatters($components), [new Formatter\Post\Depth()]);
+        return array_merge(parent::get_formatters($components, $config), [new Formatter\Post\Depth()]);
     }
 
 }
