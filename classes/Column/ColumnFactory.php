@@ -47,17 +47,17 @@ abstract class ColumnFactory
     protected function add_required_component_factories(): void
     {
         $this->add_component_factory(
-            $this->component_factory_registry->get_name(),
+            $this->component_factory_registry->get_name()
         );
         $this->add_component_factory(
-            $this->component_factory_registry->get_label(),
+            $this->component_factory_registry->get_label()
         );
     }
 
     protected function add_common_component_factories(): void
     {
         $this->add_component_factory(
-            $this->component_factory_registry->get_width(),
+            $this->component_factory_registry->get_width()
         );
     }
 
