@@ -30,10 +30,9 @@ abstract class ColumnFactory
 
     protected function add_component_factory(
         ComponentFactory $factory,
-        Specification $specification = null,
-        int $priority = 10
+        Specification $specification = null
     ): void {
-        $this->component_factories[$priority][] = [
+        $this->component_factories[] = [
             $factory,
             $specification,
         ];
@@ -49,13 +48,9 @@ abstract class ColumnFactory
     {
         $this->add_component_factory(
             $this->component_factory_registry->get_name(),
-            null,
-            5
         );
         $this->add_component_factory(
             $this->component_factory_registry->get_label(),
-            null,
-            5
         );
     }
 
@@ -63,8 +58,6 @@ abstract class ColumnFactory
     {
         $this->add_component_factory(
             $this->component_factory_registry->get_width(),
-            null,
-            5
         );
     }
 
