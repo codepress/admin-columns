@@ -4,71 +4,45 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
-use AC\Expression\StringComparisonSpecification;
-use AC\Setting\Children;
-use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
-use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
-use AC\Setting\Control\Input\Number;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Control\Type\Option;
+use AC\Setting\Formatter\Image;
+use AC\Setting\FormatterCollection;
 
-final class ImageSize implements ComponentFactory
+final class ImageSize extends Builder
 {
 
-    // Todo implement formatter
-    public function create(Config $config, Specification $conditions = null): Component
+    protected function get_label(Config $config): ?string
     {
-        $width = $config->has('image_size_w') ? (int)$config->get('image_size_w') : 60;
-        $height = $config->has('image_size_h') ? (int)$config->get('image_size_h') : 60;
+        return __('Image size', 'codepress-admin-columns');
+    }
 
-        $builder = (new ComponentBuilder())
-            ->set_label(__('Image Size', 'codepress-admin-columns'))
-            ->set_input(
-                OptionFactory::create_select(
-                    'image_size',
-                    $this->get_grouped_image_sizes(),
-                    $config->get('image_size') ?: 'cpac-custom'
-                )
-            )
-            ->set_children(
-                new Children(
-                    new ComponentCollection([
-                        new Component(
-                            __('Width', 'codepress-admin-columns'),
-                            null,
-                            Number::create_single_step(
-                                'image_size_w',
-                                0,
-                                null,
-                                $width
-                            ),
-                            StringComparisonSpecification::equal('cpac-custom')
-                        ),
-                        new Component(
-                            __('Height', 'codepress-admin-columns'),
-                            null,
-                            Number::create_single_step(
-                                'image_size_h',
-                                0,
-                                null,
-                                $height
-                            ),
-                            StringComparisonSpecification::equal('cpac-custom')
-                        ),
-                    ]), true
-                )
-            );
+    protected function get_input(Config $config): ?Input
+    {
+        return OptionFactory::create_select(
+            'image_size',
+            $this->get_grouped_image_sizes(),
+            $config->get('image_size') ?: 'cpac-custom'
+        );
+    }
 
-        if ($conditions) {
-            $builder->set_conditions($conditions);
+    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    {
+        $size = $config->get('image_size') ?: 'cpac-custom';
+
+        if ($size === 'cpac-custom') {
+            $size = [
+                'width'  => 100,
+                'height' => 100,
+            ];
         }
 
-        return $builder->build();
+        $formatters->add(new Image($size));
+
+        return $formatters;
     }
 
     private function get_grouped_image_sizes(): OptionCollection

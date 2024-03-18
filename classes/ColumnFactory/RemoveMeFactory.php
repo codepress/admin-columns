@@ -3,34 +3,31 @@
 namespace AC\ColumnFactory;
 
 use AC\Column\ColumnFactory;
-use AC\Setting\ComponentFactory\AttachmentDisplay;
-use AC\Setting\ComponentFactory\CommentStatus;
+use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\ImageSize;
 use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\Config;
-use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Setting\FormatterCollection;
+use AC\Setting\Formatter\Post\FeaturedImage;
 
 class RemoveMeFactory extends ColumnFactory
 {
 
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        AttachmentDisplay $attachment_display,
-        CommentStatus $comment_status
+        ImageSize $image_size
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
-        $this->add_component_factory($attachment_display);
+        $this->add_component_factory($image_size);
     }
 
-    protected function create_formatters(Config $config): FormatterCollection
+    protected function get_formatters(ComponentCollection $components, $formatters = []): array
     {
-        return new FormatterCollection([
-            new Formatter\Post\FeaturedImage(),
-            // TODO implement setting formatter (Fetch)
-        ]);
+        return array_merge(
+            [
+                new FeaturedImage(),
+            ],
+            parent::get_formatters($components, $formatters)
+        );
     }
 
     public function get_type(): string

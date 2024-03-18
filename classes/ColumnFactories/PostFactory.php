@@ -58,6 +58,7 @@ class PostFactory implements ColumnFactories
         //            ]
         //        );
 
+        //.START DEBUG
         $factories[] = $this->container->get(AC\ColumnFactory\RemoveMeFactory::class);
 
         $collection = new Collection\ColumnFactories();
@@ -67,6 +68,7 @@ class PostFactory implements ColumnFactories
         }
 
         return $collection;
+        // .END DEBUG
 
         $factories[] = $this->container->get(Post\AttachmentFactory::class);
         $factories[] = $this->container->get(Post\AuthorFactory::class);
