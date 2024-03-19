@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace AC\Setting\Formatter\Collection;
 
 use AC\Setting\CollectionFormatter;
+use AC\Setting\ComponentFactory\Separator as Setting;
 use AC\Setting\Config;
 use AC\Setting\Type\Value;
-use AC\Settings\Column\Separator as Setting;
+use AC\Setting\ValueCollection;
 
 // TODO default should be ,
 // TODO make it available as constants here or in setting
@@ -21,7 +22,7 @@ class Separator implements CollectionFormatter
     public function __construct(string $separator = null, int $limit = 0)
     {
         if (null === $separator) {
-            $separator = self::get_separator(Setting::DEFAULT);
+            $separator = self::get_separator(', ');
         }
 
         $this->separator = $separator;
@@ -53,17 +54,15 @@ class Separator implements CollectionFormatter
         }
     }
 
-    public function format(Value $value): Value
+    public function format(ValueCollection $collection)
     {
         $values = [];
 
-        foreach ($value->get_value() as $item) {
+        foreach ($collection as $item) {
             $values[] = (string)$item;
         }
 
-        return $value->with_value(
-            ac_helper()->html->more($values, $this->limit, $this->separator)
-        );
+        return new Value(null, ac_helper()->html->more($values, $this->limit, $this->separator));
     }
 
 }

@@ -11,7 +11,7 @@ use AC\Setting\ValueCollection;
 class Attachments implements Formatter
 {
 
-    public function format(Value $value): Value
+    public function format(Value $value): ValueCollection
     {
         $attachment_ids = get_posts([
             'post_type'      => 'attachment',
@@ -21,7 +21,7 @@ class Attachments implements Formatter
             'fields'         => 'ids',
         ]);
 
-        return new Value(ValueCollection::from_ids($attachment_ids));
+        return ValueCollection::from_ids($attachment_ids);
     }
 
 }

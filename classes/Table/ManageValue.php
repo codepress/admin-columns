@@ -36,12 +36,14 @@ abstract class ManageValue implements Registerable
 
         try {
             foreach ($column->get_formatters() as $formatter) {
-                if ($formatter instanceof Formatter ) {
-                    if ( $value instanceof Value ) {
+                if ($formatter instanceof Formatter) {
+                    if ($value instanceof Value) {
                         $value = $formatter->format($value);
+
+                        continue;
                     }
 
-                    if ( $value instanceof ValueCollection ) {
+                    if ($value instanceof ValueCollection) {
                         $collection = new ValueCollection();
 
                         foreach ($value as $item) {
@@ -56,14 +58,13 @@ abstract class ManageValue implements Registerable
                     $value = $formatter->format($value);
                 }
             }
-        } catch ( ValueNotFoundException $e ) {
-            $value = new Value( $id, '&ndash;' );
+        } catch (ValueNotFoundException $e) {
+            $value = new Value($id, '&ndash;');
         }
 
-        if ( $value instanceof ValueCollection ) {
+        if ($value instanceof ValueCollection) {
             $formatter = new Formatter\Collection\Separator();
-
-            $value = $formatter->format( $value );
+            $value = $formatter->format($value);
         }
 
         if ('' === (string)$value) {

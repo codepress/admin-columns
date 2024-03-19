@@ -73,15 +73,16 @@ class PostFactory implements ColumnFactories
         $factories[] = $this->container->get(Post\AttachmentFactory::class);
         $factories[] = $this->container->get(Post\AuthorFactory::class);
         $factories[] = $this->container->get(Post\FeaturedImageFactory::class);
-        $factories[] = $this->container->get(Post\FormatsFactory::class);
-        $factories[] = $this->container->get(Post\IdFactory::class);
-        $factories[] = $this->container->get(Post\LastModifiedAuthorFactory::class);
-        $factories[] = $this->container->get(Post\BeforeMoreFactory::class);
-        $factories[] = $this->container->get(Post\CommentStatusFactory::class);
-        $factories[] = $this->container->get(Post\ContentFactory::class);
-        $factories[] = $this->container->get(Post\DatePublishFactory::class);
-        $factories[] = $this->container->get(Post\DepthFactory::class);
-        $factories[] = $this->container->get(Post\EstimateReadingTimeFactory::class);
+        //        $factories[] = $this->container->get(Post\FormatsFactory::class);
+        //        $factories[] = $this->container->get(Post\IdFactory::class);
+        //        $factories[] = $this->container->get(Post\LastModifiedAuthorFactory::class);
+        //        $factories[] = $this->container->get(Post\BeforeMoreFactory::class);
+        //        $factories[] = $this->container->get(Post\CommentStatusFactory::class);
+        //        $factories[] = $this->container->get(Post\ContentFactory::class);
+        //        $factories[] = $this->container->get(Post\DatePublishFactory::class);
+        //        $factories[] = $this->container->get(Post\DepthFactory::class);
+        //        $factories[] = $this->container->get(Post\EstimateReadingTimeFactory::class);
+        //
         //$factories[] = $this->container->get(Post\MenuFactory::class);
         //        $factories[] = $this->container->get(Post\LastModifiedFactory::class);
         //        $factories[] = $this->container->get(Post\OrderFactory::class);

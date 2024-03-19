@@ -11,6 +11,7 @@ use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 class AuthorFactory extends ColumnFactory
 {
@@ -48,13 +49,14 @@ class AuthorFactory extends ColumnFactory
         return __('Author', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components, Config $config): array
-    {
-        return array_merge([
-            new Formatter\Post\Author(),
-        ],
-            parent::get_formatters($components, $config)
-        );
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\Post\Author());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }
