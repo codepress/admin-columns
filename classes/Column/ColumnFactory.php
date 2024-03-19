@@ -97,6 +97,8 @@ abstract class ColumnFactory
 
     public function create(Config $config): Column
     {
+        // Todo how to reset the component factories? 
+        $this->component_factories = [];
         $this->add_component_factories();
 
         $components = $this->create_components($config);

@@ -52,6 +52,7 @@ class Html
         $allowed = wp_allowed_protocols();
         $allowed[] = 'skype';
         $allowed[] = 'call';
+        $allowed[] = 'download';
 
         return '<a href="' . esc_url($url, $allowed) . '" ' . $this->get_attributes(
                 $attributes

@@ -21,12 +21,22 @@ class Link extends Formatter\ContentTypeLink
 
     protected function get_edit_link(Value $value): ?string
     {
-        return get_attachment_link($value->get_id());
+        return get_edit_post_link($value->get_id());
     }
 
     protected function get_view_link(Value $value): ?string
     {
-        return get_edit_post_link($value->get_id());
+        return get_attachment_link($value->get_id());
     }
 
+    protected function create_link(string $url, string $value): string
+    {
+        $attributes = [];
+
+        if ($this->type === self::VIEW) {
+            $attributes['download'] = '';
+        }
+
+        return ac_helper()->html->link($url, $value, $attributes);
+    }
 }
