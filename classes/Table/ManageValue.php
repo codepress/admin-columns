@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace AC\Table;
 
+use AC\Exception\ValueNotFoundException;
 use AC\ListScreen;
 use AC\Registerable;
 use AC\Sanitize\Kses;
+use AC\Setting\CollectionFormatter;
+use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
+use AC\Setting\ValueCollection;
 
 abstract class ManageValue implements Registerable
 {
@@ -29,12 +33,37 @@ abstract class ManageValue implements Registerable
         }
 
         $value = new Value($id);
-        $formatters = $column->get_formatter();
 
-        if ($formatters) {
-            foreach ($formatters as $formatter) {
-                $value = $formatter->format($value);
+        try {
+            foreach ($column->get_formatters() as $formatter) {
+                if ($formatter instanceof Formatter ) {
+                    if ( $value instanceof Value ) {
+                        $value = $formatter->format($value);
+                    }
+
+                    if ( $value instanceof ValueCollection ) {
+                        $collection = new ValueCollection();
+
+                        foreach ($value as $item) {
+                            $collection->add($formatter->format($item));
+                        }
+
+                        $value = $collection;
+                    }
+                }
+
+                if ($formatter instanceof CollectionFormatter && $value instanceof ValueCollection) {
+                    $value = $formatter->format($value);
+                }
             }
+        } catch ( ValueNotFoundException $e ) {
+            $value = new Value( $id, '&ndash;' );
+        }
+
+        if ( $value instanceof ValueCollection ) {
+            $formatter = new Formatter\Collection\Separator();
+
+            $value = $formatter->format( $value );
         }
 
         if ('' === (string)$value) {

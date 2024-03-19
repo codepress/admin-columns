@@ -4,9 +4,16 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
-// TODO David remove?
-interface CollectionFormatter extends Formatter
+use AC\Exception\ValueNotFoundException;
+use AC\Setting\Type\Value;
+
+interface CollectionFormatter
 {
 
-    // Value object contains a ValueCollection
+    /**
+     * @return Value|ValueCollection
+     * @throws ValueNotFoundException
+     */
+    public function format(ValueCollection $collection);
+
 }

@@ -89,7 +89,7 @@ class Column
         // do_action('ac/column/settings', $settings);
     }
 
-    public function get_formatter(): FormatterCollection
+    public function get_formatters(): FormatterCollection
     {
         return $this->formatters;
     }

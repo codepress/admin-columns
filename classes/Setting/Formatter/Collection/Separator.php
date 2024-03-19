@@ -9,6 +9,8 @@ use AC\Setting\Config;
 use AC\Setting\Type\Value;
 use AC\Settings\Column\Separator as Setting;
 
+// TODO default should be ,
+// TODO make it available as constants here or in setting
 class Separator implements CollectionFormatter
 {
 
