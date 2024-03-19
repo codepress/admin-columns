@@ -7,7 +7,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ImageSize;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\FeaturedImage;
+use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
 class FeaturedImageFactory extends ColumnFactory
@@ -27,7 +27,7 @@ class FeaturedImageFactory extends ColumnFactory
     protected function add_component_factories(): void
     {
         parent::add_component_factories();
-        
+
         $this->add_component_factory($this->image_factory);
     }
 
@@ -46,7 +46,7 @@ class FeaturedImageFactory extends ColumnFactory
         Config $config,
         FormatterCollection $formatters
     ): FormatterCollection {
-        $formatters->add(new FeaturedImage());
+        $formatters->add(new Formatter\Post\FeaturedImage());
 
         return parent::get_formatters($components, $config, $formatters);
     }

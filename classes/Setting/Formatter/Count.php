@@ -20,7 +20,7 @@ class Count implements CollectionFormatter
             throw new ValueNotFoundException('');
         }
 
-        return new Value(count($collection));
+        return new Value($count);
     }
 
 }
