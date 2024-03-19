@@ -8,6 +8,7 @@ use AC\Setting\ComponentFactory\WordsPerMinute;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 class EstimateReadingTimeFactory extends ColumnFactory
 {
@@ -40,11 +41,14 @@ class EstimateReadingTimeFactory extends ColumnFactory
         return __('Read Time', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components, Config $config): array
-    {
-        return array_merge([
-            new Formatter\Post\PostContent(),
-        ], parent::get_formatters($components, $config));
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\Post\PostContent());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

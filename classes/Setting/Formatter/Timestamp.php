@@ -4,27 +4,30 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
-final class TimeStamp implements Formatter
+final class Timestamp implements Formatter
 {
 
     public function format(Value $value): Value
     {
         if (empty($value->get_value()) || ! is_scalar($value->get_value())) {
-            return new Value(null);
+            throw new ValueNotFoundException();
         }
 
         if (is_numeric($value->get_value())) {
             return $value->with_value((int)$value->get_value());
         }
 
-        $time = strtotime($value->get_value()) ?: null;
+        $time = strtotime($value->get_value());
 
-        return $time
-            ? $value->with_value($time)
-            : new Value(null);
+        if ( ! $time) {
+            throw new ValueNotFoundException();
+        }
+
+        return $value->with_value($time);
     }
 
 }

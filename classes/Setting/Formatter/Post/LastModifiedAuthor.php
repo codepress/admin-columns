@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter\Post;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
@@ -15,7 +16,7 @@ class LastModifiedAuthor implements Formatter
         $user_id = get_post_meta($value->get_id(), '_edit_last', true);
 
         if ( ! get_userdata($user_id)) {
-            return new Value(null);
+            throw new ValueNotFoundException();
         }
 
         return new Value($user_id);

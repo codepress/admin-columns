@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
 use AC\Relation;
-use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
-class PostLink implements ComponentFactory
+class PostLink extends Builder
 {
 
     private const NAME = 'post_link_to';
@@ -26,26 +24,25 @@ class PostLink implements ComponentFactory
         $this->relation = $relation;
     }
 
-    public function create(Config $config, Specification $conditions = null): Component
+    protected function get_label(Config $config): ?string
     {
-        $value = (string)$config->get(self::NAME);
+        return __('Link to', 'codepress-admin-columns');
+    }
 
-        $builder = (new ComponentBuilder())
-            ->set_label(__('Link To', 'codepress-admin-columns'))
-            ->set_input(
-                OptionFactory::create_select(
-                    self::NAME,
-                    OptionCollection::from_array($this->get_display_options()),
-                    $value
-                )
-            )
-            ->set_formatter(new Formatter\Post\PostLink($value));
+    protected function get_input(Config $config): ?Input
+    {
+        return OptionFactory::create_select(
+            self::NAME,
+            OptionCollection::from_array($this->get_display_options()),
+            (string)$config->get(self::NAME)
+        );
+    }
 
-        if ($conditions) {
-            $builder->set_conditions($conditions);
-        }
+    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    {
+        $formatters->add(new Formatter\Post\PostLink((string)$config->get(self::NAME)));
 
-        return $builder->build();
+        return parent::get_formatters($config, $formatters);
     }
 
     protected function get_display_options(): array

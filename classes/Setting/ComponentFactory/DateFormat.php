@@ -4,62 +4,73 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
 use AC\Setting\Children;
 use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
 use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Custom;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 // TODO formatter
 // TODO do we still want the extra description/tooltips as in the old version?
-abstract class DateFormat implements ComponentFactory
+abstract class DateFormat extends Builder
 {
 
     abstract protected function get_date_options(): OptionCollection;
 
     abstract protected function get_default_option(): string;
 
-    public function create(Config $config, Specification $conditions = null): Component
+    protected function get_label(Config $config): ?string
     {
-        $builder = (new ComponentBuilder())
-            ->set_label(__('Date Format', 'codepress-admin-columns'))
-            ->set_description(__('This will determine how the date will be displayed.', 'codepress-admin-columns'))
-            ->set_input(
-                new Custom('date_format')
-            )
-            ->set_children(
-                new Children(new ComponentCollection([
-                    new Component(
-                        null,
-                        null,
-                        OptionFactory::create_radio(
-                            'date_format',
-                            $this->get_date_options(),
-                            (string)$config->get('date_format') ?: $this->get_default_option()
-                        )
-                    ),
-                ]))
-            )
-            ->set_formatter($this->create_formatter());
-
-        if ($conditions) {
-            $builder->set_conditions($conditions);
-        }
-
-        return $builder->build();
+        return __('Date Format', 'codepress-admin-columns');
     }
 
-    protected function create_formatter(): Formatter
+    protected function get_description(Config $config): ?string
     {
-        // TODO prepare the value to a timestamp
-        // Then apply the format chosen in the setting
-        return new Formatter\TimeStamp();
+        return __('This will determine how the date will be displayed.', 'codepress-admin-columns');
+    }
+
+    protected function get_input(Config $config): ?Input
+    {
+        return new Custom('date_format');
+    }
+
+    protected function get_children(Config $config): ?Children
+    {
+        return new Children(new ComponentCollection([
+            new Component(
+                null,
+                null,
+                OptionFactory::create_radio(
+                    'date_format',
+                    $this->get_date_options(),
+                    (string)$config->get('date_format') ?: $this->get_default_option()
+                )
+            ),
+        ]));
+    }
+
+    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    {
+        $format = (string)$config->get('date_format');
+        $formatters->add(new Formatter\TimeStamp());
+
+        switch ($format) {
+            case 'diff':
+                $formatters->add(new Formatter\Date\TimeDifference());
+                break;
+            case 'wp_default':
+                $formatters->add(new Formatter\Date\WpDateFormat());
+                break;
+            default:
+                $formatters->add(new Formatter\Date\DateFormat($format));
+        }
+
+        return parent::get_formatters($config, $formatters);
     }
 
 }

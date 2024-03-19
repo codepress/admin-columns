@@ -8,6 +8,7 @@ use AC\Setting\ComponentFactory\UseIcon;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 class FormatsFactory extends ColumnFactory
 {
@@ -40,15 +41,14 @@ class FormatsFactory extends ColumnFactory
         return __('Post Format', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components, Config $config): array
-    {
-        $formatters = parent::get_formatters($components, $config);
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\Post\PostFormat());
 
-        if ($config->get('use_icon')) {
-            return array_merge([new Formatter\Post\PostFormatIcon()], $formatters);
-        }
-
-        return $formatters;
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

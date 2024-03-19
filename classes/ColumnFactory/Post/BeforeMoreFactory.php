@@ -10,6 +10,7 @@ use AC\Setting\ComponentFactory\WordLimit;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Post\BeforeMoreContent;
+use AC\Setting\FormatterCollection;
 
 final class BeforeMoreFactory extends ColumnFactory
 {
@@ -42,13 +43,14 @@ final class BeforeMoreFactory extends ColumnFactory
         return __('More Tag', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components, Config $config): array
-    {
-        return array_merge([
-            new BeforeMoreContent(),
-        ],
-            parent::get_formatters($components, $config)
-        );
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new BeforeMoreContent);
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

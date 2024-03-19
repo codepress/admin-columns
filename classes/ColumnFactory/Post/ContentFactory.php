@@ -11,6 +11,7 @@ use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Post\PostContent;
+use AC\Setting\FormatterCollection;
 
 class ContentFactory extends ColumnFactory
 {
@@ -48,11 +49,14 @@ class ContentFactory extends ColumnFactory
         return __('Content', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components, Config $config): array
-    {
-        return array_merge([
-            new PostContent(),
-        ], parent::get_formatters($components, $config));
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new PostContent());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

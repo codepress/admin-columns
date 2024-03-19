@@ -26,7 +26,7 @@ class TermProperty implements Formatter
             return new Value(null);
         }
 
-        return $term->{$this->property};
+        return $value->with_value($term->{$this->property});
     }
 
 }

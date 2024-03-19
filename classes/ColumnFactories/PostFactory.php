@@ -30,6 +30,7 @@ class PostFactory implements ColumnFactories
         $post_type = $table_screen->get_post_type();
 
         $this->container->set(AC\Type\PostTypeSlug::class, new AC\Type\PostTypeSlug($post_type));
+        $this->container->set(AC\Relation::class, new AC\Relation\Post($post_type));
 
         //        $meta_type = new MetaType(MetaType::POST);
         //
@@ -73,17 +74,16 @@ class PostFactory implements ColumnFactories
         $factories[] = $this->container->get(Post\AttachmentFactory::class);
         $factories[] = $this->container->get(Post\AuthorFactory::class);
         $factories[] = $this->container->get(Post\FeaturedImageFactory::class);
-        //        $factories[] = $this->container->get(Post\FormatsFactory::class);
-        //        $factories[] = $this->container->get(Post\IdFactory::class);
-        //        $factories[] = $this->container->get(Post\LastModifiedAuthorFactory::class);
-        //        $factories[] = $this->container->get(Post\BeforeMoreFactory::class);
-        //        $factories[] = $this->container->get(Post\CommentStatusFactory::class);
-        //        $factories[] = $this->container->get(Post\ContentFactory::class);
-        //        $factories[] = $this->container->get(Post\DatePublishFactory::class);
-        //        $factories[] = $this->container->get(Post\DepthFactory::class);
-        //        $factories[] = $this->container->get(Post\EstimateReadingTimeFactory::class);
-        //
-        //$factories[] = $this->container->get(Post\MenuFactory::class);
+        $factories[] = $this->container->get(Post\FormatsFactory::class);
+        $factories[] = $this->container->get(Post\IdFactory::class);
+        $factories[] = $this->container->get(Post\LastModifiedAuthorFactory::class);
+        $factories[] = $this->container->get(Post\BeforeMoreFactory::class);
+        $factories[] = $this->container->get(Post\CommentStatusFactory::class);
+        $factories[] = $this->container->get(Post\ContentFactory::class);
+        $factories[] = $this->container->get(Post\DatePublishFactory::class);
+        $factories[] = $this->container->get(Post\DepthFactory::class);
+        $factories[] = $this->container->get(Post\EstimateReadingTimeFactory::class);
+        $factories[] = $this->container->get(Post\MenuFactory::class);
         //        $factories[] = $this->container->get(Post\LastModifiedFactory::class);
         //        $factories[] = $this->container->get(Post\OrderFactory::class);
         //        $factories[] = $this->container->get(Post\PageTemplateFactory::class);
@@ -97,7 +97,7 @@ class PostFactory implements ColumnFactories
         //        $factories[] = $this->container->get(Post\SlugFactory::class);
         //        $factories[] = $this->container->get(Post\StatusFactory::class);
         //        $factories[] = $this->container->get(Post\StickyFactory::class);
-        //        $factories[] = $this->container->get(Post\TitleRawFactory::class);
+        $factories[] = $this->container->get(Post\TitleRawFactory::class);
 
         //        if (count(ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)) > 0) {
         //            $factories[] = $this->container->make(Post\TaxonomyFactory::class, [

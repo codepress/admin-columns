@@ -4,7 +4,9 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 class DepthFactory extends ColumnFactory
 {
@@ -19,9 +21,15 @@ class DepthFactory extends ColumnFactory
         return __('Depth', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components, $config): array
-    {
-        return array_merge(parent::get_formatters($components, $config), [new Formatter\Post\Depth()]);
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters = parent::get_formatters($components, $config, $formatters);
+        $formatters->add(new Formatter\Post\Depth());
+
+        return $formatters;
     }
 
 }
