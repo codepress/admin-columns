@@ -8,19 +8,26 @@ use AC\Setting\ComponentFactory\WordsPerMinute;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 
 class EstimateReadingTimeFactory extends ColumnFactory
 {
 
+    private $words_per_minute_factory;
+
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
         WordsPerMinute $words_per_minute_factory
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
-        $this->add_component_factory($words_per_minute_factory);
+        $this->words_per_minute_factory = $words_per_minute_factory;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->words_per_minute_factory);
     }
 
     public function get_type(): string
@@ -33,11 +40,11 @@ class EstimateReadingTimeFactory extends ColumnFactory
         return __('Read Time', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(
-        ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->prepend(new Formatter\Post\PostContent());
+    protected function get_formatters(ComponentCollection $components, Config $config): array
+    {
+        return array_merge([
+            new Formatter\Post\PostContent(),
+        ], parent::get_formatters($components, $config));
     }
 
 }

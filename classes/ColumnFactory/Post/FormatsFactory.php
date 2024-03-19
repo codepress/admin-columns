@@ -3,23 +3,31 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
+use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UseIcon;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 
 class FormatsFactory extends ColumnFactory
 {
 
+    private $post_format_icon_factory;
+
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
         UseIcon $post_format_icon_factory
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
-        $this->add_component_factory($post_format_icon_factory);
+        $this->post_format_icon_factory = $post_format_icon_factory;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->post_format_icon_factory);
     }
 
     public function get_type(): string
@@ -32,13 +40,15 @@ class FormatsFactory extends ColumnFactory
         return __('Post Format', 'codepress-admin-columns');
     }
 
-    protected function create_formatter(Config $config): Formatter
+    protected function get_formatters(ComponentCollection $components, Config $config): array
     {
+        $formatters = parent::get_formatters($components, $config);
+
         if ($config->get('use_icon')) {
-            return new Formatter\Post\PostFormatIcon();
+            return array_merge([new Formatter\Post\PostFormatIcon()], $formatters);
         }
 
-        return new Formatter\NullFormatter();
+        return $formatters;
     }
 
 }

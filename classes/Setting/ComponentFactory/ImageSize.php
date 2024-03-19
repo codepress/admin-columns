@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC\Expression\StringComparisonSpecification;
+use AC\Setting\Children;
+use AC\Setting\Component;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
+use AC\Setting\Control\Input\Number;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Control\Type\Option;
@@ -35,14 +40,47 @@ final class ImageSize extends Builder
 
         if ($size === 'cpac-custom') {
             $size = [
-                'width'  => 100,
-                'height' => 100,
+                $config->has('image_size_w') ? (int)$config->get('image_size_w') : 60,
+                $config->has('image_size_h') ? (int)$config->get('image_size_h') : 60,
             ];
         }
 
         $formatters->add(new Image($size));
 
         return $formatters;
+    }
+
+    protected function get_children(Config $config): ?Children
+    {
+        $width = $config->has('image_size_w') ? (int)$config->get('image_size_w') : 60;
+        $height = $config->has('image_size_h') ? (int)$config->get('image_size_h') : 60;
+
+        return new Children(
+            new ComponentCollection([
+                new Component(
+                    __('Width', 'codepress-admin-columns'),
+                    null,
+                    Number::create_single_step(
+                        'image_size_w',
+                        0,
+                        null,
+                        $width
+                    ),
+                    StringComparisonSpecification::equal('cpac-custom')
+                ),
+                new Component(
+                    __('Height', 'codepress-admin-columns'),
+                    null,
+                    Number::create_single_step(
+                        'image_size_h',
+                        0,
+                        null,
+                        $height
+                    ),
+                    StringComparisonSpecification::equal('cpac-custom')
+                ),
+            ]), true
+        );
     }
 
     private function get_grouped_image_sizes(): OptionCollection

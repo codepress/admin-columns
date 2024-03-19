@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\Formatter\Post\HasCommentStatus;
 
 class CommentStatusFactory extends ColumnFactory
@@ -22,9 +22,14 @@ class CommentStatusFactory extends ColumnFactory
         return __('Allow Comments', 'codepress-admin-columns');
     }
 
-    protected function create_formatter(Config $config): Formatter
+    protected function get_formatters(ComponentCollection $components, Config $config): array
     {
-        return new HasCommentStatus('open');
+        return array_merge(
+            [
+                new HasCommentStatus('open'),
+            ],
+            parent::get_formatters($components, $config)
+        );
     }
 
 }

@@ -9,13 +9,22 @@ use AC\Setting\ComponentFactoryRegistry;
 class AttachmentFactory extends ColumnFactory
 {
 
+    private $attachments_factory;
+
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
         AttachmentDisplay $attachments_factory
     ) {
         parent::__construct($component_factory_registry);
 
-        $this->add_component_factory($attachments_factory);
+        $this->attachments_factory = $attachments_factory;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->attachments_factory);
     }
 
     public function get_type(): string

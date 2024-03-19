@@ -72,7 +72,7 @@ abstract class ColumnFactory
         return $collection;
     }
 
-    protected function get_formatters(ComponentCollection $components ): array
+    protected function get_formatters(ComponentCollection $components, Config $config): array
     {
         $formatters = [];
 
@@ -104,7 +104,7 @@ abstract class ColumnFactory
             $this->get_type(),
             $this->get_label(),
             $components,
-            new FormatterCollection($this->get_formatters($components)),
+            new FormatterCollection($this->get_formatters($components, $config)),
             $this->get_group()
         );
     }
