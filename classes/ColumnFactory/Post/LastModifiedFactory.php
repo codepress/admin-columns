@@ -4,24 +4,31 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\ModifiedDate;
-use AC\Settings\Column\DateFactory;
 
 class LastModifiedFactory extends ColumnFactory
 {
 
-    public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        ComponentFactoryRegistry $component_factory_registry,
-        DateFactory $date_factory
-    ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+    private $date_factory;
 
-        $this->add_component_factory($date_factory);
+    public function __construct(
+        ComponentFactoryRegistry $component_factory_registry,
+        Date $date_factory
+    ) {
+        parent::__construct($component_factory_registry);
+
+        $this->date_factory = $date_factory;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->date_factory);
     }
 
     public function get_type(): string
@@ -34,11 +41,9 @@ class LastModifiedFactory extends ColumnFactory
         return __('Last Modified', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(
-        ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->prepend(new ModifiedDate());
+    protected function get_formatters(ComponentCollection $components, Config $config): array
+    {
+        return array_merge([new Formatter\Post\ModifiedDate()], parent::get_formatters($components, $config))
     }
 
 }

@@ -8,20 +8,27 @@ use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\LastModifiedAuthor;
 
 class LastModifiedAuthorFactory extends ColumnFactory
 {
 
+    private $user_factory;
+
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
         UserProperty $user_factory
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
-        $this->add_component_factory($user_factory);
+        $this->user_factory = $user_factory;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+        
+        $this->add_component_factory($this->user_factory);
     }
 
     public function get_type(): string

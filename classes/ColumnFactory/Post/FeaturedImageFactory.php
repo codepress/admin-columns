@@ -6,6 +6,7 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ImageSize;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\Config;
 use AC\Setting\Formatter\Post\FeaturedImage;
 
 class FeaturedImageFactory extends ColumnFactory
@@ -37,11 +38,11 @@ class FeaturedImageFactory extends ColumnFactory
         return __('Featured Image', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components): array
+    protected function get_formatters(ComponentCollection $components, Config $config): array
     {
         return array_merge(
             [new FeaturedImage()],
-            parent::get_formatters($components)
+            parent::get_formatters($components, $config)
         );
     }
 
