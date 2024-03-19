@@ -20,7 +20,7 @@ final class FormatterCollection extends Collection implements Countable
      */
     public function add($formatter): void
     {
-        if ( ! $formatter instanceof Formatter && ! $formatter instanceof FormatterCollection) {
+        if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
             throw new InvalidArgumentException();
         }
 
