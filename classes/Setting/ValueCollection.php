@@ -24,7 +24,7 @@ final class ValueCollection extends Collection implements Countable
         return $this->id;
     }
 
-    public static function from_ids(array $data, int $id): self
+    public static function from_ids(int $id, array $data): self
     {
         $self = new self($id);
 
