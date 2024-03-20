@@ -7,8 +7,8 @@ namespace AC\ColumnFactory\Post;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\Formatter\Post\PingStatus;
+use AC\Setting\FormatterCollection;
 
 class PingStatusFactory extends ColumnFactory
 {
@@ -23,13 +23,14 @@ class PingStatusFactory extends ColumnFactory
         return 'column-ping_status';
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return $this->aggregate_formatter_builder_factory
-            ->create()
-            ->add(new PingStatus());
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new PingStatus());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

@@ -71,32 +71,32 @@ class PostFactory implements ColumnFactories
         //        return $collection;
         // .END DEBUG
 
-        $factories[] = $this->container->get(Post\AttachmentFactory::class);
-        $factories[] = $this->container->get(Post\AuthorFactory::class);
-        $factories[] = $this->container->get(Post\FeaturedImageFactory::class);
-        $factories[] = $this->container->get(Post\FormatsFactory::class);
-        $factories[] = $this->container->get(Post\IdFactory::class);
-        $factories[] = $this->container->get(Post\LastModifiedAuthorFactory::class);
-        $factories[] = $this->container->get(Post\BeforeMoreFactory::class);
-        $factories[] = $this->container->get(Post\CommentStatusFactory::class);
-        $factories[] = $this->container->get(Post\ContentFactory::class);
-        $factories[] = $this->container->get(Post\DatePublishFactory::class);
-        $factories[] = $this->container->get(Post\DepthFactory::class);
-        $factories[] = $this->container->get(Post\EstimateReadingTimeFactory::class);
-        $factories[] = $this->container->get(Post\MenuFactory::class);
-        //        $factories[] = $this->container->get(Post\LastModifiedFactory::class);
-        //        $factories[] = $this->container->get(Post\OrderFactory::class);
-        //        $factories[] = $this->container->get(Post\PageTemplateFactory::class);
-        //        $factories[] = $this->container->get(Post\PasswordProtectedFactory::class);
-        //        $factories[] = $this->container->get(Post\PathFactory::class);
-        //        $factories[] = $this->container->get(Post\PermalinkFactory::class);
-        //        $factories[] = $this->container->get(Post\PingStatusFactory::class);
-        //        $factories[] = $this->container->get(Post\ParentFactory::class);
-        //        $factories[] = $this->container->get(Post\ShortcodesFactory::class);
-        //        $factories[] = $this->container->get(Post\ShortLinkFactory::class);
-        //        $factories[] = $this->container->get(Post\SlugFactory::class);
-        //        $factories[] = $this->container->get(Post\StatusFactory::class);
-        //        $factories[] = $this->container->get(Post\StickyFactory::class);
+        $factories[] = $this->container->make(Post\AttachmentFactory::class);
+        $factories[] = $this->container->make(Post\AuthorFactory::class);
+        $factories[] = $this->container->make(Post\FeaturedImageFactory::class);
+        $factories[] = $this->container->make(Post\FormatsFactory::class);
+        $factories[] = $this->container->make(Post\IdFactory::class);
+        $factories[] = $this->container->make(Post\LastModifiedAuthorFactory::class);
+        $factories[] = $this->container->make(Post\BeforeMoreFactory::class);
+        $factories[] = $this->container->make(Post\CommentStatusFactory::class);
+        $factories[] = $this->container->make(Post\ContentFactory::class);
+        $factories[] = $this->container->make(Post\DatePublishFactory::class);
+        $factories[] = $this->container->make(Post\DepthFactory::class);
+        $factories[] = $this->container->make(Post\EstimateReadingTimeFactory::class);
+        $factories[] = $this->container->make(Post\MenuFactory::class);
+        $factories[] = $this->container->make(Post\LastModifiedFactory::class);
+        $factories[] = $this->container->make(Post\OrderFactory::class);
+        $factories[] = $this->container->make(Post\PageTemplateFactory::class);
+        $factories[] = $this->container->make(Post\PasswordProtectedFactory::class);
+        $factories[] = $this->container->make(Post\PathFactory::class);
+        $factories[] = $this->container->make(Post\PermalinkFactory::class);
+        $factories[] = $this->container->make(Post\PingStatusFactory::class);
+        $factories[] = $this->container->make(Post\ParentFactory::class);
+        $factories[] = $this->container->make(Post\ShortcodesFactory::class);
+        $factories[] = $this->container->make(Post\ShortLinkFactory::class);
+        $factories[] = $this->container->make(Post\SlugFactory::class);
+        $factories[] = $this->container->make(Post\StatusFactory::class);
+        //        $factories[] = $this->container->make(Post\StickyFactory::class);
         $factories[] = $this->container->get(Post\TitleRawFactory::class);
 
         //        if (count(ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)) > 0) {

@@ -4,23 +4,31 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\PostStatusIcon;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Settings\Column\PostStatusIconFactory;
+use AC\Setting\FormatterCollection;
 
 class StatusFactory extends ColumnFactory
 {
 
-    public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        ComponentFactoryRegistry $component_factory_registry,
-        PostStatusIconFactory $post_status_icon_factory
-    ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+    private $post_status_icon;
 
-        $this->add_component_factory($post_status_icon_factory);
+    public function __construct(
+        ComponentFactoryRegistry $component_factory_registry,
+        PostStatusIcon $post_status_icon
+    ) {
+        parent::__construct($component_factory_registry);
+
+        $this->post_status_icon = $post_status_icon;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->post_status_icon);
     }
 
     protected function get_label(): string
@@ -33,11 +41,14 @@ class StatusFactory extends ColumnFactory
         return 'column-status';
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->prepend(new Formatter\Post\PostStatus());
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\Post\PostStatus());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

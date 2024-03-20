@@ -19,7 +19,7 @@ class UsedByMenu implements Formatter
         $this->post_type = $post_type;
     }
 
-    public function format(Value $value): Value
+    public function format(Value $value)
     {
         $collection = new ValueCollection();
 
@@ -27,9 +27,7 @@ class UsedByMenu implements Formatter
             $collection->add(new Value($term->term_id, $term->name));
         }
 
-        return $value->with_value(
-            $collection
-        );
+        return $collection;
     }
 
     private function get_menu_terms(int $object_id): array

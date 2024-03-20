@@ -13,13 +13,13 @@ class PostStatusIcon implements Formatter
 
     public function format(Value $value): Value
     {
-        $post = $value->get_value();
+        $post = get_post($value->get_id());
 
         if ( ! $post instanceof WP_Post) {
             return $value;
         }
 
-        $html = ac_helper()->post->get_status_icon($value->get_value());
+        $html = ac_helper()->post->get_status_icon($post);
 
         if ($post->post_password) {
             $html .= ac_helper()->html->tooltip(
