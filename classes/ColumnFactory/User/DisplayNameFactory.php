@@ -6,6 +6,7 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 class DisplayNameFactory extends ColumnFactory
 {
@@ -20,13 +21,14 @@ class DisplayNameFactory extends ColumnFactory
         return 'column-display_name';
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->prepend(
-            new Formatter\User\Property('display_name')
-        );
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\User\Property('display_name'));
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

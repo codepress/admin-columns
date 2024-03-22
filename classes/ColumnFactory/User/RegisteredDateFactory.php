@@ -4,23 +4,30 @@ namespace AC\ColumnFactory\User;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Settings\Column\DateFactory;
+use AC\Setting\FormatterCollection;
 
 class RegisteredDateFactory extends ColumnFactory
 {
 
-    public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        ComponentFactoryRegistry $component_factory_registry,
-        DateFactory $date_format
-    ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+    private $date_format;
 
-        $this->add_component_factory($date_format);
+    public function __construct(
+        ComponentFactoryRegistry $component_factory_registry,
+        Date $date_format
+    ) {
+        parent::__construct($component_factory_registry);
+        $this->date_format = $date_format;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->date_format);
     }
 
     protected function get_label(): string
@@ -33,12 +40,13 @@ class RegisteredDateFactory extends ColumnFactory
         return 'column-user_registered';
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new Formatter\User\Property('user_registered'));
-    }
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\User\Property('user_registered'));
 
+        return parent::get_formatters($components, $config, $formatters);
+    }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter\User;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
@@ -22,6 +23,12 @@ class FirstPost implements Formatter
 
     public function format(Value $value): Value
     {
+        $first_post = $this->get_first_post((int)$value->get_id());
+
+        if ( ! $first_post) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
+
         return new Value(
             $this->get_first_post((int)$value->get_id())
         );

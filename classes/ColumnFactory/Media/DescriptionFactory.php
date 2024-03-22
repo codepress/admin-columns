@@ -4,30 +4,38 @@ namespace AC\ColumnFactory\Media;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\BeforeAfter;
+use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\PostContent;
-use AC\Settings\Column\BeforeAfterFactory;
-use AC\Settings\Column\StringLimitFactory;
+use AC\Setting\FormatterCollection;
 
 class DescriptionFactory extends ColumnFactory
 {
 
-    public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        ComponentFactoryRegistry $component_factory_registry,
-        StringLimitFactory $string_limit_factory,
-        BeforeAfterFactory $before_after_factory
-    ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+    private $string_limit;
 
-        $this->add_component_factory($string_limit_factory);
-        $this->add_component_factory($before_after_factory);
+    private $before_after;
+
+    public function __construct(
+        ComponentFactoryRegistry $component_factory_registry,
+        StringLimit $string_limit,
+        BeforeAfter $before_after
+    ) {
+        parent::__construct($component_factory_registry);
+
+        $this->string_limit = $string_limit;
+        $this->before_after = $before_after;
     }
 
-    // Group to group: 'custom'
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->string_limit);
+        $this->add_component_factory($this->before_after);
+    }
 
     public function get_type(): string
     {
@@ -39,11 +47,14 @@ class DescriptionFactory extends ColumnFactory
         return __('Description', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->prepend(new PostContent());
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new PostContent());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

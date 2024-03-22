@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter\User;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
@@ -25,7 +26,7 @@ class LastPost implements Formatter
         $post_id = $this->get_last_post((int)$value->get_id());
 
         if ( ! $post_id) {
-            return new Value(null);
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         return new Value($post_id);

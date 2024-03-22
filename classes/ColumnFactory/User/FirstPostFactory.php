@@ -4,33 +4,46 @@ namespace AC\ColumnFactory\User;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Settings\Column\PostFactory;
-use AC\Settings\Column\PostLinkFactory;
-use AC\Settings\Column\PostStatusFactory;
-use AC\Settings\Column\PostTypeFactory;
+use AC\Setting\FormatterCollection;
 
 class FirstPostFactory extends ColumnFactory
 {
 
-    public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        ComponentFactoryRegistry $component_factory_registry,
-        PostTypeFactory $post_type_factory,
-        PostStatusFactory $post_status_factory,
-        PostFactory $post_factory,
-        PostLinkFactory $post_link_factory
-    ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+    private $post_type;
 
-        $this->add_component_factory($post_type_factory);
-        $this->add_component_factory($post_status_factory);
-        $this->add_component_factory($post_factory);
-        $this->add_component_factory($post_link_factory);
+    private $post_status;
+
+    private $post_property;
+
+    private $post_link;
+
+    public function __construct(
+        ComponentFactoryRegistry $component_factory_registry,
+        ComponentFactory\PostType $post_type,
+        ComponentFactory\PostStatus $post_status,
+        ComponentFactory\PostProperty $post_property,
+        ComponentFactory\PostLink $post_link
+    ) {
+        parent::__construct($component_factory_registry);
+
+        $this->post_type = $post_type;
+        $this->post_status = $post_status;
+        $this->post_property = $post_property;
+        $this->post_link = $post_link;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->post_type);
+        $this->add_component_factory($this->post_status);
+        $this->add_component_factory($this->post_property);
+        $this->add_component_factory($this->post_link);
     }
 
     protected function get_label(): string
@@ -43,14 +56,17 @@ class FirstPostFactory extends ColumnFactory
         return 'column-first_post';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
         $post_type = $config->has('post_type') ? (array)$config->get('post_type') : null;
         $post_status = $config->has('post_status') ? (array)$config->get('post_status') : null;
 
-        return parent::create_formatter_builder($components, $config)->prepend(
-            new Formatter\User\FirstPost($post_type, $post_status)
-        );
+        $formatters->add(new Formatter\User\FirstPost($post_type, $post_status));
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }
