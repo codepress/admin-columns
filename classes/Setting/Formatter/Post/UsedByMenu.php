@@ -21,7 +21,7 @@ class UsedByMenu implements Formatter
 
     public function format(Value $value)
     {
-        $collection = new ValueCollection();
+        $collection = new ValueCollection($value->get_id());
 
         foreach ($this->get_menu_terms((int)$value->get_id()) as $term) {
             $collection->add(new Value($term->term_id, $term->name));

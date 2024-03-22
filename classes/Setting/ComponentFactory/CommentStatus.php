@@ -7,12 +7,12 @@ namespace AC\Setting\ComponentFactory;
 use AC\Expression\Specification;
 use AC\Setting\Component;
 use AC\Setting\ComponentBuilder;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 
-final class CommentStatus implements ComponentFactory
+final class CommentStatus extends Builder
 {
 
     public const NAME = 'comment_status';
@@ -23,7 +23,20 @@ final class CommentStatus implements ComponentFactory
     public const STATUS_SPAM = 'spam';
     public const STATUS_TRASH = 'trash';
 
-    // Todo implement formatter
+    protected function get_label(Config $config): ?string
+    {
+        return __('Comment Status', 'codepress-admin-columns');
+    }
+
+    protected function get_input(Config $config): ?Input
+    {
+        return OptionFactory::create_select(
+            'comment_status',
+            OptionCollection::from_array($this->get_comment_statuses()),
+            $config->get('comment_status') ?: 'all'
+        );
+    }
+
     public function create(Config $config, Specification $conditions = null): Component
     {
         $builder = (new ComponentBuilder())

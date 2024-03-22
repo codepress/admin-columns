@@ -6,29 +6,31 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory\StringLimit;
+use AC\Setting\ComponentFactory\CommentStatus;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
+use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
-class CommentFactory extends ColumnFactory
+class CommentCountFactory extends ColumnFactory
 {
 
-    private $string_limit_factory;
+    private $comment_status;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry,
-        StringLimit $string_limit_factory
+        CommentStatus $comment_status
     ) {
         parent::__construct($component_factory_registry);
 
-        $this->string_limit_factory = $string_limit_factory;
+        $this->comment_status = $comment_status;
     }
 
     protected function add_component_factories(): void
     {
         parent::add_component_factories();
 
-        $this->add_component_factory($this->string_limit_factory);
+        $this->add_component_factory($this->comment_status);
     }
 
     public function get_type(): string
@@ -41,16 +43,14 @@ class CommentFactory extends ColumnFactory
         return __('Comment Count', 'codepress-admin-columns');
     }
 
-    protected function get_formatters(ComponentCollection $components, Config $config): array
-    {
-        return array_merge(
-            [
-                //new Formatter\Post\HasCommentStatus('open'),
-            ],
-            parent::get_formatters($components, $config)
-        );
-    }
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\Post\CommentCount((string)$config->get('comment_status')));
 
-    // TODO test formatter
+        return parent::get_formatters($components, $config, $formatters);
+    }
 
 }

@@ -4,31 +4,47 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Collection\Separator;
 use AC\Setting\Formatter\Post\PostTerms;
-use AC\Settings;
+use AC\Setting\FormatterCollection;
 
 class TaxonomyFactory extends ColumnFactory
 {
 
-    public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        ComponentFactoryRegistry $component_factory_registry,
-        Settings\Column\TaxonomyFactory $taxonomy_factory,
-        Settings\Column\TermLinkFactory $term_link_factory,
-        Settings\Column\NumberOfItemsFactory $number_of_items_factory,
-        Settings\Column\SeparatorFactory $separator_factory
-    ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+    private $taxonomy_factory;
 
-        $this->add_component_factory($taxonomy_factory);
-        $this->add_component_factory($term_link_factory);
-        $this->add_component_factory($number_of_items_factory);
-        $this->add_component_factory($separator_factory);
+    private $term_link_factory;
+
+    private $number_of_items_factory;
+
+    private $separator_factory;
+
+    public function __construct(
+        ComponentFactoryRegistry $component_factory_registry,
+        ComponentFactory\Taxonomy $taxonomy_factory,
+        ComponentFactory\TermLink $term_link_factory,
+        ComponentFactory\NumberOfItems $number_of_items_factory,
+        ComponentFactory\Separator $separator_factory
+    ) {
+        parent::__construct($component_factory_registry);
+
+        $this->taxonomy_factory = $taxonomy_factory;
+        $this->term_link_factory = $term_link_factory;
+        $this->number_of_items_factory = $number_of_items_factory;
+        $this->separator_factory = $separator_factory;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->taxonomy_factory);
+        $this->add_component_factory($this->term_link_factory);
+        $this->add_component_factory($this->number_of_items_factory);
+        $this->add_component_factory($this->separator_factory);
     }
 
     public function get_type(): string
@@ -41,10 +57,16 @@ class TaxonomyFactory extends ColumnFactory
         return __('Taxonomy', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new PostTerms((string)$config->get('taxonomy')))
-                     ->add(Separator::create_from_config($config));
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new PostTerms((string)$config->get('taxonomy')));
+        $formatters = parent::get_formatters($components, $config, $formatters);
+        $formatters->add(Separator::create_from_config($config));
+
+        return $formatters;
     }
+
 }

@@ -21,7 +21,7 @@ class Attachments implements Formatter
             'fields'         => 'ids',
         ]);
 
-        return ValueCollection::from_ids($attachment_ids);
+        return ValueCollection::from_ids($value->get_id(), $attachment_ids);
     }
 
 }

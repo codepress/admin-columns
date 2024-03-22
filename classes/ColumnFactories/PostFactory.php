@@ -59,18 +59,6 @@ class PostFactory implements ColumnFactories
         //            ]
         //        );
 
-        //.START DEBUG
-        //        $factories[] = $this->container->get(AC\ColumnFactory\RemoveMeFactory::class);
-        //
-        //        $collection = new Collection\ColumnFactories();
-        //
-        //        foreach ($factories as $factory) {
-        //            $collection->add($factory->get_type(), $factory);
-        //        }
-        //
-        //        return $collection;
-        // .END DEBUG
-
         $factories[] = $this->container->make(Post\AttachmentFactory::class);
         $factories[] = $this->container->make(Post\AuthorFactory::class);
         $factories[] = $this->container->make(Post\FeaturedImageFactory::class);
@@ -96,25 +84,22 @@ class PostFactory implements ColumnFactories
         $factories[] = $this->container->make(Post\ShortLinkFactory::class);
         $factories[] = $this->container->make(Post\SlugFactory::class);
         $factories[] = $this->container->make(Post\StatusFactory::class);
-        //        $factories[] = $this->container->make(Post\StickyFactory::class);
-        $factories[] = $this->container->get(Post\TitleRawFactory::class);
+        $factories[] = $this->container->make(Post\StickyFactory::class);
+        $factories[] = $this->container->make(Post\TitleRawFactory::class);
 
-        //        if (count(ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)) > 0) {
-        //            $factories[] = $this->container->make(Post\TaxonomyFactory::class, [
-        //                'taxonomy_factory'  => new Settings\Column\TaxonomyFactory($post_type),
-        //                'term_link_factory' => new Settings\Column\TermLinkFactory($post_type),
-        //            ]);
-        //        }
-        //
-        //        $factories[] = $this->container->get(Post\WordCountFactory::class);
-        //
-        //        if (post_type_supports($post_type, 'comments')) {
-        //            $factories[] = $this->container->get(CommentFactory::class);
-        //        }
-        //
-        //        if (post_type_supports($post_type, 'excerpt')) {
-        //            $factories[] = $this->container->get(ExcerptFactory::class);
-        //        }
+        if (count(ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)) > 0) {
+            $factories[] = $this->container->make(Post\TaxonomyFactory::class);
+        }
+
+        $factories[] = $this->container->make(Post\WordCountFactory::class);
+
+        if (post_type_supports($post_type, 'comments')) {
+            $factories[] = $this->container->make(Post\CommentCountFactory::class);
+        }
+
+        if (post_type_supports($post_type, 'excerpt')) {
+            $factories[] = $this->container->make(Post\ExcerptFactory::class);
+        }
 
         $collection = new Collection\ColumnFactories();
 

@@ -44,7 +44,7 @@ abstract class ManageValue implements Registerable
                     }
 
                     if ($value instanceof ValueCollection) {
-                        $collection = new ValueCollection();
+                        $collection = new ValueCollection($value->get_id());
 
                         foreach ($value as $item) {
                             $collection->add($formatter->format($item));
