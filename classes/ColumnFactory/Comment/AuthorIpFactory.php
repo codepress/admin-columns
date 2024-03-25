@@ -6,6 +6,7 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 class AuthorIpFactory extends ColumnFactory
 {
@@ -20,14 +21,13 @@ class AuthorIpFactory extends ColumnFactory
         return 'column-author_ip';
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(
-                         new Formatter\Comment\Property('comment_author_IP')
-                     );
-    }
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\Comment\Property('comment_author_IP'));
 
+        return parent::get_formatters($components, $config, $formatters);
+    }
 }

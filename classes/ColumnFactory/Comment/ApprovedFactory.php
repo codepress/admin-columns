@@ -6,6 +6,7 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 class ApprovedFactory extends ColumnFactory
 {
@@ -20,14 +21,14 @@ class ApprovedFactory extends ColumnFactory
         return 'column-approved';
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(
-                         new Formatter\Comment\Property('comment_approved')
-                     )->add(new Formatter\YesNoIcon());
-    }
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\Comment\Property('comment_approved'));
+        $formatters->add(new Formatter\YesNoIcon());
 
+        return parent::get_formatters($components, $config, $formatters);
+    }
 }
