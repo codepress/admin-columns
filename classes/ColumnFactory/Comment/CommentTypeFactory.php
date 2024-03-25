@@ -5,8 +5,8 @@ namespace AC\ColumnFactory\Comment;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\Comment\Property;
+use AC\Setting\FormatterCollection;
 
 class CommentTypeFactory extends ColumnFactory
 {
@@ -21,10 +21,13 @@ class CommentTypeFactory extends ColumnFactory
         return 'column-type';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->add(new Property('comment_type'));
-    }
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Property('comment_type'));
 
+        return parent::get_formatters($components, $config, $formatters);
+    }
 }

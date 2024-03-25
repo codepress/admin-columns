@@ -28,23 +28,28 @@ class CommentFactory implements ColumnFactories
         }
 
         // Todo implement custom field
+        $factoryClasses = [
+            Comment\AgentFactory::class,
+            Comment\ApprovedFactory::class,
+            Comment\AuthorAvatarFactory::class,
+            Comment\AuthorEmailFactory::class,
+            Comment\AuthorIpFactory::class,
+            Comment\AuthorNameFactory::class,
+            Comment\AuthorUrlFactory::class,
+            Comment\DateGmtFactory::class,
+            Comment\ExcerptFactory::class,
+            Comment\IdFactory::class,
+            Comment\PostFactory::class,
+            Comment\ReplyToFactory::class,
+            Comment\StatusFactory::class,
+            Comment\CommentTypeFactory::class,
+            Comment\UserFactory::class,
+            Comment\WordCountFactory::class
+        ];
 
-        $factories[] = $this->container->get(Comment\AgentFactory::class);
-        //        $factories[] = $this->container->get(Comment\ApprovedFactory::class);
-        //        $factories[] = $this->container->get(Comment\AuthorAvatarFactory::class);
-        //        $factories[] = $this->container->get(Comment\AuthorEmailFactory::class);
-        //        $factories[] = $this->container->get(Comment\AuthorIpFactory::class);
-        //        $factories[] = $this->container->get(Comment\AuthorNameFactory::class);
-        //        $factories[] = $this->container->get(Comment\AuthorUrlFactory::class);
-        //        $factories[] = $this->container->get(Comment\DateGmtFactory::class);
-        //        $factories[] = $this->container->get(Comment\ExcerptFactory::class);
-        //        $factories[] = $this->container->get(Comment\IdFactory::class);
-        //        $factories[] = $this->container->get(Comment\PostFactory::class);
-        //        $factories[] = $this->container->get(Comment\ReplyToFactory::class);
-        //        $factories[] = $this->container->get(Comment\StatusFactory::class);
-        //        $factories[] = $this->container->get(Comment\CommentTypeFactory::class);
-        //        $factories[] = $this->container->get(Comment\UserFactory::class);
-        //        $factories[] = $this->container->get(Comment\WordCountFactory::class);
+        foreach ($factoryClasses as $factoryClass) {
+            $factories[] = $this->container->get($factoryClass);
+        }
 
         $collection = new Collection\ColumnFactories();
 
