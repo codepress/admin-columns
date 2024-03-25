@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter\Comment;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
@@ -20,12 +21,13 @@ class Property implements Formatter
     public function format(Value $value): Value
     {
         $comment = get_comment($value->get_id());
-
         $property = $comment->{$this->property} ?? null;
 
-        return $property
-            ? $value->with_value($property)
-            : new Value(null);
+        if (null === $property) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
+
+        return $value->with_value($property);
     }
 
 }
