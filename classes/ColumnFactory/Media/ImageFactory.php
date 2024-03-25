@@ -3,21 +3,27 @@
 namespace AC\ColumnFactory\Media;
 
 use AC\Column\ColumnFactory;
+use AC\Setting\ComponentFactory\ImageSize;
 use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Settings;
 
 class ImageFactory extends ColumnFactory
 {
+    private $image_size;
 
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        Settings\Column\ImageFactory $image_factory
+        ImageSize $image_size
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
-        $this->add_component_factory($image_factory);
+        $this->image_size = $image_size;
+    }
+
+    protected function add_component_factories(): void
+    {
+        $this->add_component_factory($this->image_size);
+
+        parent::add_component_factories();
     }
 
     public function get_type(): string

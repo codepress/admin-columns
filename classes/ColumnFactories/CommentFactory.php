@@ -48,7 +48,7 @@ class CommentFactory implements ColumnFactories
         ];
 
         foreach ($factoryClasses as $factoryClass) {
-            $factories[] = $this->container->get($factoryClass);
+            $factories[] = $this->container->make($factoryClass);
         }
 
         $collection = new Collection\ColumnFactories();
