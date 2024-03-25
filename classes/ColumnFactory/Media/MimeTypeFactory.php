@@ -7,6 +7,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\Media\PostMimeType;
+use AC\Setting\FormatterCollection;
 
 class MimeTypeFactory extends ColumnFactory
 {
@@ -21,10 +22,13 @@ class MimeTypeFactory extends ColumnFactory
         return __('Mime Type', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new PostMimeType());
-    }
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new PostMimeType());
 
+        return parent::get_formatters($components, $config, $formatters);
+    }
 }

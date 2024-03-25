@@ -27,35 +27,34 @@ class MediaFactory implements ColumnFactories
             return null;
         }
 
-        $factories[] = $this->container->get(Media\AlbumFactory::class);
-        $factories[] = $this->container->get(Media\AternateTextFactory::class);
-        $factories[] = $this->container->get(Media\ArtistFactory::class);
-        $factories[] = $this->container->get(Media\AudioPlayerFactory::class);
-        $factories[] = $this->container->get(Media\AvailableSizesFactory::class);
-        $factories[] = $this->container->get(Media\CaptionFactory::class);
-        $factories[] = $this->container->get(Media\DescriptionFactory::class);
-        $factories[] = $this->container->get(Media\DimensionsFactory::class);
-        $factories[] = $this->container->get(Media\DownloadFactory::class);
-        $factories[] = $this->container->get(Media\ExifDataFactory::class);
-        $factories[] = $this->container->get(Media\FileMetaAudioFactory::class);
-        //        $factories[] = $this->container->get(Media\FileMetaVideoFactory::class);
-        //        $factories[] = $this->container->get(Media\FileNameFactory::class);
-        //        $factories[] = $this->container->get(Media\FileSizeFactory::class);
-        //        $factories[] = $this->container->get(Media\FullPathFactory::class);
-        //        $factories[] = $this->container->get(Media\HeightFactory::class);
-        //        $factories[] = $this->container->get(Media\ImageFactory::class);
-        //        $factories[] = $this->container->get(Media\MimeTypeFactory::class);
-        //        $factories[] = $this->container->get(Media\PreviewFactory::class);
-        //        $factories[] = $this->container->get(Media\VideoPlayerFactory::class);
-        //        $factories[] = $this->container->get(Media\WidthFactory::class);
 
-        //        $factories[] = $this->container->make(Media\ExifData::class, [
-        //            'exif_data_factory' => new AC\Settings\Column\ExifDataFactory(),
-        //        ]);
+        // Todo IMPLEMENT - Preview Modal for Preview
+        $factoryClasses = [
+            Media\AlbumFactory::class,
+            Media\ArtistFactory::class,
+            Media\AudioPlayerFactory::class,
+            Media\AvailableSizesFactory::class,
+            Media\CaptionFactory::class,
+            Media\DescriptionFactory::class,
+            Media\DimensionsFactory::class,
+            Media\DownloadFactory::class,
+            Media\ExifDataFactory::class,
+            Media\FileMetaAudioFactory::class,
+            Media\FileMetaVideoFactory::class,
+            Media\FileNameFactory::class,
+            Media\FileSizeFactory::class,
+            Media\FullPathFactory::class,
+            Media\HeightFactory::class,
+            Media\ImageFactory::class,
+            Media\MimeTypeFactory::class,
+//            Media\PreviewFactory::class,
+            Media\VideoPlayerFactory::class,
+            Media\WidthFactory::class
+        ];
 
-        //        $factories[] = $this->container->make(Post\MenuFactory::class, [
-        //            'post_type' => $table_screen->get_post_type(),
-        //        ]);
+        foreach ($factoryClasses as $factoryClass) {
+            $factories[$factoryClass] = $this->container->make($factoryClass);
+        }
 
         $collection = new Collection\ColumnFactories();
 

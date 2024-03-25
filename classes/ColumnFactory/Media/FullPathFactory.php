@@ -4,24 +4,33 @@ namespace AC\ColumnFactory\Media;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\PathScope;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Media\AttachmentUrl;
+use AC\Setting\FormatterCollection;
 use AC\Settings\Column\PathScopeFactory;
 
 class FullPathFactory extends ColumnFactory
 {
+    private $path_scope;
 
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        PathScopeFactory $path_scope_factory
+        PathScope $path_scope
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
-        $this->add_component_factory($path_scope_factory);
+        $this->path_scope = $path_scope;
+    }
+
+    protected function add_component_factories(): void
+    {
+        $this->add_component_factory($this->path_scope);
+
+        parent::add_component_factories();
     }
 
     public function get_type(): string
@@ -31,13 +40,17 @@ class FullPathFactory extends ColumnFactory
 
     protected function get_label(): string
     {
-        return __('Path', 'codepress-admin-columns');
+        return __('File Path', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new AttachmentUrl());
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new AttachmentUrl());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

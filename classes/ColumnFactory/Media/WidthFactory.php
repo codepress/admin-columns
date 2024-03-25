@@ -8,6 +8,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\Media\AttachmentMetaData;
 use AC\Setting\Formatter\Suffix;
+use AC\Setting\FormatterCollection;
 
 class WidthFactory extends ColumnFactory
 {
@@ -27,11 +28,14 @@ class WidthFactory extends ColumnFactory
         return 'media-image';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new AttachmentMetaData('width'))
-                     ->add(new Suffix('px'));
-    }
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new AttachmentMetaData('width'));
+        $formatters->add(new Suffix('px'));
 
+        return parent::get_formatters($components, $config, $formatters);
+    }
 }
