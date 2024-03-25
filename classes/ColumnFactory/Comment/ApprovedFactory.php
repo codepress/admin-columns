@@ -6,7 +6,6 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\Post\Path;
 use AC\Setting\FormatterCollection;
 
 class ApprovedFactory extends ColumnFactory

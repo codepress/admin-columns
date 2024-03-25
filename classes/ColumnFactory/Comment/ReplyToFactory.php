@@ -5,7 +5,6 @@ namespace AC\ColumnFactory\Comment;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\Formatter\Comment\ParentId;
 use AC\Setting\Formatter\Comment\ReplyToLink;
 use AC\Setting\FormatterCollection;

@@ -5,13 +5,10 @@ namespace AC\ColumnFactory\Comment;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\StringLimit;
-use AC\Setting\ComponentFactory\WordLimit;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\FormatterCollection;
-use AC\Settings\Column\WordLimitFactory;
 
 class ExcerptFactory extends ColumnFactory
 {
