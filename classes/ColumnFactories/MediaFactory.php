@@ -34,10 +34,10 @@ class MediaFactory implements ColumnFactories
         $factories[] = $this->container->get(Media\AvailableSizesFactory::class);
         $factories[] = $this->container->get(Media\CaptionFactory::class);
         $factories[] = $this->container->get(Media\DescriptionFactory::class);
-        //        $factories[] = $this->container->get(Media\DimensionsFactory::class);
-        //        $factories[] = $this->container->get(Media\DownloadFactory::class);
-        //        $factories[] = $this->container->get(Media\ExifDataFactory::class);
-        //        $factories[] = $this->container->get(Media\FileMetaAudioFactory::class);
+        $factories[] = $this->container->get(Media\DimensionsFactory::class);
+        $factories[] = $this->container->get(Media\DownloadFactory::class);
+        $factories[] = $this->container->get(Media\ExifDataFactory::class);
+        $factories[] = $this->container->get(Media\FileMetaAudioFactory::class);
         //        $factories[] = $this->container->get(Media\FileMetaVideoFactory::class);
         //        $factories[] = $this->container->get(Media\FileNameFactory::class);
         //        $factories[] = $this->container->get(Media\FileSizeFactory::class);

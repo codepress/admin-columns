@@ -14,11 +14,11 @@ class ExifData implements Formatter
     {
         $this->exif_data = $exif_data;
     }
-
-    // TODO test
+    
     public function format(Value $value): Value
     {
-        $exif_value = ((array)$value->get_value())[$this->exif_data] ?? '';
+        $data = (array)$value->get_value();
+        $exif_value = $data[$this->exif_data] ?? '';
 
         if (false !== $exif_value) {
             switch ($this->exif_data) {
