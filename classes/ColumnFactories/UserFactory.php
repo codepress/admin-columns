@@ -37,29 +37,29 @@ class UserFactory implements ColumnFactories
         //            ]
         //        );
 
-        $factories[] = $this->container->get(User\AuthorSlugFactory::class);
-        $factories[] = $this->container->get(User\CommentCountFactory::class);
-        $factories[] = $this->container->get(User\DescriptionFactory::class);
-        $factories[] = $this->container->get(User\DisplayNameFactory::class);
-        $factories[] = $this->container->get(User\FirstNameFactory::class);
-        $factories[] = $this->container->get(User\FullNameFactory::class);
+        $factories[] = $this->container->make(User\AuthorSlugFactory::class);
+        $factories[] = $this->container->make(User\CommentCountFactory::class);
+        $factories[] = $this->container->make(User\DescriptionFactory::class);
+        $factories[] = $this->container->make(User\DisplayNameFactory::class);
+        $factories[] = $this->container->make(User\FirstNameFactory::class);
+        $factories[] = $this->container->make(User\FullNameFactory::class);
         $factories[] = $this->container->make(User\FirstPostFactory::class, [
-            'post_type_factory' => new AC\Settings\Column\PostTypeFactory(true),
+            'post_type' => new AC\Setting\ComponentFactory\PostType(true),
         ]);
-        $factories[] = $this->container->get(User\LastNameFactory::class);
+        $factories[] = $this->container->make(User\LastNameFactory::class);
         $factories[] = $this->container->make(User\LastPostFactory::class, [
-            'post_type_factory' => new AC\Settings\Column\PostTypeFactory(true),
+            'post_type' => new AC\Setting\ComponentFactory\PostType(true),
         ]);
-        $factories[] = $this->container->get(User\NicknameFactory::class);
+        $factories[] = $this->container->make(User\NicknameFactory::class);
         $factories[] = $this->container->make(User\PostCountFactory::class, [
-            'post_type_factory' => new AC\Settings\Column\PostTypeFactory(true),
+            'post_type' => new AC\Setting\ComponentFactory\PostType(true),
         ]);
-        $factories[] = $this->container->get(User\RegisteredDateFactory::class);
-        $factories[] = $this->container->get(User\VisualEditingFactory::class);
-        $factories[] = $this->container->get(User\ShowToolbarFactory::class);
-        $factories[] = $this->container->get(User\UserNameFactory::class);
-        $factories[] = $this->container->get(User\UserIdFactory::class);
-        $factories[] = $this->container->get(User\UserUrlFactory::class);
+        $factories[] = $this->container->make(User\RegisteredDateFactory::class);
+        $factories[] = $this->container->make(User\VisualEditingFactory::class);
+        $factories[] = $this->container->make(User\ShowToolbarFactory::class);
+        $factories[] = $this->container->make(User\UserNameFactory::class);
+        $factories[] = $this->container->make(User\UserIdFactory::class);
+        $factories[] = $this->container->make(User\UserUrlFactory::class);
 
         $collection = new Collection\ColumnFactories();
 

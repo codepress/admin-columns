@@ -33,7 +33,7 @@ class TermLink implements Formatter
                 if ($term instanceof WP_Term) {
                     $link = ac_helper()->taxonomy->get_filter_by_term_url(
                         $term,
-                        $this->post_type
+                        (string)$this->post_type
                     );
                 }
                 break;

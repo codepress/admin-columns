@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Children;
-use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
 use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 
-final class StringLimit implements ComponentFactory
+final class StringLimit extends Builder
 {
+
+    private const OPTION_CHARACTER_LIMIT = 'character_limit';
+    private const OPTION_EXCERPT_LENGTH = 'excerpt_length';
 
     private $character_limit;
 
@@ -28,42 +28,40 @@ final class StringLimit implements ComponentFactory
         $this->word_limit = $word_limit;
     }
 
-    // TODO formatter
-    public function create(Config $config, Specification $conditions = null): Component
+    protected function get_label(Config $config): ?string
     {
-        $builder = (new ComponentBuilder())
-            ->set_label(__('Text Limit', 'codepress-admin-columns'))
-            ->set_input(
-                OptionFactory::create_select(
-                    'string_limit',
-                    OptionCollection::from_array([
-                        ''                => __('No limit', 'codepress-admin-columns'),
-                        'character_limit' => __('Character Limit', 'codepress-admin-columns'),
-                        'excerpt_length'  => __('Word Limit', 'codepress-admin-columns'),
-                    ]),
-                    (string)$config->get('string_limit')
-                )
-            )
-            ->set_children(
-                new Children(
-                    new ComponentCollection([
-                        $this->character_limit->create(
-                            $config,
-                            StringComparisonSpecification::equal('character_limit')
-                        ),
-                        $this->word_limit->create(
-                            $config,
-                            StringComparisonSpecification::equal('excerpt_length')
-                        ),
-                    ])
-                )
-            );
+        return __('Text Limit', 'codepress-admin-columns');
+    }
 
-        if ($conditions) {
-            $builder->set_conditions($conditions);
-        }
+    protected function get_input(Config $config): ?Input
+    {
+        $name = 'string_limit';
 
-        return $builder->build();
+        return OptionFactory::create_select(
+            $name,
+            OptionCollection::from_array([
+                ''                           => __('No limit', 'codepress-admin-columns'),
+                self::OPTION_CHARACTER_LIMIT => __('Character Limit', 'codepress-admin-columns'),
+                self::OPTION_EXCERPT_LENGTH  => __('Word Limit', 'codepress-admin-columns'),
+            ]),
+            (string)$config->get($name)
+        );
+    }
+
+    protected function get_children(Config $config): ?Children
+    {
+        return new Children(
+            new ComponentCollection([
+                $this->character_limit->create(
+                    $config,
+                    StringComparisonSpecification::equal(self::OPTION_CHARACTER_LIMIT)
+                ),
+                $this->word_limit->create(
+                    $config,
+                    StringComparisonSpecification::equal(self::OPTION_EXCERPT_LENGTH)
+                ),
+            ])
+        );
     }
 
 }

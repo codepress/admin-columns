@@ -3,9 +3,10 @@
 namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\Formatter\Post\IsSticky;
+use AC\Setting\FormatterCollection;
 
 class StickyFactory extends ColumnFactory
 {
@@ -20,9 +21,14 @@ class StickyFactory extends ColumnFactory
         return __('Sticky', 'codepress-admin-columns');
     }
 
-    protected function create_formatter(Config $config): Formatter
-    {
-        return new IsSticky();
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new IsSticky());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

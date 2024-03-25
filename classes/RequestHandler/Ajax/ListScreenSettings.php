@@ -117,16 +117,12 @@ class ListScreenSettings implements RequestAjaxHandler
         $original_types = $this->get_original_types($table_screen);
 
         foreach ($this->type_repository->find_all($table_screen) as $column) {
-            $parent = $column->get_parent();
-
             $column_types[] = [
-                'label'        => $this->get_clean_label($column),
-                'value'        => $column->get_type(),
-                'group'        => $groups->get($column->get_group())['label'],
-                'group_key'    => $column->get_group(),
-                'parent'       => $parent ? $parent->get_label() : null, // TODO is part of a collection
-                'parent_group' => $parent ? $parent->get_group() : null,
-                'original'     => in_array($column->get_type(), $original_types, true),
+                'label'     => $this->get_clean_label($column),
+                'value'     => $column->get_type(),
+                'group'     => $groups->get($column->get_group())['label'],
+                'group_key' => $column->get_group(),
+                'original'  => in_array($column->get_type(), $original_types, true),
             ];
         }
 

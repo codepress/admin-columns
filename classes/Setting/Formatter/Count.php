@@ -4,22 +4,23 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter;
 
-use AC\Setting\Formatter;
+use AC\Exception\ValueNotFoundException;
+use AC\Setting\CollectionFormatter;
 use AC\Setting\Type\Value;
-use Countable;
+use AC\Setting\ValueCollection;
 
-class Count implements Formatter
+class Count implements CollectionFormatter
 {
 
-    public function format(Value $value): Value
+    public function format(ValueCollection $collection)
     {
-        $count = 0;
+        $count = count($collection);
 
-        if ($value->get_value() instanceof Countable || is_array($value->get_value())) {
-            $count = count($value->get_value());
+        if ($count === 0) {
+            throw new ValueNotFoundException('');
         }
 
-        return $value->with_value($count);
+        return new Value($count);
     }
 
 }

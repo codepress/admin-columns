@@ -3,7 +3,6 @@
     import AcInputGroup from "ACUi/acui-form/AcInputGroup.svelte";
 
     export let data: any;
-    export let config: AC.Column.Settings.WidthSetting;
     export let disabled: boolean = false;
 
     const keyWidth = 'width';

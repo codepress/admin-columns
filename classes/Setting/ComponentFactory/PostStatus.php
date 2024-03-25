@@ -27,7 +27,9 @@ final class PostStatus implements ComponentFactory
                 OptionFactory::create_select(
                     self::NAME,
                     $this->create_options(),
-                    $value ?: ['publish', 'private']
+                    $value ?: ['publish', 'private'],
+                    null,
+                    true
                 )
             );
 
@@ -42,7 +44,6 @@ final class PostStatus implements ComponentFactory
     {
         $options = [];
 
-        // TODO test
         foreach (get_post_stati(['exclude_from_search' => false]) as $name) {
             $status = get_post_status_object((string)$name);
             $options[$name] = $status->label ?? (string)$name;

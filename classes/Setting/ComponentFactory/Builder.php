@@ -9,15 +9,12 @@ use AC\Setting\AttributeCollection;
 use AC\Setting\Children;
 use AC\Setting\Component;
 use AC\Setting\ComponentBuilder;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\FormatterCollection;
 
-abstract class Builder implements ComponentFactory
+abstract class Builder extends Base
 {
-
-    // TODO David decide if this shortcut is worth it Builder
 
     public function create(Config $config, Specification $conditions = null): Component
     {
@@ -85,6 +82,18 @@ abstract class Builder implements ComponentFactory
 
     protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
     {
+        $children = $this->get_children($config);
+
+        if ($children) {
+            $input = $this->get_input($config);
+
+            $formatters = $this->get_formatters_recursive(
+                $children->get_iterator(),
+                $formatters,
+                $input ? (string)$input->get_value() : null
+            );
+        }
+
         return $formatters;
     }
 
@@ -102,5 +111,4 @@ abstract class Builder implements ComponentFactory
     {
         return null;
     }
-
 }

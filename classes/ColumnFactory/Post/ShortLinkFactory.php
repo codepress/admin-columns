@@ -5,9 +5,9 @@ namespace AC\ColumnFactory\Post;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\Formatter\Linkable;
 use AC\Setting\Formatter\Post\ShortLink;
+use AC\Setting\FormatterCollection;
 
 class ShortLinkFactory extends ColumnFactory
 {
@@ -22,13 +22,15 @@ class ShortLinkFactory extends ColumnFactory
         return 'column-shortlink';
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)
-                     ->add(new ShortLink())
-                     ->add(new Linkable());
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new ShortLink());
+        $formatters->add(new Linkable());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

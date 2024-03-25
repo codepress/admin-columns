@@ -4,24 +4,37 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\UserLink;
+use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\LastModifiedAuthor;
-use AC\Settings\Column\UserFactory;
+use AC\Setting\FormatterCollection;
 
 class LastModifiedAuthorFactory extends ColumnFactory
 {
 
-    public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        ComponentFactoryRegistry $component_factory_registry,
-        UserFactory $user_factory
-    ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+    private $user_factory;
 
-        $this->add_component_factory($user_factory);
+    private $user_link;
+
+    public function __construct(
+        ComponentFactoryRegistry $component_factory_registry,
+        UserProperty $user_factory,
+        UserLink $user_link
+    ) {
+        parent::__construct($component_factory_registry);
+
+        $this->user_factory = $user_factory;
+        $this->user_link = $user_link;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->user_factory);
+        $this->add_component_factory($this->user_link);
     }
 
     public function get_type(): string
@@ -34,11 +47,14 @@ class LastModifiedAuthorFactory extends ColumnFactory
         return __('Last Modified Author', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->prepend(new LastModifiedAuthor());
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new LastModifiedAuthor());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

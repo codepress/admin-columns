@@ -4,27 +4,37 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\CharacterLimit;
+use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Post\PostTitle;
-use AC\Settings\Column\CharacterLimitFactory;
-use AC\Settings\Column\PostLinkFactory;
+use AC\Setting\FormatterCollection;
 
 class TitleRawFactory extends ColumnFactory
 {
 
-    public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        ComponentFactoryRegistry $component_factory_registry,
-        CharacterLimitFactory $character_limit_factory,
-        PostLinkFactory $post_link_factory
-    ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+    private $character_limit_factory;
 
-        $this->add_component_factory($character_limit_factory);
-        $this->add_component_factory($post_link_factory);
+    private $post_link_factory;
+
+    public function __construct(
+        ComponentFactoryRegistry $component_factory_registry,
+        CharacterLimit $character_limit_factory,
+        PostLink $post_link_factory
+    ) {
+        parent::__construct($component_factory_registry);
+        
+        $this->character_limit_factory = $character_limit_factory;
+        $this->post_link_factory = $post_link_factory;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->character_limit_factory);
+        $this->add_component_factory($this->post_link_factory);
     }
 
     public function get_type(): string
@@ -37,9 +47,14 @@ class TitleRawFactory extends ColumnFactory
         return __('Title Only', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new PostTitle());
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new PostTitle());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
+
 }

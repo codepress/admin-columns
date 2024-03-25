@@ -9,35 +9,35 @@ use AC\Setting;
 final class ComponentFactoryRegistry
 {
 
-    private $name_factory;
+    private $name;
 
-    private $label_factory;
+    private $label;
 
-    private $width_factory;
+    private $width;
 
     public function __construct(
-        Setting\ComponentFactory\Name $name_factory,
-        Setting\ComponentFactory\Label $label_factory,
-        Setting\ComponentFactory\Width $width_factory
+        Setting\ComponentFactory\Name $name,
+        Setting\ComponentFactory\Label $label,
+        Setting\ComponentFactory\Width $width
     ) {
-        $this->name_factory = $name_factory;
-        $this->label_factory = $label_factory;
-        $this->width_factory = $width_factory;
+        $this->name = $name;
+        $this->label = $label;
+        $this->width = $width;
     }
 
-    public function get_name_factory(): Setting\ComponentFactory\Name
+    public function get_name(): Setting\ComponentFactory\Name
     {
-        return $this->name_factory;
+        return $this->name;
     }
 
-    public function get_label_factory(): Setting\ComponentFactory\Label
+    public function get_label(): Setting\ComponentFactory\Label
     {
-        return $this->label_factory;
+        return $this->label;
     }
 
-    public function get_width_factory(): Setting\ComponentFactory\Width
+    public function get_width(): Setting\ComponentFactory\Width
     {
-        return $this->width_factory;
+        return $this->width;
     }
 
 }

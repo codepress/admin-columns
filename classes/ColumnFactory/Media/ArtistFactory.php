@@ -5,8 +5,8 @@ namespace AC\ColumnFactory\Media;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\Media\AttachmentMetaData;
+use AC\Setting\FormatterCollection;
 
 class ArtistFactory extends ColumnFactory
 {
@@ -23,10 +23,14 @@ class ArtistFactory extends ColumnFactory
         return __('Artist', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new AttachmentMetaData('artist'));
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new AttachmentMetaData('artist'));
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

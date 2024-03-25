@@ -6,21 +6,20 @@ namespace AC\Setting\Formatter\Collection;
 
 use AC\Setting\CollectionFormatter;
 use AC\Setting\Type\Value;
+use AC\Setting\ValueCollection;
 
 class LocalizeSeparator implements CollectionFormatter
 {
 
-    public function format(Value $value): Value
+    public function format(ValueCollection $value): Value
     {
         $values = [];
 
-        foreach ($value->get_value() as $_value) {
+        foreach ($value as $_value) {
             $values[] = (string)$_value;
         }
 
-        return $value->with_value(
-            wp_sprintf('%l', $values)
-        );
+        return new Value(wp_sprintf('%l', $values));
     }
 
 }

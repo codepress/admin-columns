@@ -4,24 +4,31 @@ namespace AC\ColumnFactory\Post;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\UseIcon;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Setting\Formatter\Post\PostFormat;
-use AC\Settings\Column\PostFormatIconFactory;
+use AC\Setting\FormatterCollection;
 
 class FormatsFactory extends ColumnFactory
 {
 
-    public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        ComponentFactoryRegistry $component_factory_registry,
-        PostFormatIconFactory $post_format_icon_factory
-    ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+    private $post_format_icon_factory;
 
-        $this->add_component_factory($post_format_icon_factory);
+    public function __construct(
+        ComponentFactoryRegistry $component_factory_registry,
+        UseIcon $post_format_icon_factory
+    ) {
+        parent::__construct($component_factory_registry);
+
+        $this->post_format_icon_factory = $post_format_icon_factory;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->post_format_icon_factory);
     }
 
     public function get_type(): string
@@ -34,11 +41,14 @@ class FormatsFactory extends ColumnFactory
         return __('Post Format', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->prepend(new PostFormat());
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\Post\PostFormat());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

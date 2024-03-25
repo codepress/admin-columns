@@ -4,48 +4,41 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
-use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
-final class MediaLink implements ComponentFactory
+final class MediaLink extends Builder
 {
 
     private const NAME = 'media_link_to';
 
-    public function create(Config $config, Specification $conditions = null): Component
+    protected function get_label(Config $config): ?string
     {
-        $value = (string)$config->get(self::NAME);
+        return __('Link to', 'codepress-admin-columns');
+    }
 
-        $builder = (new ComponentBuilder())
-            ->set_label(
-                __('Link To', 'codepress-admin-columns')
-            )
-            ->set_input(
-                OptionFactory::create_select(
-                    self::NAME,
-                    OptionCollection::from_array([
-                        ''         => __('None'),
-                        'view'     => __('View', 'codepress-admin-columns'),
-                        'download' => __('Download', 'codepress-admin-columns'),
-                    ]),
-                    $value
-                )
-            )
-            ->set_formatter(
-                new Formatter\Media\Link($value)
-            );
+    protected function get_input(Config $config): ?Input
+    {
+        return OptionFactory::create_select(
+            self::NAME,
+            OptionCollection::from_array([
+                ''         => __('None'),
+                'view'     => __('View', 'codepress-admin-columns'),
+                'download' => __('Download', 'codepress-admin-columns'),
+            ]),
+            (string)$config->get(self::NAME)
+        );
+    }
 
-        if ($conditions) {
-            $builder->set_conditions($conditions);
-        }
-
-        return $builder->build();
+    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    {
+        return new FormatterCollection([
+            new Formatter\Media\Link((string)$config->get(self::NAME)),
+        ]);
     }
 
 }

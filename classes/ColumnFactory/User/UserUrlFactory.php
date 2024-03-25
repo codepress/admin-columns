@@ -6,6 +6,7 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 class UserUrlFactory extends ColumnFactory
 {
@@ -20,13 +21,15 @@ class UserUrlFactory extends ColumnFactory
         return 'column-user_url';
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new Formatter\User\Property('user_url'))
-                     ->add(new Formatter\Linkable(null, '_blank'));
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\User\Property('user_url'));
+        $formatters->add(new Formatter\Linkable(null, '_blank'));
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

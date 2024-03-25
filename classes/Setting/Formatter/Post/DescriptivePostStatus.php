@@ -13,7 +13,8 @@ class DescriptivePostStatus implements Formatter
 
     public function format(Value $value): Value
     {
-        $post = $value->get_value();
+        global $wp_post_statuses;
+        $post = get_post($value->get_id());
 
         if ( ! $post instanceof WP_Post) {
             return $value;

@@ -5,8 +5,8 @@ namespace AC\ColumnFactory\Media;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\Media\AudioPlayer;
+use AC\Setting\FormatterCollection;
 
 class AudioPlayerFactory extends ColumnFactory
 {
@@ -23,10 +23,14 @@ class AudioPlayerFactory extends ColumnFactory
         return __('Audio Player', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new AudioPlayer());
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new AudioPlayer());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

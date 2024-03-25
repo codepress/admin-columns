@@ -4,26 +4,36 @@ namespace AC\ColumnFactory\Media;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\IncludeMissingSizes;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Media\AvailableSizes;
-use AC\Settings\Column\MissingImageSizeFactory;
+use AC\Setting\FormatterCollection;
 
 class AvailableSizesFactory extends ColumnFactory
 {
 
-    // Group to group: 'media-image'
+    private $include_missing_sizes;
 
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        MissingImageSizeFactory $missing_image_size_factory
+        IncludeMissingSizes $include_missing_sizes
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
-        $this->add_component_factory($missing_image_size_factory);
+        $this->include_missing_sizes = $include_missing_sizes;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->include_missing_sizes);
+    }
+
+    protected function get_group(): ?string
+    {
+        return 'media-image';
     }
 
     public function get_type(): string
@@ -36,10 +46,14 @@ class AvailableSizesFactory extends ColumnFactory
         return __('Available Sizes', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new AvailableSizes(true));
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new AvailableSizes((string)$config->get('include_missing_sizes') === '1'));
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

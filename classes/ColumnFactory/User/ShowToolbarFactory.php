@@ -6,6 +6,7 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 class ShowToolbarFactory extends ColumnFactory
 {
@@ -20,13 +21,15 @@ class ShowToolbarFactory extends ColumnFactory
         return 'column-user_show_toolbar';
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new Formatter\User\ShowToolbar())
-                     ->add(new Formatter\YesNoIcon());
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\User\ShowToolbar());
+        $formatters->add(new Formatter\YesNoIcon());
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

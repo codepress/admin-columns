@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
 use AC\Expression\StringComparisonSpecification;
 use AC\Setting\Children;
-use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
 use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
-final class AttachmentDisplay implements ComponentFactory
+final class AttachmentDisplay extends Builder
 {
 
     private const NAME = 'attachment_display';
@@ -36,60 +34,48 @@ final class AttachmentDisplay implements ComponentFactory
         $this->media_link_factory = $media_link_factory;
     }
 
-    // TODO formatter
-    public function create(Config $config, Specification $conditions = null): Component
+    protected function get_label(Config $config): ?string
     {
-        $value = (string)$config->get(self::NAME, 'thumbnail');
-
-        $builder = (new ComponentBuilder())
-            ->set_label(__('Display', 'codepress-admin-columns'))
-            ->set_input(
-                OptionFactory::create_select(
-                    self::NAME,
-                    OptionCollection::from_array([
-                        self::OPTION_THUMBNAIL => __('Thumbnails', 'codepress-admin-columns'),
-                        self::OPTION_COUNT     => __('Count', 'codepress-admin-columns'),
-                    ]),
-                    $value
-                )
-            )
-            ->set_children(
-                new Children(
-                    new ComponentCollection([
-                        $this->image_size_factory->create(
-                            $config,
-                            StringComparisonSpecification::equal(self::OPTION_THUMBNAIL)
-                        ),
-                        $this->media_link_factory->create(
-                            $config,
-                            StringComparisonSpecification::equal(self::OPTION_THUMBNAIL)
-                        ),
-                    ])
-                )
-            )
-            ->set_formatter($this->get_formatter($value));
-
-        if ($conditions) {
-            $builder->set_conditions($conditions);
-        }
-
-        return $builder->build();
+        return __('Display', 'codepress-admin-columns');
     }
 
-    private function get_formatter(string $value): Formatter
+    protected function get_input(Config $config): ?Input
     {
-        if ($value === self::OPTION_COUNT) {
-            return new Formatter\Aggregate([
-                new Formatter\Post\Attachments(),
-                new Formatter\Count(),
-            ]);
+        return OptionFactory::create_select(
+            self::NAME,
+            OptionCollection::from_array([
+                self::OPTION_THUMBNAIL => __('Thumbnails', 'codepress-admin-columns'),
+                self::OPTION_COUNT     => __('Count', 'codepress-admin-columns'),
+            ]),
+            (string)$config->get(self::NAME, 'thumbnail')
+        );
+    }
+
+    protected function get_children(Config $config): ?Children
+    {
+        return new Children(
+            new ComponentCollection([
+                $this->image_size_factory->create(
+                    $config,
+                    StringComparisonSpecification::equal(self::OPTION_THUMBNAIL)
+                ),
+                $this->media_link_factory->create(
+                    $config,
+                    StringComparisonSpecification::equal(self::OPTION_THUMBNAIL)
+                ),
+            ])
+        );
+    }
+
+    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    {
+        $formatters->add(new Formatter\Post\Attachments());
+
+        if ($config->get(self::NAME) === self::OPTION_COUNT) {
+            $formatters->add(new Formatter\Count());
         }
 
-        return new Formatter\Aggregate(
-        // TODO David image size formatter?
-        // TODO David get formatter, respecting the factory conditions
-        );
-        // TODO David implement aggregate for other
+        return parent::get_formatters($config, $formatters);
     }
 
 }

@@ -26,7 +26,7 @@ class Image implements Formatter
     public function format(Value $value): Value
     {
         return $value->with_value(
-            ac_helper()->image->get_image($value, $this->size, $this->skip_image_check)
+            ac_helper()->image->get_image($value->get_value(), $this->size, $this->skip_image_check)
         );
     }
 

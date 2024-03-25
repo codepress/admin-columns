@@ -4,18 +4,14 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
-use AC\Setting\Children;
-use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
-use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter\User\Property;
+use AC\Setting\FormatterCollection;
 
-final class UserProperty implements ComponentFactory
+final class UserProperty extends Builder
 {
 
     public const PROPERTY_DISPLAY_NAME = 'display_name';
@@ -30,42 +26,25 @@ final class UserProperty implements ComponentFactory
     public const PROPERTY_NICKNAME = 'nickname';
     public const PROPERTY_ROLES = 'roles';
 
-    private $user_link;
-
-    // TODO consider removing the UserLink as dependent setting and making it a separate setting
-    public function __construct(UserLink $user_link)
+    protected function get_label(Config $config): ?string
     {
-        $this->user_link = $user_link;
+        return __('User Display', 'codepress-admin-columns');
     }
 
-    // Todo implement child (Link) formatter
-    public function create(Config $config, Specification $conditions = null): Component
+    protected function get_input(Config $config): ?Input
     {
-        $builder = (new ComponentBuilder())
-            ->set_label(__('User Display', 'codepress-admin-columns'))
-            ->set_input(
-                OptionFactory::create_select(
-                    'display_author_as',
-                    $this->get_input_options(),
-                    $config->get('display_author_as') ?: 'display_name'
-                )
-            )
-            ->set_children(
-                new Children(
-                    new ComponentCollection([
-                        $this->user_link->create($config, $conditions),
-                    ])
-                )
-            )
-            ->set_formatter(
-                new Property((string)$config->get('display_author_as'))
-            );
+        return OptionFactory::create_select(
+            'display_author_as',
+            $this->get_input_options(),
+            $config->get('display_author_as') ?: 'display_name'
+        );
+    }
 
-        if ($conditions) {
-            $builder->set_conditions($conditions);
-        }
+    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    {
+        $formatters->add(new Property((string)$config->get('display_author_as')));
 
-        return $builder->build();
+        return $formatters;
     }
 
     protected function get_input_options(): OptionCollection

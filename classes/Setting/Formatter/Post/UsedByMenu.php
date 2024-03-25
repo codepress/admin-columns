@@ -19,17 +19,15 @@ class UsedByMenu implements Formatter
         $this->post_type = $post_type;
     }
 
-    public function format(Value $value): Value
+    public function format(Value $value)
     {
-        $collection = new ValueCollection();
+        $collection = new ValueCollection($value->get_id());
 
         foreach ($this->get_menu_terms((int)$value->get_id()) as $term) {
             $collection->add(new Value($term->term_id, $term->name));
         }
 
-        return $value->with_value(
-            $collection
-        );
+        return $collection;
     }
 
     private function get_menu_terms(int $object_id): array

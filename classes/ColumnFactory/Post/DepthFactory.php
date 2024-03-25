@@ -6,6 +6,7 @@ use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
 class DepthFactory extends ColumnFactory
 {
@@ -20,11 +21,15 @@ class DepthFactory extends ColumnFactory
         return __('Depth', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)->add(new Formatter\Post\Depth());
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters = parent::get_formatters($components, $config, $formatters);
+        $formatters->add(new Formatter\Post\Depth());
+
+        return $formatters;
     }
 
 }

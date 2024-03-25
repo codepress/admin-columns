@@ -10,18 +10,29 @@ use Countable;
 final class ValueCollection extends Collection implements Countable
 {
 
-    public function __construct(array $data = [])
+    private $id;
+
+    public function __construct(int $id, array $data = [])
     {
+        $this->id = $id;
+
         array_map([$this, 'add'], $data);
     }
 
-    public static function from_ids(array $data): self
+    public function get_id(): int
     {
-        $self = new self();
+        return $this->id;
+    }
 
-        foreach ($data as $id) {
+    public static function from_ids(int $id, array $data): self
+    {
+        $self = new self($id);
+
+        $add = static function ($id) use ($self) {
             $self->add(new Value((int)$id));
-        }
+        };
+
+        array_map($add, $data);
 
         return $self;
     }

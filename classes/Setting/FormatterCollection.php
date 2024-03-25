@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AC\Setting;
 
 use Countable;
+use InvalidArgumentException;
 
 final class FormatterCollection extends Collection implements Countable
 {
@@ -14,12 +15,22 @@ final class FormatterCollection extends Collection implements Countable
         array_map([$this, 'add'], $formatters);
     }
 
-    public function add(Formatter $formatter): void
+    /**
+     * @param Formatter|CollectionFormatter $formatter
+     */
+    public function add($formatter): void
     {
+        if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
+            throw new InvalidArgumentException();
+        }
+
         $this->data[] = $formatter;
     }
 
-    public function current(): Formatter
+    /**
+     * @return Formatter|CollectionFormatter
+     */
+    public function current()
     {
         return parent::current();
     }

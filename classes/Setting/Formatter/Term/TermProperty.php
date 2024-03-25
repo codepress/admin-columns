@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter\Term;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use WP_Term;
@@ -23,10 +24,10 @@ class TermProperty implements Formatter
         $term = get_term($value->get_id());
 
         if ( ! $term instanceof WP_Term) {
-            return new Value(null);
+            throw new ValueNotFoundException();
         }
 
-        return $term->{$this->property};
+        return $value->with_value($term->{$this->property});
     }
 
 }

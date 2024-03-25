@@ -45,7 +45,7 @@ final class WordLimit extends Builder
     protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
     {
         $formatters->add(
-            new Formatter\CharacterLimit((int)$this->get_input($config)->get_value())
+            new Formatter\WordLimit((int)$this->get_input($config)->get_value())
         );
 
         return $formatters;
