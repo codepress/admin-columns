@@ -95,7 +95,9 @@ AC_SERVICES.addListener(EventConstants.TABLE.READY, (event: TableEventPayload) =
 
     Object.keys(items).forEach(i => new ValueModals(items[i]))
 
+
     document.querySelectorAll<HTMLElement>('[data-component="ac-json"]').forEach(el => {
+        alert('HAA');
         new JsonViewer(el);
     })
 

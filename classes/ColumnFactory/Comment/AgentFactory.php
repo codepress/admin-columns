@@ -3,9 +3,10 @@
 namespace AC\ColumnFactory\Comment;
 
 use AC\Column\ColumnFactory;
+use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\Formatter\Comment\Property;
+use AC\Setting\FormatterCollection;
 
 class AgentFactory extends ColumnFactory
 {
@@ -20,9 +21,14 @@ class AgentFactory extends ColumnFactory
         return 'column-agent';
     }
 
-    protected function create_formatter(Config $config): Formatter
-    {
-        return new Property('comment_agent');
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Property('comment_agent'));
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

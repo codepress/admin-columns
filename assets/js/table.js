@@ -17250,6 +17250,7 @@ AC_SERVICES.addListener(_constants__WEBPACK_IMPORTED_MODULE_7__.EventConstants.T
     });
     Object.keys(items).forEach(i => new _modules_value_modals__WEBPACK_IMPORTED_MODULE_12__["default"](items[i]));
     document.querySelectorAll('[data-component="ac-json"]').forEach(el => {
+        alert('HAA');
         new _modules_json_viewer__WEBPACK_IMPORTED_MODULE_14__["default"](el);
     });
     (_a = event.table.Actions) === null || _a === void 0 ? void 0 : _a.refresh();

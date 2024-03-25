@@ -14,6 +14,7 @@ use AC\Setting\FormatterCollection;
 
 class PostFactory extends ColumnFactory
 {
+
     private $post_property;
 
     private $post_link;

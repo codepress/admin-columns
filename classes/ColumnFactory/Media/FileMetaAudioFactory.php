@@ -4,29 +4,32 @@ namespace AC\ColumnFactory\Media;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\Media\FileMetaAudio;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Media\AttachmentMetaData;
-use AC\Settings\Column\FileMetaAudioFormatFactory;
+use AC\Setting\FormatterCollection;
 
 class FileMetaAudioFactory extends ColumnFactory
 {
 
-    // Group to group: 'media-audio'
+    private $audio_meta;
 
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        FileMetaAudioFormatFactory $audio_format_factory
+        FileMetaAudio $audio_meta
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
-        $this->add_component_factory($audio_format_factory);
+        $this->audio_meta = $audio_meta;
     }
 
-    // TODO 
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->audio_meta);
+    }
 
     public function get_type(): string
     {
@@ -43,10 +46,14 @@ class FileMetaAudioFactory extends ColumnFactory
         return 'media-audio';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new AttachmentMetaData((string)$config->get('media_meta_key')));
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new AttachmentMetaData((string)$config->get('media_meta_key')));
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }

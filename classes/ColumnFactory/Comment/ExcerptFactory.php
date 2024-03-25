@@ -12,6 +12,7 @@ use AC\Setting\FormatterCollection;
 
 class ExcerptFactory extends ColumnFactory
 {
+
     private $string_limit;
 
     public function __construct(
@@ -46,6 +47,7 @@ class ExcerptFactory extends ColumnFactory
         FormatterCollection $formatters
     ): FormatterCollection {
         $formatters->add(new Formatter\Comment\Property('comment_content'));
+
         return parent::get_formatters($components, $config, $formatters);
     }
 

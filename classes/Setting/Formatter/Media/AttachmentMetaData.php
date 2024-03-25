@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\Formatter\Media;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
@@ -19,11 +20,13 @@ class AttachmentMetaData implements Formatter
 
     public function format(Value $value): Value
     {
-        $meta = get_post_meta($value->get_id(), '_wp_attachment_metadata', true);
+        $meta = (array)get_post_meta($value->get_id(), '_wp_attachment_metadata', true);
 
-        return new Value(
-            $meta[$this->key] ?? null
-        );
+        if ( ! array_key_exists($this->key, $meta)) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
+
+        return $value->with_value($meta[$this->key]);
     }
 
 }

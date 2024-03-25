@@ -13,6 +13,7 @@ use AC\Setting\FormatterCollection;
 
 class UserFactory extends ColumnFactory
 {
+
     private $user_property;
 
     private $user_link;

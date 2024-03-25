@@ -4,24 +4,31 @@ namespace AC\ColumnFactory\Media;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\ExifData;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Settings;
+use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
-// TODO finish
 class ExifDataFactory extends ColumnFactory
 {
 
-    public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
-        ComponentFactoryRegistry $component_factory_registry,
-        Settings\Column\ExifDataFactory $exif_data_factory
-    ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+    private $exif_data;
 
-        $this->add_component_factory($exif_data_factory);
+    public function __construct(
+        ComponentFactoryRegistry $component_factory_registry,
+        ExifData $exif_data
+    ) {
+        parent::__construct($component_factory_registry);
+
+        $this->exif_data = $exif_data;
+    }
+
+    protected function add_component_factories(): void
+    {
+        parent::add_component_factories();
+
+        $this->add_component_factory($this->exif_data);
     }
 
     protected function get_group(): ?string
@@ -39,11 +46,15 @@ class ExifDataFactory extends ColumnFactory
         return __('Image Meta (EXIF)', 'codepress-admin-columns');
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): AggregateBuilder {
-        return parent::create_formatter_builder($components, $config);
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Formatter\Media\AttachmentMetaData('image_meta'));
+        $formatters->add(new Formatter\Media\ExifData((string)$config->get('exif_data')));
+
+        return parent::get_formatters($components, $config, $formatters);
     }
 
 }
