@@ -23,17 +23,17 @@ class NumberFormat implements Formatter
 
     public function format(Value $value)
     {
-        $number = (int)$value->get_value();
+        $number = $value->get_value();
 
-        if ($number === 0) {
-            return $value;
+        if ($number > 0) {
+            $formatted_number = number_format($number, $this->decimals);
+
+            return $value->with_value(
+                sprintf('%s%s%s', $this->prefix, $formatted_number, $this->suffix)
+            );
         }
 
-        $formatted_number = number_format($number, $this->decimals);
-
-        return $value->with_value(
-            sprintf('%s%s%s', $this->prefix, $formatted_number, $this->suffix)
-        );
+        return $value;
     }
 
 }

@@ -54,7 +54,6 @@ final class FileMetaAudio extends Builder
         return OptionCollection::from_array($types);
     }
 
-    //TODO finish Stefan
     protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
     {
         switch ($config->get('media_meta_key', '')) {
@@ -66,19 +65,22 @@ final class FileMetaAudio extends Builder
                 break;
 
             case 'compression_ratio':
+                $formatters->add(new Formatter\Media\NumberFormat(4));
                 break;
             case 'created_timestamp':
+                $formatters->add(
+                    new Formatter\Date\DateFormat(get_option('date_format') . ' ' . get_option('time_format'))
+                );
                 break;
             case 'filesize':
                 $formatters->add(new Formatter\Media\ReadableFileSize());
                 break;
 
             case 'length':
-            case 'length_formatted':
-            case 'lossless':
-            case'mime_type':
+                $formatters->add(new Formatter\Media\NumberFormat(0, '', ' sec'));
+                break;
             case'sample_rate':
-                $formatters->add(new AttachmentMetaData($config->get('media_meta_key')));
+                $formatters->add(new Formatter\Media\NumberFormat(0, '', ' Hz'));
                 break;
         }
 
