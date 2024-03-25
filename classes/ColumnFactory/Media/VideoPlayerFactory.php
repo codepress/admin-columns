@@ -8,10 +8,7 @@ use AC\Setting\ComponentFactory\VideoDisplay;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\FormatterCollection;
-use AC\Settings\Column\VideoDisplayFactory;
 
 class VideoPlayerFactory extends ColumnFactory
 {

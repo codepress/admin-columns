@@ -7,11 +7,8 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PathScope;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Media\AttachmentUrl;
 use AC\Setting\FormatterCollection;
-use AC\Settings\Column\PathScopeFactory;
 
 class FullPathFactory extends ColumnFactory
 {

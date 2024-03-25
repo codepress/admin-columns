@@ -4,10 +4,7 @@ namespace AC\ColumnFactory\Media;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Linkable;
 use AC\Setting\Formatter\Media\AttachmentUrl;
 use AC\Setting\FormatterCollection;

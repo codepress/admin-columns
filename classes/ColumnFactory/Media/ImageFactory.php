@@ -5,9 +5,6 @@ namespace AC\ColumnFactory\Media;
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentFactory\ImageSize;
 use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\Formatter\AggregateBuilderFactory;
-use AC\Setting\Formatter\Image;
-use AC\Settings;
 
 class ImageFactory extends ColumnFactory
 {
