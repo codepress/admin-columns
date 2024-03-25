@@ -2,6 +2,7 @@
 
 namespace AC\Setting\Formatter\Post;
 
+use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 use WP_Post;
@@ -24,7 +25,7 @@ class PostLink implements Formatter
 
         if ( ! $post instanceof WP_Post) {
             // TODO decide if we use exception or return null
-            throw new \Exception('Invalid post object');
+            throw ValueNotFoundException::from_id($value->get_id());
         }
 
         switch ($this->link_type) {

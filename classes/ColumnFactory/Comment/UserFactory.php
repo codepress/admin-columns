@@ -4,24 +4,36 @@ namespace AC\ColumnFactory\Comment;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentCollection;
+use AC\Setting\ComponentFactory\UserLink;
+use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\AggregateBuilder;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Setting\Formatter\Comment\UserId;
-use AC\Settings;
+use AC\Setting\FormatterCollection;
 
 class UserFactory extends ColumnFactory
 {
+    private $user_property;
+
+    private $user_link;
 
     public function __construct(
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry,
-        Settings\Column\UserFactory $user_factory
+        UserProperty $user_property,
+        UserLink $user_link
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
-        $this->add_component_factory($user_factory);
+        $this->user_property = $user_property;
+        $this->user_link = $user_link;
+    }
+
+    protected function add_component_factories(): void
+    {
+        $this->add_component_factory($this->user_property);
+        $this->add_component_factory($this->user_link);
+
+        parent::add_component_factories();
     }
 
     protected function get_label(): string
@@ -34,10 +46,13 @@ class UserFactory extends ColumnFactory
         return 'column-user';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new UserId());
-    }
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new UserId());
 
+        return parent::get_formatters($components, $config, $formatters);
+    }
 }

@@ -7,6 +7,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\Comment\StatusLabel;
+use AC\Setting\FormatterCollection;
 
 class StatusFactory extends ColumnFactory
 {
@@ -21,10 +22,13 @@ class StatusFactory extends ColumnFactory
         return 'column-status';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->add(new StatusLabel());
-    }
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new StatusLabel());
 
+        return parent::get_formatters($components, $config, $formatters);
+    }
 }

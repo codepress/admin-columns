@@ -30,6 +30,13 @@ class Linkable implements Formatter
             return $value->with_value(ac_helper()->html->link($url, $link_label, ['target' => $this->target]));
         }
 
+        if (filter_var($url, FILTER_VALIDATE_EMAIL)) {
+            $link_label = $this->custom_label ?:$url;
+            $mailto_link = 'mailto:' . $url;
+
+            return $value->with_value(ac_helper()->html->link($mailto_link, $link_label, ['target' => $this->target]));
+        }
+
         return $value;
     }
 

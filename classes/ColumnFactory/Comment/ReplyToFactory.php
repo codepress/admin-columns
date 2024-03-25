@@ -8,6 +8,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\Formatter\Comment\ParentId;
 use AC\Setting\Formatter\Comment\ReplyToLink;
+use AC\Setting\FormatterCollection;
 
 class ReplyToFactory extends ColumnFactory
 {
@@ -22,13 +23,14 @@ class ReplyToFactory extends ColumnFactory
         return 'column-reply_to';
     }
 
-    protected function create_formatter_builder(
+    protected function get_formatters(
         ComponentCollection $components,
-        Config $config
-    ): Formatter\AggregateBuilder {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new ParentId())
-                     ->add(new ReplyToLink());
-    }
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new ParentId());
+        $formatters->add(new ReplyToLink());
 
+        return parent::get_formatters($components, $config, $formatters);
+    }
 }

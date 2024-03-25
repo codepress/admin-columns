@@ -7,6 +7,8 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\Comment\Property;
+use AC\Setting\Formatter\Linkable;
+use AC\Setting\FormatterCollection;
 
 class AuthorUrlFactory extends ColumnFactory
 {
@@ -21,12 +23,14 @@ class AuthorUrlFactory extends ColumnFactory
         return 'column-author_url';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(
-                         new Property('comment_author_url')
-                     );
-    }
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Property('comment_author_url'));
+        $formatters->add(new Linkable());
 
+        return parent::get_formatters($components, $config, $formatters);
+    }
 }

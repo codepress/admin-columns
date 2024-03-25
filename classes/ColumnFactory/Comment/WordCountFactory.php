@@ -8,6 +8,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\AggregateBuilder;
 use AC\Setting\Formatter\Comment\Property;
 use AC\Setting\Formatter\WordCount;
+use AC\Setting\FormatterCollection;
 
 class WordCountFactory extends ColumnFactory
 {
@@ -22,11 +23,14 @@ class WordCountFactory extends ColumnFactory
         return 'column-word_count';
     }
 
-    protected function create_formatter_builder(ComponentCollection $components, Config $config): AggregateBuilder
-    {
-        return parent::create_formatter_builder($components, $config)
-                     ->prepend(new Property('comment_content'))
-                     ->add(new WordCount());
-    }
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        $formatters->add(new Property('comment_content'));
+        $formatters->add(new WordCount());
 
+        return parent::get_formatters($components, $config, $formatters);
+    }
 }

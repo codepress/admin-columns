@@ -14,7 +14,6 @@ use AC\Setting\FormatterCollection;
 
 class PostLink extends Builder
 {
-
     private const NAME = 'post_link_to';
 
     private $relation;
