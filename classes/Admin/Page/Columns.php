@@ -30,6 +30,7 @@ use AC\View;
 
 class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, RenderableHead
 {
+
     public const NAME = 'columns';
 
     private $location;
