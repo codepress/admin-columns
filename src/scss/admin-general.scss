@@ -167,7 +167,8 @@ body.toplevel_page_codepress-admin-columns {
 	}
 
 	.wrap {
-		padding: 30px 10px 0 30px;
+		padding: 40px 10px 0 30px;
+		margin: 0;
 
 		.nav-tab-wrapper {
 			margin-bottom: 24px;
@@ -182,26 +183,26 @@ body.toplevel_page_codepress-admin-columns {
 
 	@media only screen and (min-width: 1050px) {
 		.wrap {
-			padding: 30px 40px 0;
+			padding: 50px 40px 0;
 		}
 		#screen-meta-links {
-			margin-right: 20px;
+			margin-right: 40px;
 		}
 		#screen-meta {
 			margin-left: 20px;
-			margin-right: 20px;
+			margin-right: 40px;
 		}
 	}
 	@media only screen and (min-width: 1450px) {
 		.wrap {
-			padding: 30px 70px 0;
+			padding: 50px 70px 0;
 		}
 		#screen-meta-links {
-			margin-right: 50px;
+			margin-right: 70px;
 		}
 		#screen-meta {
 			margin-left: 50px;
-			margin-right: 50px;
+			margin-right: 70px;
 		}
 	}
 }

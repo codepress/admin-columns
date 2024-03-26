@@ -934,7 +934,8 @@ body.toplevel_page_codepress-admin-columns #wpcontent {
 }
 body.settings_page_codepress-admin-columns .wrap,
 body.toplevel_page_codepress-admin-columns .wrap {
-  padding: 30px 10px 0 30px;
+  padding: 40px 10px 0 30px;
+  margin: 0;
 }
 body.settings_page_codepress-admin-columns .wrap .nav-tab-wrapper,
 body.toplevel_page_codepress-admin-columns .wrap .nav-tab-wrapper {
@@ -948,31 +949,31 @@ body.toplevel_page_codepress-admin-columns .wrap .notice {
 @media only screen and (min-width: 1050px) {
   body.settings_page_codepress-admin-columns .wrap,
   body.toplevel_page_codepress-admin-columns .wrap {
-    padding: 30px 40px 0;
+    padding: 50px 40px 0;
   }
   body.settings_page_codepress-admin-columns #screen-meta-links,
   body.toplevel_page_codepress-admin-columns #screen-meta-links {
-    margin-right: 20px;
+    margin-right: 40px;
   }
   body.settings_page_codepress-admin-columns #screen-meta,
   body.toplevel_page_codepress-admin-columns #screen-meta {
     margin-left: 20px;
-    margin-right: 20px;
+    margin-right: 40px;
   }
 }
 @media only screen and (min-width: 1450px) {
   body.settings_page_codepress-admin-columns .wrap,
   body.toplevel_page_codepress-admin-columns .wrap {
-    padding: 30px 70px 0;
+    padding: 50px 70px 0;
   }
   body.settings_page_codepress-admin-columns #screen-meta-links,
   body.toplevel_page_codepress-admin-columns #screen-meta-links {
-    margin-right: 50px;
+    margin-right: 70px;
   }
   body.settings_page_codepress-admin-columns #screen-meta,
   body.toplevel_page_codepress-admin-columns #screen-meta {
     margin-left: 50px;
-    margin-right: 50px;
+    margin-right: 70px;
   }
 }
 
