@@ -27,7 +27,6 @@ class MediaFactory implements ColumnFactories
             return null;
         }
 
-
         // Todo IMPLEMENT - Preview Modal for Preview
         $factoryClasses = [
             Media\AlbumFactory::class,
@@ -47,9 +46,9 @@ class MediaFactory implements ColumnFactories
             Media\HeightFactory::class,
             Media\ImageFactory::class,
             Media\MimeTypeFactory::class,
-//            Media\PreviewFactory::class,
+            //            Media\PreviewFactory::class,
             Media\VideoPlayerFactory::class,
-            Media\WidthFactory::class
+            Media\WidthFactory::class,
         ];
 
         foreach ($factoryClasses as $factoryClass) {

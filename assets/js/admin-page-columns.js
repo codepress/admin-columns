@@ -9791,6 +9791,7 @@ function instance($$self, $$props, $$invalidate) {
   const changeValue = () => {
     var _a;
     const oldValue = (_a = data.type) !== null && _a !== void 0 ? _a : '';
+    const columnType = $columnTypesStore.find(c => c.value === selectValue);
     if (_utils_column_types__WEBPACK_IMPORTED_MODULE_6__.ColumnTypesUtils.isOriginalColumnType(selectValue)) {
       if ($listScreenDataStore.columns.find(c => c.name === selectValue)) {
         $$invalidate(2, value = data.type);
@@ -9805,8 +9806,10 @@ function instance($$self, $$props, $$invalidate) {
     if (_utils_column_types__WEBPACK_IMPORTED_MODULE_6__.ColumnTypesUtils.isOriginalColumnType(oldValue)) {
       $$invalidate(6, data.name = _utils_column__WEBPACK_IMPORTED_MODULE_5__["default"].generateId(), data);
     }
+    if (columnType) {
+      $$invalidate(6, data.label = columnType.label, data);
+    }
     _store_opened_columns__WEBPACK_IMPORTED_MODULE_11__.openedColumnsStore.open(data.name);
-    $$invalidate(6, data['type'] = selectValue, data);
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_3__.getColumnSettings)($currentListKey, selectValue).then(response => {
       $$invalidate(7, columnConfig = response.data.data.columns.settings);
       setTimeout(() => {

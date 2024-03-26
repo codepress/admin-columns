@@ -54,7 +54,7 @@ class ColumnCollection implements ColumnIterator
 
     public function first(): ?Column
     {
-        return reset($this->data);
+        return reset($this->data) ?: null;
     }
 
 }

@@ -11,7 +11,10 @@ use AC\Setting\FormatterCollection;
 class ArtistFactory extends ColumnFactory
 {
 
-    // Group to group: 'media-audio'
+    protected function get_group(): ?string
+    {
+        return 'media-audio';
+    }
 
     public function get_type(): string
     {

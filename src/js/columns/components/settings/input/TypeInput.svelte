@@ -23,6 +23,7 @@
 
     const changeValue = () => {
         const oldValue = data.type ?? '';
+        const columnType = $columnTypesStore.find( c => c.value === selectValue);
 
         if (ColumnTypesUtils.isOriginalColumnType(selectValue)) {
             if ($listScreenDataStore.columns.find(c => c.name === selectValue)) {
@@ -40,9 +41,11 @@
             data.name = ColumnUtils.generateId();
         }
 
-        openedColumnsStore.open(data.name);
+        if( columnType){
+            data.label = columnType.label;
+		}
 
-        data['type'] = selectValue;
+        openedColumnsStore.open(data.name);
 
         getColumnSettings($currentListKey, selectValue).then(response => {
             columnConfig = response.data.data.columns.settings;
