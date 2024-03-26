@@ -26,7 +26,7 @@ final class Base implements Column
     public function __construct(
         string $type,
         string $label,
-        Setting\ComponentCollection $settings,
+        ComponentCollection $settings,
         FormatterCollection $formatters = null,
         string $group = null
     ) {
