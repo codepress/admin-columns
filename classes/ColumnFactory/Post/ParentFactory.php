@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactory\PostProperty;
@@ -11,7 +11,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\Post\PostParent;
 use AC\Setting\FormatterCollection;
 
-class ParentFactory extends ColumnFactory
+class ParentFactory extends BaseColumnFactory
 {
 
     private $post_factory;

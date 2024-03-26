@@ -2,9 +2,9 @@
 
 namespace AC\ColumnFactory\Comment;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 
-class IdFactory extends ColumnFactory
+class IdFactory extends BaseColumnFactory
 {
 
     protected function get_label(): string

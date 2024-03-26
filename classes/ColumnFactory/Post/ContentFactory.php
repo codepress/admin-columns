@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\StringLimit;
@@ -13,7 +13,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\Post\PostContent;
 use AC\Setting\FormatterCollection;
 
-class ContentFactory extends ColumnFactory
+class ContentFactory extends BaseColumnFactory
 {
 
     private $string_limit_factory;

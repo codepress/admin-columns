@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\WordLimit;
 use AC\Setting\ComponentFactoryRegistry;
@@ -12,7 +12,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\Post\BeforeMoreContent;
 use AC\Setting\FormatterCollection;
 
-final class BeforeMoreFactory extends ColumnFactory
+final class BeforeMoreFactory extends BaseColumnFactory
 {
 
     private $word_limit_factory;

@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
@@ -10,7 +10,7 @@ use AC\Setting\Formatter\Post\PageTemplate;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 
-class PageTemplateFactory extends ColumnFactory
+class PageTemplateFactory extends BaseColumnFactory
 {
 
     private $post_type;

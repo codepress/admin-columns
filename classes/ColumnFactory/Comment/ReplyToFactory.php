@@ -2,14 +2,14 @@
 
 namespace AC\ColumnFactory\Comment;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Comment\ParentId;
 use AC\Setting\Formatter\Comment\ReplyToLink;
 use AC\Setting\FormatterCollection;
 
-class ReplyToFactory extends ColumnFactory
+class ReplyToFactory extends BaseColumnFactory
 {
 
     protected function get_label(): string

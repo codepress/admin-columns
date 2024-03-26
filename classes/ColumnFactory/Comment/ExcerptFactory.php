@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Comment;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\ComponentFactoryRegistry;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
-class ExcerptFactory extends ColumnFactory
+class ExcerptFactory extends BaseColumnFactory
 {
 
     private $string_limit;

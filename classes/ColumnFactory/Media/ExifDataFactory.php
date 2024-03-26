@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ExifData;
 use AC\Setting\ComponentFactoryRegistry;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
-class ExifDataFactory extends ColumnFactory
+class ExifDataFactory extends BaseColumnFactory
 {
 
     private $exif_data;

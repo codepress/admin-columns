@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Post\PingStatus;
 use AC\Setting\FormatterCollection;
 
-class PingStatusFactory extends ColumnFactory
+class PingStatusFactory extends BaseColumnFactory
 {
 
     protected function get_label(): string

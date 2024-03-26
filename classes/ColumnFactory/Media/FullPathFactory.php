@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PathScope;
 use AC\Setting\ComponentFactoryRegistry;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\Media\AttachmentUrl;
 use AC\Setting\FormatterCollection;
 
-class FullPathFactory extends ColumnFactory
+class FullPathFactory extends BaseColumnFactory
 {
     private $path_scope;
 

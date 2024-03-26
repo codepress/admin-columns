@@ -2,11 +2,11 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactory\AttachmentDisplay;
 use AC\Setting\ComponentFactoryRegistry;
 
-class AttachmentFactory extends ColumnFactory
+class AttachmentFactory extends BaseColumnFactory
 {
 
     private $attachments_factory;

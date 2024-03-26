@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\UserProperty;
@@ -13,7 +13,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
-class AuthorFactory extends ColumnFactory
+class AuthorFactory extends BaseColumnFactory
 {
 
     private $user_factory;

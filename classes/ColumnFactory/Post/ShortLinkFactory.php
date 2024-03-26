@@ -2,14 +2,14 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Linkable;
 use AC\Setting\Formatter\Post\ShortLink;
 use AC\Setting\FormatterCollection;
 
-class ShortLinkFactory extends ColumnFactory
+class ShortLinkFactory extends BaseColumnFactory
 {
 
     protected function get_label(): string

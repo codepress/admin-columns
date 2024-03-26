@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\ImageSize;
 use AC\Setting\ComponentFactoryRegistry;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
-class FeaturedImageFactory extends ColumnFactory
+class FeaturedImageFactory extends BaseColumnFactory
 {
 
     private $image_factory;

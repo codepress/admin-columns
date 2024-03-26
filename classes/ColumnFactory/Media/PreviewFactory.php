@@ -2,14 +2,14 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Linkable;
 use AC\Setting\Formatter\Media\AttachmentUrl;
 use AC\Setting\FormatterCollection;
 
-class PreviewFactory extends ColumnFactory
+class PreviewFactory extends BaseColumnFactory
 {
     public function get_type(): string
     {

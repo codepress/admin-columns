@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Post\Order;
 use AC\Setting\FormatterCollection;
 
-class OrderFactory extends ColumnFactory
+class OrderFactory extends BaseColumnFactory
 {
 
     public function get_type(): string

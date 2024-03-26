@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\CharacterLimit;
 use AC\Setting\ComponentFactoryRegistry;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\Post\Slug;
 use AC\Setting\FormatterCollection;
 
-class SlugFactory extends ColumnFactory
+class SlugFactory extends BaseColumnFactory
 {
 
     private $character_limit;

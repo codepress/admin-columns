@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
-class DepthFactory extends ColumnFactory
+class DepthFactory extends BaseColumnFactory
 {
 
     public function get_type(): string

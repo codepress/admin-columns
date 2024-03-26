@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Comment;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Comment\StatusLabel;
 use AC\Setting\FormatterCollection;
 
-class StatusFactory extends ColumnFactory
+class StatusFactory extends BaseColumnFactory
 {
 
     protected function get_label(): string

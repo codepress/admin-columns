@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\CustomField;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Settings\Column\MetaKeyFactory;
 use AC\Type\ColumnParent;
 
-class TextFactory extends ColumnFactory
+class TextFactory extends BaseColumnFactory
 {
 
     public function __construct(

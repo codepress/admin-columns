@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\IncludeMissingSizes;
 use AC\Setting\ComponentFactoryRegistry;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\Media\AvailableSizes;
 use AC\Setting\FormatterCollection;
 
-class AvailableSizesFactory extends ColumnFactory
+class AvailableSizesFactory extends BaseColumnFactory
 {
 
     private $include_missing_sizes;

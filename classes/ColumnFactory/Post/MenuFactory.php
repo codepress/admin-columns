@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\LinkToMenu;
 use AC\Setting\ComponentFactoryRegistry;
@@ -13,7 +13,7 @@ use AC\Setting\Formatter\Term\TermProperty;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 
-class MenuFactory extends ColumnFactory
+class MenuFactory extends BaseColumnFactory
 {
 
     private $post_type;

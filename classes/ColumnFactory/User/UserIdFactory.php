@@ -2,9 +2,9 @@
 
 namespace AC\ColumnFactory\User;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 
-class UserIdFactory extends ColumnFactory
+class UserIdFactory extends BaseColumnFactory
 {
 
     protected function get_label(): string

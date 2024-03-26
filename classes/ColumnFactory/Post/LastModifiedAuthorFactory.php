@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\UserLink;
 use AC\Setting\ComponentFactory\UserProperty;
@@ -11,7 +11,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\Post\LastModifiedAuthor;
 use AC\Setting\FormatterCollection;
 
-class LastModifiedAuthorFactory extends ColumnFactory
+class LastModifiedAuthorFactory extends BaseColumnFactory
 {
 
     private $user_factory;

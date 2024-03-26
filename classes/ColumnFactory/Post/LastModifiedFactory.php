@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\ComponentFactoryRegistry;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\Post\ModifiedDate;
 use AC\Setting\FormatterCollection;
 
-class LastModifiedFactory extends ColumnFactory
+class LastModifiedFactory extends BaseColumnFactory
 {
 
     private $date_factory;

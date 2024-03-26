@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\User;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
-class LastPostFactory extends ColumnFactory
+class LastPostFactory extends BaseColumnFactory
 {
 
     private $post_type;

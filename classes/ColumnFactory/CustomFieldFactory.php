@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Formatter\AggregateBuilderFactory;
 use AC\Settings;
 
-class CustomFieldFactory extends ColumnFactory
+class CustomFieldFactory extends BaseColumnFactory
 {
 
     public function __construct(

@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\Media\FileMetaAudio;
 use AC\Setting\ComponentFactoryRegistry;
@@ -10,7 +10,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\Media\AttachmentMetaData;
 use AC\Setting\FormatterCollection;
 
-class FileMetaAudioFactory extends ColumnFactory
+class FileMetaAudioFactory extends BaseColumnFactory
 {
 
     private $audio_meta;

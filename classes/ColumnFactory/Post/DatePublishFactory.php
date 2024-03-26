@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\ComponentFactoryRegistry;
@@ -13,7 +13,7 @@ use AC\Setting\Formatter\Post\DatePublishFormatted;
 use AC\Setting\Formatter\Post\PostDate;
 use AC\Setting\FormatterCollection;
 
-class DatePublishFactory extends ColumnFactory
+class DatePublishFactory extends BaseColumnFactory
 {
 
     private $date_factory;

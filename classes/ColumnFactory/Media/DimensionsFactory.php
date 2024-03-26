@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Media\Dimensions;
 use AC\Setting\FormatterCollection;
 
-class DimensionsFactory extends ColumnFactory
+class DimensionsFactory extends BaseColumnFactory
 {
 
     public function get_type(): string

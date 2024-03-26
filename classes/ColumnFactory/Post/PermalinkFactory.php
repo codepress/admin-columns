@@ -2,14 +2,14 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Linkable;
 use AC\Setting\Formatter\Post\Permalink;
 use AC\Setting\FormatterCollection;
 
-class PermalinkFactory extends ColumnFactory
+class PermalinkFactory extends BaseColumnFactory
 {
 
     public function get_type(): string

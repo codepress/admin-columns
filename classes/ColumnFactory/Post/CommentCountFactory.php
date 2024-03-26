@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\CommentStatus;
 use AC\Setting\ComponentFactoryRegistry;
@@ -12,7 +12,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
-class CommentCountFactory extends ColumnFactory
+class CommentCountFactory extends BaseColumnFactory
 {
 
     private $comment_status;

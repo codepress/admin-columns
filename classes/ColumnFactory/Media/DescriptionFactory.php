@@ -2,7 +2,7 @@
 
 namespace AC\ColumnFactory\Media;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\StringLimit;
@@ -11,7 +11,7 @@ use AC\Setting\Config;
 use AC\Setting\Formatter\Post\PostContent;
 use AC\Setting\FormatterCollection;
 
-class DescriptionFactory extends ColumnFactory
+class DescriptionFactory extends BaseColumnFactory
 {
 
     private $string_limit;

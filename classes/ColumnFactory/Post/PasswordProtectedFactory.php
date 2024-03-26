@@ -2,13 +2,13 @@
 
 namespace AC\ColumnFactory\Post;
 
-use AC\Column\ColumnFactory;
+use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Post\IsPasswordProtected;
 use AC\Setting\FormatterCollection;
 
-class PasswordProtectedFactory extends ColumnFactory
+class PasswordProtectedFactory extends BaseColumnFactory
 {
 
     public function get_type(): string
