@@ -24,6 +24,18 @@
 	width: 1%;
 }
 
+.acui-input-group select.acui-input-group-select {
+	appearance: none;
+	background: none;
+	padding: 0;
+	border: none;
+	outline: none;
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+}
+
 .acui-input-group-text {
 	flex-grow: 0;
 	display: flex;

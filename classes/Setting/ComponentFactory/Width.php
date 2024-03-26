@@ -48,7 +48,7 @@ final class Width extends Builder
     protected function get_children(Config $config): ?Children
     {
         $name = 'width';
-        $value = (int)$config->get($name);
+        $value = $config->get($name);
 
         return new Children(
             new ComponentCollection([
@@ -59,7 +59,7 @@ final class Width extends Builder
                         $name,
                         0,
                         100,
-                        $value
+                        $value ? (int)$value : null
                     ),
                     StringComparisonSpecification::equal(self::OPTION_PERCENT)
                 ),
@@ -70,7 +70,7 @@ final class Width extends Builder
                         $name,
                         0,
                         null,
-                        $value
+                        $value ? (int)$value : null
                     ),
                     StringComparisonSpecification::equal(self::OPTION_PIXELS)
                 ),

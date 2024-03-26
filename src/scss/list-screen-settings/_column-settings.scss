@@ -28,10 +28,14 @@
 		color: #ccc;
 		transition: color .2s;
 		cursor: pointer;
+		::selection {
+			color: red;
+		}
 		&:hover {
 			color: #555;
 		}
 	}
+
 	// Modal
 	.ac-modal.-iconpicker {
 		h3 {

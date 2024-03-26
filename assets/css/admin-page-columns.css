@@ -489,6 +489,9 @@
   transition: color 0.2s;
   cursor: pointer;
 }
+.acp-column-setting[data-setting=label] .acui-input-group-text ::selection {
+  color: red;
+}
 .acp-column-setting[data-setting=label] .acui-input-group-text:hover {
   color: #555;
 }

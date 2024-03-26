@@ -18,17 +18,15 @@
         }
     }
 
-    const changeUnit = () => {
-        switch (data[keyUnit]) {
-            case 'px':
-                data[keyUnit] = '%';
-                maxWidth = 400;
-                break;
-            case '%':
-                data[keyUnit] = 'px';
-                maxWidth = 400;
-                break;
+    const checkForAuto = () => {
+        console.log( data[keyWidth] );
+        if (data[keyWidth] === 0) {
+            data[keyWidth] = '';
         }
+    }
+
+
+    const changeUnit = () => {
         updateMaxWidth();
     }
     onMount(() => {
@@ -49,11 +47,18 @@
 <div class="acu-flex acu-items-center acu-gap-3">
 	<div class="acu-w-[120px]">
 		<AcInputGroup>
-			<input type="text" bind:value={data[keyWidth]} placeholder="Auto" {disabled}>
-			<div role="none" class="acui-input-group-text acu-cursor-pointer acu-text-link hover:acu-text-link-hover" on:click={changeUnit} on:keypress>{data[ keyUnit ]}</div>
+			<input type="text" bind:value={data[keyWidth]} placeholder="Auto" {disabled} on:change={checkForAuto}>
+
+			<div role="none" class="acui-input-group-text acu-cursor-pointer acu-text-link hover:acu-text-link-hover" on:click={changeUnit} on:keypress>
+				<select class="acu-appearance-none acui-input-group-select acu-text-link" bind:value={data[keyUnit]} on:change={changeUnit}>
+					<option value="px">px</option>
+					<option value="%">%</option>
+				</select>
+			</div>
+
 		</AcInputGroup>
 	</div>
 	<div class="acu-flex-grow">
-		<input type="range" min="0" max={maxWidth} step="1" bind:value={data[keyWidth]} {disabled} class="acu-w-full">
+		<input type="range" min="0" max={maxWidth} step="1" bind:value={data[keyWidth]} {disabled} class="acu-w-full" on:change={checkForAuto}>
 	</div>
 </div>

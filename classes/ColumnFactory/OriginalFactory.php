@@ -6,7 +6,6 @@ namespace AC\ColumnFactory;
 
 use AC\Column\ColumnFactory;
 use AC\Setting\ComponentFactoryRegistry;
-use AC\Setting\Formatter\AggregateBuilderFactory;
 
 class OriginalFactory extends ColumnFactory
 {
@@ -18,10 +17,9 @@ class OriginalFactory extends ColumnFactory
     public function __construct(
         string $type,
         string $label,
-        AggregateBuilderFactory $aggregate_formatter_builder_factory,
         ComponentFactoryRegistry $component_factory_registry
     ) {
-        parent::__construct($aggregate_formatter_builder_factory, $component_factory_registry);
+        parent::__construct($component_factory_registry);
 
         $this->type = $type;
         $this->label = $label;

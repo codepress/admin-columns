@@ -9871,8 +9871,9 @@ function create_default_slot(ctx) {
   let input;
   let t0;
   let div;
-  let t1_value = /*data*/ctx[0][keyUnit] + "";
-  let t1;
+  let select;
+  let option0;
+  let option1;
   let mounted;
   let dispose;
   return {
@@ -9880,10 +9881,20 @@ function create_default_slot(ctx) {
       input = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("input");
       t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
       div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
-      t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
+      select = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("select");
+      option0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("option");
+      option0.textContent = "px";
+      option1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("option");
+      option1.textContent = "%";
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "type", "text");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(input, "placeholder", "Auto");
       input.disabled = /*disabled*/ctx[1];
+      option0.__value = "px";
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(option0, option0.__value);
+      option1.__value = "%";
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(option1, option1.__value);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(select, "class", "acu-appearance-none acui-input-group-select acu-text-link");
+      if ( /*data*/ctx[0][keyUnit] === void 0) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_render_callback)(() => /*select_change_handler*/ctx[7].call(select));
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "role", "none");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acui-input-group-text acu-cursor-pointer acu-text-link hover:acu-text-link-hover");
     },
@@ -9892,9 +9903,12 @@ function create_default_slot(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*data*/ctx[0][keyWidth]);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t0, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, t1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(div, select);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(select, option0);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append)(select, option1);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.select_option)(select, /*data*/ctx[0][keyUnit], true);
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[5]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "click", /*changeUnit*/ctx[3]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "keypress", /*keypress_handler*/ctx[4])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_input_handler*/ctx[6]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "change", /*checkForAuto*/ctx[3]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(select, "change", /*select_change_handler*/ctx[7]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(select, "change", /*changeUnit*/ctx[4]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "click", /*changeUnit*/ctx[4]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(div, "keypress", /*keypress_handler*/ctx[5])];
         mounted = true;
       }
     },
@@ -9905,7 +9919,9 @@ function create_default_slot(ctx) {
       if (dirty & /*data, keyWidth*/1 && input.value !== /*data*/ctx[0][keyWidth]) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*data*/ctx[0][keyWidth]);
       }
-      if (dirty & /*data*/1 && t1_value !== (t1_value = /*data*/ctx[0][keyUnit] + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data)(t1, t1_value);
+      if (dirty & /*data, keyUnit*/1) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.select_option)(select, /*data*/ctx[0][keyUnit]);
+      }
     },
     d(detaching) {
       if (detaching) {
@@ -9966,13 +9982,13 @@ function create_fragment(ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*data*/ctx[0][keyWidth]);
       current = true;
       if (!mounted) {
-        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "change", /*input_change_input_handler*/ctx[6]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_change_input_handler*/ctx[6])];
+        dispose = [(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "change", /*input_change_input_handler*/ctx[8]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "input", /*input_change_input_handler*/ctx[8]), (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen)(input, "change", /*checkForAuto*/ctx[3])];
         mounted = true;
       }
     },
     p(ctx, [dirty]) {
       const acinputgroup_changes = {};
-      if (dirty & /*$$scope, data, disabled*/259) {
+      if (dirty & /*$$scope, data, disabled*/1027) {
         acinputgroup_changes.$$scope = {
           dirty,
           ctx
@@ -10024,17 +10040,13 @@ function instance($$self, $$props, $$invalidate) {
       $$invalidate(0, data[keyWidth] = 100, data);
     }
   };
-  const changeUnit = () => {
-    switch (data[keyUnit]) {
-      case 'px':
-        $$invalidate(0, data[keyUnit] = '%', data);
-        $$invalidate(2, maxWidth = 400);
-        break;
-      case '%':
-        $$invalidate(0, data[keyUnit] = 'px', data);
-        $$invalidate(2, maxWidth = 400);
-        break;
+  const checkForAuto = () => {
+    console.log(data[keyWidth]);
+    if (data[keyWidth] === 0) {
+      $$invalidate(0, data[keyWidth] = '', data);
     }
+  };
+  const changeUnit = () => {
     updateMaxWidth();
   };
   (0,svelte__WEBPACK_IMPORTED_MODULE_2__.onMount)(() => {
@@ -10053,6 +10065,10 @@ function instance($$self, $$props, $$invalidate) {
     data[keyWidth] = this.value;
     $$invalidate(0, data);
   }
+  function select_change_handler() {
+    data[keyUnit] = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.select_value)(this);
+    $$invalidate(0, data);
+  }
   function input_change_input_handler() {
     data[keyWidth] = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.to_number)(this.value);
     $$invalidate(0, data);
@@ -10061,7 +10077,7 @@ function instance($$self, $$props, $$invalidate) {
     if ('data' in $$props) $$invalidate(0, data = $$props.data);
     if ('disabled' in $$props) $$invalidate(1, disabled = $$props.disabled);
   };
-  return [data, disabled, maxWidth, changeUnit, keypress_handler, input_input_handler, input_change_input_handler];
+  return [data, disabled, maxWidth, checkForAuto, changeUnit, keypress_handler, input_input_handler, select_change_handler, input_change_input_handler];
 }
 class WidthInput extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
