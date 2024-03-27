@@ -6,7 +6,7 @@ namespace AC\Setting;
 
 use AC\Setting;
 
-final class ComponentFactoryRegistry
+class ComponentFactoryRegistry
 {
 
     private $name;

@@ -10,7 +10,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\FormatterCollection;
 use AC\Type\ColumnId;
 
-final class Base implements Column
+class Base implements Column
 {
 
     protected $type;
@@ -30,7 +30,7 @@ final class Base implements Column
         FormatterCollection $formatters = null,
         string $group = null
     ) {
-        if ( $formatters === null ) {
+        if ($formatters === null) {
             $formatters = new FormatterCollection();
         }
 

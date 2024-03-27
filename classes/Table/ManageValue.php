@@ -23,7 +23,7 @@ abstract class ManageValue implements Registerable
         $this->list_screen = $list_screen;
     }
 
-    // TODO
+    // TODO This should also be used for export
     public function render_cell(string $column_name, $id, string $fallback_value = null): ?string
     {
         $column = $this->list_screen->get_column($column_name);

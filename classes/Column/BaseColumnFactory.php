@@ -14,11 +14,8 @@ use AC\Setting\FormatterCollection;
 
 abstract class BaseColumnFactory implements ColumnFactory
 {
-
-    /**
-     * @var ComponentFactoryRegistry
-     */
-    private $component_factory_registry;
+    
+    protected $component_factory_registry;
 
     private $component_factories = [];
 
@@ -97,8 +94,6 @@ abstract class BaseColumnFactory implements ColumnFactory
 
     public function create(Config $config): Column
     {
-        // Todo how to reset the component factories?
-        //$this->component_factories = [];
         $this->add_component_factories();
 
         $components = $this->create_components($config);
