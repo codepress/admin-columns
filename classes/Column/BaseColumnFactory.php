@@ -9,30 +9,33 @@ use AC\Expression\Specification;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
+use AC\Setting\ConditionalComponentFactoryCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 
 abstract class BaseColumnFactory implements ColumnFactory
 {
 
+    /**
+     * @var ComponentFactoryRegistry
+     */
     protected $component_factory_registry;
 
-    private $component_factories = [];
+    /**
+     * @var ConditionalComponentFactoryCollection
+     */
+    protected $component_factories;
 
     public function __construct(
         ComponentFactoryRegistry $component_factory_registry
     ) {
         $this->component_factory_registry = $component_factory_registry;
+        $this->component_factories = new ConditionalComponentFactoryCollection();
     }
 
-    protected function add_component_factory(
-        ComponentFactory $factory,
-        Specification $specification = null
-    ): void {
-        $this->component_factories[] = [
-            $factory,
-            $specification,
-        ];
+    protected function add_component_factory(ComponentFactory $factory, Specification $conditions = null): void
+    {
+        $this->component_factories->add($factory, $conditions);
     }
 
     protected function add_component_factories(Config $config): void
@@ -43,19 +46,15 @@ abstract class BaseColumnFactory implements ColumnFactory
 
     protected function add_required_component_factories(): void
     {
-        $this->add_component_factory(
-            $this->component_factory_registry->get_name()
-        );
-        $this->add_component_factory(
-            $this->component_factory_registry->get_label()
-        );
+        $this->component_factories
+            ->add($this->component_factory_registry->get_name())
+            ->add($this->component_factory_registry->get_label());
     }
 
     protected function add_common_component_factories(): void
     {
-        $this->add_component_factory(
-            $this->component_factory_registry->get_width()
-        );
+        $this->component_factories
+            ->add($this->component_factory_registry->get_width());
     }
 
     protected function create_components(Config $config): ComponentCollection
@@ -63,7 +62,7 @@ abstract class BaseColumnFactory implements ColumnFactory
         $collection = new ComponentCollection();
 
         foreach ($this->component_factories as $component_factory) {
-            $collection->add($component_factory[0]->create($config, $component_factory[1]));
+            $collection->add($component_factory->create($config));
         }
 
         return $collection;

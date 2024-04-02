@@ -35,8 +35,9 @@ class AuthorFactory extends BaseColumnFactory
     {
         parent::add_component_factories($config);
 
-        $this->add_component_factory($this->user_factory);
-        $this->add_component_factory($this->before_after_factory);
+        $this->component_factories
+            ->add($this->user_factory)
+            ->add($this->before_after_factory);
     }
 
     public function get_column_type(): string
