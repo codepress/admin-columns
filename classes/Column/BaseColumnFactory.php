@@ -14,7 +14,7 @@ use AC\Setting\FormatterCollection;
 
 abstract class BaseColumnFactory implements ColumnFactory
 {
-    
+
     protected $component_factory_registry;
 
     private $component_factories = [];
@@ -35,7 +35,7 @@ abstract class BaseColumnFactory implements ColumnFactory
         ];
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
         $this->add_required_component_factories();
         $this->add_common_component_factories();
@@ -94,7 +94,7 @@ abstract class BaseColumnFactory implements ColumnFactory
 
     public function create(Config $config): Column
     {
-        $this->add_component_factories();
+        $this->add_component_factories($config);
 
         $components = $this->create_components($config);
 

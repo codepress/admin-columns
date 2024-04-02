@@ -35,12 +35,12 @@ class PostFactory extends BaseColumnFactory
         return __('Post', 'codepress-admin-columns');
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
         $this->add_component_factory($this->post_property);
         $this->add_component_factory($this->post_link);
 
-        parent::add_component_factories();
+        parent::add_component_factories($config);
     }
 
     public function get_type(): string

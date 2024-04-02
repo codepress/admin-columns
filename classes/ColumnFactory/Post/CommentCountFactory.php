@@ -26,9 +26,9 @@ class CommentCountFactory extends BaseColumnFactory
         $this->comment_status = $comment_status;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
-        parent::add_component_factories();
+        parent::add_component_factories($config);
 
         $this->add_component_factory($this->comment_status);
     }

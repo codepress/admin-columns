@@ -26,9 +26,9 @@ final class BeforeMoreFactory extends BaseColumnFactory
         $this->word_limit_factory = $word_limit_factory;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
-        parent::add_component_factories();
+        parent::add_component_factories($config);
 
         $this->add_component_factory($this->word_limit_factory);
     }

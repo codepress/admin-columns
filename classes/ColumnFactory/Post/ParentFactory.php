@@ -29,9 +29,9 @@ class ParentFactory extends BaseColumnFactory
         $this->post_link_factory = $post_link_factory;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
-        parent::add_component_factories();
+        parent::add_component_factories($config);
 
         $this->add_component_factory($this->post_factory);
         $this->add_component_factory($this->post_link_factory);

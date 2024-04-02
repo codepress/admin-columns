@@ -24,9 +24,9 @@ class LastModifiedFactory extends BaseColumnFactory
         $this->date_factory = $date_factory;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
-        parent::add_component_factories();
+        parent::add_component_factories($config);
 
         $this->add_component_factory($this->date_factory);
     }

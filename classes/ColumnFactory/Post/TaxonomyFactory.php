@@ -37,9 +37,9 @@ class TaxonomyFactory extends BaseColumnFactory
         $this->separator_factory = $separator_factory;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
-        parent::add_component_factories();
+        parent::add_component_factories($config);
 
         $this->add_component_factory($this->taxonomy_factory);
         $this->add_component_factory($this->term_link_factory);

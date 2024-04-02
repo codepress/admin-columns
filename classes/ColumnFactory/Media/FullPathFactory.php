@@ -12,6 +12,7 @@ use AC\Setting\FormatterCollection;
 
 class FullPathFactory extends BaseColumnFactory
 {
+
     private $path_scope;
 
     public function __construct(
@@ -23,11 +24,11 @@ class FullPathFactory extends BaseColumnFactory
         $this->path_scope = $path_scope;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
         $this->add_component_factory($this->path_scope);
 
-        parent::add_component_factories();
+        parent::add_component_factories($config);
     }
 
     public function get_type(): string

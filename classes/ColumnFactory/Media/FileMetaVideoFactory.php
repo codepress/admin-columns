@@ -12,6 +12,7 @@ use AC\Setting\FormatterCollection;
 
 class FileMetaVideoFactory extends BaseColumnFactory
 {
+
     private $file_meta_video;
 
     public function __construct(
@@ -23,11 +24,11 @@ class FileMetaVideoFactory extends BaseColumnFactory
         $this->file_meta_video = $file_meta_video;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
         $this->add_component_factory($this->file_meta_video);
 
-        parent::add_component_factories();
+        parent::add_component_factories($config);
     }
 
     public function get_type(): string

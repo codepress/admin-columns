@@ -9808,6 +9808,7 @@ function instance($$self, $$props, $$invalidate) {
     }
     if (columnType) {
       $$invalidate(6, data.label = columnType.label, data);
+      $$invalidate(6, data.type = columnType.value, data);
     }
     _store_opened_columns__WEBPACK_IMPORTED_MODULE_11__.openedColumnsStore.open(data.name);
     (0,_ajax_ajax__WEBPACK_IMPORTED_MODULE_3__.getColumnSettings)($currentListKey, selectValue).then(response => {

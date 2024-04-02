@@ -29,12 +29,12 @@ class UserFactory extends BaseColumnFactory
         $this->user_link = $user_link;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
         $this->add_component_factory($this->user_property);
         $this->add_component_factory($this->user_link);
 
-        parent::add_component_factories();
+        parent::add_component_factories($config);
     }
 
     protected function get_label(): string

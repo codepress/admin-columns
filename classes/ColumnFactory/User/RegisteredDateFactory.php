@@ -23,9 +23,9 @@ class RegisteredDateFactory extends BaseColumnFactory
         $this->date_format = $date_format;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
-        parent::add_component_factories();
+        parent::add_component_factories($config);
 
         $this->add_component_factory($this->date_format);
     }

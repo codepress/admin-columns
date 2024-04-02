@@ -29,9 +29,9 @@ class DescriptionFactory extends BaseColumnFactory
         $this->before_after = $before_after;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
-        parent::add_component_factories();
+        parent::add_component_factories($config);
 
         $this->add_component_factory($this->string_limit);
         $this->add_component_factory($this->before_after);

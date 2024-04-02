@@ -24,9 +24,9 @@ class FeaturedImageFactory extends BaseColumnFactory
         $this->image_factory = $image_factory;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
-        parent::add_component_factories();
+        parent::add_component_factories($config);
 
         $this->add_component_factory($this->image_factory);
     }

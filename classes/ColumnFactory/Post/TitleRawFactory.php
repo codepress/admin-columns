@@ -24,14 +24,14 @@ class TitleRawFactory extends BaseColumnFactory
         PostLink $post_link_factory
     ) {
         parent::__construct($component_factory_registry);
-        
+
         $this->character_limit_factory = $character_limit_factory;
         $this->post_link_factory = $post_link_factory;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
-        parent::add_component_factories();
+        parent::add_component_factories($config);
 
         $this->add_component_factory($this->character_limit_factory);
         $this->add_component_factory($this->post_link_factory);

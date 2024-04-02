@@ -43,6 +43,7 @@
 
         if( columnType){
             data.label = columnType.label;
+            data.type = columnType.value;
 		}
 
         openedColumnsStore.open(data.name);

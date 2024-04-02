@@ -28,9 +28,9 @@ class PostCountFactory extends BaseColumnFactory
         $this->post_status = $post_status;
     }
 
-    protected function add_component_factories(): void
+    protected function add_component_factories(Config $config): void
     {
-        parent::add_component_factories();
+        parent::add_component_factories($config);
 
         $this->add_component_factory($this->post_type);
         $this->add_component_factory($this->post_status);
