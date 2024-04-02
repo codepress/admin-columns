@@ -11,7 +11,7 @@ use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter\User\Property;
 use AC\Setting\FormatterCollection;
 
-final class UserProperty extends Builder
+class UserProperty extends Builder
 {
 
     public const PROPERTY_DISPLAY_NAME = 'display_name';
