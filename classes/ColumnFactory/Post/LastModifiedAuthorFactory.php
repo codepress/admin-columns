@@ -37,7 +37,7 @@ class LastModifiedAuthorFactory extends BaseColumnFactory
         $this->add_component_factory($this->user_link);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-last_modified_author';
     }

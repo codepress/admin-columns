@@ -24,7 +24,7 @@ class PageTemplateFactory extends BaseColumnFactory
         $this->post_type = $post_type;
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-page_template';
     }

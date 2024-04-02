@@ -25,7 +25,7 @@ class OriginalFactory extends BaseColumnFactory
         $this->label = $label;
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return $this->type;
     }

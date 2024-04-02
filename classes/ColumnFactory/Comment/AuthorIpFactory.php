@@ -16,7 +16,7 @@ class AuthorIpFactory extends BaseColumnFactory
         return __('Author IP', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-author_ip';
     }

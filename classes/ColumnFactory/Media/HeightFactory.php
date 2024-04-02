@@ -12,7 +12,7 @@ use AC\Setting\FormatterCollection;
 class HeightFactory extends BaseColumnFactory
 {
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-height';
     }

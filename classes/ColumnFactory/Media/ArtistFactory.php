@@ -16,7 +16,7 @@ class ArtistFactory extends BaseColumnFactory
         return 'media-audio';
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-meta_artist';
     }

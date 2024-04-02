@@ -16,7 +16,7 @@ class AuthorEmailFactory extends BaseColumnFactory
         return __('Author Email', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-author_email';
     }

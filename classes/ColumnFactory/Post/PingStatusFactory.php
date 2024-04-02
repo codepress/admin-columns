@@ -18,7 +18,7 @@ class PingStatusFactory extends BaseColumnFactory
         return __('Ping Status', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-ping_status';
     }

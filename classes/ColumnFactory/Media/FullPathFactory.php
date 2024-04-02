@@ -31,7 +31,7 @@ class FullPathFactory extends BaseColumnFactory
         parent::add_component_factories($config);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-full_path';
     }

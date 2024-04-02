@@ -35,7 +35,7 @@ class NicknameFactory extends BaseColumnFactory
         return __('Nickname', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-nickname';
     }

@@ -31,7 +31,7 @@ class FileMetaAudioFactory extends BaseColumnFactory
         $this->add_component_factory($this->audio_meta);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-meta_audio';
     }

@@ -51,7 +51,7 @@ class LastPostFactory extends BaseColumnFactory
         return __('Last Post', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-last_post';
     }

@@ -33,7 +33,7 @@ class CommentCountFactory extends BaseColumnFactory
         $this->add_component_factory($this->comment_status);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-comment_count';
     }

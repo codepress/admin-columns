@@ -41,7 +41,7 @@ class PostCountFactory extends BaseColumnFactory
         return __('Post Count', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-user_postcount';
     }

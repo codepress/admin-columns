@@ -31,7 +31,7 @@ class FormatsFactory extends BaseColumnFactory
         $this->add_component_factory($this->post_format_icon_factory);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-post_formats';
     }

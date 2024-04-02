@@ -51,7 +51,7 @@ class FirstPostFactory extends BaseColumnFactory
         return __('First Post', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-first_post';
     }

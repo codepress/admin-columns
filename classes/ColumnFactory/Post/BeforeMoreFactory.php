@@ -33,7 +33,7 @@ final class BeforeMoreFactory extends BaseColumnFactory
         $this->add_component_factory($this->word_limit_factory);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-before_moretag';
     }

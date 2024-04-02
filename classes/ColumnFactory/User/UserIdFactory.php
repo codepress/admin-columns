@@ -12,7 +12,7 @@ class UserIdFactory extends BaseColumnFactory
         return __('User ID', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-user_id';
     }

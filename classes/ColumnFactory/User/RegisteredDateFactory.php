@@ -35,7 +35,7 @@ class RegisteredDateFactory extends BaseColumnFactory
         return __('Registered', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-user_registered';
     }

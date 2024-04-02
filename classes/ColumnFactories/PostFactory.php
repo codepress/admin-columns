@@ -104,7 +104,7 @@ class PostFactory implements ColumnFactories
         $collection = new Collection\ColumnFactories();
 
         foreach ($factories as $factory) {
-            $collection->add($factory->get_type(), $factory);
+            $collection->add($factory->get_column_type(), $factory);
         }
 
         return $collection;

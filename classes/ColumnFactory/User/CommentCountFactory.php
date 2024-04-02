@@ -16,7 +16,7 @@ class CommentCountFactory extends BaseColumnFactory
         return __('Comments', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-user_commentcount';
     }

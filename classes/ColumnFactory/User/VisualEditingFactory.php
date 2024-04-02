@@ -16,7 +16,7 @@ class VisualEditingFactory extends BaseColumnFactory
         return __('Visual Editor', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-rich_editing';
     }

@@ -16,7 +16,7 @@ class DisplayNameFactory extends BaseColumnFactory
         return __('Display Name', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-display_name';
     }

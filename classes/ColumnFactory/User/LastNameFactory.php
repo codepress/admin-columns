@@ -16,7 +16,7 @@ class LastNameFactory extends BaseColumnFactory
         return __('Last Name', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-last_name';
     }

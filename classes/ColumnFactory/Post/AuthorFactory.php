@@ -39,7 +39,7 @@ class AuthorFactory extends BaseColumnFactory
         $this->add_component_factory($this->before_after_factory);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-author_name';
     }

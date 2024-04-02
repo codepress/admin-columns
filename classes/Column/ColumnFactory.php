@@ -10,4 +10,6 @@ interface ColumnFactory
 
     public function create(Config $config): AC\Column;
 
+    public function get_column_type(): string;
+
 }

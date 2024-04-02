@@ -36,7 +36,7 @@ class ExcerptFactory extends BaseColumnFactory
         $this->add_component_factory($this->before_after);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-excerpt';
     }

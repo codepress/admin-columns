@@ -42,7 +42,7 @@ class UserFactory extends BaseColumnFactory
         return __('User', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-user';
     }

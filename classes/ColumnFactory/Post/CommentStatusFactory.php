@@ -13,7 +13,7 @@ use AC\Setting\FormatterCollection;
 class CommentStatusFactory extends BaseColumnFactory
 {
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-comment_status';
     }

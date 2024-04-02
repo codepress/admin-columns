@@ -37,7 +37,7 @@ class TitleRawFactory extends BaseColumnFactory
         $this->add_component_factory($this->post_link_factory);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-title_raw';
     }

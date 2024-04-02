@@ -47,7 +47,7 @@ class TaxonomyFactory extends BaseColumnFactory
         $this->add_component_factory($this->separator_factory);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-taxonomy';
     }

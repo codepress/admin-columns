@@ -17,7 +17,7 @@ class ShortLinkFactory extends BaseColumnFactory
         return __('Shortlink', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-shortlink';
     }

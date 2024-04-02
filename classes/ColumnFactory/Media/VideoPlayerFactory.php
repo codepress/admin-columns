@@ -36,7 +36,7 @@ class VideoPlayerFactory extends BaseColumnFactory
         return 'media-video';
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-video_player';
     }

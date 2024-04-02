@@ -13,7 +13,7 @@ class AternateTextFactory extends BaseColumnFactory
 
     // Group to group: 'media-audio'
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'media-image';
     }

@@ -17,7 +17,7 @@ class WordCountFactory extends BaseColumnFactory
         return __('Word Count', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-word_count';
     }

@@ -31,7 +31,7 @@ class FeaturedImageFactory extends BaseColumnFactory
         $this->add_component_factory($this->image_factory);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-featured_image';
     }

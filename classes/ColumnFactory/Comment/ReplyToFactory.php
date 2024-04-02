@@ -17,7 +17,7 @@ class ReplyToFactory extends BaseColumnFactory
         return __('In Reply To', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-reply_to';
     }

@@ -17,7 +17,7 @@ class AuthorUrlFactory extends BaseColumnFactory
         return __('Author URL', 'codepress-admin-columns');
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-author_url';
     }

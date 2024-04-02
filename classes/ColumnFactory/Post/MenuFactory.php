@@ -38,7 +38,7 @@ class MenuFactory extends BaseColumnFactory
         $this->add_component_factory($this->link_to_menu_factory);
     }
 
-    public function get_type(): string
+    public function get_column_type(): string
     {
         return 'column-used_by_menu';
     }

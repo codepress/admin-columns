@@ -83,7 +83,7 @@ abstract class BaseColumnFactory implements ColumnFactory
         return $formatters;
     }
 
-    abstract public function get_type(): string;
+    abstract public function get_column_type(): string;
 
     abstract protected function get_label(): string;
 
@@ -99,7 +99,7 @@ abstract class BaseColumnFactory implements ColumnFactory
         $components = $this->create_components($config);
 
         return new Column\Base(
-            $this->get_type(),
+            $this->get_column_type(),
             $this->get_label(),
             $components,
             $this->get_formatters($components, $config, new FormatterCollection()),
