@@ -60,7 +60,9 @@ class PostFactory implements ColumnFactories
         //        );
 
         $factories[] = $this->container->make(Post\AttachmentFactory::class);
-        $factories[] = $this->container->make(Post\AuthorFactory::class);
+        $factories[] = $this->container->make(Post\AuthorFactory::class, [
+
+        ]);
         $factories[] = $this->container->make(Post\FeaturedImageFactory::class);
         $factories[] = $this->container->make(Post\FormatsFactory::class);
         $factories[] = $this->container->make(Post\IdFactory::class);
