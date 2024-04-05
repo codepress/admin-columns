@@ -132,6 +132,7 @@ declare namespace AC.Column.Settings {
             options: SettingOption[]
             attributes: {
                 'data-handler': string
+                'data-params': string
             }
             multiple: false
         }

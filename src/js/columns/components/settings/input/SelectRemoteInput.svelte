@@ -26,7 +26,8 @@
     }
 
     onMount(() => {
-        getRemoteSelectOptions(config.input.attributes['data-handler'], $currentListKey).then((response) => {
+        console.log( config.input );
+        getRemoteSelectOptions(config.input.attributes['data-handler'], JSON.parse( config.input.attributes['data-params'])).then((response) => {
             if (response.data.success) {
                 originalOptions = response.data.data.options;
                 options = originalOptions;

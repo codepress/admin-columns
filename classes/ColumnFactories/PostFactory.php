@@ -31,6 +31,8 @@ class PostFactory implements ColumnFactories
 
         $this->container->set(AC\Type\PostTypeSlug::class, new AC\Type\PostTypeSlug($post_type));
         $this->container->set(AC\Relation::class, new AC\Relation\Post($post_type));
+        $this->container->set(AC\MetaType::class, new AC\MetaType(AC\MetaType::POST));
+        $this->container->set(AC\Type\ListKey::class, $table_screen->get_key());
 
         //        $meta_type = new MetaType(MetaType::POST);
         //
@@ -58,6 +60,8 @@ class PostFactory implements ColumnFactories
         //                ),
         //            ]
         //        );
+
+        $factories[] = $this->container->make(AC\ColumnFactory\CustomFieldFactory::class);
 
         $factories[] = $this->container->make(Post\AttachmentFactory::class);
         $factories[] = $this->container->make(Post\AuthorFactory::class, [

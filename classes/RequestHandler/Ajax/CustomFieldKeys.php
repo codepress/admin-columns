@@ -53,6 +53,10 @@ class CustomFieldKeys implements RequestAjaxHandler
             $query->where_post_type($table_screen->get_post_type());
         }
 
+        if ($table_screen instanceof TableScreen\Media) {
+            $query->where_post_type('attachment');
+        }
+
         // TODO David continue
         $meta_keys = $query->get();
         $encoded = [];

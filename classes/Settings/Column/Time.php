@@ -2,11 +2,20 @@
 
 namespace AC\Settings\Column;
 
+use AC\Expression\Specification;
 use AC\Settings;
 
 // TODO
 class Time extends Settings\Column\DateTimeFormat
 {
+
+    public function __construct(string $date_format = null, Specification $conditions = null)
+    {
+        parent::__construct(
+            $date_format,
+            $conditions
+        );
+    }
 
     public function create_view()
     {
@@ -18,7 +27,7 @@ class Time extends Settings\Column\DateTimeFormat
         return $view;
     }
 
-    protected function get_custom_format_options():array
+    protected function get_custom_format_options(): array
     {
         $options['wp_default'] = __('WordPress Time Format', 'codepress-admin-columns');
 
@@ -34,7 +43,7 @@ class Time extends Settings\Column\DateTimeFormat
         return $options;
     }
 
-    protected function get_wp_default_format():string
+    protected function get_wp_default_format(): string
     {
         return get_option('time_format');
     }

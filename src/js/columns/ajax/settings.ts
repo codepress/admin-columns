@@ -12,14 +12,14 @@ type remoteSelectOptionsPayload = {
 }
 type RemoteSelectOptionsResponse = JsonSuccessResponse<remoteSelectOptionsPayload>|JsonDefaultFailureResponse
 
-export const getRemoteSelectOptions = (handler: string, list_key: string): AxiosPromise<RemoteSelectOptionsResponse> => {
+export const getRemoteSelectOptions = (handler: string, data: Object): AxiosPromise<RemoteSelectOptionsResponse> => {
+    let params = Object.assign( {}, data,{
+        _ajax_nonce: getColumnSettingsConfig().nonce,
+        action: handler,
+    });
 
     return axios.get(ajaxurl,{
-        params: {
-            _ajax_nonce: getColumnSettingsConfig().nonce,
-            action: handler,
-            list_key
-        }
+        params
     })
 
 }

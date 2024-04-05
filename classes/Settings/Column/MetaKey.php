@@ -25,6 +25,7 @@ class MetaKey extends Control implements Formatter
                 'field',
                 'ac-custom-field-keys',
                 $meta_key,
+                [],
                 __('Select', 'codepress-admin-columns')
             ),
             __('Field', 'codepress-admin-columns'),

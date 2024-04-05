@@ -33,10 +33,11 @@ class Link extends Formatter\ContentTypeLink
     {
         $attributes = [];
 
+        // TODO Test, does not work yet
         if ($this->type === self::VIEW) {
-            $attributes['download'] = '';
+            //$attributes['download'] = '';
         }
 
-        return ac_helper()->html->link($url, $value, $attributes);
+        return ac_helper()->html->link($url, $value, $attributes) ?: '';
     }
 }

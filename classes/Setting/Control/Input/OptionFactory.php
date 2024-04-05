@@ -35,6 +35,7 @@ final class OptionFactory
         string $name,
         string $handler,
         $default = null,
+        array $data = [],
         string $placeholder = null,
         bool $multiple = null,
         AttributeCollection $attributes = null
@@ -50,6 +51,13 @@ final class OptionFactory
             )
         );
 
+        $attributes->add(
+            new Attribute(
+                'data-params',
+                $data ? json_encode($data) : '{}'
+            )
+        );
+        
         return new Option(
             $name,
             'select_remote',
