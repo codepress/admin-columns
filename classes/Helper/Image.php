@@ -94,12 +94,11 @@ class Image
                 $image = $this->markup_cover($src, $size[0], $size[1], $id);
             } else {
                 // In case of SVG
-                if (1 === (int)$width && 1 === (int)$height) {
+                if ('svg' === pathinfo($src, PATHINFO_EXTENSION) && 'full' !== $size) {
                     $_size = $this->get_image_sizes_by_name($size);
                     $width = $_size['width'];
                     $height = $_size['height'];
                 }
-
                 $image = $this->markup($src, $width, $height, $id);
             }
 
@@ -292,17 +291,26 @@ class Image
             $class = ' ac-icon';
         }
 
+        $image_attributes = [
+            'max-width'  => esc_attr($width) . 'px',
+            'max_height' => esc_attr($height) . 'px',
+        ];
+
+        if (pathinfo($src, PATHINFO_EXTENSION) === 'svg') {
+            $image_attributes['width'] = esc_attr($width) . 'px';
+            $image_attributes['height'] = esc_attr($height) . 'px';
+        }
+
         ob_start(); ?>
 		<span class="ac-image <?= esc_attr($class); ?>" data-media-id="<?= esc_attr(
             $media_id
-        ); ?>" <?= $this->get_file_tooltip_attr($media_id); ?>>
-			<img style="max-width:<?= esc_attr($width); ?>px;max-height:<?= esc_attr($height); ?>px;" src="<?= esc_attr(
-                $src
-            ); ?>" alt="">
+        ); ?>" <?= $this->get_file_tooltip_attr($media_id) ?>>
+			<img style="<?= ac_helper()->html->get_style_attributes_as_string($image_attributes) ?>"
+				src="<?= esc_attr($src) ?>" alt="">
 
 			<?php
             if ($add_extension) : ?>
-				<span class="ac-extension"><?= esc_attr($this->get_file_extension($media_id)); ?></span>
+				<span class="ac-extension"><?= esc_attr($this->get_file_extension($media_id)) ?></span>
             <?php
             endif; ?>
 
