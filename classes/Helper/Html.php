@@ -15,6 +15,28 @@ class Html
             : $key;
     }
 
+    public function get_attributes_as_string(array $attributes): string
+    {
+        $output = [];
+
+        foreach ($attributes as $key => $value) {
+            $output[] = $this->get_attribute_as_string($key, $value);
+        }
+
+        return implode(' ', $output);
+    }
+
+    public function get_style_attributes_as_string(array $attributes): string
+    {
+        $style = '';
+
+        foreach ($attributes as $key => $value) {
+            $style .= $key . ':' . $value . '; ';
+        }
+
+        return $style;
+    }
+
     /**
      * @param string $url
      * @param string $label
@@ -52,7 +74,6 @@ class Html
         $allowed = wp_allowed_protocols();
         $allowed[] = 'skype';
         $allowed[] = 'call';
-        $allowed[] = 'download';
 
         return '<a href="' . esc_url($url, $allowed) . '" ' . $this->get_attributes(
                 $attributes
@@ -357,8 +378,12 @@ class Html
 
     /**
      * Small HTML block with grey background and rounded corners
+     *
+     * @param string|array $items
+     *
+     * @return string
      */
-    public function small_block($items): string
+    public function small_block($items)
     {
         $blocks = [];
 
@@ -371,7 +396,12 @@ class Html
         return implode($blocks);
     }
 
-    public function progress_bar($args = []): string
+    /**
+     * @param array $args
+     *
+     * @return string
+     */
+    public function progress_bar($args = [])
     {
         $defaults = [
             'current'     => 0,
@@ -441,13 +471,9 @@ class Html
         return ob_get_clean();
     }
 
-    public function more(array $array, int $number = 10, string $glue = null): string
+    public function more($array, $number = 10, $glue = ', ')
     {
-        if (null === $glue) {
-            $glue = ', ';
-        }
-
-        if (0 === $number || count($array) <= $number) {
+        if ( ! $number) {
             return implode($glue, $array);
         }
 
@@ -478,22 +504,33 @@ class Html
 
     /**
      * Return round HTML span
+     *
+     * @param $string
+     *
+     * @return string
      */
-    public function rounded(string $string): string
+    public function rounded($string)
     {
         return '<span class="ac-rounded">' . $string . '</span>';
     }
 
     /**
      * Returns star rating based on X start from $max count. Does support decimals.
+     *
+     * @param int $count
+     * @param int $max
+     *
+     * @return string
      */
-    public function stars(float $count, int $max = 0): string
+    public function stars($count, $max = 0)
     {
         $stars = [
             'filled' => floor($count),
             'half'   => floor(round(($count * 2)) - (floor($count) * 2)) ? 1 : 0,
             'empty'  => 0,
         ];
+
+        $max = absint($max);
 
         if ($max > 0) {
             $star_count = $stars['filled'] + $stars['half'];
@@ -524,20 +561,23 @@ class Html
         return ob_get_clean();
     }
 
-    public function images(string $html, int $number_of_hidden_images = 0): string
+    /**
+     * @param string $value HTML
+     * @param bool   $removed
+     *
+     * @return string
+     */
+    public function images($value, $removed = false)
     {
-        if ($number_of_hidden_images) {
-            $html .= ac_helper()->html->rounded('+' . $number_of_hidden_images);
+        if ( ! $value) {
+            return false;
         }
 
-        return '<div class="ac-image-container">' . $html . '</div>';
-    }
+        if ($removed) {
+            $value .= ac_helper()->html->rounded('+' . $removed);
+        }
 
-    public function get_attributes_as_string(array $attributes): string
-    {
-        _deprecated_function(__METHOD__, 'NEWVERSION');
-
-        return '';
+        return '<div class="ac-image-container">' . $value . '</div>';
     }
 
 }
