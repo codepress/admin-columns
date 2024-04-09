@@ -240,6 +240,7 @@ Release Date: December 6th, 2023
 = 4.6.9 =
 Release Date: October 2nd, 2023
 
+* [Fixed] Render values for Taxonomies fixed
 * [Fixed] URLs for Terms in Taxonomy columns were incorrect
 
 = 4.6.8 =

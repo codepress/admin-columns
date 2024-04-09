@@ -34,9 +34,9 @@ class Taxonomy extends ManageValue
         add_action($action, [$this, 'render_value'], 100, 3);
     }
 
-    public function render_value($value, $column_name, $term_id): void
+    public function render_value($value, $column_name, $term_id): ?string
     {
-        echo $this->render_cell((string)$column_name, (int)$term_id, (string)$value);
+        return $this->render_cell((string)$column_name, (int)$term_id, (string)$value);
     }
 
 }
