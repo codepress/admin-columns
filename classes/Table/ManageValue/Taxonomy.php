@@ -31,12 +31,12 @@ class Taxonomy extends ManageValue
             throw new DomainException("Method should be called before the %s action.", $action);
         }
 
-        add_action($action, [$this, 'render_value'], 100, 3);
+        add_filter($action, [$this, 'render_value'], 100, 3);
     }
 
-    public function render_value($value, $column_name, $term_id): void
+    public function render_value($value, $column_name, $term_id): ?string
     {
-        echo $this->render_cell((string)$column_name, (int)$term_id, (string)$value);
+        return $this->render_cell((string)$column_name, (int)$term_id, (string)$value);
     }
 
 }
