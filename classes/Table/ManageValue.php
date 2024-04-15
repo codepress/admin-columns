@@ -34,6 +34,10 @@ abstract class ManageValue implements Registerable
 
         $value = new Value($id);
 
+        if ($column->get_formatters()->count() === 0) {
+            return $fallback_value;
+        }
+
         try {
             foreach ($column->get_formatters() as $formatter) {
                 if ($formatter instanceof Formatter) {

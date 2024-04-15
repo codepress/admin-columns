@@ -54,20 +54,29 @@ abstract class DateFormat extends Builder
         ]));
     }
 
+    protected function get_date_formatter(string $format): ?Formatter
+    {
+        switch ($format) {
+            case 'diff':
+                return new Formatter\Date\TimeDifference();
+
+            case 'wp_default':
+                return new Formatter\Date\WpDateFormat();
+
+            default:
+                return new Formatter\Date\DateFormat($format);
+        }
+    }
+
     protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
     {
         $format = (string)$config->get('date_format');
         $formatters->add(new Formatter\TimeStamp());
 
-        switch ($format) {
-            case 'diff':
-                $formatters->add(new Formatter\Date\TimeDifference());
-                break;
-            case 'wp_default':
-                $formatters->add(new Formatter\Date\WpDateFormat());
-                break;
-            default:
-                $formatters->add(new Formatter\Date\DateFormat($format));
+        $date_format = $this->get_date_formatter($format);
+
+        if ($date_format) {
+            $formatters->add($date_format);
         }
 
         return parent::get_formatters($config, $formatters);
