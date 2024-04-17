@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.7.5 =
+Release Date: April 14th, 2024
+
+* [Fixed] SVG Support in image columns
+
 = 4.7.4 =
 Release Date: March 4th, 2024
 
