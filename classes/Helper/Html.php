@@ -31,7 +31,7 @@ class Html
         $style = '';
 
         foreach ($attributes as $key => $value) {
-            $style .= $key . ':' . $value . '; ';
+            $style .= sprintf('%s:%s;', $key, $value);
         }
 
         return $style;
