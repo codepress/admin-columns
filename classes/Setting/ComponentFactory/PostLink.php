@@ -14,6 +14,7 @@ use AC\Setting\FormatterCollection;
 
 class PostLink extends Builder
 {
+
     private const NAME = 'post_link_to';
 
     private $relation;
@@ -33,7 +34,7 @@ class PostLink extends Builder
         return OptionFactory::create_select(
             self::NAME,
             OptionCollection::from_array($this->get_display_options()),
-            (string)$config->get(self::NAME)
+            (string)$config->get(self::NAME, '')
         );
     }
 
