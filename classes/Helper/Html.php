@@ -26,6 +26,17 @@ class Html
         return implode(' ', $output);
     }
 
+    public function get_style_attributes_as_string(array $attributes): string
+    {
+        $style = '';
+
+        foreach ($attributes as $key => $value) {
+            $style .= sprintf('%s:%s;', $key, $value);
+        }
+
+        return $style;
+    }
+
     /**
      * @param string $url
      * @param string $label

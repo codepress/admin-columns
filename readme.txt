@@ -3,9 +3,9 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.7.3
-Tested up to: 6.4.2
+Tested up to: 6.5.2
 Requires PHP: 7.2
-Stable tag: 4.7.4
+Stable tag: 4.7.5
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -209,6 +209,11 @@ You can find a list of the available actions and filters (and examples on how to
 
 == Changelog ==
 
+= 4.7.5 =
+Release Date: April 14th, 2024
+
+* [Fixed] SVG Support in image columns
+
 = 4.7.4 =
 Release Date: March 4th, 2024
 
@@ -240,6 +245,7 @@ Release Date: December 6th, 2023
 = 4.6.9 =
 Release Date: October 2nd, 2023
 
+* [Fixed] Render values for Taxonomies fixed
 * [Fixed] URLs for Terms in Taxonomy columns were incorrect
 
 = 4.6.8 =
