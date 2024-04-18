@@ -48,6 +48,10 @@ class FormatsFactory extends BaseColumnFactory
     ): FormatterCollection {
         $formatters->add(new Formatter\Post\PostFormat());
 
+        if ($config->get('use_icon') === 'on') {
+            $formatters->add(new Formatter\Post\PostFormatIcon());
+        }
+
         return parent::get_formatters($components, $config, $formatters);
     }
 
