@@ -13,7 +13,7 @@ use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Type\PostTypeSlug;
 
-final class Taxonomy implements ComponentFactory
+class Taxonomy implements ComponentFactory
 {
 
     private $post_type;

@@ -18,6 +18,7 @@ use AC\Setting\FormatterCollection;
 class PostProperty extends Builder
 {
 
+    public const NAME = 'post';
     public const PROPERTY_AUTHOR = 'author';
     public const PROPERTY_FEATURED_IMAGE = 'thumbnail';
     public const PROPERTY_ID = 'id';
@@ -56,12 +57,10 @@ class PostProperty extends Builder
 
     protected function get_input(Config $config): Input
     {
-        $name = 'post';
-
         return OptionFactory::create_select(
-            $name,
+            self::NAME,
             $this->get_display_options(),
-            $config->get($name, self::PROPERTY_TITLE)
+            $config->get(self::NAME, self::PROPERTY_TITLE)
         );
     }
 
