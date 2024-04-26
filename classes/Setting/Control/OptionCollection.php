@@ -24,7 +24,7 @@ final class OptionCollection extends Collection
                 $key = $value;
             }
 
-            $self->add(new Option((string)$value, $key));
+            $self->add(new Option((string)$value, (string)$key));
         }
 
         return $self;

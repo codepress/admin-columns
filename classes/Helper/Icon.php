@@ -39,8 +39,9 @@ class Icon
         );
     }
 
-    public function yes(string $tooltip = null, string $title = null, string $class = 'green'): string
+    public function yes(string $tooltip = null, string $title = null, string $class = null): string
     {
+        $class = $class ?: 'green';
         if (null === $title) {
             $title = __('Yes');
         }
