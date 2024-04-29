@@ -8,7 +8,7 @@ use AC\Exception\ValueNotFoundException;
 use AC\Setting\Formatter;
 use AC\Setting\Type\Value;
 
-class PostParent implements Formatter
+class PostParentId implements Formatter
 {
 
     public function format(Value $value): Value

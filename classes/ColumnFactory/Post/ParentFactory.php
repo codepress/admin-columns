@@ -8,7 +8,7 @@ use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactory\PostProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\PostParent;
+use AC\Setting\Formatter\Post\PostParentId;
 use AC\Setting\FormatterCollection;
 
 class ParentFactory extends BaseColumnFactory
@@ -52,7 +52,7 @@ class ParentFactory extends BaseColumnFactory
         Config $config,
         FormatterCollection $formatters
     ): FormatterCollection {
-        $formatters->add(new PostParent());
+        $formatters->add(new PostParentId());
 
         return parent::get_formatters($components, $config, $formatters);
     }
