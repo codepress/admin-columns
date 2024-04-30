@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC;
 
+use AC\Setting\Component;
 use AC\Setting\ComponentCollection;
 use AC\Setting\FormatterCollection;
 use AC\Type\ColumnId;
@@ -18,6 +19,8 @@ interface Column
     public function get_label(): string;
 
     public function get_group(): string;
+
+    public function get_setting(string $name, ComponentCollection $settings = null): ?Component;
 
     public function get_settings(): ComponentCollection;
 

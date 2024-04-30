@@ -93,7 +93,7 @@ class Base implements Column
         return $this->formatters;
     }
 
-    // TODO David move the recursive initial outside this function for a cleaner API
+    // TODO David move the recursive initial outside this function for a cleaner API (Also in interface)
     public function get_setting(string $name, ComponentCollection $settings = null): ?Component
     {
         $settings = $settings ?: $this->settings;

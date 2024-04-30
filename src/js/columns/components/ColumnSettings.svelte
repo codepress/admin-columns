@@ -10,7 +10,6 @@
 
     let filteredSettings = settings;
 
-
     const checkConditions = () => {
         if (typeof settings === 'undefined') {
             return;
@@ -56,11 +55,8 @@
 			setting={setting}
 			bind:data={data}/>
 
-
 		{#if setting.type === 'row'}
 			<RowSetting setting={setting} bind:data={data}/>
-		{:else if setting.type === 'row_width'}
-			<WidthRowSetting setting={setting} bind:data={data}/>
 		{/if}
 
 	{/each}

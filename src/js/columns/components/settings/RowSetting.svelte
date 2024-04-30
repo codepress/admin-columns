@@ -31,11 +31,13 @@
 	{/if}
 
 	{#if setting.children && setting.is_parent }
-		<ColumnSettings bind:data={data} settings={setting.children} parent={inputSetting.input ? inputSetting.input.name : null}/>
+		<div class="acu-pt-4">
+		<ColumnSettings bind:data={data} settings={setting.children} parent={inputSetting.input ? inputSetting.input.name : ''}/>
+		</div>
 	{/if}
 
 </ColumnSetting>
 
 {#if setting.children && !setting.is_parent }
-	<ColumnSettings bind:data={data} settings={setting.children} parent={inputSetting.input ? inputSetting.input.name : null}/>
+	<ColumnSettings bind:data={data} settings={setting.children} parent={inputSetting.input ? inputSetting.input.name : ''}/>
 {/if}

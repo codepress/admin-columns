@@ -1238,7 +1238,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[12] = list[i];
+  child_ctx[11] = list[i];
   return child_ctx;
 }
 
@@ -1249,7 +1249,7 @@ function create_if_block(ctx) {
   let each_1_anchor;
   let current;
   let each_value = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.ensure_array_like)( /*filteredSettings*/ctx[1]);
-  const get_key = ctx => JSON.stringify( /*setting*/ctx[12]);
+  const get_key = ctx => JSON.stringify( /*setting*/ctx[11]);
   for (let i = 0; i < each_value.length; i += 1) {
     let child_ctx = get_each_context(ctx, each_value, i);
     let key = get_key(child_ctx);
@@ -1303,58 +1303,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (51:41) 
-function create_if_block_2(ctx) {
-  let widthrowsetting;
-  let updating_data;
-  let current;
-  function widthrowsetting_data_binding(value) {
-    /*widthrowsetting_data_binding*/ctx[7](value);
-  }
-  let widthrowsetting_props = {
-    setting: /*setting*/ctx[12]
-  };
-  if ( /*data*/ctx[0] !== void 0) {
-    widthrowsetting_props.data = /*data*/ctx[0];
-  }
-  widthrowsetting = new _settings_WidthRowSetting_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({
-    props: widthrowsetting_props
-  });
-  svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(widthrowsetting, 'data', widthrowsetting_data_binding));
-  return {
-    c() {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(widthrowsetting.$$.fragment);
-    },
-    m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(widthrowsetting, target, anchor);
-      current = true;
-    },
-    p(ctx, dirty) {
-      const widthrowsetting_changes = {};
-      if (dirty & /*filteredSettings*/2) widthrowsetting_changes.setting = /*setting*/ctx[12];
-      if (!updating_data && dirty & /*data*/1) {
-        updating_data = true;
-        widthrowsetting_changes.data = /*data*/ctx[0];
-        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_data = false);
-      }
-      widthrowsetting.$set(widthrowsetting_changes);
-    },
-    i(local) {
-      if (current) return;
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(widthrowsetting.$$.fragment, local);
-      current = true;
-    },
-    o(local) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(widthrowsetting.$$.fragment, local);
-      current = false;
-    },
-    d(detaching) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(widthrowsetting, detaching);
-    }
-  };
-}
-
-// (49:2) {#if setting.type === 'row'}
+// (48:2) {#if setting.type === 'row'}
 function create_if_block_1(ctx) {
   let rowsetting;
   let updating_data;
@@ -1363,7 +1312,7 @@ function create_if_block_1(ctx) {
     /*rowsetting_data_binding*/ctx[6](value);
   }
   let rowsetting_props = {
-    setting: /*setting*/ctx[12]
+    setting: /*setting*/ctx[11]
   };
   if ( /*data*/ctx[0] !== void 0) {
     rowsetting_props.data = /*data*/ctx[0];
@@ -1382,7 +1331,7 @@ function create_if_block_1(ctx) {
     },
     p(ctx, dirty) {
       const rowsetting_changes = {};
-      if (dirty & /*filteredSettings*/2) rowsetting_changes.setting = /*setting*/ctx[12];
+      if (dirty & /*filteredSettings*/2) rowsetting_changes.setting = /*setting*/ctx[11];
       if (!updating_data && dirty & /*data*/1) {
         updating_data = true;
         rowsetting_changes.data = /*data*/ctx[0];
@@ -1411,17 +1360,15 @@ function create_each_block(key_1, ctx) {
   let switch_instance;
   let updating_data;
   let t;
-  let current_block_type_index;
-  let if_block;
   let if_block_anchor;
   let current;
   function switch_instance_data_binding(value) {
     /*switch_instance_data_binding*/ctx[5](value);
   }
-  var switch_value = /*getSettingComponent*/ctx[2]( /*setting*/ctx[12].type ?? '');
+  var switch_value = /*getSettingComponent*/ctx[2]( /*setting*/ctx[11].type ?? '');
   function switch_props(ctx, dirty) {
     let switch_instance_props = {
-      setting: /*setting*/ctx[12]
+      setting: /*setting*/ctx[11]
     };
     if ( /*data*/ctx[0] !== void 0) {
       switch_instance_props.data = /*data*/ctx[0];
@@ -1434,16 +1381,7 @@ function create_each_block(key_1, ctx) {
     switch_instance = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.construct_svelte_component)(switch_value, switch_props(ctx));
     svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(switch_instance, 'data', switch_instance_data_binding));
   }
-  const if_block_creators = [create_if_block_1, create_if_block_2];
-  const if_blocks = [];
-  function select_block_type(ctx, dirty) {
-    if ( /*setting*/ctx[12].type === 'row') return 0;
-    if ( /*setting*/ctx[12].type === 'row_width') return 1;
-    return -1;
-  }
-  if (~(current_block_type_index = select_block_type(ctx, -1))) {
-    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-  }
+  let if_block = /*setting*/ctx[11].type === 'row' && create_if_block_1(ctx);
   return {
     key: key_1,
     first: null,
@@ -1459,15 +1397,13 @@ function create_each_block(key_1, ctx) {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, first, anchor);
       if (switch_instance) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(switch_instance, target, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, t, anchor);
-      if (~current_block_type_index) {
-        if_blocks[current_block_type_index].m(target, anchor);
-      }
+      if (if_block) if_block.m(target, anchor);
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, if_block_anchor, anchor);
       current = true;
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & /*filteredSettings*/2 && switch_value !== (switch_value = /*getSettingComponent*/ctx[2]( /*setting*/ctx[12].type ?? ''))) {
+      if (dirty & /*filteredSettings*/2 && switch_value !== (switch_value = /*getSettingComponent*/ctx[2]( /*setting*/ctx[11].type ?? ''))) {
         if (switch_instance) {
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
           const old_component = switch_instance;
@@ -1487,7 +1423,7 @@ function create_each_block(key_1, ctx) {
         }
       } else if (switch_value) {
         const switch_instance_changes = {};
-        if (dirty & /*filteredSettings*/2) switch_instance_changes.setting = /*setting*/ctx[12];
+        if (dirty & /*filteredSettings*/2) switch_instance_changes.setting = /*setting*/ctx[11];
         if (!updating_data && dirty & /*data*/1) {
           updating_data = true;
           switch_instance_changes.data = /*data*/ctx[0];
@@ -1495,33 +1431,24 @@ function create_each_block(key_1, ctx) {
         }
         switch_instance.$set(switch_instance_changes);
       }
-      let previous_block_index = current_block_type_index;
-      current_block_type_index = select_block_type(ctx, dirty);
-      if (current_block_type_index === previous_block_index) {
-        if (~current_block_type_index) {
-          if_blocks[current_block_type_index].p(ctx, dirty);
-        }
-      } else {
+      if ( /*setting*/ctx[11].type === 'row') {
         if (if_block) {
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_blocks[previous_block_index], 1, 1, () => {
-            if_blocks[previous_block_index] = null;
-          });
-          (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
-        }
-        if (~current_block_type_index) {
-          if_block = if_blocks[current_block_type_index];
-          if (!if_block) {
-            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-            if_block.c();
-          } else {
-            if_block.p(ctx, dirty);
+          if_block.p(ctx, dirty);
+          if (dirty & /*filteredSettings*/2) {
+            (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
           }
+        } else {
+          if_block = create_if_block_1(ctx);
+          if_block.c();
           (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block, 1);
           if_block.m(if_block_anchor.parentNode, if_block_anchor);
-        } else {
-          if_block = null;
         }
+      } else if (if_block) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block, 1, 1, () => {
+          if_block = null;
+        });
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
       }
     },
     i(local) {
@@ -1542,9 +1469,7 @@ function create_each_block(key_1, ctx) {
         (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(if_block_anchor);
       }
       if (switch_instance) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(switch_instance, detaching);
-      if (~current_block_type_index) {
-        if_blocks[current_block_type_index].d(detaching);
-      }
+      if (if_block) if_block.d(detaching);
     }
   };
 }
@@ -1641,10 +1566,6 @@ function instance($$self, $$props, $$invalidate) {
     data = value;
     $$invalidate(0, data);
   }
-  function widthrowsetting_data_binding(value) {
-    data = value;
-    $$invalidate(0, data);
-  }
   $$self.$$set = $$props => {
     if ('data' in $$props) $$invalidate(0, data = $$props.data);
     if ('settings' in $$props) $$invalidate(3, settings = $$props.settings);
@@ -1658,7 +1579,7 @@ function instance($$self, $$props, $$invalidate) {
       $: settings && configChange();
     }
   };
-  return [data, filteredSettings, getSettingComponent, settings, parent, switch_instance_data_binding, rowsetting_data_binding, widthrowsetting_data_binding];
+  return [data, filteredSettings, getSettingComponent, settings, parent, switch_instance_data_binding, rowsetting_data_binding];
 }
 class ColumnSettings extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
@@ -6662,6 +6583,7 @@ function create_if_block_2(ctx) {
 
 // (26:1) {#if setting.children && setting.is_parent }
 function create_if_block_1(ctx) {
+  let div;
   let columnsettings;
   let updating_data;
   let current;
@@ -6670,7 +6592,7 @@ function create_if_block_1(ctx) {
   }
   let columnsettings_props = {
     settings: /*setting*/ctx[1].children,
-    parent: /*inputSetting*/ctx[3].input ? /*inputSetting*/ctx[3].input.name : null
+    parent: /*inputSetting*/ctx[3].input ? /*inputSetting*/ctx[3].input.name : ''
   };
   if ( /*data*/ctx[0] !== void 0) {
     columnsettings_props.data = /*data*/ctx[0];
@@ -6681,10 +6603,13 @@ function create_if_block_1(ctx) {
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(columnsettings, 'data', columnsettings_data_binding));
   return {
     c() {
+      div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(columnsettings.$$.fragment);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr)(div, "class", "acu-pt-4");
     },
     m(target, anchor) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(columnsettings, target, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert)(target, div, anchor);
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(columnsettings, div, null);
       current = true;
     },
     p(ctx, dirty) {
@@ -6707,7 +6632,10 @@ function create_if_block_1(ctx) {
       current = false;
     },
     d(detaching) {
-      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(columnsettings, detaching);
+      if (detaching) {
+        (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach)(div);
+      }
+      (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_component)(columnsettings);
     }
   };
 }
@@ -6777,7 +6705,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (32:0) {#if setting.children && !setting.is_parent }
+// (34:0) {#if setting.children && !setting.is_parent }
 function create_if_block(ctx) {
   let columnsettings;
   let updating_data;
@@ -6787,7 +6715,7 @@ function create_if_block(ctx) {
   }
   let columnsettings_props = {
     settings: /*setting*/ctx[1].children,
-    parent: /*inputSetting*/ctx[3].input ? /*inputSetting*/ctx[3].input.name : null
+    parent: /*inputSetting*/ctx[3].input ? /*inputSetting*/ctx[3].input.name : ''
   };
   if ( /*data*/ctx[0] !== void 0) {
     columnsettings_props.data = /*data*/ctx[0];

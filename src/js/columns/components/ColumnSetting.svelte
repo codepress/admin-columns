@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let description: string|null = null;
+    export let description: string | null = null;
     export let label: string;
     export let extraClass: string = '';
 </script>
