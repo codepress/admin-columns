@@ -162,6 +162,10 @@
   flex-direction: row-reverse
 }
 
+.acu-flex-col {
+  flex-direction: column
+}
+
 .acu-flex-wrap {
   flex-wrap: wrap
 }
@@ -380,6 +384,10 @@
   padding-top: 20px
 }
 
+.acu-pt-1 {
+  padding-top: 5px
+}
+
 .acu-text-center {
   text-align: center
 }
@@ -498,6 +506,15 @@
   .lg\:acu-py-2 {
     padding-top: 10px;
     padding-bottom: 10px
+  }
+
+  .lg\:acu-py-1 {
+    padding-top: 5px;
+    padding-bottom: 5px
+  }
+
+  .lg\:acu-pt-1 {
+    padding-top: 5px
   }
 }
 

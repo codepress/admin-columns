@@ -19,7 +19,6 @@
     }
 
     const checkForAuto = () => {
-        console.log( data[keyWidth] );
         if (data[keyWidth] === 0) {
             data[keyWidth] = '';
         }

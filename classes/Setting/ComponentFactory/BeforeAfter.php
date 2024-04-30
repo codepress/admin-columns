@@ -36,13 +36,13 @@ final class BeforeAfter implements ComponentFactory
                 new Children(
                     new ComponentCollection([
                         new Component(
-                            __('Before', 'codepress-admin-columns'),
-                            null,
+                            __('Prepend', 'codepress-admin-columns'),
+                            __('Appears before the rendered column value', 'codepress-admin-columns'),
                             new Open(self::BEFORE, null, $before)
                         ),
                         new Component(
-                            __('After', 'codepress-admin-columns'),
-                            null,
+                            __('Append', 'codepress-admin-columns'),
+                            __('Appears after the rendered column value', 'codepress-admin-columns'),
                             new Open(self::AFTER, null, $after)
                         ),
                     ])

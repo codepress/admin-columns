@@ -7,6 +7,7 @@
     export let data: any;
     export let settings: AC.Column.Settings.ColumnSettingCollection
     export let parent: string = '';
+    export let isSubComponent: boolean = false;
 
     let filteredSettings = settings;
 
@@ -39,7 +40,7 @@
     const getSettingComponent = (type: string) => {
         return settingComponents.hasOwnProperty(type)
             ? settingComponents[type]
-            : null;
+            : RowSetting;
     }
 
     $: data && checkConditions();
@@ -53,11 +54,9 @@
 		<svelte:component
 			this={getSettingComponent(setting.type ?? '')}
 			setting={setting}
-			bind:data={data}/>
-
-		{#if setting.type === 'row'}
-			<RowSetting setting={setting} bind:data={data}/>
-		{/if}
+			bind:data={data}
+			{isSubComponent}
+		/>
 
 	{/each}
 

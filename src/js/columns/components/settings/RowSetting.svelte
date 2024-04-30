@@ -8,9 +8,9 @@
 
     export let setting: AC.Column.Settings.AbstractColumnSetting;
     export let data: ListScreenColumnData;
+    export let isSubComponent: boolean = false;
 
     let inputSetting = setting as ColumnInputSetting;
-    console.log(inputSetting);
 
     const getInputType = (type: string) => {
         return getInputComponent(type);
@@ -18,7 +18,7 @@
 
 </script>
 
-<ColumnSetting description={setting.attributes?.description ?? ''} label={setting.label}>
+<ColumnSetting description={setting.description ?? ''} label={setting.label} {isSubComponent}>
 
 	{#if inputSetting.input}
 		<svelte:component
@@ -31,8 +31,11 @@
 	{/if}
 
 	{#if setting.children && setting.is_parent }
-		<div class="acu-pt-4">
-		<ColumnSettings bind:data={data} settings={setting.children} parent={inputSetting.input ? inputSetting.input.name : ''}/>
+		<div class="acp-column-setting__subsettings">
+			<ColumnSettings isSubComponent
+				bind:data={data}
+				settings={setting.children}
+				parent={inputSetting.input ? inputSetting.input.name : ''}/>
 		</div>
 	{/if}
 

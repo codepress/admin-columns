@@ -484,6 +484,10 @@
   margin-bottom: 30px;
 }
 
+.acp-column-setting__value .acp-column-setting__subsettings:nth-child(2):has(div) {
+  padding-top: 15px;
+}
+
 .acp-column-setting[data-setting=label] .acui-input-group-text {
   color: #ccc;
   transition: color 0.2s;
