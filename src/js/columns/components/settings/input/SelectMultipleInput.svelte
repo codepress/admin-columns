@@ -1,6 +1,6 @@
 <script lang="ts">
     import Select from "svelte-select"
-    import {createEventDispatcher, onDestroy, onMount} from "svelte";
+    import {createEventDispatcher, onDestroy, onMount, tick} from "svelte";
     import {SvelteSelectItem} from "../../../../types/select";
 
     export let config: AC.Column.Settings.SelectSetting;
@@ -55,6 +55,10 @@
         value = justValue;
     }
 
+    const clearValue = (e: CustomEvent<SvelteSelectItem>) => {
+        value = Array.isArray(selectValue) ? selectValue.map(i => i.value.toString()) : [];
+    }
+
     const groupBy = (item: SvelteSelectItem) => item.group;
 </script>
 
@@ -69,6 +73,7 @@
 	bind:justValue={justValue}
 	{groupBy}
 	{disabled}
+	on:clear={ clearValue }
 	on:change={ changeValue }>
 
 </Select>

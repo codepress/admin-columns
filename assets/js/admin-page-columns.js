@@ -8679,10 +8679,10 @@ function create_fragment(ctx) {
   let updating_justValue;
   let current;
   function select_value_binding(value) {
-    /*select_value_binding*/ctx[8](value);
+    /*select_value_binding*/ctx[9](value);
   }
   function select_justValue_binding(value) {
-    /*select_justValue_binding*/ctx[9](value);
+    /*select_justValue_binding*/ctx[10](value);
   }
   let select_props = {
     class: "-acui",
@@ -8690,7 +8690,7 @@ function create_fragment(ctx) {
     items: /*options*/ctx[3],
     showChevron: true,
     multiple: true,
-    groupBy: /*groupBy*/ctx[5],
+    groupBy: /*groupBy*/ctx[6],
     disabled: /*disabled*/ctx[0]
   };
   if ( /*selectValue*/ctx[1] !== void 0) {
@@ -8704,6 +8704,7 @@ function create_fragment(ctx) {
   });
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(select, 'value', select_value_binding));
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(select, 'justValue', select_justValue_binding));
+  select.$on("clear", /*clearValue*/ctx[5]);
   select.$on("change", /*changeValue*/ctx[4]);
   return {
     c() {
@@ -8786,7 +8787,7 @@ function instance($$self, $$props, $$invalidate) {
       if (config.input.default && Array.isArray(config.input.default)) {
         $$invalidate(1, selectValue = mapArrayToValue(config.input.default));
       }
-      $$invalidate(6, value = (_a = config.input.default) !== null && _a !== void 0 ? _a : []);
+      $$invalidate(7, value = (_a = config.input.default) !== null && _a !== void 0 ? _a : []);
     } else {
       $$invalidate(1, selectValue = mapArrayToValue(value));
     }
@@ -8795,7 +8796,10 @@ function instance($$self, $$props, $$invalidate) {
     dispatch('destroy', config);
   });
   const changeValue = e => {
-    $$invalidate(6, value = justValue);
+    $$invalidate(7, value = justValue);
+  };
+  const clearValue = e => {
+    $$invalidate(7, value = Array.isArray(selectValue) ? selectValue.map(i => i.value.toString()) : []);
   };
   const groupBy = item => item.group;
   function select_value_binding(value) {
@@ -8807,19 +8811,19 @@ function instance($$self, $$props, $$invalidate) {
     $$invalidate(2, justValue);
   }
   $$self.$$set = $$props => {
-    if ('config' in $$props) $$invalidate(7, config = $$props.config);
+    if ('config' in $$props) $$invalidate(8, config = $$props.config);
     if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
-    if ('value' in $$props) $$invalidate(6, value = $$props.value);
+    if ('value' in $$props) $$invalidate(7, value = $$props.value);
   };
-  return [disabled, selectValue, justValue, options, changeValue, groupBy, value, config, select_value_binding, select_justValue_binding];
+  return [disabled, selectValue, justValue, options, changeValue, clearValue, groupBy, value, config, select_value_binding, select_justValue_binding];
 }
 class SelectMultipleInput extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {
     super();
     (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, {
-      config: 7,
+      config: 8,
       disabled: 0,
-      value: 6
+      value: 7
     });
   }
 }

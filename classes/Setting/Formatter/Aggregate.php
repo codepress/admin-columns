@@ -6,85 +6,54 @@ namespace AC\Setting\Formatter;
 
 use AC\Setting\CollectionFormatter;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 use AC\Setting\Type\Value;
 use AC\Setting\ValueCollection;
 
 final class Aggregate implements Formatter
 {
 
-    /**
-     * @var Formatter[]
-     */
-    private $data;
+    private $formatters;
 
-    public function __construct(array $formatters = [])
+    public function __construct(FormatterCollection $formatters)
     {
-        $this->data = $formatters;
+        $this->formatters = $formatters;
     }
 
     public function format(Value $value): Value
     {
-        $positioned_formatters = [];
+        $formatted_value = $value;
 
-        foreach ($this->data as $formatter) {
-            $position = 0;
+        foreach ($this->formatters as $formatter) {
+            if ($formatter instanceof Formatter) {
+                if ($formatted_value instanceof Value) {
+                    $formatted_value = $formatter->format($formatted_value);
 
-            if ($formatter instanceof PositionAware) {
-                $position = $formatter->get_position();
-            }
-
-            $positioned_formatters[$position][] = $formatter;
-        }
-
-        ksort($positioned_formatters);
-
-        foreach ($positioned_formatters as $formatters) {
-            foreach ($formatters as $formatter) {
-                if ( ! $this->is_valid($value)) {
                     continue;
                 }
 
-                $value = $this->format_collection(
-                    $value,
-                    $formatter
-                );
+                if ($formatted_value instanceof ValueCollection) {
+                    $collection = new ValueCollection($formatted_value->get_id());
+
+                    foreach ($formatted_value as $item) {
+                        $collection->add($formatter->format($item));
+                    }
+
+                    $formatted_value = $collection;
+                }
+            }
+
+            if ($formatter instanceof CollectionFormatter && $formatted_value instanceof ValueCollection) {
+                $formatted_value = $formatter->format($formatted_value);
             }
         }
 
-        return $value;
-    }
-
-    private function is_valid(Value $value): bool
-    {
-        return null !== $value->get_value() &&
-               null !== $value->get_id();
-    }
-
-    private function format_collection(Value $value, Formatter $formatter): Value
-    {
-        $collection = $value->get_value();
-
-        if ( ! $collection instanceof ValueCollection) {
-            return $formatter->format($value);
+        if ($formatted_value instanceof ValueCollection) {
+            $formatter = new Formatter\Collection\Separator();
+            $formatted_value = $value->with_value($formatter->format($formatted_value));
         }
 
-        if ($formatter instanceof CollectionFormatter) {
-            return $formatter->format($value);
-        }
-
-        $values = new ValueCollection();
-
-        foreach ($collection as $_value) {
-            if ( ! $this->is_valid($_value)) {
-                continue;
-            }
-
-            $values->add($formatter->format($_value));
-        }
-
-        return $value->with_value(
-            $values
-        );
+        return $formatted_value;
     }
 
 }
