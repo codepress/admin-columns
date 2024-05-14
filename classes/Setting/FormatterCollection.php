@@ -27,6 +27,15 @@ final class FormatterCollection extends Collection implements Countable
         $this->data[] = $formatter;
     }
 
+    public function prepend($formatter): void
+    {
+        if ( ! $formatter instanceof Formatter && ! $formatter instanceof CollectionFormatter) {
+            throw new InvalidArgumentException();
+        }
+
+        array_unshift($this->data, $formatter);
+    }
+
     /**
      * @return Formatter|CollectionFormatter
      */
