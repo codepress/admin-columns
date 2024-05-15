@@ -7,6 +7,8 @@ namespace AC\Type;
 class PostTypeSlug
 {
 
+    private $post_type;
+
     public function __construct(string $post_type)
     {
         $this->post_type = $post_type;

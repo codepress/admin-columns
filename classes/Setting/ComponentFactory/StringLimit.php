@@ -44,7 +44,7 @@ final class StringLimit extends Builder
                 self::OPTION_CHARACTER_LIMIT => __('Character Limit', 'codepress-admin-columns'),
                 self::OPTION_EXCERPT_LENGTH  => __('Word Limit', 'codepress-admin-columns'),
             ]),
-            (string)$config->get($name)
+            $config->get($name, '')
         );
     }
 

@@ -44,7 +44,7 @@ class CommentFactory implements ColumnFactories
             Comment\StatusFactory::class,
             Comment\CommentTypeFactory::class,
             Comment\UserFactory::class,
-            Comment\WordCountFactory::class
+            Comment\WordCountFactory::class,
         ];
 
         foreach ($factoryClasses as $factoryClass) {
@@ -54,7 +54,7 @@ class CommentFactory implements ColumnFactories
         $collection = new Collection\ColumnFactories();
 
         foreach ($factories as $factory) {
-            $collection->add($factory->get_type(), $factory);
+            $collection->add($factory->get_column_type(), $factory);
         }
 
         return $collection;

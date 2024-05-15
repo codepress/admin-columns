@@ -20,7 +20,7 @@ final class Password implements ComponentFactory
 
     public function create(Config $config, Specification $conditions = null): Component
     {
-        $value = (string)$config->get(self::NAME);
+        $value = (string)$config->get(self::NAME, '');
 
         $builder = (new ComponentBuilder())
             ->set_label(__('Display format', 'codepress-admin-columns'))

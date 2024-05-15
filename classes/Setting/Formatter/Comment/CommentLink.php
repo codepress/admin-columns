@@ -19,6 +19,8 @@ class CommentLink implements Formatter
 
     public function format(Value $value): Value
     {
+        $link = false;
+        
         switch ($this->link_to) {
             case 'view_comment' :
                 $link = get_comment_link($value->get_id());
