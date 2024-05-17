@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
-use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
 
-final class TermLink implements ComponentFactory
+final class TermLink extends Builder
 {
 
     private $post_type;
@@ -24,24 +22,25 @@ final class TermLink implements ComponentFactory
         $this->post_type = $post_type;
     }
 
-    public function create(Config $config, Specification $conditions = null): Component
+    protected function get_label(Config $config): ?string
     {
-        $builder = (new ComponentBuilder())
-            ->set_label(__('Link To', 'codepress-admin-columns'))
-            ->set_input(
-                OptionFactory::create_select(
-                    'term_link_to',
-                    OptionCollection::from_array($this->get_input_options()),
-                    (string)$config->get('term_link_to')
-                )
-            )
-            ->set_formatter(new Formatter\Term\TermLink((string)$config->get('term_link_to'), $this->post_type));
+        return __('Link To', 'codepress-admin-columns');
+    }
 
-        if ($conditions) {
-            $builder->set_conditions($conditions);
-        }
+    protected function get_input(Config $config): ?Input
+    {
+        return OptionFactory::create_select(
+            'term_link_to',
+            OptionCollection::from_array($this->get_input_options()),
+            (string)$config->get('term_link_to')
+        );
+    }
 
-        return $builder->build();
+    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    {
+        $formatters->add(new Formatter\Term\TermLink((string)$config->get('term_link_to'), $this->post_type));
+
+        return parent::get_formatters($config, $formatters);
     }
 
     protected function get_input_options(): array

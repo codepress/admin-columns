@@ -2,18 +2,16 @@
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Expression\Specification;
 use AC\Setting\Children;
-use AC\Setting\Component;
-use AC\Setting\ComponentBuilder;
 use AC\Setting\ComponentCollection;
-use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
+use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 
-class TermProperty implements ComponentFactory
+class TermProperty extends Builder
 {
 
     private const NAME = 'term_property';
@@ -25,35 +23,40 @@ class TermProperty implements ComponentFactory
         $this->term_link = $term_link;
     }
 
-    public function create(Config $config, Specification $conditions = null): Component
+    protected function get_label(Config $config): ?string
     {
-        $builder = (new ComponentBuilder())
-            ->set_label(__('Term Display', 'codepress-admin-columns'))
-            ->set_input(
-                OptionFactory::create_select(
-                    self::NAME,
-                    OptionCollection::from_array(
-                        [
-                            ''     => __('Title'),
-                            'slug' => __('Slug'),
-                            'id'   => __('ID'),
-                        ]
-                    ),
-                    (string)$config->get(self::NAME)
-                )
-            )
-            ->set_children(
-                new Children(
-                    new ComponentCollection([
-                        $this->term_link->create($config),
-                    ])
-                )
-            )
-            ->set_formatter(
-                new Formatter\Term\TermProperty($this->get_term_property((string)$config->get(self::NAME)))
-            );
+        return __('Term Display', 'codepress-admin-columns');
+    }
 
-        return $builder->build();
+    protected function get_input(Config $config): ?Input
+    {
+        return OptionFactory::create_select(
+            self::NAME,
+            OptionCollection::from_array(
+                [
+                    ''     => __('Title'),
+                    'slug' => __('Slug'),
+                    'id'   => __('ID'),
+                ]
+            ),
+            $config->get(self::NAME, '')
+        );
+    }
+
+    protected function get_children(Config $config): ?Children
+    {
+        return new Children(
+            new ComponentCollection([
+                $this->term_link->create($config),
+            ])
+        );
+    }
+
+    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    {
+        $formatters->add(new Formatter\Term\TermProperty($this->get_term_property($config->get(self::NAME, ''))));
+
+        return parent::get_formatters($config, $formatters);
     }
 
     private function get_term_property(string $value): string

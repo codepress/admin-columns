@@ -18,7 +18,7 @@ abstract class Base implements ComponentFactory
     ):
     FormatterCollection {
         foreach ($components as $component) {
-            if ($condition && $component->get_conditions()->is_satisfied_by($condition)) {
+            if ($component->get_conditions()->is_satisfied_by((string)$condition)) {
                 foreach ($component->get_formatters() as $formatter) {
                     $formatters->add($formatter);
                 }
