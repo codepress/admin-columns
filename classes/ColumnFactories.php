@@ -2,6 +2,7 @@
 
 namespace AC;
 
+// TODO Stefan make the name more affording E.g. ColumnFactoryCollectionFactory
 interface ColumnFactories
 {
 
