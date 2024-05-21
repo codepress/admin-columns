@@ -76,7 +76,8 @@ abstract class ManageValue implements Registerable
         }
 
         if (is_scalar($value->get_value())
-            && apply_filters('ac/column/value/sanitize', true, $column, $id, $this->list_screen)) {
+            && apply_filters('ac/column/value/sanitize', true, $column, $id, $this->list_screen)
+        ) {
             $value = $value->with_value((new Kses())->sanitize((string)$value));
         }
 
