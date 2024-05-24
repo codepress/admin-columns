@@ -36,17 +36,17 @@ class GeneralOption
 
     private function get(): array
     {
-        return get_site_option(self::KEY, []) ?: [];
+        return get_option(self::KEY, []) ?: [];
     }
 
     private function update(array $data): void
     {
-        update_site_option(self::KEY, $data);
+        update_option(self::KEY, $data);
     }
 
     private function delete(): void
     {
-        delete_site_option(self::KEY);
+        delete_option(self::KEY);
     }
 
 }
