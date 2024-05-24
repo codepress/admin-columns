@@ -11,72 +11,74 @@ use AC\Registerable;
 use AC\Screen;
 
 final class Promotion
-	implements Registerable {
+    implements Registerable
+{
 
-	/**
-	 * @var Promo
-	 */
-	private $promo;
+    private $promo;
 
-	public function __construct( Promo $promo ) {
-		$this->promo = $promo;
-	}
+    private $preference_factory;
 
-	public function register(): void
+    public function __construct(Promo $promo, Preferences\UserFactory $preference_factory)
     {
-		add_action( 'ac/screen', [ $this, 'display' ] );
+        $this->promo = $promo;
+        $this->preference_factory = $preference_factory;
+    }
 
-		$this->get_ajax_handler()->register();
-	}
+    public function register(): void
+    {
+        add_action('ac/screen', [$this, 'display']);
 
-	/**
-	 * @return Ajax\Handler
-	 */
-	private function get_ajax_handler() {
-		$handler = new Ajax\Handler();
+        $this->get_ajax_handler()->register();
+    }
 
-		$handler
-			->set_action( 'ac_dismiss_notice_promo_' . $this->get_individual_slug() )
-			->set_callback( [ $this, 'ajax_dismiss_notice' ] );
+    private function get_ajax_handler(): Ajax\Handler
+    {
+        $handler = new Ajax\Handler();
 
-		return $handler;
-	}
+        $handler
+            ->set_action('ac_dismiss_notice_promo_' . $this->get_individual_slug())
+            ->set_callback([$this, 'ajax_dismiss_notice']);
 
-	private function get_individual_slug() {
-		return $this->promo->get_slug() . $this->promo->get_date_range()->get_start()->format( 'Ymd' );
-	}
+        return $handler;
+    }
 
-	/**
-	 * @return Preferences\User
-	 */
-	private function get_preferences() {
-		return new Preferences\User( 'check-promo-' . $this->get_individual_slug() );
-	}
+    private function get_individual_slug(): string
+    {
+        return $this->promo->get_slug() . $this->promo->get_date_range()->get_start()->format('Ymd');
+    }
 
-	/**
-	 * Dismiss notice
-	 */
-	public function ajax_dismiss_notice() {
-		$this->get_ajax_handler()->verify_request();
-		$this->get_preferences()->set( 'dismiss-notice', true );
-	}
+    private function get_preferences(): Preferences\Preference
+    {
+        return $this->preference_factory->create(
+            'check-promo-' . $this->get_individual_slug()
+        );
+    }
 
-	/**
-	 * @param Screen $screen
-	 */
-	public function display( Screen $screen ) {
-		if ( ! $this->promo->is_active()
-		     || ! current_user_can( Capabilities::MANAGE )
-		     || ! $screen->is_list_screen()
-		     || $this->get_preferences()->get( 'dismiss-notice' )
-		) {
-			return;
-		}
+    public function ajax_dismiss_notice(): void
+    {
+        $this->get_ajax_handler()->verify_request();
+        $this->get_preferences()->save('dismiss-notice', true);
+    }
 
-		$message = sprintf( __( 'Get %s now', 'codepress-admin-columns' ), '<strong>Admin Columns Pro</strong>' );
-		$message = sprintf( '%s! <a target="_blank" href="%s">%s</a>', $this->promo->get_title(), $this->promo->get_url()->get_url(), $message );
+    public function display(Screen $screen): void
+    {
+        if ( ! $this->promo->is_active()
+             || ! current_user_can(Capabilities::MANAGE)
+             || ! $screen->is_list_screen()
+             || $this->get_preferences()->find('dismiss-notice')
+        ) {
+            return;
+        }
 
-		$notice = new Dismissible( $message, $this->get_ajax_handler() );
-		$notice->register();
-	}
+        $message = sprintf(__('Get %s now', 'codepress-admin-columns'), '<strong>Admin Columns Pro</strong>');
+        $message = sprintf(
+            '%s! <a target="_blank" href="%s">%s</a>',
+            $this->promo->get_title(),
+            $this->promo->get_url()->get_url(),
+            $message
+        );
+
+        $notice = new Dismissible($message, $this->get_ajax_handler());
+        $notice->register();
+    }
 }

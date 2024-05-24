@@ -17,14 +17,14 @@ final class SiteOption implements KeyValuePair
         return get_site_option($this->key);
     }
 
-    public function save($value): bool
+    public function save($value): void
     {
-        return update_site_option($this->key, $value);
+        update_site_option($this->key, $value);
     }
 
-    public function delete(): bool
+    public function delete(): void
     {
-        return delete_site_option($this->key);
+        delete_site_option($this->key);
     }
 
     public function exists(): bool

@@ -9,8 +9,8 @@ interface KeyValuePair
 
     public function exists(): bool;
 
-    public function save($value): bool;
+    public function save($value): void;
 
-    public function delete(): bool;
+    public function delete(): void;
 
 }

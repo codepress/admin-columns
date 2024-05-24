@@ -17,14 +17,14 @@ final class Option implements KeyValuePair
         return get_option($this->key);
     }
 
-    public function save($value): bool
+    public function save($value): void
     {
-        return update_option($this->key, $value, false);
+        update_option($this->key, $value, false);
     }
 
-    public function delete(): bool
+    public function delete(): void
     {
-        return delete_option($this->key);
+        delete_option($this->key);
     }
 
     public function exists(): bool
