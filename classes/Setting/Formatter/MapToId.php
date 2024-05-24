@@ -22,6 +22,10 @@ class MapToId implements Formatter
     {
         $id_value = $this->formatter->format($value);
 
+        echo '<pre>';
+        print_r($id_value);
+        echo '</pre>';
+
         if ($id_value->get_value() && is_numeric($id_value->get_value())) {
             return new Value($id_value->get_value());
         }
