@@ -49,7 +49,7 @@ final class Screen implements Registerable
         ColumnSize\ListStorage $column_size_list_storage,
         ColumnSize\UserStorage $column_size_user_storage,
         PrimaryColumnFactory $primary_column_factory,
-        AC\Storage\EditButton $edit_button
+        AC\Settings\General\EditButton $edit_button
     ) {
         $this->location = $location;
         $this->list_screen = $list_screen;

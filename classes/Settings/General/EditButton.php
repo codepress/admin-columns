@@ -1,6 +1,8 @@
 <?php
 
-namespace AC\Storage;
+namespace AC\Settings\General;
+
+use AC\Storage\GeneralOption;
 
 class EditButton
 {

@@ -2,7 +2,7 @@
 
 namespace AC\Storage;
 
-class SiteOption implements KeyValuePair
+final class SiteOption implements KeyValuePair
 {
 
     protected $key;

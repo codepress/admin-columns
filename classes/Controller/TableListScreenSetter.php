@@ -9,7 +9,7 @@ use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Request;
-use AC\Storage\EditButton;
+use AC\Settings\General\EditButton;
 use AC\Table;
 use WP_Screen;
 

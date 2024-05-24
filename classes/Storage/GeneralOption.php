@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Storage;
 
-class GeneralOption
+final class GeneralOption
 {
 
     private const KEY = 'cpac_general_options';

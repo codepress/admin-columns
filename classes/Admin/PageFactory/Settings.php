@@ -24,7 +24,7 @@ class Settings implements PageFactoryInterface
         Location\Absolute $location,
         MenuFactoryInterface $menu_factory,
         bool $is_acp_active,
-        AC\Storage\EditButton $edit_button
+        AC\Settings\General\EditButton $edit_button
     ) {
         $this->location = $location;
         $this->menu_factory = $menu_factory;

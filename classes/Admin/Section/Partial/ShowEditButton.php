@@ -4,7 +4,7 @@ namespace AC\Admin\Section\Partial;
 
 use AC\Form\Element\Toggle;
 use AC\Renderable;
-use AC\Storage\EditButton;
+use AC\Settings\General\EditButton;
 use AC\View;
 
 class ShowEditButton implements Renderable

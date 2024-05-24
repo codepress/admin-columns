@@ -2,7 +2,7 @@
 
 namespace AC\Storage;
 
-class Option implements KeyValuePair
+final class Option implements KeyValuePair
 {
 
     protected $key;
