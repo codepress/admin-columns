@@ -9,6 +9,8 @@ abstract class Integration
 
     private $slug;
 
+    private $active;
+
     private $title;
 
     private $logo;
@@ -70,11 +72,6 @@ abstract class Integration
     public function get_link(): string
     {
         return $this->url->get_url();
-    }
-
-    public function get_plugin_link(): string
-    {
-        return $this->plugin_link->get_url();
     }
 
     /**

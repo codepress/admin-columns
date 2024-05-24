@@ -4,7 +4,7 @@ namespace AC\Admin\Section\Partial;
 
 use AC\Form\Element\Toggle;
 use AC\Renderable;
-use AC\Settings\Option\EditButton;
+use AC\Storage\EditButton;
 use AC\View;
 
 class ShowEditButton implements Renderable
@@ -12,9 +12,9 @@ class ShowEditButton implements Renderable
 
     private $option;
 
-    public function __construct()
+    public function __construct(EditButton $option)
     {
-        $this->option = new EditButton();
+        $this->option = $option;
     }
 
     private function get_label(): string
@@ -27,7 +27,11 @@ class ShowEditButton implements Renderable
 
     public function render(): string
     {
-        $toggle = new Toggle($this->option->get_name(), $this->get_label(), $this->option->is_enabled());
+        $toggle = new Toggle(
+            $this->option->get_name(),
+            $this->get_label(),
+            $this->option->is_enabled()
+        );
         $toggle->set_value('1');
         $toggle->set_attribute('data-ajax-setting', $this->option->get_name());
 

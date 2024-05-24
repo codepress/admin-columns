@@ -4,66 +4,50 @@ namespace AC\Storage;
 
 use LogicException;
 
-class UserMeta implements KeyValuePair {
+class UserMeta implements KeyValuePair
+{
 
-	const OPTION_SINGLE = 'single';
+    protected $user_id;
 
-	/**
-	 * @var int
-	 */
-	protected $user_id;
+    protected $key;
 
-	/**
-	 * @var string
-	 */
-	protected $key;
+    public function __construct(string $key, int $user_id = null)
+    {
+        if (null === $user_id) {
+            $user_id = get_current_user_id();
+        }
 
-	/**
-	 * @param int    $user_id
-	 * @param string $key
-	 *
-	 * @throws LogicException
-	 */
-	public function __construct( $key, $user_id = null ) {
-		if ( null === $user_id ) {
-			$user_id = get_current_user_id();
-		}
+        $this->user_id = $user_id;
+        $this->key = $key;
 
-		if ( ! preg_match( '/^[1-9][0-9]*$/', $user_id ) ) {
-			throw new LogicException( 'Storage cannot be initialized without a valid user id.' );
-		}
+        $this->validate();
+    }
 
-		$this->user_id = $user_id;
-		$this->key = $key;
-	}
+    private function validate(): void
+    {
+        if ($this->user_id < 0) {
+            throw new LogicException('Invalid user id.');
+        }
+    }
 
-	/**
-	 * @param array $args
-	 *
-	 * @return mixed
-	 */
-	public function get( array $args = [] ) {
-		$args = array_merge( [
-			self::OPTION_SINGLE => true,
-		], $args );
+    public function get()
+    {
+        return get_user_meta($this->user_id, $this->key, true);
+    }
 
-		return get_user_meta( $this->user_id, $this->key, $args[ self::OPTION_SINGLE ] );
-	}
+    public function save($value): bool
+    {
+        return (bool)update_user_meta($this->user_id, $this->key, $value);
+    }
 
-	/**
-	 * @param $value
-	 *
-	 * @return bool|int
-	 */
-	public function save( $value ) {
-		return update_user_meta( $this->user_id, $this->key, $value );
-	}
+    public function delete(): bool
+    {
+        return delete_user_meta($this->user_id, $this->key);
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function delete() {
-		return delete_user_meta( $this->user_id, $this->key );
-	}
+    public function exists(): bool
+    {
+        return false !== $this->get();
+    }
 
 }
