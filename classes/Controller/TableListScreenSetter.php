@@ -9,6 +9,7 @@ use AC\ListScreenFactory;
 use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Request;
+use AC\Storage\EditButton;
 use AC\Table;
 use WP_Screen;
 
@@ -25,18 +26,22 @@ class TableListScreenSetter implements Registerable
 
     private $primary_column_factory;
 
+    private $edit_button;
+
     public function __construct(
         Storage $storage,
         Absolute $location,
         ListScreenFactory $list_screen_factory,
         Table\LayoutPreference $preference,
-        Table\PrimaryColumnFactory $primary_column_factory
+        Table\PrimaryColumnFactory $primary_column_factory,
+        EditButton $edit_button
     ) {
         $this->storage = $storage;
         $this->list_screen_factory = $list_screen_factory;
         $this->location = $location;
         $this->preference = $preference;
         $this->primary_column_factory = $primary_column_factory;
+        $this->edit_button = $edit_button;
     }
 
     public function register(): void
@@ -72,7 +77,8 @@ class TableListScreenSetter implements Registerable
             $list_screen,
             new ColumnSize\ListStorage($this->storage),
             new ColumnSize\UserStorage(new ColumnSize\UserPreference()),
-            $this->primary_column_factory
+            $this->primary_column_factory,
+            $this->edit_button
         );
         $table_screen->register();
 
