@@ -5,44 +5,54 @@ declare(strict_types=1);
 namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
-use AC\Column;
-use AC\Column\CustomField;
-use AC\ColumnTypeCollection;
-use AC\MetaType;
+use AC\Collection;
+use AC\ColumnFactory;
+use AC\TableScreen;
+use AC\ThirdParty\MediaLibraryAssistant;
+use AC\Vendor\DI\Container;
 
-class ColumnTypesFactory implements AC\ColumnTypesFactory
+class ColumnTypesFactory implements AC\ColumnFactories
 {
 
-    public function create(AC\TableScreen $table_screen): ?ColumnTypeCollection
-    {
-        if ($table_screen instanceof TableScreen) {
-            $collection = ColumnTypeCollection::from_list([
-                Column\Actions::class,
-                Column\Post\Slug::class,
-                Column\Post\TitleRaw::class,
-                Column\Media\Album::class,
-                Column\Media\Artist::class,
-                Column\Post\Author::class,
-                Column\Media\AvailableSizes::class,
-                Column\Media\Date::class,
-                Column\Media\Dimensions::class,
-                Column\Media\ExifData::class,
-                Column\Media\FileMetaAudio::class,
-                Column\Media\FileMetaVideo::class,
-                Column\Media\FileSize::class,
-                Column\Media\Height::class,
-                Column\Media\Image::class,
-                Column\Media\Menu::class,
-                Column\Media\Preview::class,
-                Column\Media\Title::class,
-                Column\Media\VideoPlayer::class,
-                Column\Media\Width::class,
-            ]);
+    private $container;
 
-            $collection->add(new CustomField(new MetaType(MetaType::POST)));
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
+    public function create(TableScreen $table_screen): ?Collection\ColumnFactories
+    {
+        if ( ! $table_screen instanceof MediaLibraryAssistant\TableScreen) {
+            return null;
         }
 
-        return null;
+        //TODO add Actionfactory
+        //TODO add MenuFactory
+        $factories[] = $this->container->make(ColumnFactory\Post\SlugFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Post\TitleRawFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Post\AuthorFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\AlbumFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\ArtistFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\AvailableSizesFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\DimensionsFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\ExifDataFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\FileMetaAudioFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\FileMetaVideoFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\FileSizeFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\HeightFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\ImageFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\PreviewFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\VideoPlayerFactory::class);
+        $factories[] = $this->container->make(ColumnFactory\Media\WidthFactory::class);
+
+        $collection = new Collection\ColumnFactories();
+
+        foreach ($factories as $factory) {
+            $collection->add($factory->get_column_type(), $factory);
+        }
+
+        return $collection;
     }
 
 }

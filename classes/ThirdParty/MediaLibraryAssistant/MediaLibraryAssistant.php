@@ -4,9 +4,17 @@ namespace AC\ThirdParty\MediaLibraryAssistant;
 
 use AC;
 use AC\Registerable;
+use AC\Vendor\DI\Container;
 
 class MediaLibraryAssistant implements Registerable
 {
+
+    private $container;
+
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
 
     public function register(): void
     {
@@ -16,8 +24,7 @@ class MediaLibraryAssistant implements Registerable
 
         AC\TableScreenFactory\Aggregate::add(new TableScreenFactory());
         AC\ListKeysFactory\Aggregate::add(new ListKeysFactory());
-        // TODO
-        //AC\ColumnTypesFactory\Aggregate::add(new ColumnTypesFactory());
+        AC\ColumnFactories\Aggregate::add(new ColumnTypesFactory($this->container));
     }
 
 }
