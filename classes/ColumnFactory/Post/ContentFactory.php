@@ -11,6 +11,7 @@ use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
 use AC\Setting\Formatter\Post\PostContent;
+use AC\Setting\Formatter\StripTags;
 use AC\Setting\FormatterCollection;
 
 class ContentFactory extends BaseColumnFactory
@@ -55,6 +56,7 @@ class ContentFactory extends BaseColumnFactory
         FormatterCollection $formatters
     ): FormatterCollection {
         $formatters->add(new PostContent());
+        $formatters->add(new StripTags());
 
         return parent::get_formatters($components, $config, $formatters);
     }
