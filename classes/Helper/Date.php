@@ -83,7 +83,6 @@ class Date
         return wp_date($format, $timestamp, $timezone);
     }
 
-    // TODO remove
     public function timezone(): ?DateTimeZone
     {
         return wp_timezone();
