@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting;
 
+use AC\Setting\Control\Input\Custom;
 use AC\Setting\Control\Input\Number;
 use AC\Setting\Control\Input\Open;
 use AC\Setting\Control\Input\Option;
@@ -11,6 +12,7 @@ use AC\Setting\Control\OptionCollection;
 
 final class Encoder
 {
+
     private ComponentCollection $settings;
 
     public function __construct(ComponentCollection $settings)
@@ -92,6 +94,10 @@ final class Encoder
                 if ($input->has_step()) {
                     $encoded['input']['step'] = $input->get_step();
                 }
+            }
+
+            if ($input instanceof Custom) {
+                $encoded['input']['data'] = $input->get_data();
             }
         }
 

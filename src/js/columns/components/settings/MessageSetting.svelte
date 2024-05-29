@@ -1,17 +1,16 @@
 <script lang="ts">
-    import ColumnSetting from "../ColumnSetting.svelte";
     import {onMount} from "svelte";
 
     export let config: any;
 
-    onMount( () => {
-        console.log( config )
-	})
+    onMount(() => {
+
+    })
 </script>
 <style>
 	.ac-setting-message {
-		padding: 10px 0;
+		padding: 5px 0;
 	}
 </style>
 
-	<div class="ac-setting-message">{@html config.input.data.message}</div>
+<div class="ac-setting-message">{@html config.input.data.message}</div>

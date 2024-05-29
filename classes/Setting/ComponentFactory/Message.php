@@ -27,7 +27,7 @@ class Message extends Builder
     protected function get_input(Config $config): ?Input
     {
         return new Input\Custom('message', null, [
-            $this->message,
-        ])
+            'message' => $this->message,
+        ]);
     }
 }
