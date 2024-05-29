@@ -18,8 +18,14 @@ class FileSize implements Formatter
             return new Value(null);
         }
 
+        $file_size = filesize($file);
+
+        if ($file_size <= 0) {
+            return new Value(null);
+        }
+
         return $value->with_value(
-            ac_helper()->file->get_readable_filesize(filesize($file))
+            ac_helper()->file->get_readable_filesize($file_size)
         );
     }
 

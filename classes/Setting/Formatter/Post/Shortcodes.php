@@ -24,7 +24,7 @@ class Shortcodes implements Formatter
             $string = '[' . $sc . ']';
 
             if ($count > 1) {
-                $string .= ac_helper()->html->rounded($count);
+                $string .= ac_helper()->html->rounded((string)$count);
             }
 
             $display[$sc] = '<span class="ac-spacing">' . $string . '</span>';

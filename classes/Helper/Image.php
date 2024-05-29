@@ -8,32 +8,19 @@ use DOMElement;
 class Image
 {
 
-    /**
-     * Resize image
-     *
-     * @param string      $file
-     * @param int         $max_w
-     * @param int         $max_h
-     * @param bool        $crop
-     * @param null|string $suffix
-     * @param null|string $dest_path
-     * @param int         $jpeg_quality
-     *
-     * @return false|string
-     */
     public function resize(
-        $file,
-        $max_w,
-        $max_h,
-        $crop = false,
-        $suffix = null,
-        $dest_path = null,
-        $jpeg_quality = 90
-    ) {
+        string $file,
+        int $max_w,
+        int $max_h,
+        bool $crop = false,
+        string $suffix = null,
+        string $dest_path = null,
+        int $jpeg_quality = 90
+    ): ?string {
         $editor = wp_get_image_editor($file);
 
         if (is_wp_error($editor)) {
-            return false;
+            return null;
         }
 
         $editor->set_quality($jpeg_quality);
@@ -41,14 +28,14 @@ class Image
         $resized = $editor->resize($max_w, $max_h, $crop);
 
         if (is_wp_error($resized)) {
-            return false;
+            return null;
         }
 
         $dest_file = $editor->generate_filename($suffix, $dest_path);
         $saved = $editor->save($dest_file);
 
         if (is_wp_error($saved)) {
-            return false;
+            return null;
         }
 
         return $dest_file;
@@ -139,18 +126,17 @@ class Image
         return preg_match('/-[0-9]+x[0-9]+$/', $fileinfo['filename']);
     }
 
-    /**
-     * @param string       $url
-     * @param array|string $size
-     *
-     * @return string
-     */
-    public function get_image_by_url($url, $size)
+    // TODO test
+    public function get_image_by_url(string $url, $size): string
     {
         $dimensions = [60, 60];
 
-        if (is_string($size) && ($sizes = $this->get_image_sizes_by_name($size))) {
-            $dimensions = [$sizes['width'], $sizes['height']];
+        if (is_string($size)) {
+            $sizes = $this->get_image_sizes_by_name($size);
+
+            if ($sizes) {
+                $dimensions = [$sizes['width'], $sizes['height']];
+            }
         } elseif (is_array($size)) {
             $dimensions = $size;
         }
@@ -159,15 +145,19 @@ class Image
 
         if (is_file($image_path)) {
             // try to resize image if it is not already resized
-            if ( ! $this->is_resized_image($image_path) && ($resized = $this->resize(
+            if ( ! $this->is_resized_image($image_path)) {
+                $resized = $this->resize(
                     $image_path,
                     $dimensions[0],
                     $dimensions[1],
                     true
-                ))) {
-                $src = str_replace(WP_CONTENT_DIR, WP_CONTENT_URL, $resized);
+                );
 
-                return $this->markup($src, $dimensions[0], $dimensions[1]);
+                if ($resized) {
+                    $src = str_replace(WP_CONTENT_DIR, WP_CONTENT_URL, $resized);
+
+                    return $this->markup($src, $dimensions[0], $dimensions[1]);
+                }
             }
 
             return $this->markup($url, $dimensions[0], $dimensions[1]);
@@ -209,17 +199,13 @@ class Image
      *
      * @return string
      */
-    public function get_image($image, $size = 'thumbnail', $skip_image_check = false)
+    // TODO
+    public function get_image($image, $size = 'thumbnail', bool $skip_image_check = false)
     {
         return implode($this->get_images($image, $size, $skip_image_check));
     }
 
-    /**
-     * @param string $name
-     *
-     * @return array Image sizes
-     */
-    public function get_image_sizes_by_name($name)
+    public function get_image_sizes_by_name(string $name): array
     {
         $available_sizes = wp_get_additional_image_sizes();
 
@@ -240,33 +226,23 @@ class Image
         return $sizes;
     }
 
-    /**
-     * @param int $attachment_id
-     *
-     * @return bool|string
-     */
-    public function get_file_name($attachment_id)
+    public function get_file_name(int $attachment_id): ?string
     {
         $file = get_post_meta($attachment_id, '_wp_attached_file', true);
 
         if ( ! $file) {
-            return false;
+            return null;
         }
 
         return basename($file);
     }
 
-    /**
-     * @param int $attachment_id
-     *
-     * @return string File extension
-     */
-    public function get_file_extension($attachment_id)
+    public function get_file_extension(int $attachment_id): string
     {
-        return pathinfo($this->get_file_name($attachment_id), PATHINFO_EXTENSION);
+        return (string)pathinfo($this->get_file_name($attachment_id), PATHINFO_EXTENSION);
     }
 
-    private function get_file_tooltip_attr($media_id)
+    private function get_file_tooltip_attr(int $media_id): string
     {
         return ac_helper()->html->get_tooltip_attr($this->get_file_name($media_id));
     }
@@ -285,7 +261,7 @@ class Image
         return ob_get_clean();
     }
 
-    private function markup($src, $width, $height, $media_id = null, $add_extension = false, $class = '')
+    private function markup($src, $width, $height, $media_id = null, $add_extension = false, string $class = '')
     {
         if ($media_id && ! wp_attachment_is_image($media_id)) {
             $class = ' ac-icon';
@@ -306,7 +282,7 @@ class Image
             $media_id
         ); ?>" <?= $this->get_file_tooltip_attr($media_id) ?>>
 			<img style="<?= ac_helper()->html->get_style_attributes_as_string($image_attributes) ?>"
-				src="<?= esc_attr($src) ?>" alt="">
+					src="<?= esc_attr($src) ?>" alt="">
 
 			<?php
             if ($add_extension) : ?>
@@ -322,40 +298,30 @@ class Image
 
     /**
      * Return dimensions and file type
-     *
-     * @param string $url
-     *
-     * @return false|array
-     * @see filesize
      */
-    public function get_local_image_info($url)
+    public function get_local_image_info(string $url): ?array
     {
         $path = $this->get_local_image_path($url);
 
         if ( ! $path) {
-            return false;
+            return null;
         }
 
         return getimagesize($path);
     }
 
-    /**
-     * @param string $url
-     *
-     * @return false|string
-     */
-    public function get_local_image_path($url)
+    public function get_local_image_path(string $url): ?string
     {
         $path = str_replace(WP_CONTENT_URL, WP_CONTENT_DIR, $url);
 
         if ( ! file_exists($path)) {
-            return false;
+            return null;
         }
 
         return $path;
     }
 
-    public function get_local_image_size($url): ?int
+    public function get_local_image_size(string $url): ?int
     {
         $path = $this->get_local_image_path($url);
 
@@ -364,12 +330,7 @@ class Image
             : null;
     }
 
-    /**
-     * @param string $string
-     *
-     * @return array
-     */
-    public function get_image_urls_from_string($string): array
+    public function get_image_urls_from_string(string $string): array
     {
         if ( ! $string) {
             return [];

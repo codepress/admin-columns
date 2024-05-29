@@ -55,7 +55,7 @@ class FileMetaAudio extends FileMeta implements Formatter
                     )
                     : $value;
             case 'filesize':
-                return $value->with_value(ac_helper()->file->get_readable_filesize($value->get_value()));
+                return $value->with_value(ac_helper()->file->get_readable_filesize((int)$value->get_value()));
             case 'length':
                 return $value->get_value() > 0
                     ? $value->with_value(

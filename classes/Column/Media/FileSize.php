@@ -19,7 +19,7 @@ class FileSize extends Column
         $abs = get_attached_file($id);
 
         if (file_exists($abs)) {
-            $value = ac_helper()->file->get_readable_filesize(filesize($abs));
+            $value = ac_helper()->file->get_readable_filesize((int)filesize($abs));
         }
 
         return $value;
