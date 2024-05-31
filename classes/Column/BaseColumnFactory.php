@@ -68,9 +68,8 @@ abstract class BaseColumnFactory implements ColumnFactory
         return $collection;
     }
 
-    protected function get_formatters(
+    protected function get_component_formatters(
         ComponentCollection $components,
-        Config $config,
         FormatterCollection $formatters
     ): FormatterCollection {
         foreach ($components as $component) {
@@ -80,6 +79,14 @@ abstract class BaseColumnFactory implements ColumnFactory
         }
 
         return $formatters;
+    }
+
+    protected function get_formatters(
+        ComponentCollection $components,
+        Config $config,
+        FormatterCollection $formatters
+    ): FormatterCollection {
+        return $this->get_component_formatters($components, $formatters);
     }
 
     abstract public function get_column_type(): string;
