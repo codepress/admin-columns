@@ -19,7 +19,6 @@ final class MediaLibraryAssistant extends Integration
                 'The Media Library Assistant plugin from David Lingren provides several enhancements for managing the Media Library.',
                 'codepress-admin-columns'
             ),
-            null,
             new Site(Site::PAGE_ADDONS)
         );
     }

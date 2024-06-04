@@ -11,7 +11,7 @@ class AddonStatus extends View
     public function __construct(Integration $integration)
     {
         parent::__construct([
-            'url'   => $integration->get_link(),
+            'url'   => (string)$integration->get_url(),
             'class' => '-pink',
         ]);
 

@@ -3,7 +3,6 @@
 namespace AC\Integration;
 
 use AC\Integration;
-use AC\ListScreen;
 use AC\Screen;
 use AC\Type\Url\Site;
 
@@ -27,7 +26,6 @@ final class WooCommerce extends Integration
                     'codepress-admin-columns'
                 )
             ),
-            null,
             new Site(Site::PAGE_ADDON_WOOCOMMERCE)
         );
     }
@@ -51,14 +49,6 @@ final class WooCommerce extends Integration
         $is_user_screen = 'users' === $screen->get_id();
         $is_post_screen = 'edit' === $screen->get_base()
                           && in_array($screen->get_post_type(), $this->get_post_types());
-
-        return $is_user_screen || $is_post_screen;
-    }
-
-    public function show_placeholder(ListScreen $list_screen): bool
-    {
-        $is_user_screen = $list_screen instanceof ListScreen\User;
-        $is_post_screen = in_array($list_screen->get_post_type(), $this->get_post_types());
 
         return $is_user_screen || $is_post_screen;
     }

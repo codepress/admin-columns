@@ -29,7 +29,6 @@ final class MetaBox extends Integration
                     __('Meta Box', 'codepress-admin-columns')
                 )
             ),
-            null,
             new Site(Site::PAGE_ADDON_METABOX)
         );
     }

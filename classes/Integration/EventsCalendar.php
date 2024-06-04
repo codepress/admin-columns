@@ -3,7 +3,6 @@
 namespace AC\Integration;
 
 use AC\Integration;
-use AC\ListScreen;
 use AC\Screen;
 use AC\Type\Url\Site;
 
@@ -27,7 +26,6 @@ final class EventsCalendar extends Integration
                     'codepress-admin-columns'
                 )
             ),
-            null,
             new Site(Site::PAGE_ADDON_EVENTS_CALENDAR)
         );
     }
@@ -49,12 +47,7 @@ final class EventsCalendar extends Integration
     public function show_notice(Screen $screen): bool
     {
         return 'edit' === $screen->get_base()
-               && in_array($screen->get_post_type(), $this->get_post_types());
-    }
-
-    public function show_placeholder(ListScreen $list_screen): bool
-    {
-        return in_array($list_screen->get_post_type(), $this->get_post_types());
+               && in_array($screen->get_post_type(), $this->get_post_types(), true);
     }
 
 }

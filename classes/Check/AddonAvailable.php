@@ -66,7 +66,7 @@ final class AddonAvailable
 
         $link = sprintf(
             '<a href="%s">%s</a>',
-            'https://www.admincolumns.com',
+            $this->integration->get_url(),
             __('Get Admin Columns Pro', 'codepress-admin-columns')
         );
         $message = sprintf('%s %s', $support_text, $link);

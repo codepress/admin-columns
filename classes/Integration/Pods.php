@@ -29,7 +29,6 @@ final class Pods extends Integration
                     __('Pods', 'codepress-admin-columns')
                 )
             ),
-            null,
             new Site(Site::PAGE_ADDON_PODS)
         );
     }

@@ -29,7 +29,6 @@ final class YoastSeo extends Integration
                     __('Yoast SEO', 'codepress-admin-columns')
                 )
             ),
-            null,
             new Site(Site::PAGE_ADDON_YOAST_SEO)
         );
     }
@@ -41,10 +40,14 @@ final class YoastSeo extends Integration
 
     public function show_notice(Screen $screen): bool
     {
-        return in_array($screen->get_id(), [
-            'toplevel_page_wpseo_dashboard',
-            'seo_page_wpseo_titles',
-        ]);
+        return in_array(
+            $screen->get_id(),
+            [
+                'toplevel_page_wpseo_dashboard',
+                'seo_page_wpseo_titles',
+            ],
+            true
+        );
     }
 
 }
