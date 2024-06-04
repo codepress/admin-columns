@@ -33,7 +33,7 @@ class Placeholder extends Column
 			<strong>
                 <?php
                 printf(
-                    __("The %s integration is available in Admin Columns Pro.", 'codepress-admin-columns'),
+                    __("The %s integration is available in Admin Columns Pro", 'codepress-admin-columns'),
                     sprintf('<em>%s</em>', $this->get_label())
                 ); ?>
 			</strong>
