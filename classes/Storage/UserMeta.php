@@ -28,6 +28,9 @@ class UserMeta implements KeyValuePair
         if ($this->user_id < 0) {
             throw new LogicException('Invalid user id.');
         }
+        if ('' === $this->key) {
+            throw new LogicException('Invalid key.');
+        }
     }
 
     public function get()
