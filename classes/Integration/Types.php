@@ -3,6 +3,7 @@
 namespace AC\Integration;
 
 use AC\Integration;
+use AC\ListScreen;
 use AC\Screen;
 use AC\Type\Url\Site;
 
@@ -48,6 +49,11 @@ final class Types extends Integration
             ],
             true
         );
+    }
+
+    public function show_placeholder(ListScreen $list_screen): bool
+    {
+        return true;
     }
 
 }

@@ -3,6 +3,7 @@
 namespace AC\Integration;
 
 use AC\Integration;
+use AC\ListScreen;
 use AC\Screen;
 use AC\Type\Url\Site;
 
@@ -38,6 +39,11 @@ final class BuddyPress extends Integration
     public function show_notice(Screen $screen): bool
     {
         return 'users' === $screen->get_id();
+    }
+
+    public function show_placeholder(ListScreen $list_screen): bool
+    {
+        return $list_screen instanceof ListScreen\User;
     }
 
 }

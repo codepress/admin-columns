@@ -34,6 +34,8 @@ abstract class Integration
 
     abstract public function is_plugin_active(): bool;
 
+    abstract public function show_placeholder(ListScreen $list_screen): bool;
+
     abstract public function show_notice(Screen $screen): bool;
 
     public function get_slug(): string

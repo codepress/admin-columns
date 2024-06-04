@@ -3,6 +3,7 @@
 namespace AC\Integration;
 
 use AC\Integration;
+use AC\ListScreen;
 use AC\Screen;
 use AC\Type\Url\Site;
 
@@ -29,6 +30,11 @@ final class MediaLibraryAssistant extends Integration
     }
 
     public function show_notice(Screen $screen): bool
+    {
+        return false;
+    }
+
+    public function show_placeholder(ListScreen $list_screen): bool
     {
         return false;
     }

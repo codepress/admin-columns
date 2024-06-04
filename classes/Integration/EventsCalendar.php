@@ -3,6 +3,7 @@
 namespace AC\Integration;
 
 use AC\Integration;
+use AC\ListScreen;
 use AC\Screen;
 use AC\Type\Url\Site;
 
@@ -48,6 +49,11 @@ final class EventsCalendar extends Integration
     {
         return 'edit' === $screen->get_base()
                && in_array($screen->get_post_type(), $this->get_post_types(), true);
+    }
+
+    public function show_placeholder(ListScreen $list_screen): bool
+    {
+        return in_array($list_screen->get_post_type(), $this->get_post_types(), true);
     }
 
 }
