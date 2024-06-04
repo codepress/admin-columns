@@ -210,7 +210,7 @@ You can find a list of the available actions and filters (and examples on how to
 == Changelog ==
 
 = 4.7.6 =
-Release Date: May 4th, 2024
+Release Date: June 4th, 2024
 
 * [Fixed] Custom Field column with Post as Display value could give an error
 
