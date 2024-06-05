@@ -50,7 +50,7 @@ final class Aggregate implements Formatter
 
         if ($formatted_value instanceof ValueCollection) {
             $formatter = new Formatter\Collection\Separator();
-            $formatted_value = $value->with_value($formatter->format($formatted_value));
+            $formatted_value = $value->with_value($formatter->format($formatted_value)->get_value());
         }
 
         return $formatted_value;
