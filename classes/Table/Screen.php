@@ -11,7 +11,6 @@ use AC\ListScreen;
 use AC\Registerable;
 use AC\Renderable;
 use AC\ScreenController;
-use AC\Settings;
 
 final class Screen implements Registerable
 {
@@ -36,30 +35,28 @@ final class Screen implements Registerable
      */
     private $buttons = [];
 
-    /**
-     * @var ColumnSize\ListStorage
-     */
     private $column_size_list_storage;
 
-    /**
-     * @var ColumnSize\UserStorage
-     */
     private $column_size_user_storage;
 
     private $primary_column_factory;
+
+    private $edit_button;
 
     public function __construct(
         Asset\Location\Absolute $location,
         ListScreen $list_screen,
         ColumnSize\ListStorage $column_size_list_storage,
         ColumnSize\UserStorage $column_size_user_storage,
-        PrimaryColumnFactory $primary_column_factory
+        PrimaryColumnFactory $primary_column_factory,
+        AC\Settings\General\EditButton $edit_button
     ) {
         $this->location = $location;
         $this->list_screen = $list_screen;
         $this->column_size_list_storage = $column_size_list_storage;
         $this->column_size_user_storage = $column_size_user_storage;
         $this->primary_column_factory = $primary_column_factory;
+        $this->edit_button = $edit_button;
     }
 
     /**
@@ -133,9 +130,7 @@ final class Screen implements Registerable
             return;
         }
 
-        $edit_button = new Settings\Option\EditButton();
-
-        if ( ! $edit_button->is_enabled()) {
+        if ( ! $this->edit_button->is_enabled()) {
             return;
         }
 
@@ -147,9 +142,6 @@ final class Screen implements Registerable
         $this->register_button($button, 1);
     }
 
-    /**
-     * @since 2.2.4
-     */
     public function admin_scripts()
     {
         $style = new Asset\Style('ac-table', $this->location->with_suffix('assets/css/table.css'), ['ac-ui']);

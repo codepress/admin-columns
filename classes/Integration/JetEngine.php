@@ -3,8 +3,8 @@
 namespace AC\Integration;
 
 use AC\Integration;
+use AC\ListScreen;
 use AC\Screen;
-use AC\Type\Url\External;
 use AC\Type\Url\Site;
 
 final class JetEngine extends Integration
@@ -24,7 +24,6 @@ final class JetEngine extends Integration
                     'codepress-admin-columns'
                 )
             ),
-            new External('https://crocoblock.com/plugins/jetengine/'),
             new Site(Site::PAGE_ADDON_JETENGINE)
         );
     }
@@ -36,13 +35,22 @@ final class JetEngine extends Integration
 
     public function show_notice(Screen $screen): bool
     {
-        return in_array($screen->get_id(), [
-            'toplevel_page_jet-engine',
-            'jetengine_page_jet-engine-meta',
-            'jetengine_page_jet-engine-cpt',
-            'jetengine_page_jet-engine-cpt-tax',
-            'jetengine_page_jet-engine-relations',
-        ]);
+        return in_array(
+            $screen->get_id(),
+            [
+                'toplevel_page_jet-engine',
+                'jetengine_page_jet-engine-meta',
+                'jetengine_page_jet-engine-cpt',
+                'jetengine_page_jet-engine-cpt-tax',
+                'jetengine_page_jet-engine-relations',
+            ],
+            true
+        );
+    }
+
+    public function show_placeholder(ListScreen $list_screen): bool
+    {
+        return true;
     }
 
 }

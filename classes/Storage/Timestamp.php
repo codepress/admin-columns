@@ -8,9 +8,6 @@ use LogicException;
 final class Timestamp implements Expirable
 {
 
-    /**
-     * @var KeyValuePair
-     */
     private $storage;
 
     public function __construct(KeyValuePair $storage)
@@ -27,38 +24,22 @@ final class Timestamp implements Expirable
         return $value > (int)$this->get();
     }
 
-    /**
-     * @param int $value
-     *
-     * @return bool
-     */
-    public function validate($value)
+    public function validate(int $value): bool
     {
-        return preg_match('/^[1-9]\d*$/', $value);
+        return $value > 0;
     }
 
-    /**
-     * @param array $args
-     *
-     * @return mixed
-     */
-    public function get(array $args = [])
+    public function get()
     {
-        return $this->storage->get($args);
+        return $this->storage->get();
     }
 
-    public function delete()
+    public function delete(): bool
     {
         return $this->storage->delete();
     }
 
-    /**
-     * @param int $value
-     *
-     * @return bool
-     * @throws LogicException
-     */
-    public function save($value)
+    public function save(int $value): bool
     {
         if ( ! $this->validate($value)) {
             throw new LogicException('Value needs to be a positive integer.');

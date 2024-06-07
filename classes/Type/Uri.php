@@ -24,17 +24,6 @@ class Uri implements Url
         return new self(add_query_arg($key, $value, $this->url));
     }
 
-    public function with_args(array $args): self
-    {
-        $url = new self($this->url);
-
-        foreach ($args as $key => $value) {
-            $url = $this->with_arg($key, $value);
-        }
-
-        return $url;
-    }
-
     public function get_url(): string
     {
         return $this->url;

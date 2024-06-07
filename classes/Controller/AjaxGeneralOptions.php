@@ -6,55 +6,49 @@ use AC\Ajax;
 use AC\Capabilities;
 use AC\Registerable;
 use AC\Request;
-use AC\Settings\GeneralOption;
+use AC\Storage\GeneralOption;
 
-class AjaxGeneralOptions implements Registerable {
+class AjaxGeneralOptions implements Registerable
+{
 
-	/**
-	 * @var GeneralOption
-	 */
-	private $general_option;
+    private $storage;
 
-	public function __construct( GeneralOption $general_option ) {
-		$this->general_option = $general_option;
-	}
-
-	public function register(): void
+    public function __construct(GeneralOption $storage)
     {
-		$this->get_ajax_handler()->register();
-	}
+        $this->storage = $storage;
+    }
 
-	/**
-	 * @return Ajax\Handler
-	 */
-	private function get_ajax_handler() {
-		$handler = new Ajax\Handler();
-		$handler
-			->set_action( 'ac_admin_general_options' )
-			->set_callback( [ $this, 'handle_request' ] );
+    public function register(): void
+    {
+        $this->get_ajax_handler()->register();
+    }
 
-		return $handler;
-	}
+    private function get_ajax_handler(): Ajax\Handler
+    {
+        $handler = new Ajax\Handler();
+        $handler
+            ->set_action('ac_admin_general_options')
+            ->set_callback([$this, 'handle_request']);
 
-	public function handle_request() {
-		$this->get_ajax_handler()->verify_request();
+        return $handler;
+    }
 
-		if ( ! current_user_can( Capabilities::MANAGE ) ) {
-			exit;
-		}
+    public function handle_request()
+    {
+        $this->get_ajax_handler()->verify_request();
 
-		$request = new Request();
+        if ( ! current_user_can(Capabilities::MANAGE)) {
+            exit;
+        }
 
-		$name = (string) $request->filter( 'option_name' );
-		$value = (string) $request->filter( 'option_value' );
+        $request = new Request();
 
-		$options = $this->general_option->get();
+        $name = (string)$request->filter('option_name');
+        $value = (string)$request->filter('option_value');
 
-		$options[ $name ] = $value;
+        $this->storage->save($name, $value);
 
-		$this->general_option->save( $options );
-
-		exit;
-	}
+        exit;
+    }
 
 }

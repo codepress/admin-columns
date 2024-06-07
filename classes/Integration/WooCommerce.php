@@ -27,7 +27,6 @@ final class WooCommerce extends Integration
                     'codepress-admin-columns'
                 )
             ),
-            null,
             new Site(Site::PAGE_ADDON_WOOCOMMERCE)
         );
     }
@@ -58,7 +57,7 @@ final class WooCommerce extends Integration
     public function show_placeholder(ListScreen $list_screen): bool
     {
         $is_user_screen = $list_screen instanceof ListScreen\User;
-        $is_post_screen = in_array($list_screen->get_post_type(), $this->get_post_types());
+        $is_post_screen = in_array($list_screen->get_post_type(), $this->get_post_types(), true);
 
         return $is_user_screen || $is_post_screen;
     }

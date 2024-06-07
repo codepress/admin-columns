@@ -27,7 +27,6 @@ final class BuddyPress extends Integration
                     'codepress-admin-columns'
                 )
             ),
-            null,
             new Site(Site::PAGE_ADDON_BUDDYPRESS)
         );
     }

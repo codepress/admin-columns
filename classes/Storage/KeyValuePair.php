@@ -2,25 +2,15 @@
 
 namespace AC\Storage;
 
-interface KeyValuePair {
+interface KeyValuePair
+{
 
-	/**
-	 * @param array $args
-	 *
-	 * @return mixed
-	 */
-	public function get( array $args = [] );
+    public function get();
 
-	/**
-	 * @param mixed $value
-	 *
-	 * @return bool
-	 */
-	public function save( $value );
+    public function exists(): bool;
 
-	/**
-	 * @return bool
-	 */
-	public function delete();
+    public function save($value): bool;
+
+    public function delete(): bool;
 
 }

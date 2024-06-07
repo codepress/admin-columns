@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AC\Admin\Colors;
 
 use AC\Admin\Colors\Storage\OptionFactory;
 use AC\Admin\Colors\Type\Color;
-use AC\Storage\Option;
 
 final class ColorRepository implements ColorReader
 {
@@ -38,9 +38,7 @@ final class ColorRepository implements ColorReader
         if (null === $this->colors) {
             $this->colors = new ColorCollection();
 
-            $data = $this->storage->get([
-                Option::OPTION_DEFAULT => [],
-            ]);
+            $data = $this->storage->get() ?: [];
 
             foreach ($data as $name => $color) {
                 $this->colors->add(new Color($color, $name));

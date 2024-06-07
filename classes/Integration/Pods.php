@@ -3,6 +3,7 @@
 namespace AC\Integration;
 
 use AC\Integration;
+use AC\ListScreen;
 use AC\Screen;
 use AC\Type\Url\Site;
 
@@ -29,7 +30,6 @@ final class Pods extends Integration
                     __('Pods', 'codepress-admin-columns')
                 )
             ),
-            null,
             new Site(Site::PAGE_ADDON_PODS)
         );
     }
@@ -41,10 +41,19 @@ final class Pods extends Integration
 
     public function show_notice(Screen $screen): bool
     {
-        return in_array($screen->get_id(), [
-            'toplevel_page_pods',
-            'pods-admin_page_pods-settings',
-        ]);
+        return in_array(
+            $screen->get_id(),
+            [
+                'toplevel_page_pods',
+                'pods-admin_page_pods-settings',
+            ],
+            true
+        );
+    }
+
+    public function show_placeholder(ListScreen $list_screen): bool
+    {
+        return true;
     }
 
 }

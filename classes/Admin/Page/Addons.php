@@ -65,14 +65,16 @@ class Addons implements Enqueueables, Renderable, RenderableHead
                     <?php
                     foreach ($group['integrations'] as $addon) {
                         $actions = $this->render_actions($addon);
-                        /* @var AC\Integration $addon */
+                        /**
+                         * @var AC\Integration $addon
+                         */
 
                         $view = new AC\View([
                             'logo'        => Container::get_location()->with_suffix($addon->get_logo())->get_url(),
                             'title'       => $addon->get_title(),
                             'slug'        => $addon->get_slug(),
                             'description' => $addon->get_description(),
-                            'link'        => $addon->get_link(),
+                            'link'        => (string)$addon->get_url(),
                             'actions'     => $actions ? $actions->render() : null,
                         ]);
 

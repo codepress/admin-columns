@@ -3,6 +3,7 @@
 namespace AC;
 
 use AC\Type\Url;
+use AC\Type\Url\UtmTags;
 
 abstract class Integration
 {
@@ -13,37 +14,27 @@ abstract class Integration
 
     private $logo;
 
-    private $url;
-
-    private $plugin_link;
-
     private $description;
+
+    private $url;
 
     public function __construct(
         string $slug,
         string $title,
         string $logo,
         string $description,
-        Url $plugin_link = null,
-        Url $url = null
+        Url $url
     ) {
-        if (null === $plugin_link) {
-            $plugin_link = new Url\PluginSearch($title);
-        }
-
-        if (null === $url) {
-            $url = new Url\UtmTags(new Url\Site(Url\Site::PAGE_PRICING), 'addon', $slug);
-        }
-
         $this->slug = $slug;
         $this->title = $title;
         $this->logo = $logo;
         $this->description = $description;
-        $this->plugin_link = $plugin_link;
-        $this->url = $url;
+        $this->url = new UtmTags($url, 'addon', $slug);
     }
 
     abstract public function is_plugin_active(): bool;
+
+    abstract public function show_placeholder(ListScreen $list_screen): bool;
 
     abstract public function show_notice(Screen $screen): bool;
 
@@ -67,22 +58,9 @@ abstract class Integration
         return $this->description;
     }
 
-    public function get_link(): string
+    public function get_url(): Url
     {
-        return $this->url->get_url();
-    }
-
-    public function get_plugin_link(): string
-    {
-        return $this->plugin_link->get_url();
-    }
-
-    /**
-     * Determines when the placeholder column is shown for a particular list screen.
-     */
-    public function show_placeholder(ListScreen $list_screen): bool
-    {
-        return true;
+        return $this->url;
     }
 
 }

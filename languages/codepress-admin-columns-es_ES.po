@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-06-08 11:23:19+0000\n"
+"PO-Revision-Date: 2024-06-02 11:22:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -226,7 +226,7 @@ msgstr "Audio"
 
 #: classes/ColumnGroups.php:18
 msgid "Video"
-msgstr "Video"
+msgstr "Vídeo"
 
 #: classes/ColumnGroups.php:16
 msgid "Meta"

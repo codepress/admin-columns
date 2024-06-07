@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Admin Columns - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-02-19 12:06:50+0000\n"
+"PO-Revision-Date: 2024-05-18 14:36:53+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,259 +14,259 @@ msgstr ""
 #: templates/tooltip/conditional-format.php:3
 msgctxt "conditional format help"
 msgid "Conditional Format allows you to format a value based on conditions you set."
-msgstr ""
+msgstr "Koşullu biçim, bir değeri belirlediğiniz koşullara göre biçimlendirmenize olanak tanır."
 
 #: templates/tooltip/conditional-format.php:1
 msgid "Conditional Format"
-msgstr ""
+msgstr "Koşullu biçim"
 
 #: settings/translations/global.php:6
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #: settings/translations/global.php:5
 msgid "Ok"
-msgstr ""
+msgstr "Tamam"
 
 #: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:17
 msgid "Assistant"
-msgstr ""
+msgstr "Asistan"
 
 #: classes/Settings/Column/Separator.php:27
 msgid "Horizontal Rule"
-msgstr ""
+msgstr "Yatay çizgi"
 
 #: classes/Integration/MediaLibraryAssistant.php:16
 msgid "The Media Library Assistant plugin from David Lingren provides several enhancements for managing the Media Library."
-msgstr ""
+msgstr "David Lingren'in Media Library Assistant eklentisi, ortam kütüphanesini yönetmek için çeşitli geliştirmeler sağlıyor."
 
 #: classes/Integration/MediaLibraryAssistant.php:14
 #: classes/ThirdParty/MediaLibraryAssistant/ListScreen/MediaLibrary.php:16
 msgid "Media Library Assistant"
-msgstr ""
+msgstr "Media Library Assistant"
 
 #: classes/Controller/AjaxColumnModalValue.php:50
 #: classes/Controller/AjaxColumnValue.php:48
 msgid "Invalid list ID."
-msgstr ""
+msgstr "Geçersiz liste kimliği."
 
 #: classes/Column/Placeholder.php:47
 msgid "Admin Columns Pro offers full support for %s, allowing you to easily manage %s fields for your overviews."
-msgstr ""
+msgstr "Admin Columns Pro, %s için tam destek sunarak genel bakış ekranları için %s alanlarını kolayca yönetmenizi sağlar."
 
 #: classes/Column/Placeholder.php:44
 msgid "%s support is only available in Admin Columns Pro."
-msgstr ""
+msgstr "%s desteği yalnızca Admin Columns Pro'da mevcuttur."
 
 #: classes/Check/AddonAvailable.php:76
 msgid "Did you know Admin Columns Pro has full support for %s?"
-msgstr ""
+msgstr "Admin Columns Pro'nun %s için tam desteğe sahip olduğunu biliyor muydunuz?"
 
 #: templates/tooltip/sorting-include-empty.php:17
 msgid "Read more &raquo;"
-msgstr ""
+msgstr "DEVAMINI OKU &raquo;"
 
 #: templates/tooltip/sorting-include-empty.php:12
 msgid "By enabling this setting the sorting results will include empty values."
-msgstr ""
+msgstr "Bu ayar etkinleştirildiğinde, sıralama sonuçları boş değerleri içerecektir."
 
 #: templates/admin/list-screen-settings-mockup.php:62
 #: templates/admin/page/settings-section-pro-cta.php:146
 msgid "Add Row"
-msgstr ""
+msgstr "Satır ekle"
 
 #: templates/admin/list-screen-settings-mockup.php:49
 msgid "Show or hide elements from the table list screen."
-msgstr ""
+msgstr "Tablo listesi ekranındaki öğeleri gösterin veya gizleyin."
 
 #: templates/admin/list-screen-settings-mockup.php:48
 msgid "Table Elements"
-msgstr ""
+msgstr "Tablo elemanları"
 
 #: classes/Table/Screen.php:239
 msgid "Loading..."
-msgstr ""
+msgstr "Yükleniyor..."
 
 #: classes/Settings/Column/VideoDisplay.php:22
 msgid "Pop Up"
-msgstr ""
+msgstr "Açılır pencere"
 
 #: classes/Settings/Column/VideoDisplay.php:21
 msgid "Embed"
-msgstr ""
+msgstr "Göm"
 
 #: classes/Settings/Column/User.php:87
 msgid "User Website"
-msgstr ""
+msgstr "Kullanıcı web sitesi"
 
 #: classes/Settings/Column/Post.php:72
 msgid "No title"
-msgstr ""
+msgstr "Başlık yok"
 
 #: classes/Settings/Column/Post.php:68
 msgid "No author"
-msgstr ""
+msgstr "Yazar yok"
 
 #: classes/Settings/Column/FileMetaVideo.php:49
 msgid "px"
-msgstr ""
+msgstr "px"
 
 #: classes/Settings/Column/FileMetaVideo.php:41
 msgid "audio"
-msgstr ""
+msgstr "ses"
 
 #: classes/Settings/Column/FileMetaVideo.php:27
 msgid "Codec"
-msgstr ""
+msgstr "Çözücü"
 
 #: classes/Settings/Column/FileMetaVideo.php:24
 msgid "Bits Per Sample"
-msgstr ""
+msgstr "Örnek başına bit"
 
 #: classes/Settings/Column/FileMetaVideo.php:13
 #: classes/Settings/Column/FileMetaVideo.php:28
 msgid "Dataformat"
-msgstr ""
+msgstr "Veri biçimi"
 
 #: classes/Settings/Column/FileMetaAudio.php:68
 #: classes/Settings/Column/FileMetaVideo.php:67
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 #: classes/Settings/Column/FileMetaAudio.php:62
 #: classes/Settings/Column/FileMetaVideo.php:55
 msgid "sec"
-msgstr ""
+msgstr "sn"
 
 #: classes/Settings/Column/FileMetaAudio.php:44
 #: classes/Settings/Column/FileMetaVideo.php:61
 msgid "channels"
 msgid_plural "channels"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "kanallar"
+msgstr[1] "kanallar"
 
 #: classes/Settings/Column/FileMetaAudio.php:38
 msgid "Kbps"
-msgstr ""
+msgstr "Kbps"
 
 #: classes/Settings/Column/FileMetaAudio.php:26
 #: classes/Settings/Column/FileMetaVideo.php:30
 msgid "Sample Rate"
-msgstr ""
+msgstr "Örnekleme hızı"
 
 #: classes/Settings/Column/FileMetaAudio.php:24
 #: classes/Settings/Column/FileMetaVideo.php:29
 msgid "Losless"
-msgstr ""
+msgstr "Kayıpsız"
 
 #: classes/Settings/Column/FileMetaAudio.php:23
 #: classes/Settings/Column/FileMetaVideo.php:17
 msgid "Length Formatted"
-msgstr ""
+msgstr "Uzunluk biçimlendirilmiş"
 
 #: classes/Settings/Column/FileMetaAudio.php:21
 msgid "Filesize"
-msgstr ""
+msgstr "Dosya boyutu"
 
 #: classes/Settings/Column/FileMetaAudio.php:20
 #: classes/Settings/Column/FileMetaVideo.php:14
 msgid "Fileformat"
-msgstr ""
+msgstr "Dosya biçimi"
 
 #: classes/Settings/Column/FileMetaAudio.php:19
 msgid "Encoder Options"
-msgstr ""
+msgstr "Kodlayıcı seçenekleri"
 
 #: classes/Settings/Column/FileMetaAudio.php:18
 msgid "Data Format"
-msgstr ""
+msgstr "Veri biçimi"
 
 #: classes/Settings/Column/FileMetaAudio.php:17
 #: classes/Settings/Column/FileMetaVideo.php:12
 msgid "Created Timestamp"
-msgstr ""
+msgstr "Oluşturulma zaman damgası"
 
 #: classes/Settings/Column/FileMetaAudio.php:16
 msgid "Compression Ratio"
-msgstr ""
+msgstr "Sıkıştırma oranı"
 
 #: classes/Settings/Column/FileMetaAudio.php:15
 #: classes/Settings/Column/FileMetaVideo.php:26
 msgid "Channels"
-msgstr ""
+msgstr "Kanallar"
 
 #: classes/Settings/Column/FileMetaAudio.php:14
 #: classes/Settings/Column/FileMetaVideo.php:25
 msgid "Channelmode"
-msgstr ""
+msgstr "Kanal modu"
 
 #: classes/Settings/Column/FileMetaAudio.php:13
 msgid "Bitrate Mode"
-msgstr ""
+msgstr "Bitrate modu"
 
 #: classes/Settings/Column/FileMetaAudio.php:12
 msgid "Bitrate"
-msgstr ""
+msgstr "Bitrate"
 
 #: classes/Settings/Column/CustomFieldType.php:138
 msgid "Serialized"
-msgstr ""
+msgstr "Serileştirilmiş"
 
 #: classes/ColumnGroups.php:21
 msgid "File"
-msgstr ""
+msgstr "Dosya"
 
 #: classes/ColumnGroups.php:20
 msgid "Document"
-msgstr ""
+msgstr "Belge"
 
 #: classes/ColumnGroups.php:19
 msgid "Audio"
-msgstr ""
+msgstr "Ses"
 
 #: classes/ColumnGroups.php:18
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: classes/ColumnGroups.php:16
 msgid "Meta"
-msgstr ""
+msgstr "Meta"
 
 #: classes/Column/Media/VideoPlayer.php:41
 msgid "Play"
-msgstr ""
+msgstr "Oynat"
 
 #: classes/Column/Media/VideoPlayer.php:13
 msgid "Video Player"
-msgstr ""
+msgstr "Video oynatıcı"
 
 #: classes/Column/Media/FileMetaVideo.php:12
 msgid "Video Meta"
-msgstr ""
+msgstr "Video metası"
 
 #: classes/Column/Media/FileMetaAudio.php:12
 msgid "Audio Meta"
-msgstr ""
+msgstr "Ses metası"
 
 #: classes/Column/Media/ExifData.php:18
 msgid "Image Meta (EXIF)"
-msgstr ""
+msgstr "Görsel metası (EXIF)"
 
 #: classes/Column/Media/AudioPlayer.php:22
 msgid "No support for audio player"
-msgstr ""
+msgstr "Ses oynatıcı için destek yok"
 
 #: classes/Column/Media/AudioPlayer.php:12
 msgid "Audio Player"
-msgstr ""
+msgstr "Ses oynatıcı"
 
 #: classes/Integration/JetEngine.php:19
 msgid "Display, inline- and bulk-edit, export, smart filter and sort your JetEngine contents on any admin list table."
-msgstr ""
+msgstr "JetEngine içeriklerinizi herhangi bir yönetici listesi tablosunda görüntüleyin, satır içi ve toplu olarak düzenleyin, dışa aktarın, akıllı filtreleyin ve sıralayın."
 
 #: classes/Integration/JetEngine.php:18
 msgid "Integrates JetEngine with Admin Columns."
-msgstr ""
+msgstr "JetEngine'i Admin Columns ile entegre eder."
 
 #: templates/admin/page/settings-section-restore.php:4
 msgid "Restore settings"
@@ -1328,7 +1328,7 @@ msgstr "Boşluk"
 
 #: classes/Settings/Column/Separator.php:28
 msgid "New Line"
-msgstr ""
+msgstr "Yeni satır"
 
 #: classes/Settings/Column/Separator.php:26
 msgid "Comma Separated"

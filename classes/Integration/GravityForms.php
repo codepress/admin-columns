@@ -31,7 +31,6 @@ final class GravityForms extends Integration
                     __('Gravity Forms', 'codepress-admin-columns')
                 )
             ),
-            null,
             new Site(Site::PAGE_ADDON_GRAVITYFORMS)
         );
     }

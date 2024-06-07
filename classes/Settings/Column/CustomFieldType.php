@@ -6,6 +6,7 @@ use AC;
 use AC\Collection;
 use AC\Settings;
 use AC\View;
+use WP_Post;
 
 class CustomFieldType extends Settings\Column
     implements Settings\FormatValue
@@ -252,7 +253,9 @@ class CustomFieldType extends Settings\Column
                 $values = [];
                 foreach ($this->get_ids_from_array_or_string($value) as $id) {
                     $post = get_post($id);
-                    $values[] = ac_helper()->html->link(get_edit_post_link($post), $post->post_title);
+                    if ($post instanceof WP_Post) {
+                        $values[] = ac_helper()->html->link(get_edit_post_link($post), $post->post_title);
+                    }
                 }
 
                 return implode(ac_helper()->html->divider(), $values);
