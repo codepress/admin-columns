@@ -6,7 +6,6 @@ use AC\Integration;
 use AC\ListScreen;
 use AC\Screen;
 use AC\Type\Url\Site;
-use ACA;
 
 final class GravityForms extends Integration
 {
@@ -47,7 +46,7 @@ final class GravityForms extends Integration
 
     public function show_placeholder(ListScreen $list_screen): bool
     {
-        return $list_screen instanceof ACA\GravityForms\ListScreen\Entry;
+        return 'gravity_forms_entry' === $list_screen->get_meta_type();
     }
 
 }
