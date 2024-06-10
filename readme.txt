@@ -3,9 +3,9 @@ Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 4.7.3
-Tested up to: 6.5.2
+Tested up to: 6.5.4
 Requires PHP: 7.2
-Stable tag: 4.7.6
+Stable tag: 4.7.7
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -208,6 +208,11 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.7.7 =
+Release Date: June 10th, 2024
+
+* [Fixed] Gravity Forms column no longer relies on namespace check
 
 = 4.7.6 =
 Release Date: June 4th, 2024
