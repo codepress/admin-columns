@@ -24,7 +24,12 @@ class Meta implements Formatter
     public function format(Value $value): Value
     {
         return $value->with_value(
-            get_metadata($this->meta_type, (int)$value->get_id(), $this->meta_key, true)
+            get_metadata(
+                (string)$this->meta_type,
+                (int)$value->get_id(),
+                $this->meta_key,
+                true
+            )
         );
     }
 

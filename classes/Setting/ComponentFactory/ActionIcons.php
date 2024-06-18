@@ -7,6 +7,8 @@ namespace AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
+use AC\Setting\Formatter\Actions;
+use AC\Setting\FormatterCollection;
 
 final class ActionIcons extends Builder
 {
@@ -28,6 +30,15 @@ final class ActionIcons extends Builder
             null,
             $config->get('use_icons') === 'on' ? 'on' : 'off'
         );
+    }
+
+    protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
+    {
+        if ('on' === $config->get('use_icons')) {
+            $formatters->add(new Actions());
+        }
+
+        return parent::get_formatters($config, $formatters);
     }
 
 }

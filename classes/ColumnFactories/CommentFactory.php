@@ -8,7 +8,9 @@ use AC;
 use AC\Collection;
 use AC\ColumnFactories;
 use AC\ColumnFactory\Comment;
+use AC\MetaType;
 use AC\TableScreen;
+use AC\Type\ListKey;
 use AC\Vendor\DI\Container;
 
 class CommentFactory implements ColumnFactories
@@ -27,8 +29,13 @@ class CommentFactory implements ColumnFactories
             return null;
         }
 
-        // Todo implement custom field
+        $this->container->set(MetaType::class, MetaType::create_comment_type());
+        $this->container->set(ListKey::class, $table_screen->get_key());
+
+        // TODO implement custom field, date, response, type
         $factoryClasses = [
+            AC\ColumnFactory\CustomFieldFactory::class,
+            Comment\ActionsFactory::class,
             Comment\AgentFactory::class,
             Comment\ApprovedFactory::class,
             Comment\AuthorAvatarFactory::class,
@@ -36,13 +43,13 @@ class CommentFactory implements ColumnFactories
             Comment\AuthorIpFactory::class,
             Comment\AuthorNameFactory::class,
             Comment\AuthorUrlFactory::class,
+            Comment\CommentTypeFactory::class,
             Comment\DateGmtFactory::class,
             Comment\ExcerptFactory::class,
             Comment\IdFactory::class,
             Comment\PostFactory::class,
             Comment\ReplyToFactory::class,
             Comment\StatusFactory::class,
-            Comment\CommentTypeFactory::class,
             Comment\UserFactory::class,
             Comment\WordCountFactory::class,
         ];

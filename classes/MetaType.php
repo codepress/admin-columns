@@ -27,6 +27,21 @@ final class MetaType
         return $this->meta_type;
     }
 
+    public static function create_post_type(): self
+    {
+        return new self(self::POST);
+    }
+
+    public static function create_user_type(): self
+    {
+        return new self(self::USER);
+    }
+
+    public static function create_comment_type(): self
+    {
+        return new self(self::COMMENT);
+    }
+
     /**
      * @throws LogicException
      */

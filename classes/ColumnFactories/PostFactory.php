@@ -8,7 +8,11 @@ use AC;
 use AC\Collection;
 use AC\ColumnFactories;
 use AC\ColumnFactory\Post;
+use AC\MetaType;
+use AC\Relation;
 use AC\TableScreen;
+use AC\Type\ListKey;
+use AC\Type\PostTypeSlug;
 use AC\Vendor\DI\Container;
 
 class PostFactory implements ColumnFactories
@@ -29,10 +33,10 @@ class PostFactory implements ColumnFactories
 
         $post_type = $table_screen->get_post_type();
 
-        $this->container->set(AC\Type\PostTypeSlug::class, new AC\Type\PostTypeSlug($post_type));
-        $this->container->set(AC\Relation::class, new AC\Relation\Post($post_type));
-        $this->container->set(AC\MetaType::class, new AC\MetaType(AC\MetaType::POST));
-        $this->container->set(AC\Type\ListKey::class, $table_screen->get_key());
+        $this->container->set(PostTypeSlug::class, new PostTypeSlug($post_type));
+        $this->container->set(Relation::class, new AC\Relation\Post($post_type));
+        $this->container->set(MetaType::class, MetaType::create_post_type());
+        $this->container->set(ListKey::class, $table_screen->get_key());
 
         //        $meta_type = new MetaType(MetaType::POST);
         //
