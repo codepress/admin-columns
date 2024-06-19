@@ -10,6 +10,7 @@ use AC\Admin\PageFactory;
 use AC\Admin\PageRequestHandler;
 use AC\Admin\PageRequestHandlers;
 use AC\Asset\Location\Absolute;
+use AC\Asset\Script\GlobalTranslationFactory;
 use AC\Asset\Script\Localize\Translation;
 use AC\Entity\Plugin;
 use AC\ListScreenRepository\Database;
@@ -189,9 +190,9 @@ class AdminColumns
             ): SetupFactory\AdminColumns {
                 return new SetupFactory\AdminColumns('ac_version', $plugin->get_version(), $location);
             },
-            ListKeysFactory::class                  => autowire(ListKeysFactory\Aggregate::class),
-            Service\CommonAssets::class             => autowire()
+            GlobalTranslationFactory::class         => autowire()
                 ->constructorParameter(1, DI\get('translations.global')),
+            ListKeysFactory::class                  => autowire(ListKeysFactory\Aggregate::class),
             Admin\Colors\Shipped\ColorParser::class => autowire()
                 ->constructorParameter(0, ABSPATH . 'wp-admin/css/common.css'),
             Admin\Colors\ColorReader::class         => autowire(Admin\Colors\ColorRepository::class),

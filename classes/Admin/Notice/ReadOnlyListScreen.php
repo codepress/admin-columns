@@ -6,7 +6,7 @@ use AC\ListScreen;
 use AC\Message;
 use AC\Registerable;
 
-class ReadOnlyListScreen implements Registerable
+final class ReadOnlyListScreen implements Registerable
 {
 
     public function register(): void

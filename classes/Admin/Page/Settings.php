@@ -2,7 +2,7 @@
 
 namespace AC\Admin\Page;
 
-use AC\Admin;
+use AC\Admin\Asset\Script\SettingsFactory;
 use AC\Admin\RenderableHead;
 use AC\Admin\Section;
 use AC\Admin\SectionCollection;
@@ -23,8 +23,14 @@ class Settings implements Enqueueables, Renderable, RenderableHead
 
     protected $sections;
 
-    public function __construct(Renderable $head, Location\Absolute $location, SectionCollection $sections = null)
-    {
+    private $settings_factory;
+
+    public function __construct(
+        Renderable $head,
+        Location\Absolute $location,
+        SettingsFactory $settings_factory,
+        SectionCollection $sections = null
+    ) {
         if (null === $sections) {
             $sections = new SectionCollection();
         }
@@ -32,6 +38,7 @@ class Settings implements Enqueueables, Renderable, RenderableHead
         $this->head = $head;
         $this->location = $location;
         $this->sections = $sections;
+        $this->settings_factory = $settings_factory;
     }
 
     public function render_head(): Renderable
@@ -53,12 +60,8 @@ class Settings implements Enqueueables, Renderable, RenderableHead
 
     public function get_assets(): Assets
     {
-        $factory = new Admin\Asset\Script\SettingsFactory(
-            $this->location
-        );
-
         $assets = new Assets([
-            $factory->create(),
+            $this->settings_factory->create(),
         ]);
 
         foreach ($this->sections->all() as $section) {

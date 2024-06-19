@@ -1,9 +1,12 @@
-<?php declare( strict_types=1 );
+<?php
+declare(strict_types=1);
 
 namespace AC\Asset;
 
-interface ScriptFactory {
+// TODO remove
+interface ScriptFactory
+{
 
-	public function create(): Script;
+    public function create(): Script;
 
 }

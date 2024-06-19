@@ -5,17 +5,13 @@ namespace AC\Admin\Asset\Script;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Script\Localize\Translation;
-use AC\Asset\ScriptFactory;
 use AC\Form\NonceFactory;
 
-final class SettingsFactory implements ScriptFactory
+final class SettingsFactory
 {
 
     public const HANDLE = 'ac-admin-page-settings';
 
-    /**
-     * @var Location\Absolute
-     */
     private $location;
 
     public function __construct(Location\Absolute $location)
@@ -30,7 +26,7 @@ final class SettingsFactory implements ScriptFactory
                 "Warning! ALL saved admin columns data will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop",
                 'codepress-admin-columns'
             ),
-        ];;
+        ];
 
         $nonce = (new NonceFactory())->create_ajax();
 

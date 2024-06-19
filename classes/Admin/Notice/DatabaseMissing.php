@@ -8,7 +8,7 @@ use AC\Plugin\Install\Database;
 use AC\Registerable;
 use AC\Service\Setup;
 
-class DatabaseMissing implements Registerable
+final class DatabaseMissing implements Registerable
 {
 
     public function register(): void

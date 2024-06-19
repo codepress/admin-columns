@@ -2,7 +2,7 @@
 
 namespace AC\Admin;
 
-use AC\Admin\Menu\Item;
+use AC\Admin\Type\MenuItem;
 use AC\Asset\Location;
 use AC\Deprecated\Hooks;
 use AC\Type\Url\Site;
@@ -37,9 +37,9 @@ class MenuFactory implements MenuFactoryInterface
         $menu = new Menu();
 
         $items = [
-            Page\Columns::NAME => __('Columns', 'codepress-admin-columns'),
+            Page\Columns::NAME  => __('Columns', 'codepress-admin-columns'),
             Page\Settings::NAME => __('Settings', 'codepress-admin-columns'),
-            Page\Addons::NAME => __('Add-ons', 'codepress-admin-columns'),
+            Page\Addons::NAME   => __('Add-ons', 'codepress-admin-columns'),
         ];
 
         $hooks = new Hooks();
@@ -54,7 +54,7 @@ class MenuFactory implements MenuFactoryInterface
 
         foreach ($items as $slug => $label) {
             $menu->add_item(
-                new Item(
+                new MenuItem(
                     $slug,
                     $this->create_menu_link($slug),
                     $label,
@@ -70,7 +70,7 @@ class MenuFactory implements MenuFactoryInterface
             $this->location->with_suffix('/assets/images/external.svg')->get_url()
         );
 
-        $menu->add_item(new Item('pro', $url, sprintf('%s %s', 'Admin Columns Pro', $image), '-pro', '_blank'));
+        $menu->add_item(new MenuItem('pro', $url, sprintf('%s %s', 'Admin Columns Pro', $image), '-pro', '_blank'));
 
         do_action('ac/admin/page/menu', $menu);
 

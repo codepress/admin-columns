@@ -1,8 +1,8 @@
 <?php
 
-namespace AC\Admin\Menu;
+namespace AC\Admin\Type;
 
-class Item
+class MenuItem
 {
 
     private $slug;
