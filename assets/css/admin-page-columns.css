@@ -420,12 +420,17 @@
   visibility: visible;
 }
 .ac-column.-opened .ac-column-header {
-  border-bottom: 2px solid #CBD5E1;
-  border-top: 1px solid #CBD5E1;
+  border-bottom: 1px solid #CBD5E1;
   background-color: #EAF2FA;
 }
 .ac-column .ac-column-settings {
   padding: 20px 0;
+}
+.ac-column.ui-sortable-helper {
+  border-top: 1px solid #cbd5e1;
+}
+.ac-column.ui-sortable-placeholder {
+  border: 1px solid red;
 }
 
 .ac-column-row-actions {
@@ -586,6 +591,7 @@ body {
 }
 .ac-admin-page .ac-admin-page-main {
   flex-grow: 1;
+  max-width: 1200px;
 }
 
 .ac-menu-group {

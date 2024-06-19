@@ -60,7 +60,7 @@
     });
 </script>
 
-<div class="ac-admin-page lg:acu-flex acu-gap-4">
+<div class="ac-admin-page lg:acu-flex acu-gap-6">
 	<aside class="ac-admin-page-menu lg:acu-w-[220px] xl:acu-w-[250px]">
 		<ListScreenMenu
 			menu={menu}

@@ -8,7 +8,7 @@
 </script>
 
 
-<div class="acu-mb-3 acu-bg-white">
+<div class="acu-bg-white">
     <div class="acu-mb-3">
     <button class="button" on:click={ () => showData = !showData}>Toggle Data</button>
     <button class="button" on:click={ () => showConfig = !showConfig}>Toggle Config</button>

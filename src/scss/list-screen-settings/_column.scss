@@ -47,13 +47,20 @@
 	}
 
 	&.-opened .ac-column-header {
-		border-bottom: 2px solid #CBD5E1;
-		border-top: 1px solid #CBD5E1;
+		border-bottom: 1px solid #CBD5E1;
+		//border-top: 1px solid #CBD5E1;
 		background-color: #EAF2FA;
 	}
 
 	.ac-column-settings {
 		padding: 20px 0;
+	}
+
+	&.ui-sortable-helper {
+		border-top: 1px solid #cbd5e1;
+	}
+	&.ui-sortable-placeholder {
+		border: 1px solid red;
 	}
 }
 
