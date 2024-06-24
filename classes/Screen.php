@@ -75,7 +75,7 @@ class Screen implements Registerable
         return $this->screen->in_admin('network');
     }
 
-    public function is_list_screen(): bool
+    public function is_table_screen(): bool
     {
         return $this->table_screen_factory->can_create_from_wp_screen($this->screen);
     }

@@ -20,7 +20,7 @@ use WP_Users_List_Table;
 class ListTableFactory
 {
 
-    public function create_from_globals(): ?ListTable
+    public static function create_from_globals(): ?ListTable
     {
         global $wp_list_table, $current_screen;
 

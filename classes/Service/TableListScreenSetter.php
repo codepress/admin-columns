@@ -58,6 +58,7 @@ class TableListScreenSetter implements Registerable
 
         $request = new Request();
 
+        // TODO
         $request->add_middleware(
             new Request\Middleware\ListScreenTable(
                 $this->storage,
