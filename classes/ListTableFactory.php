@@ -84,4 +84,9 @@ class ListTableFactory
         return new Taxonomy(WpListTableFactory::create_taxonomy_table($screen_id), $taxonomy);
     }
 
+    public static function create_network_site(string $screen_id): NetworkSite
+    {
+        return new NetworkSite(WpListTableFactory::create_network_site_table($screen_id));
+    }
+
 }
