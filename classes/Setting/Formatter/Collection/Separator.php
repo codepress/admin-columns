@@ -54,7 +54,7 @@ class Separator implements CollectionFormatter
         }
     }
 
-    public function format(ValueCollection $collection)
+    public function format(ValueCollection $collection): Value
     {
         $values = [];
 

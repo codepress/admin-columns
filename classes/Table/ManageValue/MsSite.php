@@ -4,11 +4,19 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
+use AC\Table\ColumnRenderable;
 use AC\Table\ManageValue;
 use DomainException;
 
 class MsSite extends ManageValue
 {
+
+    private $renderable;
+
+    public function __construct(ColumnRenderable $renderable)
+    {
+        $this->renderable = $renderable;
+    }
 
     public function register(): void
     {
@@ -21,7 +29,7 @@ class MsSite extends ManageValue
 
     public function render_value($column_name, $blog_id): void
     {
-        echo $this->render_cell((string)$column_name, (int)$blog_id);
+        echo $this->renderable->render((string)$column_name, (int)$blog_id);
     }
 
 }

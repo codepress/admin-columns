@@ -4,11 +4,19 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
+use AC\Table\ColumnRenderable;
 use AC\Table\ManageValue;
 use DomainException;
 
 class User extends ManageValue
 {
+
+    private $renderable;
+
+    public function __construct(ColumnRenderable $renderable)
+    {
+        $this->renderable = $renderable;
+    }
 
     public function register(): void
     {
@@ -19,8 +27,8 @@ class User extends ManageValue
         add_filter('manage_users_custom_column', [$this, 'render_value'], 100, 3);
     }
 
-    public function render_value($value, $column_name, $user_id): ?string
+    public function render_value($value, $column_name, $id): ?string
     {
-        return $this->render_cell((string)$column_name, (int)$user_id, (string)$value);
+        return $this->renderable->render((string)$column_name, (int)$id) ?? (string)$value;
     }
 }

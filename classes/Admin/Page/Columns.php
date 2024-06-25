@@ -135,7 +135,7 @@ class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, Renderab
 
     public function render(): string
     {
-        return '<div></div>';
+        return apply_filters('ac/page/columns/render', '<div></div>', $this->list_id);
     }
 
 }

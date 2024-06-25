@@ -9,6 +9,7 @@ use AC\ListScreen;
 use AC\ListTableFactory;
 use AC\MetaType;
 use AC\Table;
+use AC\Table\ColumnRenderable;
 use AC\TableScreen;
 use AC\Type\Labels;
 use AC\Type\ListKey;
@@ -25,7 +26,7 @@ class User extends TableScreen implements TableScreen\ListTable, TableScreen\Met
 
     public function manage_value(ListScreen $list_screen): AC\Table\ManageValue
     {
-        return new Table\ManageValue\User($list_screen);
+        return new Table\ManageValue\User(new ColumnRenderable($list_screen));
     }
 
     public function list_table(): AC\ListTable

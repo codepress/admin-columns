@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
-use AC\ListScreen;
+use AC\Table\ColumnRenderable;
 use AC\Table\ManageValue;
 use DomainException;
 
@@ -13,11 +13,12 @@ class Taxonomy extends ManageValue
 
     private $taxonomy;
 
-    public function __construct(string $taxonomy, ListScreen $list_screen)
-    {
-        parent::__construct($list_screen);
+    private $renderable;
 
+    public function __construct(string $taxonomy, ColumnRenderable $renderable)
+    {
         $this->taxonomy = $taxonomy;
+        $this->renderable = $renderable;
     }
 
     /**
@@ -36,7 +37,7 @@ class Taxonomy extends ManageValue
 
     public function render_value($value, $column_name, $term_id): void
     {
-        echo $this->render_cell((string)$column_name, (int)$term_id, (string)$value);
+        echo $this->renderable->render((string)$column_name, (int)$term_id) ?? (string)$value;
     }
 
 }

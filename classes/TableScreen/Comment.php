@@ -9,6 +9,7 @@ use AC\ListScreen;
 use AC\ListTableFactory;
 use AC\MetaType;
 use AC\Table;
+use AC\Table\ColumnRenderable;
 use AC\TableScreen;
 use AC\Type\Labels;
 use AC\Type\ListKey;
@@ -30,7 +31,7 @@ class Comment extends TableScreen implements ListTable, TableScreen\MetaType
 
     public function manage_value(ListScreen $list_screen): AC\Table\ManageValue
     {
-        return new Table\ManageValue\Comment($list_screen);
+        return new Table\ManageValue\Comment(new ColumnRenderable($list_screen));
     }
 
     public function list_table(): AC\ListTable

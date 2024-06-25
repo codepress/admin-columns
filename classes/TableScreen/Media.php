@@ -10,6 +10,7 @@ use AC\ListTableFactory;
 use AC\MetaType;
 use AC\PostType;
 use AC\Table;
+use AC\Table\ColumnRenderable;
 use AC\TableScreen;
 use AC\Type\Labels;
 use AC\Type\ListKey;
@@ -26,7 +27,7 @@ class Media extends TableScreen implements ListTable, PostType, TableScreen\Meta
 
     public function manage_value(ListScreen $list_screen): AC\Table\ManageValue
     {
-        return new Table\ManageValue\Media($list_screen);
+        return new Table\ManageValue\Media(new ColumnRenderable($list_screen));
     }
 
     public function list_table(): AC\ListTable

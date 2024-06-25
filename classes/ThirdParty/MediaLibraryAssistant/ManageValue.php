@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace AC\ThirdParty\MediaLibraryAssistant;
+
 use AC;
 
 class ManageValue extends AC\Table\ManageValue

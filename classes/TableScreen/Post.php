@@ -38,7 +38,7 @@ class Post extends TableScreen implements PostType, ListTable, TableScreen\MetaT
 
     public function manage_value(AC\ListScreen $list_screen): AC\Table\ManageValue
     {
-        return new Table\ManageValue\Post($this->post_type->name, $list_screen);
+        return new Table\ManageValue\Post($this->post_type->name, new Table\ColumnRenderable($list_screen));
     }
 
     public function get_post_type(): string

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Table\ManageValue;
 
-use AC\ListScreen;
+use AC\Table\ColumnRenderable;
 use AC\Table\ManageValue;
 use DomainException;
 
@@ -13,11 +13,12 @@ class Post extends ManageValue
 
     private $post_type;
 
-    public function __construct(string $post_type, ListScreen $list_screen)
-    {
-        parent::__construct($list_screen);
+    private $renderable;
 
+    public function __construct(string $post_type, ColumnRenderable $renderable)
+    {
         $this->post_type = $post_type;
+        $this->renderable = $renderable;
     }
 
     /**
@@ -36,8 +37,7 @@ class Post extends ManageValue
 
     public function manage_value($column_name, $id): void
     {
-        // TODO use ManageValueFactory
-        echo $this->render_cell((string)$column_name, (int)$id);
+        echo $this->renderable->render((string)$column_name, (int)$id);
     }
 
 }
