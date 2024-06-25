@@ -25,6 +25,7 @@
 			this={getInputType(inputSetting.input.type ?? '')}
 			bind:data={data}
 			bind:value={data[inputSetting.input?.name]}
+			on:refresh
 			disabled={$listScreenIsReadOnly}
 			config={setting}>
 		</svelte:component>
@@ -35,6 +36,7 @@
 			<ColumnSettings isSubComponent
 				bind:data={data}
 				settings={setting.children}
+				on:refresh
 				parent={inputSetting.input ? inputSetting.input.name : ''}/>
 		</div>
 	{/if}

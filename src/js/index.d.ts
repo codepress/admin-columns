@@ -114,6 +114,7 @@ declare namespace AC.Column.Settings {
             type: 'select'
             options: SettingOption[]
             default: string
+            attributes: any
         }
     }
 

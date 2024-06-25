@@ -49,9 +49,12 @@ class ListScreenSelectColumn implements RequestAjaxHandler
             new ListKey((string)$request->get('list_key'))
         );
 
+        $column_data = json_decode((string)$request->get('data'), true);
+
         $column = $this->column_factory->create(
             $table_screen,
-            json_decode((string)$request->get('data'), true)
+            $column_data['type'],
+            new AC\Setting\Config($column_data)
         );
 
         if ( ! $column) {

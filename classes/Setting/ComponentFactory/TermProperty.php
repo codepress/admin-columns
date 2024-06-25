@@ -2,8 +2,6 @@
 
 namespace AC\Setting\ComponentFactory;
 
-use AC\Setting\Children;
-use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
@@ -15,13 +13,6 @@ class TermProperty extends Builder
 {
 
     private const NAME = 'term_property';
-
-    private $term_link;
-
-    public function __construct(TermLink $term_link)
-    {
-        $this->term_link = $term_link;
-    }
 
     protected function get_label(Config $config): ?string
     {
@@ -40,15 +31,6 @@ class TermProperty extends Builder
                 ]
             ),
             $config->get(self::NAME, '')
-        );
-    }
-
-    protected function get_children(Config $config): ?Children
-    {
-        return new Children(
-            new ComponentCollection([
-                $this->term_link->create($config),
-            ])
         );
     }
 
