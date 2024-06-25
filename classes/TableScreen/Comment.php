@@ -6,6 +6,7 @@ namespace AC\TableScreen;
 
 use AC;
 use AC\ListScreen;
+use AC\ListTableFactory;
 use AC\MetaType;
 use AC\Table;
 use AC\TableScreen;
@@ -13,7 +14,6 @@ use AC\Type\Labels;
 use AC\Type\ListKey;
 use AC\Type\Uri;
 use AC\Type\Url;
-use AC\WpListTableFactory;
 
 class Comment extends TableScreen implements ListTable, TableScreen\MetaType
 {
@@ -35,7 +35,7 @@ class Comment extends TableScreen implements ListTable, TableScreen\MetaType
 
     public function list_table(): AC\ListTable
     {
-        return new AC\ListTable\Comment((new WpListTableFactory())->create_comment_table($this->screen_id));
+        return ListTableFactory::create_comment($this->screen_id);
     }
 
     public function get_query_type(): string

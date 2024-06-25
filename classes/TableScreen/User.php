@@ -6,6 +6,7 @@ namespace AC\TableScreen;
 
 use AC;
 use AC\ListScreen;
+use AC\ListTableFactory;
 use AC\MetaType;
 use AC\Table;
 use AC\TableScreen;
@@ -13,7 +14,6 @@ use AC\Type\Labels;
 use AC\Type\ListKey;
 use AC\Type\Uri;
 use AC\Type\Url;
-use AC\WpListTableFactory;
 
 class User extends TableScreen implements TableScreen\ListTable, TableScreen\MetaType
 {
@@ -30,7 +30,7 @@ class User extends TableScreen implements TableScreen\ListTable, TableScreen\Met
 
     public function list_table(): AC\ListTable
     {
-        return new AC\ListTable\User((new WpListTableFactory())->create_user_table($this->screen_id));
+        return ListTableFactory::create_user($this->screen_id);
     }
 
     public function get_query_type(): string

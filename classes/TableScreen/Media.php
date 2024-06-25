@@ -6,6 +6,7 @@ namespace AC\TableScreen;
 
 use AC;
 use AC\ListScreen;
+use AC\ListTableFactory;
 use AC\MetaType;
 use AC\PostType;
 use AC\Table;
@@ -14,7 +15,6 @@ use AC\Type\Labels;
 use AC\Type\ListKey;
 use AC\Type\Uri;
 use AC\Type\Url;
-use AC\WpListTableFactory;
 
 class Media extends TableScreen implements ListTable, PostType, TableScreen\MetaType
 {
@@ -31,7 +31,7 @@ class Media extends TableScreen implements ListTable, PostType, TableScreen\Meta
 
     public function list_table(): AC\ListTable
     {
-        return new AC\ListTable\Media((new WpListTableFactory())->create_media_table($this->screen_id));
+        return ListTableFactory::create_media($this->screen_id);
     }
 
     public function get_query_type(): string

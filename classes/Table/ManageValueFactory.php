@@ -20,6 +20,7 @@ class ManageValueFactory
     {
         $value = new Value($id);
 
+        // TODO
         //        if ($this->formatters->count() === 0) {
         //            return $fallback_value;
         //        }

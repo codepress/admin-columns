@@ -31,11 +31,12 @@ class Post extends ManageValue
             throw new DomainException(sprintf("Method should be called before the %s action.", $action));
         }
 
-        add_action($action, [$this, 'render_value'], 100, 2);
+        add_action($action, [$this, 'manage_value'], 100, 2);
     }
 
-    public function render_value($column_name, $id): void
+    public function manage_value($column_name, $id): void
     {
+        // TODO use ManageValueFactory
         echo $this->render_cell((string)$column_name, (int)$id);
     }
 
