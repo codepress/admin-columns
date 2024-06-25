@@ -66,7 +66,7 @@ export const saveListScreen = (data: ListScreenData, listKey: string) => {
 
 type columnConfigPayload = {
     columns: {
-        settings: AC.Vars.Settings.ColumnSetting[]
+        settings: ColumnSettingCollection,
     }
 }
 

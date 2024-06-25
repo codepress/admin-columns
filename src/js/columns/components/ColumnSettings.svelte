@@ -55,6 +55,7 @@
 			this={getSettingComponent(setting.type ?? '')}
 			setting={setting}
 			bind:data={data}
+			on:refresh
 			{isSubComponent}
 		/>
 

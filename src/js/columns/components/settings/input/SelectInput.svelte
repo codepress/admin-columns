@@ -37,8 +37,15 @@
         dispatch('destroy', config);
     });
 
+    const mustRefresh = () => {
+        return config.input.attributes?.refresh === 'config';
+    }
+
     const changeValue = (e: CustomEvent<SvelteSelectItem>) => {
         value = e.detail.value;
+        if (mustRefresh()) {
+            dispatch('refresh');
+        }
     }
 
     const groupBy = (item: SvelteSelectItem) => item.group;

@@ -11,6 +11,8 @@
     import ColumnSetting from "./ColumnSetting.svelte";
     import TypeSetting from "./settings/input/TypeInput.svelte";
     import {listScreenIsReadOnly} from "../store/read_only";
+    import {refreshColumn} from "../ajax/ajax";
+    import {currentListKey} from "../store/current-list-screen";
 
     export let data: any;
     export let config: AC.Column.Settings.ColumnSettingCollection = [];
@@ -64,7 +66,6 @@
         const proFeatureNames: string[] = ['export', 'sort', 'edit', 'bulk_edit', 'search', 'filter'];
 
         return config.filter(c => c.input && proFeatureNames.includes(c.input.name)).length > 0
-
     }
 
     const checkAppliedSettings = () => {
@@ -77,6 +78,14 @@
         });
 
         data = data;
+    }
+
+    const refreshSetting = () => {
+        refreshColumn( data, $currentListKey).then( d => {
+            if( d.data.success ){
+                config = d.data.data.columns.settings;
+			}
+		})
     }
 
     $: opened = $openedColumnsStore.includes(data.name);
@@ -124,11 +133,13 @@
 			<ColumnSettings
 				bind:data={data}
 				bind:settings={config}
+				on:refresh={refreshSetting}
 			/>
 
 			<div style="padding: 10px; background: #FFDCDCFF">
 				<textarea style="width:100%; height: 90px;" value={JSON.stringify(data)}></textarea>
 				<button class="button" on:click={checkAppliedSettings}>Check settings</button>
+				<button class="button" on:click={refreshSetting}>Refresh settings</button>
 			</div>
 		</div>
 	{/if}
