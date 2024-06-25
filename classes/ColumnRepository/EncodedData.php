@@ -35,8 +35,10 @@ class EncodedData implements ColumnRepository
         $columns = new ColumnCollection();
 
         foreach ($this->configs as $config) {
-            // TODO $config is sometimes congif or an array when it comes from local storage
-            $config = $config instanceof Config ? $config : new Config($config);
+            // TODO $config is sometimes config or an array when it comes from local storage
+            $config = $config instanceof Config
+                ? $config
+                : new Config($config);
 
             $column = $this->column_factory->create(
                 $this->table_screen,

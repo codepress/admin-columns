@@ -41,7 +41,7 @@ class Review
             return;
         }
 
-        if ( ! $screen->is_admin_screen() && ! $screen->is_list_screen()) {
+        if ( ! $screen->is_admin_screen() && ! $screen->is_table_screen()) {
             return;
         }
 

@@ -40,11 +40,7 @@ class ScreenController implements Registerable
             if ($this->table_screen instanceof ManageValue) {
                 $this->table_screen->manage_value($this->list_screen)->register();
             }
-
-            do_action('ac/table/list_screen', $this->list_screen, $this->table_screen);
         }
-
-        do_action('ac/table/screen', $this->table_screen);
     }
 
     public function save_headings($headings)
@@ -67,7 +63,9 @@ class ScreenController implements Registerable
             return $this->headings;
         }
 
-        $columns = $this->list_screen->get_columns(null, new ManualOrder($this->list_screen->get_id()));
+        $columns = $this->list_screen->get_columns();
+
+        $columns = (new ManualOrder($this->list_screen->get_id()))->sort($columns);
 
         // Nothing stored. Show default columns on screen.
         if ($columns->count() < 1) {
@@ -80,7 +78,7 @@ class ScreenController implements Registerable
         }
 
         foreach ($columns as $column) {
-            $this->headings[$column->get_name()] = $column->get_custom_label();
+            $this->headings[(string)$column->get_id()] = $column->get_label();
         }
 
         return apply_filters('ac/headings', $this->headings, $this->list_screen);

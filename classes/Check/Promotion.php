@@ -73,7 +73,7 @@ final class Promotion
     {
         if ( ! $this->promo->is_active()
              || ! current_user_can(Capabilities::MANAGE)
-             || ! $screen->is_list_screen()
+             || ! $screen->is_table_screen()
              || $this->get_preferences()->find('dismiss-notice')
         ) {
             return;

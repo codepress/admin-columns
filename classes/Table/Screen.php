@@ -116,17 +116,12 @@ final class Screen implements Registerable
 
     /**
      * Adds a body class which is used to set individual column widths
-     *
-     * @param string $classes body classes
-     *
-     * @return string
-     * @since 1.4.0
      */
-    public function admin_class($classes)
+    public function admin_class($classes): string
     {
         $classes .= ' ac-' . $this->table_screen->get_key();
 
-        return apply_filters('ac/table/body_class', $classes, $this);
+        return (string)apply_filters('ac/table/body_class', $classes, $this);
     }
 
     public function register_settings_button()
@@ -206,12 +201,12 @@ final class Screen implements Registerable
             ->enqueue();
 
         // Column specific scripts
-		// TODO
-//        if ($this->list_screen) {
-//            foreach ($this->list_screen->get_columns() as $column) {
-//                $column->scripts();
-//            }
-//        }
+        // TODO
+        //        if ($this->list_screen) {
+        //            foreach ($this->list_screen->get_columns() as $column) {
+        //                $column->scripts();
+        //            }
+        //        }
     }
 
     private function get_local_number_format(string $var)
@@ -329,15 +324,10 @@ final class Screen implements Registerable
         $this->screen_options[] = $option;
     }
 
-    /**
-     * @param string $html
-     *
-     * @return string
-     */
-    public function screen_options($html)
+    public function screen_options($html): string
     {
         if (empty($this->screen_options)) {
-            return $html;
+            return (string)$html;
         }
 
         ob_start();

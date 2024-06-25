@@ -56,6 +56,8 @@ class TableListScreenSetter implements Registerable
 
         $table_screen = $this->table_screen_factory->create_from_wp_screen($wp_screen);
 
+        do_action('ac/table/screen', $table_screen);
+
         $request = new Request();
 
         $request->add_middleware(
@@ -73,9 +75,11 @@ class TableListScreenSetter implements Registerable
                 $table_screen->get_key(),
                 $list_screen->get_id()
             );
+
+            do_action('ac/table/list_screen', $list_screen, $table_screen);
         }
 
-        $table_screen = new Table\Screen(
+        $table = new Table\Screen(
             $this->location,
             $table_screen,
             new ColumnSize\ListStorage($this->storage),
@@ -84,9 +88,9 @@ class TableListScreenSetter implements Registerable
             $this->default_columns_repository,
             $list_screen
         );
-        $table_screen->register();
+        $table->register();
 
-        do_action('ac/table', $table_screen);
+        do_action('ac/table', $table);
     }
 
 }

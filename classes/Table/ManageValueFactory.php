@@ -5,43 +5,28 @@ declare(strict_types=1);
 namespace AC\Table;
 
 use AC\Exception\ValueNotFoundException;
-use AC\ListScreen;
-use AC\Registerable;
 use AC\Sanitize\Kses;
 use AC\Setting\CollectionFormatter;
 use AC\Setting\Formatter;
+use AC\Setting\FormatterCollection;
 use AC\Setting\Type\Value;
 use AC\Setting\ValueCollection;
 
-// TODO remove this class. use ManageValueFactory instead.
-abstract class ManageValue implements Registerable
+// TODO not a factory
+class ManageValueFactory
 {
 
-    private $list_screen;
-
-    public function __construct(ListScreen $list_screen)
+    public function render(int $id, FormatterCollection $formatters): string
     {
-        $this->list_screen = $list_screen;
-    }
-
-    // TODO This should also be used for export
-    public function render_cell(string $column_name, $id, string $fallback_value = null): ?string
-    {
-        $column = $this->list_screen->get_column($column_name);
-
-        if ( ! $column) {
-            return $fallback_value;
-        }
-
         $value = new Value($id);
 
-        if ($column->get_formatters()->count() === 0) {
-            return $fallback_value;
-        }
+        //        if ($this->formatters->count() === 0) {
+        //            return $fallback_value;
+        //        }
 
         try {
             // TODO abstract to its own class
-            foreach ($column->get_formatters() as $formatter) {
+            foreach ($formatters as $formatter) {
                 if ($formatter instanceof Formatter) {
                     if ($value instanceof Value) {
                         $value = $formatter->format($value);
@@ -77,18 +62,27 @@ abstract class ManageValue implements Registerable
             $value = $value->with_value('&ndash;');
         }
 
+        // TODO used by filter
+        $column = null;
+        $list_screen = null;
+
         if (is_scalar($value->get_value())
-            && apply_filters('ac/column/value/sanitize', true, $column, $id, $this->list_screen)
+            // TODO
+            && apply_filters('ac/column/value/sanitize', true, $column, $id, $list_screen)
         ) {
             $value = $value->with_value((new Kses())->sanitize((string)$value));
         }
 
         // You can overwrite the display value for original columns by making sure get_value() does not return an empty string.
         // TODO
-        if ($column->is_original() && ac_helper()->string->is_empty($value)) {
-            return $fallback_value;
-        }
+        //        if ($column->is_original() && ac_helper()->string->is_empty($value)) {
+        //            return $fallback_value;
+        //        }
 
-        return (string)apply_filters('ac/column/value', (string)$value, $id, $column, $this->list_screen);
+        return (string)$value;
+
+        // TODO re-apply filter
+        //return (string)apply_filters('ac/column/value', (string)$value, $id, $column, $list_screen);
     }
+
 }
