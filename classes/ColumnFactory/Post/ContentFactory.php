@@ -10,9 +10,9 @@ use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\StringLimit;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\PostContent;
-use AC\Setting\Formatter\StripTags;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Post\PostContent;
+use AC\Value\Formatter\StripTags;
 
 class ContentFactory extends BaseColumnFactory
 {

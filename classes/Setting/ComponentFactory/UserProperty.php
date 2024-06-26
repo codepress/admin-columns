@@ -14,8 +14,8 @@ use AC\Setting\Control\Input\Number;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Control\Type\Option;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter;
 
 class UserProperty extends Builder
 {
@@ -115,7 +115,7 @@ class UserProperty extends Builder
             $options->add(
                 new Option($label, $key, __('Default', 'codepress-admin-columns'))
             );
-        };
+        }
 
         $other_group = __('Other', 'codepress-admin-columns');
 

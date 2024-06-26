@@ -8,8 +8,8 @@ use AC\Setting\ComponentFactory\UserLink;
 use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Comment\UserId;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Comment\UserId;
 
 class UserFactory extends BaseColumnFactory
 {

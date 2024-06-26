@@ -9,8 +9,8 @@ use AC\Setting\ComponentFactory\CustomField;
 use AC\Setting\ComponentFactory\FieldType;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Meta;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Meta;
 
 class CustomFieldFactory extends BaseColumnFactory
 {

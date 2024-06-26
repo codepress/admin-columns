@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace AC\ColumnFactory\Post;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\CommentStatus;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
 class CommentCountFactory extends BaseColumnFactory
@@ -49,7 +49,7 @@ class CommentCountFactory extends BaseColumnFactory
         FormatterCollection $formatters
     ): FormatterCollection {
         //TODO implement linkable as in setting
-        $formatters->add(new Formatter\Post\CommentCount((string)$config->get('comment_status')));
+        $formatters->add(new AC\Value\Formatter\Post\CommentCount((string)$config->get('comment_status')));
 
         return parent::get_formatters($components, $config, $formatters);
     }

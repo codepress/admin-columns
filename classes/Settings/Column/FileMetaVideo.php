@@ -4,7 +4,7 @@ namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
 use AC\Setting\Formatter;
-use AC\Setting\Type\Value;
+use AC\Type\Value;
 
 class FileMetaVideo extends FileMeta implements Formatter
 {

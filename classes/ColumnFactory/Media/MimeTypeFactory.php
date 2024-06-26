@@ -5,8 +5,8 @@ namespace AC\ColumnFactory\Media;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Media\PostMimeType;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Media\PostMimeType;
 
 class MimeTypeFactory extends BaseColumnFactory
 {

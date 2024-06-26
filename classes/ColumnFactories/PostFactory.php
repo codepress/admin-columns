@@ -38,6 +38,7 @@ class PostFactory implements ColumnFactories
         $this->container->set(MetaType::class, MetaType::create_post_type());
         $this->container->set(ListKey::class, $table_screen->get_key());
 
+        // TODO remove
         //        $meta_type = new MetaType(MetaType::POST);
         //
         //        $meta_key_factory = $this->container->make(
@@ -65,36 +66,42 @@ class PostFactory implements ColumnFactories
         //            ]
         //        );
 
-        $factories[] = $this->container->make(AC\ColumnFactory\CustomFieldFactory::class);
+        $fqn_classes = [
+            AC\ColumnFactory\CustomFieldFactory::class,
+            Post\AttachmentFactory::class,
+            Post\AuthorFactory::class,
+            Post\FeaturedImageFactory::class,
+            Post\FormatsFactory::class,
+            Post\IdFactory::class,
+            Post\LastModifiedAuthorFactory::class,
+            Post\BeforeMoreFactory::class,
+            Post\CommentStatusFactory::class,
+            Post\ContentFactory::class,
+            Post\DatePublishFactory::class,
+            Post\DepthFactory::class,
+            Post\EstimateReadingTimeFactory::class,
+            Post\MenuFactory::class,
+            Post\LastModifiedFactory::class,
+            Post\OrderFactory::class,
+            Post\PageTemplateFactory::class,
+            Post\PasswordProtectedFactory::class,
+            Post\PathFactory::class,
+            Post\PermalinkFactory::class,
+            Post\PingStatusFactory::class,
+            Post\ParentFactory::class,
+            Post\ShortcodesFactory::class,
+            Post\ShortLinkFactory::class,
+            Post\SlugFactory::class,
+            Post\StatusFactory::class,
+            Post\StickyFactory::class,
+            Post\TitleRawFactory::class,
+        ];
 
-        $factories[] = $this->container->make(Post\AttachmentFactory::class);
-        $factories[] = $this->container->make(Post\AuthorFactory::class);
-        $factories[] = $this->container->make(Post\FeaturedImageFactory::class);
-        $factories[] = $this->container->make(Post\FormatsFactory::class);
-        $factories[] = $this->container->make(Post\IdFactory::class);
-        $factories[] = $this->container->make(Post\LastModifiedAuthorFactory::class);
-        $factories[] = $this->container->make(Post\BeforeMoreFactory::class);
-        $factories[] = $this->container->make(Post\CommentStatusFactory::class);
-        $factories[] = $this->container->make(Post\ContentFactory::class);
-        $factories[] = $this->container->make(Post\DatePublishFactory::class);
-        $factories[] = $this->container->make(Post\DepthFactory::class);
-        $factories[] = $this->container->make(Post\EstimateReadingTimeFactory::class);
-        $factories[] = $this->container->make(Post\MenuFactory::class);
-        $factories[] = $this->container->make(Post\LastModifiedFactory::class);
-        $factories[] = $this->container->make(Post\OrderFactory::class);
-        $factories[] = $this->container->make(Post\PageTemplateFactory::class);
-        $factories[] = $this->container->make(Post\PasswordProtectedFactory::class);
-        $factories[] = $this->container->make(Post\PathFactory::class);
-        $factories[] = $this->container->make(Post\PermalinkFactory::class);
-        $factories[] = $this->container->make(Post\PingStatusFactory::class);
-        $factories[] = $this->container->make(Post\ParentFactory::class);
-        $factories[] = $this->container->make(Post\ShortcodesFactory::class);
-        $factories[] = $this->container->make(Post\ShortLinkFactory::class);
-        $factories[] = $this->container->make(Post\SlugFactory::class);
-        $factories[] = $this->container->make(Post\StatusFactory::class);
-        $factories[] = $this->container->make(Post\StickyFactory::class);
-        $factories[] = $this->container->make(Post\TitleRawFactory::class);
+        foreach ($fqn_classes as $fqn_class) {
+            $factories[] = $this->container->make($fqn_class);
+        }
 
+        // TODO does this do an additional DB call?
         if (count(ac_helper()->taxonomy->get_taxonomy_selection_options($post_type)) > 0) {
             $factories[] = $this->container->make(Post\TaxonomyFactory::class);
         }

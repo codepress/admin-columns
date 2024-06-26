@@ -5,9 +5,9 @@ namespace AC\ColumnFactory\Post;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Linkable;
-use AC\Setting\Formatter\Post\ShortLink;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Linkable;
+use AC\Value\Formatter\Post\ShortLink;
 
 class ShortLinkFactory extends BaseColumnFactory
 {

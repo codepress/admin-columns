@@ -8,8 +8,8 @@ use AC\Setting\ComponentFactory\UserLink;
 use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\LastModifiedAuthor;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Post\LastModifiedAuthor;
 
 class LastModifiedAuthorFactory extends BaseColumnFactory
 {

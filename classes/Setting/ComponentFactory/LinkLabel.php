@@ -10,7 +10,7 @@ use AC\Setting\ComponentBuilder;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input\OpenFactory;
-use AC\Setting\Formatter;
+use AC\Value\Formatter;
 
 final class LinkLabel implements ComponentFactory
 {

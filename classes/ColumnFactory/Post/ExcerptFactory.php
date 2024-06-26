@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\Post;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
 class ExcerptFactory extends BaseColumnFactory
@@ -51,7 +51,7 @@ class ExcerptFactory extends BaseColumnFactory
         Config $config,
         FormatterCollection $formatters
     ): FormatterCollection {
-        $formatters->add(new Formatter\Post\Excerpt());
+        $formatters->add(new AC\Value\Formatter\Post\Excerpt());
 
         return parent::get_formatters($components, $config, $formatters);
     }

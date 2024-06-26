@@ -7,8 +7,8 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter;
 
 class DescriptionFactory extends BaseColumnFactory
 {

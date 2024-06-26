@@ -11,7 +11,6 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
 class FieldType extends Builder
@@ -175,7 +174,7 @@ class FieldType extends Builder
         $field_type = $config->get(self::NAME, self::TYPE_DEFAULT);
         switch ($field_type) {
             case self::TYPE_COLOR:
-                $formatters->add(new Formatter\Color());
+                $formatters->add(new AC\Value\Formatter\Color());
                 break;
             case self::TYPE_NON_EMPTY:
                 //TODO
@@ -183,7 +182,7 @@ class FieldType extends Builder
             case self::TYPE_USER:
             case self::TYPE_MEDIA:
             case self::TYPE_POST:
-                $formatters->add(new Formatter\ForeignId());
+                $formatters->add(new AC\Value\Formatter\ForeignId());
                 break;
         }
 

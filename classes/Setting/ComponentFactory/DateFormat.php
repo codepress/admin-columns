@@ -14,6 +14,8 @@ use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
+use AC\Value;
+use AC\Value\Formatter\TimeStamp;
 
 // TODO formatter
 // TODO do we still want the extra description/tooltips as in the old version?
@@ -58,20 +60,20 @@ abstract class DateFormat extends Builder
     {
         switch ($format) {
             case 'diff':
-                return new Formatter\Date\TimeDifference();
+                return new Value\Formatter\Date\TimeDifference();
 
             case 'wp_default':
-                return new Formatter\Date\WpDateFormat();
+                return new Value\Formatter\Date\WpDateFormat();
 
             default:
-                return new Formatter\Date\DateFormat($format);
+                return new Value\Formatter\Date\DateFormat($format);
         }
     }
 
     protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
     {
         $format = (string)$config->get('date_format');
-        $formatters->add(new Formatter\TimeStamp());
+        $formatters->add(new TimeStamp());
 
         $date_format = $this->get_date_formatter($format);
 

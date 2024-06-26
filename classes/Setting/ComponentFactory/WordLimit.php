@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Number;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
 final class WordLimit extends Builder
@@ -45,7 +45,7 @@ final class WordLimit extends Builder
     protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
     {
         $formatters->add(
-            new Formatter\WordLimit((int)$this->get_input($config)->get_value())
+            new AC\Value\Formatter\WordLimit((int)$this->get_input($config)->get_value())
         );
 
         return $formatters;

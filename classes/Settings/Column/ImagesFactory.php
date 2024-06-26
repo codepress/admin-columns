@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace AC\Settings\Column;
 
-use AC;
 use AC\Expression\Specification;
 use AC\Setting\Config;
-use AC\Setting\Type\Value;
 use AC\Settings;
 use AC\Settings\Component;
-use AC\Settings\Control;
 
 // TODO can it extend?
 class ImagesFactory implements Settings\SettingFactory

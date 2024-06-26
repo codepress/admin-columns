@@ -7,9 +7,9 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Collection\Separator;
-use AC\Setting\Formatter\Post\PostTerms;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Collection\Separator;
+use AC\Value\Formatter\Post\PostTerms;
 
 class TaxonomyFactory extends BaseColumnFactory
 {

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace AC\Settings;
 
+use AC;
 use AC\Expression\NullSpecification;
 use AC\Expression\Specification;
 use AC\Setting\AttributeCollection;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Control\Input;
-use AC\Setting\Formatter;
+use AC\Value\Formatter;
 use BadMethodCallException;
 
 final class Setting
@@ -115,7 +116,7 @@ final class Setting
         return $this->conditions;
     }
 
-    public function get_formatter(): Formatter
+    public function get_formatter(): AC\Setting\Formatter
     {
         return $this->formatter;
     }

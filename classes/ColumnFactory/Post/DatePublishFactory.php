@@ -9,9 +9,9 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\DateFormat\Date;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\DatePublishFormatted;
-use AC\Setting\Formatter\Post\PostDate;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Post\DatePublishFormatted;
+use AC\Value\Formatter\Post\PostDate;
 
 class DatePublishFactory extends BaseColumnFactory
 {

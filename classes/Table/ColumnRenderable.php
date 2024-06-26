@@ -8,7 +8,7 @@ use AC\ApplyFilter\ColumnValueSanitize;
 use AC\Column;
 use AC\ListScreen;
 use AC\Sanitize\Kses;
-use AC\Setting\Type\Value;
+use AC\Type\Value;
 
 class ColumnRenderable
 {

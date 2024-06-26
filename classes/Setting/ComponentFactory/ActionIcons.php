@@ -7,8 +7,8 @@ namespace AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
-use AC\Setting\Formatter\Actions;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Actions;
 
 final class ActionIcons extends Builder
 {

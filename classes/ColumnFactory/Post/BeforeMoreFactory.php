@@ -9,8 +9,8 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\WordLimit;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\BeforeMoreContent;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Post\BeforeMoreContent;
 
 final class BeforeMoreFactory extends BaseColumnFactory
 {

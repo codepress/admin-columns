@@ -7,8 +7,8 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\CharacterLimit;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\Slug;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Post\Slug;
 
 class SlugFactory extends BaseColumnFactory
 {

@@ -8,8 +8,8 @@ use AC\Setting\ComponentFactory\CharacterLimit;
 use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\PostTitle;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Post\PostTitle;
 
 class TitleRawFactory extends BaseColumnFactory
 {

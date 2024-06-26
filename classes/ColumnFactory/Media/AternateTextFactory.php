@@ -5,8 +5,8 @@ namespace AC\ColumnFactory\Media;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Media\MetaValue;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Media\MetaValue;
 
 class AternateTextFactory extends BaseColumnFactory
 {

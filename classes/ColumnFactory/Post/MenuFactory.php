@@ -7,11 +7,11 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\LinkToMenu;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Collection\LocalizeSeparator;
-use AC\Setting\Formatter\Post\UsedByMenu;
-use AC\Setting\Formatter\Term\TermProperty;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
+use AC\Value\Formatter\Collection\LocalizeSeparator;
+use AC\Value\Formatter\Post\UsedByMenu;
+use AC\Value\Formatter\Term\TermProperty;
 
 class MenuFactory extends BaseColumnFactory
 {

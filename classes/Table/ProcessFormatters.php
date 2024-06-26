@@ -8,8 +8,9 @@ use AC\Exception\ValueNotFoundException;
 use AC\Setting\CollectionFormatter;
 use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
-use AC\Setting\Type\Value;
-use AC\Setting\ValueCollection;
+use AC\Type\Value;
+use AC\Type\ValueCollection;
+use AC\Value\Formatter\Collection\Separator;
 
 class ProcessFormatters
 {
@@ -43,6 +44,16 @@ class ProcessFormatters
                         $collection = new ValueCollection($value->get_id());
 
                         foreach ($value as $item) {
+                            // TODO
+                            //                            $_value = $formatter->format($item);
+                            //
+                            //                            if ( ! $_value instanceof Value) {
+                            //                                echo '<pre>';
+                            //                                print_r($_value);
+                            //                                echo '</pre>';
+                            //                                exit;
+                            //                            }
+
                             $collection->add($formatter->format($item));
                         }
 
@@ -59,7 +70,7 @@ class ProcessFormatters
         }
 
         if ($value instanceof ValueCollection) {
-            $value = (new Formatter\Collection\Separator())->format($value);
+            $value = (new Separator())->format($value);
         }
 
         if ('' === (string)$value) {

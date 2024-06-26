@@ -6,9 +6,9 @@ use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\PageTemplate;
 use AC\Setting\FormatterCollection;
 use AC\Type\PostTypeSlug;
+use AC\Value\Formatter\Post\PageTemplate;
 
 class PageTemplateFactory extends BaseColumnFactory
 {

@@ -7,8 +7,8 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\PathScope;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Media\AttachmentUrl;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Media\AttachmentUrl;
 
 class FullPathFactory extends BaseColumnFactory
 {
