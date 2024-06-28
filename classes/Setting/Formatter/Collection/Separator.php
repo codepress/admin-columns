@@ -10,7 +10,6 @@ use AC\Setting\Config;
 use AC\Setting\Type\Value;
 use AC\Setting\ValueCollection;
 
-// TODO default should be ,
 // TODO make it available as constants here or in setting
 class Separator implements CollectionFormatter
 {

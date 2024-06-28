@@ -19,14 +19,12 @@ class Time extends ComponentFactory\DateFormat
     {
         $options = [
             'diff'       => __('Time Difference', 'codepress-admin-columns'),
-            'wp_default' => __('WordPress Date Format', 'codepress-admin-columns'),
+            'wp_default' => __('WordPress Time Format', 'codepress-admin-columns'),
         ];
 
         $formats = [
-            'j F Y',
-            'Y-m-d',
-            'm/d/Y',
-            'd/m/Y',
+            'H:i:s',
+            'g:i A',
         ];
 
         foreach ($formats as $format) {

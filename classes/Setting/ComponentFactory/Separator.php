@@ -36,7 +36,7 @@ final class Separator implements ComponentFactory
                         self::NONE            => __('None', 'codepress-admin-columns'),
                         self::WHITE_SPACE     => __('Whitespace', 'codepress-admin-columns'),
                     ]),
-                    $config->get('separator')
+                    $config->get('separator', '')
                 )
             )
             ->build();
