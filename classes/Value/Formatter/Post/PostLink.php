@@ -25,7 +25,7 @@ class PostLink implements Formatter
 
         if ( ! $post instanceof WP_Post) {
             // TODO decide if we use exception or return null
-            throw ValueNotFoundException::from_id($value->get_id());
+            throw ValueNotFoundException::from_id($value->get_id() ?? 0);
         }
 
         switch ($this->link_type) {
