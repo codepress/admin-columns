@@ -64,7 +64,7 @@ final class ListScreen
     public function get_column(string $name): ?Column
     {
         foreach ($this->columns as $column) {
-            if ($column->get_name() === $name) {
+            if ((string)$column->get_id() === $name) {
                 return $column;
             }
         }
@@ -77,6 +77,7 @@ final class ListScreen
         return $this->columns;
     }
 
+    // TODO remove
     //    public function get_columns(Filter $filter = null, Sort $sort = null): ColumnIterator
     //    {
     //        $columns = $this->columns;

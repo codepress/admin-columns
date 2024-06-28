@@ -7,8 +7,8 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\IncludeMissingSizes;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Media\AvailableSizes;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Media\AvailableSizes;
 
 class AvailableSizesFactory extends BaseColumnFactory
 {

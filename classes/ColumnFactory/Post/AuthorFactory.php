@@ -10,8 +10,8 @@ use AC\Setting\ComponentFactory\BeforeAfter;
 use AC\Setting\ComponentFactory\UserProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter;
 
 class AuthorFactory extends BaseColumnFactory
 {

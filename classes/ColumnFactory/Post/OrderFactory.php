@@ -5,8 +5,8 @@ namespace AC\ColumnFactory\Post;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\Order;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Post\Order;
 
 class OrderFactory extends BaseColumnFactory
 {

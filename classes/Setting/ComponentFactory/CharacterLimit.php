@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC;
 use AC\Expression\Specification;
 use AC\Setting\Component;
 use AC\Setting\ComponentBuilder;
 use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\Number;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
 final class CharacterLimit extends Builder
@@ -47,7 +47,7 @@ final class CharacterLimit extends Builder
 
     protected function get_formatters(Config $config, FormatterCollection $formatters): FormatterCollection
     {
-        $formatters->add(new Formatter\CharacterLimit((int)$config->get('character_limit')));
+        $formatters->add(new AC\Value\Formatter\CharacterLimit((int)$config->get('character_limit')));
 
         return $formatters;
     }
@@ -76,7 +76,7 @@ final class CharacterLimit extends Builder
                     __('Characters', 'codepress-admin-columns')
                 )
             )
-            ->set_formatter(new Formatter\CharacterLimit((int)$config->get('character_limit')));
+            ->set_formatter(new AC\Value\Formatter\CharacterLimit((int)$config->get('character_limit')));
 
         if ($conditions) {
             $builder->set_conditions($conditions);

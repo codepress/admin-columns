@@ -11,7 +11,7 @@ use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\Formatter;
+use AC\Value\Formatter;
 
 final class PathScope implements ComponentFactory
 {

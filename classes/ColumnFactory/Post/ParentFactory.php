@@ -8,8 +8,8 @@ use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactory\PostProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\PostParentId;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Post\PostParentId;
 
 class ParentFactory extends BaseColumnFactory
 {

@@ -5,8 +5,8 @@ namespace AC\ColumnFactory\User;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter;
 
 class VisualEditingFactory extends BaseColumnFactory
 {

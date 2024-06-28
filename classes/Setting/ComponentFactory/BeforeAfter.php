@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AC\Setting\ComponentFactory;
 
+use AC;
 use AC\Expression\Specification;
 use AC\Setting\Children;
 use AC\Setting\Component;
@@ -12,7 +13,6 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Config;
 use AC\Setting\Control\Input\Open;
-use AC\Setting\Formatter;
 
 final class BeforeAfter implements ComponentFactory
 {
@@ -30,7 +30,7 @@ final class BeforeAfter implements ComponentFactory
                 __('Display Options', 'codepress-admin-columns')
             )
             ->set_formatter(
-                new Formatter\BeforeAfter($before, $after)
+                new AC\Value\Formatter\BeforeAfter($before, $after)
             )
             ->set_children(
                 new Children(

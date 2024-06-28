@@ -3,10 +3,11 @@
 namespace AC\Settings\Column;
 
 use AC\Expression\Specification;
-use AC\Setting\Formatter;
-use AC\Setting\Type\Value;
+use AC\Setting;
+use AC\Type\Value;
+use AC\Value\Formatter;
 
-class FileMetaAudio extends FileMeta implements Formatter
+class FileMetaAudio extends FileMeta implements Setting\Formatter
 {
 
     public function __construct(string $meta_key, Specification $specification = null)

@@ -5,9 +5,9 @@ namespace AC\ColumnFactory\Comment;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Comment\ParentId;
-use AC\Setting\Formatter\Comment\ReplyToLink;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Comment\ParentId;
+use AC\Value\Formatter\Comment\ReplyToLink;
 
 class ReplyToFactory extends BaseColumnFactory
 {

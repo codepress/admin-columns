@@ -2,10 +2,10 @@
 
 namespace AC\ColumnFactory\Comment;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
 class AuthorNameFactory extends BaseColumnFactory
@@ -26,7 +26,7 @@ class AuthorNameFactory extends BaseColumnFactory
         Config $config,
         FormatterCollection $formatters
     ): FormatterCollection {
-        $formatters->add(new Formatter\Comment\Property('comment_author'));
+        $formatters->add(new AC\Value\Formatter\Comment\Property('comment_author'));
 
         return parent::get_formatters($components, $config, $formatters);
     }

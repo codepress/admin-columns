@@ -5,9 +5,9 @@ namespace AC\ColumnFactory\Comment;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Comment\LinkableCommentDate;
-use AC\Setting\Formatter\Comment\Property;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Comment\LinkableCommentDate;
+use AC\Value\Formatter\Comment\Property;
 
 class DateGmtFactory extends BaseColumnFactory
 {

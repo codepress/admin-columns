@@ -7,6 +7,7 @@ namespace AC\Setting\ComponentFactory\DateFormat;
 use AC\Setting\ComponentFactory;
 use AC\Setting\Control\OptionCollection;
 
+// TODO duplicate of Date
 class Time extends ComponentFactory\DateFormat
 {
 

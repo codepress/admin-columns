@@ -7,8 +7,8 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory\Media\FileMetaVideo;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Media\NestedAttachmentMetaData;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Media\NestedAttachmentMetaData;
 
 class FileMetaVideoFactory extends BaseColumnFactory
 {

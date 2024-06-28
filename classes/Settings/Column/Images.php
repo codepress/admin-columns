@@ -7,8 +7,8 @@ namespace AC\Settings\Column;
 use AC;
 use AC\Expression\Specification;
 use AC\Setting\Config;
-use AC\Setting\Type\Value;
 use AC\Settings;
+use AC\Type\Value;
 
 // TODO can it extend?
 class Images extends Settings\Control

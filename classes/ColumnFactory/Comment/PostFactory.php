@@ -8,9 +8,9 @@ use AC\Setting\ComponentFactory\PostLink;
 use AC\Setting\ComponentFactory\PostProperty;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Comment\Property;
-use AC\Setting\Formatter\MapToId;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Comment\Property;
+use AC\Value\Formatter\MapToId;
 
 class PostFactory extends BaseColumnFactory
 {

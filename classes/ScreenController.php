@@ -4,7 +4,6 @@ namespace AC;
 
 use AC\ColumnRepository\Sort\ManualOrder;
 use AC\Storage\Repository\DefaultColumnsRepository;
-use AC\TableScreen\ManageValue;
 
 class ScreenController implements Registerable
 {
@@ -37,9 +36,7 @@ class ScreenController implements Registerable
             add_filter($this->table_screen->get_heading_hookname(), [$this, 'add_headings'], 200);
 
             // Values
-            if ($this->table_screen instanceof ManageValue) {
-                $this->table_screen->manage_value($this->list_screen)->register();
-            }
+            $this->table_screen->manage_value($this->list_screen)->register();
         }
     }
 

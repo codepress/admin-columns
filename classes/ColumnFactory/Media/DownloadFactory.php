@@ -5,8 +5,8 @@ namespace AC\ColumnFactory\Media;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Media\Download;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Media\Download;
 
 class DownloadFactory extends BaseColumnFactory
 {

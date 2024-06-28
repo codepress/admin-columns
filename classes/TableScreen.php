@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace AC;
 
-use AC\TableScreen\ManageValue;
 use AC\Type\Labels;
 use AC\Type\ListKey;
 use AC\Type\Uri;
 
-abstract class TableScreen implements ManageValue
+abstract class TableScreen
 {
 
     protected $key;
@@ -36,6 +35,8 @@ abstract class TableScreen implements ManageValue
     abstract public function get_attr_id(): string;
 
     abstract public function get_url(): Uri;
+
+    abstract public function manage_value(ListScreen $list_screen): Table\ManageValue;
 
     public function get_key(): ListKey
     {

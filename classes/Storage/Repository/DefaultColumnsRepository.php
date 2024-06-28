@@ -32,6 +32,11 @@ class DefaultColumnsRepository
              ->delete();
     }
 
+    public function find(string $type, ListKey $key): ?string
+    {
+        return $this->get($key)[$type] ?? null;
+    }
+
     public function find_all(ListKey $key): array
     {
         $columns = $this->get($key);

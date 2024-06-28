@@ -6,8 +6,8 @@ use AC\Setting\Config;
 use AC\Setting\Control\Input;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter;
 
 class TermProperty extends Builder
 {

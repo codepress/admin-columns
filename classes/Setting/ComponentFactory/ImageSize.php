@@ -14,8 +14,8 @@ use AC\Setting\Control\Input\Number;
 use AC\Setting\Control\Input\OptionFactory;
 use AC\Setting\Control\OptionCollection;
 use AC\Setting\Control\Type\Option;
-use AC\Setting\Formatter\Image;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Image;
 
 final class ImageSize extends Builder
 {

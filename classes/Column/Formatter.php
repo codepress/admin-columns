@@ -6,8 +6,8 @@ namespace AC\Column;
 
 use AC\Setting;
 use AC\Setting\Formatter\PositionAware;
-use AC\Setting\Type\Value;
-use AC\Setting\ValueCollection;
+use AC\Type\Value;
+use AC\Type\ValueCollection;
 
 class Formatter
 {

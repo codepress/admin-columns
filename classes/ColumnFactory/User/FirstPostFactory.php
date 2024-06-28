@@ -2,12 +2,12 @@
 
 namespace AC\ColumnFactory\User;
 
+use AC;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\ComponentFactory;
 use AC\Setting\ComponentFactoryRegistry;
 use AC\Setting\Config;
-use AC\Setting\Formatter;
 use AC\Setting\FormatterCollection;
 
 class FirstPostFactory extends BaseColumnFactory
@@ -64,7 +64,7 @@ class FirstPostFactory extends BaseColumnFactory
         $post_type = $config->has('post_type') ? (array)$config->get('post_type') : null;
         $post_status = $config->has('post_status') ? (array)$config->get('post_status') : null;
 
-        $formatters->add(new Formatter\User\FirstPost($post_type, $post_status));
+        $formatters->add(new AC\Value\Formatter\User\FirstPost($post_type, $post_status));
 
         return parent::get_formatters($components, $config, $formatters);
     }

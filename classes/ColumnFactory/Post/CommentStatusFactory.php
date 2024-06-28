@@ -7,8 +7,8 @@ namespace AC\ColumnFactory\Post;
 use AC\Column\BaseColumnFactory;
 use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
-use AC\Setting\Formatter\Post\HasCommentStatus;
 use AC\Setting\FormatterCollection;
+use AC\Value\Formatter\Post\HasCommentStatus;
 
 class CommentStatusFactory extends BaseColumnFactory
 {
