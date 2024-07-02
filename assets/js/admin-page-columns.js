@@ -6852,6 +6852,7 @@ function create_if_block(ctx) {
     props: columnsettings_props
   });
   svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(columnsettings, 'data', columnsettings_data_binding_1));
+  columnsettings.$on("refresh", /*refresh_handler_2*/ctx[12]);
   return {
     c() {
       (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.create_component)(columnsettings.$$.fragment);
@@ -6922,7 +6923,7 @@ function create_fragment(ctx) {
       if (dirty & /*setting*/2) columnsetting_changes.description = /*setting*/ctx[1].description ?? '';
       if (dirty & /*setting*/2) columnsetting_changes.label = /*setting*/ctx[1].label;
       if (dirty & /*isSubComponent*/4) columnsetting_changes.isSubComponent = /*isSubComponent*/ctx[2];
-      if (dirty & /*$$scope, setting, data, $listScreenIsReadOnly*/4107) {
+      if (dirty & /*$$scope, setting, data, $listScreenIsReadOnly*/8203) {
         columnsetting_changes.$$scope = {
           dirty,
           ctx
@@ -7010,12 +7011,15 @@ function instance($$self, $$props, $$invalidate) {
     data = value;
     $$invalidate(0, data);
   }
+  function refresh_handler_2(event) {
+    svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bubble.call(this, $$self, event);
+  }
   $$self.$$set = $$props => {
     if ('setting' in $$props) $$invalidate(1, setting = $$props.setting);
     if ('data' in $$props) $$invalidate(0, data = $$props.data);
     if ('isSubComponent' in $$props) $$invalidate(2, isSubComponent = $$props.isSubComponent);
   };
-  return [data, setting, isSubComponent, $listScreenIsReadOnly, inputSetting, getInputType, switch_instance_data_binding, switch_instance_value_binding, refresh_handler, columnsettings_data_binding, refresh_handler_1, columnsettings_data_binding_1];
+  return [data, setting, isSubComponent, $listScreenIsReadOnly, inputSetting, getInputType, switch_instance_data_binding, switch_instance_value_binding, refresh_handler, columnsettings_data_binding, refresh_handler_1, columnsettings_data_binding_1, refresh_handler_2];
 }
 class RowSetting extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponent {
   constructor(options) {

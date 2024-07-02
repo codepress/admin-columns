@@ -44,5 +44,5 @@
 </ColumnSetting>
 
 {#if setting.children && !setting.is_parent }
-	<ColumnSettings bind:data={data} settings={setting.children} parent={inputSetting.input ? inputSetting.input.name : ''}/>
+	<ColumnSettings on:refresh bind:data={data} settings={setting.children} parent={inputSetting.input ? inputSetting.input.name : ''}/>
 {/if}
