@@ -20,7 +20,7 @@ class TaxonomySlug
 
     private function validate(): void
     {
-        if ('' == $this->taxonomy) {
+        if ('' === $this->taxonomy) {
             throw new InvalidArgumentException('Taxonomy slug cannot be empty');
         }
     }

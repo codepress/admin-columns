@@ -412,25 +412,6 @@ class Base implements Column
     //    }
 
     // TODO move to Renderable
-    public function get_separator(): string
-    {
-        switch ($this->get_option('separator')) {
-            case 'comma' :
-                return ', ';
-            case 'newline' :
-                return "<br/>";
-            case 'none' :
-                return '';
-            case 'white_space' :
-                return '&nbsp;';
-            case 'horizontal_rule' :
-                return '<hr>';
-            default :
-                return (new ApplyFilter\ColumnSeparator($this))->apply_filters(', ');
-        }
-    }
-
-    // TODO move to Renderable
     public function get_empty_char(): string
     {
         return '&ndash;';

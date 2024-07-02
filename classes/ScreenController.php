@@ -75,7 +75,10 @@ class ScreenController implements Registerable
         }
 
         foreach ($columns as $column) {
-            $this->headings[(string)$column->get_id()] = $column->get_label();
+            $setting = $column->get_setting('label');
+            $label = $setting ? $setting->get_input()->get_value() : $column->get_label();
+
+            $this->headings[(string)$column->get_id()] = $label;
         }
 
         return apply_filters('ac/headings', $this->headings, $this->list_screen);
