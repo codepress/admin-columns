@@ -71,7 +71,7 @@ class WPML implements Registerable
 
         foreach ($this->storage->find_all() as $list_screen) {
             foreach ($list_screen->get_columns() as $column) {
-                $label = $column->get_custom_label();
+                $label = $column->get_setting('label')->get_input()->set_value($column->get_label());
 
                 do_action(
                     'wpml_register_single_string',

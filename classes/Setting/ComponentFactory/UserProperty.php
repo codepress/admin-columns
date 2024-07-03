@@ -20,7 +20,7 @@ use AC\Value\Formatter;
 class UserProperty extends Builder
 {
 
-    protected const KEY = 'display_author_as';
+    public const KEY = 'display_author_as';
     public const PROPERTY_DISPLAY_NAME = 'display_name';
     public const PROPERTY_EMAIL = 'user_email';
     public const PROPERTY_FULL_NAME = 'first_last_name';

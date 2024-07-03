@@ -17,7 +17,7 @@
     ];
 
     onMount(() => {
-        console.log(config);
+
     })
 
 </script>

@@ -5736,7 +5736,7 @@ function get_each_context(ctx, list, i) {
   return child_ctx;
 }
 
-// (18:0) {#if config}
+// (17:0) {#if config}
 function create_if_block(ctx) {
   let div;
   let current;
@@ -5811,7 +5811,7 @@ function create_if_block(ctx) {
   };
 }
 
-// (25:3) {:else}
+// (24:3) {:else}
 function create_else_block(ctx) {
   let div;
   return {
@@ -5833,7 +5833,7 @@ function create_else_block(ctx) {
   };
 }
 
-// (21:3) {#if config.find( c => c.input && c.input.name === feature.feature )}
+// (20:3) {#if config.find( c => c.input && c.input.name === feature.feature )}
 function create_if_block_1(ctx) {
   let headertoggle;
   let updating_value;
@@ -5898,7 +5898,7 @@ function create_if_block_1(ctx) {
   };
 }
 
-// (22:4) <HeaderToggle bind:value={data[feature.feature]} title={feature.title} disabled={$listScreenIsReadOnly}>
+// (21:4) <HeaderToggle bind:value={data[feature.feature]} title={feature.title} disabled={$listScreenIsReadOnly}>
 function create_default_slot(ctx) {
   let span;
   let span_class_value;
@@ -5923,7 +5923,7 @@ function create_default_slot(ctx) {
   };
 }
 
-// (20:2) {#each proFeatures as feature}
+// (19:2) {#each proFeatures as feature}
 function create_each_block(ctx) {
   let show_if;
   let current_block_type_index;
@@ -6080,9 +6080,7 @@ function instance($$self, $$props, $$invalidate) {
     title: 'Enable Filtering',
     iconClass: 'dashicons dashicons-filter'
   }];
-  (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onMount)(() => {
-    console.log(config);
-  });
+  (0,svelte__WEBPACK_IMPORTED_MODULE_4__.onMount)(() => {});
   const func = (feature, c) => c.input && c.input.name === feature.feature;
   function headertoggle_value_binding(value, feature) {
     if ($$self.$$.not_equal(data[feature.feature], value)) {
