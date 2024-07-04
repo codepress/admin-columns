@@ -17,9 +17,12 @@ class ProcessFormatters
 
     private $formatters;
 
-    public function __construct(FormatterCollection $formatters)
+    private $empty_value;
+
+    public function __construct(FormatterCollection $formatters, string $empty_value = '&ndash;')
     {
         $this->formatters = $formatters;
+        $this->empty_value = $empty_value;
     }
 
     public function format(Value $value): Value
@@ -66,7 +69,7 @@ class ProcessFormatters
                 }
             }
         } catch (ValueNotFoundException $e) {
-            $value = new Value($id, '&ndash;');
+            $value = new Value($id, $this->empty_value);
         }
 
         if ($value instanceof ValueCollection) {
@@ -74,7 +77,7 @@ class ProcessFormatters
         }
 
         if ('' === (string)$value) {
-            $value = $value->with_value('&ndash;');
+            $value = $value->with_value($this->empty_value);
         }
 
         return $value;
