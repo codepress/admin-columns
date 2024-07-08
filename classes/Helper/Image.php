@@ -277,12 +277,14 @@ class Image
             $image_attributes['height'] = esc_attr($height) . 'px';
         }
 
+        $tooltip_attr = $media_id ? $this->get_file_tooltip_attr($media_id) : '';
+
         ob_start(); ?>
 		<span class="ac-image <?= esc_attr($class); ?>" data-media-id="<?= esc_attr(
             $media_id
-        ); ?>" <?= $this->get_file_tooltip_attr($media_id) ?>>
+        ); ?>" <?= $tooltip_attr ?>>
 			<img style="<?= ac_helper()->html->get_style_attributes_as_string($image_attributes) ?>"
-					src="<?= esc_attr($src) ?>" alt="">
+				src="<?= esc_attr($src) ?>" alt="">
 
 			<?php
             if ($add_extension) : ?>

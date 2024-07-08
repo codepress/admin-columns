@@ -7,6 +7,7 @@ use AC\Setting\ComponentCollection;
 use AC\Setting\Config;
 use AC\Setting\FormatterCollection;
 use AC\Value\Formatter\Post\IsSticky;
+use AC\Value\Formatter\YesNoIcon;
 
 class StickyFactory extends BaseColumnFactory
 {
@@ -27,6 +28,7 @@ class StickyFactory extends BaseColumnFactory
         FormatterCollection $formatters
     ): FormatterCollection {
         $formatters->add(new IsSticky());
+        $formatters->add(new YesNoIcon());
 
         return parent::get_formatters($components, $config, $formatters);
     }

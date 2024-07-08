@@ -31,6 +31,11 @@ class MenuFactory extends BaseColumnFactory
         $this->link_to_menu_factory = $link_to_menu_factory;
     }
 
+    public function get_post_type(): PostTypeSlug
+    {
+        return $this->post_type;
+    }
+
     protected function add_component_factories(Config $config): void
     {
         parent::add_component_factories($config);

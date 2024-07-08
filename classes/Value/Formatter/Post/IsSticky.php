@@ -12,9 +12,7 @@ class IsSticky implements Formatter
 
     public function format(Value $value): Value
     {
-        $is_sticky = in_array($value->get_id(), $this->get_stickies());
-
-        return $value->with_value(ac_helper()->icon->yes_or_no($is_sticky));
+        return $value->with_value(in_array($value->get_id(), $this->get_stickies(), true));
     }
 
     private function get_stickies(): array
